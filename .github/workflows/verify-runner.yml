@@ -1,0 +1,17 @@
+name: verify-youtube-runner
+on:
+  push:
+    branches: [fix-youtube-runner]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s tests
+      - run: python build.py
+      - run: mkdir -p plans/reports && python tests/verify_youtube_runner.py --require-fallback --capture-blocked plans/reports/youtube-blocked.html
+      - run: python -c "import json;d=json.load(open('site/data/radar.json',encoding='utf-8'));print([(s['id'],s['ok']) for s in d['sources'] if 'youtube' in s['id']]);print(json.dumps(d['live'],ensure_ascii=False)[:1500])"
