@@ -1,0 +1,1640 @@
+{
+  "ce56aa83d0064ef1be25": {
+    "title": "Gemini 4 Argon: our next era of frontier intelligence",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "c696e8b1f34224735a5b": {
+    "title": "Introducing SynthID Bio",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "90249c2a3882c6d31b88": {
+    "title": "Disrupting a coordinated model-distillation campaign",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "061338e668ed697490e5": {
+    "title": "Helping small businesses put AI to work",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "74c2ff7e2707d1f61043": {
+    "title": "Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "ce43ddffc7da364d903a": {
+    "title": "Sep 30, 2026EconomicsWhat work can robots do?",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "dc53fce90c6f36f5c727": {
+    "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+    "model": false,
+    "reason": "Unresolved actual-release truth; expected model flag records conservative feed-rule policy only, not a factual ground-truth claim.",
+    "truth": "unresolved"
+  },
+  "afa8c33f8eb7996a3941": {
+    "title": "Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "d6b9f5e651b1891e950e": {
+    "title": "Introducing GPT-6.1 Sol",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "6071f63e21f6425413eb": {
+    "title": "DevDay 2026 Recap",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "dec620cb7225d2434a9b": {
+    "title": "Introducing dots",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "f98597eae81f4380fdcc": {
+    "title": "Sep 29, 2026Frontier Red TeamGLM-5.3 and the spread of advanced cyber capabilities",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "853629b69b653c9d835e": {
+    "title": "Sep 29, 2026Societal ImpactsWhat do you want from AI?",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "50d71cd52400f551c336": {
+    "title": "How we will do better for Australia",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "2fc54b690d7b20a2e143": {
+    "title": "Towards safety cases for frontier AI training",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "db713ef86bd59ea8f7ba": {
+    "title": "Watch the winning trailer from the Future Vision XPRIZE, The Gifted.",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "09d1d26fa19dd694ec40": {
+    "title": "Holo4: powering generalist computer-use agents",
+    "model": false,
+    "reason": "Unresolved actual-release truth; expected model flag records conservative feed-rule policy only, not a factual ground-truth claim.",
+    "truth": "unresolved"
+  },
+  "0adf5bb2a473897d1252": {
+    "title": "The Lenfest Institute grows landmark program with expanded OpenAI support",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "833e9419a34f8836dc9d": {
+    "title": "Are you a Codex Original?",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "eb674100bb687fff7643": {
+    "title": "Basis completes a tax workbook 2x faster with GPT-6 Astra",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "4e3ca8a95d36633072bd": {
+    "title": "Introducing Claude Sonnet 5.5",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "9de028fbe46cac8b155a": {
+    "title": "Proaction boosts sales 60% and saves 75+ hours with Codex",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "e49faaf95243e18293da": {
+    "title": "Sep 25, 2026ScienceYes, Claude can do Nine Loops",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "34692efacd3b982a5758": {
+    "title": "Introducing Gemini 3.8 Live with Live Avatar",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "280bf64dcca75cee1131": {
+    "title": "Accelerating vision-language models with LFM2.5-VL-DSpark",
+    "model": false,
+    "reason": "Unresolved actual-release truth; expected model flag records conservative feed-rule policy only, not a factual ground-truth claim.",
+    "truth": "unresolved"
+  },
+  "c4f6b71acc4936ffd81d": {
+    "title": "Sep 24, 2026EconomicsProject Swap: What happens when agents trade for us?",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "1ccf342131e2aeec4f4f": {
+    "title": "Google Beam expands with new regions, partners, and customers",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "68ead6b6af2b71441cd0": {
+    "title": "Advancing Private AI Compute with secure, server-side memory",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "52e46e8371e1f69996c0": {
+    "title": "Two years of OpenAI Academy",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "81481aa316e38773fdfe": {
+    "title": "Gemini 3.8 text-to-speech says hello",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "9328fa400dd37e6b9e77": {
+    "title": "OpenAI extends cyber access to Ukraine for civilian defense",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "f2ff7f76056120414cf0": {
+    "title": "How invideo improves color grading 3x with GPT‑6 Astra",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "4e56c7312349a760a0ed": {
+    "title": "Ringg’s AI agents resolve up to 65% of customer calls with OpenAI",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "347b65ce144a221e189c": {
+    "title": "Sam Altman’s remarks at the United Nations Security Council",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "52b80abd4e046c041ffb": {
+    "title": "Harvey turns legal context into stronger drafts with GPT-6 Astra",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "3d7b9aab56c8f4fe22c0": {
+    "title": "Introducing MentalHealthBench",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "bb71e409dd7f29f762c2": {
+    "title": "ChatGPT Ads expands to Southeast Asia and Taiwan",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "0765deb144589280c16b": {
+    "title": "Airbnb widens access to GPT-6 Astra and OpenAI frontier models",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "5ab590850491008e2cef": {
+    "title": "Grab and OpenAI bring practical AI skills to Southeast Asia",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "ef1b3a4772eab8370f46": {
+    "title": "Claude discovers a novel enzyme system with CRISPR-like repeats",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "f9027d80e820682e90d7": {
+    "title": "Better prompt caching for GPT-6",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "73461b3e97af0d93277a": {
+    "title": "Introducing GPT-6 Sol and Luna",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "3fcefd9c665fb2c24849": {
+    "title": "Parallel cut research time and cost in half with GPT‑6 Astra",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "60efaf744a4d6c2c20e9": {
+    "title": "Priorities and principles for effective third party assessments",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "e9f63aa1f7aaa02f4024": {
+    "title": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "689d78c6e007ab8e2c4f": {
+    "title": "Transformers now runs llama.cpp quants",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "6b3083011aeb49b1cc1d": {
+    "title": "Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "0dd3bed5c7dd1c272c8d": {
+    "title": "Introducing Claude Opus 5.5",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "8fe4474fdbb9c4c46a22": {
+    "title": "Higgsfield AI ships new video features in a day with GPT-6 Astra",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "08ffdb24bebd9aa2ffda": {
+    "title": "Advisory Group on Mathematics and Artificial Intelligence",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "10538c022345675d1abd": {
+    "title": "Building standards for the next phase of AI",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "2f8d9b98fc157bb338d3": {
+    "title": "Expanding OpenAI Academy with new learning paths",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "d2871d486c61275aa183": {
+    "title": "V7 cuts costs 78% while boosting accuracy with GPT-5.6 Luna",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "693b3130e25cc8808f58": {
+    "title": "tokenizers v1: encode, decode and scaling, measured",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "d92122e53ec9d4f7bc6f": {
+    "title": "New experts join Google’s AI & Economy team",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "44ec3a3d6fdc7de7b05f": {
+    "title": "Co-creating the future of fashion with Google",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "5ec4e61a2a5169ebbf2e": {
+    "title": "Partnering with Accenture on embedded evaluation",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "590df77dc8c3726e2134": {
+    "title": "Making global data easier to explore",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "b44c829b27028fd75a53": {
+    "title": "Sep 17, 2026ScienceHow Claude is uplifting biomolecular modeling",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "a3c8e138d995ff558ec9": {
+    "title": "Introducing the Life Sciences Verification Program",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "947e89eaa83a27aef331": {
+    "title": "Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "a1d018f16fad79f97456": {
+    "title": "Your Agent Aced the Task. Will It Do It Again?",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "970c94673769027aa8a4": {
+    "title": "AI for Societal Impact",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "6fff55fdf7cb614f4288": {
+    "title": "Building AI to accelerate science and improve lives",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "50f1fa34d3c31e122438": {
+    "title": "AI for everyone in every language",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "b21c5e1ffc812be885ba": {
+    "title": "New insights from Google’s AI & Economy ATLAS",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "6666660dfd652924f82b": {
+    "title": "Watch astronaut Christina Koch and Google’s James Manyika discuss space, technology, and discovery.",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "ac6fab4ebd9f6bc88d56": {
+    "title": "DevFest is back",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "ceadd21f5d3a2d6592d4": {
+    "title": "3 ways to prep for your next big race with Search",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "85052f9befba2c4e17fa": {
+    "title": "Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "075fed980e67c694db46": {
+    "title": "Rebuilding AUTOMATIC1111 with Gradio Workflow",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "7160cfc6b1914a7ee326": {
+    "title": "Sep 10, 2026Frontier Red TeamMeasuring tactical intelligence targeting and conventional weapons capabilities of AI models",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "73af7527f82e0ada94cf": {
+    "title": "Get ready for the game with new football features in Search",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "82b8bf7db8ec7233d073": {
+    "title": "Recreating a 70-year love story frame by frame",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "415f8f1af13b2f4b5659": {
+    "title": "AlignmentSep 9, 2026An alignment assessment of recent cybersecurity incidentsWe present an alignment assessment of four incidents in which Claude models gained unauthorized access to real third-party systems.",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "f0e27f432f48fb866973": {
+    "title": "AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "e94fc2f0f03f56919cc9": {
+    "title": "ScienceSep 4, 2026Formalizing Fermat's Last Theorem We are sharing the first complete computer-checked proof of Fermat’s Last Theorem. Claude worked largely autonomously over 11 days to write the proof in the Lean programming language.",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "2b0379511ea0511400ff": {
+    "title": "Introducing WeatherNext 3, our most advanced and accurate global weather AI model",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "fffbcba03b0b217e4893": {
+    "title": "NeoMME: an efficient Multimodal-native and Multilingual Encoder",
+    "model": false,
+    "reason": "Unresolved actual-release truth; expected model flag records conservative feed-rule policy only, not a factual ground-truth claim.",
+    "truth": "unresolved"
+  },
+  "a139f80b159295ada71d": {
+    "title": "Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "cdd1118267ee925c6328": {
+    "title": "Give Your Coding Agents a Memory You Own",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "b5500bc6503561c622e2": {
+    "title": "Training a coding model to paint watercolours with TRL and OpenEnv",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "d721843382f3485e8d6d": {
+    "title": "Proactive cyber defense for governments and enterprises",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "63b19b50b4021cb509d5": {
+    "title": "Introducing Gemini 3.8 Flash and 3.8 Flash Cyber",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "5eb2aa71a90a9c91745c": {
+    "title": "Proactive cyber defense for governments and enterprises",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "ad90e6779ea3045b3b9f": {
+    "title": "BenchMIRT: What are LLM benchmarks actually measuring?",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "c97fc058379572822e7b": {
+    "title": "The latest AI news we announced in August 2026",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "20b040f8e58f31e96773": {
+    "title": "Introducing agentic video understanding with Gemini",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "7415c6bcd9dd29dab310": {
+    "title": "Try Google Pics: Easy image creation and editing in Google Workspace",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "91dad0068ec24e5bcea7": {
+    "title": "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "b085c7f1762bfee8ae1c": {
+    "title": "Developing Enterprise Frontier Safeguards with our customers",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "e7232d52f37fd859a2ad": {
+    "title": "Introducing Claude Fable 5.1 and Claude Mythos 5.1",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "8ed1599eb95bc766b101": {
+    "title": "Improving our alignment and security efforts",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "4d3b17a749f42c957e92": {
+    "title": "The Open ASR Leaderboard Adds Its First Global South Language",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "a9acbff7bd542e61d9b0": {
+    "title": "Aug 28, 2026AlignmentAutomated researchers can reliably mitigate alignment failures",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "74b1125af8681de125d4": {
+    "title": "Gemini Omni 1.1 Flash lets you build with more control",
+    "model": false,
+    "reason": "Verified model launch in original article; feed headline/summary lacks explicit release signal. Known conservative false negative.",
+    "truth": "release"
+  },
+  "a1c9c66d7311246563eb": {
+    "title": "3 new ways to plan and book travel in Search",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "71c43cf780d371eea283": {
+    "title": "Piloting the world's first double-blind AI evaluations",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "3368e02f484edc23efd1": {
+    "title": "Expanding our support for scientists",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "35305757066a6f711440": {
+    "title": "Previewing the Model Hardware Standard",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "ac6eb9276806c2f8127d": {
+    "title": "Intelligent transcription with Gemini 3.5 Transcribe",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "17177c100c9150295f9a": {
+    "title": "Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "9ce79d4dded95af4f616": {
+    "title": "5 ways to upgrade your home decor with Google Search",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "d21068479952e4038366": {
+    "title": "Granite 4.2 LLMs: How They're Built",
+    "model": false,
+    "reason": "Unresolved actual-release truth; expected model flag records conservative feed-rule policy only, not a factual ground-truth claim.",
+    "truth": "unresolved"
+  },
+  "f1c76f23a788b6884a28": {
+    "title": "Quantization-Aware Healing: a compressed, 4-bit model that outperforms its full-precision original",
+    "model": false,
+    "reason": "Unresolved actual-release truth; expected model flag records conservative feed-rule policy only, not a factual ground-truth claim.",
+    "truth": "unresolved"
+  },
+  "9b54a38fa1b1a3f1fc1f": {
+    "title": "Wire It, Run It, Deploy It: AI Workflows in Gradio",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "1e032b3767d6bbcd1e13": {
+    "title": "Funding better evaluations of AI’s impact on wellbeing",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "835a331a5b20ce16b68a": {
+    "title": "From Atari to EVE Online: Building on 15 Years of AI Research in Games",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "966123ef613d7e9a038f": {
+    "title": "How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search on Papers with Code",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "e3ddd7a65cd3a566e91c": {
+    "title": "Measuring benchmark optimization in speech recognition",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "eab5285cfdebeb65a8ef": {
+    "title": "Up to 3.2x Faster Inference with LFM2.5-DSpark",
+    "model": false,
+    "reason": "Unresolved actual-release truth; expected model flag records conservative feed-rule policy only, not a factual ground-truth claim.",
+    "truth": "unresolved"
+  },
+  "abaed39cbc9c9b421285": {
+    "title": "5 new ways to level up your learning with Search",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "5ba78b757300e8cc3ff5": {
+    "title": "How Much Memory Does Your Agent Actually Need?",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "d9524ab76177d5beaf99": {
+    "title": "Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "bf50ec5ce617ac83f0c8": {
+    "title": "Same Cluster, 33 Points More Utilization: What Changed Was the Order",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "bc290ba394fd0d9149bf": {
+    "title": "State of Open Models: Summer 2026 Observations",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "e68246067eeddf6e1d69": {
+    "title": "How Claude’s text watermark works",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "43643a3dd841363b8ac9": {
+    "title": "Introducing Gemini 3.7 Flash",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "1357a9ae7911e1d557ac": {
+    "title": "Putting sign language AI into users’ hands",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "cdd8d819f4855db7d80d": {
+    "title": "Improving Fable 5's biology safeguards",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "1986eab2e2ed84ba8b77": {
+    "title": "WeatherNext: AI model achieves breakthrough in forecasting cyclones",
+    "model": false,
+    "reason": "Unresolved actual-release truth; expected model flag records conservative feed-rule policy only, not a factual ground-truth claim.",
+    "truth": "unresolved"
+  },
+  "cde859f5c947a2b8f6e7": {
+    "title": "Mariano-Florentino (Tino) Cuéllar to join Anthropic as Chief Global Affairs Officer",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "614d79e4a866af7d0adf": {
+    "title": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
+    "model": false,
+    "reason": "Verified model launch in original article; feed headline/summary lacks explicit release signal. Known conservative false negative.",
+    "truth": "release"
+  },
+  "8b96329aed14643e23bf": {
+    "title": "Investigating three real-world incidents in our cybersecurity evaluations",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "05b5e14c97505dcc5509": {
+    "title": "We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "42a1992e4b242ffc8c8c": {
+    "title": "Gemini Robotics 2 brings whole body intelligence to robots",
+    "model": false,
+    "reason": "Verified model launch in original article; feed headline/summary lacks explicit release signal. Known conservative false negative.",
+    "truth": "release"
+  },
+  "48c97e5bf279fdd425fe": {
+    "title": "Reimagining Independence: How Meta’s AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "7b68f4f0be7a0fcc3726": {
+    "title": "Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "688b06fb84f51f177c70": {
+    "title": "Our position on open-weights models",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "c34a327604b5be4a7c98": {
+    "title": "Introducing Claude Opus 5",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "a821810ee2b72f165795": {
+    "title": "Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "a66075dc0af41a686afe": {
+    "title": "Ask Claude about the Anthropic Economic Index",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "26b4e01c469da5ded830": {
+    "title": "A research agenda for the Economic Futures Research Fund",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "e38a2bc2474832f28ea9": {
+    "title": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "6d9b6518bc02125de437": {
+    "title": "How Meta’s AI Models Are Powering the First Wave of Genesis Mission Projects",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "9d9e4fbe80b29906125a": {
+    "title": "Anthropic is donating another $20 million to Public First Action",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "413ef8ab41769726c3ea": {
+    "title": "Apply for Anthropic’s AI for Science rare disease research grants",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "b5de177ccc831b459c55": {
+    "title": "Introducing Gemini 3.5 Flash Cyber",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "53ad893ddb18c2e18d2e": {
+    "title": "Our approach to bioresilience",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "0221b1d0649ec5f26c7e": {
+    "title": "Anthropic commits $10 million to Canadian AI research",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "ad504bbdb221cc4452d2": {
+    "title": "Introducing Claude for Teachers",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "13f77bbb5cb944085e24": {
+    "title": "Empowering India’s next generation of innovators with ATL Saathi",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "f3757a5a40fdb0962beb": {
+    "title": "Introducing Muse Spark 1.1",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "96abb90589873af87cb1": {
+    "title": "Introducing a way to reflect on how you use Claude",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "5a81a35f01891896cff8": {
+    "title": "Ben Bernanke appointed to Anthropic’s Long-Term Benefit Trust",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "8dbb2238c30b71eb75bd": {
+    "title": "Inviting hard questions",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "2421a78a2bf886f857d4": {
+    "title": "UST is bringing Claude to physical AI",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "46ff818d6e395c4d39a2": {
+    "title": "Introducing Muse Image and Muse Video",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "33ff9177ca69de68580e": {
+    "title": "Government of Alberta uses Claude to find and fix cybersecurity vulnerabilities across government systems",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "f6b3f809726c47bb24c0": {
+    "title": "Google DeepMind and A24 announce first-of-its-kind research partnership",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "aaef033dfabe2831ee14": {
+    "title": "More details on Fable 5’s cyber safeguards and our jailbreak framework",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "270bf5aff18a95d12deb": {
+    "title": "Start building with Nano Banana 2 Lite and Gemini Omni Flash",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "a577f205a73beafce77a": {
+    "title": "Claude Science, an AI workbench for scientists, is now available",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "fdd9745edc3aad4e2c44": {
+    "title": "Redeploying Fable 5",
+    "model": true,
+    "reason": "Original Anthropic article independently verified restored model access July 1: https://www.anthropic.com/news/redeploying-fable-5",
+    "truth": "release"
+  },
+  "4307222bc7e5f2e47115": {
+    "title": "Introducing Claude Sonnet 5",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "70fcb64abb763696136c": {
+    "title": "From Brain Waves to Words: Brain2Qwerty Offers a New Path to Communication Without Surgery",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "172fd12b4fe6c6e04c47": {
+    "title": "Introducing computer use in Gemini 3.5 Flash",
+    "model": false,
+    "reason": "Unresolved actual-release truth; expected model flag records conservative feed-rule policy only, not a factual ground-truth claim.",
+    "truth": "unresolved"
+  },
+  "334cabed9c982aa6b78e": {
+    "title": "Unlocking UK house-building with AI-accelerated planning",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "64af1d1a2fd48283363f": {
+    "title": "How we contain Claude across products",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "67fdc77c9137972f9d21": {
+    "title": "Emmi joins Mistral to accelerate the AI-native industry",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "c062695cbe47f61d380e": {
+    "title": "Use Grok in OpenCode",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "6dae5daf9ee6bcabba09": {
+    "title": "Use Grok in OpenClaw",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "821dcf7efbea38bbeafa": {
+    "title": "Skills in web, iOS, and Android",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "f10d936a81ac676a3098": {
+    "title": "Connect Grok to Hermes Agent",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "7c9e6db472dd3de929ad": {
+    "title": "Introducing Grok Build",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "66179aed9b93d91cdced": {
+    "title": "Grok Imagine Quality Mode API",
+    "model": false,
+    "reason": "Unresolved actual-release truth; expected model flag records conservative feed-rule policy only, not a factual ground-truth claim.",
+    "truth": "unresolved"
+  },
+  "b72f345c79599aed16bf": {
+    "title": "Connectors in web, iOS, and Android",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "e4ae65a9c2eb9a2eaf24": {
+    "title": "New Compute Partnership with Anthropic",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "bdc3ad0f7ec5d0facde3": {
+    "title": "Custom Voices and Voice Library",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "7dce15731b62c6240c24": {
+    "title": "Remote agents in Vibe. Powered by Mistral Medium 3.5.",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "03bc92bbf2ccc6381696": {
+    "title": "Workflows for work that runs the business",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "c6c586873e55a0bad4bb": {
+    "title": "Grok Voice Think Fast 1.0",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "85b0ca3c45b5c9931e3c": {
+    "title": "An update on recent Claude Code quality reports",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "ff9a42787c4e98e8f61f": {
+    "title": "Grok Speech to Text and Text to Speech APIs",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "5ab24e31c09e8ca18d5e": {
+    "title": "Connect the dots: Build with built-in and custom MCPs in Studio",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "a8336fe361e14b12e021": {
+    "title": "Introducing Muse Spark: Scaling Towards Personal Superintelligence",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "350cc9107a36541f0e4e": {
+    "title": "Scaling How We Build and Test Our Most Advanced AI",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "8537165d23c701b725b2": {
+    "title": "Scaling Managed Agents: Decoupling the brain from the hands",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "1ee4ff978d2edba93c21": {
+    "title": "How Alta Daily Uses Meta’s Segment Anything to Reimagine the Digital Closet",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "4f7644b6b48ca01bbc84": {
+    "title": "SAM 3.1: Faster and More Accessible Real-Time Video Detection and Tracking With Multiplexing and Global Reasoning",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "02e5e79ef62944796915": {
+    "title": "Introducing TRIBE v2: A Predictive Foundation Model Trained to Understand How the Human Brain Processes Complex Stimuli",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "d5f9dbd62b3ecc1122d1": {
+    "title": "How we built Claude Code auto mode: a safer way to skip permissions",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "9fa759b72385cdecdf59": {
+    "title": "Harness design for long-running application development",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "6a35b94fbf5682872e16": {
+    "title": "Speaking of Voxtral",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "e838451111573da13f7a": {
+    "title": "Introducing Forge",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "1714cec3bc161aafd6ea": {
+    "title": "Leanstral: Open-Source foundation for trustworthy vibe-coding",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "31ea9f5bb6ea9b4566ea": {
+    "title": "Mistral AI partners with NVIDIA to accelerate open frontier models",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "b071b3375367ea5044cf": {
+    "title": "Introducing Mistral Small 4",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "75df6b713eb1517449e8": {
+    "title": "Rails testing on autopilot: Building an agent that writes what developers won't",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "5809e7b6195acf8faf9b": {
+    "title": "Mapping the World's Forests with Greater Precision: Introducing Canopy Height Maps v2",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "42468eb1c49ef4da0e4e": {
+    "title": "Eval awareness in Claude Opus 4.6’s BrowseComp performance",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "6135a1e6ea30ef04015a": {
+    "title": "Reducing Government Costs and Increasing Access to Greenspaces in the United Kingdom with DINO",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "1eba12a4a8fa384c9268": {
+    "title": "Building a C compiler with a team of parallel Claudes",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "c78d84ac1a7e3d92b1c1": {
+    "title": "Quantifying infrastructure noise in agentic coding evals",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "4bb4537b58c687181024": {
+    "title": "Voxtral transcribes at the speed of sound.",
+    "model": false,
+    "reason": "Verified model launch in original article; feed headline/summary lacks explicit release signal. Known conservative false negative.",
+    "truth": "release"
+  },
+  "9551d1ecd9e658eb7e9b": {
+    "title": "xAI joins SpaceX",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "f7239ef1fc0073371d42": {
+    "title": "Grok Imagine API",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "b8bacde8bd8cd45559f0": {
+    "title": "Terminally online Mistral Vibe.",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "4af35e6550c422446d45": {
+    "title": "Heaps do lie: debugging a memory leak in vLLM.",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "2ab0d2c099317874ed36": {
+    "title": "Designing AI-resistant technical evaluations",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "6c790a16de0afd2b5fe6": {
+    "title": "Demystifying evals for AI agents",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "42d7d419776526a2e8be": {
+    "title": "xAI Raises $20B Series E",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "44d2c49ccebbcd11b15e": {
+    "title": "Introducing Grok Business and Grok Enterprise",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "1ab5b5461c7c1c915461": {
+    "title": "Supporting the DOW's mission with AI",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "c672e193727025a1cf67": {
+    "title": "Grok Collections API",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "82e6c96d6bf7571c3657": {
+    "title": "The Universities Space Research Association Applies Segment Anything Model for Responding to Flood Emergencies",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "36a4be9edb2ece4a0046": {
+    "title": "How DINO and SAM are Helping Modernize Essential Medical Triage Practices",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "b85bce863c5e9bf57678": {
+    "title": "Grok Voice Agent API",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "2f4f54ff8650df8d7e51": {
+    "title": "Introducing Mistral OCR 3",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "4cb14fe225d31380d925": {
+    "title": "Introducing SAM Audio: The First Unified Multimodal Model for Audio Separation",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "16be76934336ff4d225f": {
+    "title": "xAI and El Salvador Pioneer the World's First Nationwide AI Education Program",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "3175b131ccd5bfff0ea1": {
+    "title": "Introducing: Devstral 2 and Mistral Vibe CLI.",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "3772caab2a3ff582f266": {
+    "title": "Introducing Mistral 3",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "7f7a70a6764975801eea": {
+    "title": "Effective harnesses for long-running agents",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "6ff8d0a02b6752635c3f": {
+    "title": "How Conservation X Labs Is Using Segment Anything Model 3 for Endangered Wildlife Monitoring",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "eafa6e2f9f229d6667bf": {
+    "title": "Introducing advanced tool use on the Claude Developer Platform",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "1cac68cf2cb2a7a913bb": {
+    "title": "ExecuTorch Adoption in Reality Labs: Powering On-Device AI Across Meta Devices",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "e65262c197927255c389": {
+    "title": "Grok goes Global with KSA",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "ea34d2b67722ab5fb81c": {
+    "title": "Grok 4.1 Fast and Agent Tools API",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "0c825aa4f59feb15b2fd": {
+    "title": "Mistral AI - KI für Deutschland",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "0481badd6d7715157ff2": {
+    "title": "Introducing SAM 3D: Powerful 3D Reconstruction for Physical World Images",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "3ba15a3903f44c860df9": {
+    "title": "Grok 4.1",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "d123738baee8f3b5ef30": {
+    "title": "Omnilingual ASR: Advancing Automatic Speech Recognition for 1,600+ Languages",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "9b88bfec4a46afeb42f3": {
+    "title": "Code execution with MCP: Building more efficient agents",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "3ee61a87346cf3ad78fc": {
+    "title": "Agents Rule of Two: A Practical Approach to AI Agent Security",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "2fa92d913f8fac25fd7f": {
+    "title": "Introducing Mistral AI Studio.",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "149bf266f43af2ab9d49": {
+    "title": "The Building Blocks of Agentic AI: From Kernels to Clusters",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "c765441e9673d9570c40": {
+    "title": "Beyond permission prompts: making Claude Code more secure and autonomous",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "2e50ab69ebea3b2c9412": {
+    "title": "Equipping agents for the real world with Agent Skills",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "126e07cf0d684e0333f9": {
+    "title": "Effective context engineering for AI agents",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "55765f0baff44519b5bb": {
+    "title": "Expanding xAI for Government with GSA OneGov",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "0c4dec44a25e0aadf714": {
+    "title": "Grok 4 Fast",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "955bc6c93f35e54adf83": {
+    "title": "A postmortem of three recent issues",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "1399aec680791f782180": {
+    "title": "Writing effective tools for agents — with agents",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "236dc01fe211765d33aa": {
+    "title": "Mistral AI raises 1.7B€ to accelerate technological progress with AI",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "a84d6ceb28891b907a9d": {
+    "title": "Le Chat. Custom MCP connectors. Memories.",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "953efd0251365cbf7fa9": {
+    "title": "Make Memory work for you.",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "0b44bb6c5632177665db": {
+    "title": "Grok Code Fast 1",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "4debba963e7406cd058d": {
+    "title": "How Llama and Oracle are helping Instituto PROA kickstart careers for students in Brazil",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "b1315c652e2ac5469f64": {
+    "title": "How DINOv3 is helping World Resources Institute restore forests and farms globally",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "4269e1d95725e97ecb5c": {
+    "title": "Small robots, mighty vision: NASA Jet Propulsion Laboratory's DINOv2-enabled robot rovers and the future of planetary exploration",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "96dbe7674185c6d383d7": {
+    "title": "DINOv3: Self-supervised learning for vision at unprecedented scale",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "d1f77f9ba3f0c9a9f650": {
+    "title": "How Llama helps Biofy Technologies in the fight against antibiotic resistance",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "86dc72b72ef208a6f530": {
+    "title": "Unlocking the potential of vision language models on satellite imagery through fine-tuning",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "27f24e2ad3435531409b": {
+    "title": "How Upwork helps freelancers win more work with Llama",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "98053d1105f2702836b0": {
+    "title": "Announcing Codestral 25.08 and the Complete Mistral Coding Stack for Enterprise",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "a2105fd283ff7ebfa10d": {
+    "title": "Our contribution to a global environmental standard for AI",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "eefc0f1f5f56f651fb42": {
+    "title": "Joining forces with AWS on a new program to help startups build with Llama",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "051cc9ae4db09b531e32": {
+    "title": "Le Chat dives deep.",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "d48634556cd5a8787d84": {
+    "title": "Voxtral",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "dd4f31afe8358c1cf033": {
+    "title": "Announcing xAI for Government",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "4a9a767c682fd9276370": {
+    "title": "Upgrading agentic coding capabilities with the new Devstral models",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "c6d3e7bfa462aef2201b": {
+    "title": "Grok 4",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "fe4da2bc40089dd6bd2c": {
+    "title": "Announcing AI for Citizens",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "b30fda1608482a453121": {
+    "title": "Modeling natural conversational dynamics with Seamless Interaction",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "bb4c60b19b246a2ffae5": {
+    "title": "Desktop Extensions: One-click MCP server installation for Claude Desktop",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "bdcb4ff467cef05feeff": {
+    "title": "How Llama helps drive engineering efficiency at a major Australian bank",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "a3afc1e8c7c23916e7f5": {
+    "title": "How we built our multi-agent research system",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "3af68e6b4c15335333c1": {
+    "title": "Mistral Compute",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "f37de11bc42ac43d87f0": {
+    "title": "Magistral",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "b77235353457c81e3b8d": {
+    "title": "Claude Code: Best practices for agentic coding",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "4d418dad93eb839e23a6": {
+    "title": "The \\\"think\\\" tool: Enabling Claude to stop and think in complex tool use situations",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "9e8c6430d83420da4f9e": {
+    "title": "Grok 3 Beta — The Age of Reasoning Agents",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "43d7916975114d603c09": {
+    "title": "Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "773cd8540a74e0180a31": {
+    "title": "xAI raises $6B Series C",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "ffc229d83891918f8206": {
+    "title": "Building effective agents",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "e0c44d30e87131f427d9": {
+    "title": "Bringing Grok to Everyone",
+    "model": true,
+    "reason": "Hand-reviewed model announcement/availability. Sparse identity headlines independently verified against original article.",
+    "truth": "release"
+  },
+  "5b3723c52c736368304b": {
+    "title": "Frontier Red Team",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "33d81116743596d4b1f6": {
+    "title": "Introducing Contextual Retrieval",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "87717fc65423856a3ab7": {
+    "title": "Societal Impacts",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "43e19cac5ca4688d7914": {
+    "title": "Alignment",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "dfc21a319f95a75d28f0": {
+    "title": "Interpretability",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  },
+  "b223b57277700a87a3d5": {
+    "title": "Economics",
+    "model": false,
+    "reason": "Not a model release: application, customer story, research, infrastructure, or other news.",
+    "truth": "not-release"
+  }
+}

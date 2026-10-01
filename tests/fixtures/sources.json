@@ -1,0 +1,49 @@
+{
+  "openai.xml": {
+    "url": "https://openai.com/news/rss.xml",
+    "captured_at": "2026-09-30T22:03:32.201787+00:00",
+    "method": "First 3 RSS items, serialized with stdlib ElementTree"
+  },
+  "github.html": {
+    "url": "https://github.com/trending",
+    "captured_at": "2026-09-30T22:03:32.774663+00:00",
+    "method": "First 3 unmodified article elements"
+  },
+  "hf-trending.json": {
+    "url": "https://huggingface.co/api/trending",
+    "captured_at": "2026-09-30T22:03:33.169924+00:00",
+    "method": "First 3 entries per list, serialized with stdlib JSON"
+  },
+  "hf-releases.json": {
+    "url": "https://huggingface.co/api/models?author=deepseek-ai&sort=createdAt&direction=-1&limit=3",
+    "captured_at": "2026-09-30T22:03:33.430835+00:00",
+    "method": "Unmodified response"
+  },
+  "youtube-ended.html": {
+    "url": "https://www.youtube.com/watch?v=Fls_onRviPM",
+    "captured_at": "2026-09-30T22:04:40.088738+00:00",
+    "method": "Selected real player videoDetails, liveBroadcastDetails, playabilityStatus fields; wrapped in script"
+  },
+  "youtube-live.html": {
+    "url": "https://www.youtube.com/watch?v=mlfzT_nD6GE",
+    "captured_at": "2026-09-30T22:07:33.090207+00:00",
+    "method": "Selected real player videoDetails, liveBroadcastDetails, playabilityStatus fields; NASA used only as test fixture, not production source"
+  },
+  "radar-before-round2.json": {
+    "url": "site/data/radar.json",
+    "captured_at": "2026-09-30T22:16:59.251291+00:00",
+    "method": "Exact bytes of snapshot generated_at 2026-09-30T22:13:11Z before Round 2 edits",
+    "sha256": "e9437cb0edb617a11baf3a3a1de55a1b4705aeaefd020be04879da93fc1e01fe"
+  },
+  "anthropic-research.xml": {
+    "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_research.xml",
+    "captured_at": "2026-09-30T22:16:59.251304+00:00",
+    "method": "Full fetched UTF-8 response saved without content edits"
+  },
+  "model-release-judgments.json": {
+    "method": "Hand-reviewed binary release/availability labels for every captured update; ambiguous headlines conservatively negative"
+  },
+  "anthropic-clean-titles.json": {
+    "method": "Hand-read expected titles for all 15 entries in captured feed"
+  }
+}

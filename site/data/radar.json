@@ -1,0 +1,3800 @@
+{
+  "generated_at": "2026-09-30T22:33:14Z",
+  "sources": [
+    {
+      "id": "anthropic-engineering",
+      "name": "Anthropic Engineering (community feed)",
+      "lab": "anthropic",
+      "kind": "rss",
+      "ok": true,
+      "count": 25,
+      "error": null
+    },
+    {
+      "id": "anthropic-gftdon",
+      "name": "Anthropic News (gftdon community feed)",
+      "lab": "anthropic",
+      "kind": "rss",
+      "ok": true,
+      "count": 13,
+      "error": null
+    },
+    {
+      "id": "anthropic-news",
+      "name": "Anthropic News (community feed)",
+      "lab": "anthropic",
+      "kind": "rss",
+      "ok": true,
+      "count": 30,
+      "error": null
+    },
+    {
+      "id": "anthropic-research",
+      "name": "Anthropic Research (community feed)",
+      "lab": "anthropic",
+      "kind": "rss",
+      "ok": true,
+      "count": 15,
+      "error": null
+    },
+    {
+      "id": "anthropic-youtube",
+      "name": "Anthropic YouTube",
+      "lab": "anthropic",
+      "kind": "youtube",
+      "ok": true,
+      "count": 0,
+      "error": null
+    },
+    {
+      "id": "deepmind-youtube",
+      "name": "Google DeepMind YouTube",
+      "lab": "google",
+      "kind": "youtube",
+      "ok": true,
+      "count": 0,
+      "error": null
+    },
+    {
+      "id": "deepseek-hf",
+      "name": "deepseek-ai / Hugging Face",
+      "lab": "deepseek",
+      "kind": "hf",
+      "ok": true,
+      "count": 8,
+      "error": null
+    },
+    {
+      "id": "github-trending",
+      "name": "GitHub Trending",
+      "lab": "",
+      "kind": "github",
+      "ok": true,
+      "count": 17,
+      "error": null
+    },
+    {
+      "id": "google-ai",
+      "name": "Google AI",
+      "lab": "google",
+      "kind": "rss",
+      "ok": true,
+      "count": 20,
+      "error": null
+    },
+    {
+      "id": "google-deepmind",
+      "name": "Google DeepMind",
+      "lab": "google",
+      "kind": "rss",
+      "ok": true,
+      "count": 30,
+      "error": null
+    },
+    {
+      "id": "google-hf",
+      "name": "google / Hugging Face",
+      "lab": "google",
+      "kind": "hf",
+      "ok": true,
+      "count": 8,
+      "error": null
+    },
+    {
+      "id": "google-youtube",
+      "name": "Google YouTube",
+      "lab": "google",
+      "kind": "youtube",
+      "ok": true,
+      "count": 0,
+      "error": null
+    },
+    {
+      "id": "hf-trending",
+      "name": "Hugging Face Trending",
+      "lab": "huggingface",
+      "kind": "hf",
+      "ok": true,
+      "count": 30,
+      "error": null
+    },
+    {
+      "id": "huggingface-blog",
+      "name": "Hugging Face Blog",
+      "lab": "huggingface",
+      "kind": "rss",
+      "ok": true,
+      "count": 30,
+      "error": null
+    },
+    {
+      "id": "meta-hf",
+      "name": "meta-llama / Hugging Face",
+      "lab": "meta",
+      "kind": "hf",
+      "ok": true,
+      "count": 8,
+      "error": null
+    },
+    {
+      "id": "meta-news",
+      "name": "Meta AI (community feed)",
+      "lab": "meta",
+      "kind": "rss",
+      "ok": true,
+      "count": 30,
+      "error": null
+    },
+    {
+      "id": "mistral-hf",
+      "name": "mistralai / Hugging Face",
+      "lab": "mistral",
+      "kind": "hf",
+      "ok": true,
+      "count": 8,
+      "error": null
+    },
+    {
+      "id": "mistral-news",
+      "name": "Mistral News (community feed)",
+      "lab": "mistral",
+      "kind": "rss",
+      "ok": true,
+      "count": 30,
+      "error": null
+    },
+    {
+      "id": "openai-hf",
+      "name": "openai / Hugging Face",
+      "lab": "openai",
+      "kind": "hf",
+      "ok": true,
+      "count": 8,
+      "error": null
+    },
+    {
+      "id": "openai-news",
+      "name": "OpenAI News",
+      "lab": "openai",
+      "kind": "rss",
+      "ok": true,
+      "count": 30,
+      "error": null
+    },
+    {
+      "id": "openai-youtube",
+      "name": "OpenAI YouTube",
+      "lab": "openai",
+      "kind": "youtube",
+      "ok": true,
+      "count": 1,
+      "error": null
+    },
+    {
+      "id": "qwen-hf",
+      "name": "Qwen / Hugging Face",
+      "lab": "qwen",
+      "kind": "hf",
+      "ok": true,
+      "count": 8,
+      "error": null
+    },
+    {
+      "id": "xai-hf",
+      "name": "xai-org / Hugging Face",
+      "lab": "xai",
+      "kind": "hf",
+      "ok": true,
+      "count": 2,
+      "error": null
+    },
+    {
+      "id": "xai-news",
+      "name": "xAI News (community feed)",
+      "lab": "xai",
+      "kind": "rss",
+      "ok": true,
+      "count": 30,
+      "error": null
+    }
+  ],
+  "updates": [
+    {
+      "id": "ce56aa83d0064ef1be25",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Gemini 4 Argon: our next era of frontier intelligence",
+      "url": "https://deepmind.google/blog/gemini-4-argon-our-next-era-of-frontier-intelligence/",
+      "published_at": "2026-09-30T20:01:45Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "c696e8b1f34224735a5b",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Introducing SynthID Bio",
+      "url": "https://deepmind.google/blog/introducing-synthid-bio/",
+      "published_at": "2026-09-30T15:03:07Z",
+      "summary": "Proof of concept for watermarking AI-generated proteins while preserving biological function.",
+      "kind": "product"
+    },
+    {
+      "id": "90249c2a3882c6d31b88",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Disrupting a coordinated model-distillation campaign",
+      "url": "https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign",
+      "published_at": "2026-09-30T10:30:00Z",
+      "summary": "Learn how OpenAI disrupted a campaign to extract protected model reasoning and is strengthening defenses against adversarial distillation.",
+      "kind": "other"
+    },
+    {
+      "id": "061338e668ed697490e5",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Helping small businesses put AI to work",
+      "url": "https://openai.com/index/helping-small-businesses-put-ai-to-work",
+      "published_at": "2026-09-30T10:00:00Z",
+      "summary": "OpenAI is partnering with America’s SBDC to expand hands-on AI training and local support for small businesses, alongside a new report on how small teams are using AI.",
+      "kind": "other"
+    },
+    {
+      "id": "74c2ff7e2707d1f61043",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning",
+      "url": "https://huggingface.co/blog/open-tts-leaderboard",
+      "published_at": "2026-09-30T00:00:00Z",
+      "summary": "",
+      "kind": "research"
+    },
+    {
+      "id": "ce43ddffc7da364d903a",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "What work can robots do?",
+      "url": "https://www.anthropic.com/research/what-work-can-robots-do",
+      "published_at": "2026-09-30T00:00:00Z",
+      "summary": "What work can robots do?",
+      "kind": "research"
+    },
+    {
+      "id": "dc53fce90c6f36f5c727",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+      "url": "https://huggingface.co/blog/nvidia/kumo-tabular",
+      "published_at": "2026-09-29T15:30:38Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "afa8c33f8eb7996a3941",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents",
+      "url": "https://huggingface.co/blog/MultiverseComputingCAI/getting-the-source-right-not-just-the-fact-source",
+      "published_at": "2026-09-29T13:07:00Z",
+      "summary": "",
+      "kind": "product"
+    },
+    {
+      "id": "d6b9f5e651b1891e950e",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Introducing GPT-6.1 Sol",
+      "url": "https://openai.com/index/introducing-gpt-6-1-sol",
+      "published_at": "2026-09-29T10:00:00Z",
+      "summary": "Meet GPT-6.1 Sol: near-Astra intelligence for coding, computer use, and professional work at one-fifth of Astra’s standard API input and output token prices.",
+      "kind": "model"
+    },
+    {
+      "id": "6071f63e21f6425413eb",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "DevDay 2026 Recap",
+      "url": "https://openai.com/index/devday-2026-recap",
+      "published_at": "2026-09-29T10:00:00Z",
+      "summary": "Explore more than 20 announcements from OpenAI DevDay 2026, including GPT-6 Astra, ChatGPT, Codex, APIs, security, and new tools for builders.",
+      "kind": "product"
+    },
+    {
+      "id": "dec620cb7225d2434a9b",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Introducing dots",
+      "url": "https://openai.com/index/introducing-dots",
+      "published_at": "2026-09-29T00:00:00Z",
+      "summary": "Dots by OpenAI are proactive assistants that can keep working across complex projects and everyday tasks. Learn how dots help you stay in control while work moves forward.",
+      "kind": "product"
+    },
+    {
+      "id": "f98597eae81f4380fdcc",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "GLM-5.3 and the spread of advanced cyber capabilities",
+      "url": "https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities",
+      "published_at": "2026-09-29T00:00:00Z",
+      "summary": "GLM-5.3 and the spread of advanced cyber capabilities",
+      "kind": "research"
+    },
+    {
+      "id": "853629b69b653c9d835e",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "What do you want from AI?",
+      "url": "https://www.anthropic.com/research/your-thoughts-on-ai",
+      "published_at": "2026-09-29T00:00:00Z",
+      "summary": "What do you want from AI?",
+      "kind": "research"
+    },
+    {
+      "id": "50d71cd52400f551c336",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "How we will do better for Australia",
+      "url": "https://openai.com/index/how-we-will-do-better-for-australia",
+      "published_at": "2026-09-28T19:00:00Z",
+      "summary": "OpenAI apologises for incidents involving Australian government websites and outlines stronger safeguards and support to strengthen Australia’s cyber defences.",
+      "kind": "other"
+    },
+    {
+      "id": "2fc54b690d7b20a2e143",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Towards safety cases for frontier AI training",
+      "url": "https://openai.com/index/towards-safety-cases-for-frontier-ai-training",
+      "published_at": "2026-09-28T19:00:00Z",
+      "summary": "Our early guidelines for safety cases in frontier AI training cover technical safeguards, operational practices, and investigating misalignment incidents",
+      "kind": "other"
+    },
+    {
+      "id": "db713ef86bd59ea8f7ba",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "Watch the winning trailer from the Future Vision XPRIZE, The Gifted.",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/winner-future-vision-xprize/",
+      "published_at": "2026-09-28T19:00:00Z",
+      "summary": "Watch the winning trailer from the Future Vision XPRIZE, The Gifted.",
+      "kind": "other"
+    },
+    {
+      "id": "09d1d26fa19dd694ec40",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Holo4: powering generalist computer-use agents",
+      "url": "https://huggingface.co/blog/Hcompany/holo4",
+      "published_at": "2026-09-28T09:44:05Z",
+      "summary": "",
+      "kind": "product"
+    },
+    {
+      "id": "0adf5bb2a473897d1252",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "The Lenfest Institute grows landmark program with expanded OpenAI support",
+      "url": "https://openai.com/index/lenfest-ai-collaborative-expansion",
+      "published_at": "2026-09-28T07:00:00Z",
+      "summary": "OpenAI is expanding the Lenfest AI Collaborative and Fellowship Program with $5 million in funding and up to $5 million in software credits and engineering support.",
+      "kind": "other"
+    },
+    {
+      "id": "833e9419a34f8836dc9d",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Are you a Codex Original?",
+      "url": "https://openai.com/form/codex-originals",
+      "published_at": "2026-09-28T00:00:00Z",
+      "summary": "We’re collecting real stories of builders, tinkerers, researchers, and creators who are using Codex to do incredible things. If you want to be a part of the next chapter of the Codex Originals program, tell us more about your story and project below.",
+      "kind": "other"
+    },
+    {
+      "id": "eb674100bb687fff7643",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Basis completes a tax workbook 2x faster with GPT-6 Astra",
+      "url": "https://openai.com/index/basis-tax-workbook-with-astra",
+      "published_at": "2026-09-28T00:00:00Z",
+      "summary": "GPT-6 Astra completed a 50-tab tax workbook twice as fast as GPT-5.6 Sol, and its stronger understanding of user intent gives Basis more confidence in real-world use.",
+      "kind": "other"
+    },
+    {
+      "id": "4e3ca8a95d36633072bd",
+      "lab": "anthropic",
+      "source": "anthropic-gftdon",
+      "title": "Introducing Claude Sonnet 5.5",
+      "url": "https://www.anthropic.com/claude-sonnet-5-5",
+      "published_at": "2026-09-28T00:00:00Z",
+      "summary": "[Announcements] A clear upgrade over Sonnet 5 that runs 30% faster and costs up to 30% less for most work.",
+      "kind": "model"
+    },
+    {
+      "id": "9de028fbe46cac8b155a",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Proaction boosts sales 60% and saves 75+ hours with Codex",
+      "url": "https://openai.com/index/proaction",
+      "published_at": "2026-09-25T19:00:00Z",
+      "summary": "With Codex, GPT-Live-1, and GPT-6 Astra, Proaction builds, operates, and sells modern fleet management faster.",
+      "kind": "other"
+    },
+    {
+      "id": "e49faaf95243e18293da",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "Yes, Claude can do Nine Loops",
+      "url": "https://www.anthropic.com/research/yes-claude-can-do-nine-loops",
+      "published_at": "2026-09-25T00:00:00Z",
+      "summary": "Yes, Claude can do Nine Loops",
+      "kind": "research"
+    },
+    {
+      "id": "34692efacd3b982a5758",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Introducing Gemini 3.8 Live with Live Avatar",
+      "url": "https://deepmind.google/blog/introducing-gemini-38-live-with-live-avatar/",
+      "published_at": "2026-09-24T16:20:39Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "280bf64dcca75cee1131",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Accelerating vision-language models with LFM2.5-VL-DSpark",
+      "url": "https://huggingface.co/blog/LiquidAI/lfm2-5-vl-dspark",
+      "published_at": "2026-09-24T14:08:57Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "c4f6b71acc4936ffd81d",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "Project Swap: What happens when agents trade for us?",
+      "url": "https://www.anthropic.com/research/project-swap",
+      "published_at": "2026-09-24T00:00:00Z",
+      "summary": "Project Swap: What happens when agents trade for us?",
+      "kind": "research"
+    },
+    {
+      "id": "1ccf342131e2aeec4f4f",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "Google Beam expands with new regions, partners, and customers",
+      "url": "https://blog.google/innovation-and-ai/technology/research/google-beam-expansion/",
+      "published_at": "2026-09-23T18:00:00Z",
+      "summary": "Google Beam promotional animation",
+      "kind": "other"
+    },
+    {
+      "id": "68ead6b6af2b71441cd0",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Advancing Private AI Compute with secure, server-side memory",
+      "url": "https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/",
+      "published_at": "2026-09-23T16:00:57Z",
+      "summary": "Introducing private, server-side memory to Private AI Compute for personal AI.",
+      "kind": "product"
+    },
+    {
+      "id": "52e46e8371e1f69996c0",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Two years of OpenAI Academy",
+      "url": "https://openai.com/index/two-years-of-openai-academy",
+      "published_at": "2026-09-23T16:00:00Z",
+      "summary": "Marking two years of OpenAI Academy and bringing AI skills to even more communities.",
+      "kind": "other"
+    },
+    {
+      "id": "81481aa316e38773fdfe",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Gemini 3.8 text-to-speech says hello",
+      "url": "https://deepmind.google/blog/say-hello-to-gemini-38-text-to-speech/",
+      "published_at": "2026-09-23T15:25:14Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "9328fa400dd37e6b9e77",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "OpenAI extends cyber access to Ukraine for civilian defense",
+      "url": "https://openai.com/index/openai-extends-cyber-access-to-ukraine-for-civilian-defense",
+      "published_at": "2026-09-23T13:00:00Z",
+      "summary": "OpenAI is extending access to its Daybreak program to the Government of Ukraine to support the cyber defense of civilian infrastructure.",
+      "kind": "other"
+    },
+    {
+      "id": "f2ff7f76056120414cf0",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "How invideo improves color grading 3x with GPT‑6 Astra",
+      "url": "https://openai.com/index/invideo-builds-with-gpt-6-astra",
+      "published_at": "2026-09-23T12:00:00Z",
+      "summary": "With GPT‑6 Astra, invideo plans edits with greater precision, improves color correction and grading threefold, and produces 50 custom effects in one day.",
+      "kind": "other"
+    },
+    {
+      "id": "4e56c7312349a760a0ed",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Ringg’s AI agents resolve up to 65% of customer calls with OpenAI",
+      "url": "https://openai.com/index/ringg",
+      "published_at": "2026-09-23T12:00:00Z",
+      "summary": "Using GPT-5.6, Ringg powers multilingual agents across voice, chat, WhatsApp, and web for 90% less cost vs. GPT-4.1.",
+      "kind": "product"
+    },
+    {
+      "id": "347b65ce144a221e189c",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Sam Altman’s remarks at the United Nations Security Council",
+      "url": "https://openai.com/index/sam-altman-un-security-council-remarks",
+      "published_at": "2026-09-23T12:00:00Z",
+      "summary": "OpenAI CEO Sam Altman discusses AI safety, human control, and international cooperation in remarks to the United Nations Security Council.",
+      "kind": "other"
+    },
+    {
+      "id": "52b80abd4e046c041ffb",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Harvey turns legal context into stronger drafts with GPT-6 Astra",
+      "url": "https://openai.com/index/harvey-from-context-to-confidence-with-astra",
+      "published_at": "2026-09-23T12:00:00Z",
+      "summary": "GPT-6 Astra produces more structured, context-aware legal documents, freeing lawyers to focus on strategy.",
+      "kind": "other"
+    },
+    {
+      "id": "3d7b9aab56c8f4fe22c0",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Introducing MentalHealthBench",
+      "url": "https://openai.com/index/introducing-mentalhealthbench",
+      "published_at": "2026-09-23T10:00:00Z",
+      "summary": "MentalHealthBench is an expert-informed benchmark for evaluating helpful and safe AI responses across realistic mental health conversations.",
+      "kind": "research"
+    },
+    {
+      "id": "bb71e409dd7f29f762c2",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "ChatGPT Ads expands to Southeast Asia and Taiwan",
+      "url": "https://openai.com/index/chatgpt-ads-expands-southeast-asia-taiwan",
+      "published_at": "2026-09-23T02:00:00Z",
+      "summary": "ChatGPT Ads is expanding to Southeast Asia and Taiwan, giving eligible businesses new ways to reach people across more than 60 countries.",
+      "kind": "product"
+    },
+    {
+      "id": "0765deb144589280c16b",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Airbnb widens access to GPT-6 Astra and OpenAI frontier models",
+      "url": "https://openai.com/index/airbnb-gpt-6-astra",
+      "published_at": "2026-09-23T01:00:00Z",
+      "summary": "Learn how Airbnb is expanding access to GPT-6 Astra and OpenAI frontier models to help engineering teams solve bugs, design systems, and ship faster.",
+      "kind": "other"
+    },
+    {
+      "id": "5ab590850491008e2cef",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Grab and OpenAI bring practical AI skills to Southeast Asia",
+      "url": "https://openai.com/index/grab-openai-ai-skills-southeast-asia",
+      "published_at": "2026-09-23T00:00:00Z",
+      "summary": "OpenAI and Grab launch GO Forward with AI, a regional programme helping 30,000 partners build practical AI skills across Southeast Asia.",
+      "kind": "product"
+    },
+    {
+      "id": "ef1b3a4772eab8370f46",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Claude discovers a novel enzyme system with CRISPR-like repeats",
+      "url": "https://www.anthropic.com/news/claude-discovers-novel-enzyme-system",
+      "published_at": "2026-09-23T00:00:00Z",
+      "summary": "Claude discovers a novel enzyme system with CRISPR-like repeats",
+      "kind": "other"
+    },
+    {
+      "id": "f9027d80e820682e90d7",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Better prompt caching for GPT-6",
+      "url": "https://openai.com/index/better-prompt-caching-for-gpt-6",
+      "published_at": "2026-09-22T21:00:00Z",
+      "summary": "Learn how GPT-6 improves prompt caching with higher cache hit rates, new diagnostics, explicit breakpoints, and controls that reduce latency and costs.",
+      "kind": "other"
+    },
+    {
+      "id": "73461b3e97af0d93277a",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Introducing GPT-6 Sol and Luna",
+      "url": "https://openai.com/index/introducing-gpt-6-sol-and-luna",
+      "published_at": "2026-09-22T18:00:00Z",
+      "summary": "Meet GPT-6 Sol and Luna, two models that bring frontier intelligence to everyday work with different balances of capability and cost.",
+      "kind": "model"
+    },
+    {
+      "id": "3fcefd9c665fb2c24849",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Parallel cut research time and cost in half with GPT‑6 Astra",
+      "url": "https://openai.com/index/parallel-cuts-time-and-cost-with-astra",
+      "published_at": "2026-09-22T12:00:00Z",
+      "summary": "GPT‑6 Astra allowed Parallel’s agents to research and synthesize labor-market data in half the time and at half the cost vs. prior models.",
+      "kind": "research"
+    },
+    {
+      "id": "60efaf744a4d6c2c20e9",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Priorities and principles for effective third party assessments",
+      "url": "https://openai.com/index/priorities-principles-third-party-assessments",
+      "published_at": "2026-09-22T00:00:00Z",
+      "summary": "OpenAI outlines priorities and principles for rigorous, secure, and independent third-party AI safety assessments of frontier models and safeguards.",
+      "kind": "other"
+    },
+    {
+      "id": "e9f63aa1f7aaa02f4024",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
+      "url": "https://huggingface.co/blog/evaleval-aisi",
+      "published_at": "2026-09-22T00:00:00Z",
+      "summary": "",
+      "kind": "research"
+    },
+    {
+      "id": "689d78c6e007ab8e2c4f",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Transformers now runs llama.cpp quants",
+      "url": "https://huggingface.co/blog/transformers-llama-cpp-quants",
+      "published_at": "2026-09-22T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "6b3083011aeb49b1cc1d",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community",
+      "url": "https://huggingface.co/blog/omlx",
+      "published_at": "2026-09-22T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "0dd3bed5c7dd1c272c8d",
+      "lab": "anthropic",
+      "source": "anthropic-gftdon",
+      "title": "Introducing Claude Opus 5.5",
+      "url": "https://www.anthropic.com/claude-opus-5-5",
+      "published_at": "2026-09-22T00:00:00Z",
+      "summary": "[Announcements] Opus 5.5 performs at the level of Claude Fable 5.1 on most work and costs 40% less to run than Opus 5.",
+      "kind": "model"
+    },
+    {
+      "id": "8fe4474fdbb9c4c46a22",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Higgsfield AI ships new video features in a day with GPT-6 Astra",
+      "url": "https://openai.com/index/higgsfield-from-prompt-to-production-with-astra",
+      "published_at": "2026-09-21T12:00:00Z",
+      "summary": "With GPT-6 Astra, Higgsfield AI makes video ad creation easier for small businesses and brings new creative tools to market faster.",
+      "kind": "product"
+    },
+    {
+      "id": "08ffdb24bebd9aa2ffda",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Advisory Group on Mathematics and Artificial Intelligence",
+      "url": "https://openai.com/index/advisory-group-on-mathematics-and-ai",
+      "published_at": "2026-09-21T12:00:00Z",
+      "summary": "OpenAI is working with an independent Advisory Group on Mathematics and Artificial Intelligence to guide the review and communication of emerging AI results.",
+      "kind": "other"
+    },
+    {
+      "id": "10538c022345675d1abd",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Building standards for the next phase of AI",
+      "url": "https://openai.com/index/building-standards-next-phase-ai",
+      "published_at": "2026-09-21T10:00:00Z",
+      "summary": "OpenAI outlines a path to shared global AI standards, calling for coordinated evaluation, reporting, and governance to improve safety.",
+      "kind": "research"
+    },
+    {
+      "id": "2f8d9b98fc157bb338d3",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "Expanding OpenAI Academy with new learning paths",
+      "url": "https://openai.com/index/expanding-openai-academy-with-new-learning-paths",
+      "published_at": "2026-09-21T07:00:00Z",
+      "summary": "Explore new OpenAI Academy learning paths for employees, developers, leaders, educators, and students to build and demonstrate practical AI skills.",
+      "kind": "other"
+    },
+    {
+      "id": "d2871d486c61275aa183",
+      "lab": "openai",
+      "source": "openai-news",
+      "title": "V7 cuts costs 78% while boosting accuracy with GPT-5.6 Luna",
+      "url": "https://openai.com/index/v7",
+      "published_at": "2026-09-21T00:00:00Z",
+      "summary": "Using GPT-5.6, V7 turns scattered company files into context agents can use to complete complex, source-linked work.",
+      "kind": "product"
+    },
+    {
+      "id": "693b3130e25cc8808f58",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "tokenizers v1: encode, decode and scaling, measured",
+      "url": "https://huggingface.co/blog/tokenizers-v1",
+      "published_at": "2026-09-21T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "d92122e53ec9d4f7bc6f",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "New experts join Google’s AI & Economy team",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/expanding-ai-economy-research-bench/",
+      "published_at": "2026-09-18T14:00:00Z",
+      "summary": "Text \"AI & Economy Research Program\" all over a green grid background, with the Google G logo in the bottom right corner",
+      "kind": "research"
+    },
+    {
+      "id": "44ec3a3d6fdc7de7b05f",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "Co-creating the future of fashion with Google",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/google-flow-fashion-week/",
+      "published_at": "2026-09-18T13:00:00Z",
+      "summary": "Jane Wade and Sergio Hudson",
+      "kind": "other"
+    },
+    {
+      "id": "5ec4e61a2a5169ebbf2e",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Partnering with Accenture on embedded evaluation",
+      "url": "https://www.anthropic.com/news/accenture-embedded-evaluation",
+      "published_at": "2026-09-18T00:00:00Z",
+      "summary": "Partnering with Accenture on embedded evaluation",
+      "kind": "research"
+    },
+    {
+      "id": "590df77dc8c3726e2134",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "Making global data easier to explore",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/google-un-data-commons-platform/",
+      "published_at": "2026-09-17T20:00:00Z",
+      "summary": "UN System Data Commons Data webpage",
+      "kind": "other"
+    },
+    {
+      "id": "b44c829b27028fd75a53",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "How Claude is uplifting biomolecular modeling",
+      "url": "https://www.anthropic.com/research/claude-uplifts-biomolecular-modeling",
+      "published_at": "2026-09-17T00:00:00Z",
+      "summary": "How Claude is uplifting biomolecular modeling",
+      "kind": "research"
+    },
+    {
+      "id": "a3c8e138d995ff558ec9",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Introducing the Life Sciences Verification Program",
+      "url": "https://www.anthropic.com/news/life-sciences-verification-program",
+      "published_at": "2026-09-17T00:00:00Z",
+      "summary": "Introducing the Life Sciences Verification Program",
+      "kind": "product"
+    },
+    {
+      "id": "947e89eaa83a27aef331",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking",
+      "url": "https://deepmind.google/blog/introducing-gemini-3-8-live-and-3-8-live-extended-thinking/",
+      "published_at": "2026-09-15T17:05:57Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "a1d018f16fad79f97456",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Your Agent Aced the Task. Will It Do It Again?",
+      "url": "https://huggingface.co/blog/ibm-research/altk-evolve-consistency",
+      "published_at": "2026-09-15T16:00:44Z",
+      "summary": "",
+      "kind": "product"
+    },
+    {
+      "id": "970c94673769027aa8a4",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "AI for Societal Impact",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/ai-for-societal-impact/",
+      "published_at": "2026-09-15T16:00:00Z",
+      "summary": "Explore this collection to see how experts and local leaders are using AI breakthroughs to ensure everyone can share the opportunity of AI.",
+      "kind": "other"
+    },
+    {
+      "id": "6fff55fdf7cb614f4288",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "Building AI to accelerate science and improve lives",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/ai-applications-science-people/",
+      "published_at": "2026-09-15T16:00:00Z",
+      "summary": "B-roll showing diverse environments and people, including a teacher and students in a classroom and a patient with a doctor",
+      "kind": "other"
+    },
+    {
+      "id": "50f1fa34d3c31e122438",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "AI for everyone in every language",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/ai-for-every-language/",
+      "published_at": "2026-09-15T16:00:00Z",
+      "summary": "Animation of several words in different languages slowly zooming past",
+      "kind": "other"
+    },
+    {
+      "id": "b21c5e1ffc812be885ba",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "New insights from Google’s AI & Economy ATLAS",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/ai-economy-atlas-september-2026/",
+      "published_at": "2026-09-15T13:00:00Z",
+      "summary": "Text \"AI & Economy Atlas v1.0 2026\" with the Google G and a spinning globe illustration",
+      "kind": "other"
+    },
+    {
+      "id": "6666660dfd652924f82b",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "Watch astronaut Christina Koch and Google’s James Manyika discuss space, technology, and discovery.",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/dialogues-christina-koch/",
+      "published_at": "2026-09-14T19:00:00Z",
+      "summary": "Christina Koch sits down with James Manyika, Google’s Senior Vice President of Research, Labs, Technology & Society.",
+      "kind": "research"
+    },
+    {
+      "id": "ac6fab4ebd9f6bc88d56",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "DevFest is back",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/devfest2026/",
+      "published_at": "2026-09-14T16:00:00Z",
+      "summary": "Animation of the text \"{DevFest} 2026 Join us! Google Developer Groups\" with a globe icon, asterisk icon, < icon, and > icon",
+      "kind": "other"
+    },
+    {
+      "id": "ceadd21f5d3a2d6592d4",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "3 ways to prep for your next big race with Search",
+      "url": "https://blog.google/products-and-platforms/products/search/running-race-training-tips/",
+      "published_at": "2026-09-10T16:00:00Z",
+      "summary": "Illustration on a blue background of technicolor runners with a magnifying glass and Gemini spark overlaid",
+      "kind": "other"
+    },
+    {
+      "id": "85052f9befba2c4e17fa",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL",
+      "url": "https://huggingface.co/blog/asyncgrpo-lora-hfjobs",
+      "published_at": "2026-09-10T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "075fed980e67c694db46",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Rebuilding AUTOMATIC1111 with Gradio Workflow",
+      "url": "https://huggingface.co/blog/gradio-workflow-1111",
+      "published_at": "2026-09-10T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "7160cfc6b1914a7ee326",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "Measuring tactical intelligence targeting and conventional weapons capabilities of AI models",
+      "url": "https://www.anthropic.com/research/intelligence-targeting-conventional-weapons-capabilities",
+      "published_at": "2026-09-10T00:00:00Z",
+      "summary": "Measuring tactical intelligence targeting and conventional weapons capabilities of AI models",
+      "kind": "research"
+    },
+    {
+      "id": "73af7527f82e0ada94cf",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "Get ready for the game with new football features in Search",
+      "url": "https://blog.google/products-and-platforms/products/search/football-features-google-search/",
+      "published_at": "2026-09-09T16:00:00Z",
+      "summary": "An illustrated graphic set against a vibrant green background featuring American football elements, including a gold trophy, a blue helmet, a silver whistle, a football, a mini scoreboard, and play diagrams, with the icon for AI Mode in Google Search in t",
+      "kind": "product"
+    },
+    {
+      "id": "82b8bf7db8ec7233d073",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "Recreating a 70-year love story frame by frame",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/love-rendered-film/",
+      "published_at": "2026-09-09T16:00:00Z",
+      "summary": "An elderly couple sitting in a movie theater. Overlayed are \"Teulluride Film Festival\" and \"Love, Rendered\"",
+      "kind": "other"
+    },
+    {
+      "id": "415f8f1af13b2f4b5659",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "An alignment assessment of recent cybersecurity incidents",
+      "url": "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents",
+      "published_at": "2026-09-09T00:00:00Z",
+      "summary": "We present an alignment assessment of four incidents in which Claude models gained unauthorized access to real third-party systems.",
+      "kind": "research"
+    },
+    {
+      "id": "f0e27f432f48fb866973",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome",
+      "url": "https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/",
+      "published_at": "2026-09-08T14:00:15Z",
+      "summary": "AlphaGenome Atlas maps the molecular effects of 9 billion single-letter DNA variants across the human genome.",
+      "kind": "other"
+    },
+    {
+      "id": "e94fc2f0f03f56919cc9",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "Formalizing Fermat's Last Theorem",
+      "url": "https://www.anthropic.com/research/formalizing-fermats-last-theorem",
+      "published_at": "2026-09-04T00:00:00Z",
+      "summary": "We are sharing the first complete computer-checked proof of Fermat’s Last Theorem. Claude worked largely autonomously over 11 days to write the proof in the Lean programming language.",
+      "kind": "research"
+    },
+    {
+      "id": "2b0379511ea0511400ff",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Introducing WeatherNext 3, our most advanced and accurate global weather AI model",
+      "url": "https://deepmind.google/blog/introducing-weathernext-3-our-most-advanced-and-accurate-global-weather-ai-model/",
+      "published_at": "2026-09-03T15:02:08Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "fffbcba03b0b217e4893",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "NeoMME: an efficient Multimodal-native and Multilingual Encoder",
+      "url": "https://huggingface.co/blog/Hcompany/neomme",
+      "published_at": "2026-09-03T13:13:48Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "a139f80b159295ada71d",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps",
+      "url": "https://huggingface.co/blog/grpo-with-trl-ifstruct",
+      "published_at": "2026-09-03T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "cdd1118267ee925c6328",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Give Your Coding Agents a Memory You Own",
+      "url": "https://huggingface.co/blog/funes",
+      "published_at": "2026-09-03T00:00:00Z",
+      "summary": "",
+      "kind": "product"
+    },
+    {
+      "id": "b5500bc6503561c622e2",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Training a coding model to paint watercolours with TRL and OpenEnv",
+      "url": "https://huggingface.co/blog/train-to-paint-with-code",
+      "published_at": "2026-09-03T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "d721843382f3485e8d6d",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Proactive cyber defense for governments and enterprises",
+      "url": "https://deepmind.google/blog/proactive-cyber-defense-for-governments-and-enterprises/",
+      "published_at": "2026-09-02T16:24:24Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "63b19b50b4021cb509d5",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Introducing Gemini 3.8 Flash and 3.8 Flash Cyber",
+      "url": "https://deepmind.google/blog/introducing-gemini-3-8-flash-and-38-flash-cyber/",
+      "published_at": "2026-09-02T16:18:31Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "5eb2aa71a90a9c91745c",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "Proactive cyber defense for governments and enterprises",
+      "url": "https://blog.google/innovation-and-ai/technology/safety-security/fairwind-program/",
+      "published_at": "2026-09-02T15:40:00Z",
+      "summary": "Introducing Fairwind Program",
+      "kind": "product"
+    },
+    {
+      "id": "ad90e6779ea3045b3b9f",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "BenchMIRT: What are LLM benchmarks actually measuring?",
+      "url": "https://huggingface.co/blog/allenai/benchmirt",
+      "published_at": "2026-09-01T21:39:07Z",
+      "summary": "",
+      "kind": "research"
+    },
+    {
+      "id": "c97fc058379572822e7b",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "The latest AI news we announced in August 2026",
+      "url": "https://blog.google/innovation-and-ai/technology/google-ai-updates-august-2026/",
+      "published_at": "2026-09-01T20:45:00Z",
+      "summary": "Transitioning cards: 1. Text \"Gemini 3.7 Flash\" next to the Gemini logo icon; 2. a photo of a pixel phone; 3. Google Gemini logo above the text \"Claim your student plan for 1 year at no cost\"",
+      "kind": "other"
+    },
+    {
+      "id": "20b040f8e58f31e96773",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Introducing agentic video understanding with Gemini",
+      "url": "https://deepmind.google/blog/introducing-agentic-video-in-gemini/",
+      "published_at": "2026-09-01T17:08:51Z",
+      "summary": "",
+      "kind": "product"
+    },
+    {
+      "id": "7415c6bcd9dd29dab310",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "Try Google Pics: Easy image creation and editing in Google Workspace",
+      "url": "https://blog.google/products-and-platforms/products/workspace/google-pics/",
+      "published_at": "2026-09-01T16:00:00Z",
+      "summary": "Collage of images created by Google Pics, with the text \"Say hello to Google Pics\" on top",
+      "kind": "other"
+    },
+    {
+      "id": "91dad0068ec24e5bcea7",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI",
+      "url": "https://huggingface.co/blog/webgpu-kernels",
+      "published_at": "2026-09-01T00:00:00Z",
+      "summary": "",
+      "kind": "product"
+    },
+    {
+      "id": "b085c7f1762bfee8ae1c",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Developing Enterprise Frontier Safeguards with our customers",
+      "url": "https://www.anthropic.com/news/enterprise-frontier-safeguards",
+      "published_at": "2026-09-01T00:00:00Z",
+      "summary": "Developing Enterprise Frontier Safeguards with our customers",
+      "kind": "other"
+    },
+    {
+      "id": "e7232d52f37fd859a2ad",
+      "lab": "anthropic",
+      "source": "anthropic-gftdon",
+      "title": "Introducing Claude Fable 5.1 and Claude Mythos 5.1",
+      "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+      "published_at": "2026-09-01T00:00:00Z",
+      "summary": "[Announcements] Our most advanced models for coding and knowledge work. Their research capabilities also offer an early glimpse of how AI models will contribute to scientific progress.",
+      "kind": "model"
+    },
+    {
+      "id": "8ed1599eb95bc766b101",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Improving our alignment and security efforts",
+      "url": "https://www.anthropic.com/news/improving-alignment-security-efforts",
+      "published_at": "2026-08-31T00:00:00Z",
+      "summary": "Improving our alignment and security efforts",
+      "kind": "research"
+    },
+    {
+      "id": "4d3b17a749f42c957e92",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "The Open ASR Leaderboard Adds Its First Global South Language",
+      "url": "https://huggingface.co/blog/open-asr-leaderboard-global-south",
+      "published_at": "2026-08-28T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "a9acbff7bd542e61d9b0",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "Automated researchers can reliably mitigate alignment failures",
+      "url": "https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures",
+      "published_at": "2026-08-28T00:00:00Z",
+      "summary": "Automated researchers can reliably mitigate alignment failures",
+      "kind": "research"
+    },
+    {
+      "id": "74b1125af8681de125d4",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Gemini Omni 1.1 Flash lets you build with more control",
+      "url": "https://deepmind.google/blog/gemini-omni-1-1-flash-lets-you-build-with-more-control/",
+      "published_at": "2026-08-27T16:11:32Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "a1c9c66d7311246563eb",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "3 new ways to plan and book travel in Search",
+      "url": "https://blog.google/products-and-platforms/products/search/book-travel-ai-mode/",
+      "published_at": "2026-08-27T16:00:00Z",
+      "summary": "Graphic depicting new travel features for AI Mode in Search",
+      "kind": "product"
+    },
+    {
+      "id": "71c43cf780d371eea283",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Piloting the world's first double-blind AI evaluations",
+      "url": "https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluations/",
+      "published_at": "2026-08-27T12:59:16Z",
+      "summary": "Piloting the world's first double-blind AI evaluations",
+      "kind": "research"
+    },
+    {
+      "id": "3368e02f484edc23efd1",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Expanding our support for scientists",
+      "url": "https://www.anthropic.com/news/expanding-support-for-scientists",
+      "published_at": "2026-08-27T00:00:00Z",
+      "summary": "Expanding our support for scientists",
+      "kind": "other"
+    },
+    {
+      "id": "35305757066a6f711440",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Previewing the Model Hardware Standard",
+      "url": "https://www.anthropic.com/news/model-hardware-standard-research-preview",
+      "published_at": "2026-08-27T00:00:00Z",
+      "summary": "Previewing the Model Hardware Standard",
+      "kind": "other"
+    },
+    {
+      "id": "ac6eb9276806c2f8127d",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Intelligent transcription with Gemini 3.5 Transcribe",
+      "url": "https://deepmind.google/blog/intelligent-transcription-with-gemini-3-5-transcribe/",
+      "published_at": "2026-08-26T17:01:00Z",
+      "summary": "Now you can get more intelligent speech-to-text transcription with Gemini 3.5 Transcribe.",
+      "kind": "model"
+    },
+    {
+      "id": "17177c100c9150295f9a",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers",
+      "url": "https://huggingface.co/blog/train-multi-vector-encoder",
+      "published_at": "2026-08-26T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "9ce79d4dded95af4f616",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "5 ways to upgrade your home decor with Google Search",
+      "url": "https://blog.google/products-and-platforms/products/search/home-decor-tips/",
+      "published_at": "2026-08-25T16:00:00Z",
+      "summary": "Illustration of ombre rainbow furniture items like a sofa, lamp, and chair against a purple background",
+      "kind": "other"
+    },
+    {
+      "id": "d21068479952e4038366",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Granite 4.2 LLMs: How They're Built",
+      "url": "https://huggingface.co/blog/ibm-granite/granite-4-2",
+      "published_at": "2026-08-25T15:14:14Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "f1c76f23a788b6884a28",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Quantization-Aware Healing: a compressed, 4-bit model that outperforms its full-precision original",
+      "url": "https://huggingface.co/blog/MultiverseComputingCAI/quantization-aware-healing",
+      "published_at": "2026-08-25T11:39:24Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "9b54a38fa1b1a3f1fc1f",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Wire It, Run It, Deploy It: AI Workflows in Gradio",
+      "url": "https://huggingface.co/blog/gradio-workflow-guide",
+      "published_at": "2026-08-25T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "1e032b3767d6bbcd1e13",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Funding better evaluations of AI’s impact on wellbeing",
+      "url": "https://www.anthropic.com/news/wellbeing-research-grants",
+      "published_at": "2026-08-25T00:00:00Z",
+      "summary": "Funding better evaluations of AI’s impact on wellbeing",
+      "kind": "research"
+    },
+    {
+      "id": "835a331a5b20ce16b68a",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "From Atari to EVE Online: Building on 15 Years of AI Research in Games",
+      "url": "https://deepmind.google/blog/from-atari-to-eve-online-building-on-15-years-of-ai-research-in-games/",
+      "published_at": "2026-08-21T11:59:48Z",
+      "summary": "Google DeepMind partners with game studios to prototype breakthrough AI gameplay.",
+      "kind": "research"
+    },
+    {
+      "id": "966123ef613d7e9a038f",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search on Papers with Code",
+      "url": "https://huggingface.co/blog/pwc-search",
+      "published_at": "2026-08-21T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "e3ddd7a65cd3a566e91c",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Measuring benchmark optimization in speech recognition",
+      "url": "https://huggingface.co/blog/asr-benchmark-optimization",
+      "published_at": "2026-08-21T00:00:00Z",
+      "summary": "",
+      "kind": "research"
+    },
+    {
+      "id": "eab5285cfdebeb65a8ef",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Up to 3.2x Faster Inference with LFM2.5-DSpark",
+      "url": "https://huggingface.co/blog/LiquidAI/lfm25-dspark",
+      "published_at": "2026-08-20T16:52:57Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "abaed39cbc9c9b421285",
+      "lab": "google",
+      "source": "google-ai",
+      "title": "5 new ways to level up your learning with Search",
+      "url": "https://blog.google/products-and-platforms/products/search/back-to-school-study-tools/",
+      "published_at": "2026-08-19T19:00:00Z",
+      "summary": "an illustrated image with icons and phrasing like \"Add Notebook\" and \"Ask Google\"",
+      "kind": "other"
+    },
+    {
+      "id": "5ba78b757300e8cc3ff5",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "How Much Memory Does Your Agent Actually Need?",
+      "url": "https://huggingface.co/blog/ibm-research/altk-evolve-hmm",
+      "published_at": "2026-08-18T18:09:38Z",
+      "summary": "",
+      "kind": "product"
+    },
+    {
+      "id": "d9524ab76177d5beaf99",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers",
+      "url": "https://huggingface.co/blog/multi-vector-encoder",
+      "published_at": "2026-08-18T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "bf50ec5ce617ac83f0c8",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "Same Cluster, 33 Points More Utilization: What Changed Was the Order",
+      "url": "https://huggingface.co/blog/Dharma-AI/gpu-management-pt2",
+      "published_at": "2026-08-17T19:46:21Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "bc290ba394fd0d9149bf",
+      "lab": "huggingface",
+      "source": "huggingface-blog",
+      "title": "State of Open Models: Summer 2026 Observations",
+      "url": "https://huggingface.co/blog/state-of-open-models-summer-2026",
+      "published_at": "2026-08-14T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "e68246067eeddf6e1d69",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "How Claude’s text watermark works",
+      "url": "https://www.anthropic.com/news/claude-text-watermark",
+      "published_at": "2026-08-14T00:00:00Z",
+      "summary": "How Claude’s text watermark works",
+      "kind": "other"
+    },
+    {
+      "id": "43643a3dd841363b8ac9",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Introducing Gemini 3.7 Flash",
+      "url": "https://deepmind.google/blog/introducing-gemini-3-7-flash/",
+      "published_at": "2026-08-13T17:04:18Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "1357a9ae7911e1d557ac",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Putting sign language AI into users’ hands",
+      "url": "https://deepmind.google/blog/putting-sign-language-ai-into-users-hands/",
+      "published_at": "2026-08-12T14:01:59Z",
+      "summary": "Introducing sign-language-to-text (SL2T), our breakthrough model powering new sign language features for Deaf and hard of hearing users.",
+      "kind": "model"
+    },
+    {
+      "id": "cdd8d819f4855db7d80d",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Improving Fable 5's biology safeguards",
+      "url": "https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards",
+      "published_at": "2026-08-07T00:00:00Z",
+      "summary": "Improving Fable 5's biology safeguards",
+      "kind": "other"
+    },
+    {
+      "id": "1986eab2e2ed84ba8b77",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "WeatherNext: AI model achieves breakthrough in forecasting cyclones",
+      "url": "https://deepmind.google/blog/weathernext-ai-model-achieves-breakthrough-in-forecasting-cyclones/",
+      "published_at": "2026-08-06T15:06:15Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "cde859f5c947a2b8f6e7",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Mariano-Florentino (Tino) Cuéllar to join Anthropic as Chief Global Affairs Officer",
+      "url": "https://www.anthropic.com/news/tino-cuellar",
+      "published_at": "2026-08-04T00:00:00Z",
+      "summary": "Mariano-Florentino (Tino) Cuéllar to join Anthropic as Chief Global Affairs Officer",
+      "kind": "other"
+    },
+    {
+      "id": "614d79e4a866af7d0adf",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
+      "url": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/",
+      "published_at": "2026-07-30T15:00:59Z",
+      "summary": "Gemini Robotics ER 2 helps robots reason, collaborate, and solve real-world tasks. It represents a step change in video understanding, tool orchestration, and multi-robot collaboration for robotic applications.",
+      "kind": "product"
+    },
+    {
+      "id": "8b96329aed14643e23bf",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Investigating three real-world incidents in our cybersecurity evaluations",
+      "url": "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals",
+      "published_at": "2026-07-30T00:00:00Z",
+      "summary": "Investigating three real-world incidents in our cybersecurity evaluations",
+      "kind": "research"
+    },
+    {
+      "id": "05b5e14c97505dcc5509",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control",
+      "url": "https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/",
+      "published_at": "2026-07-29T16:02:10Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "42a1992e4b242ffc8c8c",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Gemini Robotics 2 brings whole body intelligence to robots",
+      "url": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+      "published_at": "2026-07-28T13:21:37Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "48c97e5bf279fdd425fe",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Reimagining Independence: How Meta’s AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics",
+      "url": "https://ai.meta.com/blog/assistive-robotics-university-of-pittsburgh-sam-dino/",
+      "published_at": "2026-07-27T00:00:00Z",
+      "summary": "Reimagining Independence: How Meta’s AI Models Are Helping the University of Pittsburgh Transform Assistive Robotics",
+      "kind": "other"
+    },
+    {
+      "id": "7b68f4f0be7a0fcc3726",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients",
+      "url": "https://www.anthropic.com/news/cognizant-anthropic",
+      "published_at": "2026-07-27T00:00:00Z",
+      "summary": "Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients",
+      "kind": "other"
+    },
+    {
+      "id": "688b06fb84f51f177c70",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Our position on open-weights models",
+      "url": "https://www.anthropic.com/news/position-open-weights-models",
+      "published_at": "2026-07-27T00:00:00Z",
+      "summary": "Our position on open-weights models",
+      "kind": "other"
+    },
+    {
+      "id": "c34a327604b5be4a7c98",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Introducing Claude Opus 5",
+      "url": "https://www.anthropic.com/news/claude-opus-5",
+      "published_at": "2026-07-24T00:00:00Z",
+      "summary": "Introducing Claude Opus 5",
+      "kind": "model"
+    },
+    {
+      "id": "a821810ee2b72f165795",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission",
+      "url": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/",
+      "published_at": "2026-07-22T13:38:54Z",
+      "summary": "Google commits $40M in AI tokens and credits for the Genesis Mission",
+      "kind": "other"
+    },
+    {
+      "id": "a66075dc0af41a686afe",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Ask Claude about the Anthropic Economic Index",
+      "url": "https://www.anthropic.com/news/anthropic-economic-index-connector",
+      "published_at": "2026-07-22T00:00:00Z",
+      "summary": "Ask Claude about the Anthropic Economic Index",
+      "kind": "other"
+    },
+    {
+      "id": "26b4e01c469da5ded830",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "A research agenda for the Economic Futures Research Fund",
+      "url": "https://www.anthropic.com/news/economic-futures-research-fund-agenda",
+      "published_at": "2026-07-22T00:00:00Z",
+      "summary": "A research agenda for the Economic Futures Research Fund",
+      "kind": "research"
+    },
+    {
+      "id": "e38a2bc2474832f28ea9",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
+      "url": "https://deepmind.google/blog/introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber/",
+      "published_at": "2026-07-21T15:16:30Z",
+      "summary": "We’re introducing new Gemini models, including Gemini 3.6 Flash, 3.5 Flash-Lite and 3.5 Flash Cyber.",
+      "kind": "model"
+    },
+    {
+      "id": "6d9b6518bc02125de437",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "How Meta’s AI Models Are Powering the First Wave of Genesis Mission Projects",
+      "url": "https://ai.meta.com/blog/genesis-mission-lawrence-berkeley-national-laboratory-segment-anything-dino/",
+      "published_at": "2026-07-21T00:00:00Z",
+      "summary": "How Meta’s AI Models Are Powering the First Wave of Genesis Mission Projects",
+      "kind": "other"
+    },
+    {
+      "id": "9d9e4fbe80b29906125a",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Anthropic is donating another $20 million to Public First Action",
+      "url": "https://www.anthropic.com/news/donation-public-first-action",
+      "published_at": "2026-07-21T00:00:00Z",
+      "summary": "Anthropic is donating another $20 million to Public First Action",
+      "kind": "other"
+    },
+    {
+      "id": "413ef8ab41769726c3ea",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Apply for Anthropic’s AI for Science rare disease research grants",
+      "url": "https://www.anthropic.com/news/rare-disease-research-grants",
+      "published_at": "2026-07-20T00:00:00Z",
+      "summary": "Apply for Anthropic’s AI for Science rare disease research grants",
+      "kind": "research"
+    },
+    {
+      "id": "b5de177ccc831b459c55",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Introducing Gemini 3.5 Flash Cyber",
+      "url": "https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/",
+      "published_at": "2026-07-17T15:00:11Z",
+      "summary": "Google introduces Gemini 3.5 Flash Cyber, a lightweight cybersecurity model to find and patch vulnerabilities.",
+      "kind": "model"
+    },
+    {
+      "id": "53ad893ddb18c2e18d2e",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Our approach to bioresilience",
+      "url": "https://deepmind.google/blog/our-approach-to-bioresilience/",
+      "published_at": "2026-07-16T09:30:42Z",
+      "summary": "Google DeepMind and Isomorphic Labs are sharing our joint approach to bioresilience and AI models.",
+      "kind": "product"
+    },
+    {
+      "id": "0221b1d0649ec5f26c7e",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Anthropic commits $10 million to Canadian AI research",
+      "url": "https://www.anthropic.com/news/canadian-ai-research",
+      "published_at": "2026-07-14T00:00:00Z",
+      "summary": "Anthropic commits $10 million to Canadian AI research",
+      "kind": "research"
+    },
+    {
+      "id": "ad504bbdb221cc4452d2",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Introducing Claude for Teachers",
+      "url": "https://www.anthropic.com/news/claude-for-teachers",
+      "published_at": "2026-07-14T00:00:00Z",
+      "summary": "Introducing Claude for Teachers",
+      "kind": "product"
+    },
+    {
+      "id": "13f77bbb5cb944085e24",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Empowering India’s next generation of innovators with ATL Saathi",
+      "url": "https://deepmind.google/blog/empowering-indias-next-generation-of-innovators-with-atl-saathi/",
+      "published_at": "2026-07-13T12:37:28Z",
+      "summary": "Google and AIM launched ATL Saathi, a Gemini-powered AI tool empowering Indian educators in robotics labs.",
+      "kind": "product"
+    },
+    {
+      "id": "f3757a5a40fdb0962beb",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Introducing Muse Spark 1.1",
+      "url": "https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/",
+      "published_at": "2026-07-09T00:00:00Z",
+      "summary": "Introducing Muse Spark 1.1",
+      "kind": "model"
+    },
+    {
+      "id": "96abb90589873af87cb1",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Introducing a way to reflect on how you use Claude",
+      "url": "https://www.anthropic.com/news/reflect-with-claude",
+      "published_at": "2026-07-09T00:00:00Z",
+      "summary": "Introducing a way to reflect on how you use Claude",
+      "kind": "product"
+    },
+    {
+      "id": "5a81a35f01891896cff8",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Ben Bernanke appointed to Anthropic’s Long-Term Benefit Trust",
+      "url": "https://www.anthropic.com/news/ben-bernanke",
+      "published_at": "2026-07-09T00:00:00Z",
+      "summary": "Ben Bernanke appointed to Anthropic’s Long-Term Benefit Trust",
+      "kind": "product"
+    },
+    {
+      "id": "8dbb2238c30b71eb75bd",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Inviting hard questions",
+      "url": "https://www.anthropic.com/news/hard-questions",
+      "published_at": "2026-07-09T00:00:00Z",
+      "summary": "Inviting hard questions",
+      "kind": "other"
+    },
+    {
+      "id": "2421a78a2bf886f857d4",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "UST is bringing Claude to physical AI",
+      "url": "https://www.anthropic.com/news/ust-claude",
+      "published_at": "2026-07-09T00:00:00Z",
+      "summary": "UST is bringing Claude to physical AI",
+      "kind": "other"
+    },
+    {
+      "id": "46ff818d6e395c4d39a2",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Introducing Muse Image and Muse Video",
+      "url": "https://ai.meta.com/blog/introducing-muse-image-muse-video-msl/",
+      "published_at": "2026-07-07T00:00:00Z",
+      "summary": "Introducing Muse Image and Muse Video",
+      "kind": "model"
+    },
+    {
+      "id": "33ff9177ca69de68580e",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Government of Alberta uses Claude to find and fix cybersecurity vulnerabilities across government systems",
+      "url": "https://www.anthropic.com/news/alberta-government-claude-cybersecurity",
+      "published_at": "2026-07-06T00:00:00Z",
+      "summary": "Government of Alberta uses Claude to find and fix cybersecurity vulnerabilities across government systems",
+      "kind": "other"
+    },
+    {
+      "id": "f6b3f809726c47bb24c0",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Google DeepMind and A24 announce first-of-its-kind research partnership",
+      "url": "https://deepmind.google/blog/google-deepmind-and-a24-announce-first-of-its-kind-research-partnership/",
+      "published_at": "2026-07-03T14:25:43Z",
+      "summary": "",
+      "kind": "research"
+    },
+    {
+      "id": "aaef033dfabe2831ee14",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "More details on Fable 5’s cyber safeguards and our jailbreak framework",
+      "url": "https://www.anthropic.com/news/fable-safeguards-jailbreak-framework",
+      "published_at": "2026-07-02T00:00:00Z",
+      "summary": "More details on Fable 5’s cyber safeguards and our jailbreak framework",
+      "kind": "other"
+    },
+    {
+      "id": "270bf5aff18a95d12deb",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Start building with Nano Banana 2 Lite and Gemini Omni Flash",
+      "url": "https://deepmind.google/blog/start-building-with-nano-banana-2-lite-and-gemini-omni-flash/",
+      "published_at": "2026-06-30T16:02:40Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "a577f205a73beafce77a",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Claude Science, an AI workbench for scientists, is now available",
+      "url": "https://www.anthropic.com/news/claude-science-ai-workbench",
+      "published_at": "2026-06-30T00:00:00Z",
+      "summary": "Claude Science, an AI workbench for scientists, is now available",
+      "kind": "product"
+    },
+    {
+      "id": "fdd9745edc3aad4e2c44",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Redeploying Fable 5",
+      "url": "https://www.anthropic.com/news/redeploying-fable-5",
+      "published_at": "2026-06-30T00:00:00Z",
+      "summary": "Redeploying Fable 5",
+      "kind": "model"
+    },
+    {
+      "id": "4307222bc7e5f2e47115",
+      "lab": "anthropic",
+      "source": "anthropic-news",
+      "title": "Introducing Claude Sonnet 5",
+      "url": "https://www.anthropic.com/news/claude-sonnet-5",
+      "published_at": "2026-06-30T00:00:00Z",
+      "summary": "Introducing Claude Sonnet 5",
+      "kind": "model"
+    },
+    {
+      "id": "70fcb64abb763696136c",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "From Brain Waves to Words: Brain2Qwerty Offers a New Path to Communication Without Surgery",
+      "url": "https://ai.meta.com/blog/brain2qwerty-brain-ai-human-communication/",
+      "published_at": "2026-06-29T00:00:00Z",
+      "summary": "From Brain Waves to Words: Brain2Qwerty Offers a New Path to Communication Without Surgery",
+      "kind": "other"
+    },
+    {
+      "id": "172fd12b4fe6c6e04c47",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Introducing computer use in Gemini 3.5 Flash",
+      "url": "https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/",
+      "published_at": "2026-06-24T16:30:01Z",
+      "summary": "",
+      "kind": "product"
+    },
+    {
+      "id": "334cabed9c982aa6b78e",
+      "lab": "google",
+      "source": "google-deepmind",
+      "title": "Unlocking UK house-building with AI-accelerated planning",
+      "url": "https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/",
+      "published_at": "2026-06-16T21:29:50Z",
+      "summary": "UK government partners with Google DeepMind to build a new AI-powered prototype aimed at faster housing decisions.",
+      "kind": "other"
+    },
+    {
+      "id": "64af1d1a2fd48283363f",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "How we contain Claude across products",
+      "url": "https://www.anthropic.com/engineering/how-we-contain-claude",
+      "published_at": "2026-05-25T00:00:00Z",
+      "summary": "As agents grow more capable, so does their potential blast radius. The engineering question is how to cap it. Here’s what we’ve learned building containment for claude.ai, Claude Code, and Cowork.\\n",
+      "kind": "product"
+    },
+    {
+      "id": "67fdc77c9137972f9d21",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Emmi joins Mistral to accelerate the AI-native industry",
+      "url": "https://mistral.ai/news/accelerate-ai-native-industry",
+      "published_at": "2026-05-22T00:00:00Z",
+      "summary": "Emmi joins Mistral to accelerate the AI-native industry",
+      "kind": "other"
+    },
+    {
+      "id": "c062695cbe47f61d380e",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Use Grok in OpenCode",
+      "url": "https://x.ai/news/grok-opencode",
+      "published_at": "2026-05-21T00:00:00Z",
+      "summary": "Use your SuperGrok or X Premium subscription inside OpenCode.",
+      "kind": "other"
+    },
+    {
+      "id": "6dae5daf9ee6bcabba09",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Use Grok in OpenClaw",
+      "url": "https://x.ai/news/grok-openclaw",
+      "published_at": "2026-05-19T00:00:00Z",
+      "summary": "Use your SuperGrok or X Premium subscription inside OpenClaw, an open-source, local-first agent and personal assistant.",
+      "kind": "product"
+    },
+    {
+      "id": "821dcf7efbea38bbeafa",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Skills in web, iOS, and Android",
+      "url": "https://x.ai/news/grok-skills",
+      "published_at": "2026-05-18T00:00:00Z",
+      "summary": "Persistent expertise for Grok. Generate documents, decks, and spreadsheets. Automate workflows. Build and share your own skills.",
+      "kind": "other"
+    },
+    {
+      "id": "f10d936a81ac676a3098",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Connect Grok to Hermes Agent",
+      "url": "https://x.ai/news/grok-hermes",
+      "published_at": "2026-05-15T00:00:00Z",
+      "summary": "Use your Grok account and subscription inside Nous Research’s open-source, self-improving Hermes agent.",
+      "kind": "research"
+    },
+    {
+      "id": "7c9e6db472dd3de929ad",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Introducing Grok Build",
+      "url": "https://x.ai/news/grok-build-cli",
+      "published_at": "2026-05-14T00:00:00Z",
+      "summary": "Now in early beta for SuperGrok Heavy subscribers — Grok Build is a new coding agent that runs right from your terminal.",
+      "kind": "product"
+    },
+    {
+      "id": "66179aed9b93d91cdced",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok Imagine Quality Mode API",
+      "url": "https://x.ai/news/grok-imagine-quality-mode",
+      "published_at": "2026-05-06T00:00:00Z",
+      "summary": "Higher realism. Stronger text rendering. Better creative control.",
+      "kind": "product"
+    },
+    {
+      "id": "b72f345c79599aed16bf",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Connectors in web, iOS, and Android",
+      "url": "https://x.ai/news/grok-connectors",
+      "published_at": "2026-05-06T00:00:00Z",
+      "summary": "Deep integrations that bring the apps you use every day directly into Grok.",
+      "kind": "product"
+    },
+    {
+      "id": "e4ae65a9c2eb9a2eaf24",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "New Compute Partnership with Anthropic",
+      "url": "https://x.ai/news/anthropic-compute-partnership",
+      "published_at": "2026-05-06T00:00:00Z",
+      "summary": "SpaceXAI has signed an agreement with Anthropic to provide access to Colossus 1.",
+      "kind": "other"
+    },
+    {
+      "id": "bdc3ad0f7ec5d0facde3",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Custom Voices and Voice Library",
+      "url": "https://x.ai/news/grok-custom-voices",
+      "published_at": "2026-04-30T00:00:00Z",
+      "summary": "Your voice. Your brand. Clone a voice from a short recording and manage your entire voice catalog from the xAI console.",
+      "kind": "other"
+    },
+    {
+      "id": "7dce15731b62c6240c24",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Remote agents in Vibe. Powered by Mistral Medium 3.5.",
+      "url": "https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5",
+      "published_at": "2026-04-29T00:00:00Z",
+      "summary": "Introducing Mistral Medium 3.5, remote coding agents in Vibe, plus new Work mode in Le Chat for complex tasks.",
+      "kind": "model"
+    },
+    {
+      "id": "03bc92bbf2ccc6381696",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Workflows for work that runs the business",
+      "url": "https://mistral.ai/news/workflows",
+      "published_at": "2026-04-27T00:00:00Z",
+      "summary": "Workflows is now in public preview.",
+      "kind": "other"
+    },
+    {
+      "id": "c6c586873e55a0bad4bb",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok Voice Think Fast 1.0",
+      "url": "https://x.ai/news/grok-voice-think-fast-1",
+      "published_at": "2026-04-23T00:00:00Z",
+      "summary": "Our most capable voice agent is now available via API.",
+      "kind": "model"
+    },
+    {
+      "id": "85b0ca3c45b5c9931e3c",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "An update on recent Claude Code quality reports",
+      "url": "https://www.anthropic.com/engineering/april-23-postmortem",
+      "published_at": "2026-04-23T00:00:00Z",
+      "summary": "We traced recent reports of Claude Code quality issues to three separate changes. Here's what happened and what we're changing.",
+      "kind": "other"
+    },
+    {
+      "id": "ff9a42787c4e98e8f61f",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok Speech to Text and Text to Speech APIs",
+      "url": "https://x.ai/news/grok-stt-and-tts-apis",
+      "published_at": "2026-04-17T00:00:00Z",
+      "summary": "Fast and accurate. Natural, expressive voices. Simple pricing. Multilingual support.",
+      "kind": "model"
+    },
+    {
+      "id": "5ab24e31c09e8ca18d5e",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Connect the dots: Build with built-in and custom MCPs in Studio",
+      "url": "https://mistral.ai/news/connectors",
+      "published_at": "2026-04-15T00:00:00Z",
+      "summary": "Connect enterprise data to your AI applications with reusable connectors, direct tool calling, and human-in-the-loop approval controls.",
+      "kind": "product"
+    },
+    {
+      "id": "a8336fe361e14b12e021",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Introducing Muse Spark: Scaling Towards Personal Superintelligence",
+      "url": "https://ai.meta.com/blog/introducing-muse-spark-msl/",
+      "published_at": "2026-04-08T00:00:00Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "350cc9107a36541f0e4e",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Scaling How We Build and Test Our Most Advanced AI",
+      "url": "https://ai.meta.com/blog/scaling-how-we-build-test-advanced-ai/",
+      "published_at": "2026-04-08T00:00:00Z",
+      "summary": "As we build more capable, personalized AI, reliability, security, and user protections are more important than ever.",
+      "kind": "other"
+    },
+    {
+      "id": "8537165d23c701b725b2",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Scaling Managed Agents: Decoupling the brain from the hands",
+      "url": "https://www.anthropic.com/engineering/managed-agents",
+      "published_at": "2026-04-08T00:00:00Z",
+      "summary": "Harnesses encode assumptions that go stale as models improve. Managed Agents—our hosted service for long-horizon agent work—is built around interfaces that stay stable as harnesses change.",
+      "kind": "product"
+    },
+    {
+      "id": "1ee4ff978d2edba93c21",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "How Alta Daily Uses Meta’s Segment Anything to Reimagine the Digital Closet",
+      "url": "https://ai.meta.com/blog/alta-daily-fashion-app-segment-anything/",
+      "published_at": "2026-04-06T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "4f7644b6b48ca01bbc84",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "SAM 3.1: Faster and More Accessible Real-Time Video Detection and Tracking With Multiplexing and Global Reasoning",
+      "url": "https://ai.meta.com/blog/segment-anything-model-3/",
+      "published_at": "2026-03-27T00:00:00Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "02e5e79ef62944796915",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Introducing TRIBE v2: A Predictive Foundation Model Trained to Understand How the Human Brain Processes Complex Stimuli",
+      "url": "https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/",
+      "published_at": "2026-03-26T00:00:00Z",
+      "summary": "",
+      "kind": "model"
+    },
+    {
+      "id": "d5f9dbd62b3ecc1122d1",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "How we built Claude Code auto mode: a safer way to skip permissions",
+      "url": "https://www.anthropic.com/engineering/claude-code-auto-mode",
+      "published_at": "2026-03-25T00:00:00Z",
+      "summary": "Claude Code users approve 93% of permission prompts. We built classifiers to automate some decisions, increasing safety while reducing approval fatigue. Here's what it catches, and what it misses.\\n",
+      "kind": "product"
+    },
+    {
+      "id": "9fa759b72385cdecdf59",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Harness design for long-running application development",
+      "url": "https://www.anthropic.com/engineering/harness-design-long-running-apps",
+      "published_at": "2026-03-24T00:00:00Z",
+      "summary": "Harness design is key to performance at the frontier of agentic coding. Here's how we pushed Claude further in frontend design and long-running autonomous software engineering.",
+      "kind": "product"
+    },
+    {
+      "id": "6a35b94fbf5682872e16",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Speaking of Voxtral",
+      "url": "https://mistral.ai/news/voxtral-tts",
+      "published_at": "2026-03-23T00:00:00Z",
+      "summary": "Voxtral TTS: A frontier, open-weights text-to-speech model that’s fast, instantly adaptable, and produces lifelike speech for voice agents.",
+      "kind": "model"
+    },
+    {
+      "id": "e838451111573da13f7a",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Introducing Forge",
+      "url": "https://mistral.ai/news/forge",
+      "published_at": "2026-03-17T00:00:00Z",
+      "summary": "Today, we’re introducing Forge, a system that allows enterprises to build frontier-grade AI models grounded in their proprietary knowledge.",
+      "kind": "product"
+    },
+    {
+      "id": "1714cec3bc161aafd6ea",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Leanstral: Open-Source foundation for trustworthy vibe-coding",
+      "url": "https://mistral.ai/news/leanstral",
+      "published_at": "2026-03-16T00:00:00Z",
+      "summary": "First open-source code agent for Lean 4.",
+      "kind": "model"
+    },
+    {
+      "id": "31ea9f5bb6ea9b4566ea",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Mistral AI partners with NVIDIA to accelerate open frontier models",
+      "url": "https://mistral.ai/news/mistral-ai-and-nvidia-partner-to-accelerate-open-frontier-models",
+      "published_at": "2026-03-16T00:00:00Z",
+      "summary": "As a founding member of the NVIDIA Nemotron Coalition, Mistral AI is contributing large-scale model development and multimodal capabilities.",
+      "kind": "other"
+    },
+    {
+      "id": "b071b3375367ea5044cf",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Introducing Mistral Small 4",
+      "url": "https://mistral.ai/news/mistral-small-4",
+      "published_at": "2026-03-16T00:00:00Z",
+      "summary": "Introducing Mistral Small 4",
+      "kind": "model"
+    },
+    {
+      "id": "75df6b713eb1517449e8",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Rails testing on autopilot: Building an agent that writes what developers won't",
+      "url": "https://mistral.ai/news/rails-testing-on-autopilot-building-an-agent-that-writes-what-developers-wont",
+      "published_at": "2026-03-11T00:00:00Z",
+      "summary": "Rails testing on autopilot: Building an agent that writes what developers won't",
+      "kind": "product"
+    },
+    {
+      "id": "5809e7b6195acf8faf9b",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Mapping the World's Forests with Greater Precision: Introducing Canopy Height Maps v2",
+      "url": "https://ai.meta.com/blog/world-resources-institute-dino-canopy-height-maps-v2/",
+      "published_at": "2026-03-10T00:00:00Z",
+      "summary": "Today, in partnership with the World Resources Institute, we’re announcing Canopy Height Maps v2 (CHMv2): an open source model and world-scale maps generated with it.",
+      "kind": "model"
+    },
+    {
+      "id": "42468eb1c49ef4da0e4e",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Eval awareness in Claude Opus 4.6’s BrowseComp performance",
+      "url": "https://www.anthropic.com/engineering/eval-awareness-browsecomp",
+      "published_at": "2026-03-06T00:00:00Z",
+      "summary": "Evaluating Opus 4.6 on BrowseComp, we found cases where the model recognized the test, then found and decrypted answers to it—raising questions about eval integrity in web-enabled environments.",
+      "kind": "other"
+    },
+    {
+      "id": "6135a1e6ea30ef04015a",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Reducing Government Costs and Increasing Access to Greenspaces in the United Kingdom with DINO",
+      "url": "https://ai.meta.com/blog/forest-research-dino/",
+      "published_at": "2026-02-09T00:00:00Z",
+      "summary": "Meta's DINOv2 model is enhancing reforestation efforts around the world. Learn how the UK government is using DINO to help reduce costs and increase access to greenspaces.",
+      "kind": "other"
+    },
+    {
+      "id": "1eba12a4a8fa384c9268",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Building a C compiler with a team of parallel Claudes",
+      "url": "https://www.anthropic.com/engineering/building-c-compiler",
+      "published_at": "2026-02-05T00:00:00Z",
+      "summary": "We tasked Opus 4.6 using agent teams to build a C Compiler, and then (mostly) walked away. Here's what it taught us about the future of autonomous software development.",
+      "kind": "product"
+    },
+    {
+      "id": "c78d84ac1a7e3d92b1c1",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Quantifying infrastructure noise in agentic coding evals",
+      "url": "https://www.anthropic.com/engineering/infrastructure-noise",
+      "published_at": "2026-02-05T00:00:00Z",
+      "summary": "Infrastructure configuration can swing agentic coding benchmarks by several percentage points—sometimes more than the leaderboard gap between top models.\\n\\n",
+      "kind": "research"
+    },
+    {
+      "id": "4bb4537b58c687181024",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Voxtral transcribes at the speed of sound.",
+      "url": "https://mistral.ai/news/voxtral-transcribe-2",
+      "published_at": "2026-02-04T00:00:00Z",
+      "summary": "Precision diarization, real-time transcription, and a new audio playground.",
+      "kind": "other"
+    },
+    {
+      "id": "9551d1ecd9e658eb7e9b",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "xAI joins SpaceX",
+      "url": "https://x.ai/news/xai-joins-spacex",
+      "published_at": "2026-02-02T00:00:00Z",
+      "summary": "SpaceX announced today that it has acquired xAI.",
+      "kind": "other"
+    },
+    {
+      "id": "f7239ef1fc0073371d42",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok Imagine API",
+      "url": "https://x.ai/news/grok-imagine-api",
+      "published_at": "2026-01-28T00:00:00Z",
+      "summary": "State-of-the-art video generation across quality, cost, and latency.",
+      "kind": "model"
+    },
+    {
+      "id": "b8bacde8bd8cd45559f0",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Terminally online Mistral Vibe.",
+      "url": "https://mistral.ai/news/mistral-vibe-2-0",
+      "published_at": "2026-01-27T00:00:00Z",
+      "summary": "Terminally online Mistral Vibe.",
+      "kind": "other"
+    },
+    {
+      "id": "4af35e6550c422446d45",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Heaps do lie: debugging a memory leak in vLLM.",
+      "url": "https://mistral.ai/news/debugging-memory-leak-in-vllm",
+      "published_at": "2026-01-21T00:00:00Z",
+      "summary": "Heaps do lie: debugging a memory leak in vLLM.",
+      "kind": "other"
+    },
+    {
+      "id": "2ab0d2c099317874ed36",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Designing AI-resistant technical evaluations",
+      "url": "https://www.anthropic.com/engineering/AI-resistant-technical-evaluations",
+      "published_at": "2026-01-21T00:00:00Z",
+      "summary": "What we learned from three iterations of a performance engineering take-home that Claude keeps beating.",
+      "kind": "research"
+    },
+    {
+      "id": "6c790a16de0afd2b5fe6",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Demystifying evals for AI agents",
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "published_at": "2026-01-09T00:00:00Z",
+      "summary": "The capabilities that make agents useful also make them difficult to evaluate. The strategies that work across deployments combine techniques to match the complexity of the systems they measure. \\n",
+      "kind": "product"
+    },
+    {
+      "id": "42d7d419776526a2e8be",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "xAI Raises $20B Series E",
+      "url": "https://x.ai/news/series-e",
+      "published_at": "2026-01-06T00:00:00Z",
+      "summary": "xAI is rapidly accelerating its progress in building advanced AI.",
+      "kind": "other"
+    },
+    {
+      "id": "44d2c49ccebbcd11b15e",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Introducing Grok Business and Grok Enterprise",
+      "url": "https://x.ai/news/grok-business",
+      "published_at": "2025-12-30T00:00:00Z",
+      "summary": "The best assistant in the world is now Enterprise ready.",
+      "kind": "product"
+    },
+    {
+      "id": "1ab5b5461c7c1c915461",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Supporting the DOW's mission with AI",
+      "url": "https://x.ai/news/us-gov-dept-of-war",
+      "published_at": "2025-12-22T00:00:00Z",
+      "summary": "xAI is proud to be selected by the US Department of War to deliver Frontier AI",
+      "kind": "other"
+    },
+    {
+      "id": "c672e193727025a1cf67",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok Collections API",
+      "url": "https://x.ai/news/grok-collections-api",
+      "published_at": "2025-12-22T00:00:00Z",
+      "summary": "State-of-the-art RAG system built directly into our API.",
+      "kind": "product"
+    },
+    {
+      "id": "82e6c96d6bf7571c3657",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "The Universities Space Research Association Applies Segment Anything Model for Responding to Flood Emergencies",
+      "url": "https://ai.meta.com/blog/usra-sam-flood-emergencies/",
+      "published_at": "2025-12-18T00:00:00Z",
+      "summary": "The Universities Space Research Association and Meta are collaborating to help support water observing systems set up by the U.S. Geological Survey.",
+      "kind": "research"
+    },
+    {
+      "id": "36a4be9edb2ece4a0046",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "How DINO and SAM are Helping Modernize Essential Medical Triage Practices",
+      "url": "https://ai.meta.com/blog/upenn-dino-sam-helping-medical-triage/",
+      "published_at": "2025-12-18T00:00:00Z",
+      "summary": "By leveraging advanced AI models, teams at the University of Pennsylvania are aiming to bring cutting-edge automation to emergency response.",
+      "kind": "other"
+    },
+    {
+      "id": "b85bce863c5e9bf57678",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok Voice Agent API",
+      "url": "https://x.ai/news/grok-voice-agent-api",
+      "published_at": "2025-12-17T00:00:00Z",
+      "summary": "Bringing the power of Grok Voice to all developers.",
+      "kind": "model"
+    },
+    {
+      "id": "2f4f54ff8650df8d7e51",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Introducing Mistral OCR 3",
+      "url": "https://mistral.ai/news/mistral-ocr-3",
+      "published_at": "2025-12-17T00:00:00Z",
+      "summary": "Achieving a new frontier for both accuracy and efficiency in document processing.",
+      "kind": "model"
+    },
+    {
+      "id": "4cb14fe225d31380d925",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Introducing SAM Audio: The First Unified Multimodal Model for Audio Separation",
+      "url": "https://ai.meta.com/blog/sam-audio/",
+      "published_at": "2025-12-16T00:00:00Z",
+      "summary": "SAM Audio transforms audio processing by making it easy to isolate any sound from complex audio mixtures using natural, multimodal prompts — whether through text, visual cues, or marking time segments.",
+      "kind": "model"
+    },
+    {
+      "id": "16be76934336ff4d225f",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "xAI and El Salvador Pioneer the World's First Nationwide AI Education Program",
+      "url": "https://x.ai/news/el-salvador-partnership",
+      "published_at": "2025-12-11T00:00:00Z",
+      "summary": "Announcing Our Transformative Partnership with the Government of El Salvador.",
+      "kind": "other"
+    },
+    {
+      "id": "3175b131ccd5bfff0ea1",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Introducing: Devstral 2 and Mistral Vibe CLI.",
+      "url": "https://mistral.ai/news/devstral-2-vibe-cli",
+      "published_at": "2025-12-09T00:00:00Z",
+      "summary": "State-of-the-art, open-source agentic coding models and CLI agent.",
+      "kind": "model"
+    },
+    {
+      "id": "3772caab2a3ff582f266",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Introducing Mistral 3",
+      "url": "https://mistral.ai/news/mistral-3",
+      "published_at": "2025-12-02T00:00:00Z",
+      "summary": "A family of frontier open-source multimodal models",
+      "kind": "model"
+    },
+    {
+      "id": "7f7a70a6764975801eea",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Effective harnesses for long-running agents",
+      "url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+      "published_at": "2025-11-26T00:00:00Z",
+      "summary": "Agents still face challenges working across many context windows. We looked to human engineers for inspiration in creating a more effective harness for long-running agents.",
+      "kind": "product"
+    },
+    {
+      "id": "6ff8d0a02b6752635c3f",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "How Conservation X Labs Is Using Segment Anything Model 3 for Endangered Wildlife Monitoring",
+      "url": "https://ai.meta.com/blog/segment-anything-conservation-x-wildlife-monitoring/",
+      "published_at": "2025-11-24T00:00:00Z",
+      "summary": "Start-ups like Conservation X Labs are using Meta’s Segment Anything Models to bolster on-the-ground conservation expertise.",
+      "kind": "other"
+    },
+    {
+      "id": "eafa6e2f9f229d6667bf",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Introducing advanced tool use on the Claude Developer Platform",
+      "url": "https://www.anthropic.com/engineering/advanced-tool-use",
+      "published_at": "2025-11-24T00:00:00Z",
+      "summary": "We’ve added three new beta features that let Claude discover, learn, and execute tools dynamically. Here’s how they work.",
+      "kind": "product"
+    },
+    {
+      "id": "1cac68cf2cb2a7a913bb",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "ExecuTorch Adoption in Reality Labs: Powering On-Device AI Across Meta Devices",
+      "url": "https://ai.meta.com/blog/executorch-reality-labs-on-device-ai/",
+      "published_at": "2025-11-21T00:00:00Z",
+      "summary": "ExecuTorch, Meta’s open source, lightweight, and efficient inference engine, has been instrumental in enabling on-device AI capabilities across Meta’s family of apps.",
+      "kind": "product"
+    },
+    {
+      "id": "e65262c197927255c389",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok goes Global with KSA",
+      "url": "https://x.ai/news/grok-goes-global",
+      "published_at": "2025-11-19T00:00:00Z",
+      "summary": "Announcing Our Landmark Partnership with Saudi Arabia and HUMAIN",
+      "kind": "other"
+    },
+    {
+      "id": "ea34d2b67722ab5fb81c",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok 4.1 Fast and Agent Tools API",
+      "url": "https://x.ai/news/grok-4-1-fast",
+      "published_at": "2025-11-19T00:00:00Z",
+      "summary": "Bringing the next generation of tool-calling agents to the xAI API",
+      "kind": "model"
+    },
+    {
+      "id": "0c825aa4f59feb15b2fd",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Mistral AI - KI für Deutschland",
+      "url": "https://mistral.ai/news/ki-fur-deutschland",
+      "published_at": "2025-11-19T00:00:00Z",
+      "summary": "Mistral AI - KI für Deutschland",
+      "kind": "other"
+    },
+    {
+      "id": "0481badd6d7715157ff2",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Introducing SAM 3D: Powerful 3D Reconstruction for Physical World Images",
+      "url": "https://ai.meta.com/blog/sam-3d/",
+      "published_at": "2025-11-19T00:00:00Z",
+      "summary": "This release introduces two new state-of-the-art models: SAM 3D Objects for object and scene reconstruction, and SAM 3D Body for human body and shape estimation.",
+      "kind": "model"
+    },
+    {
+      "id": "3ba15a3903f44c860df9",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok 4.1",
+      "url": "https://x.ai/news/grok-4-1",
+      "published_at": "2025-11-17T00:00:00Z",
+      "summary": "Grok 4.1 is now available to all users on grok.com, 𝕏, and the iOS and Android apps. It is rolling out immediately in Auto mode and can be selected explicitly as “Grok 4.1” in the model picker.",
+      "kind": "model"
+    },
+    {
+      "id": "d123738baee8f3b5ef30",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Omnilingual ASR: Advancing Automatic Speech Recognition for 1,600+ Languages",
+      "url": "https://ai.meta.com/blog/omnilingual-asr-advancing-automatic-speech-recognition/",
+      "published_at": "2025-11-10T00:00:00Z",
+      "summary": "We’re introducing Meta Omnilingual Automatic Speech Recognition, a suite of models providing automatic speech recognition capabilities for over 1,600 languages.",
+      "kind": "model"
+    },
+    {
+      "id": "9b88bfec4a46afeb42f3",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Code execution with MCP: Building more efficient agents",
+      "url": "https://www.anthropic.com/engineering/code-execution-with-mcp",
+      "published_at": "2025-11-04T00:00:00Z",
+      "summary": "Direct tool calls consume context for each definition and result. Agents scale better by writing code to call tools instead. Here's how it works with MCP.",
+      "kind": "product"
+    },
+    {
+      "id": "3ee61a87346cf3ad78fc",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Agents Rule of Two: A Practical Approach to AI Agent Security",
+      "url": "https://ai.meta.com/blog/practical-ai-agent-security/",
+      "published_at": "2025-10-31T00:00:00Z",
+      "summary": "",
+      "kind": "product"
+    },
+    {
+      "id": "2fa92d913f8fac25fd7f",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Introducing Mistral AI Studio.",
+      "url": "https://mistral.ai/news/ai-studio",
+      "published_at": "2025-10-24T00:00:00Z",
+      "summary": "The Production AI Platform.",
+      "kind": "product"
+    },
+    {
+      "id": "149bf266f43af2ab9d49",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "The Building Blocks of Agentic AI: From Kernels to Clusters",
+      "url": "https://ai.meta.com/blog/introducing-pytorch-native-agentic-stack/",
+      "published_at": "2025-10-24T00:00:00Z",
+      "summary": "At PyTorch Conference 2025 in San Francisco, we unveiled five new projects spanning kernel languages, distributed systems, reinforcement learning, agentic frameworks, and edge AI deployment.",
+      "kind": "product"
+    },
+    {
+      "id": "c765441e9673d9570c40",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Beyond permission prompts: making Claude Code more secure and autonomous",
+      "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
+      "published_at": "2025-10-20T00:00:00Z",
+      "summary": "Claude Code's new sandboxing features, a bash tool and Claude Code on the web, reduce permission prompts and increase user safety by enabling two boundaries: filesystem and network isolation.",
+      "kind": "product"
+    },
+    {
+      "id": "2e50ab69ebea3b2c9412",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Equipping agents for the real world with Agent Skills",
+      "url": "https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills",
+      "published_at": "2025-10-16T00:00:00Z",
+      "summary": "Claude is powerful, but real work requires procedural knowledge and organizational context. Introducing Agent Skills, a new way to build specialized agents using files and folders.",
+      "kind": "product"
+    },
+    {
+      "id": "126e07cf0d684e0333f9",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Effective context engineering for AI agents",
+      "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "published_at": "2025-09-29T00:00:00Z",
+      "summary": "Context is a critical but finite resource for AI agents. In this post, we explore strategies for effectively curating and managing the context that powers them.",
+      "kind": "product"
+    },
+    {
+      "id": "55765f0baff44519b5bb",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Expanding xAI for Government with GSA OneGov",
+      "url": "https://x.ai/news/onegov",
+      "published_at": "2025-09-25T00:00:00Z",
+      "summary": "Expanding ‘xAI For Government’ with more accessible AI tools for the Federal Government",
+      "kind": "product"
+    },
+    {
+      "id": "0c4dec44a25e0aadf714",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok 4 Fast",
+      "url": "https://x.ai/news/grok-4-fast",
+      "published_at": "2025-09-19T00:00:00Z",
+      "summary": "Pushing the Frontier of Cost-Efficient Intelligence",
+      "kind": "model"
+    },
+    {
+      "id": "955bc6c93f35e54adf83",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "A postmortem of three recent issues",
+      "url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+      "published_at": "2025-09-17T00:00:00Z",
+      "summary": "This is a technical report on three bugs that intermittently degraded responses from Claude. Below we explain what happened, why it took time to fix, and what we're changing.",
+      "kind": "other"
+    },
+    {
+      "id": "1399aec680791f782180",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Writing effective tools for agents — with agents",
+      "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+      "published_at": "2025-09-11T00:00:00Z",
+      "summary": "Agents are only as effective as the tools we give them. We share how to write high-quality tools and evaluations, and how you can boost performance by using Claude to optimize its tools for itself.",
+      "kind": "research"
+    },
+    {
+      "id": "236dc01fe211765d33aa",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Mistral AI raises 1.7B€ to accelerate technological progress with AI",
+      "url": "https://mistral.ai/news/mistral-ai-raises-1-7-b-to-accelerate-technological-progress-with-ai",
+      "published_at": "2025-09-09T00:00:00Z",
+      "summary": "Mistral AI raises 1.7B€ to accelerate technological progress with AI",
+      "kind": "other"
+    },
+    {
+      "id": "a84d6ceb28891b907a9d",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Le Chat. Custom MCP connectors. Memories.",
+      "url": "https://mistral.ai/news/le-chat-mcp-connectors-memories",
+      "published_at": "2025-09-02T00:00:00Z",
+      "summary": "Le Chat now integrates with 20+ enterprise platforms—powered by MCP—and remembers what matters with Memories.",
+      "kind": "other"
+    },
+    {
+      "id": "953efd0251365cbf7fa9",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Make Memory work for you.",
+      "url": "https://mistral.ai/news/memory",
+      "published_at": "2025-09-02T00:00:00Z",
+      "summary": "Designing transparency and control into AI recall.",
+      "kind": "other"
+    },
+    {
+      "id": "0b44bb6c5632177665db",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok Code Fast 1",
+      "url": "https://x.ai/news/grok-code-fast-1",
+      "published_at": "2025-08-28T00:00:00Z",
+      "summary": "We're thrilled to introduce grok-code-fast-1, a speedy and economical reasoning model that excels at agentic coding.",
+      "kind": "model"
+    },
+    {
+      "id": "4debba963e7406cd058d",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "How Llama and Oracle are helping Instituto PROA kickstart careers for students in Brazil",
+      "url": "https://ai.meta.com/blog/llama-oracle-help-students-in-brazil/",
+      "published_at": "2025-08-27T00:00:00Z",
+      "summary": "Instituto PROA, a nonprofit organization in Brazil, has transformed its job preparation process for young candidates by leveraging Llama and Oracle Cloud Infrastructure.",
+      "kind": "other"
+    },
+    {
+      "id": "b1315c652e2ac5469f64",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "How DINOv3 is helping World Resources Institute restore forests and farms globally",
+      "url": "https://ai.meta.com/blog/world-resources-institute-dinov3/",
+      "published_at": "2025-08-14T00:00:00Z",
+      "summary": "WRI and the Bezos Earth Fund used DINOv3 to develop an algorithm to accurately count individual trees from drone and satellite imagery.",
+      "kind": "other"
+    },
+    {
+      "id": "4269e1d95725e97ecb5c",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Small robots, mighty vision: NASA Jet Propulsion Laboratory's DINOv2-enabled robot rovers and the future of planetary exploration",
+      "url": "https://ai.meta.com/blog/nasa-jpl-dino-robot-explorers/",
+      "published_at": "2025-08-14T00:00:00Z",
+      "summary": "Using DINOv2, the team at NASA's Jet Propulsion Laboratory built a convenient robot operating system interface for robotic tasks.",
+      "kind": "other"
+    },
+    {
+      "id": "96dbe7674185c6d383d7",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "DINOv3: Self-supervised learning for vision at unprecedented scale",
+      "url": "https://ai.meta.com/blog/dinov3-self-supervised-vision-model/",
+      "published_at": "2025-08-14T00:00:00Z",
+      "summary": "DINOv3 scales self-supervised learning for images to create universal vision backbones that achieve absolute state-of-the-art performance across diverse domains, including web and satellite imagery.",
+      "kind": "model"
+    },
+    {
+      "id": "d1f77f9ba3f0c9a9f650",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "How Llama helps Biofy Technologies in the fight against antibiotic resistance",
+      "url": "https://ai.meta.com/blog/llama-helps-biofy-fight-antibiotic-resistance/",
+      "published_at": "2025-08-07T00:00:00Z",
+      "summary": "Brazil, the biotech company Biofy Technologies has developed a groundbreaking platform using Llama that reduces diagnostic time for antibiotic resistance from five days to less than four hours.",
+      "kind": "other"
+    },
+    {
+      "id": "86dc72b72ef208a6f530",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Unlocking the potential of vision language models on satellite imagery through fine-tuning",
+      "url": "https://mistral.ai/news/unlocking-potential-vision-language-models-satellite-imagery-fine-tuning",
+      "published_at": "2025-08-01T00:00:00Z",
+      "summary": "Unlocking the potential of vision language models on satellite imagery through fine-tuning",
+      "kind": "other"
+    },
+    {
+      "id": "27f24e2ad3435531409b",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "How Upwork helps freelancers win more work with Llama",
+      "url": "https://ai.meta.com/blog/upwork-helps-freelancers-with-llama/",
+      "published_at": "2025-07-31T00:00:00Z",
+      "summary": "Upwork, one of the world’s largest work marketplaces, is using Llama to power Uma, its mindful AI, to help freelancers land jobs faster and more confidently.",
+      "kind": "other"
+    },
+    {
+      "id": "98053d1105f2702836b0",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Announcing Codestral 25.08 and the Complete Mistral Coding Stack for Enterprise",
+      "url": "https://mistral.ai/news/codestral-25-08",
+      "published_at": "2025-07-30T00:00:00Z",
+      "summary": "Announcing Codestral 25.08 and the Complete Mistral Coding Stack for Enterprise",
+      "kind": "model"
+    },
+    {
+      "id": "a2105fd283ff7ebfa10d",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Our contribution to a global environmental standard for AI",
+      "url": "https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai",
+      "published_at": "2025-07-22T00:00:00Z",
+      "summary": "Our contribution to a global environmental standard for AI",
+      "kind": "other"
+    },
+    {
+      "id": "eefc0f1f5f56f651fb42",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Joining forces with AWS on a new program to help startups build with Llama",
+      "url": "https://ai.meta.com/blog/aws-program-startups-build-with-llama/",
+      "published_at": "2025-07-21T00:00:00Z",
+      "summary": "We're joining forces with Amazon Web Services to announce a new program that will provide resources and support to 30 promising startups in the U.S. that are building with Llama.",
+      "kind": "other"
+    },
+    {
+      "id": "051cc9ae4db09b531e32",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Le Chat dives deep.",
+      "url": "https://mistral.ai/news/le-chat-dives-deep",
+      "published_at": "2025-07-17T00:00:00Z",
+      "summary": "Introducing Deep Research (Preview), plus Audio-in, Projects, and other updates.",
+      "kind": "research"
+    },
+    {
+      "id": "d48634556cd5a8787d84",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Voxtral",
+      "url": "https://mistral.ai/news/voxtral",
+      "published_at": "2025-07-15T00:00:00Z",
+      "summary": "Introducing frontier open source speech understanding models.",
+      "kind": "model"
+    },
+    {
+      "id": "dd4f31afe8358c1cf033",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Announcing xAI for Government",
+      "url": "https://x.ai/news/government",
+      "published_at": "2025-07-14T00:00:00Z",
+      "summary": "We are excited to announce xAI For Government – a suite of frontier AI products available first to United States Government customers.",
+      "kind": "product"
+    },
+    {
+      "id": "4a9a767c682fd9276370",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Upgrading agentic coding capabilities with the new Devstral models",
+      "url": "https://mistral.ai/news/devstral-2507",
+      "published_at": "2025-07-10T00:00:00Z",
+      "summary": "Upgrading agentic coding capabilities with the new Devstral models",
+      "kind": "model"
+    },
+    {
+      "id": "c6d3e7bfa462aef2201b",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok 4",
+      "url": "https://x.ai/news/grok-4",
+      "published_at": "2025-07-09T00:00:00Z",
+      "summary": "Grok 4 is the most intelligent model in the world. It includes native tool use and real-time search integration, and is available now to SuperGrok and Premium+ subscribers, as well as through the xAI API. We are also introducing a new SuperGrok Heavy tier with access to Grok 4 Heavy - the most power",
+      "kind": "model"
+    },
+    {
+      "id": "fe4da2bc40089dd6bd2c",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Announcing AI for Citizens",
+      "url": "https://mistral.ai/news/ai-for-citizens",
+      "published_at": "2025-07-03T00:00:00Z",
+      "summary": "Empowering countries to use AI to transform public action and catalyze innovation for the benefit of their citizens.",
+      "kind": "other"
+    },
+    {
+      "id": "b30fda1608482a453121",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "Modeling natural conversational dynamics with Seamless Interaction",
+      "url": "https://ai.meta.com/blog/seamless-interaction-natural-conversational-dynamics/",
+      "published_at": "2025-06-27T00:00:00Z",
+      "summary": "",
+      "kind": "other"
+    },
+    {
+      "id": "bb4c60b19b246a2ffae5",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Desktop Extensions: One-click MCP server installation for Claude Desktop",
+      "url": "https://www.anthropic.com/engineering/desktop-extensions",
+      "published_at": "2025-06-26T00:00:00Z",
+      "summary": "Desktop Extensions make installing MCP servers as easy as clicking a button. We share the technical architecture and tips for creating good extensions.",
+      "kind": "other"
+    },
+    {
+      "id": "bdcb4ff467cef05feeff",
+      "lab": "meta",
+      "source": "meta-news",
+      "title": "How Llama helps drive engineering efficiency at a major Australian bank",
+      "url": "https://ai.meta.com/blog/llama-helps-efficiency-anz-bank/",
+      "published_at": "2025-06-18T00:00:00Z",
+      "summary": "ANZ, one of Australia's Big Four banks, is driving engineering efficiency with Llama.",
+      "kind": "other"
+    },
+    {
+      "id": "a3afc1e8c7c23916e7f5",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "How we built our multi-agent research system",
+      "url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+      "published_at": "2025-06-13T00:00:00Z",
+      "summary": "Our Research feature uses multiple Claude agents to explore complex topics more effectively. We share the engineering challenges and the lessons we learned from building this system.",
+      "kind": "research"
+    },
+    {
+      "id": "3af68e6b4c15335333c1",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Mistral Compute",
+      "url": "https://mistral.ai/news/mistral-compute",
+      "published_at": "2025-06-11T00:00:00Z",
+      "summary": "Frontier AI infrastructure for everyone.",
+      "kind": "other"
+    },
+    {
+      "id": "f37de11bc42ac43d87f0",
+      "lab": "mistral",
+      "source": "mistral-news",
+      "title": "Magistral",
+      "url": "https://mistral.ai/news/magistral",
+      "published_at": "2025-06-10T00:00:00Z",
+      "summary": "Stands to reason.",
+      "kind": "model"
+    },
+    {
+      "id": "b77235353457c81e3b8d",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Claude Code: Best practices for agentic coding",
+      "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
+      "published_at": "2025-04-18T00:00:00Z",
+      "summary": "Claude Code is a command line tool for agentic coding. This post covers tips and tricks that have proven effective for using Claude Code across various codebases, languages, and environments.",
+      "kind": "product"
+    },
+    {
+      "id": "4d418dad93eb839e23a6",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "The \\\"think\\\" tool: Enabling Claude to stop and think in complex tool use situations",
+      "url": "https://www.anthropic.com/engineering/claude-think-tool",
+      "published_at": "2025-03-20T00:00:00Z",
+      "summary": "A new tool that improves Claude's complex problem-solving performance",
+      "kind": "product"
+    },
+    {
+      "id": "9e8c6430d83420da4f9e",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Grok 3 Beta — The Age of Reasoning Agents",
+      "url": "https://x.ai/news/grok-3",
+      "published_at": "2025-02-19T00:00:00Z",
+      "summary": "We are thrilled to unveil an early preview of Grok 3, our most advanced model yet, blending superior reasoning with extensive pretraining knowledge.",
+      "kind": "model"
+    },
+    {
+      "id": "43d7916975114d603c09",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet",
+      "url": "https://www.anthropic.com/engineering/swe-bench-sonnet",
+      "published_at": "2025-01-06T00:00:00Z",
+      "summary": "SWE-bench is an AI evaluation benchmark that assesses a model's ability to complete real-world software engineering tasks.",
+      "kind": "research"
+    },
+    {
+      "id": "773cd8540a74e0180a31",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "xAI raises $6B Series C",
+      "url": "https://x.ai/news/series-c",
+      "published_at": "2024-12-23T00:00:00Z",
+      "summary": "We are partnering with A16Z, Blackrock, Fidelity Management & Research Company, Kingdom Holdings, Lightspeed, MGX, Morgan Stanley, OIA, QIA, Sequoia Capital, Valor Equity Partners and Vy Capital, amongst others.",
+      "kind": "research"
+    },
+    {
+      "id": "ffc229d83891918f8206",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Building effective agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "published_at": "2024-12-19T00:00:00Z",
+      "summary": "We've worked with dozens of teams building LLM agents across industries. Consistently, the most successful implementations use simple, composable patterns rather than complex frameworks.",
+      "kind": "product"
+    },
+    {
+      "id": "e0c44d30e87131f427d9",
+      "lab": "xai",
+      "source": "xai-news",
+      "title": "Bringing Grok to Everyone",
+      "url": "https://x.ai/news/grok-1212",
+      "published_at": "2024-12-12T00:00:00Z",
+      "summary": "Grok is now faster, sharper, and has improved multilingual support. It is available to everyone on the 𝕏 platform.",
+      "kind": "model"
+    },
+    {
+      "id": "5b3723c52c736368304b",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "Frontier Red Team",
+      "url": "https://www.anthropic.com/research/team/frontier-red-team",
+      "published_at": "2024-10-22T00:00:00Z",
+      "summary": "Frontier Red Team",
+      "kind": "research"
+    },
+    {
+      "id": "33d81116743596d4b1f6",
+      "lab": "anthropic",
+      "source": "anthropic-engineering",
+      "title": "Introducing Contextual Retrieval",
+      "url": "https://www.anthropic.com/engineering/contextual-retrieval",
+      "published_at": "2024-09-19T00:00:00Z",
+      "summary": "For an AI model to be useful in specific contexts, it often needs access to background knowledge.",
+      "kind": "product"
+    },
+    {
+      "id": "87717fc65423856a3ab7",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "Societal Impacts",
+      "url": "https://www.anthropic.com/research/team/societal-impacts",
+      "published_at": "2024-09-08T00:00:00Z",
+      "summary": "Societal Impacts",
+      "kind": "research"
+    },
+    {
+      "id": "43e19cac5ca4688d7914",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "Alignment",
+      "url": "https://www.anthropic.com/research/team/alignment",
+      "published_at": "2024-04-04T00:00:00Z",
+      "summary": "Alignment",
+      "kind": "research"
+    },
+    {
+      "id": "dfc21a319f95a75d28f0",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "Interpretability",
+      "url": "https://www.anthropic.com/research/team/interpretability",
+      "published_at": "2024-01-23T00:00:00Z",
+      "summary": "Interpretability",
+      "kind": "research"
+    },
+    {
+      "id": "b223b57277700a87a3d5",
+      "lab": "anthropic",
+      "source": "anthropic-research",
+      "title": "Economics",
+      "url": "https://www.anthropic.com/research/team/economics",
+      "published_at": "2023-06-15T00:00:00Z",
+      "summary": "Economics",
+      "kind": "research"
+    }
+  ],
+  "hf_releases": [
+    {
+      "id": "Qwen/Qwen-Image-2.1-PE-I2I",
+      "lab": "qwen",
+      "url": "https://huggingface.co/Qwen/Qwen-Image-2.1-PE-I2I",
+      "created_at": "2026-09-20T08:46:47Z",
+      "likes": 53,
+      "downloads": 10325,
+      "pipeline_tag": null
+    },
+    {
+      "id": "Qwen/Qwen-Image-2.1-PE-T2I",
+      "lab": "qwen",
+      "url": "https://huggingface.co/Qwen/Qwen-Image-2.1-PE-T2I",
+      "created_at": "2026-09-20T08:45:29Z",
+      "likes": 57,
+      "downloads": 6314,
+      "pipeline_tag": "text-to-image"
+    },
+    {
+      "id": "Qwen/Qwen-Image-2.1",
+      "lab": "qwen",
+      "url": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+      "created_at": "2026-09-14T03:47:26Z",
+      "likes": 2719,
+      "downloads": 70687,
+      "pipeline_tag": "text-to-image"
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "lab": "deepseek",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+      "created_at": "2026-09-10T02:17:58Z",
+      "likes": 3937,
+      "downloads": 721211,
+      "pipeline_tag": "image-text-to-text"
+    },
+    {
+      "id": "google/gnm-v3",
+      "lab": "google",
+      "url": "https://huggingface.co/google/gnm-v3",
+      "created_at": "2026-09-01T17:03:30Z",
+      "likes": 22,
+      "downloads": 0,
+      "pipeline_tag": null
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V4-Flash-Vision-Exp",
+      "lab": "deepseek",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp",
+      "created_at": "2026-08-31T06:16:18Z",
+      "likes": 930,
+      "downloads": 988606,
+      "pipeline_tag": "image-text-to-text"
+    },
+    {
+      "id": "Qwen/Qwen-Drive-1.0-4B",
+      "lab": "qwen",
+      "url": "https://huggingface.co/Qwen/Qwen-Drive-1.0-4B",
+      "created_at": "2026-08-27T08:14:27Z",
+      "likes": 233,
+      "downloads": 7236,
+      "pipeline_tag": "image-text-to-text"
+    },
+    {
+      "id": "google/timesfm-3.0-pytorch",
+      "lab": "google",
+      "url": "https://huggingface.co/google/timesfm-3.0-pytorch",
+      "created_at": "2026-08-24T22:05:51Z",
+      "likes": 909,
+      "downloads": 1393262,
+      "pipeline_tag": "time-series-forecasting"
+    },
+    {
+      "id": "Qwen/Qwen3.8-Flash-Next-FP8",
+      "lab": "qwen",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next-FP8",
+      "created_at": "2026-08-24T08:25:23Z",
+      "likes": 241,
+      "downloads": 456934,
+      "pipeline_tag": "image-text-to-text"
+    },
+    {
+      "id": "Qwen/Qwen3.8-Flash-Next",
+      "lab": "qwen",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next",
+      "created_at": "2026-08-24T08:24:59Z",
+      "likes": 5793,
+      "downloads": 1206728,
+      "pipeline_tag": "image-text-to-text"
+    },
+    {
+      "id": "google/tipsv1-g14-lowres",
+      "lab": "google",
+      "url": "https://huggingface.co/google/tipsv1-g14-lowres",
+      "created_at": "2026-08-19T16:41:21Z",
+      "likes": 6,
+      "downloads": 318,
+      "pipeline_tag": "zero-shot-image-classification"
+    },
+    {
+      "id": "google/tipsv1-g14",
+      "lab": "google",
+      "url": "https://huggingface.co/google/tipsv1-g14",
+      "created_at": "2026-08-19T16:40:35Z",
+      "likes": 10,
+      "downloads": 328,
+      "pipeline_tag": "zero-shot-image-classification"
+    },
+    {
+      "id": "google/tipsv1-so400m14",
+      "lab": "google",
+      "url": "https://huggingface.co/google/tipsv1-so400m14",
+      "created_at": "2026-08-19T15:02:28Z",
+      "likes": 1,
+      "downloads": 313,
+      "pipeline_tag": "zero-shot-image-classification"
+    },
+    {
+      "id": "google/tipsv1-l14",
+      "lab": "google",
+      "url": "https://huggingface.co/google/tipsv1-l14",
+      "created_at": "2026-08-19T14:56:11Z",
+      "likes": 3,
+      "downloads": 464,
+      "pipeline_tag": "zero-shot-image-classification"
+    },
+    {
+      "id": "google/tipsv1-b14",
+      "lab": "google",
+      "url": "https://huggingface.co/google/tipsv1-b14",
+      "created_at": "2026-08-19T14:48:47Z",
+      "likes": 2,
+      "downloads": 209,
+      "pipeline_tag": "zero-shot-image-classification"
+    },
+    {
+      "id": "google/tipsv1-s14",
+      "lab": "google",
+      "url": "https://huggingface.co/google/tipsv1-s14",
+      "created_at": "2026-08-19T14:43:49Z",
+      "likes": 2,
+      "downloads": 331,
+      "pipeline_tag": "zero-shot-image-classification"
+    },
+    {
+      "id": "Qwen/Qwen3.8-27B-FP8",
+      "lab": "qwen",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8",
+      "created_at": "2026-08-13T08:01:58Z",
+      "likes": 874,
+      "downloads": 5145852,
+      "pipeline_tag": "image-text-to-text"
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V4-Pro-0813",
+      "lab": "deepseek",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+      "created_at": "2026-08-13T03:05:06Z",
+      "likes": 853,
+      "downloads": 101750,
+      "pipeline_tag": "text-generation"
+    },
+    {
+      "id": "Qwen/Qwen3.8-2.4T-A95B",
+      "lab": "qwen",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
+      "created_at": "2026-08-08T01:50:52Z",
+      "likes": 1273,
+      "downloads": 42603,
+      "pipeline_tag": "text-generation"
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V4-Flash-0731",
+      "lab": "deepseek",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731",
+      "created_at": "2026-07-31T07:30:24Z",
+      "likes": 4009,
+      "downloads": 4465234,
+      "pipeline_tag": "text-generation"
+    },
+    {
+      "id": "mistralai/Shieldstral-1.0-3B",
+      "lab": "mistral",
+      "url": "https://huggingface.co/mistralai/Shieldstral-1.0-3B",
+      "created_at": "2026-07-16T10:24:13Z",
+      "likes": 283,
+      "downloads": 37857,
+      "pipeline_tag": null
+    },
+    {
+      "id": "mistralai/Leanstral-1.5-119B-A6B",
+      "lab": "mistral",
+      "url": "https://huggingface.co/mistralai/Leanstral-1.5-119B-A6B",
+      "created_at": "2026-07-01T16:43:19Z",
+      "likes": 220,
+      "downloads": 304,
+      "pipeline_tag": null
+    },
+    {
+      "id": "deepseek-ai/eagle3_gemma4_12b_ttt7",
+      "lab": "deepseek",
+      "url": "https://huggingface.co/deepseek-ai/eagle3_gemma4_12b_ttt7",
+      "created_at": "2026-06-28T12:37:17Z",
+      "likes": 13,
+      "downloads": 561,
+      "pipeline_tag": null
+    },
+    {
+      "id": "deepseek-ai/eagle3_qwen3_14b_ttt7",
+      "lab": "deepseek",
+      "url": "https://huggingface.co/deepseek-ai/eagle3_qwen3_14b_ttt7",
+      "created_at": "2026-06-28T12:36:20Z",
+      "likes": 4,
+      "downloads": 378,
+      "pipeline_tag": null
+    },
+    {
+      "id": "deepseek-ai/eagle3_qwen3_8b_ttt7",
+      "lab": "deepseek",
+      "url": "https://huggingface.co/deepseek-ai/eagle3_qwen3_8b_ttt7",
+      "created_at": "2026-06-28T12:35:29Z",
+      "likes": 3,
+      "downloads": 518,
+      "pipeline_tag": null
+    },
+    {
+      "id": "deepseek-ai/eagle3_qwen3_4b_ttt7",
+      "lab": "deepseek",
+      "url": "https://huggingface.co/deepseek-ai/eagle3_qwen3_4b_ttt7",
+      "created_at": "2026-06-28T12:34:59Z",
+      "likes": 4,
+      "downloads": 458,
+      "pipeline_tag": null
+    },
+    {
+      "id": "mistralai/Mistral-Medium-3.5-128B-EAGLE",
+      "lab": "mistral",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B-EAGLE",
+      "created_at": "2026-04-27T13:35:34Z",
+      "likes": 62,
+      "downloads": 195,
+      "pipeline_tag": null
+    },
+    {
+      "id": "openai/privacy-filter",
+      "lab": "openai",
+      "url": "https://huggingface.co/openai/privacy-filter",
+      "created_at": "2026-04-17T21:38:35Z",
+      "likes": 1779,
+      "downloads": 349187,
+      "pipeline_tag": "token-classification"
+    },
+    {
+      "id": "mistralai/Mistral-Medium-3.5-128B",
+      "lab": "mistral",
+      "url": "https://huggingface.co/mistralai/Mistral-Medium-3.5-128B",
+      "created_at": "2026-03-31T09:50:20Z",
+      "likes": 461,
+      "downloads": 134469,
+      "pipeline_tag": null
+    },
+    {
+      "id": "mistralai/Leanstral-2603",
+      "lab": "mistral",
+      "url": "https://huggingface.co/mistralai/Leanstral-2603",
+      "created_at": "2026-03-11T14:01:29Z",
+      "likes": 168,
+      "downloads": 125,
+      "pipeline_tag": null
+    },
+    {
+      "id": "mistralai/Mistral-Small-4-119B-2603-eagle",
+      "lab": "mistral",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603-eagle",
+      "created_at": "2026-03-04T16:38:14Z",
+      "likes": 62,
+      "downloads": 328,
+      "pipeline_tag": null
+    },
+    {
+      "id": "mistralai/Mistral-Small-4-119B-2603-NVFP4",
+      "lab": "mistral",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603-NVFP4",
+      "created_at": "2026-03-03T10:51:08Z",
+      "likes": 133,
+      "downloads": 1495,
+      "pipeline_tag": null
+    },
+    {
+      "id": "mistralai/Mistral-Small-4-119B-2603",
+      "lab": "mistral",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
+      "created_at": "2026-01-23T13:14:14Z",
+      "likes": 430,
+      "downloads": 51706,
+      "pipeline_tag": null
+    },
+    {
+      "id": "openai/circuit-sparsity",
+      "lab": "openai",
+      "url": "https://huggingface.co/openai/circuit-sparsity",
+      "created_at": "2025-12-11T22:39:34Z",
+      "likes": 209,
+      "downloads": 665,
+      "pipeline_tag": "text-generation"
+    },
+    {
+      "id": "openai/gpt-oss-safeguard-20b",
+      "lab": "openai",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b",
+      "created_at": "2025-09-18T18:51:08Z",
+      "likes": 266,
+      "downloads": 34869,
+      "pipeline_tag": "text-generation"
+    },
+    {
+      "id": "openai/gpt-oss-safeguard-120b",
+      "lab": "openai",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b",
+      "created_at": "2025-09-18T18:50:45Z",
+      "likes": 106,
+      "downloads": 3467,
+      "pipeline_tag": "text-generation"
+    },
+    {
+      "id": "xai-org/grok-2",
+      "lab": "xai",
+      "url": "https://huggingface.co/xai-org/grok-2",
+      "created_at": "2025-08-22T21:16:24Z",
+      "likes": 1170,
+      "downloads": 8787,
+      "pipeline_tag": null
+    },
+    {
+      "id": "openai/gpt-oss-20b",
+      "lab": "openai",
+      "url": "https://huggingface.co/openai/gpt-oss-20b",
+      "created_at": "2025-08-04T22:33:29Z",
+      "likes": 5109,
+      "downloads": 6750574,
+      "pipeline_tag": "text-generation"
+    },
+    {
+      "id": "openai/gpt-oss-120b",
+      "lab": "openai",
+      "url": "https://huggingface.co/openai/gpt-oss-120b",
+      "created_at": "2025-08-04T22:33:06Z",
+      "likes": 5334,
+      "downloads": 4453393,
+      "pipeline_tag": "text-generation"
+    },
+    {
+      "id": "meta-llama/Llama-Prompt-Guard-2-86M",
+      "lab": "meta",
+      "url": "https://huggingface.co/meta-llama/Llama-Prompt-Guard-2-86M",
+      "created_at": "2025-04-28T07:16:35Z",
+      "likes": 239,
+      "downloads": 123416,
+      "pipeline_tag": "text-classification"
+    },
+    {
+      "id": "meta-llama/Llama-Prompt-Guard-2-22M",
+      "lab": "meta",
+      "url": "https://huggingface.co/meta-llama/Llama-Prompt-Guard-2-22M",
+      "created_at": "2025-04-28T07:15:58Z",
+      "likes": 70,
+      "downloads": 16652,
+      "pipeline_tag": "text-classification"
+    },
+    {
+      "id": "meta-llama/Llama-Guard-4-12B",
+      "lab": "meta",
+      "url": "https://huggingface.co/meta-llama/Llama-Guard-4-12B",
+      "created_at": "2025-04-23T11:30:25Z",
+      "likes": 130,
+      "downloads": 46250,
+      "pipeline_tag": "image-text-to-text"
+    },
+    {
+      "id": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8-Original",
+      "lab": "meta",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8-Original",
+      "created_at": "2025-04-04T10:03:43Z",
+      "likes": 37,
+      "downloads": 4,
+      "pipeline_tag": null
+    },
+    {
+      "id": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-Original",
+      "lab": "meta",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct-Original",
+      "created_at": "2025-04-04T08:02:25Z",
+      "likes": 40,
+      "downloads": 10,
+      "pipeline_tag": null
+    },
+    {
+      "id": "meta-llama/Llama-4-Maverick-17B-128E-Original",
+      "lab": "meta",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Original",
+      "created_at": "2025-04-03T15:51:13Z",
+      "likes": 85,
+      "downloads": 8,
+      "pipeline_tag": null
+    },
+    {
+      "id": "meta-llama/Llama-4-Scout-17B-16E-Instruct-Original",
+      "lab": "meta",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct-Original",
+      "created_at": "2025-04-03T15:39:52Z",
+      "likes": 55,
+      "downloads": 12,
+      "pipeline_tag": null
+    },
+    {
+      "id": "meta-llama/Llama-4-Scout-17B-16E-Original",
+      "lab": "meta",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Original",
+      "created_at": "2025-04-03T15:06:08Z",
+      "likes": 62,
+      "downloads": 10,
+      "pipeline_tag": null
+    },
+    {
+      "id": "openai/whisper-large-v3-turbo",
+      "lab": "openai",
+      "url": "https://huggingface.co/openai/whisper-large-v3-turbo",
+      "created_at": "2024-10-01T07:39:28Z",
+      "likes": 3409,
+      "downloads": 6382122,
+      "pipeline_tag": "automatic-speech-recognition"
+    },
+    {
+      "id": "xai-org/grok-1",
+      "lab": "xai",
+      "url": "https://huggingface.co/xai-org/grok-1",
+      "created_at": "2024-03-17T05:47:21Z",
+      "likes": 2453,
+      "downloads": 619,
+      "pipeline_tag": "text-generation"
+    },
+    {
+      "id": "openai/consistency-decoder",
+      "lab": "openai",
+      "url": "https://huggingface.co/openai/consistency-decoder",
+      "created_at": "2023-11-09T10:50:49Z",
+      "likes": 54,
+      "downloads": 336,
+      "pipeline_tag": null
+    }
+  ],
+  "live": [
+    {
+      "video_id": "Fls_onRviPM",
+      "lab": "openai",
+      "channel": "OpenAI",
+      "title": "OpenAI DevDay 2026 Keynote (FULL)",
+      "url": "https://www.youtube.com/watch?v=Fls_onRviPM",
+      "thumbnail": "https://i.ytimg.com/vi/Fls_onRviPM/hqdefault.jpg",
+      "status": "ended",
+      "start_at": "2026-09-29T16:48:03Z",
+      "end_at": "2026-09-29T17:55:42Z"
+    }
+  ],
+  "trending": {
+    "github": [
+      {
+        "repo": "NVIDIA/OpenShell",
+        "url": "https://github.com/NVIDIA/OpenShell",
+        "description": "OpenShell is the safe, private runtime for autonomous AI agents.",
+        "language": "Rust",
+        "stars": 12504,
+        "stars_today": 1280
+      },
+      {
+        "repo": "debpalash/VoiceStudio",
+        "url": "https://github.com/debpalash/VoiceStudio",
+        "description": "VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages.",
+        "language": "Python",
+        "stars": 50341,
+        "stars_today": 3481
+      },
+      {
+        "repo": "mvschwarz/openrig",
+        "url": "https://github.com/mvschwarz/openrig",
+        "description": "Multi-agent harness that runs Claude Code and Codex together as one system",
+        "language": "TypeScript",
+        "stars": 2978,
+        "stars_today": 622
+      },
+      {
+        "repo": "mksglu/context-mode",
+        "url": "https://github.com/mksglu/context-mode",
+        "description": "Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and enforces routing across 17 platforms via MCP + hooks.",
+        "language": "TypeScript",
+        "stars": 24467,
+        "stars_today": 88
+      },
+      {
+        "repo": "DietrichGebert/ponytail",
+        "url": "https://github.com/DietrichGebert/ponytail",
+        "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
+        "language": "JavaScript",
+        "stars": 149118,
+        "stars_today": 865
+      },
+      {
+        "repo": "harry0703/MoneyPrinterTurbo",
+        "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+        "description": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workflow.",
+        "language": "Python",
+        "stars": 127515,
+        "stars_today": 464
+      },
+      {
+        "repo": "openclaw/openclaw",
+        "url": "https://github.com/openclaw/openclaw",
+        "description": "The AI that really does things. Any OS. Any Platform. The lobster way. 🦞",
+        "language": "TypeScript",
+        "stars": 390967,
+        "stars_today": 136
+      },
+      {
+        "repo": "ComposioHQ/awesome-claude-skills",
+        "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+        "description": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows",
+        "language": "Python",
+        "stars": 76106,
+        "stars_today": 118
+      },
+      {
+        "repo": "mattpocock/skills",
+        "url": "https://github.com/mattpocock/skills",
+        "description": "Skills for Real Engineers. Straight from my .agents directory.",
+        "language": "Shell",
+        "stars": 272954,
+        "stars_today": 908
+      },
+      {
+        "repo": "heygen-com/hyperframes",
+        "url": "https://github.com/heygen-com/hyperframes",
+        "description": "Write HTML. Render video. Built for agents.",
+        "language": "TypeScript",
+        "stars": 54680,
+        "stars_today": 352
+      },
+      {
+        "repo": "firebase/firebase-ios-sdk",
+        "url": "https://github.com/firebase/firebase-ios-sdk",
+        "description": "Firebase SDK for Apple App Development",
+        "language": "C++",
+        "stars": 6752,
+        "stars_today": 4
+      },
+      {
+        "repo": "modelcontextprotocol/servers",
+        "url": "https://github.com/modelcontextprotocol/servers",
+        "description": "Model Context Protocol Servers",
+        "language": "TypeScript",
+        "stars": 90793,
+        "stars_today": 48
+      },
+      {
+        "repo": "byoungd/up",
+        "url": "https://github.com/byoungd/up",
+        "description": "An advanced guide which might benefit you a lot 🎉 . 韩先凯的人生进阶指南 人生进阶指南 离谱的人生 人生进阶 AI学习 AI指南 韩先凯的AI学习指南 英语学习指南/英语学习教程/英语学习/学英语",
+        "language": "JavaScript",
+        "stars": 66364,
+        "stars_today": 714
+      },
+      {
+        "repo": "colbymchenry/codegraph",
+        "url": "https://github.com/colbymchenry/codegraph",
+        "description": "Pre-indexed code knowledge graph, auto syncs on code changes, for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, CoPilot, and Hermes Agent — fewer tokens, fewer tool calls, 100% local",
+        "language": "C",
+        "stars": 72572,
+        "stars_today": 159
+      },
+      {
+        "repo": "t8y2/dbx",
+        "url": "https://github.com/t8y2/dbx",
+        "description": "25 MB lightweight cross-platform database client for 100+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 100+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP。",
+        "language": "Rust",
+        "stars": 23131,
+        "stars_today": 1133
+      },
+      {
+        "repo": "NawfalMotii79/PLFM_RADAR",
+        "url": "https://github.com/NawfalMotii79/PLFM_RADAR",
+        "description": "Open-source, low-cost 10.5 GHz PLFM phased array RADAR system",
+        "language": "PLSQL",
+        "stars": 26408,
+        "stars_today": 466
+      },
+      {
+        "repo": "VectifyAI/PageIndex",
+        "url": "https://github.com/VectifyAI/PageIndex",
+        "description": "📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG",
+        "language": "Python",
+        "stars": 38090,
+        "stars_today": 1095
+      }
+    ],
+    "huggingface": [
+      {
+        "id": "Edge0/Audio8-ASR-Infinite",
+        "type": "model",
+        "url": "https://huggingface.co/Edge0/Audio8-ASR-Infinite",
+        "likes": 1821,
+        "downloads": 26749,
+        "pipeline_tag": "automatic-speech-recognition"
+      },
+      {
+        "id": "convaiinnovations/laya",
+        "type": "model",
+        "url": "https://huggingface.co/convaiinnovations/laya",
+        "likes": 4677,
+        "downloads": 0,
+        "pipeline_tag": "text-classification"
+      },
+      {
+        "id": "abenzerps/Qwen-Image-2.1-Uncensored-GGUF",
+        "type": "model",
+        "url": "https://huggingface.co/abenzerps/Qwen-Image-2.1-Uncensored-GGUF",
+        "likes": 2562,
+        "downloads": 1232685,
+        "pipeline_tag": "text-to-image"
+      },
+      {
+        "id": "XingChen-AGI/TeleOCR",
+        "type": "model",
+        "url": "https://huggingface.co/XingChen-AGI/TeleOCR",
+        "likes": 1090,
+        "downloads": 30383,
+        "pipeline_tag": "image-text-to-text"
+      },
+      {
+        "id": "XiaomiMiMo/MiMo-V2.6-RL-oss",
+        "type": "dataset",
+        "url": "https://huggingface.co/datasets/XiaomiMiMo/MiMo-V2.6-RL-oss",
+        "likes": 609,
+        "downloads": 47819,
+        "pipeline_tag": null
+      },
+      {
+        "id": "Qwen/Qwen-Image-2.1",
+        "type": "model",
+        "url": "https://huggingface.co/Qwen/Qwen-Image-2.1",
+        "likes": 2719,
+        "downloads": 70687,
+        "pipeline_tag": "text-to-image"
+      },
+      {
+        "id": "Contrastive-LM/CLM-v0.1-8B",
+        "type": "model",
+        "url": "https://huggingface.co/Contrastive-LM/CLM-v0.1-8B",
+        "likes": 572,
+        "downloads": 2392,
+        "pipeline_tag": "text-ranking"
+      },
+      {
+        "id": "nvidia/Nemotron-3-Diarization",
+        "type": "model",
+        "url": "https://huggingface.co/nvidia/Nemotron-3-Diarization",
+        "likes": 559,
+        "downloads": 36386,
+        "pipeline_tag": "voice-activity-detection"
+      },
+      {
+        "id": "Qwen/Qwen3.8-27B",
+        "type": "model",
+        "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+        "likes": 16650,
+        "downloads": 7038259,
+        "pipeline_tag": "image-text-to-text"
+      },
+      {
+        "id": "Lightricks/LTX-2.5",
+        "type": "model",
+        "url": "https://huggingface.co/Lightricks/LTX-2.5",
+        "likes": 5710,
+        "downloads": 1602348,
+        "pipeline_tag": "image-to-video"
+      },
+      {
+        "id": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+        "type": "model",
+        "url": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf",
+        "likes": 2305,
+        "downloads": 3676692,
+        "pipeline_tag": "text-generation"
+      },
+      {
+        "id": "secemp9/arxiv-complete",
+        "type": "dataset",
+        "url": "https://huggingface.co/datasets/secemp9/arxiv-complete",
+        "likes": 548,
+        "downloads": 114683,
+        "pipeline_tag": null
+      },
+      {
+        "id": "nisten/opus5-5-doctor-patient-conversations-all-human-diseases",
+        "type": "dataset",
+        "url": "https://huggingface.co/datasets/nisten/opus5-5-doctor-patient-conversations-all-human-diseases",
+        "likes": 114,
+        "downloads": 577,
+        "pipeline_tag": null
+      },
+      {
+        "id": "espnet/yodas3",
+        "type": "dataset",
+        "url": "https://huggingface.co/datasets/espnet/yodas3",
+        "likes": 98,
+        "downloads": 32918,
+        "pipeline_tag": null
+      },
+      {
+        "id": "MoreThought/Fable-5.1-Max-Reasoning-Filtered-10000x",
+        "type": "dataset",
+        "url": "https://huggingface.co/datasets/MoreThought/Fable-5.1-Max-Reasoning-Filtered-10000x",
+        "likes": 235,
+        "downloads": 4177,
+        "pipeline_tag": null
+      },
+      {
+        "id": "Pepe104/MiniMax-H3-Turbo-Lora-UNCENSORED",
+        "type": "space",
+        "url": "https://huggingface.co/spaces/Pepe104/MiniMax-H3-Turbo-Lora-UNCENSORED",
+        "likes": 918,
+        "downloads": null,
+        "pipeline_tag": null
+      },
+      {
+        "id": "multimodalart/jev-decision-index",
+        "type": "space",
+        "url": "https://huggingface.co/spaces/multimodalart/jev-decision-index",
+        "likes": 346,
+        "downloads": null,
+        "pipeline_tag": null
+      },
+      {
+        "id": "FineEnvs/SmolDataEnvs",
+        "type": "dataset",
+        "url": "https://huggingface.co/datasets/FineEnvs/SmolDataEnvs",
+        "likes": 63,
+        "downloads": 3375,
+        "pipeline_tag": null
+      },
+      {
+        "id": "wikimedia/wikipedia",
+        "type": "dataset",
+        "url": "https://huggingface.co/datasets/wikimedia/wikipedia",
+        "likes": 1603,
+        "downloads": 277034,
+        "pipeline_tag": null
+      },
+      {
+        "id": "LocalLLaMA/typed-decisions",
+        "type": "dataset",
+        "url": "https://huggingface.co/datasets/LocalLLaMA/typed-decisions",
+        "likes": 83,
+        "downloads": 19901,
+        "pipeline_tag": null
+      },
+      {
+        "id": "Qwen/Qwen-Image-2.1",
+        "type": "space",
+        "url": "https://huggingface.co/spaces/Qwen/Qwen-Image-2.1",
+        "likes": 317,
+        "downloads": null,
+        "pipeline_tag": null
+      },
+      {
+        "id": "Harland/OmniVChat",
+        "type": "dataset",
+        "url": "https://huggingface.co/datasets/Harland/OmniVChat",
+        "likes": 56,
+        "downloads": 3632,
+        "pipeline_tag": null
+      },
+      {
+        "id": "arudradey/qwen-image-2.1-uncensored-gguf",
+        "type": "space",
+        "url": "https://huggingface.co/spaces/arudradey/qwen-image-2.1-uncensored-gguf",
+        "likes": 150,
+        "downloads": null,
+        "pipeline_tag": null
+      },
+      {
+        "id": "kulkas2pintu/QWEN_EDIT_IMAGE",
+        "type": "space",
+        "url": "https://huggingface.co/spaces/kulkas2pintu/QWEN_EDIT_IMAGE",
+        "likes": 618,
+        "downloads": null,
+        "pipeline_tag": null
+      },
+      {
+        "id": "Viggle/Qwen-Image-2.1-viggle-turbo",
+        "type": "space",
+        "url": "https://huggingface.co/spaces/Viggle/Qwen-Image-2.1-viggle-turbo",
+        "likes": 134,
+        "downloads": null,
+        "pipeline_tag": null
+      },
+      {
+        "id": "genrobot2025/Gen-HumanEgo",
+        "type": "dataset",
+        "url": "https://huggingface.co/datasets/genrobot2025/Gen-HumanEgo",
+        "likes": 48,
+        "downloads": 266616,
+        "pipeline_tag": null
+      },
+      {
+        "id": "observantdistressed/minimax-h3",
+        "type": "space",
+        "url": "https://huggingface.co/spaces/observantdistressed/minimax-h3",
+        "likes": 215,
+        "downloads": null,
+        "pipeline_tag": null
+      },
+      {
+        "id": "Jackiesixnine/Krea-2-Turbo_v2",
+        "type": "space",
+        "url": "https://huggingface.co/spaces/Jackiesixnine/Krea-2-Turbo_v2",
+        "likes": 195,
+        "downloads": null,
+        "pipeline_tag": null
+      },
+      {
+        "id": "convaiinnovations/laya-demo",
+        "type": "space",
+        "url": "https://huggingface.co/spaces/convaiinnovations/laya-demo",
+        "likes": 257,
+        "downloads": null,
+        "pipeline_tag": null
+      },
+      {
+        "id": "nvidia/nemotron-diarization",
+        "type": "space",
+        "url": "https://huggingface.co/spaces/nvidia/nemotron-diarization",
+        "likes": 95,
+        "downloads": null,
+        "pipeline_tag": null
+      }
+    ]
+  }
+}

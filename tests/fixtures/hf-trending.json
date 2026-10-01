@@ -1,0 +1,95 @@
+{
+  "recentlyTrending": [
+    {
+      "repoData": {
+        "author": "Edge0",
+        "authorData": {
+          "_id": "6a9a75862d11e1c1a13dec37",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/64361bcaf81a16e74367d2e2/D5QI700pnaujz5PeWE6MX.jpeg",
+          "fullname": "Edge0",
+          "name": "Edge0",
+          "type": "org",
+          "isHf": false,
+          "isHfAdmin": false,
+          "isMod": false,
+          "plan": "team",
+          "followerCount": 1382,
+          "isUserFollowing": false
+        },
+        "downloads": 26749,
+        "gated": false,
+        "id": "Edge0/Audio8-ASR-Infinite",
+        "availableInferenceProviders": [],
+        "isLikedByUser": false,
+        "lastModified": "2026-09-24T03:39:57.000Z",
+        "likes": 1819,
+        "pipeline_tag": "automatic-speech-recognition",
+        "private": false,
+        "repoType": "model",
+        "numParameters": 4086224640
+      },
+      "repoType": "model"
+    },
+    {
+      "repoData": {
+        "author": "convaiinnovations",
+        "authorData": {
+          "_id": "64c213a5ec3c61813527cad5",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/64c213a5ec3c61813527cad5/RHtP6iyU-zbrMQnJfVZLp.jpeg",
+          "fullname": "Convai Innovations",
+          "name": "convaiinnovations",
+          "type": "user",
+          "isPro": true,
+          "isHf": false,
+          "isHfAdmin": false,
+          "isMod": false,
+          "followerCount": 819,
+          "isUserFollowing": false
+        },
+        "downloads": 0,
+        "gated": false,
+        "id": "convaiinnovations/laya",
+        "availableInferenceProviders": [],
+        "isLikedByUser": false,
+        "lastModified": "2026-09-24T05:39:22.000Z",
+        "likes": 4671,
+        "pipeline_tag": "text-classification",
+        "private": false,
+        "repoType": "model",
+        "widgetOutputUrls": [],
+        "numParameters": 421293830
+      },
+      "repoType": "model"
+    },
+    {
+      "repoData": {
+        "author": "abenzerps",
+        "authorData": {
+          "_id": "6a8cc0f9e2316b246a85879f",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/6a8cc0f9e2316b246a85879f/TwEgVh9hRfxibbfCxXfUL.jpeg",
+          "fullname": "Ahmet Benzer",
+          "name": "abenzerps",
+          "type": "user",
+          "isPro": false,
+          "isHf": false,
+          "isHfAdmin": false,
+          "isMod": false,
+          "followerCount": 181,
+          "isUserFollowing": false
+        },
+        "downloads": 1232685,
+        "gated": false,
+        "id": "abenzerps/Qwen-Image-2.1-Uncensored-GGUF",
+        "availableInferenceProviders": [],
+        "isLikedByUser": false,
+        "lastModified": "2026-09-28T05:56:36.000Z",
+        "likes": 2558,
+        "pipeline_tag": "text-to-image",
+        "private": false,
+        "repoType": "model",
+        "numParameters": 7115124736
+      },
+      "repoType": "model"
+    }
+  ]
+}

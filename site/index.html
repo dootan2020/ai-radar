@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Bản tin sáng · Radar AI</title>
+<meta name="description" content="Mỗi sáng: các phòng lab AI vừa ra mắt gì, buổi phát trực tiếp nào đang diễn ra, và cái gì đang nổi trên GitHub và Hugging Face.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#tin">Bỏ qua, tới tin mới</a>
+
+<div class="wrap page">
+  <header class="masthead__bar">
+    <p class="wordmark">Radar AI <span class="wordmark__sub">bản tin sáng</span></p>
+    <p class="masthead__date" id="today"></p>
+  </header>
+
+  <main class="page__main" id="main">
+    <div class="masthead">
+      <h1 class="lede" id="lede" tabindex="-1">Đang mở bản tin…</h1>
+      <p class="lede__sub" id="lede-sub" hidden></p>
+      <div class="lede__actions" id="lede-actions" hidden>
+        <button type="button" class="btn" id="mark-read">Đánh dấu đã xem hết</button>
+      </div>
+      <nav class="toc" aria-label="Các mục trong bản tin">
+        <a href="#tin">Tin lab</a>
+        <a href="#truc-tiep">Trực tiếp</a>
+        <a href="#dang-noi">Đang nổi</a>
+        <a href="#mo-hinh-mo">Mô hình mở</a>
+      </nav>
+    </div>
+
+    <div id="notice" class="notice" role="status" hidden></div>
+
+    <section id="now-live" class="section section--live" hidden aria-labelledby="now-live-h"></section>
+
+    <section id="lead" class="section section--lead" hidden aria-labelledby="lead-h"></section>
+
+    <section id="tin" class="section" aria-labelledby="tin-h">
+      <div class="section__head">
+        <h2 id="tin-h">Tin từ các phòng lab</h2>
+        <div class="filters" id="filters" role="group" aria-label="Lọc theo phòng lab"></div>
+      </div>
+      <p class="filter-state" id="filter-state" hidden></p>
+      <div id="feed" class="feed"></div>
+      <div class="more" id="feed-more" hidden></div>
+    </section>
+  </main>
+
+  <aside class="page__side" aria-label="Trực tiếp và đang nổi">
+    <section id="truc-tiep" class="section" aria-labelledby="truc-tiep-h">
+      <div class="section__head"><h2 id="truc-tiep-h">Phát trực tiếp</h2></div>
+      <div id="streams"></div>
+    </section>
+
+    <section id="dang-noi" class="section" aria-labelledby="dang-noi-h">
+      <div class="section__head"><h2 id="dang-noi-h">Đang nổi</h2></div>
+      <div class="trend">
+        <div class="trend__col">
+          <h3>GitHub hôm nay</h3>
+          <ol id="gh" class="ranked"></ol>
+          <div class="more" id="gh-more" hidden></div>
+        </div>
+        <div class="trend__col">
+          <h3>Hugging Face</h3>
+          <ol id="hf" class="ranked"></ol>
+          <div class="more" id="hf-more" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mo-hinh-mo" class="section" aria-labelledby="mo-hinh-mo-h">
+      <div class="section__head"><h2 id="mo-hinh-mo-h">Mô hình mở mới trên Hugging Face</h2></div>
+      <ol id="releases" class="ledger"></ol>
+      <div class="more" id="releases-more" hidden></div>
+    </section>
+  </aside>
+</div>
+
+<footer class="colophon wrap">
+  <h2 class="colophon__h">Nguồn của bản tin này</h2>
+  <p class="colophon__when" id="generated"></p>
+  <ul id="sources" class="sources"></ul>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
