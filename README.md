@@ -14,6 +14,8 @@ python serve.py
 
 Mở **http://localhost:8790**. Test chạy offline; build cần Internet để lấy dữ liệu thật và ghi vào [site/data/radar.json](site/data/radar.json). Chạy lại `python build.py`, rồi tải lại trang khi muốn cập nhật. Dừng server bằng `Ctrl+C`; nếu cổng 8790 đang bận, server báo lỗi và không tự đổi cổng.
 
+Optional **Node.js 18+** runs the UI behavior tests through Python test discovery; no npm packages are needed. If Node is absent, that test reports an explicit skip. Python collection/build remains standard-library only.
+
 ## Đọc bản tin
 
 | Mục | Nội dung và nguồn |
@@ -37,9 +39,11 @@ Mở **http://localhost:8790**. Test chạy offline; build cần Internet để 
 
 The collector verifies each channel's `externalId` and reads only its selected Live tab. Readable, identity-verified watch metadata remains authoritative, including ordinary videos and broadcasts older than seven days. If a watch page is blocked, unavailable, or lacks broadcast metadata, the collector can use that channel's explicit live/upcoming badges or recent `Streamed … ago` text. Ordinary uploads and premiere labels are excluded. A positive watch video/channel mismatch vetoes fallback for that video.
 
-Fallback items retain the existing fields and add `status_source: "channel_streams"`, `time_text`, and `time_precision` (`exact`, `relative`, or `unknown`). Relative ages and schedules without a timezone never become exact timestamps: `start_at` / `end_at` remain `null` unless YouTube supplies an exact value. Relative ended ages are retained only when the entire displayed age bucket fits within seven days (for example, `6d ago` qualifies; `7d ago` does not). Ended items without exact `end_at` display as ended but do not receive the UI's new-item badge.
+Fallback items retain the existing fields and add `status_source: "channel_streams"`, `time_text`, and `time_precision` (`exact`, `relative`, or `unknown`). Relative ages and schedules without a timezone never become exact timestamps: `start_at` / `end_at` remain `null` unless YouTube supplies an exact value. Relative ended ages are retained only when the entire displayed age bucket fits within seven days (for example, `6d ago` qualifies; `7d ago` does not).
 
-A YouTube source is failed only when its Live tab is unreadable or invalid. RSS/watch problems appear in optional source `diagnostics`; they do not fail a valid channel. RSS can still discover identity-verified watch items when the Live tab fails. Four channel pages, four optional RSS feeds, and at most 24 watch pages are requested per collection, using the existing transport deadlines. Valid channel fallback items outside the watch budget are retained.
+The UI displays relative ended ages in Vietnamese. Timezone-free upcoming schedules preserve the source's printed date/clock, localize their label and AM/PM, and say `chưa rõ múi giờ`; they are never interpreted as Vietnam time. On a first visit, a relative-ended item can receive `Mới` only when its whole rounded age bucket plus elapsed snapshot age fits within 24 hours. Thus `Streamed 1d ago` displays but is not new; missing, invalid or future snapshot timestamps cannot establish freshness. Exact-time precedence and existing seen/session persistence remain unchanged.
+
+A YouTube source is failed only when its Live tab is unreadable or invalid. RSS/watch problems appear in optional source `diagnostics`; they do not fail a valid channel. RSS can still discover identity-verified watch items when the Live tab fails. Missing or malformed embedded `ytInitialData` permits one retry after a 0.5-second pause, only when the shared deadline has room for another request. Identity or selected Live-tab validation failures are not retried. The collector requests at most eight Live-tab pages across four channels, four optional RSS feeds, and 24 watch pages. The same transport and 100-second overall build deadline apply. Valid channel fallback items outside the watch budget are retained.
 
 To verify the real network behavior on a GitHub hosted runner without deploying:
 

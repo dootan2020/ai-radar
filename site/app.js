@@ -30,7 +30,7 @@
   var WEEKDAY = ["Chủ nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
 
   var state = {
-    data: null, now: Date.now(), baseline: null, seen: null, lab: null,
+    data: null, now: Date.now(), snapshotAt: NaN, baseline: null, seen: null, lab: null,
     feedLimit: null, limits: { gh: SIDE_SHORT, hf: SIDE_SHORT, releases: SIDE_SHORT }
   };
 
@@ -150,6 +150,21 @@
     if (ms < DAY) return "còn " + Math.round(ms / HOUR) + " giờ";
     return "còn " + Math.round(ms / DAY) + " ngày";
   }
+  function streamedAge(s) {
+    if (s.time_precision !== "relative") return null;
+    var match = /^Streamed (\d+)\s*(second|minute|hour|day|s|m|h|d)s? ago$/i.exec(s.time_text || "");
+    if (!match) return null;
+    var units = { s: [1000, "giây"], m: [60e3, "phút"], h: [HOUR, "giờ"], d: [DAY, "ngày"] };
+    var unit = units[match[2].charAt(0).toLowerCase()], count = Number(match[1]);
+    if (!Number.isSafeInteger(count)) return null;
+    return { upper: (count + 1) * unit[0], text: "Đã phát " + count + " " + unit[1] + " trước" };
+  }
+  function streamSchedule(s) {
+    var match = /^Scheduled for\s+(.+)$/i.exec(s.time_text || "");
+    if (!match) return "chưa rõ giờ";
+    /* Preserve YouTube's printed date/clock: no timezone or exact instant is known. */
+    return "Dự kiến phát: " + match[1].replace(/\bAM\b/gi, "sáng").replace(/\bPM\b/gi, "chiều") + " (chưa rõ múi giờ)";
+  }
   var nf = new Intl.NumberFormat("vi-VN");
   function n(x) { return nf.format(x); }
 
@@ -202,7 +217,10 @@
   function isNewStream(s) {
     if (state.seen) return !state.seen.has(keyStream(s));
     if (s.status !== "ended") return true;
-    return !!s.end_at && Date.parse(s.end_at) > windowStart();
+    if (s.end_at) return Date.parse(s.end_at) > windowStart();
+    var age = streamedAge(s), snapshotAge = state.now - state.snapshotAt;
+    /* A rounded age is a range. Its entire bucket, aged since collection, must fit. */
+    return !!age && snapshotAge >= 0 && age.upper + snapshotAge <= state.now - windowStart();
   }
   function firstVisit() { return state.seen === null && state.baseline === null; }
 
@@ -263,7 +281,7 @@
     var up = d.live.filter(function (s) { return s.status === "upcoming"; });
     var replays = d.live.filter(function (s) { return s.status === "ended" && isNewStream(s); });
     if (live.length) bits.push(live[0].channel + " đang phát trực tiếp.");
-    else if (up.length) bits.push(up[0].channel + " sắp phát trực tiếp, " + (up[0].start_at ? countdown(up[0].start_at) : "chưa rõ giờ") + ".");
+    else if (up.length) bits.push(up[0].channel + " sắp phát trực tiếp, " + (up[0].start_at ? countdown(up[0].start_at) : streamSchedule(up[0])) + ".");
     else if (replays.length) bits.push("Có bản xem lại buổi phát của " + replays[0].channel + ".");
     var down = d.sources.filter(function (s) { return !s.ok; });
     if (down.length > 2) bits.push("Lần này không đọc được " + down.length + " nguồn, danh sách ở cuối trang.");
@@ -314,8 +332,10 @@
       parts.push(h("span", { text: p.hh + ":" + p.mm + " " + (dayDiff(Date.parse(s.start_at), state.now) === 0 ? partOfDay(p.h) + " nay" : shortDate(p)) }));
       parts.push(h("span", { text: countdown(s.start_at) }));
     }
+    if (s.status === "upcoming" && !s.start_at) parts.push(h("span", { text: streamSchedule(s) }));
     if (s.status === "ended") {
-      parts.push(h("span", { text: s.end_at ? "Kết thúc " + relTime(s.end_at) : "Đã kết thúc" }));
+      var age = streamedAge(s);
+      parts.push(h("span", { text: s.end_at ? "Kết thúc " + relTime(s.end_at) : age ? age.text : "Đã kết thúc" }));
       var dur = s.start_at && s.end_at ? duration(s.start_at, s.end_at) : null;
       if (dur) parts.push(h("span", { text: "dài " + dur }));
     }
@@ -651,6 +671,7 @@
   fetch("data/radar.json", { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
     .then(function (d) {
+      state.snapshotAt = Date.parse(d && d.generated_at);
       state.data = normalise(d);
       establishBaseline(state.data);
       render();

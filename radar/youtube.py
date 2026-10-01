@@ -5,8 +5,10 @@ from datetime import datetime, timedelta, timezone
 import html
 import json
 import re
+import time
 import xml.etree.ElementTree as ET
 
+from radar.transport import FETCH_TIMEOUT
 from radar.youtube_streams import fallback_item, renderers, verified_content
 
 
@@ -21,6 +23,7 @@ SOURCES = [{"id": channel[0], "name": channel[2] + " YouTube", "lab": channel[1]
 MAX_WATCH_PAGES = 24
 WATCH_WORKERS = 4
 VIDEO_ID = re.compile(r"[A-Za-z0-9_-]{11}\Z")
+STREAM_RETRY_DELAY = 0.5
 
 
 class IdentityMismatch(ValueError):
@@ -144,11 +147,30 @@ def parse_watch(text, video_id, channel, now):
             "status": status, "start_at": _iso(start), "end_at": _iso(end)}
 
 
+def _stream_data(fetch, channel, diagnostics):
+    """Retry one unreadable response, never a failed identity/Live-tab check."""
+    url = f"https://www.youtube.com/@{channel[3]}/streams?hl=en"
+    body = fetch(url)
+    try:
+        return _embedded(body, "ytInitialData")
+    except ValueError as exc:
+        # Do not spend the last fraction of the shared build deadline sleeping
+        # or start a retry without room for its existing per-request allowance.
+        deadline = getattr(fetch, "deadline", float("inf"))
+        if deadline - time.monotonic() <= STREAM_RETRY_DELAY + FETCH_TIMEOUT:
+            raise
+        diagnostics.append(f"streams attempt 1: {type(exc).__name__}: {exc}; retrying once")
+        time.sleep(STREAM_RETRY_DELAY)
+        if time.monotonic() >= deadline:
+            raise
+        return _embedded(fetch(url), "ytInitialData")
+
+
 def _discover(fetch, channel, now):
     candidates, diagnostics, streams, rss, fallbacks = [], [], [], [], {}
     error = None
     try:
-        data = _embedded(fetch(f"https://www.youtube.com/@{channel[3]}/streams?hl=en"), "ytInitialData")
+        data = _stream_data(fetch, channel, diagnostics)
         content = verified_content(data, channel)
         for renderer in renderers(content):
             video_id = renderer.get("videoId", renderer.get("contentId", ""))
@@ -180,8 +202,11 @@ def _discover(fetch, channel, now):
 def collect(fetch, now):
     """fetch(url)->text must enforce a <=10s deadline and response size limit.
 
-    Four channel tasks take at most 20s, then 24 watch requests in six waves
-    take at most 60s. Only an unreadable/invalid Live tab fails a source;
+    Four parallel channel tasks each make up to two Live-tab requests (with a
+    0.5s retry pause) and one RSS request: up to 30.5s discovery, then 24 watch
+    requests in six waves take up to 60s, excluding parsing/scheduling overhead.
+    The shared Fetcher/build deadline remains the overall hard limit.
+    Only an unreadable/invalid Live tab fails a source;
     optional RSS/watch degradation is reported separately.
     """
     now = now.astimezone(timezone.utc)
