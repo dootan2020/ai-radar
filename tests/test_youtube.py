@@ -27,8 +27,13 @@ def embed(data):
     return "<script>var ytInitialPlayerResponse = " + json.dumps(data) + ";</script>"
 
 
-def streams(ids):
-    data = {"contents": [{"lockupViewModel": {"contentId": video_id, "contentType": "LOCKUP_CONTENT_TYPE_VIDEO"}} for video_id in ids]}
+def streams(ids, channel=CHANNEL):
+    contents = [{"lockupViewModel": {"contentId": video_id, "contentType": "LOCKUP_CONTENT_TYPE_VIDEO"}} for video_id in ids]
+    data = {"metadata": {"channelMetadataRenderer": {"externalId": channel[4]}},
+            "contents": {"twoColumnBrowseResultsRenderer": {"tabs": [{"tabRenderer": {
+                "selected": True, "endpoint": {"commandMetadata": {"webCommandMetadata": {
+                    "url": f"/@{channel[3]}/streams"}}}, "content": {"richGridRenderer": {
+                        "contents": contents or [{"messageRenderer": {"text": "No streams"}}]}}}}]}}}
     return "var ytInitialData = " + json.dumps(data) + ";"
 
 
@@ -113,7 +118,7 @@ class YoutubeDiscoveryTests(unittest.TestCase):
     def test_healthy_empty_channels_do_not_emit_unconfigured_failures(self):
         def fetch(url):
             if "/streams" in url:
-                return 'var ytInitialData = {"contents": [{"messageRenderer": {"text": "No streams"}}]};'
+                return streams([], next(channel for channel in youtube.CHANNELS if f"/@{channel[3]}/" in url))
             if "/feeds/videos.xml" in url:
                 return '<feed xmlns="http://www.w3.org/2005/Atom"/>'
             raise AssertionError("Unexpected request: " + url)
@@ -148,9 +153,10 @@ class YoutubeDiscoveryTests(unittest.TestCase):
             items, sources = youtube.collect(fetch, NOW)
         self.assertEqual(len(items), 1)
         source = next(row for row in sources if row["id"] == CHANNEL[0])
-        self.assertFalse(source["ok"])
+        self.assertTrue(source["ok"])
         self.assertEqual(source["count"], 1)
-        self.assertIn("TimeoutError", source["error"])
+        self.assertIsNone(source["error"])
+        self.assertIn("TimeoutError", " ".join(source["diagnostics"]))
 
     def test_watch_fetches_globally_bounded_and_failures_visible(self):
         calls, lock = [], Lock()
@@ -159,7 +165,7 @@ class YoutubeDiscoveryTests(unittest.TestCase):
             with lock:
                 calls.append(url)
             if "/streams" in url:
-                return streams(ids)
+                return streams(ids, next(channel for channel in youtube.CHANNELS if f"/@{channel[3]}/" in url))
             if "/feeds/" in url:
                 return '<feed xmlns="http://www.w3.org/2005/Atom"/>'
             raise TimeoutError("watch deadline")
@@ -168,7 +174,7 @@ class YoutubeDiscoveryTests(unittest.TestCase):
         self.assertEqual(len(watches), youtube.MAX_WATCH_PAGES)
         self.assertLessEqual(len(calls), 2 * len(youtube.CHANNELS) + youtube.MAX_WATCH_PAGES)
         self.assertEqual(items, [])
-        self.assertTrue(all(not source["ok"] for source in sources))
+        self.assertTrue(all(source["ok"] and source["diagnostics"] for source in sources))
 
 
 if __name__ == "__main__":

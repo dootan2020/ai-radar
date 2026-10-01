@@ -1,0 +1,82 @@
+[
+  {
+    "file": "youtube-runner-streams-upcoming.html",
+    "url": "https://www.youtube.com/@NASASpaceflight/streams?hl=en",
+    "captured_at": "2026-10-01T02:44:25.865433+00:00",
+    "method": "Extracted original metadata and selected Live tab, retaining one original richGridRenderer.contents entry. Other tabs, grid entries and top-level keys omitted. JSON reserialized; retained values unaltered. Sanitized recursively by omitting keys whose names contain tracking, token, visitor, session, or logging (case-insensitive); other retained values unchanged. Omitted unrelated menuButton, rendererContext, watchEndpointSupportedOnesieConfig, and thumbnail hover-action overlays, including playback URL client IP.",
+    "sha256": "02778a7777326dde1e6772f86d485cd473f4e11e2cd931210d6c6715b5048399",
+    "bytes": 8773
+  },
+  {
+    "file": "youtube-runner-watch-upcoming.html",
+    "url": "https://www.youtube.com/watch?v=aqYtiH1UduQ&hl=en",
+    "captured_at": "2026-10-01T02:44:26.679559+00:00",
+    "method": "Extracted unaltered playabilityStatus, videoDetails, microformat objects; other player keys and page omitted; JSON reserialized. Sanitized recursively by omitting keys whose names contain tracking, token, visitor, session, or logging (case-insensitive); other retained values unchanged. Omitted unrelated menuButton, rendererContext, watchEndpointSupportedOnesieConfig, and thumbnail hover-action overlays, including playback URL client IP.",
+    "sha256": "31639804a7c3c7a0331f5aabf6a23f68d302d09b7f9ead54b99782fa671dd03f",
+    "bytes": 12143
+  },
+  {
+    "file": "youtube-runner-streams-live.html",
+    "url": "https://www.youtube.com/@NASASpaceflight/streams?hl=en",
+    "captured_at": "2026-10-01T02:44:25.865433+00:00",
+    "method": "Extracted original metadata and selected Live tab, retaining one original richGridRenderer.contents entry. Other tabs, grid entries and top-level keys omitted. JSON reserialized; retained values unaltered. Sanitized recursively by omitting keys whose names contain tracking, token, visitor, session, or logging (case-insensitive); other retained values unchanged. Omitted unrelated menuButton, rendererContext, watchEndpointSupportedOnesieConfig, and thumbnail hover-action overlays, including playback URL client IP.",
+    "sha256": "591f41ba81606257508940a843d3f7e9d5b9d43169c8a873264db02600ef0eaa",
+    "bytes": 8790
+  },
+  {
+    "file": "youtube-runner-watch-live.html",
+    "url": "https://www.youtube.com/watch?v=Jm8wRjD3xVA&hl=en",
+    "captured_at": "2026-10-01T02:44:27.631956+00:00",
+    "method": "Extracted unaltered playabilityStatus, videoDetails, microformat objects; other player keys and page omitted; JSON reserialized. Sanitized recursively by omitting keys whose names contain tracking, token, visitor, session, or logging (case-insensitive); other retained values unchanged. Omitted unrelated menuButton, rendererContext, watchEndpointSupportedOnesieConfig, and thumbnail hover-action overlays, including playback URL client IP.",
+    "sha256": "cd33b7ea43daad0771b9f5ac9c3811a3f0e87d7c6a9b34c9591aa035d1583f53",
+    "bytes": 7794
+  },
+  {
+    "file": "youtube-runner-streams-ended.html",
+    "url": "https://www.youtube.com/@NASASpaceflight/streams?hl=en",
+    "captured_at": "2026-10-01T02:44:25.865433+00:00",
+    "method": "Extracted original metadata and selected Live tab, retaining one original richGridRenderer.contents entry. Other tabs, grid entries and top-level keys omitted. JSON reserialized; retained values unaltered. Sanitized recursively by omitting keys whose names contain tracking, token, visitor, session, or logging (case-insensitive); other retained values unchanged. Omitted unrelated menuButton, rendererContext, watchEndpointSupportedOnesieConfig, and thumbnail hover-action overlays, including playback URL client IP.",
+    "sha256": "cdd6d038368e45b0c7d1fea15e10bed7a456861cc511770ad8f03fdc4ec9a79b",
+    "bytes": 8836
+  },
+  {
+    "file": "youtube-runner-watch-ended.html",
+    "url": "https://www.youtube.com/watch?v=9gDxG-pm1Zo&hl=en",
+    "captured_at": "2026-10-01T02:44:28.487261+00:00",
+    "method": "Extracted unaltered playabilityStatus, videoDetails, microformat objects; other player keys and page omitted; JSON reserialized. Sanitized recursively by omitting keys whose names contain tracking, token, visitor, session, or logging (case-insensitive); other retained values unchanged. Omitted unrelated menuButton, rendererContext, watchEndpointSupportedOnesieConfig, and thumbnail hover-action overlays, including playback URL client IP.",
+    "sha256": "01707b652ca7da93d4f1242bae05de403f0c2732fc86de4742e21a0064660611",
+    "bytes": 9994
+  },
+  {
+    "file": "youtube-runner-channel-google.html",
+    "url": "https://www.youtube.com/@Google/streams?hl=en",
+    "captured_at": "2026-10-01T02:44:29.164782+00:00",
+    "method": "Extracted unaltered metadata object; other top-level keys and page omitted; JSON reserialized. Sanitized recursively by omitting keys whose names contain tracking, token, visitor, session, or logging (case-insensitive); other retained values unchanged. Omitted unrelated menuButton, rendererContext, watchEndpointSupportedOnesieConfig, and thumbnail hover-action overlays, including playback URL client IP.",
+    "sha256": "d4c60497ef863c182efe1e0f6cd6f356a6e8752f87bd178cae41e3295bfd4340",
+    "bytes": 3535
+  },
+  {
+    "file": "youtube-runner-channel-googledeepmind.html",
+    "url": "https://www.youtube.com/@GoogleDeepMind/streams?hl=en",
+    "captured_at": "2026-10-01T02:44:30.394348+00:00",
+    "method": "Extracted unaltered metadata object; other top-level keys and page omitted; JSON reserialized. Sanitized recursively by omitting keys whose names contain tracking, token, visitor, session, or logging (case-insensitive); other retained values unchanged. Omitted unrelated menuButton, rendererContext, watchEndpointSupportedOnesieConfig, and thumbnail hover-action overlays, including playback URL client IP.",
+    "sha256": "f8831ab873359f65efae22151709474daaf0a0b3bcc0ac6037bfc38ffb2e32e8",
+    "bytes": 3259
+  },
+  {
+    "file": "youtube-runner-watch-members-blocked.html",
+    "url": "https://www.youtube.com/watch?v=Heik3wPT4u8&hl=en",
+    "captured_at": "2026-10-01T02:45:08.837295+00:00",
+    "method": "Extracted unaltered playabilityStatus, videoDetails, microformat objects; other player keys and page omitted; JSON reserialized. Real members-only UNPLAYABLE block; NOT LOGIN_REQUIRED bot confirmation and NOT captured on GitHub runner. Sanitized recursively by omitting keys whose names contain tracking, token, visitor, session, or logging (case-insensitive); other retained values unchanged. Omitted unrelated menuButton, rendererContext, watchEndpointSupportedOnesieConfig, and thumbnail hover-action overlays, including playback URL client IP.",
+    "sha256": "adc9e1700a14052574f642728681947bcf5ed2fd8d06c70c950bcf957b52b0d3",
+    "bytes": 7088
+  },
+  {
+    "file": "youtube-runner-watch-login-required.html",
+    "url": "https://www.youtube.com/watch?v=Njp5uhTorCo&hl=en",
+    "captured_at": "2026-10-01T02:48:12.069154+00:00",
+    "method": "Actual local normal public YouTube watch response, production AI-Radar UA, no login/cookies. Video ID discovered from upstream youtube-transcript-api age-restricted test asset; upstream response NOT used as fixture. Extracted playabilityStatus, videoDetails, microformat if present, then recursively omitted tracking/token/visitor/session/logging keys and unrelated action/playback config; retained fields unchanged. LOGIN_REQUIRED due to age restriction, NOT bot confirmation, NOT GitHub runner capture.",
+    "sha256": "8a70812f566da41ed0923a05b04c17634bfd321fb76b9ba315f4cc95648744f7",
+    "bytes": 6799
+  }
+]

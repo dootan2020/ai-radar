@@ -1,4 +1,4 @@
-"""Bounded public YouTube discovery; watch metadata is the status authority."""
+"""Bounded public discovery with verified channel metadata as watch fallback."""
 
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
@@ -6,6 +6,8 @@ import html
 import json
 import re
 import xml.etree.ElementTree as ET
+
+from radar.youtube_streams import fallback_item, renderers, verified_content
 
 
 CHANNELS = (
@@ -19,6 +21,10 @@ SOURCES = [{"id": channel[0], "name": channel[2] + " YouTube", "lab": channel[1]
 MAX_WATCH_PAGES = 24
 WATCH_WORKERS = 4
 VIDEO_ID = re.compile(r"[A-Za-z0-9_-]{11}\Z")
+
+
+class IdentityMismatch(ValueError):
+    """Positive evidence that a watch page belongs to another video/channel."""
 
 
 def _objects(value):
@@ -99,11 +105,17 @@ def parse_watch(text, video_id, channel, now):
     """Return a verified broadcast, an ordinary/old video as None, or error."""
     data = _embedded(text, "ytInitialPlayerResponse")
     details = data.get("videoDetails", {})
+    if any(details.get(key) and details[key] != expected
+           for key, expected in (("videoId", video_id), ("channelId", channel[4]))):
+        raise IdentityMismatch("Video identity/channel mismatched")
     if details.get("videoId") != video_id or details.get("channelId") != channel[4]:
+        playability = data.get("playabilityStatus", {})
+        if playability.get("status") and playability["status"] != "OK":
+            raise ValueError(f"Watch unavailable: {playability['status']}")
         raise ValueError("Video identity/channel missing or mismatched")
     broadcast = data.get("microformat", {}).get("playerMicroformatRenderer", {}).get("liveBroadcastDetails")
     if not broadcast:
-        if details.get("isLiveContent"):
+        if details.get("isLiveContent") is not False:
             raise ValueError("Broadcast metadata unavailable")
         return None
     start, end = _date(broadcast.get("startTimestamp")), _date(broadcast.get("endTimestamp"))
@@ -132,21 +144,28 @@ def parse_watch(text, video_id, channel, now):
             "status": status, "start_at": _iso(start), "end_at": _iso(end)}
 
 
-def _discover(fetch, channel):
-    candidates, errors = [], []
-    streams, rss = [], []
-    for label, url, parser in (
-        ("streams", f"https://www.youtube.com/@{channel[3]}/streams?hl=en", parse_streams),
-        ("rss", f"https://www.youtube.com/feeds/videos.xml?channel_id={channel[4]}", parse_rss),
-    ):
-        try:
-            parsed = parser(fetch(url))
-            if label == "streams":
-                streams = parsed
-            else:
-                rss = parsed
-        except Exception as exc:
-            errors.append(f"{label}: {type(exc).__name__}: {str(exc)[:160]}")
+def _discover(fetch, channel, now):
+    candidates, diagnostics, streams, rss, fallbacks = [], [], [], [], {}
+    error = None
+    try:
+        data = _embedded(fetch(f"https://www.youtube.com/@{channel[3]}/streams?hl=en"), "ytInitialData")
+        content = verified_content(data, channel)
+        for renderer in renderers(content):
+            video_id = renderer.get("videoId", renderer.get("contentId", ""))
+            if not VIDEO_ID.fullmatch(video_id):
+                continue
+            item = fallback_item(renderer, video_id, channel, now)
+            streams.append((video_id, 0 if item and item["status"] in {"live", "upcoming"} else 1))
+            if item:
+                fallbacks.setdefault(video_id, item)
+        if not streams and not any("messageRenderer" in obj for obj in _objects(content)):
+            raise ValueError("No supported video renderers or explicit empty channel state")
+    except Exception as exc:
+        error = f"streams: {type(exc).__name__}: {str(exc)[:160]}"
+    try:
+        rss = parse_rss(fetch(f"https://www.youtube.com/feeds/videos.xml?channel_id={channel[4]}"))
+    except Exception as exc:
+        diagnostics.append(f"rss: {type(exc).__name__}: {str(exc)[:160]}")
     # Reserve early slots for RSS additions; urgent stream badges lead the queue.
     ordered = [v for v, priority in streams if priority == 0]
     ordered += [v for v, _ in streams[:4]] + rss[:2]
@@ -154,22 +173,25 @@ def _discover(fetch, channel):
     for video_id in ordered:
         if video_id not in candidates:
             candidates.append(video_id)
-    return candidates, errors
+    return {"candidates": candidates, "fallbacks": fallbacks, "error": error,
+            "diagnostics": diagnostics}
 
 
 def collect(fetch, now):
     """fetch(url)->text must enforce a <=10s deadline and response size limit.
 
     Four channel tasks take at most 20s, then 24 watch requests in six waves
-    take at most 60s. Failures keep successful items and mark the source partial.
+    take at most 60s. Only an unreadable/invalid Live tab fails a source;
+    optional RSS/watch degradation is reported separately.
     """
     now = now.astimezone(timezone.utc)
     with ThreadPoolExecutor(max_workers=4) as pool:
-        discovered = list(pool.map(lambda channel: _discover(fetch, channel), CHANNELS))
+        discovered = list(pool.map(lambda channel: _discover(fetch, channel, now), CHANNELS))
     work = []
     # Round-robin protects smaller channels from a busy channel's request load.
     for offset in range(MAX_WATCH_PAGES):
-        for index, (candidates, _) in enumerate(discovered):
+        for index, discovery in enumerate(discovered):
+            candidates = discovery["candidates"]
             if offset < len(candidates) and len(work) < MAX_WATCH_PAGES:
                 work.append((index, candidates[offset]))
 
@@ -178,20 +200,27 @@ def collect(fetch, now):
         try:
             item = parse_watch(fetch(f"https://www.youtube.com/watch?v={video_id}"),
                                video_id, CHANNELS[index], now)
-            return index, item, None
+            return index, video_id, item, None, True
+        except IdentityMismatch as exc:
+            return index, video_id, None, f"watch {video_id}: {exc}", True
         except Exception as exc:
-            return index, None, f"watch {video_id}: {type(exc).__name__}: {str(exc)[:160]}"
+            return index, video_id, None, f"watch {video_id}: {type(exc).__name__}: {str(exc)[:160]}", False
 
-    items, counts = [], [0] * len(CHANNELS)
+    by_channel = [dict(discovery["fallbacks"]) for discovery in discovered]
     with ThreadPoolExecutor(max_workers=WATCH_WORKERS) as pool:
-        for index, item, error in pool.map(watch, work):
+        for index, video_id, item, error, authoritative in pool.map(watch, work):
             if error:
-                discovered[index][1].append(error)
+                discovered[index]["diagnostics"].append(error)
+            if authoritative:
+                by_channel[index].pop(video_id, None)
             if item:
-                counts[index] += 1
-                items.append(item)
+                by_channel[index][video_id] = item
     sources = [{"id": channel[0], "name": channel[2] + " YouTube", "lab": channel[1],
-                "kind": "youtube", "ok": not discovered[index][1], "count": counts[index],
-                "error": "; ".join(discovered[index][1]) or None}
+                "kind": "youtube", "ok": discovered[index]["error"] is None,
+                "count": len(by_channel[index]), "error": discovered[index]["error"]}
                for index, channel in enumerate(CHANNELS)]
+    for source, discovery in zip(sources, discovered):
+        if discovery["diagnostics"]:
+            source["diagnostics"] = discovery["diagnostics"]
+    items = [item for entries in by_channel for item in entries.values()]
     return items, sources

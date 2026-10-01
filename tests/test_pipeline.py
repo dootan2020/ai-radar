@@ -42,7 +42,12 @@ class PipelineTests(unittest.TestCase):
         if "github.com/trending" in url:
             return saved("github.html")
         if "/streams" in url:
-            return 'var ytInitialData = {"contents": [{"videoRenderer":{"videoId":"Fls_onRviPM"}}]};'
+            return 'var ytInitialData = ' + json.dumps({
+                "metadata": {"channelMetadataRenderer": {"externalId": youtube.CHANNELS[0][4]}},
+                "contents": {"twoColumnBrowseResultsRenderer": {"tabs": [{"tabRenderer": {
+                    "selected": True, "endpoint": {"commandMetadata": {"webCommandMetadata": {
+                        "url": "/@OpenAI/streams"}}}, "content": {"richGridRenderer": {"contents": [
+                            {"videoRenderer": {"videoId": "Fls_onRviPM"}}]}}}}]}}}) + ';'
         if "/feeds/videos.xml" in url:
             return '<feed xmlns="http://www.w3.org/2005/Atom"/>'
         if "/watch?" in url:

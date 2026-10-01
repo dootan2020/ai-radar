@@ -33,6 +33,25 @@ Mở **http://localhost:8790**. Test chạy offline; build cần Internet để 
 - Hugging Face `created_at` là ngày tạo repository, **không phải ngày ra mắt model**. Tên mục “Mô hình mở” không xác nhận giấy phép mở; cần kiểm tra model card và license ở nguồn.
 - YouTube và các trang công khai có thể đổi cấu trúc hoặc tạm lỗi; lượt quét có giới hạn nên không bảo đảm tìm đủ mọi buổi phát. Trang hiển thị snapshot từ lần build gần nhất, không phải theo dõi thời gian thực.
 
-## Xuất bản sau
+## YouTube collection and runner verification
 
-**Chưa xuất bản.** Khi được duyệt, dùng workflow có sẵn [Update AI Radar](.github/workflows/update.yml): vào repository **Settings → Pages → Source → GitHub Actions**, rồi chạy workflow trong tab **Actions**. Workflow chạy test, build và deploy thư mục `site/`; lịch cập nhật ở phút 07 và 37 mỗi giờ, có thể bị GitHub trì hoãn.
+The collector verifies each channel's `externalId` and reads only its selected Live tab. Readable, identity-verified watch metadata remains authoritative, including ordinary videos and broadcasts older than seven days. If a watch page is blocked, unavailable, or lacks broadcast metadata, the collector can use that channel's explicit live/upcoming badges or recent `Streamed … ago` text. Ordinary uploads and premiere labels are excluded. A positive watch video/channel mismatch vetoes fallback for that video.
+
+Fallback items retain the existing fields and add `status_source: "channel_streams"`, `time_text`, and `time_precision` (`exact`, `relative`, or `unknown`). Relative ages and schedules without a timezone never become exact timestamps: `start_at` / `end_at` remain `null` unless YouTube supplies an exact value. Relative ended ages are retained only when the entire displayed age bucket fits within seven days (for example, `6d ago` qualifies; `7d ago` does not). Ended items without exact `end_at` display as ended but do not receive the UI's new-item badge.
+
+A YouTube source is failed only when its Live tab is unreadable or invalid. RSS/watch problems appear in optional source `diagnostics`; they do not fail a valid channel. RSS can still discover identity-verified watch items when the Live tab fails. Four channel pages, four optional RSS feeds, and at most 24 watch pages are requested per collection, using the existing transport deadlines. Valid channel fallback items outside the watch budget are retained.
+
+To verify the real network behavior on a GitHub hosted runner without deploying:
+
+```sh
+python -m unittest discover -s tests
+python tests/verify_youtube_runner.py --require-fallback
+```
+
+The probe exits nonzero unless all four configured channels pass identity verification and at least one returned item uses channel fallback after an actual failed watch request. A build exit code alone is not that proof. On a network where watch pages all work, the strict probe may fail because fallback was not exercised; omit `--require-fallback` for a general channel-health probe. Optional `--capture-blocked plans/reports/youtube-blocked.html` saves an actually observed metadata-free `LOGIN_REQUIRED` bot-check status/reason for regression evidence, with no cookies or playback URLs. Its HTML comment records the source URL, UTC capture time, extraction notes, and extracted-player SHA-256. Responses containing video details or microformat are never reduced to an absent-metadata fixture.
+
+Offline fixtures include captured live/upcoming/ended channel metadata and actual restricted watch responses. The metadata-free bot-check response is separately identified as a synthetic regression case matching the reported runner failure; local success does not establish hosted-runner success.
+
+## Website and automatic updates
+
+The published site is [AI Radar](https://dootan2020.github.io/ai-radar/). The existing [Update AI Radar workflow](.github/workflows/update.yml) runs tests, builds fresh data, and deploys `site/` through GitHub Pages. It is scheduled at minutes 07 and 37 of every hour; GitHub may delay scheduled runs. A manual run is available in the repository's Actions tab.
