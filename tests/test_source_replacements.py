@@ -11,7 +11,7 @@ from radar.transport import ResponseText
 
 NOW = datetime(2026, 10, 2, 12, tzinfo=timezone.utc)
 DISABLED_IDS = {"import-ai", "dwarkesh-podcast", "latent-space", "google-deepmind"}
-LATEST_URL = "https://vnexpress.net/rss/so-hoa.rss"
+ACTIVE_ID = "nvidia-blog"
 SYNTHETIC_NEWS = """<rss><channel>
 <item><title>Nghiên cứu trí tuệ nhân tạo mới</title>
 <link>https://fixture.invalid/ai-news</link>
@@ -37,28 +37,27 @@ class SourceReplacementTests(unittest.TestCase):
         self.assertNotIn("disabled", self.sources["dwarkesh-video"])
         self.assertEqual(self.sources["dwarkesh-video"]["publisher"], "dwarkesh")
 
-    def test_vnexpress_advertised_latest_feed_keeps_publisher_and_ai_filter(self):
-        source = self.sources["vnexpress-tech"]
-        self.assertEqual(source["url"], LATEST_URL)
-        self.assertEqual(source["publisher"], "vnexpress")
-        self.assertEqual(source["group"], "vietnam")
+    def test_active_filtered_feed_keeps_publisher_and_ai_filter(self):
+        source = self.sources[ACTIVE_ID]
+        self.assertEqual(source["publisher"], "nvidia")
         self.assertNotIn("disabled", source)
         self.assertTrue(source["filter_ai"])
         items = v2feeds.parse_feed(SYNTHETIC_NEWS, source, NOW)
         self.assertEqual(len(items), 1)
-        self.assertEqual(items[0]["source"], "vnexpress-tech")
+        self.assertEqual(items[0]["source"], ACTIVE_ID)
         self.assertEqual(items[0]["title"], "Nghiên cứu trí tuệ nhân tạo mới")
         self.assertEqual(items[0]["published_at"], "2026-10-02T10:00:00Z")
         self.assertEqual(items[0]["metrics"], {})
 
     def test_disabled_sources_are_visible_failed_and_never_requested_or_parsed(self):
-        selected = DISABLED_IDS | {"vnexpress-tech"}
+        selected = DISABLED_IDS | {ACTIVE_ID}
         jobs = [job for job in pipeline._jobs(True, NOW) if job[0]["id"] in selected]
+        active_url = self.sources[ACTIVE_ID]["url"]
         requests = []
 
         def fetch(url):
             requests.append(url)
-            if url != LATEST_URL:
+            if url != active_url:
                 self.fail("Disabled source was requested: " + url)
             return ResponseText(SYNTHETIC_NEWS, status=200, url=url)
 
@@ -68,7 +67,7 @@ class SourceReplacementTests(unittest.TestCase):
             with patch.object(pipeline, "_jobs", return_value=jobs), \
                  patch.object(youtube, "collect", return_value=([], [])):
                 result = pipeline.build_v2(fetch=fetch, now=NOW, events_path=events)
-        self.assertEqual(requests, [LATEST_URL])
+        self.assertEqual(requests, [active_url])
         records = {row["id"]: row for row in result["sources"]}
         for id_ in DISABLED_IDS:
             with self.subTest(source=id_):
@@ -80,10 +79,10 @@ class SourceReplacementTests(unittest.TestCase):
                 self.assertEqual(row["url"], self.sources[id_]["url"])
                 self.assertIsNone(row["http_status"])
                 self.assertEqual(row["http_requests"], [])
-        self.assertTrue(records["vnexpress-tech"]["ok"])
-        self.assertEqual(records["vnexpress-tech"]["http_status"], 200)
+        self.assertTrue(records[ACTIVE_ID]["ok"])
+        self.assertEqual(records[ACTIVE_ID]["http_status"], 200)
         self.assertEqual(len(result["stories"]), 1)
-        self.assertEqual({row["source"] for row in result["stories"][0]["coverage"]}, {"vnexpress-tech"})
+        self.assertEqual({row["source"] for row in result["stories"][0]["coverage"]}, {ACTIVE_ID})
 
     def test_disabled_policy_applies_to_legacy_build_too(self):
         jobs = [job for job in pipeline._jobs() if job[0]["id"] == "google-deepmind"]

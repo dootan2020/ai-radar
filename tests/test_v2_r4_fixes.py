@@ -5,7 +5,6 @@ from datetime import datetime, timezone
 from urllib.request import Request
 from urllib.parse import urlparse
 
-from radar.catalog import RSS
 from radar.curation import (
     classify_category,
     curate_repos,
@@ -377,8 +376,8 @@ class TestRound4ShouldFix(unittest.TestCase):
         self.assertEqual(curated[0]["id"], "org/top-hf-model")
         self.assertEqual(curated[0]["label"], "dung-ngay")
 
-    def test_s9_vnexpress_regression_and_ai_terms(self):
-        """S9: Regression for VnExpress feed URL and Vietnamese AI term filtering."""
+    def test_s9_vietnamese_ai_terms(self):
+        """S9: Vietnamese AI term filtering, including the 'ai đó' false positive."""
         # 1. Regression text: 'Mong ngồi bên em trong im lặng…' with summary '…cùng ai đó chia sẻ…'
         title = "Mong ngồi bên em trong im lặng…"
         summary = "…cùng ai đó chia sẻ…"
@@ -390,10 +389,6 @@ class TestRound4ShouldFix(unittest.TestCase):
         self.assertTrue(relevant("Áp dụng học máy trong y tế"))
         self.assertTrue(relevant("Ra mắt mô hình ngôn ngữ tiếng Việt"))
         self.assertTrue(relevant("Cổ phiếu NVIDIA đạt đỉnh"))
-
-        # 3. Catalog must use so-hoa.rss
-        vnexpress_source = next(s for s in RSS if s[0] == "vnexpress-tech")
-        self.assertEqual(vnexpress_source[4], "https://vnexpress.net/rss/so-hoa.rss")
 
 
 class TestRound4Nits(unittest.TestCase):

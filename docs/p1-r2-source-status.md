@@ -10,11 +10,18 @@ and challenge-page explanations are unproven.
 
 | Source ID | Original endpoint | Decision and evidence |
 | --- | --- | --- |
-| `vnexpress-tech` | `https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss` | Replace with `https://vnexpress.net/rss/tin-moi-nhat.rss`, the **Tin mới nhất RSS** link in the [publisher's RSS directory](https://vnexpress.net/rss). Coordinator opened the directory and resolved this link on 2026-10-02. The latest-news feed is broader than the technology category, so retain `filter_ai=True`, Vietnamese group and VnExpress publisher identity; name now states “VnExpress AI from latest news”. The category directory still advertises the original endpoint; do not claim it moved. |
 | `dwarkesh-podcast` | `https://api.substack.com/feed/podcast/69345.rss` | Disable after runner HTTP 403. [Official about page](https://www.dwarkesh.com/about) links the creator's [YouTube channel](https://www.youtube.com/c/DwarkeshPatel). Existing `dwarkesh-video` remains enabled separately; this does not restore the audio feed or justify duplicate observations. No new feed address guessed. |
 | `latent-space` | `https://api.substack.com/feed/podcast/1084089.rss` | Disable after runner HTTP 403. [Official about page](https://www.latent.space/about) advertises video/audio and links a [podcast playlist](https://www.youtube.com/playlist?list=PLWEAb1SXhjlfkEF_PxzYHonU_v5LPMI8L) plus [LatentSpaceTV](https://www.youtube.com/@LatentSpaceTV). Its channel metadata/feed was not verified, so no guessed channel-ID RSS is configured. |
 | `import-ai` | `https://importai.substack.com/feed` | Disable after runner HTTP 403. [Official about page](https://importai.substack.com/about) identifies Jack Clark; his [Import AI website](https://jack-clark.net/) still publishes current content, including Import AI 473 dated September 21, 2026. `https://jack-clark.net/feed/` is a research candidate, not a verified replacement: exact RSS discovery/response was unavailable here. |
 | `google-deepmind` | `https://deepmind.google/blog/rss.xml` | Disable after runner HTTP 200 and `ParseError: not well-formed (invalid token): line 1, column 0`. The [official news page](https://deepmind.google/blog/) is accessible through web research, but that does not prove its RSS body is valid. Existing Google AI RSS and DeepMind YouTube collection remain separate; neither is claimed to reproduce the disabled blog feed. |
+
+## Source removed: 2026-10-02
+
+The Vietnamese news-site source (`vnexpress-tech`, group `vietnam`) was removed
+from the inventory on the owner's decision at 20:48: "Ok bỏ vnexpress đi em, a
+muốn tin tức từ nguồn, các trang báo ở việt nam đa số là bản sao". Primary
+sources only; no build fetches it. This supersedes its earlier replacement
+decision in this report's history.
 
 ## Explicit disabled-source contract
 
@@ -39,12 +46,9 @@ when the evidence changes.
 
 ## Evidence boundaries and verification
 
-- **Live web research:** official pages above were opened on 2026-10-02. The
-  VnExpress alternate is advertised by the publisher. This proves provenance,
-  not successful collector access or complete AI coverage; a broad latest-news
-  feed may omit older AI stories sooner than a dedicated category feed.
-- **Local direct network:** `radar.transport.read_url` attempts for DeepMind,
-  VnExpress's directory, and podcast about pages failed before receiving HTTP
+- **Live web research:** official pages above were opened on 2026-10-02.
+- **Local direct network:** `radar.transport.read_url` attempts for DeepMind
+  and podcast about pages failed before receiving HTTP
   with `URLError` / `[WinError 10013]`. No bypass, changed User-Agent, cookies,
   or browser impersonation was used. No live feed capture was fabricated.
 - **Offline tests:** `tests/test_source_replacements.py` contains explicitly
@@ -55,7 +59,6 @@ when the evidence changes.
   expected failures/errors, detecting requests to all four disabled endpoints.
   The full current suite passes: 181 tests in 2.179s.
 - **Runner follow-up:** coordinator must inspect the branch build artifact:
-  `vnexpress-tech` must show the alternate URL and genuine HTTP/parse results;
   all four disabled IDs must remain visible, failed, and have no HTTP requests.
   No full network build, production deploy, or push was performed in this slice.
 

@@ -17,7 +17,6 @@ RSS = [
     ("mit-tech-review", "MIT Technology Review AI", "press", "mit-tech-review", "https://www.technologyreview.com/topic/artificial-intelligence/feed", False),
     ("microsoft-research", "Microsoft Research", "lab", "microsoft", "https://www.microsoft.com/en-us/research/feed/", False),
     ("nvidia-blog", "NVIDIA Technical Blog", "lab", "nvidia", "https://developer.nvidia.com/blog/feed", True),
-    ("vnexpress-tech", "VnExpress Số Hóa AI", "vietnam", "vnexpress", "https://vnexpress.net/rss/so-hoa.rss", True),
     ("dwarkesh-video", "Dwarkesh video", "podcast", "dwarkesh", "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA", True),
 ]
 NVIDIA_CHANNEL = ("nvidia-youtube", "nvidia", "NVIDIA", "NVIDIA", "UCHuiy8bXnmK5nisYHUd1J5g")
