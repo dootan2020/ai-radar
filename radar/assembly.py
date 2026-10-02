@@ -85,8 +85,9 @@ def sections(stories, now):
     return result
 
 
-def finish(payload, coverage, events, now, previous):
+def finish(payload, coverage, events, now, previous, fetcher=None):
     from radar.clustering import cluster_items
+    from radar.curation import curate_repos
     from radar.ranking import rank_stories
 
     # The full RSS observations, before v1 URL dedupe, retain media and coverage.
@@ -97,7 +98,17 @@ def finish(payload, coverage, events, now, previous):
     if (not baseline or previous.get("schema_version") != 2 or not isinstance(previous.get("stories"), list)
             or not 0 < (now - baseline).total_seconds() <= 48 * 3600):
         baseline = None
+    repos_meta = {}
+    curation_fetcher = fetcher
+    if fetcher is not None and hasattr(fetcher, "transport"):
+        import time
+        from radar.transport import Fetcher
+        curation_fetcher = Fetcher(time.monotonic() + 60, transport=fetcher.transport)
+    repos = curate_repos(payload.get("trending", {}).get("github", []),
+                         payload.get("trending", {}).get("huggingface", []),
+                         fetcher=curation_fetcher, now=now, meta=repos_meta)
     payload.update(schema_version=2, stories=stories, sections=sections(stories, now), events=events,
+                   repos=repos, repos_meta=repos_meta,
                    ranking=dict(method="source-percentile-freshness-v1", window_hours=72,
                                 baseline_at=iso_date(baseline), calibration="provisional; see clustering evaluation report"))
     return payload

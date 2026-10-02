@@ -35,6 +35,8 @@ jobs:
             radar-measurements-v2-main-
       - name: Fetch public sources
         id: collect
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python build.py
       - name: Save measurement snapshot
         if: steps.collect.outputs.baseline_updated == 'true'
