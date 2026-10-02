@@ -199,7 +199,7 @@ def _discover(fetch, channel, now):
             "diagnostics": diagnostics}
 
 
-def collect(fetch, now):
+def collect(fetch, now, channels=None):
     """fetch(url)->text must enforce a <=10s deadline and response size limit.
 
     Four parallel channel tasks each make up to two Live-tab requests (with a
@@ -210,8 +210,10 @@ def collect(fetch, now):
     optional RSS/watch degradation is reported separately.
     """
     now = now.astimezone(timezone.utc)
+    channels = CHANNELS if channels is None else channels
+    fetches = [fetch.scoped(channel[0]) if hasattr(fetch, "scoped") else fetch for channel in channels]
     with ThreadPoolExecutor(max_workers=4) as pool:
-        discovered = list(pool.map(lambda channel: _discover(fetch, channel, now), CHANNELS))
+        discovered = list(pool.map(lambda pair: _discover(pair[1], pair[0], now), zip(channels, fetches)))
     work = []
     # Round-robin protects smaller channels from a busy channel's request load.
     for offset in range(MAX_WATCH_PAGES):
@@ -223,8 +225,8 @@ def collect(fetch, now):
     def watch(job):
         index, video_id = job
         try:
-            item = parse_watch(fetch(f"https://www.youtube.com/watch?v={video_id}"),
-                               video_id, CHANNELS[index], now)
+            item = parse_watch(fetches[index](f"https://www.youtube.com/watch?v={video_id}"),
+                               video_id, channels[index], now)
             return index, video_id, item, None, True
         except IdentityMismatch as exc:
             return index, video_id, None, f"watch {video_id}: {exc}", True
@@ -243,7 +245,7 @@ def collect(fetch, now):
     sources = [{"id": channel[0], "name": channel[2] + " YouTube", "lab": channel[1],
                 "kind": "youtube", "ok": discovered[index]["error"] is None,
                 "count": len(by_channel[index]), "error": discovered[index]["error"]}
-               for index, channel in enumerate(CHANNELS)]
+               for index, channel in enumerate(channels)]
     for source, discovery in zip(sources, discovered):
         if discovery["diagnostics"]:
             source["diagnostics"] = discovery["diagnostics"]

@@ -55,6 +55,8 @@ def iso_date(value):
 
 
 def web_url(value):
+    if not isinstance(value, str):
+        return None
     try:
         parts = urlsplit(value or "")
         return value if parts.scheme in {"http", "https"} and parts.netloc and not parts.username else None

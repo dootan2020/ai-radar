@@ -18,9 +18,6 @@ jobs:
   update:
     runs-on: ubuntu-26.04
     timeout-minutes: 5
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -28,12 +25,39 @@ jobs:
           python-version: '3.11'
       - name: Run offline tests
         run: python -m unittest discover -s tests
+      - name: Restore previous measurement snapshot
+        uses: actions/cache/restore@v4
+        with:
+          path: site/data/radar.json
+          key: radar-measurements-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            radar-measurements-${{ github.ref_name }}-
       - name: Fetch public sources
         run: python build.py
-      - uses: actions/configure-pages@v6
+      - name: Save measurement snapshot
+        uses: actions/cache/save@v4
+        with:
+          path: site/data/radar.json
+          key: radar-measurements-${{ github.ref_name }}-${{ github.run_id }}
+      - name: Upload collected source evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: radar-data-${{ github.run_id }}
+          path: site/data/radar.json
       - uses: actions/upload-pages-artifact@v5
+        if: github.ref == 'refs/heads/main'
         with:
           path: site
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: update
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v6
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v5

@@ -1,0 +1,72 @@
+"""Common v2 observation shape; missing measurements remain unknown."""
+
+import math
+import re
+from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
+
+from radar.common import clean_text, iso_date, stable_id, web_url
+
+AI_TERMS = re.compile(
+    r"\b(?:ai|llms?|gpt|chatgpt|claude|gemini|deepseek|qwen|llama|anthropic|openai|"
+    r"deepmind|hugging\s*face|neural|diffusion|inference|generative|machine learning|"
+    r"artificial intelligence|language models?|agentic|copilot|cuda|nemotron)\b|trí tuệ nhân tạo", re.I)
+
+
+def relevant(title, summary=""):
+    return bool(AI_TERMS.search(title + " " + summary))
+
+
+def measured(value):
+    """Accept JSON numeric values, never booleans, strings or nonfinite numbers."""
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return None
+    try:
+        return value if math.isfinite(value) and value >= 0 else None
+    except (OverflowError, ValueError):
+        return None
+
+
+def instant(value):
+    if not isinstance(value, (str, datetime)):
+        return None
+    try:
+        parsed = value if isinstance(value, datetime) else datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return parsed.astimezone(timezone.utc) if parsed.tzinfo else None
+    except (TypeError, ValueError, OverflowError):
+        return None
+
+
+def published_date(value):
+    """Source timestamps must carry a real timezone; date-only is not midnight."""
+    parsed = instant(value)
+    if parsed is None and isinstance(value, str):
+        try:
+            parsed = parsedate_to_datetime(value)
+            if parsed.tzinfo is None:
+                return None
+        except (TypeError, ValueError, OverflowError):
+            return None
+    return iso_date(parsed)
+
+
+def observation(source, title, url, published_at, observed_at, *, kind="other", summary="",
+                metrics=None, media=None, discussion_url=None, time_basis="published", **extra):
+    from radar.clustering import canonical_url
+
+    url = web_url(url)
+    if not url or not canonical_url(url) or not clean_text(title, 500):
+        return None
+    date = published_date(published_at)
+    discussion_url = web_url(discussion_url)
+    # Different forum threads can discuss the same target URL. Their votes and
+    # baselines belong to the thread, while the target still anchors the story.
+    identity = discussion_url or url
+    return dict(id=stable_id(source["id"] + "|" + identity), source=source["id"],
+                publisher=source.get("publisher") or source.get("lab") or source["id"],
+                group=source.get("group", "lab"), lab=source.get("lab", ""), kind=kind,
+                title=clean_text(title, 500), url=url, canonical_url=canonical_url(url),
+                published_at=date, summary=clean_text(summary), observed_at=iso_date(observed_at),
+                metrics={key: measured(value) for key, value in (metrics or {}).items()},
+                media=media or [], discussion_url=discussion_url,
+                time_basis=time_basis if date or time_basis == "scheduled" else "unknown", **extra)

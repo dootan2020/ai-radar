@@ -1,0 +1,28 @@
+[
+  {
+    "id": "openai-devday-exchange-bengaluru-2026",
+    "title": "OpenAI DevDay Exchange — Bengaluru",
+    "url": "https://events.openai.com/devdayexchange2026?lang=en",
+    "start_date": "2026-10-16",
+    "end_date": "2026-10-16",
+    "start_at": null,
+    "end_at": null,
+    "time_precision": "date",
+    "location": "Bengaluru, India",
+    "verified_at": "2026-10-02",
+    "source_url": "https://events.openai.com/devdayexchange2026?lang=en"
+  },
+  {
+    "id": "neurips-sydney-2026",
+    "title": "NeurIPS 2026 — Sydney",
+    "url": "https://nips.cc/Conferences/2026/Dates",
+    "start_date": "2026-12-06",
+    "end_date": "2026-12-12",
+    "start_at": null,
+    "end_at": null,
+    "time_precision": "date",
+    "location": "Sydney, Australia",
+    "verified_at": "2026-10-02",
+    "source_url": "https://nips.cc/Conferences/2026/Dates"
+  }
+]
