@@ -1,5 +1,6 @@
 """Bound network resources even when DNS or a remote server stalls."""
 
+import os
 import queue
 import threading
 import time
@@ -22,7 +23,11 @@ class ResponseText(str):
 
 
 def read_url(url):
-    request = Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
+    headers = {"User-Agent": USER_AGENT, "Accept": "*/*"}
+    token = os.environ.get("GITHUB_TOKEN")
+    if token and "api.github.com" in url:
+        headers["Authorization"] = f"token {token}"
+    request = Request(url, headers=headers)
     with urlopen(request, timeout=8) as response:
         try:
             length = response.headers.get("Content-Length")

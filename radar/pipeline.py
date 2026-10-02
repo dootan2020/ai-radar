@@ -175,7 +175,7 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None):
                       http_status=None, http_requests=[], first_wave=True)
         payload["sources"].append(record)
         payload["sources"].sort(key=lambda source: source["id"])
-        return assembly.finish(payload, coverage, curated, now, previous)
+        return assembly.finish(payload, coverage, curated, now, previous, fetcher=fetcher)
     return payload
 
 
