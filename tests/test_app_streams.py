@@ -3,7 +3,8 @@
 The page must never turn a relative age or a timezone-free schedule into an exact instant:
 - a relative-only ended stream reads "Đã phát N <đơn vị> trước";
 - a YouTube schedule without a timezone keeps the printed date and clock and says "chưa rõ múi giờ";
-- a date-only event exported to a calendar stays an all-day event, with no invented midnight.
+- a date-only event exported to a calendar stays an all-day event, with no invented midnight;
+- a malformed date never reaches the calendar file, and URL stays an unescaped URI (RFC 5545 3.3.13).
 
 The wording lives in site/time-text.js and site/calendar.js, pure ES modules that Node runs
 without a DOM. The last test checks that site/app.js really renders through those helpers.
@@ -28,6 +29,8 @@ const out = {{
   scheduled: input.scheduled.map(t => scheduleText(t)),
   canCal: input.canCal.map(e => canCalendar(e)),
   ics: buildIcs(input.ics),
+  urlIcs: buildIcs(input.urlIcs),
+  badBuild: input.bad.map(e => {{ try {{ buildIcs(e); return 'built'; }} catch (err) {{ return err.name; }} }}),
 }};
 process.stdout.write(JSON.stringify(out));
 """
@@ -48,9 +51,21 @@ class StreamTimeWordingTests(unittest.TestCase):
                 {"title": "Date only", "startDate": "2026-10-16"},
                 {"title": "Exact", "startAt": "2026-10-16T09:00:00Z"},
                 {"title": "Bad", "startAt": "not a time"},
+                {"title": "Malformed end date", "startDate": "2026-10-16", "endDate": "TBD"},
+                {"title": "End date with a clock", "startDate": "2026-10-16", "endDate": "2026-10-16T18:00:00Z"},
+                {"title": "Impossible date", "startDate": "2026-02-31"},
+                {"title": "End before start", "startDate": "2026-10-16", "endDate": "2026-10-15"},
+                {"title": "Malformed end instant", "startAt": "2026-10-16T09:00:00Z", "endAt": "soon"},
+                {"title": "Good range", "startDate": "2026-12-06", "endDate": "2026-12-12"},
             ],
             "ics": {"uid": "ev-1", "title": "NeurIPS 2026, Sydney", "url": "https://nips.cc/",
                     "location": "Sydney, Australia", "startDate": "2026-12-06", "endDate": "2026-12-12"},
+            "urlIcs": {"uid": "ev-2", "title": "Session", "startDate": "2026-10-16",
+                       "url": "https://events.example.com/?session=1,2;lang=vi"},
+            "bad": [
+                {"uid": "b1", "title": "x", "startDate": "2026-10-16", "endDate": "TBD"},
+                {"uid": "b2", "title": "x", "startAt": "2026-10-16T09:00:00Z", "endAt": "soon"},
+            ],
         }
         with tempfile.TemporaryDirectory() as tmp:
             harness = Path(tmp) / "harness.mjs"
@@ -81,7 +96,15 @@ class StreamTimeWordingTests(unittest.TestCase):
         self.assertEqual(self.out["scheduled"][2:], ["chưa rõ giờ", "chưa rõ giờ"])
 
     def test_calendar_needs_a_verified_date(self):
-        self.assertEqual(self.out["canCal"], [False, True, True, False])
+        self.assertEqual(self.out["canCal"], [False, True, True, False, False, False, False, False, False, True])
+
+    def test_malformed_dates_are_refused_before_any_date_maths(self):
+        # buildIcs used to throw an unhandled RangeError from Date#toISOString on these.
+        self.assertEqual(self.out["badBuild"], ["Error", "Error"])
+
+    def test_url_is_a_uri_value_without_text_escaping(self):
+        lines = self.out["urlIcs"].split("\r\n")
+        self.assertIn("URL:https://events.example.com/?session=1,2;lang=vi", lines)
 
     def test_date_only_event_stays_all_day(self):
         ics = self.out["ics"]

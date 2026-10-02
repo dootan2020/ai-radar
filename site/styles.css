@@ -200,7 +200,7 @@ kbd{font:600 var(--t-12)/1 var(--font);display:inline-flex;align-items:center;ju
 .saved-mark{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:4px;color:var(--accent)}
 .saved-mark svg{width:12px;height:12px;fill:currentColor;stroke:none}
 /* read: titles step back to the faint ink, the row stays fully usable */
-.is-read .t,.is-read.lead-title{color:var(--ink-3)}
+.is-read .t,.is-read.lead-title,.is-read .nm,.is-read .nm .own{color:var(--ink-3)}
 .is-read .new-mark{background:var(--ink-3)}
 .views{display:inline-flex;align-items:center;gap:3px}
 .views svg{width:12px;height:12px}

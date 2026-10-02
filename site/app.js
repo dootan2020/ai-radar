@@ -51,9 +51,10 @@ const store = {
 let D = null, S = new Map(), SRC = new Map(), R = new Map();
 let lastSeen, firstVisit, selected = null, pending = null, liveState = null;
 let arrived = new Set(), arriveIdx = 0;
-const read = new Set(store.get('air2:read', []));
-let saved = store.get('air2:saved', []);
-const areas = new Set(store.get('air2:areas', []));
+const asArray = v => Array.isArray(v) ? v : [];
+const read = new Set(asArray(store.get('air2:read', [])));
+let saved = asArray(store.get('air2:saved', [])).filter(x => x && typeof x.key === 'string');
+const areas = new Set(asArray(store.get('air2:areas', [])));
 let withResearch = store.get('air2:research', false);
 
 /* ---------- time ---------- */
@@ -218,7 +219,7 @@ function renderBoard(){
   const repoTop = repos ? repoPicks(repos).slice(0, newtShown() ? 3 : 2) : [];
 
   const cov = (st.coverage || []).map(c => `<li><span style="min-width:0"><span class="pub">${esc(srcName(c.source))}</span> <span class="tiny faint">· ${timeEl(c.published_at)}</span>
-      ${c.title && c.title.trim() !== st.title.trim() ? `<a class="ttl" href="${esc(safe(c.discussion_url || c.url))}" target="_blank" rel="noopener">${esc(c.title)}</a>` : `<span class="ttl faint">cùng tiêu đề</span>`}</span>
+      ${c.title && c.title.trim() !== st.title.trim() ? `<a class="ttl" href="${esc(safe(c.url || c.discussion_url))}" target="_blank" rel="noopener">${esc(c.title)}</a>` : `<span class="ttl faint">cùng tiêu đề</span>`}</span>
       <span class="m">${metricsHTML(c) ? `${metricsHTML(c)}<br>` : ''}<a class="go" href="${esc(safe(c.discussion_url || c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">${c.discussion_url ? 'Mở thảo luận' : 'Mở bài gốc'}</a></span></li>`).join('');
 
   const leadLabel = L.mode === 'multi' ? 'Nhiều nguồn cùng đưa nhất, 72 giờ qua' : 'Nóng nhất lúc này (chưa có chuyện nào nhiều nguồn trong 72 giờ)';
@@ -273,7 +274,7 @@ function liveTile(){
   // Live state comes from coverage status fields and the v1 live projection; nothing is assumed live without one.
   const liveNow = [], ended = [];
   D.stories.forEach(s => (s.coverage || []).forEach(c => { if (c.status === 'live') liveNow.push(s); if (c.status === 'ended') ended.push({s, c}); }));
-  (D.live || []).forEach(v => { if (v.status === 'live' && !liveNow.length) liveNow.push({title:v.title, id:null}); });
+  (D.live || []).forEach(v => { if (v.status === 'live' && !liveNow.length) liveNow.push({title:v.title, id:null, url:v.url}); });
   const upcomingStreams = (D.live || []).filter(v => v.status === 'upcoming');
   const upcoming = ids('upcoming');
   const vids = ids('listen').filter(s => s.kind === 'video' && ytId(s)).sort(byNewest);
@@ -281,7 +282,10 @@ function liveTile(){
   const shownVid = vids.find(v => !lastEnded || v !== lastEnded.s);
 
   const nowCell = liveNow.length
-    ? `<button class="lcell" data-sel="${esc(liveNow[0].id || '')}"><span class="pulse on" aria-hidden="true"></span><span class="txt"><span class="lbl on">Đang phát</span><strong>${esc(liveNow[0].title)}</strong></span></button>`
+    ? (liveNow[0].id
+      ? `<button class="lcell" data-sel="${esc(liveNow[0].id)}"><span class="pulse on" aria-hidden="true"></span><span class="txt"><span class="lbl on">Đang phát</span><strong>${esc(liveNow[0].title)}</strong></span></button>`
+      // A stream known only from the live projection has no story to open: the cell links straight to the broadcast.
+      : `<a class="lcell has-go" href="${esc(safe(liveNow[0].url))}" target="_blank" rel="noopener"><span class="pulse on" aria-hidden="true"></span><span class="txt"><span class="lbl on">Đang phát</span><strong>${esc(liveNow[0].title)}</strong></span></a>`)
     : `<div class="lcell state-empty"><span class="pulse" aria-hidden="true"></span><span class="txt"><span class="lbl">Đang phát</span><strong>Không có buổi nào đang phát</strong><span class="sub">Kiểm lúc ${hhmm(new Date(D.generated_at))}. ${upcomingStreams.length ? '' : 'Chưa có lịch livestream sắp phát nào được xác minh.'}</span></span></div>`;
   const streamCells = upcomingStreams.slice(0, 1).map(v => {
     const cal = liveCal(v);
@@ -296,7 +300,7 @@ function liveTile(){
       ? `<button class="cal" data-cal="${esc(s.id)}" aria-label="Thêm ${esc(s.title)} vào lịch" title="Thêm vào lịch"><b>${sd.d}</b><span>th ${sd.m}</span><span class="plus">${icon('i-plus')}</span></button>`
       : `<span class="cal"><b>${sd.d}</b><span>th ${sd.m}</span></span>`) : '';
     return `<div class="lcell has-go">${badge}
-      <span class="txt"><button class="go" data-sel="${esc(s.id)}"><span class="lbl">Sắp diễn ra${n != null ? ` · còn <span class="num">${n}</span> ngày` : ''}</span><strong>${esc(s.title)}</strong></button><span class="sub">${esc(e.location || 'Chưa rõ địa điểm')}</span></span></div>`;
+      <span class="txt"><button class="go" data-sel="${esc(s.id)}"><span class="lbl">${n == null ? 'Sắp diễn ra' : n > 0 ? `Sắp diễn ra · còn <span class="num">${n}</span> ngày` : n === 0 ? 'Hôm nay' : 'Đang diễn ra'}</span><strong>${esc(s.title)}</strong></button><span class="sub">${esc(e.location || 'Chưa rõ địa điểm')}</span></span></div>`;
   }).join('') || `<div class="lcell state-empty"><span class="txt"><span class="lbl">Sắp diễn ra</span><strong>Chưa có sự kiện nào đã xác minh ngày</strong></span></div>`;
   const endCell = lastEnded ? (() => { const id = ytId(lastEnded.s);
     const when = lastEnded.c.end_at ? `Kết thúc ${timeEl(lastEnded.c.end_at)}` : esc(streamedAge(lastEnded.c.time_text) || 'Đã phát xong');
@@ -374,7 +378,7 @@ function repoChapter(){
   if (!list) {
     // No repos[] in this snapshot: list measured repositories as they are, without inventing labels.
     const reps = D.stories.filter(s => s.kind === 'repository' || (s.coverage || []).some(c => c.group === 'repository' && c.metrics && 'stars' in c.metrics))
-      .map(s => ({s, n: Math.max(...(s.coverage || []).map(c => (c.metrics && (c.metrics.stars_today ?? c.metrics.stars)) || 0))}))
+      .map(s => ({s, n: Math.max(0, ...(s.coverage || []).map(c => (c.metrics && (c.metrics.stars_today ?? c.metrics.stars)) || 0))}))
       .filter(x => x.s.kind === 'repository').sort((a, b) => (b.s.hot_score || 0) - (a.s.hot_score || 0) || b.n - a.n).map(x => x.s);
     return `<p class="chips-note">Nhãn Dùng ngay, Xào nấu được, Nghiên cứu và 8 mảng sẽ hiện khi bản dữ liệu có phần chọn lọc repo. Bản này chưa có, nên dưới đây là repo xếp theo số đo, chưa gắn nhãn.</p>
       ${reps.length ? `<div class="list" data-cap="8">${reps.map(s => row(s, {right: repoMeasure(s)})).join('')}</div>` : '<p class="empty-note">Bản này không có repo nào.</p>'}`;
@@ -447,7 +451,7 @@ function renderChapters(){
     l.after(b);
   });
   const views = D.views && Number.isFinite(D.views.total) ? `Lượt xem trên ai-radar đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie. ` : '';
-  $('#foot').innerHTML = `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. Xếp hạng nóng: ${esc(D.ranking.method)}, cửa sổ ${D.ranking.window_hours} giờ, hiệu chỉnh: ${esc(D.ranking.calibration)}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng. Tiêu đề giữ nguyên tiếng Anh như bài gốc. ${views}
+  $('#foot').innerHTML = `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${D.ranking ? `Xếp hạng nóng: ${esc(D.ranking.method)}, cửa sổ ${esc(D.ranking.window_hours)} giờ, hiệu chỉnh: ${esc(D.ranking.calibration)}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.'} Tiêu đề giữ nguyên tiếng Anh như bài gốc. ${views}
     ${storageOk ? 'Mốc đã xem, tin đã đọc, tin đã lưu và mảng bạn chọn chỉ lưu trên máy này.' : 'Trình duyệt đang chặn bộ nhớ cục bộ, nên mốc đã xem, tin đã lưu và mảng bạn chọn chỉ giữ tới khi đóng trang.'}
     <button id="keys-open">Phím tắt (?)</button>`;
 }
@@ -622,7 +626,7 @@ function toggleSave(key){
 }
 function addToCalendar(ev){
   if (!canCalendar(ev)) { toast('Sự kiện này chưa có ngày xác minh nên chưa thêm vào lịch được'); return; }
-  downloadIcs(ev);
+  try { downloadIcs(ev); } catch { toast('Không tạo được tệp lịch cho sự kiện này'); return; }
   toast('Đã tạo tệp lịch .ics. Mở tệp để thêm vào lịch của bạn');
 }
 
@@ -650,6 +654,7 @@ async function pollSnapshot(){
     const c = navCounts(j);
     countTo($('#since-n'), c.total);
     renderNav(c);
+    const tn = $('#tab-new'); tn.hidden = !c.total; tn.textContent = c.total > 99 ? '99+' : c.total;
   } catch { /* a failed poll keeps the current snapshot; the next poll tries again */ }
 }
 function applyPending(){
@@ -672,7 +677,11 @@ function keyOf(el){ return el ? (el.dataset.sel || (el.dataset.repo != null ? 'r
 function current(){ return selected || keyOf(document.activeElement && document.activeElement.closest('[data-sel],[data-repo]')); }
 function move(dir){
   const list = items(); if (!list.length) return;
-  let i = list.indexOf(document.activeElement && document.activeElement.closest('[data-sel],[data-repo]'));
+  // With the sheet open, focus sits on its close button, so position comes from the open story:
+  // the element that opened it if still on screen, otherwise that story's first visible element.
+  let i = selected
+    ? (lastTrigger && list.includes(lastTrigger) && keyOf(lastTrigger) === selected ? list.indexOf(lastTrigger) : list.findIndex(el => keyOf(el) === selected))
+    : list.indexOf(document.activeElement && document.activeElement.closest('[data-sel],[data-repo]'));
   // Nothing focused yet: start from the first item below the bar, so J lands on what the reader is looking at.
   if (i < 0) { const top = $('#bar').getBoundingClientRect().bottom; const first = list.findIndex(el => el.getBoundingClientRect().top >= top); i = (first < 0 ? list.length : first) - (dir > 0 ? 1 : 0); }
   const next = list[Math.max(0, Math.min(list.length - 1, i + dir))];
@@ -743,7 +752,7 @@ function rerenderRepos(){
   const y = scrollY, focusArea = document.activeElement && document.activeElement.dataset.area;
   renderBoard(); renderChapters(); observeChapters();
   scrollTo(0, y);
-  if (focusArea) { const el = $(`[data-area="${focusArea}"]`); if (el) el.focus({preventScroll:true}); }
+  if (focusArea) { const el = $(`[data-area="${CSS.escape(focusArea)}"]`); if (el) el.focus({preventScroll:true}); }
 }
 $('#sheet-x').addEventListener('click', close);
 $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
