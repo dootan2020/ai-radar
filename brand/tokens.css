@@ -1,0 +1,201 @@
+/* ai·radar design tokens · "Bento Keynote"
+   Language: docs/ngon-ngu-thiet-ke.md. Showcase of every token and component state: tokens.html.
+
+   Three layers, read top to bottom:
+     1. primitive  raw values named by what they are (gray-95, blue-55, space-24). Nothing outside this file uses them.
+     2. semantic   named by role (color-canvas, color-ink-2, text-title). Light and dark differ ONLY here.
+     3. component  named by the component that owns it (tile-*, num-*, av-*, ring-*).
+
+   Where the values come from (the five principles, short):
+     P1 Diện tích là thứ bậc   -> one grid, tile spans, big radius, wide gaps (space-24/32)
+     P2 Mỗi ô một con số       -> a separate number scale (num-*) far above the text scale
+     P3 Logo và số là màu      -> neutral ramp at chroma <= 0.012; one blue for action; red only for "live"
+     P4 Khoảng thở             -> tile padding 32-48px, 4pt spacing only
+     P5 Chuyển động như dòng chảy -> one easing family (decelerate), durations from the 02/10 motion spec */
+
+:root{
+  /* ---------- 1. primitive ---------- */
+  --hue: 265;                                        /* a faint cool tint, the hue of Apple's #F5F5F7 family */
+  --gray-99: oklch(0.993 0.002 var(--hue));
+  --gray-97: oklch(0.975 0.003 var(--hue));
+  --gray-96: oklch(0.962 0.004 var(--hue));
+  --gray-93: oklch(0.932 0.005 var(--hue));
+  --gray-90: oklch(0.900 0.006 var(--hue));
+  --gray-80: oklch(0.800 0.008 var(--hue));
+  --gray-70: oklch(0.700 0.009 var(--hue));
+  --gray-51: oklch(0.510 0.012 var(--hue));
+  --gray-44: oklch(0.440 0.012 var(--hue));
+  --gray-30: oklch(0.300 0.010 var(--hue));
+  --gray-25: oklch(0.250 0.009 var(--hue));
+  --gray-21: oklch(0.210 0.009 var(--hue));
+  --gray-17: oklch(0.175 0.008 var(--hue));
+  --gray-13: oklch(0.135 0.006 var(--hue));
+  --blue-53: oklch(0.50 0.20 256);
+  --blue-74: oklch(0.74 0.14 252);
+  --red-55:  oklch(0.52 0.21 27);
+  --red-70:  oklch(0.70 0.18 27);
+  --green-45: oklch(0.45 0.12 155);
+  --green-78: oklch(0.80 0.13 155);
+  --amber-47: oklch(0.48 0.11 65);
+  --amber-80: oklch(0.82 0.12 75);
+
+  --family: "Be Vietnam Pro", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --family-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;   /* install commands */
+
+  --size-12: 0.75rem; --size-13: 0.8125rem; --size-14: 0.875rem; --size-16: 1rem; --size-18: 1.125rem;
+  --size-21: 1.3125rem; --size-28: 1.75rem; --size-40: 2.5rem;
+  --size-32: 2rem; --size-56: 3.5rem; --size-88: 5.5rem;
+
+  --space-4: 4px; --space-8: 8px; --space-12: 12px; --space-16: 16px; --space-24: 24px;
+  --space-32: 32px; --space-48: 48px; --space-64: 64px; --space-96: 96px;
+
+  --radius-8: 8px; --radius-12: 12px; --radius-24: 24px; --radius-full: 999px;
+
+  --duration-150: 150ms; --duration-250: 250ms; --duration-300: 300ms; --duration-350: 350ms;
+  --duration-600: 600ms; --duration-1800: 1800ms;
+  --ease-flow: cubic-bezier(0.16, 1, 0.3, 1);        /* decelerate: arrives fast, settles slow, like water */
+  --ease-press: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-exit: cubic-bezier(0.5, 0, 0.75, 0);
+
+}
+
+/* ---------- 2. semantic (light, the default). Also on any element marked data-theme="light". ---------- */
+:root, [data-theme="light"]{
+  --color-canvas: var(--gray-96);
+  --color-surface: var(--gray-99);                   /* a tile */
+  --color-inset: var(--gray-97);                     /* a panel inside a tile */
+  --color-fill: var(--gray-93);                      /* chips, skeleton, meter track */
+  --color-hair: var(--gray-90);
+  --color-ink: var(--gray-21);
+  --color-ink-2: var(--gray-44);
+  --color-ink-3: var(--gray-51);
+  --color-accent: var(--blue-53);
+  --color-on-accent: var(--gray-99);
+  --color-accent-wash: oklch(0.50 0.20 256 / 0.10);
+  --color-live: var(--red-55);
+  --color-live-wash: oklch(0.52 0.21 27 / 0.10);
+  --color-ok: var(--green-45);
+  --color-ok-wash: oklch(0.45 0.12 155 / 0.12);
+  --color-warn: var(--amber-47);
+  --color-warn-wash: oklch(0.48 0.11 65 / 0.13);
+  --color-media-scrim: oklch(0.13 0.006 var(--hue) / 0.62);
+  --color-on-media: var(--gray-99);
+  --color-scrim: oklch(0.13 0.006 var(--hue) / 0.30);
+  --shadow-tint: 0.25 0.02 var(--hue);
+  --av-mono-bg: 0.93 0.035;                         /* monogram tile: oklch lightness + chroma; hue is per publisher */
+  --av-mono-ink: 0.38 0.09;
+  --shadow-lift: 0 1px 2px oklch(var(--shadow-tint) / 0.05), 0 12px 32px oklch(var(--shadow-tint) / 0.10);
+  --shadow-sheet: 0 2px 6px oklch(var(--shadow-tint) / 0.06), 0 32px 80px oklch(var(--shadow-tint) / 0.20);
+
+  --text-micro: var(--size-12);
+  --text-meta: var(--size-13);
+  --text-small: var(--size-14);
+  --text-body: var(--size-16);
+  --text-title: var(--size-18);
+  --text-tile: var(--size-21);                       /* tile heading */
+  --text-feature: var(--size-28);
+  --text-lead: clamp(var(--size-28), 1.2rem + 1.4vw, var(--size-40));
+  --leading-body: 1.55;                              /* Vietnamese stacked marks (ế, ộ, ữ) need room */
+  --leading-snug: 1.3;
+  --leading-tight: 1.12;
+  --tracking-display: -0.025em;
+  --tracking-number: -0.04em;
+  --weight-regular: 400; --weight-medium: 500; --weight-semibold: 600; --weight-bold: 700;
+
+  --motion-feedback: var(--duration-150);           /* press, toggle; also the only motion kept under reduced motion */
+  --motion-state: var(--duration-250);              /* hover, sheet close */
+  --motion-arrive: var(--duration-300);             /* a new tile or row slides in */
+  --motion-open: var(--duration-350);               /* detail sheet opens */
+  --motion-count: var(--duration-600);              /* numbers count, ring draws */
+
+}
+
+/* ---------- 3. component ---------- */
+:root{
+  --page-max: 1480px;
+  --page-pad: var(--space-32);
+  --grid-gap: var(--space-24);
+  --tile-bg: var(--color-surface);
+  --tile-radius: var(--radius-24);
+  --tile-pad: var(--space-32);
+  --tile-pad-hero: var(--space-48);
+  --tile-hover-lift: -3px;
+  --inner-radius: var(--radius-12);                  /* tile radius minus the visual inset */
+  --num-hero: clamp(var(--size-56), 2rem + 4.6vw, 8rem);   /* keynote: the lead's measured number */
+  --num-xl: clamp(var(--size-40), 1.4rem + 2.2vw, var(--size-88));
+  --num-lg: var(--size-56);
+  --num-md: var(--size-32);
+  --av-xs: 20px; --av-sm: 28px; --av-md: 40px; --av-lg: 56px; --av-xl: 72px;
+  --av-radius: 28%;                                  /* a squircle, like an app icon: logos read as objects */
+  --av-text-xs: 0.5rem; --av-text-sm: 0.62rem; --av-text-md: 0.9rem; --av-text-lg: 1.15rem; --av-text-xl: 1.4rem;   /* monogram letters per avatar size */
+  --datebadge-text: 0.6rem;                          /* the month under a date badge's day */
+  --tab-badge-text: 0.65rem;                         /* the count on a bottom tab */
+  --nav-fade: linear-gradient(to right, #000 calc(100% - 32px), transparent);   /* alpha mask: the top nav fades out where it scrolls */
+  --ring-size: 112px; --ring-stroke: 10px;
+  --chip-h: 32px;
+  --btn-h: 44px;
+  --focus-ring: 3px solid var(--color-accent);
+  --focus-offset: 3px;
+  --bar-h: 64px;
+  --sheet-w: min(520px, 100vw);
+}
+
+/* ---------- dark: same roles, new values. Surfaces lighten to rise; numbers stay the brightest thing. ---------- */
+[data-theme="dark"]{
+  --color-canvas: var(--gray-13);
+  --color-surface: var(--gray-17);
+  --color-inset: var(--gray-21);
+  --color-fill: var(--gray-25);
+  --color-hair: var(--gray-30);
+  --color-ink: var(--gray-96);
+  --color-ink-2: var(--gray-80);
+  --color-ink-3: var(--gray-70);
+  --color-accent: var(--blue-74);
+  --color-on-accent: var(--gray-13);
+  --color-accent-wash: oklch(0.74 0.14 252 / 0.16);
+  --color-live: var(--red-70);
+  --color-live-wash: oklch(0.70 0.18 27 / 0.18);
+  --color-ok: var(--green-78);
+  --color-ok-wash: oklch(0.80 0.13 155 / 0.14);
+  --color-warn: var(--amber-80);
+  --color-warn-wash: oklch(0.82 0.12 75 / 0.14);
+  --color-scrim: oklch(0.05 0.004 var(--hue) / 0.55);
+  --shadow-tint: 0.05 0.01 var(--hue);
+  --av-mono-bg: 0.32 0.05;
+  --av-mono-ink: 0.92 0.04;
+  --shadow-lift: 0 1px 2px oklch(var(--shadow-tint) / 0.4), 0 16px 40px oklch(var(--shadow-tint) / 0.5);
+  --shadow-sheet: 0 2px 6px oklch(var(--shadow-tint) / 0.4), 0 32px 80px oklch(var(--shadow-tint) / 0.6);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --color-canvas: var(--gray-13);
+    --color-surface: var(--gray-17);
+    --color-inset: var(--gray-21);
+    --color-fill: var(--gray-25);
+    --color-hair: var(--gray-30);
+    --color-ink: var(--gray-96);
+    --color-ink-2: var(--gray-80);
+    --color-ink-3: var(--gray-70);
+    --color-accent: var(--blue-74);
+    --color-on-accent: var(--gray-13);
+    --color-accent-wash: oklch(0.74 0.14 252 / 0.16);
+    --color-live: var(--red-70);
+    --color-live-wash: oklch(0.70 0.18 27 / 0.18);
+    --color-ok: var(--green-78);
+    --color-ok-wash: oklch(0.80 0.13 155 / 0.14);
+    --color-warn: var(--amber-80);
+    --color-warn-wash: oklch(0.82 0.12 75 / 0.14);
+    --color-scrim: oklch(0.05 0.004 var(--hue) / 0.55);
+    --shadow-tint: 0.05 0.01 var(--hue);
+    --av-mono-bg: 0.32 0.05;
+    --av-mono-ink: 0.92 0.04;
+    --shadow-lift: 0 1px 2px oklch(var(--shadow-tint) / 0.4), 0 16px 40px oklch(var(--shadow-tint) / 0.5);
+    --shadow-sheet: 0 2px 6px oklch(var(--shadow-tint) / 0.4), 0 32px 80px oklch(var(--shadow-tint) / 0.6);
+    color-scheme: dark;
+  }
+}
+
+@media (max-width: 767px){
+  :root{ --page-pad: var(--space-16); --grid-gap: var(--space-12); --tile-pad: var(--space-24); --tile-pad-hero: var(--space-24); --bar-h: 56px; }
+}

@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bộ nhận diện ai·radar</title>
 <meta name="description" content="Logo, màu, chữ, giọng văn và mẫu ứng dụng của ai·radar. Tín hiệu trước, nhiễu sau.">
-<link rel="icon" href="assets/favicon-32.svg" type="image/svg+xml">
-<!-- Tokens come from the running site, never copied: the kit cannot drift from the page. -->
-<link rel="stylesheet" href="../site/tokens.css">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- tokens.css is a byte copy of site/tokens.css written by build-assets.py, so brand/ can be
+     published on its own; tests/test_brand_meta.py fails the moment the two differ. -->
+<link rel="stylesheet" href="tokens.css">
 <style>
   @font-face{font-family:"Be Vietnam Pro";font-weight:400;font-display:swap;src:url(fonts/BeVietnamPro-Regular.ttf) format("truetype")}
   @font-face{font-family:"Be Vietnam Pro";font-weight:500;font-display:swap;src:url(fonts/BeVietnamPro-Medium.ttf) format("truetype")}
@@ -371,7 +373,7 @@
     <div class="tile s5">
       <p class="aa" aria-hidden="true">Aa</p>
       <h3>Be Vietnam Pro</h3>
-      <p class="note">Miễn phí, giấy phép SIL OFL. Tệp nằm trong <a href="fonts/">brand/fonts/</a>, hoặc tải ở Google Fonts.</p>
+      <p class="note">Miễn phí, giấy phép SIL OFL. Tải tệp: <a href="fonts/BeVietnamPro-Regular.ttf" download>400</a> · <a href="fonts/BeVietnamPro-Medium.ttf" download>500</a> · <a href="fonts/BeVietnamPro-SemiBold.ttf" download>600</a> · <a href="fonts/BeVietnamPro-Bold.ttf" download>700</a> · <a href="fonts/OFL.txt">giấy phép</a>, hoặc tải ở Google Fonts.</p>
     </div>
     <div class="tile s7 weights">
       <p style="font-weight:700">Tin AI hôm nay <small>700 · logo, tiêu đề, con số</small></p>
@@ -512,10 +514,23 @@
 <section id="tai-ve" class="chapter" aria-labelledby="h-files">
   <div class="chapter-head">
     <p class="eyebrow">Tải về</p>
-    <h2 id="h-files">Mọi tệp đều là SVG, chữ đã đổi thành nét.</h2>
-    <p>Mở được ở Figma, Illustrator, Canva hay trình duyệt mà không cần cài font. Muốn sửa số trên ảnh mẫu: chạy <code>python brand/build-assets.py</code> từ gốc repo, màu được đọc lại từ <code>site/tokens.css</code>.</p>
+    <h2 id="h-files">PNG để đăng ngay, SVG để sửa.</h2>
+    <p>Ảnh PNG đã đúng cỡ từng nền tảng, tải về là đăng được. Bản SVG mở được ở Figma, Illustrator, Canva hay trình duyệt mà không cần cài font, vì chữ đã đổi thành nét. Muốn sửa số trên ảnh mẫu: chạy <code>python brand/build-assets.py</code> rồi <code>python brand/export-png.py</code> từ gốc repo, màu được đọc lại từ <code>site/tokens.css</code>.</p>
   </div>
   <div class="tile">
+    <h3>Đăng ngay · PNG và ICO</h3>
+    <div class="files">
+      <a href="assets/cover-facebook.png" download><img src="assets/cover-facebook.png" alt=""><span>cover-facebook.png<small>Bìa Facebook · 1640×624</small></span></a>
+      <a href="assets/cover-youtube.png" download><img src="assets/cover-youtube.png" alt=""><span>cover-youtube.png<small>Bìa YouTube · 2560×1440</small></span></a>
+      <a href="assets/avatar.png" download><img src="assets/avatar.png" alt="" style="border-radius:50%"><span>avatar.png<small>Avatar Facebook, YouTube · 800×800</small></span></a>
+      <a href="assets/og-default.png" download><img src="assets/og-default.png" alt=""><span>og-default.png<small>Ảnh chia sẻ mặc định · 1200×630</small></span></a>
+      <a href="assets/khung-9x16.png" download><img src="assets/khung-9x16.png" alt=""><span>khung-9x16.png<small>Story, Reels, Shorts · 1080×1920</small></span></a>
+      <a href="assets/favicon.ico" download><img src="assets/favicon.ico" alt=""><span>favicon.ico<small>Favicon · 16 và 32</small></span></a>
+      <a href="assets/apple-touch-icon.png" download><img src="assets/apple-touch-icon.png" alt=""><span>apple-touch-icon.png<small>Biểu tượng iPhone · 180×180</small></span></a>
+    </div>
+  </div>
+  <div class="tile" style="margin-top:var(--grid-gap)">
+    <h3>Gốc để sửa · SVG</h3>
     <div class="files">
       <a href="assets/logo-full.svg" download><img src="assets/logo-full.svg" alt=""><span>logo-full.svg<small>Đầy đủ · nền sáng</small></span></a>
       <a href="assets/logo-full-dark.svg" download><img src="assets/logo-full-dark.svg" alt="" style="background:var(--gray-13);border-radius:6px"><span>logo-full-dark.svg<small>Đầy đủ · nền tối</small></span></a>
@@ -537,6 +552,7 @@
       <a href="assets/cover-facebook.svg" download><img src="assets/cover-facebook.svg" alt=""><span>cover-facebook.svg<small>Bìa Facebook</small></span></a>
       <a href="assets/cover-youtube.svg" download><img src="assets/cover-youtube.svg" alt=""><span>cover-youtube.svg<small>Bìa YouTube</small></span></a>
       <a href="assets/short-9x16.svg" download><img src="assets/short-9x16.svg" alt=""><span>short-9x16.svg<small>Thumbnail 9:16</small></span></a>
+      <a href="assets/khung-9x16.svg" download><img src="assets/khung-9x16.svg" alt=""><span>khung-9x16.svg<small>Khung 9:16 · không ghi ngày</small></span></a>
     </div>
   </div>
   <footer>ai·radar · Bộ nhận diện, bản 03/10/2026. Màu và chữ suy ra từ ngôn ngữ thiết kế Bento Keynote (<code>docs/ngon-ngu-thiet-ke.md</code>).</footer>

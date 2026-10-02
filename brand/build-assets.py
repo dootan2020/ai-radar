@@ -313,6 +313,21 @@ def main():
     body += text(MED, f"Số đo ngày {day}", 34, 112, 1400, L["ink3"])
     write("short-9x16.svg", doc(1080, 1920, body, f"{hf['id']}: {millions} triệu lượt tải", L["canvas"]))
 
+    # 9:16 brand frame 1080 x 1920 for stories and video covers. No dated number, so it never
+    # goes stale. Same free zones as the thumbnail: bottom 420 px and right 160 px.
+    body = mark(540, 760, 900, L["fill"], L["accent"])               # tone on tone behind the words
+    body += lockup(96, 240, 64, L["ink"], L["accent"])[0]
+    body += text(BOLD, "Tín hiệu trước,", 104, 96, 1120, L["ink"], TRACK_DISPLAY)
+    body += text(BOLD, "nhiễu sau.", 104, 96, 1244, L["ink"], TRACK_DISPLAY)
+    body += text(MED, "Tin AI mỗi sáng,", 44, 96, 1340, L["ink2"])
+    body += text(MED, "lọc bằng số đo thật.", 44, 96, 1400, L["ink2"])
+    body += text(MED, URL, 36, 96, 1480, L["accent"])
+    write("khung-9x16.svg", doc(1080, 1920, body, "ai·radar, khung 9:16", L["canvas"]))
+
+    # the brand page must stand alone when brand/ is published by itself: ship its own tokens
+    (ROOT / "brand" / "tokens.css").write_bytes((ROOT / "site" / "tokens.css").read_bytes())
+    print("wrote tokens.css (copy of site/tokens.css)")
+
 
 if __name__ == "__main__":
     main()
