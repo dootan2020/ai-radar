@@ -26,11 +26,17 @@ function fold(line) {
   return out + cur;
 }
 
+/* The note on a curated event says where its date was verified; a missing part is left out, never printed as "undefined". */
+export function verifiedNote(verifiedAt, sourceUrl) {
+  if (!verifiedAt && !sourceUrl) return '';
+  return ['Ngày đã xác minh', verifiedAt, sourceUrl ? `từ ${sourceUrl}` : ''].filter(Boolean).join(' ');
+}
+
 /* ev: {uid, title, url, location, startDate, endDate, startAt, endAt, note} */
 /* Every value that reaches the file must be valid; an optional end may be absent but never malformed. */
 export function canCalendar(ev) {
   if (!ev) return false;
-  if (ev.startAt) return isInstant(ev.startAt) && (!ev.endAt || isInstant(ev.endAt));
+  if (ev.startAt) return isInstant(ev.startAt) && (!ev.endAt || (isInstant(ev.endAt) && Date.parse(ev.endAt) >= Date.parse(ev.startAt)));
   return isDate(ev.startDate) && (!ev.endDate || (isDate(ev.endDate) && ev.endDate >= ev.startDate));
 }
 
@@ -40,7 +46,8 @@ export function buildIcs(ev) {
     `UID:${esc(ev.uid)}@ai-radar`, `DTSTAMP:${utc(new Date().toISOString())}`];
   if (ev.startAt) {
     lines.push(`DTSTART:${utc(ev.startAt)}`);
-    if (ev.endAt) lines.push(`DTEND:${utc(ev.endAt)}`);
+    // RFC 5545 3.8.2.2: DTEND must be later than DTSTART, so an end equal to the start is left out.
+    if (ev.endAt && Date.parse(ev.endAt) > Date.parse(ev.startAt)) lines.push(`DTEND:${utc(ev.endAt)}`);
   } else {
     lines.push(`DTSTART;VALUE=DATE:${ymd(ev.startDate)}`, `DTEND;VALUE=DATE:${ymd(nextDay(ev.endDate || ev.startDate))}`);
   }

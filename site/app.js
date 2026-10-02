@@ -2,11 +2,11 @@
    Plain ES modules, no framework, no build. Every data string passes through esc(); every link through safe().
    Each tile is one story: a source logo, one measured number, a label. A tile with no data hides or says so. */
 import { startLive } from './live.js';
-import { canCalendar, downloadIcs, gcalURL } from './calendar.js';
-import { streamedAge, scheduleText } from './time-text.js';
+import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
+import { streamedAge, scheduleText, TZ, hhmm, dayKey, ago, daysLeftHTML } from './time-text.js';
+import { isSnapshotV2 } from './snapshot.js';
 import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, faceOfRepo, ytIdOf, hydrateHF, watchImageErrors, hourHistogram, ring, meter } from './faces.js';
 
-const TZ = 'Asia/Ho_Chi_Minh';
 const KIND = {model:'Model',product:'Sản phẩm',research:'Nghiên cứu',other:'Bài viết',paper:'Paper',podcast:'Podcast',video:'Video',forum:'Thảo luận',event:'Sự kiện',repository:'Repo'};
 const METRIC = {points:'điểm',comments:'bình luận',score:'điểm',upvotes:'upvote',likes:'lượt thích',downloads:'lượt tải',trendingScore:'điểm trending',trending_score:'điểm trending',stars_today:'sao hôm nay',stargazers_count:'sao',stars:'sao',forks:'fork'};
 const CHAPTERS = [
@@ -56,22 +56,11 @@ const read = new Set(asArray(store.get('air2:read', [])));
 let saved = asArray(store.get('air2:saved', [])).filter(x => x && typeof x.key === 'string');
 const areas = new Set(asArray(store.get('air2:areas', [])));
 let withResearch = store.get('air2:research', false);
+/* Chapter lists the reader opened with "Xem thêm", by chapter id; kept for the life of the tab. */
+const expanded = new Set();
 
 /* ---------- time ---------- */
 const now = () => Date.now();
-const hhmm = d => new Intl.DateTimeFormat('vi-VN',{hour:'2-digit',minute:'2-digit',timeZone:TZ}).format(d);
-const dayKey = d => new Intl.DateTimeFormat('en-CA',{timeZone:TZ}).format(d);
-function ago(iso){
-  if (!iso) return 'không rõ thời gian';
-  const d = new Date(iso), h = (now() - d) / 36e5;
-  if (h < 0) return 'sắp tới';
-  if (h < 1) return `${Math.max(1, Math.round(h * 60))} phút trước`;
-  if (h < 24) return `${Math.round(h)} giờ trước`;
-  const days = Math.round((new Date(dayKey(new Date())) - new Date(dayKey(d))) / 864e5);
-  if (days <= 1) return `Hôm qua, ${hhmm(d)}`;
-  if (days < 7) return `${days} ngày trước`;
-  return new Intl.DateTimeFormat('vi-VN',{day:'numeric',month:'numeric',year:'numeric',timeZone:TZ}).format(d);
-}
 /* Relative times stay honest while the tab is open: every <time data-ago> is refreshed each minute. */
 const timeEl = iso => iso ? `<time datetime="${esc(iso)}" data-ago="${esc(iso)}">${esc(ago(iso))}</time>` : 'không rõ thời gian';
 const exact = iso => iso ? new Intl.DateTimeFormat('vi-VN',{dateStyle:'medium',timeStyle:'short',timeZone:TZ}).format(new Date(iso)) : 'không rõ';
@@ -134,12 +123,12 @@ function calOf(st){
   const e = eventOf(st);
   if (e) return {uid:e.id, title:String(e.title), url:e.url, location:e.location, startDate:e.start_date, endDate:e.end_date,
     startAt: e.time_precision === 'exact' ? e.start_at : null, endAt: e.time_precision === 'exact' ? e.end_at : null,
-    note:`Ngày đã xác minh ${e.verified_at} từ ${e.source_url}`};
+    note:verifiedNote(e.verified_at, e.source_url)};
   const c = (st.coverage || []).find(c => c.status === 'upcoming' && c.start_at && c.time_precision !== 'relative');
-  return c ? {uid:c.id, title:c.title, url:c.url, startAt:c.start_at, endAt:null, note:`Livestream của ${srcName(c.source)}`} : null;
+  return c ? {uid:c.id, title:c.title, url:c.url, startAt:c.start_at, endAt:null, note:c.source ? `Livestream của ${srcName(c.source)}` : ''} : null;
 }
 const liveCal = v => v && v.status === 'upcoming' && v.start_at && v.time_precision !== 'relative'
-  ? {uid:v.video_id, title:v.title, url:v.url, startAt:v.start_at, endAt:null, note:`Livestream của ${v.channel}`} : null;
+  ? {uid:v.video_id, title:v.title, url:v.url, startAt:v.start_at, endAt:null, note:v.channel ? `Livestream của ${v.channel}` : ''} : null;
 /* "Thêm vào lịch" as one split control: Google Calendar opens Google's template in a new tab, .ics downloads a file. */
 function calButtons(cal, attr, label){
   if (!cal || !canCalendar(cal)) return '';
@@ -289,7 +278,7 @@ function liveTile(shown){
   const status = liveNow.length ? '' : `<span class="state"><span class="pulse" aria-hidden="true"></span>Không có buổi nào đang phát · kiểm lúc ${hhmm(new Date(D.generated_at))}</span>`;
   const streams = upcomingStreams.slice(0, 1).map(v => {
     const cal = liveCal(v);
-    return `<div class="ev-row">${avatar(faceOfSource({source:'', lab:v.lab}, SRC), 'sm')}<span class="row-m"><a class="t" href="${esc(safe(v.url))}" target="_blank" rel="noopener">${esc(String(v.title))}</a>
+    return `<div class="ev-row">${avatar(faceOfSource({source:'', name:v.channel, lab:v.lab}, SRC), 'sm')}<span class="row-m"><a class="t" href="${esc(safe(v.url))}" target="_blank" rel="noopener">${esc(String(v.title))}</a>
       <span class="k">Sắp phát · ${esc(v.channel)} · ${v.start_at && v.time_precision !== 'relative' ? esc(exact(v.start_at)) : esc(scheduleText(v.time_text))}</span></span>${calButtons(cal, `data-cal-live="${esc(v.video_id)}"`, v.title)}</div>`;
   }).join('');
   const evs = upcoming.map(s => ({s, e: eventOf(s) || {}})).filter(x => x.e.start_date).sort((a, b) => a.e.start_date.localeCompare(b.e.start_date));
@@ -301,7 +290,7 @@ function liveTile(shown){
       ${calButtons(calOf(first.s), `data-cal="${esc(first.s.id)}"`, String(first.s.title))}</div>`; })()
     : `<p class="empty-note">Chưa có sự kiện nào đã xác minh ngày.</p>`;
   const restBlock = restEv.map(({s, e}) => { const sd = dateOnly(e.start_date), n = daysUntil(e.start_date);
-    return `<div class="ev-row"><span class="datebadge" aria-hidden="true"><b>${sd.d}</b><span>th ${sd.m}</span></span><span class="row-m"><button class="t" data-sel="${esc(s.id)}">${esc(String(s.title))}</button><span class="k">còn <span class="num">${n}</span> ngày · ${esc(e.location || 'chưa rõ địa điểm')}</span></span>${calButtons(calOf(s), `data-cal="${esc(s.id)}"`, String(s.title))}</div>`; }).join('');
+    return `<div class="ev-row"><span class="datebadge" aria-hidden="true"><b>${sd.d}</b><span>th ${sd.m}</span></span><span class="row-m"><button class="t" data-sel="${esc(s.id)}">${esc(String(s.title))}</button><span class="k">${daysLeftHTML(n)} · ${esc(e.location || 'chưa rõ địa điểm')}</span></span>${calButtons(calOf(s), `data-cal="${esc(s.id)}"`, String(s.title))}</div>`; }).join('');
 
   return `<section class="tile t-live" aria-labelledby="live-h">
     ${tileHead('Đang phát và sắp tới', 'live-h', `<a class="link" href="#nghe">Nghe và xem</a>`)}
@@ -491,13 +480,13 @@ function renderChapters(){
       <div class="srcgrid">${[...D.sources].sort((a, b) => a.ok - b.ok || b.count - a.count).map(s => `<div class="srow">${avatar(faceOfSource({source:s.id, lab:s.lab, publisher:s.publisher}, SRC), 'xs')}
         <span class="row-m"><a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.name)}</a>${s.error ? `<span class="err">${esc(s.error)}</span>` : ''}</span><span class="tiny ${s.ok ? 'faint' : 'warn-t'} num">${s.ok ? `${s.count} tin` : 'lỗi'}</span></div>`).join('')}</div>
     </section>`;
-  // Long lists start capped and expand in place.
+  // Long lists start capped and expand in place; a list the reader opened stays open when the page re-renders.
   $$('[data-cap]').forEach(l => {
-    const cap = +l.dataset.cap, kids = [...l.children];
-    if (kids.length <= cap) return;
+    const cap = +l.dataset.cap, kids = [...l.children], owner = (l.closest('[id]') || {}).id;
+    if (kids.length <= cap || (owner && expanded.has(owner))) return;
     kids.slice(cap).forEach(k => k.hidden = true);
     const b = document.createElement('button'); b.className = 'btn-quiet expand'; b.textContent = `Xem thêm ${nf.format(kids.length - cap)}`;
-    b.addEventListener('click', () => { kids.forEach((k, i) => { k.hidden = false; if (i >= cap && !RM.matches) { k.classList.add('arrive'); k.style.setProperty('--i', Math.min(i - cap, 8)); } }); b.remove(); hydrateVisible(); });
+    b.addEventListener('click', () => { if (owner) expanded.add(owner); kids.forEach((k, i) => { k.hidden = false; if (i >= cap && !RM.matches) { k.classList.add('arrive'); k.style.setProperty('--i', Math.min(i - cap, 8)); } }); b.remove(); hydrateVisible(); });
     l.after(b);
   });
   const views = D.views && Number.isFinite(D.views.total) ? `Lượt xem trên ai-radar đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie. ` : '';
@@ -672,15 +661,28 @@ function toast(msg){
   el.innerHTML = `<span>${esc(msg)}</span>`;
   toastT = setTimeout(() => { const s = el.querySelector('span'); if (s) s.classList.add('out'); setTimeout(() => { el.innerHTML = ''; }, 260); }, 3200);
 }
+/* Re-rendering replaces the row that had keyboard focus; put focus back on the same row (same key, same
+   occurrence in document order) so J/K carry on from where the reader was. */
+function keepFocus(render){
+  const a = document.activeElement, row = a && !a.closest('#sheet') ? a.closest('[data-sel],[data-repo]') : null;
+  const k = keyOf(row), same = () => $$('[data-sel],[data-repo]').filter(el => keyOf(el) === k && !el.closest('#sheet'));
+  const nth = k ? same().indexOf(row) : -1;
+  render();
+  if (!k || (document.activeElement && document.activeElement !== document.body)) return;
+  const list = same(), el = list[nth] || list[0];
+  if (el) el.focus({preventScroll:true});
+}
 function toggleSave(key){
   const it = itemOf(key) || saved.find(x => x.key === key);
   if (!it) return;
   if (savedKey(key)) { saved = saved.filter(x => x.key !== key); toast('Đã bỏ lưu'); }
   else { saved.push({key, title: it.title, url: it.url, at: new Date().toISOString()}); toast('Đã lưu. Xem lại ở mục Đã lưu'); }
   store.set('air2:saved', saved.slice(-300));
-  renderNav(navCounts(D)); renderChapters(); observeChapters();
-  if (selected) { const b = $(`#sheet-body [data-save="${CSS.escape(selected)}"]`); if (b) { const on = savedKey(selected); b.setAttribute('aria-pressed', on); b.innerHTML = `${icon('i-save')}${on ? 'Đã lưu' : 'Lưu đọc sau'}`; } }
-  renderBoard();
+  keepFocus(() => {
+    renderNav(navCounts(D)); renderChapters(); observeChapters();
+    if (selected) { const b = $(`#sheet-body [data-save="${CSS.escape(selected)}"]`); if (b) { const on = savedKey(selected); b.setAttribute('aria-pressed', on); b.innerHTML = `${icon('i-save')}${on ? 'Đã lưu' : 'Lưu đọc sau'}`; } }
+    renderBoard();
+  });
 }
 function addToCalendar(ev){
   if (!canCalendar(ev)) { toast('Sự kiện này chưa có ngày xác minh nên chưa thêm vào lịch được'); return; }
@@ -726,7 +728,7 @@ async function pollSnapshot(){
     const r = await fetch(DATA_URL, {cache:'no-store'});
     if (!r.ok) return;
     const j = await r.json();
-    if (!j || !j.generated_at || !Array.isArray(j.stories) || j.generated_at <= D.generated_at) return;
+    if (!isSnapshotV2(j) || j.generated_at <= D.generated_at) return;
     pending = j;
     const fresh = j.stories.filter(s => !S.has(s.id)).length;
     $('#fresh').innerHTML = `<button class="fresh-btn" id="fresh-go">${icon('i-up')}${fresh ? `<span><span class="num">${fresh}</span> tin mới</span>` : '<span>Số liệu vừa cập nhật</span>'} · Xem</button>`;
@@ -853,7 +855,7 @@ function showError(msg){
 watchImageErrors();
 applyTheme(store.get('air2:theme', null));
 fetch(DATA_URL, {cache:'no-store'}).then(r => { if (!r.ok) throw new Error(`Máy chủ trả HTTP ${r.status} cho ${DATA_URL}`); return r.json(); }).then(j => {
-  if (!j || j.schema_version !== 2 || !Array.isArray(j.stories) || !j.sections) throw new Error('Tệp dữ liệu không đúng hợp đồng v2');
+  if (!isSnapshotV2(j)) throw new Error('Tệp dữ liệu không đúng hợp đồng v2');
   D = j; build(); renderAll();
   const m = /^#tin\/(.+)$/.exec(location.hash); if (m) open(decodeURIComponent(m[1]), null, true);
   else if (location.hash.length > 1) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }

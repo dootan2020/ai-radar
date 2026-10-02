@@ -116,7 +116,7 @@ class StreamTimeWordingTests(unittest.TestCase):
 
     def test_page_renders_through_these_helpers(self):
         app = (SITE / "app.js").read_text(encoding="utf-8")
-        self.assertIn("import { streamedAge, scheduleText } from './time-text.js';", app)
+        self.assertRegex(app, r"import \{ streamedAge, scheduleText[\w, ]*\} from './time-text\.js';")
         self.assertIn("streamedAge(lastEnded.c.time_text)", app)
         self.assertIn("scheduleText(v.time_text)", app)
         # The page must not keep a private copy that could drift from the tested one.

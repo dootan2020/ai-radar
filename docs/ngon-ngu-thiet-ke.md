@@ -17,7 +17,7 @@ Giống một slide keynote của Apple. Mỗi sáng, người đọc mở trang
 | --- | --- | --- |
 | 1 | `--grid-gap`, `--tile-radius`, lưới 12 cột | Khe 24px, bo góc ô 24px. Bo 24px là ngoại lệ có chủ đích: neo so sánh là bento của Apple. |
 | 2 | `--num-hero` → `--num-md` | Thang số tách riêng khỏi thang chữ: 128 / 88 / 56 / 32px, chữ đậm 700, `tabular-nums`, giãn chữ −0,04em. |
-| 2 | `--av-*`, `--av-radius` | Logo 20–72px, bo kiểu squircle 28% như icon ứng dụng. Khi không có logo đã xác minh thì dùng chữ lồng. |
+| 2 | `--av-*`, `--av-radius` | Logo 20–72px, bo kiểu squircle 28% như icon ứng dụng. Khi không có logo đã xác minh thì dùng chữ lồng: màu nền và màu chữ là `--av-mono-bg`, `--av-mono-ink` (độ sáng và độ đậm, đổi theo giao diện), sắc độ suy ra từ tên nguồn; cỡ chữ là `--av-text-*`. Logo của một tin là logo nguồn đưa tin, trừ khi bản thân tin là một repo hay một model, khi đó là logo chủ repo. |
 | 3 | `--gray-*` (hue 265, chroma ≤ 0,012), `--color-accent`, `--color-live` | Dải xám lạnh nhạt cùng một hue. Một màu xanh, một màu đỏ. Chữ đều đạt từ 4,5:1 trở lên ở cả hai giao diện (đo trong `tokens.html`). |
 | 3 | Độ sâu | Chỉ một cách: ô sáng hơn nền. Ô đứng yên không có viền, không có bóng. Bóng chỉ xuất hiện khi ô được nâng lên và ở tờ chi tiết. |
 | 4 | `--space-4` … `--space-96`, `--tile-pad(-hero)` | Thang 4pt. Lề ô 32px, ô chính 48px, điện thoại 24px. |

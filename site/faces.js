@@ -38,17 +38,21 @@ export function monogram(name){
 /* A monogram's tint comes from its letters, so the same publisher always gets the same tile. */
 const monoHue = s => [...String(s)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7);
 
-/* The face of a story: its repository owner when the story IS a repository or model, else its first source. */
+/* The face of a story: its repository owner when the story IS a repository or model, else its first source.
+   A discussion or article that links to a repository keeps its own source's logo, matching the source named beside it. */
 export function faceOfStory(st, src){
-  for (const c of [{url: st.url}, ...(st.coverage || [])]) {
-    const g = ghOwner(c.url); if (g) return {kind:'gh', id:g, label:g};
-    const h = hfOwner(c.url); if (h) return {kind:'hf', id:h, label:h};
+  if (st.kind === 'repository' || st.kind === 'model') {
+    for (const c of [{url: st.url}, ...(st.coverage || [])]) {
+      const g = ghOwner(c.url); if (g) return {kind:'gh', id:g, label:g};
+      const h = hfOwner(c.url); if (h) return {kind:'hf', id:h, label:h};
+    }
   }
   return faceOfSource((st.coverage || [])[0], src);
 }
+/* c: a coverage item {source, lab, publisher}; `name` is a display name for items with no source id (a YouTube channel). */
 export function faceOfSource(c, src){
   const s = (c && src && src.get(c.source)) || {};
-  const name = s.name || (c && c.source) || '';
+  const name = s.name || (c && (c.name || c.source)) || '';
   for (const k of [c && c.lab, s.lab, c && c.publisher, s.publisher]) if (k && GH_IDENT[k]) return {kind:'gh', id:GH_IDENT[k], label:name};
   return {kind:'mono', id:monogram(name), label:name};
 }

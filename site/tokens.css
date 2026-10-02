@@ -40,6 +40,7 @@
   --amber-80: oklch(0.82 0.12 75);
 
   --family: "Be Vietnam Pro", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --family-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;   /* install commands */
 
   --size-12: 0.75rem; --size-13: 0.8125rem; --size-14: 0.875rem; --size-16: 1rem; --size-18: 1.125rem;
   --size-21: 1.3125rem; --size-28: 1.75rem; --size-40: 2.5rem;
@@ -81,6 +82,8 @@
   --color-on-media: var(--gray-99);
   --color-scrim: oklch(0.13 0.006 var(--hue) / 0.30);
   --shadow-tint: 0.25 0.02 var(--hue);
+  --av-mono-bg: 0.93 0.035;                         /* monogram tile: oklch lightness + chroma; hue is per publisher */
+  --av-mono-ink: 0.38 0.09;
   --shadow-lift: 0 1px 2px oklch(var(--shadow-tint) / 0.05), 0 12px 32px oklch(var(--shadow-tint) / 0.10);
   --shadow-sheet: 0 2px 6px oklch(var(--shadow-tint) / 0.06), 0 32px 80px oklch(var(--shadow-tint) / 0.20);
 
@@ -124,6 +127,10 @@
   --num-md: var(--size-32);
   --av-xs: 20px; --av-sm: 28px; --av-md: 40px; --av-lg: 56px; --av-xl: 72px;
   --av-radius: 28%;                                  /* a squircle, like an app icon: logos read as objects */
+  --av-text-xs: 0.5rem; --av-text-sm: 0.62rem; --av-text-md: 0.9rem; --av-text-lg: 1.15rem; --av-text-xl: 1.4rem;   /* monogram letters per avatar size */
+  --datebadge-text: 0.6rem;                          /* the month under a date badge's day */
+  --tab-badge-text: 0.65rem;                         /* the count on a bottom tab */
+  --nav-fade: linear-gradient(to right, #000 calc(100% - 32px), transparent);   /* alpha mask: the top nav fades out where it scrolls */
   --ring-size: 112px; --ring-stroke: 10px;
   --chip-h: 32px;
   --btn-h: 44px;
@@ -154,6 +161,8 @@
   --color-warn-wash: oklch(0.82 0.12 75 / 0.14);
   --color-scrim: oklch(0.05 0.004 var(--hue) / 0.55);
   --shadow-tint: 0.05 0.01 var(--hue);
+  --av-mono-bg: 0.32 0.05;
+  --av-mono-ink: 0.92 0.04;
   --shadow-lift: 0 1px 2px oklch(var(--shadow-tint) / 0.4), 0 16px 40px oklch(var(--shadow-tint) / 0.5);
   --shadow-sheet: 0 2px 6px oklch(var(--shadow-tint) / 0.4), 0 32px 80px oklch(var(--shadow-tint) / 0.6);
   color-scheme: dark;
@@ -179,6 +188,8 @@
     --color-warn-wash: oklch(0.82 0.12 75 / 0.14);
     --color-scrim: oklch(0.05 0.004 var(--hue) / 0.55);
     --shadow-tint: 0.05 0.01 var(--hue);
+    --av-mono-bg: 0.32 0.05;
+    --av-mono-ink: 0.92 0.04;
     --shadow-lift: 0 1px 2px oklch(var(--shadow-tint) / 0.4), 0 16px 40px oklch(var(--shadow-tint) / 0.5);
     --shadow-sheet: 0 2px 6px oklch(var(--shadow-tint) / 0.4), 0 32px 80px oklch(var(--shadow-tint) / 0.6);
     color-scheme: dark;

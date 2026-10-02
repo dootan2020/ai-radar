@@ -82,7 +82,7 @@
   .brand{font-size:var(--text-tile);font-weight:var(--weight-bold);letter-spacing:var(--tracking-display);white-space:nowrap}
   .brand b{color:var(--color-accent)}
   .when-line{display:none;font-size:var(--text-meta);color:var(--color-ink-2);white-space:nowrap}
-  .nav{display:flex;gap:var(--space-4);flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;mask-image:linear-gradient(to right, #000 calc(100% - 32px), transparent);font-size:var(--text-meta);font-weight:var(--weight-medium)}
+  .nav{display:flex;gap:var(--space-4);flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;mask-image:var(--nav-fade);font-size:var(--text-meta);font-weight:var(--weight-medium)}
   .nav a{padding:var(--space-8) var(--space-8);border-radius:var(--radius-full);color:var(--color-ink-2);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
   .nav a:hover{color:var(--color-ink);background:var(--color-fill)}
   .nav a[aria-current="true"]{color:var(--color-ink);background:var(--color-surface)}
@@ -155,16 +155,14 @@
 
   /* avatar: a source logo as an app-icon squircle; a monogram when no verified logo exists */
   .av{position:relative;display:inline-grid;place-items:center;flex:none;width:var(--av-md);height:var(--av-md);border-radius:var(--av-radius);overflow:hidden;
-    background:oklch(0.93 0.035 var(--mono-h, 250));color:oklch(0.38 0.09 var(--mono-h, 250));font-weight:var(--weight-bold);font-size:0.9rem;line-height:1}
-  [data-theme="dark"] .av{background:oklch(0.32 0.05 var(--mono-h, 250));color:oklch(0.92 0.04 var(--mono-h, 250))}
-  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .av{background:oklch(0.32 0.05 var(--mono-h, 250));color:oklch(0.92 0.04 var(--mono-h, 250))} }
+    background:oklch(var(--av-mono-bg) var(--mono-h, 250));color:oklch(var(--av-mono-ink) var(--mono-h, 250));font-weight:var(--weight-bold);font-size:var(--av-text-md);line-height:1}
   .av::after{content:attr(data-mono);grid-area:1/1}
   .av:has(.av-img)::after{content:none}
   .av-img{grid-area:1/1;width:100%;height:100%;object-fit:cover;background:var(--color-surface)}
-  .av-xs{width:var(--av-xs);height:var(--av-xs);font-size:0.5rem}
-  .av-sm{width:var(--av-sm);height:var(--av-sm);font-size:0.62rem}
-  .av-lg{width:var(--av-lg);height:var(--av-lg);font-size:1.15rem}
-  .av-xl{width:var(--av-xl);height:var(--av-xl);font-size:1.4rem}
+  .av-xs{width:var(--av-xs);height:var(--av-xs);font-size:var(--av-text-xs)}
+  .av-sm{width:var(--av-sm);height:var(--av-sm);font-size:var(--av-text-sm)}
+  .av-lg{width:var(--av-lg);height:var(--av-lg);font-size:var(--av-text-lg)}
+  .av-xl{width:var(--av-xl);height:var(--av-xl);font-size:var(--av-text-xl)}
   .av-stack{display:inline-flex;flex:none}
   .av-stack-item{display:inline-flex;border-radius:var(--av-radius);box-shadow:0 0 0 3px var(--tile-bg)}
   .av-stack-item + .av-stack-item{margin-left:-10px}
@@ -257,7 +255,7 @@
   .lic .i{width:13px;height:13px}
   /* install command: copy with one press; the icon swaps to a check */
   .cmd{display:flex;align-items:center;gap:var(--space-8);background:var(--color-inset);border-radius:var(--inner-radius);padding:var(--space-4) var(--space-4) var(--space-4) var(--space-16);min-width:0}
-  .cmd code{flex:1;min-width:0;font-family:ui-monospace, "Cascadia Mono", Consolas, monospace;font-size:var(--text-meta);color:var(--color-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .cmd code{flex:1;min-width:0;font-family:var(--family-mono);font-size:var(--text-meta);color:var(--color-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .cmd-copy{display:inline-flex;align-items:center;gap:var(--space-4);min-height:var(--btn-h);padding:0 var(--space-12);border-radius:var(--radius-8);font-size:var(--text-meta);font-weight:var(--weight-semibold);color:var(--color-accent);
     transition:background-color var(--motion-state) var(--ease-flow), transform var(--motion-feedback) var(--ease-press)}
   .cmd-copy:hover{background:var(--color-accent-wash)}
@@ -299,7 +297,7 @@
   .ev-row .calbtn{grid-column:1 / -1}
   .datebadge{width:var(--av-md);height:var(--av-md);border-radius:var(--av-radius);background:var(--color-inset);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
   .datebadge b{font-size:var(--text-title);font-weight:var(--weight-bold)}
-  .datebadge span{font-size:0.6rem;color:var(--color-ink-3);margin-top:2px}
+  .datebadge span{font-size:var(--datebadge-text);color:var(--color-ink-3);margin-top:2px}
   /* calendar split control: Google Calendar link + .ics file */
   .calbtn{display:inline-flex;align-items:stretch;border-radius:var(--radius-full);background:var(--color-fill);overflow:hidden;flex:none;max-width:100%}
   .calbtn-g,.calbtn-ics{display:inline-flex;white-space:nowrap;align-items:center;gap:var(--space-8);min-height:40px;padding:0 var(--space-16);font-size:var(--text-meta);font-weight:var(--weight-semibold);
@@ -410,7 +408,7 @@
     .tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5, 1fr);background:var(--color-surface);box-shadow:0 -1px 0 var(--color-hair);padding-bottom:env(safe-area-inset-bottom)}
     .tabs a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;font-size:var(--text-micro);color:var(--color-ink-3)}
     .tabs a[aria-current="true"]{color:var(--color-accent)}
-    .tabs .num{position:absolute;top:6px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-on-accent);font-size:0.65rem;display:grid;place-items:center}
+    .tabs .num{position:absolute;top:6px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-on-accent);font-size:var(--tab-badge-text);display:grid;place-items:center}
     .sheet{top:auto;left:0;right:0;bottom:0;width:auto;max-height:88dvh;border-radius:var(--tile-radius) var(--tile-radius) 0 0;transform:translateY(100%)}
     .sheet-body{padding:var(--space-8) var(--space-24) calc(var(--space-48) + env(safe-area-inset-bottom))}
     .sheet-top{padding-left:var(--space-24)}
