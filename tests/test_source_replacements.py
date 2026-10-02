@@ -11,7 +11,7 @@ from radar.transport import ResponseText
 
 NOW = datetime(2026, 10, 2, 12, tzinfo=timezone.utc)
 DISABLED_IDS = {"import-ai", "dwarkesh-podcast", "latent-space", "google-deepmind"}
-LATEST_URL = "https://vnexpress.net/rss/tin-moi-nhat.rss"
+LATEST_URL = "https://vnexpress.net/rss/so-hoa.rss"
 SYNTHETIC_NEWS = """<rss><channel>
 <item><title>Nghiên cứu trí tuệ nhân tạo mới</title>
 <link>https://fixture.invalid/ai-news</link>

@@ -98,11 +98,17 @@ def finish(payload, coverage, events, now, previous, fetcher=None):
     if (not baseline or previous.get("schema_version") != 2 or not isinstance(previous.get("stories"), list)
             or not 0 < (now - baseline).total_seconds() <= 48 * 3600):
         baseline = None
+    repos_meta = {}
+    curation_fetcher = fetcher
+    if fetcher is not None and hasattr(fetcher, "transport"):
+        import time
+        from radar.transport import Fetcher
+        curation_fetcher = Fetcher(time.monotonic() + 60, transport=fetcher.transport)
     repos = curate_repos(payload.get("trending", {}).get("github", []),
                          payload.get("trending", {}).get("huggingface", []),
-                         fetcher=fetcher, now=now)
+                         fetcher=curation_fetcher, now=now, meta=repos_meta)
     payload.update(schema_version=2, stories=stories, sections=sections(stories, now), events=events,
-                   repos=repos,
+                   repos=repos, repos_meta=repos_meta,
                    ranking=dict(method="source-percentile-freshness-v1", window_hours=72,
                                 baseline_at=iso_date(baseline), calibration="provisional; see clustering evaluation report"))
     return payload

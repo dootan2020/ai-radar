@@ -4,12 +4,28 @@ import os
 import queue
 import threading
 import time
-from urllib.request import Request, urlopen
+from urllib.parse import urlparse
+from urllib.request import HTTPRedirectHandler, Request, build_opener, install_opener, urlopen
 
 USER_AGENT = "AI-Radar/1.0 (public news reader; Python urllib; no inference)"
 MAX_BYTES = 8 * 1024 * 1024
 MAX_CONNECTIONS = 8
 FETCH_TIMEOUT = 10
+
+
+class SafeRedirectHandler(HTTPRedirectHandler):
+    """Prevent sending credentials like GITHUB_TOKEN to untrusted hosts on redirect."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        new_req = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if new_req:
+            target_host = urlparse(newurl).hostname
+            if target_host != "api.github.com":
+                if "Authorization" in new_req.headers:
+                    del new_req.headers["Authorization"]
+                if hasattr(new_req, "unredirected_hdrs") and "Authorization" in new_req.unredirected_hdrs:
+                    del new_req.unredirected_hdrs["Authorization"]
+        return new_req
 
 
 class ResponseText(str):
@@ -22,10 +38,14 @@ class ResponseText(str):
         return instance
 
 
+install_opener(build_opener(SafeRedirectHandler))
+
+
 def read_url(url):
     headers = {"User-Agent": USER_AGENT, "Accept": "*/*"}
     token = os.environ.get("GITHUB_TOKEN")
-    if token and "api.github.com" in url:
+    host = urlparse(url).hostname
+    if token and host == "api.github.com":
         headers["Authorization"] = f"token {token}"
     request = Request(url, headers=headers)
     with urlopen(request, timeout=8) as response:

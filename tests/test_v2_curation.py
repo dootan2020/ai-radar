@@ -196,7 +196,7 @@ class GitHubScoringTests(unittest.TestCase):
         self.assertTrue(res["signals"]["non_commercial"])
         self.assertEqual(res["signals"]["n2_penalty"], -15)
         self.assertIn("Nghiên cứu", res["why"])
-        self.assertIn("⚠ trọng số phi thương mại", res["why"])
+        self.assertIn("⚠ hạn chế thương mại", res["why"])
 
     def test_copyleft_flag_and_custom_license(self):
         repo_info = {"repo": "test/gpl-repo"}
@@ -385,6 +385,10 @@ class CurateReposIntegrationTests(unittest.TestCase):
         self.assertEqual(item["id"], "owner/offline-repo")
         self.assertIn("api_fallback_reason", item["signals"])
         self.assertFalse(item["signals"]["api_enriched"])
+        self.assertIsNone(item["label"])
+        self.assertIsNone(item["why"])
+        self.assertIsNone(item["license"])
+        self.assertEqual(item["license_flag"], "chưa đo được license")
 
 
 if __name__ == "__main__":
