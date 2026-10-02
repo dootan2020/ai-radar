@@ -4,7 +4,7 @@ Run from anywhere, after brand/build-assets.py:  python brand/export-png.py
 Python stdlib only. Each SVG is rendered by headless Chrome with a fresh profile under
 plans/nhap/, then every PNG's pixel size is read back from its IHDR header and checked
 against the platform size below; a mismatch stops the run. favicon.ico packs the 16 and 32
-renders as PNG entries. The files the live site needs are copied into site/.
+renders as PNG entries. The files the live site needs are copied into site/, and the kit into site/brand/.
 
 Chrome path: CHROME env var, else the default Windows install path.
 """
@@ -15,6 +15,8 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+
+import publish_kit
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "brand" / "assets"
@@ -94,6 +96,7 @@ def main():
     for src, dst in TO_SITE.items():
         shutil.copyfile(ASSETS / src, SITE / dst)
         print(f"site/{dst} <- brand/assets/{src}")
+    publish_kit.publish()
 
 
 if __name__ == "__main__":

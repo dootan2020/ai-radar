@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bộ nhận diện ai·radar</title>
+<meta name="description" content="Logo, màu, chữ, giọng văn và mẫu ứng dụng của ai·radar. Tín hiệu trước, nhiễu sau.">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- tokens.css is a byte copy of site/tokens.css written by build-assets.py, so brand/ can be
+     published on its own; tests/test_brand_meta.py fails the moment the two differ. -->
+<link rel="stylesheet" href="tokens.css">
+<style>
+  @font-face{font-family:"Be Vietnam Pro";font-weight:400;font-display:swap;src:url(fonts/BeVietnamPro-Regular.ttf) format("truetype")}
+  @font-face{font-family:"Be Vietnam Pro";font-weight:500;font-display:swap;src:url(fonts/BeVietnamPro-Medium.ttf) format("truetype")}
+  @font-face{font-family:"Be Vietnam Pro";font-weight:600;font-display:swap;src:url(fonts/BeVietnamPro-SemiBold.ttf) format("truetype")}
+  @font-face{font-family:"Be Vietnam Pro";font-weight:700;font-display:swap;src:url(fonts/BeVietnamPro-Bold.ttf) format("truetype")}
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{overflow-x:clip;scroll-behavior:smooth;scroll-padding-top:calc(var(--bar-h) + var(--space-16))}
+  body{margin:0;background:var(--color-canvas);color:var(--color-ink);font-family:var(--family);font-size:var(--text-body);line-height:var(--leading-body);
+    -webkit-font-smoothing:antialiased;overflow-x:clip}
+  img,svg{display:block;max-width:100%;height:auto}
+  a{color:var(--color-accent);text-decoration:none}
+  a:hover{text-decoration:underline;text-underline-offset:3px}
+  :focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset);border-radius:var(--radius-8)}
+  h1,h2,h3,p{margin:0}
+  h1,h2,h3{letter-spacing:var(--tracking-display);line-height:var(--leading-tight);overflow-wrap:anywhere;min-width:0}
+  code,.mono{font-family:var(--family-mono);font-size:var(--text-meta)}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+  /* top bar */
+  .bar{position:sticky;top:0;z-index:5;height:var(--bar-h);display:flex;align-items:center;gap:var(--space-24);padding:0 var(--page-pad);
+    background:color-mix(in oklch, var(--color-canvas) 86%, transparent);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px)}
+  .bar .logo{flex:none;display:flex;align-items:center;min-height:var(--btn-h);color:var(--color-ink)}
+  .bar .logo img{height:48px;width:auto;margin-left:-11px}
+  .bar nav{display:flex;gap:var(--space-4);overflow-x:auto;scrollbar-width:none;mask-image:var(--nav-fade);font-size:var(--text-meta);font-weight:var(--weight-medium);min-width:0}
+  .bar nav a{padding:var(--space-8) var(--space-12);border-radius:var(--radius-full);color:var(--color-ink-2);white-space:nowrap;min-height:var(--btn-h);display:flex;align-items:center;
+    transition:color var(--motion-state) var(--ease-flow),background-color var(--motion-state) var(--ease-flow)}
+  .bar nav a:hover{color:var(--color-ink);background:var(--color-fill);text-decoration:none}
+
+  /* page + bento grid */
+  main{max-width:var(--page-max);margin:0 auto;padding:var(--space-16) var(--page-pad) var(--space-96)}
+  .chapter{margin-top:var(--space-96)}
+  .chapter-head{display:grid;gap:var(--space-8);margin:0 0 var(--space-32);max-width:60ch}
+  .eyebrow{font-size:var(--text-meta);font-weight:var(--weight-semibold);color:var(--color-accent)}
+  .chapter-head h2{font-size:var(--text-lead)}
+  .chapter-head p{color:var(--color-ink-2)}
+  .chapter-head .eyebrow{color:var(--color-accent)}
+  .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--grid-gap)}
+  .tile{grid-column:span 12;background:var(--tile-bg);border-radius:var(--tile-radius);padding:var(--tile-pad);min-width:0;display:flex;flex-direction:column;gap:var(--space-16)}
+  .tile.hero{padding:var(--tile-pad-hero)}
+  .tile h3{font-size:var(--text-tile)}
+  .tile .note{font-size:var(--text-small);color:var(--color-ink-2)}
+  .tile .meta{font-size:var(--text-meta);color:var(--color-ink-3)}
+  .s3{grid-column:span 3}.s4{grid-column:span 4}.s5{grid-column:span 5}.s6{grid-column:span 6}.s7{grid-column:span 7}.s8{grid-column:span 8}
+  @media (max-width:1023px){.s3{grid-column:span 6}.s4,.s5,.s7,.s8{grid-column:span 12}.s6{grid-column:span 12}}
+  @media (max-width:767px){.s3{grid-column:span 12}}
+  .stage{flex:1;display:grid;place-items:center;border-radius:var(--inner-radius);padding:var(--space-32);min-height:180px}
+  .on-light{background:var(--gray-96)}
+  .on-white{background:var(--gray-99);box-shadow:inset 0 0 0 1px var(--gray-90)}
+  .on-dark{background:var(--gray-13)}
+  .on-ink{background:var(--gray-21)}
+  .on-blue{background:var(--blue-53)}
+
+  /* hero */
+  .hero-mark{width:clamp(112px,16vw,220px);height:auto;aspect-ratio:1;flex:none;color:var(--color-ink)}
+  .hero h1{font-size:clamp(var(--size-40),1.4rem + 3vw,var(--size-88))}
+  .hero .lead{font-size:var(--text-title);color:var(--color-ink-2);max-width:56ch}
+  .hero-row{display:flex;gap:var(--space-48);align-items:center;flex-wrap:wrap}
+  .hero-row > div{flex:1 1 320px;min-width:0;display:grid;gap:var(--space-24)}
+  .anatomy{display:grid;gap:var(--space-24)}
+  .anatomy ol{margin:0;padding:0;list-style:none;display:grid;gap:var(--space-16)}
+  .anatomy li{display:grid;grid-template-columns:28px 1fr;gap:var(--space-12);align-items:start}
+  .anatomy .k{width:28px;height:28px;border-radius:var(--radius-full);background:var(--color-fill);display:grid;place-items:center;font-size:var(--text-meta);font-weight:var(--weight-bold)}
+  .anatomy b{display:block}
+  .anatomy span{color:var(--color-ink-2);font-size:var(--text-small)}
+
+  /* clear space */
+  .clear{position:relative;width:min(100%,407px)}
+  .clear img{width:100%}
+  .clear::before{content:"";position:absolute;inset:0;border:1.5px dashed var(--color-accent);border-radius:4px}
+  .clear::after{content:"";position:absolute;inset:26.1% 8.35%;background:var(--color-accent-wash);border-radius:2px;mix-blend-mode:multiply}
+  .clear .x{position:absolute;font-size:var(--text-micro);font-weight:var(--weight-bold);color:var(--color-accent)}
+  .size-row{display:flex;gap:var(--space-32);align-items:flex-end;flex-wrap:wrap}
+  .size-row figure{margin:0;display:grid;gap:var(--space-8);justify-items:start}
+  .size-row figcaption{font-size:var(--text-meta);color:var(--color-ink-2)}
+
+  /* misuse */
+  .wrong{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-16)}
+  @media (max-width:1023px){.wrong{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .wrong figure{margin:0;display:grid;grid-template-rows:auto 1fr;gap:var(--space-8)}
+  .wrong .stage{min-height:140px;padding:var(--space-24);position:relative;overflow:hidden}
+  .wrong .stage::after{content:"";position:absolute;top:12px;right:12px;width:22px;height:22px;border-radius:50%;
+    background:var(--color-live) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M7 7l8 8M15 7l-8 8' stroke='white' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/100% no-repeat}
+  .wrong figcaption{font-size:var(--text-small)}
+  .wrong figcaption b{display:block}
+  .wrong figcaption span{color:var(--color-ink-2)}
+  .wrong svg.m{width:72px;height:72px;color:var(--gray-21)}
+
+  /* colour */
+  .swatch{display:grid;gap:var(--space-12)}
+  .chip{height:120px;border-radius:var(--inner-radius);display:flex;align-items:flex-end;padding:var(--space-16);font-weight:var(--weight-semibold);font-size:var(--text-small)}
+  .chip.edge{box-shadow:inset 0 0 0 1px var(--gray-90)}
+  .swatch dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:var(--space-4) var(--space-12);font-size:var(--text-meta)}
+  .swatch dt{color:var(--color-ink-3)}
+  .swatch dd{margin:0;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+  .ratio{display:flex;height:56px;border-radius:var(--inner-radius);overflow:hidden}
+  .ratio span{display:flex;align-items:center;padding:0 var(--space-12);font-size:var(--text-micro);font-weight:var(--weight-semibold);white-space:nowrap;overflow:hidden}
+  table{border-collapse:collapse;width:100%;font-size:var(--text-small)}
+  th,td{text-align:left;padding:var(--space-12) var(--space-8);border-bottom:1px solid var(--color-hair);vertical-align:top}
+  th{font-size:var(--text-meta);color:var(--color-ink-3);font-weight:var(--weight-medium)}
+  td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pass{color:var(--color-ok);font-weight:var(--weight-semibold)}
+  .table-wrap{overflow-x:auto}
+
+  /* type */
+  .aa{font-size:clamp(96px,14vw,200px);font-weight:var(--weight-bold);letter-spacing:var(--tracking-number);line-height:.9}
+  .weights{display:grid;gap:var(--space-8)}
+  .weights p{font-size:var(--text-feature);line-height:var(--leading-snug);overflow-wrap:anywhere}
+  .weights small{display:block;font-size:var(--text-meta);color:var(--color-ink-3);font-weight:var(--weight-regular)}
+  .nums{display:grid;gap:var(--space-24)}
+  .nums div{display:flex;align-items:baseline;gap:var(--space-16);flex-wrap:wrap}
+  .nums b{font-weight:var(--weight-bold);font-variant-numeric:tabular-nums;letter-spacing:var(--tracking-number);line-height:1}
+  .nums span{font-size:var(--text-small);color:var(--color-ink-2)}
+  .viet{font-size:var(--text-feature);line-height:var(--leading-body)}
+
+  /* voice */
+  .rules{margin:0;padding:0;list-style:none;display:grid;gap:var(--space-16)}
+  .rules li b{display:block}
+  .rules li span{color:var(--color-ink-2);font-size:var(--text-small)}
+  .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-12)}
+  @media (max-width:767px){.pair{grid-template-columns:minmax(0,1fr)}}
+  .say{border-radius:var(--inner-radius);padding:var(--space-16);font-size:var(--text-small);display:grid;gap:var(--space-4)}
+  .say small{font-size:var(--text-micro);font-weight:var(--weight-bold)}
+  .say.no{background:var(--color-live-wash)}.say.no small{color:var(--color-live)}
+  .say.yes{background:var(--color-ok-wash)}.say.yes small{color:var(--color-ok)}
+  .say.live{background:var(--color-inset)}.say.live small{color:var(--color-ink-3)}
+  .avoid{display:flex;flex-wrap:wrap;gap:var(--space-8)}
+  .avoid span{padding:var(--space-4) var(--space-12);border-radius:var(--radius-full);background:var(--color-fill);font-size:var(--text-small);text-decoration:line-through;text-decoration-color:var(--color-live)}
+
+  /* applications */
+  .frame{position:relative;border-radius:var(--inner-radius);overflow:hidden}
+  .frame img{width:100%}
+  .safe{position:absolute;border:2px dashed var(--color-accent);pointer-events:none}
+  .safe span{position:absolute;top:4px;left:6px;font-size:var(--text-micro);font-weight:var(--weight-semibold);color:var(--color-accent);background:var(--gray-99);padding:0 6px;border-radius:4px}
+  .safe.dim{border:0;background:repeating-linear-gradient(135deg,oklch(0.52 0.21 27 / .14) 0 8px,transparent 8px 16px)}
+  .safe.dim span{color:var(--red-55)}
+  @media (max-width:767px){.safe span{display:none}}
+  .icons{display:flex;gap:var(--space-24);align-items:flex-end;flex-wrap:wrap}
+  .icons figure{margin:0;display:grid;gap:var(--space-8);justify-items:center;font-size:var(--text-meta);color:var(--color-ink-2)}
+  .pixel{image-rendering:pixelated}
+  .strip{display:flex;gap:var(--space-16);align-items:center;padding:var(--space-16);border-radius:var(--inner-radius)}
+  .round{border-radius:50%;box-shadow:0 0 0 1px var(--gray-90)}
+  .short{max-width:300px;margin:0 auto;width:100%}
+
+  /* downloads */
+  .files{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-12)}
+  .files a{display:flex;gap:var(--space-12);align-items:center;padding:var(--space-12);border-radius:var(--inner-radius);background:var(--color-inset);color:var(--color-ink);min-height:var(--btn-h);
+    transition:background-color var(--motion-state) var(--ease-flow)}
+  .files a:hover{background:var(--color-fill);text-decoration:none}
+  .files img{width:40px;height:40px;object-fit:contain;flex:none}
+  .files span{font-size:var(--text-small);overflow-wrap:anywhere}
+  .files small{display:block;color:var(--color-ink-3);font-size:var(--text-micro)}
+  footer{margin-top:var(--space-96);font-size:var(--text-meta);color:var(--color-ink-3)}
+</style>
+</head>
+<body>
+<!-- The mark as a symbol: ring takes currentColor, the dot takes --dot (default: the accent).
+     Geometry is the master in brand/build-assets.py: ring r 20 / stroke 8, dot r 6.67 on the ring at -45deg. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mk" viewBox="11 11 50 50">
+    <path d="M55.988 35.309A20 20 0 1 1 36.691 16.012" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="50.142" cy="21.858" r="6.667" style="fill:var(--dot,var(--color-accent))"/>
+  </symbol>
+</svg>
+
+<header class="bar">
+  <a class="logo" href="#top" aria-label="ai·radar, về đầu trang">
+    <picture><source srcset="assets/logo-full-dark.svg" media="(prefers-color-scheme: dark)"><img src="assets/logo-full.svg" width="407" height="130" alt=""></picture>
+  </a>
+  <nav aria-label="Các phần">
+    <a href="#cau-chuyen">Câu chuyện</a><a href="#logo">Logo</a><a href="#mau">Màu</a><a href="#chu">Chữ</a><a href="#giong-van">Giọng văn</a><a href="#ung-dung">Ứng dụng</a><a href="#tai-ve">Tải về</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- 1. STORY -->
+<section id="cau-chuyen" aria-labelledby="h-story">
+  <div class="grid">
+    <div class="tile hero s8">
+      <div class="hero-row">
+        <svg class="hero-mark" role="img" aria-label="Biểu tượng ai·radar"><use href="#mk"/></svg>
+        <div>
+          <p class="eyebrow">Bộ nhận diện · 03/10/2026</p>
+          <h1 id="h-story">Tín hiệu trước,<br>nhiễu sau.</h1>
+        </div>
+      </div>
+      <p class="lead">Mỗi ngày thế giới AI phát ra hàng trăm tin: blog của các lab, paper, repo, podcast, các cuộc bàn trên diễn đàn. ai·radar nghe hết, rồi chỉ giữ lại vài điều đáng xem, mỗi điều kèm một con số giải thích vì sao. Biểu tượng kể đúng việc đó: một vòng nghe, một khe lọc, một chấm đi qua.</p>
+    </div>
+    <div class="tile s4 anatomy">
+      <h3>Vòng tín hiệu</h3>
+      <ol>
+        <li><span class="k">1</span><div><b>Vòng</b><span>Mọi thứ ai·radar lắng nghe. Cùng dáng vòng điểm nóng đang chạy trên trang.</span></div></li>
+        <li><span class="k">2</span><div><b>Khe</b><span>Bộ lọc. Phần lớn tin không qua được.</span></div></li>
+        <li><span class="k">3</span><div><b>Chấm xanh</b><span>Một tín hiệu đáng xem. Cũng là dấu chấm giữa “ai·radar”.</span></div></li>
+      </ol>
+      <p class="note">Chấm luôn nằm ở góc 1 giờ 30, ngay trong khe. Đó là điều duy nhất không được đổi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. LOGO -->
+<section id="logo" class="chapter" aria-labelledby="h-logo">
+  <div class="chapter-head">
+    <p class="eyebrow">Logo</p>
+    <h2 id="h-logo">Một vòng, một chấm, một chữ.</h2>
+    <p>Chữ “ai·radar” luôn viết thường, đậm 700, giãn chữ −0,025em như tiêu đề trên trang. Dấu chấm giữa được vẽ lại thành chấm tròn cùng màu với chấm trong biểu tượng.</p>
+  </div>
+  <div class="grid">
+    <div class="tile s8">
+      <h3>Bản đầy đủ</h3>
+      <div class="stage on-light"><img src="assets/logo-full.svg" width="407" height="130" alt="Logo ai·radar bản đầy đủ trên nền sáng"></div>
+      <p class="meta">logo-full.svg · mặc định trên nền sáng</p>
+    </div>
+    <div class="tile s4">
+      <h3>Bản biểu tượng</h3>
+      <div class="stage on-light"><img src="assets/mark.svg" width="144" height="144" alt="Biểu tượng ai·radar"></div>
+      <p class="meta">mark.svg · avatar, favicon, chỗ hẹp</p>
+    </div>
+    <div class="tile s6">
+      <h3>Trên nền tối</h3>
+      <div class="stage on-dark"><img src="assets/logo-full-dark.svg" width="407" height="130" alt="Logo ai·radar trên nền tối"></div>
+      <p class="meta">logo-full-dark.svg · chữ xám 96, chấm xanh 74 (8,70:1 trên nền tối)</p>
+    </div>
+    <div class="tile s3">
+      <h3>Một màu, mực</h3>
+      <div class="stage on-white"><img src="assets/logo-full-mono-ink.svg" width="407" height="130" alt="Logo ai·radar một màu mực"></div>
+      <p class="meta">In đen trắng, khắc, đóng dấu</p>
+    </div>
+    <div class="tile s3">
+      <h3>Một màu, trắng</h3>
+      <div class="stage on-blue"><img src="assets/logo-full-mono-white.svg" width="407" height="130" alt="Logo ai·radar một màu trắng trên nền xanh"></div>
+      <p class="meta">Trên nền xanh hoặc ảnh tối</p>
+    </div>
+
+    <div class="tile s6">
+      <h3>Vùng an toàn</h3>
+      <div class="stage on-light">
+        <div class="clear">
+          <img src="assets/logo-full.svg" width="407" height="130" alt="Logo với vùng an toàn được đánh dấu">
+          <span class="x" style="top:6%;left:50%">x</span><span class="x" style="bottom:6%;left:50%">x</span>
+          <span class="x" style="top:42%;left:3%">x</span><span class="x" style="top:42%;right:3%">x</span>
+        </div>
+      </div>
+      <p class="note">x là chiều cao chữ “a” trong logo. Giữ trống ít nhất x ở cả bốn phía. Mọi tệp logo trong <code>assets/</code> đã chứa sẵn khoảng này.</p>
+    </div>
+    <div class="tile s6">
+      <h3>Cỡ nhỏ nhất</h3>
+      <div class="stage on-light">
+        <div class="size-row">
+          <figure><img src="assets/logo-full.svg" width="115" height="37" alt="Logo đầy đủ ở cỡ nhỏ nhất"><figcaption>Đầy đủ · rộng 96px</figcaption></figure>
+          <figure><img src="assets/mark.svg" width="36" height="36" alt="Biểu tượng ở 24px"><figcaption>Biểu tượng · 24px</figcaption></figure>
+          <figure><img src="assets/favicon-16.svg" width="16" height="16" alt="Favicon 16px"><figcaption>Dưới 24px: bản 16px</figcaption></figure>
+        </div>
+      </div>
+      <p class="note">Trên giấy: logo đầy đủ rộng ít nhất 25mm, biểu tượng 6mm. Dưới 24px, dùng <code>favicon-16.svg</code>: nét vòng đúng 2px để không nhoè.</p>
+    </div>
+
+    <div class="tile s12">
+      <h3>Những cách dùng sai</h3>
+      <div class="wrong">
+        <figure><div class="stage on-light"><svg class="m" style="transform:scaleX(1.45)" aria-hidden="true"><use href="#mk"/></svg></div>
+          <figcaption><b>Kéo giãn</b><span>Luôn giữ tỉ lệ 1:1.</span></figcaption></figure>
+        <figure><div class="stage on-light"><svg class="m" style="transform:rotate(135deg)" aria-hidden="true"><use href="#mk"/></svg></div>
+          <figcaption><b>Xoay</b><span>Chấm chỉ ở góc 1 giờ 30.</span></figcaption></figure>
+        <figure><div class="stage on-light"><svg class="m" style="--dot:var(--red-55)" aria-hidden="true"><use href="#mk"/></svg></div>
+          <figcaption><b>Đổi màu chấm</b><span>Đỏ chỉ dành cho “đang phát” và “nóng”.</span></figcaption></figure>
+        <figure><div class="stage on-light"><svg class="m" viewBox="11 11 50 50" aria-hidden="true"><circle cx="36" cy="36" r="20" fill="none" stroke="currentColor" stroke-width="8"/><circle cx="36" cy="36" r="6.7" fill="var(--color-accent)"/></svg></div>
+          <figcaption><b>Lấp khe</b><span>Không có khe thì không còn bộ lọc.</span></figcaption></figure>
+        <figure><div class="stage on-light"><svg class="m" style="filter:drop-shadow(0 6px 6px rgb(0 0 0 / .45));color:var(--blue-74)" aria-hidden="true"><use href="#mk"/></svg></div>
+          <figcaption><b>Thêm bóng, đổi màu vòng</b><span>Vòng là mực, phẳng, không hiệu ứng.</span></figcaption></figure>
+        <figure><div class="stage" style="background:repeating-linear-gradient(45deg,var(--gray-80) 0 6px,var(--gray-70) 6px 12px)"><svg class="m" style="color:var(--gray-51)" aria-hidden="true"><use href="#mk"/></svg></div>
+          <figcaption><b>Nền rối, thiếu tương phản</b><span>Đặt trên nền phẳng, tương phản ít nhất 3:1.</span></figcaption></figure>
+        <figure><div class="stage on-light"><span style="font-weight:700;font-size:28px;letter-spacing:-.02em">AI Radar</span></div>
+          <figcaption><b>Viết hoa, bỏ chấm</b><span>Luôn là “ai·radar”, viết thường.</span></figcaption></figure>
+        <figure><div class="stage on-light"><span style="display:flex;align-items:center;gap:6px;font-weight:700;font-size:26px;letter-spacing:-.02em"><span>ai·radar</span><svg style="width:30px;color:var(--gray-21)" aria-hidden="true"><use href="#mk"/></svg></span></div>
+          <figcaption><b>Đổi chỗ, tự ghép</b><span>Biểu tượng luôn đứng trước chữ. Dùng tệp có sẵn.</span></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. COLOUR -->
+<section id="mau" class="chapter" aria-labelledby="h-color">
+  <div class="chapter-head">
+    <p class="eyebrow">Màu</p>
+    <h2 id="h-color">Gần như không màu. Một chấm xanh.</h2>
+    <p>Màu thương hiệu lấy nguyên từ <code>site/tokens.css</code>, không thêm màu mới. Khung là xám lạnh, màu thật đến từ nội dung. Xanh là tín hiệu và hành động, đỏ chỉ để báo “đang phát” và “nóng”.</p>
+  </div>
+  <div class="grid">
+    <div class="tile s3 swatch">
+      <div class="chip" style="background:var(--gray-21);color:var(--gray-96)">Mực</div>
+      <dl><dt>Token</dt><dd>gray-21 · color-ink</dd><dt>Hex</dt><dd>#16181D</dd><dt>oklch</dt><dd>0.21 0.009 265</dd><dt>Dùng</dt><dd>Chữ, vòng của biểu tượng</dd></dl>
+    </div>
+    <div class="tile s3 swatch">
+      <div class="chip" style="background:var(--blue-53);color:var(--gray-99)">Xanh tín hiệu</div>
+      <dl><dt>Token</dt><dd>blue-53 · color-accent</dd><dt>Hex</dt><dd>#005CD1</dd><dt>oklch</dt><dd>0.50 0.20 256</dd><dt>Dùng</dt><dd>Chấm, liên kết, nút chính</dd></dl>
+    </div>
+    <div class="tile s3 swatch">
+      <div class="chip edge" style="background:var(--gray-96);color:var(--gray-21)">Nền</div>
+      <dl><dt>Token</dt><dd>gray-96 · color-canvas</dd><dt>Hex</dt><dd>#F1F2F5</dd><dt>oklch</dt><dd>0.962 0.004 265</dd><dt>Dùng</dt><dd>Nền trang, nền ảnh chia sẻ</dd></dl>
+    </div>
+    <div class="tile s3 swatch">
+      <div class="chip edge" style="background:var(--gray-99);color:var(--gray-21)">Ô</div>
+      <dl><dt>Token</dt><dd>gray-99 · color-surface</dd><dt>Hex</dt><dd>#FCFDFE</dd><dt>oklch</dt><dd>0.993 0.002 265</dd><dt>Dùng</dt><dd>Ô bento, thẻ</dd></dl>
+    </div>
+    <div class="tile s3 swatch">
+      <div class="chip" style="background:var(--gray-13);color:var(--gray-96)">Đêm</div>
+      <dl><dt>Token</dt><dd>gray-13 (nền tối)</dd><dt>Hex</dt><dd>#07080B</dd><dt>oklch</dt><dd>0.135 0.006 265</dd><dt>Dùng</dt><dd>Nền tối, bìa YouTube</dd></dl>
+    </div>
+    <div class="tile s3 swatch">
+      <div class="chip" style="background:var(--blue-74);color:var(--gray-13)">Xanh đêm</div>
+      <dl><dt>Token</dt><dd>blue-74 (accent tối)</dd><dt>Hex</dt><dd>#64AFFF</dd><dt>oklch</dt><dd>0.74 0.14 252</dd><dt>Dùng</dt><dd>Chấm trên nền tối</dd></dl>
+    </div>
+    <div class="tile s3 swatch">
+      <div class="chip" style="background:var(--gray-44);color:var(--gray-99)">Chữ phụ</div>
+      <dl><dt>Token</dt><dd>gray-44 · color-ink-2</dd><dt>Hex</dt><dd>#4F5359</dd><dt>oklch</dt><dd>0.44 0.012 265</dd><dt>Dùng</dt><dd>Nhãn, dòng phụ</dd></dl>
+    </div>
+    <div class="tile s3 swatch">
+      <div class="chip" style="background:var(--red-55);color:var(--gray-99)">Đang phát</div>
+      <dl><dt>Token</dt><dd>red-55 · color-live</dd><dt>Hex</dt><dd>#C50516</dd><dt>oklch</dt><dd>0.52 0.21 27</dd><dt>Dùng</dt><dd>Chỉ “đang phát”, “nóng”</dd></dl>
+    </div>
+
+    <div class="tile s6">
+      <h3>Tỉ lệ trên một khung hình</h3>
+      <div class="ratio" role="img" aria-label="Nền 70 phần trăm, ô 18, mực 10, xanh 2">
+        <span style="flex:70;background:var(--gray-96);color:var(--gray-44)">Nền 70%</span>
+        <span style="flex:18;background:var(--gray-99);color:var(--gray-44)">Ô 18%</span>
+        <span style="flex:10;background:var(--gray-21);color:var(--gray-96)">Mực</span>
+        <span style="flex:2;background:var(--blue-53)"></span>
+      </div>
+      <p class="note">Xanh chiếm khoảng 2% diện tích, đủ để mắt tìm thấy chấm đầu tiên. Nhiều xanh hơn thì chấm mất ý nghĩa.</p>
+    </div>
+    <div class="tile s6">
+      <h3>Tương phản đã đo (WCAG 2.1)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Cặp màu</th><th>Tỉ lệ</th><th>Mức</th></tr></thead>
+        <tbody>
+          <tr><td>Mực trên Nền</td><td class="n">15,86:1</td><td class="pass">AAA</td></tr>
+          <tr><td>Xanh tín hiệu trên Nền</td><td class="n">5,44:1</td><td class="pass">AA</td></tr>
+          <tr><td>Trắng ô trên Xanh tín hiệu</td><td class="n">5,97:1</td><td class="pass">AA</td></tr>
+          <tr><td>Xám 96 trên Đêm</td><td class="n">17,89:1</td><td class="pass">AAA</td></tr>
+          <tr><td>Xanh đêm trên Đêm</td><td class="n">8,70:1</td><td class="pass">AAA</td></tr>
+          <tr><td>Chữ phụ trên Ô</td><td class="n">7,60:1</td><td class="pass">AAA</td></tr>
+          <tr><td>Đỏ đang phát trên Ô</td><td class="n">6,05:1</td><td class="pass">AA</td></tr>
+        </tbody>
+      </table></div>
+      <p class="meta">Đổi oklch sang sRGB rồi tính theo công thức độ sáng tương đối của WCAG.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. TYPE -->
+<section id="chu" class="chapter" aria-labelledby="h-type">
+  <div class="chapter-head">
+    <p class="eyebrow">Chữ</p>
+    <h2 id="h-type">Một họ chữ, đủ dấu tiếng Việt.</h2>
+    <p>Be Vietnam Pro, bốn độ đậm 400 · 500 · 600 · 700, giống cách Apple chỉ dùng một họ SF. Không dùng Sora hay Fira Code: đã đo ngày 02/10, cả hai thiếu dấu tiếng Việt.</p>
+  </div>
+  <div class="grid">
+    <div class="tile s5">
+      <p class="aa" aria-hidden="true">Aa</p>
+      <h3>Be Vietnam Pro</h3>
+      <p class="note">Miễn phí, giấy phép SIL OFL. Tải tệp: <a href="fonts/BeVietnamPro-Regular.ttf" download>400</a> · <a href="fonts/BeVietnamPro-Medium.ttf" download>500</a> · <a href="fonts/BeVietnamPro-SemiBold.ttf" download>600</a> · <a href="fonts/BeVietnamPro-Bold.ttf" download>700</a> · <a href="fonts/OFL.txt">giấy phép</a>, hoặc tải ở Google Fonts.</p>
+    </div>
+    <div class="tile s7 weights">
+      <p style="font-weight:700">Tin AI hôm nay <small>700 · logo, tiêu đề, con số</small></p>
+      <p style="font-weight:600">Đang phát và sắp tới <small>600 · nhãn, tên ô</small></p>
+      <p style="font-weight:500">Repo lấy về dùng được <small>500 · dòng phụ, menu</small></p>
+      <p style="font-weight:400">Mỗi tin dẫn về nguồn gốc <small>400 · đoạn văn</small></p>
+    </div>
+    <div class="tile s7 nums">
+      <h3>Thang số, tách khỏi thang chữ</h3>
+      <div><b style="font-size:clamp(56px,9vw,128px)">3.483</b><span>num-hero · 128px · sao mới trong một ngày</span></div>
+      <div><b style="font-size:clamp(40px,6vw,88px)">50.562</b><span>num-xl · 88px · tổng sao</span></div>
+      <div><b style="font-size:56px">273</b><span>num-lg · 56px · tin</span></div>
+      <div><b style="font-size:32px">24</b><span>num-md · 32px · nguồn</span></div>
+      <p class="note">Số luôn đậm 700, <code>tabular-nums</code>, giãn chữ −0,04em. Số thật lấy từ radar.json ngày 01/10/2026.</p>
+    </div>
+    <div class="tile s5">
+      <h3>Dấu chồng tầng cần chỗ</h3>
+      <p class="viet">Hội nghị NeurIPS sắp diễn ra. Những điều đáng xem: ế, ộ, ữ, ẵ, ặ, ỷ, Đ.</p>
+      <p class="note">Đoạn văn cao dòng 1,55, tiêu đề 1,12. Chữ hoa có dấu (Ế, Ộ) không bao giờ đặt cao dòng dưới 1,1, kẻo dấu chạm dòng trên.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. VOICE -->
+<section id="giong-van" class="chapter" aria-labelledby="h-voice">
+  <div class="chapter-head">
+    <p class="eyebrow">Giọng văn</p>
+    <h2 id="h-voice">Nói bằng số, nói ít, nói thật.</h2>
+    <p>ai·radar nói như một đồng nghiệp đọc tin hộ bạn từ sáng sớm: bình tĩnh, chính xác, không tô vẽ.</p>
+  </div>
+  <div class="grid">
+    <div class="tile s5">
+      <h3>Bốn điều</h3>
+      <ul class="rules">
+        <li><b>Mỗi khẳng định có một con số và một nguồn.</b><span>“3.483 sao mới trên GitHub”, không phải “rất nhiều người quan tâm”.</span></li>
+        <li><b>Câu ngắn, chủ ngữ là sự việc.</b><span>Tiêu đề tiếng Việt dưới 12 chữ. Ít khi xưng “chúng tôi”.</span></li>
+        <li><b>Tên gốc giữ nguyên.</b><span>Tiêu đề tin, tên model, tên repo viết đúng như bản gốc, kể cả tiếng Anh.</span></li>
+        <li><b>Chưa biết thì nói chưa biết.</b><span>“Chưa có”, “không có buổi nào đang phát”. Không đoán, không lấp chỗ trống.</span></li>
+      </ul>
+      <h3>Cách viết số và giờ</h3>
+      <p class="note">50.562 (chấm ngăn nghìn) · 5,1 triệu (phẩy thập phân) · 01:11 (giờ 24) · 01/10/2026 · 3 giờ trước</p>
+    </div>
+    <div class="tile s7">
+      <h3>Ví dụ thật</h3>
+      <div class="pair">
+        <p class="say no"><small>KHÔNG</small>VoiceStudio gây bão GitHub, dân tình phát sốt!!!</p>
+        <p class="say yes"><small>NÊN</small>VoiceStudio: 3.483 sao mới trong một ngày trên GitHub.</p>
+      </div>
+      <div class="pair">
+        <p class="say no"><small>KHÔNG</small>Model siêu hot của Qwen, ai cũng đang tải về!</p>
+        <p class="say yes"><small>NÊN</small>Qwen3.8-27B-FP8: 5.145.852 lượt tải trên Hugging Face.</p>
+      </div>
+      <div class="pair">
+        <p class="say no"><small>KHÔNG</small>Đừng bỏ lỡ sự kiện AI lớn nhất năm!</p>
+        <p class="say yes"><small>NÊN</small>OpenAI DevDay 2026 Keynote: đã phát ngày 29/09, dài 67 phút.</p>
+      </div>
+      <p class="say live"><small>ĐANG CHẠY TRÊN TRANG</small>Chưa có chuyện nào được từ 2 nguồn đưa trong 72 giờ, nên đây là chuyện có điểm nóng cao nhất.</p>
+      <p class="say live"><small>CHÚ THÍCH BÀI ĐĂNG MẪU</small>3.483 sao trong một ngày. VoiceStudio là bộ công cụ giọng nói chạy hoàn toàn trên máy, viết bằng Python, tổng 50.562 sao. Nguồn: GitHub Trending, 01/10/2026.</p>
+      <h3>Tránh</h3>
+      <div class="avoid"><span>bom tấn</span><span>gây bão</span><span>chấn động</span><span>siêu hot</span><span>không thể bỏ lỡ</span><span>đỉnh cao</span><span>!!!</span><span>AI sẽ thay đổi tất cả</span><span>biểu tượng cảm xúc</span><span>câu hỏi câu view</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. APPLICATIONS -->
+<section id="ung-dung" class="chapter" aria-labelledby="h-apps">
+  <div class="chapter-head">
+    <p class="eyebrow">Ứng dụng mẫu</p>
+    <h2 id="h-apps">Mỗi khung một con số.</h2>
+    <p>Ảnh mẫu dùng tin thật từ <code>site/data/radar.json</code> (01/10/2026). Đường nét đứt đánh dấu vùng an toàn của từng nền tảng, không nằm trong tệp.</p>
+  </div>
+  <div class="grid">
+    <div class="tile s5">
+      <h3>Favicon và biểu tượng ứng dụng</h3>
+      <div class="strip on-light icons">
+        <figure><img src="assets/favicon-16.svg" width="16" height="16" alt="Favicon 16px"><span>16</span></figure>
+        <figure><img src="assets/favicon-32.svg" width="32" height="32" alt="Favicon 32px"><span>32</span></figure>
+        <figure><img src="assets/apple-touch-icon-180.svg" width="90" height="90" style="border-radius:20px" alt="Biểu tượng ứng dụng 180px"><span>180 (hiển thị ½)</span></figure>
+      </div>
+      <div class="strip on-dark icons" style="color:var(--gray-80)">
+        <figure><img src="assets/favicon-16.svg" width="16" height="16" alt=""><span style="color:var(--gray-80)">16</span></figure>
+        <figure><img src="assets/favicon-32.svg" width="32" height="32" alt=""><span style="color:var(--gray-80)">32</span></figure>
+        <figure><img class="pixel" src="assets/favicon-16.svg" width="64" height="64" alt="Favicon 16px phóng to 4 lần"><span style="color:var(--gray-80)">16 × 4</span></figure>
+      </div>
+      <p class="note">Ô nền mực giúp biểu tượng hiện rõ trên cả thanh tab sáng lẫn tối. Bản 180 để tràn viền, iOS tự bo góc.</p>
+    </div>
+    <div class="tile s7">
+      <h3>Avatar mạng xã hội</h3>
+      <div class="strip on-light icons" style="justify-content:center">
+        <figure><img class="round" src="assets/avatar.svg" width="160" height="160" alt="Avatar ai·radar nền tối"><span>avatar.svg · mặc định</span></figure>
+        <figure><img class="round" src="assets/avatar-light.svg" width="160" height="160" alt="Avatar ai·radar nền sáng"><span>avatar-light.svg</span></figure>
+        <figure><img src="assets/avatar.svg" width="96" height="96" style="border-radius:22px" alt="Avatar cắt vuông bo góc"><span>cắt vuông</span></figure>
+      </div>
+      <p class="note">400×400. Biểu tượng chiếm một nửa khung, nằm gọn trong vòng tròn mà Facebook, YouTube, X, TikTok cắt ra.</p>
+    </div>
+
+    <div class="tile s7">
+      <h3>Ảnh chia sẻ 1200×630 · một tin</h3>
+      <div class="frame"><img src="assets/og-story.svg" width="1200" height="630" alt="Ảnh chia sẻ: debpalash/VoiceStudio, 3.483 sao mới trong một ngày"></div>
+      <p class="note">Khuôn cho một tin: nhãn, một con số lớn, tên gốc, nguồn và ngày đo. Số và tên thay theo tin; bố cục giữ nguyên.</p>
+    </div>
+    <div class="tile s5">
+      <h3>Ảnh chia sẻ mặc định</h3>
+      <div class="frame"><img src="assets/og-default.svg" width="1200" height="630" alt="Ảnh chia sẻ mặc định: Tín hiệu trước, nhiễu sau"></div>
+      <p class="note">Cho trang chủ. Không ghi con số theo ngày, để ảnh không bao giờ cũ.</p>
+    </div>
+
+    <div class="tile s12">
+      <h3>Bìa trang Facebook · 1640×624</h3>
+      <div class="frame">
+        <img src="assets/cover-facebook.svg" width="1640" height="624" alt="Bìa Facebook ai·radar">
+        <div class="safe" style="left:16.16%;width:67.68%;top:0;height:100%"><span>Điện thoại chỉ thấy phần giữa</span></div>
+        <div class="safe dim" style="left:1.5%;bottom:0;width:13%;height:42%"><span>Ảnh đại diện có thể che</span></div>
+      </div>
+    </div>
+
+    <div class="tile s8">
+      <h3>Ảnh bìa kênh YouTube · 2560×1440</h3>
+      <div class="frame">
+        <img src="assets/cover-youtube.svg" width="2560" height="1440" alt="Ảnh bìa YouTube ai·radar nền tối">
+        <div class="safe" style="left:19.8%;width:60.4%;top:35.3%;height:29.4%"><span>Vùng hiện trên mọi thiết bị · 1546×423</span></div>
+      </div>
+      <p class="note">Vòng lớn tông trên tông chỉ hiện trọn trên TV; máy tính và điện thoại chỉ thấy dải giữa.</p>
+    </div>
+    <div class="tile s4">
+      <h3>Thumbnail video ngắn · 9:16</h3>
+      <div class="frame short">
+        <img src="assets/short-9x16.svg" width="1080" height="1920" alt="Thumbnail video ngắn: Qwen3.8-27B-FP8, 5,1 triệu lượt tải">
+        <div class="safe dim" style="left:0;right:0;bottom:0;height:21.9%"><span>Chú thích của nền tảng</span></div>
+        <div class="safe dim" style="right:0;top:40%;bottom:21.9%;width:14.8%"></div>
+      </div>
+      <p class="note">1080×1920 cho Shorts, Reels, TikTok. Đáy 420px và mép phải 160px để trống cho nút và chú thích.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. DOWNLOADS -->
+<section id="tai-ve" class="chapter" aria-labelledby="h-files">
+  <div class="chapter-head">
+    <p class="eyebrow">Tải về</p>
+    <h2 id="h-files">PNG để đăng ngay, SVG để sửa.</h2>
+    <p>Ảnh PNG đã đúng cỡ từng nền tảng, tải về là đăng được. Bản SVG mở được ở Figma, Illustrator, Canva hay trình duyệt mà không cần cài font, vì chữ đã đổi thành nét. Muốn sửa số trên ảnh mẫu: chạy <code>python brand/build-assets.py</code> rồi <code>python brand/export-png.py</code> từ gốc repo, màu được đọc lại từ <code>site/tokens.css</code>.</p>
+  </div>
+  <div class="tile">
+    <h3>Đăng ngay · PNG và ICO</h3>
+    <div class="files">
+      <a href="assets/cover-facebook.png" download><img src="assets/cover-facebook.png" alt=""><span>cover-facebook.png<small>Bìa Facebook · 1640×624</small></span></a>
+      <a href="assets/cover-youtube.png" download><img src="assets/cover-youtube.png" alt=""><span>cover-youtube.png<small>Bìa YouTube · 2560×1440</small></span></a>
+      <a href="assets/avatar.png" download><img src="assets/avatar.png" alt="" style="border-radius:50%"><span>avatar.png<small>Avatar Facebook, YouTube · 800×800</small></span></a>
+      <a href="assets/og-default.png" download><img src="assets/og-default.png" alt=""><span>og-default.png<small>Ảnh chia sẻ mặc định · 1200×630</small></span></a>
+      <a href="assets/khung-9x16.png" download><img src="assets/khung-9x16.png" alt=""><span>khung-9x16.png<small>Story, Reels, Shorts · 1080×1920</small></span></a>
+      <a href="assets/favicon.ico" download><img src="assets/favicon.ico" alt=""><span>favicon.ico<small>Favicon · 16 và 32</small></span></a>
+      <a href="assets/apple-touch-icon.png" download><img src="assets/apple-touch-icon.png" alt=""><span>apple-touch-icon.png<small>Biểu tượng iPhone · 180×180</small></span></a>
+    </div>
+  </div>
+  <div class="tile" style="margin-top:var(--grid-gap)">
+    <h3>Gốc để sửa · SVG</h3>
+    <div class="files">
+      <a href="assets/logo-full.svg" download><img src="assets/logo-full.svg" alt=""><span>logo-full.svg<small>Đầy đủ · nền sáng</small></span></a>
+      <a href="assets/logo-full-dark.svg" download><img src="assets/logo-full-dark.svg" alt="" style="background:var(--gray-13);border-radius:6px"><span>logo-full-dark.svg<small>Đầy đủ · nền tối</small></span></a>
+      <a href="assets/logo-full-mono-ink.svg" download><img src="assets/logo-full-mono-ink.svg" alt=""><span>logo-full-mono-ink.svg<small>Một màu mực</small></span></a>
+      <a href="assets/logo-full-mono-white.svg" download><img src="assets/logo-full-mono-white.svg" alt="" style="background:var(--blue-53);border-radius:6px"><span>logo-full-mono-white.svg<small>Một màu trắng</small></span></a>
+      <a href="assets/wordmark.svg" download><img src="assets/wordmark.svg" alt=""><span>wordmark.svg<small>Chỉ chữ · nền sáng</small></span></a>
+      <a href="assets/wordmark-dark.svg" download><img src="assets/wordmark-dark.svg" alt="" style="background:var(--gray-13);border-radius:6px"><span>wordmark-dark.svg<small>Chỉ chữ · nền tối</small></span></a>
+      <a href="assets/mark.svg" download><img src="assets/mark.svg" alt=""><span>mark.svg<small>Biểu tượng · nền sáng</small></span></a>
+      <a href="assets/mark-dark.svg" download><img src="assets/mark-dark.svg" alt="" style="background:var(--gray-13);border-radius:6px"><span>mark-dark.svg<small>Biểu tượng · nền tối</small></span></a>
+      <a href="assets/mark-mono-ink.svg" download><img src="assets/mark-mono-ink.svg" alt=""><span>mark-mono-ink.svg<small>Biểu tượng một màu</small></span></a>
+      <a href="assets/mark-mono-white.svg" download><img src="assets/mark-mono-white.svg" alt="" style="background:var(--blue-53);border-radius:6px"><span>mark-mono-white.svg<small>Biểu tượng trắng</small></span></a>
+      <a href="assets/favicon-16.svg" download><img src="assets/favicon-16.svg" alt=""><span>favicon-16.svg<small>Favicon 16px</small></span></a>
+      <a href="assets/favicon-32.svg" download><img src="assets/favicon-32.svg" alt=""><span>favicon-32.svg<small>Favicon 32px</small></span></a>
+      <a href="assets/apple-touch-icon-180.svg" download><img src="assets/apple-touch-icon-180.svg" alt=""><span>apple-touch-icon-180.svg<small>Biểu tượng ứng dụng</small></span></a>
+      <a href="assets/avatar.svg" download><img src="assets/avatar.svg" alt=""><span>avatar.svg<small>Avatar 400 · nền tối</small></span></a>
+      <a href="assets/avatar-light.svg" download><img src="assets/avatar-light.svg" alt=""><span>avatar-light.svg<small>Avatar 400 · nền sáng</small></span></a>
+      <a href="assets/og-story.svg" download><img src="assets/og-story.svg" alt=""><span>og-story.svg<small>Ảnh chia sẻ một tin</small></span></a>
+      <a href="assets/og-default.svg" download><img src="assets/og-default.svg" alt=""><span>og-default.svg<small>Ảnh chia sẻ mặc định</small></span></a>
+      <a href="assets/cover-facebook.svg" download><img src="assets/cover-facebook.svg" alt=""><span>cover-facebook.svg<small>Bìa Facebook</small></span></a>
+      <a href="assets/cover-youtube.svg" download><img src="assets/cover-youtube.svg" alt=""><span>cover-youtube.svg<small>Bìa YouTube</small></span></a>
+      <a href="assets/short-9x16.svg" download><img src="assets/short-9x16.svg" alt=""><span>short-9x16.svg<small>Thumbnail 9:16</small></span></a>
+      <a href="assets/khung-9x16.svg" download><img src="assets/khung-9x16.svg" alt=""><span>khung-9x16.svg<small>Khung 9:16 · không ghi ngày</small></span></a>
+    </div>
+  </div>
+  <footer>ai·radar · Bộ nhận diện, bản 03/10/2026. Màu và chữ suy ra từ ngôn ngữ thiết kế Bento Keynote (<code>docs/ngon-ngu-thiet-ke.md</code>).</footer>
+</section>
+
+</main>
+</body>
+</html>

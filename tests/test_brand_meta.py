@@ -4,6 +4,7 @@ Every icon and share image the pages point at must exist, with the pixel size re
 file's own header, so a renamed or wrongly sized export fails here instead of on Facebook.
 """
 import struct
+import sys
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
@@ -145,6 +146,28 @@ class BrandKitTest(unittest.TestCase):
         for kit, site in (("og-default.png", "og-image.png"), ("apple-touch-icon.png", "apple-touch-icon.png"),
                           ("favicon.ico", "favicon.ico")):
             self.assertEqual((BRAND / "assets" / kit).read_bytes(), (SITE / site).read_bytes(), site)
+
+    def test_published_kit_matches_the_source(self):
+        sys.path.insert(0, str(BRAND))
+        try:
+            import publish_kit
+        finally:
+            sys.path.remove(str(BRAND))
+        dest = SITE / "brand"
+        self.assertEqual(publish_kit.files(dest), publish_kit.files(BRAND), "site/brand/ file list drifted")
+        for name in publish_kit.files(BRAND):
+            self.assertEqual((dest / name).read_bytes(), (BRAND / name).read_bytes(),
+                             f"site/brand/{name} drifted: run python brand/publish_kit.py")
+
+    def test_published_page_resolves_inside_site_brand(self):
+        dest = (SITE / "brand").resolve()
+        for ref in parse(dest / "index.html").refs:
+            if ref.startswith(("#", "data:", "http://", "https://")):
+                continue
+            path = urlsplit(ref).path
+            if path:
+                target = (dest / path).resolve()
+                self.assertTrue(target.is_relative_to(dest) and target.exists(), f"{ref} not served from site/brand/")
 
 
 if __name__ == "__main__":

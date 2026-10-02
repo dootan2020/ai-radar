@@ -18,6 +18,8 @@ from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
 
+import publish_kit
+
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "brand" / "assets"
 FONTS = ROOT / "brand" / "fonts"
@@ -327,6 +329,7 @@ def main():
     # the brand page must stand alone when brand/ is published by itself: ship its own tokens
     (ROOT / "brand" / "tokens.css").write_bytes((ROOT / "site" / "tokens.css").read_bytes())
     print("wrote tokens.css (copy of site/tokens.css)")
+    publish_kit.publish()          # site/brand/ is what GitHub Pages serves
 
 
 if __name__ == "__main__":
