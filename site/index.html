@@ -2,92 +2,109 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ai·radar · Tin AI hôm nay</title>
+<meta name="description" content="Bản đồ tin AI mỗi sáng: chuyện nhiều nguồn cùng đưa, cái đang nóng kèm số đo, livestream, repo dùng được ngay. Mọi mục dẫn về nguồn gốc.">
 <meta name="color-scheme" content="light dark">
-<title>Bản tin sáng · Radar AI</title>
-<meta name="description" content="Mỗi sáng: các phòng lab AI vừa ra mắt gì, buổi phát trực tiếp nào đang diễn ra, và cái gì đang nổi trên GitHub và Hugging Face.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script type="module" src="app.js"></script>
 </head>
 <body>
-<a class="skip" href="#tin">Bỏ qua, tới tin mới</a>
+<a class="skip" href="#board">Bỏ qua tới nội dung</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 5h10v10M19 5L6 18"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-new" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><path d="M12 8v4l2.5 2"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3.5c1 3 4.5 5 4.5 9.5a4.5 4.5 0 0 1-9 0c0-2 1-3.2 2-4 .2 1.5 1 2.5 2 2.5 0-3-1-5.5.5-8z"/></symbol>
+  <symbol id="i-repo" viewBox="0 0 24 24"><path d="M6 4.5h10.5a1 1 0 0 1 1 1V17H7.5A1.5 1.5 0 0 0 6 18.5zM6 18.5A1.5 1.5 0 0 0 7.5 20h10M9.5 8.5h5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4l9 15.5H3zM12 10v4.5M12 17h.01"/></symbol>
+</svg>
 
-<div class="wrap page">
-  <header class="masthead__bar">
-    <p class="wordmark">Radar AI <span class="wordmark__sub">bản tin sáng</span></p>
-    <p class="masthead__date" id="today"></p>
-  </header>
+<header class="bar" id="bar">
+  <a class="brand" href="#top" aria-label="ai radar, về đầu trang">ai<b>·</b>radar</a>
+  <span class="when-line" id="when-line"></span>
+  <nav class="nav" id="nav" aria-label="Các mục"></nav>
+  <div class="since" id="since"></div>
+  <a class="src-state" href="#nguon" id="src-state"></a>
+</header>
 
-  <main class="page__main" id="main">
-    <div class="masthead">
-      <h1 class="lede" id="lede" tabindex="-1">Đang mở bản tin…</h1>
-      <p class="lede__sub" id="lede-sub" hidden></p>
-      <div class="lede__actions" id="lede-actions" hidden>
-        <button type="button" class="btn" id="mark-read">Đánh dấu đã xem hết</button>
-      </div>
-      <nav class="toc" aria-label="Các mục trong bản tin">
-        <a href="#tin">Tin lab</a>
-        <a href="#truc-tiep">Trực tiếp</a>
-        <a href="#dang-noi">Đang nổi</a>
-        <a href="#mo-hinh-mo">Mô hình mở</a>
-      </nav>
+<div class="fresh" id="fresh" aria-live="polite"></div>
+
+<main id="top">
+  <h1 class="sr">ai-radar, bản tin AI hôm nay</h1>
+  <!-- Skeleton drawn in HTML so the first paint already has the board's shape; app.js replaces it. -->
+  <section class="board is-loading" id="board" tabindex="-1" aria-label="Màn hình đầu" aria-busy="true">
+    <div class="tile lead sk-tile">
+      <div class="sk sk-line" style="width:34%"></div>
+      <div class="sk sk-title" style="width:82%"></div>
+      <div class="sk sk-title" style="width:58%"></div>
+      <div class="sk sk-line" style="width:70%"></div>
+      <div class="sk sk-block"></div><div class="sk sk-block"></div>
+      <div class="sk sk-line" style="width:88%"></div>
+      <div class="sk sk-line" style="width:76%"></div>
+      <div class="sk sk-line" style="width:84%"></div>
+      <div class="sk sk-line" style="width:66%"></div>
+      <div class="sk sk-line" style="width:80%"></div>
+      <div class="sk sk-line" style="width:72%"></div>
+      <div class="sk sk-line" style="width:86%"></div>
+      <div class="sk sk-line" style="width:62%"></div>
     </div>
+    <div class="tile hot sk-tile">
+      <div class="sk sk-line" style="width:28%"></div>
+      <div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div>
+    </div>
+    <div class="tile newt sk-tile">
+      <div class="sk sk-line" style="width:40%"></div>
+      <div class="sk sk-line" style="width:84%"></div><div class="sk sk-line" style="width:72%"></div><div class="sk sk-line" style="width:80%"></div>
+    </div>
+    <div class="tile live sk-tile">
+      <div class="sk sk-line" style="width:18%"></div>
+      <div class="sk-cells"><div class="sk sk-cell"></div><div class="sk sk-cell"></div><div class="sk sk-cell"></div><div class="sk sk-cell"></div></div>
+    </div>
+    <p class="sr" role="status">Đang tải bản tin…</p>
+  </section>
+  <div class="chapters" id="chapters"></div>
+  <p class="foot" id="foot"></p>
+</main>
 
-    <div id="notice" class="notice" role="status" hidden></div>
+<nav class="tabs" id="tabs" aria-label="Đi nhanh">
+  <a href="#top" data-tab="top"><svg class="i"><use href="#i-grid"/></svg><span>Bảng</span></a>
+  <a href="#moi" data-tab="moi"><svg class="i"><use href="#i-new"/></svg><span>Mới</span><b class="num" id="tab-new" hidden></b></a>
+  <a href="#nong" data-tab="nong"><svg class="i"><use href="#i-flame"/></svg><span>Nóng</span></a>
+  <a href="#repo" data-tab="repo"><svg class="i"><use href="#i-repo"/></svg><span>Repo</span></a>
+  <a href="#sap-toi" data-tab="sap-toi"><svg class="i"><use href="#i-cal"/></svg><span>Sắp tới</span></a>
+</nav>
 
-    <section id="now-live" class="section section--live" hidden aria-labelledby="now-live-h"></section>
+<aside class="sheet" id="sheet" aria-label="Chi tiết" aria-hidden="true" inert>
+  <div class="sheet-top"><span class="k" id="sheet-k">Chi tiết</span><button class="icon-btn" id="sheet-x" aria-label="Đóng chi tiết (Esc)"><svg class="i"><use href="#i-close"/></svg></button></div>
+  <div class="sheet-body" id="sheet-body"></div>
+</aside>
 
-    <section id="lead" class="section section--lead" hidden aria-labelledby="lead-h"></section>
+<dialog class="keys" id="keys" aria-labelledby="keys-h">
+  <div class="keys-top"><h2 id="keys-h">Phím tắt</h2><button class="icon-btn" id="keys-x" aria-label="Đóng phím tắt"><svg class="i"><use href="#i-close"/></svg></button></div>
+  <dl>
+    <dt><kbd>J</kbd> <kbd>K</kbd></dt><dd>Tin kế tiếp, tin trước</dd>
+    <dt><kbd>Enter</kbd></dt><dd>Mở chi tiết tin đang chọn</dd>
+    <dt><kbd>O</kbd></dt><dd>Mở bài gốc</dd>
+    <dt><kbd>S</kbd></dt><dd>Lưu đọc sau, hoặc bỏ lưu</dd>
+    <dt><kbd>L</kbd></dt><dd>Thêm sự kiện vào lịch</dd>
+    <dt><kbd>U</kbd></dt><dd>Xem tin mới vừa về</dd>
+    <dt><kbd>M</kbd></dt><dd>Đánh dấu đã xem hết</dd>
+    <dt><kbd>G</kbd></dt><dd>Về đầu trang</dd>
+    <dt><kbd>Esc</kbd></dt><dd>Đóng chi tiết</dd>
+    <dt><kbd>?</kbd></dt><dd>Mở bảng này</dd>
+  </dl>
+</dialog>
 
-    <section id="tin" class="section" aria-labelledby="tin-h">
-      <div class="section__head">
-        <h2 id="tin-h">Tin từ các phòng lab</h2>
-        <div class="filters" id="filters" role="group" aria-label="Lọc theo phòng lab"></div>
-      </div>
-      <p class="filter-state" id="filter-state" hidden></p>
-      <div id="feed" class="feed"></div>
-      <div class="more" id="feed-more" hidden></div>
-    </section>
-  </main>
-
-  <aside class="page__side" aria-label="Trực tiếp và đang nổi">
-    <section id="truc-tiep" class="section" aria-labelledby="truc-tiep-h">
-      <div class="section__head"><h2 id="truc-tiep-h">Phát trực tiếp</h2></div>
-      <div id="streams"></div>
-    </section>
-
-    <section id="dang-noi" class="section" aria-labelledby="dang-noi-h">
-      <div class="section__head"><h2 id="dang-noi-h">Đang nổi</h2></div>
-      <div class="trend">
-        <div class="trend__col">
-          <h3>GitHub hôm nay</h3>
-          <ol id="gh" class="ranked"></ol>
-          <div class="more" id="gh-more" hidden></div>
-        </div>
-        <div class="trend__col">
-          <h3>Hugging Face</h3>
-          <ol id="hf" class="ranked"></ol>
-          <div class="more" id="hf-more" hidden></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="mo-hinh-mo" class="section" aria-labelledby="mo-hinh-mo-h">
-      <div class="section__head"><h2 id="mo-hinh-mo-h">Mô hình mở mới trên Hugging Face</h2></div>
-      <ol id="releases" class="ledger"></ol>
-      <div class="more" id="releases-more" hidden></div>
-    </section>
-  </aside>
-</div>
-
-<footer class="colophon wrap">
-  <h2 class="colophon__h">Nguồn của bản tin này</h2>
-  <p class="colophon__when" id="generated"></p>
-  <ul id="sources" class="sources"></ul>
-</footer>
-
-<script src="app.js" defer></script>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
