@@ -5,7 +5,10 @@ import unittest
 
 from radar.clustering import cluster_items
 from radar.ranking import hot_eligible, rank_stories
-from test_v2_support import NOW, coverage
+if __package__:
+    from .test_v2_support import NOW, coverage
+else:
+    from test_v2_support import NOW, coverage
 
 
 def hn_items(values, observed_at="2026-10-02T12:00:00Z"):

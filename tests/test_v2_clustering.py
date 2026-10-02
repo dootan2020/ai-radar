@@ -3,7 +3,10 @@
 import unittest
 
 from radar.clustering import canonical_url, cluster_items
-from test_v2_support import NOW, coverage
+if __package__:
+    from .test_v2_support import NOW, coverage
+else:
+    from test_v2_support import NOW, coverage
 
 
 class CanonicalUrlTests(unittest.TestCase):

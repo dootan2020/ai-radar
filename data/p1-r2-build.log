@@ -1,0 +1,51 @@
+Measurement baseline: not updated -- fewer than 80% of active remote sources succeeded
+ai-news: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+anthropic-engineering: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+anthropic-gftdon: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+anthropic-news: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+anthropic-research: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+anthropic-youtube: FAILED, HTTP None, 0 items -- streams: URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+ars-ai: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+curated-events: ok, HTTP None, 2 items
+deepmind-youtube: FAILED, HTTP None, 0 items -- streams: URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+deepseek-hf: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+dwarkesh-podcast: FAILED, HTTP None, 0 items -- Disabled: Substack podcast feed returned HTTP 403 on the hosted runner; Dwarkesh video remains a separate source.
+dwarkesh-video: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+github-ai: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+github-trending: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+google-ai: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+google-deepmind: FAILED, HTTP None, 0 items -- Disabled: RSS endpoint returned HTTP 200 with invalid XML on the hosted runner; no replacement RSS endpoint has been verified. Google AI and DeepMind YouTube remain separate sources.
+google-hf: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+google-youtube: FAILED, HTTP None, 0 items -- streams: URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+hf-models-ranked: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+hf-papers: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+hf-spaces-ranked: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+hf-trending: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+hn-ai: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+hn-front: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+huggingface-blog: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+import-ai: FAILED, HTTP None, 0 items -- Disabled: Substack feed returned HTTP 403 on the hosted runner; an alternate author-site feed has not yet been verified.
+interconnects: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+latent-space: FAILED, HTTP None, 0 items -- Disabled: Substack podcast feed returned HTTP 403 on the hosted runner; no alternate feed has been verified.
+lobsters-ai: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+meta-hf: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+meta-news: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+microsoft-research: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+mistral-hf: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+mistral-news: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+mit-tech-review: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+no-priors: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+nvidia-blog: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+nvidia-youtube: FAILED, HTTP None, 0 items -- streams: URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+openai-hf: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+openai-news: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+openai-youtube: FAILED, HTTP None, 0 items -- streams: URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+qwen-hf: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+simon-willison: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+techcrunch-ai: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+verge-ai: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+vnexpress-tech: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+xai-hf: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+xai-news: FAILED, HTTP None, 0 items -- URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>
+Built data\p1-r2-build.json: 0 updates, 0 HF releases, 0 streams, 0 GitHub / 0 HF trending in 0.5s
+V2: 2 stories, 0 independent multi-source clusters, 0 hot, 2 verified events

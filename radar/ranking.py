@@ -1,6 +1,7 @@
 """Explainable freshness-weighted ranking from measured observations only."""
 
 from collections import defaultdict
+from decimal import Decimal
 
 from radar.items import instant, measured
 
@@ -18,6 +19,13 @@ def _metric(item):
         if value is not None:
             return key, value
     return None, None
+
+
+def _format_measurement(value):
+    """Display validated counters without exponent notation or lost decimals."""
+    if isinstance(value, int) or value.is_integer():
+        return f"{int(value):,}"
+    return f"{Decimal(str(value)):,f}"
 
 
 def _percentiles(rows):
@@ -101,7 +109,7 @@ def rank_stories(stories, now, previous=None):
         if spread is not None:
             reasons.append(f"{count} nguồn độc lập cùng đưa")
         if measurement and percentile is not None:
-            reasons.append(f"{measurement['source']}: {measurement['value']:g} {LABELS[measurement['metric']]}")
+            reasons.append(f"{measurement['source']}: {_format_measurement(measurement['value'])} {LABELS[measurement['metric']]}")
         if measurement and velocity_rank is not None:
             reasons.append(f"tăng {measurement['velocity_per_hour']:.1f}/giờ từ hai lần đo")
         prefix = "repository được tạo" if story.get("time_basis") == "repository_created" else "đăng"

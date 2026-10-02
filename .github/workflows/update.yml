@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: github-pages
+  group: github-pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -26,23 +26,26 @@ jobs:
       - name: Run offline tests
         run: python -m unittest discover -s tests
       - name: Restore previous measurement snapshot
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
-          path: site/data/radar.json
-          key: radar-measurements-${{ github.ref_name }}-${{ github.run_id }}
+          path: data/measurement-baseline.json
+          key: radar-measurements-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            radar-measurements-${{ github.ref_name }}-
+            radar-measurements-v2-${{ github.ref_name }}-
+            radar-measurements-v2-main-
       - name: Fetch public sources
+        id: collect
         run: python build.py
       - name: Save measurement snapshot
-        uses: actions/cache/save@v4
+        if: steps.collect.outputs.baseline_updated == 'true'
+        uses: actions/cache/save@v6
         with:
-          path: site/data/radar.json
-          key: radar-measurements-${{ github.ref_name }}-${{ github.run_id }}
+          path: data/measurement-baseline.json
+          key: radar-measurements-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Upload collected source evidence
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: radar-data-${{ github.run_id }}
+          name: radar-data-${{ github.run_id }}-${{ github.run_attempt }}
           path: site/data/radar.json
       - uses: actions/upload-pages-artifact@v5
         if: github.ref == 'refs/heads/main'

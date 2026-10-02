@@ -7,7 +7,10 @@ from pathlib import Path
 from unittest.mock import patch
 
 from radar import catalog, huggingface, pipeline, youtube
-from test_v2_support import NOW
+if __package__:
+    from .test_v2_support import NOW
+else:
+    from test_v2_support import NOW
 
 
 class RepositoryDateTests(unittest.TestCase):

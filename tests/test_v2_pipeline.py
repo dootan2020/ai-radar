@@ -11,8 +11,12 @@ from urllib.error import HTTPError
 
 from radar import catalog, feeds, pipeline, youtube
 from radar.transport import ResponseText
-from test_v2_events import event
-from test_v2_support import NOW
+if __package__:
+    from .test_v2_events import event
+    from .test_v2_support import NOW
+else:
+    from test_v2_events import event
+    from test_v2_support import NOW
 
 
 def source(id_, **changes):

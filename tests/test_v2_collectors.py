@@ -8,7 +8,10 @@ from radar.clustering import cluster_items
 from radar.discovery import parse_github, parse_hf_trending, parse_papers
 from radar.v2feeds import parse_feed
 from radar.ranking import rank_stories
-from test_v2_support import NOW, OBSERVED
+if __package__:
+    from .test_v2_support import NOW, OBSERVED
+else:
+    from test_v2_support import NOW, OBSERVED
 
 SOURCE = {"id": "synthetic-source", "name": "Synthetic source", "publisher": "synthetic",
           "lab": "", "group": "forum", "kind": "json", "url": "https://feed.example/rss"}

@@ -3,6 +3,7 @@
 from radar import catalog, feeds, github, huggingface
 from radar.common import iso_date, stable_id
 from radar.items import instant, observation, relevant
+from radar.youtube import CHANNELS
 
 
 def legacy_items(payload, now):
@@ -20,7 +21,6 @@ def legacy_items(payload, now):
                                   kind="model", time_basis="repository_created",
                                   metrics={"likes": row.get("likes"), "downloads": row.get("downloads")}))
     for row in payload.get("live", []):
-        from radar.youtube import CHANNELS
         channel = next((c for c in CHANNELS + (catalog.NVIDIA_CHANNEL,) if c[2] == row.get("channel")), None)
         source = dict(id=channel[0] if channel else row.get("lab", "") + "-youtube",
                       publisher=row.get("lab") or row.get("channel", "youtube"), lab=row.get("lab", ""), group="lab")

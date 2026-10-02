@@ -4,6 +4,7 @@ import json
 import re
 from urllib.parse import quote
 
+from radar.common import web_url
 from radar.huggingface import _repo_id
 from radar.items import observation
 
@@ -22,7 +23,6 @@ def parse_papers(text, source, observed_at):
             continue
         media = []
         image = row.get("thumbnail")
-        from radar.common import web_url
         if web_url(image):
             media.append(dict(url=image, type="image", mime_type=None))
         item = observation(source, row.get("title") or paper.get("title"), "https://arxiv.org/abs/" + id_,

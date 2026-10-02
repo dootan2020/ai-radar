@@ -1,6 +1,7 @@
 """Conservative complete-link story clusters; all publisher coverage survives."""
 
 import re
+import unicodedata
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from radar.common import stable_id, web_url
@@ -25,7 +26,7 @@ def canonical_url(url):
         host += ":" + str(port)
     path = parts.path.rstrip("/")
     if host in {"arxiv.org", "www.arxiv.org", "export.arxiv.org"}:
-        match = re.fullmatch(r"/(?:abs|pdf)/(\d{4}\.\d{4,5}(?:v\d+)?)(?:\.pdf)?", path)
+        match = re.fullmatch(r"/(?:abs|pdf|html)/(\d{4}\.\d{4,5}(?:v\d+)?)(?:\.pdf)?", path)
         if match:
             return "https://arxiv.org/abs/" + match[1]
     query = [(key, value) for key, value in parse_qsl(parts.query, keep_blank_values=True)
@@ -34,7 +35,9 @@ def canonical_url(url):
 
 
 def _tokens(title):
-    return set(token for token in re.findall(r"[a-z0-9]+(?:[.-][a-z0-9]+)*", title.lower())
+    # Preserve accented words and normalize equivalent composed/decomposed text.
+    title = unicodedata.normalize("NFC", title.lower())
+    return set(token for token in re.findall(r"[^\W_]+(?:[.-][^\W_]+)*", title)
                if token not in STOPWORDS and (len(token) >= 3 or any(c.isdigit() for c in token)))
 
 

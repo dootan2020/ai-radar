@@ -17,10 +17,17 @@ RSS = [
     ("mit-tech-review", "MIT Technology Review AI", "press", "mit-tech-review", "https://www.technologyreview.com/topic/artificial-intelligence/feed", False),
     ("microsoft-research", "Microsoft Research", "lab", "microsoft", "https://www.microsoft.com/en-us/research/feed/", False),
     ("nvidia-blog", "NVIDIA Technical Blog", "lab", "nvidia", "https://developer.nvidia.com/blog/feed", True),
-    ("vnexpress-tech", "VnExpress Khoa học công nghệ", "vietnam", "vnexpress", "https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss", True),
+    ("vnexpress-tech", "VnExpress AI from latest news", "vietnam", "vnexpress", "https://vnexpress.net/rss/tin-moi-nhat.rss", True),
     ("dwarkesh-video", "Dwarkesh video", "podcast", "dwarkesh", "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA", True),
 ]
 NVIDIA_CHANNEL = ("nvidia-youtube", "nvidia", "NVIDIA", "NVIDIA", "UCHuiy8bXnmK5nisYHUd1J5g")
+
+# Keep unavailable endpoints in the inventory and exported source health records.
+DISABLED = {
+    "import-ai": "Substack feed returned HTTP 403 on the hosted runner; an alternate author-site feed has not yet been verified.",
+    "dwarkesh-podcast": "Substack podcast feed returned HTTP 403 on the hosted runner; Dwarkesh video remains a separate source.",
+    "latent-space": "Substack podcast feed returned HTTP 403 on the hosted runner; no alternate feed has been verified.",
+}
 
 
 def source(id_, name, url, parser, group, publisher, **extra):
@@ -32,6 +39,9 @@ def source(id_, name, url, parser, group, publisher, **extra):
 def sources(now):
     result = [source(id_, name, url, "feed", group, publisher, filter_ai=filter_ai)
               for id_, name, group, publisher, url, filter_ai in RSS]
+    for row in result:
+        if row["id"] in DISABLED:
+            row.update(disabled=True, disabled_reason=DISABLED[row["id"]])
     after = int((now - timedelta(days=7)).timestamp())
     for id_, tags, query in (("hn-front", "front_page", ""), ("hn-ai", "story", "AI")):
         params = {"tags": tags, "hitsPerPage": 100, "numericFilters": "created_at_i>=" + str(after)}

@@ -20,6 +20,12 @@ _FEEDS = [
     ("huggingface-blog", "Hugging Face Blog", "huggingface", "https://huggingface.co/blog/feed.xml"),
 ]
 SOURCES = [dict(id=id_, name=name, lab=lab, kind="rss", url=url) for id_, name, lab, url in _FEEDS]
+for _source in SOURCES:
+    if _source["id"] == "google-deepmind":
+        _source.update(disabled=True, disabled_reason=(
+            "RSS endpoint returned HTTP 200 with invalid XML on the hosted runner; "
+            "no replacement RSS endpoint has been verified. Google AI and DeepMind YouTube remain separate sources."
+        ))
 
 
 def _local(tag):

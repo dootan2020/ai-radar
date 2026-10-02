@@ -7,7 +7,10 @@ from datetime import datetime
 from pathlib import Path
 
 from radar.events import load_events
-from test_v2_support import NOW
+if __package__:
+    from .test_v2_support import NOW
+else:
+    from test_v2_support import NOW
 
 
 def event(**changes):

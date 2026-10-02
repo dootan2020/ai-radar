@@ -68,7 +68,16 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None):
     fetcher = Fetcher(deadline, fetch)
     payload = dict(generated_at=iso_date(now), sources=[], updates=[], hf_releases=[], live=[],
                    trending={"github": [], "huggingface": []})
-    jobs = _jobs(v2, now)
+    all_jobs = _jobs(v2, now)
+    jobs = []
+    for source, section, parse in all_jobs:
+        if source.get("disabled") is True:
+            reason = source.get("disabled_reason") or "Source disabled by catalog policy"
+            record = source_result(source, error="Disabled: " + reason)
+            record.update(disabled=True, disabled_reason=reason)
+            payload["sources"].append(record)
+        else:
+            jobs.append((source, section, parse))
     coverage = []
     channels = youtube.CHANNELS
     youtube_sources = youtube.SOURCES
@@ -147,7 +156,7 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None):
     payload["sources"].sort(key=lambda source: source["id"])
     if v2:
         from radar import assembly, events
-        known = {source["id"]: source for source, _, _ in jobs}
+        known = {source["id"]: source for source, _, _ in all_jobs}
         known.update({source["id"]: source for source in youtube_sources})
         for record in payload["sources"]:
             source = known[record["id"]]
