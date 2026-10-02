@@ -2,6 +2,7 @@
    Plain ES modules, no framework, no build. Every data string passes through esc(); every link through safe(). */
 import { startLive } from './live.js';
 import { canCalendar, downloadIcs } from './calendar.js';
+import { streamedAge, scheduleText } from './time-text.js';
 
 const TZ = 'Asia/Ho_Chi_Minh';
 const KIND = {model:'Model',product:'Sản phẩm',research:'Nghiên cứu',other:'Bài viết',paper:'Paper',podcast:'Podcast',video:'Video',forum:'Thảo luận',event:'Sự kiện',repository:'Repo'};
@@ -75,18 +76,6 @@ const timeEl = iso => iso ? `<time datetime="${esc(iso)}" data-ago="${esc(iso)}"
 const exact = iso => iso ? new Intl.DateTimeFormat('vi-VN',{dateStyle:'medium',timeStyle:'short',timeZone:TZ}).format(new Date(iso)) : 'không rõ';
 const dateOnly = ymd => { const [y,m,d] = ymd.split('-').map(Number); return {y,m,d}; };
 const daysUntil = ymd => { const t = dateOnly(ymd); return Math.round((Date.UTC(t.y,t.m-1,t.d) - new Date(dayKey(new Date()) + 'T00:00:00Z')) / 864e5); };
-/* YouTube fallback texts: relative ages and timezone-free schedules are shown as printed, never turned into instants. */
-function streamedAge(text){
-  const m = /^Streamed (\d+)\s*(second|minute|hour|day|s|m|h|d)s? ago$/i.exec(text || '');
-  if (!m) return null;
-  const unit = {s:'giây',m:'phút',h:'giờ',d:'ngày'}[m[2][0].toLowerCase()];
-  return `Đã phát ${m[1]} ${unit} trước`;
-}
-function scheduleText(text){
-  const m = /^Scheduled for\s+(.+)$/i.exec(text || '');
-  return m ? `Dự kiến: ${m[1].replace(/\bAM\b/gi,'sáng').replace(/\bPM\b/gi,'chiều')} (chưa rõ múi giờ)` : 'chưa rõ giờ';
-}
-
 /* ---------- data helpers ---------- */
 const srcName = id => (SRC.get(id) || {}).name || id;
 const pubOf = st => st.coverage && st.coverage[0] ? srcName(st.coverage[0].source) : '';
@@ -277,6 +266,7 @@ function renderBoard(){
   ${liveTile()}`;
   board.classList.remove('is-loading'); board.removeAttribute('aria-busy');
   fitAll();
+  observeFit();
 }
 
 function liveTile(){
@@ -758,13 +748,30 @@ function rerenderRepos(){
 $('#sheet-x').addEventListener('click', close);
 $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
 addEventListener('scroll', spy, {passive:true});
-let rt, wasWide = null;
-addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => {
-  if (!D) return;
-  const w = newtShown();
-  if (w !== wasWide) { wasWide = w; renderBoard(); } else fitAll();
-  spy();
-}, 120); });
+/* Fill-to-height must hold whenever layout settles, not only at first render: web fonts on a cold cache,
+   thumbnails, live counter updates and window changes all move rows. Re-fit on the next frame whenever
+   the board, a tile or the content above a list changes size, and whenever a font finishes loading.
+   fitAll only changes row padding inside lists, which none of the observed boxes depend on, so it cannot loop. */
+let wasWide = null, fitQueued = false;
+function refit(){
+  if (fitQueued || !D) return;
+  fitQueued = true;
+  requestAnimationFrame(() => {
+    fitQueued = false;
+    const w = newtShown();
+    if (w !== wasWide) { wasWide = w; renderBoard(); } else fitAll();
+    spy();
+  });
+}
+const fitRO = 'ResizeObserver' in window ? new ResizeObserver(refit) : null;
+function observeFit(){
+  if (!fitRO) return;
+  fitRO.disconnect();
+  fitRO.observe(document.documentElement);
+  $$('#board, #board .tile, #board .lead-top, #board .cov, #board .tile-h').forEach(el => fitRO.observe(el));
+}
+addEventListener('resize', refit);
+if (document.fonts) { document.fonts.addEventListener('loadingdone', refit); document.fonts.ready.then(refit); }
 setInterval(() => $$('[data-ago]').forEach(el => { el.textContent = ago(el.dataset.ago); }), 60_000);
 
 /* ---------- start ---------- */
@@ -776,7 +783,6 @@ function showError(msg){
 fetch(DATA_URL, {cache:'no-store'}).then(r => { if (!r.ok) throw new Error(`Máy chủ trả HTTP ${r.status} cho ${DATA_URL}`); return r.json(); }).then(j => {
   if (!j || j.schema_version !== 2 || !Array.isArray(j.stories) || !j.sections) throw new Error('Tệp dữ liệu không đúng hợp đồng v2');
   D = j; build(); wasWide = newtShown(); renderAll();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
   const m = /^#tin\/(.+)$/.exec(location.hash); if (m) open(decodeURIComponent(m[1]), null, true);
   else if (location.hash.length > 1) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
   startLive({
