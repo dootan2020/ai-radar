@@ -4,11 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ai·radar · Tin AI hôm nay</title>
-<meta name="description" content="Bản đồ tin AI mỗi sáng: chuyện nhiều nguồn cùng đưa, cái đang nóng kèm số đo, livestream, repo dùng được ngay. Mọi mục dẫn về nguồn gốc.">
+<meta name="description" content="Bản đồ tin AI mỗi sáng: chuyện nóng nhất kèm số đo, repo lấy về dùng được, livestream và sự kiện sắp tới. Mọi mục dẫn về nguồn gốc.">
 <meta name="color-scheme" content="light dark">
+<script>
+  /* Apply the reader's saved theme before first paint, so a dark-mode reader never sees a light flash. */
+  try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="styles.css">
 <script type="module" src="app.js"></script>
 </head>
@@ -27,6 +32,11 @@
   <symbol id="i-repo" viewBox="0 0 24 24"><path d="M6 4.5h10.5a1 1 0 0 1 1 1V17H7.5A1.5 1.5 0 0 0 6 18.5zM6 18.5A1.5 1.5 0 0 0 7.5 20h10M9.5 8.5h5"/></symbol>
   <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></symbol>
   <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4l9 15.5H3zM12 10v4.5M12 17h.01"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M9 7.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L9.9 6.7a.6.6 0 0 0-.9.5z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
 </svg>
 
 <header class="bar" id="bar">
@@ -35,41 +45,27 @@
   <nav class="nav" id="nav" aria-label="Các mục"></nav>
   <div class="since" id="since"></div>
   <a class="src-state" href="#nguon" id="src-state"></a>
+  <button class="theme" id="theme" aria-pressed="false" aria-label="Chuyển sang nền tối"><svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg></button>
 </header>
 
 <div class="fresh" id="fresh" aria-live="polite"></div>
 
 <main id="top">
   <h1 class="sr">ai-radar, bản tin AI hôm nay</h1>
-  <!-- Skeleton drawn in HTML so the first paint already has the board's shape; app.js replaces it. -->
+  <!-- Skeleton drawn in HTML so the first paint already has the bento's shape; app.js replaces it. -->
   <section class="board is-loading" id="board" tabindex="-1" aria-label="Màn hình đầu" aria-busy="true">
-    <div class="tile lead sk-tile">
-      <div class="sk sk-line" style="width:34%"></div>
-      <div class="sk sk-title" style="width:82%"></div>
-      <div class="sk sk-title" style="width:58%"></div>
-      <div class="sk sk-line" style="width:70%"></div>
-      <div class="sk sk-block"></div><div class="sk sk-block"></div>
-      <div class="sk sk-line" style="width:88%"></div>
-      <div class="sk sk-line" style="width:76%"></div>
-      <div class="sk sk-line" style="width:84%"></div>
-      <div class="sk sk-line" style="width:66%"></div>
-      <div class="sk sk-line" style="width:80%"></div>
+    <div class="tile t-lead sk-tile">
+      <div class="sk sk-av"></div>
+      <div class="sk sk-num"></div>
+      <div class="sk sk-title" style="width:86%"></div>
+      <div class="sk sk-title" style="width:60%"></div>
       <div class="sk sk-line" style="width:72%"></div>
-      <div class="sk sk-line" style="width:86%"></div>
-      <div class="sk sk-line" style="width:62%"></div>
+      <div class="sk sk-line" style="width:64%"></div>
     </div>
-    <div class="tile hot sk-tile">
-      <div class="sk sk-line" style="width:28%"></div>
-      <div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div>
-    </div>
-    <div class="tile newt sk-tile">
-      <div class="sk sk-line" style="width:40%"></div>
-      <div class="sk sk-line" style="width:84%"></div><div class="sk sk-line" style="width:72%"></div><div class="sk sk-line" style="width:80%"></div>
-    </div>
-    <div class="tile live sk-tile">
-      <div class="sk sk-line" style="width:18%"></div>
-      <div class="sk-cells"><div class="sk sk-cell"></div><div class="sk sk-cell"></div><div class="sk sk-cell"></div><div class="sk sk-cell"></div></div>
-    </div>
+    <div class="tile t-live sk-tile"><div class="sk sk-line" style="width:48%"></div><div class="sk sk-media"></div><div class="sk sk-line" style="width:70%"></div></div>
+    <div class="tile t-repo sk-tile"><div class="sk sk-line" style="width:52%"></div><div class="sk sk-av"></div><div class="sk sk-num" style="width:60%"></div></div>
+    <div class="tile t-hot sk-tile"><div class="sk sk-line" style="width:30%"></div><div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div></div>
+    <div class="tile t-new sk-tile"><div class="sk sk-line" style="width:40%"></div><div class="sk sk-num" style="width:40%"></div><div class="sk sk-row"></div></div>
     <p class="sr" role="status">Đang tải bản tin…</p>
   </section>
   <div class="chapters" id="chapters"></div>
@@ -84,6 +80,7 @@
   <a href="#sap-toi" data-tab="sap-toi"><svg class="i"><use href="#i-cal"/></svg><span>Sắp tới</span></a>
 </nav>
 
+<div class="scrim" id="scrim" aria-hidden="true"></div>
 <aside class="sheet" id="sheet" aria-label="Chi tiết" aria-hidden="true" inert>
   <div class="sheet-top"><span class="k" id="sheet-k">Chi tiết</span><button class="icon-btn" id="sheet-x" aria-label="Đóng chi tiết (Esc)"><svg class="i"><use href="#i-close"/></svg></button></div>
   <div class="sheet-body" id="sheet-body"></div>
@@ -96,7 +93,7 @@
     <dt><kbd>Enter</kbd></dt><dd>Mở chi tiết tin đang chọn</dd>
     <dt><kbd>O</kbd></dt><dd>Mở bài gốc</dd>
     <dt><kbd>S</kbd></dt><dd>Lưu đọc sau, hoặc bỏ lưu</dd>
-    <dt><kbd>L</kbd></dt><dd>Thêm sự kiện vào lịch</dd>
+    <dt><kbd>L</kbd></dt><dd>Tải tệp lịch .ics cho sự kiện</dd>
     <dt><kbd>U</kbd></dt><dd>Xem tin mới vừa về</dd>
     <dt><kbd>M</kbd></dt><dd>Đánh dấu đã xem hết</dd>
     <dt><kbd>G</kbd></dt><dd>Về đầu trang</dd>

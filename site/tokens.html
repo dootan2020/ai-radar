@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ai·radar · Ngôn ngữ thiết kế Bento Keynote</title>
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Showcase-only layout. Every colour, size and motion below still reads tokens.css. */
+  .tk main{display:flex;flex-direction:column;gap:var(--space-48)}
+  .tk-hero{display:flex;flex-direction:column;gap:var(--space-16);padding:var(--space-48) 0 var(--space-16)}
+  .tk-hero h1{font-size:var(--num-xl);font-weight:var(--weight-bold);letter-spacing:var(--tracking-number);line-height:1}
+  .tk-hero p{max-width:64ch;color:var(--color-ink-2);font-size:var(--text-title)}
+  .tk-sec{display:flex;flex-direction:column;gap:var(--space-24)}
+  .tk-sec > h2{font-size:var(--text-feature);font-weight:var(--weight-bold);letter-spacing:var(--tracking-display)}
+  .tk-sec > p{color:var(--color-ink-2);max-width:72ch}
+  .tk-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));gap:var(--grid-gap)}
+  .tk-grid.wide{grid-template-columns:repeat(auto-fill, minmax(340px, 1fr))}
+  .tk-themes{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:var(--grid-gap)}
+  .tk-theme{background:var(--color-canvas);color:var(--color-ink);border-radius:var(--tile-radius);padding:var(--space-24);display:flex;flex-direction:column;gap:var(--space-16)}
+  .tk-theme > h3{font-size:var(--text-title);font-weight:var(--weight-bold)}
+  .sw{display:grid;grid-template-columns:48px minmax(0, 1fr) auto;align-items:center;gap:var(--space-12);font-size:var(--text-meta)}
+  .sw i{width:48px;height:48px;border-radius:var(--radius-12);box-shadow:inset 0 0 0 1px var(--color-hair)}
+  .sw code,.tk code{font-family:ui-monospace, Consolas, monospace;font-size:var(--text-micro);color:var(--color-ink-2);overflow-wrap:anywhere}
+  .sw .cr{font-variant-numeric:tabular-nums;font-weight:var(--weight-semibold)}
+  .tk-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-16)}
+  .tk-cap{font-size:var(--text-micro);color:var(--color-ink-3);text-align:center}
+  .tk-cell{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-8)}
+  .ts{display:grid;grid-template-columns:200px minmax(0, 1fr);gap:var(--space-16);align-items:baseline;border-bottom:1px solid var(--color-hair);padding:var(--space-12) 0}
+  .sp{display:flex;align-items:center;gap:var(--space-12);font-size:var(--text-meta)}
+  .sp i{display:block;height:16px;background:var(--color-accent);border-radius:4px}
+  .rd{width:96px;height:72px;background:var(--color-fill)}
+  .mo{display:flex;align-items:center;gap:var(--space-16);font-size:var(--text-meta)}
+  .mo-track{position:relative;flex:1;height:8px;border-radius:var(--radius-full);background:var(--color-fill)}
+  .mo-dot{position:absolute;top:-6px;left:0;width:20px;height:20px;border-radius:50%;background:var(--color-accent);animation:mo-run 2.4s infinite alternate}
+  @keyframes mo-run{to{left:calc(100% - 20px)}}
+  @media (prefers-reduced-motion: reduce){ .mo-dot{animation:none} }
+  @media (max-width: 767px){ .tk-themes{grid-template-columns:minmax(0, 1fr)} .ts{grid-template-columns:minmax(0, 1fr)} }
+  .tk .board{grid-template-columns:repeat(12, minmax(0, 1fr))}
+  .tk-demo-tiles .tile{grid-column:span 4}
+  @media (max-width: 1099px){ .tk-demo-tiles .tile{grid-column:1 / -1} }
+</style>
+<script type="module" src="tokens.js"></script>
+</head>
+<body class="tk">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 5h10v10M19 5L6 18"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3.5c1 3 4.5 5 4.5 9.5a4.5 4.5 0 0 1-9 0c0-2 1-3.2 2-4 .2 1.5 1 2.5 2 2.5 0-3-1-5.5.5-8z"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4l9 15.5H3zM12 10v4.5M12 17h.01"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M9 7.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L9.9 6.7a.6.6 0 0 0-.9.5z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></symbol>
+</svg>
+<header class="bar scrolled"><a class="brand" href="index.html">ai<b>·</b>radar</a><span class="aside">Ngôn ngữ thiết kế · Bento Keynote</span>
+  <span style="margin-left:auto"></span><button class="theme" id="theme" aria-pressed="false" aria-label="Chuyển sang nền tối"><svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg></button></header>
+<main>
+  <section class="tk-hero">
+    <h1>Bento Keynote</h1>
+    <p>Mỗi ô là một chuyện. Mỗi chuyện có một logo nguồn, một con số đo được và một nhãn. Ô to là chuyện quan trọng. Màu để dành cho logo và số đo. Văn bản đầy đủ: <code>docs/ngon-ngu-thiet-ke.md</code>. Mọi ví dụ dưới đây lấy từ <code>data/radar.json</code> thật.</p>
+  </section>
+
+  <section class="tk-sec" aria-labelledby="h-color"><h2 id="h-color">Màu</h2>
+    <p>Tầng ngữ nghĩa, hai giao diện. Số bên phải là tỉ lệ tương phản đo ngay trên trang này, so với nền ô (surface), tính từ màu đã render.</p>
+    <div class="tk-themes"><div class="tk-theme" data-theme="light" id="sw-light"><h3>Sáng (mặc định)</h3></div><div class="tk-theme" data-theme="dark" id="sw-dark"><h3>Tối</h3></div></div>
+  </section>
+
+  <section class="tk-sec" aria-labelledby="h-type"><h2 id="h-type">Chữ</h2>
+    <p>Một họ chữ, Be Vietnam Pro, có đủ dấu tiếng Việt. Hai thang: thang chữ để đọc, thang số to như slide keynote.</p>
+    <div class="tile" id="type-scale"></div>
+  </section>
+
+  <section class="tk-sec" aria-labelledby="h-space"><h2 id="h-space">Khoảng cách, bo góc, bóng</h2>
+    <div class="tk-grid wide"><div class="tile" id="space-scale"></div><div class="tile" id="radius-scale"></div><div class="tile" id="shadow-scale"></div></div>
+  </section>
+
+  <section class="tk-sec" aria-labelledby="h-motion"><h2 id="h-motion">Chuyển động</h2>
+    <p>Một họ đường cong giảm tốc, "tới nhanh, lắng chậm". Khi người đọc bật giảm chuyển động, chỉ còn mờ dần 150 ms.</p>
+    <div class="tile" id="motion-scale"></div>
+  </section>
+
+  <section class="tk-sec" aria-labelledby="h-comp"><h2 id="h-comp">Component và mọi trạng thái</h2>
+    <p>Trạng thái hover, focus, active được ép bằng lớp <code>.is-hover</code>, <code>.is-focus</code>, <code>.is-active</code>: trang này sao chép đúng luật :hover/:focus-visible/:active của styles.css sang các lớp đó, nên không có bản CSS riêng nào lệch khỏi trang thật.</p>
+    <div class="tk-grid wide" id="comp"></div>
+  </section>
+
+  <section class="tk-sec" aria-labelledby="h-tiles"><h2 id="h-tiles">Ô bento, dựng từ dữ liệu thật</h2>
+    <div class="board tk-demo-tiles" id="tiles"></div>
+  </section>
+  <p class="foot"><a class="link" href="index.html">Về trang chủ</a></p>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

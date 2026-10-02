@@ -59,3 +59,18 @@ export function downloadIcs(ev) {
   document.body.append(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 4000);
 }
+
+/* "Google Calendar": a link to Google's own event template, opened in a new tab; the page sends nothing.
+   Same rules as the .ics file: a date-only event stays all-day (Google's end date is the day after the
+   last day), and an exact start with no known end is sent with end = start, so no duration is invented. */
+export function gcalURL(ev) {
+  if (!canCalendar(ev)) return null;
+  const dates = ev.startAt
+    ? `${utc(ev.startAt)}/${utc(ev.endAt || ev.startAt)}`
+    : `${ymd(ev.startDate)}/${ymd(nextDay(ev.endDate || ev.startDate))}`;
+  const p = new URLSearchParams({ action: 'TEMPLATE', text: String(ev.title || ''), dates });
+  const details = [ev.note, ev.url].filter(Boolean).join('\n');
+  if (details) p.set('details', details);
+  if (ev.location) p.set('location', String(ev.location));
+  return `https://calendar.google.com/calendar/render?${p.toString()}`;
+}
