@@ -10,7 +10,7 @@ AUTHORS = {"deepseek": "deepseek-ai", "meta": "meta-llama", "mistral": "mistrala
 SOURCES = [dict(id=f"{lab}-hf", name=f"{author} / Hugging Face", lab=lab, kind="hf",
                 url=f"https://huggingface.co/api/models?author={author}&sort=createdAt&direction=-1&limit=8")
            for lab, author in AUTHORS.items()]
-TRENDING_SOURCE = dict(id="hf-trending", name="Hugging Face Trending", lab="huggingface", kind="hf",
+TRENDING_SOURCE = dict(id="hf-trending", name="Thịnh hành trên Hugging Face", lab="huggingface", kind="hf",
                        url="https://huggingface.co/api/trending")
 
 

@@ -6,7 +6,7 @@ from decimal import Decimal
 from radar.items import instant, measured
 
 METRICS = ("points", "score", "upvotes", "trending_score", "stars_today", "stars")
-LABELS = {"points": "điểm", "score": "điểm", "upvotes": "upvote", "trending_score": "trendingScore",
+LABELS = {"points": "điểm", "score": "điểm", "upvotes": "lượt bình chọn", "trending_score": "điểm thịnh hành",
           "stars_today": "sao hôm nay", "stars": "sao"}
 
 
@@ -22,10 +22,10 @@ def _metric(item):
 
 
 def _format_measurement(value):
-    """Display validated counters without exponent notation or lost decimals."""
+    """Display validated counters the Vietnamese way (1.234.567,25), without exponent notation or lost decimals."""
     if isinstance(value, int) or value.is_integer():
-        return f"{int(value):,}"
-    return f"{Decimal(str(value)):,f}"
+        return f"{int(value):,}".replace(",", ".")
+    return f"{Decimal(str(value)):,f}".replace(",", " ").replace(".", ",").replace(" ", ".")
 
 
 def _percentiles(rows):
@@ -111,8 +111,8 @@ def rank_stories(stories, now, previous=None):
         if measurement and percentile is not None:
             reasons.append(f"{measurement['source']}: {_format_measurement(measurement['value'])} {LABELS[measurement['metric']]}")
         if measurement and velocity_rank is not None:
-            reasons.append(f"tăng {measurement['velocity_per_hour']:.1f}/giờ từ hai lần đo")
-        prefix = "repository được tạo" if story.get("time_basis") == "repository_created" else "đăng"
+            reasons.append(f"tăng {measurement['velocity_per_hour']:.1f}/giờ từ hai lần đo".replace(".", ",", 1))
+        prefix = "kho mã được tạo" if story.get("time_basis") == "repository_created" else "đăng"
         reasons.append(f"{prefix} {max(0, int(age))} giờ trước")
         story["hot_reason"] = " · ".join(reasons)
     return stories

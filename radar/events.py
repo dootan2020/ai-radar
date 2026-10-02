@@ -8,7 +8,7 @@ from pathlib import Path
 from radar.common import web_url
 from radar.items import instant
 
-SOURCE = dict(id="curated-events", name="Verified event calendar", lab="", kind="curated", url=None,
+SOURCE = dict(id="curated-events", name="Lịch sự kiện đã xác minh", lab="", kind="curated", url=None,
               group="event", publisher="curated-events", first_wave=True)
 
 

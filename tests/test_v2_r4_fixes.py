@@ -38,12 +38,12 @@ class TestRound4Blockers(unittest.TestCase):
         self.assertNotIn("GITHUB_TOKEN", source)
 
     def test_b2_fallback_does_not_invent_spdx_license(self):
-        """B2: Fallback branch sets license = None and flag 'chưa đo được license'."""
+        """B2: Fallback branch sets license = None and flag 'chưa đo được giấy phép'."""
         gh_items = [
             {
                 "repo": "getsentry/sentry",
                 "url": "https://github.com/getsentry/sentry",
-                "description": "Developer-first error tracking",
+                "description": "Developer-first error tracking for AI agents",
                 "stars": 40000,
             }
         ]
@@ -69,7 +69,7 @@ class TestRound4Blockers(unittest.TestCase):
         item = curated[0]
         # Must NOT invent Apache-2.0 or GPL-3.0
         self.assertIsNone(item["license"])
-        self.assertEqual(item["license_flag"], "chưa đo được license")
+        self.assertEqual(item["license_flag"], "chưa đo được giấy phép")
         self.assertNotIn("Apache-2.0", item.get("why") or "")
         self.assertFalse(item["signals"]["api_enriched"])
 
@@ -124,7 +124,7 @@ class TestRound4Blockers(unittest.TestCase):
         res_ltx = score_hf_model({"id": "Lightricks/LTX-2.5"}, model_details=details_ltx, now=NOW)
         self.assertEqual(res_ltx["label"], "dung-ngay")
         self.assertEqual(res_ltx["signals"]["gated"], "auto")
-        self.assertIn("cần đồng ý điều khoản trên HF", res_ltx["why"])
+        self.assertIn("cần đồng ý điều khoản trên Hugging Face", res_ltx["why"])
 
         # Case 2: gated='auto' with inferenceProviderMapping (e.g. FLUX.1-dev pattern) -> dung-ngay + gate flag
         details_flux = {
@@ -136,7 +136,7 @@ class TestRound4Blockers(unittest.TestCase):
         }
         res_flux = score_hf_model({"id": "black-forest-labs/FLUX.1-dev"}, model_details=details_flux, now=NOW)
         self.assertEqual(res_flux["label"], "dung-ngay")
-        self.assertIn("cần đồng ý điều khoản trên HF", res_flux["why"])
+        self.assertIn("cần đồng ý điều khoản trên Hugging Face", res_flux["why"])
 
         # Case 3: gated='manual' without provider/quantized -> nghien-cuu
         details_manual_raw = {
@@ -147,7 +147,7 @@ class TestRound4Blockers(unittest.TestCase):
         }
         res_manual_raw = score_hf_model({"id": "test/manual-model"}, model_details=details_manual_raw, now=NOW)
         self.assertEqual(res_manual_raw["label"], "nghien-cuu")
-        self.assertIn("cần xét duyệt điều khoản trên HF", res_manual_raw["why"])
+        self.assertIn("cần được duyệt điều khoản trên Hugging Face", res_manual_raw["why"])
 
         # Case 4: gated=False -> no gate flag
         details_open = {
@@ -161,7 +161,7 @@ class TestRound4Blockers(unittest.TestCase):
         self.assertNotIn("điều khoản", res_open["why"])
 
     def test_b5_hf_spaces_capped_at_100(self):
-        """B5: When spaces length == 100, record spaces_capped: True and '100+ demo Space'."""
+        """B5: When spaces length == 100, record spaces_capped: True and 'hơn 100 bản chạy thử trên Spaces'."""
         details_capped = {
             "gated": False,
             "library_name": "transformers",
@@ -171,7 +171,7 @@ class TestRound4Blockers(unittest.TestCase):
         res_capped = score_hf_model({"id": "test/popular-model"}, model_details=details_capped, now=NOW)
         self.assertTrue(res_capped["signals"]["spaces_capped"])
         self.assertEqual(res_capped["signals"]["spaces_count"], 100)
-        self.assertIn("100+ demo Space", res_capped["why"])
+        self.assertIn("hơn 100 bản chạy thử trên Spaces", res_capped["why"])
 
         details_uncapped = {
             "gated": False,
@@ -182,7 +182,7 @@ class TestRound4Blockers(unittest.TestCase):
         res_uncapped = score_hf_model({"id": "test/smaller-model"}, model_details=details_uncapped, now=NOW)
         self.assertFalse(res_uncapped["signals"]["spaces_capped"])
         self.assertEqual(res_uncapped["signals"]["spaces_count"], 3)
-        self.assertIn("3 demo Spaces", res_uncapped["why"])
+        self.assertIn("3 bản chạy thử trên Spaces", res_uncapped["why"])
 
 
 class TestRound4ShouldFix(unittest.TestCase):
@@ -200,7 +200,7 @@ class TestRound4ShouldFix(unittest.TestCase):
         res = score_github_repo(repo_info, readme_text=readme, license_name="NOASSERTION", contents=[], now=NOW)
         # Without install command, d_score is low -> nghien-cuu
         self.assertEqual(res["label"], "nghien-cuu")
-        self.assertIn("license FSL", res["license_flag"])
+        self.assertIn("giấy phép FSL", res["license_flag"])
 
     def test_s2_install_command_targets_repo_or_package_only(self):
         """S2: D1 only awarded when command targets repo or package name; runner commands ignored."""
@@ -318,8 +318,8 @@ class TestRound4ShouldFix(unittest.TestCase):
     def test_s7_repos_meta_records_dropped_items_and_fallback_reasons(self):
         """S7: curate_repos records dropped items and fallback reasons in meta dict."""
         gh_items = [
-            {"repo": "test/normal", "url": "https://github.com/test/normal"},
-            {"repo": "test/dropped-missing-readme", "url": "https://github.com/test/dropped-missing-readme"},
+            {"repo": "test/normal", "url": "https://github.com/test/normal", "description": "LLM agent toolkit"},
+            {"repo": "test/dropped-missing-readme", "url": "https://github.com/test/dropped-missing-readme", "description": "LLM agent toolkit"},
         ]
 
         def custom_fetcher(url, source_id=None):
@@ -456,7 +456,7 @@ class TestRound4Nits(unittest.TestCase):
                 return "pip install weekly-winner\n"
             return None
 
-        curated = curate_repos([{"repo": "owner/weekly-winner", "url": "https://github.com/owner/weekly-winner"}], [], fetcher=fetcher, now=NOW)
+        curated = curate_repos([{"repo": "owner/weekly-winner", "url": "https://github.com/owner/weekly-winner", "description": "AI agent"}], [], fetcher=fetcher, now=NOW)
         self.assertEqual(len(curated), 1)
         self.assertEqual(curated[0]["stars_gained_7d"], 1234)
 

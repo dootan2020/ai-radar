@@ -33,7 +33,7 @@ class SourceReplacementTests(unittest.TestCase):
                 self.assertIs(source["disabled"], True)
                 self.assertTrue(source["disabled_reason"])
                 self.assertTrue(source["url"].startswith("https://"))
-                self.assertIn("hosted runner", source["disabled_reason"])
+                self.assertIn("máy dựng của GitHub", source["disabled_reason"])
         self.assertNotIn("disabled", self.sources["dwarkesh-video"])
         self.assertEqual(self.sources["dwarkesh-video"]["publisher"], "dwarkesh")
 

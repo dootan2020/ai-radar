@@ -71,7 +71,7 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(by_id["feed-fails"]["count"], 0)
         self.assertTrue(by_id["feed-a"]["ok"])
         for source in result["sources"]:
-            self.assertEqual(set(source), {"id", "name", "lab", "kind", "ok", "count", "error"})
+            self.assertEqual(set(source), {"id", "name", "lab", "kind", "ok", "count", "error", "error_vi"})
         self.assertEqual(len({item["id"] for item in result["updates"]}), 3)
 
     def test_youtube_collector_failure_reports_verified_channels_only(self):

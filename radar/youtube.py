@@ -8,6 +8,7 @@ import re
 import time
 import xml.etree.ElementTree as ET
 
+from radar.common import vi_error
 from radar.transport import FETCH_TIMEOUT
 from radar.youtube_streams import fallback_item, renderers, verified_content
 
@@ -244,7 +245,8 @@ def collect(fetch, now, channels=None):
                 by_channel[index][video_id] = item
     sources = [{"id": channel[0], "name": channel[2] + " YouTube", "lab": channel[1],
                 "kind": "youtube", "ok": discovered[index]["error"] is None,
-                "count": len(by_channel[index]), "error": discovered[index]["error"]}
+                "count": len(by_channel[index]), "error": discovered[index]["error"],
+                "error_vi": vi_error(discovered[index]["error"])}
                for index, channel in enumerate(channels)]
     for source, discovery in zip(sources, discovered):
         if discovery["diagnostics"]:

@@ -6,27 +6,39 @@ import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
 import { streamedAge, scheduleText, TZ, hhmm, dayKey, ago, daysLeftHTML } from './time-text.js';
 import { isSnapshotV2 } from './snapshot.js';
 import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, faceOfRepo, ytIdOf, hydrateHF, watchImageErrors, hourHistogram, ring, meter } from './faces.js';
+import { KIND, METRIC, licenseText, SIGNALS, signalText } from './words.js';
 
-const KIND = {model:'Model',product:'Sản phẩm',research:'Nghiên cứu',other:'Bài viết',paper:'Paper',podcast:'Podcast',video:'Video',forum:'Thảo luận',event:'Sự kiện',repository:'Repo'};
-const METRIC = {points:'điểm',comments:'bình luận',score:'điểm',upvotes:'upvote',likes:'lượt thích',downloads:'lượt tải',trendingScore:'điểm trending',trending_score:'điểm trending',stars_today:'sao hôm nay',stargazers_count:'sao',stars:'sao',forks:'fork'};
 const CHAPTERS = [
   {id:'hom-nay', sec:'today', label:'Hôm nay', title:'Hôm nay', note:'Đăng trong 24 giờ qua, mới nhất trước.'},
   {id:'nong', sec:'hot', label:'Đang nóng', title:'Đang nóng', note:'Xếp theo điểm đo được trong 72 giờ.'},
-  {id:'repo', sec:'repo', label:'Repo', title:'Repo đáng thử', note:'', wide:true},
-  {id:'model', sec:'models', label:'Model', title:'Model mới', note:'Model mở và bài ra mắt model.'},
-  {id:'paper', sec:'papers', label:'Paper', title:'Paper', note:'Paper được cộng đồng chọn đọc.'},
+  {id:'repo', sec:'repo', label:'Kho mã', title:'Kho mã AI', note:'', wide:true},
+  {id:'model', sec:'models', label:'Mô hình', title:'Mô hình mới', note:'Mô hình mở và bài ra mắt mô hình.'},
+  {id:'paper', sec:'papers', label:'Bài báo', title:'Bài báo khoa học', note:'Bài báo khoa học được cộng đồng chọn đọc.'},
   {id:'nghe', sec:'listen', label:'Nghe và xem', title:'Nghe và xem', note:'Podcast, phỏng vấn, video.', wide:true},
   {id:'chuyen-gia', sec:'voices', label:'Chuyên gia', title:'Tiếng nói chuyên gia', note:'Blog nghiên cứu và bản tin.'},
-  {id:'cong-dong', sec:'community', label:'Cộng đồng', title:'Cộng đồng đang bàn', note:'Hacker News, Lobsters và forum.'},
+  {id:'cong-dong', sec:'community', label:'Cộng đồng', title:'Cộng đồng đang bàn', note:'Hacker News, Lobsters và các diễn đàn.'},
   {id:'sap-toi', sec:'upcoming', label:'Sắp tới', title:'Sắp diễn ra', note:'Hội nghị và sự kiện đã xác minh ngày.'},
 ];
 /* The eight work areas chosen 02/10 (plans/261002-1630-ai-radar-v2/chot-chon-loc.md). */
 const AREAS = [
-  {id:'video', label:'Video và hình ảnh'}, {id:'agent-code', label:'Agent lập trình'}, {id:'quant', label:'Quant, tài chính'},
-  {id:'local', label:'Chạy model trên máy'}, {id:'fine-tune', label:'Tinh chỉnh model'}, {id:'rag', label:'Dữ liệu cho RAG'},
+  {id:'video', label:'Video và hình ảnh'}, {id:'agent-code', label:'Tác tử lập trình'}, {id:'quant', label:'Giao dịch, tài chính'},
+  {id:'local', label:'Chạy mô hình trên máy'}, {id:'fine-tune', label:'Tinh chỉnh mô hình'}, {id:'rag', label:'Dữ liệu cho RAG'},
   {id:'voice', label:'Giọng nói, âm thanh'}, {id:'browser-mcp', label:'Trình duyệt, MCP'},
 ];
 const LABELS = {'dung-ngay':'Dùng ngay','xao-nau':'Xào nấu được','nghien-cuu':'Nghiên cứu'};
+/* The repository tile's three lists (owner, 03/10 02:11) and the GitHub Trending windows. The orderings
+   themselves come from the pipeline (repos_meta.rankings); the page only chooses which one to show. */
+const REPO_VIEWS = [
+  {id:'trending', label:'Đang lên', note:'Xếp theo số sao tăng'},
+  {id:'stars', label:'Nhiều sao', note:'Xếp theo tổng số'},
+  {id:'usable', label:'Dùng ngay', note:'Nhãn Dùng ngay, xếp theo số sao tăng'},
+];
+const WINDOWS = [
+  {id:'day', label:'Hôm nay', gained:'sao hôm nay', phrase:'hôm nay'},
+  {id:'week', label:'Tuần này', gained:'sao tuần này', phrase:'trong tuần'},
+  {id:'month', label:'Tháng này', gained:'sao tháng này', phrase:'trong tháng'},
+];
+const TOTALS = [{id:'stars', label:'Theo sao', unit:'sao'}, {id:'forks', label:'Theo phân nhánh', unit:'lượt phân nhánh'}];
 const SNAPSHOT_EVERY_MS = 180_000;
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/. */
@@ -55,7 +67,10 @@ const asArray = v => Array.isArray(v) ? v : [];
 const read = new Set(asArray(store.get('air2:read', [])));
 let saved = asArray(store.get('air2:saved', [])).filter(x => x && typeof x.key === 'string');
 const areas = new Set(asArray(store.get('air2:areas', [])));
-let withResearch = store.get('air2:research', false);
+const pick = (k, list, d) => { const v = store.get(k, d); return list.some(x => x.id === v) ? v : d; };
+let repoView = pick('air2:repoView', REPO_VIEWS, 'trending');
+let repoWindow = pick('air2:repoWindow', WINDOWS, 'day');
+let repoTotal = pick('air2:repoTotal', TOTALS, 'stars');
 /* Chapter lists the reader opened with "Xem thêm", by chapter id; kept for the life of the tab. */
 const expanded = new Set();
 
@@ -108,14 +123,59 @@ function repoList(){
   if (!Array.isArray(D.repos)) return null;
   return D.repos.filter(r => r && r.id != null && r.full_name && LABELS[r.label]);
 }
-function repoPicks(list, opts = {}){
-  return list.filter(r => (withResearch || opts.all || r.label !== 'nghien-cuu') && (!areas.size || areas.has(r.category)))
-    .sort((a, b) => (a.label === b.label ? 0 : a.label === 'dung-ngay' ? -1 : b.label === 'dung-ngay' ? 1 : a.label === 'xao-nau' ? -1 : 1)
-      || ((b.stars_gained_7d ?? -1) - (a.stars_gained_7d ?? -1)) || ((b.stars ?? 0) - (a.stars ?? 0)));
+/* The pipeline's orderings; absent in snapshots built before 03/10. */
+function rankings(){
+  const rk = D.repos_meta && D.repos_meta.rankings;
+  return rk && rk.trending && rk.usable ? rk : null;
+}
+const viewOf = id => REPO_VIEWS.find(v => v.id === id);
+const winOf = id => WINDOWS.find(w => w.id === id);
+const totalOf = id => TOTALS.find(t => t.id === id);
+/* The ids of the chosen list, in the pipeline's order; null when the snapshot carries no orderings. */
+function rankedIds(){
+  const rk = rankings(); if (!rk) return null;
+  return asArray(repoView === 'stars' ? rk[repoTotal] : (rk[repoView] || {})[repoWindow]);
+}
+/* The chosen list as repository records, narrowed to the reader's areas; order is never changed here. */
+function repoPicks(){
+  const ids = rankedIds(); if (!ids) return null;
+  return ids.map(id => R.get(String(id))).filter(r => r && (!areas.size || areas.has(r.category)));
+}
+/* Why a list is empty when its window was not measured: the pipeline's own reason, never another window's numbers. */
+function windowGap(){
+  if (repoView === 'stars') return '';
+  const w = D.repos_meta && D.repos_meta.windows && D.repos_meta.windows[repoWindow];
+  return w && !w.measured ? `Chưa đo được số sao tăng ${winOf(repoWindow).phrase}${w.error ? `: ${w.error}` : ''}.` : '';
+}
+/* The measure that orders the chosen list, for one repository. */
+function repoMeasure(r){
+  if (repoView === 'stars') {
+    const v = r[repoTotal];
+    return Number.isFinite(v) ? {n: v, unit: totalOf(repoTotal).unit} : {n: null, unit: repoTotal === 'forks' ? 'chưa đo được lượt phân nhánh' : 'chưa đo được số sao'};
+  }
+  const g = r.stars_gained ? r.stars_gained[repoWindow] : null;
+  return Number.isFinite(g) ? {n: g, unit: winOf(repoWindow).gained, plus: true} : {n: null, unit: `chưa đo được số sao tăng ${winOf(repoWindow).phrase}`};
+}
+const measureHTML = (m, cls = 'num') => m.n == null ? `<span class="faint">${esc(m.unit)}</span>` : `<b class="${cls}">${m.plus ? '+' : ''}${fmt(m.n)}</b> ${esc(m.unit)}`;
+/* Two selector rows shared by the tile and the chapter: which list, then which window (or which total). */
+function repoSelectors(scope){
+  const second = repoView === 'stars'
+    ? TOTALS.map(t => `<button class="chip" data-repo-total="${t.id}" aria-pressed="${repoTotal === t.id}">${icon('i-check')}${esc(t.label)}</button>`)
+    : WINDOWS.map(w => `<button class="chip" data-repo-window="${w.id}" aria-pressed="${repoWindow === w.id}">${icon('i-check')}${esc(w.label)}</button>`);
+  return `<div class="chips seg repo-views" role="group" aria-label="Chọn danh sách kho mã${scope}">${REPO_VIEWS.map(v => `<button class="chip" data-repo-view="${v.id}" aria-pressed="${repoView === v.id}">${icon('i-check')}${esc(v.label)}</button>`).join('')}</div>
+    <div class="chips seg repo-windows" role="group" aria-label="${repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian'}${scope}">${second.join('')}</div>`;
+}
+/* One sentence that says what the chosen list is, so nobody mistakes it for a hand-picked shortlist. */
+function repoListNote(){
+  if (repoView === 'stars') return `Kho mã AI đang thịnh hành trên GitHub, xếp theo tổng ${totalOf(repoTotal).unit}.`;
+  const w = winOf(repoWindow);
+  return repoView === 'usable'
+    ? `Kho mã gắn nhãn Dùng ngay (có lệnh cài, bản phát hành mới, giấy phép dễ dùng), xếp theo số sao tăng ${w.phrase} trên trang thịnh hành của GitHub.`
+    : `Kho mã AI tăng sao nhanh nhất ${w.phrase} trên trang thịnh hành của GitHub. Nhãn chỉ để tham khảo, không đổi thứ tự.`;
 }
 /* The pipeline writes the install command inside backticks in `why`; the page only lifts it out, never writes one. */
 const installOf = r => { const m = /cài:\s*`([^`]+)`/.exec(r.why || ''); return m ? m[1] : null; };
-const whyShort = r => String(r.why || r.description || '').split(' · ').filter(p => p && p !== LABELS[r.label] && !/^cài:/.test(p)).slice(0, 3).join(' · ');
+const whyShort = r => String(r.why || r.description || '').split(' · ').filter(p => p && p !== LABELS[r.label] && p !== r.license_flag && !/^cài:/.test(p)).slice(0, 3).join(' · ');
 
 /* Calendar target for a story: a curated event (date-only stays all-day) or a verified upcoming stream with an exact start. */
 function calOf(st){
@@ -125,10 +185,10 @@ function calOf(st){
     startAt: e.time_precision === 'exact' ? e.start_at : null, endAt: e.time_precision === 'exact' ? e.end_at : null,
     note:verifiedNote(e.verified_at, e.source_url)};
   const c = (st.coverage || []).find(c => c.status === 'upcoming' && c.start_at && c.time_precision !== 'relative');
-  return c ? {uid:c.id, title:c.title, url:c.url, startAt:c.start_at, endAt:null, note:c.source ? `Livestream của ${srcName(c.source)}` : ''} : null;
+  return c ? {uid:c.id, title:c.title, url:c.url, startAt:c.start_at, endAt:null, note:c.source ? `Buổi phát trực tiếp của ${srcName(c.source)}` : ''} : null;
 }
 const liveCal = v => v && v.status === 'upcoming' && v.start_at && v.time_precision !== 'relative'
-  ? {uid:v.video_id, title:v.title, url:v.url, startAt:v.start_at, endAt:null, note:v.channel ? `Livestream của ${v.channel}` : ''} : null;
+  ? {uid:v.video_id, title:v.title, url:v.url, startAt:v.start_at, endAt:null, note:v.channel ? `Buổi phát trực tiếp của ${v.channel}` : ''} : null;
 /* "Thêm vào lịch" as one split control: Google Calendar opens Google's template in a new tab, .ics downloads a file. */
 function calButtons(cal, attr, label){
   if (!cal || !canCalendar(cal)) return '';
@@ -166,11 +226,10 @@ function row(st, o = {}){
     <span class="r">${right}</span></button>`;
 }
 const labChip = l => `<span class="lab ${esc(l)}">${esc(LABELS[l] || l)}</span>`;
+/* A row's measure: the number that orders the chosen list, then the repository's total stars for scale. */
 function repoStars(r){
-  const unit = r.source === 'hf' ? 'lượt thích' : 'sao';
-  const parts = [];
-  if (Number.isFinite(r.stars)) parts.push(`<b class="num">${fmt(r.stars)}</b> ${unit}`);
-  if (Number.isFinite(r.stars_gained_7d)) parts.push(`<span class="num">+${fmt(r.stars_gained_7d)}</span> tuần này`);
+  const parts = [measureHTML(repoMeasure(r))];
+  if (!(repoView === 'stars' && repoTotal === 'stars') && Number.isFinite(r.stars)) parts.push(`<span class="num">${fmt(r.stars)}</span> ${r.source === 'hf' ? 'lượt thích' : 'sao'}`);
   return parts.join(' · ');
 }
 function repoRow(r, o = {}){
@@ -299,22 +358,28 @@ function liveTile(shown){
   </section>`;
 }
 
-/* Repos: the one a reader can take home now, with its measured stars and its own install command. */
+/* Repositories: three lists (rising, most starred, usable now), each shown as one large and three small,
+   with the window or total the reader picked. Ordering is the pipeline's; the tile never re-ranks. */
 function repoTile(){
   const list = repoList();
   if (!list) return '';
-  const picks = repoPicks(list);
-  if (!picks.length) return `<section class="tile t-repo" aria-labelledby="repo-h">${tileHead('Repo lấy về dùng được', 'repo-h')}<p class="empty-note">Không có repo nào ở mảng bạn chọn. <button class="btn-quiet" data-area-clear>Hiện mọi mảng</button></p></section>`;
-  const r = picks[0], key = 'repo:' + r.id, cmd = installOf(r);
+  const picks = repoPicks();
+  const head = tileHead('Kho mã AI', 'repo-h', `<a class="link" href="#repo">Xem tất cả${picks ? ` <span class="num">${picks.length}</span>` : ''}</a>`);
+  if (!picks) return `<section class="tile t-repo" aria-labelledby="repo-h">${head}<p class="empty-note">Bản dữ liệu này chưa có bảng xếp hạng kho mã theo khung thời gian.</p></section>`;
+  const sel = repoSelectors(' trong ô');
+  if (!picks.length) {
+    const why = windowGap() || (areas.size ? 'Không có kho mã nào ở mảng bạn chọn.' : 'Danh sách này chưa có kho mã nào.');
+    return `<section class="tile t-repo" aria-labelledby="repo-h">${head}${sel}<p class="empty-note">${esc(why)}${areas.size ? ' <button class="btn-quiet" data-area-clear>Hiện mọi mảng</button>' : ''}</p></section>`;
+  }
+  const r = picks[0], key = 'repo:' + r.id, cmd = installOf(r), m = repoMeasure(r);
   const [own, ...rest] = String(r.full_name).split('/');
-  const unit = r.source === 'hf' ? 'lượt thích trên Hugging Face' : 'sao trên GitHub';
   return `<section class="tile t-repo" aria-labelledby="repo-h">
-    ${tileHead('Repo lấy về dùng được', 'repo-h', `<a class="link" href="#repo"><span class="num">${list.length}</span> repo</a>`)}
+    ${head}${sel}
     <button class="repo-hero${read.has(key) ? ' is-read' : ''}" data-repo="${esc(r.id)}" aria-pressed="${selected === key}">
       ${avatar(faceOfRepo(r), 'lg')}
       <span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${rest.length ? `<span class="own">${esc(own)}/</span><wbr>` : ''}${esc(rest.join('/') || own)}</span>${labChip(r.label)}</span>
     </button>
-    ${Number.isFinite(r.stars) ? `<p class="keynote k-md"><b class="num" data-count="${r.stars}" data-v="${r.stars}">${fmt(r.stars)}</b><span>${unit}</span></p>` : ''}
+    ${m.n != null ? `<p class="keynote k-md"><b class="num" data-count="${m.n}" data-v="${m.n}">${fmt(m.n)}</b><span>${esc(m.plus ? `sao tăng ${winOf(repoWindow).phrase}` : m.unit)}${repoView !== 'stars' && Number.isFinite(r.stars) ? ` · tổng ${fmt(r.stars)} sao` : ''}</span></p>` : `<p class="empty-note">${esc(m.unit)}</p>`}
     <p class="repo-why">${esc(whyShort(r))}${r.license_flag ? ` · <span class="lic">${icon('i-warn')}${esc(r.license_flag)}</span>` : ''}</p>
     ${cmd ? copyBtn(cmd) : ''}
     <div class="repo-next">${picks.slice(1, 4).map(x => repoRow(x, {compact:true})).join('')}</div>
@@ -371,8 +436,8 @@ function modelTile(shown){
   const week = all.filter(s => s.published_at && now() - new Date(s.published_at) < 7 * 864e5).length;
   const right = s => { const c = (s.coverage || []).find(c => c.metrics && Number.isFinite(c.metrics.likes)); return c ? `<span class="num">${fmt(c.metrics.likes)}</span> thích` : timeEl(s.published_at); };
   return `<section class="tile t-model" aria-labelledby="model-h">
-    ${tileHead('Model mới', 'model-h', `<a class="link" href="#model">Tất cả</a>`)}
-    <p class="keynote k-sm"><b class="num" data-count="${week}" data-v="${week}">${fmt(week)}</b><span>model và bài ra mắt trong 7 ngày</span></p>
+    ${tileHead('Mô hình mới', 'model-h', `<a class="link" href="#model">Tất cả</a>`)}
+    <p class="keynote k-sm"><b class="num" data-count="${week}" data-v="${week}">${fmt(week)}</b><span>mô hình và bài ra mắt trong 7 ngày</span></p>
     <div class="stack">${list.map(s => row(s, {compact:true, right: right(s)})).join('')}</div>
   </section>`;
 }
@@ -426,22 +491,24 @@ function rowMeasure(s){
 
 function repoChapter(){
   const list = repoList();
-  if (!list) {
-    // No repos[] in this snapshot: list measured repositories as they are, without inventing labels.
+  const ids = rankedIds();
+  if (!list || !ids) {
+    // No orderings in this snapshot: list measured repositories as they are, without inventing labels or ranks.
     const reps = D.stories.filter(s => s.kind === 'repository').sort((a, b) => (b.hot_score || 0) - (a.hot_score || 0));
-    return `<p class="chips-note">Nhãn Dùng ngay, Xào nấu được, Nghiên cứu và 8 mảng sẽ hiện khi bản dữ liệu có phần chọn lọc repo. Bản này chưa có, nên dưới đây là repo xếp theo số đo, chưa gắn nhãn.</p>
-      ${reps.length ? `<div class="list" data-cap="8">${reps.map(s => row(s, {right: rowMeasure(s)})).join('')}</div>` : '<p class="empty-note">Bản này không có repo nào.</p>'}`;
+    return `<p class="chips-note">Bản dữ liệu này chưa có bảng xếp hạng kho mã theo ngày, tuần, tháng, nên dưới đây là kho mã xếp theo điểm nóng, chưa gắn nhãn.</p>
+      ${reps.length ? `<div class="list" data-cap="8">${reps.map(s => row(s, {right: rowMeasure(s)})).join('')}</div>` : '<p class="empty-note">Bản này không có kho mã nào.</p>'}`;
   }
-  const count = id => list.filter(r => r.category === id && (withResearch || r.label !== 'nghien-cuu')).length;
-  const research = list.filter(r => r.label === 'nghien-cuu').length;
-  const shown = repoPicks(list);
-  return `<div class="chips" role="group" aria-label="Chọn mảng bạn quan tâm">
+  const inList = ids.map(id => R.get(String(id))).filter(Boolean);
+  const count = id => inList.filter(r => r.category === id).length;
+  const shown = repoPicks();
+  const gap = windowGap();
+  return `${repoSelectors(' trong chương')}
+    <div class="chips" role="group" aria-label="Chọn mảng bạn quan tâm">
       ${AREAS.map(a => `<button class="chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${icon('i-check')}${esc(a.label)} <span class="n num">${count(a.id)}</span></button>`).join('')}
-      ${research ? `<button class="chip" data-research aria-pressed="${withResearch}">${icon('i-check')}Gồm cả Nghiên cứu <span class="n num">${research}</span></button>` : ''}
     </div>
-    <p class="chips-note">${areas.size ? `Đang lọc ${areas.size} mảng, lưu trên máy này.` : 'Chưa chọn mảng nào, nên hiện tất cả.'} Mặc định chỉ hiện Dùng ngay và Xào nấu được.</p>
+    <p class="chips-note">${esc(repoListNote())} ${areas.size ? `Đang lọc ${areas.size} mảng, lưu trên máy này.` : 'Chưa chọn mảng nào, nên hiện mọi mảng.'}</p>
     ${shown.length ? `<div class="list" data-cap="10">${shown.map(r => repoRow(r)).join('')}</div>`
-      : `<p class="empty-note">Hôm nay không có repo nào ở mảng đã chọn. <button class="btn-quiet" data-area-clear>Hiện mọi mảng</button></p>`}`;
+      : `<p class="empty-note">${esc(gap || (areas.size ? 'Không có kho mã nào ở mảng đã chọn.' : 'Danh sách này chưa có kho mã nào.'))}${areas.size ? ' <button class="btn-quiet" data-area-clear>Hiện mọi mảng</button>' : ''}</p>`}`;
 }
 
 function savedChapter(){
@@ -466,10 +533,11 @@ function liveRows(){
 function renderChapters(){
   const bad = D.sources.filter(s => !s.ok);
   $('#chapters').innerHTML = `<h2 class="chap-title">Theo mục</h2>${savedChapter()}` + CHAPTERS.map(c => {
-    const n = c.sec === 'repo' ? (repoList() ? repoList().length : D.stories.filter(s => s.kind === 'repository').length) : (D.sections[c.sec] || []).length;
-    const note = c.sec === 'repo' ? (repoList() ? 'Chọn theo câu hỏi "lấy về dùng được không".' : 'Xếp theo số đo, chưa có nhãn.') : c.note;
+    const picks = c.sec === 'repo' && repoList() ? repoPicks() : null;
+    const n = c.sec === 'repo' ? (picks ? picks.length : D.stories.filter(s => s.kind === 'repository').length) : (D.sections[c.sec] || []).length;
+    const note = c.sec === 'repo' ? (picks ? `${viewOf(repoView).label} · ${repoView === 'stars' ? totalOf(repoTotal).label : winOf(repoWindow).label}` : 'Xếp theo điểm nóng, chưa có nhãn.') : c.note;
     return `<section class="tile ch ${c.wide ? 'wide' : ''}" id="${c.id}" aria-labelledby="h-${c.id}">
-      <header class="ch-h"><p class="ch-n"><b class="num">${n}</b><span>${c.sec === 'repo' ? 'repo' : 'tin'}</span></p><div><h2 id="h-${c.id}">${c.title}</h2><p class="aside">${note}</p></div></header>
+      <header class="ch-h"><p class="ch-n"><b class="num">${n}</b><span>${c.sec === 'repo' ? 'kho mã' : 'tin'}</span></p><div><h2 id="h-${c.id}">${c.title}</h2><p class="aside">${esc(note)}</p></div></header>
       ${chapterList(c)}
     </section>`; }).join('') + `
     <section class="tile ch wide" id="nguon" aria-labelledby="h-nguon">
@@ -478,7 +546,7 @@ function renderChapters(){
       <div class="srcgrid" id="live-rows">${liveRows()}</div>
       <p class="src-sub">Trong bản tin</p>
       <div class="srcgrid">${[...D.sources].sort((a, b) => a.ok - b.ok || b.count - a.count).map(s => `<div class="srow">${avatar(faceOfSource({source:s.id, lab:s.lab, publisher:s.publisher}, SRC), 'xs')}
-        <span class="row-m"><a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.name)}</a>${s.error ? `<span class="err">${esc(s.error)}</span>` : ''}</span><span class="tiny ${s.ok ? 'faint' : 'warn-t'} num">${s.ok ? `${s.count} tin` : 'lỗi'}</span></div>`).join('')}</div>
+        <span class="row-m"><a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.name)}</a>${s.error ? `<span class="err">${esc(s.error_vi || 'Không đọc được nguồn này')}</span>` : ''}</span><span class="tiny ${s.ok ? 'faint' : 'warn-t'} num">${s.ok ? `${s.count} tin` : 'lỗi'}</span></div>`).join('')}</div>
     </section>`;
   // Long lists start capped and expand in place; a list the reader opened stays open when the page re-renders.
   $$('[data-cap]').forEach(l => {
@@ -490,7 +558,7 @@ function renderChapters(){
     l.after(b);
   });
   const views = D.views && Number.isFinite(D.views.total) ? `Lượt xem trên ai-radar đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie. ` : '';
-  $('#foot').innerHTML = `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${D.ranking ? `Xếp hạng nóng: ${esc(D.ranking.method)}, cửa sổ ${esc(D.ranking.window_hours)} giờ, hiệu chỉnh: ${esc(D.ranking.calibration)}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.'} Tiêu đề giữ nguyên tiếng Anh như bài gốc. ${views}
+  $('#foot').innerHTML = `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${D.ranking ? `Xếp hạng nóng: ${esc(D.ranking.description || 'xếp theo số đo của từng nguồn')}, cửa sổ ${esc(D.ranking.window_hours)} giờ${D.ranking.description && D.ranking.calibration ? `, hiệu chỉnh: ${esc(D.ranking.calibration)}` : ''}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.'} Tiêu đề giữ nguyên tiếng Anh như bài gốc. ${views}
     ${storageOk ? 'Mốc đã xem, tin đã đọc, tin đã lưu và mảng bạn chọn chỉ lưu trên máy này.' : 'Trình duyệt đang chặn bộ nhớ cục bộ, nên mốc đã xem, tin đã lưu và mảng bạn chọn chỉ giữ tới khi đóng trang.'}
     <button class="btn-quiet" id="keys-open">Phím tắt (?)</button> <a class="btn-quiet" href="tokens.html">Ngôn ngữ thiết kế</a>`;
   hydrateVisible();
@@ -558,7 +626,7 @@ function detailStory(st){
     ${st.hot_score != null ? `<div class="sh-score">${ring(st.hot_score, 'Điểm nóng')}<p>Nóng vì ${reasonHTML(st)}</p></div>` : ''}
     <dl class="facts">
       <dt>Loại</dt><dd>${kindName(st)}</dd>
-      <dt>Thời gian</dt><dd>${ev ? `${esc(ev.start_date)}${ev.end_date !== ev.start_date ? ` đến ${esc(ev.end_date)}` : ''} (chỉ có ngày)` : `${esc(exact(st.published_at))}${st.time_basis === 'repository_created' ? ' (ngày tạo repo, không phải ngày phát hành)' : ''}`}</dd>
+      <dt>Thời gian</dt><dd>${ev ? `${esc(ev.start_date)}${ev.end_date !== ev.start_date ? ` đến ${esc(ev.end_date)}` : ''} (chỉ có ngày)` : `${esc(exact(st.published_at))}${st.time_basis === 'repository_created' ? ' (ngày tạo kho mã, không phải ngày phát hành)' : ''}`}</dd>
       ${ev ? `<dt>Địa điểm</dt><dd>${esc(ev.location || 'chưa rõ')}</dd><dt>Xác minh</dt><dd>${esc(ev.verified_at)}</dd>` : ''}
       <dt>Số nguồn</dt><dd class="num">${st.source_count}</dd>
       ${st.hot_score != null ? '' : `<dt>Điểm nóng</dt><dd class="faint">Chưa có số đo</dd>`}
@@ -580,7 +648,10 @@ function detailStory(st){
 function detailRepo(r){
   const key = 'repo:' + r.id, sv = savedKey(key), cmd = installOf(r);
   const area = AREAS.find(a => a.id === r.category);
-  const sig = r.signals && typeof r.signals === 'object' ? Object.entries(r.signals).filter(([, v]) => ['string', 'number', 'boolean'].includes(typeof v)) : [];
+  const sigs = r.signals && typeof r.signals === 'object'
+    ? SIGNALS.map(([k, label]) => [label, signalText(k, r.signals[k])]).filter(([, v]) => v != null) : [];
+  const gained = WINDOWS.map(w => { const g = r.stars_gained ? r.stars_gained[w.id] : null;
+    return `${w.label}: ${Number.isFinite(g) ? `<span class="num">+${fmt(g)}</span>` : '<span class="faint">chưa đo</span>'}`; }).join(' · ');
   return `<div class="sh-head">${avatar(faceOfRepo(r), 'lg')}<h2>${esc(r.full_name).replace('/', '/<wbr>')}</h2></div>
     <p class="sum">${labChip(r.label)} ${area ? esc(area.label) : 'Chưa xếp mảng'}</p>
     ${Number.isFinite(r.stars) ? `<p class="keynote k-sm"><b class="num">${fmt(r.stars)}</b><span>${r.source === 'hf' ? 'lượt thích' : 'sao'}</span></p>` : ''}
@@ -589,15 +660,16 @@ function detailRepo(r){
     ${cmd ? copyBtn(cmd) : ''}
     <dl class="facts">
       <dt>Nguồn</dt><dd>${r.source === 'hf' ? 'Hugging Face' : 'GitHub'}</dd>
-      ${repoStars(r) ? `<dt>Số đo</dt><dd>${repoStars(r)}</dd>` : ''}
-      <dt>License</dt><dd>${esc(r.license || 'không rõ')}${r.license_flag ? `<br><span class="lic">${icon('i-warn')}${esc(r.license_flag)}</span>` : ''}</dd>
+      ${r.source === 'hf' ? '' : `<dt>Sao tăng</dt><dd>${gained}</dd>
+      <dt>Lượt phân nhánh</dt><dd>${Number.isFinite(r.forks) ? `<span class="num">${fmt(r.forks)}</span>${r.forks_source === 'trending_page' ? ' <span class="faint">(số in trên trang thịnh hành của GitHub)</span>' : ''}` : '<span class="faint">chưa đo được</span>'}</dd>`}
+      <dt>Giấy phép</dt><dd>${esc(licenseText(r.license))}${r.license_flag ? `<br><span class="lic">${icon('i-warn')}${esc(r.license_flag)}</span>` : ''}</dd>
     </dl>
-    ${sig.length ? `<p class="tlh">Dấu hiệu đã đo</p><ul class="sig">${sig.map(([k, v]) => `<li><span class="faint">${esc(k)}:</span> ${esc(typeof v === 'boolean' ? (v ? 'có' : 'không') : v)}</li>`).join('')}</ul>` : ''}
+    ${sigs.length ? `<p class="tlh">Dấu hiệu đã đo</p><ul class="sig">${sigs.map(([k, v]) => `<li><span class="faint">${esc(k)}:</span> ${esc(v)}</li>`).join('')}</ul>` : ''}
     <div class="acts">
-      <a class="btn primary" href="${esc(safe(r.url))}" target="_blank" rel="noopener" data-read="${esc(key)}">Mở repo ${icon('i-out')}</a>
+      <a class="btn primary" href="${esc(safe(r.url))}" target="_blank" rel="noopener" data-read="${esc(key)}">Mở kho mã ${icon('i-out')}</a>
       <button class="btn second" data-save="${esc(key)}" aria-pressed="${sv}">${icon('i-save')}${sv ? 'Đã lưu' : 'Lưu đọc sau'}</button>
     </div>
-    <p class="hint">Phím: <kbd>O</kbd> mở repo · <kbd>S</kbd> lưu · <kbd>Esc</kbd> đóng</p>`;
+    <p class="hint">Phím: <kbd>O</kbd> mở kho mã · <kbd>S</kbd> lưu · <kbd>Esc</kbd> đóng</p>`;
 }
 
 const opened = new Set();   // story ids opened this visit; the views Worker (not deployed yet) would receive these
@@ -619,7 +691,7 @@ function open(key, trigger, fromHash = false){
   const it = itemOf(key); if (!it) return;
   const sheet = $('#sheet'), body = $('#sheet-body'), wasOpen = sheet.classList.contains('on');
   selected = key; lastKey = key; if (trigger) lastTrigger = trigger;
-  $('#sheet-k').textContent = it.kind === 'repo' ? `Repo · ${it.r.source === 'hf' ? 'Hugging Face' : 'GitHub'}` : `${KIND[it.st.kind] || it.st.kind} · ${pubOf(it.st)}`;
+  $('#sheet-k').textContent = it.kind === 'repo' ? `Kho mã · ${it.r.source === 'hf' ? 'Hugging Face' : 'GitHub'}` : `${KIND[it.st.kind] || it.st.kind} · ${pubOf(it.st)}`;
   body.innerHTML = it.kind === 'repo' ? detailRepo(it.r) : detailStory(it.st);
   body.scrollTop = 0;
   hydrateHF(body);
@@ -822,7 +894,9 @@ document.addEventListener('click', e => {
   const cl = t.closest('[data-cal-live]'); if (cl) { e.preventDefault(); addToCalendar(liveCal((D.live || []).find(v => v.video_id === cl.dataset.calLive))); return; }
   const area = t.closest('[data-area]'); if (area) { const a = area.dataset.area; areas.has(a) ? areas.delete(a) : areas.add(a); store.set('air2:areas', [...areas]); rerenderRepos(); return; }
   if (t.closest('[data-area-clear]')) { areas.clear(); store.set('air2:areas', []); rerenderRepos(); return; }
-  if (t.closest('[data-research]')) { withResearch = !withResearch; store.set('air2:research', withResearch); rerenderRepos(); return; }
+  const rv = t.closest('[data-repo-view]'); if (rv) { repoView = rv.dataset.repoView; store.set('air2:repoView', repoView); rerenderRepos(); return; }
+  const rw = t.closest('[data-repo-window]'); if (rw) { repoWindow = rw.dataset.repoWindow; store.set('air2:repoWindow', repoWindow); rerenderRepos(); return; }
+  const rt = t.closest('[data-repo-total]'); if (rt) { repoTotal = rt.dataset.repoTotal; store.set('air2:repoTotal', repoTotal); rerenderRepos(); return; }
   if (t.closest('#fresh-go')) { applyPending(); return; }
   if (t.closest('#mark')) { store.set('air2:lastSeen', D.generated_at); lastSeen = D.generated_at; firstVisit = false; renderAll(); toast('Đã đánh dấu đã xem hết'); return; }
   if (t.closest('#keys-open')) { $('#keys').showModal(); return; }
@@ -833,11 +907,19 @@ document.addEventListener('click', e => {
   const b = t.closest('[data-sel],[data-repo]');
   if (b && !t.closest('a') && (b.dataset.sel || b.dataset.repo != null)) { e.preventDefault(); open(keyOf(b), b); }
 });
+/* Re-render both repository views and put focus back on the same chip, in the same place (tile or chapter). */
 function rerenderRepos(){
-  const y = scrollY, focusArea = document.activeElement && document.activeElement.dataset.area;
+  const a = document.activeElement, y = scrollY;
+  const attr = a && ['area', 'repoView', 'repoWindow', 'repoTotal'].find(k => a.dataset && a.dataset[k] != null);
+  const scope = a && a.closest('#board') ? '#board' : '#chapters';
+  const value = attr ? a.dataset[attr] : null;
   renderBoard(); renderChapters(); observeChapters();
   scrollTo(0, y);
-  if (focusArea) { const el = $(`[data-area="${CSS.escape(focusArea)}"]`); if (el) el.focus({preventScroll:true}); }
+  if (attr) {
+    const name = 'data-' + attr.replace(/[A-Z]/g, c => '-' + c.toLowerCase());
+    const el = $(`${scope} [${name}="${CSS.escape(value)}"]`) || $(`[${name}="${CSS.escape(value)}"]`);
+    if (el) el.focus({preventScroll:true});
+  }
 }
 $('#sheet-x').addEventListener('click', close);
 $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
@@ -854,8 +936,10 @@ function showError(msg){
 }
 watchImageErrors();
 applyTheme(store.get('air2:theme', null));
-fetch(DATA_URL, {cache:'no-store'}).then(r => { if (!r.ok) throw new Error(`Máy chủ trả HTTP ${r.status} cho ${DATA_URL}`); return r.json(); }).then(j => {
-  if (!isSnapshotV2(j)) throw new Error('Tệp dữ liệu không đúng hợp đồng v2');
+/* Only the page's own messages are shown; a browser's error text (English, technical) becomes one plain sentence. */
+const pageError = msg => Object.assign(new Error(msg), {vi: true});
+fetch(DATA_URL, {cache:'no-store'}).then(r => { if (!r.ok) throw pageError(`Máy chủ trả mã HTTP ${r.status} khi tải ${DATA_URL}`); return r.json(); }).then(j => {
+  if (!isSnapshotV2(j)) throw pageError('Tệp dữ liệu không đúng định dạng phiên bản 2');
   D = j; build(); renderAll();
   const m = /^#tin\/(.+)$/.exec(location.hash); if (m) open(decodeURIComponent(m[1]), null, true);
   else if (location.hash.length > 1) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
@@ -867,4 +951,4 @@ fetch(DATA_URL, {cache:'no-store'}).then(r => { if (!r.ok) throw new Error(`Máy
   });
   setInterval(pollSnapshot, SNAPSHOT_EVERY_MS);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) pollSnapshot(); });
-}).catch(err => showError(err.message || 'Lỗi không rõ'));
+}).catch(err => showError(err && err.vi ? err.message : 'Không tải hoặc không dựng được tệp dữ liệu của bản tin'));

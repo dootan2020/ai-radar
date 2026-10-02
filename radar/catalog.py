@@ -17,15 +17,15 @@ RSS = [
     ("mit-tech-review", "MIT Technology Review AI", "press", "mit-tech-review", "https://www.technologyreview.com/topic/artificial-intelligence/feed", False),
     ("microsoft-research", "Microsoft Research", "lab", "microsoft", "https://www.microsoft.com/en-us/research/feed/", False),
     ("nvidia-blog", "NVIDIA Technical Blog", "lab", "nvidia", "https://developer.nvidia.com/blog/feed", True),
-    ("dwarkesh-video", "Dwarkesh video", "podcast", "dwarkesh", "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA", True),
+    ("dwarkesh-video", "Video Dwarkesh", "podcast", "dwarkesh", "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA", True),
 ]
 NVIDIA_CHANNEL = ("nvidia-youtube", "nvidia", "NVIDIA", "NVIDIA", "UCHuiy8bXnmK5nisYHUd1J5g")
 
 # Keep unavailable endpoints in the inventory and exported source health records.
 DISABLED = {
-    "import-ai": "Substack feed returned HTTP 403 on the hosted runner; an alternate author-site feed has not yet been verified.",
-    "dwarkesh-podcast": "Substack podcast feed returned HTTP 403 on the hosted runner; Dwarkesh video remains a separate source.",
-    "latent-space": "Substack podcast feed returned HTTP 403 on the hosted runner; no alternate feed has been verified.",
+    "import-ai": "Nguồn Substack trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế từ trang của tác giả.",
+    "dwarkesh-podcast": "Nguồn podcast trên Substack trả mã HTTP 403 trên máy dựng của GitHub; video của Dwarkesh vẫn là một nguồn riêng.",
+    "latent-space": "Nguồn podcast trên Substack trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế.",
 }
 
 
@@ -50,8 +50,8 @@ def sources(now):
     result.extend([
         source("lobsters-ai", "Lobsters AI", "https://lobste.rs/hottest.json", "lobsters", "forum", "lobsters"),
         source("hf-papers", "Hugging Face Daily Papers", "https://huggingface.co/api/daily_papers?limit=50", "papers", "paper", "huggingface"),
-        source("hf-models-ranked", "HF trending models", "https://huggingface.co/api/models?sort=trendingScore&direction=-1&limit=20", "hf_trending", "repository", "huggingface", repo_type="model"),
-        source("hf-spaces-ranked", "HF trending spaces", "https://huggingface.co/api/spaces?sort=trendingScore&direction=-1&limit=20", "hf_trending", "repository", "huggingface", repo_type="space"),
-        source("github-ai", "GitHub AI repositories", "https://api.github.com/search/repositories?" + urlencode({"q": "topic:llm created:>=" + (now - timedelta(days=7)).date().isoformat(), "sort": "stars", "order": "desc", "per_page": 20}), "github", "repository", "github"),
+        source("hf-models-ranked", "Mô hình thịnh hành trên Hugging Face", "https://huggingface.co/api/models?sort=trendingScore&direction=-1&limit=20", "hf_trending", "repository", "huggingface", repo_type="model"),
+        source("hf-spaces-ranked", "Space thịnh hành trên Hugging Face", "https://huggingface.co/api/spaces?sort=trendingScore&direction=-1&limit=20", "hf_trending", "repository", "huggingface", repo_type="space"),
+        source("github-ai", "Kho mã AI mới trên GitHub", "https://api.github.com/search/repositories?" + urlencode({"q": "topic:llm created:>=" + (now - timedelta(days=7)).date().isoformat(), "sort": "stars", "order": "desc", "per_page": 20}), "github", "repository", "github"),
     ])
     return result

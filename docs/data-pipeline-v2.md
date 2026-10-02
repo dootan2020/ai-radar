@@ -44,6 +44,21 @@ meaning. The [clustering regressions](../tests/test_v2_core_regressions.py) own
 the Vietnamese NFC and arXiv HTML identity examples; the clustering module owns
 the conservative matching rules.
 
+## Trending repositories
+
+The repository lists are GitHub Trending's own day, week and month pages, ranked
+by the stars each repository gained in that window; a window whose page failed
+or printed another window's count stays unmeasured rather than borrowing one.
+Only repositories whose name, description or topics say they are about AI are
+kept, and area rules use generic phrases, never a repository or product name.
+[Curation](../radar/curation.py) owns the windows, the relevance rule and the
+orderings published as `repos_meta.rankings`; the page only chooses which one to
+show. [Window and ordering tests](../tests/test_repo_windows.py) are the proof.
+
+Reader-facing text is Vietnamese except names and original titles. Source
+records keep the technical `error` and add `error_vi` for the page;
+[the language test](../tests/test_vietnamese_ui.py) lists its exceptions.
+
 ## Measurement continuity and source policy
 
 Fresh displayed evidence and reusable measurements have different lifetimes.

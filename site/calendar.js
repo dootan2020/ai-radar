@@ -41,7 +41,7 @@ export function canCalendar(ev) {
 }
 
 export function buildIcs(ev) {
-  if (!canCalendar(ev)) throw new Error('event has no valid date');
+  if (!canCalendar(ev)) throw new Error('sự kiện không có ngày hợp lệ');
   const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ai-radar//vi', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
     `UID:${esc(ev.uid)}@ai-radar`, `DTSTAMP:${utc(new Date().toISOString())}`];
   if (ev.startAt) {

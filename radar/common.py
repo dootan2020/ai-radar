@@ -1,6 +1,7 @@
 """Normalization shared by public-source collectors."""
 
 import hashlib
+import re
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
@@ -79,7 +80,33 @@ def stable_id(url):
     return hashlib.sha256(url.encode("utf-8")).hexdigest()[:20]
 
 
+def vi_error(error):
+    """The reader's wording of a source failure. `error` stays the technical evidence for maintainers;
+    this is what the page shows. Unknown failures get a plain sentence, never the English detail."""
+    if error is None:
+        return None
+    text = str(error)
+    if text.startswith("Disabled: "):
+        return "Tạm tắt: " + text[len("Disabled: "):]
+    lower = text.lower()
+    status = re.search(r"\bHTTP(?: Error)? (\d{3})\b", text)
+    if "build deadline" in lower:
+        return "Hết thời hạn dựng bản tin trước khi nguồn trả lời"
+    if "timeout" in lower or "timed out" in lower or "deadline" in lower:
+        return "Nguồn không trả lời kịp thời hạn chờ"
+    if status:
+        return f"Nguồn trả mã lỗi HTTP {status[1]}"
+    if "exceeds 8 mib" in lower or "limit" in lower:
+        return "Phản hồi của nguồn vượt giới hạn 8 MiB"
+    if any(word in lower for word in ("urlerror", "connection", "getaddrinfo", "unreachable", "ssl")):
+        return "Không kết nối được tới nguồn"
+    if any(word in lower for word in ("parseerror", "jsondecodeerror", "xml", "json", "valueerror", "keyerror", "typeerror")):
+        return "Nguồn trả dữ liệu sai định dạng nên không đọc được"
+    return "Không đọc được nguồn này"
+
+
 def source_result(source, count=0, error=None):
+    error = str(error)[:300] if error is not None else None
     return {key: source[key] for key in ("id", "name", "lab", "kind")} | {
-        "ok": error is None, "count": count, "error": str(error)[:300] if error is not None else None,
+        "ok": error is None, "count": count, "error": error, "error_vi": vi_error(error),
     }

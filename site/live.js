@@ -9,7 +9,7 @@ const TIMEOUT_MS = 15_000;
 export const LIVE_SOURCES = [
   { id: 'hn', label: 'Hacker News (Algolia)', url: 'https://hn.algolia.com/' },
   { id: 'hf-papers', label: 'Hugging Face Daily Papers', url: 'https://huggingface.co/papers' },
-  { id: 'hf-models', label: 'Hugging Face trending models', url: 'https://huggingface.co/models?sort=trending' },
+  { id: 'hf-models', label: 'Mô hình thịnh hành trên Hugging Face', url: 'https://huggingface.co/models?sort=trending' },
 ];
 
 export const hnItemId = url => (/^https:\/\/news\.ycombinator\.com\/item\?id=(\d+)$/.exec(url || '') || [])[1] || null;
@@ -21,10 +21,11 @@ async function getJSON(url) {
   const t = setTimeout(() => ctl.abort(), TIMEOUT_MS);
   try {
     const r = await fetch(url, { signal: ctl.signal, cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    if (!r.ok) throw Object.assign(new Error(`máy chủ trả mã HTTP ${r.status}`), { vi: true });
     return await r.json();
   } catch (e) {
-    throw new Error(e.name === 'AbortError' ? `hết ${TIMEOUT_MS / 1000} giây chờ` : (e.message || 'lỗi mạng'));
+    // A browser's own error text is English and technical; the reader sees the page's words only.
+    throw new Error(e.name === 'AbortError' ? `hết ${TIMEOUT_MS / 1000} giây chờ` : (e.vi ? e.message : 'lỗi mạng hoặc phản hồi không đọc được'));
   } finally { clearTimeout(t); }
 }
 
@@ -48,7 +49,7 @@ const READERS = {
     const ids = [...ix.hn.keys()].sort((a, b) => (priority(b) - priority(a)) || (b - a)).slice(0, 40);
     if (!ids.length) return [];
     const j = await getJSON(`https://hn.algolia.com/api/v1/search?tags=story,(${ids.map(i => 'story_' + i).join(',')})&hitsPerPage=50`);
-    if (!Array.isArray(j.hits)) throw new Error('phản hồi không có hits');
+    if (!Array.isArray(j.hits)) throw new Error('phản hồi không có danh sách bài');
     const out = [];
     for (const h of j.hits) for (const c of ix.hn.get(String(h.objectID)) || []) {
       if (finite(h.points)) out.push({ cov: c, metric: 'points', value: h.points });

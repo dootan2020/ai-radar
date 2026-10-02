@@ -179,7 +179,7 @@ class GitHubScoringTests(unittest.TestCase):
         self.assertGreaterEqual(res["x_score"], 25)
         self.assertLess(res["d_score"], 35)
         self.assertIn("Xào nấu được", res["why"])
-        self.assertIn("có thư mục examples", res["why"])
+        self.assertIn("có thư mục ví dụ", res["why"])
 
     def test_nghien_cuu_deepseek_v3_pattern(self):
         repo_info = {
@@ -201,10 +201,10 @@ class GitHubScoringTests(unittest.TestCase):
     def test_copyleft_flag_and_custom_license(self):
         repo_info = {"repo": "test/gpl-repo"}
         res_gpl = score_github_repo(repo_info, license_name="GPL-3.0", now=NOW)
-        self.assertEqual(res_gpl["license_flag"], "copyleft")
+        self.assertEqual(res_gpl["license_flag"], "giấy phép buộc mở mã khi phát hành lại")
 
         res_none = score_github_repo(repo_info, license_name="NOASSERTION", now=NOW)
-        self.assertEqual(res_none["license_flag"], "license riêng, đọc trước khi dùng thương mại")
+        self.assertEqual(res_none["license_flag"], "giấy phép riêng, đọc trước khi dùng thương mại")
 
     def test_archived_or_stale_repo_is_nghien_cuu(self):
         repo_archived = {"repo": "test/archived", "archived": True}
@@ -270,7 +270,7 @@ class HuggingFaceScoringTests(unittest.TestCase):
         res = score_hf_model(model_info, model_details=details, now=NOW)
         self.assertEqual(res["label"], "xao-nau")
         self.assertIn("Xào nấu được", res["why"])
-        self.assertIn("3 demo Spaces", res["why"])
+        self.assertIn("3 bản chạy thử trên Spaces", res["why"])
 
     def test_hf_nghien_cuu_gated_or_missing_library(self):
         model_info = {"id": "author/gated-model", "likes": 50}
@@ -371,7 +371,7 @@ class CurateReposIntegrationTests(unittest.TestCase):
             {
                 "repo": "owner/offline-repo",
                 "url": "https://github.com/owner/offline-repo",
-                "description": "Some tool",
+                "description": "Some AI agent tool",
                 "stars": 100
             }
         ]
@@ -388,7 +388,7 @@ class CurateReposIntegrationTests(unittest.TestCase):
         self.assertIsNone(item["label"])
         self.assertIsNone(item["why"])
         self.assertIsNone(item["license"])
-        self.assertEqual(item["license_flag"], "chưa đo được license")
+        self.assertEqual(item["license_flag"], "chưa đo được giấy phép")
 
 
 if __name__ == "__main__":

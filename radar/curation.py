@@ -3,22 +3,23 @@
 import concurrent.futures
 from datetime import datetime, timezone
 import json
-import math
 import os
 import re
-from urllib.parse import quote
+import time
+from urllib.parse import quote, unquote
 
+from radar import github
 from radar.common import clean_text, iso_date, number
 
 CATEGORIES = {
-    "video": "Video và hình ảnh bằng code/AI",
-    "agent-code": "Agent lập trình và điều phối",
-    "quant": "Quant trading và tài chính",
-    "local": "Chạy model trên máy",
-    "fine-tune": "Tinh chỉnh model",
-    "rag": "Dữ liệu cho RAG và bộ nhớ agent",
+    "video": "Video và hình ảnh tạo bằng mã hoặc AI",
+    "agent-code": "Tác tử lập trình và điều phối",
+    "quant": "Giao dịch định lượng và tài chính",
+    "local": "Chạy mô hình trên máy",
+    "fine-tune": "Tinh chỉnh mô hình",
+    "rag": "Dữ liệu cho RAG và bộ nhớ của tác tử",
     "voice": "Giọng nói và âm thanh",
-    "browser-mcp": "Agent trình duyệt, MCP, tự động hoá",
+    "browser-mcp": "Tác tử trình duyệt, MCP, tự động hoá",
 }
 
 LABEL_NAMES = {
@@ -35,52 +36,75 @@ COPYLEFT_LICENSES = {
     "gpl-2.0", "gpl-3.0", "agpl-3.0", "lgpl-2.1", "lgpl-3.0", "gpl", "agpl", "lgpl"
 }
 
-CATEGORY_PATTERNS = [
-    ("video", re.compile(
-        r"\b(?:video|animation|ffmpeg|remotion|text-to-video|image-to-video|text-to-image|image-to-image|"
-        r"image-generation|hyperframes|motion-graphics|generative-video|video-generation|video-editing|creative-code)\b",
-        re.I
-    )),
-    ("agent-code", re.compile(
-        r"\b(?:coding[- ]agents?|code[- ]generation|developer[- ]tools|coding[- ]assistant|ai[- ]coder|"
-        r"\bade\b|claude[- ]code|codex|agent[- ]ide|openhands|\bcline\b|copilot|cursor|devin|swe[- ]bench|"
-        r"code[- ]interpreter|agentic skills|agent skills|software development methodology|"
-        r"ai-driven development|runtime for.*agents?|network of agents|senior dev|skills for.*engineers?|"
-        r"context window optimization|stablyai/orca)\b",
-        re.I
-    )),
-    ("browser-mcp", re.compile(
-        r"\b(?:browser[- ]automation|\bmcp\b|model[- ]context[- ]protocol|browser[- ]use|playwright|"
-        r"computer[- ]use|browser[- ]agent|web-scraping-agent|puppeteer|entire internet)\b",
-        re.I
-    )),
-    ("quant", re.compile(
-        r"\b(?:trading|quant|finance|backtest|backtesting|algorithmic[- ]trading|stock|financial|"
-        r"hedge[- ]fund|tradingagents|qlib|freqtrade)\b",
-        re.I
-    )),
-    ("local", re.compile(
-        r"\b(?:llm[- ]inference|\bgguf\b|\blocal\b|ollama|llama\.cpp|\bvllm\b|\bmlx\b|local[- ]ai|"
-        r"local[- ]llm|inference in c|inference engine|edge[- ]ai)\b",
-        re.I
-    )),
-    ("fine-tune", re.compile(
-        r"\b(?:fine[- ]tuning|finetune|fine[- ]tune|\blora\b|\bsft\b|\brlhf\b|\bqlora\b|\bpeft\b|"
-        r"unsloth|llamafactory|llama-factory|axolotl|post[- ]training|distillation)\b",
-        re.I
-    )),
-    ("rag", re.compile(
-        r"\b(?:\brag\b|document[- ]parsing|\bpdf\b|\bretrieval\b|vector[- ]database|vector[- ]db|"
-        r"embeddings|knowledge[- ]graph|graphrag|\bmem0\b|docling|crawl4ai|firecrawl|"
-        r"document understanding|\bocr\b)\b",
-        re.I
-    )),
-    ("voice", re.compile(
-        r"\b(?:\btts\b|\bspeech\b|voice[- ]cloning|\basr\b|\bvoice\b|\baudio\b|speech[- ]to[- ]text|"
-        r"text[- ]to[- ]speech|voice[- ]agent|chatterbox|f5[- ]tts|whisper|bark)\b",
-        re.I
-    )),
+# Area rules are generic phrases only. A project, product or company name (a repository the owner once gave as
+# an example, a tool's brand) must never decide an area: the rule has to hold for repositories nobody has named
+# yet. Each term is a regex fragment matched case-insensitively between word boundaries; "[- ]" accepts the
+# hyphenated and spaced spellings.
+CATEGORY_TERMS = [
+    ("video", [
+        r"videos?", r"animations?", r"text[- ]to[- ]video", r"image[- ]to[- ]video", r"text[- ]to[- ]image",
+        r"image[- ]to[- ]image", r"image[- ]generation", r"motion[- ]graphics", r"generative[- ]video",
+        r"video[- ]generation", r"video[- ]editing", r"creative[- ]cod(?:e|ing)",
+    ]),
+    ("agent-code", [
+        r"coding[- ]agents?", r"code[- ]generation", r"developer[- ]tools", r"coding[- ]assistants?", r"ai[- ]coders?",
+        r"ade", r"agent[- ]ide", r"code[- ]interpreter", r"agentic skills", r"agent skills", r"parallel agents",
+        r"fleet of agents", r"multi[- ]agent", r"subagents?", r"agent orchestration",
+        r"software development methodology", r"ai[- ]driven development", r"runtime for.*agents?",
+        r"network of agents", r"senior dev", r"skills for.*engineers?", r"context window optimization",
+    ]),
+    ("browser-mcp", [
+        r"browser[- ]automation", r"mcp", r"model[- ]context[- ]protocol", r"use the browser",
+        r"computer[- ]use", r"browser[- ]agents?", r"web[- ]scraping[- ]agents?", r"headless browser",
+        r"web automation",
+    ]),
+    ("quant", [
+        r"trading", r"quant", r"quantitative", r"finance", r"backtest", r"backtesting", r"algorithmic[- ]trading",
+        r"stocks?", r"financial", r"hedge[- ]funds?", r"portfolio",
+    ]),
+    ("local", [
+        r"llm[- ]inference", r"gguf", r"local", r"locally", r"local[- ]ai", r"local[- ]llms?", r"inference in c",
+        r"inference engine", r"edge[- ]ai", r"on[- ]device",
+    ]),
+    ("fine-tune", [
+        r"fine[- ]tuning", r"finetune", r"fine[- ]tune", r"lora", r"sft", r"rlhf", r"qlora", r"peft",
+        r"post[- ]training", r"distillation",
+    ]),
+    ("rag", [
+        r"rag", r"document[- ]parsing", r"pdf", r"retrieval", r"vector[- ]database", r"vector[- ]db", r"embeddings",
+        r"knowledge[- ]graph", r"graphrag", r"agent memory", r"memory for.*agents?", r"document understanding",
+        r"ocr", r"web crawl(?:er|ing)",
+    ]),
+    ("voice", [
+        r"tts", r"speech", r"voice[- ]cloning", r"asr", r"voice", r"audio", r"speech[- ]to[- ]text",
+        r"text[- ]to[- ]speech", r"voice[- ]agents?", r"transcription",
+    ]),
 ]
+CATEGORY_PATTERNS = [(cat, re.compile(r"\b(?:" + "|".join(terms) + r")\b", re.I)) for cat, terms in CATEGORY_TERMS]
+
+# A repository belongs on an AI radar only when its own name, description or topics say it is about AI.
+# Vendor and model-family names are AI by definition, so they count here (unlike in the area rules above).
+AI_REPO_TERMS = re.compile(
+    r"\b(?:ai|llms?|gpt|chatgpt|genai|agents?|agentic|subagents?|mcp|rag|machine[- ]learning|deep[- ]learning|"
+    r"neural|transformers?|diffusion|inference|embeddings?|vector[- ]database|prompts?|chatbots?|generative|"
+    r"language[- ]models?|foundation[- ]models?|speech[- ]recognition|text[- ]to[- ](?:speech|image|video)|tts|asr|"
+    r"speech|voice[- ]cloning|dubbing|transcription|image[- ]generation|video[- ]generation|computer[- ]use|"
+    r"computer[- ]vision|fine[- ]tun(?:e|ing)|lora|model[- ]context[- ]protocol|pytorch|tensorflow|"
+    r"hugging[- ]?face|openai|anthropic|claude|gemini|codex|copilot|cursor|deepseek|qwen|llama|mistral|ollama|gguf|"
+    r"trí tuệ nhân tạo)\b",
+    re.I,
+)
+
+
+def is_ai_repo(name, description="", topics=None, readme_text=None):
+    """True when the repository says it is about AI. README is consulted only when the description is too
+    short to say anything, so a README that merely mentions AI does not admit an unrelated project."""
+    parts = [str(name or "").replace("/", " "), description or ""]
+    if topics and isinstance(topics, list):
+        parts.extend(str(t) for t in topics)
+    if len((description or "").strip()) < 20 and readme_text and isinstance(readme_text, str):
+        parts.append(readme_text[:600])
+    return bool(AI_REPO_TERMS.search(" ".join(parts)))
 
 INSTALL_PATTERNS = [
     r"pip\s+install\s+(?:-(?:U|-upgrade)\s+)?(?!-r\b|-e\b|\.\b)[a-zA-Z0-9_\-\[\]]+",
@@ -99,6 +123,27 @@ SOURCE_INSTALL_PATTERNS = [
     r"pip\s+install\s+-r\s+requirements\.txt",
     r"pip\s+install\s+(?:-e\s+)?\.",
 ]
+
+
+FLAG_CUSTOM = "giấy phép riêng, đọc trước khi dùng thương mại"
+FLAG_FSL = "giấy phép FSL, đọc trước khi dùng thương mại"
+FLAG_UNMEASURED = "chưa đo được giấy phép"
+FLAG_COPYLEFT = "giấy phép buộc mở mã khi phát hành lại"
+FLAG_NC = "⚠ hạn chế thương mại"
+
+
+def license_label(name):
+    """How a reader sees a license: SPDX ids are names and stay; GitHub's placeholders become words."""
+    if not name:
+        return None
+    if str(name).lower() in {"noassertion", "other", "none", "custom"}:
+        return "giấy phép riêng"
+    return str(name)
+
+
+def vn_int(value):
+    """Vietnamese digit grouping: 2.667, not 2,667."""
+    return f"{int(value):,}".replace(",", ".")
 
 
 DEV_RUNNERS = re.compile(r"\b(?:promptfoo|pytest|jest|vitest|eslint|prettier|skills\s+add|playwright)\b", re.I)
@@ -184,16 +229,16 @@ def score_github_repo(repo_info, readme_text="", license_name=None, release_info
         if lic_lower in PERMISSIVE_LICENSES:
             computed_lic_flag = None
         elif any(lic_lower.startswith(c) for c in COPYLEFT_LICENSES):
-            computed_lic_flag = "copyleft"
+            computed_lic_flag = FLAG_COPYLEFT
         elif lic_lower in {"noassertion", "none", "", "other"}:
-            computed_lic_flag = "license riêng, đọc trước khi dùng thương mại"
+            computed_lic_flag = FLAG_CUSTOM
         elif license_name:
             if any(p in lic_lower for p in ["mit", "apache", "bsd", "isc", "mpl"]):
                 computed_lic_flag = None
             else:
-                computed_lic_flag = "license riêng, đọc trước khi dùng thương mại"
+                computed_lic_flag = FLAG_CUSTOM
         else:
-            computed_lic_flag = "chưa đo được license"
+            computed_lic_flag = FLAG_UNMEASURED
 
         return {
             "label": None,
@@ -321,7 +366,7 @@ def score_github_repo(repo_info, readme_text="", license_name=None, release_info
     license_flag = license_flag_override
     if not license_name:
         if not license_flag:
-            license_flag = "chưa đo được license"
+            license_flag = FLAG_UNMEASURED
         signals["x1"] = None
         signals["x1_prime"] = None
     elif lic_lower in PERMISSIVE_LICENSES:
@@ -330,12 +375,12 @@ def score_github_repo(repo_info, readme_text="", license_name=None, release_info
     elif any(lic_lower.startswith(c) for c in COPYLEFT_LICENSES):
         x_score += 5
         signals["x1_prime"] = 5
-        license_flag = "copyleft"
+        license_flag = FLAG_COPYLEFT
     elif lic_lower in {"noassertion", "none", "", "other"}:
         if "fsl" in (readme_text or "").lower():
-            license_flag = "license FSL, đọc trước khi dùng thương mại"
+            license_flag = FLAG_FSL
         else:
-            license_flag = "license riêng, đọc trước khi dùng thương mại"
+            license_flag = FLAG_CUSTOM
         signals["x1"] = None
         signals["x1_prime"] = None
     else:
@@ -343,7 +388,7 @@ def score_github_repo(repo_info, readme_text="", license_name=None, release_info
             x_score += 15
             signals["x1"] = 15
         else:
-            license_flag = "license riêng, đọc trước khi dùng thương mại"
+            license_flag = FLAG_CUSTOM
             signals["x1"] = None
             signals["x1_prime"] = None
 
@@ -422,7 +467,7 @@ def score_github_repo(repo_info, readme_text="", license_name=None, release_info
     has_nc = False
     if readme_text and re.search(r"\b(?:non-commercial|cc-by-nc|research purposes only|example only)\b", readme_text, re.I):
         has_nc = True
-        license_flag = "⚠ hạn chế thương mại"
+        license_flag = FLAG_NC
     signals["non_commercial"] = has_nc
 
     is_archived = repo_info.get("archived", False)
@@ -457,34 +502,30 @@ def score_github_repo(repo_info, readme_text="", license_name=None, release_info
             rel_str += ", có bản dựng sẵn"
         parts.append(rel_str)
     if license_name:
-        lic_str = license_name
-        if license_flag and "license riêng" in license_flag:
-            lic_str += " (license riêng)"
-        elif license_flag and "license FSL" in license_flag:
-            lic_str += " (license FSL)"
+        lic_str = license_label(license_name)
+        if license_flag == FLAG_FSL:
+            lic_str = "giấy phép FSL"
+        elif license_flag == FLAG_CUSTOM and lic_str != "giấy phép riêng":
+            lic_str += " (giấy phép riêng)"
         parts.append(lic_str)
     elif license_flag:
         parts.append(license_flag)
 
-    stars_today = repo_info.get("stars_today")
-    stars_week = repo_info.get("stars_this_week")
-    if stars_week:
-        parts.append(f"+{stars_week:,} sao tuần này")
-    elif stars_today:
-        parts.append(f"+{stars_today:,} sao hôm nay")
+    # Stars gained are not part of this sentence: each trending window carries its own measured count
+    # (`stars_gained`), and one sentence mixing "today" and "this week" was what made the list unreadable.
 
     if signals.get("has_demo"):
-        parts.append("có demo")
+        parts.append("có bản chạy thử")
     elif signals.get("has_product_page"):
-        # Nit 5: Homepage chỉ được ghi là "có trang sản phẩm/tài liệu", không ghi là "có demo".
+        # A homepage alone is a product or docs page, never a demo.
         parts.append("có trang sản phẩm/tài liệu")
 
     if signals.get("has_examples"):
-        parts.append("có thư mục examples")
+        parts.append("có thư mục ví dụ")
     if signals.get("has_paper") and label != "dung-ngay":
-        parts.append("kèm paper")
+        parts.append("kèm bài báo khoa học")
     if signals.get("non_commercial"):
-        parts.append("⚠ hạn chế thương mại")
+        parts.append(FLAG_NC)
 
     why = " · ".join(parts)
     return {
@@ -571,9 +612,9 @@ def score_hf_model(model_info, model_details=None, now=None):
     # Nit 2: match token (^|-)nc(-|$) instead of substring
     is_nc = bool(re.search(r"(?:^|[\-_])nc(?:[\-_]|$)|non-commercial|research", lic_lower))
     if is_nc:
-        license_flag = "⚠ hạn chế thương mại"
+        license_flag = FLAG_NC
     elif lic_lower in ["other", "custom"]:
-        license_flag = "license riêng, đọc trước khi dùng thương mại"
+        license_flag = FLAG_CUSTOM
 
     is_permissive = (lic_lower in PERMISSIVE_LICENSES and not is_nc)
 
@@ -586,9 +627,9 @@ def score_hf_model(model_info, model_details=None, now=None):
 
     gate_flag = None
     if norm_gated == "auto":
-        gate_flag = "cần đồng ý điều khoản trên HF"
+        gate_flag = "cần đồng ý điều khoản trên Hugging Face"
     elif norm_gated == "manual":
-        gate_flag = "cần xét duyệt điều khoản trên HF"
+        gate_flag = "cần được duyệt điều khoản trên Hugging Face"
 
     # Classification rules according to B4 & S4
     if norm_gated is False or norm_gated == "auto":
@@ -651,20 +692,20 @@ def score_hf_model(model_info, model_details=None, now=None):
     if is_gguf:
         parts.append("định dạng GGUF chạy máy")
     elif quantized_count >= 1:
-        parts.append(f"có {quantized_count} bản lượng tử")
+        parts.append(f"có {vn_int(quantized_count)} bản lượng tử")
     elif library_name:
         parts.append(f"thư viện {library_name}")
 
-    if license_name:
-        parts.append(license_name)
+    if license_name and license_flag != FLAG_CUSTOM:
+        parts.append(license_label(license_name))
     if spaces_capped:
-        parts.append("100+ demo Space")
+        parts.append("hơn 100 bản chạy thử trên Spaces")
     elif spaces_count > 0:
-        parts.append(f"{spaces_count} demo Spaces" if spaces_count > 1 else "có demo Space")
+        parts.append(f"{spaces_count} bản chạy thử trên Spaces" if spaces_count > 1 else "có bản chạy thử trên Spaces")
     if finetune_count >= 1:
-        parts.append(f"{finetune_count} model con phái sinh")
+        parts.append(f"{vn_int(finetune_count)} mô hình phái sinh")
     if likes is not None and likes > 0:
-        parts.append(f"+{likes:,} likes")
+        parts.append(f"{vn_int(likes)} lượt thích")
     if license_flag:
         parts.append(license_flag)
     if gate_flag:
@@ -680,19 +721,6 @@ def score_hf_model(model_info, model_details=None, now=None):
         "signals": signals,
         "why": why
     }
-
-
-def _safe_fetch(fetcher, url, source_id=None):
-    if fetcher is None:
-        return None
-    try:
-        if hasattr(fetcher, "__call__"):
-            try:
-                return fetcher(url, source_id=source_id)
-            except TypeError:
-                return fetcher(url)
-    except Exception:
-        return None
 
 
 def _fetch_url_with_error(fetcher, url, source_id=None):
@@ -715,7 +743,7 @@ def _fetch_url_with_error(fetcher, url, source_id=None):
     return None, "unknown"
 
 
-def _enrich_github_item(repo_info, fetcher, weekly_stars, now):
+def _enrich_github_item(repo_info, fetcher, now):
     repo = repo_info["repo"]
     readme_text = ""
     lic_name = None
@@ -723,14 +751,11 @@ def _enrich_github_item(repo_info, fetcher, weekly_stars, now):
     release_info = None
     contents = None
     pushed_at = None
+    created_at = None
+    api_forks = None
     api_enriched = False
     api_fallback_reason = None
     package_names = set()
-
-    # Check weekly stars
-    w_stars = weekly_stars.get(repo)
-    if w_stars:
-        repo_info["stars_this_week"] = w_stars
 
     # 1. Fetch README (always available via raw.githubusercontent.com)
     readme_url = f"https://raw.githubusercontent.com/{repo}/HEAD/README.md"
@@ -747,6 +772,10 @@ def _enrich_github_item(repo_info, fetcher, weekly_stars, now):
             if isinstance(data, dict) and "id" in data:
                 api_enriched = True
                 pushed_at = data.get("pushed_at")
+                created_at = iso_date(data.get("created_at"))
+                api_forks = number(data.get("forks_count"))
+                if number(data.get("stargazers_count")) is not None:
+                    repo_info["stars"] = number(data.get("stargazers_count"))
                 lic = data.get("license") or {}
                 lic_name = lic.get("spdx_id")
                 if not repo_info.get("description"):
@@ -789,9 +818,9 @@ def _enrich_github_item(repo_info, fetcher, weekly_stars, now):
             except Exception:
                 pass
     else:
-        # B2: In fallback, never invent SPDX (Apache, GPL, BSD). Leave license = None and flag "chưa đo được license"
+        # B2: In fallback, never invent SPDX (Apache, GPL, BSD). Leave license = None and flag FLAG_UNMEASURED
         lic_name = None
-        lic_flag_override = "chưa đo được license"
+        lic_flag_override = FLAG_UNMEASURED
         # B3: In fallback, contents was not measured
         contents = None
 
@@ -807,6 +836,12 @@ def _enrich_github_item(repo_info, fetcher, weekly_stars, now):
                     title = entry.find("atom:title", ns)
                     updated = entry.find("atom:updated", ns)
                     tag_name = title.text.strip() if title is not None and title.text else None
+                    # The entry title is the release's free-text name (it can be a whole commit message);
+                    # the tag is the last segment of the entry's link.
+                    link = entry.find("atom:link", ns)
+                    tag_m = re.search(r"/releases/tag/([^/?#]+)$", link.get("href", "")) if link is not None else None
+                    if tag_m:
+                        tag_name = unquote(tag_m.group(1))
                     pub_at = updated.text.strip() if updated is not None and updated.text else None
                     # S3: D3 = không biết; assets = None
                     release_info = {
@@ -855,7 +890,11 @@ def _enrich_github_item(repo_info, fetcher, weekly_stars, now):
         readme_text=readme_text
     )
 
-    stars_7d = repo_info.get("stars_this_week")
+    gained = {window: repo_info.get("stars_gained", {}).get(window) for window, _, _ in github.WINDOWS}
+    # Forks: the API's count when it answered, else the count GitHub printed on the trending card; both are
+    # GitHub's own measurement. Neither means unknown, never zero.
+    forks, forks_source = (api_forks, "api") if api_forks is not None else (
+        (repo_info.get("forks"), "trending_page") if repo_info.get("forks") is not None else (None, None))
 
     return {
         "id": repo,
@@ -868,7 +907,13 @@ def _enrich_github_item(repo_info, fetcher, weekly_stars, now):
         "license": evaluated["license"],
         "license_flag": evaluated["license_flag"],
         "stars": repo_info.get("stars"),
-        "stars_gained_7d": stars_7d,
+        "stars_gained_7d": gained["week"],
+        "stars_gained": gained,
+        "trending_rank": {window: repo_info.get("trending_rank", {}).get(window) for window, _, _ in github.WINDOWS},
+        "forks": forks,
+        "forks_source": forks_source,
+        "created_at": created_at,
+        "ai_related": is_ai_repo(repo, repo_info.get("description") or "", repo_info.get("topics"), readme_text),
         "signals": evaluated["signals"],
         "source": "github-trending"
     }
@@ -917,42 +962,140 @@ def _enrich_hf_item(model_info, fetcher, now):
         "license_flag": evaluated["license_flag"],
         "stars": model_info.get("likes"),
         "stars_gained_7d": None,
+        "stars_gained": {window: None for window, _, _ in github.WINDOWS},
+        "trending_rank": {window: None for window, _, _ in github.WINDOWS},
+        "forks": None,
+        "forks_source": None,
+        "created_at": None,
+        "ai_related": True,
         "signals": evaluated["signals"],
         "source": "hf"
     }
 
 
+WINDOW_NAMES = {"day": "theo ngày", "week": "theo tuần", "month": "theo tháng"}
+TRENDING_RETRY_SECONDS = 3
+
+
+def _trending_windows(daily, fetcher):
+    """Collect GitHub Trending's day, week and month pages. A window is measured only by its own page:
+    a page that failed, or that printed another window's phrase, leaves that window unmeasured."""
+    windows, status = {}, {}
+    for window, url, _ in github.WINDOWS:
+        rows, error = [], None
+        if window == "day":
+            rows = list(daily or [])
+            if not rows:
+                error = "chưa lấy được trang thịnh hành theo ngày"
+        else:
+            # GitHub renders the week and month pages on demand and answers 504 while it does (measured
+            # 03/10 on the month page), so a failed read is retried twice before the window counts as unmeasured.
+            for attempt in range(3):
+                text, err = _fetch_url_with_error(fetcher, url, source_id="github-trending")
+                if text or err in (None, "no_fetcher") or attempt == 2:
+                    break
+                time.sleep(TRENDING_RETRY_SECONDS)
+            if text:
+                try:
+                    rows = github.parse_trending(str(text))
+                except ValueError:
+                    error = "trang thịnh hành " + WINDOW_NAMES[window] + " không có thẻ kho mã nào đọc được"
+            else:
+                error = "chưa tải được trang thịnh hành " + WINDOW_NAMES[window] + (" (" + err + ")" if err and err.startswith("HTTP") else "")
+        measured = []
+        for rank, row in enumerate(rows, 1):
+            if not isinstance(row, dict) or not row.get("repo"):
+                continue
+            period = row.get("gained_period")
+            # Rows from older collectors only carry `stars_today`, which is the day page's own count.
+            if period not in (None, window):
+                continue
+            gain = row.get("stars_gained") if period else (row.get("stars_today") if window == "day" else None)
+            measured.append((rank, row, gain))
+        if rows and not any(gain is not None for _, _, gain in measured):
+            error = error or "trang thịnh hành " + WINDOW_NAMES[window] + " không ghi số sao tăng của khung này"
+        windows[window] = measured
+        status[window] = {"measured": any(gain is not None for _, _, gain in measured),
+                          "count": sum(gain is not None for _, _, gain in measured), "error": error, "url": url}
+    return windows, status
+
+
+def _merge_windows(windows):
+    """One candidate per repository, carrying each window's measured gain and page rank."""
+    merged = {}
+    for window, rows in windows.items():
+        for rank, row, gain in rows:
+            item = merged.setdefault(row["repo"], dict(row, stars_gained={}, trending_rank={}))
+            for key in ("description", "stars", "forks", "language", "url"):
+                if item.get(key) in (None, "") and row.get(key) not in (None, ""):
+                    item[key] = row[key]
+            item["stars_gained"][window] = gain
+            item["trending_rank"][window] = rank
+            if window == "day" and gain is not None:
+                item["stars_today"] = gain
+            if window == "week" and gain is not None:
+                item["stars_this_week"] = gain
+    return list(merged.values())
+
+
+def _ranked(rows, key):
+    measured = [row for row in rows if key(row) is not None]
+    return [row["id"] for row in sorted(measured, key=lambda row: (-key(row), -(row.get("stars") or 0), row["id"]))]
+
+
+def rank_repos(repos):
+    """Orderings the page shows. Each is a list of repository ids, measured values only:
+
+    - trending[window]: stars gained in that window, highest first (a repository not measured in the window
+      is absent, never placed by another window's count);
+    - stars / forks: total count on GitHub, highest first;
+    - usable[window]: repositories labelled `dung-ngay`, by stars gained in that window.
+    Labels never change the order; they are badges.
+    """
+    shown = [row for row in repos if row.get("source") == "github-trending" and row.get("label") and row.get("ai_related", True)]
+    windows = [window for window, _, _ in github.WINDOWS]
+
+    def gained(window):
+        return lambda row: (row.get("stars_gained") or {}).get(window)
+
+    usable = [row for row in shown if row["label"] == "dung-ngay"]
+    return {
+        "trending": {window: _ranked(shown, gained(window)) for window in windows},
+        "stars": _ranked(shown, lambda row: row.get("stars")),
+        "forks": _ranked(shown, lambda row: row.get("forks")),
+        "usable": {window: _ranked(usable, gained(window)) for window in windows},
+    }
+
+
 def curate_repos(github_trending, hf_trending, fetcher=None, now=None, meta=None):
-    """Enrich, score, categorize, and rank GitHub repositories and Hugging Face models."""
+    """Enrich, score, categorize and rank trending GitHub repositories and Hugging Face models.
+
+    `github_trending` is the day page; the week and month pages are fetched here. Repositories that do not
+    say they are about AI are left out and listed in `meta["excluded_non_ai"]`.
+    """
     now = now or datetime.now(timezone.utc)
     if not github_trending and not hf_trending:
         return []
 
     meta_dict = meta if isinstance(meta, dict) else {}
-    meta_dict.setdefault("total_candidates", len(github_trending or []) + len(hf_trending or []))
     meta_dict.setdefault("dropped_count", 0)
     meta_dict.setdefault("dropped_items", [])
     meta_dict.setdefault("fallback_count", 0)
     meta_dict.setdefault("fallback_reasons", {})
+    meta_dict.setdefault("excluded_non_ai", [])
 
-    weekly_stars = {}
-    weekly_html = _safe_fetch(fetcher, "https://github.com/trending?since=weekly", source_id="github-trending")
-    if weekly_html:
-        for article in re.findall(r"<article\b[^>]*>.*?</article>", str(weekly_html), flags=re.S | re.I):
-            href_m = re.search(r'<h2\b[^>]*>\s*<a\b[^>]*href="/([\w.-]+/[\w.-]+)"', article, re.S | re.I)
-            if not href_m:
-                href_m = re.search(r'<h2\b.*?href="/([\w.-]+/[\w.-]+)"', article, re.S | re.I)
-            stars_m = re.search(r"([\d,]+)\s+stars?\s+this\s+week", article, re.I)
-            if href_m and stars_m:
-                weekly_stars[href_m.group(1)] = number(stars_m.group(1))
+    windows, status = _trending_windows(github_trending, fetcher)
+    candidates = _merge_windows(windows)
+    meta_dict["windows"] = status
 
     results = []
     hf_models = [row for row in hf_trending if row.get("type") == "model"] if hf_trending else []
+    meta_dict.setdefault("total_candidates", len(candidates) + len(hf_models))
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
         future_map = {}
-        for r in (github_trending or []):
-            fut = executor.submit(_enrich_github_item, dict(r), fetcher, weekly_stars, now)
+        for r in candidates:
+            fut = executor.submit(_enrich_github_item, dict(r), fetcher, now)
             future_map[fut] = (r.get("repo", "unknown"), "github-trending")
         for m in hf_models:
             fut = executor.submit(_enrich_hf_item, dict(m), fetcher, now)
@@ -963,6 +1106,9 @@ def curate_repos(github_trending, hf_trending, fetcher=None, now=None, meta=None
             try:
                 item = fut.result()
                 if item:
+                    if not item.get("ai_related", True):
+                        meta_dict["excluded_non_ai"].append(item_id)
+                        continue
                     sig = item.get("signals") or {}
                     if not sig.get("api_enriched", True):
                         meta_dict["fallback_count"] += 1
@@ -982,26 +1128,15 @@ def curate_repos(github_trending, hf_trending, fetcher=None, now=None, meta=None
                     "reason": f"{type(exc).__name__}: {exc}"
                 })
 
-    priority_order = {"dung-ngay": 0, "xao-nau": 1, "nghien-cuu": 2}
+    meta_dict["excluded_non_ai"].sort()
 
     def sort_key(row):
-        lbl = row.get("label")
-        lbl_order = priority_order.get(lbl, 9) if lbl is not None else 10
-        stars = row.get("stars") or 0
-        stars_7d = row.get("stars_gained_7d") or 0
-        sig = row.get("signals") or {}
-
-        if row.get("source") == "hf":
-            quality_score = sig.get("hf_score", 0) or 0
-            momentum_score = min(20.0, 5.0 * math.log10(1 + max(0, stars)))
-        else:
-            d_score = sig.get("d_score") or 0
-            x_score = sig.get("x_score") or 0
-            quality_score = d_score + x_score
-            momentum_score = min(20.0, 5.0 * math.log10(1 + max(0, stars_7d or stars)))
-
-        total_score = quality_score + momentum_score
-        return (lbl_order, -total_score, -stars, row.get("id"))
+        gained = row.get("stars_gained") or {}
+        by_window = tuple(-gained[window] if gained.get(window) is not None else 1 for window in ("week", "day", "month"))
+        return by_window + (-(row.get("stars") or 0), row.get("id"))
 
     results.sort(key=sort_key)
+    meta_dict["rankings"] = rank_repos(results)
     return results
+
+

@@ -110,13 +110,13 @@ class GithubTests(unittest.TestCase):
     def test_saved_html_extracts_repository_not_sponsor_or_fork(self):
         items = github_trending(saved("github.html"))
         self.assertEqual(len(items), 3)
-        self.assertEqual(items[0], {"repo": "NVIDIA/OpenShell", "url": "https://github.com/NVIDIA/OpenShell", "description": "OpenShell is the safe, private runtime for autonomous AI agents.", "language": "Rust", "stars": 12459, "stars_today": 1280})
+        self.assertEqual(items[0], {"repo": "NVIDIA/OpenShell", "url": "https://github.com/NVIDIA/OpenShell", "description": "OpenShell is the safe, private runtime for autonomous AI agents.", "language": "Rust", "stars": 12459, "forks": 1534, "stars_today": 1280, "stars_gained": 1280, "gained_period": "day"})
 
     def test_absent_language_and_counts_are_unknown(self):
         body = '<article class="Box-row"><h2><a href="/owner/repo">owner / repo</a></h2><p>Useful &amp; small</p></article>'
         item = github_trending(body)[0]
         self.assertEqual(item["description"], "Useful & small")
-        for key in ["language", "stars", "stars_today"]:
+        for key in ["language", "stars", "forks", "stars_today", "stars_gained", "gained_period"]:
             self.assertIsNone(item[key], key)
 
     def test_blocked_page_is_not_silent_empty_success(self):

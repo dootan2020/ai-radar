@@ -10,21 +10,21 @@ _FEEDS = [
     ("openai-news", "OpenAI News", "openai", "https://openai.com/news/rss.xml"),
     ("google-ai", "Google AI", "google", "https://blog.google/technology/ai/rss/"),
     ("google-deepmind", "Google DeepMind", "google", "https://deepmind.google/blog/rss.xml"),
-    ("anthropic-news", "Anthropic News (community feed)", "anthropic", _COMMUNITY.format("anthropic_news")),
-    ("anthropic-gftdon", "Anthropic News (gftdon community feed)", "anthropic", "https://gftdon.github.io/ai-news-rss/anthropic.xml"),
-    ("anthropic-research", "Anthropic Research (community feed)", "anthropic", _COMMUNITY.format("anthropic_research")),
-    ("anthropic-engineering", "Anthropic Engineering (community feed)", "anthropic", _COMMUNITY.format("anthropic_engineering")),
-    ("xai-news", "xAI News (community feed)", "xai", _COMMUNITY.format("xainews")),
-    ("meta-news", "Meta AI (community feed)", "meta", _COMMUNITY.format("meta_ai")),
-    ("mistral-news", "Mistral News (community feed)", "mistral", _COMMUNITY.format("mistral")),
+    ("anthropic-news", "Anthropic News (nguồn cộng đồng)", "anthropic", _COMMUNITY.format("anthropic_news")),
+    ("anthropic-gftdon", "Anthropic News (nguồn cộng đồng gftdon)", "anthropic", "https://gftdon.github.io/ai-news-rss/anthropic.xml"),
+    ("anthropic-research", "Anthropic Research (nguồn cộng đồng)", "anthropic", _COMMUNITY.format("anthropic_research")),
+    ("anthropic-engineering", "Anthropic Engineering (nguồn cộng đồng)", "anthropic", _COMMUNITY.format("anthropic_engineering")),
+    ("xai-news", "xAI News (nguồn cộng đồng)", "xai", _COMMUNITY.format("xainews")),
+    ("meta-news", "Meta AI (nguồn cộng đồng)", "meta", _COMMUNITY.format("meta_ai")),
+    ("mistral-news", "Mistral News (nguồn cộng đồng)", "mistral", _COMMUNITY.format("mistral")),
     ("huggingface-blog", "Hugging Face Blog", "huggingface", "https://huggingface.co/blog/feed.xml"),
 ]
 SOURCES = [dict(id=id_, name=name, lab=lab, kind="rss", url=url) for id_, name, lab, url in _FEEDS]
 for _source in SOURCES:
     if _source["id"] == "google-deepmind":
         _source.update(disabled=True, disabled_reason=(
-            "RSS endpoint returned HTTP 200 with invalid XML on the hosted runner; "
-            "no replacement RSS endpoint has been verified. Google AI and DeepMind YouTube remain separate sources."
+            "Địa chỉ RSS trả mã HTTP 200 nhưng XML hỏng trên máy dựng của GitHub; "
+            "chưa kiểm được địa chỉ RSS thay thế. Google AI và kênh YouTube của DeepMind vẫn là nguồn riêng."
         ))
 
 

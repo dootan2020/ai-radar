@@ -71,8 +71,8 @@ class ArxivHtmlIdentityTests(unittest.TestCase):
 
 class ReadableHotReasonTests(unittest.TestCase):
     def test_measurements_keep_exact_values_without_exponential_notation(self):
-        for value, expected in [(1000000, "1,000,000"), (1000000.0, "1,000,000"),
-                                (1234567.25, "1,234,567.25"), (0.000001, "0.000001"), (0, "0")]:
+        for value, expected in [(1000000, "1.000.000"), (1000000.0, "1.000.000"),
+                                (1234567.25, "1.234.567,25"), (0.000001, "0,000001"), (0, "0")]:
             with self.subTest(value=value):
                 items = [coverage("hf", "https://hf.example/a", title="Article one",
                                   metrics={"trending_score": value}),
@@ -80,5 +80,5 @@ class ReadableHotReasonTests(unittest.TestCase):
                                   metrics={"trending_score": 2})]
                 stories = rank_stories(cluster_items(items, NOW), NOW)
                 story = next(row for row in stories if row["url"].endswith("/a"))
-                self.assertIn(f"hf: {expected} trendingScore", story["hot_reason"])
+                self.assertIn(f"hf: {expected} điểm thịnh hành", story["hot_reason"])
                 self.assertEqual(story["hot_signals"]["measurement"]["value"], value)
