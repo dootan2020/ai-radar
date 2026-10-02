@@ -59,6 +59,36 @@ Reader-facing text is Vietnamese except names and original titles. Source
 records keep the technical `error` and add `error_vi` for the page;
 [the language test](../tests/test_vietnamese_ui.py) lists its exceptions.
 
+## Headline translation
+
+Story and coverage titles, repository descriptions and stream titles get a
+Vietnamese machine translation from [an optional step](../radar/translate.py)
+that runs after `build.py`, with libraries pinned in
+[requirements-translate.txt](../requirements-translate.txt). The core pipeline
+stays stdlib-only. Translations sit beside the original as `title_vi` /
+`description_vi`; the page shows the Vietnamese first and the original underneath,
+labelled "dịch máy". Names, ids, event titles and strings the model returned in
+English keep only the original. A translation that drops or adds a number, loses
+a name, repeats itself or shrinks too far is refused, and post-translation term
+fixes ("agent", "khung chạy", "tiên phong", "tinh chỉnh", "bài đo chuẩn") fire
+only when the English uses the term. The snapshot's `translation` record says
+what happened: status, counts, pending strings, refused examples and a reason in
+`error` / `error_vi`.
+
+The step can never cost the page: a missing library, failed download, error or
+the 600-second budget (`RADAR_TRANSLATE_BUDGET`) leaves the original titles, and
+what was not translated waits for the next run. Each English segment is
+translated once; the workflow keeps the translation cache
+(`data/translations-vi.json`) and the model (`HF_HOME`, safetensors, JSON and
+tokenizer only) in `actions/cache` between runs.
+
+The model is `facebook/nllb-200-distilled-600M`, pinned to revision
+`a3e77be7` (refs/pr/45, the only one carrying `model.safetensors`). Its licence
+is **CC-BY-NC 4.0**: valid only while ai-radar earns no money. Advertising, paid
+access or any other commercial use requires replacing it (DeepL Free is the
+noted fallback). [Translation tests](../tests/test_translate.py) and
+[display tests](../tests/test_translation_display.py) are the proof.
+
 ## Measurement continuity and source policy
 
 Fresh displayed evidence and reusable measurements have different lifetimes.

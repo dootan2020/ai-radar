@@ -1,0 +1,8 @@
+# Optional headline translation step (python -m radar.translate). The core pipeline needs none of these.
+# CPU-only torch from PyTorch's own index; the +cpu pin keeps pip from pulling the CUDA build from PyPI.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1+cpu
+transformers==5.18.0
+huggingface_hub==1.33.0
+safetensors==0.8.0
+sentencepiece==0.2.2

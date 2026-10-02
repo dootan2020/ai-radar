@@ -17,12 +17,15 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-26.04
-    timeout-minutes: 5
+    # Fetching takes ~1 minute; the optional translation step is capped at 10 minutes by its own budget.
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-translate.txt
       - name: Run offline tests
         run: python -m unittest discover -s tests
       - name: Restore previous measurement snapshot
@@ -44,6 +47,57 @@ jobs:
         with:
           path: data/measurement-baseline.json
           key: radar-measurements-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+      # Headline translation is optional: every step below may fail and the page still ships with original titles.
+      - name: Install translation libraries
+        id: mt-install
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 6
+        run: python -m pip install --disable-pip-version-check -r requirements-translate.txt
+      - name: Restore translation model
+        id: mt-model
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ runner.temp }}/hf-home
+          key: mt-nllb-200-distilled-600M-a3e77be-v1
+      - name: Restore translation cache
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/restore@v6
+        with:
+          path: data/translations-vi.json
+          key: radar-translations-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            radar-translations-v1-${{ github.ref_name }}-
+            radar-translations-v1-main-
+      - name: Translate headlines
+        id: translate
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 14
+        env:
+          HF_HOME: ${{ runner.temp }}/hf-home
+          HF_HUB_DISABLE_TELEMETRY: '1'
+          HF_HUB_DISABLE_PROGRESS_BARS: '1'
+          TRANSFORMERS_VERBOSITY: error
+          RADAR_TRANSLATE_BUDGET: '600'
+        run: python -m radar.translate --input site/data/radar.json --cache data/translations-vi.json
+      - name: Save translation model
+        if: always() && steps.mt-model.outputs.cache-hit != 'true' && steps.translate.outputs.model_ready == 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ runner.temp }}/hf-home
+          key: mt-nllb-200-distilled-600M-a3e77be-v1
+      - name: Save translation cache
+        if: always() && steps.translate.outputs.cache_written == 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v6
+        with:
+          path: data/translations-vi.json
+          key: radar-translations-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Upload collected source evidence
         uses: actions/upload-artifact@v7
         with:

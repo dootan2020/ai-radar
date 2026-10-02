@@ -7,6 +7,7 @@ import { streamedAge, scheduleText, TZ, hhmm, dayKey, ago, daysLeftHTML } from '
 import { isSnapshotV2 } from './snapshot.js';
 import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, faceOfRepo, ytIdOf, hydrateHF, watchImageErrors, hourHistogram, ring, meter } from './faces.js';
 import { KIND, METRIC, licenseText, SIGNALS, signalText } from './words.js';
+import { shown as viShown, origLine, uniqCoverage } from './titles.js';
 
 const CHAPTERS = [
   {id:'hom-nay', sec:'today', label:'Hôm nay', title:'Hôm nay', note:'Đăng trong 24 giờ qua, mới nhất trước.'},
@@ -85,6 +86,10 @@ const daysUntil = ymd => { const t = dateOnly(ymd); return Math.round((Date.UTC(
 /* ---------- data helpers ---------- */
 const srcName = id => (SRC.get(id) || {}).name || id;
 const pubOf = st => st.coverage && st.coverage[0] ? srcName(st.coverage[0].source) : '';
+/* Headline in Vietnamese when the snapshot carries a machine translation; tt() is the text, orig() the small original line. */
+const tt = o => esc(viShown(o.title, o.title_vi));
+const orig = (o, cls) => origLine(o.title, o.title_vi, esc, cls);
+const covOf = st => uniqCoverage(st.coverage, srcName);
 const kindName = st => KIND[st.kind] || esc(st.kind);
 const faceSt = st => faceOfStory(st, SRC);
 const viewsOf = id => (D.views && D.views.by_story && Number.isFinite(D.views.by_story[id])) ? D.views.by_story[id] : null;
@@ -175,7 +180,7 @@ function repoListNote(){
 }
 /* The pipeline writes the install command inside backticks in `why`; the page only lifts it out, never writes one. */
 const installOf = r => { const m = /cài:\s*`([^`]+)`/.exec(r.why || ''); return m ? m[1] : null; };
-const whyShort = r => String(r.why || r.description || '').split(' · ').filter(p => p && p !== LABELS[r.label] && p !== r.license_flag && !/^cài:/.test(p)).slice(0, 3).join(' · ');
+const whyShort = r => String(r.why || viShown(r.description, r.description_vi) || '').split(' · ').filter(p => p && p !== LABELS[r.label] && p !== r.license_flag && !/^cài:/.test(p)).slice(0, 3).join(' · ');
 
 /* Calendar target for a story: a curated event (date-only stays all-day) or a verified upcoming stream with an exact start. */
 function calOf(st){
@@ -221,7 +226,7 @@ function row(st, o = {}){
   const right = o.right != null ? o.right : timeEl(st.published_at);
   return `<button class="row${o.compact ? ' c' : ''}${read.has(st.id) ? ' is-read' : ''}${arrived.has(st.id) ? ' arrive' : ''}"${arriveAttr(st.id)} data-sel="${esc(st.id)}" aria-pressed="${selected === st.id}">
     ${avatar(faceSt(st), o.compact ? 'sm' : 'md')}
-    <span class="row-m"><span class="t">${savedKey(st.id) ? savedMark : ''}${isNew(st) ? newMark : ''}${esc(String(st.title))}</span>
+    <span class="row-m"><span class="t">${savedKey(st.id) ? savedMark : ''}${isNew(st) ? newMark : ''}${tt(st)}</span>${orig(st)}
     <span class="k"><span class="pub">${esc(pubOf(st))}</span> · ${kindName(st)}${st.source_count > 1 ? ` · <span class="num">${st.source_count}</span> nguồn` : ''}${v != null ? ` · ${viewsEl(v, st.id)}` : ''}</span></span>
     <span class="r">${right}</span></button>`;
 }
@@ -286,12 +291,12 @@ function leadTile(L){
   const faces = [...new Map((st.coverage || []).map(c => [c.source, faceOfSource(c, SRC)])).values()];
   const primary = (st.coverage || []).find(c => c.discussion_url) ;
   const others = L.others.slice(0, 2);
-  const cov = st.source_count > 1 ? `<ul class="cov" aria-label="Các nguồn đưa chuyện này">${(st.coverage || []).map(c => `<li>${avatar(faceOfSource(c, SRC), 'xs')}<span class="pub">${esc(srcName(c.source))}</span><span class="faint">${timeEl(c.published_at)}</span>${metricsHTML(c) ? `<span class="m">${metricsHTML(c)}</span>` : ''}<a class="go" href="${esc(safe(c.discussion_url || c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">${c.discussion_url ? 'Thảo luận' : 'Bài gốc'}</a></li>`).join('')}</ul>` : '';
+  const cov = st.source_count > 1 ? `<ul class="cov" aria-label="Các nguồn đưa chuyện này">${covOf(st).map(c => `<li>${avatar(faceOfSource(c, SRC), 'xs')}<span class="pub">${esc(srcName(c.source))}</span><span class="faint">${timeEl(c.published_at)}</span>${metricsHTML(c) ? `<span class="m">${metricsHTML(c)}</span>` : ''}<a class="go" href="${esc(safe(c.discussion_url || c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">${c.discussion_url ? 'Thảo luận' : 'Bài gốc'}</a></li>`).join('')}</ul>` : '';
   return `<article class="tile t-lead" aria-labelledby="lead-h">
     <div class="lead-top">${faces.length > 1 ? avatarStack(faces, 'lg') : avatar(faceSt(st), 'xl')}
       <p class="lead-label" id="lead-h"><span class="pill pill-hot">${icon('i-flame')}${label}</span><span class="lead-src">${esc(pubOf(st))} · ${kindName(st)} · ${timeEl(st.published_at)}</span></p></div>
     <p class="keynote"><b class="num"${big.live ? ` data-live="${esc(big.live)}"` : ''} data-count="${big.n}" data-v="${big.n}">${fmt(big.n)}</b><span>${esc(big.unit)}</span></p>
-    <h3 class="lead-title-wrap"><button class="lead-title${read.has(st.id) ? ' is-read' : ''}" data-sel="${esc(st.id)}">${savedKey(st.id) ? savedMark : ''}${esc(String(st.title))}</button></h3>
+    <h3 class="lead-title-wrap"><button class="lead-title${read.has(st.id) ? ' is-read' : ''}" data-sel="${esc(st.id)}">${savedKey(st.id) ? savedMark : ''}${tt(st)}</button></h3>${orig(st, 'orig lead-orig')}
     ${st.summary ? `<p class="lead-sum">${esc(st.summary)}</p>` : ''}
     ${sub}
     ${cov}
@@ -304,7 +309,7 @@ function leadTile(L){
           <button class="btn icon-only" data-save="${esc(st.id)}" aria-pressed="${savedKey(st.id)}" aria-label="${savedKey(st.id) ? 'Bỏ lưu' : 'Lưu đọc sau'}">${icon('i-save')}</button>
         </div></div>
     </div>
-    ${others.length ? `<div class="lead-more"><p class="sub-h">Chuyện nhiều nguồn khác</p>${others.map(o => `<button class="row c${read.has(o.id) ? ' is-read' : ''}" data-sel="${esc(o.id)}" aria-pressed="${selected === o.id}">${avatarStack([...new Map((o.coverage || []).map(c => [c.source, faceOfSource(c, SRC)])).values()], 'xs')}<span class="row-m"><span class="t">${esc(String(o.title))}</span><span class="k"><span class="num">${o.source_count}</span> nguồn · ${timeEl(o.published_at)}</span></span></button>`).join('')}</div>` : ''}
+    ${others.length ? `<div class="lead-more"><p class="sub-h">Chuyện nhiều nguồn khác</p>${others.map(o => `<button class="row c${read.has(o.id) ? ' is-read' : ''}" data-sel="${esc(o.id)}" aria-pressed="${selected === o.id}">${avatarStack([...new Map((o.coverage || []).map(c => [c.source, faceOfSource(c, SRC)])).values()], 'xs')}<span class="row-m"><span class="t">${tt(o)}</span>${orig(o)}<span class="k"><span class="num">${o.source_count}</span> nguồn · ${timeEl(o.published_at)}</span></span></button>`).join('')}</div>` : ''}
   </article>`;
 }
 
@@ -312,7 +317,7 @@ function leadTile(L){
 function liveTile(shown){
   const liveNow = [], ended = [];
   D.stories.forEach(s => (s.coverage || []).forEach(c => { if (c.status === 'live') liveNow.push(s); if (c.status === 'ended') ended.push({s, c}); }));
-  (D.live || []).forEach(v => { if (v.status === 'live' && !liveNow.length) liveNow.push({title:v.title, id:null, url:v.url}); });
+  (D.live || []).forEach(v => { if (v.status === 'live' && !liveNow.length) liveNow.push({title:v.title, title_vi:v.title_vi, id:null, url:v.url}); });
   const upcomingStreams = (D.live || []).filter(v => v.status === 'upcoming');
   const upcoming = ids('upcoming');
   const lastEnded = ended.sort((a, b) => (b.c.end_at || '').localeCompare(a.c.end_at || ''))[0];
@@ -322,22 +327,22 @@ function liveTile(shown){
   let media;
   if (liveNow.length) {
     const L0 = liveNow[0];
-    const inner = `<span class="state on"><span class="pulse on" aria-hidden="true"></span>Đang phát</span><strong>${esc(String(L0.title))}</strong>`;
+    const inner = `<span class="state on"><span class="pulse on" aria-hidden="true"></span>Đang phát</span><strong>${tt(L0)}</strong>${orig(L0)}`;
     media = L0.id ? `<button class="media is-live" data-sel="${esc(L0.id)}">${inner}</button>` : `<a class="media is-live" href="${esc(safe(L0.url))}" target="_blank" rel="noopener">${inner}</a>`;
     if (L0.id) shown.add(L0.id);
   } else if (lastEnded) {
     const id = ytId(lastEnded.s);
     const when = lastEnded.c.end_at ? `Kết thúc ${timeEl(lastEnded.c.end_at)}` : esc(streamedAge(lastEnded.c.time_text) || 'Đã phát xong');
-    media = `<button class="media${id ? ' has-thumb' : ''}" data-sel="${esc(lastEnded.s.id)}">${id ? `<span class="thumb">${thumbImg(id)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span>` : ''}<span class="media-cap"><span class="state">Vừa phát xong · ${when}</span><strong>${esc(String(lastEnded.c.title))}</strong></span></button>`;
+    media = `<button class="media${id ? ' has-thumb' : ''}" data-sel="${esc(lastEnded.s.id)}">${id ? `<span class="thumb">${thumbImg(id)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span>` : ''}<span class="media-cap"><span class="state">Vừa phát xong · ${when}</span><strong>${tt(lastEnded.c)}</strong>${orig(lastEnded.c)}</span></button>`;
     shown.add(lastEnded.s.id);
   } else if (endedLive) {
-    media = `<a class="media has-thumb" href="${esc(safe(endedLive.url))}" target="_blank" rel="noopener"><span class="thumb">${thumbImg(endedLive.video_id)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="media-cap"><span class="state">Vừa phát xong · ${esc(endedLive.channel)} · ${endedLive.end_at ? `kết thúc ${timeEl(endedLive.end_at)}` : 'đã phát xong'}</span><strong>${esc(String(endedLive.title))}</strong></span></a>`;
+    media = `<a class="media has-thumb" href="${esc(safe(endedLive.url))}" target="_blank" rel="noopener"><span class="thumb">${thumbImg(endedLive.video_id)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="media-cap"><span class="state">Vừa phát xong · ${esc(endedLive.channel)} · ${endedLive.end_at ? `kết thúc ${timeEl(endedLive.end_at)}` : 'đã phát xong'}</span><strong>${tt(endedLive)}</strong>${orig(endedLive)}</span></a>`;
   } else media = '';
 
   const status = liveNow.length ? '' : `<span class="state"><span class="pulse" aria-hidden="true"></span>Không có buổi nào đang phát · kiểm lúc ${hhmm(new Date(D.generated_at))}</span>`;
   const streams = upcomingStreams.slice(0, 1).map(v => {
     const cal = liveCal(v);
-    return `<div class="ev-row">${avatar(faceOfSource({source:'', name:v.channel, lab:v.lab}, SRC), 'sm')}<span class="row-m"><a class="t" href="${esc(safe(v.url))}" target="_blank" rel="noopener">${esc(String(v.title))}</a>
+    return `<div class="ev-row">${avatar(faceOfSource({source:'', name:v.channel, lab:v.lab}, SRC), 'sm')}<span class="row-m"><a class="t" href="${esc(safe(v.url))}" target="_blank" rel="noopener">${tt(v)}</a>${orig(v)}
       <span class="k">Sắp phát · ${esc(v.channel)} · ${v.start_at && v.time_precision !== 'relative' ? esc(exact(v.start_at)) : esc(scheduleText(v.time_text))}</span></span>${calButtons(cal, `data-cal-live="${esc(v.video_id)}"`, v.title)}</div>`;
   }).join('');
   const evs = upcoming.map(s => ({s, e: eventOf(s) || {}})).filter(x => x.e.start_date).sort((a, b) => a.e.start_date.localeCompare(b.e.start_date));
@@ -396,7 +401,7 @@ function hotTile(shown){
     ${tileHead('Đang nóng', 'hot-h', `Điểm đo được, 72 giờ qua · <a class="link" href="#nong">Xem đủ <span class="num">${all.length}</span></a>`)}
     <ol class="hot-list">${list.map(s => `<li><button class="hrow${read.has(s.id) ? ' is-read' : ''}${arrived.has(s.id) ? ' arrive' : ''}"${arriveAttr(s.id)} data-sel="${esc(s.id)}" aria-pressed="${selected === s.id}">
       <span class="rk num">${all.indexOf(s) + 1}</span>${avatar(faceSt(s), 'md')}
-      <span class="row-m"><span class="t">${savedKey(s.id) ? savedMark : ''}${esc(String(s.title))}</span><span class="k">${reasonHTML(s)}${s.source_count > 1 ? ` · <b class="num">${s.source_count}</b> nguồn` : ''}</span></span>
+      <span class="row-m"><span class="t">${savedKey(s.id) ? savedMark : ''}${tt(s)}</span>${orig(s)}<span class="k">${reasonHTML(s)}${s.source_count > 1 ? ` · <b class="num">${s.source_count}</b> nguồn` : ''}</span></span>
       <span class="score"><b class="num">${Math.round(s.hot_score)}</b>${meter(s.hot_score, max)}</span></button></li>`).join('')}</ol>
   </section>`;
 }
@@ -422,7 +427,7 @@ function listenTile(shown){
   vids.concat(other).forEach(s => shown.add(s.id));
   return `<section class="tile t-listen" aria-labelledby="listen-h">
     ${tileHead('Nghe và xem', 'listen-h', `<a class="link" href="#nghe"><span class="num">${(D.sections.listen || []).length}</span> mục</a>`)}
-    <div class="vid2">${vids.map(s => `<button class="vid${read.has(s.id) ? ' is-read' : ''}" data-sel="${esc(s.id)}"><span class="thumb">${thumbImg(ytId(s), '')}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${esc(String(s.title))}</span><span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
+    <div class="vid2">${vids.map(s => `<button class="vid${read.has(s.id) ? ' is-read' : ''}" data-sel="${esc(s.id)}"><span class="thumb">${thumbImg(ytId(s), '')}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${tt(s)}</span>${orig(s)}<span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
     ${other.map(s => row(s, {compact:true})).join('')}
   </section>`;
 }
@@ -469,7 +474,7 @@ function chapterList(c){
   if (!list.length) return `<p class="empty-note">Chưa có dữ liệu cho mục này. Trang không điền tin mẫu.</p>`;
   if (c.sec === 'listen') {
     const v = list.filter(s => ytId(s)).slice(0, 8), rest = list.filter(s => !ytId(s));
-    return `<div class="vids">${v.map(s => `<button class="vid${read.has(s.id) ? ' is-read' : ''}" data-sel="${esc(s.id)}"><span class="thumb">${thumbImg(ytId(s), s.title)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${esc(String(s.title))}</span><span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
+    return `<div class="vids">${v.map(s => `<button class="vid${read.has(s.id) ? ' is-read' : ''}" data-sel="${esc(s.id)}"><span class="thumb">${thumbImg(ytId(s), s.title)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${tt(s)}</span>${orig(s)}<span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
       <div class="list" data-cap="6">${rest.map(s => row(s)).join('')}</div>`;
   }
   if (c.sec === 'upcoming') {
@@ -530,6 +535,15 @@ function liveRows(){
     <span class="tiny faint">${s.at ? `${s.ok ? `${s.matched} tin khớp · ` : ''}${hhmm(s.at)}` : 'đang đọc'}</span></div>`).join('');
 }
 
+/* What the reader should know about the Vietnamese titles: which model, its licence, and why some stayed English. */
+function translationNote(){
+  const t = D.translation;
+  if (!t || typeof t !== 'object') return 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
+  const done = Number.isFinite(t.translated) && t.translated > 0;
+  const base = done ? `Tiêu đề tiếng Việt là bản dịch máy bằng mô hình NLLB-200 (giấy phép CC-BY-NC 4.0, chỉ dùng phi thương mại); tiêu đề gốc nằm ngay dưới, kèm nhãn “dịch máy”.` : 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
+  const left = Number.isFinite(t.pending) && t.pending > 0 ? ` Còn ${nf.format(t.pending)} tiêu đề chưa dịch kịp, đang hiện bản gốc.` : '';
+  return `${base}${t.error_vi ? ` ${esc(t.error_vi)}` : left}`;
+}
 function renderChapters(){
   const bad = D.sources.filter(s => !s.ok);
   $('#chapters').innerHTML = `<h2 class="chap-title">Theo mục</h2>${savedChapter()}` + CHAPTERS.map(c => {
@@ -558,7 +572,7 @@ function renderChapters(){
     l.after(b);
   });
   const views = D.views && Number.isFinite(D.views.total) ? `Lượt xem trên ai-radar đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie. ` : '';
-  $('#foot').innerHTML = `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${D.ranking ? `Xếp hạng nóng: ${esc(D.ranking.description || 'xếp theo số đo của từng nguồn')}, cửa sổ ${esc(D.ranking.window_hours)} giờ${D.ranking.description && D.ranking.calibration ? `, hiệu chỉnh: ${esc(D.ranking.calibration)}` : ''}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.'} Tiêu đề giữ nguyên tiếng Anh như bài gốc. ${views}
+  $('#foot').innerHTML = `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${D.ranking ? `Xếp hạng nóng: ${esc(D.ranking.description || 'xếp theo số đo của từng nguồn')}, cửa sổ ${esc(D.ranking.window_hours)} giờ${D.ranking.description && D.ranking.calibration ? `, hiệu chỉnh: ${esc(D.ranking.calibration)}` : ''}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.'} ${translationNote()} ${views}
     ${storageOk ? 'Mốc đã xem, tin đã đọc, tin đã lưu và mảng bạn chọn chỉ lưu trên máy này.' : 'Trình duyệt đang chặn bộ nhớ cục bộ, nên mốc đã xem, tin đã lưu và mảng bạn chọn chỉ giữ tới khi đóng trang.'}
     <button class="btn-quiet" id="keys-open">Phím tắt (?)</button> <a class="btn-quiet" href="tokens.html">Ngôn ngữ thiết kế</a>`;
   hydrateVisible();
@@ -582,7 +596,7 @@ function renderChrome(){
   const g = new Date(D.generated_at);
   $('#when-line').innerHTML = `<span class="wd">${esc(new Intl.DateTimeFormat('vi-VN',{weekday:'long',day:'numeric',month:'numeric',timeZone:TZ}).format(g).replace(/^./, c => c.toUpperCase()))} · </span>cập nhật ${hhmm(g)}`;
   renderNav(counts);
-  $('#since').innerHTML = `<span class="since-pill"><strong class="num" id="since-n" data-v="0">0</strong> tin mới ${firstVisit ? 'trong 24 giờ<span class="w"> qua</span>' : 'từ lần trước'}</span>
+  $('#since').innerHTML = `<span class="since-pill"><strong class="num" id="since-n" data-v="0">0</strong> tin mới ${firstVisit ? '<span class="w2">trong 24 giờ</span><span class="w"> qua</span>' : '<span class="w2">từ lần trước</span>'}</span>
     <button class="btn-quiet" id="mark" ${counts.total ? '' : 'disabled'}>${counts.total ? 'Đánh dấu đã xem' : 'Đã xem hết'}</button>`;
   countTo($('#since-n'), counts.total);
   const tn = $('#tab-new'); tn.hidden = !counts.total; tn.textContent = counts.total > 99 ? '99+' : counts.total;
@@ -618,9 +632,9 @@ function countTo(el, to){
 function detailStory(st){
   const ev = eventOf(st), id = ytId(st), cal = calOf(st), v = viewsOf(st.id);
   const sig = st.hot_signals && st.hot_signals.measurement;
-  const cov = [...(st.coverage || [])].sort((a, b) => (a.published_at || '').localeCompare(b.published_at || ''));
+  const cov = [...covOf(st)].sort((a, b) => (a.published_at || '').localeCompare(b.published_at || ''));
   const sv = savedKey(st.id);
-  return `<div class="sh-head">${avatar(faceSt(st), 'lg')}<h2>${esc(String(st.title))}</h2></div>
+  return `<div class="sh-head">${avatar(faceSt(st), 'lg')}<div class="sh-t"><h2>${tt(st)}</h2>${orig(st)}</div></div>
     ${id ? `<span class="thumb">${thumbImg(id, st.title)}</span>` : ''}
     ${st.summary ? `<p class="sum">${esc(st.summary)}</p>` : ''}
     ${st.hot_score != null ? `<div class="sh-score">${ring(st.hot_score, 'Điểm nóng')}<p>Nóng vì ${reasonHTML(st)}</p></div>` : ''}
@@ -641,7 +655,7 @@ function detailStory(st){
     <p class="hint">Phím: <kbd>O</kbd> mở bài gốc · <kbd>S</kbd> lưu${cal ? ' · <kbd>L</kbd> tải tệp lịch' : ''} · <kbd>J</kbd> <kbd>K</kbd> tin kế · <kbd>Esc</kbd> đóng</p>
     <p class="tlh">Các nguồn, theo thời gian</p>
     <ol class="tl">${cov.map(c => `<li>${avatar(faceOfSource(c, SRC), 'xs')}<span class="tl-m"><span class="when">${esc(srcName(c.source))} · ${timeEl(c.published_at)}</span>
-      <a href="${esc(safe(c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">${esc(String(c.title))}</a>
+      <a href="${esc(safe(c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">${tt(c)}</a>${orig(c)}
       ${metricsHTML(c) ? `<span class="m">${metricsHTML(c)}</span>` : ''}
       ${c.discussion_url ? `<a class="tl-d" href="${esc(safe(c.discussion_url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">Thảo luận</a>` : ''}</span></li>`).join('')}</ol>`;
 }
@@ -655,7 +669,7 @@ function detailRepo(r){
   return `<div class="sh-head">${avatar(faceOfRepo(r), 'lg')}<h2>${esc(r.full_name).replace('/', '/<wbr>')}</h2></div>
     <p class="sum">${labChip(r.label)} ${area ? esc(area.label) : 'Chưa xếp mảng'}</p>
     ${Number.isFinite(r.stars) ? `<p class="keynote k-sm"><b class="num">${fmt(r.stars)}</b><span>${r.source === 'hf' ? 'lượt thích' : 'sao'}</span></p>` : ''}
-    ${r.description ? `<p class="sum">${esc(r.description)}</p>` : ''}
+    ${r.description ? `<p class="sum">${esc(viShown(r.description, r.description_vi))}${origLine(r.description, r.description_vi, esc)}</p>` : ''}
     ${r.why ? `<p class="sum"><b>Vì sao đáng xem:</b> ${esc(r.why)}</p>` : ''}
     ${cmd ? copyBtn(cmd) : ''}
     <dl class="facts">

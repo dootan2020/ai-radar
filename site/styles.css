@@ -531,3 +531,18 @@
   .calbtn-g,.calbtn-ics{min-height:var(--btn-h)}
   .btn-quiet{min-height:var(--btn-h)}
 }
+/* Machine-translated titles: the Vietnamese reads first; the original sits under it, small, labelled "dịch máy". */
+@layer components{
+  .orig{display:block;font-size:var(--text-meta);font-weight:var(--weight-regular);color:var(--color-ink-3);line-height:1.4;overflow-wrap:anywhere;text-align:left;letter-spacing:normal}
+  .orig .mt{display:inline-block;margin-right:6px;padding:0 6px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-micro);font-weight:var(--weight-semibold);line-height:18px;vertical-align:1px;white-space:nowrap}
+  .row.c .orig,.hrow .orig,.vid .orig,.media .orig,.ev-row .orig{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .row:not(.c) .orig{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .lead-orig{font-size:var(--text-small);margin-top:calc(var(--space-16) * -1)}
+  .sh-t{display:flex;flex-direction:column;gap:var(--space-4);min-width:0}
+  /* At 375px the lead's label moves under the logos instead of running past the tile's edge. */
+  .lead-top{flex-wrap:wrap}
+  .lead-label{flex:1 1 240px}
+  .lead-label .pill{white-space:normal;height:auto;min-height:28px;padding-block:var(--space-4);max-width:100%}
+  /* 1100-1599px: the nav needs the room, so the "since" pill drops its trailing words and keeps the count. */
+  @media (min-width: 1100px) and (max-width: 1599px){ .since-pill .w,.since-pill .w2{display:none} }
+}

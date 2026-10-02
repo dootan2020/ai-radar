@@ -40,6 +40,7 @@ EXCEPTIONS = {
     **dict.fromkeys(["cookie"], "từ mượn phổ biến cho tệp theo dõi của trình duyệt"),
     **dict.fromkeys(["bento", "keynote"], "tên riêng: tên ngôn ngữ thiết kế anh Tuấn đã chốt 02/10"),
     **dict.fromkeys(["be", "vietnam", "pro"], "tên riêng: họ phông chữ Be Vietnam Pro"),
+    **dict.fromkeys(["nllb", "cc", "by", "nc"], "tên riêng: mô hình dịch NLLB-200 và mã giấy phép CC-BY-NC 4.0"),
     # Acronyms, protocols, units and file formats with no Vietnamese form in use
     **dict.fromkeys(["api", "http", "rss", "xml", "css", "mcp", "rag", "gguf", "mib", "ics", "fsl", "spdx", "html", "json"],
                     "từ viết tắt kỹ thuật, định dạng hoặc đơn vị"),
@@ -306,21 +307,23 @@ if __name__ == "__main__":
         data = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
         # Original content (titles, summaries, repository names and descriptions, event and stream titles) is
         # allowed to stay as published; with the snapshot given, those strings are removed before the word rule.
+        # Their machine translations (title_vi, description_vi) are content too: names inside them stay as written.
         content = set()
         if len(sys.argv) == 4:
             snap = json.loads(Path(sys.argv[3]).read_text(encoding="utf-8"))
             for st in snap.get("stories", []):
-                content.update([st.get("title") or "", st.get("summary") or ""])
-                content.update(c.get("title") or "" for c in st.get("coverage", []))
+                content.update([st.get("title") or "", st.get("summary") or "", st.get("title_vi") or ""])
+                content.update(c.get(k) or "" for c in st.get("coverage", []) for k in ("title", "title_vi"))
             for r in snap.get("repos", []):
-                content.update([r.get("full_name") or "", r.get("description") or ""] + str(r.get("full_name") or "").split("/"))
+                content.update([r.get("full_name") or "", r.get("description") or "", r.get("description_vi") or ""]
+                               + str(r.get("full_name") or "").split("/"))
                 content.update(re.findall(r"`[^`]*`|\bbản \S+", r.get("why") or ""))
                 content.update(str(v) for v in (r.get("license"), (r.get("signals") or {}).get("release_tag"),
                                                 (r.get("signals") or {}).get("library_name")) if v)
             for e in snap.get("events", []):
                 content.update([e.get("title") or "", e.get("location") or ""])
             for v in snap.get("live", []):
-                content.update([v.get("title") or "", v.get("channel") or ""])
+                content.update([v.get("title") or "", v.get("channel") or "", v.get("title_vi") or ""])
         content = sorted((c.strip() for c in content if len(c.strip()) >= 2), key=len, reverse=True)
 
         def strip_content(text):
