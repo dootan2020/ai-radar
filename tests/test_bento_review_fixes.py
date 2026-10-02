@@ -216,6 +216,13 @@ class BentoStaticTests(unittest.TestCase):
         # Light and dark both define the monogram tint, as every other themed value does.
         self.assertEqual(tokens.count("--av-mono-bg:"), 3)
 
+    def test_repo_names_break_only_after_the_slash(self):
+        # Chrome gives no break opportunity after "/", so overflow-wrap:anywhere alone split "impecca|ble";
+        # every place that prints owner/name must offer <wbr> right after the slash.
+        app = (SITE / "app.js").read_text(encoding="utf-8")
+        self.assertEqual(app.count('${esc(own)}/</span><wbr>'), 3)
+        self.assertIn("esc(r.full_name).replace('/', '/<wbr>')", app)
+
 
 if __name__ == "__main__":
     unittest.main()

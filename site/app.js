@@ -178,10 +178,10 @@ function repoRow(r, o = {}){
   const [own, ...rest] = String(r.full_name).split('/');
   const name = rest.length ? rest.join('/') : own;
   if (o.compact) return `<button class="repo c${read.has(key) ? ' is-read' : ''}" data-repo="${esc(r.id)}" aria-pressed="${selected === key}">
-    ${avatar(faceOfRepo(r), 'sm')}<span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${rest.length ? `<span class="own">${esc(own)}/</span>` : ''}${esc(name)}</span><span class="k">${repoStars(r)}</span></span></button>`;
+    ${avatar(faceOfRepo(r), 'sm')}<span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${rest.length ? `<span class="own">${esc(own)}/</span><wbr>` : ''}${esc(name)}</span><span class="k">${repoStars(r)}</span></span></button>`;
   return `<button class="repo${o.compact ? ' c' : ''}${read.has(key) ? ' is-read' : ''}" data-repo="${esc(r.id)}" aria-pressed="${selected === key}">
     ${avatar(faceOfRepo(r), o.compact ? 'sm' : 'md')}
-    <span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${rest.length ? `<span class="own">${esc(own)}/</span>` : ''}${esc(name)}</span>
+    <span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${rest.length ? `<span class="own">${esc(own)}/</span><wbr>` : ''}${esc(name)}</span>
     <span class="why">${o.compact ? '' : `${labChip(r.label)} `}${esc(whyShort(r))}${r.license_flag ? ` · <span class="lic">${icon('i-warn')}${esc(r.license_flag)}</span>` : ''}</span></span>
     <span class="r">${repoStars(r)}</span></button>`;
 }
@@ -312,7 +312,7 @@ function repoTile(){
     ${tileHead('Repo lấy về dùng được', 'repo-h', `<a class="link" href="#repo"><span class="num">${list.length}</span> repo</a>`)}
     <button class="repo-hero${read.has(key) ? ' is-read' : ''}" data-repo="${esc(r.id)}" aria-pressed="${selected === key}">
       ${avatar(faceOfRepo(r), 'lg')}
-      <span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${rest.length ? `<span class="own">${esc(own)}/</span>` : ''}${esc(rest.join('/') || own)}</span>${labChip(r.label)}</span>
+      <span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${rest.length ? `<span class="own">${esc(own)}/</span><wbr>` : ''}${esc(rest.join('/') || own)}</span>${labChip(r.label)}</span>
     </button>
     ${Number.isFinite(r.stars) ? `<p class="keynote k-md"><b class="num" data-count="${r.stars}" data-v="${r.stars}">${fmt(r.stars)}</b><span>${unit}</span></p>` : ''}
     <p class="repo-why">${esc(whyShort(r))}${r.license_flag ? ` · <span class="lic">${icon('i-warn')}${esc(r.license_flag)}</span>` : ''}</p>
@@ -581,7 +581,7 @@ function detailRepo(r){
   const key = 'repo:' + r.id, sv = savedKey(key), cmd = installOf(r);
   const area = AREAS.find(a => a.id === r.category);
   const sig = r.signals && typeof r.signals === 'object' ? Object.entries(r.signals).filter(([, v]) => ['string', 'number', 'boolean'].includes(typeof v)) : [];
-  return `<div class="sh-head">${avatar(faceOfRepo(r), 'lg')}<h2>${esc(r.full_name)}</h2></div>
+  return `<div class="sh-head">${avatar(faceOfRepo(r), 'lg')}<h2>${esc(r.full_name).replace('/', '/<wbr>')}</h2></div>
     <p class="sum">${labChip(r.label)} ${area ? esc(area.label) : 'Chưa xếp mảng'}</p>
     ${Number.isFinite(r.stars) ? `<p class="keynote k-sm"><b class="num">${fmt(r.stars)}</b><span>${r.source === 'hf' ? 'lượt thích' : 'sao'}</span></p>` : ''}
     ${r.description ? `<p class="sum">${esc(r.description)}</p>` : ''}
