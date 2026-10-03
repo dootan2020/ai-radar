@@ -70,6 +70,58 @@ the observer visibly without guessing or creating a duplicate. Retry the
 observer after resolving that error. Issue ownership and branch markers keep
 human issues, pull requests, and other branches outside this lifecycle.
 
+## Live website health
+
+The independent [health monitor workflow](../.github/workflows/health-monitor.yml)
+checks the deployed site on a GitHub-hosted runner at minutes 13 and 43 of every
+hour (UTC). Use its **Run workflow** action for a manual observation. It does
+not collect data or deploy the site. The [monitor CLI](../radar/health_monitor.py)
+and [probe](../radar/health_probe.py) own the checks: homepage HTTP 200 and app
+markers, `data/radar.json` HTTP 200 with parseable JSON and the minimum UI shape,
+and availability of the main CSS/JavaScript files and local module dependencies.
+The snapshot's timezone-aware `generated_at` must not be in the future or more
+than three hours old; exactly three hours remains valid. The threshold comes
+from [publication policy](../radar/publication.py), not the remote snapshot.
+These are availability and snapshot checks; they do not execute JavaScript or
+guarantee that the page renders correctly in a browser.
+
+For a read-only check from the repository root, run:
+
+```sh
+python -m radar.health_monitor
+```
+
+It prints the measured checks and timestamps without requiring a token or
+changing issues. Exit `0` means healthy; exit `1` means confirmed failure,
+inconclusive probes, or a monitor/reporting error. The workflow adds `--report`
+to reconcile issues; an API failure in that mode also exits `1`. Keep that flag
+in the authorized workflow rather than adding it to a local diagnostic command.
+
+A failed probe is repeated after 30 seconds. Only check IDs that fail in both
+observations confirm an incident. An isolated transient does not open an issue;
+different failures with no shared failing ID are inconclusive and cannot close
+an existing incident. A wholly healthy observation establishes recovery.
+
+The [health reporter](../radar/health_alert.py) maintains a separate bot-owned
+live-health issue, independent of update-workflow failure issues. Confirmed
+failures create or update that issue without repeated comments; the issue body
+mentions the repository owner with `@`. Recovery closes matching bot-owned open
+health issues. Human issues and pull requests are outside
+this lifecycle. The workflow uses only the built-in `GITHUB_TOKEN`, with
+`contents: read` and `issues: write`; no personal token or additional secret is
+needed. Repository Issues must be enabled. Read the health workflow's own logs
+if issue reporting fails, and inspect the recorded failing checks and observation
+time before investigating collection or deployment.
+
+The operating target is an alert within about an hour of an outage, or within
+about an hour after snapshot age exceeds three hours. This is not an SLA:
+GitHub schedules can be delayed, dropped, or disabled, as described above. A
+monitor on the same provider cannot reliably detect its own absent scheduled
+runs or provider-wide unavailability. Issue creation does not prove notification
+delivery; maintainers' GitHub notification settings still apply, and issue edits
+may not generate another notification. Verify both a hosted observation and
+notification delivery before relying on the monitor operationally.
+
 ## Restore a previously deployed artifact
 
 This is a production action: obtain owner approval for the target run and the
