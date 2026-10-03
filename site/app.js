@@ -1,11 +1,11 @@
 /* ai·radar · renders data/radar.json (schema v2) as the "Bento Keynote" page (docs/ngon-ngu-thiet-ke.md).
    Plain ES modules, no framework, no build. Every data string passes through esc(); every link through safe().
    Each tile is one story: a source logo, one measured number, a label. A tile with no data hides or says so. */
-import { startLive } from './live.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
-import { streamedAge, scheduleText, TZ, hhmm, dayKey, ago, daysLeftHTML } from './time-text.js';
+import { streamedAge, scheduleText, TZ, hhmm, dayKey, eventRange, ago, daysLeftHTML } from './time-text.js';
 import { isSnapshotV2 } from './snapshot.js';
-import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, faceOfRepo, ytIdOf, hydrateHF, watchImageErrors, hourHistogram, ring, meter } from './faces.js';
+import { freshness, freshnessText } from './freshness.js';
+import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, faceOfRepo, ytIdOf, hydrateHF, watchImageErrors, hourHistogram, ring, meter, imgSrc, setDeferImages, loadDeferredImages } from './faces.js';
 import { KIND, METRIC, licenseText, SIGNALS, signalText } from './words.js';
 import { shown as viShown, origLine, uniqCoverage } from './titles.js';
 
@@ -41,6 +41,9 @@ const WINDOWS = [
 ];
 const TOTALS = [{id:'stars', label:'Theo sao', unit:'sao'}, {id:'forks', label:'Theo phân nhánh', unit:'lượt phân nhánh'}];
 const SNAPSHOT_EVERY_MS = 180_000;
+/* On a phone the lead's summary shows three lines and a "Đọc tiếp" button; a summary this short never needs it. */
+const LEAD_SUM_CLAMP = 90;
+let leadOpen = false;          // the reader opened the lead's summary; kept when the board re-renders
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/. */
 const qp = new URLSearchParams(location.search).get('data');
@@ -79,7 +82,8 @@ const expanded = new Set();
 const now = () => Date.now();
 /* Relative times stay honest while the tab is open: every <time data-ago> is refreshed each minute. */
 const timeEl = iso => iso ? `<time datetime="${esc(iso)}" data-ago="${esc(iso)}">${esc(ago(iso))}</time>` : 'không rõ thời gian';
-const exact = iso => iso ? new Intl.DateTimeFormat('vi-VN',{dateStyle:'medium',timeStyle:'short',timeZone:TZ}).format(new Date(iso)) : 'không rõ';
+const EXACT = new Intl.DateTimeFormat('vi-VN',{dateStyle:'medium',timeStyle:'short',timeZone:TZ});
+const exact = iso => iso ? EXACT.format(new Date(iso)) : 'không rõ';
 const dateOnly = ymd => { const [y,m,d] = ymd.split('-').map(Number); return {y,m,d}; };
 const daysUntil = ymd => { const t = dateOnly(ymd); return Math.round((Date.UTC(t.y,t.m-1,t.d) - new Date(dayKey(new Date()) + 'T00:00:00Z')) / 864e5); };
 
@@ -91,6 +95,10 @@ const tt = o => esc(viShown(o.title, o.title_vi));
 const orig = (o, cls) => origLine(o.title, o.title_vi, esc, cls);
 const covOf = st => uniqCoverage(st.coverage, srcName);
 const kindName = st => KIND[st.kind] || esc(st.kind);
+/* A story's kind reads at a glance as a small tag: its own shape beside its word, never colour alone. */
+const KIND_ICON = {model:'i-k-model', product:'i-k-product', research:'i-k-research', other:'i-k-article', paper:'i-k-paper',
+  podcast:'i-k-podcast', video:'i-play', forum:'i-k-forum', event:'i-cal', repository:'i-repo'};
+const kindTag = st => `<span class="kind" data-kind="${esc(st.kind)}">${icon(KIND_ICON[st.kind] || 'i-k-article')}${kindName(st)}</span>`;
 const faceSt = st => faceOfStory(st, SRC);
 const viewsOf = id => (D.views && D.views.by_story && Number.isFinite(D.views.by_story[id])) ? D.views.by_story[id] : null;
 const viewsEl = (n, id) => `<span class="views" title="Lượt xem trên ai-radar">${icon('i-eye')}<span class="num" data-views="${esc(id)}" data-v="${n}">${fmt(n)}</span><span class="sr"> lượt xem</span></span>`;
@@ -116,7 +124,7 @@ function measuredCov(st){
 }
 const ytId = ytIdOf;
 /* Only i.ytimg.com is allowed; feeds hand out i2/i3/i4 mirrors, so the same video id is rebuilt on i.ytimg.com. */
-const thumbImg = (id, alt = '') => `<img src="https://i.ytimg.com/vi/${esc(id)}/hqdefault.jpg" alt="${esc(alt)}" loading="lazy" decoding="async" width="480" height="270">`;
+const thumbImg = (id, alt = '') => `<img ${imgSrc(`https://i.ytimg.com/vi/${esc(id)}/hqdefault.jpg`)} alt="${esc(alt)}" loading="lazy" decoding="async" width="480" height="270">`;
 const isNew = st => !!st.published_at && st.published_at > lastSeen && new Date(st.published_at) <= now();
 const byNewest = (a, b) => (b.published_at || '').localeCompare(a.published_at || '');
 const ids = sec => (D.sections[sec] || []).map(id => S.get(id)).filter(Boolean);
@@ -228,7 +236,7 @@ function row(st, o = {}){
   return `<button class="row${o.compact ? ' c' : ''}${read.has(st.id) ? ' is-read' : ''}${arrived.has(st.id) ? ' arrive' : ''}"${arriveAttr(st.id)} data-sel="${esc(st.id)}" aria-pressed="${selected === st.id}">
     ${avatar(faceSt(st), o.compact ? 'sm' : 'md')}
     <span class="row-m"><span class="t">${savedKey(st.id) ? savedMark : ''}${isNew(st) ? newMark : ''}${tt(st)}</span>${orig(st)}
-    <span class="k"><span class="pub">${esc(pubOf(st))}</span> · ${kindName(st)}${st.source_count > 1 ? ` · <span class="num">${st.source_count}</span> nguồn` : ''}${v != null ? ` · ${viewsEl(v, st.id)}` : ''}</span></span>
+    <span class="k">${kindTag(st)}<span class="pub">${esc(pubOf(st))}</span>${st.source_count > 1 ? ` · <span class="num">${st.source_count}</span> nguồn` : ''}${v != null ? ` · ${viewsEl(v, st.id)}` : ''}</span></span>
     <span class="r">${right}</span></button>`;
 }
 const labChip = l => `<span class="lab ${esc(l)}">${esc(LABELS[l] || l)}</span>`;
@@ -265,20 +273,30 @@ function pickLead(){
   return {st, mode:'single', others: multi.filter(s => s !== st).sort(byNewest)};
 }
 
-function renderBoard(){
+/* split (first load only): the board gets the lead tile alone, and the other tiles' markup is returned so the caller
+   can add it after the lead has painted. On a phone the lead is the whole first screen. */
+function renderBoard(split = false){
   const board = $('#board');
   if (!D.stories.length) {
     board.innerHTML = `<div class="tile t-empty" role="status">${avatar({kind:'mono', id:'AR', label:'ai-radar'}, 'lg')}<h2>Bản tin này chưa có tin nào</h2><p class="muted">Dữ liệu tạo lúc ${esc(exact(D.generated_at))} không chứa tin. Trang không điền tin mẫu.</p></div>`;
     board.classList.remove('is-loading'); board.removeAttribute('aria-busy');
-    return;
+    return '';
   }
   arriveIdx = 0;
   const L = pickLead(), st = L.st;
   const shown = new Set([st.id]);
   const tiles = [leadTile(L), liveTile(shown), repoTile(), hotTile(shown), newTile(shown), listenTile(shown), modelTile(shown), sourcesTile()].filter(Boolean);
-  board.innerHTML = tiles.map((t, i) => t.replace('class="tile ', `style="--t:${i}" class="tile `)).join('');
+  const html = tiles.map((t, i) => t.replace('class="tile ', `style="--t:${i}" class="tile `));
+  board.innerHTML = split ? html[0] : html.join('');
   board.classList.remove('is-loading'); board.removeAttribute('aria-busy');
   hydrateVisible();
+  return split ? html.slice(1).join('') : '';
+}
+/* The "Đọc tiếp" button exists only while the summary is clamped and cut (phones); it hides once opened or when it fits. */
+function leadSumFit(){
+  const s = $('#lead-sum'), b = $('[data-lead-sum]');
+  if (!s || !b) return;
+  b.hidden = b.getAttribute('aria-expanded') !== 'true' && s.scrollHeight <= s.clientHeight + 1;
 }
 
 /* The lead: the day's most-covered story, or the hottest when no story has two sources. Its measured number is the keynote. */
@@ -295,10 +313,10 @@ function leadTile(L){
   const cov = st.source_count > 1 ? `<ul class="cov" aria-label="Các nguồn đưa chuyện này">${covOf(st).map(c => `<li>${avatar(faceOfSource(c, SRC), 'xs')}<span class="pub">${esc(srcName(c.source))}</span><span class="faint">${timeEl(c.published_at)}</span>${metricsHTML(c) ? `<span class="m">${metricsHTML(c)}</span>` : ''}<a class="go" href="${esc(safe(c.discussion_url || c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">${c.discussion_url ? 'Thảo luận' : 'Bài gốc'}</a></li>`).join('')}</ul>` : '';
   return `<article class="tile t-lead" aria-labelledby="lead-h">
     <div class="lead-top">${faces.length > 1 ? avatarStack(faces, 'lg') : avatar(faceSt(st), 'xl')}
-      <p class="lead-label" id="lead-h"><span class="pill pill-hot">${icon('i-flame')}${label}</span><span class="lead-src">${esc(pubOf(st))} · ${kindName(st)} · ${timeEl(st.published_at)}</span></p></div>
+      <p class="lead-label" id="lead-h"><span class="pill pill-hot">${icon('i-flame')}${label}</span><span class="lead-src">${kindTag(st)}${esc(pubOf(st))} · ${timeEl(st.published_at)}</span></p></div>
     <p class="keynote"><b class="num"${big.live ? ` data-live="${esc(big.live)}"` : ''} data-count="${big.n}" data-v="${big.n}">${fmt(big.n)}</b><span>${esc(big.unit)}</span></p>
-    <h3 class="lead-title-wrap"><button class="lead-title${read.has(st.id) ? ' is-read' : ''}" data-sel="${esc(st.id)}">${savedKey(st.id) ? savedMark : ''}${tt(st)}</button></h3>${orig(st, 'orig lead-orig')}
-    ${st.summary ? `<p class="lead-sum">${esc(st.summary)}</p>` : ''}
+    <h2 class="lead-title-wrap"><button class="lead-title${read.has(st.id) ? ' is-read' : ''}" data-sel="${esc(st.id)}">${savedKey(st.id) ? savedMark : ''}${tt(st)}</button></h2>${orig(st, 'orig lead-orig')}
+    ${st.summary ? `<p class="lead-sum${leadOpen ? ' is-open' : ''}" id="lead-sum">${esc(st.summary)}</p>${st.summary.length > LEAD_SUM_CLAMP ? `<button class="btn-quiet lead-sum-more" data-lead-sum aria-controls="lead-sum" aria-expanded="${leadOpen}">${leadOpen ? 'Thu gọn' : 'Đọc tiếp'}</button>` : ''}` : ''}
     ${sub}
     ${cov}
     <div class="lead-foot">
@@ -418,6 +436,7 @@ function newTile(shown){
     <div class="new-top"><p class="keynote k-md"><b class="num" data-count="${list.length}" data-v="${list.length}">${fmt(list.length)}</b><span>tin mới</span></p>
       <div class="new-hist">${hourHistogram(D.stories, D.generated_at, lastSeen)}<span class="hist-axis"><span>24 giờ trước</span><span>bây giờ</span></span></div></div>
     ${rows.length ? `<div class="stack">${rows.map(s => row(s, {compact:true})).join('')}</div>` : `<p class="empty-note">Không có tin nào mới từ lần bạn đánh dấu đã xem.</p>`}
+    <div class="new-foot"><button class="btn-quiet" id="mark" aria-keyshortcuts="M"${list.length ? '' : ' aria-disabled="true"'}>${icon('i-check')}${list.length ? 'Đánh dấu đã xem' : 'Đã xem hết'}</button></div>
   </section>`;
 }
 
@@ -466,7 +485,9 @@ function srcLiveText(){
 }
 
 /* HF avatars cost one API call per organisation, so only faces on screen are looked up. */
-function hydrateVisible(){ hydrateHF(document); }
+/* Until the first screen has painted and the page is idle, no third-party lookup competes with the snapshot. */
+let thirdPartyReady = false;
+function hydrateVisible(){ if (thirdPartyReady) hydrateHF(document); }
 
 /* ---------- chapters below the fold ---------- */
 function chapterList(c){
@@ -477,16 +498,28 @@ function chapterList(c){
   if (c.sec === 'listen') {
     const v = list.filter(s => ytId(s)).slice(0, 8), rest = list.filter(s => !ytId(s));
     return `<div class="vids">${v.map(s => `<button class="vid${read.has(s.id) ? ' is-read' : ''}" data-sel="${esc(s.id)}"><span class="thumb">${thumbImg(ytId(s), s.title)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${tt(s)}</span>${orig(s)}<span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
-      <div class="list" data-cap="6">${rest.map(s => row(s)).join('')}</div>`;
+      ${capList(c.id, 6, rest, s => row(s))}`;
   }
   if (c.sec === 'upcoming') {
-    return `<div class="list">${list.map(s => { const e = eventOf(s) || {}; const cal = calOf(s);
-      const r = row(s, {right: e.start_date ? esc(e.start_date === e.end_date ? e.start_date : `${e.start_date} đến ${e.end_date}`) : 'chưa rõ ngày'});
-      return cal ? `<div class="row-tools">${r}${calButtons(cal, `data-cal="${esc(s.id)}"`, String(s.title))}</div>` : r; }).join('')}</div>`;
+    // Each event is the row, then its calendar control under the title: side by side, the control took the
+    // title's width and the name broke one letter per line at 320-1024px.
+    return `<div class="list ev-list">${list.map(s => { const e = eventOf(s) || {}; const cal = calOf(s);
+      const r = row(s, {right: e.start_date ? esc(eventRange(e.start_date, e.end_date)) : 'chưa rõ ngày'});
+      return `<div class="ev-item">${r}${cal ? calButtons(cal, `data-cal="${esc(s.id)}"`, String(s.title)) : ''}</div>`; }).join('')}</div>`;
   }
   if (c.sec === 'hot') { const max = list[0].hot_score || 1;
-    return `<div class="list" data-cap="8">${list.map(s => row(s, {right: `<span class="score"><b class="num">${Math.round(s.hot_score)}</b>${meter(s.hot_score, max)}</span>`})).join('')}</div>`; }
-  return `<div class="list" data-cap="8">${list.map(s => row(s, {right: rowMeasure(s)})).join('')}</div>`;
+    return capList(c.id, 8, list, s => row(s, {right: `<span class="score"><b class="num">${Math.round(s.hot_score)}</b>${meter(s.hot_score, max)}</span>`})); }
+  return capList(c.id, 8, list, s => row(s, {right: rowMeasure(s)}));
+}
+/* Long lists start capped. Rows past the cap are not built until the reader asks ("Xem thêm"), so the first render
+   builds and lays out about 80 rows instead of 400. A list the reader opened stays open across re-renders. */
+const moreRows = new Map();   // chapter id -> () => markup of the rows past its cap
+let chapterRun = 0;           // the latest renderChapters call; an older progressive one stops
+function capList(owner, cap, items, draw){
+  const all = expanded.has(owner) || items.length <= cap;
+  if (all) moreRows.delete(owner);
+  else { const rest = items.slice(cap); moreRows.set(owner, Object.assign(() => rest.map(draw).join(''), {count: rest.length})); }
+  return `<div class="list" data-cap="${cap}">${(all ? items : items.slice(0, cap)).map(draw).join('')}</div>`;
 }
 /* Right-hand measure: the story's own counter when it has one, else its time. */
 function rowMeasure(s){
@@ -503,7 +536,7 @@ function repoChapter(){
     // No orderings in this snapshot: list measured repositories as they are, without inventing labels or ranks.
     const reps = D.stories.filter(s => s.kind === 'repository').sort((a, b) => (b.hot_score || 0) - (a.hot_score || 0));
     return `<p class="chips-note">Bản dữ liệu này chưa có bảng xếp hạng kho mã theo ngày, tuần, tháng, nên dưới đây là kho mã xếp theo điểm nóng, chưa gắn nhãn.</p>
-      ${reps.length ? `<div class="list" data-cap="8">${reps.map(s => row(s, {right: rowMeasure(s)})).join('')}</div>` : '<p class="empty-note">Bản này không có kho mã nào.</p>'}`;
+      ${reps.length ? capList('repo', 8, reps, s => row(s, {right: rowMeasure(s)})) : '<p class="empty-note">Bản này không có kho mã nào.</p>'}`;
   }
   const inList = ids.map(id => R.get(String(id))).filter(Boolean);
   const count = id => inList.filter(r => r.category === id).length;
@@ -514,14 +547,18 @@ function repoChapter(){
       ${AREAS.map(a => `<button class="chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${icon('i-check')}${esc(a.label)} <span class="n num">${count(a.id)}</span></button>`).join('')}
     </div>
     <p class="chips-note">${esc(repoListNote())} ${areas.size ? `Đang lọc ${areas.size} mảng, lưu trên máy này.` : 'Chưa chọn mảng nào, nên hiện mọi mảng.'}</p>
-    ${shown.length ? `<div class="list" data-cap="10">${shown.map(r => repoRow(r)).join('')}</div>`
+    ${shown.length ? capList('repo', 10, shown, r => repoRow(r))
       : `<p class="empty-note">${esc(gap || (areas.size ? 'Không có kho mã nào ở mảng đã chọn.' : 'Danh sách này chưa có kho mã nào.'))}${areas.size ? ' <button class="btn-quiet" data-area-clear>Hiện mọi mảng</button>' : ''}</p>`}`;
 }
+
+/* A chapter's heading carries its count as a quiet tail on the same line ("Hôm nay  37 tin"), so the number reads
+   as part of the title instead of a separate figure beside it. `aside` is already escaped. */
+const chHead = (id, title, count, aside) => `<header class="ch-h"><h2 id="h-${id}">${title} <span class="ch-c">${count}</span></h2><p class="aside">${aside}</p></header>`;
 
 function savedChapter(){
   if (!saved.length) return '';
   return `<section class="tile ch wide" id="da-luu" aria-labelledby="h-da-luu">
-    <header class="ch-h"><p class="ch-n"><b class="num">${saved.length}</b></p><div><h2 id="h-da-luu">Đã lưu</h2><p class="aside">Chỉ lưu trên máy này</p></div></header>
+    ${chHead('da-luu', 'Đã lưu', `<span class="num">${saved.length}</span> mục`, 'Chỉ lưu trên máy này')}
     <div class="list">${saved.slice().reverse().map(x => {
       const st = S.get(x.key), rp = x.key.startsWith('repo:') ? R.get(x.key.slice(5)) : null;
       const body = st ? row(st) : rp ? repoRow(rp)
@@ -542,41 +579,60 @@ function translationNote(){
   const t = D.translation;
   if (!t || typeof t !== 'object') return 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
   const done = Number.isFinite(t.translated) && t.translated > 0;
-  const base = done ? `Tiêu đề tiếng Việt là bản dịch máy bằng mô hình NLLB-200 (giấy phép CC-BY-NC 4.0, chỉ dùng phi thương mại); tiêu đề gốc nằm ngay dưới, kèm nhãn “dịch máy”.` : 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
+  const base = done ? `Tiêu đề tiếng Việt là bản dịch máy bằng mô hình NLLB-200 (giấy phép CC-BY-NC 4.0, chỉ dùng phi thương mại); tiêu đề gốc nằm ngay dưới, kèm nhãn “Translated”.` : 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
   const left = Number.isFinite(t.pending) && t.pending > 0 ? ` Còn ${nf.format(t.pending)} tiêu đề chưa dịch kịp, đang hiện bản gốc.` : '';
   return `${base}${t.error_vi ? ` ${esc(t.error_vi)}` : left}`;
 }
-function renderChapters(){
+/* progressive (first load only): one chapter per task, so no single task blocks input for long; every later re-render
+   (save, repository filters, a new snapshot) is synchronous because it restores focus right after. */
+async function renderChapters(progressive = false){
   const bad = D.sources.filter(s => !s.ok);
-  $('#chapters').innerHTML = `<h2 class="chap-title">Theo mục</h2>${savedChapter()}` + CHAPTERS.map(c => {
+  const parts = [`<h2 class="chap-title">Theo mục</h2>${savedChapter()}`, ...CHAPTERS.map(c => {
     const picks = c.sec === 'repo' && repoList() ? repoPicks() : null;
-    const n = c.sec === 'repo' ? (picks ? picks.length : D.stories.filter(s => s.kind === 'repository').length) : (D.sections[c.sec] || []).length;
+    const n = c.sec === 'repo' ? (picks ? picks.length : D.stories.filter(s => s.kind === 'repository').length) : ids(c.sec).length; // stories the chapter can show, not ids the snapshot lists
     const note = c.sec === 'repo' ? (picks ? `${viewOf(repoView).label} · ${repoView === 'stars' ? totalOf(repoTotal).label : winOf(repoWindow).label}` : 'Xếp theo điểm nóng, chưa có nhãn.') : c.note;
     return `<section class="tile ch ${c.wide ? 'wide' : ''}" id="${c.id}" aria-labelledby="h-${c.id}">
-      <header class="ch-h"><p class="ch-n"><b class="num">${n}</b><span>${c.sec === 'repo' ? 'kho mã' : 'tin'}</span></p><div><h2 id="h-${c.id}">${c.title}</h2><p class="aside">${esc(note)}</p></div></header>
+      ${chHead(c.id, c.title, `<span class="num">${n}</span> ${c.sec === 'repo' ? 'kho mã' : 'tin'}`, esc(note))}
       ${chapterList(c)}
-    </section>`; }).join('') + `
+    </section>`; }), `
     <section class="tile ch wide" id="nguon" aria-labelledby="h-nguon">
-      <header class="ch-h"><p class="ch-n"><b class="num">${D.sources.length - bad.length}</b><span>/${D.sources.length}</span></p><div><h2 id="h-nguon">Nguồn</h2><p class="aside">Nguồn chạy được lúc ${hhmm(new Date(D.generated_at))}. Mỗi nguồn kèm số tin lấy được.</p></div></header>
+      ${chHead('nguon', 'Nguồn', `<span class="num">${D.sources.length - bad.length}/${D.sources.length}</span> chạy được`, `Tình trạng lúc ${hhmm(new Date(D.generated_at))}. Mỗi nguồn kèm số tin lấy được.`)}
       <p class="src-sub">Đọc trực tiếp từ trình duyệt, mỗi 90 giây</p>
       <div class="srcgrid" id="live-rows">${liveRows()}</div>
       <p class="src-sub">Trong bản tin</p>
       <div class="srcgrid">${[...D.sources].sort((a, b) => a.ok - b.ok || b.count - a.count).map(s => `<div class="srow">${avatar(faceOfSource({source:s.id, lab:s.lab, publisher:s.publisher}, SRC), 'xs')}
         <span class="row-m"><a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.name)}</a>${s.error ? `<span class="err">${esc(s.error_vi || 'Không đọc được nguồn này')}</span>` : ''}</span><span class="tiny ${s.ok ? 'faint' : 'warn-t'} num">${s.ok ? `${s.count} tin` : 'lỗi'}</span></div>`).join('')}</div>
-    </section>`;
+    </section>`];
+  const box = $('#chapters'), run = ++chapterRun;
+  if (!progressive) box.innerHTML = parts.join('');
+  else {
+    box.innerHTML = '';
+    // A synchronous re-render (the reader saved a story mid-way) supersedes this one: stop appending stale parts.
+    for (const part of parts) { box.insertAdjacentHTML('beforeend', part); await nextTask(); if (run !== chapterRun) return; }
+  }
   // Long lists start capped and expand in place; a list the reader opened stays open when the page re-renders.
-  $$('[data-cap]').forEach(l => {
-    const cap = +l.dataset.cap, kids = [...l.children], owner = (l.closest('[id]') || {}).id;
-    if (kids.length <= cap || (owner && expanded.has(owner))) return;
-    kids.slice(cap).forEach(k => k.hidden = true);
-    const b = document.createElement('button'); b.className = 'btn-quiet expand'; b.textContent = `Xem thêm ${nf.format(kids.length - cap)}`;
-    b.addEventListener('click', () => { if (owner) expanded.add(owner); kids.forEach((k, i) => { k.hidden = false; if (i >= cap && !RM.matches) { k.classList.add('arrive'); k.style.setProperty('--i', Math.min(i - cap, 8)); } }); b.remove(); hydrateVisible(); });
+  $$('#chapters [data-cap]').forEach(l => {
+    const owner = (l.closest('[id]') || {}).id, rest = owner && moreRows.get(owner);
+    if (!rest || expanded.has(owner)) return;
+    const b = document.createElement('button'); b.className = 'btn-quiet expand'; b.textContent = `Xem thêm ${nf.format(rest.count)}`;
+    b.addEventListener('click', () => {
+      if (owner) expanded.add(owner);
+      moreRows.delete(owner);
+      const from = l.children.length;
+      l.insertAdjacentHTML('beforeend', rest());
+      const added = [...l.children].slice(from);
+      if (!RM.matches) added.forEach((k, i) => { k.classList.add('arrive'); k.style.setProperty('--i', Math.min(i, 8)); });
+      // The button goes away; keyboard focus moves to the first row it revealed instead of falling to the page.
+      const first = added[0] && (added[0].matches('button,a') ? added[0] : added[0].querySelector('button,a'));
+      b.remove(); if (first) first.focus({preventScroll:true});
+      hydrateVisible();
+    });
     l.after(b);
   });
   const views = D.views && Number.isFinite(D.views.total) ? `Lượt xem trên ai-radar đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie. ` : '';
   $('#foot').innerHTML = `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${D.ranking ? `Xếp hạng nóng: ${esc(D.ranking.description || 'xếp theo số đo của từng nguồn')}, cửa sổ ${esc(D.ranking.window_hours)} giờ${D.ranking.description && D.ranking.calibration ? `, hiệu chỉnh: ${esc(D.ranking.calibration)}` : ''}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.'} ${translationNote()} ${views}
     ${storageOk ? 'Mốc đã xem, tin đã đọc, tin đã lưu và mảng bạn chọn chỉ lưu trên máy này.' : 'Trình duyệt đang chặn bộ nhớ cục bộ, nên mốc đã xem, tin đã lưu và mảng bạn chọn chỉ giữ tới khi đóng trang.'}
-    <button class="btn-quiet" id="keys-open">Phím tắt (?)</button> <a class="btn-quiet" href="tokens.html">Ngôn ngữ thiết kế</a>`;
+    <button class="btn-quiet" id="keys-open">Phím tắt (?)</button>`;
   hydrateVisible();
 }
 
@@ -598,11 +654,19 @@ function renderChrome(){
   const g = new Date(D.generated_at);
   $('#when-line').innerHTML = `<span class="wd">${esc(new Intl.DateTimeFormat('vi-VN',{weekday:'long',day:'numeric',month:'numeric',timeZone:TZ}).format(g).replace(/^./, c => c.toUpperCase()))} · </span>cập nhật ${hhmm(g)}`;
   renderNav(counts);
-  $('#since').innerHTML = `<span class="since-pill"><strong class="num" id="since-n" data-v="0">0</strong> tin mới ${firstVisit ? '<span class="w2">trong 24 giờ</span><span class="w"> qua</span>' : '<span class="w2">từ lần trước</span>'}</span>
-    <button class="btn-quiet" id="mark" ${counts.total ? '' : 'disabled'}>${counts.total ? 'Đánh dấu đã xem' : 'Đã xem hết'}</button>`;
-  countTo($('#since-n'), counts.total);
   const tn = $('#tab-new'); tn.hidden = !counts.total; tn.textContent = counts.total > 99 ? '99+' : counts.total;
   renderSrcState();
+  renderStale();
+}
+/* Old data says so in words. Re-checked every minute while the tab stays open; rewritten only when the words change,
+   so a screen reader hears it once. */
+function renderStale(){
+  const el = $('#stale'); if (!el || !D) return;
+  const text = freshnessText(freshness(D.generated_at, D.sources), D.generated_at);
+  if (el.dataset.text === text) return;
+  el.dataset.text = text;
+  el.hidden = !text;
+  el.innerHTML = text ? `${icon('i-warn')}<span>${esc(text)}</span>` : '';
 }
 function renderSrcState(){
   const bad = D.sources.filter(s => !s.ok).length;
@@ -618,16 +682,19 @@ function renderSrcState(){
 }
 
 /* Numbers that change count over 600ms (ease-out) and get a short wash; reduced motion or off-screen: change at once. */
-function countTo(el, to){
+const onScreen = el => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; };
+/* `visible` may be measured by the caller for a whole batch: reading every position first and writing after costs one
+   layout, where a read after each write cost one layout per number (seven in the first render). */
+function countTo(el, to, visible){
   if (!el) return;
   const from = Number(el.dataset.v || 0);
   el.dataset.v = to;
-  const visible = (() => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; })();
-  if (RM.matches || from === to || !visible) { el.textContent = fmt(to); return; }
+  if (RM.matches || from === to || !(visible ?? onScreen(el))) { el.textContent = fmt(to); return; }
   const t0 = performance.now(), dur = 600;
   const step = t => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = fmt(from + (to - from) * e); if (p < 1) requestAnimationFrame(step); };
   requestAnimationFrame(step);
-  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  // Restart the wash on the next frame instead of forcing a layout here to restart it now.
+  el.classList.remove('flash'); requestAnimationFrame(() => el.classList.add('flash'));
 }
 
 /* ---------- detail sheet ---------- */
@@ -636,12 +703,12 @@ function detailStory(st){
   const sig = st.hot_signals && st.hot_signals.measurement;
   const cov = [...covOf(st)].sort((a, b) => (a.published_at || '').localeCompare(b.published_at || ''));
   const sv = savedKey(st.id);
-  return `<div class="sh-head">${avatar(faceSt(st), 'lg')}<div class="sh-t"><h2>${tt(st)}</h2>${orig(st)}</div></div>
+  return `<div class="sh-head">${avatar(faceSt(st), 'lg')}<div class="sh-t"><h2 id="sheet-h">${tt(st)}</h2>${orig(st)}</div></div>
     ${id ? `<span class="thumb">${thumbImg(id, st.title)}</span>` : ''}
     ${st.summary ? `<p class="sum">${esc(st.summary)}</p>` : ''}
     ${st.hot_score != null ? `<div class="sh-score">${ring(st.hot_score, 'Điểm nóng')}<p>Nóng vì ${reasonHTML(st)}</p></div>` : ''}
     <dl class="facts">
-      <dt>Loại</dt><dd>${kindName(st)}</dd>
+      <dt>Loại</dt><dd>${kindTag(st)}</dd>
       <dt>Thời gian</dt><dd>${ev ? `${esc(ev.start_date)}${ev.end_date !== ev.start_date ? ` đến ${esc(ev.end_date)}` : ''} (chỉ có ngày)` : `${esc(exact(st.published_at))}${st.time_basis === 'repository_created' ? ' (ngày tạo kho mã, không phải ngày phát hành)' : ''}`}</dd>
       ${ev ? `<dt>Địa điểm</dt><dd>${esc(ev.location || 'chưa rõ')}</dd><dt>Xác minh</dt><dd>${esc(ev.verified_at)}</dd>` : ''}
       <dt>Số nguồn</dt><dd class="num">${st.source_count}</dd>
@@ -668,7 +735,7 @@ function detailRepo(r){
     ? SIGNALS.map(([k, label]) => [label, signalText(k, r.signals[k])]).filter(([, v]) => v != null) : [];
   const gained = WINDOWS.map(w => { const g = r.stars_gained ? r.stars_gained[w.id] : null;
     return `${w.label}: ${Number.isFinite(g) ? `<span class="num">+${fmt(g)}</span>` : '<span class="faint">chưa đo</span>'}`; }).join(' · ');
-  return `<div class="sh-head">${avatar(faceOfRepo(r), 'lg')}<h2>${esc(r.full_name).replace('/', '/<wbr>')}</h2></div>
+  return `<div class="sh-head">${avatar(faceOfRepo(r), 'lg')}<h2 id="sheet-h">${esc(r.full_name).replace('/', '/<wbr>')}</h2></div>
     <p class="sum">${labChip(r.label)} ${area ? esc(area.label) : 'Chưa xếp mảng'}</p>
     ${Number.isFinite(r.stars) ? `<p class="keynote k-sm"><b class="num">${fmt(r.stars)}</b><span>${r.source === 'hf' ? 'lượt thích' : 'sao'}</span></p>` : ''}
     ${r.description ? `<p class="sum">${esc(viShown(r.description, r.description_vi))}${origLine(r.description, r.description_vi, esc)}</p>` : ''}
@@ -710,20 +777,32 @@ function open(key, trigger, fromHash = false){
   $('#sheet-k').textContent = it.kind === 'repo' ? `Kho mã · ${it.r.source === 'hf' ? 'Hugging Face' : 'GitHub'}` : `${KIND[it.st.kind] || it.st.kind} · ${pubOf(it.st)}`;
   body.innerHTML = it.kind === 'repo' ? detailRepo(it.r) : detailStory(it.st);
   body.scrollTop = 0;
-  hydrateHF(body);
+  if (thirdPartyReady) hydrateHF(body);
   if (wasOpen && !RM.matches) { body.classList.remove('swap'); void body.offsetWidth; body.classList.add('swap'); }
   sheet.classList.add('on'); sheet.setAttribute('aria-hidden', 'false'); sheet.inert = false;
+  backgroundInert(true);
   $('#scrim').classList.add('on');
   $$('[aria-pressed][data-sel],[aria-pressed][data-repo]').forEach(b => b.setAttribute('aria-pressed', (b.dataset.sel || 'repo:' + b.dataset.repo) === key ? 'true' : 'false'));
   markRead(key); if (it.kind === 'story') opened.add(key);
   const h = '#tin/' + encodeURIComponent(key);
   if (!fromHash && location.hash !== h) { if (wasOpen && pushed) history.replaceState({sheet:1}, '', h); else { history.pushState({sheet:1}, '', h); pushed = true; } }
-  $('#sheet-x').focus({preventScroll:true});
+  focusSheet();
+}
+/* The sheet is a modal dialog: while it is open the page behind it is inert, so Tab and a screen reader stay inside. */
+const BACKGROUND = ['.skip', '#bar', '#fresh', 'main', '#tabs'];
+function backgroundInert(on){ BACKGROUND.forEach(s => { const el = $(s); if (el) el.inert = on; }); }
+/* Focus lands on the close button. The sheet turns visible in the same frame it opens, but in case the browser has
+   not applied that yet, try once more on the next frame rather than leave focus on the page behind. */
+function focusSheet(){
+  const x = $('#sheet-x');
+  x.focus({preventScroll:true});
+  if (document.activeElement !== x) requestAnimationFrame(() => { if (selected) x.focus({preventScroll:true}); });
 }
 function closeUI(){
   selected = null;
   const sheet = $('#sheet');
   sheet.classList.remove('on'); sheet.setAttribute('aria-hidden', 'true'); sheet.inert = true;
+  backgroundInert(false);
   $('#scrim').classList.remove('on');
   $$('[aria-pressed="true"][data-sel],[aria-pressed="true"][data-repo]').forEach(b => b.setAttribute('aria-pressed', 'false'));
   // The trigger may have been re-rendered (saving redraws the board): fall back to the same story's new element.
@@ -769,7 +848,7 @@ function toggleSave(key){
   keepFocus(() => {
     renderNav(navCounts(D)); renderChapters(); observeChapters();
     if (selected) { const b = $(`#sheet-body [data-save="${CSS.escape(selected)}"]`); if (b) { const on = savedKey(selected); b.setAttribute('aria-pressed', on); b.innerHTML = `${icon('i-save')}${on ? 'Đã lưu' : 'Lưu đọc sau'}`; } }
-    renderBoard();
+    renderBoard(); leadSumFit();
   });
 }
 function addToCalendar(ev){
@@ -813,7 +892,8 @@ function applyLive(updates){
 async function pollSnapshot(){
   if (document.hidden || !D) return;
   try {
-    const r = await fetch(DATA_URL, {cache:'no-store'});
+    // Revalidate (304 when unchanged) instead of re-downloading 300 KB every three minutes.
+    const r = await fetch(DATA_URL, {cache:'no-cache'});
     if (!r.ok) return;
     const j = await r.json();
     if (!isSnapshotV2(j) || j.generated_at <= D.generated_at) return;
@@ -822,7 +902,6 @@ async function pollSnapshot(){
     $('#fresh').innerHTML = `<button class="fresh-btn" id="fresh-go">${icon('i-up')}${fresh ? `<span><span class="num">${fresh}</span> tin mới</span>` : '<span>Số liệu vừa cập nhật</span>'} · Xem</button>`;
     // Counts in the bar update now, with no reflow of what the reader is looking at.
     const c = navCounts(j);
-    countTo($('#since-n'), c.total);
     renderNav(c);
     const tn = $('#tab-new'); tn.hidden = !c.total; tn.textContent = c.total > 99 ? '99+' : c.total;
   } catch { /* a failed poll keeps the current snapshot; the next poll tries again */ }
@@ -872,7 +951,7 @@ document.addEventListener('keydown', e => {
   else if (k === 's' || k === 'S') { const c = current(); if (c) toggleSave(c); }
   else if (k === 'l' || k === 'L') { const it = itemOf(current()); const cal = it && it.kind === 'story' ? calOf(it.st) : null; if (cal) addToCalendar(cal); else if (it) toast('Tin này không có lịch để thêm'); }
   else if (k === 'u' || k === 'U') { if (pending) applyPending(); else toast('Chưa có tin mới. Trang tự kiểm mỗi 3 phút'); }
-  else if (k === 'm' || k === 'M') { const b = $('#mark'); if (b && !b.disabled) b.click(); }
+  else if (k === 'm' || k === 'M') { const b = $('#mark'); if (b && b.getAttribute('aria-disabled') !== 'true') b.click(); }
   else if (k === 'g' || k === 'G') { scrollTo({top:0, behavior: RM.matches ? 'auto' : 'smooth'}); }
   else if (k === '?') { e.preventDefault(); $('#keys').showModal(); }
 });
@@ -896,9 +975,20 @@ function spy(){
 }
 function observeChapters(){ spy(); }
 
-function renderAll(){ renderChrome(); renderBoard(); renderChapters(); observeChapters();
-  const b = $('#board'); b.classList.remove('ready'); void b.offsetWidth; b.classList.add('ready');
-  $$('#board [data-count]').forEach(c => { c.dataset.v = 0; countTo(c, Number(c.dataset.count)); }); }
+function renderAll(){ renderFirstScreen(); renderChapters(); observeChapters(); }
+function renderFirstScreen(){ renderChrome(); renderBoard(); startBoard(); }
+/* Entrance and count-ups for the board's tiles; `later` = only the tiles added after the lead on first load. */
+function startBoard(later = false){
+  const b = $('#board');
+  if (!later) {
+    // Restarting the entrance needs a reflow between removing and re-adding the class; the first render has none to restart.
+    if (b.classList.contains('ready')) { b.classList.remove('ready'); void b.offsetWidth; } b.classList.add('ready');
+  }
+  // Reads first (positions, the summary's height), writes after: one layout for the whole batch.
+  const nums = $$(later ? '#board > .tile:not(:first-child) [data-count]' : '#board [data-count]'), vis = nums.map(onScreen);
+  if (!later) leadSumFit();
+  nums.forEach((c, i) => { c.dataset.v = 0; countTo(c, Number(c.dataset.count), vis[i]); });
+}
 
 /* ---------- events ---------- */
 document.addEventListener('click', e => {
@@ -913,11 +1003,19 @@ document.addEventListener('click', e => {
   const rc = t.closest('button[data-repo-view],button[data-repo-window],button[data-repo-total]');
   if (rc) { const k = ['repoView', 'repoWindow', 'repoTotal'].find(k => rc.dataset[k] != null); setRepo(k.slice(4).toLowerCase(), rc.dataset[k]); return; }
   if (t.closest('#fresh-go')) { applyPending(); return; }
-  if (t.closest('#mark')) { store.set('air2:lastSeen', D.generated_at); lastSeen = D.generated_at; firstVisit = false; renderAll(); toast('Đã đánh dấu đã xem hết'); return; }
+  if (t.closest('#mark')) {
+    if (t.closest('#mark').getAttribute('aria-disabled') === 'true') return;
+    store.set('air2:lastSeen', D.generated_at); lastSeen = D.generated_at; firstVisit = false; renderAll();
+    // The tile is redrawn; keep keyboard focus on its (now "Đã xem hết") button instead of dropping it to <body>.
+    const m = $('#mark'); if (m) m.focus({preventScroll:true});
+    toast('Đã đánh dấu đã xem hết'); return;
+  }
   if (t.closest('#keys-open')) { $('#keys').showModal(); return; }
   if (t.closest('#keys-x')) { $('#keys').close(); return; }
   if (t.closest('#theme')) { toggleTheme(); return; }
   if (t.closest('#scrim')) { close(); return; }
+  const ls = t.closest('[data-lead-sum]');
+  if (ls) { const on = leadOpen = ls.getAttribute('aria-expanded') !== 'true'; ls.setAttribute('aria-expanded', String(on)); ls.textContent = on ? 'Thu gọn' : 'Đọc tiếp'; $('#lead-sum').classList.toggle('is-open', on); return; }
   const rd = t.closest('a[data-read]'); if (rd) { markRead(rd.dataset.read); return; }
   const b = t.closest('[data-sel],[data-repo]');
   if (b && !t.closest('a') && (b.dataset.sel || b.dataset.repo != null)) { e.preventDefault(); open(keyOf(b), b); }
@@ -936,7 +1034,7 @@ function rerenderRepos(){
   const attr = a && ['area', 'repoView', 'repoWindow', 'repoTotal'].find(k => a.dataset && a.dataset[k] != null);
   const scope = a && a.closest('#board') ? '#board' : '#chapters';
   const value = attr ? a.dataset[attr] : null;
-  renderBoard(); renderChapters(); observeChapters();
+  renderBoard(); leadSumFit(); renderChapters(); observeChapters();
   scrollTo(0, y);
   if (attr) {
     const name = 'data-' + attr.replace(/[A-Z]/g, c => '-' + c.toLowerCase());
@@ -947,9 +1045,10 @@ function rerenderRepos(){
 $('#sheet-x').addEventListener('click', close);
 $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
 addEventListener('scroll', spy, {passive:true});
-addEventListener('resize', spy);
+let fitQueued = false;
+addEventListener('resize', () => { spy(); if (!fitQueued) { fitQueued = true; requestAnimationFrame(() => { fitQueued = false; leadSumFit(); }); } });
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => applyTheme(store.get('air2:theme', null)));
-setInterval(() => $$('[data-ago]').forEach(el => { el.textContent = ago(el.dataset.ago); }), 60_000);
+setInterval(() => { $$('[data-ago]').forEach(el => { el.textContent = ago(el.dataset.ago); }); renderStale(); }, 60_000);
 
 /* ---------- start ---------- */
 function showError(msg){
@@ -961,17 +1060,39 @@ watchImageErrors();
 applyTheme(store.get('air2:theme', null));
 /* Only the page's own messages are shown; a browser's error text (English, technical) becomes one plain sentence. */
 const pageError = msg => Object.assign(new Error(msg), {vi: true});
-fetch(DATA_URL, {cache:'no-store'}).then(r => { if (!r.ok) throw pageError(`Máy chủ trả mã HTTP ${r.status} khi tải ${DATA_URL}`); return r.json(); }).then(j => {
+/* First screen first. The board renders as soon as the snapshot is parsed; the chapters below the fold render once
+   that frame has painted; third-party calls (live counters, Hugging Face avatars) wait until the page is idle, so
+   nothing competes with the snapshot. The request itself started in index.html (<link rel="preload">), and this
+   fetch takes it over: same URL and mode, default cache (GitHub Pages serves it with max-age=600). */
+const nextTask = () => new Promise(r => setTimeout(r, 0));
+const afterPaint = () => new Promise(r => requestAnimationFrame(() => setTimeout(r, 0)));
+const whenIdle = () => new Promise(r => {
+  const go = () => 'requestIdleCallback' in window ? requestIdleCallback(() => r(), {timeout: 3000}) : setTimeout(r, 1000);
+  if (document.readyState === 'complete') go(); else addEventListener('load', go, {once: true});
+});
+fetch(DATA_URL).then(r => { if (!r.ok) throw pageError(`Máy chủ trả mã HTTP ${r.status} khi tải ${DATA_URL}`); return r.json(); }).then(async j => {
   if (!isSnapshotV2(j)) throw pageError('Tệp dữ liệu không đúng định dạng phiên bản 2');
-  D = j; build(); renderAll();
+  await nextTask();   // parsing 2 MB of JSON is one task; rendering the board is the next one
+  D = j; build();
+  setDeferImages(true);
+  renderChrome(); const rest = renderBoard(true); startBoard();
+  await afterPaint();
+  if (rest) { $('#board').insertAdjacentHTML('beforeend', rest); startBoard(true); }
+  setDeferImages(false);
   const m = /^#tin\/(.+)$/.exec(location.hash); if (m) open(decodeURIComponent(m[1]), null, true);
-  else if (location.hash.length > 1) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
+  await afterPaint();
+  loadDeferredImages();
+  await renderChapters(true); observeChapters();
+  if (!m && location.hash.length > 1) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
+  setInterval(pollSnapshot, SNAPSHOT_EVERY_MS);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) pollSnapshot(); });
+  await whenIdle();
+  thirdPartyReady = true; hydrateVisible(); hydrateHF($('#sheet-body'));
+  const { startLive } = await import('./live.js');
   startLive({
     getStories: () => D.stories,
     priority: hnId => { const st = D.stories.find(s => (s.coverage || []).some(c => (c.discussion_url || '').endsWith('=' + hnId))); return st ? (st.hot_score || 0) : 0; },
     onUpdates: applyLive,
     onStatus: st => { liveState = st; renderSrcState(); const lr = $('#live-rows'); if (lr) lr.innerHTML = liveRows(); },
   });
-  setInterval(pollSnapshot, SNAPSHOT_EVERY_MS);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) pollSnapshot(); });
 }).catch(err => showError(err && err.vi ? err.message : 'Không tải hoặc không dựng được tệp dữ liệu của bản tin'));

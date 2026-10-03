@@ -1,6 +1,6 @@
 # Ngôn ngữ thiết kế ai-radar: Bento Keynote
 
-Anh Tuấn chốt kiểu "Bento kiểu Apple" lúc 22:57 ngày 02/10. Bản này viết theo tư thế **Keynote**: ít ô, ô lớn, số to. Token nằm ở `site/tokens.css`. Mọi token và mọi trạng thái component được trình bày ở `site/tokens.html`.
+Anh Tuấn chốt kiểu "Bento kiểu Apple" lúc 22:57 ngày 02/10. Bản này viết theo tư thế **Keynote**: ít ô, ô lớn, số to. Token nằm ở `site/tokens.css`. Mọi token và mọi trạng thái component được trình bày ở `design/tokens.html` (trang nội bộ, không đưa lên web).
 
 ## Tính cách
 Giống một slide keynote của Apple. Mỗi sáng, người đọc mở trang và thấy vài ô lớn. Mỗi ô kể một chuyện bằng một con số. Trang yên, sáng và tự tin, chỉ nói ít điều nhưng điều nào cũng có số đo đi kèm. Trang này không phải tờ báo, cũng không phải dashboard.

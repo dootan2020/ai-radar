@@ -1,5 +1,5 @@
 /* The Vietnamese words the page shows for machine values in data/radar.json (kinds, metric keys, licenses,
-   measured repository signals). One place, shared by app.js and tokens.js, read by tests/test_vietnamese_ui.py.
+   measured repository signals). One place, shared by app.js and design/tokens.js, read by tests/test_vietnamese_ui.py.
    Pure (no DOM). */
 
 export const KIND = {model:'Mô hình', product:'Sản phẩm', research:'Nghiên cứu', other:'Bài viết', paper:'Bài báo khoa học',

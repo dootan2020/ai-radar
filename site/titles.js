@@ -7,10 +7,12 @@ const viOf = (orig, vi) => (typeof vi === 'string' && vi.trim() && vi.trim() !==
 /* The line a reader reads first: the Vietnamese when there is one, otherwise the original. */
 export const shown = (orig, vi) => viOf(orig, vi) || String(orig == null ? '' : orig);
 
-/* The small line under a translated title: the original, labelled as a machine translation. Empty when untranslated. */
+/* The small line under a translated title: the original, labelled as a machine translation. Empty when untranslated.
+   The chip reads "Translated", in Google Translate's colours (owner, 03/10 17:49); a screen reader hears the
+   Vietnamese sentence beside it instead. */
 export function origLine(orig, vi, esc, cls = 'orig'){
   if (!viOf(orig, vi)) return '';
-  return `<span class="${cls}" lang="en"><span class="mt">dịch máy</span>${esc(String(orig))}</span>`;
+  return `<span class="${cls}" lang="en"><span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span><span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span>${esc(String(orig))}</span>`;
 }
 
 /* One entry per publisher: two feeds of the same site (Hacker News front page and its AI search) report the

@@ -12,8 +12,12 @@ export function streamedAge(text){
 
 /* Clock and calendar day as read in Vietnam, whatever the reader's machine timezone. */
 export const TZ = 'Asia/Ho_Chi_Minh';
-export const hhmm = d => new Intl.DateTimeFormat('vi-VN', {hour:'2-digit', minute:'2-digit', timeZone:TZ}).format(d);
-export const dayKey = d => new Intl.DateTimeFormat('en-CA', {timeZone:TZ}).format(d);
+/* Formatters are built once: constructing an Intl.DateTimeFormat per call cost ~10 ms of the first render on a phone. */
+const HHMM = new Intl.DateTimeFormat('vi-VN', {hour:'2-digit', minute:'2-digit', timeZone:TZ});
+const DAY = new Intl.DateTimeFormat('en-CA', {timeZone:TZ});
+const DATE = new Intl.DateTimeFormat('vi-VN', {day:'numeric', month:'numeric', year:'numeric', timeZone:TZ});
+export const hhmm = d => HHMM.format(d);
+export const dayKey = d => DAY.format(d);
 
 /* A published time as the page words it. Under 24 hours it counts hours; from 24 hours on it counts calendar days,
    so "Hôm qua" only ever means the previous calendar day (24 hours back is always at least one day back). */
@@ -27,13 +31,24 @@ export function ago(iso, nowMs = Date.now()){
   const days = Math.round((new Date(dayKey(new Date(nowMs))) - new Date(dayKey(d))) / 864e5);
   if (days <= 1) return `Hôm qua, ${hhmm(d)}`;
   if (days < 7) return `${days} ngày trước`;
-  return new Intl.DateTimeFormat('vi-VN', {day:'numeric', month:'numeric', year:'numeric', timeZone:TZ}).format(d);
+  return DATE.format(d);
 }
 
 /* Days until an event, as a row reads it: "còn N ngày" ahead, "hôm nay" on the day, "đang diễn ra" once started. */
 export function daysLeftHTML(n){
   if (!Number.isFinite(n)) return '';
   return n > 0 ? `còn <span class="num">${n}</span> ngày` : n === 0 ? 'hôm nay' : 'đang diễn ra';
+}
+
+/* An event's verified dates as a row reads them: "16 tháng 10", "6–12 tháng 12", "30 tháng 11 – 2 tháng 12".
+   Takes the YYYY-MM-DD strings from events[]; anything else is printed as given rather than guessed. */
+export function eventRange(start, end){
+  const p = s => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ''); return m ? {y: +m[1], m: +m[2], d: +m[3]} : null; };
+  const a = p(start), b = p(end);
+  if (!a) return start ? String(start) : 'chưa rõ ngày';
+  if (!b || end === start) return `${a.d} tháng ${a.m}`;
+  if (a.y === b.y && a.m === b.m) return `${a.d}–${b.d} tháng ${a.m}`;
+  return `${a.d} tháng ${a.m} – ${b.d} tháng ${b.m}${a.y !== b.y ? ` năm ${b.y}` : ''}`;
 }
 
 /* "Scheduled for 10/5/26, 9:00 PM" keeps YouTube's own date and clock and says the timezone is unknown. */

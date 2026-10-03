@@ -195,13 +195,13 @@ class BentoReviewFixTests(unittest.TestCase):
 
 class BentoStaticTests(unittest.TestCase):
     def test_tokens_page_sets_theme_before_first_paint(self):
-        html = (SITE / "tokens.html").read_text(encoding="utf-8")
+        html = (ROOT / "design" / "tokens.html").read_text(encoding="utf-8")
         script = html.find("localStorage.getItem('air2:theme')")
         self.assertGreater(script, 0)
         self.assertLess(script, html.find('<link rel="stylesheet"'))
 
     def test_tokens_page_tolerates_empty_coverage(self):
-        js = (SITE / "tokens.js").read_text(encoding="utf-8")
+        js = (ROOT / "design" / "tokens.js").read_text(encoding="utf-8")
         self.assertNotIn("coverage[0]", js)
 
     def test_component_literals_live_in_tokens(self):

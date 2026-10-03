@@ -2,9 +2,9 @@
    Components are built with the same faces.js pieces and the same class names the page ships, from data/radar.json.
    Forced states: every :hover / :focus-visible / :active rule in styles.css is copied to .is-hover / .is-focus /
    .is-active, so a state shown here is the page's own rule, never a showcase copy that could drift. */
-import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, faceOfRepo, hydrateHF, watchImageErrors, hourHistogram, ring, meter } from './faces.js';
-import { gcalURL } from './calendar.js';
-import { KIND } from './words.js';
+import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, faceOfRepo, hydrateHF, watchImageErrors, hourHistogram, ring, meter } from '../site/faces.js';
+import { gcalURL } from '../site/calendar.js';
+import { KIND } from '../site/words.js';
 
 const $ = s => document.querySelector(s);
 const icon = id => `<svg class="i" aria-hidden="true"><use href="#${id}"/></svg>`;
@@ -151,5 +151,5 @@ function components(D){
 watchImageErrors();
 typeScale(); spaceScale(); motionScale();
 swatches($('#sw-light')); swatches($('#sw-dark'));
-fetch('data/radar.json', {cache:'no-store'}).then(r => r.json()).then(D => { components(D); forceStates(); })
+fetch('../site/data/radar.json', {cache:'no-cache'}).then(r => r.json()).then(D => { components(D); forceStates(); })
   .catch(e => { $('#comp').innerHTML = `<p class="empty-note">Không đọc được tệp <code>data/radar.json</code>. Trang trình bày không dùng dữ liệu mẫu.</p>`; forceStates(); });

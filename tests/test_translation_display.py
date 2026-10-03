@@ -71,7 +71,11 @@ class TranslationDisplayTests(unittest.TestCase):
 
     def test_original_line_is_labelled_and_escaped(self):
         labelled, untranslated, same, lead = self.out["orig"]
-        self.assertEqual(labelled, '<span class="orig" lang="en"><span class="mt">dịch máy</span>'
+        # The chip reads "Translated" (owner, 03/10 17:49) and is hidden from screen readers, which hear the
+        # Vietnamese sentence beside it.
+        self.assertEqual(labelled, '<span class="orig" lang="en"><span class="mt" aria-hidden="true" '
+                                   'title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span>'
+                                   '<span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span>'
                                    'A &lt;b&gt;bold&lt;/b&gt; title</span>')
         self.assertEqual(untranslated, "")
         self.assertEqual(same, "")

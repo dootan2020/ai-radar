@@ -38,6 +38,9 @@
   --green-78: oklch(0.80 0.13 155);
   --amber-47: oklch(0.48 0.11 65);
   --amber-80: oklch(0.82 0.12 75);
+  /* Google Translate's own chip colours, for the "Translated" label (owner, 03/10 17:49): Google Blue 700 on Blue 50,
+     and Blue 300 on a deep blue at night. Text contrast 4.68:1 and 5.44:1. */
+  --gt-blue-700: #1967d2; --gt-blue-50: #e8f0fe; --gt-blue-300: #8ab4f8; --gt-blue-night: #283a57;
 
   --family: "Be Vietnam Pro", -apple-system, "Segoe UI", system-ui, sans-serif;
   --family-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;   /* install commands */
@@ -74,6 +77,8 @@
   --color-accent-wash: oklch(0.50 0.20 256 / 0.10);
   --color-live: var(--red-55);
   --color-live-wash: oklch(0.52 0.21 27 / 0.10);
+  --color-mt-ink: var(--gt-blue-700);
+  --color-mt-bg: var(--gt-blue-50);
   --color-ok: var(--green-45);
   --color-ok-wash: oklch(0.45 0.12 155 / 0.12);
   --color-warn: var(--amber-47);
@@ -155,6 +160,8 @@
   --color-accent-wash: oklch(0.74 0.14 252 / 0.16);
   --color-live: var(--red-70);
   --color-live-wash: oklch(0.70 0.18 27 / 0.18);
+  --color-mt-ink: var(--gt-blue-300);
+  --color-mt-bg: var(--gt-blue-night);
   --color-ok: var(--green-78);
   --color-ok-wash: oklch(0.80 0.13 155 / 0.14);
   --color-warn: var(--amber-80);
@@ -182,6 +189,8 @@
     --color-accent-wash: oklch(0.74 0.14 252 / 0.16);
     --color-live: var(--red-70);
     --color-live-wash: oklch(0.70 0.18 27 / 0.18);
+    --color-mt-ink: var(--gt-blue-300);
+    --color-mt-bg: var(--gt-blue-night);
     --color-ok: var(--green-78);
     --color-ok-wash: oklch(0.80 0.13 155 / 0.14);
     --color-warn: var(--amber-80);

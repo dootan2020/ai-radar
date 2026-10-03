@@ -23,16 +23,28 @@
 <meta name="twitter:title" content="ai·radar · Tin AI hôm nay">
 <meta name="twitter:description" content="Tin AI mỗi sáng, lọc bằng số đo thật: chuyện nóng nhất, kho mã AI đang lên, buổi phát trực tiếp và sự kiện sắp tới.">
 <meta name="twitter:image" content="https://dootan2020.github.io/ai-radar/og-image.png">
-<script>
-  /* Apply the reader's saved theme before first paint, so a dark-mode reader never sees a light flash. */
-  try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
+<link rel="canonical" href="https://dootan2020.github.io/ai-radar/">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Everything the page loads, and nothing else. GitHub Pages cannot send headers, so the policy lives here.
+     script: the page's own modules and the one inline script below, by hash (kept on one line so the hash is the
+     same with LF or CRLF line endings). style: inline style attributes carry per-element values (--t, --mono-h).
+     img: source logos (GitHub, Hugging Face) and YouTube thumbnails. connect: the snapshot, the live counters
+     (Hacker News via Algolia, Hugging Face) and Hugging Face avatar lookups. tests/test_page_head.py checks the hash. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c='; style-src 'self' 'unsafe-inline'; img-src 'self' https://avatars.githubusercontent.com https://cdn-avatars.huggingface.co https://i.ytimg.com; font-src 'self'; connect-src 'self' https://hn.algolia.com https://huggingface.co; object-src 'none'; base-uri 'self'; form-action 'none';">
+<!-- Apply the reader's saved theme before first paint, so a dark-mode reader never sees a light flash. -->
+<script>try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<!-- The snapshot is the page's only content: fetch it while the HTML is still parsing, not after the module graph. -->
+<link rel="preload" href="data/radar.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="styles.css">
 <script type="module" src="app.js"></script>
+<link rel="modulepreload" href="faces.js">
+<link rel="modulepreload" href="time-text.js">
+<link rel="modulepreload" href="words.js">
+<link rel="modulepreload" href="titles.js">
+<link rel="modulepreload" href="calendar.js">
+<link rel="modulepreload" href="snapshot.js">
+<link rel="modulepreload" href="freshness.js">
 </head>
 <body>
 <a class="skip" href="#board">Bỏ qua tới nội dung</a>
@@ -54,13 +66,20 @@
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.5"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
+  <!-- Story kinds: one shape per kind, always beside its word (words.js KIND). -->
+  <symbol id="i-k-model" viewBox="0 0 24 24"><path d="M12 3.5l7.5 4.2v8.6L12 20.5l-7.5-4.2V7.7zM4.5 7.7L12 12l7.5-4.3M12 12v8.5"/></symbol>
+  <symbol id="i-k-product" viewBox="0 0 24 24"><path d="M5.5 8.5h13l-1 11h-11zM9 8.5V7a3 3 0 0 1 6 0v1.5"/></symbol>
+  <symbol id="i-k-research" viewBox="0 0 24 24"><path d="M9.5 3.5h5M10.5 3.5v6L5 19a1 1 0 0 0 .9 1.5h12.2A1 1 0 0 0 19 19l-5.5-9.5v-6M7.5 15h9"/></symbol>
+  <symbol id="i-k-article" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/></symbol>
+  <symbol id="i-k-paper" viewBox="0 0 24 24"><path d="M6 3.5h8l4 4v13H6zM14 3.5v4h4M9 12h6M9 15.5h6"/></symbol>
+  <symbol id="i-k-podcast" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="10" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v3.5M9 20.5h6"/></symbol>
+  <symbol id="i-k-forum" viewBox="0 0 24 24"><path d="M4.5 6a1.5 1.5 0 0 1 1.5-1.5h9A1.5 1.5 0 0 1 16.5 6v6A1.5 1.5 0 0 1 15 13.5H9l-3.5 3v-3H6A1.5 1.5 0 0 1 4.5 12zM16.5 9H18a1.5 1.5 0 0 1 1.5 1.5V16H18v2.5L15 16h-3.5a1.5 1.5 0 0 1-1.3-.8"/></symbol>
 </svg>
 
 <header class="bar" id="bar">
   <a class="brand" href="#top" aria-label="ai radar, về đầu trang">ai<b>·</b>radar</a>
   <span class="when-line" id="when-line"></span>
   <nav class="nav" id="nav" aria-label="Các mục"></nav>
-  <div class="since" id="since"></div>
   <a class="src-state" href="#nguon" id="src-state"></a>
   <button class="theme" id="theme" aria-pressed="false" aria-label="Chuyển sang nền tối"><svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg></button>
 </header>
@@ -69,6 +88,7 @@
 
 <main id="top">
   <h1 class="sr">ai-radar, bản tin AI hôm nay</h1>
+  <p class="stale" id="stale" role="status" hidden></p>
   <!-- Skeleton drawn in HTML so the first paint already has the bento's shape; app.js replaces it. -->
   <section class="board is-loading" id="board" tabindex="-1" aria-label="Màn hình đầu" aria-busy="true">
     <div class="tile t-lead sk-tile">
@@ -98,7 +118,7 @@
 </nav>
 
 <div class="scrim" id="scrim" aria-hidden="true"></div>
-<aside class="sheet" id="sheet" aria-label="Chi tiết" aria-hidden="true" inert>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Chi tiết" aria-labelledby="sheet-h" aria-hidden="true" inert>
   <div class="sheet-top"><span class="k" id="sheet-k">Chi tiết</span><button class="icon-btn" id="sheet-x" aria-label="Đóng chi tiết (Esc)"><svg class="i"><use href="#i-close"/></svg></button></div>
   <div class="sheet-body" id="sheet-body"></div>
 </aside>

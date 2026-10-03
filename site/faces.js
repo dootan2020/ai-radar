@@ -1,5 +1,5 @@
 /* ai·radar · the visual pieces every tile is built from: source logos (avatars), measured charts.
-   Shared by app.js (the page) and tokens.js (the showcase), so the showcase renders the markup the page ships.
+   Shared by app.js (the page) and design/tokens.js (the showcase), so the showcase renders the markup the page ships.
    Nothing here invents an image or a number:
    - a logo is a GitHub or Hugging Face avatar derived from a real owner or organisation in the data, or a
      YouTube thumbnail; with none of those, a monogram of the publisher's own name;
@@ -61,6 +61,16 @@ export function faceOfRepo(r){
   return {kind: r.source === 'hf' ? 'hf' : 'gh', id: owner, label: owner};
 }
 
+/* While the page draws its first screen it holds image addresses in data-src, so logos and thumbnails never compete
+   with the snapshot for the connection; app.js calls loadDeferredImages() once that screen has painted. The box,
+   its size and its monogram are there from the start, so nothing moves when the image arrives. */
+let deferImages = false;
+export const setDeferImages = on => { deferImages = !!on; };
+export const imgSrc = url => `${deferImages ? 'data-src' : 'src'}="${url}"`;
+export function loadDeferredImages(root = document){
+  root.querySelectorAll('img[data-src]').forEach(img => { img.src = img.dataset.src; img.removeAttribute('data-src'); });
+}
+
 /* size: xs | sm | md | lg | xl. Every face carries its monogram, so a broken image falls back without a reflow. */
 const PX = {xs:20, sm:28, md:40, lg:56, xl:72};
 export function avatar(face, size = 'md'){
@@ -68,9 +78,9 @@ export function avatar(face, size = 'md'){
   const mono = esc(face.kind === 'mono' ? face.id : monogram(face.label || face.id));
   const style = ` style="--mono-h:${monoHue(face.label || face.id)}"`;
   if (face.kind === 'mono') return `<span class="av av-${size} is-fallback" data-mono="${mono}"${style} role="img" aria-label="${esc(face.label || '')}"></span>`;
-  if (face.kind === 'gh') return `<span class="av av-${size}" data-mono="${mono}"${style}><img class="av-img" src="https://avatars.githubusercontent.com/${esc(face.id)}?s=${px * 2}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="${px}" height="${px}"></span>`;
+  if (face.kind === 'gh') return `<span class="av av-${size}" data-mono="${mono}"${style}><img class="av-img" ${imgSrc(`https://avatars.githubusercontent.com/${esc(face.id)}?s=${px * 2}`)} alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="${px}" height="${px}"></span>`;
   const cached = hfCache.get(face.id);
-  return `<span class="av av-${size}${cached === null ? ' is-fallback' : ''}" data-mono="${mono}" data-hf="${esc(face.id)}"${style}>${cached ? `<img class="av-img" src="${esc(cached)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="${px}" height="${px}">` : ''}</span>`;
+  return `<span class="av av-${size}${cached === null ? ' is-fallback' : ''}" data-mono="${mono}" data-hf="${esc(face.id)}"${style}>${cached ? `<img class="av-img" ${imgSrc(esc(cached))} alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="${px}" height="${px}">` : ''}</span>`;
 }
 /* Several sources as one overlapping stack. */
 export function avatarStack(faces, size = 'sm'){
