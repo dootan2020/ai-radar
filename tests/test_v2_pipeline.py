@@ -114,6 +114,23 @@ class PipelineV2Tests(unittest.TestCase):
         self.assertEqual(result["stories"], [])
         self.assertTrue(all(not section for section in result["sections"].values()))
 
+    def test_published_snapshot_carries_content_while_measurement_baseline_does_not(self):
+        old = self.build()
+        self.assertEqual(len(old["stories"]), 1)
+        story_id = old["stories"][0]["id"]
+        self.sources = []
+        # Measurement baseline only (previous): nothing republished
+        baseline_only = self.build(previous=old)
+        self.assertEqual(baseline_only["stories"], [])
+        self.assertNotIn(story_id, [s["id"] for s in baseline_only["stories"]])
+        # Published snapshot (published): story is carried
+        published_carried = self.build(published=old)
+        self.assertEqual(len(published_carried["stories"]), 1)
+        self.assertEqual(published_carried["stories"][0]["id"], story_id)
+        self.assertTrue(published_carried["stories"][0].get("carried"))
+
+
+
     def test_legacy_snapshot_is_not_advertised_as_a_measurement_baseline(self):
         previous = self.build() | {"schema_version": 1, "generated_at": "2026-10-02T11:00:00Z"}
         result = self.build(previous=previous)

@@ -85,15 +85,17 @@ def sections(stories, now):
     return result
 
 
-def finish(payload, coverage, events, now, previous, fetcher=None):
+def finish(payload, coverage, events, now, previous, published=None, fetcher=None):
     from radar.clustering import cluster_items
     from radar.curation import curate_repos
     from radar.ranking import rank_stories
+    from radar.retention import retain_stories
 
     # The full RSS observations, before v1 URL dedupe, retain media and coverage.
     legacy_payload = dict(payload, updates=[], hf_releases=[])
     items = coverage + legacy_items(legacy_payload, now) + event_items(events, now)
-    stories = rank_stories(cluster_items(items, now), now, previous)
+    fresh_stories = cluster_items(items, now)
+    stories = rank_stories(retain_stories(fresh_stories, published, now), now, previous)
     baseline = instant(previous.get("generated_at")) if isinstance(previous, dict) else None
     if (not baseline or previous.get("schema_version") != 2 or not isinstance(previous.get("stories"), list)
             or not 0 < (now - baseline).total_seconds() <= 48 * 3600):
