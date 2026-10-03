@@ -636,8 +636,9 @@
   .stale .i{color:var(--color-warn);margin-top:2px}
 
 
-  /* Lead summary: three lines and "Đọc tiếp" on a phone; the button never shows on wider screens. */
-  .lead-sum-more{display:none}
+  /* The disclosure adds no boxes to the wide-screen flex layout: its children keep their original gaps. */
+  .lead-details{display:contents}
+  .lead-disclosure{display:none}
 
   /* Story kind: a neutral tag with its own shape, so "Thảo luận", "Mô hình", "Bài viết" differ at a glance by icon
      and word, never by colour alone. Same fill as the other chips; the word in ink-2, the shape in full ink. */
@@ -660,11 +661,28 @@
     .src-state .w{display:none}
   }
 
-  /* Phone lead: the same blocks, packed tighter, so the second tile starts sooner. */
+  /* Phone lead: the complete headline and its measured context first, supporting information one tap away. */
   @media (max-width: 767px){
-    .t-lead{gap:var(--space-16)}
-    .lead-sum:not(.is-open){display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-    .lead-sum-more{display:inline-flex;align-self:flex-start;margin:calc(var(--space-12) * -1) 0 0 calc(var(--space-12) * -1)}
+    .t-lead{gap:var(--space-12)}
+    .t-lead .lead-top{gap:var(--space-12);align-items:flex-start;flex-wrap:nowrap}
+    .t-lead .lead-top .av{width:var(--av-sm);height:var(--av-sm);font-size:var(--av-text-sm)}
+    .t-lead .lead-label{flex:1 1 0;gap:var(--space-8)}
+    .t-lead .lead-label .pill{font-size:var(--text-micro);padding:var(--space-4) var(--space-8)}
+    .t-lead .lead-label .pill .i{flex:none}
+    .t-lead .lead-src{overflow-wrap:anywhere}
+    .t-lead .keynote{margin-top:0;column-gap:var(--space-8)}
+    .t-lead .keynote b{font-size:var(--num-md)}
+    .t-lead .keynote span{font-size:var(--text-small)}
+    .t-lead .lead-title-wrap{font-size:var(--text-tile);line-height:var(--leading-snug);text-wrap:pretty}
+    .t-lead .lead-title{min-height:var(--btn-h)}
+    .lead-disclosure{display:flex;align-items:center;justify-content:space-between;gap:var(--space-8)}
+    .lead-toggle{gap:var(--space-8);margin-left:auto;min-height:var(--btn-h);font-size:var(--text-small)}
+    .lead-toggle .i{width:var(--space-16);height:var(--space-16);transition:transform var(--motion-state) var(--ease-flow)}
+    .lead-toggle[aria-expanded="true"] .i{transform:rotate(45deg)}
+    .t-lead .lead-details{display:none}
+    .t-lead.is-expanded .lead-details{display:flex;flex-direction:column;gap:var(--space-16);padding-top:var(--space-16);border-top:1px solid var(--color-hair)}
+    .lead-details .lead-orig{margin-top:0}
+    .lead-details .lead-sum{font-size:var(--text-body)}
     .cov{gap:var(--space-4)}
     .cov li{display:grid;grid-template-columns:auto minmax(0, 1fr) auto;align-items:center;column-gap:var(--space-8);row-gap:0;padding:var(--space-4) var(--space-4) var(--space-4) var(--space-12)}
     .cov li > .av{grid-column:1;grid-row:1}

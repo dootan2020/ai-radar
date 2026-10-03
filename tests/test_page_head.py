@@ -163,11 +163,12 @@ class RenderedFixWiringTests(unittest.TestCase):
         self.assertIn("freshnessText(freshness(D.generated_at, D.sources), D.generated_at)", self.app)
         self.assertIn("renderStale(); }, 60_000);", self.app)
 
-    def test_phone_lead_keeps_its_summary_behind_a_button(self):
+    def test_phone_lead_keeps_supporting_details_behind_a_button(self):
         self.assertIn('<h2 class="lead-title-wrap">', self.app)
         self.assertNotIn("<h3", self.app)
-        self.assertIn('data-lead-sum aria-controls="lead-sum" aria-expanded="${leadOpen}"', self.app)
-        self.assertIn(".lead-sum:not(.is-open){display:-webkit-box;-webkit-line-clamp:3", self.css)
+        self.assertIn('data-lead-details="${esc(st.id)}" aria-controls="lead-details" aria-expanded="${leadOpen}"', self.app)
+        self.assertIn('.t-lead .lead-details{display:none}', self.css)
+        self.assertIn('.t-lead.is-expanded .lead-details{display:flex', self.css)
 
     def test_long_lists_build_only_the_rows_they_show(self):
         self.assertIn("function capList(owner, cap, items, draw){", self.app)
