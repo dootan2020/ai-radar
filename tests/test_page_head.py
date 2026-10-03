@@ -7,8 +7,10 @@ the pieces from silently disappearing.
 """
 
 from pathlib import Path
+from html.parser import HTMLParser
 import base64
 import hashlib
+import json
 import re
 import unittest
 
@@ -30,6 +32,17 @@ def csp_directives(html):
         if words:
             out[words[0]] = words[1:]
     return out
+
+
+class ScriptSources(HTMLParser):
+    def __init__(self, html):
+        super().__init__()
+        self.sources = []
+        self.feed(html)
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "script":
+            self.sources.extend(value for name, value in attrs if name == "src")
 
 
 class PageHeadTests(unittest.TestCase):
@@ -60,6 +73,46 @@ class PageHeadTests(unittest.TestCase):
         # Ends with ";": security software that appends its own directives (Kaspersky's web scan does, measured on
         # this machine) then adds a new directive instead of polluting form-action 'none'.
         self.assertTrue(re.search(r'<meta http-equiv="Content-Security-Policy" content="[^"]+;">', self.html))
+
+    def test_reader_has_one_cloudflare_module_after_the_policy(self):
+        scripts = re.findall(r"<script\b([^>]*)>([\s\S]*?)</script>", self.html)
+        beacons = [(attrs, body) for attrs, body in scripts if "cloudflareinsights.com" in attrs]
+        self.assertEqual(len(beacons), 1)
+        attrs, body = beacons[0]
+        self.assertIn("type='module'", attrs)
+        self.assertIn("src='https://static.cloudflareinsights.com/beacon.min.js'", attrs)
+        config = json.loads(re.search(r"data-cf-beacon='([^']+)'", attrs).group(1))
+        self.assertEqual(set(config), {"token"})
+        self.assertRegex(config["token"], r"^[a-f0-9]{32}$")
+        # Pin the owner's public site tag without repeating its value in assertion failures.
+        self.assertEqual(hashlib.sha256(config["token"].encode()).hexdigest(),
+                         "ac50ff27adef59eaf1754c2f483debe1e7045b503e0486ea84015ad83590749f")
+        self.assertEqual(body, "")
+        self.assertEqual(self.html.count("data-cf-beacon="), 1)
+        self.assertIn(attrs, self.head)
+        self.assertLess(self.head.index('http-equiv="Content-Security-Policy"'), self.head.index(attrs))
+        self.assertLess(self.head.index('src="app.js"'), self.head.index(attrs))
+        self.assertLess(self.head.rindex('rel="modulepreload"'), self.head.index(attrs))
+
+    def test_reader_loads_no_other_script_sources(self):
+        self.assertEqual(ScriptSources(self.html).sources, [
+            "app.js", "https://static.cloudflareinsights.com/beacon.min.js",
+        ])
+
+    def test_cloudflare_permissions_do_not_broaden_script_or_connection_sources(self):
+        inline = re.search(r"<script>([\s\S]*?)</script>", self.html).group(1)
+        digest = base64.b64encode(hashlib.sha256(inline.encode("utf-8")).digest()).decode()
+        self.assertEqual(set(self.csp["script-src"]), {
+            "'self'", f"'sha256-{digest}'", "https://static.cloudflareinsights.com/beacon.min.js",
+        })
+        self.assertEqual(set(self.csp["connect-src"]), {
+            "'self'", "https://hn.algolia.com", "https://huggingface.co", "https://cloudflareinsights.com",
+        })
+
+    def test_cloudflare_is_only_on_reader_pages(self):
+        for path in (SITE / "brand" / "index.html", ROOT / "design" / "tokens.html"):
+            self.assertNotIn("cloudflareinsights.com", read(path), path)
+            self.assertNotIn("data-cf-beacon", read(path), path)
 
     def test_every_host_the_code_calls_is_allowed(self):
         js = {name: read(SITE / name) for name in ("app.js", "faces.js", "live.js")}

@@ -161,6 +161,35 @@ browser timer suspension can delay when that state appears. A maintainer's expli
 `?data=data/<file>.json` has the same deadline but no implicit fallback. Failed
 background polls keep the last displayed snapshot and retry on the next poll.
 
+## Reader traffic and performance
+
+The [reader head](../site/index.html) embeds the owner's official Cloudflare Web
+Analytics module once. Its CSP permits only the exact beacon script URL and
+`https://cloudflareinsights.com` reporting origin in addition to existing sources.
+The brand and design showcases are excluded. Cloudflare documents that usage
+metrics do not use cookies or localStorage and do not collect personal data:
+[privacy](https://developers.cloudflare.com/web-analytics/about/) and
+[Core Web Vitals](https://developers.cloudflare.com/web-analytics/data-metrics/core-web-vitals/).
+
+In Cloudflare, open **Web Analytics > dootan2020.github.io** and inspect traffic,
+**Page load time**, and **Core Web Vitals**. Filter paths to `/ai-radar/` because
+the hostname can serve other projects. Traffic measures visits/page views;
+performance metrics describe observed browser loads, not the collection schedule.
+See [dashboard setup](https://developers.cloudflare.com/web-analytics/get-started/).
+
+After an approved deployment, open the reader with browser Network and Console
+panels. Confirm the beacon script loads without a CSP error and a report reaches
+`https://cloudflareinsights.com/cdn-cgi/rum`; switch tabs after loading to trigger
+the first hidden-state Core Web Vitals report. Then check the dashboard with the
+matching time/path filter. Ad blockers or network failures can prevent reports;
+a successful script request alone does not prove dashboard ingestion. The health
+monitor ignores external assets and cannot verify analytics. Provider details:
+[CSP](https://developers.cloudflare.com/web-analytics/faq/#what-do-i-need-to-add-to-my-content-security-policy-csp)
+and [collection timing](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/).
+
+To remove analytics, remove the snippet and its two CSP allowances together,
+update the head tests, run offline CI, and obtain approval before publishing.
+
 ## Restore a previously deployed artifact
 
 This is a production action: obtain owner approval for the target run and the

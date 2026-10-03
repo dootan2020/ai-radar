@@ -29,8 +29,9 @@
      script: the page's own modules and the one inline script below, by hash (kept on one line so the hash is the
      same with LF or CRLF line endings). style: inline style attributes carry per-element values (--t, --mono-h).
      img: source logos (GitHub, Hugging Face) and YouTube thumbnails. connect: the snapshot, the live counters
-     (Hacker News via Algolia, Hugging Face) and Hugging Face avatar lookups. tests/test_page_head.py checks the hash. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c='; style-src 'self' 'unsafe-inline'; img-src 'self' https://avatars.githubusercontent.com https://cdn-avatars.huggingface.co https://i.ytimg.com; font-src 'self'; connect-src 'self' https://hn.algolia.com https://huggingface.co; object-src 'none'; base-uri 'self'; form-action 'none';">
+     (Hacker News via Algolia, Hugging Face) and Hugging Face avatar lookups. Cloudflare Web Analytics uses only
+     its beacon script and reporting origin. tests/test_page_head.py checks the hash and analytics permissions. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c=' https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; img-src 'self' https://avatars.githubusercontent.com https://cdn-avatars.huggingface.co https://i.ytimg.com; font-src 'self'; connect-src 'self' https://hn.algolia.com https://huggingface.co https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';">
 <!-- Apply the reader's saved theme before first paint, so a dark-mode reader never sees a light flash. -->
 <script>try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <!-- The snapshot is the page's only content: fetch it while the HTML is still parsing, not after the module graph. -->
@@ -45,6 +46,7 @@
 <link rel="modulepreload" href="calendar.js">
 <link rel="modulepreload" href="snapshot.js">
 <link rel="modulepreload" href="freshness.js">
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9e0e7831b103411d848691a0223eb54c"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 <a class="skip" href="#board">Bỏ qua tới nội dung</a>
