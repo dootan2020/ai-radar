@@ -26,6 +26,9 @@ def inspect_projection_row(key, row):
     name = "id" if key == "hf_releases" else "full_name" if key == "repos" else "title"
     if not isinstance(row.get(name), str) or not row[name].strip() or not web_url(row.get("url")):
         raise ValueError(f"invalid {key} name or URL")
+    if key == "tool_updates":
+        from radar.tool_validation import inspect_tool_update
+        inspect_tool_update(row)
     if key in ("hf_releases", "repos") and row.get("created_at") is not None and instant(row["created_at"]) is None:
         raise ValueError(f"invalid {key} creation timestamp")
     if key == "live":
@@ -49,12 +52,16 @@ def inspect_projection_row(key, row):
 
 
 def inspect_projections(payload):
-    for key in PROJECTIONS:
+    for key in projection_keys(payload):
         rows = payload.get(key, [])
         if not isinstance(rows, list):
             raise ValueError(f"invalid {key} records")
         for row in rows:
             inspect_projection_row(key, row)
+
+
+def projection_keys(payload):
+    return PROJECTIONS + (("tool_updates",) if isinstance(payload, dict) and "tool_updates" in payload else ())
 
 
 def prepare_publication(payload, previous, now):
@@ -63,10 +70,10 @@ def prepare_publication(payload, previous, now):
     Only individual projection rows are disposable. Broken containers and the
     story/source graph still reach the strict whole-snapshot validator.
     """
-    dropped = dict.fromkeys(PROJECTIONS, 0)
+    dropped = dict.fromkeys(projection_keys(payload), 0)
     candidate = dict(payload) if isinstance(payload, dict) else payload
     if isinstance(candidate, dict):
-        for key in PROJECTIONS:
+        for key in projection_keys(candidate):
             if not isinstance(candidate.get(key), list):
                 continue
             retained = []
@@ -101,6 +108,9 @@ def inspect_snapshot(payload):
     if not isinstance(trending, dict) or any(not isinstance(trending.get(key), list) for key in ("github", "huggingface")):
         raise ValueError("invalid trending sections")
     inspect_projections(payload)
+    if "tool_updates_meta" in payload:
+        from radar.tool_validation import inspect_tool_meta
+        inspect_tool_meta(payload["tool_updates_meta"])
     identities, active = set(), {}
     for row in payload["sources"]:
         if not isinstance(row, dict):
@@ -117,7 +127,9 @@ def inspect_snapshot(payload):
             continue
         if not web_url(row.get("url")):
             raise ValueError("active remote source missing URL")
-        active[id_] = row["ok"]
+        # Optional tool evidence has its own health metadata, not a news veto.
+        if row.get("group") != "tool":
+            active[id_] = row["ok"]
     story_ids = set()
     for story in payload["stories"]:
         if not isinstance(story, dict):

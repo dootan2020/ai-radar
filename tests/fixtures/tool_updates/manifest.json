@@ -1,0 +1,79 @@
+[
+  {
+    "file": "claude-code.atom",
+    "url": "https://github.com/anthropics/claude-code/releases.atom",
+    "captured_at": "2026-10-03T11:50:02.656720+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  },
+  {
+    "file": "claude-code-changelog.md",
+    "url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
+    "captured_at": "2026-10-03T11:50:02.657290+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  },
+  {
+    "file": "codex.atom",
+    "url": "https://github.com/openai/codex/releases.atom",
+    "captured_at": "2026-10-03T11:50:02.657626+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  },
+  {
+    "file": "codex-changelog.html",
+    "url": "https://developers.openai.com/codex/changelog",
+    "captured_at": "2026-10-03T11:50:02.657940+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  },
+  {
+    "file": "gemini-cli.atom",
+    "url": "https://github.com/google-gemini/gemini-cli/releases.atom",
+    "captured_at": "2026-10-03T11:50:02.658264+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  },
+  {
+    "file": "ollama.atom",
+    "url": "https://github.com/ollama/ollama/releases.atom",
+    "captured_at": "2026-10-03T11:50:02.658590+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  },
+  {
+    "file": "cursor.xml",
+    "url": "https://cursor.com/changelog/rss.xml",
+    "captured_at": "2026-10-03T11:50:02.791926+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  },
+  {
+    "file": "copilot.xml",
+    "url": "https://github.blog/changelog/label/copilot/feed/",
+    "captured_at": "2026-10-03T11:50:02.792073+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  },
+  {
+    "file": "vscode.xml",
+    "url": "https://code.visualstudio.com/feed.xml",
+    "captured_at": "2026-10-03T11:50:02.792181+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  },
+  {
+    "file": "antigravity.html",
+    "url": "https://antigravity.google/changelog",
+    "captured_at": "2026-10-03T11:50:02.792285+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  },
+  {
+    "file": "antigravity-docs.html",
+    "url": "https://www.antigravity.google/docs/changelog",
+    "captured_at": "2026-10-03T11:50:02.792504+00:00",
+    "status": null,
+    "error": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>"
+  }
+]
