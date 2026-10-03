@@ -484,6 +484,8 @@ def main(argv=None):
     parser.add_argument("--gemini-cache", help="defaults to translations-gemini-vi.json beside --cache")
     parser.add_argument("--gemini-ledger", help="defaults to translation-gemini-attempts.json beside --cache")
     parser.add_argument("--budget", type=float, default=float(os.environ.get("RADAR_TRANSLATE_BUDGET") or DEFAULT_BUDGET))
+    parser.add_argument("--previous", default=os.environ.get("RADAR_PREVIOUS_SNAPSHOT"),
+                        help="defaults to RADAR_PREVIOUS_SNAPSHOT env or None")
     args = parser.parse_args(argv)
     if args.budget <= 0:
         parser.error("--budget must be positive")
@@ -493,6 +495,12 @@ def main(argv=None):
     if companion in {Path(path).resolve() for path in (args.input, args.cache, gemini_path, ledger_path)}:
         parser.error("page projection must differ from input, translation caches and ledger")
     payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
+    previous = None
+    if args.previous:
+        try:
+            previous = json.loads(Path(args.previous).read_text(encoding="utf-8"))
+        except Exception:
+            previous = None
     cache = load_cache(args.cache)
     gemini_cache = gemini.load_cache(gemini_path)
     before, gemini_before = dict(cache), dict(gemini_cache)
@@ -503,7 +511,7 @@ def main(argv=None):
     try:
         stats, alive = translation_pipeline.translate_payload(
             payload, cache, gemini_cache, budget=args.budget, provider=args.provider,
-            ledger_path=ledger_path, factory=nllb_factory)
+            ledger_path=ledger_path, factory=nllb_factory, previous=previous)
     except Exception:  # noqa: BLE001 -- never expose provider exception text or a key
         clear_translations(payload)
         payload["translation"] = dict(model=None, license=None, status="failed",
@@ -538,6 +546,14 @@ def main(argv=None):
         except OSError:
             stats.setdefault("persistence_errors", []).append("workflow_output_write_failed")
     write_site_snapshot(payload, args.output or args.input)
+    published_arg = os.environ.get("RADAR_PUBLISHED_SNAPSHOT")
+    if published_arg:
+        published_path = Path(published_arg)
+        if published_path.is_file():
+            try:
+                write_atomic(payload, published_path)
+            except Exception:
+                pass
     print(f"Translation {stats['status']}: {stats.get('translated', 0)}/{stats.get('strings', 0)} strings, "
           f"{stats.get('new_segments', 0)} new segments, {stats.get('pending', 0)} pending, "
           f"{stats.get('rejected', 0)} rejected in {stats.get('seconds', 0)}s"
