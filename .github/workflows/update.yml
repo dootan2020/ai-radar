@@ -55,7 +55,7 @@ jobs:
         with:
           path: data/measurement-baseline.json
           key: radar-measurements-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
-      # Headline translation is optional: every step below may fail and the page still ships with original titles.
+      # Translation is optional: failed steps leave original titles and summaries usable.
       - name: Install translation libraries
         id: mt-install
         if: steps.collect.outcome == 'success'
@@ -80,6 +80,18 @@ jobs:
           restore-keys: |
             radar-translations-v1-${{ github.ref_name }}-
             radar-translations-v1-main-
+      - name: Restore Gemini translation cache and attempt ledger
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            data/translations-gemini-vi.json
+            data/translation-gemini-attempts.json
+          key: radar-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            radar-gemini-vi-1-${{ github.ref_name }}-
+            radar-gemini-vi-1-main-
       - name: Translate headlines
         id: translate
         if: steps.collect.outcome == 'success'
@@ -91,6 +103,8 @@ jobs:
           HF_HUB_DISABLE_PROGRESS_BARS: '1'
           TRANSFORMERS_VERBOSITY: error
           RADAR_TRANSLATE_BUDGET: '600'
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
         run: python -m radar.translate --input site/data/radar.json --cache data/translations-vi.json
       - name: Save translation model
         if: always() && steps.mt-model.outputs.cache-hit != 'true' && steps.translate.outputs.model_ready == 'true'
@@ -106,6 +120,15 @@ jobs:
         with:
           path: data/translations-vi.json
           key: radar-translations-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save Gemini translation cache and attempt ledger
+        if: always() && (steps.translate.outputs.gemini_cache_written == 'true' || steps.translate.outputs.gemini_ledger_written == 'true')
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            data/translations-gemini-vi.json
+            data/translation-gemini-attempts.json
+          key: radar-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       # Editions capture translated titles only after a matching successful publication gate.
       - name: Prepare daily editions
         id: edition-prepare

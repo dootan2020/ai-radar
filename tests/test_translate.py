@@ -246,7 +246,8 @@ class CommandLineTests(unittest.TestCase):
             def missing():
                 raise ImportError("transformers is not installed")
 
-            with mock.patch.object(tr, "nllb_factory", missing), mock.patch.dict("os.environ", {"GITHUB_OUTPUT": ""}):
+            with mock.patch.object(tr, "nllb_factory", missing), \
+                    mock.patch.dict("os.environ", {"GITHUB_OUTPUT": ""}, clear=True):
                 self.assertEqual(tr.main(["--input", str(src), "--cache", str(cache), "--budget", "5"]), 0)
             out = json.loads(src.read_text(encoding="utf-8"))
             self.assertEqual(out["translation"]["status"], "failed")
@@ -259,7 +260,7 @@ class CommandLineTests(unittest.TestCase):
             src, cache, gh = Path(tmp) / "radar.json", Path(tmp) / "cache.json", Path(tmp) / "out.txt"
             src.write_text(json.dumps(snapshot()), encoding="utf-8")
             with mock.patch.object(tr, "nllb_factory", FakeModel().factory), \
-                    mock.patch.dict("os.environ", {"GITHUB_OUTPUT": str(gh)}):
+                    mock.patch.dict("os.environ", {"GITHUB_OUTPUT": str(gh)}, clear=True):
                 tr.main(["--input", str(src), "--cache", str(cache), "--budget", "5"])
             self.assertIn("How Much Memory Does Your Agent Actually Need?", tr.load_cache(cache))
             self.assertIn("cache_written=true", gh.read_text(encoding="utf-8"))

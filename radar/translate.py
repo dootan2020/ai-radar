@@ -1,7 +1,7 @@
 """Optional machine translation of English headlines into Vietnamese.
 
 The core pipeline stays stdlib-only. This module is a separate, optional step:
-it reads a built snapshot, adds `title_vi` / `description_vi` next to the
+it reads a built snapshot, adds `title_vi` / `summary_vi` / `description_vi` next to the
 original strings and records what happened under `translation`. The model
 (NLLB-200, CC-BY-NC 4.0) is loaded lazily, so a runner without torch or
 transformers still produces a valid page with the original titles.
@@ -264,6 +264,7 @@ def targets(payload):
         if isinstance(story, dict) and id(story) not in seen and _story_ok(story):
             seen.add(id(story))
             ordered.append((story, "title", "title_vi"))
+            ordered.append((story, "summary", "summary_vi"))
 
     for story in sorted((s for s in stories if isinstance(s, dict) and (s.get("source_count") or 0) >= 2),
                         key=lambda s: s.get("published_at") or "", reverse=True):
@@ -284,6 +285,7 @@ def targets(payload):
     for story in stories:
         if isinstance(story, dict) and _story_ok(story):
             ordered.extend((item, "title", "title_vi") for item in story.get("coverage") or [] if isinstance(item, dict))
+            ordered.extend((item, "summary", "summary_vi") for item in story.get("coverage") or [] if isinstance(item, dict))
     return [(obj, src, dst) for obj, src, dst in ordered if isinstance(obj.get(src), str)]
 
 
@@ -299,11 +301,27 @@ def pending_segments(payload, cache):
     return out
 
 
+def clear_translations(payload):
+    """Drop derived fields even if a source was removed or became an event."""
+    rows = list(payload.get("stories") or []) + list(payload.get("live") or [])
+    for story in payload.get("stories") or []:
+        if isinstance(story, dict):
+            rows.extend(story.get("coverage") or [])
+    for row in rows:
+        if isinstance(row, dict):
+            row.pop("title_vi", None)
+            row.pop("summary_vi", None)
+    for row in payload.get("repos") or []:
+        if isinstance(row, dict):
+            row.pop("description_vi", None)
+
+
 def apply(payload, cache):
     """Write translated fields from the cache; remove stale ones. Returns counts and rejected examples."""
     counts = dict(strings=0, translated=0, pending=0, rejected=0, kept_original=0)
     rejected = []
     done = set()
+    clear_translations(payload)
     protected_names = payload_names(payload)
     for obj, src, dst in targets(payload):
         obj.pop(dst, None)
@@ -338,8 +356,8 @@ def load_cache(path):
         data = json.loads(Path(path).read_text(encoding="utf-8"))
     except FileNotFoundError:
         return {}
-    except (OSError, ValueError) as error:
-        print(f"Translation cache unreadable, starting empty: {error}", file=sys.stderr)
+    except (OSError, ValueError):
+        print("Translation cache unreadable, starting empty", file=sys.stderr)
         return {}
     if not isinstance(data, dict) or data.get("version") != CACHE_VERSION or data.get("model") != MODEL_ID \
             or data.get("revision") != MODEL_REVISION or not isinstance(data.get("entries"), dict):
@@ -454,32 +472,68 @@ def _error_vi(error, counts):
 
 
 def main(argv=None):
+    from radar import translation_gemini as gemini
+    from radar import translation_pipeline
+
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--input", default="site/data/radar.json")
     parser.add_argument("--output", help="defaults to --input")
     parser.add_argument("--cache", default="data/translations-vi.json")
+    parser.add_argument("--provider", choices=("auto", "nllb"), default="auto")
+    parser.add_argument("--gemini-cache", help="defaults to translations-gemini-vi.json beside --cache")
+    parser.add_argument("--gemini-ledger", help="defaults to translation-gemini-attempts.json beside --cache")
     parser.add_argument("--budget", type=float, default=float(os.environ.get("RADAR_TRANSLATE_BUDGET") or DEFAULT_BUDGET))
     args = parser.parse_args(argv)
     if args.budget <= 0:
         parser.error("--budget must be positive")
     payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
     cache = load_cache(args.cache)
-    before = len(cache)
+    gemini_path = args.gemini_cache or str(Path(args.cache).with_name("translations-gemini-vi.json"))
+    ledger_path = args.gemini_ledger or str(Path(args.cache).with_name("translation-gemini-attempts.json"))
+    gemini_cache = gemini.load_cache(gemini_path)
+    before, gemini_before = dict(cache), dict(gemini_cache)
     try:
-        stats, alive = translate_payload(payload, cache, budget=args.budget)
-    except Exception as error:  # noqa: BLE001 -- an unexpected bug here must not cost the page
-        payload["translation"] = dict(model=MODEL_ID, license=MODEL_LICENSE, status="failed",
-                                      error=f"{type(error).__name__}: {error}",
+        ledger_before = Path(ledger_path).read_bytes()
+    except OSError:
+        ledger_before = None
+    try:
+        stats, alive = translation_pipeline.translate_payload(
+            payload, cache, gemini_cache, budget=args.budget, provider=args.provider,
+            ledger_path=ledger_path, factory=nllb_factory)
+    except Exception:  # noqa: BLE001 -- never expose provider exception text or a key
+        clear_translations(payload)
+        payload["translation"] = dict(model=None, license=None, status="failed",
+                                      provider="original", providers=[], error="translation_failed",
                                       error_vi="Bước dịch gặp lỗi, tiêu đề hiện bản gốc.")
         stats, alive = payload["translation"], False
-    write_atomic(payload, args.output or args.input)
-    cache_written = len(cache) != before
+    cache_written = cache != before
     if cache_written:
-        save_cache(args.cache, cache)
+        try:
+            save_cache(args.cache, cache)
+        except Exception:
+            cache_written = False
+            stats.setdefault("persistence_errors", []).append("nllb_cache_write_failed")
+    gemini_cache_written = gemini_cache != gemini_before
+    if gemini_cache_written:
+        try:
+            gemini.save_cache(gemini_path, gemini_cache)
+        except Exception:
+            gemini_cache_written = False
+            stats.setdefault("persistence_errors", []).append("gemini_cache_write_failed")
+    try:
+        ledger_written = Path(ledger_path).read_bytes() != ledger_before
+    except OSError:
+        ledger_written = False
     if os.environ.get("GITHUB_OUTPUT"):
-        with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8", newline="\n") as stream:
-            stream.write(f"model_ready={str(bool(stats.get('model_loaded'))).lower()}\n"
-                         f"cache_written={str(cache_written).lower()}\n")
+        try:
+            with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8", newline="\n") as stream:
+                stream.write(f"model_ready={str(bool(stats.get('model_loaded'))).lower()}\n"
+                             f"cache_written={str(cache_written).lower()}\n"
+                             f"gemini_cache_written={str(gemini_cache_written).lower()}\n"
+                             f"gemini_ledger_written={str(ledger_written).lower()}\n")
+        except OSError:
+            stats.setdefault("persistence_errors", []).append("workflow_output_write_failed")
+    write_atomic(payload, args.output or args.input)
     print(f"Translation {stats['status']}: {stats.get('translated', 0)}/{stats.get('strings', 0)} strings, "
           f"{stats.get('new_segments', 0)} new segments, {stats.get('pending', 0)} pending, "
           f"{stats.get('rejected', 0)} rejected in {stats.get('seconds', 0)}s"

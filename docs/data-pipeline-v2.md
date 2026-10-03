@@ -61,39 +61,90 @@ Reader-facing text is Vietnamese except names and original titles. Source
 records keep the technical `error` and add `error_vi` for the page;
 [the language test](../tests/test_vietnamese_ui.py) lists its exceptions.
 
-## Headline translation
+## Title and summary translation
 
-Story and coverage titles, repository descriptions and stream titles get a
-Vietnamese machine translation from [an optional step](../radar/translate.py)
-that runs after `build.py`, with libraries pinned in
-[requirements-translate.txt](../requirements-translate.txt). The core pipeline
-stays stdlib-only. Translations sit beside the original as `title_vi` /
-`description_vi`; the page shows the Vietnamese first and the original underneath,
-labelled "dịch máy". Names, ids, event titles and strings the model returned in
-English keep only the original. A translation that drops or adds a number, loses
-a name, repeats itself or shrinks too far is refused, and post-translation term
-fixes ("agent", "khung chạy", "tiên phong", "tinh chỉnh", "bài đo chuẩn") fire
-only when the English uses the term. The snapshot's `translation` record says
-what happened: status, counts, pending strings, refused examples and a reason in
-`error` / `error_vi`.
+[Optional translation](../radar/translate.py) runs after collection and before
+publication. It adds `title_vi`, `summary_vi` (existing story/coverage summaries
+only), and repository `description_vi` beside unchanged originals. Events keep
+their original identities. Empty summaries never acquire generated prose. The
+daily edition projection still includes titles only, not summaries.
 
-The step can never cost the page: a missing library, failed download, error or
-the 600-second budget (`RADAR_TRANSLATE_BUDGET`) leaves the original titles, and
-what was not translated waits for the next run. Each English segment is
-translated once; the workflow keeps the translation cache
-(`data/translations-vi.json`) and the model (`HF_HOME`, safetensors, JSON and
-tokenizer only) in `actions/cache` between runs.
+The default `--provider auto` prefers [Gemini whole-field translations](../radar/translation_gemini.py)
+and falls back to the existing NLLB segment cache/model, then original text.
+`--provider nllb` explicitly selects that fallback without Gemini cache or API
+use. Collection and Gemini HTTP remain standard-library only; NLLB's optional
+dependencies stay in [requirements-translate.txt](../requirements-translate.txt).
+The [README attribution](../README.md#optional-translation-and-attribution) owns
+the noncommercial constraint on NLLB output.
 
-The [README attribution and license notice](../README.md#optional-translation-and-attribution)
-owns the noncommercial constraint. The pinned model revision belongs to
-[the translator](../radar/translate.py). DeepL Free remains a previously noted
-replacement option, not an active integration; no service switch was made.
-Protected identities come from
-[collector/catalog metadata, the model classifier and snapshot context](../radar/translation_names.py);
-unfaithful cached output also falls back to the original. Names are not guessed
-from every capitalized English word. [Translation tests](../tests/test_translate.py),
-[name regressions](../tests/test_translation_names.py), and
-[display tests](../tests/test_translation_display.py) are the proof.
+Live Gemini requests require **both** `GEMINI_API_KEY` and
+`RADAR_GEMINI_FREE_TIER_CONFIRMED=1`. The latter is an operator assertion:
+before setting the repository variable, verify in AI Studio that the key's
+project has no billing attached and inspect its current free-tier quotas.
+Code cannot verify billing or force a billed project onto a free tier; Google
+has no per-request free-only parameter. Never attach billing to enable this
+feature. The key is passed only to the translation step, only in the HTTPS
+header to Google's fixed endpoint; redirects and environment proxies are disabled.
+No key, header, response error body or exception text is written into diagnostics.
+
+[Google's model reference](https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash)
+identifies `gemini-3.8-flash`. Standard `generateContent` accepts multiple source
+strings in one JSON request; this is **not** Google's paid Batch API.
+[Pricing](https://ai.google.dev/gemini-api/docs/pricing#gemini-3.8-flash) lists
+free Standard input/output as checked on 2026-10-03. [Quota documentation](https://ai.google.dev/gemini-api/docs/rate-limits)
+does not publish numeric limits: actual limits are project-specific in AI Studio,
+with daily Google quota reset at midnight Pacific. Free-tier source content may
+be used to improve Google products; only already-public feed text is submitted.
+
+Application ceilings are deliberately smaller than the twice-hourly schedule:
+one attempt/run, 24 distinct normalized strings and 12,000 source characters
+per request, 8,192 output tokens, 45 seconds per API request, and 12 attempts
+in any rolling 24 hours. These are **local policy, not claimed Google quotas**.
+The rolling window avoids timezone dependencies and is independent of Google's
+Pacific calendar-day reset. A cold snapshot will need multiple runs; NLLB
+or originals cover the remainder. `RADAR_GEMINI_MAX_REQUESTS`, `DAILY_LIMIT`,
+`BATCH_SIZE`, `MAX_CHARS` and `TIMEOUT` (each with the `RADAR_GEMINI_` prefix)
+can lower these values, never raise the ceilings. Invalid values disable that
+budget. HTTP/429, authentication, blocked/malformed output and timeouts are not
+retried. Both providers share `RADAR_TRANSLATE_BUDGET` (default 600 seconds).
+
+The [local ledger](../radar/translation_budget.py) reserves before sending,
+including failed attempts. Corrupt, locked or unwritable ledgers disable live
+requests. A model/prompt-scoped hash cursor continues after the last attempted
+source on later runs, wrapping through the current priority list; permanently
+rejected first-page text cannot consume every attempt indefinitely. The ledger
+never stores invalid translations. The workflow preserves `data/translation-gemini-attempts.json` with
+`data/translations-gemini-vi.json` through Actions cache. Cache eviction, failed
+restore/save, separate machines or simultaneous branches can lose accounting:
+this is not a distributed quota guarantee or a billing safeguard. A missing
+ledger starts a new local window. Keep the upstream project on its free tier.
+
+Gemini cache identity includes provider, model and prompt/schema version.
+Normalized identical text across titles, summaries and coverage uses one key;
+current roles and the union of protected identities accompany each request.
+Every cache hit is revalidated against the current source/context. The legacy
+`data/translations-vi.json` remains exclusively NLLB and never blocks Gemini
+upgrades. CLI dirty detection includes entry replacements/deletions. Optional
+`--gemini-cache` and `--gemini-ledger` override files beside `--cache`.
+
+Shared guards reject lost names/numbers, added numbers, repetition, implausible
+length and untranslated English. Quotation structure is preserved while quoted
+sentences may be translated. Catalog/model/snapshot identities, backtick tokens,
+and detectable unknown names in launch/context positions are protected. These
+checks cannot prove semantic equivalence or identify every unknown proper name:
+representative live translations still require a human quality check. Source
+text is untrusted data, never instructions; the prompt prohibits summarizing,
+embellishing, following embedded commands or inventing facts.
+
+`translation` records `requested_provider`, actual `provider` (`gemini`, `nllb`,
+`mixed`, `original`), `providers`, `models`, and `provider_counts` for distinct
+accepted strings. `gemini` records safe status/error codes, requests, cache hits
+and new translations. Existing aggregate status/counts/error_vi remain; license
+is NLLB's only when NLLB output is present. `model_ready` continues to mean NLLB
+weights actually loaded. Originals remain usable if the optional step fails.
+Offline proof: `python -m unittest discover -s tests -p "test_translat*.py"`.
+Tests use fake transports and model factories; they do not establish live
+Gemini wording quality or make real API calls.
 
 ## Measurement continuity and source policy
 

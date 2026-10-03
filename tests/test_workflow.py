@@ -152,6 +152,36 @@ class WorkflowTests(unittest.TestCase):
         for package in ("transformers==", "huggingface_hub==", "safetensors==", "sentencepiece=="):
             self.assertIn(package, text)
 
+    def test_gemini_credentials_are_isolated_to_optional_translation_step(self):
+        steps = self.steps()
+        translate = steps["Translate headlines"]
+        self.assertIn("GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}", translate)
+        self.assertIn("RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}", translate)
+        self.assertIn("continue-on-error: true", translate)
+        for name, step in steps.items():
+            if name != "Translate headlines":
+                self.assertNotIn("secrets.GEMINI_API_KEY", step, name)
+        self.assertNotRegex(translate, r"(?i)(?:echo|print|--api-key).*GEMINI_API_KEY")
+
+    def test_gemini_cache_and_failed_attempts_persist_separately_from_nllb(self):
+        steps = self.steps()
+        restore = steps["Restore Gemini translation cache and attempt ledger"]
+        save = steps["Save Gemini translation cache and attempt ledger"]
+        cache_key = "key: radar-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
+        for block in (restore, save):
+            self.assertIn("continue-on-error: true", block)
+            self.assertIn("data/translations-gemini-vi.json", block)
+            self.assertIn("data/translation-gemini-attempts.json", block)
+            self.assertIn(cache_key, block)
+            self.assertNotIn("data/translations-vi.json", block)
+        self.assertIn("if: always()", save)
+        self.assertIn("steps.translate.outputs.gemini_cache_written == 'true'", save)
+        self.assertIn("|| steps.translate.outputs.gemini_ledger_written == 'true'", save)
+        self.assertIn("radar-gemini-vi-1-main-", restore)
+        names = list(steps)
+        self.assertLess(names.index("Restore Gemini translation cache and attempt ledger"), names.index("Translate headlines"))
+        self.assertLess(names.index("Translate headlines"), names.index("Save Gemini translation cache and attempt ledger"))
+
 
 if __name__ == "__main__":
     unittest.main()
