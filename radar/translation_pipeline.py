@@ -52,8 +52,8 @@ def _request(items, config, transport, timeout):
             state["outputs"] = gemini.parse_response(response, {item["id"] for item in items})
         except gemini.ProviderError as error:
             code = str(error)
-            state["error"] = code if code in {
-                "http_401", "http_403", "http_429", "http_error", "transport_error",
+            state["error"] = code if gemini.HTTP_CODE_PATTERN.fullmatch(code) or code in {
+                "http_error", "transport_error",
                 "malformed_response", "response_too_large", "invalid_response"} else "provider_error"
         except Exception:
             state["error"] = "provider_error"

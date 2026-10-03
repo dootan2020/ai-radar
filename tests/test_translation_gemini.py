@@ -81,6 +81,38 @@ class GeminiTests(unittest.TestCase):
                 self.assertNotIn("offline-sentinel", str(caught.exception))
                 self.assertEqual(opener.open.call_count, 1)
 
+    def http_error_code(self, status, body):
+        error = HTTPError("https://example.test/", status, "offline-sentinel", {}, io.BytesIO(body))
+        opener = Mock()
+        opener.open.side_effect = error
+        with patch.object(gemini.urllib.request, "build_opener", return_value=opener):
+            with self.assertRaises(gemini.ProviderError) as caught:
+                gemini.transport({}, "offline-sentinel", 1)
+        self.assertEqual(opener.open.call_count, 1)
+        self.assertNotIn("offline-sentinel", str(caught.exception))
+        return str(caught.exception)
+
+    def test_http_error_names_numeric_code_and_enum_status_only(self):
+        body = json.dumps({"error": {"code": 400, "status": "INVALID_ARGUMENT",
+                                     "message": "offline-sentinel echoed request text"}}).encode()
+        self.assertEqual(self.http_error_code(400, body), "http_400:INVALID_ARGUMENT")
+        self.assertEqual(self.http_error_code(404, b'{"error": {"code": 404}}'), "http_404")
+        self.assertEqual(self.http_error_code(404, json.dumps(
+            {"error": {"status": "NOT_FOUND"}}).encode()), "http_404:NOT_FOUND")
+
+    def test_http_error_falls_back_for_unusable_bodies(self):
+        oversize = json.dumps({"error": {"status": "INVALID_ARGUMENT", "pad": "x" * gemini.MAX_ERROR_BODY_BYTES}}).encode()
+        for raw in (b"<html>offline-sentinel</html>", b"", oversize, b"[1, 2]", b'{"error": "offline-sentinel"}',
+                    b'{"error": {"status": "invalid-offline-sentinel"}}',
+                    b'{"error": {"status": "' + b"A" * 41 + b'"}}',
+                    b'{"error": {"status": "INVALID_ARGUMENT\\n"}}', b'{"error": {"status": 400}}'):
+            with self.subTest(raw=raw[:30]):
+                self.assertEqual(self.http_error_code(400, raw), "http_400")
+
+    def test_http_error_code_helper_rejects_out_of_range_codes(self):
+        for code in (None, True, 99, 600, "400"):
+            self.assertEqual(gemini.http_error_code(code, "INVALID_ARGUMENT"), "http_error")
+
     def test_response_must_be_complete_unique_and_structured(self):
         def response(rows, finish="STOP"):
             return {"candidates": [{"finishReason": finish, "content": {"parts": [

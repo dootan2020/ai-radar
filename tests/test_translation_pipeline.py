@@ -142,6 +142,28 @@ class PipelineTests(unittest.TestCase):
                 self.assertEqual(payload["stories"][0]["title_vi"], VI)
                 self.assertNotIn("offline-sentinel", output.getvalue() + json.dumps(stats))
 
+    def test_http_status_reaches_snapshot_without_message_or_key(self):
+        from unittest.mock import Mock
+        from urllib.error import HTTPError
+        body = json.dumps({"error": {"code": 400, "status": "INVALID_ARGUMENT",
+                                     "message": "offline-sentinel echoed text"}}).encode()
+        opener = Mock()
+        opener.open.side_effect = HTTPError("https://example.test/", 400, "offline-sentinel", {}, io.BytesIO(body))
+        payload = {"stories": [story()]}
+        with patch.object(gemini.urllib.request, "build_opener", return_value=opener):
+            stats, alive = self.run_payload(payload, transport=gemini.transport)
+        self.assertFalse(alive)
+        self.assertEqual(stats["gemini"]["error"], "http_400:INVALID_ARGUMENT")
+        self.assertEqual(opener.open.call_count, 1)
+        self.assertNotIn("offline-sentinel", json.dumps(stats) + json.dumps(payload))
+
+    def test_unsafe_provider_error_text_is_replaced_in_snapshot(self):
+        for text in ("http_400:invalid offline-sentinel", "http_400:" + "A" * 41, "http_6000"):
+            def failing(body, key, timeout, text=text):
+                raise gemini.ProviderError(text)
+            stats, _ = self.run_payload({"stories": [story()]}, transport=failing)
+            self.assertEqual(stats["gemini"]["error"], "provider_error")
+
     def test_bad_api_outputs_leave_original_when_nllb_unavailable(self):
         bad = [reply([{"id": "0", "text": VI.replace("Claude", "tên bị dịch")}]),
                reply([{"id": "0", "text": VI}], finish="MAX_TOKENS"),
