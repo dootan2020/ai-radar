@@ -1,0 +1,35 @@
+name: Monitor live AI Radar
+
+on:
+  schedule:
+    - cron: '13,43 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: radar-live-health
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 7
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      # Manual branch selection must not execute unreviewed code with issue access.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+      - name: Probe live site and reconcile health incident
+        timeout-minutes: 6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m radar.health_monitor --report
