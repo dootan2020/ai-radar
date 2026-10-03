@@ -1,9 +1,9 @@
-/* ai·radar · renders data/radar.json (schema v2) as the "Bento Keynote" page (docs/ngon-ngu-thiet-ke.md).
+/* ai·radar · renders the complete reader snapshot (schema v2) as the "Bento Keynote" page (docs/ngon-ngu-thiet-ke.md).
    Plain ES modules, no framework, no build. Every data string passes through esc(); every link through safe().
    Each tile is one story: a source logo, one measured number, a label. A tile with no data hides or says so. */
 import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
 import { streamedAge, scheduleText, TZ, hhmm, dayKey, eventRange, ago, daysLeftHTML } from './time-text.js';
-import { isSnapshotV2 } from './snapshot.js';
+import { isSnapshotV2, loadSnapshot } from './snapshot.js';
 import { freshness, freshnessText } from './freshness.js';
 import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, faceOfRepo, ytIdOf, hydrateHF, watchImageErrors, hourHistogram, ring, meter, imgSrc, setDeferImages, loadDeferredImages } from './faces.js';
 import { KIND, METRIC, licenseText, SIGNALS, signalText } from './words.js';
@@ -47,7 +47,9 @@ let leadOpen = false;          // the reader opened the lead's summary; kept whe
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/. */
 const qp = new URLSearchParams(location.search).get('data');
-const DATA_URL = qp && /^data\/[\w.-]+\.json$/.test(qp) ? qp : 'data/radar.json';
+const customData = qp && /^data\/[\w.-]+\.json$/.test(qp);
+const DATA_URL = customData ? qp : 'data/radar-ui.json';
+const FALLBACK_URL = customData ? null : 'data/radar.json';
 
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
@@ -892,10 +894,8 @@ function applyLive(updates){
 async function pollSnapshot(){
   if (document.hidden || !D) return;
   try {
-    // Revalidate (304 when unchanged) instead of re-downloading 300 KB every three minutes.
-    const r = await fetch(DATA_URL, {cache:'no-cache'});
-    if (!r.ok) return;
-    const j = await r.json();
+    // Revalidate both projection and fallback when polling for a new generation.
+    const j = await loadSnapshot(DATA_URL, FALLBACK_URL, {cache:'no-cache'});
     if (!isSnapshotV2(j) || j.generated_at <= D.generated_at) return;
     pending = j;
     const fresh = j.stories.filter(s => !S.has(s.id)).length;
@@ -1070,9 +1070,9 @@ const whenIdle = () => new Promise(r => {
   const go = () => 'requestIdleCallback' in window ? requestIdleCallback(() => r(), {timeout: 3000}) : setTimeout(r, 1000);
   if (document.readyState === 'complete') go(); else addEventListener('load', go, {once: true});
 });
-fetch(DATA_URL).then(r => { if (!r.ok) throw pageError(`Máy chủ trả mã HTTP ${r.status} khi tải ${DATA_URL}`); return r.json(); }).then(async j => {
+loadSnapshot(DATA_URL, FALLBACK_URL).then(async j => {
   if (!isSnapshotV2(j)) throw pageError('Tệp dữ liệu không đúng định dạng phiên bản 2');
-  await nextTask();   // parsing 2 MB of JSON is one task; rendering the board is the next one
+  await nextTask();   // parsing the snapshot and rendering the board use separate tasks
   D = j; build();
   setDeferImages(true);
   renderChrome(); const rest = renderBoard(true); startBoard();

@@ -205,7 +205,7 @@ class PublicationBuildTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             old = snapshot(NOW - timedelta(minutes=30))
             files = []
-            for name in ("radar.json", "published.json", "baseline.json", "sitemap.xml"):
+            for name in ("radar.json", "radar-ui.json", "published.json", "baseline.json", "sitemap.xml"):
                 path = Path(directory) / name
                 path.write_bytes(json.dumps(old).encode() if path.suffix == ".json" else b"<previous-sitemap/>")
                 files.append((path, path.read_bytes(), path.stat().st_mtime_ns))
@@ -253,6 +253,8 @@ class PublicationBuildTests(unittest.TestCase):
             self.assertEqual(output, json.loads(paths["RADAR_PUBLISHED_SNAPSHOT"].read_text()))
             self.assertEqual(output, json.loads(paths["RADAR_BASELINE"].read_text()))
             self.assertEqual(load_published(paths["RADAR_PUBLISHED_SNAPSHOT"], NOW), output)
+            from radar.site_payload import page_payload, page_path
+            self.assertEqual(json.loads(page_path(paths["RADAR_OUTPUT"]).read_text()), page_payload(output))
 
     def test_cold_start_rejection_writes_only_diagnostic_and_ci_flags(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -260,6 +262,7 @@ class PublicationBuildTests(unittest.TestCase):
             self.assertEqual(code, 1)
             for key in ("RADAR_OUTPUT", "RADAR_BASELINE", "RADAR_PUBLISHED_SNAPSHOT", "RADAR_SITEMAP"):
                 self.assertFalse(paths[key].exists())
+            self.assertFalse((Path(directory) / "radar-ui.json").exists())
             self.assertIsNone(json.loads(paths["RADAR_PUBLISH_STATUS"].read_text())["freshness"]["previous_generated_at"])
 
     def test_healthy_cold_start_writes_separate_caches_and_sitemap(self):

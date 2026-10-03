@@ -9,6 +9,7 @@ from radar.measurement_cache import load_baseline, promotion_reason
 from radar.pipeline import build_v2, write_atomic
 from radar.publication import assess_publication, load_published, prepare_publication
 from radar.seo import write_sitemap
+from radar.site_payload import page_path, write_site_snapshot
 
 
 def github_outputs(published, baseline_updated):
@@ -28,9 +29,9 @@ def main():
     status_path = Path(os.environ.get("RADAR_PUBLISH_STATUS", baseline.parent / "publish-status.json"))
     site_root = output.parent.parent if output.parent.name == "data" else output.parent
     sitemap = Path(os.environ.get("RADAR_SITEMAP", site_root / "sitemap.xml"))
-    paths = (output, baseline, published_cache, status_path, sitemap)
+    paths = (output, page_path(output), baseline, published_cache, status_path, sitemap)
     if len({path.resolve() for path in paths}) != len(paths):
-        raise ValueError("Output, baseline, publication cache, diagnostic and sitemap must be different files")
+        raise ValueError("Output, page projection, baseline, publication cache, diagnostic and sitemap must be different files")
     previous = load_baseline(baseline, datetime.now(timezone.utc))
     prior_publication = load_published(published_cache, datetime.now(timezone.utc))
     if prior_publication is None:
@@ -51,7 +52,7 @@ def main():
         print(f"Publication rejected: {status['reason']}; prior snapshot left unchanged")
         return 1
     payload["freshness"] = status["freshness"]
-    write_atomic(payload, output)
+    write_site_snapshot(payload, output)
     write_sitemap(payload["generated_at"], sitemap)
     write_atomic(payload, published_cache)
     reason = promotion_reason(payload, previous, datetime.now(timezone.utc))

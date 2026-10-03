@@ -310,6 +310,8 @@ class PipelineTests(unittest.TestCase):
         payload = json.loads(src.read_text(encoding="utf-8"))
         self.assertEqual(payload["translation"]["provider"], "gemini")
         self.assertEqual(payload["stories"][0]["summary_vi"], SUMMARY_VI)
+        from radar.site_payload import page_path, page_payload
+        self.assertEqual(json.loads(page_path(src).read_text(encoding="utf-8")), page_payload(payload))
         self.assertEqual(gemini.load_cache(cache.with_name("translations-gemini-vi.json"))[TITLE], VI)
         self.assertTrue(cache.with_name("translation-gemini-attempts.json").exists())
         self.assertFalse(cache.exists())
@@ -332,6 +334,8 @@ class PipelineTests(unittest.TestCase):
         payload = json.loads(src.read_text(encoding="utf-8"))
         self.assertEqual(payload["translation"]["provider"], "original")
         self.assertEqual(payload["translation"]["gemini"]["error"], "missing_key")
+        from radar.site_payload import page_path, page_payload
+        self.assertEqual(json.loads(page_path(src).read_text(encoding="utf-8")), page_payload(payload))
         self.assertEqual(payload["stories"][0]["title"], TITLE)
         self.assertNotIn("title_vi", payload["stories"][0])
 

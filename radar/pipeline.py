@@ -195,7 +195,7 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None):
     return payload
 
 
-def write_atomic(payload, path):
+def write_atomic(payload, path, *, compact=False):
     """Replace the snapshot only after complete JSON is flushed to disk."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -204,7 +204,8 @@ def write_atomic(payload, path):
         with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", newline="\n", dir=path.parent,
                                          prefix=".radar-", suffix=".tmp", delete=False) as stream:
             temporary = Path(stream.name)
-            json.dump(payload, stream, ensure_ascii=False, indent=2, allow_nan=False)
+            json.dump(payload, stream, ensure_ascii=False, indent=None if compact else 2,
+                      separators=(",", ":") if compact else None, allow_nan=False)
             stream.write("\n")
             stream.flush()
             os.fsync(stream.fileno())

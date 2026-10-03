@@ -229,3 +229,30 @@ steps. A green build or test suite alone does not establish live coverage.
 Inspect the collected artifact's per-source errors and HTTP evidence, then
 review actual clusters. Branch verification and production deployment have
 different authority; inspect the workflow's branch guards before dispatching.
+
+## Reader snapshot
+
+The homepage preloads `site/data/radar-ui.json`, a compact, complete reader
+projection of the full `radar.json`. It keeps every story ID, section ordering,
+story/detail text, translated titles, repository data, calendar information,
+source failure/disabled state and original `generated_at`. It removes duplicated
+legacy collections and observation/ranking evidence that the page does not use.
+The full snapshot remains the authority for collection, translation, archives,
+health checks and raw evidence; the projection is never fed back into them.
+
+[The shared writer](../radar/site_payload.py) generates both files after accepted
+collection and again after optional translation, including fallback/failure to
+original text. Custom CLI output paths receive a sibling `<stem>-ui.json`.
+Rejected collection leaves both previous files unchanged. Each replacement is
+atomic; if writing the projection fails after the full snapshot changed, its old
+copy is removed. Initial load and periodic polling fall back to full `radar.json`
+when the projection cannot be fetched, parsed or validated. An explicit
+`?data=data/<file>.json` remains an isolated maintainer override without fallback.
+
+Offline invariance and failure checks live in
+[test_site_payload.py](../tests/test_site_payload.py). The
+[reader verifier](../tests/verify-reader-payload.mjs) executes the page's actual
+markup functions against both artifacts, including all story details, expanded
+chapters, repository filter combinations and freshness labels. This proves
+content equivalence; browser layout, LCP and Lighthouse scores still require
+rendered measurements.

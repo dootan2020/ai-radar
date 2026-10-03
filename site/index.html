@@ -34,7 +34,7 @@
 <!-- Apply the reader's saved theme before first paint, so a dark-mode reader never sees a light flash. -->
 <script>try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <!-- The snapshot is the page's only content: fetch it while the HTML is still parsing, not after the module graph. -->
-<link rel="preload" href="data/radar.json" as="fetch" crossorigin>
+<link rel="preload" href="data/radar-ui.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="styles.css">
 <script type="module" src="app.js"></script>

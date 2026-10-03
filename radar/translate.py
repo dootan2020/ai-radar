@@ -21,6 +21,7 @@ import time
 from pathlib import Path
 
 from radar.pipeline import write_atomic
+from radar.site_payload import page_path, write_site_snapshot
 from radar.translation_names import CATALOG_NAMES, name_pattern, names_in, object_names, payload_names
 
 MODEL_ID = "facebook/nllb-200-distilled-600M"
@@ -486,10 +487,13 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.budget <= 0:
         parser.error("--budget must be positive")
-    payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
-    cache = load_cache(args.cache)
     gemini_path = args.gemini_cache or str(Path(args.cache).with_name("translations-gemini-vi.json"))
     ledger_path = args.gemini_ledger or str(Path(args.cache).with_name("translation-gemini-attempts.json"))
+    companion = page_path(args.output or args.input).resolve()
+    if companion in {Path(path).resolve() for path in (args.input, args.cache, gemini_path, ledger_path)}:
+        parser.error("page projection must differ from input, translation caches and ledger")
+    payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
+    cache = load_cache(args.cache)
     gemini_cache = gemini.load_cache(gemini_path)
     before, gemini_before = dict(cache), dict(gemini_cache)
     try:
@@ -533,7 +537,7 @@ def main(argv=None):
                              f"gemini_ledger_written={str(ledger_written).lower()}\n")
         except OSError:
             stats.setdefault("persistence_errors", []).append("workflow_output_write_failed")
-    write_atomic(payload, args.output or args.input)
+    write_site_snapshot(payload, args.output or args.input)
     print(f"Translation {stats['status']}: {stats.get('translated', 0)}/{stats.get('strings', 0)} strings, "
           f"{stats.get('new_segments', 0)} new segments, {stats.get('pending', 0)} pending, "
           f"{stats.get('rejected', 0)} rejected in {stats.get('seconds', 0)}s"
