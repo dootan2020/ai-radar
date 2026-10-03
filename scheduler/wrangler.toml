@@ -1,0 +1,17 @@
+name = "ai-radar-scheduler"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+# Cadence: every 20 minutes (*/20 * * * *)
+# 1. Guarantees news freshness under 30 minutes as promised, even during GitHub cron outages.
+# 2. Provides 10-15 minutes of idle time between workflow runs, preventing runner queue congestion.
+# 3. Interleaves with GitHub Actions' fallback cron (7,37 * * * *).
+# 4. Consumes 72 executions/day, well inside Cloudflare Workers free plan limit (100,000 requests/day).
+[triggers]
+crons = ["*/20 * * * *"]
+
+[vars]
+GITHUB_OWNER = "dootan2020"
+GITHUB_REPO = "ai-radar"
+GITHUB_WORKFLOW = "update.yml"
+GITHUB_REF = "main"

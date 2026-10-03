@@ -1,0 +1,3 @@
+# Example environment variables for local testing with wrangler dev
+# Replace with a test token when testing locally, never commit real values
+GITHUB_TOKEN=your_fine_grained_github_token_here
