@@ -7,7 +7,7 @@ import time
 
 from radar.measurement_cache import load_baseline, promotion_reason
 from radar.pipeline import build_v2, write_atomic
-from radar.publication import assess_publication, load_published
+from radar.publication import assess_publication, load_published, prepare_publication
 from radar.seo import write_sitemap
 
 
@@ -44,7 +44,7 @@ def main():
         github_outputs(False, False)
         print(f"Publication rejected: {status['reason']}")
         return 1
-    status = assess_publication(payload, prior_publication, datetime.now(timezone.utc))
+    payload, status = prepare_publication(payload, prior_publication, datetime.now(timezone.utc))
     write_atomic(status, status_path)
     if not status["published"]:
         github_outputs(False, False)

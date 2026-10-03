@@ -1,6 +1,7 @@
 """Consolidate failed update runs into one open GitHub issue per branch."""
 
 import hashlib
+from datetime import datetime
 import html
 import json
 import os
@@ -8,9 +9,11 @@ from pathlib import Path
 import re
 import sys
 from urllib.error import HTTPError, URLError
+from urllib.parse import quote
 from urllib.request import Request, urlopen
 
-FAILURES = {"failure", "cancelled", "timed_out", "action_required", "startup_failure", "stale"}
+FAILURES = {"failure", "timed_out", "action_required", "startup_failure"}
+RESULTS = FAILURES | {"success"}
 
 
 class AlertError(RuntimeError):
@@ -44,7 +47,7 @@ class GitHub:
 
     def pages(self, path, key=None):
         separator = "&" if "?" in path else "?"
-        for page in range(1, 101):
+        for page in range(1, 11):
             data = self.request("GET", f"{path}{separator}per_page=100&page={page}")
             items = data.get(key) if key and isinstance(data, dict) else data
             if not isinstance(items, list):
@@ -79,14 +82,79 @@ def publish_reason(path):
     return "Publish diagnostics unavailable (the run may have stopped before collection). Inspect the run logs."
 
 
+def run_order(run):
+    values = tuple(run[key] for key in ("run_number", "run_attempt"))
+    if any(type(value) is not int or value < 1 for value in (*values, run["id"])):
+        raise AlertError("Invalid workflow run ordering metadata; refusing to change an issue.")
+    return values
+
+
+def trusted_run(run, repository, branch):
+    return (run.get("name") == "Update AI Radar" and run.get("head_branch") == branch
+            and run.get("head_repository", {}).get("full_name") == repository)
+
+
+def run_marker(run):
+    metadata = {key: run[key] for key in ("id", "run_number", "run_attempt")}
+    return "<!-- radar-update-run:" + json.dumps(metadata, sort_keys=True) + " -->"
+
+
+def issue_order(issue, api, repository, branch):
+    body = issue.get("body") or ""
+    match = re.search(r"<!-- radar-update-run:(\{[^\n]+\}) -->", body)
+    if match:
+        return run_order(json.loads(match[1]))
+    # Earlier bot issues have only the failed-run URL. Resolve its workflow
+    # number via Actions rather than guessing chronology from the issue date.
+    legacy = re.search(re.escape(f"https://github.com/{repository}/actions/runs/")
+                       + r"(\d+)/attempts/(\d+)", body)
+    if not legacy:
+        raise AlertError("Alert issue has no run ordering metadata; inspect it before retrying.")
+    run = api.request("GET", f"/actions/runs/{int(legacy[1])}")
+    if not trusted_run(run, repository, branch):
+        raise AlertError("Alert issue references an unexpected workflow or branch.")
+    return run_order({**run, "run_attempt": int(legacy[2])})
+
+
 def report_failure(event, api, status_path):
     run = event["workflow_run"]
     repository = event["repository"]["full_name"]
     branch = run.get("head_branch") or "unknown"
     run_id, attempt = int(run["id"]), int(run.get("run_attempt", 1))
+    order = run_order(run)
     marker = "<!-- radar-update-failure:" + hashlib.sha256(branch.encode()).hexdigest()[:20] + " -->"
     run_url = f"https://github.com/{repository}/actions/runs/{run_id}/attempts/{attempt}"
-    body = [marker, f"Latest update result: **{plain(run['conclusion'])}**.",
+    # workflow_run deliveries and concurrency queues are not ordered. Consult
+    # Actions even when no issue exists (a success may have arrived first).
+    created = run["created_at"]
+    datetime.strptime(created, "%Y-%m-%dT%H:%M:%SZ")
+    runs = api.pages(f"/actions/workflows/update.yml/runs?branch={quote(branch, safe='')}&status=completed"
+                     f"&created={quote('>=' + created, safe='')}",
+                     "workflow_runs")
+    for candidate in runs:
+        if trusted_run(candidate, repository, branch) and candidate.get("conclusion") in RESULTS:
+            if run_order(candidate) > order:
+                return "superseded"
+    issues = [issue for issue in api.pages("/issues?state=all&creator=github-actions%5Bbot%5D")
+              if "pull_request" not in issue and marker in (issue.get("body") or "")
+              and issue.get("user", {}).get("login") == "github-actions[bot]"]
+    ordered = [(issue_order(issue, api, repository, branch), issue) for issue in issues]
+    if any(prior > order or (run["conclusion"] != "success" and prior == order and issue.get("state") == "closed")
+           for prior, issue in ordered):
+        return "superseded"
+    existing = next((issue for _, issue in sorted(ordered, key=lambda item: item[0], reverse=True)
+                     if issue.get("state") == "open"), None)
+    if run["conclusion"] == "success":
+        recovered = False
+        for prior, issue in ordered:
+            if issue.get("state") == "open" and prior < order:
+                body = re.sub(r"<!-- radar-update-run:\{[^\n]+\} -->\s*", "", issue["body"])
+                body += f"\n\nRecovered: [later successful update and logs]({run_url}).\n\n{run_marker(run)}"
+                api.request("PATCH", f"/issues/{int(issue['number'])}",
+                            {"body": body, "state": "closed", "state_reason": "completed"})
+                recovered = True
+        return "resolved" if recovered else "unchanged"
+    body = [marker, run_marker(run), f"Latest update result: **{plain(run['conclusion'])}**.",
             f"Branch: `{plain(branch)}`; commit: `{plain(run.get('head_sha', 'unknown'))}`.",
             f"[Open failed run and logs]({run_url}).",
             f"Publish reason: {publish_reason(status_path)}",
@@ -102,11 +170,7 @@ def report_failure(event, api, status_path):
     except AlertError:
         body.append("Job details unavailable; use the run link above.")
     body.append("The last deployed site remains in place if collection or deployment failed. "
-                "This issue is updated for repeated failures without adding comments. Close after investigating.")
-    issues = api.pages("/issues?state=open&creator=github-actions%5Bbot%5D")
-    existing = next((issue for issue in issues if "pull_request" not in issue
-                     and marker in (issue.get("body") or "")
-                     and issue.get("user", {}).get("login") == "github-actions[bot]"), None)
+                "Repeated failures update this issue without comments. A later successful update on this branch closes it.")
     # Mention the owner on creation. Later edits intentionally avoid notification spam.
     owner = event["repository"].get("owner", {}).get("login", "")
     if re.fullmatch(r"[A-Za-z0-9-]+", owner):
@@ -125,10 +189,11 @@ def main():
     try:
         event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
         run = event["workflow_run"]
-        if event.get("action") != "completed" or run.get("conclusion") not in FAILURES:
+        if event.get("action") != "completed" or run.get("conclusion") not in RESULTS:
             return 0
         repository = os.environ["GITHUB_REPOSITORY"]
         if (run.get("name") != "Update AI Radar"
+                or not isinstance(run.get("head_branch"), str) or not run["head_branch"]
                 or event["repository"]["full_name"] != repository
                 or run.get("head_repository", {}).get("full_name") != repository):
             raise AlertError("Unexpected workflow or repository; refusing to post an issue.")

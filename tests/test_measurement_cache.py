@@ -161,13 +161,17 @@ class BuildBaselineTests(unittest.TestCase):
                     build.main()
                 self.assertEqual(collect.call_args.kwargs["previous"], previous)
                 self.assertEqual(baseline.read_bytes(), original)
-                self.assertEqual(json.loads(output.read_text(encoding="utf-8")), bad)
+                displayed = json.loads(output.read_text(encoding="utf-8"))
+                self.assertEqual({key: displayed[key] for key in bad}, bad)
+                self.assertEqual(sum(displayed["dropped_projection_rows"].values()), 0)
                 self.assertIn("baseline_updated=false", github_output.read_text(encoding="utf-8"))
                 good = self.display_snapshot(NOW + timedelta(minutes=1))
                 clock.now.return_value = NOW + timedelta(minutes=1)
                 with patch.object(build, "build_v2", return_value=good), redirect_stdout(io.StringIO()):
                     build.main()
-                self.assertEqual(json.loads(baseline.read_text(encoding="utf-8")), good)
+                promoted = json.loads(baseline.read_text(encoding="utf-8"))
+                self.assertEqual({key: promoted[key] for key in good}, good)
+                self.assertEqual(promoted, json.loads(output.read_text(encoding="utf-8")))
                 self.assertTrue(github_output.read_text(encoding="utf-8").endswith("baseline_updated=true\n"))
 
     def test_first_bad_build_writes_diagnostic_without_creating_published_output(self):

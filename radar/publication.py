@@ -10,6 +10,7 @@ from radar.items import instant
 STALE_AFTER_SECONDS = 3 * 3600
 EXPECTED_INTERVAL_SECONDS = 30 * 60
 SECTIONS = ("today", "hot", "models", "papers", "listen", "voices", "community", "upcoming")
+PROJECTIONS = ("updates", "hf_releases", "live", "events", "repos")
 
 
 def inspect_times(row):
@@ -18,20 +19,19 @@ def inspect_times(row):
             raise ValueError(f"invalid {key} timestamp")
 
 
-def inspect_projections(payload):
-    for key in ("updates", "hf_releases", "live", "events", "repos"):
-        rows = payload.get(key, [])
-        if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
-            raise ValueError(f"invalid {key} records")
-        for row in rows:
-            inspect_times(row)
-    for row in payload["live"] + payload["events"]:
-        if not isinstance(row.get("title"), str) or not row["title"].strip() or not web_url(row.get("url")):
-            raise ValueError("invalid live or event title/URL")
-    for row in payload["live"]:
-        if row.get("status") not in {"live", "upcoming", "ended"}:
+def inspect_projection_row(key, row):
+    if not isinstance(row, dict):
+        raise ValueError(f"invalid {key} record")
+    inspect_times(row)
+    name = "id" if key == "hf_releases" else "full_name" if key == "repos" else "title"
+    if not isinstance(row.get(name), str) or not row[name].strip() or not web_url(row.get("url")):
+        raise ValueError(f"invalid {key} name or URL")
+    if key in ("hf_releases", "repos") and row.get("created_at") is not None and instant(row["created_at"]) is None:
+        raise ValueError(f"invalid {key} creation timestamp")
+    if key == "live":
+        if row.get("status") not in ("live", "upcoming", "ended"):
             raise ValueError("invalid live status")
-    for row in payload["events"]:
+    if key == "events":
         if not isinstance(row.get("id"), str) or not row["id"]:
             raise ValueError("invalid event identity")
         for key in ("start_date", "end_date"):
@@ -41,10 +41,47 @@ def inspect_projections(payload):
         if row["end_date"] < row["start_date"]:
             raise ValueError("event end precedes start")
         precision = row.get("time_precision")
-        if precision not in {"date", "exact"} or precision == "exact" and instant(row.get("start_at")) is None:
+        if precision not in ("date", "exact") or precision == "exact" and instant(row.get("start_at")) is None:
             raise ValueError("invalid event time precision")
         if precision == "date" and (row.get("start_at") is not None or row.get("end_at") is not None):
             raise ValueError("date-only event contains exact timestamps")
+    json.dumps(row, allow_nan=False)
+
+
+def inspect_projections(payload):
+    for key in PROJECTIONS:
+        rows = payload.get(key, [])
+        if not isinstance(rows, list):
+            raise ValueError(f"invalid {key} records")
+        for row in rows:
+            inspect_projection_row(key, row)
+
+
+def prepare_publication(payload, previous, now):
+    """Return a filtered candidate and its assessment without mutating inputs.
+
+    Only individual projection rows are disposable. Broken containers and the
+    story/source graph still reach the strict whole-snapshot validator.
+    """
+    dropped = dict.fromkeys(PROJECTIONS, 0)
+    candidate = dict(payload) if isinstance(payload, dict) else payload
+    if isinstance(candidate, dict):
+        for key in PROJECTIONS:
+            if not isinstance(candidate.get(key), list):
+                continue
+            retained = []
+            for row in candidate[key]:
+                try:
+                    inspect_projection_row(key, row)
+                except (ValueError, TypeError):
+                    dropped[key] += 1
+                else:
+                    retained.append(row)
+            candidate[key] = retained
+        candidate["dropped_projection_rows"] = dropped
+    status = _assess_publication(candidate, previous, now)
+    status["dropped_projection_rows"] = dropped
+    return candidate, status
 
 
 def inspect_snapshot(payload):
@@ -150,6 +187,10 @@ def load_published(path, now):
 
 def assess_publication(payload, previous, now):
     """Return machine-readable diagnostics for either acceptance or rejection."""
+    return prepare_publication(payload, previous, now)[1]
+
+
+def _assess_publication(payload, previous, now):
     current = instant(payload.get("generated_at")) if isinstance(payload, dict) else None
     prior = instant(previous.get("generated_at")) if isinstance(previous, dict) else None
     now = instant(now)

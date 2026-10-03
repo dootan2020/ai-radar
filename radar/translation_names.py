@@ -60,8 +60,7 @@ def names_in(source, candidates=CATALOG_NAMES):
     """Use the source spelling, including when the catalog uses lowercase IDs."""
     identities = {match.group() for name in candidates
                   for match in re.finditer(name_pattern(name), source, re.IGNORECASE)}
-    # Protect lexical model-name components separately so translating connecting
-    # words or repositioning versions does not demand an identical whole phrase.
-    for match in MODEL_IDENTITY.finditer(source):
-        identities.update(re.findall(r"(?<!\w)[A-Za-z][A-Za-z0-9]*", match.group()))
+    # Qualifiers such as Small and Fast belong to this identity, not every
+    # occurrence of the word. A standalone qualifier cannot replace a lost one.
+    identities.update(match.group() for match in MODEL_IDENTITY.finditer(source))
     return identities

@@ -58,6 +58,7 @@ class WorkflowTests(unittest.TestCase):
     def test_push_and_pr_run_offline_without_deploy_or_write_tokens(self):
         ci = (WORKFLOW.parent / "ci.yml").read_text(encoding="utf-8")
         self.assertRegex(ci, r"(?m)^  push:$")
+        self.assertRegex(ci, r"(?m)^  push:\n    branches: \[main\]\n  pull_request:")
         self.assertRegex(ci, r"(?m)^  pull_request:$")
         self.assertIn("run: python -m unittest discover -s tests", ci)
         self.assertIn("run: node --version", ci)
@@ -65,12 +66,14 @@ class WorkflowTests(unittest.TestCase):
             self.assertNotIn(forbidden, ci)
         self.assertNotRegex(self.text, r"(?m)^  (push|pull_request):$")
 
-    def test_failure_observer_survives_cancellation_and_executes_trusted_code(self):
+    def test_failure_observer_reconciles_actionable_results_and_executes_trusted_code(self):
         alert = (WORKFLOW.parent / "failure-alert.yml").read_text(encoding="utf-8")
         self.assertIn("workflows: [Update AI Radar]", alert)
         self.assertIn("types: [completed]", alert)
-        for conclusion in ("failure", "cancelled", "timed_out"):
+        for conclusion in ("failure", "timed_out", "action_required", "startup_failure", "success"):
             self.assertIn(f'"{conclusion}"', alert)
+        for conclusion in ("cancelled", "stale", "neutral", "skipped"):
+            self.assertNotIn(f'"{conclusion}"', alert)
         self.assertIn("ref: ${{ github.event.repository.default_branch }}", alert)
         self.assertIn("head_repository.full_name == github.repository", alert)
         self.assertIn("path: ${{ runner.temp }}/radar-publish-diagnostics", alert)

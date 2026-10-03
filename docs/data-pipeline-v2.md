@@ -131,6 +131,23 @@ not relabel an older snapshot as fresh. Workflow promotion of the last-published
 reference follows a successful Pages deployment; a collected candidate alone
 is not evidence that readers received it.
 
+Individual malformed rows in `updates`, `hf_releases`, `live`, `events` and
+`repos` are removed before assessment and writing. Their names/URLs, supplied
+timestamps, event dates/precision, live status and JSON values are validated;
+unknown timestamps remain unknown. `prepare_publication` returns the filtered
+candidate and diagnostics without mutating the collected input. Both the accepted
+snapshot and `data/publish-status.json` carry `dropped_projection_rows`, an object
+with one nonnegative integer count for each of those five arrays, including zero
+counts. Counts describe this attempt, not cumulative source failures; original
+source collection counts remain unchanged. A rejected attempt still records its
+drop counts in diagnostics.
+
+Filtering cannot repair a broken array container, schema, source/story identity,
+coverage or section reference. The nonempty remote-backed story requirement,
+two-thirds source quorum and freshness checks still reject the whole attempt,
+leaving output, publication cache, measurement baseline and sitemap unchanged.
+Loading a prior publication remains strict and never silently sanitizes it.
+
 The additive `freshness` object on an accepted snapshot has this consumer contract;
 the publication module owns values and thresholds:
 

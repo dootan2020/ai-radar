@@ -3,7 +3,8 @@
 Use this runbook to distinguish collection failures, rejected publication,
 deployment failures, and an absent scheduled run. The source of commands and
 permissions is [the update workflow](../.github/workflows/update.yml);
-[Offline CI](../.github/workflows/ci.yml) owns branch validation. Production
+[Offline CI](../.github/workflows/ci.yml) checks pushes to `main` and pull requests;
+feature-branch pushes with an open PR therefore run the suite once. Production
 changes and pushes to `main` require owner approval.
 
 ## When the page looks old
@@ -48,6 +49,26 @@ Actions-read and Issues-write permissions. No extra personal token is required.
 Check the alert workflow itself if an expected issue is missing; an issue alone
 does not prove notification delivery. Closing an investigated issue allows a
 later failure to create a new one.
+
+Only `failure`, `timed_out`, `action_required`, and `startup_failure` open or
+update incidents. `cancelled` (including superseded queued runs), `stale`,
+`neutral`, and `skipped` are ignored. A later successful Update AI Radar run
+closes bot-owned open incidents for that same branch, with a recovery run link
+and no extra comment. A successful feature-branch update means that branch's
+workflow recovered; it does not imply a Pages deployment.
+
+Ordering uses the workflow's `run_number`, then `run_attempt`, rather than
+webhook arrival or finish time. Before writing, the observer checks completed
+runs of `update.yml` on the same branch created at or after the event's run;
+newer actionable failures or successes supersede delayed events. It also keeps
+the latest handled run in incident bodies, including closed incidents, so an
+older event cannot reopen or overwrite a recovered incident. Cancelled runs
+do not resolve an outstanding failure. The first encounter with an older issue
+resolves its existing run link through Actions to obtain ordering metadata.
+Missing metadata, unreadable history, or a 1,000-item pagination bound fails
+the observer visibly without guessing or creating a duplicate. Retry the
+observer after resolving that error. Issue ownership and branch markers keep
+human issues, pull requests, and other branches outside this lifecycle.
 
 ## Restore a previously deployed artifact
 

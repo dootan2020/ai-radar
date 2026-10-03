@@ -3,6 +3,7 @@
 import unittest
 
 from radar import translate as tr
+from radar.translation_names import names_in
 
 
 # Source titles are verbatim from the captured snapshot; deliberately corrupted
@@ -18,11 +19,76 @@ REAL_TITLES = [
 
 
 class ProperNameTests(unittest.TestCase):
+    def test_model_qualifiers_do_not_become_global_names(self):
+        cases = (
+            ("Mistral Small 3", "Small"),
+            ("Mistral Medium 3", "Medium"),
+            ("Grok 4 Fast", "Fast"),
+            ("Gemini 2.5 Flash", "Flash"),
+            ("Grok Code Fast 1", "Code"),
+            ("Grok Voice Think Fast 1", "Voice"),
+            ("Muse Image 2", "Image"),
+            ("Gemini 2.5 Beta", "Beta"),
+        )
+        for model, qualifier in cases:
+            with self.subTest(model=model):
+                source = f"Building tools with {model} and {qualifier} examples"
+                self.assertIn(model, names_in(source))
+                self.assertNotIn(qualifier, names_in(source))
+                good = f"Xây dựng công cụ với {model} và các ví dụ phù hợp"
+                self.assertIsNone(tr.rejection(source, good))
+                bad = good.replace(model, model.replace(qualifier, "").replace("  ", " ")) + f" ({qualifier})"
+                self.assertTrue((tr.rejection(source, bad) or "").startswith("name lost:"))
+
+    def test_model_spelling_repair_leaves_standalone_qualifier_alone(self):
+        for model, qualifier in (("Mistral Small 3", "Small"), ("Mistral Medium 3", "Medium"),
+                                 ("Grok 4 Fast", "Fast"), ("Gemini 2.5 Flash", "Flash")):
+            with self.subTest(model=model):
+                source = f"{model} offers {qualifier} examples"
+                translated = f"{model.lower()} cung cấp ví dụ {qualifier.lower()}"
+                self.assertEqual(tr.apply_glossary(source, translated),
+                                 f"{model} cung cấp ví dụ {qualifier.lower()}")
+
+    def test_standalone_generic_words_can_be_translated(self):
+        for word, meaning in (("Small", "nhỏ"), ("Medium", "vừa"), ("Fast", "nhanh"),
+                              ("Flash", "chớp nhoáng"), ("Code", "mã"), ("Image", "hình ảnh"),
+                              ("Voice", "giọng nói"), ("Beta", "thử nghiệm")):
+            with self.subTest(word=word):
+                source = f"Learn about {word} examples today"
+                translated = f"Tìm hiểu về các ví dụ {meaning} hôm nay"
+                self.assertEqual(tr.compose(source, {source: translated}), (translated, None))
+
+    def test_contextual_qualifiers_work_in_cached_and_fresh_translations(self):
+        source = "Mistral Small 3 improves Small models today"
+        good = "Mistral Small 3 cải thiện các mô hình nhỏ hôm nay"
+        bad = "Mistral 3 cải thiện các mô hình Small hôm nay"
+        for cached in (False, True):
+            for translated, accepted in ((good, True), (bad, False)):
+                with self.subTest(cached=cached, accepted=accepted):
+                    story = dict(title=source, title_vi="stale", coverage=[dict(title=source)])
+                    cache = {source: translated} if cached else {}
+
+                    def factory():
+                        self.assertFalse(cached, "cached strings must not load a model")
+                        return lambda batch: [translated for _ in batch]
+
+                    stats, alive = tr.translate_payload(dict(stories=[story]), cache, factory=factory)
+                    self.assertFalse(alive)
+                    self.assertEqual(stats["translated"], int(accepted))
+                    self.assertEqual(stats["rejected"], int(not accepted))
+                    for row in (story, story["coverage"][0]):
+                        if accepted:
+                            self.assertEqual(row["title_vi"], good)
+                        else:
+                            self.assertNotIn("title_vi", row)
+
     def test_real_titles_reject_translated_names(self):
         for source, translated, name in REAL_TITLES:
             with self.subTest(name=name):
                 self.assertIsNone(tr.rejection(source, translated))
-                self.assertEqual(tr.rejection(source, translated.replace(name, "tên bị dịch")), "name lost: " + name)
+                reason = tr.rejection(source, translated.replace(name, "tên bị dịch"))
+                self.assertTrue(reason.startswith("name lost:"))
+                self.assertIn(name, reason)
 
     def test_missing_name_cannot_hide_inside_a_larger_word(self):
         self.assertEqual(tr.rejection("Bringing Grok to Everyone", "Đưa Grokking cho mọi người"), "name lost: Grok")
