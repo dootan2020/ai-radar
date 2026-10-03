@@ -18,6 +18,7 @@ times, counters and failed sources must remain visible as unknown or failed.
   and [offline tests](../tests/).
 - [Publication policy](../radar/publication.py), [operations and rollback](operations.md),
   and [dated feed verification](source-feed-check-2026-10-03.md).
+- [Daily editions and durable archive](daily-editions.md), separate from the rolling snapshot.
 
 ## Decisions to preserve
 

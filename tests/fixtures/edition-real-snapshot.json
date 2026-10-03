@@ -1,0 +1,1048 @@
+{
+  "provenance": {
+    "source": "plans/nhap/live-radar.json",
+    "generated_at": "2026-10-03T09:18:01Z",
+    "note": "Reduced real captured snapshot. Titles, identities, dates, translations and measurements preserved; projections omitted. Controlled mutations exist only in tests."
+  },
+  "schema_version": 2,
+  "generated_at": "2026-10-03T09:18:01Z",
+  "sources": [
+    {
+      "id": "ai-news",
+      "name": "AI News",
+      "ok": true,
+      "count": 10,
+      "error": null,
+      "url": "https://buttondown.com/ainews/rss",
+      "group": "newsletter",
+      "publisher": "smol-ai"
+    },
+    {
+      "id": "anthropic-engineering",
+      "name": "Anthropic Engineering (nguồn cộng đồng)",
+      "ok": true,
+      "count": 25,
+      "error": null,
+      "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml",
+      "group": "lab",
+      "publisher": "anthropic"
+    },
+    {
+      "id": "anthropic-gftdon",
+      "name": "Anthropic News (nguồn cộng đồng gftdon)",
+      "ok": true,
+      "count": 13,
+      "error": null,
+      "url": "https://gftdon.github.io/ai-news-rss/anthropic.xml",
+      "group": "lab",
+      "publisher": "anthropic"
+    },
+    {
+      "id": "anthropic-news",
+      "name": "Anthropic News (nguồn cộng đồng)",
+      "ok": true,
+      "count": 50,
+      "error": null,
+      "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml",
+      "group": "lab",
+      "publisher": "anthropic"
+    },
+    {
+      "id": "anthropic-research",
+      "name": "Anthropic Research (nguồn cộng đồng)",
+      "ok": true,
+      "count": 15,
+      "error": null,
+      "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_research.xml",
+      "group": "lab",
+      "publisher": "anthropic"
+    },
+    {
+      "id": "anthropic-youtube",
+      "name": "Anthropic YouTube",
+      "ok": true,
+      "count": 0,
+      "error": null,
+      "url": "https://www.youtube.com/@anthropic-ai/streams?hl=en",
+      "group": "lab",
+      "publisher": "anthropic"
+    },
+    {
+      "id": "ars-ai",
+      "name": "Ars Technica AI",
+      "ok": true,
+      "count": 20,
+      "error": null,
+      "url": "https://arstechnica.com/ai/feed/",
+      "group": "press",
+      "publisher": "ars-technica"
+    },
+    {
+      "id": "curated-events",
+      "name": "Lịch sự kiện đã xác minh",
+      "ok": true,
+      "count": 2,
+      "error": null,
+      "url": null,
+      "group": "event",
+      "publisher": "curated-events"
+    },
+    {
+      "id": "deepmind-youtube",
+      "name": "Google DeepMind YouTube",
+      "ok": true,
+      "count": 0,
+      "error": null,
+      "url": "https://www.youtube.com/@GoogleDeepMind/streams?hl=en",
+      "group": "lab",
+      "publisher": "google"
+    },
+    {
+      "id": "deepseek-hf",
+      "name": "deepseek-ai / Hugging Face",
+      "ok": true,
+      "count": 8,
+      "error": null,
+      "url": "https://huggingface.co/api/models?author=deepseek-ai&sort=createdAt&direction=-1&limit=8",
+      "group": "repository",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "dwarkesh-podcast",
+      "name": "Dwarkesh Podcast",
+      "ok": false,
+      "count": 0,
+      "error": "Disabled: Nguồn podcast trên Substack trả mã HTTP 403 trên máy dựng của GitHub; video của Dwarkesh vẫn là một nguồn riêng.",
+      "url": "https://api.substack.com/feed/podcast/69345.rss",
+      "group": "podcast",
+      "publisher": "dwarkesh",
+      "disabled": true
+    },
+    {
+      "id": "dwarkesh-video",
+      "name": "Video Dwarkesh",
+      "ok": true,
+      "count": 7,
+      "error": null,
+      "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA",
+      "group": "podcast",
+      "publisher": "dwarkesh"
+    },
+    {
+      "id": "github-ai",
+      "name": "Kho mã AI mới trên GitHub",
+      "ok": true,
+      "count": 20,
+      "error": null,
+      "url": "https://api.github.com/search/repositories?q=topic%3Allm+created%3A%3E%3D2026-09-26&sort=stars&order=desc&per_page=20",
+      "group": "repository",
+      "publisher": "github"
+    },
+    {
+      "id": "github-trending",
+      "name": "Thịnh hành trên GitHub",
+      "ok": true,
+      "count": 17,
+      "error": null,
+      "url": "https://github.com/trending",
+      "group": "repository",
+      "publisher": "github"
+    },
+    {
+      "id": "google-ai",
+      "name": "Google AI",
+      "ok": true,
+      "count": 20,
+      "error": null,
+      "url": "https://blog.google/technology/ai/rss/",
+      "group": "lab",
+      "publisher": "google"
+    },
+    {
+      "id": "google-deepmind",
+      "name": "Google DeepMind",
+      "ok": false,
+      "count": 0,
+      "error": "Disabled: Địa chỉ RSS trả mã HTTP 200 nhưng XML hỏng trên máy dựng của GitHub; chưa kiểm được địa chỉ RSS thay thế. Google AI và kênh YouTube của DeepMind vẫn là nguồn riêng.",
+      "url": "https://deepmind.google/blog/rss.xml",
+      "group": "lab",
+      "publisher": "google",
+      "disabled": true
+    },
+    {
+      "id": "google-hf",
+      "name": "google / Hugging Face",
+      "ok": true,
+      "count": 8,
+      "error": null,
+      "url": "https://huggingface.co/api/models?author=google&sort=createdAt&direction=-1&limit=8",
+      "group": "repository",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "google-youtube",
+      "name": "Google YouTube",
+      "ok": true,
+      "count": 0,
+      "error": null,
+      "url": "https://www.youtube.com/@Google/streams?hl=en",
+      "group": "lab",
+      "publisher": "google"
+    },
+    {
+      "id": "hf-models-ranked",
+      "name": "Mô hình thịnh hành trên Hugging Face",
+      "ok": true,
+      "count": 20,
+      "error": null,
+      "url": "https://huggingface.co/api/models?sort=trendingScore&direction=-1&limit=20",
+      "group": "repository",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "hf-papers",
+      "name": "Hugging Face Daily Papers",
+      "ok": true,
+      "count": 50,
+      "error": null,
+      "url": "https://huggingface.co/api/daily_papers?limit=50",
+      "group": "paper",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "hf-spaces-ranked",
+      "name": "Space thịnh hành trên Hugging Face",
+      "ok": true,
+      "count": 20,
+      "error": null,
+      "url": "https://huggingface.co/api/spaces?sort=trendingScore&direction=-1&limit=20",
+      "group": "repository",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "hf-trending",
+      "name": "Thịnh hành trên Hugging Face",
+      "ok": true,
+      "count": 30,
+      "error": null,
+      "url": "https://huggingface.co/api/trending",
+      "group": "repository",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "hn-ai",
+      "name": "Hacker News",
+      "ok": true,
+      "count": 94,
+      "error": null,
+      "url": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=100&numericFilters=created_at_i%3E%3D1790414281&query=AI",
+      "group": "forum",
+      "publisher": "hacker-news"
+    },
+    {
+      "id": "hn-front",
+      "name": "Hacker News",
+      "ok": true,
+      "count": 5,
+      "error": null,
+      "url": "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=100&numericFilters=created_at_i%3E%3D1790414281",
+      "group": "forum",
+      "publisher": "hacker-news"
+    },
+    {
+      "id": "huggingface-blog",
+      "name": "Hugging Face Blog",
+      "ok": true,
+      "count": 50,
+      "error": null,
+      "url": "https://huggingface.co/blog/feed.xml",
+      "group": "lab",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "import-ai",
+      "name": "Import AI",
+      "ok": false,
+      "count": 0,
+      "error": "Disabled: Nguồn Substack trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế từ trang của tác giả.",
+      "url": "https://importai.substack.com/feed",
+      "group": "newsletter",
+      "publisher": "import-ai",
+      "disabled": true
+    },
+    {
+      "id": "interconnects",
+      "name": "Interconnects",
+      "ok": true,
+      "count": 20,
+      "error": null,
+      "url": "https://www.interconnects.ai/feed",
+      "group": "research",
+      "publisher": "interconnects"
+    },
+    {
+      "id": "latent-space",
+      "name": "Latent Space",
+      "ok": false,
+      "count": 0,
+      "error": "Disabled: Nguồn podcast trên Substack trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế.",
+      "url": "https://api.substack.com/feed/podcast/1084089.rss",
+      "group": "podcast",
+      "publisher": "latent-space",
+      "disabled": true
+    },
+    {
+      "id": "lobsters-ai",
+      "name": "Lobsters AI",
+      "ok": true,
+      "count": 2,
+      "error": null,
+      "url": "https://lobste.rs/hottest.json",
+      "group": "forum",
+      "publisher": "lobsters"
+    },
+    {
+      "id": "meta-hf",
+      "name": "meta-llama / Hugging Face",
+      "ok": true,
+      "count": 8,
+      "error": null,
+      "url": "https://huggingface.co/api/models?author=meta-llama&sort=createdAt&direction=-1&limit=8",
+      "group": "repository",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "meta-news",
+      "name": "Meta AI (nguồn cộng đồng)",
+      "ok": true,
+      "count": 50,
+      "error": null,
+      "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_meta_ai.xml",
+      "group": "lab",
+      "publisher": "meta"
+    },
+    {
+      "id": "microsoft-research",
+      "name": "Microsoft Research",
+      "ok": true,
+      "count": 10,
+      "error": null,
+      "url": "https://www.microsoft.com/en-us/research/feed/",
+      "group": "lab",
+      "publisher": "microsoft"
+    },
+    {
+      "id": "mistral-hf",
+      "name": "mistralai / Hugging Face",
+      "ok": true,
+      "count": 8,
+      "error": null,
+      "url": "https://huggingface.co/api/models?author=mistralai&sort=createdAt&direction=-1&limit=8",
+      "group": "repository",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "mistral-news",
+      "name": "Mistral News (nguồn cộng đồng)",
+      "ok": true,
+      "count": 50,
+      "error": null,
+      "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_mistral.xml",
+      "group": "lab",
+      "publisher": "mistral"
+    },
+    {
+      "id": "mit-tech-review",
+      "name": "MIT Technology Review AI",
+      "ok": true,
+      "count": 10,
+      "error": null,
+      "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed",
+      "group": "press",
+      "publisher": "mit-tech-review"
+    },
+    {
+      "id": "no-priors",
+      "name": "No Priors",
+      "ok": true,
+      "count": 1,
+      "error": null,
+      "url": "https://feeds.megaphone.fm/nopriors",
+      "group": "podcast",
+      "publisher": "no-priors"
+    },
+    {
+      "id": "nvidia-blog",
+      "name": "NVIDIA Technical Blog",
+      "ok": true,
+      "count": 50,
+      "error": null,
+      "url": "https://developer.nvidia.com/blog/feed",
+      "group": "lab",
+      "publisher": "nvidia"
+    },
+    {
+      "id": "nvidia-youtube",
+      "name": "NVIDIA YouTube",
+      "ok": true,
+      "count": 0,
+      "error": null,
+      "url": "https://www.youtube.com/@NVIDIA/streams?hl=en",
+      "group": "lab",
+      "publisher": "nvidia"
+    },
+    {
+      "id": "openai-hf",
+      "name": "openai / Hugging Face",
+      "ok": true,
+      "count": 8,
+      "error": null,
+      "url": "https://huggingface.co/api/models?author=openai&sort=createdAt&direction=-1&limit=8",
+      "group": "repository",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "openai-news",
+      "name": "OpenAI News",
+      "ok": true,
+      "count": 50,
+      "error": null,
+      "url": "https://openai.com/news/rss.xml",
+      "group": "lab",
+      "publisher": "openai"
+    },
+    {
+      "id": "openai-youtube",
+      "name": "OpenAI YouTube",
+      "ok": true,
+      "count": 1,
+      "error": null,
+      "url": "https://www.youtube.com/@OpenAI/streams?hl=en",
+      "group": "lab",
+      "publisher": "openai"
+    },
+    {
+      "id": "qwen-hf",
+      "name": "Qwen / Hugging Face",
+      "ok": true,
+      "count": 8,
+      "error": null,
+      "url": "https://huggingface.co/api/models?author=Qwen&sort=createdAt&direction=-1&limit=8",
+      "group": "repository",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "simon-willison",
+      "name": "Simon Willison",
+      "ok": true,
+      "count": 17,
+      "error": null,
+      "url": "https://simonwillison.net/atom/everything/",
+      "group": "research",
+      "publisher": "simon-willison"
+    },
+    {
+      "id": "techcrunch-ai",
+      "name": "TechCrunch AI",
+      "ok": true,
+      "count": 20,
+      "error": null,
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+      "group": "press",
+      "publisher": "techcrunch"
+    },
+    {
+      "id": "verge-ai",
+      "name": "The Verge AI",
+      "ok": true,
+      "count": 10,
+      "error": null,
+      "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+      "group": "press",
+      "publisher": "the-verge"
+    },
+    {
+      "id": "xai-hf",
+      "name": "xai-org / Hugging Face",
+      "ok": true,
+      "count": 2,
+      "error": null,
+      "url": "https://huggingface.co/api/models?author=xai-org&sort=createdAt&direction=-1&limit=8",
+      "group": "repository",
+      "publisher": "huggingface"
+    },
+    {
+      "id": "xai-news",
+      "name": "xAI News (nguồn cộng đồng)",
+      "ok": true,
+      "count": 39,
+      "error": null,
+      "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_xainews.xml",
+      "group": "lab",
+      "publisher": "xai"
+    }
+  ],
+  "stories": [
+    {
+      "id": "b4f19348ce95610ceeee",
+      "title": "Understanding Frontier Artificial Intelligence",
+      "title_vi": "Hiểu được trí tuệ nhân tạo tiên phong",
+      "url": "https://casp.ac/reports/intelligence-explosion",
+      "published_at": "2026-10-03T07:06:02Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "source_count": 1,
+      "groups": [
+        "forum"
+      ],
+      "hot_score": 31.281,
+      "hot_signals": {
+        "age_hours": 2.2,
+        "freshness": 0.9384387640670954,
+        "engagement_percentile": 0.0,
+        "velocity_per_hour": 20.62298603651987,
+        "velocity_percentile": 1.0,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-front",
+          "metric": "points",
+          "value": 33,
+          "observed_at": "2026-10-03T09:18:01Z",
+          "velocity_per_hour": 20.62298603651987,
+          "previous_observed_at": "2026-10-03T08:31:28Z",
+          "previous_value": 17
+        }
+      },
+      "coverage": [
+        {
+          "id": "1a60b41a5673e53ddffc",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "Understanding Frontier Artificial Intelligence",
+          "title_vi": "Hiểu được trí tuệ nhân tạo tiên phong",
+          "url": "https://casp.ac/reports/intelligence-explosion",
+          "published_at": "2026-10-03T07:06:02Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {
+            "points": 33,
+            "comments": 32
+          },
+          "time_basis": "published",
+          "discussion_url": "https://news.ycombinator.com/item?id=49942002"
+        }
+      ]
+    },
+    {
+      "id": "b6aee1da4c9da9519c63",
+      "title": "Meta wants your next gadget to be Muse-infused",
+      "title_vi": "Meta muốn thiết bị tiếp theo của bạn được truyền tải bằng Muse",
+      "url": "https://techcrunch.com/2026/10/02/meta-wants-you-to-build-your-own-muse-gadget/",
+      "published_at": "2026-10-03T00:45:39Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 1,
+      "groups": [
+        "press"
+      ],
+      "hot_score": null,
+      "hot_signals": {
+        "age_hours": 8.5397,
+        "freshness": 0.7814250559035544,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "coverage": [
+        {
+          "id": "9bfa61d1a91f2894d82a",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "group": "press",
+          "lab": "",
+          "kind": "other",
+          "title": "Meta wants your next gadget to be Muse-infused",
+          "title_vi": "Meta muốn thiết bị tiếp theo của bạn được truyền tải bằng Muse",
+          "url": "https://techcrunch.com/2026/10/02/meta-wants-you-to-build-your-own-muse-gadget/",
+          "published_at": "2026-10-03T00:45:39Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {},
+          "time_basis": "published",
+          "discussion_url": null
+        }
+      ]
+    },
+    {
+      "id": "5432f5b94c34f514ec03",
+      "title": "Apple changes full-disk access permissions to curb abuse from AI agents",
+      "title_vi": "Apple thay đổi quyền truy cập đĩa đầy đủ để ngăn chặn lạm dụng từ các agent AI",
+      "url": "https://arstechnica.com/security/2026/10/apple-changes-full-disk-access-permissions-to-curb-abuse-from-ai-agents/",
+      "published_at": "2026-10-02T23:03:16Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "groups": [
+        "press"
+      ],
+      "hot_score": null,
+      "hot_signals": {
+        "age_hours": 10.2461,
+        "freshness": 0.7438480676790312,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "coverage": [
+        {
+          "id": "2946472061cfb829f13b",
+          "source": "ars-ai",
+          "publisher": "ars-technica",
+          "group": "press",
+          "lab": "",
+          "kind": "product",
+          "title": "Apple changes full-disk access permissions to curb abuse from AI agents",
+          "title_vi": "Apple thay đổi quyền truy cập đĩa đầy đủ để ngăn chặn lạm dụng từ các agent AI",
+          "url": "https://arstechnica.com/security/2026/10/apple-changes-full-disk-access-permissions-to-curb-abuse-from-ai-agents/",
+          "published_at": "2026-10-02T23:03:16Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {},
+          "time_basis": "published",
+          "discussion_url": null
+        }
+      ]
+    },
+    {
+      "id": "674f9eeb677b6aa6c1b0",
+      "title": "Sean Parker is rebuilding Stability AI around music",
+      "title_vi": "Sean Parker đang xây dựng lại Stability AI xung quanh âm nhạc",
+      "url": "https://techcrunch.com/2026/10/02/sean-parker-is-rebuilding-stability-ai-around-music/",
+      "published_at": "2026-10-02T21:09:14Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 1,
+      "groups": [
+        "press"
+      ],
+      "hot_score": null,
+      "hot_signals": {
+        "age_hours": 12.1466,
+        "freshness": 0.7041184585596558,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "coverage": [
+        {
+          "id": "c2345fa9c547ed72ca44",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "group": "press",
+          "lab": "",
+          "kind": "other",
+          "title": "Sean Parker is rebuilding Stability AI around music",
+          "title_vi": "Sean Parker đang xây dựng lại Stability AI xung quanh âm nhạc",
+          "url": "https://techcrunch.com/2026/10/02/sean-parker-is-rebuilding-stability-ai-around-music/",
+          "published_at": "2026-10-02T21:09:14Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {},
+          "time_basis": "published",
+          "discussion_url": null
+        }
+      ]
+    },
+    {
+      "id": "038134d95b4f933ef0d5",
+      "title": "Meta open sources code to let you make Muse AI gadgets",
+      "title_vi": "Mã nguồn mở Meta để cho phép bạn làm các thiết bị Muse AI",
+      "url": "https://www.theverge.com/tech/1004330/meta-muse-ai-gadgets-home-link",
+      "published_at": "2026-10-02T21:08:37Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "groups": [
+        "press"
+      ],
+      "hot_score": null,
+      "hot_signals": {
+        "age_hours": 12.1569,
+        "freshness": 0.7039094833752542,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "coverage": [
+        {
+          "id": "505eeb8d1210959d38e3",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "group": "press",
+          "lab": "",
+          "kind": "product",
+          "title": "Meta open sources code to let you make Muse AI gadgets",
+          "title_vi": "Mã nguồn mở Meta để cho phép bạn làm các thiết bị Muse AI",
+          "url": "https://www.theverge.com/tech/1004330/meta-muse-ai-gadgets-home-link",
+          "published_at": "2026-10-02T21:08:37Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {},
+          "time_basis": "published",
+          "discussion_url": null
+        }
+      ]
+    },
+    {
+      "id": "90c6c9903271281ae042",
+      "title": "Amazon’s $1B plan to combat data center backlash draws more backlash",
+      "title_vi": "Kế hoạch 1 tỷ USD của Amazon để chống lại phản ứng trung tâm dữ liệu thu hút nhiều phản ứng hơn",
+      "url": "https://arstechnica.com/tech-policy/2026/10/amazons-1b-plan-to-combat-data-center-backlash-draws-more-backlash/",
+      "published_at": "2026-10-02T20:30:27Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 1,
+      "groups": [
+        "press"
+      ],
+      "hot_score": null,
+      "hot_signals": {
+        "age_hours": 12.793,
+        "freshness": 0.6910955996031313,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "coverage": [
+        {
+          "id": "5fa1b8a6f8bc8f291486",
+          "source": "ars-ai",
+          "publisher": "ars-technica",
+          "group": "press",
+          "lab": "",
+          "kind": "other",
+          "title": "Amazon’s $1B plan to combat data center backlash draws more backlash",
+          "title_vi": "Kế hoạch 1 tỷ USD của Amazon để chống lại phản ứng trung tâm dữ liệu thu hút nhiều phản ứng hơn",
+          "url": "https://arstechnica.com/tech-policy/2026/10/amazons-1b-plan-to-combat-data-center-backlash-draws-more-backlash/",
+          "published_at": "2026-10-02T20:30:27Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {},
+          "time_basis": "published",
+          "discussion_url": null
+        }
+      ]
+    },
+    {
+      "id": "ac153d8f7821405e727c",
+      "title": "Apple will limit Mac disk access as AI agents ‘substantially’ increase risk",
+      "title_vi": "Apple sẽ hạn chế quyền truy cập đĩa Mac khi các agent AI làm tăng nguy cơ \"nhiệt để\"",
+      "url": "https://www.theverge.com/tech/1004295/apple-limit-mac-disk-access-ai-agents",
+      "published_at": "2026-10-02T20:08:40Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "groups": [
+        "press"
+      ],
+      "hot_score": null,
+      "hot_signals": {
+        "age_hours": 13.1561,
+        "freshness": 0.6838870061079687,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "coverage": [
+        {
+          "id": "ba45fcd8041b72e975af",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "group": "press",
+          "lab": "",
+          "kind": "product",
+          "title": "Apple will limit Mac disk access as AI agents ‘substantially’ increase risk",
+          "title_vi": "Apple sẽ hạn chế quyền truy cập đĩa Mac khi các agent AI làm tăng nguy cơ \"nhiệt để\"",
+          "url": "https://www.theverge.com/tech/1004295/apple-limit-mac-disk-access-ai-agents",
+          "published_at": "2026-10-02T20:08:40Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {},
+          "time_basis": "published",
+          "discussion_url": null
+        }
+      ]
+    },
+    {
+      "id": "16212e61438fe737cec6",
+      "title": "Show HN: Made an open-source Lego AI generator",
+      "title_vi": "Show HN: Làm ra một mã nguồn mở Lego AI máy phát triển",
+      "url": "https://github.com/anteloc/ldraw-nova",
+      "published_at": "2026-10-02T20:00:15Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "source_count": 1,
+      "groups": [
+        "forum"
+      ],
+      "hot_score": 57.247,
+      "hot_signals": {
+        "age_hours": 13.2964,
+        "freshness": 0.681121924206036,
+        "engagement_percentile": 0.7634408602150538,
+        "velocity_per_hour": 3.8668098818474754,
+        "velocity_percentile": 0.9945652173913043,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 113,
+          "observed_at": "2026-10-03T09:18:01Z",
+          "velocity_per_hour": 3.8668098818474754,
+          "previous_observed_at": "2026-10-03T08:31:28Z",
+          "previous_value": 110
+        }
+      },
+      "coverage": [
+        {
+          "id": "7480a36f0350c4165301",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "Show HN: Made an open-source Lego AI generator",
+          "title_vi": "Show HN: Làm ra một mã nguồn mở Lego AI máy phát triển",
+          "url": "https://github.com/anteloc/ldraw-nova",
+          "published_at": "2026-10-02T20:00:15Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {
+            "points": 113,
+            "comments": 44
+          },
+          "time_basis": "published",
+          "discussion_url": "https://news.ycombinator.com/item?id=49937916"
+        }
+      ]
+    },
+    {
+      "id": "b3857f26daabd24cdab2",
+      "title": "Apple says it’s tightening macOS ‘Full Disk Access’ controls due to new risks from AI agents",
+      "title_vi": "Apple cho biết họ đang thắt chặt các điều khiển 'Full Disk Access' của macOS do những rủi ro mới từ các agent AI",
+      "url": "https://techcrunch.com/2026/10/02/apple-says-its-tightening-macos-full-disk-access-controls-due-to-new-risks-from-ai-agents/",
+      "published_at": "2026-10-02T18:11:27Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "groups": [
+        "forum",
+        "press"
+      ],
+      "hot_score": 23.267,
+      "hot_signals": {
+        "age_hours": 15.1097,
+        "freshness": 0.646368779389462,
+        "engagement_percentile": 0.25806451612903225,
+        "velocity_per_hour": 0.0,
+        "velocity_percentile": 0.483695652173913,
+        "source_count": 2,
+        "spread": 0.4,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 18,
+          "observed_at": "2026-10-03T09:18:01Z",
+          "velocity_per_hour": 0.0,
+          "previous_observed_at": "2026-10-03T08:31:28Z",
+          "previous_value": 18
+        }
+      },
+      "coverage": [
+        {
+          "id": "08344cce36b1da4ebbbc",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "group": "press",
+          "lab": "",
+          "kind": "product",
+          "title": "Apple says it’s tightening macOS ‘Full Disk Access’ controls due to new risks from AI agents",
+          "title_vi": "Apple cho biết họ đang thắt chặt các điều khiển 'Full Disk Access' của macOS do những rủi ro mới từ các agent AI",
+          "url": "https://techcrunch.com/2026/10/02/apple-says-its-tightening-macos-full-disk-access-controls-due-to-new-risks-from-ai-agents/",
+          "published_at": "2026-10-02T18:11:27Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {},
+          "time_basis": "published",
+          "discussion_url": null
+        },
+        {
+          "id": "612f2d5f95b104a89ec3",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "Apple is tightening macOS 'Full Disk Access' due to new risks from AI agents",
+          "title_vi": "Apple đang thắt chặt macOS 'Full Disk Access' do những rủi ro mới từ các agent AI",
+          "url": "https://techcrunch.com/2026/10/02/apple-says-its-tightening-macos-full-disk-access-controls-due-to-new-risks-from-ai-agents/",
+          "published_at": "2026-10-02T19:03:03Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {
+            "points": 18,
+            "comments": 7
+          },
+          "time_basis": "published",
+          "discussion_url": "https://news.ycombinator.com/item?id=49937239"
+        }
+      ]
+    },
+    {
+      "id": "e81b1dea7ce0fb42c978",
+      "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
+      "title_vi": "AstaBrief nguồn mở, mô hình tạo báo cáo nhanh trong Asta",
+      "url": "https://huggingface.co/blog/allenai/astabrief",
+      "published_at": "2026-10-02T15:19:50Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 1,
+      "groups": [
+        "lab"
+      ],
+      "hot_score": null,
+      "hot_signals": {
+        "age_hours": 17.97,
+        "freshness": 0.595119452128001,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "coverage": [
+        {
+          "id": "0673fea1e15cf766a44b",
+          "source": "huggingface-blog",
+          "publisher": "huggingface",
+          "group": "lab",
+          "lab": "huggingface",
+          "kind": "other",
+          "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
+          "title_vi": "AstaBrief nguồn mở, mô hình tạo báo cáo nhanh trong Asta",
+          "url": "https://huggingface.co/blog/allenai/astabrief",
+          "published_at": "2026-10-02T15:19:50Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {},
+          "time_basis": "published",
+          "discussion_url": null
+        }
+      ]
+    },
+    {
+      "id": "7c35e1148c5e7af2378a",
+      "title": "AI Makes Me Sad",
+      "title_vi": "AI khiến tôi buồn",
+      "url": "https://mondobe.com/ai-makes-me-sad",
+      "published_at": "2026-10-02T15:18:00Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "source_count": 1,
+      "groups": [
+        "forum"
+      ],
+      "hot_score": 53.811,
+      "hot_signals": {
+        "age_hours": 18.0005,
+        "freshness": 0.5945945033418735,
+        "engagement_percentile": 0.8602150537634409,
+        "velocity_per_hour": 3.8668098818474754,
+        "velocity_percentile": 0.9945652173913043,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 186,
+          "observed_at": "2026-10-03T09:18:01Z",
+          "velocity_per_hour": 3.8668098818474754,
+          "previous_observed_at": "2026-10-03T08:31:28Z",
+          "previous_value": 183
+        }
+      },
+      "coverage": [
+        {
+          "id": "07e73717235520bdb8cd",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "AI Makes Me Sad",
+          "title_vi": "AI khiến tôi buồn",
+          "url": "https://mondobe.com/ai-makes-me-sad",
+          "published_at": "2026-10-02T15:18:00Z",
+          "observed_at": "2026-10-03T09:18:01Z",
+          "metrics": {
+            "points": 186,
+            "comments": 224
+          },
+          "time_basis": "published",
+          "discussion_url": "https://news.ycombinator.com/item?id=49934487"
+        }
+      ]
+    }
+  ],
+  "sections": {
+    "today": [
+      "b4f19348ce95610ceeee",
+      "b6aee1da4c9da9519c63",
+      "5432f5b94c34f514ec03",
+      "674f9eeb677b6aa6c1b0",
+      "038134d95b4f933ef0d5",
+      "90c6c9903271281ae042",
+      "ac153d8f7821405e727c",
+      "16212e61438fe737cec6",
+      "b3857f26daabd24cdab2",
+      "e81b1dea7ce0fb42c978",
+      "7c35e1148c5e7af2378a"
+    ],
+    "hot": [
+      "7c35e1148c5e7af2378a",
+      "b3857f26daabd24cdab2"
+    ],
+    "models": [],
+    "papers": [],
+    "listen": [],
+    "voices": [],
+    "community": [
+      "b4f19348ce95610ceeee",
+      "16212e61438fe737cec6",
+      "b3857f26daabd24cdab2",
+      "7c35e1148c5e7af2378a"
+    ],
+    "upcoming": []
+  },
+  "updates": [],
+  "hf_releases": [],
+  "live": [],
+  "events": [],
+  "trending": {
+    "github": [],
+    "huggingface": []
+  }
+}
