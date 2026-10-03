@@ -35,11 +35,74 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("group: github-pages-${{ github.ref }}", self.text)
         self.assertIn("cancel-in-progress: false", self.text)
 
-    def test_main_deployment_guards_and_latest_verified_majors(self):
+    def test_main_deployment_guards_and_job_permissions(self):
         self.assertIn("  deploy:\n    if: github.ref == 'refs/heads/main'", self.text)
-        self.assertIn("actions/upload-pages-artifact@v5\n        if: github.ref == 'refs/heads/main'", self.text)
-        for action in ("cache/restore@v6", "cache/save@v6", "upload-artifact@v7"):
-            self.assertIn("actions/" + action, self.text)
+        self.assertIn("if: github.ref == 'refs/heads/main'", self.steps()["Upload Pages artifact"])
+        update, deploy = self.text.split("\n  deploy:")
+        self.assertNotIn("pages: write", update)
+        self.assertNotIn("id-token: write", update)
+        self.assertIn("pages: write", deploy)
+        self.assertIn("id-token: write", deploy)
+        self.assertNotIn("issues: write", self.text)
+
+    def test_every_action_is_immutable_and_dependabot_monitors_actions(self):
+        for path in WORKFLOW.parent.glob("*.yml"):
+            uses = re.findall(r"(?m)^\s+(?:- )?uses: (.+)$", path.read_text(encoding="utf-8"))
+            self.assertTrue(uses, path.name)
+            for action in uses:
+                self.assertRegex(action, r"^actions/[a-z/-]+@[0-9a-f]{40} # v\d+\.\d+\.\d+$", path.name)
+        dependabot = (WORKFLOW.parent.parent / "dependabot.yml").read_text(encoding="utf-8")
+        self.assertIn("package-ecosystem: github-actions", dependabot)
+        self.assertIn("interval: weekly", dependabot)
+
+    def test_push_and_pr_run_offline_without_deploy_or_write_tokens(self):
+        ci = (WORKFLOW.parent / "ci.yml").read_text(encoding="utf-8")
+        self.assertRegex(ci, r"(?m)^  push:$")
+        self.assertRegex(ci, r"(?m)^  pull_request:$")
+        self.assertIn("run: python -m unittest discover -s tests", ci)
+        self.assertIn("run: node --version", ci)
+        for forbidden in ("write", "build.py", "deploy", "secrets.", "pull_request_target", "pip install"):
+            self.assertNotIn(forbidden, ci)
+        self.assertNotRegex(self.text, r"(?m)^  (push|pull_request):$")
+
+    def test_failure_observer_survives_cancellation_and_executes_trusted_code(self):
+        alert = (WORKFLOW.parent / "failure-alert.yml").read_text(encoding="utf-8")
+        self.assertIn("workflows: [Update AI Radar]", alert)
+        self.assertIn("types: [completed]", alert)
+        for conclusion in ("failure", "cancelled", "timed_out"):
+            self.assertIn(f'"{conclusion}"', alert)
+        self.assertIn("ref: ${{ github.event.repository.default_branch }}", alert)
+        self.assertIn("head_repository.full_name == github.repository", alert)
+        self.assertIn("path: ${{ runner.temp }}/radar-publish-diagnostics", alert)
+        self.assertIn("actions: read", alert)
+        self.assertIn("issues: write", alert)
+        self.assertIn("cancel-in-progress: false", alert)
+        self.assertIn("run: python -m radar.failure_alert", alert)
+        self.assertNotIn("workflow_run.head_sha", alert)
+        self.assertNotIn("pages: write", alert)
+        self.assertNotIn("id-token: write", alert)
+
+    def test_diagnostics_always_upload_and_publication_cache_follows_deployment(self):
+        steps = self.steps()
+        diagnostic = steps["Upload publish diagnostics"]
+        self.assertIn("if: always()", diagnostic)
+        self.assertIn("path: data/publish-status.json", diagnostic)
+        candidate = steps["Upload publication candidate"]
+        self.assertIn("steps.collect.outputs.published_snapshot_updated == 'true'", candidate)
+        restore = steps["Restore last published snapshot"]
+        save = steps["Save published snapshot"]
+        self.assertIn("path: data/published-snapshot.json", restore)
+        self.assertIn("path: data/published-snapshot.json", save)
+        self.assertIn("steps.deployment.outcome == 'success'", save)
+        self.assertIn("steps.published-snapshot.outcome == 'success'", save)
+        self.assertIn("radar-publication-v1-main-", restore)
+        self.assertNotIn("Save published snapshot", self.text.split("\n  deploy:")[0])
+        # A deploy-only rerun must fetch the original candidate, not the new attempt number.
+        for block in (candidate, steps["Download published snapshot"]):
+            self.assertIn("name: radar-publication-${{ github.run_id }}\n", block)
+            self.assertNotIn("github.run_attempt", block)
+        self.assertIn("overwrite: true", candidate)
+        self.assertIn("continue-on-error: true", steps["Download published snapshot"])
 
     def steps(self):
         """name -> step text, for every step in the update job."""
@@ -59,7 +122,7 @@ class WorkflowTests(unittest.TestCase):
         # Translation runs after the core build and before anything is uploaded or deployed.
         self.assertLess(names.index("Fetch public sources"), names.index("Translate headlines"))
         self.assertLess(names.index("Translate headlines"), names.index("Upload collected source evidence"))
-        self.assertLess(names.index("Translate headlines"), names.index("actions/upload-pages-artifact@v5"))
+        self.assertLess(names.index("Translate headlines"), names.index("Upload Pages artifact"))
 
     def test_translation_has_a_time_limit_and_its_caches_survive_runs(self):
         steps = self.steps()

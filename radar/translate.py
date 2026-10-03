@@ -21,6 +21,7 @@ import time
 from pathlib import Path
 
 from radar.pipeline import write_atomic
+from radar.translation_names import CATALOG_NAMES, name_pattern, names_in, object_names, payload_names
 
 MODEL_ID = "facebook/nllb-200-distilled-600M"
 # refs/pr/45 of the model repo: the only revision that carries model.safetensors
@@ -174,27 +175,28 @@ def split_source(text):
     return label + prefix, [part for part in SENTENCE_END.split(text) if part], speaker
 
 
-def _names(source):
-    return {name for name in NAME_TOKEN.findall(source) if name not in COMMON_ACRONYMS}
+def _names(source, protected_names=CATALOG_NAMES):
+    return ({name for name in NAME_TOKEN.findall(source) if name not in COMMON_ACRONYMS}
+            | names_in(source, protected_names))
 
 
-def apply_glossary(source, vi):
+def apply_glossary(source, vi, *, protected_names=CATALOG_NAMES):
     """Fix known mistranslations, restore the spelling of names, tidy the edges."""
     for src_pattern, fixes in _GLOSSARY:
         if src_pattern.search(source):
             for vi_pattern, out in fixes:
                 vi = vi_pattern.sub(out, vi)
     vi = re.sub(r"\bagent agent\b", "agent", vi)
-    for name in _names(source):
-        if name not in vi:  # the model changed only the case ("xAI" -> "XAI"): put the name back as written
-            vi = re.sub(r"(?<![A-Za-z0-9])" + re.escape(name) + r"(?![A-Za-z0-9])", name, vi, flags=re.IGNORECASE)
+    for name in sorted(_names(source, protected_names), key=lambda value: (-len(value), value)):
+        # Restore spelling only, never guess where a translated or missing name belongs.
+        vi = re.sub(name_pattern(name), lambda match: name, vi, flags=re.IGNORECASE)
     vi = " ".join(vi.split())
     if not re.match(r"[-\u2013\u2014*\u2022]", source):
         vi = re.sub(r"^[-\u2013\u2014*\u2022]+\s*", "", vi)  # a dash the source never had
     return vi[:1].upper() + vi[1:] if vi[:1].islower() and source[:1].isupper() else vi
 
 
-def rejection(source, vi):
+def rejection(source, vi, *, protected_names=CATALOG_NAMES):
     """Why a machine translation must not be shown, or None when it may be."""
     if not vi or not vi.strip():
         return "empty"
@@ -222,13 +224,13 @@ def rejection(source, vi):
              if NUMBER_WORDS.get(d) not in source_words and SMALL_NUMBERS.get(d) not in source_words}
     if added:
         return "number added: " + ",".join(sorted(added))
-    lost = [name for name in _names(source) if name not in vi]
+    lost = [name for name in _names(source, protected_names) if not re.search(name_pattern(name), vi)]
     if lost:
         return "name lost: " + ",".join(sorted(lost))
     return None
 
 
-def compose(source, cache):
+def compose(source, cache, *, protected_names=CATALOG_NAMES):
     """Vietnamese for `source` from cached segments: (vi, None), (None, reason) or (None, 'pending')."""
     source = normalize(source)
     prefix, segments, tail = split_source(source)
@@ -241,8 +243,8 @@ def compose(source, cache):
     first = body.split()[0] if body else ""
     if prefix.rstrip().endswith(("Ra mắt", "Công bố")) and first[:1].isupper() and first not in source:
         body = body[0].lower() + body[1:]  # "Ra mắt Khám phá…" -> "Ra mắt khám phá…"; a name from the source keeps its capital
-    vi = apply_glossary(source, (prefix + body + tail).strip())
-    reason = rejection(source, vi)
+    vi = apply_glossary(source, (prefix + body + tail).strip(), protected_names=protected_names)
+    reason = rejection(source, vi, protected_names=protected_names)
     return (None, reason) if reason else (vi, None)
 
 
@@ -302,6 +304,7 @@ def apply(payload, cache):
     counts = dict(strings=0, translated=0, pending=0, rejected=0, kept_original=0)
     rejected = []
     done = set()
+    protected_names = payload_names(payload)
     for obj, src, dst in targets(payload):
         obj.pop(dst, None)
         if not needs_translation(obj[src]):
@@ -312,7 +315,7 @@ def apply(payload, cache):
         done.add(key)
         if first:
             counts["strings"] += 1
-        vi, reason = compose(obj[src], cache)
+        vi, reason = compose(obj[src], cache, protected_names=protected_names | object_names(obj))
         if vi:
             obj[dst] = vi
             counts["translated"] += first

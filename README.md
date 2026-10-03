@@ -59,3 +59,11 @@ Offline fixtures include captured live/upcoming/ended channel metadata and actua
 ## Website and automatic updates
 
 The published site is [AI Radar](https://dootan2020.github.io/ai-radar/). The existing [Update AI Radar workflow](.github/workflows/update.yml) runs tests, builds fresh data, and deploys `site/` through GitHub Pages. It is scheduled at minutes 07 and 37 of every hour; GitHub may delay scheduled runs. A manual run is available in the repository's Actions tab.
+
+The separate [Offline CI workflow](.github/workflows/ci.yml) checks pushes and pull requests. Making its test job a required branch check needs repository settings; adding the workflow does not enable that protection automatically. See [operations and rollback](docs/operations.md), the [data contract](docs/data-pipeline-v2.md), and the [dated feed verification](docs/source-feed-check-2026-10-03.md).
+
+## Optional translation and attribution
+
+Machine-translated headlines use Meta's [NLLB-200 distilled 600M](https://huggingface.co/facebook/nllb-200-distilled-600M), licensed under [Creative Commons Attribution-NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/). AI Radar applies the model to source text and adds terminology corrections; original text remains available. This attribution does not imply endorsement by Meta.
+
+The optional model must be replaced before commercial use of this translation feature, including advertising or paid access. The model license does not license the articles linked by the site. [Translation dependencies](requirements-translate.txt) belong to the optional [translation step](radar/translate.py); the core collection/build remains Python standard-library only and needs no model API key. Names are preserved or the original title is shown when a translation fails the guard, including cached translations.

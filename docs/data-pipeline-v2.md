@@ -16,7 +16,8 @@ times, counters and failed sources must remain visible as unknown or failed.
 - [Curated calendar](../data/events.json) and [calendar validation](../radar/events.py).
 - [Transport evidence](../radar/transport.py), [workflow](../.github/workflows/update.yml),
   and [offline tests](../tests/).
-- [Detailed consumer contract](../plans/261002-1630-ai-radar-v2/hop-dong-du-lieu-v2.md).
+- [Publication policy](../radar/publication.py), [operations and rollback](operations.md),
+  and [dated feed verification](source-feed-check-2026-10-03.md).
 
 ## Decisions to preserve
 
@@ -82,11 +83,15 @@ translated once; the workflow keeps the translation cache
 (`data/translations-vi.json`) and the model (`HF_HOME`, safetensors, JSON and
 tokenizer only) in `actions/cache` between runs.
 
-The model is `facebook/nllb-200-distilled-600M`, pinned to revision
-`a3e77be7` (refs/pr/45, the only one carrying `model.safetensors`). Its licence
-is **CC-BY-NC 4.0**: valid only while ai-radar earns no money. Advertising, paid
-access or any other commercial use requires replacing it (DeepL Free is the
-noted fallback). [Translation tests](../tests/test_translate.py) and
+The [README attribution and license notice](../README.md#optional-translation-and-attribution)
+owns the noncommercial constraint. The pinned model revision belongs to
+[the translator](../radar/translate.py). DeepL Free remains a previously noted
+replacement option, not an active integration; no service switch was made.
+Protected identities come from
+[collector/catalog metadata, the model classifier and snapshot context](../radar/translation_names.py);
+unfaithful cached output also falls back to the original. Names are not guessed
+from every capitalized English word. [Translation tests](../tests/test_translate.py),
+[name regressions](../tests/test_translation_names.py), and
 [display tests](../tests/test_translation_display.py) are the proof.
 
 ## Measurement continuity and source policy
@@ -118,6 +123,34 @@ record publisher evidence, replacement trade-offs and re-enablement criteria;
 executable proof.
 
 ## Verification boundary
+
+Publication eligibility is separate from ranking-measurement continuity.
+[Publication policy](../radar/publication.py) rejects an unusable candidate
+before [the CLI](../build.py) replaces displayed data. A rejected attempt must
+not relabel an older snapshot as fresh. Workflow promotion of the last-published
+reference follows a successful Pages deployment; a collected candidate alone
+is not evidence that readers received it.
+
+The additive `freshness` object on an accepted snapshot has this consumer contract;
+the publication module owns values and thresholds:
+
+| Field | Meaning |
+| --- | --- |
+| `generated_at` | Candidate collection time, UTC ISO timestamp. |
+| `expected_interval_seconds` | Intended cadence, not a scheduling guarantee. |
+| `stale_after_seconds` | Age threshold used by freshness policy. |
+| `previous_generated_at` | Prior accepted publication time, or null when unknown. |
+| `previous_age_seconds` | Prior publication age at assessment, or null. |
+| `previous_stale` | Whether that measured prior age exceeds the threshold. |
+| `gap_seconds` | Candidate-to-prior timestamp difference, or null. |
+| `scheduler_gap` | A measured gap beyond the threshold; not a diagnosis of GitHub's scheduler. |
+
+Attempt diagnostics are written separately to `data/publish-status.json`,
+including `published`, `reason`, `attempted_at`, source success/failure counts,
+and the same `freshness` evidence. Here `published` means eligible for local
+publication, not a confirmation that the later Pages deploy succeeded. A failed
+build's diagnostic artifact remains useful without overwriting the last good
+site. Paths and overrides are owned by [the CLI](../build.py).
 
 Follow the [README](../README.md) for local commands and the workflow for runner
 steps. A green build or test suite alone does not establish live coverage.

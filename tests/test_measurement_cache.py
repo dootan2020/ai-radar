@@ -116,6 +116,17 @@ class BaselineTests(unittest.TestCase):
 
 
 class BuildBaselineTests(unittest.TestCase):
+    @staticmethod
+    def display_snapshot(at=NOW, good=10, observations=10):
+        payload = snapshot(at, good, observations)
+        payload["sections"] = {key: [] for key in
+                               ("today", "hot", "models", "papers", "listen", "voices", "community", "upcoming")}
+        for index, story in enumerate(payload["stories"]):
+            story.update(id=f"story-{index}", title="AI update", url=f"https://example.org/{index}")
+            for item in story["coverage"]:
+                item.update(title=story["title"], url=story["url"])
+        return payload
+
     def test_output_and_baseline_cannot_alias(self):
         with tempfile.TemporaryDirectory() as directory:
             path = str(Path(directory) / "radar.json")
@@ -139,10 +150,10 @@ class BuildBaselineTests(unittest.TestCase):
             output = Path(directory) / "radar.json"
             baseline = Path(directory) / "measurement-baseline.json"
             github_output = Path(directory) / "github-output.txt"
-            previous = snapshot(NOW - timedelta(hours=1))
+            previous = self.display_snapshot(NOW - timedelta(hours=1))
             baseline.write_text(json.dumps(previous), encoding="utf-8")
             original = baseline.read_bytes()
-            bad = snapshot(good=0, observations=0)
+            bad = self.display_snapshot(good=7)
             env = {"RADAR_OUTPUT": str(output), "RADAR_BASELINE": str(baseline), "GITHUB_OUTPUT": str(github_output)}
             with patch.dict(os.environ, env), patch.object(build, "datetime") as clock:
                 clock.now.return_value = NOW
@@ -152,20 +163,23 @@ class BuildBaselineTests(unittest.TestCase):
                 self.assertEqual(baseline.read_bytes(), original)
                 self.assertEqual(json.loads(output.read_text(encoding="utf-8")), bad)
                 self.assertIn("baseline_updated=false", github_output.read_text(encoding="utf-8"))
-                good = snapshot()
+                good = self.display_snapshot(NOW + timedelta(minutes=1))
+                clock.now.return_value = NOW + timedelta(minutes=1)
                 with patch.object(build, "build_v2", return_value=good), redirect_stdout(io.StringIO()):
                     build.main()
                 self.assertEqual(json.loads(baseline.read_text(encoding="utf-8")), good)
                 self.assertTrue(github_output.read_text(encoding="utf-8").endswith("baseline_updated=true\n"))
 
-    def test_first_bad_build_writes_evidence_without_creating_baseline(self):
+    def test_first_bad_build_writes_diagnostic_without_creating_published_output(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "radar.json"
             with patch.dict(os.environ, {"RADAR_OUTPUT": str(output),
                     "RADAR_BASELINE": str(output.parent / "measurement-baseline.json")}, clear=True), \
                     patch.object(build, "build_v2", return_value=snapshot(good=0)), redirect_stdout(io.StringIO()):
-                build.main()
-            self.assertTrue(output.exists())
+                self.assertEqual(build.main(), 1)
+            self.assertFalse(output.exists())
+            diagnostic = json.loads((output.parent / "publish-status.json").read_text(encoding="utf-8"))
+            self.assertFalse(diagnostic["published"])
             self.assertFalse((output.parent / "measurement-baseline.json").exists())
 
 

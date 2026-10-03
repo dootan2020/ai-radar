@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: github-pages-${{ github.ref }}
@@ -20,8 +18,10 @@ jobs:
     # Fetching takes ~1 minute; the optional translation step is capped at 10 minutes by its own budget.
     timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.11'
           cache: pip
@@ -29,13 +29,19 @@ jobs:
       - name: Run offline tests
         run: python -m unittest discover -s tests
       - name: Restore previous measurement snapshot
-        uses: actions/cache/restore@v6
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: data/measurement-baseline.json
           key: radar-measurements-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             radar-measurements-v2-${{ github.ref_name }}-
             radar-measurements-v2-main-
+      - name: Restore last published snapshot
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/published-snapshot.json
+          key: radar-publication-v1-main-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: radar-publication-v1-main-
       - name: Fetch public sources
         id: collect
         env:
@@ -43,7 +49,7 @@ jobs:
         run: python build.py
       - name: Save measurement snapshot
         if: steps.collect.outputs.baseline_updated == 'true'
-        uses: actions/cache/save@v6
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: data/measurement-baseline.json
           key: radar-measurements-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
@@ -58,14 +64,14 @@ jobs:
         id: mt-model
         if: steps.collect.outcome == 'success'
         continue-on-error: true
-        uses: actions/cache/restore@v6
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ runner.temp }}/hf-home
           key: mt-nllb-200-distilled-600M-a3e77be-v1
       - name: Restore translation cache
         if: steps.collect.outcome == 'success'
         continue-on-error: true
-        uses: actions/cache/restore@v6
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: data/translations-vi.json
           key: radar-translations-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
@@ -87,23 +93,41 @@ jobs:
       - name: Save translation model
         if: always() && steps.mt-model.outputs.cache-hit != 'true' && steps.translate.outputs.model_ready == 'true'
         continue-on-error: true
-        uses: actions/cache/save@v6
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ runner.temp }}/hf-home
           key: mt-nllb-200-distilled-600M-a3e77be-v1
       - name: Save translation cache
         if: always() && steps.translate.outputs.cache_written == 'true'
         continue-on-error: true
-        uses: actions/cache/save@v6
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: data/translations-vi.json
           key: radar-translations-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Upload collected source evidence
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: radar-data-${{ github.run_id }}-${{ github.run_attempt }}
           path: site/data/radar.json
-      - uses: actions/upload-pages-artifact@v5
+      - name: Upload publish diagnostics
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: radar-publish-status-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/publish-status.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Upload publication candidate
+        if: github.ref == 'refs/heads/main' && steps.collect.outputs.published_snapshot_updated == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: radar-publication-${{ github.run_id }}
+          path: data/published-snapshot.json
+          overwrite: true
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         if: github.ref == 'refs/heads/main'
         with:
           path: site
@@ -112,11 +136,30 @@ jobs:
     needs: update
     runs-on: ubuntu-26.04
     timeout-minutes: 5
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/configure-pages@v6
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+      # A collected candidate becomes the freshness reference only after Pages accepts it.
+      - name: Download published snapshot
+        id: published-snapshot
+        if: steps.deployment.outcome == 'success'
+        continue-on-error: true
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: radar-publication-${{ github.run_id }}
+          path: data
+      - name: Save published snapshot
+        if: steps.deployment.outcome == 'success' && steps.published-snapshot.outcome == 'success'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/published-snapshot.json
+          key: radar-publication-v1-main-${{ github.run_id }}-${{ github.run_attempt }}
