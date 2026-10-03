@@ -257,6 +257,8 @@ class RetentionUnitTests(unittest.TestCase):
 
 
 class RetentionDemonstrationTests(unittest.TestCase):
+    @unittest.skipUnless(SNAP1_PATH.is_file() and SNAP2_PATH.is_file(),
+                         "Audit demonstration snapshots absent (plans/ is gitignored)")
     def test_offline_demonstration_on_real_audit_snapshots(self):
         """Demonstrate retention using art-11220425807 (snap1) as previous for art-11261861541 (snap2)."""
         with open(SNAP1_PATH, "r", encoding="utf-8") as f:
