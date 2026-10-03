@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from http.client import HTTPException
 from html.parser import HTMLParser
 import json
+import re
 from time import monotonic
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlsplit
@@ -13,8 +14,7 @@ from radar.items import instant
 from radar.publication import STALE_AFTER_SECONDS
 
 SITE_URL = "https://dootan2020.github.io/ai-radar/"
-ASSETS = ("tokens.css", "styles.css", "app.js", "live.js", "calendar.js",
-          "time-text.js", "snapshot.js", "faces.js", "words.js", "titles.js")
+PRIMARY_ASSETS = ("tokens.css", "styles.css", "app.js")
 MAX_BYTES = 8 * 1024 * 1024
 REQUEST_TIMEOUT = 10
 PROBE_TIMEOUT = 60
@@ -25,11 +25,68 @@ class ProbeError(ValueError):
     """A bounded diagnostic safe to publish without remote response text."""
 
 
+def local_asset(reference, parent):
+    """Only unambiguous, public URLs within the Pages project may be checked."""
+    url = urljoin(parent, reference)
+    parts, site = urlsplit(url), urlsplit(SITE_URL)
+    if parts.hostname != site.hostname:
+        return None
+    if (parts.scheme != site.scheme or parts.netloc != site.netloc
+            or parts.query or parts.fragment or "?" in reference or "#" in reference
+            or not parts.path.startswith(site.path)
+            or not re.fullmatch(r"/[A-Za-z0-9_./-]+", parts.path)
+            or any(part in (".", "..") for part in parts.path.split("/"))):
+        raise ProbeError("Invalid local asset reference.")
+    return url
+
+
+# Lex only enough to find literal module references without matching examples
+# inside comments, strings or templates. This is not a JavaScript evaluator.
+JS_TOKEN = re.compile(r'''//[^\n]*|/\*[\s\S]*?\*/|"(?:\\[\s\S]|[^"\\])*"|'(?:\\[\s\S]|[^'\\])*'|`(?:\\[\s\S]|[^`\\])*`|[\w$]+|[^\s]''')
+
+
+def module_references(source):
+    tokens = (match[0] for match in JS_TOKEN.finditer(source)
+              if not match[0].startswith(("//", "/*")))
+    previous, pending = None, None
+    while True:
+        token, pending = pending or next(tokens, ""), None
+        if not token:
+            break
+        if token in ("import", "export") and previous != ".":
+            head = next(tokens, "")
+            if token == "import" and head == "(":
+                literal = next(tokens, "")
+                if literal.startswith(("'", '"')) and next(tokens, "") in (")", ","):
+                    yield literal[1:-1]
+            elif token == "import" and head.startswith(("'", '"')):
+                yield head[1:-1]
+            elif head != "." and (token == "import" or head in ("*", "{")):
+                for part in tokens:
+                    if part == ";":
+                        break
+                    if part in ("import", "export"):
+                        pending = part
+                        break
+                    if token == "export" and part == "}":
+                        part = next(tokens, "")
+                        if part != "from":
+                            pending = part
+                            break
+                    if part == "from":
+                        literal = next(tokens, "")
+                        if literal.startswith(("'", '"')):
+                            yield literal[1:-1]
+                            break
+        previous = token
+
+
 class Homepage(HTMLParser):
     def __init__(self):
         super().__init__()
         self.markers = set()
         self.assets = set()
+        self.modules = set()
 
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
@@ -38,15 +95,18 @@ class Homepage(HTMLParser):
         if (tag, attrs.get("id")) in (("main", "top"), ("section", "board")):
             self.markers.add(attrs["id"])
         reference = attrs.get("src") if tag == "script" else None
-        if tag == "link" and "stylesheet" in (attrs.get("rel") or "").split():
+        relations = (attrs.get("rel") or "").split()
+        if tag == "link" and {"stylesheet", "modulepreload"}.intersection(relations):
             reference = attrs.get("href")
         if not reference:
             return
-        url = urljoin(SITE_URL, reference)
-        if urlsplit(url).netloc == urlsplit(SITE_URL).netloc:
-            if not url.startswith(SITE_URL) or urlsplit(url).fragment:
-                raise ProbeError("Invalid local asset reference.")
+        url = local_asset(reference, SITE_URL)
+        if url:
             self.assets.add(url)
+            if tag == "script" or "modulepreload" in relations:
+                self.modules.add(url)
+            if len(self.assets) > MAX_ASSETS:
+                raise ProbeError("Homepage asset inventory exceeds bounded probe capacity.")
         if tag == "script" and attrs.get("type") == "module" and url == urljoin(SITE_URL, "app.js"):
             self.markers.add("app")
 
@@ -113,7 +173,8 @@ def probe():
     now = datetime.now(timezone.utc)
     report = {"checked_at": now.isoformat(), "generated_at": None, "checks": []}
     deadline = monotonic() + PROBE_TIMEOUT
-    assets = {urljoin(SITE_URL, path) for path in ASSETS}
+    assets = {urljoin(SITE_URL, path) for path in PRIMARY_ASSETS}
+    modules = {urljoin(SITE_URL, "app.js")}
 
     def check(identifier, url, validate):
         try:
@@ -130,12 +191,13 @@ def probe():
         page.feed(raw.decode("utf-8"))
         if page.markers != {"identity", "top", "board", "app"}:
             raise ProbeError("Homepage identity or required page markers missing.")
-        required = {urljoin(SITE_URL, path) for path in ("tokens.css", "styles.css", "app.js")}
+        required = {urljoin(SITE_URL, path) for path in PRIMARY_ASSETS}
         if not required <= page.assets:
             raise ProbeError("Homepage is missing a primary stylesheet or script reference.")
         if len(assets | page.assets) > MAX_ASSETS:
             raise ProbeError("Homepage asset inventory exceeds bounded probe capacity.")
         assets.update(page.assets)
+        modules.update(page.modules)
 
     def snapshot(raw):
         # Preserve the observed time even when its age subsequently fails policy.
@@ -148,13 +210,25 @@ def probe():
             pass
         snapshot_time(raw, datetime.now(timezone.utc))
 
-    def asset(raw):
+    def asset(raw, url):
         if not raw.strip() or raw.lstrip().lower().startswith((b"<!doctype html", b"<html")):
             raise ProbeError("Asset is empty or returned an HTML page.")
+        if url in modules:
+            for reference in module_references(raw.decode("utf-8")):
+                dependency = local_asset(reference, url)
+                if dependency is None:
+                    continue
+                if dependency not in assets and len(assets) >= MAX_ASSETS:
+                    raise ProbeError("Module asset inventory exceeds bounded probe capacity.")
+                assets.add(dependency)
+                modules.add(dependency)
 
     check("homepage", SITE_URL, homepage)
     check("snapshot", urljoin(SITE_URL, "data/radar.json"), snapshot)
-    for url in sorted(assets):
-        check("asset:" + url.removeprefix(SITE_URL), url, asset)
+    checked = set()
+    while assets - checked:
+        url = min(assets - checked)
+        checked.add(url)
+        check("asset:" + url.removeprefix(SITE_URL), url, lambda raw: asset(raw, url))
     report["checked_at"] = datetime.now(timezone.utc).isoformat()
     return report

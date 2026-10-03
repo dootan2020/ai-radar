@@ -85,6 +85,18 @@ from [publication policy](../radar/publication.py), not the remote snapshot.
 These are availability and snapshot checks; they do not execute JavaScript or
 guarantee that the page renders correctly in a browser.
 
+The asset inventory comes from the homepage's script, stylesheet and modulepreload
+references, then recursively follows quoted static imports, re-exports and literal
+`import()` calls in fetched JavaScript. Cycles and shared dependencies are checked
+once; the probe fails visibly if discovery exceeds 30 assets. It retains the
+60-second probe deadline and 8 MiB per-response limit. Discovery is a small lexical
+scan for the site's module syntax, not a full JavaScript parser: computed imports,
+template expressions, import maps and CSS/font/image dependencies are outside its
+scope. External references are ignored. Local references must stay within the
+HTTPS Pages project and use plain paths without credentials, percent escapes,
+query strings (including cache-busting parameters) or fragments; invalid references
+fail their referring page/module check without exposing the reference in reports.
+
 For a read-only check from the repository root, run:
 
 ```sh

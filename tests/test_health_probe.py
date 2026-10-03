@@ -9,6 +9,7 @@ import re
 import unittest
 from unittest.mock import patch
 from urllib.error import HTTPError, URLError
+from urllib.parse import urljoin
 
 from radar import health_probe
 
@@ -65,12 +66,119 @@ class HealthProbeTests(unittest.TestCase):
         self.assertTrue(all(row["ok"] for row in checks.values()), checks)
         html = self.homepage.decode()
         references = set(re.findall(r'(?:src|href)="([^"/:]+\.(?:css|js))"', html))
-        for path in (ROOT / "site").glob("*.js"):
-            if path.name in health_probe.ASSETS:
-                references.update(re.findall(r"from ['\"]\./([^'\"]+)['\"]", path.read_text(encoding="utf-8")))
-        self.assertTrue(references.issubset(set(health_probe.ASSETS)), references)
+        pending = [path for path in references if path.endswith(".js")]
+        visited = set()
+        while pending:
+            path = pending.pop()
+            if path in visited:
+                continue
+            visited.add(path)
+            source = (ROOT / "site" / path).read_text(encoding="utf-8")
+            for reference in re.findall(r"(?:from\s*|import\s*\(\s*|import\s*)['\"]([^'\"]+)['\"]", source):
+                url = urljoin(health_probe.SITE_URL + path, reference)
+                if url.startswith(health_probe.SITE_URL):
+                    dependency = url.removeprefix(health_probe.SITE_URL)
+                    references.add(dependency)
+                    pending.append(dependency)
         for asset in references:
             self.assertIn(health_probe.SITE_URL + asset, self.requests)
+        self.assertEqual(len(self.requests), len(set(self.requests)))
+
+    def test_nested_imports_reexports_and_cycles_are_checked_once(self):
+        self.overrides.update({
+            "app.js": b"import { view } from './parts/view.js'; import('./parts/lazy.js');",
+            "parts/view.js": b"import '../shared.js'; export { item } from './item.js';",
+            "parts/item.js": b"export * from '../shared.js';",
+            "parts/lazy.js": b"import '../app.js';",
+            "shared.js": b"export const item = 1;",
+        })
+        checks = self.probe()
+        self.assertTrue(all(row["ok"] for row in checks.values()), checks)
+        for name in ("parts/view.js", "parts/item.js", "parts/lazy.js", "shared.js"):
+            self.assertIn("asset:" + name, checks)
+        self.assertEqual(len(self.requests), len(set(self.requests)))
+
+    def test_new_import_failure_is_visible_for_http_empty_and_html_responses(self):
+        for response in (HTTPError("https://example.invalid", 404, "private-sentinel", {}, None),
+                         b"", b"<!doctype html><title>private-sentinel</title>"):
+            with self.subTest(response=type(response).__name__):
+                self.overrides = {"app.js": b"import './new-feature.js';", "new-feature.js": response}
+                checks = self.probe()
+                self.assertFalse(checks["asset:new-feature.js"]["ok"])
+                self.assertNotIn("private-sentinel", json.dumps(checks))
+
+    def test_semicolonless_local_export_does_not_hide_next_import(self):
+        self.overrides.update({"app.js": b"const item = 1; export { item }\nimport './missing.js';",
+                               "missing.js": b""})
+        checks = self.probe()
+        self.assertFalse(checks["asset:missing.js"]["ok"])
+
+    def test_modulepreload_discovers_dependencies_without_filename_extension(self):
+        self.homepage += b'<link rel="modulepreload" href="parts/preloaded">'
+        self.overrides.update({"parts/preloaded": b"import './child.mjs';",
+                               "parts/child.mjs": b"export const value = 1;"})
+        checks = self.probe()
+        self.assertTrue(checks["asset:parts/preloaded"]["ok"])
+        self.assertTrue(checks["asset:parts/child.mjs"]["ok"])
+
+    def test_new_import_failure_requires_two_observations(self):
+        from radar import health_monitor
+
+        self.overrides.update({"app.js": b"import './new-feature.js';",
+                               "new-feature.js": b""})
+        with patch.object(health_monitor, "probe", side_effect=lambda: {
+                "checked_at": NOW.isoformat(), "generated_at": NOW.isoformat(),
+                "checks": list(self.probe().values())}) as probe, patch.object(health_monitor, "sleep") as sleep:
+            report = health_monitor.collect_report()
+        self.assertEqual(probe.call_count, 2)
+        sleep.assert_called_once_with(30)
+        self.assertEqual(report["status"], "failed")
+        self.assertEqual([row["id"] for row in report["confirmed_failures"]], ["asset:new-feature.js"])
+
+    def test_comments_strings_and_external_imports_do_not_create_local_requests(self):
+        self.overrides["app.js"] = b'''// import './comment.js';
+            /* export * from './comment-too.js'; */
+            const example = "import './string.js';";
+            const template = `import './template.js';`;
+            import 'https://external.example/private-sentinel.js?token=secret';
+        '''
+        checks = self.probe()
+        self.assertTrue(all(row["ok"] for row in checks.values()), checks)
+        self.assertNotIn("private-sentinel", json.dumps(checks))
+        self.assertNotIn(health_probe.SITE_URL + "comment.js", self.requests)
+
+    def test_unsafe_references_fail_without_requesting_or_reporting_secrets(self):
+        for reference in ("./module.js?token=private-sentinel", "./module.js#private-sentinel",
+                          "../private-sentinel.js", "./%2e%2e/private-sentinel.js",
+                          "https://private-sentinel@dootan2020.github.io/ai-radar/module.js",
+                          "http://dootan2020.github.io/ai-radar/private-sentinel.js"):
+            for source in ("homepage", "module"):
+                with self.subTest(reference=reference, source=source):
+                    self.requests = []
+                    self.overrides = ({"": self.homepage + f'<script src="{reference}"></script>'.encode()}
+                                      if source == "homepage" else
+                                      {"app.js": f"import '{reference}';".encode()})
+                    checks = self.probe()
+                    self.assertFalse(checks["homepage" if source == "homepage" else "asset:app.js"]["ok"])
+                    self.assertNotIn("private-sentinel", json.dumps(checks))
+                    self.assertFalse(any("private-sentinel" in url for url in self.requests))
+
+    def test_homepage_and_import_inventory_limits_fail_visibly(self):
+        names = [f"extra-{number}.js" for number in range(health_probe.MAX_ASSETS + 1)]
+        for source in ("homepage", "module"):
+            with self.subTest(source=source):
+                self.requests = []
+                self.overrides = {name: b"export const value = 1;" for name in names}
+                if source == "homepage":
+                    self.overrides[""] = self.homepage + "".join(
+                        f'<script src="{name}"></script>' for name in names).encode()
+                else:
+                    self.overrides["app.js"] = "".join(f"import './{name}';" for name in names).encode()
+                checks = self.probe()
+                row = checks["homepage" if source == "homepage" else "asset:app.js"]
+                self.assertFalse(row["ok"])
+                self.assertIn("capacity", row["detail"])
+                self.assertLessEqual(len(self.requests), health_probe.MAX_ASSETS + 2)
 
     def test_http_failure_or_unrelated_successful_html_fails_homepage(self):
         for body in (HTTPError(health_probe.SITE_URL, 503, "private-sentinel", {}, None),
