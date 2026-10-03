@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import tempfile
 
 from radar.edition_archive import append_archive, archive_index, load_archive, publication_eligible
@@ -83,6 +84,10 @@ def main(argv=None):
         else:
             changed = persist(args.remote, args.candidate)
             print("Edition history saved and read back" if changed else "Edition history already saved")
+    except subprocess.SubprocessError:
+        # Exception strings may include commands, credential-bearing remotes or server output.
+        print("Edition operation failed: Git subprocess failed or timed out")
+        return 1
     except (OSError, ValueError, RuntimeError) as error:
         print(f"Edition operation failed: {error}")
         return 1

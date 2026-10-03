@@ -15,8 +15,10 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-26.04
-    # Fetching takes ~1 minute; the optional translation step is capped at 10 minutes by its own budget.
-    timeout-minutes: 25
+    # Allow collection, translation and artifact headroom plus five minutes for bounded optional archive work.
+    timeout-minutes: 30
+    outputs:
+      edition_candidate: ${{ steps.edition-upload.outcome }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -106,13 +108,19 @@ jobs:
           key: radar-translations-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       # Editions capture translated titles only after a matching successful publication gate.
       - name: Prepare daily editions
+        id: edition-prepare
         if: steps.collect.outputs.published == 'true'
+        continue-on-error: true
+        timeout-minutes: 3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EDITION_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
         run: python -m radar.edition_publish prepare --remote "$EDITION_REMOTE"
       - name: Upload edition history candidate
-        if: github.ref == 'refs/heads/main' && steps.collect.outputs.published == 'true'
+        id: edition-upload
+        if: github.ref == 'refs/heads/main' && steps.edition-prepare.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 2
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: radar-editions-${{ github.run_id }}
@@ -148,7 +156,7 @@ jobs:
         with:
           path: site
   persist:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && needs.update.result == 'success' && needs.update.outputs.edition_candidate == 'success'
     needs: update
     runs-on: ubuntu-26.04
     timeout-minutes: 5
@@ -172,8 +180,8 @@ jobs:
           EDITION_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
         run: python -m radar.edition_publish persist --remote "$EDITION_REMOTE"
   deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: [update, persist]
+    if: github.ref == 'refs/heads/main' && needs.update.result == 'success'
+    needs: update
     runs-on: ubuntu-26.04
     timeout-minutes: 5
     permissions:

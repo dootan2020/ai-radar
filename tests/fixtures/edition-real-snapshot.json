@@ -2,7 +2,7 @@
   "provenance": {
     "source": "plans/nhap/live-radar.json",
     "generated_at": "2026-10-03T09:18:01Z",
-    "note": "Reduced real captured snapshot. Titles, identities, dates, translations and measurements preserved; projections omitted. Controlled mutations exist only in tests."
+    "note": "Reduced real captured snapshot. Titles, identities, dates, translations and measurements preserved; projections omitted. Controlled mutations exist only in tests. legacy_edition preserves the actual daily-evidence-v1 output originally captured in plans/reports/ban-tin-mau.json before tightening the selection policy."
   },
   "schema_version": 2,
   "generated_at": "2026-10-03T09:18:01Z",
@@ -1044,5 +1044,198 @@
   "trending": {
     "github": [],
     "huggingface": []
+  },
+  "legacy_edition": {
+    "schema_version": 1,
+    "date": "2026-10-03",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "window_start_at": "2026-10-01T23:00:00Z",
+    "cutoff_at": "2026-10-02T23:00:00Z",
+    "created_at": "2026-10-03T09:18:01Z",
+    "snapshot_generated_at": "2026-10-03T09:18:01Z",
+    "policy": {
+      "method": "daily-evidence-v1",
+      "max_stories": 5,
+      "window_hours": 24,
+      "cutoff_hour": 6,
+      "engagement_percentile_min": 0.8,
+      "score_measured_at": "2026-10-03T09:18:01Z",
+      "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+    },
+    "stories": [
+      {
+        "id": "e81b1dea7ce0fb42c978",
+        "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
+        "title_vi": "AstaBrief nguồn mở, mô hình tạo báo cáo nhanh trong Asta",
+        "url": "https://huggingface.co/blog/allenai/astabrief",
+        "published_at": "2026-10-02T15:19:50Z",
+        "kind": "other",
+        "time_basis": "published",
+        "source_count": 1,
+        "coverage": [
+          {
+            "id": "0673fea1e15cf766a44b",
+            "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
+            "title_vi": "AstaBrief nguồn mở, mô hình tạo báo cáo nhanh trong Asta",
+            "url": "https://huggingface.co/blog/allenai/astabrief",
+            "published_at": "2026-10-02T15:19:50Z",
+            "kind": "other",
+            "time_basis": "published",
+            "source": "huggingface-blog",
+            "publisher": "huggingface",
+            "group": "lab",
+            "observed_at": "2026-10-03T09:18:01Z",
+            "discussion_url": null,
+            "metrics": {}
+          }
+        ],
+        "selection": {
+          "reasons": [
+            {
+              "code": "primary_release",
+              "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+              "observation_ids": [
+                "0673fea1e15cf766a44b"
+              ]
+            }
+          ],
+          "signals": {
+            "publishers": [
+              "huggingface"
+            ],
+            "age_hours_at_cutoff": 7.6694,
+            "hot_score": null,
+            "engagement_percentile": null
+          }
+        }
+      },
+      {
+        "id": "b3857f26daabd24cdab2",
+        "title": "Apple says it’s tightening macOS ‘Full Disk Access’ controls due to new risks from AI agents",
+        "title_vi": "Apple cho biết họ đang thắt chặt các điều khiển 'Full Disk Access' của macOS do những rủi ro mới từ các agent AI",
+        "url": "https://techcrunch.com/2026/10/02/apple-says-its-tightening-macos-full-disk-access-controls-due-to-new-risks-from-ai-agents/",
+        "published_at": "2026-10-02T18:11:27Z",
+        "kind": "product",
+        "time_basis": "published",
+        "source_count": 2,
+        "coverage": [
+          {
+            "id": "612f2d5f95b104a89ec3",
+            "title": "Apple is tightening macOS 'Full Disk Access' due to new risks from AI agents",
+            "title_vi": "Apple đang thắt chặt macOS 'Full Disk Access' do những rủi ro mới từ các agent AI",
+            "url": "https://techcrunch.com/2026/10/02/apple-says-its-tightening-macos-full-disk-access-controls-due-to-new-risks-from-ai-agents/",
+            "published_at": "2026-10-02T19:03:03Z",
+            "kind": "forum",
+            "time_basis": "published",
+            "source": "hn-ai",
+            "publisher": "hacker-news",
+            "group": "forum",
+            "observed_at": "2026-10-03T09:18:01Z",
+            "discussion_url": "https://news.ycombinator.com/item?id=49937239",
+            "metrics": {
+              "points": 18,
+              "comments": 7
+            }
+          },
+          {
+            "id": "08344cce36b1da4ebbbc",
+            "title": "Apple says it’s tightening macOS ‘Full Disk Access’ controls due to new risks from AI agents",
+            "title_vi": "Apple cho biết họ đang thắt chặt các điều khiển 'Full Disk Access' của macOS do những rủi ro mới từ các agent AI",
+            "url": "https://techcrunch.com/2026/10/02/apple-says-its-tightening-macos-full-disk-access-controls-due-to-new-risks-from-ai-agents/",
+            "published_at": "2026-10-02T18:11:27Z",
+            "kind": "product",
+            "time_basis": "published",
+            "source": "techcrunch-ai",
+            "publisher": "techcrunch",
+            "group": "press",
+            "observed_at": "2026-10-03T09:18:01Z",
+            "discussion_url": null,
+            "metrics": {}
+          }
+        ],
+        "selection": {
+          "reasons": [
+            {
+              "code": "publisher_coverage",
+              "text": "2 định danh nhà xuất bản cùng đưa tin",
+              "publishers": [
+                "hacker-news",
+                "techcrunch"
+              ]
+            }
+          ],
+          "signals": {
+            "publishers": [
+              "hacker-news",
+              "techcrunch"
+            ],
+            "age_hours_at_cutoff": 4.8092,
+            "hot_score": 23.267,
+            "engagement_percentile": 0.25806451612903225
+          }
+        }
+      },
+      {
+        "id": "7c35e1148c5e7af2378a",
+        "title": "AI Makes Me Sad",
+        "title_vi": "AI khiến tôi buồn",
+        "url": "https://mondobe.com/ai-makes-me-sad",
+        "published_at": "2026-10-02T15:18:00Z",
+        "kind": "forum",
+        "time_basis": "published",
+        "source_count": 1,
+        "coverage": [
+          {
+            "id": "07e73717235520bdb8cd",
+            "title": "AI Makes Me Sad",
+            "title_vi": "AI khiến tôi buồn",
+            "url": "https://mondobe.com/ai-makes-me-sad",
+            "published_at": "2026-10-02T15:18:00Z",
+            "kind": "forum",
+            "time_basis": "published",
+            "source": "hn-ai",
+            "publisher": "hacker-news",
+            "group": "forum",
+            "observed_at": "2026-10-03T09:18:01Z",
+            "discussion_url": "https://news.ycombinator.com/item?id=49934487",
+            "metrics": {
+              "points": 186,
+              "comments": 224
+            }
+          }
+        ],
+        "selection": {
+          "reasons": [
+            {
+              "code": "measured_attention",
+              "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo",
+              "percentile": 0.8602150537634409,
+              "measurement": {
+                "source": "hn-ai",
+                "metric": "points",
+                "value": 186,
+                "observed_at": "2026-10-03T09:18:01Z",
+                "velocity_per_hour": 3.8668098818474754,
+                "previous_observed_at": "2026-10-03T08:31:28Z",
+                "previous_value": 183
+              }
+            }
+          ],
+          "signals": {
+            "publishers": [
+              "hacker-news"
+            ],
+            "age_hours_at_cutoff": 7.7,
+            "hot_score": 53.811,
+            "engagement_percentile": 0.8602150537634409
+          }
+        }
+      }
+    ],
+    "source_health": {
+      "active_remote_sources": 42,
+      "successful_remote_sources": 42,
+      "failed_remote_sources": []
+    }
   }
 }

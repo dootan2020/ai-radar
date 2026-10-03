@@ -7,7 +7,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from radar.edition_archive import append_archive, load_archive, publication_eligible
+from radar.edition_archive import append_archive, load_archive, publication_eligible, _inspect_edition
+from radar.editions import build_edition
 from radar.publication import assess_publication
 from test_editions import ASTA, NOW, real_snapshot, subset
 
@@ -47,7 +48,7 @@ class EditionArchiveTests(unittest.TestCase):
             self.assertEqual(load_archive(root)[1], first)
             index = json.loads((root / "index.json").read_text(encoding="utf-8"))
             self.assertEqual(index["latest"], {"date": "2026-10-04", "path": "2026-10-04.json"})
-            self.assertEqual([row["story_count"] for row in index["editions"]], [0, 3])
+            self.assertEqual([row["story_count"] for row in index["editions"]], [0, 1])
 
     def test_same_day_rerun_is_byte_and_mtime_identical_despite_changed_snapshot(self):
         payload = real_snapshot()
@@ -232,14 +233,78 @@ class EditionArchiveTests(unittest.TestCase):
         for story_index, field, value in variants:
             with self.subTest(story=story_index, field=field, value=value), tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
-                append_archive(payload, accepted(payload), root, NOW)
                 target = root / "2026-10-03.json"
-                edition = json.loads(target.read_text(encoding="utf-8"))
+                # Captured historical policy still validates its original evidence rules.
+                edition = copy.deepcopy(payload["legacy_edition"])
                 reason = edition["stories"][story_index]["selection"]["reasons"][0]
                 reason[field] = value
                 target.write_bytes(json.dumps(edition, ensure_ascii=False).encode("utf-8"))
                 with self.assertRaises(ValueError):
                     load_archive(root)
+
+    def test_historical_real_edition_restores_without_reselection_or_rewriting(self):
+        payload = real_snapshot()
+        legacy = payload["legacy_edition"]
+        self.assertEqual(legacy["policy"]["method"], "daily-evidence-v1")
+        self.assertEqual(len(legacy["stories"]), 3)
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "2026-10-03.json"
+            target.write_bytes(json.dumps(legacy, ensure_ascii=False).encode("utf-8"))
+            before = target.read_bytes()
+            self.assertEqual(load_archive(directory), [legacy])
+            self.assertEqual(append_archive(payload, accepted(payload), directory, NOW), legacy)
+            self.assertEqual(target.read_bytes(), before)
+
+    def test_new_attention_and_publisher_evidence_survive_archive_validation(self):
+        payload = real_snapshot()
+        # Controlled groups/percentiles exercise new press and forum reason paths.
+        apple = next(s for s in payload["stories"] if s["id"] == "b3857f26daabd24cdab2")
+        apple["hot_signals"]["engagement_percentile"] = .8
+        sad = next(s for s in payload["stories"] if s["id"] == "7c35e1148c5e7af2378a")
+        sad["hot_signals"]["engagement_percentile"] = .97
+        edition = build_edition(payload, NOW)
+        self.assertEqual(len(edition["stories"]), 3)
+        self.assertEqual(_inspect_edition(edition, "2026-10-03.json"), edition)
+        for mutation in ("percentile", "comments", "count", "signals", "duplicate_forum", "false_release", "borrowed_comments"):
+            with self.subTest(mutation=mutation):
+                bad = copy.deepcopy(edition)
+                forum = bad["stories"][-1]
+                if mutation == "percentile":
+                    forum["selection"]["reasons"][0]["percentile"] = .9699
+                elif mutation == "comments":
+                    forum["coverage"][0]["metrics"]["comments"] = 99
+                elif mutation == "count":
+                    forum["source_count"] = 1
+                elif mutation == "signals":
+                    forum["selection"]["signals"]["publishers"] = ["hacker-news"]
+                elif mutation == "false_release":
+                    forum["selection"]["reasons"] = [dict(code="primary_release", text="Controlled corruption",
+                                                         observation_ids=[forum["coverage"][0]["id"]])]
+                elif mutation == "borrowed_comments":
+                    forum["coverage"][0]["metrics"]["comments"] = 99
+                    extra = copy.deepcopy(forum["coverage"][0])
+                    extra["id"] += "-controlled-other-observation"
+                    extra["metrics"]["points"] += 1
+                    extra["metrics"]["comments"] = 100
+                    forum["coverage"].append(extra)
+                else:
+                    duplicate = copy.deepcopy(forum)
+                    duplicate["id"] += "-controlled-duplicate"
+                    bad["stories"].append(duplicate)
+                with self.assertRaises(ValueError):
+                    _inspect_edition(bad, "2026-10-03.json")
+        # A controlled extra publisher on an attributed row retains the real forum evidence too.
+        other = copy.deepcopy(apple["coverage"][0])
+        other.update(id="controlled-second-publisher", publisher="controlled-publisher", group="press")
+        apple["coverage"].append(other)
+        edition = build_edition(payload, NOW)
+        self.assertEqual(_inspect_edition(edition, "2026-10-03.json"), edition)
+        picked = next(s for s in edition["stories"] if s["id"] == apple["id"])
+        reason = next(r for r in picked["selection"]["reasons"] if r["code"] == "publisher_coverage")
+        self.assertNotIn("hacker-news", reason["publishers"])
+        reason["publishers"].append("hacker-news")
+        with self.assertRaises(ValueError):
+            _inspect_edition(edition, "2026-10-03.json")
 
 
 if __name__ == "__main__":

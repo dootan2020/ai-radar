@@ -13,6 +13,10 @@ TIMEZONE_NAME = "Asia/Ho_Chi_Minh"
 VIETNAM = timezone(timedelta(hours=7), TIMEZONE_NAME)
 MORNING_HOUR = 6
 MAX_STORIES = 5
+POLICY_METHOD = "daily-evidence-v2"
+FORUM_PERCENTILE_MIN = .97
+FORUM_COMMENTS_MIN = 100
+MAX_FORUM_STORIES = 1
 ACTION = re.compile(r"\b(?:introducing|introduces|launch(?:es|ed|ing)?|releas(?:e|es|ed|ing)|available|open[- ]sourc(?:e|es|ed|ing))\b", re.I)
 PRODUCT = re.compile(r"\b(?:models?|products?|agents?|assistants?|APIs?|tools?|platforms?)\b", re.I)
 STORY_FIELDS = ("id", "title", "title_vi", "url", "published_at", "kind", "time_basis")
@@ -33,6 +37,19 @@ def _project(row, fields):
     return {key: deepcopy(row[key]) for key in fields if key in row}
 
 
+def nonforum_publishers(coverage):
+    return sorted({row["publisher"] for row in coverage
+                   if row.get("group") != "forum" and row.get("publisher")})
+
+
+def forum_attention_exception(percentile, measured_rows):
+    """Comments must belong to the forum observation carrying the measurement."""
+    return (percentile is not None and FORUM_PERCENTILE_MIN <= percentile <= 1
+            and any(row.get("group") == "forum"
+                    and (measured(row.get("metrics", {}).get("comments")) or 0) >= FORUM_COMMENTS_MIN
+                    for row in measured_rows))
+
+
 def _candidate(story, sources, start, cutoff):
     published = instant(story.get("published_at"))
     if (story.get("time_basis") != "published" or published is None
@@ -48,7 +65,8 @@ def _candidate(story, sources, start, cutoff):
     if not coverage:
         return None
     coverage.sort(key=lambda row: (row.get("source", ""), row.get("id", "")))
-    publishers = sorted({row["publisher"] for row in coverage if row.get("publisher")})
+    publishers = nonforum_publishers(coverage)
+    corroborated = any(row.get("group") != "forum" for row in coverage)
     launches = [row for row in coverage if row.get("group") == "lab" and ACTION.search(row["title"])
                 and (row.get("kind") in {"model", "product"} or PRODUCT.search(row["title"]))]
     hot = story.get("hot_signals") or {}
@@ -62,6 +80,7 @@ def _candidate(story, sources, start, cutoff):
     measured_rows = [row for row in coverage if row.get("source") == measurement.get("source")
                      and measured(row.get("metrics", {}).get(measurement.get("metric"))) == value]
     engaged = percentile is not None and .8 <= percentile <= 1 and value is not None and value > 0 and measured_rows
+    engaged = engaged and (corroborated or forum_attention_exception(percentile, measured_rows))
     reasons = []
     if launches:
         reasons.append(dict(code="primary_release", text="Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
@@ -70,7 +89,9 @@ def _candidate(story, sources, start, cutoff):
         reasons.append(dict(code="publisher_coverage", text=f"{len(publishers)} định danh nhà xuất bản cùng đưa tin",
                             publishers=publishers))
     if engaged:
-        reasons.append(dict(code="measured_attention", text="Tương tác thuộc nhóm 20% cao nhất trong nguồn đo",
+        attention_text = ("Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn"
+                          if corroborated else "Ngoại lệ diễn đàn: tương tác thuộc nhóm 3% cao nhất và ít nhất 100 bình luận")
+        reasons.append(dict(code="measured_attention", text=attention_text,
                             percentile=percentile, measurement=deepcopy(measurement)))
     if not reasons:
         return None
@@ -80,7 +101,8 @@ def _candidate(story, sources, start, cutoff):
                   selection=dict(reasons=reasons, signals=dict(publishers=publishers,
                       age_hours_at_cutoff=round((cutoff - published).total_seconds() / 3600, 4),
                       hot_score=score, engagement_percentile=percentile)))
-    order = (-bool(launches), -len(publishers), -(score or 0), -published.timestamp(), story["id"])
+    attention_only = not launches and len(publishers) < 2
+    order = (attention_only, -bool(launches), -len(publishers), -(score or 0), -published.timestamp(), story["id"])
     return order, result
 
 
@@ -104,13 +126,17 @@ def build_edition(payload, now):
                for row in payload["sources"]}
     candidates = [_candidate(story, sources, start, cutoff) for story in payload["stories"]]
     candidates = sorted(row for row in candidates if row is not None)
-    selected, seen = [], set()
+    selected, seen, forum_count = [], set(), 0
     for _, story in candidates:
+        forum_only = all(row.get("group") == "forum" for row in story["coverage"])
+        if forum_only and forum_count >= MAX_FORUM_STORIES:
+            continue
         urls = {canonical_url(row["url"]) for row in story["coverage"]} | {canonical_url(story["url"])}
         urls.discard(None)
         if urls & seen:
             continue
         selected.append(story)
+        forum_count += forum_only
         seen.update(urls)
         if len(selected) == MAX_STORIES:
             break
@@ -119,8 +145,12 @@ def build_edition(payload, now):
     return dict(schema_version=1, date=cutoff.date().isoformat(), timezone=TIMEZONE_NAME,
                 window_start_at=iso_date(start), cutoff_at=iso_date(cutoff), created_at=iso_date(now),
                 snapshot_generated_at=payload["generated_at"],
-                policy=dict(method="daily-evidence-v1", max_stories=MAX_STORIES, window_hours=24,
+                policy=dict(method=POLICY_METHOD, max_stories=MAX_STORIES, window_hours=24,
                             cutoff_hour=MORNING_HOUR, engagement_percentile_min=.8,
+                            publisher_coverage_excludes_forums=True, attention_requires_nonforum=True,
+                            forum_exception_percentile_min=FORUM_PERCENTILE_MIN,
+                            forum_exception_comments_min=FORUM_COMMENTS_MIN,
+                            max_forum_only_stories=MAX_FORUM_STORIES,
                             score_measured_at=payload["generated_at"],
                             description="Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"),
                 stories=selected, source_health=dict(active_remote_sources=len(active),

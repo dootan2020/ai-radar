@@ -136,6 +136,34 @@ class EditionHistoryRunnerTests(unittest.TestCase):
             persist(str(self.remote), candidate)
         self.assertEqual(self.git("--git-dir", str(self.remote), "rev-parse", REF), head)
 
+    def test_corrupt_real_history_fails_prepare_without_touching_healthy_snapshot(self):
+        _, _, first = self.prepare_in(self.root / "first")
+        persist(str(self.remote), first)
+        editor = self.root / "history-editor"
+        restore(str(self.remote), editor)
+        (editor / "editions/index.json").write_bytes(b'{"corrupt":true}')
+        self.git("-C", str(editor), "add", "--", "editions/index.json")
+        self.git("-C", str(editor), "-c", "user.name=Local test", "-c", "user.email=test@example.invalid",
+                 "commit", "--quiet", "-m", "Corrupt local fixture index")
+        self.git("-C", str(editor), "push", "--quiet", str(self.remote), f"HEAD:{REF}")
+        corrupt_head = self.git("--git-dir", str(self.remote), "rev-parse", REF)
+        runner = self.root / "next"
+        source, status = self.inputs(runner)
+        original = source.read_bytes(), status.read_bytes()
+        output, candidate = runner / "output", runner / "candidate"
+        completed = subprocess.run(
+            [sys.executable, "-m", "radar.edition_publish", "prepare", "--remote", str(self.remote),
+             "--input", str(source), "--status", str(status), "--output", str(output),
+             "--candidate", str(candidate), "--now", NOW.isoformat()],
+            cwd=ROOT, capture_output=True, text=True, timeout=45)
+        self.assertEqual(completed.returncode, 1)
+        self.assertIn("Edition operation failed", completed.stdout)
+        self.assertNotIn("Traceback", completed.stderr)
+        self.assertEqual((source.read_bytes(), status.read_bytes()), original)
+        self.assertFalse(output.exists())
+        self.assertFalse(candidate.exists())
+        self.assertEqual(self.git("--git-dir", str(self.remote), "rev-parse", REF), corrupt_head)
+
     def test_actual_module_cli_roundtrip_ignores_inherited_autocrlf(self):
         runner = self.root / "cli"
         source, status = self.inputs(runner)
@@ -164,7 +192,7 @@ class EditionHistoryRunnerTests(unittest.TestCase):
 
 
 class EditionWorkflowPolicyTests(unittest.TestCase):
-    def test_translation_precedes_prepare_and_durable_save_precedes_deploy(self):
+    def test_translation_precedes_prepare_and_archive_is_independent_of_deploy(self):
         text = (ROOT / ".github/workflows/update.yml").read_text(encoding="utf-8")
         update, rest = text.split("\n  persist:\n", 1)
         persistent, deploy = rest.split("\n  deploy:\n", 1)
@@ -175,7 +203,8 @@ class EditionWorkflowPolicyTests(unittest.TestCase):
         self.assertIn("if: github.ref == 'refs/heads/main'", persistent)
         self.assertIn("contents: write", persistent)
         self.assertNotIn("contents: write", update)
-        self.assertIn("needs: [update, persist]", deploy)
+        self.assertIn("needs: update", deploy)
+        self.assertNotIn("persist", deploy)
         self.assertIn("python -m radar.edition_publish persist", persistent)
         self.assertIn("cancel-in-progress: false", text)
         self.assertNotRegex(text, r"(?m)^  (push|pull_request):$")
