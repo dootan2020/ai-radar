@@ -71,6 +71,7 @@ let lastSeen, firstVisit, selected = null, pending = null, liveState = null;
 let arrived = new Set(), arriveIdx = 0;
 const asArray = v => Array.isArray(v) ? v : [];
 const read = new Set(asArray(store.get('air2:read', [])));
+const skipped = new Set(asArray(store.get('air2:skipped', [])));
 let saved = asArray(store.get('air2:saved', [])).filter(x => x && typeof x.key === 'string');
 const areas = new Set(asArray(store.get('air2:areas', [])));
 const pick = (k, list, d) => { const v = store.get(k, d); return list.some(x => x.id === v) ? v : d; };
@@ -227,9 +228,41 @@ function build(){
   lastSeen = stored || new Date(new Date(D.generated_at) - 864e5).toISOString();
 }
 
+function commitLastSeen(ts = D ? D.generated_at : null){
+  if (!ts) return;
+  const stored = store.get('air2:lastSeen', null);
+  if (!stored || ts > stored) {
+    store.set('air2:lastSeen', ts);
+  }
+}
+
 /* ---------- pieces ---------- */
 const newMark = '<span class="new-mark" aria-hidden="true"></span><span class="sr">Mới. </span>';
+const seenMark = `<span class="seen-mark" aria-hidden="true">${icon('i-check')}</span><span class="sr">Đã xem. </span>`;
+const skippedMark = '<span class="skipped-mark" aria-hidden="true"></span><span class="sr">Bỏ qua chưa xem. </span>';
 const savedMark = `<span class="saved-mark" aria-hidden="true">${icon('i-save', '')}</span><span class="sr">Đã lưu. </span>`;
+
+function storyStatus(id, st){
+  if (!id) return 'none';
+  if (read.has(id)) return 'seen';
+  if (skipped.has(id)) return 'skipped';
+  if (arrived.has(id) || (st && isNew(st))) return 'new';
+  return 'none';
+}
+
+function statusMark(id, st){
+  const s = storyStatus(id, st);
+  if (s === 'seen') return seenMark;
+  if (s === 'new') return newMark;
+  if (s === 'skipped') return skippedMark;
+  return '';
+}
+
+function statusClass(id, st){
+  const s = storyStatus(id, st);
+  return s === 'seen' ? ' is-read' : s === 'new' ? ' is-new' : s === 'skipped' ? ' is-skipped' : '';
+}
+
 function arriveAttr(id){
   if (!arrived.has(id)) return '';
   return ` style="--i:${Math.min(arriveIdx++, 8)}"`;
@@ -238,9 +271,11 @@ function arriveAttr(id){
 function row(st, o = {}){
   const v = viewsOf(st.id);
   const right = o.right != null ? o.right : timeEl(st.published_at);
-  return `<button class="row${o.compact ? ' c' : ''}${read.has(st.id) ? ' is-read' : ''}${arrived.has(st.id) ? ' arrive' : ''}"${arriveAttr(st.id)} data-sel="${esc(st.id)}" aria-pressed="${selected === st.id}">
+  const stStatus = storyStatus(st.id, st);
+  const stCls = statusClass(st.id, st);
+  return `<button class="row${o.compact ? ' c' : ''}${stCls}${arrived.has(st.id) ? ' arrive' : ''}"${arriveAttr(st.id)} data-sel="${esc(st.id)}" data-status="${stStatus}" aria-pressed="${selected === st.id}">
     ${avatar(faceSt(st), o.compact ? 'sm' : 'md')}
-    <span class="row-m"><span class="t">${savedKey(st.id) ? savedMark : ''}${isNew(st) ? newMark : ''}${tt(st)}</span>${orig(st)}
+    <span class="row-m"><span class="t">${savedKey(st.id) ? savedMark : ''}${statusMark(st.id, st)}${tt(st)}</span>${orig(st)}
     <span class="k">${kindTag(st)}<span class="pub">${esc(pubOf(st))}</span>${st.source_count > 1 ? ` · <span class="num">${st.source_count}</span> nguồn` : ''}${v != null ? ` · ${viewsEl(v, st.id)}` : ''}</span></span>
     <span class="r">${right}</span></button>`;
 }
@@ -253,13 +288,15 @@ function repoStars(r){
 }
 function repoRow(r, o = {}){
   const key = 'repo:' + r.id;
+  const rStatus = storyStatus(key);
+  const rCls = statusClass(key);
   const [own, ...rest] = String(r.full_name).split('/');
   const name = rest.length ? rest.join('/') : own;
-  if (o.compact) return `<button class="repo c${read.has(key) ? ' is-read' : ''}" data-repo="${esc(r.id)}" aria-pressed="${selected === key}">
-    ${avatar(faceOfRepo(r), 'sm')}<span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${rest.length ? `<span class="own">${esc(own)}/</span><wbr>` : ''}${esc(name)}</span><span class="k">${repoStars(r)}</span></span></button>`;
-  return `<button class="repo${o.compact ? ' c' : ''}${read.has(key) ? ' is-read' : ''}" data-repo="${esc(r.id)}" aria-pressed="${selected === key}">
+  if (o.compact) return `<button class="repo c${rCls}" data-repo="${esc(r.id)}" data-status="${rStatus}" aria-pressed="${selected === key}">
+    ${avatar(faceOfRepo(r), 'sm')}<span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${statusMark(key)}${rest.length ? `<span class="own">${esc(own)}/</span><wbr>` : ''}${esc(name)}</span><span class="k">${repoStars(r)}</span></span></button>`;
+  return `<button class="repo${o.compact ? ' c' : ''}${rCls}" data-repo="${esc(r.id)}" data-status="${rStatus}" aria-pressed="${selected === key}">
     ${avatar(faceOfRepo(r), o.compact ? 'sm' : 'md')}
-    <span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${rest.length ? `<span class="own">${esc(own)}/</span><wbr>` : ''}${esc(name)}</span>
+    <span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${statusMark(key)}${rest.length ? `<span class="own">${esc(own)}/</span><wbr>` : ''}${esc(name)}</span>
     <span class="why">${o.compact ? '' : `${labChip(r.label)} `}${esc(whyShort(r))}${r.license_flag ? ` · <span class="lic">${icon('i-warn')}${esc(r.license_flag)}</span>` : ''}</span></span>
     <span class="r">${repoStars(r)}</span></button>`;
 }
@@ -321,7 +358,7 @@ function leadTile(L){
     <div class="lead-top">${faces.length > 1 ? avatarStack(faces, 'lg') : avatar(faceSt(st), 'xl')}
       <p class="lead-label" id="lead-h"><span class="pill pill-hot">${icon('i-flame')}${label}</span><span class="lead-src">${kindTag(st)}${esc(pubOf(st))} · ${timeEl(st.published_at)}</span></p></div>
     <p class="keynote"><b class="num"${big.live ? ` data-live="${esc(big.live)}"` : ''} data-count="${big.n}" data-v="${big.n}">${fmt(big.n)}</b><span>${esc(big.unit)}</span></p>
-    <h2 class="lead-title-wrap"><button class="lead-title${read.has(st.id) ? ' is-read' : ''}" data-sel="${esc(st.id)}">${savedKey(st.id) ? savedMark : ''}${tt(st)}</button></h2>
+    <h2 class="lead-title-wrap"><button class="lead-title${statusClass(st.id, st)}" data-sel="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">${savedKey(st.id) ? savedMark : ''}${statusMark(st.id, st)}${tt(st)}</button></h2>
     <div class="lead-disclosure">
       ${original ? '<span class="orig lead-attribution"><span class="mt" aria-hidden="true" title="Bản dịch máy; mở đầy đủ để xem tiêu đề gốc">Translated</span><span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc trong phần đầy đủ.</span></span>' : ''}
       <button class="btn-quiet lead-toggle" data-lead-details="${esc(st.id)}" aria-controls="lead-details" aria-expanded="${leadOpen}"><span>${leadOpen ? 'Thu gọn' : 'Xem đầy đủ'}</span>${icon('i-plus')}</button>
@@ -340,7 +377,7 @@ function leadTile(L){
           <button class="btn icon-only" data-save="${esc(st.id)}" aria-pressed="${savedKey(st.id)}" aria-label="${savedKey(st.id) ? 'Bỏ lưu' : 'Lưu đọc sau'}">${icon('i-save')}</button>
         </div></div>
     </div>
-    ${others.length ? `<div class="lead-more"><p class="sub-h">Chuyện nhiều nguồn khác</p>${others.map(o => `<button class="row c${read.has(o.id) ? ' is-read' : ''}" data-sel="${esc(o.id)}" aria-pressed="${selected === o.id}">${avatarStack([...new Map((o.coverage || []).map(c => [c.source, faceOfSource(c, SRC)])).values()], 'xs')}<span class="row-m"><span class="t">${tt(o)}</span>${orig(o)}<span class="k"><span class="num">${o.source_count}</span> nguồn · ${timeEl(o.published_at)}</span></span></button>`).join('')}</div>` : ''}
+    ${others.length ? `<div class="lead-more"><p class="sub-h">Chuyện nhiều nguồn khác</p>${others.map(o => `<button class="row c${statusClass(o.id, o)}" data-sel="${esc(o.id)}" data-status="${storyStatus(o.id, o)}" aria-pressed="${selected === o.id}">${avatarStack([...new Map((o.coverage || []).map(c => [c.source, faceOfSource(c, SRC)])).values()], 'xs')}<span class="row-m"><span class="t">${savedKey(o.id) ? savedMark : ''}${statusMark(o.id, o)}${tt(o)}</span>${orig(o)}<span class="k"><span class="num">${o.source_count}</span> nguồn · ${timeEl(o.published_at)}</span></span></button>`).join('')}</div>` : ''}
     </div>
   </article>`;
 }
@@ -413,9 +450,9 @@ function repoTile(){
   const [own, ...rest] = String(r.full_name).split('/');
   return `<section class="tile t-repo" aria-labelledby="repo-h">
     ${head}${sel}
-    <button class="repo-hero${read.has(key) ? ' is-read' : ''}" data-repo="${esc(r.id)}" aria-pressed="${selected === key}">
+    <button class="repo-hero${statusClass(key)}" data-repo="${esc(r.id)}" data-status="${storyStatus(key)}" aria-pressed="${selected === key}">
       ${avatar(faceOfRepo(r), 'lg')}
-      <span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${rest.length ? `<span class="own">${esc(own)}/</span><wbr>` : ''}${esc(rest.join('/') || own)}</span>${labChip(r.label)}</span>
+      <span class="row-m"><span class="nm">${savedKey(key) ? savedMark : ''}${statusMark(key)}${rest.length ? `<span class="own">${esc(own)}/</span><wbr>` : ''}${esc(rest.join('/') || own)}</span>${labChip(r.label)}</span>
     </button>
     ${m.n != null ? `<p class="keynote k-md"><b class="num" data-count="${m.n}" data-v="${m.n}">${fmt(m.n)}</b><span>${esc(m.plus ? `sao tăng ${winOf(repoWindow).phrase}` : m.unit)}${repoView !== 'stars' && Number.isFinite(r.stars) ? ` · tổng ${fmt(r.stars)} sao` : ''}</span></p>` : `<p class="empty-note">${esc(m.unit)}</p>`}
     <p class="repo-why">${esc(whyShort(r))}${r.license_flag ? ` · <span class="lic">${icon('i-warn')}${esc(r.license_flag)}</span>` : ''}</p>
@@ -432,9 +469,9 @@ function hotTile(shown){
   list.forEach(s => shown.add(s.id));
   return `<section class="tile t-hot" aria-labelledby="hot-h">
     ${tileHead('Đang nóng', 'hot-h', `Điểm đo được, 72 giờ qua · <a class="link" href="#nong">Xem đủ <span class="num">${all.length}</span></a>`)}
-    <ol class="hot-list">${list.map(s => `<li><button class="hrow${read.has(s.id) ? ' is-read' : ''}${arrived.has(s.id) ? ' arrive' : ''}"${arriveAttr(s.id)} data-sel="${esc(s.id)}" aria-pressed="${selected === s.id}">
+    <ol class="hot-list">${list.map(s => `<li><button class="hrow${statusClass(s.id, s)}${arrived.has(s.id) ? ' arrive' : ''}"${arriveAttr(s.id)} data-sel="${esc(s.id)}" data-status="${storyStatus(s.id, s)}" aria-pressed="${selected === s.id}">
       <span class="rk num">${all.indexOf(s) + 1}</span>${avatar(faceSt(s), 'md')}
-      <span class="row-m"><span class="t">${savedKey(s.id) ? savedMark : ''}${tt(s)}</span>${orig(s)}<span class="k">${reasonHTML(s)}${s.source_count > 1 ? ` · <b class="num">${s.source_count}</b> nguồn` : ''}</span></span>
+      <span class="row-m"><span class="t">${savedKey(s.id) ? savedMark : ''}${statusMark(s.id, s)}${tt(s)}</span>${orig(s)}<span class="k">${reasonHTML(s)}${s.source_count > 1 ? ` · <b class="num">${s.source_count}</b> nguồn` : ''}</span></span>
       <span class="score"><b class="num">${Math.round(s.hot_score)}</b>${meter(s.hot_score, max)}</span></button></li>`).join('')}</ol>
   </section>`;
 }
@@ -461,7 +498,7 @@ function listenTile(shown){
   vids.concat(other).forEach(s => shown.add(s.id));
   return `<section class="tile t-listen" aria-labelledby="listen-h">
     ${tileHead('Nghe và xem', 'listen-h', `<a class="link" href="#nghe"><span class="num">${(D.sections.listen || []).length}</span> mục</a>`)}
-    <div class="vid2">${vids.map(s => `<button class="vid${read.has(s.id) ? ' is-read' : ''}" data-sel="${esc(s.id)}"><span class="thumb">${thumbImg(ytId(s), '')}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${tt(s)}</span>${orig(s)}<span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
+    <div class="vid2">${vids.map(s => `<button class="vid${statusClass(s.id, s)}" data-sel="${esc(s.id)}" data-status="${storyStatus(s.id, s)}"><span class="thumb">${thumbImg(ytId(s), '')}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${savedKey(s.id) ? savedMark : ''}${statusMark(s.id, s)}${tt(s)}</span>${orig(s)}<span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
     ${other.map(s => row(s, {compact:true})).join('')}
   </section>`;
 }
@@ -639,6 +676,7 @@ async function renderChapters(progressive = false){
       const first = added[0] && (added[0].matches('button,a') ? added[0] : added[0].querySelector('button,a'));
       b.remove(); if (first) first.focus({preventScroll:true});
       hydrateVisible();
+      observeStoryScroll();
     });
     l.after(b);
   });
@@ -778,10 +816,82 @@ function itemOf(key){
 function markRead(key){
   if (!key || read.has(key)) return;
   read.add(key);
+  arrived.delete(key);
+  if (skipped.has(key)) {
+    skipped.delete(key);
+    store.set('air2:skipped', [...skipped].slice(-2000));
+  }
   store.set('air2:read', [...read].slice(-3000));
   $$(`[data-sel="${CSS.escape(key)}"],[data-repo="${CSS.escape(key.replace(/^repo:/, ''))}"]`).forEach(el => {
-    if (key.startsWith('repo:') ? el.matches('[data-repo]') : el.matches('[data-sel]')) el.classList.add('is-read');
+    const isMatch = key.startsWith('repo:') ? el.matches('[data-repo]') : el.matches('[data-sel]');
+    if (!isMatch) return;
+    el.classList.remove('is-new', 'is-skipped');
+    el.classList.add('is-read');
+    el.dataset.status = 'seen';
+    const t = el.classList.contains('lead-title') ? el : el.querySelector('.t, .nm, .lead-title');
+    if (t) {
+      t.querySelectorAll('.new-mark, .skipped-mark, .seen-mark, .sr').forEach(s => {
+        if (s.textContent.includes('Mới') || s.textContent.includes('Bỏ qua') || s.textContent.includes('Đã xem')) s.remove();
+      });
+      if (!t.querySelector('.seen-mark')) {
+        const saved = t.querySelector('.saved-mark');
+        if (saved) saved.insertAdjacentHTML('afterend', seenMark);
+        else t.insertAdjacentHTML('afterbegin', seenMark);
+      }
+    }
   });
+}
+
+function markSkipped(key){
+  if (!key || read.has(key) || skipped.has(key)) return;
+  if (arrived.has(key)) return;
+  skipped.add(key);
+  store.set('air2:skipped', [...skipped].slice(-2000));
+  $$(`[data-sel="${CSS.escape(key)}"],[data-repo="${CSS.escape(key.replace(/^repo:/, ''))}"]`).forEach(el => {
+    const isMatch = key.startsWith('repo:') ? el.matches('[data-repo]') : el.matches('[data-sel]');
+    if (!isMatch) return;
+    if (!el.classList.contains('is-read')) {
+      el.classList.remove('is-new');
+      el.classList.add('is-skipped');
+      el.dataset.status = 'skipped';
+      const t = el.classList.contains('lead-title') ? el : el.querySelector('.t, .nm, .lead-title');
+      if (t) {
+        t.querySelectorAll('.new-mark, .skipped-mark, .seen-mark, .sr').forEach(s => {
+          if (s.textContent.includes('Mới') || s.textContent.includes('Bỏ qua') || s.textContent.includes('Đã xem')) s.remove();
+        });
+        if (!t.querySelector('.skipped-mark')) {
+          const saved = t.querySelector('.saved-mark');
+          if (saved) saved.insertAdjacentHTML('afterend', skippedMark);
+          else t.insertAdjacentHTML('afterbegin', skippedMark);
+        }
+      }
+    }
+  });
+}
+
+let skipObserver = null;
+function observeStoryScroll(){
+  if (typeof IntersectionObserver === 'undefined') return;
+  if (skipObserver) skipObserver.disconnect();
+  skipObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      const el = entry.target;
+      const key = keyOf(el);
+      if (!key || read.has(key)) continue;
+      if (entry.isIntersecting) {
+        el._seenInViewport = true;
+      } else if (el._seenInViewport) {
+        const barH = $('#bar') ? $('#bar').offsetHeight : 64;
+        if (entry.boundingClientRect.bottom <= barH + 12) {
+          markSkipped(key);
+        }
+      }
+    }
+  }, {
+    root: null,
+    threshold: [0, 0.2]
+  });
+  items().forEach(el => skipObserver.observe(el));
 }
 function open(key, trigger, fromHash = false){
   const it = itemOf(key); if (!it) return;
@@ -925,16 +1035,57 @@ async function pollSnapshot(){
     const tn = $('#tab-new'); tn.hidden = !c.total; tn.textContent = c.total > 99 ? '99+' : c.total;
   } catch { /* a failed poll keeps the current snapshot; the next poll tries again */ }
 }
+function findFirstNewStoryElement(newIds){
+  if (leadId && (newIds.has(leadId) || (S.get(leadId) && storyStatus(leadId, S.get(leadId)) === 'new'))) {
+    const leadBtn = $('.t-lead .lead-title') || $('.t-lead');
+    if (leadBtn) return leadBtn;
+  }
+  const allSel = $$('[data-sel]');
+  for (const el of allSel) {
+    if (el.closest('#sheet')) continue;
+    const id = el.dataset.sel;
+    if (newIds.has(id) || (S.get(id) && storyStatus(id, S.get(id)) === 'new')) {
+      return el;
+    }
+  }
+  return null;
+}
 function applyPending(){
   if (!pending) return;
-  arrived = new Set(pending.stories.filter(s => !S.has(s.id)).map(s => s.id));
+  commitLastSeen();
+  const newStoryIds = pending.stories.filter(s => !S.has(s.id)).map(s => s.id);
+  arrived = new Set(newStoryIds);
   D = pending; pending = null;
   $('#fresh').innerHTML = '';
   const update = () => { build(); renderAll(); };
   if (document.startViewTransition && !RM.matches) document.startViewTransition(update); else update();
-  scrollTo({top:0, behavior: RM.matches ? 'auto' : 'smooth'});
-  $('#board').focus({preventScroll:true});
-  setTimeout(() => { arrived = new Set(); }, 1500);
+  if (newStoryIds.length > 0) {
+    const target = findFirstNewStoryElement(arrived);
+    if (target) {
+      const isLead = target.closest('.t-lead');
+      if (isLead) {
+        scrollTo({top: 0, behavior: RM.matches ? 'auto' : 'smooth'});
+      } else {
+        const barH = $('#bar') ? $('#bar').offsetHeight : 64;
+        const rect = target.getBoundingClientRect();
+        const targetY = scrollY + rect.top - barH - 20;
+        scrollTo({top: Math.max(0, targetY), behavior: RM.matches ? 'auto' : 'smooth'});
+      }
+      target.focus({preventScroll: true});
+      if (!RM.matches) {
+        target.classList.remove('arrive');
+        void target.offsetWidth;
+        target.classList.add('arrive');
+      }
+    } else {
+      scrollTo({top: 0, behavior: RM.matches ? 'auto' : 'smooth'});
+      $('#board').focus({preventScroll: true});
+    }
+  } else {
+    scrollTo({top: 0, behavior: RM.matches ? 'auto' : 'smooth'});
+    $('#board').focus({preventScroll: true});
+  }
+  setTimeout(() => { arrived = new Set(); }, 3000);
 }
 
 /* ---------- keyboard ---------- */
@@ -994,7 +1145,7 @@ function spy(){
 }
 function observeChapters(){ spy(); }
 
-function renderAll(){ renderFirstScreen(); renderChapters(); observeChapters(); }
+function renderAll(){ renderFirstScreen(); renderChapters(); observeChapters(); observeStoryScroll(); }
 function renderFirstScreen(){ renderChrome(); renderBoard(); startBoard(); }
 /* Entrance and count-ups for the board's tiles; `later` = only the tiles added after the lead on first load. */
 function startBoard(later = false){
@@ -1129,10 +1280,18 @@ async function boot(){
     const m = /^#tin\/(.+)$/.exec(location.hash); if (m) open(decodeURIComponent(m[1]), null, true);
     await afterPaint();
     loadDeferredImages();
-    await renderChapters(true); observeChapters();
+    await renderChapters(true); observeChapters(); observeStoryScroll();
     if (!m && location.hash.length > 1) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
     setInterval(pollSnapshot, SNAPSHOT_EVERY_MS);
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) pollSnapshot(); });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) commitLastSeen(); else pollSnapshot();
+    });
+    window.addEventListener('pagehide', () => commitLastSeen());
+    let engaged = false;
+    const onEngage = () => { if (!engaged) { engaged = true; commitLastSeen(); } };
+    setTimeout(onEngage, 5000);
+    addEventListener('scroll', onEngage, {passive: true, once: true});
+    if (typeof window !== 'undefined') { window.commitLastSeen = commitLastSeen; window.storyStatus = storyStatus; }
     await whenIdle();
     thirdPartyReady = true; hydrateVisible(); hydrateHF($('#sheet-body'));
     const { startLive } = await import('./live.js');
