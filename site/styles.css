@@ -52,6 +52,17 @@
   .foot .btn-quiet{margin-top:var(--space-8)}
 
   @media (min-width: 1800px){ :root{ --page-max: 1640px; } }
+  /* Desktop: the lead stands on the left across two rows. Beside it, live and repositories share the first row
+     and "new" takes the full right-hand width under them, so no tile is stretched to the lead's height.
+     The tiles after them flow into the rows below (hot 7 + listen 5, model 8 + source 4). */
+  @media (min-width: 1280px){
+    .t-lead{grid-column:1 / span 6;grid-row:1 / span 2}
+    .t-live{grid-column:7 / span 3;grid-row:1}
+    .t-repo{grid-column:10 / span 3;grid-row:1}
+    .t-new{grid-column:7 / span 6;grid-row:2}
+    .t-model{grid-column:span 8}
+    .t-src{grid-column:span 4}
+  }
   /* Laptop: the right column holds two tiles, so the 4-column tiles get one more column each. */
   @media (min-width: 1100px) and (max-width: 1279px){
     .t-lead{grid-column:1 / -1} .t-live,.t-repo{grid-column:span 6}
@@ -246,7 +257,7 @@
   .repo .why{font-size:var(--text-meta);color:var(--color-ink-3);overflow-wrap:anywhere}
   .repo .r b{color:var(--color-ink);font-size:var(--text-small)}
   .repo-why{font-size:var(--text-small);color:var(--color-ink-2);overflow-wrap:anywhere}
-  .repo-next{display:flex;flex-direction:column;gap:var(--space-4);border-top:1px solid var(--color-hair);padding-top:var(--space-12);margin-top:auto}
+  .repo-next{display:flex;flex-direction:column;gap:var(--space-4);border-top:1px solid var(--color-hair);padding-top:var(--space-12)}
   .lab{display:inline-flex;align-items:center;height:24px;padding:0 var(--space-8);border-radius:var(--radius-full);font-size:var(--text-micro);font-weight:var(--weight-semibold);white-space:nowrap;vertical-align:0.08em}
   .lab.dung-ngay{background:var(--color-ok-wash);color:var(--color-ok)}
   .lab.xao-nau{background:var(--color-warn-wash);color:var(--color-warn)}
@@ -284,7 +295,7 @@
   .play .i{fill:currentColor;stroke:none;width:20px;height:20px}
   .media:hover .thumb img,.vid:hover .thumb img{transform:scale(1.04)}
   .media:hover .play,.vid:hover .play{transform:scale(1.1)}
-  .live-next{display:flex;flex-direction:column;gap:var(--space-16);border-top:1px solid var(--color-hair);padding-top:var(--space-16);margin-top:auto}
+  .live-next{display:flex;flex-direction:column;gap:var(--space-16);border-top:1px solid var(--color-hair);padding-top:var(--space-16)}
   .countdown{display:flex;gap:var(--space-16);align-items:flex-start}
   .cd-n{display:flex;flex-direction:column;align-items:flex-start;line-height:1;flex:none}
   .cd-n b{font-size:var(--num-lg);font-weight:var(--weight-bold);letter-spacing:var(--tracking-number)}
@@ -545,4 +556,12 @@
   .lead-label .pill{white-space:normal;height:auto;min-height:28px;padding-block:var(--space-4);max-width:100%}
   /* 1100-1599px: the nav needs the room, so the "since" pill drops its trailing words and keeps the count. */
   @media (min-width: 1100px) and (max-width: 1599px){ .since-pill .w,.since-pill .w2{display:none} }
+}
+/* Desktop: the lead spans two rows, so it can be taller than its own content. The spare height is shared between
+   its blocks instead of sitting as one hole above the score and buttons. */
+@layer components{
+  @media (min-width: 1280px){
+    .t-lead{justify-content:space-between}
+    .t-lead .lead-foot{margin-top:0}
+  }
 }
