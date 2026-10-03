@@ -41,9 +41,8 @@ const WINDOWS = [
 ];
 const TOTALS = [{id:'stars', label:'Theo sao', unit:'sao'}, {id:'forks', label:'Theo phân nhánh', unit:'lượt phân nhánh'}];
 const SNAPSHOT_EVERY_MS = 180_000;
-/* On a phone the lead's summary shows three lines and a "Đọc tiếp" button; a summary this short never needs it. */
-const LEAD_SUM_CLAMP = 90;
-let leadOpen = false;          // the reader opened the lead's summary; kept when the board re-renders
+/* A phone disclosure belongs to one story; redraws keep it open, a different lead starts closed. */
+let leadId = null, leadOpen = false;
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/. */
 const qp = new URLSearchParams(location.search).get('data');
@@ -276,7 +275,7 @@ function pickLead(){
 }
 
 /* split (first load only): the board gets the lead tile alone, and the other tiles' markup is returned so the caller
-   can add it after the lead has painted. On a phone the lead is the whole first screen. */
+   can add it after the lead has painted. Phones paint the complete compact board together. */
 function renderBoard(split = false){
   const board = $('#board');
   if (!D.stories.length) {
@@ -294,16 +293,11 @@ function renderBoard(split = false){
   hydrateVisible();
   return split ? html.slice(1).join('') : '';
 }
-/* The "Đọc tiếp" button exists only while the summary is clamped and cut (phones); it hides once opened or when it fits. */
-function leadSumFit(){
-  const s = $('#lead-sum'), b = $('[data-lead-sum]');
-  if (!s || !b) return;
-  b.hidden = b.getAttribute('aria-expanded') !== 'true' && s.scrollHeight <= s.clientHeight + 1;
-}
-
 /* The lead: the day's most-covered story, or the hottest when no story has two sources. Its measured number is the keynote. */
 function leadTile(L){
   const st = L.st, v = viewsOf(st.id), mc = measuredCov(st);
+  if (leadId !== st.id) { leadId = st.id; leadOpen = false; }
+  const original = orig(st, 'orig lead-orig');
   const big = L.mode === 'multi' ? {n: st.source_count, unit: 'nguồn cùng đưa chuyện này'}
     : mc ? {n: mc.c.metrics[mc.metric], unit: `${METRIC[mc.metric] || mc.metric} trên ${srcName(mc.c.source)}`, live: `${mc.c.id}|${mc.metric}`}
     : {n: st.source_count, unit: st.source_count > 1 ? 'nguồn cùng đưa' : 'nguồn đưa tin'};
@@ -313,12 +307,18 @@ function leadTile(L){
   const primary = (st.coverage || []).find(c => c.discussion_url) ;
   const others = L.others.slice(0, 2);
   const cov = st.source_count > 1 ? `<ul class="cov" aria-label="Các nguồn đưa chuyện này">${covOf(st).map(c => `<li>${avatar(faceOfSource(c, SRC), 'xs')}<span class="pub">${esc(srcName(c.source))}</span><span class="faint">${timeEl(c.published_at)}</span>${metricsHTML(c) ? `<span class="m">${metricsHTML(c)}</span>` : ''}<a class="go" href="${esc(safe(c.discussion_url || c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">${c.discussion_url ? 'Thảo luận' : 'Bài gốc'}</a></li>`).join('')}</ul>` : '';
-  return `<article class="tile t-lead" aria-labelledby="lead-h">
+  return `<article class="tile t-lead${leadOpen ? ' is-expanded' : ''}" aria-labelledby="lead-h">
     <div class="lead-top">${faces.length > 1 ? avatarStack(faces, 'lg') : avatar(faceSt(st), 'xl')}
       <p class="lead-label" id="lead-h"><span class="pill pill-hot">${icon('i-flame')}${label}</span><span class="lead-src">${kindTag(st)}${esc(pubOf(st))} · ${timeEl(st.published_at)}</span></p></div>
     <p class="keynote"><b class="num"${big.live ? ` data-live="${esc(big.live)}"` : ''} data-count="${big.n}" data-v="${big.n}">${fmt(big.n)}</b><span>${esc(big.unit)}</span></p>
-    <h2 class="lead-title-wrap"><button class="lead-title${read.has(st.id) ? ' is-read' : ''}" data-sel="${esc(st.id)}">${savedKey(st.id) ? savedMark : ''}${tt(st)}</button></h2>${orig(st, 'orig lead-orig')}
-    ${st.summary ? `<p class="lead-sum${leadOpen ? ' is-open' : ''}" id="lead-sum">${esc(st.summary)}</p>${st.summary.length > LEAD_SUM_CLAMP ? `<button class="btn-quiet lead-sum-more" data-lead-sum aria-controls="lead-sum" aria-expanded="${leadOpen}">${leadOpen ? 'Thu gọn' : 'Đọc tiếp'}</button>` : ''}` : ''}
+    <h2 class="lead-title-wrap"><button class="lead-title${read.has(st.id) ? ' is-read' : ''}" data-sel="${esc(st.id)}">${savedKey(st.id) ? savedMark : ''}${tt(st)}</button></h2>
+    <div class="lead-disclosure">
+      ${original ? '<span class="orig lead-attribution"><span class="mt" aria-hidden="true" title="Bản dịch máy; mở đầy đủ để xem tiêu đề gốc">Translated</span><span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc trong phần đầy đủ.</span></span>' : ''}
+      <button class="btn-quiet lead-toggle" data-lead-details="${esc(st.id)}" aria-controls="lead-details" aria-expanded="${leadOpen}"><span>${leadOpen ? 'Thu gọn' : 'Xem đầy đủ'}</span>${icon('i-plus')}</button>
+    </div>
+    <div class="lead-details" id="lead-details">
+    ${original}
+    ${st.summary ? `<p class="lead-sum" id="lead-sum">${esc(st.summary)}</p>` : ''}
     ${sub}
     ${cov}
     <div class="lead-foot">
@@ -331,6 +331,7 @@ function leadTile(L){
         </div></div>
     </div>
     ${others.length ? `<div class="lead-more"><p class="sub-h">Chuyện nhiều nguồn khác</p>${others.map(o => `<button class="row c${read.has(o.id) ? ' is-read' : ''}" data-sel="${esc(o.id)}" aria-pressed="${selected === o.id}">${avatarStack([...new Map((o.coverage || []).map(c => [c.source, faceOfSource(c, SRC)])).values()], 'xs')}<span class="row-m"><span class="t">${tt(o)}</span>${orig(o)}<span class="k"><span class="num">${o.source_count}</span> nguồn · ${timeEl(o.published_at)}</span></span></button>`).join('')}</div>` : ''}
+    </div>
   </article>`;
 }
 
@@ -834,9 +835,17 @@ function toast(msg){
    occurrence in document order) so J/K carry on from where the reader was. */
 function keepFocus(render){
   const a = document.activeElement, row = a && !a.closest('#sheet') ? a.closest('[data-sel],[data-repo]') : null;
+  const leadAction = a && a.closest('.t-lead [data-save],.t-lead [data-lead-details]');
+  const leadAttr = leadAction && (leadAction.hasAttribute('data-save') ? 'data-save' : 'data-lead-details');
+  const leadValue = leadAction && leadAction.getAttribute(leadAttr);
   const k = keyOf(row), same = () => $$('[data-sel],[data-repo]').filter(el => keyOf(el) === k && !el.closest('#sheet'));
   const nth = k ? same().indexOf(row) : -1;
   render();
+  if (leadAction && (!document.activeElement || document.activeElement === document.body)) {
+    const back = $(`.t-lead [${leadAttr}="${CSS.escape(leadValue)}"]`);
+    if (back && back.getClientRects().length) back.focus({preventScroll:true});
+    return;
+  }
   if (!k || (document.activeElement && document.activeElement !== document.body)) return;
   const list = same(), el = list[nth] || list[0];
   if (el) el.focus({preventScroll:true});
@@ -850,7 +859,7 @@ function toggleSave(key){
   keepFocus(() => {
     renderNav(navCounts(D)); renderChapters(); observeChapters();
     if (selected) { const b = $(`#sheet-body [data-save="${CSS.escape(selected)}"]`); if (b) { const on = savedKey(selected); b.setAttribute('aria-pressed', on); b.innerHTML = `${icon('i-save')}${on ? 'Đã lưu' : 'Lưu đọc sau'}`; } }
-    renderBoard(); leadSumFit();
+    renderBoard();
   });
 }
 function addToCalendar(ev){
@@ -984,9 +993,8 @@ function startBoard(later = false){
     // Restarting the entrance needs a reflow between removing and re-adding the class; the first render has none to restart.
     if (b.classList.contains('ready')) { b.classList.remove('ready'); void b.offsetWidth; } b.classList.add('ready');
   }
-  // Reads first (positions, the summary's height), writes after: one layout for the whole batch.
+  // Read positions first, then write counts: one layout for the whole batch.
   const nums = $$(later ? '#board > .tile:not(:first-child) [data-count]' : '#board [data-count]'), vis = nums.map(onScreen);
-  if (!later) leadSumFit();
   nums.forEach((c, i) => { c.dataset.v = 0; countTo(c, Number(c.dataset.count), vis[i]); });
 }
 
@@ -1014,8 +1022,15 @@ document.addEventListener('click', e => {
   if (t.closest('#keys-x')) { $('#keys').close(); return; }
   if (t.closest('#theme')) { toggleTheme(); return; }
   if (t.closest('#scrim')) { close(); return; }
-  const ls = t.closest('[data-lead-sum]');
-  if (ls) { const on = leadOpen = ls.getAttribute('aria-expanded') !== 'true'; ls.setAttribute('aria-expanded', String(on)); ls.textContent = on ? 'Thu gọn' : 'Đọc tiếp'; $('#lead-sum').classList.toggle('is-open', on); return; }
+  const ld = t.closest('[data-lead-details]');
+  if (ld) {
+    leadOpen = ld.getAttribute('aria-expanded') !== 'true';
+    ld.setAttribute('aria-expanded', String(leadOpen));
+    ld.querySelector('span').textContent = leadOpen ? 'Thu gọn' : 'Xem đầy đủ';
+    ld.closest('.t-lead').classList.toggle('is-expanded', leadOpen);
+    if (leadOpen) hydrateVisible();
+    return;
+  }
   const rd = t.closest('a[data-read]'); if (rd) { markRead(rd.dataset.read); return; }
   const b = t.closest('[data-sel],[data-repo]');
   if (b && !t.closest('a') && (b.dataset.sel || b.dataset.repo != null)) { e.preventDefault(); open(keyOf(b), b); }
@@ -1034,7 +1049,7 @@ function rerenderRepos(){
   const attr = a && ['area', 'repoView', 'repoWindow', 'repoTotal'].find(k => a.dataset && a.dataset[k] != null);
   const scope = a && a.closest('#board') ? '#board' : '#chapters';
   const value = attr ? a.dataset[attr] : null;
-  renderBoard(); leadSumFit(); renderChapters(); observeChapters();
+  renderBoard(); renderChapters(); observeChapters();
   scrollTo(0, y);
   if (attr) {
     const name = 'data-' + attr.replace(/[A-Z]/g, c => '-' + c.toLowerCase());
@@ -1045,8 +1060,11 @@ function rerenderRepos(){
 $('#sheet-x').addEventListener('click', close);
 $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
 addEventListener('scroll', spy, {passive:true});
-let fitQueued = false;
-addEventListener('resize', () => { spy(); if (!fitQueued) { fitQueued = true; requestAnimationFrame(() => { fitQueued = false; leadSumFit(); }); } });
+addEventListener('resize', spy);
+matchMedia('(max-width: 767px)').addEventListener('change', e => {
+  // A wide-screen link can become folded on rotation; put focus on its disclosure instead.
+  if (e.matches && !leadOpen && document.activeElement?.closest('.lead-details')) $('[data-lead-details]')?.focus({preventScroll:true});
+});
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => applyTheme(store.get('air2:theme', null)));
 setInterval(() => { $$('[data-ago]').forEach(el => { el.textContent = ago(el.dataset.ago); }); renderStale(); }, 60_000);
 
@@ -1075,7 +1093,7 @@ loadSnapshot(DATA_URL, FALLBACK_URL).then(async j => {
   await nextTask();   // parsing the snapshot and rendering the board use separate tasks
   D = j; build();
   setDeferImages(true);
-  renderChrome(); const rest = renderBoard(true); startBoard();
+  renderChrome(); const rest = renderBoard(!matchMedia('(max-width: 767px)').matches); startBoard();
   await afterPaint();
   if (rest) { $('#board').insertAdjacentHTML('beforeend', rest); startBoard(true); }
   setDeferImages(false);

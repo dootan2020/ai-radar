@@ -26,3 +26,7 @@ Giống một slide keynote của Apple. Mỗi sáng, người đọc mở trang
 **Chữ:** một họ duy nhất là Be Vietnam Pro (400, 500, 600, 700), đủ dấu tiếng Việt, theo cách Apple chỉ dùng một họ SF. Dòng chữ đọc cao 1,55 để dấu chồng tầng (ế, ộ, ữ) có chỗ.
 
 **Dark mode** chỉ thay tầng ngữ nghĩa. Mặt ô sáng dần lên để nổi, số luôn là thứ sáng nhất. Trang theo cài đặt của hệ thống cho tới khi người đọc tự chọn. Lựa chọn đó chỉ lưu trên máy của họ.
+
+## Phone lead story
+
+At widths up to 767px, the lead keeps its full headline, source/kind/time, selection evidence, measured number, and translation attribution visible. One inline disclosure reveals the original title, full summary, sources, score, actions, and related stories together. Its state survives redraws for the same lead and resets when the lead changes. Tablet and desktop retain the complete layout. Phones render all board tiles together so the next tile does not wait for a separate paint after the compact lead.
