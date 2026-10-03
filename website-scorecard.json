@@ -1,0 +1,228 @@
+{
+  "version": 1,
+  "project": "ai-radar",
+  "entry": "existing",
+  "purpose": {
+    "choice": "Mỗi sáng, trong khoảng 3 phút, người làm AI biết: hôm nay thế giới AI có gì quan trọng, cái gì đang nóng, sắp có gì. Muốn đọc kỹ thì bấm một lần là tới nguồn gốc. (plans/dinh-hinh-san-pham.md, mục 1)",
+    "approval": {
+      "by": "captain",
+      "date": "2026-10-02",
+      "words": "Đúng, làm khung bố cục"
+    }
+  },
+  "design_language": {
+    "choice": "Bento kiểu Apple: trang chia thành các ô hộp to nhỏ có chính có phụ; mỗi ô là một chuyện có logo nguồn, số đo, nhãn, không ô nào chỉ có chữ. Neo so sánh: Apple Newsroom. (plans/dinh-hinh-san-pham.md, mục Ngôn ngữ thiết kế, chốt 02/10 22:57)",
+    "approval": {
+      "by": "captain",
+      "date": "2026-10-02",
+      "words": "Ok, chọn kiểu số 1"
+    }
+  },
+  "scorecard_approval": null,
+  "criteria": {
+    "1": {
+      "criterion": "UI/UX",
+      "judge": "captain",
+      "evidence": {
+        "reference": "plans/reports/audit/render-claude.md, muc 1 (hang 1a-1e), muc 4 (top 10 khoang cach), muc 5 (audit checklist-design); anh trong plans/reports/audit/anh/",
+        "date": "2026-10-03",
+        "method": "Headless Chrome dieu khien bang CDP (Node), skill checklist-design audit tung muc, 7 kich ban chan data/radar.json, touch emulation pointer coarse. Khong co thiet bi that, khong Safari.",
+        "scope": "Site live https://dootan2020.github.io/ai-radar/ tai main 4a6fe11 (index, tokens.html, brand/), 4 trang x 7 do rong 320-1920 x sang/toi; 375 va 1440 cho contrast, trang thai rong/loi/dang tai. Phan dang lam tren nhanh chua merge khong tinh.",
+        "result": "Chua dat. FAIL: chuong Sap dien ra vo bo cuc o 320-1024 (cot tieu de 0-49px, ten su kien bi be tung ky tu); sheet chi tiet khong phai dialog (khong role=dialog, focus khong vao sheet); 41/200 dieu khien duoi 44px tren cam ung (link nguon cao 22px); nut doi giao dien bi cat o 768 (header scrollWidth 783 > 768); brand/ nen toi wordmark 1.00:1. PASS: khong tran ngang 0/56 to hop, dark mode trang chinh, trang thai rong/loi/dang tai (7 kich ban, 1 diem polish). Anh Tuan chua duyet 375px, 1440px; iOS Safari, Android, polish chua xem."
+      },
+      "measurements": {},
+      "checks": {
+        "rendered_375px_approved": null,
+        "rendered_1440px_approved": null,
+        "checklist_nothing_missing_that_matters": false,
+        "empty_error_states_reviewed": true,
+        "ios_safari_reviewed": null,
+        "android_reviewed": null,
+        "polish_reviewed": null
+      },
+      "waiver": null,
+      "approval": null
+    },
+    "2": {
+      "criterion": "Performance",
+      "judge": "CI + field measurement",
+      "evidence": {
+        "reference": "Lighthouse 13.5.0 JSON: C:/Users/Admin/AppData/Local/Temp/claude/C--Users-Admin-firstmate-control/f68e0894-ab5e-4c9c-b8ae-084cae89022d/scratchpad/lh/mobile-1.json, mobile-2.json, mobile-3.json (desktop-1..3.json cho desktop); plans/reports/audit/render-claude.md muc 2",
+        "date": "2026-10-03",
+        "method": "Lighthouse 13.5.0 that, 3 lan mobile + 3 lan desktop, tinh lai trung vi tu file JSON. js_gzip_kb = tong transferSize cua network-requests resourceType Script (8 file, trung vi 38752 B). first_load_mb = audit total-byte-weight (786857 / 786801 / 786985 B, trung vi 786857 B, thap phan). INP khong do duoc: Lighthouse khong do INP, TBT khong thay the.",
+        "scope": "https://dootan2020.github.io/ai-radar/ (trang chu, main 4a6fe11), mobile mac dinh cua Lighthouse. Desktop: performance 98, 98, 97 (LCP trung vi 1106 ms). Khong co du lieu field (CrUX/INP).",
+        "result": "Mobile performance 69, 70, 69 (trung vi 69, duoi 90). LCP 6135 / 6311 / 6628 ms, trung vi 6.311 s (muc tieu duoi 2.5 s). TBT 0 ms, CLS 0. JS 38.75 KB gzip va first load 0.787 MB deu dat. Proxy CDP throttling trong render-claude.md cho TBT 1707 ms nhung Lighthouse do 0: hai cach do khac nhau, so Lighthouse la so ghi vao day. Nguyen nhan LCP: data/radar.json 2 MB tai bang cache no-store sau chuoi module, parse va dung tren luong chinh. INP chua do."
+      },
+      "measurements": {
+        "lighthouse_mobile_runs": [69, 70, 69],
+        "lcp_seconds": 6.311,
+        "inp_ms": null,
+        "cls": 0,
+        "js_gzip_kb": 38.752,
+        "first_load_mb": 0.786857
+      },
+      "checks": {
+        "inp_from_field": null
+      },
+      "waiver": null
+    },
+    "3": {
+      "criterion": "Accessibility",
+      "judge": "CI + manual",
+      "evidence": {
+        "reference": "Lighthouse mobile-1..3.json (thu muc scratchpad/lh nhu hang 2); plans/reports/audit/render-claude.md muc 1 hang 3a-3e va muc 3b (data-keyboard.json)",
+        "date": "2026-10-03",
+        "method": "Lighthouse 13.5.0 accessibility 3 lan mobile; 90 Tab lien tiep bang CDP, bo kiem contrast tu viet theo WCAG 2.x (850 phan tu trang chu), kiem landmark/heading/alt. Khong co trinh doc man hinh that.",
+        "scope": "Site live main 4a6fe11: trang chu 375 va 1440, sang/toi, story sheet; tokens.html va brand/ cho contrast.",
+        "result": "Lighthouse accessibility 98, 98, 98 (trung vi 98). Ban phim: 90 Tab khong mat focus ring, skip link va Esc chay, nhung mo sheet bang Enter thi focus o lai hang tin, aside#sheet khong co role=dialog/aria-modal, nen khong inert; sheet nam cuoi DOM. Contrast: trang chu 0 fail, nhung tokens.html 4 fail va brand/ nen toi 15-17 fail (wordmark 1.00:1). Heading nhay H1 den H3, khong co footer landmark. Trinh doc man hinh chua kiem."
+      },
+      "measurements": {
+        "lighthouse_accessibility": 98
+      },
+      "checks": {
+        "keyboard_usable": false,
+        "screen_reader_correct": null,
+        "wcag_aa_contrast": false
+      },
+      "waiver": null
+    },
+    "4": {
+      "criterion": "SEO and sharing",
+      "judge": "CI + manual",
+      "evidence": {
+        "reference": "Lighthouse mobile-1..3.json (thu muc scratchpad/lh nhu hang 2); plans/reports/audit/render-claude.md muc 1 hang 4a-4e",
+        "date": "2026-10-03",
+        "method": "Lighthouse 13.5.0 SEO 3 lan mobile; curl tung URL (robots.txt, sitemap.xml, og:image), doc header PNG, grep meta/canonical/JSON-LD tren 3 file tai ve. Chua dung Facebook Sharing Debugger hay Zalo that.",
+        "scope": "https://dootan2020.github.io/ai-radar/ tai main 4a6fe11 (index, tokens.html, brand/).",
+        "result": "Lighthouse SEO 100, 100, 100. Nhung: /ai-radar/sitemap.xml 404 va robots.txt 404 (o GitHub Pages dang project crawler chi doc robots.txt o goc host); khong canonical, khong JSON-LD (ItemList), HTML tinh chi khoang 371 ky tu vi tin do JS dung; tokens.html khong description/og, khong noindex, bi index; moi lien ket sau #tin/<id> ra cung mot the chia se mac dinh. og-image.png 200, 1200x630 that, khop og:image:width/height, twitter:card summary_large_image: the da dung nhung hinh xem truoc that tren Facebook va Zalo chua duoc xem."
+      },
+      "measurements": {
+        "lighthouse_seo": 100
+      },
+      "checks": {
+        "sitemap": false,
+        "appropriate_structured_data": false,
+        "facebook_share_image": null,
+        "zalo_share_image": null
+      },
+      "waiver": null
+    },
+    "5": {
+      "criterion": "Data trust",
+      "judge": "CI + script",
+      "evidence": {
+        "reference": "plans/reports/audit/ma-claude.md, bang tieu chi 5-10 hang 5a-5h; radar/pipeline.py:100-105,136-138; build.py:21-35; .github/workflows/update.yml:3-6,17-122; site/app.js:599,577,457,613",
+        "date": "2026-10-03",
+        "method": "Doc ma nguon (file:line) va gh run list 30 lan chay gan nhat cua workflow update.yml. Khong chay bo test cua repo.",
+        "scope": "main 4a6fe11, pipeline radar/, build.py, workflow update.yml, hien thi thoi gian tren site/app.js.",
+        "result": "PASS: moi nguon chay trong try/except rieng thanh ban ghi ok:false, deadline build 100 s; 30/30 lan chay thanh cong; thoi diem cap nhat hien tren trang. FAIL: build.py ghi dau ra truoc moi kiem tra nen mot dot sap hang loat van deploy trang 'moi' (5b); khong co canh bao khi build hong, chi co email mac dinh cua GitHub (5d). PARTIAL: cron 30 phut nhung khoang cach thuc te toi khoang 6 gio (5e), khong co canh bao du lieu cu tren trang; chua kiem chung viec GitHub tat workflow sau 60 ngay khong hoat dong (5f). Cac con so tren trang chua duoc ra soat rieng, nen no_invented_numbers de trong."
+      },
+      "measurements": {},
+      "checks": {
+        "reliable_update_schedule": null,
+        "broken_source_isolated": true,
+        "updated_at_visible": true,
+        "build_failure_alert": false,
+        "no_invented_numbers": null
+      },
+      "waiver": null
+    },
+    "6": {
+      "criterion": "Content quality",
+      "judge": "script + sample read",
+      "evidence": {
+        "reference": "plans/reports/audit/ma-claude.md, hang 6a-6d; radar/pipeline.py:148-154; radar/items.py:10-20,58-72; radar/translate.py:44-45,177-228; radar/feeds.py:8-20; site/app.js:295,309,653,660",
+        "date": "2026-10-03",
+        "method": "Doc ma nguon. Chua doc mau dau ra, chua chay kiem tra dedupe tren du lieu that.",
+        "scope": "main 4a6fe11, pipeline loc, dedupe, dich tieu de va hien thi lien ket goc.",
+        "result": "Dedupe co ma (URL va gom cum theo canonical URL) nhung chua do tren dau ra. Loc AI chi ap dung cho feed catalog co filter_ai va GitHub trending; danh sach regex ngan, khop nvidia don le. Moi tin deu co lien ket Bai goc, nhung 7 tren 11 feed lab la ban sao cong dong va khong kiem tra host (PARTIAL). Dich tieu de co bo kiem mat ten rieng cho chu viet hoa ben trong va tu viet tat tu 3 chu cai, nhung khong bao ve ten san pham viet hoa thuong nhu Claude, Gemini, Grok, Mistral (PARTIAL)."
+      },
+      "measurements": {},
+      "checks": {
+        "no_duplicates": null,
+        "on_topic": null,
+        "origin_cited": null,
+        "proper_names_preserved": null
+      },
+      "waiver": null
+    },
+    "7": {
+      "criterion": "Security",
+      "judge": "CI",
+      "evidence": {
+        "reference": "plans/reports/audit/ma-claude.md, hang 7a-7g; site/index.html:3-36; site/app.js:47-51,81,90-91,203,295; site/live.js:6-13; .github/workflows/update.yml:8-11,42; radar/transport.py:16-64",
+        "date": "2026-10-03",
+        "method": "Doc ma nguon, kiem tung diem innerHTML/insertAdjacentHTML trong app.js, faces.js, tokens.js; git ls-files va grep tim khoa/secret. Chua chay may quet secret tu dong.",
+        "scope": "main 4a6fe11: site/ (HTML, JS), workflow update.yml, radar/transport.py.",
+        "result": "FAIL: khong co Content-Security-Policy hay referrer policy (7c). PASS: van ban feed vao DOM chi qua esc() va safe(); khong eval/document.write/new Function; moi link target=_blank co rel=noopener; chi dung secrets.GITHUB_TOKEN co san, khong file env hay khoa trong git ls-files. Rui ro: actions ghim theo tag chu khong theo SHA, khong dependabot, quyen job update rong hon can; mirror cong dong cho 7 feed lab khong co allowlist host; Google Fonts gui IP nguoi doc sang Google."
+      },
+      "measurements": {},
+      "checks": {
+        "csp": false,
+        "source_sanitized": true,
+        "safe_external_links": true,
+        "no_keys_in_code": true
+      },
+      "waiver": null
+    },
+    "8": {
+      "criterion": "Operations",
+      "judge": "rehearsal",
+      "evidence": {
+        "reference": "plans/reports/audit/ma-claude.md, hang 8a-8e; .github/workflows/update.yml:3-6,29-30,110-122; README.md:7-17,21,61",
+        "date": "2026-10-03",
+        "method": "Doc ma nguon va tai lieu, grep rollback trong README va docs/. Khong dien tap rollback.",
+        "scope": "main 4a6fe11: workflow CI/deploy, README, docs/.",
+        "result": "FAIL: khong co tai lieu rollback (grep rollback trong README va docs/ khong ra gi) va chua dien tap lan nao, nen khong co so phut rollback. PARTIAL: test chay trong job theo lich truoc build va deploy, nhung khong co trigger push/pull_request, khong lint, khong kiem tra live sau deploy; README chay duoc tu dau nhung chua co trang van hanh mo ta lich, cache, buoc dich. Chua co ngan sach rollback nao duoc ghi nhan."
+      },
+      "measurements": {
+        "rollback_minutes": null
+      },
+      "checks": {
+        "full_ci_gates": null,
+        "rollback_rehearsed": null,
+        "rollback_meets_agreed_budget": null,
+        "handover_docs": null
+      },
+      "waiver": null
+    },
+    "9": {
+      "criterion": "Reader measurement",
+      "judge": "captain",
+      "evidence": {
+        "reference": "plans/reports/audit/ma-claude.md, hang 9; plans/dinh-hinh-san-pham.md, muc 5 (bo sung 02/10 toi)",
+        "date": "2026-10-03",
+        "method": "grep analytics|gtag|plausible|goatcounter|sendBeacon|umami tren site/ khong ra ket qua; doc site/app.js:56-61 va site/faces.js (chi luu local).",
+        "scope": "main 4a6fe11, toan bo site/.",
+        "result": "Chua co bo dem nao tren site. Y dinh da ghi: dem tren tang mien phi cua tai khoan Cloudflare san co, khong cookie, khong du lieu ca nhan, 'deploy la cong cua anh'. Chua co loi duyet nguyen van cua anh Tuan cho viec trien khai Cloudflare, nen de trong."
+      },
+      "measurements": {},
+      "checks": {
+        "privacy_respecting_counter": false,
+        "captain_cloudflare_deployment": null
+      },
+      "waiver": null,
+      "approval": null
+    },
+    "10": {
+      "criterion": "Legal",
+      "judge": "review",
+      "evidence": {
+        "reference": "plans/reports/audit/ma-claude.md, hang 10a-10d; radar/translate.py:3-7,31; docs/data-pipeline-v2.md:85-90; site/app.js:545; plans/dinh-hinh-san-pham.md muc Viet hoa tieu de",
+        "date": "2026-10-03",
+        "method": "Doc ma nguon va tai lieu, git ls-files tim LICENSE, robots.txt, sitemap; grep CC-BY trong README. Chua co ra soat phap ly ben ngoai.",
+        "scope": "main 4a6fe11: site/, radar/, docs/, README.",
+        "result": "PASS: nha xuat ban duoc nam tren moi tin va moi hang coverage, feed ban sao cong dong gan nhan (nguon cong dong); tom tat gioi han 300 ky tu, tieu de 500, anh chi hotlink. PARTIAL: giay phep NLLB CC-BY-NC 4.0 co ghi trong docstring, docs/data-pipeline-v2.md (chi hop le khi ai-radar khong kiem tien, du phong DeepL Free) va ghi chu tren trang, nhung README khong nhac, khong co file LICENSE hay NOTICE; rao can chi la mot cau trong tai lieu. FAIL: khong co LICENSE cho ma cua repo, khong co ghi chu quyen rieng tu, khong robots.txt/sitemap. Dieu khoan tu dong hoa dich vu (subscription) chua duoc kiem tra."
+      },
+      "measurements": {},
+      "checks": {
+        "source_attribution": true,
+        "short_quotes_within_limits": true,
+        "translation_terms_cited": null,
+        "subscription_automation_terms_checked": null,
+        "translation_free_while_no_revenue": null
+      },
+      "waiver": null
+    }
+  }
+}
