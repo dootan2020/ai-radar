@@ -544,8 +544,10 @@
     .sheet{transition:opacity 150ms linear, visibility 0s linear 150ms !important;transform:none !important;opacity:0}
     .sheet.on{opacity:1;transition:opacity 150ms linear !important}
     /* The rule above gives every element a 150ms transition of "all", which includes the visibility the sheet's
-       children inherit: the close button stayed hidden for 150ms after opening and could not take focus. */
+       children inherit: the close button stayed hidden for 150ms after opening and could not take focus.
+       The same applies to the board and its tiles when clearing is-loading on first paint. */
     .sheet *{transition-property:none !important}
+    .board, .board *{transition-property:none !important}
     .tile,.btn,.chip,.theme .i,.cmd-copy .i,.thumb img,.play,.repo-hero{transform:none !important}
     .arrive{transform:none}
     @starting-style{ .arrive{opacity:0;transform:none} }

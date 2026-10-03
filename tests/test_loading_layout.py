@@ -34,6 +34,12 @@ class LoadingLayoutTests(unittest.TestCase):
         self.assertNotRegex(board.group(1), r"display\s*:\s*none")
         self.assertRegex(css, r"\.board\.is-loading\s*>\s*\.sr\s*\{\s*visibility\s*:\s*visible\s*\}")
 
+    def test_reduced_motion_board_clears_visibility_transition(self):
+        css = (SITE / "styles.css").read_text(encoding="utf-8")
+        # Under reduced motion every element gets a 150 ms "all" transition; the board must not
+        # transition visibility from is-loading to avoid a 2s compositor stall on mobile.
+        self.assertIn(".board, .board *{transition-property:none !important}", css)
+
     @unittest.skipUnless(shutil.which("node"), "Node required for renderer behavior tests")
     def test_success_empty_and_error_reveal_their_content(self):
         harness = r"""
