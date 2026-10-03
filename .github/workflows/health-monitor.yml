@@ -2,7 +2,7 @@ name: Monitor live AI Radar
 
 on:
   schedule:
-    - cron: '13,43 * * * *'
+    - cron: '13,28,43,58 * * * *'
   workflow_dispatch:
 
 permissions:

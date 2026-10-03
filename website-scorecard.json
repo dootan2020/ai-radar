@@ -187,18 +187,31 @@
       "waiver": null
     },
     "9": {
-      "criterion": "Reader measurement",
+      "criterion": "Observability",
       "judge": "captain",
       "evidence": {
-        "reference": "plans/reports/audit/ma-claude.md, hang 9; plans/dinh-hinh-san-pham.md, muc 5 (bo sung 02/10 toi)",
+        "reference": "plans/reports/quan-sat-codex.md; plans/reports/scorecard-before-quan-sat.json (historical row 9); .github/workflows/health-monitor.yml; radar/health_monitor.py; radar/health_probe.py; radar/health_alert.py; docs/operations.md",
         "date": "2026-10-03",
-        "method": "grep analytics|gtag|plausible|goatcounter|sendBeacon|umami tren site/ khong ra ket qua; doc site/app.js:56-61 va site/faces.js (chi luu local).",
-        "scope": "main 4a6fe11, toan bo site/.",
-        "result": "Chua co bo dem nao tren site. Y dinh da ghi: dem tren tang mien phi cua tai khoan Cloudflare san co, khong cookie, khong du lieu ca nhan, 'deploy la cong cua anh'. Chua co loi duyet nguyen van cua anh Tuan cho viec trien khai Cloudflare, nen de trong."
+        "method": "Source and contract inspection; offline verification recorded separately in the report. No live failure, notification receipt, recovery auto-clear, traffic arrival or field-vitals arrival is claimed.",
+        "scope": "Local tich-hop release candidate on 2026-10-03; target https://dootan2020.github.io/ai-radar/. Source-configured health schedule only; hosted execution and production release candidate remain unverified.",
+        "result": "Scheduled health workflow exists in source. Live HTTP/data/freshness/assets verification, real-failure rehearsal, observed owner receipt and automatic clearing remain pending. Alert confirmation uses two probes within one run, 30 seconds apart. Receipt latency remains unmeasured. Cookie-free Cloudflare traffic and real-reader field Core Web Vitals setup/arrivals await owner setup. Row and overall scorecard approvals and waiver remain null."
       },
-      "measurements": {},
+      "measurements": {
+        "health_alert_latency_minutes": null
+      },
       "checks": {
-        "privacy_respecting_counter": false,
+        "health_check_scheduled": true,
+        "live_page_returns_200": null,
+        "live_data_readable": null,
+        "live_data_fresh": null,
+        "main_assets_load_fully": null,
+        "health_alert_rehearsed_real_failure": null,
+        "health_alert_received": null,
+        "health_alert_auto_clears": null,
+        "cookie_free_traffic": null,
+        "traffic_data_received": null,
+        "field_core_web_vitals_collected": null,
+        "field_core_web_vitals_received": null,
         "captain_cloudflare_deployment": null
       },
       "waiver": null,

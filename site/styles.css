@@ -477,8 +477,11 @@
   /* skeleton */
   /* The snapshot decides whether a warning precedes the board. Keep its loading geometry without painting
      tiles at the wrong position; renderBoard and showError reveal the result by clearing is-loading. */
-  .board.is-loading{visibility:hidden}
+  .board.is-loading{visibility:hidden;position:relative}
   .board.is-loading > .sr{visibility:visible}
+  /* Static HTML survives a failed module graph or disabled JavaScript. Taking
+     it out of flow keeps the skeleton geometry and successful render intact. */
+  .board.is-loading .reader-fallback{visibility:visible;position:absolute;top:0;left:0;width:100%}
   .sk-tile{min-height:220px}
   .t-lead.sk-tile{min-height:560px}
   .sk{border-radius:var(--radius-8);background:var(--color-fill);animation:breathe 1.6s var(--ease-flow) infinite alternate}

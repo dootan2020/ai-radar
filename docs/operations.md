@@ -73,15 +73,22 @@ human issues, pull requests, and other branches outside this lifecycle.
 ## Live website health
 
 The independent [health monitor workflow](../.github/workflows/health-monitor.yml)
-checks the deployed site on a GitHub-hosted runner at minutes 13 and 43 of every
-hour (UTC). Use its **Run workflow** action for a manual observation. It does
-not collect data or deploy the site. The [monitor CLI](../radar/health_monitor.py)
+checks the deployed site on a GitHub-hosted runner every 15 minutes, at minutes
+13, 28, 43 and 58 of every hour (UTC). Use its **Run workflow** action for a
+manual observation. It does not collect data or deploy the site.
+The [monitor CLI](../radar/health_monitor.py)
 and [probe](../radar/health_probe.py) own the checks: homepage HTTP 200 and app
-markers, `data/radar.json` HTTP 200 with parseable JSON and the minimum UI shape,
-and availability of the main CSS/JavaScript files and local module dependencies.
-The snapshot's timezone-aware `generated_at` must not be in the future or more
+markers, both `data/radar.json` and `data/radar-ui.json` HTTP 200 with parseable
+JSON and the minimum UI shape, and availability of the main CSS/JavaScript files
+and local module dependencies.
+Each snapshot's timezone-aware `generated_at` must not be in the future or more
 than three hours old; exactly three hours remains valid. The threshold comes
 from [publication policy](../radar/publication.py), not the remote snapshot.
+The reader projection has its own `snapshot-ui` check and must have the same
+`generated_at` string as the full snapshot. A missing, invalid, stale or mismatched
+projection fails the probe even when the full snapshot is healthy. Reports retain
+only the normalized full-snapshot timestamp and fixed diagnostic text, never raw
+remote timestamp values.
 These are availability and snapshot checks; they do not execute JavaScript or
 guarantee that the page renders correctly in a browser.
 
@@ -109,8 +116,9 @@ inconclusive probes, or a monitor/reporting error. The workflow adds `--report`
 to reconcile issues; an API failure in that mode also exits `1`. Keep that flag
 in the authorized workflow rather than adding it to a local diagnostic command.
 
-A failed probe is repeated after 30 seconds. Only check IDs that fail in both
-observations confirm an incident. An isolated transient does not open an issue;
+A failed probe is repeated after 30 seconds within the same workflow run. Only
+check IDs that fail in both observations confirm an incident. An isolated
+transient does not open an issue;
 different failures with no shared failing ID are inconclusive and cannot close
 an existing incident. A wholly healthy observation establishes recovery.
 
@@ -125,14 +133,33 @@ needed. Repository Issues must be enabled. Read the health workflow's own logs
 if issue reporting fails, and inspect the recorded failing checks and observation
 time before investigating collection or deployment.
 
-The operating target is an alert within about an hour of an outage, or within
-about an hour after snapshot age exceeds three hours. This is not an SLA:
+With an on-time schedule, detection waits up to about 15 minutes for the next
+run, plus a 30-second confirmation delay and request/runner queue time. Allow
+roughly 30 minutes as a conservative nominal operating target after an outage
+or after snapshot age exceeds three hours; confirmation does not wait for a
+second scheduled run. This is not an SLA or a guaranteed 60-minute bound:
 GitHub schedules can be delayed, dropped, or disabled, as described above. A
 monitor on the same provider cannot reliably detect its own absent scheduled
 runs or provider-wide unavailability. Issue creation does not prove notification
 delivery; maintainers' GitHub notification settings still apply, and issue edits
 may not generate another notification. Verify both a hosted observation and
 notification delivery before relying on the monitor operationally.
+
+## Reader loading and recovery
+
+The [page HTML](../site/index.html) includes a visible initial loading status and
+a native reload link, so a missing app or imported module does not leave an empty
+screen. With JavaScript disabled, a separate instruction explains how to enable
+it and reload. Successful rendering replaces this fallback without changing the
+normal reader layout.
+
+The [snapshot loader](../site/snapshot.js) allows 10 seconds per attempt, including
+both receiving headers and consuming the JSON body. If the compact
+`data/radar-ui.json` request fails or times out, it tries `data/radar.json` with
+its own 10-second deadline. If both fail, the existing error state offers retry;
+browser timer suspension can delay when that state appears. A maintainer's explicit
+`?data=data/<file>.json` has the same deadline but no implicit fallback. Failed
+background polls keep the last displayed snapshot and retry on the next poll.
 
 ## Restore a previously deployed artifact
 

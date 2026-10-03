@@ -40,6 +40,7 @@ EXCEPTIONS = {
     **dict.fromkeys(["px", "ms"], "đơn vị đo"),
     **dict.fromkeys(["th", "thg"], "viết tắt của tháng (huy hiệu ngày; Intl vi-VN in thg)"),
     **dict.fromkeys(["cookie"], "từ mượn phổ biến cho tệp theo dõi của trình duyệt"),
+    **dict.fromkeys(["javascript"], "tên ngôn ngữ và tùy chọn trình duyệt mà hướng dẫn bật lại cần gọi đúng tên"),
     **dict.fromkeys(["bento", "keynote"], "tên riêng: tên ngôn ngữ thiết kế anh Tuấn đã chốt 02/10"),
     **dict.fromkeys(["be", "vietnam", "pro"], "tên riêng: họ phông chữ Be Vietnam Pro"),
     **dict.fromkeys(["nllb", "cc", "by", "nc"], "tên riêng: mô hình dịch NLLB-200 và mã giấy phép CC-BY-NC 4.0"),
@@ -279,6 +280,7 @@ class VietnameseInterfaceTests(unittest.TestCase):
         self.assertEqual(foreign_words("hot new model"), ["hot", "new", "model"])
         self.assertEqual(foreign_words("Kho mã AI đang lên trên GitHub, xem tin trong ngày"), [])
         self.assertEqual(foreign_words("ai·radar · Tin AI hôm nay"), [])
+        self.assertEqual(foreign_words("Hãy bật JavaScript trong trình duyệt rồi tải lại trang"), [])
 
     def test_extractor_reads_html_fragments_ui_keys_and_skips_code(self):
         sample = ("const A = {label:'Upvote', id:'video'}; el.querySelector('.repo-hero'); /* 'comment words' */\n"

@@ -172,6 +172,7 @@ def snapshot_time(raw, now):
 def probe():
     now = datetime.now(timezone.utc)
     report = {"checked_at": now.isoformat(), "generated_at": None, "checks": []}
+    snapshot_stamp = None
     deadline = monotonic() + PROBE_TIMEOUT
     assets = {urljoin(SITE_URL, path) for path in PRIMARY_ASSETS}
     modules = {urljoin(SITE_URL, "app.js")}
@@ -200,6 +201,7 @@ def probe():
         modules.update(page.modules)
 
     def snapshot(raw):
+        nonlocal snapshot_stamp
         # Preserve the observed time even when its age subsequently fails policy.
         try:
             value = parse_snapshot(raw)
@@ -208,7 +210,13 @@ def probe():
                 report["generated_at"] = stamp.isoformat()
         except (ValueError, UnicodeError):
             pass
-        snapshot_time(raw, datetime.now(timezone.utc))
+        snapshot_stamp = snapshot_time(raw, datetime.now(timezone.utc))
+
+    def projection(raw):
+        stamp = snapshot_time(raw, datetime.now(timezone.utc))
+        # Publication copies this exact field; compare without logging remote text.
+        if snapshot_stamp is not None and stamp != snapshot_stamp:
+            raise ProbeError("Reader projection generated_at differs from the full snapshot.")
 
     def asset(raw, url):
         if not raw.strip() or raw.lstrip().lower().startswith((b"<!doctype html", b"<html")):
@@ -225,6 +233,7 @@ def probe():
 
     check("homepage", SITE_URL, homepage)
     check("snapshot", urljoin(SITE_URL, "data/radar.json"), snapshot)
+    check("snapshot-ui", urljoin(SITE_URL, "data/radar-ui.json"), projection)
     checked = set()
     while assets - checked:
         url = min(assets - checked)

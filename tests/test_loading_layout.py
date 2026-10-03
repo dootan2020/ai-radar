@@ -51,7 +51,7 @@ function reset(stories){
   D = {stories, generated_at: '2026-10-03T09:18:01Z'};
   const classes = new Set(['board', 'is-loading']);
   const attributes = new Set(['aria-busy']);
-  board = {innerHTML: '', classList: {remove: c => classes.delete(c)},
+  board = {innerHTML: '<div class="reader-fallback">Đang mở bản tin</div>', classList: {remove: c => classes.delete(c)},
     removeAttribute: a => attributes.delete(a), classes, attributes};
   retry = {addEventListener: (event, handler) => {retry[event] = handler;}};
 }
@@ -77,6 +77,7 @@ process.stdout.write(JSON.stringify(out));
             self.assertFalse(out[case]["loading"], case)
             self.assertFalse(out[case]["busy"], case)
             self.assertTrue(out[case]["html"], case)
+            self.assertNotIn('reader-fallback', out[case]["html"], case)
         self.assertIn('t-live', out['success']['html'])
         self.assertNotIn('t-live', out['split']['html'])
         self.assertIn('t-live', out['rest'])

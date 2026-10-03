@@ -49,17 +49,20 @@ class HealthProbeTests(unittest.TestCase):
             raise content
         if content is None:
             content = (self.homepage if not path else json.dumps(self.payload).encode()
-                       if path == "data/radar.json" else (ROOT / "site" / path).read_bytes())
+                       if path in ("data/radar.json", "data/radar-ui.json")
+                       else (ROOT / "site" / path).read_bytes())
         if isinstance(content, Response):
             return content
         return Response(content, request.full_url)
 
     def probe(self):
+        return {check["id"]: check for check in self.report()["checks"]}
+
+    def report(self):
         with patch.object(health_probe, "urlopen", side_effect=self.http), \
                 patch.object(health_probe, "datetime", wraps=datetime) as clock:
             clock.now.return_value = NOW
-            result = health_probe.probe()
-        return {check["id"]: check for check in result["checks"]}
+            return health_probe.probe()
 
     def test_real_homepage_and_all_referenced_main_assets_are_checked(self):
         checks = self.probe()
@@ -83,6 +86,100 @@ class HealthProbeTests(unittest.TestCase):
         for asset in references:
             self.assertIn(health_probe.SITE_URL + asset, self.requests)
         self.assertEqual(len(self.requests), len(set(self.requests)))
+
+    def test_reader_projection_is_fetched_and_checked(self):
+        checks = self.probe()
+        self.assertIn(health_probe.SITE_URL + "data/radar-ui.json", self.requests)
+        self.assertTrue(checks["snapshot-ui"]["ok"])
+
+    def test_reader_projection_missing_invalid_or_wrong_shape_fails_independently(self):
+        variants = [HTTPError(health_probe.SITE_URL + "data/radar-ui.json", 404,
+                              "private-sentinel", {}, None),
+                    b"not JSON private-sentinel", b"[]", b"{}"]
+        for changes in ({"schema_version": 1}, {"schema_version": True}, {"stories": None},
+                        {"sources": {}}, {"sections": []}, {"stories": [float("nan")]},
+                        {"generated_at": None}, {"generated_at": "2026-10-03T12:00:00"}):
+            variants.append(json.dumps({**self.payload, **changes}).encode())
+        for value in variants:
+            with self.subTest(value=type(value).__name__):
+                self.overrides["data/radar-ui.json"] = value
+                checks = self.probe()
+                self.assertTrue(checks["snapshot"]["ok"])
+                self.assertTrue(any(not row["ok"] for row in checks.values()), checks)
+                self.assertFalse(checks["snapshot-ui"]["ok"])
+                self.assertNotIn("private-sentinel", json.dumps(checks))
+
+    def test_reader_projection_freshness_uses_existing_three_hour_boundary(self):
+        for age, valid in ((0, True), (10800, True), (10801, False), (-1, False)):
+            with self.subTest(age=age):
+                self.payload["generated_at"] = (NOW - timedelta(seconds=age)).isoformat()
+                self.payload["freshness"] = {"stale_after_seconds": 999999}
+                checks = self.probe()
+                self.assertIn("snapshot-ui", checks)
+                self.assertEqual(checks["snapshot-ui"]["ok"], valid)
+
+    def test_reader_projection_from_another_fresh_build_fails(self):
+        for stamp in ((NOW - timedelta(seconds=1)).isoformat(), "2026-10-03T12:00:00Z"):
+            with self.subTest(stamp=stamp):
+                projection = {**self.payload, "generated_at": stamp}
+                self.overrides["data/radar-ui.json"] = json.dumps(projection).encode()
+                checks = self.probe()
+                self.assertTrue(checks["snapshot"]["ok"])
+                self.assertTrue(any(not row["ok"] for row in checks.values()), checks)
+                self.assertIn("generated_at", checks["snapshot-ui"]["detail"])
+
+    def test_stale_projection_fails_while_full_snapshot_remains_fresh(self):
+        projection = {**self.payload, "generated_at": (NOW - timedelta(seconds=10801)).isoformat()}
+        self.overrides["data/radar-ui.json"] = json.dumps(projection).encode()
+        checks = self.probe()
+        self.assertTrue(checks["snapshot"]["ok"])
+        self.assertFalse(checks["snapshot-ui"]["ok"])
+        self.assertIn("stale", checks["snapshot-ui"]["detail"])
+
+    def test_remote_timestamps_never_escape_into_report_or_cli_output(self):
+        from radar import health_monitor
+
+        for path in ("data/radar.json", "data/radar-ui.json"):
+            with self.subTest(path=path):
+                self.overrides = {path: json.dumps({**self.payload,
+                    "generated_at": "2026-10-03T12:00:00Z\nprivate-sentinel"}).encode()}
+                output = io.StringIO()
+                with patch.object(health_monitor, "probe", side_effect=self.report), \
+                        patch.object(health_monitor, "sleep"), \
+                        patch("sys.stdout", output), patch("sys.stderr", output):
+                    code = health_monitor.main([])
+                self.assertEqual(code, 1)
+                self.assertNotIn("private-sentinel", output.getvalue())
+
+    def test_reader_projection_failure_is_confirmed_only_after_second_probe(self):
+        from radar import health_monitor
+
+        self.overrides["data/radar-ui.json"] = b"invalid projection"
+        with patch.object(health_monitor, "probe", side_effect=self.report) as probe, \
+                patch.object(health_monitor, "sleep") as sleep:
+            report = health_monitor.collect_report()
+        self.assertEqual(probe.call_count, 2)
+        sleep.assert_called_once_with(30)
+        self.assertEqual(report["status"], "failed")
+        self.assertEqual([row["id"] for row in report["confirmed_failures"]], ["snapshot-ui"])
+
+    def test_reader_projection_recovers_on_confirmation_without_an_incident(self):
+        from radar import health_monitor
+
+        self.overrides["data/radar-ui.json"] = b"invalid projection"
+
+        def observed():
+            report = self.report()
+            self.overrides.clear()
+            return report
+
+        with patch.object(health_monitor, "probe", side_effect=observed) as probe, \
+                patch.object(health_monitor, "sleep") as sleep:
+            report = health_monitor.collect_report()
+        self.assertEqual(probe.call_count, 2)
+        sleep.assert_called_once_with(30)
+        self.assertEqual(report["status"], "healthy")
+        self.assertEqual(report["confirmed_failures"], [])
 
     def test_nested_imports_reexports_and_cycles_are_checked_once(self):
         self.overrides.update({
@@ -178,7 +275,7 @@ class HealthProbeTests(unittest.TestCase):
                 row = checks["homepage" if source == "homepage" else "asset:app.js"]
                 self.assertFalse(row["ok"])
                 self.assertIn("capacity", row["detail"])
-                self.assertLessEqual(len(self.requests), health_probe.MAX_ASSETS + 2)
+                self.assertLessEqual(len(self.requests), health_probe.MAX_ASSETS + 3)
 
     def test_http_failure_or_unrelated_successful_html_fails_homepage(self):
         for body in (HTTPError(health_probe.SITE_URL, 503, "private-sentinel", {}, None),

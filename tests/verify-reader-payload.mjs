@@ -15,7 +15,9 @@ for (const bad of [() => ({ok: false, status: 404}), () => success({}),
   const calls = [];
   globalThis.fetch = async (url, options) => { calls.push({url, options}); return calls.length === 1 ? bad() : success(full); };
   assert.deepEqual(await loadSnapshot('data/radar-ui.json', 'data/radar.json', {cache:'no-cache'}), full);
-  assert.deepEqual(calls, [{url:'data/radar-ui.json', options:{cache:'no-cache'}}, {url:'data/radar.json', options:{cache:'no-cache'}}]);
+  assert.deepEqual(calls.map(({url, options}) => ({url, options:{cache:options.cache}})),
+    [{url:'data/radar-ui.json', options:{cache:'no-cache'}}, {url:'data/radar.json', options:{cache:'no-cache'}}]);
+  assert.ok(calls.every(({options}) => options.signal instanceof AbortSignal && !options.signal.aborted));
 }
 let requests = 0;
 globalThis.fetch = async () => { requests++; return success(page); };

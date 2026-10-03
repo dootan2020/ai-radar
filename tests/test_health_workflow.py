@@ -12,15 +12,15 @@ class HealthWorkflowTests(unittest.TestCase):
     def setUpClass(cls):
         cls.text = (ROOT / ".github/workflows/health-monitor.yml").read_text(encoding="utf-8")
 
-    def test_half_hour_schedule_and_manual_trigger_are_available(self):
+    def test_quarter_hour_schedule_and_manual_trigger_are_available(self):
         self.assertRegex(self.text, r"(?m)^  workflow_dispatch:")
         cron = re.search(r"cron:\s*['\"]([^'\"]+)['\"]", self.text).group(1)
         minute, *remaining = cron.split()
         self.assertEqual(remaining, ["*"] * 4)
         minutes = [int(value) for value in minute.split(",")]
-        self.assertEqual(len(minutes), 2)
-        self.assertEqual(minutes[1] - minutes[0], 30)
-        self.assertGreater(minutes[0], 0)
+        self.assertEqual(minutes, [13, 28, 43, 58])
+        self.assertEqual([right - left for left, right in
+                          zip(minutes, minutes[1:] + [minutes[0] + 60])], [15] * 4)
 
     def test_hosted_run_is_bounded_and_serialized(self):
         self.assertRegex(self.text, r"runs-on: ubuntu-[0-9.]+")

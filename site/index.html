@@ -91,6 +91,12 @@
   <p class="stale" id="stale" role="status" hidden></p>
   <!-- Skeleton drawn in HTML so the first paint already has the bento's shape; app.js replaces it. -->
   <section class="board is-loading" id="board" tabindex="-1" aria-label="Màn hình đầu" aria-busy="true">
+    <div class="tile t-empty reader-fallback" role="status">
+      <h2>Đang mở bản tin</h2>
+      <p class="muted">Nếu bản tin chưa hiện, hãy thử tải lại trang.</p>
+      <noscript><p class="muted">Bản tin cần JavaScript để hiển thị. Hãy bật JavaScript trong trình duyệt rồi tải lại trang.</p></noscript>
+      <a class="btn primary" href="">Tải lại trang</a>
+    </div>
     <div class="tile t-lead sk-tile">
       <div class="sk sk-av"></div>
       <div class="sk sk-num"></div>
