@@ -4,16 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ai·radar · Ngôn ngữ thiết kế Bento Keynote</title>
+<!-- Internal showcase, not published: GitHub Pages uploads site/ only, and the owner asked on 03/10 18:05 that readers
+     not see this page. It reads the live tokens, styles and modules from ../site/. To open it, serve the repository
+     root (python -m http.server 8000) and go to http://localhost:8000/design/tokens.html. -->
+<meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
 <script>
   /* Apply the reader's saved theme before first paint, as index.html does, so a dark-mode reader never sees a light flash. */
   try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
-<link rel="stylesheet" href="tokens.css">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../site/tokens.css">
+<link rel="stylesheet" href="../site/styles.css">
 <style>
   /* Showcase-only layout. Every colour, size and motion below still reads tokens.css. */
   .tk main{display:flex;flex-direction:column;gap:var(--space-48)}
@@ -65,7 +66,7 @@
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
   <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></symbol>
 </svg>
-<header class="bar scrolled"><a class="brand" href="index.html">ai<b>·</b>radar</a><span class="aside">Ngôn ngữ thiết kế · Bento Keynote</span>
+<header class="bar scrolled"><a class="brand" href="../site/index.html">ai<b>·</b>radar</a><span class="aside">Ngôn ngữ thiết kế · Bento Keynote</span>
   <span style="margin-left:auto"></span><button class="theme" id="theme" aria-pressed="false" aria-label="Chuyển sang nền tối"><svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg></button></header>
 <main>
   <section class="tk-hero">
@@ -100,7 +101,7 @@
   <section class="tk-sec" aria-labelledby="h-tiles"><h2 id="h-tiles">Ô bento, dựng từ dữ liệu thật</h2>
     <div class="board tk-demo-tiles" id="tiles"></div>
   </section>
-  <p class="foot"><a class="link" href="index.html">Về trang chủ</a></p>
+  <p class="foot"><a class="link" href="../site/index.html">Về trang chủ</a></p>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>

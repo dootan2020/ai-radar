@@ -3,7 +3,7 @@
 The rule is applied to two surfaces:
 - the page's own text: string literals in site/*.js that reach the screen (HTML fragments, Vietnamese sentences,
   values of UI keys such as `label`/`title`/`note`, the word maps in words.js, toast and error messages) and the
-  text, aria-label, title and alt of site/index.html and site/tokens.html;
+  text, aria-label, title and alt of site/index.html and design/tokens.html (the internal showcase);
 - the pipeline's reader-facing text: source names and pause reasons, repository "why" sentences, license flags,
   hot reasons, error wording.
 
@@ -34,7 +34,8 @@ EXCEPTIONS = {
                      "gftdon", "dwarkesh", "interconnects", "simon", "willison", "priors", "latent", "import",
                      "engineering", "research", "blog", "technical", "llama", "mistralai", "org"], "tên riêng: thương hiệu, sản phẩm, ấn phẩm, tổ chức trên Hugging Face"),
     **dict.fromkeys(["the"], "tên riêng: ấn phẩm The Verge; đánh đổi có chủ đích: chữ the đứng riêng sẽ không bị bắt"),
-    **dict.fromkeys(["trending"], "tên riêng: trang GitHub Trending, nguồn của ô kho mã (anh Tuấn 03/10 cho dùng như tên thương hiệu)"),
+    **dict.fromkeys(["translated"], "nhãn bản dịch máy viết tiếng Anh theo yêu cầu của anh Tuấn 03/10 17:49 (“dịch máy” thành “Translated”, màu như Google Dịch); trình đọc màn hình vẫn nghe câu tiếng Việt"),
+    **dict.fromkeys(["trending"],"tên riêng: trang GitHub Trending, nguồn của ô kho mã (anh Tuấn 03/10 cho dùng như tên thương hiệu)"),
     **dict.fromkeys(["esc", "enter"], "tên phím trên bàn phím"),
     **dict.fromkeys(["px", "ms"], "đơn vị đo"),
     **dict.fromkeys(["th", "thg"], "viết tắt của tháng (huy hiệu ngày; Intl vi-VN in thg)"),
@@ -200,9 +201,10 @@ WORD_MAPS = ("KIND", "METRIC", "SIGNALS", "VALUE")
 
 def page_texts():
     texts = []
-    for name in ("index.html", "tokens.html"):
-        texts += [(name, t) for t in visible_html((ROOT / "site" / name).read_text(encoding="utf-8"))]
-    for path in sorted((ROOT / "site").glob("*.js")):
+    # design/tokens.html is the internal showcase (moved out of the published site/ on 03/10); it stays checked.
+    for path in (ROOT / "site" / "index.html", ROOT / "design" / "tokens.html"):
+        texts += [(path.name, t) for t in visible_html(path.read_text(encoding="utf-8"))]
+    for path in sorted((ROOT / "site").glob("*.js")) + sorted((ROOT / "design").glob("*.js")):
         source = path.read_text(encoding="utf-8")
         map_spans = []
         for name in WORD_MAPS:
