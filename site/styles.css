@@ -361,12 +361,29 @@
   .chip[aria-pressed="true"] .n{color:inherit;opacity:0.7}
   .chip[aria-pressed="true"] .i{width:16px;opacity:1;margin-right:0}
   .chips-note{font-size:var(--text-meta);color:var(--color-ink-3)}
-  /* Single-choice chip row (repository list and window): equal columns so a narrow tile keeps one line;
-     the pressed chip is told apart by its ink fill, so the check mark stays hidden. Touch height is unchanged. */
-  .chips.seg{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0, 1fr);gap:var(--space-4);width:100%;max-width:calc(var(--space-96) * 5)}
-  .chips.seg .chip{justify-content:center;padding:0 var(--space-8);font-size:var(--text-meta);text-align:center;line-height:var(--leading-snug)}
-  .chips.seg .chip .i{display:none}
-  .t-repo .chips.seg + .chips.seg{margin-top:calc(var(--space-8) * -1)}
+  /* Repository list: one segmented track, like Apple's segmented control. The chosen segment is a raised thumb
+     (surface on the fill track; one step lighter than the track in dark mode). Phones get a 44px touch height. */
+  .seg{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0, 1fr);padding:calc(var(--space-4) / 2);border-radius:var(--radius-full);background:var(--color-fill);width:100%;max-width:calc(var(--space-96) * 4)}
+  .seg-b{position:relative;min-height:calc(var(--chip-h) - var(--space-4));padding:0 var(--space-8);text-align:center;border-radius:var(--radius-full);font-size:var(--text-meta);font-weight:var(--weight-medium);color:var(--color-ink-2);line-height:var(--leading-snug);
+    transition:background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow), box-shadow var(--motion-state) var(--ease-flow)}
+  .seg-b:hover{color:var(--color-ink)}
+  .seg-b:active:not([aria-pressed="true"]){background:var(--color-hair)}
+  .seg-b[aria-pressed="true"]{background:var(--color-surface);color:var(--color-ink);font-weight:var(--weight-semibold);box-shadow:0 1px 2px oklch(var(--shadow-tint) / 0.14), 0 2px 6px oklch(var(--shadow-tint) / 0.06)}
+  [data-theme="dark"] .seg-b[aria-pressed="true"]{background:var(--color-hair)}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .seg-b[aria-pressed="true"]{background:var(--color-hair)} }
+  .seg-b:focus-visible{outline-offset:0;border-radius:var(--radius-full)}
+  /* Window (or total): plain words; the chosen one turns blue, the colour this page keeps for "chosen". */
+  .tabs-t{display:flex;flex-wrap:wrap;column-gap:var(--space-16);margin-top:calc(var(--space-4) * -1)}
+  .tab-t{position:relative;min-height:var(--space-24);font-size:var(--text-meta);font-weight:var(--weight-medium);color:var(--color-ink-3);transition:color var(--motion-state) var(--ease-flow)}
+  .tab-t:hover{color:var(--color-ink)}
+  .tab-t:active{color:var(--color-ink-2)}
+  .tab-t[aria-pressed="true"]{color:var(--color-accent);font-weight:var(--weight-semibold)}
+  .tab-t::before{content:"";position:absolute;inset:calc(var(--space-4) * -1) calc(var(--space-8) * -1)}
+  @media (max-width: 767px), (pointer: coarse){
+    .seg-b{min-height:calc(var(--btn-h) - var(--space-4))}
+    .seg-b::before{content:"";position:absolute;inset:calc(var(--space-4) / -2) 0}
+    .tab-t::before{inset:calc((var(--btn-h) - var(--space-24)) / -2) calc(var(--space-8) * -1)}
+  }
   .src-sub{font-size:var(--text-meta);font-weight:var(--weight-semibold);color:var(--color-ink-2);margin-top:var(--space-8)}
   .srcgrid{display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:var(--space-4) var(--space-24)}
   .srow{display:grid;grid-template-columns:auto minmax(0, 1fr) auto;gap:var(--space-12);align-items:center;font-size:var(--text-small);min-height:40px}

@@ -162,13 +162,14 @@ function repoMeasure(r){
   return Number.isFinite(g) ? {n: g, unit: winOf(repoWindow).gained, plus: true} : {n: null, unit: `chưa đo được số sao tăng ${winOf(repoWindow).phrase}`};
 }
 const measureHTML = (m, cls = 'num') => m.n == null ? `<span class="faint">${esc(m.unit)}</span>` : `<b class="${cls}">${m.plus ? '+' : ''}${fmt(m.n)}</b> ${esc(m.unit)}`;
-/* Two selector rows shared by the tile and the chapter: which list, then which window (or which total). */
+/* The tile and the chapter share one control pair: a segmented track picks the list, plain words pick the window
+   (or, for "Nhiều sao", the total). Every choice is one tap and stays visible; nothing hides behind a menu. */
 function repoSelectors(scope){
   const second = repoView === 'stars'
-    ? TOTALS.map(t => `<button class="chip" data-repo-total="${t.id}" aria-pressed="${repoTotal === t.id}">${icon('i-check')}${esc(t.label)}</button>`)
-    : WINDOWS.map(w => `<button class="chip" data-repo-window="${w.id}" aria-pressed="${repoWindow === w.id}">${icon('i-check')}${esc(w.label)}</button>`);
-  return `<div class="chips seg repo-views" role="group" aria-label="Chọn danh sách kho mã${scope}">${REPO_VIEWS.map(v => `<button class="chip" data-repo-view="${v.id}" aria-pressed="${repoView === v.id}">${icon('i-check')}${esc(v.label)}</button>`).join('')}</div>
-    <div class="chips seg repo-windows" role="group" aria-label="${repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian'}${scope}">${second.join('')}</div>`;
+    ? TOTALS.map(t => ({kind:'total', id:t.id, label:t.label, on: repoTotal === t.id}))
+    : WINDOWS.map(w => ({kind:'window', id:w.id, label:w.label, on: repoWindow === w.id}));
+  return `<div class="seg" role="group" aria-label="Chọn danh sách kho mã${scope}">${REPO_VIEWS.map(v => `<button class="seg-b" data-repo-view="${v.id}" aria-pressed="${repoView === v.id}">${esc(v.label)}</button>`).join('')}</div>
+    <div class="tabs-t" role="group" aria-label="${repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian'}${scope}">${second.map(x => `<button class="tab-t" data-repo-${x.kind}="${x.id}" aria-pressed="${x.on}">${esc(x.label)}</button>`).join('')}</div>`;
 }
 /* One sentence that says what the chosen list is, so nobody mistakes it for a hand-picked shortlist. */
 function repoListNote(){
@@ -364,12 +365,13 @@ function liveTile(shown){
 }
 
 /* Repositories: three lists (rising, most starred, usable now), each shown as one large and three small,
-   with the window or total the reader picked. Ordering is the pipeline's; the tile never re-ranks. */
+   with the window or total the reader picked. Ordering is the pipeline's; the tile never re-ranks.
+   Titled "GitHub Trending" because every list is drawn from that page (rank_repos keeps only github-trending rows). */
 function repoTile(){
   const list = repoList();
   if (!list) return '';
   const picks = repoPicks();
-  const head = tileHead('Kho mã AI', 'repo-h', `<a class="link" href="#repo">Xem tất cả${picks ? ` <span class="num">${picks.length}</span>` : ''}</a>`);
+  const head = tileHead('GitHub Trending<span class="sr">, kho mã AI</span>', 'repo-h', `<a class="link" href="#repo">Tất cả${picks ? ` <span class="num">${picks.length}</span>` : ''}</a>`);
   if (!picks) return `<section class="tile t-repo" aria-labelledby="repo-h">${head}<p class="empty-note">Bản dữ liệu này chưa có bảng xếp hạng kho mã theo khung thời gian.</p></section>`;
   const sel = repoSelectors(' trong ô');
   if (!picks.length) {
@@ -908,9 +910,8 @@ document.addEventListener('click', e => {
   const cl = t.closest('[data-cal-live]'); if (cl) { e.preventDefault(); addToCalendar(liveCal((D.live || []).find(v => v.video_id === cl.dataset.calLive))); return; }
   const area = t.closest('[data-area]'); if (area) { const a = area.dataset.area; areas.has(a) ? areas.delete(a) : areas.add(a); store.set('air2:areas', [...areas]); rerenderRepos(); return; }
   if (t.closest('[data-area-clear]')) { areas.clear(); store.set('air2:areas', []); rerenderRepos(); return; }
-  const rv = t.closest('[data-repo-view]'); if (rv) { repoView = rv.dataset.repoView; store.set('air2:repoView', repoView); rerenderRepos(); return; }
-  const rw = t.closest('[data-repo-window]'); if (rw) { repoWindow = rw.dataset.repoWindow; store.set('air2:repoWindow', repoWindow); rerenderRepos(); return; }
-  const rt = t.closest('[data-repo-total]'); if (rt) { repoTotal = rt.dataset.repoTotal; store.set('air2:repoTotal', repoTotal); rerenderRepos(); return; }
+  const rc = t.closest('button[data-repo-view],button[data-repo-window],button[data-repo-total]');
+  if (rc) { const k = ['repoView', 'repoWindow', 'repoTotal'].find(k => rc.dataset[k] != null); setRepo(k.slice(4).toLowerCase(), rc.dataset[k]); return; }
   if (t.closest('#fresh-go')) { applyPending(); return; }
   if (t.closest('#mark')) { store.set('air2:lastSeen', D.generated_at); lastSeen = D.generated_at; firstVisit = false; renderAll(); toast('Đã đánh dấu đã xem hết'); return; }
   if (t.closest('#keys-open')) { $('#keys').showModal(); return; }
@@ -921,7 +922,15 @@ document.addEventListener('click', e => {
   const b = t.closest('[data-sel],[data-repo]');
   if (b && !t.closest('a') && (b.dataset.sel || b.dataset.repo != null)) { e.preventDefault(); open(keyOf(b), b); }
 });
-/* Re-render both repository views and put focus back on the same chip, in the same place (tile or chapter). */
+/* A list, window or total the reader chose: remember it on this device and redraw both views. */
+function setRepo(kind, value){
+  if (kind === 'view' && REPO_VIEWS.some(v => v.id === value)) { repoView = value; store.set('air2:repoView', value); }
+  else if (kind === 'window' && WINDOWS.some(w => w.id === value)) { repoWindow = value; store.set('air2:repoWindow', value); }
+  else if (kind === 'total' && TOTALS.some(t => t.id === value)) { repoTotal = value; store.set('air2:repoTotal', value); }
+  else return;
+  rerenderRepos();
+}
+/* Re-render both repository views and put focus back on the same control, in the same place (tile or chapter). */
 function rerenderRepos(){
   const a = document.activeElement, y = scrollY;
   const attr = a && ['area', 'repoView', 'repoWindow', 'repoTotal'].find(k => a.dataset && a.dataset[k] != null);

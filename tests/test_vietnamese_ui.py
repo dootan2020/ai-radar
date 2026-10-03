@@ -34,6 +34,7 @@ EXCEPTIONS = {
                      "gftdon", "dwarkesh", "interconnects", "simon", "willison", "priors", "latent", "import",
                      "engineering", "research", "blog", "technical", "llama", "mistralai", "org"], "tên riêng: thương hiệu, sản phẩm, ấn phẩm, tổ chức trên Hugging Face"),
     **dict.fromkeys(["the"], "tên riêng: ấn phẩm The Verge; đánh đổi có chủ đích: chữ the đứng riêng sẽ không bị bắt"),
+    **dict.fromkeys(["trending"], "tên riêng: trang GitHub Trending, nguồn của ô kho mã (anh Tuấn 03/10 cho dùng như tên thương hiệu)"),
     **dict.fromkeys(["esc", "enter"], "tên phím trên bàn phím"),
     **dict.fromkeys(["px", "ms"], "đơn vị đo"),
     **dict.fromkeys(["th", "thg"], "viết tắt của tháng (huy hiệu ngày; Intl vi-VN in thg)"),
