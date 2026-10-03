@@ -136,5 +136,69 @@ class SitePayloadTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
 
+    def test_head_projection_and_thumbnail_discovery(self):
+        data = reader_fixture()
+        self.assertEqual(site_payload.head_path("site/data/radar.json").name, "radar-head.json")
+        head = site_payload.head_payload(data)
+        self.assertEqual(head["schema_version"], 2)
+        self.assertEqual(head["generated_at"], data["generated_at"])
+        self.assertEqual(head.get("freshness"), data.get("freshness"))
+        self.assertTrue(len(head["stories"]) <= len(data["stories"]))
+
+        # Thumbnail detection for ended stream
+        ended_data = reader_fixture()
+        ended_data["stories"][0]["coverage"][0]["status"] = "ended"
+        ended_data["stories"][0]["coverage"][0]["media"] = [{"type": "video", "url": "https://www.youtube.com/watch?v=Fls_onRviPM"}]
+        thumb = site_payload.first_screen_thumbnail(ended_data)
+        self.assertEqual(thumb, "https://i.ytimg.com/vi/Fls_onRviPM/hqdefault.jpg")
+
+        # Live now stream suppresses thumbnail
+        live_now_data = deepcopy(ended_data)
+        live_now_data["stories"][0]["coverage"].append({"status": "live", "url": "https://example.org/live"})
+        self.assertIsNone(site_payload.first_screen_thumbnail(live_now_data))
+
+    def test_index_thumbnail_injection_and_removal(self):
+        with tempfile.TemporaryDirectory() as directory:
+            site_dir = Path(directory) / "site"
+            data_dir = site_dir / "data"
+            data_dir.mkdir(parents=True)
+            index_path = site_dir / "index.html"
+            index_path.write_text(
+                """<!doctype html><html><head><link rel="preload" href="data/radar-head.json" as="fetch" crossorigin>
+<link rel="stylesheet" href="tokens.css"></head></html>""",
+                encoding="utf-8"
+            )
+            site_payload.update_index_thumbnail(index_path, "https://i.ytimg.com/vi/test1234567/hqdefault.jpg")
+            text = index_path.read_text(encoding="utf-8")
+            self.assertIn('<link rel="preload" as="image" href="https://i.ytimg.com/vi/test1234567/hqdefault.jpg" fetchpriority="high">', text)
+
+            site_payload.update_index_thumbnail(index_path, "https://i.ytimg.com/vi/other123456/hqdefault.jpg")
+            text = index_path.read_text(encoding="utf-8")
+            self.assertNotIn("test1234567", text)
+            self.assertIn('<link rel="preload" as="image" href="https://i.ytimg.com/vi/other123456/hqdefault.jpg" fetchpriority="high">', text)
+
+            site_payload.update_index_thumbnail(index_path, None)
+            text = index_path.read_text(encoding="utf-8")
+            self.assertNotIn('<link rel="preload" as="image"', text)
+
+    def test_write_site_snapshot_writes_head_and_cleans_up_on_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            data = reader_fixture()
+            target = Path(directory) / "radar.json"
+            site_payload.write_site_snapshot(data, target)
+            self.assertTrue(site_payload.page_path(target).is_file())
+            self.assertTrue(site_payload.head_path(target).is_file())
+
+            real_writer = site_payload.write_atomic
+            def fail_head(payload, path, **kwargs):
+                if "head" in str(path):
+                    raise OSError("head write failed")
+                return real_writer(payload, path, **kwargs)
+
+            with patch.object(site_payload, "write_atomic", side_effect=fail_head):
+                with self.assertRaises(OSError):
+                    site_payload.write_site_snapshot(data, target)
+            self.assertFalse(site_payload.head_path(target).exists())
+
 if __name__ == "__main__":
     unittest.main()

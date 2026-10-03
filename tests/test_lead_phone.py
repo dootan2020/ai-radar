@@ -156,7 +156,9 @@ class LeadPhoneLayoutContractTests(unittest.TestCase):
         self.assertIn('--btn-h: 44px', tokens)
 
     def test_phone_first_paint_does_not_insert_visible_tiles_later(self):
-        self.assertIn("renderBoard(!matchMedia('(max-width: 767px)').matches)", APP)
+        boot = APP[APP.index('async function boot()'):]
+        self.assertIn('renderBoard(false, true)', boot)
+        self.assertNotIn("insertAdjacentHTML('beforeend', rest)", boot)
 
 
 if __name__ == '__main__':

@@ -48,6 +48,7 @@ let leadId = null, leadOpen = false;
 const qp = new URLSearchParams(location.search).get('data');
 const customData = qp && /^data\/[\w.-]+\.json$/.test(qp);
 const DATA_URL = customData ? qp : 'data/radar-ui.json';
+const HEAD_URL = customData ? null : 'data/radar-head.json';
 const FALLBACK_URL = customData ? null : 'data/radar.json';
 
 const $ = s => document.querySelector(s);
@@ -125,7 +126,10 @@ function measuredCov(st){
 }
 const ytId = ytIdOf;
 /* Only i.ytimg.com is allowed; feeds hand out i2/i3/i4 mirrors, so the same video id is rebuilt on i.ytimg.com. */
-const thumbImg = (id, alt = '') => `<img ${imgSrc(`https://i.ytimg.com/vi/${esc(id)}/hqdefault.jpg`)} alt="${esc(alt)}" loading="lazy" decoding="async" width="480" height="270">`;
+function thumbImg(id, alt = '', critical = false){
+  const src = critical ? `src="https://i.ytimg.com/vi/${esc(id)}/hqdefault.jpg"` : imgSrc(`https://i.ytimg.com/vi/${esc(id)}/hqdefault.jpg`);
+  return `<img ${src} alt="${esc(alt)}" loading="${critical ? 'eager' : 'lazy'}"${critical ? ' fetchpriority="high"' : ''} decoding="async" width="480" height="270">`;
+}
 const isNew = st => !!st.published_at && st.published_at > lastSeen && new Date(st.published_at) <= now();
 const byNewest = (a, b) => (b.published_at || '').localeCompare(a.published_at || '');
 const ids = sec => (D.sections[sec] || []).map(id => S.get(id)).filter(Boolean);
@@ -274,13 +278,19 @@ function pickLead(){
   return {st, mode:'single', others: multi.filter(s => s !== st).sort(byNewest)};
 }
 
-/* split (first load only): the board gets the lead tile alone, and the other tiles' markup is returned so the caller
-   can add it after the lead has painted. Phones paint the complete compact board together. */
-function renderBoard(split = false){
+/* A prepared first board keeps the existing loading message until the font gate releases it. */
+function revealBoard(){
   const board = $('#board');
+  board.querySelector('.reader-fallback')?.remove();
+  board.classList.remove('is-loading'); board.removeAttribute('aria-busy');
+}
+/* split returns the remaining tiles to callers; initial load prepares the complete board before revealing it. */
+function renderBoard(split = false, reveal = true){
+  const board = $('#board');
+  const loading = !reveal ? board.querySelector('.reader-fallback')?.outerHTML || '' : '';
   if (!D.stories.length) {
-    board.innerHTML = `<div class="tile t-empty" role="status">${avatar({kind:'mono', id:'AR', label:'ai-radar'}, 'lg')}<h2>Bản tin này chưa có tin nào</h2><p class="muted">Dữ liệu tạo lúc ${esc(exact(D.generated_at))} không chứa tin. Trang không điền tin mẫu.</p></div>`;
-    board.classList.remove('is-loading'); board.removeAttribute('aria-busy');
+    board.innerHTML = loading + `<div class="tile t-empty" role="status">${avatar({kind:'mono', id:'AR', label:'ai-radar'}, 'lg')}<h2>Bản tin này chưa có tin nào</h2><p class="muted">Dữ liệu tạo lúc ${esc(exact(D.generated_at))} không chứa tin. Trang không điền tin mẫu.</p></div>`;
+    if (reveal) revealBoard();
     return '';
   }
   arriveIdx = 0;
@@ -288,8 +298,8 @@ function renderBoard(split = false){
   const shown = new Set([st.id]);
   const tiles = [leadTile(L), liveTile(shown), repoTile(), hotTile(shown), newTile(shown), listenTile(shown), modelTile(shown), sourcesTile()].filter(Boolean);
   const html = tiles.map((t, i) => t.replace('class="tile ', `style="--t:${i}" class="tile `));
-  board.innerHTML = split ? html[0] : html.join('');
-  board.classList.remove('is-loading'); board.removeAttribute('aria-busy');
+  board.innerHTML = loading + (split ? html[0] : html.join(''));
+  if (reveal) revealBoard();
   hydrateVisible();
   return split ? html.slice(1).join('') : '';
 }
@@ -355,10 +365,10 @@ function liveTile(shown){
   } else if (lastEnded) {
     const id = ytId(lastEnded.s);
     const when = lastEnded.c.end_at ? `Kết thúc ${timeEl(lastEnded.c.end_at)}` : esc(streamedAge(lastEnded.c.time_text) || 'Đã phát xong');
-    media = `<button class="media${id ? ' has-thumb' : ''}" data-sel="${esc(lastEnded.s.id)}">${id ? `<span class="thumb">${thumbImg(id)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span>` : ''}<span class="media-cap"><span class="state">Vừa phát xong · ${when}</span><strong>${tt(lastEnded.c)}</strong>${orig(lastEnded.c)}</span></button>`;
+    media = `<button class="media${id ? ' has-thumb' : ''}" data-sel="${esc(lastEnded.s.id)}">${id ? `<span class="thumb">${thumbImg(id, '', true)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span>` : ''}<span class="media-cap"><span class="state">Vừa phát xong · ${when}</span><strong>${tt(lastEnded.c)}</strong>${orig(lastEnded.c)}</span></button>`;
     shown.add(lastEnded.s.id);
   } else if (endedLive) {
-    media = `<a class="media has-thumb" href="${esc(safe(endedLive.url))}" target="_blank" rel="noopener"><span class="thumb">${thumbImg(endedLive.video_id)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="media-cap"><span class="state">Vừa phát xong · ${esc(endedLive.channel)} · ${endedLive.end_at ? `kết thúc ${timeEl(endedLive.end_at)}` : 'đã phát xong'}</span><strong>${tt(endedLive)}</strong>${orig(endedLive)}</span></a>`;
+    media = `<a class="media has-thumb" href="${esc(safe(endedLive.url))}" target="_blank" rel="noopener"><span class="thumb">${thumbImg(endedLive.video_id, '', true)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="media-cap"><span class="state">Vừa phát xong · ${esc(endedLive.channel)} · ${endedLive.end_at ? `kết thúc ${timeEl(endedLive.end_at)}` : 'đã phát xong'}</span><strong>${tt(endedLive)}</strong>${orig(endedLive)}</span></a>`;
   } else media = '';
 
   const status = liveNow.length ? '' : `<span class="state"><span class="pulse" aria-hidden="true"></span>Không có buổi nào đang phát · kiểm lúc ${hhmm(new Date(D.generated_at))}</span>`;
@@ -960,7 +970,7 @@ document.addEventListener('keydown', e => {
   else if (k === 's' || k === 'S') { const c = current(); if (c) toggleSave(c); }
   else if (k === 'l' || k === 'L') { const it = itemOf(current()); const cal = it && it.kind === 'story' ? calOf(it.st) : null; if (cal) addToCalendar(cal); else if (it) toast('Tin này không có lịch để thêm'); }
   else if (k === 'u' || k === 'U') { if (pending) applyPending(); else toast('Chưa có tin mới. Trang tự kiểm mỗi 3 phút'); }
-  else if (k === 'm' || k === 'M') { const b = $('#mark'); if (b && b.getAttribute('aria-disabled') !== 'true') b.click(); }
+  else if (k === 'm' || k === 'M') { const b = $('#mark'); if (!$('#board').classList.contains('is-loading') && b && b.getAttribute('aria-disabled') !== 'true') b.click(); }
   else if (k === 'g' || k === 'G') { scrollTo({top:0, behavior: RM.matches ? 'auto' : 'smooth'}); }
   else if (k === '?') { e.preventDefault(); $('#keys').showModal(); }
 });
@@ -1088,29 +1098,50 @@ const whenIdle = () => new Promise(r => {
   const go = () => 'requestIdleCallback' in window ? requestIdleCallback(() => r(), {timeout: 3000}) : setTimeout(r, 1000);
   if (document.readyState === 'complete') go(); else addEventListener('load', go, {once: true});
 });
-loadSnapshot(DATA_URL, FALLBACK_URL).then(async j => {
-  if (!isSnapshotV2(j)) throw pageError('Tệp dữ liệu không đúng định dạng phiên bản 2');
-  await nextTask();   // parsing the snapshot and rendering the board use separate tasks
-  D = j; build();
-  setDeferImages(true);
-  renderChrome(); const rest = renderBoard(!matchMedia('(max-width: 767px)').matches); startBoard();
-  await afterPaint();
-  if (rest) { $('#board').insertAdjacentHTML('beforeend', rest); startBoard(true); }
-  setDeferImages(false);
-  const m = /^#tin\/(.+)$/.exec(location.hash); if (m) open(decodeURIComponent(m[1]), null, true);
-  await afterPaint();
-  loadDeferredImages();
-  await renderChapters(true); observeChapters();
-  if (!m && location.hash.length > 1) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
-  setInterval(pollSnapshot, SNAPSHOT_EVERY_MS);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) pollSnapshot(); });
-  await whenIdle();
-  thirdPartyReady = true; hydrateVisible(); hydrateHF($('#sheet-body'));
-  const { startLive } = await import('./live.js');
-  startLive({
-    getStories: () => D.stories,
-    priority: hnId => { const st = D.stories.find(s => (s.coverage || []).some(c => (c.discussion_url || '').endsWith('=' + hnId))); return st ? (st.hot_score || 0) : 0; },
-    onUpdates: applyLive,
-    onStatus: st => { liveState = st; renderSrcState(); const lr = $('#live-rows'); if (lr) lr.innerHTML = liveRows(); },
-  });
-}).catch(err => showError(err && err.vi ? err.message : 'Không tải hoặc không dựng được tệp dữ liệu của bản tin'));
+async function boot(){
+  let initial = null;
+  if (HEAD_URL) {
+    try {
+      const h = await loadSnapshot(HEAD_URL, null);
+      if (isSnapshotV2(h)) {
+        initial = h;
+        await nextTask();
+        D = h; build();
+        setDeferImages(true);
+        renderBoard(false, true);
+        renderChrome();
+        revealBoard(); startBoard();
+        setDeferImages(false);
+      }
+    } catch { /* Head projection unavailable or failed: fall back to full snapshot */ }
+  }
+  loadSnapshot(DATA_URL, FALLBACK_URL).then(async j => {
+    if (!isSnapshotV2(j)) throw pageError('Tệp dữ liệu không đúng định dạng phiên bản 2');
+    await nextTask();
+    D = j; build();
+    if (!initial) {
+      setDeferImages(true);
+      renderBoard(false, true);
+      renderChrome();
+      revealBoard(); startBoard();
+      setDeferImages(false);
+    }
+    const m = /^#tin\/(.+)$/.exec(location.hash); if (m) open(decodeURIComponent(m[1]), null, true);
+    await afterPaint();
+    loadDeferredImages();
+    await renderChapters(true); observeChapters();
+    if (!m && location.hash.length > 1) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
+    setInterval(pollSnapshot, SNAPSHOT_EVERY_MS);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) pollSnapshot(); });
+    await whenIdle();
+    thirdPartyReady = true; hydrateVisible(); hydrateHF($('#sheet-body'));
+    const { startLive } = await import('./live.js');
+    startLive({
+      getStories: () => D.stories,
+      priority: hnId => { const st = D.stories.find(s => (s.coverage || []).some(c => (c.discussion_url || '').endsWith('=' + hnId))); return st ? (st.hot_score || 0) : 0; },
+      onUpdates: applyLive,
+      onStatus: st => { liveState = st; renderSrcState(); const lr = $('#live-rows'); if (lr) lr.innerHTML = liveRows(); },
+    });
+  }).catch(err => showError(err && err.vi ? err.message : 'Không tải hoặc không dựng được tệp dữ liệu của bản tin'));
+}
+boot();

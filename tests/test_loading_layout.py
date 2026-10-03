@@ -51,17 +51,22 @@ function reset(stories){
   D = {stories, generated_at: '2026-10-03T09:18:01Z'};
   const classes = new Set(['board', 'is-loading']);
   const attributes = new Set(['aria-busy']);
-  board = {innerHTML: '<div class="reader-fallback">Đang mở bản tin</div>', classList: {remove: c => classes.delete(c)},
+  const fallback = '<div class="reader-fallback" role="status">Đang mở bản tin</div>';
+  board = {innerHTML: fallback, classList: {remove: c => classes.delete(c)},
+    querySelector: () => board.innerHTML.includes(fallback) ? {outerHTML:fallback, remove:()=>{board.innerHTML=board.innerHTML.replace(fallback,'');}} : null,
     removeAttribute: a => attributes.delete(a), classes, attributes};
   retry = {addEventListener: (event, handler) => {retry[event] = handler;}};
 }
 function state(){
   return {loading: board.classes.has('is-loading'), busy: board.attributes.has('aria-busy'), html: board.innerHTML};
 }
-""" + function_source("renderBoard") + "\n" + function_source("showError") + r"""
+""" + function_source("revealBoard") + "\n" + function_source("renderBoard") + "\n" + function_source("showError") + r"""
 const out = {};
 reset([{id: 'story'}]); renderBoard(); out.success = state();
 reset([{id: 'story'}]); out.rest = renderBoard(true); out.split = state();
+reset([{id: 'story'}]); renderBoard(false, false); out.pendingFonts = state();
+revealBoard(); out.fontsSettled = state();
+reset([]); renderBoard(false, false); out.emptyPending = state(); revealBoard(); out.emptySettled = state();
 reset([]); renderBoard(); out.empty = state();
 reset([]); showError('Request failed'); out.error = state(); retry.click(); out.reloads = reloads;
 process.stdout.write(JSON.stringify(out));
@@ -73,7 +78,7 @@ process.stdout.write(JSON.stringify(out));
                                     text=True, encoding="utf-8", timeout=30)
         self.assertEqual(result.returncode, 0, result.stderr)
         out = json.loads(result.stdout)
-        for case in ("success", "split", "empty", "error"):
+        for case in ("success", "split", "empty", "error", "fontsSettled", "emptySettled"):
             self.assertFalse(out[case]["loading"], case)
             self.assertFalse(out[case]["busy"], case)
             self.assertTrue(out[case]["html"], case)
@@ -81,6 +86,11 @@ process.stdout.write(JSON.stringify(out));
         self.assertIn('t-live', out['success']['html'])
         self.assertNotIn('t-live', out['split']['html'])
         self.assertIn('t-live', out['rest'])
+        for case in ('pendingFonts', 'emptyPending'):
+            self.assertTrue(out[case]['loading'])
+            self.assertTrue(out[case]['busy'])
+            self.assertIn('class="reader-fallback" role="status"', out[case]['html'])
+        self.assertIn('t-live', out['pendingFonts']['html'])
         self.assertIn('Bản tin này chưa có tin nào', out['empty']['html'])
         self.assertIn('role="alert"', out['error']['html'])
         self.assertIn('Request failed', out['error']['html'])

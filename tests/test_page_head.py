@@ -135,9 +135,9 @@ class PageHeadTests(unittest.TestCase):
         self.assertIn('<meta name="referrer" content="strict-origin-when-cross-origin">', self.head)
 
     def test_snapshot_starts_with_the_html_and_the_page_takes_that_request_over(self):
-        self.assertIn('<link rel="preload" href="data/radar-ui.json" as="fetch" crossorigin>', self.head)
+        self.assertIn('<link rel="preload" href="data/radar-head.json" as="fetch" crossorigin>', self.head)
         # A preload is only reused by a request with the same mode and cache setting: the first fetch adds none.
-        self.assertIn("loadSnapshot(DATA_URL, FALLBACK_URL).then(", self.app)
+        self.assertIn("loadSnapshot(HEAD_URL, null)", self.app)
         self.assertNotIn("cache:'no-store'", self.app)
         self.assertIn("loadSnapshot(DATA_URL, FALLBACK_URL, {cache:'no-cache'})", self.app)
 
