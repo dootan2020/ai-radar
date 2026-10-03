@@ -266,6 +266,103 @@ class CommandLineTests(unittest.TestCase):
             self.assertIn("cache_written=true", gh.read_text(encoding="utf-8"))
             self.assertIn("model_ready=true", gh.read_text(encoding="utf-8"))
 
+    def test_cli_published_snapshot_carries_kept_translations_when_provider_fails(self):
+        from contextlib import redirect_stdout
+        from datetime import datetime, timezone
+        import io
+        from radar import translation_gemini as gemini
+        from radar.publication import SECTIONS, assess_publication, load_published, prepare_publication
+
+        now = datetime(2026, 10, 4, 12, tzinfo=timezone.utc)
+        stamp = now.isoformat()
+        title = "How Much Memory Does Your Agent Actually Need?"
+        title_vi = "Agent của bạn thực sự cần bao nhiêu bộ nhớ?"
+        item = dict(
+            id="item-1",
+            source="remote-0",
+            title=title,
+            title_vi=title_vi,
+            url="https://example.org/story",
+            observed_at=stamp,
+            metrics={"points": 7},
+        )
+        story_data = dict(
+            id="story-1",
+            title=title,
+            title_vi=title_vi,
+            url=item["url"],
+            source_count=1,
+            coverage=[item],
+        )
+        small_snapshot = dict(
+            schema_version=2,
+            generated_at=stamp,
+            sources=[
+                dict(id=f"remote-{i}", ok=True, count=1 if i == 0 else 0,
+                     url=f"https://example.org/{i}", error=None)
+                for i in range(3)
+            ],
+            stories=[story_data],
+            sections={key: ["story-1"] if key == "today" else [] for key in SECTIONS},
+            updates=[],
+            hf_releases=[],
+            live=[],
+            events=[],
+            trending=dict(github=[], huggingface=[]),
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp) / "radar.json"
+            published_file = Path(tmp) / "published-snapshot.json"
+            cache = Path(tmp) / "cache.json"
+
+            # In radar.json, the story carries title_vi (e.g. from retention)
+            src.write_text(json.dumps(small_snapshot), encoding="utf-8")
+
+            # published-snapshot was written by build.py before translation, so it lacks title_vi
+            initial_published = json.loads(json.dumps(small_snapshot))
+            initial_published["stories"][0].pop("title_vi", None)
+            initial_published["stories"][0]["coverage"][0].pop("title_vi", None)
+            published_file.write_text(json.dumps(initial_published), encoding="utf-8")
+
+            def failing_transport(*args, **kwargs):
+                raise gemini.ProviderError("http_503:UNAVAILABLE")
+
+            def failing_nllb():
+                raise ModuleNotFoundError("offline NLLB absent")
+
+            env = {
+                "RADAR_PUBLISHED_SNAPSHOT": str(published_file),
+                "GEMINI_API_KEY": "test-key",
+                "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1",
+                "GITHUB_OUTPUT": "",
+            }
+
+            with mock.patch.object(gemini, "transport", failing_transport), \
+                    mock.patch.object(tr, "nllb_factory", failing_nllb), \
+                    mock.patch.dict("os.environ", env, clear=True), \
+                    redirect_stdout(io.StringIO()):
+                code = tr.main(["--input", str(src), "--cache", str(cache), "--budget", "5"])
+
+            self.assertEqual(code, 0)
+
+            # Assert published file now carries the kept translations
+            published_data = json.loads(published_file.read_text(encoding="utf-8"))
+            self.assertEqual(published_data["stories"][0]["title_vi"], title_vi)
+            self.assertEqual(published_data["stories"][0]["coverage"][0]["title_vi"], title_vi)
+            self.assertEqual(published_data["translation"]["kept_published"], 1)
+            self.assertEqual(published_data["translation"]["provider"], "kept")
+
+            # Assert published file still passes load_published as a valid prior
+            loaded = load_published(published_file, now)
+            self.assertIsNotNone(loaded)
+            self.assertEqual(loaded["stories"][0]["title_vi"], title_vi)
+            status = assess_publication(loaded, None, now)
+            self.assertTrue(status["published"])
+            candidate, prep_status = prepare_publication(loaded, None, now)
+            self.assertTrue(prep_status["published"])
+            self.assertEqual(candidate["stories"][0]["title_vi"], title_vi)
+
 
 if __name__ == "__main__":
     unittest.main()

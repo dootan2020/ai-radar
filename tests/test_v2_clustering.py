@@ -109,3 +109,110 @@ class ClusterTests(unittest.TestCase):
         items = [coverage(url="https://arxiv.org/abs/2610.12345v2"),
                  coverage("b", "https://arxiv.org/pdf/2610.12345v3.pdf")]
         self.assertEqual(len(cluster_items(items, NOW)), 2)
+
+    def test_cross_publisher_apple_full_disk_access_merges_multiple_outlets(self):
+        items = [
+            coverage("techcrunch", "https://techcrunch.example/apple-fda", publisher="techcrunch",
+                     title="Apple says it’s tightening macOS ‘Full Disk Access’ controls due to new risks from AI agents"),
+            coverage("the-verge", "https://theverge.example/apple-disk", publisher="the-verge",
+                     title="Apple will limit Mac disk access as AI agents ‘substantially’ increase risk"),
+            coverage("ars-technica", "https://arstechnica.example/apple-mac", publisher="ars-technica",
+                     title="Apple changes full-disk access permissions to curb abuse from AI agents"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 3)
+
+    def test_cross_publisher_product_variant_launch_merges(self):
+        items = [
+            coverage("openai", "https://openai.example/sol", publisher="openai", kind="model",
+                     title="Introducing GPT-6.1 Sol"),
+            coverage("simon-willison", "https://simon.example/sol", publisher="simon-willison", kind="product",
+                     title="GPT 6.1 Sol: Near-Astra intelligence for a fifth of the price"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 2)
+
+    def test_cross_publisher_chegg_penske_antitrust_merges(self):
+        items = [
+            coverage("ars-technica", "https://arstechnica.example/chegg", publisher="ars-technica",
+                     title="Judge dismisses Chegg and Penske antitrust lawsuits targeting Google AI search"),
+            coverage("hacker-news", "https://hn.example/chegg", publisher="hacker-news",
+                     title="US judge dismisses Chegg, Penske antitrust suits over Google AI Overviews"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 2)
+
+    def test_cross_publisher_huggingface_hack_lawsuit_merges(self):
+        items = [
+            coverage("ars-technica", "https://arstechnica.example/hf-hack", publisher="ars-technica",
+                     title='"An AI did it" is no defense, says nonprofit suing OpenAI over Hugging Face hack'),
+            coverage("hacker-news", "https://hn.example/hf-hack", publisher="hacker-news",
+                     title="AI safety advocates sue OpenAI over Hugging Face hack under CA anti-hacking law"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 2)
+
+    def test_openai_ipo_delay_and_model_cancellation_stay_apart(self):
+        items = [
+            coverage("ars-technica", "https://arstechnica.example/ipo", publisher="ars-technica",
+                     title="OpenAI delays IPO over AI safety concerns"),
+            coverage("hacker-news", "https://hn.example/scraps", publisher="hacker-news",
+                     title="OpenAI Scraps Release of New AI Model over Safety Concerns"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 2)
+
+    def test_conflicting_model_subvariants_stay_apart(self):
+        items = [
+            coverage("openai-sol", "https://openai.example/sol", publisher="openai",
+                     title="Introducing GPT-6 Sol"),
+            coverage("openai-luna", "https://openai.example/luna", publisher="openai",
+                     title="Introducing GPT-6 Luna"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 2)
+
+    def test_independent_papers_stay_apart(self):
+        items = [
+            coverage("paper1", "https://arxiv.org/abs/2609.11111", kind="paper",
+                     title="Diffusion Transformers for Video Generation"),
+            coverage("paper2", "https://arxiv.org/abs/2609.22222", kind="paper",
+                     title="Diffusion Transformers for Video Generation"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 2)
+
+    def test_cross_publisher_meta_muse_gadgets_merges(self):
+        items = [
+            coverage("the-verge", "https://theverge.example/muse", publisher="the-verge",
+                     title="Meta open sources code to let you make Muse AI gadgets"),
+            coverage("techcrunch", "https://techcrunch.example/muse", publisher="techcrunch",
+                     title="Meta wants your next gadget to be Muse-infused"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 2)
+
+    def test_entity_with_single_shared_specific_token_stays_apart(self):
+        items = [
+            coverage("the-verge", "https://theverge.example/emp", publisher="the-verge",
+                     title="An OpenAI employee shared thoughts on company culture"),
+            coverage("techcrunch", "https://techcrunch.example/fund", publisher="techcrunch",
+                     title="OpenAI raises new multibillion funding round"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 2)
+
+    def test_no_entity_shared_common_terms_stays_apart(self):
+        items = [
+            coverage("the-verge", "https://theverge.example/dc1", publisher="the-verge",
+                     title="If a data center is camouflaged in the woods, will anyone hate it?"),
+            coverage("techcrunch", "https://techcrunch.example/dc2", publisher="techcrunch",
+                     title="Space data centers face launch delays"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 2)

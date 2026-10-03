@@ -106,6 +106,7 @@ jobs:
           RADAR_TRANSLATE_BUDGET: '600'
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
+          RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
         run: python -m radar.translate --input site/data/radar.json --cache data/translations-vi.json
       - name: Save translation model
         if: always() && steps.mt-model.outputs.cache-hit != 'true' && steps.translate.outputs.model_ready == 'true'
