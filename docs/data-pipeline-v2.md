@@ -19,6 +19,8 @@ times, counters and failed sources must remain visible as unknown or failed.
 - [Publication policy](../radar/publication.py), [operations and rollback](operations.md),
   and [dated feed verification](source-feed-check-2026-10-03.md).
 - [Daily editions and durable archive](daily-editions.md), separate from the rolling snapshot.
+- [Official product updates](tool-updates.md), including dated release evidence,
+  product/version grouping and attributed changelog excerpts.
 
 ## Decisions to preserve
 
@@ -196,8 +198,9 @@ drop counts in diagnostics.
 
 Filtering cannot repair a broken array container, schema, source/story identity,
 coverage or section reference. The nonempty remote-backed story requirement,
-two-thirds source quorum and freshness checks still reject the whole attempt,
+two-thirds non-tool source quorum and freshness checks still reject the whole attempt,
 leaving output, publication cache, measurement baseline and sitemap unchanged.
+Optional `group: tool` sources retain diagnostics but do not affect this news quorum.
 Loading a prior publication remains strict and never silently sanitizes it.
 
 The additive `freshness` object on an accepted snapshot has this consumer contract;

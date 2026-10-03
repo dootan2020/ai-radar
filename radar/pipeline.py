@@ -41,6 +41,9 @@ def _jobs(v2=False, now=None):
         for source in catalog.sources(now):
             parser = parsers[source["parser"]]
             jobs.append((source, "coverage", lambda text, source=source, parser=parser: parser(text, source, now)))
+        from radar import tool_updates
+        for source in tool_updates.SOURCES:
+            jobs.append((source, "tool_updates", lambda text, source=source: tool_updates.parse_source(text, source, now)))
     return jobs
 
 
@@ -68,6 +71,8 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None):
     fetcher = Fetcher(deadline, fetch)
     payload = dict(generated_at=iso_date(now), sources=[], updates=[], hf_releases=[], live=[],
                    trending={"github": [], "huggingface": []})
+    if v2:
+        payload["tool_updates"] = []
     all_jobs = _jobs(v2, now)
     jobs = []
     for source, section, parse in all_jobs:
@@ -100,6 +105,9 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None):
             try:
                 items = parse(fetcher(source["url"], source_id=source["id"]))
                 record = source_result(source, len(items))
+                if getattr(items, "dropped_entries", 0):
+                    record["dropped_entries"] = items.dropped_entries
+                    record["diagnostics"] = [f"Skipped {items.dropped_entries} malformed changelog entries"]
             except Exception as error:
                 items, record = [], source_result(source, error=f"{type(error).__name__}: {error}")
             completed.put((source["id"], section, items, [record]))
@@ -175,6 +183,14 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None):
                       http_status=None, http_requests=[], first_wave=True)
         payload["sources"].append(record)
         payload["sources"].sort(key=lambda source: source["id"])
+        from radar import tool_updates
+        try:
+            payload["tool_updates"], payload["tool_updates_meta"] = tool_updates.finish(
+                payload["tool_updates"], payload["sources"], now)
+        except Exception as error:
+            payload["tool_updates"] = []
+            payload["tool_updates_meta"] = tool_updates.metadata(
+                [], payload["sources"], now, error=f"{type(error).__name__}: {error}")
         return assembly.finish(payload, coverage, curated, now, previous, fetcher=fetcher)
     return payload
 

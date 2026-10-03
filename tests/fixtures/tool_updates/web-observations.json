@@ -1,0 +1,81 @@
+{
+  "observed_on": "2026-10-03",
+  "transport": "web.run extracted text",
+  "raw_response_fixture": false,
+  "http_status": null,
+  "limitation": "Research observations only. Not original response bytes, XML, HTML, or a parser admission fixture. Date values below retain only precision exposed by the source.",
+  "observations": [
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
+      "format_observed": "Markdown H2 version sections without release dates",
+      "latest_version_observed": "2.1.288",
+      "feature_version": "2.1.224",
+      "feature_summary": "Cross-session SendMessage and ListAgents on macOS and Linux.",
+      "published_at": null
+    },
+    {
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.224",
+      "version": "2.1.224",
+      "date_text": "07 Aug 04:00",
+      "published_at": null,
+      "date_limitation": "Web-extracted text omits year and timezone; later browser DOM resolved this independently.",
+      "later_browser_verified_published_at": "2026-08-07T04:00:59Z",
+      "later_evidence": "claude-code-2.1.224-dom.html"
+    },
+    {
+      "url": "https://developers.openai.com/codex/changelog",
+      "final_url": "https://learn.chatgpt.com/docs/changelog",
+      "format_observed": "Month heading, date list item, H3 entry title, subsection headings; covers both ChatGPT and Codex",
+      "title": "Codex CLI 0.160.0",
+      "date": "2026-10-01",
+      "date_precision": "day",
+      "filter_limitation": "Both ?type=codex-app and ?type=codex-cli extracted the same combined page; filtering cannot be assumed."
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/releases",
+      "title": "Release v0.64.0-nightly.20261003.gfb972b2f8",
+      "prerelease": true,
+      "recommendation": "Exclude nightly and preview items; latest page mostly prereleases. A zero-stable-entry feed is not necessarily a source failure."
+    },
+    {
+      "url": "https://github.com/ollama/ollama/releases",
+      "version": "0.35.1",
+      "date_text": "29 Sep 20:14",
+      "published_at": null,
+      "recommendation": "Do not use later asset timestamps as the release date."
+    },
+    {
+      "url": "https://www.antigravity.google/docs/changelog",
+      "version": "2.18.1",
+      "date": "2026-09-28",
+      "surface": "Antigravity 2.0",
+      "format_observed": "Separate 2.0, CLI, SDK, IDE sections with dated version headings",
+      "recommendation": "Preserve surface names; do not apply the 2.0 version to Antigravity CLI."
+    },
+    {
+      "url": "https://cursor.com/changelog",
+      "title": "Rollouts and Security Review",
+      "date": "2026-09-23",
+      "format_observed": "Dated linked entry headings and prose"
+    },
+    {
+      "url": "https://github.blog/changelog/label/copilot/",
+      "date": "2026-10-02",
+      "format_observed": "Month/year sections, dated categorized article links",
+      "recommendation": "Separate product capabilities, deprecations, and routine improvements."
+    },
+    {
+      "url": "https://code.visualstudio.com/updates",
+      "final_url": "https://code.visualstudio.com/updates/v1_140",
+      "version": "1.140",
+      "date": "2026-09-30",
+      "channel": "Stable",
+      "recommendation": "Select AI-related changes only; distinguish experimental features from stable release channel."
+    },
+    {
+      "url": "https://learn.chatgpt.com/docs/space",
+      "date": null,
+      "recommendation": "Current product documentation establishes capability, not announcement date; no new-this-week claim."
+    }
+  ]
+}
