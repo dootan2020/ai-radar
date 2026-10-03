@@ -232,6 +232,11 @@ different authority; inspect the workflow's branch guards before dispatching.
 
 ## Reader snapshot
 
+Repository rankings by field are a separate optional data contract:
+[field rankings, history and live verification](field-rankings.md). Their
+`field-rankings.json` does not affect news publication eligibility or replace
+the existing Trending repository projections.
+
 The homepage preloads `site/data/radar-ui.json`, a compact, complete reader
 projection of the full `radar.json`. It keeps every story ID, section ordering,
 story/detail text, translated titles, repository data, calendar information,

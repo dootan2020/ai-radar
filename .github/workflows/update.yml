@@ -15,10 +15,11 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-26.04
-    # Allow collection, translation and artifact headroom plus five minutes for bounded optional archive work.
-    timeout-minutes: 30
+    # Preserve the original 30-minute allowance plus 19 bounded optional field minutes.
+    timeout-minutes: 49
     outputs:
       edition_candidate: ${{ steps.edition-upload.outcome }}
+      field_candidate: ${{ steps.field-upload.outcome }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -151,6 +152,112 @@ jobs:
           overwrite: true
           if-no-files-found: error
           retention-days: 14
+      # Field failures never participate in the news publication quorum.
+      # The attempt cache is independent of the data branch: failed Git pushes
+      # must not cause another full collection on every fresh half-hour runner.
+      - name: Restore last good field output
+        id: field-fallback-cache
+        continue-on-error: true
+        timeout-minutes: 1
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/field-last-good.json
+          key: radar-field-output-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            radar-field-output-v2-${{ github.ref_name }}-
+            radar-field-output-v2-main-
+      - name: Retain validated field output before preparation
+        id: field-retain
+        continue-on-error: true
+        timeout-minutes: 1
+        run: python -m radar.field_checkpoint restore
+      - name: Prepare field attempt checkpoint
+        id: field-slot
+        continue-on-error: true
+        timeout-minutes: 1
+        run: python -m radar.field_checkpoint reserve
+      - name: Check field attempt checkpoint
+        id: field-attempt-restore
+        if: steps.field-slot.outcome == 'success' && steps.field-fallback-cache.outcome == 'success' && steps.field-retain.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 1
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/field-attempt.json
+          key: radar-field-attempt-v2-${{ github.ref_name }}-${{ steps.field-slot.outputs.slot }}
+          lookup-only: true
+      - name: Reserve field attempt checkpoint
+        id: field-attempt-save
+        if: steps.field-attempt-restore.outcome == 'success' && steps.field-attempt-restore.outputs.cache-hit != 'true'
+        continue-on-error: true
+        timeout-minutes: 1
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/field-attempt.json
+          key: radar-field-attempt-v2-${{ github.ref_name }}-${{ steps.field-slot.outputs.slot }}
+      # cache/save can warn instead of failing. A successful outcome alone is
+      # insufficient proof: restore the exact key and verify this attempt owns it.
+      - name: Clear local field checkpoint before read-back
+        id: field-attempt-clear
+        if: steps.field-attempt-save.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 1
+        run: python -m radar.field_checkpoint clear
+      - name: Verify field attempt checkpoint
+        id: field-attempt-verify
+        if: steps.field-attempt-clear.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 1
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/field-attempt.json
+          key: radar-field-attempt-v2-${{ github.ref_name }}-${{ steps.field-slot.outputs.slot }}
+      - name: Verify ownership of restored field checkpoint
+        id: field-attempt-own
+        if: steps.field-attempt-verify.outcome == 'success' && steps.field-attempt-verify.outputs.cache-hit == 'true'
+        continue-on-error: true
+        timeout-minutes: 1
+        run: python -m radar.field_checkpoint verify --claim "${{ steps.field-slot.outputs.claim }}" --slot "${{ steps.field-slot.outputs.slot }}"
+      - name: Prepare repository field rankings
+        id: field-prepare
+        if: steps.field-attempt-own.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FIELD_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
+        run: python -m radar.field_publish prepare --remote "$FIELD_REMOTE"
+      - name: Save last good field output
+        id: field-output-save
+        if: always() && (steps.field-prepare.outcome == 'success' || steps.field-prepare.outcome == 'failure')
+        continue-on-error: true
+        timeout-minutes: 1
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/field-last-good.json
+          key: radar-field-output-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Upload field history candidate
+        id: field-upload
+        if: github.ref == 'refs/heads/main' && steps.field-prepare.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: radar-fields-${{ github.run_id }}
+          path: data/field-candidate
+          overwrite: true
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload field diagnostics
+        if: always()
+        continue-on-error: true
+        timeout-minutes: 2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: radar-field-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: site/data/field-rankings.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Upload collected source evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -202,6 +309,31 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EDITION_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
         run: python -m radar.edition_publish persist --remote "$EDITION_REMOTE"
+  persist-fields:
+    if: github.ref == 'refs/heads/main' && needs.update.result == 'success' && needs.update.outputs.field_candidate == 'success'
+    needs: update
+    runs-on: ubuntu-26.04
+    continue-on-error: true
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+      - name: Download field history candidate
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: radar-fields-${{ github.run_id }}
+          path: data/field-candidate
+      - name: Persist field history
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FIELD_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
+        run: python -m radar.field_publish persist --remote "$FIELD_REMOTE"
   deploy:
     if: github.ref == 'refs/heads/main' && needs.update.result == 'success'
     needs: update
