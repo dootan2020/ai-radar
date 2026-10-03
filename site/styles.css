@@ -109,6 +109,10 @@
   /* bar */
   .brand{font-size:var(--text-tile);font-weight:var(--weight-bold);letter-spacing:var(--tracking-display);white-space:nowrap}
   .brand b{color:var(--color-accent)}
+  /* Link to the daily edition page. Neutral like the "Bản tin" badge on that page: blue stays for action and the selected item. */
+  .ed-link{position:relative;flex:none;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-meta);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:color var(--motion-state) var(--ease-flow)}
+  .ed-link::after{content:"";position:absolute;inset:-6px -4px}
+  .ed-link:hover{color:var(--color-ink)}
   .when-line{display:none;font-size:var(--text-meta);color:var(--color-ink-2);white-space:nowrap}
   .nav{display:flex;gap:var(--space-4);flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;mask-image:var(--nav-fade);font-size:var(--text-meta);font-weight:var(--weight-medium)}
   .nav a{padding:var(--space-8) var(--space-8);border-radius:var(--radius-full);color:var(--color-ink-2);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}

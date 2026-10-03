@@ -22,7 +22,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
-DATA_THAT = ROOT / "plans" / "nhap" / "du-lieu-that" / "editions"
+DATA_THAT = ROOT / "tests" / "fixtures" / "editions"
 
 
 def read_text(path):
@@ -117,7 +117,7 @@ import fs from 'node:fs';
 
 const out = {{}};
 
-// 1. Dữ liệu thật từ plans/nhap/du-lieu-that/editions/
+// 1. Dữ liệu thật từ tests/fixtures/editions/
 const realIndex = JSON.parse(fs.readFileSync({real_index_path}, 'utf-8'));
 const realEdition = JSON.parse(fs.readFileSync({real_day_path}, 'utf-8'));
 
