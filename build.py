@@ -9,7 +9,7 @@ from radar.measurement_cache import load_baseline, promotion_reason
 from radar.pipeline import build_v2, write_atomic
 from radar.publication import assess_publication, load_published, prepare_publication
 from radar.seo import write_sitemap
-from radar.site_payload import head_path, page_path, write_site_snapshot
+from radar.site_payload import head_path, page_path, search_path, write_site_snapshot
 
 
 def github_outputs(published, baseline_updated):
@@ -29,7 +29,7 @@ def main():
     status_path = Path(os.environ.get("RADAR_PUBLISH_STATUS", baseline.parent / "publish-status.json"))
     site_root = output.parent.parent if output.parent.name == "data" else output.parent
     sitemap = Path(os.environ.get("RADAR_SITEMAP", site_root / "sitemap.xml"))
-    paths = (output, page_path(output), head_path(output), baseline, published_cache, status_path, sitemap)
+    paths = (output, page_path(output), head_path(output), search_path(output), baseline, published_cache, status_path, sitemap)
     if len({path.resolve() for path in paths}) != len(paths):
         raise ValueError("Output, page projection, baseline, publication cache, diagnostic and sitemap must be different files")
     previous = load_baseline(baseline, datetime.now(timezone.utc))
