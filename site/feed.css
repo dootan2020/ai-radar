@@ -37,7 +37,7 @@
   --cover-glyph: 9rem;                      /* the ghost monogram on a cover */
   --cover-num: var(--size-40);
   --thumb-hot: 72px;
-  --mt-gap: var(--space-8);                 /* the "dịch máy" chip never touches the original title */
+  --mt-gap: var(--space-8);                 /* the "Translated" chip never touches the original title */
   --tag-bg: oklch(0.13 0.006 var(--hue) / 0.80);   /* the reason chip on a picture: same ink as the video badge */
   --thumb-pick-w: 160px;                    /* "Đáng đọc hôm nay" rows: a 16:9 picture, 90 px tall */
   --picks-gap: var(--space-48);             /* the block is its own chapter: two steps above the grid gap */
@@ -220,7 +220,6 @@ ul, ol { padding: 0; list-style: none; }
 .card-photo .act:hover { background: oklch(0.99 0 0 / 0.16); color: var(--card-ink-on-photo); }
 .card-photo .card-sum { color: var(--card-ink-on-photo-2); }
 .card-photo:hover .story-link { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
-.card-photo .mt { background: oklch(0.99 0 0 / 0.18); color: var(--card-ink-on-photo); }
 
 .card-lead { min-height: var(--lead-min-h); }
 .card-lead .photo-body { padding: var(--feed-pad-lead); gap: var(--space-12); }
