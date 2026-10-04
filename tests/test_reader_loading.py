@@ -11,9 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class ReaderLoadingTests(unittest.TestCase):
     def test_static_fallback_survives_missing_javascript(self):
-        html = (ROOT / 'site/index.html').read_text(encoding='utf-8')
+        bento_html = (ROOT / 'site/bento.html').read_text(encoding='utf-8')
         css = (ROOT / 'site/styles.css').read_text(encoding='utf-8')
-        fallback = re.search(r'<div class="[^"]*reader-fallback[^"]*"[^>]*>(.*?)</div>', html, re.S)
+        fallback = re.search(r'<div class="[^"]*reader-fallback[^"]*"[^>]*>(.*?)</div>', bento_html, re.S)
         self.assertIsNotNone(fallback, 'module failure leaves no visible fallback')
         self.assertIn('Đang mở bản tin', fallback.group(1))
         self.assertRegex(fallback.group(1), r'<a\b[^>]*href=""[^>]*>Tải lại trang</a>')
@@ -22,6 +22,16 @@ class ReaderLoadingTests(unittest.TestCase):
         self.assertIsNotNone(rules)
         self.assertRegex(rules.group(1), r'visibility\s*:\s*visible')
         self.assertRegex(rules.group(1), r'position\s*:\s*absolute')
+
+        # Also verify the feed home (index.html) has its own working fallback
+        feed_html = (ROOT / 'site/index.html').read_text(encoding='utf-8')
+        feed_css = (ROOT / 'site/feed.css').read_text(encoding='utf-8')
+        feed_fallback = re.search(r'<div class="[^"]*reader-fallback[^"]*"[^>]*>(.*?)</div>', feed_html, re.S)
+        self.assertIsNotNone(feed_fallback)
+        self.assertIn('Nếu dòng tin chưa hiện', feed_fallback.group(1))
+        self.assertRegex(feed_fallback.group(1), r'<a\b[^>]*href=""[^>]*>Tải lại trang</a>')
+        self.assertRegex(feed_fallback.group(1), r'<noscript>.*?JavaScript.*?</noscript>')
+        self.assertIn('.reader-fallback', feed_css)
 
     @unittest.skipUnless(shutil.which('node'), 'Node required for reader behavior tests')
     def test_deadlines_fallback_and_error_rendering(self):

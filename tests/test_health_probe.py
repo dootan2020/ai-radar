@@ -33,6 +33,8 @@ class Response(io.BytesIO):
 class HealthProbeTests(unittest.TestCase):
     def setUp(self):
         self.homepage = (ROOT / "site/index.html").read_bytes()
+        self.main_js = "feed.js" if b'src="feed.js"' in self.homepage else "app.js"
+        self.main_css = "feed.css" if b'href="feed.css"' in self.homepage else "styles.css"
         self.payload = {"schema_version": 2, "generated_at": NOW.isoformat(),
                         "stories": [], "sources": [], "sections": {}}
         self.overrides, self.requests = {}, []
@@ -77,7 +79,7 @@ class HealthProbeTests(unittest.TestCase):
                 continue
             visited.add(path)
             source = (ROOT / "site" / path).read_text(encoding="utf-8")
-            for reference in re.findall(r"(?:from\s*|import\s*\(\s*|import\s*)['\"]([^'\"]+)['\"]", source):
+            for reference in health_probe.module_references(source):
                 url = urljoin(health_probe.SITE_URL + path, reference)
                 if url.startswith(health_probe.SITE_URL):
                     dependency = url.removeprefix(health_probe.SITE_URL)
@@ -183,10 +185,10 @@ class HealthProbeTests(unittest.TestCase):
 
     def test_nested_imports_reexports_and_cycles_are_checked_once(self):
         self.overrides.update({
-            "app.js": b"import { view } from './parts/view.js'; import('./parts/lazy.js');",
+            self.main_js: b"import { view } from './parts/view.js'; import('./parts/lazy.js');",
             "parts/view.js": b"import '../shared.js'; export { item } from './item.js';",
             "parts/item.js": b"export * from '../shared.js';",
-            "parts/lazy.js": b"import '../app.js';",
+            "parts/lazy.js": f"import '../{self.main_js}';".encode(),
             "shared.js": b"export const item = 1;",
         })
         checks = self.probe()
@@ -199,13 +201,13 @@ class HealthProbeTests(unittest.TestCase):
         for response in (HTTPError("https://example.invalid", 404, "private-sentinel", {}, None),
                          b"", b"<!doctype html><title>private-sentinel</title>"):
             with self.subTest(response=type(response).__name__):
-                self.overrides = {"app.js": b"import './new-feature.js';", "new-feature.js": response}
+                self.overrides = {self.main_js: b"import './new-feature.js';", "new-feature.js": response}
                 checks = self.probe()
                 self.assertFalse(checks["asset:new-feature.js"]["ok"])
                 self.assertNotIn("private-sentinel", json.dumps(checks))
 
     def test_semicolonless_local_export_does_not_hide_next_import(self):
-        self.overrides.update({"app.js": b"const item = 1; export { item }\nimport './missing.js';",
+        self.overrides.update({self.main_js: b"const item = 1; export { item }\nimport './missing.js';",
                                "missing.js": b""})
         checks = self.probe()
         self.assertFalse(checks["asset:missing.js"]["ok"])
@@ -221,7 +223,7 @@ class HealthProbeTests(unittest.TestCase):
     def test_new_import_failure_requires_two_observations(self):
         from radar import health_monitor
 
-        self.overrides.update({"app.js": b"import './new-feature.js';",
+        self.overrides.update({self.main_js: b"import './new-feature.js';",
                                "new-feature.js": b""})
         with patch.object(health_monitor, "probe", side_effect=lambda: {
                 "checked_at": NOW.isoformat(), "generated_at": NOW.isoformat(),
@@ -233,7 +235,7 @@ class HealthProbeTests(unittest.TestCase):
         self.assertEqual([row["id"] for row in report["confirmed_failures"]], ["asset:new-feature.js"])
 
     def test_comments_strings_and_external_imports_do_not_create_local_requests(self):
-        self.overrides["app.js"] = b'''// import './comment.js';
+        self.overrides[self.main_js] = b'''// import './comment.js';
             /* export * from './comment-too.js'; */
             const example = "import './string.js';";
             const template = `import './template.js';`;
@@ -254,9 +256,9 @@ class HealthProbeTests(unittest.TestCase):
                     self.requests = []
                     self.overrides = ({"": self.homepage + f'<script src="{reference}"></script>'.encode()}
                                       if source == "homepage" else
-                                      {"app.js": f"import '{reference}';".encode()})
+                                      {self.main_js: f"import '{reference}';".encode()})
                     checks = self.probe()
-                    self.assertFalse(checks["homepage" if source == "homepage" else "asset:app.js"]["ok"])
+                    self.assertFalse(checks["homepage" if source == "homepage" else f"asset:{self.main_js}"]["ok"])
                     self.assertNotIn("private-sentinel", json.dumps(checks))
                     self.assertFalse(any("private-sentinel" in url for url in self.requests))
 
@@ -270,9 +272,9 @@ class HealthProbeTests(unittest.TestCase):
                     self.overrides[""] = self.homepage + "".join(
                         f'<script src="{name}"></script>' for name in names).encode()
                 else:
-                    self.overrides["app.js"] = "".join(f"import './{name}';" for name in names).encode()
+                    self.overrides[self.main_js] = "".join(f"import './{name}';" for name in names).encode()
                 checks = self.probe()
-                row = checks["homepage" if source == "homepage" else "asset:app.js"]
+                row = checks["homepage" if source == "homepage" else f"asset:{self.main_js}"]
                 self.assertFalse(row["ok"])
                 self.assertIn("capacity", row["detail"])
                 self.assertLessEqual(len(self.requests), health_probe.MAX_ASSETS + 3)
@@ -288,14 +290,17 @@ class HealthProbeTests(unittest.TestCase):
 
     def test_missing_each_identity_marker_fails_homepage(self):
         original = self.homepage
-        for marker in (b'property="og:site_name"', b'id="top"', b'id="board"', b'src="app.js"'):
+        markers = ((b'property="og:site_name"', b'id="top"', b'id="feed-grid"', b'src="feed.js"')
+                   if b'src="feed.js"' in original else
+                   (b'property="og:site_name"', b'id="top"', b'id="board"', b'src="app.js"'))
+        for marker in markers:
             with self.subTest(marker=marker):
                 self.assertIn(marker, original)
                 self.homepage = original.replace(marker, b'data-removed="true"')
                 self.assertFalse(self.probe()["homepage"]["ok"])
 
     def test_main_style_or_imported_module_http_failure_is_visible(self):
-        for asset in ("styles.css", "live.js"):
+        for asset in (self.main_css, "live.js"):
             with self.subTest(asset=asset):
                 self.overrides = {asset: HTTPError(health_probe.SITE_URL + asset, 404, "missing", {}, None)}
                 self.assertFalse(self.probe()["asset:" + asset]["ok"])
@@ -307,10 +312,10 @@ class HealthProbeTests(unittest.TestCase):
         self.assertTrue(all(url.startswith(health_probe.SITE_URL) for url in self.requests))
 
     def test_non_200_success_status_and_foreign_redirect_are_rejected(self):
-        for response in (Response(b"", health_probe.SITE_URL + "styles.css", 204),
-                         Response(b"body{}", "https://other.example/styles.css")):
-            self.overrides["styles.css"] = response
-            self.assertFalse(self.probe()["asset:styles.css"]["ok"])
+        for response in (Response(b"", health_probe.SITE_URL + self.main_css, 204),
+                         Response(b"body{}", f"https://other.example/{self.main_css}")):
+            self.overrides[self.main_css] = response
+            self.assertFalse(self.probe()["asset:" + self.main_css]["ok"])
 
     def test_snapshot_http_parse_and_minimum_consumer_shape(self):
         variants = [URLError("private-sentinel"), b"not JSON", b"[]", b"{}"]
@@ -370,14 +375,22 @@ class HealthProbeTests(unittest.TestCase):
 
     def test_response_limit_timeout_and_probe_deadline_fail_safely(self):
         for body in (b"x" * (health_probe.MAX_BYTES + 1), TimeoutError("private-sentinel")):
-            self.overrides["styles.css"] = body
-            row = self.probe()["asset:styles.css"]
+            self.overrides[self.main_css] = body
+            row = self.probe()["asset:" + self.main_css]
             self.assertFalse(row["ok"])
             self.assertNotIn("private-sentinel", row["detail"])
         self.overrides = {}
         with patch.object(health_probe, "monotonic", side_effect=[0] + [1000] * 100):
             checks = self.probe()
         self.assertTrue(any(not row["ok"] for row in checks.values()))
+
+    def test_bento_rollback_homepage_passes_probe(self):
+        self.homepage = (ROOT / "site/bento.html").read_bytes()
+        checks = self.probe()
+        self.assertTrue(all(row["ok"] for row in checks.values()), checks)
+        self.assertTrue(checks["homepage"]["ok"])
+        self.assertIn("asset:app.js", checks)
+        self.assertIn("asset:styles.css", checks)
 
 
 if __name__ == "__main__":

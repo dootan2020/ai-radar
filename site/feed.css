@@ -113,6 +113,15 @@ ul, ol { padding: 0; list-style: none; }
 [data-theme="dark"] .theme-btn .i-sun { display: none; }
 [data-theme="dark"] .theme-btn .i-moon { display: block; }
 
+/* The daily edition and the story search, carried over from the bento home (tests/test_ban_tin_link.py,
+   tests/test_tra_cuu.py): static links in the bar, neutral fill chips, never hidden. Blue stays for action and selection. */
+.ed-link{position:relative;flex:none;display:inline-flex;align-items:center;min-height:40px;padding:0 var(--space-16);border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-small);font-weight:var(--weight-semibold);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
+.ed-link:hover{color:var(--color-ink);background:var(--color-hair)}
+.tc-link{position:relative;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:var(--space-8);min-height:40px;min-width:40px;padding:0 var(--space-16);border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-small);font-weight:var(--weight-semibold);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
+.tc-link:hover{color:var(--color-ink);background:var(--color-hair)}
+.tc-link .i{width:16px;height:16px}
+.ed-link:focus-visible,.tc-link:focus-visible{border-radius:var(--radius-full)}
+
 /* ---------- page head: plain words on the canvas, no box ---------- */
 .feed-main { max-width: var(--page-max); margin: 0 auto; padding: var(--space-16) var(--page-pad) var(--space-96); }
 .feed-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-8) var(--space-16); margin-bottom: var(--space-24); }
@@ -487,6 +496,163 @@ ul, ol { padding: 0; list-style: none; }
 @keyframes toast-in { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
 
 /* ==========================================================================
+   CARRIED OVER FROM THE BENTO HOME (05/10): marks, the new-items pill, the fresh-snapshot pill, the stale line, the
+   no-script fallback, the story detail, calendar, repository controls, saved items, sources, shortcuts. Same flat
+   vocabulary as the approved feed: fills and surfaces, no border, no shadow at rest (the fresh pill floats, so it lifts).
+   ========================================================================== */
+/* new (blue dot), skipped (hollow ring), seen (check): the bento home's marks and sizes */
+.st-mark { display: inline-flex; align-items: center; flex: none; }
+.st-mark:empty { display: none; }
+.new-mark { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); margin-right: var(--space-8); flex: none; vertical-align: 0.12em; }
+.skipped-mark { display: inline-block; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--color-ink-3); margin-right: var(--space-8); flex: none; vertical-align: 0.12em; }
+.seen-mark { display: inline-flex; align-items: center; margin-right: 6px; color: var(--color-ink-3); flex: none; vertical-align: -0.12em; }
+.seen-mark .i { width: 13px; height: 13px; stroke-width: 2.2; }
+.src-row .new-mark, .src-row .skipped-mark, .src-row .seen-mark { margin-right: 0; }
+.card-photo .new-mark { background: var(--color-on-media); }
+.card-photo .skipped-mark { border-color: var(--card-ink-on-photo-2); }
+.card-photo .seen-mark { color: var(--card-ink-on-photo-2); }
+.hot-row.is-read .hot-title, .repo-cell.is-read .repo-name, .events li.is-read .event-name { color: var(--color-ink-3); }
+
+/* "N tin mới": goes to the first new story; "Đánh dấu đã xem" beside it */
+.new-go { display: inline-flex; align-items: center; gap: var(--space-8); min-height: 32px; font-weight: var(--weight-semibold); color: inherit; }
+.new-go .i { width: 16px; height: 16px; }
+.new-go:hover { text-decoration: underline; text-underline-offset: 3px; }
+.feed-sub .text-link { text-decoration: underline; text-decoration-color: var(--color-hair); text-underline-offset: 3px; }
+.feed-sub .text-link:hover { color: var(--color-ink); text-decoration-color: currentColor; }
+
+/* A newer snapshot: one pill under the bar, applied only when the reader asks */
+.fresh { position: fixed; left: 50%; top: calc(var(--bar-h) + var(--space-12)); transform: translateX(-50%); z-index: 35; }
+.fresh-btn {
+  display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--btn-h); padding: 0 var(--space-24);
+  border-radius: var(--radius-full); background: var(--color-accent); color: var(--color-on-accent);
+  font-size: var(--text-small); font-weight: var(--weight-semibold); white-space: nowrap; box-shadow: var(--shadow-lift);
+  animation: toast-in var(--motion-arrive) var(--ease-flow) both;
+}
+.fresh-btn .i { width: 16px; height: 16px; }
+
+/* Old data says so in words */
+.stale {
+  flex-basis: 100%; padding: var(--space-12) var(--space-16); border-radius: var(--feed-radius);
+  background: var(--color-warn-wash); color: var(--color-ink); font-size: var(--text-small);
+}
+
+/* Shown only if the page never finished loading: four seconds of "aria-busy", or no JavaScript at all */
+.reader-fallback { display: none; flex-basis: 100%; font-size: var(--text-small); color: var(--color-ink-2); }
+.feed-main[aria-busy="true"] .reader-fallback { display: block; visibility: hidden; animation: late 1ms linear 4s forwards; }
+@keyframes late { to { visibility: visible; } }
+
+/* The story detail (the bento home's sheet, opened in place): above the card link, on the card's own surface */
+.cov-btn {
+  position: relative; z-index: 2; display: inline-flex; align-items: center; gap: var(--space-8);
+  min-height: 32px; padding: 0 var(--space-8); margin-left: calc(var(--space-8) * -1); border-radius: var(--radius-full);
+  color: inherit; white-space: nowrap; transition: background-color var(--motion-state) var(--ease-flow);
+}
+.cov-btn:hover { background: var(--color-fill); color: var(--color-ink); }
+.cov-btn[aria-expanded="true"] { background: var(--color-fill); color: var(--color-ink); }
+.card-photo .cov-btn:hover, .card-photo .cov-btn[aria-expanded="true"] { background: oklch(0.99 0 0 / 0.16); color: var(--card-ink-on-photo); }
+.cov-list {
+  position: relative; z-index: 2; display: flex; flex-direction: column; gap: var(--space-8);
+  margin-top: var(--space-4); padding: var(--space-12); border-radius: var(--radius-8);
+  background: var(--color-inset); color: var(--color-ink); font-size: var(--text-meta);
+}
+.card-photo .cov-list { background: var(--card-bg); }
+.dt-hot, .dt-sum, .dt-ev { color: var(--color-ink-2); line-height: var(--leading-snug); }
+.dt-hot b { color: var(--color-ink); font-weight: var(--weight-semibold); }
+.dt-h { font-weight: var(--weight-semibold); color: var(--color-ink-2); margin-top: var(--space-4); }
+.dt-src { display: flex; flex-direction: column; gap: var(--space-12); }
+.dt-src li { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cov-src { color: var(--color-ink-3); }
+.cov-t { color: var(--color-ink); font-weight: var(--weight-semibold); line-height: var(--leading-snug); overflow-wrap: anywhere; }
+.cov-t:hover { color: var(--color-accent); }
+.cov-m { color: var(--color-ink-3); }
+.cov-m b { color: var(--color-ink-2); font-weight: var(--weight-semibold); }
+.cov-m a { text-decoration: underline; text-underline-offset: 3px; }
+.cov-m a:hover { color: var(--color-ink); }
+
+/* Calendar: Google Calendar or an .ics file, one split chip */
+.card-cal { position: relative; z-index: 2; }
+.calbtn { display: inline-flex; align-items: stretch; max-width: 100%; border-radius: var(--radius-full); background: var(--color-fill); overflow: hidden; flex: none; }
+.calbtn-g, .calbtn-ics { display: inline-flex; align-items: center; gap: var(--space-8); min-height: 40px; padding: 0 var(--space-16); font-size: var(--text-meta); font-weight: var(--weight-semibold); white-space: nowrap; transition: background-color var(--motion-state) var(--ease-flow); }
+.calbtn-g { color: var(--color-ink); }
+.calbtn-g .i { width: 16px; height: 16px; }
+.calbtn-ics { color: var(--color-ink-2); padding: 0 var(--space-12); background: var(--color-hair); }
+.calbtn-g:hover, .calbtn-ics:hover { background: var(--color-hair); color: var(--color-ink); }
+.calbtn :focus-visible { outline-offset: -3px; border-radius: var(--radius-full); }
+.card-photo .calbtn { background: oklch(0.99 0 0 / 0.16); }
+.card-photo .calbtn-g, .card-photo .calbtn-ics { color: var(--card-ink-on-photo); }
+.card-photo .calbtn-ics { background: oklch(0.99 0 0 / 0.10); }
+.events li { display: flex; flex-direction: column; gap: var(--space-8); }
+.events .calbtn { align-self: flex-start; margin-left: calc(48px + var(--space-12)); }
+.tile-live > .calbtn { align-self: flex-start; }
+
+/* Repository controls: the sort switch's segmented pill, work areas as filter chips */
+.repo-ctl { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.seg { display: inline-flex; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-full); background: var(--color-fill); max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.seg::-webkit-scrollbar { display: none; }
+.seg-b {
+  min-height: 32px; padding: 0 var(--space-12); border-radius: var(--radius-full); white-space: nowrap;
+  font-size: var(--text-meta); font-weight: var(--weight-medium); color: var(--color-ink-2);
+  transition: background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow);
+}
+.seg-b:hover { color: var(--color-ink); }
+.seg-b[aria-pressed="true"] { background: var(--card-bg); color: var(--color-ink); font-weight: var(--weight-semibold); }
+.seg-quiet { background: transparent; padding: 0; }
+.seg-quiet .seg-b[aria-pressed="true"] { background: var(--color-fill); }
+.area-chips { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.area-chip {
+  display: inline-flex; align-items: center; gap: var(--space-8); min-height: 36px; padding: 0 var(--space-12);
+  border-radius: var(--radius-full); background: var(--color-fill); color: var(--color-ink-2);
+  font-size: var(--text-meta); font-weight: var(--weight-medium); white-space: nowrap;
+}
+.area-chip .count { color: var(--color-ink-3); font-size: var(--text-micro); }
+.area-chip:hover { color: var(--color-ink); }
+.area-chip[aria-pressed="true"] { background: var(--color-ink); color: var(--color-canvas); }
+.area-chip[aria-pressed="true"] .count { color: var(--color-fill); }
+.repo-note { white-space: normal; }
+.repo-empty { white-space: normal; }
+.repo-cell { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: var(--space-4); }
+.tile-repos.is-full { grid-column: 1 / -1; }
+.tile-repos.is-full .repo-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-16) var(--space-24); }
+
+/* Saved items that left the snapshot */
+.tile-saved { grid-column: 1 / -1; }
+.tile-saved .tile-note { white-space: normal; }
+.saved-list { display: flex; flex-direction: column; gap: var(--space-8); }
+.saved-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: var(--space-12); }
+.saved-list a { font-size: var(--text-small); font-weight: var(--weight-semibold); overflow-wrap: anywhere; }
+.saved-list a:hover { color: var(--color-accent); }
+.saved-at { font-size: var(--text-meta); color: var(--color-ink-3); white-space: nowrap; }
+
+/* Sources, the live layer, and how the page works */
+.src-panel { margin-top: var(--space-64); background: var(--card-bg); border-radius: var(--feed-radius); padding: var(--space-24); display: flex; flex-direction: column; gap: var(--space-12); }
+.src-note, .src-foot { font-size: var(--text-small); color: var(--color-ink-2); max-width: 90ch; }
+.src-sub { font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2); margin-top: var(--space-8); }
+.src-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-8) var(--space-24); }
+.src-list li { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-4) var(--space-8); min-height: 32px; font-size: var(--text-meta); min-width: 0; }
+.src-list a { font-weight: var(--weight-semibold); color: var(--color-ink); overflow-wrap: anywhere; min-width: 0; }
+.src-list a:hover { color: var(--color-accent); }
+.src-n { margin-left: auto; color: var(--color-ink-3); white-space: nowrap; }
+.src-list .is-bad .src-n { color: var(--color-warn); }
+.src-err { flex-basis: 100%; color: var(--color-ink-3); }
+.src-wait { color: var(--color-ink-3); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-ink-3); flex: none; }
+.dot.ok { background: var(--color-ok); }
+.dot.warn { background: var(--color-warn); }
+#keys-open { align-self: flex-start; }
+
+/* Keyboard shortcuts */
+.keys {
+  border: 0; padding: var(--space-24); border-radius: var(--feed-radius); width: min(420px, calc(100vw - var(--space-32)));
+  background: var(--card-bg); color: var(--color-ink); box-shadow: var(--shadow-sheet);
+}
+.keys::backdrop { background: var(--color-scrim); }
+.keys-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-16); }
+.keys-top h2 { font-size: var(--text-tile); }
+.keys dl { display: grid; grid-template-columns: auto 1fr; gap: var(--space-8) var(--space-16); margin: 0; font-size: var(--text-small); }
+.keys dd { margin: 0; color: var(--color-ink-2); }
+kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); border-radius: var(--radius-8); background: var(--color-fill); font-family: var(--family-mono); font-size: var(--text-meta); text-align: center; }
+
+/* ==========================================================================
    TABLET (768 to 1199): six columns, story cards three across.
    ========================================================================== */
 @media (max-width: 1199px) and (min-width: 768px){
@@ -557,4 +723,33 @@ ul, ol { padding: 0; list-style: none; }
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   .feed-card:hover .media-img, .tile-video:hover img, .repo:hover .repo-img img { transform: none; }
+}
+
+/* ==========================================================================
+   BAR AND CARRIED-OVER PARTS ON NARROWER SCREENS (05/10)
+   ========================================================================== */
+@media (max-width: 1099px){
+  .tc-link{padding:0}
+  .tc-link .tc-label{display:none}
+}
+@media (max-width: 767px){
+  /* Row one: brand, edition, search, theme. Row two: the filters, scrolling sideways. */
+  .feed-bar-in { column-gap: var(--space-8); }
+  .feed-brand { order: 1; flex: 1; }
+  .ed-link { order: 2; min-height: 44px; }
+  .tc-link { order: 3; min-height: 44px; min-width: 44px; }
+  .theme-btn { order: 4; }
+  .feed-filters { order: 5; }
+  /* The bar wraps to two rows on a phone, so the fresh pill sits above the thumb instead of under the bar. */
+  .fresh { top: auto; bottom: calc(var(--space-16) + env(safe-area-inset-bottom, 0px)); }
+  .tile-repos.is-full .repo-row { display: flex; flex-direction: column; }
+  .src-panel { padding: var(--space-16); margin-top: var(--space-48); }
+  .src-list { grid-template-columns: minmax(0, 1fr); }
+  .events .calbtn { margin-left: 0; }
+  .calbtn-g, .calbtn-ics, .seg-b, .area-chip, .cov-btn { min-height: 44px; }
+  .saved-list li { grid-template-columns: minmax(0, 1fr) auto; }
+  .saved-at { display: none; }
+}
+@media (pointer: coarse){
+  .cov-btn, .seg-b, .area-chip, .calbtn-g, .calbtn-ics, .ed-link, .tc-link { min-height: 44px; }
 }

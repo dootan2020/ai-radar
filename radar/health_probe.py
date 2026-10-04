@@ -14,7 +14,9 @@ from radar.items import instant
 from radar.publication import STALE_AFTER_SECONDS
 
 SITE_URL = "https://dootan2020.github.io/ai-radar/"
-PRIMARY_ASSETS = ("tokens.css", "styles.css", "app.js")
+BENTO_ASSETS = ("tokens.css", "styles.css", "app.js")
+FEED_ASSETS = ("tokens.css", "feed.css", "feed.js")
+PRIMARY_ASSETS = FEED_ASSETS
 MAX_BYTES = 8 * 1024 * 1024
 REQUEST_TIMEOUT = 10
 PROBE_TIMEOUT = 60
@@ -92,7 +94,7 @@ class Homepage(HTMLParser):
         attrs = dict(attributes)
         if tag == "meta" and attrs.get("property") == "og:site_name" and attrs.get("content") == "ai·radar":
             self.markers.add("identity")
-        if (tag, attrs.get("id")) in (("main", "top"), ("section", "board")):
+        if (tag, attrs.get("id")) in (("main", "top"), ("section", "board"), ("section", "feed-grid")):
             self.markers.add(attrs["id"])
         reference = attrs.get("src") if tag == "script" else None
         relations = (attrs.get("rel") or "").split()
@@ -107,8 +109,11 @@ class Homepage(HTMLParser):
                 self.modules.add(url)
             if len(self.assets) > MAX_ASSETS:
                 raise ProbeError("Homepage asset inventory exceeds bounded probe capacity.")
-        if tag == "script" and attrs.get("type") == "module" and url == urljoin(SITE_URL, "app.js"):
-            self.markers.add("app")
+        if tag == "script" and attrs.get("type") == "module":
+            if url == urljoin(SITE_URL, "app.js"):
+                self.markers.add("app")
+            elif url == urljoin(SITE_URL, "feed.js"):
+                self.markers.add("feed")
 
 
 def fetch(url, deadline):
@@ -174,8 +179,8 @@ def probe():
     report = {"checked_at": now.isoformat(), "generated_at": None, "checks": []}
     snapshot_stamp = None
     deadline = monotonic() + PROBE_TIMEOUT
-    assets = {urljoin(SITE_URL, path) for path in PRIMARY_ASSETS}
-    modules = {urljoin(SITE_URL, "app.js")}
+    assets = set()
+    modules = set()
 
     def check(identifier, url, validate):
         try:
@@ -190,9 +195,12 @@ def probe():
     def homepage(raw):
         page = Homepage()
         page.feed(raw.decode("utf-8"))
-        if page.markers != {"identity", "top", "board", "app"}:
+        is_bento = page.markers == {"identity", "top", "board", "app"}
+        is_feed = page.markers == {"identity", "top", "feed-grid", "feed"}
+        if not (is_bento or is_feed):
             raise ProbeError("Homepage identity or required page markers missing.")
-        required = {urljoin(SITE_URL, path) for path in PRIMARY_ASSETS}
+        required_names = BENTO_ASSETS if is_bento else FEED_ASSETS
+        required = {urljoin(SITE_URL, path) for path in required_names}
         if not required <= page.assets:
             raise ProbeError("Homepage is missing a primary stylesheet or script reference.")
         if len(assets | page.assets) > MAX_ASSETS:
