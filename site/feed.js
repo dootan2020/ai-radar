@@ -249,9 +249,9 @@ function titleOf(st) {
   for (const c of st.coverage || []) if (ok(c.title, c.title_vi)) return { text: c.title_vi.trim(), orig: c.title, cov: c };
   return { text: String(st.title || ''), orig: null, cov: null };
 }
-/* Under a translated headline: a "dịch máy" chip, a gap, then the original. Never glued together. */
+/* Under a translated headline: a "Translated" chip, a gap, then the original. Never glued together. */
 const origLine = t => !t.orig ? '' :
-  `<p class="card-orig"><span class="mt" title="Tiêu đề được dịch máy; dòng này là tiêu đề gốc">dịch máy</span><span class="sr">Tiêu đề gốc: </span><span class="orig-text"${langAttr(t.orig)}>${esc(t.orig)}</span></p>`;
+  `<p class="card-orig"><span class="mt" title="Tiêu đề được dịch máy; dòng này là tiêu đề gốc">Translated</span><span class="sr">Tiêu đề gốc: </span><span class="orig-text"${langAttr(t.orig)}>${esc(t.orig)}</span></p>`;
 
 /* ==========================================================================
    "ĐÁNG ĐỌC": WHAT TO READ FIRST
@@ -385,11 +385,24 @@ const pinFirst = (a, b) => (PICKS.has(b.id) ? 1 : 0) - (PICKS.has(a.id) ? 1 : 0)
 const ordered = list => [...list].sort((a, b) => pinFirst(a, b) || (sortMode === 'new' ? byNew : byWorth)(a, b));
 
 function choosePicks() {
-  const out = [...PICKS.keys()].map(id => STORY.get(id)).filter(Boolean).slice(0, WORTH.picksMax);
-  const auto = allStories.filter(st => !PICKS.has(st.id) && worthOf(st).evidence).sort(byWorth);
-  for (const st of auto) {
-    if (out.length >= WORTH.picksMax) break;
+  const out = [...PICKS.keys()].map(id => STORY.get(id)).filter(Boolean).slice(0, 3);
+  const candidates = allStories.filter(st => !PICKS.has(st.id) && (nSrc(st) >= 2 || firstHandOf(st)) && worthOf(st).evidence).sort(byWorth);
+  if (!out.length) {
+    const photoLeadIndex = candidates.findIndex(st => pickImage(st).kind === 'photo');
+    if (photoLeadIndex >= 0) {
+      out.push(candidates.splice(photoLeadIndex, 1)[0]);
+    }
+  }
+  for (const st of candidates) {
+    if (out.length >= 3) break;
     if (!out.some(o => sameEvent(o, st))) out.push(st);
+  }
+  if (out.length < 3) {
+    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && worthOf(st).evidence).sort(byWorth);
+    for (const st of fallback) {
+      if (out.length >= 3) break;
+      if (!out.some(o => sameEvent(o, st))) out.push(st);
+    }
   }
   return out;
 }
@@ -843,16 +856,18 @@ function renderPicks() {
   const show = filter === 'all' && PICKLIST.length > 0;
   $('#picks').hidden = !show;
   if (!show) return;
-  const [first, ...rest] = PICKLIST;
+  const [first, ...mid] = PICKLIST;
   const nEd = PICKLIST.filter(st => PICKS.has(st.id)).length;
-  // Says who chose what, every time: automatic picks are never presented as an editor's.
-  $('#picks-note').textContent = !nEd ? 'chấm tự động theo số đo, không phải do người chọn'
-    : nEd === PICKLIST.length ? 'do biên tập chọn'
-    : `${nEd} tin do biên tập chọn, ${PICKLIST.length - nEd} tin chấm tự động theo số đo`;
+  const noteEl = $('#picks-note');
+  if (noteEl) {
+    noteEl.textContent = !nEd ? 'chấm tự động theo số đo, không phải do người chọn'
+      : nEd === PICKLIST.length ? 'do biên tập chọn'
+      : `${nEd} tin do biên tập chọn, ${PICKLIST.length - nEd} tin chấm tự động theo số đo`;
+  }
   const grid = $('#picks-grid');
-  grid.classList.toggle('is-solo', !rest.length);
-  grid.innerHTML = renderCard(first, 'lead', { rank: 1, why: true, h: 'h3' })
-    + (rest.length ? `<ol class="tile picks-list" start="2" aria-label="Đáng đọc tiếp theo">${rest.map((st, i) => pickRow(st, i + 2)).join('')}</ol>` : '');
+  grid.innerHTML = renderCard(first, 'lead', { why: true, h: 'h3' })
+    + (mid.length ? `<div class="picks-mid">${mid.map(st => renderCard(st, 'std', { h: 'h3' })).join('')}</div>` : '')
+    + renderLive();
 }
 
 /* "Cách chấm": written from WORTH, so the note always matches the code. */
@@ -891,29 +906,87 @@ function rows(river, out) {
 
 function buildAll() {
   const out = [], used = new Set(PICKLIST.map(st => st.id));
-  // The hot tile skips what the block already shows, including the same event under another headline.
-  HOT = allStories.filter(st => !used.has(st.id) && st.hot_score > 0 && !PICKLIST.some(p => sameEvent(p, st)))
+
+  // --- Khối 2: Cộng đồng đang tranh luận ---
+  HOT = allStories.filter(st => !used.has(st.id) && (st.hot_score || 0) > 0 && !PICKLIST.some(p => sameEvent(p, st)))
     .sort((a, b) => b.hot_score - a.hot_score).slice(0, 5);
   HOT.forEach(st => used.add(st.id));
-  const river = ordered(allStories.filter(st => !used.has(st.id)));
-  // Another headline for an event the block already shows would read as a repeat right under it: it keeps its place
-  // in the feed but starts after the opening rows (six cards, the two tiles, four cards). "Mới nhất" stays by time.
-  const twins = sortMode === 'new' ? [] : river.filter(st => PICKLIST.some(p => sameEvent(p, st)));
-  if (twins.length) {
-    const rest = river.filter(st => !twins.includes(st));
-    river.splice(0, river.length, ...rest.slice(0, 10), ...twins, ...rest.slice(10));
+
+  const discussions = allStories.filter(st => !used.has(st.id) && (st.kind === 'forum' || (st.hot_score || 0) > 0))
+    .sort((a, b) => (b.hot_score || 0) - (a.hot_score || 0) || ms(b.published_at) - ms(a.published_at));
+  const debateCards = [];
+  for (const st of discussions) {
+    if (debateCards.length >= 2) break;
+    if (!HOT.some(h => sameEvent(h, st))) {
+      debateCards.push(st);
+      used.add(st.id);
+    }
   }
 
-  out.push({ t: 'live' });
-  for (let i = 0; i < 6 && river.length; i++) out.push(C(river.shift()));
-  out.push({ t: 'hot' }, { t: 'repos' });
-  for (let i = 0; i < 4 && river.length; i++) out.push(C(river.shift()));
-  const wi = photoIndex(river);
-  if (wi >= 0) out.push(C(river.splice(wi, 1)[0], 'wide'));
-  else if (river.length) out.push(C(river.shift()));
-  for (let i = 0; i < (wi >= 0 ? 1 : 2) && river.length; i++) out.push(C(river.shift()));
+  out.push({
+    t: 'section-head',
+    id: 'sec-tranh-luan',
+    title: 'Cộng đồng đang tranh luận',
+    badge: 'Điểm nóng cao',
+    sub: 'Các chủ đề thu hút nhiều thảo luận và tốc độ quan tâm đột biến trên Hacker News và các diễn đàn.'
+  });
+  out.push({ t: 'hot' });
+  debateCards.forEach(st => out.push(C(st, 'std')));
+
+  // --- Khối 3: Vừa ra mắt & Công bố mới ---
+  const productCandidates = allStories.filter(st => !used.has(st.id) && (st.kind === 'product' || firstHandOf(st)))
+    .sort((a, b) => (sortMode === 'new' ? byNew : byWorth)(a, b));
+  const productCards = [];
+  for (const st of productCandidates) {
+    if (productCards.length >= 4) break;
+    if (!productCards.some(p => sameEvent(p, st))) {
+      productCards.push(st);
+      used.add(st.id);
+    }
+  }
+
+  if (productCards.length) {
+    out.push({
+      t: 'section-head',
+      id: 'sec-ra-mat',
+      title: 'Vừa ra mắt & Công bố mới',
+      badge: 'Sản phẩm & Tính năng',
+      sub: 'Các sản phẩm, tính năng và công bố chính thức từ các hãng và phòng nghiên cứu.'
+    });
+    const wi = photoIndex(productCards);
+    if (wi >= 0 && productCards.length >= 3) {
+      out.push(C(productCards.splice(wi, 1)[0], 'wide'));
+      productCards.slice(0, 2).forEach(st => out.push(C(st, 'std')));
+    } else {
+      productCards.forEach(st => out.push(C(st, 'std')));
+    }
+  }
+
+  // --- Khối 4: Kho mã & Mô hình đáng thử ---
+  out.push({
+    t: 'section-head',
+    id: 'sec-kho-ma',
+    title: 'Kho mã & Mô hình đáng thử',
+    badge: 'Thực hành ngay',
+    sub: 'Kho mã nguồn mở tăng sao nhanh nhất trên GitHub và mô hình thịnh hành trên Hugging Face.'
+  });
+  out.push({ t: 'repos' });
   out.push({ t: 'models' });
-  return rows(river, out);
+
+  // --- Khối 5: Dòng tin 72 giờ qua ---
+  const river = ordered(allStories.filter(st => !used.has(st.id)));
+  if (river.length) {
+    out.push({
+      t: 'section-head',
+      id: 'sec-dong-tin',
+      title: 'Dòng tin 72 giờ qua',
+      badge: 'Theo dõi liên tục',
+      sub: 'Toàn bộ diễn biến khác trong 72 giờ qua, cập nhật liên tục từ các nguồn tin độc lập.'
+    });
+    rows(river, out);
+  }
+
+  return out;
 }
 
 const FILTERS = {
@@ -977,6 +1050,16 @@ function renderSavedRest() {
       <button class="act is-saved" data-act="save" data-id="${esc(x.key)}" aria-pressed="true" aria-label="Bỏ lưu ${esc(x.title || '')}" title="Bỏ lưu">${icon('i-close')}</button></li>`).join('')}</ul></section>`;
 }
 
+function renderSectionHead(it) {
+  return `<header class="briefing-head" id="${esc(it.id || '')}">
+    <div class="briefing-title-row">
+      <h2 class="briefing-title">${esc(it.title)}</h2>
+      <span class="briefing-badge">${esc(it.badge)}</span>
+    </div>
+    <p class="briefing-sub">${esc(it.sub)}</p>
+  </header>`;
+}
+
 function renderItem(it) {
   if (it.t === 'card') return renderCard(it.st, it.size);
   if (it.t === 'live') return renderLive();
@@ -985,6 +1068,7 @@ function renderItem(it) {
   if (it.t === 'repos-full') return renderRepos(true);
   if (it.t === 'models') return renderModels();
   if (it.t === 'saved-rest') return renderSavedRest();
+  if (it.t === 'section-head') return renderSectionHead(it);
   return '';
 }
 
@@ -1218,10 +1302,11 @@ function translationNote() {
 function footHTML() {
   const r = D.ranking;
   const rank = r ? `Xếp hạng nóng: ${esc(r.description || 'xếp theo số đo của từng nguồn')}, cửa sổ ${esc(r.window_hours)} giờ${r.description && r.calibration ? `, hiệu chỉnh: ${esc(r.calibration)}` : ''}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.';
+  const scoring = ' Điểm đáng đọc được tính tự động từ 4 tín hiệu số đo (độ chú ý, độ lan rộng nhiều nguồn, độ mới và công bố gốc), không có điểm gõ tay.';
   const views = D.views && Number.isFinite(D.views.total) ? ` Lượt xem trên ai-radar: <span class="num">${fmt(D.views.total)}</span>, đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie.` : '';
   const local = storageOk ? 'Mốc đã xem, tin đã đọc, tin đã lưu và lựa chọn của bạn chỉ lưu trên máy này.'
     : 'Trình duyệt đang chặn bộ nhớ cục bộ, nên mốc đã xem, tin đã lưu và lựa chọn của bạn chỉ giữ tới khi đóng trang.';
-  return `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${rank} ${translationNote()}${views} ${local}`;
+  return `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${rank}${scoring} ${translationNote()}${views} ${local}`;
 }
 function renderSources() {
   const srcs = asArray(D.sources), bad = srcs.filter(s => !s.ok);
@@ -1415,13 +1500,17 @@ function attachEvents() {
     if (filter === 'all') markSeen();
     else toast('Đã đánh dấu nhóm này đã xem');
   });
-  $('#sort-switch').addEventListener('click', e => { const b = e.target.closest('.sort-btn'); if (b) setSort(b.dataset.sort); });
-  $('#how-btn').addEventListener('click', () => {
-    const panel = $('#how-panel'), open = panel.hidden;
-    panel.hidden = !open;
-    $('#how-btn').setAttribute('aria-expanded', String(open));
-    $('#how-btn').textContent = open ? 'Ẩn cách chấm' : 'Cách chấm';
-  });
+  const howBtn = $('#how-btn');
+  if (howBtn) {
+    howBtn.addEventListener('click', () => {
+      const panel = $('#how-panel');
+      if (!panel) return;
+      const open = panel.hidden;
+      panel.hidden = !open;
+      howBtn.setAttribute('aria-expanded', String(open));
+      howBtn.textContent = open ? 'Ẩn cách chấm' : 'Cách chấm';
+    });
+  }
   $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
   document.addEventListener('click', onClick);
   document.addEventListener('auxclick', e => { if (e.button === 1) onOpenLink(e); });

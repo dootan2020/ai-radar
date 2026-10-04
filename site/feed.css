@@ -143,10 +143,10 @@ ul, ol { padding: 0; list-style: none; }
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--feed-gap); grid-auto-flow: row; align-items: stretch;   /* no "dense": visual order = reading order */
 }
-.card-std, .tile-models { grid-column: span 3; }
+.card-std { grid-column: span 3; }
 .card-lead { grid-column: span 6; grid-row: span 2; }
 .tile-live { grid-column: span 3; grid-row: span 2; }
-.card-wide, .tile-hot, .tile-repos { grid-column: span 6; }
+.card-wide, .tile-hot, .tile-repos, .tile-models { grid-column: span 6; }
 
 /* ---------- the card: a surface, a picture, words. Nothing drawn around it. ---------- */
 .feed-card {
@@ -388,12 +388,81 @@ ul, ol { padding: 0; list-style: none; }
 .sort-btn:active { transform: scale(0.98); }
 .sort-btn[aria-pressed="true"] { background: var(--card-bg); color: var(--color-ink); font-weight: var(--weight-semibold); }
 
+/* Briefing section headers */
+.briefing-head {
+  grid-column: 1 / -1;
+  margin-top: var(--space-48);
+  margin-bottom: var(--space-12);
+}
+.briefing-head:first-child {
+  margin-top: var(--space-8);
+}
+.briefing-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+.briefing-title {
+  font-size: var(--text-feature);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
+  color: var(--color-ink);
+}
+.briefing-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--color-fill);
+  color: var(--color-ink-2);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+}
+.briefing-sub {
+  font-size: var(--text-small);
+  color: var(--color-ink-2);
+  margin-top: var(--space-4);
+  max-width: 70ch;
+}
+
+/* Block 1: Nhiều nguồn cùng đưa */
+.block-head {
+  margin-bottom: var(--space-16);
+}
+.block-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+.block-title {
+  font-size: var(--text-feature);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
+  color: var(--color-ink);
+}
+.block-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--color-accent-wash);
+  color: var(--color-accent);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+}
+.block-sub {
+  font-size: var(--text-small);
+  color: var(--color-ink-2);
+  margin-top: var(--space-4);
+  max-width: 70ch;
+}
+
 /* The block */
 .picks { margin-bottom: var(--picks-gap); }
-.picks-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-8) var(--space-16); margin-bottom: var(--space-16); }
-.picks-title { font-size: var(--text-tile); font-weight: var(--weight-bold); letter-spacing: var(--tracking-display); line-height: var(--leading-tight); }
-.picks-note { font-size: var(--text-meta); color: var(--color-ink-3); }
-.how-btn { margin-left: auto; min-height: 44px; font-size: var(--text-small); }
 .how-panel {
   background: var(--card-bg); border-radius: var(--feed-radius); padding: var(--space-24); margin-bottom: var(--space-16);
   display: flex; flex-direction: column; gap: var(--space-12); font-size: var(--text-small); color: var(--color-ink-2);
@@ -402,20 +471,32 @@ ul, ol { padding: 0; list-style: none; }
 .how-list { display: flex; flex-direction: column; gap: var(--space-8); }
 .how-panel b { color: var(--color-ink); font-weight: var(--weight-semibold); }
 
-.picks-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--feed-gap); }
-.picks-grid > .feed-card.card-lead { grid-column: span 6; grid-row: auto; }
-.picks-grid.is-solo > .feed-card.card-lead { grid-column: 1 / -1; }
-.picks-list { grid-column: span 6; justify-content: space-between; }
-.pick-row { grid-template-columns: var(--thumb-pick-w) 28px minmax(0, 1fr); min-height: 0; }
-.thumb.pick-thumb { width: var(--thumb-pick-w); height: auto; aspect-ratio: 16 / 9; }
-.pick-row .hot-title { font-size: var(--text-body); }
-.pick-row .hot-text { gap: var(--space-4); }
-.pick-note { font-size: var(--text-meta); color: var(--color-ink-2); }
-.tag {
-  display: inline-flex; margin-right: var(--space-8); padding: 0 var(--space-8); border-radius: var(--radius-full);
-  font-size: var(--text-micro); font-weight: var(--weight-semibold);
+.picks-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--feed-gap);
+  align-items: stretch;
 }
-.tag.is-editor { background: var(--color-accent-wash); color: var(--color-accent); }
+.picks-grid > .feed-card.card-lead {
+  grid-column: span 6;
+  grid-row: span 2;
+  min-height: var(--lead-min-h);
+}
+.picks-mid {
+  grid-column: span 3;
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--feed-gap);
+}
+.picks-mid > .feed-card {
+  flex: 1;
+  min-width: 0;
+}
+.picks-grid > .tile-live {
+  grid-column: span 3;
+  grid-row: span 2;
+}
 
 /* The rank of the block's lead, at the head of its source line */
 .pick-n { font-size: var(--size-21); font-weight: var(--weight-bold); line-height: 1; letter-spacing: var(--tracking-number); color: var(--color-ink); margin-right: var(--space-4); }
@@ -663,9 +744,11 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .card-wide { grid-column: span 4; }
   .tile-hot, .tile-repos { grid-column: span 6; }
 }
-/* "Đáng đọc hôm nay" puts the lead and the ranked tile side by side only where the rows still have room to read. */
 @media (max-width: 1199px){
-  .picks-grid > .feed-card.card-lead, .picks-list { grid-column: 1 / -1; }
+  .picks-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .picks-grid > .feed-card.card-lead { grid-column: 1 / -1; }
+  .picks-mid { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--feed-gap); }
+  .picks-grid > .tile-live { grid-column: 1 / -1; }
 }
 
 /* ==========================================================================
@@ -703,14 +786,16 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .model-img { grid-row: 1 / span 2; }
   .toast-container { left: var(--space-16); right: var(--space-16); bottom: var(--space-16); align-items: center; }
 
-  /* "Đáng đọc": the block first, one column; rows keep the hot tile's square 72 px picture */
-  :root { --picks-gap: var(--space-32); --thumb-pick-w: var(--thumb-hot); }
+  /* Briefing headers and picks on phone */
+  :root { --picks-gap: var(--space-32); }
   .sort-switch { margin-left: 0; }
   .sort-btn { min-height: 40px; }
-  .picks-note { order: 3; flex-basis: 100%; }
-  .picks-grid { display: flex; flex-direction: column; }
-  .thumb.pick-thumb { aspect-ratio: 1; }
-  .pick-row .hot-title { -webkit-line-clamp: 3; }
+  .picks-grid { display: flex; flex-direction: column; gap: var(--feed-gap); }
+  .picks-mid { display: flex; flex-direction: column; gap: var(--feed-gap); }
+  .picks-grid > .feed-card.card-lead { min-height: 0; aspect-ratio: 4 / 5; }
+  .briefing-head { margin-top: var(--space-32); margin-bottom: var(--space-8); }
+  .briefing-title { font-size: var(--text-tile); }
+  .block-title { font-size: var(--text-tile); }
   .how-panel { padding: var(--space-16); }
 }
 

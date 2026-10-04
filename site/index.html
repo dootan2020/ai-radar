@@ -115,16 +115,18 @@
     </div>
   </div>
 
-  <!-- "Đáng đọc hôm nay": 3 to 5 stories ranked by measured signals (feed.js, WORTH), each with its reason in numbers.
-       Only entries of editor-picks.json may carry "Biên tập chọn"; everything else here is computed. -->
+  <!-- Khối 1: Nhiều nguồn cùng đưa - các sự kiện lớn được nhiều cơ quan báo chí và phòng nghiên cứu độc lập cùng xác nhận -->
   <section class="picks" id="picks" aria-labelledby="picks-h" hidden>
-    <div class="picks-head">
-      <h2 class="picks-title" id="picks-h">Đáng đọc hôm nay</h2>
-      <p class="picks-note" id="picks-note"></p>
-      <button class="text-btn how-btn" id="how-btn" aria-expanded="false" aria-controls="how-panel">Cách chấm</button>
+    <div class="block-head">
+      <div class="block-title-row">
+        <h2 class="block-title" id="picks-h">Nhiều nguồn cùng đưa</h2>
+        <span class="block-badge">Độ lan rộng cao</span>
+      </div>
+      <p class="block-sub" id="picks-sub">Các sự kiện lớn được từ 2 đến 4 nguồn tin độc lập cùng xác nhận trong 72 giờ qua.</p>
+      <span class="sr" id="picks-note"></span>
     </div>
-    <div class="how-panel" id="how-panel" hidden></div>
     <div class="picks-grid" id="picks-grid"></div>
+    <div class="how-panel" id="how-panel" hidden></div>
   </section>
 
   <section class="feed-grid" id="feed-grid" aria-label="Dòng tin">
