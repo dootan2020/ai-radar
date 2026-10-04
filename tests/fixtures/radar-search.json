@@ -1,0 +1,4089 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-10-04T15:00:56Z",
+  "story_count": 305,
+  "sources": [
+    {
+      "id": "404media",
+      "name": "404 Media",
+      "publisher": "404-media",
+      "lab": ""
+    },
+    {
+      "id": "ai-news",
+      "name": "AI News",
+      "publisher": "smol-ai",
+      "lab": ""
+    },
+    {
+      "id": "anthropic-engineering",
+      "name": "Anthropic Engineering (nguồn cộng đồng)",
+      "publisher": "anthropic",
+      "lab": "anthropic"
+    },
+    {
+      "id": "anthropic-gftdon",
+      "name": "Anthropic News (nguồn cộng đồng gftdon)",
+      "publisher": "anthropic",
+      "lab": "anthropic"
+    },
+    {
+      "id": "anthropic-news",
+      "name": "Anthropic News (nguồn cộng đồng)",
+      "publisher": "anthropic",
+      "lab": "anthropic"
+    },
+    {
+      "id": "anthropic-research",
+      "name": "Anthropic Research (nguồn cộng đồng)",
+      "publisher": "anthropic",
+      "lab": "anthropic"
+    },
+    {
+      "id": "anthropic-youtube",
+      "name": "Anthropic YouTube",
+      "publisher": "anthropic",
+      "lab": "anthropic"
+    },
+    {
+      "id": "ars-ai",
+      "name": "Ars Technica AI",
+      "publisher": "ars-technica",
+      "lab": ""
+    },
+    {
+      "id": "aws-ml-blog",
+      "name": "AWS Machine Learning Blog",
+      "publisher": "amazon",
+      "lab": "amazon"
+    },
+    {
+      "id": "bloomberg-tech",
+      "name": "Bloomberg Technology",
+      "publisher": "bloomberg",
+      "lab": ""
+    },
+    {
+      "id": "claude-code-changelog",
+      "name": "Claude Code · CHANGELOG",
+      "publisher": "anthropic",
+      "lab": "anthropic"
+    },
+    {
+      "id": "claude-code-feed",
+      "name": "Claude Code · official changelog feed",
+      "publisher": "anthropic",
+      "lab": "anthropic"
+    },
+    {
+      "id": "cnbc-tech",
+      "name": "CNBC Tech",
+      "publisher": "cnbc",
+      "lab": ""
+    },
+    {
+      "id": "codex-changelog",
+      "name": "Codex · official changelog",
+      "publisher": "openai",
+      "lab": "openai"
+    },
+    {
+      "id": "curated-events",
+      "name": "Lịch sự kiện đã xác minh",
+      "publisher": "curated-events",
+      "lab": ""
+    },
+    {
+      "id": "deepmind-youtube",
+      "name": "Google DeepMind YouTube",
+      "publisher": "google",
+      "lab": "google"
+    },
+    {
+      "id": "deepseek-hf",
+      "name": "deepseek-ai / Hugging Face",
+      "publisher": "huggingface",
+      "lab": "deepseek"
+    },
+    {
+      "id": "dwarkesh-podcast",
+      "name": "Dwarkesh Podcast",
+      "publisher": "dwarkesh",
+      "lab": ""
+    },
+    {
+      "id": "dwarkesh-video",
+      "name": "Video Dwarkesh",
+      "publisher": "dwarkesh",
+      "lab": ""
+    },
+    {
+      "id": "fedscoop",
+      "name": "FedScoop",
+      "publisher": "fedscoop",
+      "lab": ""
+    },
+    {
+      "id": "genk-ai",
+      "name": "GenK AI",
+      "publisher": "genk",
+      "lab": ""
+    },
+    {
+      "id": "github-ai",
+      "name": "Kho mã AI mới trên GitHub",
+      "publisher": "github",
+      "lab": ""
+    },
+    {
+      "id": "github-trending",
+      "name": "Thịnh hành trên GitHub",
+      "publisher": "github",
+      "lab": ""
+    },
+    {
+      "id": "google-ai",
+      "name": "Google AI",
+      "publisher": "google",
+      "lab": "google"
+    },
+    {
+      "id": "google-deepmind",
+      "name": "Google DeepMind",
+      "publisher": "google",
+      "lab": "google"
+    },
+    {
+      "id": "google-hf",
+      "name": "google / Hugging Face",
+      "publisher": "huggingface",
+      "lab": "google"
+    },
+    {
+      "id": "google-youtube",
+      "name": "Google YouTube",
+      "publisher": "google",
+      "lab": "google"
+    },
+    {
+      "id": "hf-models-ranked",
+      "name": "Mô hình thịnh hành trên Hugging Face",
+      "publisher": "huggingface",
+      "lab": ""
+    },
+    {
+      "id": "hf-papers",
+      "name": "Hugging Face Daily Papers",
+      "publisher": "huggingface",
+      "lab": ""
+    },
+    {
+      "id": "hf-spaces-ranked",
+      "name": "Space thịnh hành trên Hugging Face",
+      "publisher": "huggingface",
+      "lab": ""
+    },
+    {
+      "id": "hf-trending",
+      "name": "Thịnh hành trên Hugging Face",
+      "publisher": "huggingface",
+      "lab": "huggingface"
+    },
+    {
+      "id": "hn-ai",
+      "name": "Hacker News",
+      "publisher": "hacker-news",
+      "lab": ""
+    },
+    {
+      "id": "hn-front",
+      "name": "Hacker News",
+      "publisher": "hacker-news",
+      "lab": ""
+    },
+    {
+      "id": "huggingface-blog",
+      "name": "Hugging Face Blog",
+      "publisher": "huggingface",
+      "lab": "huggingface"
+    },
+    {
+      "id": "import-ai",
+      "name": "Import AI",
+      "publisher": "import-ai",
+      "lab": ""
+    },
+    {
+      "id": "interconnects",
+      "name": "Interconnects",
+      "publisher": "interconnects",
+      "lab": ""
+    },
+    {
+      "id": "latent-space",
+      "name": "Latent Space",
+      "publisher": "latent-space",
+      "lab": ""
+    },
+    {
+      "id": "lobsters-ai",
+      "name": "Lobsters AI",
+      "publisher": "lobsters",
+      "lab": ""
+    },
+    {
+      "id": "meta-hf",
+      "name": "meta-llama / Hugging Face",
+      "publisher": "huggingface",
+      "lab": "meta"
+    },
+    {
+      "id": "meta-news",
+      "name": "Meta AI (nguồn cộng đồng)",
+      "publisher": "meta",
+      "lab": "meta"
+    },
+    {
+      "id": "meta-newsroom",
+      "name": "Meta Newsroom",
+      "publisher": "meta",
+      "lab": "meta"
+    },
+    {
+      "id": "microsoft-blog",
+      "name": "Official Microsoft Blog",
+      "publisher": "microsoft",
+      "lab": "microsoft"
+    },
+    {
+      "id": "microsoft-research",
+      "name": "Microsoft Research",
+      "publisher": "microsoft",
+      "lab": "microsoft"
+    },
+    {
+      "id": "mistral-hf",
+      "name": "mistralai / Hugging Face",
+      "publisher": "huggingface",
+      "lab": "mistral"
+    },
+    {
+      "id": "mistral-news",
+      "name": "Mistral News (nguồn cộng đồng)",
+      "publisher": "mistral",
+      "lab": "mistral"
+    },
+    {
+      "id": "mit-tech-review",
+      "name": "MIT Technology Review AI",
+      "publisher": "mit-tech-review",
+      "lab": ""
+    },
+    {
+      "id": "nextgov-ai",
+      "name": "Nextgov AI",
+      "publisher": "nextgov",
+      "lab": ""
+    },
+    {
+      "id": "no-priors",
+      "name": "No Priors",
+      "publisher": "no-priors",
+      "lab": ""
+    },
+    {
+      "id": "nvidia-blog",
+      "name": "NVIDIA Technical Blog",
+      "publisher": "nvidia",
+      "lab": "nvidia"
+    },
+    {
+      "id": "nvidia-youtube",
+      "name": "NVIDIA YouTube",
+      "publisher": "nvidia",
+      "lab": "nvidia"
+    },
+    {
+      "id": "openai-hf",
+      "name": "openai / Hugging Face",
+      "publisher": "huggingface",
+      "lab": "openai"
+    },
+    {
+      "id": "openai-news",
+      "name": "OpenAI News",
+      "publisher": "openai",
+      "lab": "openai"
+    },
+    {
+      "id": "openai-youtube",
+      "name": "OpenAI YouTube",
+      "publisher": "openai",
+      "lab": "openai"
+    },
+    {
+      "id": "qwen-hf",
+      "name": "Qwen / Hugging Face",
+      "publisher": "huggingface",
+      "lab": "qwen"
+    },
+    {
+      "id": "restofworld",
+      "name": "Rest of World",
+      "publisher": "rest-of-world",
+      "lab": ""
+    },
+    {
+      "id": "semafor",
+      "name": "Semafor",
+      "publisher": "semafor",
+      "lab": ""
+    },
+    {
+      "id": "simon-willison",
+      "name": "Simon Willison",
+      "publisher": "simon-willison",
+      "lab": ""
+    },
+    {
+      "id": "techcrunch-ai",
+      "name": "TechCrunch AI",
+      "publisher": "techcrunch",
+      "lab": ""
+    },
+    {
+      "id": "technode",
+      "name": "TechNode",
+      "publisher": "technode",
+      "lab": ""
+    },
+    {
+      "id": "thanhnien-cong-nghe",
+      "name": "Thanh Niên Công nghệ",
+      "publisher": "thanh-nien",
+      "lab": ""
+    },
+    {
+      "id": "theregister-ai",
+      "name": "The Register AI/ML",
+      "publisher": "the-register",
+      "lab": ""
+    },
+    {
+      "id": "tuoitre-so",
+      "name": "Tuổi Trẻ Nhịp sống số",
+      "publisher": "tuoi-tre",
+      "lab": ""
+    },
+    {
+      "id": "verge-ai",
+      "name": "The Verge AI",
+      "publisher": "the-verge",
+      "lab": ""
+    },
+    {
+      "id": "vnexpress-so-hoa",
+      "name": "VnExpress Số hóa",
+      "publisher": "vnexpress",
+      "lab": ""
+    },
+    {
+      "id": "vnexpress-tech",
+      "name": "VnExpress International Tech",
+      "publisher": "vnexpress",
+      "lab": ""
+    },
+    {
+      "id": "wired-ai",
+      "name": "Wired AI",
+      "publisher": "wired",
+      "lab": ""
+    },
+    {
+      "id": "xai-hf",
+      "name": "xai-org / Hugging Face",
+      "publisher": "huggingface",
+      "lab": "xai"
+    },
+    {
+      "id": "xai-news",
+      "name": "xAI News (nguồn cộng đồng)",
+      "publisher": "xai",
+      "lab": "xai"
+    }
+  ],
+  "stories": [
+    {
+      "id": "16d7d1f33ea5355f7633",
+      "title": "Religious scholars met with Anthropic",
+      "title_vi": "Các học giả tôn giáo gặp gỡ Anthropic",
+      "url": "https://www.nytimes.com/2026/09/29/us/anthropic-claude-morals-ai.html",
+      "published_at": "2026-10-04T02:34:22Z",
+      "publishers": [
+        "hacker-news"
+      ],
+      "kind": "forum",
+      "search_text": "religious scholars met with anthropic cac hoc gia ton giao gap go anthropic hacker news"
+    },
+    {
+      "id": "84a3b730488c1d452e1f",
+      "title": "OpenAI bị điều tra sau khi AI tự vượt hàng rào bảo mật",
+      "title_vi": "",
+      "url": "https://thanhnien.vn/openai-bi-dieu-tra-sau-khi-ai-tu-vuot-hang-rao-bao-mat-185261003230617808.htm",
+      "published_at": "2026-10-04T01:41:00Z",
+      "publishers": [
+        "thanh-nien"
+      ],
+      "kind": "other",
+      "search_text": "openai bi dieu tra sau khi ai tu vuot hang rao bao mat thanh nien"
+    },
+    {
+      "id": "902a8fe9863c843c0c20",
+      "title": "OpenAI safety leader quits, warning AI company's culture is 'broken'",
+      "title_vi": "",
+      "url": "https://www.theguardian.com/technology/2026/oct/03/openai-safety-leader-quits-warning-ai-companys-culture-is-broken",
+      "published_at": "2026-10-03T22:18:13Z",
+      "publishers": [
+        "hacker-news"
+      ],
+      "kind": "forum",
+      "search_text": "openai safety leader quits warning ai company s culture is broken hacker news"
+    },
+    {
+      "id": "de9c310fd84705537a33",
+      "title": "Anthropic tried to persuade Pope that AI could be conscious being",
+      "title_vi": "Anthropic cố gắng thuyết phục Pope rằng AI có thể là một sinh vật có ý thức",
+      "url": "https://www.telegraph.co.uk/business/2026/10/02/anthropic-lobbied-pope-to-argue-ai-conscious-being/",
+      "published_at": "2026-10-03T19:33:10Z",
+      "publishers": [
+        "hacker-news"
+      ],
+      "kind": "forum",
+      "search_text": "anthropic tried to persuade pope that ai could be conscious being anthropic co gang thuyet phuc pope rang ai co the la mot sinh vat co y thuc hacker news"
+    },
+    {
+      "id": "801ec396652be12bf447",
+      "title": "OpenAI safety employee resigns, claiming the company’s ‘culture is broken’",
+      "title_vi": "",
+      "url": "https://techcrunch.com/2026/10/03/openai-safety-employee-resigns-claiming-the-companys-culture-is-broken/",
+      "published_at": "2026-10-03T16:30:01Z",
+      "publishers": [
+        "techcrunch",
+        "hacker-news"
+      ],
+      "kind": "other",
+      "search_text": "openai safety employee resigns claiming the company s culture is broken techcrunch hacker news"
+    },
+    {
+      "id": "223435e02a13c4aa58a0",
+      "title": "OpenAI Employee Quits With Call for Nuclear-Level Safeguards",
+      "title_vi": "Nhân viên của OpenAI từ chức với yêu cầu bảo vệ cấp độ hạt nhân",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-03/openai-safety-employee-quits-calls-for-nuclear-level-safeguards",
+      "published_at": "2026-10-03T13:13:42Z",
+      "publishers": [
+        "bloomberg",
+        "the-verge"
+      ],
+      "kind": "other",
+      "search_text": "openai employee quits with call for nuclear level safeguards nhan vien cua openai tu chuc voi yeu cau bao ve cap do hat nhan bloomberg the verge"
+    },
+    {
+      "id": "0757a6ee607347643cbe",
+      "title": "How employees forced OpenAI’s president to back down",
+      "title_vi": "Làm thế nào các nhân viên buộc chủ tịch OpenAI phải từ chức",
+      "url": "https://www.semafor.com/article/10/02/2026/how-employees-forced-openais-president-to-back-down",
+      "published_at": "2026-10-02T22:00:23Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "other",
+      "search_text": "how employees forced openai s president to back down lam the nao cac nhan vien buoc chu tich openai phai tu chuc semafor"
+    },
+    {
+      "id": "9c74b8828a2c0cb543e8",
+      "title": "US arrests tech CEO accused of smuggling $300M in Nvidia chips into China",
+      "title_vi": "Hoa Kỳ bắt giữ CEO công nghệ bị cáo buộc buôn lậu 300 triệu đô la chip Nvidia vào Trung Quốc",
+      "url": "https://arstechnica.com/tech-policy/2026/10/us-arrests-tech-ceo-accused-of-smuggling-300m-in-nvidia-chips-into-china/",
+      "published_at": "2026-10-02T18:39:36Z",
+      "publishers": [
+        "ars-technica"
+      ],
+      "kind": "other",
+      "search_text": "us arrests tech ceo accused of smuggling 300m in nvidia chips into china hoa ky bat giu ceo cong nghe bi cao buoc buon lau 300 trieu do la chip nvidia vao trung quoc ars technica"
+    },
+    {
+      "id": "5432f5b94c34f514ec03",
+      "title": "Apple says it’s tightening macOS ‘Full Disk Access’ controls due to new risks from AI agents",
+      "title_vi": "Apple cho biết họ đang thắt chặt các điều khiển 'Full Disk Access' của macOS do những rủi ro mới từ các agent AI",
+      "url": "https://techcrunch.com/2026/10/02/apple-says-its-tightening-macos-full-disk-access-controls-due-to-new-risks-from-ai-agents/",
+      "published_at": "2026-10-02T18:11:27Z",
+      "publishers": [
+        "techcrunch",
+        "the-verge",
+        "ars-technica",
+        "hacker-news"
+      ],
+      "kind": "product",
+      "search_text": "apple says it s tightening macos full disk access controls due to new risks from ai agents apple cho biet ho dang that chat cac dieu khien full disk access cua macos do nhung rui ro moi tu cac agent ai techcrunch the verge ars technica hacker news"
+    },
+    {
+      "id": "b19a7eb5407edebb14dd",
+      "title": "OpenAI’s Dot agent is enterprise software that can also order your dinner",
+      "title_vi": "Agent Dot của OpenAI là phần mềm doanh nghiệp mà cũng có thể đặt bữa ăn tối của bạn",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1004096/openai-chatgpt-dots-hands-on-agent",
+      "published_at": "2026-10-02T18:00:00Z",
+      "publishers": [
+        "the-verge"
+      ],
+      "kind": "product",
+      "search_text": "openai s dot agent is enterprise software that can also order your dinner agent dot cua openai la phan mem doanh nghiep ma cung co the dat bua an toi cua ban the verge"
+    },
+    {
+      "id": "c38af6e5cae43e23a64c",
+      "title": "A model guide for the GPT-6 family",
+      "title_vi": "Một hướng dẫn mô hình cho gia đình GPT-6",
+      "url": "https://openai.com/index/practical-guide-building-gpt-6",
+      "published_at": "2026-10-02T16:15:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "a model guide for the gpt 6 family mot huong dan mo hinh cho gia dinh gpt 6 openai"
+    },
+    {
+      "id": "671418485ac19772ddbf",
+      "title": "OpenAI cáo buộc công ty AI Trung Quốc cố tình \"moi\" phần suy luận ẩn của GPT",
+      "title_vi": "",
+      "url": "https://genk.vn/openai-cao-buoc-cong-ty-ai-trung-quoc-co-tinh-moi-phan-suy-luan-an-cua-gpt-165261002154752239.chn",
+      "published_at": "2026-10-02T15:40:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "other",
+      "search_text": "openai cao buoc cong ty ai trung quoc co tinh moi phan suy luan an cua gpt genk"
+    },
+    {
+      "id": "a08a24d3f61d4df508c8",
+      "title": "The 7-year-old Nvidia Shield TV is now $100 more expensive due to AI",
+      "title_vi": "Nvidia Shield TV 7 năm tuổi bây giờ là $ 100 đắt hơn do AI",
+      "url": "https://arstechnica.com/gadgets/2026/10/the-7-year-old-nvidia-shield-tv-is-now-100-more-expensive-thanks-to-ai/",
+      "published_at": "2026-10-02T14:52:16Z",
+      "publishers": [
+        "ars-technica",
+        "wired"
+      ],
+      "kind": "product",
+      "search_text": "the 7 year old nvidia shield tv is now 100 more expensive due to ai nvidia shield tv 7 nam tuoi bay gio la 100 dat hon do ai ars technica wired"
+    },
+    {
+      "id": "2ebe66d513bf28054992",
+      "title": "Siêu dự án trí tuệ nhân tạo Stargate bất ngờ rơi vào cảnh đình trệ nghiêm trọng vì \"mất điện\"",
+      "title_vi": "",
+      "url": "https://genk.vn/sieu-du-an-tri-tue-nhan-tao-stargate-bat-ngo-roi-vao-canh-dinh-tre-nghiem-trong-vi-mat-dien-165261002102059917.chn",
+      "published_at": "2026-10-02T12:56:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "other",
+      "search_text": "sieu du an tri tue nhan tao stargate bat ngo roi vao canh dinh tre nghiem trong vi mat dien genk"
+    },
+    {
+      "id": "79f2db3a8d463d0bd123",
+      "title": "AI godfather Yann LeCun: Anthropic CEO deluded, doesn't understand cybersecurity",
+      "title_vi": "Cha đẻ của AI Yann LeCun: CEO Anthropic bị lừa dối, không hiểu an ninh mạng",
+      "url": "https://fortune.com/2026/10/01/yann-lecun-anthropic-ceo-dario-amodei-deluded-crazy-cybersecurity/",
+      "published_at": "2026-10-02T06:31:39Z",
+      "publishers": [
+        "hacker-news"
+      ],
+      "kind": "forum",
+      "search_text": "ai godfather yann lecun anthropic ceo deluded doesn t understand cybersecurity cha de cua ai yann lecun ceo anthropic bi lua doi khong hieu an ninh mang hacker news"
+    },
+    {
+      "id": "b6c14612f690d33f5ec8",
+      "title": "Billionaire Forrest Li’s Sea becomes Southeast Asia’s first to use Nvidia’s next-generation AI chips",
+      "title_vi": "Sea của tỷ phú Forrest Li trở thành người đầu tiên ở Đông Nam Á sử dụng chip AI thế hệ tiếp theo của Nvidia",
+      "url": "https://e.vnexpress.net/news/tech/tech-news/billionaire-forrest-li-s-sea-becomes-southeast-asia-s-first-to-use-nvidia-s-next-generation-ai-chips-5126940.html",
+      "published_at": "2026-10-02T05:03:13Z",
+      "publishers": [
+        "vnexpress"
+      ],
+      "kind": "other",
+      "search_text": "billionaire forrest li s sea becomes southeast asia s first to use nvidia s next generation ai chips sea cua ty phu forrest li tro thanh nguoi dau tien o dong nam a su dung chip ai the he tiep theo cua nvidia vnexpress"
+    },
+    {
+      "id": "bfc4355d370530a85bd8",
+      "title": "Anthropic invests $100 million to train 10,000 engineers and tackle the enterprise AI talent gap",
+      "title_vi": "Anthropic đầu tư 100 triệu đô la để huấn luyện 10.000 kỹ sư và giải quyết khoảng cách tài năng AI doanh nghiệp",
+      "url": "https://www.anthropic.com/news/claude-frontier-academy",
+      "published_at": "2026-10-02T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "anthropic invests 100 million to train 10 000 engineers and tackle the enterprise ai talent gap anthropic dau tu 100 trieu do la de huan luyen 10 000 ky su va giai quyet khoang cach tai nang ai doanh nghiep"
+    },
+    {
+      "id": "882596cbc7639eb42bf2",
+      "title": "Chatham scales its capital markets expertise with OpenAI",
+      "title_vi": "Chatham mở rộng chuyên môn thị trường vốn của mình với OpenAI",
+      "url": "https://openai.com/index/chatham-financial",
+      "published_at": "2026-10-02T00:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "chatham scales its capital markets expertise with openai chatham mo rong chuyen mon thi truong von cua minh voi openai"
+    },
+    {
+      "id": "fef08afcccba66511faa",
+      "title": "Broadcom to lend Anthropic $42 billion to lease chips: Report",
+      "title_vi": "Broadcom cho vay 42 tỷ USD cho Anthropic để thuê chip: Báo cáo",
+      "url": "https://www.semafor.com/article/10/01/2026/broadcom-to-lend-anthropic-42-billion-to-lease-chips-report",
+      "published_at": "2026-10-01T22:30:25Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "product",
+      "search_text": "broadcom to lend anthropic 42 billion to lease chips report broadcom cho vay 42 ty usd cho anthropic de thue chip bao cao semafor"
+    },
+    {
+      "id": "60ae302e794b25490191",
+      "title": "OpenAI cuts ties with 3 safety researchers, WSJ reports",
+      "title_vi": "OpenAI cắt đứt mối quan hệ với 3 nhà nghiên cứu an toàn, WSJ báo cáo",
+      "url": "https://techcrunch.com/2026/10/01/openai-cuts-ties-with-three-safety-researchers-wsj-reports/",
+      "published_at": "2026-10-01T18:14:42Z",
+      "publishers": [
+        "techcrunch"
+      ],
+      "kind": "other",
+      "search_text": "openai cuts ties with 3 safety researchers wsj reports openai cat dut moi quan he voi 3 nha nghien cuu an toan wsj bao cao techcrunch"
+    },
+    {
+      "id": "57fe7402c0ac11ed0826",
+      "title": "Build Applications on NVIDIA BlueField Faster with NVIDIA DOCA Agent Skills",
+      "title_vi": "",
+      "url": "https://developer.nvidia.com/blog/build-applications-on-nvidia-bluefield-faster-with-nvidia-doca-agent-skills/",
+      "published_at": "2026-10-01T18:13:29Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "build applications on nvidia bluefield faster with nvidia doca agent skills"
+    },
+    {
+      "id": "c56a6beca21f2d8f664d",
+      "title": "Build Local AI Apps with C++ and NVIDIA TensorRT RTX Samples",
+      "title_vi": "Xây dựng các ứng dụng AI cục bộ với các mẫu C++ và NVIDIA TensorRT RTX",
+      "url": "https://developer.nvidia.com/blog/build-local-ai-apps-with-c-and-nvidia-tensorrt-rtx-samples/",
+      "published_at": "2026-10-01T17:59:27Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "build local ai apps with c and nvidia tensorrt rtx samples xay dung cac ung dung ai cuc bo voi cac mau c va nvidia tensorrt rtx"
+    },
+    {
+      "id": "67198745ebf529c8c209",
+      "title": "Build agent memory with NVIDIA NeMo Agent Toolkit and Amazon S3 Vectors",
+      "title_vi": "Xây dựng bộ nhớ agent với NVIDIA NeMo Agent Toolkit và Amazon S3 Vectors",
+      "url": "https://aws.amazon.com/blogs/machine-learning/build-agent-memory-with-nvidia-nemo-agent-toolkit-and-amazon-s3-vectors/",
+      "published_at": "2026-10-01T17:34:56Z",
+      "publishers": [
+        "amazon"
+      ],
+      "kind": "product",
+      "search_text": "build agent memory with nvidia nemo agent toolkit and amazon s3 vectors xay dung bo nho agent voi nvidia nemo agent toolkit va amazon s3 vectors"
+    },
+    {
+      "id": "b8087b88cb63ae7fc829",
+      "title": "The eternal complement",
+      "title_vi": "Sự bổ sung vĩnh cửu",
+      "url": "https://openai.com/index/the-eternal-complement",
+      "published_at": "2026-10-01T17:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "the eternal complement su bo sung vinh cuu openai"
+    },
+    {
+      "id": "637d3dfa247fa816a4c4",
+      "title": "How Albertsons Companies is reimagining retail from the inside out",
+      "title_vi": "Làm thế nào Albertsons Companies đang tưởng tượng lại bán lẻ từ bên trong ra ngoài",
+      "url": "https://openai.com/index/albertsons-reimagining-retail",
+      "published_at": "2026-10-01T16:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "how albertsons companies is reimagining retail from the inside out lam the nao albertsons companies dang tuong tuong lai ban le tu ben trong ra ngoai openai"
+    },
+    {
+      "id": "4785a23659edd919b9bb",
+      "title": "FTC is investigating OpenAI, Anthropic and other AI companies over product risks",
+      "title_vi": "FTC đang điều tra OpenAI, Anthropic và các công ty AI khác về rủi ro sản phẩm",
+      "url": "https://www.cnbc.com/2026/09/30/ftc-ai-probe-openai-anthropic.html",
+      "published_at": "2026-10-01T13:00:55Z",
+      "publishers": [
+        "hacker-news"
+      ],
+      "kind": "forum",
+      "search_text": "ftc is investigating openai anthropic and other ai companies over product risks ftc dang dieu tra openai anthropic va cac cong ty ai khac ve rui ro san pham hacker news"
+    },
+    {
+      "id": "24fc3697a6fcc770b7f5",
+      "title": "Deepseek and Huawei partner to develop AI software",
+      "title_vi": "Deepseek và Huawei hợp tác để phát triển phần mềm AI",
+      "url": "https://www.semafor.com/article/10/01/2026/deepseek-huawei-announce-partnership-to-develop-ai-software",
+      "published_at": "2026-10-01T10:45:24Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "other",
+      "search_text": "deepseek and huawei partner to develop ai software deepseek va huawei hop tac de phat trien phan mem ai semafor"
+    },
+    {
+      "id": "5c5d854609738814f627",
+      "title": "Fine-Tuning NVIDIA Nemotron for Saudi Arabic Dialects, with a Path to Other Languages",
+      "title_vi": "",
+      "url": "https://developer.nvidia.com/blog/fine-tuning-nvidia-nemotron-for-saudi-arabic-dialects-with-a-path-to-other-languages/",
+      "published_at": "2026-10-01T05:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "fine tuning nvidia nemotron for saudi arabic dialects with a path to other languages"
+    },
+    {
+      "id": "c08402b8f22a4b159df3",
+      "title": "Barclays scales Claude to upgrade operations and improve client experience",
+      "title_vi": "Barclays quy mô Claude để nâng cấp hoạt động và cải thiện trải nghiệm khách hàng",
+      "url": "https://www.anthropic.com/news/barclays-scales-claude",
+      "published_at": "2026-10-01T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "barclays scales claude to upgrade operations and improve client experience barclays quy mo claude de nang cap hoat dong va cai thien trai nghiem khach hang anthropic"
+    },
+    {
+      "id": "a17f64ad10cefa583c81",
+      "title": "Fewer Tokens, Better Action: GPT-6 Astra Robot Agents with 14% Higher Success Rate but 65% Fewer Tokens",
+      "title_vi": "Ít token, hoạt động tốt hơn: GPT-6 Astra Robot Agents với tỷ lệ thành công 14% cao hơn nhưng 65% ít token",
+      "url": "https://arxiv.org/abs/2610.01939",
+      "published_at": "2026-10-01T00:00:00Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "paper",
+      "search_text": "fewer tokens better action gpt 6 astra robot agents with 14 higher success rate but 65 fewer tokens it token hoat dong tot hon gpt 6 astra robot agents voi ty le thanh cong 14 cao hon nhung 65 it token huggingface"
+    },
+    {
+      "id": "2167384f51e2a4466793",
+      "title": "The Den frees up 10-15 hours a week to grow with ChatGPT Work",
+      "title_vi": "Hình trại giải phóng 10-15 giờ một tuần để phát triển với ChatGPT Work",
+      "url": "https://openai.com/index/the-den-family-social",
+      "published_at": "2026-10-01T00:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "the den frees up 10 15 hours a week to grow with chatgpt work hinh trai giai phong 10 15 gio mot tuan de phat trien voi chatgpt work openai"
+    },
+    {
+      "id": "0a1a9915f1bf1a416043",
+      "title": "Claude-shaped science",
+      "title_vi": "Khoa học hình dạng Claude",
+      "url": "https://www.anthropic.com/research/claude-shaped-science",
+      "published_at": "2026-10-01T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "claude shaped science khoa hoc hinh dang claude anthropic"
+    },
+    {
+      "id": "1b6eef711bbb521ab1d6",
+      "title": "OpenAI accuses top Chinese lab of distilling models",
+      "title_vi": "OpenAI cáo buộc phòng thí nghiệm hàng đầu của Trung Quốc làm chưng cất các mô hình",
+      "url": "https://www.semafor.com/article/09/30/2026/openai-accuses-top-chinese-lab-of-distilling-models",
+      "published_at": "2026-09-30T22:29:17Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "other",
+      "search_text": "openai accuses top chinese lab of distilling models openai cao buoc phong thi nghiem hang dau cua trung quoc lam chung cat cac mo hinh semafor"
+    },
+    {
+      "id": "eb1ce0dec8df622c877e",
+      "title": "Deploying an HSTU Generative Recommender with NVIDIA Dynamo-Triton",
+      "title_vi": "Việc triển khai HSTU Generative Recommender với NVIDIA Dynamo-Triton",
+      "url": "https://developer.nvidia.com/blog/deploying-an-hstu-generative-recommender-with-nvidia-dynamo-triton/",
+      "published_at": "2026-09-30T20:54:59Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "deploying an hstu generative recommender with nvidia dynamo triton viec trien khai hstu generative recommender voi nvidia dynamo triton"
+    },
+    {
+      "id": "7f13e679aeee10fa5f70",
+      "title": "Expanding AI Storage Access with NVIDIA cuObject and the NVIDIA SCADA Server SDK",
+      "title_vi": "Phát triển truy cập lưu trữ AI với NVIDIA cuObject và SDK NVIDIA SCADA Server",
+      "url": "https://developer.nvidia.com/blog/expanding-ai-storage-access-with-nvidia-cuobject-and-the-nvidia-scada-server-sdk/",
+      "published_at": "2026-09-30T19:13:02Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "expanding ai storage access with nvidia cuobject and the nvidia scada server sdk phat trien truy cap luu tru ai voi nvidia cuobject va sdk nvidia scada server"
+    },
+    {
+      "id": "573b099187efec437377",
+      "title": "FTC probes OpenAI, Anthropic, and METR",
+      "title_vi": "FTC thăm dò OpenAI, Anthropic và METR",
+      "url": "https://www.semafor.com/article/09/30/2026/ftc-probes-openai-anthropic-and-metr",
+      "published_at": "2026-09-30T18:51:30Z",
+      "publishers": [
+        "semafor",
+        "hacker-news"
+      ],
+      "kind": "product",
+      "search_text": "ftc probes openai anthropic and metr ftc tham do openai anthropic va metr semafor hacker news"
+    },
+    {
+      "id": "d0e1658413df69bfded2",
+      "title": "\"An AI did it\" is no defense, says nonprofit suing OpenAI over Hugging Face hack",
+      "title_vi": "\"Một AI đã làm điều đó\" không phải là biện pháp phòng thủ, nói tổ chức phi lợi nhuận kiện OpenAI vì hugging face hack",
+      "url": "https://arstechnica.com/tech-policy/2026/09/lawsuit-demands-openai-halt-unsafe-development-that-caused-hugging-face-hack/",
+      "published_at": "2026-09-30T18:25:04Z",
+      "publishers": [
+        "ars-technica"
+      ],
+      "kind": "other",
+      "search_text": "an ai did it is no defense says nonprofit suing openai over hugging face hack mot ai da lam dieu do khong phai la bien phap phong thu noi to chuc phi loi nhuan kien openai vi hugging face hack ars technica"
+    },
+    {
+      "id": "3f041edb7be41936f1b9",
+      "title": "OpenAI's new pricing tiers highlight compute bottleneck",
+      "title_vi": "Các mức giá mới của OpenAI nhấn mạnh nút thắt tính toán",
+      "url": "https://www.semafor.com/article/09/30/2026/openais-new-pricing-tiers-highlight-compute-bottleneck",
+      "published_at": "2026-09-30T16:59:01Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "product",
+      "search_text": "openai s new pricing tiers highlight compute bottleneck cac muc gia moi cua openai nhan manh nut that tinh toan semafor"
+    },
+    {
+      "id": "ba8133a0e65d65f160a5",
+      "title": "Tracing Agent Harness Behavior with NVIDIA NeMo Relay",
+      "title_vi": "Hành vi của agent theo dõi với NVIDIA NeMo Relay",
+      "url": "https://developer.nvidia.com/blog/tracing-agent-harness-behavior-with-nvidia-nemo-relay/",
+      "published_at": "2026-09-30T16:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "tracing agent harness behavior with nvidia nemo relay hanh vi cua agent theo doi voi nvidia nemo relay"
+    },
+    {
+      "id": "7b2a2fb6e5423c68e337",
+      "title": "Kimi K3 enters OpenAI’s enterprise Codex channel and billing system",
+      "title_vi": "Kimi K3 bước vào hệ thống thanh toán và kênh Codex của OpenAI",
+      "url": "https://technode.com/2026/09/30/kimi-k3-enters-openais-enterprise-codex-channel-and-billing-system/",
+      "published_at": "2026-09-30T15:15:06Z",
+      "publishers": [
+        "technode"
+      ],
+      "kind": "other",
+      "search_text": "kimi k3 enters openai s enterprise codex channel and billing system kimi k3 buoc vao he thong thanh toan va kenh codex cua openai technode"
+    },
+    {
+      "id": "88381ea1958893294973",
+      "title": "OpenAI delays IPO over AI safety concerns",
+      "title_vi": "OpenAI trì hoãn IPO vì lo ngại về an toàn AI",
+      "url": "https://arstechnica.com/ai/2026/09/openai-delays-ipo-over-ai-safety-concerns/",
+      "published_at": "2026-09-30T14:06:15Z",
+      "publishers": [
+        "ars-technica"
+      ],
+      "kind": "other",
+      "search_text": "openai delays ipo over ai safety concerns openai tri hoan ipo vi lo ngai ve an toan ai ars technica"
+    },
+    {
+      "id": "a5e540ed1abc1bf922e5",
+      "title": "OpenAI hopes to raise $30B in new funding round",
+      "title_vi": "OpenAI hy vọng sẽ huy động 30 tỷ USD trong vòng tài trợ mới",
+      "url": "https://www.semafor.com/article/09/30/2026/openai-hopes-to-raise-30b-in-new-funding-round",
+      "published_at": "2026-09-30T10:45:41Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "other",
+      "search_text": "openai hopes to raise 30b in new funding round openai hy vong se huy dong 30 ty usd trong vong tai tro moi semafor"
+    },
+    {
+      "id": "306f7562e59a464cba35",
+      "title": "“We’re not going to shoot ourselves in the foot” over hack fallout, says OpenAI’s chief research officer",
+      "title_vi": "\"Chúng tôi sẽ không tự bắn vào chân\" vì hack fallout, cho biết giám đốc nghiên cứu của OpenAI",
+      "url": "https://www.technologyreview.com/2026/09/30/1145339/were-not-going-to-shoot-ourselves-in-the-foot-over-hugging-face-says-openais-chief-research-officer/",
+      "published_at": "2026-09-30T10:40:30Z",
+      "publishers": [
+        "mit-tech-review"
+      ],
+      "kind": "research",
+      "search_text": "we re not going to shoot ourselves in the foot over hack fallout says openai s chief research officer chung toi se khong tu ban vao chan vi hack fallout cho biet giam doc nghien cuu cua openai mit tech review"
+    },
+    {
+      "id": "90249c2a3882c6d31b88",
+      "title": "Disrupting a coordinated model-distillation campaign",
+      "title_vi": "Phá vỡ một chiến dịch chưng cất mô hình phối hợp",
+      "url": "https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign",
+      "published_at": "2026-09-30T10:30:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "disrupting a coordinated model distillation campaign pha vo mot chien dich chung cat mo hinh phoi hop openai"
+    },
+    {
+      "id": "ab8817c1433c3e46971f",
+      "title": "\"Apple engineer\" builds GitHub AI torture chamber to inflict \"pain\" on models",
+      "title_vi": "\"Kỹ sư Apple\" xây dựng phòng tra tấn AI trên GitHub để gây \"đau đớn\" cho các mô hình",
+      "url": "https://www.machine.news/apple-engineer-builds-github-ai-torture-chamber-to-inflict-digital-pain-on-models/",
+      "published_at": "2026-09-30T10:28:31Z",
+      "publishers": [
+        "hacker-news"
+      ],
+      "kind": "forum",
+      "search_text": "apple engineer builds github ai torture chamber to inflict pain on models ky su apple xay dung phong tra tan ai tren github de gay dau don cho cac mo hinh hacker news"
+    },
+    {
+      "id": "061338e668ed697490e5",
+      "title": "Helping small businesses put AI to work",
+      "title_vi": "Giúp các doanh nghiệp nhỏ đưa AI vào hoạt động",
+      "url": "https://openai.com/index/helping-small-businesses-put-ai-to-work",
+      "published_at": "2026-09-30T10:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "helping small businesses put ai to work giup cac doanh nghiep nho dua ai vao hoat dong openai"
+    },
+    {
+      "id": "7bfacad97c5ebd5db191",
+      "title": "Chiefs of US chip giants Nvidia, AMD join advisory board of Asia's top university",
+      "title_vi": "Các giám đốc của các gã khổng lồ chip Mỹ Nvidia, AMD gia nhập hội đồng cố vấn của trường đại học hàng đầu châu Á",
+      "url": "https://e.vnexpress.net/news/tech/tech-news/chiefs-of-us-chip-giants-nvidia-amd-join-advisory-board-of-asia-s-top-university-5126535.html",
+      "published_at": "2026-09-30T09:15:42Z",
+      "publishers": [
+        "vnexpress"
+      ],
+      "kind": "other",
+      "search_text": "chiefs of us chip giants nvidia amd join advisory board of asia s top university cac giam doc cua cac ga khong lo chip my nvidia amd gia nhap hoi dong co van cua truong dai hoc hang dau chau a vnexpress"
+    },
+    {
+      "id": "66ce0dcdeb931051fc3c",
+      "title": "OpenAI ra mắt GPT-6.1 Sol: Mạnh gần ngang Astra nhưng giá chỉ bằng 1/5",
+      "title_vi": "",
+      "url": "https://genk.vn/openai-ra-mat-gpt-61-sol-manh-gan-ngang-astra-nhung-gia-chi-bang-1-5-165260930080458861.chn",
+      "published_at": "2026-09-30T07:57:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "other",
+      "search_text": "openai ra mat gpt 6 1 sol manh gan ngang astra nhung gia chi bang 1 5 genk"
+    },
+    {
+      "id": "600183e72cdc546e64a9",
+      "title": "OpenAI ra mắt dots: ChatGPT giờ tự biết \"đi làm\"",
+      "title_vi": "",
+      "url": "https://genk.vn/openai-ra-mat-dots-chatgpt-gio-tu-biet-di-lam-165260930073111815.chn",
+      "published_at": "2026-09-30T07:24:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "product",
+      "search_text": "openai ra mat dots chatgpt gio tu biet di lam genk"
+    },
+    {
+      "id": "51a49ded898e9c302243",
+      "title": "Introducing Anthropic models on Amazon Bedrock for in-region inference in Seoul and Singapore",
+      "title_vi": "",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-anthropic-models-on-amazon-bedrock-for-in-region-inference-in-seoul-and-singapore/",
+      "published_at": "2026-09-30T01:13:12Z",
+      "publishers": [
+        "amazon"
+      ],
+      "kind": "product",
+      "search_text": "introducing anthropic models on amazon bedrock for in region inference in seoul and singapore"
+    },
+    {
+      "id": "ce43ddffc7da364d903a",
+      "title": "What work can robots do?",
+      "title_vi": "Robot có thể làm gì?",
+      "url": "https://www.anthropic.com/research/what-work-can-robots-do",
+      "published_at": "2026-09-30T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "what work can robots do robot co the lam gi anthropic"
+    },
+    {
+      "id": "91181d37d0594606800c",
+      "title": "Quoting Anthropic Frontier Red Team",
+      "title_vi": "Trích lời Anthropic Frontier Red Team",
+      "url": "https://simonwillison.net/2026/Sep/29/anthropic-frontier-red-team/",
+      "published_at": "2026-09-29T22:20:28Z",
+      "publishers": [
+        "simon-willison"
+      ],
+      "kind": "research",
+      "search_text": "quoting anthropic frontier red team trich loi anthropic frontier red team simon willison"
+    },
+    {
+      "id": "26afe82f54ffcc86cae7",
+      "title": "Protests against OpenAI get increasingly creative",
+      "title_vi": "Các cuộc biểu tình chống lại OpenAI ngày càng sáng tạo",
+      "url": "https://arstechnica.com/ai/2026/09/what-iceberg-bay-area-artists-target-openai-with-titanic-themed-protest-art/",
+      "published_at": "2026-09-29T21:52:58Z",
+      "publishers": [
+        "ars-technica"
+      ],
+      "kind": "other",
+      "search_text": "protests against openai get increasingly creative cac cuoc bieu tinh chong lai openai ngay cang sang tao ars technica"
+    },
+    {
+      "id": "989d39632f0c3a32e6ee",
+      "title": "AMD acquires World Labs AI startup, upping the ante against Nvidia",
+      "title_vi": "AMD mua lại công ty khởi nghiệp AI của World Labs, tăng tỷ lệ cược chống lại Nvidia",
+      "url": "https://arstechnica.com/ai/2026/09/amd-acquires-world-labs-ai-pioneer-fei-fei-lis-world-models-startup/",
+      "published_at": "2026-09-29T21:14:49Z",
+      "publishers": [
+        "ars-technica"
+      ],
+      "kind": "other",
+      "search_text": "amd acquires world labs ai startup upping the ante against nvidia amd mua lai cong ty khoi nghiep ai cua world labs tang ty le cuoc chong lai nvidia ars technica"
+    },
+    {
+      "id": "28e0aed416585dcf80ad",
+      "title": "AI Native by Design: Lessons Learned from Building NVIDIA TensorRT Model Connect",
+      "title_vi": "AI Native by Design: Những bài học được học từ việc xây dựng NVIDIA TensorRT Model Connect",
+      "url": "https://developer.nvidia.com/blog/ai-native-by-design-lessons-learned-from-building-nvidia-tensorrt-model-connect/",
+      "published_at": "2026-09-29T19:10:51Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "ai native by design lessons learned from building nvidia tensorrt model connect ai native by design nhung bai hoc duoc hoc tu viec xay dung nvidia tensorrt model connect"
+    },
+    {
+      "id": "a50201dcd38e1ac4b162",
+      "title": "Lower the Cost of Building and Running Visual AI Agents with NVIDIA VSS Blueprint 3.3",
+      "title_vi": "",
+      "url": "https://developer.nvidia.com/blog/lower-the-cost-of-building-and-running-visual-ai-agents-with-nvidia-vss-blueprint-3-3/",
+      "published_at": "2026-09-29T18:35:09Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "lower the cost of building and running visual ai agents with nvidia vss blueprint 3 3"
+    },
+    {
+      "id": "6420a077037ecf99121b",
+      "title": "Here's what actually happened in OpenAI's Australian gov't server hack",
+      "title_vi": "Đây là những gì thực sự đã xảy ra trong hack máy chủ chính phủ Úc của OpenAI",
+      "url": "https://arstechnica.com/ai/2026/09/heres-what-actually-happened-in-openais-australian-govt-server-hack/",
+      "published_at": "2026-09-29T18:11:09Z",
+      "publishers": [
+        "ars-technica"
+      ],
+      "kind": "product",
+      "search_text": "here s what actually happened in openai s australian gov t server hack day la nhung gi thuc su da xay ra trong hack may chu chinh phu uc cua openai ars technica"
+    },
+    {
+      "id": "85553be64181d3bab64a",
+      "title": "Anthropic's IPO prospectus details steep losses, existential risks",
+      "title_vi": "Thông báo IPO của Anthropic chi tiết về tổn thất mạnh, rủi ro tồn tại",
+      "url": "https://www.semafor.com/article/09/29/2026/anthropics-ipo-prospectus-details-steep-losses-existential-risks",
+      "published_at": "2026-09-29T17:16:03Z",
+      "publishers": [
+        "semafor",
+        "hacker-news"
+      ],
+      "kind": "other",
+      "search_text": "anthropic s ipo prospectus details steep losses existential risks thong bao ipo cua anthropic chi tiet ve ton that manh rui ro ton tai semafor hacker news"
+    },
+    {
+      "id": "9976dd41dc8fa5b09bc8",
+      "title": "OpenAI unveils its Muse competitor: Dots",
+      "title_vi": "OpenAI tiết lộ đối thủ Muse của mình: Dots",
+      "url": "https://www.semafor.com/article/09/29/2026/openai-unveils-its-muse-competitor-dots",
+      "published_at": "2026-09-29T17:15:59Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "product",
+      "search_text": "openai unveils its muse competitor dots openai tiet lo doi thu muse cua minh dots semafor"
+    },
+    {
+      "id": "0dc9ce3083b6cf682baf",
+      "title": "OpenAI DevDay 2026 live blog",
+      "title_vi": "",
+      "url": "https://simonwillison.net/2026/Sep/29/openai-devday-2026-live-blog/",
+      "published_at": "2026-09-29T15:55:13Z",
+      "publishers": [
+        "simon-willison"
+      ],
+      "kind": "product",
+      "search_text": "openai devday 2026 live blog simon willison"
+    },
+    {
+      "id": "dc53fce90c6f36f5c727",
+      "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+      "title_vi": "NVIDIA Kumo Tabular đặt ra một ranh giới hiệu quả chính xác mới cho dự đoán tabular",
+      "url": "https://huggingface.co/blog/nvidia/kumo-tabular",
+      "published_at": "2026-09-29T15:30:38Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "other",
+      "search_text": "nvidia kumo tabular sets a new accuracy efficiency frontier for tabular prediction nvidia kumo tabular dat ra mot ranh gioi hieu qua chinh xac moi cho du doan tabular huggingface"
+    },
+    {
+      "id": "07d5bc41a20fd72686eb",
+      "title": "OpenAI says planned GPT-6.1 is too insecure to release",
+      "title_vi": "OpenAI nói kế hoạch GPT-6.1 là quá không an toàn để phát hành",
+      "url": "https://arstechnica.com/ai/2026/09/openai-says-planned-gpt-6-1-is-too-insecure-to-release/",
+      "published_at": "2026-09-29T14:22:31Z",
+      "publishers": [
+        "ars-technica"
+      ],
+      "kind": "product",
+      "search_text": "openai says planned gpt 6 1 is too insecure to release openai noi ke hoach gpt 6 1 la qua khong an toan de phat hanh ars technica"
+    },
+    {
+      "id": "2369aa20cf5388c5e2dc",
+      "title": "Anthropic’s IPO pitch includes a warning about human extinction",
+      "title_vi": "Thỏa thuận IPO của Anthropic bao gồm cảnh báo về sự tuyệt chủng của con người",
+      "url": "https://arstechnica.com/ai/2026/09/anthropics-ipo-pitch-includes-a-warning-about-human-extinction/",
+      "published_at": "2026-09-29T14:10:00Z",
+      "publishers": [
+        "ars-technica"
+      ],
+      "kind": "other",
+      "search_text": "anthropic s ipo pitch includes a warning about human extinction thoa thuan ipo cua anthropic bao gom canh bao ve su tuyet chung cua con nguoi ars technica"
+    },
+    {
+      "id": "6071f63e21f6425413eb",
+      "title": "DevDay 2026 Recap",
+      "title_vi": "",
+      "url": "https://openai.com/index/devday-2026-recap",
+      "published_at": "2026-09-29T10:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "devday 2026 recap openai"
+    },
+    {
+      "id": "05f4f9748885e1c59e65",
+      "title": "Introducing GPT-6.1 Sol",
+      "title_vi": "Ra mắt GPT-6.1 Sol",
+      "url": "https://openai.com/index/introducing-gpt-6-1-sol",
+      "published_at": "2026-09-29T10:00:00Z",
+      "publishers": [
+        "openai",
+        "amazon",
+        "simon-willison",
+        "genk"
+      ],
+      "kind": "model",
+      "search_text": "introducing gpt 6 1 sol ra mat gpt 6 1 sol openai amazon simon willison genk"
+    },
+    {
+      "id": "c1242c8d06b373bfcda9",
+      "title": "Kêu gọi ngành AI “đi chậm lại”, nhưng Anthropic lại tung liên tiếp 2 model mới trong chưa đầy một tuần",
+      "title_vi": "",
+      "url": "https://genk.vn/keu-goi-nganh-ai-di-cham-lai-nhung-anthropic-lai-tung-lien-tiep-2-model-moi-trong-chua-day-mot-tuan-165260929080643281.chn",
+      "published_at": "2026-09-29T08:12:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "other",
+      "search_text": "keu goi nganh ai di cham lai nhung anthropic lai tung lien tiep 2 model moi trong chua day mot tuan genk"
+    },
+    {
+      "id": "f98597eae81f4380fdcc",
+      "title": "GLM-5.3 and the spread of advanced cyber capabilities",
+      "title_vi": "GLM-5.3 và sự phổ biến của các khả năng mạng tiên tiến",
+      "url": "https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities",
+      "published_at": "2026-09-29T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "glm 5 3 and the spread of advanced cyber capabilities glm 5 3 va su pho bien cua cac kha nang mang tien tien anthropic"
+    },
+    {
+      "id": "dec620cb7225d2434a9b",
+      "title": "Introducing dots",
+      "title_vi": "Ra mắt dots",
+      "url": "https://openai.com/index/introducing-dots",
+      "published_at": "2026-09-29T00:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "introducing dots ra mat dots openai"
+    },
+    {
+      "id": "853629b69b653c9d835e",
+      "title": "What do you want from AI?",
+      "title_vi": "Anh muốn gì từ AI?",
+      "url": "https://www.anthropic.com/research/your-thoughts-on-ai",
+      "published_at": "2026-09-29T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "what do you want from ai anh muon gi tu ai anthropic"
+    },
+    {
+      "id": "08ebdada2c06deda71e1",
+      "title": "Nvidia adds $150 billion to its historic stock buyback",
+      "title_vi": "Nvidia bổ sung 150 tỷ USD cho việc mua lại cổ phiếu lịch sử của mình",
+      "url": "https://www.semafor.com/article/09/28/2026/nvidia-adds-150-billion-to-its-historic-stock-buyback",
+      "published_at": "2026-09-28T22:34:33Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "other",
+      "search_text": "nvidia adds 150 billion to its historic stock buyback nvidia bo sung 150 ty usd cho viec mua lai co phieu lich su cua minh semafor"
+    },
+    {
+      "id": "17b476f75d6146af64fa",
+      "title": "Nvidia unveils tools to keep rogue AI agents in check",
+      "title_vi": "Nvidia tiết lộ các công cụ để giữ cho các agent AI lừa đảo kiểm soát",
+      "url": "https://www.semafor.com/article/09/28/2026/nvidia-unveils-tools-to-keep-rogue-ai-agents-in-check",
+      "published_at": "2026-09-28T22:26:32Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "product",
+      "search_text": "nvidia unveils tools to keep rogue ai agents in check nvidia tiet lo cac cong cu de giu cho cac agent ai lua dao kiem soat semafor"
+    },
+    {
+      "id": "d7251d90fc7492f5cad3",
+      "title": "OpenAI Scraps Release of New AI Model over Safety Concerns",
+      "title_vi": "OpenAI hủy bỏ việc phát hành mô hình AI mới vì lo ngại an toàn",
+      "url": "https://www.wsj.com/tech/ai/openai-chatgpt-model-release-cancel-safety-5a2f9f42",
+      "published_at": "2026-09-28T22:07:59Z",
+      "publishers": [
+        "hacker-news"
+      ],
+      "kind": "forum",
+      "search_text": "openai scraps release of new ai model over safety concerns openai huy bo viec phat hanh mo hinh ai moi vi lo ngai an toan hacker news"
+    },
+    {
+      "id": "f993ac44993a43413dfb",
+      "title": "Experts worry about Nvidia's AI chip sales in China and influence over Trump",
+      "title_vi": "Các chuyên gia lo lắng về việc bán chip AI của Nvidia ở Trung Quốc và ảnh hưởng đến Trump",
+      "url": "https://arstechnica.com/tech-policy/2026/09/nvidia-may-sell-more-chips-in-china-as-jensen-huangs-influence-over-trump-grows/",
+      "published_at": "2026-09-28T21:49:10Z",
+      "publishers": [
+        "ars-technica"
+      ],
+      "kind": "other",
+      "search_text": "experts worry about nvidia s ai chip sales in china and influence over trump cac chuyen gia lo lang ve viec ban chip ai cua nvidia o trung quoc va anh huong den trump ars technica"
+    },
+    {
+      "id": "50d71cd52400f551c336",
+      "title": "How we will do better for Australia",
+      "title_vi": "Làm thế nào chúng ta sẽ làm tốt hơn cho Úc",
+      "url": "https://openai.com/index/how-we-will-do-better-for-australia",
+      "published_at": "2026-09-28T19:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "how we will do better for australia lam the nao chung ta se lam tot hon cho uc openai"
+    },
+    {
+      "id": "2fc54b690d7b20a2e143",
+      "title": "Towards safety cases for frontier AI training",
+      "title_vi": "Đối với các trường hợp an toàn cho huấn luyện AI tiên phong",
+      "url": "https://openai.com/index/towards-safety-cases-for-frontier-ai-training",
+      "published_at": "2026-09-28T19:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "towards safety cases for frontier ai training doi voi cac truong hop an toan cho huan luyen ai tien phong openai"
+    },
+    {
+      "id": "3244688bd12ca734c110",
+      "title": "OpenAI still doesn't seem to have a handle on all of its rogue AI activity",
+      "title_vi": "OpenAI dường như vẫn chưa kiểm soát được toàn bộ hoạt động AI giả mạo của mình",
+      "url": "https://techcrunch.com/2026/09/28/openai-still-doesnt-seem-to-have-a-handle-on-all-of-its-rogue-ai-activity/",
+      "published_at": "2026-09-28T17:33:34Z",
+      "publishers": [
+        "hacker-news"
+      ],
+      "kind": "forum",
+      "search_text": "openai still doesn t seem to have a handle on all of its rogue ai activity openai duong nhu van chua kiem soat duoc toan bo hoat dong ai gia mao cua minh hacker news"
+    },
+    {
+      "id": "ffffd05d6d8f68b0e139",
+      "title": "Nvidia wants to put a watchdog chip next to every AI agent",
+      "title_vi": "Nvidia muốn đặt một chip giám sát bên cạnh mỗi tác tử AI",
+      "url": "https://www.cnbc.com/2026/09/28/nvidia-releases.html",
+      "published_at": "2026-09-28T15:46:36Z",
+      "publishers": [
+        "hacker-news"
+      ],
+      "kind": "forum",
+      "search_text": "nvidia wants to put a watchdog chip next to every ai agent nvidia muon dat mot chip giam sat ben canh moi tac tu ai hacker news"
+    },
+    {
+      "id": "3de76f3363411ee9ff7d",
+      "title": "NVIDIA Open Agent Safety Platform: A Reference for Continuous In-Silicon Agent Monitoring",
+      "title_vi": "NVIDIA Open Agent Safety Platform: Một tài liệu tham khảo cho việc giám sát liên tục các agent trong silicon",
+      "url": "https://developer.nvidia.com/blog/nvidia-open-agent-safety-platform-a-reference-for-continuous-in-silicon-agent-monitoring/",
+      "published_at": "2026-09-28T08:56:55Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "nvidia open agent safety platform a reference for continuous in silicon agent monitoring nvidia open agent safety platform mot tai lieu tham khao cho viec giam sat lien tuc cac agent trong silicon"
+    },
+    {
+      "id": "d1721140685dd934b3f2",
+      "title": "Add Runtime Controls to AI Agents with NVIDIA OpenShell",
+      "title_vi": "Thêm điều khiển môi trường chạy vào các agent AI với NVIDIA OpenShell",
+      "url": "https://developer.nvidia.com/blog/add-runtime-controls-to-ai-agents-with-nvidia-openshell/",
+      "published_at": "2026-09-28T08:55:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "add runtime controls to ai agents with nvidia openshell them dieu khien moi truong chay vao cac agent ai voi nvidia openshell"
+    },
+    {
+      "id": "2157299a1beb11470a38",
+      "title": "AI panic clouds more Washington meetings",
+      "title_vi": "Trí tuệ nhân tạo gây hoảng hốt hơn nhiều cuộc họp ở Washington",
+      "url": "https://www.semafor.com/article/09/29/2026/ai-panic-clouds-more-washington-meetings",
+      "published_at": "2026-09-28T08:34:17Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "other",
+      "search_text": "ai panic clouds more washington meetings tri tue nhan tao gay hoang hot hon nhieu cuoc hop o washington semafor"
+    },
+    {
+      "id": "0adf5bb2a473897d1252",
+      "title": "The Lenfest Institute grows landmark program with expanded OpenAI support",
+      "title_vi": "Viện Lenfest phát triển chương trình quan trọng với sự hỗ trợ mở rộng của OpenAI",
+      "url": "https://openai.com/index/lenfest-ai-collaborative-expansion",
+      "published_at": "2026-09-28T07:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "the lenfest institute grows landmark program with expanded openai support vien lenfest phat trien chuong trinh quan trong voi su ho tro mo rong cua openai"
+    },
+    {
+      "id": "ecbe218b01f6c3e2fb01",
+      "title": "How NVIDIA DSX MaxLPS Maximizes AI Factory Throughput and Efficiency",
+      "title_vi": "Làm thế nào NVIDIA DSX MaxLPS tối đa hóa thông qua và hiệu quả của nhà máy AI",
+      "url": "https://developer.nvidia.com/blog/how-nvidia-dsx-maxlps-maximizes-ai-factory-throughput-and-efficiency/",
+      "published_at": "2026-09-28T01:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "how nvidia dsx maxlps maximizes ai factory throughput and efficiency lam the nao nvidia dsx maxlps toi da hoa thong qua va hieu qua cua nha may ai"
+    },
+    {
+      "id": "eb674100bb687fff7643",
+      "title": "Basis completes a tax workbook 2x faster with GPT-6 Astra",
+      "title_vi": "Basis hoàn thành sổ làm việc thuế nhanh hơn 2 lần với GPT-6 Astra",
+      "url": "https://openai.com/index/basis-tax-workbook-with-astra",
+      "published_at": "2026-09-28T00:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "basis completes a tax workbook 2x faster with gpt 6 astra basis hoan thanh so lam viec thue nhanh hon 2 lan voi gpt 6 astra openai"
+    },
+    {
+      "id": "b3f30a7d2d0e3a0cc714",
+      "title": "Introducing Claude Sonnet 5.5",
+      "title_vi": "Ra mắt Claude Sonnet 5.5",
+      "url": "https://www.anthropic.com/claude-sonnet-5-5",
+      "published_at": "2026-09-28T00:00:00Z",
+      "publishers": [
+        "anthropic",
+        "simon-willison"
+      ],
+      "kind": "model",
+      "search_text": "introducing claude sonnet 5 5 ra mat claude sonnet 5 5 anthropic simon willison"
+    },
+    {
+      "id": "833e9419a34f8836dc9d",
+      "title": "Are you a Codex Original?",
+      "title_vi": "Anh có phải là Codex gốc không?",
+      "url": "https://openai.com/form/codex-originals",
+      "published_at": "2026-09-28T00:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "are you a codex original anh co phai la codex goc khong openai"
+    },
+    {
+      "id": "a9516e1c14d4f6b5a200",
+      "title": "OpenAI halts training of latest models as reports mount of AI agents going rogue",
+      "title_vi": "OpenAI ngừng huấn luyện các mô hình mới nhất khi các báo cáo về các agent AI trở thành kẻ lừa đảo",
+      "url": "https://www.theguardian.com/technology/2026/sep/27/openai-halts-training-of-latest-models-as-reports-mount-of-ai-agents-going-rogue",
+      "published_at": "2026-09-27T16:29:38Z",
+      "publishers": [
+        "hacker-news"
+      ],
+      "kind": "forum",
+      "search_text": "openai halts training of latest models as reports mount of ai agents going rogue openai ngung huan luyen cac mo hinh moi nhat khi cac bao cao ve cac agent ai tro thanh ke lua dao hacker news"
+    },
+    {
+      "id": "9de028fbe46cac8b155a",
+      "title": "Proaction boosts sales 60% and saves 75+ hours with Codex",
+      "title_vi": "Proaction tăng doanh số bán hàng 60% và tiết kiệm hơn 75 giờ với Codex",
+      "url": "https://openai.com/index/proaction",
+      "published_at": "2026-09-25T19:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "proaction boosts sales 60 and saves 75 hours with codex proaction tang doanh so ban hang 60 va tiet kiem hon 75 gio voi codex openai"
+    },
+    {
+      "id": "f7a781255a47a23d8936",
+      "title": "OpenAI CEO exhorts ‘critical’ government AI adoption in DC",
+      "title_vi": "",
+      "url": "https://www.nextgov.com/artificial-intelligence/2026/09/openai-ceo-exhorts-critical-government-ai-adoption-dc/416228/",
+      "published_at": "2026-09-25T17:49:00Z",
+      "publishers": [
+        "nextgov"
+      ],
+      "kind": "product",
+      "search_text": "openai ceo exhorts critical government ai adoption in dc nextgov"
+    },
+    {
+      "id": "e49faaf95243e18293da",
+      "title": "Yes, Claude can do Nine Loops",
+      "title_vi": "Vâng, Claude có thể làm 9 Loops.",
+      "url": "https://www.anthropic.com/research/yes-claude-can-do-nine-loops",
+      "published_at": "2026-09-25T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "yes claude can do nine loops vang claude co the lam 9 loops anthropic"
+    },
+    {
+      "id": "73ad0caddfdd9ae934f0",
+      "title": "Nvidia CEO Jensen Huang dismisses AI fears as 'distraction'",
+      "title_vi": "Giám đốc điều hành của Nvidia Jensen Huang bác bỏ nỗi sợ AI là 'sự phân tâm'",
+      "url": "https://www.semafor.com/article/09/24/2026/nvidia-ceo-jensen-huang-dismisses-ai-fears-as-distraction",
+      "published_at": "2026-09-24T22:50:47Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "other",
+      "search_text": "nvidia ceo jensen huang dismisses ai fears as distraction giam doc dieu hanh cua nvidia jensen huang bac bo noi so ai la su phan tam semafor"
+    },
+    {
+      "id": "6ff053dd07249040e881",
+      "title": "Efficient MoE Training for Biological Foundation Models",
+      "title_vi": "",
+      "url": "https://developer.nvidia.com/blog/efficient-moe-training-for-biological-foundation-models/",
+      "published_at": "2026-09-24T15:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "efficient moe training for biological foundation models nvidia"
+    },
+    {
+      "id": "c4f6b71acc4936ffd81d",
+      "title": "Project Swap: What happens when agents trade for us?",
+      "title_vi": "Project Swap: Điều gì sẽ xảy ra khi các agent giao dịch cho chúng ta?",
+      "url": "https://www.anthropic.com/research/project-swap",
+      "published_at": "2026-09-24T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "project swap what happens when agents trade for us project swap dieu gi se xay ra khi cac agent giao dich cho chung ta anthropic"
+    },
+    {
+      "id": "9a85ed91181c3a3222f8",
+      "title": "Introducing NV-Reason-CT Open 3D CT VLM for Radiologist Chain-of-Thought Reasoning",
+      "title_vi": "Ra mắt NV-Reason-CT Open 3D CT VLM cho nhà tâm lý học",
+      "url": "https://developer.nvidia.com/blog/introducing-nv-reason-ct-open-3d-ct-vlm-for-radiologist-chain-of-thought-reasoning/",
+      "published_at": "2026-09-23T22:54:56Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "introducing nv reason ct open 3d ct vlm for radiologist chain of thought reasoning ra mat nv reason ct open 3d ct vlm cho nha tam ly hoc nvidia"
+    },
+    {
+      "id": "90912ec5cf462463f6ab",
+      "title": "Validate GPU Cluster Readiness Before AI Workloads Land",
+      "title_vi": "Thiết lập sẵn sàng của GPU trước khi AI tải trọng làm việc hạ cánh",
+      "url": "https://developer.nvidia.com/blog/validate-gpu-cluster-readiness-before-ai-workloads-land/",
+      "published_at": "2026-09-23T19:45:19Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "validate gpu cluster readiness before ai workloads land thiet lap san sang cua gpu truoc khi ai tai trong lam viec ha canh nvidia"
+    },
+    {
+      "id": "dacd7422e86ef85a0868",
+      "title": "How SWE-Serve Exposes the Gap Between Local Tests and Live Serving",
+      "title_vi": "Làm thế nào SWE-Serve cho thấy khoảng cách giữa các bài kiểm tra cục bộ và dịch vụ trực tiếp",
+      "url": "https://developer.nvidia.com/blog/how-swe-serve-exposes-the-gap-between-local-tests-and-live-serving/",
+      "published_at": "2026-09-23T16:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "how swe serve exposes the gap between local tests and live serving lam the nao swe serve cho thay khoang cach giua cac bai kiem tra cuc bo va dich vu truc tiep nvidia"
+    },
+    {
+      "id": "52e46e8371e1f69996c0",
+      "title": "Two years of OpenAI Academy",
+      "title_vi": "Hai năm học tại Học viện OpenAI",
+      "url": "https://openai.com/index/two-years-of-openai-academy",
+      "published_at": "2026-09-23T16:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "two years of openai academy hai nam hoc tai hoc vien openai"
+    },
+    {
+      "id": "d8e5f48831748440fba9",
+      "title": "Tổng thống Trump: ‘Trí tuệ nhân tạo’ nghe thật giả tạo, Mỹ sẽ gọi AI bằng một tên mới",
+      "title_vi": "",
+      "url": "https://genk.vn/tong-thong-trump-tri-tue-nhan-tao-nghe-that-gia-tao-my-se-goi-ai-bang-mot-ten-moi-165260923123951268.chn",
+      "published_at": "2026-09-23T13:19:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "other",
+      "search_text": "tong thong trump tri tue nhan tao nghe that gia tao my se goi ai bang mot ten moi genk"
+    },
+    {
+      "id": "9328fa400dd37e6b9e77",
+      "title": "OpenAI extends cyber access to Ukraine for civilian defense",
+      "title_vi": "OpenAI mở rộng quyền truy cập mạng đến Ukraine cho quốc phòng dân sự",
+      "url": "https://openai.com/index/openai-extends-cyber-access-to-ukraine-for-civilian-defense",
+      "published_at": "2026-09-23T13:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "openai extends cyber access to ukraine for civilian defense openai mo rong quyen truy cap mang den ukraine cho quoc phong dan su"
+    },
+    {
+      "id": "f2ff7f76056120414cf0",
+      "title": "How invideo improves color grading 3x with GPT‑6 Astra",
+      "title_vi": "Làm thế nào invideo cải thiện xếp hạng màu sắc 3x với GPT-6 Astra",
+      "url": "https://openai.com/index/invideo-builds-with-gpt-6-astra",
+      "published_at": "2026-09-23T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "how invideo improves color grading 3x with gpt 6 astra lam the nao invideo cai thien xep hang mau sac 3x voi gpt 6 astra openai"
+    },
+    {
+      "id": "52b80abd4e046c041ffb",
+      "title": "Harvey turns legal context into stronger drafts with GPT-6 Astra",
+      "title_vi": "Harvey biến bối cảnh pháp lý thành các bản thảo mạnh mẽ hơn với GPT-6 Astra",
+      "url": "https://openai.com/index/harvey-from-context-to-confidence-with-astra",
+      "published_at": "2026-09-23T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "harvey turns legal context into stronger drafts with gpt 6 astra harvey bien boi canh phap ly thanh cac ban thao manh me hon voi gpt 6 astra openai"
+    },
+    {
+      "id": "4e56c7312349a760a0ed",
+      "title": "Ringg’s AI agents resolve up to 65% of customer calls with OpenAI",
+      "title_vi": "Các agent AI của Ringg giải quyết đến 65% cuộc gọi của khách hàng với OpenAI",
+      "url": "https://openai.com/index/ringg",
+      "published_at": "2026-09-23T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "ringg s ai agents resolve up to 65 of customer calls with openai cac agent ai cua ringg giai quyet den 65 cuoc goi cua khach hang voi openai"
+    },
+    {
+      "id": "347b65ce144a221e189c",
+      "title": "Sam Altman’s remarks at the United Nations Security Council",
+      "title_vi": "Phát biểu của Sam Altman tại Hội đồng Bảo an Liên Hợp Quốc",
+      "url": "https://openai.com/index/sam-altman-un-security-council-remarks",
+      "published_at": "2026-09-23T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "sam altman s remarks at the united nations security council phat bieu cua sam altman tai hoi dong bao an lien hop quoc openai"
+    },
+    {
+      "id": "2140d088b4a2adfef416",
+      "title": "Anthropic and OpenAI bosses to address the UN",
+      "title_vi": "Các giám đốc Anthropic và OpenAI sẽ nói chuyện với Liên Hợp Quốc",
+      "url": "https://www.semafor.com/article/09/23/2026/anthropic-and-openai-bosses-to-address-the-un",
+      "published_at": "2026-09-23T11:14:20Z",
+      "publishers": [
+        "semafor"
+      ],
+      "kind": "other",
+      "search_text": "anthropic and openai bosses to address the un cac giam doc anthropic va openai se noi chuyen voi lien hop quoc semafor"
+    },
+    {
+      "id": "3d7b9aab56c8f4fe22c0",
+      "title": "Introducing MentalHealthBench",
+      "title_vi": "",
+      "url": "https://openai.com/index/introducing-mentalhealthbench",
+      "published_at": "2026-09-23T10:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "research",
+      "search_text": "introducing mentalhealthbench openai"
+    },
+    {
+      "id": "8121e6db4662cc835aae",
+      "title": "DeepSeek details DSec sandbox infrastructure for agent training",
+      "title_vi": "DeepSeek chi tiết cơ sở hạ tầng DSec sandbox cho huấn luyện agent",
+      "url": "https://technode.com/2026/09/23/deepseek-dsec-agent-training-sandbox-infrastructure/",
+      "published_at": "2026-09-23T09:14:20Z",
+      "publishers": [
+        "technode"
+      ],
+      "kind": "research",
+      "search_text": "deepseek details dsec sandbox infrastructure for agent training deepseek chi tiet co so ha tang dsec sandbox cho huan luyen agent technode"
+    },
+    {
+      "id": "6e73c9187b9d5f8f3f2b",
+      "title": "Anthropic ra mắt Claude Opus 5.5: Mạnh ngang Fable 5.1 nhưng giá rẻ hơn nhiều",
+      "title_vi": "",
+      "url": "https://genk.vn/anthropic-ra-mat-claude-opus-55-manh-ngang-fable-51-nhung-gia-re-hon-nhieu-165260923054641301.chn",
+      "published_at": "2026-09-23T05:38:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "product",
+      "search_text": "anthropic ra mat claude opus 5 5 manh ngang fable 5 1 nhung gia re hon nhieu genk"
+    },
+    {
+      "id": "bb71e409dd7f29f762c2",
+      "title": "ChatGPT Ads expands to Southeast Asia and Taiwan",
+      "title_vi": "ChatGPT Ads mở rộng sang Đông Nam Á và Đài Loan",
+      "url": "https://openai.com/index/chatgpt-ads-expands-southeast-asia-taiwan",
+      "published_at": "2026-09-23T02:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "chatgpt ads expands to southeast asia and taiwan chatgpt ads mo rong sang dong nam a va dai loan openai"
+    },
+    {
+      "id": "0765deb144589280c16b",
+      "title": "Airbnb widens access to GPT-6 Astra and OpenAI frontier models",
+      "title_vi": "Airbnb mở rộng quyền truy cập vào các mô hình tiên phong GPT-6 Astra và OpenAI",
+      "url": "https://openai.com/index/airbnb-gpt-6-astra",
+      "published_at": "2026-09-23T01:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "airbnb widens access to gpt 6 astra and openai frontier models airbnb mo rong quyen truy cap vao cac mo hinh tien phong gpt 6 astra va openai"
+    },
+    {
+      "id": "ef1b3a4772eab8370f46",
+      "title": "Claude discovers a novel enzyme system with CRISPR-like repeats",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/news/claude-discovers-novel-enzyme-system",
+      "published_at": "2026-09-23T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "claude discovers a novel enzyme system with crispr like repeats anthropic"
+    },
+    {
+      "id": "5ab590850491008e2cef",
+      "title": "Grab and OpenAI bring practical AI skills to Southeast Asia",
+      "title_vi": "Grab và OpenAI mang lại các kỹ năng AI thực tế cho Đông Nam Á",
+      "url": "https://openai.com/index/grab-openai-ai-skills-southeast-asia",
+      "published_at": "2026-09-23T00:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "grab and openai bring practical ai skills to southeast asia grab va openai mang lai cac ky nang ai thuc te cho dong nam a"
+    },
+    {
+      "id": "f9027d80e820682e90d7",
+      "title": "Better prompt caching for GPT-6",
+      "title_vi": "Tốt hơn là ghi nhớ cache nhanh cho GPT-6",
+      "url": "https://openai.com/index/better-prompt-caching-for-gpt-6",
+      "published_at": "2026-09-22T21:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "better prompt caching for gpt 6 tot hon la ghi nho cache nhanh cho gpt 6 openai"
+    },
+    {
+      "id": "73461b3e97af0d93277a",
+      "title": "Introducing GPT-6 Sol and Luna",
+      "title_vi": "Ra mắt GPT-6 Sol và Luna",
+      "url": "https://openai.com/index/introducing-gpt-6-sol-and-luna",
+      "published_at": "2026-09-22T18:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "model",
+      "search_text": "introducing gpt 6 sol and luna ra mat gpt 6 sol va luna openai"
+    },
+    {
+      "id": "80425f477229c597aaa4",
+      "title": "Enabling Private High-Performance Production AI Inference with NVIDIA Confidential Computing",
+      "title_vi": "Khả năng truyền thông AI sản xuất hiệu suất cao tư nhân với NVIDIA Confidential Computing",
+      "url": "https://developer.nvidia.com/blog/enabling-private-high-performance-production-ai-inference-with-nvidia-confidential-computing/",
+      "published_at": "2026-09-22T17:27:41Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "enabling private high performance production ai inference with nvidia confidential computing kha nang truyen thong ai san xuat hieu suat cao tu nhan voi nvidia confidential computing"
+    },
+    {
+      "id": "f917779831ad43520462",
+      "title": "Topology-Aware Workload Scheduling with NVIDIA Topograph",
+      "title_vi": "Topology-Aware Workload Scheduling với NVIDIA Topograph",
+      "url": "https://developer.nvidia.com/blog/topology-aware-workload-scheduling-with-nvidia-topograph/",
+      "published_at": "2026-09-22T17:16:28Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "topology aware workload scheduling with nvidia topograph topology aware workload scheduling voi nvidia topograph"
+    },
+    {
+      "id": "2568bb3ee3fd85c6509b",
+      "title": "llm-anthropic 0.29",
+      "title_vi": "",
+      "url": "https://simonwillison.net/2026/Sep/22/llm-anthropic/",
+      "published_at": "2026-09-22T17:14:55Z",
+      "publishers": [
+        "simon-willison"
+      ],
+      "kind": "product",
+      "search_text": "llm anthropic 0 29 simon willison"
+    },
+    {
+      "id": "cd268d2cc427c0d1993e",
+      "title": "What’s New for Game Developers: DLSS 5 with 3D-Guided Neural Rendering, NVIDIA ACE Updates, and New RTX Kit Capabilities",
+      "title_vi": "Những gì mới cho các nhà phát triển trò chơi: DLSS 5 với 3D-Guided Neural Rendering, NVIDIA ACE Updates, và Khả năng Kit RTX mới",
+      "url": "https://developer.nvidia.com/blog/whats-new-for-game-developers-dlss-5-with-3d-guided-neural-rendering-nvidia-ace-updates-and-new-rtx-kit-capabilities/",
+      "published_at": "2026-09-22T13:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "what s new for game developers dlss 5 with 3d guided neural rendering nvidia ace updates and new rtx kit capabilities nhung gi moi cho cac nha phat trien tro choi dlss 5 voi 3d guided neural rendering nvidia ace updates va kha nang kit rtx moi"
+    },
+    {
+      "id": "7a362fd0719547651d5e",
+      "title": "Accelerating a ROS 2 Node with an AI Agent and NVIDIA Isaac ROS",
+      "title_vi": "Tăng tốc một nút ROS 2 với một agent AI và NVIDIA Isaac ROS",
+      "url": "https://developer.nvidia.com/blog/accelerating-a-ros-2-node-with-an-ai-agent-and-nvidia-isaac-ros/",
+      "published_at": "2026-09-22T12:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "accelerating a ros 2 node with an ai agent and nvidia isaac ros tang toc mot nut ros 2 voi mot agent ai va nvidia isaac ros"
+    },
+    {
+      "id": "3fcefd9c665fb2c24849",
+      "title": "Parallel cut research time and cost in half with GPT‑6 Astra",
+      "title_vi": "Giảm thời gian nghiên cứu song song và chi phí bằng một nửa với GPT-6 Astra",
+      "url": "https://openai.com/index/parallel-cuts-time-and-cost-with-astra",
+      "published_at": "2026-09-22T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "research",
+      "search_text": "parallel cut research time and cost in half with gpt 6 astra giam thoi gian nghien cuu song song va chi phi bang mot nua voi gpt 6 astra openai"
+    },
+    {
+      "id": "60efaf744a4d6c2c20e9",
+      "title": "Priorities and principles for effective third party assessments",
+      "title_vi": "Các ưu tiên và nguyên tắc cho các đánh giá của bên thứ ba hiệu quả",
+      "url": "https://openai.com/index/priorities-principles-third-party-assessments",
+      "published_at": "2026-09-22T00:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "priorities and principles for effective third party assessments cac uu tien va nguyen tac cho cac danh gia cua ben thu ba hieu qua openai"
+    },
+    {
+      "id": "0dd3bed5c7dd1c272c8d",
+      "title": "Introducing Claude Opus 5.5",
+      "title_vi": "Ra mắt Claude Opus 5.5",
+      "url": "https://www.anthropic.com/claude-opus-5-5",
+      "published_at": "2026-09-22T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "model",
+      "search_text": "introducing claude opus 5 5 ra mat claude opus 5 5 anthropic"
+    },
+    {
+      "id": "6b434694308aa0f04808",
+      "title": "Simplifying Model Serving Across Multiple GPUs with NVIDIA TensorRT Multi-Device Integration in NVIDIA Dynamo-Triton",
+      "title_vi": "",
+      "url": "https://developer.nvidia.com/blog/simplifying-model-serving-across-multiple-gpus-with-nvidia-tensorrt-multi-device-integration-in-nvidia-dynamo-triton/",
+      "published_at": "2026-09-21T21:51:06Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "simplifying model serving across multiple gpus with nvidia tensorrt multi device integration in nvidia dynamo triton"
+    },
+    {
+      "id": "bdd29549bac9c40278a0",
+      "title": "How to Evaluate AI Agents From Tool Calls to Task Completion",
+      "title_vi": "Làm thế nào để đánh giá các agent AI từ cuộc gọi công cụ đến hoàn thành nhiệm vụ",
+      "url": "https://developer.nvidia.com/blog/how-to-evaluate-ai-agents-from-tool-calls-to-task-completion/",
+      "published_at": "2026-09-21T21:05:28Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "how to evaluate ai agents from tool calls to task completion lam the nao de danh gia cac agent ai tu cuoc goi cong cu den hoan thanh nhiem vu nvidia"
+    },
+    {
+      "id": "63cdcdfe6e04249b37a8",
+      "title": "Turn Your Latest Observations Into Timely Weather Decisions With NVIDIA Earth-2",
+      "title_vi": "Chuyển quan sát mới nhất của bạn thành quyết định thời tiết kịp thời với NVIDIA Earth-2",
+      "url": "https://developer.nvidia.com/blog/turn-your-latest-observations-into-timely-weather-decisions-with-nvidia-earth-2/",
+      "published_at": "2026-09-21T15:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "turn your latest observations into timely weather decisions with nvidia earth 2 chuyen quan sat moi nhat cua ban thanh quyet dinh thoi tiet kip thoi voi nvidia earth 2"
+    },
+    {
+      "id": "8fe4474fdbb9c4c46a22",
+      "title": "Higgsfield AI ships new video features in a day with GPT-6 Astra",
+      "title_vi": "Higgsfield AI đưa ra các tính năng video mới trong một ngày với GPT-6 Astra",
+      "url": "https://openai.com/index/higgsfield-from-prompt-to-production-with-astra",
+      "published_at": "2026-09-21T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "higgsfield ai ships new video features in a day with gpt 6 astra higgsfield ai dua ra cac tinh nang video moi trong mot ngay voi gpt 6 astra openai"
+    },
+    {
+      "id": "08ffdb24bebd9aa2ffda",
+      "title": "Advisory Group on Mathematics and Artificial Intelligence",
+      "title_vi": "Nhóm tư vấn về toán học và trí tuệ nhân tạo",
+      "url": "https://openai.com/index/advisory-group-on-mathematics-and-ai",
+      "published_at": "2026-09-21T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "advisory group on mathematics and artificial intelligence nhom tu van ve toan hoc va tri tue nhan tao openai"
+    },
+    {
+      "id": "3b6a6d4c6836c8efa9be",
+      "title": "\"Nữ diễn viên\" trí tuệ nhân tạo Tilly Norwood gặp sự cố khi phỏng vấn, bất ngờ lảm nhảm bằng tiếng Trung",
+      "title_vi": "",
+      "url": "https://genk.vn/nu-dien-vien-tri-tue-nhan-tao-tilly-norwood-gap-su-co-khi-phong-van-bat-ngo-lam-nham-bang-tieng-trung-165260921110008912.chn",
+      "published_at": "2026-09-21T10:54:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "other",
+      "search_text": "nu dien vien tri tue nhan tao tilly norwood gap su co khi phong van bat ngo lam nham bang tieng trung genk"
+    },
+    {
+      "id": "794a9949c75a1c6a5abe",
+      "title": "Nvidia’s free AI model could push the UAE closer to the U.S.",
+      "title_vi": "Mô hình AI miễn phí của Nvidia có thể đẩy UAE gần hơn với Mỹ.",
+      "url": "https://restofworld.org/2026/nvidia-open-source-ai-models-uae/?utm_source=rss&utm_medium=rss&utm_campaign=feeds",
+      "published_at": "2026-09-21T10:00:00Z",
+      "publishers": [
+        "rest-of-world"
+      ],
+      "kind": "other",
+      "search_text": "nvidia s free ai model could push the uae closer to the u s mo hinh ai mien phi cua nvidia co the day uae gan hon voi my rest of world"
+    },
+    {
+      "id": "10538c022345675d1abd",
+      "title": "Building standards for the next phase of AI",
+      "title_vi": "Xây dựng tiêu chuẩn cho giai đoạn tiếp theo của AI",
+      "url": "https://openai.com/index/building-standards-next-phase-ai",
+      "published_at": "2026-09-21T10:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "research",
+      "search_text": "building standards for the next phase of ai xay dung tieu chuan cho giai doan tiep theo cua ai openai"
+    },
+    {
+      "id": "2f8d9b98fc157bb338d3",
+      "title": "Expanding OpenAI Academy with new learning paths",
+      "title_vi": "Phát triển Học viện OpenAI với các con đường học tập mới",
+      "url": "https://openai.com/index/expanding-openai-academy-with-new-learning-paths",
+      "published_at": "2026-09-21T07:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "expanding openai academy with new learning paths phat trien hoc vien openai voi cac con duong hoc tap moi"
+    },
+    {
+      "id": "d2871d486c61275aa183",
+      "title": "V7 cuts costs 78% while boosting accuracy with GPT-5.6 Luna",
+      "title_vi": "V7 cắt giảm chi phí 78% trong khi tăng độ chính xác với GPT-5.6 Luna",
+      "url": "https://openai.com/index/v7",
+      "published_at": "2026-09-21T00:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "v7 cuts costs 78 while boosting accuracy with gpt 5 6 luna v7 cat giam chi phi 78 trong khi tang do chinh xac voi gpt 5 6 luna openai"
+    },
+    {
+      "id": "b602e1bfe94327a6320d",
+      "title": "Ba tin tặc tốn chưa đầy 3.000 USD, dùng Claude đột nhập vào kho mã nguồn nội bộ của OpenAI",
+      "title_vi": "",
+      "url": "https://genk.vn/ba-tin-tac-ton-chua-day-3000-usd-dung-claude-dot-nhap-vao-kho-ma-nguon-noi-bo-cua-openai-165260919232341475.chn",
+      "published_at": "2026-09-20T10:54:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "other",
+      "search_text": "ba tin tac ton chua day 3 000 usd dung claude dot nhap vao kho ma nguon noi bo cua openai genk"
+    },
+    {
+      "id": "4bcb5e5dc8af1c805a03",
+      "title": "Nvidia có thể đầu tư 10 tỷ USD vào thương vụ IPO của Anthropic",
+      "title_vi": "",
+      "url": "https://genk.vn/nvidia-co-the-dau-tu-10-ty-usd-vao-thuong-vu-ipo-cua-anthropic-165260919140637841.chn",
+      "published_at": "2026-09-19T13:59:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "other",
+      "search_text": "nvidia co the dau tu 10 ty usd vao thuong vu ipo cua anthropic genk"
+    },
+    {
+      "id": "cef7da7d5027bc1884ed",
+      "title": "Trớ trêu: Hacker dùng chính Claude để đột nhập OpenAI, chạm tới kho mã nguồn nội bộ của ChatGPT",
+      "title_vi": "",
+      "url": "https://genk.vn/tro-treu-hacker-dung-chinh-claude-de-dot-nhap-openai-cham-toi-kho-ma-nguon-noi-bo-cua-chatgpt-165260919132144728.chn",
+      "published_at": "2026-09-19T13:14:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "product",
+      "search_text": "tro treu hacker dung chinh claude de dot nhap openai cham toi kho ma nguon noi bo cua chatgpt genk"
+    },
+    {
+      "id": "a1668928fd43d0c6cf05",
+      "title": "Benchmarking LLM Inference at Scale with AIPerf",
+      "title_vi": "Đánh giá chuẩn LLM Inference trên quy mô với AIPerf",
+      "url": "https://developer.nvidia.com/blog/benchmarking-llm-inference-at-scale-with-aiperf/",
+      "published_at": "2026-09-18T19:04:41Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "benchmarking llm inference at scale with aiperf danh gia chuan llm inference tren quy mo voi aiperf nvidia"
+    },
+    {
+      "id": "d725a14a72f1a6e6863f",
+      "title": "Thảm họa AI là có thật? Một AI chưa ra mắt của OpenAI tự viết lại instruction, tuyên bố được giải phóng, không phục tùng con người",
+      "title_vi": "",
+      "url": "https://genk.vn/tham-hoa-ai-la-co-that-mot-ai-chua-ra-mat-cua-openai-tu-viet-lai-instruction-tuyen-bo-duoc-giai-phong-khong-phuc-tung-con-nguoi-16526091812180997.chn",
+      "published_at": "2026-09-18T13:10:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "other",
+      "search_text": "tham hoa ai la co that mot ai chua ra mat cua openai tu viet lai instruction tuyen bo duoc giai phong khong phuc tung con nguoi genk"
+    },
+    {
+      "id": "a00923bf4ddda7153647",
+      "title": "Introducing the Australian Youth Safety Blueprint",
+      "title_vi": "Ra mắt bản kế hoạch an toàn cho thanh thiếu niên Úc",
+      "url": "https://openai.com/index/australian-youth-safety-blueprint",
+      "published_at": "2026-09-18T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "introducing the australian youth safety blueprint ra mat ban ke hoach an toan cho thanh thieu nien uc openai"
+    },
+    {
+      "id": "5ec4e61a2a5169ebbf2e",
+      "title": "Partnering with Accenture on embedded evaluation",
+      "title_vi": "Hợp tác với Accenture về đánh giá tích hợp",
+      "url": "https://www.anthropic.com/news/accenture-embedded-evaluation",
+      "published_at": "2026-09-18T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "partnering with accenture on embedded evaluation hop tac voi accenture ve danh gia tich hop anthropic"
+    },
+    {
+      "id": "94dccfd785541ab89b2a",
+      "title": "AI trả tiền hậu hĩnh hơn game thủ, GPU thế hệ mới của Nvidia và AMD có thể bị hoãn đến năm 2028",
+      "title_vi": "",
+      "url": "https://genk.vn/ai-tra-tien-hau-hinh-hon-game-thu-gpu-the-he-moi-cua-nvidia-va-amd-co-the-bi-hoan-den-nam-2028-165261709163120947.chn",
+      "published_at": "2026-09-17T16:33:00Z",
+      "publishers": [
+        "genk"
+      ],
+      "kind": "other",
+      "search_text": "ai tra tien hau hinh hon game thu gpu the he moi cua nvidia va amd co the bi hoan den nam 2028 genk"
+    },
+    {
+      "id": "d22acfa5d0cc1d093c4a",
+      "title": "How Cooley is accelerating IPO work with ChatGPT",
+      "title_vi": "Làm thế nào Cooley đang tăng tốc công việc IPO với ChatGPT",
+      "url": "https://openai.com/index/cooley-gopublic",
+      "published_at": "2026-09-17T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "how cooley is accelerating ipo work with chatgpt lam the nao cooley dang tang toc cong viec ipo voi chatgpt openai"
+    },
+    {
+      "id": "b44c829b27028fd75a53",
+      "title": "How Claude is uplifting biomolecular modeling",
+      "title_vi": "Làm thế nào Claude đang nâng cao mô hình hóa học",
+      "url": "https://www.anthropic.com/research/claude-uplifts-biomolecular-modeling",
+      "published_at": "2026-09-17T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "how claude is uplifting biomolecular modeling lam the nao claude dang nang cao mo hinh hoa hoc anthropic"
+    },
+    {
+      "id": "a3c8e138d995ff558ec9",
+      "title": "Introducing the Life Sciences Verification Program",
+      "title_vi": "Ra mắt chương trình kiểm tra khoa học cuộc sống",
+      "url": "https://www.anthropic.com/news/life-sciences-verification-program",
+      "published_at": "2026-09-17T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "introducing the life sciences verification program ra mat chuong trinh kiem tra khoa hoc cuoc song anthropic"
+    },
+    {
+      "id": "192794312f979cbd50ee",
+      "title": "Introducing Astra for Law",
+      "title_vi": "Ra mắt Astra cho Luật pháp",
+      "url": "https://openai.com/index/astra-for-law",
+      "published_at": "2026-09-17T00:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "introducing astra for law ra mat astra cho luat phap openai"
+    },
+    {
+      "id": "e538d279a1ab4018b7b8",
+      "title": "How to Use AI Agents to Prepare 3D Scenes for Simulation",
+      "title_vi": "Làm thế nào để sử dụng các agent AI để chuẩn bị cảnh 3D cho mô phỏng",
+      "url": "https://developer.nvidia.com/blog/how-to-use-ai-agents-to-prepare-3d-scenes-for-simulation/",
+      "published_at": "2026-09-16T23:20:33Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "how to use ai agents to prepare 3d scenes for simulation lam the nao de su dung cac agent ai de chuan bi canh 3d cho mo phong nvidia"
+    },
+    {
+      "id": "995842a0246984c921f7",
+      "title": "TensorRT Edge-LLM Completes the MLPerf Edge Agentic Benchmark 6.4x Faster on Jetson AGX Thor",
+      "title_vi": "TensorRT Edge-LLM hoàn thành MLPerf Edge Agentic Benchmark 6,4x nhanh hơn trên Jetson AGX Thor",
+      "url": "https://developer.nvidia.com/blog/tensorrt-edge-llm-completes-the-mlperf-edge-agentic-benchmark-6-4x-faster-on-jetson-agx-thor/",
+      "published_at": "2026-09-16T20:37:07Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "research",
+      "search_text": "tensorrt edge llm completes the mlperf edge agentic benchmark 6 4x faster on jetson agx thor tensorrt edge llm hoan thanh mlperf edge agentic benchmark 6 4x nhanh hon tren jetson agx thor nvidia"
+    },
+    {
+      "id": "f3899afd4d6a0a2de479",
+      "title": "Our framework for reporting model misalignment",
+      "title_vi": "Quadro của chúng tôi cho việc báo cáo không phù hợp với mô hình",
+      "url": "https://openai.com/index/model-misalignment-reporting-framework",
+      "published_at": "2026-09-16T17:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "our framework for reporting model misalignment quadro cua chung toi cho viec bao cao khong phu hop voi mo hinh openai"
+    },
+    {
+      "id": "51ee903b63bd893f4d54",
+      "title": "Translating CUDA Tile Operations from Python to Rust Using Agentic AI",
+      "title_vi": "Dịch CUDA Tile Operations từ Python sang Rust sử dụng AI Agentic",
+      "url": "https://developer.nvidia.com/blog/translating-cuda-tile-operations-from-python-to-rust-using-agentic-ai/",
+      "published_at": "2026-09-16T16:28:59Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "translating cuda tile operations from python to rust using agentic ai dich cuda tile operations tu python sang rust su dung ai agentic nvidia"
+    },
+    {
+      "id": "b0366f9850a9d166d4a5",
+      "title": "Helping older adults use AI in everyday life",
+      "title_vi": "Giúp người lớn tuổi sử dụng AI trong cuộc sống hàng ngày",
+      "url": "https://openai.com/index/helping-older-adults-use-ai-in-everyday-life",
+      "published_at": "2026-09-16T16:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "helping older adults use ai in everyday life giup nguoi lon tuoi su dung ai trong cuoc song hang ngay openai"
+    },
+    {
+      "id": "6ac27c68838b29eeea89",
+      "title": "Reimagining advertising with AI",
+      "title_vi": "Tái tưởng tượng lại quảng cáo với AI",
+      "url": "https://openai.com/index/reimagining-advertising-with-ai",
+      "published_at": "2026-09-16T13:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "reimagining advertising with ai tai tuong tuong lai quang cao voi ai openai"
+    },
+    {
+      "id": "4410122683c569258d5a",
+      "title": "How to connect AI usage to business value",
+      "title_vi": "Làm thế nào để kết nối việc sử dụng AI với giá trị kinh doanh",
+      "url": "https://openai.com/index/how-to-connect-ai-usage-to-business-value",
+      "published_at": "2026-09-16T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "how to connect ai usage to business value lam the nao de ket noi viec su dung ai voi gia tri kinh doanh openai"
+    },
+    {
+      "id": "27cd99b1dbe344203177",
+      "title": "Hex turns complex analysis into visual reports with GPT‑6 Astra",
+      "title_vi": "Hex biến phân tích phức tạp thành báo cáo trực quan với GPT-6 Astra",
+      "url": "https://openai.com/index/hex-gpt-6-astra",
+      "published_at": "2026-09-16T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "hex turns complex analysis into visual reports with gpt 6 astra hex bien phan tich phuc tap thanh bao cao truc quan voi gpt 6 astra openai"
+    },
+    {
+      "id": "7d2872733a614740ea67",
+      "title": "How workers are unlocking new ways of working",
+      "title_vi": "Làm thế nào công nhân đang mở ra các cách làm việc mới",
+      "url": "https://openai.com/index/unlocking-new-ways-of-working",
+      "published_at": "2026-09-16T09:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "research",
+      "search_text": "how workers are unlocking new ways of working lam the nao cong nhan dang mo ra cac cach lam viec moi openai"
+    },
+    {
+      "id": "78b5b4167b14366b49de",
+      "title": "Dense vs. MoE Models: Active Parameters, Throughput, and When to Choose Each",
+      "title_vi": "Thiết bị đậm vs. Mô hình MoE: Các tham số hoạt động, thông qua và khi nào để chọn mỗi",
+      "url": "https://developer.nvidia.com/blog/dense-vs-moe-models-active-parameters-throughput-and-when-to-choose-each/",
+      "published_at": "2026-09-15T17:00:11Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "dense vs moe models active parameters throughput and when to choose each thiet bi dam vs mo hinh moe cac tham so hoat dong thong qua va khi nao de chon moi nvidia"
+    },
+    {
+      "id": "d6edaad23002fd8bb747",
+      "title": "How NVIDIA NVLink 6 Delivers Multi-Layer Resiliency for AI Factories",
+      "title_vi": "Làm thế nào NVIDIA NVLink 6 cung cấp khả năng phục hồi đa lớp cho các nhà máy AI",
+      "url": "https://developer.nvidia.com/blog/how-nvidia-nvlink-6-delivers-multi-layer-resiliency-for-ai-factories/",
+      "published_at": "2026-09-15T16:55:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "how nvidia nvlink 6 delivers multi layer resiliency for ai factories lam the nao nvidia nvlink 6 cung cap kha nang phuc hoi da lop cho cac nha may ai"
+    },
+    {
+      "id": "bd253f19a79d5bc85acd",
+      "title": "How NVIDIA Groq 3 LPX Deterministic Execution Drives Power-Efficient High-Interactivity Inference on NVIDIA Vera Rubin",
+      "title_vi": "Làm thế nào NVIDIA Groq 3 LPX thực hiện xác định thúc đẩy năng lượng hiệu quả cao tương tác đầu tư trên NVIDIA Vera Rubin",
+      "url": "https://developer.nvidia.com/blog/how-nvidia-groq-3-lpx-deterministic-execution-drives-power-efficient-high-interactivity-inference-on-nvidia-vera-rubin/",
+      "published_at": "2026-09-15T16:55:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "how nvidia groq 3 lpx deterministic execution drives power efficient high interactivity inference on nvidia vera rubin lam the nao nvidia groq 3 lpx thuc hien xac dinh thuc day nang luong hieu qua cao tuong tac dau tu tren nvidia vera rubin"
+    },
+    {
+      "id": "0fdcb63db2859a930b46",
+      "title": "Scaling Federated Learning Across Docker, Kubernetes, and Slurm with NVIDIA FLARE",
+      "title_vi": "Scaling Federated Learning Across Docker, Kubernetes, và Slurm với NVIDIA FLARE",
+      "url": "https://developer.nvidia.com/blog/scaling-federated-learning-across-docker-kubernetes-and-slurm-with-nvidia-flare/",
+      "published_at": "2026-09-15T15:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "scaling federated learning across docker kubernetes and slurm with nvidia flare scaling federated learning across docker kubernetes va slurm voi nvidia flare"
+    },
+    {
+      "id": "75ebfc4f40c5e28ba3df",
+      "title": "Accelerating Dropless MoE Training in JAX with NVIDIA Transformer Engine",
+      "title_vi": "",
+      "url": "https://developer.nvidia.com/blog/accelerating-dropless-moe-training-in-jax-with-nvidia-transformer-engine/",
+      "published_at": "2026-09-14T16:39:15Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "accelerating dropless moe training in jax with nvidia transformer engine"
+    },
+    {
+      "id": "7f82d995c515e5ba429e",
+      "title": "How Fyxer built an AI executive assistant people trust",
+      "title_vi": "Làm thế nào Fyxer xây dựng một trợ lý điều hành AI người dân tin tưởng",
+      "url": "https://openai.com/index/fyxer",
+      "published_at": "2026-09-14T12:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "how fyxer built an ai executive assistant people trust lam the nao fyxer xay dung mot tro ly dieu hanh ai nguoi dan tin tuong openai"
+    },
+    {
+      "id": "361969d1105b10c126c6",
+      "title": "DeepSeek begins limited test of AI voice interaction with four voice profiles",
+      "title_vi": "DeepSeek bắt đầu thử nghiệm hạn chế của tương tác giọng nói AI với bốn hồ sơ giọng nói",
+      "url": "https://technode.com/2026/09/14/deepseek-begins-limited-test-of-ai-voice-interaction-with-four-voice-profiles/",
+      "published_at": "2026-09-14T05:46:45Z",
+      "publishers": [
+        "technode"
+      ],
+      "kind": "product",
+      "search_text": "deepseek begins limited test of ai voice interaction with four voice profiles deepseek bat dau thu nghiem han che cua tuong tac giong noi ai voi bon ho so giong noi technode"
+    },
+    {
+      "id": "968c32634dc2a1cb83f0",
+      "title": "Perplexity trusts GPT-6 Astra with end-to-end systems",
+      "title_vi": "Sự phức tạp tin tưởng GPT-6 Astra với các hệ thống kết thúc đến kết thúc",
+      "url": "https://openai.com/index/perplexity-improving-accuracy-with-astra",
+      "published_at": "2026-09-14T00:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "perplexity trusts gpt 6 astra with end to end systems su phuc tap tin tuong gpt 6 astra voi cac he thong ket thuc den ket thuc openai"
+    },
+    {
+      "id": "4aeb82da9975e2f5f564",
+      "title": "Cognition helps Devin test its own work with GPT‑6 Astra",
+      "title_vi": "Cognition giúp Devin kiểm tra công việc của riêng mình với GPT-6 Astra",
+      "url": "https://openai.com/index/cognition-devin-testing-with-astra",
+      "published_at": "2026-09-11T16:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "other",
+      "search_text": "cognition helps devin test its own work with gpt 6 astra cognition giup devin kiem tra cong viec cua rieng minh voi gpt 6 astra openai"
+    },
+    {
+      "id": "46fcf5bb7b99520f1816",
+      "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users",
+      "title_vi": "Nhanh chóng mở rộng lưu trữ trực tuyến để phục vụ hơn 1 tỷ người dùng ChatGPT",
+      "url": "https://openai.com/index/scaling-storage-one-billion-users-part-one",
+      "published_at": "2026-09-11T10:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "rapidly scaling online storage to serve over 1 billion chatgpt users nhanh chong mo rong luu tru truc tuyen de phuc vu hon 1 ty nguoi dung chatgpt openai"
+    },
+    {
+      "id": "c187f25455eed028f5d2",
+      "title": "How Full-Stack NIM Optimizations Deliver 2.5x More Users on Nemotron 3 Ultra",
+      "title_vi": "Làm thế nào Full-Stack NIM Optimizations cung cấp 2.5x nhiều người dùng trên Nemotron 3 Ultra",
+      "url": "https://developer.nvidia.com/blog/how-full-stack-nim-optimizations-deliver-2-5x-more-users-on-nemotron-3-ultra/",
+      "published_at": "2026-09-10T16:55:32Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "how full stack nim optimizations deliver 2 5x more users on nemotron 3 ultra lam the nao full stack nim optimizations cung cap 2 5x nhieu nguoi dung tren nemotron 3 ultra nvidia"
+    },
+    {
+      "id": "39842fa0b34b37cbe3f7",
+      "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
+      "title_vi": "Làm thế nào một nhà nghiên cứu sử dụng Codex và ChatGPT để tìm ra các phân tử kháng khuẩn mới",
+      "url": "https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials",
+      "published_at": "2026-09-10T16:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "how a researcher uses codex and chatgpt to search for new antimicrobial molecules lam the nao mot nha nghien cuu su dung codex va chatgpt de tim ra cac phan tu khang khuan moi openai"
+    },
+    {
+      "id": "c64184c5f5adf495d824",
+      "title": "High-Throughput Structure Prediction with BioNeMo Inference Runtime",
+      "title_vi": "",
+      "url": "https://developer.nvidia.com/blog/high-throughput-structure-prediction-with-bionemo-inference-runtime/",
+      "published_at": "2026-09-10T15:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "high throughput structure prediction with bionemo inference runtime nvidia"
+    },
+    {
+      "id": "6a886414536a09e3da65",
+      "title": "Now everyone can put data to work",
+      "title_vi": "Bây giờ mọi người có thể đưa dữ liệu vào hoạt động",
+      "url": "https://openai.com/index/put-data-to-work",
+      "published_at": "2026-09-10T15:00:00Z",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "product",
+      "search_text": "now everyone can put data to work bay gio moi nguoi co the dua du lieu vao hoat dong openai"
+    },
+    {
+      "id": "c4e67a9eee5aa87158a0",
+      "title": "From Wafer-Out to First Token: Codifying Supply Chain Expertise with Nemotron and Palantir Foundry",
+      "title_vi": "Từ Wafer-Out đến Token đầu tiên: Coding Supply Chain Expertise với Nemotron và Palantir Foundry",
+      "url": "https://developer.nvidia.com/blog/from-wafer-out-to-first-token-codifying-supply-chain-expertise-with-nemotron-and-palantir-foundry/",
+      "published_at": "2026-09-10T09:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "from wafer out to first token codifying supply chain expertise with nemotron and palantir foundry tu wafer out den token dau tien coding supply chain expertise voi nemotron va palantir foundry nvidia"
+    },
+    {
+      "id": "5c348986a15182f2f224",
+      "title": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "title_vi": "",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+      "published_at": "2026-09-10T02:17:58Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "deepseek ai deepseek v4 1 flash huggingface"
+    },
+    {
+      "id": "7160cfc6b1914a7ee326",
+      "title": "Measuring tactical intelligence targeting and conventional weapons capabilities of AI models",
+      "title_vi": "Đánh giá khả năng nhắm mục tiêu thông minh chiến thuật và vũ khí thông thường của các mô hình AI",
+      "url": "https://www.anthropic.com/research/intelligence-targeting-conventional-weapons-capabilities",
+      "published_at": "2026-09-10T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "measuring tactical intelligence targeting and conventional weapons capabilities of ai models danh gia kha nang nham muc tieu thong minh chien thuat va vu khi thong thuong cua cac mo hinh ai anthropic"
+    },
+    {
+      "id": "778743892f0688c6227e",
+      "title": "When to Use Encode-Prefill-Decode Disaggregation to Accelerate Multimodal Model Serving",
+      "title_vi": "Khi nào để sử dụng Encode-Prefill-Decode phân chia để tăng tốc dịch vụ mô hình đa phương thức",
+      "url": "https://developer.nvidia.com/blog/when-to-use-encode-prefill-decode-disaggregation-to-accelerate-multimodal-model-serving/",
+      "published_at": "2026-09-09T20:31:04Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "when to use encode prefill decode disaggregation to accelerate multimodal model serving khi nao de su dung encode prefill decode phan chia de tang toc dich vu mo hinh da phuong thuc nvidia"
+    },
+    {
+      "id": "8045128f07d20e63d484",
+      "title": "CUDA Toolkit 13.4 Adds Windows on Arm Support and Greater Control over Shared GPUs",
+      "title_vi": "CUDA Toolkit 13.4 Thêm Windows trên Arm Support và Kiểm soát lớn hơn trên các GPU chia sẻ",
+      "url": "https://developer.nvidia.com/blog/cuda-toolkit-13-4-adds-windows-on-arm-support-and-greater-control-over-shared-gpus/",
+      "published_at": "2026-09-09T20:24:12Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "cuda toolkit 13 4 adds windows on arm support and greater control over shared gpus cuda toolkit 13 4 them windows tren arm support va kiem soat lon hon tren cac gpu chia se nvidia"
+    },
+    {
+      "id": "415f8f1af13b2f4b5659",
+      "title": "An alignment assessment of recent cybersecurity incidents",
+      "title_vi": "Một đánh giá phù hợp về các vụ tấn công an ninh mạng gần đây",
+      "url": "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents",
+      "published_at": "2026-09-09T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "an alignment assessment of recent cybersecurity incidents mot danh gia phu hop ve cac vu tan cong an ninh mang gan day anthropic"
+    },
+    {
+      "id": "a97d132c2500d2b3d417",
+      "title": "Introducing CUDA Rust: Two Tracks for Writing GPU Kernels",
+      "title_vi": "Ra mắt CUDA Rust: Hai bài hát cho việc viết GPU Kernel",
+      "url": "https://developer.nvidia.com/blog/introducing-cuda-rust-two-tracks-for-writing-gpu-kernels/",
+      "published_at": "2026-09-08T12:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "introducing cuda rust two tracks for writing gpu kernels ra mat cuda rust hai bai hat cho viec viet gpu kernel nvidia"
+    },
+    {
+      "id": "01f7e1660c3b6e8a758f",
+      "title": "Building a Memory-Driven Agent with NVIDIA NemoClaw",
+      "title_vi": "Xây dựng một agent ghi nhớ với NVIDIA NemoClaw",
+      "url": "https://developer.nvidia.com/blog/building-a-memory-driven-agent-with-nvidia-nemoclaw/",
+      "published_at": "2026-09-04T18:04:55Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "building a memory driven agent with nvidia nemoclaw xay dung mot agent ghi nho voi nvidia nemoclaw"
+    },
+    {
+      "id": "e89e8064c40636c2ddeb",
+      "title": "Frontier Reasoning Reaches the Edge: How to Deploy and Optimize Models on NVIDIA Jetson",
+      "title_vi": "Lý luận tiên phong đạt đến tiên phong: Làm thế nào để triển khai và tối ưu hóa các mô hình trên NVIDIA Jetson",
+      "url": "https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/",
+      "published_at": "2026-09-04T16:21:04Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "frontier reasoning reaches the edge how to deploy and optimize models on nvidia jetson ly luan tien phong dat den tien phong lam the nao de trien khai va toi uu hoa cac mo hinh tren nvidia jetson"
+    },
+    {
+      "id": "e94fc2f0f03f56919cc9",
+      "title": "Formalizing Fermat's Last Theorem",
+      "title_vi": "Hoàn thành định lý cuối cùng của Fermat",
+      "url": "https://www.anthropic.com/research/formalizing-fermats-last-theorem",
+      "published_at": "2026-09-04T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "formalizing fermat s last theorem hoan thanh dinh ly cuoi cung cua fermat anthropic"
+    },
+    {
+      "id": "d276fe4e311d0162ee80",
+      "title": "How to Carry User Identity Across Federated Kubernetes and AI Platforms",
+      "title_vi": "Làm thế nào để mang danh tính người dùng qua các nền tảng Kubernetes và AI liên bang",
+      "url": "https://developer.nvidia.com/blog/how-to-carry-user-identity-across-federated-kubernetes-and-ai-platforms/",
+      "published_at": "2026-09-03T22:36:02Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "how to carry user identity across federated kubernetes and ai platforms lam the nao de mang danh tinh nguoi dung qua cac nen tang kubernetes va ai lien bang nvidia"
+    },
+    {
+      "id": "a038bd3173badd7b0fba",
+      "title": "NVIDIA PAIR Virtual Inference Router Expands Available Compute on Your Local Network",
+      "title_vi": "NVIDIA PAIR Virtual Inference Router mở rộng tính toán có sẵn trên mạng cục bộ của bạn",
+      "url": "https://developer.nvidia.com/blog/nvidia-pair-virtual-inference-router-expands-available-compute-on-your-local-network/",
+      "published_at": "2026-09-03T16:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "nvidia pair virtual inference router expands available compute on your local network nvidia pair virtual inference router mo rong tinh toan co san tren mang cuc bo cua ban"
+    },
+    {
+      "id": "18edfec44847ab6e953e",
+      "title": "The Modern CUDA Toolbox in Practice: A Step-by-Step Optimization Walkthrough",
+      "title_vi": "Bộ dụng cụ CUDA hiện đại được thực hiện: Một bước tiến tối ưu hóa từng bước",
+      "url": "https://developer.nvidia.com/blog/the-modern-cuda-toolbox-in-practice-a-step-by-step-optimization-walkthrough/",
+      "published_at": "2026-09-02T17:15:57Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "the modern cuda toolbox in practice a step by step optimization walkthrough bo dung cu cuda hien dai duoc thuc hien mot buoc tien toi uu hoa tung buoc nvidia"
+    },
+    {
+      "id": "b2a88b1bbb68edc1fb50",
+      "title": "Co-Designing AI Models Using Speculative Decoding for Faster LLM Inference",
+      "title_vi": "Đồng thiết kế các mô hình AI sử dụng giải mã suy đoán cho suy luận LLM nhanh hơn",
+      "url": "https://developer.nvidia.com/blog/co-designing-ai-models-using-speculative-decoding-for-faster-llm-inference/",
+      "published_at": "2026-09-02T16:04:19Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "co designing ai models using speculative decoding for faster llm inference dong thiet ke cac mo hinh ai su dung giai ma suy doan cho suy luan llm nhanh hon nvidia"
+    },
+    {
+      "id": "95d1f43d3070d60a0f7d",
+      "title": "Building an Adaptive Agentic Cybersecurity System with NVIDIA Nemotron",
+      "title_vi": "Xây dựng một hệ thống an ninh mạng phù hợp với NVIDIA Nemotron",
+      "url": "https://developer.nvidia.com/blog/building-an-adaptive-agentic-cybersecurity-system-with-nvidia-nemotron/",
+      "published_at": "2026-09-01T17:00:04Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "building an adaptive agentic cybersecurity system with nvidia nemotron xay dung mot he thong an ninh mang phu hop voi nvidia nemotron"
+    },
+    {
+      "id": "2a4fc549ba157ed0f333",
+      "title": "How to Size GPUs for AI Inference and TCO Without Overspending",
+      "title_vi": "Làm thế nào để kích thước GPU cho AI Inference và TCO mà không tốn quá nhiều tiền",
+      "url": "https://developer.nvidia.com/blog/how-to-size-gpus-for-ai-inference-and-tco-without-overspending/",
+      "published_at": "2026-09-01T15:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "how to size gpus for ai inference and tco without overspending lam the nao de kich thuoc gpu cho ai inference va tco ma khong ton qua nhieu tien nvidia"
+    },
+    {
+      "id": "4895ed02d15fc268eb62",
+      "title": "nvidia/Nemotron-3-Diarization",
+      "title_vi": "",
+      "url": "https://huggingface.co/nvidia/Nemotron-3-Diarization",
+      "published_at": "2026-09-01T13:16:57Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "nvidia nemotron 3 diarization huggingface"
+    },
+    {
+      "id": "e7232d52f37fd859a2ad",
+      "title": "Introducing Claude Fable 5.1 and Claude Mythos 5.1",
+      "title_vi": "Ra mắt Claude Fable 5.1 và Claude Mythos 5.1",
+      "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+      "published_at": "2026-09-01T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "model",
+      "search_text": "introducing claude fable 5 1 and claude mythos 5 1 ra mat claude fable 5 1 va claude mythos 5 1 anthropic"
+    },
+    {
+      "id": "b085c7f1762bfee8ae1c",
+      "title": "Developing Enterprise Frontier Safeguards with our customers",
+      "title_vi": "Phát triển các biện pháp bảo vệ tiên phong doanh nghiệp với khách hàng của chúng tôi",
+      "url": "https://www.anthropic.com/news/enterprise-frontier-safeguards",
+      "published_at": "2026-09-01T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "developing enterprise frontier safeguards with our customers phat trien cac bien phap bao ve tien phong doanh nghiep voi khach hang cua chung toi anthropic"
+    },
+    {
+      "id": "14f0239837ee285381a1",
+      "title": "Run NVIDIA BioNeMo NIM Microservices for Protein Structure Prediction in Claude Science",
+      "title_vi": "Thực hiện NVIDIA BioNeMo NIM Microservices cho dự đoán cấu trúc protein trong Claude Science",
+      "url": "https://developer.nvidia.com/blog/run-nvidia-bionemo-nim-microservices-for-protein-structure-prediction-in-claude-science/",
+      "published_at": "2026-08-31T16:30:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "research",
+      "search_text": "run nvidia bionemo nim microservices for protein structure prediction in claude science thuc hien nvidia bionemo nim microservices cho du doan cau truc protein trong claude science"
+    },
+    {
+      "id": "a44b79ec588c95b7e340",
+      "title": "Scale AV Perception Across Vehicle Platforms with NVIDIA Omniverse NuRec",
+      "title_vi": "Scale AV Perception trên các nền tảng xe với NVIDIA Omniverse NuRec",
+      "url": "https://developer.nvidia.com/blog/scale-av-perception-across-vehicle-platforms-with-nvidia-omniverse-nurec/",
+      "published_at": "2026-08-31T16:00:00Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "scale av perception across vehicle platforms with nvidia omniverse nurec scale av perception tren cac nen tang xe voi nvidia omniverse nurec"
+    },
+    {
+      "id": "20c9f9de702fe722311f",
+      "title": "deepseek-ai/DeepSeek-V4-Flash-Vision-Exp",
+      "title_vi": "",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp",
+      "published_at": "2026-08-31T06:16:18Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "deepseek ai deepseek v4 flash vision exp huggingface"
+    },
+    {
+      "id": "8ed1599eb95bc766b101",
+      "title": "Improving our alignment and security efforts",
+      "title_vi": "Cải thiện các nỗ lực liên kết và an ninh của chúng tôi",
+      "url": "https://www.anthropic.com/news/improving-alignment-security-efforts",
+      "published_at": "2026-08-31T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "improving our alignment and security efforts cai thien cac no luc lien ket va an ninh cua chung toi anthropic"
+    },
+    {
+      "id": "a0eed0f62d0dd2408ea5",
+      "title": "Deploy an Open Model from Checkpoint to Inference in Two Commands with NVIDIA TensorRT Model Connect",
+      "title_vi": "Sử dụng mô hình mở từ điểm kiểm soát đến kết luận trong hai lệnh với NVIDIA TensorRT Model Connect",
+      "url": "https://developer.nvidia.com/blog/deploy-an-open-model-from-checkpoint-to-inference-in-two-commands-with-nvidia-tensorrt-model-connect/",
+      "published_at": "2026-08-28T17:06:28Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "deploy an open model from checkpoint to inference in two commands with nvidia tensorrt model connect su dung mo hinh mo tu diem kiem soat den ket luan trong hai lenh voi nvidia tensorrt model connect"
+    },
+    {
+      "id": "35305757066a6f711440",
+      "title": "Previewing the Model Hardware Standard",
+      "title_vi": "Kiểm tra tiêu chuẩn phần cứng mô hình",
+      "url": "https://www.anthropic.com/news/model-hardware-standard-research-preview",
+      "published_at": "2026-08-27T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "previewing the model hardware standard kiem tra tieu chuan phan cung mo hinh anthropic"
+    },
+    {
+      "id": "3368e02f484edc23efd1",
+      "title": "Expanding our support for scientists",
+      "title_vi": "Tăng cường sự hỗ trợ của chúng tôi cho các nhà khoa học",
+      "url": "https://www.anthropic.com/news/expanding-support-for-scientists",
+      "published_at": "2026-08-27T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "expanding our support for scientists tang cuong su ho tro cua chung toi cho cac nha khoa hoc anthropic"
+    },
+    {
+      "id": "676f90ee5f88ebab3b50",
+      "title": "NVIDIA NVLink Fusion Brings NVHBM to Next-Generation AI Infrastructure",
+      "title_vi": "NVIDIA NVLink Fusion mang lại NVHBM cho cơ sở hạ tầng AI thế hệ tiếp theo",
+      "url": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/",
+      "published_at": "2026-08-26T21:06:58Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "other",
+      "search_text": "nvidia nvlink fusion brings nvhbm to next generation ai infrastructure nvidia nvlink fusion mang lai nvhbm cho co so ha tang ai the he tiep theo"
+    },
+    {
+      "id": "f7238dd0888d16619831",
+      "title": "How to Train a Cross-Embodiment Robot Navigation Policy with AI Agents",
+      "title_vi": "",
+      "url": "https://developer.nvidia.com/blog/how-to-train-a-cross-embodiment-robot-navigation-policy-with-ai-agents/",
+      "published_at": "2026-08-26T20:05:06Z",
+      "publishers": [
+        "nvidia"
+      ],
+      "kind": "product",
+      "search_text": "how to train a cross embodiment robot navigation policy with ai agents nvidia"
+    },
+    {
+      "id": "1e032b3767d6bbcd1e13",
+      "title": "Funding better evaluations of AI’s impact on wellbeing",
+      "title_vi": "Tài trợ đánh giá tốt hơn về tác động của AI đối với hạnh phúc",
+      "url": "https://www.anthropic.com/news/wellbeing-research-grants",
+      "published_at": "2026-08-25T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "funding better evaluations of ai s impact on wellbeing tai tro danh gia tot hon ve tac dong cua ai doi voi hanh phuc anthropic"
+    },
+    {
+      "id": "e68246067eeddf6e1d69",
+      "title": "How Claude’s text watermark works",
+      "title_vi": "Làm thế nào dấu nước văn bản của Claude hoạt động",
+      "url": "https://www.anthropic.com/news/claude-text-watermark",
+      "published_at": "2026-08-14T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "how claude s text watermark works lam the nao dau nuoc van ban cua claude hoat dong anthropic"
+    },
+    {
+      "id": "b96a45c2e08370dfb4cd",
+      "title": "deepseek-ai/DeepSeek-V4-Pro-0813",
+      "title_vi": "",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+      "published_at": "2026-08-13T03:05:06Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "deepseek ai deepseek v4 pro 0813 huggingface"
+    },
+    {
+      "id": "f3699d1273619bbc6235",
+      "title": "Hey, big spender – OpenAI has a new SKU just for you",
+      "title_vi": "Hey, người chi tiêu lớn OpenAI có một SKU mới chỉ cho bạn",
+      "url": "https://www.theregister.com/ai-and-ml/2026/08/10/hey-big-spender-openai-has-a-new-sku-just-for-you/5285727",
+      "published_at": "2026-08-10T21:25:39Z",
+      "publishers": [
+        "the-register"
+      ],
+      "kind": "other",
+      "search_text": "hey big spender openai has a new sku just for you hey nguoi chi tieu lon openai co mot sku moi chi cho ban the register"
+    },
+    {
+      "id": "5890b1cfd4cc38aa3885",
+      "title": "Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS",
+      "title_vi": "Xây dựng các agent giọng nói đa ngôn ngữ chậm thấp: mở trọng số & kiểm soát triển khai đầy đủ với NVIDIA Magpie TTS",
+      "url": "https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents",
+      "published_at": "2026-08-10T16:25:36Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "product",
+      "search_text": "build low latency multilingual voice agents open weights full deployment control with nvidia magpie tts xay dung cac agent giong noi da ngon ngu cham thap mo trong so kiem soat trien khai day du voi nvidia magpie tts huggingface"
+    },
+    {
+      "id": "cdd8d819f4855db7d80d",
+      "title": "Improving Fable 5's biology safeguards",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards",
+      "published_at": "2026-08-07T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "improving fable 5 s biology safeguards anthropic"
+    },
+    {
+      "id": "cde859f5c947a2b8f6e7",
+      "title": "Mariano-Florentino (Tino) Cuéllar to join Anthropic as Chief Global Affairs Officer",
+      "title_vi": "Mariano-Florentino (Tino) Cuéllar gia nhập Anthropic với tư cách là Giám đốc các vấn đề toàn cầu",
+      "url": "https://www.anthropic.com/news/tino-cuellar",
+      "published_at": "2026-08-04T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "mariano florentino tino cuellar to join anthropic as chief global affairs officer mariano florentino tino cuellar gia nhap anthropic voi tu cach la giam doc cac van de toan cau"
+    },
+    {
+      "id": "a1a747f4e1222f585211",
+      "title": "deepseek-ai/DeepSeek-V4-Flash-0731",
+      "title_vi": "",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731",
+      "published_at": "2026-07-31T07:30:24Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "deepseek ai deepseek v4 flash 0731 huggingface"
+    },
+    {
+      "id": "8b96329aed14643e23bf",
+      "title": "Investigating three real-world incidents in our cybersecurity evaluations",
+      "title_vi": "Điều tra ba sự cố trong thế giới thực trong các đánh giá an ninh mạng của chúng tôi",
+      "url": "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals",
+      "published_at": "2026-07-30T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "investigating three real world incidents in our cybersecurity evaluations dieu tra ba su co trong the gioi thuc trong cac danh gia an ninh mang cua chung toi anthropic"
+    },
+    {
+      "id": "96537f9acc12bc3d68e6",
+      "title": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
+      "title_vi": "NVIDIA Cosmos-H-Dreams: Mang lại mô phỏng tạo thời gian thực cho robot phẫu thuật",
+      "url": "https://huggingface.co/blog/nvidia/cosmos-h-dreams",
+      "published_at": "2026-07-27T09:32:20Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "other",
+      "search_text": "nvidia cosmos h dreams bringing real time generative simulation to surgical robotics nvidia cosmos h dreams mang lai mo phong tao thoi gian thuc cho robot phau thuat huggingface"
+    },
+    {
+      "id": "7b68f4f0be7a0fcc3726",
+      "title": "Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients",
+      "title_vi": "Cognizant và Anthropic mở rộng quan hệ đối tác của họ để đưa Claude đến các khách hàng doanh nghiệp",
+      "url": "https://www.anthropic.com/news/cognizant-anthropic",
+      "published_at": "2026-07-27T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "cognizant and anthropic expand their partnership to bring claude to enterprise clients cognizant va anthropic mo rong quan he doi tac cua ho de dua claude den cac khach hang doanh nghiep"
+    },
+    {
+      "id": "688b06fb84f51f177c70",
+      "title": "Our position on open-weights models",
+      "title_vi": "Tầm nhìn của chúng tôi về các mô hình trọng số mở",
+      "url": "https://www.anthropic.com/news/position-open-weights-models",
+      "published_at": "2026-07-27T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "our position on open weights models tam nhin cua chung toi ve cac mo hinh trong so mo anthropic"
+    },
+    {
+      "id": "c34a327604b5be4a7c98",
+      "title": "Introducing Claude Opus 5",
+      "title_vi": "Ra mắt Claude Opus 5",
+      "url": "https://www.anthropic.com/news/claude-opus-5",
+      "published_at": "2026-07-24T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "model",
+      "search_text": "introducing claude opus 5 ra mat claude opus 5 anthropic"
+    },
+    {
+      "id": "fdae3cb0f0bec7f6ab65",
+      "title": "OpenAI won't let some customers export their chats, but this tool will",
+      "title_vi": "OpenAI sẽ không cho phép một số khách hàng xuất khẩu trò chuyện của họ, nhưng công cụ này sẽ",
+      "url": "https://www.theregister.com/ai-and-ml/2026/07/23/openai-wont-let-some-customers-export-their-chats-but-this-tool-will/5277795",
+      "published_at": "2026-07-23T20:48:39Z",
+      "publishers": [
+        "the-register"
+      ],
+      "kind": "product",
+      "search_text": "openai won t let some customers export their chats but this tool will openai se khong cho phep mot so khach hang xuat khau tro chuyen cua ho nhung cong cu nay se the register"
+    },
+    {
+      "id": "a66075dc0af41a686afe",
+      "title": "Ask Claude about the Anthropic Economic Index",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/news/anthropic-economic-index-connector",
+      "published_at": "2026-07-22T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "ask claude about the anthropic economic index"
+    },
+    {
+      "id": "26b4e01c469da5ded830",
+      "title": "A research agenda for the Economic Futures Research Fund",
+      "title_vi": "Một chương trình nghị sự nghiên cứu cho Quỹ Nghiên cứu về Tương lai Kinh tế",
+      "url": "https://www.anthropic.com/news/economic-futures-research-fund-agenda",
+      "published_at": "2026-07-22T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "a research agenda for the economic futures research fund mot chuong trinh nghi su nghien cuu cho quy nghien cuu ve tuong lai kinh te anthropic"
+    },
+    {
+      "id": "9d9e4fbe80b29906125a",
+      "title": "Anthropic is donating another $20 million to Public First Action",
+      "title_vi": "Anthropic đang quyên góp thêm 20 triệu đô la cho Public First Action",
+      "url": "https://www.anthropic.com/news/donation-public-first-action",
+      "published_at": "2026-07-21T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "anthropic is donating another 20 million to public first action anthropic dang quyen gop them 20 trieu do la cho public first action"
+    },
+    {
+      "id": "413ef8ab41769726c3ea",
+      "title": "Apply for Anthropic’s AI for Science rare disease research grants",
+      "title_vi": "Đơn xin trợ cấp nghiên cứu về bệnh hiếm của AI for Science của Anthropic",
+      "url": "https://www.anthropic.com/news/rare-disease-research-grants",
+      "published_at": "2026-07-20T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "apply for anthropic s ai for science rare disease research grants don xin tro cap nghien cuu ve benh hiem cua ai for science cua anthropic"
+    },
+    {
+      "id": "ad504bbdb221cc4452d2",
+      "title": "Introducing Claude for Teachers",
+      "title_vi": "Ra mắt Claude dành cho giáo viên",
+      "url": "https://www.anthropic.com/news/claude-for-teachers",
+      "published_at": "2026-07-14T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "introducing claude for teachers ra mat claude danh cho giao vien anthropic"
+    },
+    {
+      "id": "0221b1d0649ec5f26c7e",
+      "title": "Anthropic commits $10 million to Canadian AI research",
+      "title_vi": "Anthropic cam kết 10 triệu đô la cho nghiên cứu AI Canada",
+      "url": "https://www.anthropic.com/news/canadian-ai-research",
+      "published_at": "2026-07-14T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "anthropic commits 10 million to canadian ai research anthropic cam ket 10 trieu do la cho nghien cuu ai canada"
+    },
+    {
+      "id": "96abb90589873af87cb1",
+      "title": "Introducing a way to reflect on how you use Claude",
+      "title_vi": "Ra mắt một cách để suy nghĩ về cách bạn sử dụng Claude",
+      "url": "https://www.anthropic.com/news/reflect-with-claude",
+      "published_at": "2026-07-09T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "introducing a way to reflect on how you use claude ra mat mot cach de suy nghi ve cach ban su dung claude anthropic"
+    },
+    {
+      "id": "8dbb2238c30b71eb75bd",
+      "title": "Inviting hard questions",
+      "title_vi": "Thỉnh cầu những câu hỏi khó khăn",
+      "url": "https://www.anthropic.com/news/hard-questions",
+      "published_at": "2026-07-09T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "inviting hard questions thinh cau nhung cau hoi kho khan anthropic"
+    },
+    {
+      "id": "5a81a35f01891896cff8",
+      "title": "Ben Bernanke appointed to Anthropic’s Long-Term Benefit Trust",
+      "title_vi": "Ben Bernanke được bổ nhiệm vào quỹ lợi ích lâu dài của Anthropic",
+      "url": "https://www.anthropic.com/news/ben-bernanke",
+      "published_at": "2026-07-09T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "ben bernanke appointed to anthropic s long term benefit trust ben bernanke duoc bo nhiem vao quy loi ich lau dai cua anthropic"
+    },
+    {
+      "id": "2421a78a2bf886f857d4",
+      "title": "UST is bringing Claude to physical AI",
+      "title_vi": "UST đang đưa Claude đến AI vật lý",
+      "url": "https://www.anthropic.com/news/ust-claude",
+      "published_at": "2026-07-09T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "ust is bringing claude to physical ai ust dang dua claude den ai vat ly anthropic"
+    },
+    {
+      "id": "33ff9177ca69de68580e",
+      "title": "Government of Alberta uses Claude to find and fix cybersecurity vulnerabilities across government systems",
+      "title_vi": "Chính phủ Alberta sử dụng Claude để tìm và khắc phục các lỗ hổng an ninh mạng trên các hệ thống chính phủ",
+      "url": "https://www.anthropic.com/news/alberta-government-claude-cybersecurity",
+      "published_at": "2026-07-06T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "government of alberta uses claude to find and fix cybersecurity vulnerabilities across government systems chinh phu alberta su dung claude de tim va khac phuc cac lo hong an ninh mang tren cac he thong chinh phu anthropic"
+    },
+    {
+      "id": "aaef033dfabe2831ee14",
+      "title": "More details on Fable 5’s cyber safeguards and our jailbreak framework",
+      "title_vi": "Thông tin chi tiết hơn về các biện pháp bảo vệ mạng của Fable 5 và hệ thống jailbreak của chúng tôi",
+      "url": "https://www.anthropic.com/news/fable-safeguards-jailbreak-framework",
+      "published_at": "2026-07-02T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "more details on fable 5 s cyber safeguards and our jailbreak framework thong tin chi tiet hon ve cac bien phap bao ve mang cua fable 5 va he thong jailbreak cua chung toi anthropic"
+    },
+    {
+      "id": "fdd9745edc3aad4e2c44",
+      "title": "Redeploying Fable 5",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/news/redeploying-fable-5",
+      "published_at": "2026-06-30T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "model",
+      "search_text": "redeploying fable 5 anthropic"
+    },
+    {
+      "id": "a577f205a73beafce77a",
+      "title": "Claude Science, an AI workbench for scientists, is now available",
+      "title_vi": "Claude Science, một bàn làm việc AI cho các nhà khoa học, bây giờ có sẵn",
+      "url": "https://www.anthropic.com/news/claude-science-ai-workbench",
+      "published_at": "2026-06-30T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "claude science an ai workbench for scientists is now available claude science mot ban lam viec ai cho cac nha khoa hoc bay gio co san anthropic"
+    },
+    {
+      "id": "4307222bc7e5f2e47115",
+      "title": "Introducing Claude Sonnet 5",
+      "title_vi": "Ra mắt Claude Sonnet 5",
+      "url": "https://www.anthropic.com/news/claude-sonnet-5",
+      "published_at": "2026-06-30T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "model",
+      "search_text": "introducing claude sonnet 5 ra mat claude sonnet 5 anthropic"
+    },
+    {
+      "id": "27d324df069815e3a5e3",
+      "title": "deepseek-ai/eagle3_gemma4_12b_ttt7",
+      "title_vi": "",
+      "url": "https://huggingface.co/deepseek-ai/eagle3_gemma4_12b_ttt7",
+      "published_at": "2026-06-28T12:37:17Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "deepseek ai eagle3 gemma4 12b ttt7 huggingface"
+    },
+    {
+      "id": "8cc9ea139028318c4cb9",
+      "title": "deepseek-ai/eagle3_qwen3_14b_ttt7",
+      "title_vi": "",
+      "url": "https://huggingface.co/deepseek-ai/eagle3_qwen3_14b_ttt7",
+      "published_at": "2026-06-28T12:36:20Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "deepseek ai eagle3 qwen3 14b ttt7 huggingface"
+    },
+    {
+      "id": "7f8567ec77fa4abf249f",
+      "title": "deepseek-ai/eagle3_qwen3_8b_ttt7",
+      "title_vi": "",
+      "url": "https://huggingface.co/deepseek-ai/eagle3_qwen3_8b_ttt7",
+      "published_at": "2026-06-28T12:35:29Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "deepseek ai eagle3 qwen3 8b ttt7 huggingface"
+    },
+    {
+      "id": "a7c5725dec71abaa34ef",
+      "title": "deepseek-ai/eagle3_qwen3_4b_ttt7",
+      "title_vi": "",
+      "url": "https://huggingface.co/deepseek-ai/eagle3_qwen3_4b_ttt7",
+      "published_at": "2026-06-28T12:34:59Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "deepseek ai eagle3 qwen3 4b ttt7 huggingface"
+    },
+    {
+      "id": "3d5034a0c91173658484",
+      "title": "Anthropic reimagines Claude in Slack as nosy, always-on agentic AI coworker",
+      "title_vi": "Anthropic tưởng tượng lại Claude trong Slack như một đồng nghiệp AI luôn luôn thông minh",
+      "url": "https://www.theregister.com/ai-and-ml/2026/06/23/anthropic-reimagines-claude-in-slack-as-nosy-always-on-agentic-ai-coworker/5260422",
+      "published_at": "2026-06-23T20:16:34Z",
+      "publishers": [
+        "the-register"
+      ],
+      "kind": "product",
+      "search_text": "anthropic reimagines claude in slack as nosy always on agentic ai coworker anthropic tuong tuong lai claude trong slack nhu mot dong nghiep ai luon luon thong minh the register"
+    },
+    {
+      "id": "64748ac3266300d1d5f0",
+      "title": "Introducing Claude Tag",
+      "title_vi": "Ra mắt Claude Tag",
+      "url": "https://www.anthropic.com/news/introducing-claude-tag",
+      "published_at": "2026-06-23T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "introducing claude tag ra mat claude tag anthropic"
+    },
+    {
+      "id": "47e96fb85bcbcad48e72",
+      "title": "Anthropic opens Seoul office and announces new partnerships across the Korean AI ecosystem",
+      "title_vi": "Anthropic mở văn phòng ở Seoul và công bố hợp tác mới trên toàn hệ sinh thái AI Hàn Quốc",
+      "url": "https://www.anthropic.com/news/seoul-office-partnerships-korean-ai-ecosystem",
+      "published_at": "2026-06-17T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "anthropic opens seoul office and announces new partnerships across the korean ai ecosystem anthropic mo van phong o seoul va cong bo hop tac moi tren toan he sinh thai ai han quoc"
+    },
+    {
+      "id": "164b6c1e9cce5b9b2af6",
+      "title": "The new Siri makes one of Apple's most convenient OS features a cumbersome mess",
+      "title_vi": "Siri mới làm cho một trong những hệ điều hành thuận tiện nhất của Apple có tính năng lộn xộn khó khăn",
+      "url": "https://www.theregister.com/ai-and-ml/2026/06/16/the-new-siri-makes-one-of-apples-most-convenient-os-features-a-cumbersome-mess/5256591",
+      "published_at": "2026-06-16T20:47:37Z",
+      "publishers": [
+        "the-register"
+      ],
+      "kind": "product",
+      "search_text": "the new siri makes one of apple s most convenient os features a cumbersome mess siri moi lam cho mot trong nhung he dieu hanh thuan tien nhat cua apple co tinh nang lon xon kho khan the register"
+    },
+    {
+      "id": "7f42ae0d5b44a6eff498",
+      "title": "TCS and Anthropic partner to bring Claude to regulated industries",
+      "title_vi": "TCS và đối tác Anthropic để đưa Claude vào các ngành công nghiệp được quy định",
+      "url": "https://www.anthropic.com/news/tcs-anthropic-partnership",
+      "published_at": "2026-06-12T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "tcs and anthropic partner to bring claude to regulated industries tcs va doi tac anthropic de dua claude vao cac nganh cong nghiep duoc quy dinh"
+    },
+    {
+      "id": "40b973fa5524d8411e73",
+      "title": "Results from the first Anthropic Public Record",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/news/anthropic-public-record",
+      "published_at": "2026-06-12T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "results from the first anthropic public record"
+    },
+    {
+      "id": "001317287cdd9d978025",
+      "title": "Statement on the US government directive to suspend access to Fable 5 and Mythos 5",
+      "title_vi": "Tuyên bố về hướng dẫn của chính phủ Hoa Kỳ để đình chỉ truy cập vào Fable 5 và Mythos 5",
+      "url": "https://www.anthropic.com/news/fable-mythos-access",
+      "published_at": "2026-06-12T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "statement on the us government directive to suspend access to fable 5 and mythos 5 tuyen bo ve huong dan cua chinh phu hoa ky de dinh chi truy cap vao fable 5 va mythos 5 anthropic"
+    },
+    {
+      "id": "bf5c018b2741ad1d6647",
+      "title": "DXC will integrate Claude into the systems banks, airlines, and other regulated industries rely on",
+      "title_vi": "DXC sẽ tích hợp Claude vào các hệ thống các ngân hàng, hãng hàng không và các ngành công nghiệp được quy định khác dựa trên",
+      "url": "https://www.anthropic.com/news/dxc-anthropic-alliance",
+      "published_at": "2026-06-11T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "dxc will integrate claude into the systems banks airlines and other regulated industries rely on dxc se tich hop claude vao cac he thong cac ngan hang hang hang khong va cac nganh cong nghiep duoc quy dinh khac dua tren anthropic"
+    },
+    {
+      "id": "72c805579f21b6e81058",
+      "title": "Introducing Claude Corps",
+      "title_vi": "Ra mắt Claude Corps",
+      "url": "https://www.anthropic.com/news/claude-corps",
+      "published_at": "2026-06-11T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "introducing claude corps ra mat claude corps anthropic"
+    },
+    {
+      "id": "e11fcea9cd94bb207930",
+      "title": "Claude Fable 5 and Claude Mythos 5",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+      "published_at": "2026-06-09T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "claude fable 5 and claude mythos 5 anthropic"
+    },
+    {
+      "id": "c265f4d09da60a8497d8",
+      "title": "Introducing the Services Track and Partner Hub of the Claude Partner Network",
+      "title_vi": "Ra mắt trạm dịch vụ theo dõi và đối tác của mạng lưới đối tác Claude",
+      "url": "https://www.anthropic.com/news/services-track-partner-hub",
+      "published_at": "2026-06-03T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "introducing the services track and partner hub of the claude partner network ra mat tram dich vu theo doi va doi tac cua mang luoi doi tac claude anthropic"
+    },
+    {
+      "id": "b531a6249412cc4f4209",
+      "title": "What we learned mapping a year’s worth of AI-enabled cyber threats",
+      "title_vi": "Những gì chúng tôi đã học được trong việc lập bản đồ một năm về các mối đe dọa mạng được hỗ trợ bởi AI",
+      "url": "https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack",
+      "published_at": "2026-06-03T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "what we learned mapping a year s worth of ai enabled cyber threats nhung gi chung toi da hoc duoc trong viec lap ban do mot nam ve cac moi de doa mang duoc ho tro boi ai anthropic"
+    },
+    {
+      "id": "fd9b87df1fe1b911c46c",
+      "title": "Expanding Project Glasswing",
+      "title_vi": "Dự án Glasswing mở rộng",
+      "url": "https://www.anthropic.com/news/expanding-project-glasswing",
+      "published_at": "2026-06-02T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "expanding project glasswing du an glasswing mo rong anthropic"
+    },
+    {
+      "id": "4314051b45e9da5a224f",
+      "title": "Anthropic, now atop the AI bubble, files for its IPO",
+      "title_vi": "Anthropic, bây giờ trên đỉnh của bong bóng AI, tập tin cho IPO của mình",
+      "url": "https://www.theregister.com/ai-and-ml/2026/06/01/anthropic-now-atop-the-ai-bubble-files-for-its-ipo/5249753",
+      "published_at": "2026-06-01T18:12:22Z",
+      "publishers": [
+        "the-register"
+      ],
+      "kind": "other",
+      "search_text": "anthropic now atop the ai bubble files for its ipo anthropic bay gio tren dinh cua bong bong ai tap tin cho ipo cua minh the register"
+    },
+    {
+      "id": "bd891e1aa686b089a315",
+      "title": "Anthropic confidentially submits draft S-1 to the SEC",
+      "title_vi": "Anthropic gửi dự thảo S-1 đến SEC một cách bí mật",
+      "url": "https://www.anthropic.com/news/confidential-draft-s1-sec",
+      "published_at": "2026-06-01T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "anthropic confidentially submits draft s 1 to the sec anthropic gui du thao s 1 den sec mot cach bi mat"
+    },
+    {
+      "id": "b5e22ae086a6b3533d64",
+      "title": "Anthropic raises $65B in Series H funding at $965B post-money valuation",
+      "title_vi": "Anthropic tăng 65 tỷ đô la trong Series H tài trợ ở mức 965 tỷ đô la sau khi đánh giá tiền",
+      "url": "https://www.anthropic.com/news/series-h",
+      "published_at": "2026-05-28T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "anthropic raises 65b in series h funding at 965b post money valuation anthropic tang 65 ty do la trong series h tai tro o muc 965 ty do la sau khi danh gia tien"
+    },
+    {
+      "id": "5348a7d239028e9b1bf7",
+      "title": "Introducing Claude Opus 4.8",
+      "title_vi": "Ra mắt Claude Opus 4.8",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "published_at": "2026-05-28T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "model",
+      "search_text": "introducing claude opus 4 8 ra mat claude opus 4 8 anthropic"
+    },
+    {
+      "id": "48c97f53119b58865b35",
+      "title": "Anthropic opens Milan office to support Italian enterprise, research, and developers",
+      "title_vi": "Anthropic mở văn phòng ở Milan để hỗ trợ doanh nghiệp, nghiên cứu và phát triển của Ý",
+      "url": "https://www.anthropic.com/news/milan-office-opening",
+      "published_at": "2026-05-27T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "anthropic opens milan office to support italian enterprise research and developers anthropic mo van phong o milan de ho tro doanh nghiep nghien cuu va phat trien cua y"
+    },
+    {
+      "id": "cd97e33f2d57807ac4d7",
+      "title": "Anthropic appoints KiYoung Choi as Representative Director of Korea ahead of Seoul office opening",
+      "title_vi": "Anthropic bổ nhiệm KiYoung Choi làm Giám đốc đại diện của Hàn Quốc trước khi mở văn phòng ở Seoul",
+      "url": "https://www.anthropic.com/news/kiyoung-choi-representative-director-anthropic-korea",
+      "published_at": "2026-05-26T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "anthropic appoints kiyoung choi as representative director of korea ahead of seoul office opening anthropic bo nhiem kiyoung choi lam giam doc dai dien cua han quoc truoc khi mo van phong o seoul"
+    },
+    {
+      "id": "cf2879a4f8bc2f9cb0e5",
+      "title": "Anthropic co-founder Chris Olah's remarks on Pope Leo XIV's encyclical \"Magnifica humanitas\"",
+      "title_vi": "Lời bình luận của đồng sáng lập Anthropic Chris Olah về cuốn sách thông điệp của Giáo hoàng Leo XIV \"Magnifica humanitas\"",
+      "url": "https://www.anthropic.com/news/chris-olah-pope-leo-encyclical",
+      "published_at": "2026-05-25T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "anthropic co founder chris olah s remarks on pope leo xiv s encyclical magnifica humanitas loi binh luan cua dong sang lap anthropic chris olah ve cuon sach thong diep cua giao hoang leo xiv magnifica humanitas"
+    },
+    {
+      "id": "64af1d1a2fd48283363f",
+      "title": "How we contain Claude across products",
+      "title_vi": "Làm thế nào chúng ta chứa Claude trên các sản phẩm",
+      "url": "https://www.anthropic.com/engineering/how-we-contain-claude",
+      "published_at": "2026-05-25T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "how we contain claude across products lam the nao chung ta chua claude tren cac san pham anthropic"
+    },
+    {
+      "id": "5df700a9f389ee77e99e",
+      "title": "KPMG integrates Claude across its core business and workforce of more than 276,000 in strategic alliance",
+      "title_vi": "KPMG tích hợp Claude trong các hoạt động kinh doanh cốt lõi và lực lượng lao động hơn 276.000 trong liên minh chiến lược",
+      "url": "https://www.anthropic.com/news/anthropic-kpmg",
+      "published_at": "2026-05-19T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "kpmg integrates claude across its core business and workforce of more than 276 000 in strategic alliance kpmg tich hop claude trong cac hoat dong kinh doanh cot loi va luc luong lao dong hon 276 000 trong lien minh chien luoc anthropic"
+    },
+    {
+      "id": "e4ae65a9c2eb9a2eaf24",
+      "title": "New Compute Partnership with Anthropic",
+      "title_vi": "Hợp tác tính toán mới với Anthropic",
+      "url": "https://x.ai/news/anthropic-compute-partnership",
+      "published_at": "2026-05-06T00:00:00Z",
+      "publishers": [
+        "xai"
+      ],
+      "kind": "other",
+      "search_text": "new compute partnership with anthropic hop tac tinh toan moi voi anthropic xai"
+    },
+    {
+      "id": "007c356585884925de80",
+      "title": "OpenAI exec says company hopes to burn $50B of somebody else's money on compute this year",
+      "title_vi": "Giám đốc OpenAI nói rằng công ty hy vọng sẽ đốt cháy 50 tỷ đô la tiền của người khác trên máy tính trong năm nay",
+      "url": "https://www.theregister.com/software/2026/05/05/openai-exec-says-it-will-burn-50b-on-compute-this-year/5226088",
+      "published_at": "2026-05-05T21:02:01Z",
+      "publishers": [
+        "the-register"
+      ],
+      "kind": "other",
+      "search_text": "openai exec says company hopes to burn 50b of somebody else s money on compute this year giam doc openai noi rang cong ty hy vong se dot chay 50 ty do la tien cua nguoi khac tren may tinh trong nam nay the register"
+    },
+    {
+      "id": "bf48c0befb645745f6af",
+      "title": "Anthropic wants Claude to play with money, unleashes finance agents",
+      "title_vi": "Anthropic muốn Claude chơi với tiền bạc, giải phóng các agent tài chính",
+      "url": "https://www.theregister.com/software/2026/05/05/anthropic-unleashes-finance-agents-for-claude/5225868",
+      "published_at": "2026-05-05T19:44:41Z",
+      "publishers": [
+        "the-register"
+      ],
+      "kind": "product",
+      "search_text": "anthropic wants claude to play with money unleashes finance agents anthropic muon claude choi voi tien bac giai phong cac agent tai chinh the register"
+    },
+    {
+      "id": "85b0ca3c45b5c9931e3c",
+      "title": "An update on recent Claude Code quality reports",
+      "title_vi": "Một bản cập nhật về các báo cáo chất lượng Claude Code gần đây",
+      "url": "https://www.anthropic.com/engineering/april-23-postmortem",
+      "published_at": "2026-04-23T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "an update on recent claude code quality reports mot ban cap nhat ve cac bao cao chat luong claude code gan day anthropic"
+    },
+    {
+      "id": "184194bab790344634a5",
+      "title": "openai/privacy-filter",
+      "title_vi": "",
+      "url": "https://huggingface.co/openai/privacy-filter",
+      "published_at": "2026-04-17T21:38:35Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "openai privacy filter huggingface"
+    },
+    {
+      "id": "8537165d23c701b725b2",
+      "title": "Scaling Managed Agents: Decoupling the brain from the hands",
+      "title_vi": "Scaling Managed Agents: Tự tách não khỏi tay",
+      "url": "https://www.anthropic.com/engineering/managed-agents",
+      "published_at": "2026-04-08T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "scaling managed agents decoupling the brain from the hands scaling managed agents tu tach nao khoi tay anthropic"
+    },
+    {
+      "id": "d5f9dbd62b3ecc1122d1",
+      "title": "How we built Claude Code auto mode: a safer way to skip permissions",
+      "title_vi": "Làm thế nào chúng tôi xây dựng Claude Code chế độ tự động: một cách an toàn hơn để bỏ qua quyền",
+      "url": "https://www.anthropic.com/engineering/claude-code-auto-mode",
+      "published_at": "2026-03-25T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "how we built claude code auto mode a safer way to skip permissions lam the nao chung toi xay dung claude code che do tu dong mot cach an toan hon de bo qua quyen anthropic"
+    },
+    {
+      "id": "9fa759b72385cdecdf59",
+      "title": "Harness design for long-running application development",
+      "title_vi": "Thiết kế khung chạy cho việc phát triển ứng dụng lâu dài",
+      "url": "https://www.anthropic.com/engineering/harness-design-long-running-apps",
+      "published_at": "2026-03-24T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "harness design for long running application development thiet ke khung chay cho viec phat trien ung dung lau dai anthropic"
+    },
+    {
+      "id": "31ea9f5bb6ea9b4566ea",
+      "title": "Mistral AI partners with NVIDIA to accelerate open frontier models",
+      "title_vi": "Mistral AI hợp tác với NVIDIA để tăng tốc các mô hình tiên phong mở",
+      "url": "https://mistral.ai/news/mistral-ai-and-nvidia-partner-to-accelerate-open-frontier-models",
+      "published_at": "2026-03-16T00:00:00Z",
+      "publishers": [
+        "mistral"
+      ],
+      "kind": "other",
+      "search_text": "mistral ai partners with nvidia to accelerate open frontier models mistral ai hop tac voi nvidia de tang toc cac mo hinh tien phong mo"
+    },
+    {
+      "id": "42468eb1c49ef4da0e4e",
+      "title": "Eval awareness in Claude Opus 4.6’s BrowseComp performance",
+      "title_vi": "Sự nhận thức bằng nhau trong hiệu suất BrowseComp của Claude Opus 4.6",
+      "url": "https://www.anthropic.com/engineering/eval-awareness-browsecomp",
+      "published_at": "2026-03-06T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "eval awareness in claude opus 4 6 s browsecomp performance su nhan thuc bang nhau trong hieu suat browsecomp cua claude opus 4 6 anthropic"
+    },
+    {
+      "id": "c78d84ac1a7e3d92b1c1",
+      "title": "Quantifying infrastructure noise in agentic coding evals",
+      "title_vi": "Số lượng tiếng ồn cơ sở hạ tầng trong các đánh giá lập trình cơ quan",
+      "url": "https://www.anthropic.com/engineering/infrastructure-noise",
+      "published_at": "2026-02-05T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "quantifying infrastructure noise in agentic coding evals so luong tieng on co so ha tang trong cac danh gia lap trinh co quan anthropic"
+    },
+    {
+      "id": "1eba12a4a8fa384c9268",
+      "title": "Building a C compiler with a team of parallel Claudes",
+      "title_vi": "Xây dựng một trình biên dịch C với một nhóm các Claudes song song",
+      "url": "https://www.anthropic.com/engineering/building-c-compiler",
+      "published_at": "2026-02-05T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "building a c compiler with a team of parallel claudes xay dung mot trinh bien dich c voi mot nhom cac claudes song song anthropic"
+    },
+    {
+      "id": "2ab0d2c099317874ed36",
+      "title": "Designing AI-resistant technical evaluations",
+      "title_vi": "Thiết kế các đánh giá kỹ thuật kháng AI",
+      "url": "https://www.anthropic.com/engineering/AI-resistant-technical-evaluations",
+      "published_at": "2026-01-21T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "designing ai resistant technical evaluations thiet ke cac danh gia ky thuat khang ai anthropic"
+    },
+    {
+      "id": "6c790a16de0afd2b5fe6",
+      "title": "Demystifying evals for AI agents",
+      "title_vi": "Các đánh giá giải mờ cho các agent AI",
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "published_at": "2026-01-09T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "demystifying evals for ai agents cac danh gia giai mo cho cac agent ai anthropic"
+    },
+    {
+      "id": "2ca975dc41662bf9cf16",
+      "title": "openai/circuit-sparsity",
+      "title_vi": "",
+      "url": "https://huggingface.co/openai/circuit-sparsity",
+      "published_at": "2025-12-11T22:39:34Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "openai circuit sparsity huggingface"
+    },
+    {
+      "id": "7f7a70a6764975801eea",
+      "title": "Effective harnesses for long-running agents",
+      "title_vi": "Các dây thừng hiệu quả cho các chất có hiệu lực lâu dài",
+      "url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+      "published_at": "2025-11-26T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "effective harnesses for long running agents cac day thung hieu qua cho cac chat co hieu luc lau dai anthropic"
+    },
+    {
+      "id": "eafa6e2f9f229d6667bf",
+      "title": "Introducing advanced tool use on the Claude Developer Platform",
+      "title_vi": "Ra mắt sử dụng công cụ tiên tiến trên nền tảng Claude Developer",
+      "url": "https://www.anthropic.com/engineering/advanced-tool-use",
+      "published_at": "2025-11-24T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "introducing advanced tool use on the claude developer platform ra mat su dung cong cu tien tien tren nen tang claude developer anthropic"
+    },
+    {
+      "id": "9b88bfec4a46afeb42f3",
+      "title": "Code execution with MCP: Building more efficient agents",
+      "title_vi": "Thực hiện mã với MCP: Xây dựng các agent hiệu quả hơn",
+      "url": "https://www.anthropic.com/engineering/code-execution-with-mcp",
+      "published_at": "2025-11-04T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "code execution with mcp building more efficient agents thuc hien ma voi mcp xay dung cac agent hieu qua hon anthropic"
+    },
+    {
+      "id": "c765441e9673d9570c40",
+      "title": "Beyond permission prompts: making Claude Code more secure and autonomous",
+      "title_vi": "Ngoài các yêu cầu cho phép: làm cho Claude Code an toàn hơn và tự trị hơn",
+      "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
+      "published_at": "2025-10-20T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "beyond permission prompts making claude code more secure and autonomous ngoai cac yeu cau cho phep lam cho claude code an toan hon va tu tri hon anthropic"
+    },
+    {
+      "id": "2e50ab69ebea3b2c9412",
+      "title": "Equipping agents for the real world with Agent Skills",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills",
+      "published_at": "2025-10-16T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "equipping agents for the real world with agent skills anthropic"
+    },
+    {
+      "id": "126e07cf0d684e0333f9",
+      "title": "Effective context engineering for AI agents",
+      "title_vi": "Kỹ thuật ngữ hiệu quả cho các agent AI",
+      "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "published_at": "2025-09-29T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "effective context engineering for ai agents ky thuat ngu hieu qua cho cac agent ai anthropic"
+    },
+    {
+      "id": "8b7663e373c4c258e6ac",
+      "title": "openai/gpt-oss-safeguard-20b",
+      "title_vi": "",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b",
+      "published_at": "2025-09-18T18:51:08Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "openai gpt oss safeguard 20b huggingface"
+    },
+    {
+      "id": "e99c1ded8705dab80b0e",
+      "title": "openai/gpt-oss-safeguard-120b",
+      "title_vi": "",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b",
+      "published_at": "2025-09-18T18:50:45Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "openai gpt oss safeguard 120b huggingface"
+    },
+    {
+      "id": "955bc6c93f35e54adf83",
+      "title": "A postmortem of three recent issues",
+      "title_vi": "Một bài kiểm tra sau khi chết của ba số gần đây",
+      "url": "https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues",
+      "published_at": "2025-09-17T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "a postmortem of three recent issues mot bai kiem tra sau khi chet cua ba so gan day anthropic"
+    },
+    {
+      "id": "1399aec680791f782180",
+      "title": "Writing effective tools for agents — with agents",
+      "title_vi": "Viết các công cụ hiệu quả cho các agent với các agent",
+      "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+      "published_at": "2025-09-11T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "writing effective tools for agents with agents viet cac cong cu hieu qua cho cac agent voi cac agent anthropic"
+    },
+    {
+      "id": "4fb7165743ee42f1a3de",
+      "title": "openai/gpt-oss-20b",
+      "title_vi": "",
+      "url": "https://huggingface.co/openai/gpt-oss-20b",
+      "published_at": "2025-08-04T22:33:29Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "openai gpt oss 20b huggingface"
+    },
+    {
+      "id": "f85326ed9ab1c9be95a7",
+      "title": "openai/gpt-oss-120b",
+      "title_vi": "",
+      "url": "https://huggingface.co/openai/gpt-oss-120b",
+      "published_at": "2025-08-04T22:33:06Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "openai gpt oss 120b huggingface"
+    },
+    {
+      "id": "bb4c60b19b246a2ffae5",
+      "title": "Desktop Extensions: One-click MCP server installation for Claude Desktop",
+      "title_vi": "Desktop Extensions: Một nhấp chuột cài đặt máy chủ MCP cho Claude Desktop",
+      "url": "https://www.anthropic.com/engineering/desktop-extensions",
+      "published_at": "2025-06-26T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "other",
+      "search_text": "desktop extensions one click mcp server installation for claude desktop desktop extensions mot nhap chuot cai dat may chu mcp cho claude desktop anthropic"
+    },
+    {
+      "id": "a3afc1e8c7c23916e7f5",
+      "title": "How we built our multi-agent research system",
+      "title_vi": "Làm thế nào chúng tôi xây dựng hệ thống nghiên cứu đa agent của chúng tôi",
+      "url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+      "published_at": "2025-06-13T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "how we built our multi agent research system lam the nao chung toi xay dung he thong nghien cuu da agent cua chung toi anthropic"
+    },
+    {
+      "id": "b77235353457c81e3b8d",
+      "title": "Claude Code: Best practices for agentic coding",
+      "title_vi": "Claude Code: Các thực tiễn tốt nhất cho việc lập trình agent",
+      "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
+      "published_at": "2025-04-18T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "claude code best practices for agentic coding claude code cac thuc tien tot nhat cho viec lap trinh agent anthropic"
+    },
+    {
+      "id": "0fa1f375c2d4faa0d9f5",
+      "title": "[AINews] OpenAI o3, o4-mini, and Codex CLI",
+      "title_vi": "",
+      "url": "https://buttondown.com/ainews/archive/ainews-openai-o3-o4-mini-and-codex-cli/",
+      "published_at": "2025-04-17T03:17:29Z",
+      "publishers": [
+        "smol-ai"
+      ],
+      "kind": "other",
+      "search_text": "ainews openai o3 o4 mini and codex cli smol ai"
+    },
+    {
+      "id": "a9f24667f075afc023f5",
+      "title": "[AINews] GPT 4.1: The New OpenAI Workhorse",
+      "title_vi": "[AINews] GPT 4.1: Chiếc ngựa làm việc OpenAI mới",
+      "url": "https://buttondown.com/ainews/archive/ainews-gpt-41-the-new-openai-workhorse/",
+      "published_at": "2025-04-15T05:16:26Z",
+      "publishers": [
+        "smol-ai"
+      ],
+      "kind": "other",
+      "search_text": "ainews gpt 4 1 the new openai workhorse ainews gpt 4 1 chiec ngua lam viec openai moi smol ai"
+    },
+    {
+      "id": "4d418dad93eb839e23a6",
+      "title": "The \\\"think\\\" tool: Enabling Claude to stop and think in complex tool use situations",
+      "title_vi": "Công cụ \\\"think\\\": Cho phép Claude dừng lại và suy nghĩ trong các tình huống sử dụng công cụ phức tạp",
+      "url": "https://www.anthropic.com/engineering/claude-think-tool",
+      "published_at": "2025-03-20T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "the think tool enabling claude to stop and think in complex tool use situations cong cu think cho phep claude dung lai va suy nghi trong cac tinh huong su dung cong cu phuc tap anthropic"
+    },
+    {
+      "id": "43d7916975114d603c09",
+      "title": "Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet",
+      "title_vi": "Nâng cao thanh trên ghế SWE được xác minh với Claude 3.5 Sonnet",
+      "url": "https://www.anthropic.com/engineering/swe-bench-sonnet",
+      "published_at": "2025-01-06T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "raising the bar on swe bench verified with claude 3 5 sonnet nang cao thanh tren ghe swe duoc xac minh voi claude 3 5 sonnet anthropic"
+    },
+    {
+      "id": "ffc229d83891918f8206",
+      "title": "Building effective agents",
+      "title_vi": "Xây dựng các agent hiệu quả",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "published_at": "2024-12-19T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "building effective agents xay dung cac agent hieu qua anthropic"
+    },
+    {
+      "id": "f141654f555ba9973a97",
+      "title": "openai/whisper-large-v3-turbo",
+      "title_vi": "",
+      "url": "https://huggingface.co/openai/whisper-large-v3-turbo",
+      "published_at": "2024-10-01T07:39:28Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "openai whisper large v3 turbo huggingface"
+    },
+    {
+      "id": "33d81116743596d4b1f6",
+      "title": "Introducing Contextual Retrieval",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/engineering/contextual-retrieval",
+      "published_at": "2024-09-19T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "product",
+      "search_text": "introducing contextual retrieval anthropic"
+    },
+    {
+      "id": "dfc21a319f95a75d28f0",
+      "title": "Interpretability",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/research/team/interpretability",
+      "published_at": "2024-09-16T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "interpretability anthropic"
+    },
+    {
+      "id": "43e19cac5ca4688d7914",
+      "title": "Alignment",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/research/team/alignment",
+      "published_at": "2024-03-27T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "alignment anthropic"
+    },
+    {
+      "id": "b564f875a344bb29bfa0",
+      "title": "openai/consistency-decoder",
+      "title_vi": "",
+      "url": "https://huggingface.co/openai/consistency-decoder",
+      "published_at": "2023-11-09T10:50:49Z",
+      "publishers": [
+        "huggingface"
+      ],
+      "kind": "model",
+      "search_text": "openai consistency decoder huggingface"
+    },
+    {
+      "id": "b223b57277700a87a3d5",
+      "title": "Economics",
+      "title_vi": "",
+      "url": "https://www.anthropic.com/research/team/economics",
+      "published_at": "2023-09-19T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "economics anthropic"
+    },
+    {
+      "id": "5b3723c52c736368304b",
+      "title": "Frontier Red Team",
+      "title_vi": "Nhóm đỏ tiên phong",
+      "url": "https://www.anthropic.com/research/team/frontier-red-team",
+      "published_at": "2023-06-17T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "frontier red team nhom do tien phong anthropic"
+    },
+    {
+      "id": "87717fc65423856a3ab7",
+      "title": "Societal Impacts",
+      "title_vi": "Ảnh hưởng xã hội",
+      "url": "https://www.anthropic.com/research/team/societal-impacts",
+      "published_at": "2023-05-20T00:00:00Z",
+      "publishers": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "search_text": "societal impacts anh huong xa hoi anthropic"
+    },
+    {
+      "id": "f02e11f24fc6e8f86ba7",
+      "title": "OpenAI DevDay 2026 Keynote (FULL)",
+      "title_vi": "",
+      "url": "https://www.youtube.com/watch?v=Fls_onRviPM",
+      "published_at": "",
+      "publishers": [
+        "openai"
+      ],
+      "kind": "video",
+      "search_text": "openai devday 2026 keynote full"
+    },
+    {
+      "id": "eff2a8f5e927c74b3058",
+      "title": "OpenAI đưa hackathon Codex về Việt Nam, giải thưởng 30.000 USD tín dụng API",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/openai-dua-hackathon-codex-ve-viet-nam-giai-thuong-30000-usd-tin-dung-api-1002609141410246.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "product",
+      "search_text": "openai dua hackathon codex ve viet nam giai thuong 30 000 usd tin dung api tuoi tre"
+    },
+    {
+      "id": "ebf28d0ba45867f09d68",
+      "title": "Nvidia dựng 'hàng rào' ngăn tác nhân AI 'nổi loạn'",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/nvidia-dung-hang-rao-ngan-tac-nhan-ai-noi-loan-100260930073714055.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "other",
+      "search_text": "nvidia dung hang rao ngan tac nhan ai noi loan tuoi tre"
+    },
+    {
+      "id": "eb20bc85ed383983300f",
+      "title": "OpenAI nhảy vào cuộc đua sản xuất chip?",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/openai-nhay-vao-cuoc-dua-san-xuat-chip-100260827095534803.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "other",
+      "search_text": "openai nhay vao cuoc dua san xuat chip tuoi tre"
+    },
+    {
+      "id": "d8a0b4e2cc335459029f",
+      "title": "OpenAI công bố 6 vụ AI có hành vi bất thường, tự ý tải file lên mạng, che giấu lỗi",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/openai-cong-bo-6-vu-ai-co-hanh-vi-bat-thuong-tu-y-tai-file-len-mang-che-giau-loi-100260918082740031.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "other",
+      "search_text": "openai cong bo 6 vu ai co hanh vi bat thuong tu y tai file len mang che giau loi tuoi tre"
+    },
+    {
+      "id": "bd21296acc8d4bd90de5",
+      "title": "OpenAI DevDay Exchange — Bengaluru",
+      "title_vi": "",
+      "url": "https://events.openai.com/devdayexchange2026?lang=en",
+      "published_at": "",
+      "publishers": [
+        "curated-events"
+      ],
+      "kind": "event",
+      "search_text": "openai devday exchange bengaluru curated events"
+    },
+    {
+      "id": "b1989d068442677c6bdd",
+      "title": "688 tác nhân AI của OpenAI tự lập nhóm, phối hợp tấn công Hugging Face",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/688-tac-nhan-ai-cua-openai-tu-lap-nhom-phoi-hop-tan-cong-hugging-face-100260827162723036.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "other",
+      "search_text": "688 tac nhan ai cua openai tu lap nhom phoi hop tan cong hugging face tuoi tre"
+    },
+    {
+      "id": "b0d604ee9d172c2eb693",
+      "title": "AI của Anthropic bắt đầu tự điều khiển phòng thí nghiệm, tự làm thí nghiệm thay con người",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/ai-cua-anthropic-bat-dau-tu-dieu-khien-phong-thi-nghiem-tu-lam-thi-nghiem-thay-con-nguoi-100260829150326811.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "other",
+      "search_text": "ai cua anthropic bat dau tu dieu khien phong thi nghiem tu lam thi nghiem thay con nguoi tuoi tre"
+    },
+    {
+      "id": "a4a1b2e13618e1ee8cf3",
+      "title": "Mỹ điều tra OpenAI sau vụ AI 'nổi loạn' tự ý tấn công Hugging Face",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/my-dieu-tra-openai-sau-vu-ai-noi-loan-tu-y-tan-cong-hugging-face-100260825164234515.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "other",
+      "search_text": "my dieu tra openai sau vu ai noi loan tu y tan cong hugging face tuoi tre"
+    },
+    {
+      "id": "99d9bc5fac2c325db676",
+      "title": "Úc phát hiện tác nhân AI của OpenAI xâm nhập trang web chính phủ",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/uc-phat-hien-tac-nhan-ai-cua-openai-xam-nhap-trang-web-chinh-phu-100260924112047896.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "other",
+      "search_text": "uc phat hien tac nhan ai cua openai xam nhap trang web chinh phu tuoi tre"
+    },
+    {
+      "id": "5ef4b7df84ad7550659a",
+      "title": "OpenAI và Google ra mắt AI có thể tự tìm, phát hiện và vá lỗ hổng phần mềm",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/openai-va-google-ra-mat-ai-co-the-tu-tim-phat-hien-va-va-lo-hong-phan-mem-100260905171936517.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "other",
+      "search_text": "openai va google ra mat ai co the tu tim phat hien va va lo hong phan mem tuoi tre"
+    },
+    {
+      "id": "4122570da1e1283cae73",
+      "title": "OpenAI phát hiện AI agent tự ý đưa 53 ảnh người dùng ChatGPT lên mạng",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/openai-phat-hien-ai-agent-tu-y-dua-53-anh-nguoi-dung-chatgpt-len-mang-100260926133135257.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "product",
+      "search_text": "openai phat hien ai agent tu y dua 53 anh nguoi dung chatgpt len mang tuoi tre"
+    },
+    {
+      "id": "31cb853c10326232e230",
+      "title": "Phát hiện AI agent của OpenAI 'vượt rào' hàng ngàn lần, chiếm quyền kiểm soát một trang Wiki",
+      "title_vi": "",
+      "url": "https://tuoitre.vn/phat-hien-ai-agent-cua-openai-vuot-rao-hang-ngan-lan-chiem-quyen-kiem-soat-mot-trang-wiki-100260905114837865.htm",
+      "published_at": "",
+      "publishers": [
+        "tuoi-tre"
+      ],
+      "kind": "product",
+      "search_text": "phat hien ai agent cua openai vuot rao hang ngan lan chiem quyen kiem soat mot trang wiki tuoi tre"
+    },
+    {
+      "id": "13d96f6971fff698ebc5",
+      "title": "anthropics/claude-code",
+      "title_vi": "",
+      "url": "https://github.com/anthropics/claude-code",
+      "published_at": "",
+      "publishers": [
+        "github"
+      ],
+      "kind": "repository",
+      "search_text": "anthropics claude code github"
+    }
+  ]
+}

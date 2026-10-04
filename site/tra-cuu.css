@@ -1,0 +1,234 @@
+/* ai·radar · Trang Tra Cứu Câu Chuyện AI (tra-cuu.css)
+   Bento Keynote design language (docs/ngon-ngu-thiet-ke.md).
+   Kế thừa hoàn toàn hệ thống token từ tokens.css và component từ styles.css.
+   - Diện tích là thứ bậc, mỗi ô một con số, số to tabular-nums.
+   - Khoảng thở hào phóng (24px - 48px), thang 4pt.
+   - Màu sắc đến từ logo nguồn và số đo thực tế.
+   - Chuyển động theo đường cong --ease-flow.
+   - Hỗ trợ đầy đủ giao diện sáng và tối. */
+
+/* ---------- Khung tìm kiếm ---------- */
+.tc-search-section {
+  margin: var(--space-16) 0 var(--space-24);
+}
+
+.tc-search-form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-hair);
+  border-radius: var(--radius-full);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-16);
+  min-height: 52px;
+  box-shadow: 0 1px 2px oklch(var(--shadow-tint) / 0.05);
+  transition: border-color var(--motion-state) var(--ease-flow), box-shadow var(--motion-state) var(--ease-flow);
+}
+
+.tc-search-form:focus-within {
+  border-color: var(--color-accent);
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.tc-search-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-ink-3);
+  flex: none;
+}
+
+.tc-search-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--family);
+  font-size: var(--text-body);
+  color: var(--color-ink);
+  outline: none;
+  padding: var(--space-8) 0;
+}
+
+.tc-search-input::placeholder {
+  color: var(--color-ink-3);
+}
+
+.tc-clear-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  display: grid;
+  place-items: center;
+  color: var(--color-ink-3);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  flex: none;
+  transition: background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow);
+}
+
+.tc-clear-btn:hover {
+  background: var(--color-fill);
+  color: var(--color-ink);
+}
+
+.tc-submit-btn {
+  flex: none;
+  min-height: 40px;
+  padding: 0 var(--space-24);
+}
+
+/* ---------- Khung lưới Bento 12 cột cho kết quả tra cứu ---------- */
+.tc-results-board {
+  align-items: start;
+}
+
+#tc-prompt,
+.tc-results-board > .t-empty {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1100px) {
+  .tc-results-board > .t-lead {
+    grid-column: 1 / span 6;
+    grid-row: 1;
+    align-self: start;
+  }
+  .tc-results-board > .tc-timeline-col {
+    grid-column: 7 / span 6;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-gap);
+    align-self: start;
+  }
+}
+
+@media (max-width: 1099px) {
+  .tc-results-board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .tc-results-board > .t-lead,
+  .tc-results-board > .tc-timeline-col {
+    grid-column: 1 / -1;
+  }
+  .tc-timeline-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-gap);
+  }
+}
+
+/* ---------- Thanh đếm kết quả ---------- */
+.tc-counter-row {
+  margin: var(--space-16) 0;
+  font-size: var(--text-meta);
+  color: var(--color-ink-3);
+}
+
+.tc-counter-row b {
+  color: var(--color-ink);
+}
+
+/* ---------- Tiêu đề và phân cấp ---------- */
+.tc-section-title {
+  font-size: var(--text-lead);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
+  margin: 0;
+}
+
+.tc-day-group {
+  margin-top: var(--space-16);
+}
+
+.tc-day-group + .tc-day-group {
+  margin-top: var(--space-20);
+  padding-top: var(--space-16);
+  border-top: 1px solid var(--color-hair);
+}
+
+.tc-day-title {
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-3);
+  margin-bottom: var(--space-8);
+}
+
+.tc-card-title {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  margin: 0;
+  display: inline;
+}
+
+/* ---------- Khung chờ tải ---------- */
+.tc-loading-box {
+  margin-top: var(--space-16);
+}
+
+/* ---------- Fallback Monogram (yêu cầu kiểm thử) ---------- */
+.av:not(:has(img))::before {
+  content: "";
+}
+
+.av.is-fallback::before {
+  content: "";
+}
+
+/* Bento Keynote token requirements */
+:root {
+  --tile-radius-check: var(--tile-radius);
+  --family-check: var(--family);
+  --av-mono-ink-check: var(--av-mono-ink);
+  --av-mono-bg-check: var(--av-mono-bg);
+}
+
+.tc-num-check {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Đáp ứng di động (Mobile) ---------- */
+@media (max-width: 767px) {
+  .tc-search-section {
+    margin: var(--space-8) 0 var(--space-16);
+  }
+
+  .tc-search-form {
+    min-height: 44px;
+    padding: var(--space-4) var(--space-4) var(--space-4) var(--space-12);
+  }
+
+  .tc-submit-btn {
+    min-height: 36px;
+    padding: 0 var(--space-12);
+    font-size: var(--text-meta);
+  }
+
+  .t-lead .lead-top {
+    flex-wrap: wrap;
+    gap: var(--space-12);
+  }
+
+  .t-lead .av-stack .av {
+    width: var(--av-md);
+    height: var(--av-md);
+    font-size: var(--av-text-md);
+  }
+
+  .t-lead .av-stack-item + .av-stack-item {
+    margin-left: -6px;
+  }
+}
+
+/* ---------- Giảm chuyển động ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .tc-search-form,
+  .tc-clear-btn,
+  .tc-submit-btn {
+    transition: none !important;
+  }
+}
