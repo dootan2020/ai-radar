@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ai·radar · Bản tin AI mỗi sáng</title>
+<meta name="description" content="Điểm tin AI mỗi sáng lúc 06:00, lọc bằng số đo thật: 1 đến 5 tin chọn lọc, lý do biên tập rõ ràng, dẫn về nguồn gốc.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ai·radar">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:url" content="https://dootan2020.github.io/ai-radar/ban-tin.html">
+<meta property="og:title" content="ai·radar · Bản tin AI mỗi sáng">
+<meta property="og:description" content="Tin AI mỗi sáng lúc 06:00, lọc bằng số đo thật. Mọi mục dẫn về nguồn gốc.">
+<link rel="canonical" href="https://dootan2020.github.io/ai-radar/ban-tin.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c=' https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; img-src 'self' https://avatars.githubusercontent.com https://cdn-avatars.huggingface.co https://i.ytimg.com; font-src 'self'; connect-src 'self' https://huggingface.co https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';">
+<script>try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="ban-tin.css">
+<script type="module" src="ban-tin.js"></script>
+<link rel="modulepreload" href="faces.js">
+<link rel="modulepreload" href="time-text.js">
+<link rel="modulepreload" href="words.js">
+<link rel="modulepreload" href="titles.js">
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9e0e7831b103411d848691a0223eb54c"}'></script>
+</head>
+<body>
+<a class="skip" href="#main-content">Bỏ qua tới nội dung</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 5h10v10M19 5L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4l9 15.5H3zM12 10v4.5M12 17h.01"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-signal" viewBox="0 0 24 24"><path d="M2 20h20M5 20v-4M10 20v-8M15 20v-12M20 20v-16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3s8 3 8 9c0 6-8 9-8 9s-8-3-8-9c0-6 8-9 8-9z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
+  <symbol id="i-k-model" viewBox="0 0 24 24"><path d="M12 3.5l7.5 4.2v8.6L12 20.5l-7.5-4.2V7.7zM4.5 7.7L12 12l7.5-4.3M12 12v8.5"/></symbol>
+  <symbol id="i-k-product" viewBox="0 0 24 24"><path d="M5.5 8.5h13l-1 11h-11zM9 8.5V7a3 3 0 0 1 6 0v1.5"/></symbol>
+  <symbol id="i-k-research" viewBox="0 0 24 24"><path d="M9.5 3.5h5M10.5 3.5v6L5 19a1 1 0 0 0 .9 1.5h12.2A1 1 0 0 0 19 19l-5.5-9.5v-6M7.5 15h9"/></symbol>
+  <symbol id="i-k-article" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/></symbol>
+  <symbol id="i-k-paper" viewBox="0 0 24 24"><path d="M6 3.5h8l4 4v13H6zM14 3.5v4h4M9 12h6M9 15.5h6"/></symbol>
+  <symbol id="i-k-podcast" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="10" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v3.5M9 20.5h6"/></symbol>
+  <symbol id="i-k-forum" viewBox="0 0 24 24"><path d="M4.5 6a1.5 1.5 0 0 1 1.5-1.5h9A1.5 1.5 0 0 1 16.5 6v6A1.5 1.5 0 0 1 15 13.5H9l-3.5 3v-3H6A1.5 1.5 0 0 1 4.5 12zM16.5 9H18a1.5 1.5 0 0 1 1.5 1.5V16H18v2.5L15 16h-3.5a1.5 1.5 0 0 1-1.3-.8"/></symbol>
+  <symbol id="i-repo" viewBox="0 0 24 24"><path d="M6 4.5h10.5a1 1 0 0 1 1 1V17H7.5A1.5 1.5 0 0 0 6 18.5zM6 18.5A1.5 1.5 0 0 0 7.5 20h10M9.5 8.5h5"/></symbol>
+</svg>
+
+<header class="bt-bar" id="bar">
+  <a class="bt-brand" href="index.html" aria-label="ai radar, về trang chính">
+    ai<b>·</b>radar <span class="bt-brand-badge">Bản tin</span>
+  </a>
+
+  <div class="bt-date-stepper" aria-label="Chọn ngày bản tin">
+    <button class="bt-nav-btn" id="bt-prev" type="button" aria-label="Bản tin ngày trước">
+      <svg class="i"><use href="#i-arrow-left"/></svg>
+    </button>
+    <span class="bt-current-date-btn" id="bt-current-date">Đang tải</span>
+    <button class="bt-nav-btn" id="bt-next" type="button" aria-label="Bản tin ngày sau">
+      <svg class="i"><use href="#i-arrow-right"/></svg>
+    </button>
+  </div>
+
+  <div class="bt-bar-actions">
+    <button class="theme" id="theme" type="button" aria-pressed="false" aria-label="Chuyển sang giao diện tối">
+      <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+      <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="bt-main" id="main-content">
+  <header class="bt-masthead" id="top">
+    <div class="bt-kicker-row">
+      <span class="bt-kicker">Điểm tin buổi sáng</span>
+      <span class="bt-freeze-badge" id="bt-freeze-time">Xuất bản lúc 21:45 · Dữ liệu chốt 06:00 (giờ Việt Nam)</span>
+    </div>
+    <h1 class="bt-title" id="bt-title">Bản tin AI hôm nay</h1>
+    <p class="bt-subtitle" id="bt-subtitle">5 phút đọc sáng cùng cà phê. Mỗi chuyện có số đo thật, nguồn gốc xác minh.</p>
+    <div class="bt-meta-chips" id="bt-meta-chips"></div>
+  </header>
+
+  <div class="bt-grid is-loading" id="bt-board" aria-live="polite">
+    <div class="bt-tile bt-tile-lead bt-skeleton" style="min-height: 240px">
+      <div class="sk-title" style="width: 40%"></div>
+      <div class="sk-title" style="width: 80%"></div>
+      <div class="sk-line" style="width: 60%"></div>
+      <div class="sk-box"></div>
+      <p class="sr" role="status">Đang tải bản tin...</p>
+    </div>
+  </div>
+
+  <div id="bt-end-section"></div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

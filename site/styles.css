@@ -109,6 +109,10 @@
   /* bar */
   .brand{font-size:var(--text-tile);font-weight:var(--weight-bold);letter-spacing:var(--tracking-display);white-space:nowrap}
   .brand b{color:var(--color-accent)}
+  /* Link to the daily edition page. Neutral like the "Bản tin" badge on that page: blue stays for action and the selected item. */
+  .ed-link{position:relative;flex:none;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-meta);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:color var(--motion-state) var(--ease-flow)}
+  .ed-link::after{content:"";position:absolute;inset:-6px -4px}
+  .ed-link:hover{color:var(--color-ink)}
   .when-line{display:none;font-size:var(--text-meta);color:var(--color-ink-2);white-space:nowrap}
   .nav{display:flex;gap:var(--space-4);flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;mask-image:var(--nav-fade);font-size:var(--text-meta);font-weight:var(--weight-medium)}
   .nav a{padding:var(--space-8) var(--space-8);border-radius:var(--radius-full);color:var(--color-ink-2);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
@@ -238,8 +242,16 @@
   .row .r,.repo .r{font-size:var(--text-meta);color:var(--color-ink-3);text-align:right;white-space:nowrap;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
   .row .r .mv{color:var(--color-ink);font-weight:var(--weight-semibold)}
   .is-read .t,.is-read .nm,.lead-title.is-read{color:var(--color-ink-2)}
-  .new-mark{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--color-accent);margin-right:var(--space-8);vertical-align:0.12em}
-  .saved-mark{display:inline-flex;margin-right:var(--space-4);color:var(--color-accent);vertical-align:-0.15em}
+  .is-new .t,.is-new .nm,.lead-title.is-new{font-weight:var(--weight-bold)}
+  .is-skipped .t,.is-skipped .nm,.lead-title.is-skipped{color:var(--color-ink)}
+  .new-mark{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--color-accent);margin-right:var(--space-8);vertical-align:0.12em;flex:none}
+  .skipped-mark{display:inline-block;width:7px;height:7px;border-radius:50%;border:1.5px solid var(--color-ink-3);background:transparent;margin-right:var(--space-8);vertical-align:0.12em;box-sizing:border-box;flex:none}
+  .seen-mark{display:inline-flex;align-items:center;justify-content:center;margin-right:var(--space-6);color:var(--color-ink-3);vertical-align:-0.12em;flex:none}
+  .seen-mark svg,.seen-mark .i{width:13px;height:13px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .lead-title .new-mark,.lead-title .skipped-mark{width:10px;height:10px;vertical-align:0.15em}
+  .lead-title .seen-mark{width:18px;height:18px;vertical-align:-0.1em}
+  .lead-title .seen-mark svg,.lead-title .seen-mark .i{width:18px;height:18px}
+  .saved-mark{display:inline-flex;margin-right:var(--space-4);color:var(--color-accent);vertical-align:-0.15em;flex:none}
   .saved-mark svg{width:14px;height:14px;fill:currentColor;stroke:currentColor;stroke-width:1.6}
   .views{display:inline-flex;align-items:center;gap:2px}
   .views .i{width:13px;height:13px}
