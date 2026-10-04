@@ -302,7 +302,7 @@ function choosePicks() {
    its own `via` (for example 'ai' or 'stock') so the report and the page can always tell them apart.
    ========================================================================== */
 const KIND_OF_VIA = { 'feed-media': 'photo', 'og:image': 'photo', 'linked-article': 'photo', 'youtube': 'photo',
-  'github-social': 'graphic', 'hf-thumbnail': 'graphic' };
+  'github-social': 'graphic', 'hf-thumbnail': 'graphic', 'ai': 'photo' };
 const asPick = (src, via) => ({ src, via, kind: KIND_OF_VIA[via] || 'photo' });
 
 function fromVerifiedMap(st) {
@@ -333,7 +333,13 @@ function fromSourceAddress(st) {
   }
   return null;
 }
-const IMAGE_PROVIDERS = [fromVerifiedMap, fromFeedMedia, fromSourceAddress];
+function fromAIProvider(st) {
+  if (st.image && st.image.via === 'ai' && st.image.src) return asPick(st.image.src, 'ai');
+  const v = IMG[`ai:${st.id}`];
+  if (v && v.src) return asPick(v.src, 'ai');
+  return null;
+}
+const IMAGE_PROVIDERS = [fromVerifiedMap, fromFeedMedia, fromSourceAddress, fromAIProvider];
 /* An AI or stock provider goes at the end of this list: after every published picture, before the cover. */
 
 const PICKED = new Map();
@@ -387,7 +393,8 @@ const DIMS = { lead: [1280, 720], wide: [1280, 720], std: [640, 360] };
 function mediaHTML(img, size) {
   if (!img.src) return `<div class="media">${coverHTML(img.cover)}</div>`;
   const [w, h] = DIMS[size];
-  return `<div class="media"><img class="media-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="lazy" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}></div>`;
+  const aiBadge = img.via === 'ai' ? `<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>` : '';
+  return `<div class="media"><img class="media-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="lazy" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadge}</div>`;
 }
 
 /* opts (only the "Đáng đọc hôm nay" lead uses them): rank, the block position; why, show the reason line; h, the

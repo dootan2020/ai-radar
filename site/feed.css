@@ -436,6 +436,16 @@ ul, ol { padding: 0; list-style: none; }
 }
 .why-tag.is-editor { background: var(--color-accent); color: var(--color-on-accent); }
 
+/* AI illustration badge on cards */
+.ai-badge {
+  position: absolute; bottom: var(--space-8); right: var(--space-8); z-index: 2; pointer-events: none;
+  max-width: calc(100% - var(--space-24)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: var(--space-4) var(--space-8); border-radius: var(--radius-8);
+  background: var(--tag-bg); color: var(--color-on-media);
+  font-size: var(--text-micro); font-weight: var(--weight-medium); line-height: var(--leading-snug);
+  backdrop-filter: blur(4px);
+}
+
 /* ---------- more, empty, end ---------- */
 .feed-more { display: flex; justify-content: center; margin-top: var(--space-32); }
 .btn {

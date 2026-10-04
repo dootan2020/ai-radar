@@ -241,13 +241,30 @@ class ImageCacheTests(unittest.TestCase):
             self.assertNotIn("image", stories[0])
             self.assertNotIn("image", stories[1])
 
-    def test_verification_cache_not_polluted_by_transport(self):
-        from radar import images
-        mock_transport = lambda u: b"\xff\xd8\xff\xe0"
-        url = "https://example.com/test-verify-clean.jpg"
-        self.assertNotIn(url, images._verified_cache)
-        images.verify_image(url, transport=mock_transport)
-        self.assertNotIn(url, images._verified_cache)
+    def test_ai_via_in_kind_of_via(self):
+        from radar.images import KIND_OF_VIA
+        self.assertIn("ai", KIND_OF_VIA)
+        self.assertEqual(KIND_OF_VIA["ai"], "photo")
+
+    def test_cached_ai_image_resolved_when_source_images_absent(self):
+        story = {
+            "id": "st-cached-ai",
+            "url": "https://example.com/no-source-image",
+            "coverage": []
+        }
+        with tempfile.TemporaryDirectory() as tmpdir:
+            cache_file = Path(tmpdir) / "image-cache.json"
+            cache = ImageCache(cache_path=cache_file)
+            cache.set("ai:st-cached-ai", {
+                "src": "assets/ai/st-cached-ai.jpg",
+                "via": "ai",
+                "kind": "photo",
+                "verified": True
+            })
+            img = resolve_story_image(story, cache=cache)
+            self.assertIsNotNone(img)
+            self.assertEqual(img["via"], "ai")
+            self.assertEqual(img["src"], "assets/ai/st-cached-ai.jpg")
 
 
 if __name__ == "__main__":

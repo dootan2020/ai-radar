@@ -40,6 +40,7 @@ KIND_OF_VIA = {
     "youtube": "photo",
     "github-social": "graphic",
     "hf-thumbnail": "graphic",
+    "ai": "photo",
 }
 
 GH_RE = re.compile(r"^https?://(?:www\.)?github\.com/([\w.-]+)/([\w.-]+?)(?:\.git)?(?:[/?#].*)?$", re.I)
@@ -407,7 +408,13 @@ def resolve_story_image(story, cache=None, timeout=5, transport=None, allow_netw
                 if verify_image(hf_path, timeout=timeout, transport=transport):
                     return {"src": hf_path, "via": "hf-thumbnail", "kind": "graphic", "verified": True}
 
-    # 4. Live page resolution (only if network is allowed)
+    # 4. Cached AI illustration (0 network, generated in previous run)
+    if cache is not None and story.get("id"):
+        cached_ai = cache.get(f"ai:{story.get('id')}")
+        if cached_ai and cached_ai.get("src"):
+            return {"src": cached_ai["src"], "via": "ai", "kind": "photo", "verified": True}
+
+    # 5. Live page resolution (only if network is allowed)
     if not allow_network:
         return None
 
@@ -428,7 +435,8 @@ def resolve_story_image(story, cache=None, timeout=5, transport=None, allow_netw
 
 
 def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_seconds=20,
-                               max_workers=16, timeout=4, transport=None, deadline=None):
+                               max_workers=16, timeout=4, transport=None, deadline=None,
+                               ai_transport=None, ledger_path=None, site_root=None):
     """Resolve and attach images to stories in place with bounded concurrency and time."""
     # Finding 2: avoid loading/saving to repo cache during offline transport tests
     cache = ImageCache(cache_path=cache_path, seed_path=seed_path) if (transport is None or cache_path is not None) else None
@@ -484,11 +492,37 @@ def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_
             if img:
                 st["image"] = img
 
+    # Third pass: AI illustration generation for stories without source-published image
+    from radar import ai_images
+    still_unresolved = [st for st in stories if not st.get("image")]
+    time_left = wall_deadline - time.monotonic()
+    if still_unresolved and time_left > 0.5:
+        has_env = bool(os.environ.get("CLOUDFLARE_ACCOUNT_ID") and os.environ.get("CLOUDFLARE_AI_API_TOKEN"))
+        if has_env or ai_transport is not None:
+            ai_ledger = ai_images.AIImageLedger(ledger_path=ledger_path)
+            # Serve newest stories first so daily neuron budget prioritizes fresh content
+            still_unresolved.sort(key=ai_images.story_recency_key, reverse=True)
+            for st in still_unresolved:
+                if time.monotonic() >= wall_deadline:
+                    break
+                ai_img = ai_images.generate_ai_illustration(
+                    st,
+                    site_root=site_root,
+                    ledger=ai_ledger,
+                    transport=ai_transport,
+                    timeout=min(timeout, max(1.0, wall_deadline - time.monotonic())),
+                )
+                if ai_img:
+                    st["image"] = ai_img
+                    if cache is not None:
+                        cache.set(f"ai:{st['id']}", ai_img)
+
     # Save updated cache (only when real run or explicit cache_path provided)
     if cache is not None and (transport is None or cache_path is not None):
         try:
             all_urls = {u for st in stories for u in story_urls(st)}
-            cache.save(keep_urls=all_urls)
+            ai_keys = {f"ai:{st['id']}" for st in stories if st.get("image", {}).get("via") == "ai"}
+            cache.save(keep_urls=(all_urls | ai_keys))
         except Exception:
             pass
 
