@@ -12,6 +12,19 @@ MAX_BYTES = 8 * 1024 * 1024
 MAX_CONNECTIONS = 8
 FETCH_TIMEOUT = 10
 
+SOURCE_MAX_BYTES = {
+    "technode": 24 * 1024 * 1024,
+}
+
+
+def max_bytes_for(source_id=None):
+    return SOURCE_MAX_BYTES.get(source_id, MAX_BYTES)
+
+
+def _limit_label(limit_bytes):
+    mb = limit_bytes // (1024 * 1024)
+    return f"{mb} MiB" if mb > 0 else f"{limit_bytes} bytes"
+
 
 class SafeRedirectHandler(HTTPRedirectHandler):
     """Prevent sending credentials like GITHUB_TOKEN to untrusted hosts on redirect."""
@@ -41,7 +54,8 @@ class ResponseText(str):
 install_opener(build_opener(SafeRedirectHandler))
 
 
-def read_url(url):
+def read_url(url, source_id=None):
+    max_bytes = max_bytes_for(source_id)
     headers = {"User-Agent": USER_AGENT, "Accept": "*/*"}
     token = os.environ.get("GITHUB_TOKEN")
     host = urlparse(url).hostname
@@ -51,11 +65,11 @@ def read_url(url):
     with urlopen(request, timeout=8) as response:
         try:
             length = response.headers.get("Content-Length")
-            if length and int(length) > MAX_BYTES:
-                raise ValueError("Source response exceeds 8 MiB limit")
-            raw = response.read(MAX_BYTES + 1)
-            if len(raw) > MAX_BYTES:
-                raise ValueError("Source response exceeds 8 MiB limit")
+            if length and int(length) > max_bytes:
+                raise ValueError(f"Source response exceeds {_limit_label(max_bytes)} limit")
+            raw = response.read(max_bytes + 1)
+            if len(raw) > max_bytes:
+                raise ValueError(f"Source response exceeds {_limit_label(max_bytes)} limit")
             return ResponseText(raw.decode(response.headers.get_content_charset() or "utf-8", errors="replace"),
                                 response.status, response.geturl())
         except Exception as error:
@@ -96,7 +110,7 @@ class Fetcher:
 
     def __call__(self, url, source_id=None):
         try:
-            value = self._fetch(url)
+            value = self._fetch(url, source_id=source_id)
         except Exception as error:
             record = dict(source=source_id, url=url, http_status=getattr(error, "http_status", getattr(error, "code", None)), error=f"{type(error).__name__}: {error}"[:300])
             with self.lock:
@@ -106,7 +120,8 @@ class Fetcher:
             self.requests.append(dict(source=source_id, url=url, http_status=getattr(value, "status", None), error=None))
         return value
 
-    def _fetch(self, url):
+    def _fetch(self, url, source_id=None):
+        max_bytes = max_bytes_for(source_id)
         deadline = min(time.monotonic() + self.timeout, self.deadline)
         remaining = deadline - time.monotonic()
         if remaining <= 0 or not self.slots.acquire(timeout=max(0, remaining)):
@@ -115,7 +130,7 @@ class Fetcher:
 
         def request():
             try:
-                result.put((True, self.transport(url)))
+                result.put((True, self.transport(url, source_id=source_id) if source_id is not None else self.transport(url)))
             except Exception as error:
                 result.put((False, error))
             finally:
@@ -131,8 +146,8 @@ class Fetcher:
             raise value
         if not isinstance(value, str):
             raise ValueError("Transport must return decoded text")
-        if len(value.encode("utf-8")) > MAX_BYTES:
-            error = ValueError("Source response exceeds 8 MiB limit")
+        if len(value.encode("utf-8")) > max_bytes:
+            error = ValueError(f"Source response exceeds {_limit_label(max_bytes)} limit")
             error.http_status = getattr(value, "status", None)
             raise error
         return value

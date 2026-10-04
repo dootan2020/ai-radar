@@ -10,7 +10,7 @@ from radar import catalog, feeds, pipeline, v2feeds, youtube
 from radar.transport import ResponseText
 
 NOW = datetime(2026, 10, 2, 12, tzinfo=timezone.utc)
-DISABLED_IDS = {"import-ai", "dwarkesh-podcast", "latent-space", "google-deepmind"}
+DISABLED_IDS = {"import-ai", "dwarkesh-podcast", "latent-space", "google-deepmind", "cnbc-tech"}
 ACTIVE_ID = "nvidia-blog"
 SYNTHETIC_NEWS = """<rss><channel>
 <item><title>Nghiên cứu trí tuệ nhân tạo mới</title>
@@ -55,7 +55,7 @@ class SourceReplacementTests(unittest.TestCase):
         active_url = self.sources[ACTIVE_ID]["url"]
         requests = []
 
-        def fetch(url):
+        def fetch(url, **kwargs):
             requests.append(url)
             if url != active_url:
                 self.fail("Disabled source was requested: " + url)

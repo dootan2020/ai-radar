@@ -38,8 +38,8 @@ def main():
     args = parser.parse_args()
     captured, lock = [], Lock()
 
-    def transport(url):
-        body = read_url(url)
+    def transport(url, source_id=None, **kwargs):
+        body = read_url(url, source_id=source_id)
         if args.capture_blocked and "/watch?" in url:
             try:
                 player = youtube._embedded(body, "ytInitialPlayerResponse")

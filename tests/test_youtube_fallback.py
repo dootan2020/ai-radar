@@ -224,7 +224,7 @@ class ChannelFallbackTests(unittest.TestCase):
         for watch, should_write in ((BLOCKED, True), (age_restricted, False)):
             with self.subTest(should_write=should_write), tempfile.TemporaryDirectory() as folder:
                 target = Path(folder) / "blocked.html"
-                def fetch(url):
+                def fetch(url, **kwargs):
                     if "/streams" in url:
                         return channel_page(ended_renderer())
                     if "/feeds/" in url:
