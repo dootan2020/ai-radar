@@ -11,7 +11,10 @@ AI_TERMS_CI = re.compile(
     r"\b(?:llms?|gpt|chatgpt|claude|gemini|deepseek|qwen|llama|anthropic|openai|"
     r"deepmind|hugging\s*face|neural|diffusion|inference|generative|machine learning|"
     r"artificial intelligence|language models?|agentic|copilot|cuda|nemotron|"
-    r"trí tuệ nhân tạo|học máy|mô hình ngôn ngữ|nvidia)\b", re.I)
+    r"chatbots?|deepfakes?|genai|gen-ai|xai|grok|mistral|midjourney|perplexity|"
+    r"dall-e|dalle|sora|zhipu|chatglm|elevenlabs|multimodal|"
+    r"trí tuệ nhân tạo|trí thông minh nhân tạo|siêu trí tuệ|học máy|mô hình ngôn ngữ|"
+    r"trợ lý ảo|thị giác máy tính|mạng nơ-ron|mạng nơron|mạng thần kinh|vinai|nvidia)\b", re.I)
 AI_EXACT = re.compile(r"\bAI\b")
 
 

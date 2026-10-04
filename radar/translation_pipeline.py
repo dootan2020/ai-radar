@@ -1,5 +1,7 @@
 """Prefer validated whole-field Gemini output, then bounded legacy NLLB fallback."""
 
+import json
+from pathlib import Path
 import re
 import threading
 import time
@@ -66,12 +68,55 @@ def _request(items, config, transport, timeout):
     return state.get("outputs", {}), state.get("error"), False
 
 
+def collect_prior_translations(payload, previous=None):
+    """Collect valid prior translations (source -> translation) from previous snapshot and/or current payload."""
+    priors = {}
+
+    def extract_from(data):
+        if isinstance(data, (str, Path)):
+            try:
+                data = json.loads(Path(data).read_text(encoding="utf-8"))
+            except Exception:
+                return
+        if not isinstance(data, dict):
+            return
+        for obj, src, dst in nllb.targets(data):
+            val = obj.get(dst)
+            if isinstance(val, str) and val.strip():
+                source = nllb.normalize(obj[src])
+                priors[source] = val
+        for story in data.get("stories") or []:
+            if isinstance(story, dict):
+                if isinstance(story.get("title_vi"), str) and story["title_vi"].strip() and story.get("title"):
+                    priors.setdefault(nllb.normalize(story["title"]), story["title_vi"])
+                if isinstance(story.get("summary_vi"), str) and story["summary_vi"].strip() and story.get("summary"):
+                    priors.setdefault(nllb.normalize(story["summary"]), story["summary_vi"])
+                for item in story.get("coverage") or []:
+                    if isinstance(item, dict):
+                        if isinstance(item.get("title_vi"), str) and item["title_vi"].strip() and item.get("title"):
+                            priors.setdefault(nllb.normalize(item["title"]), item["title_vi"])
+                        if isinstance(item.get("summary_vi"), str) and item["summary_vi"].strip() and item.get("summary"):
+                            priors.setdefault(nllb.normalize(item["summary"]), item["summary_vi"])
+        for item in data.get("live") or []:
+            if isinstance(item, dict) and isinstance(item.get("title_vi"), str) and item["title_vi"].strip() and item.get("title"):
+                priors.setdefault(nllb.normalize(item["title"]), item["title_vi"])
+        for repo in data.get("repos") or []:
+            if isinstance(repo, dict) and isinstance(repo.get("description_vi"), str) and repo["description_vi"].strip() and repo.get("description"):
+                priors.setdefault(nllb.normalize(repo["description"]), repo["description_vi"])
+
+    if previous:
+        extract_from(previous)
+    extract_from(payload)
+    return priors
+
+
 def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transport=None,
                       ledger_path=None, factory=None, budget=600, clock=time.monotonic,
-                      now=time.time, provider="auto"):
+                      now=time.time, provider="auto", previous=None):
     started = clock()
     config = config or gemini.config_from_env()
     transport = transport or gemini.transport
+    prior_candidates = collect_prior_translations(payload, previous)
     nllb.clear_translations(payload)
     rows, groups = nllb.targets(payload), {}
     names = nllb.payload_names(payload)
@@ -159,19 +204,35 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
         output = validated(source, row.get("title_vi"), groups[source]["names"])
         if output:
             accepted[source] = (output, "nllb")
-    provider_counts = {name: sum(v[1] == name for v in accepted.values()) for name in ("gemini", "nllb")}
+
+    # Retain previously published translations for unresolved strings.
+    # Kept translations are NOT saved to gemini_cache or nllb_cache,
+    # ensuring subsequent runs can upgrade them when the provider recovers.
+    for source, group in groups.items():
+        if source not in accepted and source in prior_candidates:
+            output = validated(source, prior_candidates[source], group["names"])
+            if output:
+                accepted[source] = (output, "kept")
+
+    provider_counts = {name: sum(v[1] == name for v in accepted.values()) for name in ("gemini", "nllb", "kept")}
     providers = [name for name, count in provider_counts.items() if count]
     for source, (output, _) in accepted.items():
         for obj, _, dst in groups[source]["rows"]:
             obj[dst] = output
     pending = len(groups) - len(accepted)
     actual = providers[0] if len(providers) == 1 else "mixed" if providers else "original"
+    models = {
+        name: gemini.MODEL_ID if name == "gemini" else nllb.MODEL_ID if name == "nllb" else "previous"
+        for name in providers
+    }
+    model = gemini.MODEL_ID if actual == "gemini" else nllb.MODEL_ID if actual == "nllb" else "previous" if actual == "kept" else None
     stats = dict(requested_provider=provider, provider=actual, providers=providers, provider_counts=provider_counts,
-                 model=gemini.MODEL_ID if actual == "gemini" else nllb.MODEL_ID if actual == "nllb" else None,
-                 models={name: gemini.MODEL_ID if name == "gemini" else nllb.MODEL_ID for name in providers},
+                 model=model,
+                 models=models,
                  license=nllb.MODEL_LICENSE if "nllb" in providers else None,
                  status="ok" if not pending else "partial" if accepted else "failed",
                  strings=len(groups), translated=len(accepted), pending=pending, kept_original=kept,
+                 kept_published=provider_counts["kept"],
                  rejected=fallback_stats.get("rejected", 0), rejected_examples=[], gemini=api,
                  model_loaded=fallback_stats.get("model_loaded", False), new_segments=fallback_stats.get("new_segments", 0),
                  seconds=round(clock() - started, 1),

@@ -37,7 +37,7 @@ def main():
     if prior_publication is None:
         prior_publication = load_published(output, datetime.now(timezone.utc))
     try:
-        payload = build_v2(previous=previous)
+        payload = build_v2(previous=previous, published=prior_publication)
     except Exception as error:
         status = assess_publication(None, prior_publication, datetime.now(timezone.utc))
         status["reason"] = f"collection failed: {type(error).__name__}"
