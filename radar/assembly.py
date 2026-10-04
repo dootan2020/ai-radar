@@ -85,7 +85,7 @@ def sections(stories, now):
     return result
 
 
-def finish(payload, coverage, events, now, previous, fetcher=None):
+def finish(payload, coverage, events, now, previous, fetcher=None, image_transport=None, resolve_images=None):
     from radar.clustering import cluster_items
     from radar.curation import curate_repos
     from radar.ranking import rank_stories
@@ -94,6 +94,22 @@ def finish(payload, coverage, events, now, previous, fetcher=None):
     legacy_payload = dict(payload, updates=[], hf_releases=[])
     items = coverage + legacy_items(legacy_payload, now) + event_items(events, now)
     stories = rank_stories(cluster_items(items, now), now, previous)
+    sources_map = {s["id"]: s for s in payload.get("sources", [])}
+    from radar.worth import annotate_story_worth
+    for story in stories:
+        annotate_story_worth(story, now, sources_map)
+    if resolve_images is None:
+        from radar.transport import read_url
+        resolve_images = (fetcher is None or getattr(fetcher, "transport", None) == read_url or image_transport is not None)
+    if resolve_images:
+        import time
+        from radar.images import resolve_images_for_stories
+        build_deadline = getattr(fetcher, "deadline", None)
+        t_img = time.monotonic()
+        resolve_images_for_stories(stories, transport=image_transport, deadline=build_deadline)
+        img_elapsed = time.monotonic() - t_img
+        img_count = sum(1 for st in stories if st.get("image"))
+        print(f"Images: {img_count}/{len(stories)} stories resolved with image in {img_elapsed:.2f}s")
     baseline = instant(previous.get("generated_at")) if isinstance(previous, dict) else None
     if (not baseline or previous.get("schema_version") != 2 or not isinstance(previous.get("stories"), list)
             or not 0 < (now - baseline).total_seconds() <= 48 * 3600):

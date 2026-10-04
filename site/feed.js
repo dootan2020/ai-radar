@@ -204,8 +204,21 @@ function worthOf(st) {
   const meas = st.hot_signals && st.hot_signals.measurement;
   const hot = meas && Number.isFinite(st.hot_score) ? Math.max(0, st.hot_score) : 0;
   const n = nSrc(st);
-  const ageH = Math.max(0, (GEN - ms(st.published_at)) / 36e5);
   const fh = firstHandOf(st);
+  if (typeof st.worth_score === 'number' && st.worth_parts) {
+    w = {
+      score: st.worth_score,
+      parts: st.worth_parts,
+      hot,
+      n,
+      fh,
+      metric: meas ? meas.metric : null,
+      evidence: !!fh || n >= 2 || hot > 0
+    };
+    WORTHS.set(st.id, w);
+    return w;
+  }
+  const ageH = Math.max(0, (GEN - ms(st.published_at)) / 36e5);
   const parts = {
     attention: WORTH.attention * Math.min(1, hot / WORTH.attentionFull),
     breadth: WORTH.breadth * Math.min(1, Math.max(0, n - 1) / (WORTH.breadthFull - 1)),
@@ -224,7 +237,9 @@ function reasonOf(st) {
   const w = worthOf(st);
   if (w.fh) return { text: w.fh.label };
   const loud = w.hot >= WORTH.hotLabel;
-  if (w.n >= 2 && (!loud || w.parts.breadth >= w.parts.attention)) return { text: `${w.n} nguồn đưa tin` };
+  const att = (w.parts && w.parts.attention) || 0;
+  const brd = (w.parts && w.parts.breadth) || 0;
+  if (w.n >= 2 && (!loud || brd >= att)) return { text: `${w.n} nguồn đưa tin` };
   if (loud) return { text: DISCUSSED.has(w.metric) ? 'Đang bàn nhiều' : 'Đang được chú ý' };
   return null;
 }
@@ -325,8 +340,12 @@ const PICKED = new Map();
 function pickImage(st) {
   if (PICKED.has(st.id)) return PICKED.get(st.id);
   let r = null;
-  for (const p of IMAGE_PROVIDERS) { r = p(st); if (r) break; }
-  if (!r) r = coverPick(st);
+  if (st.image && st.image.src) {
+    r = { src: st.image.src, via: st.image.via, kind: st.image.kind || KIND_OF_VIA[st.image.via] || 'photo' };
+  } else {
+    for (const p of IMAGE_PROVIDERS) { r = p(st); if (r) break; }
+    if (!r) r = coverPick(st);
+  }
   PICKED.set(st.id, r);
   return r;
 }
@@ -404,7 +423,9 @@ function renderCard(st, size = 'std', opts = {}) {
   ${mediaHTML(img, size)}
   <div class="${photo ? 'photo-body' : 'card-body'}">
     <div class="src-row">${opts.rank ? `<span class="pick-n num"><span class="sr">Số </span>${opts.rank}</span>` : ''}<span class="src-av" aria-hidden="true">${avatar(face, 'xs')}</span><span class="src-name">${esc(name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}${isNew(st) ? '<span class="new-tag">Mới</span>' : ''}</div>
-    <${h} class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="${esc(href)}" target="_blank" rel="noopener" data-id="${esc(st.id)}">${esc(t.text)}</a></${h}>
+    ${h === 'h3'
+      ? `<h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="${esc(href)}" target="_blank" rel="noopener" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>`
+      : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="${esc(href)}" target="_blank" rel="noopener" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>`}
     ${origLine(t)}
     ${opts.why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${worthWhy(st)}</p>` : ''}
     ${opts.why && pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
@@ -565,7 +586,7 @@ function renderHow() {
       <li><b>Độ chú ý</b>, tối đa <span class="num">${W.attention}</span> điểm: điểm nóng của tin, tức thứ hạng con số của tin (điểm Hacker News, sao GitHub…) so với các tin khác cùng nguồn, nhân với độ mới. Điểm nóng từ <span class="num">${W.attentionFull}</span> trở lên được đủ <span class="num">${W.attention}</span>.</li>
       <li><b>Độ lan rộng</b>, tối đa <span class="num">${W.breadth}</span> điểm: mỗi nơi đăng độc lập thêm vào sau nơi đầu tiên được <span class="num">${f1(W.breadth / (W.breadthFull - 1))}</span> điểm, đủ khi có <span class="num">${W.breadthFull}</span> nơi.</li>
       <li><b>Độ mới</b>: <span class="num">${W.freshness}</span> điểm lúc vừa đăng, còn một nửa sau mỗi <span class="num">${W.halfLifeH}</span> giờ.</li>
-      <li><b>Nguồn gốc</b>: tin do chính phòng lab công bố, hoặc bài báo gốc của nhóm nghiên cứu, được nhân <span class="num">${f1(W.firstHand)}</span>.</li>
+      <li><b>Nguồn gốc</b>: tin do chính phòng nghiên cứu công bố, hoặc bài báo gốc của nhóm nghiên cứu, được nhân <span class="num">${f1(W.firstHand)}</span>.</li>
     </ul>
     <p>Nhãn trên thẻ ghi lý do mạnh nhất. “Đang bàn nhiều” và “Đang được chú ý” là tin có điểm nóng từ <span class="num">${W.hotLabel}</span> trở lên. Tin không có nhãn là tin chưa có tín hiệu nào ngoài giờ đăng. Chỉ tin mang nhãn “Biên tập chọn” là do người chọn.</p>
     <p>Trọng số hiện là phỏng đoán ban đầu, sẽ được chỉnh lại sau một tuần dữ liệu thật.</p>`;
@@ -826,7 +847,7 @@ function onCardClick(e) {
   const act = e.target.closest('.act');
   if (act && act.dataset.act === 'copy') {
     const u = act.dataset.url;
-    (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject(new Error('no clipboard'))).then(() => toast('Đã chép liên kết'), () => toast(u));
+    (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject(new Error())).then(() => toast('Đã chép liên kết'), () => toast(u));
     return;
   }
   if (act && act.dataset.act === 'save') {

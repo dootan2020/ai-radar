@@ -45,6 +45,15 @@ jobs:
           path: data/published-snapshot.json
           key: radar-publication-v1-main-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: radar-publication-v1-main-
+      - name: Restore image cache
+        continue-on-error: true
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/image-cache.json
+          key: radar-image-cache-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            radar-image-cache-v1-${{ github.ref_name }}-
+            radar-image-cache-v1-main-
       - name: Fetch public sources
         id: collect
         env:
@@ -56,6 +65,13 @@ jobs:
         with:
           path: data/measurement-baseline.json
           key: radar-measurements-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save image cache
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/image-cache.json
+          key: radar-image-cache-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       # Translation is optional: failed steps leave original titles and summaries usable.
       - name: Install translation libraries
         id: mt-install

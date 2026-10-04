@@ -198,3 +198,14 @@ class PipelineV2Tests(unittest.TestCase):
             release.set()
         time.sleep(0.03)
         self.assertEqual(json.dumps(result, sort_keys=True), before)
+
+    def test_build_v2_with_injected_fetch_makes_no_image_network_calls_and_writes_no_files(self):
+        with patch("urllib.request.urlopen") as mock_urlopen, \
+             patch("radar.pipeline.write_atomic", wraps=pipeline.write_atomic) as mock_write:
+            result = self.build()
+            self.assertEqual(mock_urlopen.call_count, 0)
+            for call_args in mock_write.call_args_list:
+                target_path = str(call_args[0][1])
+                self.assertNotIn("image-cache", target_path)
+            self.assertTrue(any("worth_score" in st for st in result.get("stories", [])))
+
