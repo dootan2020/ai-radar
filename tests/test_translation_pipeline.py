@@ -431,6 +431,144 @@ class PipelineTests(unittest.TestCase):
         transport.assert_not_called()
         self.assertNotIn("offline-sentinel", src.read_text(encoding="utf-8") + output.getvalue())
 
+    def test_provider_fails_fallback_yields_nothing_survives_for_all_existing_stories(self):
+        """When Gemini returns 503 and NLLB produces nothing, all previously published
+        translations survive for every story that still exists, while new stories stay untranslated."""
+        title_2 = "DeepMind announces Gemini 4 breakthrough"
+        vi_2 = "DeepMind công bố bước đột phá Gemini 4"
+        summary_2 = "New multimodal architecture enables realtime audio and visual processing."
+        summary_vi_2 = "Kiến trúc đa phương thức mới cho phép xử lý âm thanh và hình ảnh theo thời gian thực."
+        new_title = "Anthropic announces Claude 5 developer tools"
+        new_summary = "Developer tools include prompt caching and batch evaluation."
+
+        payload = {
+            "stories": [
+                {"id": "s1", "title": TITLE, "title_vi": VI, "summary": SUMMARY, "summary_vi": SUMMARY_VI,
+                 "kind": "research", "coverage": [{"title": TITLE, "title_vi": VI}]},
+                {"id": "s2", "title": title_2, "title_vi": vi_2, "summary": summary_2, "summary_vi": summary_vi_2,
+                 "kind": "product", "coverage": []},
+                {"id": "s3", "title": new_title, "summary": new_summary, "kind": "product", "coverage": []},
+            ],
+            "repos": [{"id": "o/r", "description": TITLE, "description_vi": VI}],
+            "live": [{"title": title_2, "title_vi": vi_2}],
+            "sources": []
+        }
+
+        def failing_transport(*args):
+            raise gemini.ProviderError("http_503:UNAVAILABLE")
+
+        def failing_factory():
+            raise ModuleNotFoundError("offline NLLB absent")
+
+        stats, alive = self.run_payload(
+            payload,
+            transport=failing_transport,
+            factory=failing_factory
+        )
+
+        self.assertFalse(alive)
+        self.assertEqual(stats["gemini"]["status"], "failed")
+        self.assertEqual(stats["gemini"]["error"], "http_503:UNAVAILABLE")
+        self.assertEqual(stats["provider"], "kept")
+        self.assertEqual(stats["provider_counts"]["kept"], 4)
+        self.assertEqual(stats["kept_published"], 4)
+        self.assertEqual(stats["pending"], 2)
+        self.assertEqual(stats["status"], "partial")
+
+        # Every previously translated field on existing stories survives
+        self.assertEqual(payload["stories"][0]["title_vi"], VI)
+        self.assertEqual(payload["stories"][0]["summary_vi"], SUMMARY_VI)
+        self.assertEqual(payload["stories"][0]["coverage"][0]["title_vi"], VI)
+        self.assertEqual(payload["stories"][1]["title_vi"], vi_2)
+        self.assertEqual(payload["stories"][1]["summary_vi"], summary_vi_2)
+        self.assertEqual(payload["repos"][0]["description_vi"], VI)
+        self.assertEqual(payload["live"][0]["title_vi"], vi_2)
+
+        # The new story without translation remains untranslated
+        self.assertNotIn("title_vi", payload["stories"][2])
+        self.assertNotIn("summary_vi", payload["stories"][2])
+
+        # Kept translations must NEVER pollute gemini_cache
+        self.assertEqual(self.cache, {})
+
+        # On the next run when the provider recovers, fresh translation replaces the kept one
+        def recovered_transport(body, key, timeout):
+            fresh_title = "Claude nâng cao mô hình hóa sinh học như thế nào"
+            return reply([{"id": item["id"], "text": fresh_title if item["text"] == TITLE else "bản dịch"}
+                          for item in inputs(body)])
+
+        next_payload = {
+            "stories": [
+                {"id": "s1", "title": TITLE, "title_vi": VI, "kind": "research", "coverage": []}
+            ],
+            "sources": []
+        }
+        next_stats, _ = self.run_payload(next_payload, transport=recovered_transport)
+        self.assertEqual(next_stats["provider"], "gemini")
+        self.assertEqual(next_payload["stories"][0]["title_vi"], "Claude nâng cao mô hình hóa sinh học như thế nào")
+        self.assertEqual(self.cache[TITLE], "Claude nâng cao mô hình hóa sinh học như thế nào")
+
+    def test_previous_snapshot_threaded_or_passed_restores_translations(self):
+        """If current payload has stripped fields (e.g. from build.py), passing previous snapshot restores them."""
+        previous_snapshot = {
+            "stories": [
+                {"id": "s1", "title": TITLE, "title_vi": VI, "summary": SUMMARY, "summary_vi": SUMMARY_VI,
+                 "kind": "research", "coverage": []}
+            ]
+        }
+        payload = {
+            "stories": [
+                {"id": "s1", "title": TITLE, "summary": SUMMARY, "kind": "research", "coverage": []}
+            ],
+            "sources": []
+        }
+
+        def failing_transport(*args):
+            raise gemini.ProviderError("http_503:UNAVAILABLE")
+
+        def failing_factory():
+            raise ModuleNotFoundError("offline NLLB absent")
+
+        stats, _ = self.run_payload(
+            payload,
+            transport=failing_transport,
+            factory=failing_factory,
+            previous=previous_snapshot
+        )
+        self.assertEqual(stats["provider"], "kept")
+        self.assertEqual(stats["status"], "ok")
+        self.assertEqual(payload["stories"][0]["title_vi"], VI)
+        self.assertEqual(payload["stories"][0]["summary_vi"], SUMMARY_VI)
+
+    def test_cli_previous_option_restores_translations_when_provider_fails(self):
+        """CLI --previous argument provides prior translations when provider fails."""
+        src = Path(self.tmp.name) / "radar.json"
+        prev = Path(self.tmp.name) / "previous-radar.json"
+        cache = Path(self.tmp.name) / "cache.json"
+
+        prev.write_bytes(json.dumps({
+            "stories": [{"id": "s1", "title": TITLE, "title_vi": VI, "summary": SUMMARY, "summary_vi": SUMMARY_VI,
+                         "kind": "research", "coverage": []}]
+        }).encode())
+        src.write_bytes(json.dumps({
+            "stories": [{"id": "s1", "title": TITLE, "summary": SUMMARY, "kind": "research", "coverage": []}]
+        }).encode())
+
+        def failing_transport(*args):
+            raise gemini.ProviderError("http_503:UNAVAILABLE")
+
+        with patch.dict("os.environ", {"GEMINI_API_KEY": "offline-sentinel", "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1"}, clear=True), \
+                patch.object(gemini, "transport", failing_transport), \
+                patch.object(nllb, "nllb_factory", side_effect=ModuleNotFoundError("offline NLLB absent")), \
+                redirect_stdout(io.StringIO()):
+            code = nllb.main(["--input", str(src), "--cache", str(cache), "--previous", str(prev), "--budget", "5"])
+
+        self.assertEqual(code, 0)
+        out = json.loads(src.read_text(encoding="utf-8"))
+        self.assertEqual(out["translation"]["provider"], "kept")
+        self.assertEqual(out["stories"][0]["title_vi"], VI)
+        self.assertEqual(out["stories"][0]["summary_vi"], SUMMARY_VI)
+
 
 if __name__ == "__main__":
     unittest.main()

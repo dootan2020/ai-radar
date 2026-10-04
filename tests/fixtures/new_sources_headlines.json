@@ -1,0 +1,281 @@
+{
+  "description": "Committed headline shapes representing real-world feeds probed on 2026-10-04, used to verify AI relevance filtering and non-retranslation offline.",
+  "captured_at": "2026-10-04T16:05:00Z",
+  "vietnamese_ai": [
+    {
+      "source": "vnexpress-so-hoa",
+      "title": "Chuyên gia Việt bàn giải pháp ứng dụng trí tuệ nhân tạo trong y tế",
+      "summary": "Nhiều bệnh viện lớn bắt đầu thử nghiệm các mô hình chẩn đoán hỗ trợ bác sĩ phát hiện sớm tổn thương.",
+      "expected_relevant": true,
+      "matched_terms": ["trí tuệ nhân tạo"]
+    },
+    {
+      "source": "vnexpress-so-hoa",
+      "title": "Elon Musk tuyên bố chatbot Grok đạt bước tiến mới về năng lực suy luận",
+      "summary": "Phiên bản mới của xAI được kỳ vọng sẽ cạnh tranh trực tiếp với OpenAI trong bài đo chuẩn toán học.",
+      "expected_relevant": true,
+      "matched_terms": ["chatbot", "grok", "xai", "openai"]
+    },
+    {
+      "source": "tuoitre-so",
+      "title": "Cảnh báo làn sóng lừa đảo tinh vi bằng video deepfake giả danh lãnh đạo",
+      "summary": "Công an khuyến cáo người dân cảnh giác trước những cuộc gọi video giả mạo sử dụng công nghệ deepfake ngày càng chân thực.",
+      "expected_relevant": true,
+      "matched_terms": ["deepfake"]
+    },
+    {
+      "source": "tuoitre-so",
+      "title": "Trợ lý ảo AI hỗ trợ giải quyết thủ tục hành chính công tại Đà Nẵng",
+      "summary": "Hệ thống tự động trả lời thắc mắc của người dân 24/7 với độ chính xác cao nhờ học máy hiện đại.",
+      "expected_relevant": true,
+      "matched_terms": ["trợ lý ảo", "AI", "học máy"]
+    },
+    {
+      "source": "thanhnien-cong-nghe",
+      "title": "VinAI giới thiệu công nghệ thị giác máy tính thế hệ mới tại hội nghị thế giới",
+      "summary": "Nghiên cứu của viện nghiên cứu Việt Nam thu hút sự quan tâm của nhiều chuyên gia thị giác máy tính quốc tế.",
+      "expected_relevant": true,
+      "matched_terms": ["vinai", "thị giác máy tính"]
+    },
+    {
+      "source": "thanhnien-cong-nghe",
+      "title": "Việt Nam đẩy mạnh xây dựng mô hình ngôn ngữ lớn mã nguồn mở",
+      "summary": "Dự án quy tụ các kỹ sư hàng đầu nhằm phát triển mô hình tiếng Việt chuyên sâu cho doanh nghiệp trong nước.",
+      "expected_relevant": true,
+      "matched_terms": ["mô hình ngôn ngữ"]
+    },
+    {
+      "source": "genk-ai",
+      "title": "Mistral ra mắt mô hình mã nguồn mở mới vượt trội trong lập trình",
+      "summary": "Startup AI của Pháp tiếp tục khẳng định vị thế với phiên bản mô hình ngôn ngữ nhỏ gọn nhưng hiệu năng cao.",
+      "expected_relevant": true,
+      "matched_terms": ["mistral", "AI", "mô hình ngôn ngữ"]
+    },
+    {
+      "source": "genk-ai",
+      "title": "Công cụ tạo video Sora mở rộng cho người dùng đăng ký trả phí",
+      "summary": "OpenAI cho biết sẽ bổ sung thêm các tính năng kiểm soát nội dung và an toàn số.",
+      "expected_relevant": true,
+      "matched_terms": ["sora", "openai"]
+    },
+    {
+      "source": "vnexpress-so-hoa",
+      "title": "Giới nghiên cứu tranh luận về nguy cơ xuất hiện siêu trí tuệ trong thập kỷ tới",
+      "summary": "Nhiều nhà khoa học kêu gọi thiết lập cơ chế giám sát toàn cầu trước khi siêu trí tuệ vượt tầm kiểm soát.",
+      "expected_relevant": true,
+      "matched_terms": ["siêu trí tuệ"]
+    },
+    {
+      "source": "thanhnien-cong-nghe",
+      "title": "Huấn luyện mạng nơ-ron sâu với chi phí thấp hơn 50% bằng kỹ thuật mới",
+      "summary": "Thuật toán tối ưu hóa giúp giảm đáng kể thời gian tính toán của mạng nơron trên cụm máy chủ.",
+      "expected_relevant": true,
+      "matched_terms": ["mạng nơ-ron", "mạng nơron"]
+    }
+  ],
+  "vietnamese_non_ai": [
+    {
+      "source": "vnexpress-so-hoa",
+      "title": "Đánh giá chi tiết camera iPhone 16 Pro Max sau một tháng sử dụng",
+      "summary": "Nút bấm điều khiển camera mới mang lại trải nghiệm thú vị nhưng cần thời gian làm quen.",
+      "expected_relevant": false
+    },
+    {
+      "source": "vnexpress-so-hoa",
+      "title": "Giá Bitcoin hôm nay quay đầu giảm mạnh sau khi chạm đỉnh lịch sử",
+      "summary": "Thị trường tiền mã hóa chứng kiến đợt bán tháo khi nhà đầu tư chốt lời trên các sàn giao dịch lớn.",
+      "expected_relevant": false
+    },
+    {
+      "source": "tuoitre-so",
+      "title": "Cáp quang biển quốc tế APG gặp sự cố khiến Internet đi quốc tế bị chậm",
+      "summary": "Đơn vị vận hành đang khẩn trương khắc phục điểm đứt trên vùng biển gần bờ.",
+      "expected_relevant": false
+    },
+    {
+      "source": "tuoitre-so",
+      "title": "Bộ Thông tin và Truyền thông chính thức cấp phép thương mại hóa dịch vụ 5G",
+      "summary": "Các nhà mạng lớn tại Việt Nam đã sẵn sàng phủ sóng các thành phố lớn ngay trong quý 4.",
+      "expected_relevant": false
+    },
+    {
+      "source": "thanhnien-cong-nghe",
+      "title": "Cảnh báo lỗ hổng bảo mật nghiêm trọng trên hệ điều hành Windows 11",
+      "summary": "Chuyên gia khuyến cáo người dùng cập nhật bản vá khẩn cấp để tránh bị tin tặc tấn công từ xa.",
+      "expected_relevant": false
+    },
+    {
+      "source": "thanhnien-cong-nghe",
+      "title": "Mẹo tiết kiệm pin và kéo dài tuổi thọ cho điện thoại thông minh Android",
+      "summary": "Tắt các dịch vụ định vị nền và giảm độ sáng màn hình giúp kéo dài thời gian sử dụng đáng kể.",
+      "expected_relevant": false
+    },
+    {
+      "source": "vnexpress-so-hoa",
+      "title": "Khởi tố đường dây buôn lậu điện thoại và linh kiện qua đường hàng không",
+      "summary": "Lực lượng chức năng phát hiện hàng trăm thiết bị di động đắt tiền cất giấu trong hành lý ký gửi.",
+      "expected_relevant": false
+    },
+    {
+      "source": "tuoitre-so",
+      "title": "Hướng dẫn đăng ký tài khoản định danh điện tử VNeID mức 2 cho người dân",
+      "summary": "Người dân có thể đến trụ sở công an gần nhất để hoàn tất thủ tục kích hoạt nhanh chóng.",
+      "expected_relevant": false
+    }
+  ],
+  "english_ai": [
+    {
+      "source": "theregister-ai",
+      "title": "OpenAI says planned GPT-6.1 is too insecure to release",
+      "summary": "Safety evaluation tests revealed vulnerability to agentic prompt escape exploits.",
+      "expected_relevant": true,
+      "matched_terms": ["openai", "gpt", "agentic"]
+    },
+    {
+      "source": "wired-ai",
+      "title": "Inside the secret US-China dialogue on military AI and nuclear command safeguards",
+      "summary": "Diplomats from Washington and Beijing held quiet bilateral talks on artificial intelligence limits.",
+      "expected_relevant": true,
+      "matched_terms": ["AI", "artificial intelligence"]
+    },
+    {
+      "source": "404media",
+      "title": "Artists discover image scraping startup mined personal portfolios to train generative models",
+      "summary": "Internal logs show millions of copyrighted artworks vacuumed without consent for diffusion training.",
+      "expected_relevant": true,
+      "matched_terms": ["generative", "diffusion"]
+    },
+    {
+      "source": "semafor",
+      "title": "White House readies executive order tightening cloud access for foreign AI developers",
+      "summary": "The administration wants strict KYC rules for hyperscalers renting compute clusters.",
+      "expected_relevant": true,
+      "matched_terms": ["AI"]
+    },
+    {
+      "source": "cnbc-tech",
+      "title": "Nvidia market cap approaches milestone as Big Tech capex fuels demand for Blackwell chips",
+      "summary": "Analysts project continuous cloud infrastructure spending into the next calendar year.",
+      "expected_relevant": true,
+      "matched_terms": ["nvidia"]
+    },
+    {
+      "source": "bloomberg-tech",
+      "title": "US arrests tech executive accused of smuggling $300M in Nvidia chips into China",
+      "summary": "Federal prosecutors allege export control evasion through shadow intermediaries.",
+      "expected_relevant": true,
+      "matched_terms": ["nvidia"]
+    },
+    {
+      "source": "fedscoop",
+      "title": "Pentagon pilots generative models for real-time cybersecurity telemetry analysis",
+      "summary": "Defense officials aim to automate threat hunting across classified networks.",
+      "expected_relevant": true,
+      "matched_terms": ["generative"]
+    },
+    {
+      "source": "nextgov-ai",
+      "title": "Federal agencies face OMB deadline to evaluate algorithmic risk and safeguards",
+      "summary": "Guidelines require Chief AI Officers to inventory automated decision-making workflows.",
+      "expected_relevant": true,
+      "matched_terms": ["AI"]
+    },
+    {
+      "source": "technode",
+      "title": "Zhipu AI releases open weights for GLM-4.5 reasoning model family",
+      "summary": "Tsinghua-backed team introduces new competitive benchmark results against international frontiers.",
+      "expected_relevant": true,
+      "matched_terms": ["zhipu", "glm"]
+    },
+    {
+      "source": "restofworld",
+      "title": "Data labelers in Nairobi organize first cross-border collective for frontier model contracts",
+      "summary": "Workers reviewing traumatic multimodal content push for psychological counseling and fair compensation.",
+      "expected_relevant": true,
+      "matched_terms": ["multimodal"]
+    },
+    {
+      "source": "meta-newsroom",
+      "title": "Introducing Llama 3.3: Our most capable open foundation models to date",
+      "summary": "New multimodal weights are now available for research and commercial deployment.",
+      "expected_relevant": true,
+      "matched_terms": ["llama"]
+    },
+    {
+      "source": "microsoft-blog",
+      "title": "Microsoft Copilot expands autonomous agent workflows across enterprise cloud",
+      "summary": "New orchestration engine enables multi-step automated task completion safely.",
+      "expected_relevant": true,
+      "matched_terms": ["copilot"]
+    },
+    {
+      "source": "aws-ml-blog",
+      "title": "Accelerating large language model inference using AWS Trainium and Inferentia chips",
+      "summary": "Benchmark measurements show latency reductions across standard generative workloads.",
+      "expected_relevant": true,
+      "matched_terms": ["language model", "inference", "generative"]
+    }
+  ],
+  "english_non_ai": [
+    {
+      "source": "404media",
+      "title": "Police used secret cellular tower dumps to map protest attendance in downtown area",
+      "summary": "Public records reveal extensive geofence surveillance without individualized warrants.",
+      "expected_relevant": false
+    },
+    {
+      "source": "semafor",
+      "title": "Senate leaders reach tentative bipartisan accord on federal transportation spending",
+      "summary": "Lawmakers agree on infrastructure grants following prolonged committee negotiations.",
+      "expected_relevant": false
+    },
+    {
+      "source": "cnbc-tech",
+      "title": "Boeing machinists reject latest contract offer as production shutdown enters second week",
+      "summary": "Union members vote overwhelmingly against tentative agreement citing pension demands.",
+      "expected_relevant": false
+    },
+    {
+      "source": "bloomberg-tech",
+      "title": "European central bank weighs interest rate cut as continental growth indicators stall",
+      "summary": "Policy makers signal potential shift in monetary strategy at upcoming quarterly meeting.",
+      "expected_relevant": false
+    },
+    {
+      "source": "fedscoop",
+      "title": "Veterans Affairs completes nationwide migration of legacy database to cloud platform",
+      "summary": "Project leaders report zero downtime during transition of patient administration records.",
+      "expected_relevant": false
+    },
+    {
+      "source": "technode",
+      "title": "BYD launches new ultra-fast charging platform for commercial delivery vans",
+      "summary": "Automaker expands fleet electrification offerings across secondary tier domestic cities.",
+      "expected_relevant": false
+    },
+    {
+      "source": "restofworld",
+      "title": "Delivery couriers in Lagos strike over rising fuel prices and commission reductions",
+      "summary": "Platform workers demand safety nets and fuel subsidies amid persistent currency inflation.",
+      "expected_relevant": false
+    },
+    {
+      "source": "meta-newsroom",
+      "title": "Meta expands parental supervision and daily time limit tools for teens on Instagram",
+      "summary": "New default privacy settings automatically restrict unsolicited direct messages from adults.",
+      "expected_relevant": false
+    },
+    {
+      "source": "microsoft-blog",
+      "title": "Microsoft announces groundbreaking on next-generation zero-carbon data center in Finland",
+      "summary": "Facility will recycle server heat into local municipal district heating network.",
+      "expected_relevant": false
+    },
+    {
+      "source": "vnexpress-tech",
+      "title": "Vietnam coffee exports hit new quarterly record on soaring robusta prices",
+      "summary": "Agricultural exporters benefit from shifting global purchasing patterns and tight supplies.",
+      "expected_relevant": false
+    }
+  ]
+}

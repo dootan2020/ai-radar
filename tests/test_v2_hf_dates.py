@@ -19,7 +19,7 @@ class RepositoryDateTests(unittest.TestCase):
         rows = [{"id": "synthetic/" + name, "createdAt": value} for name, value in [
             ("date-only", "2026-10-02"), ("naive", "2026-10-02T11:00:00"),
             ("aware", "2026-10-02T11:00:00+07:00")]]
-        def fetch(url):
+        def fetch(url, **kwargs):
             if url == source["url"]:
                 return json.dumps(rows)
             raise OSError("synthetic unavailable source")

@@ -56,15 +56,15 @@ def build(fetch=None, now=None, timeout=BUILD_TIMEOUT):
     return _build(fetch, now, timeout)
 
 
-def build_v2(fetch=None, now=None, timeout=BUILD_TIMEOUT, previous=None, events_path=None,
+def build_v2(fetch=None, now=None, timeout=BUILD_TIMEOUT, previous=None, events_path=None, published=None,
              image_transport=None, resolve_images=None, ai_transport=None):
     """Collect the v2 contract; old content is never reused as fresh coverage."""
-    return _build(fetch, now, timeout, v2=True, previous=previous, events_path=events_path,
+    return _build(fetch, now, timeout, v2=True, previous=previous, events_path=events_path, published=published,
                   image_transport=image_transport, resolve_images=resolve_images,
                   ai_transport=ai_transport)
 
 
-def _build(fetch, now, timeout, v2=False, previous=None, events_path=None,
+def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, published=None,
            image_transport=None, resolve_images=None, ai_transport=None):
     from radar import youtube
 
@@ -197,7 +197,7 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None,
                 [], payload["sources"], now, error=f"{type(error).__name__}: {error}")
         if resolve_images is None:
             resolve_images = (fetch is None or image_transport is not None)
-        return assembly.finish(payload, coverage, curated, now, previous, fetcher=fetcher,
+        return assembly.finish(payload, coverage, curated, now, previous, published=published, fetcher=fetcher,
                                image_transport=image_transport, resolve_images=resolve_images,
                                ai_transport=ai_transport)
     return payload

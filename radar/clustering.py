@@ -7,7 +7,7 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from radar.common import stable_id, web_url
 from radar.items import instant
 
-STOPWORDS = set("a an the and or for to of in on with from by as at is are was were be been this that it its our your new now how what why when can will has have had about into more most first introducing announces announced releases released release launch launches launched".split())
+STOPWORDS = set("a an the and or for to of in on with from by as at is are was were be been this that it its our your new now how what why when can will has have had about into more most first introducing announces announced releases released release launch launches launched over under after amid against due because part via says said report reports".split())
 TRACKING = {"fbclid", "gclid", "mc_cid", "mc_eid", "ref_src", "ref_url"}
 
 
@@ -34,6 +34,59 @@ def canonical_url(url):
     return urlunsplit((parts.scheme.lower(), host, path, urlencode(sorted(query)), ""))
 
 
+ENTITY_WORDS = {
+    "openai", "anthropic", "google", "meta", "nvidia", "microsoft", "amazon", "apple", "xai", "mistral", "deepmind",
+    "gpt", "claude", "gemini", "llama", "grok", "glm", "qwen"
+}
+TOPIC_WORDS = {
+    "ai", "model", "models", "safety", "security", "concern", "concerns", "risk", "risks", "intelligence",
+    "tech", "technology", "news", "update", "updates", "system", "systems", "agent", "agents", "release", "releases"
+}
+SUB_VARIANTS = {"sol", "luna", "astra", "opus", "sonnet", "haiku", "flash", "pro", "ultra", "lite", "turbo", "instruct", "scout", "maverick"}
+
+
+def _stem(w):
+    if len(w) >= 4 and w.endswith("s") and not w.endswith("ss"):
+        if w.endswith("ies") and len(w) >= 5:
+            return w[:-3] + "y"
+        if w.endswith("es") and len(w) >= 5 and w[-3] in "shxz":
+            return w[:-2]
+        return w[:-1]
+    return w
+
+
+def _extract_versions(tokens):
+    versions = set()
+    for tok in tokens:
+        if re.fullmatch(r"\d+\.\d+", tok):
+            versions.add(tok)
+        elif re.fullmatch(r"20\d{2}", tok):
+            versions.add(tok)
+        elif re.fullmatch(r"v\d+(?:\.\d+)*", tok):
+            versions.add(tok)
+    return versions
+
+
+def _has_conflict(a_tokens, b_tokens):
+    v_a = _extract_versions(a_tokens)
+    v_b = _extract_versions(b_tokens)
+    if v_a and v_b and not (v_a & v_b):
+        return True
+    
+    var_a = a_tokens & SUB_VARIANTS
+    var_b = b_tokens & SUB_VARIANTS
+    if var_a and var_b and not (var_a & var_b):
+        return True
+        
+    d_a = {tok for tok in a_tokens if re.fullmatch(r"\d+", tok)}
+    d_b = {tok for tok in b_tokens if re.fullmatch(r"\d+", tok)}
+    if len(d_a) == 1 and len(d_b) == 1 and d_a != d_b:
+        if any(w in a_tokens & b_tokens for w in ENTITY_WORDS):
+            return True
+            
+    return False
+
+
 def _tokens(title):
     # Preserve accented words and normalize equivalent composed/decomposed text.
     title = unicodedata.normalize("NFC", title.lower())
@@ -41,26 +94,80 @@ def _tokens(title):
                if token not in STOPWORDS and (len(token) >= 3 or any(c.isdigit() for c in token)))
 
 
+def _expand_tokens(title):
+    base = _tokens(title)
+    expanded = set(base)
+    for tok in base:
+        if "-" in tok:
+            for part in tok.split("-"):
+                if part not in STOPWORDS and (len(part) >= 3 or any(c.isdigit() for c in part)):
+                    expanded.add(part)
+    return expanded
+
+
 def titles_match(left, right, threshold=0.75):
     a_date, b_date = instant(left.get("published_at")), instant(right.get("published_at"))
     if not a_date or not b_date or abs((a_date - b_date).total_seconds()) > 48 * 3600:
         return False
-    a, b = _tokens(left.get("title", "")), _tokens(right.get("title", ""))
-    numbers_a = {token for token in a if any(c.isdigit() for c in token)}
-    numbers_b = {token for token in b if any(c.isdigit() for c in token)}
-    if numbers_a != numbers_b:
+    a_raw = _expand_tokens(left.get("title", ""))
+    b_raw = _expand_tokens(right.get("title", ""))
+    if len(a_raw) < 2 or len(b_raw) < 2:
         return False
+
+    if _has_conflict(a_raw, b_raw):
+        return False
+
     # Whole-event recaps and keynotes often have very short, different titles.
-    # Require a named compound event + year and explicit whole-event formats;
-    # product launches and session titles must still pass normal title matching.
-    event_names = {token for token in a & b if len(token) >= 6 and re.search(r"(?:day|conf|con)$", token)}
-    years = {token for token in numbers_a if re.fullmatch(r"20\d{2}", token)}
+    event_names = {token for token in a_raw & b_raw if len(token) >= 6 and re.search(r"(?:day|conf|con)$", token)}
+    years = {token for token in _extract_versions(a_raw) & _extract_versions(b_raw) if re.fullmatch(r"20\d{2}", token)}
     formats = {"recap", "keynote", "highlights"}
     excluded = re.compile(r"\b(?:introduc\w*|releas\w*|launch\w*|announc\w*|session|workshop)\b", re.I)
-    if (event_names and years and a & formats and b & formats
+    if (event_names and years and a_raw & formats and b_raw & formats
             and not excluded.search(left.get("title", "") + " " + right.get("title", ""))):
         return True
-    return len(a & b) >= 3 and len(a & b) / max(1, len(a | b)) >= threshold
+
+    if ((a_raw & formats and not b_raw & formats and excluded.search(right.get("title", ""))) or
+        (b_raw & formats and not a_raw & formats and excluded.search(left.get("title", "")))):
+        return False
+
+    # Two papers or two repos from different canonical urls should not cross-merge on titles
+    if left.get("kind") == "paper" and right.get("kind") == "paper":
+        return False
+    if left.get("kind") == "repository" and right.get("kind") == "repository":
+        return False
+
+    a_stem = {_stem(t) for t in a_raw}
+    b_stem = {_stem(t) for t in b_raw}
+    shared = a_stem & b_stem
+    union = a_stem | b_stem
+    if not union:
+        return False
+
+    jaccard = len(shared) / len(union)
+
+    # Standard threshold (e.g. 0.75) applies to generic and same-publisher headlines
+    if len(shared) >= 3 and jaccard >= threshold:
+        return True
+
+    # Same publisher requires standard threshold
+    if left.get("publisher") and left.get("publisher") == right.get("publisher"):
+        return False
+
+    # Cross-publisher general matching rule from signals that exist for any story:
+    shared_entities = {w for w in shared if _stem(w) in ENTITY_WORDS}
+    shared_variants = {w for w in shared if _stem(w) in SUB_VARIANTS}
+    shared_versions = _extract_versions(a_raw) & _extract_versions(b_raw)
+    specific = {w for w in shared if _stem(w) not in (ENTITY_WORDS | TOPIC_WORDS | SUB_VARIANTS) and not any(c.isdigit() for c in w) and "-" not in w}
+
+    # Signal 1: Shared entity + 2 or more shared specific tokens
+    if len(shared_entities) >= 1 and len(specific) >= 2:
+        return True
+
+    # Signal 2: Model variant launch: shared entity + shared model sub-variant + shared version
+    if len(shared_entities) >= 1 and len(shared_variants) >= 1 and len(shared_versions) >= 1:
+        return True
+
+    return False
 
 
 def _match(a, b, threshold):

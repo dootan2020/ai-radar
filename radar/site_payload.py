@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 
 from radar.pipeline import write_atomic
+from radar.search_index import search_payload, search_path
 
 
 PAGE_FIELDS = (
@@ -187,16 +188,24 @@ def write_site_snapshot(payload, path):
     write_atomic(payload, path)
     companion = page_path(path)
     head_file = head_path(path)
+    search_file = search_path(path)
     try:
         write_atomic(page_payload(payload), companion, compact=True)
     except Exception:
         companion.unlink(missing_ok=True)
         head_file.unlink(missing_ok=True)
+        search_file.unlink(missing_ok=True)
         raise
     try:
         write_atomic(head_payload(payload), head_file, compact=True)
     except Exception:
         head_file.unlink(missing_ok=True)
+        search_file.unlink(missing_ok=True)
+        raise
+    try:
+        write_atomic(search_payload(payload), search_file, compact=True)
+    except Exception:
+        search_file.unlink(missing_ok=True)
         raise
     site_root = Path(path).resolve().parents[1] if Path(path).parent.name == "data" else Path(path).resolve().parent
     index_file = site_root / "index.html"

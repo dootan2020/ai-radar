@@ -45,7 +45,7 @@ class PipelineV2Tests(unittest.TestCase):
         youtube_stub.start()
         self.addCleanup(youtube_stub.stop)
 
-    def fetch(self, url):
+    def fetch(self, url, **kwargs):
         if url.endswith(("good-a", "good-b")):
             return FEED
         if url.endswith("timeout"):
@@ -100,7 +100,7 @@ class PipelineV2Tests(unittest.TestCase):
         self.sources = [research_source]
         body = FEED.replace("AI synthetic architecture released today", "Measuring everyday work patterns")
         with patch.object(feeds, "SOURCES", []):
-            result = pipeline.build_v2(fetch=lambda url: body, now=NOW, events_path=self.events)
+            result = pipeline.build_v2(fetch=lambda url, **kwargs: body, now=NOW, events_path=self.events)
         row = next(row for row in result["updates"] if row["source"] == "anthropic-research")
         self.assertEqual(row["kind"], "research")
         item = next(item for story in result["stories"] for item in story["coverage"]
@@ -113,6 +113,23 @@ class PipelineV2Tests(unittest.TestCase):
         result = self.build(previous=old)
         self.assertEqual(result["stories"], [])
         self.assertTrue(all(not section for section in result["sections"].values()))
+
+    def test_published_snapshot_carries_content_while_measurement_baseline_does_not(self):
+        old = self.build()
+        self.assertEqual(len(old["stories"]), 1)
+        story_id = old["stories"][0]["id"]
+        self.sources = []
+        # Measurement baseline only (previous): nothing republished
+        baseline_only = self.build(previous=old)
+        self.assertEqual(baseline_only["stories"], [])
+        self.assertNotIn(story_id, [s["id"] for s in baseline_only["stories"]])
+        # Published snapshot (published): story is carried
+        published_carried = self.build(published=old)
+        self.assertEqual(len(published_carried["stories"]), 1)
+        self.assertEqual(published_carried["stories"][0]["id"], story_id)
+        self.assertTrue(published_carried["stories"][0].get("carried"))
+
+
 
     def test_legacy_snapshot_is_not_advertised_as_a_measurement_baseline(self):
         previous = self.build() | {"schema_version": 1, "generated_at": "2026-10-02T11:00:00Z"}
@@ -140,7 +157,7 @@ class PipelineV2Tests(unittest.TestCase):
 
     def test_observed_http_error_retains_status_separate_from_transport_denial(self):
         self.sources = [source("blocked")]
-        def denied(url):
+        def denied(url, **kwargs):
             raise HTTPError(url, 429, "synthetic throttling", {}, None)
         result = pipeline.build_v2(fetch=denied, now=NOW, events_path=self.events)
         record = next(row for row in result["sources"] if row["id"] == "blocked")
@@ -149,7 +166,7 @@ class PipelineV2Tests(unittest.TestCase):
 
     def test_http_success_with_invalid_body_is_a_parser_failure_with_observed_200(self):
         self.sources = [source("bad-body")]
-        def malformed(url):
+        def malformed(url, **kwargs):
             return ResponseText("<html>not an RSS feed</html>", status=200, url=url)
         result = pipeline.build_v2(fetch=malformed, now=NOW, events_path=self.events)
         record = next(row for row in result["sources"] if row["id"] == "bad-body")
@@ -161,7 +178,7 @@ class PipelineV2Tests(unittest.TestCase):
     def test_youtube_primary_status_reflects_real_streams_query_request(self):
         self.sources = []
         channels = (youtube.CHANNELS[0], catalog.NVIDIA_CHANNEL)
-        def channel_feed(url):
+        def channel_feed(url, **kwargs):
             if "/streams" in url:
                 channel = next(channel for channel in channels if "/@" + channel[3] + "/" in url)
                 data = {"metadata": {"channelMetadataRenderer": {"externalId": channel[4]}},
@@ -185,9 +202,9 @@ class PipelineV2Tests(unittest.TestCase):
 
     def test_deadline_returns_stable_snapshot_while_late_workers_finish(self):
         release = threading.Event()
-        def delayed(url):
+        def delayed(url, **kwargs):
             release.wait(1)
-            return self.fetch(url)
+            return self.fetch(url, **kwargs)
         started = time.monotonic()
         try:
             result = pipeline.build_v2(fetch=delayed, now=NOW, timeout=0.03, events_path=self.events)

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ai·radar · Tra cứu câu chuyện AI</title>
+<meta name="description" content="Tra cứu mọi câu chuyện về một chủ đề, mô hình hoặc nhân vật AI trong 7 ngày qua, đo lường bằng số nguồn kiểm chứng và dòng thời gian thực tế.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ai·radar">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:title" content="ai·radar · Tra cứu câu chuyện AI">
+<meta property="og:description" content="Tra cứu chuyện AI trong 7 ngày qua. Ô chính giữ chuyện nhiều nguồn nhất, kèm dòng thời gian chi tiết.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https://avatars.githubusercontent.com https://cdn-avatars.huggingface.co https://i.ytimg.com; font-src 'self'; connect-src 'self' https://huggingface.co; object-src 'none'; base-uri 'self'; form-action 'none';">
+<!-- Apply the reader's saved theme before first paint, so a dark-mode reader never sees a light flash. -->
+<script>try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="tra-cuu.css">
+<script type="module" src="tra-cuu.js"></script>
+<link rel="modulepreload" href="faces.js">
+<link rel="modulepreload" href="time-text.js">
+<link rel="modulepreload" href="words.js">
+<link rel="modulepreload" href="titles.js">
+</head>
+<body>
+<a class="skip" href="#main-content">Bỏ qua tới nội dung</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 5h10v10M19 5L6 18"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-new" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><path d="M12 8v4l2.5 2"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3.5c1 3 4.5 5 4.5 9.5a4.5 4.5 0 0 1-9 0c0-2 1-3.2 2-4 .2 1.5 1 2.5 2 2.5 0-3-1-5.5.5-8z"/></symbol>
+  <symbol id="i-repo" viewBox="0 0 24 24"><path d="M6 4.5h10.5a1 1 0 0 1 1 1V17H7.5A1.5 1.5 0 0 0 6 18.5zM6 18.5A1.5 1.5 0 0 0 7.5 20h10M9.5 8.5h5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4l9 15.5H3zM12 10v4.5M12 17h.01"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M9 7.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L9.9 6.7a.6.6 0 0 0-.9.5z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></symbol>
+  <symbol id="i-signal" viewBox="0 0 24 24"><path d="M2 20h20M5 20v-4M10 20v-8M15 20v-12M20 20v-16"/></symbol>
+  <symbol id="i-k-model" viewBox="0 0 24 24"><path d="M12 3.5l7.5 4.2v8.6L12 20.5l-7.5-4.2V7.7zM4.5 7.7L12 12l7.5-4.3M12 12v8.5"/></symbol>
+  <symbol id="i-k-product" viewBox="0 0 24 24"><path d="M5.5 8.5h13l-1 11h-11zM9 8.5V7a3 3 0 0 1 6 0v1.5"/></symbol>
+  <symbol id="i-k-research" viewBox="0 0 24 24"><path d="M9.5 3.5h5M10.5 3.5v6L5 19a1 1 0 0 0 .9 1.5h12.2A1 1 0 0 0 19 19l-5.5-9.5v-6M7.5 15h9"/></symbol>
+  <symbol id="i-k-article" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4"/></symbol>
+  <symbol id="i-k-paper" viewBox="0 0 24 24"><path d="M6 3.5h8l4 4v13H6zM14 3.5v4h4M9 12h6M9 15.5h6"/></symbol>
+  <symbol id="i-k-podcast" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="10" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v3.5M9 20.5h6"/></symbol>
+  <symbol id="i-k-forum" viewBox="0 0 24 24"><path d="M4.5 6a1.5 1.5 0 0 1 1.5-1.5h9A1.5 1.5 0 0 1 16.5 6v6A1.5 1.5 0 0 1 15 13.5H9l-3.5 3v-3H6A1.5 1.5 0 0 1 4.5 12zM16.5 9H18a1.5 1.5 0 0 1 1.5 1.5V16H18v2.5L15 16h-3.5a1.5 1.5 0 0 1-1.3-.8"/></symbol>
+</svg>
+
+<header class="bar" id="bar">
+  <a class="brand" href="index.html" aria-label="ai radar, về đầu trang">ai<b>·</b>radar</a>
+  <a class="ed-link" href="ban-tin.html">Bản tin sáng</a>
+  <span class="when-line" id="when-line"></span>
+  <nav class="nav" id="nav" aria-label="Các mục">
+    <a href="index.html#hom-nay">Hôm nay</a>
+    <a href="index.html#nong">Đang nóng</a>
+    <a href="index.html#repo">Kho mã</a>
+    <a href="index.html#model">Mô hình</a>
+    <a href="index.html#paper">Bài báo</a>
+    <a href="index.html#nghe">Nghe và xem</a>
+    <a href="index.html#chuyen-gia">Chuyên gia</a>
+    <a href="index.html#cong-dong">Cộng đồng</a>
+    <a href="index.html#sap-toi">Sắp tới</a>
+  </nav>
+  <button class="theme" id="theme" aria-pressed="false" aria-label="Chuyển sang nền tối">
+    <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+    <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+  </button>
+</header>
+
+<main id="main-content">
+  <h1 class="sr">ai-radar, tra cứu câu chuyện AI trong 7 ngày qua</h1>
+
+  <section class="tc-search-section" aria-label="Khung tìm kiếm">
+    <form class="tc-search-form" id="tc-search-form" role="search">
+      <svg class="i tc-search-icon" aria-hidden="true"><use href="#i-search"/></svg>
+      <input
+        type="search"
+        class="tc-search-input"
+        id="tc-search-input"
+        placeholder="Nhập một cái tên..."
+        aria-label="Từ khóa tra cứu câu chuyện AI"
+        autocomplete="off"
+        spellcheck="false"
+      >
+      <button class="tc-clear-btn" id="tc-clear-btn" type="button" aria-label="Xóa từ khóa" hidden>
+        <svg class="i" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+      <button class="btn primary tc-submit-btn" type="submit">Tra cứu</button>
+    </form>
+  </section>
+
+  <div class="tc-counter-row" id="tc-counter-row" aria-live="polite"></div>
+
+  <div class="tc-results" id="tc-results" aria-live="polite">
+    <div class="tc-loading-box">
+      <div class="tile t-lead sk-tile">
+        <div class="sk sk-av"></div>
+        <div class="sk sk-num"></div>
+        <div class="sk sk-title" style="width:86%"></div>
+        <div class="sk sk-title" style="width:60%"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<nav class="tabs" id="tabs" aria-label="Đi nhanh">
+  <a href="index.html#top" data-tab="top"><svg class="i"><use href="#i-grid"/></svg><span>Bảng</span></a>
+  <a href="index.html#moi" data-tab="moi"><svg class="i"><use href="#i-new"/></svg><span>Mới</span></a>
+  <a href="index.html#nong" data-tab="nong"><svg class="i"><use href="#i-flame"/></svg><span>Nóng</span></a>
+  <a href="index.html#repo" data-tab="repo"><svg class="i"><use href="#i-repo"/></svg><span>Kho mã</span></a>
+  <a href="index.html#sap-toi" data-tab="sap-toi"><svg class="i"><use href="#i-cal"/></svg><span>Sắp tới</span></a>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

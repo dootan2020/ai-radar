@@ -30,7 +30,7 @@ class PipelineTests(unittest.TestCase):
         self.stack.enter_context(patch.object(huggingface, "SOURCES", [next(s for s in huggingface.SOURCES if s["lab"] == "deepseek")]))
         self.stack.enter_context(patch.object(youtube, "CHANNELS", (youtube.CHANNELS[0],)))
 
-    def fetch(self, url):
+    def fetch(self, url, **kwargs):
         if url.endswith("feed-fails"):
             raise TimeoutError("fixture source timed out")
         if url.endswith(("feed-a", "feed-b")):
@@ -84,8 +84,8 @@ class PipelineTests(unittest.TestCase):
                             for source in sources))
 
     def test_mixed_missing_dates_do_not_break_aggregate_sort(self):
-        def fetch(url):
-            body = self.fetch(url)
+        def fetch(url, **kwargs):
+            body = self.fetch(url, **kwargs)
             if url.endswith("feed-a"):
                 return body.replace("<pubDate>Wed, 30 Sep 2026 10:30:00 GMT</pubDate>", "")
             if "/api/models?" in url:
@@ -99,7 +99,7 @@ class PipelineTests(unittest.TestCase):
         self.assertIsNone(result["hf_releases"][-1]["created_at"])
 
     def test_all_failures_still_produce_valid_empty_payload(self):
-        def fail(url):
+        def fail(url, **kwargs):
             raise OSError("offline fixture outage")
         result = pipeline.build(fetch=fail, now=NOW)
         self.assertTrue(result["sources"])
@@ -111,9 +111,9 @@ class PipelineTests(unittest.TestCase):
 
     def test_global_deadline_returns_and_snapshot_does_not_mutate_later(self):
         release = threading.Event()
-        def slow(url):
+        def slow(url, **kwargs):
             release.wait(1)
-            return self.fetch(url)
+            return self.fetch(url, **kwargs)
         start = time.monotonic()
         try:
             result = pipeline.build(fetch=slow, now=NOW, timeout=0.05)

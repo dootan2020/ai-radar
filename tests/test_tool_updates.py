@@ -210,7 +210,7 @@ class ToolPipelineIsolationTests(unittest.TestCase):
         with patch.object(pipeline, "_jobs", return_value=jobs), \
                 patch.object(youtube, "collect", return_value=([], [])), \
                 patch.object(tool_updates, "finish", side_effect=ValueError("broken grouping")):
-            result = pipeline.build_v2(fetch=lambda url: "", now=NOW)
+            result = pipeline.build_v2(fetch=lambda url, **kwargs: "", now=NOW)
         self.assertEqual(result["tool_updates"], [])
         self.assertFalse(result["tool_updates_meta"]["ok"])
         self.assertIn("broken grouping", result["tool_updates_meta"]["error"])
@@ -225,7 +225,7 @@ class ToolPipelineIsolationTests(unittest.TestCase):
         broken = '<li data-product="codex" id="broken"><h3>Missing article</h3></li>'
         with patch.object(pipeline, "_jobs", return_value=jobs), \
                 patch.object(youtube, "collect", return_value=([], [])):
-            result = pipeline.build_v2(fetch=lambda url: broken + body, now=NOW)
+            result = pipeline.build_v2(fetch=lambda url, **kwargs: broken + body, now=NOW)
         record = next(row for row in result["sources"] if row["id"] == "codex-changelog")
         self.assertTrue(record["ok"])
         self.assertEqual(record["dropped_entries"], 1)
@@ -239,7 +239,7 @@ class ToolPipelineIsolationTests(unittest.TestCase):
         jobs = [job for job in pipeline._jobs(True, NOW) if job[0]["id"] in ids]
         self.assertEqual({job[0]["id"] for job in jobs}, ids)
 
-        def fetch(url):
+        def fetch(url, **kwargs):
             if url == source("codex-changelog")["url"]:
                 raise TimeoutError("synthetic endpoint timeout")
             return ResponseText(atom(), status=200, url=url)
