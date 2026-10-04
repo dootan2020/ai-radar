@@ -2,10 +2,18 @@
   "schema_version": 1,
   "timezone": "Asia/Ho_Chi_Minh",
   "latest": {
-    "date": "2026-10-04",
-    "path": "2026-10-04.json"
+    "date": "2026-10-05",
+    "path": "2026-10-05.json"
   },
   "editions": [
+    {
+      "date": "2026-10-05",
+      "path": "2026-10-05.json",
+      "story_count": 1,
+      "cutoff_at": "2026-10-04T23:00:00Z",
+      "created_at": "2026-10-04T23:02:38Z",
+      "snapshot_generated_at": "2026-10-04T23:00:58Z"
+    },
     {
       "date": "2026-10-04",
       "path": "2026-10-04.json",

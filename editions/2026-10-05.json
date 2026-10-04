@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-05",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-03T23:00:00Z",
+  "cutoff_at": "2026-10-04T23:00:00Z",
+  "created_at": "2026-10-04T23:02:38Z",
+  "snapshot_generated_at": "2026-10-04T23:00:58Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-04T23:00:58Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "89be4e220d9f6acb170f",
+      "title": "Run Qwen 3.8 Flash Next (125B) on consumer hardware (RTX 4090) at 100T/s",
+      "title_vi": "Chạy Qwen 3.8 Flash Next (125B) trên phần cứng tiêu dùng (RTX 4090) với tốc độ 100T/s",
+      "url": "https://github.com/Niko1221/Strata",
+      "published_at": "2026-10-04T12:51:53Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "source_count": 0,
+      "coverage": [
+        {
+          "id": "85e586201c801245db78",
+          "title": "Run Qwen 3.8 Flash Next (125B) on consumer hardware (RTX 4090) at 100T/s",
+          "title_vi": "Chạy Qwen 3.8 Flash Next (125B) trên phần cứng tiêu dùng (RTX 4090) với tốc độ 100T/s",
+          "url": "https://github.com/Niko1221/Strata",
+          "published_at": "2026-10-04T12:51:53Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-04T23:00:58Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=49953495",
+          "metrics": {
+            "points": 541,
+            "comments": 269
+          }
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Ngoại lệ diễn đàn: tương tác thuộc nhóm 3% cao nhất và ít nhất 100 bình luận",
+            "percentile": 1.0,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 541,
+              "observed_at": "2026-10-04T23:00:58Z",
+              "velocity_per_hour": 42.0,
+              "previous_observed_at": "2026-10-04T22:40:58Z",
+              "previous_value": 527
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [],
+          "age_hours_at_cutoff": 10.1353,
+          "hot_score": 74.588,
+          "engagement_percentile": 1.0
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 62,
+    "successful_remote_sources": 61,
+    "failed_remote_sources": [
+      "vnexpress-so-hoa"
+    ]
+  }
+}
