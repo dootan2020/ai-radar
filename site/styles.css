@@ -98,7 +98,10 @@
     .board,.chapters{grid-template-columns:minmax(0, 1fr)}
     .board > .tile{grid-column:1 / -1 !important}
     .chapters{margin-top:var(--space-48)}
-    .bar{gap:var(--space-12)}
+    .bar{gap:var(--space-8)}
+    .ed-link{padding:6px 10px}
+    .tc-link{padding:6px 8px;width:32px;height:32px;justify-content:center}
+    .tc-link .tc-label{display:none}
     .when-line,.src-state .w{display:none}
     main{padding-bottom:calc(var(--space-96) + 24px)}
   }
@@ -113,6 +116,12 @@
   .ed-link{position:relative;flex:none;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-meta);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:color var(--motion-state) var(--ease-flow)}
   .ed-link::after{content:"";position:absolute;inset:-6px -4px}
   .ed-link:hover{color:var(--color-ink)}
+  /* Link to story search page. Matches .ed-link idiom in the header bar. */
+  .tc-link{position:relative;flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-meta);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
+  .tc-link::after{content:"";position:absolute;inset:-6px -4px}
+  .tc-link:hover{color:var(--color-ink);background:var(--color-hair)}
+  .tc-link:focus-visible{border-radius:var(--radius-full)}
+  .tc-link .i{width:14px;height:14px}
   .when-line{display:none;font-size:var(--text-meta);color:var(--color-ink-2);white-space:nowrap}
   .nav{display:flex;gap:var(--space-4);flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;mask-image:var(--nav-fade);font-size:var(--text-meta);font-weight:var(--weight-medium)}
   .nav a{padding:var(--space-8) var(--space-8);border-radius:var(--radius-full);color:var(--color-ink-2);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}

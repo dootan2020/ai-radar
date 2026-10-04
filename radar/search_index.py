@@ -111,10 +111,23 @@ def search_payload(payload):
     stories = payload.get("stories", []) if isinstance(payload, dict) else []
     indexed_stories = [search_story_row(s) for s in stories if isinstance(s, dict)]
 
+    raw_sources = payload.get("sources", []) if isinstance(payload, dict) else []
+    sources = [
+        {
+            "id": s.get("id"),
+            "name": s.get("name"),
+            "publisher": s.get("publisher"),
+            "lab": s.get("lab", ""),
+        }
+        for s in raw_sources
+        if isinstance(s, dict) and s.get("id")
+    ]
+
     return {
         "schema_version": payload.get("schema_version", 2) if isinstance(payload, dict) else 2,
         "generated_at": payload.get("generated_at", "") if isinstance(payload, dict) else "",
         "story_count": len(indexed_stories),
+        "sources": sources,
         "stories": indexed_stories,
     }
 
