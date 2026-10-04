@@ -211,3 +211,6 @@ def write_site_snapshot(payload, path):
     index_file = site_root / "index.html"
     if index_file.is_file():
         update_index_thumbnail(index_file, first_screen_thumbnail(payload))
+    bento_file = site_root / "bento.html"
+    if bento_file.is_file():
+        update_index_thumbnail(bento_file, first_screen_thumbnail(payload))

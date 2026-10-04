@@ -115,12 +115,16 @@ process.stdout.write(JSON.stringify({pending,ready,disabled:clicks}));
         self.assertEqual(result, {'pending': 0, 'ready': 1, 'disabled': 1})
 
     def test_head_and_thumbnail_are_preloaded_without_font_blocking(self):
-        html = (ROOT / 'site/index.html').read_text(encoding='utf-8')
-        self.assertIn('<link rel="preload" href="data/radar-head.json" as="fetch" crossorigin>', html)
-        self.assertRegex(html, r'<link rel="preload" as="image" href="https://i\.ytimg\.com/vi/[^/]+/hqdefault\.jpg" fetchpriority="high">')
+        bento_html = (ROOT / 'site/bento.html').read_text(encoding='utf-8')
+        self.assertIn('<link rel="preload" href="data/radar-head.json" as="fetch" crossorigin>', bento_html)
+        self.assertRegex(bento_html, r'<link rel="preload" as="image" href="https://i\.ytimg\.com/vi/[^/]+/hqdefault\.jpg" fetchpriority="high">')
         # Fonts must not choke initial slow-4G bandwidth
-        font_preloads = re.findall(r'<link rel="preload" href="([^"]+)" as="font"', html)
+        font_preloads = re.findall(r'<link rel="preload" href="([^"]+)" as="font"', bento_html)
         self.assertEqual(font_preloads, [])
+
+        feed_html = (ROOT / 'site/index.html').read_text(encoding='utf-8')
+        self.assertIn('<link rel="preload" href="data/radar-ui.json" as="fetch" crossorigin>', feed_html)
+        self.assertEqual(re.findall(r'<link rel="preload" href="([^"]+)" as="font"', feed_html), [])
 
 
 if __name__ == '__main__':

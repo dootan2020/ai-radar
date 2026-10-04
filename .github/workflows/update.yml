@@ -45,10 +45,26 @@ jobs:
           path: data/published-snapshot.json
           key: radar-publication-v1-main-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: radar-publication-v1-main-
+      - name: Restore image cache
+        continue-on-error: true
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            data/image-cache.json
+            data/ai-image-ledger.json
+            site/assets/ai
+          key: radar-image-cache-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            radar-image-cache-v2-${{ github.ref_name }}-
+            radar-image-cache-v2-main-
+            radar-image-cache-v1-${{ github.ref_name }}-
+            radar-image-cache-v1-main-
       - name: Fetch public sources
         id: collect
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_AI_API_TOKEN: ${{ secrets.CLOUDFLARE_AI_API_TOKEN }}
         run: python build.py
       - name: Save measurement snapshot
         if: steps.collect.outputs.baseline_updated == 'true'
@@ -56,6 +72,16 @@ jobs:
         with:
           path: data/measurement-baseline.json
           key: radar-measurements-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save image cache
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            data/image-cache.json
+            data/ai-image-ledger.json
+            site/assets/ai
+          key: radar-image-cache-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       # Translation is optional: failed steps leave original titles and summaries usable.
       - name: Install translation libraries
         id: mt-install

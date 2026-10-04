@@ -48,7 +48,7 @@ class ScriptSources(HTMLParser):
 class PageHeadTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.html = read(SITE / "index.html")
+        cls.html = read(SITE / "bento.html")
         cls.head = cls.html.split("</head>")[0]
         cls.csp = csp_directives(cls.html)
         cls.app = read(SITE / "app.js")
@@ -184,7 +184,7 @@ class PageHeadTests(unittest.TestCase):
 class RenderedFixWiringTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.html = read(SITE / "index.html")
+        cls.html = read(SITE / "bento.html")
         cls.app = read(SITE / "app.js")
         cls.css = read(SITE / "styles.css")
 

@@ -1,0 +1,762 @@
+{
+ "_meta": {
+  "generated_at": "2026-10-04T13:42:16+00:00",
+  "snapshot_generated_at": "2026-10-04T13:20:53Z",
+  "window_hours": 72,
+  "rule": "every src is published by the source itself; verified to answer with an image when fetched",
+  "coverage_before": {
+   "measured_at": "2026-10-04T13:42:16+00:00",
+   "snapshot_generated_at": "2026-10-04T13:20:53Z",
+   "stories_in_window": 146,
+   "shipped_page_stories_with_image": 61,
+   "shipped_page_pct": 41.8,
+   "old_method_stories_with_image": 119,
+   "old_method_pct": 81.5,
+   "old_method_urls_with_image": 120,
+   "urls": 154,
+   "old_method_url_pct": 77.9,
+   "note": "shipped = feed.js as it was, with the feed-images.json built from the 16:20 snapshot; old method = og:image/twitter:image read from the first 120 KB with a browser UA, plus YouTube"
+  },
+  "coverage_after": {
+   "stories_in_window": 146,
+   "stories_with_image": 127,
+   "pct": 87.0,
+   "by_via": {
+    "github-social": 10,
+    "og:image": 68,
+    "feed-media": 27,
+    "linked-article": 17,
+    "cover": 19,
+    "hf-thumbnail": 4,
+    "youtube": 1
+   },
+   "urls_with_image": 133,
+   "urls": 154,
+   "url_pct": 86.4,
+   "repos_with_image": 47,
+   "repos": 47
+  }
+ },
+ "images": {
+  "https://about.fb.com/news/2026/10/announcing-ranveer-singh-as-brand-ambassador-for-ray-ban-and-ray-ban-meta-in-india-along-with-exciting-new-updates-to-our-ai-glasses/": {
+   "src": "https://about.fb.com/wp-content/uploads/2026/10/RS_Announce_Comms_RBM_Wayfarer_1920x1080px.png?fit=3840%2C2160",
+   "via": "feed-media"
+  },
+  "https://arstechnica.com/gadgets/2026/10/the-7-year-old-nvidia-shield-tv-is-now-100-more-expensive-thanks-to-ai/": {
+   "src": "https://cdn.arstechnica.net/wp-content/uploads/2026/01/Shield-10-yrs-1-1152x648.jpg",
+   "via": "feed-media"
+  },
+  "https://arstechnica.com/google/2026/10/antitrust-lawsuits-targeting-google-ai-search-dismissed-by-federal-judge/": {
+   "src": "https://cdn.arstechnica.net/wp-content/uploads/2025/05/Google-sign-IO-1152x648.jpg",
+   "via": "feed-media"
+  },
+  "https://arstechnica.com/science/2026/10/ai-finally-beat-the-best-stratego-player-in-history-and-did-it-on-a-budget/": {
+   "src": "https://cdn.arstechnica.net/wp-content/uploads/2026/10/GettyImages-1864707238-1152x648.jpg",
+   "via": "feed-media"
+  },
+  "https://arstechnica.com/security/2026/10/apple-changes-full-disk-access-permissions-to-curb-abuse-from-ai-agents/": {
+   "src": "https://cdn.arstechnica.net/wp-content/uploads/2026/02/gatekeeping-ai-agents-1152x648.jpg",
+   "via": "feed-media"
+  },
+  "https://arstechnica.com/tech-policy/2026/10/amazons-1b-plan-to-combat-data-center-backlash-draws-more-backlash/": {
+   "src": "https://cdn.arstechnica.net/wp-content/uploads/2026/10/GettyImages-2292181016.jpg",
+   "via": "feed-media"
+  },
+  "https://arstechnica.com/tech-policy/2026/10/us-arrests-tech-ceo-accused-of-smuggling-300m-in-nvidia-chips-into-china/": {
+   "src": "https://cdn.arstechnica.net/wp-content/uploads/2026/10/GettyImages-1258977050-2-1024x648.jpg",
+   "via": "feed-media"
+  },
+  "https://aweb.ai": {
+   "src": "https://aweb.ai/og-card-20260823.png",
+   "via": "linked-article"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/add-secure-web-search-to-claude-desktop-with-amazon-bedrock-agentcore/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/30/ML-21694-featured-image.png",
+   "via": "og:image"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/build-agent-memory-with-nvidia-nemo-agent-toolkit-and-amazon-s3-vectors/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/28/ML-21981-featured-image.png",
+   "via": "og:image"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/building-ambient-agents-with-amazon-bedrock-agentcore-from-event-driven-signals-to-human-in-the-loop-workflows/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/25/ML-19851-featured-image.png",
+   "via": "og:image"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/fine-tune-a-search-agent-with-multi-turn-rl-on-amazon-sagemaker-ai/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/10/01/ML-21889-featured-image.png",
+   "via": "og:image"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/how-uniopen-customized-amazon-nova-to-their-retail-moderation-policies-for-production-deployment/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/14/ML-21411-featured-image.png",
+   "via": "og:image"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/implementing-multi-environment-access-for-claude-platform-on-aws/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/21/ML-21203-featured-image.png",
+   "via": "og:image"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/scaling-cloud-migrations-with-agentic-ai-on-amazon-bedrock-agentcore/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/08/12/ML-20875-featured-image.png",
+   "via": "og:image"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/serve-live-governed-data-in-ai-built-apps-with-amazon-quick/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/30/ML-22064-featured-image.png",
+   "via": "og:image"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/simplify-dashboard-drill-down-with-the-amazon-quick-sight-hierarchy-filter/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/29/ML-21595-featured-image.png",
+   "via": "og:image"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/sweep-thousands-of-leases-for-compliance-using-amazon-quick-and-the-adjudicated-query-pattern/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/30/ML-21832-featured-image.png",
+   "via": "og:image"
+  },
+  "https://aws.amazon.com/blogs/machine-learning/uplifting-conversion-across-the-acquisition-funnel-with-personalization-using-contextual-bandits-on-aws/": {
+   "src": "https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2026/09/29/ML-20979-featured-image.png",
+   "via": "og:image"
+  },
+  "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-september-2026/": {
+   "src": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/September_AI_Recap_hero.max-600x600.format-webp.webp",
+   "via": "feed-media"
+  },
+  "https://bostondynamics.com/blog/robot-hands-for-modern-ai-and-real-work/": {
+   "src": "https://bostondynamics.com/wp-content/uploads/2026/09/atlas-mts-drill-1440x1016-1.jpg",
+   "via": "linked-article"
+  },
+  "https://cognit.rajtilak.tech": {
+   "src": "https://cognit.rajtilak.tech/opengraph-image?e3936d181cccadcd",
+   "via": "linked-article"
+  },
+  "https://developer.nvidia.com/blog/build-applications-on-nvidia-bluefield-faster-with-nvidia-doca-agent-skills/": {
+   "src": "https://developer-blogs.nvidia.com/wp-content/uploads/2026/09/agentic-ai.webp",
+   "via": "og:image"
+  },
+  "https://developer.nvidia.com/blog/build-local-ai-apps-with-c-and-nvidia-tensorrt-rtx-samples/": {
+   "src": "https://developer-blogs.nvidia.com/wp-content/uploads/2026/09/din-deploy-featured.webp",
+   "via": "og:image"
+  },
+  "https://distantprovince.substack.com/p/the-four-horsemen-of-agentic-coding": {
+   "src": "https://substackcdn.com/image/fetch/$s_!DvNW!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb0f3e11e-6387-4f89-b216-8318d92c4dac_2048x1763.jpeg",
+   "via": "linked-article"
+  },
+  "https://e.vnexpress.net/news/tech/personalities/23-year-old-college-dropout-builds-10b-ai-startup-in-less-than-a-year-5127225.html": {
+   "src": "https://i1-english.vnecdn.net/2026/10/01/thoughtfulworkspaceportrait-17-9977-7498-1790845565.png?w=680&h=0&q=100&dpr=1&fit=crop&s=qWZEdafDZWNQEwWXfs6QSg",
+   "via": "og:image"
+  },
+  "https://e.vnexpress.net/news/tech/personalities/godmother-of-ai-fei-fei-li-s-fortune-set-to-hit-1-6b-after-8-2b-amd-deal-5126761.html": {
+   "src": "https://i1-english.vnecdn.net/2026/09/30/amdchi82tyusdmualaicongtycuame-1840-5390-1790761754.png?w=680&h=0&q=100&dpr=1&fit=crop&s=bBHyME8lU3JIijq5IZy8iA",
+   "via": "og:image"
+  },
+  "https://e.vnexpress.net/news/tech/tech-news/alexandr-wang-once-the-world-s-youngest-self-made-billionaire-floods-x-with-350-muse-posts-5125595.html": {
+   "src": "https://i1-vnexpress.vnecdn.net/2026/10/04/1-1791103165-3853-1791103171.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=tmjUg4jAwl_3A6-Z00r29Q",
+   "via": "og:image"
+  },
+  "https://e.vnexpress.net/news/tech/tech-news/billionaire-forrest-li-s-sea-becomes-southeast-asia-s-first-to-use-nvidia-s-next-generation-ai-chips-5126940.html": {
+   "src": "https://i1-english.vnecdn.net/2026/10/01/medium5-1790821155-2248-1790821403.png?w=680&h=0&q=100&dpr=1&fit=crop&s=JesFMaIlaEORM5r2QY1aIw",
+   "via": "og:image"
+  },
+  "https://e.vnexpress.net/news/tech/tech-news/emails-of-95-000-customers-exposed-in-singapore-s-first-ai-related-data-breach-5127451.html": {
+   "src": "https://i1-english.vnecdn.net/2026/10/02/720040897100272029896898885054-8076-7862-1790907049.png?w=680&h=0&q=100&dpr=1&fit=crop&s=jlM0k44GpOvgkQWdHD5wfA",
+   "via": "og:image"
+  },
+  "https://e.vnexpress.net/news/tech/tech-news/us-chip-expansion-stumbles-over-157-000-worker-deficit-5124159.html": {
+   "src": "https://i1-vnexpress.vnecdn.net/2026/09/22/4ezrctk8yypbygdoere4cc192080jp-9346-2923-1790018516.png?w=680&h=0&q=100&dpr=1&fit=crop&s=vUITpUDD_aiTg__wFbr3nw",
+   "via": "og:image"
+  },
+  "https://e.vnexpress.net/news/tech/tech-news/world-s-second-richest-nation-to-deploy-humanoid-robots-for-police-prison-work-by-2028-5127005.html": {
+   "src": "https://i1-english.vnecdn.net/2026/10/01/sovereignai8-1790824276-2783-1790824588.png?w=680&h=0&q=100&dpr=1&fit=crop&s=azy8fFK_r5tCXAw3hZiG9Q",
+   "via": "og:image"
+  },
+  "https://fedscoop.com/gsa-issued-an-ai-acquisition-policy-for-new-contracts-heres-what-it-says/": {
+   "src": "https://fedscoop.com/wp-content/uploads/sites/5/2026/10/GettyImages-2287379412.jpg",
+   "via": "og:image"
+  },
+  "https://fedscoop.com/new-tmf-investments-agentic-ai-fast-environmental-reviews/": {
+   "src": "https://fedscoop.com/wp-content/uploads/sites/5/2020/02/GettyImages-904118686.jpg",
+   "via": "og:image"
+  },
+  "https://fedscoop.com/why-federal-agencies-need-to-rethink-trusted-access-in-the-age-of-ai/": {
+   "src": "https://fedscoop.com/wp-content/uploads/sites/5/2026/10/GettyImages-2208902285.jpg",
+   "via": "og:image"
+  },
+  "https://fortune.com/2026/10/01/ai-godfather-yann-lecun-has-zero-concerns-about-human-extinction-says-anthropic-ceo-dario-amodei-is-deuded/": {
+   "src": "https://fortune.com/img-assets/wp-content/uploads/2026/09/GettyImages-2197497048-e1790790386809.jpg?resize=1200,600",
+   "via": "linked-article"
+  },
+  "https://fortune.com/2026/10/01/yann-lecun-anthropic-ceo-dario-amodei-deluded-crazy-cybersecurity/": {
+   "src": "https://fortune.com/img-assets/wp-content/uploads/2026/10/GettyImages-2281711510.jpg?resize=1200,600",
+   "via": "linked-article"
+  },
+  "https://genk.vn/chuyen-gia-trung-quoc-cho-rang-ten-goi-phim-ai-se-bien-mat-165261001104049194.chn": {
+   "src": "https://genk.mediacdn.vn/thumb_w/1200/139269124445442048/2026/10/1/avatar1790826002448-1790826003371716052050.jpg",
+   "via": "og:image"
+  },
+  "https://genk.vn/my-thuc-day-co-che-cong-tac-ngat-khan-cap-cho-ai-165261003080133074.chn": {
+   "src": "https://genk.mediacdn.vn/thumb_w/1200/139269124445442048/2026/10/3/avatar1790989247726-179098924797942172578.png",
+   "via": "og:image"
+  },
+  "https://genk.vn/openai-cao-buoc-cong-ty-ai-trung-quoc-co-tinh-moi-phan-suy-luan-an-cua-gpt-165261002154752239.chn": {
+   "src": "https://genk.mediacdn.vn/thumb_w/1200/139269124445442048/2026/10/2/image20261002153717-67-0-1067-1600-crop-17909304572891043926674.png",
+   "via": "og:image"
+  },
+  "https://genk.vn/sieu-du-an-tri-tue-nhan-tao-stargate-bat-ngo-roi-vao-canh-dinh-tre-nghiem-trong-vi-mat-dien-165261002102059917.chn": {
+   "src": "https://genk.mediacdn.vn/thumb_w/1200/139269124445442048/2026/10/2/avatar1790911220176-17909112220441464872788.jpg",
+   "via": "og:image"
+  },
+  "https://genk.vn/van-hanh-doanh-nghiep-voi-luc-luong-nhan-su-ai-hon-10-nghin-ai-agents-cua-fpt-dang-lam-viec-nhu-the-nao-165261002223912494.chn": {
+   "src": "https://genk.mediacdn.vn/thumb_w/1200/139269124445442048/2026/10/2/photo-1790955051954-17909550526811164812005-0-0-1005-1921-crop-17909550946491780296699.jpeg",
+   "via": "og:image"
+  },
+  "https://github.com/Aimee51819/FileFlipper": {
+   "src": "https://opengraph.githubassets.com/1/Aimee51819/FileFlipper",
+   "via": "github-social"
+  },
+  "https://github.com/DietrichGebert/ponytail": {
+   "src": "https://opengraph.githubassets.com/1/DietrichGebert/ponytail",
+   "via": "github-social"
+  },
+  "https://github.com/IuCC123/CLIProxyAPI-Rust": {
+   "src": "https://opengraph.githubassets.com/1/IuCC123/CLIProxyAPI-Rust",
+   "via": "github-social"
+  },
+  "https://github.com/LTZY-ACU/LTZY-API": {
+   "src": "https://opengraph.githubassets.com/1/LTZY-ACU/LTZY-API",
+   "via": "github-social"
+  },
+  "https://github.com/NVIDIA/OpenShell": {
+   "src": "https://opengraph.githubassets.com/1/NVIDIA/OpenShell",
+   "via": "github-social"
+  },
+  "https://github.com/Niko1221/Strata": {
+   "src": "https://opengraph.githubassets.com/1/Niko1221/Strata",
+   "via": "github-social"
+  },
+  "https://github.com/Panniantong/Agent-Reach": {
+   "src": "https://opengraph.githubassets.com/1/Panniantong/Agent-Reach",
+   "via": "github-social"
+  },
+  "https://github.com/QingYunA/answer-me-with-html": {
+   "src": "https://opengraph.githubassets.com/1/QingYunA/answer-me-with-html",
+   "via": "github-social"
+  },
+  "https://github.com/Tencent/WeKnora": {
+   "src": "https://opengraph.githubassets.com/1/Tencent/WeKnora",
+   "via": "github-social"
+  },
+  "https://github.com/TencentCloud/Octop": {
+   "src": "https://opengraph.githubassets.com/1/TencentCloud/Octop",
+   "via": "github-social"
+  },
+  "https://github.com/addyosmani/agent-skills": {
+   "src": "https://opengraph.githubassets.com/1/addyosmani/agent-skills",
+   "via": "github-social"
+  },
+  "https://github.com/affaan-m/ECC": {
+   "src": "https://opengraph.githubassets.com/1/affaan-m/ECC",
+   "via": "github-social"
+  },
+  "https://github.com/agent-substrate/substrate": {
+   "src": "https://opengraph.githubassets.com/1/agent-substrate/substrate",
+   "via": "github-social"
+  },
+  "https://github.com/alibaba/open-code-review": {
+   "src": "https://opengraph.githubassets.com/1/alibaba/open-code-review",
+   "via": "github-social"
+  },
+  "https://github.com/alirezarezvani/claude-skills": {
+   "src": "https://opengraph.githubassets.com/1/alirezarezvani/claude-skills",
+   "via": "github-social"
+  },
+  "https://github.com/allenv0/SCM": {
+   "src": "https://opengraph.githubassets.com/1/allenv0/SCM",
+   "via": "github-social"
+  },
+  "https://github.com/anteloc/ldraw-nova": {
+   "src": "https://opengraph.githubassets.com/1/anteloc/ldraw-nova",
+   "via": "github-social"
+  },
+  "https://github.com/anthropics/claude-code": {
+   "src": "https://opengraph.githubassets.com/1/anthropics/claude-code",
+   "via": "github-social"
+  },
+  "https://github.com/anthropics/financial-services": {
+   "src": "https://opengraph.githubassets.com/1/anthropics/financial-services",
+   "via": "github-social"
+  },
+  "https://github.com/anthropics/knowledge-work-plugins": {
+   "src": "https://opengraph.githubassets.com/1/anthropics/knowledge-work-plugins",
+   "via": "github-social"
+  },
+  "https://github.com/antirez/ds4": {
+   "src": "https://opengraph.githubassets.com/1/antirez/ds4",
+   "via": "github-social"
+  },
+  "https://github.com/ayghri/i-have-adhd": {
+   "src": "https://opengraph.githubassets.com/1/ayghri/i-have-adhd",
+   "via": "github-social"
+  },
+  "https://github.com/calesthio/OpenMontage": {
+   "src": "https://opengraph.githubassets.com/1/calesthio/OpenMontage",
+   "via": "github-social"
+  },
+  "https://github.com/cobanov/PS5LM": {
+   "src": "https://opengraph.githubassets.com/1/cobanov/PS5LM",
+   "via": "github-social"
+  },
+  "https://github.com/coreyhaines31/marketingskills": {
+   "src": "https://opengraph.githubassets.com/1/coreyhaines31/marketingskills",
+   "via": "github-social"
+  },
+  "https://github.com/cursor/plugins": {
+   "src": "https://opengraph.githubassets.com/1/cursor/plugins",
+   "via": "github-social"
+  },
+  "https://github.com/debpalash/VoiceStudio": {
+   "src": "https://opengraph.githubassets.com/1/debpalash/VoiceStudio",
+   "via": "github-social"
+  },
+  "https://github.com/earthtojake/text-to-cad": {
+   "src": "https://opengraph.githubassets.com/1/earthtojake/text-to-cad",
+   "via": "github-social"
+  },
+  "https://github.com/garrytan/gstack": {
+   "src": "https://opengraph.githubassets.com/1/garrytan/gstack",
+   "via": "github-social"
+  },
+  "https://github.com/harry0703/MoneyPrinterTurbo": {
+   "src": "https://opengraph.githubassets.com/1/harry0703/MoneyPrinterTurbo",
+   "via": "github-social"
+  },
+  "https://github.com/heygen-com/hyperframes": {
+   "src": "https://opengraph.githubassets.com/1/heygen-com/hyperframes",
+   "via": "github-social"
+  },
+  "https://github.com/kouhxp/gutsy": {
+   "src": "https://opengraph.githubassets.com/1/kouhxp/gutsy",
+   "via": "github-social"
+  },
+  "https://github.com/max-sixty/worktrunk": {
+   "src": "https://opengraph.githubassets.com/1/max-sixty/worktrunk",
+   "via": "github-social"
+  },
+  "https://github.com/mksglu/context-mode": {
+   "src": "https://opengraph.githubassets.com/1/mksglu/context-mode",
+   "via": "github-social"
+  },
+  "https://github.com/mvschwarz/openrig": {
+   "src": "https://opengraph.githubassets.com/1/mvschwarz/openrig",
+   "via": "github-social"
+  },
+  "https://github.com/paperclipai/paperclip": {
+   "src": "https://opengraph.githubassets.com/1/paperclipai/paperclip",
+   "via": "github-social"
+  },
+  "https://github.com/pbakaus/impeccable": {
+   "src": "https://opengraph.githubassets.com/1/pbakaus/impeccable",
+   "via": "github-social"
+  },
+  "https://github.com/pingdotgg/t3code": {
+   "src": "https://opengraph.githubassets.com/1/pingdotgg/t3code",
+   "via": "github-social"
+  },
+  "https://github.com/rohitg00/ai-engineering-from-scratch": {
+   "src": "https://opengraph.githubassets.com/1/rohitg00/ai-engineering-from-scratch",
+   "via": "github-social"
+  },
+  "https://github.com/superdesigndev/treg": {
+   "src": "https://opengraph.githubassets.com/1/superdesigndev/treg",
+   "via": "github-social"
+  },
+  "https://github.com/tashfeenahmed/freellmapi": {
+   "src": "https://opengraph.githubassets.com/1/tashfeenahmed/freellmapi",
+   "via": "github-social"
+  },
+  "https://github.com/thedotmack/claude-mem": {
+   "src": "https://opengraph.githubassets.com/1/thedotmack/claude-mem",
+   "via": "github-social"
+  },
+  "https://github.com/tile-ai/tilelang": {
+   "src": "https://opengraph.githubassets.com/1/tile-ai/tilelang",
+   "via": "github-social"
+  },
+  "https://github.com/trycua/cua": {
+   "src": "https://opengraph.githubassets.com/1/trycua/cua",
+   "via": "github-social"
+  },
+  "https://github.com/tt-a1i/archify": {
+   "src": "https://opengraph.githubassets.com/1/tt-a1i/archify",
+   "via": "github-social"
+  },
+  "https://github.com/vectorize-io/hindsight": {
+   "src": "https://opengraph.githubassets.com/1/vectorize-io/hindsight",
+   "via": "github-social"
+  },
+  "https://github.com/whirlchat/whirl": {
+   "src": "https://opengraph.githubassets.com/1/whirlchat/whirl",
+   "via": "github-social"
+  },
+  "https://huggingface.co/Aleph-Alpha/Kolibri-1": {
+   "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/Aleph-Alpha/Kolibri-1.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/Cloudflare/clef": {
+   "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/Cloudflare/clef.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/Cloudflare/clef-flash": {
+   "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/Cloudflare/clef-flash.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/Contrastive-LM/CLM-v0.1-8B": {
+   "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/Contrastive-LM/CLM-v0.1-8B.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/Lightricks/LTX-2.5": {
+   "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/Lightricks/LTX-2.5.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/PSRben/VisionHOPE": {
+   "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/PSRben/VisionHOPE.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/Qwen/Qwen-Image-2.1": {
+   "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/Qwen/Qwen-Image-2.1.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/Qwen/Qwen3.8-27B": {
+   "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/Qwen/Qwen3.8-27B.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/abenzerps/Qwen-Image-2.1-Uncensored-GGUF": {
+   "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/abenzerps/Qwen-Image-2.1-Uncensored-GGUF.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/blog/ServiceNow-AI/autosynthdata": {
+   "src": "https://cdn-uploads.huggingface.co/production/uploads/68642da9885da181fde1ad70/8kSzlHLOdu5hchCtPnK8D.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/blog/allenai/astabrief": {
+   "src": "https://cdn-uploads.huggingface.co/production/uploads/638e39b249de7ae552d977b5/AdqLEBgtQnaDXKLdylC3l.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/blog/microsoft/thinkingbox": {
+   "src": "https://cdn-uploads.huggingface.co/production/uploads/64b8491203124195cd795cad/NStwJm1AafDELVsU4KGwS.png",
+   "via": "hf-thumbnail"
+  },
+  "https://huggingface.co/convaiinnovations/laya": {
+   "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/convaiinnovations/laya.png",
+   "via": "hf-thumbnail"
+  },
+  "https://innerloop.works/breadcrumb": {
+   "src": "https://innerloop.works/breadcrumb-card.png?v=3",
+   "via": "linked-article"
+  },
+  "https://knightcolumbia.org/content/ai-as-normal-technology": {
+   "src": "https://kfai-documents.s3.amazonaws.com/images/9221083633/Susskind-Hero-Image-w-color-wash--3-_medium.png",
+   "via": "linked-article"
+  },
+  "https://residentnewsnetwork.com/opinion-piece-consumer-ai-fatigue-is-overwhelming-and-why-local-businesses-should-re-consider-use/": {
+   "src": "https://residentnewsnetwork.com/wp-content/uploads/2026/10/Screenshot-2026-10-01-074810.png",
+   "via": "linked-article"
+  },
+  "https://restofworld.org/2026/african-leaders-un-security-council-ai-safety/?utm_source=rss&utm_medium=rss&utm_campaign=feeds": {
+   "src": "https://restofworld.org/wp-content/uploads/2026/09/AI-safety-Nesta-768x432.jpg",
+   "via": "feed-media"
+  },
+  "https://royapakzad.substack.com/p/multilingual-ai-agents": {
+   "src": "https://substackcdn.com/image/fetch/$s_!PRgX!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3a015e49-be95-466c-b3ad-5b5993668e9b_2114x1314.png",
+   "via": "linked-article"
+  },
+  "https://support.soloist.ai/doc/solo-shutdown-faq": {
+   "src": "https://storage.googleapis.com/moz-ocho-solo-support.firebasestorage.app/og/OG.png",
+   "via": "linked-article"
+  },
+  "https://techcrunch.com/2026/10/01/amazon-releases-its-own-jev-clone-as-decision-models-flood-the-web/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/10/William_Stanley_Jevons_portrait_extract.jpg?w=726",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/01/chatgpt-can-now-virtually-try-on-clothes-for-you/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/10/Virtual-Try-On.jpg?resize=1200,675",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/01/google-thinks-spacexs-starship-has-to-launch-1600-times-before-space-data-centers-get-off-the-ground/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/10/DSC_0298.jpg?resize=1200,800",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/01/musks-ai-chatbot-grok-reportedly-encouraged-trump-to-capture-venezuelas-president/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/10/GettyImages-2297722687.jpg?w=1024",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/01/openai-cuts-ties-with-three-safety-researchers-wsj-reports/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/05/openai-logo-code-background.jpg?resize=1200,798",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/01/opus-5-5-loves-to-tell-you-this-matters-and-other-ai-writing-tells/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2024/10/notebook-getty.jpg?w=1200",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/02/apple-says-its-tightening-macos-full-disk-access-controls-due-to-new-risks-from-ai-agents/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2022/07/CMC_1580.jpg?resize=1200,800",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/02/circuit-breaker-labs-hopes-to-make-ai-safer-for-your-kids-and-you/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/10/Circuit-Labs-founders-2.jpeg?resize=1200,1037",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/02/disrupt-2026-layoff-expo-plus-passes-available-for-75-dollars/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2024/05/breakout_1200x600.png?w=1200",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/02/last-24-hours-exhibit-at-techcrunch-disrupt-2026-and-reach-10000-tech-leaders/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2023/07/expo_hall.png?resize=1200,675",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/02/meta-wants-you-to-build-your-own-muse-gadget/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/09/mark-zuckerberg-muse-charm-getty.jpg?resize=1200,800",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/02/pope-leo-xiv-is-not-a-fan-of-ai-generated-art/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2025/06/Screenshot-2025-06-18-at-10.00.59AM.png?w=950",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/02/sean-parker-is-rebuilding-stability-ai-around-music/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/10/Sean-Parker.jpg?w=1024",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/02/techcrunch-disrupt-2026-blackstones-jas-khaira-on-building-the-next-generation-of-ai-giants/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/10/TCD26_1-Jas-Khaira_Speaker-16x9-Dark.png?resize=1200,675",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/02/techcrunch-disrupt-2026-clays-kareem-amin-on-the-rise-of-the-gtm-engineer/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/10/TCD26_1-Kareem-Amin_Speaker-16x9-Dark.png?resize=1200,675",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/03/all-the-ai-agents-that-can-live-in-your-text-messages/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2017/12/gettyimages-673436934.jpg?resize=1200,813",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/03/amazon-responds-to-data-center-backlash-says-it-no-longer-uses-ndas/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/08/GettyImages-2283113936-maller.jpg?w=1024",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/2026/10/03/openai-safety-employee-resigns-claiming-the-companys-culture-is-broken/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/05/openai-logo-code-background.jpg?resize=1200,798",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/podcast/call-it-ai-call-it-super-intelligence-only-2-of-consumers-are-buying-it/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/10/GettyImages-2297262633.jpg?resize=1200,800",
+   "via": "og:image"
+  },
+  "https://techcrunch.com/video/its-not-ai-anymore-its-super-intelligence-according-to-the-white-house/": {
+   "src": "https://techcrunch.com/wp-content/uploads/2026/09/GettyImages-2297764008.jpg?w=1024",
+   "via": "og:image"
+  },
+  "https://thanhnien.vn/ai-giai-ma-thanh-cong-buc-thu-mat-217-nam-tuoi-cua-napoleon-185261002214244981.htm": {
+   "src": "https://images2.thanhnien.vn/zoom/1200_630/528068263637045248/2026/10/2/napoleon-17909523534551768731238-0-0-387-740-crop-17909523626771474172145.jpg",
+   "via": "og:image"
+  },
+  "https://thanhnien.vn/galaxy-ai-sap-thay-doi-cach-xu-ly-giup-dien-thoai-samsung-muot-hon-185261002135247605.htm": {
+   "src": "https://images2.thanhnien.vn/zoom/1200_630/528068263637045248/2026/10/2/tnw-1-1790923716015332272415-49-0-1096-2000-crop-17909237292501495141821-17909237337461890319029.jpg",
+   "via": "og:image"
+  },
+  "https://thanhnien.vn/gemini-co-them-tinh-nang-danh-rieng-cho-nguoi-dung-dien-thoai-185261003133532616.htm": {
+   "src": "https://images2.thanhnien.vn/zoom/1200_630/528068263637045248/2026/10/3/1-17910092987681314355290-207-0-1254-2000-crop-1791009311216670621240.jpg",
+   "via": "og:image"
+  },
+  "https://thanhnien.vn/google-ra-mat-gemini-4-trong-su-hoai-nghi-noi-bo-185261001212829961.htm": {
+   "src": "https://images2.thanhnien.vn/zoom/1200_630/528068263637045248/2026/10/1/google-io-1790864102998447082385-0-0-1257-2398-crop-17908649287742089107460.png",
+   "via": "og:image"
+  },
+  "https://thanhnien.vn/openai-bi-dieu-tra-sau-khi-ai-tu-vuot-hang-rao-bao-mat-185261003230617808.htm": {
+   "src": "https://images2.thanhnien.vn/zoom/1200_630/528068263637045248/2026/10/3/screenshot-2026-10-03-230309-1791043404235883184367-0-0-598-1142-crop-1791043415342969272679.png",
+   "via": "og:image"
+  },
+  "https://thanhnien.vn/viet-nam-co-the-tro-thanh-trung-tam-ai-cua-asean-vao-nam-2030-185261004123315838.htm": {
+   "src": "https://images2.thanhnien.vn/zoom/1200_630/528068263637045248/2026/10/4/tnw-attendees-at-aws-cloud-and-ai-day-hanoi-1-17910923740681576802885-67-0-1407-2560-crop-179109246822467591536.jpg",
+   "via": "og:image"
+  },
+  "https://twitter.com/robertvaradan/status/2106061989122334778": {
+   "src": "https://pbs.twimg.com/media/HTo6GQqXkAE6wKP?format=webp&name=large",
+   "via": "linked-article"
+  },
+  "https://www.404media.co/behind-the-blog-freaking-out/": {
+   "src": "https://storage.ghost.io/c/0f/76/0f76b548-bc58-4f25-abc3-3f5ebca07da4/content/images/2026/10/usps-1.png",
+   "via": "feed-media"
+  },
+  "https://www.anthropic.com/news/claude-frontier-academy": {
+   "src": "https://www.anthropic.com/api/opengraph-illustration?name=Hand%20Build&backgroundColor=heather",
+   "via": "og:image"
+  },
+  "https://www.astralcodexten.com/p/our-ai-midwife": {
+   "src": "https://substackcdn.com/image/fetch/$s_!SjzD!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7cee134e-c4cf-4ad4-8796-25cfc2995b37_678x452.jpeg",
+   "via": "linked-article"
+  },
+  "https://www.bloomberg.com/news/articles/2026-10-03/bessent-says-ai-industry-must-own-its-risks-and-find-solutions": {
+   "src": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i4Eu3aGOyueI/v2/1200x754.jpg",
+   "via": "og:image"
+  },
+  "https://www.bloomberg.com/news/articles/2026-10-03/openai-safety-employee-quits-calls-for-nuclear-level-safeguards": {
+   "src": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iWAyQGvRxMUE/v1/1200x800.jpg",
+   "via": "og:image"
+  },
+  "https://www.bloomberg.com/news/articles/2026-10-03/us-ai-task-force-to-report-on-technology-s-risks-wsj-reports": {
+   "src": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iqLNHb7iF4WM/v1/1200x800.jpg",
+   "via": "og:image"
+  },
+  "https://www.bloomberg.com/news/articles/2026-10-04/softbank-s-masayoshi-son-has-rare-cautionary-note-on-ai-safety": {
+   "src": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iWj6xY1lk83Y/v0/1200x800.jpg",
+   "via": "og:image"
+  },
+  "https://www.bloomberg.com/news/articles/2026-10-04/trump-names-clayton-ferguson-to-lead-ai-task-force": {
+   "src": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ix7Ger3VMx34/v0/1200x800.jpg",
+   "via": "og:image"
+  },
+  "https://www.derekthompson.org/p/were-missing-a-key-reason-why-americans": {
+   "src": "https://images.unsplash.com/photo-1503525537183-c84679c9147f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMDAzMzh8MHwxfHNlYXJjaHwxfHxhbmdyeSUyMGNvc3R8ZW58MHx8fHwxNzkwODkwMTMzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+   "via": "linked-article"
+  },
+  "https://www.lenfestinstitute.org/solutions-resources/philadelphia-inquirer-scrape-ai-hyperlocal-news/": {
+   "src": "https://www.lenfestinstitute.org/wp-content/uploads/2026/09/Screenshot-2026-09-30-at-11.37.19-AM-1.png",
+   "via": "linked-article"
+  },
+  "https://www.nextgov.com/artificial-intelligence/2026/10/ai-firms-should-be-held-liable-their-models-actions-lawmakers-say/416374/": {
+   "src": "https://cdn.nextgov.com/media/img/cd/2026/10/01/100126HAwleyNG/thumb.jpg",
+   "via": "feed-media"
+  },
+  "https://www.nextgov.com/artificial-intelligence/2026/10/cairncross-acknowledges-ai-risks-warns-tighter-oversight-could-slow-innovation/416370/": {
+   "src": "https://cdn.nextgov.com/media/img/cd/2026/10/01/100126CairncrossNG/thumb.jpg",
+   "via": "feed-media"
+  },
+  "https://www.nextgov.com/artificial-intelligence/2026/10/tax-chief-pushes-ai-first-irs-get-more-out-agencys-workforce/416389/": {
+   "src": "https://cdn.nextgov.com/media/img/cd/2026/10/02/bisignano/thumb.png",
+   "via": "feed-media"
+  },
+  "https://www.nextgov.com/artificial-intelligence/2026/10/tech-bills-week-ai-research-competitions-prohibiting-federal-use-biometric-tech-and-more/416405/": {
+   "src": "https://cdn.nextgov.com/media/img/cd/2026/10/02/860x394-1/thumb.jpg",
+   "via": "feed-media"
+  },
+  "https://www.nextgov.com/artificial-intelligence/2026/10/transportation-works-ease-fears-about-new-ai-air-traffic-control-tool/416402/": {
+   "src": "https://cdn.nextgov.com/media/img/cd/2026/10/02/100226airportNG/thumb.jpg",
+   "via": "feed-media"
+  },
+  "https://www.semafor.com/article/10/01/2026/broadcom-to-lend-anthropic-42-billion-to-lease-chips-report": {
+   "src": "https://img.semafor.com/06343ade4e9be6b68ceea52b2b5742faec261741-2166x1444.jpg",
+   "via": "feed-media"
+  },
+  "https://www.semafor.com/article/10/01/2026/unstable-connections": {
+   "src": "https://img.semafor.com/54c3feafe47959ffb5ef35325f48b07898b46800-5320x3992.png",
+   "via": "feed-media"
+  },
+  "https://www.semafor.com/article/10/02/2026/ai-costs-are-rising-for-organizations-reports-warn": {
+   "src": "https://img.semafor.com/96f00f4d01b358f6de0c0edfd6d1870a98388293-4000x2958.jpg",
+   "via": "feed-media"
+  },
+  "https://www.semafor.com/article/10/02/2026/how-employees-forced-openais-president-to-back-down": {
+   "src": "https://img.semafor.com/fd4dec17882358fb8440e420dc41bf07945abda7-3573x2383.jpg",
+   "via": "feed-media"
+  },
+  "https://www.semafor.com/article/10/02/2026/meta-parts-ways-with-virtue-ai": {
+   "src": "https://img.semafor.com/4fd6d7a1e134059d456b5f57c5a274fe87d7708d-6500x4335.jpg",
+   "via": "feed-media"
+  },
+  "https://www.semafor.com/article/10/02/2026/the-ai-industry-balances-trump-and-a-changing-washington": {
+   "src": "https://img.semafor.com/b6cce638e25324b467f6ec8f72b40df5bb45061e-4313x2826.jpg",
+   "via": "feed-media"
+  },
+  "https://www.technologyreview.com/2026/10/02/1143774/redefining-enterprise-intelligence-with-autonomous-ai/": {
+   "src": "https://wp.technologyreview.com/wp-content/uploads/2026/09/Uniphore-Social-Card-1.png?resize=1200,600",
+   "via": "og:image"
+  },
+  "https://www.technologyreview.com/2026/10/02/1145639/dont-be-fooled-llms-dont-reason/": {
+   "src": "https://wp.technologyreview.com/wp-content/uploads/2026/10/2llm-go.jpg?resize=1200,600",
+   "via": "og:image"
+  },
+  "https://www.theguardian.com/technology/2026/oct/03/openai-safety-leader-quits-warning-ai-companys-culture-is-broken": {
+   "src": "https://i.guim.co.uk/img/media/77b3a6702fa4e94c36e292a72e438fa40eb19184/625_0_6261_5010/master/6261.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=e64134a41050264f5ceac249a333fc99",
+   "via": "linked-article"
+  },
+  "https://www.theregister.com/on-prem/2026/10/02/power-approval-set-to-delay-oracles-wisconsin-ai-datacenter/5300832": {
+   "src": "https://image.theregister.com/5275246.jpg?imageId=5275246&x=0&y=0&cropw=100&croph=100&panox=0&panoy=0&panow=100&panoh=100&width=1200&height=683",
+   "via": "linked-article"
+  },
+  "https://www.theverge.com/ai-artificial-intelligence/1004096/openai-chatgpt-dots-hands-on-agent": {
+   "src": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/DSC04281_processed.jpg?quality=90&strip=all&crop=0%2C10.723165084465%2C100%2C78.55366983107&w=1200",
+   "via": "og:image"
+  },
+  "https://www.theverge.com/ai-artificial-intelligence/1004408/openai-safety-quits-sounding-the-alarm": {
+   "src": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/08/STK149_AI_01.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+   "via": "og:image"
+  },
+  "https://www.theverge.com/entertainment/1004162/splice-ceo-kakul-srivastava-ai-interview": {
+   "src": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/IMG_3820.png?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+   "via": "og:image"
+  },
+  "https://www.theverge.com/games/1004418/capcom-ai-game-development": {
+   "src": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/02/RE9_SS_08.png?quality=90&strip=all&crop=0%2C3.4613147178592%2C100%2C93.077370564282&w=1200",
+   "via": "og:image"
+  },
+  "https://www.theverge.com/report/1002963/ai-hallucinations-customer-service-jobs-agents": {
+   "src": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/STKS536_AI_HALLUCINATION_D.png?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+   "via": "og:image"
+  },
+  "https://www.theverge.com/tech/1003681/microsoft-data-centers-ai-environment-biomimicry": {
+   "src": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/268788_Datacenter_biomimicry_PARKIN_2-1.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+   "via": "og:image"
+  },
+  "https://www.theverge.com/tech/1003929/amazon-ai-data-center-blog-warning": {
+   "src": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/04/STKS528_DATA_CENTERS_A.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+   "via": "og:image"
+  },
+  "https://www.theverge.com/tech/1004177/elon-musk-unfollows-shivon-zilis": {
+   "src": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/STPK222_SHIVON_ZILIS2.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+   "via": "og:image"
+  },
+  "https://www.theverge.com/tech/1004295/apple-limit-mac-disk-access-ai-agents": {
+   "src": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/268759_Mac_Mini_AKrales_0079.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
+   "via": "og:image"
+  },
+  "https://www.theverge.com/tech/1004330/meta-muse-ai-gadgets-home-link": {
+   "src": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/STKB394_MUSE_AI_CVIRGINIA_B.png?quality=90&strip=all&crop=0%2C9.9676601489831%2C100%2C80.064679702034&w=1200",
+   "via": "og:image"
+  },
+  "https://www.wired.com/story/7-year-old-tv-now-100-dollars-more-expensive-thank-ai/": {
+   "src": "https://media.wired.com/photos/6ac00d9bc910b804171a679e/master/pass/GettyImages-474968764.jpg",
+   "via": "feed-media"
+  },
+  "https://www.wired.com/story/a-flaw-in-chatgpts-mac-app-could-have-let-hackers-grab-sensitive-data/": {
+   "src": "https://media.wired.com/photos/6abc2c32f3865c0127252ad0/master/pass/GettyImages-2278945913.jpg",
+   "via": "feed-media"
+  },
+  "https://www.wired.com/story/ai-making-mess-of-nurses-schedules-they-say-its-a-safety-issue/": {
+   "src": "https://media.wired.com/photos/6abeb2ae10b6b4f5a5628f89/master/pass/Palantir-Nurse-Strike-e2fab562-387a-496b-b88c-027860c47584.jpg",
+   "via": "feed-media"
+  },
+  "https://www.wired.com/story/muse-creates-detailed-profiles-of-all-your-friends-and-family/": {
+   "src": "https://media.wired.com/photos/6abda258fa5a1bd6e2b21507/master/pass/Kernel-Panic-Muse-AI-Self-PWN-Security.jpg",
+   "via": "feed-media"
+  },
+  "https://www.wired.com/story/rural-data-centers-are-in-for-a-big-federal-tax-break/": {
+   "src": "https://media.wired.com/photos/6abfbb7863cea41649272752/master/pass/100226-Power%20Play.jpg",
+   "via": "feed-media"
+  },
+  "https://www.wired.com/story/trillium-labs-wants-to-do-high-risk-ai-research-in-the-open/": {
+   "src": "https://media.wired.com/photos/6abfd54ac4eb41b65cf33011/master/pass/Trillium-Labs-Risky-AI-Research-Business-edit.jpg",
+   "via": "feed-media"
+  },
+  "https://www.wired.com/story/trumps-crazy-ai-rebrand-was-a-loyalty-test-for-tech-execs-and-it-worked/": {
+   "src": "https://media.wired.com/photos/6abe8febd05dc665bd7e9bcd/master/pass/Backchannel-Trump-AI-Business-2297413584.jpg",
+   "via": "feed-media"
+  },
+  "https://www.wired.com/story/uncanny-valley-podcast-trumps-pinky-swear-ai-safety-accord-an-ai-agent-worth-the-risk/": {
+   "src": "https://media.wired.com/photos/6abd98d540aa0c6f065eedf5/master/pass/Uncanny-Valley-Morally-Bound-WH-Accord-Business-2297777029.jpg",
+   "via": "feed-media"
+  },
+  "https://www.wired.com/story/whatever-ai-safety-looks-like-its-not-this/": {
+   "src": "https://media.wired.com/photos/6abd667878587a545496ec2f/master/pass/Model-Behavior-Trump-AI-Business.jpg",
+   "via": "feed-media"
+  },
+  "https://www.youtube.com/watch?v=NnV_cWeoo5Q": {
+   "src": "https://i.ytimg.com/vi/NnV_cWeoo5Q/hqdefault.jpg",
+   "via": "youtube"
+  }
+ }
+}
