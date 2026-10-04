@@ -13,7 +13,7 @@ FIXTURES = Path(__file__).parent / "fixtures"
 NOW = datetime(2026, 10, 4, 16, 5, 0, tzinfo=timezone.utc)
 
 NEW_FEED_URLS = {
-    "vnexpress-so-hoa": "https://vnexpress.net/rss/so-hoa.rss",
+    "vnexpress-so-hoa": "https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss",
     "vnexpress-tech": "https://e.vnexpress.net/rss/tech.rss",
     "genk-ai": "https://genk.vn/rss/ai.rss",
     "tuoitre-so": "https://tuoitre.vn/rss/nhip-song-so.rss",
@@ -57,7 +57,11 @@ class CatalogNewSourcesTests(unittest.TestCase):
                 self.assertEqual(src["parser"], "feed")
                 self.assertEqual(src["kind"], "rss")
                 self.assertTrue(src.get("first_wave"))
-                self.assertNotIn("disabled", src)
+                if id_ == "cnbc-tech":
+                    self.assertTrue(src.get("disabled"))
+                    self.assertIn("máy dựng của GitHub", src.get("disabled_reason", ""))
+                else:
+                    self.assertNotIn("disabled", src)
 
     def test_groups_and_publishers_are_consistent(self):
         press_sources = {
