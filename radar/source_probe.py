@@ -393,53 +393,76 @@ def probe_candidate(candidate, fetch=None, check_robots_policy=True, robots_cach
     else:
         robots_info = {"allowed": True, "disallowed": False, "robots_status": "skipped", "robots_url": ""}
 
-    # Step 2: Request 1 — Fetch candidate URL
-    resp = fetch_fn(cand_url)
-    http_status = getattr(resp, "status", 200)
-    final_url = getattr(resp, "url", cand_url)
-    resp_text = str(resp) if resp is not None else ""
-    error = getattr(resp, "error", None)
+    feed_robots_disallowed = False
 
-    reachable = (200 <= http_status < 400) if isinstance(http_status, int) and http_status > 0 else False
+    if robots_info["disallowed"]:
+        http_status = None
+        final_url = cand_url
+        reachable = False
+        feed_found = False
+        feed_type = None
+        feed_url = None
+        items = []
+        feed_error = None
+        autodiscovered_links = []
+        error = "Blocked by robots.txt"
+    else:
+        # Step 2: Request 1 — Fetch candidate URL
+        resp = fetch_fn(cand_url)
+        http_status = getattr(resp, "status", 200)
+        final_url = getattr(resp, "url", cand_url)
+        resp_text = str(resp) if resp is not None else ""
+        error = getattr(resp, "error", None)
 
-    feed_found = False
-    feed_type = None
-    feed_url = None
-    items = []
-    feed_error = None
-    autodiscovered_links = []
+        reachable = (200 <= http_status < 400) if isinstance(http_status, int) and http_status > 0 else False
 
-    if reachable and resp_text:
-        # Check if direct feed (XML or JSON)
-        parsed_items, parse_err = extract_items_from_text(resp_text, candidate)
-        if parsed_items is not None:
-            feed_found = True
-            feed_type = "direct"
-            feed_url = final_url
-            items = parsed_items
-        else:
-            # Check for autodiscovery in HTML
-            links = find_autodiscovered_feeds(resp_text, final_url)
-            autodiscovered_links = links
-            if links:
-                # Step 3: Request 2 — At most one autodiscovered feed request
-                target_feed_url = links[0]["url"]
-                feed_resp = fetch_fn(target_feed_url)
-                feed_status = getattr(feed_resp, "status", 200)
-                feed_text = str(feed_resp) if feed_resp is not None else ""
-                if 200 <= feed_status < 400 and feed_text:
-                    parsed_auto, auto_err = extract_items_from_text(feed_text, candidate)
-                    if parsed_auto is not None:
-                        feed_found = True
-                        feed_type = "autodiscovered"
-                        feed_url = target_feed_url
-                        items = parsed_auto
-                    else:
-                        feed_error = f"Autodiscovered feed parse failed: {auto_err}"
-                else:
-                    feed_error = f"Autodiscovered feed returned HTTP {feed_status}"
+        feed_found = False
+        feed_type = None
+        feed_url = None
+        items = []
+        feed_error = None
+        autodiscovered_links = []
+
+        if reachable and resp_text:
+            # Check if direct feed (XML or JSON)
+            parsed_items, parse_err = extract_items_from_text(resp_text, candidate)
+            if parsed_items is not None:
+                feed_found = True
+                feed_type = "direct"
+                feed_url = final_url
+                items = parsed_items
             else:
-                feed_error = "No alternate feed links found in HTML"
+                # Check for autodiscovery in HTML
+                links = find_autodiscovered_feeds(resp_text, final_url)
+                autodiscovered_links = links
+                if links:
+                    target_feed_url = links[0]["url"]
+                    if check_robots_policy:
+                        feed_robots = check_robots(target_feed_url, fetch_fn=fetch_fn, robots_cache=robots_cache)
+                    else:
+                        feed_robots = {"allowed": True, "disallowed": False, "robots_status": "skipped", "robots_url": ""}
+
+                    if feed_robots["disallowed"]:
+                        feed_robots_disallowed = True
+                        feed_error = "Autodiscovered feed blocked by robots.txt"
+                    else:
+                        # Step 3: Request 2 — At most one autodiscovered feed request
+                        feed_resp = fetch_fn(target_feed_url)
+                        feed_status = getattr(feed_resp, "status", 200)
+                        feed_text = str(feed_resp) if feed_resp is not None else ""
+                        if 200 <= feed_status < 400 and feed_text:
+                            parsed_auto, auto_err = extract_items_from_text(feed_text, candidate)
+                            if parsed_auto is not None:
+                                feed_found = True
+                                feed_type = "autodiscovered"
+                                feed_url = target_feed_url
+                                items = parsed_auto
+                            else:
+                                feed_error = f"Autodiscovered feed parse failed: {auto_err}"
+                        else:
+                            feed_error = f"Autodiscovered feed returned HTTP {feed_status}"
+                else:
+                    feed_error = "No alternate feed links found in HTML"
 
     # Step 4: Check duplication against existing radar inventory
     if existing_sources is None:
@@ -474,14 +497,18 @@ def probe_candidate(candidate, fetch=None, check_robots_policy=True, robots_cach
         notes_list.append(f"Trùng lặp với nguồn đã có '{dup['existing_id']}' ({dup['existing_module']}) qua {dup['match_type']}")
     if robots_info["disallowed"]:
         notes_list.append("robots.txt chặn đường dẫn")
-    if not reachable:
+    elif feed_robots_disallowed:
+        notes_list.append("robots.txt chặn feed")
+    if not reachable and not robots_info["disallowed"]:
         notes_list.append(f"Không thể truy cập (HTTP {http_status}{f': {error}' if error else ''})")
-    elif not feed_found:
-        if autodiscovered_links:
+    elif not feed_found and not robots_info["disallowed"]:
+        if feed_robots_disallowed:
+            notes_list.append("Feed tự động phát hiện bị robots.txt chặn")
+        elif autodiscovered_links:
             notes_list.append(f"Có link feed nhưng tải/đọc không thành công ({feed_error})")
         else:
             notes_list.append("HTML hợp lệ nhưng không tìm thấy feed RSS/Atom")
-    else:
+    elif feed_found:
         notes_list.append(f"Tìm thấy feed ({feed_type}): {item_count} bài, {ai_count} bài AI ({ai_share*100:.0f}%)")
 
     recommendation = derive_recommendation(
@@ -494,6 +521,7 @@ def probe_candidate(candidate, fetch=None, check_robots_policy=True, robots_cach
         robots_disallowed=robots_info["disallowed"],
         item_count=item_count,
         ai_share=ai_share,
+        feed_robots_disallowed=feed_robots_disallowed,
     )
 
     return {
@@ -509,6 +537,7 @@ def probe_candidate(candidate, fetch=None, check_robots_policy=True, robots_cach
         "robots_allowed": robots_info["allowed"],
         "robots_disallowed": robots_info["disallowed"],
         "robots_status": robots_info["robots_status"],
+        "feed_robots_disallowed": feed_robots_disallowed,
         "feed_found": feed_found,
         "feed_type": feed_type,
         "feed_url": feed_url,
@@ -536,18 +565,21 @@ def derive_recommendation(
     robots_disallowed,
     item_count,
     ai_share,
+    feed_robots_disallowed=False,
 ):
     """Synthesize a clear verdict for the owner."""
     if is_duplicate:
         return f"BỎ QUA: Trùng nguồn đã có ({duplicate_id})"
+    if robots_disallowed:
+        return "CẨN TRỌNG: robots.txt cấm truy cập"
+    if feed_robots_disallowed:
+        return "CẨN TRỌNG: robots.txt cấm feed"
     if not reachable:
         if http_status == 403:
             return "CHẶN: HTTP 403 (Cloudflare/Substack chặn IP GitHub)"
         if http_status == 404:
             return "LỖI: HTTP 404 Not Found (URL đoán sai)"
         return f"LỖI: Không truy cập được (HTTP {http_status})"
-    if robots_disallowed:
-        return "CẨN TRỌNG: robots.txt cấm truy cập"
     if not feed_found:
         return "CẦN TÌM FEED: Trang sống nhưng không có feed tự động"
     if item_count == 0:
@@ -588,7 +620,7 @@ def render_markdown_report(results, generated_at=None):
     reachable_count = sum(1 for r in results if r["reachable"])
     feed_count = sum(1 for r in results if r["feed_found"])
     duplicate_count = sum(1 for r in results if r["is_duplicate"])
-    robots_disallowed_count = sum(1 for r in results if r["robots_disallowed"])
+    robots_disallowed_count = sum(1 for r in results if r["robots_disallowed"] or r.get("feed_robots_disallowed"))
     ready_count = sum(1 for r in results if r["recommendation"].startswith("SẴN SÀNG"))
 
     md = []
@@ -611,9 +643,23 @@ def render_markdown_report(results, generated_at=None):
 
     for r in results:
         circle_short = r.get("circle_id", "").replace("circle-", "C")
-        http_badge = f"{r['http_status']}" if r["http_status"] else "ERR"
-        robots_badge = "CẤM" if r["robots_disallowed"] else "OK"
-        feed_badge = r["feed_type"] if r["feed_found"] else "Không"
+        if r["robots_disallowed"]:
+            http_badge = "-"
+            robots_badge = "CẤM"
+        elif r.get("feed_robots_disallowed"):
+            http_badge = f"{r['http_status']}" if r["http_status"] else "ERR"
+            robots_badge = "Feed cấm"
+        else:
+            http_badge = f"{r['http_status']}" if r["http_status"] else "ERR"
+            robots_badge = "OK"
+
+        if r["feed_found"]:
+            feed_badge = r["feed_type"]
+        elif r.get("feed_robots_disallowed"):
+            feed_badge = "CẤM (robots)"
+        else:
+            feed_badge = "Không"
+
         item_cnt = str(r["item_count"]) if r["feed_found"] else "-"
         newest = (r["newest_item_date"] or "")[:10] if r["newest_item_date"] else "-"
         ai_pct = f"{r['ai_share']*100:.0f}%" if r["feed_found"] else "-"
@@ -645,13 +691,20 @@ def render_markdown_report(results, generated_at=None):
             md.append(f"- **URL đề xuất**: `{it['url']}`")
             if it.get("final_url") and it["final_url"] != it["url"]:
                 md.append(f"- **URL chuyển hướng**: `{it['final_url']}`")
-            md.append(f"- **HTTP status**: `{it['http_status']}` | **Robots.txt**: `{'Disallowed' if it['robots_disallowed'] else 'Allowed'}`")
+            if it["robots_disallowed"]:
+                md.append(f"- **HTTP status**: `Không có (bị robots.txt chặn)` | **Robots.txt**: `Disallowed`")
+            elif it.get("feed_robots_disallowed"):
+                md.append(f"- **HTTP status**: `{it['http_status']}` | **Robots.txt**: `Candidate allowed, feed disallowed`")
+            else:
+                md.append(f"- **HTTP status**: `{it['http_status']}` | **Robots.txt**: `{'Disallowed' if it['robots_disallowed'] else 'Allowed'}`")
             if it["feed_found"]:
                 md.append(f"- **Feed URL**: `{it['feed_url']}` ({it['feed_type']})")
                 md.append(f"- **Số lượng bài**: `{it['item_count']}` | **Bài mới nhất**: `{it['newest_item_date']}`")
                 md.append(f"- **Tỷ lệ AI**: `{it['ai_count']}/{it['item_count']} ({it['ai_share']*100:.1f}%)`")
                 kind_str = ", ".join(f"{k}: {v}" for k, v in it.get("kinds", {}).items() if v > 0)
                 md.append(f"- **Phân loại kind**: `{kind_str or 'không có'}`")
+            elif it.get("feed_robots_disallowed"):
+                md.append("- **Feed**: Bị robots.txt chặn (không gửi HTTP request)")
             else:
                 md.append("- **Feed**: Không tìm thấy feed hợp lệ")
             if it["is_duplicate"]:
@@ -674,7 +727,7 @@ def load_candidates(path=None):
     return json.loads(data_path.read_text(encoding="utf-8"))
 
 
-def main():
+def main(argv=None):
     import argparse
 
     parser = argparse.ArgumentParser(description="Probe candidate sources for ai-radar")
@@ -686,14 +739,17 @@ def main():
     parser.add_argument("--timeout", type=int, default=FETCH_TIMEOUT, help="HTTP timeout in seconds")
     parser.add_argument("--delay", type=float, default=0.2, help="Delay between requests in seconds")
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     candidates = load_candidates(args.candidates)
     if args.id:
-        candidates = [c for c in candidates if c["id"] == args.id]
-        if not candidates:
-            print(f"Error: Candidate '{args.id}' not found in candidate list.")
+        target_id = args.id.strip()
+        matched = [c for c in candidates if c["id"] == target_id]
+        if not matched:
+            source_file = args.candidates or "data/candidate-sources.json"
+            sys.stderr.write(f"Error: Candidate ID '{args.id}' not found in {source_file}.\n")
             return 1
+        candidates = matched
 
     print(f"Starting probe for {len(candidates)} candidate sources...")
     results = probe_all(candidates, delay=args.delay)

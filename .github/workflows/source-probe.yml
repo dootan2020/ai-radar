@@ -23,10 +23,11 @@ jobs:
         with:
           python-version: '3.11'
       - name: Run Candidate Source Probe
+        env:
+          CANDIDATE_ID: ${{ github.event.inputs.candidate_id }}
         run: |
-          ID="${{ github.event.inputs.candidate_id }}"
-          if [ -n "$ID" ]; then
-            python -m radar.source_probe --summary --output source-probe-results.md --json-output source-probe-results.json --id "$ID"
+          if [ -n "$CANDIDATE_ID" ]; then
+            python -m radar.source_probe --summary --output source-probe-results.md --json-output source-probe-results.json --id "$CANDIDATE_ID"
           else
             python -m radar.source_probe --summary --output source-probe-results.md --json-output source-probe-results.json
           fi

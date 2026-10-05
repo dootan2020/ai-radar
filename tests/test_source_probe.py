@@ -21,6 +21,7 @@ from radar.source_probe import (
     extract_items_from_text,
     find_autodiscovered_feeds,
     load_candidates,
+    main,
     normalize_url,
     parse_json_feed,
     probe_all,
@@ -267,6 +268,86 @@ class SourceProbeRobotsTxtTests(unittest.TestCase):
 
         self.assertTrue(result["robots_disallowed"])
         self.assertFalse(result["robots_allowed"])
+        self.assertIsNone(result["http_status"])
+        self.assertFalse(result["reachable"])
+        self.assertFalse(result["feed_found"])
+        self.assertIn("robots.txt", result["notes"])
+        self.assertIn("robots.txt cấm", result["recommendation"])
+
+    def test_disallowed_candidate_makes_zero_requests_beyond_robots_txt(self):
+        requested_urls = []
+
+        def tracking_fetch(url, timeout=10):
+            requested_urls.append(url)
+            if "robots.txt" in url:
+                res = ResponseText(
+                    "User-agent: *\nDisallow: /private/\n",
+                    status=200,
+                    url=url,
+                )
+                res.content_type = "text/plain"
+                return res
+            res = ResponseText(SAMPLE_RSS, status=200, url=url)
+            res.content_type = "application/rss+xml"
+            return res
+
+        candidate = {
+            "id": "disallowed-site",
+            "name": "Disallowed Site",
+            "url": "https://private.example.com/private/feed.xml",
+            "label": "chinh-thuc",
+        }
+        result = probe_candidate(candidate, fetch=tracking_fetch, existing_sources=[])
+
+        # Exactly 1 request made: robots.txt only. Zero requests beyond robots.txt!
+        self.assertEqual(requested_urls, ["https://private.example.com/robots.txt"])
+        self.assertTrue(result["robots_disallowed"])
+        self.assertFalse(result["robots_allowed"])
+        self.assertIsNone(result["http_status"])
+        self.assertFalse(result["reachable"])
+        self.assertFalse(result["feed_found"])
+        self.assertIn("robots.txt cấm", result["recommendation"])
+
+    def test_disallowed_autodiscovered_feed_is_not_requested(self):
+        requested_urls = []
+
+        def tracking_fetch(url, timeout=10):
+            requested_urls.append(url)
+            if "robots.txt" in url:
+                res = ResponseText(
+                    "User-agent: *\nDisallow: /secret-feed.xml\nAllow: /\n",
+                    status=200,
+                    url=url,
+                )
+                res.content_type = "text/plain"
+                return res
+            if url == "https://blog.example.com/":
+                html = """<!DOCTYPE html><html><head>
+                <link rel="alternate" type="application/rss+xml" href="/secret-feed.xml">
+                </head><body>Blog</body></html>"""
+                res = ResponseText(html, status=200, url=url)
+                res.content_type = "text/html"
+                return res
+            res = ResponseText(SAMPLE_RSS, status=200, url=url)
+            res.content_type = "application/rss+xml"
+            return res
+
+        candidate = {
+            "id": "blog-with-disallowed-feed",
+            "name": "Blog With Disallowed Feed",
+            "url": "https://blog.example.com/",
+            "label": "cong-dong",
+        }
+        result = probe_candidate(candidate, fetch=tracking_fetch, existing_sources=[])
+
+        # Candidate page and robots.txt were requested, but the disallowed feed URL was NOT requested
+        self.assertIn("https://blog.example.com/robots.txt", requested_urls)
+        self.assertIn("https://blog.example.com/", requested_urls)
+        self.assertNotIn("https://blog.example.com/secret-feed.xml", requested_urls)
+        self.assertEqual(result["http_status"], 200)
+        self.assertTrue(result["reachable"])
+        self.assertFalse(result["feed_found"])
+        self.assertTrue(result.get("feed_robots_disallowed"))
         self.assertIn("robots.txt", result["notes"])
         self.assertIn("robots.txt cấm", result["recommendation"])
 
@@ -555,6 +636,21 @@ class SourceProbeAdditionalEdgeCasesTests(unittest.TestCase):
         self.assertEqual(len(results), 2)
         self.assertTrue(results[0]["feed_found"])
         self.assertFalse(results[1]["feed_found"])
+
+
+class SourceProbeCliTests(unittest.TestCase):
+    def test_unknown_id_exits_nonzero_with_message(self):
+        import io
+        from contextlib import redirect_stderr
+
+        buf = io.StringIO()
+        with redirect_stderr(buf):
+            exit_code = main(["--id", "non-existent-candidate-id-xyz"])
+
+        self.assertNotEqual(exit_code, 0)
+        err_msg = buf.getvalue()
+        self.assertIn("non-existent-candidate-id-xyz", err_msg)
+        self.assertIn("not found", err_msg.lower())
 
 
 if __name__ == "__main__":
