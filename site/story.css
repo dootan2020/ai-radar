@@ -4,6 +4,11 @@
    Respects 4pt spacing scale, 65ch reading measure, and dark mode tokens.
 */
 
+:root {
+  --radius-16: 16px;
+  --radius-4: 4px;
+}
+
 /* ==========================================================================
    1. DIALOG MODAL BASE (DESKTOP & MOBILE RESPONSIVE)
    ========================================================================== */
@@ -33,7 +38,7 @@ dialog.story-dialog::backdrop {
   background: rgba(10, 10, 14, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  transition: opacity var(--duration-200) var(--ease-flow);
+  transition: opacity var(--duration-250) var(--ease-flow);
 }
 
 /* Scroller container inside the dialog */
@@ -174,8 +179,8 @@ dialog.story-dialog::backdrop {
 
 .story-close-kbd {
   display: inline-block;
-  padding: 1px var(--space-6);
-  border-radius: var(--radius-4);
+  padding: 1px var(--space-8);
+  border-radius: var(--radius-4, 4px);
   background: var(--color-fill);
   color: var(--color-ink-3);
   font-size: var(--text-micro);
@@ -244,6 +249,87 @@ dialog.story-dialog::backdrop {
   border-color: var(--color-accent);
 }
 
+/* Story page top bar: stays on a single calm line at every width, matching the home bar */
+.feed-bar:has(.doc-nav) .feed-bar-in,
+.feed-bar-in:has(.doc-nav),
+.feed-bar-in:has(#doc-back-btn) {
+  flex-wrap: nowrap;
+  height: var(--bar-h);
+  align-items: center;
+  column-gap: var(--space-8);
+}
+
+@media (max-width: 767px) {
+  .feed-bar:has(.doc-nav) .feed-bar-in,
+  .feed-bar-in:has(.doc-nav),
+  .feed-bar-in:has(#doc-back-btn) {
+    padding-top: 0;
+    column-gap: var(--space-8);
+    height: var(--bar-h);
+    flex-wrap: nowrap;
+  }
+  .doc-nav {
+    order: 0;
+    flex-shrink: 0;
+  }
+  #doc-back-btn.story-modal-close {
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+    border-radius: var(--radius-full);
+  }
+  #doc-back-btn span {
+    display: none;
+  }
+  .feed-bar:has(.doc-nav) .feed-brand,
+  .feed-bar-in:has(.doc-nav) .feed-brand,
+  .feed-bar-in:has(#doc-back-btn) .feed-brand {
+    order: 1;
+    flex: none;
+    font-size: var(--size-18);
+  }
+  .feed-bar:has(.doc-nav) .ed-link,
+  .feed-bar-in:has(.doc-nav) .ed-link,
+  .feed-bar-in:has(#doc-back-btn) .ed-link {
+    order: 2;
+    padding: 0 var(--space-12);
+    font-size: var(--text-meta);
+    min-height: 40px;
+  }
+  .feed-bar:has(.doc-nav) .tc-link,
+  .feed-bar-in:has(.doc-nav) .tc-link,
+  .feed-bar-in:has(#doc-back-btn) .tc-link {
+    order: 3;
+    min-height: 40px;
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+  .feed-bar:has(.doc-nav) .theme-btn,
+  .feed-bar-in:has(.doc-nav) .theme-btn,
+  .feed-bar-in:has(#doc-back-btn) .theme-btn {
+    order: 4;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 359px) {
+  .feed-bar:has(.doc-nav) .feed-bar-in,
+  .feed-bar-in:has(.doc-nav),
+  .feed-bar-in:has(#doc-back-btn) {
+    column-gap: var(--space-4);
+  }
+  .feed-bar:has(.doc-nav) .ed-link,
+  .feed-bar-in:has(.doc-nav) .ed-link,
+  .feed-bar-in:has(#doc-back-btn) .ed-link {
+    padding: 0 var(--space-8);
+  }
+}
+
 /* ==========================================================================
    3. ARTICLE CONTENT CONTAINER
    ========================================================================== */
@@ -251,7 +337,7 @@ dialog.story-dialog::backdrop {
 .story-dialog-body {
   max-width: 920px;
   margin: 0 auto;
-  padding: var(--space-28) var(--space-28) var(--space-48);
+  padding: var(--space-24) var(--space-24) var(--space-48);
   width: 100%;
   box-sizing: border-box;
 }
@@ -278,14 +364,13 @@ dialog.story-dialog::backdrop {
 
 /* Header & Publisher Info */
 .story-header {
-  margin-bottom: var(--space-20);
+  margin-bottom: var(--space-24);
 }
 
 .story-meta-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: var(--space-12);
   margin-bottom: var(--space-16);
 }
@@ -297,6 +382,8 @@ dialog.story-dialog::backdrop {
   gap: var(--space-8);
   font-size: var(--text-small);
   color: var(--color-ink-2);
+  flex: 1;
+  min-width: 0;
 }
 
 .story-pub-info .src-av {
@@ -353,6 +440,7 @@ dialog.story-dialog::backdrop {
   display: flex;
   align-items: center;
   gap: var(--space-8);
+  flex-shrink: 0;
 }
 
 /* Headline */
@@ -384,18 +472,26 @@ dialog.story-dialog::backdrop {
   margin-bottom: var(--space-16);
 }
 
-.story-orig-block .card-orig {
+.story-orig-block .card-orig,
+.story-article .card-orig {
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: var(--space-8);
   margin: 0;
   font-size: var(--text-small);
   color: var(--color-ink-2);
   line-height: var(--leading-snug);
+  min-width: 0;
+  max-width: 100%;
 }
 
-.story-orig-block .card-orig .orig-text {
+.story-orig-block .card-orig .orig-text,
+.story-article .card-orig .orig-text {
+  white-space: normal;
   overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
 }
 
 /* Header Primary CTA */
@@ -406,7 +502,7 @@ dialog.story-dialog::backdrop {
 .story-origin-cta {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-8);
   min-height: 38px;
   padding: 0 var(--space-16);
   border-radius: var(--radius-full);
@@ -424,7 +520,7 @@ dialog.story-dialog::backdrop {
 
 .story-origin-cta:hover {
   background: var(--color-fill);
-  border-color: var(--color-ink-sub);
+  border-color: var(--color-ink-2);
   transform: translateY(-1px);
 }
 
@@ -450,9 +546,9 @@ dialog.story-dialog::backdrop {
 .story-body-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.85fr);
-  gap: var(--space-28);
+  gap: var(--space-24);
   align-items: start;
-  margin: var(--space-20) 0;
+  margin: var(--space-24) 0;
 }
 
 .story-col-main {
@@ -463,13 +559,16 @@ dialog.story-dialog::backdrop {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-20);
+  gap: var(--space-24);
 }
 
 @media (max-width: 767px) {
   .story-body-grid {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
     gap: var(--space-16);
     margin: var(--space-16) 0;
   }
@@ -480,15 +579,22 @@ dialog.story-dialog::backdrop {
 
   .story-media {
     order: 1;
+    width: 100%;
+    box-sizing: border-box;
     margin-bottom: var(--space-4);
   }
 
   .story-col-main {
     order: 2;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .story-evidence-box {
     order: 3;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -513,7 +619,7 @@ dialog.story-dialog::backdrop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-8) var(--space-14);
+  padding: var(--space-8) var(--space-16);
   font-size: var(--text-micro);
   color: var(--color-ink-3);
   background: var(--color-surface);
@@ -531,12 +637,15 @@ dialog.story-dialog::backdrop {
   padding: var(--space-24);
   box-shadow: var(--shadow-lift);
   border: none;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 767px) {
   .story-keypoints-box,
   .story-summary-box {
-    padding: var(--space-20);
+    padding: var(--space-16);
   }
 }
 
@@ -570,7 +679,7 @@ dialog.story-dialog::backdrop {
 .story-point-item {
   display: grid;
   grid-template-columns: 28px 1fr;
-  gap: var(--space-14);
+  gap: var(--space-16);
   align-items: baseline;
 }
 
@@ -603,10 +712,12 @@ dialog.story-dialog::backdrop {
   color: var(--color-ink);
   margin: var(--space-16) 0 0;
   text-wrap: pretty;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .story-points-disclosure {
-  margin: var(--space-20) 0 0;
+  margin: var(--space-16) 0 0;
   padding-top: var(--space-12);
   border-top: 1px solid var(--color-hair);
   font-size: var(--text-micro);
@@ -616,7 +727,7 @@ dialog.story-dialog::backdrop {
 
 .story-empty-box {
   text-align: center;
-  padding: var(--space-32) var(--space-20);
+  padding: var(--space-32) var(--space-24);
 }
 
 .story-empty-text {
@@ -632,9 +743,17 @@ dialog.story-dialog::backdrop {
 .story-evidence-box {
   background: var(--color-surface);
   border-radius: var(--radius-16);
-  padding: var(--space-20);
+  padding: var(--space-24);
   box-shadow: var(--shadow-lift);
   border: none;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .story-evidence-box {
+    padding: var(--space-16);
+  }
 }
 
 .story-evidence-title {
@@ -657,7 +776,7 @@ dialog.story-dialog::backdrop {
   grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--space-12);
   align-items: baseline;
-  padding: var(--space-10) 0;
+  padding: var(--space-12) 0;
   border-top: 1px solid var(--color-hair);
 }
 
@@ -717,7 +836,7 @@ dialog.story-dialog::backdrop {
 
 .story-coverage-list {
   display: grid;
-  gap: var(--space-10);
+  gap: var(--space-12);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -735,7 +854,7 @@ dialog.story-dialog::backdrop {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-16);
-  padding: var(--space-14) var(--space-16);
+  padding: var(--space-16);
   border-radius: var(--radius-12);
   background: var(--color-surface);
   box-shadow: var(--shadow-lift);
@@ -768,7 +887,7 @@ dialog.story-dialog::backdrop {
 .story-cov-header {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-8);
   font-size: var(--text-micro);
   color: var(--color-ink-2);
   margin-bottom: var(--space-4);
@@ -802,13 +921,21 @@ dialog.story-dialog::backdrop {
 .story-origin-gateway {
   display: flex;
   flex-direction: column;
-  gap: var(--space-20);
+  gap: var(--space-24);
   margin: var(--space-24) 0;
-  padding: var(--space-24) var(--space-28);
+  padding: var(--space-24);
   border-radius: var(--radius-16);
   background: var(--color-surface);
   box-shadow: var(--shadow-lift);
   border: none;
+  box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .story-origin-gateway {
+    padding: var(--space-16);
+    gap: var(--space-16);
+  }
 }
 
 @media (min-width: 640px) {
@@ -830,7 +957,7 @@ dialog.story-dialog::backdrop {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--color-accent);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-8);
 }
 
 .story-origin-title {
@@ -888,7 +1015,7 @@ dialog.story-dialog::backdrop {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-16);
-  padding-top: var(--space-20);
+  padding-top: var(--space-24);
   margin-top: var(--space-24);
   border-top: 1px solid var(--color-hair);
 }
@@ -922,7 +1049,7 @@ dialog.story-dialog::backdrop {
 
 /* Error box */
 .story-error-box {
-  padding: var(--space-48) var(--space-20);
+  padding: var(--space-48) var(--space-24);
   text-align: center;
 }
 
