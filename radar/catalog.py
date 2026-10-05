@@ -17,7 +17,7 @@ RSS = [
     ("mit-tech-review", "MIT Technology Review AI", "press", "mit-tech-review", "https://www.technologyreview.com/topic/artificial-intelligence/feed", False),
     ("microsoft-research", "Microsoft Research", "lab", "microsoft", "https://www.microsoft.com/en-us/research/feed/", False),
     ("nvidia-blog", "NVIDIA Technical Blog", "lab", "nvidia", "https://developer.nvidia.com/blog/feed", True),
-    ("dwarkesh-video", "Video Dwarkesh", "podcast", "dwarkesh", "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA", True),
+    ("dwarkesh-video", "Video Dwarkesh", "podcast", "dwarkesh", "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=UUXl4i9dYBrFOabk0xGmbkRA&maxResults=50", True),
     ("vnexpress-tech", "VnExpress International Tech", "press", "vnexpress", "https://e.vnexpress.net/rss/tech.rss", True),
     ("genk-ai", "GenK AI", "press", "genk", "https://genk.vn/rss/ai.rss", False),
     ("tuoitre-so", "Tuổi Trẻ Nhịp sống số", "press", "tuoi-tre", "https://tuoitre.vn/rss/nhip-song-so.rss", True, {"default_tz": "+07:00"}),

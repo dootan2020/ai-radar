@@ -1,0 +1,281 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "Tjz3guBifLbx4K9ev_SqhUuSJWg",
+  "nextPageToken": "EAAaHlBUOkNBVWlFREl3TmpCRk5UTXhPRUl4UlRNMVEwWQ",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "7JOBwblvDp0_R9Y98gzUVspMwxI",
+      "id": "VVVYWkNKTGRCQzA5eHhHWjZnY2RyYzZBLmZIRUl3NUNjTjVV",
+      "snippet": {
+        "publishedAt": "2026-10-01T17:20:52Z",
+        "channelId": "UCXZCJLdBC09xxGZ6gcdrc6A",
+        "title": "The dots demo, take two | OpenAI DevDay 2026",
+        "description": "Meet dots, always-on AI agents that get to know what matters to you and take work off your plate.\n\nSee dots in action, from planning a trip to making sense of user feedback and catching up on Slack.\n\nhttps://openai.com/index/introducing-dots/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/fHEIw5CcN5U/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/fHEIw5CcN5U/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/fHEIw5CcN5U/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/fHEIw5CcN5U/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/fHEIw5CcN5U/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          },
+          "fhd": {
+            "url": "https://i.ytimg.com/vi/fHEIw5CcN5U/fhddefault.jpg",
+            "width": 1920,
+            "height": 1080
+          }
+        },
+        "channelTitle": "OpenAI",
+        "playlistId": "UUXZCJLdBC09xxGZ6gcdrc6A",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "fHEIw5CcN5U"
+        },
+        "videoOwnerChannelTitle": "OpenAI",
+        "videoOwnerChannelId": "UCXZCJLdBC09xxGZ6gcdrc6A"
+      },
+      "contentDetails": {
+        "videoId": "fHEIw5CcN5U",
+        "videoPublishedAt": "2026-10-01T17:20:52Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "DUms_-OqUBgq8ppqW1ZQofqo6mA",
+      "id": "VVVYWkNKTGRCQzA5eHhHWjZnY2RyYzZBLnNLbHRmSHZzRFFN",
+      "snippet": {
+        "publishedAt": "2026-09-29T18:47:34Z",
+        "channelId": "UCXZCJLdBC09xxGZ6gcdrc6A",
+        "title": "Build faster with Ultrafast",
+        "description": "Ultrafast is our fastest way to build with Astra yet: in Codex, it runs up to 8x faster than Astra Standard and 4x faster than Astra Fast.\n\nBring your ideas to life as fast as you can type them.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/sKltfHvsDQM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/sKltfHvsDQM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/sKltfHvsDQM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/sKltfHvsDQM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/sKltfHvsDQM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "OpenAI",
+        "playlistId": "UUXZCJLdBC09xxGZ6gcdrc6A",
+        "position": 1,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "sKltfHvsDQM"
+        },
+        "videoOwnerChannelTitle": "OpenAI",
+        "videoOwnerChannelId": "UCXZCJLdBC09xxGZ6gcdrc6A"
+      },
+      "contentDetails": {
+        "videoId": "sKltfHvsDQM",
+        "videoPublishedAt": "2026-09-29T18:47:34Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "6sg1UnJzDYjxkRsP5N9-IzM6NEU",
+      "id": "VVVYWkNKTGRCQzA5eHhHWjZnY2RyYzZBLkZsc19vblJ2aVBN",
+      "snippet": {
+        "publishedAt": "2026-09-29T18:42:29Z",
+        "channelId": "UCXZCJLdBC09xxGZ6gcdrc6A",
+        "title": "OpenAI DevDay 2026 Keynote (FULL)",
+        "description": "Watch Sam Altman, Romain Huet, Tejal Patwardhan, and Holly Li announce and demo 20+ launches at OpenAI DevDay, including dots, ChatGPT Spaces, GPT-6.1 Sol, Astra Ultrafast, and more.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Fls_onRviPM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Fls_onRviPM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Fls_onRviPM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Fls_onRviPM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Fls_onRviPM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "OpenAI",
+        "playlistId": "UUXZCJLdBC09xxGZ6gcdrc6A",
+        "position": 2,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "Fls_onRviPM"
+        },
+        "videoOwnerChannelTitle": "OpenAI",
+        "videoOwnerChannelId": "UCXZCJLdBC09xxGZ6gcdrc6A"
+      },
+      "contentDetails": {
+        "videoId": "Fls_onRviPM",
+        "videoPublishedAt": "2026-09-29T18:42:29Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "iVgGI70SujlbxZHrpqFsRdD4txs",
+      "id": "VVVYWkNKTGRCQzA5eHhHWjZnY2RyYzZBLjdCdjY4ZjVzelNV",
+      "snippet": {
+        "publishedAt": "2026-09-29T18:18:13Z",
+        "channelId": "UCXZCJLdBC09xxGZ6gcdrc6A",
+        "title": "Meet the all new Codex Cloud",
+        "description": "Start a Codex task, close your laptop, and pick it up from your phone. See how to create a reusable cloud environment with your repositories, networking, and secrets, then share it with your team.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7Bv68f5szSU/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7Bv68f5szSU/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7Bv68f5szSU/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/7Bv68f5szSU/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/7Bv68f5szSU/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          },
+          "uhd": {
+            "url": "https://i.ytimg.com/vi/7Bv68f5szSU/uhddefault.jpg",
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "channelTitle": "OpenAI",
+        "playlistId": "UUXZCJLdBC09xxGZ6gcdrc6A",
+        "position": 3,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "7Bv68f5szSU"
+        },
+        "videoOwnerChannelTitle": "OpenAI",
+        "videoOwnerChannelId": "UCXZCJLdBC09xxGZ6gcdrc6A"
+      },
+      "contentDetails": {
+        "videoId": "7Bv68f5szSU",
+        "videoPublishedAt": "2026-09-29T18:18:13Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "qoLcX4GfIyM2gmOH1QZTnmIpCM4",
+      "id": "VVVYWkNKTGRCQzA5eHhHWjZnY2RyYzZBLnVYc3BiQzJzckVR",
+      "snippet": {
+        "publishedAt": "2026-09-29T18:04:41Z",
+        "channelId": "UCXZCJLdBC09xxGZ6gcdrc6A",
+        "title": "Introducing dots, always-on agents built to handle everything.",
+        "description": "Dots are frontier intelligence that have your back. Powered by GPT‑6 Astra, they have their own cloud computer, learn from feedback over time, and can work towards your goals 24/7. Through our ecosystem of plugins, they can readily connect to over 4,000 apps, giving them the tools to help wherever you need them.\n\nYour dot is always within reach, whether it is through ChatGPT, Slack, or Teams. You can ask questions, explore ideas, and give feedback along the way; or you can simply hop on a voice call when you need to talk something out. The more you work together, the more your dot learns your preferences, how you think, and what good looks like to you.\n\nThe magic of dots is when they bring you work done the way you would do it, sometimes before you even think to ask. With dots alongside you, ambitious ideas and projects you haven’t had the time or support to pursue start to feel achievable.\n\nhttps://openai.com/index/introducing-dots/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/uXspbC2srEQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/uXspbC2srEQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/uXspbC2srEQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/uXspbC2srEQ/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/uXspbC2srEQ/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          },
+          "uhd": {
+            "url": "https://i.ytimg.com/vi/uXspbC2srEQ/uhddefault.jpg",
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "channelTitle": "OpenAI",
+        "playlistId": "UUXZCJLdBC09xxGZ6gcdrc6A",
+        "position": 4,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "uXspbC2srEQ"
+        },
+        "videoOwnerChannelTitle": "OpenAI",
+        "videoOwnerChannelId": "UCXZCJLdBC09xxGZ6gcdrc6A"
+      },
+      "contentDetails": {
+        "videoId": "uXspbC2srEQ",
+        "videoPublishedAt": "2026-09-29T18:04:41Z"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 823,
+    "resultsPerPage": 5
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "28IA-lmvqcV0E8dKGqKVjYfBE1s",
+  "nextPageToken": "EAAaHlBUOkNBVWlFRUUzT1RKQk1qRkdNemsxTkRBeVJUYw",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "ww3a7L1JuFNVQtWY2hiW3PWIhpI",
+      "id": "VVVIdWl5OGJYbm1LNW5pc1lIVWQxSjVnLlV4T1EycXlZNlFv",
+      "snippet": {
+        "publishedAt": "2026-10-02T16:00:20Z",
+        "channelId": "UCHuiy8bXnmK5nisYHUd1J5g",
+        "title": "Accelerating No-Code Enterprise AI: Inside Simplismart’s NVIDIA Inception Journey",
+        "description": "Simplismart eliminates ML Ops complexity with a no-code platform that lets enterprises design, train, and deploy custom AI models without managing infrastructure. Powered by NVIDIA GPUs, Triton™ Inference Server, TensorRT-LLM, and NVIDIA NIM™ microservices, Simplismart delivers ultra-low latency, automated scaling, and faster time-to-market.\n\nDiscover how NVIDIA's Inception program enabled Simplismart with early hardware access, technical support, and global visibility to turn raw compute into an enterprise-ready, no-code AI engine: https://www.nvidia.com/en-us/startups/?ncid=so-link-805084-vt53",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/UxOQ2qyY6Qo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/UxOQ2qyY6Qo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/UxOQ2qyY6Qo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/UxOQ2qyY6Qo/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/UxOQ2qyY6Qo/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "NVIDIA",
+        "playlistId": "UUHuiy8bXnmK5nisYHUd1J5g",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "UxOQ2qyY6Qo"
+        },
+        "videoOwnerChannelTitle": "NVIDIA",
+        "videoOwnerChannelId": "UCHuiy8bXnmK5nisYHUd1J5g"
+      },
+      "contentDetails": {
+        "videoId": "UxOQ2qyY6Qo",
+        "videoPublishedAt": "2026-10-02T16:00:20Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "YR21pqoVgwTsCguA2IHJk6l148E",
+      "id": "VVVIdWl5OGJYbm1LNW5pc1lIVWQxSjVnLjRWR3FjOVh6eDBN",
+      "snippet": {
+        "publishedAt": "2026-10-01T13:04:11Z",
+        "channelId": "UCHuiy8bXnmK5nisYHUd1J5g",
+        "title": "What does “fungible” mean for AI infrastructure?",
+        "description": "What does “fungible” mean for AI infrastructure? The flexibility to run different workloads: every type of AI, every phase of AI and even workloads that aren’t AI at all.\n\nOne platform, built for maximum “productivity”, “durable” years after deployment, and “fungible” for every model and workload.\n\nRead the blog to learn more: https://nvda.ws/4hphGmQ",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/4VGqc9Xzx0M/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/4VGqc9Xzx0M/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/4VGqc9Xzx0M/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/4VGqc9Xzx0M/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/4VGqc9Xzx0M/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "NVIDIA",
+        "playlistId": "UUHuiy8bXnmK5nisYHUd1J5g",
+        "position": 1,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "4VGqc9Xzx0M"
+        },
+        "videoOwnerChannelTitle": "NVIDIA",
+        "videoOwnerChannelId": "UCHuiy8bXnmK5nisYHUd1J5g"
+      },
+      "contentDetails": {
+        "videoId": "4VGqc9Xzx0M",
+        "videoPublishedAt": "2026-10-01T13:04:11Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "3C5gWKhbhUV0OFIg_e6FjVsXP98",
+      "id": "VVVIdWl5OGJYbm1LNW5pc1lIVWQxSjVnLnoxdC1icDlVQzNF",
+      "snippet": {
+        "publishedAt": "2026-10-01T11:31:39Z",
+        "channelId": "UCHuiy8bXnmK5nisYHUd1J5g",
+        "title": "Meet The Startup: Probabl: by the Creators of Scikit-Learn",
+        "description": "The creators of scikit-learn are GPU-accelerating machine learning — and partnering with NVIDIA to do it.\n\nYann Lechelle, co-founder of Probabl, sat down with us to share why the team behind the world's most downloaded ML framework is doubling down on statistical machine learning — not generative AI — and what that means for the future of tabular data.\n\nScikit-learn has surpassed 5 billion downloads, with 1.3 million GitHub projects depending on it. It's the backbone of data science as we know it. But it was built for CPUs — and the world has changed. Probabl is now offloading key algorithms to GPU, leveraging the Array API as an abstraction layer so that new generations of NVIDIA chips plug in seamlessly, without rewriting everything from scratch.\n\nTheir new product, Skore, wraps scikit-learn and tabular large models into a unified ML platform — with the goal of becoming the world's leading tabular AI company within five years. And as Yann points out, it's not just data scientists using these tools anymore: agents are now the largest driver of scikit-learn downloads, consuming documentation and frameworks at machine speed.\n\nThe partnership with NVIDIA Inception is about more than compute — it's about building the abstraction layer that maximizes intelligence per gigawatt, for humans and agents alike.\n\nLearn more about how NVIDIA Inception supports startups building the future of AI — and explore what GPU-accelerated ML can do for your workflows at nvidia.com/inception.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/z1t-bp9UC3E/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/z1t-bp9UC3E/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/z1t-bp9UC3E/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/z1t-bp9UC3E/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/z1t-bp9UC3E/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          },
+          "fhd": {
+            "url": "https://i.ytimg.com/vi/z1t-bp9UC3E/fhddefault.jpg",
+            "width": 1920,
+            "height": 1080
+          }
+        },
+        "channelTitle": "NVIDIA",
+        "playlistId": "UUHuiy8bXnmK5nisYHUd1J5g",
+        "position": 2,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "z1t-bp9UC3E"
+        },
+        "videoOwnerChannelTitle": "NVIDIA",
+        "videoOwnerChannelId": "UCHuiy8bXnmK5nisYHUd1J5g"
+      },
+      "contentDetails": {
+        "videoId": "z1t-bp9UC3E",
+        "videoPublishedAt": "2026-10-01T11:31:39Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "Pb9FAvk1sBD7c578xZoaqOJok5I",
+      "id": "VVVIdWl5OGJYbm1LNW5pc1lIVWQxSjVnLlVQbVU4QUdfNTQ4",
+      "snippet": {
+        "publishedAt": "2026-09-30T19:30:29Z",
+        "channelId": "UCHuiy8bXnmK5nisYHUd1J5g",
+        "title": "Pause to pick your #NVIDIAGTC Berlin gear. 👀",
+        "description": "Exclusive GTC Berlin merch will be available at the onsite Gear Store, only for registered attendees.\n\nJoin us: https://nvda.ws/46YomSK",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/UPmU8AG_548/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/UPmU8AG_548/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/UPmU8AG_548/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/UPmU8AG_548/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/UPmU8AG_548/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "NVIDIA",
+        "playlistId": "UUHuiy8bXnmK5nisYHUd1J5g",
+        "position": 3,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "UPmU8AG_548"
+        },
+        "videoOwnerChannelTitle": "NVIDIA",
+        "videoOwnerChannelId": "UCHuiy8bXnmK5nisYHUd1J5g"
+      },
+      "contentDetails": {
+        "videoId": "UPmU8AG_548",
+        "videoPublishedAt": "2026-09-30T19:30:29Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "23_gUmj0FHW9z16LTKlfbdN5JCw",
+      "id": "VVVIdWl5OGJYbm1LNW5pc1lIVWQxSjVnLnZtQUlwRUhyQ29r",
+      "snippet": {
+        "publishedAt": "2026-09-30T19:09:36Z",
+        "channelId": "UCHuiy8bXnmK5nisYHUd1J5g",
+        "title": "NVIDIA DOCA Skills vs No Skills: Building RDMA on NVIDIA BlueField-3 with Fewer Commands & Less Code",
+        "description": "This demo is a side-by-side comparison of two AI coding agents tasked with building a Go-based RDMA application using NVIDIA DOCA on a BlueField-3 platform.\n\nBoth agents are given the same goal: implement a working RDMA data path and verify that bytes successfully arrive on hardware. The key difference is that one agent has access to NVIDIA DOCA “skills,” while the other must discover the required modules, headers, and build process from scratch through iterative hardware probing.\n\nThe experiment highlights how access to curated domain knowledge impacts efficiency:\n- The “skilled” agent rapidly identifies the correct DOCA modules, samples, and CGO build configuration.\n- The “unskilled” agent relies on trial-and-error, repeatedly probing hardware and discovering components incrementally.\n- Both approaches ultimately produce a working, hardware-verified RDMA application.\n\nKey results from the comparison:\n- ~73% reduction in handwritten code when using DOCA skills\n- ~50% fewer hardware interaction commands\n- Faster convergence to NVIDIA-supported sample-based implementation\n- More consistent use of validated DOCA pipelines instead of low-level reimplementation\n\nThe demo illustrates how structured platform knowledge can significantly reduce development effort while maintaining correct and verifiable low-level hardware behavior on accelerated networking systems.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/vmAIpEHrCok/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/vmAIpEHrCok/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/vmAIpEHrCok/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/vmAIpEHrCok/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/vmAIpEHrCok/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "NVIDIA",
+        "playlistId": "UUHuiy8bXnmK5nisYHUd1J5g",
+        "position": 4,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "vmAIpEHrCok"
+        },
+        "videoOwnerChannelTitle": "NVIDIA",
+        "videoOwnerChannelId": "UCHuiy8bXnmK5nisYHUd1J5g"
+      },
+      "contentDetails": {
+        "videoId": "vmAIpEHrCok",
+        "videoPublishedAt": "2026-09-30T19:09:36Z"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 2740,
+    "resultsPerPage": 5
+  }
+}

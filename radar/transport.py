@@ -38,6 +38,11 @@ class SafeRedirectHandler(HTTPRedirectHandler):
                     del new_req.headers["Authorization"]
                 if hasattr(new_req, "unredirected_hdrs") and "Authorization" in new_req.unredirected_hdrs:
                     del new_req.unredirected_hdrs["Authorization"]
+            if target_host not in ("www.googleapis.com", "googleapis.com"):
+                if "X-Goog-Api-Key" in new_req.headers:
+                    del new_req.headers["X-Goog-Api-Key"]
+                if hasattr(new_req, "unredirected_hdrs") and "X-Goog-Api-Key" in new_req.unredirected_hdrs:
+                    del new_req.unredirected_hdrs["X-Goog-Api-Key"]
         return new_req
 
 
@@ -61,6 +66,9 @@ def read_url(url, source_id=None):
     host = urlparse(url).hostname
     if token and host == "api.github.com":
         headers["Authorization"] = f"token {token}"
+    yt_key = os.environ.get("YOUTUBE_API_KEY")
+    if yt_key and host in ("www.googleapis.com", "googleapis.com"):
+        headers["X-Goog-Api-Key"] = yt_key
     request = Request(url, headers=headers)
     with urlopen(request, timeout=8) as response:
         try:
@@ -76,6 +84,16 @@ def read_url(url, source_id=None):
             # A response was received even if reading/decoding its body failed.
             error.http_status = response.status
             raise
+
+
+def sanitize_secret(text):
+    if not isinstance(text, str):
+        return text
+    for env_var in ("YOUTUBE_API_KEY", "GITHUB_TOKEN"):
+        val = os.environ.get(env_var)
+        if val and len(val) >= 4:
+            text = text.replace(val, "[REDACTED]")
+    return text
 
 
 class Fetcher:
@@ -109,15 +127,17 @@ class Fetcher:
             return [dict(record) for record in self.requests if record["source"] == source_id]
 
     def __call__(self, url, source_id=None):
+        safe_url = sanitize_secret(url)
         try:
             value = self._fetch(url, source_id=source_id)
         except Exception as error:
-            record = dict(source=source_id, url=url, http_status=getattr(error, "http_status", getattr(error, "code", None)), error=f"{type(error).__name__}: {error}"[:300])
+            safe_error = sanitize_secret(f"{type(error).__name__}: {error}")[:300]
+            record = dict(source=source_id, url=safe_url, http_status=getattr(error, "http_status", getattr(error, "code", None)), error=safe_error)
             with self.lock:
                 self.requests.append(record)
             raise
         with self.lock:
-            self.requests.append(dict(source=source_id, url=url, http_status=getattr(value, "status", None), error=None))
+            self.requests.append(dict(source=source_id, url=safe_url, http_status=getattr(value, "status", None), error=None))
         return value
 
     def _fetch(self, url, source_id=None):

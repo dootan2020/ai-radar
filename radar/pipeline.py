@@ -94,7 +94,7 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
         from radar import catalog
         channels += (catalog.NVIDIA_CHANNEL,)
         youtube_sources = [dict(id=c[0], name=c[2] + " YouTube", lab=c[1], kind="youtube",
-                                url="https://www.youtube.com/@" + c[3] + "/streams?hl=en", group="lab",
+                                url="https://www.youtube.com/@" + c[3], group="lab",
                                 publisher=c[1], first_wave=c[0] == "nvidia-youtube") for c in channels]
     pending, completed = queue.Queue(), queue.Queue()
     for job in jobs:
@@ -174,6 +174,8 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
             source = known[record["id"]]
             evidence = fetcher.evidence(record["id"])
             statuses = [row["http_status"] for row in evidence if row["url"] == source.get("url")]
+            if not statuses and evidence:
+                statuses = [row["http_status"] for row in evidence if row.get("http_status") is not None]
             record.update(url=source.get("url"), group=source.get("group", "repository" if source["kind"] in {"hf", "github"} else "lab"),
                           publisher=source.get("publisher") or ("huggingface" if source["kind"] == "hf" else source.get("lab") or "github"),
                           checked_at=iso_date(now), http_status=statuses[-1] if statuses else None,

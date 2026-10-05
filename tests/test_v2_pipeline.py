@@ -178,25 +178,21 @@ class PipelineV2Tests(unittest.TestCase):
     def test_youtube_primary_status_reflects_real_streams_query_request(self):
         self.sources = []
         channels = (youtube.CHANNELS[0], catalog.NVIDIA_CHANNEL)
+        playlist_fixture = (Path(__file__).parent / "fixtures/youtube_api/openai-playlistitems.json").read_text(encoding="utf-8")
+        videos_fixture = (Path(__file__).parent / "fixtures/youtube_api/openai-videos.json").read_text(encoding="utf-8")
         def channel_feed(url, **kwargs):
-            if "/streams" in url:
-                channel = next(channel for channel in channels if "/@" + channel[3] + "/" in url)
-                data = {"metadata": {"channelMetadataRenderer": {"externalId": channel[4]}},
-                        "contents": {"twoColumnBrowseResultsRenderer": {"tabs": [{"tabRenderer": {
-                            "selected": True, "endpoint": {"commandMetadata": {"webCommandMetadata": {
-                                "url": "/@" + channel[3] + "/streams"}}},
-                            "content": {"richGridRenderer": {"contents": [
-                                {"messageRenderer": {"text": {"simpleText": "No streams"}}}]}}}}]}}}
-                return ResponseText("var ytInitialData = " + json.dumps(data) + ";", status=200, url=url)
-            if "/feeds/videos.xml" in url:
-                return ResponseText('<feed xmlns="http://www.w3.org/2005/Atom"/>', status=200, url=url)
-            raise OSError("synthetic unavailable source")
+            if "playlistItems" in url:
+                return ResponseText(playlist_fixture, status=200, url=url)
+            if "videos" in url:
+                return ResponseText(videos_fixture, status=200, url=url)
+            raise OSError("synthetic unavailable source: " + url)
         with patch.object(youtube, "collect", ORIGINAL_YOUTUBE_COLLECT), \
-             patch.object(youtube, "CHANNELS", (channels[0],)):
+             patch.object(youtube, "CHANNELS", (channels[0],)), \
+             patch.dict("os.environ", {"YOUTUBE_API_KEY": "fake-api-key"}):
             result = pipeline.build_v2(fetch=channel_feed, now=NOW, events_path=self.events)
         record = next(row for row in result["sources"] if row["id"] == channels[0][0])
         self.assertTrue(record["ok"], record)
-        self.assertTrue(any("/streams?hl=en" in row["url"] and row["http_status"] == 200
+        self.assertTrue(any("googleapis.com/youtube/v3/playlistItems" in row["url"] and row["http_status"] == 200
                             for row in record["http_requests"]))
         self.assertEqual(record["http_status"], 200)
 
