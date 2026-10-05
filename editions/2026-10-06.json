@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-04T23:00:00Z",
+  "cutoff_at": "2026-10-05T23:00:00Z",
+  "created_at": "2026-10-05T23:02:52Z",
+  "snapshot_generated_at": "2026-10-05T23:00:44Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-05T23:00:44Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "62770fe3e19fe1d0e42a",
+      "title": "OpenAI is adding text watermarking in ChatGPT and Codex",
+      "title_vi": "OpenAI đang thêm watermarking văn bản trong ChatGPT và Codex",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1004880/openai-chatgpt-text-watermarks-eu-ai-act",
+      "published_at": "2026-10-05T18:08:39Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "d5fbe3d41471cd9c6c64",
+          "title": "OpenAI will start watermarking ChatGPT’s text in the EU",
+          "title_vi": "OpenAI sẽ bắt đầu đánh dấu nước văn bản của ChatGPT trong EU",
+          "url": "https://techcrunch.com/2026/10/05/openai-will-start-watermarking-chatgpts-text-in-the-eu/",
+          "published_at": "2026-10-05T20:36:48Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-05T23:00:44Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "b28d74f9c0dcf07316c6",
+          "title": "OpenAI is adding text watermarking in ChatGPT and Codex",
+          "title_vi": "OpenAI đang thêm watermarking văn bản trong ChatGPT và Codex",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1004880/openai-chatgpt-text-watermarks-eu-ai-act",
+          "published_at": "2026-10-05T18:08:39Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-05T23:00:44Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 4.8558,
+          "hot_score": 34.753,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "726fc16e67cb364ffbed",
+      "title": "An open-source tool lets you delete 12GB of Apple Intelligence data on macOS",
+      "title_vi": "Một công cụ mã nguồn mở cho phép bạn xóa 12GB dữ liệu Apple Intelligence trên macOS",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1004672/mac-delete-apple-intelligence-ai-tool",
+      "published_at": "2026-10-05T13:47:14Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "5fb52b271127e3168365",
+          "title": "Command-line tool quickly removes Apple Intelligence from macOS 27",
+          "title_vi": "Công cụ dòng lệnh nhanh chóng loại bỏ Apple Intelligence từ macOS 27",
+          "url": "https://arstechnica.com/apple/2026/10/command-line-tool-quickly-removes-apple-intelligence-from-macos-27/",
+          "published_at": "2026-10-05T19:14:44Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "ars-ai",
+          "publisher": "ars-technica",
+          "group": "press",
+          "observed_at": "2026-10-05T23:00:44Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "d0017d408c3e755c2ff4",
+          "title": "An open-source tool lets you delete 12GB of Apple Intelligence data on macOS",
+          "title_vi": "Một công cụ mã nguồn mở cho phép bạn xóa 12GB dữ liệu Apple Intelligence trên macOS",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1004672/mac-delete-apple-intelligence-ai-tool",
+          "published_at": "2026-10-05T13:47:14Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-05T23:00:44Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "ars-technica",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "ars-technica",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 9.2128,
+          "hot_score": 30.644,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 63,
+    "successful_remote_sources": 63,
+    "failed_remote_sources": []
+  }
+}
