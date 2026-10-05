@@ -7,7 +7,10 @@ import subprocess
 import tempfile
 import unittest
 
-from radar.story_pages import BASE_URL, REF, persist, prepare, render_site, render_story_page
+from radar.story_pages import (
+    BASE_URL, CONTENT_SECURITY_POLICY, REF, SITE_NAME, persist, prepare,
+    render_site, render_story_page,
+)
 
 
 class PageParser(HTMLParser):
@@ -16,30 +19,41 @@ class PageParser(HTMLParser):
         self.metas = {}
         self.links = []
         self.scripts = []
+        self.jsonld = []
+        self.csp = None
         self.main_text = []
         self.in_main = False
         self.in_data_script = False
+        self.in_jsonld = False
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
         if tag == "meta":
             self.metas[attrs.get("property") or attrs.get("name")] = attrs.get("content")
+            if attrs.get("http-equiv") == "Content-Security-Policy":
+                self.csp = attrs.get("content")
         elif tag == "link":
             self.links.append(attrs)
         elif tag == "script" and attrs.get("id") == "story-data":
             self.in_data_script = True
             self.scripts.append("")
+        elif tag == "script" and attrs.get("type") == "application/ld+json":
+            self.jsonld.append("")
+            self.in_jsonld = True
         elif tag == "main" and attrs.get("id") == "story-root":
             self.in_main = True
 
     def handle_endtag(self, tag):
-        if tag == "script" and self.in_data_script:
+        if tag == "script" and (self.in_data_script or self.in_jsonld):
             self.in_data_script = False
+            self.in_jsonld = False
         elif tag == "main":
             self.in_main = False
 
     def handle_data(self, data):
-        if self.in_data_script:
+        if self.in_jsonld:
+            self.jsonld[-1] += data
+        elif self.in_data_script:
             self.scripts[-1] += data
         if self.in_main:
             self.main_text.append(data)
@@ -83,6 +97,7 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertEqual(parser.metas["og:title"], malicious["title_vi"])
         self.assertEqual(parser.metas["og:url"], f"{BASE_URL}/tin/story-1/")
         self.assertEqual(parser.metas["og:image"], malicious["image"]["src"])
+        self.assertEqual(parser.metas["robots"], "max-image-preview:large")
         self.assertTrue(any(link.get("rel") == "canonical" for link in parser.links))
         self.assertIn('href="../../tokens.css"', document)
         self.assertIn('href="../../feed.css"', document)
@@ -91,6 +106,27 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn(malicious["summary_vi"], "".join(parser.main_text))
         self.assertIn(malicious["coverage"][0]["publisher"], "".join(parser.main_text))
         self.assertIn("Tiêu đề gốc", "".join(parser.main_text))
+
+    def test_news_article_uses_only_story_dates_and_jsonld_keeps_existing_csp(self):
+        item = story(
+            title_vi='Headline </script><script>alert("x")</script>',
+            published_at="2026-10-05T18:54:30Z",
+        )
+        document = render_story_page(item)
+        parser = PageParser()
+        parser.feed(document)
+        self.assertEqual(len(parser.jsonld), 1)
+        self.assertNotIn("</script><script>alert", document)
+        article = json.loads(parser.jsonld[0])
+        self.assertEqual(article["@type"], "NewsArticle")
+        self.assertEqual(article["headline"], item["title_vi"])
+        self.assertEqual(article["image"], [item["image"]["src"]])
+        self.assertEqual(article["datePublished"], item["published_at"])
+        self.assertNotIn("dateModified", article)
+        self.assertEqual(article["publisher"], {"@type": "Organization", "name": SITE_NAME})
+        self.assertEqual(parser.csp, CONTENT_SECURITY_POLICY)
+        self.assertNotIn("'unsafe-inline'", parser.csp.split("script-src ", 1)[1].split(";", 1)[0])
+
 
     def test_key_points_and_missing_picture_use_site_default(self):
         document = render_story_page(story(

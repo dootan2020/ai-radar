@@ -13,6 +13,7 @@ import time
 from urllib.parse import urlsplit
 
 BASE_URL = "https://dootan2020.github.io/ai-radar"
+SITE_NAME = "ai·radar"
 BRANCH = "radar-story-pages"
 REF = f"refs/heads/{BRANCH}"
 STORY_ID = re.compile(r"[a-z0-9][a-z0-9_-]*\Z")
@@ -101,6 +102,7 @@ def _page_fields(story, base_url):
     story_id = _story_id(story)
     return {
         "canonical": f"{base_url}/tin/{story_id}/",
+        "date_published": _text(story.get("published_at")) or None,
         "description": description,
         "image": image_url,
         "key_points": _key_points(story),
@@ -120,6 +122,19 @@ def render_story_page(story, base_url=BASE_URL):
     encoded_story = (encoded_story.replace("&", "\\u0026").replace("<", "\\u003c")
                      .replace(">", "\\u003e").replace("\u2028", "\\u2028")
                      .replace("\u2029", "\\u2029"))
+    article_data = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": fields["title"],
+        "image": [fields["image"]],
+        "publisher": {"@type": "Organization", "name": SITE_NAME},
+    }
+    if fields["date_published"]:
+        article_data["datePublished"] = fields["date_published"]
+    encoded_article = json.dumps(article_data, ensure_ascii=False, separators=(",", ":"))
+    encoded_article = (encoded_article.replace("&", "\\u0026").replace("<", "\\u003c")
+                       .replace(">", "\\u003e").replace("\u2028", "\\u2028")
+                       .replace("\u2029", "\\u2029"))
     if fields["key_points"]:
         content = "<ul>" + "".join(f"<li>{esc(point)}</li>" for point in fields["key_points"]) + "</ul>"
     else:
@@ -137,6 +152,7 @@ def render_story_page(story, base_url=BASE_URL):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(fields["title"])}</title>
 <meta name="description" content="{esc(fields["description"])}">
+<meta name="robots" content="max-image-preview:large">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="ai·radar">
 <meta property="og:locale" content="vi_VN">
@@ -156,6 +172,7 @@ def render_story_page(story, base_url=BASE_URL):
 <link rel="stylesheet" href="../../feed.css">
 <link rel="stylesheet" href="../../story.css">
 <script type="application/json" id="story-data">{encoded_story}</script>
+<script type="application/ld+json">{encoded_article}</script>
 <script type="module" src="../../story-page.js"></script>
 </head>
 <body>
