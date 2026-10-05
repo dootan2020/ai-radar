@@ -34,15 +34,15 @@ jobs:
           CANDIDATE_ID: ${{ github.event.inputs.candidate_id }}
           CANDIDATE_KIND: ${{ github.event.inputs.kind }}
         run: |
-          CMD="python -m radar.shadow_collector --summary --output-json shadow-records.json --output-jsonl shadow-records.jsonl --output-summary shadow-summary.md"
-          if [ -n "$CANDIDATE_ID" ]; then
-            CMD="$CMD --id $CANDIDATE_ID"
+          if [ -n "$CANDIDATE_ID" ] && [ -n "$CANDIDATE_KIND" ]; then
+            python -m radar.shadow_collector --summary --output-json shadow-records.json --output-jsonl shadow-records.jsonl --output-summary shadow-summary.md --id "$CANDIDATE_ID" --kind "$CANDIDATE_KIND"
+          elif [ -n "$CANDIDATE_ID" ]; then
+            python -m radar.shadow_collector --summary --output-json shadow-records.json --output-jsonl shadow-records.jsonl --output-summary shadow-summary.md --id "$CANDIDATE_ID"
+          elif [ -n "$CANDIDATE_KIND" ]; then
+            python -m radar.shadow_collector --summary --output-json shadow-records.json --output-jsonl shadow-records.jsonl --output-summary shadow-summary.md --kind "$CANDIDATE_KIND"
+          else
+            python -m radar.shadow_collector --summary --output-json shadow-records.json --output-jsonl shadow-records.jsonl --output-summary shadow-summary.md
           fi
-          if [ -n "$CANDIDATE_KIND" ]; then
-            CMD="$CMD --kind $CANDIDATE_KIND"
-          fi
-          echo "Executing: $CMD"
-          eval $CMD
       - name: Upload Shadow Collector Artifacts
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

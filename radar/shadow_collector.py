@@ -37,6 +37,7 @@ from radar.transport import MAX_BYTES, USER_AGENT, ResponseText
 
 FETCH_TIMEOUT = 10
 GDELT_MIN_INTERVAL = 6.0
+VALID_KINDS = ("fixed feed", "query", "signal")
 
 
 def format_iso_utc(dt=None):
@@ -526,43 +527,6 @@ def parse_gdelt_doc(text, candidate):
     return items, numbers, None
 
 
-def parse_reddit_json(text, candidate):
-    """Parse Reddit JSON listing (/r/.../new.json)."""
-    if not text or not str(text).strip():
-        return [], None, "Empty content"
-    try:
-        data = json.loads(text)
-    except Exception as err:
-        return [], None, f"JSON parse error: {err}"
-
-    children = (
-        data.get("data", {}).get("children", [])
-        if isinstance(data, dict) and isinstance(data.get("data"), dict)
-        else []
-    )
-    items = []
-
-    for child in children:
-        pdata = child.get("data", {}) if isinstance(child, dict) else {}
-        title = clean_text(pdata.get("title") or "")
-        permalink = pdata.get("permalink", "")
-        post_url = web_url(pdata.get("url") or "")
-        target_url = (f"https://www.reddit.com{permalink}" if permalink else "") or post_url
-        author = pdata.get("author") or "reddit"
-        published_at = parse_date_safely(pdata.get("created_utc"))
-
-        if title and target_url:
-            items.append({
-                "title": title,
-                "url": target_url,
-                "publisher": f"r/{pdata.get('subreddit', 'reddit')} u/{author}",
-                "published_at": published_at,
-            })
-
-    numbers = {
-        "post_count": len(items),
-    }
-    return items, numbers, None
 
 
 def parse_federal_register(text, candidate):
@@ -630,7 +594,6 @@ PARSER_REGISTRY = {
     "bluesky_trending": parse_bluesky_trending,
     "hn_algolia": parse_hn_algolia,
     "gdelt_doc": parse_gdelt_doc,
-    "reddit_json": parse_reddit_json,
     "federal_register": parse_federal_register,
     "rss": parse_generic_feed,
     "atom": parse_generic_feed,
@@ -793,8 +756,6 @@ def collect_candidate(candidate, fetch_fn=None, robots_cache=None, check_robots_
                 parser_func = parse_hn_algolia
             elif "gdeltproject.org" in target_url:
                 parser_func = parse_gdelt_doc
-            elif "reddit.com" in target_url:
-                parser_func = parse_reddit_json
             elif "federalregister.gov" in target_url:
                 parser_func = parse_federal_register
             else:
@@ -961,17 +922,24 @@ def main(argv=None):
 
     if args.id:
         target_id = args.id.strip()
-        candidates = [c for c in candidates if c["id"] == target_id]
-        if not candidates:
+        matched = [c for c in candidates if c["id"] == target_id]
+        if not matched:
             sys.stderr.write(f"Error: Candidate ID '{args.id}' not found.\n")
             return 1
+        candidates = matched
 
     if args.kind:
         target_kind = args.kind.strip().lower()
-        candidates = [c for c in candidates if c.get("kind", "").lower() == target_kind]
-        if not candidates:
+        if target_kind not in VALID_KINDS:
+            sys.stderr.write(
+                f"Error: Unknown kind '{args.kind}'. Valid kinds are: {', '.join(repr(k) for k in VALID_KINDS)}.\n"
+            )
+            return 1
+        matched_kind = [c for c in candidates if c.get("kind", "").lower() == target_kind]
+        if not matched_kind:
             sys.stderr.write(f"Error: No candidates found with kind '{args.kind}'.\n")
             return 1
+        candidates = matched_kind
 
     print(f"Shadow Collector: collecting from {len(candidates)} candidates...")
     metadata, records = collect_all(

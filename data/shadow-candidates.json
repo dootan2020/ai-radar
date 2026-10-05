@@ -160,14 +160,6 @@
       "kind": "query",
       "parser": "gdelt_doc",
       "notes": "Global news search; rate limited (paced >= 6 seconds)"
-    },
-    {
-      "id": "reddit-localllama",
-      "name": "Reddit r/LocalLLaMA (.json)",
-      "url": "https://www.reddit.com/r/LocalLLaMA/new.json?limit=25",
-      "kind": "query",
-      "parser": "reddit_json",
-      "notes": "Open weights community announcements; re-measured from GitHub runner"
     }
   ]
 }

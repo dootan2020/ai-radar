@@ -10,7 +10,6 @@ Verifies all shadow collector functionality strictly offline using fixtures and 
 - Bluesky trending topics parsing
 - Hacker News Algolia Show HN parsing
 - GDELT DOC API parsing
-- Reddit .json parsing
 - Robots.txt honouring and caching
 - GDELT >= 6s spacing
 - Snapshot JSON, JSONL stream, and Markdown summary output generation
@@ -18,6 +17,7 @@ Verifies all shadow collector functionality strictly offline using fixtures and 
 """
 
 from datetime import datetime, timezone
+import io
 import json
 from pathlib import Path
 import tempfile
@@ -29,6 +29,7 @@ from urllib.parse import parse_qs, unquote, urlsplit
 from radar.shadow_collector import (
     GDELT_MIN_INTERVAL,
     PARSER_REGISTRY,
+    VALID_KINDS,
     build_google_news_url,
     build_wikipedia_pageviews_url,
     check_robots,
@@ -47,7 +48,6 @@ from radar.shadow_collector import (
     parse_google_trends_rss,
     parse_hn_algolia,
     parse_openrouter_models,
-    parse_reddit_json,
     parse_wikipedia_pageviews,
     render_markdown_summary,
     write_json_snapshot,
@@ -200,22 +200,6 @@ SAMPLE_GDELT_DOC = json.dumps({
     ]
 })
 
-SAMPLE_REDDIT_JSON = json.dumps({
-    "data": {
-        "children": [
-            {
-                "data": {
-                    "title": "GGUF quants for Qwen-2.5-Coder now available",
-                    "url": "https://huggingface.co/models/qwen-coder-gguf",
-                    "permalink": "/r/LocalLLaMA/comments/xyz123/gguf_quants_for_qwen/",
-                    "author": "local_dev",
-                    "subreddit": "LocalLLaMA",
-                    "created_utc": 1728040000
-                }
-            }
-        ]
-    }
-})
 
 SAMPLE_ROBOTS_TXT_ALLOW = "User-agent: *\nAllow: /\n"
 SAMPLE_ROBOTS_TXT_DISALLOW = "User-agent: *\nDisallow: /\n"
@@ -422,17 +406,6 @@ class SignalParsersTests(unittest.TestCase):
         self.assertEqual(items[0]["published_at"], "2026-10-04T18:00:00Z")
         self.assertEqual(numbers["article_count"], 1)
 
-    def test_parse_reddit_json(self):
-        cand = {"id": "reddit-localllama"}
-        items, numbers, error = parse_reddit_json(SAMPLE_REDDIT_JSON, cand)
-
-        self.assertIsNone(error)
-        self.assertEqual(len(items), 1)
-        self.assertEqual(items[0]["title"], "GGUF quants for Qwen-2.5-Coder now available")
-        self.assertIn("LocalLLaMA", items[0]["url"])
-        self.assertEqual(items[0]["publisher"], "r/LocalLLaMA u/local_dev")
-        self.assertIsNotNone(items[0]["published_at"])
-        self.assertEqual(numbers["post_count"], 1)
 
 
 class CollectorPolitenessAndExecutionTests(unittest.TestCase):
@@ -723,6 +696,54 @@ class MainCliTests(unittest.TestCase):
             self.assertEqual(data["total_candidates"], 1)
             self.assertEqual(data["records"][0]["candidate_id"], "sig1")
 
+    def test_main_cli_unknown_id(self):
+        with patch("sys.stderr", new_callable=io.StringIO) as mock_stderr:
+            ret = main(["--id", "unknown-candidate-xyz", "--delay", "0"])
+        self.assertNotEqual(ret, 0)
+        self.assertIn("Candidate ID 'unknown-candidate-xyz' not found", mock_stderr.getvalue())
+
+    def test_main_cli_unknown_kind(self):
+        with patch("sys.stderr", new_callable=io.StringIO) as mock_stderr:
+            ret = main(["--kind", "unknown-kind-xyz", "--delay", "0"])
+        self.assertNotEqual(ret, 0)
+        self.assertIn("Unknown kind 'unknown-kind-xyz'", mock_stderr.getvalue())
+
+    def test_main_cli_fixed_feed_accepted(self):
+        mock_fetch = make_mock_fetch({
+            "https://ff1.com": (200, "<rss><channel><title>FF1</title></channel></rss>", "application/rss+xml"),
+        })
+        with tempfile.TemporaryDirectory() as tmpdir:
+            json_file = Path(tmpdir) / "out.json"
+            cand_file = Path(tmpdir) / "candidates.json"
+            cand_file.write_text(json.dumps({
+                "fixed_feeds": [
+                    {"id": "ff1", "name": "FF1", "kind": "fixed feed", "url": "https://ff1.com/feed", "parser": "rss"}
+                ],
+                "signals": [
+                    {"id": "sig1", "name": "Sig1", "kind": "signal", "url": "https://openrouter.ai/models", "parser": "openrouter_models"}
+                ]
+            }), encoding="utf-8")
+            empty_wl = Path(tmpdir) / "empty-wl.json"
+            empty_wl.write_text(json.dumps({"people": [], "topics": [], "vietnamese": []}), encoding="utf-8")
+
+            with patch("radar.shadow_collector.default_fetch", mock_fetch):
+                ret = main([
+                    "--candidates", str(cand_file),
+                    "--watchlist", str(empty_wl),
+                    "--output-json", str(json_file),
+                    "--output-jsonl", str(Path(tmpdir) / "out.jsonl"),
+                    "--output-summary", str(Path(tmpdir) / "out.md"),
+                    "--kind", "fixed feed",
+                    "--no-robots",
+                    "--delay", "0.0",
+                ])
+
+            self.assertEqual(ret, 0)
+            data = json.loads(json_file.read_text(encoding="utf-8"))
+            self.assertEqual(data["total_candidates"], 1)
+            self.assertEqual(data["records"][0]["candidate_id"], "ff1")
+            self.assertEqual(data["records"][0]["kind"], "fixed feed")
+
 
 class ShadowCollectorEdgeCasesTests(unittest.TestCase):
     def test_gdelt_spacing_enforcement(self):
@@ -748,19 +769,19 @@ class ShadowCollectorEdgeCasesTests(unittest.TestCase):
 
     def test_connection_error_handling(self):
         candidate = {
-            "id": "reddit-fail",
-            "name": "Reddit LocalLLaMA",
+            "id": "dummy-fail",
+            "name": "Dummy Fail",
             "kind": "query",
-            "url": "https://www.reddit.com/r/LocalLLaMA/new.json",
-            "parser": "reddit_json",
+            "url": "https://example.com/fail.xml",
+            "parser": "rss",
         }
         import urllib.error
         mock_fetch = make_mock_fetch({
-            "https://www.reddit.com": urllib.error.URLError("getaddrinfo failed: connection refused"),
+            "https://example.com": urllib.error.URLError("getaddrinfo failed: connection refused"),
         })
 
         record = collect_candidate(candidate, fetch_fn=mock_fetch, check_robots_policy=False)
-        self.assertEqual(record["candidate_id"], "reddit-fail")
+        self.assertEqual(record["candidate_id"], "dummy-fail")
         self.assertIsNone(record["http_status"])
         self.assertIn("URLError", record["error"])
         self.assertEqual(record["item_count"], 0)
