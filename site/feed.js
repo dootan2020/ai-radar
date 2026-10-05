@@ -213,7 +213,15 @@ async function loadData(init = {}) {
 }
 
 /* ---------- small readers ---------- */
-const srcName = id => String((SRC.get(id) || {}).name || id || '').replace(/\s*\(.*?\)\s*/g, ' ').trim();
+const SHORT_NAMES = {
+  'github-ai': 'GitHub',
+  'github-trending': 'GitHub',
+  'techcrunch-ai': 'TechCrunch',
+  'ars-technica-ai': 'Ars Technica',
+  'the-verge-ai': 'The Verge',
+  'lobsters-ai': 'Lobsters',
+};
+const srcName = id => SHORT_NAMES[id] || String((SRC.get(id) || {}).name || id || '').replace(/\s*\(.*?\)\s*/g, ' ').trim();
 const covsOf = st => uniqCoverage(st.coverage, srcName);
 const nSrc = st => covsOf(st).length;
 const exact = iso => { const d = new Date(iso); return Number.isNaN(d.getTime()) ? 'không rõ' : EXACT.format(d); };
@@ -384,12 +392,29 @@ const pinFirst = (a, b) => (PICKS.has(b.id) ? 1 : 0) - (PICKS.has(a.id) ? 1 : 0)
 /* Every list on the page goes through here: editor picks first, then the reader's chosen order. */
 const ordered = list => [...list].sort((a, b) => pinFirst(a, b) || (sortMode === 'new' ? byNew : byWorth)(a, b));
 
+const isNewsCov = c => c && c.source !== 'hn-ai' && c.publisher !== 'hacker-news';
+const newsCovsOf = st => covsOf(st).filter(isNewsCov);
+const nNewsSrc = st => newsCovsOf(st).length;
+
 function choosePicks() {
-  const out = [...PICKS.keys()].map(id => STORY.get(id)).filter(Boolean).slice(0, WORTH.picksMax);
-  const auto = allStories.filter(st => !PICKS.has(st.id) && worthOf(st).evidence).sort(byWorth);
-  for (const st of auto) {
-    if (out.length >= WORTH.picksMax) break;
+  const out = [...PICKS.keys()].map(id => STORY.get(id)).filter(st => st && nNewsSrc(st) >= 2).slice(0, 3);
+  const candidates = allStories.filter(st => !PICKS.has(st.id) && nNewsSrc(st) >= 2 && worthOf(st).evidence).sort(byWorth);
+  if (!out.length) {
+    const photoLeadIndex = candidates.findIndex(st => pickImage(st).kind === 'photo');
+    if (photoLeadIndex >= 0) {
+      out.push(candidates.splice(photoLeadIndex, 1)[0]);
+    }
+  }
+  for (const st of candidates) {
+    if (out.length >= 3) break;
     if (!out.some(o => sameEvent(o, st))) out.push(st);
+  }
+  if (out.length < 3) {
+    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && nNewsSrc(st) >= 2 && worthOf(st).evidence).sort(byWorth);
+    for (const st of fallback) {
+      if (out.length >= 3) break;
+      if (!out.some(o => sameEvent(o, st))) out.push(st);
+    }
   }
   return out;
 }
@@ -584,12 +609,12 @@ function renderCard(st, size = 'std', opts = {}) {
   // discussion link. #tin/<id> opens the same panel.
   const covId = `cov-${esc(st.id)}`;
   const metric = [
-    m ? `<span>${numB(m)} ${esc(m.word)}${m.where && m.where !== name ? ` trên ${esc(m.where)}` : ''}</span>` : '',
+    (m && !opts.why) ? `<span>${numB(m)} ${esc(m.word)}</span>` : '',
     `<button class="cov-btn" data-cov="${esc(st.id)}" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${covs.length > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${covs.length}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`
   ].filter(Boolean).join('<span aria-hidden="true">·</span>');
   const cal = calOf(st);
   const isSaved = savedHas(st.id);
-  const cls = ['feed-card', `card-${size}`, photo ? 'card-photo' : '', statusClass(st)].filter(Boolean).join(' ');
+  const cls = ['feed-card', `card-${size}`, opts.debate ? 'card-debate' : '', photo ? 'card-photo' : '', statusClass(st)].filter(Boolean).join(' ');
 
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}" data-worth="${worthOf(st).score.toFixed(1)}">
   ${reasonTag(st)}
@@ -644,7 +669,7 @@ function renderLive() {
         : { head: 'Xem lại', badge: streamedAge(it.time_text) || 'Đã phát', action: `Xem lại${where}`, live: false };
     head = S.head;
     const thumb = it.thumbnail || (it.video_id ? `https://i.ytimg.com/vi/${it.video_id}/hqdefault.jpg` : '');
-    video = `<a class="tile-video" href="${esc(safe(it.url))}" target="_blank" rel="noopener" aria-label="${esc(S.action)}: ${esc(it.title)}">
+    video = `<div class="live-video"><a class="tile-video" href="${esc(safe(it.url))}" target="_blank" rel="noopener" aria-label="${esc(S.action)}: ${esc(it.title)}">
       ${thumb ? `<img src="${esc(thumb)}" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : ''}
       <span class="video-badge${S.live ? ' is-live' : ''}">${esc(S.badge)}</span>
       <span class="video-play">${icon('i-play')}</span>
@@ -652,10 +677,10 @@ function renderLive() {
     <p class="video-title"${langAttr(it.title)}>${esc(it.title)}</p>
     <p class="video-meta">${esc(it.channel || '')}${where}</p>
     <a class="tile-action${S.live ? ' is-live' : ''}" href="${esc(safe(it.url))}" target="_blank" rel="noopener">${icon('i-play')}${esc(S.action)}</a>
-    ${it.status === 'upcoming' ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}`;
+    ${it.status === 'upcoming' ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}</div>`;
   }
   const evStory = e => asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
-  const evHTML = events.length ? `${it ? '<h3 class="tile-sub">Sắp diễn ra</h3>' : ''}
+  const evHTML = events.length ? `<div class="live-events">${it ? '<h3 class="tile-sub">Sắp diễn ra</h3>' : ''}
     <ul class="events">${events.map(e => {
       const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(e.start_date || '');
       const st = evStory(e);
@@ -666,10 +691,10 @@ function renderLive() {
         <span class="event-text"><span class="event-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>
         <span class="event-when">${esc(eventRange(e.start_date, e.end_date))} · ${esc(e.location || '')} · ${daysLeftHTML(daysUntil(e.start_date, e.end_date))}</span></span></a>
         ${calButtons(cal, st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</li>`;
-    }).join('')}</ul>` : '';
+    }).join('')}</ul></div>` : '';
   return `<section class="tile tile-live" aria-labelledby="live-h">
     <div class="tile-head"><h2 class="tile-title" id="live-h">${esc(head)}</h2>${it ? '<span class="tile-note">phát sóng</span>' : ''}</div>
-    ${video}${evHTML}</section>`;
+    <div class="live-body">${video}${evHTML}</div></section>`;
 }
 
 /* ---------- tile: hot, and why ---------- */
@@ -843,16 +868,13 @@ function renderPicks() {
   const show = filter === 'all' && PICKLIST.length > 0;
   $('#picks').hidden = !show;
   if (!show) return;
-  const [first, ...rest] = PICKLIST;
-  const nEd = PICKLIST.filter(st => PICKS.has(st.id)).length;
-  // Says who chose what, every time: automatic picks are never presented as an editor's.
-  $('#picks-note').textContent = !nEd ? 'chấm tự động theo số đo, không phải do người chọn'
-    : nEd === PICKLIST.length ? 'do biên tập chọn'
-    : `${nEd} tin do biên tập chọn, ${PICKLIST.length - nEd} tin chấm tự động theo số đo`;
+  const [first, ...mid] = PICKLIST;
+  const noteEl = $('#picks-note');
+  if (noteEl) noteEl.textContent = '';
   const grid = $('#picks-grid');
-  grid.classList.toggle('is-solo', !rest.length);
-  grid.innerHTML = renderCard(first, 'lead', { rank: 1, why: true, h: 'h3' })
-    + (rest.length ? `<ol class="tile picks-list" start="2" aria-label="Đáng đọc tiếp theo">${rest.map((st, i) => pickRow(st, i + 2)).join('')}</ol>` : '');
+  grid.innerHTML = renderCard(first, 'lead', { why: true, h: 'h3' })
+    + (mid.length ? `<div class="picks-mid">${mid.map(st => renderCard(st, 'std', { h: 'h3' })).join('')}</div>` : '')
+    + renderLive();
 }
 
 /* "Cách chấm": written from WORTH, so the note always matches the code. */
@@ -877,7 +899,7 @@ function renderHow() {
    repository tiles side by side, rows of four cards, a wide photo card every third row. Phone: the same order, one
    column. The river follows the switch: "Đáng đọc nhất" (score) or "Mới nhất" (published time).
    ========================================================================== */
-const C = (st, size = 'std') => ({ t: 'card', st, size });
+const C = (st, size = 'std', opts = {}) => ({ t: 'card', st, size, opts });
 const photoIndex = river => river.findIndex((st, k) => k < 12 && pickImage(st).kind === 'photo');
 
 function rows(river, out) {
@@ -891,29 +913,83 @@ function rows(river, out) {
 
 function buildAll() {
   const out = [], used = new Set(PICKLIST.map(st => st.id));
-  // The hot tile skips what the block already shows, including the same event under another headline.
-  HOT = allStories.filter(st => !used.has(st.id) && st.hot_score > 0 && !PICKLIST.some(p => sameEvent(p, st)))
+
+  // --- Khối 2: Cộng đồng đang tranh luận ---
+  HOT = allStories.filter(st => !used.has(st.id) && (st.hot_score || 0) > 0 && !PICKLIST.some(p => sameEvent(p, st)))
     .sort((a, b) => b.hot_score - a.hot_score).slice(0, 5);
   HOT.forEach(st => used.add(st.id));
-  const river = ordered(allStories.filter(st => !used.has(st.id)));
-  // Another headline for an event the block already shows would read as a repeat right under it: it keeps its place
-  // in the feed but starts after the opening rows (six cards, the two tiles, four cards). "Mới nhất" stays by time.
-  const twins = sortMode === 'new' ? [] : river.filter(st => PICKLIST.some(p => sameEvent(p, st)));
-  if (twins.length) {
-    const rest = river.filter(st => !twins.includes(st));
-    river.splice(0, river.length, ...rest.slice(0, 10), ...twins, ...rest.slice(10));
+
+  const discussions = allStories.filter(st => !used.has(st.id) && (st.kind === 'forum' || (st.hot_score || 0) > 0))
+    .sort((a, b) => (b.hot_score || 0) - (a.hot_score || 0) || ms(b.published_at) - ms(a.published_at));
+  const debateCards = [];
+  for (const st of discussions) {
+    if (debateCards.length >= 2) break;
+    if (!HOT.some(h => sameEvent(h, st))) {
+      debateCards.push(st);
+      used.add(st.id);
+    }
   }
 
-  out.push({ t: 'live' });
-  for (let i = 0; i < 6 && river.length; i++) out.push(C(river.shift()));
-  out.push({ t: 'hot' }, { t: 'repos' });
-  for (let i = 0; i < 4 && river.length; i++) out.push(C(river.shift()));
-  const wi = photoIndex(river);
-  if (wi >= 0) out.push(C(river.splice(wi, 1)[0], 'wide'));
-  else if (river.length) out.push(C(river.shift()));
-  for (let i = 0; i < (wi >= 0 ? 1 : 2) && river.length; i++) out.push(C(river.shift()));
+  out.push({
+    t: 'section-head',
+    id: 'sec-tranh-luan',
+    title: 'Cộng đồng đang tranh luận',
+    sub: 'Các chủ đề thu hút nhiều thảo luận và tốc độ quan tâm đột biến trên Hacker News và các diễn đàn.'
+  });
+  out.push({ t: 'hot' });
+  debateCards.forEach(st => out.push(C(st, 'std', { debate: true })));
+
+  // --- Khối 3: Vừa ra mắt & Công bố mới ---
+  const productCandidates = allStories.filter(st => !used.has(st.id) && (st.kind === 'product' || firstHandOf(st)))
+    .sort((a, b) => (sortMode === 'new' ? byNew : byWorth)(a, b));
+  const productCards = [];
+  for (const st of productCandidates) {
+    if (productCards.length >= 4) break;
+    if (!productCards.some(p => sameEvent(p, st))) {
+      productCards.push(st);
+      used.add(st.id);
+    }
+  }
+
+  if (productCards.length) {
+    out.push({
+      t: 'section-head',
+      id: 'sec-ra-mat',
+      title: 'Vừa ra mắt & Công bố mới',
+      sub: 'Các sản phẩm, tính năng và công bố chính thức từ các hãng và phòng nghiên cứu.'
+    });
+    const wi = photoIndex(productCards);
+    if (wi >= 0 && productCards.length >= 3) {
+      out.push(C(productCards.splice(wi, 1)[0], 'wide'));
+      productCards.slice(0, 2).forEach(st => out.push(C(st, 'std')));
+    } else {
+      productCards.forEach(st => out.push(C(st, 'std')));
+    }
+  }
+
+  // --- Khối 4: Kho mã & Mô hình đáng thử ---
+  out.push({
+    t: 'section-head',
+    id: 'sec-kho-ma',
+    title: 'Kho mã & Mô hình đáng thử',
+    sub: 'Kho mã nguồn mở tăng sao nhanh nhất trên GitHub và mô hình thịnh hành trên Hugging Face.'
+  });
+  out.push({ t: 'repos' });
   out.push({ t: 'models' });
-  return rows(river, out);
+
+  // --- Khối 5: Dòng tin 72 giờ qua ---
+  const river = ordered(allStories.filter(st => !used.has(st.id)));
+  if (river.length) {
+    out.push({
+      t: 'section-head',
+      id: 'sec-dong-tin',
+      title: 'Dòng tin 72 giờ qua',
+      sub: 'Toàn bộ diễn biến khác trong 72 giờ qua, cập nhật liên tục từ các nguồn tin độc lập.'
+    });
+    rows(river, out);
+  }
+
+  return out;
 }
 
 const FILTERS = {
@@ -977,14 +1053,22 @@ function renderSavedRest() {
       <button class="act is-saved" data-act="save" data-id="${esc(x.key)}" aria-pressed="true" aria-label="Bỏ lưu ${esc(x.title || '')}" title="Bỏ lưu">${icon('i-close')}</button></li>`).join('')}</ul></section>`;
 }
 
+function renderSectionHead(it) {
+  return `<header class="briefing-head" id="${esc(it.id || '')}">
+    <h2 class="briefing-title">${esc(it.title)}</h2>
+    <p class="briefing-sub">${esc(it.sub)}</p>
+  </header>`;
+}
+
 function renderItem(it) {
-  if (it.t === 'card') return renderCard(it.st, it.size);
+  if (it.t === 'card') return renderCard(it.st, it.size, it.opts);
   if (it.t === 'live') return renderLive();
   if (it.t === 'hot') return renderHot();
   if (it.t === 'repos') return renderRepos();
   if (it.t === 'repos-full') return renderRepos(true);
   if (it.t === 'models') return renderModels();
   if (it.t === 'saved-rest') return renderSavedRest();
+  if (it.t === 'section-head') return renderSectionHead(it);
   return '';
 }
 
@@ -1218,10 +1302,11 @@ function translationNote() {
 function footHTML() {
   const r = D.ranking;
   const rank = r ? `Xếp hạng nóng: ${esc(r.description || 'xếp theo số đo của từng nguồn')}, cửa sổ ${esc(r.window_hours)} giờ${r.description && r.calibration ? `, hiệu chỉnh: ${esc(r.calibration)}` : ''}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.';
+  const scoring = ' Điểm đáng đọc được tính tự động từ 4 tín hiệu số đo (độ chú ý, độ lan rộng nhiều nguồn, độ mới và công bố gốc), không có điểm gõ tay.';
   const views = D.views && Number.isFinite(D.views.total) ? ` Lượt xem trên ai-radar: <span class="num">${fmt(D.views.total)}</span>, đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie.` : '';
   const local = storageOk ? 'Mốc đã xem, tin đã đọc, tin đã lưu và lựa chọn của bạn chỉ lưu trên máy này.'
     : 'Trình duyệt đang chặn bộ nhớ cục bộ, nên mốc đã xem, tin đã lưu và lựa chọn của bạn chỉ giữ tới khi đóng trang.';
-  return `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${rank} ${translationNote()}${views} ${local}`;
+  return `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${rank}${scoring} ${translationNote()}${views} ${local}`;
 }
 function renderSources() {
   const srcs = asArray(D.sources), bad = srcs.filter(s => !s.ok);
@@ -1415,13 +1500,17 @@ function attachEvents() {
     if (filter === 'all') markSeen();
     else toast('Đã đánh dấu nhóm này đã xem');
   });
-  $('#sort-switch').addEventListener('click', e => { const b = e.target.closest('.sort-btn'); if (b) setSort(b.dataset.sort); });
-  $('#how-btn').addEventListener('click', () => {
-    const panel = $('#how-panel'), open = panel.hidden;
-    panel.hidden = !open;
-    $('#how-btn').setAttribute('aria-expanded', String(open));
-    $('#how-btn').textContent = open ? 'Ẩn cách chấm' : 'Cách chấm';
-  });
+  const howBtn = $('#how-btn');
+  if (howBtn) {
+    howBtn.addEventListener('click', () => {
+      const panel = $('#how-panel');
+      if (!panel) return;
+      const open = panel.hidden;
+      panel.hidden = !open;
+      howBtn.setAttribute('aria-expanded', String(open));
+      howBtn.textContent = open ? 'Ẩn cách chấm' : 'Cách chấm';
+    });
+  }
   $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
   document.addEventListener('click', onClick);
   document.addEventListener('auxclick', e => { if (e.button === 1) onOpenLink(e); });
