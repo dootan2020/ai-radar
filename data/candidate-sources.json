@@ -277,6 +277,61 @@
     "url": "https://vnexpress.net/rss/so-hoa.rss",
     "label": "bao-chi",
     "circle_id": "circle-press-relay",
-    "circle_name": "Press that relays posts on X (the free, indirect route to Musk, Altman, Huang, Tibo)"
+    "circle_name": "Press that relays posts on X (the free, indirect route to Musk, Altman, Huang, Tibo)",
+    "notes": "Confirmed 404 on runner across 78 runs; redirects to Khoa học công nghệ feed (already ingested as vnexpress-tech); removed from production catalog as duplicate."
+  },
+  {
+    "id": "google-deepmind-keyword-blog",
+    "name": "Google DeepMind - The Keyword (Google Blog)",
+    "url": "https://blog.google/technology/ai/google-deepmind/rss/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)",
+    "notes": "Google's official The Keyword blog topic feed for Google DeepMind. Matches existing working google-ai feed format (blog.google/technology/ai/rss/) documented in docs/source-feed-check-2026-10-03.md; avoids the challenge-page/malformed XML issue observed on deepmind.google/blog/rss.xml on hosted runners."
+  },
+  {
+    "id": "google-deepmind-youtube",
+    "name": "Google DeepMind YouTube Feed",
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCP7jMXSY2xbc3KCAE0MHQ-A",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)",
+    "notes": "Official Google DeepMind YouTube channel feed (channel ID UCP7jMXSY2xbc3KCAE0MHQ-A). Found in repository test fixture tests/fixtures/youtube-runner-channel-googledeepmind.html and referenced in docs/p1-r2-source-status.md line 16."
+  },
+  {
+    "id": "import-ai-jack-clark",
+    "name": "Import AI (Jack Clark Mirror)",
+    "url": "https://jack-clark.net/feed/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Phân tích & Tiếng nói AI (curators, newsletters, podcasts)",
+    "notes": "Jack Clark's self-hosted Import AI website mirror feed. Identified on author's official about page https://importai.substack.com/about and documented in docs/p1-r2-source-status.md line 15. Provides direct WordPress RSS feed bypassing Substack 403 on GitHub runners."
+  },
+  {
+    "id": "latent-space-podcast-playlist",
+    "name": "Latent Space Podcast (YouTube Playlist Feed)",
+    "url": "https://www.youtube.com/feeds/videos.xml?playlist_id=PLWEAb1SXhjlfkEF_PxzYHonU_v5LPMI8L",
+    "label": "chinh-thuc",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Phân tích & Tiếng nói AI (curators, newsletters, podcasts)",
+    "notes": "Latent Space official podcast playlist feed on YouTube (playlist PLWEAb1SXhjlfkEF_PxzYHonU_v5LPMI8L). Identified from official about page https://www.latent.space/about and documented in docs/p1-r2-source-status.md line 14. Provides public RSS without Substack 403."
+  },
+  {
+    "id": "dwarkesh-podcast-patel",
+    "name": "Dwarkesh Patel Feed",
+    "url": "https://www.dwarkeshpatel.com/feed",
+    "label": "chinh-thuc",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Phân tích & Tiếng nói AI (curators, newsletters, podcasts)",
+    "notes": "Author's independent website feed linked from https://www.dwarkesh.com/about (referenced in docs/p1-r2-source-status.md line 13). Provides non-Substack RSS for Dwarkesh Patel's episodes and writing."
+  },
+  {
+    "id": "cnbc-tech-gateway",
+    "name": "CNBC Tech Syndicated Partner Feed",
+    "url": "https://search.cnbc.com/rs/search/combined/view.xml?partnerId=wrss01&id=19854910",
+    "label": "bao-chi",
+    "circle_id": "circle-press-relay",
+    "circle_name": "Press that relays posts on X (the free, indirect route to Musk, Altman, Huang, Tibo)",
+    "notes": "CNBC's public syndicated partner feed gateway (partnerId=wrss01 for category ID 19854910 Technology, corresponding to the original catalog URL cnbc.com/id/19854910). Syndication gateway serves raw XML without Cloudflare anti-bot 403 on GitHub runners."
   }
 ]

@@ -1,5 +1,7 @@
 """RSS/Atom lab news. Community feed attribution is explicit."""
 
+from datetime import datetime, timezone, timedelta
+from email.utils import parsedate_to_datetime
 import re
 import xml.etree.ElementTree as ET
 
@@ -70,7 +72,9 @@ def parse_feed(text, source):
                 break
         url = web_url(url.strip())
         title = clean_text(_field(entry, "title"), 500)
-        date = iso_date(_field(entry, "pubDate", "published", "date", "updated"))
+        date = _field(entry, "pubDate", "published", "date", "updated")
+        default_tz = source.get("default_tz") or source.get("timezone") or source.get("tz")
+        date = iso_date(date, default_tz=default_tz)
         if not url or not title or url in seen:
             continue
         seen.add(url)

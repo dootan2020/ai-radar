@@ -43,17 +43,13 @@ def instant(value):
         return None
 
 
-def published_date(value):
+def published_date(value, default_tz=None):
     """Source timestamps must carry a real timezone; date-only is not midnight."""
-    parsed = instant(value)
-    if parsed is None and isinstance(value, str):
-        try:
-            parsed = parsedate_to_datetime(value)
-            if parsed.tzinfo is None:
-                return None
-        except (TypeError, ValueError, OverflowError):
-            return None
-    return iso_date(parsed)
+    if not value or not isinstance(value, (str, datetime)):
+        return None
+    if isinstance(value, str) and re.match(r"^\d{4}-\d{2}-\d{2}$", value.strip()):
+        return None
+    return iso_date(value, default_tz=default_tz)
 
 
 def observation(source, title, url, published_at, observed_at, *, kind="other", summary="",
@@ -63,7 +59,8 @@ def observation(source, title, url, published_at, observed_at, *, kind="other", 
     url = web_url(url)
     if not url or not canonical_url(url) or not clean_text(title, 500):
         return None
-    date = published_date(published_at)
+    default_tz = source.get("default_tz") or source.get("timezone") or source.get("tz")
+    date = published_date(published_at, default_tz=default_tz)
     discussion_url = web_url(discussion_url)
     # Different forum threads can discuss the same target URL. Their votes and
     # baselines belong to the thread, while the target still anchors the story.

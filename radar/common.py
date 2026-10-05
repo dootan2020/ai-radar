@@ -2,7 +2,7 @@
 
 import hashlib
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 from urllib.parse import urlsplit
@@ -39,20 +39,83 @@ def clean_text(value, limit=300):
     return " ".join("".join(parser.parts).split())[:limit]
 
 
-def iso_date(value):
+def resolve_timezone(tz):
+    if tz is None:
+        return None
+    if isinstance(tz, timezone) or hasattr(tz, "utcoffset"):
+        return tz
+    if isinstance(tz, timedelta):
+        return timezone(tz)
+    if isinstance(tz, (int, float)):
+        return timezone(timedelta(hours=tz))
+    if isinstance(tz, str):
+        tz = tz.strip()
+        if tz.upper() in {"UTC", "GMT", "Z"}:
+            return timezone.utc
+        m = re.match(r"^UTC\s*([+-]\d{1,2})(?::?(\d{2}))?$", tz, re.I)
+        if m:
+            hours = int(m.group(1))
+            mins = int(m.group(2) or 0)
+            sign = -1 if hours < 0 else 1
+            return timezone(timedelta(hours=hours, minutes=sign * mins))
+        m = re.match(r"^([+-]\d{1,2})(?::?(\d{2}))?$", tz)
+        if m:
+            hours = int(m.group(1))
+            mins = int(m.group(2) or 0)
+            sign = -1 if hours < 0 else 1
+            return timezone(timedelta(hours=hours, minutes=sign * mins))
+        if tz in {"Asia/Ho_Chi_Minh", "Asia/Saigon", "Asia/Bangkok", "ICT"}:
+            return timezone(timedelta(hours=7))
+    return None
+
+
+def iso_date(value, default_tz=None):
     """Accept ISO/RFC 2822 timestamps; unknown dates stay unknown."""
     if not value or not isinstance(value, (str, datetime)):
         return None
-    try:
-        date = value if isinstance(value, datetime) else datetime.fromisoformat(value.replace("Z", "+00:00"))
-    except (ValueError, TypeError):
+    date = None
+    if isinstance(value, datetime):
+        date = value
+    else:
+        s = value.strip()
+        # A two-digit +HH/-HH offset after a time means hours (e.g. "+07" -> "+0700")
+        s = re.sub(
+            r'(\d{1,2}:\d{2}(?::\d{2})?(?:\.\d+)?\s*)(?:GMT|UTC)?([+-]\d{2})(\s*(?:\([^)]*\))?\s*)$',
+            r'\g<1>\g<2>00\g<3>',
+            s
+        )
         try:
-            date = parsedate_to_datetime(value)
-        except (ValueError, TypeError, OverflowError):
-            return None
+            date = datetime.fromisoformat(s.replace("Z", "+00:00"))
+        except (ValueError, TypeError):
+            try:
+                date = parsedate_to_datetime(s)
+            except (ValueError, TypeError, OverflowError):
+                for fmt in (
+                    "%m/%d/%Y %I:%M:%S %p",
+                    "%m/%d/%Y %I:%M %p",
+                    "%d/%m/%Y %H:%M:%S",
+                    "%d/%m/%Y %H:%M",
+                    "%Y/%m/%d %H:%M:%S",
+                    "%Y-%m-%d %H:%M:%S",
+                ):
+                    try:
+                        date = datetime.strptime(re.sub(r"\s+", " ", s), fmt)
+                        break
+                    except (ValueError, TypeError):
+                        pass
+
+    if date is None:
+        return None
+
+    resolved_tz = resolve_timezone(default_tz)
     if date.tzinfo is None:
-        date = date.replace(tzinfo=timezone.utc)
+        if resolved_tz is not None:
+            date = date.replace(tzinfo=resolved_tz)
+        else:
+            return None
+
     return date.astimezone(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+
 
 
 def web_url(value):

@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       candidate_id:
-        description: 'Candidate ID to probe (optional; leave blank to probe all 35 candidates)'
+        description: 'Candidate ID to probe (optional; leave blank to probe all 41 candidates)'
         required: false
         default: ''
 

@@ -52,7 +52,7 @@ class TechnodeAllowanceTests(unittest.TestCase):
     def test_technode_per_source_allowance(self):
         self.assertEqual(transport.SOURCE_MAX_BYTES.get("technode"), 24 * 1024 * 1024)
         self.assertEqual(transport.max_bytes_for("technode"), 24 * 1024 * 1024)
-        self.assertEqual(transport.max_bytes_for("vnexpress-so-hoa"), 8 * 1024 * 1024)
+        self.assertEqual(transport.max_bytes_for("vnexpress-tech"), 8 * 1024 * 1024)
         self.assertEqual(transport.max_bytes_for(None), 8 * 1024 * 1024)
         self.assertEqual(transport.max_bytes_for("unknown-id"), 8 * 1024 * 1024)
 
@@ -108,7 +108,7 @@ class TransportContractTests(unittest.TestCase):
 
         # standard source fails with 12 MiB (8 MiB limit)
         with self.assertRaisesRegex(ValueError, "Source response exceeds 8 MiB limit"):
-            fetcher("https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss", source_id="vnexpress-so-hoa")
+            fetcher("https://e.vnexpress.net/rss/tech.rss", source_id="vnexpress-tech")
 
     def test_fetcher_rejects_technode_exceeding_24_mib(self):
         import time
