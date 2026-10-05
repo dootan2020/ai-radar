@@ -10,7 +10,7 @@ from radar.search_index import search_payload, search_path
 
 PAGE_FIELDS = (
     "schema_version", "generated_at", "freshness", "stories", "sections", "sources",
-    "repos", "repos_meta", "events", "live", "ranking", "translation", "views",
+    "repos", "repos_meta", "events", "live", "ranking", "translation", "views", "summary",
 )
 
 
