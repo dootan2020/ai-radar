@@ -24,6 +24,7 @@ CONTENT_SECURITY_POLICY = (
     "img-src 'self' https:; font-src 'self'; connect-src 'self' https://hn.algolia.com "
     "https://huggingface.co https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';"
 )
+TEMPLATE_PATH = Path(__file__).with_name("story_page_template.html")
 
 
 def _json_bytes(value):
@@ -114,11 +115,20 @@ def _page_fields(story, base_url):
     }
 
 
-def render_story_page(story, base_url=BASE_URL):
+def render_story_page(story, base_url=BASE_URL, sources=None):
     """Render crawler-readable HTML; publisher data is escaped in every context."""
     fields = _page_fields(story, base_url.rstrip("/"))
     esc = lambda value: html.escape(str(value), quote=True)
-    encoded_story = json.dumps(story, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+    story_data = dict(story)
+    source_ids = {item.get("source") for item in story.get("coverage", [])
+                  if isinstance(item, dict) and isinstance(item.get("source"), str)}
+    if isinstance(story.get("source"), str):
+        source_ids.add(story["source"])
+    source_map = {item["id"]: item for item in (sources or [])
+                  if isinstance(item, dict) and isinstance(item.get("id"), str)}
+    story_data["source_records"] = [source_map[source_id] for source_id in sorted(source_ids)
+                                    if source_id in source_map]
+    encoded_story = json.dumps(story_data, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
     encoded_story = (encoded_story.replace("&", "\\u0026").replace("<", "\\u003c")
                      .replace(">", "\\u003e").replace("\u2028", "\\u2028")
                      .replace("\u2029", "\\u2029"))
@@ -135,58 +145,27 @@ def render_story_page(story, base_url=BASE_URL):
     encoded_article = (encoded_article.replace("&", "\\u0026").replace("<", "\\u003c")
                        .replace(">", "\\u003e").replace("\u2028", "\\u2028")
                        .replace("\u2029", "\\u2029"))
-    if fields["key_points"]:
-        content = "<ul>" + "".join(f"<li>{esc(point)}</li>" for point in fields["key_points"]) + "</ul>"
-    else:
-        content = f"<p>{esc(fields['summary'])}</p>" if fields["summary"] else ""
-    attribution = ""
-    if fields["publisher"]:
-        attribution = f"<p>{esc(fields['publisher'])} · "
-    else:
-        attribution = "<p>"
-    attribution += f'<a href="{esc(fields["original_url"])}">{esc(fields["original_title"])}</a></p>'
-    return f'''<!doctype html>
-<html lang="vi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(fields["title"])}</title>
-<meta name="description" content="{esc(fields["description"])}">
-<meta name="robots" content="max-image-preview:large">
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="ai·radar">
-<meta property="og:locale" content="vi_VN">
-<meta property="og:url" content="{esc(fields["canonical"])}">
-<meta property="og:title" content="{esc(fields["title"])}">
-<meta property="og:description" content="{esc(fields["description"])}">
-<meta property="og:image" content="{esc(fields["image"])}">
-<meta property="og:image:alt" content="{esc(fields["title"])}">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{esc(fields["title"])}">
-<meta name="twitter:description" content="{esc(fields["description"])}">
-<meta name="twitter:image" content="{esc(fields["image"])}">
-<link rel="canonical" href="{esc(fields["canonical"])}">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="{CONTENT_SECURITY_POLICY}">
-<link rel="stylesheet" href="../../tokens.css">
-<link rel="stylesheet" href="../../feed.css">
-<link rel="stylesheet" href="../../story.css">
-<script type="application/json" id="story-data">{encoded_story}</script>
-<script type="application/ld+json">{encoded_article}</script>
-<script type="module" src="../../story-page.js"></script>
-</head>
-<body>
-<main id="story-root">
-<article>
-<h1>{esc(fields["title"])}</h1>
-<img src="{esc(fields["image"])}" alt="{esc(fields["title"])}">
-{content}
-{attribution}
-</article>
-</main>
-</body>
-</html>
-'''
+    points_html = "".join(f'<li class="story-point-item"><span class="story-point-text">{esc(point)}</span></li>'
+                           for point in fields["key_points"])
+    fallback_content = (f'<section class="story-keypoints-box" aria-label="Ý chính của câu chuyện">'
+                        f'<h2 class="story-section-h2">Ý chính của câu chuyện</h2>'
+                        f'<ol class="story-points-list">{points_html}</ol></section>'
+                        if points_html else
+                        f'<section class="story-summary-box"><h2 class="story-section-h2">Tóm lược bài viết</h2>'
+                        f'<p class="story-summary-text">{esc(fields["summary"] or fields["title"])}</p></section>')
+    publisher_html = f'<span class="story-pub-name">{esc(fields["publisher"])}</span>' if fields["publisher"] else ""
+    document = TEMPLATE_PATH.read_text(encoding="utf-8")
+    values = {
+        "{{TITLE}}": esc(fields["title"]), "{{DESCRIPTION}}": esc(fields["description"]),
+        "{{CANONICAL}}": esc(fields["canonical"]), "{{IMAGE}}": esc(fields["image"]),
+        "{{STORY_ID}}": esc(story["id"]), "{{PUBLISHER}}": publisher_html,
+        "{{PUBLISHER_NAME}}": esc(fields["publisher"]),
+        "{{ORIGINAL_TITLE}}": esc(fields["original_title"]), "{{ORIGINAL_URL}}": esc(fields["original_url"]),
+        "{{CONTENT}}": fallback_content, "{{STORY_DATA}}": encoded_story,
+        "{{JSONLD}}": encoded_article, "{{CSP}}": esc(CONTENT_SECURITY_POLICY),
+        "{{THEME_SCRIPT}}": "try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}",
+    }
+    return re.sub(r"\{\{[A-Z_]+\}\}", lambda match: values[match.group(0)], document)
 
 
 def _validated_story_map(stories):
@@ -203,7 +182,7 @@ def _validated_story_map(stories):
     return result
 
 
-def render_site(stories, site, base_url=BASE_URL):
+def render_site(stories, site, base_url=BASE_URL, sources=None):
     """Write exactly the archived story pages and matching sitemap."""
     site = Path(site)
     tin = site / "tin"
@@ -222,7 +201,7 @@ def render_site(stories, site, base_url=BASE_URL):
     for story_id in sorted(stories):
         story = stories[story_id]
         path = tin / story_id / "index.html"
-        _write_bytes(path, render_story_page(story, base_url).encode("utf-8"))
+        _write_bytes(path, render_story_page(story, base_url, sources).encode("utf-8"))
         urls.append(f"{base_url.rstrip('/')}/tin/{story_id}/")
     entries = "".join(f"<url><loc>{html.escape(url)}</loc></url>" for url in urls)
     sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -342,6 +321,7 @@ def prepare(remote, input_path, site, candidate, base_url=BASE_URL):
     if not isinstance(payload, dict) or not isinstance(payload.get("stories"), list):
         raise ValueError("Story snapshot has no stories list")
     current = _validated_story_map(payload["stories"])
+    source_records = payload.get("sources") if isinstance(payload.get("sources"), list) else []
     site, candidate = Path(site).resolve(), Path(candidate).resolve()
     if site == candidate or site in candidate.parents or candidate in site.parents:
         raise ValueError("Story output and candidate must be separate directories")
@@ -358,7 +338,7 @@ def prepare(remote, input_path, site, candidate, base_url=BASE_URL):
         _write_bytes(candidate / "manifest.json", _json_bytes({"schema_version": 1,
                                                                 "base_commit": base}))
         stories = {story_id: json.loads(content) for story_id, content in records.items()}
-        count = render_site(stories, site, base_url)
+        count = render_site(stories, site, base_url, source_records)
         if _archive_files(candidate_archive) != records:
             raise RuntimeError("Story candidate read-back failed")
     return {"count": count, "elapsed_seconds": time.perf_counter() - started,

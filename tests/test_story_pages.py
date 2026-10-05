@@ -1,6 +1,8 @@
 """Offline rendering and durable-history coverage for per-story Pages."""
 
 from html.parser import HTMLParser
+import base64
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -20,6 +22,7 @@ class PageParser(HTMLParser):
         self.links = []
         self.scripts = []
         self.jsonld = []
+        self.inline_scripts = []
         self.csp = None
         self.main_text = []
         self.in_main = False
@@ -40,6 +43,9 @@ class PageParser(HTMLParser):
         elif tag == "script" and attrs.get("type") == "application/ld+json":
             self.jsonld.append("")
             self.in_jsonld = True
+        elif tag == "script" and not attrs.get("src") and not attrs.get("type"):
+            self.inline_scripts.append("")
+            self.in_inline_script = True
         elif tag == "main" and attrs.get("id") == "story-root":
             self.in_main = True
 
@@ -47,12 +53,16 @@ class PageParser(HTMLParser):
         if tag == "script" and (self.in_data_script or self.in_jsonld):
             self.in_data_script = False
             self.in_jsonld = False
+        elif tag == "script" and getattr(self, "in_inline_script", False):
+            self.in_inline_script = False
         elif tag == "main":
             self.in_main = False
 
     def handle_data(self, data):
         if self.in_jsonld:
             self.jsonld[-1] += data
+        elif getattr(self, "in_inline_script", False):
+            self.inline_scripts[-1] += data
         elif self.in_data_script:
             self.scripts[-1] += data
         if self.in_main:
@@ -103,6 +113,14 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn('href="../../feed.css"', document)
         self.assertIn('href="../../story.css"', document)
         self.assertIn('src="../../story-page.js"', document)
+        self.assertIn('class="feed-bar"', document)
+        self.assertIn('class="story-page-container" id="story-root"', document)
+        self.assertIn('class="story-article"', document)
+        self.assertIn('class="story-headline"', document)
+        self.assertIn('class="story-summary-box"', document)
+        self.assertIn('class="story-origin-gateway"', document)
+        self.assertIn('class="skip" href="#story-root"', document)
+        self.assertIn('id="i-arrow-left"', document)
         self.assertIn(malicious["summary_vi"], "".join(parser.main_text))
         self.assertIn(malicious["coverage"][0]["publisher"], "".join(parser.main_text))
         self.assertIn("Tiêu đề gốc", "".join(parser.main_text))
@@ -126,14 +144,33 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertEqual(article["publisher"], {"@type": "Organization", "name": SITE_NAME})
         self.assertEqual(parser.csp, CONTENT_SECURITY_POLICY)
         self.assertNotIn("'unsafe-inline'", parser.csp.split("script-src ", 1)[1].split(";", 1)[0])
+        theme_hash = base64.b64encode(hashlib.sha256(parser.inline_scripts[0].encode()).digest()).decode()
+        self.assertIn(f"'sha256-{theme_hash}'", parser.csp)
+
+    def test_story_json_has_only_referenced_source_records(self):
+        item = story(coverage=[{"source": "source-a", "publisher": "A",
+                               "url": "https://a.example/story"},
+                              {"source": "missing", "url": "https://b.example/story"}])
+        document = render_story_page(item, sources=[{"id": "source-a", "name": "Source A", "icon": "a.svg"},
+                                                    {"id": "unused", "name": "Unused"}])
+        parser = PageParser()
+        parser.feed(document)
+        data = json.loads(parser.scripts[0])
+        self.assertEqual(data["source_records"], [{"id": "source-a", "name": "Source A", "icon": "a.svg"}])
+
+    def test_story_text_cannot_expand_template_placeholders(self):
+        document = render_story_page(story(title_vi="{{CONTENT}}", summary_vi="{{JSONLD}}"))
+        self.assertIn("<title>{{CONTENT}} · ai·radar</title>", document)
+        self.assertIn('content="{{JSONLD}}"', document)
+        self.assertNotIn('<title><section class="story-keypoints-box"', document)
 
 
     def test_key_points_and_missing_picture_use_site_default(self):
         document = render_story_page(story(
             image=None, key_points=["Điểm một", {"text": "Điểm hai"}, ""],
         ))
-        self.assertIn("<li>Điểm một</li>", document)
-        self.assertIn("<li>Điểm hai</li>", document)
+        self.assertIn('class="story-point-text">Điểm một</span>', document)
+        self.assertIn('class="story-point-text">Điểm hai</span>', document)
         self.assertIn(f'{BASE_URL}/og-image.png', document)
         self.assertNotIn("<p>Tóm tắt tiếng Việt</p>", document)
 
@@ -213,6 +250,15 @@ class StoryPageWorkflowTests(unittest.TestCase):
         self.assertIn("contents: write", text)
         self.assertLess(text.index("name: Prepare permanent story pages"),
                         text.index("name: Upload Pages artifact"))
+
+    def test_generated_story_directories_are_ignored_but_sample_is_not(self):
+        root = Path(__file__).resolve().parents[1]
+        ignored = subprocess.run(["git", "check-ignore", "--no-index", "site/tin/story-1/index.html"],
+                                 cwd=root, capture_output=True, text=True)
+        sample = subprocess.run(["git", "check-ignore", "--no-index", "site/tin/_sample/index.html"],
+                                cwd=root, capture_output=True, text=True)
+        self.assertEqual(ignored.returncode, 0)
+        self.assertNotEqual(sample.returncode, 0)
 
 
 if __name__ == "__main__":
