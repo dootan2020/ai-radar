@@ -17,6 +17,8 @@ from pathlib import Path
 import re
 import tempfile
 import time
+import contextlib
+import io
 import unittest
 from unittest.mock import patch
 
@@ -24,6 +26,7 @@ from radar.ai_images import (
     AIImageLedger,
     build_ai_prompt,
     generate_ai_illustration,
+    probe,
     safe_image_filename,
     sanitize_topic_text,
     BRAND_TERMS,
@@ -914,6 +917,269 @@ class AIImageLostLedgerDailyBoundTests(InsideWindowTestCase):
                 for i, m in enumerate(moments)
             )
         self.assertLessEqual(round(total, 4), DAILY_NEURON_BUDGET)
+
+
+class AIImageSummaryLoggingTests(InsideWindowTestCase):
+    def test_summary_line_for_success(self):
+        """Build summary line reports window open, considered, generated count, reused, and skipped."""
+        stories = [
+            {"id": "st-log-success", "title": "Model scaling advances", "kind": "model", "coverage": []}
+        ]
+        calls = []
+        b64_img = base64.b64encode(VALID_JPEG_BYTES).decode("ascii")
+
+        def mock_ai(url, headers, data):
+            calls.append(url)
+            return 200, "application/json", json.dumps({"result": {"image": b64_img}}).encode("utf-8")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            site_dir = Path(tmpdir) / "site"
+            cache_file = Path(tmpdir) / "cache.json"
+            ledger_file = Path(tmpdir) / "ledger.json"
+
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                resolve_images_for_stories(
+                    stories,
+                    cache_path=cache_file,
+                    ledger_path=ledger_file,
+                    site_root=site_dir,
+                    transport=lambda u: b"",
+                    ai_transport=mock_ai,
+                    now=IN_WINDOW,
+                )
+            output = buf.getvalue()
+
+            self.assertIn("AI images: window open, 1 considered, 1 generated, 0 reused, 0 skipped", output)
+            self.assertEqual(len(calls), 1)
+
+    def test_summary_line_for_4xx_response(self):
+        """Build summary line reports HTTP status and error message on 4xx failure."""
+        stories = [
+            {"id": "st-log-4xx", "title": "Paper on neural search", "kind": "paper", "coverage": []}
+        ]
+        calls = []
+
+        def mock_ai_401(url, headers, data):
+            calls.append(url)
+            err_json = {"success": False, "errors": [{"code": 1000, "message": "Authentication error"}]}
+            return 401, "application/json", json.dumps(err_json).encode("utf-8")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            site_dir = Path(tmpdir) / "site"
+            cache_file = Path(tmpdir) / "cache.json"
+            ledger_file = Path(tmpdir) / "ledger.json"
+
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                resolve_images_for_stories(
+                    stories,
+                    cache_path=cache_file,
+                    ledger_path=ledger_file,
+                    site_root=site_dir,
+                    transport=lambda u: b"",
+                    ai_transport=mock_ai_401,
+                    now=IN_WINDOW,
+                )
+            output = buf.getvalue()
+
+            self.assertIn("AI images: window open, 1 considered, 0 generated, 0 reused, 1 skipped", output)
+            self.assertIn("HTTP 401: code 1000: Authentication error", output)
+            self.assertEqual(len(calls), 1)
+
+    def test_summary_line_for_closed_window(self):
+        """Build summary line reports window closed and skips without making network requests."""
+        stories = [
+            {"id": "st-log-closed", "title": "Closed window story", "kind": "model", "coverage": []}
+        ]
+        calls = []
+        outside = IN_WINDOW.replace(hour=GENERATION_WINDOW_UTC_HOUR + 5)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            site_dir = Path(tmpdir) / "site"
+            cache_file = Path(tmpdir) / "cache.json"
+            ledger_file = Path(tmpdir) / "ledger.json"
+
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                resolve_images_for_stories(
+                    stories,
+                    cache_path=cache_file,
+                    ledger_path=ledger_file,
+                    site_root=site_dir,
+                    transport=lambda u: b"",
+                    ai_transport=lambda u, h, d: calls.append(u),
+                    now=outside,
+                )
+            output = buf.getvalue()
+
+            self.assertIn("AI images: window closed, 1 considered, 0 generated, 0 reused, 1 skipped (window closed)", output)
+            self.assertEqual(len(calls), 0)
+
+    def test_summary_line_reused_from_disk(self):
+        """Build summary line correctly counts images reused from disk."""
+        stories = [
+            {"id": "st-reused", "title": "Reused story", "kind": "model", "coverage": []}
+        ]
+        with tempfile.TemporaryDirectory() as tmpdir:
+            site_dir = Path(tmpdir) / "site"
+            ai_dir = site_dir / "assets" / "ai"
+            ai_dir.mkdir(parents=True)
+            (ai_dir / "st-reused.jpg").write_bytes(VALID_JPEG_BYTES)
+
+            cache_file = Path(tmpdir) / "cache.json"
+            ledger_file = Path(tmpdir) / "ledger.json"
+
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                resolve_images_for_stories(
+                    stories,
+                    cache_path=cache_file,
+                    ledger_path=ledger_file,
+                    site_root=site_dir,
+                    transport=lambda u: b"",
+                    ai_transport=None,
+                    now=IN_WINDOW,
+                )
+            output = buf.getvalue()
+
+            self.assertIn("AI images: window open, 1 considered, 0 generated, 1 reused, 0 skipped", output)
+
+
+class AIImageProbeTests(unittest.TestCase):
+    def test_probe_makes_one_request_and_no_more(self):
+        """Probe makes exactly one request outside the window and prints status, bytes, cost."""
+        calls = []
+        b64_img = base64.b64encode(VALID_JPEG_BYTES).decode("ascii")
+
+        def mock_ai(url, headers, data):
+            calls.append((url, headers, data))
+            return 200, "application/json", json.dumps({"result": {"image": b64_img}}).encode("utf-8")
+
+        outside = IN_WINDOW.replace(hour=GENERATION_WINDOW_UTC_HOUR + 6)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            ledger_file = Path(tmpdir) / "ai-ledger.json"
+
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                code = probe(
+                    ledger_path=ledger_file,
+                    account_id="acc-test-123",
+                    api_token="tok-test-456",
+                    transport=mock_ai,
+                    now=outside,
+                )
+            output = buf.getvalue()
+
+            self.assertEqual(code, 0)
+            self.assertEqual(len(calls), 1)
+            self.assertIn("AI image probe: HTTP 200", output)
+            self.assertIn(f"{len(VALID_JPEG_BYTES)} bytes received", output)
+            self.assertIn("172.8 neurons spent", output)
+
+            # Ledger recorded the spend
+            ledger = AIImageLedger(ledger_path=ledger_file)
+            self.assertAlmostEqual(ledger.get_day(outside)["neurons_spent"], 172.80, places=2)
+            self.assertEqual(ledger.get_day(outside)["count"], 1)
+
+    def test_probe_refuses_when_ledger_day_is_stopped(self):
+        """Probe refuses without calling API when ledger day is marked stopped."""
+        calls = []
+        outside = IN_WINDOW.replace(hour=GENERATION_WINDOW_UTC_HOUR + 6)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            ledger_file = Path(tmpdir) / "ai-ledger.json"
+            ledger = AIImageLedger(ledger_path=ledger_file)
+            ledger.record_stop("HTTP 429 Too Many Requests (rate limit or daily quota)", now=outside)
+
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                code = probe(
+                    ledger_path=ledger_file,
+                    account_id="acc-test-123",
+                    api_token="tok-test-456",
+                    transport=lambda u, h, d: calls.append(u),
+                    now=outside,
+                )
+            output = buf.getvalue()
+
+            self.assertEqual(code, 1)
+            self.assertEqual(len(calls), 0)
+            self.assertIn("AI image probe: refused (stopped_for_day: HTTP 429 Too Many Requests", output)
+            self.assertIn("0 bytes received, 0.0 neurons spent", output)
+
+    def test_probe_refuses_when_ledger_day_is_over_budget(self):
+        """Probe refuses without calling API when ledger day has exhausted 8,000 neurons."""
+        calls = []
+        outside = IN_WINDOW.replace(hour=GENERATION_WINDOW_UTC_HOUR + 6)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            ledger_file = Path(tmpdir) / "ai-ledger.json"
+            ledger = AIImageLedger(ledger_path=ledger_file, daily_budget=8000.0)
+            # Pre-spend budget
+            day = ledger.get_day(outside)
+            day["neurons_spent"] = 7950.0  # +172.8 would exceed 8000.0
+            ledger.save()
+
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                code = probe(
+                    ledger_path=ledger_file,
+                    account_id="acc-test-123",
+                    api_token="tok-test-456",
+                    transport=lambda u, h, d: calls.append(u),
+                    now=outside,
+                )
+            output = buf.getvalue()
+
+            self.assertEqual(code, 1)
+            self.assertEqual(len(calls), 0)
+            self.assertIn("AI image probe: refused (daily_budget_exceeded)", output)
+            self.assertIn("0 bytes received, 0.0 neurons spent", output)
+
+    def test_no_secret_appears_in_any_printed_output(self):
+        """Tokens, account IDs, and sensitive URLs are never printed in logs or probe output."""
+        sensitive_acc = "cf-sensitive-acc-id-998877"
+        sensitive_tok = "cf-sensitive-secret-token-112233"
+
+        calls = []
+        def mock_error_transport(url, headers, data):
+            calls.append(url)
+            # Response containing account ID and token in payload / URL
+            body = (
+                f'{{"success": false, "errors": [{{"code": 1000, "message": "Failed on {sensitive_acc}"}}], '
+                f'"auth": "{sensitive_tok}"}}'
+            ).encode("utf-8")
+            return 401, "application/json", body
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            ledger_file = Path(tmpdir) / "ai-ledger.json"
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                code = probe(
+                    ledger_path=ledger_file,
+                    account_id=sensitive_acc,
+                    api_token=sensitive_tok,
+                    transport=mock_error_transport,
+                )
+            output = buf.getvalue()
+
+            self.assertEqual(code, 1)
+            self.assertNotIn(sensitive_acc, output)
+            self.assertNotIn(sensitive_tok, output)
+            self.assertIn("[REDACTED]", output)
+
+    def test_missing_credentials_prints_variable_names_only(self):
+        """When credentials are absent, only the environment variable names are printed."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            ledger_file = Path(tmpdir) / "ai-ledger.json"
+            buf = io.StringIO()
+            with patch.dict(os.environ, {}, clear=True), contextlib.redirect_stdout(buf):
+                code = probe(ledger_path=ledger_file, transport=None)
+            output = buf.getvalue()
+
+            self.assertEqual(code, 1)
+            self.assertIn("CLOUDFLARE_ACCOUNT_ID", output)
+            self.assertIn("CLOUDFLARE_AI_API_TOKEN", output)
+            self.assertIn("refused (missing CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_AI_API_TOKEN)", output)
 
 
 if __name__ == "__main__":
