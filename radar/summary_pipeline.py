@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 import hashlib
+from html.parser import HTMLParser
 import json
 import re
 import threading
@@ -15,10 +16,87 @@ from typing import Any
 from radar.items import instant
 from radar import summary_budget
 from radar import summary_gemini as gemini
+from radar import shadow_collector, transport
+from radar.common import web_url
 from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
 
 # Capitalized entities pattern (e.g. OpenAI, DeepSeek, Claude, Apple, Google, macOS)
 ENTITY_TOKEN = re.compile(r"\b[A-Z][A-Za-z0-9_.+-]*(?:\s+[A-Z][A-Za-z0-9_.+-]*)*\b")
+MIN_ARTICLE_TEXT_CHARS = 300
+PAYWALL_TEXT = re.compile(
+    r"\b(?:subscribe to (?:read|continue)|sign in to (?:read|continue)|"
+    r"subscriber[- ]only|members[- ]only|unlock the full article|please subscribe)\b",
+    re.IGNORECASE,
+)
+
+
+class _ArticleTextParser(HTMLParser):
+    """Collect readable text from semantic article/main regions only."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.article_depth = 0
+        self.main_depth = 0
+        self.skip_depth = 0
+        self.parts = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"}:
+            self.skip_depth += 1
+        if tag == "article":
+            self.article_depth += 1
+        if tag == "main":
+            self.main_depth += 1
+
+    def handle_endtag(self, tag):
+        if tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"}:
+            self.skip_depth = max(0, self.skip_depth - 1)
+        if tag == "article":
+            self.article_depth = max(0, self.article_depth - 1)
+        if tag == "main":
+            self.main_depth = max(0, self.main_depth - 1)
+
+    def handle_data(self, data):
+        if not self.skip_depth and (self.article_depth or self.main_depth):
+            value = " ".join(data.split())
+            if value:
+                self.parts.append(value)
+
+
+def fetch_article_text(story: dict) -> str:
+    """Fetch one canonical publisher page only when its robots policy permits it."""
+    url = web_url(story.get("url"))
+    if not url:
+        url = next((web_url(c.get("url")) for c in story.get("coverage") or []
+                    if isinstance(c, dict) and web_url(c.get("url"))), None)
+    if not url or not url.lower().startswith("https://"):
+        return ""
+
+    def fetch_without_redirects(target):
+        return transport.read_url(target, allow_redirects=False)
+
+    robots = shadow_collector.check_robots(url, fetch_fn=fetch_without_redirects, robots_cache={})
+    if robots["robots_status"] not in (200, 404) or robots["disallowed"]:
+        return ""
+
+    try:
+        response = fetch_without_redirects(url)
+    except Exception:
+        return ""
+    if (getattr(response, "status", None) != 200
+            or getattr(response, "url", url) != url
+            or "html" not in getattr(response, "content_type", "").lower()):
+        return ""
+
+    parser = _ArticleTextParser()
+    try:
+        parser.feed(str(response))
+    except Exception:
+        return ""
+    text = " ".join(parser.parts)
+    if len(text) < MIN_ARTICLE_TEXT_CHARS or PAYWALL_TEXT.search(text):
+        return ""
+    return text[:gemini.MAX_ARTICLE_TEXT_CHARS]
 
 # Common Vietnamese words that may appear capitalized at sentence starts
 VN_GRAMMAR_CAPS = {
@@ -40,6 +118,7 @@ def story_inputs(story: dict) -> dict[str, Any]:
                 "publisher": str(c.get("publisher") or ""),
                 "title": str(c.get("title") or "").strip(),
                 "summary": str(c.get("summary") or "").strip(),
+                "url": str(c.get("url") or "").strip(),
                 "published_at": str(c.get("published_at") or ""),
                 "metrics": c.get("metrics") if isinstance(c.get("metrics"), dict) else {}
             })
@@ -50,6 +129,7 @@ def story_inputs(story: dict) -> dict[str, Any]:
         "id": str(story.get("id") or ""),
         "title": str(story.get("title") or "").strip(),
         "summary": str(story.get("summary") or "").strip(),
+        "article_text": str(story.get("_summary_article_text") or "").strip(),
         "published_at": str(story.get("published_at") or ""),
         "coverage": coverage_items
     }
@@ -66,7 +146,7 @@ def is_thin_story(inputs: dict[str, Any]) -> bool:
     coverage = inputs.get("coverage") or []
     if len(coverage) > 1:
         return False
-    total_chars = len(inputs.get("title", "")) + len(inputs.get("summary", ""))
+    total_chars = sum(len(inputs.get(key, "")) for key in ("title", "summary", "article_text"))
     for c in coverage:
         total_chars += len(c.get("title", "")) + len(c.get("summary", ""))
     return total_chars < 180
@@ -74,7 +154,7 @@ def is_thin_story(inputs: dict[str, Any]) -> bool:
 
 def extract_source_numbers(inputs: dict[str, Any]) -> set[str]:
     """Collect all valid numbers from story inputs (digits, month words, metrics)."""
-    texts = [inputs.get("title", ""), inputs.get("summary", "")]
+    texts = [inputs.get("title", ""), inputs.get("summary", ""), inputs.get("article_text", "")]
     for c in inputs.get("coverage") or []:
         texts.append(c.get("title", ""))
         texts.append(c.get("summary", ""))
@@ -105,7 +185,7 @@ def extract_source_numbers(inputs: dict[str, Any]) -> set[str]:
 
 def extract_source_entities(inputs: dict[str, Any]) -> set[str]:
     """Collect proper nouns, model names, and publishers present in the inputs."""
-    texts = [inputs.get("title", ""), inputs.get("summary", "")]
+    texts = [inputs.get("title", ""), inputs.get("summary", ""), inputs.get("article_text", "")]
     for c in inputs.get("coverage") or []:
         texts.append(c.get("title", ""))
         texts.append(c.get("summary", ""))
@@ -146,8 +226,10 @@ def validate_key_points(inputs: dict[str, Any], key_points: list[str]) -> tuple[
     if thin and len(cleaned) > 1:
         return None, "padding_rejected: thin story must emit at most 1 point"
 
-    if len(cleaned) > 3:
+    if len(cleaned) > 5:
         return None, "too_many_points"
+    if inputs.get("article_text") and len(cleaned) < 3:
+        return None, "too_few_points"
 
     source_numbers = extract_source_numbers(inputs)
     source_entities = extract_source_entities(inputs)
@@ -255,6 +337,7 @@ def summarize_payload(payload: dict,
                       *,
                       config: gemini.Config | None = None,
                       transport_fn=None,
+                      article_fetch_fn=None,
                       ledger_path: str | None = None,
                       budget: float = 30.0,
                       clock=time.monotonic,
@@ -266,6 +349,7 @@ def summarize_payload(payload: dict,
     started = clock()
     config = config or gemini.config_from_env()
     transport_fn = transport_fn or gemini.transport
+    article_fetch_fn = article_fetch_fn or fetch_article_text
 
     stories = payload.get("stories") or []
 
@@ -322,6 +406,7 @@ def summarize_payload(payload: dict,
         "requests": 0,
         "tokens": 0,
         "rejected": 0,
+        "skipped": 0,
         "rejected_reasons": [],
         "machine_written": True,
         "error": None,
@@ -332,7 +417,16 @@ def summarize_payload(payload: dict,
     missing = []
     for story in eligible_stories:
         sid = story.get("id")
+        article_text = article_fetch_fn(story)
+        if len(article_text or "") < MIN_ARTICLE_TEXT_CHARS:
+            stats["skipped"] += 1
+            story.pop("key_points", None)
+            story.pop("key_points_machine", None)
+            story.pop("key_points_source", None)
+            continue
+        story["_summary_article_text"] = article_text[:gemini.MAX_ARTICLE_TEXT_CHARS]
         inputs = story_inputs(story)
+        story.pop("_summary_article_text", None)
         chash = content_hash(inputs)
         story_map[sid] = {"story": story, "inputs": inputs, "hash": chash}
 
@@ -352,7 +446,8 @@ def summarize_payload(payload: dict,
         missing.append(sid)
 
     if not missing:
-        stats["status"] = "cache" if stats["cache_hits"] else "ok"
+        stats["pending"] = stats["skipped"]
+        stats["status"] = "partial" if stats["skipped"] else ("cache" if stats["cache_hits"] else "ok")
         payload["summary"] = stats
         return stats, False
 
@@ -394,8 +489,11 @@ def summarize_payload(payload: dict,
 
     # Reserve budget in ledger
     reserve_now = now()
-    # Estimate tokens: ~1 token per 4 chars input + 500 output tokens
-    estimated_toks = max(500, int(batch_chars / 3.5) + 600)
+    # Reserve input tokens plus the full output ceiling and fixed prompt overhead.
+    estimated_toks = max(
+        500,
+        int(batch_chars / 3.5) + gemini.MAX_OUTPUT_TOKENS + gemini.INPUT_TOKEN_OVERHEAD,
+    )
     reserve_err = summary_budget.reserve(
         ledger_path,
         request_limit=config.daily_requests_limit,

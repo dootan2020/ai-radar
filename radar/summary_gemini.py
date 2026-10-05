@@ -23,16 +23,24 @@ from radar.translation_gemini import (
 from radar.translate import VIETNAMESE, NUMBER_WORDS, SMALL_NUMBERS
 
 MODEL_ID = "gemini-3.8-flash"
-PROMPT_VERSION = "summary-vi-1"
+PROMPT_VERSION = "summary-vi-2"
 ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL_ID}:generateContent"
-MAX_OUTPUT_TOKENS = 4096
+MAX_OUTPUT_TOKENS = 1024
+MAX_STORY_INPUT_CHARS = 4500
+MAX_ARTICLE_TEXT_CHARS = 3000
+INPUT_TOKEN_OVERHEAD = 512
+MAX_ESTIMATED_TOKENS_PER_REQUEST = (
+    (MAX_STORY_INPUT_CHARS * 2 + 6) // 7
+    + MAX_OUTPUT_TOKENS
+    + INPUT_TOKEN_OVERHEAD
+)
 
 SYSTEM_INSTRUCTION = """Bạn là trợ lý tin tức công nghệ AI chuyên nghiệp của ai-radar.
-Nhiệm vụ: Đọc kỹ toàn bộ tiêu đề và nội dung tóm tắt từ các nguồn tin (coverage) của mỗi bài viết AI, sau đó viết từ 1 đến 3 ý chính (key points) bằng tiếng Việt tự nhiên, súc tích.
+Nhiệm vụ: Đọc tiêu đề, tóm tắt nguồn và phần mở đầu bài báo gốc trong coverage của mỗi bài viết AI, sau đó viết từ 3 đến 5 ý chính (key points) bằng tiếng Việt tự nhiên, súc tích. Chỉ dựa vào nội dung bài báo được cung cấp; không dùng tiêu đề để thay thế ý chính.
 
 NGUYÊN TẮC BẮT BUỘC:
 1. TUYỆT ĐỐI KHÔNG BỊA ĐẶT SỰ THẬT (No invented facts): Mọi ý chính phải dựa hoàn toàn trên dữ liệu nguồn được cung cấp. Không suy diễn, không tự thêm bối cảnh bên ngoài.
-2. DỮ LIỆU MỎNG THÌ TÓM TẮT NGẮN: Khi nguồn tin chỉ có 1 tiêu đề ngắn hoặc nội dung rất mỏng, chỉ xuất ĐÚNG 1 ý chính duy nhất. Tuyệt đối không viết thêm để đệm chữ.
+2. BỎ QUA BÀI KHÔNG CÓ article_text. Khi đã có article_text, rút ra từ 3 đến 5 ý chính có thông tin khác nhau; không lặp lại tiêu đề và không viết thêm để đệm chữ.
 3. BẢO TOÀN DANH TỪ RIÊNG, SỐ LIỆU VÀ TÍNH PHỦ ĐỊNH: Tên sản phẩm, model, công ty, tên người, phiên bản, chỉ số đo lường, và ngữ cảnh phủ định/nghi vấn phải được giữ nguyên vẹn, chính xác.
 4. ĐỊNH DẠNG: Mỗi ý chính là một câu tiếng Việt hoàn chỉnh, ngắn gọn, súc tích, đứng độc lập.
 5. Trả về đúng JSON theo schema yêu cầu, một mục cho mỗi story id. Không kèm lời mở đầu, giải thích hay suy nghĩ riêng."""
@@ -48,14 +56,14 @@ class Config:
     max_requests: int = 1
     daily_requests_limit: int = 12
     daily_tokens_limit: int = 25000
-    batch_size: int = 10
-    max_chars: int = 15000
+    batch_size: int = 1
+    max_chars: int = MAX_STORY_INPUT_CHARS
     timeout: float = 45.0
 
     def __post_init__(self):
         for name, ceiling in (("max_requests", 1), ("daily_requests_limit", 12),
-                              ("daily_tokens_limit", 25000), ("batch_size", 10),
-                              ("max_chars", 15000)):
+                              ("daily_tokens_limit", 25000), ("batch_size", 1),
+                              ("max_chars", MAX_STORY_INPUT_CHARS)):
             value = getattr(self, name)
             object.__setattr__(self, name, min(ceiling, max(0, int(value))))
         object.__setattr__(self, "timeout", min(45.0, max(0.0, float(self.timeout))))

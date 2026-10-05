@@ -49,17 +49,23 @@ class SafeRedirectHandler(HTTPRedirectHandler):
 class ResponseText(str):
     """Decoded response with observed HTTP metadata, still a normal string."""
 
-    def __new__(cls, value, status=None, url=None):
+    def __new__(cls, value, status=None, url=None, content_type=""):
         instance = super().__new__(cls, value)
         instance.status = status
         instance.url = url
+        instance.content_type = content_type
         return instance
 
 
 install_opener(build_opener(SafeRedirectHandler))
 
 
-def read_url(url, source_id=None):
+class _NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+def read_url(url, source_id=None, *, allow_redirects=True):
     max_bytes = max_bytes_for(source_id)
     headers = {"User-Agent": USER_AGENT, "Accept": "*/*"}
     token = os.environ.get("GITHUB_TOKEN")
@@ -70,7 +76,11 @@ def read_url(url, source_id=None):
     if yt_key and host in ("www.googleapis.com", "googleapis.com"):
         headers["X-Goog-Api-Key"] = yt_key
     request = Request(url, headers=headers)
-    with urlopen(request, timeout=8) as response:
+    if allow_redirects:
+        response_context = urlopen(request, timeout=8)
+    else:
+        response_context = build_opener(_NoRedirect()).open(request, timeout=8)
+    with response_context as response:
         try:
             length = response.headers.get("Content-Length")
             if length and int(length) > max_bytes:
@@ -79,7 +89,7 @@ def read_url(url, source_id=None):
             if len(raw) > max_bytes:
                 raise ValueError(f"Source response exceeds {_limit_label(max_bytes)} limit")
             return ResponseText(raw.decode(response.headers.get_content_charset() or "utf-8", errors="replace"),
-                                response.status, response.geturl())
+                                response.status, response.geturl(), response.headers.get("Content-Type", ""))
         except Exception as error:
             # A response was received even if reading/decoding its body failed.
             error.http_status = response.status
