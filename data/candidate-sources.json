@@ -1,0 +1,282 @@
+[
+  {
+    "id": "xai-news",
+    "name": "xAI News",
+    "url": "https://x.ai/news",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "meta-ai-blog",
+    "name": "Meta AI Blog",
+    "url": "https://ai.meta.com/blog/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "microsoft-ai-blog",
+    "name": "Microsoft AI Blog",
+    "url": "https://blogs.microsoft.com/ai/feed/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "nvidia-newsroom",
+    "name": "NVIDIA Newsroom",
+    "url": "https://nvidianews.nvidia.com/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "nvidia-blog",
+    "name": "NVIDIA Blog",
+    "url": "https://blogs.nvidia.com/feed/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "mistral-news",
+    "name": "Mistral AI News",
+    "url": "https://mistral.ai/news",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "deepseek-news",
+    "name": "DeepSeek API News",
+    "url": "https://api-docs.deepseek.com/news/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "qwen-blog",
+    "name": "Qwen Blog",
+    "url": "https://qwenlm.github.io/blog/index.xml",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "anthropic-news-official",
+    "name": "Anthropic News (official site)",
+    "url": "https://www.anthropic.com/news",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "sam-altman-blog",
+    "name": "Sam Altman blog",
+    "url": "https://blog.samaltman.com/posts.atom",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "dario-amodei-essays",
+    "name": "Dario Amodei essays",
+    "url": "https://www.darioamodei.com/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "karpathy-blog",
+    "name": "Andrej Karpathy blog",
+    "url": "https://karpathy.bearblog.dev/feed/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "import-ai",
+    "name": "Import AI (Jack Clark, Anthropic co-founder)",
+    "url": "https://importai.substack.com/feed",
+    "label": "chinh-thuc",
+    "circle_id": "circle-1",
+    "circle_name": "Circle 1: Tạo ra AI (labs, their leaders, researchers, chips)"
+  },
+  {
+    "id": "epoch-ai",
+    "name": "Epoch AI",
+    "url": "https://epoch.ai/blog",
+    "label": "cong-dong",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Kiểm chứng AI (measurement, evaluation, critics)"
+  },
+  {
+    "id": "artificial-analysis",
+    "name": "Artificial Analysis",
+    "url": "https://artificialanalysis.ai/",
+    "label": "cong-dong",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Kiểm chứng AI (measurement, evaluation, critics)"
+  },
+  {
+    "id": "lmarena-blog",
+    "name": "LMArena blog",
+    "url": "https://news.lmarena.ai/",
+    "label": "cong-dong",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Kiểm chứng AI (measurement, evaluation, critics)"
+  },
+  {
+    "id": "metr-blog",
+    "name": "METR",
+    "url": "https://metr.org/blog",
+    "label": "cong-dong",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Kiểm chứng AI (measurement, evaluation, critics)"
+  },
+  {
+    "id": "uk-aisi",
+    "name": "UK AI Security Institute",
+    "url": "https://www.aisi.gov.uk/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Kiểm chứng AI (measurement, evaluation, critics)"
+  },
+  {
+    "id": "stanford-hai",
+    "name": "Stanford HAI news",
+    "url": "https://hai.stanford.edu/news",
+    "label": "bao-chi",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Kiểm chứng AI (measurement, evaluation, critics)"
+  },
+  {
+    "id": "interconnects",
+    "name": "Interconnects (Nathan Lambert)",
+    "url": "https://www.interconnects.ai/feed",
+    "label": "cong-dong",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Kiểm chứng AI (measurement, evaluation, critics)"
+  },
+  {
+    "id": "normal-tech",
+    "name": "AI as Normal Technology (Narayanan, Kapoor)",
+    "url": "https://www.normaltech.ai/feed",
+    "label": "cong-dong",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Kiểm chứng AI (measurement, evaluation, critics)"
+  },
+  {
+    "id": "gary-marcus",
+    "name": "Gary Marcus",
+    "url": "https://garymarcus.substack.com/feed",
+    "label": "cong-dong",
+    "circle_id": "circle-2",
+    "circle_name": "Circle 2: Kiểm chứng AI (measurement, evaluation, critics)"
+  },
+  {
+    "id": "simon-willison",
+    "name": "Simon Willison",
+    "url": "https://simonwillison.net/atom/everything/",
+    "label": "cong-dong",
+    "circle_id": "circle-3",
+    "circle_name": "Circle 3: Ứng dụng AI (builders, usage, quota and status signals)"
+  },
+  {
+    "id": "latent-space",
+    "name": "Latent Space",
+    "url": "https://www.latent.space/feed",
+    "label": "cong-dong",
+    "circle_id": "circle-3",
+    "circle_name": "Circle 3: Ứng dụng AI (builders, usage, quota and status signals)"
+  },
+  {
+    "id": "one-useful-thing",
+    "name": "One Useful Thing (Ethan Mollick)",
+    "url": "https://www.oneusefulthing.org/feed",
+    "label": "cong-dong",
+    "circle_id": "circle-3",
+    "circle_name": "Circle 3: Ứng dụng AI (builders, usage, quota and status signals)"
+  },
+  {
+    "id": "anthropic-status",
+    "name": "Anthropic status history",
+    "url": "https://status.anthropic.com/history.rss",
+    "label": "chinh-thuc",
+    "circle_id": "circle-3",
+    "circle_name": "Circle 3: Ứng dụng AI (builders, usage, quota and status signals)"
+  },
+  {
+    "id": "openai-status",
+    "name": "OpenAI status history",
+    "url": "https://status.openai.com/history.rss",
+    "label": "chinh-thuc",
+    "circle_id": "circle-3",
+    "circle_name": "Circle 3: Ứng dụng AI (builders, usage, quota and status signals)"
+  },
+  {
+    "id": "claude-release-notes",
+    "name": "Claude release notes",
+    "url": "https://docs.anthropic.com/en/release-notes/overview",
+    "label": "chinh-thuc",
+    "circle_id": "circle-3",
+    "circle_name": "Circle 3: Ứng dụng AI (builders, usage, quota and status signals)"
+  },
+  {
+    "id": "whitehouse-actions",
+    "name": "White House presidential actions",
+    "url": "https://www.whitehouse.gov/presidential-actions/feed/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-power-policy",
+    "circle_name": "Power and policy (the people the owner named who are not builders)"
+  },
+  {
+    "id": "whitehouse-news",
+    "name": "White House news",
+    "url": "https://www.whitehouse.gov/feed/",
+    "label": "chinh-thuc",
+    "circle_id": "circle-power-policy",
+    "circle_name": "Power and policy (the people the owner named who are not builders)"
+  },
+  {
+    "id": "federal-register-ai",
+    "name": "Federal Register, \"artificial intelligence\"",
+    "url": "https://www.federalregister.gov/api/v1/documents.json?conditions[term]=artificial+intelligence&order=newest",
+    "label": "chinh-thuc",
+    "circle_id": "circle-power-policy",
+    "circle_name": "Power and policy (the people the owner named who are not builders)"
+  },
+  {
+    "id": "eu-ai-office",
+    "name": "EU AI Office",
+    "url": "https://digital-strategy.ec.europa.eu/en/policies/ai-office",
+    "label": "chinh-thuc",
+    "circle_id": "circle-power-policy",
+    "circle_name": "Power and policy (the people the owner named who are not builders)"
+  },
+  {
+    "id": "techmeme",
+    "name": "Techmeme",
+    "url": "https://www.techmeme.com/feed.xml",
+    "label": "bao-chi",
+    "circle_id": "circle-press-relay",
+    "circle_name": "Press that relays posts on X (the free, indirect route to Musk, Altman, Huang, Tibo)"
+  },
+  {
+    "id": "the-verge-ai",
+    "name": "The Verge AI",
+    "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+    "label": "bao-chi",
+    "circle_id": "circle-press-relay",
+    "circle_name": "Press that relays posts on X (the free, indirect route to Musk, Altman, Huang, Tibo)"
+  },
+  {
+    "id": "vnexpress-so-hoa",
+    "name": "VnExpress Số hoá",
+    "url": "https://vnexpress.net/rss/so-hoa.rss",
+    "label": "bao-chi",
+    "circle_id": "circle-press-relay",
+    "circle_name": "Press that relays posts on X (the free, indirect route to Musk, Altman, Huang, Tibo)"
+  }
+]
