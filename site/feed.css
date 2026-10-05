@@ -298,6 +298,9 @@ ul, ol { padding: 0; list-style: none; }
 .tile-action:hover { background: var(--color-hair); }
 .tile-action:active { transform: scale(0.98); }
 .tile-action.is-live { background: var(--color-live); color: var(--color-on-media); }
+.live-body { display: flex; flex-direction: column; gap: var(--space-16); }
+.live-video { display: flex; flex-direction: column; gap: var(--space-12); min-width: 0; }
+.live-events { display: flex; flex-direction: column; gap: var(--space-12); min-width: 0; }
 .tile-sub { font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2); margin-top: var(--space-8); }
 .events { display: flex; flex-direction: column; gap: var(--space-12); margin-top: calc(var(--space-8) * -1); }
 .event { display: flex; align-items: center; gap: var(--space-12); min-height: 44px; }
@@ -640,7 +643,7 @@ ul, ol { padding: 0; list-style: none; }
 .card-photo .calbtn-ics { background: oklch(0.99 0 0 / 0.10); }
 .events li { display: flex; flex-direction: column; gap: var(--space-8); }
 .events .calbtn { align-self: flex-start; margin-left: calc(48px + var(--space-12)); }
-.tile-live > .calbtn { align-self: flex-start; }
+.tile-live .calbtn { align-self: flex-start; }
 
 /* Repository controls: the sort switch's segmented pill, work areas as filter chips */
 .repo-ctl { display: flex; flex-wrap: wrap; gap: var(--space-8); align-items: center; }
@@ -741,6 +744,22 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
     grid-column: 1 / -1;
     grid-row: auto;
   }
+  .picks-grid > .tile-live .live-body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--feed-gap);
+    align-items: start;
+  }
+  .picks-grid > .tile-live .tile-video {
+    margin: 0;
+    border-radius: var(--radius-8);
+  }
+  .picks-grid > .tile-live .tile-sub {
+    margin-top: 0;
+  }
+  .picks-grid > .tile-live .events {
+    margin-top: 0;
+  }
 }
 @media (max-width: 959px) and (min-width: 768px){
   .card-std, .sk-card { grid-column: span 3; }
@@ -805,6 +824,14 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .picks-grid > .feed-card.card-lead { min-height: clamp(480px, 25vw + 380px, 560px); aspect-ratio: auto; }
   .briefing-head { margin-top: var(--space-32); margin-bottom: var(--space-8); }
   .how-panel { padding: var(--space-16); }
+}
+
+@media (min-width: 600px) and (max-width: 767px){
+  .tile-video {
+    max-width: 480px;
+    margin: 0 auto;
+    border-radius: var(--radius-8);
+  }
 }
 
 @media (pointer: coarse){

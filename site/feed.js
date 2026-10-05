@@ -669,7 +669,7 @@ function renderLive() {
         : { head: 'Xem lại', badge: streamedAge(it.time_text) || 'Đã phát', action: `Xem lại${where}`, live: false };
     head = S.head;
     const thumb = it.thumbnail || (it.video_id ? `https://i.ytimg.com/vi/${it.video_id}/hqdefault.jpg` : '');
-    video = `<a class="tile-video" href="${esc(safe(it.url))}" target="_blank" rel="noopener" aria-label="${esc(S.action)}: ${esc(it.title)}">
+    video = `<div class="live-video"><a class="tile-video" href="${esc(safe(it.url))}" target="_blank" rel="noopener" aria-label="${esc(S.action)}: ${esc(it.title)}">
       ${thumb ? `<img src="${esc(thumb)}" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : ''}
       <span class="video-badge${S.live ? ' is-live' : ''}">${esc(S.badge)}</span>
       <span class="video-play">${icon('i-play')}</span>
@@ -677,10 +677,10 @@ function renderLive() {
     <p class="video-title"${langAttr(it.title)}>${esc(it.title)}</p>
     <p class="video-meta">${esc(it.channel || '')}${where}</p>
     <a class="tile-action${S.live ? ' is-live' : ''}" href="${esc(safe(it.url))}" target="_blank" rel="noopener">${icon('i-play')}${esc(S.action)}</a>
-    ${it.status === 'upcoming' ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}`;
+    ${it.status === 'upcoming' ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}</div>`;
   }
   const evStory = e => asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
-  const evHTML = events.length ? `${it ? '<h3 class="tile-sub">Sắp diễn ra</h3>' : ''}
+  const evHTML = events.length ? `<div class="live-events">${it ? '<h3 class="tile-sub">Sắp diễn ra</h3>' : ''}
     <ul class="events">${events.map(e => {
       const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(e.start_date || '');
       const st = evStory(e);
@@ -691,10 +691,10 @@ function renderLive() {
         <span class="event-text"><span class="event-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>
         <span class="event-when">${esc(eventRange(e.start_date, e.end_date))} · ${esc(e.location || '')} · ${daysLeftHTML(daysUntil(e.start_date, e.end_date))}</span></span></a>
         ${calButtons(cal, st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</li>`;
-    }).join('')}</ul>` : '';
+    }).join('')}</ul></div>` : '';
   return `<section class="tile tile-live" aria-labelledby="live-h">
     <div class="tile-head"><h2 class="tile-title" id="live-h">${esc(head)}</h2>${it ? '<span class="tile-note">phát sóng</span>' : ''}</div>
-    ${video}${evHTML}</section>`;
+    <div class="live-body">${video}${evHTML}</div></section>`;
 }
 
 /* ---------- tile: hot, and why ---------- */
