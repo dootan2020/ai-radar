@@ -31,6 +31,9 @@ const DATA_URL = customData ? qp : 'data/radar-ui.json';
 const SOURCES = customData ? [qp] : [DATA_URL, 'data/radar.json'];
 const IMAGES_URL = 'feed-images.json';
 const PICKS_URL = 'editor-picks.json';   // the owner's own picks; the only thing allowed to say "Biên tập chọn"
+const FIELD_RANKINGS_URL = 'data/field-rankings.json';
+let FIELD_DATA = null;
+let FIELD_MAP = new Map();
 /* The bento home's keys, so a returning reader keeps what they read, skipped, saved and chose there. */
 const K = { theme: 'air2:theme', read: 'air2:read', skipped: 'air2:skipped', lastSeen: 'air2:lastSeen', saved: 'air2:saved',
   sort: 'air2:sort', repoView: 'air2:repoView', repoWindow: 'air2:repoWindow', repoTotal: 'air2:repoTotal', areas: 'air2:areas' };
@@ -244,6 +247,15 @@ async function loadPicks() {
     const j = await fetchJSON(PICKS_URL, { cache: 'no-cache' });
     return Array.isArray(j && j.picks) ? j.picks : [];
   } catch (e) { console.warn('editor-picks.json unavailable; no editor picks', e); return []; }
+}
+async function loadFieldRankings() {
+  try {
+    const j = await fetchJSON(FIELD_RANKINGS_URL);
+    if (j && Array.isArray(j.fields)) return j;
+  } catch (e) {
+    console.warn('field-rankings.json unavailable; area browsing falls back to snapshot repos', e);
+  }
+  return null;
 }
 function matchPicks(list) {
   const now = Date.now();
@@ -810,24 +822,20 @@ const AREAS = [
   { id: 'local', label: 'Chạy mô hình trên máy' }, { id: 'fine-tune', label: 'Tinh chỉnh mô hình' }, { id: 'rag', label: 'Dữ liệu cho RAG' },
   { id: 'voice', label: 'Giọng nói, âm thanh' }, { id: 'browser-mcp', label: 'Trình duyệt, MCP' },
 ];
-const AREA_PATTERNS = [
-  ['video', /\b(?:videos?|animations?|text[- ]to[- ]video|image[- ]to[- ]video|text[- ]to[- ]image|image[- ]to[- ]image|image[- ]generation|motion[- ]graphics|generative[- ]video|video[- ]generation|video[- ]editing|creative[- ]cod(?:e|ing)|cad\b|3d|computer[- ]vision|vision\b|rendering|visual)\b/i],
-  ['agent-code', /\b(?:coding[- ]agents?|code[- ]generation|developer[- ]tools|coding[- ]assistants?|ai[- ]coders?|ade|agent[- ]ide|code[- ]interpreter|agentic skills|agent skills|parallel agents|fleet of agents|multi[- ]agent|subagents?|agent orchestration|software development methodology|ai[- ]driven development|runtime for.*agents?|network of agents|senior dev|skills for.*engineers?|context window optimization|agentic coding|coding tool|code review|manage agents|coding|codebase|programming agent|developer assistant|software engineering|git workflow|terminal agent|ai agent|autonomous agent|agent framework|agents at work|t3code|agent substrate)\b/i],
-  ['browser-mcp', /\b(?:browser[- ]automation|mcp|model[- ]context[- ]protocol|use the browser|computer[- ]use|browser[- ]agents?|web[- ]scraping[- ]agents?|headless browser|web automation|browser|plugins?)\b/i],
-  ['quant', /\b(?:trading|quant|quantitative|finance|backtest|backtesting|algorithmic[- ]trading|stocks?|financial|hedge[- ]funds?|portfolio|market data|crypto)\b/i],
-  ['local', /\b(?:llm[- ]inference|gguf|local|locally|local[- ]ai|local[- ]llms?|inference in c|inference engine|edge[- ]ai|on[- ]device|gpu kernel|accelerators?|offline llm|slm)\b/i],
-  ['fine-tune', /\b(?:fine[- ]tuning|finetune|fine[- ]tune|lora|sft|rlhf|qlora|peft|post[- ]training|distillation|instruction tuning|preference optimization)\b/i],
-  ['rag', /\b(?:rag|document[- ]parsing|pdf|retrieval|vector[- ]database|vector[- ]db|embeddings|knowledge[- ]graph|graphrag|agent memory|memory for.*agents?|document understanding|ocr|web crawl(?:er|ing)|semantic search|knowledge base)\b/i],
-  ['voice', /\b(?:tts|speech|voice[- ]cloning|asr|voice|audio|speech[- ]to[- ]text|text[- ]to[- ]speech|voice[- ]agents?|transcription|speech synthesis)\b/i],
-];
+const AREA_FIELDS = {
+  'video': ['video', 'images', 'animation'],
+  'agent-code': ['coding', 'agents', 'robotics', 'games'],
+  'browser-mcp': ['mcp', 'agents'],
+  'quant': ['trading'],
+  'local': ['local-models'],
+  'fine-tune': ['training', 'evaluation'],
+  'rag': ['rag', 'ocr', 'translation'],
+  'voice': ['audio', 'music'],
+};
 function repoAreas(r) {
   if (!r) return [];
   const set = new Set(asArray(r.areas));
   if (r.category) set.add(r.category);
-  const text = `${r.id || ''} ${r.full_name || ''} ${r.description || ''} ${r.description_vi || ''}`;
-  for (const [cat, pat] of AREA_PATTERNS) {
-    if (!set.has(cat) && pat.test(text)) set.add(cat);
-  }
   return Array.from(set);
 }
 function repoMatchesArea(r) {
@@ -838,6 +846,118 @@ function repoMatchesArea(r) {
   }
   return false;
 }
+function areaPool(areaId) {
+  if (!FIELD_DATA || !FIELD_MAP.size) return [];
+  const fieldIds = AREA_FIELDS[areaId] || [areaId];
+  const seen = new Set();
+  const list = [];
+  let hasRanked = false;
+
+  for (const fid of fieldIds) {
+    const f = FIELD_MAP.get(fid);
+    if (!f) continue;
+    const isRanked = f.status === 'ranked' && Array.isArray(f.ranked) && f.ranked.length > 0;
+    const pool = isRanked ? f.ranked : asArray(f.tracking);
+    if (isRanked) hasRanked = true;
+    for (const r of pool) {
+      const name = r.full_name || r.id;
+      if (!name || seen.has(name)) continue;
+      seen.add(name);
+      list.push({
+        id: r.id || r.repository_id || name,
+        full_name: r.full_name || name,
+        url: r.url,
+        description: r.description || '',
+        description_vi: r.description_vi || '',
+        stars: r.stars,
+        stars_net_7d: r.stars_net_7d,
+        field_id: fid,
+        is_ranked: isRanked && Number.isFinite(r.stars_net_7d),
+      });
+    }
+  }
+
+  if (hasRanked) {
+    list.sort((a, b) => {
+      const aR = a.is_ranked ? 1 : 0, bR = b.is_ranked ? 1 : 0;
+      if (aR !== bR) return bR - aR;
+      if (a.is_ranked) return (b.stars_net_7d || 0) - (a.stars_net_7d || 0);
+      return (b.stars || 0) - (a.stars || 0);
+    });
+  } else {
+    list.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+  }
+  return list;
+}
+
+function selectedAreasPool(areaSet) {
+  if (!areaSet || !areaSet.size) return [];
+  const seen = new Set();
+  const list = [];
+  let hasRanked = false;
+
+  for (const aid of areaSet) {
+    const p = areaPool(aid);
+    for (const r of p) {
+      if (!seen.has(r.full_name)) {
+        seen.add(r.full_name);
+        list.push(r);
+        if (r.is_ranked) hasRanked = true;
+      }
+    }
+  }
+
+  if (hasRanked) {
+    list.sort((a, b) => {
+      const aR = a.is_ranked ? 1 : 0, bR = b.is_ranked ? 1 : 0;
+      if (aR !== bR) return bR - aR;
+      if (a.is_ranked) return (b.stars_net_7d || 0) - (a.stars_net_7d || 0);
+      return (b.stars || 0) - (a.stars || 0);
+    });
+  } else {
+    list.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+  }
+  return list;
+}
+
+function areaRepoCount(aid) {
+  if (FIELD_DATA && FIELD_MAP.size) {
+    return areaPool(aid).length;
+  }
+  return asArray(D && D.repos).filter(r => repoAreas(r).includes(aid)).length;
+}
+
+function areaPoolIsRanked(areaSet) {
+  if (!FIELD_DATA || !FIELD_MAP.size) return false;
+  for (const aid of areaSet) {
+    const fids = AREA_FIELDS[aid] || [aid];
+    for (const fid of fids) {
+      const f = FIELD_MAP.get(fid);
+      if (f && f.status === 'ranked' && Array.isArray(f.ranked) && f.ranked.length) return true;
+    }
+  }
+  return false;
+}
+
+function areaListNote(areaSet) {
+  const ranked = areaPoolIsRanked(areaSet);
+  if (areaSet.size === 1) {
+    const aid = [...areaSet][0];
+    const a = AREAS.find(x => x.id === aid);
+    const name = a ? a.label : aid;
+    return ranked
+      ? `Kho mã xếp hạng theo số sao tăng 7 ngày trong mảng ${name}.`
+      : `Kho mã đang theo dõi trong mảng ${name}, xếp theo tổng số sao (đang tích luỹ lịch sử 7 ngày để xếp hạng).`;
+  }
+  const names = [...areaSet].map(aid => {
+    const a = AREAS.find(x => x.id === aid);
+    return a ? a.label : aid;
+  }).join(', ');
+  return ranked
+    ? `Kho mã xếp hạng theo số sao tăng 7 ngày trong ${areaSet.size} mảng (${names}).`
+    : `Kho mã đang theo dõi trong ${areaSet.size} mảng (${names}), xếp theo tổng số sao (đang tích luỹ lịch sử 7 ngày để xếp hạng).`;
+}
+
 const REPO_PAGE_SIZE = 6;
 let repoVisibleLimit = REPO_PAGE_SIZE;
 const REPO_VIEWS = [{ id: 'trending', label: 'Đang lên' }, { id: 'stars', label: 'Nhiều sao' }, { id: 'usable', label: 'Dùng ngay' }];
@@ -881,20 +1001,22 @@ function repoListNote() {
     : `Kho mã AI tăng sao nhanh nhất ${w.phrase} trên trang thịnh hành của GitHub. Nhãn chỉ để tham khảo, không đổi thứ tự.`;
 }
 function repoControls(full, inList) {
-  const second = repoView === 'stars'
-    ? TOTALS.map(t => ({ kind: 'total', id: t.id, label: t.label, on: repoTotal === t.id }))
-    : WINDOWS.map(w => ({ kind: 'window', id: w.id, label: w.label, on: repoWindow === w.id }));
-  const count = id => inList.filter(r => repoAreas(r).includes(id)).length;
+  const isArea = areas.size > 0 && FIELD_DATA && FIELD_MAP.size;
+  const second = isArea
+    ? [{ kind: 'status', id: 'status', label: areaPoolIsRanked(areas) ? 'Xếp hạng 7 ngày' : 'Theo tổng số sao (đang theo dõi)', on: true }]
+    : (repoView === 'stars'
+      ? TOTALS.map(t => ({ kind: 'total', id: t.id, label: t.label, on: repoTotal === t.id }))
+      : WINDOWS.map(w => ({ kind: 'window', id: w.id, label: w.label, on: repoWindow === w.id })));
   return `<div class="repo-ctl">
-    <div class="seg" role="group" aria-label="Chọn danh sách kho mã">${REPO_VIEWS.map(v => `<button class="seg-b" data-repo-view="${v.id}" aria-pressed="${repoView === v.id}">${esc(v.label)}</button>`).join('')}</div>
-    <div class="seg seg-quiet" role="group" aria-label="${repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian'}">${second.map(x => `<button class="seg-b" data-repo-${x.kind}="${x.id}" aria-pressed="${x.on}">${esc(x.label)}</button>`).join('')}</div>
+    <div class="seg" role="group" aria-label="Chọn danh sách kho mã">${REPO_VIEWS.map(v => `<button class="seg-b" data-repo-view="${v.id}" aria-pressed="${areas.size ? 'false' : String(repoView === v.id)}">${esc(v.label)}</button>`).join('')}</div>
+    <div class="seg seg-quiet" role="group" aria-label="${isArea ? 'Tiêu chí sắp xếp' : (repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian')}">${second.map(x => `<button class="seg-b"${isArea ? '' : ` data-repo-${x.kind}="${x.id}"`} aria-pressed="${x.on}">${esc(x.label)}</button>`).join('')}</div>
   </div>
-  <div class="area-chips" role="group" aria-label="Chọn mảng bạn quan tâm">${AREAS.map(a => `<button class="area-chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${esc(a.label)} <span class="count num">${count(a.id)}</span></button>`).join('')}</div>
-  <p class="tile-note repo-note">${esc(repoListNote())} ${areas.size ? `Đang lọc ${areas.size} mảng, lưu trên máy này.` : 'Chưa chọn mảng nào, nên hiện mọi mảng.'}</p>`;
+  <div class="area-chips" role="group" aria-label="Chọn mảng bạn quan tâm">${AREAS.map(a => `<button class="area-chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${esc(a.label)} <span class="count num">${areaRepoCount(a.id)}</span></button>`).join('')}</div>
+  <p class="tile-note repo-note">${isArea ? `${esc(areaListNote(areas))} <button class="text-btn" data-area-clear>Hiện mọi mảng</button>` : `${esc(repoListNote())} Chưa chọn mảng nào, nên hiện mọi mảng.`}</p>`;
 }
 function repoCard(r, measure) {
   const desc = r.description_vi || r.description || '';
-  const key = `repo:${r.id}`, on = savedHas(key);
+  const key = `repo:${r.id || r.repository_id || r.full_name}`, on = savedHas(key);
   return `<div class="repo-cell${read.has(key) ? ' is-read' : ''}" data-sid="${esc(key)}"><a class="repo" href="${esc(safe(r.url))}" target="_blank" rel="noopener" data-read="${esc(key)}">
       <span class="repo-img"><img src="${esc(ghPreview(r))}" alt="" width="1200" height="600" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
       <span class="repo-name" lang="en"><span class="st-mark">${read.has(key) ? MARK.seen : ''}</span>${esc(r.full_name)}</span>
@@ -904,37 +1026,49 @@ function repoCard(r, measure) {
 }
 /* full: the "Mã và mô hình" view; otherwise the tile in the feed. */
 function renderRepos(full = false) {
-  const ranked = rankedRepos();
+  const isArea = areas.size > 0 && FIELD_DATA && FIELD_MAP.size;
   const head = `<div class="tile-head"><h2 class="tile-title" id="repos-h">Kho mã đáng lấy</h2><span class="tile-note">thịnh hành trên GitHub</span></div>`;
-  if (!ranked) {
-    // A snapshot built before 03/10 has no orderings: the old pick, labelled repositories by stars gained in 7 days.
-    const all = asArray(D.repos).filter(r => r.source !== 'hf' && (r.label === 'dung-ngay' || r.label === 'xao-nau'))
-      .sort((a, b) => (b.stars_gained_7d || 0) - (a.stars_gained_7d || 0));
-    const matching = all.filter(repoMatchesArea);
-    const list = matching.slice(0, repoVisibleLimit);
-    const remaining = matching.length - list.length;
-    if (!matching.length) return '';
-    return `<section class="tile tile-repos${full ? ' is-full' : ''}" aria-labelledby="repos-h">${head}
-      <div class="repo-row" id="repos-list">${list.map(r => repoCard(r, r.stars_gained_7d ? `<b class="num">+${fmt(r.stars_gained_7d)}</b> sao trong 7 ngày` : `<b class="num">${fmt(r.stars || 0)}</b> sao`)).join('')}</div>
-      ${remaining > 0 ? `<div class="repo-more"><button class="repo-more-btn" data-repo-more="true" aria-controls="repos-list" aria-label="Xem thêm ${Math.min(REPO_PAGE_SIZE, remaining)} kho mã, còn ${remaining} kho mã">Xem thêm <span class="num">+${Math.min(REPO_PAGE_SIZE, remaining)}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span></button></div>` : ''}
-      <div class="sr" role="status" aria-live="polite" id="repo-status"></div>
-    </section>`;
+
+  let matching = [];
+  if (isArea) {
+    matching = selectedAreasPool(areas);
+  } else {
+    const ranked = rankedRepos();
+    if (ranked) {
+      matching = ranked;
+    } else {
+      matching = asArray(D.repos).filter(r => r.source !== 'hf' && (r.label === 'dung-ngay' || r.label === 'xao-nau'));
+    }
   }
-  const matching = ranked.filter(repoMatchesArea);
+
   const list = matching.slice(0, repoVisibleLimit);
   const remaining = matching.length - list.length;
-  const why = windowGap() || (areas.size ? 'Không có kho mã nào ở mảng bạn chọn.' : 'Danh sách này chưa có kho mã nào.');
+  const why = isArea
+    ? 'Không có kho mã nào ở mảng bạn chọn.'
+    : (windowGap() || 'Danh sách này chưa có kho mã nào.');
+
   return `<section class="tile tile-repos${full ? ' is-full' : ''}" aria-labelledby="repos-h">${head}
-    ${repoControls(full, ranked)}
-    ${list.length ? `<div class="repo-row" id="repos-list">${list.map(r => repoCard(r, repoMeasure(r))).join('')}</div>`
+    ${repoControls(full, matching)}
+    ${list.length ? `<div class="repo-row" id="repos-list">${list.map(r => {
+      const measure = isArea
+        ? (r.is_ranked ? `<b class="num">+${fmt(r.stars_net_7d)}</b> sao trong 7 ngày` : `<b class="num">${fmt(r.stars || 0)}</b> sao`)
+        : repoMeasure(r);
+      return repoCard(r, measure);
+    }).join('')}</div>`
       : `<p class="tile-note repo-empty">${esc(why)}${areas.size ? ' <button class="text-btn" data-area-clear>Hiện mọi mảng</button>' : ''}</p>`}
     ${remaining > 0 ? `<div class="repo-more"><button class="repo-more-btn" data-repo-more="true" aria-controls="repos-list" aria-label="Xem thêm ${Math.min(REPO_PAGE_SIZE, remaining)} kho mã, còn ${remaining} kho mã">Xem thêm <span class="num">+${Math.min(REPO_PAGE_SIZE, remaining)}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span></button></div>` : ''}
     <div class="sr" role="status" aria-live="polite" id="repo-status"></div>
   </section>`;
 }
 function showMoreRepos(moreBtn) {
-  const ranked = rankedRepos();
-  const matching = ranked ? ranked.filter(repoMatchesArea) : asArray(D.repos).filter(r => r.source !== 'hf' && (r.label === 'dung-ngay' || r.label === 'xao-nau')).filter(repoMatchesArea);
+  const isArea = areas.size > 0 && FIELD_DATA && FIELD_MAP.size;
+  let matching = [];
+  if (isArea) {
+    matching = selectedAreasPool(areas);
+  } else {
+    const ranked = rankedRepos();
+    matching = ranked ? ranked : asArray(D.repos).filter(r => r.source !== 'hf' && (r.label === 'dung-ngay' || r.label === 'xao-nau'));
+  }
   const total = matching.length;
   const start = repoVisibleLimit;
   const end = Math.min(start + REPO_PAGE_SIZE, total);
@@ -950,7 +1084,12 @@ function showMoreRepos(moreBtn) {
   if (!row) { rerenderRepos(); return; }
 
   const tmp = document.createElement('div');
-  tmp.innerHTML = nextSlice.map(r => repoCard(r, ranked ? repoMeasure(r) : (r.stars_gained_7d ? `<b class="num">+${fmt(r.stars_gained_7d)}</b> sao trong 7 ngày` : `<b class="num">${fmt(r.stars || 0)}</b> sao`))).join('');
+  tmp.innerHTML = nextSlice.map(r => {
+    const measure = isArea
+      ? (r.is_ranked ? `<b class="num">+${fmt(r.stars_net_7d)}</b> sao trong 7 ngày` : `<b class="num">${fmt(r.stars || 0)}</b> sao`)
+      : repoMeasure(r);
+    return repoCard(r, measure);
+  }).join('');
   const newCells = [...tmp.children];
   newCells.forEach(cell => row.appendChild(cell));
 
@@ -1975,9 +2114,21 @@ async function init() {
   watchImageLoad();
   attachEvents();
   try {
-    const [, data, picks] = await Promise.all([loadImages(), loadData(), loadPicks()]);
+    const [, data, picks, fieldData] = await Promise.all([loadImages(), loadData(), loadPicks(), loadFieldRankings()]);
     RAW_PICKS = picks;
+    FIELD_DATA = fieldData;
+    if (FIELD_DATA && Array.isArray(FIELD_DATA.fields)) {
+      FIELD_MAP = new Map(FIELD_DATA.fields.map(f => [f.id, f]));
+    }
     ingest(data);
+    if (FIELD_DATA && Array.isArray(FIELD_DATA.fields)) {
+      for (const f of FIELD_DATA.fields) {
+        for (const r of [...asArray(f.ranked), ...asArray(f.tracking)]) {
+          const key = String(r.id || r.repository_id || r.full_name);
+          if (!REPO.has(key)) REPO.set(key, r);
+        }
+      }
+    }
     sortMode = store.get(K.sort, store.get(LEGACY.sort, 'worth')) === 'new' ? 'new' : 'worth';
     for (const [k, s] of Object.entries(SECTIONS)) LABELS['sec:' + k] = s.label;
     $('#feed-empty p').textContent = `Trong ${winH} giờ qua chưa có tin thuộc nhóm này. Chọn nhóm khác hoặc xem tất cả.`;
