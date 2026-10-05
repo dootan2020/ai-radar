@@ -436,7 +436,7 @@ def resolve_story_image(story, cache=None, timeout=5, transport=None, allow_netw
 
 def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_seconds=20,
                                max_workers=16, timeout=4, transport=None, deadline=None,
-                               ai_transport=None, ledger_path=None, site_root=None):
+                               ai_transport=None, ledger_path=None, site_root=None, now=None):
     """Resolve and attach images to stories in place with bounded concurrency and time."""
     # Finding 2: avoid loading/saving to repo cache during offline transport tests
     cache = ImageCache(cache_path=cache_path, seed_path=seed_path) if (transport is None or cache_path is not None) else None
@@ -495,27 +495,92 @@ def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_
     # Third pass: AI illustration generation for stories without source-published image
     from radar import ai_images
     still_unresolved = [st for st in stories if not st.get("image")]
-    time_left = wall_deadline - time.monotonic()
-    if still_unresolved and time_left > 0.5:
-        has_env = bool(os.environ.get("CLOUDFLARE_ACCOUNT_ID") and os.environ.get("CLOUDFLARE_AI_API_TOKEN"))
-        if has_env or ai_transport is not None:
-            ai_ledger = ai_images.AIImageLedger(ledger_path=ledger_path)
-            # Serve newest stories first so daily neuron budget prioritizes fresh content
-            still_unresolved.sort(key=ai_images.story_recency_key, reverse=True)
-            for st in still_unresolved:
-                if time.monotonic() >= wall_deadline:
-                    break
-                ai_img = ai_images.generate_ai_illustration(
-                    st,
-                    site_root=site_root,
-                    ledger=ai_ledger,
-                    transport=ai_transport,
-                    timeout=min(timeout, max(1.0, wall_deadline - time.monotonic())),
-                )
-                if ai_img:
-                    st["image"] = ai_img
-                    if cache is not None:
-                        cache.set(f"ai:{st['id']}", ai_img)
+    considered = len(still_unresolved)
+    window_open = ai_images.generation_window_open(now)
+    window_state = "window open" if window_open else "window closed"
+
+    generated_count = 0
+    reused_count = 0
+    skipped_reasons = []
+    failed_details = []
+
+    ai_ledger = ai_images.AIImageLedger(ledger_path=ledger_path)
+    still_unresolved.sort(key=ai_images.story_recency_key, reverse=True)
+
+    for st in still_unresolved:
+        time_left = wall_deadline - time.monotonic()
+        if time_left <= 0.5:
+            skipped_reasons.append("build deadline exceeded")
+            continue
+
+        outcome = {}
+        ai_img = ai_images.generate_ai_illustration(
+            st,
+            site_root=site_root,
+            ledger=ai_ledger,
+            transport=ai_transport,
+            timeout=min(timeout, max(1.0, time_left)),
+            now=now,
+            outcome=outcome,
+        )
+        if ai_img:
+            st["image"] = ai_img
+            if cache is not None:
+                cache.set(f"ai:{st['id']}", ai_img)
+            if outcome.get("action") == "reused":
+                reused_count += 1
+            else:
+                generated_count += 1
+        else:
+            action = outcome.get("action")
+            if action == "failed":
+                status = outcome.get("status", 0)
+                err_msg = outcome.get("error", "")
+                err_code = outcome.get("error_code")
+                detail = f"HTTP {status}"
+                if err_code:
+                    detail += f": code {err_code}"
+                if err_msg and err_msg != f"HTTP {status}":
+                    detail += f": {err_msg}"
+                failed_details.append(detail)
+            elif action == "refused":
+                reason = outcome.get("reason", "refused")
+                if "daily_budget" in reason:
+                    skipped_reasons.append("daily budget reached")
+                elif "run_budget" in reason:
+                    skipped_reasons.append("run budget reached")
+                elif "stopped" in reason:
+                    skipped_reasons.append(reason)
+                else:
+                    skipped_reasons.append(reason)
+            elif action == "skipped":
+                reason = outcome.get("reason", "skipped")
+                if reason == "window_closed":
+                    skipped_reasons.append("window closed")
+                else:
+                    skipped_reasons.append(reason)
+            else:
+                skipped_reasons.append("skipped")
+
+    skipped_count = considered - (generated_count + reused_count)
+    skip_detail = ""
+    if skipped_count > 0:
+        reasons = []
+        if failed_details:
+            reasons.extend(dict.fromkeys(failed_details))
+        if skipped_reasons:
+            reasons.extend(dict.fromkeys(skipped_reasons))
+        if not reasons:
+            reasons = ["skipped"]
+        skip_detail = f" ({'; '.join(reasons)})"
+
+    summary_line = (
+        f"AI images: {window_state}, {considered} considered, "
+        f"{generated_count} generated, {reused_count} reused, "
+        f"{skipped_count} skipped{skip_detail}"
+    )
+    print(summary_line)
+    resolve_images_for_stories.last_summary = summary_line
 
     # Save updated cache (only when real run or explicit cache_path provided)
     if cache is not None and (transport is None or cache_path is not None):
