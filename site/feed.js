@@ -213,7 +213,15 @@ async function loadData(init = {}) {
 }
 
 /* ---------- small readers ---------- */
-const srcName = id => String((SRC.get(id) || {}).name || id || '').replace(/\s*\(.*?\)\s*/g, ' ').trim();
+const SHORT_NAMES = {
+  'github-ai': 'GitHub',
+  'github-trending': 'GitHub',
+  'techcrunch-ai': 'TechCrunch',
+  'ars-technica-ai': 'Ars Technica',
+  'the-verge-ai': 'The Verge',
+  'lobsters-ai': 'Lobsters',
+};
+const srcName = id => SHORT_NAMES[id] || String((SRC.get(id) || {}).name || id || '').replace(/\s*\(.*?\)\s*/g, ' ').trim();
 const covsOf = st => uniqCoverage(st.coverage, srcName);
 const nSrc = st => covsOf(st).length;
 const exact = iso => { const d = new Date(iso); return Number.isNaN(d.getTime()) ? 'không rõ' : EXACT.format(d); };
@@ -601,7 +609,7 @@ function renderCard(st, size = 'std', opts = {}) {
   // discussion link. #tin/<id> opens the same panel.
   const covId = `cov-${esc(st.id)}`;
   const metric = [
-    m ? `<span>${numB(m)} ${esc(m.word)}${m.where && m.where !== name ? ` trên ${esc(m.where)}` : ''}</span>` : '',
+    (m && !opts.why) ? `<span>${numB(m)} ${esc(m.word)}</span>` : '',
     `<button class="cov-btn" data-cov="${esc(st.id)}" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${covs.length > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${covs.length}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`
   ].filter(Boolean).join('<span aria-hidden="true">·</span>');
   const cal = calOf(st);

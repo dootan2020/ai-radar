@@ -173,6 +173,7 @@ ul, ol { padding: 0; list-style: none; }
 .card-title { font-size: var(--text-title); font-weight: var(--weight-bold); line-height: var(--leading-snug); letter-spacing: -0.01em; text-wrap: pretty; overflow-wrap: anywhere; }
 .card-std .card-title { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .story-link { display: inline-block; min-height: 40px; transition: color var(--motion-state) var(--ease-flow); }
+.card-std .story-link { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: 40px; }
 .story-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }   /* the whole card is the link */
 .story-link:focus-visible { outline: none; }
 .feed-card:has(.story-link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
@@ -190,7 +191,7 @@ ul, ol { padding: 0; list-style: none; }
 
 .card-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); padding-top: var(--space-4); min-height: 36px; }
 .metric { display: inline-flex; align-items: center; gap: var(--space-8); font-size: var(--text-meta); color: var(--color-ink-3); min-width: 0; max-width: 100%; white-space: nowrap; overflow: hidden; }
-.metric > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; flex-shrink: 1; }
+.metric > span:first-child { white-space: nowrap; flex-shrink: 0; }
 .metric b { color: var(--color-ink-2); font-weight: var(--weight-semibold); }
 .card-actions { display: flex; align-items: center; gap: var(--space-4); position: relative; z-index: 2; flex: none; }
 .act {
@@ -291,7 +292,7 @@ ul, ol { padding: 0; list-style: none; }
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8);
   min-height: var(--btn-h); padding: 0 var(--space-16); border-radius: var(--radius-full);
   background: var(--color-fill); color: var(--color-ink); font-size: var(--text-small); font-weight: var(--weight-semibold);
-  transition: background-color var(--motion-state) var(--ease-flow);
+  white-space: nowrap; transition: background-color var(--motion-state) var(--ease-flow);
 }
 .tile-action .i { fill: currentColor; stroke: none; width: 16px; height: 16px; }
 .tile-action:hover { background: var(--color-hair); }
@@ -464,7 +465,7 @@ ul, ol { padding: 0; list-style: none; }
   gap: var(--feed-gap);
 }
 .picks-mid > .feed-card {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
 }
 .picks-grid > .tile-live {
@@ -642,12 +643,13 @@ ul, ol { padding: 0; list-style: none; }
 .tile-live > .calbtn { align-self: flex-start; }
 
 /* Repository controls: the sort switch's segmented pill, work areas as filter chips */
-.repo-ctl { display: flex; flex-wrap: wrap; gap: var(--space-8); }
-.seg { display: inline-flex; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-full); background: var(--color-fill); max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.repo-ctl { display: flex; flex-wrap: wrap; gap: var(--space-8); align-items: center; }
+.seg { display: inline-flex; align-items: center; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-full); background: var(--color-fill); max-width: 100%; overflow-x: auto; scrollbar-width: none; }
 .seg::-webkit-scrollbar { display: none; }
 .seg-b {
   min-height: 32px; padding: 0 var(--space-12); border-radius: var(--radius-full); white-space: nowrap;
   font-size: var(--text-meta); font-weight: var(--weight-medium); color: var(--color-ink-2);
+  line-height: 22px; display: inline-flex; align-items: center; justify-content: center;
   transition: background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow);
 }
 .seg-b:hover { color: var(--color-ink); }
@@ -711,7 +713,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 /* ==========================================================================
    TABLET (768 to 1199): six columns, story cards three across.
    ========================================================================== */
-@media (max-width: 1023px) and (min-width: 768px){
+@media (max-width: 1199px) and (min-width: 768px){
   .feed-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .card-std, .sk-card { grid-column: span 2; }
   .card-debate { grid-column: span 3; align-self: start; }
@@ -722,13 +724,8 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 
   .picks-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .picks-grid > .feed-card.card-lead {
-    grid-column: span 4;
-    grid-row: span 2;
+    grid-column: 1 / -1;
     min-height: clamp(480px, 40vw + 100px, 580px);
-  }
-  .picks-grid > .tile-live {
-    grid-column: span 2;
-    grid-row: span 2;
   }
   .picks-mid {
     grid-column: 1 / -1;
@@ -740,6 +737,16 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .picks-mid > .feed-card {
     grid-column: span 1;
   }
+  .picks-grid > .tile-live {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+}
+@media (max-width: 959px) and (min-width: 768px){
+  .card-std, .sk-card { grid-column: span 3; }
+  .card-lead, .sk-lead { grid-column: 1 / -1; }
+  .card-wide { grid-column: 1 / -1; }
+  .tile-live { grid-column: span 3; }
 }
 @media (max-width: 1199px){
   .events .calbtn { margin-left: 0; }
@@ -761,12 +768,21 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 
   .feed-grid { display: flex; flex-direction: column; }
   .card-debate { align-self: stretch; width: 100%; max-width: 100%; }
-  .card-lead { min-height: clamp(380px, 20vw + 320px, 480px); aspect-ratio: auto; }
+  .card-lead { min-height: clamp(480px, 25vw + 380px, 560px); aspect-ratio: auto; }
+  .card-lead .photo-body { padding: var(--space-16); gap: var(--space-8); }
+  .card-lead .card-title {
+    font-size: clamp(1.125rem, 1rem + 0.6vw, 1.35rem);
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .card-lead .card-sum { display: none; }
   /* A graphic lead (GitHub preview, cover) shows the whole 2:1 picture with its text below, at its natural height. */
   .card-lead:not(.card-photo) { aspect-ratio: auto; }
   .card-lead:not(.card-photo) .media { flex: none; min-height: 0; aspect-ratio: 2 / 1; }
-  .card-wide { min-height: 0; aspect-ratio: 4 / 3; }
+  .card-wide { min-height: 0; aspect-ratio: auto; }
   .card-wide .card-title { font-size: var(--size-18); }
   .card-title { font-size: var(--size-18); }
   .card-std .card-title { -webkit-line-clamp: 4; }
@@ -786,7 +802,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .sort-btn { min-height: 40px; }
   .picks-grid { display: flex; flex-direction: column; gap: var(--feed-gap); }
   .picks-mid { display: flex; flex-direction: column; gap: var(--feed-gap); }
-  .picks-grid > .feed-card.card-lead { min-height: clamp(380px, 20vw + 320px, 480px); aspect-ratio: auto; }
+  .picks-grid > .feed-card.card-lead { min-height: clamp(480px, 25vw + 380px, 560px); aspect-ratio: auto; }
   .briefing-head { margin-top: var(--space-32); margin-bottom: var(--space-8); }
   .how-panel { padding: var(--space-16); }
 }
