@@ -5,7 +5,8 @@ import json
 from pathlib import Path
 import unittest
 
-from radar import catalog, items, translate, v2feeds
+from radar import catalog, feeds, items, translate, v2feeds
+from radar.common import iso_date
 from radar.clustering import titles_match, cluster_items
 from radar.editions import nonforum_publishers
 
@@ -243,52 +244,77 @@ class FeedParsingAndFilterIntegrationTests(unittest.TestCase):
         self.assertEqual(parsed[0]["publisher"], "the-register")
         self.assertEqual(parsed[0]["published_at"], "2026-10-02T14:30:00Z")
 
-    def test_genk_rss_feed_parses_vietnam_local_timestamp_to_utc(self):
-        source = {
-            "id": "genk-ai",
-            "name": "GenK AI",
-            "publisher": "genk",
-            "group": "press",
-            "kind": "rss",
-            "url": "https://genk.vn/rss/ai.rss",
-            "filter_ai": False,
-        }
-        xml = """<rss version="2.0">
+    def test_feed_timestamp_parsing_exact_shapes_and_utc_normalization(self):
+        # 1. GenK real pubDate: two-digit +07 offset means hours, normalized to UTC
+        genk_date = "Mon, 05 Oct 2026 11:07:00 +07"
+        self.assertEqual(iso_date(genk_date), "2026-10-05T04:07:00Z")
+
+        # 2. Tuoi Tre (source tuoitre-so): 10/2/2026 9:25:00 AM (month/day/year, 12-hour clock, no zone)
+        # Without declared timezone, naive timestamp is NOT guessed as UTC+7 everywhere (returns None)
+        tuoitre_date = "10/2/2026 9:25:00 AM"
+        self.assertIsNone(iso_date(tuoitre_date))
+        # With declared UTC+7 in source definition, parsed as UTC+7 -> UTC 02:25:00Z
+        self.assertEqual(iso_date(tuoitre_date, default_tz="+07:00"), "2026-10-02T02:25:00Z")
+
+        # 3. VnExpress: Mon, 05 Oct 2026 11:00:00 +0700 parses correctly today
+        vnexpress_date = "Mon, 05 Oct 2026 11:00:00 +0700"
+        self.assertEqual(iso_date(vnexpress_date), "2026-10-05T04:00:00Z")
+
+        # 4. Thanh Nien: Mon, 05 Oct 26 14:10:00 +0700 parses correctly today
+        thanhnien_date = "Mon, 05 Oct 26 14:10:00 +0700"
+        self.assertEqual(iso_date(thanhnien_date), "2026-10-05T07:10:00Z")
+
+    def test_genk_and_tuoitre_feed_parsing_with_source_definitions(self):
+        sources = {s["id"]: s for s in catalog.sources(NOW)}
+        # GenK feed parsing with real +07 offset
+        genk_source = sources["genk-ai"]
+        genk_xml = """<rss version="2.0">
         <channel>
           <title>GenK - Tin tức công nghệ</title>
           <link>https://genk.vn</link>
           <item>
-            <title>Better Choice Awards 2026: FPT AI Agents giành giải Giải pháp AI Agent tiên phong</title>
-            <link>https://genk.vn/better-choice-awards-2026-fpt-ai-agents-gianh-giai-giai-phap-ai-agent-tien-phong-165261004151223392.chn</link>
-            <description><![CDATA[FPT AI Agents được vinh danh tại lễ trao giải công nghệ.]]></description>
-            <pubDate>Sun, 04 Oct 2026 19:30:00 GMT</pubDate>
-          </item>
-          <item>
             <title>Kịch bản AI đe dọa tồn vong loài người</title>
             <link>https://genk.vn/kich-ban-ai-de-doa-ton-vong-loai-nguoi-165261005110748938.chn</link>
             <description><![CDATA[Các chuyên gia cảnh báo về kịch bản rủi ro nghiêm trọng từ trí tuệ nhân tạo.]]></description>
-            <pubDate>Mon, 05 Oct 2026 11:00:00 +0000</pubDate>
-          </item>
-          <item>
-            <title>Thử nghiệm mô hình AI với múi giờ chuẩn +0700</title>
-            <link>https://genk.vn/thu-nghiem-mo-hinh-ai-165261005080000000.chn</link>
-            <description><![CDATA[Mô tả thử nghiệm trí tuệ nhân tạo.]]></description>
-            <pubDate>Mon, 05 Oct 2026 15:00:00 +0700</pubDate>
+            <pubDate>Mon, 05 Oct 2026 11:07:00 +07</pubDate>
           </item>
         </channel>
         </rss>"""
-        parsed = v2feeds.parse_feed(xml, source, NOW.isoformat())
-        self.assertEqual(len(parsed), 3)
+        v2_genk = v2feeds.parse_feed(genk_xml, genk_source, NOW.isoformat())
+        self.assertEqual(len(v2_genk), 1)
+        self.assertEqual(v2_genk[0]["published_at"], "2026-10-05T04:07:00Z")
 
-        # Item 1: 19:30:00 Vietnam time falsely labeled GMT -> 12:30:00 UTC
-        self.assertEqual(parsed[0]["published_at"], "2026-10-05T08:00:00Z")
-        self.assertEqual(parsed[1]["published_at"], "2026-10-05T04:00:00Z")
-        self.assertEqual(parsed[2]["published_at"], "2026-10-04T12:30:00Z")
+        feeds_genk = feeds.parse_feed(genk_xml, genk_source)
+        self.assertEqual(len(feeds_genk), 1)
+        self.assertEqual(feeds_genk[0]["published_at"], "2026-10-05T04:07:00Z")
 
-        # Verify standard source is untouched
-        std_source = dict(source, id="wired-ai", publisher="wired")
-        std_parsed = v2feeds.parse_feed(xml, std_source, NOW.isoformat())
-        self.assertEqual(std_parsed[2]["published_at"], "2026-10-04T19:30:00Z")
+        # Tuoi Tre feed parsing with declared UTC+7 in source definition
+        tuoitre_source = sources["tuoitre-so"]
+        self.assertEqual(tuoitre_source.get("default_tz"), "+07:00")
+        tuoitre_xml = """<rss version="2.0">
+        <channel>
+          <title>Tuổi Trẻ Online - Nhịp sống số</title>
+          <link>https://tuoitre.vn</link>
+          <item>
+            <title>Sau Úc, phát hiện tác nhân AI tìm cách xâm nhập hệ thống Canada</title>
+            <link>https://tuoitre.vn/sau-uc-phat-hien-tac-nhan-ai-tim-cach-xam-nhap-he-thong-chinh-phu-canada-100261002091032857.htm</link>
+            <description><![CDATA[Canada cho biết chưa có dấu hiệu hệ thống bị xâm phạm.]]></description>
+            <pubDate>10/2/2026 9:25:00 AM</pubDate>
+          </item>
+        </channel>
+        </rss>"""
+        v2_tuoitre = v2feeds.parse_feed(tuoitre_xml, tuoitre_source, NOW.isoformat())
+        self.assertEqual(len(v2_tuoitre), 1)
+        self.assertEqual(v2_tuoitre[0]["published_at"], "2026-10-02T02:25:00Z")
+
+        feeds_tuoitre = feeds.parse_feed(tuoitre_xml, tuoitre_source)
+        self.assertEqual(len(feeds_tuoitre), 1)
+        self.assertEqual(feeds_tuoitre[0]["published_at"], "2026-10-02T02:25:00Z")
+
+        # Undeclared source without timezone: naive timestamp stays unknown (None)
+        undeclared_source = {"id": "undeclared-source", "name": "Other", "publisher": "other", "url": "https://example.org/rss", "kind": "rss"}
+        v2_undeclared = v2feeds.parse_feed(tuoitre_xml, undeclared_source, NOW.isoformat())
+        self.assertIsNone(v2_undeclared[0]["published_at"])
 
 
 class VietnameseLanguageAndTranslationTests(unittest.TestCase):

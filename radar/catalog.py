@@ -20,7 +20,7 @@ RSS = [
     ("dwarkesh-video", "Video Dwarkesh", "podcast", "dwarkesh", "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA", True),
     ("vnexpress-tech", "VnExpress International Tech", "press", "vnexpress", "https://e.vnexpress.net/rss/tech.rss", True),
     ("genk-ai", "GenK AI", "press", "genk", "https://genk.vn/rss/ai.rss", False),
-    ("tuoitre-so", "Tuổi Trẻ Nhịp sống số", "press", "tuoi-tre", "https://tuoitre.vn/rss/nhip-song-so.rss", True),
+    ("tuoitre-so", "Tuổi Trẻ Nhịp sống số", "press", "tuoi-tre", "https://tuoitre.vn/rss/nhip-song-so.rss", True, {"default_tz": "+07:00"}),
     ("thanhnien-cong-nghe", "Thanh Niên Công nghệ", "press", "thanh-nien", "https://thanhnien.vn/rss/cong-nghe.rss", True),
     ("theregister-ai", "The Register AI/ML", "press", "the-register", "https://www.theregister.com/software/ai_ml/headlines.atom", False),
     ("wired-ai", "Wired AI", "press", "wired", "https://www.wired.com/feed/tag/ai/latest/rss", False),
@@ -48,14 +48,25 @@ DISABLED = {
 
 
 def source(id_, name, url, parser, group, publisher, **extra):
-    return dict(id=id_, name=name, url=url, parser=parser, kind="rss" if parser == "feed" else "json",
+    data = dict(id=id_, name=name, url=url, parser=parser, kind="rss" if parser == "feed" else "json",
                 group=group, publisher=publisher, lab=publisher if group == "lab" else "",
                 first_wave=True, **extra)
+    tz_val = extra.get("default_tz") or extra.get("timezone") or extra.get("tz")
+    if tz_val:
+        data["default_tz"] = tz_val
+        data["timezone"] = tz_val
+        data["tz"] = tz_val
+    return data
 
 
 def sources(now):
-    result = [source(id_, name, url, "feed", group, publisher, filter_ai=filter_ai)
-              for id_, name, group, publisher, url, filter_ai in RSS]
+    result = []
+    for row in RSS:
+        id_, name, group, publisher, url, filter_ai = row[:6]
+        extra = row[6] if len(row) > 6 else {}
+        if isinstance(extra, str):
+            extra = {"default_tz": extra}
+        result.append(source(id_, name, url, "feed", group, publisher, filter_ai=filter_ai, **extra))
     for row in result:
         if row["id"] in DISABLED:
             row.update(disabled=True, disabled_reason=DISABLED[row["id"]])

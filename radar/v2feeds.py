@@ -3,7 +3,7 @@
 import xml.etree.ElementTree as ET
 
 from radar.common import classify, clean_text, web_url
-from radar.feeds import _field, _genk_date, _local, _research_copy
+from radar.feeds import _field, _local, _research_copy
 from radar.items import observation, relevant
 
 
@@ -51,8 +51,6 @@ def parse_feed(text, source, observed_at):
             kind = "video"
             media.append(dict(url=url, type="video", mime_type=None))
         date = _field(entry, "pubDate", "published", "date", "updated")
-        if source.get("id") == "genk-ai" or source.get("publisher") == "genk":
-            date = _genk_date(date)
         item = observation(source, title, url, date, observed_at, kind=kind, summary=summary, media=media)
         if item:
             result.append(item)
