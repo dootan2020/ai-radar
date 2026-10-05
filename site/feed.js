@@ -31,6 +31,9 @@ const DATA_URL = customData ? qp : 'data/radar-ui.json';
 const SOURCES = customData ? [qp] : [DATA_URL, 'data/radar.json'];
 const IMAGES_URL = 'feed-images.json';
 const PICKS_URL = 'editor-picks.json';   // the owner's own picks; the only thing allowed to say "Biên tập chọn"
+const FIELD_RANKINGS_URL = 'data/field-rankings.json';
+let FIELD_DATA = null;
+let FIELD_MAP = new Map();
 /* The bento home's keys, so a returning reader keeps what they read, skipped, saved and chose there. */
 const K = { theme: 'air2:theme', read: 'air2:read', skipped: 'air2:skipped', lastSeen: 'air2:lastSeen', saved: 'air2:saved',
   sort: 'air2:sort', repoView: 'air2:repoView', repoWindow: 'air2:repoWindow', repoTotal: 'air2:repoTotal', areas: 'air2:areas' };
@@ -244,6 +247,15 @@ async function loadPicks() {
     const j = await fetchJSON(PICKS_URL, { cache: 'no-cache' });
     return Array.isArray(j && j.picks) ? j.picks : [];
   } catch (e) { console.warn('editor-picks.json unavailable; no editor picks', e); return []; }
+}
+async function loadFieldRankings() {
+  try {
+    const j = await fetchJSON(FIELD_RANKINGS_URL);
+    if (j && Array.isArray(j.fields)) return j;
+  } catch (e) {
+    console.warn('field-rankings.json unavailable; area browsing falls back to snapshot repos', e);
+  }
+  return null;
 }
 function matchPicks(list) {
   const now = Date.now();
@@ -806,10 +818,155 @@ const hfPreview = r => { const v = IMG[r.url]; return v && v.src ? v.src : `http
    and the eight work areas. The orderings come from the pipeline (repos_meta.rankings); the page only picks one.
    Same keys as the bento home, so a reader's choice carries over. */
 const AREAS = [
-  { id: 'video', label: 'Video và hình ảnh' }, { id: 'agent-code', label: 'Tác tử lập trình' }, { id: 'quant', label: 'Giao dịch, tài chính' },
-  { id: 'local', label: 'Chạy mô hình trên máy' }, { id: 'fine-tune', label: 'Tinh chỉnh mô hình' }, { id: 'rag', label: 'Dữ liệu cho RAG' },
-  { id: 'voice', label: 'Giọng nói, âm thanh' }, { id: 'browser-mcp', label: 'Trình duyệt, MCP' },
+  { id: 'video', label: 'Video và hình ảnh' }, { id: 'agent-code', label: 'Tác tử lập trình' }, { id: 'agents', label: 'Tác tử tự động' },
+  { id: 'browser-mcp', label: 'Trình duyệt, MCP' }, { id: 'quant', label: 'Giao dịch, tài chính' }, { id: 'local', label: 'Chạy mô hình trên máy' },
+  { id: 'fine-tune', label: 'Tinh chỉnh mô hình' }, { id: 'rag', label: 'Dữ liệu cho RAG' }, { id: 'voice', label: 'Giọng nói, âm thanh' },
+  { id: 'robotics', label: 'Người máy, AI thể nghiệm' }, { id: 'evaluation', label: 'Đánh giá mô hình' }, { id: 'translation', label: 'Dịch thuật' },
 ];
+const AREA_FIELDS = {
+  'video': ['video', 'images', 'animation'],
+  'agent-code': ['coding'],
+  'agents': ['agents'],
+  'browser-mcp': ['mcp'],
+  'quant': ['trading'],
+  'local': ['local-models'],
+  'fine-tune': ['training'],
+  'rag': ['rag', 'ocr'],
+  'voice': ['audio', 'music'],
+  'robotics': ['robotics'],
+  'evaluation': ['evaluation'],
+  'translation': ['translation'],
+};
+function repoAreas(r) {
+  if (!r) return [];
+  const set = new Set(asArray(r.areas));
+  if (r.category) set.add(r.category);
+  return Array.from(set);
+}
+function repoMatchesArea(r) {
+  if (!areas.size) return true;
+  const a = repoAreas(r);
+  for (const id of areas) {
+    if (a.includes(id)) return true;
+  }
+  return false;
+}
+function areaPool(areaId) {
+  if (!FIELD_DATA || !FIELD_MAP.size) return [];
+  const fieldIds = AREA_FIELDS[areaId] || [areaId];
+  const seen = new Set();
+  const list = [];
+  let hasRanked = false;
+
+  for (const fid of fieldIds) {
+    const f = FIELD_MAP.get(fid);
+    if (!f) continue;
+    const isRanked = f.status === 'ranked' && Array.isArray(f.ranked) && f.ranked.length > 0;
+    const pool = isRanked ? f.ranked : asArray(f.tracking);
+    if (isRanked) hasRanked = true;
+    for (const r of pool) {
+      const name = r.full_name || r.id;
+      if (!name || seen.has(name)) continue;
+      seen.add(name);
+      list.push({
+        id: r.id || r.repository_id || name,
+        full_name: r.full_name || name,
+        url: r.url,
+        description: r.description || '',
+        description_vi: r.description_vi || '',
+        stars: r.stars,
+        stars_net_7d: r.stars_net_7d,
+        field_id: fid,
+        is_ranked: isRanked && Number.isFinite(r.stars_net_7d),
+      });
+    }
+  }
+
+  if (hasRanked) {
+    list.sort((a, b) => {
+      const aR = a.is_ranked ? 1 : 0, bR = b.is_ranked ? 1 : 0;
+      if (aR !== bR) return bR - aR;
+      if (a.is_ranked) return (b.stars_net_7d || 0) - (a.stars_net_7d || 0);
+      return (b.stars || 0) - (a.stars || 0);
+    });
+  } else {
+    list.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+  }
+  return list;
+}
+
+function selectedAreasPool(areaSet) {
+  if (!areaSet || !areaSet.size) return [];
+  const seen = new Set();
+  const list = [];
+  let hasRanked = false;
+
+  for (const aid of areaSet) {
+    const p = areaPool(aid);
+    for (const r of p) {
+      if (!seen.has(r.full_name)) {
+        seen.add(r.full_name);
+        list.push(r);
+        if (r.is_ranked) hasRanked = true;
+      }
+    }
+  }
+
+  if (hasRanked) {
+    list.sort((a, b) => {
+      const aR = a.is_ranked ? 1 : 0, bR = b.is_ranked ? 1 : 0;
+      if (aR !== bR) return bR - aR;
+      if (a.is_ranked) return (b.stars_net_7d || 0) - (a.stars_net_7d || 0);
+      return (b.stars || 0) - (a.stars || 0);
+    });
+  } else {
+    list.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+  }
+  return list;
+}
+
+function areaRepoCount(aid) {
+  if (FIELD_DATA && FIELD_MAP.size) {
+    return areaPool(aid).length;
+  }
+  return asArray(D && D.repos).filter(r => repoAreas(r).includes(aid)).length;
+}
+
+function areaPoolIsRanked(areaSet) {
+  if (!FIELD_DATA || !FIELD_MAP.size) return false;
+  for (const aid of areaSet) {
+    const fids = AREA_FIELDS[aid] || [aid];
+    for (const fid of fids) {
+      const f = FIELD_MAP.get(fid);
+      if (f && f.status === 'ranked' && Array.isArray(f.ranked) && f.ranked.length) return true;
+    }
+  }
+  return false;
+}
+
+function areaListNote(areaSet) {
+  const ranked = areaPoolIsRanked(areaSet);
+  if (areaSet.size === 1) {
+    const aid = [...areaSet][0];
+    const a = AREAS.find(x => x.id === aid);
+    const name = a ? a.label : aid;
+    return ranked
+      ? `Kho mã xếp hạng theo số sao tăng 7 ngày trong mảng ${name}.`
+      : `Kho mã đang theo dõi trong mảng ${name}, xếp theo tổng số sao (đang tích luỹ lịch sử 7 ngày để xếp hạng).`;
+  }
+  const names = [...areaSet].map(aid => {
+    const a = AREAS.find(x => x.id === aid);
+    return a ? a.label : aid;
+  }).join(', ');
+  return ranked
+    ? `Kho mã xếp hạng theo số sao tăng 7 ngày trong ${areaSet.size} mảng (${names}).`
+    : `Kho mã đang theo dõi trong ${areaSet.size} mảng (${names}), xếp theo tổng số sao (đang tích luỹ lịch sử 7 ngày để xếp hạng).`;
+}
+
+const REPO_PAGE_SIZE = 6;
+const REPO_PAGE_DEFAULT = 4;
+const repoPageSize = isArea => (isArea ? REPO_PAGE_SIZE : REPO_PAGE_DEFAULT);
+let repoVisibleLimit = REPO_PAGE_DEFAULT;
 const REPO_VIEWS = [{ id: 'trending', label: 'Đang lên' }, { id: 'stars', label: 'Nhiều sao' }, { id: 'usable', label: 'Dùng ngay' }];
 const WINDOWS = [
   { id: 'day', label: 'Hôm nay', gained: 'sao hôm nay', phrase: 'hôm nay' },
@@ -850,50 +1007,154 @@ function repoListNote() {
     ? `Kho mã gắn nhãn Dùng ngay (có lệnh cài, bản phát hành mới, giấy phép dễ dùng), xếp theo số sao tăng ${w.phrase} trên trang thịnh hành của GitHub.`
     : `Kho mã AI tăng sao nhanh nhất ${w.phrase} trên trang thịnh hành của GitHub. Nhãn chỉ để tham khảo, không đổi thứ tự.`;
 }
+function formatRepoName(fullName) {
+  const s = String(fullName || '');
+  const slash = s.indexOf('/');
+  if (slash > 0) {
+    return `${esc(s.slice(0, slash))}/<wbr>${esc(s.slice(slash + 1))}`;
+  }
+  return esc(s);
+}
 function repoControls(full, inList) {
+  const isArea = areas.size > 0 && FIELD_DATA && FIELD_MAP.size;
   const second = repoView === 'stars'
     ? TOTALS.map(t => ({ kind: 'total', id: t.id, label: t.label, on: repoTotal === t.id }))
     : WINDOWS.map(w => ({ kind: 'window', id: w.id, label: w.label, on: repoWindow === w.id }));
-  const count = id => inList.filter(r => r.category === id).length;
   return `<div class="repo-ctl">
-    <div class="seg" role="group" aria-label="Chọn danh sách kho mã">${REPO_VIEWS.map(v => `<button class="seg-b" data-repo-view="${v.id}" aria-pressed="${repoView === v.id}">${esc(v.label)}</button>`).join('')}</div>
-    <div class="seg seg-quiet" role="group" aria-label="${repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian'}">${second.map(x => `<button class="seg-b" data-repo-${x.kind}="${x.id}" aria-pressed="${x.on}">${esc(x.label)}</button>`).join('')}</div>
+    <div class="seg" role="group" aria-label="Chọn danh sách kho mã">${REPO_VIEWS.map(v => `<button class="seg-b" data-repo-view="${v.id}" aria-pressed="${String(repoView === v.id)}">${esc(v.label)}</button>`).join('')}</div>
+    ${isArea ? '' : `<div class="seg seg-quiet" role="group" aria-label="${repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian'}">${second.map(x => `<button class="seg-b" data-repo-${x.kind}="${x.id}" aria-pressed="${x.on}">${esc(x.label)}</button>`).join('')}</div>`}
   </div>
-  ${full ? `<div class="area-chips" role="group" aria-label="Chọn mảng bạn quan tâm">${AREAS.map(a => `<button class="area-chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${esc(a.label)} <span class="count num">${count(a.id)}</span></button>`).join('')}</div>
-  <p class="tile-note repo-note">${esc(repoListNote())} ${areas.size ? `Đang lọc ${areas.size} mảng, lưu trên máy này.` : 'Chưa chọn mảng nào, nên hiện mọi mảng.'}</p>` : ''}`;
+  <div class="area-chips" role="group" aria-label="Chọn mảng bạn quan tâm">${AREAS.map(a => `<button class="area-chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${esc(a.label)} <span class="count num">${areaRepoCount(a.id)}</span></button>`).join('')}</div>
+  <p class="tile-note repo-note">${isArea ? `${esc(areaListNote(areas))} <button class="text-btn" data-area-clear>Hiện mọi mảng</button>` : `${esc(repoListNote())} Chưa chọn mảng nào, nên hiện mọi mảng.`}</p>`;
 }
 function repoCard(r, measure) {
   const desc = r.description_vi || r.description || '';
-  const key = `repo:${r.id}`, on = savedHas(key);
+  const key = `repo:${r.id || r.repository_id || r.full_name}`, on = savedHas(key);
   return `<div class="repo-cell${read.has(key) ? ' is-read' : ''}" data-sid="${esc(key)}"><a class="repo" href="${esc(safe(r.url))}" target="_blank" rel="noopener" data-read="${esc(key)}">
       <span class="repo-img"><img src="${esc(ghPreview(r))}" alt="" width="1200" height="600" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
-      <span class="repo-name" lang="en"><span class="st-mark">${read.has(key) ? MARK.seen : ''}</span>${esc(r.full_name)}</span>
+      <span class="repo-name" lang="en"><span class="st-mark">${read.has(key) ? MARK.seen : ''}</span>${formatRepoName(r.full_name)}</span>
       <span class="repo-desc"${langAttr(desc)}>${esc(desc)}</span>
       <span class="repo-meta">${LABEL[r.label] ? `<span class="label ${esc(r.label)}">${esc(LABEL[r.label])}</span>` : ''}<span>${measure}</span></span>
     </a><button class="act repo-save${on ? ' is-saved' : ''}" data-act="save" data-id="${esc(key)}" aria-pressed="${on}" aria-label="Lưu kho mã ${esc(r.full_name)}" title="Lưu">${icon('i-bookmark')}</button></div>`;
 }
-/* full: the "Mã và mô hình" view (up to 12, with the work areas); otherwise the tile in the feed (4). */
+/* full: the "Mã và mô hình" view; otherwise the tile in the feed. */
 function renderRepos(full = false) {
-  const ranked = rankedRepos();
+  const isArea = areas.size > 0 && FIELD_DATA && FIELD_MAP.size;
   const head = `<div class="tile-head"><h2 class="tile-title" id="repos-h">Kho mã đáng lấy</h2><span class="tile-note">thịnh hành trên GitHub</span></div>`;
-  if (!ranked) {
-    // A snapshot built before 03/10 has no orderings: the old pick, labelled repositories by stars gained in 7 days.
-    const repos = asArray(D.repos).filter(r => r.source !== 'hf' && (r.label === 'dung-ngay' || r.label === 'xao-nau'))
-      .sort((a, b) => (b.stars_gained_7d || 0) - (a.stars_gained_7d || 0)).slice(0, full ? 12 : 4);
-    if (!repos.length) return '';
-    return `<section class="tile tile-repos${full ? ' is-full' : ''}" aria-labelledby="repos-h">${head}
-      <div class="repo-row">${repos.map(r => repoCard(r, r.stars_gained_7d ? `<b class="num">+${fmt(r.stars_gained_7d)}</b> sao trong 7 ngày` : `<b class="num">${fmt(r.stars || 0)}</b> sao`)).join('')}</div></section>`;
+
+  let matching = [];
+  if (isArea) {
+    matching = selectedAreasPool(areas);
+  } else {
+    const ranked = rankedRepos();
+    if (ranked) {
+      matching = ranked;
+    } else {
+      matching = asArray(D.repos).filter(r => r.source !== 'hf' && (r.label === 'dung-ngay' || r.label === 'xao-nau'));
+    }
   }
-  const list = ranked.filter(r => !areas.size || areas.has(r.category)).slice(0, full ? 12 : 4);
-  const why = windowGap() || (areas.size ? 'Không có kho mã nào ở mảng bạn chọn.' : 'Danh sách này chưa có kho mã nào.');
-  return `<section class="tile tile-repos${full ? ' is-full' : ''}" aria-labelledby="repos-h">${head}
-    ${repoControls(full, ranked)}
-    ${list.length ? `<div class="repo-row">${list.map(r => repoCard(r, repoMeasure(r))).join('')}</div>`
+
+  const pageSize = repoPageSize(isArea);
+  const list = matching.slice(0, repoVisibleLimit);
+  const remaining = matching.length - list.length;
+  const why = isArea
+    ? 'Không có kho mã nào ở mảng bạn chọn.'
+    : (windowGap() || 'Danh sách này chưa có kho mã nào.');
+  const step = Math.min(pageSize, remaining);
+
+  return `<section class="tile tile-repos${full ? ' is-full' : ''}${isArea ? ' has-area' : ''}" aria-labelledby="repos-h">${head}
+    ${repoControls(full, matching)}
+    ${list.length ? `<div class="repo-row" id="repos-list">${list.map(r => {
+      const measure = isArea
+        ? (r.is_ranked ? `<b class="num">+${fmt(r.stars_net_7d)}</b> sao trong 7 ngày` : `<b class="num">${fmt(r.stars || 0)}</b> sao`)
+        : repoMeasure(r);
+      return repoCard(r, measure);
+    }).join('')}</div>`
       : `<p class="tile-note repo-empty">${esc(why)}${areas.size ? ' <button class="text-btn" data-area-clear>Hiện mọi mảng</button>' : ''}</p>`}
+    ${remaining > 0 ? `<div class="repo-more"><button class="repo-more-btn" data-repo-more="true" aria-controls="repos-list" aria-label="Xem thêm ${step} kho mã, còn ${remaining} kho mã">Xem thêm <span class="num">+${step}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span></button></div>` : ''}
+    <div class="sr" role="status" aria-live="polite" id="repo-status"></div>
   </section>`;
 }
+function showMoreRepos(moreBtn) {
+  const isArea = areas.size > 0 && FIELD_DATA && FIELD_MAP.size;
+  const pageSize = repoPageSize(isArea);
+  let matching = [];
+  if (isArea) {
+    matching = selectedAreasPool(areas);
+  } else {
+    const ranked = rankedRepos();
+    matching = ranked ? ranked : asArray(D.repos).filter(r => r.source !== 'hf' && (r.label === 'dung-ngay' || r.label === 'xao-nau'));
+  }
+  const total = matching.length;
+  const start = repoVisibleLimit;
+  const end = Math.min(start + pageSize, total);
+  const nextSlice = matching.slice(start, end);
+  if (!nextSlice.length) {
+    const container = moreBtn.closest('.repo-more');
+    if (container) container.remove();
+    return;
+  }
+  repoVisibleLimit = end;
+
+  const row = document.getElementById('repos-list') || document.querySelector('.tile-repos .repo-row');
+  if (!row) { rerenderRepos(); return; }
+
+  const tmp = document.createElement('div');
+  tmp.innerHTML = nextSlice.map(r => {
+    const measure = isArea
+      ? (r.is_ranked ? `<b class="num">+${fmt(r.stars_net_7d)}</b> sao trong 7 ngày` : `<b class="num">${fmt(r.stars || 0)}</b> sao`)
+      : repoMeasure(r);
+    return repoCard(r, measure);
+  }).join('');
+  const newCells = [...tmp.children];
+  newCells.forEach(cell => row.appendChild(cell));
+
+  animateNewRepoCells(newCells);
+
+  const remaining = total - repoVisibleLimit;
+  const statusEl = document.getElementById('repo-status');
+  if (statusEl) {
+    statusEl.textContent = `Đã tải thêm ${nextSlice.length} kho mã. Đang hiện ${repoVisibleLimit} trên tổng số ${total} kho mã.`;
+  }
+
+  const nextStep = Math.min(pageSize, remaining);
+  if (remaining > 0) {
+    moreBtn.setAttribute('aria-label', `Xem thêm ${nextStep} kho mã, còn ${remaining} kho mã`);
+    moreBtn.innerHTML = `Xem thêm <span class="num">+${nextStep}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span>`;
+    moreBtn.focus();
+  } else {
+    const container = moreBtn.closest('.repo-more');
+    if (container) container.remove();
+    const firstLink = newCells[0] && newCells[0].querySelector('a.repo');
+    if (firstLink) firstLink.focus({ preventScroll: true });
+  }
+}
+function animateNewRepoCells(cells) {
+  if (RM.matches || !cells.length) return;
+  cells.forEach((cell, idx) => {
+    cell.classList.add('motion-entry');
+    const delay = Math.min(idx * 40, 200);
+    cell.style.transitionDelay = `${delay}ms`;
+    requestAnimationFrame(() => {
+      cell.classList.add('is-entered');
+    });
+    setTimeout(() => {
+      cell.classList.remove('motion-entry', 'is-entered');
+      cell.classList.add('motion-done');
+      cell.style.transitionDelay = '';
+    }, delay + CARD_ENTER_MS + 40);
+  });
+}
 function setRepo(kind, value) {
-  if (kind === 'view' && REPO_VIEWS.some(v => v.id === value)) { repoView = value; store.set(K.repoView, value); }
+  repoVisibleLimit = repoPageSize(areas.size > 0);
+  if (kind === 'view' && REPO_VIEWS.some(v => v.id === value)) {
+    repoView = value;
+    store.set(K.repoView, value);
+    if (areas.size > 0) {
+      areas.clear();
+      store.set(K.areas, []);
+    }
+  }
   else if (kind === 'window' && WINDOWS.some(w => w.id === value)) { repoWindow = value; store.set(K.repoWindow, value); }
   else if (kind === 'total' && TOTALS.some(t => t.id === value)) { repoTotal = value; store.set(K.repoTotal, value); }
   else return;
@@ -1073,8 +1334,16 @@ function rerenderRepos() {
   if (next) old.replaceWith(next); else old.remove();
 
   if (next) {
-    flipRepoPill(next.querySelector('.seg:not(.seg-quiet)'), oldViewBox, oldViewVal);
-    flipRepoPill(next.querySelector('.seg.seg-quiet'), oldWinBox, oldWinVal);
+    const nextViewSeg = next.querySelector('.seg:not(.seg-quiet)');
+    if (nextViewSeg) flipRepoPill(nextViewSeg, oldViewBox, oldViewVal);
+    const nextWinSeg = next.querySelector('.seg.seg-quiet');
+    if (nextWinSeg) flipRepoPill(nextWinSeg, oldWinBox, oldWinVal);
+  }
+
+  if (next && areas.size) {
+    const chipContainer = next.querySelector('.area-chips');
+    const activeChip = chipContainer && chipContainer.querySelector('.area-chip[aria-pressed="true"]');
+    if (chipContainer && activeChip) scrollChipIntoView(chipContainer, activeChip);
   }
 
   if (attr && next) {
@@ -1083,19 +1352,47 @@ function rerenderRepos() {
     if (el) el.focus({ preventScroll: true });
   }
 }
-function renderModels() {
+const MODEL_LIMIT = 8;
+function getTrendingModels() {
   const sig = r => r.signals || {};
-  const models = (D.repos || []).filter(r => r.source === 'hf')
-    .sort((a, b) => (sig(b).hf_score ?? b.hf_score ?? 0) - (sig(a).hf_score ?? a.hf_score ?? 0)).slice(0, 3);
+  const reposHf = (D.repos || []).filter(r => r.source === 'hf').map(r => ({
+    full_name: r.full_name || r.name || r.id,
+    url: r.url,
+    likes: sig(r).likes ?? r.stars,
+    downloads: sig(r).downloads,
+    hf_score: sig(r).hf_score ?? r.hf_score ?? 0,
+  }));
+  const trendingHf = ((D.trending && D.trending.huggingface) || [])
+    .filter(x => x.type === 'model' || !x.type)
+    .map(x => ({
+      full_name: x.id || x.name,
+      url: x.url || `https://huggingface.co/${x.id}`,
+      likes: x.likes,
+      downloads: x.downloads,
+      hf_score: x.likes ?? 0,
+    }));
+  const map = new Map();
+  for (const m of [...reposHf, ...trendingHf]) {
+    if (m.full_name && !map.has(m.full_name)) {
+      map.set(m.full_name, m);
+    }
+  }
+  return [...map.values()]
+    .sort((a, b) => (b.hf_score ?? 0) - (a.hf_score ?? 0) || (b.likes ?? 0) - (a.likes ?? 0))
+    .slice(0, MODEL_LIMIT);
+}
+
+function renderModels() {
+  const models = getTrendingModels();
   if (!models.length) return '';
   return `<section class="tile tile-models" aria-labelledby="models-h">
     <div class="tile-head"><h2 class="tile-title" id="models-h">Mô hình đáng thử</h2></div>
     <p class="tile-note">thịnh hành trên Hugging Face</p>
     <div class="model-list">${models.map(r => {
-      const likes = sig(r).likes ?? r.stars, dl = sig(r).downloads;
+      const likes = r.likes, dl = r.downloads;
       return `<a class="model" href="${esc(safe(r.url))}" target="_blank" rel="noopener">
         <span class="model-img"><img src="${esc(hfPreview(r))}" alt="" width="1200" height="648" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
-        <span class="model-name" lang="en">${esc(r.full_name)}</span>
+        <span class="model-name" lang="en">${formatRepoName(r.full_name)}</span>
         <span class="model-meta">${Number.isFinite(likes) ? `<span><b class="num">${fmt(likes)}</b> lượt thích</span>` : ''}${Number.isFinite(dl) ? `<span><b class="num">${fmt(dl)}</b> lượt tải</span>` : ''}</span>
       </a>`;
     }).join('')}</div></section>`;
@@ -1731,10 +2028,21 @@ function onClick(e) {
     return;
   }
   const area = t.closest('[data-area]');
-  if (area) { const a = area.dataset.area; if (areas.has(a)) areas.delete(a); else areas.add(a); store.set(K.areas, [...areas]); rerenderRepos(); return; }
-  if (t.closest('[data-area-clear]')) { areas.clear(); store.set(K.areas, []); rerenderRepos(); return; }
+  if (area) { const a = area.dataset.area; if (areas.has(a)) areas.delete(a); else areas.add(a); store.set(K.areas, [...areas]); repoVisibleLimit = repoPageSize(areas.size > 0); rerenderRepos(); return; }
+  if (t.closest('[data-area-clear]')) { areas.clear(); store.set(K.areas, []); repoVisibleLimit = REPO_PAGE_DEFAULT; rerenderRepos(); return; }
   const rc = t.closest('button[data-repo-view],button[data-repo-window],button[data-repo-total]');
-  if (rc) { const k = ['repoView', 'repoWindow', 'repoTotal'].find(k => rc.dataset[k] != null); setRepo(k.slice(4).toLowerCase(), rc.dataset[k]); return; }
+  if (rc) {
+    const k = ['repoView', 'repoWindow', 'repoTotal'].find(k => rc.dataset[k] != null);
+    if (k === 'repoView' && areas.size > 0) {
+      areas.clear();
+      store.set(K.areas, []);
+    }
+    repoVisibleLimit = repoPageSize(areas.size > 0);
+    setRepo(k.slice(4).toLowerCase(), rc.dataset[k]);
+    return;
+  }
+  const moreBtn = t.closest('[data-repo-more]');
+  if (moreBtn) { showMoreRepos(moreBtn); return; }
   if (t.closest('#fresh-go')) { applyPending(); return; }
   if (t.closest('#keys-open')) { $('#keys').showModal(); return; }
   if (t.closest('#keys-x')) { $('#keys').close(); return; }
@@ -1875,9 +2183,21 @@ async function init() {
   watchImageLoad();
   attachEvents();
   try {
-    const [, data, picks] = await Promise.all([loadImages(), loadData(), loadPicks()]);
+    const [, data, picks, fieldData] = await Promise.all([loadImages(), loadData(), loadPicks(), loadFieldRankings()]);
     RAW_PICKS = picks;
+    FIELD_DATA = fieldData;
+    if (FIELD_DATA && Array.isArray(FIELD_DATA.fields)) {
+      FIELD_MAP = new Map(FIELD_DATA.fields.map(f => [f.id, f]));
+    }
     ingest(data);
+    if (FIELD_DATA && Array.isArray(FIELD_DATA.fields)) {
+      for (const f of FIELD_DATA.fields) {
+        for (const r of [...asArray(f.ranked), ...asArray(f.tracking)]) {
+          const key = String(r.id || r.repository_id || r.full_name);
+          if (!REPO.has(key)) REPO.set(key, r);
+        }
+      }
+    }
     sortMode = store.get(K.sort, store.get(LEGACY.sort, 'worth')) === 'new' ? 'new' : 'worth';
     for (const [k, s] of Object.entries(SECTIONS)) LABELS['sec:' + k] = s.label;
     $('#feed-empty p').textContent = `Trong ${winH} giờ qua chưa có tin thuộc nhóm này. Chọn nhóm khác hoặc xem tất cả.`;

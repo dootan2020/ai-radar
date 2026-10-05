@@ -191,15 +191,16 @@ def extract_install_command(readme_text, repo=None, package_names=None):
     return None, None
 
 
-def classify_category(name, description="", topics=None, pipeline_tag=None, tags=None, readme_text=None):
-    """Map repository or model signals to one of the 8 agreed categories, or None."""
+def classify_areas(name, description="", topics=None, pipeline_tag=None, tags=None, readme_text=None):
+    """Map repository or model signals to all matching agreed categories among the 8 areas."""
+    matched = []
     pt = (pipeline_tag or "").lower()
-    if pt in {"text-to-video", "image-to-video", "text-to-image", "image-to-image"}:
-        return "video"
-    if pt in {"text-to-speech", "automatic-speech-recognition", "audio-to-audio", "audio-classification"}:
-        return "voice"
-    if pt in {"document-question-answering", "visual-question-answering", "sentence-similarity", "feature-extraction"}:
-        return "rag"
+    if pt in {"text-to-video", "image-to-video", "text-to-image", "image-to-image"} and "video" not in matched:
+        matched.append("video")
+    if pt in {"text-to-speech", "automatic-speech-recognition", "audio-to-audio", "audio-classification"} and "voice" not in matched:
+        matched.append("voice")
+    if pt in {"document-question-answering", "visual-question-answering", "sentence-similarity", "feature-extraction"} and "rag" not in matched:
+        matched.append("rag")
 
     parts = [name or "", description or ""]
     if topics and isinstance(topics, list):
@@ -211,9 +212,22 @@ def classify_category(name, description="", topics=None, pipeline_tag=None, tags
     text = " ".join(parts)
 
     for cat, pattern in CATEGORY_PATTERNS:
-        if pattern.search(text):
-            return cat
-    return None
+        if cat not in matched and pattern.search(text):
+            matched.append(cat)
+    return matched
+
+
+def classify_category(name, description="", topics=None, pipeline_tag=None, tags=None, readme_text=None):
+    """Map repository or model signals to one primary agreed category, or None."""
+    areas = classify_areas(
+        name,
+        description=description,
+        topics=topics,
+        pipeline_tag=pipeline_tag,
+        tags=tags,
+        readme_text=readme_text,
+    )
+    return areas[0] if areas else None
 
 
 def score_github_repo(repo_info, readme_text="", license_name=None, release_info=None, contents=None, pushed_at=None, now=None, license_flag_override=None, package_names=None):
@@ -883,12 +897,13 @@ def _enrich_github_item(repo_info, fetcher, now):
     if api_fallback_reason:
         evaluated["signals"]["api_fallback_reason"] = api_fallback_reason
 
-    category = classify_category(
+    areas = classify_areas(
         repo,
         description=repo_info.get("description", ""),
         topics=repo_info.get("topics"),
         readme_text=readme_text
     )
+    category = areas[0] if areas else None
 
     gained = {window: repo_info.get("stars_gained", {}).get(window) for window, _, _ in github.WINDOWS}
     # Forks: the API's count when it answered, else the count GitHub printed on the trending card; both are
@@ -903,6 +918,7 @@ def _enrich_github_item(repo_info, fetcher, now):
         "description": repo_info.get("description"),
         "label": evaluated["label"],
         "category": category,
+        "areas": areas,
         "why": evaluated["why"],
         "license": evaluated["license"],
         "license_flag": evaluated["license_flag"],
@@ -943,12 +959,13 @@ def _enrich_hf_item(model_info, fetcher, now):
     if hf_fallback_reason:
         evaluated["signals"]["api_fallback_reason"] = hf_fallback_reason
 
-    category = classify_category(
+    areas = classify_areas(
         model_id,
         description="",
         pipeline_tag=model_info.get("pipeline_tag") or (model_details.get("pipeline_tag") if model_details else None),
         tags=model_details.get("tags") if model_details else model_info.get("tags")
     )
+    category = areas[0] if areas else None
 
     return {
         "id": model_id,
@@ -957,6 +974,7 @@ def _enrich_hf_item(model_info, fetcher, now):
         "description": None,
         "label": evaluated["label"],
         "category": category,
+        "areas": areas,
         "why": evaluated["why"],
         "license": evaluated["license"],
         "license_flag": evaluated["license_flag"],
