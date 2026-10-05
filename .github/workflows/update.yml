@@ -158,6 +158,37 @@ jobs:
             data/translations-gemini-vi.json
             data/translation-gemini-attempts.json
           key: radar-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Restore Gemini summary cache and attempt ledger
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            data/summaries-gemini-vi.json
+            data/summary-gemini-ledger.json
+          key: radar-summary-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            radar-summary-gemini-vi-1-${{ github.ref_name }}-
+            radar-summary-gemini-vi-1-main-
+      - name: Summarize stories
+        id: summarize
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 5
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
+          RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
+        run: python -m radar.summarize --input site/data/radar.json --cache data/summaries-gemini-vi.json
+      - name: Save Gemini summary cache and attempt ledger
+        if: always() && (steps.summarize.outputs.summary_cache_written == 'true' || steps.summarize.outputs.summary_ledger_written == 'true')
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            data/summaries-gemini-vi.json
+            data/summary-gemini-ledger.json
+          key: radar-summary-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       # Editions capture translated titles only after a matching successful publication gate.
       - name: Prepare daily editions
         id: edition-prepare
@@ -182,7 +213,7 @@ jobs:
           retention-days: 14
       # Field failures never participate in the news publication quorum.
       # The attempt cache is independent of the data branch: failed Git pushes
-      # must not cause another full collection on every fresh half-hour runner.
+      # must not cause another full collection on every fresh runner (dispatched every 20m by scheduler, fallback cron every 30m).
       - name: Restore last good field output
         id: field-fallback-cache
         continue-on-error: true
