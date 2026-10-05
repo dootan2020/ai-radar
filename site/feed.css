@@ -42,6 +42,12 @@
   --tag-bg: oklch(0.13 0.006 var(--hue) / 0.80);   /* the reason chip on a picture: same ink as the video badge */
   --thumb-pick-w: 160px;                    /* "Đáng đọc hôm nay" rows: a 16:9 picture, 90 px tall */
   --picks-gap: clamp(var(--space-32), 2vw + 16px, var(--space-48));             /* the block is its own chapter: two steps above the grid gap */
+  --motion-rise: 14px;                      /* subtle card entrance rise */
+  --motion-card-enter: 280ms;               /* crisp Apple-like entrance */
+  --motion-stagger: 60ms;                   /* progressive reveal delay */
+  --motion-stagger-cap: 240ms;              /* cap so long lists never delay readers */
+  --motion-hover: 250ms;                    /* calm desktop hover lift */
+  --motion-blur: 300ms;                     /* soft image blur-up settle */
 }
 
 /* ---------- base ---------- */
@@ -155,12 +161,21 @@ ul, ol { padding: 0; list-style: none; }
   background: var(--card-bg); border-radius: var(--feed-radius); overflow: hidden;
   isolation: isolate;
 }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .feed-card {
+    transition: transform var(--motion-hover) var(--ease-flow), box-shadow var(--motion-hover) var(--ease-flow);
+  }
+  .feed-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+  }
+  .feed-card:hover .media-img { transform: scale(1.025); }
+}
 .media { position: relative; aspect-ratio: 16 / 9; background: var(--color-fill); overflow: hidden; flex: none; }
 .media-img {
   width: 100%; height: 100%; object-fit: cover;
-  transition: transform var(--motion-open) var(--ease-flow);
+  transition: transform var(--motion-hover) var(--ease-flow);
 }
-.feed-card:hover .media-img { transform: scale(1.03); }
 
 .card-body { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--feed-pad) var(--feed-pad) var(--space-12); flex: 1; }
 
@@ -270,8 +285,8 @@ ul, ol { padding: 0; list-style: none; }
 
 /* Live and upcoming */
 .tile-video { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); margin: 0 calc(var(--space-24) * -1); border-radius: 0; }
-.tile-video img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-open) var(--ease-flow); }
-.tile-video:hover img { transform: scale(1.03); }
+.tile-video img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-hover) var(--ease-flow); }
+.tile-video:hover img { transform: scale(1.025); }
 .video-badge {
   position: absolute; left: var(--space-12); bottom: var(--space-12);
   padding: var(--space-4) var(--space-8); border-radius: var(--radius-8);
@@ -332,8 +347,8 @@ ul, ol { padding: 0; list-style: none; }
 .repo-row { display: flex; flex-direction: column; gap: var(--space-16); }
 .repo { display: grid; grid-template-columns: calc(var(--thumb-hot) * 2) minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: var(--space-12); row-gap: var(--space-4); min-width: 0; min-height: var(--thumb-hot); }
 .repo-img { grid-row: 1 / span 3; align-self: start; aspect-ratio: 2 / 1; border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); position: relative; }
-.repo-img img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-open) var(--ease-flow); }
-.repo:hover .repo-img img { transform: scale(1.03); }
+.repo-img img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-hover) var(--ease-flow); }
+.repo:hover .repo-img img { transform: scale(1.025); }
 .repo:hover .repo-name { color: var(--color-accent); }
 .repo-name { font-size: var(--text-small); font-weight: var(--weight-bold); line-height: var(--leading-snug); overflow-wrap: anywhere; transition: color var(--motion-state) var(--ease-flow); }
 .repo-desc { font-size: var(--text-meta); color: var(--color-ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -840,9 +855,87 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .sort-btn { min-height: 44px; }
 }
 
+/* ==========================================================================
+   MOTION: APPLE-LIKE ENTRANCE, HOVER LIFT & BLUR-UP IMAGES
+   Shared easing: --ease-flow (cubic-bezier(0.16, 1, 0.3, 1))
+   ========================================================================== */
+
+/* Base resting state: always 100% visible and laid out */
+.feed-card, .tile {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Staggered fade-up: primed state while waiting for scroll intersection */
+  .js-motion .feed-card.motion-entry,
+  .js-motion .tile.motion-entry {
+    opacity: 0.01;
+    transform: translateY(var(--motion-rise, 14px));
+    transition: opacity var(--motion-card-enter, 280ms) var(--ease-flow),
+                transform var(--motion-card-enter, 280ms) var(--ease-flow);
+    will-change: opacity, transform;
+  }
+  .js-motion .feed-card.motion-entry.is-entered,
+  .js-motion .tile.motion-entry.is-entered {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Blur-up: picture appears soft first and sharpens when loaded, no box jump */
+  .js-motion .media-img:not(.is-loaded),
+  .js-motion .thumb img:not(.is-loaded),
+  .js-motion .tile-video img:not(.is-loaded),
+  .js-motion .repo-img img:not(.is-loaded),
+  .js-motion .model-img img:not(.is-loaded) {
+    opacity: 0.6;
+    filter: blur(8px);
+  }
+
+  .js-motion .media-img,
+  .js-motion .thumb img,
+  .js-motion .tile-video img,
+  .js-motion .repo-img img,
+  .js-motion .model-img img {
+    transition: opacity var(--motion-blur, 300ms) var(--ease-flow),
+                filter var(--motion-blur, 300ms) var(--ease-flow),
+                transform var(--motion-hover, 250ms) var(--ease-flow);
+  }
+
+  .js-motion .media-img.is-loaded,
+  .js-motion .thumb img.is-loaded,
+  .js-motion .tile-video img.is-loaded,
+  .js-motion .repo-img img.is-loaded,
+  .js-motion .model-img img.is-loaded {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce){
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-  .feed-card:hover .media-img, .tile-video:hover img, .repo:hover .repo-img img { transform: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .feed-card, .tile {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .feed-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  .feed-card:hover .media-img, .tile-video:hover img, .repo:hover .repo-img img {
+    transform: none !important;
+  }
+  .media-img, .thumb img, .tile-video img, .repo-img img, .model-img img {
+    opacity: 1 !important;
+    filter: none !important;
+    transition: none !important;
+  }
 }
 
 /* ==========================================================================

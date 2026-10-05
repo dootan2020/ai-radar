@@ -45,8 +45,17 @@ const icon = id => `<svg class="i" aria-hidden="true"><use href="#${id}"/></svg>
 const nf1 = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 1 });
 const EXACT = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'full', timeStyle: 'short', timeZone: TZ });
 const ms = iso => new Date(iso).getTime() || 0;
-const RM = matchMedia('(prefers-reduced-motion: reduce)');
 const CSSq = s => (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace(/["\\]/g, '\\$&');
+const RM = matchMedia('(prefers-reduced-motion: reduce)');
+if (!RM.matches) {
+  document.documentElement.classList.add('js-motion');
+}
+if (RM.addEventListener) {
+  RM.addEventListener('change', () => {
+    if (RM.matches) document.documentElement.classList.remove('js-motion');
+    else document.documentElement.classList.add('js-motion');
+  });
+}
 /* Vietnamese letters with diacritics: a text without any of them is English and is marked lang="en". */
 const VI_RE = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
 const langAttr = text => VI_RE.test(text || '') ? '' : ' lang="en"';
@@ -146,6 +155,76 @@ function observeSkips() {
     }
   }, { threshold: [0, 0.2] });
   $$('[data-sid]').forEach(el => { if (!el._observed) { el._observed = true; skipObserver.observe(el); } });
+}
+
+/* ---------- motion: staggered fade-up & blur-up images ---------- */
+function markImgLoaded(img) {
+  if (img && !img.classList.contains('is-loaded')) {
+    img.classList.add('is-loaded');
+  }
+}
+
+function watchImageLoad() {
+  document.addEventListener('load', e => {
+    const t = e.target;
+    if (t instanceof HTMLImageElement && (t.classList.contains('media-img') || t.closest('.thumb, .tile-video, .repo-img, .model-img'))) {
+      markImgLoaded(t);
+    }
+  }, true);
+}
+
+function hydrateLoadedImages(root = document) {
+  root.querySelectorAll('.media-img, .thumb img, .tile-video img, .repo-img img, .model-img img').forEach(img => {
+    if (img.complete && img.naturalWidth > 0) {
+      markImgLoaded(img);
+    }
+  });
+}
+
+let motionObserver = null;
+const STAGGER_STEP = 60;   // ms per card
+const STAGGER_CAP = 240;   // max stagger delay so long lists never delay readers
+const CARD_ENTER_MS = 280; // duration matching CSS
+
+function observeCardMotion(root = document) {
+  if (RM.matches || typeof IntersectionObserver === 'undefined') return;
+
+  const candidates = [...root.querySelectorAll('.feed-card, .tile')]
+    .filter(el => !el.classList.contains('motion-entry') && !el.classList.contains('motion-done'));
+  if (!candidates.length) return;
+
+  if (!motionObserver) {
+    motionObserver = new IntersectionObserver((entries, obs) => {
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .map(e => e.target)
+        .filter(el => el.classList.contains('motion-entry') && !el.classList.contains('is-entered'));
+
+      if (!visible.length) return;
+
+      visible.forEach((el, index) => {
+        obs.unobserve(el);
+        const delay = Math.min(index * STAGGER_STEP, STAGGER_CAP);
+        el.style.transitionDelay = `${delay}ms`;
+        requestAnimationFrame(() => {
+          el.classList.add('is-entered');
+        });
+        setTimeout(() => {
+          el.classList.remove('motion-entry', 'is-entered');
+          el.classList.add('motion-done');
+          el.style.transitionDelay = '';
+        }, delay + CARD_ENTER_MS + 40);
+      });
+    }, {
+      rootMargin: '0px 0px 50px 0px',
+      threshold: 0.05
+    });
+  }
+
+  candidates.forEach(card => {
+    card.classList.add('motion-entry');
+    motionObserver.observe(card);
+  });
 }
 
 /* ---------- data ---------- */
@@ -1118,6 +1197,8 @@ function renderFeed() {
   $('#top').removeAttribute('aria-busy');
   hydrateHF(document);
   observeSkips();
+  observeCardMotion(document);
+  hydrateLoadedImages(document);
 }
 
 function more(focus = true) {
@@ -1127,6 +1208,8 @@ function more(focus = true) {
   updateMore();
   hydrateHF(document);
   observeSkips();
+  observeCardMotion(grid);
+  hydrateLoadedImages(grid);
   // Keep keyboard users in place: focus the first card that just arrived.
   const next = grid.querySelectorAll('.feed-card')[before];
   if (focus && next) next.querySelector('.story-link').focus({ preventScroll: true });
@@ -1140,6 +1223,13 @@ function revealStory(pred, cardsOnly = false) {
   return el || null;
 }
 function focusStory(el) {
+  const card = el.closest('.feed-card, .tile');
+  if (card && card.classList.contains('motion-entry')) {
+    if (motionObserver) motionObserver.unobserve(card);
+    card.style.transitionDelay = '0ms';
+    card.classList.remove('motion-entry', 'is-entered');
+    card.classList.add('motion-done');
+  }
   const bar = $('#bar') ? $('#bar').offsetHeight : 64;
   window.scrollTo({ top: Math.max(0, scrollY + el.getBoundingClientRect().top - bar - 16), behavior: RM.matches ? 'auto' : 'smooth' });
   const f = el.matches('a, button') ? el : el.querySelector('.story-link, a');
@@ -1589,6 +1679,7 @@ async function init() {
   $('#theme-btn').setAttribute('aria-pressed', String(th ? th === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches));
   watchImageErrors();
   watchPictures();
+  watchImageLoad();
   attachEvents();
   try {
     const [, data, picks] = await Promise.all([loadImages(), loadData(), loadPicks()]);
