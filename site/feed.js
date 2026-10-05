@@ -810,6 +810,36 @@ const AREAS = [
   { id: 'local', label: 'Chạy mô hình trên máy' }, { id: 'fine-tune', label: 'Tinh chỉnh mô hình' }, { id: 'rag', label: 'Dữ liệu cho RAG' },
   { id: 'voice', label: 'Giọng nói, âm thanh' }, { id: 'browser-mcp', label: 'Trình duyệt, MCP' },
 ];
+const AREA_PATTERNS = [
+  ['video', /\b(?:videos?|animations?|text[- ]to[- ]video|image[- ]to[- ]video|text[- ]to[- ]image|image[- ]to[- ]image|image[- ]generation|motion[- ]graphics|generative[- ]video|video[- ]generation|video[- ]editing|creative[- ]cod(?:e|ing)|cad\b|3d|computer[- ]vision|vision\b|rendering|visual)\b/i],
+  ['agent-code', /\b(?:coding[- ]agents?|code[- ]generation|developer[- ]tools|coding[- ]assistants?|ai[- ]coders?|ade|agent[- ]ide|code[- ]interpreter|agentic skills|agent skills|parallel agents|fleet of agents|multi[- ]agent|subagents?|agent orchestration|software development methodology|ai[- ]driven development|runtime for.*agents?|network of agents|senior dev|skills for.*engineers?|context window optimization|agentic coding|coding tool|code review|manage agents|coding|codebase|programming agent|developer assistant|software engineering|git workflow|terminal agent|ai agent|autonomous agent|agent framework|agents at work|t3code|agent substrate)\b/i],
+  ['browser-mcp', /\b(?:browser[- ]automation|mcp|model[- ]context[- ]protocol|use the browser|computer[- ]use|browser[- ]agents?|web[- ]scraping[- ]agents?|headless browser|web automation|browser|plugins?)\b/i],
+  ['quant', /\b(?:trading|quant|quantitative|finance|backtest|backtesting|algorithmic[- ]trading|stocks?|financial|hedge[- ]funds?|portfolio|market data|crypto)\b/i],
+  ['local', /\b(?:llm[- ]inference|gguf|local|locally|local[- ]ai|local[- ]llms?|inference in c|inference engine|edge[- ]ai|on[- ]device|gpu kernel|accelerators?|offline llm|slm)\b/i],
+  ['fine-tune', /\b(?:fine[- ]tuning|finetune|fine[- ]tune|lora|sft|rlhf|qlora|peft|post[- ]training|distillation|instruction tuning|preference optimization)\b/i],
+  ['rag', /\b(?:rag|document[- ]parsing|pdf|retrieval|vector[- ]database|vector[- ]db|embeddings|knowledge[- ]graph|graphrag|agent memory|memory for.*agents?|document understanding|ocr|web crawl(?:er|ing)|semantic search|knowledge base)\b/i],
+  ['voice', /\b(?:tts|speech|voice[- ]cloning|asr|voice|audio|speech[- ]to[- ]text|text[- ]to[- ]speech|voice[- ]agents?|transcription|speech synthesis)\b/i],
+];
+function repoAreas(r) {
+  if (!r) return [];
+  const set = new Set(asArray(r.areas));
+  if (r.category) set.add(r.category);
+  const text = `${r.id || ''} ${r.full_name || ''} ${r.description || ''} ${r.description_vi || ''}`;
+  for (const [cat, pat] of AREA_PATTERNS) {
+    if (!set.has(cat) && pat.test(text)) set.add(cat);
+  }
+  return Array.from(set);
+}
+function repoMatchesArea(r) {
+  if (!areas.size) return true;
+  const a = repoAreas(r);
+  for (const id of areas) {
+    if (a.includes(id)) return true;
+  }
+  return false;
+}
+const REPO_PAGE_SIZE = 6;
+let repoVisibleLimit = REPO_PAGE_SIZE;
 const REPO_VIEWS = [{ id: 'trending', label: 'Đang lên' }, { id: 'stars', label: 'Nhiều sao' }, { id: 'usable', label: 'Dùng ngay' }];
 const WINDOWS = [
   { id: 'day', label: 'Hôm nay', gained: 'sao hôm nay', phrase: 'hôm nay' },
@@ -854,13 +884,13 @@ function repoControls(full, inList) {
   const second = repoView === 'stars'
     ? TOTALS.map(t => ({ kind: 'total', id: t.id, label: t.label, on: repoTotal === t.id }))
     : WINDOWS.map(w => ({ kind: 'window', id: w.id, label: w.label, on: repoWindow === w.id }));
-  const count = id => inList.filter(r => r.category === id).length;
+  const count = id => inList.filter(r => repoAreas(r).includes(id)).length;
   return `<div class="repo-ctl">
     <div class="seg" role="group" aria-label="Chọn danh sách kho mã">${REPO_VIEWS.map(v => `<button class="seg-b" data-repo-view="${v.id}" aria-pressed="${repoView === v.id}">${esc(v.label)}</button>`).join('')}</div>
     <div class="seg seg-quiet" role="group" aria-label="${repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian'}">${second.map(x => `<button class="seg-b" data-repo-${x.kind}="${x.id}" aria-pressed="${x.on}">${esc(x.label)}</button>`).join('')}</div>
   </div>
-  ${full ? `<div class="area-chips" role="group" aria-label="Chọn mảng bạn quan tâm">${AREAS.map(a => `<button class="area-chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${esc(a.label)} <span class="count num">${count(a.id)}</span></button>`).join('')}</div>
-  <p class="tile-note repo-note">${esc(repoListNote())} ${areas.size ? `Đang lọc ${areas.size} mảng, lưu trên máy này.` : 'Chưa chọn mảng nào, nên hiện mọi mảng.'}</p>` : ''}`;
+  <div class="area-chips" role="group" aria-label="Chọn mảng bạn quan tâm">${AREAS.map(a => `<button class="area-chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${esc(a.label)} <span class="count num">${count(a.id)}</span></button>`).join('')}</div>
+  <p class="tile-note repo-note">${esc(repoListNote())} ${areas.size ? `Đang lọc ${areas.size} mảng, lưu trên máy này.` : 'Chưa chọn mảng nào, nên hiện mọi mảng.'}</p>`;
 }
 function repoCard(r, measure) {
   const desc = r.description_vi || r.description || '';
@@ -872,27 +902,95 @@ function repoCard(r, measure) {
       <span class="repo-meta">${LABEL[r.label] ? `<span class="label ${esc(r.label)}">${esc(LABEL[r.label])}</span>` : ''}<span>${measure}</span></span>
     </a><button class="act repo-save${on ? ' is-saved' : ''}" data-act="save" data-id="${esc(key)}" aria-pressed="${on}" aria-label="Lưu kho mã ${esc(r.full_name)}" title="Lưu">${icon('i-bookmark')}</button></div>`;
 }
-/* full: the "Mã và mô hình" view (up to 12, with the work areas); otherwise the tile in the feed (4). */
+/* full: the "Mã và mô hình" view; otherwise the tile in the feed. */
 function renderRepos(full = false) {
   const ranked = rankedRepos();
   const head = `<div class="tile-head"><h2 class="tile-title" id="repos-h">Kho mã đáng lấy</h2><span class="tile-note">thịnh hành trên GitHub</span></div>`;
   if (!ranked) {
     // A snapshot built before 03/10 has no orderings: the old pick, labelled repositories by stars gained in 7 days.
-    const repos = asArray(D.repos).filter(r => r.source !== 'hf' && (r.label === 'dung-ngay' || r.label === 'xao-nau'))
-      .sort((a, b) => (b.stars_gained_7d || 0) - (a.stars_gained_7d || 0)).slice(0, full ? 12 : 4);
-    if (!repos.length) return '';
+    const all = asArray(D.repos).filter(r => r.source !== 'hf' && (r.label === 'dung-ngay' || r.label === 'xao-nau'))
+      .sort((a, b) => (b.stars_gained_7d || 0) - (a.stars_gained_7d || 0));
+    const matching = all.filter(repoMatchesArea);
+    const list = matching.slice(0, repoVisibleLimit);
+    const remaining = matching.length - list.length;
+    if (!matching.length) return '';
     return `<section class="tile tile-repos${full ? ' is-full' : ''}" aria-labelledby="repos-h">${head}
-      <div class="repo-row">${repos.map(r => repoCard(r, r.stars_gained_7d ? `<b class="num">+${fmt(r.stars_gained_7d)}</b> sao trong 7 ngày` : `<b class="num">${fmt(r.stars || 0)}</b> sao`)).join('')}</div></section>`;
+      <div class="repo-row" id="repos-list">${list.map(r => repoCard(r, r.stars_gained_7d ? `<b class="num">+${fmt(r.stars_gained_7d)}</b> sao trong 7 ngày` : `<b class="num">${fmt(r.stars || 0)}</b> sao`)).join('')}</div>
+      ${remaining > 0 ? `<div class="repo-more"><button class="repo-more-btn" data-repo-more="true" aria-controls="repos-list" aria-label="Xem thêm ${Math.min(REPO_PAGE_SIZE, remaining)} kho mã, còn ${remaining} kho mã">Xem thêm <span class="num">+${Math.min(REPO_PAGE_SIZE, remaining)}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span></button></div>` : ''}
+      <div class="sr" role="status" aria-live="polite" id="repo-status"></div>
+    </section>`;
   }
-  const list = ranked.filter(r => !areas.size || areas.has(r.category)).slice(0, full ? 12 : 4);
+  const matching = ranked.filter(repoMatchesArea);
+  const list = matching.slice(0, repoVisibleLimit);
+  const remaining = matching.length - list.length;
   const why = windowGap() || (areas.size ? 'Không có kho mã nào ở mảng bạn chọn.' : 'Danh sách này chưa có kho mã nào.');
   return `<section class="tile tile-repos${full ? ' is-full' : ''}" aria-labelledby="repos-h">${head}
     ${repoControls(full, ranked)}
-    ${list.length ? `<div class="repo-row">${list.map(r => repoCard(r, repoMeasure(r))).join('')}</div>`
+    ${list.length ? `<div class="repo-row" id="repos-list">${list.map(r => repoCard(r, repoMeasure(r))).join('')}</div>`
       : `<p class="tile-note repo-empty">${esc(why)}${areas.size ? ' <button class="text-btn" data-area-clear>Hiện mọi mảng</button>' : ''}</p>`}
+    ${remaining > 0 ? `<div class="repo-more"><button class="repo-more-btn" data-repo-more="true" aria-controls="repos-list" aria-label="Xem thêm ${Math.min(REPO_PAGE_SIZE, remaining)} kho mã, còn ${remaining} kho mã">Xem thêm <span class="num">+${Math.min(REPO_PAGE_SIZE, remaining)}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span></button></div>` : ''}
+    <div class="sr" role="status" aria-live="polite" id="repo-status"></div>
   </section>`;
 }
+function showMoreRepos(moreBtn) {
+  const ranked = rankedRepos();
+  const matching = ranked ? ranked.filter(repoMatchesArea) : asArray(D.repos).filter(r => r.source !== 'hf' && (r.label === 'dung-ngay' || r.label === 'xao-nau')).filter(repoMatchesArea);
+  const total = matching.length;
+  const start = repoVisibleLimit;
+  const end = Math.min(start + REPO_PAGE_SIZE, total);
+  const nextSlice = matching.slice(start, end);
+  if (!nextSlice.length) {
+    const container = moreBtn.closest('.repo-more');
+    if (container) container.remove();
+    return;
+  }
+  repoVisibleLimit = end;
+
+  const row = document.getElementById('repos-list') || document.querySelector('.tile-repos .repo-row');
+  if (!row) { rerenderRepos(); return; }
+
+  const tmp = document.createElement('div');
+  tmp.innerHTML = nextSlice.map(r => repoCard(r, ranked ? repoMeasure(r) : (r.stars_gained_7d ? `<b class="num">+${fmt(r.stars_gained_7d)}</b> sao trong 7 ngày` : `<b class="num">${fmt(r.stars || 0)}</b> sao`))).join('');
+  const newCells = [...tmp.children];
+  newCells.forEach(cell => row.appendChild(cell));
+
+  animateNewRepoCells(newCells);
+
+  const remaining = total - repoVisibleLimit;
+  const statusEl = document.getElementById('repo-status');
+  if (statusEl) {
+    statusEl.textContent = `Đã tải thêm ${nextSlice.length} kho mã. Đang hiện ${repoVisibleLimit} trên tổng số ${total} kho mã.`;
+  }
+
+  if (remaining > 0) {
+    moreBtn.setAttribute('aria-label', `Xem thêm ${Math.min(REPO_PAGE_SIZE, remaining)} kho mã, còn ${remaining} kho mã`);
+    moreBtn.innerHTML = `Xem thêm <span class="num">+${Math.min(REPO_PAGE_SIZE, remaining)}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span>`;
+    moreBtn.focus();
+  } else {
+    const container = moreBtn.closest('.repo-more');
+    if (container) container.remove();
+    const firstLink = newCells[0] && newCells[0].querySelector('a.repo');
+    if (firstLink) firstLink.focus({ preventScroll: true });
+  }
+}
+function animateNewRepoCells(cells) {
+  if (RM.matches || !cells.length) return;
+  cells.forEach((cell, idx) => {
+    cell.classList.add('motion-entry');
+    const delay = Math.min(idx * 40, 200);
+    cell.style.transitionDelay = `${delay}ms`;
+    requestAnimationFrame(() => {
+      cell.classList.add('is-entered');
+    });
+    setTimeout(() => {
+      cell.classList.remove('motion-entry', 'is-entered');
+      cell.classList.add('motion-done');
+      cell.style.transitionDelay = '';
+    }, delay + CARD_ENTER_MS + 40);
+  });
+}
 function setRepo(kind, value) {
+  repoVisibleLimit = REPO_PAGE_SIZE;
   if (kind === 'view' && REPO_VIEWS.some(v => v.id === value)) { repoView = value; store.set(K.repoView, value); }
   else if (kind === 'window' && WINDOWS.some(w => w.id === value)) { repoWindow = value; store.set(K.repoWindow, value); }
   else if (kind === 'total' && TOTALS.some(t => t.id === value)) { repoTotal = value; store.set(K.repoTotal, value); }
@@ -1731,10 +1829,12 @@ function onClick(e) {
     return;
   }
   const area = t.closest('[data-area]');
-  if (area) { const a = area.dataset.area; if (areas.has(a)) areas.delete(a); else areas.add(a); store.set(K.areas, [...areas]); rerenderRepos(); return; }
-  if (t.closest('[data-area-clear]')) { areas.clear(); store.set(K.areas, []); rerenderRepos(); return; }
+  if (area) { const a = area.dataset.area; if (areas.has(a)) areas.delete(a); else areas.add(a); store.set(K.areas, [...areas]); repoVisibleLimit = REPO_PAGE_SIZE; rerenderRepos(); return; }
+  if (t.closest('[data-area-clear]')) { areas.clear(); store.set(K.areas, []); repoVisibleLimit = REPO_PAGE_SIZE; rerenderRepos(); return; }
   const rc = t.closest('button[data-repo-view],button[data-repo-window],button[data-repo-total]');
-  if (rc) { const k = ['repoView', 'repoWindow', 'repoTotal'].find(k => rc.dataset[k] != null); setRepo(k.slice(4).toLowerCase(), rc.dataset[k]); return; }
+  if (rc) { const k = ['repoView', 'repoWindow', 'repoTotal'].find(k => rc.dataset[k] != null); repoVisibleLimit = REPO_PAGE_SIZE; setRepo(k.slice(4).toLowerCase(), rc.dataset[k]); return; }
+  const moreBtn = t.closest('[data-repo-more]');
+  if (moreBtn) { showMoreRepos(moreBtn); return; }
   if (t.closest('#fresh-go')) { applyPending(); return; }
   if (t.closest('#keys-open')) { $('#keys').showModal(); return; }
   if (t.closest('#keys-x')) { $('#keys').close(); return; }

@@ -45,6 +45,7 @@ CATEGORY_TERMS = [
         r"videos?", r"animations?", r"text[- ]to[- ]video", r"image[- ]to[- ]video", r"text[- ]to[- ]image",
         r"image[- ]to[- ]image", r"image[- ]generation", r"motion[- ]graphics", r"generative[- ]video",
         r"video[- ]generation", r"video[- ]editing", r"creative[- ]cod(?:e|ing)",
+        r"cad\b", r"3d", r"computer[- ]vision", r"vision\b", r"rendering", r"visual",
     ]),
     ("agent-code", [
         r"coding[- ]agents?", r"code[- ]generation", r"developer[- ]tools", r"coding[- ]assistants?", r"ai[- ]coders?",
@@ -52,32 +53,37 @@ CATEGORY_TERMS = [
         r"fleet of agents", r"multi[- ]agent", r"subagents?", r"agent orchestration",
         r"software development methodology", r"ai[- ]driven development", r"runtime for.*agents?",
         r"network of agents", r"senior dev", r"skills for.*engineers?", r"context window optimization",
+        r"agentic coding", r"coding tool", r"code review", r"manage agents", r"coding", r"codebase",
+        r"programming agent", r"developer assistant", r"software engineering", r"git workflow",
+        r"terminal agent", r"ai agent", r"autonomous agent", r"agent framework", r"agents at work",
+        r"t3code", r"agent substrate",
     ]),
     ("browser-mcp", [
         r"browser[- ]automation", r"mcp", r"model[- ]context[- ]protocol", r"use the browser",
         r"computer[- ]use", r"browser[- ]agents?", r"web[- ]scraping[- ]agents?", r"headless browser",
-        r"web automation",
+        r"web automation", r"browser", r"plugins?",
     ]),
     ("quant", [
         r"trading", r"quant", r"quantitative", r"finance", r"backtest", r"backtesting", r"algorithmic[- ]trading",
-        r"stocks?", r"financial", r"hedge[- ]funds?", r"portfolio",
+        r"stocks?", r"financial", r"hedge[- ]funds?", r"portfolio", r"market data", r"crypto",
     ]),
     ("local", [
         r"llm[- ]inference", r"gguf", r"local", r"locally", r"local[- ]ai", r"local[- ]llms?", r"inference in c",
-        r"inference engine", r"edge[- ]ai", r"on[- ]device",
+        r"inference engine", r"edge[- ]ai", r"on[- ]device", r"gpu kernel", r"accelerators?",
+        r"offline llm", r"slm",
     ]),
     ("fine-tune", [
         r"fine[- ]tuning", r"finetune", r"fine[- ]tune", r"lora", r"sft", r"rlhf", r"qlora", r"peft",
-        r"post[- ]training", r"distillation",
+        r"post[- ]training", r"distillation", r"instruction tuning", r"preference optimization",
     ]),
     ("rag", [
         r"rag", r"document[- ]parsing", r"pdf", r"retrieval", r"vector[- ]database", r"vector[- ]db", r"embeddings",
         r"knowledge[- ]graph", r"graphrag", r"agent memory", r"memory for.*agents?", r"document understanding",
-        r"ocr", r"web crawl(?:er|ing)",
+        r"ocr", r"web crawl(?:er|ing)", r"semantic search", r"knowledge base",
     ]),
     ("voice", [
         r"tts", r"speech", r"voice[- ]cloning", r"asr", r"voice", r"audio", r"speech[- ]to[- ]text",
-        r"text[- ]to[- ]speech", r"voice[- ]agents?", r"transcription",
+        r"text[- ]to[- ]speech", r"voice[- ]agents?", r"transcription", r"speech synthesis",
     ]),
 ]
 CATEGORY_PATTERNS = [(cat, re.compile(r"\b(?:" + "|".join(terms) + r")\b", re.I)) for cat, terms in CATEGORY_TERMS]
@@ -191,15 +197,16 @@ def extract_install_command(readme_text, repo=None, package_names=None):
     return None, None
 
 
-def classify_category(name, description="", topics=None, pipeline_tag=None, tags=None, readme_text=None):
-    """Map repository or model signals to one of the 8 agreed categories, or None."""
+def classify_areas(name, description="", topics=None, pipeline_tag=None, tags=None, readme_text=None):
+    """Map repository or model signals to all matching agreed categories among the 8 areas."""
+    matched = []
     pt = (pipeline_tag or "").lower()
-    if pt in {"text-to-video", "image-to-video", "text-to-image", "image-to-image"}:
-        return "video"
-    if pt in {"text-to-speech", "automatic-speech-recognition", "audio-to-audio", "audio-classification"}:
-        return "voice"
-    if pt in {"document-question-answering", "visual-question-answering", "sentence-similarity", "feature-extraction"}:
-        return "rag"
+    if pt in {"text-to-video", "image-to-video", "text-to-image", "image-to-image"} and "video" not in matched:
+        matched.append("video")
+    if pt in {"text-to-speech", "automatic-speech-recognition", "audio-to-audio", "audio-classification"} and "voice" not in matched:
+        matched.append("voice")
+    if pt in {"document-question-answering", "visual-question-answering", "sentence-similarity", "feature-extraction"} and "rag" not in matched:
+        matched.append("rag")
 
     parts = [name or "", description or ""]
     if topics and isinstance(topics, list):
@@ -211,9 +218,22 @@ def classify_category(name, description="", topics=None, pipeline_tag=None, tags
     text = " ".join(parts)
 
     for cat, pattern in CATEGORY_PATTERNS:
-        if pattern.search(text):
-            return cat
-    return None
+        if cat not in matched and pattern.search(text):
+            matched.append(cat)
+    return matched
+
+
+def classify_category(name, description="", topics=None, pipeline_tag=None, tags=None, readme_text=None):
+    """Map repository or model signals to one primary agreed category, or None."""
+    areas = classify_areas(
+        name,
+        description=description,
+        topics=topics,
+        pipeline_tag=pipeline_tag,
+        tags=tags,
+        readme_text=readme_text,
+    )
+    return areas[0] if areas else None
 
 
 def score_github_repo(repo_info, readme_text="", license_name=None, release_info=None, contents=None, pushed_at=None, now=None, license_flag_override=None, package_names=None):
@@ -883,12 +903,13 @@ def _enrich_github_item(repo_info, fetcher, now):
     if api_fallback_reason:
         evaluated["signals"]["api_fallback_reason"] = api_fallback_reason
 
-    category = classify_category(
+    areas = classify_areas(
         repo,
         description=repo_info.get("description", ""),
         topics=repo_info.get("topics"),
         readme_text=readme_text
     )
+    category = areas[0] if areas else None
 
     gained = {window: repo_info.get("stars_gained", {}).get(window) for window, _, _ in github.WINDOWS}
     # Forks: the API's count when it answered, else the count GitHub printed on the trending card; both are
@@ -903,6 +924,7 @@ def _enrich_github_item(repo_info, fetcher, now):
         "description": repo_info.get("description"),
         "label": evaluated["label"],
         "category": category,
+        "areas": areas,
         "why": evaluated["why"],
         "license": evaluated["license"],
         "license_flag": evaluated["license_flag"],
@@ -943,12 +965,13 @@ def _enrich_hf_item(model_info, fetcher, now):
     if hf_fallback_reason:
         evaluated["signals"]["api_fallback_reason"] = hf_fallback_reason
 
-    category = classify_category(
+    areas = classify_areas(
         model_id,
         description="",
         pipeline_tag=model_info.get("pipeline_tag") or (model_details.get("pipeline_tag") if model_details else None),
         tags=model_details.get("tags") if model_details else model_info.get("tags")
     )
+    category = areas[0] if areas else None
 
     return {
         "id": model_id,
@@ -957,6 +980,7 @@ def _enrich_hf_item(model_info, fetcher, now):
         "description": None,
         "label": evaluated["label"],
         "category": category,
+        "areas": areas,
         "why": evaluated["why"],
         "license": evaluated["license"],
         "license_flag": evaluated["license_flag"],

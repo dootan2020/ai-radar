@@ -741,6 +741,47 @@ ul, ol { padding: 0; list-style: none; }
 .tile-repos.is-full { grid-column: 1 / -1; }
 .tile-repos.is-full .repo-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-16) var(--space-24); }
 
+/* Load more repositories in place */
+.repo-more {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-16);
+  padding-top: var(--space-4);
+}
+.repo-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: var(--btn-h);
+  padding: 0 var(--space-20);
+  border-radius: var(--radius-full);
+  background: var(--color-fill);
+  color: var(--color-ink);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  border: 1px solid var(--color-line);
+  transition: background-color var(--motion-state) var(--ease-flow),
+              border-color var(--motion-state) var(--ease-flow),
+              transform var(--motion-state) var(--ease-flow);
+}
+.repo-more-btn:hover {
+  background: var(--color-fill-hover, var(--color-fill));
+  border-color: var(--color-ink-3);
+}
+.repo-more-btn:active {
+  transform: scale(0.98);
+}
+.repo-more-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.repo-more-remain {
+  color: var(--color-ink-3);
+  font-weight: var(--weight-normal);
+}
+
 /* Saved items that left the snapshot */
 .tile-saved { grid-column: 1 / -1; }
 .tile-saved .tile-note { white-space: normal; }
@@ -920,7 +961,8 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 @media (prefers-reduced-motion: no-preference) {
   /* Staggered fade-up: primed state while waiting for scroll intersection */
   .js-motion .feed-card.motion-entry,
-  .js-motion .tile.motion-entry {
+  .js-motion .tile.motion-entry,
+  .js-motion .repo-cell.motion-entry {
     opacity: 0.01;
     transform: translateY(var(--motion-rise, 14px));
     transition: opacity var(--motion-card-enter, 280ms) var(--ease-flow),
@@ -928,7 +970,8 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
     will-change: opacity, transform;
   }
   .js-motion .feed-card.motion-entry.is-entered,
-  .js-motion .tile.motion-entry.is-entered {
+  .js-motion .tile.motion-entry.is-entered,
+  .js-motion .repo-cell.motion-entry.is-entered {
     opacity: 1;
     transform: translateY(0);
   }
@@ -1016,7 +1059,8 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .src-panel { padding: var(--space-16); margin-top: var(--space-48); }
   .src-list { grid-template-columns: minmax(0, 1fr); }
   .events .calbtn { margin-left: 0; }
-  .calbtn-g, .calbtn-ics, .seg-b, .area-chip, .cov-btn { min-height: 44px; }
+  .calbtn-g, .calbtn-ics, .seg-b, .area-chip, .cov-btn, .repo-more-btn { min-height: 44px; }
+  .repo-more-btn { width: 100%; }
   .saved-list li { grid-template-columns: minmax(0, 1fr) auto; }
   .saved-at { display: none; }
 }

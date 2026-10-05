@@ -7,6 +7,7 @@ import unittest
 from radar.curation import (
     CATEGORIES,
     CATEGORY_PATTERNS,
+    classify_areas,
     classify_category,
     curate_repos,
     extract_install_command,
@@ -72,6 +73,21 @@ class CurationClassificationTests(unittest.TestCase):
     def test_classify_unmatched_returns_none(self):
         cat = classify_category("Effect-TS/effect", description="Build production-ready applications in TypeScript")
         self.assertIsNone(cat)
+
+    def test_classify_areas_multiple_matches(self):
+        # A tool doing browser automation and coding agents should match both browser-mcp and agent-code
+        areas = classify_areas(
+            "browser-use/browser-use",
+            description="Autonomous coding agent that uses the browser for web automation",
+            topics=["browser-automation", "coding-agent"]
+        )
+        self.assertIn("browser-mcp", areas)
+        self.assertIn("agent-code", areas)
+        self.assertGreaterEqual(len(areas), 2)
+
+    def test_classify_areas_empty_returns_empty_list(self):
+        areas = classify_areas("Effect-TS/effect", description="Build production-ready applications in TypeScript")
+        self.assertEqual(areas, [])
 
 
 class CurationInstallCommandTests(unittest.TestCase):
@@ -359,11 +375,15 @@ class CurateReposIntegrationTests(unittest.TestCase):
         gh_result = next(r for r in results if r["source"] == "github-trending")
         self.assertEqual(gh_result["label"], "dung-ngay")
         self.assertEqual(gh_result["category"], "agent-code")
+        self.assertIn("areas", gh_result)
+        self.assertIn("agent-code", gh_result["areas"])
         self.assertEqual(gh_result["license"], "MIT")
 
         hf_result = next(r for r in results if r["source"] == "hf")
         self.assertEqual(hf_result["label"], "dung-ngay")
         self.assertEqual(hf_result["category"], "voice")
+        self.assertIn("areas", hf_result)
+        self.assertIn("voice", hf_result["areas"])
         self.assertEqual(hf_result["license"], "apache-2.0")
 
     def test_curate_repos_network_failure_fallback(self):
