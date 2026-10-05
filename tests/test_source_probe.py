@@ -460,9 +460,9 @@ class SourceProbeJsonFeedTests(unittest.TestCase):
 
 
 class SourceProbeCandidateDataTests(unittest.TestCase):
-    def test_candidate_sources_json_has_all_35_candidates(self):
+    def test_candidate_sources_json_has_all_41_candidates(self):
         candidates = load_candidates()
-        self.assertEqual(len(candidates), 35)
+        self.assertEqual(len(candidates), 41)
 
         required_keys = {"id", "name", "url", "label", "circle_id", "circle_name"}
         seen_ids = set()

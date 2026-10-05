@@ -13,7 +13,6 @@ FIXTURES = Path(__file__).parent / "fixtures"
 NOW = datetime(2026, 10, 4, 16, 5, 0, tzinfo=timezone.utc)
 
 NEW_FEED_URLS = {
-    "vnexpress-so-hoa": "https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss",
     "vnexpress-tech": "https://e.vnexpress.net/rss/tech.rss",
     "genk-ai": "https://genk.vn/rss/ai.rss",
     "tuoitre-so": "https://tuoitre.vn/rss/nhip-song-so.rss",
@@ -34,7 +33,7 @@ NEW_FEED_URLS = {
 }
 
 FILTERED_SOURCES = {
-    "vnexpress-so-hoa", "vnexpress-tech", "tuoitre-so", "thanhnien-cong-nghe",
+    "vnexpress-tech", "tuoitre-so", "thanhnien-cong-nghe",
     "404media", "semafor", "cnbc-tech", "bloomberg-tech", "fedscoop",
     "technode", "restofworld", "meta-newsroom", "microsoft-blog",
 }
@@ -48,7 +47,7 @@ class CatalogNewSourcesTests(unittest.TestCase):
     def setUp(self):
         self.sources = {s["id"]: s for s in catalog.sources(NOW)}
 
-    def test_all_18_probed_feeds_are_present_in_catalog(self):
+    def test_all_17_probed_feeds_are_present_in_catalog(self):
         for id_, expected_url in NEW_FEED_URLS.items():
             with self.subTest(source_id=id_):
                 self.assertIn(id_, self.sources)
@@ -65,7 +64,7 @@ class CatalogNewSourcesTests(unittest.TestCase):
 
     def test_groups_and_publishers_are_consistent(self):
         press_sources = {
-            "vnexpress-so-hoa", "vnexpress-tech", "genk-ai", "tuoitre-so",
+            "vnexpress-tech", "genk-ai", "tuoitre-so",
             "thanhnien-cong-nghe", "theregister-ai", "wired-ai", "404media",
             "semafor", "cnbc-tech", "bloomberg-tech", "fedscoop", "nextgov-ai",
             "technode", "restofworld",
@@ -87,7 +86,6 @@ class CatalogNewSourcesTests(unittest.TestCase):
                 self.assertTrue(src["publisher"])
 
         # Check specific publisher identities
-        self.assertEqual(self.sources["vnexpress-so-hoa"]["publisher"], "vnexpress")
         self.assertEqual(self.sources["vnexpress-tech"]["publisher"], "vnexpress")
         self.assertEqual(self.sources["genk-ai"]["publisher"], "genk")
         self.assertEqual(self.sources["tuoitre-so"]["publisher"], "tuoi-tre")
@@ -245,6 +243,53 @@ class FeedParsingAndFilterIntegrationTests(unittest.TestCase):
         self.assertEqual(parsed[0]["publisher"], "the-register")
         self.assertEqual(parsed[0]["published_at"], "2026-10-02T14:30:00Z")
 
+    def test_genk_rss_feed_parses_vietnam_local_timestamp_to_utc(self):
+        source = {
+            "id": "genk-ai",
+            "name": "GenK AI",
+            "publisher": "genk",
+            "group": "press",
+            "kind": "rss",
+            "url": "https://genk.vn/rss/ai.rss",
+            "filter_ai": False,
+        }
+        xml = """<rss version="2.0">
+        <channel>
+          <title>GenK - Tin tức công nghệ</title>
+          <link>https://genk.vn</link>
+          <item>
+            <title>Better Choice Awards 2026: FPT AI Agents giành giải Giải pháp AI Agent tiên phong</title>
+            <link>https://genk.vn/better-choice-awards-2026-fpt-ai-agents-gianh-giai-giai-phap-ai-agent-tien-phong-165261004151223392.chn</link>
+            <description><![CDATA[FPT AI Agents được vinh danh tại lễ trao giải công nghệ.]]></description>
+            <pubDate>Sun, 04 Oct 2026 19:30:00 GMT</pubDate>
+          </item>
+          <item>
+            <title>Kịch bản AI đe dọa tồn vong loài người</title>
+            <link>https://genk.vn/kich-ban-ai-de-doa-ton-vong-loai-nguoi-165261005110748938.chn</link>
+            <description><![CDATA[Các chuyên gia cảnh báo về kịch bản rủi ro nghiêm trọng từ trí tuệ nhân tạo.]]></description>
+            <pubDate>Mon, 05 Oct 2026 11:00:00 +0000</pubDate>
+          </item>
+          <item>
+            <title>Thử nghiệm mô hình AI với múi giờ chuẩn +0700</title>
+            <link>https://genk.vn/thu-nghiem-mo-hinh-ai-165261005080000000.chn</link>
+            <description><![CDATA[Mô tả thử nghiệm trí tuệ nhân tạo.]]></description>
+            <pubDate>Mon, 05 Oct 2026 15:00:00 +0700</pubDate>
+          </item>
+        </channel>
+        </rss>"""
+        parsed = v2feeds.parse_feed(xml, source, NOW.isoformat())
+        self.assertEqual(len(parsed), 3)
+
+        # Item 1: 19:30:00 Vietnam time falsely labeled GMT -> 12:30:00 UTC
+        self.assertEqual(parsed[0]["published_at"], "2026-10-05T08:00:00Z")
+        self.assertEqual(parsed[1]["published_at"], "2026-10-05T04:00:00Z")
+        self.assertEqual(parsed[2]["published_at"], "2026-10-04T12:30:00Z")
+
+        # Verify standard source is untouched
+        std_source = dict(source, id="wired-ai", publisher="wired")
+        std_parsed = v2feeds.parse_feed(xml, std_source, NOW.isoformat())
+        self.assertEqual(std_parsed[2]["published_at"], "2026-10-04T19:30:00Z")
+
 
 class VietnameseLanguageAndTranslationTests(unittest.TestCase):
     def test_already_vietnamese_titles_do_not_need_translation(self):
@@ -309,7 +354,7 @@ class ClusteringBehaviorTests(unittest.TestCase):
         date = "2026-10-04T08:00:00Z"
         item_vnexpress = {
             "id": "vne-1",
-            "source": "vnexpress-so-hoa",
+            "source": "vnexpress-tech",
             "publisher": "vnexpress",
             "group": "press",
             "title": "OpenAI công bố thỏa thuận hợp tác nghiên cứu an toàn với các trường đại học",

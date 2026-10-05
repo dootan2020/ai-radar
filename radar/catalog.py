@@ -18,7 +18,6 @@ RSS = [
     ("microsoft-research", "Microsoft Research", "lab", "microsoft", "https://www.microsoft.com/en-us/research/feed/", False),
     ("nvidia-blog", "NVIDIA Technical Blog", "lab", "nvidia", "https://developer.nvidia.com/blog/feed", True),
     ("dwarkesh-video", "Video Dwarkesh", "podcast", "dwarkesh", "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA", True),
-    ("vnexpress-so-hoa", "VnExpress Số hóa", "press", "vnexpress", "https://vnexpress.net/rss/khoa-hoc-cong-nghe.rss", True),
     ("vnexpress-tech", "VnExpress International Tech", "press", "vnexpress", "https://e.vnexpress.net/rss/tech.rss", True),
     ("genk-ai", "GenK AI", "press", "genk", "https://genk.vn/rss/ai.rss", False),
     ("tuoitre-so", "Tuổi Trẻ Nhịp sống số", "press", "tuoi-tre", "https://tuoitre.vn/rss/nhip-song-so.rss", True),

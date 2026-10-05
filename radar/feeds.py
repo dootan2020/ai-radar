@@ -1,5 +1,7 @@
 """RSS/Atom lab news. Community feed attribution is explicit."""
 
+from datetime import datetime, timezone, timedelta
+from email.utils import parsedate_to_datetime
 import re
 import xml.etree.ElementTree as ET
 
@@ -56,6 +58,35 @@ def _research_copy(title, summary):
     return clean_title or title, summary
 
 
+_VN_TZ = timezone(timedelta(hours=7))
+
+
+def _genk_date(value):
+    """Normalize GenK timestamps.
+    GenK emits Vietnam local time (UTC+7) labeled as GMT/UTC (+0000) or naive.
+    Interpret zero-offset or naive times as Asia/Ho_Chi_Minh (UTC+7).
+    """
+    if not value or not isinstance(value, (str, datetime)):
+        return value
+    try:
+        dt = value if isinstance(value, datetime) else datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except (ValueError, TypeError):
+        try:
+            dt = parsedate_to_datetime(value)
+        except (ValueError, TypeError, OverflowError):
+            return value
+
+    if dt is None:
+        return value
+
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=_VN_TZ)
+    elif dt.utcoffset() == timedelta(0):
+        dt = dt.replace(tzinfo=None).replace(tzinfo=_VN_TZ)
+
+    return dt.astimezone(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
 def parse_feed(text, source):
     root = ET.fromstring(text)
     if _local(root.tag) not in {"rss", "feed", "RDF"}:
@@ -70,7 +101,11 @@ def parse_feed(text, source):
                 break
         url = web_url(url.strip())
         title = clean_text(_field(entry, "title"), 500)
-        date = iso_date(_field(entry, "pubDate", "published", "date", "updated"))
+        date = _field(entry, "pubDate", "published", "date", "updated")
+        if source.get("id") == "genk-ai" or source.get("publisher") == "genk":
+            date = _genk_date(date)
+        else:
+            date = iso_date(date)
         if not url or not title or url in seen:
             continue
         seen.add(url)
