@@ -406,6 +406,149 @@ class SummaryTests(unittest.TestCase):
         all_text = src.read_text(encoding="utf-8") + ui_path.read_text(encoding="utf-8") + gh_text
         self.assertNotIn("offline-sentinel", all_text)
 
+    def test_ranking_window_and_worth_order(self):
+        """Stories inside ranking window are sent in worth_score order (highest first, newest first on ties).
+        Stories outside the ranking window are never sent and not summarised at all.
+        """
+        gen_time = "2026-10-05T12:00:00Z"
+
+        # Story 1: Out of window (published 5 days ago, older than 72h window). Highest worth_score 95.0.
+        story_out_window = {
+            "id": "story-out-of-window",
+            "title": "Very old story outside the 72 hour ranking window",
+            "published_at": "2026-09-30T12:00:00Z",
+            "worth_score": 95.0,
+            "coverage": [{
+                "publisher": "TechCrunch",
+                "title": "Very old story outside the 72 hour ranking window",
+                "summary": "This story occurred five days before the snapshot generation time.",
+                "published_at": "2026-09-30T12:00:00Z",
+            }]
+        }
+
+        # Story 2: In window, medium worth score (30.0), published 10 hours ago
+        story_med_older = {
+            "id": "story-med-older",
+            "title": "Medium worth story published earlier",
+            "published_at": "2026-10-05T02:00:00Z",
+            "worth_score": 30.0,
+            "coverage": [{
+                "publisher": "The Verge",
+                "title": "Medium worth story published earlier",
+                "summary": "Report on early morning developments across AI infrastructure.",
+                "published_at": "2026-10-05T02:00:00Z",
+            }]
+        }
+
+        # Story 3: In window, high worth score (75.0), published 8 hours ago
+        story_high_worth = {
+            "id": "story-high-worth",
+            "title": "High worth story with major multi source coverage",
+            "published_at": "2026-10-05T04:00:00Z",
+            "worth_score": 75.0,
+            "coverage": [{
+                "publisher": "Wired",
+                "title": "High worth story with major multi source coverage",
+                "summary": "Major breakthrough announced by leading AI research lab.",
+                "published_at": "2026-10-05T04:00:00Z",
+            }]
+        }
+
+        # Story 4: In window, same medium worth score (30.0) as story_med_older, but newer (published 2 hours ago)
+        story_med_newer = {
+            "id": "story-med-newer",
+            "title": "Medium worth story published more recently",
+            "published_at": "2026-10-05T10:00:00Z",
+            "worth_score": 30.0,
+            "coverage": [{
+                "publisher": "Ars Technica",
+                "title": "Medium worth story published more recently",
+                "summary": "Recent developments in machine learning tooling and frameworks.",
+                "published_at": "2026-10-05T10:00:00Z",
+            }]
+        }
+
+        # Misleading order in payload: out-of-window first, low worth next, high worth last
+        payload = {
+            "generated_at": gen_time,
+            "ranking": {"window_hours": 72},
+            "stories": [
+                deepcopy(story_out_window),
+                deepcopy(story_med_older),
+                deepcopy(story_med_newer),
+                deepcopy(story_high_worth),
+            ]
+        }
+
+        calls_received = []
+        def transport_recorder(body, key, timeout):
+            calls_received.append(body)
+            stories_in = json.loads(body["contents"][0]["parts"][0]["text"])["stories"]
+            rows = []
+            for s in stories_in:
+                rows.append({
+                    "id": s["id"],
+                    "key_points": ["Ý chính xác thực về tin tức công nghệ trí tuệ nhân tạo."]
+                })
+            return reply_summary(rows, tokens=300)
+
+        # Batch size 2 to prove batch prioritization: the top 2 in-window stories must be chosen
+        config = gemini.Config(api_key="offline-sentinel", confirmed=True, batch_size=2)
+        stats, _ = summary_pipeline.summarize_payload(
+            payload,
+            self.cache,
+            config=config,
+            transport_fn=transport_recorder,
+            ledger_path=self.ledger_path,
+            budget=10.0,
+            now=lambda: 100000.0,
+        )
+
+        self.assertEqual(len(calls_received), 1)
+        req_stories = json.loads(calls_received[0]["contents"][0]["parts"][0]["text"])["stories"]
+        req_ids = [s["id"] for s in req_stories]
+
+        # 1. Proves high-worth story sent before low-worth story:
+        self.assertEqual(req_ids[0], "story-high-worth")
+
+        # 2. Proves tie-breaking: story-med-newer (published 10:00) sent before story-med-older (published 02:00)
+        self.assertEqual(req_ids[1], "story-med-newer")
+
+        # 3. Proves out-of-window story is NEVER sent:
+        self.assertNotIn("story-out-of-window", req_ids)
+
+        # 4. Out-of-window story receives NO key points:
+        out_story_in_payload = next(s for s in payload["stories"] if s["id"] == "story-out-of-window")
+        self.assertNotIn("key_points", out_story_in_payload)
+        self.assertNotIn("key_points_machine", out_story_in_payload)
+
+        # 5. Stats reflect only the 3 window stories:
+        self.assertEqual(stats["stories"], 3)
+        self.assertEqual(stats["summarized"], 2)
+        self.assertEqual(stats["pending"], 1)
+
+        # Next run with batch_size 10 to summarize remaining story
+        calls_received.clear()
+        config_full = gemini.Config(api_key="offline-sentinel", confirmed=True, batch_size=10)
+        stats2, _ = summary_pipeline.summarize_payload(
+            payload,
+            self.cache,
+            config=config_full,
+            transport_fn=transport_recorder,
+            ledger_path=self.ledger_path,
+            budget=10.0,
+            now=lambda: 100005.0,
+        )
+        self.assertEqual(len(calls_received), 1)
+        req2_ids = [s["id"] for s in json.loads(calls_received[0]["contents"][0]["parts"][0]["text"])["stories"]]
+        # Only story-med-older is missing now; story-out-of-window must STILL not be sent!
+        self.assertEqual(req2_ids, ["story-med-older"])
+        self.assertNotIn("story-out-of-window", req2_ids)
+        self.assertEqual(stats2["stories"], 3)
+        self.assertEqual(stats2["cache_hits"], 2)
+        self.assertEqual(stats2["summarized"], 1)
+        self.assertEqual(stats2["pending"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()

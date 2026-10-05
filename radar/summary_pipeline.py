@@ -4,6 +4,7 @@ strict fact validation, and bounded Gemini execution.
 
 from __future__ import annotations
 
+from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 import re
@@ -11,6 +12,7 @@ import threading
 import time
 from typing import Any
 
+from radar.items import instant
 from radar import summary_budget
 from radar import summary_gemini as gemini
 from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
@@ -216,6 +218,38 @@ def _request_gemini(stories_batch: list[dict], config: gemini.Config, transport_
     return state.get("outputs", {}), state.get("tokens", 0), state.get("error"), False
 
 
+def story_worth_score(story: dict, now_dt: datetime | None = None) -> float:
+    """Extract or calculate the worth score for a story, defaulting to 0.0."""
+    ws = story.get("worth_score")
+    if ws is not None:
+        try:
+            return float(ws)
+        except (ValueError, TypeError):
+            pass
+    if now_dt:
+        try:
+            from radar.worth import calculate_worth
+            w = calculate_worth(story, now_dt)
+            return float(w.get("score") or 0.0)
+        except Exception:
+            pass
+    return 0.0
+
+
+def is_in_ranking_window(story: dict, gen_dt: datetime, window_hours: float) -> bool:
+    """Return True if story was published within the ranking window from generated_at.
+
+    Matches site/feed.js:
+    const t = ms(st.published_at); return t && t >= from && t <= gen + 3e5;
+    """
+    pub_dt = instant(story.get("published_at"))
+    if not pub_dt:
+        return False
+    from_dt = gen_dt - timedelta(hours=window_hours)
+    to_dt = gen_dt + timedelta(seconds=300)
+    return from_dt <= pub_dt <= to_dt
+
+
 def summarize_payload(payload: dict,
                       cache: dict[str, list[str]],
                       *,
@@ -234,10 +268,48 @@ def summarize_payload(payload: dict,
     transport_fn = transport_fn or gemini.transport
 
     stories = payload.get("stories") or []
+
+    # Ranking window matching site/feed.js:
+    # winH = Number(D.ranking && D.ranking.window_hours);
+    # if (!Number.isFinite(winH) || winH <= 0) winH = 72;
+    # const gen = ms(D.generated_at), from = gen - winH * 36e5;
+    # allStories = asArray(D.stories).filter(st => { const t = ms(st.published_at); return t && t >= from && t <= gen + 3e5; })
+    ranking = payload.get("ranking")
+    win_h = ranking.get("window_hours") if isinstance(ranking, dict) else None
+    try:
+        window_hours = float(win_h) if win_h is not None and float(win_h) > 0 else 72.0
+    except (ValueError, TypeError):
+        window_hours = 72.0
+
+    gen_dt = instant(payload.get("generated_at"))
+    if gen_dt is None:
+        pub_dates = [instant(s.get("published_at")) for s in stories if isinstance(s, dict)]
+        pub_dates = [dt for dt in pub_dates if dt]
+        if pub_dates:
+            gen_dt = max(pub_dates)
+        else:
+            now_val = now() if callable(now) else now
+            gen_dt = datetime.fromtimestamp(now_val, tz=timezone.utc) if isinstance(now_val, (int, float)) else datetime.now(timezone.utc)
+
     eligible_stories = []
     for s in stories:
-        if isinstance(s, dict) and s.get("kind") != "event" and "event" not in (s.get("groups") or []):
-            eligible_stories.append(s)
+        if not isinstance(s, dict):
+            continue
+        if s.get("kind") == "event" or "event" in (s.get("groups") or []):
+            continue
+        if not is_in_ranking_window(s, gen_dt, window_hours):
+            # Stories outside the window are not summarised at all
+            continue
+        eligible_stories.append(s)
+
+    # Order stories: highest worth_score first, newest first on ties
+    def sort_key(s: dict):
+        score = story_worth_score(s, gen_dt)
+        pub = instant(s.get("published_at"))
+        ts = pub.timestamp() if pub else 0.0
+        return (score, ts)
+
+    eligible_stories.sort(key=sort_key, reverse=True)
 
     stats = {
         "model": gemini.MODEL_ID,
