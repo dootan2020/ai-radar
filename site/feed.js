@@ -964,7 +964,9 @@ function areaListNote(areaSet) {
 }
 
 const REPO_PAGE_SIZE = 6;
-let repoVisibleLimit = REPO_PAGE_SIZE;
+const REPO_PAGE_DEFAULT = 4;
+const repoPageSize = isArea => (isArea ? REPO_PAGE_SIZE : REPO_PAGE_DEFAULT);
+let repoVisibleLimit = REPO_PAGE_DEFAULT;
 const REPO_VIEWS = [{ id: 'trending', label: 'Đang lên' }, { id: 'stars', label: 'Nhiều sao' }, { id: 'usable', label: 'Dùng ngay' }];
 const WINDOWS = [
   { id: 'day', label: 'Hôm nay', gained: 'sao hôm nay', phrase: 'hôm nay' },
@@ -1052,11 +1054,13 @@ function renderRepos(full = false) {
     }
   }
 
+  const pageSize = repoPageSize(isArea);
   const list = matching.slice(0, repoVisibleLimit);
   const remaining = matching.length - list.length;
   const why = isArea
     ? 'Không có kho mã nào ở mảng bạn chọn.'
     : (windowGap() || 'Danh sách này chưa có kho mã nào.');
+  const step = Math.min(pageSize, remaining);
 
   return `<section class="tile tile-repos${full ? ' is-full' : ''}${isArea ? ' has-area' : ''}" aria-labelledby="repos-h">${head}
     ${repoControls(full, matching)}
@@ -1067,12 +1071,13 @@ function renderRepos(full = false) {
       return repoCard(r, measure);
     }).join('')}</div>`
       : `<p class="tile-note repo-empty">${esc(why)}${areas.size ? ' <button class="text-btn" data-area-clear>Hiện mọi mảng</button>' : ''}</p>`}
-    ${remaining > 0 ? `<div class="repo-more"><button class="repo-more-btn" data-repo-more="true" aria-controls="repos-list" aria-label="Xem thêm ${Math.min(REPO_PAGE_SIZE, remaining)} kho mã, còn ${remaining} kho mã">Xem thêm <span class="num">+${Math.min(REPO_PAGE_SIZE, remaining)}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span></button></div>` : ''}
+    ${remaining > 0 ? `<div class="repo-more"><button class="repo-more-btn" data-repo-more="true" aria-controls="repos-list" aria-label="Xem thêm ${step} kho mã, còn ${remaining} kho mã">Xem thêm <span class="num">+${step}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span></button></div>` : ''}
     <div class="sr" role="status" aria-live="polite" id="repo-status"></div>
   </section>`;
 }
 function showMoreRepos(moreBtn) {
   const isArea = areas.size > 0 && FIELD_DATA && FIELD_MAP.size;
+  const pageSize = repoPageSize(isArea);
   let matching = [];
   if (isArea) {
     matching = selectedAreasPool(areas);
@@ -1082,7 +1087,7 @@ function showMoreRepos(moreBtn) {
   }
   const total = matching.length;
   const start = repoVisibleLimit;
-  const end = Math.min(start + REPO_PAGE_SIZE, total);
+  const end = Math.min(start + pageSize, total);
   const nextSlice = matching.slice(start, end);
   if (!nextSlice.length) {
     const container = moreBtn.closest('.repo-more');
@@ -1112,9 +1117,10 @@ function showMoreRepos(moreBtn) {
     statusEl.textContent = `Đã tải thêm ${nextSlice.length} kho mã. Đang hiện ${repoVisibleLimit} trên tổng số ${total} kho mã.`;
   }
 
+  const nextStep = Math.min(pageSize, remaining);
   if (remaining > 0) {
-    moreBtn.setAttribute('aria-label', `Xem thêm ${Math.min(REPO_PAGE_SIZE, remaining)} kho mã, còn ${remaining} kho mã`);
-    moreBtn.innerHTML = `Xem thêm <span class="num">+${Math.min(REPO_PAGE_SIZE, remaining)}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span>`;
+    moreBtn.setAttribute('aria-label', `Xem thêm ${nextStep} kho mã, còn ${remaining} kho mã`);
+    moreBtn.innerHTML = `Xem thêm <span class="num">+${nextStep}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span>`;
     moreBtn.focus();
   } else {
     const container = moreBtn.closest('.repo-more');
@@ -1140,7 +1146,7 @@ function animateNewRepoCells(cells) {
   });
 }
 function setRepo(kind, value) {
-  repoVisibleLimit = REPO_PAGE_SIZE;
+  repoVisibleLimit = repoPageSize(areas.size > 0);
   if (kind === 'view' && REPO_VIEWS.some(v => v.id === value)) {
     repoView = value;
     store.set(K.repoView, value);
@@ -1346,16 +1352,44 @@ function rerenderRepos() {
     if (el) el.focus({ preventScroll: true });
   }
 }
-function renderModels() {
+const MODEL_LIMIT = 8;
+function getTrendingModels() {
   const sig = r => r.signals || {};
-  const models = (D.repos || []).filter(r => r.source === 'hf')
-    .sort((a, b) => (sig(b).hf_score ?? b.hf_score ?? 0) - (sig(a).hf_score ?? a.hf_score ?? 0)).slice(0, 3);
+  const reposHf = (D.repos || []).filter(r => r.source === 'hf').map(r => ({
+    full_name: r.full_name || r.name || r.id,
+    url: r.url,
+    likes: sig(r).likes ?? r.stars,
+    downloads: sig(r).downloads,
+    hf_score: sig(r).hf_score ?? r.hf_score ?? 0,
+  }));
+  const trendingHf = ((D.trending && D.trending.huggingface) || [])
+    .filter(x => x.type === 'model' || !x.type)
+    .map(x => ({
+      full_name: x.id || x.name,
+      url: x.url || `https://huggingface.co/${x.id}`,
+      likes: x.likes,
+      downloads: x.downloads,
+      hf_score: x.likes ?? 0,
+    }));
+  const map = new Map();
+  for (const m of [...reposHf, ...trendingHf]) {
+    if (m.full_name && !map.has(m.full_name)) {
+      map.set(m.full_name, m);
+    }
+  }
+  return [...map.values()]
+    .sort((a, b) => (b.hf_score ?? 0) - (a.hf_score ?? 0) || (b.likes ?? 0) - (a.likes ?? 0))
+    .slice(0, MODEL_LIMIT);
+}
+
+function renderModels() {
+  const models = getTrendingModels();
   if (!models.length) return '';
   return `<section class="tile tile-models" aria-labelledby="models-h">
     <div class="tile-head"><h2 class="tile-title" id="models-h">Mô hình đáng thử</h2></div>
     <p class="tile-note">thịnh hành trên Hugging Face</p>
     <div class="model-list">${models.map(r => {
-      const likes = sig(r).likes ?? r.stars, dl = sig(r).downloads;
+      const likes = r.likes, dl = r.downloads;
       return `<a class="model" href="${esc(safe(r.url))}" target="_blank" rel="noopener">
         <span class="model-img"><img src="${esc(hfPreview(r))}" alt="" width="1200" height="648" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
         <span class="model-name" lang="en">${formatRepoName(r.full_name)}</span>
@@ -1994,16 +2028,16 @@ function onClick(e) {
     return;
   }
   const area = t.closest('[data-area]');
-  if (area) { const a = area.dataset.area; if (areas.has(a)) areas.delete(a); else areas.add(a); store.set(K.areas, [...areas]); repoVisibleLimit = REPO_PAGE_SIZE; rerenderRepos(); return; }
-  if (t.closest('[data-area-clear]')) { areas.clear(); store.set(K.areas, []); repoVisibleLimit = REPO_PAGE_SIZE; rerenderRepos(); return; }
+  if (area) { const a = area.dataset.area; if (areas.has(a)) areas.delete(a); else areas.add(a); store.set(K.areas, [...areas]); repoVisibleLimit = repoPageSize(areas.size > 0); rerenderRepos(); return; }
+  if (t.closest('[data-area-clear]')) { areas.clear(); store.set(K.areas, []); repoVisibleLimit = REPO_PAGE_DEFAULT; rerenderRepos(); return; }
   const rc = t.closest('button[data-repo-view],button[data-repo-window],button[data-repo-total]');
   if (rc) {
     const k = ['repoView', 'repoWindow', 'repoTotal'].find(k => rc.dataset[k] != null);
-    repoVisibleLimit = REPO_PAGE_SIZE;
     if (k === 'repoView' && areas.size > 0) {
       areas.clear();
       store.set(K.areas, []);
     }
+    repoVisibleLimit = repoPageSize(areas.size > 0);
     setRepo(k.slice(4).toLowerCase(), rc.dataset[k]);
     return;
   }
