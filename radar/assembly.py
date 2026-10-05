@@ -112,7 +112,7 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
         from radar.images import resolve_images_for_stories
         build_deadline = getattr(fetcher, "deadline", None)
         t_img = time.monotonic()
-        resolve_images_for_stories(stories, transport=image_transport, deadline=build_deadline, ai_transport=ai_transport)
+        resolve_images_for_stories(stories, transport=image_transport, deadline=build_deadline, ai_transport=ai_transport, now=now)
         img_elapsed = time.monotonic() - t_img
         img_count = sum(1 for st in stories if st.get("image"))
         print(f"Images: {img_count}/{len(stories)} stories resolved with image in {img_elapsed:.2f}s")

@@ -380,6 +380,62 @@ def build_ai_prompt(title, kind=None):
     return prompt
 
 
+def _sanitize_secrets(text, account_id=None, api_token=None):
+    """Redact tokens, account IDs, and sensitive URLs from any text or log output."""
+    if not text:
+        return ""
+    text = str(text)
+    if api_token:
+        text = text.replace(api_token, "[REDACTED]")
+    env_token = os.environ.get("CLOUDFLARE_AI_API_TOKEN")
+    if env_token:
+        text = text.replace(env_token, "[REDACTED]")
+    if account_id:
+        text = text.replace(account_id, "[REDACTED]")
+    env_acc = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
+    if env_acc:
+        text = text.replace(env_acc, "[REDACTED]")
+    text = re.sub(r"/accounts/[^/]+/", "/accounts/[REDACTED]/", text)
+    text = re.sub(r"Bearer\s+[a-zA-Z0-9_\-\.]+", "Bearer [REDACTED]", text)
+    return text
+
+
+def _parse_cloudflare_error(body_bytes, status, account_id=None, api_token=None):
+    """Extract clean error code and message from Cloudflare response, stripping secrets."""
+    err_code = None
+    err_msg = ""
+    if body_bytes:
+        try:
+            raw_text = body_bytes.decode("utf-8", errors="ignore")
+            data = json.loads(raw_text)
+            if isinstance(data, dict):
+                errors = data.get("errors")
+                if isinstance(errors, list) and errors:
+                    first = errors[0]
+                    if isinstance(first, dict):
+                        err_code = first.get("code")
+                        err_msg = first.get("message") or ""
+                    elif isinstance(first, str):
+                        err_msg = first
+                elif data.get("error"):
+                    err_msg = str(data.get("error"))
+                elif data.get("messages") and isinstance(data.get("messages"), list):
+                    err_msg = "; ".join(str(m) for m in data.get("messages"))
+        except Exception:
+            pass
+        if not err_msg:
+            text = body_bytes.decode("utf-8", errors="ignore").strip()
+            if "<html" in text.lower():
+                m = re.search(r"<title>(.*?)</title>", text, re.I)
+                err_msg = m.group(1).strip() if m else f"HTTP {status}"
+            else:
+                err_msg = text[:120].strip()
+    if not err_msg:
+        err_msg = f"HTTP {status}"
+    err_msg = _sanitize_secrets(err_msg, account_id, api_token)
+    return err_code, err_msg
+
+
 def safe_image_filename(story_id):
     """Derive safe filename from story id."""
     cleaned = re.sub(r"[^\w.-]", "_", str(story_id or "unnamed"))
@@ -400,6 +456,8 @@ def generate_ai_illustration(
     height=DEFAULT_HEIGHT,
     steps=DEFAULT_STEPS,
     run_budget=None,
+    ignore_window=False,
+    outcome=None,
 ):
     """Generate an AI illustration for a story and save it under site/assets/ai/{story_id}.jpg.
 
@@ -411,8 +469,10 @@ def generate_ai_illustration(
     (`run_budget`, default: the process-wide one). Reusing an image already on disk
     costs nothing and is allowed at any time.
     """
-    story_id = story.get("id")
+    story_id = story.get("id") if isinstance(story, dict) else None
     if not story_id:
+        if outcome is not None:
+            outcome.update(action="skipped", reason="missing_story_id", bytes_received=0, cost=0.0)
         return None
 
     root = Path(__file__).resolve().parent.parent
@@ -431,32 +491,49 @@ def generate_ai_illustration(
     if dest_path.is_file():
         if not ledger.is_story_generated(story_id):
             ledger.record_generation(story_id, cost=0.0, now=now)
+        if outcome is not None:
+            outcome.update(action="reused", status=200, bytes_received=dest_path.stat().st_size if dest_path.exists() else 0, cost=0.0)
         return {"src": rel_src, "via": "ai", "kind": "photo", "verified": True}
 
     # Lost-ledger bound: new generation only inside the fixed daily UTC hour. Checked
     # before the ledger so a closed window never writes a "stopped" day record.
-    if not generation_window_open(now):
+    if not ignore_window and not generation_window_open(now):
+        if outcome is not None:
+            outcome.update(action="skipped", reason="window_closed", bytes_received=0, cost=0.0)
         return None
 
     # Verify quota and circuit breaker
     can_gen, reason = ledger.can_generate(story_id, cost=cost, now=now)
     if not can_gen:
+        if outcome is not None:
+            outcome.update(action="refused", reason=reason, bytes_received=0, cost=0.0)
         return None
 
     # Credentials resolution (never print or log values)
     account_id = account_id or os.environ.get("CLOUDFLARE_ACCOUNT_ID")
     api_token = api_token or os.environ.get("CLOUDFLARE_AI_API_TOKEN")
 
+    missing_creds = []
+    if not account_id:
+        missing_creds.append("CLOUDFLARE_ACCOUNT_ID")
+    if not api_token:
+        missing_creds.append("CLOUDFLARE_AI_API_TOKEN")
+
     # Offline safety: never call without both env vars unless an offline transport is injected
-    if transport is None and (not account_id or not api_token):
+    if transport is None and missing_creds:
+        if outcome is not None:
+            outcome.update(action="skipped", reason=f"missing {', '.join(missing_creds)}", bytes_received=0, cost=0.0)
         return None
 
     # Per-run bound, independent of the ledger: reserved when the request is sent so
     # a failed or unusable response (possibly billed) still counts against the run.
-    if run_budget is None:
-        run_budget = process_run_budget()
-    if not run_budget.try_reserve(cost):
-        return None
+    if run_budget is not None or not ignore_window:
+        if run_budget is None:
+            run_budget = process_run_budget()
+        if not run_budget.try_reserve(cost):
+            if outcome is not None:
+                outcome.update(action="refused", reason="run_budget_exceeded", bytes_received=0, cost=0.0)
+            return None
 
     prompt = build_ai_prompt(story.get("title", ""), story.get("kind"))
     endpoint = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{MODEL_ID}"
@@ -479,7 +556,10 @@ def generate_ai_illustration(
                 status, ct, resp_bytes = transport(endpoint, headers=headers, data=body_data)
             except TypeError:
                 status, ct, resp_bytes = transport(endpoint, headers, body_data)
-        except Exception:
+        except Exception as err:
+            err_msg = _sanitize_secrets(str(err), account_id, api_token)
+            if outcome is not None:
+                outcome.update(action="failed", status=0, error=err_msg, bytes_received=0, cost=0.0)
             return None
     else:
         req = urllib.request.Request(endpoint, data=body_data, headers=headers, method="POST")
@@ -489,23 +569,43 @@ def generate_ai_illustration(
                 ct = resp.headers.get("Content-Type", "")
                 resp_bytes = resp.read()
         except urllib.error.HTTPError as err:
-            if err.code == 429:
+            err_body = err.read() if hasattr(err, "read") else b""
+            status = err.code
+            err_code, err_msg = _parse_cloudflare_error(err_body, status, account_id, api_token)
+            if status == 429:
                 ledger.record_stop("HTTP 429 Too Many Requests (rate limit or daily quota)", now=now)
-                return None
-            if err.code in (400, 403):
+            elif status in (400, 403):
                 # Check for quota message in error payload
-                err_body = err.read() if hasattr(err, "read") else b""
                 if b"quota" in err_body.lower() or b"limit" in err_body.lower():
-                    ledger.record_stop(f"HTTP {err.code} Quota Exceeded", now=now)
+                    ledger.record_stop(f"HTTP {status} Quota Exceeded", now=now)
+            if outcome is not None:
+                outcome.update(action="failed", status=status, error=err_msg, error_code=err_code, bytes_received=len(err_body), cost=0.0)
             return None
-        except Exception:
+        except urllib.error.URLError as err:
+            err_msg = _sanitize_secrets(str(err.reason), account_id, api_token)
+            if outcome is not None:
+                outcome.update(action="failed", status=0, error=err_msg, bytes_received=0, cost=0.0)
+            return None
+        except Exception as err:
+            err_msg = _sanitize_secrets(str(err), account_id, api_token)
+            if outcome is not None:
+                outcome.update(action="failed", status=0, error=err_msg, bytes_received=0, cost=0.0)
             return None
 
     # Handle rate limit or quota exceeded
     if status == 429:
         ledger.record_stop("HTTP 429 Too Many Requests", now=now)
+        err_code, err_msg = _parse_cloudflare_error(resp_bytes, status, account_id, api_token)
+        if outcome is not None:
+            outcome.update(action="failed", status=429, error=err_msg, error_code=err_code, bytes_received=len(resp_bytes), cost=0.0)
         return None
+
     if status != 200:
+        err_code, err_msg = _parse_cloudflare_error(resp_bytes, status, account_id, api_token)
+        if status in (400, 403) and (b"quota" in resp_bytes.lower() or b"limit" in resp_bytes.lower()):
+            ledger.record_stop(f"HTTP {status} Quota Exceeded", now=now)
+        if outcome is not None:
+            outcome.update(action="failed", status=status, error=err_msg, error_code=err_code, bytes_received=len(resp_bytes), cost=0.0)
         return None
 
     # Extract image bytes
@@ -520,10 +620,12 @@ def generate_ai_illustration(
             if b64_str and isinstance(b64_str, str):
                 img_bytes = base64.b64decode(b64_str)
         except Exception:
-            return None
+            pass
 
     # Verify that decoded bytes look like valid JPEG / PNG / WebP
     if not img_bytes or not img_bytes.startswith((b"\xff\xd8\xff", b"\x89PNG", b"RIFF")):
+        if outcome is not None:
+            outcome.update(action="failed", status=status, error="Invalid or missing image bytes in response", bytes_received=len(resp_bytes), cost=0.0)
         return None
 
     # Store image file atomically under published site
@@ -538,9 +640,125 @@ def generate_ai_illustration(
                 temp_path.unlink()
         except Exception:
             pass
+        if outcome is not None:
+            outcome.update(action="failed", status=status, error="Failed to write image to disk", bytes_received=len(img_bytes), cost=0.0)
         return None
 
     # Record generation in ledger
     ledger.record_generation(story_id, cost=cost, now=now)
+    if outcome is not None:
+        outcome.update(action="generated", status=status, bytes_received=len(img_bytes), cost=cost)
 
     return {"src": rel_src, "via": "ai", "kind": "photo", "verified": True}
+
+
+def probe(
+    ledger_path=None,
+    site_root=None,
+    account_id=None,
+    api_token=None,
+    timeout=15,
+    transport=None,
+    now=None,
+    width=DEFAULT_WIDTH,
+    height=DEFAULT_HEIGHT,
+    steps=DEFAULT_STEPS,
+):
+    """Make exactly one generation request outside the daily window with strict ledger safety.
+
+    - Bounded to exactly one request per invocation.
+    - Counts against the ledger daily budget and refuses if stopped or over budget.
+    - Prints the outcome: status, error code or message, bytes received, neuron cost.
+    - Never prints tokens, account IDs, or URLs containing account IDs.
+    - Returns 0 on success, 1 on refusal or failure.
+    """
+    import tempfile
+
+    account_id = account_id or os.environ.get("CLOUDFLARE_ACCOUNT_ID")
+    api_token = api_token or os.environ.get("CLOUDFLARE_AI_API_TOKEN")
+
+    missing = []
+    if not account_id:
+        missing.append("CLOUDFLARE_ACCOUNT_ID")
+    if not api_token:
+        missing.append("CLOUDFLARE_AI_API_TOKEN")
+
+    if transport is None and missing:
+        print(f"AI image probe: refused (missing {', '.join(missing)}), 0 bytes received, 0.0 neurons spent")
+        return 1
+
+    ledger = AIImageLedger(ledger_path=ledger_path)
+    cost = compute_neuron_cost(width=width, height=height, steps=steps)
+    can_gen, reason = ledger.can_generate(cost=cost, now=now)
+    if not can_gen:
+        print(f"AI image probe: refused ({reason}), 0 bytes received, 0.0 neurons spent")
+        return 1
+
+    probe_id = f"ai-probe-{(now or _utc_now()).strftime('%Y%m%d%H%M%S')}"
+    probe_story = {
+        "id": probe_id,
+        "title": "Artificial intelligence foundational reasoning and algorithmic architectures",
+        "kind": "model",
+    }
+
+    outcome = {}
+    with tempfile.TemporaryDirectory() as tmp_site:
+        site_target = site_root if site_root is not None else tmp_site
+        res = generate_ai_illustration(
+            probe_story,
+            site_root=site_target,
+            ledger=ledger,
+            account_id=account_id,
+            api_token=api_token,
+            timeout=timeout,
+            transport=transport,
+            now=now,
+            width=width,
+            height=height,
+            steps=steps,
+            ignore_window=True,
+            outcome=outcome,
+        )
+
+    action = outcome.get("action")
+    status = outcome.get("status", 0)
+    bytes_rcvd = outcome.get("bytes_received", 0)
+    neurons = outcome.get("cost", 0.0)
+    error = outcome.get("error")
+    err_code = outcome.get("error_code")
+    reason = outcome.get("reason")
+
+    if action == "generated":
+        print(f"AI image probe: HTTP {status}, {bytes_rcvd} bytes received, {neurons:.1f} neurons spent")
+        return 0
+    elif action == "failed":
+        err_detail = f"code {err_code}: {error}" if err_code else (error or f"HTTP {status}")
+        print(f"AI image probe: HTTP {status}, error: {err_detail}, {bytes_rcvd} bytes received, {neurons:.1f} neurons spent")
+        return 1
+    elif action == "refused":
+        print(f"AI image probe: refused ({reason}), {bytes_rcvd} bytes received, {neurons:.1f} neurons spent")
+        return 1
+    elif action == "skipped":
+        print(f"AI image probe: skipped ({reason}), {bytes_rcvd} bytes received, {neurons:.1f} neurons spent")
+        return 1
+    else:
+        print(f"AI image probe: HTTP {status}, {bytes_rcvd} bytes received, {neurons:.1f} neurons spent")
+        return 0 if res else 1
+
+
+if __name__ == "__main__":
+    import argparse
+    import sys
+
+    parser = argparse.ArgumentParser(description="Cloudflare Workers AI image utility")
+    subparsers = parser.add_subparsers(dest="command")
+    probe_parser = subparsers.add_parser("probe", help="Run a single-request probe outside the window")
+    probe_parser.add_argument("--ledger", default=None, help="Path to ledger file")
+    probe_parser.add_argument("--timeout", type=int, default=15, help="Request timeout")
+
+    parsed = parser.parse_args()
+    if parsed.command == "probe":
+        sys.exit(probe(ledger_path=parsed.ledger, timeout=parsed.timeout))
+    else:
+        parser.print_help()
+        sys.exit(1)
