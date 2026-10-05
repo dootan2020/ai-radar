@@ -23,6 +23,7 @@ from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
 # Capitalized entities pattern (e.g. OpenAI, DeepSeek, Claude, Apple, Google, macOS)
 ENTITY_TOKEN = re.compile(r"\b[A-Z][A-Za-z0-9_.+-]*(?:\s+[A-Z][A-Za-z0-9_.+-]*)*\b")
 MIN_ARTICLE_TEXT_CHARS = 300
+SUMMARY_RETRY_DELAY = 0.25
 ARTICLE_FAILURE_TTL = 24 * 60 * 60
 PAYWALL_TEXT = re.compile(
     r"\b(?:subscribe to (?:read|continue)|sign in to (?:read|continue)|"
@@ -377,6 +378,12 @@ def summarize_payload(payload: dict,
     article_failures = article_failures if article_failures is not None else {}
 
     stories = payload.get("stories") or []
+    for story in stories:
+        if isinstance(story, dict) and story.get("key_points_prompt_version") != gemini.PROMPT_VERSION:
+            story.pop("key_points", None)
+            story.pop("key_points_machine", None)
+            story.pop("key_points_source", None)
+            story.pop("key_points_prompt_version", None)
 
     # Ranking window matching site/feed.js:
     # winH = Number(D.ranking && D.ranking.window_hours);
@@ -512,6 +519,7 @@ def summarize_payload(payload: dict,
                 story["key_points"] = valid_pts
                 story["key_points_machine"] = True
                 story["key_points_source"] = "machine"
+                story["key_points_prompt_version"] = gemini.PROMPT_VERSION
                 stats["cache_hits"] += 1
                 continue
             else:
@@ -577,11 +585,33 @@ def summarize_payload(payload: dict,
     stats["requests"] = 1
     remaining_time = min(config.timeout, max(0.0, budget - (clock() - started)))
     outputs, tokens, err, alive = _request_gemini(batch_items, config, transport_fn, remaining_time)
+    retry_now = None
+    if err and err.startswith("http_503:"):
+        remaining_time = min(config.timeout, max(0.0, budget - (clock() - started)))
+        if remaining_time > SUMMARY_RETRY_DELAY:
+            time.sleep(SUMMARY_RETRY_DELAY)
+            retry_now = now()
+            retry_err = summary_budget.reserve(
+                ledger_path,
+                request_limit=config.daily_requests_limit,
+                token_limit=config.daily_tokens_limit,
+                estimated_tokens=estimated_toks,
+                now=retry_now,
+                last_story_id=batch_items[-1]["id"],
+            )
+            if retry_err:
+                err = retry_err
+            else:
+                stats["requests"] += 1
+                outputs, tokens, err, alive = _request_gemini(
+                    batch_items, config, transport_fn,
+                    min(config.timeout, max(0.0, budget - (clock() - started))),
+                )
     stats["tokens"] = tokens
     stats["error"] = err
 
     if tokens and ledger_path:
-        summary_budget.update_actual_tokens(ledger_path, reserve_now, tokens)
+        summary_budget.update_actual_tokens(ledger_path, retry_now or reserve_now, tokens)
 
     # Process and validate outputs
     for item in batch_items:
@@ -597,6 +627,7 @@ def summarize_payload(payload: dict,
                 story_obj["key_points"] = valid_pts
                 story_obj["key_points_machine"] = True
                 story_obj["key_points_source"] = "machine"
+                story_obj["key_points_prompt_version"] = gemini.PROMPT_VERSION
                 cache[story_h] = valid_pts
                 stats["summarized"] += 1
                 if story_info["url_hash"]:

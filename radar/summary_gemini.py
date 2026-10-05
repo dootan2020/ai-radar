@@ -23,7 +23,7 @@ from radar.translation_gemini import (
 from radar.translate import VIETNAMESE, NUMBER_WORDS, SMALL_NUMBERS
 
 MODEL_ID = "gemini-3.8-flash"
-PROMPT_VERSION = "summary-vi-2"
+PROMPT_VERSION = "summary-vi-3"
 ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL_ID}:generateContent"
 MAX_OUTPUT_TOKENS = 1024
 MAX_STORY_INPUT_CHARS = 4500

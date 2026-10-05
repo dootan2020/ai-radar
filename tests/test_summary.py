@@ -207,6 +207,73 @@ class SummaryTests(unittest.TestCase):
         self.assertNotIn("key_points_machine", story)
         self.assertNotIn("_summary_article_text", story)
 
+    def test_stale_points_are_removed_from_stories_after_lazy_fetch_break(self):
+        base = next(s for s in self.fixture_data["stories"] if s["id"] == "b3857f26daabd24cdab2")
+        first, later = deepcopy(base), deepcopy(base)
+        first.update(id="reachable", worth_score=90)
+        later.update(id="not-reached", worth_score=10, key_points=["Điểm cũ."],
+                     key_points_machine=True, key_points_source="machine",
+                     key_points_prompt_version="summary-vi-2")
+        payload = {"stories": [first, later]}
+        stats, _ = summary_pipeline.summarize_payload(
+            payload, self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=self.transport_ok,
+            article_fetch_fn=lambda _: "Bài báo mô tả thay đổi Apple và tác động đến ứng dụng, quyền truy cập và bảo mật. " * 5,
+            ledger_path=self.ledger_path, budget=10.0, now=lambda: 100000.0,
+        )
+        self.assertEqual(stats["requests"], 1)
+        self.assertNotIn("key_points", later)
+        self.assertNotIn("key_points_prompt_version", later)
+
+    def test_503_retries_once_and_reserves_both_requests(self):
+        attempts = []
+
+        def flaky_transport(body, key, timeout):
+            attempts.append(1)
+            if len(attempts) == 1:
+                raise gemini.ProviderError("http_503:UNAVAILABLE")
+            return self.transport_ok(body, key, timeout)
+
+        story = deepcopy(self.fixture_data["stories"][0])
+        payload = {"stories": [story]}
+        with patch.object(summary_pipeline.time, "sleep") as sleep:
+            stats, _ = summary_pipeline.summarize_payload(
+                payload, self.cache,
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+                transport_fn=flaky_transport,
+                ledger_path=self.ledger_path, budget=10.0, now=lambda: 100000.0,
+            )
+        ledger = json.loads(self.ledger_path.read_text(encoding="utf-8"))
+        self.assertEqual(len(attempts), 2)
+        self.assertEqual(stats["requests"], 2)
+        self.assertEqual(stats["summarized"], 1)
+        self.assertEqual(len(ledger["attempts"]), 2)
+        sleep.assert_called_once_with(summary_pipeline.SUMMARY_RETRY_DELAY)
+
+    def test_two_503_responses_stop_after_retry(self):
+        attempts = []
+
+        def unavailable(*_):
+            attempts.append(1)
+            raise gemini.ProviderError("http_503:UNAVAILABLE")
+
+        payload = {"stories": [deepcopy(self.fixture_data["stories"][0])]}
+        with patch.object(summary_pipeline.time, "sleep"):
+            stats, alive = summary_pipeline.summarize_payload(
+                payload, self.cache,
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+                transport_fn=unavailable,
+                ledger_path=self.ledger_path, budget=10.0, now=lambda: 100000.0,
+            )
+        ledger = json.loads(self.ledger_path.read_text(encoding="utf-8"))
+        self.assertFalse(alive)
+        self.assertEqual(len(attempts), 2)
+        self.assertEqual(stats["requests"], 2)
+        self.assertEqual(stats["error"], "http_503:UNAVAILABLE")
+        self.assertEqual(len(ledger["attempts"]), 2)
+        self.assertNotIn("key_points", payload["stories"][0])
+
     def test_fetch_stops_after_request_batch_is_ready(self):
         base = next(s for s in self.fixture_data["stories"] if s["id"] == "b3857f26daabd24cdab2")
         stories = []
