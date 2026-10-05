@@ -44,13 +44,24 @@ from radar.ai_images import (
     PER_RUN_NEURON_BUDGET,
     RunBudget,
     generation_window_open,
+    read_image_dimensions,
     reset_process_run_budget,
 )
 from radar.images import resolve_images_for_stories, resolve_story_image, ImageCache
 
 
-# Valid minimal 1x1 JPEG bytes for mock transport
-VALID_JPEG_BYTES = b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00\xff\xdb\x00C\x00\xff\xc0\x00\x0b\x08\x00\x01\x00\x01\x01\x01\x11\x00\xff\xc4\x00\x14\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xda\x00\x08\x01\x01\x00\x00?\x00\xbf\x00\xff\xd9"
+# Valid minimal 1024x1024 JPEG bytes for mock transport
+VALID_JPEG_BYTES = b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00\xff\xdb\x00C\x00\xff\xc0\x00\x0b\x08\x04\x00\x04\x00\x01\x01\x11\x00\xff\xc4\x00\x14\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xda\x00\x08\x01\x01\x00\x00?\x00\xbf\x00\xff\xd9"
+
+# Valid minimal 1024x1024 PNG bytes for mock transport
+VALID_PNG_BYTES = (
+    b"\x89PNG\r\n\x1a\n"
+    b"\x00\x00\x00\rIHDR"
+    b"\x00\x00\x04\x00\x00\x00\x04\x00"
+    b"\x08\x02\x00\x00\x00"
+    b"\x00\x00\x00\x00"
+    b"\x00\x00\x00\x00IEND\xaeB`\x82"
+)
 
 
 # A moment inside the daily generation window (02:00-02:59 UTC) for tests that exercise generation.
@@ -216,10 +227,10 @@ class AIImageNeuronBudgetAndLedgerTests(InsideWindowTestCase):
             self.assertTrue(can_gen_day2, f"Generation must be allowed on new UTC day: {reason}")
 
 
-class AIImageExplicitDimensionsTests(InsideWindowTestCase):
-    def test_request_carries_explicit_width_and_height(self):
-        """The REST API request carries explicit width and height (pinned instead of model default)."""
-        story = {"id": "st-explicit-dims", "title": "Advanced deep learning reasoning", "kind": "model"}
+class AIImageDimensionsAndSchemaTests(InsideWindowTestCase):
+    def test_request_body_has_no_width_or_height(self):
+        """The REST API request body sends only prompt and steps; no width or height."""
+        story = {"id": "st-schema-check", "title": "Advanced deep learning reasoning", "kind": "model"}
         with tempfile.TemporaryDirectory() as tmpdir:
             site_dir = Path(tmpdir) / "site"
             ledger_file = Path(tmpdir) / "ai-ledger.json"
@@ -243,27 +254,41 @@ class AIImageExplicitDimensionsTests(InsideWindowTestCase):
             self.assertEqual(len(sent_payloads), 1)
 
             payload = sent_payloads[0]
-            # Must carry explicit width and height
-            self.assertIn("width", payload)
-            self.assertIn("height", payload)
-            self.assertEqual(payload["width"], 1024)
-            self.assertEqual(payload["height"], 1024)
+            # Must NOT contain width or height
+            self.assertNotIn("width", payload)
+            self.assertNotIn("height", payload)
+            # Must contain prompt and steps
+            self.assertIn("prompt", payload)
+            self.assertIn("steps", payload)
             self.assertEqual(payload["steps"], 4)
 
-    def test_request_custom_width_and_height_pinned_and_costed(self):
-        """Custom dimensions are sent explicitly and charged according to tile count."""
-        story = {"id": "st-custom-dims", "title": "Micro transformer", "kind": "model"}
+    def test_dimensions_read_from_jpeg(self):
+        """Image dimensions are read from JPEG bytes and real cost is recorded in the ledger."""
+        # Test direct dimensions extraction
+        w, h = read_image_dimensions(VALID_JPEG_BYTES)
+        self.assertEqual((w, h), (1024, 1024))
+
+        # Test 512x512 JPEG: SOF0 has height=512 (0x0200), width=512 (0x0200)
+        jpeg_512 = (
+            b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00"
+            b"\xff\xdb\x00C\x00"
+            b"\xff\xc0\x00\x0b\x08\x02\x00\x02\x00\x01\x01\x11\x00"
+            b"\xff\xc4\x00\x14\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+            b"\xff\xda\x00\x08\x01\x01\x00\x00?\x00\xbf\x00\xff\xd9"
+        )
+        w512, h512 = read_image_dimensions(jpeg_512)
+        self.assertEqual((w512, h512), (512, 512))
+
+        story = {"id": "st-jpeg-dims", "title": "Neural architecture", "kind": "model"}
         with tempfile.TemporaryDirectory() as tmpdir:
             site_dir = Path(tmpdir) / "site"
             ledger_file = Path(tmpdir) / "ai-ledger.json"
 
-            sent_payloads = []
-
             def mock_transport(url, headers, data):
-                sent_payloads.append(json.loads(data.decode("utf-8")))
-                b64 = base64.b64encode(VALID_JPEG_BYTES).decode("ascii")
+                b64 = base64.b64encode(jpeg_512).decode("ascii")
                 return 200, "application/json", json.dumps({"result": {"image": b64}}).encode("utf-8")
 
+            outcome = {}
             res = generate_ai_illustration(
                 story,
                 site_root=site_dir,
@@ -271,18 +296,118 @@ class AIImageExplicitDimensionsTests(InsideWindowTestCase):
                 account_id="acc-test",
                 api_token="tok-test",
                 transport=mock_transport,
-                width=512,
-                height=512,
-                steps=4,
+                outcome=outcome,
             )
             self.assertIsNotNone(res)
-            self.assertEqual(len(sent_payloads), 1)
-            self.assertEqual(sent_payloads[0]["width"], 512)
-            self.assertEqual(sent_payloads[0]["height"], 512)
-
-            # Ledger must record 43.20 neurons for 512x512 tile
+            self.assertEqual(outcome.get("width"), 512)
+            self.assertEqual(outcome.get("height"), 512)
+            # 512x512 at 4 steps is 1 tile: 4.80 + 4 * 9.60 = 43.20 neurons
+            self.assertAlmostEqual(outcome.get("cost"), 43.20, places=2)
             ledger = AIImageLedger(ledger_path=ledger_file)
             self.assertAlmostEqual(ledger.get_day()["neurons_spent"], 43.20, places=2)
+
+    def test_dimensions_read_from_png(self):
+        """Image dimensions are read from PNG bytes and real cost is recorded in the ledger."""
+        w, h = read_image_dimensions(VALID_PNG_BYTES)
+        self.assertEqual((w, h), (1024, 1024))
+
+        # 512x512 PNG
+        png_512 = (
+            b"\x89PNG\r\n\x1a\n"
+            b"\x00\x00\x00\rIHDR"
+            b"\x00\x00\x02\x00\x00\x00\x02\x00"
+            b"\x08\x02\x00\x00\x00"
+            b"\x00\x00\x00\x00"
+            b"\x00\x00\x00\x00IEND\xaeB`\x82"
+        )
+        w512, h512 = read_image_dimensions(png_512)
+        self.assertEqual((w512, h512), (512, 512))
+
+        story = {"id": "st-png-dims", "title": "Scientific discovery", "kind": "paper"}
+        with tempfile.TemporaryDirectory() as tmpdir:
+            site_dir = Path(tmpdir) / "site"
+            ledger_file = Path(tmpdir) / "ai-ledger.json"
+
+            def mock_transport(url, headers, data):
+                return 200, "image/png", png_512
+
+            outcome = {}
+            res = generate_ai_illustration(
+                story,
+                site_root=site_dir,
+                ledger_path=ledger_file,
+                account_id="acc-test",
+                api_token="tok-test",
+                transport=mock_transport,
+                outcome=outcome,
+            )
+            self.assertIsNotNone(res)
+            self.assertEqual(outcome.get("width"), 512)
+            self.assertEqual(outcome.get("height"), 512)
+            self.assertAlmostEqual(outcome.get("cost"), 43.20, places=2)
+            ledger = AIImageLedger(ledger_path=ledger_file)
+            self.assertAlmostEqual(ledger.get_day()["neurons_spent"], 43.20, places=2)
+
+    def test_oversize_response_records_real_cost_and_stops_day(self):
+        """A response larger than the assumed size records its real cost and stops the day."""
+        # 1536 x 1024 JPEG: 3x2 tiles = 6 tiles; cost = 6 * 4.80 + 6 * 4 * 9.60 = 259.20 neurons
+        # Assumed upper bound: 1024 x 1024 at 4 steps = 172.80 neurons
+        oversize_jpeg = (
+            b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00"
+            b"\xff\xdb\x00C\x00"
+            b"\xff\xc0\x00\x0b\x08\x04\x00\x06\x00\x01\x01\x11\x00"
+            b"\xff\xc4\x00\x14\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+            b"\xff\xda\x00\x08\x01\x01\x00\x00?\x00\xbf\x00\xff\xd9"
+        )
+        w, h = read_image_dimensions(oversize_jpeg)
+        self.assertEqual((w, h), (1536, 1024))
+
+        story1 = {"id": "st-oversize-1", "title": "Large model vision", "kind": "model"}
+        story2 = {"id": "st-oversize-2", "title": "Next story attempted today", "kind": "paper"}
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            site_dir = Path(tmpdir) / "site"
+            ledger_file = Path(tmpdir) / "ai-ledger.json"
+
+            def mock_transport(url, headers, data):
+                b64 = base64.b64encode(oversize_jpeg).decode("ascii")
+                return 200, "application/json", json.dumps({"result": {"image": b64}}).encode("utf-8")
+
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                res1 = generate_ai_illustration(
+                    story1,
+                    site_root=site_dir,
+                    ledger_path=ledger_file,
+                    account_id="acc-test",
+                    api_token="tok-test",
+                    transport=mock_transport,
+                )
+            printed = buf.getvalue()
+
+            self.assertIsNotNone(res1)
+            # Printed reason why generation is stopped
+            self.assertIn("AI image generation stopped for day", printed)
+            self.assertIn("1536x1024", printed)
+            self.assertIn("259.2 neurons", printed)
+
+            # Ledger recorded real cost (259.20) and marked day stopped
+            ledger = AIImageLedger(ledger_path=ledger_file)
+            day = ledger.get_day()
+            self.assertAlmostEqual(day["neurons_spent"], 259.20, places=2)
+            self.assertTrue(day["stopped"])
+            self.assertIn("exceeding assumed bound", day["stop_reason"])
+
+            # Subsequent generation on the same day is refused
+            res2 = generate_ai_illustration(
+                story2,
+                site_root=site_dir,
+                ledger=ledger,
+                account_id="acc-test",
+                api_token="tok-test",
+                transport=mock_transport,
+            )
+            self.assertIsNone(res2)
 
 
 class AIImageNewestFirstTests(InsideWindowTestCase):
@@ -1074,6 +1199,7 @@ class AIImageProbeTests(unittest.TestCase):
             self.assertEqual(code, 0)
             self.assertEqual(len(calls), 1)
             self.assertIn("AI image probe: HTTP 200", output)
+            self.assertIn("1024x1024", output)
             self.assertIn(f"{len(VALID_JPEG_BYTES)} bytes received", output)
             self.assertIn("172.8 neurons spent", output)
 
@@ -1081,6 +1207,35 @@ class AIImageProbeTests(unittest.TestCase):
             ledger = AIImageLedger(ledger_path=ledger_file)
             self.assertAlmostEqual(ledger.get_day(outside)["neurons_spent"], 172.80, places=2)
             self.assertEqual(ledger.get_day(outside)["count"], 1)
+
+    def test_probe_prints_measured_dimensions_for_png(self):
+        """Probe prints measured dimensions when response is PNG."""
+        calls = []
+
+        def mock_ai(url, headers, data):
+            calls.append((url, headers, data))
+            return 200, "image/png", VALID_PNG_BYTES
+
+        outside = IN_WINDOW.replace(hour=GENERATION_WINDOW_UTC_HOUR + 6)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            ledger_file = Path(tmpdir) / "ai-ledger.json"
+
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                code = probe(
+                    ledger_path=ledger_file,
+                    account_id="acc-test-123",
+                    api_token="tok-test-456",
+                    transport=mock_ai,
+                    now=outside,
+                )
+            output = buf.getvalue()
+
+            self.assertEqual(code, 0)
+            self.assertEqual(len(calls), 1)
+            self.assertIn("AI image probe: HTTP 200, 1024x1024", output)
+            self.assertIn(f"{len(VALID_PNG_BYTES)} bytes received", output)
+            self.assertIn("172.8 neurons spent", output)
 
     def test_probe_refuses_when_ledger_day_is_stopped(self):
         """Probe refuses without calling API when ledger day is marked stopped."""
