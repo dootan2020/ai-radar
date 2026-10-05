@@ -207,6 +207,58 @@ class SummaryTests(unittest.TestCase):
         self.assertNotIn("key_points_machine", story)
         self.assertNotIn("_summary_article_text", story)
 
+    def test_fetch_stops_after_request_batch_is_ready(self):
+        base = next(s for s in self.fixture_data["stories"] if s["id"] == "b3857f26daabd24cdab2")
+        stories = []
+        for index, score in enumerate((90, 80, 70)):
+            story = deepcopy(base)
+            story["id"] = f"lazy-{index}"
+            story["worth_score"] = score
+            stories.append(story)
+        fetches = []
+
+        def fetch(story):
+            fetches.append(story["id"])
+            return "Bài báo mô tả các thay đổi của Apple và tác động tới ứng dụng, quyền truy cập cùng quy trình bảo mật. " * 5
+
+        payload = {"stories": stories}
+        stats, _ = summary_pipeline.summarize_payload(
+            payload, self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True, batch_size=1),
+            transport_fn=self.transport_ok, article_fetch_fn=fetch,
+            ledger_path=self.ledger_path, budget=10.0, now=lambda: 100000.0,
+        )
+        requested = json.loads(self.calls[0][0]["contents"][0]["parts"][0]["text"])["stories"]
+        self.assertEqual(fetches, ["lazy-0"])
+        self.assertEqual([row["id"] for row in requested], ["lazy-0"])
+        self.assertEqual(stats["requests"], 1)
+
+    def test_remembered_unreadable_page_is_not_fetched_again(self):
+        story = deepcopy(self.fixture_data["stories"][0])
+        payload = {"stories": [story]}
+        failures = {}
+        fetches = []
+
+        def unreadable(current):
+            fetches.append(current["id"])
+            return ""
+
+        for _ in range(2):
+            stats, _ = summary_pipeline.summarize_payload(
+                payload, self.cache,
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+                transport_fn=self.transport_ok, article_fetch_fn=unreadable,
+                article_failures=failures, ledger_path=self.ledger_path,
+                budget=10.0, now=lambda: 100000.0,
+            )
+            self.assertEqual(stats["skipped_reasons"], {"too_short": 1})
+        self.assertEqual(fetches, [story["id"]])
+        self.assertEqual(len(failures), 1)
+        entry = next(iter(failures.values()))
+        self.assertEqual(set(entry), {"reason", "time"})
+        self.assertEqual(entry["reason"], "too_short")
+        self.assertEqual(entry["time"], 100000.0)
+
     def test_article_backed_story_requires_three_points_and_rejects_padding(self):
         """Article text makes the input substantive; fewer than 3 points is rejected."""
         thin_story = next(s for s in self.fixture_data["stories"] if s["id"] == "b4f19348ce95610ceeee")

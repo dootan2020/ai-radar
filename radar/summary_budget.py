@@ -29,6 +29,44 @@ MAX_STORIES_PER_DAY = min(
 )
 
 
+def capacity_error(path: str | Path | None,
+                   request_limit: int = DEFAULT_DAILY_REQUESTS,
+                   token_limit: int = DEFAULT_DAILY_TOKENS,
+                   estimated_tokens: int = 1500,
+                   now: float = 0.0) -> str | None:
+    """Check whether a request can fit before spending time fetching its input."""
+    if path is None:
+        return "ledger_unavailable"
+    if not math.isfinite(now):
+        return "ledger_invalid"
+    try:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        data = {"version": LEDGER_VERSION, "attempts": []}
+    except (OSError, ValueError):
+        return "ledger_invalid"
+    if not isinstance(data, dict) or data.get("version") != LEDGER_VERSION or not isinstance(data.get("attempts"), list):
+        return "ledger_invalid"
+    active = []
+    for entry in data["attempts"]:
+        if isinstance(entry, (int, float)):
+            timestamp, tokens = entry, 0
+        elif isinstance(entry, dict):
+            timestamp, tokens = entry.get("time"), entry.get("tokens", 0)
+        else:
+            return "ledger_invalid"
+        if (not isinstance(timestamp, (int, float)) or not math.isfinite(timestamp) or timestamp > now
+                or not isinstance(tokens, (int, float)) or not math.isfinite(tokens) or tokens < 0):
+            return "ledger_invalid"
+        if now - timestamp < 86400:
+            active.append(int(tokens))
+    if len(active) >= min(DEFAULT_DAILY_REQUESTS, max(0, int(request_limit))):
+        return "daily_limit"
+    if sum(active) + max(0, int(estimated_tokens)) > min(DEFAULT_DAILY_TOKENS, max(0, int(token_limit))):
+        return "daily_token_limit"
+    return None
+
+
 def init_ledger(path: str | Path) -> None:
     """Explicitly initialize a new empty ledger file."""
     p = Path(path)
