@@ -223,18 +223,147 @@ describe('Cloudflare Worker: ai-radar-scheduler', () => {
     assert.equal(result.success, false);
   });
 
-  it('proves worker scheduled event handler calls dispatchWorkflow', async () => {
-    let called = false;
+  it('proves dispatchWorkflow dispatches custom workflow when specified in options', async () => {
+    let capturedUrl = null;
+    const mockFetch = async (url) => {
+      capturedUrl = url;
+      return { ok: true, status: 204, statusText: 'No Content' };
+    };
+
+    const result = await dispatchWorkflow(
+      { GITHUB_TOKEN: 'token-abc' },
+      { fetchFn: mockFetch, workflow: 'shadow-collector.yml' }
+    );
+
+    assert.equal(result.success, true);
+    assert.equal(
+      capturedUrl,
+      'https://api.github.com/repos/dootan2020/ai-radar/actions/workflows/shadow-collector.yml/dispatches'
+    );
+  });
+
+  it('proves 20-minute cron dispatches update.yml as before', async () => {
+    let callCount = 0;
+    let capturedUrl = null;
+    let capturedOptions = null;
     const originalFetch = globalThis.fetch;
-    globalThis.fetch = async () => {
-      called = true;
+    globalThis.fetch = async (url, options) => {
+      callCount++;
+      capturedUrl = url;
+      capturedOptions = options;
       return { ok: true, status: 204, statusText: 'No Content' };
     };
 
     try {
-      const result = await worker.scheduled({}, { GITHUB_TOKEN: 'token-abc' }, {});
-      assert.equal(called, true);
+      const result = await worker.scheduled(
+        { cron: '*/20 * * * *' },
+        { GITHUB_TOKEN: 'token-abc' },
+        {}
+      );
+      assert.equal(callCount, 1, 'fetch must be called exactly once');
       assert.equal(result.success, true);
+      assert.equal(
+        capturedUrl,
+        'https://api.github.com/repos/dootan2020/ai-radar/actions/workflows/update.yml/dispatches'
+      );
+      assert.equal(capturedOptions.method, 'POST');
+      assert.equal(JSON.parse(capturedOptions.body).ref, 'main');
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('proves collector cron dispatches shadow-collector.yml', async () => {
+    let callCount = 0;
+    let capturedUrl = null;
+    let capturedOptions = null;
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (url, options) => {
+      callCount++;
+      capturedUrl = url;
+      capturedOptions = options;
+      return { ok: true, status: 204, statusText: 'No Content' };
+    };
+
+    try {
+      const result = await worker.scheduled(
+        { cron: '5 * * * *' },
+        { GITHUB_TOKEN: 'token-abc' },
+        {}
+      );
+      assert.equal(callCount, 1, 'fetch must be called exactly once');
+      assert.equal(result.success, true);
+      assert.equal(
+        capturedUrl,
+        'https://api.github.com/repos/dootan2020/ai-radar/actions/workflows/shadow-collector.yml/dispatches'
+      );
+      assert.equal(capturedOptions.method, 'POST');
+      assert.equal(JSON.parse(capturedOptions.body).ref, 'main');
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('proves an unknown cron dispatches nothing and logs why', async () => {
+    let callCount = 0;
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async () => {
+      callCount++;
+      return { ok: true, status: 204, statusText: 'No Content' };
+    };
+
+    const errors = [];
+    const mockLogger = {
+      log: () => {},
+      error: (msg) => errors.push(msg)
+    };
+
+    try {
+      const result = await worker.scheduled(
+        { cron: '0 0 * * *' },
+        { GITHUB_TOKEN: 'token-abc' },
+        { logger: mockLogger }
+      );
+      assert.equal(callCount, 0, 'No HTTP request must be made for unknown cron');
+      assert.equal(result.success, false);
+      assert.equal(result.reason, 'unknown_cron');
+      assert.equal(result.cron, '0 0 * * *');
+      assert.equal(errors.length, 1, 'Error must be logged exactly once');
+      assert.match(
+        errors[0],
+        /Unknown cron trigger: "0 0 \* \* \*"/,
+        'Log message must explain that the cron is unknown'
+      );
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it('proves missing cron property dispatches nothing and logs why', async () => {
+    let callCount = 0;
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async () => {
+      callCount++;
+      return { ok: true, status: 204, statusText: 'No Content' };
+    };
+
+    const errors = [];
+    const mockLogger = {
+      log: () => {},
+      error: (msg) => errors.push(msg)
+    };
+
+    try {
+      const result = await worker.scheduled(
+        {},
+        { GITHUB_TOKEN: 'token-abc' },
+        { logger: mockLogger }
+      );
+      assert.equal(callCount, 0, 'No HTTP request must be made when cron is missing');
+      assert.equal(result.success, false);
+      assert.equal(result.reason, 'unknown_cron');
+      assert.equal(errors.length, 1);
+      assert.match(errors[0], /Unknown cron trigger/);
     } finally {
       globalThis.fetch = originalFetch;
     }
@@ -250,6 +379,7 @@ describe('Cloudflare Worker: ai-radar-scheduler', () => {
     assert.equal(healthBody.hasToken, true);
     assert.equal(healthBody.repo, 'dootan2020/ai-radar');
     assert.equal(healthBody.workflow, 'update.yml');
+    assert.equal(healthBody.shadowWorkflow, 'shadow-collector.yml');
     // Crucial check: make sure token value is NOT in the response
     assert.equal(JSON.stringify(healthBody).includes('secret-xyz'), false);
 
