@@ -488,6 +488,26 @@ ul, ol { padding: 0; list-style: none; }
   align-self: stretch;
   height: 100%;
 }
+.card-debate .card-body {
+  gap: var(--space-12);
+}
+.card-debate .card-title,
+.card-debate .story-link {
+  -webkit-line-clamp: 4;
+}
+.card-debate .card-orig {
+  flex-wrap: wrap;
+}
+.card-debate .card-orig .orig-text {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-debate .why-line {
+  margin-top: var(--space-2);
+}
 
 /* The block */
 .picks { margin-bottom: var(--picks-gap); }
