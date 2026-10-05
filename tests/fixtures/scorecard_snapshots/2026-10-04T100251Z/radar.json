@@ -1,0 +1,1403 @@
+{
+  "generated_at": "2026-10-04T10:01:04Z",
+  "schema_version": 2,
+  "sources": [
+    {
+      "id": "cnbc-tech",
+      "name": "CNBC Tech",
+      "lab": "",
+      "kind": "rss",
+      "ok": false,
+      "count": 0,
+      "error": "HTTPError: HTTP Error 403: Forbidden",
+      "error_vi": "Nguồn trả mã lỗi HTTP 403",
+      "url": "https://www.cnbc.com/id/19854910/device/rss/rss.html",
+      "group": "press",
+      "publisher": "cnbc",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": 403,
+      "http_requests": [
+        {
+          "source": "cnbc-tech",
+          "url": "https://www.cnbc.com/id/19854910/device/rss/rss.html",
+          "http_status": 403,
+          "error": "HTTPError: HTTP Error 403: Forbidden"
+        }
+      ],
+      "first_wave": true
+    },
+    {
+      "id": "genk-ai",
+      "name": "GenK AI",
+      "lab": "",
+      "kind": "rss",
+      "ok": true,
+      "count": 50,
+      "error": null,
+      "error_vi": null,
+      "url": "https://genk.vn/rss/ai.rss",
+      "group": "press",
+      "publisher": "genk",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": 200,
+      "http_requests": [
+        {
+          "source": "genk-ai",
+          "url": "https://genk.vn/rss/ai.rss",
+          "http_status": 200,
+          "error": null
+        }
+      ],
+      "first_wave": true
+    },
+    {
+      "id": "google-deepmind",
+      "name": "Google DeepMind",
+      "lab": "google",
+      "kind": "rss",
+      "ok": false,
+      "count": 0,
+      "error": "Disabled: Địa chỉ RSS trả mã HTTP 200 nhưng XML hỏng trên máy dựng của GitHub; chưa kiểm được địa chỉ RSS thay thế. Google AI và kênh YouTube của DeepMind vẫn là nguồn riêng.",
+      "error_vi": "Tạm tắt: Địa chỉ RSS trả mã HTTP 200 nhưng XML hỏng trên máy dựng của GitHub; chưa kiểm được địa chỉ RSS thay thế. Google AI và kênh YouTube của DeepMind vẫn là nguồn riêng.",
+      "disabled": true,
+      "disabled_reason": "Địa chỉ RSS trả mã HTTP 200 nhưng XML hỏng trên máy dựng của GitHub; chưa kiểm được địa chỉ RSS thay thế. Google AI và kênh YouTube của DeepMind vẫn là nguồn riêng.",
+      "url": "https://deepmind.google/blog/rss.xml",
+      "group": "lab",
+      "publisher": "google",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": null,
+      "http_requests": [],
+      "first_wave": false
+    },
+    {
+      "id": "hn-ai",
+      "name": "Hacker News",
+      "lab": "",
+      "kind": "json",
+      "ok": true,
+      "count": 94,
+      "error": null,
+      "error_vi": null,
+      "url": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=100&numericFilters=created_at_i%3E%3D1790503264&query=AI",
+      "group": "forum",
+      "publisher": "hacker-news",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": 200,
+      "http_requests": [
+        {
+          "source": "hn-ai",
+          "url": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=100&numericFilters=created_at_i%3E%3D1790503264&query=AI",
+          "http_status": 200,
+          "error": null
+        }
+      ],
+      "first_wave": true
+    },
+    {
+      "id": "hn-front",
+      "name": "Hacker News",
+      "lab": "",
+      "kind": "json",
+      "ok": true,
+      "count": 5,
+      "error": null,
+      "error_vi": null,
+      "url": "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=100&numericFilters=created_at_i%3E%3D1790503264",
+      "group": "forum",
+      "publisher": "hacker-news",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": 200,
+      "http_requests": [
+        {
+          "source": "hn-front",
+          "url": "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=100&numericFilters=created_at_i%3E%3D1790503264",
+          "http_status": 200,
+          "error": null
+        }
+      ],
+      "first_wave": true
+    },
+    {
+      "id": "openai-news",
+      "name": "OpenAI News",
+      "lab": "openai",
+      "kind": "rss",
+      "ok": true,
+      "count": 50,
+      "error": null,
+      "error_vi": null,
+      "url": "https://openai.com/news/rss.xml",
+      "group": "lab",
+      "publisher": "openai",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": 200,
+      "http_requests": [
+        {
+          "source": "openai-news",
+          "url": "https://openai.com/news/rss.xml",
+          "http_status": 200,
+          "error": null
+        }
+      ],
+      "first_wave": false
+    },
+    {
+      "id": "simon-willison",
+      "name": "Simon Willison",
+      "lab": "",
+      "kind": "rss",
+      "ok": true,
+      "count": 16,
+      "error": null,
+      "error_vi": null,
+      "url": "https://simonwillison.net/atom/everything/",
+      "group": "research",
+      "publisher": "simon-willison",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": 200,
+      "http_requests": [
+        {
+          "source": "simon-willison",
+          "url": "https://simonwillison.net/atom/everything/",
+          "http_status": 200,
+          "error": null
+        }
+      ],
+      "first_wave": true
+    },
+    {
+      "id": "techcrunch-ai",
+      "name": "TechCrunch AI",
+      "lab": "",
+      "kind": "rss",
+      "ok": true,
+      "count": 20,
+      "error": null,
+      "error_vi": null,
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+      "group": "press",
+      "publisher": "techcrunch",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": 200,
+      "http_requests": [
+        {
+          "source": "techcrunch-ai",
+          "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+          "http_status": 200,
+          "error": null
+        }
+      ],
+      "first_wave": true
+    },
+    {
+      "id": "tuoitre-so",
+      "name": "Tuổi Trẻ Nhịp sống số",
+      "lab": "",
+      "kind": "rss",
+      "ok": true,
+      "count": 28,
+      "error": null,
+      "error_vi": null,
+      "url": "https://tuoitre.vn/rss/nhip-song-so.rss",
+      "group": "press",
+      "publisher": "tuoi-tre",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": 200,
+      "http_requests": [
+        {
+          "source": "tuoitre-so",
+          "url": "https://tuoitre.vn/rss/nhip-song-so.rss",
+          "http_status": 200,
+          "error": null
+        }
+      ],
+      "first_wave": true
+    },
+    {
+      "id": "verge-ai",
+      "name": "The Verge AI",
+      "lab": "",
+      "kind": "rss",
+      "ok": true,
+      "count": 10,
+      "error": null,
+      "error_vi": null,
+      "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+      "group": "press",
+      "publisher": "the-verge",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": 200,
+      "http_requests": [
+        {
+          "source": "verge-ai",
+          "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+          "http_status": 200,
+          "error": null
+        }
+      ],
+      "first_wave": true
+    },
+    {
+      "id": "vnexpress-so-hoa",
+      "name": "VnExpress Số hóa",
+      "lab": "",
+      "kind": "rss",
+      "ok": false,
+      "count": 0,
+      "error": "HTTPError: HTTP Error 404: Not Found",
+      "error_vi": "Nguồn trả mã lỗi HTTP 404",
+      "url": "https://vnexpress.net/rss/so-hoa.rss",
+      "group": "press",
+      "publisher": "vnexpress",
+      "checked_at": "2026-10-04T10:01:04Z",
+      "http_status": 404,
+      "http_requests": [
+        {
+          "source": "vnexpress-so-hoa",
+          "url": "https://vnexpress.net/rss/so-hoa.rss",
+          "http_status": 404,
+          "error": "HTTPError: HTTP Error 404: Not Found"
+        }
+      ],
+      "first_wave": true
+    }
+  ],
+  "stories": [
+    {
+      "id": "f422ce3ee92c1ec4dae4",
+      "title": "AI can clone your indie game, but not its soul",
+      "url": "https://twitter.com/robertvaradan/status/2106061989122334778",
+      "summary": "",
+      "published_at": "2026-10-04T03:18:55Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "primary_section": "community",
+      "groups": [
+        "forum"
+      ],
+      "coverage": [
+        {
+          "id": "f18086b27503eb51f8a5",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "AI can clone your indie game, but not its soul",
+          "url": "https://twitter.com/robertvaradan/status/2106061989122334778",
+          "canonical_url": "https://twitter.com/robertvaradan/status/2106061989122334778",
+          "published_at": "2026-10-04T03:18:55Z",
+          "summary": "",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 15,
+            "comments": 11
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49950288",
+          "time_basis": "published",
+          "title_vi": "AI có thể nhân bản trò chơi của bạn, nhưng không phải linh hồn của nó."
+        }
+      ],
+      "source_count": 1,
+      "hot_score": 22.638,
+      "hot_reason": "hn-ai: 15 điểm · tăng 0,0/giờ từ hai lần đo · đăng 6 giờ trước",
+      "hot_signals": {
+        "age_hours": 6.7028,
+        "freshness": 0.8240007884178104,
+        "engagement_percentile": 0.17553191489361702,
+        "velocity_per_hour": 0.0,
+        "velocity_percentile": 0.4731182795698925,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 15,
+          "observed_at": "2026-10-04T10:01:04Z",
+          "velocity_per_hour": 0.0,
+          "previous_observed_at": "2026-10-04T09:40:52Z",
+          "previous_value": 15
+        }
+      },
+      "title_vi": "AI có thể nhân bản trò chơi của bạn, nhưng không phải linh hồn của nó."
+    },
+    {
+      "id": "16d7d1f33ea5355f7633",
+      "title": "Religious scholars met with Anthropic",
+      "url": "https://www.nytimes.com/2026/09/29/us/anthropic-claude-morals-ai.html",
+      "summary": "https://archive.is/y8FW0",
+      "published_at": "2026-10-04T02:34:22Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "primary_section": "community",
+      "groups": [
+        "forum"
+      ],
+      "coverage": [
+        {
+          "id": "044a2576e1e71725aee1",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "Religious scholars met with Anthropic",
+          "url": "https://www.nytimes.com/2026/09/29/us/anthropic-claude-morals-ai.html",
+          "canonical_url": "https://www.nytimes.com/2026/09/29/us/anthropic-claude-morals-ai.html",
+          "published_at": "2026-10-04T02:34:22Z",
+          "summary": "https://archive.is/y8FW0",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 78,
+            "comments": 150
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49950052",
+          "time_basis": "published",
+          "title_vi": "Các học giả tôn giáo gặp gỡ Anthropic"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": 30.244,
+      "hot_reason": "hn-front: 78 điểm · tăng 3,0/giờ từ hai lần đo · đăng 7 giờ trước",
+      "hot_signals": {
+        "age_hours": 7.4453,
+        "freshness": 0.8065188305938654,
+        "engagement_percentile": 0.5,
+        "velocity_per_hour": 2.9702970297029703,
+        "velocity_percentile": 0.125,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-front",
+          "metric": "points",
+          "value": 78,
+          "observed_at": "2026-10-04T10:01:04Z",
+          "velocity_per_hour": 2.9702970297029703,
+          "previous_observed_at": "2026-10-04T09:40:52Z",
+          "previous_value": 77
+        }
+      },
+      "title_vi": "Các học giả tôn giáo gặp gỡ Anthropic"
+    },
+    {
+      "id": "902a8fe9863c843c0c20",
+      "title": "OpenAI safety leader quits, warning AI company's culture is 'broken'",
+      "url": "https://www.theguardian.com/technology/2026/oct/03/openai-safety-leader-quits-warning-ai-companys-culture-is-broken",
+      "summary": "",
+      "published_at": "2026-10-03T22:18:13Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "primary_section": "community",
+      "groups": [
+        "forum"
+      ],
+      "coverage": [
+        {
+          "id": "059fa3d6f559247c18dd",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "OpenAI safety leader quits, warning AI company's culture is 'broken'",
+          "url": "https://www.theguardian.com/technology/2026/oct/03/openai-safety-leader-quits-warning-ai-companys-culture-is-broken",
+          "canonical_url": "https://www.theguardian.com/technology/2026/oct/03/openai-safety-leader-quits-warning-ai-companys-culture-is-broken",
+          "published_at": "2026-10-03T22:18:13Z",
+          "summary": "",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 262,
+            "comments": 3
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49948332",
+          "time_basis": "published"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": 54.73,
+      "hot_reason": "hn-ai: 262 điểm · tăng 0,0/giờ từ hai lần đo · đăng 11 giờ trước",
+      "hot_signals": {
+        "age_hours": 11.7144,
+        "freshness": 0.7129625379319183,
+        "engagement_percentile": 0.9148936170212766,
+        "velocity_per_hour": 0.0,
+        "velocity_percentile": 0.4731182795698925,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 262,
+          "observed_at": "2026-10-04T10:01:04Z",
+          "velocity_per_hour": 0.0,
+          "previous_observed_at": "2026-10-04T09:40:52Z",
+          "previous_value": 262
+        }
+      }
+    },
+    {
+      "id": "b6daf017b51efbe8e4a6",
+      "title": "September sponsors-only newsletter",
+      "url": "https://simonwillison.net/2026/Oct/3/newsletter/",
+      "summary": "I just sent the September edition of my sponsors-only monthly newsletter. If you are a sponsor (or start a sponsorship now) you can access it here. This month: More Fable class models A pricing war 3D graphics, Blender, and pixel art LLMs come for mathematics So many more accidental cyberattacks The",
+      "published_at": "2026-10-03T22:00:31Z",
+      "kind": "other",
+      "time_basis": "published",
+      "primary_section": "voices",
+      "groups": [
+        "research"
+      ],
+      "coverage": [
+        {
+          "id": "fe6d902252daf02464f3",
+          "source": "simon-willison",
+          "publisher": "simon-willison",
+          "group": "research",
+          "lab": "",
+          "kind": "other",
+          "title": "September sponsors-only newsletter",
+          "url": "https://simonwillison.net/2026/Oct/3/newsletter/",
+          "canonical_url": "https://simonwillison.net/2026/Oct/3/newsletter",
+          "published_at": "2026-10-03T22:00:31Z",
+          "summary": "I just sent the September edition of my sponsors-only monthly newsletter. If you are a sponsor (or start a sponsorship now) you can access it here. This month: More Fable class models A pricing war 3D graphics, Blender, and pixel art LLMs come for mathematics So many more accidental cyberattacks The",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published",
+          "title_vi": "Báo chí tháng 9 chỉ dành cho các nhà tài trợ",
+          "summary_vi": "Tôi vừa gửi ấn bản tháng 9 của bản tin hàng tháng dành cho các nhà tài trợ của tôi. Nếu bạn là nhà tài trợ (hoặc bắt đầu tài trợ ngay bây giờ) bạn có thể truy cập nó ở đây. Tháng này: Nhiều mô hình lớp Fable một chiến tranh giá 3D đồ họa, Blender, và pixel nghệ thuật LLM đến cho toán học"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": null,
+      "hot_reason": null,
+      "hot_signals": {
+        "age_hours": 12.0094,
+        "freshness": 0.7069139474814984,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "title_vi": "Báo chí tháng 9 chỉ dành cho các nhà tài trợ",
+      "summary_vi": "Tôi vừa gửi ấn bản tháng 9 của bản tin hàng tháng dành cho các nhà tài trợ của tôi. Nếu bạn là nhà tài trợ (hoặc bắt đầu tài trợ ngay bây giờ) bạn có thể truy cập nó ở đây. Tháng này: Nhiều mô hình lớp Fable một chiến tranh giá 3D đồ họa, Blender, và pixel nghệ thuật LLM đến cho toán học"
+    },
+    {
+      "id": "de9c310fd84705537a33",
+      "title": "Anthropic tried to persuade Pope that AI could be conscious being",
+      "url": "https://www.telegraph.co.uk/business/2026/10/02/anthropic-lobbied-pope-to-argue-ai-conscious-being/",
+      "summary": "",
+      "published_at": "2026-10-03T19:33:10Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "primary_section": "community",
+      "groups": [
+        "forum"
+      ],
+      "coverage": [
+        {
+          "id": "db26290f29af09ecdc15",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "Anthropic tried to persuade Pope that AI could be conscious being",
+          "url": "https://www.telegraph.co.uk/business/2026/10/02/anthropic-lobbied-pope-to-argue-ai-conscious-being/",
+          "canonical_url": "https://www.telegraph.co.uk/business/2026/10/02/anthropic-lobbied-pope-to-argue-ai-conscious-being",
+          "published_at": "2026-10-03T19:33:10Z",
+          "summary": "",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 54,
+            "comments": 82
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49947050",
+          "time_basis": "published",
+          "title_vi": "Anthropic cố gắng thuyết phục Pope rằng AI có thể là một sinh vật có ý thức"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": 48.797,
+      "hot_reason": "hn-ai: 54 điểm · tăng 3,0/giờ từ hai lần đo · đăng 14 giờ trước",
+      "hot_signals": {
+        "age_hours": 14.4653,
+        "freshness": 0.6585113093941131,
+        "engagement_percentile": 0.6276595744680851,
+        "velocity_per_hour": 2.9702970297029703,
+        "velocity_percentile": 0.967741935483871,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 54,
+          "observed_at": "2026-10-04T10:01:04Z",
+          "velocity_per_hour": 2.9702970297029703,
+          "previous_observed_at": "2026-10-04T09:40:52Z",
+          "previous_value": 53
+        }
+      },
+      "title_vi": "Anthropic cố gắng thuyết phục Pope rằng AI có thể là một sinh vật có ý thức"
+    },
+    {
+      "id": "1d98535b9839001adf93",
+      "title": "Pop!_OS bans AI-generated code from much of its codebase",
+      "url": "https://www.neowin.net/news/system76-bans-ai-generated-code-across-many-of-its-cosmic-codebases/",
+      "summary": "",
+      "published_at": "2026-10-03T17:57:03Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "primary_section": "community",
+      "groups": [
+        "forum"
+      ],
+      "coverage": [
+        {
+          "id": "38c0995aa7506417b2e9",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "Pop!_OS bans AI-generated code from much of its codebase",
+          "url": "https://www.neowin.net/news/system76-bans-ai-generated-code-across-many-of-its-cosmic-codebases/",
+          "canonical_url": "https://www.neowin.net/news/system76-bans-ai-generated-code-across-many-of-its-cosmic-codebases",
+          "published_at": "2026-10-03T17:57:03Z",
+          "summary": "",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 103,
+            "comments": 156
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49946321",
+          "time_basis": "published",
+          "title_vi": "Pop!_OS cấm mã được tạo bởi AI từ phần lớn cơ sở mã của nó"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": 51.496,
+      "hot_reason": "hn-ai: 103 điểm · tăng 3,0/giờ từ hai lần đo · đăng 16 giờ trước",
+      "hot_signals": {
+        "age_hours": 16.0672,
+        "freshness": 0.628738685308844,
+        "engagement_percentile": 0.7446808510638298,
+        "velocity_per_hour": 2.9702970297029703,
+        "velocity_percentile": 0.967741935483871,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 103,
+          "observed_at": "2026-10-04T10:01:04Z",
+          "velocity_per_hour": 2.9702970297029703,
+          "previous_observed_at": "2026-10-04T09:40:52Z",
+          "previous_value": 102
+        }
+      },
+      "title_vi": "Pop!_OS cấm mã được tạo bởi AI từ phần lớn cơ sở mã của nó"
+    },
+    {
+      "id": "19c69c4646ee9980b281",
+      "title": "LeCun has \"zero concerns\" about AI wiping out humanity, recent \"rogue\" incidents",
+      "url": "https://fortune.com/2026/10/01/ai-godfather-yann-lecun-has-zero-concerns-about-human-extinction-says-anthropic-ceo-dario-amodei-is-deuded/",
+      "summary": "https://archive.ph/TyDPf",
+      "published_at": "2026-10-03T17:44:29Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "primary_section": "community",
+      "groups": [
+        "forum"
+      ],
+      "coverage": [
+        {
+          "id": "3dbe838fed69757d00e8",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "LeCun has \"zero concerns\" about AI wiping out humanity, recent \"rogue\" incidents",
+          "url": "https://fortune.com/2026/10/01/ai-godfather-yann-lecun-has-zero-concerns-about-human-extinction-says-anthropic-ceo-dario-amodei-is-deuded/",
+          "canonical_url": "https://fortune.com/2026/10/01/ai-godfather-yann-lecun-has-zero-concerns-about-human-extinction-says-anthropic-ceo-dario-amodei-is-deuded",
+          "published_at": "2026-10-03T17:44:29Z",
+          "summary": "https://archive.ph/TyDPf",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 129,
+            "comments": 173
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49946228",
+          "time_basis": "published",
+          "title_vi": "LeCun có \"không lo lắng\" về AI xóa sổ nhân loại, những sự cố gần đây của \"đại\""
+        },
+        {
+          "id": "b7c617052218a4f77628",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "LeCun has \"zero concerns\" about AI wiping out humanity, recent \"rogue\" incidents",
+          "url": "https://fortune.com/2026/10/01/ai-godfather-yann-lecun-has-zero-concerns-about-human-extinction-says-anthropic-ceo-dario-amodei-is-deuded/",
+          "canonical_url": "https://fortune.com/2026/10/01/ai-godfather-yann-lecun-has-zero-concerns-about-human-extinction-says-anthropic-ceo-dario-amodei-is-deuded",
+          "published_at": "2026-10-03T17:44:29Z",
+          "summary": "https://archive.ph/TyDPf",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 129,
+            "comments": 173
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49946228",
+          "time_basis": "published",
+          "title_vi": "LeCun có \"không lo lắng\" về AI xóa sổ nhân loại, những sự cố gần đây của \"đại\""
+        }
+      ],
+      "source_count": 1,
+      "hot_score": 54.073,
+      "hot_reason": "hn-ai: 129 điểm · tăng 29,7/giờ từ hai lần đo · đăng 16 giờ trước",
+      "hot_signals": {
+        "age_hours": 16.2767,
+        "freshness": 0.6249469292700149,
+        "engagement_percentile": 0.7978723404255319,
+        "velocity_per_hour": 29.702970297029704,
+        "velocity_percentile": 1.0,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 129,
+          "observed_at": "2026-10-04T10:01:04Z",
+          "velocity_per_hour": 29.702970297029704,
+          "previous_observed_at": "2026-10-04T09:40:52Z",
+          "previous_value": 119
+        }
+      },
+      "title_vi": "LeCun có \"không lo lắng\" về AI xóa sổ nhân loại, những sự cố gần đây của \"đại\""
+    },
+    {
+      "id": "575dcf4b293a213bb638",
+      "title": "AI safety is mostly a sex cult in Berkeley, CA [pdf]",
+      "url": "https://ams3.digitaloceanspaces.com/urbits3/sitful-hatred/2026.9.24..22.31.54..beb8.51eb.851e.b851-AI%20Safety%20Is%20Mostly%20A%20Sex%20Cult%20In%20Berkeley%2C%20California.pdf",
+      "summary": "",
+      "published_at": "2026-10-03T17:29:56Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "primary_section": "community",
+      "groups": [
+        "forum"
+      ],
+      "coverage": [
+        {
+          "id": "4459bcb33a78eb6f4009",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "AI safety is mostly a sex cult in Berkeley, CA [pdf]",
+          "url": "https://ams3.digitaloceanspaces.com/urbits3/sitful-hatred/2026.9.24..22.31.54..beb8.51eb.851e.b851-AI%20Safety%20Is%20Mostly%20A%20Sex%20Cult%20In%20Berkeley%2C%20California.pdf",
+          "canonical_url": "https://ams3.digitaloceanspaces.com/urbits3/sitful-hatred/2026.9.24..22.31.54..beb8.51eb.851e.b851-AI%20Safety%20Is%20Mostly%20A%20Sex%20Cult%20In%20Berkeley%2C%20California.pdf",
+          "published_at": "2026-10-03T17:29:56Z",
+          "summary": "",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 12,
+            "comments": 4
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49946110",
+          "time_basis": "published",
+          "title_vi": "An toàn AI chủ yếu là một tôn giáo tình dục ở Berkeley, CA [pdf]"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": 12.648,
+      "hot_reason": "hn-ai: 12 điểm · tăng 0,0/giờ từ hai lần đo · đăng 16 giờ trước",
+      "hot_signals": {
+        "age_hours": 16.5192,
+        "freshness": 0.62058529587137,
+        "engagement_percentile": 0.06914893617021277,
+        "velocity_per_hour": 0.0,
+        "velocity_percentile": 0.4731182795698925,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 12,
+          "observed_at": "2026-10-04T10:01:04Z",
+          "velocity_per_hour": 0.0,
+          "previous_observed_at": "2026-10-04T09:40:52Z",
+          "previous_value": 12
+        }
+      },
+      "title_vi": "An toàn AI chủ yếu là một tôn giáo tình dục ở Berkeley, CA [pdf]"
+    },
+    {
+      "id": "5cb80ade64def456af8e",
+      "title": "Capcom is preparing for a ‘future where we create games together with AI’",
+      "url": "https://www.theverge.com/games/1004418/capcom-ai-game-development",
+      "summary": "Capcom's Pragmata might be all about the horrors of AI, but in practice the studio doesn't seem so down on the tech. During the Capcom Open Conference RE: 2026 programmer Satoshi Ishida gave a presentation with the mouthful of a title: \"The Outlook and Future of the REX Project, Further Evolving the",
+      "published_at": "2026-10-03T16:49:10Z",
+      "kind": "other",
+      "time_basis": "published",
+      "primary_section": "today",
+      "groups": [
+        "press"
+      ],
+      "coverage": [
+        {
+          "id": "0b9369c48d63072ad917",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "group": "press",
+          "lab": "",
+          "kind": "other",
+          "title": "Capcom is preparing for a ‘future where we create games together with AI’",
+          "url": "https://www.theverge.com/games/1004418/capcom-ai-game-development",
+          "canonical_url": "https://www.theverge.com/games/1004418/capcom-ai-game-development",
+          "published_at": "2026-10-03T16:49:10Z",
+          "summary": "Capcom's Pragmata might be all about the horrors of AI, but in practice the studio doesn't seem so down on the tech. During the Capcom Open Conference RE: 2026 programmer Satoshi Ishida gave a presentation with the mouthful of a title: \"The Outlook and Future of the REX Project, Further Evolving the",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published",
+          "title_vi": "Capcom đang chuẩn bị cho một 'tương lai nơi chúng ta tạo ra các trò chơi cùng với AI'"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": null,
+      "hot_reason": null,
+      "hot_signals": {
+        "age_hours": 17.1986,
+        "freshness": 0.6085261787542119,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "title_vi": "Capcom đang chuẩn bị cho một 'tương lai nơi chúng ta tạo ra các trò chơi cùng với AI'"
+    },
+    {
+      "id": "801ec396652be12bf447",
+      "title": "OpenAI safety employee resigns, claiming the company’s ‘culture is broken’",
+      "url": "https://techcrunch.com/2026/10/03/openai-safety-employee-resigns-claiming-the-companys-culture-is-broken/",
+      "summary": "By his own admission, David Robinson is “something of a cliché”: an employee at a leading AI company who issues a dire warning while resigning from their job.",
+      "published_at": "2026-10-03T16:30:01Z",
+      "kind": "other",
+      "time_basis": "published",
+      "primary_section": "today",
+      "groups": [
+        "forum",
+        "press"
+      ],
+      "coverage": [
+        {
+          "id": "df025cf6f93433a4a9db",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "group": "press",
+          "lab": "",
+          "kind": "other",
+          "title": "OpenAI safety employee resigns, claiming the company’s ‘culture is broken’",
+          "url": "https://techcrunch.com/2026/10/03/openai-safety-employee-resigns-claiming-the-companys-culture-is-broken/",
+          "canonical_url": "https://techcrunch.com/2026/10/03/openai-safety-employee-resigns-claiming-the-companys-culture-is-broken",
+          "published_at": "2026-10-03T16:30:01Z",
+          "summary": "By his own admission, David Robinson is “something of a cliché”: an employee at a leading AI company who issues a dire warning while resigning from their job.",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published",
+          "summary_vi": "Theo sự thừa nhận của riêng mình, David Robinson là \"một điều gì đó của một câu chuyện ngẫu nhiên\": một nhân viên tại một công ty AI hàng đầu đưa ra một cảnh báo khủng khiếp trong khi từ chức từ chức."
+        },
+        {
+          "id": "464e72c186d7f3e43f6e",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "I quit OpenAI because its culture is broken",
+          "url": "https://www.theatlantic.com/technology/2026/10/openai-safety-team-resignation/688881/?gift=v5U_UzUTothfWXsPxtvNVAh7esWToMRD6XnbXmc5WgA",
+          "canonical_url": "https://www.theatlantic.com/technology/2026/10/openai-safety-team-resignation/688881?gift=v5U_UzUTothfWXsPxtvNVAh7esWToMRD6XnbXmc5WgA",
+          "published_at": "2026-10-03T13:46:34Z",
+          "summary": "https://archive.ph/5GQx8 https://www.theguardian.com/technology/2026/oct/03/openai-sa...",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 225,
+            "comments": 490
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49944227",
+          "time_basis": "published",
+          "title_vi": "Tôi bỏ OpenAI vì văn hóa của nó đã bị phá vỡ"
+        }
+      ],
+      "source_count": 2,
+      "hot_score": 41.302,
+      "hot_reason": "2 nguồn độc lập cùng đưa · hn-front: 225 điểm · tăng 14,9/giờ từ hai lần đo · đăng 17 giờ trước",
+      "hot_signals": {
+        "age_hours": 17.5178,
+        "freshness": 0.602942622311143,
+        "engagement_percentile": 1.0,
+        "velocity_per_hour": 14.851485148514852,
+        "velocity_percentile": 0.625,
+        "source_count": 2,
+        "spread": 0.4,
+        "measurement": {
+          "source": "hn-front",
+          "metric": "points",
+          "value": 225,
+          "observed_at": "2026-10-04T10:01:04Z",
+          "velocity_per_hour": 14.851485148514852,
+          "previous_observed_at": "2026-10-04T09:40:52Z",
+          "previous_value": 220
+        }
+      },
+      "summary_vi": "Theo sự thừa nhận của riêng mình, David Robinson là \"một điều gì đó của một câu chuyện ngẫu nhiên\": một nhân viên tại một công ty AI hàng đầu đưa ra một cảnh báo khủng khiếp trong khi từ chức từ chức."
+    },
+    {
+      "id": "12f1c0f583e5ec7e2401",
+      "title": "Splice CEO Kakul Srivastava thinks AI emails are killing conversations",
+      "url": "https://www.theverge.com/entertainment/1004162/splice-ceo-kakul-srivastava-ai-interview",
+      "summary": "Kakul Srivastava is the CEO of Splice, the sample platform countless producers rely on for one-shots and melodic loops. Samples pulled from the service have found their way into massive hits like Lisa's \"Money\" and \"Espresso\" by Sabrina Carpenter. (The original samples are here and here, for the cur",
+      "published_at": "2026-10-03T15:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "primary_section": "today",
+      "groups": [
+        "press"
+      ],
+      "coverage": [
+        {
+          "id": "c878d47d3189c89b3b98",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "group": "press",
+          "lab": "",
+          "kind": "other",
+          "title": "Splice CEO Kakul Srivastava thinks AI emails are killing conversations",
+          "url": "https://www.theverge.com/entertainment/1004162/splice-ceo-kakul-srivastava-ai-interview",
+          "canonical_url": "https://www.theverge.com/entertainment/1004162/splice-ceo-kakul-srivastava-ai-interview",
+          "published_at": "2026-10-03T15:00:00Z",
+          "summary": "Kakul Srivastava is the CEO of Splice, the sample platform countless producers rely on for one-shots and melodic loops. Samples pulled from the service have found their way into massive hits like Lisa's \"Money\" and \"Espresso\" by Sabrina Carpenter. (The original samples are here and here, for the cur",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published",
+          "title_vi": "Giám đốc điều hành Splice, Kakul Srivastava nghĩ rằng email AI đang giết chết các cuộc trò chuyện.",
+          "summary_vi": "Kakul Srivastava là Giám đốc điều hành của Splice, nền tảng mẫu mà vô số nhà sản xuất dựa vào cho một lần chụp và vòng lặp giai điệu. Các mẫu được lấy từ dịch vụ đã tìm ra cách của họ trong hit lớn như \"Money\" của Lisa và \"Espresso\" của Sabrina Carpenter. (Các mẫu ban đầu là ở đây và ở đây, cho các"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": null,
+      "hot_reason": null,
+      "hot_signals": {
+        "age_hours": 19.0181,
+        "freshness": 0.5773752011657656,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "title_vi": "Giám đốc điều hành Splice, Kakul Srivastava nghĩ rằng email AI đang giết chết các cuộc trò chuyện.",
+      "summary_vi": "Kakul Srivastava là Giám đốc điều hành của Splice, nền tảng mẫu mà vô số nhà sản xuất dựa vào cho một lần chụp và vòng lặp giai điệu. Các mẫu được lấy từ dịch vụ đã tìm ra cách của họ trong hit lớn như \"Money\" của Lisa và \"Espresso\" của Sabrina Carpenter. (Các mẫu ban đầu là ở đây và ở đây, cho các"
+    },
+    {
+      "id": "7096cbc634e5d7d26867",
+      "title": "All the AI agents that can live in your text messages",
+      "url": "https://techcrunch.com/2026/10/03/all-the-ai-agents-that-can-live-in-your-text-messages/",
+      "summary": "We created a list of the most notable AI agents that can live in your text messages, from general assistants to agents designed for families, travel, and work.",
+      "published_at": "2026-10-03T14:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "primary_section": "today",
+      "groups": [
+        "press"
+      ],
+      "coverage": [
+        {
+          "id": "6ed21496bfd821ebbaa3",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "group": "press",
+          "lab": "",
+          "kind": "product",
+          "title": "All the AI agents that can live in your text messages",
+          "url": "https://techcrunch.com/2026/10/03/all-the-ai-agents-that-can-live-in-your-text-messages/",
+          "canonical_url": "https://techcrunch.com/2026/10/03/all-the-ai-agents-that-can-live-in-your-text-messages",
+          "published_at": "2026-10-03T14:00:00Z",
+          "summary": "We created a list of the most notable AI agents that can live in your text messages, from general assistants to agents designed for families, travel, and work.",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published",
+          "title_vi": "Tất cả các agent AI có thể sống trong tin nhắn văn bản của bạn",
+          "summary_vi": "Chúng tôi đã tạo ra một danh sách các agent AI nổi bật nhất có thể sống trong tin nhắn văn bản của bạn, từ trợ lý chung đến agent được thiết kế cho gia đình, du lịch và công việc."
+        }
+      ],
+      "source_count": 1,
+      "hot_score": null,
+      "hot_reason": null,
+      "hot_signals": {
+        "age_hours": 20.0181,
+        "freshness": 0.5609384499625298,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "title_vi": "Tất cả các agent AI có thể sống trong tin nhắn văn bản của bạn",
+      "summary_vi": "Chúng tôi đã tạo ra một danh sách các agent AI nổi bật nhất có thể sống trong tin nhắn văn bản của bạn, từ trợ lý chung đến agent được thiết kế cho gia đình, du lịch và công việc."
+    },
+    {
+      "id": "b6e8aaa22971b2eeacca",
+      "title": "US killer's sentence quashed because of AI video of victim shown in court",
+      "url": "https://www.bbc.com/news/articles/cwgkvygg5nzvo",
+      "summary": "",
+      "published_at": "2026-10-03T13:34:18Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "primary_section": "community",
+      "groups": [
+        "forum"
+      ],
+      "coverage": [
+        {
+          "id": "db1669646dd6c817cb27",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "US killer's sentence quashed because of AI video of victim shown in court",
+          "url": "https://www.bbc.com/news/articles/cwgkvygg5nzvo",
+          "canonical_url": "https://www.bbc.com/news/articles/cwgkvygg5nzvo",
+          "published_at": "2026-10-03T13:34:18Z",
+          "summary": "",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 71,
+            "comments": 60
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49944127",
+          "time_basis": "published",
+          "title_vi": "Hình phạt của kẻ giết người Mỹ bị hủy bỏ vì video AI của nạn nhân được hiển thị tại tòa án"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": 33.493,
+      "hot_reason": "hn-ai: 71 điểm · tăng 0,0/giờ từ hai lần đo · đăng 20 giờ trước",
+      "hot_signals": {
+        "age_hours": 20.4464,
+        "freshness": 0.5540419649455273,
+        "engagement_percentile": 0.6702127659574468,
+        "velocity_per_hour": 0.0,
+        "velocity_percentile": 0.4731182795698925,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 71,
+          "observed_at": "2026-10-04T10:01:04Z",
+          "velocity_per_hour": 0.0,
+          "previous_observed_at": "2026-10-04T09:40:52Z",
+          "previous_value": 71
+        }
+      },
+      "title_vi": "Hình phạt của kẻ giết người Mỹ bị hủy bỏ vì video AI của nạn nhân được hiển thị tại tòa án"
+    },
+    {
+      "id": "223435e02a13c4aa58a0",
+      "title": "OpenAI Employee Quits With Call for Nuclear-Level Safeguards",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-03/openai-safety-employee-quits-calls-for-nuclear-level-safeguards",
+      "summary": "An OpenAI employee focused on AI safety has quit the company and warned that top artificial intelligence firms aren’t doing enough to mitigate the technology’s risks, joining a growing chorus of employees raising alarms from within the industry.",
+      "published_at": "2026-10-03T13:13:42Z",
+      "kind": "other",
+      "time_basis": "published",
+      "primary_section": "today",
+      "groups": [
+        "press"
+      ],
+      "coverage": [
+        {
+          "id": "45caca2255c6c6686290",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "group": "press",
+          "lab": "",
+          "kind": "product",
+          "title": "An OpenAI safety employee has quit and is sounding the alarm",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1004408/openai-safety-quits-sounding-the-alarm",
+          "canonical_url": "https://www.theverge.com/ai-artificial-intelligence/1004408/openai-safety-quits-sounding-the-alarm",
+          "published_at": "2026-10-03T14:31:56Z",
+          "summary": "David Robinson used to write the safety reports that accompanied every major model release at OpenAI. This week, he resigned from his position and is now speaking out in an editorial in The Atlantic. It's understandable if you're feeling a bit cynical about everyone suddenly coming out of the woodwo",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published",
+          "title_vi": "Một nhân viên an ninh của OpenAI đã bỏ chức và đang báo động",
+          "summary_vi": "David Robinson từng viết các báo cáo an toàn đi kèm với mỗi bản phát hành mô hình lớn tại OpenAI. Có thể hiểu được nếu bạn cảm thấy có chút hoài nghi về mọi người đột nhiên ra khỏi Woodwo"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": 21.943,
+      "hot_reason": "2 nguồn độc lập cùng đưa · đăng 20 giờ trước",
+      "hot_signals": {
+        "age_hours": 20.7897,
+        "freshness": 0.5485753129379948,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 2,
+        "spread": 0.4,
+        "measurement": null
+      },
+      "title_vi": "Nhân viên của OpenAI từ chức với yêu cầu bảo vệ cấp độ hạt nhân",
+      "summary_vi": "Một nhân viên của OpenAI tập trung vào an toàn AI đã rời khỏi công ty và cảnh báo rằng các công ty trí tuệ nhân tạo hàng đầu không làm đủ để giảm thiểu rủi ro của công nghệ, gia nhập một dàn hợp tác ngày càng tăng của các nhân viên nâng cao cảnh báo từ trong ngành."
+    },
+    {
+      "id": "6588079dd86f580a30f3",
+      "title": "Chuyên gia Trung Quốc cho rằng tên gọi \"phim AI\" sẽ biến mất",
+      "url": "https://genk.vn/chuyen-gia-trung-quoc-cho-rang-ten-goi-phim-ai-se-bien-mat-165261001104049194.chn",
+      "summary": "Khi cơn sốt công nghệ đang bao trùm toàn cầu, một nhận định chấn động xuất hiện cho rằng thể loại phim AI sẽ sớm biến mất hoàn toàn. Đằng sau tuyên bố đầy bất ngờ ấy là sự thật sống còn về năng lực kiểm soát nền điện ảnh.",
+      "published_at": "2026-10-03T11:23:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "primary_section": "today",
+      "groups": [
+        "press"
+      ],
+      "coverage": [
+        {
+          "id": "4211062f1eb2fa03f20a",
+          "source": "genk-ai",
+          "publisher": "genk",
+          "group": "press",
+          "lab": "",
+          "kind": "other",
+          "title": "Chuyên gia Trung Quốc cho rằng tên gọi \"phim AI\" sẽ biến mất",
+          "url": "https://genk.vn/chuyen-gia-trung-quoc-cho-rang-ten-goi-phim-ai-se-bien-mat-165261001104049194.chn",
+          "canonical_url": "https://genk.vn/chuyen-gia-trung-quoc-cho-rang-ten-goi-phim-ai-se-bien-mat-165261001104049194.chn",
+          "published_at": "2026-10-03T11:23:00Z",
+          "summary": "Khi cơn sốt công nghệ đang bao trùm toàn cầu, một nhận định chấn động xuất hiện cho rằng thể loại phim AI sẽ sớm biến mất hoàn toàn. Đằng sau tuyên bố đầy bất ngờ ấy là sự thật sống còn về năng lực kiểm soát nền điện ảnh.",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": null,
+      "hot_reason": null,
+      "hot_signals": {
+        "age_hours": 22.6347,
+        "freshness": 0.5201092511495372,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      }
+    },
+    {
+      "id": "73773647e32ced070104",
+      "title": "An AI agent emailed researchers for help. It told us why",
+      "url": "https://www.science.org/content/article/exclusive-ai-agent-emailed-hundreds-researchers-help-it-told-us-why",
+      "summary": "",
+      "published_at": "2026-10-03T10:07:08Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "primary_section": "community",
+      "groups": [
+        "forum"
+      ],
+      "coverage": [
+        {
+          "id": "4ee091b6f83b44215c48",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "lab": "",
+          "kind": "forum",
+          "title": "An AI agent emailed researchers for help. It told us why",
+          "url": "https://www.science.org/content/article/exclusive-ai-agent-emailed-hundreds-researchers-help-it-told-us-why",
+          "canonical_url": "https://www.science.org/content/article/exclusive-ai-agent-emailed-hundreds-researchers-help-it-told-us-why",
+          "published_at": "2026-10-03T10:07:08Z",
+          "summary": "",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {
+            "points": 49,
+            "comments": 78
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=49942865",
+          "time_basis": "published",
+          "title_vi": "Một agent AI đã gửi email cho các nhà nghiên cứu yêu cầu giúp đỡ. Nó cho chúng ta biết tại sao"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": 27.469,
+      "hot_reason": "hn-ai: 49 điểm · tăng 0,0/giờ từ hai lần đo · đăng 23 giờ trước",
+      "hot_signals": {
+        "age_hours": 23.8992,
+        "freshness": 0.5014582232305365,
+        "engagement_percentile": 0.5851063829787234,
+        "velocity_per_hour": 0.0,
+        "velocity_percentile": 0.4731182795698925,
+        "source_count": 1,
+        "spread": null,
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 49,
+          "observed_at": "2026-10-04T10:01:04Z",
+          "velocity_per_hour": 0.0,
+          "previous_observed_at": "2026-10-04T09:40:52Z",
+          "previous_value": 49
+        }
+      },
+      "title_vi": "Một agent AI đã gửi email cho các nhà nghiên cứu yêu cầu giúp đỡ. Nó cho chúng ta biết tại sao"
+    },
+    {
+      "id": "bbb9de84b5e0e67b1af1",
+      "title": "Mỹ thúc đẩy cơ chế 'công tắc ngắt khẩn cấp' cho AI",
+      "url": "https://genk.vn/my-thuc-day-co-che-cong-tac-ngat-khan-cap-cho-ai-165261003080133074.chn",
+      "summary": "AI tiên tiến có thể hoạt động trên nhiều máy chủ, dịch vụ và hạ tầng khác nhau, khiến việc “tắt” chúng không đơn giản như ngắt một thiết bị điện.",
+      "published_at": "2026-10-03T08:32:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "primary_section": "today",
+      "groups": [
+        "press"
+      ],
+      "coverage": [
+        {
+          "id": "6393b841f4bd5711ba4a",
+          "source": "genk-ai",
+          "publisher": "genk",
+          "group": "press",
+          "lab": "",
+          "kind": "other",
+          "title": "Mỹ thúc đẩy cơ chế 'công tắc ngắt khẩn cấp' cho AI",
+          "url": "https://genk.vn/my-thuc-day-co-che-cong-tac-ngat-khan-cap-cho-ai-165261003080133074.chn",
+          "canonical_url": "https://genk.vn/my-thuc-day-co-che-cong-tac-ngat-khan-cap-cho-ai-165261003080133074.chn",
+          "published_at": "2026-10-03T08:32:00Z",
+          "summary": "AI tiên tiến có thể hoạt động trên nhiều máy chủ, dịch vụ và hạ tầng khác nhau, khiến việc “tắt” chúng không đơn giản như ngắt một thiết bị điện.",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": null,
+      "hot_reason": null,
+      "hot_signals": {
+        "age_hours": 25.4847,
+        "freshness": 0.4790129632422343,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      }
+    },
+    {
+      "id": "01a27e5aa6083db585ab",
+      "title": "Vận hành doanh nghiệp với “lực lượng nhân sự AI” - Hơn 10 nghìn AI Agents của FPT đang làm việc như thế nào?",
+      "url": "https://genk.vn/van-hanh-doanh-nghiep-voi-luc-luong-nhan-su-ai-hon-10-nghin-ai-agents-cua-fpt-dang-lam-viec-nhu-the-nao-165261002223912494.chn",
+      "summary": "Nền tảng FPT AI EOS cho phép doanh nghiệp tạo và điều hành đội ngũ \"nhân sự AI \", từ chăm sóc khách hàng đến vận hành nội bộ , với khâu chốt cuối do con người phê duyệt.",
+      "published_at": "2026-10-03T07:50:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "primary_section": "today",
+      "groups": [
+        "press"
+      ],
+      "coverage": [
+        {
+          "id": "2b8f22dc456fa8cdda67",
+          "source": "genk-ai",
+          "publisher": "genk",
+          "group": "press",
+          "lab": "",
+          "kind": "product",
+          "title": "Vận hành doanh nghiệp với “lực lượng nhân sự AI” - Hơn 10 nghìn AI Agents của FPT đang làm việc như thế nào?",
+          "url": "https://genk.vn/van-hanh-doanh-nghiep-voi-luc-luong-nhan-su-ai-hon-10-nghin-ai-agents-cua-fpt-dang-lam-viec-nhu-the-nao-165261002223912494.chn",
+          "canonical_url": "https://genk.vn/van-hanh-doanh-nghiep-voi-luc-luong-nhan-su-ai-hon-10-nghin-ai-agents-cua-fpt-dang-lam-viec-nhu-the-nao-165261002223912494.chn",
+          "published_at": "2026-10-03T07:50:00Z",
+          "summary": "Nền tảng FPT AI EOS cho phép doanh nghiệp tạo và điều hành đội ngũ \"nhân sự AI \", từ chăm sóc khách hàng đến vận hành nội bộ , với khâu chốt cuối do con người phê duyệt.",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published"
+        }
+      ],
+      "source_count": 1,
+      "hot_score": null,
+      "hot_reason": null,
+      "hot_signals": {
+        "age_hours": 26.1847,
+        "freshness": 0.4694260918536344,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      }
+    },
+    {
+      "id": "674f9eeb677b6aa6c1b0",
+      "title": "Sean Parker is rebuilding Stability AI around music",
+      "url": "https://techcrunch.com/2026/10/02/sean-parker-is-rebuilding-stability-ai-around-music/",
+      "summary": "Sean Parker, who once taught the music industry what asking for forgiveness looks like, is now back with the labels' blessing and money.",
+      "published_at": "2026-10-02T21:09:14Z",
+      "kind": "other",
+      "time_basis": "published",
+      "primary_section": "today",
+      "groups": [
+        "press"
+      ],
+      "coverage": [
+        {
+          "id": "c2345fa9c547ed72ca44",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "group": "press",
+          "lab": "",
+          "kind": "other",
+          "title": "Sean Parker is rebuilding Stability AI around music",
+          "url": "https://techcrunch.com/2026/10/02/sean-parker-is-rebuilding-stability-ai-around-music/",
+          "canonical_url": "https://techcrunch.com/2026/10/02/sean-parker-is-rebuilding-stability-ai-around-music",
+          "published_at": "2026-10-02T21:09:14Z",
+          "summary": "Sean Parker, who once taught the music industry what asking for forgiveness looks like, is now back with the labels' blessing and money.",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published",
+          "title_vi": "Sean Parker đang xây dựng lại Stability AI xung quanh âm nhạc",
+          "summary_vi": "Sean Parker, người từng dạy cho ngành công nghiệp âm nhạc nghe như thế nào khi xin tha thứ, bây giờ đã trở lại với lời chúc phúc và tiền của các hãng thu âm."
+        }
+      ],
+      "source_count": 1,
+      "hot_score": null,
+      "hot_reason": null,
+      "hot_signals": {
+        "age_hours": 36.8642,
+        "freshness": 0.3448385778128723,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 1,
+        "spread": null,
+        "measurement": null
+      },
+      "title_vi": "Sean Parker đang xây dựng lại Stability AI xung quanh âm nhạc",
+      "summary_vi": "Sean Parker, người từng dạy cho ngành công nghiệp âm nhạc nghe như thế nào khi xin tha thứ, bây giờ đã trở lại với lời chúc phúc và tiền của các hãng thu âm."
+    },
+    {
+      "id": "b6aee1da4c9da9519c63",
+      "title": "Meta open sources code to let you make Muse AI gadgets",
+      "url": "https://www.theverge.com/tech/1004330/meta-muse-ai-gadgets-home-link",
+      "summary": "Meta now lets you make your own Muse gadgets that feature the company's new AI agent with code that the company open sourced. The company suggests projects like loading Muse on a color E Ink display to show reminders, adding it to an HDMI stick so you can display Muse on a big screen, or […]",
+      "published_at": "2026-10-02T21:08:37Z",
+      "kind": "product",
+      "time_basis": "published",
+      "primary_section": "today",
+      "groups": [
+        "press"
+      ],
+      "coverage": [
+        {
+          "id": "505eeb8d1210959d38e3",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "group": "press",
+          "lab": "",
+          "kind": "product",
+          "title": "Meta open sources code to let you make Muse AI gadgets",
+          "url": "https://www.theverge.com/tech/1004330/meta-muse-ai-gadgets-home-link",
+          "canonical_url": "https://www.theverge.com/tech/1004330/meta-muse-ai-gadgets-home-link",
+          "published_at": "2026-10-02T21:08:37Z",
+          "summary": "Meta now lets you make your own Muse gadgets that feature the company's new AI agent with code that the company open sourced. The company suggests projects like loading Muse on a color E Ink display to show reminders, adding it to an HDMI stick so you can display Muse on a big screen, or […]",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published",
+          "title_vi": "Mã nguồn mở Meta để cho phép bạn làm các thiết bị Muse AI",
+          "summary_vi": "Meta bây giờ cho phép bạn tạo ra các thiết bị Muse của riêng bạn có đặc tính AI mới của công ty với mã mà công ty mở nguồn. Công ty đề xuất các dự án như tải Muse lên màn hình E Ink màu để hiển thị lời nhắc nhở, thêm nó vào một thanh HDMI để bạn có thể hiển thị Muse trên màn hình lớn, hoặc [...]"
+        },
+        {
+          "id": "9bfa61d1a91f2894d82a",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "group": "press",
+          "lab": "",
+          "kind": "other",
+          "title": "Meta wants your next gadget to be Muse-infused",
+          "url": "https://techcrunch.com/2026/10/02/meta-wants-you-to-build-your-own-muse-gadget/",
+          "canonical_url": "https://techcrunch.com/2026/10/02/meta-wants-you-to-build-your-own-muse-gadget",
+          "published_at": "2026-10-03T00:45:39Z",
+          "summary": "Meta wants Muse in your TV and your toaster, so it's giving the code away for free.",
+          "observed_at": "2026-10-04T10:01:04Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "time_basis": "published",
+          "title_vi": "Meta muốn thiết bị tiếp theo của bạn được truyền tải bằng Muse",
+          "summary_vi": "Meta muốn Muse trong TV và máy nướng bánh của bạn, vì vậy nó sẽ cho mã miễn phí."
+        }
+      ],
+      "source_count": 2,
+      "hot_score": 13.789,
+      "hot_reason": "2 nguồn độc lập cùng đưa · đăng 36 giờ trước",
+      "hot_signals": {
+        "age_hours": 36.8744,
+        "freshness": 0.3447362332364573,
+        "engagement_percentile": null,
+        "velocity_per_hour": null,
+        "velocity_percentile": null,
+        "source_count": 2,
+        "spread": 0.4,
+        "measurement": null
+      },
+      "title_vi": "Mã nguồn mở Meta để cho phép bạn làm các thiết bị Muse AI",
+      "summary_vi": "Meta bây giờ cho phép bạn tạo ra các thiết bị Muse của riêng bạn có đặc tính AI mới của công ty với mã mà công ty mở nguồn. Công ty đề xuất các dự án như tải Muse lên màn hình E Ink màu để hiển thị lời nhắc nhở, thêm nó vào một thanh HDMI để bạn có thể hiển thị Muse trên màn hình lớn, hoặc [...]"
+    }
+  ]
+}
