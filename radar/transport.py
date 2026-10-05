@@ -131,7 +131,7 @@ class Fetcher:
         try:
             value = self._fetch(url, source_id=source_id)
         except Exception as error:
-            safe_error = sanitize_secret(f"{type(error).__name__}: {error}"[:300])
+            safe_error = sanitize_secret(f"{type(error).__name__}: {error}")[:300]
             record = dict(source=source_id, url=safe_url, http_status=getattr(error, "http_status", getattr(error, "code", None)), error=safe_error)
             with self.lock:
                 self.requests.append(record)

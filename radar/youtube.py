@@ -71,7 +71,10 @@ def parse_playlist_items(text):
 
 
 def parse_video_item(item, channel, now):
-    """Parse a single video item from videos.list response."""
+    """Parse a single video item from videos.list response.
+
+    Returns a verified broadcast dict, None for ordinary/expired videos, or raises ValueError.
+    """
     video_id = item.get("id", "")
     if not VIDEO_ID.fullmatch(video_id):
         return None
@@ -79,58 +82,56 @@ def parse_video_item(item, channel, now):
     title = " ".join(html.unescape(snippet.get("title", "")).split())
     if not title:
         return None
+
+    live_details = item.get("liveStreamingDetails")
+    broadcast_content = snippet.get("liveBroadcastContent", "none")
+
+    # Only broadcasts (live, upcoming, or ended livestream) are emitted.
+    # Ordinary uploaded videos return None.
+    if live_details is None and broadcast_content not in ("live", "upcoming"):
+        return None
+
+    actual_start_raw = live_details.get("actualStartTime") if live_details else None
+    actual_end_raw = live_details.get("actualEndTime") if live_details else None
+    scheduled_start_raw = live_details.get("scheduledStartTime") if live_details else None
+
+    actual_start = _date(actual_start_raw)
+    actual_end = _date(actual_end_raw)
+    scheduled_start = _date(scheduled_start_raw)
+
+    if ((actual_start_raw and not actual_start) or
+        (actual_end_raw and not actual_end) or
+        (scheduled_start_raw and not scheduled_start)):
+        raise ValueError("Invalid broadcast timestamps")
+
+    if actual_end:
+        if actual_end > now or (actual_start and actual_end < actual_start):
+            raise ValueError("Inconsistent broadcast timestamps")
+        if actual_end < now - timedelta(days=7):
+            return None
+        status = "ended"
+        start = actual_start or scheduled_start
+        end = actual_end
+    elif broadcast_content == "live" or actual_start:
+        if actual_start and actual_start > now:
+            raise ValueError("Inconsistent live broadcast timestamps")
+        status = "live"
+        start = actual_start or scheduled_start or (_date(snippet.get("publishedAt")) if broadcast_content == "live" else None)
+        end = None
+    elif (scheduled_start and scheduled_start > now) or (broadcast_content == "upcoming" and _date(snippet.get("publishedAt")) and _date(snippet.get("publishedAt")) > now):
+        status = "upcoming"
+        start = scheduled_start or _date(snippet.get("publishedAt"))
+        end = None
+    else:
+        raise ValueError("Broadcast status indeterminate")
+
     thumbnails = snippet.get("thumbnails", {})
     thumbnail = (thumbnails.get("high") or thumbnails.get("medium") or
                  thumbnails.get("default") or {}).get("url") or f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
     published_at = snippet.get("publishedAt")
     url = f"https://www.youtube.com/watch?v={video_id}"
 
-    live_details = item.get("liveStreamingDetails")
-    broadcast_content = snippet.get("liveBroadcastContent", "none")
-
-    status = None
-    start_at = None
-    end_at = None
-
-    if live_details is not None:
-        actual_start = live_details.get("actualStartTime")
-        actual_end = live_details.get("actualEndTime")
-        scheduled_start = live_details.get("scheduledStartTime")
-
-        if actual_end:
-            status = "ended"
-            start_at = actual_start or scheduled_start
-            end_at = actual_end
-        elif actual_start or broadcast_content == "live":
-            status = "live"
-            start_at = actual_start or scheduled_start
-            end_at = None
-        elif scheduled_start or broadcast_content == "upcoming":
-            status = "upcoming"
-            start_at = scheduled_start
-            end_at = None
-        else:
-            status = "ended"
-            start_at = actual_start
-            end_at = None
-    elif broadcast_content == "live":
-        status = "live"
-        start_at = published_at
-        end_at = None
-    elif broadcast_content == "upcoming":
-        status = "upcoming"
-        start_at = published_at
-        end_at = None
-    else:
-        start_at = published_at
-
-    # Check 7-day retention boundary for ended broadcasts
-    if status == "ended" and end_at:
-        end_dt = _date(end_at)
-        if end_dt and end_dt < now - timedelta(days=7):
-            return None
-
-    entry = {
+    return {
         "video_id": video_id,
         "lab": channel[1],
         "channel": channel[2],
@@ -138,23 +139,26 @@ def parse_video_item(item, channel, now):
         "url": url,
         "thumbnail": thumbnail,
         "published_at": published_at,
-        "start_at": start_at,
-        "end_at": end_at,
+        "status": status,
+        "start_at": _iso(start),
+        "end_at": _iso(end),
     }
-    if status is not None:
-        entry["status"] = status
-
-    return entry
 
 
-def parse_videos_response(text, channel, now):
+def parse_videos_response(text, channel, now, diagnostics=None):
     """Parse videos.list JSON response into observation entries."""
     data = json.loads(text)
     items = []
     for item in data.get("items", []):
-        entry = parse_video_item(item, channel, now)
-        if entry:
-            items.append(entry)
+        try:
+            entry = parse_video_item(item, channel, now)
+            if entry:
+                items.append(entry)
+        except Exception as exc:
+            vid = item.get("id", "unknown")
+            msg = sanitize_secret(f"video {vid}: {type(exc).__name__}: {exc}")[:160]
+            if diagnostics is not None:
+                diagnostics.append(msg)
     return items
 
 
@@ -168,8 +172,8 @@ def collect_channel(fetch, channel, now):
         playlist_text = fetch(playlist_url)
         video_ids = parse_playlist_items(playlist_text)
     except Exception as exc:
-        error_text = sanitize_secret(str(exc))
-        return [], f"{type(exc).__name__}: {error_text[:160]}", diagnostics
+        error_text = sanitize_secret(f"{type(exc).__name__}: {exc}")[:160]
+        return [], error_text, diagnostics
 
     if not video_ids:
         return [], None, diagnostics
@@ -177,11 +181,11 @@ def collect_channel(fetch, channel, now):
     videos_url = f"https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,liveStreamingDetails&id={','.join(video_ids)}"
     try:
         videos_text = fetch(videos_url)
-        items = parse_videos_response(videos_text, channel, now)
+        items = parse_videos_response(videos_text, channel, now, diagnostics=diagnostics)
         return items, None, diagnostics
     except Exception as exc:
-        error_text = sanitize_secret(str(exc))
-        return [], f"{type(exc).__name__}: {error_text[:160]}", diagnostics
+        error_text = sanitize_secret(f"{type(exc).__name__}: {exc}")[:160]
+        return [], error_text, diagnostics
 
 
 def collect(fetch, now, channels=None):

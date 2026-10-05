@@ -55,7 +55,7 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(set(result["trending"]), {"github", "huggingface"})
         self.assertEqual(len(result["updates"]), 3)
         self.assertEqual(len(result["hf_releases"]), 3)
-        self.assertEqual(len(result["live"]), 5)
+        self.assertEqual(len(result["live"]), 1)
         self.assertEqual(len(result["trending"]["github"]), 3)
         self.assertEqual(len(result["trending"]["huggingface"]), 3)
         self.assertEqual(len(result["sources"]), 7)

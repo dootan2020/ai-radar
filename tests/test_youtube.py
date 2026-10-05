@@ -56,16 +56,19 @@ class YouTubeParsingTests(unittest.TestCase):
     def test_parse_videos_response_contracts(self):
         text = fixture_text("openai-videos.json")
         items = youtube.parse_videos_response(text, OPENAI_CHANNEL, NOW)
-        self.assertEqual(len(items), 5)
-        for item in items:
-            self.assertTrue(item["video_id"])
-            self.assertTrue(item["title"])
-            self.assertEqual(item["lab"], "openai")
-            self.assertEqual(item["channel"], "OpenAI")
-            self.assertEqual(item["url"], f"https://www.youtube.com/watch?v={item['video_id']}")
-            self.assertTrue(item["thumbnail"].startswith("https://"))
-            self.assertTrue(item["published_at"])
-            self.assertTrue(item["start_at"])
+        # openai-videos.json contains 1 broadcast (Fls_onRviPM) and 4 ordinary uploads.
+        # Only broadcasts are emitted into items.
+        self.assertEqual(len(items), 1)
+        item = items[0]
+        self.assertEqual(item["video_id"], "Fls_onRviPM")
+        self.assertEqual(item["title"], "OpenAI DevDay 2026 Keynote (FULL)")
+        self.assertEqual(item["lab"], "openai")
+        self.assertEqual(item["channel"], "OpenAI")
+        self.assertEqual(item["url"], f"https://www.youtube.com/watch?v={item['video_id']}")
+        self.assertTrue(item["thumbnail"].startswith("https://"))
+        self.assertTrue(item["published_at"])
+        self.assertTrue(item["start_at"])
+        self.assertEqual(item["status"], "ended")
 
     def test_stream_recognition_from_real_video_fixture(self):
         text = fixture_text("openai-videos.json")
@@ -77,22 +80,28 @@ class YouTubeParsingTests(unittest.TestCase):
         self.assertEqual(keynote["published_at"], "2026-09-29T18:42:29Z")
         self.assertEqual(keynote["title"], "OpenAI DevDay 2026 Keynote (FULL)")
 
-    def test_regular_videos_have_no_stream_status(self):
-        text = fixture_text("openai-videos.json")
-        items = youtube.parse_videos_response(text, OPENAI_CHANNEL, NOW)
-        regular = next(it for it in items if it["video_id"] == "fHEIw5CcN5U")
-        self.assertNotIn("status", regular)
-        self.assertEqual(regular["start_at"], regular["published_at"])
-        self.assertIsNone(regular["end_at"])
+    def test_point1_ordinary_uploads_return_none_and_rejected_by_publication(self):
+        # Point 1: Ordinary uploads return None from parse_video_item and do not enter live projection.
+        # From openai-videos.json: item 0 is 'fHEIw5CcN5U' (The dots demo, ordinary video).
+        raw_video = json.loads(fixture_text("openai-videos.json"))["items"][0]
+        # Fields examined: liveStreamingDetails is None, liveBroadcastContent == "none"
+        self.assertIsNone(raw_video.get("liveStreamingDetails"))
+        self.assertEqual(raw_video.get("snippet", {}).get("liveBroadcastContent"), "none")
+        item = youtube.parse_video_item(raw_video, OPENAI_CHANNEL, NOW)
+        self.assertIsNone(item)
+
+        # radar/publication.py inspect_projection_row rejects status=None or non-broadcast status
+        from radar.publication import inspect_projection_row
+        with self.assertRaises(ValueError):
+            inspect_projection_row("live", {"title": "Ordinary Video", "url": "https://www.youtube.com/watch?v=123", "status": None})
+        with self.assertRaises(ValueError):
+            inspect_projection_row("live", {"title": "Ordinary Video", "url": "https://www.youtube.com/watch?v=123", "status": "unknown"})
 
     def test_nvidia_fixture_parsing(self):
         text = fixture_text("nvidia-videos.json")
         items = youtube.parse_videos_response(text, catalog.NVIDIA_CHANNEL, NOW)
-        self.assertEqual(len(items), 5)
-        for item in items:
-            self.assertEqual(item["lab"], "nvidia")
-            self.assertEqual(item["channel"], "NVIDIA")
-            self.assertNotIn("status", item)
+        # All 5 videos in nvidia-videos.json are ordinary uploads without liveStreamingDetails, so 0 broadcasts
+        self.assertEqual(len(items), 0)
 
     def test_live_stream_status_classification(self):
         raw_video = json.loads(fixture_text("openai-videos.json"))["items"][2]
@@ -108,7 +117,7 @@ class YouTubeParsingTests(unittest.TestCase):
 
     def test_upcoming_stream_status_classification(self):
         raw_video = json.loads(fixture_text("openai-videos.json"))["items"][2]
-        # Mutate to scheduled upcoming broadcast
+        # Mutate to scheduled upcoming broadcast (start_at in future)
         raw_video["liveStreamingDetails"] = {
             "scheduledStartTime": "2026-10-06T15:00:00Z",
         }
@@ -117,18 +126,64 @@ class YouTubeParsingTests(unittest.TestCase):
         self.assertEqual(item["start_at"], "2026-10-06T15:00:00Z")
         self.assertIsNone(item["end_at"])
 
+    def test_point2_passed_scheduled_start_without_actual_start_is_indeterminate_not_upcoming(self):
+        # Point 2: A video whose scheduledStartTime has passed with no actualStartTime (cancelled/missed stream)
+        # must NOT be labelled upcoming.
+        raw_video = json.loads(fixture_text("openai-videos.json"))["items"][2]
+        # Controlled edit: set scheduledStartTime to 2 hours in the past, remove actualStartTime and actualEndTime,
+        # set liveBroadcastContent to 'upcoming'.
+        raw_video["snippet"]["liveBroadcastContent"] = "upcoming"
+        raw_video["liveStreamingDetails"] = {
+            "scheduledStartTime": (NOW - timedelta(hours=2)).isoformat().replace("+00:00", "Z"),
+        }
+        # parse_video_item raises ValueError for indeterminate status instead of labelling upcoming
+        with self.assertRaises(ValueError) as ctx:
+            youtube.parse_video_item(raw_video, OPENAI_CHANNEL, NOW)
+        self.assertIn("Broadcast status indeterminate", str(ctx.exception))
+
+        # parse_videos_response drops it from items and appends diagnostic
+        diagnostics = []
+        items = youtube.parse_videos_response(json.dumps({"items": [raw_video]}), OPENAI_CHANNEL, NOW, diagnostics=diagnostics)
+        self.assertEqual(items, [])
+        self.assertEqual(len(diagnostics), 1)
+        self.assertIn("Broadcast status indeterminate", diagnostics[0])
+
+    def test_point3_indeterminate_broadcast_emits_diagnostic_not_ended_item(self):
+        # Point 3: A broadcast without end time and without valid live/upcoming status must NOT be labelled 'ended'
+        # without end_at (which would escape 7-day rule). It must be an error/diagnostic, never a published row.
+        raw_video = json.loads(fixture_text("openai-videos.json"))["items"][2]
+        # Controlled edit: remove actualEndTime, actualStartTime, scheduledStartTime, keeping liveStreamingDetails empty
+        # and liveBroadcastContent as 'none'.
+        raw_video["snippet"]["liveBroadcastContent"] = "none"
+        raw_video["liveStreamingDetails"] = {}
+
+        with self.assertRaises(ValueError) as ctx:
+            youtube.parse_video_item(raw_video, OPENAI_CHANNEL, NOW)
+        self.assertIn("Broadcast status indeterminate", str(ctx.exception))
+
+        # Verified through collect: channel reports diagnostic, item is not published, ok is True
+        diagnostics = []
+        items = youtube.parse_videos_response(json.dumps({"items": [raw_video]}), OPENAI_CHANNEL, NOW, diagnostics=diagnostics)
+        self.assertEqual(items, [])
+        self.assertEqual(len(diagnostics), 1)
+        self.assertIn("Broadcast status indeterminate", diagnostics[0])
+
     def test_ended_stream_older_than_7_days_is_dropped(self):
         raw_video = json.loads(fixture_text("openai-videos.json"))["items"][2]
-        # Ended 8 days ago
+        # Ended 8 days ago, started 8 days and 1 hour ago
         ended_at = (NOW - timedelta(days=8)).isoformat().replace("+00:00", "Z")
+        started_at = (NOW - timedelta(days=8, hours=1)).isoformat().replace("+00:00", "Z")
+        raw_video["liveStreamingDetails"]["actualStartTime"] = started_at
         raw_video["liveStreamingDetails"]["actualEndTime"] = ended_at
         item = youtube.parse_video_item(raw_video, OPENAI_CHANNEL, NOW)
         self.assertIsNone(item)
 
     def test_ended_stream_within_7_days_is_kept(self):
         raw_video = json.loads(fixture_text("openai-videos.json"))["items"][2]
-        # Ended 6 days ago
+        # Ended 6 days ago, started 6 days and 1 hour ago
         ended_at = (NOW - timedelta(days=6)).isoformat().replace("+00:00", "Z")
+        started_at = (NOW - timedelta(days=6, hours=1)).isoformat().replace("+00:00", "Z")
+        raw_video["liveStreamingDetails"]["actualStartTime"] = started_at
         raw_video["liveStreamingDetails"]["actualEndTime"] = ended_at
         item = youtube.parse_video_item(raw_video, OPENAI_CHANNEL, NOW)
         self.assertIsNotNone(item)
@@ -155,11 +210,12 @@ class YouTubeCollectionTests(unittest.TestCase):
              patch.object(youtube, "CHANNELS", (OPENAI_CHANNEL,)):
             items, sources = youtube.collect(mock_fetch, NOW)
 
-        self.assertEqual(len(items), 5)
+        # 1 broadcast item from openai-videos.json
+        self.assertEqual(len(items), 1)
         self.assertEqual(len(sources), 1)
         self.assertTrue(sources[0]["ok"])
         self.assertEqual(sources[0]["id"], "openai-youtube")
-        self.assertEqual(sources[0]["count"], 5)
+        self.assertEqual(sources[0]["count"], 1)
         self.assertIsNone(sources[0]["error"])
 
         # Boundary checks: never call disallowed paths or search.list
@@ -281,6 +337,52 @@ class YouTubeSecurityTests(unittest.TestCase):
         self.assertEqual(len(sources), 1)
         self.assertNotIn(self.SECRET_KEY, str(sources[0]["error"]))
         self.assertIn("[REDACTED]", str(sources[0]["error"]))
+
+    def test_point4_fetcher_redacts_before_truncating_error_boundary(self):
+        # Point 4: Fetcher.__call__ must redact secret before truncating to 300 characters,
+        # preventing a key straddling the boundary from leaking partially.
+        secret = self.SECRET_KEY
+        # "ValueError: " is 12 chars. Prefix of 278 chars makes secret start at index 290,
+        # straddling the 300-char boundary (chars 290-300).
+        prefix = "E" * 278
+        long_error_message = f"{prefix}{secret}suffix_padding_to_exceed_limit"
+
+        def failing_transport(url, **kwargs):
+            raise ValueError(long_error_message)
+
+        fetcher = Fetcher(deadline=9999999999, transport=failing_transport)
+        with patch.dict("os.environ", {"YOUTUBE_API_KEY": secret}):
+            with self.assertRaises(ValueError):
+                fetcher("https://www.googleapis.com/youtube/v3/videos", source_id="openai-youtube")
+
+            evidence = fetcher.evidence("openai-youtube")
+            self.assertEqual(len(evidence), 1)
+            error_text = str(evidence[0]["error"])
+            # The secret prefix (first 10 chars) would leak if truncated before redaction
+            self.assertNotIn(secret[:10], error_text)
+            self.assertIn("[REDACTED]", error_text)
+            self.assertLessEqual(len(error_text), 300)
+
+    def test_point4_youtube_collect_redacts_before_truncating_error_boundary(self):
+        # Point 4 in radar/youtube.py: error text must be redacted before truncating to 160 chars.
+        secret = self.SECRET_KEY
+        # "RuntimeError: " is 14 chars. Prefix of 136 chars makes secret start at index 150,
+        # straddling the 160-char boundary (chars 150-160).
+        prefix = "W" * 136
+        long_exc = f"{prefix}{secret}padding"
+
+        def failing_fetch(url):
+            raise RuntimeError(long_exc)
+
+        with patch.dict("os.environ", {"YOUTUBE_API_KEY": secret}), \
+             patch.object(youtube, "CHANNELS", (OPENAI_CHANNEL,)):
+            items, sources = youtube.collect(failing_fetch, NOW)
+
+        self.assertEqual(len(sources), 1)
+        err = str(sources[0]["error"])
+        self.assertNotIn(secret[:10], err)
+        self.assertIn("[REDACTED]", err)
+        self.assertLessEqual(len(err), 160)
 
 
 class YouTubeCatalogContinuityTests(unittest.TestCase):
