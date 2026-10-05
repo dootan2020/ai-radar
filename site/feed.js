@@ -1465,7 +1465,7 @@ function buildAll() {
     sub: 'Các chủ đề thu hút nhiều thảo luận và tốc độ quan tâm đột biến trên Hacker News và các diễn đàn.'
   });
   out.push({ t: 'hot' });
-  debateCards.forEach(st => out.push(C(st, 'std', { debate: true })));
+  debateCards.forEach(st => out.push(C(st, 'std', { debate: true, why: true })));
 
   // --- Khối 3: Vừa ra mắt & Công bố mới ---
   const productCandidates = allStories.filter(st => !used.has(st.id) && (st.kind === 'product' || firstHandOf(st)))

@@ -483,9 +483,30 @@ ul, ol { padding: 0; list-style: none; }
   max-width: 70ch;
 }
 
-/* Cards in Cộng đồng đang tranh luận: fit content naturally, do not stretch to tall tile-hot */
+/* Cards in Cộng đồng đang tranh luận: stretch to match row height, forming one composed block */
 .card-debate {
-  align-self: start;
+  align-self: stretch;
+  height: 100%;
+}
+.card-debate .card-body {
+  gap: var(--space-12);
+}
+.card-debate .card-title,
+.card-debate .story-link {
+  -webkit-line-clamp: 4;
+}
+.card-debate .card-orig {
+  flex-wrap: wrap;
+}
+.card-debate .card-orig .orig-text {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-debate .why-line {
+  margin-top: var(--space-2);
 }
 
 /* The block */
@@ -851,7 +872,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 @media (max-width: 1199px) and (min-width: 768px){
   .feed-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .card-std, .sk-card { grid-column: span 2; }
-  .card-debate { grid-column: span 3; align-self: start; }
+  .card-debate { grid-column: span 3; align-self: stretch; height: 100%; }
   .card-lead, .sk-lead { grid-column: span 4; }
   .tile-live { grid-column: span 2; grid-row: span 3; }   /* beside six cards, two per row */
   .card-wide { grid-column: span 4; }
@@ -921,7 +942,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .feed-head { margin-bottom: var(--space-16); }
 
   .feed-grid { display: flex; flex-direction: column; }
-  .card-debate { align-self: stretch; width: 100%; max-width: 100%; }
+  .card-debate { align-self: stretch; width: 100%; max-width: 100%; height: auto; }
   .card-lead { min-height: clamp(480px, 25vw + 380px, 560px); aspect-ratio: auto; }
   .card-lead .photo-body { padding: var(--space-16); gap: var(--space-8); }
   .card-lead .card-title {
