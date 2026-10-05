@@ -30,7 +30,9 @@ from radar.shadow_collector import (
     GDELT_MIN_INTERVAL,
     PARSER_REGISTRY,
     VALID_KINDS,
+    build_gdelt_doc_url,
     build_google_news_url,
+    build_hn_search_url,
     build_wikipedia_pageviews_url,
     check_robots,
     collect_all,
@@ -200,6 +202,29 @@ SAMPLE_GDELT_DOC = json.dumps({
     ]
 })
 
+SAMPLE_CLAUDE_RELEASE_NOTES_FEED = """<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Claude Release Notes</title>
+  <link rel="alternate" type="text/html" href="https://platform.claude.com/docs/en/release-notes/overview"/>
+  <link rel="self" type="application/atom+xml" href="https://platform.claude.com/docs/en/release-notes/feed.xml"/>
+  <updated>2026-10-01T12:00:00Z</updated>
+  <entry>
+    <title>Claude 3.7 Sonnet reasoning controls and hybrid mode</title>
+    <link href="https://platform.claude.com/docs/en/release-notes/2026-10-01"/>
+    <id>https://platform.claude.com/docs/en/release-notes/2026-10-01</id>
+    <updated>2026-10-01T12:00:00Z</updated>
+    <summary>Expanded reasoning token settings and API parameters.</summary>
+  </entry>
+  <entry>
+    <title>Computer Use tool speed and accuracy enhancements</title>
+    <link href="https://platform.claude.com/docs/en/release-notes/2026-09-20"/>
+    <id>https://platform.claude.com/docs/en/release-notes/2026-09-20</id>
+    <updated>2026-09-20T10:00:00Z</updated>
+    <summary>Latency improvements for tool use loops.</summary>
+  </entry>
+</feed>
+"""
+
 
 SAMPLE_ROBOTS_TXT_ALLOW = "User-agent: *\nAllow: /\n"
 SAMPLE_ROBOTS_TXT_DISALLOW = "User-agent: *\nDisallow: /\n"
@@ -266,6 +291,105 @@ class WatchlistAndCandidateLoadingTests(unittest.TestCase):
         self.assertIn("gl=VN", url)
         self.assertIn("ceid=VN:vi", url)
         self.assertIn("when%3A1d", url)
+
+    def test_watchlist_has_no_google_news(self):
+        wl = load_watchlist()
+        google_news_candidates = [
+            c for c in wl
+            if "news.google.com" in c.get("url", "") or c.get("parser") == "google_news_rss"
+        ]
+        self.assertEqual(
+            google_news_candidates,
+            [],
+            "Google News queries should be removed because Google News blocks crawlers in robots.txt"
+        )
+
+    def test_watchlist_routes_hn_algolia(self):
+        wl = load_watchlist()
+        hn_cands = [c for c in wl if c.get("parser") == "hn_algolia"]
+        self.assertGreaterEqual(len(hn_cands), 14)
+
+        for c in hn_cands:
+            self.assertEqual(c["kind"], "query")
+            self.assertTrue(c["url"].startswith("https://hn.algolia.com/api/v1/search_by_date?query="))
+            self.assertIn("tags=story", c["url"])
+
+        # Check Jensen Huang specific query
+        jh = next((c for c in hn_cands if "jensen-huang" in c["id"]), None)
+        self.assertIsNotNone(jh)
+        self.assertIn("query=%22Jensen+Huang%22", jh["url"])
+
+    def test_watchlist_routes_wikipedia_pageviews(self):
+        wl = load_watchlist()
+        wiki_cands = [c for c in wl if c.get("parser") == "wikipedia_pageviews"]
+        self.assertGreaterEqual(len(wiki_cands), 9)
+
+        for c in wiki_cands:
+            self.assertEqual(c["kind"], "signal")
+            self.assertTrue(c["url"].startswith("https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/"))
+            self.assertTrue(bool(c.get("article")))
+
+        # Check Sam Altman article is present
+        sam_wiki = next((c for c in wiki_cands if "sam-altman" in c["id"]), None)
+        self.assertIsNotNone(sam_wiki)
+        self.assertEqual(sam_wiki["article"], "Sam_Altman")
+
+        # Thibault Sottiaux does not have a Wikipedia article -> must NOT be present
+        tibo_wiki = next((c for c in wiki_cands if "thibault-sottiaux" in c["id"]), None)
+        self.assertIsNone(tibo_wiki)
+
+        # ChatGPT and Regulation_of_artificial_intelligence topics have articles
+        chatgpt_wiki = next((c for c in wiki_cands if "chatgpt" in c["id"]), None)
+        self.assertIsNotNone(chatgpt_wiki)
+        reg_wiki = next((c for c in wiki_cands if "regulation" in c["id"]), None)
+        self.assertIsNotNone(reg_wiki)
+
+        # Vietnamese entry uses vi.wikipedia.org
+        vn_wiki = next((c for c in wiki_cands if "vietnamese" in c["id"]), None)
+        self.assertIsNotNone(vn_wiki)
+        self.assertIn("vi.wikipedia.org", vn_wiki["url"])
+
+    def test_watchlist_routes_gdelt_doc(self):
+        wl = load_watchlist()
+        gdelt_cands = [c for c in wl if c.get("parser") == "gdelt_doc"]
+        # Exactly 8 people have GDELT DOC routes
+        self.assertEqual(len(gdelt_cands), 8)
+
+        for c in gdelt_cands:
+            self.assertEqual(c["kind"], "query")
+            self.assertTrue(c["url"].startswith("https://api.gdeltproject.org/api/v2/doc/doc?query="))
+            self.assertIn("mode=artlist", c["url"])
+            self.assertIn("format=json", c["url"])
+
+        # Check Jensen Huang GDELT
+        jh_gdelt = next((c for c in gdelt_cands if "jensen-huang" in c["id"]), None)
+        self.assertIsNotNone(jh_gdelt)
+        self.assertIn("%22Jensen+Huang%22", jh_gdelt["url"])
+
+    def test_build_hn_search_url_quoting(self):
+        # Unquoted name should be wrapped in quotes
+        url1 = build_hn_search_url("Jensen Huang")
+        self.assertEqual(url1, "https://hn.algolia.com/api/v1/search_by_date?query=%22Jensen+Huang%22&tags=story")
+
+        # Already quoted name should not be double-quoted
+        url2 = build_hn_search_url('"Sam Altman"')
+        self.assertEqual(url2, "https://hn.algolia.com/api/v1/search_by_date?query=%22Sam+Altman%22&tags=story")
+
+        # Phrase with quotes
+        url3 = build_hn_search_url('"Donald Trump" AI')
+        self.assertEqual(url3, "https://hn.algolia.com/api/v1/search_by_date?query=%22Donald+Trump%22+AI&tags=story")
+
+    def test_build_gdelt_doc_url_quoting(self):
+        url1 = build_gdelt_doc_url("Jensen Huang")
+        self.assertTrue(url1.startswith("https://api.gdeltproject.org/api/v2/doc/doc?query=%22Jensen+Huang%22&mode=artlist"))
+
+        url2 = build_gdelt_doc_url('"Dario Amodei"')
+        self.assertTrue(url2.startswith("https://api.gdeltproject.org/api/v2/doc/doc?query=%22Dario+Amodei%22&mode=artlist"))
+
+    def test_build_wikipedia_pageviews_url_with_project(self):
+        url = build_wikipedia_pageviews_url(article="Trí_tuệ_nhân_tạo", project="vi.wikipedia.org")
+        self.assertIn("vi.wikipedia.org", url)
+        self.assertIn("Trí_tuệ_nhân_tạo", url)
 
     def test_load_shadow_candidates_has_three_kinds(self):
         candidates = load_shadow_candidates()
@@ -394,6 +518,19 @@ class SignalParsersTests(unittest.TestCase):
         self.assertEqual(numbers["total_hits"], 2)
         self.assertEqual(numbers["ai_hits_count"], 1)
 
+    def test_parse_hn_algolia_points_and_max_points(self):
+        cand = {"id": "wl-hn-jensen-huang"}
+        items, numbers, error = parse_hn_algolia(SAMPLE_HN_ALGOLIA, cand)
+
+        self.assertIsNone(error)
+        self.assertEqual(len(items), 2)
+        # Check points extracted for each item
+        self.assertEqual(items[0]["points"], 180)
+        self.assertEqual(items[1]["points"], 45)
+        # Check max_points in numbers
+        self.assertEqual(numbers["max_points"], 180)
+        self.assertEqual(numbers["returned_hits"], 2)
+
     def test_parse_gdelt_doc(self):
         cand = {"id": "gdelt-ai-doc"}
         items, numbers, error = parse_gdelt_doc(SAMPLE_GDELT_DOC, cand)
@@ -405,6 +542,110 @@ class SignalParsersTests(unittest.TestCase):
         self.assertEqual(items[0]["publisher"], "example.com")
         self.assertEqual(items[0]["published_at"], "2026-10-04T18:00:00Z")
         self.assertEqual(numbers["article_count"], 1)
+
+
+class ClaudeReleaseNotesFeedTests(unittest.TestCase):
+    def test_claude_release_notes_config(self):
+        candidates = load_shadow_candidates()
+        cand = next((c for c in candidates if c["id"] == "claude-release-notes"), None)
+        self.assertIsNotNone(cand)
+        self.assertEqual(cand["url"], "https://platform.claude.com/docs/en/release-notes/feed.xml")
+        self.assertEqual(cand["parser"], "rss")
+        self.assertEqual(cand["kind"], "fixed feed")
+
+    def test_claude_release_notes_parsing_offline(self):
+        cand = {
+            "id": "claude-release-notes",
+            "name": "Claude release notes",
+            "kind": "fixed feed",
+            "url": "https://platform.claude.com/docs/en/release-notes/feed.xml",
+            "parser": "rss",
+        }
+        items, numbers, error = parse_generic_feed(SAMPLE_CLAUDE_RELEASE_NOTES_FEED, cand)
+        self.assertIsNone(error)
+        self.assertEqual(len(items), 2)
+        self.assertEqual(items[0]["title"], "Claude 3.7 Sonnet reasoning controls and hybrid mode")
+        self.assertEqual(items[0]["url"], "https://platform.claude.com/docs/en/release-notes/2026-10-01")
+        self.assertEqual(items[0]["published_at"], "2026-10-01T12:00:00Z")
+        self.assertEqual(items[0]["publisher"], "Claude release notes")
+        self.assertEqual(numbers["item_count"], 2)
+
+    def test_collect_claude_release_notes_offline(self):
+        candidate = {
+            "id": "claude-release-notes",
+            "name": "Claude release notes",
+            "kind": "fixed feed",
+            "url": "https://platform.claude.com/docs/en/release-notes/feed.xml",
+            "parser": "rss",
+        }
+        mock_fetch = make_mock_fetch({
+            "https://platform.claude.com/robots.txt": (200, SAMPLE_ROBOTS_TXT_ALLOW, "text/plain"),
+            "https://platform.claude.com/docs/en/release-notes/feed.xml": (200, SAMPLE_CLAUDE_RELEASE_NOTES_FEED, "application/atom+xml"),
+        })
+        record = collect_candidate(candidate, fetch_fn=mock_fetch)
+        self.assertEqual(record["http_status"], 200)
+        self.assertIsNone(record["error"])
+        self.assertEqual(record["item_count"], 2)
+        self.assertEqual(len(record["items"]), 2)
+
+
+class WatchlistOfflineCollectionTests(unittest.TestCase):
+    def test_collect_hn_algolia_watchlist_candidate_offline(self):
+        cand = {
+            "id": "wl-hn-jensen-huang",
+            "name": "Jensen Huang (HN Algolia)",
+            "kind": "query",
+            "url": "https://hn.algolia.com/api/v1/search_by_date?query=%22Jensen+Huang%22&tags=story",
+            "parser": "hn_algolia",
+        }
+        mock_fetch = make_mock_fetch({
+            "https://hn.algolia.com/robots.txt": (200, SAMPLE_ROBOTS_TXT_ALLOW, "text/plain"),
+            "https://hn.algolia.com/api/v1/search_by_date": (200, SAMPLE_HN_ALGOLIA, "application/json"),
+        })
+        record = collect_candidate(cand, fetch_fn=mock_fetch)
+        self.assertEqual(record["http_status"], 200)
+        self.assertIsNone(record["error"])
+        self.assertEqual(record["item_count"], 2)
+        self.assertEqual(record["numbers"]["max_points"], 180)
+
+    def test_collect_wikipedia_pageviews_person_offline(self):
+        cand = {
+            "id": "wl-wiki-sam-altman",
+            "name": "Sam Altman (Wikipedia Pageviews)",
+            "kind": "signal",
+            "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia.org/all-access/all-agents/Sam_Altman/daily/20261001/20261004",
+            "article": "Sam_Altman",
+            "parser": "wikipedia_pageviews",
+        }
+        mock_fetch = make_mock_fetch({
+            "https://wikimedia.org/robots.txt": (200, SAMPLE_ROBOTS_TXT_ALLOW, "text/plain"),
+            "https://wikimedia.org/api/rest_v1/metrics/pageviews": (200, SAMPLE_WIKIPEDIA_PAGEVIEWS, "application/json"),
+        })
+        record = collect_candidate(cand, fetch_fn=mock_fetch)
+        self.assertEqual(record["http_status"], 200)
+        self.assertIsNone(record["error"])
+        self.assertEqual(record["item_count"], 0)
+        self.assertIsNotNone(record["numbers"])
+        self.assertEqual(record["numbers"]["article"], "Sam_Altman")
+        self.assertEqual(record["numbers"]["views_latest"], 19500)
+
+    def test_collect_gdelt_doc_person_offline(self):
+        cand = {
+            "id": "wl-gdelt-jensen-huang",
+            "name": "Jensen Huang (GDELT DOC)",
+            "kind": "query",
+            "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%22Jensen+Huang%22&mode=artlist&format=json&maxrecords=25",
+            "parser": "gdelt_doc",
+        }
+        mock_fetch = make_mock_fetch({
+            "https://api.gdeltproject.org/robots.txt": (200, SAMPLE_ROBOTS_TXT_ALLOW, "text/plain"),
+            "https://api.gdeltproject.org/api/v2/doc/doc": (200, SAMPLE_GDELT_DOC, "application/json"),
+        })
+        record = collect_candidate(cand, fetch_fn=mock_fetch)
+        self.assertEqual(record["http_status"], 200)
+        self.assertIsNone(record["error"])
+        self.assertEqual(record["item_count"], 1)
+        self.assertEqual(record["numbers"]["article_count"], 1)
 
 
 
