@@ -55,15 +55,25 @@
 </header>
 
 <main class="story-page-container" id="story-root">
-  <!-- Server-rendered fallback content. Replaced by story-page.js if JavaScript is enabled. -->
-  <article class="story-article" data-id="_sample">
+  <article class="story-article" data-id="_sample" aria-labelledby="story-modal-title">
     <header class="story-header">
       <div class="story-meta-row">
         <div class="story-pub-info">
-          <span class="story-pub-name">TechCrunch</span>
+          <a class="story-pub-name-link" href="https://techcrunch.com/2026/10/05/google-freezes-open-source-bug-bounty-program/" target="_blank" rel="noopener noreferrer" title="Đọc bài viết gốc tại TechCrunch AI">
+            TechCrunch AI
+            <span class="story-ext-arrow" aria-hidden="true">↗</span>
+          </a>
           <span class="story-kind-pill">Sản phẩm</span>
           <span class="story-pub-dot">·</span>
           <time datetime="2026-10-05T03:31:00Z">Hôm qua</time>
+        </div>
+        <div class="story-header-actions">
+          <button class="doc-icon-btn" id="story-act-save" type="button" aria-label="Lưu bài viết" title="Lưu bài viết (phím S)">
+            <svg class="i" aria-hidden="true"><use href="#i-bookmark"/></svg>
+          </button>
+          <button class="doc-icon-btn" id="story-act-share" type="button" aria-label="Sao chép liên kết" title="Sao chép liên kết">
+            <svg class="i" aria-hidden="true"><use href="#i-link"/></svg>
+          </button>
         </div>
       </div>
       <h1 class="story-headline" id="story-modal-title">Google đóng băng chương trình giải thưởng lỗi mã nguồn mở của mình do 'sự gia tăng đáng kể' trong các bài đăng AI</h1>
@@ -73,32 +83,78 @@
           <span class="orig-text" lang="en">Google freezes open source bug bounty program due to 'significant rise' in AI submissions</span>
         </p>
       </div>
-    </header>
-    <section class="story-keypoints-box" aria-label="Ý chính của câu chuyện">
-      <div class="story-section-head">
-        <div>
-          <h2 class="story-section-h2">Ý chính của câu chuyện</h2>
-          <p class="story-section-sub">Tóm tắt bởi AI từ bài viết gốc của TechCrunch</p>
-        </div>
-        <span class="story-section-badge">3 điểm mấu chốt</span>
+      <div class="story-header-cta">
+        <a class="story-origin-cta" href="https://techcrunch.com/2026/10/05/google-freezes-open-source-bug-bounty-program/" target="_blank" rel="noopener noreferrer">
+          <span>Đọc bài gốc tại TechCrunch AI</span>
+          <span class="story-cta-arrow" aria-hidden="true">↗</span>
+        </a>
       </div>
-      <ol class="story-points-list">
-        <li class="story-point-item"><span class="story-point-num">1</span><span class="story-point-text">Google đã tạm dừng chương trình trao thưởng tìm lỗi nguồn mở (bug bounty) do sự gia tăng đột biến của các báo cáo rác từ AI.</span></li>
-        <li class="story-point-item"><span class="story-point-num">2</span><span class="story-point-text">Đội ngũ kỹ thuật bị quá tải bởi hàng loạt báo cáo tự động không chỉ ra được lỗ hổng thực tế có thể khai thác.</span></li>
-        <li class="story-point-item"><span class="story-point-num">3</span><span class="story-point-text">Chương trình sẽ được tái cấu trúc với các quy chuẩn thẩm định mới trước khi mở lại cho cộng đồng bảo mật.</span></li>
-      </ol>
-    </section>
+    </header>
+
+    <div class="story-body-grid">
+      <div class="story-col-main">
+        <section class="story-keypoints-box" aria-label="Ý chính của câu chuyện">
+          <div class="story-section-head">
+            <div>
+              <h2 class="story-section-h2">Ý chính của câu chuyện</h2>
+              <p class="story-section-sub">Tóm tắt bởi AI từ bài viết gốc của TechCrunch AI</p>
+            </div>
+          </div>
+          <ol class="story-points-list">
+            <li class="story-point-item"><span class="story-point-num">1</span><span class="story-point-text">Google đã tạm dừng chương trình trao thưởng tìm lỗi nguồn mở (bug bounty) do sự gia tăng đột biến của các báo cáo rác từ AI.</span></li>
+            <li class="story-point-item"><span class="story-point-num">2</span><span class="story-point-text">Đội ngũ kỹ thuật bị quá tải bởi hàng loạt báo cáo tự động không chỉ ra được lỗ hổng thực tế có thể khai thác.</span></li>
+            <li class="story-point-item"><span class="story-point-num">3</span><span class="story-point-text">Chương trình sẽ được tái cấu trúc với các quy chuẩn thẩm định mới trước khi mở lại cho cộng đồng bảo mật.</span></li>
+          </ol>
+          <p class="story-points-disclosure">ai-radar tóm tắt từ dữ liệu gốc để bạn đọc nhanh dưới 1 phút. Bản quyền thuộc về nhà xuất bản.</p>
+        </section>
+      </div>
+
+      <div class="story-col-aside">
+        <figure class="story-media">
+          <img class="story-media-img" src="https://techcrunch.com/wp-content/uploads/2026/05/ai-agents-GettyImages-2229880232.jpg?resize=1200,675" alt="Google đóng băng chương trình giải thưởng lỗi mã nguồn mở của mình do 'sự gia tăng đáng kể' trong các bài đăng AI" loading="eager" decoding="async">
+          <figcaption class="story-media-caption">
+            <span>Ảnh từ bài viết gốc</span>
+            <span class="story-pub-name">TechCrunch AI</span>
+          </figcaption>
+        </figure>
+        <aside class="story-evidence-box" aria-label="Vì sao được chọn">
+          <h2 class="story-evidence-title">Vì sao được chọn</h2>
+          <dl class="story-evidence-list">
+            <div class="story-evidence-row">
+              <dt class="story-evidence-label">Điểm đáng đọc</dt>
+              <dd class="story-evidence-val num">18,9</dd>
+            </div>
+            <div class="story-evidence-row">
+              <dt class="story-evidence-label">Nhà xuất bản</dt>
+              <dd class="story-evidence-val num">2 nguồn</dd>
+            </div>
+            <div class="story-evidence-row">
+              <dt class="story-evidence-label">Thảo luận cộng đồng</dt>
+              <dd class="story-evidence-val">
+                <a class="story-evidence-link" href="https://news.ycombinator.com/item?id=49968105" target="_blank" rel="noopener noreferrer">182 điểm · 64 bình luận <span aria-hidden="true">↗</span></a>
+              </dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+
     <section class="story-origin-gateway" aria-label="Chuyển đến bài viết gốc">
       <div class="story-origin-info">
         <span class="story-origin-eyebrow">Toàn văn bài viết</span>
-        <h3 class="story-origin-title">Đọc bài viết đầy đủ trên TechCrunch</h3>
+        <h3 class="story-origin-title">Đọc bài viết đầy đủ trên TechCrunch AI</h3>
         <p class="story-origin-desc">ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Đọc bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.</p>
       </div>
-      <a class="btn primary story-origin-btn" href="https://techcrunch.com/2026/10/05/google-freezes-open-source-bug-bounty-program/" target="_blank" rel="noopener noreferrer">
+      <a class="btn primary story-origin-btn" href="https://techcrunch.com/2026/10/05/google-freezes-open-source-bug-bounty-program/" target="_blank" rel="noopener noreferrer" id="story-open-origin-btn">
         <span>Mở bài viết gốc</span>
         <svg class="i" aria-hidden="true"><use href="#i-out"/></svg>
       </a>
     </section>
+
+    <footer class="story-footer">
+      <a class="story-footer-link" href="../../index.html">← Quay lại dòng tin chính</a>
+      <a class="story-footer-link" href="#story-root">Lên đầu bài viết ↑</a>
+    </footer>
   </article>
 </main>
 
@@ -114,6 +170,20 @@
   "kind": "product",
   "time_basis": "published",
   "source": "techcrunch-ai",
+  "sources": [
+    {
+      "id": "techcrunch-ai",
+      "name": "TechCrunch AI",
+      "publisher": "TechCrunch",
+      "lab": ""
+    },
+    {
+      "id": "tomshardware",
+      "name": "Tom's Hardware",
+      "publisher": "Tom's Hardware",
+      "lab": ""
+    }
+  ],
   "coverage": [
     {
       "id": "tc-1",

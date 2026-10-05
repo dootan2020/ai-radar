@@ -1,5 +1,5 @@
 /* ai·radar · site/story.css
-   Styles for the Story Modal and Static Story Page.
+   Styles for the Story Modal and Static Story Page (Round 2 Polish).
    Synchronized with Bento Keynote design language and tokens.css.
    Respects 4pt spacing scale, 65ch reading measure, and dark mode tokens.
 */
@@ -59,12 +59,12 @@ dialog.story-dialog::backdrop {
   }
 
   .story-dialog-scroller {
-    width: min(880px, calc(100vw - var(--space-48)));
+    width: min(940px, calc(100vw - var(--space-48)));
     max-height: min(90vh, 1000px);
     margin: auto;
     border-radius: var(--tile-radius);
     border: 1px solid var(--color-hair);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.08);
     animation: storyModalIn var(--duration-250) var(--ease-flow);
   }
 }
@@ -124,16 +124,16 @@ dialog.story-dialog::backdrop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 52px;
-  padding: var(--space-8) var(--space-20);
+  min-height: 56px;
+  padding: var(--space-8) var(--space-24);
   background: var(--color-canvas);
   border-bottom: 1px solid var(--color-hair);
 }
 
 @media (max-width: 767px) {
   .story-dialog-bar {
-    min-height: 48px;
-    padding: var(--space-6) var(--space-12);
+    min-height: 52px;
+    padding: var(--space-8) var(--space-16);
   }
 }
 
@@ -204,10 +204,10 @@ dialog.story-dialog::backdrop {
 .doc-icon-btn {
   display: inline-grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   padding: 0;
   border-radius: var(--radius-full);
   border: 1px solid var(--color-hair);
@@ -248,18 +248,26 @@ dialog.story-dialog::backdrop {
    3. ARTICLE CONTENT CONTAINER
    ========================================================================== */
 
-.story-dialog-body,
-.story-page-container {
-  max-width: 760px;
+.story-dialog-body {
+  max-width: 920px;
   margin: 0 auto;
-  padding: var(--space-24) var(--space-20) var(--space-48);
+  padding: var(--space-28) var(--space-28) var(--space-48);
   width: 100%;
+  box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
+.story-page-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-32) var(--space-24) var(--space-64);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
   .story-dialog-body,
   .story-page-container {
-    padding: var(--space-32) var(--space-32) var(--space-64);
+    padding: var(--space-16) var(--space-16) var(--space-48);
   }
 }
 
@@ -269,6 +277,10 @@ dialog.story-dialog::backdrop {
 }
 
 /* Header & Publisher Info */
+.story-header {
+  margin-bottom: var(--space-20);
+}
+
 .story-meta-row {
   display: flex;
   align-items: center;
@@ -291,9 +303,30 @@ dialog.story-dialog::backdrop {
   flex-shrink: 0;
 }
 
-.story-pub-name {
+.story-pub-name,
+.story-pub-name-link {
   font-weight: var(--weight-semibold);
   color: var(--color-ink);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  transition: color var(--duration-150) var(--ease-flow);
+}
+
+.story-pub-name-link:hover {
+  color: var(--color-accent);
+}
+
+.story-ext-arrow {
+  color: var(--color-ink-3);
+  font-size: var(--size-12);
+  transition: transform var(--duration-150) var(--ease-flow), color var(--duration-150) var(--ease-flow);
+}
+
+.story-pub-name-link:hover .story-ext-arrow {
+  color: var(--color-accent);
+  transform: translate(1px, -1px);
 }
 
 .story-kind-pill {
@@ -324,7 +357,7 @@ dialog.story-dialog::backdrop {
 
 /* Headline */
 .story-headline {
-  font-size: clamp(var(--size-24), 3.2vw, var(--size-36));
+  font-size: clamp(var(--size-28), 2.8vw, var(--size-40));
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-tight);
@@ -334,28 +367,145 @@ dialog.story-dialog::backdrop {
   margin: 0 0 var(--space-12) 0;
 }
 
+.story-page-container .story-headline {
+  font-size: clamp(var(--size-32), 3.6vw, var(--size-56));
+}
+
+@media (max-width: 767px) {
+  .story-headline,
+  .story-page-container .story-headline {
+    font-size: clamp(var(--size-28), 6vw, var(--size-32));
+    line-height: 1.15;
+  }
+}
+
 /* Translated line */
 .story-orig-block {
-  margin-bottom: var(--space-20);
+  margin-bottom: var(--space-16);
 }
 
 .story-orig-block .card-orig {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-8);
   margin: 0;
+  font-size: var(--text-small);
+  color: var(--color-ink-2);
+  line-height: var(--leading-snug);
+}
+
+.story-orig-block .card-orig .orig-text {
+  overflow-wrap: anywhere;
+}
+
+/* Header Primary CTA */
+.story-header-cta {
+  margin: var(--space-12) 0 var(--space-8);
+}
+
+.story-origin-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-height: 38px;
+  padding: 0 var(--space-16);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  border: 1px solid var(--color-hair);
+  color: var(--color-ink);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: transform var(--duration-150) var(--ease-flow),
+              background var(--duration-150) var(--ease-flow),
+              border-color var(--duration-150) var(--ease-flow);
+}
+
+.story-origin-cta:hover {
+  background: var(--color-fill);
+  border-color: var(--color-ink-sub);
+  transform: translateY(-1px);
+}
+
+.story-origin-cta:active {
+  transform: translateY(1px);
+}
+
+.story-origin-cta:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.story-cta-arrow {
+  color: var(--color-accent);
+  font-size: var(--size-14);
+  line-height: 1;
+}
+
+/* ==========================================================================
+   4. TWO-COLUMN KEYNOTE BODY GRID (MAIN POINTS + ASIDE)
+   ========================================================================== */
+
+.story-body-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.85fr);
+  gap: var(--space-28);
+  align-items: start;
+  margin: var(--space-20) 0;
+}
+
+.story-col-main {
+  min-width: 0;
+}
+
+.story-col-aside {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+@media (max-width: 767px) {
+  .story-body-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    margin: var(--space-16) 0;
+  }
+
+  .story-col-aside {
+    display: contents;
+  }
+
+  .story-media {
+    order: 1;
+    margin-bottom: var(--space-4);
+  }
+
+  .story-col-main {
+    order: 2;
+  }
+
+  .story-evidence-box {
+    order: 3;
+  }
 }
 
 /* Media Figure */
 .story-media {
-  margin: var(--space-20) 0 var(--space-28);
+  margin: 0;
   overflow: hidden;
   border-radius: var(--radius-16);
   background: var(--color-fill);
-  border: 1px solid var(--color-hair);
+  border: none;
+  box-shadow: var(--shadow-lift);
 }
 
 .story-media-img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
 }
 
@@ -363,36 +513,40 @@ dialog.story-dialog::backdrop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-8) var(--space-16);
+  padding: var(--space-8) var(--space-14);
   font-size: var(--text-micro);
-  color: var(--color-ink-2);
+  color: var(--color-ink-3);
   background: var(--color-surface);
   border-top: 1px solid var(--color-hair);
 }
 
 /* ==========================================================================
-   4. EVIDENCE BLOCK ("VÌ SAO ĐƯỢC CHỌN" - DIRECTION B)
+   5. KEY POINTS & SUMMARY (MAIN CONTENT)
    ========================================================================== */
 
-.story-evidence-box {
-  margin: var(--space-20) 0 var(--space-24);
-  padding: var(--space-20) var(--space-24);
-  border-radius: var(--radius-16);
+.story-keypoints-box,
+.story-summary-box {
   background: var(--color-surface);
-  border: 1px solid var(--color-hair);
+  border-radius: var(--radius-16);
+  padding: var(--space-24);
+  box-shadow: var(--shadow-lift);
+  border: none;
+}
+
+@media (max-width: 767px) {
+  .story-keypoints-box,
+  .story-summary-box {
+    padding: var(--space-20);
+  }
 }
 
 .story-section-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-12);
   margin-bottom: var(--space-16);
 }
 
 .story-section-h2 {
-  font-size: var(--size-18);
-  font-weight: var(--weight-semibold);
+  font-size: var(--size-21);
+  font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-snug);
   color: var(--color-ink);
@@ -402,111 +556,13 @@ dialog.story-dialog::backdrop {
 .story-section-sub {
   font-size: var(--text-small);
   color: var(--color-ink-2);
-  margin: 2px 0 0;
-}
-
-.story-section-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px var(--space-10);
-  border-radius: var(--radius-full);
-  background: var(--color-fill);
-  color: var(--color-ink-2);
-  font-size: var(--text-micro);
-  font-weight: var(--weight-semibold);
-  white-space: nowrap;
-}
-
-.story-evidence-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: var(--space-16);
-  padding: var(--space-14) 0;
-  margin: 0;
-  border-top: 1px solid var(--color-hair);
-  border-bottom: 1px solid var(--color-hair);
-}
-
-.story-evidence-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.story-evidence-label {
-  font-size: var(--text-micro);
-  font-weight: var(--weight-medium);
-  color: var(--color-ink-2);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.story-evidence-val {
-  font-size: var(--size-21);
-  font-weight: var(--weight-bold);
-  color: var(--color-ink);
-  margin: 0;
-}
-
-.story-evidence-val.num {
-  font-variant-numeric: tabular-nums;
-}
-
-.story-evidence-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-4);
-  font-size: var(--text-small);
-  font-weight: var(--weight-semibold);
-  color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color var(--duration-150) var(--ease-flow);
-}
-
-.story-evidence-link:hover {
-  color: var(--color-ink);
-}
-
-.story-why-row {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--space-8);
-  margin-top: var(--space-14);
-  font-size: var(--text-small);
-  line-height: var(--leading-body);
-  color: var(--color-ink-2);
-}
-
-.story-why-tag {
-  font-weight: var(--weight-semibold);
-  color: var(--color-ink);
-  flex-shrink: 0;
-}
-
-.story-why-text b.num {
-  font-weight: var(--weight-semibold);
-  color: var(--color-ink);
-}
-
-/* ==========================================================================
-   5. KEY POINTS & SUMMARY BOX (DIRECTION A)
-   ========================================================================== */
-
-.story-keypoints-box,
-.story-summary-box {
-  margin: var(--space-20) 0 var(--space-24);
-  padding: var(--space-24);
-  border-radius: var(--radius-16);
-  background: var(--color-surface);
-  border: 1px solid var(--color-hair);
+  margin: var(--space-4) 0 0;
 }
 
 .story-points-list {
   display: grid;
   gap: var(--space-16);
-  margin: var(--space-20) 0 0;
+  margin: var(--space-16) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -514,7 +570,7 @@ dialog.story-dialog::backdrop {
 .story-point-item {
   display: grid;
   grid-template-columns: 28px 1fr;
-  gap: var(--space-16);
+  gap: var(--space-14);
   align-items: baseline;
 }
 
@@ -530,20 +586,20 @@ dialog.story-dialog::backdrop {
   font-size: var(--text-small);
   font-weight: var(--weight-bold);
   font-variant-numeric: tabular-nums;
-  border: 1px solid var(--color-hair);
+  border: none;
 }
 
 .story-point-text {
-  font-size: var(--text-title);
-  line-height: 1.55;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
   color: var(--color-ink);
   text-wrap: pretty;
   overflow-wrap: anywhere;
 }
 
 .story-summary-text {
-  font-size: var(--text-title);
-  line-height: 1.55;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
   color: var(--color-ink);
   margin: var(--space-16) 0 0;
   text-wrap: pretty;
@@ -570,19 +626,108 @@ dialog.story-dialog::backdrop {
 }
 
 /* ==========================================================================
-   6. COVERAGE LIST ("CÁC NGUỒN CÙNG ĐƯA TIN")
+   6. EVIDENCE BLOCK ("VÌ SAO ĐƯỢC CHỌN" - QUIET EDITORIAL ASIDE)
+   ========================================================================== */
+
+.story-evidence-box {
+  background: var(--color-surface);
+  border-radius: var(--radius-16);
+  padding: var(--space-20);
+  box-shadow: var(--shadow-lift);
+  border: none;
+}
+
+.story-evidence-title {
+  font-size: var(--size-18);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-snug);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-12) 0;
+}
+
+.story-evidence-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+}
+
+.story-evidence-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-12);
+  align-items: baseline;
+  padding: var(--space-10) 0;
+  border-top: 1px solid var(--color-hair);
+}
+
+.story-evidence-label {
+  font-size: var(--text-small);
+  font-weight: var(--weight-regular);
+  color: var(--color-ink-2);
+  margin: 0;
+}
+
+.story-evidence-val {
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+  margin: 0;
+  text-align: right;
+}
+
+.story-evidence-val.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.story-evidence-link {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: var(--weight-semibold);
+  transition: color var(--duration-150) var(--ease-flow);
+}
+
+.story-evidence-link:hover {
+  color: var(--color-ink);
+}
+
+
+
+/* ==========================================================================
+   7. COVERAGE LIST ("CÁC NGUỒN CÙNG ĐƯA TIN")
    ========================================================================== */
 
 .story-coverage-wrap {
   margin: var(--space-24) 0;
 }
 
+.story-coverage-wrap .story-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-12);
+}
+
+.story-coverage-count {
+  font-size: var(--text-small);
+  color: var(--color-ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
 .story-coverage-list {
   display: grid;
   gap: var(--space-10);
-  margin: var(--space-16) 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
+}
+
+@media (min-width: 768px) {
+  .story-coverage-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-12);
+  }
 }
 
 .story-cov-item {
@@ -590,19 +735,19 @@ dialog.story-dialog::backdrop {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-16);
-  padding: var(--space-14) var(--space-18);
+  padding: var(--space-14) var(--space-16);
   border-radius: var(--radius-12);
   background: var(--color-surface);
-  border: 1px solid var(--color-hair);
+  box-shadow: var(--shadow-lift);
+  border: none;
   text-decoration: none;
   transition: background var(--duration-150) var(--ease-flow),
               transform var(--duration-150) var(--ease-flow),
-              border-color var(--duration-150) var(--ease-flow);
+              box-shadow var(--duration-150) var(--ease-flow);
 }
 
 .story-cov-item:hover {
   background: var(--color-fill);
-  border-color: var(--color-ink-3);
   transform: translateY(-1px);
 }
 
@@ -630,7 +775,7 @@ dialog.story-dialog::backdrop {
 }
 
 .story-cov-title {
-  font-size: var(--text-body);
+  font-size: var(--text-small);
   font-weight: var(--weight-medium);
   color: var(--color-ink);
   line-height: var(--leading-snug);
@@ -651,18 +796,19 @@ dialog.story-dialog::backdrop {
 }
 
 /* ==========================================================================
-   7. PROMINENT ORIGINAL ARTICLE GATEWAY
+   8. PROMINENT ORIGINAL ARTICLE GATEWAY
    ========================================================================== */
 
 .story-origin-gateway {
   display: flex;
   flex-direction: column;
   gap: var(--space-20);
-  margin: var(--space-28) 0;
+  margin: var(--space-24) 0;
   padding: var(--space-24) var(--space-28);
   border-radius: var(--radius-16);
   background: var(--color-surface);
-  border: 1px solid var(--color-hair);
+  box-shadow: var(--shadow-lift);
+  border: none;
 }
 
 @media (min-width: 640px) {
@@ -715,11 +861,26 @@ dialog.story-dialog::backdrop {
   border-radius: var(--radius-full);
   font-size: var(--text-small);
   font-weight: var(--weight-semibold);
+  background: var(--color-ink);
+  color: var(--color-canvas);
+  border: none;
+  text-decoration: none;
   flex-shrink: 0;
+  transition: transform var(--duration-150) var(--ease-flow),
+              opacity var(--duration-150) var(--ease-flow);
+}
+
+.story-origin-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+.story-origin-btn:active {
+  transform: translateY(1px);
 }
 
 /* ==========================================================================
-   8. FOOTER NAVIGATION
+   9. FOOTER NAVIGATION
    ========================================================================== */
 
 .story-footer {

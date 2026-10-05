@@ -117,10 +117,17 @@ async function boot() {
 
   if (!story || !story.id) return;
 
-  // Build basic source map from story coverage
+  // Build source map from story's own source records and coverage
   const srcMap = new Map();
+  const sourceRecords = story.sources || story.source_records || [];
+  if (Array.isArray(sourceRecords)) {
+    sourceRecords.forEach(s => {
+      if (s && s.id) srcMap.set(s.id, s);
+    });
+  }
+
   (story.coverage || []).forEach(c => {
-    if (c && c.source) {
+    if (c && c.source && !srcMap.has(c.source)) {
       srcMap.set(c.source, {
         id: c.source,
         publisher: c.publisher || c.source,
@@ -129,17 +136,6 @@ async function boot() {
       });
     }
   });
-
-  // Try fetching snapshot sources to enrich icons/names if available
-  try {
-    const resp = await fetch('../../data/radar-ui.json');
-    if (resp.ok) {
-      const data = await resp.json();
-      (data.sources || []).forEach(s => {
-        if (s && s.id) srcMap.set(s.id, s);
-      });
-    }
-  } catch {}
 
   const savedList = store.get(K.saved, []);
   const isSaved = savedList.some(x => x && x.key === story.id);

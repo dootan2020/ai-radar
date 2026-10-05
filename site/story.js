@@ -128,7 +128,27 @@ export function substantiveReasons(st, srcMap = new Map()) {
   return parts;
 }
 
-/* Render "Vì sao được chọn" evidence block (Direction B) */
+const LAB_NAME = {
+  openai: 'OpenAI', anthropic: 'Anthropic', google: 'Google', meta: 'Meta', microsoft: 'Microsoft',
+  nvidia: 'NVIDIA', amazon: 'Amazon', mistral: 'Mistral', xai: 'xAI', deepseek: 'DeepSeek', qwen: 'Qwen', huggingface: 'Hugging Face'
+};
+
+export function firstHandOf(st, srcMap = new Map()) {
+  const own = (st.coverage || []).find(c => {
+    if (!c) return false;
+    const s = srcMap.get(c.source) || {};
+    return !!(c.lab || s.lab);
+  });
+  if (own) {
+    const lab = own.lab || (srcMap.get(own.source) || {}).lab || '';
+    const name = LAB_NAME[lab] || lab;
+    return { label: `${name} công bố`, why: `${name} công bố trực tiếp` };
+  }
+  if (st.kind === 'paper') return { label: 'Bài báo gốc', why: 'Bài báo gốc của nhóm nghiên cứu' };
+  return null;
+}
+
+/* Render "Vì sao được chọn" evidence block (Direction B as a quiet editorial aside) */
 export function renderEvidenceBlockHTML(story, srcMap = new Map()) {
   const worth = worthOfStory(story);
   const scoreFormatted = Number.isFinite(worth.score) ? nf1.format(worth.score) : '10.0';
@@ -136,48 +156,45 @@ export function renderEvidenceBlockHTML(story, srcMap = new Map()) {
   const pubCount = uniquePublishers(cov);
   const disc = discussionMetrics(cov);
 
-  // Substantive reason line
-  const reasons = substantiveReasons(story, srcMap);
-  let whyLine = story.worth_why || '';
-  if (!whyLine && reasons.length) {
-    const ageText = story.published_at ? ` · đăng ${ago(story.published_at).replace(/^Hôm qua/, 'hôm qua')}` : '';
-    whyLine = `${reasons.join(' · ')}${ageText}`;
+  const rows = [
+    `<div class="story-evidence-row">
+      <dt class="story-evidence-label">Điểm đáng đọc</dt>
+      <dd class="story-evidence-val num">${scoreFormatted}</dd>
+    </div>`,
+    `<div class="story-evidence-row">
+      <dt class="story-evidence-label">Nhà xuất bản</dt>
+      <dd class="story-evidence-val num">${pubCount} nguồn</dd>
+    </div>`
+  ];
+
+  if (disc) {
+    rows.push(`
+      <div class="story-evidence-row">
+        <dt class="story-evidence-label">Thảo luận cộng đồng</dt>
+        <dd class="story-evidence-val">
+          ${disc.url ? `<a class="story-evidence-link" href="${esc(safe(disc.url))}" target="_blank" rel="noopener noreferrer">${esc(disc.text)} <span aria-hidden="true">↗</span></a>` : `<span class="num">${esc(disc.text)}</span>`}
+        </dd>
+      </div>
+    `);
+  }
+
+  const fh = firstHandOf(story, srcMap);
+  if (fh && fh.why) {
+    rows.push(`
+      <div class="story-evidence-row">
+        <dt class="story-evidence-label">Công bố gốc</dt>
+        <dd class="story-evidence-val">${esc(fh.why)}</dd>
+      </div>
+    `);
   }
 
   return `
-    <section class="story-evidence-box" aria-label="Vì sao được chọn">
-      <div class="story-section-head">
-        <div>
-          <h2 class="story-section-h2">Vì sao được chọn</h2>
-          <p class="story-section-sub">Số đo thực tế xác nhận độ nóng và giá trị thông tin</p>
-        </div>
-        <span class="story-section-badge">Tín hiệu thật</span>
-      </div>
-      <dl class="story-evidence-grid">
-        <div class="story-evidence-item">
-          <dt class="story-evidence-label">Điểm đáng đọc</dt>
-          <dd class="story-evidence-val num">${scoreFormatted}</dd>
-        </div>
-        <div class="story-evidence-item">
-          <dt class="story-evidence-label">Nhà xuất bản</dt>
-          <dd class="story-evidence-val num">${pubCount} nguồn</dd>
-        </div>
-        ${disc ? `
-          <div class="story-evidence-item">
-            <dt class="story-evidence-label">Thảo luận cộng đồng</dt>
-            <dd class="story-evidence-val">
-              ${disc.url ? `<a class="story-evidence-link" href="${esc(safe(disc.url))}" target="_blank" rel="noopener noreferrer">${esc(disc.text)} <span aria-hidden="true">↗</span></a>` : `<span class="num">${esc(disc.text)}</span>`}
-            </dd>
-          </div>
-        ` : ''}
+    <aside class="story-evidence-box" aria-label="Vì sao được chọn">
+      <h2 class="story-evidence-title">Vì sao được chọn</h2>
+      <dl class="story-evidence-list">
+        ${rows.join('')}
       </dl>
-      ${whyLine ? `
-        <div class="story-why-row">
-          <span class="story-why-tag">Điểm nổi bật:</span>
-          <span class="story-why-text">${whyLine}</span>
-        </div>
-      ` : ''}
-    </section>
+    </aside>
   `;
 }
 
@@ -202,7 +219,6 @@ export function renderKeyPointsHTML(keyPoints, publisherName = '') {
           <h2 class="story-section-h2">Ý chính của câu chuyện</h2>
           <p class="story-section-sub">${sub}</p>
         </div>
-        <span class="story-section-badge">${keyPoints.length} điểm mấu chốt</span>
       </div>
       <ol class="story-points-list">
         ${items}
@@ -236,7 +252,6 @@ export function renderFallbackBodyHTML(story, publisherName = '') {
           <h2 class="story-section-h2">Tóm lược bài viết</h2>
           <p class="story-section-sub">${sub}</p>
         </div>
-        <span class="story-section-badge">Bản tóm lược</span>
       </div>
       <p class="story-summary-text">${esc(sumText)}</p>
       ${isTranslated ? `
@@ -285,7 +300,7 @@ export function renderCoverageListHTML(coverage, srcMap = new Map()) {
     <section class="story-coverage-wrap" aria-label="Các nguồn cùng đưa tin">
       <div class="story-section-head">
         <h2 class="story-section-h2">Các nguồn cùng đưa tin</h2>
-        <span class="story-section-badge">${uniq.length} bài viết liên quan</span>
+        <span class="story-coverage-count">${uniq.length} bài viết liên quan</span>
       </div>
       <ul class="story-coverage-list">
         ${rows}
@@ -325,7 +340,9 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
   const kindText = KIND[story.kind] || 'Bài viết';
   const hasKp = Array.isArray(story.key_points) && story.key_points.length > 0;
   const isSaved = !!options.isSaved;
+  const isModal = !!options.isModal;
   const isPage = !!options.isPage;
+  const origUrl = story.url || (story.coverage && story.coverage[0] && story.coverage[0].url) || '#';
 
   // Media image block
   let mediaHTML = '';
@@ -360,19 +377,24 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
         <div class="story-meta-row">
           <div class="story-pub-info">
             <span class="src-av" aria-hidden="true">${avatar(face, 'sm')}</span>
-            <span class="story-pub-name">${esc(name)}</span>
+            <a class="story-pub-name-link" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer" title="Đọc bài viết gốc tại ${esc(name)}">
+              ${esc(name)}
+              <span class="story-ext-arrow" aria-hidden="true">↗</span>
+            </a>
             <span class="story-kind-pill">${esc(kindText)}</span>
             <span class="story-pub-dot">·</span>
             <time datetime="${esc(story.published_at || '')}">${story.published_at ? esc(ago(story.published_at)) : ''}</time>
           </div>
-          <div class="story-header-actions">
-            <button class="story-icon-btn ${isSaved ? 'is-saved' : ''}" id="story-act-save" type="button" aria-label="${isSaved ? 'Bỏ lưu bài viết' : 'Lưu bài viết'}" title="${isSaved ? 'Bỏ lưu' : 'Lưu đọc sau (phím S)'}">
-              <svg class="i" aria-hidden="true"><use href="#i-bookmark"/></svg>
-            </button>
-            <button class="story-icon-btn" id="story-act-share" type="button" aria-label="Sao chép liên kết" title="Sao chép liên kết">
-              <svg class="i" aria-hidden="true"><use href="#i-link"/></svg>
-            </button>
-          </div>
+          ${!isModal ? `
+            <div class="story-header-actions">
+              <button class="doc-icon-btn ${isSaved ? 'is-saved' : ''}" id="story-act-save" type="button" aria-label="${isSaved ? 'Bỏ lưu bài viết' : 'Lưu bài viết'}" title="${isSaved ? 'Bỏ lưu' : 'Lưu đọc sau (phím S)'}">
+                <svg class="i" aria-hidden="true"><use href="#i-bookmark"/></svg>
+              </button>
+              <button class="doc-icon-btn" id="story-act-share" type="button" aria-label="Sao chép liên kết" title="Sao chép liên kết">
+                <svg class="i" aria-hidden="true"><use href="#i-link"/></svg>
+              </button>
+            </div>
+          ` : ''}
         </div>
 
         <h1 class="story-headline" id="story-modal-title">${esc(titleVi)}</h1>
@@ -386,13 +408,24 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
             </p>
           </div>
         ` : ''}
+
+        <div class="story-header-cta">
+          <a class="story-origin-cta" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer">
+            <span>Đọc bài gốc tại ${esc(name)}</span>
+            <span class="story-cta-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
       </header>
 
-      ${mediaHTML}
-
-      ${renderEvidenceBlockHTML(story, srcMap)}
-
-      ${hasKp ? renderKeyPointsHTML(story.key_points, name) : renderFallbackBodyHTML(story, name)}
+      <div class="story-body-grid">
+        <div class="story-col-main">
+          ${hasKp ? renderKeyPointsHTML(story.key_points, name) : renderFallbackBodyHTML(story, name)}
+        </div>
+        <div class="story-col-aside">
+          ${mediaHTML}
+          ${renderEvidenceBlockHTML(story, srcMap)}
+        </div>
+      </div>
 
       ${renderCoverageListHTML(story.coverage, srcMap)}
 
