@@ -231,12 +231,16 @@ def calculate_worth(story, now_dt, sources_map=None):
     covs = uniq_coverage(story.get("coverage"), sources_map)
     n = len(covs)
 
-    pub_dt = instant(story.get("published_at"))
+    coverage_times = [instant(c.get("published_at")) for c in story.get("coverage") or [] if isinstance(c, dict)]
+    coverage_times = [dt for dt in coverage_times if dt]
+    pub_dt = max(coverage_times, default=instant(story.get("published_at")))
     if now_dt and pub_dt:
         age_h = max(0.0, (now_dt - pub_dt).total_seconds() / 3600.0)
-        fresh_score = WORTH["freshness"] * (0.5 ** (age_h / WORTH["halfLifeH"]))
+        recency = 0.5 ** (age_h / WORTH["halfLifeH"])
+        fresh_score = WORTH["freshness"]
     else:
         age_h = None
+        recency = 1.0
         fresh_score = 0.0
 
     fh = first_hand_of(story, sources_map)
@@ -245,6 +249,9 @@ def calculate_worth(story, now_dt, sources_map=None):
     brd_score = WORTH["breadth"] * min(1.0, max(0.0, float(n - 1)) / (WORTH["breadthFull"] - 1.0))
 
     mult = WORTH["firstHand"] if fh else 1.0
+    att_score *= recency
+    brd_score *= recency
+    fresh_score *= recency
     total_score = (att_score + brd_score + fresh_score) * mult
 
     # Boundary: No invented data. Only include measured parts in parts dictionary.

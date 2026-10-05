@@ -1,6 +1,10 @@
 """Unit tests for worth scoring, score parts, first-hand detection, and why-line."""
 
 from datetime import datetime, timezone, timedelta
+import json
+from pathlib import Path
+import shutil
+import subprocess
 import unittest
 
 from radar.worth import (
@@ -127,6 +131,60 @@ class WorthScorePartsTests(unittest.TestCase):
         # Freshness 15.0 * 1.3 = 19.5
         self.assertAlmostEqual(res["score"], 19.5, places=1)
         self.assertTrue(res["evidence"])
+
+    def test_old_multi_source_story_ranks_below_fresh_first_hand_story(self):
+        old = {
+            "id": "old-four-source", "published_at": "2026-10-01T02:00:00Z",
+            "coverage": [
+                {"source": f"press-{i}", "publisher": f"pub-{i}", "published_at": "2026-10-01T02:00:00Z"}
+                for i in range(4)
+            ],
+            "hot_score": None, "hot_signals": {"measurement": None},
+        }
+        fresh = {
+            "id": "fresh-first-hand", "published_at": "2026-10-05T12:00:00Z",
+            "coverage": [{"source": "openai-news", "publisher": "openai", "lab": "openai",
+                          "published_at": "2026-10-05T12:00:00Z"}],
+            "hot_score": None, "hot_signals": {"measurement": None},
+        }
+        old_score = calculate_worth(old, datetime(2026, 10, 6, 12, 0, tzinfo=timezone.utc))["score"]
+        fresh_score = calculate_worth(fresh, datetime(2026, 10, 5, 14, 0, tzinfo=timezone.utc))["score"]
+        self.assertLess(old_score, fresh_score)
+
+    def test_new_coverage_resets_recency_even_when_story_first_appeared_days_ago(self):
+        story = {
+            "id": "renewed", "published_at": "2026-10-03T14:00:00Z",
+            "coverage": [{"source": "press-a", "publisher": "press-a", "published_at": "2026-10-03T14:00:00Z"},
+                         {"source": "press-b", "publisher": "press-b", "published_at": "2026-10-05T13:00:00Z"}],
+            "hot_score": None, "hot_signals": {"measurement": None},
+        }
+        res = calculate_worth(story, datetime(2026, 10, 5, 14, 0, tzinfo=timezone.utc))
+        self.assertAlmostEqual(res["parts"]["freshness"], 15 * (0.5 ** (1 / 24)), places=2)
+        self.assertGreater(res["score"], 20)
+
+    @unittest.skipUnless(shutil.which("node"), "Node required for Python/JavaScript worth parity")
+    def test_python_and_javascript_fallback_scores_match(self):
+        story = {
+            "id": "parity", "published_at": "2026-10-03T14:00:00Z", "hot_score": 42,
+            "hot_signals": {"measurement": {"metric": "points"}},
+            "coverage": [{"source": "press-a", "publisher": "press-a", "published_at": "2026-10-03T14:00:00Z"},
+                         {"source": "press-b", "publisher": "press-b", "published_at": "2026-10-05T13:00:00Z"}],
+        }
+        now_dt = datetime(2026, 10, 5, 14, 0, tzinfo=timezone.utc)
+        py = calculate_worth(story, now_dt)
+        module_url = (Path(__file__).resolve().parents[1] / "site" / "worth-score.js").as_uri()
+        script = (
+            f"import {{ fallbackWorth }} from {json.dumps(module_url)};\n"
+            f"const story = {json.dumps(story)};\n"
+            "console.log(JSON.stringify(fallbackWorth(story, Date.parse('2026-10-05T14:00:00Z'), "
+            "Math.max(0, story.hot_score), 2, null)));\n"
+        )
+        result = subprocess.run(["node", "--input-type=module", "-e", script], capture_output=True,
+                                text=True, encoding="utf-8", timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        js = json.loads(result.stdout)
+        self.assertAlmostEqual(py["score"], js["score"], places=2)
+        self.assertEqual(py["parts"], js["parts"])
 
 
 class FirstHandDetectionTests(unittest.TestCase):

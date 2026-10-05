@@ -22,6 +22,7 @@ import { KIND, METRIC } from './words.js';
 import { shown, uniqCoverage } from './titles.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
 import { freshness, freshnessText } from './freshness.js';
+import { WORTH, fallbackWorth } from './worth-score.js';
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/ (as on the
    bento home). The first request matches index.html's preload (same mode, no cache option), so it is reused. */
@@ -356,31 +357,20 @@ const origLine = t => !t.orig ? '' :
    "ĐÁNG ĐỌC": WHAT TO READ FIRST
    Owner, 04/10 21:35: "có một tiêu chí gì đó để người dùng nên xem cái nào? các tin tức ở đây có trọng số chưa?"
    One score per story from four signals the feed already carries. Nothing here is typed in by hand.
-     attention  hot_score (percentile of the story's number within its own source, times freshness; see `ranking`
+     attention  hot_score (percentile of the story's number within its own source; see `ranking`
                 in the feed). Counted only when the story carries a measurement: without one, the feed's hot_score
                 comes from "N nguồn độc lập cùng đưa", which breadth below already counts.
      breadth    independent publishers carrying the same story (uniqCoverage: one entry per publisher).
-     freshness  hours since published_at, measured from the snapshot's generated_at, halving every halfLifeH.
-                Only for stories without a measurement: a measured story's hot_score already decays with age, so
-                adding freshness again would count its age twice.
+     freshness  an additional age signal, halving every halfLifeH from the newest coverage publication time.
+                The whole score also halves over that period, so renewed coverage makes an older story current again.
       firstHand  a lab publishing the story itself (coverage `lab`), or the researchers' own paper (kind 'paper').
-    score = (attention + breadth + freshness) x (firstHand ? WORTH.firstHand : 1)
+    score = (attention + breadth + freshness) x recency x (firstHand ? WORTH.firstHand : 1)
     firstHand multiplies instead of adding, so a lab's routine post with nothing else going for it (most of the
     window's 24 first-hand stories are AWS and NVIDIA tutorials) never outranks a story people are reading.
     THE WEIGHTS ARE A FIRST GUESS (04/10). They will be calibrated on a week of real snapshots: what readers open,
     what the daily edition keeps, what an editor would have chosen (plans/reports/feed-dang-doc-report.md).
     The "Cách chấm" note on the page is written from this object, so the page and the code cannot disagree.
     ========================================================================== */
-const WORTH = {
-  attention: 35, attentionFull: 60,   // points; full at hot_score 60 (the window's top on 04/10 ran from 57 to 69)
-  breadth: 35, breadthFull: 4,        // points; 0 for one publisher, full at 4 independent publishers
-  freshness: 15, halfLifeH: 24,       // points at publication (unmeasured stories); half after 24 h, a quarter after 48 h
-  firstHand: 1.3,                     // multiplier for a first-hand story
-  hotLabel: 20,                       // hot_score from which a card says "Đang bàn nhiều" or "Đang được chú ý"
-  picksMax: 5,                        // "Đáng đọc hôm nay" shows up to 5; fewer only when fewer stories have evidence
-  sameEvent: 0.34,                    // title-word overlap from which two stories count as one event in the block
-};
-
 /* A source's `lab` names who publishes it. Not for this one: a trending list of other people's models, whose lab
    field names the platform (Hugging Face), not the model's author. */
 const NOT_FIRST_HAND = new Set(['hf-trending']);
@@ -417,14 +407,8 @@ function worthOf(st) {
     WORTHS.set(st.id, w);
     return w;
   }
-  const ageH = Math.max(0, (GEN - ms(st.published_at)) / 36e5);
-  const parts = {
-    attention: WORTH.attention * Math.min(1, hot / WORTH.attentionFull),
-    breadth: WORTH.breadth * Math.min(1, Math.max(0, n - 1) / (WORTH.breadthFull - 1)),
-    freshness: WORTH.freshness * Math.pow(0.5, ageH / WORTH.halfLifeH),
-  };
-  const score = (parts.attention + parts.breadth + parts.freshness) * (fh ? WORTH.firstHand : 1);
-  w = { score, parts, hot, n, fh, metric: meas ? meas.metric : null, evidence: !!fh || n >= 2 || hot > 0 };
+  const scored = fallbackWorth(st, GEN, hot, n, fh);
+  w = { ...scored, hot, n, fh, metric: meas ? meas.metric : null, evidence: !!fh || n >= 2 || hot > 0 };
   WORTHS.set(st.id, w);
   return w;
 }
@@ -1429,7 +1413,7 @@ function renderHow() {
     <ul class="how-list">
       <li><b>Độ chú ý</b>, tối đa <span class="num">${W.attention}</span> điểm: điểm nóng của tin, tức thứ hạng con số của tin (điểm Hacker News, sao GitHub…) so với các tin khác cùng nguồn, nhân với độ mới. Điểm nóng từ <span class="num">${W.attentionFull}</span> trở lên được đủ <span class="num">${W.attention}</span>.</li>
       <li><b>Độ lan rộng</b>, tối đa <span class="num">${W.breadth}</span> điểm: mỗi nơi đăng độc lập thêm vào sau nơi đầu tiên được <span class="num">${f1(W.breadth / (W.breadthFull - 1))}</span> điểm, đủ khi có <span class="num">${W.breadthFull}</span> nơi.</li>
-      <li><b>Độ mới</b>: <span class="num">${W.freshness}</span> điểm lúc vừa đăng, còn một nửa sau mỗi <span class="num">${W.halfLifeH}</span> giờ.</li>
+      <li><b>Độ mới</b>: toàn bộ điểm giảm một nửa sau mỗi <span class="num">${W.halfLifeH}</span> giờ tính từ lần đưa tin gần nhất; phần độ mới có tối đa <span class="num">${W.freshness}</span> điểm.</li>
       <li><b>Nguồn gốc</b>: tin do chính phòng nghiên cứu công bố, hoặc bài báo gốc của nhóm nghiên cứu, được nhân <span class="num">${f1(W.firstHand)}</span>.</li>
     </ul>
     <p>Nhãn trên thẻ ghi lý do mạnh nhất. “Đang bàn nhiều” và “Đang được chú ý” là tin có điểm nóng từ <span class="num">${W.hotLabel}</span> trở lên. Tin không có nhãn là tin chưa có tín hiệu nào ngoài giờ đăng. Chỉ tin mang nhãn “Biên tập chọn” là do người chọn.</p>
