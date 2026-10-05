@@ -384,9 +384,13 @@ const pinFirst = (a, b) => (PICKS.has(b.id) ? 1 : 0) - (PICKS.has(a.id) ? 1 : 0)
 /* Every list on the page goes through here: editor picks first, then the reader's chosen order. */
 const ordered = list => [...list].sort((a, b) => pinFirst(a, b) || (sortMode === 'new' ? byNew : byWorth)(a, b));
 
+const isNewsCov = c => c && c.source !== 'hn-ai' && c.publisher !== 'hacker-news';
+const newsCovsOf = st => covsOf(st).filter(isNewsCov);
+const nNewsSrc = st => newsCovsOf(st).length;
+
 function choosePicks() {
-  const out = [...PICKS.keys()].map(id => STORY.get(id)).filter(Boolean).slice(0, 3);
-  const candidates = allStories.filter(st => !PICKS.has(st.id) && (nSrc(st) >= 2 || firstHandOf(st)) && worthOf(st).evidence).sort(byWorth);
+  const out = [...PICKS.keys()].map(id => STORY.get(id)).filter(st => st && nNewsSrc(st) >= 2).slice(0, 3);
+  const candidates = allStories.filter(st => !PICKS.has(st.id) && nNewsSrc(st) >= 2 && worthOf(st).evidence).sort(byWorth);
   if (!out.length) {
     const photoLeadIndex = candidates.findIndex(st => pickImage(st).kind === 'photo');
     if (photoLeadIndex >= 0) {
@@ -398,7 +402,7 @@ function choosePicks() {
     if (!out.some(o => sameEvent(o, st))) out.push(st);
   }
   if (out.length < 3) {
-    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && worthOf(st).evidence).sort(byWorth);
+    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && nNewsSrc(st) >= 2 && worthOf(st).evidence).sort(byWorth);
     for (const st of fallback) {
       if (out.length >= 3) break;
       if (!out.some(o => sameEvent(o, st))) out.push(st);
@@ -602,7 +606,7 @@ function renderCard(st, size = 'std', opts = {}) {
   ].filter(Boolean).join('<span aria-hidden="true">·</span>');
   const cal = calOf(st);
   const isSaved = savedHas(st.id);
-  const cls = ['feed-card', `card-${size}`, photo ? 'card-photo' : '', statusClass(st)].filter(Boolean).join(' ');
+  const cls = ['feed-card', `card-${size}`, opts.debate ? 'card-debate' : '', photo ? 'card-photo' : '', statusClass(st)].filter(Boolean).join(' ');
 
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}" data-worth="${worthOf(st).score.toFixed(1)}">
   ${reasonTag(st)}
@@ -857,13 +861,8 @@ function renderPicks() {
   $('#picks').hidden = !show;
   if (!show) return;
   const [first, ...mid] = PICKLIST;
-  const nEd = PICKLIST.filter(st => PICKS.has(st.id)).length;
   const noteEl = $('#picks-note');
-  if (noteEl) {
-    noteEl.textContent = !nEd ? 'chấm tự động theo số đo, không phải do người chọn'
-      : nEd === PICKLIST.length ? 'do biên tập chọn'
-      : `${nEd} tin do biên tập chọn, ${PICKLIST.length - nEd} tin chấm tự động theo số đo`;
-  }
+  if (noteEl) noteEl.textContent = '';
   const grid = $('#picks-grid');
   grid.innerHTML = renderCard(first, 'lead', { why: true, h: 'h3' })
     + (mid.length ? `<div class="picks-mid">${mid.map(st => renderCard(st, 'std', { h: 'h3' })).join('')}</div>` : '')
@@ -892,7 +891,7 @@ function renderHow() {
    repository tiles side by side, rows of four cards, a wide photo card every third row. Phone: the same order, one
    column. The river follows the switch: "Đáng đọc nhất" (score) or "Mới nhất" (published time).
    ========================================================================== */
-const C = (st, size = 'std') => ({ t: 'card', st, size });
+const C = (st, size = 'std', opts = {}) => ({ t: 'card', st, size, opts });
 const photoIndex = river => river.findIndex((st, k) => k < 12 && pickImage(st).kind === 'photo');
 
 function rows(river, out) {
@@ -927,11 +926,10 @@ function buildAll() {
     t: 'section-head',
     id: 'sec-tranh-luan',
     title: 'Cộng đồng đang tranh luận',
-    badge: 'Điểm nóng cao',
     sub: 'Các chủ đề thu hút nhiều thảo luận và tốc độ quan tâm đột biến trên Hacker News và các diễn đàn.'
   });
   out.push({ t: 'hot' });
-  debateCards.forEach(st => out.push(C(st, 'std')));
+  debateCards.forEach(st => out.push(C(st, 'std', { debate: true })));
 
   // --- Khối 3: Vừa ra mắt & Công bố mới ---
   const productCandidates = allStories.filter(st => !used.has(st.id) && (st.kind === 'product' || firstHandOf(st)))
@@ -950,7 +948,6 @@ function buildAll() {
       t: 'section-head',
       id: 'sec-ra-mat',
       title: 'Vừa ra mắt & Công bố mới',
-      badge: 'Sản phẩm & Tính năng',
       sub: 'Các sản phẩm, tính năng và công bố chính thức từ các hãng và phòng nghiên cứu.'
     });
     const wi = photoIndex(productCards);
@@ -967,7 +964,6 @@ function buildAll() {
     t: 'section-head',
     id: 'sec-kho-ma',
     title: 'Kho mã & Mô hình đáng thử',
-    badge: 'Thực hành ngay',
     sub: 'Kho mã nguồn mở tăng sao nhanh nhất trên GitHub và mô hình thịnh hành trên Hugging Face.'
   });
   out.push({ t: 'repos' });
@@ -980,7 +976,6 @@ function buildAll() {
       t: 'section-head',
       id: 'sec-dong-tin',
       title: 'Dòng tin 72 giờ qua',
-      badge: 'Theo dõi liên tục',
       sub: 'Toàn bộ diễn biến khác trong 72 giờ qua, cập nhật liên tục từ các nguồn tin độc lập.'
     });
     rows(river, out);
@@ -1052,16 +1047,13 @@ function renderSavedRest() {
 
 function renderSectionHead(it) {
   return `<header class="briefing-head" id="${esc(it.id || '')}">
-    <div class="briefing-title-row">
-      <h2 class="briefing-title">${esc(it.title)}</h2>
-      <span class="briefing-badge">${esc(it.badge)}</span>
-    </div>
+    <h2 class="briefing-title">${esc(it.title)}</h2>
     <p class="briefing-sub">${esc(it.sub)}</p>
   </header>`;
 }
 
 function renderItem(it) {
-  if (it.t === 'card') return renderCard(it.st, it.size);
+  if (it.t === 'card') return renderCard(it.st, it.size, it.opts);
   if (it.t === 'live') return renderLive();
   if (it.t === 'hot') return renderHot();
   if (it.t === 'repos') return renderRepos();

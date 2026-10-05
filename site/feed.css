@@ -21,10 +21,10 @@
 /* ---------- feed component tokens ---------- */
 :root{
   --feed-radius: var(--radius-12);          /* Edge-like: soft, not bubbly (the Bento tile radius is 24) */
-  --feed-gap: var(--space-24);              /* whitespace is the only separator */
+  --feed-gap: clamp(var(--space-16), 1.2vw + 10px, var(--space-24));              /* whitespace is the only separator */
   --feed-pad: var(--space-16);              /* card body */
   --feed-pad-photo: var(--space-24);        /* text set on a photo */
-  --feed-pad-lead: var(--space-32);
+  --feed-pad-lead: clamp(20px, 1.5vw + 14px, var(--space-32));
   --card-bg: var(--color-surface);          /* one step lighter than the canvas: surface, not outline */
   --card-ink-on-photo: var(--color-on-media);
   --card-ink-on-photo-2: var(--gray-90);
@@ -32,7 +32,7 @@
       oklch(0.13 0.006 var(--hue) / 0.90) 0%,
       oklch(0.13 0.006 var(--hue) / 0.62) 36%,
       oklch(0.13 0.006 var(--hue) / 0) 70%);
-  --lead-min-h: 560px;
+  --lead-min-h: clamp(480px, 32vw + 140px, 580px);
   --wide-min-h: 340px;
   --cover-glyph: 9rem;                      /* the ghost monogram on a cover */
   --cover-num: var(--size-40);
@@ -40,7 +40,7 @@
   --mt-gap: var(--space-8);                 /* the "Translated" chip never touches the original title */
   --tag-bg: oklch(0.13 0.006 var(--hue) / 0.80);   /* the reason chip on a picture: same ink as the video badge */
   --thumb-pick-w: 160px;                    /* "Đáng đọc hôm nay" rows: a 16:9 picture, 90 px tall */
-  --picks-gap: var(--space-48);             /* the block is its own chapter: two steps above the grid gap */
+  --picks-gap: clamp(var(--space-32), 2vw + 16px, var(--space-48));             /* the block is its own chapter: two steps above the grid gap */
 }
 
 /* ---------- base ---------- */
@@ -396,28 +396,12 @@ ul, ol { padding: 0; list-style: none; }
 .briefing-head:first-child {
   margin-top: var(--space-8);
 }
-.briefing-title-row {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-12);
-  flex-wrap: wrap;
-}
 .briefing-title {
-  font-size: var(--text-feature);
+  font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.75rem);
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-tight);
   color: var(--color-ink);
-}
-.briefing-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px var(--space-8);
-  border-radius: var(--radius-full);
-  background: var(--color-fill);
-  color: var(--color-ink-2);
-  font-size: var(--text-meta);
-  font-weight: var(--weight-semibold);
 }
 .briefing-sub {
   font-size: var(--text-small);
@@ -430,34 +414,23 @@ ul, ol { padding: 0; list-style: none; }
 .block-head {
   margin-bottom: var(--space-16);
 }
-.block-title-row {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-12);
-  flex-wrap: wrap;
-}
 .block-title {
-  font-size: var(--text-feature);
+  font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.75rem);
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-tight);
   color: var(--color-ink);
-}
-.block-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px var(--space-8);
-  border-radius: var(--radius-full);
-  background: var(--color-accent-wash);
-  color: var(--color-accent);
-  font-size: var(--text-meta);
-  font-weight: var(--weight-semibold);
 }
 .block-sub {
   font-size: var(--text-small);
   color: var(--color-ink-2);
   margin-top: var(--space-4);
   max-width: 70ch;
+}
+
+/* Cards in Cộng đồng đang tranh luận: fit content naturally, do not stretch to tall tile-hot */
+.card-debate {
+  align-self: start;
 }
 
 /* The block */
@@ -737,11 +710,12 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
    ========================================================================== */
 @media (max-width: 1199px) and (min-width: 768px){
   .feed-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .card-std, .tile-models, .sk-card { grid-column: span 2; }
+  .card-std, .sk-card { grid-column: span 2; }
+  .card-debate { grid-column: span 3; align-self: start; }
   .card-lead, .sk-lead { grid-column: span 4; }
   .tile-live { grid-column: span 2; grid-row: span 3; }   /* beside six cards, two per row */
   .card-wide { grid-column: span 4; }
-  .tile-hot, .tile-repos { grid-column: span 6; }
+  .tile-hot, .tile-repos, .tile-models { grid-column: span 6; }
 }
 @media (max-width: 1199px){
   .picks-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
@@ -834,6 +808,12 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .saved-list li { grid-template-columns: minmax(0, 1fr) auto; }
   .saved-at { display: none; }
 }
-@media (pointer: coarse){
-  .cov-btn, .seg-b, .area-chip, .calbtn-g, .calbtn-ics, .ed-link, .tc-link { min-height: 44px; }
+@media (min-width: 1800px){
+  :root { --page-max: 1620px; }
+}
+
+@media (max-width: 360px){
+  :root { --page-pad: var(--space-8); }
+  .feed-bar-in { padding: 0 var(--space-8); column-gap: var(--space-4); }
+  .ed-link { padding: 0 var(--space-8); font-size: var(--text-meta); }
 }
