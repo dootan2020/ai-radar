@@ -1,10 +1,13 @@
 {
-  "description": "Watchlist for dynamic candidate queries via Google News RSS search. Easy to edit by adding/updating people, topics, or queries.",
+  "description": "Watchlist of key people and topics tracked across allowed, free routes (Hacker News Algolia, Wikipedia Pageviews, GDELT DOC). Single source of truth for watchlist names.",
   "people": [
     {
       "id": "wl-elon-musk",
       "name": "Elon Musk",
       "query": "\"Elon Musk\" AI",
+      "hn_query": "\"Elon Musk\"",
+      "wikipedia_article": "Elon_Musk",
+      "gdelt_query": "\"Elon Musk\"",
       "edition": "en",
       "notes": "Co-founder OpenAI, xAI founder; filtered for AI contexts"
     },
@@ -12,6 +15,9 @@
       "id": "wl-sam-altman",
       "name": "Sam Altman",
       "query": "\"Sam Altman\"",
+      "hn_query": "\"Sam Altman\"",
+      "wikipedia_article": "Sam_Altman",
+      "gdelt_query": "\"Sam Altman\"",
       "edition": "en",
       "notes": "OpenAI CEO announcements, statements and moves"
     },
@@ -19,6 +25,9 @@
       "id": "wl-dario-amodei",
       "name": "Dario Amodei",
       "query": "\"Dario Amodei\"",
+      "hn_query": "\"Dario Amodei\"",
+      "wikipedia_article": "Dario_Amodei",
+      "gdelt_query": "\"Dario Amodei\"",
       "edition": "en",
       "notes": "Anthropic CEO essays, interviews, safety views"
     },
@@ -26,6 +35,9 @@
       "id": "wl-jensen-huang",
       "name": "Jensen Huang",
       "query": "\"Jensen Huang\"",
+      "hn_query": "\"Jensen Huang\"",
+      "wikipedia_article": "Jensen_Huang",
+      "gdelt_query": "\"Jensen Huang\"",
       "edition": "en",
       "notes": "NVIDIA CEO keynotes, Blackwell/compute statements"
     },
@@ -33,6 +45,9 @@
       "id": "wl-demis-hassabis",
       "name": "Demis Hassabis",
       "query": "\"Demis Hassabis\"",
+      "hn_query": "\"Demis Hassabis\"",
+      "wikipedia_article": "Demis_Hassabis",
+      "gdelt_query": "\"Demis Hassabis\"",
       "edition": "en",
       "notes": "Google DeepMind CEO, frontier models, scientific AI"
     },
@@ -40,13 +55,20 @@
       "id": "wl-mark-zuckerberg",
       "name": "Mark Zuckerberg",
       "query": "\"Mark Zuckerberg\" AI",
+      "hn_query": "\"Mark Zuckerberg\"",
+      "wikipedia_article": "Mark_Zuckerberg",
+      "gdelt_query": "\"Mark Zuckerberg\"",
       "edition": "en",
       "notes": "Meta AI, LLaMA open-source strategy and releases"
     },
     {
       "id": "wl-donald-trump-ai",
       "name": "Donald Trump with AI",
+      "person_name": "Donald Trump",
       "query": "\"Donald Trump\" AI",
+      "hn_query": "\"Donald Trump\" AI",
+      "wikipedia_article": "Donald_Trump",
+      "gdelt_query": "\"Donald Trump\" AI",
       "edition": "en",
       "notes": "US presidential policy, executive orders, tariffs affecting AI"
     },
@@ -54,6 +76,9 @@
       "id": "wl-thibault-sottiaux",
       "name": "Thibault Sottiaux",
       "query": "\"Thibault Sottiaux\"",
+      "hn_query": "\"Thibault Sottiaux\"",
+      "wikipedia_article": null,
+      "gdelt_query": "\"Thibault Sottiaux\"",
       "edition": "en",
       "notes": "OpenAI Codex lead, early signals on usage limits and agent capabilities"
     }
@@ -63,6 +88,8 @@
       "id": "wl-claude-usage-limit",
       "name": "Claude usage limit",
       "query": "\"Claude\" \"usage limit\"",
+      "hn_query": "\"Claude\" \"usage limit\"",
+      "wikipedia_article": null,
       "edition": "en",
       "notes": "Quota, tier, rate limit updates for Claude Sonnet/Opus"
     },
@@ -70,6 +97,8 @@
       "id": "wl-codex-rate-limit",
       "name": "Codex rate limit",
       "query": "\"Codex\" \"rate limit\"",
+      "hn_query": "\"Codex\" \"rate limit\"",
+      "wikipedia_article": null,
       "edition": "en",
       "notes": "OpenAI Codex / Canvas capacity and limits"
     },
@@ -77,6 +106,8 @@
       "id": "wl-chatgpt-usage-limit-reset",
       "name": "ChatGPT usage limit reset",
       "query": "\"ChatGPT\" \"usage limit reset\"",
+      "hn_query": "\"ChatGPT\" \"usage limit reset\"",
+      "wikipedia_article": "ChatGPT",
       "edition": "en",
       "notes": "ChatGPT Plus/Team/Enterprise quota refreshes and policy adjustments"
     },
@@ -84,6 +115,8 @@
       "id": "wl-ai-model-release",
       "name": "AI model release",
       "query": "\"AI model release\"",
+      "hn_query": "\"AI model release\"",
+      "wikipedia_article": null,
       "edition": "en",
       "notes": "Breaking announcements of new foundation models"
     },
@@ -91,6 +124,8 @@
       "id": "wl-ai-regulation",
       "name": "AI regulation",
       "query": "\"AI regulation\"",
+      "hn_query": "\"AI regulation\"",
+      "wikipedia_article": "Regulation_of_artificial_intelligence",
       "edition": "en",
       "notes": "Global AI governance, EU AI Act, US safety rules"
     }
@@ -100,6 +135,9 @@
       "id": "wl-vietnamese-ai-news",
       "name": "Tin tức AI Việt Nam",
       "query": "\"trí tuệ nhân tạo\" OR \"AI\"",
+      "hn_query": "\"trí tuệ nhân tạo\"",
+      "wikipedia_article": "Trí_tuệ_nhân_tạo",
+      "wikipedia_project": "vi.wikipedia.org",
       "edition": "vi",
       "notes": "Tin tức tiếng Việt về trí tuệ nhân tạo, công nghệ AI và chính sách trong nước"
     }

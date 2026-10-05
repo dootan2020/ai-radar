@@ -4,9 +4,10 @@ Fetches candidate sources on a schedule and records what was returned and when,
 publishing NOTHING to site/ or pipeline.
 Collects three kinds of candidate sources:
 1. "fixed feed": Curated RSS/Atom/JSON feeds from labs, blogs, and policy offices.
-2. "query": Dynamic Google News RSS queries for people and topics on the watchlist.
-3. "signal": Numeric indicators (Wikipedia pageviews, OpenRouter model counts,
+2. "query": Dynamic queries (Hacker News Algolia search, GDELT DOC).
+3. "signal": Numeric indicators (Wikipedia per-article pageviews, OpenRouter model counts,
    Bluesky trending topics, Google Trends VN).
+Google News RSS queries were removed because Google News forbids automated access in robots.txt.
 
 Boundaries enforced:
 - Polite: honours robots.txt, at most one request per candidate per run,
@@ -51,7 +52,7 @@ def format_iso_utc(dt=None):
 
 
 def build_google_news_url(query, edition="en", time_window="1d"):
-    """Construct a Google News RSS search URL for a watchlist query."""
+    """Construct a Google News RSS search URL for a watchlist query (legacy reference)."""
     q_str = f"{query.strip()} when:{time_window}".strip()
     encoded_q = quote_plus(q_str)
     if edition == "vi":
@@ -61,7 +62,25 @@ def build_google_news_url(query, edition="en", time_window="1d"):
     return f"https://news.google.com/rss/search?q={encoded_q}&hl={hl}&gl={gl}&ceid={ceid}"
 
 
-def build_wikipedia_pageviews_url(base_url=None, article="Artificial_intelligence", now=None):
+def build_hn_search_url(query, tags="story"):
+    """Construct a Hacker News Algolia search URL for a query or quoted name."""
+    q = query.strip()
+    if '"' not in q:
+        q = f'"{q}"'
+    encoded_q = quote_plus(q)
+    return f"https://hn.algolia.com/api/v1/search_by_date?query={encoded_q}&tags={tags}"
+
+
+def build_gdelt_doc_url(query, maxrecords=25):
+    """Construct a GDELT 2.0 DOC API JSON search URL."""
+    q = query.strip()
+    if '"' not in q:
+        q = f'"{q}"'
+    encoded_q = quote_plus(q)
+    return f"https://api.gdeltproject.org/api/v2/doc/doc?query={encoded_q}&mode=artlist&format=json&maxrecords={maxrecords}"
+
+
+def build_wikipedia_pageviews_url(base_url=None, article="Artificial_intelligence", project="en.wikipedia.org", now=None):
     """Build Wikipedia pageviews REST API URL for recent daily views."""
     current = now or datetime.now(timezone.utc)
     # Wikimedia pageviews data is typically available up to yesterday
@@ -72,12 +91,19 @@ def build_wikipedia_pageviews_url(base_url=None, article="Artificial_intelligenc
     start_str = prev_dt.strftime("%Y%m%d")
     end_str = yesterday_dt.strftime("%Y%m%d")
 
-    if base_url and "{yesterday}" in base_url and "{today}" in base_url:
-        return base_url.replace("{yesterday}", start_str).replace("{today}", end_str)
+    if base_url:
+        u = base_url
+        if "{yesterday}" in u and "{today}" in u:
+            u = u.replace("{yesterday}", start_str).replace("{today}", end_str)
+        if "{article}" in u:
+            u = u.replace("{article}", article)
+        if "{project}" in u:
+            u = u.replace("{project}", project)
+        return u
 
     return (
         f"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/"
-        f"en.wikipedia.org/all-access/all-agents/{article}/daily/{start_str}/{end_str}"
+        f"{project}/all-access/all-agents/{article}/daily/{start_str}/{end_str}"
     )
 
 
@@ -304,7 +330,7 @@ def parse_wikipedia_pageviews(text, candidate):
     spike_ratio = round(views_latest / views_prev, 3) if views_prev > 0 else 1.0
 
     numbers = {
-        "article": candidate.get("article", "Artificial_intelligence"),
+        "article": candidate.get("article") or (raw_items[0].get("article") if raw_items else "Artificial_intelligence"),
         "views_latest": views_latest,
         "views_previous_day": views_prev,
         "spike_ratio": spike_ratio,
@@ -453,7 +479,7 @@ def parse_bluesky_trending(text, candidate):
 
 
 def parse_hn_algolia(text, candidate):
-    """Parse Hacker News Algolia Show HN search results."""
+    """Parse Hacker News Algolia search results (Show HN or watchlist searches)."""
     if not text or not str(text).strip():
         return [], None, "Empty content"
     try:
@@ -475,6 +501,7 @@ def parse_hn_algolia(text, candidate):
         target_url = url or hn_url
         author = hit.get("author") or "Hacker News"
         published_at = parse_date_safely(hit.get("created_at") or hit.get("created_at_i"))
+        points = hit.get("points") or 0
 
         if title and target_url:
             if relevant(title):
@@ -484,11 +511,17 @@ def parse_hn_algolia(text, candidate):
                 "url": target_url,
                 "publisher": f"HN @{author}",
                 "published_at": published_at,
+                "points": points,
             })
 
+    total_hits = data.get("nbHits") if isinstance(data, dict) and data.get("nbHits") is not None else len(items)
+    max_pts = max((hit.get("points") or 0 for hit in hits if isinstance(hit, dict)), default=0)
+
     numbers = {
-        "total_hits": len(items),
+        "total_hits": total_hits,
+        "returned_hits": len(items),
         "ai_hits_count": ai_count,
+        "max_points": max_pts,
     }
     return items, numbers, None
 
@@ -602,7 +635,15 @@ PARSER_REGISTRY = {
 
 
 def load_watchlist(path=None):
-    """Load watchlist and convert people, topics, and vietnamese queries to candidate definitions."""
+    """Load watchlist and convert people, topics, and vietnamese queries to allowed candidate definitions.
+
+    Generates three allowed, free routes:
+    1. HN Algolia search by name or phrase (kind: "query", parser: "hn_algolia")
+    2. Wikipedia per-article pageviews (kind: "signal", parser: "wikipedia_pageviews")
+    3. GDELT DOC with the person's name (kind: "query", parser: "gdelt_doc")
+
+    Google News entries were removed because Google News blocks automated crawlers in robots.txt.
+    """
     root = Path(__file__).resolve().parent.parent
     file_path = Path(path) if path else root / "data" / "watchlist.json"
     if not file_path.is_file():
@@ -613,54 +654,119 @@ def load_watchlist(path=None):
 
     # 1. People
     for p in data.get("people", []):
-        cand_id = p.get("id") or f"wl-{p['name'].lower().replace(' ', '-')}"
-        edition = p.get("edition", "en")
-        url = build_google_news_url(p["query"], edition=edition)
+        raw_id = p.get("id") or f"wl-{p['name'].lower().replace(' ', '-')}"
+        base_slug = raw_id[3:] if raw_id.startswith("wl-") else raw_id
+        person_name = p.get("person_name") or p["name"]
+
+        # Route 1: HN Algolia search by name
+        hn_query = p.get("hn_query") or p.get("query") or person_name
         candidates.append({
-            "id": cand_id,
-            "name": f"{p['name']} (Google News)",
+            "id": f"wl-hn-{base_slug}",
+            "name": f"{p['name']} (HN Algolia)",
             "kind": "query",
-            "url": url,
-            "query": p["query"],
-            "edition": edition,
-            "parser": "google_news_rss",
+            "url": build_hn_search_url(hn_query),
+            "query": hn_query,
+            "parser": "hn_algolia",
             "category": "watchlist-people",
             "notes": p.get("notes", ""),
         })
 
+        # Route 2: Wikipedia pageviews (if article exists)
+        wiki_article = p.get("wikipedia_article")
+        if wiki_article:
+            wiki_project = p.get("wikipedia_project", "en.wikipedia.org")
+            candidates.append({
+                "id": f"wl-wiki-{base_slug}",
+                "name": f"{p['name']} (Wikipedia Pageviews)",
+                "kind": "signal",
+                "url": build_wikipedia_pageviews_url(article=wiki_article, project=wiki_project),
+                "article": wiki_article,
+                "project": wiki_project,
+                "parser": "wikipedia_pageviews",
+                "category": "watchlist-people",
+                "notes": f"Wikipedia pageviews for {wiki_article}",
+            })
+
+        # Route 3: GDELT DOC with the person's name
+        gdelt_query = p.get("gdelt_query") or person_name
+        candidates.append({
+            "id": f"wl-gdelt-{base_slug}",
+            "name": f"{p['name']} (GDELT DOC)",
+            "kind": "query",
+            "url": build_gdelt_doc_url(gdelt_query),
+            "query": gdelt_query,
+            "parser": "gdelt_doc",
+            "category": "watchlist-people",
+            "notes": f"GDELT DOC search for {person_name}",
+        })
+
     # 2. Topics
     for t in data.get("topics", []):
-        cand_id = t.get("id") or f"wl-{t['name'].lower().replace(' ', '-')}"
-        edition = t.get("edition", "en")
-        url = build_google_news_url(t["query"], edition=edition)
+        raw_id = t.get("id") or f"wl-{t['name'].lower().replace(' ', '-')}"
+        base_slug = raw_id[3:] if raw_id.startswith("wl-") else raw_id
+
+        # Route 1: HN Algolia search by phrase
+        hn_query = t.get("hn_query") or t.get("query") or t["name"]
         candidates.append({
-            "id": cand_id,
-            "name": f"{t['name']} (Google News)",
+            "id": f"wl-hn-{base_slug}",
+            "name": f"{t['name']} (HN Algolia)",
             "kind": "query",
-            "url": url,
-            "query": t["query"],
-            "edition": edition,
-            "parser": "google_news_rss",
+            "url": build_hn_search_url(hn_query),
+            "query": hn_query,
+            "parser": "hn_algolia",
             "category": "watchlist-topics",
             "notes": t.get("notes", ""),
         })
 
+        # Route 2: Wikipedia pageviews (for topic articles that exist)
+        wiki_article = t.get("wikipedia_article")
+        if wiki_article:
+            wiki_project = t.get("wikipedia_project", "en.wikipedia.org")
+            candidates.append({
+                "id": f"wl-wiki-{base_slug}",
+                "name": f"{t['name']} (Wikipedia Pageviews)",
+                "kind": "signal",
+                "url": build_wikipedia_pageviews_url(article=wiki_article, project=wiki_project),
+                "article": wiki_article,
+                "project": wiki_project,
+                "parser": "wikipedia_pageviews",
+                "category": "watchlist-topics",
+                "notes": f"Wikipedia pageviews for {wiki_article}",
+            })
+
     # 3. Vietnamese
     for v in data.get("vietnamese", []):
-        cand_id = v.get("id") or "wl-vietnamese-ai-news"
-        edition = v.get("edition", "vi")
-        url = build_google_news_url(v["query"], edition=edition)
+        raw_id = v.get("id") or f"wl-{v['name'].lower().replace(' ', '-')}"
+        base_slug = raw_id[3:] if raw_id.startswith("wl-") else raw_id
+
+        # Route 1: HN Algolia search
+        hn_query = v.get("hn_query") or v.get("query") or v["name"]
         candidates.append({
-            "id": cand_id,
-            "name": f"{v['name']} (Google News VN)",
+            "id": f"wl-hn-{base_slug}",
+            "name": f"{v['name']} (HN Algolia)",
             "kind": "query",
-            "url": url,
-            "query": v["query"],
-            "edition": edition,
-            "parser": "google_news_rss",
+            "url": build_hn_search_url(hn_query),
+            "query": hn_query,
+            "parser": "hn_algolia",
             "category": "watchlist-vietnamese",
             "notes": v.get("notes", ""),
         })
+
+        # Route 2: Wikipedia pageviews (for topic articles that exist)
+        wiki_article = v.get("wikipedia_article")
+        if wiki_article:
+            wiki_project = v.get("wikipedia_project", "vi.wikipedia.org")
+            candidates.append({
+                "id": f"wl-wiki-{base_slug}",
+                "name": f"{v['name']} (Wikipedia Pageviews VN)",
+                "kind": "signal",
+                "url": build_wikipedia_pageviews_url(article=wiki_article, project=wiki_project),
+                "article": wiki_article,
+                "project": wiki_project,
+                "parser": "wikipedia_pageviews",
+                "category": "watchlist-vietnamese",
+                "notes": f"Wikipedia pageviews for {wiki_article}",
+            })
 
     return candidates
 
