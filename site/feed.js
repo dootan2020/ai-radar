@@ -899,9 +899,171 @@ function setRepo(kind, value) {
   else return;
   rerenderRepos();
 }
+/* ---------- Apple-like sliding tab indicator and smooth chip scroll ---------- */
+function glideTab(container, activeBtn, { immediate = false } = {}) {
+  if (!container || !activeBtn) return;
+  const w = activeBtn.offsetWidth, h = activeBtn.offsetHeight;
+  if (w === 0 && h === 0) return;
+
+  let pill = container.querySelector(':scope > .tab-pill');
+  if (!pill) {
+    pill = document.createElement('span');
+    pill.className = 'tab-pill';
+    pill.setAttribute('aria-hidden', 'true');
+    container.prepend(pill);
+  }
+  container.classList.add('has-pill');
+
+  const x = activeBtn.offsetLeft, y = activeBtn.offsetTop;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (immediate || reduced || !pill.classList.contains('is-active')) {
+    pill.style.transition = 'none';
+    pill.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    pill.style.width = `${w}px`;
+    pill.style.height = `${h}px`;
+    pill.classList.add('is-active');
+    if (!reduced) {
+      pill.getBoundingClientRect();
+      pill.style.transition = '';
+    }
+    return;
+  }
+
+  pill.style.transition = '';
+  pill.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  pill.style.width = `${w}px`;
+  pill.style.height = `${h}px`;
+}
+
+function scrollChipIntoView(container, chip) {
+  if (!container || !chip) return;
+  const maxScroll = container.scrollWidth - container.clientWidth;
+  if (maxScroll <= 0) return;
+
+  const cRect = container.getBoundingClientRect();
+  const bRect = chip.getBoundingClientRect();
+  const isPartlyOff = bRect.left < cRect.left + 12 || bRect.right > cRect.right - 32;
+  if (!isPartlyOff) return;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targetScroll = Math.max(0, Math.min(maxScroll, chip.offsetLeft - (container.clientWidth - chip.offsetWidth) / 2));
+  container.scrollTo({ left: targetScroll, behavior: reduced ? 'auto' : 'smooth' });
+}
+
+function flipRepoPill(container, oldBox, oldVal) {
+  if (!container) return;
+  const activeBtn = container.querySelector('.seg-b[aria-pressed="true"]');
+  if (!activeBtn) return;
+
+  const targetW = activeBtn.offsetWidth, targetH = activeBtn.offsetHeight;
+  if (targetW === 0 && targetH === 0) return;
+  const targetX = activeBtn.offsetLeft, targetY = activeBtn.offsetTop;
+
+  let pill = container.querySelector(':scope > .tab-pill');
+  if (!pill) {
+    pill = document.createElement('span');
+    pill.className = 'tab-pill';
+    pill.setAttribute('aria-hidden', 'true');
+    container.prepend(pill);
+  }
+  container.classList.add('has-pill');
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduced || !oldBox) {
+    pill.style.transition = 'none';
+    pill.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+    pill.style.width = `${targetW}px`;
+    pill.style.height = `${targetH}px`;
+    pill.classList.add('is-active');
+    if (!reduced) {
+      pill.getBoundingClientRect();
+      pill.style.transition = '';
+    }
+    return;
+  }
+
+  const newBox = activeBtn.getBoundingClientRect();
+  const dx = oldBox.left - newBox.left;
+  const dy = oldBox.top - newBox.top;
+
+  if (Math.abs(dx) < 1 && Math.abs(oldBox.width - targetW) < 1) {
+    pill.style.transition = 'none';
+    pill.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+    pill.style.width = `${targetW}px`;
+    pill.style.height = `${targetH}px`;
+    pill.classList.add('is-active');
+    return;
+  }
+
+  activeBtn.style.transition = 'none';
+  activeBtn.style.color = 'var(--color-ink-2)';
+  if (oldVal) {
+    const oldBtn = container.querySelector(`[data-repo-view="${CSSq(oldVal)}"],[data-repo-window="${CSSq(oldVal)}"],[data-repo-total="${CSSq(oldVal)}"]`);
+    if (oldBtn) {
+      oldBtn.style.transition = 'none';
+      oldBtn.style.color = 'var(--color-ink)';
+    }
+  }
+
+  // Invert: position pill at old location without animation
+  pill.style.transition = 'none';
+  pill.style.transform = `translate3d(${targetX + dx}px, ${targetY + dy}px, 0)`;
+  pill.style.width = `${oldBox.width}px`;
+  pill.style.height = `${targetH}px`;
+  pill.classList.add('is-active');
+
+  pill.getBoundingClientRect(); // force reflow of inverted state
+
+  // Play: glide smoothly to target location
+  requestAnimationFrame(() => {
+    pill.style.transition = 'transform var(--motion-tab-glide, 280ms) var(--ease-flow), width var(--motion-tab-glide, 280ms) var(--ease-flow)';
+    pill.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+    pill.style.width = `${targetW}px`;
+
+    activeBtn.style.transition = 'color var(--motion-tab-glide, 280ms) var(--ease-flow)';
+    activeBtn.style.color = '';
+    if (oldVal) {
+      const oldBtn = container.querySelector(`[data-repo-view="${CSSq(oldVal)}"],[data-repo-window="${CSSq(oldVal)}"],[data-repo-total="${CSSq(oldVal)}"]`);
+      if (oldBtn) {
+        oldBtn.style.transition = 'color var(--motion-tab-glide, 280ms) var(--ease-flow)';
+        oldBtn.style.color = '';
+      }
+    }
+  });
+}
+
+function initRepoPills(scope = document) {
+  const tile = scope.querySelector('.tile-repos');
+  if (!tile) return;
+  const viewSeg = tile.querySelector('.seg:not(.seg-quiet)');
+  if (viewSeg) {
+    const active = viewSeg.querySelector('.seg-b[aria-pressed="true"]');
+    if (active) glideTab(viewSeg, active, { immediate: true });
+  }
+  const winSeg = tile.querySelector('.seg.seg-quiet');
+  if (winSeg) {
+    const active = winSeg.querySelector('.seg-b[aria-pressed="true"]');
+    if (active) glideTab(winSeg, active, { immediate: true });
+  }
+}
+
 /* Redraw only the tile, and put focus back on the control the reader used. */
 function rerenderRepos() {
   const old = $('.tile-repos'); if (!old) return;
+  const oldViewSeg = old.querySelector('.seg:not(.seg-quiet)');
+  const oldViewBtn = oldViewSeg ? oldViewSeg.querySelector('.seg-b[aria-pressed="true"]') : null;
+  const oldViewPill = oldViewSeg ? oldViewSeg.querySelector('.tab-pill') : null;
+  const oldViewBox = (oldViewPill && oldViewPill.classList.contains('is-active')) ? oldViewPill.getBoundingClientRect() : (oldViewBtn ? oldViewBtn.getBoundingClientRect() : null);
+  const oldViewVal = oldViewBtn ? oldViewBtn.dataset.repoView : null;
+
+  const oldWinSeg = old.querySelector('.seg.seg-quiet');
+  const oldWinBtn = oldWinSeg ? oldWinSeg.querySelector('.seg-b[aria-pressed="true"]') : null;
+  const oldWinPill = oldWinSeg ? oldWinSeg.querySelector('.tab-pill') : null;
+  const oldWinBox = (oldWinPill && oldWinPill.classList.contains('is-active')) ? oldWinPill.getBoundingClientRect() : (oldWinBtn ? oldWinBtn.getBoundingClientRect() : null);
+  const oldWinVal = oldWinBtn ? (oldWinBtn.dataset.repoWindow || oldWinBtn.dataset.repoTotal) : null;
+
   const a = document.activeElement;
   const attr = a && a.dataset ? ['area', 'repoView', 'repoWindow', 'repoTotal'].find(k => a.dataset[k] != null) : null;
   const value = attr ? a.dataset[attr] : null;
@@ -909,6 +1071,12 @@ function rerenderRepos() {
   tmp.innerHTML = renderRepos(old.classList.contains('is-full'));
   const next = tmp.firstElementChild;
   if (next) old.replaceWith(next); else old.remove();
+
+  if (next) {
+    flipRepoPill(next.querySelector('.seg:not(.seg-quiet)'), oldViewBox, oldViewVal);
+    flipRepoPill(next.querySelector('.seg.seg-quiet'), oldWinBox, oldWinVal);
+  }
+
   if (attr && next) {
     const name = 'data-' + attr.replace(/[A-Z]/g, c => '-' + c.toLowerCase());
     const el = next.querySelector(`[${name}="${CSSq(value)}"]`);
@@ -1194,6 +1362,7 @@ function renderFeed() {
   renderSub();
   renderEnd();
   renderChips();
+  initRepoPills($('#feed-grid'));
   $('#top').removeAttribute('aria-busy');
   hydrateHF(document);
   observeSkips();
@@ -1206,6 +1375,7 @@ function more(focus = true) {
   const before = grid.querySelectorAll('.feed-card').length;
   grid.insertAdjacentHTML('beforeend', renderChunk(shownCards + PAGE_MORE));
   updateMore();
+  initRepoPills(grid);
   hydrateHF(document);
   observeSkips();
   observeCardMotion(grid);
@@ -1262,6 +1432,9 @@ function renderChips() {
     b.hidden = f !== 'all' && n === 0 && f !== filter;
     b.setAttribute('aria-pressed', String(f === filter));
   });
+  const container = $('#feed-filters');
+  const active = container ? container.querySelector('.filter-chip[aria-pressed="true"]') : null;
+  if (container && active) glideTab(container, active);
 }
 /* fromHash: the address chose the view, so it stays in the address bar; a chip clears it. */
 function setFilter(f, fromHash = false) {
@@ -1271,10 +1444,16 @@ function setFilter(f, fromHash = false) {
   renderFeed();
   const top = $('#top').getBoundingClientRect().top;
   if (top < 0) window.scrollTo({ top: window.scrollY + top - 8 });
+  const container = $('#feed-filters');
+  const active = container ? container.querySelector(`.filter-chip[data-filter="${CSSq(f)}"]`) : null;
+  if (container && active) scrollChipIntoView(container, active);
 }
 function renderSortSwitch() {
   $$('.sort-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === sortMode)));
   $('#sort-switch').hidden = false;
+  const container = $('#sort-switch');
+  const active = container ? container.querySelector('.sort-btn[aria-pressed="true"]') : null;
+  if (container && active) glideTab(container, active);
 }
 function setSort(m) {
   sortMode = m === 'new' ? 'new' : 'worth';
@@ -1580,6 +1759,7 @@ function attachEvents() {
   });
   $('.feed-brand').addEventListener('click', () => { if (filter !== 'all') setFilter('all'); });
   $('#feed-filters').addEventListener('click', e => { const b = e.target.closest('.filter-chip'); if (b) setFilter(b.dataset.filter); });
+  $('#sort-switch').addEventListener('click', e => { const b = e.target.closest('.sort-btn'); if (b && b.dataset.sort) setSort(b.dataset.sort); });
   $('#reset-filter-btn').addEventListener('click', () => setFilter('all'));
   $('#more-btn').addEventListener('click', () => more());
   $('#new-go').addEventListener('click', goFirstNew);
@@ -1602,6 +1782,19 @@ function attachEvents() {
     });
   }
   $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
+  window.addEventListener('resize', () => {
+    const filters = $('#feed-filters');
+    if (filters) {
+      const activeChip = filters.querySelector('.filter-chip[aria-pressed="true"]');
+      if (activeChip) glideTab(filters, activeChip, { immediate: true });
+    }
+    const sort = $('#sort-switch');
+    if (sort) {
+      const activeSort = sort.querySelector('.sort-btn[aria-pressed="true"]');
+      if (activeSort) glideTab(sort, activeSort, { immediate: true });
+    }
+    initRepoPills();
+  }, { passive: true });
   document.addEventListener('click', onClick);
   document.addEventListener('auxclick', e => { if (e.button === 1) onOpenLink(e); });
   document.addEventListener('keydown', onKey);
