@@ -1,0 +1,97 @@
+{
+  "generated_at": "2026-10-04T09:35:00Z",
+  "schema_version": 2,
+  "sources": [
+    {"id": "techcrunch-ai", "name": "TechCrunch AI", "group": "press", "publisher": "techcrunch", "ok": true},
+    {"id": "verge-ai", "name": "The Verge AI", "group": "press", "publisher": "the-verge", "ok": true},
+    {"id": "hn-ai", "name": "Hacker News AI", "group": "forum", "publisher": "hacker-news", "ok": true},
+    {"id": "anthropic-news", "name": "Anthropic News", "group": "lab", "publisher": "anthropic", "ok": true},
+    {"id": "anthropic-gftdon", "name": "Anthropic Gftdon", "group": "lab", "publisher": "anthropic", "ok": true},
+    {"id": "tuoitre-so", "name": "Tuổi Trẻ Số", "group": "press", "publisher": "tuoitre", "ok": true},
+    {"id": "genk-ai", "name": "GenK AI", "group": "press", "publisher": "genk", "ok": true},
+    {"id": "archive-source", "name": "Archive Source", "group": "press", "publisher": "archive-pub", "ok": true},
+    {"id": "vnexpress-so-hoa", "name": "VnExpress Số Hóa", "group": "press", "publisher": "vnexpress", "ok": false, "http_status": 404, "error": "HTTPError: HTTP Error 404: Not Found"},
+    {"id": "google-deepmind", "name": "Google DeepMind", "group": "lab", "publisher": "google", "ok": false, "disabled": true, "disabled_reason": "RSS endpoint returned HTTP 200 with invalid XML on the hosted runner", "error": "Disabled: RSS endpoint returned HTTP 200 with invalid XML on the hosted runner"},
+    {"id": "import-ai", "name": "Import AI", "group": "newsletter", "publisher": "import-ai", "ok": false, "disabled": true, "disabled_reason": "Substack feed returned HTTP 403 on the hosted runner", "error": "Disabled: Substack feed returned HTTP 403 on the hosted runner"}
+  ],
+  "stories": [
+    {
+      "id": "story-initial-1",
+      "title": "Initial story present in first snapshot",
+      "published_at": "2026-10-04T08:00:00Z",
+      "coverage": [
+        {
+          "id": "tc-item-0",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "title": "TechCrunch Initial Item",
+          "url": "https://techcrunch.com/initial",
+          "canonical_url": "https://techcrunch.com/initial",
+          "published_at": "2026-10-04T08:00:00Z",
+          "summary": "AI research update from TechCrunch"
+        }
+      ]
+    },
+    {
+      "id": "story-tuoitre",
+      "title": "Tuoi Tre Item with Missing Timestamp",
+      "published_at": null,
+      "coverage": [
+        {
+          "id": "tuoitre-item-0",
+          "source": "tuoitre-so",
+          "publisher": "tuoitre",
+          "title": "Tuoi Tre Missing Time Item",
+          "url": "https://tuoitre.vn/item-missing-ts",
+          "canonical_url": "https://tuoitre.vn/item-missing-ts",
+          "published_at": null,
+          "summary": "Tin tuc cong nghe AI tu Tuoi Tre"
+        }
+      ]
+    },
+    {
+      "id": "story-anthropic-dup",
+      "title": "Claude 3.5 Sonnet Release (Duplicate Feeds)",
+      "published_at": "2026-10-04T00:00:00Z",
+      "coverage": [
+        {
+          "id": "anth-news-1",
+          "source": "anthropic-news",
+          "publisher": "anthropic",
+          "title": "Anthropic Post",
+          "url": "https://anthropic.com/news/claude-3-5",
+          "canonical_url": "https://anthropic.com/news/claude-3-5",
+          "published_at": "2026-10-04T00:00:00Z",
+          "summary": "Anthropic announces Claude 3.5 Sonnet AI model"
+        },
+        {
+          "id": "anth-gftdon-1",
+          "source": "anthropic-gftdon",
+          "publisher": "anthropic",
+          "title": "Anthropic Post Mirror",
+          "url": "https://anthropic.com/news/claude-3-5",
+          "canonical_url": "https://anthropic.com/news/claude-3-5",
+          "published_at": "2026-10-04T00:00:00Z",
+          "summary": "Anthropic announces Claude 3.5 Sonnet AI model"
+        }
+      ]
+    },
+    {
+      "id": "story-archive",
+      "title": "Old Archive Item",
+      "published_at": "2026-08-15T12:00:00Z",
+      "coverage": [
+        {
+          "id": "arch-1",
+          "source": "archive-source",
+          "publisher": "archive-pub",
+          "title": "Archive paper from August",
+          "url": "https://example.com/archive-paper",
+          "canonical_url": "https://example.com/archive-paper",
+          "published_at": "2026-08-15T12:00:00Z",
+          "summary": "Foundational AI LLM paper from August"
+        }
+      ]
+    }
+  ]
+}

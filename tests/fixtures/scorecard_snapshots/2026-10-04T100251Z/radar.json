@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-10-04T10:02:00Z",
+  "schema_version": 2,
+  "sources": [
+    {"id": "techcrunch-ai", "name": "TechCrunch AI", "group": "press", "publisher": "techcrunch", "ok": true},
+    {"id": "verge-ai", "name": "The Verge AI", "group": "press", "publisher": "the-verge", "ok": true},
+    {"id": "hn-ai", "name": "Hacker News AI", "group": "forum", "publisher": "hacker-news", "ok": true},
+    {"id": "anthropic-news", "name": "Anthropic News", "group": "lab", "publisher": "anthropic", "ok": true},
+    {"id": "anthropic-gftdon", "name": "Anthropic Gftdon", "group": "lab", "publisher": "anthropic", "ok": true},
+    {"id": "tuoitre-so", "name": "Tuổi Trẻ Số", "group": "press", "publisher": "tuoitre", "ok": true},
+    {"id": "genk-ai", "name": "GenK AI", "group": "press", "publisher": "genk", "ok": true},
+    {"id": "archive-source", "name": "Archive Source", "group": "press", "publisher": "archive-pub", "ok": true},
+    {"id": "vnexpress-so-hoa", "name": "VnExpress Số Hóa", "group": "press", "publisher": "vnexpress", "ok": false, "http_status": 404, "error": "HTTPError: HTTP Error 404: Not Found"},
+    {"id": "google-deepmind", "name": "Google DeepMind", "group": "lab", "publisher": "google", "ok": false, "disabled": true, "disabled_reason": "RSS endpoint returned HTTP 200 with invalid XML on the hosted runner", "error": "Disabled: RSS endpoint returned HTTP 200 with invalid XML on the hosted runner"},
+    {"id": "import-ai", "name": "Import AI", "group": "newsletter", "publisher": "import-ai", "ok": false, "disabled": true, "disabled_reason": "Substack feed returned HTTP 403 on the hosted runner", "error": "Disabled: Substack feed returned HTTP 403 on the hosted runner"}
+  ],
+  "stories": [
+    {
+      "id": "story-multi-pub-2",
+      "title": "Community discusses open source AI safety tool",
+      "published_at": "2026-10-04T09:45:00Z",
+      "coverage": [
+        {
+          "id": "hn-item-1",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "title": "Discussion on open source AI safety tool",
+          "url": "https://news.ycombinator.com/item?id=99991",
+          "canonical_url": "https://news.ycombinator.com/item?id=99991",
+          "published_at": "2026-10-04T09:45:00Z",
+          "summary": "Show HN: open source tool for AI LLM red teaming"
+        },
+        {
+          "id": "tc-item-2",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "title": "New open source AI safety project launched",
+          "url": "https://techcrunch.com/safety-tool",
+          "canonical_url": "https://techcrunch.com/safety-tool",
+          "published_at": "2026-10-04T09:50:00Z",
+          "summary": "TechCrunch report on new open source AI safety project"
+        }
+      ]
+    },
+    {
+      "id": "story-date-only-test",
+      "title": "Anthropic Model Card with Date Only Time",
+      "published_at": "2026-10-04T00:00:00Z",
+      "coverage": [
+        {
+          "id": "anth-dateonly-item",
+          "source": "anthropic-news",
+          "publisher": "anthropic",
+          "title": "Anthropic Model Card",
+          "url": "https://anthropic.com/model-card",
+          "canonical_url": "https://anthropic.com/model-card",
+          "published_at": "2026-10-04T00:00:00Z",
+          "summary": "Anthropic updates model card for AI assistants"
+        }
+      ]
+    }
+  ]
+}

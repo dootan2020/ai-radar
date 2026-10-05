@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-10-04T09:42:00Z",
+  "schema_version": 2,
+  "sources": [
+    {"id": "techcrunch-ai", "name": "TechCrunch AI", "group": "press", "publisher": "techcrunch", "ok": true},
+    {"id": "verge-ai", "name": "The Verge AI", "group": "press", "publisher": "the-verge", "ok": true},
+    {"id": "hn-ai", "name": "Hacker News AI", "group": "forum", "publisher": "hacker-news", "ok": true},
+    {"id": "anthropic-news", "name": "Anthropic News", "group": "lab", "publisher": "anthropic", "ok": true},
+    {"id": "anthropic-gftdon", "name": "Anthropic Gftdon", "group": "lab", "publisher": "anthropic", "ok": true},
+    {"id": "tuoitre-so", "name": "Tuổi Trẻ Số", "group": "press", "publisher": "tuoitre", "ok": true},
+    {"id": "genk-ai", "name": "GenK AI", "group": "press", "publisher": "genk", "ok": true},
+    {"id": "archive-source", "name": "Archive Source", "group": "press", "publisher": "archive-pub", "ok": true},
+    {"id": "vnexpress-so-hoa", "name": "VnExpress Số Hóa", "group": "press", "publisher": "vnexpress", "ok": false, "http_status": 404, "error": "HTTPError: HTTP Error 404: Not Found"},
+    {"id": "google-deepmind", "name": "Google DeepMind", "group": "lab", "publisher": "google", "ok": false, "disabled": true, "disabled_reason": "RSS endpoint returned HTTP 200 with invalid XML on the hosted runner", "error": "Disabled: RSS endpoint returned HTTP 200 with invalid XML on the hosted runner"},
+    {"id": "import-ai", "name": "Import AI", "group": "newsletter", "publisher": "import-ai", "ok": false, "disabled": true, "disabled_reason": "Substack feed returned HTTP 403 on the hosted runner", "error": "Disabled: Substack feed returned HTTP 403 on the hosted runner"}
+  ],
+  "stories": [
+    {
+      "id": "story-multi-pub-1",
+      "title": "OpenAI Unveils New Model Architecture",
+      "published_at": "2026-10-04T09:36:00Z",
+      "coverage": [
+        {
+          "id": "tc-item-1",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "title": "OpenAI Unveils New Model Architecture",
+          "url": "https://techcrunch.com/openai-new-arch",
+          "canonical_url": "https://techcrunch.com/openai-new-arch",
+          "published_at": "2026-10-04T09:36:00Z",
+          "summary": "TechCrunch reports OpenAI has unveiled a breakthrough transformer architecture"
+        },
+        {
+          "id": "verge-item-1",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "title": "OpenAI announces new AI architecture",
+          "url": "https://theverge.com/openai-arch",
+          "canonical_url": "https://theverge.com/openai-arch",
+          "published_at": "2026-10-04T09:40:00Z",
+          "summary": "The Verge coverage of OpenAI new architecture announcement"
+        }
+      ]
+    },
+    {
+      "id": "story-genk-future",
+      "title": "GenK Post with Timezone Error",
+      "published_at": "2026-10-04T16:00:00Z",
+      "coverage": [
+        {
+          "id": "genk-item-1",
+          "source": "genk-ai",
+          "publisher": "genk",
+          "title": "GenK Post in the future",
+          "url": "https://genk.vn/bai-viet-tuong-lai",
+          "canonical_url": "https://genk.vn/bai-viet-tuong-lai",
+          "published_at": "2026-10-04T16:00:00Z",
+          "summary": "Tin AI cong nghe tu GenK viet nam"
+        }
+      ]
+    }
+  ]
+}
