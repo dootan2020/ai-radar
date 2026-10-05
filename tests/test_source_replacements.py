@@ -10,7 +10,7 @@ from radar import catalog, feeds, pipeline, v2feeds, youtube
 from radar.transport import ResponseText
 
 NOW = datetime(2026, 10, 2, 12, tzinfo=timezone.utc)
-DISABLED_IDS = {"import-ai", "dwarkesh-podcast", "latent-space", "google-deepmind", "cnbc-tech"}
+DISABLED_IDS = {"latent-space", "google-deepmind", "cnbc-tech"}
 ACTIVE_ID = "nvidia-blog"
 SYNTHETIC_NEWS = """<rss><channel>
 <item><title>Nghiên cứu trí tuệ nhân tạo mới</title>
@@ -25,6 +25,24 @@ SYNTHETIC_NEWS = """<rss><channel>
 class SourceReplacementTests(unittest.TestCase):
     def setUp(self):
         self.sources = {row["id"]: row for row in feeds.SOURCES + catalog.sources(NOW)}
+
+    def test_recovered_sources_point_to_author_feeds_and_are_not_disabled(self):
+        expected_urls = {
+            "import-ai": "https://jack-clark.net/feed/",
+            "dwarkesh-podcast": "https://www.dwarkeshpatel.com/feed",
+        }
+        for id_, expected_url in expected_urls.items():
+            with self.subTest(source=id_):
+                source = self.sources[id_]
+                self.assertEqual(source["url"], expected_url)
+                self.assertNotIn("disabled", source)
+                self.assertNotIn("disabled_reason", source)
+                self.assertEqual(source["parser"], "feed")
+                self.assertEqual(source["kind"], "rss")
+        self.assertEqual(self.sources["import-ai"]["publisher"], "import-ai")
+        self.assertEqual(self.sources["import-ai"]["group"], "newsletter")
+        self.assertEqual(self.sources["dwarkesh-podcast"]["publisher"], "dwarkesh")
+        self.assertEqual(self.sources["dwarkesh-podcast"]["group"], "podcast")
 
     def test_each_disabled_source_keeps_identity_url_and_specific_reason(self):
         for id_ in DISABLED_IDS:
