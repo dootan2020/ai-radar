@@ -64,6 +64,8 @@ class TranslationDisplayTests(unittest.TestCase):
             raise AssertionError(result.stdout + result.stderr)
         cls.out = json.loads(result.stdout)
         cls.app = (SITE / "app.js").read_text(encoding="utf-8")
+        cls.feed_js = (SITE / "feed.js").read_text(encoding="utf-8")
+        cls.feed_css = (SITE / "feed.css").read_text(encoding="utf-8")
 
     def test_vietnamese_reads_first_and_original_is_the_fallback(self):
         self.assertEqual(self.out["shown"], ["Ra mắt Claude Sonnet 5", "Introducing Claude Sonnet 5",
@@ -104,6 +106,25 @@ class TranslationDisplayTests(unittest.TestCase):
     def test_footer_names_the_model_and_its_licence(self):
         self.assertIn("NLLB-200 (giấy phép CC-BY-NC 4.0", self.app)
         self.assertIn("t.error_vi", self.app)
+
+    def test_feed_machine_translation_chip_reads_translated(self):
+        # Owner decision (03/10 17:49): chip reads "Translated", not "dịch máy",
+        # hidden from screen readers which hear the Vietnamese sentence beside it.
+        self.assertIn('>Translated</span>', self.feed_js)
+        self.assertNotIn('>dịch máy</span>', self.feed_js)
+        self.assertIn('<span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span>', self.feed_js)
+        self.assertIn('<span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span>', self.feed_js)
+
+    def test_feed_chip_style_uses_google_translate_colors_everywhere(self):
+        # The chip uses Google Translate colors (--color-mt-bg, --color-mt-ink) everywhere,
+        # without being overridden on photo cards.
+        self.assertIn("var(--color-mt-bg)", self.feed_css)
+        self.assertIn("var(--color-mt-ink)", self.feed_css)
+        self.assertNotIn(".card-photo .mt", self.feed_css)
+
+    def test_feed_footer_names_translated_label(self):
+        self.assertIn('kèm nhãn “Translated”.', self.feed_js)
+        self.assertNotIn('kèm nhãn “dịch máy”.', self.feed_js)
 
 
 if __name__ == "__main__":

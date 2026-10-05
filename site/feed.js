@@ -251,7 +251,7 @@ function titleOf(st) {
 }
 /* Under a translated headline: a "Translated" chip, a gap, then the original. Never glued together. */
 const origLine = t => !t.orig ? '' :
-  `<p class="card-orig"><span class="mt" title="Tiêu đề được dịch máy; dòng này là tiêu đề gốc">Translated</span><span class="sr">Tiêu đề gốc: </span><span class="orig-text"${langAttr(t.orig)}>${esc(t.orig)}</span></p>`;
+  `<p class="card-orig"><span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span><span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span><span class="orig-text"${langAttr(t.orig)}>${esc(t.orig)}</span></p>`;
 
 /* ==========================================================================
    "ĐÁNG ĐỌC": WHAT TO READ FIRST
@@ -1295,7 +1295,7 @@ function translationNote() {
   const t = D.translation;
   if (!t || typeof t !== 'object') return 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
   const done = Number.isFinite(t.translated) && t.translated > 0;
-  const base = done ? 'Tiêu đề tiếng Việt là bản dịch máy bằng mô hình NLLB-200 (giấy phép CC-BY-NC 4.0, chỉ dùng phi thương mại); tiêu đề gốc nằm ngay dưới, kèm nhãn “dịch máy”.' : 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
+  const base = done ? 'Tiêu đề tiếng Việt là bản dịch máy bằng mô hình NLLB-200 (giấy phép CC-BY-NC 4.0, chỉ dùng phi thương mại); tiêu đề gốc nằm ngay dưới, kèm nhãn “Translated”.' : 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
   const left = Number.isFinite(t.pending) && t.pending > 0 ? ` Còn ${fmt(t.pending)} tiêu đề chưa dịch kịp, đang hiện bản gốc.` : '';
   return `${base}${t.error_vi ? ` ${esc(t.error_vi)}` : left}`;
 }
