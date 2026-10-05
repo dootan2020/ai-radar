@@ -29,6 +29,7 @@ class PipelineTests(unittest.TestCase):
         self.stack.enter_context(patch.object(feeds, "SOURCES", sources))
         self.stack.enter_context(patch.object(huggingface, "SOURCES", [next(s for s in huggingface.SOURCES if s["lab"] == "deepseek")]))
         self.stack.enter_context(patch.object(youtube, "CHANNELS", (youtube.CHANNELS[0],)))
+        self.stack.enter_context(patch.dict("os.environ", {"YOUTUBE_API_KEY": "fake-api-key"}))
 
     def fetch(self, url, **kwargs):
         if url.endswith("feed-fails"):
@@ -41,17 +42,10 @@ class PipelineTests(unittest.TestCase):
             return saved("hf-trending.json")
         if "github.com/trending" in url:
             return saved("github.html")
-        if "/streams" in url:
-            return 'var ytInitialData = ' + json.dumps({
-                "metadata": {"channelMetadataRenderer": {"externalId": youtube.CHANNELS[0][4]}},
-                "contents": {"twoColumnBrowseResultsRenderer": {"tabs": [{"tabRenderer": {
-                    "selected": True, "endpoint": {"commandMetadata": {"webCommandMetadata": {
-                        "url": "/@OpenAI/streams"}}}, "content": {"richGridRenderer": {"contents": [
-                            {"videoRenderer": {"videoId": "Fls_onRviPM"}}]}}}}]}}}) + ';'
-        if "/feeds/videos.xml" in url:
-            return '<feed xmlns="http://www.w3.org/2005/Atom"/>'
-        if "/watch?" in url:
-            return saved("youtube-ended.html")
+        if "playlistItems" in url:
+            return (FIXTURES / "youtube_api/openai-playlistitems.json").read_text(encoding="utf-8")
+        if "videos" in url:
+            return (FIXTURES / "youtube_api/openai-videos.json").read_text(encoding="utf-8")
         raise AssertionError("Unmapped URL: " + url)
 
     def test_exact_contract_partial_failure_and_cross_feed_dedupe(self):
@@ -61,7 +55,7 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(set(result["trending"]), {"github", "huggingface"})
         self.assertEqual(len(result["updates"]), 3)
         self.assertEqual(len(result["hf_releases"]), 3)
-        self.assertEqual(len(result["live"]), 1)
+        self.assertEqual(len(result["live"]), 5)
         self.assertEqual(len(result["trending"]["github"]), 3)
         self.assertEqual(len(result["trending"]["huggingface"]), 3)
         self.assertEqual(len(result["sources"]), 7)

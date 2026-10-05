@@ -8,6 +8,38 @@ from radar.items import observation, relevant
 
 
 def parse_feed(text, source, observed_at):
+    if text.lstrip().startswith("{"):
+        import json
+        data = json.loads(text)
+        items = data.get("items", [])
+        result, seen, usable = [], set(), 0
+        for item in items:
+            snippet = item.get("snippet", {})
+            title = clean_text(snippet.get("title", ""), 500)
+            vid = item.get("contentDetails", {}).get("videoId") or snippet.get("resourceId", {}).get("videoId")
+            if not vid or not title:
+                continue
+            url = f"https://www.youtube.com/watch?v={vid}"
+            usable += 1
+            if url in seen:
+                continue
+            seen.add(url)
+            summary = clean_text(snippet.get("description", ""))
+            if source.get("filter_ai") and not relevant(title, summary):
+                continue
+            media = [dict(url=url, type="video", mime_type=None)]
+            thumbnails = snippet.get("thumbnails", {})
+            thumb = (thumbnails.get("high") or thumbnails.get("medium") or thumbnails.get("default") or {}).get("url")
+            if thumb:
+                media.append(dict(url=thumb, type="image", mime_type=None))
+            date = snippet.get("publishedAt")
+            obs = observation(source, title, url, date, observed_at, kind="video", summary=summary, media=media)
+            if obs:
+                result.append(obs)
+        if items and not usable:
+            raise ValueError("Feed entries have no usable title and URL")
+        return sorted(result, key=lambda it: it["published_at"] or "", reverse=True)[:50]
+
     root = ET.fromstring(text)
     if _local(root.tag) not in {"rss", "feed", "RDF"}:
         raise ValueError("Expected RSS or Atom")

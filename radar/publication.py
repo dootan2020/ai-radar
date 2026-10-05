@@ -32,7 +32,7 @@ def inspect_projection_row(key, row):
     if key in ("hf_releases", "repos") and row.get("created_at") is not None and instant(row["created_at"]) is None:
         raise ValueError(f"invalid {key} creation timestamp")
     if key == "live":
-        if row.get("status") not in ("live", "upcoming", "ended"):
+        if row.get("status") is not None and row.get("status") not in ("live", "upcoming", "ended"):
             raise ValueError("invalid live status")
     if key == "events":
         if not isinstance(row.get("id"), str) or not row["id"]:

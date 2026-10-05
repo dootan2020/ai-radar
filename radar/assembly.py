@@ -28,7 +28,7 @@ def legacy_items(payload, now):
         if row.get("thumbnail"):
             media.append(dict(url=row["thumbnail"], type="image", mime_type=None))
         extra = {key: row[key] for key in ("status", "start_at", "end_at", "time_text", "time_precision", "status_source") if key in row}
-        result.append(observation(source, row["title"], row["url"], row.get("start_at"), now, kind="video", media=media,
+        result.append(observation(source, row["title"], row["url"], row.get("start_at") or row.get("published_at"), now, kind="video", media=media,
                                   time_basis="scheduled" if row.get("status") == "upcoming" else "published", **extra))
     for row in payload.get("trending", {}).get("github", []):
         if relevant(row["repo"], row.get("description", "")):
