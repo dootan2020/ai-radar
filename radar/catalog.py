@@ -6,9 +6,9 @@ from urllib.parse import urlencode
 RSS = [
     ("simon-willison", "Simon Willison", "research", "simon-willison", "https://simonwillison.net/atom/everything/", True),
     ("interconnects", "Interconnects", "research", "interconnects", "https://www.interconnects.ai/feed", False),
-    ("import-ai", "Import AI", "newsletter", "import-ai", "https://importai.substack.com/feed", False),
+    ("import-ai", "Import AI", "newsletter", "import-ai", "https://jack-clark.net/feed/", False),
     ("ai-news", "AI News", "newsletter", "smol-ai", "https://buttondown.com/ainews/rss", False),
-    ("dwarkesh-podcast", "Dwarkesh Podcast", "podcast", "dwarkesh", "https://api.substack.com/feed/podcast/69345.rss", True),
+    ("dwarkesh-podcast", "Dwarkesh Podcast", "podcast", "dwarkesh", "https://www.dwarkeshpatel.com/feed", True),
     ("latent-space", "Latent Space", "podcast", "latent-space", "https://api.substack.com/feed/podcast/1084089.rss", False),
     ("no-priors", "No Priors", "podcast", "no-priors", "https://feeds.megaphone.fm/nopriors", False),
     ("techcrunch-ai", "TechCrunch AI", "press", "techcrunch", "https://techcrunch.com/category/artificial-intelligence/feed/", False),
@@ -40,8 +40,6 @@ NVIDIA_CHANNEL = ("nvidia-youtube", "nvidia", "NVIDIA", "NVIDIA", "UCHuiy8bXnmK5
 
 # Keep unavailable endpoints in the inventory and exported source health records.
 DISABLED = {
-    "import-ai": "Nguồn Substack trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế từ trang của tác giả.",
-    "dwarkesh-podcast": "Nguồn podcast trên Substack trả mã HTTP 403 trên máy dựng của GitHub; video của Dwarkesh vẫn là một nguồn riêng.",
     "latent-space": "Nguồn podcast trên Substack trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế.",
     "cnbc-tech": "Nguồn CNBC trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế.",
 }
