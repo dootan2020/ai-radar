@@ -779,7 +779,7 @@ ul, ol { padding: 0; list-style: none; }
   justify-content: center;
   gap: var(--space-8);
   min-height: var(--btn-h);
-  padding: 0 var(--space-20);
+  padding: 0 var(--space-24);
   border-radius: var(--radius-full);
   background: var(--color-fill);
   color: var(--color-ink);
@@ -898,6 +898,9 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .card-lead, .sk-lead { grid-column: 1 / -1; }
   .card-wide { grid-column: 1 / -1; }
   .tile-live { grid-column: span 3; }
+}
+@media (max-width: 1199px) and (min-width: 768px){
+  .feed-grid > .card-wide .media { max-height: 280px; }
 }
 @media (max-width: 1199px){
   .events .calbtn { margin-left: 0; }
