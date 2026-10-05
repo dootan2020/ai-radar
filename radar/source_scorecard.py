@@ -3,9 +3,7 @@
 import argparse
 from datetime import datetime, timezone
 import json
-import math
 from pathlib import Path
-import re
 import statistics
 from collections import Counter, defaultdict
 
@@ -27,17 +25,46 @@ def parse_iso_datetime(value):
         return None
 
 
-def categorize_error(error_str, http_status=None):
-    """Categorize raw error strings and HTTP status into standardized error kinds."""
+def is_date_only(p_str, p_dt):
+    """Check if a timestamp is date-only (midnight UTC 00:00:00 without specific time)."""
+    if not p_str or not p_dt:
+        return False
+    if "T00:00:00" in p_str or p_str.endswith("00:00:00Z") or len(p_str) <= 10:
+        return True
+    return p_dt.hour == 0 and p_dt.minute == 0 and p_dt.second == 0 and p_dt.microsecond == 0
+
+
+def categorize_error(error_str, http_status=None, is_disabled=False, disabled_reason=None):
+    """Categorize raw error strings, HTTP status, and disabled flags into standardized error kinds."""
+    if is_disabled:
+        reason = str(disabled_reason or error_str or "")
+        r_low = reason.lower()
+        if "substack" in r_low or ("403" in r_low and "substack" in r_low):
+            return "Disabled (Substack 403)"
+        if "cnbc" in r_low or ("403" in r_low and "cnbc" in r_low):
+            return "Disabled (CNBC 403)"
+        if "xml" in r_low or "parse" in r_low:
+            return "Disabled (Invalid XML)"
+        if "403" in r_low:
+            return "Disabled (HTTP 403)"
+        return "Disabled"
+
     if not error_str and http_status is None:
         return "None"
     err = str(error_str or "")
     if "Disabled:" in err:
+        err_low = err.lower()
+        if "substack" in err_low:
+            return "Disabled (Substack 403)"
+        if "cnbc" in err_low:
+            return "Disabled (CNBC 403)"
+        if "xml" in err_low or "parse" in err_low:
+            return "Disabled (Invalid XML)"
         return "Disabled"
+    if http_status == 404 or "404" in err:
+        return "HTTP 404 (Address Changed)"
     if http_status == 403 or "403" in err:
         return "HTTP 403"
-    if http_status == 404 or "404" in err:
-        return "HTTP 404"
     if http_status == 429 or "429" in err:
         return "HTTP 429"
     if http_status == 500 or "500" in err:
@@ -60,17 +87,17 @@ def discover_snapshots(snapshots_dir):
     root = Path(snapshots_dir)
     if not root.exists():
         raise FileNotFoundError(f"Snapshots directory does not exist: {snapshots_dir}")
-    
+
     candidates = []
     for item in root.iterdir():
         if item.is_dir():
             radar_file = item / "radar.json"
             if radar_file.exists():
                 candidates.append((item.name, radar_file))
-    
+
     # Sort chronologically by snapshot name (YYYY-MM-DDTHHMMSSZ)
     candidates.sort(key=lambda x: x[0])
-    
+
     snapshots = []
     for name, path in candidates:
         try:
@@ -83,13 +110,46 @@ def discover_snapshots(snapshots_dir):
                 "generated_at": gen_at,
                 "data": data
             })
-        except Exception as e:
-            # Skip unreadable snapshots gracefully
+        except Exception:
             continue
 
-    # Secondary sort by parsed generated_at if available
     snapshots.sort(key=lambda s: s["generated_at"] or datetime.min.replace(tzinfo=timezone.utc))
     return snapshots
+
+
+def find_duplicate_feeds(source_items):
+    """Find pairs of feeds that duplicate each other (same publisher or mirror feed)."""
+    source_item_urls = defaultdict(set)
+    source_publishers = {}
+
+    for (src, url), it in source_items.items():
+        source_item_urls[src].add(url)
+        if it.get("publisher"):
+            source_publishers[src] = it.get("publisher")
+
+    duplicates = []
+    sources = sorted(source_item_urls.keys())
+    for i in range(len(sources)):
+        for j in range(i + 1, len(sources)):
+            s1 = sources[i]
+            s2 = sources[j]
+            p1 = source_publishers.get(s1)
+            p2 = source_publishers.get(s2)
+            if p1 and p2 and p1 == p2:
+                common = source_item_urls[s1] & source_item_urls[s2]
+                if common:
+                    duplicates.append({
+                        "source_1": s1,
+                        "source_2": s2,
+                        "publisher_1": p1,
+                        "publisher_2": p2,
+                        "shared_items_count": len(common),
+                        "s1_total": len(source_item_urls[s1]),
+                        "s2_total": len(source_item_urls[s2])
+                    })
+
+    duplicates.sort(key=lambda d: -d["shared_items_count"])
+    return duplicates
 
 
 def analyze_snapshots(snapshots):
@@ -100,7 +160,8 @@ def analyze_snapshots(snapshots):
             "sources": {}
         }
 
-    # Tracking structures
+    first_snap_dt = snapshots[0]["generated_at"]
+
     source_records = defaultdict(lambda: {
         "id": "",
         "name": "",
@@ -114,12 +175,11 @@ def analyze_snapshots(snapshots):
         "disabled_reason": None
     })
 
-    item_first_seen = {}  # url/canonical_url -> {first_seen_at, snapshot_name, item}
-    story_clusters = {}   # story_id -> {id, title, published_at, coverage: {item_id: item}}
+    source_items = {}   # (source_id, url) -> item_dict
+    story_clusters = {} # story_id -> {id, title, published_at, coverage: {item_id: item}}
 
-    for snap in snapshots:
+    for snap_idx, snap in enumerate(snapshots):
         snap_dt = snap["generated_at"]
-        snap_name = snap["name"]
         data = snap["data"]
 
         # 1. Process sources
@@ -144,7 +204,12 @@ def analyze_snapshots(snapshots):
 
             if not is_ok:
                 rec["runs_failed"] += 1
-                kind = categorize_error(s.get("error"), s.get("http_status"))
+                kind = categorize_error(
+                    s.get("error"),
+                    s.get("http_status"),
+                    is_disabled=rec["is_disabled"],
+                    disabled_reason=rec["disabled_reason"]
+                )
                 rec["error_kinds"][kind] += 1
 
             if s.get("http_status") is not None:
@@ -169,73 +234,89 @@ def analyze_snapshots(snapshots):
                     continue
                 item_id = item.get("id") or item_url
 
-                if item_url not in item_first_seen:
-                    item_first_seen[item_url] = {
-                        "url": item_url,
-                        "id": item_id,
-                        "source": item.get("source"),
-                        "publisher": item.get("publisher"),
-                        "group": item.get("group"),
-                        "title": item.get("title", ""),
-                        "summary": item.get("summary", ""),
-                        "published_at": item.get("published_at"),
-                        "first_seen_at": snap_dt,
-                        "first_snap": snap_name,
-                        "story_id": sid
-                    }
-                # Update story coverage
+                src = item.get("source")
+                if src:
+                    key = (src, item_url)
+                    if key not in source_items:
+                        p_str = item.get("published_at")
+                        p_dt = parse_iso_datetime(p_str)
+                        source_items[key] = {
+                            "url": item_url,
+                            "id": item_id,
+                            "source": src,
+                            "publisher": item.get("publisher"),
+                            "group": item.get("group"),
+                            "title": item.get("title", ""),
+                            "summary": item.get("summary", ""),
+                            "published_at": p_str,
+                            "p_dt": p_dt,
+                            "is_date_only": is_date_only(p_str, p_dt),
+                            "first_seen_at": snap_dt,
+                            "first_snap_idx": snap_idx,
+                            "story_id": sid
+                        }
+
                 story_clusters[sid]["coverage"][item_id] = item
 
     # Group items by source
     items_by_source = defaultdict(list)
-    for it in item_first_seen.values():
-        src = it.get("source")
-        if src:
-            items_by_source[src].append(it)
+    for it in source_items.values():
+        items_by_source[it["source"]].append(it)
 
-    # 3. Compute Earliness across multi-source stories
-    # A multi-source story is one with coverage from >= 2 distinct sources
-    multi_source_stories = [
+    # 3. Multi-publisher Stories (Rule 2: Earliness counts only clusters with >= 2 distinct publishers)
+    multi_publisher_stories = [
         s for s in story_clusters.values()
-        if len({it.get("source") for it in s["coverage"].values() if it.get("source")}) > 1
+        if len({it.get("publisher") for it in s["coverage"].values() if it.get("publisher")}) > 1
     ]
 
     source_earliness = defaultdict(lambda: {
         "multi_count": 0,
         "first_count": 0,
-        "lags_behind_hours": []
+        "lags_behind_hours": [],
+        "date_only_items_count": 0
     })
 
-    for s in multi_source_stories:
+    for s in multi_publisher_stories:
         coverage_items = list(s["coverage"].values())
         parsed_items = []
         for it in coverage_items:
             src = it.get("source")
-            p_dt = parse_iso_datetime(it.get("published_at"))
+            p_str = it.get("published_at")
+            p_dt = parse_iso_datetime(p_str)
             if src and p_dt:
-                parsed_items.append((src, p_dt))
+                parsed_items.append({
+                    "source": src,
+                    "dt": p_dt,
+                    "date_only": is_date_only(p_str, p_dt)
+                })
 
         if not parsed_items:
             continue
 
         # Story's overall earliest publication time
-        t_first = min(p_dt for _, p_dt in parsed_items)
+        t_first = min(it["dt"] for it in parsed_items)
 
         # For each distinct source in this story, get their earliest publication time
         source_earliest_in_story = {}
-        for src, p_dt in parsed_items:
-            if src not in source_earliest_in_story or p_dt < source_earliest_in_story[src]:
-                source_earliest_in_story[src] = p_dt
+        for it in parsed_items:
+            src = it["source"]
+            if src not in source_earliest_in_story or it["dt"] < source_earliest_in_story[src]["dt"]:
+                source_earliest_in_story[src] = it
 
-        for src, t_s in source_earliest_in_story.items():
+        for src, s_info in source_earliest_in_story.items():
             edata = source_earliness[src]
             edata["multi_count"] += 1
-            diff_seconds = (t_s - t_first).total_seconds()
-            # Allow up to 60s tolerance for clock jitter/feed generation sync
+            if s_info["date_only"]:
+                edata["date_only_items_count"] += 1
+
+            diff_seconds = (s_info["dt"] - t_first).total_seconds()
             if diff_seconds <= 60:
                 edata["first_count"] += 1
             else:
                 edata["lags_behind_hours"].append(diff_seconds / 3600.0)
+
+    # Find duplicate feeds
+    duplicate_feeds = find_duplicate_feeds(source_items)
 
     # 4. Synthesize per-source scorecard
     scorecard = {}
@@ -245,13 +326,22 @@ def analyze_snapshots(snapshots):
         s_rec = source_records[sid]
         items = items_by_source.get(sid, [])
 
-        # Reliability
+        # Reliability (Rule 4: Disabled vs Failing)
         runs_tot = s_rec["runs_total"]
         runs_fail = s_rec["runs_failed"]
         runs_ok = runs_tot - runs_fail
         fail_rate = (runs_fail / runs_tot) if runs_tot > 0 else 0.0
 
-        # Earliness
+        if s_rec["is_disabled"]:
+            tech_status = "DISABLED"
+        elif runs_tot > 0 and runs_fail == runs_tot:
+            tech_status = "FAILING"
+        elif fail_rate > 0.05:
+            tech_status = "UNSTABLE"
+        else:
+            tech_status = "HEALTHY"
+
+        # Earliness (Rule 2)
         e_data = source_earliness[sid]
         multi_cnt = e_data["multi_count"]
         first_cnt = e_data["first_count"]
@@ -261,14 +351,27 @@ def analyze_snapshots(snapshots):
         mean_lag_behind = statistics.mean(lags_behind) if lags_behind else None
         thin_earliness = (multi_cnt < 5)
 
-        # Pipeline Lag & Quality
+        # Pipeline Lag (Rule 1: items older than first snapshot excluded, must not be present in first snap)
         item_cnt = len(items)
+        pipeline_lags = []
+        for it in items:
+            if it["first_snap_idx"] > 0 and it["p_dt"] and it["p_dt"] > first_snap_dt:
+                lag_h = (it["first_seen_at"] - it["p_dt"]).total_seconds() / 3600.0
+                pipeline_lags.append(lag_h)
+
+        med_pipe_lag = statistics.median(pipeline_lags) if pipeline_lags else None
+        min_pipe_lag = min(pipeline_lags) if pipeline_lags else None
+        max_pipe_lag = max(pipeline_lags) if pipeline_lags else None
+        thin_lag = (len(pipeline_lags) < 5)
+
+        # Quality & Timestamp Breakdown (Rule 3: Separate missing, future, date-only; leave age out)
         ai_cnt = 0
         corrob_cnt = 0
         rewrite_cnt = 0
         missing_ts_cnt = 0
-        implausible_ts_cnt = 0
-        pipeline_lags = []
+        future_ts_cnt = 0
+        date_only_ts_cnt = 0
+        archive_items_cnt = 0
 
         my_pub = s_rec.get("publisher") or sid
 
@@ -277,70 +380,72 @@ def analyze_snapshots(snapshots):
             if relevant(it.get("title", ""), it.get("summary", "")):
                 ai_cnt += 1
 
-            # Timestamps & Pipeline Lag
             p_str = it.get("published_at")
-            p_dt = parse_iso_datetime(p_str)
+            p_dt = it.get("p_dt")
             seen_dt = it.get("first_seen_at")
 
+            # Timestamp classification
             if not p_str or not p_dt:
                 missing_ts_cnt += 1
             else:
-                if seen_dt:
-                    lag_hours = (seen_dt - p_dt).total_seconds() / 3600.0
-                    # Implausible: published in future > 1h (timezone bug) or > 30 days old (stale/archive)
-                    if lag_hours < -1.0 or lag_hours > 30 * 24:
-                        implausible_ts_cnt += 1
-                    else:
-                        pipeline_lags.append(lag_hours)
-                else:
-                    pipeline_lags.append(0.0)
+                diff_hours = (seen_dt - p_dt).total_seconds() / 3600.0 if seen_dt else 0.0
+                if diff_hours < -0.1:  # published in future relative to first seen
+                    future_ts_cnt += 1
+                elif it["is_date_only"]:
+                    date_only_ts_cnt += 1
+                elif diff_hours > 30 * 24:
+                    archive_items_cnt += 1
 
-            # Corroboration & Rewrites
+            # Corroboration & Rewrites (only across independent publishers)
             sid_story = it.get("story_id")
             cluster = story_clusters.get(sid_story)
             if cluster and p_dt:
-                other_items = [
-                    x for x in cluster["coverage"].values()
-                    if x.get("publisher") and x.get("publisher") != my_pub
-                ]
-                is_corroborated = False
-                is_rewrite = False
-                for other in other_items:
-                    op_dt = parse_iso_datetime(other.get("published_at"))
-                    if op_dt:
-                        if op_dt >= p_dt:
-                            is_corroborated = True
-                        if op_dt < p_dt:
-                            is_rewrite = True
-                if is_corroborated:
-                    corrob_cnt += 1
-                if is_rewrite:
-                    rewrite_cnt += 1
+                cluster_pubs = {x.get("publisher") for x in cluster["coverage"].values() if x.get("publisher")}
+                if len(cluster_pubs) > 1:
+                    other_items = [
+                        x for x in cluster["coverage"].values()
+                        if x.get("publisher") and x.get("publisher") != my_pub
+                    ]
+                    is_corroborated = False
+                    is_rewrite = False
+                    for other in other_items:
+                        op_dt = parse_iso_datetime(other.get("published_at"))
+                        if op_dt:
+                            if op_dt >= p_dt:
+                                is_corroborated = True
+                            if op_dt < p_dt:
+                                is_rewrite = True
+                    if is_corroborated:
+                        corrob_cnt += 1
+                    if is_rewrite:
+                        rewrite_cnt += 1
 
         ai_share = (ai_cnt / item_cnt) if item_cnt > 0 else 0.0
         corrob_share = (corrob_cnt / item_cnt) if item_cnt > 0 else 0.0
         rewrite_share = (rewrite_cnt / item_cnt) if item_cnt > 0 else 0.0
-        ts_issue_cnt = missing_ts_cnt + implausible_ts_cnt
-        ts_issue_share = (ts_issue_cnt / item_cnt) if item_cnt > 0 else 0.0
 
-        med_pipe_lag = statistics.median(pipeline_lags) if pipeline_lags else None
-        min_pipe_lag = min(pipeline_lags) if pipeline_lags else None
-        max_pipe_lag = max(pipeline_lags) if pipeline_lags else None
+        ts_issue_cnt = missing_ts_cnt + future_ts_cnt + date_only_ts_cnt
+        ts_issue_share = (ts_issue_cnt / item_cnt) if item_cnt > 0 else 0.0
+        missing_share = (missing_ts_cnt / item_cnt) if item_cnt > 0 else 0.0
+        future_share = (future_ts_cnt / item_cnt) if item_cnt > 0 else 0.0
+        date_only_share = (date_only_ts_cnt / item_cnt) if item_cnt > 0 else 0.0
 
         thin_quality = (item_cnt < 5)
-        thin_lag = (len(pipeline_lags) < 5)
 
         # Recommendation Verdict
         verdict, rationale = derive_verdict(
             runs_tot=runs_tot,
             fail_rate=fail_rate,
             is_disabled=s_rec["is_disabled"],
+            disabled_reason=s_rec["disabled_reason"],
             item_cnt=item_cnt,
             ai_share=ai_share,
             first_rate=first_rate,
             multi_cnt=multi_cnt,
             med_pipe_lag=med_pipe_lag,
-            ts_issue_share=ts_issue_share,
+            missing_share=missing_share,
+            future_share=future_share,
+            date_only_share=date_only_share,
             rewrite_share=rewrite_share,
             error_kinds=s_rec["error_kinds"]
         )
@@ -357,6 +462,7 @@ def analyze_snapshots(snapshots):
                 "failure_rate": round(fail_rate, 4),
                 "is_disabled": s_rec["is_disabled"],
                 "disabled_reason": s_rec["disabled_reason"],
+                "tech_status": tech_status,
                 "error_kinds": dict(s_rec["error_kinds"]),
                 "http_statuses": dict(s_rec["http_statuses"])
             },
@@ -367,6 +473,7 @@ def analyze_snapshots(snapshots):
                 "behind_count": len(lags_behind),
                 "median_lag_behind_hours": round(med_lag_behind, 2) if med_lag_behind is not None else None,
                 "mean_lag_behind_hours": round(mean_lag_behind, 2) if mean_lag_behind is not None else None,
+                "date_only_items_count": e_data["date_only_items_count"],
                 "thin": thin_earliness
             },
             "pipeline_lag": {
@@ -385,7 +492,9 @@ def analyze_snapshots(snapshots):
                 "rewrite_count": rewrite_cnt,
                 "rewrite_share": round(rewrite_share, 4),
                 "missing_timestamp_count": missing_ts_cnt,
-                "implausible_timestamp_count": implausible_ts_cnt,
+                "future_timestamp_count": future_ts_cnt,
+                "date_only_timestamp_count": date_only_ts_cnt,
+                "archive_items_count": archive_items_cnt,
                 "timestamp_issues_count": ts_issue_cnt,
                 "timestamp_issues_share": round(ts_issue_share, 4),
                 "thin": thin_quality
@@ -405,9 +514,10 @@ def analyze_snapshots(snapshots):
         "history_end": last_snap_time.isoformat() if last_snap_time else None,
         "duration_hours": round(duration_hours, 2),
         "total_sources": len(scorecard),
-        "total_unique_items": len(item_first_seen),
+        "total_unique_items": len(source_items),
         "total_stories": len(story_clusters),
-        "multi_source_stories_count": len(multi_source_stories)
+        "multi_publisher_stories_count": len(multi_publisher_stories),
+        "duplicate_feeds": duplicate_feeds
     }
 
     return {
@@ -416,36 +526,56 @@ def analyze_snapshots(snapshots):
     }
 
 
-def derive_verdict(runs_tot, fail_rate, is_disabled, item_cnt, ai_share, first_rate,
-                   multi_cnt, med_pipe_lag, ts_issue_share, rewrite_share, error_kinds):
+def derive_verdict(runs_tot, fail_rate, is_disabled, disabled_reason=None, item_cnt=0,
+                   ai_share=0.0, first_rate=None, multi_cnt=0, med_pipe_lag=None,
+                   missing_share=0.0, future_share=0.0, date_only_share=0.0,
+                   rewrite_share=0.0, error_kinds=None, ts_issue_share=None):
     """Derive an actionable recommendation for a source based on its empirical scorecard."""
-    if is_disabled or fail_rate >= 0.99:
-        if "HTTP 404" in error_kinds:
-            return "CUT", "Lỗi 100% 404 URL chết; cần gỡ bỏ ngay."
-        if "Disabled" in error_kinds or is_disabled:
-            return "CUT", "Đã bị vô hiệu hóa trong catalog (HTTP 403 / XML hỏng)."
+    error_kinds = error_kinds or {}
+    if ts_issue_share is None:
+        ts_issue_share = missing_share + future_share + date_only_share
+
+    # 1. Dead / Disabled sources (Rule 4)
+    if is_disabled:
+        reason_hint = disabled_reason or "vô hiệu hóa trong catalog"
+        return "CUT", f"Đã bị vô hiệu hóa trong pipeline ({reason_hint}); cần tìm route hoặc sửa feed."
+
+    if fail_rate >= 0.99:
+        if "HTTP 404 (Address Changed)" in error_kinds or "HTTP 404" in error_kinds:
+            return "CUT", "Lỗi 100% 404 URL chết; địa chỉ feed đã đổi, cần cập nhật URL mới hoặc gỡ bỏ."
         return "CUT", f"Tỷ lệ lỗi {fail_rate*100:.0f}%; không thể thu thập."
 
     if fail_rate >= 0.20:
         return "FIX", f"Tỷ lệ lỗi cao ({fail_rate*100:.1f}%), cần khắc phục kết nối/endpoint."
 
-    if item_cnt > 0 and ts_issue_share >= 0.80:
-        return "FIX", f"Timestamp lỗi/thiếu nghiêm trọng ({ts_issue_share*100:.0f}% items); cần sửa parser ngày tháng."
+    # 2. Timestamp issues (Rule 3)
+    if item_cnt > 0 and missing_share >= 0.80:
+        return "FIX", f"Thiếu timestamp nghiêm trọng ({missing_share*100:.0f}% bài); cần sửa parser ngày tháng."
 
+    if item_cnt > 0 and future_share >= 0.80:
+        return "FIX", f"Timestamp ở tương lai ({future_share*100:.0f}% bài) do lỗi timezone; cần chuẩn hóa UTC."
+
+    if item_cnt > 0 and date_only_share >= 0.80:
+        return "REVISE", f"Timestamp dạng date-only ({date_only_share*100:.0f}% bài); không thể xếp hạng độ sớm theo giờ."
+
+    # 3. Quality / AI relevance
     if item_cnt > 0 and ai_share < 0.30:
         return "FILTER_OR_CUT", f"Tỷ lệ bài AI quá thấp ({ai_share*100:.1f}%); cần bộ lọc filter_ai chặt hoặc loại bỏ."
 
+    # 4. Earliness & Evidence requirement:
+    # "when a source has too few independent clusters, say 'not enough evidence yet' rather than KEEP or CUT."
     if multi_cnt >= 5 and first_rate is not None and first_rate >= 0.60 and (med_pipe_lag is not None and med_pipe_lag <= 24.0):
-        return "PROMOTE", f"Nguồn sớm xuất sắc: dẫn đầu {first_rate*100:.0f}% multi-source stories, độ tin cậy cao."
-
-    if med_pipe_lag is not None and med_pipe_lag <= 3.0 and ai_share >= 0.80:
-        return "PROMOTE", f"Tốc độ pipeline cực nhanh ({med_pipe_lag:.1f}h) và độ liên quan AI cao ({ai_share*100:.0f}%)."
+        return "PROMOTE", f"Nguồn sớm xuất sắc: dẫn đầu {first_rate*100:.0f}% cụm tin độc lập ($N={multi_cnt}$), độ tin cậy cao."
 
     if multi_cnt >= 5 and first_rate is not None and first_rate == 0.0 and rewrite_share >= 0.10:
-        return "REVISE", "Không bao giờ đưa tin đầu tiên trong các tin đa nguồn; chủ yếu xào lại/chép lại."
+        return "REVISE", "Không bao giờ đưa tin đầu tiên trong các cụm tin độc lập; chủ yếu đi sau/xào lại."
 
-    if item_cnt < 5:
-        return "MONITOR", f"Mẫu mỏng ({item_cnt} bài); cần thêm thời gian theo dõi lịch sử dài hơn."
+    if multi_cnt >= 5:
+        return "KEEP", f"Nguồn ổn định, có đủ bằng chứng kiểm chứng độc lập ($N_{{multi}}={multi_cnt}$). Đạt chuẩn."
+
+    # Insufficient independent clusters: say "not enough evidence yet" rather than KEEP or CUT
+    if item_cnt < 5 or multi_cnt < 5:
+        return "NOT_ENOUGH_EVIDENCE", f"Chưa đủ bằng chứng (not enough evidence yet): chỉ có {multi_cnt}/5 cụm tin độc lập ($N_{{items}}={item_cnt}$); chưa thể kết luận KEEP hay CUT."
 
     return "KEEP", "Nguồn ổn định, đáp ứng tiêu chuẩn chất lượng và độ tin cậy."
 
@@ -465,25 +595,31 @@ def export_markdown(scorecard_data, output_path):
 
     summary = scorecard_data.get("summary", {})
     sources = scorecard_data.get("sources", {})
+    duplicates = summary.get("duplicate_feeds", [])
 
     lines = []
-    lines.append("# Bảng điểm Nguồn tin AI Radar (Source Scorecard)")
+    lines.append("# Bảng điểm Nguồn tin AI Radar (Source Scorecard) - Round 2")
     lines.append("")
     lines.append(f"- **Số snapshot phân tích**: {summary.get('snapshots_count', 0)} bản chụp")
     lines.append(f"- **Khoảng thời gian**: {summary.get('history_start')} đến {summary.get('history_end')} ({summary.get('duration_hours')} giờ)")
     lines.append(f"- **Tổng số nguồn theo dõi**: {summary.get('total_sources', 0)}")
     lines.append(f"- **Tổng số item độc nhất**: {summary.get('total_unique_items', 0)}")
-    lines.append(f"- **Tổng số story clusters**: {summary.get('total_stories', 0)} (trong đó có {summary.get('multi_source_stories_count', 0)} stories đa nguồn)")
+    lines.append(f"- **Tổng số story clusters**: {summary.get('total_stories', 0)}")
+    lines.append(f"- **Số story đa nhà xuất bản độc lập (Multi-publisher stories)**: {summary.get('multi_publisher_stories_count', 0)}")
     lines.append("")
     lines.append("> [!NOTE]")
-    lines.append("> **Quy tắc mẫu mỏng (`*` thin)**: Mọi chỉ số có cỡ mẫu dưới 5 stories/items đều được đánh dấu dấu hoa thị `*` (thin) để tránh kết luận vội vàng dựa trên dữ liệu 3 ngày.")
+    lines.append("> **Quy tắc mẫu mỏng & Bằng chứng độc lập**:")
+    lines.append("> 1. **Earliness & Corroboration**: Chỉ tính các cụm tin có từ $\\ge 2$ nhà xuất bản (publisher) độc lập. Các feed cùng một nhà xuất bản (như `anthropic-news` và `anthropic-gftdon`) không được tính là tự đua với chính mình.")
+    lines.append("> 2. **Pipeline Lag**: Chỉ đo các bài có `published_at` sau bản chụp đầu tiên và không nằm trong bản chụp đầu tiên để tránh thổi phồng độ trễ bởi tin tồn kho.")
+    lines.append("> 3. **Phân loại lỗi thời gian**: Tách riêng bài thiếu ngày (Missing), bài ở tương lai do timezone (Future), bài chỉ có ngày (Date-only). Không coi bài lưu trữ (> 30 ngày) là lỗi timestamp.")
+    lines.append("> 4. **Nguyên tắc xếp hạng**: Khi một nguồn có dưới 5 cụm tin độc lập ($N_{multi} < 5$), hệ thống đánh giá `NOT_ENOUGH_EVIDENCE` (chưa đủ bằng chứng) thay vì vội vàng kết luận KEEP hay CUT.")
     lines.append("")
 
     # Master Table
     lines.append("## 1. Bảng điểm Tổng hợp (Master Scorecard)")
     lines.append("")
-    lines.append("| Nguồn tin | Nhóm | Lượt chạy | Lỗi (%) | Số bài | AI (%) | Sớm/Đa nguồn | Tỷ lệ sớm | Trễ so với tin 1 (h) | Pipeline Lag (h) | Kiểm chứng (%) | Xào lại (%) | Lỗi Time (%) | Đánh giá |")
-    lines.append("|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|:---|")
+    lines.append("| Nguồn tin | Nhóm | Lượt chạy | Lỗi (%) | Tình trạng | Số bài | AI (%) | Sớm/Đa nguồn | Tỷ lệ sớm | Trễ tin 1 (h) | Pipeline Lag (h) | Kiểm chứng (%) | Xào lại (%) | Lỗi Time (M/F/D) | Đánh giá |")
+    lines.append("|:---|:---|---:|---:|:---|---:|---:|---:|---:|---:|---:|---:|---:|:---|:---|")
 
     sorted_sources = sorted(sources.values(), key=lambda s: (s["verdict"], -(s["earliness"]["first_rate"] or 0), s["id"]))
 
@@ -496,6 +632,7 @@ def export_markdown(scorecard_data, output_path):
         qua = s["quality"]
 
         fail_str = f"{rel['failure_rate']*100:.1f}%" if rel['runs_total'] > 0 else "N/A"
+        tech_status = rel.get("tech_status", "UNKNOWN")
         item_cnt = qua["total_items"]
         ai_str = f"{qua['ai_share']*100:.1f}%" if item_cnt > 0 else "N/A"
 
@@ -516,18 +653,21 @@ def export_markdown(scorecard_data, output_path):
 
         corrob_str = f"{qua['corroborated_share']*100:.1f}%" if item_cnt > 0 else "N/A"
         rewrite_str = f"{qua['rewrite_share']*100:.1f}%" if item_cnt > 0 else "N/A"
-        ts_str = f"{qua['timestamp_issues_share']*100:.1f}%" if item_cnt > 0 else "N/A"
+        m_cnt = qua.get("missing_timestamp_count", 0)
+        f_cnt = qua.get("future_timestamp_count", 0)
+        d_cnt = qua.get("date_only_timestamp_count", 0)
+        ts_detail = f"{m_cnt}/{f_cnt}/{d_cnt}" if (m_cnt + f_cnt + d_cnt) > 0 else "0"
 
         verdict = s["verdict"]
 
-        lines.append(f"| `{sid}` | {grp} | {rel['runs_total']} | {fail_str} | {item_cnt} | {ai_str} | {multi_str} | {first_pct} | {lag_behind} | {pipe_lag} | {corrob_str} | {rewrite_str} | {ts_str} | **{verdict}** |")
+        lines.append(f"| `{sid}` | {grp} | {rel['runs_total']} | {fail_str} | {tech_status} | {item_cnt} | {ai_str} | {multi_str} | {first_pct} | {lag_behind} | {pipe_lag} | {corrob_str} | {rewrite_str} | {ts_detail} | **{verdict}** |")
 
     lines.append("")
 
-    # Section 2: Earliness Ranking
-    lines.append("## 2. Bảng xếp hạng Độ sớm (Earliness Leaderboard)")
+    # Section 2: Earliness Leaderboard
+    lines.append("## 2. Bảng xếp hạng Độ sớm Độc lập (Independent Earliness Leaderboard)")
     lines.append("")
-    lines.append("### A. Nguồn có mẫu vững chắc ($N_{multi} \\ge 5$)")
+    lines.append("### A. Nguồn có bằng chứng vững chắc ($N_{multi} \\ge 5$ cụm tin đa publisher)")
     lines.append("")
     lines.append("| Thứ hạng | Nguồn tin | Đa nguồn | Về nhất | Tỷ lệ sớm (%) | Trễ trung vị khi không nhất | Nhận xét |")
     lines.append("|---:|:---|---:|---:|---:|---:|:---|")
@@ -541,13 +681,13 @@ def export_markdown(scorecard_data, output_path):
     for idx, s in enumerate(solid_earliness, 1):
         ear = s["earliness"]
         lag_b = f"{ear['median_lag_behind_hours']:.2f}h" if ear['median_lag_behind_hours'] is not None else "0.0h"
-        lines.append(f"| {idx} | `{s['id']}` ({s['name']}) | {ear['multi_stories_count']} | {ear['first_count']} | {ear['first_rate']*100:.1f}% | {lag_b} | {s['rationale']} |")
+        lines.append(f"| {idx} | `{s['id']}` ({s['name']}) | {ear['multi_stories_count']} | {ear['first_count']} | **{ear['first_rate']*100:.1f}%** | {lag_b} | {s['rationale']} |")
 
     lines.append("")
-    lines.append("### B. Nguồn mẫu mỏng ($N_{multi} < 5$) — Cần theo dõi thêm")
+    lines.append("### B. Nguồn mẫu mỏng ($N_{multi} < 5$) — Chưa đủ bằng chứng (Not Enough Evidence Yet)")
     lines.append("")
-    lines.append("| Nguồn tin | Đa nguồn | Về nhất | Tỷ lệ sớm (%) | Trễ trung vị (h) | Nhận xét |")
-    lines.append("|:---|---:|---:|---:|---:|:---|")
+    lines.append("| Nguồn tin | Đa nguồn | Về nhất | Tỷ lệ sớm (%) | Trễ trung vị (h) | Đánh giá | Nhận xét |")
+    lines.append("|:---|---:|---:|---:|---:|:---|:---|")
 
     thin_earliness = [
         s for s in sources.values()
@@ -559,14 +699,28 @@ def export_markdown(scorecard_data, output_path):
         ear = s["earliness"]
         lag_b = f"{ear['median_lag_behind_hours']:.2f}h" if ear['median_lag_behind_hours'] is not None else "0.0h"
         first_p = f"{ear['first_rate']*100:.1f}%" if ear['first_rate'] is not None else "0.0%"
-        lines.append(f"| `{s['id']}` | {ear['multi_stories_count']}* | {ear['first_count']} | {first_p}* | {lag_b} | {s['rationale']} |")
+        lines.append(f"| `{s['id']}` | {ear['multi_stories_count']}* | {ear['first_count']} | {first_p}* | {lag_b} | `{s['verdict']}` | {s['rationale']} |")
 
     lines.append("")
 
-    # Section 3: Pipeline Lag Ranking
-    lines.append("## 3. Bảng xếp hạng Tốc độ Pipeline (Pipeline Ingestion Lag)")
+    # Section 3: Duplicate Feeds
+    lines.append("## 3. Các Cặp Feed Trùng lặp Nội dung (Duplicate Feeds)")
     lines.append("")
-    lines.append("| Thứ hạng | Nguồn tin | Nhóm | Số bài đo | Lag trung vị (h) | Min lag (h) | Max lag (h) | Tình trạng |")
+    lines.append("| Feed 1 | Feed 2 | Nhà xuất bản | Số bài trùng lặp | Bản chất trùng lặp |")
+    lines.append("|:---|:---|:---|---:|:---|")
+
+    for d in duplicates:
+        p_info = d["publisher_1"] if d["publisher_1"] == d["publisher_2"] else f"{d['publisher_1']} / {d['publisher_2']}"
+        lines.append(f"| `{d['source_1']}` | `{d['source_2']}` | {p_info} | **{d['shared_items_count']}** | Cùng một publisher/kho bài viết; không tính là cạnh tranh độc lập. |")
+
+    lines.append("")
+
+    # Section 4: Pipeline Lag Ranking
+    lines.append("## 4. Bảng xếp hạng Tốc độ Pipeline (Pipeline Ingestion Lag - Realtime Window)")
+    lines.append("")
+    lines.append("> Chỉ đo các bài có `published_at > first_snapshot` và xuất hiện sau bản chụp đầu tiên.")
+    lines.append("")
+    lines.append("| Thứ hạng | Nguồn tin | Nhóm | Số bài đo | Lag trung vị (h) | Min lag (h) | Max lag (h) | Đánh giá |")
     lines.append("|---:|:---|:---|---:|---:|---:|---:|:---|")
 
     valid_lag_sources = [
@@ -578,23 +732,33 @@ def export_markdown(scorecard_data, output_path):
     for idx, s in enumerate(valid_lag_sources, 1):
         pl = s["pipeline_lag"]
         thin_flag = "*" if pl["thin"] else ""
-        lines.append(f"| {idx} | `{s['id']}` | {s['group']} | {pl['items_measured']}{thin_flag} | {pl['median_hours']:.2f}h | {pl['min_hours']:.2f}h | {pl['max_hours']:.2f}h | {'Mẫu mỏng' if pl['thin'] else 'Ổn định'} |")
+        lines.append(f"| {idx} | `{s['id']}` | {s['group']} | {pl['items_measured']}{thin_flag} | **{pl['median_hours']:.2f}h** | {pl['min_hours']:.2f}h | {pl['max_hours']:.2f}h | {'Mẫu mỏng' if pl['thin'] else 'Ổn định'} |")
 
     lines.append("")
 
-    # Section 4: Reliability & Failures
-    lines.append("## 4. Độ tin cậy & Thống kê Lỗi (Reliability & Failures)")
+    # Section 5: Reliability & Dead Sources
+    lines.append("## 5. Độ tin cậy & Phân loại Nguồn Chết / Tê liệt (Disabled vs Failing)")
     lines.append("")
-    lines.append("| Nguồn tin | Lượt chạy | Thất bại | Tỷ lệ lỗi (%) | Phân loại lỗi chi tiết |")
-    lines.append("|:---|---:|---:|---:|:---|")
+    lines.append("| Nguồn tin | Lượt chạy | Thất bại | Tình trạng | Phân loại lỗi chi tiết | Giải pháp đề xuất |")
+    lines.append("|:---|---:|---:|:---|:---|:---|")
 
-    failing_sources = [s for s in sources.values() if s["reliability"]["failure_rate"] > 0]
-    failing_sources.sort(key=lambda s: -s["reliability"]["failure_rate"])
+    dead_or_failing = [s for s in sources.values() if s["reliability"]["failure_rate"] > 0]
+    dead_or_failing.sort(key=lambda s: -s["reliability"]["failure_rate"])
 
-    for s in failing_sources:
+    for s in dead_or_failing:
         rel = s["reliability"]
         err_details = ", ".join(f"{k}: {v}" for k, v in rel["error_kinds"].items())
-        lines.append(f"| `{s['id']}` ({s['name']}) | {rel['runs_total']} | {rel['runs_failed']} | **{rel['failure_rate']*100:.1f}%** | {err_details} |")
+        t_stat = rel["tech_status"]
+        if t_stat == "DISABLED":
+            sol = "Cần giải pháp thay thế (proxy runner, alternate feed URL hoặc sửa parser XML)."
+        elif sid == "vnexpress-so-hoa":
+            sol = "URL feed đã thay đổi trên máy chủ gốc (404 vĩnh viễn); cần cập nhật địa chỉ RSS mới."
+        elif rel["failure_rate"] > 0.2:
+            sol = "Chập chờn kết nối / YouTube endpoint; cần cơ chế retry hoặc xử lý lỗi mềm."
+        else:
+            sol = "Lỗi ngẫu nhiên thoáng qua (timeout/build deadline)."
+
+        lines.append(f"| `{s['id']}` ({s['name']}) | {rel['runs_total']} | {rel['runs_failed']} | **{t_stat}** | {err_details} | {sol} |")
 
     lines.append("")
     with open(path, "w", encoding="utf-8") as f:
@@ -626,6 +790,7 @@ def main():
     print("Done!")
     print(f"  Total sources analyzed: {summary.get('total_sources')}")
     print(f"  Duration covered: {summary.get('duration_hours')} hours")
+    print(f"  Multi-publisher stories: {summary.get('multi_publisher_stories_count')}")
 
 
 if __name__ == "__main__":

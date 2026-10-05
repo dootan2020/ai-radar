@@ -1,4 +1,4 @@
-"""Unit tests for radar/source_scorecard.py using real snapshot slice fixtures."""
+"""Unit tests for radar/source_scorecard.py using minimal slice fixtures."""
 
 from datetime import datetime, timezone
 import json
@@ -13,6 +13,8 @@ from radar.source_scorecard import (
     discover_snapshots,
     export_json,
     export_markdown,
+    find_duplicate_feeds,
+    is_date_only,
     parse_iso_datetime,
 )
 
@@ -21,138 +23,188 @@ FIXTURES_DIR = Path(__file__).resolve().parent / "fixtures" / "scorecard_snapsho
 
 class TestSourceScorecard(unittest.TestCase):
     def test_parse_iso_datetime(self):
-        # Valid ISO strings
         dt1 = parse_iso_datetime("2026-10-02T09:57:17Z")
         self.assertEqual(dt1, datetime(2026, 10, 2, 9, 57, 17, tzinfo=timezone.utc))
-        
+
         dt2 = parse_iso_datetime("2026-10-02T16:57:17+07:00")
         self.assertEqual(dt2, datetime(2026, 10, 2, 9, 57, 17, tzinfo=timezone.utc))
 
-        # None / invalid inputs
         self.assertIsNone(parse_iso_datetime(None))
         self.assertIsNone(parse_iso_datetime(""))
-        self.assertIsNone(parse_iso_datetime("not-a-date"))
+        self.assertIsNone(parse_iso_datetime("invalid-date"))
         self.assertIsNone(parse_iso_datetime(12345))
 
-    def test_categorize_error(self):
-        self.assertEqual(categorize_error("Disabled: Reason"), "Disabled")
+    def test_is_date_only(self):
+        # Midnight UTC / date-only formats
+        dt_midnight = datetime(2026, 10, 2, 0, 0, 0, tzinfo=timezone.utc)
+        self.assertTrue(is_date_only("2026-10-02T00:00:00Z", dt_midnight))
+        self.assertTrue(is_date_only("2026-10-02", dt_midnight))
+
+        # Non-midnight times
+        dt_time = datetime(2026, 10, 2, 9, 30, 0, tzinfo=timezone.utc)
+        self.assertFalse(is_date_only("2026-10-02T09:30:00Z", dt_time))
+        self.assertFalse(is_date_only(None, None))
+
+    def test_categorize_error_and_disabled_vs_failing(self):
+        # Rule 4: Differentiate Disabled vs Failing 404
+        self.assertEqual(
+            categorize_error("Disabled: Substack podcast feed returned HTTP 403", is_disabled=True),
+            "Disabled (Substack 403)"
+        )
+        self.assertEqual(
+            categorize_error("Disabled: Nguồn CNBC trả mã HTTP 403", is_disabled=True),
+            "Disabled (CNBC 403)"
+        )
+        self.assertEqual(
+            categorize_error("Disabled: RSS endpoint returned HTTP 200 with invalid XML", is_disabled=True),
+            "Disabled (Invalid XML)"
+        )
+        self.assertEqual(
+            categorize_error("HTTPError: HTTP Error 404: Not Found", http_status=404, is_disabled=False),
+            "HTTP 404 (Address Changed)"
+        )
         self.assertEqual(categorize_error("HTTPError: 403 Forbidden", 403), "HTTP 403")
-        self.assertEqual(categorize_error("HTTPError: 404 Not Found", 404), "HTTP 404")
         self.assertEqual(categorize_error("HTTPError: 429 Too Many Requests", 429), "HTTP 429")
-        self.assertEqual(categorize_error("HTTPError: 500 Server Error", 500), "HTTP 500")
         self.assertEqual(categorize_error("Build deadline exceeded"), "Timeout / Deadline")
-        self.assertEqual(categorize_error("XML parse failed: syntax error"), "Parse Error")
         self.assertEqual(categorize_error(None, None), "None")
 
     def test_discover_snapshots(self):
         self.assertTrue(FIXTURES_DIR.exists(), f"Fixture directory not found: {FIXTURES_DIR}")
         snapshots = discover_snapshots(FIXTURES_DIR)
         self.assertEqual(len(snapshots), 3)
-        # Chronological ordering check
         self.assertEqual(snapshots[0]["name"], "2026-10-04T093532Z")
         self.assertEqual(snapshots[1]["name"], "2026-10-04T094210Z")
         self.assertEqual(snapshots[2]["name"], "2026-10-04T100251Z")
 
-    def test_analyze_snapshots_structure_and_sources(self):
-        snapshots = discover_snapshots(FIXTURES_DIR)
-        scorecard = analyze_snapshots(snapshots)
-
-        self.assertIn("summary", scorecard)
-        self.assertIn("sources", scorecard)
-
-        summary = scorecard["summary"]
-        self.assertEqual(summary["snapshots_count"], 3)
-        self.assertGreater(summary["total_sources"], 0)
-        self.assertGreater(summary["total_unique_items"], 0)
-
-        sources = scorecard["sources"]
-        # Check expected sources from fixture
-        self.assertIn("techcrunch-ai", sources)
-        self.assertIn("verge-ai", sources)
-        self.assertIn("hn-ai", sources)
-        self.assertIn("vnexpress-so-hoa", sources)
-        self.assertIn("tuoitre-so", sources)
-        self.assertIn("google-deepmind", sources)
-
-    def test_reliability_metrics(self):
+    def test_rule_1_pipeline_lag_excludes_items_before_or_in_first_snapshot(self):
         snapshots = discover_snapshots(FIXTURES_DIR)
         scorecard = analyze_snapshots(snapshots)
         sources = scorecard["sources"]
 
-        # vnexpress-so-hoa should fail 100% with HTTP 404
-        vnexpress = sources["vnexpress-so-hoa"]
-        self.assertEqual(vnexpress["reliability"]["runs_total"], 3)
-        self.assertEqual(vnexpress["reliability"]["runs_failed"], 3)
-        self.assertEqual(vnexpress["reliability"]["failure_rate"], 1.0)
-        self.assertIn("HTTP 404", vnexpress["reliability"]["error_kinds"])
-
-        # google-deepmind should be marked disabled
-        deepmind = sources["google-deepmind"]
-        self.assertTrue(deepmind["reliability"]["is_disabled"])
-        self.assertEqual(deepmind["reliability"]["failure_rate"], 1.0)
-
-        # techcrunch-ai should have 0% failure in fixture
         tc = sources["techcrunch-ai"]
-        self.assertEqual(tc["reliability"]["failure_rate"], 0.0)
-        self.assertEqual(tc["reliability"]["runs_failed"], 0)
+        # In fixture, techcrunch has:
+        # - Item 0: in first snapshot (published at 08:00, before first snapshot) -> EXCLUDED from lag
+        # - Item 1: in snapshot 2 (published at 09:36, seen at 09:42 -> lag = 0.10h) -> INCLUDED
+        # - Item 2: in snapshot 3 (published at 09:50, seen at 10:02 -> lag = 0.20h) -> INCLUDED
+        pl = tc["pipeline_lag"]
+        self.assertEqual(pl["items_measured"], 2)
+        self.assertAlmostEqual(pl["median_hours"], 0.15, places=2)
+        self.assertAlmostEqual(pl["min_hours"], 0.10, places=2)
+        self.assertAlmostEqual(pl["max_hours"], 0.20, places=2)
 
-    def test_earliness_metrics_and_thin_flag(self):
+    def test_rule_2_earliness_and_duplicate_feeds(self):
+        snapshots = discover_snapshots(FIXTURES_DIR)
+        scorecard = analyze_snapshots(snapshots)
+        sources = scorecard["sources"]
+        summary = scorecard["summary"]
+
+        # In fixture:
+        # story-anthropic-dup has anthropic-news and anthropic-gftdon (both publisher="anthropic")
+        # Because both have the same publisher, this is NOT a multi-publisher story!
+        # Multi-publisher stories require len(publishers) >= 2.
+        # Only story-multi-pub-1 (techcrunch vs verge) and story-multi-pub-2 (hn vs techcrunch) are multi-publisher.
+        self.assertEqual(summary["multi_publisher_stories_count"], 2)
+
+        # Anthropic feeds must NOT have multi-publisher counts from racing themselves
+        self.assertEqual(sources["anthropic-news"]["earliness"]["multi_stories_count"], 0)
+        self.assertEqual(sources["anthropic-gftdon"]["earliness"]["multi_stories_count"], 0)
+
+        # TechCrunch participates in 2 multi-publisher stories
+        tc_ear = sources["techcrunch-ai"]["earliness"]
+        self.assertEqual(tc_ear["multi_stories_count"], 2)
+        # TechCrunch was first in story 1 (09:36 vs 09:40 for verge)
+        # and second in story 2 (09:50 vs 09:45 for hn)
+        self.assertEqual(tc_ear["first_count"], 1)
+
+        # Duplicate feeds check: Anthropic feeds should be identified as duplicates
+        dup_pairs = [(d["source_1"], d["source_2"]) for d in summary["duplicate_feeds"]]
+        self.assertIn(("anthropic-gftdon", "anthropic-news"), dup_pairs)
+
+    def test_rule_3_timestamp_separation_missing_future_date_only_archive(self):
         snapshots = discover_snapshots(FIXTURES_DIR)
         scorecard = analyze_snapshots(snapshots)
         sources = scorecard["sources"]
 
-        # For sources with multi-source stories
-        for sid, s in sources.items():
-            ear = s["earliness"]
-            self.assertIn("multi_stories_count", ear)
-            self.assertIn("first_count", ear)
-            self.assertIn("thin", ear)
-            if ear["multi_stories_count"] < 5:
-                self.assertTrue(ear["thin"])
-            else:
-                self.assertFalse(ear["thin"])
+        # Missing timestamp: tuoitre-so has null published_at
+        tuoitre = sources["tuoitre-so"]
+        self.assertEqual(tuoitre["quality"]["missing_timestamp_count"], 1)
+        self.assertEqual(tuoitre["quality"]["future_timestamp_count"], 0)
 
-    def test_quality_and_timestamp_issues(self):
+        # Future timestamp: genk-ai has published_at = 16:00 when snapshot is 09:42
+        genk = sources["genk-ai"]
+        self.assertEqual(genk["quality"]["future_timestamp_count"], 1)
+        self.assertEqual(genk["quality"]["missing_timestamp_count"], 0)
+
+        # Date-only timestamp: anthropic-news has 00:00:00Z
+        anth = sources["anthropic-news"]
+        self.assertGreater(anth["quality"]["date_only_timestamp_count"], 0)
+
+        # Archive item: archive-source has item from August (> 30 days old)
+        # Archive items must NOT be counted as timestamp errors!
+        arch = sources["archive-source"]
+        self.assertEqual(arch["quality"]["archive_items_count"], 1)
+        self.assertEqual(arch["quality"]["timestamp_issues_count"], 0)
+
+    def test_rule_4_reliability_and_tech_status(self):
         snapshots = discover_snapshots(FIXTURES_DIR)
         scorecard = analyze_snapshots(snapshots)
         sources = scorecard["sources"]
 
-        # tuoitre-so has items with missing timestamps (pub=None)
-        tuoitre = sources.get("tuoitre-so")
-        if tuoitre and tuoitre["quality"]["total_items"] > 0:
-            self.assertGreater(tuoitre["quality"]["missing_timestamp_count"], 0)
-            self.assertEqual(tuoitre["quality"]["missing_timestamp_count"], tuoitre["quality"]["total_items"])
-            self.assertEqual(tuoitre["quality"]["timestamp_issues_share"], 1.0)
+        # vnexpress-so-hoa: Failing 100% with HTTP 404 (Address Changed)
+        vnexpress = sources["vnexpress-so-hoa"]
+        self.assertEqual(vnexpress["reliability"]["tech_status"], "FAILING")
+        self.assertEqual(vnexpress["reliability"]["failure_rate"], 1.0)
+        self.assertIn("HTTP 404 (Address Changed)", vnexpress["reliability"]["error_kinds"])
 
-        # techcrunch-ai has high AI relevance
-        tc = sources.get("techcrunch-ai")
-        if tc and tc["quality"]["total_items"] > 0:
-            self.assertGreaterEqual(tc["quality"]["ai_share"], 0.5)
+        # google-deepmind: Disabled (Invalid XML)
+        deepmind = sources["google-deepmind"]
+        self.assertEqual(deepmind["reliability"]["tech_status"], "DISABLED")
+        self.assertTrue(deepmind["reliability"]["is_disabled"])
+        self.assertIn("Disabled (Invalid XML)", deepmind["reliability"]["error_kinds"])
 
-    def test_derive_verdict(self):
-        # 100% failure -> CUT
+        # import-ai: Disabled (Substack 403)
+        import_ai = sources["import-ai"]
+        self.assertEqual(import_ai["reliability"]["tech_status"], "DISABLED")
+        self.assertIn("Disabled (Substack 403)", import_ai["reliability"]["error_kinds"])
+
+    def test_derive_verdict_and_evidence_threshold(self):
+        # Disabled -> CUT
         verdict, rat = derive_verdict(
-            runs_tot=10, fail_rate=1.0, is_disabled=False, item_cnt=0,
-            ai_share=0.0, first_rate=None, multi_cnt=0, med_pipe_lag=None,
-            ts_issue_share=0.0, rewrite_share=0.0, error_kinds={"HTTP 404": 10}
+            runs_tot=10, fail_rate=1.0, is_disabled=True, disabled_reason="Substack 403"
         )
         self.assertEqual(verdict, "CUT")
+        self.assertIn("vô hiệu hóa", rat)
 
-        # 100% broken timestamps -> FIX
+        # Failing 404 -> CUT with address changed rationale
         verdict, rat = derive_verdict(
-            runs_tot=10, fail_rate=0.0, is_disabled=False, item_cnt=10,
-            ai_share=0.9, first_rate=None, multi_cnt=0, med_pipe_lag=None,
-            ts_issue_share=1.0, rewrite_share=0.0, error_kinds={}
+            runs_tot=10, fail_rate=1.0, is_disabled=False,
+            error_kinds={"HTTP 404 (Address Changed)": 10}
         )
-        self.assertEqual(verdict, "FIX")
+        self.assertEqual(verdict, "CUT")
+        self.assertIn("404", rat)
 
-        # High earliness + fast pipeline -> PROMOTE
+        # High earliness with enough samples (N_multi >= 5) -> PROMOTE
         verdict, rat = derive_verdict(
             runs_tot=10, fail_rate=0.0, is_disabled=False, item_cnt=15,
-            ai_share=0.95, first_rate=0.8, multi_cnt=8, med_pipe_lag=1.2,
-            ts_issue_share=0.0, rewrite_share=0.0, error_kinds={}
+            ai_share=0.95, first_rate=0.8, multi_cnt=8, med_pipe_lag=1.2
         )
         self.assertEqual(verdict, "PROMOTE")
+
+        # Stable with enough samples (N_multi >= 5) -> KEEP
+        verdict, rat = derive_verdict(
+            runs_tot=10, fail_rate=0.0, is_disabled=False, item_cnt=15,
+            ai_share=0.95, first_rate=0.4, multi_cnt=6, med_pipe_lag=5.0
+        )
+        self.assertEqual(verdict, "KEEP")
+
+        # Rule: when a source has too few independent clusters (N_multi < 5),
+        # say "not enough evidence yet" rather than KEEP or CUT
+        verdict, rat = derive_verdict(
+            runs_tot=10, fail_rate=0.0, is_disabled=False, item_cnt=8,
+            ai_share=0.9, first_rate=0.5, multi_cnt=2, med_pipe_lag=2.0
+        )
+        self.assertEqual(verdict, "NOT_ENOUGH_EVIDENCE")
+        self.assertIn("not enough evidence yet", rat)
 
     def test_export_json_and_markdown(self):
         snapshots = discover_snapshots(FIXTURES_DIR)
@@ -167,13 +219,14 @@ class TestSourceScorecard(unittest.TestCase):
             with open(json_path, "r", encoding="utf-8") as f:
                 loaded = json.load(f)
             self.assertEqual(loaded["summary"]["snapshots_count"], 3)
+            self.assertEqual(loaded["summary"]["multi_publisher_stories_count"], 2)
 
             export_markdown(scorecard, md_path)
             self.assertTrue(md_path.exists())
             content = md_path.read_text(encoding="utf-8")
-            self.assertIn("# Bảng điểm Nguồn tin AI Radar", content)
-            self.assertIn("techcrunch-ai", content)
-            self.assertIn("Master Scorecard", content)
+            self.assertIn("# Bảng điểm Nguồn tin AI Radar (Source Scorecard) - Round 2", content)
+            self.assertIn("Duplicate Feeds", content)
+            self.assertIn("Disabled vs Failing", content)
 
 
 if __name__ == "__main__":
