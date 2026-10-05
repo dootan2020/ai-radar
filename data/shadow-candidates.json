@@ -1,0 +1,165 @@
+{
+  "description": "Shadow candidate sources configuration for AI-Radar: healthy fixed feeds and dynamic signal/query endpoints.",
+  "fixed_feeds": [
+    {
+      "id": "nvidia-newsroom",
+      "name": "NVIDIA Newsroom",
+      "url": "https://nvidianews.nvidia.com/releases.xml",
+      "homepage": "https://nvidianews.nvidia.com/",
+      "kind": "fixed feed",
+      "parser": "rss",
+      "circle_id": "circle-1",
+      "label": "chinh-thuc"
+    },
+    {
+      "id": "sam-altman-blog",
+      "name": "Sam Altman blog",
+      "url": "https://blog.samaltman.com/posts.atom",
+      "homepage": "https://blog.samaltman.com/",
+      "kind": "fixed feed",
+      "parser": "atom",
+      "circle_id": "circle-1",
+      "label": "chinh-thuc"
+    },
+    {
+      "id": "karpathy-blog",
+      "name": "Andrej Karpathy blog",
+      "url": "https://karpathy.bearblog.dev/feed/",
+      "homepage": "https://karpathy.bearblog.dev/",
+      "kind": "fixed feed",
+      "parser": "rss",
+      "circle_id": "circle-1",
+      "label": "chinh-thuc"
+    },
+    {
+      "id": "normal-tech",
+      "name": "AI as Normal Technology (Narayanan, Kapoor)",
+      "url": "https://www.normaltech.ai/feed",
+      "homepage": "https://www.normaltech.ai/",
+      "kind": "fixed feed",
+      "parser": "rss",
+      "circle_id": "circle-2",
+      "label": "cong-dong"
+    },
+    {
+      "id": "one-useful-thing",
+      "name": "One Useful Thing (Ethan Mollick)",
+      "url": "https://www.oneusefulthing.org/feed",
+      "homepage": "https://www.oneusefulthing.org/",
+      "kind": "fixed feed",
+      "parser": "rss",
+      "circle_id": "circle-3",
+      "label": "cong-dong"
+    },
+    {
+      "id": "anthropic-status",
+      "name": "Anthropic status history",
+      "url": "https://status.anthropic.com/history.rss",
+      "homepage": "https://status.anthropic.com/",
+      "kind": "fixed feed",
+      "parser": "rss",
+      "circle_id": "circle-3",
+      "label": "chinh-thuc"
+    },
+    {
+      "id": "openai-status",
+      "name": "OpenAI status history",
+      "url": "https://status.openai.com/history.rss",
+      "homepage": "https://status.openai.com/",
+      "kind": "fixed feed",
+      "parser": "rss",
+      "circle_id": "circle-3",
+      "label": "chinh-thuc"
+    },
+    {
+      "id": "claude-release-notes",
+      "name": "Claude release notes",
+      "url": "https://docs.anthropic.com/en/release-notes/overview",
+      "homepage": "https://docs.anthropic.com/en/release-notes/overview",
+      "kind": "fixed feed",
+      "parser": "html",
+      "circle_id": "circle-3",
+      "label": "chinh-thuc"
+    },
+    {
+      "id": "whitehouse-actions",
+      "name": "White House presidential actions",
+      "url": "https://www.whitehouse.gov/presidential-actions/feed/",
+      "homepage": "https://www.whitehouse.gov/presidential-actions/",
+      "kind": "fixed feed",
+      "parser": "rss",
+      "circle_id": "circle-power-policy",
+      "label": "chinh-thuc"
+    },
+    {
+      "id": "federal-register-ai",
+      "name": "Federal Register, \"artificial intelligence\"",
+      "url": "https://www.federalregister.gov/api/v1/documents.json?conditions[term]=artificial+intelligence&order=newest",
+      "homepage": "https://www.federalregister.gov/",
+      "kind": "fixed feed",
+      "parser": "federal_register",
+      "circle_id": "circle-power-policy",
+      "label": "chinh-thuc"
+    },
+    {
+      "id": "techmeme",
+      "name": "Techmeme",
+      "url": "https://www.techmeme.com/feed.xml",
+      "homepage": "https://www.techmeme.com/",
+      "kind": "fixed feed",
+      "parser": "rss",
+      "circle_id": "circle-press-relay",
+      "label": "bao-chi"
+    }
+  ],
+  "signals": [
+    {
+      "id": "wikipedia-ai-pageviews",
+      "name": "Wikipedia Pageviews (Artificial Intelligence)",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia.org/all-access/all-agents/Artificial_intelligence/daily/{yesterday}/{today}",
+      "kind": "signal",
+      "parser": "wikipedia_pageviews",
+      "notes": "Daily pageview metric for Artificial_intelligence article on Wikipedia; spike detection signal"
+    },
+    {
+      "id": "google-trends-vn",
+      "name": "Google Trends Daily (Vietnam)",
+      "url": "https://trends.google.com/trending/rss?geo=VN",
+      "kind": "signal",
+      "parser": "google_trends_rss",
+      "notes": "Daily trending search queries in Vietnam"
+    },
+    {
+      "id": "openrouter-models",
+      "name": "OpenRouter Models Catalog",
+      "url": "https://openrouter.ai/api/v1/models",
+      "kind": "signal",
+      "parser": "openrouter_models",
+      "notes": "Catalog of public models with created unix timestamps; early model deployment signal"
+    },
+    {
+      "id": "bluesky-trending",
+      "name": "Bluesky Trending Topics (Public AppView)",
+      "url": "https://public.api.bsky.app/xrpc/app.bsky.unspecced.getTrendingTopics",
+      "kind": "signal",
+      "parser": "bluesky_trending",
+      "notes": "Trending topics from Bluesky public AppView (no auth)"
+    },
+    {
+      "id": "hn-show-hn",
+      "name": "Hacker News Show HN (Algolia)",
+      "url": "https://hn.algolia.com/api/v1/search_by_date?tags=show_hn&hitsPerPage=30",
+      "kind": "query",
+      "parser": "hn_algolia",
+      "notes": "Real-time Show HN submissions from Algolia API"
+    },
+    {
+      "id": "gdelt-ai-doc",
+      "name": "GDELT DOC API (Artificial Intelligence)",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial+intelligence%22&mode=artlist&format=json&maxrecords=25",
+      "kind": "query",
+      "parser": "gdelt_doc",
+      "notes": "Global news search; rate limited (paced >= 6 seconds)"
+    }
+  ]
+}

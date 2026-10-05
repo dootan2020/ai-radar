@@ -1,0 +1,107 @@
+{
+  "description": "Watchlist for dynamic candidate queries via Google News RSS search. Easy to edit by adding/updating people, topics, or queries.",
+  "people": [
+    {
+      "id": "wl-elon-musk",
+      "name": "Elon Musk",
+      "query": "\"Elon Musk\" AI",
+      "edition": "en",
+      "notes": "Co-founder OpenAI, xAI founder; filtered for AI contexts"
+    },
+    {
+      "id": "wl-sam-altman",
+      "name": "Sam Altman",
+      "query": "\"Sam Altman\"",
+      "edition": "en",
+      "notes": "OpenAI CEO announcements, statements and moves"
+    },
+    {
+      "id": "wl-dario-amodei",
+      "name": "Dario Amodei",
+      "query": "\"Dario Amodei\"",
+      "edition": "en",
+      "notes": "Anthropic CEO essays, interviews, safety views"
+    },
+    {
+      "id": "wl-jensen-huang",
+      "name": "Jensen Huang",
+      "query": "\"Jensen Huang\"",
+      "edition": "en",
+      "notes": "NVIDIA CEO keynotes, Blackwell/compute statements"
+    },
+    {
+      "id": "wl-demis-hassabis",
+      "name": "Demis Hassabis",
+      "query": "\"Demis Hassabis\"",
+      "edition": "en",
+      "notes": "Google DeepMind CEO, frontier models, scientific AI"
+    },
+    {
+      "id": "wl-mark-zuckerberg",
+      "name": "Mark Zuckerberg",
+      "query": "\"Mark Zuckerberg\" AI",
+      "edition": "en",
+      "notes": "Meta AI, LLaMA open-source strategy and releases"
+    },
+    {
+      "id": "wl-donald-trump-ai",
+      "name": "Donald Trump with AI",
+      "query": "\"Donald Trump\" AI",
+      "edition": "en",
+      "notes": "US presidential policy, executive orders, tariffs affecting AI"
+    },
+    {
+      "id": "wl-thibault-sottiaux",
+      "name": "Thibault Sottiaux",
+      "query": "\"Thibault Sottiaux\"",
+      "edition": "en",
+      "notes": "OpenAI Codex lead, early signals on usage limits and agent capabilities"
+    }
+  ],
+  "topics": [
+    {
+      "id": "wl-claude-usage-limit",
+      "name": "Claude usage limit",
+      "query": "\"Claude\" \"usage limit\"",
+      "edition": "en",
+      "notes": "Quota, tier, rate limit updates for Claude Sonnet/Opus"
+    },
+    {
+      "id": "wl-codex-rate-limit",
+      "name": "Codex rate limit",
+      "query": "\"Codex\" \"rate limit\"",
+      "edition": "en",
+      "notes": "OpenAI Codex / Canvas capacity and limits"
+    },
+    {
+      "id": "wl-chatgpt-usage-limit-reset",
+      "name": "ChatGPT usage limit reset",
+      "query": "\"ChatGPT\" \"usage limit reset\"",
+      "edition": "en",
+      "notes": "ChatGPT Plus/Team/Enterprise quota refreshes and policy adjustments"
+    },
+    {
+      "id": "wl-ai-model-release",
+      "name": "AI model release",
+      "query": "\"AI model release\"",
+      "edition": "en",
+      "notes": "Breaking announcements of new foundation models"
+    },
+    {
+      "id": "wl-ai-regulation",
+      "name": "AI regulation",
+      "query": "\"AI regulation\"",
+      "edition": "en",
+      "notes": "Global AI governance, EU AI Act, US safety rules"
+    }
+  ],
+  "vietnamese": [
+    {
+      "id": "wl-vietnamese-ai-news",
+      "name": "Tin tức AI Việt Nam",
+      "query": "\"trí tuệ nhân tạo\" OR \"AI\"",
+      "edition": "vi",
+      "notes": "Tin tức tiếng Việt về trí tuệ nhân tạo, công nghệ AI và chính sách trong nước"
+    }
+  ]
+}
