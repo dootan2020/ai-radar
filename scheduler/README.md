@@ -15,23 +15,29 @@ External cron scheduler for [ai-radar](https://github.com/dootan2020/ai-radar) h
 ## 2. Quyết định Nhịp độ (Cadence Proposal & Decision)
 
 ### Đề xuất và Lựa chọn
-Worker được cấu hình lịch chạy **mỗi 20 phút**:
-```cron
-*/20 * * * *
+Worker được cấu hình lịch chạy cho 2 workflow độc lập:
+1. **`update.yml`**: chạy **mỗi 20 phút** (`*/20 * * * *`) vào các phút 00, 20, 40 của mỗi giờ (UTC).
+2. **`shadow-collector.yml`**: chạy **mỗi 1 giờ** (`5 * * * *`) vào phút thứ 5 của mỗi giờ (UTC).
+
+```toml
+[triggers]
+crons = ["*/20 * * * *", "5 * * * *"]
 ```
-*(Chạy vào các phút 00, 20, 40 của mỗi giờ theo giờ UTC)*.
 
 ### Lập luận & So sánh (Arguments)
-| Phương án | Ưu điểm | Nhược điểm / Rủi ro | Đánh giá |
-| :--- | :--- | :--- | :--- |
-| **15 phút** (`*/15 * * * *`) | Tần suất dày nhất, tin mới nhanh nhất. | Mỗi lượt `update.yml` mất từ 5-10 phút (khi dịch Gemini/NLLB có thể lên tới 12 phút). Khoảng nghỉ 3-5 phút quá hẹp, dễ dẫn đến dồn ứ hàng đợi runner GitHub Actions. | Quá tải hàng đợi |
-| **30 phút** (`20,50 * * * *`) | Giãn cách rộng rãi, đan xen với cron GitHub (`07, 37`). | Nếu GitHub cron bị nghẽn (như ngày 03/10) và Worker gặp 1 lần timeout mạng, độ trễ tin tức sẽ vọt lên 60 phút, vi phạm cam kết 30 phút. | Rủi ro trễ cam kết |
-| **20 phút** (`*/20 * * * *`) | **Tối ưu**: Đảm bảo 3 lần chạy/giờ; ngay cả khi GitHub cron tê liệt hoàn toàn, tuổi đời tin tức tối đa chỉ 20-25 phút. Khoảng trống 10-15 phút đủ cho runner hoàn tất lưu cache và deploy Pages an toàn. | Không có | **Được chọn** |
+- **update.yml (20 phút)**: Đảm bảo 3 lần chạy/giờ; ngay cả khi GitHub cron tê liệt hoàn toàn, tuổi đời tin tức tối đa chỉ 20-25 phút. Khoảng trống 10-15 phút đủ cho runner hoàn tất lưu cache và deploy Pages an toàn.
+- **shadow-collector.yml (phút 05 mỗi giờ)**:
+  - Tránh hoàn toàn các mốc chạy của `update.yml` do Worker dispatch (`00`, `20`, `40`).
+  - Tránh mốc cron dự phòng của GitHub Actions cho `update.yml` (`07`, `37`).
+  - Tránh mốc cron nội bộ ban đầu của shadow collector (`17`).
+  - Shadow collector có timeout 15 phút, kết thúc hoàn toàn trước mốc `update.yml` kế tiếp tại phút 20.
 
 **Chi phí & Hạn mức Cloudflare Free**:
-- 3 lần/giờ = 72 lần/ngày = ~2.160 lần/tháng.
+- `update.yml`: 3 lần/giờ = 72 lần/ngày = ~2.160 lần/tháng.
+- `shadow-collector.yml`: 1 lần/giờ = 24 lần/ngày = ~720 lần/tháng.
+- **Tổng cộng**: 96 lần/ngày (~2.880 lần/tháng).
 - Hạn mức Free của Cloudflare Workers: 100.000 requests/ngày.
-- Sử dụng chỉ **0,072%** hạn mức miễn phí, hoàn toàn không phát sinh chi phí.
+- Sử dụng chỉ **0,096%** hạn mức miễn phí, hoàn toàn an toàn và không phát sinh chi phí.
 
 ---
 
@@ -92,6 +98,7 @@ Kết quả trả về JSON xác nhận Secret đã có mặt mà không để l
   "service": "ai-radar-scheduler",
   "hasToken": true,
   "workflow": "update.yml",
+  "shadowWorkflow": "shadow-collector.yml",
   "repo": "dootan2020/ai-radar",
   "ref": "main"
 }
@@ -107,11 +114,16 @@ Sau khi deploy, sử dụng GitHub CLI (`gh`) để theo dõi các lượt kích
 
 ```bash
 gh run list --workflow update.yml --limit 10
+gh run list --workflow shadow-collector.yml --limit 10
 ```
 
 Kết quả hiển thị rõ nguồn gốc kích hoạt:
-- **`workflow_dispatch`**: Các lượt do Cloudflare Worker kích hoạt vào các phút `:00`, `:20`, `:40`.
-- **`schedule`**: Các lượt do GitHub Actions cron nội bộ kích hoạt vào các phút `:07`, `:37`.
+- **`update.yml`**:
+  - `workflow_dispatch`: Các lượt do Cloudflare Worker kích hoạt vào các phút `:00`, `:20`, `:40`.
+  - `schedule`: Các lượt do GitHub Actions cron nội bộ kích hoạt vào các phút `:07`, `:37`.
+- **`shadow-collector.yml`**:
+  - `workflow_dispatch`: Các lượt do Cloudflare Worker kích hoạt vào phút `:05` mỗi giờ.
+  - `schedule`: Lượt dự phòng do GitHub Actions cron nội bộ kích hoạt vào phút `:17`.
 
 Ví dụ minh họa:
 ```text
