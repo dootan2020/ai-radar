@@ -503,6 +503,7 @@ def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_
     reused_count = 0
     skipped_reasons = []
     failed_details = []
+    measured_dims = []
 
     ai_ledger = ai_images.AIImageLedger(ledger_path=ledger_path)
     still_unresolved.sort(key=ai_images.story_recency_key, reverse=True)
@@ -531,6 +532,10 @@ def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_
                 reused_count += 1
             else:
                 generated_count += 1
+                w = outcome.get("width")
+                h = outcome.get("height")
+                if w and h:
+                    measured_dims.append(f"{w}x{h}")
         else:
             action = outcome.get("action")
             if action == "failed":
@@ -574,10 +579,15 @@ def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_
             reasons = ["skipped"]
         skip_detail = f" ({'; '.join(reasons)})"
 
+    dim_detail = ""
+    if measured_dims:
+        unique_dims = list(dict.fromkeys(measured_dims))
+        dim_detail = f", {', '.join(unique_dims)}"
+
     summary_line = (
         f"AI images: {window_state}, {considered} considered, "
         f"{generated_count} generated, {reused_count} reused, "
-        f"{skipped_count} skipped{skip_detail}"
+        f"{skipped_count} skipped{skip_detail}{dim_detail}"
     )
     print(summary_line)
     resolve_images_for_stories.last_summary = summary_line

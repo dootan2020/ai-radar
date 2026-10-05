@@ -20,6 +20,7 @@ import os
 from pathlib import Path
 import re
 import ssl
+import struct
 import threading
 import time
 import urllib.error
@@ -436,6 +437,80 @@ def _parse_cloudflare_error(body_bytes, status, account_id=None, api_token=None)
     return err_code, err_msg
 
 
+def read_image_dimensions(data):
+    """Read pixel dimensions (width, height) from JPEG, PNG or WebP bytes using standard library only.
+
+    Returns (width, height) tuple of ints if found, or (None, None) if unrecognized/invalid.
+    """
+    if not data or len(data) < 24:
+        return None, None
+
+    # PNG: signature (8 bytes) + IHDR chunk (4 bytes len + 4 bytes 'IHDR' + 8 bytes w/h)
+    if data.startswith(b"\x89PNG\r\n\x1a\n") or data.startswith(b"\x89PNG"):
+        ihdr_idx = data.find(b"IHDR")
+        if ihdr_idx != -1 and len(data) >= ihdr_idx + 12:
+            try:
+                width, height = struct.unpack(">II", data[ihdr_idx + 4 : ihdr_idx + 12])
+                if width > 0 and height > 0:
+                    return width, height
+            except struct.error:
+                pass
+        return None, None
+
+    # JPEG: starts with SOI marker 0xFF 0xD8
+    if data.startswith(b"\xff\xd8"):
+        # Header area is bounded by SOS (Start of Scan 0xFF 0xDA)
+        sos_idx = data.find(b"\xff\xda")
+        header_data = data[:sos_idx] if sos_idx != -1 else data
+
+        # Search for SOF markers (SOF0=0xC0, SOF2=0xC2, SOF1=0xC1, etc.)
+        for m in (0xC0, 0xC2, 0xC1, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+            target = bytes([0xFF, m])
+            idx = 0
+            while True:
+                idx = header_data.find(target, idx)
+                if idx == -1:
+                    break
+                if idx + 9 <= len(data):
+                    try:
+                        seg_len = struct.unpack(">H", data[idx + 2 : idx + 4])[0]
+                        if seg_len >= 8:
+                            precision = data[idx + 4]
+                            if precision in (8, 12, 16):
+                                h, w = struct.unpack(">HH", data[idx + 5 : idx + 9])
+                                if w > 0 and h > 0:
+                                    return w, h
+                    except Exception:
+                        pass
+                idx += 2
+        return None, None
+
+    # WebP: RIFF ... WEBP
+    if data.startswith(b"RIFF") and len(data) >= 30 and data[8:12] == b"WEBP":
+        chunk = data[12:16]
+        try:
+            if chunk == b"VP8 " and len(data) >= 30:
+                w, h = struct.unpack("<HH", data[26:30])
+                w, h = w & 0x3FFF, h & 0x3FFF
+                if w > 0 and h > 0:
+                    return w, h
+            elif chunk == b"VP8L" and len(data) >= 25:
+                b0, b1, b2, b3 = data[21:25]
+                w = 1 + (((b1 & 0x3F) << 8) | b0)
+                h = 1 + (((b3 & 0x0F) << 10) | (b2 << 2) | ((b1 & 0xC0) >> 6))
+                if w > 0 and h > 0:
+                    return w, h
+            elif chunk == b"VP8X" and len(data) >= 30:
+                w = 1 + struct.unpack("<I", data[24:27] + b"\x00")[0]
+                h = 1 + struct.unpack("<I", data[27:30] + b"\x00")[0]
+                if w > 0 and h > 0:
+                    return w, h
+        except Exception:
+            pass
+
+    return None, None
+
+
 def safe_image_filename(story_id):
     """Derive safe filename from story id."""
     cleaned = re.sub(r"[^\w.-]", "_", str(story_id or "unnamed"))
@@ -491,8 +566,20 @@ def generate_ai_illustration(
     if dest_path.is_file():
         if not ledger.is_story_generated(story_id):
             ledger.record_generation(story_id, cost=0.0, now=now)
+        real_w, real_h = None, None
+        try:
+            real_w, real_h = read_image_dimensions(dest_path.read_bytes())
+        except Exception:
+            pass
         if outcome is not None:
-            outcome.update(action="reused", status=200, bytes_received=dest_path.stat().st_size if dest_path.exists() else 0, cost=0.0)
+            outcome.update(
+                action="reused",
+                status=200,
+                bytes_received=dest_path.stat().st_size if dest_path.exists() else 0,
+                cost=0.0,
+                width=real_w,
+                height=real_h,
+            )
         return {"src": rel_src, "via": "ai", "kind": "photo", "verified": True}
 
     # Lost-ledger bound: new generation only inside the fixed daily UTC hour. Checked
@@ -545,8 +632,6 @@ def generate_ai_illustration(
     body_data = json.dumps({
         "prompt": prompt,
         "steps": steps,
-        "width": width,
-        "height": height,
     }).encode("utf-8")
 
     status, ct, resp_bytes = 0, "", b""
@@ -628,6 +713,12 @@ def generate_ai_illustration(
             outcome.update(action="failed", status=status, error="Invalid or missing image bytes in response", bytes_received=len(resp_bytes), cost=0.0)
         return None
 
+    # Read real pixel dimensions from returned image bytes (standard library only)
+    real_w, real_h = read_image_dimensions(img_bytes)
+    measured_w = real_w if real_w is not None else width
+    measured_h = real_h if real_h is not None else height
+    real_cost = compute_neuron_cost(width=measured_w, height=measured_h, steps=steps)
+
     # Store image file atomically under published site
     dest_dir.mkdir(parents=True, exist_ok=True)
     temp_path = dest_dir / f".tmp_{filename}_{time.time_ns()}"
@@ -644,10 +735,36 @@ def generate_ai_illustration(
             outcome.update(action="failed", status=status, error="Failed to write image to disk", bytes_received=len(img_bytes), cost=0.0)
         return None
 
-    # Record generation in ledger
-    ledger.record_generation(story_id, cost=cost, now=now)
+    # Record generation in ledger with cost computed from real dimensions
+    ledger.record_generation(story_id, cost=real_cost, now=now)
+
+    # Adjust run budget if real cost differs from the assumed upper bound
+    active_budget = run_budget if run_budget is not None else (process_run_budget() if not ignore_window else None)
+    if active_budget is not None:
+        diff = round(real_cost - cost, 4)
+        active_budget.spent = round(active_budget.spent + diff, 4)
+
+    # If the real dimensions would cost more than the bound assumed,
+    # stop generation for the day (the same way a 429 does) and print why.
+    oversize = real_cost > cost
+    if oversize:
+        stop_reason = (
+            f"image dimensions {measured_w}x{measured_h} cost {real_cost:.1f} neurons "
+            f"exceeding assumed bound {cost:.1f}"
+        )
+        ledger.record_stop(stop_reason, now=now)
+        print(f"AI image generation stopped for day: {stop_reason}")
+
     if outcome is not None:
-        outcome.update(action="generated", status=status, bytes_received=len(img_bytes), cost=cost)
+        outcome.update(
+            action="generated",
+            status=status,
+            bytes_received=len(img_bytes),
+            cost=real_cost,
+            width=measured_w,
+            height=measured_h,
+            oversize=oversize,
+        )
 
     return {"src": rel_src, "via": "ai", "kind": "photo", "verified": True}
 
@@ -728,8 +845,12 @@ def probe(
     err_code = outcome.get("error_code")
     reason = outcome.get("reason")
 
+    w = outcome.get("width")
+    h = outcome.get("height")
+    dim_str = f", {w}x{h}" if (w and h) else ""
+
     if action == "generated":
-        print(f"AI image probe: HTTP {status}, {bytes_rcvd} bytes received, {neurons:.1f} neurons spent")
+        print(f"AI image probe: HTTP {status}{dim_str}, {bytes_rcvd} bytes received, {neurons:.1f} neurons spent")
         return 0
     elif action == "failed":
         err_detail = f"code {err_code}: {error}" if err_code else (error or f"HTTP {status}")
@@ -742,7 +863,7 @@ def probe(
         print(f"AI image probe: skipped ({reason}), {bytes_rcvd} bytes received, {neurons:.1f} neurons spent")
         return 1
     else:
-        print(f"AI image probe: HTTP {status}, {bytes_rcvd} bytes received, {neurons:.1f} neurons spent")
+        print(f"AI image probe: HTTP {status}{dim_str}, {bytes_rcvd} bytes received, {neurons:.1f} neurons spent")
         return 0 if res else 1
 
 
