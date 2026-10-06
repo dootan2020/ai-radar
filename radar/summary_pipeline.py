@@ -12,6 +12,7 @@ import re
 import threading
 import time
 from typing import Any
+from urllib.parse import urlsplit
 
 from radar.items import instant
 from radar import summary_budget
@@ -24,6 +25,8 @@ from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
 ENTITY_TOKEN = re.compile(r"\b[A-Z][A-Za-z0-9_.+-]*(?:\s+[A-Z][A-Za-z0-9_.+-]*)*\b")
 MIN_ARTICLE_TEXT_CHARS = 300
 SUMMARY_RETRY_DELAY = 0.25
+DEFAULT_BUDGET = 180.0
+MIN_REQUEST_TIMEOUT = 3.0
 ARTICLE_FAILURE_TTL = 24 * 60 * 60
 PAYWALL_TEXT = re.compile(
     r"\b(?:subscribe to (?:read|continue)|sign in to (?:read|continue)|"
@@ -77,7 +80,7 @@ def article_url_hash(url: str) -> str:
     return hashlib.sha256(url.encode("utf-8")).hexdigest()
 
 
-def fetch_article_result(story: dict) -> tuple[str, str | None]:
+def fetch_article_result(story: dict, robots_cache: dict | None = None) -> tuple[str, str | None]:
     """Return article text and a safe skip reason, respecting robots.txt."""
     url = article_url(story)
     if not url:
@@ -88,7 +91,16 @@ def fetch_article_result(story: dict) -> tuple[str, str | None]:
     def fetch_without_redirects(target):
         return transport.read_url(target, allow_redirects=False)
 
-    robots = shadow_collector.check_robots(url, fetch_fn=fetch_without_redirects, robots_cache={})
+    if robots_cache is None:
+        robots_cache = {}
+
+    parts = urlsplit(url)
+    origin = f"{parts.scheme}://{parts.netloc}"
+    if origin in robots_cache:
+        robots = robots_cache[origin]
+    else:
+        robots = shadow_collector.check_robots(url, fetch_fn=fetch_without_redirects, robots_cache=robots_cache)
+        robots_cache[origin] = robots
     if robots["robots_status"] not in (200, 404) or robots["disallowed"]:
         return "", "robots"
 
@@ -118,9 +130,9 @@ def fetch_article_result(story: dict) -> tuple[str, str | None]:
     return text[:gemini.MAX_ARTICLE_TEXT_CHARS], None
 
 
-def fetch_article_text(story: dict) -> str:
+def fetch_article_text(story: dict, robots_cache: dict | None = None) -> str:
     """Compatibility wrapper returning text only for a readable publisher page."""
-    return fetch_article_result(story)[0]
+    return fetch_article_result(story, robots_cache=robots_cache)[0]
 
 # Common Vietnamese words that may appear capitalized at sentence starts
 VN_GRAMMAR_CAPS = {
@@ -364,7 +376,7 @@ def summarize_payload(payload: dict,
                       article_fetch_fn=None,
                       article_failures: dict | None = None,
                       ledger_path: str | None = None,
-                      budget: float = 30.0,
+                      budget: float = DEFAULT_BUDGET,
                       clock=time.monotonic,
                       now=time.time) -> tuple[dict, bool]:
     """Summarize eligible stories in payload, annotating them with `key_points`.
@@ -467,12 +479,21 @@ def summarize_payload(payload: dict,
         payload["summary"] = stats
         return stats, False
 
+    # Check if remaining time is insufficient before starting story loop
+    if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
+        stats["error"] = "time_budget"
+        stats["pending"] = len(eligible_stories)
+        stats["status"] = "failed"
+        payload["summary"] = stats
+        return stats, False
+
     # Read in ranking order and stop once a request-sized batch is ready.
     story_map = {}
     missing = []
     failure_now = now() if callable(now) else now
+    shared_robots_cache = {}
     for story in eligible_stories:
-        if clock() - started >= budget:
+        if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
             stats["error"] = "time_budget"
             break
         sid = story.get("id")
@@ -491,9 +512,12 @@ def summarize_payload(payload: dict,
                 continue
             article_failures.pop(url_hash, None)
         if article_fetch_fn is fetch_article_text:
-            article_text, skip_reason = fetch_article_result(story)
+            article_text, skip_reason = fetch_article_result(story, robots_cache=shared_robots_cache)
         else:
-            article_text = article_fetch_fn(story)
+            try:
+                article_text = article_fetch_fn(story, robots_cache=shared_robots_cache)
+            except TypeError:
+                article_text = article_fetch_fn(story)
             skip_reason = None
         if len(article_text or "") < MIN_ARTICLE_TEXT_CHARS:
             skip_reason = skip_reason or "too_short"
@@ -530,14 +554,16 @@ def summarize_payload(payload: dict,
             break
 
     if not missing:
-        stats["pending"] = stats["skipped"]
+        pending_count = len(eligible_stories) - (stats["cache_hits"] + stats["summarized"])
+        stats["pending"] = pending_count if stats["error"] else stats["skipped"]
         stats["status"] = "partial" if stats["skipped"] or stats["error"] else ("cache" if stats["cache_hits"] else "ok")
         payload["summary"] = stats
         return stats, False
 
-    if clock() - started >= budget:
+    if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
         stats["error"] = "time_budget"
-        stats["pending"] = len(missing)
+        stats["pending"] = len(eligible_stories) - (stats["cache_hits"] + stats["summarized"])
+        stats["status"] = "partial" if stats["cache_hits"] else "failed"
         payload["summary"] = stats
         return stats, False
 

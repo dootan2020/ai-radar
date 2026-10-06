@@ -788,5 +788,116 @@ class SummaryTests(unittest.TestCase):
         self.assertEqual(stats3["pending"], 0)
 
 
+
+    def test_gemini_config_timeout_allows_values_above_legacy_45s(self):
+        """Config timeout must accommodate large article-backed prompts beyond legacy 45s."""
+        self.assertGreaterEqual(gemini.Config().timeout, 90.0)
+        self.assertEqual(gemini.Config(timeout=120.0).timeout, 120.0)
+        self.assertEqual(gemini.Config(timeout=300.0).timeout, 180.0)
+
+    def test_pipeline_and_cli_budget_align_with_workflow_five_minute_limit(self):
+        """CLI and pipeline budgets must align with the 5-minute GitHub Actions step budget."""
+        self.assertGreaterEqual(summarize.DEFAULT_BUDGET, 180.0)
+        self.assertGreaterEqual(summary_pipeline.DEFAULT_BUDGET, 180.0)
+
+    def test_summary_pipeline_accommodates_request_with_article_text_over_45s(self):
+        """A request carrying article text is provided a timeout exceeding legacy 45s."""
+        story = next(s for s in self.fixture_data["stories"] if s["id"] == "b3857f26daabd24cdab2")
+        payload = {"stories": [deepcopy(story)]}
+        timeouts_seen = []
+
+        def recording_transport(body, key, timeout):
+            timeouts_seen.append(timeout)
+            return self.transport_ok(body, key, timeout)
+
+        stats, alive = summary_pipeline.summarize_payload(
+            payload,
+            self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=recording_transport,
+            ledger_path=self.ledger_path,
+            now=lambda: 100000.0,
+        )
+        self.assertFalse(alive)
+        self.assertEqual(stats["status"], "ok")
+        self.assertEqual(stats["summarized"], 1)
+        self.assertEqual(len(timeouts_seen), 1)
+        self.assertGreater(timeouts_seen[0], 45.0)
+
+    def test_insufficient_time_refuses_before_ledger_reservation(self):
+        """When remaining time before the request is too short, refuse cleanly without burning quota."""
+        story = deepcopy(self.fixture_data["stories"][0])
+        payload = {"stories": [story]}
+
+        # If budget has very little time remaining (e.g. 2s < MIN_REQUEST_TIMEOUT),
+        # the pipeline must NOT reserve quota or invoke transport.
+        stats, alive = summary_pipeline.summarize_payload(
+            payload,
+            self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=self.transport_ok,
+            ledger_path=self.ledger_path,
+            budget=2.0,
+            now=lambda: 100000.0,
+        )
+        ledger_data = json.loads(self.ledger_path.read_text(encoding="utf-8"))
+        self.assertEqual(stats["error"], "time_budget")
+        self.assertEqual(len(ledger_data["attempts"]), 0)
+        self.assertEqual(len(self.calls), 0)
+
+    def test_timed_out_request_is_accounted_for_honestly_in_ledger(self):
+        """A timed-out request retains its reservation and estimated tokens in the ledger."""
+        story = deepcopy(self.fixture_data["stories"][0])
+        payload = {"stories": [story]}
+
+        def hanging_transport(body, key, timeout):
+            import time as _t
+            _t.sleep(timeout + 0.05)
+            return reply_summary([])
+
+        stats, alive = summary_pipeline.summarize_payload(
+            payload,
+            self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True, timeout=0.1),
+            transport_fn=hanging_transport,
+            ledger_path=self.ledger_path,
+            budget=5.0,
+            now=lambda: 100000.0,
+        )
+        ledger_data = json.loads(self.ledger_path.read_text(encoding="utf-8"))
+        self.assertEqual(stats["error"], "timeout")
+        self.assertEqual(len(ledger_data["attempts"]), 1)
+        self.assertGreater(ledger_data["attempts"][0]["tokens"], 0)
+        self.assertEqual(stats["requests"], 1)
+
+    def test_robots_cache_shared_across_story_fetches(self):
+        """Multiple candidate stories on same host share robots.txt result without duplicate fetches."""
+        base = next(s for s in self.fixture_data["stories"] if s["id"] == "b3857f26daabd24cdab2")
+        s1 = deepcopy(base)
+        s1["id"] = "s1"
+        s1["url"] = "https://publisher.example/story-1"
+        s2 = deepcopy(base)
+        s2["id"] = "s2"
+        s2["url"] = "https://publisher.example/story-2"
+        payload = {"stories": [s1, s2]}
+
+        robots_checks = []
+        def counting_check_robots(url, **kwargs):
+            robots_checks.append(url)
+            return {"robots_status": 200, "disallowed": False}
+
+        with patch.object(summary_pipeline.shadow_collector, "check_robots", side_effect=counting_check_robots):
+            stats, _ = summary_pipeline.summarize_payload(
+                payload,
+                self.cache,
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True, batch_size=2),
+                transport_fn=self.transport_ok,
+                ledger_path=self.ledger_path,
+                budget=10.0,
+                now=lambda: 100000.0,
+            )
+        self.assertEqual(len(robots_checks), 1)
+
+
 if __name__ == "__main__":
     unittest.main()

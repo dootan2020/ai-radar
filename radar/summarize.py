@@ -19,6 +19,9 @@ from radar import summary_gemini as gemini
 from radar import summary_pipeline
 
 
+DEFAULT_BUDGET = 180.0
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--input", default="site/data/radar.json")
@@ -26,7 +29,7 @@ def main(argv=None):
     parser.add_argument("--cache", default="data/summaries-gemini-vi.json")
     parser.add_argument("--ledger", help="defaults to summary-gemini-ledger.json beside --cache")
     parser.add_argument("--article-failures", help="defaults to article-read-failures.json beside --cache")
-    parser.add_argument("--budget", type=float, default=45.0)
+    parser.add_argument("--budget", type=float, default=DEFAULT_BUDGET)
     args = parser.parse_args(argv)
 
     if args.budget <= 0:
