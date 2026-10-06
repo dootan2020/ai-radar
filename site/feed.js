@@ -23,6 +23,7 @@ import { shown, uniqCoverage } from './titles.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
 import { freshness, freshnessText } from './freshness.js';
 import { WORTH, fallbackWorth } from './worth-score.js';
+import { renderStoryHTML } from './story.js';
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/ (as on the
    bento home). The first request matches index.html's preload (same mode, no cache option), so it is reused. */
@@ -649,14 +650,102 @@ function detailHTML(st) {
       ${mx || c.discussion_url ? `<span class="cov-m">${mx}${mx && c.discussion_url ? ' · ' : ''}${c.discussion_url ? `<a href="${esc(safe(c.discussion_url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">Thảo luận</a>` : ''}</span>` : ''}</li>`;
   }).join('')}</ul>`;
 }
+/* ---------- story modal (the captain's approval 06/10 04:50: one way to see detail) ---------- */
+let currentModalStoryId = null;
+let lastScrollY = 0;
+let lastFocusedEl = null;
+
+function syncModalSaveState() {
+  if (!currentModalStoryId) return;
+  const isSaved = savedHas(currentModalStoryId);
+  const btns = [document.getElementById('story-modal-save'), document.getElementById('story-act-save')];
+  btns.forEach(b => {
+    if (b) {
+      b.classList.toggle('is-saved', isSaved);
+      b.setAttribute('aria-label', isSaved ? 'Bỏ lưu bài viết' : 'Lưu bài viết');
+      b.title = isSaved ? 'Bỏ lưu' : 'Lưu đọc sau (phím S)';
+    }
+  });
+}
+
+function openStoryModal(id, opts = {}) {
+  const story = STORY_ANY.get(id);
+  if (!story) {
+    toast('Tin này không còn trong bản tin hiện tại');
+    return;
+  }
+  const dialog = document.getElementById('story-dialog');
+  const body = document.getElementById('story-dialog-body');
+  const scroller = document.getElementById('story-dialog-scroller');
+  if (!dialog || !body) return;
+
+  currentModalStoryId = id;
+  lastScrollY = window.scrollY;
+  lastFocusedEl = document.activeElement;
+
+  body.innerHTML = renderStoryHTML(story, SRC, {
+    isModal: true,
+    isSaved: savedHas(id)
+  });
+
+  syncModalSaveState();
+
+  if (scroller) scroller.scrollTop = 0;
+
+  $('#top')?.setAttribute('aria-hidden', 'true');
+  $('#bar')?.setAttribute('aria-hidden', 'true');
+
+  if (!dialog.open) {
+    dialog.showModal();
+  }
+
+  const closeBtn = document.getElementById('story-modal-close');
+  if (closeBtn) {
+    closeBtn.focus({ preventScroll: true });
+  }
+
+  markRead(id);
+
+  if (opts.pushHistory !== false && !opts.fromHistory) {
+    const targetUrl = `tin/${encodeURIComponent(id)}/`;
+    history.pushState({ storyModal: id, scrollY: lastScrollY }, '', targetUrl);
+  }
+}
+
+function closeStoryModal(opts = {}) {
+  const dialog = document.getElementById('story-dialog');
+  if (!dialog || !dialog.open) return;
+
+  dialog.close();
+  $('#top')?.removeAttribute('aria-hidden');
+  $('#bar')?.removeAttribute('aria-hidden');
+
+  const prevScroll = lastScrollY;
+  const prevFocus = lastFocusedEl;
+  currentModalStoryId = null;
+
+  if (!opts.fromHistory) {
+    if (history.state && history.state.storyModal) {
+      history.back();
+    } else {
+      const cleanUrl = location.pathname.replace(/\/tin\/[^/]+\/?$/, '/') || './';
+      history.replaceState(null, '', cleanUrl);
+    }
+  }
+
+  if (Number.isFinite(prevScroll)) {
+    window.scrollTo({ top: prevScroll, behavior: 'instant' });
+  }
+
+  if (prevFocus && typeof prevFocus.focus === 'function') {
+    prevFocus.focus({ preventScroll: true });
+  }
+}
+
 function toggleDetail(btn, open) {
-  const panel = document.getElementById(btn.getAttribute('aria-controls'));
   const st = STORY_ANY.get(btn.dataset.cov);
-  if (!panel || !st) return;
-  const on = open ?? btn.getAttribute('aria-expanded') !== 'true';
-  if (on) { panel.innerHTML = detailHTML(st); hydrateHF(panel); }
-  panel.hidden = !on;
-  btn.setAttribute('aria-expanded', String(on));
+  if (!st) return;
+  openStoryModal(btn.dataset.cov);
 }
 
 /* opts (only the "Đáng đọc hôm nay" lead uses them): rank, the block position; why, show the reason line; h, the
@@ -685,7 +774,7 @@ function renderCard(st, size = 'std', opts = {}) {
   const covId = `cov-${esc(st.id)}`;
   const metric = [
     (m && !opts.why) ? `<span>${numB(m)} ${esc(m.word)}</span>` : '',
-    `<button class="cov-btn" data-cov="${esc(st.id)}" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${covs.length > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${covs.length}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`
+    `<button class="cov-btn" data-cov="${esc(st.id)}" aria-haspopup="dialog" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${covs.length > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${covs.length}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`
   ].filter(Boolean).join('<span aria-hidden="true">·</span>');
   const cal = calOf(st);
   const isSaved = savedHas(st.id);
@@ -697,8 +786,8 @@ function renderCard(st, size = 'std', opts = {}) {
   <div class="${photo ? 'photo-body' : 'card-body'}">
     <div class="src-row">${markHTML(st)}${opts.rank ? `<span class="pick-n num"><span class="sr">Số </span>${opts.rank}</span>` : ''}<span class="src-av" aria-hidden="true">${avatar(face, 'xs')}</span><span class="src-name">${esc(name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}</div>
     ${h === 'h3'
-      ? `<h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="${esc(href)}" target="_blank" rel="noopener" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>`
-      : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="${esc(href)}" target="_blank" rel="noopener" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>`}
+      ? `<h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>`
+      : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>`}
     ${origLine(t)}
     ${opts.why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${worthWhy(st)}</p>` : ''}
     ${opts.why && pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
@@ -787,7 +876,7 @@ function renderHot(list = HOT) {
     <div class="tile-head"><h2 class="tile-title" id="hot-h">Đang nóng</h2><span class="tile-note">xếp theo số đo thật</span></div>
     <ol class="hot-list">${list.map((st, i) => {
       const img = pickImage(st), t = titleOf(st);
-      return `<li><a class="hot-row ${statusClass(st)}" href="${esc(safe(t.cov ? t.cov.url : st.url))}" target="_blank" rel="noopener" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
+      return `<li><a class="hot-row ${statusClass(st)}" href="tin/${esc(st.id)}/" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
         <span class="thumb" data-id="${esc(st.id)}">${img.src ? `<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
         <span class="hot-rank num" aria-hidden="true">${i + 1}</span>
         <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${esc(t.text)}</span><span class="hot-why">${whyHTML(st)}</span></span></a></li>`;
@@ -1385,7 +1474,7 @@ function renderModels() {
 /* ---------- "Đáng đọc hôm nay": the lead photo is number 1, a tile beside it ranks 2 to 5 ---------- */
 function pickRow(st, rank) {
   const img = pickImage(st), t = titleOf(st), pin = PICKS.get(st.id);
-  return `<li><a class="hot-row pick-row ${statusClass(st)}" href="${esc(safe(t.cov ? t.cov.url : st.url))}" target="_blank" rel="noopener" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-worth="${worthOf(st).score.toFixed(1)}">
+  return `<li><a class="hot-row pick-row ${statusClass(st)}" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-worth="${worthOf(st).score.toFixed(1)}">
     <span class="thumb pick-thumb" data-id="${esc(st.id)}">${img.src ? `<img src="${esc(img.src)}" alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
     <span class="hot-rank num" aria-hidden="true">${rank}</span>
     <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${esc(t.text)}</span>
@@ -1465,7 +1554,7 @@ function buildAll() {
     sub: 'Các chủ đề thu hút nhiều thảo luận và tốc độ quan tâm đột biến trên Hacker News và các diễn đàn.'
   });
   out.push({ t: 'hot' });
-  debateCards.forEach(st => out.push(C(st, 'std', { debate: true })));
+  debateCards.forEach(st => out.push(C(st, 'std', { debate: true, why: true })));
 
   // --- Khối 3: Vừa ra mắt & Công bố mới ---
   const productCandidates = allStories.filter(st => !used.has(st.id) && (st.kind === 'product' || firstHandOf(st)))
@@ -1881,23 +1970,8 @@ function applyLive(updates) {
 function openStory(id) {
   const st = STORY_ANY.get(id);
   if (!st) { toast('Tin này không còn trong bản tin hiện tại'); return; }
-  const is = el => el.dataset.sid === id;
-  let el = revealStory(sid => sid === id, true);
-  if (!el) {
-    // Not a card in the main feed (the hot tile or the ranked block shows it, or it is outside the window): open the
-    // first view that lists it as a card.
-    const views = [...Object.keys(FILTERS), ...Object.keys(SECTIONS).map(k => 'sec:' + k)];
-    for (const f of views) {
-      if (!listFor(f).some(s => s.id === id)) continue;
-      setFilter(f, true);
-      el = revealStory(sid => sid === id, true);
-      if (el) break;
-    }
-  }
-  if (!el || !is(el)) { toast('Tin này không còn trong dòng tin'); return; }
-  const btn = el.querySelector('.cov-btn');
-  if (btn) toggleDetail(btn, true);
-  focusStory(el);
+  revealStory(sid => sid === id, true);
+  openStoryModal(id);
 }
 function route() {
   if (!D) return;
@@ -1967,6 +2041,22 @@ function onKey(e) {
   if (t && t.closest('input,textarea,select,[contenteditable="true"]')) return;
   if ($('#keys').open) return;
   const k = e.key;
+
+  if (currentModalStoryId) {
+    if (k === 'Escape') {
+      e.preventDefault();
+      closeStoryModal();
+      return;
+    }
+    if (k === 's' || k === 'S') {
+      e.preventDefault();
+      toggleSave(currentModalStoryId);
+      syncModalSaveState();
+      return;
+    }
+    return;
+  }
+
   if (k === 'Escape') {
     const panel = t && t.closest('.cov-list:not([hidden])');
     const card = t && t.closest('.feed-card');
@@ -1993,6 +2083,55 @@ function onKey(e) {
 function onClick(e) {
   const t = e.target instanceof Element ? e.target : null;
   if (!t) return;
+
+  // Modal interactions
+  if (t.closest('#story-modal-close, #story-footer-close-btn, .story-modal-close-btn, [data-modal-close]')) {
+    e.preventDefault();
+    closeStoryModal();
+    return;
+  }
+  if (t.closest('#story-modal-save, #story-act-save, [data-story-act="save"]')) {
+    e.preventDefault();
+    if (currentModalStoryId) {
+      toggleSave(currentModalStoryId);
+      syncModalSaveState();
+    }
+    return;
+  }
+  if (t.closest('#story-modal-share, #story-act-share, [data-story-act="share"]')) {
+    e.preventDefault();
+    if (currentModalStoryId) {
+      const u = location.origin + (location.pathname.replace(/\/tin\/[^/]+\/?$/, '/') || '/') + 'tin/' + encodeURIComponent(currentModalStoryId) + '/';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(u).then(() => toast('Đã chép liên kết bài viết'), () => toast(u));
+      } else {
+        toast(u);
+      }
+    }
+    return;
+  }
+  if (t.closest('#story-footer-top-btn, [data-story-top]')) {
+    e.preventDefault();
+    const scroller = document.getElementById('story-dialog-scroller');
+    if (scroller) scroller.scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' });
+    return;
+  }
+  if (t === document.getElementById('story-dialog')) {
+    closeStoryModal();
+    return;
+  }
+
+  // Intercept clicks on story links or cards to open modal
+  const storyLink = t.closest('.story-link, .hot-row[data-sid], .pick-row[data-sid]');
+  if (storyLink && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0) {
+    const sid = storyLink.dataset.id || storyLink.dataset.sid || storyLink.closest('[data-sid]')?.dataset.sid;
+    if (sid && STORY_ANY.has(sid)) {
+      e.preventDefault();
+      openStoryModal(sid);
+      return;
+    }
+  }
+
   const act = t.closest('.act');
   if (act && act.dataset.act === 'copy') {
     const u = act.dataset.url;
@@ -2090,6 +2229,21 @@ function attachEvents() {
   document.addEventListener('click', onClick);
   document.addEventListener('auxclick', e => { if (e.button === 1) onOpenLink(e); });
   document.addEventListener('keydown', onKey);
+
+  const storyDialog = document.getElementById('story-dialog');
+  if (storyDialog) {
+    storyDialog.addEventListener('cancel', e => {
+      e.preventDefault();
+      closeStoryModal();
+    });
+  }
+  window.addEventListener('popstate', e => {
+    if (e.state && e.state.storyModal) {
+      openStoryModal(e.state.storyModal, { pushHistory: false, fromHistory: true });
+    } else if (currentModalStoryId) {
+      closeStoryModal({ fromHistory: true });
+    }
+  });
 }
 
 /* ---------- one snapshot in: everything the page derives from it ---------- */
@@ -2145,6 +2299,7 @@ function startLifecycle() {
   // Relative times and the stale line stay honest while the tab is open.
   setInterval(() => { $$('[data-ago]').forEach(el => { el.textContent = ago(el.dataset.ago); }); renderStale(); }, 60_000);
   window.commitLastSeen = commitLastSeen; window.storyStatus = storyStatus;
+  window.openStoryModal = openStoryModal; window.closeStoryModal = closeStoryModal; window.getStory = id => STORY_ANY.get(id);
 }
 async function startLiveLayer() {
   await whenIdle();
@@ -2200,7 +2355,11 @@ async function init() {
     em.hidden = false;
     return;
   }
-  route();
+  if (history.state && history.state.storyModal && STORY_ANY.has(history.state.storyModal)) {
+    openStoryModal(history.state.storyModal, { pushHistory: false, fromHistory: true });
+  } else {
+    route();
+  }
   addEventListener('hashchange', route);
   startLifecycle();
   startLiveLayer();
