@@ -163,9 +163,50 @@ ul, ol { padding: 0; list-style: none; }
 .feed-sub { font-size: var(--text-small); color: var(--color-ink-2); }
 .feed-sub .text-btn { margin-left: var(--space-8); }
 .new-items {
-  display: inline-flex; align-items: center; flex-wrap: wrap; max-width: 100%; gap: var(--space-8); border-radius: var(--radius-full);
-  padding: var(--space-4) var(--space-12) var(--space-4) var(--space-8);
-  background: var(--color-accent-wash); color: var(--color-accent); font-size: var(--text-small); font-weight: var(--weight-medium);
+  display: inline-flex; align-items: center; max-width: 100%;
+  padding: 2px 4px 2px var(--space-12); border-radius: var(--radius-full);
+  background: var(--color-fill); color: var(--color-ink-2);
+  font-size: var(--text-small); white-space: nowrap;
+  transition: background-color var(--motion-state) var(--ease-flow);
+}
+.new-items .new-divider {
+  display: inline-block; width: 1px; height: 14px; background: var(--color-hair);
+  margin: 0 var(--space-4); flex: none;
+}
+.new-items .mark-seen-btn {
+  display: inline-flex; align-items: center; min-height: 32px;
+  padding: 0 var(--space-8); border-radius: var(--radius-full);
+  color: var(--color-ink-3); font-weight: var(--weight-regular); font-size: var(--text-meta);
+  text-decoration: none; white-space: nowrap;
+  transition: color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow);
+}
+.new-items .mark-seen-btn:hover {
+  color: var(--color-ink); background: var(--color-hair);
+}
+@media (max-width: 480px) {
+  .new-items {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: var(--radius-12);
+    padding: var(--space-6) var(--space-12);
+    gap: var(--space-4) var(--space-8);
+    white-space: normal;
+  }
+  .new-items .new-divider {
+    display: none;
+  }
+  .new-items .new-go {
+    min-height: auto;
+    padding: 0;
+    line-height: var(--leading-snug);
+  }
+  .new-items .mark-seen-btn {
+    min-height: 28px;
+    padding: 0 var(--space-8);
+    background: var(--color-hair);
+    border-radius: var(--radius-full);
+  }
 }
 .text-btn { display: inline-flex; align-items: center; color: var(--color-accent); font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 3px; min-height: 40px; }
 .text-btn:hover { text-decoration-thickness: 2px; }
@@ -643,9 +684,14 @@ ul, ol { padding: 0; list-style: none; }
 .hot-row.is-read .hot-title, .repo-cell.is-read .repo-name, .events li.is-read .event-name { color: var(--color-ink-3); }
 
 /* "N tin mới": goes to the first new story; "Đánh dấu đã xem" beside it */
-.new-go { display: inline-flex; align-items: center; gap: var(--space-8); min-height: 40px; font-weight: var(--weight-semibold); color: inherit; }
-.new-go .i { width: 16px; height: 16px; }
-.new-go:hover { text-decoration: underline; text-underline-offset: 3px; }
+.new-go {
+  display: inline-flex; align-items: center; gap: var(--space-6); min-height: 32px;
+  padding: 0 var(--space-4) 0 0;
+  font-weight: var(--weight-medium); color: var(--color-ink);
+  transition: color var(--motion-state) var(--ease-flow);
+}
+.new-go .i { width: 14px; height: 14px; color: var(--color-accent); flex: none; }
+.new-go:hover { color: var(--color-accent); text-decoration: none; }
 .feed-sub .text-link { text-decoration: underline; text-decoration-color: var(--color-hair); text-underline-offset: 3px; }
 .feed-sub .text-link:hover { color: var(--color-ink); text-decoration-color: currentColor; }
 
