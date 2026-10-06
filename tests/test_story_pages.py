@@ -74,8 +74,8 @@ def story(story_id="story-1", **overrides):
         "id": story_id,
         "title": "Original title",
         "title_vi": "Tiêu đề tiếng Việt",
-        "summary": "Original summary",
-        "summary_vi": "Tóm tắt tiếng Việt",
+        "summary": "Original summary.",
+        "summary_vi": "Tóm tắt tiếng Việt.",
         "url": "https://publisher.example/story?a=1&b=2",
         "image": {"src": "https://publisher.example/image.jpg?x=1&y=2"},
         "coverage": [{"publisher": "Publisher", "title": "Original title",
@@ -90,7 +90,7 @@ class StoryPageRenderingTests(unittest.TestCase):
     def test_metadata_fallback_content_relative_assets_and_json_are_safe(self):
         malicious = story(
             title_vi='Tiêu đề </title><script>alert("x")</script>',
-            summary_vi='Tóm tắt <b>& \' " </script>',
+            summary_vi='Tóm tắt <b>& \' " </script>.',
             url="https://publisher.example/story?x=1&y=2",
             coverage=[{"publisher": 'P<ublisher "', "title": "Tiêu đề gốc",
                        "url": "https://publisher.example/story?x=1&y=2"}],
@@ -149,21 +149,55 @@ class StoryPageRenderingTests(unittest.TestCase):
 
     def test_story_json_has_only_referenced_source_records(self):
         item = story(coverage=[{"source": "source-a", "publisher": "A",
-                               "url": "https://a.example/story"},
-                              {"source": "missing", "url": "https://b.example/story"}])
+                                "url": "https://a.example/story"},
+                               {"source": "missing", "url": "https://b.example/story"}])
         document = render_story_page(item, sources=[{"id": "source-a", "name": "Source A", "icon": "a.svg"},
-                                                    {"id": "unused", "name": "Unused"}])
+                                                     {"id": "unused", "name": "Unused"}])
         parser = PageParser()
         parser.feed(document)
         data = json.loads(parser.scripts[0])
         self.assertEqual(data["source_records"], [{"id": "source-a", "name": "Source A", "icon": "a.svg"}])
 
     def test_story_text_cannot_expand_template_placeholders(self):
-        document = render_story_page(story(title_vi="{{CONTENT}}", summary_vi="{{JSONLD}}"))
+        document = render_story_page(story(title_vi="{{CONTENT}}", summary_vi="{{JSONLD}}."))
         self.assertIn("<title>{{CONTENT}} · ai·radar</title>", document)
-        self.assertIn('content="{{JSONLD}}"', document)
+        self.assertIn('content="{{JSONLD}}."', document)
         self.assertNotIn('<title><section class="story-keypoints-box"', document)
 
+    def test_trim_complete_sentences_and_honest_labels(self):
+        # Captain's example story
+        raw_vi = ("Một dấu nước vô hình, có thể đọc được máy tính trong xuất bản văn bản đang được triển khai "
+                  "cho ChatGPT và Codex, nhưng chỉ dành cho người dùng trong Liên minh châu Âu lúc đầu. "
+                  "OpenAI cho biết đánh dấu nước textGrain của nó \"được phù hợp hoặc vượt qua\" các cách tiếp cận "
+                  "khác như SynthID của Google DeepMind cho văn bản, cũng là cơ sở cho nước")
+        expected_vi = ("Một dấu nước vô hình, có thể đọc được máy tính trong xuất bản văn bản đang được triển khai "
+                       "cho ChatGPT và Codex, nhưng chỉ dành cho người dùng trong Liên minh châu Âu lúc đầu.")
+        raw_en = ("An invisible, machine-readable watermark in text output is rolling out to ChatGPT and Codex, "
+                  "but only for users in the European Union at first. OpenAI says its textGrain watermarking "
+                  "\"matched or exceeded\" other approaches like Google DeepMind's SynthID for text, which is also "
+                  "the basis for the water")
+        expected_en = ("An invisible, machine-readable watermark in text output is rolling out to ChatGPT and Codex, "
+                       "but only for users in the European Union at first.")
+
+        item = story(summary=raw_en, summary_vi=raw_vi)
+        document = render_story_page(item)
+        parser = PageParser()
+        parser.feed(document)
+
+        # Meta description and fallback content must show only the complete sentence
+        self.assertEqual(parser.metas["description"], expected_vi)
+        self.assertIn(expected_vi, "".join(parser.main_text))
+        self.assertNotIn("cũng là cơ sở cho nước", "".join(parser.main_text))
+        self.assertNotIn("the basis for the water", "".join(parser.main_text))
+
+        # Honest label: fallback says 'Đoạn trích bài viết', NOT 'Tóm lược bài viết'
+        self.assertIn('aria-label="Đoạn trích bài viết"', document)
+        self.assertIn('<h2 class="story-section-h2">Đoạn trích bài viết</h2>', document)
+        self.assertNotIn('<h2 class="story-section-h2">Tóm lược bài viết</h2>', document)
+
+        # Gateway description for fallback does not claim AI summarization
+        self.assertIn('Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
+        self.assertNotIn('ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện.', document)
 
     def test_key_points_and_missing_picture_use_site_default(self):
         document = render_story_page(story(
@@ -172,7 +206,9 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn('class="story-point-text">Điểm một</span>', document)
         self.assertIn('class="story-point-text">Điểm hai</span>', document)
         self.assertIn(f'{BASE_URL}/og-image.png', document)
-        self.assertNotIn("<p>Tóm tắt tiếng Việt</p>", document)
+        self.assertNotIn('class="story-summary-box"', document)
+        # When key points exist, gateway description notes AI summarization
+        self.assertIn('ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
 
     def test_rejects_unsafe_ids_and_non_http_original_links(self):
         with self.assertRaisesRegex(ValueError, "unsafe id"):
