@@ -3,34 +3,23 @@ import path from 'path';
 import os from 'os';
 import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
-import { selectThreeStories } from './src/pick-stories.js';
-import { audioTimeline, createNarration, wavSpeechSegments, resolveOmniVoicePaths } from './src/daily-audio.js';
+import {
+  audioTimeline,
+  createNarration,
+  formatDateSlug,
+  formatVietnameseDate,
+  resolveOmniVoicePaths,
+  resolveScript,
+  wavSpeechSegments,
+} from './src/daily-audio.js';
 
 export { resolveOmniVoicePaths };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Helper to format Vietnamese date
-function formatVietnameseDate(isoString) {
-  const d = new Date(isoString);
-  if (isNaN(d.getTime())) throw new Error(`Invalid snapshot generated_at: ${isoString}`);
-  const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
-  return `${days[d.getDay()]}, ${d.getDate()} tháng ${d.getMonth() + 1}, ${d.getFullYear()}`;
-}
-
-// Helper to format date slug (YYYY-MM-DD)
-function formatDateSlug(isoString) {
-  const d = new Date(isoString);
-  if (isNaN(d.getTime())) throw new Error(`Invalid snapshot generated_at: ${isoString}`);
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
 function run(command, args, options = {}) {
-  const result = spawnSync(command, args, {stdio: 'inherit', ...options});
+  const result = spawnSync(command, args, { stdio: 'inherit', ...options });
   if (result.error) throw result.error;
   if (result.status !== 0) throw new Error(`${path.basename(command)} exited with status ${result.status}.`);
   return result;
@@ -81,10 +70,28 @@ async function probeImage(url, timeoutMs = 2500) {
 export async function main() {
   const startTime = Date.now();
 
-  // 1. Resolve snapshot input file
-  let snapshotArg = process.argv[2];
+  // 1. Parse arguments: snapshot and optional script
+  let snapshotArg = null;
+  let scriptArg = process.env.VIDEO_SCRIPT_PATH || null;
+
+  for (let i = 2; i < process.argv.length; i++) {
+    const arg = process.argv[i];
+    if (arg === '--script' && i + 1 < process.argv.length) {
+      scriptArg = process.argv[++i];
+    } else if (arg.startsWith('--script=')) {
+      scriptArg = arg.split('=', 2)[1];
+    } else if (!arg.startsWith('--')) {
+      if (!snapshotArg) {
+        snapshotArg = arg;
+      } else if (!scriptArg && arg.endsWith('.json')) {
+        scriptArg = arg;
+      }
+    }
+  }
+
+  // 2. Resolve snapshot input file
   let snapshotPath;
-  if (snapshotArg && !snapshotArg.startsWith('--')) {
+  if (snapshotArg) {
     snapshotPath = path.isAbsolute(snapshotArg)
       ? snapshotArg
       : path.resolve(process.cwd(), snapshotArg);
@@ -107,22 +114,45 @@ export async function main() {
     throw new Error('Snapshot must include generated_at and a stories array.');
   }
 
-  // 2. Select top 3 stories
-  const pickedStories = selectThreeStories(snapshot);
-  if (!pickedStories || pickedStories.length === 0) {
-    console.error('[ERROR] No stories could be selected from snapshot.');
-    process.exit(1);
+  // 3. Determine dates
+  const dateSlug = formatDateSlug(snapshot.generated_at);
+  const formattedDate = formatVietnameseDate(snapshot.generated_at);
+
+  // 4. Resolve script (site/data/video-script.json, live URL, fixture or honest fallback template)
+  const scriptResult = await resolveScript({
+    snapshot,
+    snapshotPath,
+    scriptPathOption: scriptArg,
+    targetDate: dateSlug,
+  });
+
+  if (scriptResult.fallback) {
+    console.log(`[INFO] Script source: fallback template (${scriptResult.reason})`);
+  } else {
+    console.log(`[INFO] Script source: ${scriptResult.source}`);
   }
+
+  const script = scriptResult.script;
+
+  // 5. Select 3 stories in the exact order specified by the script
+  const pickedStories = script.stories.map((item) => {
+    const found = snapshot.stories.find(s => s.id === item.id);
+    if (!found) {
+      throw new Error(`Snapshot is missing required story id from script: ${item.id}`);
+    }
+    return found;
+  });
+
   if (pickedStories.length !== 3 || pickedStories.some(story => !story.title_vi)) {
     throw new Error('Snapshot must supply three selected stories with Vietnamese titles.');
   }
 
-  console.log(`[INFO] Selected ${pickedStories.length} stories for video:`);
+  console.log(`[INFO] Selected ${pickedStories.length} stories for video (script order):`);
   pickedStories.forEach((st, idx) => {
-    console.log(`  ${idx + 1}. ${st.title_vi || st.title} (score: ${st.worth_score || 0})`);
+    console.log(`  ${idx + 1}. [${st.id}] ${st.title_vi || st.title} (score: ${st.worth_score || 0})`);
   });
 
-  // 3. Probe images
+  // 6. Probe story images
   console.log('[INFO] Verifying story image accessibility...');
   const preparedStories = await Promise.all(
     pickedStories.map(async (st) => {
@@ -135,9 +165,7 @@ export async function main() {
     })
   );
 
-  // 4. Determine output date & filenames
-  const dateSlug = formatDateSlug(snapshot.generated_at);
-  const formattedDate = formatVietnameseDate(snapshot.generated_at);
+  // 7. Output paths
   const outDir = path.resolve(__dirname, 'out');
   fs.mkdirSync(outDir, { recursive: true });
 
@@ -149,9 +177,13 @@ export async function main() {
   const silentVideoPath = path.join(tempDir, 'silent.mp4');
   const muxedVideoPath = path.join(tempDir, 'final.mp4');
 
-  // 5. Generate social caption file (.txt)
+  // 8. Generate social caption file (.txt)
   const captionLines = [
+    script.hook,
+    '',
     ...preparedStories.map((st, i) => `${i + 1}. ${st.title_vi || st.title}`),
+    '',
+    script.cta,
     '',
     'https://dootan2020.github.io/ai-radar',
     '',
@@ -159,7 +191,9 @@ export async function main() {
   ];
   fs.writeFileSync(captionPath, captionLines.join('\n'), 'utf8');
   console.log(`[INFO] Caption saved: ${captionPath}`);
-  const narration = createNarration(preparedStories);
+
+  // 9. Generate narration text from script
+  const narration = createNarration(script);
   fs.writeFileSync(narrationPath, narration, 'utf8');
   console.log(`[INFO] Narration saved: ${narrationPath}`);
 
@@ -168,12 +202,21 @@ export async function main() {
     const voicePath = synthesizeNarration(narrationPath, tempDir);
     const audioSegments = wavSpeechSegments(fs.readFileSync(voicePath));
     const timeline = audioTimeline(audioSegments);
-    console.log('[INFO] Voice segment lengths:');
-    audioSegments.forEach((segment, index) => {
-      console.log(`  Story ${index + 1}: ${segment.duration.toFixed(2)}s`);
-    });
 
-    // 6. Render the B editorial scenes to the measured narration timing.
+    console.log('[INFO] Voice segment lengths:');
+    if (audioSegments.length === 5) {
+      console.log(`  Intro (Hook + Hint): ${audioSegments[0].duration.toFixed(2)}s`);
+      console.log(`  Story 1: ${audioSegments[1].duration.toFixed(2)}s`);
+      console.log(`  Story 2: ${audioSegments[2].duration.toFixed(2)}s`);
+      console.log(`  Story 3: ${audioSegments[3].duration.toFixed(2)}s`);
+      console.log(`  Outro (CTA): ${audioSegments[4].duration.toFixed(2)}s`);
+    } else {
+      audioSegments.forEach((segment, index) => {
+        console.log(`  Segment ${index + 1}: ${segment.duration.toFixed(2)}s`);
+      });
+    }
+
+    // 10. Write props JSON for Remotion
     const inputProps = {
       stories: preparedStories,
       snapshotDate: formattedDate,
@@ -185,22 +228,34 @@ export async function main() {
     };
     fs.writeFileSync(propsJsonPath, JSON.stringify(inputProps, null, 2), 'utf8');
 
-    console.log(`[INFO] Rendering ${ (timeline.totalFrames / 30).toFixed(1)}s editorial video...`);
+    console.log(`[INFO] Rendering ${(timeline.totalFrames / 30).toFixed(1)}s editorial video...`);
     const cliPath = path.resolve(__dirname, 'node_modules/@remotion/cli/remotion-cli.js');
     const entryPoint = path.resolve(__dirname, 'src/index.js');
 
     run(process.execPath, [
       cliPath, 'render', entryPoint, 'AiRadarDailyVideo', silentVideoPath,
       `--props=${propsJsonPath}`, '--muted',
-    ], {cwd: __dirname});
+    ], { cwd: __dirname });
 
     const ffmpeg = process.env.FFMPEG_PATH || 'ffmpeg';
-    run(ffmpeg, [
-      '-y', '-i', silentVideoPath, '-i', voicePath,
-      '-filter_complex', `anullsrc=r=24000:cl=mono:d=${timeline.introFrames / 30}[lead];[1:a]apad=pad_dur=4[voice];[lead][voice]concat=n=2:v=0:a=1[a]`,
-      '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '128k',
-      '-shortest', muxedVideoPath,
-    ]);
+    if (timeline.hasVoiceIntro) {
+      // Round 4: voice starts over opening visual; audio is already aligned from t=0
+      run(ffmpeg, [
+        '-y', '-i', silentVideoPath, '-i', voicePath,
+        '-filter_complex', '[1:a]apad=pad_dur=2[a]',
+        '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '128k',
+        '-shortest', muxedVideoPath,
+      ]);
+    } else {
+      // Legacy 3-segment fallback: silence lead for silent intro
+      run(ffmpeg, [
+        '-y', '-i', silentVideoPath, '-i', voicePath,
+        '-filter_complex', `anullsrc=r=24000:cl=mono:d=${timeline.introFrames / 30}[lead];[1:a]apad=pad_dur=4[voice];[lead][voice]concat=n=2:v=0:a=1[a]`,
+        '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '128k',
+        '-shortest', muxedVideoPath,
+      ]);
+    }
+
     if (!fs.existsSync(muxedVideoPath) || fs.statSync(muxedVideoPath).size === 0) {
       throw new Error('FFmpeg did not create the muxed MP4.');
     }
@@ -209,7 +264,7 @@ export async function main() {
     console.log(`[INFO] Video saved: ${mp4Path}`);
   } finally {
     try { fs.unlinkSync(propsJsonPath); } catch {}
-    fs.rmSync(tempDir, {recursive: true, force: true});
+    fs.rmSync(tempDir, { recursive: true, force: true });
   }
 
   const durationSec = ((Date.now() - startTime) / 1000).toFixed(1);
