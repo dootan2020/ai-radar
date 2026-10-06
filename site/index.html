@@ -42,6 +42,7 @@
 <link rel="preload" href="data/radar-ui.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="feed.css">
+<link rel="stylesheet" href="story.css">
 <script type="module" src="feed.js"></script>
 <link rel="modulepreload" href="faces.js">
 <link rel="modulepreload" href="time-text.js">
@@ -56,6 +57,7 @@
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 5h10v10M19 5L6 18"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></symbol>
   <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
@@ -181,6 +183,27 @@
     <dt><kbd>Esc</kbd></dt><dd>Đóng phần chi tiết đang mở</dd>
     <dt><kbd>?</kbd></dt><dd>Mở bảng này</dd>
   </dl>
+</dialog>
+
+<dialog class="story-dialog" id="story-dialog" aria-modal="true" aria-labelledby="story-modal-title">
+  <div class="story-dialog-scroller" id="story-dialog-scroller">
+    <div class="story-dialog-bar" id="story-dialog-bar">
+      <button class="story-modal-close" id="story-modal-close" type="button" aria-label="Đóng bài viết (phím Esc)">
+        <svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+        <span class="story-close-label">Dòng tin</span>
+        <kbd class="story-close-kbd">Esc</kbd>
+      </button>
+      <div class="story-dialog-bar-actions">
+        <button class="doc-icon-btn" id="story-modal-save" type="button" aria-label="Lưu bài viết" title="Lưu bài viết (phím S)">
+          <svg class="i" aria-hidden="true"><use href="#i-bookmark"/></svg>
+        </button>
+        <button class="doc-icon-btn" id="story-modal-share" type="button" aria-label="Sao chép liên kết" title="Sao chép liên kết">
+          <svg class="i" aria-hidden="true"><use href="#i-link"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="story-dialog-body" id="story-dialog-body"></div>
+  </div>
 </dialog>
 
 <div class="toast-container" id="toast-container" aria-live="polite"></div>
