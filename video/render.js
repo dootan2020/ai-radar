@@ -39,13 +39,31 @@ function codexHome() {
 }
 
 function synthesizeNarration(narrationPath, tempDir) {
-  const python = process.env.OMNIVOICE_PYTHON
-    || path.join(codexHome(), '.cache', 'omnivoice-tts', 'venv', 'Scripts', 'python.exe');
+  const python = [
+    process.env.OMNIVOICE_PYTHON,
+    path.join(codexHome(), '.cache', 'omnivoice-tts', 'venv', 'Scripts', 'python.exe'),
+    path.join(codexHome(), '.cache', 'omnivoice-tts', 'venv', 'bin', 'python'),
+  ].find(candidate => candidate && fs.existsSync(candidate)) || process.env.OMNIVOICE_PYTHON || path.join(codexHome(), '.cache', 'omnivoice-tts', 'venv', 'Scripts', 'python.exe');
   const cache = process.env.OMNIVOICE_CACHE_DIR
     || path.join(codexHome(), '.cache', 'omnivoice-tts', 'huggingface');
-  const script = path.resolve(__dirname, '../plans/reports/tham-chieu/skills/omnivoice-tts/scripts/omnivoice_tts.py');
-  const referenceAudio = path.resolve(__dirname, '../plans/reports/tham-chieu/giong/giong-2-trung-nien-tram.wav');
-  const referenceText = path.resolve(__dirname, '../plans/reports/tham-chieu/giong/giong-2.txt');
+  const script = [
+    process.env.OMNIVOICE_WRAPPER,
+    process.env.OMNIVOICE_SCRIPT,
+    path.join(codexHome(), 'skills-parked-vas', 'omnivoice-tts', 'scripts', 'omnivoice_tts.py'),
+    path.resolve(__dirname, '../plans/reports/tham-chieu/skills/omnivoice-tts/scripts/omnivoice_tts.py'),
+  ].find(candidate => candidate && fs.existsSync(candidate)) || process.env.OMNIVOICE_WRAPPER || process.env.OMNIVOICE_SCRIPT;
+  const referenceAudio = [
+    process.env.OMNIVOICE_REF_AUDIO,
+    path.resolve(__dirname, 'voice/reference.wav'),
+    path.resolve(__dirname, 'voice/giong-2-trung-nien-tram.wav'),
+    path.resolve(__dirname, '../plans/reports/tham-chieu/giong/giong-2-trung-nien-tram.wav'),
+  ].find(candidate => candidate && fs.existsSync(candidate)) || path.resolve(__dirname, 'voice/reference.wav');
+  const referenceText = [
+    process.env.OMNIVOICE_REF_TEXT,
+    path.resolve(__dirname, 'voice/reference.txt'),
+    path.resolve(__dirname, 'voice/giong-2.txt'),
+    path.resolve(__dirname, '../plans/reports/tham-chieu/giong/giong-2.txt'),
+  ].find(candidate => candidate && fs.existsSync(candidate)) || path.resolve(__dirname, 'voice/reference.txt');
   const rawAudio = path.join(tempDir, 'voice.wav');
 
   for (const file of [python, script, referenceAudio, referenceText]) {

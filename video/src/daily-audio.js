@@ -1,8 +1,54 @@
+export function normalizeSpeech(text) {
+  if (!text || typeof text !== 'string') return '';
+  let s = text;
+
+  // 1. $ with number and scale abbreviation: $1B, $1.5B, $100M, $10k
+  s = s.replace(/\$\s*(\d+(?:[.,]\d+)?)\s*(?:[bB]|(?:[bB]illion))(?!\p{L})/gu, '$1 tỷ đô la');
+  s = s.replace(/\$\s*(\d+(?:[.,]\d+)?)\s*(?:[mM]|(?:[mM]illion))(?!\p{L})/gu, '$1 triệu đô la');
+  s = s.replace(/\$\s*(\d+(?:[.,]\d+)?)\s*(?:[kK])(?!\p{L})/gu, '$1 nghìn đô la');
+
+  // 2. $ with Vietnamese scale words: $ 100 tỷ, $100 triệu, $100 nghìn
+  s = s.replace(/\$\s*(\d+(?:[.,]\d+)?)\s*(tỷ|tỉ|triệu|nghìn|ngàn)\s+(?:đô\s*la|USD|usd)(?!\p{L})/giu, '$1 $2 đô la');
+  s = s.replace(/\$\s*(\d+(?:[.,]\d+)?)\s*(tỷ|tỉ|triệu|nghìn|ngàn)(?!\p{L})/giu, '$1 $2 đô la');
+
+  // 3. $ with existing đô la/USD: $ 100 đô la, $100 USD -> 100 đô la
+  s = s.replace(/\$\s*(\d+(?:[.,]\d+)?)\s*(?:đô\s*la|USD|usd)(?!\p{L})/giu, '$1 đô la');
+
+  // 4. Standard $ with number: $ 100, $100 -> 100 đô la
+  s = s.replace(/\$\s*(\d+(?:[.,]\d+)?)(?!\p{L})/gu, '$1 đô la');
+
+  // 5. Number followed by $: 100$, 100 $ -> 100 đô la
+  s = s.replace(/(\d+(?:[.,]\d+)?)\s*\$\s*(?:đô\s*la|USD|usd)?(?!\p{L})/giu, '$1 đô la');
+
+  // 6. Other currency symbols: EUR, GBP, JPY
+  s = s.replace(/€\s*(\d+(?:[.,]\d+)?)(?!\p{L})/gu, '$1 euro');
+  s = s.replace(/(\d+(?:[.,]\d+)?)\s*€(?!\p{L})/gu, '$1 euro');
+  s = s.replace(/£\s*(\d+(?:[.,]\d+)?)(?!\p{L})/gu, '$1 bảng Anh');
+  s = s.replace(/(\d+(?:[.,]\d+)?)\s*£(?!\p{L})/gu, '$1 bảng Anh');
+  s = s.replace(/¥\s*(\d+(?:[.,]\d+)?)(?!\p{L})/gu, '$1 yên');
+  s = s.replace(/(\d+(?:[.,]\d+)?)\s*¥(?!\p{L})/gu, '$1 yên');
+
+  // 7. Percentages: 15%, 15 % -> 15 phần trăm
+  s = s.replace(/(\d+(?:[.,]\d+)?)\s*%/g, '$1 phần trăm');
+
+  // 8. Isolated ampersand between words
+  s = s.replace(/\s+&\s+/g, ' và ');
+
+  // 9. Any leftover bare $
+  s = s.replace(/\$/g, 'đô la');
+
+  // 10. Normalize multiple spaces
+  s = s.replace(/[ \t]{2,}/g, ' ').trim();
+
+  return s;
+}
+
 export function narrationForStory(story) {
-  const title = String(story.title_vi || '').trim();
-  const summary = String(story.summary_vi || story.description_vi || '').trim();
-  if (!title) throw new Error(`Story ${story.id || '(unknown)'} has no title.`);
-  const sentence = firstSentence(summary);
+  const rawTitle = String(story.title_vi || '').trim();
+  const rawSummary = String(story.summary_vi || story.description_vi || '').trim();
+  if (!rawTitle) throw new Error(`Story ${story.id || '(unknown)'} has no title.`);
+  const title = normalizeSpeech(rawTitle);
+  const sentence = normalizeSpeech(firstSentence(rawSummary));
   return sentence ? `${title}${/[.!?]$/u.test(title) ? ' ' : '. '}${sentence}` : title;
 }
 

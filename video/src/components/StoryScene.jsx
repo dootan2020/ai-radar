@@ -7,10 +7,12 @@ export const StoryScene = ({ story, index, totalStories = 3, durationInFrames })
   const easeFlow = Easing.bezier(0.16, 1, 0.3, 1);
 
   // Entrance animations
+  /*
   const sceneOpacity = interpolate(frame, [0, 15], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
+  */
 
   const headerY = interpolate(frame, [0, 20], [25, 0], {
     easing: easeFlow,
@@ -72,7 +74,7 @@ export const StoryScene = ({ story, index, totalStories = 3, durationInFrames })
         justifyContent: 'space-between',
         fontFamily: TOKENS.fonts.main,
         color: TOKENS.colors.ink,
-        opacity: Math.min(sceneOpacity, exitOpacity),
+        opacity: exitOpacity,
       }}
     >
       {/* Top Header / Meta bar */}
