@@ -27,7 +27,7 @@ $env:FFMPEG_PATH = 'C:\path\to\ffmpeg.exe'
 node video/render.js site/data/radar-ui.json
 ```
 
-No model or package download is performed. OmniVoice receives `--offline`, uses the reference transcript, and runs the copied Fix OmniVoice postprocessor before muxing. If a local `CHROME_PATH` is needed by Remotion, set it before the command.
+No model or package download is performed. OmniVoice receives `--offline`, uses the committed reference sample, and runs the vendored Fix OmniVoice postprocessor (`video/scripts/fix_omnivoice.py`) before muxing. The wrapper and post-processor are vendored in `video/scripts/` so that no external skill copies or `OMNIVOICE_WRAPPER` overrides are required for fresh checkouts. If a local `CHROME_PATH` is needed by Remotion, set it before the command.
 
 ## Checks
 

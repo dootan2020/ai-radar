@@ -3,7 +3,7 @@ import test from 'node:test';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {audioTimeline, createNarration, narrationForStory, normalizeSpeech, wavSpeechSegments} from '../src/daily-audio.js';
+import {audioTimeline, createNarration, narrationForStory, normalizeSpeech, wavSpeechSegments, resolveOmniVoicePaths} from '../src/daily-audio.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -111,5 +111,43 @@ test('committed reference voice audio and text exist in video/voice and are vali
   const txtContent = fs.readFileSync(txtPath, 'utf8').trim();
   assert.ok(txtContent.length > 20, 'reference.txt should contain reference transcript');
   assert.ok(txtContent.includes('Chào buổi sáng'), 'reference transcript should match approved voice sample');
+});
+
+test('resolves OmniVoice wrapper and fix-omnivoice post-processor without gitignored tham-chieu copies', () => {
+  const paths = resolveOmniVoicePaths({});
+
+  // 1. Wrapper resolution
+  assert.ok(paths.wrapper, 'Wrapper script must be defined');
+  assert.ok(fs.existsSync(paths.wrapper), `Wrapper script must exist on disk: ${paths.wrapper}`);
+  assert.ok(paths.wrapper.endsWith(path.join('video', 'scripts', 'omnivoice_tts.py')) || paths.wrapper.endsWith('omnivoice_tts.py'));
+  const normWrapper = paths.wrapper.replace(/\\/g, '/').toLowerCase();
+  assert.ok(!normWrapper.includes('tham-chieu'), 'Resolved wrapper must not point to gitignored tham-chieu');
+  assert.ok(!normWrapper.includes('/plans/'), 'Resolved wrapper must not point to gitignored plans directory');
+
+  // 2. Post-processor resolution
+  assert.ok(paths.fixOmnivoice, 'Fix OmniVoice script must be defined');
+  assert.ok(fs.existsSync(paths.fixOmnivoice), `Fix OmniVoice script must exist on disk: ${paths.fixOmnivoice}`);
+  assert.ok(paths.fixOmnivoice.endsWith(path.join('video', 'scripts', 'fix_omnivoice.py')) || paths.fixOmnivoice.endsWith('fix_omnivoice.py'));
+  const normFix = paths.fixOmnivoice.replace(/\\/g, '/').toLowerCase();
+  assert.ok(!normFix.includes('tham-chieu'), 'Resolved fix-omnivoice must not point to gitignored tham-chieu');
+  assert.ok(!normFix.includes('/plans/'), 'Resolved fix-omnivoice must not point to gitignored plans directory');
+
+  // 3. Audio & text reference resolution
+  assert.ok(fs.existsSync(paths.referenceAudio), `Reference audio must exist: ${paths.referenceAudio}`);
+  assert.ok(fs.existsSync(paths.referenceText), `Reference text must exist: ${paths.referenceText}`);
+  const normRefAudio = paths.referenceAudio.replace(/\\/g, '/').toLowerCase();
+  assert.ok(!normRefAudio.includes('tham-chieu'), 'Reference audio must not point to gitignored tham-chieu');
+  assert.ok(!normRefAudio.includes('/plans/'), 'Reference audio must not point to gitignored plans directory');
+});
+
+test('resolves OmniVoice wrapper and fix script with custom environment overrides', () => {
+  const customWrapper = path.resolve(__dirname, '../scripts/omnivoice_tts.py');
+  const customFix = path.resolve(__dirname, '../scripts/fix_omnivoice.py');
+  const paths = resolveOmniVoicePaths({
+    OMNIVOICE_WRAPPER: customWrapper,
+    FIX_OMNIVOICE_SCRIPT: customFix,
+  });
+  assert.equal(paths.wrapper, customWrapper);
+  assert.equal(paths.fixOmnivoice, customFix);
 });
 

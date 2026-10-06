@@ -4,7 +4,9 @@ import os from 'os';
 import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
 import { selectThreeStories } from './src/pick-stories.js';
-import { audioTimeline, createNarration, wavSpeechSegments } from './src/daily-audio.js';
+import { audioTimeline, createNarration, wavSpeechSegments, resolveOmniVoicePaths } from './src/daily-audio.js';
+
+export { resolveOmniVoicePaths };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,47 +36,22 @@ function run(command, args, options = {}) {
   return result;
 }
 
-function codexHome() {
-  return process.env.CODEX_HOME || path.join(os.homedir(), '.codex');
-}
-
 function synthesizeNarration(narrationPath, tempDir) {
-  const python = [
-    process.env.OMNIVOICE_PYTHON,
-    path.join(codexHome(), '.cache', 'omnivoice-tts', 'venv', 'Scripts', 'python.exe'),
-    path.join(codexHome(), '.cache', 'omnivoice-tts', 'venv', 'bin', 'python'),
-  ].find(candidate => candidate && fs.existsSync(candidate)) || process.env.OMNIVOICE_PYTHON || path.join(codexHome(), '.cache', 'omnivoice-tts', 'venv', 'Scripts', 'python.exe');
-  const cache = process.env.OMNIVOICE_CACHE_DIR
-    || path.join(codexHome(), '.cache', 'omnivoice-tts', 'huggingface');
-  const script = [
-    process.env.OMNIVOICE_WRAPPER,
-    process.env.OMNIVOICE_SCRIPT,
-    path.join(codexHome(), 'skills-parked-vas', 'omnivoice-tts', 'scripts', 'omnivoice_tts.py'),
-    path.resolve(__dirname, '../plans/reports/tham-chieu/skills/omnivoice-tts/scripts/omnivoice_tts.py'),
-  ].find(candidate => candidate && fs.existsSync(candidate)) || process.env.OMNIVOICE_WRAPPER || process.env.OMNIVOICE_SCRIPT;
-  const referenceAudio = [
-    process.env.OMNIVOICE_REF_AUDIO,
-    path.resolve(__dirname, 'voice/reference.wav'),
-    path.resolve(__dirname, 'voice/giong-2-trung-nien-tram.wav'),
-    path.resolve(__dirname, '../plans/reports/tham-chieu/giong/giong-2-trung-nien-tram.wav'),
-  ].find(candidate => candidate && fs.existsSync(candidate)) || path.resolve(__dirname, 'voice/reference.wav');
-  const referenceText = [
-    process.env.OMNIVOICE_REF_TEXT,
-    path.resolve(__dirname, 'voice/reference.txt'),
-    path.resolve(__dirname, 'voice/giong-2.txt'),
-    path.resolve(__dirname, '../plans/reports/tham-chieu/giong/giong-2.txt'),
-  ].find(candidate => candidate && fs.existsSync(candidate)) || path.resolve(__dirname, 'voice/reference.txt');
+  const { python, cache, wrapper, fixOmnivoice, referenceAudio, referenceText } = resolveOmniVoicePaths();
   const rawAudio = path.join(tempDir, 'voice.wav');
 
-  for (const file of [python, script, referenceAudio, referenceText]) {
+  for (const file of [python, wrapper, fixOmnivoice, referenceAudio, referenceText]) {
     if (!fs.existsSync(file)) throw new Error(`Required OmniVoice path does not exist: ${file}`);
   }
   run(python, [
-    script, '--cache-dir', cache, 'synthesize', '--text-file', narrationPath,
+    wrapper, '--cache-dir', cache, 'synthesize', '--text-file', narrationPath,
     '--language', 'Vietnamese', '--ref-audio', referenceAudio,
     '--ref-text-file', referenceText, '--split-paragraphs', '--pause-ms', '1200',
     '--normalize-chunk-levels', '--offline', '--output', rawAudio,
-  ]);
+    '--fix-script', fixOmnivoice,
+  ], {
+    env: { ...process.env, FIX_OMNIVOICE_SCRIPT: fixOmnivoice },
+  });
   const correctedAudio = path.join(tempDir, 'voice_corrected.wav');
   if (!fs.existsSync(correctedAudio) || fs.statSync(correctedAudio).size === 0) {
     throw new Error('OmniVoice did not create its corrected WAV output.');

@@ -1,3 +1,11 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 export function normalizeSpeech(text) {
   if (!text || typeof text !== 'string') return '';
   let s = text;
@@ -164,5 +172,70 @@ export function audioTimeline(segments, {introSeconds = 2, outroSeconds = 3, tai
     outroFrames,
     storyDurations,
     totalFrames: introFrames + storyDurations.reduce((sum, value) => sum + value, 0) + outroFrames,
+  };
+}
+
+export function resolveOmniVoicePaths(env = process.env, options = {}) {
+  const baseDir = options.baseDir || path.resolve(__dirname, '..');
+  const codex = env.CODEX_HOME || path.join(os.homedir(), '.codex');
+
+  const pythonCandidates = [
+    env.OMNIVOICE_PYTHON,
+    path.join(codex, '.cache', 'omnivoice-tts', 'venv', 'Scripts', 'python.exe'),
+    path.join(codex, '.cache', 'omnivoice-tts', 'venv', 'bin', 'python'),
+  ];
+  const python = pythonCandidates.find(candidate => candidate && fs.existsSync(candidate))
+    || env.OMNIVOICE_PYTHON
+    || path.join(codex, '.cache', 'omnivoice-tts', 'venv', 'Scripts', 'python.exe');
+
+  const cache = env.OMNIVOICE_CACHE_DIR
+    || path.join(codex, '.cache', 'omnivoice-tts', 'huggingface');
+
+  const wrapperCandidates = [
+    env.OMNIVOICE_WRAPPER,
+    env.OMNIVOICE_SCRIPT,
+    path.resolve(baseDir, 'scripts/omnivoice_tts.py'),
+    path.join(codex, 'skills-parked-vas', 'omnivoice-tts', 'scripts', 'omnivoice_tts.py'),
+    path.resolve(baseDir, '../plans/reports/tham-chieu/skills/omnivoice-tts/scripts/omnivoice_tts.py'),
+  ];
+  const wrapper = wrapperCandidates.find(candidate => candidate && fs.existsSync(candidate))
+    || path.resolve(baseDir, 'scripts/omnivoice_tts.py');
+
+  const fixOmnivoiceCandidates = [
+    env.FIX_OMNIVOICE_SCRIPT,
+    path.resolve(path.dirname(wrapper), 'fix_omnivoice.py'),
+    path.resolve(baseDir, 'scripts/fix_omnivoice.py'),
+    path.join(codex, 'skills-parked-vas', 'fix-omnivoice', 'scripts', 'fix_omnivoice.py'),
+    path.join(codex, 'skills', 'fix-omnivoice', 'scripts', 'fix_omnivoice.py'),
+    path.resolve(baseDir, '../plans/reports/tham-chieu/skills/fix-omnivoice/scripts/fix_omnivoice.py'),
+  ];
+  const fixOmnivoice = fixOmnivoiceCandidates.find(candidate => candidate && fs.existsSync(candidate))
+    || path.resolve(baseDir, 'scripts/fix_omnivoice.py');
+
+  const referenceAudioCandidates = [
+    env.OMNIVOICE_REF_AUDIO,
+    path.resolve(baseDir, 'voice/reference.wav'),
+    path.resolve(baseDir, 'voice/giong-2-trung-nien-tram.wav'),
+    path.resolve(baseDir, '../plans/reports/tham-chieu/giong/giong-2-trung-nien-tram.wav'),
+  ];
+  const referenceAudio = referenceAudioCandidates.find(candidate => candidate && fs.existsSync(candidate))
+    || path.resolve(baseDir, 'voice/reference.wav');
+
+  const referenceTextCandidates = [
+    env.OMNIVOICE_REF_TEXT,
+    path.resolve(baseDir, 'voice/reference.txt'),
+    path.resolve(baseDir, 'voice/giong-2.txt'),
+    path.resolve(baseDir, '../plans/reports/tham-chieu/giong/giong-2.txt'),
+  ];
+  const referenceText = referenceTextCandidates.find(candidate => candidate && fs.existsSync(candidate))
+    || path.resolve(baseDir, 'voice/reference.txt');
+
+  return {
+    python,
+    cache,
+    wrapper,
+    fixOmnivoice,
+    referenceAudio,
+    referenceText,
   };
 }
