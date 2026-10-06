@@ -33,6 +33,30 @@ ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL_ID}:
 TIMEZONE_NAME = "Asia/Ho_Chi_Minh"
 VIETNAM = timezone(timedelta(hours=7), TIMEZONE_NAME)
 SCHEDULED_START_HOUR = 5  # 05:00 VN time (22:00 UTC previous day)
+SCHEDULED_END_HOUR = 6    # 06:00 VN time (23:00 UTC previous day)
+
+
+def is_scheduled_window(now_vn: datetime) -> bool:
+    """Return True if Vietnam time is within the scheduled daily window [05:00, 06:00)."""
+    return SCHEDULED_START_HOUR <= now_vn.hour < SCHEDULED_END_HOUR
+
+
+def is_non_main_ref(ref: str | None) -> bool:
+    """Return True if git ref represents a branch run other than main.
+
+    Non-main refs (e.g. refs/heads/feat/video-script or feat/video-script) bypass the
+    morning schedule window so coordinators can test real script generation on demand
+    before merging. Empty/None refs are treated as main/offline by default.
+    """
+    if not ref:
+        return False
+    normalized = ref.strip().lower()
+    return normalized not in (
+        "refs/heads/main",
+        "main",
+        "refs/heads/master",
+        "master",
+    )
 
 # Allowed standard terms in video format boilerplate
 ALLOWED_BOILERPLATE_ENTITIES = {
@@ -533,6 +557,7 @@ def generate_video_script(input_path: str | Path,
                           ledger_path: str | Path,
                           editor_picks_path: str | Path | None = None,
                           force: bool = False,
+                          ref: str | None = None,
                           now_val: datetime | None = None,
                           transport_fn=None) -> dict:
     """Main pipeline execution for daily video script generation."""
@@ -548,15 +573,22 @@ def generate_video_script(input_path: str | Path,
     output_path = Path(output_path)
     ledger_path = Path(ledger_path)
 
-    # 1. Check daily schedule window (after 05:00 VN time so it exists by 06:00 VN time)
-    if not force and now_vn.hour < SCHEDULED_START_HOUR:
+    if ref is None:
+        ref = os.environ.get("GITHUB_REF") or os.environ.get("GITHUB_REF_NAME") or ""
+
+    # 1. Check daily schedule window [05:00, 06:00) VN time.
+    # Non-main refs (branches) ignore the time window for on-demand testing,
+    # while strictly preserving daily idempotency and shared ledger quota.
+    on_branch = is_non_main_ref(ref)
+    in_window = is_scheduled_window(now_vn)
+    if not force and not on_branch and not in_window:
         return {
             "status": "outside_window",
             "date": today_vn,
             "tokens": 0,
             "script_written": False,
             "ledger_written": False,
-            "detail": f"hour {now_vn.hour} is before {SCHEDULED_START_HOUR}:00 VN time"
+            "detail": f"hour {now_vn.hour} is outside {SCHEDULED_START_HOUR}:00-{SCHEDULED_END_HOUR}:00 VN time"
         }
 
     # 2. Read input stories
@@ -755,6 +787,8 @@ def main(argv=None):
                         help="Optional editor picks path")
     parser.add_argument("--force", action="store_true",
                         help="Force generation bypassing time window and daily cache")
+    parser.add_argument("--ref", default=None,
+                        help="Git ref or branch name (non-main refs bypass schedule window)")
     parser.add_argument("--now", help="Explicit ISO timestamp for offline testing")
     args = parser.parse_args(argv)
 
@@ -777,6 +811,7 @@ def main(argv=None):
         ledger_path=args.ledger,
         editor_picks_path=args.editor_picks,
         force=args.force or (os.environ.get("RADAR_VIDEO_SCRIPT_FORCE") == "1"),
+        ref=args.ref,
         now_val=now_val
     )
 

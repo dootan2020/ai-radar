@@ -181,6 +181,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
           RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
+        run: python -m radar.summarize --input site/data/radar.json --cache data/summaries-gemini-vi.json
       - name: Restore daily video script
         if: steps.collect.outcome == 'success'
         continue-on-error: true
@@ -199,7 +200,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
-        run: python -m radar.video_script --input site/data/radar-ui.json --output site/data/video-script.json --ledger data/summary-gemini-ledger.json
+        run: python -m radar.video_script --input site/data/radar-ui.json --output site/data/video-script.json --ledger data/summary-gemini-ledger.json --ref "${{ github.ref }}"
       - name: Save daily video script
         if: always() && steps.video-script.outputs.video_script_written == 'true'
         continue-on-error: true

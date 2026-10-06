@@ -280,6 +280,11 @@ class VideoScriptPipelineTests(unittest.TestCase):
         self.network.start()
         self.addCleanup(self.network.stop)
 
+        # Isolate environment from ambient GitHub Actions ref
+        self.env_patch = patch.dict(os.environ, {"GITHUB_REF": "", "GITHUB_REF_NAME": ""})
+        self.env_patch.start()
+        self.addCleanup(self.env_patch.stop)
+
     def fake_gemini_transport(self, body, key, timeout):
         """Stub model response delivering the approved script."""
         script = make_approved_sample_script()
@@ -392,6 +397,145 @@ class VideoScriptPipelineTests(unittest.TestCase):
         self.assertEqual(res["status"], "success")
         self.assertTrue(res["script_written"])
         self.assertTrue(self.output_file.is_file())
+
+    def test_outside_window_skips_after_six_am_vn_time(self):
+        # 06:15 VN time
+        now = datetime(2026, 10, 7, 6, 15, 0, tzinfo=video_script.VIETNAM)
+        env = {
+            "GEMINI_API_KEY": "test-key",
+            "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1"
+        }
+        with patch.dict(os.environ, env):
+            res = video_script.generate_video_script(
+                input_path=self.input_file,
+                output_path=self.output_file,
+                ledger_path=self.ledger_file,
+                now_val=now,
+                transport_fn=self.fake_gemini_transport
+            )
+
+        self.assertEqual(res["status"], "outside_window")
+        self.assertFalse(res["script_written"])
+        self.assertFalse(self.output_file.exists())
+
+    def test_non_main_ref_bypasses_window_and_generates_script(self):
+        # 14:00 VN time on non-main ref (coordinator live run on branch before merge)
+        now = datetime(2026, 10, 7, 14, 0, 0, tzinfo=video_script.VIETNAM)
+        env = {
+            "GEMINI_API_KEY": "test-key",
+            "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1"
+        }
+        with patch.dict(os.environ, env):
+            res = video_script.generate_video_script(
+                input_path=self.input_file,
+                output_path=self.output_file,
+                ledger_path=self.ledger_file,
+                ref="refs/heads/feat/video-script",
+                now_val=now,
+                transport_fn=self.fake_gemini_transport
+            )
+
+        self.assertEqual(res["status"], "success")
+        self.assertTrue(res["script_written"])
+        self.assertTrue(self.output_file.is_file())
+
+    def test_non_main_ref_preserves_once_per_day_idempotency(self):
+        # 14:00 VN time on non-main ref, but script for today already exists
+        today_script = make_approved_sample_script(date_str="2026-10-07")
+        self.output_file.write_text(json.dumps(today_script, ensure_ascii=False), encoding="utf-8")
+
+        now = datetime(2026, 10, 7, 14, 30, 0, tzinfo=video_script.VIETNAM)
+        calls = []
+        def tracking_transport(*args, **kwargs):
+            calls.append(args)
+            return self.fake_gemini_transport(*args, **kwargs)
+
+        env = {
+            "GEMINI_API_KEY": "test-key",
+            "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1"
+        }
+        with patch.dict(os.environ, env):
+            res = video_script.generate_video_script(
+                input_path=self.input_file,
+                output_path=self.output_file,
+                ledger_path=self.ledger_file,
+                ref="refs/heads/feat/video-script",
+                now_val=now,
+                transport_fn=tracking_transport
+            )
+
+        self.assertEqual(res["status"], "already_generated")
+        self.assertFalse(res["script_written"])
+        self.assertEqual(len(calls), 0)
+
+    def test_non_main_ref_preserves_shared_ledger_budget_exhaustion(self):
+        # 14:00 VN time on non-main ref, but daily request ceiling (12) reached
+        now = datetime(2026, 10, 7, 14, 0, 0, tzinfo=video_script.VIETNAM)
+        now_ts = now.timestamp()
+        for i in range(12):
+            summary_budget.reserve(self.ledger_file, estimated_tokens=1000, now=now_ts - 3600 + i * 10, last_story_id=f"story-{i}")
+
+        env = {
+            "GEMINI_API_KEY": "test-key",
+            "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1"
+        }
+        with patch.dict(os.environ, env):
+            res = video_script.generate_video_script(
+                input_path=self.input_file,
+                output_path=self.output_file,
+                ledger_path=self.ledger_file,
+                ref="refs/heads/feat/video-script",
+                now_val=now,
+                transport_fn=self.fake_gemini_transport
+            )
+
+        self.assertEqual(res["status"], "budget_exhausted")
+        self.assertFalse(res["script_written"])
+
+    def test_main_ref_strictly_enforces_window_check(self):
+        # 14:00 VN time with explicit main ref
+        now = datetime(2026, 10, 7, 14, 0, 0, tzinfo=video_script.VIETNAM)
+        env = {
+            "GEMINI_API_KEY": "test-key",
+            "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1"
+        }
+        with patch.dict(os.environ, env):
+            res = video_script.generate_video_script(
+                input_path=self.input_file,
+                output_path=self.output_file,
+                ledger_path=self.ledger_file,
+                ref="refs/heads/main",
+                now_val=now,
+                transport_fn=self.fake_gemini_transport
+            )
+
+        self.assertEqual(res["status"], "outside_window")
+        self.assertFalse(res["script_written"])
+
+    def test_cli_accepts_ref_argument_and_bypasses_window(self):
+        github_output_file = self.tmp_path / "github_output"
+        github_output_file.touch()
+        now_str = "2026-10-07T14:00:00+07:00"
+
+        env = {
+            "GEMINI_API_KEY": "test-key",
+            "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1",
+            "GITHUB_OUTPUT": str(github_output_file)
+        }
+        with patch.dict(os.environ, env), patch("radar.summary_gemini.transport", side_effect=self.fake_gemini_transport):
+            code = video_script.main([
+                "--input", str(self.input_file),
+                "--output", str(self.output_file),
+                "--ledger", str(self.ledger_file),
+                "--ref", "refs/heads/feat/video-script",
+                "--now", now_str
+            ])
+            self.assertEqual(code, 0)
+
+        self.assertTrue(self.output_file.is_file())
+        output_content = github_output_file.read_text(encoding="utf-8")
+        self.assertIn("video_script_written=true", output_content)
+        self.assertIn("video_script_ledger_written=true", output_content)
 
     def test_rejected_script_is_never_written_to_public_path(self):
         """Boundary: When model hallucinating ungrounded fact, script is rejected and NOT written."""
