@@ -12,6 +12,9 @@ import tempfile
 import time
 from urllib.parse import urlsplit
 
+from radar.clustering import canonical_url
+from radar.common import stable_id
+
 BASE_URL = "https://dootan2020.github.io/ai-radar"
 SITE_NAME = "ai·radar"
 BRANCH = "radar-story-pages"
@@ -24,6 +27,7 @@ CONTENT_SECURITY_POLICY = (
     "img-src 'self' https:; font-src 'self'; connect-src 'self' https://hn.algolia.com "
     "https://huggingface.co https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';"
 )
+THEME_SCRIPT = "try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}"
 TEMPLATE_PATH = Path(__file__).with_name("story_page_template.html")
 NON_TERMINAL_ABBRS = {
     "e.g.", "i.e.", "vs.", "mr.", "mrs.", "ms.", "dr.", "prof.", "sr.", "jr.", "st.", "no.", "vol.",
@@ -126,11 +130,17 @@ def _page_fields(story, base_url):
                    for item in coverage if isinstance(item, dict)
                    and (_text(item.get("title_vi")) or _text(item.get("title")))), ""))
     if not title:
-        raise ValueError(f"Story {_story_id(story)} has no headline")
+        if story.get("redirect_to"):
+            title = "ai·radar"
+        else:
+            raise ValueError(f"Story {_story_id(story)} has no headline")
     first_coverage = next((item for item in coverage if isinstance(item, dict)), {})
     original_url = _http_url(story.get("url")) or _http_url(first_coverage.get("url"))
     if not original_url:
-        raise ValueError(f"Story {_story_id(story)} has no safe original URL")
+        if story.get("redirect_to"):
+            original_url = f"{base_url}/tin/{story['redirect_to']}/"
+        else:
+            raise ValueError(f"Story {_story_id(story)} has no safe original URL")
     image = story.get("image")
     image_url = _http_url(image.get("src")) if isinstance(image, dict) else None
     if not image_url:
@@ -210,9 +220,70 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
         "{{CONTENT}}": fallback_content, "{{GATEWAY_DESC}}": esc(gateway_desc),
         "{{STORY_DATA}}": encoded_story,
         "{{JSONLD}}": encoded_article, "{{CSP}}": esc(CONTENT_SECURITY_POLICY),
-        "{{THEME_SCRIPT}}": "try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}",
+        "{{THEME_SCRIPT}}": THEME_SCRIPT,
     }
     return re.sub(r"\{\{[A-Z_]+\}\}", lambda match: values[match.group(0)], document)
+
+
+def render_redirect_page(target_url, title, base_url=BASE_URL):
+    """Render a CSP-safe static redirect page pointing to canonical story page."""
+    esc = lambda value: html.escape(str(value), quote=True)
+    canonical = esc(target_url)
+    safe_title = esc(title)
+    csp = esc(CONTENT_SECURITY_POLICY)
+    return (
+        '<!doctype html>\n'
+        '<html lang="vi">\n'
+        '<head>\n'
+        '<meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+        f'<title>{safe_title} · ai·radar</title>\n'
+        '<meta name="robots" content="noindex, follow">\n'
+        f'<meta http-equiv="refresh" content="0; url={canonical}">\n'
+        f'<link rel="canonical" href="{canonical}">\n'
+        f'<meta http-equiv="Content-Security-Policy" content="{csp}">\n'
+        f'<script>{THEME_SCRIPT}</script>\n'
+        '<link rel="stylesheet" href="../../tokens.css">\n'
+        '<link rel="stylesheet" href="../../feed.css">\n'
+        '<link rel="stylesheet" href="../../story.css">\n'
+        '</head>\n'
+        '<body>\n'
+        '<main class="story-page-container">\n'
+        '  <article class="story-article">\n'
+        f'    <p class="story-summary-text">Đang chuyển hướng tới <a href="{canonical}">{safe_title}</a>...</p>\n'
+        '  </article>\n'
+        '</main>\n'
+        '</body>\n'
+        '</html>\n'
+    )
+
+
+def story_aliases(story):
+    """Extract explicit and coverage-derived alias IDs for a story."""
+    if not isinstance(story, dict):
+        return set()
+    current_id = story.get("id")
+    aliases = set()
+    for alias in story.get("aliases") or []:
+        if isinstance(alias, str) and STORY_ID.fullmatch(alias) and alias != current_id:
+            aliases.add(alias)
+    for item in story.get("coverage") or []:
+        if not isinstance(item, dict):
+            continue
+        anchor = None
+        if item.get("kind") == "event":
+            eid = item.get("event_id") or item.get("id")
+            if eid:
+                anchor = "event:" + str(eid)
+        else:
+            url = canonical_url(item.get("url")) or item.get("url")
+            if url:
+                anchor = canonical_url(url) or url
+        if anchor:
+            item_id = stable_id(anchor)
+            if item_id != current_id:
+                aliases.add(item_id)
+    return aliases
 
 
 def _validated_story_map(stories):
@@ -247,9 +318,35 @@ def render_site(stories, site, base_url=BASE_URL, sources=None):
     urls = []
     for story_id in sorted(stories):
         story = stories[story_id]
+        if story.get("redirect_to"):
+            continue
         path = tin / story_id / "index.html"
         _write_bytes(path, render_story_page(story, base_url, sources).encode("utf-8"))
         urls.append(f"{base_url.rstrip('/')}/tin/{story_id}/")
+
+    alias_targets = {}
+    for story_id in sorted(stories):
+        story = stories[story_id]
+        if story.get("redirect_to"):
+            target_id = story["redirect_to"]
+            if target_id in stories:
+                target = stories[target_id]
+                while target.get("redirect_to") and target["redirect_to"] in stories:
+                    target = stories[target["redirect_to"]]
+                alias_targets[story_id] = target
+            continue
+        for alias_id in sorted(story_aliases(story)):
+            if alias_id not in stories and alias_id not in alias_targets:
+                alias_targets[alias_id] = story
+
+    for alias_id in sorted(alias_targets):
+        target_story = alias_targets[alias_id]
+        target_id = target_story["id"]
+        target_url = f"{base_url.rstrip('/')}/tin/{target_id}/"
+        title = (_text(target_story.get("title_vi")) or _text(target_story.get("title")) or "ai·radar")
+        path = tin / alias_id / "index.html"
+        _write_bytes(path, render_redirect_page(target_url, title, base_url).encode("utf-8"))
+
     entries = "".join(f"<url><loc>{html.escape(url)}</loc></url>" for url in urls)
     sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
@@ -379,6 +476,13 @@ def prepare(remote, input_path, site, candidate, base_url=BASE_URL):
         repo = Path(temporary) / "repo"
         base = _restore(remote, repo)
         records = _archive_files(repo, allow_git=True) if base else {}
+        archived_stories = {sid: json.loads(content) for sid, content in records.items()}
+        for story_id, story in current.items():
+            for alias_id in story_aliases(story):
+                if alias_id in archived_stories and alias_id != story_id and alias_id not in current:
+                    archived = archived_stories[alias_id]
+                    archived["redirect_to"] = story_id
+                    records[alias_id] = _json_bytes(archived)
         records.update({story_id: _json_bytes(story) for story_id, story in current.items()})
         candidate_archive = candidate / "archive"
         _write_archive(candidate_archive, records)

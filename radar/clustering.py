@@ -219,10 +219,14 @@ def cluster_items(items, now, threshold=0.75):
                                      item.get("published_at") or "9999", item["source"], item["url"]))
         representative = group[0]
         anchor = min("event:" + item.get("event_id", item["id"]) if item.get("kind") == "event" else item["canonical_url"] for item in group)
-        stories.append(dict(id=stable_id(anchor), title=representative["title"], url=representative["url"],
+        story_id = stable_id(anchor)
+        coverage_ids = {stable_id("event:" + item.get("event_id", item["id"]) if item.get("kind") == "event" else item["canonical_url"]) for item in group}
+        aliases = sorted(coverage_ids - {story_id})
+        stories.append(dict(id=story_id, title=representative["title"], url=representative["url"],
                             summary=representative.get("summary", ""), published_at=representative.get("published_at"),
                             kind=representative.get("kind", "other"), time_basis=representative.get("time_basis", "unknown"),
                             primary_section=primary_section(group), groups=sorted({item.get("group", "lab") for item in group}),
                             coverage=group, source_count=len({item["publisher"] for item in group}),
+                            aliases=aliases,
                             hot_score=None, hot_reason=None, hot_signals={}))
     return sorted(stories, key=lambda story: (story["published_at"] or "", story["id"]), reverse=True)

@@ -66,6 +66,8 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
 
     # Index fresh stories for deduplication
     fresh_by_id = {}
+    fresh_by_url = {}
+    fresh_by_cov_url = {}
     seen_ids = set()
     seen_urls = set()
     seen_coverage_urls = set()
@@ -80,11 +82,13 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
         s_url = _normalize_url(story.get("url"))
         if s_url:
             seen_urls.add(s_url)
+            fresh_by_url[s_url] = story
         for item in story.get("coverage", []) if isinstance(story.get("coverage"), list) else []:
             if isinstance(item, dict) and item.get("url"):
                 c_url = _normalize_url(item["url"])
                 if c_url:
                     seen_coverage_urls.add(c_url)
+                    fresh_by_cov_url[c_url] = story
 
     carried_stories = []
 
@@ -107,13 +111,21 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
         is_duplicate = False
         matching_fresh_story = None
 
-        if old_id in seen_ids:
+        if old_id in fresh_by_id:
             is_duplicate = True
-            matching_fresh_story = fresh_by_id.get(old_id)
-        elif old_url and old_url in seen_urls:
+            matching_fresh_story = fresh_by_id[old_id]
+        elif old_url and old_url in fresh_by_url:
             is_duplicate = True
+            matching_fresh_story = fresh_by_url[old_url]
         elif old_cov_urls and (old_cov_urls & seen_coverage_urls):
             is_duplicate = True
+            for c_url in old_cov_urls:
+                if c_url in fresh_by_cov_url:
+                    matching_fresh_story = fresh_by_cov_url[c_url]
+                    break
+        elif any(old_id in (s.get("aliases") or []) for s in fresh_stories if isinstance(s, dict)):
+            is_duplicate = True
+            matching_fresh_story = next((s for s in fresh_stories if isinstance(s, dict) and old_id in (s.get("aliases") or [])), None)
 
         if is_duplicate:
             # Preserve existing Vietnamese translations onto fresh story if missing
@@ -122,6 +134,14 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
                     matching_fresh_story["title_vi"] = old_story["title_vi"]
                 if "summary_vi" in old_story and "summary_vi" not in matching_fresh_story:
                     matching_fresh_story["summary_vi"] = old_story["summary_vi"]
+
+                # Preserve aliases from old_story and record old_id as alias
+                combined_aliases = set(matching_fresh_story.get("aliases") or [])
+                combined_aliases.update(old_story.get("aliases") or [])
+                if old_id != matching_fresh_story.get("id"):
+                    combined_aliases.add(old_id)
+                combined_aliases.discard(matching_fresh_story.get("id"))
+                matching_fresh_story["aliases"] = sorted(combined_aliases)
             continue
 
         # 7-day retention cutoff check
