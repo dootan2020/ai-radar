@@ -764,6 +764,7 @@ def generate_video_script(input_path: str | Path,
     # 10. Atomically write the validated script
     output_path.parent.mkdir(parents=True, exist_ok=True)
     write_atomic(script_candidate, output_path)
+    summary_budget.mark_script_completed(ledger_path, today_vn)
 
     return {
         "status": "success",

@@ -376,6 +376,7 @@ def summarize_payload(payload: dict,
                       article_fetch_fn=None,
                       article_failures: dict | None = None,
                       ledger_path: str | None = None,
+                      script_path: str | None = None,
                       budget: float = DEFAULT_BUDGET,
                       clock=time.monotonic,
                       now=time.time) -> tuple[dict, bool]:
@@ -469,9 +470,15 @@ def summarize_payload(payload: dict,
         payload["summary"] = stats
         return stats, False
     request_now = now() if callable(now) else now
+    reserve_script = summary_budget.is_script_reserve_active(
+        now=request_now,
+        script_path=script_path,
+        ledger_path=ledger_path,
+    )
     capacity_error = summary_budget.capacity_error(
         ledger_path, config.daily_requests_limit, config.daily_tokens_limit,
-        gemini.MAX_ESTIMATED_TOKENS_PER_REQUEST, request_now)
+        gemini.MAX_ESTIMATED_TOKENS_PER_REQUEST, request_now,
+        reserve_for_script=reserve_script)
     if capacity_error:
         stats["error"] = capacity_error
         stats["status"] = "failed"
@@ -597,7 +604,8 @@ def summarize_payload(payload: dict,
         token_limit=config.daily_tokens_limit,
         estimated_tokens=estimated_toks,
         now=reserve_now,
-        last_story_id=batch_items[-1]["id"]
+        last_story_id=batch_items[-1]["id"],
+        reserve_for_script=reserve_script,
     )
 
     if reserve_err:
@@ -624,6 +632,7 @@ def summarize_payload(payload: dict,
                 estimated_tokens=estimated_toks,
                 now=retry_now,
                 last_story_id=batch_items[-1]["id"],
+                reserve_for_script=reserve_script,
             )
             if retry_err:
                 err = retry_err

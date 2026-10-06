@@ -29,6 +29,8 @@ def main(argv=None):
     parser.add_argument("--cache", default="data/summaries-gemini-vi.json")
     parser.add_argument("--ledger", help="defaults to summary-gemini-ledger.json beside --cache")
     parser.add_argument("--article-failures", help="defaults to article-read-failures.json beside --cache")
+    parser.add_argument("--script-path", default="site/data/video-script.json",
+                        help="defaults to site/data/video-script.json")
     parser.add_argument("--budget", type=float, default=DEFAULT_BUDGET)
     args = parser.parse_args(argv)
 
@@ -77,6 +79,7 @@ def main(argv=None):
             cache,
             article_failures=article_failures,
             ledger_path=ledger_path,
+            script_path=args.script_path,
             budget=args.budget,
         )
     except Exception as error:

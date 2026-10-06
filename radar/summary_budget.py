@@ -12,10 +12,12 @@ maintained regardless to guarantee safe free-tier operation.
 
 from __future__ import annotations
 
+from datetime import datetime, timedelta, timezone
 import json
 import math
 import os
 from pathlib import Path
+import time
 
 from radar.pipeline import write_atomic
 
@@ -28,12 +30,20 @@ MAX_STORIES_PER_DAY = min(
     DEFAULT_DAILY_TOKENS // ESTIMATED_TOKENS_PER_REQUEST,
 )
 
+TIMEZONE_NAME = "Asia/Ho_Chi_Minh"
+VIETNAM = timezone(timedelta(hours=7), TIMEZONE_NAME)
+SCHEDULED_END_HOUR = 6
+SCRIPT_RESERVED_REQUESTS = 1
+SCRIPT_RESERVED_TOKENS = 1500
+
 
 def capacity_error(path: str | Path | None,
                    request_limit: int = DEFAULT_DAILY_REQUESTS,
                    token_limit: int = DEFAULT_DAILY_TOKENS,
                    estimated_tokens: int = 1500,
-                   now: float = 0.0) -> str | None:
+                   now: float = 0.0,
+                   *,
+                   reserve_for_script: bool = False) -> str | None:
     """Check whether a request can fit before spending time fetching its input."""
     if path is None:
         return "ledger_unavailable"
@@ -60,9 +70,16 @@ def capacity_error(path: str | Path | None,
             return "ledger_invalid"
         if now - timestamp < 86400:
             active.append(int(tokens))
-    if len(active) >= min(DEFAULT_DAILY_REQUESTS, max(0, int(request_limit))):
+
+    req_ceiling = min(DEFAULT_DAILY_REQUESTS, max(0, int(request_limit)))
+    tok_ceiling = min(DEFAULT_DAILY_TOKENS, max(0, int(token_limit)))
+    if reserve_for_script:
+        req_ceiling = max(0, req_ceiling - SCRIPT_RESERVED_REQUESTS)
+        tok_ceiling = max(0, tok_ceiling - SCRIPT_RESERVED_TOKENS)
+
+    if len(active) >= req_ceiling:
         return "daily_limit"
-    if sum(active) + max(0, int(estimated_tokens)) > min(DEFAULT_DAILY_TOKENS, max(0, int(token_limit))):
+    if sum(active) + max(0, int(estimated_tokens)) > tok_ceiling:
         return "daily_token_limit"
     return None
 
@@ -80,7 +97,8 @@ def reserve(path: str | Path | None,
             estimated_tokens: int = 1500,
             now: float = 0.0,
             *,
-            last_story_id: str | None = None) -> str | None:
+            last_story_id: str | None = None,
+            reserve_for_script: bool = False) -> str | None:
     """Reserve quota for one summary request and estimated tokens.
 
     Returns None on success, or a safe error code:
@@ -137,11 +155,15 @@ def reserve(path: str | Path | None,
 
         # Request ceiling check
         req_ceiling = min(DEFAULT_DAILY_REQUESTS, max(0, int(request_limit)))
+        tok_ceiling = min(DEFAULT_DAILY_TOKENS, max(0, int(token_limit)))
+        if reserve_for_script:
+            req_ceiling = max(0, req_ceiling - SCRIPT_RESERVED_REQUESTS)
+            tok_ceiling = max(0, tok_ceiling - SCRIPT_RESERVED_TOKENS)
+
         if len(valid_attempts) >= req_ceiling:
             return "daily_limit"
 
         # Token ceiling check
-        tok_ceiling = min(DEFAULT_DAILY_TOKENS, max(0, int(token_limit)))
         current_tokens = sum(entry["tokens"] for entry in valid_attempts)
         if current_tokens + max(0, estimated_tokens) > tok_ceiling:
             return "daily_token_limit"
@@ -200,3 +222,98 @@ def update_actual_tokens(path: str | Path, now: float, actual_tokens: int) -> No
                 lock.unlink()
             except OSError:
                 pass
+
+
+def is_script_written_today(script_path: str | Path | None = None,
+                            ledger_path: str | Path | None = None,
+                            today_vn: str | None = None) -> bool:
+    """Return True if today's video script has already been written."""
+    if today_vn is None:
+        today_vn = datetime.now(VIETNAM).strftime("%Y-%m-%d")
+
+    # 1. Check video-script.json file
+    p = Path(script_path) if script_path else Path("site/data/video-script.json")
+    if p.is_file():
+        try:
+            data = json.loads(p.read_text(encoding="utf-8"))
+            if isinstance(data, dict) and data.get("date") == today_vn:
+                stories = data.get("stories")
+                if data.get("hook") and data.get("hint") and isinstance(stories, list) and len(stories) == 3:
+                    return True
+        except (OSError, ValueError):
+            pass
+
+    # 2. Check ledger file for script_date
+    if ledger_path:
+        lp = Path(ledger_path)
+        if lp.is_file():
+            try:
+                ldata = json.loads(lp.read_text(encoding="utf-8"))
+                if isinstance(ldata, dict) and ldata.get("script_date") == today_vn:
+                    return True
+            except (OSError, ValueError):
+                pass
+
+    return False
+
+
+def is_script_reserve_active(now: float | datetime | None = None,
+                             script_path: str | Path | None = None,
+                             ledger_path: str | Path | None = None) -> bool:
+    """Return True if summaries must reserve quota for today's video script.
+
+    Summaries stop short of the script's share before the script ran today.
+    They may use it after the script is written or after the window passes.
+    """
+    if callable(now):
+        now = now()
+    if isinstance(now, (int, float)):
+        if now <= 0.0:
+            now = time.time()
+        dt_now = datetime.fromtimestamp(now, tz=timezone.utc)
+    elif isinstance(now, datetime):
+        dt_now = now if now.tzinfo is not None else now.replace(tzinfo=timezone.utc)
+    else:
+        dt_now = datetime.now(timezone.utc)
+
+    now_vn = dt_now.astimezone(VIETNAM)
+    today_vn = now_vn.strftime("%Y-%m-%d")
+
+    # If the window has passed today (after 06:00 VN time), summaries may use it
+    if now_vn.hour >= SCHEDULED_END_HOUR:
+        return False
+
+    # If the script is already written for today, summaries may use it
+    if is_script_written_today(script_path=script_path, ledger_path=ledger_path, today_vn=today_vn):
+        return False
+
+    # Before the script ran today and before the window passes: reserve is active
+    return True
+
+
+def mark_script_completed(path: str | Path | None, today_vn: str) -> None:
+    """Record today's date in the ledger indicating video script has been generated."""
+    if not path:
+        return
+    path = Path(path)
+    if not path.is_file():
+        return
+    lock = path.with_suffix(path.suffix + ".lock")
+    acquired = False
+    try:
+        descriptor = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+        acquired = True
+        os.close(descriptor)
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(data, dict) and data.get("version") == LEDGER_VERSION:
+            data["script_date"] = str(today_vn)
+            write_atomic(data, path)
+    except Exception:
+        pass
+    finally:
+        if acquired:
+            try:
+                lock.unlink()
+            except OSError:
+                pass
+

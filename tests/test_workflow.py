@@ -240,12 +240,20 @@ class WorkflowTests(unittest.TestCase):
         expected = "run: python -m radar.summarize --input site/data/radar.json --cache data/summaries-gemini-vi.json"
         self.assertIn(expected, summarize)
 
-    def test_video_script_branch_path_and_shell_safety(self):
-        """Branch runs pass ref for on-demand live generation; no workflow inputs in shell."""
+    def test_video_script_step_shell_safety(self):
+        """Video script step reads GITHUB_REF from environment; no ${{ ... }} expression in run:."""
         steps = self.steps()
         self.assertIn("Generate daily video script", steps)
         step = steps["Generate daily video script"]
-        self.assertIn('--ref "${{ github.ref }}"', step)
+        run_lines = [line.strip() for line in step.splitlines() if line.strip().startswith("run:")]
+        self.assertEqual(len(run_lines), 1)
+        run_line = run_lines[0]
+        self.assertNotIn("${{", run_line)
+        self.assertNotIn("--ref", run_line)
+        self.assertEqual(
+            run_line,
+            "run: python -m radar.video_script --input site/data/radar-ui.json --output site/data/video-script.json --ledger data/summary-gemini-ledger.json"
+        )
         for chunk in self.all_steps():
             for line in chunk.splitlines():
                 if line.strip().startswith("run:"):

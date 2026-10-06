@@ -27,6 +27,8 @@ import unittest
 from unittest.mock import patch
 
 from radar import summary_budget
+from radar import summary_gemini as gemini
+from radar import summary_pipeline
 from radar import video_script
 
 
@@ -710,6 +712,229 @@ class VideoScriptPipelineTests(unittest.TestCase):
         for st in picks:
             news_covs = video_script.news_coverage_of(st, sources)
             self.assertGreaterEqual(len(news_covs), 2)
+
+
+class TestVideoScriptBudgetReserve(unittest.TestCase):
+    """Test suite for protecting the video script's share of shared free-tier budget."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.tmp_path = Path(self.tmp.name)
+        self.ledger_file = self.tmp_path / "summary-gemini-ledger.json"
+        self.script_file = self.tmp_path / "video-script.json"
+        summary_budget.init_ledger(self.ledger_file)
+        self.input_file = self.tmp_path / "radar-ui.json"
+        payload = {
+            "stories": make_sample_stories(),
+            "sources": [{"id": "ars-technica"}, {"id": "the-verge"}, {"id": "techcrunch"}, {"id": "wired"}, {"id": "bloomberg"}, {"id": "reuters"}]
+        }
+        self.input_file.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_is_script_reserve_active_conditions(self):
+        now_early = datetime(2026, 10, 7, 2, 0, 0, tzinfo=video_script.VIETNAM)
+        now_in_window = datetime(2026, 10, 7, 5, 30, 0, tzinfo=video_script.VIETNAM)
+        now_after_window = datetime(2026, 10, 7, 6, 15, 0, tzinfo=video_script.VIETNAM)
+
+        # Before script runs and before window ends -> reserve is active
+        self.assertTrue(summary_budget.is_script_reserve_active(now_early, script_path=self.script_file, ledger_path=self.ledger_file))
+        self.assertTrue(summary_budget.is_script_reserve_active(now_in_window, script_path=self.script_file, ledger_path=self.ledger_file))
+
+        # After script is written today -> reserve is released
+        sample = make_approved_sample_script("2026-10-07")
+        self.script_file.write_text(json.dumps(sample, ensure_ascii=False), encoding="utf-8")
+        self.assertFalse(summary_budget.is_script_reserve_active(now_in_window, script_path=self.script_file, ledger_path=self.ledger_file))
+        self.assertFalse(summary_budget.is_script_reserve_active(now_early, script_path=self.script_file, ledger_path=self.ledger_file))
+
+        # If script file is removed but ledger records script completion -> reserve is released
+        self.script_file.unlink()
+        summary_budget.mark_script_completed(self.ledger_file, "2026-10-07")
+        self.assertFalse(summary_budget.is_script_reserve_active(now_in_window, script_path=self.script_file, ledger_path=self.ledger_file))
+
+        # Reset ledger and remove script: after window passes (>= 06:00 VN) -> reserve is released
+        self.ledger_file.write_text(json.dumps({"version": 1, "attempts": []}), encoding="utf-8")
+        self.assertFalse(summary_budget.is_script_reserve_active(now_after_window, script_path=self.script_file, ledger_path=self.ledger_file))
+
+    def test_summaries_stop_short_of_script_request_share_before_script_ran_today(self):
+        now_dt = datetime(2026, 10, 7, 3, 0, 0, tzinfo=video_script.VIETNAM)
+        now_ts = now_dt.timestamp()
+
+        # Fill ledger with 11 attempts (11 / 12 requests)
+        for i in range(11):
+            summary_budget.reserve(self.ledger_file, estimated_tokens=500, now=now_ts - 3600 + i * 10, last_story_id=f"story-{i}")
+
+        # Summary check (reserve_for_script=True): 11 >= (12 - 1) -> blocked with daily_limit
+        cap_err = summary_budget.capacity_error(self.ledger_file, now=now_ts, reserve_for_script=True)
+        self.assertEqual(cap_err, "daily_limit")
+        res_err = summary_budget.reserve(self.ledger_file, estimated_tokens=500, now=now_ts, reserve_for_script=True)
+        self.assertEqual(res_err, "daily_limit")
+
+        # Video script check (reserve_for_script=False): 11 < 12 -> allowed to reserve slot 12
+        cap_script = summary_budget.capacity_error(self.ledger_file, now=now_ts, reserve_for_script=False)
+        self.assertIsNone(cap_script)
+        res_script = summary_budget.reserve(self.ledger_file, estimated_tokens=1500, now=now_ts, reserve_for_script=False)
+        self.assertIsNone(res_script)
+
+    def test_summaries_stop_short_of_script_token_share_before_script_ran_today(self):
+        now_dt = datetime(2026, 10, 7, 4, 0, 0, tzinfo=video_script.VIETNAM)
+        now_ts = now_dt.timestamp()
+
+        # Reserve 23,000 tokens across attempts (out of 25,000 ceiling; reserve threshold is 23,500)
+        summary_budget.reserve(self.ledger_file, estimated_tokens=23000, now=now_ts - 600, last_story_id="bulk-stories")
+
+        # Summary estimating 1,000 tokens: 23,000 + 1,000 = 24,000 > 23,500 -> blocked
+        cap_err = summary_budget.capacity_error(self.ledger_file, estimated_tokens=1000, now=now_ts, reserve_for_script=True)
+        self.assertEqual(cap_err, "daily_token_limit")
+        res_err = summary_budget.reserve(self.ledger_file, estimated_tokens=1000, now=now_ts, reserve_for_script=True)
+        self.assertEqual(res_err, "daily_token_limit")
+
+        # Video script estimating 1,500 tokens against 25,000 ceiling: 23,000 + 1,500 = 24,500 <= 25,000 -> allowed
+        cap_script = summary_budget.capacity_error(self.ledger_file, estimated_tokens=1500, now=now_ts, reserve_for_script=False)
+        self.assertIsNone(cap_script)
+        res_script = summary_budget.reserve(self.ledger_file, estimated_tokens=1500, now=now_ts, reserve_for_script=False)
+        self.assertIsNone(res_script)
+
+    def test_summaries_may_use_share_after_script_is_written_today(self):
+        now_dt = datetime(2026, 10, 7, 5, 20, 0, tzinfo=video_script.VIETNAM)
+        now_ts = now_dt.timestamp()
+
+        # 11 attempts in ledger
+        for i in range(11):
+            summary_budget.reserve(self.ledger_file, estimated_tokens=500, now=now_ts - 3600 + i * 10, last_story_id=f"story-{i}")
+
+        # Write script for today
+        sample = make_approved_sample_script("2026-10-07")
+        self.script_file.write_text(json.dumps(sample, ensure_ascii=False), encoding="utf-8")
+
+        # Reserve is no longer active
+        is_active = summary_budget.is_script_reserve_active(now_ts, script_path=self.script_file, ledger_path=self.ledger_file)
+        self.assertFalse(is_active)
+
+        # Summaries are allowed to use slot 12
+        cap_err = summary_budget.capacity_error(self.ledger_file, now=now_ts, reserve_for_script=is_active)
+        self.assertIsNone(cap_err)
+        res_err = summary_budget.reserve(self.ledger_file, estimated_tokens=500, now=now_ts, reserve_for_script=is_active)
+        self.assertIsNone(res_err)
+
+    def test_summaries_may_use_share_after_window_passes(self):
+        now_dt = datetime(2026, 10, 7, 6, 15, 0, tzinfo=video_script.VIETNAM)
+        now_ts = now_dt.timestamp()
+
+        # 11 attempts in ledger, no script written
+        for i in range(11):
+            summary_budget.reserve(self.ledger_file, estimated_tokens=500, now=now_ts - 3600 + i * 10, last_story_id=f"story-{i}")
+
+        # Reserve is inactive because window passed
+        is_active = summary_budget.is_script_reserve_active(now_ts, script_path=self.script_file, ledger_path=self.ledger_file)
+        self.assertFalse(is_active)
+
+        # Summaries are allowed to use slot 12
+        cap_err = summary_budget.capacity_error(self.ledger_file, now=now_ts, reserve_for_script=is_active)
+        self.assertIsNone(cap_err)
+        res_err = summary_budget.reserve(self.ledger_file, estimated_tokens=500, now=now_ts, reserve_for_script=is_active)
+        self.assertIsNone(res_err)
+
+    def test_pipeline_summarize_stops_short_before_script_and_unblocks_after(self):
+        now_dt = datetime(2026, 10, 7, 3, 0, 0, tzinfo=video_script.VIETNAM)
+        now_ts = now_dt.timestamp()
+
+        # 11 attempts in ledger
+        for i in range(11):
+            summary_budget.reserve(self.ledger_file, estimated_tokens=500, now=now_ts - 3600 + i * 10, last_story_id=f"story-{i}")
+
+        story = {
+            "id": "story-test",
+            "title": "A new AI breakthrough announced",
+            "coverage": [{"publisher": "reuters", "title": "A new AI breakthrough announced", "url": "https://example.com/ai"}]
+        }
+        payload = {"stories": [story], "ranking": {"window_hours": 72}}
+        cache = {}
+
+        calls = []
+        def fake_transport(batch, cfg, transport_fn, remaining):
+            calls.append(batch)
+            return {s["id"]: ["Điểm một", "Điểm hai", "Điểm ba"] for s in batch}, 500, None, True
+
+        # Summarize step before script runs: stops short with daily_limit
+        stats, _ = summary_pipeline.summarize_payload(
+            payload,
+            cache,
+            config=gemini.Config(api_key="test-key", confirmed=True),
+            article_fetch_fn=lambda s, **kw: "Đoạn văn bài báo dài hơn ba trăm ký tự để đủ chuẩn tóm tắt nội dung bài viết và kiểm thử hạn mức quota.",
+            ledger_path=self.ledger_file,
+            script_path=self.script_file,
+            now=lambda: now_ts
+        )
+        self.assertEqual(stats["status"], "failed")
+        self.assertEqual(stats["error"], "daily_limit")
+        self.assertEqual(len(calls), 0)
+
+        # At 05:07 VN time: video script generates successfully
+        now_script = datetime(2026, 10, 7, 5, 7, 0, tzinfo=video_script.VIETNAM)
+        def fake_script_transport(body, key, timeout):
+            return {
+                "candidates": [{
+                    "finishReason": "STOP",
+                    "content": {"parts": [{"text": json.dumps(make_approved_sample_script("2026-10-07"), ensure_ascii=False)}]}
+                }],
+                "usageMetadata": {"totalTokenCount": 700}
+            }
+
+        env = {"GEMINI_API_KEY": "test-key", "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1"}
+        with patch.dict(os.environ, env):
+            res_script = video_script.generate_video_script(
+                input_path=self.input_file,
+                output_path=self.script_file,
+                ledger_path=self.ledger_file,
+                now_val=now_script,
+                transport_fn=fake_script_transport
+            )
+        self.assertEqual(res_script["status"], "success")
+        self.assertTrue(self.script_file.is_file())
+
+        # Now is_script_reserve_active returns False
+        self.assertFalse(summary_budget.is_script_reserve_active(now_script.timestamp(), script_path=self.script_file, ledger_path=self.ledger_file))
+
+    def test_cli_reads_github_ref_from_env_without_cli_arg(self):
+        now_str = "2026-10-07T03:00:00+07:00"
+
+        # On a non-main branch in env: bypasses window check
+        env_branch = {
+            "GEMINI_API_KEY": "test-key",
+            "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1",
+            "GITHUB_REF": "refs/heads/feat/video-script"
+        }
+        with patch.dict(os.environ, env_branch), patch("radar.summary_gemini.transport", side_effect=lambda body, k, t: {
+            "candidates": [{"finishReason": "STOP", "content": {"parts": [{"text": json.dumps(make_approved_sample_script("2026-10-07"), ensure_ascii=False)}]}}],
+            "usageMetadata": {"totalTokenCount": 700}
+        }):
+            code = video_script.main([
+                "--input", str(self.input_file),
+                "--output", str(self.script_file),
+                "--ledger", str(self.ledger_file),
+                "--now", now_str
+            ])
+            self.assertEqual(code, 0)
+        self.assertTrue(self.script_file.is_file())
+        self.script_file.unlink()
+
+        # On main branch in env: outside window check skips
+        env_main = {
+            "GEMINI_API_KEY": "test-key",
+            "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1",
+            "GITHUB_REF": "refs/heads/main"
+        }
+        with patch.dict(os.environ, env_main):
+            code = video_script.main([
+                "--input", str(self.input_file),
+                "--output", str(self.script_file),
+                "--ledger", str(self.ledger_file),
+                "--now", now_str
+            ])
+            self.assertEqual(code, 0)
+        self.assertFalse(self.script_file.exists())
 
 
 if __name__ == "__main__":
