@@ -26,40 +26,45 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertIn('id="new-go" aria-keyshortcuts="U"', self.html)
         self.assertIn('<span id="new-items-text"></span>', self.html)
         self.assertIn('<use href="#i-down"/>', self.html)
-        # Hairline divider
-        self.assertIn('class="new-divider" aria-hidden="true"', self.html)
+        # Separator dot
+        self.assertIn('class="new-sep', self.html)
+        self.assertIn('aria-hidden="true"', self.html)
         # Mark seen button with shortcut M and class mark-seen-btn
         self.assertIn('id="mark-seen-btn" aria-keyshortcuts="M"', self.html)
         self.assertIn('class="text-btn mark-seen-btn"', self.html)
 
-    def test_css_uses_bento_tokens_no_accent_wash(self):
-        # Notice must use neutral fill surface, not raw accent wash
+    def test_css_uses_quiet_editorial_tokens_no_capsule(self):
+        # Direction 1: Subtle Editorial Inline. No box, no tinted capsule, quiet ink colours.
         notice_match = re.search(r"\.new-items\s*\{([^}]+)\}", self.css)
         self.assertIsNotNone(notice_match, "Missing .new-items CSS rule")
         notice_body = notice_match.group(1)
-        self.assertIn("var(--color-fill)", notice_body)
+        self.assertIn("var(--color-ink-2)", notice_body)
+        self.assertIn("flex-basis: 100%", notice_body)
         self.assertNotIn("var(--color-accent-wash)", notice_body)
+        self.assertNotIn("var(--color-fill)", notice_body)
 
-        # Hairline divider styling
-        self.assertIn(".new-items .new-divider", self.css)
-        self.assertIn("var(--color-hair)", self.css)
-
-        # Mark seen button styling
-        self.assertIn(".new-items .mark-seen-btn", self.css)
+        # Separator dot styling
+        self.assertIn(".new-sep", self.css)
         self.assertIn("var(--color-ink-3)", self.css)
 
-        # New go button styling
+        # Mark seen button styling with hairline underline
+        self.assertIn(".new-items .mark-seen-btn", self.css)
+        self.assertIn("var(--color-ink-3)", self.css)
+        self.assertIn("var(--color-hair)", self.css)
+
+        # New go button styling with accent icon
         self.assertIn(".new-go", self.css)
         self.assertIn("var(--color-accent)", self.css)
 
     def test_responsive_mobile_adaptation(self):
-        # Mobile rule under 480px prevents distorted oval pill
+        # Mobile rule under 480px stacks notice cleanly and hides separator dot
         self.assertIn("@media (max-width: 480px)", self.css)
         mobile_match = re.search(r"@media\s*\(max-width:\s*480px\)\s*\{([\s\S]*?)\n\}", self.css)
         self.assertIsNotNone(mobile_match, "Missing @media (max-width: 480px) query in feed.css")
         mobile_css = mobile_match.group(1)
-        self.assertIn("border-radius: var(--radius-12)", mobile_css)
-        self.assertIn(".new-divider", mobile_css)
+        self.assertIn("flex-direction: column", mobile_css)
+        self.assertIn(".new-items .new-sep", mobile_css)
+        self.assertIn("display: none", mobile_css)
 
 
 if __name__ == "__main__":
