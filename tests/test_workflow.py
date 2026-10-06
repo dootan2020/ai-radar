@@ -164,8 +164,14 @@ class WorkflowTests(unittest.TestCase):
             self.assertIn("RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}", summarize)
             self.assertIn("continue-on-error: true", summarize)
             self.assertNotRegex(summarize, r"(?i)(?:echo|print|--api-key).*GEMINI_API_KEY")
+        video_script_step = steps.get("Generate daily video script")
+        if video_script_step:
+            self.assertIn("GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}", video_script_step)
+            self.assertIn("RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}", video_script_step)
+            self.assertIn("continue-on-error: true", video_script_step)
+            self.assertNotRegex(video_script_step, r"(?i)(?:echo|print|--api-key).*GEMINI_API_KEY")
         for name, step in steps.items():
-            if name not in ("Translate headlines", "Summarize stories"):
+            if name not in ("Translate headlines", "Summarize stories", "Generate daily video script"):
                 self.assertNotIn("secrets.GEMINI_API_KEY", step, name)
         self.assertNotRegex(translate, r"(?i)(?:echo|print|--api-key).*GEMINI_API_KEY")
 
