@@ -25,6 +25,45 @@ CONTENT_SECURITY_POLICY = (
     "https://huggingface.co https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';"
 )
 TEMPLATE_PATH = Path(__file__).with_name("story_page_template.html")
+NON_TERMINAL_ABBRS = {
+    "e.g.", "i.e.", "vs.", "mr.", "mrs.", "ms.", "dr.", "prof.", "sr.", "jr.", "st.", "no.", "vol.",
+    "jan.", "feb.", "mar.", "apr.", "jun.", "jul.", "aug.", "sep.", "sept.", "oct.", "nov.", "dec."
+}
+
+
+def trim_complete_sentences(text: str) -> str:
+    """Trim an excerpt so it contains only complete sentences."""
+    if not text or not isinstance(text, str):
+        return ""
+    text = text.strip()
+    if not text:
+        return ""
+
+    pattern = re.compile(r'(?:\.{3}|…|[.!?。！？])[\'"”’\)\]]*(?=\s|$)')
+    last_end = -1
+    for m in pattern.finditer(text):
+        start = m.start()
+        end = m.end()
+        punct = m.group(0)
+
+        if punct.startswith('.') and not punct.startswith('..'):
+            prefix = text[:start]
+            tokens = prefix.split()
+            if tokens:
+                last_word = (tokens[-1] + punct).lower().strip('()[]{}""\'”’')
+                if last_word in NON_TERMINAL_ABBRS and end < len(text):
+                    continue
+                if re.fullmatch(r'[a-zA-Z]\.', last_word) and end < len(text):
+                    continue
+                if re.search(r'\.(?:com|org|net|io|ai|vn|is|ph|co|html|json|cpp)\b', last_word):
+                    continue
+
+        last_end = end
+
+    if last_end <= 0:
+        return ""
+    return text[:last_end].strip()
+
 
 
 def _json_bytes(value):
@@ -98,7 +137,10 @@ def _page_fields(story, base_url):
         image_url = f"{base_url}/og-image.png"
     publisher = (_text(first_coverage.get("publisher")) or _text(first_coverage.get("source")) or
                  urlsplit(original_url).hostname or "")
-    description = (_text(story.get("summary_vi")) or _text(story.get("summary")) or title)
+    summary_vi = trim_complete_sentences(_text(story.get("summary_vi")))
+    summary_en = trim_complete_sentences(_text(story.get("summary")))
+    clean_summary = summary_vi or summary_en
+    description = clean_summary or title
     original_title = (_text(first_coverage.get("title")) or _text(story.get("title")) or title)
     story_id = _story_id(story)
     return {
@@ -110,7 +152,7 @@ def _page_fields(story, base_url):
         "original_title": original_title,
         "original_url": original_url,
         "publisher": publisher,
-        "summary": _text(story.get("summary_vi")) or _text(story.get("summary")),
+        "summary": clean_summary,
         "title": title,
     }
 
@@ -151,8 +193,12 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
                         f'<h2 class="story-section-h2">Ý chính của câu chuyện</h2>'
                         f'<ol class="story-points-list">{points_html}</ol></section>'
                         if points_html else
-                        f'<section class="story-summary-box"><h2 class="story-section-h2">Tóm lược bài viết</h2>'
+                        f'<section class="story-summary-box" aria-label="Đoạn trích bài viết">'
+                        f'<h2 class="story-section-h2">Đoạn trích bài viết</h2>'
                         f'<p class="story-summary-text">{esc(fields["summary"] or fields["title"])}</p></section>')
+    gateway_desc = ('ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.'
+                    if fields["key_points"] else
+                    'Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.')
     publisher_html = f'<span class="story-pub-name">{esc(fields["publisher"])}</span>' if fields["publisher"] else ""
     document = TEMPLATE_PATH.read_text(encoding="utf-8")
     values = {
@@ -161,7 +207,8 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
         "{{STORY_ID}}": esc(story["id"]), "{{PUBLISHER}}": publisher_html,
         "{{PUBLISHER_NAME}}": esc(fields["publisher"]),
         "{{ORIGINAL_TITLE}}": esc(fields["original_title"]), "{{ORIGINAL_URL}}": esc(fields["original_url"]),
-        "{{CONTENT}}": fallback_content, "{{STORY_DATA}}": encoded_story,
+        "{{CONTENT}}": fallback_content, "{{GATEWAY_DESC}}": esc(gateway_desc),
+        "{{STORY_DATA}}": encoded_story,
         "{{JSONLD}}": encoded_article, "{{CSP}}": esc(CONTENT_SECURITY_POLICY),
         "{{THEME_SCRIPT}}": "try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}",
     }

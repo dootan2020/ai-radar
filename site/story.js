@@ -228,40 +228,91 @@ export function renderKeyPointsHTML(keyPoints, publisherName = '') {
   `;
 }
 
+const NON_TERMINAL_ABBRS = new Set([
+  'e.g.', 'i.e.', 'vs.', 'mr.', 'mrs.', 'ms.', 'dr.', 'prof.', 'sr.', 'jr.', 'st.', 'no.', 'vol.',
+  'jan.', 'feb.', 'mar.', 'apr.', 'jun.', 'jul.', 'aug.', 'sep.', 'sept.', 'oct.', 'nov.', 'dec.'
+]);
+
+/* Trim excerpt to include only complete sentences */
+export function trimCompleteSentences(text) {
+  if (typeof text !== 'string') return '';
+  text = text.trim();
+  if (!text) return '';
+
+  const regex = /(?:\.{3}|…|[.!?。！？])['"”’\)\]]*(?=\s|$)/g;
+  let lastEnd = -1;
+  let m;
+
+  while ((m = regex.exec(text)) !== null) {
+    const start = m.index;
+    const end = regex.lastIndex;
+    const punct = m[0];
+
+    if (punct.startsWith('.') && !punct.startsWith('..')) {
+      const prefix = text.slice(0, start);
+      const tokens = prefix.trim().split(/\s+/);
+      if (tokens.length && tokens[0]) {
+        const lastToken = tokens[tokens.length - 1];
+        const lastWord = (lastToken + punct).toLowerCase().replace(/^['"”’\(\[\{]+|['"”’\)\]\}]+$/g, '');
+        if (NON_TERMINAL_ABBRS.has(lastWord) && end < text.length) {
+          continue;
+        }
+        if (/^[a-zA-Z]\.$/.test(lastWord) && end < text.length) {
+          continue;
+        }
+        if (/\.(?:com|org|net|io|ai|vn|is|ph|co|html|json|cpp)\b/.test(lastWord)) {
+          continue;
+        }
+      }
+    }
+
+    lastEnd = end;
+  }
+
+  if (lastEnd <= 0) return '';
+  return text.slice(0, lastEnd).trim();
+}
+
 /* Render Fallback Summary when key points are not available */
 export function renderFallbackBodyHTML(story, publisherName = '') {
-  const sumText = story.summary_vi || story.summary || '';
-  const isTranslated = !!(story.summary_vi && story.summary && story.summary_vi.trim() !== story.summary.trim());
+  const sumVi = trimCompleteSentences(story.summary_vi || '');
+  const sumEn = trimCompleteSentences(story.summary || '');
+  const sumText = sumVi || sumEn;
+  const isTranslated = !!(sumVi && sumEn && sumVi !== sumEn);
 
   if (!sumText) {
     return `
-      <section class="story-summary-box story-empty-box" aria-label="Tóm lược bài viết">
-        <p class="story-empty-text">Bản tóm lược chi tiết đang được cập nhật. Bạn có thể mở đọc toàn văn bài viết gốc bên dưới.</p>
+      <section class="story-summary-box story-empty-box" aria-label="Đoạn trích bài viết">
+        <p class="story-empty-text">Chưa có đoạn trích cho bài viết này. Bạn có thể mở đọc toàn văn bài viết gốc bên dưới.</p>
       </section>
     `;
   }
 
-  const sub = publisherName
-    ? `Tóm tắt bởi AI từ bài viết gốc của ${esc(publisherName)}`
-    : 'Tóm tắt bởi AI từ bài viết gốc';
+  const sub = isTranslated
+    ? (publisherName
+        ? `Đoạn trích từ bài viết gốc của ${esc(publisherName)}, bản dịch máy`
+        : 'Đoạn trích từ bài viết gốc, bản dịch máy')
+    : (publisherName
+        ? `Đoạn trích từ bài viết gốc của ${esc(publisherName)}`
+        : 'Đoạn trích từ bài viết gốc');
 
   return `
-    <section class="story-summary-box" aria-label="Tóm lược bài viết">
+    <section class="story-summary-box" aria-label="Đoạn trích bài viết">
       <div class="story-section-head">
         <div>
-          <h2 class="story-section-h2">Tóm lược bài viết</h2>
+          <h2 class="story-section-h2">Đoạn trích bài viết</h2>
           <p class="story-section-sub">${sub}</p>
         </div>
       </div>
       <p class="story-summary-text">${esc(sumText)}</p>
       ${isTranslated ? `
         <div class="card-orig" style="margin-top:var(--space-12)">
-          <span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tóm tắt gốc">Translated</span>
-          <span class="sr" lang="vi">Bản dịch máy. Tóm tắt gốc: </span>
-          <span class="orig-text" lang="en">${esc(story.summary)}</span>
+          <span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là đoạn trích gốc">Translated</span>
+          <span class="sr" lang="vi">Bản dịch máy. Đoạn trích gốc: </span>
+          <span class="orig-text" lang="en">${esc(sumEn)}</span>
         </div>
       ` : ''}
-      <p class="story-points-disclosure">ai-radar tóm tắt từ dữ liệu gốc để bạn đọc nhanh dưới 1 phút. Bản quyền thuộc về nhà xuất bản.</p>
+      <p class="story-points-disclosure">Đoạn trích do nhà xuất bản cung cấp. Bản quyền thuộc về nhà xuất bản.</p>
     </section>
   `;
 }
@@ -313,13 +364,17 @@ export function renderCoverageListHTML(coverage, srcMap = new Map()) {
 export function renderOriginGatewayHTML(story, srcMap = new Map()) {
   const { name } = getPublisherMeta(story, srcMap);
   const origUrl = story.url || (story.coverage && story.coverage[0] && story.coverage[0].url) || '#';
+  const hasKp = Array.isArray(story.key_points) && story.key_points.length > 0;
+  const desc = hasKp
+    ? 'ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Đọc bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.'
+    : 'Mở bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.';
 
   return `
     <section class="story-origin-gateway" aria-label="Chuyển đến bài viết gốc">
       <div class="story-origin-info">
         <span class="story-origin-eyebrow">Toàn văn bài viết</span>
         <h3 class="story-origin-title">Đọc bài viết đầy đủ trên ${esc(name)}</h3>
-        <p class="story-origin-desc">ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Đọc bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.</p>
+        <p class="story-origin-desc">${desc}</p>
       </div>
       <a class="btn primary story-origin-btn" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer" id="story-open-origin-btn">
         <span>Mở bài viết gốc</span>
