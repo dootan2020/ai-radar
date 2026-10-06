@@ -1,37 +1,67 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { fileURLToPath } from 'url';
-import { execFileSync } from 'child_process';
+import { spawnSync } from 'child_process';
 import { selectThreeStories } from './src/pick-stories.js';
+import { audioTimeline, createNarration, wavSpeechSegments } from './src/daily-audio.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Helper to format Vietnamese date
 function formatVietnameseDate(isoString) {
-  try {
-    const d = new Date(isoString);
-    if (isNaN(d.getTime())) return '5 tháng 10, 2026';
-    const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
-    const dayName = days[d.getDay()];
-    return `${dayName}, ${d.getDate()} tháng ${d.getMonth() + 1}, ${d.getFullYear()}`;
-  } catch {
-    return '5 tháng 10, 2026';
-  }
+  const d = new Date(isoString);
+  if (isNaN(d.getTime())) throw new Error(`Invalid snapshot generated_at: ${isoString}`);
+  const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+  return `${days[d.getDay()]}, ${d.getDate()} tháng ${d.getMonth() + 1}, ${d.getFullYear()}`;
 }
 
 // Helper to format date slug (YYYY-MM-DD)
 function formatDateSlug(isoString) {
-  try {
-    const d = new Date(isoString);
-    if (isNaN(d.getTime())) return '2026-10-05';
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  } catch {
-    return '2026-10-05';
+  const d = new Date(isoString);
+  if (isNaN(d.getTime())) throw new Error(`Invalid snapshot generated_at: ${isoString}`);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function run(command, args, options = {}) {
+  const result = spawnSync(command, args, {stdio: 'inherit', ...options});
+  if (result.error) throw result.error;
+  if (result.status !== 0) throw new Error(`${path.basename(command)} exited with status ${result.status}.`);
+  return result;
+}
+
+function codexHome() {
+  return process.env.CODEX_HOME || path.join(os.homedir(), '.codex');
+}
+
+function synthesizeNarration(narrationPath, tempDir) {
+  const python = process.env.OMNIVOICE_PYTHON
+    || path.join(codexHome(), '.cache', 'omnivoice-tts', 'venv', 'Scripts', 'python.exe');
+  const cache = process.env.OMNIVOICE_CACHE_DIR
+    || path.join(codexHome(), '.cache', 'omnivoice-tts', 'huggingface');
+  const script = path.resolve(__dirname, '../plans/reports/tham-chieu/skills/omnivoice-tts/scripts/omnivoice_tts.py');
+  const referenceAudio = path.resolve(__dirname, '../plans/reports/tham-chieu/giong/giong-2-trung-nien-tram.wav');
+  const referenceText = path.resolve(__dirname, '../plans/reports/tham-chieu/giong/giong-2.txt');
+  const rawAudio = path.join(tempDir, 'voice.wav');
+
+  for (const file of [python, script, referenceAudio, referenceText]) {
+    if (!fs.existsSync(file)) throw new Error(`Required OmniVoice path does not exist: ${file}`);
   }
+  run(python, [
+    script, '--cache-dir', cache, 'synthesize', '--text-file', narrationPath,
+    '--language', 'Vietnamese', '--ref-audio', referenceAudio,
+    '--ref-text-file', referenceText, '--split-paragraphs', '--pause-ms', '1200',
+    '--normalize-chunk-levels', '--offline', '--output', rawAudio,
+  ]);
+  const correctedAudio = path.join(tempDir, 'voice_corrected.wav');
+  if (!fs.existsSync(correctedAudio) || fs.statSync(correctedAudio).size === 0) {
+    throw new Error('OmniVoice did not create its corrected WAV output.');
+  }
+  return correctedAudio;
 }
 
 // Fast pre-probe image with timeout
@@ -78,12 +108,18 @@ export async function main() {
   console.log(`[INFO] Reading snapshot: ${snapshotPath}`);
   const rawData = fs.readFileSync(snapshotPath, 'utf8');
   const snapshot = JSON.parse(rawData);
+  if (!snapshot || !Array.isArray(snapshot.stories) || !snapshot.generated_at) {
+    throw new Error('Snapshot must include generated_at and a stories array.');
+  }
 
   // 2. Select top 3 stories
   const pickedStories = selectThreeStories(snapshot);
   if (!pickedStories || pickedStories.length === 0) {
     console.error('[ERROR] No stories could be selected from snapshot.');
     process.exit(1);
+  }
+  if (pickedStories.length !== 3 || pickedStories.some(story => !story.title_vi)) {
+    throw new Error('Snapshot must supply three selected stories with Vietnamese titles.');
   }
 
   console.log(`[INFO] Selected ${pickedStories.length} stories for video:`);
@@ -108,71 +144,85 @@ export async function main() {
   const dateSlug = formatDateSlug(snapshot.generated_at);
   const formattedDate = formatVietnameseDate(snapshot.generated_at);
   const outDir = path.resolve(__dirname, 'out');
-  if (!fs.existsSync(outDir)) {
-    fs.mkdirSync(outDir, { recursive: true });
-  }
+  fs.mkdirSync(outDir, { recursive: true });
 
   const mp4Path = path.join(outDir, `${dateSlug}.mp4`);
   const captionPath = path.join(outDir, `${dateSlug}.txt`);
+  const narrationPath = path.join(outDir, `${dateSlug}-narration.txt`);
   const propsJsonPath = path.join(outDir, `props-${dateSlug}.json`);
+  const tempDir = fs.mkdtempSync(path.join(outDir, `.daily-${dateSlug}-`));
+  const silentVideoPath = path.join(tempDir, 'silent.mp4');
+  const muxedVideoPath = path.join(tempDir, 'final.mp4');
 
   // 5. Generate social caption file (.txt)
   const captionLines = [
-    `3 tin AI đáng chú ý hôm nay (${dateSlug}):`,
-    '',
     ...preparedStories.map((st, i) => `${i + 1}. ${st.title_vi || st.title}`),
     '',
-    'Cập nhật radar tin tức công nghệ AI liên tục tại:',
     'https://dootan2020.github.io/ai-radar',
     '',
     '#airadar #ai #tintucai #congnghe #tech #shorts #reels #tiktok',
   ];
   fs.writeFileSync(captionPath, captionLines.join('\n'), 'utf8');
   console.log(`[INFO] Caption saved: ${captionPath}`);
-
-  // 6. Write input props file for Remotion
-  const inputProps = {
-    stories: preparedStories,
-    snapshotDate: formattedDate,
-    totalStoriesCount: snapshot.stories ? snapshot.stories.length : 1306,
-  };
-  fs.writeFileSync(propsJsonPath, JSON.stringify(inputProps, null, 2), 'utf8');
-
-  // 7. Render video with Remotion CLI
-  console.log(`[INFO] Rendering video to: ${mp4Path}...`);
-  const cliPath = path.resolve(__dirname, 'node_modules/@remotion/cli/remotion-cli.js');
-  const entryPoint = path.resolve(__dirname, 'src/index.js');
-
-  const args = [
-    cliPath,
-    'render',
-    entryPoint,
-    'AiRadarDailyVideo',
-    mp4Path,
-    `--props=${propsJsonPath}`,
-    '--muted',
-  ];
+  const narration = createNarration(preparedStories);
+  fs.writeFileSync(narrationPath, narration, 'utf8');
+  console.log(`[INFO] Narration saved: ${narrationPath}`);
 
   try {
-    execFileSync('node', args, {
-      cwd: __dirname,
-      stdio: 'inherit',
+    console.log('[INFO] Generating cloned Vietnamese voice with OmniVoice (offline)...');
+    const voicePath = synthesizeNarration(narrationPath, tempDir);
+    const audioSegments = wavSpeechSegments(fs.readFileSync(voicePath));
+    const timeline = audioTimeline(audioSegments);
+    console.log('[INFO] Voice segment lengths:');
+    audioSegments.forEach((segment, index) => {
+      console.log(`  Story ${index + 1}: ${segment.duration.toFixed(2)}s`);
     });
-  } catch (err) {
-    console.error('[ERROR] Remotion render failed:', err.message);
-    process.exit(1);
-  }
 
-  // Clean up temporary props file
-  try {
-    fs.unlinkSync(propsJsonPath);
-  } catch {}
+    // 6. Render the B editorial scenes to the measured narration timing.
+    const inputProps = {
+      stories: preparedStories,
+      snapshotDate: formattedDate,
+      totalStoriesCount: snapshot.stories.length,
+      introFrames: timeline.introFrames,
+      outroFrames: timeline.outroFrames,
+      storyDurations: timeline.storyDurations,
+      totalDurationFrames: timeline.totalFrames,
+    };
+    fs.writeFileSync(propsJsonPath, JSON.stringify(inputProps, null, 2), 'utf8');
+
+    console.log(`[INFO] Rendering ${ (timeline.totalFrames / 30).toFixed(1)}s editorial video...`);
+    const cliPath = path.resolve(__dirname, 'node_modules/@remotion/cli/remotion-cli.js');
+    const entryPoint = path.resolve(__dirname, 'src/index.js');
+
+    run(process.execPath, [
+      cliPath, 'render', entryPoint, 'AiRadarDailyVideo', silentVideoPath,
+      `--props=${propsJsonPath}`, '--muted',
+    ], {cwd: __dirname});
+
+    const ffmpeg = process.env.FFMPEG_PATH || 'ffmpeg';
+    run(ffmpeg, [
+      '-y', '-i', silentVideoPath, '-i', voicePath,
+      '-filter_complex', `anullsrc=r=24000:cl=mono:d=${timeline.introFrames / 30}[lead];[1:a]apad=pad_dur=4[voice];[lead][voice]concat=n=2:v=0:a=1[a]`,
+      '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '128k',
+      '-shortest', muxedVideoPath,
+    ]);
+    if (!fs.existsSync(muxedVideoPath) || fs.statSync(muxedVideoPath).size === 0) {
+      throw new Error('FFmpeg did not create the muxed MP4.');
+    }
+    fs.renameSync(muxedVideoPath, mp4Path);
+
+    console.log(`[INFO] Video saved: ${mp4Path}`);
+  } finally {
+    try { fs.unlinkSync(propsJsonPath); } catch {}
+    fs.rmSync(tempDir, {recursive: true, force: true});
+  }
 
   const durationSec = ((Date.now() - startTime) / 1000).toFixed(1);
   console.log(`\n========================================`);
   console.log(`[SUCCESS] Video render completed in ${durationSec}s`);
   console.log(`Video:   ${mp4Path}`);
   console.log(`Caption: ${captionPath}`);
+  console.log(`Narration: ${narrationPath}`);
   console.log(`========================================\n`);
 }
 

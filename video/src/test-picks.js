@@ -6,9 +6,12 @@ import { selectThreeStories } from './pick-stories.js';
 console.log('[TEST] Starting pick-stories verification suite...');
 
 // Test 1: Real snapshot selection
-const samplePath = fs.existsSync(path.resolve('sample/radar-ui.json'))
-  ? path.resolve('sample/radar-ui.json')
-  : path.resolve('video/sample/radar-ui.json');
+const samplePath = [
+  path.resolve('sample/radar-ui.json'),
+  path.resolve('../site/data/radar-ui.json'),
+  path.resolve('video/sample/radar-ui.json'),
+].find(candidate => fs.existsSync(candidate));
+assert.ok(samplePath, 'A local radar-ui.json snapshot is required for story selection tests');
 const sampleData = JSON.parse(fs.readFileSync(samplePath, 'utf8'));
 
 const picks = selectThreeStories(sampleData);

@@ -45,18 +45,15 @@ export const StoryScene = ({ story, index, totalStories = 3, durationInFrames })
   );
 
   // Data extraction
-  const titleVi = story.title_vi || story.title;
+  const titleVi = story.title_vi || '';
   const titleEn = story.title !== titleVi ? story.title : null;
-  const summary = story.summary_vi || story.description_vi || story.summary || '';
+  const summary = story.summary_vi || story.description_vi || '';
   
   // Sources
   const coverage = story.coverage || [];
   const sourceNames = [...new Set(coverage.map(c => c.publisher || c.source).filter(Boolean))];
   const sourceText = sourceNames.slice(0, 3).join(' · ') || 'Tin quốc tế';
-  const sourceCount = coverage.length || 1;
-
-  // Worth score
-  const worthScore = typeof story.worth_score === 'number' ? story.worth_score.toFixed(1) : null;
+  const sourceCount = sourceNames.length || 1;
 
   // Image URL
   const imageUrl = story.imageUrl || (story.image && story.image.src) || null;
@@ -120,25 +117,6 @@ export const StoryScene = ({ story, index, totalStories = 3, durationInFrames })
           </div>
         </div>
 
-        {/* Worth score chip */}
-        {worthScore && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              backgroundColor: TOKENS.colors.surface,
-              border: `1px solid ${TOKENS.colors.hairFaint}`,
-              padding: '8px 18px',
-              borderRadius: TOKENS.radii.full,
-              fontSize: 20,
-              color: TOKENS.colors.inkMuted,
-            }}
-          >
-            <span>Điểm tin:</span>
-            <span style={{ fontWeight: 700, color: TOKENS.colors.accent }}>{worthScore}</span>
-          </div>
-        )}
       </div>
 
       {/* Hero Visual Area (Photo or Typographic Card) */}
@@ -335,9 +313,7 @@ export const StoryScene = ({ story, index, totalStories = 3, durationInFrames })
           <span>Nguồn: </span>
           <span style={{ color: TOKENS.colors.inkSecondary, fontWeight: 500 }}>{sourceText}</span>
         </div>
-        <div>
-          ai-radar · Tin được xếp hạng cao
-        </div>
+        <div>ai-radar</div>
       </div>
     </div>
   );

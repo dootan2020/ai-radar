@@ -118,29 +118,6 @@ export const OutroScene = () => {
           ai·radar
         </h1>
 
-        <p
-          style={{
-            fontSize: 28,
-            color: TOKENS.colors.inkSecondary,
-            margin: 0,
-            fontWeight: 400,
-            lineHeight: 1.4,
-          }}
-        >
-          Radar tin tức AI mỗi ngày
-        </p>
-
-        <p
-          style={{
-            fontSize: 22,
-            color: TOKENS.colors.inkMuted,
-            margin: '8px 0 36px 0',
-            fontWeight: 400,
-            lineHeight: 1.5,
-          }}
-        >
-          Tổng hợp đa nguồn · Không giật gân · Chỉ có số liệu thật
-        </p>
       </div>
 
       {/* Website Address Pill */}

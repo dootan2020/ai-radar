@@ -11,14 +11,24 @@ export const MainVideo = ({
   stories = [],
   snapshotDate = 'Thứ Hai, 5 tháng 10, 2026',
   totalStoriesCount = 1306,
+  introFrames = 120,
+  outroFrames = 120,
+  storyDurations = [285, 285, 270],
 }) => {
-  // Timeline setup (Total: 1080 frames = 36 seconds @ 30fps)
+  const storyStarts = [introFrames];
+  for (let index = 0; index < stories.length - 1; index++) {
+    storyStarts.push(storyStarts[index] + storyDurations[index]);
+  }
+  const outroStart = introFrames + storyDurations.slice(0, stories.length).reduce((sum, value) => sum + value, 0);
+  const totalFrames = outroStart + outroFrames;
   const SCENES = [
-    { start: 0, duration: 120, end: 120 },     // Intro: 4s
-    { start: 120, duration: 285, end: 405 },   // Story 1: 9.5s
-    { start: 405, duration: 285, end: 690 },   // Story 2: 9.5s
-    { start: 690, duration: 270, end: 960 },   // Story 3: 9.0s
-    { start: 960, duration: 120, end: 1080 },  // Outro: 4.0s
+    { start: 0, duration: introFrames, end: introFrames },
+    ...stories.map((story, index) => ({
+      start: storyStarts[index],
+      duration: storyDurations[index],
+      end: storyStarts[index] + storyDurations[index],
+    })),
+    { start: outroStart, duration: outroFrames, end: totalFrames },
   ];
 
   return (
@@ -113,7 +123,7 @@ export const MainVideo = ({
       </Sequence>
 
       {/* Persistent Bottom Progress Bar */}
-      <ProgressBar totalFrames={1080} scenes={SCENES} />
+      <ProgressBar totalFrames={totalFrames} scenes={SCENES} />
     </div>
   );
 };

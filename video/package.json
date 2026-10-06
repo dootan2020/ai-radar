@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "render": "node render.js",
-    "test": "node src/test-picks.js",
+    "test": "node src/test-picks.js && node --test test/*.test.js",
     "studio": "remotion studio src/index.js"
   },
   "dependencies": {

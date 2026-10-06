@@ -49,6 +49,9 @@ export const RemotionRoot = () => {
         id="AiRadarDailyVideo"
         component={MainVideo}
         durationInFrames={1080}
+        calculateMetadata={({props}) => ({
+          durationInFrames: props.totalDurationFrames || 1080,
+        })}
         fps={30}
         width={1080}
         height={1920}
@@ -56,6 +59,10 @@ export const RemotionRoot = () => {
           stories: defaultStories,
           snapshotDate: 'Thứ Hai, 5 tháng 10, 2026',
           totalStoriesCount: 1306,
+          introFrames: 120,
+          outroFrames: 120,
+          storyDurations: [285, 285, 270],
+          totalDurationFrames: 1080,
         }}
       />
     </>
