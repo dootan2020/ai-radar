@@ -14,6 +14,7 @@ export const MainVideo = ({
   introFrames = 120,
   outroFrames = 120,
   storyDurations = [285, 285, 270],
+  script = null,
 }) => {
   const storyStarts = [introFrames];
   for (let index = 0; index < stories.length - 1; index++) {
@@ -78,6 +79,9 @@ export const MainVideo = ({
           stories={stories}
           snapshotDate={snapshotDate}
           totalStoriesCount={totalStoriesCount}
+          hook={script?.hook}
+          hint={script?.hint}
+          durationInFrames={SCENES[0].duration}
         />
       </Sequence>
 
@@ -119,7 +123,10 @@ export const MainVideo = ({
 
       {/* Sequence 4: Outro */}
       <Sequence from={SCENES[4].start} durationInFrames={SCENES[4].duration}>
-        <OutroScene />
+        <OutroScene
+          cta={script?.cta}
+          durationInFrames={SCENES[4].duration}
+        />
       </Sequence>
 
       {/* Persistent Bottom Progress Bar */}

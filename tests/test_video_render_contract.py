@@ -49,6 +49,20 @@ class VideoScriptContractTestCase(unittest.TestCase):
         self.assertIn("Amazon chi 1 tỷ đô la", data["stories"][2]["line"])
         self.assertIn("Theo dõi để không bỏ lỡ", data["cta"])
 
+    def test_round5_muted_viewer_script_deliverables(self):
+        data = json.loads(self.fixture_path.read_text(encoding="utf-8"))
+        # 1. Hook stops scroll with specific provocative claim
+        self.assertTrue(any(word in data["hook"] for word in ["TV box", "đắt thêm 100 đô la"]))
+        # 2. Hint promises time budget
+        self.assertIn("45 giây", data["hint"])
+        # 3. All 3 stories have distinct non-empty narrative lines for visual presentation
+        self.assertEqual(len(data["stories"]), 3)
+        for st in data["stories"]:
+            self.assertTrue(len(st["line"]) > 20)
+        # 4. CTA asks for both following and commenting
+        self.assertIn("Theo dõi để không bỏ lỡ", data["cta"])
+        self.assertTrue("Bình luận" in data["cta"] or "quan tâm" in data["cta"])
+
 
 if __name__ == "__main__":
     unittest.main()

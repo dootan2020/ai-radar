@@ -155,12 +155,14 @@ export async function main() {
   // 6. Probe story images
   console.log('[INFO] Verifying story image accessibility...');
   const preparedStories = await Promise.all(
-    pickedStories.map(async (st) => {
+    pickedStories.map(async (st, idx) => {
       const rawImg = st.image && st.image.src ? st.image.src : null;
       const verifiedImg = await probeImage(rawImg);
+      const scriptStory = script.stories.find(item => item.id === st.id) || script.stories[idx];
       return {
         ...st,
         imageUrl: verifiedImg,
+        scriptLine: scriptStory ? scriptStory.line : null,
       };
     })
   );
@@ -225,6 +227,11 @@ export async function main() {
       outroFrames: timeline.outroFrames,
       storyDurations: timeline.storyDurations,
       totalDurationFrames: timeline.totalFrames,
+      script: {
+        hook: script.hook,
+        hint: script.hint,
+        cta: script.cta,
+      },
     };
     fs.writeFileSync(propsJsonPath, JSON.stringify(inputProps, null, 2), 'utf8');
 

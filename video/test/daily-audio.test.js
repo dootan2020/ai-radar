@@ -359,3 +359,29 @@ test('resolves OmniVoice wrapper and fix script with custom environment override
   assert.equal(paths.wrapper, customWrapper);
   assert.equal(paths.fixOmnivoice, customFix);
 });
+
+test('Round 5 muted viewer contract: script and fallback deliver hook, hint, 3 story lines, and cta', () => {
+  const fallback = generateFallbackScript(mockSnapshot, mockSnapshot.stories, '2026-10-05');
+  assert.ok(fallback.hook && fallback.hook.length > 10, 'Fallback must supply non-empty hook');
+  assert.ok(fallback.hint && fallback.hint.length > 5, 'Fallback must supply non-empty hint');
+  assert.ok(fallback.cta && fallback.cta.includes('Theo dõi để không bỏ lỡ'), 'Fallback must supply actionable cta');
+  assert.equal(fallback.stories.length, 3, 'Fallback must provide 3 stories');
+  fallback.stories.forEach((st, i) => {
+    assert.ok(st.id, `Fallback story ${i} missing id`);
+    assert.ok(st.line && st.line.length > 10, `Fallback story ${i} missing line for audio and visual card`);
+  });
+
+  const fixturePath = path.resolve(__dirname, '../fixtures/video-script.json');
+  const fixture = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
+  const fixtureSnapshot = {
+    generated_at: '2026-10-06T19:00:00Z',
+    stories: fixture.stories.map(st => ({ id: st.id, title_vi: st.line })),
+  };
+  const check = validateScript(fixture, fixtureSnapshot, '2026-10-06');
+  assert.equal(check.valid, true);
+  assert.ok(fixture.hook.includes('TV box 7 năm tuổi'), 'Approved sample hook covers opening visual');
+  assert.ok(fixture.hint.includes('45 giây'), 'Approved sample hint promises 45-second duration');
+  assert.ok(fixture.cta.includes('Theo dõi để không bỏ lỡ'), 'Approved sample CTA includes follow prompt');
+  assert.ok(fixture.cta.includes('Bình luận'), 'Approved sample CTA includes comment prompt');
+});
+

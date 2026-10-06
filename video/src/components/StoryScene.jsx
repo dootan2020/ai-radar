@@ -49,7 +49,7 @@ export const StoryScene = ({ story, index, totalStories = 3, durationInFrames })
   // Data extraction
   const titleVi = story.title_vi || '';
   const titleEn = story.title !== titleVi ? story.title : null;
-  const summary = story.summary_vi || story.description_vi || '';
+  const summary = story.scriptLine || story.line || story.summary_vi || story.description_vi || '';
   
   // Sources
   const coverage = story.coverage || [];
