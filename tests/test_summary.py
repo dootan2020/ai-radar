@@ -19,6 +19,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from radar import summary_budget, summary_gemini as gemini, summary_pipeline
+from radar.transport import ResponseText
 from radar import summarize
 from radar.site_payload import page_path, page_payload
 
@@ -57,6 +58,21 @@ class SummaryTests(unittest.TestCase):
         # Load real fixture for authentic story structure
         fixture_path = Path(__file__).parent / "fixtures" / "edition-real-snapshot.json"
         self.fixture_data = json.loads(fixture_path.read_text(encoding="utf-8"))
+        article = ("Apple thay đổi cách quản lý quyền truy cập Full Disk Access trên macOS. "
+                   "Các agent AI cần xin xác nhận trước khi đọc dữ liệu người dùng. "
+                   "Bài viết mô tả tác động của thay đổi tới ứng dụng và quy trình bảo mật. "
+                   "Tác giả giải thích vì sao yêu cầu xác nhận ảnh hưởng tới cách các agent vận hành, "
+                   "đồng thời nêu rõ quy trình mới tác động tới các ứng dụng và quyền truy cập.")
+        robots = patch.object(summary_pipeline.shadow_collector, "check_robots",
+                              return_value={"robots_status": 200, "disallowed": False})
+        robots.start()
+        self.addCleanup(robots.stop)
+        def read_article(url, **kwargs):
+            return ResponseText(f"<article><p>{article}</p></article>", status=200,
+                                url=url, content_type="text/html; charset=utf-8")
+        reader = patch.object(summary_pipeline.transport, "read_url", side_effect=read_article)
+        reader.start()
+        self.addCleanup(reader.stop)
 
     def transport_ok(self, body, key, timeout):
         self.calls.append((body, key, timeout))
@@ -65,14 +81,11 @@ class SummaryTests(unittest.TestCase):
         parsed = json.loads(stories_in)["stories"]
         rows = []
         for s in parsed:
-            # If it's a thin story, emit 1 point; else 2 points
-            if "Frontier" in s.get("title", ""):
-                pts = ["Nghiên cứu phân tích các rủi ro và tiềm năng của trí tuệ nhân tạo tiên phong."]
-            else:
-                pts = [
-                    "Apple thắt chặt cơ chế kiểm soát Full Disk Access trên macOS để phòng ngừa rủi ro bảo mật từ agent AI.",
-                    "Các ứng dụng và agent AI sẽ phải xin xác nhận rõ ràng trước khi truy cập dữ liệu ổ đĩa."
-                ]
+            pts = [
+                "Apple thay đổi cách quản lý quyền Full Disk Access trên macOS.",
+                "Agent AI cần xin xác nhận trước khi đọc dữ liệu người dùng.",
+                "Bài viết nêu tác động tới ứng dụng và quy trình bảo mật."
+            ]
             rows.append({"id": s["id"], "key_points": pts})
         return reply_summary(rows, tokens=420)
 
@@ -101,13 +114,220 @@ class SummaryTests(unittest.TestCase):
 
         story = payload["stories"][0]
         self.assertIn("key_points", story)
-        self.assertEqual(len(story["key_points"]), 2)
+        self.assertEqual(len(story["key_points"]), 3)
+        self.assertNotIn("_summary_article_text", story)
+        request_stories = json.loads(self.calls[0][0]["contents"][0]["parts"][0]["text"])["stories"]
+        self.assertIn("article_text", request_stories[0])
+        self.assertIn("Apple thay đổi cách quản lý", request_stories[0]["article_text"])
         self.assertTrue(story["key_points_machine"])
         self.assertEqual(story["key_points_source"], "machine")
         self.assertIn("Apple", story["key_points"][0])
 
-    def test_thin_single_source_story_emits_one_point_and_rejects_padding(self):
-        """When inputs are thin, exactly one point is allowed; padding with 2+ points is rejected."""
+    def test_article_fetch_requires_allowed_robots_and_semantic_html(self):
+        url = "https://publisher.example/story"
+        story = {"url": url, "coverage": []}
+        body = " ".join(["The article opening describes the reported event and its implications."] * 8)
+        page = ResponseText(
+            f"<html><body><h1>Headline only</h1><article><p>{body}</p><script>hidden</script></article></body></html>",
+            status=200, url=url, content_type="text/html; charset=utf-8",
+        )
+        with patch.object(summary_pipeline.shadow_collector, "check_robots",
+                          return_value={"robots_status": 200, "disallowed": False}) as robots, \
+                patch.object(summary_pipeline.transport, "read_url", return_value=page) as read:
+            text = summary_pipeline.fetch_article_text(story)
+        self.assertIn("reported event", text)
+        self.assertNotIn("Headline only", text)
+        self.assertNotIn("hidden", text)
+        robots.assert_called_once()
+        read.assert_called_once_with(url, allow_redirects=False)
+
+        with patch.object(summary_pipeline.shadow_collector, "check_robots",
+                          return_value={"robots_status": 403, "disallowed": False}), \
+                patch.object(summary_pipeline.transport, "read_url") as read:
+            self.assertEqual(summary_pipeline.fetch_article_text(story), "")
+        read.assert_not_called()
+
+        paywall = ResponseText(
+            "<article>Subscribe to continue reading. " + "Please subscribe to read more. " * 15 + "</article>",
+            status=200, url=url, content_type="text/html",
+        )
+        with patch.object(summary_pipeline.shadow_collector, "check_robots",
+                          return_value={"robots_status": 404, "disallowed": False}), \
+                patch.object(summary_pipeline.transport, "read_url", return_value=paywall):
+            self.assertEqual(summary_pipeline.fetch_article_text(story), "")
+
+    def test_article_fetch_skips_redirect_and_non_html(self):
+        url = "https://publisher.example/story"
+        story = {"url": url, "coverage": []}
+        with patch.object(summary_pipeline.shadow_collector, "check_robots",
+                          return_value={"robots_status": 404, "disallowed": False}):
+            for response in (
+                ResponseText("<article>" + "x" * 400 + "</article>", status=200,
+                             url="https://other.example/story", content_type="text/html"),
+                ResponseText("<article>" + "x" * 400 + "</article>", status=200,
+                             url=url, content_type="application/pdf"),
+            ):
+                with patch.object(summary_pipeline.transport, "read_url", return_value=response):
+                    self.assertEqual(summary_pipeline.fetch_article_text(story), "")
+
+    def test_daily_budget_bounds_72_scheduler_runs(self):
+        """The request and token ledgers cap 72 scheduled executions to 8 stories/day."""
+        workflow_runs = 24 * 60 // 20
+        per_run_requests = gemini.Config().max_requests
+        possible_requests = min(workflow_runs * per_run_requests,
+                                gemini.Config().daily_requests_limit)
+        stories_per_day = min(possible_requests,
+                              summary_budget.DEFAULT_DAILY_TOKENS // summary_budget.ESTIMATED_TOKENS_PER_REQUEST)
+        self.assertEqual(workflow_runs, 72)
+        self.assertEqual(possible_requests, 12)
+        self.assertEqual(stories_per_day, summary_budget.MAX_STORIES_PER_DAY)
+        self.assertEqual(stories_per_day, 8)
+        self.assertLessEqual(stories_per_day * summary_budget.ESTIMATED_TOKENS_PER_REQUEST,
+                             summary_budget.DEFAULT_DAILY_TOKENS)
+        self.assertGreater((stories_per_day + 1) * summary_budget.ESTIMATED_TOKENS_PER_REQUEST,
+                           summary_budget.DEFAULT_DAILY_TOKENS)
+
+    def test_no_article_text_clears_old_points_without_calling_model(self):
+        story = deepcopy(self.fixture_data["stories"][0])
+        story["key_points"] = ["Điểm cũ chỉ nhắc lại tiêu đề của bài viết."]
+        story["key_points_machine"] = True
+        story["key_points_source"] = "machine"
+        payload = {"stories": [story]}
+        stats, _ = summary_pipeline.summarize_payload(
+            payload, self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=self.transport_ok,
+            article_fetch_fn=lambda _: "",
+            ledger_path=self.ledger_path, budget=10.0, now=lambda: 100000.0,
+        )
+        self.assertEqual(stats["skipped"], 1)
+        self.assertEqual(stats["requests"], 0)
+        self.assertEqual(self.calls, [])
+        self.assertNotIn("key_points", story)
+        self.assertNotIn("key_points_machine", story)
+        self.assertNotIn("_summary_article_text", story)
+
+    def test_stale_points_are_removed_from_stories_after_lazy_fetch_break(self):
+        base = next(s for s in self.fixture_data["stories"] if s["id"] == "b3857f26daabd24cdab2")
+        first, later = deepcopy(base), deepcopy(base)
+        first.update(id="reachable", worth_score=90)
+        later.update(id="not-reached", worth_score=10, key_points=["Điểm cũ."],
+                     key_points_machine=True, key_points_source="machine",
+                     key_points_prompt_version="summary-vi-2")
+        payload = {"stories": [first, later]}
+        stats, _ = summary_pipeline.summarize_payload(
+            payload, self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=self.transport_ok,
+            article_fetch_fn=lambda _: "Bài báo mô tả thay đổi Apple và tác động đến ứng dụng, quyền truy cập và bảo mật. " * 5,
+            ledger_path=self.ledger_path, budget=10.0, now=lambda: 100000.0,
+        )
+        self.assertEqual(stats["requests"], 1)
+        self.assertNotIn("key_points", later)
+        self.assertNotIn("key_points_prompt_version", later)
+
+    def test_503_retries_once_and_reserves_both_requests(self):
+        attempts = []
+
+        def flaky_transport(body, key, timeout):
+            attempts.append(1)
+            if len(attempts) == 1:
+                raise gemini.ProviderError("http_503:UNAVAILABLE")
+            return self.transport_ok(body, key, timeout)
+
+        story = deepcopy(self.fixture_data["stories"][0])
+        payload = {"stories": [story]}
+        with patch.object(summary_pipeline.time, "sleep") as sleep:
+            stats, _ = summary_pipeline.summarize_payload(
+                payload, self.cache,
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+                transport_fn=flaky_transport,
+                ledger_path=self.ledger_path, budget=10.0, now=lambda: 100000.0,
+            )
+        ledger = json.loads(self.ledger_path.read_text(encoding="utf-8"))
+        self.assertEqual(len(attempts), 2)
+        self.assertEqual(stats["requests"], 2)
+        self.assertEqual(stats["summarized"], 1)
+        self.assertEqual(len(ledger["attempts"]), 2)
+        sleep.assert_called_once_with(summary_pipeline.SUMMARY_RETRY_DELAY)
+
+    def test_two_503_responses_stop_after_retry(self):
+        attempts = []
+
+        def unavailable(*_):
+            attempts.append(1)
+            raise gemini.ProviderError("http_503:UNAVAILABLE")
+
+        payload = {"stories": [deepcopy(self.fixture_data["stories"][0])]}
+        with patch.object(summary_pipeline.time, "sleep"):
+            stats, alive = summary_pipeline.summarize_payload(
+                payload, self.cache,
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+                transport_fn=unavailable,
+                ledger_path=self.ledger_path, budget=10.0, now=lambda: 100000.0,
+            )
+        ledger = json.loads(self.ledger_path.read_text(encoding="utf-8"))
+        self.assertFalse(alive)
+        self.assertEqual(len(attempts), 2)
+        self.assertEqual(stats["requests"], 2)
+        self.assertEqual(stats["error"], "http_503:UNAVAILABLE")
+        self.assertEqual(len(ledger["attempts"]), 2)
+        self.assertNotIn("key_points", payload["stories"][0])
+
+    def test_fetch_stops_after_request_batch_is_ready(self):
+        base = next(s for s in self.fixture_data["stories"] if s["id"] == "b3857f26daabd24cdab2")
+        stories = []
+        for index, score in enumerate((90, 80, 70)):
+            story = deepcopy(base)
+            story["id"] = f"lazy-{index}"
+            story["worth_score"] = score
+            stories.append(story)
+        fetches = []
+
+        def fetch(story):
+            fetches.append(story["id"])
+            return "Bài báo mô tả các thay đổi của Apple và tác động tới ứng dụng, quyền truy cập cùng quy trình bảo mật. " * 5
+
+        payload = {"stories": stories}
+        stats, _ = summary_pipeline.summarize_payload(
+            payload, self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True, batch_size=1),
+            transport_fn=self.transport_ok, article_fetch_fn=fetch,
+            ledger_path=self.ledger_path, budget=10.0, now=lambda: 100000.0,
+        )
+        requested = json.loads(self.calls[0][0]["contents"][0]["parts"][0]["text"])["stories"]
+        self.assertEqual(fetches, ["lazy-0"])
+        self.assertEqual([row["id"] for row in requested], ["lazy-0"])
+        self.assertEqual(stats["requests"], 1)
+
+    def test_remembered_unreadable_page_is_not_fetched_again(self):
+        story = deepcopy(self.fixture_data["stories"][0])
+        payload = {"stories": [story]}
+        failures = {}
+        fetches = []
+
+        def unreadable(current):
+            fetches.append(current["id"])
+            return ""
+
+        for _ in range(2):
+            stats, _ = summary_pipeline.summarize_payload(
+                payload, self.cache,
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+                transport_fn=self.transport_ok, article_fetch_fn=unreadable,
+                article_failures=failures, ledger_path=self.ledger_path,
+                budget=10.0, now=lambda: 100000.0,
+            )
+            self.assertEqual(stats["skipped_reasons"], {"too_short": 1})
+        self.assertEqual(fetches, [story["id"]])
+        self.assertEqual(len(failures), 1)
+        entry = next(iter(failures.values()))
+        self.assertEqual(set(entry), {"reason", "time"})
+        self.assertEqual(entry["reason"], "too_short")
+        self.assertEqual(entry["time"], 100000.0)
+
+    def test_article_backed_story_requires_three_points_and_rejects_padding(self):
+        """Article text makes the input substantive; fewer than 3 points is rejected."""
         thin_story = next(s for s in self.fixture_data["stories"] if s["id"] == "b4f19348ce95610ceeee")
         inputs = summary_pipeline.story_inputs(thin_story)
         self.assertTrue(summary_pipeline.is_thin_story(inputs))
@@ -488,17 +708,22 @@ class SummaryTests(unittest.TestCase):
             for s in stories_in:
                 rows.append({
                     "id": s["id"],
-                    "key_points": ["Ý chính xác thực về tin tức công nghệ trí tuệ nhân tạo."]
+                    "key_points": [
+                        "Ý thứ nhất xác thực về tin tức công nghệ trí tuệ nhân tạo.",
+                        "Ý thứ hai mô tả diễn biến trong bài báo công nghệ trí tuệ nhân tạo.",
+                        "Ý thứ ba nêu tác động được đề cập trong bài viết gốc."
+                    ]
                 })
             return reply_summary(rows, tokens=300)
 
-        # Batch size 2 to prove batch prioritization: the top 2 in-window stories must be chosen
+        # One story per request keeps the token reservation bounded; worth order selects first.
         config = gemini.Config(api_key="offline-sentinel", confirmed=True, batch_size=2)
         stats, _ = summary_pipeline.summarize_payload(
             payload,
             self.cache,
             config=config,
             transport_fn=transport_recorder,
+            article_fetch_fn=lambda story: "Bài báo mô tả diễn biến và tác động được xác thực trong nội dung gốc. " * 8,
             ledger_path=self.ledger_path,
             budget=10.0,
             now=lambda: 100000.0,
@@ -511,8 +736,8 @@ class SummaryTests(unittest.TestCase):
         # 1. Proves high-worth story sent before low-worth story:
         self.assertEqual(req_ids[0], "story-high-worth")
 
-        # 2. Proves tie-breaking: story-med-newer (published 10:00) sent before story-med-older (published 02:00)
-        self.assertEqual(req_ids[1], "story-med-newer")
+        # 2. The same worth score is tie-broken by newer publication time.
+        self.assertEqual(req_ids, ["story-high-worth"])
 
         # 3. Proves out-of-window story is NEVER sent:
         self.assertNotIn("story-out-of-window", req_ids)
@@ -524,10 +749,10 @@ class SummaryTests(unittest.TestCase):
 
         # 5. Stats reflect only the 3 window stories:
         self.assertEqual(stats["stories"], 3)
-        self.assertEqual(stats["summarized"], 2)
-        self.assertEqual(stats["pending"], 1)
+        self.assertEqual(stats["summarized"], 1)
+        self.assertEqual(stats["pending"], 2)
 
-        # Next run with batch_size 10 to summarize remaining story
+        # Next run summarizes the next story in worth order.
         calls_received.clear()
         config_full = gemini.Config(api_key="offline-sentinel", confirmed=True, batch_size=10)
         stats2, _ = summary_pipeline.summarize_payload(
@@ -535,19 +760,143 @@ class SummaryTests(unittest.TestCase):
             self.cache,
             config=config_full,
             transport_fn=transport_recorder,
+            article_fetch_fn=lambda story: "Bài báo mô tả diễn biến và tác động được xác thực trong nội dung gốc. " * 8,
             ledger_path=self.ledger_path,
             budget=10.0,
             now=lambda: 100005.0,
         )
         self.assertEqual(len(calls_received), 1)
         req2_ids = [s["id"] for s in json.loads(calls_received[0]["contents"][0]["parts"][0]["text"])["stories"]]
-        # Only story-med-older is missing now; story-out-of-window must STILL not be sent!
-        self.assertEqual(req2_ids, ["story-med-older"])
+        # The next request respects the newer story's tie-break priority.
+        self.assertEqual(req2_ids, ["story-med-newer"])
         self.assertNotIn("story-out-of-window", req2_ids)
         self.assertEqual(stats2["stories"], 3)
-        self.assertEqual(stats2["cache_hits"], 2)
+        self.assertEqual(stats2["cache_hits"], 1)
         self.assertEqual(stats2["summarized"], 1)
-        self.assertEqual(stats2["pending"], 0)
+        self.assertEqual(stats2["pending"], 1)
+
+        calls_received.clear()
+        stats3, _ = summary_pipeline.summarize_payload(
+            payload, self.cache, config=config_full, transport_fn=transport_recorder,
+            article_fetch_fn=lambda story: "Bài báo mô tả diễn biến và tác động được xác thực trong nội dung gốc. " * 8,
+            ledger_path=self.ledger_path, budget=10.0, now=lambda: 100010.0,
+        )
+        req3_ids = [s["id"] for s in json.loads(calls_received[0]["contents"][0]["parts"][0]["text"])["stories"]]
+        self.assertEqual(req3_ids, ["story-med-older"])
+        self.assertEqual(stats3["cache_hits"], 2)
+        self.assertEqual(stats3["summarized"], 1)
+        self.assertEqual(stats3["pending"], 0)
+
+
+
+    def test_gemini_config_timeout_allows_values_above_legacy_45s(self):
+        """Config timeout must accommodate large article-backed prompts beyond legacy 45s."""
+        self.assertGreaterEqual(gemini.Config().timeout, 90.0)
+        self.assertEqual(gemini.Config(timeout=120.0).timeout, 120.0)
+        self.assertEqual(gemini.Config(timeout=300.0).timeout, 180.0)
+
+    def test_pipeline_and_cli_budget_align_with_workflow_five_minute_limit(self):
+        """CLI and pipeline budgets must align with the 5-minute GitHub Actions step budget."""
+        self.assertGreaterEqual(summarize.DEFAULT_BUDGET, 180.0)
+        self.assertGreaterEqual(summary_pipeline.DEFAULT_BUDGET, 180.0)
+
+    def test_summary_pipeline_accommodates_request_with_article_text_over_45s(self):
+        """A request carrying article text is provided a timeout exceeding legacy 45s."""
+        story = next(s for s in self.fixture_data["stories"] if s["id"] == "b3857f26daabd24cdab2")
+        payload = {"stories": [deepcopy(story)]}
+        timeouts_seen = []
+
+        def recording_transport(body, key, timeout):
+            timeouts_seen.append(timeout)
+            return self.transport_ok(body, key, timeout)
+
+        stats, alive = summary_pipeline.summarize_payload(
+            payload,
+            self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=recording_transport,
+            ledger_path=self.ledger_path,
+            now=lambda: 100000.0,
+        )
+        self.assertFalse(alive)
+        self.assertEqual(stats["status"], "ok")
+        self.assertEqual(stats["summarized"], 1)
+        self.assertEqual(len(timeouts_seen), 1)
+        self.assertGreater(timeouts_seen[0], 45.0)
+
+    def test_insufficient_time_refuses_before_ledger_reservation(self):
+        """When remaining time before the request is too short, refuse cleanly without burning quota."""
+        story = deepcopy(self.fixture_data["stories"][0])
+        payload = {"stories": [story]}
+
+        # If budget has very little time remaining (e.g. 2s < MIN_REQUEST_TIMEOUT),
+        # the pipeline must NOT reserve quota or invoke transport.
+        stats, alive = summary_pipeline.summarize_payload(
+            payload,
+            self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=self.transport_ok,
+            ledger_path=self.ledger_path,
+            budget=2.0,
+            now=lambda: 100000.0,
+        )
+        ledger_data = json.loads(self.ledger_path.read_text(encoding="utf-8"))
+        self.assertEqual(stats["error"], "time_budget")
+        self.assertEqual(len(ledger_data["attempts"]), 0)
+        self.assertEqual(len(self.calls), 0)
+
+    def test_timed_out_request_is_accounted_for_honestly_in_ledger(self):
+        """A timed-out request retains its reservation and estimated tokens in the ledger."""
+        story = deepcopy(self.fixture_data["stories"][0])
+        payload = {"stories": [story]}
+
+        def hanging_transport(body, key, timeout):
+            import time as _t
+            _t.sleep(timeout + 0.05)
+            return reply_summary([])
+
+        stats, alive = summary_pipeline.summarize_payload(
+            payload,
+            self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True, timeout=0.1),
+            transport_fn=hanging_transport,
+            ledger_path=self.ledger_path,
+            budget=5.0,
+            now=lambda: 100000.0,
+        )
+        ledger_data = json.loads(self.ledger_path.read_text(encoding="utf-8"))
+        self.assertEqual(stats["error"], "timeout")
+        self.assertEqual(len(ledger_data["attempts"]), 1)
+        self.assertGreater(ledger_data["attempts"][0]["tokens"], 0)
+        self.assertEqual(stats["requests"], 1)
+
+    def test_robots_cache_shared_across_story_fetches(self):
+        """Multiple candidate stories on same host share robots.txt result without duplicate fetches."""
+        base = next(s for s in self.fixture_data["stories"] if s["id"] == "b3857f26daabd24cdab2")
+        s1 = deepcopy(base)
+        s1["id"] = "s1"
+        s1["url"] = "https://publisher.example/story-1"
+        s2 = deepcopy(base)
+        s2["id"] = "s2"
+        s2["url"] = "https://publisher.example/story-2"
+        payload = {"stories": [s1, s2]}
+
+        robots_checks = []
+        def counting_check_robots(url, **kwargs):
+            robots_checks.append(url)
+            return {"robots_status": 200, "disallowed": False}
+
+        with patch.object(summary_pipeline.shadow_collector, "check_robots", side_effect=counting_check_robots):
+            stats, _ = summary_pipeline.summarize_payload(
+                payload,
+                self.cache,
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True, batch_size=2),
+                transport_fn=self.transport_ok,
+                ledger_path=self.ledger_path,
+                budget=10.0,
+                now=lambda: 100000.0,
+            )
+        self.assertEqual(len(robots_checks), 1)
 
 
 if __name__ == "__main__":

@@ -9,6 +9,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import sys
 import time
 
@@ -18,22 +19,27 @@ from radar import summary_gemini as gemini
 from radar import summary_pipeline
 
 
+DEFAULT_BUDGET = 180.0
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--input", default="site/data/radar.json")
     parser.add_argument("--output", help="defaults to --input")
     parser.add_argument("--cache", default="data/summaries-gemini-vi.json")
     parser.add_argument("--ledger", help="defaults to summary-gemini-ledger.json beside --cache")
-    parser.add_argument("--budget", type=float, default=45.0)
+    parser.add_argument("--article-failures", help="defaults to article-read-failures.json beside --cache")
+    parser.add_argument("--budget", type=float, default=DEFAULT_BUDGET)
     args = parser.parse_args(argv)
 
     if args.budget <= 0:
         parser.error("--budget must be positive")
 
     ledger_path = args.ledger or str(Path(args.cache).with_name("summary-gemini-ledger.json"))
+    article_failures_path = args.article_failures or str(Path(args.cache).with_name("article-read-failures.json"))
     companion = page_path(args.output or args.input).resolve()
-    if companion in {Path(p).resolve() for p in (args.input, args.cache, ledger_path)}:
-        parser.error("page projection must differ from input, summary cache and ledger")
+    if companion in {Path(p).resolve() for p in (args.input, args.cache, ledger_path, article_failures_path)}:
+        parser.error("page projection must differ from input, summary cache, ledger and article failure cache")
 
     try:
         payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
@@ -44,6 +50,23 @@ def main(argv=None):
     cache = gemini.load_cache(args.cache)
     before_cache = dict(cache)
     try:
+        stored_failures = json.loads(Path(article_failures_path).read_text(encoding="utf-8"))
+        if not isinstance(stored_failures, dict):
+            stored_failures = {}
+        article_failures = {
+            key: {"reason": value["reason"], "time": value["time"]}
+            for key, value in stored_failures.items()
+            if isinstance(key, str)
+            and re.fullmatch(r"[0-9a-f]{64}", key)
+            and isinstance(value, dict)
+            and set(value) == {"reason", "time"}
+            and value.get("reason") in {"robots", "redirect", "non_html", "too_short", "paywall", "error"}
+            and isinstance(value.get("time"), (int, float))
+        }
+    except (OSError, ValueError):
+        article_failures = {}
+    before_article_failures = dict(article_failures)
+    try:
         ledger_before = Path(ledger_path).read_bytes()
     except OSError:
         ledger_before = None
@@ -52,6 +75,7 @@ def main(argv=None):
         stats, alive = summary_pipeline.summarize_payload(
             payload,
             cache,
+            article_failures=article_failures,
             ledger_path=ledger_path,
             budget=args.budget,
         )
@@ -74,6 +98,14 @@ def main(argv=None):
             cache_written = False
             stats.setdefault("persistence_errors", []).append("summary_cache_write_failed")
 
+    article_failures_written = article_failures != before_article_failures
+    if article_failures_written:
+        try:
+            write_atomic(article_failures, article_failures_path)
+        except Exception:
+            article_failures_written = False
+            stats.setdefault("persistence_errors", []).append("article_failure_cache_write_failed")
+
     try:
         ledger_written = Path(ledger_path).read_bytes() != ledger_before
     except OSError:
@@ -83,7 +115,8 @@ def main(argv=None):
         try:
             with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8", newline="\n") as stream:
                 stream.write(f"summary_cache_written={str(cache_written).lower()}\n"
-                             f"summary_ledger_written={str(ledger_written).lower()}\n")
+                             f"summary_ledger_written={str(ledger_written).lower()}\n"
+                             f"article_failures_written={str(article_failures_written).lower()}\n")
         except OSError:
             stats.setdefault("persistence_errors", []).append("workflow_output_write_failed")
 

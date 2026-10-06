@@ -6,19 +6,133 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 import hashlib
+from html.parser import HTMLParser
 import json
 import re
 import threading
 import time
 from typing import Any
+from urllib.parse import urlsplit
 
 from radar.items import instant
 from radar import summary_budget
 from radar import summary_gemini as gemini
+from radar import shadow_collector, transport
+from radar.common import web_url
 from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
 
 # Capitalized entities pattern (e.g. OpenAI, DeepSeek, Claude, Apple, Google, macOS)
 ENTITY_TOKEN = re.compile(r"\b[A-Z][A-Za-z0-9_.+-]*(?:\s+[A-Z][A-Za-z0-9_.+-]*)*\b")
+MIN_ARTICLE_TEXT_CHARS = 300
+SUMMARY_RETRY_DELAY = 0.25
+DEFAULT_BUDGET = 180.0
+MIN_REQUEST_TIMEOUT = 3.0
+ARTICLE_FAILURE_TTL = 24 * 60 * 60
+PAYWALL_TEXT = re.compile(
+    r"\b(?:subscribe to (?:read|continue)|sign in to (?:read|continue)|"
+    r"subscriber[- ]only|members[- ]only|unlock the full article|please subscribe)\b",
+    re.IGNORECASE,
+)
+
+
+class _ArticleTextParser(HTMLParser):
+    """Collect readable text from semantic article/main regions only."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.article_depth = 0
+        self.main_depth = 0
+        self.skip_depth = 0
+        self.parts = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"}:
+            self.skip_depth += 1
+        if tag == "article":
+            self.article_depth += 1
+        if tag == "main":
+            self.main_depth += 1
+
+    def handle_endtag(self, tag):
+        if tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"}:
+            self.skip_depth = max(0, self.skip_depth - 1)
+        if tag == "article":
+            self.article_depth = max(0, self.article_depth - 1)
+        if tag == "main":
+            self.main_depth = max(0, self.main_depth - 1)
+
+    def handle_data(self, data):
+        if not self.skip_depth and (self.article_depth or self.main_depth):
+            value = " ".join(data.split())
+            if value:
+                self.parts.append(value)
+
+
+def article_url(story: dict) -> str | None:
+    url = web_url(story.get("url"))
+    if not url:
+        url = next((web_url(c.get("url")) for c in story.get("coverage") or []
+                    if isinstance(c, dict) and web_url(c.get("url"))), None)
+    return url
+
+
+def article_url_hash(url: str) -> str:
+    return hashlib.sha256(url.encode("utf-8")).hexdigest()
+
+
+def fetch_article_result(story: dict, robots_cache: dict | None = None) -> tuple[str, str | None]:
+    """Return article text and a safe skip reason, respecting robots.txt."""
+    url = article_url(story)
+    if not url:
+        return "", "no_url"
+    if not url.lower().startswith("https://"):
+        return "", "non_https"
+
+    def fetch_without_redirects(target):
+        return transport.read_url(target, allow_redirects=False)
+
+    if robots_cache is None:
+        robots_cache = {}
+
+    parts = urlsplit(url)
+    origin = f"{parts.scheme}://{parts.netloc}"
+    if origin in robots_cache:
+        robots = robots_cache[origin]
+    else:
+        robots = shadow_collector.check_robots(url, fetch_fn=fetch_without_redirects, robots_cache=robots_cache)
+        robots_cache[origin] = robots
+    if robots["robots_status"] not in (200, 404) or robots["disallowed"]:
+        return "", "robots"
+
+    try:
+        response = fetch_without_redirects(url)
+    except Exception as error:
+        status = getattr(error, "code", getattr(error, "http_status", None))
+        if isinstance(status, int) and 300 <= status < 400:
+            return "", "redirect"
+        return "", "error"
+    if (getattr(response, "status", None) != 200
+            or getattr(response, "url", url) != url):
+        return "", "redirect" if getattr(response, "status", None) in range(300, 400) or getattr(response, "url", url) != url else "error"
+    if "html" not in getattr(response, "content_type", "").lower():
+        return "", "non_html"
+
+    parser = _ArticleTextParser()
+    try:
+        parser.feed(str(response))
+    except Exception:
+        return "", "error"
+    text = " ".join(parser.parts)
+    if PAYWALL_TEXT.search(text):
+        return "", "paywall"
+    if len(text) < MIN_ARTICLE_TEXT_CHARS:
+        return "", "too_short"
+    return text[:gemini.MAX_ARTICLE_TEXT_CHARS], None
+
+
+def fetch_article_text(story: dict, robots_cache: dict | None = None) -> str:
+    """Compatibility wrapper returning text only for a readable publisher page."""
+    return fetch_article_result(story, robots_cache=robots_cache)[0]
 
 # Common Vietnamese words that may appear capitalized at sentence starts
 VN_GRAMMAR_CAPS = {
@@ -40,6 +154,7 @@ def story_inputs(story: dict) -> dict[str, Any]:
                 "publisher": str(c.get("publisher") or ""),
                 "title": str(c.get("title") or "").strip(),
                 "summary": str(c.get("summary") or "").strip(),
+                "url": str(c.get("url") or "").strip(),
                 "published_at": str(c.get("published_at") or ""),
                 "metrics": c.get("metrics") if isinstance(c.get("metrics"), dict) else {}
             })
@@ -50,6 +165,7 @@ def story_inputs(story: dict) -> dict[str, Any]:
         "id": str(story.get("id") or ""),
         "title": str(story.get("title") or "").strip(),
         "summary": str(story.get("summary") or "").strip(),
+        "article_text": str(story.get("_summary_article_text") or "").strip(),
         "published_at": str(story.get("published_at") or ""),
         "coverage": coverage_items
     }
@@ -66,7 +182,7 @@ def is_thin_story(inputs: dict[str, Any]) -> bool:
     coverage = inputs.get("coverage") or []
     if len(coverage) > 1:
         return False
-    total_chars = len(inputs.get("title", "")) + len(inputs.get("summary", ""))
+    total_chars = sum(len(inputs.get(key, "")) for key in ("title", "summary", "article_text"))
     for c in coverage:
         total_chars += len(c.get("title", "")) + len(c.get("summary", ""))
     return total_chars < 180
@@ -74,7 +190,7 @@ def is_thin_story(inputs: dict[str, Any]) -> bool:
 
 def extract_source_numbers(inputs: dict[str, Any]) -> set[str]:
     """Collect all valid numbers from story inputs (digits, month words, metrics)."""
-    texts = [inputs.get("title", ""), inputs.get("summary", "")]
+    texts = [inputs.get("title", ""), inputs.get("summary", ""), inputs.get("article_text", "")]
     for c in inputs.get("coverage") or []:
         texts.append(c.get("title", ""))
         texts.append(c.get("summary", ""))
@@ -105,7 +221,7 @@ def extract_source_numbers(inputs: dict[str, Any]) -> set[str]:
 
 def extract_source_entities(inputs: dict[str, Any]) -> set[str]:
     """Collect proper nouns, model names, and publishers present in the inputs."""
-    texts = [inputs.get("title", ""), inputs.get("summary", "")]
+    texts = [inputs.get("title", ""), inputs.get("summary", ""), inputs.get("article_text", "")]
     for c in inputs.get("coverage") or []:
         texts.append(c.get("title", ""))
         texts.append(c.get("summary", ""))
@@ -146,8 +262,10 @@ def validate_key_points(inputs: dict[str, Any], key_points: list[str]) -> tuple[
     if thin and len(cleaned) > 1:
         return None, "padding_rejected: thin story must emit at most 1 point"
 
-    if len(cleaned) > 3:
+    if len(cleaned) > 5:
         return None, "too_many_points"
+    if inputs.get("article_text") and len(cleaned) < 3:
+        return None, "too_few_points"
 
     source_numbers = extract_source_numbers(inputs)
     source_entities = extract_source_entities(inputs)
@@ -255,8 +373,10 @@ def summarize_payload(payload: dict,
                       *,
                       config: gemini.Config | None = None,
                       transport_fn=None,
+                      article_fetch_fn=None,
+                      article_failures: dict | None = None,
                       ledger_path: str | None = None,
-                      budget: float = 30.0,
+                      budget: float = DEFAULT_BUDGET,
                       clock=time.monotonic,
                       now=time.time) -> tuple[dict, bool]:
     """Summarize eligible stories in payload, annotating them with `key_points`.
@@ -266,8 +386,16 @@ def summarize_payload(payload: dict,
     started = clock()
     config = config or gemini.config_from_env()
     transport_fn = transport_fn or gemini.transport
+    article_fetch_fn = article_fetch_fn or fetch_article_text
+    article_failures = article_failures if article_failures is not None else {}
 
     stories = payload.get("stories") or []
+    for story in stories:
+        if isinstance(story, dict) and story.get("key_points_prompt_version") != gemini.PROMPT_VERSION:
+            story.pop("key_points", None)
+            story.pop("key_points_machine", None)
+            story.pop("key_points_source", None)
+            story.pop("key_points_prompt_version", None)
 
     # Ranking window matching site/feed.js:
     # winH = Number(D.ranking && D.ranking.window_hours);
@@ -322,19 +450,90 @@ def summarize_payload(payload: dict,
         "requests": 0,
         "tokens": 0,
         "rejected": 0,
+        "skipped": 0,
+        "skipped_reasons": {},
         "rejected_reasons": [],
         "machine_written": True,
         "error": None,
     }
 
-    # Extract inputs and content hashes
+    # Do not fetch pages when configuration or the run deadline precludes a request.
+    if not config.api_key:
+        stats["error"] = "missing_key"
+        stats["pending"] = len(eligible_stories)
+        payload["summary"] = stats
+        return stats, False
+    if not config.confirmed:
+        stats["error"] = "free_tier_unconfirmed"
+        stats["pending"] = len(eligible_stories)
+        payload["summary"] = stats
+        return stats, False
+    request_now = now() if callable(now) else now
+    capacity_error = summary_budget.capacity_error(
+        ledger_path, config.daily_requests_limit, config.daily_tokens_limit,
+        gemini.MAX_ESTIMATED_TOKENS_PER_REQUEST, request_now)
+    if capacity_error:
+        stats["error"] = capacity_error
+        stats["status"] = "failed"
+        stats["pending"] = len(eligible_stories)
+        payload["summary"] = stats
+        return stats, False
+
+    # Check if remaining time is insufficient before starting story loop
+    if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
+        stats["error"] = "time_budget"
+        stats["pending"] = len(eligible_stories)
+        stats["status"] = "failed"
+        payload["summary"] = stats
+        return stats, False
+
+    # Read in ranking order and stop once a request-sized batch is ready.
     story_map = {}
     missing = []
+    failure_now = now() if callable(now) else now
+    shared_robots_cache = {}
     for story in eligible_stories:
+        if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
+            stats["error"] = "time_budget"
+            break
         sid = story.get("id")
+        url = article_url(story)
+        url_hash = article_url_hash(url) if url else None
+        remembered = article_failures.get(url_hash) if url_hash else None
+        if remembered:
+            failed_at = remembered.get("time") if isinstance(remembered, dict) else None
+            if isinstance(failed_at, (int, float)) and 0 <= failure_now - failed_at < ARTICLE_FAILURE_TTL:
+                reason = remembered.get("reason", "error")
+                stats["skipped"] += 1
+                stats["skipped_reasons"][reason] = stats["skipped_reasons"].get(reason, 0) + 1
+                story.pop("key_points", None)
+                story.pop("key_points_machine", None)
+                story.pop("key_points_source", None)
+                continue
+            article_failures.pop(url_hash, None)
+        if article_fetch_fn is fetch_article_text:
+            article_text, skip_reason = fetch_article_result(story, robots_cache=shared_robots_cache)
+        else:
+            try:
+                article_text = article_fetch_fn(story, robots_cache=shared_robots_cache)
+            except TypeError:
+                article_text = article_fetch_fn(story)
+            skip_reason = None
+        if len(article_text or "") < MIN_ARTICLE_TEXT_CHARS:
+            skip_reason = skip_reason or "too_short"
+            stats["skipped"] += 1
+            stats["skipped_reasons"][skip_reason] = stats["skipped_reasons"].get(skip_reason, 0) + 1
+            if url_hash:
+                article_failures[url_hash] = {"reason": skip_reason, "time": failure_now}
+            story.pop("key_points", None)
+            story.pop("key_points_machine", None)
+            story.pop("key_points_source", None)
+            continue
+        story["_summary_article_text"] = article_text[:gemini.MAX_ARTICLE_TEXT_CHARS]
         inputs = story_inputs(story)
+        story.pop("_summary_article_text", None)
         chash = content_hash(inputs)
-        story_map[sid] = {"story": story, "inputs": inputs, "hash": chash}
+        story_map[sid] = {"story": story, "inputs": inputs, "hash": chash, "url_hash": url_hash}
 
         # Check content cache
         cached = cache.get(chash)
@@ -344,34 +543,27 @@ def summarize_payload(payload: dict,
                 story["key_points"] = valid_pts
                 story["key_points_machine"] = True
                 story["key_points_source"] = "machine"
+                story["key_points_prompt_version"] = gemini.PROMPT_VERSION
                 stats["cache_hits"] += 1
                 continue
             else:
                 del cache[chash]
 
         missing.append(sid)
+        if len(missing) >= config.batch_size:
+            break
 
     if not missing:
-        stats["status"] = "cache" if stats["cache_hits"] else "ok"
+        pending_count = len(eligible_stories) - (stats["cache_hits"] + stats["summarized"])
+        stats["pending"] = pending_count if stats["error"] else stats["skipped"]
+        stats["status"] = "partial" if stats["skipped"] or stats["error"] else ("cache" if stats["cache_hits"] else "ok")
         payload["summary"] = stats
         return stats, False
 
-    # Check configuration limits
-    if not config.api_key:
-        stats["error"] = "missing_key"
-        stats["pending"] = len(missing)
-        payload["summary"] = stats
-        return stats, False
-
-    if not config.confirmed:
-        stats["error"] = "free_tier_unconfirmed"
-        stats["pending"] = len(missing)
-        payload["summary"] = stats
-        return stats, False
-
-    if clock() - started >= budget:
+    if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
         stats["error"] = "time_budget"
-        stats["pending"] = len(missing)
+        stats["pending"] = len(eligible_stories) - (stats["cache_hits"] + stats["summarized"])
+        stats["status"] = "partial" if stats["cache_hits"] else "failed"
         payload["summary"] = stats
         return stats, False
 
@@ -394,8 +586,11 @@ def summarize_payload(payload: dict,
 
     # Reserve budget in ledger
     reserve_now = now()
-    # Estimate tokens: ~1 token per 4 chars input + 500 output tokens
-    estimated_toks = max(500, int(batch_chars / 3.5) + 600)
+    # Reserve input tokens plus the full output ceiling and fixed prompt overhead.
+    estimated_toks = max(
+        500,
+        int(batch_chars / 3.5) + gemini.MAX_OUTPUT_TOKENS + gemini.INPUT_TOKEN_OVERHEAD,
+    )
     reserve_err = summary_budget.reserve(
         ledger_path,
         request_limit=config.daily_requests_limit,
@@ -416,11 +611,33 @@ def summarize_payload(payload: dict,
     stats["requests"] = 1
     remaining_time = min(config.timeout, max(0.0, budget - (clock() - started)))
     outputs, tokens, err, alive = _request_gemini(batch_items, config, transport_fn, remaining_time)
+    retry_now = None
+    if err and err.startswith("http_503:"):
+        remaining_time = min(config.timeout, max(0.0, budget - (clock() - started)))
+        if remaining_time > SUMMARY_RETRY_DELAY:
+            time.sleep(SUMMARY_RETRY_DELAY)
+            retry_now = now()
+            retry_err = summary_budget.reserve(
+                ledger_path,
+                request_limit=config.daily_requests_limit,
+                token_limit=config.daily_tokens_limit,
+                estimated_tokens=estimated_toks,
+                now=retry_now,
+                last_story_id=batch_items[-1]["id"],
+            )
+            if retry_err:
+                err = retry_err
+            else:
+                stats["requests"] += 1
+                outputs, tokens, err, alive = _request_gemini(
+                    batch_items, config, transport_fn,
+                    min(config.timeout, max(0.0, budget - (clock() - started))),
+                )
     stats["tokens"] = tokens
     stats["error"] = err
 
     if tokens and ledger_path:
-        summary_budget.update_actual_tokens(ledger_path, reserve_now, tokens)
+        summary_budget.update_actual_tokens(ledger_path, retry_now or reserve_now, tokens)
 
     # Process and validate outputs
     for item in batch_items:
@@ -436,8 +653,11 @@ def summarize_payload(payload: dict,
                 story_obj["key_points"] = valid_pts
                 story_obj["key_points_machine"] = True
                 story_obj["key_points_source"] = "machine"
+                story_obj["key_points_prompt_version"] = gemini.PROMPT_VERSION
                 cache[story_h] = valid_pts
                 stats["summarized"] += 1
+                if story_info["url_hash"]:
+                    article_failures.pop(story_info["url_hash"], None)
             else:
                 stats["rejected"] += 1
                 if reason and len(stats["rejected_reasons"]) < 10:

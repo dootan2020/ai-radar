@@ -167,6 +167,7 @@ jobs:
           path: |
             data/summaries-gemini-vi.json
             data/summary-gemini-ledger.json
+            data/article-read-failures.json
           key: radar-summary-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             radar-summary-gemini-vi-1-${{ github.ref_name }}-
@@ -182,13 +183,14 @@ jobs:
           RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
         run: python -m radar.summarize --input site/data/radar.json --cache data/summaries-gemini-vi.json
       - name: Save Gemini summary cache and attempt ledger
-        if: always() && (steps.summarize.outputs.summary_cache_written == 'true' || steps.summarize.outputs.summary_ledger_written == 'true')
+        if: always() && (steps.summarize.outputs.summary_cache_written == 'true' || steps.summarize.outputs.summary_ledger_written == 'true' || steps.summarize.outputs.article_failures_written == 'true')
         continue-on-error: true
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             data/summaries-gemini-vi.json
             data/summary-gemini-ledger.json
+            data/article-read-failures.json
           key: radar-summary-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       # Editions capture translated titles only after a matching successful publication gate.
       - name: Prepare daily editions
