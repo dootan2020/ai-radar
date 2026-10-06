@@ -4,3 +4,6 @@ __pycache__/
 plans/
 shadow-records.*
 shadow-summary.md
+/site/tin/*/
+!/site/tin/_sample/
+!/site/tin/_sample/**

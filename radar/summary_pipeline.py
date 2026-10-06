@@ -1,0 +1,459 @@
+"""Story summarization orchestration: inputs extraction, content caching,
+strict fact validation, and bounded Gemini execution.
+"""
+
+from __future__ import annotations
+
+from datetime import datetime, timedelta, timezone
+import hashlib
+import json
+import re
+import threading
+import time
+from typing import Any
+
+from radar.items import instant
+from radar import summary_budget
+from radar import summary_gemini as gemini
+from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
+
+# Capitalized entities pattern (e.g. OpenAI, DeepSeek, Claude, Apple, Google, macOS)
+ENTITY_TOKEN = re.compile(r"\b[A-Z][A-Za-z0-9_.+-]*(?:\s+[A-Z][A-Za-z0-9_.+-]*)*\b")
+
+# Common Vietnamese words that may appear capitalized at sentence starts
+VN_GRAMMAR_CAPS = {
+    "Đây", "Được", "Theo", "Các", "Những", "Người", "Một", "Hai", "Ba", "Bốn", "Năm",
+    "Ngày", "Tháng", "Năm", "Tuy", "Nhưng", "Vì", "Do", "Nếu", "Khi", "Sau", "Trước",
+    "Tại", "Trong", "Ngoài", "Trên", "Dưới", "Để", "Với", "Về", "Bởi", "Công", "Hãng",
+    "Mô", "Bản", "Việc", "Nhóm", "Dự", "Tính", "Hiện", "Báo", "Tin", "Nghiên", "Ứng",
+    "Hệ", "Cụ", "Thông", "Tổng", "Thực", "Phần", "Toàn", "Quốc", "Mới", "Cũ", "Đã", "Sẽ",
+    "Đang", "Có", "Không", "Chưa", "Nhiều", "Ít", "Lớn", "Nhỏ", "Mạnh", "Yếu", "Nâng", "Hạ"
+}
+
+
+def story_inputs(story: dict) -> dict[str, Any]:
+    """Extract canonical input data available in the pipeline for this story."""
+    coverage_items = []
+    for c in story.get("coverage") or []:
+        if isinstance(c, dict):
+            coverage_items.append({
+                "publisher": str(c.get("publisher") or ""),
+                "title": str(c.get("title") or "").strip(),
+                "summary": str(c.get("summary") or "").strip(),
+                "published_at": str(c.get("published_at") or ""),
+                "metrics": c.get("metrics") if isinstance(c.get("metrics"), dict) else {}
+            })
+    # Deterministic sort for stable content hashing
+    coverage_items.sort(key=lambda x: (x["publisher"], x["title"], x["published_at"]))
+
+    return {
+        "id": str(story.get("id") or ""),
+        "title": str(story.get("title") or "").strip(),
+        "summary": str(story.get("summary") or "").strip(),
+        "published_at": str(story.get("published_at") or ""),
+        "coverage": coverage_items
+    }
+
+
+def content_hash(inputs: dict[str, Any]) -> str:
+    """Stable SHA-256 hash of the story inputs for content-based caching."""
+    serialized = json.dumps(inputs, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+
+
+def is_thin_story(inputs: dict[str, Any]) -> bool:
+    """Return True if the story has only 1 source and thin text content."""
+    coverage = inputs.get("coverage") or []
+    if len(coverage) > 1:
+        return False
+    total_chars = len(inputs.get("title", "")) + len(inputs.get("summary", ""))
+    for c in coverage:
+        total_chars += len(c.get("title", "")) + len(c.get("summary", ""))
+    return total_chars < 180
+
+
+def extract_source_numbers(inputs: dict[str, Any]) -> set[str]:
+    """Collect all valid numbers from story inputs (digits, month words, metrics)."""
+    texts = [inputs.get("title", ""), inputs.get("summary", "")]
+    for c in inputs.get("coverage") or []:
+        texts.append(c.get("title", ""))
+        texts.append(c.get("summary", ""))
+        metrics = c.get("metrics")
+        if isinstance(metrics, dict):
+            for v in metrics.values():
+                if isinstance(v, (int, float)):
+                    texts.append(str(int(v) if int(v) == v else v))
+
+    full_text = " ".join(texts)
+    numbers = set(DIGITS.findall(full_text))
+
+    # Add standard month numbers and small number words from source
+    lower_words = set(re.findall(r"[a-z]+", full_text.lower()))
+    for num_str, word in NUMBER_WORDS.items():
+        if word in lower_words:
+            numbers.add(num_str)
+    for num_str, word in SMALL_NUMBERS.items():
+        if word in lower_words:
+            numbers.add(num_str)
+
+    # If publication year is in dates
+    for d in re.findall(r"\b20\d\d\b", inputs.get("published_at", "") + full_text):
+        numbers.add(d)
+
+    return numbers
+
+
+def extract_source_entities(inputs: dict[str, Any]) -> set[str]:
+    """Collect proper nouns, model names, and publishers present in the inputs."""
+    texts = [inputs.get("title", ""), inputs.get("summary", "")]
+    for c in inputs.get("coverage") or []:
+        texts.append(c.get("title", ""))
+        texts.append(c.get("summary", ""))
+        pub = c.get("publisher", "")
+        if pub:
+            texts.append(pub.replace("-", " ").title())
+
+    full_text = " ".join(texts)
+    entities = set()
+    for match in ENTITY_TOKEN.finditer(full_text):
+        ent = match.group().strip()
+        if ent:
+            entities.add(ent.lower())
+            for part in ent.split():
+                if len(part) >= 2:
+                    entities.add(part.lower())
+    return entities
+
+
+def validate_key_points(inputs: dict[str, Any], key_points: list[str]) -> tuple[list[str] | None, str | None]:
+    """Strictly validate generated key points against source inputs.
+
+    Catches:
+    - Invented facts / numbers / entities
+    - Padding on thin inputs
+    - Repetitive text or English leakage
+    - Out-of-bounds length or empty output
+    """
+    if not isinstance(key_points, list) or not key_points:
+        return None, "empty_output"
+
+    cleaned = [p.strip() for p in key_points if isinstance(p, str) and p.strip()]
+    if not cleaned:
+        return None, "empty_output"
+
+    # Thin input enforcement: when inputs are thin, emit at most 1 point; reject padding.
+    thin = is_thin_story(inputs)
+    if thin and len(cleaned) > 1:
+        return None, "padding_rejected: thin story must emit at most 1 point"
+
+    if len(cleaned) > 3:
+        return None, "too_many_points"
+
+    source_numbers = extract_source_numbers(inputs)
+    source_entities = extract_source_entities(inputs)
+
+    for point in cleaned:
+        if len(point) < 15:
+            return None, "point_too_short"
+        if len(point) > 300:
+            return None, "point_too_long"
+
+        # Must be natural Vietnamese
+        if not VIETNAMESE.search(point):
+            return None, "untranslated_vietnamese_missing"
+
+        # Repetition loop check
+        words = point.lower().split()
+        for i in range(len(words) - 2):
+            if words[i] == words[i + 1] == words[i + 2]:
+                return None, "repetition_detected"
+
+        # Number integrity: any number in point must be grounded in source
+        point_numbers = set(DIGITS.findall(point))
+        added_numbers = point_numbers - source_numbers
+        if added_numbers:
+            return None, f"invented_number: {','.join(sorted(added_numbers))}"
+
+        # Entity integrity: any distinctive capitalized entity in point must be grounded in source
+        point_words = point.split()
+        for idx, word in enumerate(point_words):
+            clean_word = re.sub(r"^[^\w]+|[^\w]+$", "", word)
+            if not clean_word:
+                continue
+            # If word is capitalized and not first word of the sentence
+            if idx > 0 and clean_word[0].isupper() and clean_word not in VN_GRAMMAR_CAPS:
+                lower_val = clean_word.lower()
+                # Check if it was in source entities
+                if lower_val not in source_entities and not VIETNAMESE.search(clean_word):
+                    return None, f"invented_entity: {clean_word}"
+
+    return cleaned, None
+
+
+def _request_gemini(stories_batch: list[dict], config: gemini.Config, transport_fn, timeout: float):
+    """Execute REST request in a bounded daemon thread."""
+    state = {}
+
+    def work():
+        try:
+            body = gemini.request_body(stories_batch)
+            response = transport_fn(body, config.api_key, timeout)
+            expected_ids = {s["id"] for s in stories_batch}
+            outputs, tokens = gemini.parse_response(response, expected_ids)
+            state["outputs"] = outputs
+            state["tokens"] = tokens
+        except gemini.ProviderError as error:
+            code = str(error)
+            state["error"] = code if gemini.HTTP_CODE_PATTERN.fullmatch(code) or code in {
+                "http_error", "transport_error", "malformed_response", "response_too_large", "invalid_response"
+            } else "provider_error"
+        except Exception:
+            state["error"] = "provider_error"
+
+    worker = threading.Thread(target=work, daemon=True, name="radar-summary-gemini")
+    worker.start()
+    worker.join(timeout)
+    if worker.is_alive():
+        return {}, 0, "timeout", True
+    return state.get("outputs", {}), state.get("tokens", 0), state.get("error"), False
+
+
+def story_worth_score(story: dict, now_dt: datetime | None = None) -> float:
+    """Extract or calculate the worth score for a story, defaulting to 0.0."""
+    ws = story.get("worth_score")
+    if ws is not None:
+        try:
+            return float(ws)
+        except (ValueError, TypeError):
+            pass
+    if now_dt:
+        try:
+            from radar.worth import calculate_worth
+            w = calculate_worth(story, now_dt)
+            return float(w.get("score") or 0.0)
+        except Exception:
+            pass
+    return 0.0
+
+
+def is_in_ranking_window(story: dict, gen_dt: datetime, window_hours: float) -> bool:
+    """Return True if story was published within the ranking window from generated_at.
+
+    Matches site/feed.js:
+    const t = ms(st.published_at); return t && t >= from && t <= gen + 3e5;
+    """
+    pub_dt = instant(story.get("published_at"))
+    if not pub_dt:
+        return False
+    from_dt = gen_dt - timedelta(hours=window_hours)
+    to_dt = gen_dt + timedelta(seconds=300)
+    return from_dt <= pub_dt <= to_dt
+
+
+def summarize_payload(payload: dict,
+                      cache: dict[str, list[str]],
+                      *,
+                      config: gemini.Config | None = None,
+                      transport_fn=None,
+                      ledger_path: str | None = None,
+                      budget: float = 30.0,
+                      clock=time.monotonic,
+                      now=time.time) -> tuple[dict, bool]:
+    """Summarize eligible stories in payload, annotating them with `key_points`.
+
+    Returns (summary_stats, worker_alive).
+    """
+    started = clock()
+    config = config or gemini.config_from_env()
+    transport_fn = transport_fn or gemini.transport
+
+    stories = payload.get("stories") or []
+
+    # Ranking window matching site/feed.js:
+    # winH = Number(D.ranking && D.ranking.window_hours);
+    # if (!Number.isFinite(winH) || winH <= 0) winH = 72;
+    # const gen = ms(D.generated_at), from = gen - winH * 36e5;
+    # allStories = asArray(D.stories).filter(st => { const t = ms(st.published_at); return t && t >= from && t <= gen + 3e5; })
+    ranking = payload.get("ranking")
+    win_h = ranking.get("window_hours") if isinstance(ranking, dict) else None
+    try:
+        window_hours = float(win_h) if win_h is not None and float(win_h) > 0 else 72.0
+    except (ValueError, TypeError):
+        window_hours = 72.0
+
+    gen_dt = instant(payload.get("generated_at"))
+    if gen_dt is None:
+        pub_dates = [instant(s.get("published_at")) for s in stories if isinstance(s, dict)]
+        pub_dates = [dt for dt in pub_dates if dt]
+        if pub_dates:
+            gen_dt = max(pub_dates)
+        else:
+            now_val = now() if callable(now) else now
+            gen_dt = datetime.fromtimestamp(now_val, tz=timezone.utc) if isinstance(now_val, (int, float)) else datetime.now(timezone.utc)
+
+    eligible_stories = []
+    for s in stories:
+        if not isinstance(s, dict):
+            continue
+        if s.get("kind") == "event" or "event" in (s.get("groups") or []):
+            continue
+        if not is_in_ranking_window(s, gen_dt, window_hours):
+            # Stories outside the window are not summarised at all
+            continue
+        eligible_stories.append(s)
+
+    # Order stories: highest worth_score first, newest first on ties
+    def sort_key(s: dict):
+        score = story_worth_score(s, gen_dt)
+        pub = instant(s.get("published_at"))
+        ts = pub.timestamp() if pub else 0.0
+        return (score, ts)
+
+    eligible_stories.sort(key=sort_key, reverse=True)
+
+    stats = {
+        "model": gemini.MODEL_ID,
+        "prompt_version": gemini.PROMPT_VERSION,
+        "status": "disabled",
+        "stories": len(eligible_stories),
+        "summarized": 0,
+        "cache_hits": 0,
+        "pending": 0,
+        "requests": 0,
+        "tokens": 0,
+        "rejected": 0,
+        "rejected_reasons": [],
+        "machine_written": True,
+        "error": None,
+    }
+
+    # Extract inputs and content hashes
+    story_map = {}
+    missing = []
+    for story in eligible_stories:
+        sid = story.get("id")
+        inputs = story_inputs(story)
+        chash = content_hash(inputs)
+        story_map[sid] = {"story": story, "inputs": inputs, "hash": chash}
+
+        # Check content cache
+        cached = cache.get(chash)
+        if cached:
+            valid_pts, reason = validate_key_points(inputs, cached)
+            if valid_pts:
+                story["key_points"] = valid_pts
+                story["key_points_machine"] = True
+                story["key_points_source"] = "machine"
+                stats["cache_hits"] += 1
+                continue
+            else:
+                del cache[chash]
+
+        missing.append(sid)
+
+    if not missing:
+        stats["status"] = "cache" if stats["cache_hits"] else "ok"
+        payload["summary"] = stats
+        return stats, False
+
+    # Check configuration limits
+    if not config.api_key:
+        stats["error"] = "missing_key"
+        stats["pending"] = len(missing)
+        payload["summary"] = stats
+        return stats, False
+
+    if not config.confirmed:
+        stats["error"] = "free_tier_unconfirmed"
+        stats["pending"] = len(missing)
+        payload["summary"] = stats
+        return stats, False
+
+    if clock() - started >= budget:
+        stats["error"] = "time_budget"
+        stats["pending"] = len(missing)
+        payload["summary"] = stats
+        return stats, False
+
+    # Prepare batch of stories to request
+    batch_items = []
+    batch_chars = 0
+    for sid in missing:
+        item_inputs = story_map[sid]["inputs"]
+        serialized_len = len(json.dumps(item_inputs, ensure_ascii=False))
+        if len(batch_items) >= config.batch_size or batch_chars + serialized_len > config.max_chars:
+            break
+        batch_items.append(item_inputs)
+        batch_chars += serialized_len
+
+    if not batch_items:
+        stats["error"] = "input_limit"
+        stats["pending"] = len(missing)
+        payload["summary"] = stats
+        return stats, False
+
+    # Reserve budget in ledger
+    reserve_now = now()
+    # Estimate tokens: ~1 token per 4 chars input + 500 output tokens
+    estimated_toks = max(500, int(batch_chars / 3.5) + 600)
+    reserve_err = summary_budget.reserve(
+        ledger_path,
+        request_limit=config.daily_requests_limit,
+        token_limit=config.daily_tokens_limit,
+        estimated_tokens=estimated_toks,
+        now=reserve_now,
+        last_story_id=batch_items[-1]["id"]
+    )
+
+    if reserve_err:
+        stats["error"] = reserve_err
+        stats["pending"] = len(missing)
+        stats["status"] = "failed"
+        payload["summary"] = stats
+        return stats, False
+
+    # Execute REST request
+    stats["requests"] = 1
+    remaining_time = min(config.timeout, max(0.0, budget - (clock() - started)))
+    outputs, tokens, err, alive = _request_gemini(batch_items, config, transport_fn, remaining_time)
+    stats["tokens"] = tokens
+    stats["error"] = err
+
+    if tokens and ledger_path:
+        summary_budget.update_actual_tokens(ledger_path, reserve_now, tokens)
+
+    # Process and validate outputs
+    for item in batch_items:
+        sid = item["id"]
+        story_info = story_map[sid]
+        story_obj = story_info["story"]
+        story_h = story_info["hash"]
+
+        candidate_pts = outputs.get(sid)
+        if candidate_pts:
+            valid_pts, reason = validate_key_points(story_info["inputs"], candidate_pts)
+            if valid_pts:
+                story_obj["key_points"] = valid_pts
+                story_obj["key_points_machine"] = True
+                story_obj["key_points_source"] = "machine"
+                cache[story_h] = valid_pts
+                stats["summarized"] += 1
+            else:
+                stats["rejected"] += 1
+                if reason and len(stats["rejected_reasons"]) < 10:
+                    stats["rejected_reasons"].append({"id": sid, "reason": reason})
+        else:
+            # Leave story without key points, never a stub
+            story_obj.pop("key_points", None)
+            story_obj.pop("key_points_machine", None)
+            story_obj.pop("key_points_source", None)
+
+    pending_count = len(eligible_stories) - (stats["cache_hits"] + stats["summarized"])
+    stats["pending"] = pending_count
+    if stats["error"]:
+        stats["status"] = "partial" if stats["summarized"] else "failed"
+    else:
+        stats["status"] = "ok" if pending_count == 0 else "partial"
+
+    payload["summary"] = stats
+    return stats, alive
