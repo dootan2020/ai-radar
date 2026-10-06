@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-07",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-05T23:00:00Z",
+  "cutoff_at": "2026-10-06T23:00:00Z",
+  "created_at": "2026-10-06T23:02:22Z",
+  "snapshot_generated_at": "2026-10-06T23:00:35Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-06T23:00:35Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "6f131bbed5e7925d040e",
+      "title": "Introducing Mistral Large 4",
+      "url": "https://mistral.ai/news/mistral-large-4",
+      "published_at": "2026-10-06T12:00:27Z",
+      "kind": "model",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "50bc76f5e388238b89d8",
+          "title": "Mistral Large 4",
+          "url": "https://mistral.ai/news/mistral-large-4/\\",
+          "published_at": "2026-10-06T13:15:49Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-06T23:00:35Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=49977979",
+          "metrics": {
+            "points": 1509,
+            "comments": 932
+          }
+        },
+        {
+          "id": "22656194215838145530",
+          "title": "Introducing Mistral Large 4",
+          "url": "https://mistral.ai/news/mistral-large-4",
+          "published_at": "2026-10-06T12:00:27Z",
+          "kind": "model",
+          "time_basis": "published",
+          "source": "mistral-news",
+          "publisher": "mistral",
+          "group": "lab",
+          "observed_at": "2026-10-06T23:00:35Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "937e9f1a42fb2af15a15",
+          "title": "Mistral Large 4",
+          "url": "https://simonwillison.net/2026/Oct/6/hn-49982139/",
+          "published_at": "2026-10-06T18:20:58Z",
+          "kind": "model",
+          "time_basis": "published",
+          "source": "simon-willison",
+          "publisher": "simon-willison",
+          "group": "research",
+          "observed_at": "2026-10-06T23:00:35Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "b34ca483bd0a1ca9d707",
+          "title": "Introducing Mistral Large 4: Le chonk",
+          "title_vi": "Ra mắt Mistral Large 4: Le chonk",
+          "url": "https://simonwillison.net/2026/Oct/6/le-chonk/",
+          "published_at": "2026-10-06T20:18:19Z",
+          "kind": "model",
+          "time_basis": "published",
+          "source": "simon-willison",
+          "publisher": "simon-willison",
+          "group": "research",
+          "observed_at": "2026-10-06T23:00:35Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "22656194215838145530"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "mistral",
+              "simon-willison"
+            ]
+          },
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 1.0,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 1509,
+              "observed_at": "2026-10-06T23:00:35Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "mistral",
+            "simon-willison"
+          ],
+          "age_hours_at_cutoff": 10.9925,
+          "hot_score": 58.222,
+          "engagement_percentile": 1.0
+        }
+      }
+    },
+    {
+      "id": "d9303becb2aa56308df4",
+      "title": "Introducing GLM 5.3 on Amazon Bedrock",
+      "title_vi": "Ra mắt GLM 5.3 trên Amazon Bedrock",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-glm-5-3-on-amazon-bedrock/",
+      "published_at": "2026-10-05T23:25:17Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "405d4fa4efd065b1b3c9",
+          "title": "Introducing GLM 5.3 on Amazon Bedrock",
+          "title_vi": "Ra mắt GLM 5.3 trên Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-glm-5-3-on-amazon-bedrock/",
+          "published_at": "2026-10-05T23:25:17Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "group": "lab",
+          "observed_at": "2026-10-06T23:00:35Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "405d4fa4efd065b1b3c9"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 23.5786,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "00427e47df5ef3064509",
+      "title": "Sharing AI progress in mathematics",
+      "title_vi": "Chia sẻ tiến bộ AI trong toán học",
+      "url": "https://openai.com/index/sharing-ai-progress-in-mathematics",
+      "published_at": "2026-10-06T12:00:00Z",
+      "kind": "research",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "a8dd084f92cc6bc20c7b",
+          "title": "Sharing AI Progress in Mathematics",
+          "title_vi": "Chia sẻ sự tiến bộ của AI trong toán học",
+          "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/",
+          "published_at": "2026-10-06T22:17:21Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-06T23:00:35Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=49984923",
+          "metrics": {
+            "points": 111,
+            "comments": 67
+          }
+        },
+        {
+          "id": "8ce702de26b1dfd52d6d",
+          "title": "Sharing AI Progress in Mathematics",
+          "title_vi": "Chia sẻ sự tiến bộ của AI trong toán học",
+          "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/",
+          "published_at": "2026-10-06T22:17:21Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-06T23:00:35Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=49984923",
+          "metrics": {
+            "points": 111,
+            "comments": 67
+          }
+        },
+        {
+          "id": "cee54f4ad3ad2e70e534",
+          "title": "Sharing AI progress in mathematics",
+          "title_vi": "Chia sẻ tiến bộ AI trong toán học",
+          "url": "https://openai.com/index/sharing-ai-progress-in-mathematics",
+          "published_at": "2026-10-06T12:00:00Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "openai-news",
+          "publisher": "openai",
+          "group": "lab",
+          "observed_at": "2026-10-06T23:00:35Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 0.8631578947368421,
+            "measurement": {
+              "source": "hn-ai",
+              "metric": "points",
+              "value": 111,
+              "observed_at": "2026-10-06T23:00:35Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "openai"
+          ],
+          "age_hours_at_cutoff": 11.0,
+          "hot_score": 45.955,
+          "engagement_percentile": 0.8631578947368421
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 63,
+    "successful_remote_sources": 63,
+    "failed_remote_sources": []
+  }
+}
