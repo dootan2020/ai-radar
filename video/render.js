@@ -245,7 +245,7 @@ export async function main() {
     '',
     script.cta,
     '',
-    'https://dootan2020.github.io/ai-radar',
+    'https://radar-ai-vn.pages.dev',
     '',
     '#airadar #ai #tintucai #congnghe #tech #shorts #reels #tiktok',
   ];

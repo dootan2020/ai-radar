@@ -51,12 +51,18 @@ class WorkflowTests(unittest.TestCase):
 
     def test_main_deployment_guards_and_job_permissions(self):
         self.assertIn("  deploy:\n    if: github.ref == 'refs/heads/main'", self.text)
-        self.assertIn("if: github.ref == 'refs/heads/main'", self.steps()["Upload Pages artifact"])
+        self.assertIn("if: github.ref == 'refs/heads/main'", self.steps()["Upload Cloudflare Pages site artifact"])
         update, deploy = self.text.split("\n  deploy:")
+        deploy, legacy = deploy.split("\n  deploy-legacy-redirects:")
         self.assertNotIn("pages: write", update)
         self.assertNotIn("id-token: write", update)
-        self.assertIn("pages: write", deploy)
-        self.assertIn("id-token: write", deploy)
+        self.assertNotIn("pages: write", deploy)
+        self.assertNotIn("id-token: write", deploy)
+        self.assertIn("pages: write", legacy)
+        self.assertIn("id-token: write", legacy)
+        self.assertIn("CLOUDFLARE_PAGES_API_TOKEN is required", deploy)
+        self.assertLess(self.text.index("npx --yes wrangler@4 pages deploy site"),
+                        self.text.index("deploy-legacy-redirects:"))
         self.assertNotIn("issues: write", self.text)
 
     def test_every_action_is_immutable_and_dependabot_monitors_actions(self):
@@ -139,7 +145,7 @@ class WorkflowTests(unittest.TestCase):
         # Translation runs after the core build and before anything is uploaded or deployed.
         self.assertLess(names.index("Fetch public sources"), names.index("Translate headlines"))
         self.assertLess(names.index("Translate headlines"), names.index("Upload collected source evidence"))
-        self.assertLess(names.index("Translate headlines"), names.index("Upload Pages artifact"))
+        self.assertLess(names.index("Translate headlines"), names.index("Upload Cloudflare Pages site artifact"))
 
     def test_translation_has_a_time_limit_and_its_caches_survive_runs(self):
         steps = self.steps()

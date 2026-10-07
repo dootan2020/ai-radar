@@ -9,11 +9,12 @@ import unittest
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
+from radar.site_config import SITE_URL
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 BRAND = ROOT / "brand"
-PAGES_URL = "https://dootan2020.github.io/ai-radar/"
+PAGES_URL = SITE_URL
 
 
 class Head(HTMLParser):

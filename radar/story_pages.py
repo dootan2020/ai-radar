@@ -14,8 +14,9 @@ from urllib.parse import urlsplit
 
 from radar.clustering import canonical_url
 from radar.common import stable_id
+from radar.site_config import SITE_BASE_URL
 
-BASE_URL = "https://dootan2020.github.io/ai-radar"
+BASE_URL = SITE_BASE_URL
 SITE_NAME = "ai·radar"
 BRANCH = "radar-story-pages"
 REF = f"refs/heads/{BRANCH}"

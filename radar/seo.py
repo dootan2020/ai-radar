@@ -7,8 +7,7 @@ import xml.etree.ElementTree as ET
 
 from radar.common import iso_date
 from radar.items import instant
-
-SITE_URL = "https://dootan2020.github.io/ai-radar/"
+from radar.site_config import SITE_URL
 
 
 def sitemap_xml(generated_at):

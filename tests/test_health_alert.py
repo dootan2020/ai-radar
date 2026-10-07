@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from radar import health_alert
+from radar.site_config import SITE_URL
 from radar.failure_alert import AlertError, GitHub
 
 
@@ -17,7 +18,7 @@ class HealthAlertTests(unittest.TestCase):
         self.report = {"status": "failed", "checked_at": "2026-10-03T12:00:00Z",
                        "generated_at": "2026-10-03T08:00:00Z", "checks": [],
                        "confirmed_failures": [{"id": "snapshot", "ok": False,
-                           "url": "https://dootan2020.github.io/ai-radar/data/radar.json",
+                           "url": SITE_URL + "data/radar.json",
                            "detail": "Snapshot stale: age 14400 seconds"}]}
         self.report["checks"] = copy.deepcopy(self.report["confirmed_failures"])
 
@@ -50,7 +51,7 @@ class HealthAlertTests(unittest.TestCase):
 
     def recovery(self, time="2026-10-03T12:30:00Z"):
         self.report.update(status="healthy", checked_at=time, confirmed_failures=[],
-                           checks=[{"id": "snapshot", "url": "https://dootan2020.github.io/ai-radar/data/radar.json",
+                           checks=[{"id": "snapshot", "url": SITE_URL + "data/radar.json",
                                     "ok": True, "detail": "OK"}])
 
     def test_confirmed_failure_creates_actionable_distinct_bot_issue(self):
@@ -59,7 +60,7 @@ class HealthAlertTests(unittest.TestCase):
         body = self.issues[0]["body"]
         self.assertIn(health_alert.HEALTH_MARKER, body)
         self.assertNotIn("<!-- radar-update-failure:", body)
-        for evidence in ("snapshot", "14400", "https://dootan2020.github.io/ai-radar/",
+        for evidence in ("snapshot", "14400", SITE_URL,
                          "https://github.com/owner/radar/actions/runs/42/attempts/1", "@owner"):
             self.assertIn(evidence, body)
 

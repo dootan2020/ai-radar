@@ -184,7 +184,7 @@ export async function resolveScript({
   scriptPathOption,
   targetDate,
   pickedStories,
-  liveUrl = 'https://dootan2020.github.io/ai-radar/data/video-script.json',
+  liveUrl = 'https://radar-ai-vn.pages.dev/data/video-script.json',
   fetchLive = true,
 } = {}) {
   const expectedDate = targetDate || formatDateSlug(snapshot.generated_at);

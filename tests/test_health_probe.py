@@ -186,9 +186,9 @@ class HealthProbeTests(unittest.TestCase):
     def test_nested_imports_reexports_and_cycles_are_checked_once(self):
         self.overrides.update({
             self.main_js: b"import { view } from './parts/view.js'; import('./parts/lazy.js');",
-            "parts/view.js": b"import '../shared.js'; export { item } from './item.js';",
-            "parts/item.js": b"export * from '../shared.js';",
-            "parts/lazy.js": f"import '../{self.main_js}';".encode(),
+            "parts/view.js": b"import '/shared.js'; export { item } from './item.js';",
+            "parts/item.js": b"export * from '/shared.js';",
+            "parts/lazy.js": f"import '/{self.main_js}';".encode(),
             "shared.js": b"export const item = 1;",
         })
         checks = self.probe()
@@ -248,9 +248,11 @@ class HealthProbeTests(unittest.TestCase):
 
     def test_unsafe_references_fail_without_requesting_or_reporting_secrets(self):
         for reference in ("./module.js?token=private-sentinel", "./module.js#private-sentinel",
-                          "../private-sentinel.js", "./%2e%2e/private-sentinel.js",
-                          "https://private-sentinel@dootan2020.github.io/ai-radar/module.js",
-                          "http://dootan2020.github.io/ai-radar/private-sentinel.js"):
+                          "../private-sentinel.js",
+                          "./../private-sentinel.js",
+                          "./%2e%2e/private-sentinel.js",
+                          f"https://private-sentinel@{health_probe.urlsplit(health_probe.SITE_URL).netloc}/ai-radar/module.js",
+                          f"http://{health_probe.urlsplit(health_probe.SITE_URL).netloc}/private-sentinel.js"):
             for source in ("homepage", "module"):
                 with self.subTest(reference=reference, source=source):
                     self.requests = []

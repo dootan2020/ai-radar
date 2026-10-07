@@ -19,6 +19,7 @@ from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
 
 import publish_kit
+from radar.site_config import SITE_URL
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "brand" / "assets"
@@ -209,7 +210,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     L, D = LIGHT, DARK
     TAG = "Tín hiệu trước, nhiễu sau."
-    URL = "dootan2020.github.io/ai-radar"
+    URL = SITE_URL.removeprefix("https://").rstrip("/")
 
     # logo: full lockup (size 64 -> about 330 x 64 canvas incl. clear space x = 0.53em)
     size, pad = 64, 64 * 0.53

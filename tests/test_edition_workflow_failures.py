@@ -76,10 +76,10 @@ class EditionWorkflowFailureTests(unittest.TestCase):
         return result, context
 
     def assert_pages_upload_runs(self, result, context):
-        step = self.step("Upload Pages artifact")
+        step = self.step("Upload Cloudflare Pages site artifact")
         self.assertEqual(result, "success")
         self.assertTrue(condition_matches(property_value(step, "if", 8), context))
-        self.assertIn("actions/upload-pages-artifact@", step)
+        self.assertIn("actions/upload-artifact@", step)
 
     def test_optional_archive_has_bounded_time_and_job_headroom(self):
         for name, limit in (("Prepare daily editions", 3), ("Upload edition history candidate", 2)):

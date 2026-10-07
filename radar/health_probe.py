@@ -12,8 +12,8 @@ from urllib.request import Request, urlopen
 
 from radar.items import instant
 from radar.publication import STALE_AFTER_SECONDS
+from radar.site_config import SITE_URL
 
-SITE_URL = "https://dootan2020.github.io/ai-radar/"
 BENTO_ASSETS = ("tokens.css", "styles.css", "app.js")
 FEED_ASSETS = ("tokens.css", "feed.css", "feed.js")
 PRIMARY_ASSETS = FEED_ASSETS
@@ -29,6 +29,9 @@ class ProbeError(ValueError):
 
 def local_asset(reference, parent):
     """Only unambiguous, public URLs within the Pages project may be checked."""
+    reference_path = urlsplit(reference).path
+    if any(part in (".", "..") for part in reference_path.split("/")):
+        raise ProbeError("Invalid local asset reference.")
     url = urljoin(parent, reference)
     parts, site = urlsplit(url), urlsplit(SITE_URL)
     if parts.hostname != site.hostname:
@@ -102,7 +105,7 @@ class Homepage(HTMLParser):
             reference = attrs.get("href")
         if not reference:
             return
-        url = local_asset(reference, SITE_URL)
+        url = local_asset(reference.removeprefix("./"), SITE_URL)
         if url:
             self.assets.add(url)
             if tag == "script" or "modulepreload" in relations:
@@ -231,7 +234,7 @@ def probe():
             raise ProbeError("Asset is empty or returned an HTML page.")
         if url in modules:
             for reference in module_references(raw.decode("utf-8")):
-                dependency = local_asset(reference, url)
+                dependency = local_asset(reference.removeprefix("./"), url)
                 if dependency is None:
                     continue
                 if dependency not in assets and len(assets) >= MAX_ASSETS:
