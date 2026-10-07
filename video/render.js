@@ -1,0 +1,298 @@
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
+import { fileURLToPath } from 'url';
+import { spawnSync } from 'child_process';
+import {
+  audioTimeline,
+  createNarration,
+  formatDateSlug,
+  formatVietnameseDate,
+  resolveOmniVoicePaths,
+  resolveScript,
+  wavSpeechSegments,
+} from './src/daily-audio.js';
+
+export { resolveOmniVoicePaths };
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+function run(command, args, options = {}) {
+  const result = spawnSync(command, args, { stdio: 'inherit', ...options });
+  if (result.error) throw result.error;
+  if (result.status !== 0) throw new Error(`${path.basename(command)} exited with status ${result.status}.`);
+  return result;
+}
+
+function synthesizeNarration(narrationPath, tempDir, options = {}) {
+  const { python, cache, wrapper, fixOmnivoice, referenceAudio, referenceText } = resolveOmniVoicePaths();
+  const rawAudio = path.join(tempDir, 'voice.wav');
+  const pauseMs = options.pauseMs || process.env.OMNIVOICE_PAUSE_MS || '620';
+
+  for (const file of [python, wrapper, fixOmnivoice, referenceAudio, referenceText]) {
+    if (!fs.existsSync(file)) throw new Error(`Required OmniVoice path does not exist: ${file}`);
+  }
+  run(python, [
+    wrapper, '--cache-dir', cache, 'synthesize', '--text-file', narrationPath,
+    '--language', 'Vietnamese', '--ref-audio', referenceAudio,
+    '--ref-text-file', referenceText, '--split-paragraphs', '--pause-ms', String(pauseMs),
+    '--normalize-chunk-levels', '--offline', '--output', rawAudio,
+    '--fix-script', fixOmnivoice,
+  ], {
+    env: { ...process.env, FIX_OMNIVOICE_SCRIPT: fixOmnivoice },
+  });
+  const correctedAudio = path.join(tempDir, 'voice_corrected.wav');
+  if (!fs.existsSync(correctedAudio) || fs.statSync(correctedAudio).size === 0) {
+    throw new Error('OmniVoice did not create its corrected WAV output.');
+  }
+  return correctedAudio;
+}
+
+// Fast pre-probe image with timeout
+async function probeImage(url, timeoutMs = 2500) {
+  if (!url || typeof url !== 'string' || !url.startsWith('http')) return null;
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const res = await fetch(url, {
+      method: 'HEAD',
+      signal: controller.signal,
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
+    });
+    clearTimeout(timer);
+    if (res.ok) return url;
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+export async function main() {
+  const startTime = Date.now();
+
+  // 1. Parse arguments: snapshot and optional script
+  let snapshotArg = null;
+  let scriptArg = process.env.VIDEO_SCRIPT_PATH || null;
+  let pauseMsArg = process.env.OMNIVOICE_PAUSE_MS || '620';
+
+  for (let i = 2; i < process.argv.length; i++) {
+    const arg = process.argv[i];
+    if (arg === '--script' && i + 1 < process.argv.length) {
+      scriptArg = process.argv[++i];
+    } else if (arg.startsWith('--script=')) {
+      scriptArg = arg.split('=', 2)[1];
+    } else if (arg === '--pause-ms' && i + 1 < process.argv.length) {
+      pauseMsArg = process.argv[++i];
+    } else if (arg.startsWith('--pause-ms=')) {
+      pauseMsArg = arg.split('=', 2)[1];
+    } else if (!arg.startsWith('--')) {
+      if (!snapshotArg) {
+        snapshotArg = arg;
+      } else if (!scriptArg && arg.endsWith('.json')) {
+        scriptArg = arg;
+      }
+    }
+  }
+
+  // 2. Resolve snapshot input file
+  let snapshotPath;
+  if (snapshotArg) {
+    snapshotPath = path.isAbsolute(snapshotArg)
+      ? snapshotArg
+      : path.resolve(process.cwd(), snapshotArg);
+  } else {
+    // Default locations
+    const candidate1 = path.resolve(__dirname, 'sample/radar-ui.json');
+    const candidate2 = path.resolve(__dirname, '../site/data/radar-ui.json');
+    snapshotPath = fs.existsSync(candidate1) ? candidate1 : candidate2;
+  }
+
+  if (!fs.existsSync(snapshotPath)) {
+    console.error(`[ERROR] Snapshot file not found at: ${snapshotPath}`);
+    process.exit(1);
+  }
+
+  console.log(`[INFO] Reading snapshot: ${snapshotPath}`);
+  const rawData = fs.readFileSync(snapshotPath, 'utf8');
+  const snapshot = JSON.parse(rawData);
+  if (!snapshot || !Array.isArray(snapshot.stories) || !snapshot.generated_at) {
+    throw new Error('Snapshot must include generated_at and a stories array.');
+  }
+
+  // 3. Determine dates
+  const dateSlug = formatDateSlug(snapshot.generated_at);
+  const formattedDate = formatVietnameseDate(snapshot.generated_at);
+
+  // 4. Resolve script (site/data/video-script.json, live URL, fixture or honest fallback template)
+  const scriptResult = await resolveScript({
+    snapshot,
+    snapshotPath,
+    scriptPathOption: scriptArg,
+    targetDate: dateSlug,
+  });
+
+  if (scriptResult.fallback) {
+    console.log(`[INFO] Script source: fallback template (${scriptResult.reason})`);
+  } else {
+    console.log(`[INFO] Script source: ${scriptResult.source}`);
+  }
+
+  const script = scriptResult.script;
+
+  // 5. Select 3 stories in the exact order specified by the script
+  const pickedStories = script.stories.map((item) => {
+    const found = snapshot.stories.find(s => s.id === item.id);
+    if (!found) {
+      throw new Error(`Snapshot is missing required story id from script: ${item.id}`);
+    }
+    return found;
+  });
+
+  if (pickedStories.length !== 3 || pickedStories.some(story => !story.title_vi)) {
+    throw new Error('Snapshot must supply three selected stories with Vietnamese titles.');
+  }
+
+  console.log(`[INFO] Selected ${pickedStories.length} stories for video (script order):`);
+  pickedStories.forEach((st, idx) => {
+    console.log(`  ${idx + 1}. [${st.id}] ${st.title_vi || st.title} (score: ${st.worth_score || 0})`);
+  });
+
+  // 6. Probe story images
+  console.log('[INFO] Verifying story image accessibility...');
+  const preparedStories = await Promise.all(
+    pickedStories.map(async (st, idx) => {
+      const rawImg = st.image && st.image.src ? st.image.src : null;
+      const verifiedImg = await probeImage(rawImg);
+      const scriptStory = script.stories.find(item => item.id === st.id) || script.stories[idx];
+      return {
+        ...st,
+        imageUrl: verifiedImg,
+        scriptLine: scriptStory ? scriptStory.line : null,
+      };
+    })
+  );
+
+  // 7. Output paths
+  const outDir = path.resolve(__dirname, 'out');
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const mp4Path = path.join(outDir, `${dateSlug}.mp4`);
+  const captionPath = path.join(outDir, `${dateSlug}.txt`);
+  const narrationPath = path.join(outDir, `${dateSlug}-narration.txt`);
+  const propsJsonPath = path.join(outDir, `props-${dateSlug}.json`);
+  const tempDir = fs.mkdtempSync(path.join(outDir, `.daily-${dateSlug}-`));
+  const silentVideoPath = path.join(tempDir, 'silent.mp4');
+  const muxedVideoPath = path.join(tempDir, 'final.mp4');
+
+  // 8. Generate social caption file (.txt)
+  const captionLines = [
+    script.hook,
+    '',
+    ...preparedStories.map((st, i) => `${i + 1}. ${st.title_vi || st.title}`),
+    '',
+    script.cta,
+    '',
+    'https://dootan2020.github.io/ai-radar',
+    '',
+    '#airadar #ai #tintucai #congnghe #tech #shorts #reels #tiktok',
+  ];
+  fs.writeFileSync(captionPath, captionLines.join('\n'), 'utf8');
+  console.log(`[INFO] Caption saved: ${captionPath}`);
+
+  // 9. Generate narration text from script
+  const narration = createNarration(script);
+  fs.writeFileSync(narrationPath, narration, 'utf8');
+  console.log(`[INFO] Narration saved: ${narrationPath}`);
+
+  try {
+    console.log('[INFO] Generating cloned Vietnamese voice with OmniVoice (offline)...');
+    const voicePath = synthesizeNarration(narrationPath, tempDir, { pauseMs: pauseMsArg });
+    const audioSegments = wavSpeechSegments(fs.readFileSync(voicePath));
+    const timeline = audioTimeline(audioSegments);
+
+    console.log('[INFO] Voice segment lengths:');
+    if (audioSegments.length === 5) {
+      console.log(`  Intro (Hook + Hint): ${audioSegments[0].duration.toFixed(2)}s`);
+      console.log(`  Story 1: ${audioSegments[1].duration.toFixed(2)}s`);
+      console.log(`  Story 2: ${audioSegments[2].duration.toFixed(2)}s`);
+      console.log(`  Story 3: ${audioSegments[3].duration.toFixed(2)}s`);
+      console.log(`  Outro (CTA): ${audioSegments[4].duration.toFixed(2)}s`);
+    } else {
+      audioSegments.forEach((segment, index) => {
+        console.log(`  Segment ${index + 1}: ${segment.duration.toFixed(2)}s`);
+      });
+    }
+
+    // 10. Write props JSON for Remotion
+    const inputProps = {
+      stories: preparedStories,
+      snapshotDate: formattedDate,
+      totalStoriesCount: snapshot.stories.length,
+      introFrames: timeline.introFrames,
+      outroFrames: timeline.outroFrames,
+      storyDurations: timeline.storyDurations,
+      totalDurationFrames: timeline.totalFrames,
+      script: {
+        hook: script.hook,
+        hint: script.hint,
+        cta: script.cta,
+      },
+    };
+    fs.writeFileSync(propsJsonPath, JSON.stringify(inputProps, null, 2), 'utf8');
+
+    console.log(`[INFO] Rendering ${(timeline.totalFrames / 30).toFixed(1)}s editorial video...`);
+    const cliPath = path.resolve(__dirname, 'node_modules/@remotion/cli/remotion-cli.js');
+    const entryPoint = path.resolve(__dirname, 'src/index.js');
+
+    run(process.execPath, [
+      cliPath, 'render', entryPoint, 'AiRadarDailyVideo', silentVideoPath,
+      `--props=${propsJsonPath}`, '--muted',
+    ], { cwd: __dirname });
+
+    const ffmpeg = process.env.FFMPEG_PATH || 'ffmpeg';
+    if (timeline.hasVoiceIntro) {
+      // Round 4: voice starts over opening visual; audio is already aligned from t=0
+      run(ffmpeg, [
+        '-y', '-i', silentVideoPath, '-i', voicePath,
+        '-filter_complex', '[1:a]apad=pad_dur=2[a]',
+        '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '128k',
+        '-shortest', muxedVideoPath,
+      ]);
+    } else {
+      // Legacy 3-segment fallback: silence lead for silent intro
+      run(ffmpeg, [
+        '-y', '-i', silentVideoPath, '-i', voicePath,
+        '-filter_complex', `anullsrc=r=24000:cl=mono:d=${timeline.introFrames / 30}[lead];[1:a]apad=pad_dur=4[voice];[lead][voice]concat=n=2:v=0:a=1[a]`,
+        '-map', '0:v:0', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '128k',
+        '-shortest', muxedVideoPath,
+      ]);
+    }
+
+    if (!fs.existsSync(muxedVideoPath) || fs.statSync(muxedVideoPath).size === 0) {
+      throw new Error('FFmpeg did not create the muxed MP4.');
+    }
+    fs.renameSync(muxedVideoPath, mp4Path);
+
+    console.log(`[INFO] Video saved: ${mp4Path}`);
+  } finally {
+    try { fs.unlinkSync(propsJsonPath); } catch {}
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+
+  const durationSec = ((Date.now() - startTime) / 1000).toFixed(1);
+  console.log(`\n========================================`);
+  console.log(`[SUCCESS] Video render completed in ${durationSec}s`);
+  console.log(`Video:   ${mp4Path}`);
+  console.log(`Caption: ${captionPath}`);
+  console.log(`Narration: ${narrationPath}`);
+  console.log(`========================================\n`);
+}
+
+// Run if called directly
+if (process.argv[1] && (process.argv[1].endsWith('render.js') || process.argv[1].includes('render'))) {
+  main().catch((err) => {
+    console.error('[FATAL]', err);
+    process.exit(1);
+  });
+}

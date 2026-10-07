@@ -1,0 +1,19 @@
+{
+  "name": "ai-radar-video",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "render": "node render.js",
+    "test": "node src/test-picks.js && node --test test/*.test.js",
+    "studio": "remotion studio src/index.js"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.532",
+    "@remotion/cli": "4.0.532",
+    "@remotion/renderer": "4.0.532",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.532"
+  }
+}
