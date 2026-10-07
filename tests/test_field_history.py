@@ -119,7 +119,8 @@ class FieldHistoryTests(unittest.TestCase):
 class FieldWorkflowTests(unittest.TestCase):
     def test_optional_steps_and_isolated_main_only_persistence(self):
         text = (Path(__file__).parents[1] / ".github/workflows/update.yml").read_text()
-        update, rest = text.split("\n  persist:\n", 1)
+        update = text.split("\n  update:\n", 1)[1].split("\n  finalize-paid-budget:", 1)[0]
+        rest = text.split("\n  persist:\n", 1)[1]
         fields, deploy = rest.split("\n  persist-fields:\n")[1].split("\n  deploy:\n")
         self.assertIn("needs: update", fields)
         self.assertIn("github.ref == 'refs/heads/main'", fields)
