@@ -48,6 +48,13 @@ class SourceDepthTests(unittest.TestCase):
         self.assertEqual(ds_s["lab"], "deepseek")
         self.assertEqual(ds_s["url"], "https://api-docs.deepseek.com/updates")
 
+        self.assertIn("google-deepmind", feed_sources)
+        dm_s = feed_sources["google-deepmind"]
+        self.assertEqual(dm_s["lab"], "google")
+        self.assertEqual(dm_s["url"], "https://deepmind.google/blog/rss.xml")
+        self.assertNotIn("disabled", dm_s)
+        self.assertNotIn("disabled_reason", dm_s)
+
         catalog_sources = {s["id"]: s for s in catalog.sources(NOW)}
         self.assertIn("nvidia-newsroom", catalog_sources)
         nv = catalog_sources["nvidia-newsroom"]
@@ -163,6 +170,65 @@ class SourceDepthTests(unittest.TestCase):
         newest = items[0]
         self.assertIn("Qwen", newest["title"])
         self.assertIsNotNone(newest["published_at"])
+
+    def test_google_deepmind_feed_parsing_from_real_gzipped_fixture(self):
+        gz_bytes = (FIXTURES / "google-deepmind.xml.gz").read_bytes()
+        self.assertEqual(gz_bytes[:2], b"\x1f\x8b", "Fixture must be real gzipped data")
+        xml_text = gzip.decompress(gz_bytes).decode("utf-8")
+        source = {
+            "id": "google-deepmind",
+            "name": "Google DeepMind",
+            "lab": "google",
+            "url": "https://deepmind.google/blog/rss.xml",
+        }
+        v2_items = v2feeds.parse_feed(xml_text, dict(source, group="lab", publisher="google", first_wave=False), NOW.isoformat())
+        self.assertGreaterEqual(len(v2_items), 10)
+        self.assertTrue(all(it["source"] == "google-deepmind" for it in v2_items))
+        self.assertTrue(all(it["lab"] == "google" for it in v2_items))
+        newest = v2_items[0]
+        self.assertTrue(newest["published_at"].startswith("2026-10-06"))
+        self.assertIn("EmbeddingGemma", newest["title"])
+
+        v1_items = feeds.parse_feed(xml_text, source)
+        self.assertGreaterEqual(len(v1_items), 10)
+        self.assertEqual(v1_items[0]["published_at"], newest["published_at"])
+        self.assertEqual(v1_items[0]["title"], newest["title"])
+
+    def test_transport_decompresses_real_google_deepmind_fixture(self):
+        gz_bytes = (FIXTURES / "google-deepmind.xml.gz").read_bytes()
+
+        class GzipResponse(io.BytesIO):
+            status = 200
+            def __init__(self, data):
+                super().__init__(data)
+                self.headers = Message()
+                self.headers["Content-Type"] = "text/xml"
+                self.headers["Content-Encoding"] = "gzip"
+                self.headers["Content-Length"] = str(len(data))
+            def geturl(self):
+                return "https://deepmind.google/blog/rss.xml"
+
+        with patch.object(transport, "urlopen", side_effect=lambda *args, **kwargs: GzipResponse(gz_bytes)):
+            res = transport.read_url("https://deepmind.google/blog/rss.xml", "google-deepmind")
+            self.assertTrue(res.startswith("<?xml"))
+            self.assertIn("Google DeepMind News", res)
+            self.assertEqual(res.status, 200)
+
+        class RawGzipResponse(io.BytesIO):
+            status = 200
+            def __init__(self, data):
+                super().__init__(data)
+                self.headers = Message()
+                self.headers["Content-Type"] = "text/xml"
+                self.headers["Content-Length"] = str(len(data))
+            def geturl(self):
+                return "https://deepmind.google/blog/rss.xml"
+
+        with patch.object(transport, "urlopen", side_effect=lambda *args, **kwargs: RawGzipResponse(gz_bytes)):
+            res = transport.read_url("https://deepmind.google/blog/rss.xml", "google-deepmind")
+            self.assertTrue(res.startswith("<?xml"))
+            self.assertIn("Google DeepMind News", res)
+            self.assertEqual(res.status, 200)
 
     def test_transport_decompresses_gzipped_content(self):
         plain_xml = b"<rss><channel><title>Gzip Test</title></channel></rss>"
