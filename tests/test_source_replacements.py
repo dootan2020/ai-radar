@@ -10,7 +10,7 @@ from radar import catalog, feeds, pipeline, v2feeds, youtube
 from radar.transport import ResponseText
 
 NOW = datetime(2026, 10, 2, 12, tzinfo=timezone.utc)
-DISABLED_IDS = {"latent-space", "google-deepmind", "cnbc-tech"}
+DISABLED_IDS = {"latent-space", "cnbc-tech"}
 ACTIVE_ID = "nvidia-blog"
 SYNTHETIC_NEWS = """<rss><channel>
 <item><title>Nghiên cứu trí tuệ nhân tạo mới</title>
@@ -102,8 +102,18 @@ class SourceReplacementTests(unittest.TestCase):
         self.assertEqual(len(result["stories"]), 1)
         self.assertEqual({row["source"] for row in result["stories"][0]["coverage"]}, {ACTIVE_ID})
 
+    def test_google_deepmind_is_active_and_not_disabled(self):
+        source = self.sources["google-deepmind"]
+        self.assertEqual(source["url"], "https://deepmind.google/blog/rss.xml")
+        self.assertNotIn("disabled", source)
+        self.assertNotIn("disabled_reason", source)
+        self.assertEqual(source["kind"], "rss")
+        self.assertEqual(source["lab"], "google")
+
     def test_disabled_policy_applies_to_legacy_build_too(self):
-        jobs = [job for job in pipeline._jobs() if job[0]["id"] == "google-deepmind"]
+        disabled_source = dict(id="mock-disabled", name="Mock Disabled", lab="google", kind="rss",
+                               url="https://fixture.invalid/rss", disabled=True, disabled_reason="Nguồn bị tắt")
+        jobs = [(disabled_source, "updates", lambda text: feeds.parse_feed(text, disabled_source))]
         with patch.object(pipeline, "_jobs", return_value=jobs), \
              patch.object(youtube, "collect", return_value=([], [])):
             result = pipeline.build(fetch=lambda url: self.fail("Disabled source fetched"), now=NOW)
@@ -113,11 +123,13 @@ class SourceReplacementTests(unittest.TestCase):
         self.assertFalse(result["sources"][0]["ok"])
 
     def test_disabled_record_survives_expired_collection_deadline(self):
-        jobs = [job for job in pipeline._jobs() if job[0]["id"] == "google-deepmind"]
+        disabled_source = dict(id="mock-disabled", name="Mock Disabled", lab="google", kind="rss",
+                               url="https://fixture.invalid/rss", disabled=True, disabled_reason="Nguồn bị tắt")
+        jobs = [(disabled_source, "updates", lambda text: feeds.parse_feed(text, disabled_source))]
         with patch.object(pipeline, "_jobs", return_value=jobs), \
              patch.object(youtube, "collect", return_value=([], [])):
             result = pipeline.build(fetch=lambda url: self.fail("Disabled source fetched"), now=NOW, timeout=1e-9)
-        record = next(row for row in result["sources"] if row["id"] == "google-deepmind")
+        record = next(row for row in result["sources"] if row["id"] == "mock-disabled")
         self.assertTrue(record["disabled"])
         self.assertTrue(record["error"].startswith("Disabled: "))
         self.assertNotIn("deadline", record["error"].lower())

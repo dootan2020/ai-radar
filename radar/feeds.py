@@ -26,12 +26,6 @@ _FEEDS = [
     ("huggingface-blog", "Hugging Face Blog", "huggingface", "https://huggingface.co/blog/feed.xml"),
 ]
 SOURCES = [dict(id=id_, name=name, lab=lab, kind="rss", url=url) for id_, name, lab, url in _FEEDS]
-for _source in SOURCES:
-    if _source["id"] == "google-deepmind":
-        _source.update(disabled=True, disabled_reason=(
-            "Địa chỉ RSS trả mã HTTP 200 nhưng XML hỏng trên máy dựng của GitHub; "
-            "chưa kiểm được địa chỉ RSS thay thế. Google AI và kênh YouTube của DeepMind vẫn là nguồn riêng."
-        ))
 
 
 def _local(tag):
