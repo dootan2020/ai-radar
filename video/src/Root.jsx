@@ -61,7 +61,8 @@ export const RemotionRoot = () => {
         defaultProps={{
           stories: defaultStories,
           snapshotDate: 'Thứ Ba, 6 tháng 10, 2026',
-          totalStoriesCount: 1306,
+          totalStoriesCount: 323,
+          windowHours: 72,
           introFrames: 260,
           outroFrames: 193,
           storyDurations: [201, 232, 199],

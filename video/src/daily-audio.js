@@ -2,7 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { selectThreeStories } from './pick-stories.js';
+import { selectThreeStories, computeFeedStoryStats } from './pick-stories.js';
+
+export { computeFeedStoryStats };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -160,13 +162,13 @@ export function generateFallbackScript(snapshot, pickedStories, targetDate) {
     return null;
   }
 
-  const storyCount = Array.isArray(snapshot?.stories) ? snapshot.stories.length : 3;
+  const { storyCount, windowHours } = computeFeedStoryStats(snapshot);
 
   return {
     date,
     generated_at: snapshot.generated_at || new Date().toISOString(),
     prompt_version: 'fallback-template-v2',
-    hook: `Hôm nay ai-radar theo dõi ${storyCount} tin AI từ các nguồn công nghệ.`,
+    hook: `Trong ${windowHours} giờ qua, ai-radar theo dõi ${storyCount} tin AI từ các nguồn công nghệ.`,
     hint: 'Ba tin AI đáng chú ý nhất, trong 45 giây.',
     stories: stories.map((st, i) => ({
       id: st.id,

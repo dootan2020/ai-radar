@@ -165,10 +165,30 @@ export function selectThreeStories(snapshot, options = {}) {
   return out.slice(0, 3);
 }
 
+export function computeFeedStoryStats(snapshot) {
+  if (!snapshot || !Array.isArray(snapshot.stories)) {
+    return { storyCount: 0, windowHours: 72, eligibleStories: [] };
+  }
+  const winH = Number(snapshot.ranking && snapshot.ranking.window_hours);
+  const windowHours = (Number.isFinite(winH) && winH > 0) ? winH : 72;
+  const gen = ms(snapshot.generated_at);
+  const from = gen - windowHours * 36e5;
+  const eligibleStories = snapshot.stories.filter(st => {
+    const t = ms(st?.published_at);
+    return t && t >= from && t <= gen + 3e5;
+  });
+  return {
+    storyCount: eligibleStories.length,
+    windowHours,
+    eligibleStories,
+  };
+}
+
 // CLI runner if executed directly
 if (process.argv[1] && process.argv[1].endsWith('pick-stories.js')) {
   const args = process.argv.slice(2);
   const jsonMode = args.includes('--json');
+  const statsMode = args.includes('--stats');
   const fileArg = args.find(a => !a.startsWith('--'));
 
   const defaultSample = fs.existsSync(path.resolve('sample/radar-ui.json'))
@@ -176,7 +196,7 @@ if (process.argv[1] && process.argv[1].endsWith('pick-stories.js')) {
     : path.resolve('video/sample/radar-ui.json');
   const filePath = fileArg || defaultSample;
 
-  if (!jsonMode) {
+  if (!jsonMode && !statsMode) {
     console.log('Reading snapshot from:', filePath);
   }
   const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -184,6 +204,16 @@ if (process.argv[1] && process.argv[1].endsWith('pick-stories.js')) {
 
   if (jsonMode) {
     process.stdout.write(JSON.stringify(picks.map(p => p.id)));
+    process.exit(0);
+  }
+
+  if (statsMode) {
+    const stats = computeFeedStoryStats(data);
+    process.stdout.write(JSON.stringify({
+      storyCount: stats.storyCount,
+      windowHours: stats.windowHours,
+      picks: picks.map(p => p.id),
+    }));
     process.exit(0);
   }
 

@@ -5,6 +5,7 @@ import { TOKENS } from '../tokens.js';
 export const IntroScene = ({
   snapshotDate = 'Thứ Hai, 5 tháng 10, 2026',
   totalStoriesCount = 3,
+  windowHours = 72,
   hook = null,
   hint = null,
   durationInFrames = 260,
@@ -288,7 +289,7 @@ export const IntroScene = ({
           }}
         >
           <span>{snapshotDate}</span>
-          <span>{totalStoriesCount.toLocaleString('vi-VN')} tin đã quét</span>
+          <span>{totalStoriesCount.toLocaleString('vi-VN')} tin trong {windowHours} giờ qua</span>
         </div>
       </div>
     </div>

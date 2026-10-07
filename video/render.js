@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
 import {
   audioTimeline,
+  computeFeedStoryStats,
   createNarration,
   formatDateSlug,
   formatVietnameseDate,
@@ -249,10 +250,12 @@ export async function main() {
     }
 
     // 10. Write props JSON for Remotion
+    const feedStats = computeFeedStoryStats(snapshot);
     const inputProps = {
       stories: preparedStories,
       snapshotDate: formattedDate,
-      totalStoriesCount: snapshot.stories.length,
+      totalStoriesCount: feedStats.storyCount,
+      windowHours: feedStats.windowHours,
       introFrames: timeline.introFrames,
       outroFrames: timeline.outroFrames,
       storyDurations: timeline.storyDurations,

@@ -48,9 +48,11 @@ function speech(milliseconds, amplitude = 6000) {
 
 const mockSnapshot = {
   generated_at: '2026-10-05T19:00:45Z',
+  ranking: { window_hours: 72 },
   stories: [
     {
       id: 'story-1',
+      published_at: '2026-10-05T18:00:00Z',
       title_vi: 'Nvidia Shield TV tăng giá do AI',
       summary_vi: 'Nvidia Shield TV Pro tăng giá $100 vì nhu cầu AI. Câu tiếp theo.',
       worth_score: 8.5,
@@ -58,6 +60,7 @@ const mockSnapshot = {
     },
     {
       id: 'story-2',
+      published_at: '2026-10-05T17:30:00Z',
       title_vi: 'Apple thắt chặt quyền Full Disk Access',
       summary_vi: 'Apple cảnh báo agent AI có thể đọc trộm tin nhắn. Câu tiếp theo.',
       worth_score: 7.2,
@@ -65,6 +68,7 @@ const mockSnapshot = {
     },
     {
       id: 'story-3',
+      published_at: '2026-10-05T16:00:00Z',
       title_vi: 'Amazon đầu tư $1B vào trung tâm dữ liệu',
       summary_vi: 'Amazon chi $1B để xoa dịu phản ứng ô nhiễm. Câu tiếp theo.',
       worth_score: 6.9,
@@ -139,7 +143,9 @@ test('generateFallbackScript creates honest script matching contract strictly fr
   const fallback = generateFallbackScript(mockSnapshot, mockSnapshot.stories, targetDate);
 
   assert.equal(fallback.date, targetDate);
+  assert.ok(fallback.hook.includes('Trong 72 giờ qua'));
   assert.ok(fallback.hook.includes('3 tin AI'));
+  assert.ok(!fallback.hook.includes('Hôm nay'), 'Fallback hook must not claim Hôm nay when counting window');
   assert.ok(!fallback.hook.includes(mockSnapshot.stories[0].title_vi), 'Fallback hook must not stutter/repeat story 1');
   assert.ok(fallback.hint.includes('45 giây'));
   assert.equal(fallback.stories.length, 3);
@@ -161,8 +167,10 @@ test('resolveScript prioritizes valid script option, local file, and falls back 
   const realFixture = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
   const testSnapshot = {
     generated_at: '2026-10-05T19:00:45Z',
+    ranking: { window_hours: 72 },
     stories: realFixture.stories.map((st) => ({
       id: st.id,
+      published_at: '2026-10-05T18:00:00Z',
       title_vi: st.line,
       summary_vi: 'Tóm tắt câu một. Câu hai.',
       coverage: [{ source: 'techcrunch', publisher: 'techcrunch' }, { source: 'the-verge', publisher: 'the-verge' }],
@@ -400,7 +408,8 @@ test('Round 5 muted viewer contract: script and fallback deliver hook, hint, 3 s
   const fixture = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
   const fixtureSnapshot = {
     generated_at: '2026-10-06T19:00:00Z',
-    stories: fixture.stories.map(st => ({ id: st.id, title_vi: st.line })),
+    ranking: { window_hours: 72 },
+    stories: fixture.stories.map(st => ({ id: st.id, published_at: '2026-10-06T18:00:00Z', title_vi: st.line })),
   };
   const check = validateScript(fixture, fixtureSnapshot, '2026-10-06');
   assert.equal(check.valid, true);
