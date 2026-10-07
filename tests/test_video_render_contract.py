@@ -63,6 +63,17 @@ class VideoScriptContractTestCase(unittest.TestCase):
         self.assertIn("Theo dõi để không bỏ lỡ", data["cta"])
         self.assertTrue("Bình luận" in data["cta"] or "quan tâm" in data["cta"])
 
+    def test_round6_pacing_and_pause_contract(self):
+        render_js = (REPO_ROOT / "video" / "render.js").read_text(encoding="utf-8")
+        daily_audio_js = (REPO_ROOT / "video" / "src" / "daily-audio.js").read_text(encoding="utf-8")
+
+        # Verify separatorMs is adjusted for ~1s inter-section pacing
+        self.assertIn("separatorMs = 800", daily_audio_js)
+
+        # Verify render.js uses tightened pauseMs (620ms to achieve ~1s measured pause)
+        self.assertIn("'620'", render_js)
+        self.assertIn("OMNIVOICE_PAUSE_MS", render_js)
+
 
 if __name__ == "__main__":
     unittest.main()

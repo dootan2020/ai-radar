@@ -25,9 +25,10 @@ function run(command, args, options = {}) {
   return result;
 }
 
-function synthesizeNarration(narrationPath, tempDir) {
+function synthesizeNarration(narrationPath, tempDir, options = {}) {
   const { python, cache, wrapper, fixOmnivoice, referenceAudio, referenceText } = resolveOmniVoicePaths();
   const rawAudio = path.join(tempDir, 'voice.wav');
+  const pauseMs = options.pauseMs || process.env.OMNIVOICE_PAUSE_MS || '620';
 
   for (const file of [python, wrapper, fixOmnivoice, referenceAudio, referenceText]) {
     if (!fs.existsSync(file)) throw new Error(`Required OmniVoice path does not exist: ${file}`);
@@ -35,7 +36,7 @@ function synthesizeNarration(narrationPath, tempDir) {
   run(python, [
     wrapper, '--cache-dir', cache, 'synthesize', '--text-file', narrationPath,
     '--language', 'Vietnamese', '--ref-audio', referenceAudio,
-    '--ref-text-file', referenceText, '--split-paragraphs', '--pause-ms', '1200',
+    '--ref-text-file', referenceText, '--split-paragraphs', '--pause-ms', String(pauseMs),
     '--normalize-chunk-levels', '--offline', '--output', rawAudio,
     '--fix-script', fixOmnivoice,
   ], {
@@ -73,6 +74,7 @@ export async function main() {
   // 1. Parse arguments: snapshot and optional script
   let snapshotArg = null;
   let scriptArg = process.env.VIDEO_SCRIPT_PATH || null;
+  let pauseMsArg = process.env.OMNIVOICE_PAUSE_MS || '620';
 
   for (let i = 2; i < process.argv.length; i++) {
     const arg = process.argv[i];
@@ -80,6 +82,10 @@ export async function main() {
       scriptArg = process.argv[++i];
     } else if (arg.startsWith('--script=')) {
       scriptArg = arg.split('=', 2)[1];
+    } else if (arg === '--pause-ms' && i + 1 < process.argv.length) {
+      pauseMsArg = process.argv[++i];
+    } else if (arg.startsWith('--pause-ms=')) {
+      pauseMsArg = arg.split('=', 2)[1];
     } else if (!arg.startsWith('--')) {
       if (!snapshotArg) {
         snapshotArg = arg;
@@ -201,7 +207,7 @@ export async function main() {
 
   try {
     console.log('[INFO] Generating cloned Vietnamese voice with OmniVoice (offline)...');
-    const voicePath = synthesizeNarration(narrationPath, tempDir);
+    const voicePath = synthesizeNarration(narrationPath, tempDir, { pauseMs: pauseMsArg });
     const audioSegments = wavSpeechSegments(fs.readFileSync(voicePath));
     const timeline = audioTimeline(audioSegments);
 

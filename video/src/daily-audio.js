@@ -281,7 +281,7 @@ export function createNarration(input) {
   return paragraphs.join('\n\n') + '\n';
 }
 
-export function wavSpeechSegments(buffer, {thresholdDb = -48, frameMs = 10, separatorMs = 1050} = {}) {
+export function wavSpeechSegments(buffer, {thresholdDb = -48, frameMs = 10, separatorMs = 800} = {}) {
   const {dataOffset, dataSize, sampleRate, channels, bitsPerSample, format} = readWav(buffer);
   if (format !== 1 || bitsPerSample !== 16) throw new Error('Expected 16-bit PCM WAV audio.');
 

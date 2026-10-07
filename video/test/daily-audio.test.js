@@ -249,6 +249,23 @@ test('WAV speech segments and audioTimeline handle Round 4 5-segment audio', () 
   );
 });
 
+test('Round 6 1s pauses: wavSpeechSegments handles ~1s section gaps while merging intra-story pauses', () => {
+  // 5 speech blocks separated by 1000ms pauses, with an internal pause of 650ms in Story 2
+  const samples = [
+    ...speech(1500), ...silence(1000), // Intro (1.5s) + 1s pause
+    ...speech(1000), ...silence(1000), // Story 1 (1.0s) + 1s pause
+    ...speech(600), ...silence(650), ...speech(600), ...silence(1000), // Story 2 (with internal 650ms pause) + 1s pause
+    ...speech(1100), ...silence(1000), // Story 3 (1.1s) + 1s pause
+    ...speech(1300),                   // Outro (1.3s)
+  ];
+  const segments = wavSpeechSegments(pcm(samples));
+  assert.equal(segments.length, 5);
+
+  const timeline = audioTimeline(segments, { tailSeconds: 0.8 });
+  assert.equal(timeline.hasVoiceIntro, true);
+  assert.equal(timeline.hasVoiceOutro, true);
+});
+
 test('speech segmentation rejects invalid WAV types and invalid segment counts', () => {
   assert.throws(() => wavSpeechSegments(Buffer.from('not audio')), /RIFF\/WAVE/);
   assert.throws(() => wavSpeechSegments(pcm(speech(800))), /detected 1/);
