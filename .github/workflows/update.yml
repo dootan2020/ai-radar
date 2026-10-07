@@ -172,6 +172,16 @@ jobs:
           restore-keys: |
             radar-summary-gemini-vi-1-${{ github.ref_name }}-
             radar-summary-gemini-vi-1-main-
+      - name: Restore daily video script
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: site/data/video-script.json
+          key: radar-video-script-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            radar-video-script-v1-${{ github.ref_name }}-
+            radar-video-script-v1-main-
       - name: Summarize stories
         id: summarize
         if: steps.collect.outcome == 'success'
@@ -182,8 +192,24 @@ jobs:
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
           RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
         run: python -m radar.summarize --input site/data/radar.json --cache data/summaries-gemini-vi.json
+      - name: Generate daily video script
+        id: video-script
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
+        run: python -m radar.video_script --input site/data/radar-ui.json --output site/data/video-script.json --ledger data/summary-gemini-ledger.json
+      - name: Save daily video script
+        if: always() && steps.video-script.outputs.video_script_written == 'true'
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: site/data/video-script.json
+          key: radar-video-script-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Save Gemini summary cache and attempt ledger
-        if: always() && (steps.summarize.outputs.summary_cache_written == 'true' || steps.summarize.outputs.summary_ledger_written == 'true' || steps.summarize.outputs.article_failures_written == 'true')
+        if: always() && (steps.summarize.outputs.summary_cache_written == 'true' || steps.summarize.outputs.summary_ledger_written == 'true' || steps.summarize.outputs.article_failures_written == 'true' || steps.video-script.outputs.video_script_ledger_written == 'true')
         continue-on-error: true
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:

@@ -164,8 +164,14 @@ class WorkflowTests(unittest.TestCase):
             self.assertIn("RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}", summarize)
             self.assertIn("continue-on-error: true", summarize)
             self.assertNotRegex(summarize, r"(?i)(?:echo|print|--api-key).*GEMINI_API_KEY")
+        video_script_step = steps.get("Generate daily video script")
+        if video_script_step:
+            self.assertIn("GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}", video_script_step)
+            self.assertIn("RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}", video_script_step)
+            self.assertIn("continue-on-error: true", video_script_step)
+            self.assertNotRegex(video_script_step, r"(?i)(?:echo|print|--api-key).*GEMINI_API_KEY")
         for name, step in steps.items():
-            if name not in ("Translate headlines", "Summarize stories"):
+            if name not in ("Translate headlines", "Summarize stories", "Generate daily video script"):
                 self.assertNotIn("secrets.GEMINI_API_KEY", step, name)
         self.assertNotRegex(translate, r"(?i)(?:echo|print|--api-key).*GEMINI_API_KEY")
 
@@ -187,6 +193,72 @@ class WorkflowTests(unittest.TestCase):
         names = list(steps)
         self.assertLess(names.index("Restore Gemini translation cache and attempt ledger"), names.index("Translate headlines"))
         self.assertLess(names.index("Translate headlines"), names.index("Save Gemini translation cache and attempt ledger"))
+
+    def all_steps(self):
+        """Yield raw step text for every step in update.yml across all jobs."""
+        steps = []
+        current = []
+        for line in self.text.splitlines():
+            if line.startswith("      - "):
+                if current:
+                    steps.append("\n".join(current))
+                    current = []
+                current.append(line)
+            elif current:
+                if not line.strip():
+                    current.append(line)
+                elif len(line) - len(line.lstrip()) >= 8:
+                    current.append(line)
+                else:
+                    steps.append("\n".join(current))
+                    current = []
+        if current:
+            steps.append("\n".join(current))
+        return steps
+
+    def test_every_step_in_update_workflow_has_run_or_uses(self):
+        """Guard against accidental deletion of run: or uses: across all steps in update.yml."""
+        steps = self.all_steps()
+        self.assertGreater(len(steps), 35)
+        for step in steps:
+            lines = [l.strip() for l in step.splitlines() if l.strip()]
+            has_action = any(
+                l.startswith(("run:", "uses:", "- run:", "- uses:"))
+                for l in lines
+            )
+            step_id = (re.search(r"(?:name|uses|id):\s*(.+)", step) or [None, "unknown"])[1]
+            self.assertTrue(
+                has_action,
+                f"Step '{step_id}' in update.yml has neither 'run' nor 'uses':\n{step}"
+            )
+
+    def test_summarize_step_runs_exact_command(self):
+        """Guard against deletion or modification of the story summarize command."""
+        steps = self.steps()
+        self.assertIn("Summarize stories", steps)
+        summarize = steps["Summarize stories"]
+        expected = "run: python -m radar.summarize --input site/data/radar.json --cache data/summaries-gemini-vi.json"
+        self.assertIn(expected, summarize)
+
+    def test_video_script_step_shell_safety(self):
+        """Video script step reads GITHUB_REF from environment; no ${{ ... }} expression in run:."""
+        steps = self.steps()
+        self.assertIn("Generate daily video script", steps)
+        step = steps["Generate daily video script"]
+        run_lines = [line.strip() for line in step.splitlines() if line.strip().startswith("run:")]
+        self.assertEqual(len(run_lines), 1)
+        run_line = run_lines[0]
+        self.assertNotIn("${{", run_line)
+        self.assertNotIn("--ref", run_line)
+        self.assertEqual(
+            run_line,
+            "run: python -m radar.video_script --input site/data/radar-ui.json --output site/data/video-script.json --ledger data/summary-gemini-ledger.json"
+        )
+        for chunk in self.all_steps():
+            for line in chunk.splitlines():
+                if line.strip().startswith("run:"):
+                    self.assertNotIn("${{ inputs.", line)
+                    self.assertNotIn("${{ github.event.inputs.", line)
 
 
 if __name__ == "__main__":
