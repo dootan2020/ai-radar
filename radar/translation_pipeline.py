@@ -9,6 +9,7 @@ import time
 from radar import translate as nllb
 from radar import translation_gemini as gemini
 from radar.translation_budget import reserve, rotate_sources
+from radar import gemini_paid_budget
 
 QUOTED = re.compile(r'"[^"\n]+"|(?<!\w)\'[^\'\n]+\'(?!\w)|`[^`\n]+`')
 # Distinctive positions reveal unknown identities without freezing every Title Case word.
@@ -52,6 +53,8 @@ def _request(items, config, transport, timeout):
         try:
             response = transport(gemini.request_body(items), config.api_key, timeout)
             state["outputs"] = gemini.parse_response(response, {item["id"] for item in items})
+            metadata = response.get("usageMetadata", {}) if isinstance(response, dict) else {}
+            state["tokens"] = metadata.get("totalTokenCount", 0) if isinstance(metadata, dict) else 0
         except gemini.ProviderError as error:
             code = str(error)
             state["error"] = code if gemini.HTTP_CODE_PATTERN.fullmatch(code) or code in {
@@ -64,8 +67,8 @@ def _request(items, config, transport, timeout):
     worker.start()
     worker.join(timeout)
     if worker.is_alive():
-        return {}, "timeout", True
-    return state.get("outputs", {}), state.get("error"), False
+        return {}, "timeout", True, 0
+    return state.get("outputs", {}), state.get("error"), False, state.get("tokens", 0)
 
 
 def collect_prior_translations(payload, previous=None):
@@ -166,14 +169,25 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
             if not items:
                 api["error"] = "input_limit"
             else:
-                api["error"] = reserve(ledger_path, config.daily_limit, now(), last_source=items[-1]["text"])
+                paid_reservation = None
+                if config.paid:
+                    body = gemini.request_body(items)
+                    estimated_tokens = len(json.dumps(body).encode("utf-8")) + gemini.MAX_OUTPUT_TOKENS
+                    api["error"], paid_reservation = gemini_paid_budget.reserve(
+                        gemini_paid_budget.ledger_path(), estimated_tokens, now=now())
+                else:
+                    api["error"] = reserve(ledger_path, config.daily_limit, now(), last_source=items[-1]["text"])
                 if not api["error"]:
                     remaining = min(config.timeout, max(0, budget - (clock() - started)))
                     if remaining <= 0:
                         api["error"] = "time_budget"
                     else:
                         api["requests"] = 1
-                        outputs, api["error"], api_alive = _request(items, config, transport, remaining)
+                        outputs, api["error"], api_alive, used_tokens = _request(items, config, transport, remaining)
+                        api["tokens"] = used_tokens
+                        if config.paid:
+                            gemini_paid_budget.settle(gemini_paid_budget.ledger_path(), paid_reservation,
+                                                     used_tokens, now=now())
                         for item in items:
                             source = item["text"]
                             output = validated(source, outputs.get(item["id"]), groups[source]["names"])

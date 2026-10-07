@@ -27,13 +27,19 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("path: data/measurement-baseline.json", restore)
         self.assertIn("id: collect", self.text)
 
-    def test_reruns_have_unique_keys_and_branches_have_independent_concurrency(self):
+    def test_reruns_have_unique_keys_and_paid_budget_runs_are_serialized(self):
         keys = [k for k in re.findall(r"^\s+key: (.+)$", self.text, re.MULTILINE) if "radar-measurements" in k]
         self.assertEqual(len(keys), 2)
         self.assertEqual(keys[0], keys[1])
         self.assertIn("${{ github.run_attempt }}", keys[0])
-        self.assertIn("group: github-pages-${{ github.ref }}", self.text)
+        self.assertIn("group: gemini-paid-budget", self.text)
         self.assertIn("cancel-in-progress: false", self.text)
+
+    def test_paid_switch_is_main_only_and_shared_ledger_is_cached(self):
+        self.assertGreaterEqual(self.text.count("github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0'"), 4)
+        self.assertIn("RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}", self.text)
+        self.assertIn("path: data/gemini-paid-ledger.json", self.text)
+        self.assertIn("radar-gemini-paid-v1-${{ github.run_id }}-${{ github.run_attempt }}", self.text)
 
     def test_main_deployment_guards_and_job_permissions(self):
         self.assertIn("  deploy:\n    if: github.ref == 'refs/heads/main'", self.text)

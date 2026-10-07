@@ -17,6 +17,7 @@ from urllib.parse import urlsplit
 from radar.items import instant
 from radar import summary_budget
 from radar import summary_gemini as gemini
+from radar import gemini_paid_budget
 from radar import shadow_collector, transport
 from radar.common import web_url
 from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
@@ -475,7 +476,7 @@ def summarize_payload(payload: dict,
         script_path=script_path,
         ledger_path=ledger_path,
     )
-    capacity_error = summary_budget.capacity_error(
+    capacity_error = None if config.paid else summary_budget.capacity_error(
         ledger_path, config.daily_requests_limit, config.daily_tokens_limit,
         gemini.MAX_ESTIMATED_TOKENS_PER_REQUEST, request_now,
         reserve_for_script=reserve_script)
@@ -594,19 +595,22 @@ def summarize_payload(payload: dict,
     # Reserve budget in ledger
     reserve_now = now()
     # Reserve input tokens plus the full output ceiling and fixed prompt overhead.
-    estimated_toks = max(
-        500,
-        int(batch_chars / 3.5) + gemini.MAX_OUTPUT_TOKENS + gemini.INPUT_TOKEN_OVERHEAD,
-    )
-    reserve_err = summary_budget.reserve(
-        ledger_path,
-        request_limit=config.daily_requests_limit,
-        token_limit=config.daily_tokens_limit,
-        estimated_tokens=estimated_toks,
-        now=reserve_now,
-        last_story_id=batch_items[-1]["id"],
-        reserve_for_script=reserve_script,
-    )
+    request_body = gemini.request_body(batch_items)
+    estimated_toks = len(json.dumps(request_body).encode("utf-8")) + gemini.MAX_OUTPUT_TOKENS
+    paid_reservation = None
+    if config.paid:
+        reserve_err, paid_reservation = gemini_paid_budget.reserve(
+            gemini_paid_budget.ledger_path(), estimated_toks, now=reserve_now)
+    else:
+        reserve_err = summary_budget.reserve(
+            ledger_path,
+            request_limit=config.daily_requests_limit,
+            token_limit=config.daily_tokens_limit,
+            estimated_tokens=estimated_toks,
+            now=reserve_now,
+            last_story_id=batch_items[-1]["id"],
+            reserve_for_script=reserve_script,
+        )
 
     if reserve_err:
         stats["error"] = reserve_err
@@ -625,19 +629,25 @@ def summarize_payload(payload: dict,
         if remaining_time > SUMMARY_RETRY_DELAY:
             time.sleep(SUMMARY_RETRY_DELAY)
             retry_now = now()
-            retry_err = summary_budget.reserve(
-                ledger_path,
-                request_limit=config.daily_requests_limit,
-                token_limit=config.daily_tokens_limit,
-                estimated_tokens=estimated_toks,
-                now=retry_now,
-                last_story_id=batch_items[-1]["id"],
-                reserve_for_script=reserve_script,
-            )
+            if config.paid:
+                retry_err, retry_reservation = gemini_paid_budget.reserve(
+                    gemini_paid_budget.ledger_path(), estimated_toks, now=retry_now)
+            else:
+                retry_err = summary_budget.reserve(
+                    ledger_path,
+                    request_limit=config.daily_requests_limit,
+                    token_limit=config.daily_tokens_limit,
+                    estimated_tokens=estimated_toks,
+                    now=retry_now,
+                    last_story_id=batch_items[-1]["id"],
+                    reserve_for_script=reserve_script,
+                )
             if retry_err:
                 err = retry_err
             else:
                 stats["requests"] += 1
+                if config.paid:
+                    paid_reservation = retry_reservation
                 outputs, tokens, err, alive = _request_gemini(
                     batch_items, config, transport_fn,
                     min(config.timeout, max(0.0, budget - (clock() - started))),
@@ -645,7 +655,10 @@ def summarize_payload(payload: dict,
     stats["tokens"] = tokens
     stats["error"] = err
 
-    if tokens and ledger_path:
+    if config.paid:
+        gemini_paid_budget.settle(gemini_paid_budget.ledger_path(), paid_reservation, tokens,
+                                 now=retry_now or reserve_now)
+    elif tokens and ledger_path:
         summary_budget.update_actual_tokens(ledger_path, retry_now or reserve_now, tokens)
 
     # Process and validate outputs

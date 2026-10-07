@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: github-pages-${{ github.ref }}
+  group: gemini-paid-budget
   cancel-in-progress: false
 
 jobs:
@@ -68,6 +68,23 @@ jobs:
           CLOUDFLARE_AI_API_TOKEN: ${{ secrets.CLOUDFLARE_AI_API_TOKEN }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python build.py
+      - name: Restore shared Gemini paid budget ledger
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/gemini-paid-ledger.json
+          key: radar-gemini-paid-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: radar-gemini-paid-v1-
+      - name: Prepare shared Gemini paid budget ledger
+        id: paid-budget
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        env:
+          RADAR_GEMINI_PAID_ENABLED: ${{ github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0' }}
+          RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
+        run: python -m radar.gemini_paid_budget
       - name: Save measurement snapshot
         if: steps.collect.outputs.baseline_updated == 'true'
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -134,6 +151,9 @@ jobs:
           RADAR_TRANSLATE_BUDGET: '600'
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
+          RADAR_GEMINI_PAID_ENABLED: ${{ github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0' }}
+          RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
           RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
         run: python -m radar.translate --input site/data/radar.json --cache data/translations-vi.json
       - name: Save translation model
@@ -190,6 +210,9 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
+          RADAR_GEMINI_PAID_ENABLED: ${{ github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0' }}
+          RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
           RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
         run: python -m radar.summarize --input site/data/radar.json --cache data/summaries-gemini-vi.json
       - name: Generate daily video script
@@ -200,6 +223,9 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
+          RADAR_GEMINI_PAID_ENABLED: ${{ github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0' }}
+          RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
         run: python -m radar.video_script --input site/data/radar-ui.json --output site/data/video-script.json --ledger data/summary-gemini-ledger.json
       - name: Save daily video script
         if: always() && steps.video-script.outputs.video_script_written == 'true'
@@ -218,6 +244,13 @@ jobs:
             data/summary-gemini-ledger.json
             data/article-read-failures.json
           key: radar-summary-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save shared Gemini paid budget ledger
+        if: always() && steps.paid-budget.outputs.ledger_ready == 'true'
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/gemini-paid-ledger.json
+          key: radar-gemini-paid-v1-${{ github.run_id }}-${{ github.run_attempt }}
       # Editions capture translated titles only after a matching successful publication gate.
       - name: Prepare daily editions
         id: edition-prepare
