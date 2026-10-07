@@ -8,6 +8,9 @@ from radar.items import observation, relevant
 
 
 def parse_feed(text, source, observed_at):
+    if source.get("id") == "anthropic-claude" or "claude.com" in source.get("url", ""):
+        from radar.claude import parse_claude
+        return parse_claude(text, source, observed_at)
     if text.lstrip().startswith("{"):
         import json
         data = json.loads(text)

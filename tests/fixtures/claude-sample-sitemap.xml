@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://claude.com/resources/articles/were-expanding-the-claude-startups-program-to-help-founders-build</loc>
+    <lastmod>2026-10-06T18:00:00Z</lastmod>
+  </url>
+  <url>
+    <loc>https://claude.com/resources/articles/claude-now-works-in-google-docs-sheets-and-slides</loc>
+    <lastmod>2026-10-06T17:30:00Z</lastmod>
+  </url>
+  <url>
+    <loc>https://claude.com/resources/articles/how-comcast-booz-allen-use-claude-mythos-to-secure-their-codebases</loc>
+    <lastmod>2026-10-06T15:00:00Z</lastmod>
+  </url>
+  <url>
+    <loc>https://claude.com/resources/articles/claude-code-mods</loc>
+    <lastmod>2026-10-01T12:00:00Z</lastmod>
+  </url>
+  <!-- Locale duplicate to be filtered -->
+  <url>
+    <loc>https://claude.com/ja/resources/articles/were-expanding-the-claude-startups-program-to-help-founders-build</loc>
+    <lastmod>2026-10-06T18:00:00Z</lastmod>
+  </url>
+  <!-- Non-news webinar to be filtered -->
+  <url>
+    <loc>https://claude.com/resources/webinars/opus-5-5-for-work</loc>
+    <lastmod>2026-09-28T10:00:00Z</lastmod>
+  </url>
+  <!-- Non-news guide to be filtered -->
+  <url>
+    <loc>https://claude.com/resources/guides/prompt-engineering</loc>
+    <lastmod>2026-09-20T10:00:00Z</lastmod>
+  </url>
+</urlset>
