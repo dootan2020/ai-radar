@@ -24,7 +24,7 @@ from radar.pipeline import write_atomic
 from radar import summary_budget
 from radar import summary_gemini as gemini
 from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
-from radar.worth import calculate_worth, uniq_coverage
+from radar.worth import calculate_worth, first_hand_of, uniq_coverage
 
 MODEL_ID = "gemini-3.8-flash"
 PROMPT_VERSION = "video-script-vi-1"
@@ -173,13 +173,19 @@ def pick_image_kind(st: dict) -> str:
     return "cover"
 
 
+def is_translated_story(st: dict) -> bool:
+    """Return True if the story has a non-empty Vietnamese title."""
+    title_vi = st.get("title_vi")
+    return bool(title_vi and isinstance(title_vi, str) and title_vi.strip())
+
+
 def choose_picks(stories: list[dict],
                  sources_map: dict | None = None,
                  now_dt: datetime | None = None,
                  editor_picks: list[dict] | None = None) -> list[dict]:
-    """Replicate feed.js choosePicks() in Python.
+    """Replicate feed.js choosePicks() in Python for translated stories.
 
-    Returns up to 3 high-worth stories backed by >= 2 independent news publishers.
+    Returns up to 3 high-worth translated stories backed by >= 2 independent news publishers.
     """
     story_map = {s.get("id"): s for s in stories if s.get("id")}
 
@@ -187,10 +193,24 @@ def choose_picks(stories: list[dict],
         return len(news_coverage_of(s, sources_map))
 
     def by_worth(s: dict):
-        w = calculate_worth(s, now_dt, sources_map)
+        if isinstance(s.get("worth_score"), (int, float)):
+            score = float(s["worth_score"])
+        else:
+            w = calculate_worth(s, now_dt, sources_map)
+            score = w["score"]
         pub_dt = instant(s.get("published_at"))
         ts = pub_dt.timestamp() if pub_dt else 0.0
-        return (-w["score"], -ts)
+        return (-score, -ts)
+
+    def has_evidence(s: dict) -> bool:
+        if isinstance(s.get("worth_score"), (int, float)):
+            meas = (s.get("hot_signals") or {}).get("measurement")
+            hot = max(0.0, float(s.get("hot_score") or 0.0)) if meas and isinstance(s.get("hot_score"), (int, float)) else 0.0
+            n = len(uniq_coverage(s.get("coverage"), sources_map))
+            fh = first_hand_of(s, sources_map)
+            parts = s.get("worth_parts")
+            return bool(fh or n >= 2 or hot > 0 or (isinstance(parts, dict) and bool(parts)))
+        return calculate_worth(s, now_dt, sources_map)["evidence"]
 
     out = []
     editor_set = set()
@@ -200,13 +220,13 @@ def choose_picks(stories: list[dict],
                 break
             pid = p.get("id") if isinstance(p, dict) else str(p)
             st = story_map.get(pid)
-            if st and n_news(st) >= 2 and st not in out:
+            if st and is_translated_story(st) and n_news(st) >= 2 and st not in out:
                 out.append(st)
                 editor_set.add(st["id"])
 
     candidates = [
         s for s in stories
-        if s.get("id") not in editor_set and n_news(s) >= 2 and calculate_worth(s, now_dt, sources_map)["evidence"]
+        if s.get("id") not in editor_set and is_translated_story(s) and n_news(s) >= 2 and has_evidence(s)
     ]
     candidates.sort(key=by_worth)
 
@@ -224,7 +244,7 @@ def choose_picks(stories: list[dict],
     if len(out) < 3:
         fallback = [
             s for s in stories
-            if s.get("id") not in editor_set and s not in out and n_news(s) >= 2 and calculate_worth(s, now_dt, sources_map)["evidence"]
+            if s.get("id") not in editor_set and s not in out and is_translated_story(s) and n_news(s) >= 2 and has_evidence(s)
         ]
         fallback.sort(key=by_worth)
         for s in fallback:
@@ -634,7 +654,7 @@ def generate_video_script(input_path: str | Path,
             "tokens": 0,
             "script_written": False,
             "ledger_written": False,
-            "detail": f"found only {len(selected)} eligible stories with >= 2 news sources"
+            "detail": f"found only {len(selected)} eligible translated stories with >= 2 news sources"
         }
 
     stories_map = {s["id"]: s for s in selected}

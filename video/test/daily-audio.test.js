@@ -54,18 +54,21 @@ const mockSnapshot = {
       title_vi: 'Nvidia Shield TV tăng giá do AI',
       summary_vi: 'Nvidia Shield TV Pro tăng giá $100 vì nhu cầu AI. Câu tiếp theo.',
       worth_score: 8.5,
+      coverage: [{ source: 'techcrunch', publisher: 'techcrunch' }, { source: 'the-verge', publisher: 'the-verge' }],
     },
     {
       id: 'story-2',
       title_vi: 'Apple thắt chặt quyền Full Disk Access',
       summary_vi: 'Apple cảnh báo agent AI có thể đọc trộm tin nhắn. Câu tiếp theo.',
       worth_score: 7.2,
+      coverage: [{ source: 'techcrunch', publisher: 'techcrunch' }, { source: 'the-verge', publisher: 'the-verge' }],
     },
     {
       id: 'story-3',
       title_vi: 'Amazon đầu tư $1B vào trung tâm dữ liệu',
       summary_vi: 'Amazon chi $1B để xoa dịu phản ứng ô nhiễm. Câu tiếp theo.',
       worth_score: 6.9,
+      coverage: [{ source: 'techcrunch', publisher: 'techcrunch' }, { source: 'the-verge', publisher: 'the-verge' }],
     },
   ],
 };
@@ -160,6 +163,7 @@ test('resolveScript prioritizes valid script option, local file, and falls back 
       id: st.id,
       title_vi: st.line,
       summary_vi: 'Tóm tắt câu một. Câu hai.',
+      coverage: [{ source: 'techcrunch', publisher: 'techcrunch' }, { source: 'the-verge', publisher: 'the-verge' }],
     })),
   };
 

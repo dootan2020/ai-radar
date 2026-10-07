@@ -127,6 +127,9 @@ export function validateScript(script, snapshot, targetDate) {
     if (!found) {
       return { valid: false, reason: `Story '${item.id}' from script is not found in snapshot` };
     }
+    if (!found.title_vi || typeof found.title_vi !== 'string' || !found.title_vi.trim()) {
+      return { valid: false, reason: `Story '${item.id}' from script lacks a Vietnamese title in snapshot` };
+    }
   }
   return { valid: true };
 }
@@ -136,6 +139,10 @@ export function generateFallbackScript(snapshot, pickedStories, targetDate) {
   const stories = pickedStories && pickedStories.length === 3
     ? pickedStories
     : selectThreeStories(snapshot);
+
+  if (!stories || stories.length < 3 || stories.some(s => !s.title_vi || typeof s.title_vi !== 'string' || !s.title_vi.trim())) {
+    return null;
+  }
 
   const topTitle = normalizeSpeech(stories[0].title_vi || stories[0].title || '');
   const storyCount = Array.isArray(snapshot?.stories) ? snapshot.stories.length : 3;
@@ -242,6 +249,14 @@ export async function resolveScript({
 
   // 4. Fallback template built from snapshot fields
   const fallbackScript = generateFallbackScript(snapshot, pickedStories, expectedDate);
+  if (!fallbackScript) {
+    return {
+      script: null,
+      source: 'fallback template',
+      reason: lastReason || 'fewer than 3 translated stories qualify',
+      fallback: true,
+    };
+  }
   return {
     script: fallbackScript,
     source: 'fallback template',

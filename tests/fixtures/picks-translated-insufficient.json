@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-10-06T12:00:00Z",
+  "sources": [
+    {"id": "techcrunch"},
+    {"id": "reuters"},
+    {"id": "bloomberg"},
+    {"id": "ars-technica"},
+    {"id": "wired"}
+  ],
+  "stories": [
+    {
+      "id": "story-top-untranslated",
+      "title": "Introducing Mistral Large 4 with massive breakthrough",
+      "title_vi": null,
+      "summary": "Mistral AI releases Mistral Large 4 with major benchmark gains.",
+      "summary_vi": null,
+      "published_at": "2026-10-06T12:00:00Z",
+      "worth_score": 99.0,
+      "image": {"src": "https://example.com/mistral.jpg", "kind": "photo"},
+      "coverage": [
+        {"source": "techcrunch", "publisher": "techcrunch", "title": "Mistral Large 4 announced", "metrics": {}},
+        {"source": "wired", "publisher": "wired", "title": "Mistral Large 4 details", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-pick-1",
+      "title": "OpenAI adds text watermarking in ChatGPT and Codex",
+      "title_vi": "OpenAI bổ sung watermark văn bản trong ChatGPT và Codex",
+      "summary": "OpenAI begins rolling out text watermarking across tools.",
+      "summary_vi": "OpenAI bắt đầu triển khai gắn watermark văn bản trên các công cụ.",
+      "published_at": "2026-10-06T11:00:00Z",
+      "worth_score": 80.0,
+      "image": {"src": "https://example.com/openai.jpg", "kind": "photo"},
+      "coverage": [
+        {"source": "reuters", "publisher": "reuters", "title": "OpenAI adds text watermarking in ChatGPT and Codex", "metrics": {}},
+        {"source": "bloomberg", "publisher": "bloomberg", "title": "OpenAI text watermarking", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-pick-2",
+      "title": "The 7-year-old Nvidia Shield TV is now $100 more expensive due to AI",
+      "title_vi": "Nvidia Shield TV 7 năm tuổi bây giờ là 100 đô la đắt hơn do AI",
+      "summary": "Nvidia Shield TV Pro now sells for $299 due to AI demand.",
+      "summary_vi": "Nvidia Shield TV Pro giờ bán 299 đô la do nhu cầu AI.",
+      "published_at": "2026-10-06T10:00:00Z",
+      "worth_score": 50.0,
+      "image": {"src": "https://example.com/nvidia.jpg", "kind": "graphic"},
+      "coverage": [
+        {"source": "ars-technica", "publisher": "ars-technica", "title": "The 7-year-old Nvidia Shield TV is now $100 more expensive due to AI", "metrics": {}},
+        {"source": "wired", "publisher": "wired", "title": "Nvidia Shield TV price hike", "metrics": {}}
+      ]
+    }
+  ]
+}

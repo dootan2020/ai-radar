@@ -164,6 +164,7 @@ class VideoScriptSelectionTests(unittest.TestCase):
         duplicate_shield = {
             "id": "story-shield-duplicate",
             "title": "The Nvidia Shield TV 7-year-old console now costs $100 more due to AI",
+            "title_vi": "Nvidia Shield TV đắt thêm 100 đô la do AI",
             "published_at": "2026-10-06T09:30:00Z",
             "worth_score": 44.0,
             "coverage": [
@@ -174,6 +175,7 @@ class VideoScriptSelectionTests(unittest.TestCase):
         fourth_story = {
             "id": "story-fourth",
             "title": "DeepSeek unveils novel architecture for mathematical reasoning",
+            "title_vi": "DeepSeek công bố kiến trúc mới cho suy luận toán học",
             "published_at": "2026-10-06T07:00:00Z",
             "worth_score": 35.0,
             "coverage": [
@@ -188,6 +190,33 @@ class VideoScriptSelectionTests(unittest.TestCase):
         self.assertIn("story-shield", pick_ids)
         self.assertNotIn("story-shield-duplicate", pick_ids)
         self.assertIn("story-fourth", pick_ids)
+
+    def test_choose_picks_discards_untranslated_story(self):
+        now = datetime(2026, 10, 6, 12, 0, 0, tzinfo=timezone.utc)
+        untranslated = {
+            "id": "story-untranslated-top",
+            "title": "Introducing Mistral Large 4 with massive breakthrough",
+            "title_vi": None,
+            "published_at": "2026-10-06T11:30:00Z",
+            "worth_score": 99.0,
+            "image": {"src": "https://example.com/mistral.jpg", "kind": "photo"},
+            "coverage": [
+                {"source": "techcrunch", "publisher": "techcrunch", "metrics": {}},
+                {"source": "wired", "publisher": "wired", "metrics": {}}
+            ]
+        }
+        stories = [untranslated] + self.stories
+        picks = video_script.choose_picks(stories, now_dt=now)
+        pick_ids = [s["id"] for s in picks]
+        self.assertNotIn("story-untranslated-top", pick_ids)
+        self.assertEqual(len(picks), 3)
+        self.assertEqual({s["id"] for s in picks}, {"story-shield", "story-apple", "story-amazon"})
+
+    def test_choose_picks_returns_fewer_than_three_when_insufficient_translated(self):
+        now = datetime(2026, 10, 6, 12, 0, 0, tzinfo=timezone.utc)
+        two_stories = [self.stories[0], self.stories[1]]
+        picks = video_script.choose_picks(two_stories, now_dt=now)
+        self.assertEqual(len(picks), 2)
 
 
 class VideoScriptVerificationTests(unittest.TestCase):

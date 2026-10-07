@@ -132,6 +132,11 @@ export async function main() {
     targetDate: dateSlug,
   });
 
+  if (!scriptResult || !scriptResult.script) {
+    console.log(`[INFO] Fewer than 3 translated stories qualify (${scriptResult?.reason || 'insufficient stories'}). Skipping video render.`);
+    return;
+  }
+
   if (scriptResult.fallback) {
     console.log(`[INFO] Script source: fallback template (${scriptResult.reason})`);
   } else {
@@ -141,16 +146,23 @@ export async function main() {
   const script = scriptResult.script;
 
   // 5. Select 3 stories in the exact order specified by the script
-  const pickedStories = script.stories.map((item) => {
-    const found = snapshot.stories.find(s => s.id === item.id);
-    if (!found) {
-      throw new Error(`Snapshot is missing required story id from script: ${item.id}`);
-    }
-    return found;
-  });
+  let pickedStories = [];
+  try {
+    pickedStories = script.stories.map((item) => {
+      const found = snapshot.stories.find(s => s.id === item.id);
+      if (!found) {
+        throw new Error(`Snapshot is missing required story id from script: ${item.id}`);
+      }
+      return found;
+    });
+  } catch (err) {
+    console.log(`[INFO] Failed to map script stories to snapshot: ${err.message}. Skipping video render.`);
+    return;
+  }
 
-  if (pickedStories.length !== 3 || pickedStories.some(story => !story.title_vi)) {
-    throw new Error('Snapshot must supply three selected stories with Vietnamese titles.');
+  if (pickedStories.length !== 3 || pickedStories.some(story => !story.title_vi || typeof story.title_vi !== 'string' || !story.title_vi.trim())) {
+    console.log('[INFO] Fewer than 3 translated stories qualify in snapshot. Skipping video render.');
+    return;
   }
 
   console.log(`[INFO] Selected ${pickedStories.length} stories for video (script order):`);

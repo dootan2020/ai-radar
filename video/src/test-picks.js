@@ -63,4 +63,51 @@ assert.strictEqual(mockPicks.length, 3, 'Fallback must return 3 stories from moc
 assert.strictEqual(mockPicks[0].id, 'mock-1', 'Highest score must be first');
 console.log('✓ Test 4: Mock snapshot ranking and fallback verified');
 
-console.log('\n[PASS] All 4 tests passed successfully!\n');
+// Test 5: Verify all live picked stories have Vietnamese titles
+picks.forEach((p, idx) => {
+  assert.ok(p.title_vi && typeof p.title_vi === 'string' && p.title_vi.trim(), `Story ${idx + 1} (${p.id}) must have a non-empty Vietnamese title`);
+});
+console.log('✓ Test 5: All 3 picked stories have valid Vietnamese titles (title_vi)');
+
+// Test 6: Untranslated top story is skipped in favor of lower-worth translated stories
+const snapshotWithUntranslatedTop = {
+  generated_at: '2026-10-05T12:00:00Z',
+  stories: [
+    {
+      id: 'untranslated-top',
+      title: 'Top story but untranslated',
+      title_vi: null,
+      worth_score: 99,
+      coverage: [{ source: 'src-1' }, { source: 'src-2' }]
+    },
+    ...mockSnapshot.stories
+  ]
+};
+const picksSkippingUntranslated = selectThreeStories(snapshotWithUntranslatedTop);
+assert.strictEqual(picksSkippingUntranslated.length, 3);
+assert.ok(!picksSkippingUntranslated.some(p => p.id === 'untranslated-top'), 'Untranslated top story must be skipped');
+assert.strictEqual(picksSkippingUntranslated[0].id, 'mock-1');
+console.log('✓ Test 6: Untranslated top story is skipped in favor of translated stories');
+
+// Test 7: Fewer than 3 translated stories returns only qualifying stories (no untranslated fallback)
+const snapshotWithOnlyTwo = {
+  generated_at: '2026-10-05T12:00:00Z',
+  stories: [
+    mockSnapshot.stories[0],
+    mockSnapshot.stories[1],
+    {
+      id: 'untranslated-filler',
+      title: 'Untranslated filler',
+      title_vi: '',
+      worth_score: 5,
+      coverage: [{ source: 'src-1' }, { source: 'src-2' }]
+    }
+  ]
+};
+const picksShort = selectThreeStories(snapshotWithOnlyTwo);
+assert.strictEqual(picksShort.length, 2, 'Must return only the 2 translated stories');
+assert.ok(!picksShort.some(p => p.id === 'untranslated-filler'));
+console.log('✓ Test 7: Fewer than 3 translated stories returns only qualifying stories');
+
+console.log('\n[PASS] All 7 tests passed successfully!\n');
+

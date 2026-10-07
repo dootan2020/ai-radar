@@ -74,25 +74,72 @@ function worthOf(st) {
   };
 }
 
+const KIND_OF_VIA = {
+  'feed-media': 'photo',
+  'og:image': 'photo',
+  'linked-article': 'photo',
+  'youtube': 'photo',
+  'github-social': 'graphic',
+  'hf-thumbnail': 'graphic',
+  'ai': 'photo',
+};
+
+export function pickImageKind(st) {
+  const img = st?.image;
+  if (img && typeof img === 'object' && img.src) {
+    return img.kind || KIND_OF_VIA[img.via] || 'photo';
+  }
+  for (const c of st?.coverage || []) {
+    if (!c || typeof c !== 'object') continue;
+    for (const m of c.media || []) {
+      if (typeof m === 'object') {
+        const isImg = m.type === 'image' || String(m.mime_type || '').startsWith('image/');
+        if (isImg && String(m.url || '').startsWith('https://')) return 'photo';
+      }
+    }
+  }
+  const url = String(st?.url || '');
+  if (/https?:\/\/(?:www\.|m\.)?(?:youtube\.com|youtu\.be)/i.test(url)) return 'photo';
+  if (/https?:\/\/(?:www\.)?github\.com\/[\w.-]+\/[\w.-]+/i.test(url)) return 'graphic';
+  if (/https?:\/\/huggingface\.co\/(?:papers|models|datasets|spaces)\//i.test(url)) return 'graphic';
+  return 'cover';
+}
+
+export function isTranslatedStory(st) {
+  return !!(st && typeof st.title_vi === 'string' && st.title_vi.trim().length > 0);
+}
+
 const byWorth = (a, b) => worthOf(b).score - worthOf(a).score || ms(b.published_at) - ms(a.published_at);
 
-export function selectThreeStories(snapshot) {
-  const allStories = snapshot.stories || [];
-  
-  // Follow choosePicks() logic from site/feed.js
-  // 1. candidates: multi-source (nNewsSrc >= 2) and has evidence
-  const candidates = allStories
-    .filter(st => nNewsSrc(st) >= 2 && worthOf(st).evidence)
-    .sort(byWorth);
+export function selectThreeStories(snapshot, options = {}) {
+  const allStories = snapshot?.stories || [];
+  const editorPicks = options.editorPicks || null;
 
   const out = [];
+  const editorSet = new Set();
 
-  // Check if any candidate has image
-  const photoLeadIndex = candidates.findIndex(st => {
-    return !!(st.image || (st.coverage && st.coverage.some(c => c.image)));
-  });
-  if (photoLeadIndex >= 0) {
-    out.push(candidates.splice(photoLeadIndex, 1)[0]);
+  if (Array.isArray(editorPicks)) {
+    for (const p of editorPicks) {
+      if (out.length >= 3) break;
+      const pid = typeof p === 'object' && p !== null ? p.id : String(p);
+      const st = allStories.find(s => s && s.id === pid);
+      if (st && isTranslatedStory(st) && nNewsSrc(st) >= 2 && !out.some(o => o.id === st.id)) {
+        out.push(st);
+        editorSet.add(st.id);
+      }
+    }
+  }
+
+  // Follow choosePicks() logic from site/feed.js strictly for translated stories
+  const candidates = allStories
+    .filter(st => st && !editorSet.has(st.id) && isTranslatedStory(st) && nNewsSrc(st) >= 2 && worthOf(st).evidence)
+    .sort(byWorth);
+
+  if (!out.length && candidates.length > 0) {
+    const photoLeadIndex = candidates.findIndex(st => pickImageKind(st) === 'photo');
+    if (photoLeadIndex >= 0) {
+      out.push(candidates.splice(photoLeadIndex, 1)[0]);
+    }
   }
 
   for (const st of candidates) {
@@ -102,10 +149,10 @@ export function selectThreeStories(snapshot) {
     }
   }
 
-  // Fallback if less than 3
+  // Fallback if less than 3 (without relaxing translation or news coverage threshold)
   if (out.length < 3) {
     const fallback = allStories
-      .filter(st => !out.includes(st) && (nNewsSrc(st) >= 2 || nSrc(st) >= 2))
+      .filter(st => st && !editorSet.has(st.id) && !out.some(o => o.id === st.id) && isTranslatedStory(st) && nNewsSrc(st) >= 2 && worthOf(st).evidence)
       .sort(byWorth);
     for (const st of fallback) {
       if (out.length >= 3) break;
@@ -115,35 +162,44 @@ export function selectThreeStories(snapshot) {
     }
   }
 
-  // Final fallback if still less than 3
-  if (out.length < 3) {
-    const remaining = allStories.filter(st => !out.includes(st)).sort(byWorth);
-    for (const st of remaining) {
-      if (out.length >= 3) break;
-      out.push(st);
-    }
-  }
-
   return out.slice(0, 3);
 }
 
 // CLI runner if executed directly
 if (process.argv[1] && process.argv[1].endsWith('pick-stories.js')) {
+  const args = process.argv.slice(2);
+  const jsonMode = args.includes('--json');
+  const fileArg = args.find(a => !a.startsWith('--'));
+
   const defaultSample = fs.existsSync(path.resolve('sample/radar-ui.json'))
     ? path.resolve('sample/radar-ui.json')
     : path.resolve('video/sample/radar-ui.json');
-  const filePath = process.argv[2] || defaultSample;
-  console.log('Reading snapshot from:', filePath);
+  const filePath = fileArg || defaultSample;
+
+  if (!jsonMode) {
+    console.log('Reading snapshot from:', filePath);
+  }
   const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
   const picks = selectThreeStories(data);
-  console.log(`\nSelected ${picks.length} stories:`);
-  picks.forEach((p, idx) => {
-    const w = worthOf(p);
-    console.log(`\n[${idx + 1}] ID: ${p.id}`);
-    console.log(`    Worth score: ${w.score.toFixed(2)} | Sources: ${nNewsSrc(p)} news (${nSrc(p)} total)`);
-    console.log(`    Tiêu đề VI: ${p.title_vi || p.title}`);
-    console.log(`    Tiêu đề EN: ${p.title}`);
-    console.log(`    Tóm tắt: ${p.summary_vi || p.description_vi || p.summary || ''}`);
-    console.log(`    Published: ${p.published_at}`);
-  });
+
+  if (jsonMode) {
+    process.stdout.write(JSON.stringify(picks.map(p => p.id)));
+    process.exit(0);
+  }
+
+  if (picks.length < 3) {
+    console.log(`\nFound only ${picks.length} eligible translated stories with >= 2 news sources (need 3).`);
+  } else {
+    console.log(`\nSelected ${picks.length} stories:`);
+    picks.forEach((p, idx) => {
+      const w = worthOf(p);
+      console.log(`\n[${idx + 1}] ID: ${p.id}`);
+      console.log(`    Worth score: ${w.score.toFixed(2)} | Sources: ${nNewsSrc(p)} news (${nSrc(p)} total)`);
+      console.log(`    Tiêu đề VI: ${p.title_vi || p.title}`);
+      console.log(`    Tiêu đề EN: ${p.title}`);
+      console.log(`    Tóm tắt: ${p.summary_vi || p.description_vi || p.summary || ''}`);
+      console.log(`    Published: ${p.published_at}`);
+    });
+  }
 }
+
