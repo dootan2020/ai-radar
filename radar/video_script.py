@@ -22,6 +22,7 @@ from radar.common import iso_date
 from radar.items import instant
 from radar.pipeline import write_atomic
 from radar import summary_budget
+from radar import gemini_paid_budget
 from radar import summary_gemini as gemini
 from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
 from radar.worth import calculate_worth, first_hand_of, uniq_coverage
@@ -678,7 +679,8 @@ def generate_video_script(input_path: str | Path,
 
     # 5. Check API credentials & free-tier confirmation
     api_key = os.environ.get("GEMINI_API_KEY", "")
-    confirmed = os.environ.get("RADAR_GEMINI_FREE_TIER_CONFIRMED") == "1"
+    paid = gemini_paid_budget.enabled()
+    confirmed = paid or os.environ.get("RADAR_GEMINI_FREE_TIER_CONFIRMED") == "1"
     if not api_key:
         return {
             "status": "skipped",
@@ -699,7 +701,7 @@ def generate_video_script(input_path: str | Path,
         }
 
     # 6. Check free-tier ledger capacity
-    cap_err = summary_budget.capacity_error(ledger_path, now=now.timestamp())
+    cap_err = None if paid else summary_budget.capacity_error(ledger_path, now=now.timestamp())
     if cap_err:
         return {
             "status": "budget_exhausted",
@@ -713,12 +715,20 @@ def generate_video_script(input_path: str | Path,
     # 7. Reserve budget
     estimated_tokens = 1500
     reserve_now = now.timestamp()
-    reserve_err = summary_budget.reserve(
-        ledger_path,
-        estimated_tokens=estimated_tokens,
-        now=reserve_now,
-        last_story_id=selected[-1]["id"]
-    )
+    req_body = build_gemini_request(selected)
+    if paid:
+        estimated_tokens = len(json.dumps(req_body).encode("utf-8")) + gemini.MAX_OUTPUT_TOKENS
+    paid_reservation = None
+    if paid:
+        reserve_err, paid_reservation = gemini_paid_budget.reserve(
+            gemini_paid_budget.ledger_path(), estimated_tokens, now=reserve_now)
+    else:
+        reserve_err = summary_budget.reserve(
+            ledger_path,
+            estimated_tokens=estimated_tokens,
+            now=reserve_now,
+            last_story_id=selected[-1]["id"]
+        )
     if reserve_err:
         return {
             "status": "reserve_failed",
@@ -730,7 +740,6 @@ def generate_video_script(input_path: str | Path,
         }
 
     # 8. Call Gemini REST endpoint
-    req_body = build_gemini_request(selected)
     timeout = 60.0
     try:
         response = transport_fn(req_body, api_key, timeout)
@@ -758,7 +767,10 @@ def generate_video_script(input_path: str | Path,
         }
 
     # Record actual tokens
-    if actual_tokens > 0:
+    if paid:
+        gemini_paid_budget.settle(gemini_paid_budget.ledger_path(), paid_reservation,
+                                 actual_tokens, now=reserve_now)
+    elif actual_tokens > 0:
         summary_budget.update_actual_tokens(ledger_path, reserve_now, actual_tokens)
 
     # 9. Mechanical fact verification (Strict boundary)

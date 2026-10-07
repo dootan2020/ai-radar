@@ -11,6 +11,7 @@ import urllib.error
 import urllib.request
 
 from radar.pipeline import write_atomic
+from radar import gemini_paid_budget
 from radar.translation_gemini import (
     HTTP_CODE_PATTERN,
     MAX_ERROR_BODY_BYTES,
@@ -57,6 +58,7 @@ MAX_TIMEOUT = 180.0
 class Config:
     api_key: str = field(default="", repr=False)
     confirmed: bool = False
+    paid: bool = False
     max_requests: int = 1
     daily_requests_limit: int = 12
     daily_tokens_limit: int = 25000
@@ -86,7 +88,8 @@ def config_from_env(env=None) -> Config:
                 values[name] = 0
     return Config(
         api_key=env.get("GEMINI_API_KEY", ""),
-        confirmed=env.get("RADAR_GEMINI_FREE_TIER_CONFIRMED") == "1",
+        confirmed=gemini_paid_budget.enabled(env) or env.get("RADAR_GEMINI_FREE_TIER_CONFIRMED") == "1",
+        paid=gemini_paid_budget.enabled(env),
         **values,
     )
 

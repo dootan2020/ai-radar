@@ -9,11 +9,47 @@ permissions:
   contents: read
 
 concurrency:
-  group: github-pages-${{ github.ref }}
+  group: gemini-paid-budget
   cancel-in-progress: false
 
 jobs:
+  prepare-paid-budget:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      ledger_candidate: ${{ steps.ledger-upload.outcome }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+      - name: Prepare durable Gemini paid budget ledger
+        id: ledger
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RADAR_GEMINI_PAID_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
+          RADAR_GEMINI_PAID_ENABLED: ${{ vars.RADAR_GEMINI_PAID_ENABLED }}
+          RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
+        run: python -m radar.gemini_paid_budget
+      - name: Upload paid budget reservation
+        id: ledger-upload
+        if: steps.ledger.outputs.ledger_ready == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: radar-gemini-paid-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/gemini-paid-ledger.json
+          if-no-files-found: error
+          retention-days: 1
   update:
+    needs: prepare-paid-budget
+    if: always() && needs.prepare-paid-budget.result != 'cancelled'
     runs-on: ubuntu-26.04
     # Preserve the original 30-minute allowance plus 19 bounded optional field minutes.
     timeout-minutes: 49
@@ -21,6 +57,7 @@ jobs:
       edition_candidate: ${{ steps.edition-upload.outcome }}
       field_candidate: ${{ steps.field-upload.outcome }}
       story_pages_candidate: ${{ steps.story-pages-upload.outcome }}
+      paid_budget_candidate: ${{ steps.paid-budget-upload.outcome }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -30,6 +67,12 @@ jobs:
           python-version: '3.11'
           cache: pip
           cache-dependency-path: requirements-translate.txt
+      - name: Download paid budget reservation
+        if: needs.prepare-paid-budget.outputs.ledger_candidate == 'success'
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: radar-gemini-paid-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data
       - name: Run offline tests
         run: python -m unittest discover -s tests
       - name: Restore previous measurement snapshot
@@ -134,6 +177,9 @@ jobs:
           RADAR_TRANSLATE_BUDGET: '600'
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
+          RADAR_GEMINI_PAID_ENABLED: ${{ github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0' }}
+          RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
           RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
         run: python -m radar.translate --input site/data/radar.json --cache data/translations-vi.json
       - name: Save translation model
@@ -190,6 +236,9 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
+          RADAR_GEMINI_PAID_ENABLED: ${{ github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0' }}
+          RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
           RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
         run: python -m radar.summarize --input site/data/radar.json --cache data/summaries-gemini-vi.json
       - name: Generate daily video script
@@ -200,6 +249,9 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
+          RADAR_GEMINI_PAID_ENABLED: ${{ github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0' }}
+          RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
         run: python -m radar.video_script --input site/data/radar-ui.json --output site/data/video-script.json --ledger data/summary-gemini-ledger.json
       - name: Save daily video script
         if: always() && steps.video-script.outputs.video_script_written == 'true'
@@ -218,6 +270,15 @@ jobs:
             data/summary-gemini-ledger.json
             data/article-read-failures.json
           key: radar-summary-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Upload paid budget result
+        id: paid-budget-upload
+        if: always() && needs.prepare-paid-budget.outputs.ledger_candidate == 'success'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: radar-gemini-paid-result-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/gemini-paid-ledger.json
+          if-no-files-found: error
+          retention-days: 1
       # Editions capture translated titles only after a matching successful publication gate.
       - name: Prepare daily editions
         id: edition-prepare
@@ -390,6 +451,33 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           path: site
+  finalize-paid-budget:
+    if: always() && github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED == '1' && needs.prepare-paid-budget.result == 'success' && needs.prepare-paid-budget.outputs.ledger_candidate == 'success' && needs.update.result != 'cancelled' && needs.update.outputs.paid_budget_candidate == 'success'
+    needs: [prepare-paid-budget, update]
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+      - name: Download paid budget result
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: radar-gemini-paid-result-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data
+      - name: Finalize durable Gemini paid budget ledger
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RADAR_GEMINI_PAID_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
+          RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
+        run: python -m radar.gemini_paid_budget finalize
   persist:
     if: github.ref == 'refs/heads/main' && needs.update.result == 'success' && needs.update.outputs.edition_candidate == 'success'
     needs: update

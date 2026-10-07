@@ -27,13 +27,27 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("path: data/measurement-baseline.json", restore)
         self.assertIn("id: collect", self.text)
 
-    def test_reruns_have_unique_keys_and_branches_have_independent_concurrency(self):
+    def test_reruns_have_unique_keys_and_paid_budget_runs_are_serialized(self):
         keys = [k for k in re.findall(r"^\s+key: (.+)$", self.text, re.MULTILINE) if "radar-measurements" in k]
         self.assertEqual(len(keys), 2)
         self.assertEqual(keys[0], keys[1])
         self.assertIn("${{ github.run_attempt }}", keys[0])
-        self.assertIn("group: github-pages-${{ github.ref }}", self.text)
+        self.assertIn("group: gemini-paid-budget", self.text)
         self.assertIn("cancel-in-progress: false", self.text)
+
+    def test_paid_switch_is_main_only_and_ledger_uses_durable_budget_branch(self):
+        self.assertGreaterEqual(self.text.count("github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0'"), 3)
+        self.assertIn("RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}", self.text)
+        self.assertIn("RADAR_GEMINI_PAID_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git", self.text)
+        update = self.text.split("  update:\n", 1)[1].split("\n  finalize-paid-budget:", 1)[0]
+        prepare = self.text.split("  prepare-paid-budget:\n", 1)[1].split("\n  update:", 1)[0]
+        finalize = self.text.split("  finalize-paid-budget:\n", 1)[1].split("\n  persist:", 1)[0]
+        self.assertNotIn("contents: write", update)
+        self.assertIn("contents: write", prepare)
+        self.assertIn("contents: write", finalize)
+        self.assertIn("python -m radar.gemini_paid_budget", self.text)
+        self.assertIn("python -m radar.gemini_paid_budget finalize", self.text)
+        self.assertNotIn("radar-gemini-paid-v1-", self.text)
 
     def test_main_deployment_guards_and_job_permissions(self):
         self.assertIn("  deploy:\n    if: github.ref == 'refs/heads/main'", self.text)
@@ -142,7 +156,8 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn(cache_key, steps["Restore translation cache"])
         self.assertIn(cache_key, steps["Save translation cache"])
         self.assertIn("radar-translations-v1-main-", steps["Restore translation cache"])
-        job_limit = int(re.search(r"update:\n    runs-on: .+\n(?:    #.*\n)?    timeout-minutes: (\d+)", self.text).group(1))
+        update_job = self.text.split("\n  update:\n", 1)[1].split("\n  finalize-paid-budget:", 1)[0]
+        job_limit = int(re.search(r"(?m)^    timeout-minutes: (\d+)$", update_job).group(1))
         self.assertGreaterEqual(job_limit, 20)
 
     def test_translation_requirements_pin_cpu_torch(self):

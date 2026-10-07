@@ -9,6 +9,7 @@ import urllib.error
 import urllib.request
 
 from radar.pipeline import write_atomic
+from radar import gemini_paid_budget
 
 MODEL_ID = "gemini-3.8-flash"
 PROMPT_VERSION = "vi-1"
@@ -32,6 +33,7 @@ Return exactly one translation per supplied id, with the same id. No commentary.
 class Config:
     api_key: str = field(default="", repr=False)
     confirmed: bool = False
+    paid: bool = False
     max_requests: int = 1
     daily_limit: int = 12
     batch_size: int = 24
@@ -58,7 +60,8 @@ def config_from_env(env=None):
             except (TypeError, ValueError):
                 values[name] = 0  # invalid configuration disables, never expands the budget
     return Config(api_key=env.get("GEMINI_API_KEY", ""),
-                  confirmed=env.get("RADAR_GEMINI_FREE_TIER_CONFIRMED") == "1", **values)
+                  confirmed=gemini_paid_budget.enabled(env) or env.get("RADAR_GEMINI_FREE_TIER_CONFIRMED") == "1",
+                  paid=gemini_paid_budget.enabled(env), **values)
 
 
 class ProviderError(Exception):

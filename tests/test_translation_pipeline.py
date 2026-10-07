@@ -3,6 +3,7 @@
 from copy import deepcopy
 import io
 import json
+import os
 from pathlib import Path
 import tempfile
 import threading
@@ -14,6 +15,7 @@ from unittest.mock import patch
 from radar import translate as nllb
 from radar import translation_gemini as gemini
 from radar import translation_pipeline as pipeline
+from radar import gemini_paid_budget
 
 
 TITLE = "How Claude is uplifting biomolecular modeling"
@@ -127,6 +129,40 @@ class PipelineTests(unittest.TestCase):
                 self.assertEqual(payload["stories"][0]["title_vi"], VI)
                 self.assertEqual(self.calls, [])
                 self.assertFalse(self.ledger.exists())
+
+    def test_paid_switch_prefers_gemini_and_reconciles_provider_usage(self):
+        paid_path = Path(self.tmp.name) / "paid-ledger.json"
+        now = time.time()
+        gemini_paid_budget.prepare(paid_path, paid=False, now=now, run_number=6)
+        gemini_paid_budget.prepare(paid_path, paid=True, now=now, run_number=7)
+
+        def paid_transport(body, key, timeout):
+            result = self.transport(body, key, timeout)
+            result["usageMetadata"] = {"totalTokenCount": 120}
+            return result
+
+        config = gemini.Config(api_key="offline-sentinel", paid=True, confirmed=True)
+        with patch.dict(os.environ, {"GITHUB_RUN_NUMBER": "7", "RADAR_GEMINI_PAID_LEDGER": str(paid_path)}):
+            stats, _ = self.run_payload({"stories": [story()]}, config=config, transport=paid_transport)
+        self.assertEqual(stats["provider"], "gemini")
+        self.assertEqual(stats["gemini"]["status"], "ok")
+        self.assertEqual(stats["gemini"]["tokens"], 120)
+        self.assertEqual(gemini_paid_budget.total_micros(paid_path, now=now), 450)
+
+    def test_monthly_cap_refuses_paid_translation_before_transport(self):
+        paid_path = Path(self.tmp.name) / "paid-ledger.json"
+        now = time.time()
+        gemini_paid_budget.prepare(paid_path, paid=False, now=now, run_number=10)
+        gemini_paid_budget.prepare(paid_path, paid=True, now=now, run_number=11)
+        config = gemini.Config(api_key="offline-sentinel", paid=True, confirmed=True)
+        with patch.dict(os.environ, {"GITHUB_RUN_NUMBER": "11", "RADAR_GEMINI_PAID_LEDGER": str(paid_path),
+                                     "RADAR_GEMINI_PAID_MONTHLY_CAP_USD": "0.00001"}):
+            payload = {"stories": [story()]}
+            stats, _ = self.run_payload(payload, config=config,
+                                        factory=lambda: lambda batch: [VI for _ in batch])
+        self.assertEqual(self.calls, [])
+        self.assertEqual(stats["gemini"]["error"], "paid_monthly_cap")
+        self.assertEqual(stats["provider"], "nllb")
 
     def test_transport_errors_fall_back_without_exposing_exception_text(self):
         for error in (TimeoutError("offline-sentinel timeout"), OSError("offline-sentinel error")):

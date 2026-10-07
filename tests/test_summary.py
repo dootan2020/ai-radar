@@ -13,12 +13,14 @@ Covers:
 from copy import deepcopy
 import io
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
 from radar import summary_budget, summary_gemini as gemini, summary_pipeline
+from radar import gemini_paid_budget
 from radar.transport import ResponseText
 from radar import summarize
 from radar.site_payload import page_path, page_payload
@@ -186,6 +188,24 @@ class SummaryTests(unittest.TestCase):
                              summary_budget.DEFAULT_DAILY_TOKENS)
         self.assertGreater((stories_per_day + 1) * summary_budget.ESTIMATED_TOKENS_PER_REQUEST,
                            summary_budget.DEFAULT_DAILY_TOKENS)
+
+    def test_paid_mode_summarizes_beyond_free_tier_daily_ledger(self):
+        now = 100000.0
+        paid_path = self.tmp_path / "paid-ledger.json"
+        gemini_paid_budget.prepare(paid_path, paid=False, now=now, run_number=20)
+        gemini_paid_budget.prepare(paid_path, paid=True, now=now, run_number=21)
+        for index in range(summary_budget.DEFAULT_DAILY_REQUESTS):
+            summary_budget.reserve(self.ledger_path, now=now - 3600 + index, estimated_tokens=100)
+        story = deepcopy(self.fixture_data["stories"][0])
+        config = gemini.Config(api_key="offline-sentinel", confirmed=True, paid=True)
+        with patch.dict(os.environ, {"GITHUB_RUN_NUMBER": "21", "RADAR_GEMINI_PAID_LEDGER": str(paid_path)}):
+            stats, _ = summary_pipeline.summarize_payload(
+                {"stories": [story]}, self.cache, config=config, transport_fn=self.transport_ok,
+                ledger_path=self.ledger_path, budget=10.0, now=lambda: now,
+            )
+        self.assertEqual(stats["summarized"], 1)
+        self.assertEqual(stats["requests"], 1)
+        self.assertEqual(stats["error"], None)
 
     def test_no_article_text_clears_old_points_without_calling_model(self):
         story = deepcopy(self.fixture_data["stories"][0])

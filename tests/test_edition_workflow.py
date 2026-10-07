@@ -194,7 +194,9 @@ class EditionHistoryRunnerTests(unittest.TestCase):
 class EditionWorkflowPolicyTests(unittest.TestCase):
     def test_translation_precedes_prepare_and_archive_is_independent_of_deploy(self):
         text = (ROOT / ".github/workflows/update.yml").read_text(encoding="utf-8")
-        update, rest = text.split("\n  persist:\n", 1)
+        jobs = text.split("\njobs:\n", 1)[1]
+        update = jobs.split("\n  update:\n", 1)[1].split("\n  finalize-paid-budget:", 1)[0]
+        rest = text.split("\n  persist:\n", 1)[1]
         persistent, deploy = rest.split("\n  deploy:\n", 1)
         self.assertLess(update.index("name: Translate headlines"), update.index("name: Prepare daily editions"))
         preparation = update.split("name: Prepare daily editions", 1)[1].split("      - ", 1)[0]
