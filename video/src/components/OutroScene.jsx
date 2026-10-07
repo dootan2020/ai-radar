@@ -9,16 +9,16 @@ export const OutroScene = ({
   const frame = useCurrentFrame();
   const easeFlow = Easing.bezier(0.16, 1, 0.3, 1);
 
-  const defaultCta = 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi để không bỏ lỡ. Bạn lo nhất tin nào? Bình luận cho mình biết.';
+  const defaultCta = 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.';
   const fullCta = (cta && typeof cta === 'string' && cta.trim()) ? cta.trim() : defaultCta;
 
   // Extract question (ends with ?)
   const questionMatch = fullCta.match(/([^.!?]+\?)/u);
-  const question = questionMatch ? questionMatch[1].trim() : 'Bạn lo nhất tin nào?';
+  const question = questionMatch ? questionMatch[1].trim() : 'Bạn quan tâm tin nào nhất?';
 
   // Check if follow prompt is in CTA
-  const hasFollow = /theo dõi/i.test(fullCta);
-  const followText = hasFollow ? 'Theo dõi để không bỏ lỡ' : 'Theo dõi ai-radar';
+  const followMatch = fullCta.match(/([^.!?]*theo dõi[^.!?]*)/i);
+  const followText = followMatch ? followMatch[1].trim() : 'Theo dõi kênh để cập nhật tin AI nóng nhất';
 
   // Animations
   const logoScale = interpolate(frame, [0, 30], [0.88, 1], {

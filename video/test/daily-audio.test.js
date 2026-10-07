@@ -101,7 +101,7 @@ test('Round 4 script validation validates contract structure, date, and story ID
       { id: 'story-2', line: 'Apple siết quyền truy cập toàn bộ ổ đĩa trên macOS.' },
       { id: 'story-3', line: 'Amazon chi $1B để xoa dịu phản ứng về trung tâm dữ liệu.' },
     ],
-    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi để không bỏ lỡ.',
+    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.',
   };
 
   const res1 = validateScript(validScript, mockSnapshot, targetDate);
@@ -140,10 +140,12 @@ test('generateFallbackScript creates honest script matching contract strictly fr
 
   assert.equal(fallback.date, targetDate);
   assert.ok(fallback.hook.includes('3 tin AI'));
+  assert.ok(!fallback.hook.includes(mockSnapshot.stories[0].title_vi), 'Fallback hook must not stutter/repeat story 1');
   assert.ok(fallback.hint.includes('45 giây'));
   assert.equal(fallback.stories.length, 3);
   assert.equal(fallback.stories[0].id, 'story-1');
-  assert.ok(fallback.cta.includes('Theo dõi để không bỏ lỡ'));
+  assert.ok(fallback.cta.includes('Theo dõi kênh để cập nhật tin AI nóng nhất'));
+  assert.ok(fallback.cta.includes('Bạn quan tâm tin nào nhất?'));
 
   // Validate that the generated fallback passes validation against the snapshot
   const validation = validateScript(fallback, mockSnapshot, targetDate);
@@ -201,7 +203,7 @@ test('createNarration generates 5 paragraphs from script with symbol normalizati
       { id: '2', line: 'Apple siết quyền truy cập ổ đĩa với 15% người dùng.' },
       { id: '3', line: 'Amazon chi $1B để xoa dịu phản ứng & ô nhiễm.' },
     ],
-    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi để không bỏ lỡ.',
+    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.',
   };
 
   const narration = createNarration(script);
@@ -219,7 +221,7 @@ test('createNarration generates 5 paragraphs from script with symbol normalizati
   assert.ok(paragraphs[3].includes('và ô nhiễm'));
 
   // Outro CTA
-  assert.ok(paragraphs[4].includes('Theo dõi để không bỏ lỡ'));
+  assert.ok(paragraphs[4].includes('Theo dõi kênh để cập nhật tin AI nóng nhất'));
 });
 
 test('WAV speech segments and audioTimeline handle Round 4 5-segment audio', () => {
@@ -385,11 +387,13 @@ test('Round 5 muted viewer contract: script and fallback deliver hook, hint, 3 s
   const fallback = generateFallbackScript(mockSnapshot, mockSnapshot.stories, '2026-10-05');
   assert.ok(fallback.hook && fallback.hook.length > 10, 'Fallback must supply non-empty hook');
   assert.ok(fallback.hint && fallback.hint.length > 5, 'Fallback must supply non-empty hint');
-  assert.ok(fallback.cta && fallback.cta.includes('Theo dõi để không bỏ lỡ'), 'Fallback must supply actionable cta');
+  assert.ok(fallback.cta && fallback.cta.includes('Theo dõi kênh để cập nhật tin AI nóng nhất'), 'Fallback must supply actionable cta');
   assert.equal(fallback.stories.length, 3, 'Fallback must provide 3 stories');
   fallback.stories.forEach((st, i) => {
     assert.ok(st.id, `Fallback story ${i} missing id`);
     assert.ok(st.line && st.line.length > 10, `Fallback story ${i} missing line for audio and visual card`);
+    assert.ok(st.line.includes(normalizeSpeech(mockSnapshot.stories[i].title_vi)), `Fallback story ${i} must include Vietnamese title`);
+    assert.ok(!st.line.includes('Câu tiếp theo'), `Fallback story ${i} must not include raw summary sentences`);
   });
 
   const fixturePath = path.resolve(__dirname, '../fixtures/video-script.json');
@@ -402,7 +406,7 @@ test('Round 5 muted viewer contract: script and fallback deliver hook, hint, 3 s
   assert.equal(check.valid, true);
   assert.ok(fixture.hook.includes('TV box 7 năm tuổi'), 'Approved sample hook covers opening visual');
   assert.ok(fixture.hint.includes('45 giây'), 'Approved sample hint promises 45-second duration');
-  assert.ok(fixture.cta.includes('Theo dõi để không bỏ lỡ'), 'Approved sample CTA includes follow prompt');
+  assert.ok(fixture.cta.includes('Theo dõi kênh để cập nhật tin AI nóng nhất'), 'Approved sample CTA includes follow prompt');
   assert.ok(fixture.cta.includes('Bình luận'), 'Approved sample CTA includes comment prompt');
 });
 

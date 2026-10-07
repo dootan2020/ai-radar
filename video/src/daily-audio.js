@@ -134,6 +134,22 @@ export function validateScript(script, snapshot, targetDate) {
   return { valid: true };
 }
 
+const FALLBACK_PHRASINGS = [
+  (count) => count >= 2 ? `Được ${count} nguồn công nghệ cùng đưa tin.` : 'Được ghi nhận từ nguồn tin công nghệ.',
+  (count) => count >= 2 ? `Ghi nhận từ ${count} nguồn tin cùng đăng tải.` : 'Ghi nhận từ nguồn tin công nghệ.',
+  (count) => count >= 2 ? `Được ${count} nguồn tin độc lập cùng xác nhận.` : 'Được nguồn tin độc lập xác nhận.',
+];
+
+export function fallbackStoryLine(story, index = 0) {
+  const rawTitle = String(story.title_vi || story.title || '').trim();
+  if (!rawTitle) throw new Error(`Story ${story.id || '(unknown)'} has no title.`);
+  const title = normalizeSpeech(rawTitle);
+  const titleWithPeriod = /[.!?]$/u.test(title) ? title : `${title}.`;
+  const count = story.source_count || (Array.isArray(story.coverage) ? story.coverage.length : 1);
+  const phrasingFn = FALLBACK_PHRASINGS[index % FALLBACK_PHRASINGS.length];
+  return `${titleWithPeriod} ${phrasingFn(count)}`;
+}
+
 export function generateFallbackScript(snapshot, pickedStories, targetDate) {
   const date = targetDate || formatDateSlug(snapshot.generated_at);
   const stories = pickedStories && pickedStories.length === 3
@@ -144,20 +160,19 @@ export function generateFallbackScript(snapshot, pickedStories, targetDate) {
     return null;
   }
 
-  const topTitle = normalizeSpeech(stories[0].title_vi || stories[0].title || '');
   const storyCount = Array.isArray(snapshot?.stories) ? snapshot.stories.length : 3;
 
   return {
     date,
     generated_at: snapshot.generated_at || new Date().toISOString(),
-    prompt_version: 'fallback-template-v1',
-    hook: `Hôm nay ai-radar theo dõi ${storyCount} tin AI. Nổi bật nhất: ${topTitle}.`,
+    prompt_version: 'fallback-template-v2',
+    hook: `Hôm nay ai-radar theo dõi ${storyCount} tin AI từ các nguồn công nghệ.`,
     hint: 'Ba tin AI đáng chú ý nhất, trong 45 giây.',
-    stories: stories.map(st => ({
+    stories: stories.map((st, i) => ({
       id: st.id,
-      line: narrationForStory(st),
+      line: fallbackStoryLine(st, i),
     })),
-    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi để không bỏ lỡ. Bạn quan tâm tin nào nhất?',
+    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.',
   };
 }
 

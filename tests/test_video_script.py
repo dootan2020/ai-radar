@@ -119,7 +119,7 @@ def make_approved_sample_script(date_str="2026-10-07"):
                 "line": "Amazon chi 1 tỷ đô la để xoa dịu phản ứng về trung tâm dữ liệu, nhưng lại bị chỉ trích là đang làm nhẹ đi chuyện ô nhiễm."
             }
         ],
-        "cta": "Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi để không bỏ lỡ. Bạn lo nhất tin nào? Bình luận cho mình biết."
+        "cta": "Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé."
     }
 
 

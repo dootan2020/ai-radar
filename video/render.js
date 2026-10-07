@@ -75,10 +75,13 @@ export async function main() {
   let snapshotArg = null;
   let scriptArg = process.env.VIDEO_SCRIPT_PATH || null;
   let pauseMsArg = process.env.OMNIVOICE_PAUSE_MS || '620';
+  let dryRun = false;
 
   for (let i = 2; i < process.argv.length; i++) {
     const arg = process.argv[i];
-    if (arg === '--script' && i + 1 < process.argv.length) {
+    if (arg === '--dry-run') {
+      dryRun = true;
+    } else if (arg === '--script' && i + 1 < process.argv.length) {
       scriptArg = process.argv[++i];
     } else if (arg.startsWith('--script=')) {
       scriptArg = arg.split('=', 2)[1];
@@ -169,6 +172,15 @@ export async function main() {
   pickedStories.forEach((st, idx) => {
     console.log(`  ${idx + 1}. [${st.id}] ${st.title_vi || st.title} (score: ${st.worth_score || 0})`);
   });
+
+  if (dryRun) {
+    const narration = createNarration(script);
+    console.log(`\n[DRY-RUN] Script resolved for ${dateSlug} (${scriptResult.source || 'fallback'}):`);
+    console.log('--- NARRATION START ---');
+    process.stdout.write(narration);
+    console.log('--- NARRATION END ---\n');
+    return;
+  }
 
   // 6. Probe story images
   console.log('[INFO] Verifying story image accessibility...');

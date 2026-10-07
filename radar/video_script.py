@@ -27,7 +27,7 @@ from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
 from radar.worth import calculate_worth, first_hand_of, uniq_coverage
 
 MODEL_ID = "gemini-3.8-flash"
-PROMPT_VERSION = "video-script-vi-1"
+PROMPT_VERSION = "video-script-vi-2"
 ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL_ID}:generateContent"
 
 TIMEZONE_NAME = "Asia/Ho_Chi_Minh"
@@ -106,7 +106,7 @@ Cấu trúc kịch bản bắt buộc:
 1. Mở đầu (hook): 0–3 giây, từ 15 đến 20 chữ. Nêu ngay sự thật/con số gây tò mò hoặc bất ngờ nhất trong 3 tin để giữ chân người xem ngay lập tức.
 2. Gợi trước (hint): Khoảng 8-12 chữ, theo cấu trúc: 'Ba tin AI đáng chú ý nhất, trong 45 giây.'
 3. Ba tin (stories): Đúng 3 tin tương ứng với 3 story id được cung cấp. Tin có chi tiết bất ngờ nhất ở phần Mở đầu phải được đặt làm Tin 1 để kết nối mạch lạc với Mở đầu. Mỗi tin đúng MỘT câu nói ngắn gọn, súc tích (dưới 25 chữ), nêu sự thật bất ngờ nhất lên trước.
-4. Kêu gọi hành động (cta): Đúng một lời kêu gọi duy nhất (ví dụ: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi để không bỏ lỡ. Bạn lo nhất tin nào? Bình luận cho mình biết.').
+4. Kêu gọi hành động (cta): Đúng một lời kêu gọi duy nhất (ví dụ: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.').
 
 NGUYÊN TẮC BẮT BUỘC:
 1. TUYỆT ĐỐI KHÔNG BỊA ĐẶT SỰ THẬT (No invented facts): Mọi con số, tên riêng, số tiền, ngày tháng, sản phẩm xuất hiện trong hook, từng câu tin và cta PHẢI xuất hiện chính xác trong dữ liệu được cung cấp (title, title_vi, summary, summary_vi, key_points). Tuyệt đối không tự suy diễn hay thêm bất kỳ số liệu hay tên riêng nào ngoài dữ liệu.

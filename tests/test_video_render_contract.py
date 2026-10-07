@@ -47,7 +47,7 @@ class VideoScriptContractTestCase(unittest.TestCase):
         self.assertIn("Nvidia Shield TV Pro", data["stories"][0]["line"])
         self.assertIn("Apple siết quyền truy cập", data["stories"][1]["line"])
         self.assertIn("Amazon chi 1 tỷ đô la", data["stories"][2]["line"])
-        self.assertIn("Theo dõi để không bỏ lỡ", data["cta"])
+        self.assertIn("Theo dõi kênh để cập nhật tin AI nóng nhất", data["cta"])
 
     def test_round5_muted_viewer_script_deliverables(self):
         data = json.loads(self.fixture_path.read_text(encoding="utf-8"))
@@ -60,7 +60,7 @@ class VideoScriptContractTestCase(unittest.TestCase):
         for st in data["stories"]:
             self.assertTrue(len(st["line"]) > 20)
         # 4. CTA asks for both following and commenting
-        self.assertIn("Theo dõi để không bỏ lỡ", data["cta"])
+        self.assertIn("Theo dõi kênh để cập nhật tin AI nóng nhất", data["cta"])
         self.assertTrue("Bình luận" in data["cta"] or "quan tâm" in data["cta"])
 
     def test_round6_pacing_and_pause_contract(self):
