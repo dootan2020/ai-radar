@@ -198,6 +198,7 @@ class EditionWorkflowPolicyTests(unittest.TestCase):
         update = jobs.split("\n  update:\n", 1)[1].split("\n  finalize-paid-budget:", 1)[0]
         rest = text.split("\n  persist:\n", 1)[1]
         persistent, deploy = rest.split("\n  deploy:\n", 1)
+        deploy = deploy.split("\n  deploy-legacy-redirects:\n", 1)[0]
         self.assertLess(update.index("name: Translate headlines"), update.index("name: Prepare daily editions"))
         preparation = update.split("name: Prepare daily editions", 1)[1].split("      - ", 1)[0]
         self.assertIn("steps.collect.outputs.published == 'true'", preparation)
@@ -206,7 +207,7 @@ class EditionWorkflowPolicyTests(unittest.TestCase):
         self.assertIn("contents: write", persistent)
         self.assertNotIn("contents: write", update)
         self.assertIn("needs: update", deploy)
-        self.assertNotIn("persist", deploy)
+        self.assertNotIn("radar.edition_publish persist", deploy)
         self.assertIn("python -m radar.edition_publish persist", persistent)
         self.assertIn("cancel-in-progress: false", text)
         self.assertNotRegex(text, r"(?m)^  (push|pull_request):$")

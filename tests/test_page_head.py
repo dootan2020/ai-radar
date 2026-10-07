@@ -7,6 +7,7 @@ the pieces from silently disappearing.
 """
 
 from pathlib import Path
+from radar.site_config import SITE_URL
 from html.parser import HTMLParser
 import base64
 import hashlib
@@ -131,7 +132,7 @@ class PageHeadTests(unittest.TestCase):
             self.assertIn(f"https://{host}", self.csp["img-src"], host)
 
     def test_canonical_and_referrer(self):
-        self.assertIn('<link rel="canonical" href="https://dootan2020.github.io/ai-radar/">', self.head)
+        self.assertIn(f'<link rel="canonical" href="{SITE_URL}">', self.head)
         self.assertIn('<meta name="referrer" content="strict-origin-when-cross-origin">', self.head)
 
     def test_snapshot_starts_with_the_html_and_the_page_takes_that_request_over(self):

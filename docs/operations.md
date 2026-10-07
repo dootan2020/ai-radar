@@ -21,7 +21,7 @@ changes and pushes to `main` require owner approval.
    source or contract failure. Do not copy an old snapshot under a new timestamp
    to make the freshness indicator green.
 4. If collection succeeded but deployment failed, inspect the `deploy` job and
-   Pages environment. Diagnose that failure before collecting again. A manual
+   Cloudflare Pages project. Diagnose that failure before collecting again. A manual
    update on `main` can publish and therefore needs owner approval.
 
 GitHub documents that scheduled runs may be delayed or dropped under load, and
@@ -100,7 +100,7 @@ once; the probe fails visibly if discovery exceeds 30 assets. It retains the
 scan for the site's module syntax, not a full JavaScript parser: computed imports,
 template expressions, import maps and CSS/font/image dependencies are outside its
 scope. External references are ignored. Local references must stay within the
-HTTPS Pages project and use plain paths without credentials, percent escapes,
+HTTPS Pages hostname and use plain paths without credentials, percent escapes,
 query strings (including cache-busting parameters) or fragments; invalid references
 fail their referring page/module check without exposing the reference in reports.
 
@@ -171,11 +171,34 @@ metrics do not use cookies or localStorage and do not collect personal data:
 [privacy](https://developers.cloudflare.com/web-analytics/about/) and
 [Core Web Vitals](https://developers.cloudflare.com/web-analytics/data-metrics/core-web-vitals/).
 
-In Cloudflare, open **Web Analytics > dootan2020.github.io** and inspect traffic,
-**Page load time**, and **Core Web Vitals**. Filter paths to `/ai-radar/` because
-the hostname can serve other projects. Traffic measures visits/page views;
+In Cloudflare, open **Web Analytics** for `radar-ai-vn.pages.dev` and inspect traffic,
+**Page load time**, and **Core Web Vitals**. Traffic measures visits/page views;
 performance metrics describe observed browser loads, not the collection schedule.
 See [dashboard setup](https://developers.cloudflare.com/web-analytics/get-started/).
+
+## Cloudflare Pages migration
+
+The update workflow deploys the complete `site/` snapshot to the Cloudflare Pages
+project `ai-radar`, then deploys a small compatibility artifact to GitHub Pages.
+That artifact redirects `/` and every generated `/tin/<slug>/` route to the
+matching canonical URL on Cloudflare. A failed Cloudflare deployment prevents
+the GitHub Pages redirect deployment, so the existing GitHub Pages site remains
+available while the new host is repaired.
+
+Create a GitHub Actions secret named `CLOUDFLARE_PAGES_API_TOKEN` for the first
+Cloudflare deployment. Scope the Cloudflare token to **Account > Cloudflare
+Pages Edit permission at account scope for this account only; the workflow also uses the existing
+`CLOUDFLARE_ACCOUNT_ID` secret. The Pages project `ai-radar` must exist before
+the first deployment. The workflow fails at the Cloudflare deploy step when the
+API token is missing.
+
+For the first release, create the Pages project, save the API token as the
+repository secret, merge the migration, and run **Update AI Radar** on `main`.
+Watch the Cloudflare deploy job and then the GitHub Pages redirect deploy job.
+Open `https://radar-ai-vn.pages.dev/` and an existing `/tin/<slug>/` page at mobile
+and desktop widths; open the corresponding legacy URLs and verify they redirect.
+Confirm the health monitor stays green for 24 hours. Configure Cloudflare Web
+Analytics for `radar-ai-vn.pages.dev` and verify visits appear there.
 
 After an approved deployment, open the reader with browser Network and Console
 panels. Confirm the beacon script loads without a CSP error and a report reaches

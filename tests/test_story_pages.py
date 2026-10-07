@@ -285,7 +285,7 @@ class StoryPageWorkflowTests(unittest.TestCase):
         self.assertIn("  persist-story-pages:\n", text)
         self.assertIn("contents: write", text)
         self.assertLess(text.index("name: Prepare permanent story pages"),
-                        text.index("name: Upload Pages artifact"))
+                        text.index("name: Upload Cloudflare Pages site artifact"))
 
     def test_generated_story_directories_are_ignored_but_sample_is_not(self):
         root = Path(__file__).resolve().parents[1]

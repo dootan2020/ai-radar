@@ -28,6 +28,8 @@ import time
 import urllib.parse
 import urllib.request
 
+from radar.site_config import SITE_URL
+
 from radar.pipeline import write_atomic
 
 DISCUSSION_HOSTS = ("news.ycombinator.com", "lobste.rs")
@@ -74,7 +76,7 @@ META_PATTERNS = [re.compile(p, re.I) for p in (
 )]
 
 UA_BROWSER = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-UA_PREVIEW = "Mozilla/5.0 (compatible; ai-radar-linkpreview/1.0; +https://dootan2020.github.io/ai-radar/)"
+UA_PREVIEW = f"Mozilla/5.0 (compatible; ai-radar-linkpreview/1.0; +{SITE_URL})"
 ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
 
 # Default SSL context with full certificate and hostname verification

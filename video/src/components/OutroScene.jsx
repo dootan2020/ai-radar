@@ -261,7 +261,7 @@ export const OutroScene = ({
             fontFamily: TOKENS.fonts.main,
           }}
         >
-          dootan2020.github.io/ai-radar
+          radar-ai-vn.pages.dev
         </span>
       </div>
     </div>

@@ -7,11 +7,12 @@ from unittest.mock import patch
 from urllib.error import HTTPError, URLError
 
 from radar import health_monitor
+from radar.site_config import SITE_URL
 
 
 def sample(failed=(), at="2026-10-03T12:00:00Z"):
     return {"checked_at": at, "generated_at": "2026-10-03T11:00:00Z", "checks": [
-        {"id": name, "url": "https://dootan2020.github.io/ai-radar/", "ok": name not in failed,
+        {"id": name, "url": SITE_URL, "ok": name not in failed,
          "detail": "HTTP 503" if name in failed else "OK"}
         for name in ("homepage", "snapshot", "asset:styles.css")]}
 

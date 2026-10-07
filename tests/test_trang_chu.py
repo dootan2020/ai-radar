@@ -4,8 +4,11 @@ import base64
 import hashlib
 import json
 from pathlib import Path
+from radar.site_config import SITE_URL
 import re
 import unittest
+
+from radar.site_config import SITE_URL
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
@@ -78,24 +81,24 @@ class RootPageHeadTests(unittest.TestCase):
         self.assertIn('<link rel="preload" href="data/radar-ui.json" as="fetch" crossorigin>', self.head)
 
     def test_canonical_and_seo_elements(self):
-        self.assertIn('<link rel="canonical" href="https://dootan2020.github.io/ai-radar/">', self.head)
+        self.assertIn(f'<link rel="canonical" href="{SITE_URL}">', self.head)
         self.assertIn('<meta name="referrer" content="strict-origin-when-cross-origin">', self.head)
         self.assertIn('<meta property="og:site_name" content="ai·radar">', self.head)
         self.assertIn('<meta property="og:type" content="website">', self.head)
-        self.assertIn('<meta property="og:url" content="https://dootan2020.github.io/ai-radar/">', self.head)
-        self.assertIn('<meta property="og:image" content="https://dootan2020.github.io/ai-radar/og-image.png">', self.head)
+        self.assertIn(f'<meta property="og:url" content="{SITE_URL}">', self.head)
+        self.assertIn(f'<meta property="og:image" content="{SITE_URL}og-image.png">', self.head)
         self.assertIn('<meta name="twitter:card" content="summary_large_image">', self.head)
         # Root page is indexed
         self.assertNotIn('<meta name="robots" content="noindex">', self.head)
 
     def test_rollback_bento_is_not_indexed(self):
         self.assertIn('<meta name="robots" content="noindex">', self.bento_html)
-        self.assertIn('<link rel="canonical" href="https://dootan2020.github.io/ai-radar/">', self.bento_html)
+        self.assertIn(f'<link rel="canonical" href="{SITE_URL}">', self.bento_html)
 
     def test_feed_redirect_is_not_indexed(self):
         self.assertIn('<meta name="robots" content="noindex">', self.feed_redirect)
         self.assertIn('<meta http-equiv="refresh" content="0; url=./">', self.feed_redirect)
-        self.assertIn('<link rel="canonical" href="https://dootan2020.github.io/ai-radar/">', self.feed_redirect)
+        self.assertIn(f'<link rel="canonical" href="{SITE_URL}">', self.feed_redirect)
 
     def test_carried_features_in_root_html(self):
         # Search entry point
