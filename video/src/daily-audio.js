@@ -313,7 +313,40 @@ export function createNarration(input) {
   return paragraphs.join('\n\n') + '\n';
 }
 
-export function wavSpeechSegments(buffer, {thresholdDb = -48, frameMs = 10, separatorMs = 800} = {}) {
+export function chunkSpeechSegments(chunkDurations, {pauseMs = 620} = {}) {
+  if (!Array.isArray(chunkDurations) || (chunkDurations.length !== 5 && chunkDurations.length !== 3)) {
+    throw new Error(`Expected 5 (or 3) chunk durations; got ${chunkDurations?.length}.`);
+  }
+  const pauseSec = Number(pauseMs) / 1000;
+  let currentStart = 0;
+  return chunkDurations.map((item, index) => {
+    let duration = 0;
+    if (typeof item === 'number') {
+      duration = item;
+    } else if (item && typeof item === 'object' && typeof item.duration === 'number') {
+      duration = item.duration;
+    } else if (Buffer.isBuffer(item)) {
+      const wav = readWav(item);
+      duration = wav.dataSize / (wav.sampleRate * wav.channels * (wav.bitsPerSample / 8));
+    } else {
+      throw new Error(`Invalid chunk duration item at index ${index}`);
+    }
+
+    const start = Number(currentStart.toFixed(4));
+    const end = Number((start + duration).toFixed(4));
+    currentStart = end + (index < chunkDurations.length - 1 ? pauseSec : 0);
+    return {
+      index,
+      start,
+      end,
+      duration: Number(duration.toFixed(4)),
+      startFrame: Math.round(start * 30),
+      durationFrames: Math.round(duration * 30),
+    };
+  });
+}
+
+export function wavSpeechSegments(buffer, {thresholdDb = -48, frameMs = 10, separatorMs = 800, expectedSegments = null} = {}) {
   const {dataOffset, dataSize, sampleRate, channels, bitsPerSample, format} = readWav(buffer);
   if (format !== 1 || bitsPerSample !== 16) throw new Error('Expected 16-bit PCM WAV audio.');
 
@@ -358,6 +391,29 @@ export function wavSpeechSegments(buffer, {thresholdDb = -48, frameMs = 10, sepa
       segments.push({...span});
     }
   }
+
+  // Adaptive pause merge: if an intra-sentence pause was long enough to have split
+  // a section (segments.length > 5 or > 3), merge the adjacent pair with the smallest
+  // silence gap until the expected segment count is reached.
+  const targetCount = expectedSegments || (segments.length >= 5 ? 5 : 3);
+  while (segments.length > targetCount) {
+    let minGapIndex = -1;
+    let minGap = Infinity;
+    for (let i = 0; i < segments.length - 1; i++) {
+      const gap = segments[i + 1].start - segments[i].end;
+      if (gap < minGap) {
+        minGap = gap;
+        minGapIndex = i;
+      }
+    }
+    if (minGapIndex >= 0) {
+      segments[minGapIndex].end = segments[minGapIndex + 1].end;
+      segments.splice(minGapIndex + 1, 1);
+    } else {
+      break;
+    }
+  }
+
   if (segments.length !== 5 && segments.length !== 3) {
     throw new Error(`Expected 5 (or 3) narration audio segments; detected ${segments.length}.`);
   }

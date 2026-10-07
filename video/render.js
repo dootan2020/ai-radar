@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
 import {
   audioTimeline,
+  chunkSpeechSegments,
   computeFeedStoryStats,
   createNarration,
   formatDateSlug,
@@ -29,6 +30,7 @@ function run(command, args, options = {}) {
 function synthesizeNarration(narrationPath, tempDir, options = {}) {
   const { python, cache, wrapper, fixOmnivoice, referenceAudio, referenceText } = resolveOmniVoicePaths();
   const rawAudio = path.join(tempDir, 'voice.wav');
+  const timingFile = path.join(tempDir, 'voice_timing.json');
   const pauseMs = options.pauseMs || process.env.OMNIVOICE_PAUSE_MS || '620';
 
   for (const file of [python, wrapper, fixOmnivoice, referenceAudio, referenceText]) {
@@ -40,6 +42,7 @@ function synthesizeNarration(narrationPath, tempDir, options = {}) {
     '--ref-text-file', referenceText, '--split-paragraphs', '--pause-ms', String(pauseMs),
     '--normalize-chunk-levels', '--offline', '--output', rawAudio,
     '--fix-script', fixOmnivoice,
+    '--timing-file', timingFile,
   ], {
     env: { ...process.env, FIX_OMNIVOICE_SCRIPT: fixOmnivoice },
   });
@@ -47,7 +50,31 @@ function synthesizeNarration(narrationPath, tempDir, options = {}) {
   if (!fs.existsSync(correctedAudio) || fs.statSync(correctedAudio).size === 0) {
     throw new Error('OmniVoice did not create its corrected WAV output.');
   }
-  return correctedAudio;
+
+  // Exact per-chunk synthesis timings (immune to intra-sentence speech pauses)
+  let segments = null;
+  const timingCandidates = [
+    timingFile,
+    path.join(tempDir, 'voice_corrected_timing.json'),
+    path.join(tempDir, 'voice_timing.json'),
+  ];
+  for (const candidate of timingCandidates) {
+    if (fs.existsSync(candidate)) {
+      try {
+        const parsed = JSON.parse(fs.readFileSync(candidate, 'utf8'));
+        if (Array.isArray(parsed.segments) && (parsed.segments.length === 5 || parsed.segments.length === 3)) {
+          segments = parsed.segments;
+          break;
+        }
+      } catch {}
+    }
+  }
+
+  return {
+    voicePath: correctedAudio,
+    segments,
+    toString() { return correctedAudio; },
+  };
 }
 
 // Fast pre-probe image with timeout
@@ -232,8 +259,11 @@ export async function main() {
 
   try {
     console.log('[INFO] Generating cloned Vietnamese voice with OmniVoice (offline)...');
-    const voicePath = synthesizeNarration(narrationPath, tempDir, { pauseMs: pauseMsArg });
-    const audioSegments = wavSpeechSegments(fs.readFileSync(voicePath));
+    const synthResult = synthesizeNarration(narrationPath, tempDir, { pauseMs: pauseMsArg });
+    const voicePath = synthResult.voicePath || synthResult;
+    const audioSegments = (Array.isArray(synthResult.segments) && (synthResult.segments.length === 5 || synthResult.segments.length === 3))
+      ? synthResult.segments
+      : wavSpeechSegments(fs.readFileSync(voicePath));
     const timeline = audioTimeline(audioSegments);
 
     console.log('[INFO] Voice segment lengths:');

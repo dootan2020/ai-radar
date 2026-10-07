@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   audioTimeline,
+  chunkSpeechSegments,
   createNarration,
   formatDateSlug,
   formatVietnameseDate,
@@ -278,6 +279,57 @@ test('Round 6 1s pauses: wavSpeechSegments handles ~1s section gaps while mergin
   const timeline = audioTimeline(segments, { tailSeconds: 0.8 });
   assert.equal(timeline.hasVoiceIntro, true);
   assert.equal(timeline.hasVoiceOutro, true);
+});
+
+test('reproducing failure: narration whose internal sentence pause is long enough to have split it now yields 5 segments', () => {
+  // Failure scenario: an intra-story sentence pause of 850ms in Story 2 (which is >= separatorMs = 800ms).
+  // In the previous version, this caused wavSpeechSegments to detect 6 segments instead of 5, throwing:
+  // "[FATAL] Error: Expected 5 (or 3) narration audio segments; detected 6."
+  const samplesWithLongInternalPause = [
+    ...speech(1500), ...silence(1000), // Intro (1.5s) + 1s inter-section pause
+    ...speech(1000), ...silence(1000), // Story 1 (1.0s) + 1s inter-section pause
+    ...speech(600), ...silence(850), ...speech(600), ...silence(1000), // Story 2 with 850ms internal pause + 1s inter-section pause
+    ...speech(1100), ...silence(1000), // Story 3 (1.1s) + 1s inter-section pause
+    ...speech(1300),                   // Outro (1.3s)
+  ];
+  const audioBuffer = pcm(samplesWithLongInternalPause);
+
+  // 1. WAV speech segments now resolves internal pauses >= 800ms by merging smallest gaps
+  const segments = wavSpeechSegments(audioBuffer);
+  assert.equal(segments.length, 5, 'Must resolve to exactly 5 segments despite 850ms intra-story pause');
+
+  // Verify Story 2 correctly spans from the start of the first sentence to the end of the second sentence
+  const expectedStory2Start = (1500 + 1000 + 1000 + 1000) / 1000; // 4.5s
+  const expectedStory2End = (1500 + 1000 + 1000 + 1000 + 600 + 850 + 600) / 1000; // 6.55s
+  assert.equal(segments[2].start, expectedStory2Start);
+  assert.equal(segments[2].end, expectedStory2End);
+
+  const timeline = audioTimeline(segments, { tailSeconds: 0.8 });
+  assert.equal(timeline.hasVoiceIntro, true);
+  assert.equal(timeline.hasVoiceOutro, true);
+  assert.equal(timeline.storyDurations.length, 3);
+
+  // 2. Scene boundaries from per-chunk synthesis durations (immune to text and sentence pauses)
+  const chunkDurations = [
+    1.5,                       // Chunk 0: Intro
+    1.0,                       // Chunk 1: Story 1
+    (600 + 850 + 600) / 1000,  // Chunk 2: Story 2 (2.05s, includes internal sentence pause)
+    1.1,                       // Chunk 3: Story 3
+    1.3,                       // Chunk 4: Outro
+  ];
+  const chunkSegments = chunkSpeechSegments(chunkDurations, { pauseMs: 1000 });
+  assert.equal(chunkSegments.length, 5);
+  assert.equal(chunkSegments[2].duration, 2.05);
+  assert.equal(chunkSegments[2].start, 4.5);
+  assert.equal(chunkSegments[2].end, 6.55);
+
+  const chunkTimeline = audioTimeline(chunkSegments, { tailSeconds: 0.8 });
+  assert.equal(chunkTimeline.hasVoiceIntro, true);
+  assert.equal(chunkTimeline.hasVoiceOutro, true);
+  assert.equal(chunkTimeline.introFrames, timeline.introFrames);
+  assert.equal(chunkTimeline.storyDurations[0], timeline.storyDurations[0]);
+  assert.equal(chunkTimeline.storyDurations[1], timeline.storyDurations[1]);
+  assert.equal(chunkTimeline.storyDurations[2], timeline.storyDurations[2]);
 });
 
 test('speech segmentation rejects invalid WAV types and invalid segment counts', () => {
