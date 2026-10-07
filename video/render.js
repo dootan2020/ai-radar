@@ -5,6 +5,8 @@ import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
 import {
   audioTimeline,
+  chunkSpeechSegments,
+  computeFeedStoryStats,
   createNarration,
   formatDateSlug,
   formatVietnameseDate,
@@ -28,6 +30,7 @@ function run(command, args, options = {}) {
 function synthesizeNarration(narrationPath, tempDir, options = {}) {
   const { python, cache, wrapper, fixOmnivoice, referenceAudio, referenceText } = resolveOmniVoicePaths();
   const rawAudio = path.join(tempDir, 'voice.wav');
+  const timingFile = path.join(tempDir, 'voice_timing.json');
   const pauseMs = options.pauseMs || process.env.OMNIVOICE_PAUSE_MS || '620';
 
   for (const file of [python, wrapper, fixOmnivoice, referenceAudio, referenceText]) {
@@ -39,6 +42,7 @@ function synthesizeNarration(narrationPath, tempDir, options = {}) {
     '--ref-text-file', referenceText, '--split-paragraphs', '--pause-ms', String(pauseMs),
     '--normalize-chunk-levels', '--offline', '--output', rawAudio,
     '--fix-script', fixOmnivoice,
+    '--timing-file', timingFile,
   ], {
     env: { ...process.env, FIX_OMNIVOICE_SCRIPT: fixOmnivoice },
   });
@@ -46,7 +50,31 @@ function synthesizeNarration(narrationPath, tempDir, options = {}) {
   if (!fs.existsSync(correctedAudio) || fs.statSync(correctedAudio).size === 0) {
     throw new Error('OmniVoice did not create its corrected WAV output.');
   }
-  return correctedAudio;
+
+  // Exact per-chunk synthesis timings (immune to intra-sentence speech pauses)
+  let segments = null;
+  const timingCandidates = [
+    timingFile,
+    path.join(tempDir, 'voice_corrected_timing.json'),
+    path.join(tempDir, 'voice_timing.json'),
+  ];
+  for (const candidate of timingCandidates) {
+    if (fs.existsSync(candidate)) {
+      try {
+        const parsed = JSON.parse(fs.readFileSync(candidate, 'utf8'));
+        if (Array.isArray(parsed.segments) && (parsed.segments.length === 5 || parsed.segments.length === 3)) {
+          segments = parsed.segments;
+          break;
+        }
+      } catch {}
+    }
+  }
+
+  return {
+    voicePath: correctedAudio,
+    segments,
+    toString() { return correctedAudio; },
+  };
 }
 
 // Fast pre-probe image with timeout
@@ -75,10 +103,13 @@ export async function main() {
   let snapshotArg = null;
   let scriptArg = process.env.VIDEO_SCRIPT_PATH || null;
   let pauseMsArg = process.env.OMNIVOICE_PAUSE_MS || '620';
+  let dryRun = false;
 
   for (let i = 2; i < process.argv.length; i++) {
     const arg = process.argv[i];
-    if (arg === '--script' && i + 1 < process.argv.length) {
+    if (arg === '--dry-run') {
+      dryRun = true;
+    } else if (arg === '--script' && i + 1 < process.argv.length) {
       scriptArg = process.argv[++i];
     } else if (arg.startsWith('--script=')) {
       scriptArg = arg.split('=', 2)[1];
@@ -132,6 +163,11 @@ export async function main() {
     targetDate: dateSlug,
   });
 
+  if (!scriptResult || !scriptResult.script) {
+    console.log(`[INFO] Fewer than 3 translated stories qualify (${scriptResult?.reason || 'insufficient stories'}). Skipping video render.`);
+    return;
+  }
+
   if (scriptResult.fallback) {
     console.log(`[INFO] Script source: fallback template (${scriptResult.reason})`);
   } else {
@@ -141,22 +177,38 @@ export async function main() {
   const script = scriptResult.script;
 
   // 5. Select 3 stories in the exact order specified by the script
-  const pickedStories = script.stories.map((item) => {
-    const found = snapshot.stories.find(s => s.id === item.id);
-    if (!found) {
-      throw new Error(`Snapshot is missing required story id from script: ${item.id}`);
-    }
-    return found;
-  });
+  let pickedStories = [];
+  try {
+    pickedStories = script.stories.map((item) => {
+      const found = snapshot.stories.find(s => s.id === item.id);
+      if (!found) {
+        throw new Error(`Snapshot is missing required story id from script: ${item.id}`);
+      }
+      return found;
+    });
+  } catch (err) {
+    console.log(`[INFO] Failed to map script stories to snapshot: ${err.message}. Skipping video render.`);
+    return;
+  }
 
-  if (pickedStories.length !== 3 || pickedStories.some(story => !story.title_vi)) {
-    throw new Error('Snapshot must supply three selected stories with Vietnamese titles.');
+  if (pickedStories.length !== 3 || pickedStories.some(story => !story.title_vi || typeof story.title_vi !== 'string' || !story.title_vi.trim())) {
+    console.log('[INFO] Fewer than 3 translated stories qualify in snapshot. Skipping video render.');
+    return;
   }
 
   console.log(`[INFO] Selected ${pickedStories.length} stories for video (script order):`);
   pickedStories.forEach((st, idx) => {
     console.log(`  ${idx + 1}. [${st.id}] ${st.title_vi || st.title} (score: ${st.worth_score || 0})`);
   });
+
+  if (dryRun) {
+    const narration = createNarration(script);
+    console.log(`\n[DRY-RUN] Script resolved for ${dateSlug} (${scriptResult.source || 'fallback'}):`);
+    console.log('--- NARRATION START ---');
+    process.stdout.write(narration);
+    console.log('--- NARRATION END ---\n');
+    return;
+  }
 
   // 6. Probe story images
   console.log('[INFO] Verifying story image accessibility...');
@@ -207,8 +259,11 @@ export async function main() {
 
   try {
     console.log('[INFO] Generating cloned Vietnamese voice with OmniVoice (offline)...');
-    const voicePath = synthesizeNarration(narrationPath, tempDir, { pauseMs: pauseMsArg });
-    const audioSegments = wavSpeechSegments(fs.readFileSync(voicePath));
+    const synthResult = synthesizeNarration(narrationPath, tempDir, { pauseMs: pauseMsArg });
+    const voicePath = synthResult.voicePath || synthResult;
+    const audioSegments = (Array.isArray(synthResult.segments) && (synthResult.segments.length === 5 || synthResult.segments.length === 3))
+      ? synthResult.segments
+      : wavSpeechSegments(fs.readFileSync(voicePath));
     const timeline = audioTimeline(audioSegments);
 
     console.log('[INFO] Voice segment lengths:');
@@ -225,10 +280,12 @@ export async function main() {
     }
 
     // 10. Write props JSON for Remotion
+    const feedStats = computeFeedStoryStats(snapshot);
     const inputProps = {
       stories: preparedStories,
       snapshotDate: formattedDate,
-      totalStoriesCount: snapshot.stories.length,
+      totalStoriesCount: feedStats.storyCount,
+      windowHours: feedStats.windowHours,
       introFrames: timeline.introFrames,
       outroFrames: timeline.outroFrames,
       storyDurations: timeline.storyDurations,

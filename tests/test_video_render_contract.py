@@ -47,7 +47,7 @@ class VideoScriptContractTestCase(unittest.TestCase):
         self.assertIn("Nvidia Shield TV Pro", data["stories"][0]["line"])
         self.assertIn("Apple siết quyền truy cập", data["stories"][1]["line"])
         self.assertIn("Amazon chi 1 tỷ đô la", data["stories"][2]["line"])
-        self.assertIn("Theo dõi để không bỏ lỡ", data["cta"])
+        self.assertIn("Theo dõi kênh để cập nhật tin AI nóng nhất", data["cta"])
 
     def test_round5_muted_viewer_script_deliverables(self):
         data = json.loads(self.fixture_path.read_text(encoding="utf-8"))
@@ -60,7 +60,7 @@ class VideoScriptContractTestCase(unittest.TestCase):
         for st in data["stories"]:
             self.assertTrue(len(st["line"]) > 20)
         # 4. CTA asks for both following and commenting
-        self.assertIn("Theo dõi để không bỏ lỡ", data["cta"])
+        self.assertIn("Theo dõi kênh để cập nhật tin AI nóng nhất", data["cta"])
         self.assertTrue("Bình luận" in data["cta"] or "quan tâm" in data["cta"])
 
     def test_round6_pacing_and_pause_contract(self):
@@ -73,6 +73,27 @@ class VideoScriptContractTestCase(unittest.TestCase):
         # Verify render.js uses tightened pauseMs (620ms to achieve ~1s measured pause)
         self.assertIn("'620'", render_js)
         self.assertIn("OMNIVOICE_PAUSE_MS", render_js)
+
+    def test_round7_scene_timing_immune_to_internal_pauses(self):
+        render_js = (REPO_ROOT / "video" / "render.js").read_text(encoding="utf-8")
+        daily_audio_js = (REPO_ROOT / "video" / "src" / "daily-audio.js").read_text(encoding="utf-8")
+        omnivoice_py = (REPO_ROOT / "video" / "scripts" / "omnivoice_tts.py").read_text(encoding="utf-8")
+
+        # 1. Verify daily-audio exports chunkSpeechSegments for text-immune timing
+        self.assertIn("export function chunkSpeechSegments", daily_audio_js)
+
+        # 2. Verify render.js passes timing file and receives exact synthesis segments
+        self.assertIn("--timing-file", render_js)
+        self.assertIn("voice_timing.json", render_js)
+        self.assertIn("synthResult.segments", render_js)
+
+        # 3. Verify omnivoice_tts supports --timing-file and outputs timing manifest
+        self.assertIn("--timing-file", omnivoice_py)
+        self.assertIn("timing_data", omnivoice_py)
+        self.assertIn('"segments": segments', omnivoice_py)
+
+        # 4. Verify wavSpeechSegments has adaptive gap merging when intra-sentence pauses split sections
+        self.assertIn("while (segments.length > targetCount)", daily_audio_js)
 
 
 if __name__ == "__main__":

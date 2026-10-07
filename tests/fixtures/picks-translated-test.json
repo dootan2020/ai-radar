@@ -1,0 +1,101 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-10-06T12:00:00Z",
+  "sources": [
+    {"id": "techcrunch"},
+    {"id": "the-verge"},
+    {"id": "reuters"},
+    {"id": "bloomberg"},
+    {"id": "ars-technica"},
+    {"id": "wired"},
+    {"id": "cnet"},
+    {"id": "gizmodo"},
+    {"id": "venturebeat"},
+    {"id": "wsj"}
+  ],
+  "stories": [
+    {
+      "id": "story-top-untranslated",
+      "title": "Introducing Mistral Large 4 with massive breakthrough",
+      "title_vi": null,
+      "summary": "Mistral AI releases Mistral Large 4 with major benchmark gains.",
+      "summary_vi": null,
+      "published_at": "2026-10-06T12:00:00Z",
+      "worth_score": 99.0,
+      "image": {"src": "https://example.com/mistral.jpg", "kind": "photo"},
+      "coverage": [
+        {"source": "techcrunch", "publisher": "techcrunch", "title": "Mistral Large 4 announced", "metrics": {}},
+        {"source": "the-verge", "publisher": "the-verge", "title": "Mistral Large 4 details", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-single-source",
+      "title": "Rumor about secret Google model",
+      "title_vi": "Tin đồn về mô hình bí mật của Google",
+      "summary": "A rumor claims Google is building a secret new model.",
+      "summary_vi": "Tin đồn cho rằng Google đang xây dựng mô hình mới.",
+      "published_at": "2026-10-06T11:30:00Z",
+      "worth_score": 95.0,
+      "image": {"src": "https://example.com/google.jpg", "kind": "photo"},
+      "coverage": [
+        {"source": "random-blog", "publisher": "random-blog", "title": "Rumor about Google", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-pick-1",
+      "title": "OpenAI adds text watermarking in ChatGPT and Codex",
+      "title_vi": "OpenAI bổ sung watermark văn bản trong ChatGPT và Codex",
+      "summary": "OpenAI begins rolling out text watermarking across tools.",
+      "summary_vi": "OpenAI bắt đầu triển khai gắn watermark văn bản trên các công cụ.",
+      "published_at": "2026-10-06T11:00:00Z",
+      "worth_score": 80.0,
+      "image": {"src": "https://example.com/openai.jpg", "kind": "photo"},
+      "coverage": [
+        {"source": "reuters", "publisher": "reuters", "title": "OpenAI adds text watermarking in ChatGPT and Codex", "metrics": {}},
+        {"source": "bloomberg", "publisher": "bloomberg", "title": "OpenAI text watermarking", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-pick-2",
+      "title": "The 7-year-old Nvidia Shield TV is now $100 more expensive due to AI",
+      "title_vi": "Nvidia Shield TV 7 năm tuổi bây giờ là 100 đô la đắt hơn do AI",
+      "summary": "Nvidia Shield TV Pro now sells for $299 due to AI demand.",
+      "summary_vi": "Nvidia Shield TV Pro giờ bán 299 đô la do nhu cầu AI.",
+      "published_at": "2026-10-06T10:00:00Z",
+      "worth_score": 50.0,
+      "image": {"src": "https://example.com/nvidia.jpg", "kind": "graphic"},
+      "coverage": [
+        {"source": "ars-technica", "publisher": "ars-technica", "title": "The 7-year-old Nvidia Shield TV is now $100 more expensive due to AI", "metrics": {}},
+        {"source": "wired", "publisher": "wired", "title": "Nvidia Shield TV price hike", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-pick-2-dup",
+      "title": "The 7-year-old Nvidia Shield TV console now costs $100 more due to AI",
+      "title_vi": "Thiết bị Nvidia Shield TV 7 năm tuổi đắt thêm 100 đô la do AI",
+      "summary": "The 7-year-old Nvidia Shield TV console now costs $100 more due to AI demand.",
+      "summary_vi": "Thiết bị Nvidia Shield TV 7 năm tuổi đắt thêm 100 đô la do nhu cầu AI.",
+      "published_at": "2026-10-06T09:30:00Z",
+      "worth_score": 48.0,
+      "image": {"src": "https://example.com/nvidia-2.jpg", "kind": "photo"},
+      "coverage": [
+        {"source": "cnet", "publisher": "cnet", "title": "The 7-year-old Nvidia Shield TV console now costs $100 more due to AI", "metrics": {}},
+        {"source": "gizmodo", "publisher": "gizmodo", "title": "Nvidia Shield TV price jump", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-pick-3",
+      "title": "Apple restricts Full Disk Access permissions on macOS due to AI agents",
+      "title_vi": "Apple siết quyền truy cập toàn bộ ổ đĩa trên macOS vì các agent AI",
+      "summary": "Apple is tightening Full Disk Access permissions in macOS for AI agents.",
+      "summary_vi": "Apple siết quyền truy cập toàn bộ ổ đĩa trên macOS vì các agent AI.",
+      "published_at": "2026-10-06T09:00:00Z",
+      "worth_score": 30.0,
+      "image": {"src": "https://example.com/apple.jpg", "kind": "cover"},
+      "coverage": [
+        {"source": "venturebeat", "publisher": "venturebeat", "title": "Apple restricts Full Disk Access permissions on macOS due to AI agents", "metrics": {}},
+        {"source": "wsj", "publisher": "wsj", "title": "Apple macOS changes for AI agents", "metrics": {}}
+      ]
+    }
+  ]
+}

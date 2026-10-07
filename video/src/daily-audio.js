@@ -2,7 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { selectThreeStories } from './pick-stories.js';
+import { selectThreeStories, computeFeedStoryStats } from './pick-stories.js';
+
+export { computeFeedStoryStats };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -127,8 +129,27 @@ export function validateScript(script, snapshot, targetDate) {
     if (!found) {
       return { valid: false, reason: `Story '${item.id}' from script is not found in snapshot` };
     }
+    if (!found.title_vi || typeof found.title_vi !== 'string' || !found.title_vi.trim()) {
+      return { valid: false, reason: `Story '${item.id}' from script lacks a Vietnamese title in snapshot` };
+    }
   }
   return { valid: true };
+}
+
+const FALLBACK_PHRASINGS = [
+  (count) => count >= 2 ? `Được ${count} nguồn công nghệ cùng đưa tin.` : 'Được ghi nhận từ nguồn tin công nghệ.',
+  (count) => count >= 2 ? `Ghi nhận từ ${count} nguồn tin cùng đăng tải.` : 'Ghi nhận từ nguồn tin công nghệ.',
+  (count) => count >= 2 ? `Được ${count} nguồn tin độc lập cùng xác nhận.` : 'Được nguồn tin độc lập xác nhận.',
+];
+
+export function fallbackStoryLine(story, index = 0) {
+  const rawTitle = String(story.title_vi || story.title || '').trim();
+  if (!rawTitle) throw new Error(`Story ${story.id || '(unknown)'} has no title.`);
+  const title = normalizeSpeech(rawTitle);
+  const titleWithPeriod = /[.!?]$/u.test(title) ? title : `${title}.`;
+  const count = story.source_count || (Array.isArray(story.coverage) ? story.coverage.length : 1);
+  const phrasingFn = FALLBACK_PHRASINGS[index % FALLBACK_PHRASINGS.length];
+  return `${titleWithPeriod} ${phrasingFn(count)}`;
 }
 
 export function generateFallbackScript(snapshot, pickedStories, targetDate) {
@@ -137,20 +158,23 @@ export function generateFallbackScript(snapshot, pickedStories, targetDate) {
     ? pickedStories
     : selectThreeStories(snapshot);
 
-  const topTitle = normalizeSpeech(stories[0].title_vi || stories[0].title || '');
-  const storyCount = Array.isArray(snapshot?.stories) ? snapshot.stories.length : 3;
+  if (!stories || stories.length < 3 || stories.some(s => !s.title_vi || typeof s.title_vi !== 'string' || !s.title_vi.trim())) {
+    return null;
+  }
+
+  const { storyCount, windowHours } = computeFeedStoryStats(snapshot);
 
   return {
     date,
     generated_at: snapshot.generated_at || new Date().toISOString(),
-    prompt_version: 'fallback-template-v1',
-    hook: `Hôm nay ai-radar theo dõi ${storyCount} tin AI. Nổi bật nhất: ${topTitle}.`,
+    prompt_version: 'fallback-template-v2',
+    hook: `Trong ${windowHours} giờ qua, ai-radar theo dõi ${storyCount} tin AI từ các nguồn công nghệ.`,
     hint: 'Ba tin AI đáng chú ý nhất, trong 45 giây.',
-    stories: stories.map(st => ({
+    stories: stories.map((st, i) => ({
       id: st.id,
-      line: narrationForStory(st),
+      line: fallbackStoryLine(st, i),
     })),
-    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi để không bỏ lỡ. Bạn quan tâm tin nào nhất?',
+    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.',
   };
 }
 
@@ -242,6 +266,14 @@ export async function resolveScript({
 
   // 4. Fallback template built from snapshot fields
   const fallbackScript = generateFallbackScript(snapshot, pickedStories, expectedDate);
+  if (!fallbackScript) {
+    return {
+      script: null,
+      source: 'fallback template',
+      reason: lastReason || 'fewer than 3 translated stories qualify',
+      fallback: true,
+    };
+  }
   return {
     script: fallbackScript,
     source: 'fallback template',
@@ -281,7 +313,40 @@ export function createNarration(input) {
   return paragraphs.join('\n\n') + '\n';
 }
 
-export function wavSpeechSegments(buffer, {thresholdDb = -48, frameMs = 10, separatorMs = 800} = {}) {
+export function chunkSpeechSegments(chunkDurations, {pauseMs = 620} = {}) {
+  if (!Array.isArray(chunkDurations) || (chunkDurations.length !== 5 && chunkDurations.length !== 3)) {
+    throw new Error(`Expected 5 (or 3) chunk durations; got ${chunkDurations?.length}.`);
+  }
+  const pauseSec = Number(pauseMs) / 1000;
+  let currentStart = 0;
+  return chunkDurations.map((item, index) => {
+    let duration = 0;
+    if (typeof item === 'number') {
+      duration = item;
+    } else if (item && typeof item === 'object' && typeof item.duration === 'number') {
+      duration = item.duration;
+    } else if (Buffer.isBuffer(item)) {
+      const wav = readWav(item);
+      duration = wav.dataSize / (wav.sampleRate * wav.channels * (wav.bitsPerSample / 8));
+    } else {
+      throw new Error(`Invalid chunk duration item at index ${index}`);
+    }
+
+    const start = Number(currentStart.toFixed(4));
+    const end = Number((start + duration).toFixed(4));
+    currentStart = end + (index < chunkDurations.length - 1 ? pauseSec : 0);
+    return {
+      index,
+      start,
+      end,
+      duration: Number(duration.toFixed(4)),
+      startFrame: Math.round(start * 30),
+      durationFrames: Math.round(duration * 30),
+    };
+  });
+}
+
+export function wavSpeechSegments(buffer, {thresholdDb = -48, frameMs = 10, separatorMs = 800, expectedSegments = null} = {}) {
   const {dataOffset, dataSize, sampleRate, channels, bitsPerSample, format} = readWav(buffer);
   if (format !== 1 || bitsPerSample !== 16) throw new Error('Expected 16-bit PCM WAV audio.');
 
@@ -326,6 +391,29 @@ export function wavSpeechSegments(buffer, {thresholdDb = -48, frameMs = 10, sepa
       segments.push({...span});
     }
   }
+
+  // Adaptive pause merge: if an intra-sentence pause was long enough to have split
+  // a section (segments.length > 5 or > 3), merge the adjacent pair with the smallest
+  // silence gap until the expected segment count is reached.
+  const targetCount = expectedSegments || (segments.length >= 5 ? 5 : 3);
+  while (segments.length > targetCount) {
+    let minGapIndex = -1;
+    let minGap = Infinity;
+    for (let i = 0; i < segments.length - 1; i++) {
+      const gap = segments[i + 1].start - segments[i].end;
+      if (gap < minGap) {
+        minGap = gap;
+        minGapIndex = i;
+      }
+    }
+    if (minGapIndex >= 0) {
+      segments[minGapIndex].end = segments[minGapIndex + 1].end;
+      segments.splice(minGapIndex + 1, 1);
+    } else {
+      break;
+    }
+  }
+
   if (segments.length !== 5 && segments.length !== 3) {
     throw new Error(`Expected 5 (or 3) narration audio segments; detected ${segments.length}.`);
   }

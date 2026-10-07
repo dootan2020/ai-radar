@@ -1,0 +1,119 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-10-07T12:00:00Z",
+  "ranking": {
+    "method": "source-percentile-freshness-v1",
+    "window_hours": 72
+  },
+  "sources": [
+    {"id": "techcrunch"},
+    {"id": "the-verge"},
+    {"id": "reuters"},
+    {"id": "bloomberg"},
+    {"id": "ars-technica"},
+    {"id": "wired"}
+  ],
+  "stories": [
+    {
+      "id": "story-in-window-1",
+      "title": "OpenAI adds text watermarking in ChatGPT and Codex",
+      "title_vi": "OpenAI bổ sung watermark văn bản trong ChatGPT và Codex",
+      "summary": "OpenAI begins rolling out text watermarking across tools.",
+      "summary_vi": "OpenAI bắt đầu triển khai gắn watermark văn bản trên các công cụ.",
+      "published_at": "2026-10-07T11:00:00Z",
+      "worth_score": 85.0,
+      "image": {"src": "https://example.com/openai.jpg", "kind": "photo"},
+      "coverage": [
+        {"source": "techcrunch", "publisher": "techcrunch", "title": "OpenAI watermarking", "metrics": {}},
+        {"source": "the-verge", "publisher": "the-verge", "title": "OpenAI text watermark", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-in-window-2",
+      "title": "The 7-year-old Nvidia Shield TV is now $100 more expensive due to AI",
+      "title_vi": "Nvidia Shield TV 7 năm tuổi bây giờ là 100 đô la đắt hơn do AI",
+      "summary": "Nvidia Shield TV Pro now sells for $299 due to AI demand.",
+      "summary_vi": "Nvidia Shield TV Pro giờ bán 299 đô la do nhu cầu AI.",
+      "published_at": "2026-10-06T12:00:00Z",
+      "worth_score": 75.0,
+      "image": {"src": "https://example.com/nvidia.jpg", "kind": "photo"},
+      "coverage": [
+        {"source": "reuters", "publisher": "reuters", "title": "Nvidia Shield TV price jump", "metrics": {}},
+        {"source": "bloomberg", "publisher": "bloomberg", "title": "Shield TV costs more", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-in-window-3",
+      "title": "Amazon commits one billion dollar investment for clean power data centers",
+      "title_vi": "Amazon cam kết một tỷ đô la đầu tư cho các trung tâm dữ liệu năng lượng sạch",
+      "summary": "Amazon invests heavily to mitigate energy impact of AI data centers.",
+      "summary_vi": "Amazon đầu tư mạnh để giảm thiểu tác động năng lượng từ trung tâm dữ liệu AI.",
+      "published_at": "2026-10-05T12:00:00Z",
+      "worth_score": 65.0,
+      "image": {"src": "https://example.com/amazon.jpg", "kind": "photo"},
+      "coverage": [
+        {"source": "ars-technica", "publisher": "ars-technica", "title": "Amazon green data centers", "metrics": {}},
+        {"source": "wired", "publisher": "wired", "title": "Amazon clean power pledge", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-in-window-4",
+      "title": "Apple tightens macOS disk permissions due to AI risks",
+      "title_vi": "Apple siết chặt quyền ổ đĩa macOS do lo ngại rủi ro AI",
+      "summary": "Apple restricts access to full disk permissions.",
+      "summary_vi": "Apple hạn chế quyền truy cập toàn bộ ổ đĩa.",
+      "published_at": "2026-10-04T13:00:00Z",
+      "worth_score": 40.0,
+      "coverage": [
+        {"source": "the-verge", "publisher": "the-verge", "title": "Apple disk permissions", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-outside-window-1",
+      "title": "Google launches Gemini 1.5 Pro experimental model",
+      "title_vi": "Google ra mắt mô hình thử nghiệm Gemini 1.5 Pro",
+      "summary": "Google announces new experimental multimodal model.",
+      "summary_vi": "Google công bố mô hình đa phương thức thử nghiệm mới.",
+      "published_at": "2026-10-03T10:00:00Z",
+      "worth_score": 90.0,
+      "coverage": [
+        {"source": "techcrunch", "publisher": "techcrunch", "title": "Google launches Gemini 1.5", "metrics": {}},
+        {"source": "bloomberg", "publisher": "bloomberg", "title": "Gemini 1.5 Pro released", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-outside-window-2",
+      "title": "Meta releases Llama 3 open source weights",
+      "title_vi": "Meta phát hành trọng số mã nguồn mở Llama 3",
+      "summary": "Meta open sources next generation language model.",
+      "summary_vi": "Meta mở mã nguồn mô hình ngôn ngữ thế hệ tiếp theo.",
+      "published_at": "2026-09-28T08:00:00Z",
+      "worth_score": 95.0,
+      "coverage": [
+        {"source": "reuters", "publisher": "reuters", "title": "Meta open sources Llama 3", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-outside-window-3",
+      "title": "Microsoft introduces Copilot Plus PC brand",
+      "title_vi": "Microsoft giới thiệu thương hiệu máy tính Copilot Plus",
+      "summary": "Microsoft announces Copilot Plus hardware specs.",
+      "summary_vi": "Microsoft công bố cấu hình phần cứng Copilot Plus.",
+      "published_at": "2026-09-15T00:00:00Z",
+      "worth_score": 99.0,
+      "coverage": [
+        {"source": "bloomberg", "publisher": "bloomberg", "title": "Microsoft Copilot Plus PC", "metrics": {}}
+      ]
+    },
+    {
+      "id": "story-outside-window-no-date",
+      "title": "Anthropic publishes Claude Sonnet benchmark figures",
+      "title_vi": "Anthropic công bố điểm benchmark Claude Sonnet",
+      "summary": "Anthropic details performance metrics.",
+      "summary_vi": "Anthropic nêu chi tiết các chỉ số hiệu năng.",
+      "published_at": null,
+      "worth_score": 50.0,
+      "coverage": []
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   audioTimeline,
+  chunkSpeechSegments,
   createNarration,
   formatDateSlug,
   formatVietnameseDate,
@@ -48,24 +49,31 @@ function speech(milliseconds, amplitude = 6000) {
 
 const mockSnapshot = {
   generated_at: '2026-10-05T19:00:45Z',
+  ranking: { window_hours: 72 },
   stories: [
     {
       id: 'story-1',
+      published_at: '2026-10-05T18:00:00Z',
       title_vi: 'Nvidia Shield TV tăng giá do AI',
       summary_vi: 'Nvidia Shield TV Pro tăng giá $100 vì nhu cầu AI. Câu tiếp theo.',
       worth_score: 8.5,
+      coverage: [{ source: 'techcrunch', publisher: 'techcrunch' }, { source: 'the-verge', publisher: 'the-verge' }],
     },
     {
       id: 'story-2',
+      published_at: '2026-10-05T17:30:00Z',
       title_vi: 'Apple thắt chặt quyền Full Disk Access',
       summary_vi: 'Apple cảnh báo agent AI có thể đọc trộm tin nhắn. Câu tiếp theo.',
       worth_score: 7.2,
+      coverage: [{ source: 'techcrunch', publisher: 'techcrunch' }, { source: 'the-verge', publisher: 'the-verge' }],
     },
     {
       id: 'story-3',
+      published_at: '2026-10-05T16:00:00Z',
       title_vi: 'Amazon đầu tư $1B vào trung tâm dữ liệu',
       summary_vi: 'Amazon chi $1B để xoa dịu phản ứng ô nhiễm. Câu tiếp theo.',
       worth_score: 6.9,
+      coverage: [{ source: 'techcrunch', publisher: 'techcrunch' }, { source: 'the-verge', publisher: 'the-verge' }],
     },
   ],
 };
@@ -98,7 +106,7 @@ test('Round 4 script validation validates contract structure, date, and story ID
       { id: 'story-2', line: 'Apple siết quyền truy cập toàn bộ ổ đĩa trên macOS.' },
       { id: 'story-3', line: 'Amazon chi $1B để xoa dịu phản ứng về trung tâm dữ liệu.' },
     ],
-    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi để không bỏ lỡ.',
+    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.',
   };
 
   const res1 = validateScript(validScript, mockSnapshot, targetDate);
@@ -136,11 +144,15 @@ test('generateFallbackScript creates honest script matching contract strictly fr
   const fallback = generateFallbackScript(mockSnapshot, mockSnapshot.stories, targetDate);
 
   assert.equal(fallback.date, targetDate);
+  assert.ok(fallback.hook.includes('Trong 72 giờ qua'));
   assert.ok(fallback.hook.includes('3 tin AI'));
+  assert.ok(!fallback.hook.includes('Hôm nay'), 'Fallback hook must not claim Hôm nay when counting window');
+  assert.ok(!fallback.hook.includes(mockSnapshot.stories[0].title_vi), 'Fallback hook must not stutter/repeat story 1');
   assert.ok(fallback.hint.includes('45 giây'));
   assert.equal(fallback.stories.length, 3);
   assert.equal(fallback.stories[0].id, 'story-1');
-  assert.ok(fallback.cta.includes('Theo dõi để không bỏ lỡ'));
+  assert.ok(fallback.cta.includes('Theo dõi kênh để cập nhật tin AI nóng nhất'));
+  assert.ok(fallback.cta.includes('Bạn quan tâm tin nào nhất?'));
 
   // Validate that the generated fallback passes validation against the snapshot
   const validation = validateScript(fallback, mockSnapshot, targetDate);
@@ -156,10 +168,13 @@ test('resolveScript prioritizes valid script option, local file, and falls back 
   const realFixture = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
   const testSnapshot = {
     generated_at: '2026-10-05T19:00:45Z',
+    ranking: { window_hours: 72 },
     stories: realFixture.stories.map((st) => ({
       id: st.id,
+      published_at: '2026-10-05T18:00:00Z',
       title_vi: st.line,
       summary_vi: 'Tóm tắt câu một. Câu hai.',
+      coverage: [{ source: 'techcrunch', publisher: 'techcrunch' }, { source: 'the-verge', publisher: 'the-verge' }],
     })),
   };
 
@@ -197,7 +212,7 @@ test('createNarration generates 5 paragraphs from script with symbol normalizati
       { id: '2', line: 'Apple siết quyền truy cập ổ đĩa với 15% người dùng.' },
       { id: '3', line: 'Amazon chi $1B để xoa dịu phản ứng & ô nhiễm.' },
     ],
-    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi để không bỏ lỡ.',
+    cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.',
   };
 
   const narration = createNarration(script);
@@ -215,7 +230,7 @@ test('createNarration generates 5 paragraphs from script with symbol normalizati
   assert.ok(paragraphs[3].includes('và ô nhiễm'));
 
   // Outro CTA
-  assert.ok(paragraphs[4].includes('Theo dõi để không bỏ lỡ'));
+  assert.ok(paragraphs[4].includes('Theo dõi kênh để cập nhật tin AI nóng nhất'));
 });
 
 test('WAV speech segments and audioTimeline handle Round 4 5-segment audio', () => {
@@ -264,6 +279,57 @@ test('Round 6 1s pauses: wavSpeechSegments handles ~1s section gaps while mergin
   const timeline = audioTimeline(segments, { tailSeconds: 0.8 });
   assert.equal(timeline.hasVoiceIntro, true);
   assert.equal(timeline.hasVoiceOutro, true);
+});
+
+test('reproducing failure: narration whose internal sentence pause is long enough to have split it now yields 5 segments', () => {
+  // Failure scenario: an intra-story sentence pause of 850ms in Story 2 (which is >= separatorMs = 800ms).
+  // In the previous version, this caused wavSpeechSegments to detect 6 segments instead of 5, throwing:
+  // "[FATAL] Error: Expected 5 (or 3) narration audio segments; detected 6."
+  const samplesWithLongInternalPause = [
+    ...speech(1500), ...silence(1000), // Intro (1.5s) + 1s inter-section pause
+    ...speech(1000), ...silence(1000), // Story 1 (1.0s) + 1s inter-section pause
+    ...speech(600), ...silence(850), ...speech(600), ...silence(1000), // Story 2 with 850ms internal pause + 1s inter-section pause
+    ...speech(1100), ...silence(1000), // Story 3 (1.1s) + 1s inter-section pause
+    ...speech(1300),                   // Outro (1.3s)
+  ];
+  const audioBuffer = pcm(samplesWithLongInternalPause);
+
+  // 1. WAV speech segments now resolves internal pauses >= 800ms by merging smallest gaps
+  const segments = wavSpeechSegments(audioBuffer);
+  assert.equal(segments.length, 5, 'Must resolve to exactly 5 segments despite 850ms intra-story pause');
+
+  // Verify Story 2 correctly spans from the start of the first sentence to the end of the second sentence
+  const expectedStory2Start = (1500 + 1000 + 1000 + 1000) / 1000; // 4.5s
+  const expectedStory2End = (1500 + 1000 + 1000 + 1000 + 600 + 850 + 600) / 1000; // 6.55s
+  assert.equal(segments[2].start, expectedStory2Start);
+  assert.equal(segments[2].end, expectedStory2End);
+
+  const timeline = audioTimeline(segments, { tailSeconds: 0.8 });
+  assert.equal(timeline.hasVoiceIntro, true);
+  assert.equal(timeline.hasVoiceOutro, true);
+  assert.equal(timeline.storyDurations.length, 3);
+
+  // 2. Scene boundaries from per-chunk synthesis durations (immune to text and sentence pauses)
+  const chunkDurations = [
+    1.5,                       // Chunk 0: Intro
+    1.0,                       // Chunk 1: Story 1
+    (600 + 850 + 600) / 1000,  // Chunk 2: Story 2 (2.05s, includes internal sentence pause)
+    1.1,                       // Chunk 3: Story 3
+    1.3,                       // Chunk 4: Outro
+  ];
+  const chunkSegments = chunkSpeechSegments(chunkDurations, { pauseMs: 1000 });
+  assert.equal(chunkSegments.length, 5);
+  assert.equal(chunkSegments[2].duration, 2.05);
+  assert.equal(chunkSegments[2].start, 4.5);
+  assert.equal(chunkSegments[2].end, 6.55);
+
+  const chunkTimeline = audioTimeline(chunkSegments, { tailSeconds: 0.8 });
+  assert.equal(chunkTimeline.hasVoiceIntro, true);
+  assert.equal(chunkTimeline.hasVoiceOutro, true);
+  assert.equal(chunkTimeline.introFrames, timeline.introFrames);
+  assert.equal(chunkTimeline.storyDurations[0], timeline.storyDurations[0]);
+  assert.equal(chunkTimeline.storyDurations[1], timeline.storyDurations[1]);
+  assert.equal(chunkTimeline.storyDurations[2], timeline.storyDurations[2]);
 });
 
 test('speech segmentation rejects invalid WAV types and invalid segment counts', () => {
@@ -381,24 +447,27 @@ test('Round 5 muted viewer contract: script and fallback deliver hook, hint, 3 s
   const fallback = generateFallbackScript(mockSnapshot, mockSnapshot.stories, '2026-10-05');
   assert.ok(fallback.hook && fallback.hook.length > 10, 'Fallback must supply non-empty hook');
   assert.ok(fallback.hint && fallback.hint.length > 5, 'Fallback must supply non-empty hint');
-  assert.ok(fallback.cta && fallback.cta.includes('Theo dõi để không bỏ lỡ'), 'Fallback must supply actionable cta');
+  assert.ok(fallback.cta && fallback.cta.includes('Theo dõi kênh để cập nhật tin AI nóng nhất'), 'Fallback must supply actionable cta');
   assert.equal(fallback.stories.length, 3, 'Fallback must provide 3 stories');
   fallback.stories.forEach((st, i) => {
     assert.ok(st.id, `Fallback story ${i} missing id`);
     assert.ok(st.line && st.line.length > 10, `Fallback story ${i} missing line for audio and visual card`);
+    assert.ok(st.line.includes(normalizeSpeech(mockSnapshot.stories[i].title_vi)), `Fallback story ${i} must include Vietnamese title`);
+    assert.ok(!st.line.includes('Câu tiếp theo'), `Fallback story ${i} must not include raw summary sentences`);
   });
 
   const fixturePath = path.resolve(__dirname, '../fixtures/video-script.json');
   const fixture = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
   const fixtureSnapshot = {
     generated_at: '2026-10-06T19:00:00Z',
-    stories: fixture.stories.map(st => ({ id: st.id, title_vi: st.line })),
+    ranking: { window_hours: 72 },
+    stories: fixture.stories.map(st => ({ id: st.id, published_at: '2026-10-06T18:00:00Z', title_vi: st.line })),
   };
   const check = validateScript(fixture, fixtureSnapshot, '2026-10-06');
   assert.equal(check.valid, true);
   assert.ok(fixture.hook.includes('TV box 7 năm tuổi'), 'Approved sample hook covers opening visual');
   assert.ok(fixture.hint.includes('45 giây'), 'Approved sample hint promises 45-second duration');
-  assert.ok(fixture.cta.includes('Theo dõi để không bỏ lỡ'), 'Approved sample CTA includes follow prompt');
+  assert.ok(fixture.cta.includes('Theo dõi kênh để cập nhật tin AI nóng nhất'), 'Approved sample CTA includes follow prompt');
   assert.ok(fixture.cta.includes('Bình luận'), 'Approved sample CTA includes comment prompt');
 });
 

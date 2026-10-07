@@ -544,6 +544,51 @@ def synthesize(args: argparse.Namespace) -> int:
     output = args.output.expanduser().resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     sf.write(output, rendered_audio, model.sampling_rate)
+
+    import numpy as np
+
+    pause_ms = args.pause_ms if len(rendered_chunks) > 1 else 0
+    pause_sec = pause_ms / 1000.0
+
+    chunk_durations = [
+        round(float(len(np.asarray(chunk_audio).reshape(-1))) / model.sampling_rate, 4)
+        for chunk_audio in rendered_chunks
+    ]
+
+    segments = []
+    current_time = 0.0
+    for idx, c_dur in enumerate(chunk_durations):
+        start = round(current_time, 4)
+        end = round(start + c_dur, 4)
+        segments.append({
+            "index": idx,
+            "start": start,
+            "end": end,
+            "duration": c_dur,
+            "startFrame": round(start * 30),
+            "durationFrames": round(c_dur * 30),
+        })
+        current_time = end + pause_sec
+
+    timing_data = {
+        "sample_rate": model.sampling_rate,
+        "pause_ms": pause_ms,
+        "chunk_count": len(rendered_chunks),
+        "chunk_durations": chunk_durations,
+        "segments": segments,
+    }
+
+    timing_file = getattr(args, "timing_file", None)
+    timing_path = (
+        timing_file.expanduser().resolve()
+        if timing_file
+        else output.with_name(f"{output.stem}_timing.json")
+    )
+    timing_path.parent.mkdir(parents=True, exist_ok=True)
+    timing_path.write_text(
+        json.dumps(timing_data, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
     fix_result = None
     if not args.skip_fix_omnivoice:
         fix_result = run_fix_omnivoice(
@@ -552,6 +597,16 @@ def synthesize(args: argparse.Namespace) -> int:
             args.fix_report,
             getattr(args, "fix_script", None),
         )
+        if fix_result and fix_result.get("corrected_output"):
+            corrected_p = Path(fix_result["corrected_output"])
+            corrected_timing = corrected_p.with_name(f"{corrected_p.stem}_timing.json")
+            try:
+                corrected_timing.write_text(
+                    json.dumps(timing_data, ensure_ascii=False, indent=2), encoding="utf-8"
+                )
+            except OSError:
+                pass
+
     print(
         json.dumps(
             {
@@ -571,7 +626,10 @@ def synthesize(args: argparse.Namespace) -> int:
                 "removed_island_duration_ms": round(
                     sum(float(item["duration_ms"]) for item in removed_islands), 3
                 ),
-                "pause_ms": args.pause_ms if len(chunks) > 1 else 0,
+                "pause_ms": pause_ms,
+                "chunk_durations": chunk_durations,
+                "segments": segments,
+                "timing_file": str(timing_path),
                 "fix_omnivoice": fix_result,
             },
             ensure_ascii=False,
@@ -707,6 +765,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--skip-fix-omnivoice",
         action="store_true",
         help="Generate raw output only; skip the default $fix-omnivoice pass.",
+    )
+    synth.add_argument(
+        "--timing-file",
+        type=Path,
+        help="JSON path to write timing and chunk duration manifest.",
     )
     synth.add_argument("--offline", action="store_true")
     synth.set_defaults(func=synthesize)

@@ -61,7 +61,8 @@ export const RemotionRoot = () => {
         defaultProps={{
           stories: defaultStories,
           snapshotDate: 'Thứ Ba, 6 tháng 10, 2026',
-          totalStoriesCount: 1306,
+          totalStoriesCount: 323,
+          windowHours: 72,
           introFrames: 260,
           outroFrames: 193,
           storyDurations: [201, 232, 199],
@@ -69,7 +70,7 @@ export const RemotionRoot = () => {
           script: {
             hook: 'AI vừa khiến một chiếc TV box 7 năm tuổi đắt thêm 100 đô la. Và đó chưa phải tin lạ nhất hôm nay.',
             hint: 'Ba tin AI đáng chú ý nhất, trong 45 giây.',
-            cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi để không bỏ lỡ. Bạn lo nhất tin nào? Bình luận cho mình biết.',
+            cta: 'Mỗi sáng ai-radar chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.',
           },
         }}
       />
