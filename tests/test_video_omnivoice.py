@@ -7,6 +7,13 @@ import unittest
 import wave
 from pathlib import Path
 
+try:
+    import numpy  # noqa: F401
+
+    HAS_NUMPY = True
+except ImportError:
+    HAS_NUMPY = False
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -64,6 +71,7 @@ class VideoOmniVoiceResolutionTestCase(unittest.TestCase):
             self.fix_script_path.resolve(),
         )
 
+    @unittest.skipUnless(HAS_NUMPY, "numpy required for fix_omnivoice cleanup tests")
     def test_fix_omnivoice_cleans_wav_and_passes_verification(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
