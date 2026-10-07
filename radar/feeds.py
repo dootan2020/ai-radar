@@ -16,6 +16,7 @@ _FEEDS = [
     ("anthropic-gftdon", "Anthropic News (nguồn cộng đồng gftdon)", "anthropic", "https://gftdon.github.io/ai-news-rss/anthropic.xml"),
     ("anthropic-research", "Anthropic Research (nguồn cộng đồng)", "anthropic", _COMMUNITY.format("anthropic_research")),
     ("anthropic-engineering", "Anthropic Engineering (nguồn cộng đồng)", "anthropic", _COMMUNITY.format("anthropic_engineering")),
+    ("anthropic-claude", "Anthropic Claude Blog", "anthropic", "https://claude.com/resources/articles"),
     ("xai-news", "xAI News (nguồn cộng đồng)", "xai", _COMMUNITY.format("xainews")),
     ("meta-news", "Meta AI (nguồn cộng đồng)", "meta", _COMMUNITY.format("meta_ai")),
     ("mistral-news", "Mistral News (nguồn cộng đồng)", "mistral", _COMMUNITY.format("mistral")),
@@ -59,6 +60,9 @@ def _research_copy(title, summary):
 
 
 def parse_feed(text, source):
+    if source.get("id") == "anthropic-claude" or "claude.com" in source.get("url", ""):
+        from radar.claude import parse_claude
+        return parse_claude(text, source)
     root = ET.fromstring(text)
     if _local(root.tag) not in {"rss", "feed", "RDF"}:
         raise ValueError("Expected RSS or Atom, received another document")

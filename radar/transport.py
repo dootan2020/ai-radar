@@ -88,6 +88,19 @@ def read_url(url, source_id=None, *, allow_redirects=True):
             raw = response.read(max_bytes + 1)
             if len(raw) > max_bytes:
                 raise ValueError(f"Source response exceeds {_limit_label(max_bytes)} limit")
+            encoding = response.headers.get("Content-Encoding", "").lower()
+            if encoding == "gzip" or raw[:2] == b"\x1f\x8b":
+                import gzip
+                try:
+                    raw = gzip.decompress(raw)
+                except Exception:
+                    pass
+            elif encoding == "deflate":
+                import zlib
+                try:
+                    raw = zlib.decompress(raw)
+                except Exception:
+                    pass
             return ResponseText(raw.decode(response.headers.get_content_charset() or "utf-8", errors="replace"),
                                 response.status, response.geturl(), response.headers.get("Content-Type", ""))
         except Exception as error:

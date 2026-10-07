@@ -29,7 +29,7 @@ EXCEPTIONS = {
     # Brand and product names
     **dict.fromkeys(["ai", "radar", "github", "hugging", "face", "huggingface", "youtube", "google", "calendar", "apple",
                      "outlook", "hacker", "news", "lobsters", "algolia", "daily", "papers", "spaces", "space", "docker",
-                     "readme", "openai", "anthropic", "deepmind", "xai", "meta", "mistral", "qwen", "deepseek", "nvidia",
+                     "readme", "openai", "anthropic", "claude", "deepmind", "xai", "meta", "mistral", "qwen", "deepseek", "nvidia",
                      "microsoft", "techcrunch", "verge", "ars", "technica", "mit", "technology", "review", "substack",
                      "gftdon", "dwarkesh", "interconnects", "simon", "willison", "priors", "latent", "import",
                      "engineering", "research", "blog", "technical", "llama", "mistralai", "org",

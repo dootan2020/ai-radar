@@ -35,6 +35,8 @@ RSS = [
     ("meta-newsroom", "Meta Newsroom", "lab", "meta", "https://about.fb.com/news/feed/", True),
     ("microsoft-blog", "Official Microsoft Blog", "lab", "microsoft", "https://blogs.microsoft.com/feed/", True),
     ("aws-ml-blog", "AWS Machine Learning Blog", "lab", "amazon", "https://aws.amazon.com/blogs/machine-learning/feed/", False),
+    ("nvidia-newsroom", "NVIDIA Newsroom", "lab", "nvidia", "https://nvidianews.nvidia.com/releases.xml", True),
+    ("qwen-blog", "Qwen Blog", "lab", "qwen", "https://qwenlm.github.io/blog/index.xml", False),
 ]
 NVIDIA_CHANNEL = ("nvidia-youtube", "nvidia", "NVIDIA", "NVIDIA", "UCHuiy8bXnmK5nisYHUd1J5g")
 
