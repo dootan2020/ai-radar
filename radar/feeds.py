@@ -17,6 +17,9 @@ _FEEDS = [
     ("anthropic-research", "Anthropic Research (nguồn cộng đồng)", "anthropic", _COMMUNITY.format("anthropic_research")),
     ("anthropic-engineering", "Anthropic Engineering (nguồn cộng đồng)", "anthropic", _COMMUNITY.format("anthropic_engineering")),
     ("anthropic-claude", "Anthropic Claude Blog", "anthropic", "https://claude.com/resources/articles"),
+    ("openai-platform", "OpenAI Platform", "openai", "https://platform.openai.com/docs/changelog.md"),
+    ("google-ai-studio", "Google AI Studio", "google", "https://ai.google.dev/gemini-api/docs/changelog"),
+    ("deepseek-news", "DeepSeek News", "deepseek", "https://api-docs.deepseek.com/updates"),
     ("xai-news", "xAI News (nguồn cộng đồng)", "xai", _COMMUNITY.format("xainews")),
     ("meta-news", "Meta AI (nguồn cộng đồng)", "meta", _COMMUNITY.format("meta_ai")),
     ("mistral-news", "Mistral News (nguồn cộng đồng)", "mistral", _COMMUNITY.format("mistral")),
@@ -63,6 +66,15 @@ def parse_feed(text, source):
     if source.get("id") == "anthropic-claude" or "claude.com" in source.get("url", ""):
         from radar.claude import parse_claude
         return parse_claude(text, source)
+    if source.get("id") == "openai-platform" or "platform.openai.com" in source.get("url", ""):
+        from radar.openai_platform import parse_openai_changelog
+        return parse_openai_changelog(text, source)
+    if source.get("id") == "google-ai-studio" or "ai.google.dev" in source.get("url", ""):
+        from radar.google_platform import parse_google_ai_studio
+        return parse_google_ai_studio(text, source)
+    if source.get("id") == "deepseek-news" or "api-docs.deepseek.com" in source.get("url", ""):
+        from radar.deepseek import parse_deepseek
+        return parse_deepseek(text, source)
     root = ET.fromstring(text)
     if _local(root.tag) not in {"rss", "feed", "RDF"}:
         raise ValueError("Expected RSS or Atom, received another document")

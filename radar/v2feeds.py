@@ -11,6 +11,15 @@ def parse_feed(text, source, observed_at):
     if source.get("id") == "anthropic-claude" or "claude.com" in source.get("url", ""):
         from radar.claude import parse_claude
         return parse_claude(text, source, observed_at)
+    if source.get("id") == "openai-platform" or "platform.openai.com" in source.get("url", ""):
+        from radar.openai_platform import parse_openai_changelog
+        return parse_openai_changelog(text, source, observed_at)
+    if source.get("id") == "google-ai-studio" or "ai.google.dev" in source.get("url", ""):
+        from radar.google_platform import parse_google_ai_studio
+        return parse_google_ai_studio(text, source, observed_at)
+    if source.get("id") == "deepseek-news" or "api-docs.deepseek.com" in source.get("url", ""):
+        from radar.deepseek import parse_deepseek
+        return parse_deepseek(text, source, observed_at)
     if text.lstrip().startswith("{"):
         import json
         data = json.loads(text)
