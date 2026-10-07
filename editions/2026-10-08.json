@@ -1,0 +1,364 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-08",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-06T23:00:00Z",
+  "cutoff_at": "2026-10-07T23:00:00Z",
+  "created_at": "2026-10-07T23:02:31Z",
+  "snapshot_generated_at": "2026-10-07T23:00:50Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-07T23:00:50Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "8303b0c207ffaa69706b",
+      "title": "Introducing Claude Haiku 5.5",
+      "title_vi": "Ra mắt Claude Haiku 5.5",
+      "url": "https://www.anthropic.com/claude-haiku-5-5",
+      "published_at": "2026-10-07T00:00:00Z",
+      "kind": "model",
+      "time_basis": "published",
+      "source_count": 3,
+      "coverage": [
+        {
+          "id": "f1256e529acdebd135f1",
+          "title": "Introducing Claude Haiku 5.5",
+          "title_vi": "Ra mắt Claude Haiku 5.5",
+          "url": "https://www.anthropic.com/claude-haiku-5-5",
+          "published_at": "2026-10-07T00:00:00Z",
+          "kind": "model",
+          "time_basis": "published",
+          "source": "anthropic-gftdon",
+          "publisher": "anthropic",
+          "group": "lab",
+          "observed_at": "2026-10-07T23:00:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "e62462c1495c5d11c1de",
+          "title": "Introducing Claude Haiku 5.5 on AWS",
+          "title_vi": "Ra mắt Claude Haiku 5.5 trên AWS",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-claude-haiku-5-5-on-aws/",
+          "published_at": "2026-10-07T18:52:10Z",
+          "kind": "model",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "group": "lab",
+          "observed_at": "2026-10-07T23:00:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "32c0a404d873c7e60071",
+          "title": "Claude Haiku 5.5",
+          "url": "https://www.anthropic.com/claude-haiku-5-5",
+          "published_at": "2026-10-07T18:01:32Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-07T23:00:50Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=49996437",
+          "metrics": {
+            "points": 591,
+            "comments": 283
+          }
+        },
+        {
+          "id": "a499fa38f60be5ec45d0",
+          "title": "Claude Haiku 5.5",
+          "url": "https://simonwillison.net/2026/Oct/7/claude-haiku-5-5/",
+          "published_at": "2026-10-07T20:56:21Z",
+          "kind": "model",
+          "time_basis": "published",
+          "source": "simon-willison",
+          "publisher": "simon-willison",
+          "group": "research",
+          "observed_at": "2026-10-07T23:00:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "f1256e529acdebd135f1",
+              "e62462c1495c5d11c1de"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "3 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "amazon",
+              "anthropic",
+              "simon-willison"
+            ]
+          },
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 0.9032258064516129,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 591,
+              "observed_at": "2026-10-07T23:00:50Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon",
+            "anthropic",
+            "simon-willison"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": 43.81,
+          "engagement_percentile": 0.9032258064516129
+        }
+      }
+    },
+    {
+      "id": "16b7810afb00bdc03cf9",
+      "title": "Introducing Falcon ASR",
+      "title_vi": "Ra mắt Falcon ASR",
+      "url": "https://huggingface.co/blog/tiiuae/falcon-asr",
+      "published_at": "2026-10-07T13:21:03Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "4afb0b5eb9944e2ff767",
+          "title": "Introducing Falcon ASR",
+          "title_vi": "Ra mắt Falcon ASR",
+          "url": "https://huggingface.co/blog/tiiuae/falcon-asr",
+          "published_at": "2026-10-07T13:21:03Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "huggingface-blog",
+          "publisher": "huggingface",
+          "group": "lab",
+          "observed_at": "2026-10-07T13:40:43Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "4afb0b5eb9944e2ff767"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "huggingface"
+          ],
+          "age_hours_at_cutoff": 9.6492,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "e04d1da693503b0f1282",
+      "title": "Introducing Playground: Create and play custom games",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/playground-experimental-gaming-platform/",
+      "published_at": "2026-10-07T12:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "0b3563d1bb01f6cd50f6",
+          "title": "Introducing Playground: Create and play custom games",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/playground-experimental-gaming-platform/",
+          "published_at": "2026-10-07T12:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "google-ai",
+          "publisher": "google",
+          "group": "lab",
+          "observed_at": "2026-10-07T23:00:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "0b3563d1bb01f6cd50f6"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "google"
+          ],
+          "age_hours_at_cutoff": 11.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "1815740c61d22b3c8c66",
+      "title": "NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs with RTX Spark and AI Agents",
+      "title_vi": "NVIDIA, Microsoft Kick Off một khởi đầu mới cho máy tính Windows với RTX Spark và AI Agents",
+      "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-microsoft-windows-event/",
+      "published_at": "2026-10-07T18:45:28Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "ade35b46eda67880ea99",
+          "title": "NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs with RTX Spark and AI Agents",
+          "title_vi": "NVIDIA, Microsoft Kick Off một khởi đầu mới cho máy tính Windows với RTX Spark và AI Agents",
+          "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-microsoft-windows-event/",
+          "published_at": "2026-10-07T18:45:28Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "nvidia-newsroom",
+          "publisher": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-07T23:00:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "f065a53dcbaa08215f97",
+          "title": "Microsoft releases new Nvidia-chip AI PCs with revamped Windows 11",
+          "title_vi": "Microsoft phát hành các PC AI chip Nvidia mới với Windows 11 được cải tiến",
+          "url": "https://techcrunch.com/2026/10/07/microsoft-releases-new-nvidia-chip-ai-pcs-with-revamped-windows-11/",
+          "published_at": "2026-10-07T20:22:37Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-07T23:00:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "nvidia",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "nvidia",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 4.2422,
+          "hot_score": 35.373,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "a3c4072d7e1a3415e4f6",
+      "title": "OpenAI drops another batch of mathematical breakthroughs",
+      "title_vi": "OpenAI đã đưa ra một loạt những bước đột phá toán học khác",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1005004/openai-math-release-github",
+      "published_at": "2026-10-06T23:26:38Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "4cf4c7a50e1e76263db7",
+          "title": "OpenAI's mathematical breakthroughs roil the field",
+          "title_vi": "Những đột phá toán học của OpenAI làm rung chuyển lĩnh vực này",
+          "url": "https://www.semafor.com/article/10/07/2026/openais-mathematical-breakthroughs-roil-the-field",
+          "published_at": "2026-10-07T10:31:22Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "group": "press",
+          "observed_at": "2026-10-07T23:00:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "eb55730c5fde657fe6f0",
+          "title": "OpenAI drops another batch of mathematical breakthroughs",
+          "title_vi": "OpenAI đã đưa ra một loạt những bước đột phá toán học khác",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1005004/openai-math-release-github",
+          "published_at": "2026-10-06T23:26:38Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-07T23:00:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "semafor",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "semafor",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 23.5561,
+          "hot_score": 20.25,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 70,
+    "successful_remote_sources": 70,
+    "failed_remote_sources": []
+  }
+}
