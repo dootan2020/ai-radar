@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-09",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-07T23:00:00Z",
+  "cutoff_at": "2026-10-08T23:00:00Z",
+  "created_at": "2026-10-08T23:03:48Z",
+  "snapshot_generated_at": "2026-10-08T23:01:04Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-08T23:01:04Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "c4a1f46e5a98744a7c57",
+      "title": "Introducing the Anthropic Cyber Mission",
+      "title_vi": "Ra mắt phiên đoàn Cyber Anthropic",
+      "url": "https://www.anthropic.com/news/anthropic-cyber-mission",
+      "published_at": "2026-10-08T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "fdc0533964da7cc604c5",
+          "title": "Introducing the Anthropic Cyber Mission",
+          "title_vi": "Ra mắt phiên đoàn Cyber Anthropic",
+          "url": "https://www.anthropic.com/news/anthropic-cyber-mission",
+          "published_at": "2026-10-08T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "anthropic-gftdon",
+          "publisher": "anthropic",
+          "group": "lab",
+          "observed_at": "2026-10-08T23:01:04Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "fd4a9ed4f4ee0755fbfd",
+          "title": "Introducing the Anthropic Cyber Mission",
+          "title_vi": "Ra mắt phiên đoàn Cyber Anthropic",
+          "url": "https://www.anthropic.com/news/anthropic-cyber-mission",
+          "published_at": "2026-10-08T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "anthropic-news",
+          "publisher": "anthropic",
+          "group": "lab",
+          "observed_at": "2026-10-08T23:01:04Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "fdc0533964da7cc604c5",
+              "fd4a9ed4f4ee0755fbfd"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "anthropic"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 70,
+    "successful_remote_sources": 70,
+    "failed_remote_sources": []
+  }
+}
