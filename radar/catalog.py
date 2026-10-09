@@ -22,7 +22,6 @@ RSS = [
     ("genk-ai", "GenK AI", "press", "genk", "https://genk.vn/rss/ai.rss", False),
     ("tuoitre-so", "Tuổi Trẻ Nhịp sống số", "press", "tuoi-tre", "https://tuoitre.vn/rss/nhip-song-so.rss", True, {"default_tz": "+07:00"}),
     ("thanhnien-cong-nghe", "Thanh Niên Công nghệ", "press", "thanh-nien", "https://thanhnien.vn/rss/cong-nghe.rss", True),
-    ("theregister-ai", "The Register AI/ML", "press", "the-register", "https://www.theregister.com/software/ai_ml/headlines.atom", False),
     ("wired-ai", "Wired AI", "press", "wired", "https://www.wired.com/feed/tag/ai/latest/rss", False),
     ("404media", "404 Media", "press", "404-media", "https://www.404media.co/rss/", True),
     ("semafor", "Semafor", "press", "semafor", "https://www.semafor.com/rss.xml", True),
@@ -80,7 +79,6 @@ def sources(now):
             params["query"] = query
         result.append(source(id_, "Hacker News", "https://hn.algolia.com/api/v1/search?" + urlencode(params), "hn", "forum", "hacker-news"))
     result.extend([
-        source("lobsters-ai", "Lobsters AI", "https://lobste.rs/hottest.json", "lobsters", "forum", "lobsters"),
         source("hf-papers", "Hugging Face Daily Papers", "https://huggingface.co/api/daily_papers?limit=50", "papers", "paper", "huggingface"),
         source("hf-models-ranked", "Mô hình thịnh hành trên Hugging Face", "https://huggingface.co/api/models?sort=trendingScore&direction=-1&limit=20", "hf_trending", "repository", "huggingface", repo_type="model"),
         source("hf-spaces-ranked", "Space thịnh hành trên Hugging Face", "https://huggingface.co/api/spaces?sort=trendingScore&direction=-1&limit=20", "hf_trending", "repository", "huggingface", repo_type="space"),
