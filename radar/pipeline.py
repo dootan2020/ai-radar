@@ -28,7 +28,7 @@ def _jobs(v2=False, now=None):
     for source in huggingface.SOURCES:
         if v2:
             from radar.discovery import parse_hf_trending
-            source = dict(source, group="repository", publisher="huggingface", repo_type="model")
+            source = dict(source, group="repository", publisher="huggingface", entity=source["lab"], repo_type="model")
             jobs.append((source, "hf_observations", lambda text, source=source: parse_hf_trending(text, source, now)[:8]))
         else:
             jobs.append((source, "hf_releases", lambda text, source=source: huggingface.parse_releases(text, source["lab"])))
@@ -99,7 +99,7 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
         channels += (catalog.NVIDIA_CHANNEL,)
         youtube_sources = [dict(id=c[0], name=c[2] + " YouTube", lab=c[1], kind="youtube",
                                 url="https://www.youtube.com/@" + c[3], group="lab",
-                                publisher=c[1], first_wave=c[0] == "nvidia-youtube") for c in channels]
+                                publisher=c[1], entity=c[1], first_wave=c[0] == "nvidia-youtube") for c in channels]
     pending, completed = queue.Queue(), queue.Queue()
     for job in jobs:
         pending.put(job)

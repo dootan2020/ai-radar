@@ -39,6 +39,39 @@ class CanonicalUrlTests(unittest.TestCase):
 
 
 class ClusterTests(unittest.TestCase):
+    def test_cross_platform_person_sources_count_once(self):
+        for sources, expected in (
+            (["simon-willison", "bluesky-simonwillison", "x-simonw"], 1),
+            (["bluesky-emollick", "x-emollick"], 1),
+        ):
+            rows = [coverage(source, "https://example.org/shared-event",
+                             publisher=("x:@" + source[2:] if source.startswith("x-") else
+                                        "bluesky" if source.startswith("bluesky-") else source),
+                             title="OpenAI decisions on model release") for source in sources]
+            self.assertTrue(all("entity" not in row for row in rows))
+            for row in rows:
+                if row["source"].startswith("x-"):
+                    row["linked_url"] = "https://example.org/shared-event"
+            story = cluster_items(rows, NOW)[0]
+            self.assertEqual(story["source_count"], expected)
+
+    def test_lab_blog_and_official_x_share_entity_but_independent_sources_do_not(self):
+        for lab_source, handle in (
+            ("qwen-blog", "alibaba_qwen"),
+            ("meta-newsroom", "aiatmeta"),
+        ):
+            lab = "qwen" if lab_source == "qwen-blog" else "meta"
+            rows = [coverage(lab_source, "https://example.org/lab-launch", publisher=lab,
+                             title="Qwen launches a model"),
+                    coverage("x-" + handle, "https://example.org/post", publisher="x:@" + handle,
+                             linked_url="https://example.org/lab-launch", title="Qwen launches a model")]
+            story = cluster_items(rows, NOW)[0]
+            self.assertEqual(story["source_count"], 1)
+
+        independent = [coverage("source-a"), coverage("source-b"), coverage("source-c")]
+        story = cluster_items(independent, NOW)[0]
+        self.assertEqual(story["source_count"], 3)
+
     def test_unrelated_x_posts_do_not_merge_on_entities_or_generic_words(self):
         titles = [
             "Anthropic commits $150 million for scientific research",

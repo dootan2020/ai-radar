@@ -54,8 +54,9 @@ DISABLED = {
 
 def source(id_, name, url, parser, group, publisher, **extra):
     data = dict(id=id_, name=name, url=url, parser=parser, kind="rss" if parser == "feed" else "json",
-                group=group, publisher=publisher, lab=publisher if group == "lab" else "",
-                first_wave=True, **extra)
+                group=group, publisher=publisher, entity=publisher, lab=publisher if group == "lab" else "",
+                first_wave=True)
+    data.update(extra)
     tz_val = extra.get("default_tz") or extra.get("timezone") or extra.get("tz")
     if tz_val:
         data["default_tz"] = tz_val
@@ -92,6 +93,7 @@ def sources(now):
         url = "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?" + urlencode(
             {"actor": handle, "filter": "posts_with_replies", "limit": 100})
         person = "Simon Willison" if handle.startswith("simon") else "Ethan Mollick"
+        entity = "simon-willison" if handle.startswith("simon") else "ethan-mollick"
         result.append(source("bluesky-" + handle.split(".")[0], "Bài đăng của " + person + " trên Bluesky", url,
-                             "bluesky", "forum", "bluesky", handle=handle, filter_ai=True))
+                             "bluesky", "forum", "bluesky", entity=entity, handle=handle, filter_ai=True))
     return result

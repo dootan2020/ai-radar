@@ -16,14 +16,15 @@ def legacy_items(payload, now):
         result.append(observation(source, row["title"], row["url"], row.get("published_at"), now,
                                   kind=row.get("kind", "other"), summary=row.get("summary", "")))
     for row in payload.get("hf_releases", []):
-        source = dict(id=row["lab"] + "-hf", lab=row["lab"], publisher="huggingface", group="repository")
+        source = dict(id=row["lab"] + "-hf", lab=row["lab"], publisher="huggingface", entity=row["lab"], group="repository")
         result.append(observation(source, row["id"], row["url"], row.get("created_at"), now,
                                   kind="model", time_basis="repository_created",
                                   metrics={"likes": row.get("likes"), "downloads": row.get("downloads")}))
     for row in payload.get("live", []):
         channel = next((c for c in CHANNELS + (catalog.NVIDIA_CHANNEL,) if c[2] == row.get("channel")), None)
         source = dict(id=channel[0] if channel else row.get("lab", "") + "-youtube",
-                      publisher=row.get("lab") or row.get("channel", "youtube"), lab=row.get("lab", ""), group="lab")
+                      publisher=row.get("lab") or row.get("channel", "youtube"),
+                      entity=row.get("lab") or row.get("channel", "youtube"), lab=row.get("lab", ""), group="lab")
         media = [dict(url=row["url"], type="video", mime_type=None)]
         if row.get("thumbnail"):
             media.append(dict(url=row["thumbnail"], type="image", mime_type=None))
