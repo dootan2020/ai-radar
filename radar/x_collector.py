@@ -54,7 +54,7 @@ def build_query(accounts):
     handles = [account["handle"] for account in accounts]
     if not handles or any(not re.fullmatch(r"[A-Za-z0-9_]{1,15}", handle) for handle in handles):
         raise ValueError("Invalid X account group")
-    query = "(" + " OR ".join("from:" + handle for handle in handles) + ") " + AI_QUERY + " -is:retweet"
+    query = "(" + " OR ".join("from:" + handle for handle in handles) + ") " + AI_QUERY + " -is:retweet -is:reply"
     if len(query) > 512:
         raise ValueError("X recent-search query exceeds 512 characters")
     return query
@@ -87,19 +87,38 @@ def parse_search(text, accounts, observed_at):
         post_id, body = post.get("id"), post.get("text")
         if not account or not isinstance(post_id, str) or not re.fullmatch(r"[0-9]{1,19}", post_id):
             continue
-        title = clean_text(body, 500)
-        if not title or not relevant(title):
+        text = clean_text(body, 5000)
+        if not text or not relevant(text):
+            continue
+        title = _headline(text)
+        if not title:
             continue
         handle = account["handle"]
         source = {"id": "x-" + handle.casefold(), "publisher": "x:@" + handle,
+                  "publisher_group": "x",
                   "group": "forum", "kind": "json"}
         item = observation(source, title, f"https://x.com/{handle}/status/{post_id}",
-                           post.get("created_at"), observed_at, kind="social", summary=title,
+                           post.get("created_at"), observed_at, kind="social", summary=text,
                            author_handle=handle, author_name=clean_text(account.get("name"), 120),
-                           author_id=str(account["id"]))
+                           author_id=str(account["id"]), publisher_group="x")
         if item:
+            item["summary"] = text
             items.append(item)
     return items
+
+
+def _headline(text, limit=120):
+    """Turn a post into a compact headline while preserving its full summary."""
+    text = re.sub(r"https?://\S+", " ", text, flags=re.I)
+    text = re.sub(r"\b(?:www\.)?t\.co/\S+", " ", text, flags=re.I)
+    text = " ".join(text.split()).strip(" \t\r\n-–—|,;:")
+    if len(text) <= limit:
+        return text
+    sentence = re.search(r"[.!?](?=\s|$)", text[:limit + 1])
+    if sentence:
+        return text[:sentence.end()].rstrip()
+    boundary = text.rfind(" ", 0, limit)
+    return text[:boundary if boundary > 0 else limit].rstrip(" ,;:-") + "…"
 
 
 def response_state(text):

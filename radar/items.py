@@ -33,6 +33,11 @@ def measured(value):
         return None
 
 
+def publisher_identity(item):
+    """Return the identity used for breadth while retaining each source publisher."""
+    return item.get("publisher_group") or item.get("publisher")
+
+
 def instant(value):
     if not isinstance(value, (str, datetime)):
         return None

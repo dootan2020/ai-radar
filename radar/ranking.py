@@ -3,7 +3,7 @@
 from collections import defaultdict
 from decimal import Decimal
 
-from radar.items import instant, measured
+from radar.items import instant, measured, publisher_identity
 
 METRICS = ("points", "score", "upvotes", "trending_score", "stars_today", "stars")
 LABELS = {"points": "điểm", "score": "điểm", "upvotes": "lượt bình chọn", "trending_score": "điểm thịnh hành",
@@ -91,7 +91,7 @@ def rank_stories(stories, now, previous=None):
         percentile, key = candidates[0] if candidates else (None, None)
         measurement = observations.get(key)
         velocity_rank = velocity_percentiles.get(key)
-        count = len({item["publisher"] for item in story["coverage"]})
+        count = len({publisher_identity(item) for item in story["coverage"]})
         spread = min(count, 5) / 5 if count >= 2 else None
         published = instant(story.get("published_at"))
         age = (now - published).total_seconds() / 3600 if now and published else None

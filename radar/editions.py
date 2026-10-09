@@ -6,7 +6,7 @@ import re
 
 from radar.clustering import canonical_url
 from radar.common import iso_date
-from radar.items import instant, measured
+from radar.items import instant, measured, publisher_identity
 
 TIMEZONE_NAME = "Asia/Ho_Chi_Minh"
 # Modern Vietnamese dates use UTC+07 year-round; Windows need not install tzdata.
@@ -38,8 +38,8 @@ def _project(row, fields):
 
 
 def nonforum_publishers(coverage):
-    return sorted({row["publisher"] for row in coverage
-                   if row.get("group") != "forum" and row.get("publisher")})
+    return sorted({publisher_identity(row) for row in coverage
+                   if row.get("group") != "forum" and publisher_identity(row)})
 
 
 def forum_attention_exception(percentile, measured_rows):
