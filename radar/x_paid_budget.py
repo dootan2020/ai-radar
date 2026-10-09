@@ -139,7 +139,18 @@ def _restore(remote, repo, now):
     if not isinstance(data, dict):
         raise ValueError("Unreadable X budget ledger")
     if data.get("month") != _month(now):
-        return _empty(now)
+        # Reset only spend accounting at month boundaries. Search cursors remain
+        # valid and prevent recent-search from buying the same posts again.
+        previous_month = data.get("month")
+        try:
+            previous_now = datetime.strptime(previous_month + "-01", "%Y-%m-%d").replace(
+                tzinfo=timezone.utc).timestamp()
+            previous = _validate(data, previous_now)
+        except (TypeError, ValueError):
+            raise ValueError("Unreadable X budget ledger")
+        fresh = _empty(now)
+        fresh["cursors"] = previous["cursors"]
+        return fresh
     return _validate(data, now)
 
 

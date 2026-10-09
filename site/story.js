@@ -51,6 +51,10 @@ export function uniquePublishers(coverage = []) {
   const hosts = new Set();
   for (const item of coverage) {
     if (!item) continue;
+    if (item.author_handle) {
+      hosts.add(`x:@${String(item.author_handle).toLowerCase()}`);
+      continue;
+    }
     const url = item.url;
     if (url && /^https?:\/\//i.test(url)) {
       try {
@@ -319,12 +323,15 @@ export function renderFallbackBodyHTML(story, publisherName = '') {
 
 /* Render Coverage List */
 export function renderCoverageListHTML(coverage, srcMap = new Map()) {
-  const uniq = uniqCoverage(coverage, s => (srcMap.get(s) || {}).name);
+  const uniq = [...uniqCoverage((coverage || []).filter(c => !c.author_handle), s => (srcMap.get(s) || {}).name),
+    ...(coverage || []).filter(c => c.author_handle)];
   if (!uniq || uniq.length <= 1) return '';
 
   const rows = uniq.map(c => {
     const s = srcMap.get(c.source) || {};
-    const pubName = s.name || c.publisher || hostOf(c.url) || 'Nguồn tin';
+    const pubName = c.author_handle
+      ? `${c.author_name || s.name || c.publisher || 'X'} (@${c.author_handle})`
+      : s.name || c.publisher || hostOf(c.url) || 'Nguồn tin';
     const cTitle = c.title_vi || c.title || '';
     const face = faceOfSource(c, srcMap);
     return `

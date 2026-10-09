@@ -227,7 +227,10 @@ def reconcile_published(stories, published, ledger_path, *, now, transport=None,
                 kept.append(item)
                 continue
             if success and due:
-                if post_id not in returned:
+                # Reconcile only items that were in the published snapshot and
+                # actually included in a successful lookup. New current-run X
+                # items were not queried and must survive this pass.
+                if post_id in ids and post_id not in returned:
                     continue
             elif instant(item.get("published_at") or item.get("observed_at")) is None or \
                     instant(item.get("published_at") or item.get("observed_at")).timestamp() < cutoff:

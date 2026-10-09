@@ -84,6 +84,24 @@ class XPaidBudgetTests(unittest.TestCase):
         self.assertIsNone(budget.prepare(self.local, paid=True, remote=str(self.remote), now=november,
                                          run_key="105-1"))
 
+    def test_month_rollover_resets_spend_but_preserves_search_cursors(self):
+        self.assertIsNone(budget.prepare(self.local, paid=False, remote=str(self.remote), now=self.now))
+        store = self._store()
+        store["settled_micros"] = 25_000
+        store["settled_daily"]["2026-10-09"] = 25_000
+        store["cursors"]["group-0"] = {"since_id": "987654", "next_token": None}
+        budget._push(str(self.remote), store, self.now)
+        november = datetime(2026, 11, 1, tzinfo=timezone.utc).timestamp()
+        self.assertIsNone(budget.prepare(self.local, paid=True, remote=str(self.remote), now=november,
+                                         run_key="107-1"))
+        fresh = self._store_at(november)
+        self.assertEqual(fresh["settled_micros"], 0)
+        self.assertEqual(fresh["cursors"]["group-0"], {"since_id": "987654", "next_token": None})
+
+    def _store_at(self, now):
+        with tempfile.TemporaryDirectory() as temporary:
+            return budget._restore(str(self.remote), Path(temporary) / "repo", now)
+
 
 if __name__ == "__main__":
     unittest.main()
