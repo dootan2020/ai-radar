@@ -47,6 +47,8 @@ DISABLED = {
     "latent-space": "Nguồn podcast trên Substack trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế.",
     "cnbc-tech": "Nguồn CNBC trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế.",
     "ai-news": "Nguồn smol.ai được đo ngày 2026-10-09 nhưng mục mới nhất là 2026-09-09; hiện không còn đăng đều.",
+    "theregister-ai": "Nguồn này không cho phép radar thu thập nội dung.",
+    "lobsters-ai": "Nguồn này không cho phép radar thu thập nội dung.",
 }
 
 
@@ -70,9 +72,6 @@ def sources(now):
         if isinstance(extra, str):
             extra = {"default_tz": extra}
         result.append(source(id_, name, url, "feed", group, publisher, filter_ai=filter_ai, **extra))
-    for row in result:
-        if row["id"] in DISABLED:
-            row.update(disabled=True, disabled_reason=DISABLED[row["id"]])
     after = int((now - timedelta(days=7)).timestamp())
     for id_, tags, query in (("hn-front", "front_page", ""), ("hn-ai", "story", "AI")):
         params = {"tags": tags, "hitsPerPage": 100, "numericFilters": "created_at_i>=" + str(after)}
@@ -86,6 +85,9 @@ def sources(now):
         source("hf-spaces-ranked", "Space thịnh hành trên Hugging Face", "https://huggingface.co/api/spaces?sort=trendingScore&direction=-1&limit=20", "hf_trending", "repository", "huggingface", repo_type="space"),
         source("github-ai", "Kho mã AI mới trên GitHub", "https://api.github.com/search/repositories?" + urlencode({"q": "topic:llm created:>=" + (now - timedelta(days=7)).date().isoformat(), "sort": "stars", "order": "desc", "per_page": 20}), "github", "repository", "github"),
     ])
+    for row in result:
+        if row["id"] in DISABLED:
+            row.update(disabled=True, disabled_reason=DISABLED[row["id"]])
     for handle in ("simonwillison.net", "emollick.bsky.social"):
         url = "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?" + urlencode(
             {"actor": handle, "filter": "posts_with_replies", "limit": 100})
