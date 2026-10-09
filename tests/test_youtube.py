@@ -405,12 +405,12 @@ class YouTubeCatalogContinuityTests(unittest.TestCase):
         self.assertEqual(catalog.NVIDIA_CHANNEL[1], "nvidia")
         self.assertEqual(catalog.NVIDIA_CHANNEL[4], "UCHuiy8bXnmK5nisYHUd1J5g")
 
-    def test_dwarkesh_video_in_catalog_rss(self):
+    def test_dwarkesh_catalog_endpoint_matches_main(self):
         dwarkesh_entry = next(r for r in catalog.RSS if r[0] == "dwarkesh-video")
         self.assertEqual(dwarkesh_entry[0], "dwarkesh-video")
         self.assertEqual(dwarkesh_entry[2], "podcast")
         self.assertEqual(dwarkesh_entry[3], "dwarkesh")
-        self.assertEqual(dwarkesh_entry[4], "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA")
+        self.assertEqual(dwarkesh_entry[4], "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=UUXl4i9dYBrFOabk0xGmbkRA&maxResults=50")
 
 
 if __name__ == "__main__":

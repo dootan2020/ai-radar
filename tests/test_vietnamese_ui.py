@@ -36,7 +36,7 @@ EXCEPTIONS = {
                      "vnexpress", "international", "genk", "register", "ml", "wired", "media", "semafor",
                      "cnbc", "bloomberg", "fedscoop", "nextgov", "technode", "rest", "world", "newsroom",
                      "official", "aws", "machine", "learning", "platform", "studio",
-                     "reddit", "localllama", "singularity", "claudeai", "machinelearning", "bluesky",
+                     "bluesky",
                      "simonwillison", "ethan", "mollick", "emollick", "bsky", "social", "pandaily", "scmp", "smol"],
                     "tên riêng: thương hiệu, sản phẩm, ấn phẩm, tổ chức trên Hugging Face hoặc nguồn mới"),
     **dict.fromkeys(["the"], "tên riêng: ấn phẩm The Verge; đánh đổi có chủ đích: chữ the đứng riêng sẽ không bị bắt"),

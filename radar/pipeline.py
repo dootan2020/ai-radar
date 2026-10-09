@@ -37,7 +37,7 @@ def _jobs(v2=False, now=None):
     if v2:
         from radar import catalog, community, discovery, v2feeds
         parsers = dict(feed=v2feeds.parse_feed, hn=community.parse_hn, lobsters=community.parse_lobsters,
-                       reddit=community.parse_reddit, bluesky=discovery.parse_bluesky,
+                       bluesky=discovery.parse_bluesky,
                        papers=discovery.parse_papers, hf_trending=discovery.parse_hf_trending, github=discovery.parse_github)
         for source in catalog.sources(now):
             parser = parsers[source["parser"]]
@@ -98,8 +98,6 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
                                 url="https://www.youtube.com/@" + c[3], group="lab",
                                 publisher=c[1], first_wave=c[0] == "nvidia-youtube") for c in channels]
     pending, completed = queue.Queue(), queue.Queue()
-    reddit_lock = threading.Lock()
-    reddit_last_start = [None]
     for job in jobs:
         pending.put(job)
 
@@ -110,19 +108,6 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
             except queue.Empty:
                 return
             try:
-                if source.get("parser") == "reddit":
-                    # Reddit RSS returned 429 after rapid requests on the hosted runner.
-                    # One request per source, at least ten seconds apart, no retries.
-                    with reddit_lock:
-                        if reddit_last_start[0] is not None:
-                            wait = 10 - (time.monotonic() - reddit_last_start[0])
-                            if wait > 0:
-                                if wait >= deadline - time.monotonic():
-                                    raise TimeoutError("Build deadline reached waiting for Reddit request slot")
-                                time.sleep(wait)
-                        if time.monotonic() >= deadline:
-                            raise TimeoutError("Build deadline reached waiting for Reddit request slot")
-                        reddit_last_start[0] = time.monotonic()
                 items = parse(fetcher(source["url"], source_id=source["id"]))
                 record = source_result(source, len(items))
                 if getattr(items, "dropped_entries", 0):

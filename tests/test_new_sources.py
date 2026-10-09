@@ -31,12 +31,6 @@ NEW_FEED_URLS = {
     "scmp-tech": "https://www.scmp.com/rss/36/feed",
     "pandaily": "https://pandaily.com/feed/",
     "scmp-tech": "https://www.scmp.com/rss/36/feed",
-    "openai-youtube-feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCXZCJLdBC09xxGZ6gcdrc6A",
-    "anthropic-youtube-feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCrDwWp7EBBv4NwvScIpBDOA",
-    "google-youtube-feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCK8sQmJBp8GCxrOtXWBpyEA",
-    "deepmind-youtube-feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCP7jMXSY2xbc3KCAE0MHQ-A",
-    "nvidia-youtube-feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCHuiy8bXnmK5nisYHUd1J5g",
-    "dwarkesh-video": "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA",
     "restofworld": "https://restofworld.org/feed/latest/",
     "meta-newsroom": "https://about.fb.com/news/feed/",
     "microsoft-blog": "https://blogs.microsoft.com/feed/",
@@ -130,6 +124,13 @@ class CatalogNewSourcesTests(unittest.TestCase):
     def test_bluesky_observations_are_community_sources(self):
         self.assertEqual(self.sources["bluesky-simonwillison"]["group"], "forum")
         self.assertEqual(self.sources["bluesky-emollick"]["group"], "forum")
+
+    def test_youtube_catalog_entries_are_restored_to_main(self):
+        self.assertEqual(self.sources["dwarkesh-video"]["url"],
+                         "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=UUXl4i9dYBrFOabk0xGmbkRA&maxResults=50")
+        for source_id in ("openai-youtube-feed", "anthropic-youtube-feed", "google-youtube-feed",
+                          "deepmind-youtube-feed", "nvidia-youtube-feed"):
+            self.assertNotIn(source_id, self.sources)
 
 
 class RelevanceFilterTests(unittest.TestCase):
