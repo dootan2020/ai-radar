@@ -11,13 +11,15 @@ from unittest.mock import patch
 from urllib.error import HTTPError
 
 from radar import catalog, feeds, huggingface, pipeline, youtube
+from radar.clustering import cluster_items
+from radar.publication import inspect_snapshot
 from radar.transport import ResponseText
 if __package__:
     from .test_v2_events import event
-    from .test_v2_support import NOW
+    from .test_v2_support import NOW, coverage
 else:
     from test_v2_events import event
-    from test_v2_support import NOW
+    from test_v2_support import NOW, coverage
 
 
 def source(id_, **changes):
@@ -129,6 +131,46 @@ class PipelineV2Tests(unittest.TestCase):
         self.assertEqual(len(published_carried["stories"]), 1)
         self.assertEqual(published_carried["stories"][0]["id"], story_id)
         self.assertTrue(published_carried["stories"][0].get("carried"))
+
+    def test_retired_source_coverage_remains_valid_after_being_disabled(self):
+        for id_ in ("theregister-ai", "lobsters-ai"):
+            with self.subTest(source=id_):
+                old_story = cluster_items([coverage(
+                    source=id_, url=f"https://fixture.invalid/{id_}", publisher=id_,
+                    title="Synthetic neural reasoning report", published_at=NOW.isoformat(),
+                    observed_at=NOW.isoformat())], NOW)
+                old = {"schema_version": 2, "generated_at": NOW.isoformat(), "stories": old_story}
+                self.sources = [source(id_, disabled=True)]
+                result = pipeline.build_v2(
+                    fetch=self.fetch, now=NOW + timedelta(minutes=20), events_path=self.events,
+                    published=old, resolve_images=False)
+                record = next(row for row in result["sources"] if row["id"] == id_)
+                self.assertTrue(record["disabled"])
+                self.assertTrue(any(item["source"] == id_ for story in result["stories"]
+                                    for item in story["coverage"]))
+                inspect_snapshot(result)
+
+    def test_published_x_coverage_remains_valid_with_x_disabled_and_no_token(self):
+        from radar import x_collector
+
+        account = x_collector.load_accounts(Path(__file__).resolve().parent.parent / "data/x-accounts.json")[0]
+        handle = account["handle"].casefold()
+        source_id = "x-" + handle
+        url = f"https://x.com/{account['handle']}/status/1900000000000000001"
+        old_story = cluster_items([coverage(
+            source=source_id, url=url, publisher="x:@" + account["handle"], group="forum",
+            kind="social", title="Synthetic neural reasoning post", published_at=NOW.isoformat(),
+            observed_at=NOW.isoformat())], NOW)
+        old = {"schema_version": 2, "generated_at": NOW.isoformat(), "stories": old_story}
+        with patch.dict("os.environ", {}, clear=True), \
+                patch.object(x_collector, "collect", side_effect=AssertionError("X must stay offline")):
+            result = pipeline.build_v2(fetch=self.fetch, now=NOW + timedelta(minutes=20),
+                                       events_path=self.events, published=old, resolve_images=False)
+        record = next(row for row in result["sources"] if row["id"] == source_id)
+        self.assertTrue(record["disabled"])
+        self.assertTrue(any(item["source"] == source_id for story in result["stories"]
+                            for item in story["coverage"]))
+        inspect_snapshot(result)
 
     def test_merged_event_coverage_survives_three_consecutive_builds(self):
         entries = {

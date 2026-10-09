@@ -64,10 +64,15 @@ class CatalogNewSourcesTests(unittest.TestCase):
                 if id_ == "cnbc-tech":
                     self.assertTrue(src.get("disabled"))
                     self.assertIn("máy dựng của GitHub", src.get("disabled_reason", ""))
-                else:
+                elif id_ not in {"theregister-ai"}:
                     self.assertNotIn("disabled", src)
+                else:
+                    self.assertTrue(src["disabled"])
+                    self.assertIn("Nguồn này không cho phép radar thu thập nội dung", src["disabled_reason"])
         self.assertTrue(self.sources["ai-news"]["disabled"])
         self.assertEqual(self.sources["ai-news"]["url"], "https://news.smol.ai/rss.xml")
+        self.assertTrue(self.sources["lobsters-ai"]["disabled"])
+        self.assertEqual(self.sources["lobsters-ai"]["parser"], "lobsters")
 
     def test_groups_and_publishers_are_consistent(self):
         press_sources = {

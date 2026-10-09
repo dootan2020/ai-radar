@@ -249,27 +249,33 @@ def _group_id(accounts):
 def collect(accounts, ledger_path, *, now, transport=None, env=None):
     """Collect one bounded, server-filtered page per account group with no retries."""
     env = os.environ if env is None else env
-    if env.get("RADAR_X_ENABLED") != "1" or not env.get("X_BEARER_TOKEN"):
-        return [], []
     from radar import x_paid_budget
-    from radar.common import source_result
+    enabled = env.get("RADAR_X_ENABLED") == "1"
+    if not enabled or not env.get("X_BEARER_TOKEN"):
+        reason = "X collection disabled" if not enabled else "X bearer token unavailable"
+        return [], [_disabled_result(_source(account), reason) for account in accounts]
     ledger = x_paid_budget._read_local(ledger_path, now.timestamp())
     if ledger is None or ledger.get("run_key") is None:
-        diagnostic = {"id": "x-collector", "name": "X", "url": API_URL,
-                      "kind": "json", "group": "forum", "publisher": "x",
-                      "ok": False, "count": 0, "error": x_paid_budget.MISSING_CODE}
-        return [], [diagnostic]
-    items, records = [], []
+        reason = x_paid_budget.MISSING_CODE
+        records = [_disabled_result(_source(account), reason) for account in accounts]
+        records.append(_disabled_result({"id": "x-collector", "name": "X", "url": API_URL,
+                                         "kind": "json", "group": "forum", "publisher": "x", "lab": ""}, reason))
+        return [], records
+    items, successes, failures = [], {}, {}
     send = transport or _request
     for chunk in groups(accounts):
         identity = _group_id(chunk)
         cursor = ledger["cursors"].get(identity, {})
         url = search_url(chunk, since_id=cursor.get("since_id"),
                          pagination_token=cursor.get("next_token"))
-        error, request_id = x_paid_budget.reserve(ledger_path, now=now.timestamp(), max_results=MAX_RESULTS)
+        try:
+            error, request_id = x_paid_budget.reserve(ledger_path, now=now.timestamp(), max_results=MAX_RESULTS)
+        except (OSError, ValueError, TypeError) as reserve_error:
+            error = f"X ledger unavailable: {type(reserve_error).__name__}"
+            request_id = None
         if error:
             for account in chunk:
-                records.append(_source_result(_source(account), error=error))
+                failures[account["handle"].casefold()] = error
             break
         try:
             body = send(url, env["X_BEARER_TOKEN"])
@@ -292,15 +298,24 @@ def collect(accounts, ledger_path, *, now, transport=None, env=None):
             for account in chunk:
                 source = _source(account)
                 count = sum(item["source"] == source["id"] for item in parsed)
-                records.append(_source_result(source, count))
+                successes[account["handle"].casefold()] = _source_result(source, count)
         except HTTPError as error:
             # Leave the maximum reservation in place when a response is ambiguous.
             for account in chunk:
-                records.append(_source_result(_source(account), error=f"X API HTTP {error.code}"))
+                failures[account["handle"].casefold()] = f"X API HTTP {error.code}"
         except (OSError, URLError, TimeoutError, ValueError, json.JSONDecodeError) as error:
             # Never include the request URL, token, or provider body in diagnostics.
             for account in chunk:
-                records.append(_source_result(_source(account), error=f"X collection failed: {type(error).__name__}"))
+                failures[account["handle"].casefold()] = f"X collection failed: {type(error).__name__}"
+    records = []
+    for account in accounts:
+        key = account["handle"].casefold()
+        records.append(successes.get(key) or _disabled_result(
+            _source(account), failures.get(key, "X collection not attempted")))
+    if failures:
+        reason = next(iter(failures.values()))
+        records.append(_disabled_result({"id": "x-collector", "name": "X", "url": API_URL,
+                                         "kind": "json", "group": "forum", "publisher": "x", "lab": ""}, reason))
     return items, records
 
 
@@ -317,3 +332,9 @@ def _source_result(source, count=0, error=None):
     return source_result(source, count, error) | {
         key: source[key] for key in ("url", "group", "publisher", "first_wave") if key in source
     }
+
+
+def _disabled_result(source, reason):
+    record = _source_result(source, error="Disabled: " + reason)
+    record.update(disabled=True, disabled_reason=reason)
+    return record

@@ -6,6 +6,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from urllib.error import HTTPError
 from unittest.mock import patch
 from urllib.parse import parse_qs, urlsplit
 
@@ -114,7 +115,74 @@ class XCollectorTests(unittest.TestCase):
             path = Path(temporary) / "missing-ledger.json"
             posts, records = x_collector.collect(ACCOUNTS, path, now=datetime.fromisoformat(OBSERVED.replace("Z", "+00:00")),
                                                   transport=lambda *_: self.fail("unexpected X request"), env={})
-            self.assertEqual((posts, records), ([], []))
+            self.assertEqual(posts, [])
+            self.assertEqual({record["id"] for record in records}, {"x-leader_ai", "x-product_ai"})
+            self.assertTrue(all(record["disabled"] for record in records))
+
+    def test_disabled_x_outcomes_cannot_reject_retained_coverage(self):
+        from radar.publication import rejection_reason
+        from tests.test_publication import snapshot as publication_snapshot
+
+        now = datetime.fromisoformat(OBSERVED.replace("Z", "+00:00"))
+        roster = x_collector.load_accounts(Path(__file__).resolve().parent.parent / "data/x-accounts.json")
+        first = roster[0]
+        cases = ("daily cap", "HTTP 500", "ledger unavailable")
+        for case in cases:
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as temporary:
+                ledger = Path(temporary) / "ledger.json"
+                remote = Path(temporary) / "remote.git"
+                if case != "ledger unavailable":
+                    subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
+                    self.assertIsNone(x_paid_budget.prepare(ledger, paid=False, remote=str(remote), now=now.timestamp()))
+                    self.assertIsNone(x_paid_budget.prepare(ledger, paid=True, remote=str(remote), now=now.timestamp(),
+                                                             run_key="601-1"))
+                transport = lambda *_: self.fixture
+                with patch.dict("os.environ", {}, clear=True):
+                    if case == "daily cap":
+                        reserve = x_paid_budget.reserve
+                        calls = 0
+
+                        def capped(*args, **kwargs):
+                            nonlocal calls
+                            calls += 1
+                            return reserve(*args, **kwargs) if calls == 1 else ("x_daily_cap", None)
+
+                        with patch.object(x_paid_budget, "reserve", side_effect=capped):
+                            _, records = x_collector.collect(roster, ledger, now=now, transport=transport,
+                                                             env={"RADAR_X_ENABLED": "1", "X_BEARER_TOKEN": "fixture-only"})
+                        self.assertGreater(calls, 1)
+                    elif case == "HTTP 500":
+                        def fail_http(*_):
+                            raise HTTPError("https://api.x.com/2/tweets/search/recent", 500, "failed", {}, None)
+                        _, records = x_collector.collect(roster, ledger, now=now, transport=fail_http,
+                                                         env={"RADAR_X_ENABLED": "1", "X_BEARER_TOKEN": "fixture-only"})
+                    else:
+                        _, records = x_collector.collect(roster, ledger, now=now,
+                                                         transport=lambda *_: self.fail("unavailable ledger must not call X"),
+                                                         env={"RADAR_X_ENABLED": "1", "X_BEARER_TOKEN": "fixture-only"})
+
+                by_id = {record["id"]: record for record in records}
+                self.assertTrue({"x-" + row["handle"].casefold() for row in roster}.issubset(by_id))
+                account_rows = [by_id["x-" + row["handle"].casefold()] for row in roster]
+                if case == "daily cap":
+                    active_rows = [row for row in account_rows if not row.get("disabled", False)]
+                    self.assertEqual(len(active_rows), 10)
+                    self.assertTrue(all(row.get("disabled") for row in account_rows if row not in active_rows))
+                else:
+                    self.assertTrue(all(row.get("disabled") for row in account_rows))
+                if case != "daily cap":
+                    self.assertTrue(by_id["x-collector"]["disabled"])
+                payload = publication_snapshot(at=now)
+                payload["generated_at"] = now.isoformat()
+                payload["sources"].extend(records)
+                x_item = coverage(source="x-" + first["handle"].casefold(),
+                                  url=f"https://x.com/{first['handle']}/status/1900000000000000009",
+                                  publisher="x:@" + first["handle"], group="forum", kind="social",
+                                  title="Synthetic retained AI post", published_at=now.isoformat(),
+                                  observed_at=now.isoformat())
+                payload["stories"][0]["coverage"].append(x_item)
+                payload["stories"][0]["source_count"] = 2
+                self.assertIsNone(rejection_reason(payload)[0])
 
     def test_daily_reconciliation_removes_missing_posts_and_fails_closed_after_24_hours(self):
         now = datetime.fromisoformat("2026-10-09T12:00:00+00:00")

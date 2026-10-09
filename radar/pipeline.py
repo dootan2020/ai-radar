@@ -36,12 +36,15 @@ def _jobs(v2=False, now=None):
     jobs.append((huggingface.TRENDING_SOURCE, "huggingface", huggingface.parse_trending))
     if v2:
         from radar import catalog, community, discovery, v2feeds
-        parsers = dict(feed=v2feeds.parse_feed, hn=community.parse_hn, lobsters=community.parse_lobsters,
+        parsers = dict(feed=v2feeds.parse_feed, hn=community.parse_hn,
                        bluesky=discovery.parse_bluesky,
                        papers=discovery.parse_papers, hf_trending=discovery.parse_hf_trending, github=discovery.parse_github)
         for source in catalog.sources(now):
-            parser = parsers[source["parser"]]
-            jobs.append((source, "coverage", lambda text, source=source, parser=parser: parser(text, source, now)))
+            if source.get("disabled"):
+                jobs.append((source, "coverage", None))
+            else:
+                parser = parsers[source["parser"]]
+                jobs.append((source, "coverage", lambda text, source=source, parser=parser: parser(text, source, now)))
         from radar import tool_updates
         for source in tool_updates.SOURCES:
             jobs.append((source, "tool_updates", lambda text, source=source: tool_updates.parse_source(text, source, now)))
@@ -154,18 +157,24 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
 
     if v2:
         from radar import x_collector, x_paid_budget
-        if x_paid_budget.enabled() and os.environ.get("X_BEARER_TOKEN"):
-            try:
-                accounts_path = Path(__file__).resolve().parent.parent / "data/x-accounts.json"
-                accounts = x_collector.load_accounts(accounts_path)
+        try:
+            accounts_path = Path(__file__).resolve().parent.parent / "data/x-accounts.json"
+            accounts = x_collector.load_accounts(accounts_path)
+            if x_paid_budget.enabled() and os.environ.get("X_BEARER_TOKEN"):
                 x_items, x_records = x_collector.collect(accounts, x_paid_budget.ledger_path(), now=now)
                 coverage.extend(x_items)
                 payload["sources"].extend(x_records)
-            except (OSError, ValueError, KeyError, TypeError):
-                payload["sources"].append(source_result(
-                    {"id": "x-collector", "name": "X", "url": x_collector.API_URL,
-                     "kind": "json", "group": "forum", "publisher": "x"},
-                    error="X account roster unavailable or invalid"))
+            else:
+                reason = "X collection disabled" if not x_paid_budget.enabled() else "X bearer token unavailable"
+                for account in accounts:
+                    record = source_result(x_collector._source(account), error=reason)
+                    record.update(disabled=True, disabled_reason=reason)
+                    payload["sources"].append(record)
+        except (OSError, ValueError, KeyError, TypeError):
+            payload["sources"].append(x_collector._disabled_result(
+                {"id": "x-collector", "name": "X", "url": x_collector.API_URL,
+                 "kind": "json", "group": "forum", "publisher": "x", "lab": ""},
+                "X account roster unavailable or invalid"))
         payload["updates"] = [dict(id=stable_id(item["url"]), lab=item["lab"], source=item["source"], title=item["title"],
                                    url=item["url"], published_at=item["published_at"], summary=item["summary"], kind=item["kind"])
                               for item in coverage if item["group"] not in {"forum", "paper", "repository"}]
