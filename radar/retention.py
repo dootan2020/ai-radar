@@ -36,6 +36,27 @@ def _normalize_url(url):
     return canonical if canonical else url.strip().rstrip("/")
 
 
+def _preserve_published_coverage(fresh_story, old_story):
+    """Keep each still-retained published observation when fresh data overlaps it."""
+    coverage = fresh_story.get("coverage")
+    old_coverage = old_story.get("coverage")
+    if not isinstance(coverage, list) or not isinstance(old_coverage, list):
+        return
+    fresh_ids = {item.get("id") for item in coverage if isinstance(item, dict) and item.get("id")}
+    for item in old_coverage:
+        if isinstance(item, dict) and item.get("id") and item["id"] not in fresh_ids:
+            coverage.append(deepcopy(item))
+            fresh_ids.add(item["id"])
+    publishers = {item.get("publisher") or item.get("source") for item in coverage
+                  if isinstance(item, dict) and (item.get("publisher") or item.get("source"))}
+    fresh_story["source_count"] = len(publishers)
+
+    # Fail at the retention boundary if a future change drops a non-expired member.
+    old_ids = {item.get("id") for item in old_coverage if isinstance(item, dict) and item.get("id")}
+    if not old_ids.issubset(fresh_ids):
+        raise RuntimeError("Published story coverage was lost while reconciling fresh coverage")
+
+
 def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
     """Carry forward stories from published snapshot up to 7 days old.
 
@@ -100,6 +121,10 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
             continue
 
         old_url = _normalize_url(old_story.get("url"))
+        age_seconds = _story_age_seconds(old_story, now_dt, published_generated_at)
+        eligible_coverage = (age_seconds is not None and age_seconds <= RETENTION_SECONDS
+                             and not (age_seconds < -86400 and old_story.get("kind") != "event"
+                                      and old_story.get("time_basis") != "scheduled"))
         old_cov_urls = set()
         for item in old_story.get("coverage", []) if isinstance(old_story.get("coverage"), list) else []:
             if isinstance(item, dict) and item.get("url"):
@@ -130,6 +155,24 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
         if is_duplicate:
             # Preserve existing Vietnamese translations onto fresh story if missing
             if matching_fresh_story is not None:
+                if eligible_coverage:
+                    matching_fresh_stories = [story for story in fresh_stories
+                                              if story is matching_fresh_story or
+                                              (old_cov_urls & {
+                                                  _normalize_url(item.get("url"))
+                                                  for item in story.get("coverage", [])
+                                                  if isinstance(item, dict)
+                                              })]
+                    for duplicate_story in matching_fresh_stories:
+                        if duplicate_story is matching_fresh_story:
+                            continue
+                        _preserve_published_coverage(matching_fresh_story, duplicate_story)
+                        matching_fresh_story["aliases"] = sorted(
+                            (set(matching_fresh_story.get("aliases") or [])
+                             | set(duplicate_story.get("aliases") or [])
+                             | {duplicate_story["id"]}) - {matching_fresh_story.get("id")})
+                        fresh_stories.remove(duplicate_story)
+                    _preserve_published_coverage(matching_fresh_story, old_story)
                 if "title_vi" in old_story and "title_vi" not in matching_fresh_story:
                     matching_fresh_story["title_vi"] = old_story["title_vi"]
                 if "summary_vi" in old_story and "summary_vi" not in matching_fresh_story:
@@ -145,7 +188,6 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
             continue
 
         # 7-day retention cutoff check
-        age_seconds = _story_age_seconds(old_story, now_dt, published_generated_at)
         if age_seconds is None:
             continue
         if age_seconds > RETENTION_SECONDS:
