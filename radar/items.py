@@ -33,8 +33,17 @@ def measured(value):
         return None
 
 
+def is_x_item(item):
+    source = item.get("source")
+    publisher = item.get("publisher")
+    return ((isinstance(source, str) and source.startswith("x-"))
+            or (isinstance(publisher, str) and publisher.startswith("x:@")))
+
+
 def publisher_identity(item):
     """Return the identity used for breadth while retaining each source publisher."""
+    if is_x_item(item):
+        return "x"
     return item.get("publisher_group") or item.get("publisher")
 
 
