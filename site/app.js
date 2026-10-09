@@ -96,11 +96,15 @@ const pubOf = st => st.coverage && st.coverage[0] ? srcName(st.coverage[0].sourc
 /* Headline in Vietnamese when the snapshot carries a machine translation; tt() is the text, orig() the small original line. */
 const tt = o => esc(viShown(o.title, o.title_vi));
 const orig = (o, cls) => origLine(o.title, o.title_vi, esc, cls);
-const covOf = st => uniqCoverage(st.coverage, srcName);
+const covOf = st => {
+  const coverage = st.coverage || [];
+  return [...uniqCoverage(coverage.filter(c => !c.author_handle), srcName),
+    ...coverage.filter(c => c.author_handle)];
+};
 const kindName = st => KIND[st.kind] || esc(st.kind);
 /* A story's kind reads at a glance as a small tag: its own shape beside its word, never colour alone. */
 const KIND_ICON = {model:'i-k-model', product:'i-k-product', research:'i-k-research', other:'i-k-article', paper:'i-k-paper',
-  podcast:'i-k-podcast', video:'i-play', forum:'i-k-forum', event:'i-cal', repository:'i-repo'};
+  podcast:'i-k-podcast', video:'i-play', forum:'i-k-forum', social:'i-k-social', event:'i-cal', repository:'i-repo'};
 const kindTag = st => `<span class="kind" data-kind="${esc(st.kind)}">${icon(KIND_ICON[st.kind] || 'i-k-article')}${kindName(st)}</span>`;
 const faceSt = st => faceOfStory(st, SRC);
 const viewsOf = id => (D.views && D.views.by_story && Number.isFinite(D.views.by_story[id])) ? D.views.by_story[id] : null;
@@ -353,7 +357,8 @@ function leadTile(L){
   const faces = [...new Map((st.coverage || []).map(c => [c.source, faceOfSource(c, SRC)])).values()];
   const primary = (st.coverage || []).find(c => c.discussion_url) ;
   const others = L.others.slice(0, 2);
-  const cov = st.source_count > 1 ? `<ul class="cov" aria-label="Các nguồn đưa chuyện này">${covOf(st).map(c => `<li>${avatar(faceOfSource(c, SRC), 'xs')}<span class="pub">${esc(srcName(c.source))}</span><span class="faint">${timeEl(c.published_at)}</span>${metricsHTML(c) ? `<span class="m">${metricsHTML(c)}</span>` : ''}<a class="go" href="${esc(safe(c.discussion_url || c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">${c.discussion_url ? 'Thảo luận' : 'Bài gốc'}</a></li>`).join('')}</ul>` : '';
+  const hasXPost = (st.coverage || []).some(c => c.author_handle);
+  const cov = st.source_count > 1 || hasXPost ? `<ul class="cov" aria-label="Các nguồn đưa chuyện này">${covOf(st).map(c => `<li>${avatar(faceOfSource(c, SRC), 'xs')}<span class="pub">${esc(c.author_name ? `${c.author_name} (@${c.author_handle})` : srcName(c.source))}</span><span class="faint">${timeEl(c.published_at)}</span>${metricsHTML(c) ? `<span class="m">${metricsHTML(c)}</span>` : ''}<a class="go" href="${esc(safe(c.discussion_url || c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">${c.discussion_url ? 'Thảo luận' : 'Bài gốc'}</a></li>`).join('')}</ul>` : '';
   return `<article class="tile t-lead${leadOpen ? ' is-expanded' : ''}" aria-labelledby="lead-h">
     <div class="lead-top">${faces.length > 1 ? avatarStack(faces, 'lg') : avatar(faceSt(st), 'xl')}
       <p class="lead-label" id="lead-h"><span class="pill pill-hot">${icon('i-flame')}${label}</span><span class="lead-src">${kindTag(st)}${esc(pubOf(st))} · ${timeEl(st.published_at)}</span></p></div>
@@ -774,7 +779,7 @@ function detailStory(st){
     </div>
     <p class="hint">Phím: <kbd>O</kbd> mở bài gốc · <kbd>S</kbd> lưu${cal ? ' · <kbd>L</kbd> tải tệp lịch' : ''} · <kbd>J</kbd> <kbd>K</kbd> tin kế · <kbd>Esc</kbd> đóng</p>
     <p class="tlh">Các nguồn, theo thời gian</p>
-    <ol class="tl">${cov.map(c => `<li>${avatar(faceOfSource(c, SRC), 'xs')}<span class="tl-m"><span class="when">${esc(srcName(c.source))} · ${timeEl(c.published_at)}</span>
+    <ol class="tl">${cov.map(c => `<li>${avatar(faceOfSource(c, SRC), 'xs')}<span class="tl-m"><span class="when">${esc(c.author_name ? `${c.author_name} (@${c.author_handle})` : srcName(c.source))} · ${timeEl(c.published_at)}</span>
       <a href="${esc(safe(c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">${tt(c)}</a>${orig(c)}
       ${metricsHTML(c) ? `<span class="m">${metricsHTML(c)}</span>` : ''}
       ${c.discussion_url ? `<a class="tl-d" href="${esc(safe(c.discussion_url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">Thảo luận</a>` : ''}</span></li>`).join('')}</ol>`;

@@ -3,7 +3,7 @@
    Pure (no DOM). */
 
 export const KIND = {model:'Mô hình', product:'Sản phẩm', research:'Nghiên cứu', other:'Bài viết', paper:'Bài báo khoa học',
-  podcast:'Podcast', video:'Video', forum:'Thảo luận', event:'Sự kiện', repository:'Kho mã'};
+  podcast:'Podcast', video:'Video', forum:'Thảo luận', social:'Mạng xã hội', event:'Sự kiện', repository:'Kho mã'};
 
 export const METRIC = {points:'điểm', comments:'bình luận', score:'điểm', upvotes:'lượt bình chọn', likes:'lượt thích',
   downloads:'lượt tải', trendingScore:'điểm thịnh hành', trending_score:'điểm thịnh hành', stars_today:'sao hôm nay',

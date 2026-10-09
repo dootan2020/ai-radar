@@ -153,6 +153,19 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
         payload["sources"].extend(source_result(source, error="Build deadline exceeded") for source in youtube_sources)
 
     if v2:
+        from radar import x_collector, x_paid_budget
+        if x_paid_budget.enabled() and os.environ.get("X_BEARER_TOKEN"):
+            try:
+                accounts_path = Path(__file__).resolve().parent.parent / "data/x-accounts.json"
+                accounts = x_collector.load_accounts(accounts_path)
+                x_items, x_records = x_collector.collect(accounts, x_paid_budget.ledger_path(), now=now)
+                coverage.extend(x_items)
+                payload["sources"].extend(x_records)
+            except (OSError, ValueError, KeyError, TypeError):
+                payload["sources"].append(source_result(
+                    {"id": "x-collector", "name": "X", "url": x_collector.API_URL,
+                     "kind": "json", "group": "forum", "publisher": "x"},
+                    error="X account roster unavailable or invalid"))
         payload["updates"] = [dict(id=stable_id(item["url"]), lab=item["lab"], source=item["source"], title=item["title"],
                                    url=item["url"], published_at=item["published_at"], summary=item["summary"], kind=item["kind"])
                               for item in coverage if item["group"] not in {"forum", "paper", "repository"}]
@@ -171,6 +184,8 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
         from radar import assembly, events
         known = {source["id"]: source for source, _, _ in all_jobs}
         known.update({source["id"]: source for source in youtube_sources})
+        known.update({record["id"]: record for record in payload["sources"]
+                      if record["id"].startswith("x-")})
         for record in payload["sources"]:
             source = known[record["id"]]
             evidence = fetcher.evidence(record["id"])

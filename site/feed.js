@@ -315,8 +315,13 @@ const SHORT_NAMES = {
   'lobsters-ai': 'Lobsters',
 };
 const srcName = id => SHORT_NAMES[id] || String((SRC.get(id) || {}).name || id || '').replace(/\s*\(.*?\)\s*/g, ' ').trim();
-const covsOf = st => uniqCoverage(st.coverage, srcName);
-const nSrc = st => covsOf(st).length;
+const covName = c => c.author_handle
+  ? `${c.author_name || srcName(c.source)} (@${c.author_handle})`
+  : srcName(c.source);
+const covsOf = st => [...uniqCoverage((st.coverage || []).filter(c => !c.author_handle), srcName),
+  ...(st.coverage || []).filter(c => c.author_handle)];
+const nSrc = st => new Set(covsOf(st).map(c => c.author_handle
+  ? `x:@${c.author_handle.toLowerCase()}` : String(c.publisher || c.source || '').toLowerCase())).size;
 const exact = iso => { const d = new Date(iso); return Number.isNaN(d.getTime()) ? 'không rõ' : EXACT.format(d); };
 /* Relative times stay honest while the tab is open: every <time data-ago> is refreshed each minute. */
 const timeEl = iso => `<time datetime="${esc(iso)}" data-ago="${esc(iso)}" title="${esc(exact(iso))}">${esc(ago(iso))}</time>`;
@@ -645,7 +650,7 @@ function detailHTML(st) {
   return `${facts}<p class="dt-h">Các nguồn, theo thời gian</p><ul class="dt-src">${covs.map(c => {
     const ct = typeof c.title_vi === 'string' && c.title_vi.trim() ? c.title_vi.trim() : String(c.title || '');
     const mx = metricsHTML(c);
-    return `<li><span class="cov-src">${esc(srcName(c.source) || hostOf(c.url))}${c.published_at ? ` · ${timeEl(c.published_at)}` : ''}</span>
+    return `<li><span class="cov-src">${esc(covName(c) || hostOf(c.url))}${c.published_at ? ` · ${timeEl(c.published_at)}` : ''}</span>
       <a class="cov-t" href="${esc(safe(c.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}"${langAttr(ct)}>${esc(ct)}</a>
       ${mx || c.discussion_url ? `<span class="cov-m">${mx}${mx && c.discussion_url ? ' · ' : ''}${c.discussion_url ? `<a href="${esc(safe(c.discussion_url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">Thảo luận</a>` : ''}</span>` : ''}</li>`;
   }).join('')}</ul>`;
@@ -759,7 +764,7 @@ function renderCard(st, size = 'std', opts = {}) {
   const from = t.cov || first;
   const href = safe(t.cov ? t.cov.url : st.url);
   const face = t.cov ? faceOfSource(t.cov, SRC) : faceOfStory(st, SRC);
-  const name = srcName(from.source) || hostOf(href);
+  const name = covName(from) || hostOf(href);
   const tid = `t-${esc(st.id)}`;
   const m = measureOf(st);
   const h = opts.h || 'h2';
@@ -774,7 +779,7 @@ function renderCard(st, size = 'std', opts = {}) {
   const covId = `cov-${esc(st.id)}`;
   const metric = [
     (m && !opts.why) ? `<span>${numB(m)} ${esc(m.word)}</span>` : '',
-    `<button class="cov-btn" data-cov="${esc(st.id)}" aria-haspopup="dialog" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${covs.length > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${covs.length}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`
+    `<button class="cov-btn" data-cov="${esc(st.id)}" aria-haspopup="dialog" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${nSrc(st) > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${nSrc(st)}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`
   ].filter(Boolean).join('<span aria-hidden="true">·</span>');
   const cal = calOf(st);
   const isSaved = savedHas(st.id);
@@ -2259,7 +2264,8 @@ function ingest(data) {
   STORY = new Map(allStories.map(st => [st.id, st]));
   STORY_ANY = new Map(asArray(D.stories).map(st => [st.id, st]));
   REPO = new Map(asArray(D.repos).filter(r => r && r.id != null && r.full_name).map(r => [String(r.id), r]));
-  srcCount = new Set(allStories.flatMap(st => (st.coverage || []).map(c => srcName(c.source)))).size;
+  srcCount = new Set(allStories.flatMap(st => (st.coverage || []).map(c => c.author_handle
+    ? `x:@${c.author_handle.toLowerCase()}` : srcName(c.source)))).size;
   WORTHS.clear(); PICKED.clear(); WORDS.clear();
   const hot = allStories.filter(st => st.hot_score > 0).sort((a, b) => b.hot_score - a.hot_score);
   const k = Math.max(3, Math.min(10, Math.round(allStories.length / 12)));

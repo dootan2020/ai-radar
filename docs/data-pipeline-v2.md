@@ -8,7 +8,9 @@ times, counters and failed sources must remain visible as unknown or failed.
 
 - [CLI publication](../build.py) and [collection boundary](../radar/pipeline.py).
 - [Source inventory](../radar/catalog.py), [RSS/media](../radar/v2feeds.py),
-  [community](../radar/community.py), [paper/repository APIs](../radar/discovery.py).
+  [community](../radar/community.py), [paper/repository APIs](../radar/discovery.py),
+  and the optional [official X collector](../radar/x_collector.py) with its
+  [verified account roster](../data/x-accounts.json) and independent paid ledger.
 - [Observation identity](../radar/items.py), [clustering](../radar/clustering.py),
   [ranking](../radar/ranking.py), [story/section assembly](../radar/assembly.py).
 - [Measurement baseline policy](../radar/measurement_cache.py) and its
@@ -48,6 +50,13 @@ freshness rules are independent of the breadth score.
 The previous snapshot exists only to compare measurements. Republishing its old
 content with a new build time would mislead readers about freshness. Frozen
 fixtures support reproducible tests; they do not establish current source health.
+
+The official X collector is disabled unless `RADAR_X_ENABLED=1` and
+`X_BEARER_TOKEN` are present on the main workflow. It searches AI-related posts
+server-side and records the original post URL and author identity. Its separate
+durable ledger enforces $30 per UTC month and $1 per UTC day. Daily reconciliation
+removes posts no longer returned by X; if reconciliation fails, X observations
+older than 24 hours are removed from the publication candidate.
 
 The owner maintains the calendar from official pages. Reverify a date before
 changing its record and retain the official evidence URL. A source outage must

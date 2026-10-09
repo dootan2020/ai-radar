@@ -1,0 +1,371 @@
+{
+  "version": 1,
+  "accounts": [
+    {
+      "id": "44196397",
+      "handle": "elonmusk",
+      "name": "Elon Musk",
+      "role": "leader"
+    },
+    {
+      "id": "1605",
+      "handle": "sama",
+      "name": "Sam Altman",
+      "role": "leader"
+    },
+    {
+      "id": "874126509245476864",
+      "handle": "DarioAmodei",
+      "name": "Dario Amodei",
+      "role": "leader"
+    },
+    {
+      "id": "1482581556",
+      "handle": "demishassabis",
+      "name": "Demis Hassabis",
+      "role": "leader"
+    },
+    {
+      "id": "14130366",
+      "handle": "sundarpichai",
+      "name": "Sundar Pichai",
+      "role": "leader"
+    },
+    {
+      "id": "20571756",
+      "handle": "satyanadella",
+      "name": "Satya Nadella",
+      "role": "leader"
+    },
+    {
+      "id": "48008938",
+      "handle": "ylecun",
+      "name": "Yann LeCun",
+      "role": "leader"
+    },
+    {
+      "id": "2314443930",
+      "handle": "mustafasuleyman",
+      "name": "Mustafa Suleyman",
+      "role": "leader"
+    },
+    {
+      "id": "162124540",
+      "handle": "gdb",
+      "name": "Greg Brockman",
+      "role": "leader"
+    },
+    {
+      "id": "1720046887",
+      "handle": "ilyasut",
+      "name": "Ilya Sutskever",
+      "role": "leader"
+    },
+    {
+      "id": "180115578",
+      "handle": "miramurati",
+      "name": "Mira Murati",
+      "role": "leader"
+    },
+    {
+      "id": "759894532649545732",
+      "handle": "AravSrinivas",
+      "name": "Aravind Srinivas",
+      "role": "leader"
+    },
+    {
+      "id": "615818451",
+      "handle": "alexandr_wang",
+      "name": "Alexandr Wang",
+      "role": "leader"
+    },
+    {
+      "id": "51091819",
+      "handle": "arthurmensch",
+      "name": "Arthur Mensch",
+      "role": "leader"
+    },
+    {
+      "id": "1953337039510003712",
+      "handle": "thsottiaux",
+      "name": "Tibo",
+      "role": "product"
+    },
+    {
+      "id": "3452911",
+      "handle": "kevinweil",
+      "name": "Kevin Weil 🇺🇸",
+      "role": "product"
+    },
+    {
+      "id": "284333988",
+      "handle": "OfficialLoganK",
+      "name": "Logan Kilpatrick",
+      "role": "product"
+    },
+    {
+      "id": "206546319",
+      "handle": "joshwoodward",
+      "name": "Josh Woodward",
+      "role": "product"
+    },
+    {
+      "id": "159337660",
+      "handle": "bcherny",
+      "name": "Boris Cherny",
+      "role": "product"
+    },
+    {
+      "id": "12831",
+      "handle": "mikeyk",
+      "name": "Mike Krieger",
+      "role": "product"
+    },
+    {
+      "id": "1380719534970040322",
+      "handle": "alexalbert__",
+      "name": "Alex Albert",
+      "role": "product"
+    },
+    {
+      "id": "25667970",
+      "handle": "ammaar",
+      "name": "Ammaar Reshi",
+      "role": "product"
+    },
+    {
+      "id": "4398626122",
+      "handle": "OpenAI",
+      "name": "OpenAI",
+      "role": "official"
+    },
+    {
+      "id": "1633874951508721686",
+      "handle": "OpenAIDevs",
+      "name": "OpenAI Developers",
+      "role": "official"
+    },
+    {
+      "id": "1353836358901501952",
+      "handle": "AnthropicAI",
+      "name": "Anthropic",
+      "role": "official"
+    },
+    {
+      "id": "1943306828697550848",
+      "handle": "claudeai",
+      "name": "Claude",
+      "role": "official"
+    },
+    {
+      "id": "4783690002",
+      "handle": "GoogleDeepMind",
+      "name": "Google DeepMind",
+      "role": "official"
+    },
+    {
+      "id": "33838201",
+      "handle": "GoogleAI",
+      "name": "Google AI",
+      "role": "official"
+    },
+    {
+      "id": "1806359170830172162",
+      "handle": "GeminiApp",
+      "name": "Google Gemini",
+      "role": "official"
+    },
+    {
+      "id": "2074186776130859008",
+      "handle": "xai",
+      "name": "xAI",
+      "role": "official"
+    },
+    {
+      "id": "1720665183188922368",
+      "handle": "grok",
+      "name": "Grok",
+      "role": "official"
+    },
+    {
+      "id": "1667249535519805451",
+      "handle": "MistralAI",
+      "name": "Mistral AI",
+      "role": "official"
+    },
+    {
+      "id": "1714580962569588736",
+      "handle": "deepseek_ai",
+      "name": "DeepSeek",
+      "role": "official"
+    },
+    {
+      "id": "1753339277386342400",
+      "handle": "Alibaba_Qwen",
+      "name": "Qwen",
+      "role": "official"
+    },
+    {
+      "id": "1034844617261248512",
+      "handle": "AIatMeta",
+      "name": "AI at Meta",
+      "role": "official"
+    },
+    {
+      "id": "778764142412984320",
+      "handle": "huggingface",
+      "name": "Hugging Face",
+      "role": "official"
+    },
+    {
+      "id": "1599587232175849472",
+      "handle": "perplexity_ai",
+      "name": "Perplexity",
+      "role": "official"
+    },
+    {
+      "id": "1695890961094909952",
+      "handle": "cursor_ai",
+      "name": "Cursor",
+      "role": "official"
+    },
+    {
+      "id": "740238495952736256",
+      "handle": "NVIDIAAI",
+      "name": "NVIDIA AI",
+      "role": "official"
+    },
+    {
+      "id": "1863959670169501696",
+      "handle": "Kimi_Moonshot",
+      "name": "Kimi.ai",
+      "role": "official"
+    },
+    {
+      "id": "1726486879456096256",
+      "handle": "Zai_org",
+      "name": "Z.ai",
+      "role": "official"
+    },
+    {
+      "id": "33836629",
+      "handle": "karpathy",
+      "name": "Andrej Karpathy",
+      "role": "researcher"
+    },
+    {
+      "id": "12497",
+      "handle": "simonw",
+      "name": "Simon Willison",
+      "role": "researcher"
+    },
+    {
+      "id": "39125788",
+      "handle": "emollick",
+      "name": "Ethan Mollick",
+      "role": "researcher"
+    },
+    {
+      "id": "33521530",
+      "handle": "swyx",
+      "name": "swyx",
+      "role": "researcher"
+    },
+    {
+      "id": "1319101874532978690",
+      "handle": "_jasonwei",
+      "name": "Jason Wei",
+      "role": "researcher"
+    },
+    {
+      "id": "1007413134",
+      "handle": "DrJimFan",
+      "name": "Jim Fan",
+      "role": "researcher"
+    },
+    {
+      "id": "175282603",
+      "handle": "jeremyphoward",
+      "name": "Jeremy Howard",
+      "role": "researcher"
+    },
+    {
+      "id": "2939913921",
+      "handle": "natolambert",
+      "name": "Nathan Lambert",
+      "role": "researcher"
+    },
+    {
+      "id": "865622395",
+      "handle": "rasbt",
+      "name": "Sebastian Raschka",
+      "role": "researcher"
+    },
+    {
+      "id": "68746721",
+      "handle": "fchollet",
+      "name": "François Chollet",
+      "role": "researcher"
+    },
+    {
+      "id": "825088493764407298",
+      "handle": "polynoamial",
+      "name": "Noam Brown",
+      "role": "researcher"
+    },
+    {
+      "id": "1743487864934162432",
+      "handle": "ArtificialAnlys",
+      "name": "Artificial Analysis",
+      "role": "analyst"
+    },
+    {
+      "id": "1971618609974677504",
+      "handle": "lmarena_ai",
+      "name": "Arena",
+      "role": "leaderboard"
+    },
+    {
+      "id": "3980735590",
+      "handle": "testingcatalog",
+      "name": "🚨 AI News | TestingCatalog",
+      "role": "early-signal"
+    },
+    {
+      "id": "338443084",
+      "handle": "btibor91",
+      "name": "Tibor Blaho",
+      "role": "early-signal"
+    },
+    {
+      "id": "1056867968511066112",
+      "handle": "legit_api",
+      "name": "Legit",
+      "role": "early-signal"
+    },
+    {
+      "id": "216939636",
+      "handle": "AndrewYNg",
+      "name": "Andrew Ng",
+      "role": "researcher"
+    },
+    {
+      "id": "731538535795163136",
+      "handle": "sarahookr",
+      "name": "Sara Hooker",
+      "role": "researcher"
+    },
+    {
+      "id": "2070631956824698880",
+      "handle": "JensenHuang",
+      "name": "Jensen Huang",
+      "role": "leader"
+    },
+    {
+      "id": "149763",
+      "handle": "sriramk",
+      "name": "Sriram Krishnan",
+      "role": "product"
+    }
+  ]
+}

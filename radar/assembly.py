@@ -96,7 +96,11 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
     legacy_payload = dict(payload, updates=[], hf_releases=[])
     items = coverage + legacy_items(legacy_payload, now) + event_items(events, now)
     fresh_stories = cluster_items(items, now)
-    stories = rank_stories(retain_stories(fresh_stories, published, now), now, previous)
+    stories = retain_stories(fresh_stories, published, now)
+    from radar import x_collector, x_paid_budget
+    stories = x_collector.reconcile_published(
+        stories, published, x_paid_budget.ledger_path(), now=now)
+    stories = rank_stories(stories, now, previous)
     # Worth and images run after retention so carried stories are re-scored at `now` and can be illustrated.
     sources_map = {s["id"]: s for s in payload.get("sources", [])}
     from radar.worth import annotate_story_worth
