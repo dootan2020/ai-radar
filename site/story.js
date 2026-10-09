@@ -40,7 +40,7 @@ export function worthOfStory(st, genTime = Date.now()) {
   }
   const meas = st.hot_signals && st.hot_signals.measurement;
   const hot = meas && Number.isFinite(st.hot_score) ? Math.max(0, st.hot_score) : 0;
-  const n = (st.coverage && st.coverage.length) || st.source_count || 1;
+  const n = Number.isFinite(st.source_count) ? st.source_count : (st.coverage && st.coverage.length) || 1;
   const own = (st.coverage || []).find(c => c && c.lab);
   const fh = own ? { why: `${own.lab} công bố trực tiếp` } : null;
   return fallbackWorth(st, genTime, hot, n, fh);
@@ -52,7 +52,7 @@ export function uniquePublishers(coverage = []) {
   for (const item of coverage) {
     if (!item) continue;
     if (item.author_handle) {
-      hosts.add(`x:@${String(item.author_handle).toLowerCase()}`);
+      hosts.add('x');
       continue;
     }
     const url = item.url;
@@ -157,7 +157,7 @@ export function renderEvidenceBlockHTML(story, srcMap = new Map()) {
   const worth = worthOfStory(story);
   const scoreFormatted = Number.isFinite(worth.score) ? nf1.format(worth.score) : '10.0';
   const cov = Array.isArray(story.coverage) ? story.coverage : [];
-  const pubCount = uniquePublishers(cov);
+  const pubCount = Number.isFinite(story.source_count) ? story.source_count : uniquePublishers(cov);
   const disc = discussionMetrics(cov);
 
   const rows = [

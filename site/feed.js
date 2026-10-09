@@ -320,8 +320,9 @@ const covName = c => c.author_handle
   : srcName(c.source);
 const covsOf = st => [...uniqCoverage((st.coverage || []).filter(c => !c.author_handle), srcName),
   ...(st.coverage || []).filter(c => c.author_handle)];
-const nSrc = st => new Set(covsOf(st).map(c => c.author_handle
-  ? `x:@${c.author_handle.toLowerCase()}` : String(c.publisher || c.source || '').toLowerCase())).size;
+const nSrc = st => Number.isFinite(st.source_count) ? st.source_count
+  : new Set(covsOf(st).map(c => c.author_handle
+    ? 'x' : String(c.publisher || c.source || '').toLowerCase())).size;
 const exact = iso => { const d = new Date(iso); return Number.isNaN(d.getTime()) ? 'không rõ' : EXACT.format(d); };
 /* Relative times stay honest while the tab is open: every <time data-ago> is refreshed each minute. */
 const timeEl = iso => `<time datetime="${esc(iso)}" data-ago="${esc(iso)}" title="${esc(exact(iso))}">${esc(ago(iso))}</time>`;
@@ -2265,7 +2266,7 @@ function ingest(data) {
   STORY_ANY = new Map(asArray(D.stories).map(st => [st.id, st]));
   REPO = new Map(asArray(D.repos).filter(r => r && r.id != null && r.full_name).map(r => [String(r.id), r]));
   srcCount = new Set(allStories.flatMap(st => (st.coverage || []).map(c => c.author_handle
-    ? `x:@${c.author_handle.toLowerCase()}` : srcName(c.source)))).size;
+    ? 'x' : srcName(c.source)))).size;
   WORTHS.clear(); PICKED.clear(); WORDS.clear();
   const hot = allStories.filter(st => st.hot_score > 0).sort((a, b) => b.hot_score - a.hot_score);
   const k = Math.max(3, Math.min(10, Math.round(allStories.length / 12)));
