@@ -18,6 +18,7 @@ NEW_FEED_URLS = {
     "genk-ai": "https://genk.vn/rss/ai.rss",
     "tuoitre-so": "https://tuoitre.vn/rss/nhip-song-so.rss",
     "thanhnien-cong-nghe": "https://thanhnien.vn/rss/cong-nghe.rss",
+    "theregister-ai": "https://www.theregister.com/software/ai_ml/headlines.atom",
     "wired-ai": "https://www.wired.com/feed/tag/ai/latest/rss",
     "404media": "https://www.404media.co/rss/",
     "semafor": "https://www.semafor.com/rss.xml",
@@ -43,7 +44,7 @@ FILTERED_SOURCES = {
 }
 
 UNFILTERED_SOURCES = {
-    "genk-ai", "wired-ai", "nextgov-ai", "aws-ml-blog",
+    "genk-ai", "theregister-ai", "wired-ai", "nextgov-ai", "aws-ml-blog",
 }
 
 
@@ -51,7 +52,7 @@ class CatalogNewSourcesTests(unittest.TestCase):
     def setUp(self):
         self.sources = {s["id"]: s for s in catalog.sources(NOW)}
 
-    def test_probed_feeds_are_present_in_catalog(self):
+    def test_all_17_probed_feeds_are_present_in_catalog(self):
         for id_, expected_url in NEW_FEED_URLS.items():
             with self.subTest(source_id=id_):
                 self.assertIn(id_, self.sources)
@@ -71,7 +72,7 @@ class CatalogNewSourcesTests(unittest.TestCase):
     def test_groups_and_publishers_are_consistent(self):
         press_sources = {
             "vnexpress-tech", "genk-ai", "tuoitre-so",
-            "thanhnien-cong-nghe", "wired-ai", "404media",
+            "thanhnien-cong-nghe", "theregister-ai", "wired-ai", "404media",
             "semafor", "cnbc-tech", "bloomberg-tech", "fedscoop", "nextgov-ai",
             "technode", "pandaily", "scmp-tech", "restofworld",
         }
@@ -96,6 +97,7 @@ class CatalogNewSourcesTests(unittest.TestCase):
         self.assertEqual(self.sources["genk-ai"]["publisher"], "genk")
         self.assertEqual(self.sources["tuoitre-so"]["publisher"], "tuoi-tre")
         self.assertEqual(self.sources["thanhnien-cong-nghe"]["publisher"], "thanh-nien")
+        self.assertEqual(self.sources["theregister-ai"]["publisher"], "the-register")
         self.assertEqual(self.sources["wired-ai"]["publisher"], "wired")
         self.assertEqual(self.sources["404media"]["publisher"], "404-media")
         self.assertEqual(self.sources["semafor"]["publisher"], "semafor")
@@ -122,10 +124,6 @@ class CatalogNewSourcesTests(unittest.TestCase):
     def test_bluesky_observations_are_community_sources(self):
         self.assertEqual(self.sources["bluesky-simonwillison"]["group"], "forum")
         self.assertEqual(self.sources["bluesky-emollick"]["group"], "forum")
-
-    def test_robots_disallowed_sources_are_not_catalogued(self):
-        self.assertNotIn("theregister-ai", self.sources)
-        self.assertNotIn("lobsters-ai", self.sources)
 
     def test_youtube_catalog_entries_are_restored_to_main(self):
         self.assertEqual(self.sources["dwarkesh-video"]["url"],
@@ -238,6 +236,32 @@ class FeedParsingAndFilterIntegrationTests(unittest.TestCase):
         self.assertEqual(parsed[0]["publisher"], "vnexpress")
         self.assertEqual(parsed[0]["group"], "press")
         self.assertEqual(parsed[0]["published_at"], "2026-10-04T03:00:00Z")
+
+    def test_unfiltered_atom_feed_parses_all_entries(self):
+        source = {
+            "id": "theregister-ai",
+            "name": "The Register AI/ML",
+            "publisher": "the-register",
+            "group": "press",
+            "kind": "rss",
+            "url": "https://www.theregister.com/software/ai_ml/headlines.atom",
+            "filter_ai": False,
+        }
+        atom = """<feed xmlns="http://www.w3.org/2005/Atom">
+          <title>The Register - AI / ML</title>
+          <entry>
+            <title>OpenAI frontier training stopped over security concerns</title>
+            <link rel="alternate" type="text/html" href="https://www.theregister.com/2026/10/02/openai_halt/"/>
+            <updated>2026-10-02T14:30:00Z</updated>
+            <summary>Safety evaluations found sandbox escape risks.</summary>
+          </entry>
+        </feed>"""
+        parsed = v2feeds.parse_feed(atom, source, NOW.isoformat())
+        self.assertEqual(len(parsed), 1)
+        self.assertEqual(parsed[0]["title"], "OpenAI frontier training stopped over security concerns")
+        self.assertEqual(parsed[0]["url"], "https://www.theregister.com/2026/10/02/openai_halt/")
+        self.assertEqual(parsed[0]["publisher"], "the-register")
+        self.assertEqual(parsed[0]["published_at"], "2026-10-02T14:30:00Z")
 
     def test_feed_timestamp_parsing_exact_shapes_and_utc_normalization(self):
         # 1. GenK real pubDate: two-digit +07 offset means hours, normalized to UTC

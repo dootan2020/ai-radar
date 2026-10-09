@@ -3,7 +3,7 @@
 import json
 import unittest
 
-from radar.community import parse_hn
+from radar.community import parse_hn, parse_lobsters
 from radar.clustering import cluster_items
 from radar.discovery import parse_bluesky, parse_github, parse_hf_trending, parse_papers
 from radar.v2feeds import parse_feed
@@ -72,6 +72,14 @@ class CommunityTests(unittest.TestCase):
         self.assertEqual(len(stories[0]["coverage"]), 2)
         self.assertEqual(stories[0]["source_count"], 1)
 
+    def test_lobsters_distinct_threads_same_target_keep_individual_observation_identity(self):
+        rows = [{"title": "AI release", "url": "https://lab.example/release", "tags": ["ai"],
+                 "created_at": "2026-10-02T11:00:00Z", "score": 3,
+                 "comments_url": "https://lobste.rs/s/" + id_} for id_ in ["abc", "def"]]
+        items = parse_lobsters(json.dumps(rows), SOURCE, OBSERVED)
+        self.assertEqual(len({item["id"] for item in items}), 2)
+        self.assertEqual(len(cluster_items(items, NOW)[0]["coverage"]), 2)
+
     def test_new_hn_thread_cannot_inherit_old_thread_velocity_for_same_target(self):
         before = parse_hn(json.dumps({"hits": [hn_row(objectID="123", points=1)]}),
                           SOURCE, "2026-10-02T11:00:00Z")
@@ -89,8 +97,16 @@ class CommunityTests(unittest.TestCase):
                 self.assertEqual(item["metrics"], {"points": None, "comments": None})
                 json.dumps(item, allow_nan=False)
 
+    def test_lobsters_ai_tag_and_zero_measurement_are_preserved(self):
+        body = [{"title": "A new reasoning technique", "url": "https://lab.example/paper",
+                 "comments_url": "https://lobste.rs/s/example", "tags": ["ai"],
+                 "created_at": "2026-10-02T11:00:00Z", "score": 0, "comment_count": None}]
+        item = parse_lobsters(json.dumps(body), SOURCE, OBSERVED)[0]
+        self.assertEqual(item["metrics"], {"score": 0, "comments": None})
+        self.assertEqual(item["discussion_url"], "https://lobste.rs/s/example")
+
     def test_wrong_json_shapes_fail_instead_of_empty_success(self):
-        for parse, invalid in [(parse_hn, []), (parse_papers, {}),
+        for parse, invalid in [(parse_hn, []), (parse_lobsters, {}), (parse_papers, {}),
                                (parse_hf_trending, {}), (parse_github, [])]:
             with self.subTest(parser=parse.__name__), self.assertRaises(ValueError):
                 parse(json.dumps(invalid), SOURCE, OBSERVED)
