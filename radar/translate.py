@@ -561,6 +561,9 @@ def main(argv=None):
                              f"gemini_ledger_written={str(ledger_written).lower()}\n")
         except OSError:
             stats.setdefault("persistence_errors", []).append("workflow_output_write_failed")
+    from radar.headlines import annotate_headlines
+    for story in payload.get("stories", []):
+        annotate_headlines(story)
     write_site_snapshot(payload, args.output or args.input)
     published_arg = os.environ.get("RADAR_PUBLISHED_SNAPSHOT")
     if published_arg:

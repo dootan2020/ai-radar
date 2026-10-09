@@ -1,11 +1,13 @@
 """Unit tests for image resolution order, image verification, and image cache."""
 
 import json
+import importlib.util
 from pathlib import Path
 import tempfile
 import time
 import unittest
 from unittest.mock import patch
+from radar.image_quality import QUALITY_VERSION
 
 from radar.images import (
     ImageCache,
@@ -17,11 +19,15 @@ from radar.images import (
     clear_verification_cache,
 )
 
+PIXELS = (Path(__file__).parent / "fixtures" / "continuous-tone.png").read_bytes()
+HAS_PILLOW = importlib.util.find_spec("PIL") is not None
+
 
 class ImageResolutionOrderTests(unittest.TestCase):
     def setUp(self):
         clear_verification_cache()
 
+    @unittest.skipUnless(HAS_PILLOW, "Pillow is required for source-image screening")
     def test_feed_media_has_first_priority(self):
         # A story with both feed media and a github url
         story = {
@@ -37,21 +43,22 @@ class ImageResolutionOrderTests(unittest.TestCase):
                 }
             ]
         }
-        mock_transport = lambda u: b"\xff\xd8\xff\xe0"  # JPEG bytes
+        mock_transport = lambda u: PIXELS
         img = resolve_story_image(story, transport=mock_transport)
         self.assertIsNotNone(img)
         self.assertEqual(img["via"], "feed-media")
         self.assertEqual(img["kind"], "photo")
         self.assertEqual(img["src"], "https://example.com/feed-photo.jpg")
 
-    def test_predictable_addresses_have_second_priority(self):
+    @unittest.skipUnless(HAS_PILLOW, "Pillow is required for source-image screening")
+    def test_predictable_images_are_screened_before_use(self):
         # YouTube URL
         story_yt = {
             "id": "st-yt",
             "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
             "coverage": []
         }
-        mock_transport = lambda u: b"\xff\xd8\xff\xe0"
+        mock_transport = lambda u: PIXELS
         img_yt = resolve_story_image(story_yt, transport=mock_transport)
         self.assertIsNotNone(img_yt)
         self.assertEqual(img_yt["via"], "youtube")
@@ -65,10 +72,7 @@ class ImageResolutionOrderTests(unittest.TestCase):
             "coverage": []
         }
         img_gh = resolve_story_image(story_gh, transport=mock_transport)
-        self.assertIsNotNone(img_gh)
-        self.assertEqual(img_gh["via"], "github-social")
-        self.assertEqual(img_gh["kind"], "graphic")
-        self.assertEqual(img_gh["src"], "https://opengraph.githubassets.com/1/facebookresearch/llama")
+        self.assertIsNone(img_gh)
 
         # Hugging Face paper URL
         story_hf = {
@@ -77,11 +81,9 @@ class ImageResolutionOrderTests(unittest.TestCase):
             "coverage": []
         }
         img_hf = resolve_story_image(story_hf, transport=mock_transport)
-        self.assertIsNotNone(img_hf)
-        self.assertEqual(img_hf["via"], "hf-thumbnail")
-        self.assertEqual(img_hf["kind"], "graphic")
-        self.assertEqual(img_hf["src"], "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2410.12345.png")
+        self.assertIsNone(img_hf)
 
+    @unittest.skipUnless(HAS_PILLOW, "Pillow is required for source-image screening")
     def test_og_image_from_page_meta_has_third_priority(self):
         story = {
             "id": "st-og",
@@ -100,7 +102,7 @@ class ImageResolutionOrderTests(unittest.TestCase):
         """
         def mock_transport(url):
             if "hero.png" in url:
-                return b"\x89PNG\r\n\x1a\n"
+                return PIXELS
             return html_page.encode("utf-8")
 
         img = resolve_story_image(story, transport=mock_transport)
@@ -109,6 +111,7 @@ class ImageResolutionOrderTests(unittest.TestCase):
         self.assertEqual(img["kind"], "photo")
         self.assertEqual(img["src"], "https://blog.example.com/hero.png")
 
+    @unittest.skipUnless(HAS_PILLOW, "Pillow is required for source-image screening")
     def test_discussion_gives_linked_article_via(self):
         story = {
             "id": "st-hn",
@@ -121,7 +124,7 @@ class ImageResolutionOrderTests(unittest.TestCase):
         html_page = '<meta property="og:image" content="https://theverge.com/thumb.jpg">'
         def mock_transport(url):
             if "thumb.jpg" in url:
-                return b"\xff\xd8\xff\xe0"
+                return PIXELS
             return html_page.encode("utf-8")
 
         img = resolve_story_image(story, transport=mock_transport)
@@ -171,6 +174,8 @@ class ImageCacheTests(unittest.TestCase):
                 "src": "https://techcrunch.com/cached.jpg",
                 "via": "og:image"
             })
+            cache.quality["https://techcrunch.com/cached.jpg"] = {
+                "version": QUALITY_VERSION, "keep": True, "reason": "no-dominant-text-or-logo-detected", "checked_at": time.time()}
 
             story = {
                 "id": "st-cache",
@@ -178,7 +183,7 @@ class ImageCacheTests(unittest.TestCase):
                 "coverage": [{"source": "techcrunch-ai", "url": "https://techcrunch.com/article"}]
             }
             # No network transport; must resolve purely from cache
-            img = resolve_story_image(story, cache=cache)
+            img = resolve_story_image(story, cache=cache, allow_network=False)
             self.assertIsNotNone(img)
             self.assertEqual(img["src"], "https://techcrunch.com/cached.jpg")
             self.assertEqual(img["via"], "og:image")
@@ -209,6 +214,8 @@ class ImageCacheTests(unittest.TestCase):
             cache_file = Path(tmpdir) / "image-cache.json"
             cache = ImageCache(cache_path=cache_file)
             cache.set("https://example.com/with-img", {"src": "https://example.com/img.jpg", "via": "og:image"})
+            cache.quality["https://example.com/img.jpg"] = {
+                "version": QUALITY_VERSION, "keep": True, "reason": "no-dominant-text-or-logo-detected", "checked_at": time.time()}
             cache.save()
 
             stories = [

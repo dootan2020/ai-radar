@@ -92,13 +92,18 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
     from radar.curation import curate_repos
     from radar.ranking import rank_stories
     from radar.retention import retain_stories
+    from radar import x_collector, x_paid_budget
+    from radar.items import is_x_item
+    from radar.headlines import annotate_headlines
 
     # The full RSS observations, before v1 URL dedupe, retain media and coverage.
     legacy_payload = dict(payload, updates=[], hf_releases=[])
     items = coverage + legacy_items(legacy_payload, now) + event_items(events, now)
+    items = [item for item in items if not (is_x_item(item) and x_collector.is_reply(item))]
     fresh_stories = cluster_items(items, now)
+    if isinstance(published, dict) and isinstance(published.get("stories"), list):
+        published = dict(published, stories=x_collector.without_reply_stories(published["stories"]))
     stories = retain_stories(fresh_stories, published, now)
-    from radar import x_collector, x_paid_budget
     stories = x_collector.reconcile_published(
         stories, published, x_paid_budget.ledger_path(), now=now)
     stories = rank_stories(stories, now, previous)
@@ -107,6 +112,7 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
     from radar.worth import annotate_story_worth
     for story in stories:
         annotate_story_worth(story, now, sources_map)
+        annotate_headlines(story)
     if resolve_images is None:
         # Only a live fetcher or an explicit image transport may reach the network; a bare call stays offline.
         from radar.transport import read_url

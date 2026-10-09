@@ -6,6 +6,7 @@ import re
 
 from radar.pipeline import write_atomic
 from radar.search_index import search_payload, search_path
+from radar.headlines import annotate_headlines
 
 
 PAGE_FIELDS = (
@@ -22,6 +23,7 @@ def page_payload(payload):
     """
     result = deepcopy({key: payload[key] for key in PAGE_FIELDS if key in payload})
     for story in result.get("stories", []):
+        annotate_headlines(story)
         for key in ("primary_section", "groups"):
             story.pop(key, None)
         signals = story.get("hot_signals")
