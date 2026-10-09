@@ -318,11 +318,13 @@ Missing decoders, unreadable images and expired/unversioned approval records
 fail closed. Source-image checks are cached by URL and policy version for 48
 hours; old seeds and carried images receive the same checks as fresh candidates.
 
-Screened stories carry `image_screened: true`. When `image` is absent on such
-a story, consumers **must not** use legacy `feed-images.json`, feed media or
-derived source URLs to resurrect it. Render no image, or the returned `image`
-if the existing AI fallback produced/reused one. The AI provider's window,
-8,000-neuron daily cap, per-run limit and ledger behavior are unchanged.
+Screened stories carry `image_screened: true`. A screened story uses its
+approved `story.image` (source photo or pipeline AI illustration) first, then
+the site's own factual cover; static story pages fall back to the site's
+`site/og-image.png` for sharing. Third-party fallbacks (`site/feed-images.json`,
+coverage media, GitHub/HF/YouTube previews, the client AI manifest) stay
+blocked. The AI provider's window, 8,000-neuron daily cap, per-run limit and
+ledger behavior are unchanged.
 
 Offline contracts: [content quality](../tests/test_content_quality.py),
 [source images](../tests/test_images.py) and [AI fallback](../tests/test_ai_images.py).
