@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-10",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-08T23:00:00Z",
+  "cutoff_at": "2026-10-09T23:00:00Z",
+  "created_at": "2026-10-09T23:04:23Z",
+  "snapshot_generated_at": "2026-10-09T23:01:26Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-09T23:01:26Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "8200ee1fe0cda666bb5e",
+      "title": "OpenAI tries to reassure investors with annualized revenue target",
+      "title_vi": "OpenAI cố gắng trấn an các nhà đầu tư bằng mục tiêu doanh thu thường niên hóa",
+      "url": "https://www.semafor.com/article/10/09/2026/openai-tries-to-reassure-investors-with-annualized-revenue-target",
+      "published_at": "2026-10-09T10:30:03Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "61930978c92aecdf4e0f",
+          "title": "Anthropic and OpenAI Use Different Revenue Calculations, Clouding AI Valuations",
+          "title_vi": "Anthropic và OpenAI sử dụng tính toán thu nhập khác nhau, Clouding AI đánh giá",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-09/anthropic-and-openai-s-revenue-calculations-confuse-investors",
+          "published_at": "2026-10-09T18:23:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-09T23:01:26Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "8476118aa1ff62066e06",
+          "title": "OpenAI Targets $70 Billion in Annualized Revenue by Year-End",
+          "title_vi": "OpenAI nhắm mục tiêu 70 tỷ đô la doanh thu hàng năm vào cuối năm",
+          "url": "https://www.bloomberg.com/news/videos/2026-10-09/openai-targets-70b-in-annualized-revenue-by-year-end-video",
+          "published_at": "2026-10-09T13:42:15Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-09T21:21:12Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "c27808d713b57c7fc901",
+          "title": "OpenAI tries to reassure investors with annualized revenue target",
+          "title_vi": "OpenAI cố gắng trấn an các nhà đầu tư bằng mục tiêu doanh thu thường niên hóa",
+          "url": "https://www.semafor.com/article/10/09/2026/openai-tries-to-reassure-investors-with-annualized-revenue-target",
+          "published_at": "2026-10-09T10:30:03Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-10-09T23:01:26Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "semafor"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 12.4992,
+          "hot_score": 70.743,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "e51482db5c5f00e066fe",
+      "title": "An Anthropic AI model sent a false homicide tip to Philadelphia police",
+      "title_vi": "Một mô hình AI của Anthropic đã gửi tin báo án mạng giả tới cảnh sát Philadelphia",
+      "url": "https://techcrunch.com/2026/10/09/an-anthropic-ai-model-sent-a-false-homicide-tip-to-philadelphia-police/",
+      "published_at": "2026-10-09T19:36:56Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "c4c8fde3db1c1e6f8d44",
+          "title": "An Anthropic AI model sent a false homicide tip to the police",
+          "title_vi": "Một mô hình AI của Anthropic đã gửi một lời khuyên sai về vụ giết người cho cảnh sát",
+          "url": "https://techcrunch.com/2026/10/09/an-anthropic-ai-model-sent-a-false-homicide-tip-to-philadelphia-police/",
+          "published_at": "2026-10-09T19:44:59Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-09T23:01:26Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50025713",
+          "metrics": {
+            "points": 12,
+            "comments": 1
+          }
+        },
+        {
+          "id": "e1eb76901aa39bfb13dd",
+          "title": "An Anthropic AI model sent a false homicide tip to Philadelphia police",
+          "title_vi": "Một mô hình AI của Anthropic đã gửi tin báo án mạng giả tới cảnh sát Philadelphia",
+          "url": "https://techcrunch.com/2026/10/09/an-anthropic-ai-model-sent-a-false-homicide-tip-to-philadelphia-police/",
+          "published_at": "2026-10-09T19:36:56Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-09T23:01:26Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "ca3fe02f643124bb6d7c",
+          "title": "Anthropic’s AI gave Philadelphia police a fake tip about an unsolved homicide",
+          "title_vi": "AI của Anthropic đã đưa cho cảnh sát Philadelphia một lời khuyên sai về một vụ giết người chưa được giải quyết",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1009090/anthropic-fake-homicide-information-philadelphia-pd-tip",
+          "published_at": "2026-10-09T21:15:38Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-09T23:01:26Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 3.3844,
+          "hot_score": 53.072,
+          "engagement_percentile": 0.19047619047619047
+        }
+      }
+    },
+    {
+      "id": "bf2149b8045ec7a8d0e9",
+      "title": "Show HN: Let your AI agents paint big arrows, boxes and text on your screen",
+      "title_vi": "Show HN: Hãy để các agent AI của bạn vẽ các mũi tên lớn, hộp và văn bản lên màn hình",
+      "url": "https://github.com/franzenzenhofer/big-arrow-on-the-screen",
+      "published_at": "2026-10-09T11:03:48Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "source_count": 0,
+      "coverage": [
+        {
+          "id": "b0a17dcf58b161e7bec5",
+          "title": "Show HN: Let your AI agents paint big arrows, boxes and text on your screen",
+          "title_vi": "Show HN: Hãy để các agent AI của bạn vẽ các mũi tên lớn, hộp và văn bản lên màn hình",
+          "url": "https://github.com/franzenzenhofer/big-arrow-on-the-screen",
+          "published_at": "2026-10-09T11:03:48Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-09T23:01:26Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50018817",
+          "metrics": {
+            "points": 361,
+            "comments": 157
+          }
+        },
+        {
+          "id": "49504f50692adeabf0d9",
+          "title": "Show HN: Let your AI agents paint big arrows, boxes and text on your screen",
+          "title_vi": "Show HN: Hãy để các agent AI của bạn vẽ các mũi tên lớn, hộp và văn bản lên màn hình",
+          "url": "https://github.com/franzenzenhofer/big-arrow-on-the-screen",
+          "published_at": "2026-10-09T11:03:48Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-09T23:01:26Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50018817",
+          "metrics": {
+            "points": 361,
+            "comments": 157
+          }
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Ngoại lệ diễn đàn: tương tác thuộc nhóm 3% cao nhất và ít nhất 100 bình luận",
+            "percentile": 0.9714285714285714,
+            "measurement": {
+              "source": "hn-ai",
+              "metric": "points",
+              "value": 361,
+              "observed_at": "2026-10-09T23:01:26Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [],
+          "age_hours_at_cutoff": 11.9367,
+          "hot_score": 45.615,
+          "engagement_percentile": 0.9714285714285714
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 71,
+    "successful_remote_sources": 71,
+    "failed_remote_sources": []
+  }
+}
