@@ -31,6 +31,8 @@ import urllib.request
 from radar.site_config import SITE_URL
 
 from radar.pipeline import write_atomic
+from radar.image_quality import (MAX_IMAGE_BYTES, QUALITY_VERSION, classify_pixels,
+                                 decision, metadata_rejection)
 
 DISCUSSION_HOSTS = ("news.ycombinator.com", "lobste.rs")
 DISCUSSION_SOURCES = ("hn-", "lobsters")
@@ -304,6 +306,7 @@ class ImageCache:
         self.cache_path = Path(cache_path) if cache_path else root / "data" / "image-cache.json"
         self.seed_path = Path(seed_path) if seed_path else root / "site" / "feed-images.json"
         self.images = {}
+        self.quality = {}
         self.load()
 
     def load(self):
@@ -312,6 +315,7 @@ class ImageCache:
             try:
                 data = json.loads(self.cache_path.read_text(encoding="utf-8"))
                 self.images = data.get("images", {})
+                self.quality = data.get("quality", {})
                 return
             except Exception:
                 self.images = {}
@@ -354,11 +358,13 @@ class ImageCache:
                 "total_cached": len(self.images),
             },
             "images": self.images,
+            "quality": {src: value for src, value in self.quality.items()
+                        if src in {entry.get("src") for entry in self.images.values()}},
         }
         write_atomic(out, self.cache_path)
 
 
-def resolve_story_image(story, cache=None, timeout=5, transport=None, allow_network=True):
+def _resolve_candidate_image(story, cache=None, timeout=5, transport=None, allow_network=True):
     """Pick image for a story in strict trust order:
 
     1. cached url image (fast, 0 network, verified)
@@ -436,6 +442,55 @@ def resolve_story_image(story, cache=None, timeout=5, transport=None, allow_netw
     return None
 
 
+def assess_image(image, cache=None, timeout=5, transport=None, allow_network=True):
+    """Separate image availability from its suitability as a card's lead."""
+    src, via = image.get("src", ""), image.get("via")
+    if via == "ai" and re.fullmatch(r"assets/ai/[\w-]+\.jpg", src):
+        return decision(True, "existing-ai-illustration")
+    if not is_safe_https_url(src):
+        return decision(False, "unsafe-source-url")
+    rejected = metadata_rejection(src, via)
+    if rejected:
+        return rejected
+    checked = cache.quality.get(src) if cache is not None else None
+    if (isinstance(checked, dict) and checked.get("version") == QUALITY_VERSION
+            and time.time() - checked.get("checked_at", 0) < NEGATIVE_TTL):
+        return checked
+    if not allow_network:
+        return decision(False, "inspection-pending")
+    try:
+        status, _, raw, final_url = _get_bytes(src, limit=MAX_IMAGE_BYTES + 1,
+                                              timeout=timeout, transport=transport)
+        if status != 200 or not is_safe_https_url(final_url):
+            result = decision(False, "image-download-failed")
+        else:
+            result = metadata_rejection(final_url, via) or classify_pixels(raw)
+    except Exception:
+        result = decision(False, "image-download-failed")
+    if cache is not None:
+        cache.quality[src] = dict(result, checked_at=time.time())
+    return result
+
+
+def resolve_story_image(story, cache=None, timeout=5, transport=None, allow_network=True):
+    """Only screened source pictures or existing AI illustrations may lead cards."""
+    candidate = story.get("image") or _resolve_candidate_image(
+        story, cache=cache, timeout=timeout, transport=transport, allow_network=allow_network)
+    if candidate:
+        quality = assess_image(candidate, cache=cache, timeout=timeout, transport=transport,
+                               allow_network=allow_network)
+        if cache is not None and story.get("url") and candidate.get("via") != "ai":
+            cache.set(story["url"], candidate)
+        if quality["keep"]:
+            return dict(candidate, quality=quality)
+    # A rejected source must not prevent reuse of a free, previously generated illustration.
+    if cache is not None and story.get("id"):
+        ai = cache.get(f"ai:{story['id']}")
+        if ai and assess_image(ai, allow_network=False)["keep"]:
+            return dict(ai, kind="photo", verified=True)
+    return None
+
+
 def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_seconds=20,
                                max_workers=16, timeout=4, transport=None, deadline=None,
                                ai_transport=None, ledger_path=None, site_root=None, now=None):
@@ -451,11 +506,19 @@ def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_
 
     # First pass: resolve from cache (0 network)
     for st in stories:
+        # Consumers must not resurrect rejected seed/feed/pattern images when
+        # screening deliberately leaves this story without an image.
+        st["image_screened"] = True
         img = resolve_story_image(st, cache=cache, timeout=timeout, transport=transport,
                                   allow_network=(transport is not None))
         if img:
             st["image"] = img
         else:
+            # Carried images are subject to the same gate; stale images must not
+            # bypass the AI/no-image fallback simply by already being attached.
+            previous_image = st.pop("image", None)
+            if previous_image and cache is not None and st.get("url"):
+                cache.set(st["url"], previous_image)
             unresolved_stories.append(st)
 
     # Second pass: concurrent live resolution with daemon threads and hard wall-clock deadline

@@ -4,13 +4,15 @@ import json
 import hashlib
 import os
 import re
+from copy import deepcopy
 from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 from urllib.error import HTTPError, URLError
 
 from radar.common import clean_text
-from radar.items import observation, relevant
+from radar.items import is_x_item, observation, publisher_identity, relevant
+from radar.headlines import compact_headline
 
 API_URL = "https://api.x.com/2/tweets/search/recent"
 MAX_RESULTS = 10
@@ -63,7 +65,7 @@ def build_query(accounts):
 
 def search_url(accounts, *, since_id=None, pagination_token=None):
     params = {"query": build_query(accounts), "max_results": MAX_RESULTS,
-              "tweet.fields": "author_id,created_at,entities,id,referenced_tweets,text"}
+              "tweet.fields": "author_id,created_at,entities,id,in_reply_to_user_id,referenced_tweets,text"}
     if since_id:
         params["since_id"] = since_id
     if pagination_token:
@@ -85,6 +87,8 @@ def parse_search(text, accounts, observed_at):
     items = []
     for post in data.get("data", []):
         if not isinstance(post, dict):
+            continue
+        if is_reply(post):
             continue
         account = by_id.get(str(post.get("author_id")))
         post_id, body = post.get("id"), post.get("text")
@@ -129,13 +133,51 @@ def _headline(text, limit=120):
     text = re.sub(r"https?://\S+", " ", text, flags=re.I)
     text = re.sub(r"\b(?:www\.)?t\.co/\S+", " ", text, flags=re.I)
     text = " ".join(text.split()).strip(" \t\r\n-–—|,;:")
-    if len(text) <= limit:
-        return text
-    sentence = re.search(r"[.!?](?=\s|$)", text[:limit + 1])
-    if sentence:
-        return text[:sentence.end()].rstrip()
-    boundary = text.rfind(" ", 0, limit)
-    return text[:boundary if boundary > 0 else limit].rstrip(" ,;:-") + "…"
+    return compact_headline(text, limit)
+
+
+def is_reply(item):
+    """Reject explicit reply metadata and legacy mention-led conversational posts.
+
+    Callers must establish X provenance before applying this to stored coverage.
+    Quotes and mentions inside an original post are not reply evidence.
+    """
+    if item.get("in_reply_to_user_id") or item.get("in_reply_to_status_id"):
+        return True
+    references = item.get("referenced_tweets")
+    if isinstance(references, list) and any(
+            isinstance(ref, dict) and ref.get("type") == "replied_to" for ref in references):
+        return True
+    return any(re.match(r"^\s*@[A-Za-z0-9_]+\b", item.get(key) or "")
+               for key in ("text", "title", "summary"))
+
+
+def without_reply_stories(stories):
+    """Remove retained replies too, preserving unrelated coverage and identities."""
+    result = []
+    for story in stories:
+        coverage = story.get("coverage") or []
+        kept = [item for item in coverage if not (is_x_item(item) and is_reply(item))]
+        if len(kept) == len(coverage):
+            result.append(story)
+            continue
+        if not kept:
+            continue
+        cleaned = deepcopy(story)
+        cleaned["coverage"] = deepcopy(kept)
+        cleaned["source_count"] = len({publisher_identity(item) or item.get("source") for item in kept})
+        removed = [item for item in coverage if item not in kept]
+        if any(item.get("url") == story.get("url") or item.get("title") == story.get("title") for item in removed):
+            primary = kept[0]
+            for key in ("title", "title_vi", "summary", "summary_vi", "url", "kind", "time_basis", "published_at"):
+                cleaned.pop(key, None)
+                if key in primary:
+                    cleaned[key] = primary[key]
+            # Images and derived headlines belonged to the removed representative.
+            for key in ("image", "headline", "headline_vi"):
+                cleaned.pop(key, None)
+        result.append(cleaned)
+    return result
 
 
 def response_state(text):

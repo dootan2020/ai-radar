@@ -117,6 +117,8 @@ class SitePayloadTests(unittest.TestCase):
                 translate.main(["--input", str(src), "--output", str(out), "--cache", str(Path(directory) / "cache.json")])
             full = json.loads(out.read_bytes())
             self.assertEqual(full["translation"]["status"], "failed")
+            self.assertNotIn("headline_vi", full["stories"][0])
+            self.assertEqual(full["stories"][0]["headline"], full["stories"][0]["title"])
             self.assertEqual(json.loads(site_payload.page_path(out).read_bytes()), site_payload.page_payload(full))
             self.assertEqual(src.read_bytes(), before)
 

@@ -147,6 +147,16 @@ class WorkflowTests(unittest.TestCase):
         self.assertLess(names.index("Translate headlines"), names.index("Upload collected source evidence"))
         self.assertLess(names.index("Translate headlines"), names.index("Upload Cloudflare Pages site artifact"))
 
+    def test_image_decoder_is_pinned_and_required_before_tests_and_collection(self):
+        steps = self.steps()
+        install = steps["Install image decoder"]
+        self.assertIn("python -m pip install --disable-pip-version-check Pillow==12.1.0", install)
+        self.assertNotIn("continue-on-error", install)
+        self.assertNotIn("if:", install)
+        names = list(steps)
+        self.assertLess(names.index("Install image decoder"), names.index("Run offline tests"))
+        self.assertLess(names.index("Install image decoder"), names.index("Fetch public sources"))
+
     def test_translation_has_a_time_limit_and_its_caches_survive_runs(self):
         steps = self.steps()
         translate = steps["Translate headlines"]
