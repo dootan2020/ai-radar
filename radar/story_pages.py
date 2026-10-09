@@ -147,7 +147,7 @@ def _page_fields(story, base_url):
     image_url = _http_url(image_src)
     if re.fullmatch(r"assets/ai/[\w-]+\.jpg", image_src):
         image_url = f"{base_url}/{image_src}"
-    if not image_url and not story.get("image_screened"):
+    if not image_url:
         image_url = f"{base_url}/og-image.png"
     publisher = (_text(first_coverage.get("publisher")) or _text(first_coverage.get("source")) or
                  urlsplit(original_url).hostname or "")

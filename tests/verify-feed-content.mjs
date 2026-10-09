@@ -63,20 +63,35 @@ const candidates = [
   {coverage:[{...story.coverage[0], media:[{type:'image', url:'https://rejected.example/media.jpg'}]}]},
   {url:'https://github.com/owner/project'},
   {url:'https://huggingface.co/owner/model'},
+  {url:'https://huggingface.co/datasets/owner/data'},
+  {url:'https://huggingface.co/spaces/owner/demo'},
   {url:'https://huggingface.co/papers/1234.5678'},
   {url:'https://youtube.com/watch?v=abcdefghijk'},
   {images:{[`ai:${story.id}`]:{src:'https://rejected.example/old-ai.jpg'}}},
   {url:'https://publisher.example/no-image', coverage:[]},
 ];
+const cardRenders = item => ['lead', 'wide', 'std'].map(size => feed.renderCard(item, size));
+const rankedRenders = item => [feed.renderHot([item]), feed.pickRow(item, 2)];
 for (const candidate of candidates) {
   const item = {...story, ...candidate};
   feed.configure([item], candidate.images);
-  assert.equal(feed.pickImage(item).kind, 'none');
-  for (const html of [feed.renderCard(item, 'lead'), feed.renderHot([item]), feed.pickRow(item, 2)]) {
+  assert.equal(feed.pickImage(item).kind, 'cover');
+  assert.equal(feed.pickImage(item).src, null);
+  for (const html of [...cardRenders(item), ...rankedRenders(item)]) {
     assert.ok(html.includes(story.headline_vi));
-    assert.ok(!html.includes('class="media-img"') && !html.includes('class="cover'));
+    assert.ok(html.includes('class="cover'), 'screened absence uses the factual cover');
     assert.ok(!html.includes('rejected.example') && !html.includes('<img'), 'screened story cannot borrow imagery');
   }
+  // The same candidates remain available to unscreened archives.
+  const legacy = {...item, image_screened:false};
+  feed.configure([legacy], candidate.images);
+  assert.equal(feed.pickImage(legacy).kind === 'cover', candidate.coverage?.length === 0);
+}
+
+for (const image of [null, {}, {src:''}]) {
+  const item = {...story, image};
+  feed.configure([item]);
+  assert.equal(feed.pickImage(item).kind, 'cover', 'empty approved image uses the factual cover');
 }
 
 for (const image of [
@@ -84,8 +99,12 @@ for (const image of [
   {src:'assets/ai/story.jpg', via:'ai', kind:'photo'},
 ]) {
   const item = {...story, image};
-  feed.configure([item]);
+  feed.configure([item], {[story.url]:{src:'https://rejected.example/seed.jpg'}});
   assert.equal(feed.pickImage(item).src, image.src);
+  for (const html of [...cardRenders(item), ...rankedRenders(item)]) {
+    assert.ok(html.includes(`src="${image.src}"`));
+    assert.ok(!html.includes('class="cover') && !html.includes('rejected.example'));
+  }
   const html = feed.renderCard(item, 'lead');
   assert.ok(html.includes(`src="${image.src}"`));
   assert.ok(html.includes('Translated') && html.includes(story.title));
@@ -98,28 +117,44 @@ const legacy = {...story, image_screened:false};
 feed.configure([legacy], {[story.url]:{src:'https://legacy.example/photo.jpg'}});
 assert.equal(feed.pickImage(legacy).src, 'https://legacy.example/photo.jpg');
 feed.configure([story]);
-assert.equal(feed.pickImage(story).kind, 'none');
+assert.equal(feed.pickImage(story).kind, 'cover');
 
 feed.watchPictures();
-const photoStory = {...story, image:{src:'https://approved.example/broken.jpg', via:'og:image'}};
-feed.configure([photoStory]);
-let removed = false, coverWritten = false, photoRemoved = false;
-const body = {className:'photo-body'};
-const card = {dataset:{id:story.id}, classList:{contains:() => true, remove:() => { photoRemoved = true; }}, querySelector:() => body};
-const image = new ImageElement();
-image.classList = {contains:cls => cls === 'media-img'};
-image.closest = selector => selector === '.feed-card' ? card : null;
-image.parentElement = {remove:() => { removed = true; }, set innerHTML(value) { coverWritten = true; }};
-errorHandler({target:image});
-assert.ok(removed && photoRemoved && !coverWritten);
-assert.equal(body.className, 'card-body');
-assert.equal(card.dataset.via, 'none');
-assert.equal(feed.pickImage(photoStory).kind, 'none', 'rerender must not resurrect a failed approved picture');
-const thumb = {dataset:{id:story.id}, innerHTML:'old image'};
-image.classList = {contains:() => false};
-image.closest = selector => selector === '.thumb' ? thumb : null;
-errorHandler({target:image});
-assert.equal(thumb.innerHTML, '');
+for (const image_screened of [true, false]) for (const via of ['og:image', 'ai']) {
+  const photoStory = {...story, image_screened, image:{src:'https://approved.example/broken.jpg', via}};
+  feed.configure([photoStory], {[story.url]:{src:'https://rejected.example/seed.jpg'}});
+  assert.equal(feed.pickImage(photoStory).src, photoStory.image.src);
+  let removed = false, photoRemoved = false;
+  const body = {className:'photo-body'};
+  const card = {dataset:{id:story.id}, classList:{contains:() => true, remove:() => { photoRemoved = true; }}, querySelector:() => body};
+  const image = new ImageElement();
+  image.classList = {contains:cls => cls === 'media-img'};
+  image.closest = selector => selector === '.feed-card' ? card : null;
+  image.parentElement = {remove:() => { removed = true; }, innerHTML:'old image and badge'};
+  errorHandler({target:image});
+  assert.ok(!removed && photoRemoved);
+  assert.ok(image.parentElement.innerHTML.includes('class="cover"'));
+  assert.ok(!image.parentElement.innerHTML.includes('<img') && !image.parentElement.innerHTML.includes('ai-badge'));
+  assert.equal(body.className, 'card-body');
+  assert.equal(card.dataset.via, 'cover');
+  assert.equal(feed.pickImage(photoStory).kind, 'cover', 'rerender must not resurrect a failed approved picture');
+  for (const html of [...cardRenders(photoStory), ...rankedRenders(photoStory)]) {
+    assert.ok(html.includes('class="cover') && !html.includes(photoStory.image.src) && !html.includes('rejected.example'));
+  }
+
+  // Exercise thumbnail failure independently, before any card has failed.
+  feed.configure([photoStory]);
+  assert.equal(feed.pickImage(photoStory).src, photoStory.image.src);
+  const thumb = {dataset:{id:story.id}, innerHTML:'old image'};
+  image.classList = {contains:() => false};
+  image.closest = selector => selector === '.thumb' ? thumb : null;
+  errorHandler({target:image});
+  assert.ok(thumb.innerHTML.includes('class="cover is-mini"'));
+  assert.equal(feed.pickImage(photoStory).kind, image_screened ? 'cover' : 'photo');
+  if (image_screened) for (const html of [...cardRenders(photoStory), ...rankedRenders(photoStory)]) {
+    assert.ok(html.includes('class="cover') && !html.includes(photoStory.image.src));
+  }
+}
 
 for (const options of [{isModal:true}, {isPage:true}]) {
   const html = renderStoryHTML(story, new Map(), options);

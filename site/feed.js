@@ -1,9 +1,9 @@
 /* ai·radar · the site root since 05/10 (owner, 05/10 ~01:30: the feed replaces the bento home).
    Owner, 04/10 20:28: flat like the Edge start page and Google Discover. No borders, no accent bars, every card led by
    a picture. Pictures are the ones each source publishes, or a labelled AI illustration from the pipeline; a story
-   screened without either gets no picture. Legacy unscreened stories retain their factual cover.
+   without either gets the site's factual cover.
 
-   One function decides every story picture: pickImage(). Screened stories use only the pipeline image; legacy
+   One function decides every story picture: pickImage(). Screened stories use the pipeline image, then the cover; legacy
    stories walk IMAGE_PROVIDERS before the cover fallback.
 
    "Đáng đọc" round (owner, 04/10 21:35): what to read first. One score per story from measured signals only (WORTH,
@@ -503,7 +503,7 @@ function choosePicks() {
    THE IMAGE SEAM. Every story picture comes from pickImage(st).
    Returns {src, via, kind}: kind 'photo' (an editorial picture: text may sit on it), 'graphic' (a generated card such
    as GitHub's social preview: text goes below it), or 'cover' (no published picture; drawn from data, see coverFor).
-   Screened stories use story.image or kind 'none'. IMAGE_PROVIDERS and covers serve unscreened archives only.
+   Screened stories use story.image or a factual cover. IMAGE_PROVIDERS serve unscreened archives only.
    ========================================================================== */
 const KIND_OF_VIA = { 'feed-media': 'photo', 'og:image': 'photo', 'linked-article': 'photo', 'youtube': 'photo',
   'github-social': 'graphic', 'hf-thumbnail': 'graphic', 'ai': 'photo' };
@@ -554,14 +554,12 @@ function pickImage(st) {
     r = { src: st.image.src, via: st.image.via, kind: st.image.kind || KIND_OF_VIA[st.image.via] || 'photo' };
   } else if (!st.image_screened) {
     for (const p of IMAGE_PROVIDERS) { r = p(st); if (r) break; }
-    if (!r) r = coverPick(st);
   }
-  if (!r) r = noImage();
+  if (!r) r = coverPick(st);
   PICKED.set(st.id, r);
   return r;
 }
 const coverPick = st => ({ src: null, via: 'cover', kind: 'cover', cover: coverFor(st) });
-const noImage = () => ({ src: null, via: 'none', kind: 'none' });
 
 /* ---------- covers: an image-sized picture made of the story's own facts ---------- */
 /* Source colours (OKLCH hue, chroma, lightness). Dark enough that white text passes contrast. */
@@ -592,12 +590,11 @@ const coverHTML = cv => `<div class="cover" style="${coverStyle(cv)}" aria-hidde
   <span class="cover-fig">${cv.num
     ? `<span class="cover-num num">${esc(cv.num)}</span><span class="cover-word">${esc(cv.word)}</span>`
     : `<span class="cover-word is-big">${esc(cv.word)}</span>`}</span></div>`;
-const miniCover = st => { if (st.image_screened) return ''; const cv = coverFor(st); return `<span class="cover is-mini" style="${coverStyle(cv)}" aria-hidden="true"><span class="cover-glyph">${esc(cv.glyph)}</span></span>`; };
+const miniCover = st => { const cv = coverFor(st); return `<span class="cover is-mini" style="${coverStyle(cv)}" aria-hidden="true"><span class="cover-glyph">${esc(cv.glyph)}</span></span>`; };
 
 /* ---------- story card ---------- */
 const DIMS = { lead: [1280, 720], wide: [1280, 720], std: [640, 360] };
 function mediaHTML(img, size) {
-  if (img.kind === 'none') return '';
   if (!img.src) return `<div class="media">${coverHTML(img.cover)}</div>`;
   const [w, h] = DIMS[size];
   const aiBadge = img.via === 'ai' ? `<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>` : '';
@@ -1994,7 +1991,7 @@ function route() {
   if (m) openStory(m[1]);
 }
 
-/* Screened pictures fail closed. Only legacy stories may use a factual cover. */
+/* Failed pictures use the site's factual cover without consulting external providers. */
 function watchPictures() {
   document.addEventListener('error', e => {
     const img = e.target;
@@ -2002,11 +1999,10 @@ function watchPictures() {
     if (img.classList.contains('media-img')) {
       const card = img.closest('.feed-card'), st = card && STORY_ANY.get(card.dataset.id);
       if (!st) return;
-      const cv = st.image_screened ? noImage() : coverPick(st);
+      const cv = coverPick(st);
       PICKED.set(st.id, cv);
       card.dataset.via = cv.via;
-      if (st.image_screened) img.parentElement.remove();
-      else img.parentElement.innerHTML = coverHTML(cv.cover);
+      img.parentElement.innerHTML = coverHTML(cv.cover);
       if (card.classList.contains('card-photo')) {
         card.classList.remove('card-photo');
         const b = card.querySelector('.photo-body'); if (b) b.className = 'card-body';
@@ -2014,7 +2010,12 @@ function watchPictures() {
       return;
     }
     const thumb = img.closest('.thumb');
-    if (thumb) { const st = STORY_ANY.get(thumb.dataset.id); thumb.innerHTML = st ? miniCover(st) : ''; return; }
+    if (thumb) {
+      const st = STORY_ANY.get(thumb.dataset.id);
+      if (st && st.image_screened) PICKED.set(st.id, coverPick(st));
+      thumb.innerHTML = st ? miniCover(st) : '';
+      return;
+    }
     if (img.closest('.tile-video, .repo-img, .model-img')) img.remove();
   }, true);
 }
