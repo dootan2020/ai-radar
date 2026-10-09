@@ -41,9 +41,11 @@ class Config:
     timeout: float = 45.0
 
     def __post_init__(self):
-        # These application safety ceilings cannot be raised by configuration.
-        for name, ceiling in (("max_requests", 1), ("daily_limit", 12),
-                              ("batch_size", 24), ("max_chars", 12000)):
+        # Paid batches are larger, but still bounded independently of configuration.
+        ceilings = (("max_requests", 2 if self.paid else 1),
+                    ("daily_limit", 240 if self.paid else 12),
+                    ("batch_size", 48 if self.paid else 24), ("max_chars", 12000))
+        for name, ceiling in ceilings:
             value = getattr(self, name)
             object.__setattr__(self, name, min(ceiling, max(0, int(value))))
         object.__setattr__(self, "timeout", min(45.0, max(0.0, float(self.timeout))))
@@ -51,6 +53,7 @@ class Config:
 
 def config_from_env(env=None):
     env = os.environ if env is None else env
+    paid = gemini_paid_budget.enabled(env)
     values = {}
     for name in ("max_requests", "daily_limit", "batch_size", "max_chars", "timeout"):
         raw = env.get("RADAR_GEMINI_" + name.upper())
@@ -59,9 +62,13 @@ def config_from_env(env=None):
                 values[name] = float(raw) if name == "timeout" else int(raw)
             except (TypeError, ValueError):
                 values[name] = 0  # invalid configuration disables, never expands the budget
+    if paid:
+        values.setdefault("max_requests", 2)
+        values.setdefault("daily_limit", 240)
+        values.setdefault("batch_size", 48)
     return Config(api_key=env.get("GEMINI_API_KEY", ""),
-                  confirmed=gemini_paid_budget.enabled(env) or env.get("RADAR_GEMINI_FREE_TIER_CONFIRMED") == "1",
-                  paid=gemini_paid_budget.enabled(env), **values)
+                  confirmed=paid or env.get("RADAR_GEMINI_FREE_TIER_CONFIRMED") == "1",
+                  paid=paid, **values)
 
 
 class ProviderError(Exception):

@@ -149,6 +149,31 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(stats["gemini"]["tokens"], 120)
         self.assertEqual(gemini_paid_budget.total_micros(paid_path, now=now), 450)
 
+    def test_paid_mode_translates_full_bounded_volume_in_two_batches(self):
+        paid_path = Path(self.tmp.name) / "paid-ledger.json"
+        now = time.time()
+        gemini_paid_budget.prepare(paid_path, paid=False, now=now, run_number=8)
+        gemini_paid_budget.prepare(paid_path, paid=True, now=now, run_number=9)
+        payload = {"stories": [story(f"English source item {index}") for index in range(50)]}
+
+        def translate_all(body, key, timeout):
+            self.calls.append((body, key, timeout))
+            return reply([{"id": item["id"], "text": "Bản dịch tiếng Việt"}
+                          for item in inputs(body)]) | {"usageMetadata": {"totalTokenCount": 100}}
+
+        config = gemini.Config(api_key="offline-sentinel", paid=True, confirmed=True,
+                               max_requests=2, batch_size=48)
+        with patch.dict(os.environ, {"GITHUB_RUN_NUMBER": "9", "RADAR_GEMINI_PAID_LEDGER": str(paid_path)}), \
+                patch.object(pipeline, "validated", side_effect=lambda source, output, names: output):
+            stats, _ = pipeline.translate_payload(payload, {}, {}, config=config,
+                                                   transport=translate_all,
+                                                   factory=lambda: (_ for _ in ()).throw(
+                                                       AssertionError("NLLB fallback was unnecessary")))
+        self.assertEqual(stats["gemini"]["requests"], 2)
+        self.assertEqual(stats["gemini"]["translated"], 50)
+        self.assertEqual(sum(len(inputs(call[0])) for call in self.calls), 50)
+        self.assertEqual(stats["provider"], "gemini")
+
     def test_monthly_cap_refuses_paid_translation_before_transport(self):
         paid_path = Path(self.tmp.name) / "paid-ledger.json"
         now = time.time()

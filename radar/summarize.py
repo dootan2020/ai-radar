@@ -135,6 +135,7 @@ def main(argv=None):
                 pass
 
     print(f"Summary {stats['status']}: {stats.get('summarized', 0)}/{stats.get('stories', 0)} stories summarized, "
+          f"{stats.get('requests', 0)} requests, "
           f"{stats.get('cache_hits', 0)} cache hits, {stats.get('pending', 0)} pending, "
           f"{stats.get('tokens', 0)} tokens"
           + (f" -- error: {stats['error']}" if stats.get("error") else ""))

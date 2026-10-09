@@ -42,6 +42,16 @@ class GeminiTests(unittest.TestCase):
             invalid = gemini.config_from_env({"RADAR_GEMINI_" + key.upper(): "invalid"})
             self.assertEqual(getattr(invalid, key), 0)
 
+    def test_paid_config_expands_only_paid_translation_ceilings(self):
+        free = gemini.config_from_env({})
+        paid = gemini.config_from_env({"RADAR_GEMINI_PAID_ENABLED": "1"})
+        self.assertEqual((free.max_requests, free.batch_size, free.daily_limit), (1, 24, 12))
+        self.assertEqual((paid.max_requests, paid.batch_size, paid.daily_limit), (2, 48, 240))
+        raised = gemini.config_from_env({"RADAR_GEMINI_PAID_ENABLED": "1",
+                                         "RADAR_GEMINI_MAX_REQUESTS": "99",
+                                         "RADAR_GEMINI_BATCH_SIZE": "99"})
+        self.assertEqual((raised.max_requests, raised.batch_size), (2, 48))
+
     def test_transport_uses_fixed_https_header_without_proxy_or_redirect(self):
         response = Mock()
         response.__enter__ = Mock(return_value=response)

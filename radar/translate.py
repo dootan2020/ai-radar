@@ -558,6 +558,10 @@ def main(argv=None):
           f"{stats.get('new_segments', 0)} new segments, {stats.get('pending', 0)} pending, "
           f"{stats.get('rejected', 0)} rejected in {stats.get('seconds', 0)}s"
           + (f" -- {stats['error']}" if stats.get("error") else ""))
+    gemini = stats.get("gemini") or {}
+    print(f"Gemini translation: {gemini.get('requests', 0)} requests, "
+          f"{gemini.get('translated', 0)} strings, {gemini.get('tokens', 0)} tokens"
+          + (f" -- {gemini['error']}" if gemini.get("error") else ""))
     sys.stdout.flush()
     if alive:
         os._exit(0)  # the model thread is stuck in native code; everything is written, so leave without joining it
