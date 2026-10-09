@@ -2,7 +2,7 @@
 
 from copy import deepcopy
 from datetime import datetime, timezone
-from radar.clustering import canonical_url
+from radar.clustering import canonical_url, cluster_items
 from radar.items import instant
 
 RETENTION_SECONDS = 7 * 86400  # 7 days = 604,800 seconds (168 hours)
@@ -64,6 +64,57 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
 
     published_generated_at = instant(published.get("generated_at"))
 
+    # Re-run complete-link clustering once over current coverage and eligible
+    # published coverage. This lets multiple previously split stories converge
+    # without running a full clustering pass for every published story.
+    reconciled_old_ids = set()
+    fresh_members = []
+    current_urls = set()
+    for story in fresh_stories:
+        urls = {_normalize_url(item.get("url")) for item in story.get("coverage", [])
+                if isinstance(item, dict)}
+        fresh_members.append((story, urls))
+        current_urls.update(urls)
+    old_members = []
+    old_items = []
+    for old_story in published_stories:
+        if not isinstance(old_story, dict) or not old_story.get("id"):
+            continue
+        age = _story_age_seconds(old_story, now_dt, published_generated_at)
+        if age is None or age > RETENTION_SECONDS or (age < -86400 and old_story.get("kind") != "event"
+                                                       and old_story.get("time_basis") != "scheduled"):
+            continue
+        rows = old_story.get("coverage")
+        if not isinstance(rows, list) or not rows:
+            continue
+        urls = {_normalize_url(item.get("url")) for item in rows if isinstance(item, dict)}
+        if not urls or urls & current_urls:
+            continue
+        old_members.append((old_story, rows, urls))
+        old_items.extend(rows)
+
+    if old_items:
+        all_fresh_items = [item for story, _ in fresh_members for item in story.get("coverage", [])]
+        for cluster in cluster_items(all_fresh_items + old_items, now):
+            cluster_urls = {_normalize_url(item.get("url")) for item in cluster.get("coverage", [])}
+            merged_fresh = [(story, urls) for story, urls in fresh_members if urls and urls.issubset(cluster_urls)]
+            absorbed = [(story, rows, urls) for story, rows, urls in old_members if urls.issubset(cluster_urls)]
+            if not merged_fresh or not absorbed:
+                continue
+            fresh_story = merged_fresh[0][0]
+            aliases = set(cluster.get("aliases") or [])
+            for old_story, _, _ in absorbed:
+                aliases.update(old_story.get("aliases") or [])
+                aliases.add(old_story["id"])
+                reconciled_old_ids.add(old_story["id"])
+            for duplicate_story, _ in merged_fresh[1:]:
+                aliases.update(duplicate_story.get("aliases") or [])
+                aliases.add(duplicate_story["id"])
+                fresh_stories.remove(duplicate_story)
+            cluster["aliases"] = sorted(aliases - {cluster["id"]})
+            fresh_story.clear()
+            fresh_story.update(cluster)
+
     # Index fresh stories for deduplication
     fresh_by_id = {}
     fresh_by_url = {}
@@ -97,6 +148,8 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
             continue
         old_id = old_story.get("id")
         if not old_id or not isinstance(old_id, str):
+            continue
+        if old_id in reconciled_old_ids:
             continue
 
         old_url = _normalize_url(old_story.get("url"))
