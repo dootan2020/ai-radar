@@ -45,6 +45,47 @@ class RankingTests(unittest.TestCase):
         self.assertIn("nguồn", story["hot_reason"])
         self.assertIsNone(story["hot_signals"]["engagement_percentile"])
         self.assertIsNone(story["hot_signals"]["velocity_per_hour"])
+        self.assertEqual(story["hot_signals"]["publisher_breadth_percentile"], 0.5)
+
+    def test_publisher_breadth_percentile_uses_average_ranks_for_ties(self):
+        items = [coverage("a", "https://example.org/a", title="Story A"),
+                 coverage("b", "https://example.org/a", title="Story A"),
+                 coverage("c", "https://example.org/b", title="Story B"),
+                 coverage("d", "https://example.org/b", title="Story B"),
+                 coverage("e", "https://example.org/c", title="Story C"),
+                 coverage("f", "https://example.org/c", title="Story C"),
+                 coverage("g", "https://example.org/c", title="Story C")]
+        breadth = {story["title"]: story["hot_signals"]["publisher_breadth_percentile"]
+                   for story in rank(items)}
+        self.assertEqual(breadth, {"Story A": 0.25, "Story B": 0.25, "Story C": 1.0})
+
+    def test_two_publishers_can_outrank_single_source_with_modest_votes(self):
+        items = hn_items(list(range(1, 11)))
+        items.extend([
+            coverage("press-a", "https://example.org/two-outlets", title="Two outlet story"),
+            coverage("press-b", "https://example.org/two-outlets", title="Two outlet story"),
+            coverage("press-a", "https://example.org/three-outlets", title="Three outlet story"),
+            coverage("press-b", "https://example.org/three-outlets", title="Three outlet story"),
+            coverage("press-c", "https://example.org/three-outlets", title="Three outlet story"),
+        ])
+        stories = rank(items)
+        two_outlets = next(story for story in stories if story["title"] == "Two outlet story")
+        modest_votes = next(story for story in stories if story["coverage"][0]["metrics"].get("points") == 9)
+        self.assertTrue(hot_eligible(two_outlets))
+        self.assertTrue(hot_eligible(modest_votes))
+        self.assertGreater(two_outlets["hot_score"], modest_votes["hot_score"])
+
+    def test_missing_engagement_and_velocity_are_dropped_from_equal_average(self):
+        stories = rank([coverage("a", "https://example.org/two", title="Two"),
+                        coverage("b", "https://example.org/two", title="Two"),
+                        coverage("c", "https://example.org/three", title="Three"),
+                        coverage("d", "https://example.org/three", title="Three"),
+                        coverage("e", "https://example.org/three", title="Three")])
+        story = next(story for story in stories if story["source_count"] == 2)
+        self.assertIsNone(story["hot_signals"]["engagement_percentile"])
+        self.assertIsNone(story["hot_signals"]["velocity_percentile"])
+        self.assertEqual(story["hot_score"], round(100 * story["hot_signals"]["freshness"] *
+                                                    story["hot_signals"]["publisher_breadth_percentile"], 3))
 
     def test_press_breadth_stays_rankable_through_a_seven_day_window(self):
         for days, expected in [(4, True), (8, False)]:
