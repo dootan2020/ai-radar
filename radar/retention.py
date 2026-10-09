@@ -3,6 +3,7 @@
 from copy import deepcopy
 from datetime import datetime, timezone
 from radar.clustering import canonical_url
+from radar.items import publisher_identity
 from radar.items import instant
 
 RETENTION_SECONDS = 7 * 86400  # 7 days = 604,800 seconds (168 hours)
@@ -47,7 +48,7 @@ def _preserve_published_coverage(fresh_story, old_story):
         if isinstance(item, dict) and item.get("id") and item["id"] not in fresh_ids:
             coverage.append(deepcopy(item))
             fresh_ids.add(item["id"])
-    publishers = {item.get("publisher") or item.get("source") for item in coverage
+    publishers = {publisher_identity(item) or item.get("source") for item in coverage
                   if isinstance(item, dict) and (item.get("publisher") or item.get("source"))}
     fresh_story["source_count"] = len(publishers)
 

@@ -6,7 +6,7 @@ from collections import defaultdict
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from radar.common import stable_id, web_url
-from radar.items import instant
+from radar.items import instant, publisher_identity
 
 STOPWORDS = set("a an the and or for to of in on with from by as at is are was were be been this that it its our your new now how what why when can will has have had about into more most first introducing announces announced releases released release launch launches launched over under after amid against due because part via says said report reports".split())
 TRACKING = {"fbclid", "gclid", "mc_cid", "mc_eid", "ref_src", "ref_url"}
@@ -333,7 +333,7 @@ def cluster_items(items, now, threshold=0.75):
                             summary=representative.get("summary", ""), published_at=representative.get("published_at"),
                             kind=representative.get("kind", "other"), time_basis=representative.get("time_basis", "unknown"),
                             primary_section=primary_section(group), groups=sorted({item.get("group", "lab") for item in group}),
-                            coverage=group, source_count=len({item["publisher"] for item in group}),
+                            coverage=group, source_count=len({publisher_identity(item) for item in group}),
                             aliases=aliases,
                             hot_score=None, hot_reason=None, hot_signals={}))
     return sorted(stories, key=lambda story: (story["published_at"] or "", story["id"]), reverse=True)

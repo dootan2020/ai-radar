@@ -14,6 +14,7 @@ from radar import x_collector
 from radar import x_paid_budget
 from radar import assembly
 from radar.clustering import cluster_items
+from radar.ranking import rank_stories
 from tests.test_v2_support import OBSERVED, coverage
 
 
@@ -38,6 +39,7 @@ class XCollectorTests(unittest.TestCase):
         self.assertIn("from:person_0", query["query"][0])
         self.assertIn("OR", query["query"][0])
         self.assertIn("-is:retweet", query["query"][0])
+        self.assertIn("-is:reply", query["query"][0])
         self.assertIn("GPT", query["query"][0])
         self.assertEqual(query["max_results"], ["10"])
         self.assertEqual(query["since_id"], ["123"])
@@ -52,6 +54,20 @@ class XCollectorTests(unittest.TestCase):
         self.assertEqual(post["url"], "https://x.com/leader_ai/status/1900000000000000001")
         self.assertEqual(post["group"], "forum")
         self.assertEqual(post["kind"], "social")
+        self.assertEqual(post["publisher"], "x:@leader_ai")
+        self.assertEqual(post["publisher_group"], "x")
+        self.assertEqual(post["summary"], post["title"])
+
+    def test_headline_removes_links_and_cuts_at_a_word_boundary(self):
+        post = {"author_id": "1001", "id": "1900000000000000004",
+                "created_at": "2026-10-09T10:00:00Z",
+                "text": "GPT " + "important " * 20 + "https://t.co/link"}
+        text = json.dumps({"data": [post]})
+        item = x_collector.parse_search(text, ACCOUNTS, OBSERVED)[0]
+        self.assertLessEqual(len(item["title"]), 121)
+        self.assertNotIn("https://", item["title"])
+        self.assertTrue(item["title"].endswith("…"))
+        self.assertIn("https://t.co/link", item["summary"])
 
     def test_response_state_uses_numeric_max_and_pagination_token(self):
         self.assertEqual(x_collector.response_state(self.fixture),
@@ -80,6 +96,19 @@ class XCollectorTests(unittest.TestCase):
         self.assertEqual(len(stories), 1)
         self.assertEqual({item["source"] for item in stories[0]["coverage"]},
                          {post["source"], "press"})
+
+    def test_x_accounts_share_one_publisher_identity(self):
+        items = [coverage(source="x-" + account["handle"], publisher="x:@" + account["handle"],
+                          publisher_group="x", group="forum", kind="social",
+                          url="https://x.com/shared/story", title="GPT announces important feature")
+                 for account in ACCOUNTS]
+        stories = cluster_items(items, datetime.fromisoformat(OBSERVED.replace("Z", "+00:00")))
+        self.assertEqual({item["publisher"] for item in stories[0]["coverage"]},
+                         {"x:@leader_ai", "x:@product_ai"})
+        self.assertEqual(stories[0]["source_count"], 1)
+        rank_stories(stories, datetime.fromisoformat(OBSERVED.replace("Z", "+00:00")))
+        self.assertEqual(stories[0]["hot_signals"]["source_count"], 1)
+        self.assertIsNone(stories[0]["hot_signals"]["spread"])
 
     def test_collect_reserves_before_request_settles_returned_posts_and_keeps_page_cursor(self):
         with tempfile.TemporaryDirectory() as temporary:
