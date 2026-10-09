@@ -19,8 +19,8 @@ from tests.test_v2_support import OBSERVED, coverage
 
 
 ACCOUNTS = [
-    {"id": "1001", "handle": "leader_ai", "name": "AI Leader", "role": "leader"},
-    {"id": "1002", "handle": "product_ai", "name": "Product Lead", "role": "product"},
+    {"id": "1001", "handle": "leader_ai", "name": "AI Leader", "role": "leader", "entity": "person:leader-ai"},
+    {"id": "1002", "handle": "product_ai", "name": "Product Lead", "role": "product", "entity": "person:product-ai"},
 ]
 
 
@@ -58,6 +58,7 @@ class XCollectorTests(unittest.TestCase):
         self.assertEqual(post["kind"], "social")
         self.assertEqual(post["publisher"], "x:@leader_ai")
         self.assertEqual(post["publisher_group"], "x")
+        self.assertEqual(post["entity"], "person:leader-ai")
         self.assertEqual(post["summary"], post["title"])
 
     def test_search_retains_canonical_link_and_quoted_post_identity(self):

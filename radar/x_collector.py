@@ -37,11 +37,12 @@ def load_accounts(path):
         raise ValueError("X account roster is unavailable or invalid")
     handles, ids = set(), set()
     for account in data["accounts"]:
-        if (not isinstance(account, dict) or set(account) != {"id", "handle", "name", "role"}
+        if (not isinstance(account, dict) or set(account) != {"id", "handle", "name", "role", "entity"}
                 or not isinstance(account["id"], str) or not re.fullmatch(r"[0-9]{1,20}", account["id"])
                 or not isinstance(account["handle"], str) or not re.fullmatch(r"[A-Za-z0-9_]{1,15}", account["handle"])
                 or not isinstance(account["name"], str) or not clean_text(account["name"], 120)
-                or not isinstance(account["role"], str) or account["role"] not in ACCOUNT_ROLES):
+                or not isinstance(account["role"], str) or account["role"] not in ACCOUNT_ROLES
+                or not isinstance(account["entity"], str) or not account["entity"].strip()):
             raise ValueError("X account roster is unavailable or invalid")
         if account["id"] in ids or account["handle"].casefold() in handles:
             raise ValueError("X account roster is unavailable or invalid")
@@ -97,7 +98,7 @@ def parse_search(text, accounts, observed_at):
             continue
         handle = account["handle"]
         source = {"id": "x-" + handle.casefold(), "publisher": "x:@" + handle,
-                  "publisher_group": "x",
+                  "publisher_group": "x", "entity": account.get("entity"),
                   "group": "forum", "kind": "json"}
         item = observation(source, title, f"https://x.com/{handle}/status/{post_id}",
                            post.get("created_at"), observed_at, kind="social", summary=text,
@@ -359,7 +360,7 @@ def _source(account):
     return {"id": "x-" + handle.casefold(),
             "name": f"{clean_text(account.get('name'), 120)} (@{handle})",
             "url": "https://x.com/" + handle, "kind": "json", "group": "forum",
-            "publisher": "x:@" + handle, "lab": ""}
+            "publisher": "x:@" + handle, "entity": account.get("entity"), "lab": ""}
 
 
 def _source_result(source, count=0, error=None):
