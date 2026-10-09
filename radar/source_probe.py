@@ -311,6 +311,20 @@ def parse_json_feed(text, candidate):
         return None
 
     items = []
+    if isinstance(data, dict) and isinstance(data.get("feed"), list) and candidate.get("id", "").startswith("bluesky-"):
+        for row in data["feed"]:
+            post = row.get("post", {}) if isinstance(row, dict) else {}
+            record = post.get("record", {}) if isinstance(post, dict) else {}
+            author = post.get("author", {})
+            handle = candidate.get("url", "").split("actor=", 1)[-1].split("&", 1)[0]
+            rkey = str(post.get("uri", "")).rsplit("/", 1)[-1]
+            title = clean_text(record.get("text") or "")
+            if title and rkey and author.get("handle") == handle:
+                items.append({"title": title, "url": "https://bsky.app/profile/" + handle + "/post/" + rkey,
+                              "published_at": iso_date(record.get("createdAt") or post.get("indexedAt")),
+                              "summary": title, "kind": classify(title, title)})
+        return items
+
     # 1. Standard JSON Feed (https://jsonfeed.org/version/1.1)
     if isinstance(data, dict) and "items" in data and isinstance(data["items"], list):
         for raw in data["items"]:

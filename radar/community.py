@@ -1,9 +1,40 @@
 """Public community observations preserve both target and discussion URLs."""
 
 import json
+import xml.etree.ElementTree as ET
 
 from radar.common import clean_text, web_url
 from radar.items import observation, relevant
+
+
+def parse_reddit(text, source, observed_at):
+    """Parse Reddit's public top-post Atom feed; retain only its highest ranks."""
+    root = ET.fromstring(text)
+    if root.tag.rsplit("}", 1)[-1] != "feed":
+        raise ValueError("Expected Reddit Atom feed")
+    entries = [node for node in root if node.tag.rsplit("}", 1)[-1] == "entry"]
+    result, usable = [], 0
+    limit = source.get("rank_limit", 10)
+    for rank, entry in enumerate(entries, 1):
+        title = ""; url = ""; summary = ""; published = ""
+        for child in entry:
+            name = child.tag.rsplit("}", 1)[-1]
+            if name == "title": title = clean_text("".join(child.itertext()), 500)
+            elif name == "link" and child.get("rel", "alternate") == "alternate": url = child.get("href", "")
+            elif name == "content": summary = clean_text("".join(child.itertext()))
+            elif name == "published": published = "".join(child.itertext())
+        if not title or not web_url(url):
+            continue
+        usable += 1
+        if rank > limit or not relevant(title, summary):
+            continue
+        item = observation(source, title, url, published, observed_at, kind="forum", summary=summary,
+                           discussion_url=url, metrics={"rank": rank})
+        if item:
+            result.append(item)
+    if entries and not usable:
+        raise ValueError("Reddit Atom entries have no usable post title and URL")
+    return result
 
 
 def parse_hn(text, source, observed_at):

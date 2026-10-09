@@ -432,6 +432,15 @@ class SourceProbeDeduplicationTests(unittest.TestCase):
 
 
 class SourceProbeJsonFeedTests(unittest.TestCase):
+    def test_bluesky_author_feed_response_is_probeable(self):
+        fixture_path = Path(__file__).parent / "fixtures" / "bluesky-author-feed.json"
+        candidate = {"id": "bluesky-simonwillison", "name": "Simon Willison",
+                     "url": "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=simonwillison.net&limit=100",
+                     "label": "cong-dong"}
+        items = parse_json_feed(fixture_path.read_text(encoding="utf-8"), candidate)
+        self.assertEqual(len(items), 2)
+        self.assertEqual(items[0]["url"], "https://bsky.app/profile/simonwillison.net/post/3lxyz")
+
     def test_federal_register_json_api_parsing(self):
         candidate = {
             "id": "federal-register-ai",
@@ -460,9 +469,9 @@ class SourceProbeJsonFeedTests(unittest.TestCase):
 
 
 class SourceProbeCandidateDataTests(unittest.TestCase):
-    def test_candidate_sources_json_has_all_41_candidates(self):
+    def test_candidate_sources_json_has_all_57_candidates(self):
         candidates = load_candidates()
-        self.assertEqual(len(candidates), 41)
+        self.assertEqual(len(candidates), 57)
 
         required_keys = {"id", "name", "url", "label", "circle_id", "circle_name"}
         seen_ids = set()

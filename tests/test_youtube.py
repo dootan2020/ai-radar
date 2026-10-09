@@ -410,8 +410,7 @@ class YouTubeCatalogContinuityTests(unittest.TestCase):
         self.assertEqual(dwarkesh_entry[0], "dwarkesh-video")
         self.assertEqual(dwarkesh_entry[2], "podcast")
         self.assertEqual(dwarkesh_entry[3], "dwarkesh")
-        self.assertTrue(dwarkesh_entry[4].startswith("https://www.googleapis.com/youtube/v3/playlistItems"))
-        self.assertIn("UUXl4i9dYBrFOabk0xGmbkRA", dwarkesh_entry[4])
+        self.assertEqual(dwarkesh_entry[4], "https://www.youtube.com/feeds/videos.xml?channel_id=UCXl4i9dYBrFOabk0xGmbkRA")
 
 
 if __name__ == "__main__":
