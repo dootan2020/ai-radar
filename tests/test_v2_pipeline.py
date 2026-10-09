@@ -5,11 +5,12 @@ import tempfile
 import threading
 import time
 import unittest
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from unittest.mock import patch
 from urllib.error import HTTPError
 
-from radar import catalog, feeds, pipeline, youtube
+from radar import catalog, feeds, huggingface, pipeline, youtube
 from radar.transport import ResponseText
 if __package__:
     from .test_v2_events import event
@@ -128,6 +129,67 @@ class PipelineV2Tests(unittest.TestCase):
         self.assertEqual(len(published_carried["stories"]), 1)
         self.assertEqual(published_carried["stories"][0]["id"], story_id)
         self.assertTrue(published_carried["stories"][0].get("carried"))
+
+    def test_merged_event_coverage_survives_three_consecutive_builds(self):
+        entries = {
+            "techcrunch": [
+                ("Reflection debuts Beam, an open-weight AI model to rival Chinese models at lower compute cost",
+                 "https://techcrunch.example/reflection", "Mon, 05 Oct 2026 19:33:53 GMT"),
+                ("Meta’s Muse launches on iPad just a month after its mobile debut",
+                 "https://techcrunch.example/muse-ipad", "Wed, 07 Oct 2026 18:30:57 GMT"),
+            ],
+            "semafor": [
+                ("Reflection AI unveils an open-source Western answer to Chinese labs",
+                 "https://semafor.example/reflection", "Mon, 05 Oct 2026 19:01:43 GMT"),
+            ],
+            "bloomberg": [
+                ("Nvidia-Backed Reflection Unveils Open AI Model, Taking on China",
+                 "https://bloomberg.example/reflection", "Mon, 05 Oct 2026 19:00:00 GMT"),
+            ],
+            "the-verge": [
+                ("Muse launches on the iPad", "https://verge.example/muse-ipad",
+                 "Wed, 07 Oct 2026 15:37:23 GMT"),
+            ],
+        }
+
+        def feed_for(outlet):
+            rows = "".join(
+                f"<item><title>{title}</title><link>{url}</link><pubDate>{date}</pubDate></item>"
+                for title, url, date in entries[outlet]
+            )
+            return f"<rss><channel>{rows}</channel></rss>"
+
+        with patch.object(feeds, "SOURCES", []), patch.object(huggingface, "SOURCES", []):
+            published = None
+            now = datetime(2026, 10, 9, 12, tzinfo=timezone.utc)
+            for run, outlets in enumerate((
+                ("techcrunch", "semafor", "bloomberg", "the-verge"),
+                ("techcrunch", "semafor"),
+                ("bloomberg", "the-verge"),
+            ), start=1):
+                self.sources = [source("outlet-" + outlet, publisher=outlet, lab=outlet)
+                                for outlet in outlets]
+                feeds_by_url = {row["url"]: feed_for(row["id"].removeprefix("outlet-"))
+                                for row in self.sources}
+                def fetch(url, **kwargs):
+                    if url in feeds_by_url:
+                        return feeds_by_url[url]
+                    return self.fetch(url, **kwargs)
+                result = pipeline.build_v2(
+                    fetch=fetch, now=now + (run - 1) * timedelta(minutes=20),
+                    events_path=self.events, published=published, resolve_images=False)
+                published = result
+                reflection_stories = [story for story in result["stories"]
+                                      if any("/reflection" in item["url"] for item in story["coverage"])]
+                muse_stories = [story for story in result["stories"]
+                                if any("/muse-ipad" in item["url"] for item in story["coverage"])]
+                self.assertEqual(len(reflection_stories), 1, f"Reflection split on run {run}")
+                self.assertEqual(len(muse_stories), 1, f"Muse split on run {run}")
+                reflection, muse = reflection_stories[0], muse_stories[0]
+                self.assertEqual(len(reflection["coverage"]), 3, f"Reflection coverage lost on run {run}")
+                self.assertEqual(len(muse["coverage"]), 2, f"Muse coverage lost on run {run}")
+                self.assertEqual(reflection["source_count"], 3)
+                self.assertEqual(muse["source_count"], 2)
 
 
 
