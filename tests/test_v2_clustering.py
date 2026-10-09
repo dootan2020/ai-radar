@@ -310,12 +310,10 @@ class ClusterTests(unittest.TestCase):
 
     def test_reviewed_false_clusters_do_not_survive_as_complete_merges(self):
         root = Path(__file__).resolve().parents[1]
-        snapshot = json.loads((root / "plans" / "reports" / "radar-ui-live.json").read_text(encoding="utf-8"))
-        reviewed = json.loads((root / "plans" / "reports" / "all_clusters_labeled.json").read_text(encoding="utf-8"))
-        raw = list({(item.get("source"), item.get("id")): item
-                    for story in snapshot["stories"] for item in story.get("coverage", [])}.values())
+        fixture = json.loads((root / "tests" / "fixtures" / "reviewed-cluster-members.json").read_text(encoding="utf-8"))
+        reviewed = fixture["reviewed_clusters"]
         owner = {}
-        for index, story in enumerate(cluster_items(raw, snapshot["generated_at"])):
+        for index, story in enumerate(cluster_items(fixture["items"], fixture["generated_at"])):
             for item in story["coverage"]:
                 owner[(item.get("publisher"), item.get("title"))] = index
 
