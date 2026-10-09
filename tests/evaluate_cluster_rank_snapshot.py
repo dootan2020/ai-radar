@@ -10,7 +10,8 @@ from radar.clustering import cluster_items
 from radar.ranking import rank_stories
 
 
-SNAPSHOT = Path(__file__).resolve().parents[1] / "plans" / "reports" / "radar-ui-live.json"
+SNAPSHOTS = [Path(__file__).resolve().parents[1] / "plans" / "reports" / name
+             for name in ("radar-ui-live.json", "radar-ui-fresh.json")]
 
 
 def _ranked(stories):
@@ -39,6 +40,10 @@ def _measurement(stories):
                 ranked, lambda story: any("muse" in item.get("title", "").lower()
                                           and "ipad" in item.get("title", "").lower()
                                           for item in story.get("coverage", []))),
+            "DeepSeek 4.1 Flash HN": _target_rank(
+                ranked, lambda story: any("why isn't the industry freaking out about deepseek 4.1 flash"
+                                          in item.get("title", "").lower()
+                                          for item in story.get("coverage", []))),
         },
         "top_20": [{"rank": index, "title": story["title"], "hot_score": story["hot_score"]}
                    for index, story in enumerate(ranked[:20], 1)],
@@ -46,17 +51,19 @@ def _measurement(stories):
 
 
 def main():
-    snapshot = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
-    before = snapshot["stories"]
-    observations = {}
-    for story in before:
-        for item in story.get("coverage", []):
-            observations[(item.get("source"), item.get("id"))] = item
-    raw_items = list(observations.values())
-    now = snapshot["generated_at"]
-    after = rank_stories(cluster_items(raw_items, now), now)
-    print(json.dumps({"before": _measurement(before), "after": _measurement(after)},
-                     ensure_ascii=False, indent=2))
+    results = {}
+    for path in SNAPSHOTS:
+        snapshot = json.loads(path.read_text(encoding="utf-8"))
+        before = snapshot["stories"]
+        observations = {}
+        for story in before:
+            for item in story.get("coverage", []):
+                observations[(item.get("source"), item.get("id"))] = item
+        raw_items = list(observations.values())
+        now = snapshot["generated_at"]
+        after = rank_stories(cluster_items(raw_items, now), now)
+        results[path.name] = {"before": _measurement(before), "after": _measurement(after)}
+    print(json.dumps(results, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

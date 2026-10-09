@@ -156,6 +156,10 @@ def _both_announce(title_a, title_b):
     return bool(ANNOUNCEMENT_RE.search(title_a) and ANNOUNCEMENT_RE.search(title_b))
 
 
+def _is_paper_item(item):
+    return item.get("kind") == "paper" or item.get("source") == "hf-papers"
+
+
 def _cluster_entities(items):
     publishers = defaultdict(set)
     interior_uses = set()
@@ -202,8 +206,13 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
         (b_raw & formats and not a_raw & formats and excluded.search(left.get("title", "")))):
         return False
 
+    # Research papers and non-paper coverage represent different item types;
+    # title overlap alone cannot establish that they are the same story.
+    if _is_paper_item(left) != _is_paper_item(right):
+        return False
+
     # Two papers or two repos from different canonical urls should not cross-merge on titles
-    if left.get("kind") == "paper" and right.get("kind") == "paper":
+    if _is_paper_item(left) and _is_paper_item(right):
         return False
     if left.get("kind") == "repository" and right.get("kind") == "repository":
         return False

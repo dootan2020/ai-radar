@@ -61,6 +61,47 @@ class ClusterTests(unittest.TestCase):
         self.assertEqual({item["url"] for item in stories[0]["coverage"]},
                          {item["url"] for item in items})
 
+    def test_research_paper_does_not_merge_with_non_paper_on_shared_phrase(self):
+        paper = coverage("hf-papers", "https://arxiv.org/abs/2610.05750",
+                         publisher="huggingface",
+                         title="Beyond Semantic Similarity: Performance and Costs of Agentic Retrieval for Complex Tasks")
+        blog = coverage("amazon", "https://aws.amazon.com/blogs/agentic-retrieval",
+                        publisher="amazon", kind="other",
+                        title="Agentic retrieval with LangChain and Amazon Bedrock Knowledge Bases")
+        self.assertEqual(len(cluster_items([paper, blog], NOW)), 2)
+
+    def test_research_paper_does_not_merge_with_non_paper_jev_coverage(self):
+        news = coverage("hacker-news", "https://news.ycombinator.com/item?id=jev",
+                        publisher="hacker-news", kind="other",
+                        title="Decision models like Jev don't beat LLM-as-a-judge or traditional classifiers")
+        paper = coverage("hf-papers", "https://arxiv.org/abs/2610.02076",
+                         publisher="huggingface",
+                         title="LLM-as-Jev: LLMs Are Already Jev-Style Decision Models -- When and How to Fine-Tune Them")
+        self.assertEqual(len(cluster_items([news, paper], NOW)), 2)
+
+    def test_paper_and_non_paper_with_same_canonical_url_still_merge(self):
+        url = "https://example.org/research"
+        paper = coverage("huggingface", url, publisher="huggingface", kind="paper", title="Research paper")
+        mirror = coverage("press", url + "?utm_source=press", publisher="press", kind="other", title="Press coverage")
+        stories = cluster_items([paper, mirror], NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 2)
+
+    def test_reviewed_non_paper_doubtful_clusters_keep_their_existing_matches(self):
+        examples = [
+            (("wired", "OpenAI Wants Its New Agent to Run Your Life. Mine Said It Loved Me"),
+             ("the-verge", "Can you trust Meta’s Muse or OpenAI’s Dots to run your life?")),
+            (("hacker-news", "South Korea says AI agents appear to have been used to hack the country's banks"),
+             ("semafor", "Companies in Japan, South Korea hit by major cyberattacks")),
+        ]
+        for index, (left, right) in enumerate(examples):
+            with self.subTest(index=index):
+                items = [coverage(left[0], f"https://left.example/{index}", publisher=left[0],
+                                  title=left[1]),
+                         coverage(right[0], f"https://right.example/{index}", publisher=right[0],
+                                  title=right[1])]
+                self.assertEqual(len(cluster_items(items, NOW)), 1)
+
     def test_conflicting_versions_do_not_merge_despite_shared_words(self):
         items = [coverage(title="Introducing Orion 5.1 neural reasoning architecture released today"),
                  coverage("b", "https://other.example/story",
@@ -297,7 +338,7 @@ class ClusterTests(unittest.TestCase):
                 "merge" if None not in cluster_ids and len(cluster_ids) == 1 else "split")
         self.assertEqual(doubtful_decisions, {
             17: "split", 26: "split", 39: "split", 56: "split",
-            69: "split", 78: "merge", 91: "split", 95: "split",
+            69: "split", 78: "split", 91: "split", 95: "split",
         })
 
     def test_entity_with_single_shared_specific_token_stays_apart(self):
