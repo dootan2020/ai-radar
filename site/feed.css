@@ -30,9 +30,10 @@
   --card-ink-on-photo: var(--color-on-media);
   --card-ink-on-photo-2: var(--gray-90);
   --photo-scrim: linear-gradient(to top,
-      oklch(0.13 0.006 var(--hue) / 0.90) 0%,
-      oklch(0.13 0.006 var(--hue) / 0.62) 36%,
-      oklch(0.13 0.006 var(--hue) / 0) 70%);
+      oklch(0.10 0.006 var(--hue) / 0.96) 0%,
+      oklch(0.10 0.006 var(--hue) / 0.88) 55%,
+      oklch(0.10 0.006 var(--hue) / 0.65) 80%,
+      oklch(0.10 0.006 var(--hue) / 0) 100%);
   --lead-min-h: clamp(480px, 32vw + 140px, 580px);
   --wide-min-h: 340px;
   --cover-glyph: 9rem;                      /* the ghost monogram on a cover */
@@ -310,13 +311,13 @@ ul, ol { padding: 0; list-style: none; }
 
 .card-body { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--feed-pad) var(--feed-pad) var(--space-12); flex: 1; }
 
-.src-row { display: flex; align-items: center; gap: var(--space-8); min-width: 0; font-size: var(--text-meta); color: var(--color-ink-3); }
-.src-name { font-weight: var(--weight-semibold); color: var(--color-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.src-row time { white-space: nowrap; flex: none; }
-.src-row .new-tag { color: var(--color-accent); font-weight: var(--weight-semibold); flex: none; }
+.src-row { display: flex; align-items: center; gap: var(--space-8); min-width: 0; font-size: var(--text-micro); color: var(--color-ink-3); }
+.src-name { font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.src-row time { font-size: var(--text-micro); font-weight: var(--weight-regular); color: var(--color-ink-3); white-space: nowrap; flex: none; }
+.src-row .new-tag { color: var(--color-accent); font-weight: var(--weight-medium); flex: none; }
 .src-av { display: flex; flex: none; }
 
-.card-title { font-size: var(--text-title); font-weight: var(--weight-bold); line-height: var(--leading-snug); letter-spacing: -0.01em; text-wrap: pretty; overflow-wrap: anywhere; }
+.card-title { font-size: var(--text-title); font-weight: var(--weight-bold); line-height: var(--leading-snug); letter-spacing: -0.015em; text-wrap: pretty; overflow-wrap: anywhere; color: var(--color-ink); }
 .card-std .card-title { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .story-link { display: inline-block; min-height: 40px; transition: color var(--motion-state) var(--ease-flow); }
 .card-std .story-link { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: 40px; }
@@ -326,19 +327,19 @@ ul, ol { padding: 0; list-style: none; }
 .feed-card:not(.card-photo):hover .story-link { color: var(--color-accent); }
 
 /* The original headline under a machine translation: chip, gap, text. Never glued. */
-.card-orig { display: flex; align-items: baseline; gap: var(--mt-gap); min-width: 0; font-size: var(--text-micro); color: var(--color-ink-3); line-height: var(--leading-snug); }
-.card-orig .orig-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.card-orig { display: flex; align-items: center; gap: var(--mt-gap); min-width: 0; font-size: var(--text-sub); color: var(--color-ink-3); line-height: var(--leading-snug); }
+.card-orig .orig-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; font-weight: var(--weight-regular); font-size: var(--text-sub); }
 .mt {
   flex: none; padding: 1px var(--space-8); border-radius: var(--radius-full);
   background: var(--color-mt-bg); color: var(--color-mt-ink);
-  font-size: var(--text-micro); font-weight: var(--weight-semibold); line-height: 1.5;
+  font-size: var(--text-micro); font-weight: var(--weight-medium); line-height: 1.5;
 }
-.card-sum { font-size: var(--text-small); color: var(--color-ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-sum { font-size: var(--text-sub); color: var(--color-ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: var(--leading-body); }
 
-.card-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); padding-top: var(--space-4); min-height: 36px; }
-.metric { display: inline-flex; align-items: center; gap: var(--space-8); font-size: var(--text-meta); color: var(--color-ink-3); min-width: 0; max-width: 100%; white-space: nowrap; overflow: hidden; }
+.card-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); padding-top: var(--space-8); min-height: 36px; }
+.metric { display: inline-flex; align-items: center; gap: var(--space-8); font-size: var(--text-micro); color: var(--color-ink-3); min-width: 0; max-width: 100%; white-space: nowrap; overflow: hidden; }
 .metric > span:first-child { white-space: nowrap; flex-shrink: 0; }
-.metric b { color: var(--color-ink-2); font-weight: var(--weight-semibold); }
+.metric b { color: var(--color-ink-2); font-weight: var(--weight-bold); }
 .card-actions { display: flex; align-items: center; gap: var(--space-4); position: relative; z-index: 2; flex: none; }
 .act {
   width: 36px; height: 36px; border-radius: var(--radius-full); display: grid; place-items: center;
@@ -364,11 +365,15 @@ ul, ol { padding: 0; list-style: none; }
   padding: var(--feed-pad-photo); color: var(--card-ink-on-photo); z-index: 1; min-width: 0;
 }
 .card-photo .src-row, .card-photo .metric, .card-photo .card-orig { color: var(--card-ink-on-photo-2); }
+.card-photo .src-row time { color: var(--card-ink-on-photo-2); }
 .card-photo .src-name, .card-photo .metric b { color: var(--card-ink-on-photo); }
+.card-photo .card-title, .card-photo .story-link { color: var(--card-ink-on-photo); }
+.card-photo .card-orig .orig-text { color: var(--card-ink-on-photo-2); }
 .card-photo .act { color: var(--card-ink-on-photo-2); }
 .card-photo .act:hover { background: oklch(0.99 0 0 / 0.16); color: var(--card-ink-on-photo); }
 .card-photo .card-sum { color: var(--card-ink-on-photo-2); }
-.card-photo:hover .story-link { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.card-photo:hover .story-link { color: var(--card-ink-on-photo); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.card-photo.is-read .card-title, .card-photo.is-read .story-link { color: var(--card-ink-on-photo-2); }
 
 .card-lead { min-height: var(--lead-min-h); }
 .card-lead .photo-body { padding: var(--feed-pad-lead); gap: var(--space-12); }
@@ -655,26 +660,29 @@ ul, ol { padding: 0; list-style: none; }
 .card-photo .pick-n { color: var(--card-ink-on-photo); }
 
 /* "Vì sao nên đọc" under the lead's headline */
-.why-line { font-size: var(--text-small); color: var(--color-ink-2); }
-.why-line b { color: var(--color-ink); font-weight: var(--weight-semibold); }
+.why-line { font-size: var(--text-sub); color: var(--color-ink-2); line-height: var(--leading-body); }
+.why-line b { color: var(--color-ink); font-weight: var(--weight-bold); }
+.pick-note { font-size: var(--text-sub); color: var(--color-ink-2); line-height: var(--leading-body); }
 .card-photo .why-line, .card-photo .pick-note { color: var(--card-ink-on-photo-2); }
 .card-photo .why-line b { color: var(--card-ink-on-photo); }
 /* On the block's photo lead the why line replaces the summary: the type stays in the darkest part of the scrim. */
 .picks .card-photo .card-sum { display: none; }
 .picks .card-photo > .media::after {
   background: linear-gradient(to top,
-    oklch(0.13 0.006 var(--hue) / 0.92) 0%,
-    oklch(0.13 0.006 var(--hue) / 0.72) 48%,
-    oklch(0.13 0.006 var(--hue) / 0) 88%);
+    oklch(0.10 0.006 var(--hue) / 0.96) 0%,
+    oklch(0.10 0.006 var(--hue) / 0.88) 50%,
+    oklch(0.10 0.006 var(--hue) / 0.60) 80%,
+    oklch(0.10 0.006 var(--hue) / 0) 100%);
 }
 
 /* Reason chip: top-left on the card's picture. Not a control, so clicks fall through to the card link. */
 .why-tag {
   position: absolute; top: var(--space-12); left: var(--space-12); z-index: 2; pointer-events: none;
   max-width: calc(100% - var(--space-24)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  padding: var(--space-4) var(--space-8); border-radius: var(--radius-8);
+  padding: 3px var(--space-10); border-radius: var(--radius-full);
   background: var(--tag-bg); color: var(--color-on-media);
-  font-size: var(--text-micro); font-weight: var(--weight-semibold); line-height: var(--leading-snug);
+  font-size: var(--text-micro); font-weight: var(--weight-medium); line-height: var(--leading-snug);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
 }
 .why-tag.is-editor { background: var(--color-accent); color: var(--color-on-accent); }
 
@@ -682,10 +690,10 @@ ul, ol { padding: 0; list-style: none; }
 .ai-badge {
   position: absolute; bottom: var(--space-8); right: var(--space-8); z-index: 2; pointer-events: none;
   max-width: calc(100% - var(--space-24)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  padding: var(--space-4) var(--space-8); border-radius: var(--radius-8);
+  padding: 2px var(--space-8); border-radius: var(--radius-full);
   background: var(--tag-bg); color: var(--color-on-media);
-  font-size: var(--text-micro); font-weight: var(--weight-medium); line-height: var(--leading-snug);
-  backdrop-filter: blur(4px);
+  font-size: var(--text-micro); font-weight: var(--weight-regular); line-height: var(--leading-snug);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
 }
 
 /* ---------- more, empty, end ---------- */
@@ -774,12 +782,15 @@ ul, ol { padding: 0; list-style: none; }
 /* The story detail (the bento home's sheet, opened in place): above the card link, on the card's own surface */
 .cov-btn {
   position: relative; z-index: 2; display: inline-flex; align-items: center; gap: var(--space-8);
-  min-height: 32px; padding: 0 var(--space-8); margin-left: calc(var(--space-8) * -1); border-radius: var(--radius-full);
-  color: inherit; white-space: nowrap; transition: background-color var(--motion-state) var(--ease-flow);
+  min-height: 32px; padding: 2px var(--space-8); margin-left: calc(var(--space-8) * -1); border-radius: var(--radius-full);
+  color: var(--color-ink-2); font-size: var(--text-micro); font-weight: var(--weight-medium);
+  white-space: nowrap; transition: background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow);
   flex-shrink: 0; max-width: 100%;
 }
 .cov-btn:hover { background: var(--color-fill); color: var(--color-ink); }
 .cov-btn[aria-expanded="true"] { background: var(--color-fill); color: var(--color-ink); }
+.card-photo .cov-btn { color: var(--card-ink-on-photo-2); }
+.card-photo .cov-btn b { color: var(--card-ink-on-photo); }
 .card-photo .cov-btn:hover, .card-photo .cov-btn[aria-expanded="true"] { background: oklch(0.99 0 0 / 0.16); color: var(--card-ink-on-photo); }
 .cov-list {
   position: relative; z-index: 2; display: flex; flex-direction: column; gap: var(--space-8);

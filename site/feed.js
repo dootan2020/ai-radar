@@ -427,9 +427,6 @@ function reasonOf(st) {
   const w = worthOf(st);
   if (w.fh) return { text: w.fh.label };
   const loud = w.hot >= WORTH.hotLabel;
-  const att = (w.parts && w.parts.attention) || 0;
-  const brd = (w.parts && w.parts.breadth) || 0;
-  if (w.n >= 2 && (!loud || brd >= att)) return { text: `${w.n} nguồn đưa tin` };
   if (loud) return { text: DISCUSSED.has(w.metric) ? 'Đang bàn nhiều' : 'Đang được chú ý' };
   return null;
 }
@@ -438,14 +435,15 @@ const reasonTag = st => {
   return r ? `<span class="why-tag${r.editor ? ' is-editor' : ''}"><span class="sr">Vì sao có mặt: </span>${esc(r.text)}</span>` : '';
 };
 
-/* "Vì sao nên đọc": facts only, each one a field of the feed. At most four parts, the age always last. */
+/* "Vì sao nên đọc": real numbers only, saying each fact once without repeating time or source counts. */
 function worthWhy(st) {
-  const w = worthOf(st), m = measureOf(st), parts = [];
-  if (w.fh) parts.push(esc(w.fh.why));
-  if (w.n >= 2) parts.push(`<b class="num">${w.n}</b> nguồn cùng đưa tin`);
-  if (m) parts.push(`${numB(m)} ${esc(m.word)}${m.where ? ` trên ${esc(m.where)}` : ''}`);
-  if (m && m.speed && parts.length < 3) parts.push(`tăng <b class="num">${nf1.format(m.speed)}</b> ${esc(m.word)} mỗi giờ`);
-  parts.push(`đăng ${esc(ago(st.published_at).replace(/^Hôm qua/, 'hôm qua'))}`);
+  const w = worthOf(st), m = measureOf(st), r = reasonOf(st), parts = [];
+  if (m) {
+    parts.push(`${numB(m)} ${esc(m.word)}${m.where ? ` trên ${esc(m.where)}` : ''}`);
+    if (m.speed && parts.length < 3) parts.push(`tăng <b class="num">${nf1.format(m.speed)}</b> ${esc(m.word)} mỗi giờ`);
+  } else if (w.fh && (!r || r.text !== w.fh.label)) {
+    parts.push(esc(w.fh.why));
+  }
   return parts.join(' · ');
 }
 
@@ -784,6 +782,7 @@ function renderCard(st, size = 'std', opts = {}) {
   ].filter(Boolean).join('<span aria-hidden="true">·</span>');
   const cal = calOf(st);
   const isSaved = savedHas(st.id);
+  const why = opts.why ? worthWhy(st) : '';
   const cls = ['feed-card', `card-${size}`, opts.debate ? 'card-debate' : '', photo ? 'card-photo' : '', statusClass(st)].filter(Boolean).join(' ');
 
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}" data-worth="${worthOf(st).score.toFixed(1)}">
@@ -795,7 +794,7 @@ function renderCard(st, size = 'std', opts = {}) {
       ? `<h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>`
       : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>`}
     ${origLine(t)}
-    ${opts.why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${worthWhy(st)}</p>` : ''}
+    ${why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${why}</p>` : ''}
     ${opts.why && pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
     ${sum ? `<p class="card-sum">${esc(sum)}</p>` : ''}
     <div class="card-foot">
