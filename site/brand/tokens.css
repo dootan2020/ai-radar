@@ -45,11 +45,11 @@
   --family: "Be Vietnam Pro", -apple-system, "Segoe UI", system-ui, sans-serif;
   --family-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;   /* install commands */
 
-  --size-12: 0.75rem; --size-13: 0.8125rem; --size-14: 0.875rem; --size-16: 1rem; --size-18: 1.125rem;
+  --size-12: 0.75rem; --size-13: 0.8125rem; --size-14: 0.875rem; --size-15: 0.9375rem; --size-16: 1rem; --size-18: 1.125rem;
   --size-21: 1.3125rem; --size-28: 1.75rem; --size-40: 2.5rem;
   --size-32: 2rem; --size-56: 3.5rem; --size-88: 5.5rem;
 
-  --space-4: 4px; --space-8: 8px; --space-12: 12px; --space-16: 16px; --space-24: 24px;
+  --space-4: 4px; --space-6: 6px; --space-8: 8px; --space-12: 12px; --space-16: 16px; --space-24: 24px;
   --space-32: 32px; --space-48: 48px; --space-64: 64px; --space-96: 96px;
 
   --radius-8: 8px; --radius-12: 12px; --radius-24: 24px; --radius-full: 999px;
@@ -95,6 +95,7 @@
   --text-micro: var(--size-12);
   --text-meta: var(--size-13);
   --text-small: var(--size-14);
+  --text-sub: var(--size-15);                        /* supporting text: why-line, summaries, original headline ~15px */
   --text-body: var(--size-16);
   --text-title: var(--size-18);
   --text-tile: var(--size-21);                       /* tile heading */
@@ -132,9 +133,9 @@
   --num-md: var(--size-32);
   --av-xs: 20px; --av-sm: 28px; --av-md: 40px; --av-lg: 56px; --av-xl: 72px;
   --av-radius: 28%;                                  /* a squircle, like an app icon: logos read as objects */
-  --av-text-xs: 0.5rem; --av-text-sm: 0.62rem; --av-text-md: 0.9rem; --av-text-lg: 1.15rem; --av-text-xl: 1.4rem;   /* monogram letters per avatar size */
-  --datebadge-text: 0.6rem;                          /* the month under a date badge's day */
-  --tab-badge-text: 0.65rem;                         /* the count on a bottom tab */
+  --av-text-xs: var(--size-12); --av-text-sm: var(--size-12); --av-text-md: 0.9rem; --av-text-lg: 1.15rem; --av-text-xl: 1.4rem;   /* monogram letters per avatar size: floor at 12px */
+  --datebadge-text: var(--size-12);                          /* month label: floor at 12px */
+  --tab-badge-text: var(--size-12);                         /* tab count: floor at 12px */
   --nav-fade: linear-gradient(to right, #000 calc(100% - 32px), transparent);   /* alpha mask: the top nav fades out where it scrolls */
   --ring-size: 112px; --ring-stroke: 10px;
   --chip-h: 32px;

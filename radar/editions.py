@@ -19,7 +19,7 @@ FORUM_COMMENTS_MIN = 100
 MAX_FORUM_STORIES = 1
 ACTION = re.compile(r"\b(?:introducing|introduces|launch(?:es|ed|ing)?|releas(?:e|es|ed|ing)|available|open[- ]sourc(?:e|es|ed|ing))\b", re.I)
 PRODUCT = re.compile(r"\b(?:models?|products?|agents?|assistants?|APIs?|tools?|platforms?)\b", re.I)
-STORY_FIELDS = ("id", "title", "title_vi", "url", "published_at", "kind", "time_basis")
+STORY_FIELDS = ("id", "title", "title_vi", "headline", "headline_vi", "url", "published_at", "kind", "time_basis")
 COVERAGE_FIELDS = STORY_FIELDS + ("source", "publisher", "entity", "group", "observed_at", "discussion_url", "metrics")
 
 
