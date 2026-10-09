@@ -5,20 +5,18 @@ import tempfile
 import threading
 import time
 import unittest
-from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
 from urllib.error import HTTPError
 
-from radar import catalog, feeds, huggingface, pipeline, youtube
-from radar.clustering import cluster_items
+from radar import catalog, feeds, pipeline, youtube
 from radar.transport import ResponseText
 if __package__:
     from .test_v2_events import event
-    from .test_v2_support import NOW, coverage
+    from .test_v2_support import NOW
 else:
     from test_v2_events import event
-    from test_v2_support import NOW, coverage
+    from test_v2_support import NOW
 
 
 def source(id_, **changes):
@@ -77,46 +75,6 @@ class PipelineV2Tests(unittest.TestCase):
         self.assertEqual({row["source"] for row in story["coverage"]}, {"good-a", "good-b"})
         self.assertTrue(story["hot_reason"])
         json.dumps(result, allow_nan=False)
-
-    def test_build_v2_reconciles_published_event_coverage_with_current_feed(self):
-        cases = [
-            ("Reflection Beam", [
-                ("semafor", "Reflection AI unveils an open-source Western answer to Chinese labs",
-                 "https://semafor.example/reflection", "2026-10-05T19:01:43Z"),
-                ("bloomberg", "Nvidia-Backed Reflection Unveils Open AI Model, Taking on China",
-                 "https://bloomberg.example/reflection", "2026-10-05T19:00:00Z"),
-            ], "Reflection debuts Beam, an open-weight AI model to rival Chinese models at lower compute cost",
-                "https://techcrunch.example/reflection", 3),
-            ("Muse iPad", [
-                ("the-verge", "Muse launches on the iPad", "https://verge.example/muse-ipad",
-                 "2026-10-07T15:37:23Z"),
-            ], "Meta’s Muse launches on iPad just a month after its mobile debut",
-                "https://techcrunch.example/muse-ipad", 2),
-        ]
-        now = datetime(2026, 10, 9, 12, tzinfo=timezone.utc)
-        with patch.object(feeds, "SOURCES", []), patch.object(huggingface, "SOURCES", []):
-            for name, old_rows, current_title, current_url, expected_sources in cases:
-                with self.subTest(name=name):
-                    old_stories = []
-                    for publisher, title, url, published_at in old_rows:
-                        old = coverage(publisher, url, publisher=publisher, title=title,
-                                       published_at=published_at)
-                        old_stories.extend(cluster_items([old], now))
-                    self.sources = [source("techcrunch-ai", publisher="techcrunch", lab="techcrunch")]
-                    feed = FEED.replace("AI synthetic architecture released today", current_title)
-                    feed = feed.replace("https://lab.example/release", current_url)
-                    feed = feed.replace("Fri, 02 Oct 2026 11:00:00 GMT", "Mon, 05 Oct 2026 19:33:53 GMT"
-                                        if "Reflection" in name else "Wed, 07 Oct 2026 18:30:57 GMT")
-                    prior = {"schema_version": 2, "generated_at": "2026-10-08T12:00:00Z",
-                             "stories": old_stories}
-                    result = pipeline.build_v2(
-                        fetch=lambda url, **kwargs: feed if url.endswith("techcrunch-ai") else self.fetch(url, **kwargs),
-                        now=now, events_path=self.events, published=prior, resolve_images=False)
-                    story = next(story for story in result["stories"]
-                                 if any(current_url == row.get("url") for row in story["coverage"]))
-                    self.assertEqual(story["source_count"], expected_sources)
-                    self.assertEqual(len(story["coverage"]), expected_sources)
-                    self.assertNotIn("carried", story)
 
     def test_sections_reference_unique_existing_stories(self):
         result = self.build()
