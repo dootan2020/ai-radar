@@ -74,6 +74,10 @@ TAIL_NAME = re.compile(r"\s+[-\u2013\u2014]\s+[A-Z][\w.'-]*(?: [A-Z][\w.'-]*){0,
 # Post-translation term fixes. A rule fires only when the English source uses the term,
 # so "nhân viên" stays "nhân viên" in a layoffs headline that never says "agent".
 GLOSSARY = [
+    (r"\bagentic\b", [
+        (r"(?<!đa )(?:hình dạng |dạng |bằng )tác tử\b", "agentic"),
+        (r"(?<!đa )tác tử\b", "agentic"),
+    ]),
     (r"\bagents?\b", [
         (r"(?<!đa )(?:đại lý|nhân viên|đặc vụ|tác nhân|tác tử|người đại diện|điệp viên) (?:trí tuệ nhân tạo|AI)\b", "agent AI"),
         (r"(?<!đa )(?:đại lý|nhân viên|đặc vụ|tác nhân|tác tử|người đại diện|điệp viên)\b", "agent"),

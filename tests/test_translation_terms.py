@@ -18,6 +18,7 @@ WRONG_TERMS = {
     "token": re.compile(r"mã thông báo|\bthẻ\b", re.I),
     "benchmark": re.compile(r"điểm chuẩn|tiêu chuẩn đánh giá|băng ghế dự bị", re.I),
     "agent": re.compile(r"đại lý|nhân viên|đặc vụ|tác nhân|(?<!đa )tác tử", re.I),
+    "agentic": re.compile(r"(?<!đa )(?:hình dạng |dạng |bằng )?tác tử", re.I),
 }
 SOURCE_TERMS = {
     "open weights": re.compile(r"open[- ]weights?", re.I),
@@ -28,6 +29,7 @@ SOURCE_TERMS = {
     "token": re.compile(r"tokens?", re.I),
     "benchmark": re.compile(r"benchmarks?", re.I),
     "agent": re.compile(r"\bagents?\b", re.I),
+    "agentic": re.compile(r"\bagentic\b", re.I),
 }
 
 
@@ -57,6 +59,24 @@ class TranslationTermsTests(unittest.TestCase):
                 # Gemini validation and NLLB composition both call this shared glossary.
                 self.assertEqual(validated(source, before, set()), expected)
 
+    def test_agentic_terms_are_kept_in_english_without_changing_multi_agent(self):
+        cases = (
+            ("Google brings agentic AI to Gemini, starting with businesses",
+             "Google đưa AI tác tử lên Gemini", "Google đưa AI agentic lên Gemini"),
+            ("Citrini Says Agentic Finance Fosters a New Paradigm",
+             "Citrini nhận định Tài chính Tác tử thúc đẩy mô hình mới",
+             "Citrini nhận định Tài chính Agentic thúc đẩy mô hình mới"),
+            ("SuperNav: An Agentic Navigation System for Any Task in Any Scene",
+             "SuperNav: Hệ thống điều hướng bằng tác tử cho mọi tác vụ",
+             "SuperNav: Hệ thống điều hướng agentic cho mọi tác vụ"),
+            ("Anthropic: Agentic loops invoking multiagent orchestration",
+             "Anthropic: Các vòng lặp tác tử kích hoạt điều phối đa tác tử",
+             "Anthropic: Các vòng lặp agentic kích hoạt điều phối đa tác tử"),
+        )
+        for source, before, expected in cases:
+            with self.subTest(source=source):
+                self.assertEqual(translate.apply_glossary(source, before), expected)
+
     def test_fixed_live_sample_has_at_least_sixty_titles_and_reduces_errors(self):
         fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
         titles = fixture["titles"]
@@ -65,7 +85,7 @@ class TranslationTermsTests(unittest.TestCase):
         before = errors(titles, "title_vi")
         after_rows = [dict(row, after=translate.apply_glossary(row["title"], row["title_vi"])) for row in titles]
         after = errors(after_rows, "after")
-        self.assertEqual((before, after), (22, 0))
+        self.assertEqual((before, after), (27, 0))
 
 
 if __name__ == "__main__":
