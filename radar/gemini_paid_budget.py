@@ -19,6 +19,7 @@ LEDGER_VERSION = 1
 STORE_BRANCH = "radar-gemini-paid-budget"
 STORE_REF = f"refs/heads/{STORE_BRANCH}"
 RUN_ALLOWANCE_USD = Decimal("1")
+DAILY_CAP_USD = Decimal("6")
 DEFAULT_CAP_USD = Decimal("20")
 MAX_CAP_USD = Decimal("20")
 MODEL_ID = "gemini-3.8-flash"
@@ -133,9 +134,23 @@ def _validate_store(data, now: float):
     for key, amount in data["pending"].items():
         if not isinstance(key, str) or type(amount) is not int or amount < 0:
             raise ValueError("Paid budget branch ledger is invalid")
+    data.setdefault("settled_daily", {})
+    data.setdefault("pending_days", {})
+    current_day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
+    for key in data["pending"]:
+        data["pending_days"].setdefault(key, current_day)
+    if (not isinstance(data["settled_daily"], dict) or not isinstance(data["pending_days"], dict)
+            or not set(data["pending_days"]).issubset(data["pending"])):
+        raise ValueError("Paid budget branch ledger is invalid")
+    for day, amount in data["settled_daily"].items():
+        if not isinstance(day, str) or type(amount) is not int or amount < 0:
+            raise ValueError("Paid budget branch ledger is invalid")
+    for key, day in data["pending_days"].items():
+        if not isinstance(key, str) or not isinstance(day, str):
+            raise ValueError("Paid budget branch ledger is invalid")
     if data["month"] != _month(now):
         return {"version": LEDGER_VERSION, "month": _month(now), "settled_micros": 0,
-                "pending": {}}
+                "pending": {}, "settled_daily": {}, "pending_days": {}}
     return data
 
 
@@ -200,21 +215,34 @@ def prepare(path: str | Path, *, paid: bool, now: float | None = None, run_numbe
                 if paid:
                     return MISSING_CODE
                 store = {"version": LEDGER_VERSION, "month": _month(now),
-                         "settled_micros": 0, "pending": {}}
+                         "settled_micros": 0, "pending": {},
+                         "settled_daily": {}, "pending_days": {}}
             allowance = int((RUN_ALLOWANCE_USD * Decimal(1_000_000)).to_integral_value())
             pending = store["pending"]
             if paid:
                 charge = pending.get(run_key, allowance)
                 cap = cap_usd()
                 cap_micros = int((cap * Decimal(1_000_000)).to_integral_value(rounding=ROUND_CEILING))
-                if cap <= 0 or store["settled_micros"] + sum(pending.values()) + (0 if run_key in pending else charge) > cap_micros:
+                day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
+                daily_cap_micros = int((DAILY_CAP_USD * Decimal(1_000_000)).to_integral_value())
+                daily_reserved = sum(value for key, value in pending.items()
+                                     if store["pending_days"].get(key) == day)
+                if (cap <= 0 or store["settled_micros"] + sum(pending.values())
+                        + (0 if run_key in pending else charge) > cap_micros):
                     return "paid_monthly_cap"
+                if run_key not in pending:
+                    daily_remaining = daily_cap_micros - store["settled_daily"].get(day, 0) - daily_reserved
+                    if daily_remaining <= 0:
+                        return "paid_daily_cap"
+                    charge = min(allowance, daily_remaining)
                 pending[run_key] = charge
+                store["pending_days"].setdefault(run_key, day)
             if paid or store_was_missing:
                 _push(remote, store, now)
             data = {"version": LEDGER_VERSION, "month": _month(now), "last_run_number": run_number,
                     "reservations": [], "run_key": run_key,
-                    "run_allowance_micros": pending.get(run_key, 0)}
+                    "run_allowance_micros": pending.get(run_key, 0),
+                    "run_day": store["pending_days"].get(run_key)}
             write_atomic(data, path)
             return None
         except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
@@ -366,10 +394,19 @@ def finalize(path: str | Path, remote: str, *, now: float | None = None,
             return "paid_budget_run_allowance_exceeded"
         store["settled_micros"] += spent
         del store["pending"][run_key]
+        day = store["pending_days"].pop(run_key, None)
+        if day is None:
+            return MISSING_CODE
+        store["settled_daily"][day] = store["settled_daily"].get(day, 0) + spent
         cap = cap_usd()
         cap_micros = int((cap * Decimal(1_000_000)).to_integral_value(rounding=ROUND_CEILING))
         if store["settled_micros"] + sum(store["pending"].values()) > cap_micros:
             return "paid_monthly_cap"
+        daily_cap_micros = int((DAILY_CAP_USD * Decimal(1_000_000)).to_integral_value())
+        daily_pending = sum(value for key, value in store["pending"].items()
+                            if store["pending_days"].get(key) == day)
+        if store["settled_daily"][day] + daily_pending > daily_cap_micros:
+            return "paid_daily_cap"
         _push(remote, store, now)
         return None
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):

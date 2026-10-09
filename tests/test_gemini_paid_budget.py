@@ -45,7 +45,8 @@ class PaidBudgetTests(unittest.TestCase):
         self.assertFalse(budget.enabled({}))
         self.assertIsNone(self._prepare(False, 100, 4))
         self.assertEqual(self._store(), {"version": 1, "month": "2026-10",
-                                         "settled_micros": 0, "pending": {}})
+                                         "settled_micros": 0, "pending": {},
+                                         "settled_daily": {}, "pending_days": {}})
 
     def test_cancelled_attempt_keeps_only_a_bounded_reservation_and_next_run_continues(self):
         self.assertIsNone(self._prepare(False, 100, 10))
@@ -117,6 +118,16 @@ class PaidBudgetTests(unittest.TestCase):
                                              run_key="602-1"))
         self.assertEqual(json.loads(self.path.read_text(encoding="utf-8"))["month"], "2026-11")
         self.assertEqual(self._store(next_month)["month"], "2026-11")
+
+    def test_daily_cap_limits_and_sizes_the_final_run_hold(self):
+        self.assertIsNone(self._prepare(False, 700, 70))
+        store = self._store()
+        store["settled_daily"] = {"2026-10-07": 5_500_000}
+        budget._push(str(self.remote), store)
+        self.assertIsNone(self._prepare(True, 701, 71))
+        self.assertEqual(json.loads(self.path.read_text(encoding="utf-8"))["run_allowance_micros"], 500_000)
+        self.assertEqual(self._prepare(True, 702, 72), "paid_daily_cap")
+        self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 5_500_000)
 
     def test_cap_configuration_can_only_lower_twenty_dollars(self):
         self.assertEqual(budget.cap_usd({}), Decimal("20"))

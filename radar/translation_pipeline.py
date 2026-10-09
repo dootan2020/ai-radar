@@ -157,18 +157,19 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
         elif clock() - started >= budget:
             api["error"] = "time_budget"
         else:
-            items, chars = [], 0
-            for source in missing:
-                if len(source) > config.max_chars:
-                    continue
-                if len(items) >= config.batch_size or chars + len(source) > config.max_chars:
+            for _ in range(config.max_requests):
+                items, chars = [], 0
+                for source in missing:
+                    if source in accepted or len(source) > config.max_chars:
+                        continue
+                    if len(items) >= config.batch_size or chars + len(source) > config.max_chars:
+                        break
+                    items.append(dict(id=str(len(items)), text=source, roles=sorted(groups[source]["roles"]),
+                                      protected_names=sorted(groups[source]["names"])))
+                    chars += len(source)
+                if not items:
+                    api["error"] = "input_limit" if not api["requests"] else None
                     break
-                items.append(dict(id=str(len(items)), text=source, roles=sorted(groups[source]["roles"]),
-                                  protected_names=sorted(groups[source]["names"])))
-                chars += len(source)
-            if not items:
-                api["error"] = "input_limit"
-            else:
                 paid_reservation = None
                 if config.paid:
                     body = gemini.request_body(items)
@@ -177,29 +178,33 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
                         gemini_paid_budget.ledger_path(), estimated_tokens, now=now())
                 else:
                     api["error"] = reserve(ledger_path, config.daily_limit, now(), last_source=items[-1]["text"])
-                if not api["error"]:
-                    remaining = min(config.timeout, max(0, budget - (clock() - started)))
-                    if remaining <= 0:
-                        api["error"] = "time_budget"
-                    else:
-                        api["requests"] = 1
-                        outputs, api["error"], api_alive, used_tokens = _request(items, config, transport, remaining)
-                        api["tokens"] = used_tokens
-                        if config.paid:
-                            gemini_paid_budget.settle(gemini_paid_budget.ledger_path(), paid_reservation,
-                                                     used_tokens, now=now())
-                        for item in items:
-                            source = item["text"]
-                            output = validated(source, outputs.get(item["id"]), groups[source]["names"])
-                            if output:
-                                gemini_cache[source] = output
-                                accepted[source] = (output, "gemini")
-                                api["translated"] += 1
-                        if not api["error"] and api["translated"] != len(items):
-                            api["error"] = "validation_rejected"
-                        api["status"] = "failed" if api["error"] else "ok"
-                        if api["error"] and api["translated"]:
-                            api["status"] = "partial"
+                if api["error"]:
+                    break
+                remaining = min(config.timeout, max(0, budget - (clock() - started)))
+                if remaining <= 0:
+                    api["error"] = "time_budget"
+                    break
+                outputs, request_error, request_alive, used_tokens = _request(items, config, transport, remaining)
+                api["requests"] += 1
+                api["tokens"] = api.get("tokens", 0) + used_tokens
+                api_alive = api_alive or request_alive
+                if config.paid:
+                    gemini_paid_budget.settle(gemini_paid_budget.ledger_path(), paid_reservation,
+                                              used_tokens, now=now())
+                for item in items:
+                    source = item["text"]
+                    output = validated(source, outputs.get(item["id"]), groups[source]["names"])
+                    if output:
+                        gemini_cache[source] = output
+                        accepted[source] = (output, "gemini")
+                        api["translated"] += 1
+                if request_error:
+                    api["error"] = request_error
+                    break
+                if any(item["text"] not in accepted for item in items):
+                    api["error"] = "validation_rejected"
+                    break
+            api["status"] = "failed" if api["error"] and not api["translated"] else "partial" if api["error"] else "ok"
 
     # Full strings unresolved by Gemini become independent fallback rows. The
     # legacy segment cache remains exclusively NLLB and cannot block upgrades.
