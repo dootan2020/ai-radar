@@ -74,9 +74,9 @@ TAIL_NAME = re.compile(r"\s+[-\u2013\u2014]\s+[A-Z][\w.'-]*(?: [A-Z][\w.'-]*){0,
 # Post-translation term fixes. A rule fires only when the English source uses the term,
 # so "nhân viên" stays "nhân viên" in a layoffs headline that never says "agent".
 GLOSSARY = [
-    (r"\bagent(s|ic)?\b", [
-        (r"(?:đại lý|nhân viên|đặc vụ|tác nhân|người đại diện|điệp viên) (?:trí tuệ nhân tạo|AI)\b", "agent AI"),
-        (r"(?:đại lý|nhân viên|đặc vụ|tác nhân|người đại diện|điệp viên)", "agent"),
+    (r"\bagents?\b", [
+        (r"(?<!đa )(?:đại lý|nhân viên|đặc vụ|tác nhân|tác tử|người đại diện|điệp viên) (?:trí tuệ nhân tạo|AI)\b", "agent AI"),
+        (r"(?<!đa )(?:đại lý|nhân viên|đặc vụ|tác nhân|tác tử|người đại diện|điệp viên)\b", "agent"),
     ]),
     (r"\bharness(es)?\b", [
         (r"(?:bộ |cái )?(?:vòng xoắn|bộ đeo|dây nịt|dây đeo|dây an toàn|khai thác|bộ khai thác|yên cương)", "khung chạy"),
@@ -90,6 +90,15 @@ GLOSSARY = [
     ]),
     (r"\bbenchmarks?\b", [
         (r"(?:các |những )?(?:điểm chuẩn|tiêu chuẩn đánh giá|chuẩn mực|tiêu chuẩn|băng ghế dự bị|băng ghế)", "bài đo chuẩn"),
+    ]),
+    (r"\bopen[- ]weights?\b", [
+        (r"(?:đánh nặng|mở trọng số|trọng lượng mở|mở cân nặng)(?:\s+mở)?", "trọng số mở"),
+    ]),
+    (r"\bdenois(?:e|es|ed|ing)\b", [
+        (r"chỉ trích|phê phán|phê bình", "khử nhiễu"),
+    ]),
+    (r"\bcheckpoints?\b", [
+        (r"điểm kiểm tra", "checkpoint"),
     ]),
     (r"\bcoding\b", [
         (r"mã hóa|mã hoá", "lập trình"),
@@ -186,7 +195,10 @@ def apply_glossary(source, vi, *, protected_names=CATALOG_NAMES):
     for src_pattern, fixes in _GLOSSARY:
         if src_pattern.search(source):
             for vi_pattern, out in fixes:
-                vi = vi_pattern.sub(out, vi)
+                vi = vi_pattern.sub(
+                    lambda match: out[:1].upper() + out[1:] if match.group(0)[:1].isupper() else out,
+                    vi,
+                )
     vi = re.sub(r"\bagent agent\b", "agent", vi)
     for name in sorted(_names(source, protected_names), key=lambda value: (-len(value), value)):
         # Restore spelling only, never guess where a translated or missing name belongs.

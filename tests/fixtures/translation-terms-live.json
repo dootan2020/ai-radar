@@ -1,0 +1,247 @@
+{
+  "snapshot_generated_at": "2026-10-09T18:26:21Z",
+  "source": "plans/reports/live-ui.json",
+  "selection": "First 60 distinct translated story/coverage titles matching the AI terminology checklist, with observed open-weights mistranslation prioritized.",
+  "titles": [
+    {
+      "title": "Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS",
+      "title_vi": "Xây dựng các agent giọng nói đa ngôn ngữ chậm thấp: mở trọng số & kiểm soát triển khai đầy đủ với NVIDIA Magpie TTS"
+    },
+    {
+      "title": "Why Finance Execs Are Counting Every Token",
+      "title_vi": "Vì sao các giám đốc tài chính đang đong đếm từng token"
+    },
+    {
+      "title": "Amazon drops data center NDAs, and AI agents want your credit card",
+      "title_vi": "Amazon từ bỏ NDAs về trung tâm dữ liệu, còn các tác tử AI thì muốn thẻ tín dụng của bạn"
+    },
+    {
+      "title": "@catfishfb An AI harness is the software layer around a language model that turns it into a working agent. The model handles reasoning and text generation. The harness supplies tools, memory, orchestration, permissions, guardrails, and feedback loops so the agent can act reliably in the",
+      "title_vi": "@catfishfb Một bộ khung (harness) AI là lớp phần mềm bao quanh mô hình ngôn ngữ nhằm biến nó thành một tác tử hoạt động được. Mô hình đảm nhận việc suy luận và tạo văn bản. Bộ khung cung cấp các công cụ, bộ nhớ, khả năng điều phối, quyền hạn, rào chắn bảo vệ và các vòng lặp phản hồi để tác tử có thể hành động đáng tin cậy trong"
+    },
+    {
+      "title": "@wiiiimm @figma The code is rosebud (classic Sims money cheat). Enter it as the codeword in the Figma Agent for 500 free AI credits (promo runs thru Oct 13 or first 10k redemptions).",
+      "title_vi": "@wiiiimm @figma Mã là rosebud (mã gian lận tiền kinh điển trong Sims). Hãy nhập mã này làm mật mã trong Figma Agent để nhận 500 tín dụng AI miễn phí (chương trình khuyến mãi diễn ra đến hết ngày 13 tháng 10 hoặc cho 10 nghìn lượt quy đổi đầu tiên)."
+    },
+    {
+      "title": "@Claudia1516322 @Rafaelita154911 @OpenAI GPT-4o left ChatGPT in February 2026 after daily use fell to 0.1%. Some API versions remain available for now. OpenAI has released other models as open weights under Apache 2.0, but not GPT-4o. An archival open-weight release would preserve a reference copy. That choice belongs",
+      "title_vi": "@Claudia1516322 @Rafaelita154911 @OpenAI GPT-4o đã rời ChatGPT vào tháng 2 năm 2026 sau khi mức sử dụng hàng ngày giảm xuống 0,1%. Một số phiên bản API hiện vẫn còn khả dụng. OpenAI đã phát hành các mô hình khác dưới dạng trọng số mở theo giấy phép Apache 2.0, nhưng không áp dụng cho GPT-4o. Một đợt phát hành trọng số mở để lưu trữ sẽ bảo tồn một bản sao tham chiếu. Lựa chọn đó thuộc về"
+    },
+    {
+      "title": "Anthropic expanded dynamic workflows in Claude Managed Agents into a public beta. > Users can now configure their agents for multiagent orchestration, letting Claude plan and operate a fleet of agents to achieve the goal. Agentic loops invoking multiagent orchestration",
+      "title_vi": "Anthropic đã mở rộng các quy trình làm việc động trong Claude Managed Agents thành bản beta công khai. > Người dùng giờ đây có thể cấu hình các agent của họ để điều phối đa tác tử (multiagent orchestration), cho phép Claude lập kế hoạch và vận hành một nhóm agent để đạt được mục tiêu. Các vòng lặp agentic kích hoạt điều phối đa tác tử"
+    },
+    {
+      "title": "Right now, using AI agents still feels very single-player.",
+      "title_vi": "Hiện tại, việc sử dụng các agent AI vẫn mang lại cảm giác rất đơn độc."
+    },
+    {
+      "title": "Pine AI launched Pine Computer, a cloud computer, harness, and runtime layer built for agentic tasks. On SaaS-Bench v1.1, Pine Computer has the highest checkpoint score in the publisher's table: 78.3%, against 74.3% for Opus 5 with Claude Code. It also completed fewer whole https://t.co/fvQCsQfVIM https://t.co/PdgmvIAOWR",
+      "title_vi": "Pine AI đã ra mắt Pine Computer, một máy tính đám mây, khung điều khiển (harness) và lớp runtime được xây dựng cho các tác vụ mang tính agent. Trên SaaS-Bench v1.1, Pine Computer có điểm checkpoint cao nhất trong bảng xếp hạng của nhà phát hành: 78,3%, so với 74,3% của Opus 5 với Claude Code. It cũng hoàn thành ít tác vụ toàn phần hơn https://t.co/fvQCsQfVIM https://t.co/PdgmvIAOWR"
+    },
+    {
+      "title": "How Postman runs Agent Mode for 40 million developers on Amazon Bedrock",
+      "title_vi": "Cách Postman vận hành Agent Mode cho 40 triệu lập trình viên trên Amazon Bedrock"
+    },
+    {
+      "title": "Sabi says it can already predict a person's next three to four keystrokes from brain signals, before anything is typed. Up next on its roadmap are thought-to-prompt and intent-to-action, where an AI agent carries out what the wearer means to do. A waitlist for the cap is open",
+      "title_vi": "Sabi cho biết họ đã có thể dự đoán 3 đến 4 lần nhấn phím tiếp theo của một người từ tín hiệu não, trước khi bất kỳ thứ gì được gõ ra. Kế tiếp trên lộ trình của họ là từ ý nghĩ thành lời nhắc và từ ý định thành hành động, nơi một tác tử AI thực hiện những gì người đeo dự định làm. Danh sách chờ nhận mũ hiện đã mở"
+    },
+    {
+      "title": "Agentic coding is a financial trap",
+      "title_vi": "Lập trình bằng agent là một cái bẫy tài chính"
+    },
+    {
+      "title": "@rahulchhabra07 > “Instead, we’ll just think of things we want our personal AI agents to do, and voila, they’ll go and do them.” The flow of “thought > prompt > output” would feel like magic! Would be super interesting to test it out!",
+      "title_vi": "@rahulchhabra07 > \"Thay vào đó, chúng ta sẽ chỉ cần nghĩ về những điều chúng ta muốn các tác tử AI cá nhân của mình làm, và thế là xong, chúng sẽ đi làm điều đó.\" Quy trình \"suy nghĩ > câu lệnh > kết quả\" sẽ có cảm giác như phép thuật vậy! Sẽ cực kỳ thú vị khi được thử nghiệm nó!"
+    },
+    {
+      "title": "Instinct was the buzziest AI agent around — can it survive Muse?",
+      "title_vi": "Instinct từng là agent AI gây sốt nhất — liệu nó có thể sống sót trước Muse?"
+    },
+    {
+      "title": "Show HN: Let your AI agents paint big arrows, boxes and text on your screen",
+      "title_vi": "Show HN: Hãy để các agent AI của bạn vẽ các mũi tên lớn, hộp và văn bản lên màn hình"
+    },
+    {
+      "title": "Ecosia switches from Mistral to open-weight AI models including Qwen, GLM and Kimi",
+      "title_vi": "Ecosia chuyển từ Mistral sang các mô hình AI trọng số mở bao gồm Qwen, GLM và Kimi"
+    },
+    {
+      "title": "CAIR Unveils CARES 4.0, a Multimodal Clinical Agent That Gives Doctors Suggestions, Not Verdicts",
+      "title_vi": "CAIR ra mắt CARES 4.0, một agent lâm sàng đa phương thức đưa ra gợi ý, không phải phán quyết cho các bác sĩ"
+    },
+    {
+      "title": "Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents",
+      "title_vi": "Bước vào Omniverse: Cách các nhà phát triển biến ý tưởng thành mô phỏng với các agent AI tiên phong"
+    },
+    {
+      "title": "Citrini Says Agentic Finance Fosters ‘New Paradigm’ for Crypto Investing",
+      "title_vi": "Citrini nhận định Tài chính Tác tử thúc đẩy 'Hình mẫu Mới' cho đầu tư tiền mã hóa"
+    },
+    {
+      "title": "OPENAI 🔥: GPT-6.1 Sol Ultrafast is rolling out on ChatGPT Work, Codex, and the API. > GPT-6.1 Sol in Ultrafast mode is $12 per million input tokens and $60 per million output tokens. > Ultrafast mode delivers 8x faster speeds than Sol Standard. Ultrafast testing time 👀",
+      "title_vi": "OPENAI 🔥: GPT-6.1 Sol Ultrafast đang được triển khai trên ChatGPT Work, Codex và API. > GPT-6.1 Sol ở chế độ Ultrafast có giá $12 cho mỗi triệu token đầu vào và $60 cho mỗi triệu token đầu ra. > Chế độ Ultrafast mang lại tốc độ nhanh hơn gấp 8 lần so với Sol Standard. Đã đến lúc kiểm tra tốc độ Ultrafast 👀"
+    },
+    {
+      "title": "Generating more output tokens doesn’t necessarily translate to a higher score. GPT-6 Astra (max) scores 8.6% on ~81k output tokens per task, under half the ~180k of Grok 4.7 (xhigh). Three Claude models generated the most output tokens (~202k to ~562k per task) and score 2.8% to https://t.co/sXHO11c6Wn",
+      "title_vi": "Tạo ra nhiều token đầu ra hơn không nhất thiết đồng nghĩa với điểm số cao hơn. GPT-6 Astra (max) đạt điểm 8,6% với ~81k token đầu ra cho mỗi tác vụ, chưa bằng một nửa mức ~180k của Grok 4.7 (xhigh). Ba mô hình Claude tạo ra nhiều token đầu ra nhất (~202k đến ~562k cho mỗi tác vụ) và đạt điểm từ 2,8% đến https://t.co/sXHO11c6Wn"
+    },
+    {
+      "title": "Pay-per-inference for AI agents: How BlockRun and Incarna use Amazon Bedrock AgentCore payments",
+      "title_vi": "Thanh toán theo lượt suy luận cho các tác tử AI: Cách BlockRun và Incarna sử dụng thanh toán Amazon Bedrock AgentCore"
+    },
+    {
+      "title": "Voyager runs on Apple Silicon Macs and works with frontier models such as Opus, as well as open-weight models. The download also bundles a plugin for Codex and Claude, plus a standalone creative CLI. Voyager is built by Moda co-founders @ravisparikh and @anvisha Try Voyager 👀",
+      "title_vi": "Voyager chạy trên máy Mac dùng chip Apple Silicon và hoạt động với các mô hình tiên phong như Opus, cũng như các mô hình trọng số mở. Bản tải xuống cũng đi kèm plugin cho Codex và Claude, cùng với một creative CLI độc lập. Voyager được xây dựng bởi các đồng sáng lập Moda @ravisparikh và @anvisha Hãy thử Voyager 👀"
+    },
+    {
+      "title": "Voyager has launched a desktop app that lets AI agents work inside creative tools like After Effects, DaVinci Resolve, Blender, and Unity on a Mac. It reads project files, operates creative apps, and outputs editable results. > Video edits, motion graphics, and color grading in https://t.co/bA8bnRDiZB https://t.co/1dXjlufdfu",
+      "title_vi": "Voyager đã ra mắt ứng dụng trên máy tính để bàn cho phép các tác tử AI hoạt động bên trong các công cụ sáng tạo như After Effects, DaVinci Resolve, Blender và Unity trên máy Mac. Nó đọc các tệp dự án, vận hành các ứng dụng sáng tạo và tạo ra kết quả có thể chỉnh sửa. > Chỉnh sửa video, đồ họa chuyển động và chỉnh màu trong https://t.co/bA8bnRDiZB https://t.co/1dXjlufdfu"
+    },
+    {
+      "title": "Building Reliable Data Analytics Agents: Lessons from the KDD Cup",
+      "title_vi": "Xây dựng các tác tử phân tích dữ liệu đáng tin cậy: Những bài học từ KDD Cup"
+    },
+    {
+      "title": "API pricing for GPT-6.1 Sol in Ultrafast mode is $12 per million input tokens and $60 per million output tokens. Built for work where speed and intelligence make a difference: debugging an outage, agents navigating apps, and live experiences where every second counts. https://t.co/aNw0lOPSuG",
+      "title_vi": "Giá API cho GPT-6.1 Sol ở chế độ Ultrafast là 12 USD cho mỗi triệu token đầu vào và 60 USD cho mỗi triệu token đầu ra. Được xây dựng cho công việc đòi hỏi tốc độ và trí tuệ tạo nên sự khác biệt: gỡ lỗi sự cố ngừng hoạt động, tác tử điều hướng ứng dụng và các trải nghiệm trực tiếp nơi từng giây đều có giá trị. https://t.co/aNw0lOPSuG"
+    },
+    {
+      "title": "Google brings agentic AI to Gemini, starting with businesses",
+      "title_vi": "Google đưa AI tác tử lên Gemini, bắt đầu từ các doanh nghiệp"
+    },
+    {
+      "title": "Announcing that Artificial Analysis Intelligence Index v5 will come in late October Intelligence Index v5 will be a significant leap in benchmarking the frontier of AI. Changes include adding Terminal-Bench Science and a new coding benchmark with a private dataset. Stay tuned https://t.co/PeqvOTJneE",
+      "title_vi": "Thông báo rằng Artificial Analysis Intelligence Index v5 sẽ ra mắt vào cuối tháng 10. Intelligence Index v5 sẽ là một bước nhảy vọt đáng kể trong việc đo bài đo chuẩn ranh giới tiên tiến của AI. Các thay đổi bao gồm việc bổ sung Terminal-Bench Science và một chuẩn đánh giá lập trình mới với tập dữ liệu riêng tư. Hãy theo dõi https://t.co/PeqvOTJneE"
+    },
+    {
+      "title": "Show HN: AI SRE Arena, an Open Benchmark for AI SRE Agents on Kubernetes",
+      "title_vi": "Show HN: AI SRE Arena, một chuẩn đo lường mở cho các AI SRE Agent trên Kubernetes"
+    },
+    {
+      "title": "Goodfire says its new ‘inside-out’ monitors catch rogue AI agents at a fraction of the cost",
+      "title_vi": "Goodfire cho biết các màn hình giám sát 'từ trong ra ngoài' mới của họ bắt được các tác tử AI bất hảo với chi phí chỉ bằng một phần nhỏ"
+    },
+    {
+      "title": "Natura’s $99 smart ring puts AI agents on your finger",
+      "title_vi": "Chiếc nhẫn thông minh trị giá 99 USD của Natura mang các tác tử AI lên ngón tay của bạn"
+    },
+    {
+      "title": "Google is launching a one-stop Gemini agent for your work tasks",
+      "title_vi": "Google đang ra mắt một tác tử Gemini toàn diện cho các tác vụ công việc của bạn"
+    },
+    {
+      "title": "GOOGLE 🔥: A new Gemini Agent for Gemini Enterprise has been announced as a part of Gemini at Work updates.",
+      "title_vi": "GOOGLE 🔥: Gemini Agent mới dành cho Gemini Enterprise vừa được công bố như một phần của các bản cập nhật Gemini at Work."
+    },
+    {
+      "title": "Show HN: I Put an AI Agent on a Nokia 110",
+      "title_vi": "Show HN: Tôi đã đưa một tác tử AI lên Nokia 110"
+    },
+    {
+      "title": "Can China match up with Meta’s Muse in race to harness AI agents?",
+      "title_vi": "Liệu Trung Quốc có thể sánh ngang với Muse của Meta trong cuộc đua khung chạy các tác tử AI?"
+    },
+    {
+      "title": "Google Launches Workplace AI Agent That Acts Like Colleague",
+      "title_vi": "Google ra mắt AI Agent nơi làm việc hoạt động như một đồng nghiệp"
+    },
+    {
+      "title": "As a researcher who did early some work on the productivity impacts of AI chatbots using RCTs, I’d note a lack of similar studies since the dawn of true agents last fall Partially that is newness & partially research design challenges, but I suspect we are missing some large & important effects",
+      "title_vi": "Với tư cách là một nhà nghiên cứu từng thực hiện một số nghiên cứu ban đầu về các tác động đến năng suất của chatbot AI bằng phương pháp thử nghiệm ngẫu nhiên có đối chứng (RCTs), tôi nhận thấy sự thiếu vắng các nghiên cứu tương tự kể từ buổi bình minh của các agent thực thụ vào mùa thu năm ngoái. Một phần là do tính mới mẻ & một phần do những thách thức trong thiết kế nghiên cứu, nhưng tôi nghi ngờ rằng chúng ta đang bỏ lỡ một số hiệu ứng lớn & quan trọng"
+    },
+    {
+      "title": "South Korea says AI agents appear to have been used to hack the country's banks",
+      "title_vi": "Hàn Quốc cho biết các agent AI dường như đã được sử dụng để tấn công các ngân hàng nước này"
+    },
+    {
+      "title": "SuperNav: An Agentic Navigation System for Any Task in Any Scene",
+      "title_vi": "SuperNav: Hệ thống điều hướng bằng tác tử cho mọi tác vụ trong mọi khung cảnh"
+    },
+    {
+      "title": "Pumpire: Unified Benchmark for Metric Distance Estimation",
+      "title_vi": "Pumpire: Bộ chuẩn đối sánh hợp nhất cho ước tính khoảng cách theo hệ mét"
+    },
+    {
+      "title": "BrickBench: Evaluating Agentic Brick Design",
+      "title_vi": "BrickBench: Đánh giá thiết kế gạch xếp hình dạng tác tử"
+    },
+    {
+      "title": "V-CoLA: Vision Token Compression with Linear Attention",
+      "title_vi": "V-CoLA: Nén token thị giác với Linear Attention"
+    },
+    {
+      "title": "A Closer Look at Agentic BBO: Benchmarking LLM Agents for Black-Box Optimization",
+      "title_vi": "Cái nhìn sâu hơn về BBO dạng tác tử: Đánh giá chuẩn các tác tử LLM cho tối ưu hóa hộp đen"
+    },
+    {
+      "title": "MARGIN: Runtime Confidence Calibration for Multi-Agent Foundation Model Coordination",
+      "title_vi": "MARGIN: Hiệu chuẩn độ tin cậy trong môi trường chạy cho việc điều phối mô hình nền tảng đa tác tử"
+    },
+    {
+      "title": "ViSkill: Reinforcing VLM Agents with Evolving Visual-Native Skills",
+      "title_vi": "ViSkill: Củng cố tác tử VLM với Evolving Visual-Native Skills"
+    },
+    {
+      "title": "SpatialOPSD: Self-Distilling Spatial Intelligence from Verified Coding Agent Traces",
+      "title_vi": "SpatialOPSD: Tự chắt lọc trí tuệ không gian từ các dấu vết tác tử lập trình đã được xác minh"
+    },
+    {
+      "title": "AgentGarten: Code Worlds for Evolving Agents",
+      "title_vi": "AgentGarten: Các thế giới mã nguồn dành cho tác tử tiến hóa"
+    },
+    {
+      "title": "SparseDecoding: Decoding-Aware Pruning for Accurate and Efficient LLM Inference",
+      "title_vi": "SparseDecoding: Cắt tỉa nhận biết giải mã để suy luận LLM chính xác và hiệu quả"
+    },
+    {
+      "title": "Multi-Agent Egocentric World Model with Fine-Grained Embodied Interaction",
+      "title_vi": "Mô hình thế giới góc nhìn thứ nhất đa tác tử với Fine-Grained Embodied Interaction"
+    },
+    {
+      "title": "OneSearch-VL: Unified Multimodal Deep Research Agent for Image and Video",
+      "title_vi": "OneSearch-VL: Tác tử nghiên cứu sâu đa phương thức thống nhất cho hình ảnh và video"
+    },
+    {
+      "title": "TokenRouter: Efficient Serving System for Token-Level LLM Routing",
+      "title_vi": "TokenRouter: Hệ thống phục vụ hiệu quả cho việc định tuyến LLM ở cấp độ token"
+    },
+    {
+      "title": "Accurate but Not Humble: Evaluating Epistemic Humility in LLM Agents under Knowledge Conflict",
+      "title_vi": "Chính xác nhưng không khiêm tốn: Đánh giá sự khiêm tốn nhận thức trong các tác tử LLM khi xảy ra xung đột tri thức"
+    },
+    {
+      "title": "Learn2Play Bench: How Well Do LLM Agents Learn from Experience in Unfamiliar Environments?",
+      "title_vi": "Learn2Play Bench: Các tác tử LLM học hỏi từ kinh nghiệm trong môi trường lạ tốt đến mức nào?"
+    },
+    {
+      "title": "Nous Research confirms it hit $1.5B valuation, launches AI agents for business users",
+      "title_vi": "Nous Research xác nhận nó đạt giá trị 1,5 tỷ đô la, ra mắt các agent AI cho người dùng kinh doanh"
+    },
+    {
+      "title": "An AI agent makes a mistake early in a task, then keeps going in the wrong direction. Our researchers built PivotOPD to teach agents how to avoid those mistakes and recover when they happen. During training, a teacher model shows the agent a better action and how to get back on https://t.co/7hMLMdExEH",
+      "title_vi": "Một tác tử AI mắc lỗi ngay từ đầu tác vụ, sau đó tiếp tục đi sai hướng. Các nhà nghiên cứu của chúng tôi đã xây dựng PivotOPD để dạy các tác tử cách tránh những lỗi đó và phục hồi khi chúng xảy ra. Trong quá trình huấn luyện, một mô hình giáo viên sẽ chỉ cho tác tử một hành động tốt hơn và cách để quay trở lại https://t.co/7hMLMdExEH"
+    },
+    {
+      "title": "We are in a very unique moment with agents.",
+      "title_vi": "Chúng ta đang ở trong một thời khắc rất độc đáo với các agent."
+    },
+    {
+      "title": "We are obviously in a very unique moment with agents.",
+      "title_vi": "Chúng ta rõ ràng đang ở trong một thời điểm rất độc đáo với các agent."
+    },
+    {
+      "title": "We are obviously in a very unique with agents.",
+      "title_vi": "Chúng ta rõ ràng đang ở một thời điểm rất độc đáo với các agent."
+    },
+    {
+      "title": "It appears .agent and .agi are about to be the hot new domains",
+      "title_vi": "Có vẻ như .agent và .agi sắp trở thành những tên miền mới nổi"
+    },
+    {
+      "title": "NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs with RTX Spark and AI Agents",
+      "title_vi": "NVIDIA, Microsoft Kick Off một khởi đầu mới cho máy tính Windows với RTX Spark và AI Agents"
+    }
+  ]
+}
