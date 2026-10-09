@@ -1,7 +1,7 @@
 {
   "snapshot_generated_at": "2026-10-09T18:26:21Z",
   "source": "plans/reports/live-ui.json",
-  "selection": "First 60 distinct translated story/coverage titles matching the AI terminology checklist, with observed open-weights mistranslation prioritized.",
+  "selection": "Fixed 60-title live sample from the Round 2 snapshot; includes Google agentic AI, Agentic Finance, and Agentic Navigation regressions.",
   "titles": [
     {
       "title": "Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS",
