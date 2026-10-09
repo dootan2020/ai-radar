@@ -27,3 +27,24 @@ def parse_hn(text, source, observed_at):
     if data["hits"] and not usable:
         raise ValueError("HN hits have no usable stories")
     return result
+
+
+def parse_lobsters(text, source, observed_at):
+    data = json.loads(text)
+    if not isinstance(data, list):
+        raise ValueError("Expected Lobsters story array")
+    result, usable = [], 0
+    for row in data:
+        if not isinstance(row, dict) or not row.get("title") or not web_url(row.get("url") or row.get("comments_url")):
+            continue
+        usable += 1
+        if "ai" not in (row.get("tags") or []) and not relevant(row["title"], clean_text(row.get("description"))):
+            continue
+        item = observation(source, row["title"], row.get("url") or row.get("comments_url"), row.get("created_at"),
+                           observed_at, kind="forum", summary=row.get("description", ""), discussion_url=row.get("comments_url"),
+                           metrics={"score": row.get("score"), "comments": row.get("comment_count")})
+        if item:
+            result.append(item)
+    if data and not usable:
+        raise ValueError("Lobsters array has no usable stories")
+    return result
