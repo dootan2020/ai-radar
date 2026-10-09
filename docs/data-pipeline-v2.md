@@ -54,6 +54,15 @@ meaning. The [clustering regressions](../tests/test_v2_core_regressions.py) own
 the Vietnamese NFC and arXiv HTML identity examples; the clustering module owns
 the conservative matching rules.
 
+Cross-publisher title matching runs within 48 hours and uses complete-link
+clusters. A shared entity is only an anchor: it does not count as a second
+content word. Entity matches require two independent shared content words, a
+shared adjacent entity/content phrase, a multiword entity phrase with
+independent content evidence, or (for newly inferred names) a shared content
+word with announcement language in both headlines. This keeps a
+famous company, product name or capitalized common word from joining unrelated
+events by itself.
+
 ## Trending repositories
 
 The repository lists are GitHub Trending's own day, week and month pages, ranked

@@ -1,6 +1,8 @@
 """Clustering preserves provenance and refuses ambiguous synthetic stories."""
 
+import json
 import unittest
+from pathlib import Path
 
 from radar.clustering import canonical_url, cluster_items
 if __package__:
@@ -242,6 +244,61 @@ class ClusterTests(unittest.TestCase):
                      title="OpenAI raises new multibillion funding round", published_at="2026-10-07T12:00:00Z"),
         ]
         self.assertEqual(len(cluster_items(items, NOW)), 2)
+
+    def test_real_deepseek_event_and_financing_headlines_stay_separate(self):
+        items = [
+            coverage("hacker-news", "https://hn.example/deepseek-flash", publisher="hacker-news",
+                     title="Why isn't the industry freaking out about DeepSeek 4.1 Flash?",
+                     published_at="2026-10-08T00:00:00Z"),
+            coverage("bloomberg", "https://bloomberg.example/deepseek-funding", publisher="bloomberg",
+                     title="Billions Pour Into OpenAI, DeepSeek Ahead of IPOs",
+                     published_at="2026-10-08T00:00:00Z"),
+        ]
+        self.assertEqual(len(cluster_items(items, NOW)), 2)
+
+    def test_real_build_verbs_and_silicon_valley_titles_stay_separate(self):
+        items = [
+            coverage("amazon", "https://amazon.example/concierge", publisher="amazon",
+                     title="Build a voice travel concierge with Amazon Bedrock AgentCore"),
+            coverage("lobsters", "https://lobsters.example/burn", publisher="lobsters",
+                     title="Burn 0.22.0: Faster Builds, Smaller Binaries"),
+            coverage("bloomberg", "https://bloomberg.example/silicon-island", publisher="bloomberg",
+                     title="Malaysia Builds a New Silicon Island to Tap AI Boom"),
+        ]
+        self.assertEqual(len(cluster_items(items, NOW)), 3)
+
+    def test_reviewed_false_clusters_do_not_survive_as_complete_merges(self):
+        root = Path(__file__).resolve().parents[1]
+        snapshot = json.loads((root / "plans" / "reports" / "radar-ui-live.json").read_text(encoding="utf-8"))
+        reviewed = json.loads((root / "plans" / "reports" / "all_clusters_labeled.json").read_text(encoding="utf-8"))
+        raw = list({(item.get("source"), item.get("id")): item
+                    for story in snapshot["stories"] for item in story.get("coverage", [])}.values())
+        owner = {}
+        for index, story in enumerate(cluster_items(raw, snapshot["generated_at"])):
+            for item in story["coverage"]:
+                owner[(item.get("publisher"), item.get("title"))] = index
+
+        false_clusters = [cluster for cluster in reviewed if cluster["label"] == "FALSE"]
+        self.assertEqual(len(false_clusters), 68)
+        for cluster in false_clusters:
+            keys = [(member["publisher"], member["title"]) for member in cluster["members"]]
+            cluster_ids = {owner.get(key) for key in keys}
+            with self.subTest(cluster=cluster["cluster_index"], title=cluster["title"]):
+                self.assertNotIn(None, cluster_ids)
+                self.assertGreater(len(cluster_ids), 1)
+
+        doubtful_decisions = {}
+        for cluster in reviewed:
+            if cluster["label"] != "DOUBTFUL":
+                continue
+            keys = [(member["publisher"], member["title"]) for member in cluster["members"]]
+            cluster_ids = {owner.get(key) for key in keys}
+            doubtful_decisions[cluster["cluster_index"]] = (
+                "merge" if None not in cluster_ids and len(cluster_ids) == 1 else "split")
+        self.assertEqual(doubtful_decisions, {
+            17: "split", 26: "split", 39: "split", 56: "split",
+            69: "split", 78: "merge", 91: "split", 95: "split",
+        })
 
     def test_entity_with_single_shared_specific_token_stays_apart(self):
         items = [

@@ -10,6 +10,7 @@ from radar.items import instant
 
 STOPWORDS = set("a an the and or for to of in on with from by as at is are was were be been this that it its our your new now how what why when can will has have had about into more most first introducing announces announced releases released release launch launches launched over under after amid against due because part via says said report reports".split())
 TRACKING = {"fbclid", "gclid", "mc_cid", "mc_eid", "ref_src", "ref_url"}
+ANNOUNCEMENT_RE = re.compile(r"\b(?:introduc\w*|debut\w*|unveil\w*|launch\w*|releas\w*|announc\w*)\b", re.I)
 
 
 def canonical_url(url):
@@ -133,6 +134,28 @@ def _capitalized_entities(title, named_entities):
             and _stem(word.lower()) in named_entities}
 
 
+def _adjacent_tokens(title):
+    words = [_stem(word.lower()) for word in
+             re.findall(r"[^\W_]+(?:[.-][^\W_]+)*", unicodedata.normalize("NFC", title))]
+    return set(zip(words, words[1:]))
+
+
+def _shared_entity_content_phrase(left_title, right_title, entities, content):
+    """Require a shared adjacent entity/content pair, not an isolated keyword."""
+    shared_pairs = _adjacent_tokens(left_title) & _adjacent_tokens(right_title)
+    return any((entity, word) in shared_pairs or (word, entity) in shared_pairs
+               for entity in entities for word in content if len(word) >= 4)
+
+
+def _shared_entity_name_phrase(left_title, right_title, entities):
+    return any(a in entities and b in entities
+               for a, b in _adjacent_tokens(left_title) & _adjacent_tokens(right_title))
+
+
+def _both_announce(title_a, title_b):
+    return bool(ANNOUNCEMENT_RE.search(title_a) and ANNOUNCEMENT_RE.search(title_b))
+
+
 def _cluster_entities(items):
     publishers = defaultdict(set)
     interior_uses = set()
@@ -211,16 +234,30 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
                         _capitalized_entities(right.get("title", ""), named_entities))
     shared_variants = {w for w in shared if _stem(w) in SUB_VARIANTS}
     shared_versions = _extract_versions(a_raw) & _extract_versions(b_raw)
-    specific = {w for w in shared if _stem(w) not in (ENTITY_WORDS | TOPIC_WORDS | SUB_VARIANTS) and not any(c.isdigit() for c in w) and "-" not in w}
+    # An entity is the anchor, not independent evidence of an event. Counting
+    # it as a specific word lets one shared name (or a capitalized common word)
+    # satisfy both sides of the match rule.
+    specific = {w for w in shared
+                if _stem(w) not in (ENTITY_WORDS | TOPIC_WORDS | SUB_VARIANTS | shared_entities)
+                and not any(c.isdigit() for c in w) and "-" not in w}
 
     # Signal 1: Shared entity + 2 or more shared specific tokens
     if len(shared_entities) >= 1 and len(specific) >= 2:
         return True
 
-    # A newly introduced product or company name can be absent from ENTITY_WORDS.
-    # Require another shared content word so a name alone never joins unrelated items.
-    if (not (shared_entities & ENTITY_WORDS) and len(shared_entities) >= 1
-            and len(specific) >= 1):
+    if (len(shared_entities) >= 2 and specific and _shared_entity_name_phrase(
+            left.get("title", ""), right.get("title", ""), shared_entities)):
+        return True
+
+    if _shared_entity_content_phrase(left.get("title", ""), right.get("title", ""),
+                                     shared_entities, specific):
+        return True
+
+    # One shared content word can support a newly named product only when it
+    # appears alongside an announcement in both headlines. A lone brand, common
+    # verb or topic word is insufficient.
+    if (shared_entities - ENTITY_WORDS and specific
+            and _both_announce(left.get("title", ""), right.get("title", ""))):
         return True
 
     # Signal 2: Model variant launch: shared entity + shared model sub-variant + shared version
