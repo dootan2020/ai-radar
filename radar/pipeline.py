@@ -37,6 +37,7 @@ def _jobs(v2=False, now=None):
     if v2:
         from radar import catalog, community, discovery, v2feeds
         parsers = dict(feed=v2feeds.parse_feed, hn=community.parse_hn, lobsters=community.parse_lobsters,
+                       bluesky=discovery.parse_bluesky,
                        papers=discovery.parse_papers, hf_trending=discovery.parse_hf_trending, github=discovery.parse_github)
         for source in catalog.sources(now):
             parser = parsers[source["parser"]]

@@ -1,0 +1,6 @@
+{
+  "feed": [
+    {"post": {"uri": "at://did:plc:fixture/app.bsky.feed.post/3lxyz", "indexedAt": "2026-10-02T11:00:00Z", "author": {"handle": "simonwillison.net"}, "record": {"text": "Testing a new LLM feature", "createdAt": "2026-10-02T11:00:00Z"}, "likeCount": 40, "repostCount": 8, "replyCount": 3}},
+    {"post": {"uri": "at://did:plc:fixture/app.bsky.feed.post/3lother", "indexedAt": "2026-10-02T10:00:00Z", "author": {"handle": "simonwillison.net"}, "record": {"text": "A nice walk today", "createdAt": "2026-10-02T10:00:00Z"}, "likeCount": 4, "repostCount": 0, "replyCount": 1}}
+  ]
+}

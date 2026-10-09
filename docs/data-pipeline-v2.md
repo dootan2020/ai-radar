@@ -21,6 +21,7 @@ times, counters and failed sources must remain visible as unknown or failed.
 - [Daily editions and durable archive](daily-editions.md), separate from the rolling snapshot.
 - [Official product updates](tool-updates.md), including dated release evidence,
   product/version grouping and attributed changelog excerpts.
+- [Free-source collection decisions and hosted-runner probes](../plans/reports/nguon-mien-phi.md).
 
 ## Decisions to preserve
 

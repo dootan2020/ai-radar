@@ -333,5 +333,10 @@
     "circle_id": "circle-press-relay",
     "circle_name": "Press that relays posts on X (the free, indirect route to Musk, Altman, Huang, Tibo)",
     "notes": "CNBC's public syndicated partner feed gateway (partnerId=wrss01 for category ID 19854910 Technology, corresponding to the original catalog URL cnbc.com/id/19854910). Syndication gateway serves raw XML without Cloudflare anti-bot 403 on GitHub runners."
-  }
+  },
+  {"id":"bluesky-simonwillison","name":"Bluesky Simon Willison","url":"https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=simonwillison.net&filter=posts_with_replies&limit=100","label":"cong-dong","circle_id":"circle-2","circle_name":"Circle 2: Phân tích & Tiếng nói AI (curators, newsletters, podcasts)"},
+  {"id":"bluesky-emollick","name":"Bluesky Ethan Mollick","url":"https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=emollick.bsky.social&filter=posts_with_replies&limit=100","label":"cong-dong","circle_id":"circle-2","circle_name":"Circle 2: Phân tích & Tiếng nói AI (curators, newsletters, podcasts)"},
+  {"id":"pandaily","name":"Pandaily RSS","url":"https://pandaily.com/feed/","label":"bao-chi","circle_id":"circle-press-relay","circle_name":"Press"},
+  {"id":"scmp-tech","name":"SCMP Tech RSS","url":"https://www.scmp.com/rss/36/feed","label":"bao-chi","circle_id":"circle-press-relay","circle_name":"Press"},
+  {"id":"ai-news-smol","name":"AI News by smol.ai (freshness check)","url":"https://news.smol.ai/rss.xml","label":"tin-hieu","circle_id":"circle-2","circle_name":"Circle 2: Phân tích & Tiếng nói AI (curators, newsletters, podcasts)"}
 ]

@@ -7,6 +7,7 @@ from urllib.parse import quote
 from radar.common import web_url
 from radar.huggingface import _repo_id
 from radar.items import observation
+from radar.items import relevant
 
 
 def parse_papers(text, source, observed_at):
@@ -74,4 +75,35 @@ def parse_github(text, source, observed_at):
             result.append(item)
     if data["items"] and not result:
         raise ValueError("GitHub search has no usable repositories")
+    return result
+
+
+def parse_bluesky(text, source, observed_at):
+    """Parse the anonymous Bluesky author-feed API, retaining AI-related posts."""
+    data = json.loads(text)
+    if not isinstance(data, dict) or not isinstance(data.get("feed"), list):
+        raise ValueError("Expected Bluesky author feed")
+    result, usable = [], 0
+    handle = source.get("handle", "")
+    for row in data["feed"]:
+        post = row.get("post", {}) if isinstance(row, dict) else {}
+        record = post.get("record", {}) if isinstance(post, dict) else {}
+        text_value = record.get("text", "")
+        uri = post.get("uri", "")
+        rkey = uri.rsplit("/", 1)[-1] if isinstance(uri, str) else ""
+        author = post.get("author", {})
+        if not text_value or not rkey or author.get("handle") != handle:
+            continue
+        usable += 1
+        if source.get("filter_ai", True) and not relevant(text_value):
+            continue
+        url = "https://bsky.app/profile/" + handle + "/post/" + rkey
+        item = observation(source, text_value, url, record.get("createdAt") or post.get("indexedAt"),
+                           observed_at, kind="social", summary=text_value,
+                           metrics={"likes": post.get("likeCount"), "reposts": post.get("repostCount"),
+                                    "replies": post.get("replyCount")})
+        if item:
+            result.append(item)
+    if data["feed"] and not usable:
+        raise ValueError("Bluesky feed has no usable posts for configured author")
     return result

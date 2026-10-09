@@ -27,6 +27,10 @@ NEW_FEED_URLS = {
     "fedscoop": "https://fedscoop.com/feed/",
     "nextgov-ai": "https://www.nextgov.com/rss/artificial-intelligence/",
     "technode": "https://technode.com/feed/",
+    "pandaily": "https://pandaily.com/feed/",
+    "scmp-tech": "https://www.scmp.com/rss/36/feed",
+    "pandaily": "https://pandaily.com/feed/",
+    "scmp-tech": "https://www.scmp.com/rss/36/feed",
     "restofworld": "https://restofworld.org/feed/latest/",
     "meta-newsroom": "https://about.fb.com/news/feed/",
     "microsoft-blog": "https://blogs.microsoft.com/feed/",
@@ -36,7 +40,7 @@ NEW_FEED_URLS = {
 FILTERED_SOURCES = {
     "vnexpress-tech", "tuoitre-so", "thanhnien-cong-nghe",
     "404media", "semafor", "cnbc-tech", "bloomberg-tech", "fedscoop",
-    "technode", "restofworld", "meta-newsroom", "microsoft-blog",
+    "technode", "pandaily", "scmp-tech", "restofworld", "meta-newsroom", "microsoft-blog",
 }
 
 UNFILTERED_SOURCES = {
@@ -62,13 +66,15 @@ class CatalogNewSourcesTests(unittest.TestCase):
                     self.assertIn("máy dựng của GitHub", src.get("disabled_reason", ""))
                 else:
                     self.assertNotIn("disabled", src)
+        self.assertTrue(self.sources["ai-news"]["disabled"])
+        self.assertEqual(self.sources["ai-news"]["url"], "https://news.smol.ai/rss.xml")
 
     def test_groups_and_publishers_are_consistent(self):
         press_sources = {
             "vnexpress-tech", "genk-ai", "tuoitre-so",
             "thanhnien-cong-nghe", "theregister-ai", "wired-ai", "404media",
             "semafor", "cnbc-tech", "bloomberg-tech", "fedscoop", "nextgov-ai",
-            "technode", "restofworld",
+            "technode", "pandaily", "scmp-tech", "restofworld",
         }
         lab_sources = {"meta-newsroom", "microsoft-blog", "aws-ml-blog"}
 
@@ -100,6 +106,8 @@ class CatalogNewSourcesTests(unittest.TestCase):
         self.assertEqual(self.sources["fedscoop"]["publisher"], "fedscoop")
         self.assertEqual(self.sources["nextgov-ai"]["publisher"], "nextgov")
         self.assertEqual(self.sources["technode"]["publisher"], "technode")
+        self.assertEqual(self.sources["pandaily"]["publisher"], "pandaily")
+        self.assertEqual(self.sources["scmp-tech"]["publisher"], "scmp")
         self.assertEqual(self.sources["restofworld"]["publisher"], "rest-of-world")
         self.assertEqual(self.sources["meta-newsroom"]["publisher"], "meta")
         self.assertEqual(self.sources["microsoft-blog"]["publisher"], "microsoft")
@@ -112,6 +120,17 @@ class CatalogNewSourcesTests(unittest.TestCase):
         for id_ in UNFILTERED_SOURCES:
             with self.subTest(unfiltered=id_):
                 self.assertFalse(self.sources[id_].get("filter_ai"), f"{id_} must have filter_ai=False")
+
+    def test_bluesky_observations_are_community_sources(self):
+        self.assertEqual(self.sources["bluesky-simonwillison"]["group"], "forum")
+        self.assertEqual(self.sources["bluesky-emollick"]["group"], "forum")
+
+    def test_youtube_catalog_entries_are_restored_to_main(self):
+        self.assertEqual(self.sources["dwarkesh-video"]["url"],
+                         "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=UUXl4i9dYBrFOabk0xGmbkRA&maxResults=50")
+        for source_id in ("openai-youtube-feed", "anthropic-youtube-feed", "google-youtube-feed",
+                          "deepmind-youtube-feed", "nvidia-youtube-feed"):
+            self.assertNotIn(source_id, self.sources)
 
 
 class RelevanceFilterTests(unittest.TestCase):

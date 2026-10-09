@@ -5,7 +5,7 @@ import unittest
 
 from radar.community import parse_hn, parse_lobsters
 from radar.clustering import cluster_items
-from radar.discovery import parse_github, parse_hf_trending, parse_papers
+from radar.discovery import parse_bluesky, parse_github, parse_hf_trending, parse_papers
 from radar.v2feeds import parse_feed
 from radar.ranking import rank_stories
 if __package__:
@@ -15,6 +15,23 @@ else:
 
 SOURCE = {"id": "synthetic-source", "name": "Synthetic source", "publisher": "synthetic",
           "lab": "", "group": "forum", "kind": "json", "url": "https://feed.example/rss"}
+
+
+class FreeSocialSourceTests(unittest.TestCase):
+    def test_bluesky_author_feed_filters_non_ai_and_preserves_engagement(self):
+        from pathlib import Path
+        body = (Path(__file__).parent / "fixtures" / "bluesky-author-feed.json").read_text(encoding="utf-8")
+        source = SOURCE | {"id": "bluesky-simonwillison", "group": "social",
+                           "handle": "simonwillison.net", "filter_ai": True}
+        rows = parse_bluesky(body, source, OBSERVED)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["url"], "https://bsky.app/profile/simonwillison.net/post/3lxyz")
+        self.assertEqual(rows[0]["metrics"], {"likes": 40, "reposts": 8, "replies": 3})
+        self.assertEqual(rows[0]["published_at"], "2026-10-02T11:00:00Z")
+
+    def test_malformed_public_source_payloads_fail_honestly(self):
+        with self.assertRaises(ValueError):
+            parse_bluesky("{}", SOURCE, OBSERVED)
 
 
 def hn_row(**changes):

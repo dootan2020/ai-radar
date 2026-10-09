@@ -7,7 +7,7 @@ RSS = [
     ("simon-willison", "Simon Willison", "research", "simon-willison", "https://simonwillison.net/atom/everything/", True),
     ("interconnects", "Interconnects", "research", "interconnects", "https://www.interconnects.ai/feed", False),
     ("import-ai", "Import AI", "newsletter", "import-ai", "https://jack-clark.net/feed/", False),
-    ("ai-news", "AI News", "newsletter", "smol-ai", "https://buttondown.com/ainews/rss", False),
+    ("ai-news", "AI News", "newsletter", "smol-ai", "https://news.smol.ai/rss.xml", False),
     ("dwarkesh-podcast", "Dwarkesh Podcast", "podcast", "dwarkesh", "https://www.dwarkeshpatel.com/feed", True),
     ("latent-space", "Latent Space", "podcast", "latent-space", "https://api.substack.com/feed/podcast/1084089.rss", False),
     ("no-priors", "No Priors", "podcast", "no-priors", "https://feeds.megaphone.fm/nopriors", False),
@@ -31,6 +31,8 @@ RSS = [
     ("fedscoop", "FedScoop", "press", "fedscoop", "https://fedscoop.com/feed/", True),
     ("nextgov-ai", "Nextgov AI", "press", "nextgov", "https://www.nextgov.com/rss/artificial-intelligence/", False),
     ("technode", "TechNode", "press", "technode", "https://technode.com/feed/", True),
+    ("pandaily", "Pandaily", "press", "pandaily", "https://pandaily.com/feed/", True),
+    ("scmp-tech", "SCMP Tech", "press", "scmp", "https://www.scmp.com/rss/36/feed", True),
     ("restofworld", "Rest of World", "press", "rest-of-world", "https://restofworld.org/feed/latest/", True),
     ("meta-newsroom", "Meta Newsroom", "lab", "meta", "https://about.fb.com/news/feed/", True),
     ("microsoft-blog", "Official Microsoft Blog", "lab", "microsoft", "https://blogs.microsoft.com/feed/", True),
@@ -44,6 +46,7 @@ NVIDIA_CHANNEL = ("nvidia-youtube", "nvidia", "NVIDIA", "NVIDIA", "UCHuiy8bXnmK5
 DISABLED = {
     "latent-space": "Nguồn podcast trên Substack trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế.",
     "cnbc-tech": "Nguồn CNBC trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế.",
+    "ai-news": "Nguồn smol.ai được đo ngày 2026-10-09 nhưng mục mới nhất là 2026-09-09; hiện không còn đăng đều.",
 }
 
 
@@ -83,4 +86,10 @@ def sources(now):
         source("hf-spaces-ranked", "Space thịnh hành trên Hugging Face", "https://huggingface.co/api/spaces?sort=trendingScore&direction=-1&limit=20", "hf_trending", "repository", "huggingface", repo_type="space"),
         source("github-ai", "Kho mã AI mới trên GitHub", "https://api.github.com/search/repositories?" + urlencode({"q": "topic:llm created:>=" + (now - timedelta(days=7)).date().isoformat(), "sort": "stars", "order": "desc", "per_page": 20}), "github", "repository", "github"),
     ])
+    for handle in ("simonwillison.net", "emollick.bsky.social"):
+        url = "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?" + urlencode(
+            {"actor": handle, "filter": "posts_with_replies", "limit": 100})
+        person = "Simon Willison" if handle.startswith("simon") else "Ethan Mollick"
+        result.append(source("bluesky-" + handle.split(".")[0], "Bài đăng của " + person + " trên Bluesky", url,
+                             "bluesky", "forum", "bluesky", handle=handle, filter_ai=True))
     return result
