@@ -164,8 +164,11 @@ sentences may be translated. Catalog/model/snapshot identities, backtick tokens,
 and detectable unknown names in launch/context positions are protected. These
 checks cannot prove semantic equivalence or identify every unknown proper name:
 representative live translations still require a human quality check. Source
-text is untrusted data, never instructions; the prompt prohibits summarizing,
-embellishing, following embedded commands or inventing facts.
+conditioned glossary corrections run after both Gemini and NLLB, including
+validated Gemini cache hits, so common AI terminology is consistent without
+additional provider requests. Source text is untrusted data, never instructions;
+the prompt prohibits summarizing, embellishing, following embedded commands or
+inventing facts.
 
 `translation` records `requested_provider`, actual `provider` (`gemini`, `nllb`,
 `mixed`, `original`), `providers`, `models`, and `provider_counts` for distinct
