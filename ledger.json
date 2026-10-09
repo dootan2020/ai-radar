@@ -1,1 +1,1 @@
-{"version":1,"month":"2026-10","settled_micros":0,"settled_daily":{},"pending":{},"pending_days":{},"cursors":{},"reconciled_day":null}
+{"version":1,"month":"2026-10","settled_micros":0,"settled_daily":{},"pending":{"37962061525-1":1000000},"pending_days":{"37962061525-1":"2026-10-09"},"cursors":{},"reconciled_day":null}
