@@ -95,13 +95,22 @@ class TranslationDisplayTests(unittest.TestCase):
         self.assertNotIn("(st.coverage || []).map(c => `<li>", self.app)
 
     def test_every_headline_slot_reads_the_translation(self):
-        self.assertIn("import { shown as viShown, origLine, uniqCoverage } from './titles.js';", self.app)
+        self.assertIn("import { shown as viShown, headlineShown, origLine, uniqCoverage } from './titles.js';", self.app)
         # Rows, hot list, lead, videos, sheet and coverage links all go through tt(); none print the raw title.
         self.assertGreaterEqual(self.app.count("${tt("), 10)
         for raw in ("${esc(String(st.title))}</span>", "${esc(String(s.title))}</span>", "${esc(String(c.title))}</a>",
                     "<h2>${esc(String(st.title))}</h2>", "<strong>${esc(String(L0.title))}</strong>"):
             self.assertNotIn(raw, self.app)
         self.assertIn("viShown(r.description, r.description_vi)", self.app)
+
+    def test_headlines_and_screened_images_across_reader_surfaces(self):
+        result = subprocess.run(["node", str(ROOT / "tests" / "verify-feed-content.mjs")],
+                                cwd=ROOT, capture_output=True, text=True, encoding="utf-8", timeout=60)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_card_source_marks_do_not_overlap(self):
+        self.assertIn('.cov-btn .av-stack { gap: var(--space-4); }', self.feed_css)
+        self.assertIn('.cov-btn .av-stack-item + .av-stack-item { margin-left: 0; }', self.feed_css)
 
     def test_footer_names_the_model_and_its_licence(self):
         self.assertIn("NLLB-200 (giấy phép CC-BY-NC 4.0", self.app)

@@ -7,7 +7,7 @@ import { isSnapshotV2, loadSnapshot } from './snapshot.js';
 import { freshness, freshnessText } from './freshness.js';
 import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, faceOfRepo, ytIdOf, hydrateHF, watchImageErrors, hourHistogram, ring, meter, imgSrc, setDeferImages, loadDeferredImages } from './faces.js';
 import { KIND, METRIC, licenseText, SIGNALS, signalText } from './words.js';
-import { shown as viShown, origLine, uniqCoverage } from './titles.js';
+import { shown as viShown, headlineShown, origLine, uniqCoverage } from './titles.js';
 
 const CHAPTERS = [
   {id:'hom-nay', sec:'today', label:'Hôm nay', title:'Hôm nay', note:'Đăng trong 24 giờ qua, mới nhất trước.'},
@@ -94,7 +94,7 @@ const daysUntil = ymd => { const t = dateOnly(ymd); return Math.round((Date.UTC(
 const srcName = id => (SRC.get(id) || {}).name || id;
 const pubOf = st => st.coverage && st.coverage[0] ? srcName(st.coverage[0].source) : '';
 /* Headline in Vietnamese when the snapshot carries a machine translation; tt() is the text, orig() the small original line. */
-const tt = o => esc(viShown(o.title, o.title_vi));
+const tt = o => esc(headlineShown(o));
 const orig = (o, cls) => origLine(o.title, o.title_vi, esc, cls);
 const covOf = st => {
   const coverage = st.coverage || [];
@@ -131,8 +131,10 @@ function measuredCov(st){
 }
 const ytId = ytIdOf;
 /* Only i.ytimg.com is allowed; feeds hand out i2/i3/i4 mirrors, so the same video id is rebuilt on i.ytimg.com. */
-function thumbImg(id, alt = '', critical = false){
-  const src = critical ? `src="https://i.ytimg.com/vi/${esc(id)}/hqdefault.jpg"` : imgSrc(`https://i.ytimg.com/vi/${esc(id)}/hqdefault.jpg`);
+function thumbImg(id, alt = '', critical = false, story = null){
+  const url = story?.image_screened ? story.image?.src : `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+  if (!url) return '';
+  const src = critical ? `src="${esc(url)}"` : imgSrc(url);
   return `<img ${src} alt="${esc(alt)}" loading="${critical ? 'eager' : 'lazy'}"${critical ? ' fetchpriority="high"' : ''} decoding="async" width="480" height="270">`;
 }
 const isNew = st => !!st.published_at && st.published_at > lastSeen && new Date(st.published_at) <= now();
@@ -407,7 +409,7 @@ function liveTile(shown){
   } else if (lastEnded) {
     const id = ytId(lastEnded.s);
     const when = lastEnded.c.end_at ? `Kết thúc ${timeEl(lastEnded.c.end_at)}` : esc(streamedAge(lastEnded.c.time_text) || 'Đã phát xong');
-    media = `<button class="media${id ? ' has-thumb' : ''}" data-sel="${esc(lastEnded.s.id)}">${id ? `<span class="thumb">${thumbImg(id, '', true)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span>` : ''}<span class="media-cap"><span class="state">Vừa phát xong · ${when}</span><strong>${tt(lastEnded.c)}</strong>${orig(lastEnded.c)}</span></button>`;
+    media = `<button class="media${id ? ' has-thumb' : ''}" data-sel="${esc(lastEnded.s.id)}">${id ? `<span class="thumb">${thumbImg(id, '', true, lastEnded.s)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span>` : ''}<span class="media-cap"><span class="state">Vừa phát xong · ${when}</span><strong>${tt(lastEnded.c)}</strong>${orig(lastEnded.c)}</span></button>`;
     shown.add(lastEnded.s.id);
   } else if (endedLive) {
     media = `<a class="media has-thumb" href="${esc(safe(endedLive.url))}" target="_blank" rel="noopener"><span class="thumb">${thumbImg(endedLive.video_id, '', true)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="media-cap"><span class="state">Vừa phát xong · ${esc(endedLive.channel)} · ${endedLive.end_at ? `kết thúc ${timeEl(endedLive.end_at)}` : 'đã phát xong'}</span><strong>${tt(endedLive)}</strong>${orig(endedLive)}</span></a>`;
@@ -503,7 +505,7 @@ function listenTile(shown){
   vids.concat(other).forEach(s => shown.add(s.id));
   return `<section class="tile t-listen" aria-labelledby="listen-h">
     ${tileHead('Nghe và xem', 'listen-h', `<a class="link" href="#nghe"><span class="num">${(D.sections.listen || []).length}</span> mục</a>`)}
-    <div class="vid2">${vids.map(s => `<button class="vid${statusClass(s.id, s)}" data-sel="${esc(s.id)}" data-status="${storyStatus(s.id, s)}"><span class="thumb">${thumbImg(ytId(s), '')}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${savedKey(s.id) ? savedMark : ''}${statusMark(s.id, s)}${tt(s)}</span>${orig(s)}<span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
+    <div class="vid2">${vids.map(s => `<button class="vid${statusClass(s.id, s)}" data-sel="${esc(s.id)}" data-status="${storyStatus(s.id, s)}"><span class="thumb">${thumbImg(ytId(s), '', false, s)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${savedKey(s.id) ? savedMark : ''}${statusMark(s.id, s)}${tt(s)}</span>${orig(s)}<span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
     ${other.map(s => row(s, {compact:true})).join('')}
   </section>`;
 }
@@ -552,7 +554,7 @@ function chapterList(c){
   if (!list.length) return `<p class="empty-note">Chưa có dữ liệu cho mục này. Trang không điền tin mẫu.</p>`;
   if (c.sec === 'listen') {
     const v = list.filter(s => ytId(s)).slice(0, 8), rest = list.filter(s => !ytId(s));
-    return `<div class="vids">${v.map(s => `<button class="vid${read.has(s.id) ? ' is-read' : ''}" data-sel="${esc(s.id)}"><span class="thumb">${thumbImg(ytId(s), s.title)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${tt(s)}</span>${orig(s)}<span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
+    return `<div class="vids">${v.map(s => `<button class="vid${read.has(s.id) ? ' is-read' : ''}" data-sel="${esc(s.id)}"><span class="thumb">${thumbImg(ytId(s), s.title, false, s)}<span class="play" aria-hidden="true">${icon('i-play')}</span></span><span class="t">${tt(s)}</span>${orig(s)}<span class="k">${esc(pubOf(s))} · ${timeEl(s.published_at)}</span></button>`).join('')}</div>
       ${capList(c.id, 6, rest, s => row(s))}`;
   }
   if (c.sec === 'upcoming') {
@@ -759,8 +761,8 @@ function detailStory(st){
   const sig = st.hot_signals && st.hot_signals.measurement;
   const cov = [...covOf(st)].sort((a, b) => (a.published_at || '').localeCompare(b.published_at || ''));
   const sv = savedKey(st.id);
-  return `<div class="sh-head">${avatar(faceSt(st), 'lg')}<div class="sh-t"><h2 id="sheet-h">${tt(st)}</h2>${orig(st)}</div></div>
-    ${id ? `<span class="thumb">${thumbImg(id, st.title)}</span>` : ''}
+  return `<div class="sh-head">${avatar(faceSt(st), 'lg')}<div class="sh-t"><h2 id="sheet-h">${esc(viShown(st.title, st.title_vi))}</h2>${orig(st)}</div></div>
+    ${id ? `<span class="thumb">${thumbImg(id, st.title, false, st)}</span>` : ''}
     ${st.summary ? `<p class="sum">${esc(st.summary)}</p>` : ''}
     ${st.hot_score != null ? `<div class="sh-score">${ring(st.hot_score, 'Điểm nóng')}<p>Nóng vì ${reasonHTML(st)}</p></div>` : ''}
     <dl class="facts">

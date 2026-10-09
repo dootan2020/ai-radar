@@ -43,8 +43,22 @@ class InitialPaintTests(unittest.TestCase):
         self.assertIn('fetchpriority="high"', critical)
         self.assertIn('width="480" height="270"', critical)
         live = declaration('liveTile')
-        self.assertEqual(len(re.findall(r"thumbImg\([^\n]*?, '', true\)", live)), 2,
+        self.assertEqual(len(re.findall(r"thumbImg\([^\n]*?, '', true(?:, lastEnded\.s)?\)", live)), 2,
                          'both story-backed and standalone ended streams are critical')
+
+    def test_screened_video_uses_only_the_story_image(self):
+        source = "const esc = s => s, imgSrc = u => `data-src=\"${u}\"`;\n" + declaration('thumbImg')
+        result = self.run_js(source + '''
+const screened = {image_screened:true};
+const approved = {...screened, image:{src:'assets/ai/approved.jpg'}};
+process.stdout.write(JSON.stringify([
+  thumbImg('video', '', true, screened), thumbImg('video', '', false, screened),
+  thumbImg('video', '', true, approved), thumbImg('video', '', false, approved)
+]));''')
+        self.assertEqual(result[:2], ["", ""])
+        self.assertIn('src="assets/ai/approved.jpg"', result[2])
+        self.assertIn('data-src="assets/ai/approved.jpg"', result[3])
+        self.assertNotIn('i.ytimg.com', ''.join(result))
 
     def test_first_paint_path_sequences_head_projection_before_full_snapshot(self):
         boot = APP[APP.index('async function boot()'):]

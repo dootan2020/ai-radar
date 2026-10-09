@@ -1,10 +1,10 @@
 /* ai·radar · the site root since 05/10 (owner, 05/10 ~01:30: the feed replaces the bento home).
    Owner, 04/10 20:28: flat like the Edge start page and Google Discover. No borders, no accent bars, every card led by
    a picture. Pictures are the ones each source publishes, or a labelled AI illustration from the pipeline; a story
-   without either gets a flat cover drawn from its own data.
+   screened without either gets no picture. Legacy unscreened stories retain their factual cover.
 
-   One function decides every story picture: pickImage(). It walks IMAGE_PROVIDERS in order and falls back to the
-   cover.
+   One function decides every story picture: pickImage(). Screened stories use only the pipeline image; legacy
+   stories walk IMAGE_PROVIDERS before the cover fallback.
 
    "Đáng đọc" round (owner, 04/10 21:35): what to read first. One score per story from measured signals only (WORTH,
    worthOf), a block of 3 to 5 stories on top with a reason line in real numbers, a reason chip per card, a sort switch,
@@ -19,7 +19,7 @@
 import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
 import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, daysLeftHTML, eventRange } from './time-text.js';
 import { KIND, METRIC } from './words.js';
-import { shown, uniqCoverage } from './titles.js';
+import { shown, headlineShown, uniqCoverage } from './titles.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
 import { freshness, freshnessText } from './freshness.js';
 import { WORTH, fallbackWorth } from './worth-score.js';
@@ -352,9 +352,9 @@ const numB = m => `<b class="num"${m.live ? ` data-live="${esc(m.live)}"` : ''}>
    the card then names that item's source and links to that item's address, so headline, source and link agree. */
 function titleOf(st) {
   const ok = (o, v) => typeof v === 'string' && v.trim() && v.trim() !== String(o || '').trim();
-  if (ok(st.title, st.title_vi)) return { text: st.title_vi.trim(), orig: st.title, cov: null };
-  for (const c of st.coverage || []) if (ok(c.title, c.title_vi)) return { text: c.title_vi.trim(), orig: c.title, cov: c };
-  return { text: String(st.title || ''), orig: null, cov: null };
+  if (ok(st.title, st.title_vi)) return { text: headlineShown(st), orig: st.title, cov: null };
+  for (const c of st.coverage || []) if (ok(c.title, c.title_vi)) return { text: headlineShown(c), orig: c.title, cov: c };
+  return { text: headlineShown(st), orig: null, cov: null };
 }
 /* Under a translated headline: a "Translated" chip, a gap, then the original. Never glued together. */
 const origLine = t => !t.orig ? '' :
@@ -503,8 +503,7 @@ function choosePicks() {
    THE IMAGE SEAM. Every story picture comes from pickImage(st).
    Returns {src, via, kind}: kind 'photo' (an editorial picture: text may sit on it), 'graphic' (a generated card such
    as GitHub's social preview: text goes below it), or 'cover' (no published picture; drawn from data, see coverFor).
-   To plug in AI-generated or stock pictures later, add a provider to IMAGE_PROVIDERS before the cover fallback, with
-   its own `via` (for example 'ai' or 'stock') so the report and the page can always tell them apart.
+   Screened stories use story.image or kind 'none'. IMAGE_PROVIDERS and covers serve unscreened archives only.
    ========================================================================== */
 const KIND_OF_VIA = { 'feed-media': 'photo', 'og:image': 'photo', 'linked-article': 'photo', 'youtube': 'photo',
   'github-social': 'graphic', 'hf-thumbnail': 'graphic', 'ai': 'photo' };
@@ -553,14 +552,16 @@ function pickImage(st) {
   let r = null;
   if (st.image && st.image.src) {
     r = { src: st.image.src, via: st.image.via, kind: st.image.kind || KIND_OF_VIA[st.image.via] || 'photo' };
-  } else {
+  } else if (!st.image_screened) {
     for (const p of IMAGE_PROVIDERS) { r = p(st); if (r) break; }
     if (!r) r = coverPick(st);
   }
+  if (!r) r = noImage();
   PICKED.set(st.id, r);
   return r;
 }
 const coverPick = st => ({ src: null, via: 'cover', kind: 'cover', cover: coverFor(st) });
+const noImage = () => ({ src: null, via: 'none', kind: 'none' });
 
 /* ---------- covers: an image-sized picture made of the story's own facts ---------- */
 /* Source colours (OKLCH hue, chroma, lightness). Dark enough that white text passes contrast. */
@@ -591,11 +592,12 @@ const coverHTML = cv => `<div class="cover" style="${coverStyle(cv)}" aria-hidde
   <span class="cover-fig">${cv.num
     ? `<span class="cover-num num">${esc(cv.num)}</span><span class="cover-word">${esc(cv.word)}</span>`
     : `<span class="cover-word is-big">${esc(cv.word)}</span>`}</span></div>`;
-const miniCover = st => { const cv = coverFor(st); return `<span class="cover is-mini" style="${coverStyle(cv)}" aria-hidden="true"><span class="cover-glyph">${esc(cv.glyph)}</span></span>`; };
+const miniCover = st => { if (st.image_screened) return ''; const cv = coverFor(st); return `<span class="cover is-mini" style="${coverStyle(cv)}" aria-hidden="true"><span class="cover-glyph">${esc(cv.glyph)}</span></span>`; };
 
 /* ---------- story card ---------- */
 const DIMS = { lead: [1280, 720], wide: [1280, 720], std: [640, 360] };
 function mediaHTML(img, size) {
+  if (img.kind === 'none') return '';
   if (!img.src) return `<div class="media">${coverHTML(img.cover)}</div>`;
   const [w, h] = DIMS[size];
   const aiBadge = img.via === 'ai' ? `<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>` : '';
@@ -1992,7 +1994,7 @@ function route() {
   if (m) openStory(m[1]);
 }
 
-/* ---------- a picture that fails to load becomes its cover, never an empty box ---------- */
+/* Screened pictures fail closed. Only legacy stories may use a factual cover. */
 function watchPictures() {
   document.addEventListener('error', e => {
     const img = e.target;
@@ -2000,10 +2002,11 @@ function watchPictures() {
     if (img.classList.contains('media-img')) {
       const card = img.closest('.feed-card'), st = card && STORY_ANY.get(card.dataset.id);
       if (!st) return;
-      const cv = coverPick(st);
+      const cv = st.image_screened ? noImage() : coverPick(st);
       PICKED.set(st.id, cv);
-      card.dataset.via = 'cover';
-      img.parentElement.innerHTML = coverHTML(cv.cover);
+      card.dataset.via = cv.via;
+      if (st.image_screened) img.parentElement.remove();
+      else img.parentElement.innerHTML = coverHTML(cv.cover);
       if (card.classList.contains('card-photo')) {
         card.classList.remove('card-photo');
         const b = card.querySelector('.photo-body'); if (b) b.className = 'card-body';

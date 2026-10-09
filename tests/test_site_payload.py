@@ -14,6 +14,7 @@ from unittest.mock import patch
 
 import build
 from radar import site_payload, translate, translation_pipeline
+from radar.headlines import annotate_headlines, compact_headline
 from test_publication import snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,7 +23,11 @@ ROOT = Path(__file__).resolve().parents[1]
 def reader_fixture():
     data = snapshot()
     story = data["stories"][0]
-    story.update(title_vi="Tin AI", summary="Original summary", summary_vi="Tóm tắt",
+    story.update(title="A new model release with measured improvements. " + "Original context. " * 12,
+                 title_vi="Mô hình mới được công bố với số đo cụ thể. " + "Chi tiết đầy đủ. " * 12,
+                 image_screened=True,
+                 image={"src": "assets/ai/story.jpg", "via": "ai", "kind": "photo"},
+                 summary="Original summary", summary_vi="Tóm tắt",
                  time_basis="repository_created", published_at=data["generated_at"], kind="model",
                  hot_signals={"measurement": {"source": "remote-0", "metric": "points", "observed_at": data["generated_at"]},
                               "freshness": 0.9}, primary_section="models", groups=["lab"])
@@ -33,6 +38,7 @@ def reader_fixture():
         media=[{"type": "video", "url": "https://youtube.com/watch?v=abcdefghijk"}])
     data["translation"] = {"provider": "mixed", "status": "partial", "license": "CC-BY-NC-4.0"}
     data["sources"][0].update(error_vi="Không đọc được", http_requests=[{"url": "https://example.org"}])
+    annotate_headlines(story)
     return data
 
 
@@ -45,11 +51,12 @@ class SitePayloadTests(unittest.TestCase):
         self.assertEqual(result["sections"], data["sections"])
         self.assertEqual([s["id"] for s in result["stories"]], [s["id"] for s in data["stories"]])
         story, original = result["stories"][0], data["stories"][0]
-        for key in ("title", "title_vi", "summary", "summary_vi", "time_basis", "published_at", "kind"):
+        for key in ("title", "title_vi", "headline", "headline_vi", "image_screened", "image",
+                    "summary", "summary_vi", "time_basis", "published_at", "kind"):
             self.assertEqual(story[key], original[key])
         self.assertEqual(story["hot_signals"]["measurement"], original["hot_signals"]["measurement"])
         coverage, full = story["coverage"][0], original["coverage"][0]
-        for key in ("id", "source", "title", "title_vi", "publisher", "lab", "metrics", "url", "status",
+        for key in ("id", "source", "title", "title_vi", "headline", "headline_vi", "publisher", "lab", "metrics", "url", "status",
                     "start_at", "end_at", "time_precision", "time_text", "media"):
             self.assertEqual(coverage[key], full[key])
         for reduced, source in zip(result["sources"], data["sources"]):
@@ -59,6 +66,16 @@ class SitePayloadTests(unittest.TestCase):
         self.assertEqual(result["generated_at"], data["generated_at"])
         self.assertNotIn("updates", result)
         self.assertNotIn("summary", coverage)
+        self.assertLess(len(story["headline_vi"]), len(story["title_vi"]))
+
+    def test_screened_image_absence_survives_reader_projections(self):
+        data = reader_fixture()
+        del data["stories"][0]["image"]
+        for payload in (site_payload.page_payload(data), site_payload.head_payload(data)):
+            projected = next(s for s in payload["stories"] if s["id"] == data["stories"][0]["id"])
+            self.assertTrue(projected["image_screened"])
+            self.assertNotIn("image", projected)
+            self.assertEqual(projected["headline_vi"], data["stories"][0]["headline_vi"])
 
     def test_compact_full_and_projection_follow_custom_output(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -118,7 +135,7 @@ class SitePayloadTests(unittest.TestCase):
             full = json.loads(out.read_bytes())
             self.assertEqual(full["translation"]["status"], "failed")
             self.assertNotIn("headline_vi", full["stories"][0])
-            self.assertEqual(full["stories"][0]["headline"], full["stories"][0]["title"])
+            self.assertEqual(full["stories"][0]["headline"], compact_headline(full["stories"][0]["title"]))
             self.assertEqual(json.loads(site_payload.page_path(out).read_bytes()), site_payload.page_payload(full))
             self.assertEqual(src.read_bytes(), before)
 

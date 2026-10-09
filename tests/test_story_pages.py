@@ -87,6 +87,27 @@ def story(story_id="story-1", **overrides):
 
 
 class StoryPageRenderingTests(unittest.TestCase):
+    def test_screened_story_has_no_generic_metadata_image_and_keeps_full_title(self):
+        item = story(image_screened=True, image=None, headline="Short", headline_vi="Ngắn")
+        document = render_story_page(item)
+        parser = PageParser()
+        parser.feed(document)
+        self.assertNotIn("og:image", parser.metas)
+        self.assertNotIn("twitter:image", parser.metas)
+        self.assertNotIn("image", json.loads(parser.jsonld[0]))
+        self.assertEqual(parser.metas["twitter:card"], "summary")
+        self.assertNotIn("og-image.png", document)
+        self.assertIn('id="story-modal-title">Tiêu đề tiếng Việt</h1>', document)
+        self.assertEqual(json.loads(parser.scripts[0])["headline_vi"], "Ngắn")
+
+    def test_screened_pipeline_ai_image_is_the_metadata_image(self):
+        item = story(image_screened=True, image={"src": "assets/ai/story-1.jpg", "via": "ai"})
+        parser = PageParser()
+        parser.feed(render_story_page(item))
+        self.assertEqual(parser.metas["og:image"], f"{BASE_URL}/assets/ai/story-1.jpg")
+        self.assertEqual(parser.metas["twitter:image"], parser.metas["og:image"])
+        self.assertEqual(json.loads(parser.jsonld[0])["image"], [parser.metas["og:image"]])
+
     def test_metadata_fallback_content_relative_assets_and_json_are_safe(self):
         malicious = story(
             title_vi='Tiêu đề </title><script>alert("x")</script>',

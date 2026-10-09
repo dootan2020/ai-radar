@@ -5,6 +5,7 @@
 */
 
 import { renderStoryHTML } from './story.js';
+import { headlineShown } from './titles.js';
 
 const $ = s => document.querySelector(s);
 
@@ -69,7 +70,7 @@ function toggleSave(story, btn) {
   } else {
     list.push({
       key: story.id,
-      title: story.title || '',
+      title: headlineShown(story),
       url: story.url || '',
       at: new Date().toISOString()
     });

@@ -472,6 +472,8 @@ ul, ol { padding: 0; list-style: none; }
 .hot-row:hover .hot-title { color: var(--color-accent); }
 .thumb { position: relative; width: var(--thumb-hot); height: var(--thumb-hot); border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); }
 .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.hot-row > .thumb:empty { display: none; }
+.hot-row:has(> .thumb:empty) { grid-template-columns: 28px minmax(0, 1fr); }
 .hot-rank { font-size: var(--size-21); font-weight: var(--weight-bold); color: var(--color-ink-3); text-align: center; letter-spacing: var(--tracking-number); }
 .hot-row:first-child .hot-rank { color: var(--color-ink); }
 .hot-text { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
@@ -525,6 +527,9 @@ ul, ol { padding: 0; list-style: none; }
 .src-row .av::after { font-size: var(--av-text-xs); }
 .av-stack { display: inline-flex; }
 .av-stack-item + .av-stack-item { margin-left: calc(var(--space-4) * -1); }
+/* Source marks in card feet need distinct silhouettes at the 12px icon size. */
+.cov-btn .av-stack { gap: var(--space-4); }
+.cov-btn .av-stack-item + .av-stack-item { margin-left: 0; }
 
 /* ==========================================================================
    "ĐÁNG ĐỌC" (04/10 21:35): sort switch, the ranked block, "Cách chấm", reason chips.
@@ -685,6 +690,9 @@ ul, ol { padding: 0; list-style: none; }
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
 }
 .why-tag.is-editor { background: var(--color-accent); color: var(--color-on-accent); }
+.feed-card[data-via="none"] .why-tag {
+  position: static; align-self: flex-start; margin: var(--space-12) var(--space-12) 0;
+}
 
 /* AI illustration badge on cards */
 .ai-badge {
