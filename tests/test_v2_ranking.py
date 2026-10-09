@@ -2,6 +2,7 @@
 
 import json
 import unittest
+from datetime import timedelta
 
 from radar.clustering import cluster_items
 from radar.ranking import hot_eligible, rank_stories
@@ -45,8 +46,24 @@ class RankingTests(unittest.TestCase):
         self.assertIsNone(story["hot_signals"]["engagement_percentile"])
         self.assertIsNone(story["hot_signals"]["velocity_per_hour"])
 
+    def test_press_breadth_stays_rankable_through_a_seven_day_window(self):
+        for days, expected in [(4, True), (8, False)]:
+            published = (NOW - timedelta(days=days)).isoformat().replace("+00:00", "Z")
+            story = rank([coverage(published_at=published),
+                          coverage("press-b", published_at=published)])[0]
+            with self.subTest(days=days):
+                self.assertEqual(story["hot_score"] is not None, expected)
+
+    def test_counter_based_stories_keep_the_existing_72_hour_freshness_limit(self):
+        published = (NOW - timedelta(days=4)).isoformat().replace("+00:00", "Z")
+        items = [coverage("hn", "https://example.org/old-a", publisher="hacker-news",
+                           group="forum", metrics={"points": 20}, published_at=published),
+                 coverage("hn-peer", "https://example.org/old-b", publisher="hacker-news",
+                          group="forum", metrics={"points": 30}, published_at=published)]
+        self.assertTrue(all(story["hot_score"] is None for story in rank(items)))
+
     def test_unknown_future_and_stale_times_never_score(self):
-        for timestamp in [None, "2026-10-02T13:00:00Z", "2026-09-28T12:00:00Z"]:
+        for timestamp in [None, "2026-10-02T13:00:00Z", "2026-09-24T12:00:00Z"]:
             with self.subTest(timestamp=timestamp):
                 story = rank([coverage(published_at=timestamp),
                               coverage("b", published_at=timestamp)])[0]

@@ -1,6 +1,8 @@
 """Clustering preserves provenance and refuses ambiguous synthetic stories."""
 
+import json
 import unittest
+from pathlib import Path
 
 from radar.clustering import canonical_url, cluster_items
 if __package__:
@@ -58,6 +60,47 @@ class ClusterTests(unittest.TestCase):
         self.assertEqual(len(stories), 1)
         self.assertEqual({item["url"] for item in stories[0]["coverage"]},
                          {item["url"] for item in items})
+
+    def test_research_paper_does_not_merge_with_non_paper_on_shared_phrase(self):
+        paper = coverage("hf-papers", "https://arxiv.org/abs/2610.05750",
+                         publisher="huggingface",
+                         title="Beyond Semantic Similarity: Performance and Costs of Agentic Retrieval for Complex Tasks")
+        blog = coverage("amazon", "https://aws.amazon.com/blogs/agentic-retrieval",
+                        publisher="amazon", kind="other",
+                        title="Agentic retrieval with LangChain and Amazon Bedrock Knowledge Bases")
+        self.assertEqual(len(cluster_items([paper, blog], NOW)), 2)
+
+    def test_research_paper_does_not_merge_with_non_paper_jev_coverage(self):
+        news = coverage("hacker-news", "https://news.ycombinator.com/item?id=jev",
+                        publisher="hacker-news", kind="other",
+                        title="Decision models like Jev don't beat LLM-as-a-judge or traditional classifiers")
+        paper = coverage("hf-papers", "https://arxiv.org/abs/2610.02076",
+                         publisher="huggingface",
+                         title="LLM-as-Jev: LLMs Are Already Jev-Style Decision Models -- When and How to Fine-Tune Them")
+        self.assertEqual(len(cluster_items([news, paper], NOW)), 2)
+
+    def test_paper_and_non_paper_with_same_canonical_url_still_merge(self):
+        url = "https://example.org/research"
+        paper = coverage("huggingface", url, publisher="huggingface", kind="paper", title="Research paper")
+        mirror = coverage("press", url + "?utm_source=press", publisher="press", kind="other", title="Press coverage")
+        stories = cluster_items([paper, mirror], NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 2)
+
+    def test_reviewed_non_paper_doubtful_clusters_keep_their_existing_matches(self):
+        examples = [
+            (("wired", "OpenAI Wants Its New Agent to Run Your Life. Mine Said It Loved Me"),
+             ("the-verge", "Can you trust Meta’s Muse or OpenAI’s Dots to run your life?")),
+            (("hacker-news", "South Korea says AI agents appear to have been used to hack the country's banks"),
+             ("semafor", "Companies in Japan, South Korea hit by major cyberattacks")),
+        ]
+        for index, (left, right) in enumerate(examples):
+            with self.subTest(index=index):
+                items = [coverage(left[0], f"https://left.example/{index}", publisher=left[0],
+                                  title=left[1]),
+                         coverage(right[0], f"https://right.example/{index}", publisher=right[0],
+                                  title=right[1])]
+                self.assertEqual(len(cluster_items(items, NOW)), 1)
 
     def test_conflicting_versions_do_not_merge_despite_shared_words(self):
         items = [coverage(title="Introducing Orion 5.1 neural reasoning architecture released today"),
@@ -196,6 +239,105 @@ class ClusterTests(unittest.TestCase):
         stories = cluster_items(items, NOW)
         self.assertEqual(len(stories), 1)
         self.assertEqual(stories[0]["source_count"], 2)
+
+    def test_real_reflection_beam_coverage_merges_across_three_outlets(self):
+        items = [
+            coverage("techcrunch", "https://techcrunch.example/reflection-beam", publisher="techcrunch",
+                     title="Reflection debuts Beam, an open-weight AI model to rival Chinese models at lower compute cost",
+                     published_at="2026-10-05T19:33:53Z"),
+            coverage("semafor", "https://semafor.example/reflection-beam", publisher="semafor",
+                     title="Reflection AI unveils an open-source Western answer to Chinese labs",
+                     published_at="2026-10-05T19:01:43Z"),
+            coverage("bloomberg", "https://bloomberg.example/reflection-beam", publisher="bloomberg",
+                     title="Nvidia-Backed Reflection Unveils Open AI Model, Taking on China",
+                     published_at="2026-10-05T19:00:00Z"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 3)
+
+    def test_real_meta_muse_ipad_headlines_merge(self):
+        items = [
+            coverage("techcrunch", "https://techcrunch.example/muse-ipad", publisher="techcrunch",
+                     title="Meta’s Muse launches on iPad just a month after its mobile debut",
+                     published_at="2026-10-07T12:00:00Z"),
+            coverage("the-verge", "https://theverge.example/muse-ipad", publisher="the-verge",
+                     title="Muse launches on the iPad", published_at="2026-10-07T12:00:00Z"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 2)
+
+    def test_real_haiku_and_opus_launches_remain_separate(self):
+        items = [
+            coverage("anthropic-haiku", "https://anthropic.example/haiku", publisher="anthropic",
+                     title="Introducing Claude Haiku 5.5", published_at="2026-10-07T12:00:00Z"),
+            coverage("anthropic-opus", "https://anthropic.example/opus", publisher="anthropic",
+                     title="Introducing Claude Opus 5.5", published_at="2026-10-07T12:00:00Z"),
+        ]
+        self.assertEqual(len(cluster_items(items, NOW)), 2)
+
+    def test_real_openai_coverage_of_unrelated_events_stays_separate(self):
+        items = [
+            coverage("ars-technica", "https://ars-technica.example/ipo", publisher="ars-technica",
+                     title="OpenAI delays IPO over AI safety concerns", published_at="2026-10-07T12:00:00Z"),
+            coverage("the-verge", "https://the-verge.example/funding", publisher="the-verge",
+                     title="OpenAI raises new multibillion funding round", published_at="2026-10-07T12:00:00Z"),
+        ]
+        self.assertEqual(len(cluster_items(items, NOW)), 2)
+
+    def test_real_deepseek_event_and_financing_headlines_stay_separate(self):
+        items = [
+            coverage("hacker-news", "https://hn.example/deepseek-flash", publisher="hacker-news",
+                     title="Why isn't the industry freaking out about DeepSeek 4.1 Flash?",
+                     published_at="2026-10-08T00:00:00Z"),
+            coverage("bloomberg", "https://bloomberg.example/deepseek-funding", publisher="bloomberg",
+                     title="Billions Pour Into OpenAI, DeepSeek Ahead of IPOs",
+                     published_at="2026-10-08T00:00:00Z"),
+        ]
+        self.assertEqual(len(cluster_items(items, NOW)), 2)
+
+    def test_real_build_verbs_and_silicon_valley_titles_stay_separate(self):
+        items = [
+            coverage("amazon", "https://amazon.example/concierge", publisher="amazon",
+                     title="Build a voice travel concierge with Amazon Bedrock AgentCore"),
+            coverage("lobsters", "https://lobsters.example/burn", publisher="lobsters",
+                     title="Burn 0.22.0: Faster Builds, Smaller Binaries"),
+            coverage("bloomberg", "https://bloomberg.example/silicon-island", publisher="bloomberg",
+                     title="Malaysia Builds a New Silicon Island to Tap AI Boom"),
+        ]
+        self.assertEqual(len(cluster_items(items, NOW)), 3)
+
+    def test_reviewed_false_clusters_do_not_survive_as_complete_merges(self):
+        root = Path(__file__).resolve().parents[1]
+        fixture = json.loads((root / "tests" / "fixtures" / "reviewed-cluster-members.json").read_text(encoding="utf-8"))
+        reviewed = fixture["reviewed_clusters"]
+        owner = {}
+        for index, story in enumerate(cluster_items(fixture["items"], fixture["generated_at"])):
+            for item in story["coverage"]:
+                owner[(item.get("publisher"), item.get("title"))] = index
+
+        false_clusters = [cluster for cluster in reviewed if cluster["label"] == "FALSE"]
+        self.assertEqual(len(false_clusters), 68)
+        for cluster in false_clusters:
+            keys = [(member["publisher"], member["title"]) for member in cluster["members"]]
+            cluster_ids = {owner.get(key) for key in keys}
+            with self.subTest(cluster=cluster["cluster_index"], title=cluster["title"]):
+                self.assertNotIn(None, cluster_ids)
+                self.assertGreater(len(cluster_ids), 1)
+
+        doubtful_decisions = {}
+        for cluster in reviewed:
+            if cluster["label"] != "DOUBTFUL":
+                continue
+            keys = [(member["publisher"], member["title"]) for member in cluster["members"]]
+            cluster_ids = {owner.get(key) for key in keys}
+            doubtful_decisions[cluster["cluster_index"]] = (
+                "merge" if None not in cluster_ids and len(cluster_ids) == 1 else "split")
+        self.assertEqual(doubtful_decisions, {
+            17: "split", 26: "split", 39: "split", 56: "split",
+            69: "split", 78: "split", 91: "split", 95: "split",
+        })
 
     def test_entity_with_single_shared_specific_token_stays_apart(self):
         items = [
