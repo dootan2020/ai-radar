@@ -2,8 +2,8 @@
 
 from copy import deepcopy
 from datetime import datetime, timezone
-from radar.clustering import canonical_url
-from radar.items import publisher_identity
+from radar.clustering import _match, canonical_url, cluster_items
+from radar.items import is_x_item, publisher_identity
 from radar.items import instant
 
 RETENTION_SECONDS = 7 * 86400  # 7 days = 604,800 seconds (168 hours)
@@ -44,8 +44,13 @@ def _preserve_published_coverage(fresh_story, old_story):
     if not isinstance(coverage, list) or not isinstance(old_coverage, list):
         return
     fresh_ids = {item.get("id") for item in coverage if isinstance(item, dict) and item.get("id")}
+    fresh_x = [item for item in coverage if isinstance(item, dict) and is_x_item(item)]
+    rejected_x_ids = set()
     for item in old_coverage:
         if isinstance(item, dict) and item.get("id") and item["id"] not in fresh_ids:
+            if is_x_item(item) and not any(_match(item, current, 0.75) for current in fresh_x):
+                rejected_x_ids.add(item["id"])
+                continue
             coverage.append(deepcopy(item))
             fresh_ids.add(item["id"])
     publishers = {publisher_identity(item) or item.get("source") for item in coverage
@@ -54,8 +59,34 @@ def _preserve_published_coverage(fresh_story, old_story):
 
     # Fail at the retention boundary if a future change drops a non-expired member.
     old_ids = {item.get("id") for item in old_coverage if isinstance(item, dict) and item.get("id")}
-    if not old_ids.issubset(fresh_ids):
+    if not old_ids.issubset(fresh_ids | rejected_x_ids):
         raise RuntimeError("Published story coverage was lost while reconciling fresh coverage")
+
+
+def _split_incompatible_x_story(story, now):
+    """Split carried X coverage with the same complete-link rules as current clustering."""
+    coverage = story.get("coverage", [])
+    x_coverage = [item for item in coverage if isinstance(item, dict) and is_x_item(item)]
+    if len(x_coverage) < 2:
+        return [story]
+    clusters = cluster_items(x_coverage, now)
+    if len(clusters) < 2:
+        return [story]
+
+    non_x = [item for item in coverage if not (isinstance(item, dict) and is_x_item(item))]
+    variants = []
+    if non_x:
+        non_x_story = deepcopy(story)
+        non_x_story["coverage"] = non_x
+        non_x_story["source_count"] = len({publisher_identity(item) or item.get("source")
+                                             for item in non_x if isinstance(item, dict)})
+        variants.append(non_x_story)
+    for cluster in clusters:
+        variant = deepcopy(story)
+        for key in ("id", "title", "url", "summary", "published_at", "kind", "coverage", "source_count", "aliases"):
+            variant[key] = cluster[key]
+        variants.append(variant)
+    return variants
 
 
 def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
@@ -199,14 +230,13 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
             continue
 
         # Valid carried story: deepcopy to prevent mutation of published snapshot
-        carried = deepcopy(old_story)
-        carried["carried"] = True
-
         seen_ids.add(old_id)
         if old_url:
             seen_urls.add(old_url)
         seen_coverage_urls.update(old_cov_urls)
-        carried_stories.append(carried)
+        carried = deepcopy(old_story)
+        carried["carried"] = True
+        carried_stories.extend(_split_incompatible_x_story(carried, now_dt))
 
     # Pool cap enforcement
     capacity = max(0, max_stories - len(fresh_stories))

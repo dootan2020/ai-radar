@@ -255,6 +255,72 @@ class RetentionUnitTests(unittest.TestCase):
         retained_carried = {s["id"] for s in combined if s.get("carried")}
         self.assertEqual(retained_carried, multi_ids)
 
+    def test_incompatible_published_x_posts_are_carried_as_separate_stories(self):
+        published_at = "2026-10-02T10:00:00Z"
+        posts = [
+            {"id": "x-post-1", "post_id": "x-post-1", "source": "x-one", "publisher": "x:@one",
+             "publisher_group": "x", "author_handle": "one", "kind": "social", "group": "forum",
+             "title": "OpenAI announces a new model", "summary": "OpenAI announces a new model",
+             "url": "https://x.com/one/status/1", "published_at": published_at},
+            {"id": "x-post-2", "post_id": "x-post-2", "source": "x-two", "publisher": "x:@two",
+             "publisher_group": "x", "author_handle": "two", "kind": "social", "group": "forum",
+             "title": "Nvidia reports quarterly earnings", "summary": "Nvidia reports quarterly earnings",
+             "url": "https://x.com/two/status/2", "published_at": published_at},
+        ]
+        old_story = _make_story("old-x-cluster", "Two unrelated posts", posts[0]["url"], published_at,
+                                coverage_urls=[])
+        old_story["coverage"] = posts
+        old_story["source_count"] = 1
+        previous = {"schema_version": 2, "generated_at": "2026-10-03T12:00:00Z", "stories": [old_story]}
+
+        carried = retain_stories([], previous, self.now)
+
+        self.assertEqual(len(carried), 2)
+        self.assertEqual({len(story["coverage"]) for story in carried}, {1})
+        self.assertEqual({item["id"] for story in carried for item in story["coverage"]},
+                         {"x-post-1", "x-post-2"})
+
+    def test_compatible_published_x_posts_remain_one_carried_story(self):
+        published_at = "2026-10-02T10:00:00Z"
+        posts = [
+            {"id": "x-post-1", "post_id": "x-post-1", "source": "x-one", "publisher": "x:@one",
+             "publisher_group": "x", "author_handle": "one", "kind": "social", "group": "forum",
+             "title": "Same post", "summary": "Same post", "url": "https://x.com/one/status/1",
+             "linked_url": "https://example.com/story", "published_at": published_at},
+            {"id": "x-post-2", "post_id": "x-post-2", "source": "x-two", "publisher": "x:@two",
+             "publisher_group": "x", "author_handle": "two", "kind": "social", "group": "forum",
+             "title": "Another post", "summary": "Another post", "url": "https://x.com/two/status/2",
+             "linked_url": "https://example.com/story", "published_at": published_at},
+        ]
+        old_story = _make_story("old-x-cluster", "Shared link posts", posts[0]["url"], published_at,
+                                coverage_urls=[])
+        old_story["coverage"] = posts
+        previous = {"schema_version": 2, "generated_at": "2026-10-03T12:00:00Z", "stories": [old_story]}
+
+        carried = retain_stories([], previous, self.now)
+
+        self.assertEqual(len(carried), 1)
+        self.assertEqual({item["id"] for item in carried[0]["coverage"]}, {"x-post-1", "x-post-2"})
+
+    def test_duplicate_reconciliation_does_not_attach_incompatible_old_x_post(self):
+        published_at = "2026-10-02T10:00:00Z"
+        press = {"id": "press-1", "source": "press", "publisher": "press", "url": "https://press.example/story",
+                 "title": "Story", "published_at": published_at}
+        unrelated_x = {"id": "x-post", "post_id": "x-post", "source": "x-one", "publisher": "x:@one",
+                       "publisher_group": "x", "author_handle": "one", "kind": "social", "group": "forum",
+                       "title": "Unrelated X event", "summary": "Unrelated X event",
+                       "url": "https://x.com/one/status/1", "published_at": published_at}
+        old_story = _make_story("same-story", "Story", press["url"], published_at, coverage_urls=[])
+        old_story["coverage"] = [press, unrelated_x]
+        fresh_story = _make_story("same-story", "Story", press["url"], self.now_str, coverage_urls=[])
+        fresh_story["coverage"] = [press.copy()]
+
+        result = retain_stories([fresh_story], {"schema_version": 2, "stories": [old_story]}, self.now)
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual([item["id"] for item in result[0]["coverage"]], ["press-1"])
+        self.assertEqual(result[0]["source_count"], 1)
+
 
 class RetentionDemonstrationTests(unittest.TestCase):
     @unittest.skipUnless(SNAP1_PATH.is_file() and SNAP2_PATH.is_file(),
