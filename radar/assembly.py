@@ -131,7 +131,7 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
                          fetcher=curation_fetcher, now=now, meta=repos_meta)
     payload.update(schema_version=2, stories=stories, sections=sections(stories, now), events=events,
                    repos=repos, repos_meta=repos_meta,
-                   ranking=dict(method="source-percentile-freshness-v1", window_hours=72,
-                                description="bách phân vị số đo trong từng nguồn, nhân với độ mới của tin",
+                   ranking=dict(method="engagement-velocity-breadth-percentile-freshness-v2", window_hours=72,
+                                description="trung bình bách phân vị tương tác, tốc độ tăng và độ phủ nhà xuất bản, nhân với độ mới của tin",
                                 baseline_at=iso_date(baseline), calibration="tạm thời, đang đánh giá bằng báo cáo gom cụm"))
     return payload

@@ -53,6 +53,7 @@ def rank_stories(stories, now, previous=None):
                         if isinstance(source, str) and isinstance(id_, str):
                             baseline[(source, id_)] = item
     populations, velocities, observations = defaultdict(dict), defaultdict(dict), {}
+    ranking_rows, breadth_rows = [], []
     for story in stories:
         for item in story["coverage"]:
             metric, value = _metric(item)
@@ -83,7 +84,7 @@ def rank_stories(stories, now, previous=None):
         percentiles.update(_percentiles(list(peers.items())))
     for peers in velocities.values():
         velocity_percentiles.update(_percentiles(list(peers.items())))
-    for story in stories:
+    for index, story in enumerate(stories):
         candidates = [(percentiles.get((item["source"], item["id"])), (item["source"], item["id"]))
                       for item in story["coverage"] if (item["source"], item["id"]) in observations]
         candidates.sort(key=lambda row: (row[0] is not None, row[0] or 0, row[1]), reverse=True)
@@ -102,12 +103,24 @@ def rank_stories(stories, now, previous=None):
                        engagement_percentile=percentile, velocity_per_hour=measurement["velocity_per_hour"] if measurement else None,
                        velocity_percentile=velocity_rank, source_count=count, spread=spread, measurement=measurement)
         story.update(source_count=count, hot_score=None, hot_reason=None, hot_signals=signals)
-        components = [(percentile, 0.4), (velocity_rank, 0.2), (spread, 0.4)]
-        components = [(value, weight) for value, weight in components if value is not None]
+        eligible = (freshness is not None and
+                    (count >= 2 or (percentile is not None and percentile >= 0.8
+                                    and measurement and measurement["value"] > 0)))
+        if eligible:
+            breadth_rows.append((index, count))
+        ranking_rows.append((index, story, signals, percentile, velocity_rank, spread, measurement, freshness,
+                             count, age, eligible))
+    breadth_percentiles = _percentiles(breadth_rows)
+    if len(breadth_rows) == 1:
+        breadth_percentiles[breadth_rows[0][0]] = 0.5
+    for index, story, signals, percentile, velocity_rank, spread, measurement, freshness, count, age, eligible in ranking_rows:
+        breadth_percentile = breadth_percentiles.get(index)
+        signals["publisher_breadth_percentile"] = breadth_percentile
+        components = [percentile, velocity_rank, breadth_percentile]
+        components = [value for value in components if value is not None]
         if freshness is None or not components:
             continue
-        story["hot_score"] = round(100 * freshness * sum(value * weight for value, weight in components)
-                                   / sum(weight for _, weight in components), 3)
+        story["hot_score"] = round(100 * freshness * sum(components) / len(components), 3)
         reasons = []
         if spread is not None:
             reasons.append(f"{count} nguồn độc lập cùng đưa")
