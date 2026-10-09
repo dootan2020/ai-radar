@@ -62,7 +62,10 @@ class HeadlineTests(unittest.TestCase):
             for file in (site_payload.page_path(path), site_payload.head_path(path)):
                 written = json.loads(file.read_text(encoding="utf-8"))["stories"][0]
                 self.assertEqual(written["title_vi"], story["title_vi"])
-                self.assertEqual(written["headline_vi"], compact_headline(story["title_vi"]))
+                self.assertEqual(
+                    written["headline_vi"],
+                    "Báo cáo về trí tuệ nhân tạo Báo cáo về trí tuệ nhân tạo Báo cáo về trí tuệ nhân tạo Báo cáo về trí tuệ nhân tạo Báo cáo về trí tuệ nhân…",
+                )
 
     def test_translation_cli_refreshes_full_snapshot_after_translator_returns(self):
         title_vi = "Báo cáo nghiên cứu AI mới " * 20
@@ -73,12 +76,134 @@ class HeadlineTests(unittest.TestCase):
             root = Path(directory)
             path = root / "radar.json"
             path.write_text(json.dumps({"stories": [{"id": "s", "title": "AI research " * 20,
-                                                    "headline_vi": "Stale", "coverage": []}]}), encoding="utf-8")
+                                                     "headline_vi": "Stale", "coverage": []}]}), encoding="utf-8")
             with patch.dict("os.environ", {}, clear=True), patch("radar.translation_pipeline.translate_payload", side_effect=translated):
                 translate.main(["--input", str(path), "--cache", str(root / "translations.json")])
             story = json.loads(path.read_text(encoding="utf-8"))["stories"][0]
             self.assertEqual(story["title_vi"], title_vi)
-            self.assertEqual(story["headline_vi"], compact_headline(title_vi))
+            self.assertEqual(
+                story["headline_vi"],
+                "Báo cáo nghiên cứu AI mới Báo cáo nghiên cứu AI mới Báo cáo nghiên cứu AI mới Báo cáo nghiên cứu AI mới Báo cáo nghiên cứu AI mới Báo cáo…",
+            )
+
+    def test_sentence_cut_rejects_english_and_vietnamese_abbreviations(self):
+        # 1. English acronym with interior dots (U.S.)
+        self.assertEqual(
+            compact_headline("Leading Artificial Intelligence Researchers Urge the U.S. Congress to Mandate Federal Safety Standards for Frontier Artificial Intelligence Models"),
+            "Leading Artificial Intelligence Researchers Urge the U.S. Congress to Mandate Federal Safety Standards for Frontier Artificial…",
+        )
+        # 2. English number abbreviation (No. 1)
+        self.assertEqual(
+            compact_headline("Artificial Analysis Confirms DeepSeek Reaches No. 1 on Global Open-Source LLM Benchmark Rankings Across Multiple Key Reasoning Evaluations Worldwide"),
+            "Artificial Analysis Confirms DeepSeek Reaches No. 1 on Global Open-Source LLM Benchmark Rankings Across Multiple Key Reasoning Evaluations…",
+        )
+        # 3. Vietnamese academic title (TS.)
+        self.assertEqual(
+            compact_headline("Báo cáo nghiên cứu mới nhất của TS. Nguyễn Văn A và các cộng sự tại Viện Trí tuệ Nhân tạo Quốc gia đã làm sáng tỏ nhiều vấn đề quan trọng trong năm nay"),
+            "Báo cáo nghiên cứu mới nhất của TS. Nguyễn Văn A và các cộng sự tại Viện Trí tuệ Nhân tạo Quốc gia đã làm sáng tỏ nhiều vấn đề quan trọng…",
+        )
+        # 4. Vietnamese city abbreviation (TP.)
+        self.assertEqual(
+            compact_headline("Hội nghị thượng đỉnh quốc tế về đạo đức AI tại TP. Hồ Chí Minh đã chính thức thông qua tuyên bố chung về các nguyên tắc phát triển công nghệ có trách nhiệm xã hội"),
+            "Hội nghị thượng đỉnh quốc tế về đạo đức AI tại TP. Hồ Chí Minh đã chính thức thông qua tuyên bố chung về các nguyên tắc phát triển công…",
+        )
+        # 5. Vietnamese academic title (ThS.)
+        self.assertEqual(
+            compact_headline("Công trình nghiên cứu đột phá của ThS. Trần Thị B đã mang lại nhiều giải pháp mới cho việc tối ưu hóa mô hình ngôn ngữ lớn trên thiết bị biên di động"),
+            "Công trình nghiên cứu đột phá của ThS. Trần Thị B đã mang lại nhiều giải pháp mới cho việc tối ưu hóa mô hình ngôn ngữ lớn trên thiết bị…",
+        )
+        # 6. Vietnamese academic title (PGS.)
+        self.assertEqual(
+            compact_headline("Báo cáo khoa học mới nhất từ nhóm nghiên cứu do PGS. Lê Văn C dẫn đầu đã công bố giải thuật huấn luyện mới giúp giảm chi phí điện toán xuống một nửa"),
+            "Báo cáo khoa học mới nhất từ nhóm nghiên cứu do PGS. Lê Văn C dẫn đầu đã công bố giải thuật huấn luyện mới giúp giảm chi phí điện toán…",
+        )
+        # 7. English corporate suffix (Inc.)
+        self.assertEqual(
+            compact_headline("Executive leadership members at Anthropic, Inc. yesterday approved a new sweeping governance framework designed to oversee frontier safety testing"),
+            "Executive leadership members at Anthropic, Inc. yesterday approved a new sweeping governance framework designed to oversee frontier safety…",
+        )
+        # 8. English corporate suffix (Corp.)
+        self.assertEqual(
+            compact_headline("Senior enterprise strategy directors at Microsoft Corp. announced a strategic investment into next-generation optical computing infrastructure today"),
+            "Senior enterprise strategy directors at Microsoft Corp. announced a strategic investment into next-generation optical computing…",
+        )
+        # 9. English generational suffix (Jr.)
+        self.assertEqual(
+            compact_headline("Distinguished keynote address delivered by Martin Luther King Jr. Institute fellows outlines the societal implications of autonomous AI agents"),
+            "Distinguished keynote address delivered by Martin Luther King Jr. Institute fellows outlines the societal implications of autonomous AI…",
+        )
+        # 10. Single initial (F.)
+        self.assertEqual(
+            compact_headline("A comprehensive new research study by scholar John F. Kennedy School fellow demonstrates novel alignment vulnerabilities in autonomous models"),
+            "A comprehensive new research study by scholar John F. Kennedy School fellow demonstrates novel alignment vulnerabilities in autonomous…",
+        )
+        # 11. Version number (v2.)
+        self.assertEqual(
+            compact_headline("The artificial intelligence engineering team at Meta released Llama v2. with enhanced reasoning capabilities and wider context windows for users"),
+            "The artificial intelligence engineering team at Meta released Llama v2. with enhanced reasoning capabilities and wider context windows for…",
+        )
+
+    def test_sentence_cut_after_abbreviation_extracts_full_first_sentence(self):
+        title = "Leading Artificial Intelligence Researchers Urge the U.S. Congress to Mandate Federal Safety Standards. The landmark proposal was formally presented by researchers in Washington today."
+        self.assertEqual(
+            compact_headline(title),
+            "Leading Artificial Intelligence Researchers Urge the U.S. Congress to Mandate Federal Safety Standards.",
+        )
+
+    def test_fallback_never_splits_grapheme_cluster_or_url(self):
+        # Multi-codepoint emoji flag (VN flag = 2 codepoints)
+        flag_headline = compact_headline("🇻🇳" * 75)
+        self.assertEqual(flag_headline, ("🇻🇳" * 69) + "…")
+        self.assertNotIn("🇻…", flag_headline)
+        self.assertLessEqual(len(flag_headline), 140)
+
+        # Standalone long URL (single long token) keeps origin domain
+        long_url = "https://example.com/very/long/path/without/spaces/that/exceeds/one/hundred/and/forty/characters/in/total/length/completely/and/further/still/beyond/endpoint"
+        self.assertEqual(compact_headline(long_url), "https://example.com…")
+
+        # Text followed by a URL crossing limit drops the partial URL cleanly
+        text_with_url = "Here is the latest paper on frontier artificial intelligence models and safety standards across jurisdictions: https://arxiv.org/abs/2607.088499999999999999999999999"
+        self.assertEqual(
+            compact_headline(text_with_url),
+            "Here is the latest paper on frontier artificial intelligence models and safety standards across jurisdictions…",
+        )
+
+    def test_real_titles_from_radar_ui_payload(self):
+        # 1. Complete first sentence (ID: c51707869e438becf5aa, EN)
+        self.assertEqual(
+            compact_headline("Sabi says it can already predict a person's next three to four keystrokes from brain signals, before anything is typed. Up next on its roadmap are thought-to-prompt and intent-to-action, where an AI agent carries out what the wearer means to do. A waitlist for the cap is open"),
+            "Sabi says it can already predict a person's next three to four keystrokes from brain signals, before anything is typed.",
+        )
+        # 2. Complete first sentence in Vietnamese (ID: c51707869e438becf5aa, VI)
+        self.assertEqual(
+            compact_headline("Sabi cho biết họ đã có thể dự đoán 3 đến 4 lần nhấn phím tiếp theo của một người từ tín hiệu não, trước khi bất kỳ thứ gì được gõ ra. Kế tiếp trên lộ trình của họ là từ ý nghĩ thành lời nhắc và từ ý định thành hành động, nơi một agent AI thực hiện những gì người đeo dự định làm. Danh sách chờ nhận mũ hiện đã mở"),
+            "Sabi cho biết họ đã có thể dự đoán 3 đến 4 lần nhấn phím tiếp theo của một người từ tín hiệu não, trước khi bất kỳ thứ gì được gõ ra.",
+        )
+        # 3. Quoted sentence with trailing quote (ID: c04d7ead62c78c3b5855, EN)
+        self.assertEqual(
+            compact_headline('"The invention of the boat reduced the importance of swimming, but enabled the discovery of new lands." Beautiful analogy from @ylecun about the opportunities and changes with AI, in mathematics and in science more broadly.'),
+            '"The invention of the boat reduced the importance of swimming, but enabled the discovery of new lands."',
+        )
+        # 4. Fallback word cut preserving decimal version numbers (ID: faac871e12b6f555c9f0, EN)
+        self.assertEqual(
+            compact_headline("From The Lancet: in an urgent care setting, the advice of the obsolete Gemini 2.5 Pro & Gemini 2.5 Flash (without access to patient medical records) were rated of similar quality to doctors by other physicians. There was no safety issues spotted. Models have gotten significantly better since."),
+            "From The Lancet: in an urgent care setting, the advice of the obsolete Gemini 2.5 Pro & Gemini 2.5 Flash (without access to patient…",
+        )
+        # 5. Complete first sentence under limit (ID: 22f25599af2d94e866ab, EN)
+        self.assertEqual(
+            compact_headline("To help secure systems like power grids and water systems, we’re launching a new Critical Infrastructure Defense Program. We’ll bring frontier Claude models, on-site engineers, and our latest research to these operators’ security, manufacturing and technology providers."),
+            "To help secure systems like power grids and water systems, we’re launching a new Critical Infrastructure Defense Program.",
+        )
+        # 6. Fallback word cut omitting trailing URL (ID: 2da07dc90d4ec1b166c7, EN)
+        self.assertEqual(
+            compact_headline('Note that their press release from when he pleaded guilty back on March 19th used "North Carolina Man Pleads Guilty To Music Streaming Fraud Aided By Artificial Intelligence" because of course it did https://t.co/iJktn2sq2a'),
+            'Note that their press release from when he pleaded guilty back on March 19th used "North Carolina Man Pleads Guilty To Music Streaming…',
+        )
+        # 7. Fallback word cut for exclamation mark sentence (ID: 1b6e4a4351e95749721c, EN)
+        self.assertEqual(
+            compact_headline("Excited to announce that all super intelligence organizations have now jointly agreed to the ultimate in AI/SI safety: Moving all testing to Delta Airlines flights, where accessing the Internet is utterly impossible!"),
+            "Excited to announce that all super intelligence organizations have now jointly agreed to the ultimate in AI/SI safety: Moving all testing…",
+        )
 
 
 class ReplyTests(unittest.TestCase):
