@@ -39,6 +39,57 @@ class CanonicalUrlTests(unittest.TestCase):
 
 
 class ClusterTests(unittest.TestCase):
+    def test_unrelated_x_posts_do_not_merge_on_entities_or_generic_words(self):
+        titles = [
+            "Anthropic commits $150 million for scientific research",
+            "Claude Startups pauses its application program",
+            "Artificial Analysis launches a cyber index",
+            "South Korean bank hack comment from an analyst",
+            "Claude announces a new feature for users",
+            "Claude shares a separate research update",
+            "TestingCatalog publishes its daily AI brief",
+        ]
+        items = [coverage(f"x-account-{index}", f"https://x.com/account{index}/status/{index}",
+                          publisher=f"x:@account{index}",
+                          group="forum", kind="social", title=title, summary=title)
+                 for index, title in enumerate(titles)]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), len(titles))
+        self.assertTrue(all(len(story["coverage"]) == 1 for story in stories))
+
+    def test_x_posts_merge_on_same_link_or_quote_but_not_title_similarity(self):
+        linked = [
+            coverage("x-a", "https://x.com/a/status/1", publisher="x:@a",
+                     kind="social", linked_url="https://news.example/story", title="OpenAI GPT update"),
+            coverage("x-b", "https://x.com/b/status/2", publisher="x:@b",
+                     kind="social", linked_url="https://news.example/story?utm_source=x", title="Different words"),
+        ]
+        self.assertEqual(len(cluster_items(linked, NOW)), 1)
+        identical = [coverage("x-a", "https://x.com/a/status/5", publisher="x:@a",
+                              kind="social", summary="The same exact post"),
+                     coverage("x-b", "https://x.com/b/status/6", publisher="x:@b",
+                              kind="social", summary=" The same exact post ")]
+        self.assertEqual(len(cluster_items(identical, NOW)), 1)
+
+        quoted = [coverage("x-a", "https://x.com/a/status/3", publisher="x:@a",
+                           kind="social", title="Shared announcement", summary="Shared announcement",
+                           post_id="3"),
+                  coverage("x-b", "https://x.com/b/status/4", publisher="x:@b",
+                           kind="social", title="A quote of the announcement", quoted_post_id="3")]
+        self.assertEqual(len(cluster_items(quoted, NOW)), 1)
+
+    def test_stored_x_coverage_without_publisher_group_counts_as_one_source(self):
+        items = [coverage("x-a", "https://x.com/a/status/1", publisher="x:@a",
+                          kind="social", title="Same linked announcement"),
+                 coverage("x-b", "https://x.com/b/status/2", publisher="x:@b",
+                          kind="social", title="Different title", canonical_url="https://press.example/story")]
+        items[0]["linked_url"] = "https://press.example/story"
+        items[1]["linked_url"] = "https://press.example/story"
+        for item in items:
+            item.pop("publisher_group", None)
+        story = cluster_items(items, NOW)[0]
+        self.assertEqual(story["source_count"], 1)
+
     def test_duplicate_publisher_feeds_preserve_coverage_without_spread_inflation(self):
         items = [coverage("anthropic-news", publisher="anthropic"),
                  coverage("anthropic-mirror", publisher="anthropic"),

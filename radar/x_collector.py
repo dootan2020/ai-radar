@@ -62,7 +62,7 @@ def build_query(accounts):
 
 def search_url(accounts, *, since_id=None, pagination_token=None):
     params = {"query": build_query(accounts), "max_results": MAX_RESULTS,
-              "tweet.fields": "author_id,created_at,id,text"}
+              "tweet.fields": "author_id,created_at,entities,id,referenced_tweets,text"}
     if since_id:
         params["since_id"] = since_id
     if pagination_token:
@@ -78,6 +78,8 @@ def parse_search(text, accounts, observed_at):
         raise ValueError("Invalid X search JSON") from error
     if not isinstance(data, dict) or not isinstance(data.get("data", []), list):
         raise ValueError("Expected X search response with a data list")
+    from radar.clustering import canonical_url
+
     by_id = {str(account.get("id")): account for account in accounts if account.get("id")}
     items = []
     for post in data.get("data", []):
@@ -100,9 +102,23 @@ def parse_search(text, accounts, observed_at):
         item = observation(source, title, f"https://x.com/{handle}/status/{post_id}",
                            post.get("created_at"), observed_at, kind="social", summary=text,
                            author_handle=handle, author_name=clean_text(account.get("name"), 120),
-                           author_id=str(account["id"]), publisher_group="x")
+                           author_id=str(account["id"]), post_id=post_id, publisher_group="x")
         if item:
             item["summary"] = text
+            urls = post.get("entities", {}).get("urls", []) if isinstance(post.get("entities"), dict) else []
+            for link in urls:
+                linked = canonical_url(link.get("expanded_url")) if isinstance(link, dict) else None
+                if linked:
+                    item["linked_url"] = linked
+                    break
+            references = post.get("referenced_tweets", [])
+            references = references if isinstance(references, list) else []
+            quoted = [reference.get("id") for reference in references
+                      if isinstance(reference, dict) and reference.get("type") == "quoted"
+                      and isinstance(reference.get("id"), str)
+                      and re.fullmatch(r"[0-9]{1,19}", reference["id"])]
+            if quoted:
+                item["quoted_post_id"] = quoted[0]
             items.append(item)
     return items
 

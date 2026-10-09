@@ -42,6 +42,8 @@ class XCollectorTests(unittest.TestCase):
         self.assertIn("-is:reply", query["query"][0])
         self.assertIn("GPT", query["query"][0])
         self.assertEqual(query["max_results"], ["10"])
+        self.assertIn("referenced_tweets", query["tweet.fields"][0])
+        self.assertIn("entities", query["tweet.fields"][0])
         self.assertEqual(query["since_id"], ["123"])
         self.assertNotIn("pagination_token", query)
 
@@ -57,6 +59,19 @@ class XCollectorTests(unittest.TestCase):
         self.assertEqual(post["publisher"], "x:@leader_ai")
         self.assertEqual(post["publisher_group"], "x")
         self.assertEqual(post["summary"], post["title"])
+
+    def test_search_retains_canonical_link_and_quoted_post_identity(self):
+        post = {"author_id": "1001", "id": "1900000000000000042",
+                "created_at": "2026-10-09T10:00:00Z", "text": "AI report https://t.co/story",
+                "entities": {"urls": [{"expanded_url": "https://news.example/story?utm_source=x"}]},
+                "referenced_tweets": [{"type": "quoted", "id": "1900000000000000001"}]}
+        item = x_collector.parse_search(json.dumps({"data": [post]}), ACCOUNTS, OBSERVED)[0]
+        self.assertEqual(item["linked_url"], "https://news.example/story")
+        self.assertEqual(item["post_id"], "1900000000000000042")
+        self.assertEqual(item["quoted_post_id"], "1900000000000000001")
+        press = coverage("press", "https://news.example/story", title="Unrelated headline",
+                         published_at=item["published_at"])
+        self.assertEqual(len(cluster_items([item, press], datetime.fromisoformat(OBSERVED.replace("Z", "+00:00")))), 1)
 
     def test_headline_removes_links_and_cuts_at_a_word_boundary(self):
         post = {"author_id": "1001", "id": "1900000000000000004",

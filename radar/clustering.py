@@ -6,7 +6,7 @@ from collections import defaultdict
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from radar.common import stable_id, web_url
-from radar.items import instant, publisher_identity
+from radar.items import instant, is_x_item, publisher_identity
 
 STOPWORDS = set("a an the and or for to of in on with from by as at is are was were be been this that it its our your new now how what why when can will has have had about into more most first introducing announces announced releases released release launch launches launched over under after amid against due because part via says said report reports".split())
 TRACKING = {"fbclid", "gclid", "mc_cid", "mc_eid", "ref_src", "ref_url"}
@@ -160,6 +160,18 @@ def _is_paper_item(item):
     return item.get("kind") == "paper" or item.get("source") == "hf-papers"
 
 
+def _same_x_post(left, right):
+    left_ids = {left.get("id"), left.get("post_id")}
+    right_ids = {right.get("id"), right.get("post_id")}
+    if ((left.get("quoted_post_id") and left.get("quoted_post_id") in right_ids | {right.get("quoted_post_id")})
+            or (right.get("quoted_post_id") and right.get("quoted_post_id") in left_ids)):
+        return True
+    left_text = left.get("summary") or left.get("title")
+    right_text = right.get("summary") or right.get("title")
+    return (isinstance(left_text, str) and isinstance(right_text, str)
+            and " ".join(left_text.split()).casefold() == " ".join(right_text.split()).casefold())
+
+
 def _cluster_entities(items):
     publishers = defaultdict(set)
     interior_uses = set()
@@ -279,12 +291,18 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
 def _match(a, b, threshold, named_entities=None):
     if a.get("kind") == "event" or b.get("kind") == "event":
         return a.get("kind") == b.get("kind") and a.get("event_id", a["id"]) == b.get("event_id", b["id"])
-    left = a.get("canonical_url") or canonical_url(a.get("url"))
-    right = b.get("canonical_url") or canonical_url(b.get("url"))
+    left = (canonical_url(a.get("linked_url")) if is_x_item(a) and a.get("linked_url")
+            else a.get("canonical_url") or canonical_url(a.get("url")))
+    right = (canonical_url(b.get("linked_url")) if is_x_item(b) and b.get("linked_url")
+             else b.get("canonical_url") or canonical_url(b.get("url")))
     if left and right and left.startswith("https://arxiv.org/abs/") and right.startswith("https://arxiv.org/abs/"):
         if re.sub(r"v\d+$", "", left) == re.sub(r"v\d+$", "", right) and left != right:
             return False
-    return bool(left and left == right) or titles_match(a, b, threshold, named_entities)
+    if left and left == right:
+        return True
+    if is_x_item(a) and is_x_item(b):
+        return _same_x_post(a, b)
+    return titles_match(a, b, threshold, named_entities)
 
 
 def primary_section(items):
@@ -305,7 +323,8 @@ def cluster_items(items, now, threshold=0.75):
     named_entities = _cluster_entities(items)
     buckets = {}
     for item in items:
-        canonical = canonical_url(item.get("url"))
+        canonical = (canonical_url(item.get("linked_url")) if is_x_item(item) and item.get("linked_url")
+                     else canonical_url(item.get("url")))
         if not canonical:
             continue
         normalized = dict(item, canonical_url=canonical)
