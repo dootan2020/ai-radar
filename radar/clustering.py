@@ -2,6 +2,7 @@
 
 import re
 import unicodedata
+from collections import defaultdict
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from radar.common import stable_id, web_url
@@ -43,6 +44,13 @@ TOPIC_WORDS = {
     "tech", "technology", "news", "update", "updates", "system", "systems", "agent", "agents", "release", "releases"
 }
 SUB_VARIANTS = {"sol", "luna", "astra", "opus", "sonnet", "haiku", "flash", "pro", "ultra", "lite", "turbo", "instruct", "scout", "maverick"}
+GENERIC_CAPITALIZED_WORDS = {
+    "america", "american", "americans", "asia", "asian", "canada", "canadian", "china", "chinese",
+    "europe", "european", "france", "french", "germany", "german", "india", "indian", "japan",
+    "japanese", "korea", "korean", "uk", "us", "usa", "western", "eastern", "global", "taking",
+    "base", "first", "last", "new", "old", "open", "free", "big", "small", "best", "top", "today",
+    "world", "why", "how", "what", "when", "where", "who", "can", "could", "would", "should",
+}
 
 
 def _stem(w):
@@ -105,7 +113,48 @@ def _expand_tokens(title):
     return expanded
 
 
-def titles_match(left, right, threshold=0.75):
+def _sentence_case_entities(title):
+    """Extract names from sentence-case titles, where interior capitals carry signal."""
+    words = re.findall(r"[^\W_]+(?:[.-][^\W_]+)*", unicodedata.normalize("NFC", title))
+    excluded = ENTITY_WORDS | TOPIC_WORDS | SUB_VARIANTS | STOPWORDS | GENERIC_CAPITALIZED_WORDS
+    interior = words[1:]
+    capitals = sum(bool(word[:1].isupper()) for word in interior)
+    if interior and capitals / len(interior) > 0.4:
+        return set()
+    return {_stem(word.lower()) for word in words if word[:1].isupper()
+            and _stem(word.lower()) not in excluded and len(word) >= 4
+            and not any(char.isdigit() for char in word)}
+
+
+def _capitalized_entities(title, named_entities):
+    """Keep names identified in sentence-case coverage across outlet title styles."""
+    words = re.findall(r"[^\W_]+(?:[.-][^\W_]+)*", unicodedata.normalize("NFC", title))
+    return {_stem(word.lower()) for word in words if word[:1].isupper()
+            and _stem(word.lower()) in named_entities}
+
+
+def _cluster_entities(items):
+    publishers = defaultdict(set)
+    interior_uses = set()
+    for item in items:
+        publisher = item.get("publisher")
+        if not isinstance(publisher, str) or not publisher:
+            continue
+        title = item.get("title", "")
+        entities = _sentence_case_entities(title)
+        words = re.findall(r"[^\W_]+(?:[.-][^\W_]+)*", unicodedata.normalize("NFC", title))
+        interior_uses.update(_stem(word.lower()) for index, word in enumerate(words)
+                             if index and word[:1].isupper())
+        for index, word in enumerate(words):
+            entity = _stem(word.lower())
+            if entity not in entities:
+                continue
+            publishers[entity].add(publisher)
+    return {entity for entity, sources in publishers.items()
+            if len(sources) >= 2 and entity in interior_uses}
+
+
+def titles_match(left, right, threshold=0.75, named_entities=None):
     a_date, b_date = instant(left.get("published_at")), instant(right.get("published_at"))
     if not a_date or not b_date or abs((a_date - b_date).total_seconds()) > 48 * 3600:
         return False
@@ -155,12 +204,23 @@ def titles_match(left, right, threshold=0.75):
 
     # Cross-publisher general matching rule from signals that exist for any story:
     shared_entities = {w for w in shared if _stem(w) in ENTITY_WORDS}
+    if named_entities is None:
+        named_entities = (_sentence_case_entities(left.get("title", "")) |
+                          _sentence_case_entities(right.get("title", "")))
+    shared_entities |= (_capitalized_entities(left.get("title", ""), named_entities) &
+                        _capitalized_entities(right.get("title", ""), named_entities))
     shared_variants = {w for w in shared if _stem(w) in SUB_VARIANTS}
     shared_versions = _extract_versions(a_raw) & _extract_versions(b_raw)
     specific = {w for w in shared if _stem(w) not in (ENTITY_WORDS | TOPIC_WORDS | SUB_VARIANTS) and not any(c.isdigit() for c in w) and "-" not in w}
 
     # Signal 1: Shared entity + 2 or more shared specific tokens
     if len(shared_entities) >= 1 and len(specific) >= 2:
+        return True
+
+    # A newly introduced product or company name can be absent from ENTITY_WORDS.
+    # Require another shared content word so a name alone never joins unrelated items.
+    if (not (shared_entities & ENTITY_WORDS) and len(shared_entities) >= 1
+            and len(specific) >= 1):
         return True
 
     # Signal 2: Model variant launch: shared entity + shared model sub-variant + shared version
@@ -170,7 +230,7 @@ def titles_match(left, right, threshold=0.75):
     return False
 
 
-def _match(a, b, threshold):
+def _match(a, b, threshold, named_entities=None):
     if a.get("kind") == "event" or b.get("kind") == "event":
         return a.get("kind") == b.get("kind") and a.get("event_id", a["id"]) == b.get("event_id", b["id"])
     left = a.get("canonical_url") or canonical_url(a.get("url"))
@@ -178,7 +238,7 @@ def _match(a, b, threshold):
     if left and right and left.startswith("https://arxiv.org/abs/") and right.startswith("https://arxiv.org/abs/"):
         if re.sub(r"v\d+$", "", left) == re.sub(r"v\d+$", "", right) and left != right:
             return False
-    return bool(left and left == right) or titles_match(a, b, threshold)
+    return bool(left and left == right) or titles_match(a, b, threshold, named_entities)
 
 
 def primary_section(items):
@@ -196,6 +256,7 @@ def primary_section(items):
 
 def cluster_items(items, now, threshold=0.75):
     """Deterministic complete-link grouping, including exact-URL buckets first."""
+    named_entities = _cluster_entities(items)
     buckets = {}
     for item in items:
         canonical = canonical_url(item.get("url"))
@@ -208,7 +269,7 @@ def cluster_items(items, now, threshold=0.75):
     for canonical in sorted(buckets):
         bucket = list(buckets[canonical].values())
         for group in groups:
-            if all(_match(a, b, threshold) for a in bucket for b in group):
+            if all(_match(a, b, threshold, named_entities) for a in bucket for b in group):
                 group.extend(bucket)
                 break
         else:

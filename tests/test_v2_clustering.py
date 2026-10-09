@@ -197,6 +197,52 @@ class ClusterTests(unittest.TestCase):
         self.assertEqual(len(stories), 1)
         self.assertEqual(stories[0]["source_count"], 2)
 
+    def test_real_reflection_beam_coverage_merges_across_three_outlets(self):
+        items = [
+            coverage("techcrunch", "https://techcrunch.example/reflection-beam", publisher="techcrunch",
+                     title="Reflection debuts Beam, an open-weight AI model to rival Chinese models at lower compute cost",
+                     published_at="2026-10-05T19:33:53Z"),
+            coverage("semafor", "https://semafor.example/reflection-beam", publisher="semafor",
+                     title="Reflection AI unveils an open-source Western answer to Chinese labs",
+                     published_at="2026-10-05T19:01:43Z"),
+            coverage("bloomberg", "https://bloomberg.example/reflection-beam", publisher="bloomberg",
+                     title="Nvidia-Backed Reflection Unveils Open AI Model, Taking on China",
+                     published_at="2026-10-05T19:00:00Z"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 3)
+
+    def test_real_meta_muse_ipad_headlines_merge(self):
+        items = [
+            coverage("techcrunch", "https://techcrunch.example/muse-ipad", publisher="techcrunch",
+                     title="Meta’s Muse launches on iPad just a month after its mobile debut",
+                     published_at="2026-10-07T12:00:00Z"),
+            coverage("the-verge", "https://theverge.example/muse-ipad", publisher="the-verge",
+                     title="Muse launches on the iPad", published_at="2026-10-07T12:00:00Z"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 2)
+
+    def test_real_haiku_and_opus_launches_remain_separate(self):
+        items = [
+            coverage("anthropic-haiku", "https://anthropic.example/haiku", publisher="anthropic",
+                     title="Introducing Claude Haiku 5.5", published_at="2026-10-07T12:00:00Z"),
+            coverage("anthropic-opus", "https://anthropic.example/opus", publisher="anthropic",
+                     title="Introducing Claude Opus 5.5", published_at="2026-10-07T12:00:00Z"),
+        ]
+        self.assertEqual(len(cluster_items(items, NOW)), 2)
+
+    def test_real_openai_coverage_of_unrelated_events_stays_separate(self):
+        items = [
+            coverage("ars-technica", "https://ars-technica.example/ipo", publisher="ars-technica",
+                     title="OpenAI delays IPO over AI safety concerns", published_at="2026-10-07T12:00:00Z"),
+            coverage("the-verge", "https://the-verge.example/funding", publisher="the-verge",
+                     title="OpenAI raises new multibillion funding round", published_at="2026-10-07T12:00:00Z"),
+        ]
+        self.assertEqual(len(cluster_items(items, NOW)), 2)
+
     def test_entity_with_single_shared_specific_token_stays_apart(self):
         items = [
             coverage("the-verge", "https://theverge.example/emp", publisher="the-verge",

@@ -34,6 +34,12 @@ Missing observations cannot be replaced with plausible zeroes. A repository's
 creation time is not its model's release date. Date-only event announcements
 must not acquire invented midnight timestamps or timezones.
 
+Hot ranking uses distinct publishers as measured breadth. Stories with measured
+engagement counters retain the 24-hour freshness half-life and 72-hour scoring
+window. Stories without counters can score from independent publisher breadth
+with a 72-hour half-life and a seven-day scoring window. Mirrors still count as
+one publisher, and age alone never creates a score.
+
 The previous snapshot exists only to compare measurements. Republishing its old
 content with a new build time would mislead readers about freshness. Frozen
 fixtures support reproducible tests; they do not establish current source health.

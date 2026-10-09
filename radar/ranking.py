@@ -94,7 +94,10 @@ def rank_stories(stories, now, previous=None):
         spread = min(count, 5) / 5 if count >= 2 else None
         published = instant(story.get("published_at"))
         age = (now - published).total_seconds() / 3600 if now and published else None
-        freshness = 0.5 ** (age / 24) if age is not None and 0 <= age <= 72 else None
+        has_counter = any(_metric(item)[1] is not None for item in story["coverage"])
+        half_life = 24 if has_counter else 72
+        max_age = 72 if has_counter else 168
+        freshness = 0.5 ** (age / half_life) if age is not None and 0 <= age <= max_age else None
         signals = dict(age_hours=round(age, 4) if age is not None else None, freshness=freshness,
                        engagement_percentile=percentile, velocity_per_hour=measurement["velocity_per_hour"] if measurement else None,
                        velocity_percentile=velocity_rank, source_count=count, spread=spread, measurement=measurement)
