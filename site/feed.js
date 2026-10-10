@@ -2328,7 +2328,10 @@ function attachEvents() {
     const filters = $('#feed-filters');
     if (filters) {
       const activeChip = filters.querySelector('.filter-chip[aria-pressed="true"]');
-      if (activeChip) glideTab(filters, activeChip, { immediate: true });
+      if (activeChip) {
+        glideTab(filters, activeChip, { immediate: true });
+        scrollChipIntoView(filters, activeChip);
+      }
     }
     const sort = $('#sort-switch');
     if (sort) {
