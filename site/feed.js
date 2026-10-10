@@ -333,16 +333,25 @@ const timeEl = iso => `<time datetime="${esc(iso)}" data-ago="${esc(iso)}" title
 
 /* A measure also names the coverage item and metric it came from ("covId|metric"), so the live counters (live.js, as
    on the bento home) can refresh that number in place. */
+/* A card shows a number only when it measures the page the card links to (the item titleOf picks): a story's own
+   counters, or a forum thread about that same link. A cluster also holds other items (another outlet's article, a
+   social post quoting it) whose counters say nothing about this headline; under it they read as this story's numbers.
+   The pipeline's measurement still ranks the whole cluster; it is only not printed on a card it does not belong to.
+   One forum can hold two threads in a cluster (one per link), so the measurement is matched by its value too. */
+const linkKey = u => String(u || '').trim().replace(/#.*$/, '').replace(/\/+$/, '');
+const cardLink = st => { const t = titleOf(st); return t.cov ? t.cov.url : st.url; };
 const PREFER = ['points', 'score', 'stars', 'upvotes', 'likes', 'trending_score', 'downloads', 'comments'];
 function measureOf(st) {
+  const link = linkKey(cardLink(st));
+  const own = link ? (st.coverage || []).filter(c => linkKey(c.url) === link) : [];
   const m = st.hot_signals && st.hot_signals.measurement;
-  if (m && Number.isFinite(m.value)) {
-    const c = (st.coverage || []).find(c => c.source === m.source && c.metrics && m.metric in c.metrics);
+  const mc = m && Number.isFinite(m.value) ? own.find(c => c.source === m.source && c.metrics && c.metrics[m.metric] === m.value) : null;
+  if (mc) {
     return { value: m.value,
-      word: METRIC[m.metric] || m.metric, where: srcName(m.source), live: c && c.id ? `${c.id}|${m.metric}` : null,
+      word: METRIC[m.metric] || m.metric, where: srcName(m.source), live: mc.id ? `${mc.id}|${m.metric}` : null,
       speed: Number.isFinite(m.velocity_per_hour) && m.velocity_per_hour > 0 ? m.velocity_per_hour : null };
   }
-  for (const key of PREFER) for (const c of st.coverage || []) {
+  for (const key of PREFER) for (const c of own) {
     const v = c.metrics && c.metrics[key];
     if (typeof v === 'number' && Number.isFinite(v)) return { value: v, word: METRIC[key] || key, where: srcName(c.source), live: c.id ? `${c.id}|${key}` : null, speed: null };
   }
