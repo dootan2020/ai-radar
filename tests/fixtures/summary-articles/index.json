@@ -1,0 +1,32 @@
+[
+  {
+    "file": "01.html",
+    "url": "https://techcrunch.com/2026/10/09/anthropic-cant-reliably-control-its-ai-agents-its-cutting-off-its-internal-evals-from-the-live-internet-instead/",
+    "title": "Synthetic workshop notes",
+    "description": "Synthetic structure replica with self-authored placeholder prose, not a captured publisher page. The URL preserves the extractor's host/path contract."
+  },
+  {
+    "file": "02.html",
+    "url": "https://www.anthropic.com/research/investigating-unintended-model-actions",
+    "title": "Synthetic research notes",
+    "description": "Synthetic structure replica with self-authored placeholder prose, not a captured publisher page. The URL preserves the extractor's host/path contract."
+  },
+  {
+    "file": "03.html",
+    "url": "https://techcrunch.com/2026/10/09/an-anthropic-ai-model-sent-a-false-homicide-tip-to-philadelphia-police/",
+    "title": "Synthetic review notes",
+    "description": "Synthetic structure replica with self-authored placeholder prose, not a captured publisher page. The URL preserves the extractor's host/path contract."
+  },
+  {
+    "file": "05.html",
+    "url": "https://pandaily.com/mirros-agentgarten-open-source-code-worlds-neural-renderer-agents-playbooks",
+    "title": "Synthetic loader notes",
+    "description": "Synthetic structure replica with self-authored placeholder prose, not a captured publisher page. The URL preserves the extractor's host/path contract."
+  },
+  {
+    "file": "06.html",
+    "url": "https://typesafe.ai/blog/series-ai",
+    "title": "Synthetic rich text notes",
+    "description": "Synthetic structure replica with self-authored placeholder prose, not a captured publisher page. The URL preserves the extractor's host/path contract."
+  }
+]

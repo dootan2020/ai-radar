@@ -218,6 +218,21 @@ first 3,800 article characters are the maximum evidence window, not a claim
 to have read the whole article. Robots, paywall, redirect and short-text skips
 remain enforced; a headline alone never becomes an article summary.
 
+The reader fetches robots.txt with the same honest `AI-Radar` user agent as
+article requests. Parsed rules are cached per origin, but permission is checked
+for each article path. HTTP 401/403, other unavailable rules and redirects
+remain blocked; a 404 permits reading. The extractor reads semantic
+`article`/`main` regions, explicitly labelled Framer blog content, and Pandaily's
+matching public post body from Remix loader data. Embedded data is parsed as
+JSON, never executed, and must match the requested publisher and article slug.
+
+The [offline article fixtures](../tests/fixtures/summary-articles/index.json)
+are synthetic structure replicas with self-authored titles and body text.
+They preserve the semantic regions, Remix loader references, Framer labels
+and excluded navigation/recommendation regions used by the extraction tests.
+Publisher URLs remain only to exercise host and slug matching; these fixtures
+contain no captured publisher prose and do not establish live source health.
+
 [Input preparation](../radar/summary_pipeline.py) admits the highest-worth
 eligible story first, breaking ties by newest publication time within the
 ranking window. It keeps article text and a bounded title, omits duplicate
@@ -242,6 +257,11 @@ by ID, primary URL, title and excerpt. It is restored with the summary cache
 before credentials/quota gating; valid cached points for later stories are
 not blocked by the first uncached story. Changed source fields or expired
 evidence require fetching again. No raw article text enters the site payload.
+The workflow restores and saves all four summary files together: generated
+points, the free attempt ledger, article failures and fitted article evidence.
+The unique run/attempt key falls back to the current branch and then main;
+any changed file triggers saving. A cache miss before any successful summary
+or after cache eviction does not by itself show a restore/save mismatch.
 The failure cache remembers unfittable input, rejected points and unsuccessful
 attempts for 24 hours, so the next run advances rather than paying repeatedly
 for the same top story. Sentence-leading ASCII entities are grounded too;
@@ -270,6 +290,10 @@ tokens, trimmed inputs, input characters, skip counts/reasons and rejections.
 Missing credentials, missing route confirmation or a zero configuration limit
 report a safe error; restored cache can still provide points. Active work reports `ok`, `cache`, `partial` or `failed`.
 Budget exhaustion and unreadable sources legitimately produce no new summary.
+The `stories` denominator counts eligible non-event stories in the ranking
+window, not the one-story request limit. Read production diagnostics from the
+`Summarize stories` step; offline CLI tests use a stub provider and do not
+measure production requests or spend.
 The snapshot marks `machine_written`; individual summaries retain
 `key_points_machine`, `key_points_source` and `key_points_prompt_version`.
 Previously validated points survive recollection only while the primary URL,

@@ -809,10 +809,12 @@ class SummaryTests(unittest.TestCase):
         }
 
         with patch.dict("os.environ", env, clear=True), \
-                patch.object(gemini, "transport", self.transport_ok):
+                patch.object(gemini, "transport", self.transport_ok), \
+                patch("sys.stdout", new_callable=io.StringIO) as stdout:
             code = summarize.main(["--input", str(src), "--cache", str(cache), "--ledger", str(ledger)])
 
         self.assertEqual(code, 0)
+        self.assertIn("Summary ok: 1/1 stories summarized, 1 requests, 0 cache hits", stdout.getvalue())
         updated = json.loads(src.read_text(encoding="utf-8"))
         self.assertIn("key_points", updated["stories"][0])
         self.assertTrue(updated["stories"][0]["key_points_machine"])

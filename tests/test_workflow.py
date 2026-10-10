@@ -183,6 +183,28 @@ class WorkflowTests(unittest.TestCase):
         for package in ("transformers==", "huggingface_hub==", "safetensors==", "sentencepiece=="):
             self.assertIn(package, text)
 
+    def test_summary_cache_paths_keys_and_publication_order_match(self):
+        steps = self.steps()
+        restore = steps["Restore Gemini summary cache and attempt ledger"]
+        save = steps["Save Gemini summary cache and attempt ledger"]
+        paths = ["data/summaries-gemini-vi.json", "data/summary-gemini-ledger.json",
+                 "data/article-read-failures.json", "data/summary-article-inputs.json"]
+        key = "key: radar-summary-gemini-vi-1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
+        for step in (restore, save):
+            self.assertIn(key, step)
+            self.assertEqual(re.findall(r"(?m)^            (data/[^\n]+)$", step), paths)
+        self.assertIn("radar-summary-gemini-vi-1-${{ github.ref_name }}-", restore)
+        self.assertIn("radar-summary-gemini-vi-1-main-", restore)
+        self.assertIn("if: always() &&", save)
+        for flag in ("summary_cache_written", "summary_ledger_written", "article_failures_written", "article_inputs_written"):
+            self.assertIn(f"steps.summarize.outputs.{flag} == 'true'", save)
+        names = list(steps)
+        self.assertLess(names.index("Restore Gemini summary cache and attempt ledger"), names.index("Summarize stories"))
+        self.assertLess(names.index("Summarize stories"), names.index("Save Gemini summary cache and attempt ledger"))
+        self.assertLess(names.index("Summarize stories"), names.index("Prepare permanent story pages"))
+        self.assertLess(names.index("Prepare permanent story pages"), names.index("Upload Cloudflare Pages site artifact"))
+        self.assertIn("RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json", steps["Summarize stories"])
+
     def test_gemini_credentials_are_isolated_to_optional_translation_step(self):
         steps = self.steps()
         translate = steps["Translate headlines"]
