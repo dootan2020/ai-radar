@@ -224,7 +224,7 @@ function observeCardMotion(root = document) {
         }, delay + CARD_ENTER_MS + 40);
       });
     }, {
-      rootMargin: '0px 0px 50px 0px',
+      rootMargin: '300px 0px',
       threshold: 0.05
     });
   }
@@ -583,7 +583,7 @@ function coverFor(st) {
   let num = null, word;
   if (m) { num = fmt(m.value); word = `${m.word}${m.where ? ` trên ${m.where}` : ''}`; }
   else if (n > 1) { num = String(n); word = 'nguồn cùng đưa tin'; }
-  else word = hostOf(st.url) || KIND[st.kind] || name;
+  else word = KIND[st.kind] || 'Bài viết';
   return { face: faceOfStory(st, SRC), name, num, word, glyph: monogram(name), h: b.h, c: b.c, l: b.l ?? 0.42 };
 }
 const coverStyle = cv => `--cv-l:${cv.l};--cv-c:${cv.c};--cv-h:${cv.h}`;
@@ -781,16 +781,17 @@ function renderCard(st, size = 'std', opts = {}) {
   const metric = [
     (m && !opts.why) ? `<span>${numB(m)} ${esc(m.word)}</span>` : '',
     `<button class="cov-btn" data-cov="${esc(st.id)}" aria-haspopup="dialog" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${nSrc(st) > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${nSrc(st)}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`
-  ].filter(Boolean).join('<span aria-hidden="true">·</span>');
+  ].filter(Boolean).join('');
   const cal = calOf(st);
   const isSaved = savedHas(st.id);
   const why = opts.why ? worthWhy(st) : '';
   const cls = ['feed-card', `card-${size}`, opts.debate ? 'card-debate' : '', photo ? 'card-photo' : '', statusClass(st)].filter(Boolean).join(' ');
 
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}" data-worth="${worthOf(st).score.toFixed(1)}">
-  ${reasonTag(st)}
+  ${photo ? reasonTag(st) : ''}
   ${mediaHTML(img, size)}
   <div class="${photo ? 'photo-body' : 'card-body'}">
+    ${photo ? '' : reasonTag(st)}
     <div class="src-row">${markHTML(st)}${opts.rank ? `<span class="pick-n num"><span class="sr">Số </span>${opts.rank}</span>` : ''}<span class="src-av" aria-hidden="true">${avatar(face, 'xs')}</span><span class="src-name">${esc(name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}</div>
     ${h === 'h3'
       ? `<h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>`
@@ -845,10 +846,10 @@ function renderLive() {
       <span class="video-badge${S.live ? ' is-live' : ''}">${esc(S.badge)}</span>
       <span class="video-play">${icon('i-play')}</span>
     </a>
-    <p class="video-title"${langAttr(it.title)}>${esc(it.title)}</p>
+    <div class="video-text"><p class="video-title"${langAttr(it.title)}>${esc(it.title)}</p>
     <p class="video-meta">${esc(it.channel || '')}${where}</p>
     <a class="tile-action${S.live ? ' is-live' : ''}" href="${esc(safe(it.url))}" target="_blank" rel="noopener">${icon('i-play')}${esc(S.action)}</a>
-    ${it.status === 'upcoming' ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}</div>`;
+    ${it.status === 'upcoming' ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}</div></div>`;
   }
   const evStory = e => asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
   const evHTML = events.length ? `<div class="live-events">${it ? '<h3 class="tile-sub">Sắp diễn ra</h3>' : ''}
