@@ -92,7 +92,7 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
     from radar.curation import curate_repos
     from radar.ranking import rank_stories
     from radar.retention import retain_stories
-    from radar import x_collector, x_paid_budget
+    from radar import x_collector
     from radar.items import is_x_item
     from radar.headlines import annotate_headlines
 
@@ -104,8 +104,7 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
     if isinstance(published, dict) and isinstance(published.get("stories"), list):
         published = dict(published, stories=x_collector.without_reply_stories(published["stories"]))
     stories = retain_stories(fresh_stories, published, now)
-    stories = x_collector.reconcile_published(
-        stories, published, x_paid_budget.ledger_path(), now=now)
+    stories = x_collector.expire_x_coverage(stories, now=now)
     stories = rank_stories(stories, now, previous)
     # Worth and images run after retention so carried stories are re-scored at `now` and can be illustrated.
     sources_map = {s["id"]: s for s in payload.get("sources", [])}

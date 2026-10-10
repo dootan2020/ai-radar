@@ -219,99 +219,22 @@ def _request(url, token):
         return raw.decode("utf-8")
 
 
-def _post_ids(stories):
-    ids = set()
-    for story in stories if isinstance(stories, list) else []:
-        for item in story.get("coverage", []) if isinstance(story, dict) else []:
-            match = re.search(r"https?://(?:www\.)?x\.com/[^/]+/status/([0-9]{1,19})", item.get("url", "")) \
-                if isinstance(item, dict) else None
-            if match:
-                ids.add(match.group(1))
-    return sorted(ids, key=int)
-
-
-def _reconciliation_url(ids):
-    if not ids or len(ids) > 100 or any(not re.fullmatch(r"[0-9]{1,19}", value) for value in ids):
-        raise ValueError("Invalid X reconciliation batch")
-    return "https://api.x.com/2/tweets?" + urlencode({"ids": ",".join(ids), "tweet.fields": "id"})
-
-
-def _returned_ids(body):
-    try:
-        data = json.loads(body)
-    except (TypeError, ValueError) as error:
-        raise ValueError("Invalid X reconciliation response") from error
-    if not isinstance(data, dict) or not isinstance(data.get("data", []), list):
-        raise ValueError("Invalid X reconciliation response")
-    ids = []
-    for post in data.get("data", []):
-        if (not isinstance(post, dict) or not isinstance(post.get("id"), str)
-                or not re.fullmatch(r"[0-9]{1,19}", post["id"])):
-            raise ValueError("Invalid X reconciliation resource")
-        ids.append(post["id"])
-    return ids
-
-
-def reconcile_published(stories, published, ledger_path, *, now, transport=None, env=None):
-    """Reconcile published X IDs daily; on failure, expire X observations older than 24h."""
-    from datetime import timezone
-    from radar import x_paid_budget
+def expire_x_coverage(stories, *, now):
+    """Expire X observations 24 hours after publication or first observation."""
+    from datetime import timedelta
     from radar.items import instant
 
-    env = os.environ if env is None else env
-    today = now.astimezone(timezone.utc).date().isoformat()
-    local = x_paid_budget._read_local(ledger_path, now.timestamp())
-    due = local is None or local.get("reconciled_day") != today
-    published_stories = published.get("stories", []) if isinstance(published, dict) else []
-    ids = _post_ids(published_stories)
-    returned = set()
-    success = local is not None and not due
-    if due and env.get("RADAR_X_ENABLED") == "1" and env.get("X_BEARER_TOKEN"):
-        success = True
-        send = transport or _request
-        try:
-            for start in range(0, len(ids), 100):
-                batch = ids[start:start + 100]
-                error, request_id = x_paid_budget.reserve(ledger_path, now=now.timestamp(),
-                                                          max_results=max(10, len(batch)))
-                if error:
-                    success = False
-                    break
-                body = send(_reconciliation_url(batch), env["X_BEARER_TOKEN"])
-                found_ids = _returned_ids(body)
-                if len(found_ids) > len(batch) or any(post_id not in batch for post_id in found_ids):
-                    success = False
-                    break
-                if x_paid_budget.settle(ledger_path, request_id, len(found_ids), now=now.timestamp()):
-                    success = False
-                    break
-                returned.update(found_ids)
-            if success:
-                x_paid_budget.mark_reconciled(ledger_path, today, now=now.timestamp())
-        except (HTTPError, OSError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
-            success = False
-
-    cutoff = now.timestamp() - 86400
+    cutoff = now - timedelta(hours=24)
     for story in stories if isinstance(stories, list) else []:
         kept = []
         for item in story.get("coverage", []) if isinstance(story, dict) else []:
-            match = re.search(r"https?://(?:www\.)?x\.com/[^/]+/status/([0-9]{1,19})", item.get("url", "")) \
-                if isinstance(item, dict) else None
-            if not match:
+            if not isinstance(item, dict) or not is_x_item(item):
                 kept.append(item)
                 continue
-            post_id = match.group(1)
-            if success and not due:
-                kept.append(item)
-                continue
-            if success and due:
-                # Reconcile only items that were in the published snapshot and
-                # actually included in a successful lookup. New current-run X
-                # items were not queried and must survive this pass.
-                if post_id in ids and post_id not in returned:
-                    continue
-            elif instant(item.get("published_at") or item.get("observed_at")) is None or \
-                    instant(item.get("published_at") or item.get("observed_at")).timestamp() < cutoff:
+            published_at = instant(item.get("published_at"))
+            observed_at = instant(item.get("observed_at"))
+            timestamp = published_at or observed_at
+            if timestamp is None or timestamp < cutoff:
                 continue
             kept.append(item)
         if isinstance(story, dict):

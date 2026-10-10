@@ -1,6 +1,7 @@
 """Offline contract tests for the X API collector."""
 
 import json
+from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
 import subprocess
@@ -229,86 +230,58 @@ class XCollectorTests(unittest.TestCase):
                 payload["stories"][0]["source_count"] = 2
                 self.assertIsNone(rejection_reason(payload)[0])
 
-    def test_daily_reconciliation_removes_missing_posts_and_fails_closed_after_24_hours(self):
+    def test_x_coverage_expires_after_24_hours_without_dropping_non_x_coverage(self):
         now = datetime.fromisoformat("2026-10-09T12:00:00+00:00")
-        active = {"RADAR_X_ENABLED": "1", "X_BEARER_TOKEN": "fixture-only"}
-        with tempfile.TemporaryDirectory() as temporary:
-            ledger = Path(temporary) / "ledger.json"
-            remote = Path(temporary) / "remote.git"
-            subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
-            self.assertIsNone(x_paid_budget.prepare(ledger, paid=False, remote=str(remote), now=now.timestamp()))
-            self.assertIsNone(x_paid_budget.prepare(ledger, paid=True, remote=str(remote), now=now.timestamp(),
-                                                    run_key="502-1"))
-            published = {"stories": [{"coverage": [
-                {"url": "https://x.com/leader_ai/status/1900000000000000001",
-                 "published_at": "2026-10-09T11:00:00Z"},
-                {"url": "https://x.com/leader_ai/status/1900000000000000002",
-                 "published_at": "2026-10-09T11:00:00Z"}]}]}
-            current = json.loads(json.dumps(published["stories"]))
-            result = x_collector.reconcile_published(
-                current, published, ledger, now=now,
-                transport=lambda url, token: json.dumps({"data": [{"id": "1900000000000000001"}]}), env=active)
-            self.assertEqual(len(result[0]["coverage"]), 1)
-            self.assertEqual(json.loads(ledger.read_text(encoding="utf-8"))["reconciled_day"], "2026-10-09")
+        fresh_x = {"source": "x-leader_ai", "publisher": "x:@leader_ai",
+                   "url": "https://x.com/leader_ai/status/1900000000000000001",
+                   "published_at": "2026-10-09T11:59:00Z"}
+        exactly_24h_x = {"source": "x-leader_ai", "publisher": "x:@leader_ai",
+                         "url": "https://x.com/leader_ai/status/1900000000000000002",
+                         "published_at": "2026-10-08T12:00:00Z"}
+        stale_x = {"source": "x-leader_ai", "publisher": "x:@leader_ai",
+                   "url": "https://x.com/leader_ai/status/1900000000000000003",
+                   "published_at": "2026-10-08T11:59:00Z"}
+        fallback_x = {"source": "x-leader_ai", "publisher": "x:@leader_ai",
+                      "url": "https://x.com/leader_ai/status/1900000000000000004",
+                      "observed_at": "2026-10-09T11:00:00Z"}
+        missing_time_x = {"source": "x-leader_ai", "publisher": "x:@leader_ai",
+                          "url": "https://x.com/leader_ai/status/1900000000000000005"}
+        non_x = {"source": "press", "publisher": "press:example",
+                 "url": "https://news.example/story", "published_at": "2026-10-01T00:00:00Z"}
+        story = {"id": "mixed-story", "coverage": [fresh_x, exactly_24h_x, stale_x,
+                                                       fallback_x, missing_time_x, non_x]}
 
-            old = {"coverage": [{"url": "https://x.com/leader_ai/status/1900000000000000003",
-                                  "published_at": "2026-10-07T11:00:00Z"}]}
-            local = json.loads(ledger.read_text(encoding="utf-8"))
-            local["reconciled_day"] = "2026-10-08"
-            ledger.write_text(json.dumps(local), encoding="utf-8")
-            failed = x_collector.reconcile_published(
-                [old], {"stories": [old]}, ledger, now=now,
-                transport=lambda *_: (_ for _ in ()).throw(TimeoutError()), env=active)
-            self.assertEqual(failed, [])
+        result = x_collector.expire_x_coverage([story], now=now)
 
-    def test_daily_reconciliation_keeps_x_posts_collected_in_the_current_run(self):
-        now = datetime.fromisoformat("2026-10-09T12:00:00+00:00")
-        active = {"RADAR_X_ENABLED": "1", "X_BEARER_TOKEN": "fixture-only"}
-        current_post = {"url": "https://x.com/leader_ai/status/1900000000000000004",
-                        "published_at": "2026-10-09T11:30:00Z"}
-        with tempfile.TemporaryDirectory() as temporary:
-            ledger = Path(temporary) / "ledger.json"
-            remote = Path(temporary) / "remote.git"
-            subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
-            self.assertIsNone(x_paid_budget.prepare(ledger, paid=False, remote=str(remote), now=now.timestamp()))
-            self.assertIsNone(x_paid_budget.prepare(ledger, paid=True, remote=str(remote), now=now.timestamp(),
-                                                    run_key="503-1"))
-            result = x_collector.reconcile_published(
-                [{"coverage": [current_post]}], {"stories": []}, ledger, now=now,
-                transport=lambda *_: self.fail("there are no published IDs to reconcile"), env=active)
-        self.assertEqual(result[0]["coverage"], [current_post])
+        self.assertEqual(result, [story])
+        self.assertEqual(story["coverage"], [fresh_x, exactly_24h_x, fallback_x, non_x])
+        self.assertIs(story["coverage"][-1], non_x)
 
-    def test_reconciliation_fallback_runs_without_flag_or_token(self):
-        now = datetime.fromisoformat("2026-10-09T12:00:00+00:00")
-        old = {"coverage": [{"url": "https://x.com/leader_ai/status/1900000000000000005",
-                              "published_at": "2026-10-07T11:00:00Z"}]}
-        with tempfile.TemporaryDirectory() as temporary:
-            result = x_collector.reconcile_published(
-                [old], {"stories": [old]}, Path(temporary) / "missing.json", now=now,
-                transport=lambda *_: self.fail("fallback must not make a network request"), env={})
-        self.assertEqual(result, [])
+    def test_non_x_fixture_counts_and_ranks_are_unchanged(self):
+        fixture_dir = Path(__file__).parent / "fixtures" / "scorecard_snapshots"
+        snapshots = sorted(fixture_dir.glob("*/radar.json"))
+        self.assertTrue(snapshots)
+        for path in snapshots:
+            with self.subTest(snapshot=path.parent.name):
+                snapshot = json.loads(path.read_text(encoding="utf-8"))
+                before = rank_stories(deepcopy(snapshot["stories"]), snapshot["generated_at"])
+                after = deepcopy(snapshot["stories"])
+                x_collector.expire_x_coverage(after, now=datetime.fromisoformat(
+                    snapshot["generated_at"].replace("Z", "+00:00")))
+                after = rank_stories(after, snapshot["generated_at"])
+                self.assertEqual(after, before)
 
-    def test_assembly_always_runs_reconciliation_when_x_is_disabled(self):
+    def test_assembly_expires_x_coverage_without_paid_reconciliation(self):
         with patch("radar.clustering.cluster_items", return_value=[]), \
                 patch("radar.retention.retain_stories", return_value=[]), \
                 patch("radar.ranking.rank_stories", return_value=[]), \
                 patch("radar.curation.curate_repos", return_value=[]), \
-                patch.object(x_collector, "reconcile_published", side_effect=lambda stories, *_args, **_kwargs: stories) as reconcile:
+                patch.object(x_collector, "expire_x_coverage", side_effect=lambda stories, **_kwargs: stories) as expire:
             with patch.dict("os.environ", {}, clear=True):
-                assembly.finish({}, [], [], datetime.fromisoformat(OBSERVED.replace("Z", "+00:00")), {},
+                now = datetime.fromisoformat(OBSERVED.replace("Z", "+00:00"))
+                assembly.finish({}, [], [], now, {},
                                 published={"stories": []}, resolve_images=False)
-        reconcile.assert_called_once()
-
-    def test_missing_reconciliation_ledger_expires_old_x_coverage(self):
-        now = datetime.fromisoformat("2026-10-09T12:00:00+00:00")
-        old = {"coverage": [{"url": "https://x.com/leader_ai/status/1900000000000000003",
-                              "published_at": "2026-10-07T11:00:00Z"}]}
-        with tempfile.TemporaryDirectory() as temporary:
-            result = x_collector.reconcile_published(
-                [old], {"stories": [old]}, Path(temporary) / "missing.json", now=now,
-                transport=lambda *_: self.fail("must not call X without a usable ledger"),
-                env={"RADAR_X_ENABLED": "1", "X_BEARER_TOKEN": "fixture-only"})
-        self.assertEqual(result, [])
+        expire.assert_called_once_with([], now=now)
 
 
 if __name__ == "__main__":
