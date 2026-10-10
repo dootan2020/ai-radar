@@ -17,7 +17,7 @@
    (#tin/<id>, and the section anchors the search page links to). */
 
 import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
-import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, daysLeftHTML, eventRange } from './time-text.js';
+import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { shown, headlineShown, uniqCoverage } from './titles.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
@@ -818,20 +818,81 @@ function renderCard(st, size = 'std', opts = {}) {
 
 /* ---------- tile: live and upcoming ---------- */
 const todayKey = () => dayKey(new Date());
-function daysUntil(start, end) {
-  const t = Date.parse(todayKey()), a = Date.parse(start), b = Date.parse(end || start);
-  if (!Number.isFinite(a)) return NaN;
-  if (t > a && t <= b) return -1;
-  return Math.round((a - t) / 864e5);
+/* Event countdown. An event with exact times counts to its start_at (which carries its own offset). A date-only event
+   has no time and no timezone in the data, so it counts to 00:00 of its start date in Vietnam time and runs until
+   00:00 after its end date; Asia/Ho_Chi_Minh has no daylight saving, so that is a fixed +07:00. */
+const VN_MIDNIGHT = d => Date.parse(`${d}T00:00:00+07:00`);
+function eventSpan(e) {
+  const exact = e.time_precision === 'exact';
+  const start = exact && e.start_at ? Date.parse(e.start_at) : VN_MIDNIGHT(e.start_date);
+  let end = exact && e.end_at ? Date.parse(e.end_at) : NaN;
+  if (!Number.isFinite(end)) end = VN_MIDNIGHT(e.end_date || e.start_date) + 864e5;
+  return { start, end };
 }
-/* The home shows the three nearest events and links to the "Sắp diễn ra" view, which lists them all. */
+function countdownParts(start, end, now) {
+  if (!Number.isFinite(start)) return null;
+  if (Number.isFinite(end) && now >= end) return { state: 'over' };
+  if (now >= start) return { state: 'on' };
+  const t = Math.floor((start - now) / 1000);
+  return { state: 'soon', d: Math.floor(t / 86400), h: Math.floor(t % 86400 / 3600), m: Math.floor(t % 3600 / 60), s: t % 60 };
+}
+const pad2 = n => String(n).padStart(2, '0');
+// Words, to the minute: what a screen reader hears, and what the line shows when motion is reduced.
+function countdownWords(p, num = x => x) {
+  if (p.d) return `${num(p.d)} ngày${p.h ? ` ${num(p.h)} giờ` : ''}`;
+  if (p.h) return `${num(p.h)} giờ${p.m ? ` ${num(p.m)} phút` : ''}`;
+  return p.m ? `${num(p.m)} phút` : 'dưới 1 phút';
+}
+const countdownSR = p => p.state === 'on' ? 'Đang diễn ra' : p.state === 'over' ? 'Đã kết thúc' : `Còn ${countdownWords(p)}`;
+// The face: days in words, then a clock of hours, minutes and seconds in tabular figures, so nothing jitters.
+function countdownFace(p, seconds) {
+  if (p.state === 'on') return '<span class="cd-dot" aria-hidden="true"></span>Đang diễn ra';
+  if (p.state === 'over') return 'Đã kết thúc';
+  if (!seconds) return `còn ${countdownWords(p, x => `<b class="num">${x}</b>`)}`;
+  return `còn ${p.d ? `<b class="num">${p.d}</b> ngày ` : ''}<b class="num cd-clock">${pad2(p.h)}:${pad2(p.m)}:${pad2(p.s)}</b>`;
+}
+function countdownHTML(e) {
+  const { start, end } = eventSpan(e);
+  const p = countdownParts(start, end, Date.now());
+  if (!p) return '';
+  return `<span class="event-left cd is-${p.state}" data-cd="${start}" data-cd-end="${end}"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${countdownFace(p, !RM.matches)}</span></span>`;
+}
+/* One timer for every countdown on the page: each second (each minute when motion is reduced), only while the page
+   is visible and a countdown is on it. */
+let cdTimer = 0;
+function tickCountdowns() {
+  const now = Date.now(), seconds = !RM.matches;
+  for (const el of document.querySelectorAll('.cd[data-cd]')) {
+    const p = countdownParts(Number(el.dataset.cd), Number(el.dataset.cdEnd), now);
+    if (!p) continue;
+    const face = countdownFace(p, seconds), sr = countdownSR(p);
+    if (el.lastElementChild.dataset.f !== face) { el.lastElementChild.innerHTML = face; el.lastElementChild.dataset.f = face; }
+    if (el.firstElementChild.textContent !== sr) el.firstElementChild.textContent = sr;
+    el.className = `event-left cd is-${p.state}`;
+  }
+}
+function scheduleCountdown() {
+  clearTimeout(cdTimer);
+  cdTimer = 0;
+  if (document.hidden || !document.querySelector('.cd[data-cd]')) return;
+  tickCountdowns();
+  const step = RM.matches ? 60000 : 1000;
+  cdTimer = setTimeout(scheduleCountdown, step - (Date.now() % step) + 15);
+}
+/* The home shows the nearest events on a shelf, a row that scrolls sideways, so a few more cost no height; past
+   six it links to the "Sắp diễn ra" view, which lists them all as rows. */
+const HOME_EVENTS = 6;
+const SHELF_LABEL = 'Sự kiện sắp diễn ra, trượt ngang để xem thêm';
+const chevron = next => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${next ? 'M9 5l7 7-7 7' : 'M15 5l-7 7 7 7'}"/></svg>`;
 function renderLive(all = false) {
   const items = D.live || [];
   const it = items.find(x => x.status === 'live') || items.find(x => x.status === 'upcoming') || items[0];
   const tk = todayKey();
-  const upcoming = (D.events || []).filter(e => (e.end_date || e.start_date || '') >= tk)
+  const now = Date.now();
+  const upcoming = (D.events || []).filter(e => (e.end_date || e.start_date || '') >= tk && !(eventSpan(e).end <= now))
     .sort((a, b) => String(a.start_date).localeCompare(String(b.start_date)));
-  const events = all ? upcoming : upcoming.slice(0, 3);
+  const events = all ? upcoming : upcoming.slice(0, HOME_EVENTS);
+  const shelf = !all && events.length > 1;
   if (!it && !events.length) return '';
 
   let head = 'Sắp diễn ra', video = '';
@@ -859,24 +920,69 @@ function renderLive(all = false) {
   const evStory = e => asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
   const more = upcoming.length - events.length;
   const moreHTML = more > 0 ? `<a class="tile-more" href="#sap-toi"><span>Xem cả <span class="num">${upcoming.length}</span> sự kiện</span></a>` : '';
-  const evHTML = events.length ? `<div class="live-events">${it ? `<div class="tile-subhead"><h3 class="tile-sub">Sắp diễn ra</h3>${moreHTML}</div>` : ''}
-    <ul class="events" data-n="${events.length}">${events.map(e => {
+  // Previous/next, shown by initShelves only when the shelf is wider than its box and the pointer is a mouse.
+  const navHTML = shelf ? `<span class="shelf-nav" hidden>
+    <button type="button" class="shelf-btn" data-shelf="-1" aria-controls="live-shelf" aria-label="Sự kiện trước">${chevron(false)}</button>
+    <button type="button" class="shelf-btn" data-shelf="1" aria-controls="live-shelf" aria-label="Sự kiện tiếp theo">${chevron(true)}</button></span>` : '';
+  const tools = moreHTML || navHTML ? `<span class="tile-tools">${moreHTML}${navHTML}</span>` : '';
+  const evHTML = events.length ? `<div class="live-events"${shelf ? ` role="region" aria-label="${SHELF_LABEL}"` : ''}>${it ? `<div class="tile-subhead"><h3 class="tile-sub">Sắp diễn ra</h3>${tools}</div>` : ''}
+    <ul class="events${!all ? ' shelf' : ''}"${shelf ? ' id="live-shelf"' : ''} data-n="${events.length}">${events.map(e => {
       const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(e.start_date || '');
       const st = evStory(e);
       const cal = st ? calOf(st) : { uid: e.id, title: String(e.title), url: e.url, location: e.location, startDate: e.start_date, endDate: e.end_date,
         startAt: e.time_precision === 'exact' ? e.start_at : null, endAt: e.time_precision === 'exact' ? e.end_at : null, note: verifiedNote(e.verified_at, e.source_url) };
-      const left = daysLeftHTML(daysUntil(e.start_date, e.end_date));
+      const left = countdownHTML(e);
       // Only the parts that exist, so a missing place never leaves a stray "·".
       const when = [eventRange(e.start_date, e.end_date), e.location].filter(x => x && String(x).trim()).map(esc).join(' · ');
       return `<li${st ? ` data-sid="${esc(st.id)}" class="${statusClass(st)}"` : ''}><div class="ev"><a class="event" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>
         <span class="date-badge" aria-hidden="true">${d ? `<span class="date-m">thg ${+d[2]}</span><b class="num">${+d[3]}</b>` : ''}</span>
-        <span class="event-text">${left ? `<span class="event-left">${left}</span>` : ''}<span class="event-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>
+        <span class="event-text">${left}<span class="event-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>
         <span class="event-when">${when}</span></span></a>
         ${calButtons(cal, st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</div></li>`;
     }).join('')}</ul></div>` : '';
   return `<section class="tile tile-live${it ? ' has-video' : ''}" aria-labelledby="live-h">
-    <div class="tile-head"><h2 class="tile-title" id="live-h">${esc(head)}</h2>${it ? '<span class="tile-note">phát sóng</span>' : moreHTML}</div>
+    <div class="tile-head"><h2 class="tile-title" id="live-h">${esc(head)}</h2>${it ? '<span class="tile-note">phát sóng</span>' : tools}</div>
     <div class="live-body">${video}${evHTML}</div></section>`;
+}
+/* The shelf's arrows exist only when there is something to scroll to; at either end that arrow reads as unavailable
+   (aria-disabled, so a focused button keeps its focus). */
+let shelfRO = null;
+function shelfState(ul) {
+  const nav = ul && ul.closest('.tile-live') && ul.closest('.tile-live').querySelector('.shelf-nav');
+  if (!nav) return;
+  const max = ul.scrollWidth - ul.clientWidth, x = Math.abs(ul.scrollLeft);
+  nav.hidden = max <= 1;
+  const [prev, next] = nav.querySelectorAll('.shelf-btn');
+  prev.setAttribute('aria-disabled', String(x <= 1));
+  next.setAttribute('aria-disabled', String(x >= max - 1));
+}
+function initShelves(root) {
+  if (shelfRO) shelfRO.disconnect();
+  shelfRO = null;
+  const shelves = [...root.querySelectorAll('.events.shelf[id]')];
+  if (!shelves.length) return;
+  if ('ResizeObserver' in window) shelfRO = new ResizeObserver(es => es.forEach(en => shelfState(en.target.closest('.events'))));
+  for (const ul of shelves) {
+    ul.addEventListener('scroll', () => shelfState(ul), { passive: true });
+    // Tab onto a card that only peeks: bring the whole card in (the snap would otherwise hold the row where it was).
+    ul.addEventListener('focusin', e => {
+      const li = e.target.closest('.events.shelf > li');
+      if (li) li.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: RM.matches ? 'auto' : 'smooth' });
+    });
+    if (shelfRO) { shelfRO.observe(ul); if (ul.firstElementChild) shelfRO.observe(ul.firstElementChild); }
+    shelfState(ul);
+  }
+}
+/* One press moves by as many whole cards as fit, so the card that was peeking lands at the start. */
+function scrollShelf(btn) {
+  if (btn.getAttribute('aria-disabled') === 'true') return;
+  const ul = document.getElementById(btn.getAttribute('aria-controls'));
+  const card = ul && ul.firstElementChild;
+  if (!card) return;
+  const gap = parseFloat(getComputedStyle(ul).columnGap) || 0;
+  const step = card.getBoundingClientRect().width + gap;
+  const per = Math.max(1, Math.floor((ul.clientWidth + gap) / step));
+  ul.scrollBy({ left: Number(btn.dataset.shelf) * per * step, behavior: RM.matches ? 'auto' : 'smooth' });
 }
 
 /* ---------- tile: hot, and why ---------- */
@@ -1521,6 +1627,8 @@ function renderPicks() {
   grid.innerHTML = renderCard(first, 'lead', { why: true, h: 'h3' })
     + (mid.length ? `<div class="picks-mid">${mid.map(st => renderCard(st, 'std', { h: 'h3' })).join('')}</div>` : '')
     + renderLive();
+  initShelves(grid);
+  scheduleCountdown();
 }
 
 /* "Cách chấm": written from WORTH, so the note always matches the code. */
@@ -1775,6 +1883,7 @@ function renderFeed() {
   renderEnd();
   renderChips();
   initRepoPills($('#feed-grid'));
+  scheduleCountdown();
   $('#top').removeAttribute('aria-busy');
   hydrateHF(document);
   observeSkips();
@@ -2259,6 +2368,7 @@ function onClick(e) {
   }
   if (act && act.dataset.act === 'save') { toggleSave(act.dataset.id); return; }
   const cov = t.closest('.cov-btn'); if (cov) { toggleDetail(cov); return; }
+  const sb = t.closest('.shelf-btn'); if (sb) { scrollShelf(sb); return; }
   const cal = t.closest('[data-cal]'); if (cal) { e.preventDefault(); addToCalendar(calOf(STORY_ANY.get(cal.dataset.cal))); return; }
   const cl = t.closest('[data-cal-live]'); if (cl) { e.preventDefault(); addToCalendar(liveCal(asArray(D.live).find(v => v.video_id === cl.dataset.calLive))); return; }
   const ce = t.closest('[data-cal-ev]');
@@ -2419,6 +2529,8 @@ const whenIdle = () => new Promise(r => {
 function startLifecycle() {
   setInterval(pollSnapshot, SNAPSHOT_EVERY_MS);
   document.addEventListener('visibilitychange', () => { if (document.hidden) commitLastSeen(); else pollSnapshot(); });
+  document.addEventListener('visibilitychange', scheduleCountdown);   // stops while hidden, catches up on return
+  if (RM.addEventListener) RM.addEventListener('change', scheduleCountdown);
   addEventListener('pagehide', () => commitLastSeen());
   // The last look moves on engagement: five seconds on the page or the first scroll.
   let engaged = false;
