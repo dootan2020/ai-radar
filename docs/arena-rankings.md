@@ -9,7 +9,46 @@ score and then identifier. Scores are rounded to whole numbers with no grouping
 separator (for example, `1525`), without changing
 the underlying value. A short explanation warns that small differences may be
 within uncertainty; confidence intervals and vote counts are omitted from the
-compact reader view.
+reader view.
+
+## Reading the column chart
+
+The ranking uses the home feed's full content width. Ten vertical columns show
+the top ten at desktop widths of 1200px and above. Below 1200px, one horizontal
+bar chart contains all ten models on a common aligned track, with source rank,
+full name, maker, score and weekly movement. It does not wrap into separate
+mini charts or require horizontal scrolling. Maker identity is presented through small, elegant monogram marks (such as [G], [A], [M], [O])
+paired with brand names in the legend and rich detail on hover or keyboard focus. The palette is
+calm and restrained: runner-up columns use a subtle neutral fill while the leader carries the
+primary accent colour, making "who leads, by how much" unmistakable in a single glance. Columns
+are slim and softly finished with light hairline gridlines. The leader callout is seamlessly
+integrated into the headline without visual clutter, and technical axis notes rest quietly as a
+footnote below the columns. On mobile and narrow viewports below 1200px, one aligned horizontal
+bar chart provides the same restrained, dignified experience without overflowing.
+
+The axis measures **absolute Arena scores**. Its shared floor is the lowest
+score across all available complete categories, rounded down to a multiple of
+10, then reduced by 10. This guarantees at least 10 points of space below the
+lowest model, including scores on a round boundary. The ceiling is the highest
+score rounded up to 10, with a minimum range of 20 points above the floor for
+ties or tightly clustered scores. Endpoints are multiples of 10; midpoint ticks
+are multiples of 5. The supplied 8 October 2026 snapshot uses 1470–1560 in all
+three categories, with ticks at 1470, 1515 and 1560 on desktop and mobile.
+The lowest score is 1483.92 in the non-English category; the highest column fills
+about 90% of the plot. Overall, the leader's column is about 2.31 times the
+tenth's height, making the point gap visible while every column remains positive.
+The caption explicitly states that this axis does
+not start at zero and that bar lengths do not represent ability ratios.
+
+Column height and mobile bar width both equal `(score - floor) / (ceiling -
+floor)`. They use raw source values, so two models labelled `1494` can still
+have different lengths. Every model has a positive bar, without an artificial
+minimum size that distorts the scale. Rounded scores are shown above desktop
+columns and in an aligned score column beside mobile bars. Category switching
+and layout changes never rescale the same snapshot. New snapshots can change
+the range, whose endpoints remain explicit in the caption. The native HTML
+figure and single list expose every value in real text; no canvas, tooltip,
+image or chart library is required. Category controls retain keyboard focus.
 
 Names are formatted in the reader, so cached JSON benefits immediately. Known
 Claude major/minor slugs and Grok `4-1` recover their version dots; existing
@@ -24,7 +63,7 @@ Maker names use brand casing (Google, Anthropic, Meta, OpenAI, xAI); unknown mak
 are capitalized and a missing maker stays **Chưa rõ hãng**. The original model ID
 remains in the name's title attribute. IDs, scores, ranks and movement in the data
 are unchanged. Ungrouped integer scores avoid confusing decimal and thousands
-punctuation in the compact Vietnamese table.
+punctuation in the Vietnamese chart.
 
 ## Source and attribution
 
