@@ -38,6 +38,12 @@ let errorHandler;
 class ImageElement {}
 const feed = await renderer('feed.js', '\ninit();', `
 return {titleOf, pickImage, renderCard, renderHot, pickRow, watchPictures, mediaHTML, oneEvent,
+  picksFor(stories) {
+    D = {stories, events:[], sources:[], generated_at:'2026-10-10T00:00:00Z'};
+    GEN = Date.parse(D.generated_at); allStories = stories; STORY = STORY_ANY = new Map(stories.map(s => [s.id, s]));
+    PICKS.clear(); PICKED.clear(); WORTHS.clear(); filter = 'all';
+    return choosePicks().map(st => st.id);
+  },
   configure(stories, images = {}) {
     D = {stories, events:[], sources:[], generated_at:'2026-10-10T00:00:00Z'};
     GEN = Date.parse(D.generated_at); STORY_ANY = new Map(stories.map(s => [s.id, s]));
@@ -289,6 +295,19 @@ assert.equal(feed.oneEvent(ev('a', 'Alpha'), ev('b', 'Beta', [], {aliases:['a']}
 assert.equal(feed.oneEvent(ev('a', 'Alpha', [{url:'https://same.example/x'}]), ev('b', 'Beta', [{discussion_url:'https://same.example/x'}])), true, 'a shared address');
 assert.equal(feed.oneEvent(bbc, ev('diary', 'Anthropic reported diary entry to police, woman faces felony charge')), false,
   'two Anthropic police stories are not one event');
+// Inside "Nhiều nguồn cùng đưa" too: the higher-ranked story of an event stays, the next distinct one fills the place.
+const twoSrc = (id, url) => [{source:`${id}-a`, publisher:`${id}-a`, url, published_at:'2026-10-09T12:00:00Z'},
+  {source:`${id}-b`, publisher:`${id}-b`, url:`https://b.example/${id}`, published_at:'2026-10-09T12:00:00Z'}];
+const ranked = (id, title, score, url = `https://a.example/${id}`) => ({id, title, url, kind:'article', published_at:'2026-10-09T12:00:00Z',
+  coverage:twoSrc(id, url), worth_score:score, worth_parts:{breadth:score}});
+const fillers = ['Quantum chips ship', 'Robot taxis expand', 'Chip export rules', 'Open model release']
+  .map((t, i) => ({id:`fill-${i}`, title:t, url:`https://f.example/${i}`, kind:'article', published_at:'2026-10-09T23:00:00Z', coverage:[]}));
+const blockIds = feed.picksFor([...fillers,
+  ranked('police-a', 'Anthropic AI model sent a false homicide tip to Philadelphia police', 50, 'https://shared.example/tip'),
+  ranked('police-b', 'Rogue AI agent tip to police', 40, 'https://shared.example/tip'),
+  ranked('evals', 'Anthropic cuts internal evaluations off the internet', 30),
+  ranked('chips', 'Nvidia ships a new data-centre chip', 20)]);
+assert.deepEqual(blockIds, ['police-a', 'evals', 'chips'], 'one story per event inside the block, backfilled in rank order');
 console.log('PASS headline eligibility, coverage attribution, feed/ranked cards, image providers and errors, modal/page, edition and search renderers');
 
 // Execute the real notification state, navigation and poll against deterministic DOM/time/network boundaries.

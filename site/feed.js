@@ -507,7 +507,8 @@ const nNewsSrc = st => newsCovsOf(st).length;
    qualify it shows fewer, and the whole window fills in only when none does. The owner's own picks stay as he chose them. */
 const PICKS_MAX_AGE_H = 24;
 /* One event, told once on the first screen (owner, 10/10 21:01): the top row skips any story that is the same event as
-   one shown in "Vừa đăng". Same event, strongest signal first:
+   one shown in "Vừa đăng", and its lead and cards are different events among themselves (the higher-ranked one stays;
+   the next eligible story fills the place). Same event, strongest signal first:
      1. the pipeline's own identity: the same story id, or one listed in the other's `aliases` (merged clusters);
      2. a shared address: any article or discussion URL that both stories' coverage carries;
      3. the cluster's own wording: at least four of the newer headline's words, and 60% of the shorter word set, appear
@@ -540,7 +541,7 @@ function choosePicks() {
   }
   for (const st of candidates) {
     if (out.length >= 3) break;
-    if (!out.some(o => sameEvent(o, st))) out.push(st);
+    if (!out.some(o => oneEvent(o, st))) out.push(st);
   }
   // Young stories only: two cards, or the lead alone, beat an old one filling the row. The whole window is the
   // fallback only when nothing young qualifies (coordinator, 10/10, within "người dùng luôn muốn xem tin mới trước").
@@ -549,7 +550,7 @@ function choosePicks() {
       && !elsewhere(st)).sort(byWorth);
     for (const st of fallback) {
       if (out.length >= 3) break;
-      if (!out.some(o => sameEvent(o, st))) out.push(st);
+      if (!out.some(o => oneEvent(o, st))) out.push(st);
     }
   }
   return out;
