@@ -1,1 +1,1 @@
-{"month": "2026-10", "pending": {}, "pending_days": {}, "settled_consumers": {"2026-10-10": {}}, "settled_daily": {"2026-10-09": 1985576, "2026-10-10": 406902}, "settled_micros": 2472365, "version": 1, "video_dates": []}
+{"month": "2026-10", "pending": {"38079404241-1": 45000}, "pending_days": {"38079404241-1": "2026-10-10"}, "settled_consumers": {"2026-10-10": {}}, "settled_daily": {"2026-10-09": 1985576, "2026-10-10": 406902}, "settled_micros": 2472365, "version": 1, "video_dates": []}
