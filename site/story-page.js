@@ -4,8 +4,7 @@
    using the shared renderStoryHTML function from site/story.js.
 */
 
-import { renderStoryHTML } from './story.js';
-import { headlineShown } from './titles.js';
+import { renderStoryHTML, storyTitle } from './story.js';
 
 const $ = s => document.querySelector(s);
 
@@ -70,7 +69,7 @@ function toggleSave(story, btn) {
   } else {
     list.push({
       key: story.id,
-      title: headlineShown(story),
+      title: storyTitle(story),
       url: story.url || '',
       at: new Date().toISOString()
     });

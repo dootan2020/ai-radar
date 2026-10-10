@@ -107,26 +107,22 @@ def _text(value):
     return value if isinstance(value, str) else ""
 
 
-def _key_points(story):
-    values = story.get("key_points")
-    if isinstance(values, str):
-        return [values] if values.strip() else []
-    if not isinstance(values, list):
-        return []
-    result = []
-    for value in values:
-        if isinstance(value, str) and value.strip():
-            result.append(value)
-        elif isinstance(value, dict):
-            point = value.get("text") or value.get("point")
-            if isinstance(point, str) and point.strip():
-                result.append(point)
-    return result
+def _has_editorial_summary(story):
+    points = story.get("key_points")
+    return (story.get("key_points_prompt_version") == "summary-vi-5-full"
+            and isinstance(points, list) and 4 <= len(points) <= 8
+            and all(isinstance(p, str) and p.strip() for p in points)
+            and isinstance(story.get("summary_sources"), list)
+            and any(_http_url(source.get("url")) for source in story["summary_sources"] if isinstance(source, dict)))
+
+
+def _summary_text(text):
+    return re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", html.escape(text, quote=True))
 
 
 def _page_fields(story, base_url):
     coverage = story.get("coverage") if isinstance(story.get("coverage"), list) else []
-    title = (_text(story.get("title_vi")) or _text(story.get("title")) or
+    title = ((_text(story.get("editorial_headline_vi")) if _has_editorial_summary(story) else "") or _text(story.get("title_vi")) or _text(story.get("title")) or
              next((_text(item.get("title_vi")) or _text(item.get("title"))
                    for item in coverage if isinstance(item, dict)
                    and (_text(item.get("title_vi")) or _text(item.get("title")))), ""))
@@ -154,7 +150,7 @@ def _page_fields(story, base_url):
     summary_vi = trim_complete_sentences(_text(story.get("summary_vi")))
     summary_en = trim_complete_sentences(_text(story.get("summary")))
     clean_summary = summary_vi or summary_en
-    description = clean_summary or title
+    description = (story["key_points"][0] if _has_editorial_summary(story) else clean_summary) or title
     original_title = (_text(first_coverage.get("title")) or _text(story.get("title")) or title)
     story_id = _story_id(story)
     return {
@@ -162,7 +158,7 @@ def _page_fields(story, base_url):
         "date_published": _text(story.get("published_at")) or None,
         "description": description,
         "image": image_url,
-        "key_points": _key_points(story),
+        "key_points": story["key_points"] if _has_editorial_summary(story) else [],
         "original_title": original_title,
         "original_url": original_url,
         "publisher": publisher,
@@ -202,16 +198,30 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
     encoded_article = (encoded_article.replace("&", "\\u0026").replace("<", "\\u003c")
                        .replace(">", "\\u003e").replace("\u2028", "\\u2028")
                        .replace("\u2029", "\\u2029"))
-    points_html = "".join(f'<li class="story-point-item"><span class="story-point-text">{esc(point)}</span></li>'
-                           for point in fields["key_points"])
-    fallback_content = (f'<section class="story-keypoints-box" aria-label="Ý chính của câu chuyện">'
-                        f'<h2 class="story-section-h2">Ý chính của câu chuyện</h2>'
-                        f'<p class="story-section-sub">Tóm tắt bằng AI từ phần nội dung bài gốc đọc được.</p>'
-                        f'<ol class="story-points-list">{points_html}</ol></section>'
-                        if points_html else '')
-    fallback_content += (f'<section class="story-summary-box" aria-label="Đoạn trích bài viết">'
-                        f'<h2 class="story-section-h2">Đoạn trích bài viết</h2>'
-                        f'<p class="story-summary-text">{esc(fields["summary"] or fields["title"])}</p></section>')
+    if _has_editorial_summary(story):
+        points_html = "".join(
+            f'<li class="story-point-item"><span class="story-point-num">{i + 1}</span>'
+            f'<span class="story-point-text">{_summary_text(point)}</span></li>'
+            for i, point in enumerate(fields["key_points"]))
+        links = " · ".join(
+            f'<a href="{esc(source["url"])}" target="_blank" rel="noopener noreferrer">'
+            f'{esc(source.get("name", "Nguồn"))}{" — nguồn gốc" if source.get("role") == "primary" else ""}</a>'
+            for source in story["summary_sources"] if isinstance(source, dict) and _http_url(source.get("url")))
+        sources_html = f'<p class="story-summary-sources">Nguồn: {links}</p>'
+        fallback_content = (
+            '<section class="story-keypoints-box" aria-label="Tóm tắt bài viết">'
+            '<p class="story-section-sub">Tóm tắt bằng AI từ phần nội dung bài gốc đọc được.</p>'
+            f'<ol class="story-points-list">{points_html}</ol>{sources_html}')
+        if "partial_source" in story.get("summary_limitations", []):
+            fallback_content += '<p class="story-section-sub">Bản tóm tắt dựa trên các phần nguồn đọc được.</p>'
+        if "missing_primary" in story.get("summary_limitations", []):
+            fallback_content += '<p class="story-section-sub">Chưa đọc được nguồn gốc được bài báo dẫn.</p>'
+        fallback_content += '</section>'
+    else:
+        fallback_content = (
+            '<section class="story-summary-box" aria-label="Đoạn trích bài viết">'
+            '<h2 class="story-section-h2">Đoạn trích bài viết</h2>'
+            f'<p class="story-summary-text">{esc(fields["summary"] or "Chưa có đoạn trích cho bài viết này. Bạn có thể mở đọc toàn văn bài viết gốc bên dưới.")}</p></section>')
     gateway_desc = ('ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.'
                     if fields["key_points"] else
                     'Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.')

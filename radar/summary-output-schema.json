@@ -1,0 +1,84 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "title_vi",
+    "key_points",
+    "used_source_ids",
+    "limitations"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "insufficient_evidence"
+      ]
+    },
+    "title_vi": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "evidence_refs"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "key_points": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "text",
+          "evidence_refs"
+        ],
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "used_source_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "partial_source",
+          "missing_primary",
+          "source_conflict",
+          "insufficient_evidence"
+        ]
+      }
+    }
+  }
+}

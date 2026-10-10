@@ -18,6 +18,23 @@ class SummaryDeliveryTests(unittest.TestCase):
         network.start()
         self.addCleanup(network.stop)
 
+    def test_labelled_body_excludes_other_news_and_authors_inside_main(self):
+        parser = summary_pipeline.parse_article(
+            '<main><div class="entry-content wp-block-post-content"><p>Synthetic article body.</p>'
+            '<p><a href="https://anthropic.com/research/synthetic">research report</a></p></div>'
+            '<div><p>Author biography and unrelated funding news.</p>'
+            '<a href="https://openai.com/index/unrelated">report</a></div></main>',
+            "https://publisher.example/story")
+        self.assertEqual(parser.parts, ["Synthetic article body.", "research report"])
+        self.assertEqual(parser.links, [("https://anthropic.com/research/synthetic", "research report")])
+
+    def test_article_takes_precedence_over_surrounding_main(self):
+        parser = summary_pipeline.parse_article(
+            '<main><article><header>Report title</header><article><p>Synthetic primary report body.</p></article>'
+            '<section><h2>Related content</h2><p>Unrelated company and statistics.</p></section></article></main>',
+            "https://anthropic.com/research/synthetic")
+        self.assertEqual(parser.parts, ["Synthetic primary report body."])
+
     def test_synthetic_articles_extract_body_without_navigation(self):
         openings = {
             "01.html": "Synthetic workshop notes describe a checklist",
@@ -43,15 +60,11 @@ class SummaryDeliveryTests(unittest.TestCase):
                 self.assertIsNone(reason)
                 self.assertIn(openings[item["file"]], text[:500])
                 self.assertGreaterEqual(len(text), 300)
-                self.assertLessEqual(len(text), summary_gemini.MAX_ARTICLE_TEXT_CHARS)
                 for decoy in ("Navigation decoy", "Recommended post decoy", "Footer decoy"):
                     self.assertIn(decoy, html)
                     self.assertNotIn(decoy, text)
-                if item["file"] in {"01.html", "02.html", "03.html"}:
-                    self.assertEqual(len(text), summary_gemini.MAX_ARTICLE_TEXT_CHARS)
-                    self.assertNotIn("Synthetic body end marker.", text)
-                else:
-                    self.assertTrue(text.endswith("Synthetic body end marker."))
+                self.assertTrue(text.endswith("Synthetic body end marker."))
+                self.assertIn("\n", text)
                 if item["file"] in {"01.html", "03.html"}:
                     for decoy in ("Script decoy", "Style decoy", "Noscript decoy"):
                         self.assertIn(decoy, html)

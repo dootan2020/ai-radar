@@ -711,7 +711,7 @@ def generate_video_script(input_path: str | Path,
     reserve_now = now.timestamp()
     req_body = build_gemini_request(selected)
     if paid:
-        estimated_tokens = len(json.dumps(req_body).encode("utf-8")) + gemini.MAX_OUTPUT_TOKENS
+        estimated_tokens = len(json.dumps(req_body).encode("utf-8")) + req_body["generationConfig"]["maxOutputTokens"]
     paid_reservation = None
     if paid:
         reserve_err, paid_reservation = gemini_paid_budget.reserve(

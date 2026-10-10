@@ -1115,3 +1115,13 @@ dialog.story-dialog::backdrop {
   font-size: var(--text-body);
   margin-bottom: var(--space-24);
 }
+
+/* Full-summary sources remain readable in both reader surfaces. */
+.story-summary-attribution { margin-top: var(--space-16); }
+.story-summary-sources {
+  margin: var(--space-16) 0 0;
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  overflow-wrap: anywhere;
+}
+.story-summary-sources a { color: inherit; text-underline-offset: 3px; }
