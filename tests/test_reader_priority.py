@@ -23,6 +23,19 @@ class ReaderPriorityTests(unittest.TestCase):
                                       "sections": {"hot": [s["id"] for s in stories]}}, [])
         self.assertEqual([s["id"] for s in ordered], ["7", "6", "5", "4", "3", "1", "2"])
 
+    def test_a_measured_but_ordinary_story_does_not_jump_ahead_as_hot(self):
+        stories = [{"id": "ordinary", "title": "ordinary", "hot_score": 50, "worth_score": 1,
+                    "published_at": "2026-10-10T00:00:00Z"},
+                   {"id": "worthy", "title": "worthy", "hot_score": 0, "worth_score": 9,
+                    "published_at": "2026-10-10T00:00:00Z"}]
+        payload = {"stories": stories, "generated_at": "2026-10-10T01:00:00Z", "sections": {"hot": []}}
+        ordered, _ = ordered_stories(payload, [])
+        self.assertEqual([s["id"] for s in ordered], ["worthy", "ordinary"])
+        # Without sections, the story's own signals decide, the same test sections.hot uses.
+        stories[0]["hot_signals"] = {"source_count": 1, "engagement_percentile": 0.9, "measurement": {"value": 5}}
+        ordered, _ = ordered_stories({"stories": stories, "generated_at": "2026-10-10T01:00:00Z"}, [])
+        self.assertEqual([s["id"] for s in ordered], ["ordinary", "worthy"])
+
     def test_promoted_story_without_vietnamese_title_is_still_first_for_spending(self):
         import json
         from pathlib import Path

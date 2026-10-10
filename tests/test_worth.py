@@ -48,7 +48,8 @@ class WorthScorePartsTests(unittest.TestCase):
             "source_count": 1,
             "coverage": [{"source": "hn-front", "publisher": "hacker-news", "metrics": {"points": 100}}],
             "hot_score": 30.0,  # 30 / 60 * 35 = 17.5
-            "hot_signals": {"measurement": {"source": "hn-front", "metric": "points", "value": 100}},
+            "hot_signals": {"measurement": {"source": "hn-front", "metric": "points", "value": 100},
+                            "engagement_percentile": 0.9, "source_count": 1},
         }
         res_mid = calculate_worth(story_mid, NOW)
         self.assertIn("attention", res_mid["parts"])
@@ -60,7 +61,8 @@ class WorthScorePartsTests(unittest.TestCase):
             "source_count": 1,
             "coverage": [{"source": "hn-front", "publisher": "hacker-news", "metrics": {"points": 300}}],
             "hot_score": 60.0,  # full at 60 -> 35.0
-            "hot_signals": {"measurement": {"source": "hn-front", "metric": "points", "value": 300}},
+            "hot_signals": {"measurement": {"source": "hn-front", "metric": "points", "value": 300},
+                            "engagement_percentile": 0.9, "source_count": 1},
         }
         res_max = calculate_worth(story_max, NOW)
         self.assertAlmostEqual(res_max["parts"]["attention"], 35.0, places=1)
@@ -69,6 +71,46 @@ class WorthScorePartsTests(unittest.TestCase):
         story_over = dict(story_max, hot_score=90.0)
         res_over = calculate_worth(story_over, NOW)
         self.assertAlmostEqual(res_over["parts"]["attention"], 35.0, places=1)
+
+    def test_ordinary_count_for_its_source_earns_no_attention(self):
+        # Measured, but at the 60th percentile of its own source with one publisher: not hot.
+        story = {
+            "id": "ordinary", "published_at": "2026-10-04T12:00:00Z", "source_count": 1,
+            "coverage": [{"source": "hn-ai", "publisher": "hacker-news", "metrics": {"points": 40}}],
+            "hot_score": 55.0,
+            "hot_signals": {"measurement": {"source": "hn-ai", "metric": "points", "value": 40},
+                            "engagement_percentile": 0.6, "source_count": 1},
+        }
+        res = calculate_worth(story, NOW)
+        self.assertNotIn("attention", res["parts"])
+        self.assertAlmostEqual(res["score"], 15.0, places=1)
+        self.assertIn("40", res["why"])  # the number is still shown, it just does not promote
+
+        standout = dict(story, hot_signals=dict(story["hot_signals"], engagement_percentile=0.85))
+        self.assertIn("attention", calculate_worth(standout, NOW)["parts"])
+
+    def test_new_repository_without_any_reason_earns_no_freshness(self):
+        repo = {
+            "id": "repo", "kind": "repository", "time_basis": "repository_created",
+            "published_at": "2026-10-04T11:00:00Z", "source_count": 1,
+            "coverage": [{"source": "github-ai", "publisher": "github", "published_at": "2026-10-04T11:00:00Z",
+                          "metrics": {"stars": 60}}],
+            "hot_score": 50.0,
+            "hot_signals": {"measurement": {"source": "github-ai", "metric": "stars", "value": 60},
+                            "engagement_percentile": 0.6, "source_count": 1},
+        }
+        res = calculate_worth(repo, NOW)
+        self.assertEqual(res["score"], 0)
+        self.assertEqual(res["parts"], {})
+        # Its creation date still counts once a reason exists: a standout count ...
+        standout = dict(repo, hot_signals=dict(repo["hot_signals"], engagement_percentile=0.9))
+        self.assertIn("freshness", calculate_worth(standout, NOW)["parts"])
+        # ... or a lab publishing it first-hand ...
+        lab = dict(repo, coverage=[dict(repo["coverage"][0], source="meta-hf", lab="meta")])
+        self.assertGreater(calculate_worth(lab, NOW)["score"], 0)
+        # ... and an article is dated by publication, which always counts.
+        article = dict(repo, kind="other", time_basis="published")
+        self.assertIn("freshness", calculate_worth(article, NOW)["parts"])
 
     def test_breadth_part_scales_with_independent_publishers(self):
         # 2 publishers: (2 - 1) / (4 - 1) * 35 = 11.67
@@ -164,27 +206,60 @@ class WorthScorePartsTests(unittest.TestCase):
 
     @unittest.skipUnless(shutil.which("node"), "Node required for Python/JavaScript worth parity")
     def test_python_and_javascript_fallback_scores_match(self):
-        story = {
+        two_outlets = {
             "id": "parity", "published_at": "2026-10-03T14:00:00Z", "hot_score": 42,
-            "hot_signals": {"measurement": {"metric": "points"}},
+            "hot_signals": {"measurement": {"metric": "points"}, "source_count": 2},
             "coverage": [{"source": "press-a", "publisher": "press-a", "published_at": "2026-10-03T14:00:00Z"},
                          {"source": "press-b", "publisher": "press-b", "published_at": "2026-10-05T13:00:00Z"}],
         }
+        ordinary = {
+            "id": "ordinary", "published_at": "2026-10-05T12:00:00Z", "hot_score": 50,
+            "hot_signals": {"measurement": {"metric": "points", "value": 30}, "source_count": 1,
+                            "engagement_percentile": 0.5},
+            "coverage": [{"source": "hn-ai", "publisher": "hacker-news", "published_at": "2026-10-05T12:00:00Z"}],
+        }
+        repository = dict(ordinary, id="repo", kind="repository", time_basis="repository_created",
+                          coverage=[{"source": "github-ai", "publisher": "github",
+                                     "published_at": "2026-10-05T12:00:00Z"}])
         now_dt = datetime(2026, 10, 5, 14, 0, tzinfo=timezone.utc)
-        py = calculate_worth(story, now_dt)
         module_url = (Path(__file__).resolve().parents[1] / "site" / "worth-score.js").as_uri()
-        script = (
-            f"import {{ fallbackWorth }} from {json.dumps(module_url)};\n"
-            f"const story = {json.dumps(story)};\n"
-            "console.log(JSON.stringify(fallbackWorth(story, Date.parse('2026-10-05T14:00:00Z'), "
-            "Math.max(0, story.hot_score), 2, null)));\n"
-        )
+        for story, n in ((two_outlets, 2), (ordinary, 1), (repository, 1)):
+            with self.subTest(story=story["id"]):
+                py = calculate_worth(story, now_dt)
+                script = (
+                    f"import {{ fallbackWorth }} from {json.dumps(module_url)};\n"
+                    f"const story = {json.dumps(story)};\n"
+                    "console.log(JSON.stringify(fallbackWorth(story, Date.parse('2026-10-05T14:00:00Z'), "
+                    f"Math.max(0, story.hot_score), {n}, null)));\n"
+                )
+                result = subprocess.run(["node", "--input-type=module", "-e", script], capture_output=True,
+                                        text=True, encoding="utf-8", timeout=30)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                js = json.loads(result.stdout)
+                self.assertAlmostEqual(py["score"], js["score"], places=2)
+                self.assertEqual(py["parts"], js["parts"])
+
+    @unittest.skipUnless(shutil.which("node"), "Node required for Python/JavaScript hot parity")
+    def test_python_and_javascript_agree_on_what_is_hot(self):
+        from radar.ranking import hot_eligible
+        cases = [
+            {"hot_score": 40, "hot_signals": {"source_count": 2}},
+            {"hot_score": 40, "hot_signals": {"source_count": 1, "engagement_percentile": 0.8,
+                                              "measurement": {"value": 12}}},
+            {"hot_score": 40, "hot_signals": {"source_count": 1, "engagement_percentile": 0.79,
+                                              "measurement": {"value": 12}}},
+            {"hot_score": 40, "hot_signals": {"source_count": 1, "engagement_percentile": 0.95,
+                                              "measurement": {"value": 0}}},
+            {"hot_score": None, "hot_signals": {"source_count": 3}},
+        ]
+        module_url = (Path(__file__).resolve().parents[1] / "site" / "worth-score.js").as_uri()
+        script = (f"import {{ hotEligible }} from {json.dumps(module_url)};\n"
+                  f"console.log(JSON.stringify({json.dumps(cases)}.map(hotEligible)));\n")
         result = subprocess.run(["node", "--input-type=module", "-e", script], capture_output=True,
                                 text=True, encoding="utf-8", timeout=30)
         self.assertEqual(result.returncode, 0, result.stderr)
-        js = json.loads(result.stdout)
-        self.assertAlmostEqual(py["score"], js["score"], places=2)
-        self.assertEqual(py["parts"], js["parts"])
+        self.assertEqual(json.loads(result.stdout), [hot_eligible(case) for case in cases])
+        self.assertEqual(json.loads(result.stdout), [True, True, False, False, False])
 
 
 class FirstHandDetectionTests(unittest.TestCase):
