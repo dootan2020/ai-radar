@@ -53,7 +53,7 @@ class NewItemsNoticeTests(unittest.TestCase):
 
     def test_tabs_have_only_names_without_digit_space(self):
         labels = re.findall(r'<button class="filter-chip"[^>]*>([^<]+)</button>', self.html)
-        self.assertEqual(labels, ["Tất cả", "Chuyện lớn", "Đang nóng", "Sản phẩm", "Thảo luận", "Mã và mô hình", "Đã lưu"])
+        self.assertEqual(labels, ["Tất cả", "Chuyện lớn", "Đang nóng", "Sản phẩm", "Thảo luận", "Mã và mô hình", "Xếp hạng", "Đã lưu"])
         self.assertNotIn(".filter-chip .count", self.css)
         self.assertNotIn("3ch", self.css)
 

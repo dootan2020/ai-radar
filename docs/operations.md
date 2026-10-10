@@ -7,6 +7,10 @@ permissions is [the update workflow](../.github/workflows/update.yml);
 feature-branch pushes with an open PR therefore run the suite once. Production
 changes and pushes to `main` require owner approval.
 
+Arena model rankings have an independent daily refresh and last-good cache; see
+[the Arena rankings runbook](arena-rankings.md) for source licensing, weekly
+comparison, failures and first-run verification.
+
 ## When the page looks old
 
 1. Compare the served `data/radar.json` timestamp with the latest successful
