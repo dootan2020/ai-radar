@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ai·radar · Nguồn của bản tin</title>
+<meta name="description" content="Danh sách mọi nguồn tin của ai-radar, tình trạng cập nhật, số tin lấy được và cách hoạt động của lớp dữ liệu trực tiếp.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ai·radar">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:url" content="https://radar-ai-vn.pages.dev/nguon.html">
+<meta property="og:title" content="ai·radar · Nguồn của bản tin">
+<meta property="og:description" content="Danh sách mọi nguồn tin của ai-radar, tình trạng cập nhật, số tin lấy được và cách hoạt động của lớp dữ liệu trực tiếp.">
+<meta property="og:image" content="https://radar-ai-vn.pages.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="ai·radar: Nguồn của bản tin">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ai·radar · Nguồn của bản tin">
+<meta name="twitter:description" content="Danh sách mọi nguồn tin của ai-radar, tình trạng cập nhật và cách hoạt động của lớp dữ liệu trực tiếp.">
+<meta name="twitter:image" content="https://radar-ai-vn.pages.dev/og-image.png">
+<link rel="canonical" href="https://radar-ai-vn.pages.dev/nguon.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c=' https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; img-src 'self' https:; font-src 'self'; connect-src 'self' https://hn.algolia.com https://huggingface.co https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';">
+<script>try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<link rel="preload" href="data/radar-ui.json" as="fetch" crossorigin>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="feed.css">
+<script type="module" src="nguon.js"></script>
+<link rel="modulepreload" href="faces.js">
+<link rel="modulepreload" href="time-text.js">
+<link rel="modulepreload" href="live.js">
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9e0e7831b103411d848691a0223eb54c"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<a class="skip" href="#top">Bỏ qua tới nội dung</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+</svg>
+
+<header class="feed-bar" id="bar">
+  <div class="feed-bar-in">
+    <a class="feed-brand" href="index.html" aria-label="ai radar, về dòng tin">ai<b>·</b>radar</a>
+    <div class="feed-navigation">
+      <a class="filter-chip" href="index.html">Dòng tin</a>
+    </div>
+    <a class="ed-link" href="ban-tin.html">Bản tin sáng</a>
+    <a class="tc-link" href="tra-cuu.html" aria-label="Tra cứu câu chuyện AI"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span class="tc-label">Tra cứu</span></a>
+    <button class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Chuyển chế độ sáng hoặc tối">
+      <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+      <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="feed-main" id="top">
+  <h1 class="sr">Nguồn của bản tin ai-radar</h1>
+  <section class="src-panel is-page" id="nguon" aria-labelledby="nguon-h">
+    <h2 class="tile-title" id="nguon-h">Nguồn của bản tin</h2>
+    <p class="src-note" id="src-update"></p>
+    <p class="src-note" id="src-note"></p>
+    <h3 class="src-sub">Đọc trực tiếp từ trình duyệt, mỗi 90 giây</h3>
+    <ul class="src-list" id="src-live"></ul>
+    <h3 class="src-sub">Trong bản tin</h3>
+    <ul class="src-list" id="src-list"></ul>
+    <p class="src-foot" id="src-foot"></p>
+    <button class="text-btn" id="keys-open" aria-keyshortcuts="?">Phím tắt (?)</button>
+  </section>
+</main>
+
+<dialog class="keys" id="keys" aria-labelledby="keys-h">
+  <div class="keys-top"><h2 id="keys-h">Phím tắt</h2><button class="theme-btn" id="keys-x" aria-label="Đóng phím tắt"><svg class="i" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+  <dl>
+    <dt><kbd>/</kbd></dt><dd>Mở trang Tra cứu</dd>
+    <dt><kbd>Esc</kbd></dt><dd>Đóng hộp thoại</dd>
+    <dt><kbd>?</kbd></dt><dd>Mở bảng này</dd>
+  </dl>
+</dialog>
+</body>
+</html>

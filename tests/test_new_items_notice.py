@@ -38,9 +38,11 @@ class NewItemsNoticeTests(unittest.TestCase):
         header = self.html.split('<header class="feed-bar"')[1].split("</header>")[0]
         self.assertIn('id="sort-switch"', header)
         mobile = self.css.split("@media (max-width: 767px)", 1)[1]
-        self.assertRegex(mobile, r"\.sort-switch\s*\{[^}]*order: 6;")
-        source_panel = self.html.split('id="nguon"')[1].split("</section>")[0]
-        self.assertIn('id="src-update"', source_panel)
+        self.assertNotIn("order: 6", mobile)
+        self.assertIn('id="src-update"', self.html)
+        nguon_html = (SITE / "nguon.html").read_text(encoding="utf-8")
+        self.assertIn('id="src-update"', nguon_html)
+        self.assertIn('id="nguon"', nguon_html)
 
     def test_no_stale_banner_or_announcement(self):
         self.assertNotIn('id="stale"', self.html)
