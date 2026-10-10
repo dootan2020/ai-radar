@@ -1119,7 +1119,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .feed-bar-in { column-gap: var(--space-8); }
   .feed-navigation { gap: var(--space-8); }
   .feed-filters {
-    overflow: visible; flex: none; gap: var(--space-4); padding: var(--space-4);
+    overflow-x: auto; flex: 1; gap: var(--space-8); padding: var(--space-4);
     -webkit-mask-image: none; mask-image: none;
   }
   .filter-chip {
@@ -1130,26 +1130,20 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .ed-link, .tc-link { padding: 0 var(--space-8); }
 }
 @media (min-width: 768px) and (max-width: 1399px){
-  .feed-bar-in { padding-inline: var(--space-16); column-gap: var(--space-4); }
-  .filter-chip { padding-inline: var(--space-4); }
-}
-@media (min-width: 1024px) and (max-width: 1179px){
-  .feed-navigation { gap: var(--space-4); }
-  .feed-filters { gap: 0; }
-  .filter-chip, .sort-btn { font-size: var(--text-meta); }
-  .sort-btn { padding-inline: var(--space-4); }
-  .tc-link { padding: 0; }
-  .tc-link .tc-label { display: none; }
-}
-@media (min-width: 768px) and (max-width: 1023px){
-  .feed-bar-in { height: auto; flex-wrap: wrap; row-gap: 0; padding-top: var(--space-8); }
+  /* Give navigation its own row before utilities can squeeze the tab labels. */
+  .feed-bar-in {
+    height: auto; flex-wrap: wrap; row-gap: var(--space-4);
+    padding: var(--space-8) var(--space-16);
+  }
   .feed-brand { flex: 1; }
   .feed-navigation { order: 1; flex-basis: 100%; }
+  .feed-brand, .ed-link, .tc-link { min-height: 44px; }
+  .theme-btn { width: 44px; height: 44px; }
 }
-@media (min-width: 768px) and (max-width: 959px){
-  .feed-navigation { flex-wrap: wrap; gap: 0; }
-  .feed-filters { flex-basis: 100%; flex-wrap: wrap; }
-  .sort-switch { margin-bottom: var(--space-8); }
+@media (min-width: 1400px) and (max-width: 1599px){
+  /* Search is still named for assistive technology when its icon saves space. */
+  .tc-link { padding: 0; }
+  .tc-link .tc-label { display: none; }
 }
 @media (max-width: 767px){
   .tc-link{padding:0}

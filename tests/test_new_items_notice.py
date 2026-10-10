@@ -57,10 +57,16 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertNotIn(".filter-chip .count", self.css)
         self.assertNotIn("3ch", self.css)
 
-    def test_desktop_single_row_starts_at_1024(self):
-        self.assertIn("@media (min-width: 768px) and (max-width: 1023px)", self.css)
-        compact = self.css.split("@media (min-width: 1024px) and (max-width: 1179px)")[1].split("@media")[0]
-        self.assertNotIn("flex-wrap: wrap", compact)
+    def test_header_preserves_tab_space_and_utilities(self):
+        desktop = self.css.split("@media (min-width: 768px){")[1].split("@media")[0]
+        strip = re.search(r"\.feed-filters\s*\{([^}]+)\}", desktop)[1]
+        self.assertIn("overflow-x: auto", strip)
+        self.assertIn("gap: var(--space-8)", strip)
+        self.assertIn("padding: 0 var(--space-8)", desktop)
+        tablet = self.css.split("@media (min-width: 768px) and (max-width: 1399px)")[1].split("@media")[0]
+        self.assertIn(".feed-navigation { order: 1; flex-basis: 100%; }", tablet)
+        self.assertNotIn(".filter-chip", tablet)
+        compact = self.css.split("@media (min-width: 1400px) and (max-width: 1599px)")[1].split("@media")[0]
         self.assertIn(".tc-link .tc-label { display: none; }", compact)
         self.assertIn('aria-label="Tra cứu câu chuyện AI"', self.html)
 

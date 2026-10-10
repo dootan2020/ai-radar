@@ -41,27 +41,42 @@ function measure() {
     return { ...rect(e), scrollWidth: e.scrollWidth, clientWidth: e.clientWidth };
   };
   const strip = document.querySelector('#feed-filters');
-  const stripBox = rect(strip);
-  const masked = getComputedStyle(strip).maskImage !== 'none';
-  const visibleRight = stripBox.right - (masked ? 32 : 0);
+  const navigation = document.querySelector('.feed-navigation');
+  const viewport = getComputedStyle(strip).overflowX === 'visible' ? navigation : strip;
+  const viewportBox = rect(viewport);
+  const masked = getComputedStyle(viewport).maskImage !== 'none';
+  const visibleRight = viewportBox.right - (masked ? 32 : 0);
+  const contained = box => box.x >= viewportBox.x - 0.5 && box.right <= visibleRight + 0.5 &&
+    box.y >= viewportBox.y - 0.5 && box.bottom <= viewportBox.bottom + 0.5;
   const controls = [...document.querySelectorAll('#bar a, #bar button')].filter(e => e.getClientRects().length).map(e => {
     const box = rect(e);
     const range = document.createRange(); range.selectNodeContents(e);
     const text = range.getBoundingClientRect();
-    const isTab = e.matches('.filter-chip');
+    const inScroller = viewport.contains(e);
     const fullyVisible = box.x >= 0 && box.right <= innerWidth + 0.5 &&
-      (!isTab || (box.x >= stripBox.x - 0.5 && box.right <= visibleRight + 0.5));
+      (!inScroller || contained(box));
     return { label: e.textContent.trim() || e.getAttribute('aria-label'), filter: e.dataset.filter,
-      ...box, fullyVisible, textFits: text.width <= box.width + 0.5 && e.scrollWidth <= e.clientWidth + 1 };
+      active: e.getAttribute('aria-pressed') === 'true',
+      ...box, fullyVisible,
+      visibleLeft: inScroller ? Math.max(box.x, viewportBox.x) : box.x,
+      visibleRight: inScroller ? Math.min(box.right, visibleRight) : box.right,
+      textFits: text.x >= box.x - 0.5 && text.right <= box.right + 0.5 &&
+        text.y >= box.y - 0.5 && text.bottom <= box.bottom + 0.5 && e.scrollWidth <= e.clientWidth + 1 };
   });
   const overlaps = [];
   for (let i = 0; i < controls.length; i++) for (let j = i + 1; j < controls.length; j++) {
     const a = controls[i], b = controls[j];
-    if (Math.min(a.right, b.right) - Math.max(a.x, b.x) > 0.5 &&
+    if (Math.min(a.visibleRight, b.visibleRight) - Math.max(a.visibleLeft, b.visibleLeft) > 0.5 &&
         Math.min(a.bottom, b.bottom) - Math.max(a.y, b.y) > 0.5) overlaps.push([a.label, b.label]);
   }
+  const tabs = controls.filter(c => c.filter);
+  const tabGaps = tabs.slice(1).map((tab, i) => tab.x - tabs[i].right);
+  const pill = rect(strip.querySelector('.tab-pill'));
+  const active = tabs.find(c => c.active);
+  const pillMatchesActive = ['x', 'y', 'width', 'height'].every(key => Math.abs(pill[key] - active[key]) <= 1);
   return { header: dimensions('#bar'), row: dimensions('.feed-bar-in'), strip: dimensions('#feed-filters'),
     navigation: dimensions('.feed-navigation'), sort: dimensions('#sort-switch'), masked, controls, overlaps,
+    tabGaps, pill: { ...pill, fullyVisible: contained(pill), matchesActive: pillMatchesActive },
     tabCountElements: document.querySelectorAll('.filter-chip .count').length,
     staleBanner: !!document.querySelector('#stale'),
     document: { scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth } };
@@ -80,7 +95,7 @@ async function main() {
     data.error ? task.reject(new Error(data.error.message)) : task.resolve(data.result);
   };
   const results = [];
-  for (const width of [1024, 1180, 1280, 1440, 1920, 375, 320, 768, 1023, 1179]) {
+  for (const width of [768, 1024, 1180, 1440, 1920, 375, 320, 767, 1023, 1179, 1399, 1400, 1599, 1600]) {
     const { targetId } = await send('Target.createTarget', { url: 'about:blank' });
     const { sessionId } = await send('Target.attachToTarget', { targetId, flatten: true });
     const call = (method, params) => send(method, params, sessionId);
@@ -94,26 +109,40 @@ async function main() {
     await call('Page.navigate', { url });
     let ready = false;
     for (let i = 0; i < 100; i++) {
-      ready = await evaluate(`document.querySelector('#top')?.getAttribute('aria-busy') === 'false' && document.querySelector('#sort-switch')?.hidden === false`);
+      ready = await evaluate(`document.querySelector('#top')?.getAttribute('aria-busy') !== 'true' && document.querySelector('#sort-switch')?.hidden === false && !!document.querySelector('[data-act="save"]')`);
       if (ready) break;
       await sleep(100);
     }
     assert.ok(ready, 'Real feed must finish loading');
     await evaluate('document.fonts.ready.then(() => true)');
     await sleep(350);
-    const result = { width, ...await evaluate(`(${measure})()`) };
-    if (out && [375, 1024, 1180, 1440].includes(width)) {
+    const capture = async (state, saved) => {
       for (const theme of ['light', 'dark']) {
         await evaluate(`document.documentElement.dataset.theme = '${theme}'`);
-        const shot = await call('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width, height: 250, scale: 1 } });
-        fs.writeFileSync(path.join(out, `header-${width}-${theme}.png`), Buffer.from(shot.data, 'base64'));
+        results.push({ width, theme, state, saved, ...await evaluate(`(${measure})()`) });
+        if (out && [375, 768, 1024, 1180, 1440, 1920].includes(width)) {
+          const shot = await call('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width, height: 250, scale: 1 } });
+          fs.writeFileSync(path.join(out, `header-${width}-${theme}-${state}.png`), Buffer.from(shot.data, 'base64'));
+        }
       }
-    }
-    results.push(result);
+    };
+    await capture('all', false);
     // Exercise the widest real navigation state through the site's save action.
     await evaluate(`document.querySelector('[data-act="save"][aria-pressed="false"]').click()`);
     await sleep(350);
-    results.push({ width, saved: true, ...await evaluate(`(${measure})()`) });
+    await capture('all-saved', true);
+    for (const filter of ['saved', 'rankings']) {
+      await evaluate(`document.querySelector('[data-filter="${filter}"]').click()`);
+      await sleep(700);
+      await capture(filter, true);
+    }
+    // A selected rightmost tab must stay revealed when the available width changes.
+    if (width === 1920) {
+      await call('Emulation.setDeviceMetricsOverride', { width: 768, height: 900, deviceScaleFactor: 1, mobile: false });
+      await sleep(700);
+      results.push({ width: 768, theme: 'dark', state: 'rankings-resized', saved: true, ...await evaluate(`(${measure})()`) });
+    }
+    await evaluate(`document.querySelector('[data-filter="all"]').click()`);
     await evaluate(`document.querySelector('[data-act="save"][aria-pressed="true"]').click()`);
     await send('Target.closeTarget', { targetId });
   }
@@ -126,11 +155,17 @@ async function main() {
     assert.equal(r.tabCountElements, 0, `${r.width}: tab count elements remain`);
     assert.equal(r.staleBanner, false, `${r.width}: stale banner remains`);
     assert.ok(r.controls.filter(c => c.filter).every(c => !/\d/.test(c.label)), `${r.width}: tab labels contain counts`);
-    if (r.width >= 1024) {
-      assert.equal(r.controls.filter(c => c.filter).length, r.saved ? 7 : 6, `${r.width}: expected all populated sections from real data`);
+    if (r.width >= 768) {
+      assert.equal(r.controls.filter(c => c.filter).length, r.saved ? 8 : 7, `${r.width}: expected all populated sections including Rankings from real data`);
       assert.ok(!r.masked, `${r.width}: desktop fade`);
-      assert.equal(r.strip.scrollWidth, r.strip.clientWidth, `${r.width}: scrolling desktop tabs`);
-      assert.ok(r.controls.every(c => c.fullyVisible && c.textFits), `${r.width}: clipped controls`);
+      assert.ok(r.controls.every(c => c.textFits), `${r.width}: labels clipped inside controls`);
+      assert.ok(r.controls.filter(c => !c.filter || c.active).every(c => c.fullyVisible), `${r.width}: clipped utilities or active tab`);
+      assert.ok(r.tabGaps.every(gap => Math.abs(gap - 8) <= 0.5), `${r.width}: uneven or touching tabs: ${r.tabGaps}`);
+      assert.ok(r.pill.fullyVisible && r.pill.matchesActive, `${r.width}: clipped or misaligned active pill`);
+    }
+    if (r.width >= 1400) {
+      assert.equal(r.strip.scrollWidth, r.strip.clientWidth, `${r.width}: wide desktop tabs should fit without scrolling`);
+      assert.ok(r.controls.every(c => c.fullyVisible), `${r.width}: clipped desktop controls`);
       assert.ok(r.controls.every(c => Math.abs(c.y + c.height / 2 - r.controls[0].y - r.controls[0].height / 2) < 1), `${r.width}: multiple rows`);
     }
     if (r.width < 1180) assert.ok(r.controls.every(c => c.height >= 44), `${r.width}: touch targets under 44px`);
