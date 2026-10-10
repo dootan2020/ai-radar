@@ -522,6 +522,29 @@ class ForumOutletAndRetitleTests(unittest.TestCase):
                 self.assertEqual(len(cluster_items(items, NOW)), 2)
 
 
+    def test_a_social_remark_sharing_one_name_phrase_does_not_join_a_report(self):
+        remark = coverage("bluesky-emollick", "https://bsky.app/profile/emollick.bsky.social/post/3mx63m2jb6c2o",
+                          publisher="bluesky", group="forum", kind="social",
+                          title="Here is a good explanation from the Claude team about why they are making the switch.",
+                          published_at="2026-10-05T23:39:18Z")
+        report = coverage("techcrunch-ai", "https://techcrunch.com/2026/10/06/anthropic-gives-startups-a-free-year",
+                          publisher="techcrunch",
+                          title="Anthropic is giving startups a free year of Claude Team and $1,000 in credits",
+                          published_at="2026-10-06T16:00:00Z")
+        self.assertFalse(titles_match(remark, report))
+        self.assertEqual(len(cluster_items([remark, report], NOW)), 2)
+        carried = cluster_items([report], NOW)[0]
+        carried["carried"] = True
+        self.assertEqual(len(merge_repeated_events([cluster_items([remark], NOW)[0], carried])), 2)
+        # The same phrase between two reports still joins them, and a remark still joins a
+        # report when it shares the event's own words.
+        other_report = dict(report, publisher="press-b", source="press-b",
+                            url="https://press-b.example/claude-team", canonical_url=None,
+                            title="Startups get the Claude Team plan free for a year")
+        self.assertTrue(titles_match(other_report, report))
+        detailed = dict(remark, title="Anthropic giving startups a free year of Claude Team is a smart move")
+        self.assertTrue(titles_match(detailed, report))
+
     def test_two_repositories_with_alike_names_are_two_artifacts(self):
         left = coverage("lab-hf", "https://huggingface.co/example/Llama-Prompt-Guard-2-22M", publisher="example",
                         title="example/Llama-Prompt-Guard-2-22M", kind="model")

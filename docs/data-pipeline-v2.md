@@ -162,7 +162,9 @@ independent content evidence, or (for newly inferred names) a shared content
 word with announcement language in both headlines. This keeps a
 famous company, product name or capitalized common word from joining unrelated
 events by itself. The halves of a shared hyphenated word ("open-source") count
-once, as that word.
+once, as that word. A person's own post (a social post or a forum self-post) is a
+remark, not a headline: it joins an event only with the two independent content
+words, never on one shared entity phrase or announcement word alone.
 
 The outlet behind a forum post is the site it links to, so two posts of one news
 item on Hacker News linking different outlets meet the cross-publisher rules,

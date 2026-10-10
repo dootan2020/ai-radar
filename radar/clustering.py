@@ -215,6 +215,13 @@ def _outlet(item):
     return item.get("publisher")
 
 
+def _is_commentary(item):
+    """A post whose text is the author's own remark rather than a linked article's headline."""
+    if item.get("kind") == "social":
+        return True
+    return item.get("group") == "forum" and _outlet(item) == item.get("publisher")
+
+
 def _same_outlet(left, right, a_date, b_date):
     """Whether one outlet stands behind both headlines.
 
@@ -351,14 +358,21 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
             left.get("title", ""), right.get("title", ""), shared_entities)):
         return True
 
-    if _shared_entity_content_phrase(left.get("title", ""), right.get("title", ""),
-                                     shared_entities, specific):
+    # A person's own post (a social post, or a forum self-post) is commentary in
+    # free wording, not a headline: "the Claude team" in a remark is not the
+    # "Claude Team" plan in a report. One shared name-plus-word phrase or one
+    # announcement word is too little to attach it to an event; it needs the
+    # two independent content words of the rule above.
+    commentary = _is_commentary(left) or _is_commentary(right)
+
+    if not commentary and _shared_entity_content_phrase(left.get("title", ""), right.get("title", ""),
+                                                         shared_entities, specific):
         return True
 
     # One shared content word can support a newly named product only when it
     # appears alongside an announcement in both headlines. A lone brand, common
     # verb or topic word is insufficient.
-    if (shared_entities - ENTITY_WORDS and specific
+    if (not commentary and shared_entities - ENTITY_WORDS and specific
             and _both_announce(left.get("title", ""), right.get("title", ""))):
         return True
 
