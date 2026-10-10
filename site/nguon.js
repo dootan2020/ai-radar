@@ -50,8 +50,49 @@ async function loadData() {
 let liveState = null;
 function liveRows() {
   if (!liveState) return '<li class="src-wait">Lớp trực tiếp đang đọc lần đầu</li>';
-  return [...liveState.values()].map(s => `<li><span class="dot ${s.ok === true ? 'ok' : s.ok === false ? 'warn' : ''}" aria-hidden="true"></span><a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.label)}</a>
-    <span class="src-n">${s.at ? `${s.ok ? `${s.matched} tin khớp · ` : ''}${hhmm(s.at)}` : 'đang đọc'}</span>${s.error ? `<span class="src-err">${esc(s.error)}. Đang giữ số trong bản tin.</span>` : ''}</li>`).join('');
+  return [...liveState.values()].map(s => `<li><span class="dot ${s.ok === true ? 'ok' : s.ok === false ? 'warn' : ''}" aria-hidden="true"></span><a href="${esc(safe(s.url))}" target="_blank" rel="noopener" title="${esc(s.label)}">${esc(s.label)}</a><span class="src-n">${s.at ? `${s.ok ? `${s.matched} tin khớp · ` : ''}${hhmm(s.at)}` : 'đang đọc'}</span>${s.error ? `<span class="src-err">${esc(s.error)}. Đang giữ số trong bản tin.</span>` : ''}</li>`).join('');
+}
+
+function cleanErrorVi(errVi, err) {
+  const raw = String(errVi || err || '').trim();
+  if (!raw) return 'Không đọc được nguồn này';
+
+  // Translate known machine codes / English pipeline phrases to plain Vietnamese
+  const KNOWN_CODES = [
+    [/x_run_cap/i, 'Đã đạt hạn mức thu thập trong lượt chạy'],
+    [/X collection not attempted/i, 'Chưa thu thập trong đợt chạy này'],
+    [/X collection disabled/i, 'Đang tạm dừng thu thập từ X'],
+    [/X bearer token unavailable/i, 'Khóa truy cập X tạm thời không khả dụng'],
+    [/x_daily_cap/i, 'Đã đạt hạn mức ngân sách ngày'],
+    [/x_monthly_cap/i, 'Đã đạt hạn mức ngân sách tháng'],
+    [/x_budget_ledger_unavailable/i, 'Sổ theo dõi ngân sách X không khả dụng'],
+    [/x_budget_remote_unavailable/i, 'Dịch vụ ngân sách X không phản hồi'],
+    [/paid_daily_cap/i, 'Đã đạt hạn mức ngân sách ngày'],
+    [/paid_monthly_cap/i, 'Đã đạt hạn mức ngân sách tháng'],
+    [/paid_budget_ledger_unavailable/i, 'Sổ theo dõi chi phí không khả dụng'],
+    [/paid_budget_ledger_invalid/i, 'Dữ liệu sổ chi phí không hợp lệ'],
+  ];
+
+  for (const [pattern, vnText] of KNOWN_CODES) {
+    if (pattern.test(raw)) {
+      return `Tạm tắt: ${vnText}`;
+    }
+  }
+
+  if (raw.startsWith('Disabled: ')) {
+    return 'Tạm tắt: ' + raw.slice('Disabled: '.length);
+  }
+  return raw;
+}
+
+function sourceItemHTML(s) {
+  const isErr = !s.ok;
+  const isPaused = isErr && (s.disabled || /^(Tạm tắt|Disabled):/i.test(s.error_vi || s.error || '') || /x_run_cap|not attempted|disabled|cap/i.test(s.error || ''));
+  const badgeText = s.ok ? `${s.count ?? 0} tin` : (isPaused ? 'tạm tắt' : 'lỗi');
+  const cls = s.ok ? '' : ` class="is-bad${isPaused ? ' is-paused' : ' is-err'}"`;
+  const errText = isErr ? cleanErrorVi(s.error_vi, s.error) : '';
+  const name = s.name || s.id;
+  return `<li${cls}>${avatar(faceOfSource({ source: s.id, lab: s.lab, publisher: s.publisher }, SRC), 'xs')}<a href="${esc(safe(s.url))}" target="_blank" rel="noopener" title="${esc(name)}">${esc(name)}</a><span class="src-n num">${badgeText}</span>${errText ? `<span class="src-err">${esc(errText)}</span>` : ''}</li>`;
 }
 
 function translationNote() {
@@ -74,12 +115,53 @@ function footHTML() {
 }
 
 function renderSources() {
-  const srcs = asArray(D.sources), bad = srcs.filter(s => !s.ok);
+  const srcs = asArray(D.sources);
+  const bad = srcs.filter(s => !s.ok);
+  const active = srcs.filter(s => s.ok && (s.count || 0) > 0);
+  const idle = srcs.filter(s => s.ok && !(s.count || 0));
+
+  // Sort:
+  // Active: highest story count first, then alphabetical by name
+  active.sort((a, b) => (b.count || 0) - (a.count || 0) || (a.name || a.id).localeCompare(b.name || b.id, 'vi'));
+  // Idle: alphabetical by name
+  idle.sort((a, b) => (a.name || a.id).localeCompare(b.name || b.id, 'vi'));
+  // Bad/paused: alphabetical by name
+  bad.sort((a, b) => (a.name || a.id).localeCompare(b.name || b.id, 'vi'));
+
   const srcCount = srcs.length;
   $('#src-update').innerHTML = `Cập nhật lúc <time datetime="${esc(D.generated_at)}">${esc(updatedAt(D.generated_at))}</time> · <span class="num">${srcCount}</span> nguồn`;
-  $('#src-note').innerHTML = `<span class="num">${srcs.length - bad.length}/${srcs.length}</span> nguồn chạy được lúc ${esc(hhmm(new Date(D.generated_at)))}. Mỗi nguồn kèm số tin lấy được.`;
-  $('#src-list').innerHTML = [...srcs].sort((a, b) => a.ok - b.ok || (b.count || 0) - (a.count || 0)).map(s => `<li${s.ok ? '' : ' class="is-bad"'}>${avatar(faceOfSource({ source: s.id, lab: s.lab, publisher: s.publisher }, SRC), 'xs')}<a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.name || s.id)}</a>
-    <span class="src-n num">${s.ok ? `${s.count ?? 0} tin` : 'lỗi'}</span>${s.error ? `<span class="src-err">${esc(s.error_vi || 'Không đọc được nguồn này')}</span>` : ''}</li>`).join('');
+  $('#src-note').innerHTML = `<span class="num">${srcs.length - bad.length}/${srcs.length}</span> nguồn chạy được lúc ${esc(hhmm(new Date(D.generated_at)))}, trong đó <span class="num">${active.length}</span> nguồn có tin trong bản tin. Mỗi nguồn kèm số tin lấy được.`;
+
+  // Section 1: Active sources with stories in feed (#src-list)
+  const actHead = $('#src-active-head');
+  if (actHead) actHead.innerHTML = `Có tin trong bản tin (<span class="num">${active.length}</span>)`;
+  const listEl = $('#src-list');
+  if (listEl) {
+    listEl.innerHTML = active.length
+      ? active.map(sourceItemHTML).join('')
+      : '<li class="src-wait">Chưa có nguồn nào có tin trong bản tin</li>';
+  }
+
+  // Section 2: Idle sources (#src-idle)
+  const idleHead = $('#src-idle-head');
+  const idleEl = $('#src-idle');
+  if (idleHead) idleHead.innerHTML = `Sẵn sàng, chưa có tin mới (<span class="num">${idle.length}</span>)`;
+  if (idleEl) {
+    idleEl.innerHTML = idle.length
+      ? idle.map(sourceItemHTML).join('')
+      : '<li class="src-wait">Tất cả nguồn hoạt động đều có tin mới</li>';
+  }
+
+  // Section 3: Paused / errored sources (#src-bad)
+  const badHead = $('#src-bad-head');
+  const badEl = $('#src-bad');
+  if (badHead) badHead.innerHTML = `Tạm dừng hoặc gặp lỗi (<span class="num">${bad.length}</span>)`;
+  if (badEl) {
+    badEl.innerHTML = bad.length
+      ? bad.map(sourceItemHTML).join('')
+      : '<li class="src-wait">Không có nguồn nào bị lỗi</li>';
+  }
+
   $('#src-live').innerHTML = liveRows();
   $('#src-foot').innerHTML = footHTML();
 }

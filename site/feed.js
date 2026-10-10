@@ -2019,7 +2019,8 @@ function footHTML() {
 function renderSources() {
   const el = $('#src-update');
   if (el) {
-    el.innerHTML = `Cập nhật lúc <time datetime="${esc(D.generated_at)}">${esc(updatedAt(D.generated_at))}</time> · <a class="src-link" href="nguon.html"><span class="num">${srcCount}</span> nguồn</a>`;
+    const totalSrc = asArray(D.sources).length || srcCount;
+    el.innerHTML = `Cập nhật lúc <time datetime="${esc(D.generated_at)}">${esc(updatedAt(D.generated_at))}</time> · <a class="src-link" href="nguon.html"><span class="num">${totalSrc}</span> nguồn</a>`;
   }
   const noteEl = $('#src-note');
   if (noteEl) {
