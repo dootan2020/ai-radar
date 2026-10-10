@@ -37,7 +37,7 @@ assert.equal(headlineShown({title:'Full', headline:' '}), 'Full');
 let errorHandler;
 class ImageElement {}
 const feed = await renderer('feed.js', '\ninit();', `
-return {titleOf, pickImage, renderCard, renderHot, pickRow, watchPictures, mediaHTML,
+return {titleOf, pickImage, renderCard, renderHot, pickRow, watchPictures, mediaHTML, oneEvent,
   configure(stories, images = {}) {
     D = {stories, events:[], sources:[], generated_at:'2026-10-10T00:00:00Z'};
     GEN = Date.parse(D.generated_at); STORY_ANY = new Map(stories.map(s => [s.id, s]));
@@ -233,6 +233,17 @@ const group = {primary:story, publishers:new Set(['Publisher']), sourceCount:1, 
 for (const html of [search.renderHeroTile(group), search.renderStoryCard(group)]) {
   assert.ok(html.includes(story.headline_vi) && html.includes(story.title) && html.includes('Translated'));
 }
+// One event, told once on the first screen: the pipeline's identity, a shared address, or the cluster's own wording.
+const ev = (id, title, coverage = [], extra = {}) => ({id, title, url:`https://x.example/${id}`, coverage, ...extra});
+const bbc = ev('bbc', 'Rogue Anthropic AI agent gave police fake tip in unsolved murder case');
+const tc = ev('tc', 'An Anthropic AI model sent a false homicide tip to Philadelphia police', [
+  {title:'An Anthropic AI model sent a false homicide tip to Philadelphia police', url:'https://techcrunch.example/a'},
+  {title:'Rogue AI agent gave police a fake tip in an unsolved murder, Anthropic says', url:'https://verge.example/b'}]);
+assert.equal(feed.oneEvent(bbc, tc), true, "one event across the cluster's coverage headlines");
+assert.equal(feed.oneEvent(ev('a', 'Alpha'), ev('b', 'Beta', [], {aliases:['a']})), true, 'merged clusters (aliases)');
+assert.equal(feed.oneEvent(ev('a', 'Alpha', [{url:'https://same.example/x'}]), ev('b', 'Beta', [{discussion_url:'https://same.example/x'}])), true, 'a shared address');
+assert.equal(feed.oneEvent(bbc, ev('diary', 'Anthropic reported diary entry to police, woman faces felony charge')), false,
+  'two Anthropic police stories are not one event');
 console.log('PASS headline eligibility, coverage attribution, feed/ranked cards, image providers and errors, modal/page, edition and search renderers');
 
 // Execute the real notification state, navigation and poll against deterministic DOM/time/network boundaries.
@@ -343,6 +354,24 @@ assert.equal(jumps.at(-1).top, 220);
 assert.equal(jumps.at(-1).behavior, 'auto', 'reduced motion is respected');
 assert.equal(nodes.get('#fresh').hidden, true);
 
+// With the home's "Vừa đăng" row in place, the pill leads to the top of the page: the announced batch first, the
+// heading focused, no smooth scroll under reduced motion.
+const rowItems = [];
+nodes.set('#fresh-row', {hidden:true, contains:el => el === nodes.get('#fresh-row-h'),
+  get innerHTML() { return rowItems.at(-1) || ''; }, set innerHTML(v) { rowItems.push(v); }});
+nodes.set('#fresh-row-h', {focus() { doc.activeElement = this; }});
+nodes.get('#top').querySelectorAll = () => [];
+configureNotice(2, 10); newFeed.renderNewItems();
+visibleStories = [card('item-1', 500)]; doc.activeElement = nodes.get('#fresh-go');
+newFeed.route();
+assert.equal(doc.activeElement, nodes.get('#fresh-row-h'), '#moi focuses the "Vừa đăng" heading');
+assert.deepEqual(jumps.at(-1), {top:0, behavior:'auto'}, 'the row is at the top; reduced motion jumps');
+assert.equal(nodes.get('#fresh-row').hidden, false);
+const rowIds = [...rowItems.at(-1).matchAll(/<li[^>]*data-sid="([^"]+)"/g)].map(m => m[1]);
+assert.deepEqual(rowIds.slice(0, 2).sort(), ['item-0', 'item-1'], 'the announced stories lead the row');
+assert.match(rowItems.at(-1), /new-mark/, 'arrivals carry the new dot, not pill text');
+assert.equal(nodes.get('#fresh').hidden, true);
+
 configureNotice(0, 10, true); newFeed.renderNavigation();
 responseData = {schema_version:2, generated_at:'2026-10-09T15:00:00Z', sources:[],
   stories:[{id:'live-new', published_at:'2026-10-09T14:30:00Z', coverage:[]}]};
@@ -354,7 +383,8 @@ responseData = {...responseData, generated_at:'2026-10-09T15:01:00Z'};
 await newFeed.pollSnapshot(); assert.equal(announcements, 1, 'a metrics-only update does not repeat the announcement');
 visibleStories = [card('live-new', 500)];
 newFeed.goFirstNew();
-assert.equal(doc.activeElement, visibleStories[0], 'pending snapshot is applied and its arrival focused');
+assert.equal(doc.activeElement, nodes.get('#fresh-row-h'), 'pending snapshot is applied and its arrivals shown at the top');
+assert.match(rowItems.at(-1), /data-sid="live-new"/);
 assert.equal(nodes.get('#fresh').hidden, true);
 assert.match(newFeed.markHTML({id:'live-new'}), /new-mark/);
 newFeed.skip('live-new'); assert.doesNotMatch(newFeed.markHTML({id:'live-new'}), /new-mark|skipped-mark/);

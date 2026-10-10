@@ -21,9 +21,9 @@ WORTH = {
     "breadth": 35.0,
     "breadthFull": 4.0,     # points; 0 for one publisher, full at 4 independent publishers
     "freshness": 15.0,
-    "halfLifeH": 24.0,      # points at publication (unmeasured stories); half after 24 h, a quarter after 48 h
+    "halfLifeH": 6.0,       # the whole score halves every 6 h (owner, 10/10: newest first); a sixteenth after a day
     "firstHand": 1.3,       # multiplier for a first-hand story
-    "hotLabel": 20.0,       # hot_score from which a card says "Đang bàn nhiều" or "Đang được chú ý"
+    "hotLabel": 20.0,       # hot_score from which a headline carries the flame (read aloud as "Đang bàn nhiều" / "Đang được chú ý")
     "picksMax": 5,          # "Đáng đọc hôm nay" shows up to 5; fewer only when fewer stories have evidence
     "sameEvent": 0.34,      # title-word overlap from which two stories count as one event in the block
 }
