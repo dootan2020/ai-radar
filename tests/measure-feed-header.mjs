@@ -62,6 +62,8 @@ function measure() {
   }
   return { header: dimensions('#bar'), row: dimensions('.feed-bar-in'), strip: dimensions('#feed-filters'),
     navigation: dimensions('.feed-navigation'), sort: dimensions('#sort-switch'), masked, controls, overlaps,
+    tabCountElements: document.querySelectorAll('.filter-chip .count').length,
+    staleBanner: !!document.querySelector('#stale'),
     document: { scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth } };
 }
 
@@ -78,7 +80,7 @@ async function main() {
     data.error ? task.reject(new Error(data.error.message)) : task.resolve(data.result);
   };
   const results = [];
-  for (const width of [1024, 1180, 1280, 1440, 1920, 375, 320, 768, 1179]) {
+  for (const width of [1024, 1180, 1280, 1440, 1920, 375, 320, 768, 1023, 1179]) {
     const { targetId } = await send('Target.createTarget', { url: 'about:blank' });
     const { sessionId } = await send('Target.attachToTarget', { targetId, flatten: true });
     const call = (method, params) => send(method, params, sessionId);
@@ -92,7 +94,7 @@ async function main() {
     await call('Page.navigate', { url });
     let ready = false;
     for (let i = 0; i < 100; i++) {
-      ready = await evaluate(`document.querySelector('#top')?.getAttribute('aria-busy') === 'false' && document.querySelectorAll('.filter-chip .count').length >= 6`);
+      ready = await evaluate(`document.querySelector('#top')?.getAttribute('aria-busy') === 'false' && document.querySelector('#sort-switch')?.hidden === false`);
       if (ready) break;
       await sleep(100);
     }
@@ -100,16 +102,7 @@ async function main() {
     await evaluate('document.fonts.ready.then(() => true)');
     await sleep(350);
     const result = { width, ...await evaluate(`(${measure})()`) };
-    const originalCounts = await evaluate(`Array.from(document.querySelectorAll('.filter-chip .count'), e => e.textContent)`);
-    result.countShifts = [];
-    for (const count of ['1', '88', '999']) {
-      await evaluate(`document.querySelectorAll('.filter-chip .count').forEach(e => e.textContent = '${count}')`);
-      const changed = await evaluate(`(${measure})()`);
-      result.countShifts.push({ count, maxDelta: Math.max(...changed.controls.flatMap((e, i) =>
-        ['x', 'y', 'width', 'height'].map(k => Math.abs(e[k] - result.controls[i][k])))) });
-    }
-    await evaluate(`document.querySelectorAll('.filter-chip .count').forEach((e, i) => e.textContent = ${JSON.stringify(originalCounts)}[i])`);
-    if (out && [375, 1180, 1440].includes(width)) {
+    if (out && [375, 1024, 1180, 1440].includes(width)) {
       for (const theme of ['light', 'dark']) {
         await evaluate(`document.documentElement.dataset.theme = '${theme}'`);
         const shot = await call('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width, height: 250, scale: 1 } });
@@ -117,6 +110,11 @@ async function main() {
       }
     }
     results.push(result);
+    // Exercise the widest real navigation state through the site's save action.
+    await evaluate(`document.querySelector('[data-act="save"][aria-pressed="false"]').click()`);
+    await sleep(350);
+    results.push({ width, saved: true, ...await evaluate(`(${measure})()`) });
+    await evaluate(`document.querySelector('[data-act="save"][aria-pressed="true"]').click()`);
     await send('Target.closeTarget', { targetId });
   }
   if (out) fs.writeFileSync(path.join(out, 'header-measurements.json'), JSON.stringify(results, null, 2));
@@ -125,9 +123,11 @@ async function main() {
     assert.equal(r.header.scrollWidth, r.header.clientWidth, `${r.width}: header overflow`);
     assert.equal(r.document.scrollWidth, r.document.clientWidth, `${r.width}: document overflow`);
     assert.deepEqual(r.overlaps, [], `${r.width}: controls overlap`);
-    assert.ok(r.countShifts.every(c => c.maxDelta < 0.5), `${r.width}: counts move controls`);
-    if (r.width >= 1180) {
-      assert.equal(r.controls.filter(c => c.filter).length, 6, `${r.width}: expected six populated sections from real data`);
+    assert.equal(r.tabCountElements, 0, `${r.width}: tab count elements remain`);
+    assert.equal(r.staleBanner, false, `${r.width}: stale banner remains`);
+    assert.ok(r.controls.filter(c => c.filter).every(c => !/\d/.test(c.label)), `${r.width}: tab labels contain counts`);
+    if (r.width >= 1024) {
+      assert.equal(r.controls.filter(c => c.filter).length, r.saved ? 7 : 6, `${r.width}: expected all populated sections from real data`);
       assert.ok(!r.masked, `${r.width}: desktop fade`);
       assert.equal(r.strip.scrollWidth, r.strip.clientWidth, `${r.width}: scrolling desktop tabs`);
       assert.ok(r.controls.every(c => c.fullyVisible && c.textFits), `${r.width}: clipped controls`);

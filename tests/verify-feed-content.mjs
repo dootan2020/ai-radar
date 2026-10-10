@@ -177,12 +177,16 @@ console.log('PASS headline eligibility, coverage attribution, feed/ranked cards,
 
 // Execute the real notification state, navigation and poll against deterministic DOM/time/network boundaries.
 const nodes = new Map(), timers = new Map(), jumps = [];
+const home = await readFile(new URL('../site/index.html', import.meta.url), 'utf8');
+const chips = [...home.matchAll(/<button class="filter-chip" data-filter="([^"]+)"[^>]*>([^<]+)<\/button>/g)]
+  .map(([, filter, label]) => ({dataset:{filter}, textContent:label, innerHTML:label, hidden:false,
+    attributes:{}, setAttribute(key, value) { this.attributes[key] = value; }}));
 let timerId = 0, announcements = 0, visibleStories = [], responseData;
 const doc = {activeElement:null, hidden:false, documentElement:{style:{setProperty() {}}},
   querySelector:selector => nodes.get(selector),
-  querySelectorAll:selector => selector.includes('[data-sid]') ? visibleStories : [],
+  querySelectorAll:selector => selector === '.filter-chip' ? chips : selector.includes('[data-sid]') ? visibleStories : [],
 };
-for (const selector of ['#fresh', '#fresh-text', '#fresh-announcement', '#bar', '#stale', '#top', '#filter-context', '#src-update', '#src-note', '#src-list', '#src-live', '#src-foot', '#nguon']) {
+for (const selector of ['#fresh', '#fresh-text', '#fresh-announcement', '#bar', '#top', '#filter-context', '#src-update', '#src-note', '#src-list', '#src-live', '#src-foot', '#nguon']) {
   nodes.set(selector, {hidden:true, textContent:'', innerHTML:'', style:{}, dataset:{}, offsetHeight:64,
     getBoundingClientRect:() => ({bottom:64}), contains:el => el === nodes.get('#fresh-go'),
     matches:() => false, focus() { doc.activeElement = this; }});
@@ -193,7 +197,7 @@ Object.defineProperty(nodes.get('#fresh-announcement'), 'textContent', {
 });
 const newFeed = await renderer('feed.js', '\ninit();', `
 return {renderNewItems, offerNewItems, dismissNewItems, scheduleNewItemsDismissal, checkNewItemsScroll,
-  goFirstNew, route, pollSnapshot, pendingNewIds, renderSub, renderStale, renderSources, markHTML, markRead,
+  goFirstNew, route, pollSnapshot, pendingNewIds, renderSub, renderChips, renderSources, markHTML, markRead,
   configure(count, total, first = false) {
     D = {schema_version:2, generated_at:'2026-10-09T14:00:00Z', sources:[], stories:[]};
     allStories = Array.from({length:total}, (_, i) => ({id:'item-'+i,
@@ -204,7 +208,9 @@ return {renderNewItems, offerNewItems, dismissNewItems, scheduleNewItemsDismissa
     read.clear(); skipped.clear(); arrived.clear(); offeredNewIds.clear(); noticeIds.clear();
     pending = null; filter = 'all'; noticeDeferred = false;
   },
-  filter(value) { filter = value; LABELS[value] = 'Đã lưu'; },
+  filter(value) { filter = value; },
+  save(items) { saved = items; },
+  sourceTime(iso) { D.generated_at = iso; renderSources(); },
   skip(id) { skipped.add(id); },
   seen(id) { read.add(id); },
   renderNavigation() { renderAll = () => {}; },
@@ -218,6 +224,7 @@ return {renderNewItems, offerNewItems, dismissNewItems, scheduleNewItemsDismissa
 });
 function configureNotice(count, total, first = false) {
   newFeed.configure(count, total, first);
+  newFeed.renderChips();
   nodes.get('#fresh').hidden = true;
   doc.activeElement = null; visibleStories = []; timers.clear(); announcements = 0;
 }
@@ -302,6 +309,31 @@ assert.equal(nodes.get('#filter-context').hidden, false);
 assert.match(nodes.get('#filter-context').innerHTML, /Đã lưu.*Bỏ lọc/);
 newFeed.filter('all'); newFeed.renderSub();
 assert.equal(nodes.get('#filter-context').hidden, true);
-newFeed.renderStale(); assert.equal(nodes.get('#stale').hidden, false, 'old snapshot warning survives header removal');
-newFeed.renderSources(); assert.match(nodes.get('#src-update').innerHTML, /Cập nhật lúc.*nguồn/);
+for (const total of [0, 1, 88, 999]) {
+  configureNotice(0, total);
+  newFeed.renderChips();
+  assert.deepEqual(chips.map(b => b.innerHTML), ['Tất cả', 'Chuyện lớn', 'Đang nóng', 'Sản phẩm', 'Thảo luận', 'Mã và mô hình', 'Đã lưu']);
+  assert.equal(chips[0].hidden, false, 'all remains available even with no stories');
+  assert.equal(chips.find(b => b.dataset.filter === 'saved').hidden, true, 'empty saved tab stays hidden');
+}
+newFeed.filter('saved'); newFeed.renderChips();
+const savedChip = chips.find(b => b.dataset.filter === 'saved');
+assert.equal(savedChip.hidden, false, 'active empty tab remains available');
+assert.equal(savedChip.attributes['aria-pressed'], 'true');
+newFeed.save([{key:'item-0'}]); newFeed.filter('all'); newFeed.renderChips();
+assert.equal(savedChip.hidden, false, 'saving reveals the named tab without a count');
+assert.equal(savedChip.innerHTML, 'Đã lưu');
+newFeed.filter('saved'); newFeed.renderSub();
+assert.match(nodes.get('#filter-context').innerHTML, /Đã lưu.*<span class="num">1<\/span> mục.*Bỏ lọc/);
+for (const [iso, wording] of [
+  [new Date().toISOString(), null],
+  ['2026-10-09T02:00:00Z', '09:00 ngày 9/10/2026'],
+  ['2025-12-31T18:30:00Z', '01:30 ngày 1/1/2026'],
+]) {
+  newFeed.sourceTime(iso);
+  const html = nodes.get('#src-update').innerHTML;
+  assert.ok(html.includes(`datetime="${iso}"`));
+  assert.match(html, /Cập nhật lúc.*\d{2}:\d{2} ngày \d{1,2}\/\d{1,2}\/\d{4}.*nguồn/);
+  if (wording) assert.ok(html.includes(wording), 'old snapshots retain their full Vietnam date');
+}
 console.log('PASS new-story eligibility, expiry, focus, scroll, deep link, live polling, marks, filters and metadata');
