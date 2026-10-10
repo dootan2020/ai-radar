@@ -1,0 +1,41 @@
+[
+  {
+    "id": "claude-startups",
+    "title": "We're expanding the Claude Startups program to help founders build",
+    "url": "https://claude.com/resources/articles/were-expanding-the-claude-startups-program-to-help-founders-build",
+    "fixture": "claude-startups-article.html",
+    "before": "A year of the Claude Team plan, API credits, special offers on tools that help with running an AI-native company, and more.",
+    "key_points": [
+      "Anthropic mở rộng Claude Startups để giúp nhà sáng lập giảm chi phí khởi đầu, chọn công cụ và phát triển sản phẩm khi mô hình liên tục cải thiện.",
+      "Thành viên có thể nhận tới $7,000 sản phẩm và tín dụng Claude, gồm một năm Claude Team với tối đa năm ghế Premium cho công ty mới dùng Team và $1,000 tín dụng API một lần khi được duyệt.",
+      "Claude Startup Stack cung cấp ưu đãi và tín dụng từ các đối tác trị giá tối đa $45,000; thành viên còn có giờ tư vấn với đội Applied AI và hỗ trợ đưa sản phẩm lên Claude Marketplace.",
+      "Startup thành lập trong năm năm gần đây hoặc được cấp vốn trong hai năm gần đây đủ điều kiện đăng ký; giá trị thực nhận phụ thuộc số ghế và các ưu đãi sử dụng."
+    ]
+  },
+  {
+    "id": "qwen-guard",
+    "title": "Qwen3Guard: Real-time Safety for Your Token Stream",
+    "url": "https://qwenlm.github.io/blog/qwen3guard/",
+    "fixture": "qwen-blog.xml",
+    "item": 0,
+    "before": "Qwen3Guard: Real-time Safety for Your Token Stream",
+    "key_points": [
+      "Qwen giới thiệu Qwen3Guard, mô hình bảo vệ an toàn đầu tiên trong dòng Qwen, được xây dựng trên Qwen3 và tinh chỉnh riêng cho nhiệm vụ phân loại mức độ an toàn.",
+      "Mô hình kiểm tra cả yêu cầu đầu vào lẫn câu trả lời, trả về mức rủi ro và nhóm phân loại để hỗ trợ việc kiểm duyệt các tương tác với AI.",
+      "Nhóm phát triển cho biết Qwen3Guard đạt kết quả hàng đầu trên các bộ đánh giá an toàn lớn, với khả năng phân loại tiếng Anh, tiếng Trung và nhiều ngôn ngữ; đoạn nguồn không nêu điểm số cụ thể."
+    ]
+  },
+  {
+    "id": "qwen-image-edit",
+    "title": "Qwen-Image-Edit: Image Editing with Higher Quality and Efficiency",
+    "url": "https://qwenlm.github.io/blog/qwen-image-edit/",
+    "fixture": "qwen-blog.xml",
+    "item": 1,
+    "before": "Qwen-Image-Edit: Image Editing with Higher Quality and Efficiency",
+    "key_points": [
+      "Qwen công bố Qwen-Image-Edit, phiên bản chỉnh sửa ảnh được xây dựng trên mô hình Qwen-Image 20B, đưa khả năng tạo chữ của mô hình sang nhiệm vụ chỉnh sửa chữ trong ảnh.",
+      "Ảnh đầu vào được đưa đồng thời vào Qwen2.5-VL để kiểm soát ngữ nghĩa thị giác và VAE Encoder để kiểm soát diện mạo của ảnh.",
+      "Cách kết hợp này cho phép chỉnh sửa cả nội dung ngữ nghĩa lẫn diện mạo hình ảnh; theo nhóm phát triển, khả năng xử lý chữ giúp chỉnh sửa văn bản trong ảnh chính xác hơn."
+    ]
+  }
+]

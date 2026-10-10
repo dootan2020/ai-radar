@@ -630,6 +630,10 @@ dialog.story-dialog::backdrop {
    5. KEY POINTS & SUMMARY (MAIN CONTENT)
    ========================================================================== */
 
+.story-keypoints-box + .story-summary-box {
+  margin-top: var(--space-24);
+}
+
 .story-keypoints-box,
 .story-summary-box {
   background: var(--color-surface);

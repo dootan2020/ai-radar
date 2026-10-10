@@ -183,12 +183,17 @@ def is_translated_story(st: dict) -> bool:
 def choose_picks(stories: list[dict],
                  sources_map: dict | None = None,
                  now_dt: datetime | None = None,
-                 editor_picks: list[dict] | None = None) -> list[dict]:
+                 editor_picks: list[dict] | None = None,
+                 *, require_translation: bool = True) -> list[dict]:
     """Replicate feed.js choosePicks() in Python for translated stories.
 
     Returns up to 3 high-worth translated stories backed by >= 2 independent news publishers.
     """
     story_map = {s.get("id"): s for s in stories if s.get("id")}
+
+    def eligible(story):
+        # Spending priority must include promoted stories awaiting translation.
+        return is_translated_story(story) if require_translation else bool(story.get("title"))
 
     def n_news(s: dict) -> int:
         return len(news_coverage_of(s, sources_map))
@@ -221,13 +226,13 @@ def choose_picks(stories: list[dict],
                 break
             pid = p.get("id") if isinstance(p, dict) else str(p)
             st = story_map.get(pid)
-            if st and is_translated_story(st) and n_news(st) >= 2 and st not in out:
+            if st and eligible(st) and n_news(st) >= 2 and st not in out:
                 out.append(st)
                 editor_set.add(st["id"])
 
     candidates = [
         s for s in stories
-        if s.get("id") not in editor_set and is_translated_story(s) and n_news(s) >= 2 and has_evidence(s)
+        if s.get("id") not in editor_set and eligible(s) and n_news(s) >= 2 and has_evidence(s)
     ]
     candidates.sort(key=by_worth)
 
@@ -245,7 +250,7 @@ def choose_picks(stories: list[dict],
     if len(out) < 3:
         fallback = [
             s for s in stories
-            if s.get("id") not in editor_set and s not in out and is_translated_story(s) and n_news(s) >= 2 and has_evidence(s)
+            if s.get("id") not in editor_set and s not in out and eligible(s) and n_news(s) >= 2 and has_evidence(s)
         ]
         fallback.sort(key=by_worth)
         for s in fallback:
@@ -613,6 +618,12 @@ def generate_video_script(input_path: str | Path,
         }
 
     # 2. Read input stories
+    # Daily identity belongs to the published script, not today's changing picks.
+    if not force and summary_budget.is_script_written_today(
+            script_path=output_path, ledger_path=ledger_path, today_vn=today_vn):
+        return {"status": "already_generated", "date": today_vn, "tokens": 0,
+                "script_written": False, "ledger_written": False}
+
     if not input_path.is_file():
         return {
             "status": "missing_input",
@@ -660,23 +671,6 @@ def generate_video_script(input_path: str | Path,
 
     stories_map = {s["id"]: s for s in selected}
 
-    # 4b. Check if valid script for today already exists
-    if output_path.is_file() and not force:
-        try:
-            existing = json.loads(output_path.read_text(encoding="utf-8"))
-            if isinstance(existing, dict) and existing.get("date") == today_vn:
-                is_valid, _ = validate_video_script(existing, stories_map, expected_date=today_vn)
-                if is_valid:
-                    return {
-                        "status": "already_generated",
-                        "date": today_vn,
-                        "tokens": 0,
-                        "script_written": False,
-                        "ledger_written": False,
-                    }
-        except (OSError, ValueError):
-            pass
-
     # 5. Check API credentials & free-tier confirmation
     api_key = os.environ.get("GEMINI_API_KEY", "")
     paid = gemini_paid_budget.enabled()
@@ -721,7 +715,8 @@ def generate_video_script(input_path: str | Path,
     paid_reservation = None
     if paid:
         reserve_err, paid_reservation = gemini_paid_budget.reserve(
-            gemini_paid_budget.ledger_path(), estimated_tokens, now=reserve_now)
+            gemini_paid_budget.ledger_path(), estimated_tokens, now=reserve_now,
+            consumer="video", idempotency_key=today_vn)
     else:
         reserve_err = summary_budget.reserve(
             ledger_path,

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from copy import deepcopy
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation, ROUND_CEILING
 import json
@@ -16,10 +17,14 @@ import uuid
 from radar.pipeline import write_atomic
 
 LEDGER_VERSION = 1
+_UNCHECKED_STORE = object()
 STORE_BRANCH = "radar-gemini-paid-budget"
 STORE_REF = f"refs/heads/{STORE_BRANCH}"
 RUN_ALLOWANCE_USD = Decimal("1")
 DAILY_CAP_USD = Decimal("6")
+DAILY_PACE_USD = Decimal("0.57")
+RUN_HOLD_USD = Decimal("0.20")
+CONSUMER_TOKENS = {"translation": 40_000, "summary": 100_000, "video": 12_000}
 DEFAULT_CAP_USD = Decimal("20")
 MAX_CAP_USD = Decimal("20")
 MODEL_ID = "gemini-3.8-flash"
@@ -136,6 +141,8 @@ def _validate_store(data, now: float):
             raise ValueError("Paid budget branch ledger is invalid")
     data.setdefault("settled_daily", {})
     data.setdefault("pending_days", {})
+    if not isinstance(data["settled_daily"], dict) or not isinstance(data["pending_days"], dict):
+        raise ValueError("Paid budget branch ledger is invalid")
     current_day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
     for key in data["pending"]:
         data["pending_days"].setdefault(key, current_day)
@@ -150,15 +157,29 @@ def _validate_store(data, now: float):
             raise ValueError("Paid budget branch ledger is invalid")
     if data["month"] != _month(now):
         return {"version": LEDGER_VERSION, "month": _month(now), "settled_micros": 0,
-                "pending": {}, "settled_daily": {}, "pending_days": {}}
+                "pending": {}, "settled_daily": {}, "pending_days": {}, "settled_consumers": {}}
+    if not isinstance(data.get("video_dates", []), list) or any(
+            not isinstance(day, str) for day in data.get("video_dates", [])):
+        raise ValueError("Invalid video dates")
+    consumers = data.setdefault("settled_consumers", {})
+    if not isinstance(consumers, dict):
+        raise ValueError("Invalid consumer accounting")
+    for day, amounts in consumers.items():
+        if (not isinstance(day, str) or not isinstance(amounts, dict)
+                or any(name not in CONSUMER_TOKENS or type(value) is not int or value < 0
+                       for name, value in amounts.items())
+                or sum(amounts.values()) > data["settled_daily"].get(day, 0)):
+            raise ValueError("Invalid consumer accounting")
     return data
 
 
-def _push(remote: str, data: dict, now: float | None = None) -> None:
+def _push(remote: str, data: dict, now: float | None = None, *, expected=_UNCHECKED_STORE) -> None:
     with tempfile.TemporaryDirectory(prefix="radar-gemini-paid-") as temporary:
         repo = Path(temporary) / "repo"
         now = datetime.now(timezone.utc).timestamp() if now is None else now
         current = _restore(remote, repo, now)
+        if expected is not _UNCHECKED_STORE and current != expected:
+            raise RuntimeError("Paid budget changed before reservation; retry the run")
         # Restore into an empty repository; then reset the worktree to the current durable base.
         if current is not None:
             _git(repo, remote, "checkout", "--quiet", "-B", STORE_BRANCH, "FETCH_HEAD")
@@ -190,8 +211,19 @@ def _read(path: Path, now: float):
                 "reservations": []}
     for item in data["reservations"]:
         if (not isinstance(item, dict) or not isinstance(item.get("id"), str)
-                or type(item.get("micros")) is not int or item["micros"] < 0):
+                or type(item.get("micros")) is not int or item["micros"] < 0
+                or item.get("consumer", "summary") not in CONSUMER_TOKENS):
             return None
+    remaining = data.get("consumer_remaining_micros")
+    if "run_key" in data and (not isinstance(remaining, dict) or set(remaining) != set(CONSUMER_TOKENS)):
+        return None
+    if remaining is not None and (not isinstance(remaining, dict) or any(
+            name not in CONSUMER_TOKENS or type(amount) is not int or not 0 <= amount <= _micros(CONSUMER_TOKENS[name], now)
+            for name, amount in remaining.items())):
+        return None
+    if not isinstance(data.get("video_dates", []), list) or any(
+            not isinstance(day, str) for day in data.get("video_dates", [])):
+        return None
     return data
 
 
@@ -216,33 +248,42 @@ def prepare(path: str | Path, *, paid: bool, now: float | None = None, run_numbe
                     return MISSING_CODE
                 store = {"version": LEDGER_VERSION, "month": _month(now),
                          "settled_micros": 0, "pending": {},
-                         "settled_daily": {}, "pending_days": {}}
+                         "settled_daily": {}, "pending_days": {}, "settled_consumers": {}}
+            expected_store = deepcopy(store) if not store_was_missing else None
             allowance = int((RUN_ALLOWANCE_USD * Decimal(1_000_000)).to_integral_value())
             pending = store["pending"]
             if paid:
-                charge = pending.get(run_key, allowance)
+                # An attempt may only be prepared once: never reset local charges
+                # while reusing an existing durable hold after a crash or retry.
+                if run_key in pending:
+                    return "paid_budget_attempt_already_reserved"
                 cap = cap_usd()
-                cap_micros = int((cap * Decimal(1_000_000)).to_integral_value(rounding=ROUND_CEILING))
+                cap_micros = int(cap * 1_000_000)
                 day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
-                daily_cap_micros = int((DAILY_CAP_USD * Decimal(1_000_000)).to_integral_value())
+                daily_cap_micros = int(min(DAILY_CAP_USD, DAILY_PACE_USD) * 1_000_000)
                 daily_reserved = sum(value for key, value in pending.items()
                                      if store["pending_days"].get(key) == day)
-                if (cap <= 0 or store["settled_micros"] + sum(pending.values())
-                        + (0 if run_key in pending else charge) > cap_micros):
+                monthly_remaining = cap_micros - store["settled_micros"] - sum(pending.values())
+                daily_remaining = daily_cap_micros - store["settled_daily"].get(day, 0) - daily_reserved
+                if cap <= 0 or monthly_remaining <= 0:
                     return "paid_monthly_cap"
-                if run_key not in pending:
-                    daily_remaining = daily_cap_micros - store["settled_daily"].get(day, 0) - daily_reserved
-                    if daily_remaining <= 0:
-                        return "paid_daily_cap"
-                    charge = min(allowance, daily_remaining)
+                if daily_remaining <= 0:
+                    return "paid_daily_cap"
+                consumer_remaining = sum(_consumer_remaining(store, now).values())
+                if consumer_remaining <= 0:
+                    return "paid_consumer_daily_cap"
+                charge = min(allowance, int(RUN_HOLD_USD * 1_000_000),
+                             monthly_remaining, daily_remaining, consumer_remaining)
                 pending[run_key] = charge
                 store["pending_days"].setdefault(run_key, day)
             if paid or store_was_missing:
-                _push(remote, store, now)
+                _push(remote, store, now, expected=expected_store)
             data = {"version": LEDGER_VERSION, "month": _month(now), "last_run_number": run_number,
                     "reservations": [], "run_key": run_key,
                     "run_allowance_micros": pending.get(run_key, 0),
-                    "run_day": store["pending_days"].get(run_key)}
+                    "run_day": store["pending_days"].get(run_key),
+                    "consumer_remaining_micros": _consumer_remaining(store, now, exclude_run=run_key),
+                    "video_dates": store.get("video_dates", [])}
             write_atomic(data, path)
             return None
         except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
@@ -290,14 +331,43 @@ def _micros(tokens: int, now: float) -> int:
     return int((Decimal(max(0, int(tokens))) * _price_per_million(now)).to_integral_value(rounding=ROUND_CEILING))
 
 
+def _consumer_remaining(store, now, *, exclude_run=None):
+    day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
+    amounts = store.get("settled_consumers", {}).get(day, {})
+    # Legacy spend and interrupted holds have unknown attribution. Charge
+    # them against every consumer rather than minting new quota on migration.
+    unknown = max(0, store["settled_daily"].get(day, 0) - sum(amounts.values()))
+    unknown += sum(value for key, value in store["pending"].items()
+                   if key != exclude_run and store["pending_days"].get(key) == day)
+    return {name: max(0, _micros(tokens, now) - amounts.get(name, 0) - unknown)
+            for name, tokens in CONSUMER_TOKENS.items()}
+
+
+def remaining_tokens(path, consumer, *, now=None, run_number=None):
+    """Return the current run's safe consumer headroom without reserving it."""
+    now = datetime.now(timezone.utc).timestamp() if now is None else now
+    data = _read(Path(path), now)
+    run_number = _run_number() if run_number is None else run_number
+    if not data or data.get("last_run_number") != run_number or consumer not in CONSUMER_TOKENS:
+        return 0
+    used = sum(item["micros"] for item in data["reservations"])
+    consumer_used = sum(item["micros"] for item in data["reservations"]
+                        if item.get("consumer", "summary") == consumer)
+    available = data.get("consumer_remaining_micros", {}).get(consumer, _micros(CONSUMER_TOKENS[consumer], now))
+    allowance = data.get("run_allowance_micros", int(DAILY_PACE_USD * 1_000_000))
+    return max(0, int(min(allowance - used, available - consumer_used) / _price_per_million(now)))
+
+
 def reserve(path: str | Path, estimated_tokens: int, *, now: float | None = None,
-            run_number: int | None = None, cap: Decimal | None = None) -> tuple[str | None, str | None]:
+            run_number: int | None = None, cap: Decimal | None = None,
+            consumer: str = "summary", idempotency_key: str | None = None) -> tuple[str | None, str | None]:
     """Persist an upper-bound charge before sending a paid API request."""
     path = Path(path)
     now = datetime.now(timezone.utc).timestamp() if now is None else float(now)
     run_number = _run_number() if run_number is None else run_number
     cap = cap_usd() if cap is None else min(Decimal(cap), MAX_CAP_USD)
-    if not math.isfinite(now) or run_number is None or cap <= 0:
+    if (not math.isfinite(now) or run_number is None or cap <= 0
+            or consumer not in CONSUMER_TOKENS or type(estimated_tokens) is not int or estimated_tokens <= 0):
         return "paid_budget_configuration", None
     lock = path.with_suffix(path.suffix + ".lock")
     acquired = False
@@ -308,6 +378,10 @@ def reserve(path: str | Path, estimated_tokens: int, *, now: float | None = None
         data = _read(path, now)
         if data is None or data.get("last_run_number") != run_number:
             return MISSING_CODE, None
+        if data.get("run_day") and data["run_day"] != datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d"):
+            return "paid_budget_day_changed", None
+        if idempotency_key and idempotency_key in data.get("video_dates", []):
+            return "paid_video_already_attempted", None
         request_id = uuid.uuid4().hex
         amount = _micros(estimated_tokens, now)
         cap_micros = int((cap * Decimal(1_000_000)).to_integral_value(rounding=ROUND_CEILING))
@@ -318,7 +392,11 @@ def reserve(path: str | Path, estimated_tokens: int, *, now: float | None = None
             return MISSING_CODE, None
         if used + amount > allowance or used + amount > cap_micros:
             return "paid_monthly_cap", None
-        data["reservations"].append({"id": request_id, "micros": amount})
+        if estimated_tokens > remaining_tokens(path, consumer, now=now, run_number=run_number):
+            return "paid_" + consumer + "_daily_tokens", None
+        data["reservations"].append({"id": request_id, "micros": amount, "consumer": consumer})
+        if idempotency_key:
+            data.setdefault("video_dates", []).append(idempotency_key)
         data["updated_at"] = now
         write_atomic(data, path)
         return None, request_id
@@ -386,6 +464,7 @@ def finalize(path: str | Path, remote: str, *, now: float | None = None,
             store = _restore(remote, Path(temporary) / "repo", now)
         if store is None:
             return MISSING_CODE
+        expected_store = deepcopy(store)
         allowance = store["pending"].get(run_key)
         if allowance is None:
             return None
@@ -398,16 +477,27 @@ def finalize(path: str | Path, remote: str, *, now: float | None = None,
         if day is None:
             return MISSING_CODE
         store["settled_daily"][day] = store["settled_daily"].get(day, 0) + spent
+        consumers = store.setdefault("settled_consumers", {}).setdefault(day, {})
+        for item in data["reservations"]:
+            name = item.get("consumer", "summary")
+            consumers[name] = consumers.get(name, 0) + item["micros"]
+        store["video_dates"] = sorted(set(store.get("video_dates", []) + data.get("video_dates", [])))
         cap = cap_usd()
         cap_micros = int((cap * Decimal(1_000_000)).to_integral_value(rounding=ROUND_CEILING))
         if store["settled_micros"] + sum(store["pending"].values()) > cap_micros:
             return "paid_monthly_cap"
-        daily_cap_micros = int((DAILY_CAP_USD * Decimal(1_000_000)).to_integral_value())
+        daily_cap_micros = int((min(DAILY_CAP_USD, DAILY_PACE_USD) * Decimal(1_000_000)).to_integral_value())
         daily_pending = sum(value for key, value in store["pending"].items()
                             if store["pending_days"].get(key) == day)
         if store["settled_daily"][day] + daily_pending > daily_cap_micros:
             return "paid_daily_cap"
-        _push(remote, store, now)
+        _push(remote, store, now, expected=expected_store)
+        print("Gemini paid pacing " + json.dumps({
+            "day": day, "daily_micros": store["settled_daily"][day],
+            "monthly_micros": store["settled_micros"], "run_micros": spent,
+            "hold_micros": allowance, "consumer_micros": consumers,
+            "pending_micros": sum(store["pending"].values()),
+            "daily_pace_micros": int(DAILY_PACE_USD * 1_000_000)}, sort_keys=True))
         return None
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
         return MISSING_CODE

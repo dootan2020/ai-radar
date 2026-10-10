@@ -62,6 +62,24 @@ class RetentionUnitTests(unittest.TestCase):
         self.now = datetime(2026, 10, 4, 12, 0, tzinfo=timezone.utc)
         self.now_str = "2026-10-04T12:00:00Z"
 
+    def test_machine_summary_survives_unchanged_source_but_not_changed_evidence(self):
+        old = _make_story("s", "Article", "https://news.example/story", "2026-10-04T10:00:00Z")
+        fresh = deepcopy(old)
+        old.update(key_points=["Nội dung đã được kiểm tra theo bài gốc."], key_points_machine=True,
+                   key_points_source="machine", key_points_prompt_version="summary-version")
+        published = {"schema_version": 2, "generated_at": self.now_str, "stories": [old]}
+        result = retain_stories([deepcopy(fresh)], published, self.now)[0]
+        self.assertEqual(result["key_points"], old["key_points"])
+        self.assertIsNot(result["key_points"], old["key_points"])
+        self.assertEqual(result["key_points_prompt_version"], "summary-version")
+        for field, value in (("url", "https://news.example/another"), ("title", "Updated article"),
+                             ("summary", "An updated publisher excerpt.")):
+            with self.subTest(field=field):
+                changed = deepcopy(fresh)
+                changed[field] = value
+                result = retain_stories([changed], published, self.now)[0]
+                self.assertNotIn("key_points", result)
+
     def test_story_carried_from_previous_past_its_feed(self):
         # Feed has rolled past old_story; fresh stories only contain new_story
         old_pub = "2026-10-02T10:00:00Z"  # ~2 days ago, well within 7 days

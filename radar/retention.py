@@ -210,6 +210,20 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
                 if "summary_vi" in old_story and "summary_vi" not in matching_fresh_story:
                     matching_fresh_story["summary_vi"] = old_story["summary_vi"]
 
+                # Keep a previously validated summary when the primary source
+                # has not changed, including runs with no generation allowance.
+                # The summary step still invalidates old prompt versions.
+                if (eligible_coverage and old_story.get("key_points_machine") is True
+                        and old_story.get("key_points_prompt_version")
+                        and isinstance(old_story.get("key_points"), list)
+                        and "key_points" not in matching_fresh_story
+                        and old_story.get("url")
+                        and all(old_story.get(key) == matching_fresh_story.get(key)
+                                for key in ("url", "title", "summary"))):
+                    for key in ("key_points", "key_points_machine", "key_points_source", "key_points_prompt_version"):
+                        if key in old_story:
+                            matching_fresh_story[key] = deepcopy(old_story[key])
+
                 # Preserve aliases from old_story and record old_id as alias
                 combined_aliases = set(matching_fresh_story.get("aliases") or [])
                 combined_aliases.update(old_story.get("aliases") or [])

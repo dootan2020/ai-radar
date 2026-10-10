@@ -302,7 +302,7 @@ def targets(payload):
     for story in stories:
         if isinstance(story, dict) and _story_ok(story):
             ordered.extend((item, "title", "title_vi") for item in story.get("coverage") or [] if isinstance(item, dict))
-            ordered.extend((item, "summary", "summary_vi") for item in story.get("coverage") or [] if isinstance(item, dict))
+
     return [(obj, src, dst) for obj, src, dst in ordered if isinstance(obj.get(src), str)]
 
 

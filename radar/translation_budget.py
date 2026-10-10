@@ -55,7 +55,7 @@ def reserve(path, limit, now, *, last_source=None):
         attempts = [t for t in attempts if now - t < 86400]
         if len(attempts) >= min(12, max(0, limit)):
             return "daily_limit"
-        updated = dict(version=1, attempts=[*attempts, now])
+        updated = dict(data, version=1, attempts=[*attempts, now])
         if last_source is not None:
             updated.update(cursor_scope=["gemini", MODEL_ID, PROMPT_VERSION], cursor=_source_id(last_source))
         write_atomic(updated, path)
@@ -69,3 +69,37 @@ def reserve(path, limit, now, *, last_source=None):
                 lock.unlink()
             except OSError:
                 pass
+
+
+def cooling_sources(path, now):
+    """Validated negative-cache entries are scoped to model and prompt."""
+    try:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+        if data.get("failure_scope") != [MODEL_ID, PROMPT_VERSION]:
+            return set()
+        return {key for key, stamp in data.get("failures", {}).items()
+                if type(stamp) in (int, float) and 0 <= now - stamp < 86400}
+    except (OSError, ValueError, TypeError, AttributeError):
+        return set()
+
+
+def record_failures(path, sources, now):
+    if path is None:
+        return "ledger_unavailable"
+    path = Path(path)
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except FileNotFoundError:
+            data = {"version": 1, "attempts": []}
+        if not isinstance(data, dict) or data.get("version") != 1:
+            return "ledger_invalid"
+        active = cooling_sources(path, now)
+        failures = {key: stamp for key, stamp in data.get("failures", {}).items() if key in active}
+        failures.update({_source_id(source): now for source in sources})
+        data.update(failures=failures, failure_scope=[MODEL_ID, PROMPT_VERSION])
+        write_atomic(data, path)
+    except (OSError, ValueError, TypeError):
+        return "ledger_unavailable"
+    return None

@@ -243,7 +243,9 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn('class="story-point-text">Điểm một</span>', document)
         self.assertIn('class="story-point-text">Điểm hai</span>', document)
         self.assertIn(f'{BASE_URL}/og-image.png', document)
-        self.assertNotIn('class="story-summary-box"', document)
+        self.assertLess(document.index('class="story-keypoints-box"'), document.index('class="story-summary-box"'))
+        self.assertIn('Tóm tắt bằng AI từ phần nội dung bài gốc đọc được.', document)
+        self.assertIn('class="story-summary-text">Tóm tắt tiếng Việt.</p>', document)
         # When key points exist, gateway description notes AI summarization
         self.assertIn('ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
 

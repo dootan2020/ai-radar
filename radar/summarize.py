@@ -51,6 +51,14 @@ def main(argv=None):
 
     cache = gemini.load_cache(args.cache)
     before_cache = dict(cache)
+    article_inputs_path = Path(args.cache).with_name("summary-article-inputs.json")
+    try:
+        article_inputs = json.loads(article_inputs_path.read_text(encoding="utf-8"))
+        if not isinstance(article_inputs, dict):
+            article_inputs = {}
+    except (OSError, ValueError):
+        article_inputs = {}
+    before_article_inputs = dict(article_inputs)
     try:
         stored_failures = json.loads(Path(article_failures_path).read_text(encoding="utf-8"))
         if not isinstance(stored_failures, dict):
@@ -62,7 +70,7 @@ def main(argv=None):
             and re.fullmatch(r"[0-9a-f]{64}", key)
             and isinstance(value, dict)
             and set(value) == {"reason", "time"}
-            and value.get("reason") in {"robots", "redirect", "non_html", "too_short", "paywall", "error"}
+            and value.get("reason") in {"robots", "redirect", "non_html", "too_short", "paywall", "error", "input_limit", "validation_rejected", "generation_failed"}
             and isinstance(value.get("time"), (int, float))
         }
     except (OSError, ValueError):
@@ -78,6 +86,7 @@ def main(argv=None):
             payload,
             cache,
             article_failures=article_failures,
+            article_inputs=article_inputs,
             ledger_path=ledger_path,
             script_path=args.script_path,
             budget=args.budget,
@@ -93,6 +102,17 @@ def main(argv=None):
         payload["summary"] = stats
         alive = False
 
+    article_inputs_written = article_inputs != before_article_inputs
+    if article_inputs_written:
+        try:
+            current_time = time.time()
+            article_inputs = {key: value for key, value in article_inputs.items()
+                              if isinstance(value, dict) and type(value.get("time")) in (int, float)
+                              and 0 <= current_time - value["time"] < summary_pipeline.ARTICLE_FAILURE_TTL}
+            write_atomic(article_inputs, article_inputs_path)
+        except Exception:
+            article_inputs_written = False
+            stats.setdefault("persistence_errors", []).append("article_inputs_cache_write_failed")
     cache_written = cache != before_cache
     if cache_written:
         try:
@@ -119,7 +139,8 @@ def main(argv=None):
             with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8", newline="\n") as stream:
                 stream.write(f"summary_cache_written={str(cache_written).lower()}\n"
                              f"summary_ledger_written={str(ledger_written).lower()}\n"
-                             f"article_failures_written={str(article_failures_written).lower()}\n")
+                             f"article_failures_written={str(article_failures_written).lower()}\n"
+                             f"article_inputs_written={str(article_inputs_written).lower()}\n")
         except OSError:
             stats.setdefault("persistence_errors", []).append("workflow_output_write_failed")
 
@@ -138,6 +159,8 @@ def main(argv=None):
           f"{stats.get('requests', 0)} requests, "
           f"{stats.get('cache_hits', 0)} cache hits, {stats.get('pending', 0)} pending, "
           f"{stats.get('tokens', 0)} tokens"
+          f", {stats.get('trimmed', 0)} trimmed, {stats.get('skipped', 0)} skipped, "
+          f"{stats.get('rejected', 0)} rejected, {stats.get('input_chars', 0)} input chars"
           + (f" -- error: {stats['error']}" if stats.get("error") else ""))
     sys.stdout.flush()
 

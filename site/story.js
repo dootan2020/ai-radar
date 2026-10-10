@@ -213,8 +213,8 @@ export function renderKeyPointsHTML(keyPoints, publisherName = '') {
   `).join('');
 
   const sub = publisherName
-    ? `Tóm tắt bởi AI từ bài viết gốc của ${esc(publisherName)}`
-    : 'Tóm tắt bởi AI từ bài viết gốc';
+    ? `Tóm tắt bằng AI từ phần nội dung đọc được của ${esc(publisherName)}`
+    : 'Tóm tắt bằng AI từ phần nội dung bài gốc đọc được';
 
   return `
     <section class="story-keypoints-box" aria-label="Ý chính của câu chuyện">
@@ -483,7 +483,8 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
 
       <div class="story-body-grid">
         <div class="story-col-main">
-          ${hasKp ? renderKeyPointsHTML(story.key_points, name) : renderFallbackBodyHTML(story, name)}
+          ${hasKp ? renderKeyPointsHTML(story.key_points, name) : ''}
+          ${renderFallbackBodyHTML(story, name)}
         </div>
         <div class="story-col-aside">
           ${mediaHTML}

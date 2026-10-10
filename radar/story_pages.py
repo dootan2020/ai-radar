@@ -206,9 +206,10 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
                            for point in fields["key_points"])
     fallback_content = (f'<section class="story-keypoints-box" aria-label="Ý chính của câu chuyện">'
                         f'<h2 class="story-section-h2">Ý chính của câu chuyện</h2>'
+                        f'<p class="story-section-sub">Tóm tắt bằng AI từ phần nội dung bài gốc đọc được.</p>'
                         f'<ol class="story-points-list">{points_html}</ol></section>'
-                        if points_html else
-                        f'<section class="story-summary-box" aria-label="Đoạn trích bài viết">'
+                        if points_html else '')
+    fallback_content += (f'<section class="story-summary-box" aria-label="Đoạn trích bài viết">'
                         f'<h2 class="story-section-h2">Đoạn trích bài viết</h2>'
                         f'<p class="story-summary-text">{esc(fields["summary"] or fields["title"])}</p></section>')
     gateway_desc = ('ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.'
