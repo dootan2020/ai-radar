@@ -123,12 +123,22 @@ def transport(body, api_key, timeout):
         raise ProviderError("malformed_response") from None
 
 
-def request_body(items):
+def estimated_output_tokens(items):
+    """Upper bound on output tokens for a batch of title items.
+
+    Each translated item produces an id, JSON wrapper, and Vietnamese title
+    (roughly 50-80 tokens per item), plus low-level thinking tokens.
+    """
+    return min(MAX_OUTPUT_TOKENS, max(512, len(items) * 80 + 256))
+
+
+def request_body(items, max_output_tokens=MAX_OUTPUT_TOKENS):
+    output_ceiling = max_output_tokens if max_output_tokens is not None else estimated_output_tokens(items)
     return {
         "systemInstruction": {"parts": [{"text": SYSTEM_INSTRUCTION}]},
         "contents": [{"role": "user", "parts": [{"text": json.dumps({"items": items}, ensure_ascii=False)}]}],
         "generationConfig": {
-            "thinkingConfig": {"thinkingLevel": "low"}, "maxOutputTokens": MAX_OUTPUT_TOKENS,
+            "thinkingConfig": {"thinkingLevel": "low"}, "maxOutputTokens": output_ceiling,
             "responseMimeType": "application/json",
             "responseJsonSchema": {
                 "type": "object", "required": ["translations"], "additionalProperties": False,

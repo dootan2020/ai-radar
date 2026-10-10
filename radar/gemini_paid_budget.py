@@ -334,14 +334,47 @@ def _micros(tokens: int, now: float) -> int:
 def _consumer_remaining(store, now, *, exclude_run=None):
     day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
     amounts = store.get("settled_consumers", {}).get(day, {})
-    # Legacy spend before consumer attribution was incurred entirely by translation
-    # and summary workflows; video had no legacy spend. Interrupted holds have unknown
-    # attribution and remain conservatively charged against every consumer.
+    # Legacy spend before consumer attribution was incurred by translation
+    # and summary workflows; video had no legacy spend. Distribute legacy spend
+    # proportionally between translation and summary according to their quota ratio
+    # (40k vs 100k tokens), without double-counting against either.
     legacy = max(0, store["settled_daily"].get(day, 0) - sum(amounts.values()))
     pending = sum(value for key, value in store["pending"].items()
                   if key != exclude_run and store["pending_days"].get(key) == day)
-    return {name: max(0, _micros(tokens, now) - amounts.get(name, 0) - pending
-                      - (0 if name == "video" else legacy))
+
+    legacy_base = CONSUMER_TOKENS["translation"] + CONSUMER_TOKENS["summary"]
+    legacy_trans = min(_micros(CONSUMER_TOKENS["translation"], now),
+                       int(legacy * CONSUMER_TOKENS["translation"] / legacy_base))
+    legacy_summary = min(_micros(CONSUMER_TOKENS["summary"], now),
+                         legacy - legacy_trans)
+    legacy_video = max(0, legacy - legacy_trans - legacy_summary)
+    legacy_amounts = {
+        "translation": legacy_trans,
+        "summary": legacy_summary,
+        "video": legacy_video,
+    }
+
+    # Interrupted run holds have unknown attribution. Distribute pending holds
+    # proportionally across consumers according to their quotas rather than
+    # charging the entire hold against each consumer (which would exceed translation's daily budget).
+    total_tokens = sum(CONSUMER_TOKENS.values())
+    pending_trans = min(_micros(CONSUMER_TOKENS["translation"], now),
+                        int(pending * CONSUMER_TOKENS["translation"] / total_tokens))
+    pending_summary = min(_micros(CONSUMER_TOKENS["summary"], now),
+                          int(pending * CONSUMER_TOKENS["summary"] / total_tokens))
+    pending_video = min(_micros(CONSUMER_TOKENS["video"], now),
+                        pending - pending_trans - pending_summary)
+    unallocated_pending = pending - (pending_trans + pending_summary + pending_video)
+    if unallocated_pending > 0:
+        pending_summary += unallocated_pending
+    pending_amounts = {
+        "translation": pending_trans,
+        "summary": pending_summary,
+        "video": pending_video,
+    }
+
+    return {name: max(0, _micros(tokens, now) - amounts.get(name, 0)
+                      - pending_amounts.get(name, 0) - legacy_amounts.get(name, 0))
             for name, tokens in CONSUMER_TOKENS.items()}
 
 

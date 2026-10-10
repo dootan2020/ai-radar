@@ -145,6 +145,23 @@ GLOSSARY = [
     (r"\btokens?\b", [
         (r"mã thông báo|\bthẻ\b", "token"),
     ]),
+    (r"\bchilling[- ]effect\b", [
+        (r"(?:tác động|hiệu ứng)\s+làm\s+lạnh", "hiệu ứng răn đe"),
+    ]),
+    (r"\bworkloads?\b", [
+        (r"tải trọng làm việc|khối lượng tải trọng|tải làm việc", "khối lượng công việc"),
+    ]),
+    (r"\b(?:tech(?:nology)?|infrastructure|software)?\s*stack\b", [
+        (r"bộ sưu tập cơ sở hạ tầng", "ngăn xếp cơ sở hạ tầng"),
+        (r"bộ sưu tập công nghệ", "ngăn xếp công nghệ"),
+        (r"bộ sưu tập", "ngăn xếp"),
+    ]),
+    (r"\bAI supremacy\b", [
+        (r"sự cao cấp của AI", "vị thế thống trị AI"),
+    ]),
+    (r"\braises?\s+(?:[A-Za-z0-9_-]+\s+)*(?:funding|capital|round|Series\s+[A-Z]|seed)\b", [
+        (r"tăng quỹ", "gọi vốn"),
+    ]),
 ]
 _GLOSSARY = [(re.compile(src, re.IGNORECASE), [(re.compile(vi, re.IGNORECASE), out) for vi, out in fixes])
              for src, fixes in GLOSSARY]
