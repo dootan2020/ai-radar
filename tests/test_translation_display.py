@@ -124,6 +124,15 @@ class TranslationDisplayTests(unittest.TestCase):
         self.assertIn('<span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span>', self.feed_js)
         self.assertIn('<span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span>', self.feed_js)
 
+    def test_feed_original_hint_is_clamped_with_inline_baseline_attribution(self):
+        original_rule = self.feed_css.split('.card-orig {', 1)[1].split('}', 1)[0]
+        for declaration in ('display: -webkit-box', '-webkit-box-orient: vertical',
+                            '-webkit-line-clamp: 2', 'overflow: hidden'):
+            self.assertIn(declaration, original_rule)
+        chip_rule = self.feed_css.split('.card-orig .mt {', 1)[1].split('}', 1)[0]
+        self.assertIn('display: inline-block', chip_rule)
+        self.assertIn('vertical-align: baseline', chip_rule)
+
     def test_feed_chip_style_uses_google_translate_colors_everywhere(self):
         # The chip uses Google Translate colors (--color-mt-bg, --color-mt-ink) everywhere,
         # without being overridden on photo cards.

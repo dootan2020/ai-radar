@@ -50,11 +50,36 @@ return {titleOf, pickImage, renderCard, renderHot, pickRow, watchPictures, media
 });
 feed.configure([story]);
 assert.deepEqual(feed.titleOf(story), {text:story.headline_vi, orig:story.title, cov:null});
+// Unillustrated stories describe their existing category, never advertise a raw host.
+for (const [kind, label] of [['research', 'Nghiên cứu'], ['product', 'Sản phẩm'], ['unknown', 'Bài viết']]) {
+  const item = {...story, id:`cover-${kind}`, kind, url:'https://aws.amazon.com/blogs/machine-learning/example', coverage:[]};
+  feed.configure([item]);
+  const cover = feed.pickImage(item).cover;
+  assert.equal(cover.word, label);
+  assert.equal(cover.num, null, 'a category cover does not invent a measurement');
+  assert.ok(!feed.mediaHTML(feed.pickImage(item), 'std').includes('aws.amazon.com'));
+}
+feed.configure([story]);
+assert.equal(feed.pickImage(story).cover.num, '10', 'real measured evidence keeps precedence over the category');
 const coverageTranslated = {...story, title_vi:undefined};
 assert.equal(feed.titleOf(coverageTranslated).text, story.coverage[0].headline_vi);
 assert.equal(feed.titleOf(coverageTranslated).orig, story.coverage[0].title);
 assert.equal(feed.titleOf(coverageTranslated).cov, story.coverage[0]);
 assert.equal(feed.titleOf({...story, title_vi:undefined, coverage:[]}).text, story.headline);
+
+// Visual clamping must never shorten the text available to readers opening a story or using assistive tech.
+const longOriginal = {...story, title:'A long original with evidence and context. '.repeat(30).trim()};
+feed.configure([longOriginal]);
+for (const [size, opts] of [['std', {}], ['lead', {}], ['wide', {}], ['std', {debate:true}]]) {
+  const html = feed.renderCard(longOriginal, size, opts);
+  assert.match(html, /<span class="sr" lang="vi">Bản dịch máy\. Tiêu đề gốc: <\/span>/);
+  assert.ok(html.includes(`<span class="orig-text" lang="en">${longOriginal.title}</span>`),
+    `${size} original remains complete and accessible`);
+}
+for (const options of [{isModal:true}, {isPage:true}]) {
+  assert.ok(renderStoryHTML(longOriginal, new Map(), options).includes(longOriginal.title),
+    'story views retain the complete original');
+}
 
 // Each old provider is a real candidate, not merely absent from the input.
 const candidates = [
