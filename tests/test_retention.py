@@ -106,7 +106,7 @@ class RetentionUnitTests(unittest.TestCase):
         self.assertEqual(carried_story["coverage"][0]["id"], "cov-old-1-0")
 
     def test_story_present_in_published_is_carried_while_baseline_is_not(self):
-        old_story = _make_story("pub-only", "Published article", "https://news.example/pub", "2026-10-02T10:00:00Z")
+        old_story = _make_story("pub-only", "Published AI article", "https://news.example/pub", "2026-10-02T10:00:00Z")
         published = {
             "schema_version": 2,
             "generated_at": "2026-10-03T12:00:00Z",
@@ -115,7 +115,7 @@ class RetentionUnitTests(unittest.TestCase):
         baseline = {
             "schema_version": 2,
             "generated_at": "2026-10-03T12:00:00Z",
-            "stories": [_make_story("base-only", "Baseline article", "https://news.example/base", "2026-10-02T10:00:00Z")],
+            "stories": [_make_story("base-only", "Baseline AI article", "https://news.example/base", "2026-10-02T10:00:00Z")],
         }
         # In retain_stories directly:
         res_pub = retain_stories([], published, self.now)
