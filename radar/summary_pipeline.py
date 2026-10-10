@@ -21,6 +21,9 @@ from radar import summary_gemini as gemini
 from radar import gemini_paid_budget
 from radar import shadow_collector, transport
 from radar.common import web_url
+from radar.summary_sources import (source_record, primary_link, fit_inputs, clear_summary,
+                                   publish_summary, SELECTION_VERSION)
+from radar.summary_validation import validate_summary
 from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
 
 # Capitalized entities pattern (e.g. OpenAI, DeepSeek, Claude, Apple, Google, macOS)
@@ -38,34 +41,68 @@ PAYWALL_TEXT = re.compile(
 
 
 class _ArticleTextParser(HTMLParser):
-    """Collect semantic regions and explicitly labelled publisher article bodies."""
+    """Preserve paragraph boundaries and in-body links, excluding publisher furniture."""
 
-    def __init__(self):
+    BLOCKS = {"p", "li", "h1", "h2", "h3", "h4", "blockquote", "figcaption", "tr", "div"}
+
+    def __init__(self, prefer_body=False, prefer_article=False, article_depth=1):
         super().__init__(convert_charrefs=True)
-        self.stack = []
-        self.parts = []
+        self.stack, self.parts, self.links, self.buffer = [], [], [], []
+        self.anchor = None
+        self.prefer_body, self.has_body = prefer_body, False
+        self.prefer_article, self.has_article = prefer_article, False
+        self.article_depth, self.max_article_depth = article_depth, 0
+
+    def flush(self):
+        value = " ".join("".join(self.buffer).split())
+        if value:
+            self.parts.append(value)
+        self.buffer = []
 
     def handle_starttag(self, tag, attrs):
         if tag in {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}:
+            if tag == "br":
+                self.buffer.append(" ")
             return
         attrs = dict(attrs)
-        readable = tag in {"article", "main"} or (
+        if tag in self.BLOCKS:
+            self.flush()
+        body = "entry-content" in attrs.get("class", "").split() or (
             attrs.get("data-framer-name") == "Blog content"
             and attrs.get("data-framer-component-type") == "RichTextContainer")
-        skipped = tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"}
+        self.has_body |= body
+        self.has_article |= tag == "article"
+        depth = sum(t == "article" for t, _, _ in self.stack) + (tag == "article")
+        self.max_article_depth = max(self.max_article_depth, depth)
+        readable = body or (not self.prefer_body and (
+            (tag == "article" and depth >= self.article_depth)
+            or (tag == "main" and not self.prefer_article)))
+        classes = attrs.get("class", "") + " " + attrs.get("id", "")
+        skipped = tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"} or bool(
+            re.search(r"(?:^|[ _-])(?:related|recommended|advertisement|author-bio|newsletter|cookie|social-share)(?:$|[ _-])", classes, re.I))
         self.stack.append((tag, readable, skipped))
+        if tag == "a" and self.readable():
+            self.anchor = [attrs.get("href", ""), ""]
+
+    def readable(self):
+        return not any(skip for _, _, skip in self.stack) and any(read for _, read, _ in self.stack)
 
     def handle_endtag(self, tag):
+        if tag in self.BLOCKS or tag in {"article", "main"}:
+            self.flush()
+        if tag == "a" and self.anchor:
+            self.links.append(tuple(self.anchor))
+            self.anchor = None
         for index in range(len(self.stack) - 1, -1, -1):
             if self.stack[index][0] == tag:
                 del self.stack[index:]
                 break
 
     def handle_data(self, data):
-        if not any(skipped for _, _, skipped in self.stack) and any(readable for _, readable, _ in self.stack):
-            value = " ".join(data.split())
-            if value:
-                self.parts.append(value)
+        if self.readable():
+            self.buffer.append(data)
+            if self.anchor:
+                self.anchor[1] += data
 
 
 def _pandaily_article_html(html: str, url: str) -> str:
@@ -106,11 +143,30 @@ def article_url(story: dict) -> str | None:
     return url
 
 
+def parse_article(html, url):
+    """Prefer the labelled article body over a main region containing related news."""
+    parser = _ArticleTextParser()
+    parser.feed(html)
+    parser.flush()
+    if parser.has_body or parser.has_article:
+        parser = _ArticleTextParser(prefer_body=parser.has_body, prefer_article=True,
+                                    article_depth=parser.max_article_depth)
+        parser.feed(html)
+        parser.flush()
+    if not parser.parts:
+        article_html = _pandaily_article_html(html, url)
+        if article_html:
+            parser = _ArticleTextParser()
+            parser.feed("<article>" + article_html + "</article>")
+            parser.flush()
+    return parser
+
+
 def article_url_hash(url: str) -> str:
     return hashlib.sha256(url.encode("utf-8")).hexdigest()
 
 
-def fetch_article_result(story: dict, robots_cache: dict | None = None) -> tuple[str, str | None]:
+def fetch_article_result(story: dict, robots_cache: dict | None = None, *, details=None) -> tuple[str, str | None]:
     """Return article text and a safe skip reason, respecting robots.txt."""
     url = article_url(story)
     if not url:
@@ -142,22 +198,18 @@ def fetch_article_result(story: dict, robots_cache: dict | None = None) -> tuple
     if "html" not in getattr(response, "content_type", "").lower():
         return "", "non_html"
 
-    parser = _ArticleTextParser()
     try:
-        parser.feed(str(response))
-        if not parser.parts:
-            article_html = _pandaily_article_html(str(response), url)
-            if article_html:
-                parser = _ArticleTextParser()
-                parser.feed("<article>" + article_html + "</article>")
+        parser = parse_article(str(response), url)
     except Exception:
         return "", "error"
-    text = " ".join(parser.parts)
+    text = "\n".join(parser.parts)
     if PAYWALL_TEXT.search(text):
         return "", "paywall"
     if len(text) < MIN_ARTICLE_TEXT_CHARS:
         return "", "too_short"
-    return text[:gemini.MAX_ARTICLE_TEXT_CHARS], None
+    if details is not None:
+        details["links"] = parser.links
+    return text, None
 
 
 def fetch_article_text(story: dict, robots_cache: dict | None = None) -> str:
@@ -202,39 +254,62 @@ def story_inputs(story: dict) -> dict[str, Any]:
 
 
 def article_signature(story):
-    return content_hash({key: story.get(key) for key in ("id", "url", "title", "summary")})
+    stable = {key: story.get(key) for key in ("id", "url", "title", "summary")}
+    stable["coverage"] = sorted([
+        {key: c.get(key) for key in ("url", "title", "summary", "publisher")}
+        for c in story.get("coverage") or [] if isinstance(c, dict)
+    ], key=lambda c: json.dumps(c, sort_keys=True))
+    return content_hash(stable)
 
 
 def content_hash(inputs: dict[str, Any]) -> str:
-    """Stable SHA-256 hash of the story inputs for content-based caching."""
-    serialized = json.dumps(inputs, sort_keys=True, ensure_ascii=False)
+    """Identity includes model/prompt/selection and every source hash, excluding fetch time."""
+    def stable(value):
+        if isinstance(value, dict):
+            return {k: stable(v) for k, v in value.items() if k != "fetched_at"}
+        if isinstance(value, list):
+            return [stable(v) for v in value]
+        return value
+    serialized = json.dumps([gemini.MODEL_ID, gemini.PROMPT_VERSION, SELECTION_VERSION, gemini.SYSTEM_INSTRUCTION, gemini.OUTPUT_SCHEMA, stable(inputs)],
+                            sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
 
 def fit_story_inputs(inputs: dict[str, Any], max_chars: int) -> dict[str, Any] | None:
-    """Keep article evidence ahead of duplicate feed text and volatile metrics.
+    return fit_inputs(inputs, max_chars)
 
-    Hash and validate exactly what the model sees. Coverage metrics describe
-    reader attention, not article facts, and must not invalidate this cache.
-    """
-    fitted = {key: inputs[key] for key in ("id", "title", "article_text")}
-    fitted["title"] = fitted["title"][:400]
-    article = fitted["article_text"][:gemini.MAX_ARTICLE_TEXT_CHARS]
-    fitted["article_text"] = ""
-    # JSON escaping can make the serialized input larger than the raw text.
-    low, high = 0, len(article)
-    while low < high:
-        mid = (low + high + 1) // 2
-        fitted["article_text"] = article[:mid]
-        if len(json.dumps(fitted, ensure_ascii=False)) <= max_chars:
-            low = mid
-        else:
-            high = mid - 1
-    fitted["article_text"] = article[:low].rstrip()
-    if (len(fitted["article_text"]) < MIN_ARTICLE_TEXT_CHARS
-            or len(json.dumps(fitted, ensure_ascii=False)) > max_chars):
-        return None
-    return fitted
+
+def collect_inputs(story, article_text, links, robots_cache, *, fetch_primary=True, fetched_at=""):
+    url = article_url(story) or ""
+    publisher = next((c.get("publisher") for c in story.get("coverage") or []
+                      if isinstance(c, dict) and c.get("url") == url and c.get("publisher")), "")
+    outlet = source_record("outlet", "outlet", url, str(story.get("title") or ""), publisher,
+                           article_text, fetched_at=fetched_at)
+    outlet["published_at"] = story.get("published_at")
+    sources = [outlet]
+    primary = primary_link(links, url, str(story.get("title") or ""), article_text)
+    missing_primary = bool(primary)
+    if primary and fetch_primary:
+        text, reason = fetch_article_result({"url": primary}, robots_cache=robots_cache)
+        if text and not reason:
+            sources.append(source_record("primary", "primary", primary, "", "", text, fetched_at=fetched_at))
+            missing_primary = False
+    seen = {source["url"] for source in sources}
+    for coverage in story.get("coverage") or []:
+        if not isinstance(coverage, dict):
+            continue
+        target = web_url(coverage.get("url"))
+        text = str(coverage.get("summary") or "").strip()
+        if not target or target in seen or not text or text in article_text:
+            continue
+        seen.add(target)
+        sources.append(source_record(f"coverage{sum(s['role'] == 'coverage' for s in sources) + 1}",
+                                     "coverage", target, str(coverage.get("title") or ""),
+                                     str(coverage.get("publisher") or ""), text, excerpt=True))
+        if sum(s["role"] == "coverage" for s in sources) == 2:
+            break
+    return {"id": str(story.get("id") or ""), "sources": sources, "missing_primary": missing_primary,
+            "linked_primary": {"url": primary, "name": urlsplit(primary).hostname} if primary else None}
 
 
 def is_thin_story(inputs: dict[str, Any]) -> bool:
@@ -290,7 +365,7 @@ def extract_source_entities(inputs: dict[str, Any]) -> set[str]:
             texts.append(pub.replace("-", " ").title())
 
     full_text = " ".join(texts)
-    entities = set(re.findall(r"[a-zA-Z][a-zA-Z0-9_.+-]*", full_text.lower()))
+    entities = {token.strip("._+-") for token in re.findall(r"[a-zA-Z][a-zA-Z0-9_.+-]*", full_text.lower())}
     for match in ENTITY_TOKEN.finditer(full_text):
         ent = match.group().strip()
         if ent:
@@ -436,7 +511,7 @@ def is_in_ranking_window(story: dict, gen_dt: datetime, window_hours: float) -> 
 
 
 def summarize_payload(payload: dict,
-                      cache: dict[str, list[str]],
+                      cache: dict[str, dict],
                       *,
                       config: gemini.Config | None = None,
                       transport_fn=None,
@@ -462,11 +537,9 @@ def summarize_payload(payload: dict,
     article_inputs = article_inputs if article_inputs is not None else {}
     stories = payload.get("stories") or []
     for story in stories:
-        if isinstance(story, dict) and story.get("key_points_prompt_version") != gemini.PROMPT_VERSION:
-            story.pop("key_points", None)
-            story.pop("key_points_machine", None)
-            story.pop("key_points_source", None)
-            story.pop("key_points_prompt_version", None)
+        if isinstance(story, dict):
+            # Restore only from validated evidence, never stale retained public fields.
+            clear_summary(story)
 
     # Ranking window matching site/feed.js:
     # winH = Number(D.ranking && D.ranking.window_hours);
@@ -545,14 +618,13 @@ def summarize_payload(payload: dict,
             continue
         stamp, inputs = entry.get("time"), entry.get("inputs")
         if (type(stamp) not in (int, float) or not 0 <= request_now - stamp < ARTICLE_FAILURE_TTL
-                or not isinstance(inputs, dict) or not isinstance(inputs.get("article_text"), str)):
+                or not isinstance(inputs, dict) or not isinstance(inputs.get("sources"), list)):
             continue
         cached = cache.get(content_hash(inputs))
         if cached:
-            points, _ = validate_key_points(inputs, cached)
+            points, _ = validate_summary(inputs, cached)
             if points:
-                story.update(key_points=points, key_points_machine=True,
-                             key_points_source="machine", key_points_prompt_version=gemini.PROMPT_VERSION)
+                publish_summary(story, points, inputs, gemini.PROMPT_VERSION)
                 stats["cache_hits"] += 1
                 restored.add(id(story))
     if eligible_stories and len(restored) == len(eligible_stories):
@@ -619,8 +691,9 @@ def summarize_payload(payload: dict,
                 continue
             article_failures.pop(url_hash, None)
             article_failures.pop(article_signature(story), None)
+        details = {}
         if article_fetch_fn is fetch_article_text:
-            article_text, skip_reason = fetch_article_result(story, robots_cache=shared_robots_cache)
+            article_text, skip_reason = fetch_article_result(story, robots_cache=shared_robots_cache, details=details)
         else:
             try:
                 article_text = article_fetch_fn(story, robots_cache=shared_robots_cache)
@@ -637,9 +710,9 @@ def summarize_payload(payload: dict,
             story.pop("key_points_machine", None)
             story.pop("key_points_source", None)
             continue
-        story["_summary_article_text"] = article_text[:gemini.MAX_ARTICLE_TEXT_CHARS]
-        inputs = story_inputs(story)
-        story.pop("_summary_article_text", None)
+        inputs = collect_inputs(story, article_text, details.get("links", []), shared_robots_cache,
+                                fetch_primary=budget - (clock() - started) >= MIN_REQUEST_TIMEOUT,
+                                fetched_at=datetime.fromtimestamp(failure_now, timezone.utc).isoformat())
         fitted = fit_story_inputs(inputs, config.max_chars)
         if fitted is None:
             if url_hash:
@@ -660,12 +733,9 @@ def summarize_payload(payload: dict,
         # Check content cache
         cached = cache.get(chash)
         if cached:
-            valid_pts, reason = validate_key_points(inputs, cached)
+            valid_pts, reason = validate_summary(inputs, cached)
             if valid_pts:
-                story["key_points"] = valid_pts
-                story["key_points_machine"] = True
-                story["key_points_source"] = "machine"
-                story["key_points_prompt_version"] = gemini.PROMPT_VERSION
+                publish_summary(story, valid_pts, inputs, gemini.PROMPT_VERSION)
                 stats["cache_hits"] += 1
                 continue
             else:
@@ -712,6 +782,8 @@ def summarize_payload(payload: dict,
     # Reserve input tokens plus the full output ceiling and fixed prompt overhead.
     request_body = gemini.request_body(batch_items)
     stats["input_chars"] = batch_chars
+    stats["input_bytes"] = len(gemini.encode_request(request_body))
+    stats["source_chars"] = sum(len(p["text"]) for item in batch_items for source in item["sources"] for p in source["paragraphs"])
     estimated_toks = len(gemini.encode_request(request_body)) + gemini.MAX_OUTPUT_TOKENS
     paid_reservation = None
     reserve_err = None if config.paid else summary_budget.reserve(
@@ -784,12 +856,9 @@ def summarize_payload(payload: dict,
 
         candidate_pts = outputs.get(sid)
         if candidate_pts:
-            valid_pts, reason = validate_key_points(story_info["inputs"], candidate_pts)
+            valid_pts, reason = validate_summary(story_info["inputs"], candidate_pts)
             if valid_pts:
-                story_obj["key_points"] = valid_pts
-                story_obj["key_points_machine"] = True
-                story_obj["key_points_source"] = "machine"
-                story_obj["key_points_prompt_version"] = gemini.PROMPT_VERSION
+                publish_summary(story_obj, valid_pts, story_info["inputs"], gemini.PROMPT_VERSION)
                 cache[story_h] = valid_pts
                 stats["summarized"] += 1
                 if story_info["url_hash"]:

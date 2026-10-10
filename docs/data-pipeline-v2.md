@@ -210,20 +210,38 @@ Gemini wording quality or make real API calls.
 ## Article-backed Vietnamese summaries
 
 [The summary step](../radar/summarize.py) is separate from excerpt translation.
-`summary_vi` remains a translation of the publisher's excerpt; `key_points`
-contains 3–5 distinct Vietnamese points drawn from readable article text,
-targeting 80–140 words in total when the source supports that detail. Claims,
-numbers, limitations and attribution must come from the supplied text. The
-first 3,800 article characters are the maximum evidence window, not a claim
-to have read the whole article. Robots, paywall, redirect and short-text skips
-remain enforced; a headline alone never becomes an article summary.
+`summary_vi` remains a translation of the publisher's excerpt. The
+`summary-vi-5-full` contract on `gemini-3.8-flash` generates one full summary:
+4–8 standalone Vietnamese points, with no short form or separate takeaway.
+Dense investigations target 7–8 points, ordinary reports 5–6, and brief
+announcements 4; insufficient body evidence must not be padded. The
+[system prompt](../radar/summary-system-prompt.txt) and
+[JSON schema](../radar/summary-output-schema.json) are the executable contract.
+Generation uses one story, low thinking and a 4,096-output-token ceiling.
+The response contains an evidence-bound editorial title, points, used source IDs,
+limitations and a ready/insufficient-evidence status. It never supplies URLs.
+`editorial_headline_vi` is separate from the complete `title_vi` translation.
+
+[Evidence selection](../radar/summary_sources.py) keeps whole paragraphs across
+the article, prioritizing openings, endings, limits, responses and results.
+The outlet window is 8,000 characters; one linked official primary post may
+contribute up to 10,000. Up to two distinct coverage excerpts contribute up to
+1,500 each, within a 16,000-character shared source cap and a 24,000-character
+serialized story cap. The primary must be an in-body HTTPS link to a detailed
+post on a supported official host; no search or model browsing discovers sources.
+A blocked primary retains its discovered source link with `missing_primary`,
+without pretending its body was read. Paragraph omissions set `partial_source`.
+Robots, paywall, redirect and short-text skips remain enforced; a headline or
+publisher excerpt alone never becomes a full summary.
 
 The reader fetches robots.txt with the same honest `AI-Radar` user agent as
 article requests. Parsed rules are cached per origin, but permission is checked
 for each article path. HTTP 401/403, other unavailable rules and redirects
 remain blocked; a 404 permits reading. The extractor reads semantic
 `article`/`main` regions, explicitly labelled Framer blog content, and Pandaily's
-matching public post body from Remix loader data. Embedded data is parsed as
+matching public post body from Remix loader data. Labelled `entry-content` takes
+precedence over a surrounding `main` that also contains authors or unrelated
+news; otherwise the innermost semantic `article` is preferred. Embedded data is parsed as
 JSON, never executed, and must match the requested publisher and article slug.
 
 The [offline article fixtures](../tests/fixtures/summary-articles/index.json)
@@ -233,14 +251,27 @@ and excluded navigation/recommendation regions used by the extraction tests.
 Publisher URLs remain only to exercise host and slug matching; these fixtures
 contain no captured publisher prose and do not establish live source health.
 
-[Input preparation](../radar/summary_pipeline.py) admits the highest-worth
-eligible story first, breaking ties by newest publication time within the
-ranking window. It keeps article text and a bounded title, omits duplicate
-coverage and volatile engagement metrics, and trims against the actual JSON
-character length before queueing. An input that cannot retain at least 300
-article characters is skipped with `skipped_reasons.input_limit`; it does not
-block the next story. Cache identity and validation use the exact fitted
-input. The prompt version invalidates incompatible old cache entries.
+[Input preparation](../radar/summary_pipeline.py) prioritizes paid work using
+the shared reader order: editor picks, promoted stories, hot leaders, then worth
+and recency. The free route uses worth and recency within the ranking window.
+No ranking or budget constants change. An input that cannot retain at least
+300 article characters is skipped with `skipped_reasons.input_limit`.
+Cache identity includes the fitted evidence, all source hashes, source links,
+selection version, model, prompt version, prompt text and schema. Fetch time
+alone does not invalidate an otherwise identical input.
+
+[Validation](../radar/summary_validation.py) checks exact schema and IDs, 4–8
+nonduplicate points, complete responses, lengths, safe markup and source/ref
+consistency. Facts must cite supplied body paragraphs; headlines and engagement
+metrics cannot license body facts. Checks reject unsupported names and numbers,
+known number/unit and funding/valuation swaps, selected polarity errors, missing
+replay qualifications, English connective prose and long verbatim overlaps.
+Grounded English proper nouns, GPU punctuation, numeric notation such as
+`7.5 billion` to `7,5 tỷ`, and `a third` to `một phần ba` are supported.
+These deterministic checks are not a general semantic verifier: attribution,
+conflicts, translated names and novel relations still need live editorial review.
+The prompt requires independent paraphrasing and limits direct quotations;
+passing a regex is not a copyright or factuality guarantee.
 
 There is at most one new story per run, with one separately reserved retry
 only on HTTP 503. Free summaries retain the rolling 12-attempt/25,000-token
@@ -253,7 +284,8 @@ at most USD 0.375/day or USD 11.625/31 days. The shared USD 0.57 daily pace and
 USD 20 monthly cap always take precedence, including after rate changes.
 
 `summary-article-inputs.json` stores fitted article evidence for 24 hours keyed
-by ID, primary URL, title and excerpt. It is restored with the summary cache
+by ID, outlet URL, title, excerpt and coverage identity. Entries also require
+the current prompt version; old short/full caches cannot be restored. It is restored with the summary cache
 before credentials/quota gating; valid cached points for later stories are
 not blocked by the first uncached story. Changed source fields or expired
 evidence require fetching again. No raw article text enters the site payload.
@@ -286,7 +318,9 @@ The finalizer logs `Gemini paid pacing` JSON with `day`, `daily_micros`,
 ledger-USD. These conservative ledger figures are not Google's invoice.
 
 `summary` reports status, new summaries, cache hits, pending stories, requests,
-tokens, trimmed inputs, input characters, skip counts/reasons and rejections.
+tokens, trimmed inputs, input characters, exact request bytes, selected source
+characters, skip counts/reasons and rejections. Each CLI run also logs
+`Summary contract: summary-vi-5-full; model=gemini-3.8-flash; full=4-8 points; max_source_chars=16000; max_output_tokens=4096`.
 Missing credentials, missing route confirmation or a zero configuration limit
 report a safe error; restored cache can still provide points. Active work reports `ok`, `cache`, `partial` or `failed`.
 Budget exhaustion and unreadable sources legitimately produce no new summary.
@@ -301,8 +335,16 @@ title and publisher excerpt match; a rejected refresh removes old points.
 
 The shared [story renderer](../site/story.js) and
 [static HTML renderer](../radar/story_pages.py) show machine-labelled key points
-above the separate publisher excerpt, with a direct original-article link.
-Missing points leave an honestly labelled excerpt, never invented filler.
+with trusted outlet/primary source links and applicable source limitations.
+There are no reading-mode headings, toggles, short paragraphs or takeaway lines.
+A valid full summary replaces the excerpt in both modal and static reader views.
+Missing or obsolete summaries leave an honestly labelled “Đoạn trích bài viết”.
+Feed cards do not consume any generated summary fields. Public projection exposes
+only points, editorial headline, trusted source names/URLs, limitations and summary
+version/disclosure fields; source paragraphs and evidence refs stay in private
+cache inputs, never the site payload. No captured publisher text belongs in tests.
+The video request reserves its own output ceiling, independently of the larger
+article-summary ceiling.
 Offline examples and regression checks:
 `python -m pytest tests/test_summary.py tests/test_summary_examples.py tests/test_summary_display.py tests/test_story_pages.py tests/test_retention.py -q`.
 Offline stubs verify the path and guards, not Gemini's live editorial quality.

@@ -26,11 +26,22 @@ from radar import summarize
 from radar.site_payload import page_path, page_payload
 
 
+def editorial_row(sid, points, refs=None):
+    refs = refs or ["outlet:p001"]
+    claim = lambda text: {"text": text, "evidence_refs": refs}
+    return {"id": sid, "status": "ready", "title_vi": claim("Bài viết phân tích thay đổi và tác động tới người dùng"),
+            "key_points": [claim(point) for point in points],
+            "used_source_ids": ["outlet"], "limitations": []}
+
+
 def reply_summary(rows, tokens=350, finish="STOP"):
+    row = rows[0]
+    if set(row) == {"id", "key_points"}:
+        row = editorial_row(row["id"], row["key_points"])
     return {
         "candidates": [{
             "finishReason": finish,
-            "content": {"parts": [{"text": json.dumps({"summaries": rows}, ensure_ascii=False)}]}
+            "content": {"parts": [{"text": json.dumps(row, ensure_ascii=False)}]}
         }],
         "usageMetadata": {
             "promptTokenCount": 200,
@@ -60,11 +71,11 @@ class SummaryTests(unittest.TestCase):
         # Load real fixture for authentic story structure
         fixture_path = Path(__file__).parent / "fixtures" / "edition-real-snapshot.json"
         self.fixture_data = json.loads(fixture_path.read_text(encoding="utf-8"))
-        article = ("Apple thay đổi cách quản lý quyền truy cập Full Disk Access trên macOS. "
-                   "Các agent AI cần xin xác nhận trước khi đọc dữ liệu người dùng. "
-                   "Bài viết mô tả tác động của thay đổi tới ứng dụng và quy trình bảo mật. "
-                   "Tác giả giải thích vì sao yêu cầu xác nhận ảnh hưởng tới cách các agent vận hành, "
-                   "đồng thời nêu rõ quy trình mới tác động tới các ứng dụng và quyền truy cập.")
+        article = ("Apple changes Full Disk Access permissions on macOS. "
+                   "AI agents must ask for confirmation before reading user data. "
+                   "The article describes effects on applications and security procedures. "
+                   "The author explains why confirmation affects how agents operate and how the new "
+                   "permissions process changes access for applications and their users.")
         robots = patch.object(summary_pipeline.shadow_collector, "check_robots",
                               return_value={"robots_status": 200, "disallowed": False})
         robots.start()
@@ -85,8 +96,9 @@ class SummaryTests(unittest.TestCase):
         for s in parsed:
             pts = [
                 "Apple thay đổi cách quản lý quyền Full Disk Access trên macOS.",
-                "Agent AI cần xin xác nhận trước khi đọc dữ liệu người dùng.",
-                "Bài viết nêu tác động tới ứng dụng và quy trình bảo mật."
+                "Các agent AI cần xin xác nhận trước khi đọc dữ liệu người dùng.",
+                "Bài viết nêu tác động tới ứng dụng và quy trình bảo mật.",
+                "Tác giả phân tích ảnh hưởng của việc cấp quyền đối với các agent."
             ]
             rows.append({"id": s["id"], "key_points": pts})
         return reply_summary(rows, tokens=420)
@@ -199,11 +211,11 @@ class SummaryTests(unittest.TestCase):
 
         story = payload["stories"][0]
         self.assertIn("key_points", story)
-        self.assertEqual(len(story["key_points"]), 3)
+        self.assertEqual(len(story["key_points"]), 4)
         self.assertNotIn("_summary_article_text", story)
         request_stories = json.loads(self.calls[0][0]["contents"][0]["parts"][0]["text"])["stories"]
-        self.assertIn("article_text", request_stories[0])
-        self.assertIn("Apple thay đổi cách quản lý", request_stories[0]["article_text"])
+        self.assertIn("sources", request_stories[0])
+        self.assertIn("Apple changes Full Disk Access", request_stories[0]["sources"][0]["paragraphs"][0]["text"])
         self.assertTrue(story["key_points_machine"])
         self.assertEqual(story["key_points_source"], "machine")
         self.assertIn("Apple", story["key_points"][0])
@@ -434,7 +446,7 @@ class SummaryTests(unittest.TestCase):
             requested = json.loads(self.calls[-1][0]["contents"][0]["parts"][0]["text"])["stories"]
             self.assertEqual([s["id"] for s in requested], [expected])
             self.assertLessEqual(len(json.dumps(requested[0], ensure_ascii=False)), gemini.MAX_STORY_INPUT_CHARS)
-            self.assertGreaterEqual(len(requested[0]["article_text"]), 300)
+            self.assertGreaterEqual(sum(len(p["text"]) for p in requested[0]["sources"][0]["paragraphs"]), 300)
             self.assertEqual(stats["summarized"], 1)
             self.assertIsNone(stats["error"])
             self.assertNotEqual(stats["status"], "disabled")
@@ -457,11 +469,15 @@ class SummaryTests(unittest.TestCase):
         self.assertEqual(low["key_points_prompt_version"], gemini.PROMPT_VERSION)
 
     def test_json_escaping_and_tiny_limits_never_send_oversized_input(self):
-        inputs = {"id": "escaped", "title": "Article", "article_text": '\\"\n' * 2000}
-        fitted = summary_pipeline.fit_story_inputs(inputs, 900)
+        from radar.summary_sources import source_record
+        source = source_record("outlet", "outlet", "https://publisher.example/a", "Article", "Publisher",
+                               ('A quoted "detail" in a complete paragraph. ' * 9 + "\n") * 4)
+        inputs = {"id": "escaped", "sources": [source]}
+        fitted = summary_pipeline.fit_story_inputs(inputs, 1800)
         self.assertIsNotNone(fitted)
-        self.assertLessEqual(len(json.dumps(fitted, ensure_ascii=False)), 900)
-        self.assertTrue(inputs["article_text"].startswith(fitted["article_text"]))
+        self.assertLessEqual(len(json.dumps(fitted, ensure_ascii=False)), 1800)
+        self.assertFalse(fitted["sources"][0]["body_complete"])
+        self.assertTrue(all(p in source["paragraphs"] for p in fitted["sources"][0]["paragraphs"]))
         self.assertIsNone(summary_pipeline.fit_story_inputs(inputs, 100))
 
     def test_unfit_only_story_is_partial_with_reason_not_disabled(self):
@@ -491,7 +507,7 @@ class SummaryTests(unittest.TestCase):
     def test_duplicate_points_and_facts_outside_fitted_input_are_rejected(self):
         inputs = {"id": "facts", "title": "Apple", "article_text": "Apple thay đổi quyền truy cập. " * 100,
                   "coverage": [{"metrics": {"likes": 987654}}]}
-        fitted = summary_pipeline.fit_story_inputs(inputs, 4500)
+        fitted = {key: inputs[key] for key in ("id", "title", "article_text")}
         points = ["Apple thay đổi quyền truy cập của ứng dụng."] * 3
         self.assertEqual(summary_pipeline.validate_key_points(fitted, points)[1], "duplicate_points")
         points[1:] = ["Các ứng dụng cần được cấp quyền truy cập.", "Thay đổi tác động tới 987654 người dùng."]
@@ -930,7 +946,8 @@ class SummaryTests(unittest.TestCase):
                     "key_points": [
                         "Ý thứ nhất xác thực về tin tức công nghệ trí tuệ nhân tạo.",
                         "Ý thứ hai mô tả diễn biến trong bài báo công nghệ trí tuệ nhân tạo.",
-                        "Ý thứ ba nêu tác động được đề cập trong bài viết gốc."
+                        "Ý thứ ba nêu tác động được đề cập trong bài viết gốc.",
+                        "Bài viết mô tả ảnh hưởng của sự kiện tới người dùng."
                     ]
                 })
             return reply_summary(rows, tokens=300)

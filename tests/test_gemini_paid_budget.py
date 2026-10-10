@@ -70,6 +70,7 @@ class PaidBudgetTests(unittest.TestCase):
             "Nhóm thực hành ghi lại từng bước trong sổ tay chung để theo dõi công việc.",
             "Người tham gia kiểm tra hướng dẫn trước khi chuyển sang nhiệm vụ tiếp theo.",
             "Người rà soát đối chiếu danh sách đã hoàn thành với sổ tay sau buổi thực hành.",
+            "Nhóm giữ riêng những ghi nhận chưa rõ để thảo luận sau buổi thực hành.",
         ]
 
         def read(url, **kwargs):
@@ -85,11 +86,18 @@ class PaidBudgetTests(unittest.TestCase):
             inputs = json.loads(body["contents"][0]["parts"][0]["text"])["stories"]
             self.assertEqual(len(inputs), 1)
             requested.append(inputs[0]["id"])
-            self.assertGreater(len(inputs[0]["article_text"]), 300)
+            paragraphs = inputs[0]["sources"][0]["paragraphs"]
+            self.assertGreater(sum(len(p["text"]) for p in paragraphs), 300)
             self.assertGreater(budget.total_micros(self.path, now=self.now), 0)
             self.assertEqual(json.loads(self.path.read_text())["reservations"][-1]["consumer"], "summary")
+            ref = next(p["id"] for p in paragraphs if "shared notebook" in p["text"])
+            claim = lambda text: {"text": text, "evidence_refs": [ref]}
+            row = {"id": inputs[0]["id"], "status": "ready",
+                   "title_vi": claim("Nhóm thực hành ghi chép và kiểm tra công việc bằng sổ tay"),
+                   "key_points": [claim(point) for point in points], "used_source_ids": ["outlet"],
+                   "limitations": [] if inputs[0]["sources"][0]["body_complete"] else ["partial_source"]}
             return {"candidates": [{"finishReason": "STOP", "content": {"parts": [{"text": json.dumps(
-                {"summaries": [{"id": inputs[0]["id"], "key_points": points}]}, ensure_ascii=False)}]}}],
+                row, ensure_ascii=False)}]}}],
                 "usageMetadata": {"totalTokenCount": 420}}
 
         self.assertIsNone(self._prepare(False, 1100, 1100))
@@ -97,7 +105,7 @@ class PaidBudgetTests(unittest.TestCase):
                 patch.object(summary_pipeline.transport, "read_url", side_effect=read), \
                 patch.object(summary_gemini, "transport", side_effect=provider), \
                 patch("time.time", return_value=self.now):
-            for offset in range(4):
+            for offset in range(5):
                 run = 1101 + offset
                 self.assertIsNone(self._prepare(True, run, run))
                 if offset == 0:
@@ -114,10 +122,13 @@ class PaidBudgetTests(unittest.TestCase):
                 ui = json.loads((self.root / "radar-ui.json").read_text(encoding="utf-8"))
                 stats = ui["summary"]
                 self.assertEqual(stats["stories"], 3)
-                self.assertEqual(stats["requests"], int(offset < 3))
-                self.assertEqual(stats["cache_hits"], min(offset, 3))
-                self.assertEqual(stats["summarized"], int(offset < 3))
-                self.assertEqual(stats["pending"], max(2 - offset, 0))
+                # Translation consumes $0.15 of this run's $0.20 hold: a larger summary waits.
+                self.assertEqual(stats["requests"], int(1 <= offset <= 3))
+                self.assertEqual(stats["cache_hits"], min(max(offset - 1, 0), 3))
+                self.assertEqual(stats["summarized"], int(1 <= offset <= 3))
+                self.assertEqual(stats["pending"], max(3 - offset, 0))
+                if offset == 0:
+                    self.assertEqual(stats["error"], "paid_monthly_cap")
                 for story in ui["stories"]:
                     if story.get("key_points"):
                         self.assertEqual(story["key_points"], points)
@@ -127,7 +138,7 @@ class PaidBudgetTests(unittest.TestCase):
                 self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now, run_key=f"{run}-1"))
         self.assertEqual(len(requested), 3)
         self.assertEqual(len(set(requested)), 3)
-        self.assertEqual(sum(not url.endswith("/robots.txt") for url in fetched), 3)
+        self.assertEqual(sum(not url.endswith("/robots.txt") for url in fetched), 4)
         store = self._store()
         self.assertEqual(store["settled_consumers"]["2026-10-10"]["summary"], budget._micros(1260, self.now))
         self.assertEqual(store["settled_consumers"]["2026-10-10"]["translation"], budget._micros(40_000, self.now))
@@ -306,7 +317,7 @@ class PaidBudgetTests(unittest.TestCase):
         stories = payload["stories"]
         self.assertEqual(len(stories), 3)
         body = video_script.build_gemini_request(stories)
-        tokens = len(json.dumps(body).encode("utf-8")) + summary_gemini.MAX_OUTPUT_TOKENS
+        tokens = len(json.dumps(body).encode("utf-8")) + body["generationConfig"]["maxOutputTokens"]
         self.assertEqual(tokens, 8_309)
         calls = []
 

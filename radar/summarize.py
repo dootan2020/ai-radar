@@ -155,12 +155,14 @@ def main(argv=None):
             except Exception:
                 pass
 
+    print(f"Summary contract: {gemini.PROMPT_VERSION}; model={gemini.MODEL_ID}; full=4-8 points; max_source_chars=16000; max_output_tokens=4096")
     print(f"Summary {stats['status']}: {stats.get('summarized', 0)}/{stats.get('stories', 0)} stories summarized, "
           f"{stats.get('requests', 0)} requests, "
           f"{stats.get('cache_hits', 0)} cache hits, {stats.get('pending', 0)} pending, "
           f"{stats.get('tokens', 0)} tokens"
           f", {stats.get('trimmed', 0)} trimmed, {stats.get('skipped', 0)} skipped, "
           f"{stats.get('rejected', 0)} rejected, {stats.get('input_chars', 0)} input chars"
+          f", {stats.get('input_bytes', 0)} request bytes, {stats.get('source_chars', 0)} source chars"
           + (f" -- error: {stats['error']}" if stats.get("error") else ""))
     sys.stdout.flush()
 

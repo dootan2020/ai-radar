@@ -202,13 +202,41 @@ export function renderEvidenceBlockHTML(story, srcMap = new Map()) {
   `;
 }
 
+export function hasEditorialSummary(story) {
+  return story.key_points_prompt_version === 'summary-vi-5-full'
+    && Array.isArray(story.key_points) && story.key_points.length >= 4
+    && story.key_points.length <= 8 && story.key_points.every(p => typeof p === 'string' && p.trim())
+    && Array.isArray(story.summary_sources) && story.summary_sources.some(s => safe(s?.url) !== '#');
+}
+
+export function storyTitle(story) {
+  return hasEditorialSummary(story) && story.editorial_headline_vi
+    ? story.editorial_headline_vi : shown(story.title, story.title_vi);
+}
+
+const summaryText = text => esc(text).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+export function renderEditorialSummaryHTML(story, publisherName = '') {
+  if (!hasEditorialSummary(story)) return renderFallbackBodyHTML(story, publisherName);
+  const sources = story.summary_sources.filter(s => safe(s?.url) !== '#').map(s =>
+    `<a href="${esc(safe(s?.url))}" target="_blank" rel="noopener noreferrer">${esc(s.name)}${s.role === 'primary' ? ' — nguồn gốc' : ''}</a>`).join(' · ');
+  const partial = (story.summary_limitations || []).includes('partial_source');
+  return `
+    ${renderKeyPointsHTML(story.key_points, publisherName)}
+    <div class="story-summary-attribution">
+      <p class="story-summary-sources">Nguồn: ${sources}</p>
+      ${partial ? '<p class="story-section-sub">Bản tóm tắt dựa trên các phần nguồn đọc được.</p>' : ''}
+      ${(story.summary_limitations || []).includes('missing_primary') ? '<p class="story-section-sub">Chưa đọc được nguồn gốc được bài báo dẫn.</p>' : ''}
+    </div>`;
+}
+
 /* Render Key Points block (Direction A) */
 export function renderKeyPointsHTML(keyPoints, publisherName = '') {
   if (!Array.isArray(keyPoints) || !keyPoints.length) return '';
   const items = keyPoints.map((point, idx) => `
     <li class="story-point-item">
       <span class="story-point-num">${idx + 1}</span>
-      <span class="story-point-text">${esc(point)}</span>
+      <span class="story-point-text">${summaryText(point)}</span>
     </li>
   `).join('');
 
@@ -217,17 +245,16 @@ export function renderKeyPointsHTML(keyPoints, publisherName = '') {
     : 'Tóm tắt bằng AI từ phần nội dung bài gốc đọc được';
 
   return `
-    <section class="story-keypoints-box" aria-label="Ý chính của câu chuyện">
+    <section class="story-keypoints-box" aria-label="Tóm tắt bài viết">
       <div class="story-section-head">
         <div>
-          <h2 class="story-section-h2">Ý chính của câu chuyện</h2>
           <p class="story-section-sub">${sub}</p>
         </div>
       </div>
       <ol class="story-points-list">
         ${items}
       </ol>
-      <p class="story-points-disclosure">ai-radar tóm tắt từ dữ liệu gốc để bạn đọc nhanh dưới 1 phút. Bản quyền thuộc về nhà xuất bản.</p>
+      <p class="story-points-disclosure">Tóm tắt bằng AI từ nội dung nguồn; mở bài gốc để xem toàn bộ chi tiết và dẫn chứng.</p>
     </section>
   `;
 }
@@ -371,7 +398,7 @@ export function renderCoverageListHTML(coverage, srcMap = new Map()) {
 export function renderOriginGatewayHTML(story, srcMap = new Map()) {
   const { name } = getPublisherMeta(story, srcMap);
   const origUrl = story.url || (story.coverage && story.coverage[0] && story.coverage[0].url) || '#';
-  const hasKp = Array.isArray(story.key_points) && story.key_points.length > 0;
+  const hasKp = hasEditorialSummary(story);
   const desc = hasKp
     ? 'ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Đọc bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.'
     : 'Mở bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.';
@@ -406,12 +433,12 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
   if (!story || !story.id) return '<p class="story-error-msg">Không tìm thấy bài viết.</p>';
 
   const { name } = getPublisherMeta(story, srcMap);
-  const titleVi = shown(story.title, story.title_vi);
+  const titleVi = storyTitle(story);
   const headlineClass = headlineSizeClass(titleVi);
   const hasOrig = !!(story.title_vi && story.title && story.title_vi.trim() !== story.title.trim());
   const face = faceOfStory(story, srcMap);
   const kindText = KIND[story.kind] || 'Bài viết';
-  const hasKp = Array.isArray(story.key_points) && story.key_points.length > 0;
+  const hasKp = hasEditorialSummary(story);
   const isSaved = !!options.isSaved;
   const isModal = !!options.isModal;
   const isPage = !!options.isPage;
@@ -494,8 +521,7 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
 
       <div class="story-body-grid">
         <div class="story-col-main">
-          ${hasKp ? renderKeyPointsHTML(story.key_points, name) : ''}
-          ${renderFallbackBodyHTML(story, name)}
+          ${renderEditorialSummaryHTML(story, name)}
         </div>
         <div class="story-col-aside">
           ${mediaHTML}

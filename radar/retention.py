@@ -220,7 +220,8 @@ def retain_stories(fresh_stories, published, now, max_stories=DEFAULT_POOL_CAP):
                         and old_story.get("url")
                         and all(old_story.get(key) == matching_fresh_story.get(key)
                                 for key in ("url", "title", "summary"))):
-                    for key in ("key_points", "key_points_machine", "key_points_source", "key_points_prompt_version"):
+                    for key in ("key_points", "key_points_machine", "key_points_source", "key_points_prompt_version",
+                                "editorial_headline_vi", "summary_sources", "summary_limitations"):
                         if key in old_story:
                             matching_fresh_story[key] = deepcopy(old_story[key])
 

@@ -1,0 +1,53 @@
+{
+  "note": "Synthetic article and authored expected summary. No publisher prose or live model output.",
+  "id": "synthetic-renderer",
+  "title": "HelioLab tests CanvasKit in a simulated workshop",
+  "url": "https://publisher.example/research/canvaskit",
+  "publisher": "WorkshopNews",
+  "paragraphs": [
+    "HelioLab introduced CanvasKit, an AI simulation framework for a virtual workshop. The company says it connects coded rules with a neural renderer. It is a research experiment rather than a deployed robot product.",
+    "In the reported experiment, the neural renderer runs at 30 frames per second in 480p on one GPU. Python controls agent actions. The team used CUDA and Triton to improve rendering speed in the simulated workshop.",
+    "HelioLab reports that two simulated vehicles completed the bridge task in 71 seconds. The experiment measures the combined completion time of both vehicles. This result is a simulation measurement, not a real traffic trial.",
+    "Sydney Von Arx reviewed the experimental setup. The reviewer said external tests remain necessary before claims about real robots can be made. HelioLab has not completed independent evaluation of CanvasKit."
+  ],
+  "output": {
+    "id": "synthetic-renderer",
+    "status": "ready",
+    "title_vi": {
+      "text": "HelioLab thử nghiệm CanvasKit trong xưởng mô phỏng",
+      "evidence_refs": [
+        "outlet:p001"
+      ]
+    },
+    "key_points": [
+      {
+        "text": "HelioLab cho biết CanvasKit kết hợp luật mô phỏng bằng mã với bộ dựng hình bằng mạng nơ-ron để tạo một xưởng ảo cho AI hoạt động.",
+        "evidence_refs": [
+          "outlet:p001"
+        ]
+      },
+      {
+        "text": "GPU dựng hình ở 30 khung hình/giây và độ phân giải 480p; Python điều khiển hành động, còn CUDA và Triton được dùng để tối ưu tốc độ dựng hình.",
+        "evidence_refs": [
+          "outlet:p002"
+        ]
+      },
+      {
+        "text": "Theo HelioLab, hai xe trong mô phỏng hoàn thành nhiệm vụ qua cầu trong tổng cộng 71 giây; đây chưa phải thử nghiệm giao thông ngoài đời.",
+        "evidence_refs": [
+          "outlet:p003"
+        ]
+      },
+      {
+        "text": "Sydney Von Arx cho rằng vẫn cần thử nghiệm bên ngoài trước khi kết luận về robot thật; HelioLab chưa hoàn tất đánh giá độc lập CanvasKit.",
+        "evidence_refs": [
+          "outlet:p004"
+        ]
+      }
+    ],
+    "used_source_ids": [
+      "outlet"
+    ],
+    "limitations": []
+  }
+}
