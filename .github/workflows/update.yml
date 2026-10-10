@@ -89,13 +89,13 @@ jobs:
           cache-dependency-path: requirements-translate.txt
       - name: Download paid budget reservation
         if: needs.prepare-paid-budget.outputs.ledger_candidate == 'success'
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: radar-gemini-paid-${{ github.run_id }}-${{ github.run_attempt }}
           path: data
       - name: Download X budget reservation
         if: needs.prepare-paid-budget.outputs.x_ledger_candidate == 'success'
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: radar-x-paid-${{ github.run_id }}-${{ github.run_attempt }}
           path: data
@@ -507,7 +507,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Download paid budget result
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: radar-gemini-paid-result-${{ github.run_id }}-${{ github.run_attempt }}
           path: data
@@ -534,7 +534,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Download X budget result
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: radar-x-paid-result-${{ github.run_id }}-${{ github.run_attempt }}
           path: data
@@ -560,7 +560,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Download edition history candidate
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: radar-editions-${{ github.run_id }}
           path: data/edition-candidate
@@ -585,7 +585,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Download field history candidate
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: radar-fields-${{ github.run_id }}
           path: data/field-candidate
@@ -609,7 +609,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Download story page history candidate
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: radar-story-pages-${{ github.run_id }}
           path: data/story-pages-candidate
@@ -633,7 +633,7 @@ jobs:
         with:
           node-version: '22'
       - name: Download Cloudflare Pages site artifact
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: radar-cloudflare-site-${{ github.run_id }}
           path: site
@@ -653,7 +653,7 @@ jobs:
         id: published-snapshot
         if: steps.deployment.outcome == 'success'
         continue-on-error: true
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: radar-publication-${{ github.run_id }}
           path: data
@@ -680,7 +680,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Download built site for story redirects
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: radar-cloudflare-site-${{ github.run_id }}
           path: site
