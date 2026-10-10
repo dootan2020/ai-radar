@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-11",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-09T23:00:00Z",
+  "cutoff_at": "2026-10-10T23:00:00Z",
+  "created_at": "2026-10-10T23:04:08Z",
+  "snapshot_generated_at": "2026-10-10T23:01:46Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-10T23:01:46Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "e3e71b588b88d685ed7c",
+      "title": "Microsoft CEO Nadella Calls for ‘Emergency Brake’ on Advanced AI",
+      "title_vi": "Giám đốc điều hành của Microsoft Nadella kêu gọi 'đánh phanh khẩn cấp' về AI tiên tiến",
+      "headline": "Microsoft CEO Nadella Calls for ‘Emergency Brake’ on Advanced AI",
+      "headline_vi": "Giám đốc điều hành của Microsoft Nadella kêu gọi 'đánh phanh khẩn cấp' về AI tiên tiến",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-10/microsoft-ceo-nadella-calls-for-emergency-brake-on-advanced-ai",
+      "published_at": "2026-10-10T18:35:59Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "f931456b187996d35dd4",
+          "title": "Microsoft CEO Nadella Calls for ‘Emergency Brake’ on Advanced AI",
+          "title_vi": "Giám đốc điều hành của Microsoft Nadella kêu gọi 'đánh phanh khẩn cấp' về AI tiên tiến",
+          "headline": "Microsoft CEO Nadella Calls for ‘Emergency Brake’ on Advanced AI",
+          "headline_vi": "Giám đốc điều hành của Microsoft Nadella kêu gọi 'đánh phanh khẩn cấp' về AI tiên tiến",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-10/microsoft-ceo-nadella-calls-for-emergency-brake-on-advanced-ai",
+          "published_at": "2026-10-10T18:35:59Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-10T23:01:46Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "d0496e7f9d6b3bffe586",
+          "title": "Microsoft’s Satya Nadella says AI models need an ‘emergency brake’",
+          "title_vi": "Satya Nadella của Microsoft nói rằng các mô hình AI cần một 'đánh phanh khẩn cấp'",
+          "headline": "Microsoft’s Satya Nadella says AI models need an ‘emergency brake’",
+          "headline_vi": "Satya Nadella của Microsoft nói rằng các mô hình AI cần một 'đánh phanh khẩn cấp'",
+          "url": "https://techcrunch.com/2026/10/10/microsofts-satya-nadella-says-ai-models-need-an-emergency-brake/",
+          "published_at": "2026-10-10T21:47:51Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-10T23:01:46Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 4.4003,
+          "hot_score": 71.869,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "4c4dce735e8ae75f7447",
+      "title": "Anthropic can’t reliably control its AI agents. It’s cutting off its internal evals from the live internet instead",
+      "title_vi": "Anthropic không thể kiểm soát các agent AI của mình một cách đáng tin cậy. Thay vào đó, công ty đang cắt các đánh giá nội bộ khỏi internet trực tiếp",
+      "headline": "Anthropic can’t reliably control its AI agents. It’s cutting off its internal evals from the live internet instead",
+      "headline_vi": "Anthropic không thể kiểm soát các agent AI của mình một cách đáng tin cậy.",
+      "url": "https://techcrunch.com/2026/10/09/anthropic-cant-reliably-control-its-ai-agents-its-cutting-off-its-internal-evals-from-the-live-internet-instead/",
+      "published_at": "2026-10-10T00:18:32Z",
+      "kind": "research",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "3060585b3c01989175af",
+          "title": "Anthropic can’t reliably control its AI agents. It’s cutting off its internal evals from the live internet instead",
+          "title_vi": "Anthropic không thể kiểm soát các agent AI của mình một cách đáng tin cậy. Thay vào đó, công ty đang cắt các đánh giá nội bộ khỏi internet trực tiếp",
+          "headline": "Anthropic can’t reliably control its AI agents. It’s cutting off its internal evals from the live internet instead",
+          "headline_vi": "Anthropic không thể kiểm soát các agent AI của mình một cách đáng tin cậy.",
+          "url": "https://techcrunch.com/2026/10/09/anthropic-cant-reliably-control-its-ai-agents-its-cutting-off-its-internal-evals-from-the-live-internet-instead/",
+          "published_at": "2026-10-10T00:18:32Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-10T23:01:46Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "263fd3e4abb95c0f7960",
+          "title": "Anthropic is cutting off its internal evaluations from the internet",
+          "title_vi": "Anthropic đang cắt kết nối internet đối với các quy trình đánh giá nội bộ của mình",
+          "headline": "Anthropic is cutting off its internal evaluations from the internet",
+          "headline_vi": "Anthropic đang cắt kết nối internet đối với các quy trình đánh giá nội bộ của mình",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1009286/anthropic-is-cutting-off-its-internal-evaluations-from-the-internet",
+          "published_at": "2026-10-10T14:41:16Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-10T23:01:46Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 22.6911,
+          "hot_score": 60.265,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 67,
+    "failed_remote_sources": []
+  }
+}
