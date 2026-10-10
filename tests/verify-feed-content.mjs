@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {headlineShown} from '../site/titles.js';
 import {renderStoryHTML} from '../site/story.js';
 import {renderStoryTileHTML} from '../site/ban-tin.js';
+import {buildIcs, canCalendar, gcalURL, dateStart} from '../site/calendar.js';
 
 async function renderer(file, stop, expose, globals = {}) {
   const url = new URL(`../site/${file}`, import.meta.url);
@@ -425,3 +426,123 @@ newFeed.setFilter('rankings');
 assert.equal(replacedURLs.at(-1), '/index.html?data=data/reader.json#xep-hang');
 assert.equal(chips.find(b => b.dataset.filter === 'rankings').hidden, false);
 console.log('PASS Arena deep link, named tab, URL persistence and independence from failed news');
+
+// Event clocks and calendar exports use verified local dates, independent of the host timezone.
+const curatedEvents = JSON.parse(await readFile(new URL('../data/events.json', import.meta.url), 'utf8'));
+let eventNow = Date.parse('2026-10-10T12:00:00Z');
+class EventClock extends Date {
+  constructor(...args) { super(...(args.length ? args : [eventNow])); }
+  static now() { return eventNow; }
+}
+const eventMotion = {matches:false, addEventListener() {}};
+const eventTimers = new Map();
+let eventTimerId = 0;
+const eventNode = {dataset:{}, firstElementChild:{textContent:''}, lastElementChild:{dataset:{}, innerHTML:''}};
+const eventDocument = {
+  hidden:false,
+  documentElement:{classList:{add() {}, remove() {}}},
+  querySelector:() => eventNode,
+  querySelectorAll:() => [eventNode],
+};
+const eventFeed = await renderer('feed.js', '\ninit();', `
+return {eventSpan, eventWhen, eventCal, calOf, countdownParts, countdownHTML, scheduleCountdown,
+  render(events, stories = []) { D = {events, stories, live:[]}; return renderLive(); }};`, {
+  location:{search:''}, matchMedia:() => eventMotion, localStorage:{getItem:() => null},
+  Date:EventClock, document:eventDocument,
+  setTimeout:(fn, ms) => { const id = ++eventTimerId; eventTimers.set(id, {fn, ms}); return id; },
+  clearTimeout:id => eventTimers.delete(id),
+});
+const [bengaluru, sydney] = curatedEvents;
+for (const [row, start, end] of [
+  [bengaluru, '2026-10-16T08:30:00Z', '2026-10-16T18:30:00Z'],
+  [sydney, '2026-12-05T13:00:00Z', '2026-12-12T13:00:00Z'],
+]) {
+  const span = eventFeed.eventSpan(row);
+  assert.deepEqual(span, {start:Date.parse(start), end:Date.parse(end)});
+  for (const [now, state] of [[span.start - 1, 'soon'], [span.start, 'on'], [span.end - 1, 'on'], [span.end, 'over']]) {
+    assert.equal(eventFeed.countdownParts(span.start, span.end, now).state, state);
+    eventNow = now;
+    assert.match(eventFeed.countdownHTML(row), new RegExp(`is-${state}`));
+    assert.equal(eventFeed.render([row]).includes(row.title), state !== 'over');
+  }
+}
+for (const [day, start, end, hours] of [
+  ['2026-10-04', '2026-10-03T14:00:00Z', '2026-10-04T13:00:00Z', 23],
+  ['2026-04-05', '2026-04-04T13:00:00Z', '2026-04-05T14:00:00Z', 25],
+]) {
+  const span = eventFeed.eventSpan({...sydney, start_date:day, end_date:day});
+  assert.deepEqual(span, {start:Date.parse(start), end:Date.parse(end)});
+  assert.equal((span.end - span.start) / 36e5, hours, 'local days can be shorter or longer than 24 hours');
+}
+assert.equal(dateStart('2026-10-16', 'Asia/Kolkata'), Date.parse('2026-10-15T18:30:00Z'));
+assert.ok(Number.isNaN(dateStart('2026-02-30', 'Asia/Kolkata')));
+assert.ok(Number.isNaN(dateStart('2026-10-16', 'Not/A_Zone')));
+assert.equal(eventFeed.eventSpan({...sydney, timezone:undefined}).start, Date.parse('2026-12-05T17:00:00Z'), 'legacy snapshots retain their fallback');
+const exactEnd = {...bengaluru, end_at:'2026-10-16T16:00:00+05:30'};
+assert.equal(eventFeed.eventSpan(exactEnd).end, Date.parse('2026-10-16T10:30:00Z'));
+eventNow = Date.parse('2026-10-16T17:30:00Z'); // Already the next date in Vietnam, still the event date in India.
+assert.ok(eventFeed.render([bengaluru]).includes(bengaluru.title));
+eventNow = Date.parse('2026-10-17T06:59:59Z'); // Already the next UTC date, still the event date in Los Angeles.
+assert.ok(eventFeed.render([{...sydney, timezone:'America/Los_Angeles', start_date:'2026-10-16', end_date:'2026-10-16'}]).includes(sydney.title));
+
+assert.equal(eventFeed.eventWhen(bengaluru), '16 tháng 10 · 14:00 giờ Bengaluru (15:30 giờ Việt Nam)');
+assert.equal(eventFeed.eventWhen(sydney), '6–12 tháng 12 · Sydney, Australia · chưa rõ giờ khai mạc');
+assert.match(eventFeed.eventWhen({...bengaluru, start_at:'2026-10-16T23:30:00+05:30'}), /01:00 ngày 17 tháng 10 giờ Việt Nam/);
+const bengaluruCal = eventFeed.eventCal(bengaluru), sydneyCal = eventFeed.eventCal(sydney);
+const exactIcs = buildIcs(bengaluruCal), dateIcs = buildIcs(sydneyCal);
+assert.match(exactIcs, /DTSTART:20261016T083000Z\r\n/);
+assert.match(exactIcs, /X-WR-TIMEZONE:Asia\/Kolkata\r\n/);
+assert.doesNotMatch(exactIcs, /DTEND|DURATION|VALUE=DATE/);
+assert.match(dateIcs, /DTSTART;VALUE=DATE:20261206\r\nDTEND;VALUE=DATE:20261213\r\n/);
+assert.match(dateIcs, /X-WR-TIMEZONE:Australia\/Sydney\r\n/);
+assert.match(buildIcs(eventFeed.eventCal(exactEnd)), /DTEND:20261016T103000Z/);
+for (const [cal, dates, zone] of [
+  [bengaluruCal, '20261016T083000Z/20261016T083000Z', 'Asia/Kolkata'],
+  [sydneyCal, '20261206/20261213', 'Australia/Sydney'],
+]) {
+  const params = new URL(gcalURL(cal)).searchParams;
+  assert.equal(params.get('dates'), dates);
+  assert.equal(params.get('ctz'), zone);
+}
+assert.equal(canCalendar({...bengaluruCal, startAt:'2026-10-16T14:00:00'}), false);
+assert.equal(canCalendar({...bengaluruCal, timezone:'Not/A_Zone'}), false);
+eventNow = Date.parse('2026-10-10T12:00:00Z');
+const eventCards = eventFeed.render(curatedEvents);
+assert.match(eventCards, /class="events shelf"/);
+assert.ok(eventCards.includes('14:00 giờ Bengaluru (15:30 giờ Việt Nam)'));
+assert.ok(eventCards.includes('ctz=Asia%2FKolkata'));
+assert.ok(eventCards.includes('ctz=Australia%2FSydney'));
+eventFeed.render(curatedEvents, [{id:'event-story', title:bengaluru.title, url:bengaluru.url, coverage:[]}]);
+assert.deepEqual(eventFeed.calOf({title:bengaluru.title, url:bengaluru.url}), bengaluruCal);
+
+// Exercise the existing shared timer with a controlled scheduler, including the exact opening transition.
+const opening = eventFeed.eventSpan(bengaluru);
+eventNode.dataset = {cd:String(opening.start), cdEnd:String(opening.end)};
+eventNow = opening.start - 2000;
+eventFeed.scheduleCountdown();
+eventFeed.scheduleCountdown();
+assert.equal(eventTimers.size, 1);
+assert.match(eventNode.lastElementChild.innerHTML, /00:00:02/);
+assert.equal(eventNode.firstElementChild.textContent, 'Còn dưới 1 phút');
+assert.match(eventFeed.countdownHTML(bengaluru), /class="sr".*class="cd-face" aria-hidden="true"/);
+eventDocument.hidden = true;
+eventFeed.scheduleCountdown();
+assert.equal(eventTimers.size, 0);
+eventNow = opening.start;
+eventDocument.hidden = false;
+eventFeed.scheduleCountdown();
+assert.equal(eventNode.firstElementChild.textContent, 'Đang diễn ra');
+eventMotion.matches = true;
+eventNow = opening.start - 5 * 6e4;
+eventFeed.scheduleCountdown();
+assert.equal(eventTimers.size, 1);
+assert.equal([...eventTimers.values()][0].ms, 60015);
+assert.match(eventNode.lastElementChild.innerHTML, /5<\/b> phút/);
+assert.doesNotMatch(eventNode.lastElementChild.innerHTML, /cd-clock/);
+eventNow = opening.end;
+eventFeed.scheduleCountdown();
+assert.equal(eventNode.firstElementChild.textContent, 'Đã kết thúc');
+eventDocument.hidden = true;
+eventFeed.scheduleCountdown();
+assert.equal(eventTimers.size, 0);
+console.log('PASS event timezone boundaries, DST, partial exact times, cards, calendar exports and shared countdown timer');

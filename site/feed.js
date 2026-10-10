@@ -20,7 +20,7 @@ import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, hydrateHF, mo
 import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { shown, headlineShown, uniqCoverage } from './titles.js';
-import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
+import { canCalendar, downloadIcs, gcalURL, verifiedNote, dateStart, nextDay } from './calendar.js';
 import { WORTH, fallbackWorth } from './worth-score.js';
 import { renderStoryHTML } from './story.js';
 import { createArenaView } from './arena.js';
@@ -610,12 +610,14 @@ function mediaHTML(img, size) {
 
 /* ---------- calendar: the bento home's targets, the same split control ---------- */
 const eventOf = st => asArray(D && D.events).find(e => e.url === st.url || e.title === st.title) || null;
+const eventCal = e => ({ uid: e.id, title: String(e.title), url: e.url, location: e.location, timezone: e.timezone,
+  startDate: e.start_date, endDate: e.end_date,
+  startAt: e.time_precision === 'exact' ? e.start_at : null, endAt: e.time_precision === 'exact' ? e.end_at : null,
+  note: verifiedNote(e.verified_at, e.source_url) });
 function calOf(st) {
   if (!st) return null;
   const e = eventOf(st);
-  if (e) return { uid: e.id, title: String(e.title), url: e.url, location: e.location, startDate: e.start_date, endDate: e.end_date,
-    startAt: e.time_precision === 'exact' ? e.start_at : null, endAt: e.time_precision === 'exact' ? e.end_at : null,
-    note: verifiedNote(e.verified_at, e.source_url) };
+  if (e) return eventCal(e);
   const c = (st.coverage || []).find(c => c.status === 'upcoming' && c.start_at && c.time_precision !== 'relative');
   return c ? { uid: c.id, title: c.title, url: c.url, startAt: c.start_at, endAt: null, note: c.source ? `Buổi phát trực tiếp của ${srcName(c.source)}` : '' } : null;
 }
@@ -649,7 +651,7 @@ function detailHTML(st) {
   const facts = [
     st.hot_score != null && st.hot_reason ? `<p class="dt-hot">Nóng vì ${hotReasonHTML(st)}</p>` : '',
     sum ? `<p class="dt-sum"${langAttr(sum)}>${esc(sum)}</p>` : '',
-    e ? `<p class="dt-ev">${esc(eventRange(e.start_date, e.end_date))} · ${esc(e.location || 'chưa rõ địa điểm')}${e.verified_at ? ` · xác minh ${esc(e.verified_at)}` : ''}</p>` : '',
+    e ? `<p class="dt-ev">${esc(eventWhen(e))}${e.verified_at ? ` · xác minh ${esc(e.verified_at)}` : ''}</p>` : '',
     st.time_basis === 'repository_created' ? '<p class="dt-ev">Ngày ghi là ngày tạo kho mã, không phải ngày phát hành.</p>' : '',
   ].join('');
   return `${facts}<p class="dt-h">Các nguồn, theo thời gian</p><ul class="dt-src">${covs.map(c => {
@@ -817,17 +819,28 @@ function renderCard(st, size = 'std', opts = {}) {
 }
 
 /* ---------- tile: live and upcoming ---------- */
-const todayKey = () => dayKey(new Date());
-/* Event countdown. An event with exact times counts to its start_at (which carries its own offset). A date-only event
-   has no time and no timezone in the data, so it counts to 00:00 of its start date in Vietnam time and runs until
-   00:00 after its end date; Asia/Ho_Chi_Minh has no daylight saving, so that is a fixed +07:00. */
-const VN_MIDNIGHT = d => Date.parse(`${d}T00:00:00+07:00`);
+/* Old snapshots without timezone keep their Vietnam fallback. New curated rows
+   require IANA zones; each boundary uses its own date's offset, including DST. */
 function eventSpan(e) {
   const exact = e.time_precision === 'exact';
-  const start = exact && e.start_at ? Date.parse(e.start_at) : VN_MIDNIGHT(e.start_date);
+  const timezone = e.timezone ?? TZ;
+  const start = exact && e.start_at ? Date.parse(e.start_at) : dateStart(e.start_date, timezone);
   let end = exact && e.end_at ? Date.parse(e.end_at) : NaN;
-  if (!Number.isFinite(end)) end = VN_MIDNIGHT(e.end_date || e.start_date) + 864e5;
+  if (!Number.isFinite(end)) end = dateStart(nextDay(e.end_date || e.start_date), timezone);
   return { start, end };
+}
+function eventWhen(e) {
+  const range = eventRange(e.start_date, e.end_date);
+  if (e.time_precision !== 'exact' || !e.start_at) {
+    return [range, e.location, 'chưa rõ giờ khai mạc'].filter(Boolean).join(' · ');
+  }
+  const timezone = e.timezone ?? TZ, start = new Date(e.start_at);
+  const localTime = new Intl.DateTimeFormat('vi-VN', { timeZone: timezone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(start);
+  const place = String(e.location || timezone).split(',')[0].trim();
+  // Include the Vietnam date if conversion crosses a calendar day.
+  const vnDate = dayKey(start);
+  const vn = `${hhmm(start)}${vnDate !== e.start_date ? ` ngày ${eventRange(vnDate, vnDate)}` : ''} giờ Việt Nam`;
+  return `${range} · ${localTime} giờ ${place}${timezone !== TZ ? ` (${vn})` : ''}`;
 }
 function countdownParts(start, end, now) {
   if (!Number.isFinite(start)) return null;
@@ -887,10 +900,9 @@ const chevron = next => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><
 function renderLive(all = false) {
   const items = D.live || [];
   const it = items.find(x => x.status === 'live') || items.find(x => x.status === 'upcoming') || items[0];
-  const tk = todayKey();
   const now = Date.now();
-  const upcoming = (D.events || []).filter(e => (e.end_date || e.start_date || '') >= tk && !(eventSpan(e).end <= now))
-    .sort((a, b) => String(a.start_date).localeCompare(String(b.start_date)));
+  const upcoming = (D.events || []).filter(e => eventSpan(e).end > now)
+    .sort((a, b) => eventSpan(a).start - eventSpan(b).start);
   const events = all ? upcoming : upcoming.slice(0, HOME_EVENTS);
   const shelf = !all && events.length > 1;
   if (!it && !events.length) return '';
@@ -929,11 +941,10 @@ function renderLive(all = false) {
     <ul class="events${!all ? ' shelf' : ''}"${shelf ? ' id="live-shelf"' : ''} data-n="${events.length}">${events.map(e => {
       const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(e.start_date || '');
       const st = evStory(e);
-      const cal = st ? calOf(st) : { uid: e.id, title: String(e.title), url: e.url, location: e.location, startDate: e.start_date, endDate: e.end_date,
-        startAt: e.time_precision === 'exact' ? e.start_at : null, endAt: e.time_precision === 'exact' ? e.end_at : null, note: verifiedNote(e.verified_at, e.source_url) };
+      const cal = eventCal(e);
       const left = countdownHTML(e);
       // Only the parts that exist, so a missing place never leaves a stray "·".
-      const when = [eventRange(e.start_date, e.end_date), e.location].filter(x => x && String(x).trim()).map(esc).join(' · ');
+      const when = esc(eventWhen(e));
       return `<li${st ? ` data-sid="${esc(st.id)}" class="${statusClass(st)}"` : ''}><div class="ev"><a class="event" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>
         <span class="date-badge" aria-hidden="true">${d ? `<span class="date-m">thg ${+d[2]}</span><b class="num">${+d[3]}</b>` : ''}</span>
         <span class="event-text">${left}<span class="event-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>
@@ -2375,8 +2386,7 @@ function onClick(e) {
   if (ce) {
     e.preventDefault();
     const ev = asArray(D.events).find(x => String(x.id) === ce.dataset.calEv);
-    if (ev) addToCalendar({ uid: ev.id, title: String(ev.title), url: ev.url, location: ev.location, startDate: ev.start_date, endDate: ev.end_date,
-      startAt: ev.time_precision === 'exact' ? ev.start_at : null, endAt: ev.time_precision === 'exact' ? ev.end_at : null, note: verifiedNote(ev.verified_at, ev.source_url) });
+    if (ev) addToCalendar(eventCal(ev));
     return;
   }
   const area = t.closest('[data-area]');

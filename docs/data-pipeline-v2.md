@@ -62,6 +62,55 @@ The owner maintains the calendar from official pages. Reverify a date before
 changing its record and retain the official evidence URL. A source outage must
 not silently erase the distinction between a valid empty feed and a failed feed.
 
+### Curated event times
+
+Every row in [data/events.json](../data/events.json) requires a unique `id`,
+`title`, safe `url` and `source_url`, `verified_at`, `start_date`,
+`time_precision`, and a valid IANA `timezone` (for example `Asia/Kolkata` or
+`Australia/Sydney`). `start_date` and optional `end_date` are local calendar
+dates in `YYYY-MM-DD` form; a missing end date means the same date as the start.
+`verified_at` is a verification date or explicit-offset timestamp and must not
+be in the future. `location` is optional display text, not a timezone identifier.
+
+- `time_precision: "date"` requires `start_at` and `end_at` to be null or absent.
+  Do not infer an opening hour from a published date.
+- `time_precision: "exact"` requires an explicit-offset `start_at`. `end_at`
+  may remain null when the official source gives no closing hour. If present,
+  it must be an explicit-offset timestamp no earlier than `start_at`.
+  Each timestamp must fall on its corresponding local date in `timezone`.
+
+[The loader](../radar/events.py) validates zones with Python `zoneinfo`; the
+runtime needs an IANA timezone database (OS zoneinfo or the `tzdata` package on
+platforms without it). It retains an event until its exact end, or otherwise
+until the first instant after its final local date. The browser applies the
+same exclusive end boundary. It counts down to an exact start when known;
+otherwise it uses the start of the first local date and displays that the
+opening hour is unknown. Each date boundary uses that date's timezone offset,
+so daylight-saving transitions do not assume a 24-hour day. Older snapshots
+without `timezone` keep the browser's previous Vietnam fallback; newly loaded
+curated rows must supply the field.
+
+Cards show known opening times in the event's local zone and Vietnam time,
+including the Vietnam date when conversion crosses midnight. The existing
+shared countdown timer, hidden-tab pause, reduced-motion wording and
+screen-reader sentence remain unchanged.
+
+[Calendar exports](../site/calendar.js) preserve precision. Google Calendar
+receives UTC instants and the IANA `ctz` for timed events; an unknown end uses
+the same instant as the start rather than inventing a duration. The `.ics`
+file uses UTC `DTSTART` and, only when known and later, `DTEND`, with the IANA
+zone retained as calendar-level `X-WR-TIMEZONE` metadata. UTC instants remain
+unambiguous even in clients that ignore that optional metadata. Date-only
+events remain all-day in both formats, ending on the date after `end_date`;
+the countdown's midnight boundaries never become claimed opening hours in
+calendar exports.
+
+The Bengaluru DevDay row was verified on 2026-10-10: October 16 at 14:00
+`Asia/Kolkata`, with no published end time. The NeurIPS Sydney row was verified
+on the same date: December 6–12 in `Australia/Sydney`, with no published opening
+hour (AEDT, UTC+11 in December). The rows' `source_url` fields retain the
+official evidence pages.
+
 Equivalent Unicode spellings and alternate paper reading formats must not split
 one story, while accents, release versions and publication timing still carry
 meaning. The [clustering regressions](../tests/test_v2_core_regressions.py) own
