@@ -108,13 +108,13 @@ dependencies stay in [requirements-translate.txt](../requirements-translate.txt)
 The [README attribution](../README.md#optional-translation-and-attribution) owns
 the noncommercial constraint on NLLB output.
 
-Live Gemini requests require **both** `GEMINI_API_KEY` and
-`RADAR_GEMINI_FREE_TIER_CONFIRMED=1`. The latter is an operator assertion:
-before setting the repository variable, verify in AI Studio that the key's
-project has no billing attached and inspect its current free-tier quotas.
-Code cannot verify billing or force a billed project onto a free tier; Google
-has no per-request free-only parameter. Never attach billing to enable this
-feature. The key is passed only to the translation step, only in the HTTPS
+Live Gemini requests require `GEMINI_API_KEY` and an explicitly enabled route:
+the owner-authorized `RADAR_GEMINI_PAID_ENABLED=1` route uses the shared
+[paid ledger](../radar/gemini_paid_budget.py), capped at USD 1/run, USD 6/day
+and USD 20/month; `RADAR_GEMINI_FREE_TIER_CONFIRMED=1` asserts a verified
+free-tier project. Code cannot verify billing or force a billed project onto
+a free tier; Google has no per-request free-only parameter. Credentials remain
+GitHub secrets and are passed only to the workflow's model steps, in the HTTPS
 header to Google's fixed endpoint; redirects and environment proxies are disabled.
 No key, header, response error body or exception text is written into diagnostics.
 
@@ -127,7 +127,7 @@ does not publish numeric limits: actual limits are project-specific in AI Studio
 with daily Google quota reset at midnight Pacific. Free-tier source content may
 be used to improve Google products; only already-public feed text is submitted.
 
-Application ceilings are deliberately smaller than the twice-hourly schedule:
+Free-mode application ceilings are deliberately smaller than the twice-hourly schedule:
 one attempt/run, 24 distinct normalized strings and 12,000 source characters
 per request, 8,192 output tokens, 45 seconds per API request, and 12 attempts
 in any rolling 24 hours. These are **local policy, not claimed Google quotas**.
@@ -148,7 +148,9 @@ never stores invalid translations. The workflow preserves `data/translation-gemi
 `data/translations-gemini-vi.json` through Actions cache. Cache eviction, failed
 restore/save, separate machines or simultaneous branches can lose accounting:
 this is not a distributed quota guarantee or a billing safeguard. A missing
-ledger starts a new local window. Keep the upstream project on its free tier.
+ledger starts a new local window. Keep the upstream project on its free tier
+when using the free route. The paid route instead reserves against the durable
+shared USD ledger before each call.
 
 Gemini cache identity includes provider, model and prompt/schema version.
 Normalized identical text across titles, summaries and coverage uses one key;
@@ -179,6 +181,57 @@ weights actually loaded. Originals remain usable if the optional step fails.
 Offline proof: `python -m unittest discover -s tests -p "test_translat*.py"`.
 Tests use fake transports and model factories; they do not establish live
 Gemini wording quality or make real API calls.
+
+## Article-backed Vietnamese summaries
+
+[The summary step](../radar/summarize.py) is separate from excerpt translation.
+`summary_vi` remains a translation of the publisher's excerpt; `key_points`
+contains 3–5 distinct Vietnamese points drawn from readable article text,
+targeting 80–140 words in total when the source supports that detail. Claims,
+numbers, limitations and attribution must come from the supplied text. The
+first 3,800 article characters are the maximum evidence window, not a claim
+to have read the whole article. Robots, paywall, redirect and short-text skips
+remain enforced; a headline alone never becomes an article summary.
+
+[Input preparation](../radar/summary_pipeline.py) admits the highest-worth
+eligible story first, breaking ties by newest publication time within the
+ranking window. It keeps article text and a bounded title, omits duplicate
+coverage and volatile engagement metrics, and trims against the actual JSON
+character length before queueing. An input that cannot retain at least 300
+article characters is skipped with `skipped_reasons.input_limit`; it does not
+block the next story. Cache identity and validation use the exact fitted
+input. The prompt version invalidates incompatible old cache entries.
+
+There is at most one new story per run, with one separately reserved retry
+only on HTTP 503. Both free and paid summaries obey the existing rolling
+12-attempt/25,000-token allowance in `summary-gemini-ledger.json`; paid calls
+also require the unchanged shared USD ledger. UTF-8 request bytes plus the
+full output ceiling are reserved before transmission. Missing usage keeps
+that conservative reservation. This chooses lower throughput rather than
+raising the owner's cap. With an intact rolling ledger, summary usage is at
+most 775,000 tokens in 31 days: USD 2.90625 at the ledger's 2026 conservative
+output rate, or USD 5.8125 at its 2027 rate. Other Gemini consumers share the
+USD 20 monthly limit, so their usage can stop summaries earlier. The local
+rolling ledger is a throughput policy, not a replacement for durable billing
+protection if Actions cache is lost.
+
+`summary` reports status, new summaries, cache hits, pending stories, requests,
+tokens, trimmed inputs, input characters, skip counts/reasons and rejections.
+`disabled` means missing credentials, missing route confirmation or a zero
+configuration limit. Active work reports `ok`, `cache`, `partial` or `failed`.
+Budget exhaustion and unreadable sources legitimately produce no new summary.
+The snapshot marks `machine_written`; individual summaries retain
+`key_points_machine`, `key_points_source` and `key_points_prompt_version`.
+Previously validated points survive recollection only while the primary URL,
+title and publisher excerpt match; a rejected refresh removes old points.
+
+The shared [story renderer](../site/story.js) and
+[static HTML renderer](../radar/story_pages.py) show machine-labelled key points
+above the separate publisher excerpt, with a direct original-article link.
+Missing points leave an honestly labelled excerpt, never invented filler.
+Offline examples and regression checks:
+`python -m pytest tests/test_summary.py tests/test_summary_examples.py tests/test_summary_display.py tests/test_story_pages.py tests/test_retention.py -q`.
+Offline stubs verify the path and guards, not Gemini's live editorial quality.
 
 ## Measurement continuity and source policy
 

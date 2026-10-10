@@ -138,6 +138,8 @@ def main(argv=None):
           f"{stats.get('requests', 0)} requests, "
           f"{stats.get('cache_hits', 0)} cache hits, {stats.get('pending', 0)} pending, "
           f"{stats.get('tokens', 0)} tokens"
+          f", {stats.get('trimmed', 0)} trimmed, {stats.get('skipped', 0)} skipped, "
+          f"{stats.get('rejected', 0)} rejected, {stats.get('input_chars', 0)} input chars"
           + (f" -- error: {stats['error']}" if stats.get("error") else ""))
     sys.stdout.flush()
 

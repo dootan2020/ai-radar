@@ -189,12 +189,12 @@ class SummaryTests(unittest.TestCase):
         self.assertGreater((stories_per_day + 1) * summary_budget.ESTIMATED_TOKENS_PER_REQUEST,
                            summary_budget.DEFAULT_DAILY_TOKENS)
 
-    def test_paid_mode_summarizes_beyond_free_tier_daily_ledger(self):
+    def test_paid_mode_respects_summary_throughput_and_shared_money_ledger(self):
         now = 100000.0
         paid_path = self.tmp_path / "paid-ledger.json"
         gemini_paid_budget.prepare(paid_path, paid=False, now=now, run_number=20)
         gemini_paid_budget.prepare(paid_path, paid=True, now=now, run_number=21)
-        for index in range(summary_budget.DEFAULT_DAILY_REQUESTS):
+        for index in range(summary_budget.DEFAULT_DAILY_REQUESTS - 1):
             summary_budget.reserve(self.ledger_path, now=now - 3600 + index, estimated_tokens=100)
         story = deepcopy(self.fixture_data["stories"][0])
         config = gemini.Config(api_key="offline-sentinel", confirmed=True, paid=True)
@@ -206,6 +206,16 @@ class SummaryTests(unittest.TestCase):
         self.assertEqual(stats["summarized"], 1)
         self.assertEqual(stats["requests"], 1)
         self.assertEqual(stats["error"], None)
+        self.assertGreater(gemini_paid_budget.total_micros(paid_path, now=now), 0)
+        self.calls.clear()
+        with patch.dict(os.environ, {"GITHUB_RUN_NUMBER": "21", "RADAR_GEMINI_PAID_LEDGER": str(paid_path)}):
+            stats, _ = summary_pipeline.summarize_payload(
+                {"stories": [deepcopy(story)]}, {}, config=config, transport_fn=self.transport_ok,
+                ledger_path=self.ledger_path, budget=10.0, now=lambda: now,
+            )
+        self.assertEqual(stats["error"], "daily_limit")
+        self.assertEqual(stats["requests"], 0)
+        self.assertEqual(self.calls, [])
 
     def test_no_article_text_clears_old_points_without_calling_model(self):
         story = deepcopy(self.fixture_data["stories"][0])
@@ -319,6 +329,106 @@ class SummaryTests(unittest.TestCase):
         self.assertEqual(fetches, ["lazy-0"])
         self.assertEqual([row["id"] for row in requested], ["lazy-0"])
         self.assertEqual(stats["requests"], 1)
+
+    def test_oversized_highest_worth_story_fits_then_next_run_advances(self):
+        base = deepcopy(self.fixture_data["stories"][0])
+        high, low = deepcopy(base), deepcopy(base)
+        high.update(id="high", worth_score=90, summary="duplicate feed text " * 1000)
+        low.update(id="low", worth_score=10)
+        high["coverage"] *= 20
+        payload = {"stories": [low, high]}
+        article = ("Apple thay đổi quyền Full Disk Access trên macOS; các agent AI cần xin xác nhận. " * 60)
+        for expected in ("high", "low"):
+            stats, _ = summary_pipeline.summarize_payload(
+                payload, self.cache, config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+                transport_fn=self.transport_ok, article_fetch_fn=lambda _: article,
+                ledger_path=self.ledger_path, now=lambda: 100000.0,
+            )
+            requested = json.loads(self.calls[-1][0]["contents"][0]["parts"][0]["text"])["stories"]
+            self.assertEqual([s["id"] for s in requested], [expected])
+            self.assertLessEqual(len(json.dumps(requested[0], ensure_ascii=False)), gemini.MAX_STORY_INPUT_CHARS)
+            self.assertGreaterEqual(len(requested[0]["article_text"]), 300)
+            self.assertEqual(stats["summarized"], 1)
+            self.assertIsNone(stats["error"])
+            self.assertNotEqual(stats["status"], "disabled")
+            # Reader metrics and duplicate coverage must not cause paid regeneration.
+            high["coverage"][0]["metrics"] = {"likes": 987654}
+
+    def test_unfit_first_story_is_skipped_and_next_story_is_requested(self):
+        high, low = deepcopy(self.fixture_data["stories"][0]), deepcopy(self.fixture_data["stories"][0])
+        high.update(id="x" * 5000, worth_score=90)
+        low.update(id="fits", worth_score=10)
+        stats, _ = summary_pipeline.summarize_payload(
+            {"stories": [high, low]}, self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=self.transport_ok, ledger_path=self.ledger_path, now=lambda: 100000.0,
+        )
+        self.assertEqual(stats["skipped_reasons"], {"input_limit": 1})
+        self.assertEqual(stats["summarized"], 1)
+        self.assertEqual(stats["pending"], 1)
+        self.assertEqual(stats["status"], "partial")
+        self.assertEqual(low["key_points_prompt_version"], gemini.PROMPT_VERSION)
+
+    def test_json_escaping_and_tiny_limits_never_send_oversized_input(self):
+        inputs = {"id": "escaped", "title": "Article", "article_text": '\\"\n' * 2000}
+        fitted = summary_pipeline.fit_story_inputs(inputs, 900)
+        self.assertIsNotNone(fitted)
+        self.assertLessEqual(len(json.dumps(fitted, ensure_ascii=False)), 900)
+        self.assertTrue(inputs["article_text"].startswith(fitted["article_text"]))
+        self.assertIsNone(summary_pipeline.fit_story_inputs(inputs, 100))
+
+    def test_unfit_only_story_is_partial_with_reason_not_disabled(self):
+        stats, _ = summary_pipeline.summarize_payload(
+            {"stories": [deepcopy(self.fixture_data["stories"][0])]}, self.cache,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True, max_chars=200),
+            transport_fn=self.transport_ok, ledger_path=self.ledger_path, now=lambda: 100000.0,
+        )
+        self.assertEqual(stats["status"], "partial")
+        self.assertEqual(stats["skipped_reasons"], {"input_limit": 1})
+        self.assertEqual(stats["pending"], 1)
+        self.assertEqual(self.calls, [])
+
+    def test_zero_config_limits_disable_requests_before_fetch(self):
+        for setting in ("max_requests", "batch_size", "max_chars"):
+            fetch = Mock(side_effect=AssertionError("must not fetch"))
+            stats, _ = summary_pipeline.summarize_payload(
+                {"stories": [deepcopy(self.fixture_data["stories"][0])]}, {},
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True, **{setting: 0}),
+                transport_fn=self.transport_ok, article_fetch_fn=fetch,
+                ledger_path=self.ledger_path, now=lambda: 100000.0,
+            )
+            self.assertEqual(stats["error"], "configuration_limit")
+            self.assertEqual(stats["requests"], 0)
+            fetch.assert_not_called()
+
+    def test_duplicate_points_and_facts_outside_fitted_input_are_rejected(self):
+        inputs = {"id": "facts", "title": "Apple", "article_text": "Apple thay đổi quyền truy cập. " * 100,
+                  "coverage": [{"metrics": {"likes": 987654}}]}
+        fitted = summary_pipeline.fit_story_inputs(inputs, 4500)
+        points = ["Apple thay đổi quyền truy cập của ứng dụng."] * 3
+        self.assertEqual(summary_pipeline.validate_key_points(fitted, points)[1], "duplicate_points")
+        points[1:] = ["Các ứng dụng cần được cấp quyền truy cập.", "Thay đổi tác động tới 987654 người dùng."]
+        self.assertIn("invented_number", summary_pipeline.validate_key_points(fitted, points)[1])
+
+    def test_translated_language_name_requires_source_evidence(self):
+        point = ["Mô hình hỗ trợ tiếng Anh trong phân loại nội dung."]
+        for text, expected in (("Model supports English classification.", None),
+                               ("Model supports classification.", "invented_entity: Anh")):
+            _, reason = summary_pipeline.validate_key_points({"title": text}, point)
+            self.assertEqual(reason, expected)
+
+    def test_rejected_refresh_removes_previously_retained_points(self):
+        story = deepcopy(self.fixture_data["stories"][0])
+        story.update(key_points=["Nội dung cũ."], key_points_machine=True,
+                     key_points_source="machine", key_points_prompt_version=gemini.PROMPT_VERSION)
+        stats, _ = summary_pipeline.summarize_payload(
+            {"stories": [story]}, {}, config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=lambda *_: reply_summary([{"id": story["id"], "key_points": ["Bài chỉ có một ý chính."]}]),
+            ledger_path=self.ledger_path, now=lambda: 100000.0,
+        )
+        self.assertEqual(stats["rejected"], 1)
+        self.assertNotIn("key_points", story)
+        self.assertNotIn("key_points_prompt_version", story)
 
     def test_remembered_unreadable_page_is_not_fetched_again(self):
         story = deepcopy(self.fixture_data["stories"][0])

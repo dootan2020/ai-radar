@@ -178,6 +178,32 @@ def content_hash(inputs: dict[str, Any]) -> str:
     return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
 
+def fit_story_inputs(inputs: dict[str, Any], max_chars: int) -> dict[str, Any] | None:
+    """Keep article evidence ahead of duplicate feed text and volatile metrics.
+
+    Hash and validate exactly what the model sees. Coverage metrics describe
+    reader attention, not article facts, and must not invalidate this cache.
+    """
+    fitted = {key: inputs[key] for key in ("id", "title", "article_text")}
+    fitted["title"] = fitted["title"][:400]
+    article = fitted["article_text"][:gemini.MAX_ARTICLE_TEXT_CHARS]
+    fitted["article_text"] = ""
+    # JSON escaping can make the serialized input larger than the raw text.
+    low, high = 0, len(article)
+    while low < high:
+        mid = (low + high + 1) // 2
+        fitted["article_text"] = article[:mid]
+        if len(json.dumps(fitted, ensure_ascii=False)) <= max_chars:
+            low = mid
+        else:
+            high = mid - 1
+    fitted["article_text"] = article[:low].rstrip()
+    if (len(fitted["article_text"]) < MIN_ARTICLE_TEXT_CHARS
+            or len(json.dumps(fitted, ensure_ascii=False)) > max_chars):
+        return None
+    return fitted
+
+
 def is_thin_story(inputs: dict[str, Any]) -> bool:
     """Return True if the story has only 1 source and thin text content."""
     coverage = inputs.get("coverage") or []
@@ -239,6 +265,11 @@ def extract_source_entities(inputs: dict[str, Any]) -> set[str]:
             for part in ent.split():
                 if len(part) >= 2:
                     entities.add(part.lower())
+    # Vietnamese language names may be ASCII capitals; allow their translated
+    # form only when the corresponding source language is explicitly present.
+    for source_name, translated_name in (("english", "anh"), ("chinese", "trung")):
+        if source_name in entities:
+            entities.add(translated_name)
     return entities
 
 
@@ -267,6 +298,8 @@ def validate_key_points(inputs: dict[str, Any], key_points: list[str]) -> tuple[
         return None, "too_many_points"
     if inputs.get("article_text") and len(cleaned) < 3:
         return None, "too_few_points"
+    if len({" ".join(point.lower().split()) for point in cleaned}) != len(cleaned):
+        return None, "duplicate_points"
 
     source_numbers = extract_source_numbers(inputs)
     source_entities = extract_source_entities(inputs)
@@ -453,6 +486,8 @@ def summarize_payload(payload: dict,
         "tokens": 0,
         "rejected": 0,
         "skipped": 0,
+        "trimmed": 0,
+        "input_chars": 0,
         "skipped_reasons": {},
         "rejected_reasons": [],
         "machine_written": True,
@@ -470,13 +505,21 @@ def summarize_payload(payload: dict,
         stats["pending"] = len(eligible_stories)
         payload["summary"] = stats
         return stats, False
+    if not config.max_requests or not config.batch_size or not config.max_chars:
+        stats["error"] = "configuration_limit"
+        stats["pending"] = len(eligible_stories)
+        payload["summary"] = stats
+        return stats, False
+    stats["status"] = "failed"
     request_now = now() if callable(now) else now
     reserve_script = summary_budget.is_script_reserve_active(
         now=request_now,
         script_path=script_path,
         ledger_path=ledger_path,
     )
-    capacity_error = None if config.paid else summary_budget.capacity_error(
+    # The summary throughput allowance also applies in paid mode; the shared
+    # paid ledger remains the authoritative hard USD cap across all consumers.
+    capacity_error = summary_budget.capacity_error(
         ledger_path, config.daily_requests_limit, config.daily_tokens_limit,
         gemini.MAX_ESTIMATED_TOKENS_PER_REQUEST, request_now,
         reserve_for_script=reserve_script)
@@ -540,6 +583,16 @@ def summarize_payload(payload: dict,
         story["_summary_article_text"] = article_text[:gemini.MAX_ARTICLE_TEXT_CHARS]
         inputs = story_inputs(story)
         story.pop("_summary_article_text", None)
+        fitted = fit_story_inputs(inputs, config.max_chars)
+        if fitted is None:
+            stats["skipped"] += 1
+            stats["skipped_reasons"]["input_limit"] = stats["skipped_reasons"].get("input_limit", 0) + 1
+            for key in ("key_points", "key_points_machine", "key_points_source", "key_points_prompt_version"):
+                story.pop(key, None)
+            continue
+        if len(json.dumps(inputs, ensure_ascii=False)) > config.max_chars:
+            stats["trimmed"] += 1
+        inputs = fitted
         chash = content_hash(inputs)
         story_map[sid] = {"story": story, "inputs": inputs, "hash": chash, "url_hash": url_hash}
 
@@ -588,7 +641,8 @@ def summarize_payload(payload: dict,
 
     if not batch_items:
         stats["error"] = "input_limit"
-        stats["pending"] = len(missing)
+        stats["status"] = "partial" if stats["cache_hits"] else "failed"
+        stats["pending"] = len(eligible_stories) - stats["cache_hits"]
         payload["summary"] = stats
         return stats, False
 
@@ -596,25 +650,25 @@ def summarize_payload(payload: dict,
     reserve_now = now()
     # Reserve input tokens plus the full output ceiling and fixed prompt overhead.
     request_body = gemini.request_body(batch_items)
-    estimated_toks = len(json.dumps(request_body).encode("utf-8")) + gemini.MAX_OUTPUT_TOKENS
+    stats["input_chars"] = batch_chars
+    estimated_toks = len(gemini.encode_request(request_body)) + gemini.MAX_OUTPUT_TOKENS
     paid_reservation = None
-    if config.paid:
+    reserve_err = summary_budget.reserve(
+        ledger_path,
+        request_limit=config.daily_requests_limit,
+        token_limit=config.daily_tokens_limit,
+        estimated_tokens=estimated_toks,
+        now=reserve_now,
+        last_story_id=batch_items[-1]["id"],
+        reserve_for_script=reserve_script,
+    )
+    if not reserve_err and config.paid:
         reserve_err, paid_reservation = gemini_paid_budget.reserve(
             gemini_paid_budget.ledger_path(), estimated_toks, now=reserve_now)
-    else:
-        reserve_err = summary_budget.reserve(
-            ledger_path,
-            request_limit=config.daily_requests_limit,
-            token_limit=config.daily_tokens_limit,
-            estimated_tokens=estimated_toks,
-            now=reserve_now,
-            last_story_id=batch_items[-1]["id"],
-            reserve_for_script=reserve_script,
-        )
 
     if reserve_err:
         stats["error"] = reserve_err
-        stats["pending"] = len(missing)
+        stats["pending"] = len(eligible_stories) - stats["cache_hits"]
         stats["status"] = "failed"
         payload["summary"] = stats
         return stats, False
@@ -629,19 +683,18 @@ def summarize_payload(payload: dict,
         if remaining_time > SUMMARY_RETRY_DELAY:
             time.sleep(SUMMARY_RETRY_DELAY)
             retry_now = now()
-            if config.paid:
+            retry_err = summary_budget.reserve(
+                ledger_path,
+                request_limit=config.daily_requests_limit,
+                token_limit=config.daily_tokens_limit,
+                estimated_tokens=estimated_toks,
+                now=retry_now,
+                last_story_id=batch_items[-1]["id"],
+                reserve_for_script=reserve_script,
+            )
+            if not retry_err and config.paid:
                 retry_err, retry_reservation = gemini_paid_budget.reserve(
                     gemini_paid_budget.ledger_path(), estimated_toks, now=retry_now)
-            else:
-                retry_err = summary_budget.reserve(
-                    ledger_path,
-                    request_limit=config.daily_requests_limit,
-                    token_limit=config.daily_tokens_limit,
-                    estimated_tokens=estimated_toks,
-                    now=retry_now,
-                    last_story_id=batch_items[-1]["id"],
-                    reserve_for_script=reserve_script,
-                )
             if retry_err:
                 err = retry_err
             else:
@@ -658,7 +711,7 @@ def summarize_payload(payload: dict,
     if config.paid:
         gemini_paid_budget.settle(gemini_paid_budget.ledger_path(), paid_reservation, tokens,
                                  now=retry_now or reserve_now)
-    elif tokens and ledger_path:
+    if tokens and ledger_path:
         summary_budget.update_actual_tokens(ledger_path, retry_now or reserve_now, tokens)
 
     # Process and validate outputs
@@ -682,6 +735,8 @@ def summarize_payload(payload: dict,
                     article_failures.pop(story_info["url_hash"], None)
             else:
                 stats["rejected"] += 1
+                for key in ("key_points", "key_points_machine", "key_points_source", "key_points_prompt_version"):
+                    story_obj.pop(key, None)
                 if reason and len(stats["rejected_reasons"]) < 10:
                     stats["rejected_reasons"].append({"id": sid, "reason": reason})
         else:
