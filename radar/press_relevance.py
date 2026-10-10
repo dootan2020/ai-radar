@@ -87,7 +87,10 @@ def filter_published_stories(stories, now, accepts=accepts_observation):
 
     Rebuild changed stories from remaining observations so an excluded primary
     cannot leave its title, image, translations or generated summary behind.
-    Unchanged stories retain their identity and enrichment verbatim.
+    A story whose observations no longer form one cluster under the current
+    rules is rebuilt the same way, so a wrong grouping published earlier does
+    not keep re-merging fresh coverage for seven days. Unchanged stories retain
+    their identity and enrichment verbatim.
     """
     from radar.clustering import cluster_items
 
@@ -96,7 +99,25 @@ def filter_published_stories(stories, now, accepts=accepts_observation):
         coverage = story.get("coverage") or []
         kept = [item for item in coverage if accepts(item)]
         if len(kept) == len(coverage):
-            result.append(story)
+            pieces = cluster_items(deepcopy(kept), now) if len(kept) > 1 else []
+            if len(pieces) <= 1:
+                result.append(story)
+                continue
+            # Split, nothing refused: the piece that keeps the story's id and headline keeps its
+            # aliases and enrichment; the others are different events and must not claim the old id.
+            siblings = {piece["id"] for piece in pieces}
+            for index, piece in enumerate(pieces):
+                if piece["id"] == story.get("id"):
+                    aliases = sorted((set(piece.get("aliases", [])) | set(story.get("aliases", []))) - siblings)
+                    if story.get("url") in {item.get("url") for item in piece["coverage"]}:
+                        piece = pieces[index] = dict(deepcopy(story), coverage=piece["coverage"],
+                                                     source_count=piece["source_count"], groups=piece["groups"],
+                                                     primary_section=piece["primary_section"])
+                    piece["aliases"] = aliases
+            if not any(piece["id"] == story.get("id") for piece in pieces):
+                pieces[0]["aliases"] = sorted((set(pieces[0].get("aliases", []))
+                                               | set(story.get("aliases", [])) | {story["id"]}) - siblings)
+            result.extend(pieces)
         elif kept:
             for rebuilt in cluster_items(deepcopy(kept), now):
                 rebuilt["aliases"] = sorted((set(rebuilt.get("aliases", []))
