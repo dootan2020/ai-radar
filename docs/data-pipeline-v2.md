@@ -51,6 +51,34 @@ The previous snapshot exists only to compare measurements. Republishing its old
 content with a new build time would mislead readers about freshness. Frozen
 fixtures support reproducible tests; they do not establish current source health.
 
+### Press subject relevance
+
+All `press` feeds, including AI category feeds with `filter_ai=False`, pass the
+[press subject check](../radar/press_relevance.py) before observations enter the
+v2 feed. The existing keyword flag still applies afterward; other source groups
+keep their existing relevance rules. Category membership alone is insufficient
+when the title and available description show no AI evidence. Original feed copy
+is used, never translated headlines, URL/category keywords or generated summaries.
+
+Consumer banking/payment rule headlines whose only AI evidence is an incidental
+relationship phrase (for example, “related to AI”) are excluded. A separate AI
+anchor in the headline keeps actual AI banking, fraud/deepfake and policy coverage.
+Explicit side mentions in headlines or descriptions do not establish a subject.
+Otherwise AI evidence anywhere in the short feed description can keep a story;
+requiring a headline keyword alone would lose real coverage. Sparse category-feed
+copy, ambiguous relationship headlines and emerging product/infrastructure clues
+are kept conservatively. This is a bounded heuristic, not a semantic classifier.
+
+Assembly applies the same check to retained coverage before the seven-day merge,
+so yesterday's rejected observations cannot return during a source outage. Mixed
+stories are rebuilt from surviving observations; rejected primary text and its
+derived enrichment are removed while old IDs remain aliases. Unchanged stories
+retain their enrichment. No model calls, paid-ledger changes or additional fetches
+are involved. [Synthetic tests](../tests/test_press_relevance.py) cover admission
+and retention; `python tests/measure_press_relevance.py` lists all dropped and
+borderline kept press inputs from committed JSON fixtures and local `site/data`
+snapshots without modifying either.
+
 The official X collector is disabled unless `RADAR_X_ENABLED=1` and
 `X_BEARER_TOKEN` are present on the main workflow. It searches AI-related posts
 server-side and records the original post URL and author identity. Its separate

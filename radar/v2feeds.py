@@ -4,7 +4,8 @@ import xml.etree.ElementTree as ET
 
 from radar.common import classify, clean_text, web_url
 from radar.feeds import _field, _local, _research_copy
-from radar.items import observation, relevant
+from radar.items import observation
+from radar.press_relevance import accepts_feed_item
 
 
 def parse_feed(text, source, observed_at):
@@ -37,7 +38,7 @@ def parse_feed(text, source, observed_at):
                 continue
             seen.add(url)
             summary = clean_text(snippet.get("description", ""))
-            if source.get("filter_ai") and not relevant(title, summary):
+            if not accepts_feed_item(source, title, summary):
                 continue
             media = [dict(url=url, type="video", mime_type=None)]
             thumbnails = snippet.get("thumbnails", {})
@@ -86,7 +87,7 @@ def parse_feed(text, source, observed_at):
         summary = clean_text(_field(entry, "description", "summary", "encoded", "content"))
         if source["id"] == "anthropic-research":
             title, summary = _research_copy(title, summary)
-        if source.get("filter_ai") and not relevant(title, summary):
+        if not accepts_feed_item(source, title, summary):
             continue
         kind = "podcast" if source.get("group") == "podcast" else classify(title, summary)
         if source["id"] == "anthropic-research":
