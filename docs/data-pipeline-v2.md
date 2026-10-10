@@ -111,7 +111,7 @@ the noncommercial constraint on NLLB output.
 Live Gemini requests require `GEMINI_API_KEY` and an explicitly enabled route:
 the owner-authorized `RADAR_GEMINI_PAID_ENABLED=1` route uses the shared
 [paid ledger](../radar/gemini_paid_budget.py), capped at USD 1/run, USD 6/day
-and USD 20/month, with a tighter USD 0.54 UTC-day pace and at most USD 0.20
+and USD 20/month, with a tighter USD 0.57 UTC-day pace and at most USD 0.20
 held per run; `RADAR_GEMINI_FREE_TIER_CONFIRMED=1` asserts a verified
 free-tier project. Code cannot verify billing or force a billed project onto
 a free tier; Google has no per-request free-only parameter. Credentials remain
@@ -152,7 +152,13 @@ this is not a distributed quota guarantee or a billing safeguard. A missing
 ledger starts a new local window. Keep the upstream project on its free tier
 when using the free route. The paid route instead reserves against the durable
 shared USD ledger before each call. Its separate UTC-day consumer shares are
-40,000 tokens for translation, 100,000 for summaries and 4,000 for video.
+40,000 tokens for translation, 100,000 for summaries and 12,000 for video.
+At the code's conservative 2026 ledger rate of USD 3.75 per million total
+tokens, these shares cost `(40,000 + 100,000 + 12,000) × 3.75 / 1,000,000 =
+0.57 USD/day`. The 31-day envelope is `31 × 0.57 = 17.67 USD`, leaving
+`20 - 17.67 = 2.33 USD` below the hard cap. This is a ledger enforcement
+envelope, not a provider invoice forecast. Dollar pacing remains authoritative
+after rate changes.
 Reservations and missing-usage failures consume these shares; validated provider
 usage settles them. Shares cannot borrow from each other. The monthly cap is
 still downward-only. The hold shrinks to available day/month budget and unused
@@ -226,7 +232,7 @@ allowance in `summary-gemini-ledger.json`. Paid summaries use their separate
 cannot constrain or authorize paid work. UTF-8 request bytes plus the full
 output ceiling are reserved before transmission. Missing usage keeps that
 conservative reservation. At the ledger's 2026 rate, the summary share costs
-at most USD 0.375/day or USD 11.625/31 days. The shared USD 0.54 daily pace and
+at most USD 0.375/day or USD 11.625/31 days. The shared USD 0.57 daily pace and
 USD 20 monthly cap always take precedence, including after rate changes.
 
 `summary-article-inputs.json` stores fitted article evidence for 24 hours keyed
@@ -241,9 +247,16 @@ Vietnamese sentence starts are allowed without treating them as foreign names.
 
 Daily video identity uses the saved date/completion record, independently of
 current picks. Paid attempts also record the date in the durable ledger on
-finalization, including rejected attempts. The 4,000-token video share may be
-smaller than a conservative request reservation; that request is skipped with
-`paid_video_daily_tokens`, never funded from titles or article summaries.
+finalization, including rejected attempts. The 12,000-token video share covers
+the real three-story request captured on October 10, 2026: 8,309 reservation
+tokens, leaving 3,691 tokens (44.4%) of headroom. The share costs at most
+USD 0.045/day or USD 1.395/31 days at the 2026 ledger rate. It is funded by the
+overall daily pace; title and article-summary shares remain unchanged. The
+request retains its full evidence, instructions, schema and grounding checks.
+Requests above the share still skip with `paid_video_daily_tokens`; unavailable
+run/day/month money, legacy unattributed spend, provider failures and rejected
+output can also prevent a fresh script. Budget admission does not guarantee
+successful model generation.
 
 The finalizer logs `Gemini paid pacing` JSON with `day`, `daily_micros`,
 `monthly_micros`, `run_micros`, `hold_micros`, `consumer_micros`,

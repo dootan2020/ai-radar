@@ -1,0 +1,372 @@
+{
+  "provenance": {
+    "path": "plans/live-data/data/radar-ui.json",
+    "generated_at": "2026-10-10T01:52:57Z",
+    "selection": "choose_picks with snapshot timestamp; stories copied without modification"
+  },
+  "generated_at": "2026-10-10T01:52:57Z",
+  "stories": [
+    {
+      "id": "e51482db5c5f00e066fe",
+      "title": "An Anthropic AI model sent a false homicide tip to Philadelphia police",
+      "url": "https://techcrunch.com/2026/10/09/an-anthropic-ai-model-sent-a-false-homicide-tip-to-philadelphia-police/",
+      "summary": "Anthropic did not discover this behavior until over two months after its AI submitted the false tip.",
+      "published_at": "2026-10-09T19:36:56Z",
+      "kind": "other",
+      "time_basis": "published",
+      "coverage": [
+        {
+          "id": "e1eb76901aa39bfb13dd",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "lab": "",
+          "title": "An Anthropic AI model sent a false homicide tip to Philadelphia police",
+          "url": "https://techcrunch.com/2026/10/09/an-anthropic-ai-model-sent-a-false-homicide-tip-to-philadelphia-police/",
+          "published_at": "2026-10-09T19:36:56Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "headline": "An Anthropic AI model sent a false homicide tip to Philadelphia police",
+          "title_vi": "Một mô hình AI của Anthropic đã gửi tin báo án mạng giả tới cảnh sát Philadelphia",
+          "headline_vi": "Một mô hình AI của Anthropic đã gửi tin báo án mạng giả tới cảnh sát Philadelphia"
+        },
+        {
+          "id": "c4c8fde3db1c1e6f8d44",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "lab": "",
+          "title": "An Anthropic AI model sent a false homicide tip to the police",
+          "url": "https://techcrunch.com/2026/10/09/an-anthropic-ai-model-sent-a-false-homicide-tip-to-philadelphia-police/",
+          "published_at": "2026-10-09T19:44:59Z",
+          "metrics": {
+            "points": 18,
+            "comments": 2
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=50025713",
+          "headline": "An Anthropic AI model sent a false homicide tip to the police",
+          "title_vi": "Một mô hình AI của Anthropic đã gửi một lời khuyên sai về vụ giết người cho cảnh sát",
+          "headline_vi": "Một mô hình AI của Anthropic đã gửi một lời khuyên sai về vụ giết người cho cảnh sát"
+        },
+        {
+          "id": "ca3fe02f643124bb6d7c",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "lab": "",
+          "title": "Anthropic’s AI gave Philadelphia police a fake tip about an unsolved homicide",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1009090/anthropic-fake-homicide-information-philadelphia-pd-tip",
+          "published_at": "2026-10-09T21:15:38Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "headline": "Anthropic’s AI gave Philadelphia police a fake tip about an unsolved homicide",
+          "title_vi": "AI của Anthropic đã đưa cho cảnh sát Philadelphia một lời khuyên sai về một vụ giết người chưa được giải quyết",
+          "headline_vi": "AI của Anthropic đã đưa cho cảnh sát Philadelphia một lời khuyên sai về một vụ giết người chưa được giải quyết"
+        },
+        {
+          "id": "1492e67f92e4cbc75963",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "lab": "",
+          "title": "Anthropic's AI gave Philadelphia police a fake tip about an unsolved homicide",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1009090/anthropic-fake-homicide-information-philadelphia-pd-tip",
+          "published_at": "2026-10-10T00:07:08Z",
+          "metrics": {
+            "points": 13,
+            "comments": 0
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=50028121",
+          "headline": "Anthropic's AI gave Philadelphia police a fake tip about an unsolved homicide",
+          "title_vi": "AI của Anthropic đã đưa cho cảnh sát Philadelphia một lời khuyên sai về một vụ giết người chưa được giải quyết",
+          "headline_vi": "AI của Anthropic đã đưa cho cảnh sát Philadelphia một lời khuyên sai về một vụ giết người chưa được giải quyết"
+        }
+      ],
+      "source_count": 3,
+      "aliases": [
+        "0854a3cada87fb07918e"
+      ],
+      "hot_score": 53.986,
+      "hot_reason": "3 nguồn độc lập cùng đưa · hn-ai: 18 điểm · đăng 6 giờ trước",
+      "hot_signals": {
+        "measurement": {
+          "source": "hn-ai",
+          "metric": "points",
+          "value": 18,
+          "observed_at": "2026-10-10T01:52:57Z",
+          "velocity_per_hour": null,
+          "previous_observed_at": null,
+          "previous_value": null
+        }
+      },
+      "worth_score": 66.36,
+      "worth_parts": {
+        "attention": 29.93,
+        "breadth": 22.17,
+        "freshness": 14.26
+      },
+      "worth_why": "<b class=\"num\">3</b> nguồn cùng đưa tin · <b class=\"num\">18</b> điểm trên Hacker News · đăng 6 giờ trước",
+      "headline": "An Anthropic AI model sent a false homicide tip to Philadelphia police",
+      "headline_vi": "Một mô hình AI của Anthropic đã gửi tin báo án mạng giả tới cảnh sát Philadelphia",
+      "image_screened": true,
+      "image": {
+        "src": "https://techcrunch.com/wp-content/uploads/2026/10/GettyImages-1490947739.jpg?resize=1200,797",
+        "via": "og:image",
+        "kind": "photo",
+        "verified": true,
+        "quality": {
+          "version": 2,
+          "keep": true,
+          "reason": "no-dominant-text-or-logo-detected",
+          "flat_fraction": 0.2,
+          "smooth_fraction": 0.201,
+          "glyphs": 15,
+          "text_area": 0.024,
+          "large_glyphs": 6,
+          "large_text_area": 0.024
+        }
+      },
+      "title_vi": "Một mô hình AI của Anthropic đã gửi tin báo án mạng giả tới cảnh sát Philadelphia",
+      "summary_vi": "Anthropic đã không phát hiện ra hành vi này cho đến hơn hai tháng sau khi AI của họ gửi tin báo giả."
+    },
+    {
+      "id": "0235fa50b10ad84eb006",
+      "title": "Anyhow, I think we are now done with the last round of skeptical responses to AI after Navier-Stokes. Yes, AI is now capable of producing novel proofs to hard problems that have eluded us The next line will be that this is only constrained to math because of RL training. I suspect not, we will see.",
+      "url": "https://bsky.app/profile/emollick.bsky.social/post/3mxd2yu3fnc2h",
+      "summary": "Anyhow, I think we are now done with the last round of skeptical responses to AI after Navier-Stokes. Yes, AI is now capable of producing novel proofs to hard problems that have eluded us The next line will be that this is only constrained to math because of RL training. I suspect not, we will see.",
+      "published_at": "2026-10-07T23:11:53Z",
+      "kind": "social",
+      "time_basis": "published",
+      "coverage": [
+        {
+          "id": "0e912a9195aa7e774558",
+          "source": "bluesky-emollick",
+          "publisher": "bluesky",
+          "entity": "ethan-mollick",
+          "lab": "",
+          "title": "Anyhow, I think we are now done with the last round of skeptical responses to AI after Navier-Stokes. Yes, AI is now capable of producing novel proofs to hard problems that have eluded us The next line will be that this is only constrained to math because of RL training. I suspect not, we will see.",
+          "url": "https://bsky.app/profile/emollick.bsky.social/post/3mxd2yu3fnc2h",
+          "published_at": "2026-10-07T23:11:53Z",
+          "metrics": {
+            "likes": 99,
+            "reposts": 6,
+            "replies": 9
+          },
+          "media": [],
+          "discussion_url": null,
+          "headline": "Anyhow, I think we are now done with the last round of skeptical responses to AI after Navier-Stokes.",
+          "title_vi": "Dù sao, tôi nghĩ chúng ta đã hoàn thành với vòng cuối cùng của phản ứng hoài nghi với AI sau Navier-Stokes. Vâng, AI bây giờ có khả năng sản xuất bằng chứng mới cho các vấn đề khó khăn mà đã trốn thoát chúng ta dòng tiếp theo sẽ là điều này chỉ bị hạn chế với toán học vì huấn luyện RL. Tôi nghi ngờ không, chúng ta sẽ thấy.",
+          "headline_vi": "Dù sao, tôi nghĩ chúng ta đã hoàn thành với vòng cuối cùng của phản ứng hoài nghi với AI sau Navier-Stokes."
+        },
+        {
+          "id": "c91559492f19258174dd",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "lab": "",
+          "title": "OpenAI mistranslated mathematics into code for its Navier-Stokes proof",
+          "url": "https://www.newscientist.com/article/2592824-openai-mistranslated-mathematics-into-code-for-its-navier-stokes-proof/",
+          "published_at": "2026-10-09T21:25:09Z",
+          "metrics": {
+            "points": 50,
+            "comments": 5
+          },
+          "media": [],
+          "discussion_url": "https://news.ycombinator.com/item?id=50026734",
+          "headline": "OpenAI mistranslated mathematics into code for its Navier-Stokes proof",
+          "headline_vi": "OpenAI đã dịch sai toán học thành mã cho bằng chứng Navier-Stokes của mình",
+          "title_vi": "OpenAI đã dịch sai toán học thành mã cho bằng chứng Navier-Stokes của mình"
+        },
+        {
+          "id": "7366e5ef54edea6ea008",
+          "source": "lobsters-ai",
+          "publisher": "lobsters",
+          "lab": "",
+          "title": "Navier-Stokes lost in translation: Why Lean verification of AI autoformalisation does not guarantee correct natural language proofs",
+          "url": "https://arxiv.org/abs/2610.08144",
+          "published_at": "2026-10-08T17:16:42Z",
+          "metrics": {
+            "score": 22,
+            "comments": 8
+          },
+          "media": [],
+          "discussion_url": "https://lobste.rs/s/axmhji/navier_stokes_lost_translation_why_lean",
+          "headline": "Navier-Stokes lost in translation: Why Lean verification of AI autoformalisation does not guarantee correct natural language proofs",
+          "headline_vi": "Navier-Stokes thất lạc trong quá trình chuyển đổi: Vì sao việc xác thực bằng Lean đối với quá trình tự động hình thức hóa của AI không đảm…",
+          "title_vi": "Navier-Stokes thất lạc trong quá trình chuyển đổi: Vì sao việc xác thực bằng Lean đối với quá trình tự động hình thức hóa của AI không đảm bảo các chứng minh bằng ngôn ngữ tự nhiên là chính xác"
+        }
+      ],
+      "source_count": 3,
+      "aliases": [
+        "0eb8e68ad02351499280",
+        "d9ae5a9e80693cef139c"
+      ],
+      "hot_score": 21.808,
+      "hot_reason": "3 nguồn độc lập cùng đưa · lobsters-ai: 22 điểm · đăng 50 giờ trước",
+      "hot_signals": {
+        "measurement": {
+          "source": "lobsters-ai",
+          "metric": "score",
+          "value": 22,
+          "observed_at": "2026-10-09T16:41:23Z",
+          "velocity_per_hour": null,
+          "previous_observed_at": null,
+          "previous_value": null
+        }
+      },
+      "worth_score": 44.88,
+      "worth_parts": {
+        "attention": 11.18,
+        "breadth": 20.51,
+        "freshness": 13.19
+      },
+      "worth_why": "<b class=\"num\">3</b> nguồn cùng đưa tin · <b class=\"num\">22</b> điểm trên Lobsters AI · đăng 2 ngày trước",
+      "headline": "Anyhow, I think we are now done with the last round of skeptical responses to AI after Navier-Stokes.",
+      "headline_vi": "Dù sao, tôi nghĩ chúng ta đã hoàn thành với vòng cuối cùng của phản ứng hoài nghi với AI sau Navier-Stokes.",
+      "image_screened": true,
+      "title_vi": "Dù sao, tôi nghĩ chúng ta đã hoàn thành với vòng cuối cùng của phản ứng hoài nghi với AI sau Navier-Stokes. Vâng, AI bây giờ có khả năng sản xuất bằng chứng mới cho các vấn đề khó khăn mà đã trốn thoát chúng ta dòng tiếp theo sẽ là điều này chỉ bị hạn chế với toán học vì huấn luyện RL. Tôi nghi ngờ không, chúng ta sẽ thấy.",
+      "summary_vi": "Dù sao, tôi nghĩ chúng ta đã hoàn thành với vòng cuối cùng của phản ứng hoài nghi với AI sau Navier-Stokes. Vâng, AI bây giờ có khả năng sản xuất bằng chứng mới cho các vấn đề khó khăn mà đã trốn thoát chúng ta dòng tiếp theo sẽ là điều này chỉ bị hạn chế với toán học vì huấn luyện RL. Tôi nghi ngờ không, chúng ta sẽ thấy."
+    },
+    {
+      "id": "d7576c4639d9aa8755e0",
+      "title": "‘Pure insanity’: Mathematicians will need years to make sense of OpenAI’s latest drop",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1008726/openai-mathematics-solutions-chaos",
+      "summary": "\"Staggering.\" \"Overwhelming.\" \"Unprecedented.\" \"Surreal.\" \"Pure insanity.\" Those were among the descriptions more than three dozen mathematicians reached for in conversations with The Verge as they tried to make sense of the flood of mathematical results OpenAI abruptly dropped on the field this wee",
+      "published_at": "2026-10-09T19:09:44Z",
+      "kind": "other",
+      "time_basis": "published",
+      "coverage": [
+        {
+          "id": "2152a5a446405cd50137",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "lab": "",
+          "title": "‘Pure insanity’: Mathematicians will need years to make sense of OpenAI’s latest drop",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1008726/openai-mathematics-solutions-chaos",
+          "published_at": "2026-10-09T19:09:44Z",
+          "metrics": {},
+          "media": [],
+          "discussion_url": null,
+          "headline": "‘Pure insanity’: Mathematicians will need years to make sense of OpenAI’s latest drop",
+          "title_vi": "'Thật điên rồ': Các nhà toán học sẽ cần nhiều năm để hiểu được sự sụt giảm mới nhất của OpenAI",
+          "headline_vi": "'Thật điên rồ': Các nhà toán học sẽ cần nhiều năm để hiểu được sự sụt giảm mới nhất của OpenAI"
+        },
+        {
+          "id": "4bcaf03cfb80ae2b706d",
+          "source": "bluesky-emollick",
+          "publisher": "bluesky",
+          "entity": "ethan-mollick",
+          "lab": "",
+          "title": "Some early first-hand accounts of the experience of encountering a narrow superhuman intelligence as mathematicians grapple with the hundreds of big AI proofs released by OpenAI. Problems solved in inhuman ways that make us wonder what it means to actually know things... scottaaronson.blog?p=10169",
+          "url": "https://bsky.app/profile/emollick.bsky.social/post/3mxczf26uy22h",
+          "published_at": "2026-10-07T22:42:54Z",
+          "metrics": {
+            "likes": 99,
+            "reposts": 15,
+            "replies": 4
+          },
+          "media": [],
+          "discussion_url": null,
+          "headline": "Some early first-hand accounts of the experience of encountering a narrow superhuman intelligence as mathematicians grapple with the…",
+          "title_vi": "Một số lời kể trực tiếp ban đầu về trải nghiệm chạm trán với một trí tuệ siêu phàm hẹp khi các nhà toán học vật lộn với hàng trăm chứng minh AI lớn do OpenAI công bố. Những bài toán được giải theo những cách phi nhân tính khiến chúng ta tự hỏi việc thực sự biết một điều gì đó có ý nghĩa là gì... scottaaronson.blog?p=10169",
+          "headline_vi": "Một số lời kể trực tiếp ban đầu về trải nghiệm chạm trán với một trí tuệ siêu phàm hẹp khi các nhà toán học vật lộn với hàng trăm chứng…"
+        }
+      ],
+      "source_count": 2,
+      "aliases": [
+        "2ab0968fb1a1cdeaa9d0",
+        "42d1906c74af83c64ef7"
+      ],
+      "hot_score": 70.301,
+      "hot_reason": "2 nguồn độc lập cùng đưa · đăng 6 giờ trước",
+      "hot_signals": {
+        "measurement": null
+      },
+      "worth_score": 21.96,
+      "worth_parts": {
+        "breadth": 9.61,
+        "freshness": 12.35
+      },
+      "worth_why": "<b class=\"num\">2</b> nguồn cùng đưa tin · <b class=\"num\">99</b> lượt thích trên Bài đăng của Ethan Mollick trên Bluesky · đăng 7 giờ trước",
+      "headline": "‘Pure insanity’: Mathematicians will need years to make sense of OpenAI’s latest drop",
+      "headline_vi": "'Thật điên rồ': Các nhà toán học sẽ cần nhiều năm để hiểu được sự sụt giảm mới nhất của OpenAI",
+      "image_screened": true,
+      "title_vi": "'Thật điên rồ': Các nhà toán học sẽ cần nhiều năm để hiểu được sự sụt giảm mới nhất của OpenAI"
+    }
+  ],
+  "sources": [
+    {
+      "id": "bluesky-emollick",
+      "name": "Bài đăng của Ethan Mollick trên Bluesky",
+      "lab": "",
+      "ok": true,
+      "count": 51,
+      "error": null,
+      "error_vi": null,
+      "url": "https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=emollick.bsky.social&filter=posts_with_replies&limit=100",
+      "publisher": "bluesky"
+    },
+    {
+      "id": "hn-ai",
+      "name": "Hacker News",
+      "lab": "",
+      "ok": true,
+      "count": 96,
+      "error": null,
+      "error_vi": null,
+      "url": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=100&numericFilters=created_at_i%3E%3D1790992377&query=AI",
+      "publisher": "hacker-news"
+    },
+    {
+      "id": "hn-front",
+      "name": "Hacker News",
+      "lab": "",
+      "ok": true,
+      "count": 6,
+      "error": null,
+      "error_vi": null,
+      "url": "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=100&numericFilters=created_at_i%3E%3D1790992377",
+      "publisher": "hacker-news"
+    },
+    {
+      "id": "lobsters-ai",
+      "name": "Lobsters AI",
+      "lab": "",
+      "ok": false,
+      "count": 0,
+      "error": "Disabled: Nguồn này không cho phép radar thu thập nội dung.",
+      "error_vi": "Tạm tắt: Nguồn này không cho phép radar thu thập nội dung.",
+      "disabled": true,
+      "disabled_reason": "Nguồn này không cho phép radar thu thập nội dung.",
+      "url": "https://lobste.rs/hottest.json",
+      "publisher": "lobsters"
+    },
+    {
+      "id": "techcrunch-ai",
+      "name": "TechCrunch AI",
+      "lab": "",
+      "ok": true,
+      "count": 20,
+      "error": null,
+      "error_vi": null,
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+      "publisher": "techcrunch"
+    },
+    {
+      "id": "verge-ai",
+      "name": "The Verge AI",
+      "lab": "",
+      "ok": true,
+      "count": 10,
+      "error": null,
+      "error_vi": null,
+      "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+      "publisher": "the-verge"
+    }
+  ]
+}

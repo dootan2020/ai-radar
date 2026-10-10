@@ -11,6 +11,7 @@ import unittest
 from unittest.mock import patch
 
 from radar import gemini_paid_budget as budget
+from radar import summary_gemini, video_script
 
 
 class PaidBudgetTests(unittest.TestCase):
@@ -130,7 +131,7 @@ class PaidBudgetTests(unittest.TestCase):
         store["settled_consumers"] = {"2026-10-07": {"translation": 150_000, "summary": 350_000}}
         budget._push(str(self.remote), store)
         self.assertIsNone(self._prepare(True, 701, 71))
-        self.assertEqual(json.loads(self.path.read_text(encoding="utf-8"))["run_allowance_micros"], 40_000)
+        self.assertEqual(json.loads(self.path.read_text(encoding="utf-8"))["run_allowance_micros"], 70_000)
         self.assertEqual(self._prepare(True, 702, 72), "paid_daily_cap")
         self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 500_000)
 
@@ -196,7 +197,7 @@ class PaidBudgetTests(unittest.TestCase):
         self._prepare(False, 950, 90)
         for offset, (consumer, tokens) in enumerate([
                 ("translation", 40_000), ("summary", 50_000),
-                ("summary", 50_000), ("video", 4_000)], 1):
+                ("summary", 50_000), ("video", 12_000)], 1):
             run = 950 + offset
             self.assertIsNone(self._prepare(True, run, run))
             self.assertIsNone(budget.reserve(self.path, tokens, now=self.now, run_number=run, consumer=consumer)[0])
@@ -204,8 +205,55 @@ class PaidBudgetTests(unittest.TestCase):
                 self.assertEqual(budget.reserve(self.path, 1, now=self.now, run_number=run, consumer="summary")[0],
                                  "paid_summary_daily_tokens")
             self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now, run_key=f"{run}-1"))
-        self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 540_000)
+        self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 570_000)
         self.assertEqual(self._prepare(True, 960, 960), "paid_daily_cap")
+        self.assertEqual(budget.RUN_ALLOWANCE_USD, Decimal("1"))
+        self.assertEqual(budget.DAILY_CAP_USD, Decimal("6"))
+        self.assertEqual(budget.MAX_CAP_USD, Decimal("20"))
+        self.assertEqual(budget.DAILY_PACE_USD * 31, Decimal("17.67"))
+        self.assertGreaterEqual(budget.MAX_CAP_USD - budget.DAILY_PACE_USD * 31, Decimal("2"))
+
+    def test_real_daily_video_request_reaches_transport_on_consecutive_days(self):
+        fixture = Path(__file__).parent / "fixtures" / "video-picks-2026-10-10.json"
+        payload = json.loads(fixture.read_text(encoding="utf-8"))
+        stories = payload["stories"]
+        self.assertEqual(len(stories), 3)
+        body = video_script.build_gemini_request(stories)
+        tokens = len(json.dumps(body).encode("utf-8")) + summary_gemini.MAX_OUTPUT_TOKENS
+        self.assertEqual(tokens, 8_309)
+        calls = []
+
+        def offline_transport(request, key, timeout):
+            calls.append(request)
+            # Exercise real request admission without purchasing or inventing model output.
+            raise TimeoutError("offline transport boundary")
+
+        self.now = datetime(2026, 10, 10, 22, 7, tzinfo=timezone.utc).timestamp()
+        self.assertIsNone(self._prepare(False, 980, 980))
+        for run in (981, 982):
+            with self.subTest(run=run):
+                self.assertIsNone(self._prepare(True, run, run))
+                with patch.dict(os.environ, {
+                    "GEMINI_API_KEY": "test-key",
+                    "RADAR_GEMINI_PAID_ENABLED": "1",
+                    "RADAR_GEMINI_PAID_LEDGER": str(self.path),
+                    "GITHUB_RUN_NUMBER": str(run),
+                }):
+                    result = video_script.generate_video_script(
+                        fixture, self.root / "video-script.json", self.root / "summary-ledger.json",
+                        now_val=datetime.fromtimestamp(self.now, timezone.utc),
+                        ref="refs/heads/main", transport_fn=offline_transport)
+                self.assertEqual(result["status"], "transport_error", result)
+                self.assertEqual(calls[-1], body)
+                reservations = json.loads(self.path.read_text(encoding="utf-8"))["reservations"]
+                self.assertEqual(len(reservations), 1)
+                self.assertEqual(reservations[0]["consumer"], "video")
+                self.assertEqual(reservations[0]["micros"], budget._micros(tokens, self.now))
+                self.assertIsNone(budget.finalize(
+                    self.path, str(self.remote), now=self.now, run_key=f"{run}-1"))
+                self.now += 24 * 60 * 60
+        self.assertEqual(len(calls), 2)
+        self.assertGreaterEqual(budget.CONSUMER_TOKENS["video"], tokens * Decimal("1.25"))
 
     def test_corrupt_consumer_snapshot_cannot_authorize_spending(self):
         self._prepare(False, 970, 90)
