@@ -49,6 +49,93 @@ class PaidBudgetTests(unittest.TestCase):
                                          "settled_micros": 0, "pending": {},
                                          "settled_daily": {}, "pending_days": {}, "settled_consumers": {}})
 
+    def test_article_summaries_survive_fresh_runs_and_reach_published_pages(self):
+        from copy import deepcopy
+        import io
+        from radar import summarize, summary_pipeline
+        from radar.story_pages import render_story_page
+        from radar.transport import ResponseText
+
+        self.now = datetime(2026, 10, 10, 12, tzinfo=timezone.utc).timestamp()
+        fixtures = Path(__file__).parent / "fixtures" / "summary-articles"
+        articles = json.loads((fixtures / "index.json").read_text(encoding="utf-8"))[:3]
+        stories = [dict(id=f"{index:020x}", url=item["url"], title=item["title"],
+                        published_at="2026-10-09T12:00:00Z", kind="news", coverage=[],
+                        worth_score=90 - index) for index, item in enumerate(articles, 1)]
+        payload = {"stories": stories, "generated_at": "2026-10-10T12:00:00Z"}
+        src, cache = self.root / "radar.json", self.root / "summaries.json"
+        published, output = self.root / "published.json", self.root / "github-output.txt"
+        requested, fetched = [], []
+        points = [
+            "Nhóm thực hành ghi lại từng bước trong sổ tay chung để theo dõi công việc.",
+            "Người tham gia kiểm tra hướng dẫn trước khi chuyển sang nhiệm vụ tiếp theo.",
+            "Người rà soát đối chiếu danh sách đã hoàn thành với sổ tay sau buổi thực hành.",
+        ]
+
+        def read(url, **kwargs):
+            fetched.append(url)
+            if url.endswith("/robots.txt"):
+                return ResponseText("User-agent: *\nAllow: /", status=200)
+            item = next(item for item in articles if item["url"] == url)
+            return ResponseText((fixtures / item["file"]).read_text(encoding="utf-8"),
+                                status=200, url=url, content_type="text/html")
+
+        def provider(body, key, timeout):
+            # Actual transport boundary: do not replace parsing, grounding or ledger checks.
+            inputs = json.loads(body["contents"][0]["parts"][0]["text"])["stories"]
+            self.assertEqual(len(inputs), 1)
+            requested.append(inputs[0]["id"])
+            self.assertGreater(len(inputs[0]["article_text"]), 300)
+            self.assertGreater(budget.total_micros(self.path, now=self.now), 0)
+            self.assertEqual(json.loads(self.path.read_text())["reservations"][-1]["consumer"], "summary")
+            return {"candidates": [{"finishReason": "STOP", "content": {"parts": [{"text": json.dumps(
+                {"summaries": [{"id": inputs[0]["id"], "key_points": points}]}, ensure_ascii=False)}]}}],
+                "usageMetadata": {"totalTokenCount": 420}}
+
+        self.assertIsNone(self._prepare(False, 1100, 1100))
+        with patch("socket.create_connection", side_effect=AssertionError("network forbidden")), \
+                patch.object(summary_pipeline.transport, "read_url", side_effect=read), \
+                patch.object(summary_gemini, "transport", side_effect=provider), \
+                patch("time.time", return_value=self.now):
+            for offset in range(4):
+                run = 1101 + offset
+                self.assertIsNone(self._prepare(True, run, run))
+                if offset == 0:
+                    self.assertIsNone(budget.reserve(self.path, 40_000, now=self.now,
+                                                     run_number=run, consumer="translation")[0])
+                # Simulate a newly collected snapshot; all summary state must load from disk.
+                src.write_text(json.dumps(deepcopy(payload)), encoding="utf-8", newline="\n")
+                published.write_text("{}", encoding="utf-8")
+                env = {"GITHUB_RUN_NUMBER": str(run), "GEMINI_API_KEY": "offline-sentinel",
+                       "RADAR_GEMINI_PAID_ENABLED": "1", "RADAR_GEMINI_PAID_LEDGER": str(self.path),
+                       "RADAR_PUBLISHED_SNAPSHOT": str(published), "GITHUB_OUTPUT": str(output)}
+                with patch.dict(os.environ, env, clear=True), patch("sys.stdout", new_callable=io.StringIO):
+                    self.assertEqual(summarize.main(["--input", str(src), "--cache", str(cache)]), 0)
+                ui = json.loads((self.root / "radar-ui.json").read_text(encoding="utf-8"))
+                stats = ui["summary"]
+                self.assertEqual(stats["stories"], 3)
+                self.assertEqual(stats["requests"], int(offset < 3))
+                self.assertEqual(stats["cache_hits"], min(offset, 3))
+                self.assertEqual(stats["summarized"], int(offset < 3))
+                self.assertEqual(stats["pending"], max(2 - offset, 0))
+                for story in ui["stories"]:
+                    if story.get("key_points"):
+                        self.assertEqual(story["key_points"], points)
+                        self.assertIn(points[0], render_story_page(story))
+                self.assertEqual(json.loads(src.read_text(encoding="utf-8")),
+                                 json.loads(published.read_text(encoding="utf-8")))
+                self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now, run_key=f"{run}-1"))
+        self.assertEqual(len(requested), 3)
+        self.assertEqual(len(set(requested)), 3)
+        self.assertEqual(sum(not url.endswith("/robots.txt") for url in fetched), 3)
+        store = self._store()
+        self.assertEqual(store["settled_consumers"]["2026-10-10"]["summary"], budget._micros(1260, self.now))
+        self.assertEqual(store["settled_consumers"]["2026-10-10"]["translation"], budget._micros(40_000, self.now))
+        self.assertLess(store["settled_daily"]["2026-10-10"], int(budget.DAILY_PACE_USD * 1_000_000))
+        self.assertLess(store["settled_micros"], int(budget.MAX_CAP_USD * 1_000_000))
+        self.assertIn("summary_cache_written=true", output.read_text())
+        self.assertIn("article_inputs_written=true", output.read_text())
+
     def test_cancelled_attempt_keeps_only_a_bounded_reservation_and_next_run_continues(self):
         self.assertIsNone(self._prepare(False, 100, 10))
         self.assertIsNone(self._prepare(True, 101, 11))

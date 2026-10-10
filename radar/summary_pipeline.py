@@ -38,36 +38,64 @@ PAYWALL_TEXT = re.compile(
 
 
 class _ArticleTextParser(HTMLParser):
-    """Collect readable text from semantic article/main regions only."""
+    """Collect semantic regions and explicitly labelled publisher article bodies."""
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.article_depth = 0
-        self.main_depth = 0
-        self.skip_depth = 0
+        self.stack = []
         self.parts = []
 
     def handle_starttag(self, tag, attrs):
-        if tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"}:
-            self.skip_depth += 1
-        if tag == "article":
-            self.article_depth += 1
-        if tag == "main":
-            self.main_depth += 1
+        if tag in {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}:
+            return
+        attrs = dict(attrs)
+        readable = tag in {"article", "main"} or (
+            attrs.get("data-framer-name") == "Blog content"
+            and attrs.get("data-framer-component-type") == "RichTextContainer")
+        skipped = tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"}
+        self.stack.append((tag, readable, skipped))
 
     def handle_endtag(self, tag):
-        if tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"}:
-            self.skip_depth = max(0, self.skip_depth - 1)
-        if tag == "article":
-            self.article_depth = max(0, self.article_depth - 1)
-        if tag == "main":
-            self.main_depth = max(0, self.main_depth - 1)
+        for index in range(len(self.stack) - 1, -1, -1):
+            if self.stack[index][0] == tag:
+                del self.stack[index:]
+                break
 
     def handle_data(self, data):
-        if not self.skip_depth and (self.article_depth or self.main_depth):
+        if not any(skipped for _, _, skipped in self.stack) and any(readable for _, readable, _ in self.stack):
             value = " ".join(data.split())
             if value:
                 self.parts.append(value)
+
+
+def _pandaily_article_html(html: str, url: str) -> str:
+    """Read only the matching post from public Remix loader data, never execute JS."""
+    if urlsplit(url).hostname not in {"pandaily.com", "www.pandaily.com"}:
+        return ""
+    pattern = r'window\.__remixContext\.streamController\.enqueue\(("(?:[^"\\]|\\.)*")\)'
+    for match in re.finditer(pattern, html):
+        try:
+            values = json.loads(json.loads(match[1]))
+            if not isinstance(values, list):
+                continue
+
+            def field(node, name):
+                if not isinstance(node, dict):
+                    return None
+                for key, ref in node.items():
+                    if (isinstance(key, str) and re.fullmatch(r"_\d+", key)
+                            and int(key[1:]) < len(values) and values[int(key[1:])] == name
+                            and type(ref) is int and 0 <= ref < len(values)):
+                        return values[ref]
+                return None
+
+            post = field(field(field(values[0], "loaderData"), "routes/$slug"), "post")
+            content = field(post, "content")
+            if field(post, "slug") == urlsplit(url).path.strip("/") and isinstance(content, str):
+                return content
+        except (ValueError, TypeError, IndexError):
+            continue
+    return ""
 
 
 def article_url(story: dict) -> str | None:
@@ -96,13 +124,8 @@ def fetch_article_result(story: dict, robots_cache: dict | None = None) -> tuple
     if robots_cache is None:
         robots_cache = {}
 
-    parts = urlsplit(url)
-    origin = f"{parts.scheme}://{parts.netloc}"
-    if origin in robots_cache:
-        robots = robots_cache[origin]
-    else:
-        robots = shadow_collector.check_robots(url, fetch_fn=fetch_without_redirects, robots_cache=robots_cache)
-        robots_cache[origin] = robots
+    # Cache parsed rules per origin, but evaluate permission for every path.
+    robots = shadow_collector.check_robots(url, fetch_fn=fetch_without_redirects, robots_cache=robots_cache)
     if robots["robots_status"] not in (200, 404) or robots["disallowed"]:
         return "", "robots"
 
@@ -122,6 +145,11 @@ def fetch_article_result(story: dict, robots_cache: dict | None = None) -> tuple
     parser = _ArticleTextParser()
     try:
         parser.feed(str(response))
+        if not parser.parts:
+            article_html = _pandaily_article_html(str(response), url)
+            if article_html:
+                parser = _ArticleTextParser()
+                parser.feed("<article>" + article_html + "</article>")
     except Exception:
         return "", "error"
     text = " ".join(parser.parts)
