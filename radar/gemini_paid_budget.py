@@ -334,12 +334,14 @@ def _micros(tokens: int, now: float) -> int:
 def _consumer_remaining(store, now, *, exclude_run=None):
     day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
     amounts = store.get("settled_consumers", {}).get(day, {})
-    # Legacy spend and interrupted holds have unknown attribution. Charge
-    # them against every consumer rather than minting new quota on migration.
-    unknown = max(0, store["settled_daily"].get(day, 0) - sum(amounts.values()))
-    unknown += sum(value for key, value in store["pending"].items()
-                   if key != exclude_run and store["pending_days"].get(key) == day)
-    return {name: max(0, _micros(tokens, now) - amounts.get(name, 0) - unknown)
+    # Legacy spend before consumer attribution was incurred entirely by translation
+    # and summary workflows; video had no legacy spend. Interrupted holds have unknown
+    # attribution and remain conservatively charged against every consumer.
+    legacy = max(0, store["settled_daily"].get(day, 0) - sum(amounts.values()))
+    pending = sum(value for key, value in store["pending"].items()
+                  if key != exclude_run and store["pending_days"].get(key) == day)
+    return {name: max(0, _micros(tokens, now) - amounts.get(name, 0) - pending
+                      - (0 if name == "video" else legacy))
             for name, tokens in CONSUMER_TOKENS.items()}
 
 

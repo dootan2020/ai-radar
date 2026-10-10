@@ -163,8 +163,10 @@ Reservations and missing-usage failures consume these shares; validated provider
 usage settles them. Shares cannot borrow from each other. The monthly cap is
 still downward-only. The hold shrinks to available day/month budget and unused
 money is released only after successful finalization. Interrupted holds stay
-charged. Legacy daily spend without consumer attribution is conservatively
-subtracted from every consumer on the migration day.
+charged against every consumer. Legacy daily spend without consumer attribution
+was incurred entirely by translation and summary workflows prior to per-consumer
+tracking, so it is charged against translation and summaries on the migration
+day, while video had no legacy spend and remains bounded by the overall daily pace.
 
 Paid work prioritizes active editor pins, the three promoted picks and the five
 home hot-score leaders, then high-worth stories within the home ranking window.
@@ -254,7 +256,7 @@ USD 0.045/day or USD 1.395/31 days at the 2026 ledger rate. It is funded by the
 overall daily pace; title and article-summary shares remain unchanged. The
 request retains its full evidence, instructions, schema and grounding checks.
 Requests above the share still skip with `paid_video_daily_tokens`; unavailable
-run/day/month money, legacy unattributed spend, provider failures and rejected
+run/day/month money, interrupted holds, provider failures and rejected
 output can also prevent a fresh script. Budget admission does not guarantee
 successful model generation.
 

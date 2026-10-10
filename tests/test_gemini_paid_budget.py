@@ -270,6 +270,63 @@ class PaidBudgetTests(unittest.TestCase):
         self.assertEqual(budget.cap_usd({"RADAR_GEMINI_PAID_MONTHLY_CAP_USD": "7.5"}), Decimal("7.5"))
         self.assertEqual(budget.cap_usd({"RADAR_GEMINI_PAID_MONTHLY_CAP_USD": "bad"}), Decimal(0))
 
+    def test_migration_day_unattributed_spend_allows_video_reservation_at_2230_utc(self):
+        self._prepare(False, 990, 990)
+        store = self._store()
+        store.pop("settled_consumers")
+        store["settled_micros"] = 406_902
+        store["settled_daily"] = {"2026-10-10": 406_902}
+        now_utc = datetime(2026, 10, 10, 22, 30, tzinfo=timezone.utc).timestamp()
+        budget._push(str(self.remote), store, now_utc)
+
+        with patch.dict(os.environ, {"GITHUB_RUN_ID": "991", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_RUN_NUMBER": "991"}):
+            prep_err = budget.prepare(self.path, paid=True, now=now_utc, run_number=991,
+                                      remote=str(self.remote), run_key="991-1")
+            self.assertIsNone(prep_err)
+            self.assertEqual(budget.remaining_tokens(self.path, "translation", now=now_utc, run_number=991), 0)
+            self.assertEqual(budget.remaining_tokens(self.path, "summary", now=now_utc, run_number=991), 0)
+            self.assertGreaterEqual(budget.remaining_tokens(self.path, "video", now=now_utc, run_number=991), 8_309)
+
+            error, req_id = budget.reserve(self.path, 8_309, now=now_utc, run_number=991,
+                                           consumer="video", idempotency_key="2026-10-11")
+            self.assertIsNone(error)
+            self.assertIsNotNone(req_id)
+
+            budget.settle(self.path, req_id, 8_309, now=now_utc)
+            self.assertIsNone(budget.finalize(self.path, str(self.remote), now=now_utc, run_key="991-1"))
+
+        final_store = self._store(now_utc)
+        self.assertEqual(final_store["settled_daily"]["2026-10-10"], 406_902 + 31_159)
+        self.assertEqual(final_store["settled_consumers"]["2026-10-10"], {"video": 31_159})
+        self.assertIn("2026-10-11", final_store["video_dates"])
+
+    def test_migration_day_2026_10_10_total_spend_cannot_exceed_daily_pace(self):
+        now_utc = datetime(2026, 10, 10, 22, 30, tzinfo=timezone.utc).timestamp()
+        self._prepare(False, 995, 995)
+        store = self._store()
+        store.pop("settled_consumers")
+        store["settled_micros"] = 550_000
+        store["settled_daily"] = {"2026-10-10": 550_000}
+        budget._push(str(self.remote), store, now_utc)
+
+        with patch.dict(os.environ, {"GITHUB_RUN_ID": "996", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_RUN_NUMBER": "996"}):
+            self.assertIsNone(budget.prepare(self.path, paid=True, now=now_utc, run_number=996,
+                                             remote=str(self.remote), run_key="996-1"))
+            tokens_left = budget.remaining_tokens(self.path, "video", now=now_utc, run_number=996)
+            self.assertLess(tokens_left, 8_309)
+            error, _ = budget.reserve(self.path, 8_309, now=now_utc, run_number=996,
+                                      consumer="video", idempotency_key="2026-10-11")
+            self.assertIsNotNone(error)
+
+        store["settled_daily"]["2026-10-10"] = 570_000
+        store["settled_micros"] = 570_000
+        budget._push(str(self.remote), store, now_utc)
+        with patch.dict(os.environ, {"GITHUB_RUN_ID": "997", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_RUN_NUMBER": "997"}):
+            self.assertEqual(budget.prepare(self.path, paid=True, now=now_utc, run_number=997,
+                                            remote=str(self.remote), run_key="997-1"),
+                             "paid_daily_cap")
+
 
 if __name__ == "__main__":
     unittest.main()
+
