@@ -64,7 +64,6 @@
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M9 7.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L9.9 6.7a.6.6 0 0 0-.9.5z"/></symbol>
   <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M18 20l-6-4.3L6 20V5.5A1.5 1.5 0 0 1 7.5 4h9A1.5 1.5 0 0 1 18 5.5z"/></symbol>
   <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
-  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v13M6.5 12.5L12 18l5.5-5.5"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.5"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
@@ -76,14 +75,20 @@
 <header class="feed-bar" id="bar">
   <div class="feed-bar-in">
     <a class="feed-brand" href="#top" aria-label="ai radar, về đầu trang">ai<b>·</b>radar</a>
-    <div class="feed-filters" id="feed-filters" role="group" aria-label="Lọc dòng tin">
-      <button class="filter-chip" data-filter="all" aria-pressed="true">Tất cả</button>
-      <button class="filter-chip" data-filter="big" aria-pressed="false">Chuyện lớn</button>
-      <button class="filter-chip" data-filter="hot" aria-pressed="false">Đang nóng</button>
-      <button class="filter-chip" data-filter="product" aria-pressed="false">Sản phẩm</button>
-      <button class="filter-chip" data-filter="forum" aria-pressed="false">Thảo luận</button>
-      <button class="filter-chip" data-filter="code" aria-pressed="false">Mã và mô hình</button>
-      <button class="filter-chip" data-filter="saved" aria-pressed="false" hidden>Đã lưu</button>
+    <div class="feed-navigation">
+      <div class="feed-filters" id="feed-filters" role="group" aria-label="Lọc dòng tin">
+        <button class="filter-chip" data-filter="all" aria-pressed="true">Tất cả</button>
+        <button class="filter-chip" data-filter="big" aria-pressed="false">Chuyện lớn</button>
+        <button class="filter-chip" data-filter="hot" aria-pressed="false">Đang nóng</button>
+        <button class="filter-chip" data-filter="product" aria-pressed="false">Sản phẩm</button>
+        <button class="filter-chip" data-filter="forum" aria-pressed="false">Thảo luận</button>
+        <button class="filter-chip" data-filter="code" aria-pressed="false">Mã và mô hình</button>
+        <button class="filter-chip" data-filter="saved" aria-pressed="false" hidden>Đã lưu</button>
+      </div>
+      <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin" hidden>
+        <button class="sort-btn" data-sort="worth" aria-pressed="true">Đáng đọc nhất</button>
+        <button class="sort-btn" data-sort="new" aria-pressed="false">Mới nhất</button>
+      </div>
     </div>
     <a class="ed-link" href="ban-tin.html">Bản tin sáng</a>
     <a class="tc-link" href="tra-cuu.html" aria-label="Tra cứu câu chuyện AI"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span class="tc-label">Tra cứu</span></a>
@@ -94,28 +99,20 @@
   </div>
 </header>
 
-<!-- A newer snapshot arrived while the page was open: one pill, applied only when the reader asks. -->
-<div class="fresh" id="fresh" aria-live="polite"></div>
+<!-- One transient notice for meaningful new stories; the live region never contains a focusable control. -->
+<div class="fresh" id="fresh" hidden>
+  <button class="fresh-btn" id="fresh-go" type="button" aria-keyshortcuts="U"><svg class="i" aria-hidden="true"><use href="#i-up"/></svg><span id="fresh-text"></span></button>
+</div>
+<div class="sr" id="fresh-announcement" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <main class="feed-main" id="top" tabindex="-1" aria-busy="true">
-  <div class="feed-head">
-    <h1 class="feed-h1" id="feed-h1"><span class="sr">ai-radar, bản tin AI hôm nay. </span>Khám phá</h1>
-    <p class="feed-sub" id="feed-sub" aria-live="polite">Đang nạp dòng tin…</p>
-    <div class="new-items" id="moi" hidden>
-      <button class="new-go" id="new-go" aria-keyshortcuts="U"><svg class="i" aria-hidden="true"><use href="#i-down"/></svg><span id="new-items-text"></span></button>
-      <span class="new-sep new-divider" aria-hidden="true">·</span>
-      <button class="text-btn mark-seen-btn" id="mark-seen-btn" aria-keyshortcuts="M">Đánh dấu đã xem</button>
-    </div>
-    <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin" hidden>
-      <button class="sort-btn" data-sort="worth" aria-pressed="true">Đáng đọc nhất</button>
-      <button class="sort-btn" data-sort="new" aria-pressed="false">Mới nhất</button>
-    </div>
-    <p class="stale" id="stale" role="status" hidden></p>
-    <!-- Shown only if the page never finished loading (a blocked module, no JavaScript). -->
-    <div class="reader-fallback" role="status">
-      <p>Nếu dòng tin chưa hiện, hãy thử tải lại trang. <a class="text-btn" href="">Tải lại trang</a></p>
-      <noscript><p>Dòng tin cần JavaScript để hiển thị. Hãy bật JavaScript trong trình duyệt rồi tải lại trang.</p></noscript>
-    </div>
+  <h1 class="sr">ai-radar, bản tin AI hôm nay</h1>
+  <p class="filter-context" id="filter-context" aria-live="polite" hidden></p>
+  <p class="stale" id="stale" role="status" hidden></p>
+  <!-- Shown only if the page never finished loading (a blocked module, no JavaScript). -->
+  <div class="reader-fallback" role="status">
+    <p>Nếu dòng tin chưa hiện, hãy thử tải lại trang. <a class="text-btn" href="">Tải lại trang</a></p>
+    <noscript><p>Dòng tin cần JavaScript để hiển thị. Hãy bật JavaScript trong trình duyệt rồi tải lại trang.</p></noscript>
   </div>
 
   <!-- Khối 1: Nhiều nguồn cùng đưa - các sự kiện lớn được nhiều cơ quan báo chí và phòng nghiên cứu độc lập cùng xác nhận -->
@@ -157,9 +154,10 @@
   </footer>
 
   <!-- Every source of this snapshot and whether its last fetch worked, the live layer, and how the page works (the
-       bento home's "Nguồn" chapter and footer); the head line links here. -->
+       bento home's "Nguồn" chapter and footer). -->
   <section class="src-panel" id="nguon" aria-labelledby="nguon-h" hidden>
     <h2 class="tile-title" id="nguon-h">Nguồn của bản tin</h2>
+    <p class="src-note" id="src-update"></p>
     <p class="src-note" id="src-note"></p>
     <h3 class="src-sub">Đọc trực tiếp từ trình duyệt, mỗi 90 giây</h3>
     <ul class="src-list" id="src-live"></ul>

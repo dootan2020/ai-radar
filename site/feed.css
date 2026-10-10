@@ -71,7 +71,7 @@
 
 /* ---------- base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + var(--space-16)); overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--feed-bar-height, var(--bar-h)) + var(--space-16)); overflow-x: clip; }
 body {
   margin: 0; background: var(--color-canvas); color: var(--color-ink);
   font-family: var(--family); font-size: var(--text-body); line-height: var(--leading-body);
@@ -108,6 +108,7 @@ ul, ol { padding: 0; list-style: none; }
 .feed-brand { font-size: var(--size-21); font-weight: var(--weight-bold); letter-spacing: var(--tracking-display); flex: none; display: inline-flex; align-items: center; min-height: 40px; }
 .feed-brand b { color: var(--color-accent); }
 
+.feed-navigation { display: flex; align-items: center; gap: var(--space-12); flex: 1; min-width: 0; }
 .feed-filters {
   position: relative;
   display: flex; align-items: center; gap: var(--space-4);
@@ -129,6 +130,7 @@ ul, ol { padding: 0; list-style: none; }
 }
 .filter-chip .count {
   color: var(--color-ink-3); font-size: var(--text-micro);
+  inline-size: 3ch; flex: none; text-align: right;
   transition: color var(--motion-tab-glide, 280ms) var(--ease-flow);
 }
 .filter-chip:hover:not([aria-pressed="true"]) { background: var(--color-fill); color: var(--color-ink); }
@@ -157,121 +159,10 @@ ul, ol { padding: 0; list-style: none; }
 .tc-link .i{width:16px;height:16px}
 .ed-link:focus-visible,.tc-link:focus-visible{border-radius:var(--radius-full)}
 
-/* ---------- page head: plain words on the canvas, no box ---------- */
+/* ---------- feed context: only visible when filtered ---------- */
 .feed-main { max-width: var(--page-max); margin: 0 auto; padding: var(--space-16) var(--page-pad) var(--space-96); }
-.feed-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-8) var(--space-16); margin-bottom: var(--space-24); }
-.feed-h1 { font-size: clamp(1.3125rem, 1.15rem + 0.8vw, 2rem); font-weight: var(--weight-bold); letter-spacing: var(--tracking-display); line-height: var(--leading-tight); }
-.feed-sub { font-size: var(--text-small); color: var(--color-ink-2); }
-.feed-sub .text-btn { margin-left: var(--space-8); }
-.new-items {
-  display: inline-flex;
-  align-items: center;
-  order: 2;
-  flex-basis: 100%;
-  margin-top: var(--space-4);
-  font-size: var(--text-small);
-  color: var(--color-ink-2);
-  line-height: var(--leading-normal);
-  white-space: nowrap;
-}
-.new-go {
-  appearance: none;
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: var(--color-ink);
-  font-weight: var(--weight-medium);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-6);
-  cursor: pointer;
-  text-decoration: none;
-  position: relative;
-  transition: color var(--motion-state) var(--ease-flow);
-}
-.new-go::before {
-  content: "";
-  position: absolute;
-  inset: -6px -4px;
-}
-.new-go .i {
-  width: 13px;
-  height: 13px;
-  color: var(--color-accent);
-  flex: none;
-}
-.new-go:hover {
-  color: var(--color-accent);
-  text-decoration: none;
-}
-.new-sep {
-  display: inline-block;
-  margin: 0 var(--space-8);
-  color: var(--color-ink-3);
-  user-select: none;
-  line-height: 1;
-}
-.new-items .mark-seen-btn {
-  appearance: none;
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  min-height: auto;
-  font: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: var(--color-ink-3);
-  font-weight: var(--weight-regular);
-  cursor: pointer;
-  position: relative;
-  text-decoration: underline;
-  text-decoration-color: var(--color-hair);
-  text-underline-offset: 3px;
-  white-space: nowrap;
-  transition: color var(--motion-state) var(--ease-flow), text-decoration-color var(--motion-state) var(--ease-flow);
-}
-.new-items .mark-seen-btn::before {
-  content: "";
-  position: absolute;
-  inset: -8px -6px;
-}
-.new-items .mark-seen-btn:hover {
-  color: var(--color-ink);
-  text-decoration-color: currentColor;
-}
-.new-go:focus-visible,
-.new-items .mark-seen-btn:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-  border-radius: var(--radius-4, 4px);
-}
-@media (max-width: 480px) {
-  .new-items {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-4);
-    white-space: normal;
-    margin-top: var(--space-4);
-  }
-  .new-items .new-sep {
-    display: none;
-  }
-  .new-items .new-go {
-    min-height: auto;
-    line-height: var(--leading-snug);
-  }
-  .new-items .mark-seen-btn {
-    min-height: auto;
-    font-size: var(--text-meta);
-    line-height: var(--leading-snug);
-    padding-left: 0;
-  }
-}
+.filter-context { font-size: var(--text-small); color: var(--color-ink-2); margin-bottom: var(--space-16); }
+.filter-context .text-btn { margin-left: var(--space-8); }
 .text-btn { display: inline-flex; align-items: center; color: var(--color-accent); font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 3px; min-height: 40px; }
 .text-btn:hover { text-decoration-thickness: 2px; }
 
@@ -538,7 +429,7 @@ ul, ol { padding: 0; list-style: none; }
 /* Sort switch: a segmented pill. The chosen side is a surface on a fill track. */
 .sort-switch {
   position: relative;
-  margin-left: auto; display: inline-flex; gap: var(--space-4); padding: var(--space-4);
+  margin-left: auto; flex: none; display: inline-flex; gap: var(--space-4); padding: var(--space-4);
   border-radius: var(--radius-full); background: var(--color-fill);
 }
 .sort-switch .tab-pill {
@@ -547,7 +438,7 @@ ul, ol { padding: 0; list-style: none; }
 }
 .sort-btn {
   position: relative; z-index: 1;
-  min-height: 36px; padding: 0 var(--space-16); border-radius: var(--radius-full);
+  min-height: 44px; padding: 0 var(--space-12); border-radius: var(--radius-full);
   font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2); white-space: nowrap;
   transition: color var(--motion-tab-glide, 280ms) var(--ease-flow);
 }
@@ -745,40 +636,37 @@ ul, ol { padding: 0; list-style: none; }
 @keyframes toast-in { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
 
 /* ==========================================================================
-   CARRIED OVER FROM THE BENTO HOME (05/10): marks, the new-items pill, the fresh-snapshot pill, the stale line, the
+   CARRIED OVER FROM THE BENTO HOME (05/10): marks, the new-story pill, the stale line, the
    no-script fallback, the story detail, calendar, repository controls, saved items, sources, shortcuts. Same flat
    vocabulary as the approved feed: fills and surfaces, no border, no shadow at rest (the fresh pill floats, so it lifts).
    ========================================================================== */
-/* new (blue dot), skipped (hollow ring), seen (check): the bento home's marks and sizes */
+/* New stories keep a blue dot; opened stories keep a check. */
 .st-mark { display: inline-flex; align-items: center; flex: none; }
 .st-mark:empty { display: none; }
 .new-mark { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); margin-right: var(--space-8); flex: none; vertical-align: 0.12em; }
-.skipped-mark { display: inline-block; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--color-ink-3); margin-right: var(--space-8); flex: none; vertical-align: 0.12em; }
 .seen-mark { display: inline-flex; align-items: center; margin-right: 6px; color: var(--color-ink-3); flex: none; vertical-align: -0.12em; }
 .seen-mark .i { width: 13px; height: 13px; stroke-width: 2.2; }
-.src-row .new-mark, .src-row .skipped-mark, .src-row .seen-mark { margin-right: 0; }
+.src-row .new-mark, .src-row .seen-mark { margin-right: 0; }
 .card-photo .new-mark { background: var(--color-on-media); }
-.card-photo .skipped-mark { border-color: var(--card-ink-on-photo-2); }
 .card-photo .seen-mark { color: var(--card-ink-on-photo-2); }
 .hot-row.is-read .hot-title, .repo-cell.is-read .repo-name, .events li.is-read .event-name { color: var(--color-ink-3); }
 
-.feed-sub .text-link { text-decoration: underline; text-decoration-color: var(--color-hair); text-underline-offset: 3px; }
-.feed-sub .text-link:hover { color: var(--color-ink); text-decoration-color: currentColor; }
-
-/* A newer snapshot: one pill under the bar, applied only when the reader asks */
+/* One transient new-story pill under the bar; live snapshots apply only on activation. */
 .fresh { position: fixed; left: 50%; top: calc(var(--bar-h) + var(--space-12)); transform: translateX(-50%); z-index: 35; }
 .fresh-btn {
-  display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--btn-h); padding: 0 var(--space-24);
-  border-radius: var(--radius-full); background: var(--color-accent); color: var(--color-on-accent);
+  display: inline-flex; align-items: center; gap: var(--space-8); min-height: 44px; padding: 0 var(--space-16);
+  border-radius: var(--radius-full); background: var(--color-surface); color: var(--color-accent);
   font-size: var(--text-small); font-weight: var(--weight-semibold); white-space: nowrap; box-shadow: var(--shadow-lift);
   animation: toast-in var(--motion-arrive) var(--ease-flow) both;
 }
+.fresh-btn:hover { background: var(--color-fill); }
+.fresh-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .fresh-btn .i { width: 16px; height: 16px; }
 
 /* Old data says so in words */
 .stale {
-  order: 4;
-  flex-basis: 100%; padding: var(--space-12) var(--space-16); border-radius: var(--feed-radius);
+  margin-bottom: var(--space-16);
+  padding: var(--space-12) var(--space-16); border-radius: var(--feed-radius);
   background: var(--color-warn-wash); color: var(--color-ink); font-size: var(--text-small);
 }
 
@@ -1053,13 +941,12 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 @media (max-width: 767px){
   :root { --feed-gap: var(--space-16); --feed-pad-photo: var(--space-16); --feed-pad-lead: var(--space-24); }
   .feed-bar-in { height: auto; flex-wrap: wrap; row-gap: 0; padding-top: var(--space-8); }
+  .feed-navigation { order: 5; flex: 0 0 100%; flex-wrap: wrap; gap: 0; }
   .feed-brand { order: 1; flex: 1; }
   .theme-btn { order: 2; width: 44px; height: 44px; }
   .feed-filters { order: 3; flex: 0 0 calc(100% + var(--page-pad) * 2); margin: 0 calc(var(--page-pad) * -1); padding: var(--space-8) var(--space-32) var(--space-8) var(--page-pad); }
   .filter-chip { min-height: 44px; background: var(--card-bg); }
-  html { scroll-padding-top: 128px; }
   .feed-main { padding-top: var(--space-8); }
-  .feed-head { margin-bottom: var(--space-16); }
 
   .feed-grid { display: flex; flex-direction: column; }
   .card-debate { align-self: stretch; width: 100%; max-width: 100%; height: auto; }
@@ -1093,8 +980,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 
   /* Briefing headers and picks on phone */
   :root { --picks-gap: var(--space-32); }
-  .sort-switch { margin-left: 0; order: 3; }
-  .sort-btn { min-height: 40px; }
+  .sort-switch { margin: 0 0 var(--space-8) auto; order: 6; }
   .picks-grid { display: flex; flex-direction: column; gap: var(--feed-gap); }
   .picks-mid { display: flex; flex-direction: column; gap: var(--feed-gap); }
   .picks-grid > .feed-card.card-lead { min-height: clamp(480px, 25vw + 380px, 560px); aspect-ratio: auto; }
@@ -1112,6 +998,8 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 
 @media (pointer: coarse){
   .act { width: 44px; height: 44px; }
+  .feed-brand, .ed-link, .tc-link { min-height: 44px; }
+  .theme-btn { width: 44px; height: 44px; }
   .filter-chip { min-height: 44px; }
   .sort-btn { min-height: 44px; }
 }
@@ -1210,20 +1098,49 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 /* ==========================================================================
    BAR AND CARRIED-OVER PARTS ON NARROWER SCREENS (05/10)
    ========================================================================== */
-@media (max-width: 1099px){
+@media (min-width: 768px){
+  .feed-bar-in { column-gap: var(--space-8); }
+  .feed-navigation { gap: var(--space-8); }
+  .feed-filters {
+    overflow: visible; flex: none; gap: var(--space-4); padding: var(--space-4);
+    -webkit-mask-image: none; mask-image: none;
+  }
+  /* Counts sit below their labels: changing digits never takes room from another tab. */
+  .filter-chip {
+    flex: none; flex-direction: column; justify-content: center; gap: 0;
+    min-height: 44px; padding: 0 var(--space-8);
+  }
+  .filter-chip .count { inline-size: auto; align-self: stretch; contain: inline-size; text-align: center; }
+  .sort-btn { padding: 0 var(--space-8); }
+  .ed-link, .tc-link { padding: 0 var(--space-8); }
+}
+@media (min-width: 768px) and (max-width: 1399px){
+  .feed-bar-in { padding-inline: var(--space-16); column-gap: var(--space-4); }
+  .filter-chip { padding-inline: var(--space-4); }
+}
+@media (min-width: 768px) and (max-width: 1179px){
+  .feed-bar-in { height: auto; flex-wrap: wrap; row-gap: 0; padding-top: var(--space-8); }
+  .feed-brand { flex: 1; }
+  .feed-navigation { order: 1; flex-basis: 100%; }
+}
+@media (min-width: 768px) and (max-width: 959px){
+  .feed-navigation { flex-wrap: wrap; gap: 0; }
+  .feed-filters { flex-basis: 100%; flex-wrap: wrap; }
+  .sort-switch { margin-bottom: var(--space-8); }
+}
+@media (max-width: 767px){
   .tc-link{padding:0}
   .tc-link .tc-label{display:none}
 }
 @media (max-width: 767px){
-  /* Row one: brand, edition, search, theme. Row two: the filters, scrolling sideways. */
+  /* Brand and utility links, then scrolling filters and a separate sort row. */
   .feed-bar-in { column-gap: var(--space-8); }
-  .feed-brand { order: 1; flex: 1; }
+  .feed-brand { order: 1; flex: 1; min-height: 44px; }
   .ed-link { order: 2; min-height: 44px; }
   .tc-link { order: 3; min-height: 44px; min-width: 44px; }
   .theme-btn { order: 4; }
   .feed-filters { order: 5; }
-  /* The bar wraps to two rows on a phone, so the fresh pill sits above the thumb instead of under the bar. */
-  .fresh { top: auto; bottom: calc(var(--space-16) + env(safe-area-inset-bottom, 0px)); }
+  /* Sorting occupies a quiet third row; the pill tracks the actual bar height. */
   .tile-repos.is-full .repo-row,
   .tile-repos.has-area .repo-row { display: flex; flex-direction: column; }
   .tile-repos.is-full ~ .tile-models .model-list,

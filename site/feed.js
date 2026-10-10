@@ -11,8 +11,8 @@
    and "Biên tập chọn" only from editor-picks.json.
 
    Carried over from the bento home (now bento.html, rollback only), in the feed's own look: the edition and search
-   links (static, in index.html), the new / seen / skipped marks with the same keys and priority, the "N tin mới" pill
-   that goes to the first new story, the fresh-snapshot pill, the stale-data line, saved stories, the repository lists,
+   links (static, in index.html), the new / seen marks with the same storage keys, the "N tin mới" pill
+   that goes to the first new story, the stale-data line, saved stories, the repository lists,
    calendar export, live counters, every source's state, keyboard shortcuts, and every address the bento home answered
    (#tin/<id>, and the section anchors the search page links to). */
 
@@ -94,8 +94,9 @@ let seq = [], pos = 0, shownCards = 0, totalCards = 0;
 
 /* ---------- new, seen, skipped (the bento home's rules, tests/test_tin_moi.py) ----------
    new: published after the reader's last look; seen: opened; skipped: scrolled past without opening.
-   Priority: seen, then skipped, then new. The last look moves on engagement (five seconds or the first scroll), when
-   the page is hidden or left, and when the reader applies a fresh snapshot; never only by a button. */
+   Skipped IDs suppress the new dot without adding a visual mark. Priority: seen, then skipped, then new.
+   The last look moves on engagement (five seconds or the first scroll), when the page is hidden or left, and when
+   the reader applies a fresh snapshot; never only by a button. */
 const read = new Set([...asArray(store.get(K.read, [])), ...asArray(store.get(LEGACY.read, []))]);
 const skipped = new Set(asArray(store.get(K.skipped, [])));
 let saved = asArray(store.get(K.saved, [])).filter(x => x && typeof x.key === 'string');
@@ -107,17 +108,16 @@ const isNew = st => !!lastSeen && !!st.published_at && st.published_at > lastSee
 function storyStatus(id, st) {
   if (!id) return 'none';
   if (read.has(id)) return 'seen';
-  if (skipped.has(id)) return 'skipped';
+  if (skipped.has(id)) return 'none';
   if (arrived.has(id) || (st && isNew(st))) return 'new';
   return 'none';
 }
 const MARK = {
   new: '<span class="new-mark" aria-hidden="true"></span><span class="sr">Mới. </span>',
   seen: `<span class="seen-mark" aria-hidden="true">${icon('i-check')}</span><span class="sr">Đã xem. </span>`,
-  skipped: '<span class="skipped-mark" aria-hidden="true"></span><span class="sr">Bỏ qua chưa xem. </span>',
   none: '',
 };
-const STATUS_CLASS = { seen: 'is-read', new: 'is-new', skipped: 'is-skipped', none: '' };
+const STATUS_CLASS = { seen: 'is-read', new: 'is-new', none: '' };
 const markHTML = st => `<span class="st-mark">${MARK[storyStatus(st.id, st)]}</span>`;
 const statusClass = st => STATUS_CLASS[storyStatus(st.id, st)];
 function commitLastSeen(ts = D ? D.generated_at : null) {
@@ -129,7 +129,7 @@ function commitLastSeen(ts = D ? D.generated_at : null) {
 function paintStatus(id) {
   const st = STORY_ANY.get(id), s = storyStatus(id, st);
   $$(`[data-sid="${CSSq(id)}"]`).forEach(el => {
-    el.classList.remove('is-read', 'is-new', 'is-skipped');
+    el.classList.remove('is-read', 'is-new');
     if (STATUS_CLASS[s]) el.classList.add(STATUS_CLASS[s]);
     el.dataset.status = s;
     const m = el.querySelector('.st-mark'); if (m) m.innerHTML = MARK[s];
@@ -141,12 +141,14 @@ function markRead(id) {
   if (skipped.delete(id)) store.set(K.skipped, [...skipped].slice(-2000));
   store.set(K.read, [...read].slice(-3000));
   paintStatus(id);
+  retireNewItem(id);
 }
 function markSkipped(id) {
   if (!id || read.has(id) || skipped.has(id) || arrived.has(id)) return;
   skipped.add(id);
   store.set(K.skipped, [...skipped].slice(-2000));
   paintStatus(id);
+  retireNewItem(id);
 }
 let skipObserver = null;
 function observeSkips() {
@@ -1789,9 +1791,10 @@ function updatedAt(iso) {
   return dayKey(d) === todayKey() ? hhmm(d) : `${hhmm(d)} ngày ${DATE_VN.format(d)}`;
 }
 function renderSub() {
-  const sub = $('#feed-sub');
-  if (filter === 'all') {
-    sub.innerHTML = `<span class="num">${allStories.length}</span> tin trong ${winH} giờ qua, từ <a class="text-link" href="#nguon"><span class="num">${srcCount}</span> nguồn</a>. Cập nhật lúc <time datetime="${esc(D.generated_at)}">${esc(updatedAt(D.generated_at))}</time>.`;
+  const sub = $('#filter-context');
+  sub.hidden = filter === 'all';
+  if (sub.hidden) {
+    sub.textContent = '';
   } else {
     const s = secOf(filter), n = filter === 'saved' ? saved.length : listFor(filter).length;
     sub.innerHTML = `${s ? 'Đang xem mục' : 'Đang lọc'}: ${esc(LABELS[filter] || '')} · <span class="num">${n}</span> ${filter === 'saved' ? 'mục' : 'tin'} <button class="text-btn" data-reset>${s ? 'Về dòng tin' : 'Bỏ lọc'}</button>`;
@@ -1836,28 +1839,96 @@ function setSort(m) {
   renderFeed();
 }
 const newCount = () => allStories.filter(st => storyStatus(st.id, st) === 'new').length;
-/* "N tin mới": what arrived since the reader's last look (on a first visit, the last 24 hours), as on the bento home. */
+/* One notice per batch. Dismissed IDs cannot be re-offered by an unchanged poll or a redraw. */
+const RETURN_NEW_CAP = 20, NEW_NOTICE_MS = 12_000;
+let returnNoticeChecked = false, noticeTimer = 0, noticeDeferred = false;
+let noticeIds = new Set();
+const offeredNewIds = new Set();
+function positionNewItems() {
+  document.documentElement.style.setProperty('--feed-bar-height', `${$('#bar').offsetHeight}px`);
+  const box = $('#fresh');
+  if (box.hidden) return;
+  const barBottom = $('#bar').getBoundingClientRect().bottom;
+  const stale = $('#stale');
+  const staleBottom = stale.hidden ? 0 : stale.getBoundingClientRect().bottom;
+  box.style.top = `${Math.max(barBottom, staleBottom) + 12}px`;
+}
+function dismissNewItems() {
+  clearTimeout(noticeTimer);
+  // Automatic dismissal must never remove the keyboard user's current control.
+  if ($('#fresh').contains(document.activeElement)) { noticeDeferred = true; return; }
+  $('#fresh').hidden = true;
+  $('#fresh-announcement').textContent = '';
+  noticeIds.clear();
+  noticeDeferred = false;
+}
+function scheduleNewItemsDismissal() {
+  clearTimeout(noticeTimer);
+  if ($('#fresh').hidden || $('#fresh').contains(document.activeElement) || $('#fresh').matches(':hover')) return;
+  if (noticeDeferred) { dismissNewItems(); return; }
+  noticeTimer = setTimeout(dismissNewItems, NEW_NOTICE_MS);
+}
+function offerNewItems(ids) {
+  const eligible = [...new Set(ids)].filter(id => !read.has(id) && !skipped.has(id)
+    && (!offeredNewIds.has(id) || noticeIds.has(id)));
+  if (!eligible.some(id => !offeredNewIds.has(id))) return;
+  const wasVisible = !$('#fresh').hidden;
+  noticeIds = new Set(eligible);
+  eligible.forEach(id => offeredNewIds.add(id));
+  $('#fresh-text').textContent = `${noticeIds.size} tin mới`;
+  $('#fresh').hidden = false;
+  noticeDeferred = false;
+  positionNewItems();
+  // Count changes within a visible notice are silent; a new appearance gets one announcement.
+  if (!wasVisible) $('#fresh-announcement').textContent = `${noticeIds.size} tin mới. Nhấn U để tới tin mới đầu tiên.`;
+  scheduleNewItemsDismissal();
+}
+function retireNewItem(id) {
+  if (!noticeIds.delete(id)) return;
+  if (!noticeIds.size) dismissNewItems();
+  else $('#fresh-text').textContent = `${noticeIds.size} tin mới`;
+}
+function checkNewItemsScroll() {
+  if ($('#fresh').hidden) return;
+  positionNewItems();
+  const edge = $('#bar').getBoundingClientRect().bottom;
+  const elements = $$('#picks-grid [data-sid], #feed-grid [data-sid]');
+  for (const id of noticeIds) {
+    if (elements.some(el => el.dataset.sid === id && !el.closest('[hidden]') && el.getBoundingClientRect().bottom <= edge)) retireNewItem(id);
+  }
+}
 function renderNewItems() {
-  const n = newCount();
-  $('#moi').hidden = !n;
-  if (n) $('#new-items-text').textContent = firstVisit ? `${n} tin mới trong 24 giờ qua` : `${n} tin mới từ lần trước bạn ghé`;
+  if (returnNoticeChecked) return;
+  returnNoticeChecked = true;
+  const ids = allStories.filter(st => storyStatus(st.id, st) === 'new').map(st => st.id);
+  if (!firstVisit && ids.length <= RETURN_NEW_CAP && ids.length < allStories.length / 2) offerNewItems(ids);
 }
 function goFirstNew() {
   if (!D) return;
+  const targets = new Set(noticeIds);
+  if (pending) {
+    if (!targets.size) pendingNewIds(pending).forEach(id => targets.add(id));
+    applyPending();
+  }
   if (filter !== 'all') setFilter('all', true);
-  const el = revealStory(id => { const st = STORY_ANY.get(id); return !!st && storyStatus(id, st) === 'new'; });
-  if (!el) { toast('Chưa có tin mới. Trang tự kiểm mỗi 3 phút'); return; }
-  focusStory(el);
+  const matches = id => { const st = STORY_ANY.get(id); return !!st && storyStatus(id, st) === 'new'; };
+  const el = (targets.size && revealStory(id => targets.has(id) && matches(id))) || revealStory(matches);
+  if (el) focusStory(el);
+  else {
+    if ($('#fresh').contains(document.activeElement)) $('#top').focus({ preventScroll: true });
+    toast('Chưa có tin mới. Trang tự kiểm mỗi 3 phút');
+  }
+  dismissNewItems();
 }
 /* "Đánh dấu đã xem": the last look moves to this snapshot, so nothing here counts as new any more. */
 function markSeen() {
   if (!D) return;
-  const hadFocus = $('#moi').contains(document.activeElement);
+  const hadFocus = $('#fresh').contains(document.activeElement);
   store.set(K.lastSeen, D.generated_at);
   lastSeen = D.generated_at; firstVisit = false; arrived = new Set();
   new Set($$('[data-sid]').map(el => el.dataset.sid)).forEach(paintStatus);
-  renderNewItems();
   if (hadFocus) $('#top').focus({ preventScroll: true });
+  dismissNewItems();
   toast('Đã đánh dấu đã xem hết');
 }
 
@@ -1891,29 +1962,29 @@ function toggleSave(key) {
 
 /* ---------- a newer snapshot: polled every 3 minutes, applied only when the reader asks ---------- */
 let pending = null;
+function pendingNewIds(data) {
+  const hours = Number(data.ranking && data.ranking.window_hours) || 72;
+  const gen = ms(data.generated_at), from = gen - Math.max(1, hours) * 36e5;
+  return asArray(data.stories).filter(st => !STORY_ANY.has(st.id) && !read.has(st.id) && !skipped.has(st.id)
+    && ms(st.published_at) >= from && ms(st.published_at) <= Math.min(gen + 3e5, Date.now())).map(st => st.id);
+}
 async function pollSnapshot() {
   if (document.hidden || !D) return;
   try {
     const j = await loadData({ cache: 'no-cache' });
-    if (!j || !j.generated_at || j.generated_at <= D.generated_at) return;
+    if (!j || !j.generated_at || j.generated_at <= (pending || D).generated_at) return;
     pending = j;
-    const fresh = asArray(j.stories).filter(s => !STORY_ANY.has(s.id)).length;
-    $('#fresh').innerHTML = `<button class="fresh-btn" id="fresh-go" aria-keyshortcuts="U">${icon('i-up')}<span>${fresh ? `<span class="num">${fresh}</span> tin mới` : 'Số liệu vừa cập nhật'}</span><span aria-hidden="true">·</span><span>Xem</span></button>`;
+    offerNewItems(pendingNewIds(j));
   } catch { /* a failed poll keeps the current snapshot; the next poll tries again */ }
 }
 function applyPending() {
   if (!pending) return;
   commitLastSeen();
-  const newIds = asArray(pending.stories).filter(s => !STORY_ANY.has(s.id)).map(s => s.id);
-  arrived = new Set(newIds);
+  arrived = new Set(pendingNewIds(pending));
   const data = pending; pending = null;
-  $('#fresh').innerHTML = '';
   ingest(data);
   if (filter !== 'all') filter = 'all';
   renderAll();
-  const el = newIds.length ? revealStory(id => arrived.has(id)) : null;
-  if (el) focusStory(el);
-  else { scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' }); $('#top').focus({ preventScroll: true }); }
   setTimeout(() => { arrived = new Set(); }, 3000);
 }
 
@@ -1925,6 +1996,7 @@ function renderStale() {
   el.dataset.text = text;
   el.hidden = !text;
   el.textContent = text || '';
+  positionNewItems();
 }
 
 /* ---------- every source of the snapshot, the live layer, and how the page works ---------- */
@@ -1953,6 +2025,7 @@ function footHTML() {
 }
 function renderSources() {
   const srcs = asArray(D.sources), bad = srcs.filter(s => !s.ok);
+  $('#src-update').innerHTML = `Cập nhật lúc <time datetime="${esc(D.generated_at)}">${esc(updatedAt(D.generated_at))}</time> · <span class="num">${srcCount}</span> nguồn`;
   $('#src-note').innerHTML = `<span class="num">${srcs.length - bad.length}/${srcs.length}</span> nguồn chạy được lúc ${esc(hhmm(new Date(D.generated_at)))}. Mỗi nguồn kèm số tin lấy được.`;
   $('#src-list').innerHTML = [...srcs].sort((a, b) => a.ok - b.ok || (b.count || 0) - (a.count || 0)).map(s => `<li${s.ok ? '' : ' class="is-bad"'}>${avatar(faceOfSource({ source: s.id, lab: s.lab, publisher: s.publisher }, SRC), 'xs')}<a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.name || s.id)}</a>
     <span class="src-n num">${s.ok ? `${s.count ?? 0} tin` : 'lỗi'}</span>${s.error ? `<span class="src-err">${esc(s.error_vi || 'Không đọc được nguồn này')}</span>` : ''}</li>`).join('');
@@ -2081,7 +2154,7 @@ function onKey(e) {
     const el = currentEl(), st = el && STORY_ANY.get(el.dataset.sid), cal = st ? calOf(st) : null;
     if (cal) addToCalendar(cal); else if (el) toast('Tin này không có lịch để thêm');
   }
-  else if (k === 'u' || k === 'U') { if (pending) applyPending(); else goFirstNew(); }
+  else if (k === 'u' || k === 'U') goFirstNew();
   else if (k === 'm' || k === 'M') { if (D && newCount()) markSeen(); }
   else if (k === 'g' || k === 'G') { scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' }); }
   else if (k === '/') { e.preventDefault(); location.href = 'tra-cuu.html'; }
@@ -2175,7 +2248,7 @@ function onClick(e) {
   }
   const moreBtn = t.closest('[data-repo-more]');
   if (moreBtn) { showMoreRepos(moreBtn); return; }
-  if (t.closest('#fresh-go')) { applyPending(); return; }
+  if (t.closest('#fresh-go')) { goFirstNew(); return; }
   if (t.closest('#keys-open')) { $('#keys').showModal(); return; }
   if (t.closest('#keys-x')) { $('#keys').close(); return; }
   if (t.closest('[data-reset]')) { setFilter('all'); return; }
@@ -2202,8 +2275,13 @@ function attachEvents() {
   $('#sort-switch').addEventListener('click', e => { const b = e.target.closest('.sort-btn'); if (b && b.dataset.sort) setSort(b.dataset.sort); });
   $('#reset-filter-btn').addEventListener('click', () => setFilter('all'));
   $('#more-btn').addEventListener('click', () => more());
-  $('#new-go').addEventListener('click', goFirstNew);
-  $('#mark-seen-btn').addEventListener('click', markSeen);
+  const notice = $('#fresh');
+  notice.addEventListener('mouseenter', () => clearTimeout(noticeTimer));
+  notice.addEventListener('mouseleave', scheduleNewItemsDismissal);
+  notice.addEventListener('focusin', () => clearTimeout(noticeTimer));
+  notice.addEventListener('focusout', () => setTimeout(scheduleNewItemsDismissal, 0));
+  window.addEventListener('scroll', checkNewItemsScroll, { passive: true });
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(positionNewItems).observe($('#bar'));
   $('#mark-all-btn').addEventListener('click', () => {
     if (!D) return;
     listFor(filter).forEach(st => markRead(st.id));
@@ -2223,6 +2301,7 @@ function attachEvents() {
   }
   $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
   window.addEventListener('resize', () => {
+    positionNewItems();
     const filters = $('#feed-filters');
     if (filters) {
       const activeChip = filters.querySelector('.filter-chip[aria-pressed="true"]');
@@ -2284,12 +2363,13 @@ function ingest(data) {
 }
 function renderAll() {
   renderChips();
-  renderNewItems();
   renderHow();
   renderSortSwitch();
   renderFeed();
   renderStale();
   renderSources();
+  renderNewItems();
+  positionNewItems();
 }
 
 /* ---------- start ---------- */
@@ -2355,7 +2435,6 @@ async function init() {
     console.error('feed load failed', err);
     $('#top').removeAttribute('aria-busy');
     $('#feed-grid').innerHTML = '';
-    $('#feed-sub').textContent = 'Chưa nạp được dòng tin. Kiểm tra kết nối rồi tải lại trang.';
     const em = $('#feed-empty');
     em.querySelector('h2').textContent = 'Chưa nạp được dòng tin';
     em.querySelector('p').textContent = 'Lỗi mạng hoặc dữ liệu không hợp lệ. Trang không thay bằng tin mẫu.';

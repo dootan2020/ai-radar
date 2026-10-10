@@ -1,4 +1,4 @@
-/* Execute production renderers offline; DOM doubles cover only image-error delivery. */
+/* Execute production renderers and notification behavior offline with controlled browser boundaries. */
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {headlineShown} from '../site/titles.js';
@@ -174,3 +174,134 @@ for (const html of [search.renderHeroTile(group), search.renderStoryCard(group)]
   assert.ok(html.includes(story.headline_vi) && html.includes(story.title) && html.includes('Translated'));
 }
 console.log('PASS headline eligibility, coverage attribution, feed/ranked cards, image providers and errors, modal/page, edition and search renderers');
+
+// Execute the real notification state, navigation and poll against deterministic DOM/time/network boundaries.
+const nodes = new Map(), timers = new Map(), jumps = [];
+let timerId = 0, announcements = 0, visibleStories = [], responseData;
+const doc = {activeElement:null, hidden:false, documentElement:{style:{setProperty() {}}},
+  querySelector:selector => nodes.get(selector),
+  querySelectorAll:selector => selector.includes('[data-sid]') ? visibleStories : [],
+};
+for (const selector of ['#fresh', '#fresh-text', '#fresh-announcement', '#bar', '#stale', '#top', '#filter-context', '#src-update', '#src-note', '#src-list', '#src-live', '#src-foot', '#nguon']) {
+  nodes.set(selector, {hidden:true, textContent:'', innerHTML:'', style:{}, dataset:{}, offsetHeight:64,
+    getBoundingClientRect:() => ({bottom:64}), contains:el => el === nodes.get('#fresh-go'),
+    matches:() => false, focus() { doc.activeElement = this; }});
+}
+nodes.set('#fresh-go', {});
+Object.defineProperty(nodes.get('#fresh-announcement'), 'textContent', {
+  set(value) { if (value) announcements++; },
+});
+const newFeed = await renderer('feed.js', '\ninit();', `
+return {renderNewItems, offerNewItems, dismissNewItems, scheduleNewItemsDismissal, checkNewItemsScroll,
+  goFirstNew, route, pollSnapshot, pendingNewIds, renderSub, renderStale, renderSources, markHTML, markRead,
+  configure(count, total, first = false) {
+    D = {schema_version:2, generated_at:'2026-10-09T14:00:00Z', sources:[], stories:[]};
+    allStories = Array.from({length:total}, (_, i) => ({id:'item-'+i,
+      published_at:i < count ? '2026-10-09T13:00:00Z' : '2026-10-08T10:00:00Z'}));
+    D.stories = allStories;
+    STORY_ANY = new Map(allStories.map(st => [st.id, st]));
+    firstVisit = first; lastSeen = '2026-10-09T12:00:00Z'; returnNoticeChecked = false;
+    read.clear(); skipped.clear(); arrived.clear(); offeredNewIds.clear(); noticeIds.clear();
+    pending = null; filter = 'all'; noticeDeferred = false;
+  },
+  filter(value) { filter = value; LABELS[value] = 'Đã lưu'; },
+  skip(id) { skipped.add(id); },
+  seen(id) { read.add(id); },
+  renderNavigation() { renderAll = () => {}; },
+};`, {
+  location:{search:'', hash:'#moi'}, document:doc, matchMedia:() => ({matches:true}),
+  localStorage:{getItem:() => null, setItem:() => {}},
+  window:{scrollTo:options => jumps.push(options)}, scrollY:100,
+  setTimeout:(fn, ms) => { const id = ++timerId; timers.set(id, {fn, ms}); return id; },
+  clearTimeout:id => timers.delete(id),
+  fetch:async () => { if (responseData instanceof Error) throw responseData; return {ok:true, json:async () => responseData}; },
+});
+function configureNotice(count, total, first = false) {
+  newFeed.configure(count, total, first);
+  nodes.get('#fresh').hidden = true;
+  doc.activeElement = null; visibleStories = []; timers.clear(); announcements = 0;
+}
+for (const [count, total, first] of [[0, 100, false], [3, 100, true], [21, 100, false], [3, 6, false], [95, 100, false]]) {
+  configureNotice(count, total, first); newFeed.renderNewItems();
+  assert.equal(nodes.get('#fresh').hidden, true, 'first visits, large counts and most-of-feed returns stay quiet');
+}
+configureNotice(20, 100); newFeed.renderNewItems();
+assert.equal(nodes.get('#fresh').hidden, false);
+assert.equal(nodes.get('#fresh-text').textContent, '20 tin mới');
+assert.equal(announcements, 1);
+newFeed.renderNewItems(); newFeed.offerNewItems(['item-0']);
+assert.equal(announcements, 1, 'redraw and identical candidates do not announce again');
+assert.deepEqual([...timers.values()].map(t => t.ms), [12000]);
+[...timers.values()][0].fn();
+assert.equal(nodes.get('#fresh').hidden, true);
+newFeed.offerNewItems(['item-0']);
+assert.equal(nodes.get('#fresh').hidden, true, 'expired candidates stay dismissed');
+newFeed.offerNewItems(['item-0', 'later-arrival']);
+assert.equal(nodes.get('#fresh-text').textContent, '1 tin mới', 'a later batch does not revive dismissed candidates');
+assert.equal(announcements, 2, 'a genuinely new appearance gets one announcement');
+
+configureNotice(1, 10); newFeed.renderNewItems();
+nodes.get('#fresh').matches = () => true; newFeed.scheduleNewItemsDismissal();
+assert.equal(timers.size, 0, 'hover pauses automatic expiry');
+nodes.get('#fresh').matches = () => false; newFeed.scheduleNewItemsDismissal();
+assert.equal(timers.size, 1, 'leaving the pill resumes expiry');
+newFeed.markRead('item-0');
+assert.equal(nodes.get('#fresh').hidden, true, 'opening the final new story retires the notice');
+assert.match(newFeed.markHTML({id:'item-0'}), /seen-mark/);
+
+configureNotice(2, 10); newFeed.renderNewItems();
+doc.activeElement = nodes.get('#fresh-go'); newFeed.dismissNewItems();
+assert.equal(nodes.get('#fresh').hidden, false, 'automatic dismissal preserves keyboard focus');
+doc.activeElement = null; newFeed.scheduleNewItemsDismissal();
+assert.equal(nodes.get('#fresh').hidden, true, 'deferred dismissal runs after focus leaves');
+
+const card = (id, bottom = 50) => ({dataset:{sid:id}, closest:() => null,
+  getBoundingClientRect:() => ({top:200, bottom}), matches:() => true,
+  focus() { doc.activeElement = this; }});
+configureNotice(2, 10); newFeed.renderNewItems();
+visibleStories = [card('item-0')]; newFeed.checkNewItemsScroll();
+assert.equal(nodes.get('#fresh-text').textContent, '1 tin mới');
+assert.equal(nodes.get('#fresh').hidden, false, 'an unrendered new story is not considered passed');
+visibleStories.push(card('item-1')); newFeed.checkNewItemsScroll();
+assert.equal(nodes.get('#fresh').hidden, true);
+
+configureNotice(1, 10); newFeed.renderNewItems();
+visibleStories = [card('item-0', 500)]; doc.activeElement = nodes.get('#fresh-go');
+newFeed.route();
+assert.equal(doc.activeElement, visibleStories[0], '#moi focuses the first new story');
+assert.equal(jumps.at(-1).top, 220);
+assert.equal(jumps.at(-1).behavior, 'auto', 'reduced motion is respected');
+assert.equal(nodes.get('#fresh').hidden, true);
+
+configureNotice(0, 10, true); newFeed.renderNavigation();
+responseData = {schema_version:2, generated_at:'2026-10-09T15:00:00Z', sources:[],
+  stories:[{id:'live-new', published_at:'2026-10-09T14:30:00Z', coverage:[]}]};
+await newFeed.pollSnapshot();
+assert.equal(nodes.get('#fresh-text').textContent, '1 tin mới', 'live arrivals qualify on a first visit');
+assert.equal(announcements, 1);
+await newFeed.pollSnapshot(); assert.equal(announcements, 1, 'same snapshot is silent');
+responseData = {...responseData, generated_at:'2026-10-09T15:01:00Z'};
+await newFeed.pollSnapshot(); assert.equal(announcements, 1, 'a metrics-only update does not repeat the announcement');
+visibleStories = [card('live-new', 500)];
+newFeed.goFirstNew();
+assert.equal(doc.activeElement, visibleStories[0], 'pending snapshot is applied and its arrival focused');
+assert.equal(nodes.get('#fresh').hidden, true);
+assert.match(newFeed.markHTML({id:'live-new'}), /new-mark/);
+newFeed.skip('live-new'); assert.doesNotMatch(newFeed.markHTML({id:'live-new'}), /new-mark|skipped-mark/);
+newFeed.seen('live-new'); assert.match(newFeed.markHTML({id:'live-new'}), /seen-mark/);
+
+configureNotice(0, 10);
+responseData = {schema_version:2, generated_at:'2026-10-09T15:00:00Z', sources:[],
+  stories:[{id:'old-backfill', published_at:'2026-09-01T00:00:00Z'}]};
+await newFeed.pollSnapshot(); assert.equal(nodes.get('#fresh').hidden, true, 'old backfills do not claim new arrivals');
+responseData = new Error('offline');
+await newFeed.pollSnapshot(); assert.equal(nodes.get('#fresh').hidden, true, 'failed polls preserve the feed');
+newFeed.renderSub(); assert.equal(nodes.get('#filter-context').hidden, true);
+newFeed.filter('saved'); newFeed.renderSub();
+assert.equal(nodes.get('#filter-context').hidden, false);
+assert.match(nodes.get('#filter-context').innerHTML, /Đã lưu.*Bỏ lọc/);
+newFeed.filter('all'); newFeed.renderSub();
+assert.equal(nodes.get('#filter-context').hidden, true);
+newFeed.renderStale(); assert.equal(nodes.get('#stale').hidden, false, 'old snapshot warning survives header removal');
+newFeed.renderSources(); assert.match(nodes.get('#src-update').innerHTML, /Cập nhật lúc.*nguồn/);
+console.log('PASS new-story eligibility, expiry, focus, scroll, deep link, live polling, marks, filters and metadata');
