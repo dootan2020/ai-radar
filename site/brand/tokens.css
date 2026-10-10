@@ -65,6 +65,7 @@
 /* ---------- 2. semantic (light, the default). Also on any element marked data-theme="light". ---------- */
 :root, [data-theme="light"]{
   --color-canvas: var(--gray-96);
+  --color-bar: var(--gray-99);                       /* sticky navigation, distinct from the canvas */
   --color-surface: var(--gray-99);                   /* a tile */
   --color-inset: var(--gray-97);                     /* a panel inside a tile */
   --color-fill: var(--gray-93);                      /* chips, skeleton, meter track */
@@ -149,6 +150,7 @@
 /* ---------- dark: same roles, new values. Surfaces lighten to rise; numbers stay the brightest thing. ---------- */
 [data-theme="dark"]{
   --color-canvas: var(--gray-13);
+  --color-bar: var(--gray-21);
   --color-surface: var(--gray-17);
   --color-inset: var(--gray-21);
   --color-fill: var(--gray-25);
@@ -178,6 +180,7 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --color-canvas: var(--gray-13);
+    --color-bar: var(--gray-21);
     --color-surface: var(--gray-17);
     --color-inset: var(--gray-21);
     --color-fill: var(--gray-25);
