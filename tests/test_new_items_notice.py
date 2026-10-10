@@ -70,6 +70,23 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertIn(".tc-link .tc-label { display: none; }", compact)
         self.assertIn('aria-label="Tra cứu câu chuyện AI"', self.html)
 
+    def test_one_row_header_stacks_when_its_contents_do_not_fit(self):
+        # The one-row bar must not rely on width alone: tabs, fonts and the reader's font size change what fits.
+        fit = self.js.split("function fitBar()")[1].split("\n}")[0]
+        self.assertIn("matchMedia('(min-width: 1400px)')", self.js)
+        self.assertIn("classList.toggle('is-stacked'", fit)
+        self.assertIn("filters.scrollWidth > filters.clientWidth", fit)
+        self.assertIn("sort.hidden = false", fit)   # measured with the sort switch, so changing tabs keeps the shape
+        for caller in ["function renderChips()", "function renderSortSwitch()", "window.addEventListener('resize'"]:
+            self.assertIn("fitBar();", self.js.split(caller)[1][:600], caller)
+        self.assertIn("document.fonts.addEventListener('loadingdone', fitBar)", self.js)
+        self.assertIn(".feed-bar.is-stacked .feed-navigation { order: 1; flex-basis: 100%;", self.css)
+        self.assertIn(".feed-bar.is-stacked .feed-filters { flex-wrap: wrap; overflow-x: visible; }", self.css)
+        mouse = self.css.split("@media (min-width: 768px) and (max-width: 1399px) and (hover: hover) and (pointer: fine)")[1].split("}")[0]
+        self.assertIn("flex-wrap: wrap", mouse)
+        touch = self.css.split("@media (min-width: 768px) and (max-width: 1399px) and (pointer: coarse)")[1].split("}")[0]
+        self.assertIn("mask-image: var(--nav-fade)", touch)
+
 
 if __name__ == "__main__":
     unittest.main()
