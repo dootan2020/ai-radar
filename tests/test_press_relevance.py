@@ -142,6 +142,31 @@ class PressSubjectTests(unittest.TestCase):
         self.assertNotEqual(cleaned["id"], old["id"])
         self.assertIn(old["id"], cleaned["aliases"])
 
+    def test_published_story_that_no_longer_forms_one_cluster_is_split(self):
+        first = item(*GENUINE[0], url="https://press-a.example/robot-lab")
+        first.update(title="Robot lab releases an open-source simulator for training agents")
+        other = item(*GENUINE[0], id_="techcrunch-ai", url="https://press-b.example/policy")
+        other.update(title="Chairman says open-source software is the only path to independence")
+        old = cluster_items([first], NOW)[0]
+        # An earlier build merged these; current rules do not.
+        old["coverage"].append(other)
+        old.update(title_vi="Bản dịch cũ", aliases=[cluster_items([other], NOW)[0]["id"]])
+        before = deepcopy(old)
+        pieces = filter_published_stories([old], NOW)
+        self.assertEqual(len(pieces), 2)
+        kept = next(piece for piece in pieces if piece["id"] == old["id"])
+        split = next(piece for piece in pieces if piece["id"] != old["id"])
+        self.assertEqual(kept["title_vi"], "Bản dịch cũ")
+        self.assertEqual([c["url"] for c in kept["coverage"]], [first["url"]])
+        self.assertEqual(kept["source_count"], 1)
+        self.assertNotIn(split["id"], kept["aliases"])
+        self.assertNotIn(old["id"], split.get("aliases", []))
+        self.assertNotIn("title_vi", split)
+        self.assertEqual(old, before)
+        # A story that still clusters is returned untouched.
+        whole = cluster_items([first], NOW)[0]
+        self.assertIs(filter_published_stories([whole], NOW)[0], whole)
+
 
 if __name__ == "__main__":
     unittest.main()

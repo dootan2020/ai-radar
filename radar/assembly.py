@@ -97,21 +97,30 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
     from radar.headlines import annotate_headlines
     from radar.press_relevance import accepts_observation, filter_published_stories
     from radar.catalog import is_retired
+    from radar.clustering import merge_repeated_events
+    from radar.noise import noise_reason
 
     def accepts(item):
         # Retired sources stay disabled in the inventory; their observations never reach readers.
-        return not is_retired(item) and accepts_observation(item)
+        # Job posts are not news; radar.noise names the reason for each refusal.
+        return not is_retired(item) and accepts_observation(item) and noise_reason(item) is None
 
     # The full RSS observations, before v1 URL dedupe, retain media and coverage.
     legacy_payload = dict(payload, updates=[], hf_releases=[])
     items = coverage + legacy_items(legacy_payload, now) + event_items(events, now)
     items = [item for item in items if not (is_x_item(item) and x_collector.is_reply(item))]
+    refused = [noise_reason(item) for item in items]
+    if any(refused):
+        counts = {reason: refused.count(reason) for reason in sorted(set(filter(None, refused)))}
+        print("Noise filter refused: " + ", ".join(f"{reason} {count}" for reason, count in counts.items()))
     items = [item for item in items if accepts(item)]
     fresh_stories = cluster_items(items, now)
     if isinstance(published, dict) and isinstance(published.get("stories"), list):
         retained = x_collector.without_reply_stories(published["stories"])
         published = dict(published, stories=filter_published_stories(retained, now, accepts))
     stories = retain_stories(fresh_stories, published, now)
+    # Retention matches by id and URL only; one event carried under two URLs becomes one story here.
+    stories = merge_repeated_events(stories)
     stories = x_collector.expire_x_coverage(stories, now=now)
     stories = rank_stories(stories, now, previous)
     # Worth and images run after retention so carried stories are re-scored at `now` and can be illustrated.

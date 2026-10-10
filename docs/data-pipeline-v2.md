@@ -73,8 +73,17 @@ Assembly applies the same check to retained coverage before the seven-day merge,
 so yesterday's rejected observations cannot return during a source outage. Mixed
 stories are rebuilt from surviving observations; rejected primary text and its
 derived enrichment are removed while old IDs remain aliases. Unchanged stories
-retain their enrichment. No model calls, paid-ledger changes or additional fetches
-are involved. [Synthetic tests](../tests/test_press_relevance.py) cover admission
+retain their enrichment. A retained story whose observations no longer form one
+cluster under the current matching rules is rebuilt the same way: the piece that
+keeps the story's id and headline keeps its enrichment and aliases, and the other
+pieces become their own stories, so a grouping published by an earlier build
+cannot keep pulling unrelated fresh coverage together for seven days. No model
+calls, paid-ledger changes or additional fetches are involved.
+
+Job posts are not news: [radar/noise.py](../radar/noise.py) refuses links to
+applicant-tracking hosts and forum hiring ads or hiring threads, with a reason
+code and a one-line reader sentence for each, and the build log counts refusals.
+Press reporting that a company is hiring is not matched. [Synthetic tests](../tests/test_press_relevance.py) cover admission
 and retention; `python tests/measure_press_relevance.py` lists all dropped and
 borderline kept press inputs from committed JSON fixtures and local `site/data`
 snapshots without modifying either.
@@ -152,7 +161,30 @@ shared adjacent entity/content phrase, a multiword entity phrase with
 independent content evidence, or (for newly inferred names) a shared content
 word with announcement language in both headlines. This keeps a
 famous company, product name or capitalized common word from joining unrelated
-events by itself.
+events by itself. The halves of a shared hyphenated word ("open-source") count
+once, as that word. A person's own post (a social post or a forum self-post) is a
+remark, not a headline: it joins an event only with the two independent content
+words, never on one shared entity phrase or announcement word alone.
+
+The outlet behind a forum post is the site it links to, so two posts of one news
+item on Hacker News linking different outlets meet the cross-publisher rules,
+while self-posts and posts more than a day apart stay one publisher. One
+publisher's own headlines merge above the standard overlap, or when they re-title
+one report: exactly the same figures (not only a year), two shared content words
+and at least 0.4 overlap. Two different repository roots on a code or model host
+never merge below the standard overlap.
+
+Retention carries published stories by id and URL. After it,
+`merge_repeated_events` folds a carried story into the story that already lists
+it as an alias, or whose every observation passes the same complete-link test
+(fresh stories are never re-compared). This is what joins an outlet's re-titled
+article to yesterday's version under a new URL.
+
+The "Đáng đọc" score counts attention only for a story that is hot by
+`hot_eligible` (two independent publishers, or a count in the top fifth of its
+source), the same bar as `sections.hot`; an ordinary count is shown but does not
+promote. A repository dated only by its creation earns no freshness without a
+first-hand origin, a second publisher or a hot count.
 
 ## Trending repositories
 

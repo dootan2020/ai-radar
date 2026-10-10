@@ -21,7 +21,7 @@ import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange } from './
 import { KIND, METRIC } from './words.js';
 import { shown, headlineShown, uniqCoverage } from './titles.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote, dateStart, nextDay } from './calendar.js';
-import { WORTH, fallbackWorth } from './worth-score.js';
+import { WORTH, fallbackWorth, hotEligible } from './worth-score.js';
 import { renderStoryHTML } from './story.js';
 import { createArenaView } from './arena.js';
 
@@ -1747,9 +1747,9 @@ function renderHow() {
   $('#how-panel').innerHTML = `
     <p>Mỗi tin trong ${winH} giờ qua được chấm từ bốn tín hiệu có sẵn trong dữ liệu. Không có điểm nào do người gõ tay.</p>
     <ul class="how-list">
-      <li><b>Độ chú ý</b>, tối đa <span class="num">${W.attention}</span> điểm: điểm nóng của tin, tức thứ hạng con số của tin (điểm Hacker News, sao GitHub…) so với các tin khác cùng nguồn, nhân với độ mới. Điểm nóng từ <span class="num">${W.attentionFull}</span> trở lên được đủ <span class="num">${W.attention}</span>.</li>
+      <li><b>Độ chú ý</b>, tối đa <span class="num">${W.attention}</span> điểm: điểm nóng của tin, tức thứ hạng con số của tin (điểm Hacker News, sao GitHub…) so với các tin khác cùng nguồn, nhân với độ mới. Chỉ tính khi tin thật sự nóng: con số thuộc nhóm 20% cao nhất của nguồn đó, hoặc tin có từ hai nơi đăng độc lập. Điểm nóng từ <span class="num">${W.attentionFull}</span> trở lên được đủ <span class="num">${W.attention}</span>.</li>
       <li><b>Độ lan rộng</b>, tối đa <span class="num">${W.breadth}</span> điểm: mỗi nơi đăng độc lập thêm vào sau nơi đầu tiên được <span class="num">${f1(W.breadth / (W.breadthFull - 1))}</span> điểm, đủ khi có <span class="num">${W.breadthFull}</span> nơi.</li>
-      <li><b>Độ mới</b>: toàn bộ điểm giảm một nửa sau mỗi <span class="num">${W.halfLifeH}</span> giờ tính từ lần đưa tin gần nhất; phần độ mới có tối đa <span class="num">${W.freshness}</span> điểm.</li>
+      <li><b>Độ mới</b>: toàn bộ điểm giảm một nửa sau mỗi <span class="num">${W.halfLifeH}</span> giờ tính từ lần đưa tin gần nhất; phần độ mới có tối đa <span class="num">${W.freshness}</span> điểm. Kho mã chỉ có ngày tạo, không phải ngày đưa tin, nên kho mã chưa có lý do nào khác thì không được điểm độ mới.</li>
       <li><b>Nguồn gốc</b>: tin do chính phòng nghiên cứu công bố, hoặc bài báo gốc của nhóm nghiên cứu, được nhân <span class="num">${f1(W.firstHand)}</span>.</li>
     </ul>
     <p>Ngọn lửa trước tiêu đề đánh dấu tin đang nóng: điểm nóng từ <span class="num">${W.hotLabel}</span> trở lên. Dòng chữ nhỏ trên thẻ ghi nguồn gốc của tin, như một hãng tự công bố hay bài báo gốc. Chỉ tin mang dòng “Biên tập chọn” là do người chọn.</p>
@@ -1779,7 +1779,7 @@ function buildAll() {
   const out = [], used = new Set(PICKLIST.map(st => st.id));
 
   // --- Khối 2: Cộng đồng đang tranh luận ---
-  HOT = allStories.filter(st => !used.has(st.id) && (st.hot_score || 0) > 0 && !PICKLIST.some(p => sameEvent(p, st)))
+  HOT = allStories.filter(st => !used.has(st.id) && (st.hot_score || 0) > 0 && hotEligible(st) && !PICKLIST.some(p => sameEvent(p, st)))
     .sort((a, b) => b.hot_score - a.hot_score).slice(0, 5);
   HOT.forEach(st => used.add(st.id));
 
@@ -1858,7 +1858,7 @@ function buildAll() {
 
 const FILTERS = {
   big: st => bigSet.has(st.id),
-  hot: st => st.hot_score > 0,
+  hot: st => st.hot_score > 0 && hotEligible(st),
   product: st => st.kind === 'product',
   forum: st => st.kind === 'forum',
   code: st => st.kind === 'repository' || st.kind === 'model',

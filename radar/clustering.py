@@ -193,6 +193,86 @@ def _cluster_entities(items):
             if len(sources) >= 2 and entity in interior_uses}
 
 
+FORUM_RESUBMISSION_SECONDS = 24 * 3600
+CODE_HOSTS = {"github.com", "huggingface.co", "gitlab.com"}
+NOT_REPOSITORY_PATHS = {"blog", "docs", "papers", "learn", "collections", "posts", "orgs", "organizations",
+                        "topics", "features", "sponsors", "marketplace", "settings", "changelog", "events"}
+
+
+def _outlet(item):
+    """The outlet that wrote the headline.
+
+    A forum post linking an article elsewhere carries that site's headline and
+    is submitted by a different person each time, so two such posts are not one
+    publisher rewording itself: they meet the cross-publisher rules.
+    """
+    if item.get("group") == "forum":
+        url = item.get("canonical_url") or canonical_url(item.get("url"))
+        host = (urlsplit(url).hostname or "") if url else ""
+        discussion = canonical_url(item.get("discussion_url")) if item.get("discussion_url") else None
+        if host and not (discussion and urlsplit(discussion).hostname == host):
+            return "site:" + host.removeprefix("www.")
+    return item.get("publisher")
+
+
+def _is_commentary(item):
+    """A post whose text is the author's own remark rather than a linked article's headline."""
+    if item.get("kind") == "social":
+        return True
+    return item.get("group") == "forum" and _outlet(item) == item.get("publisher")
+
+
+def _same_outlet(left, right, a_date, b_date):
+    """Whether one outlet stands behind both headlines.
+
+    Forum posts linking different sites count as different outlets only while they
+    arrive together, as resubmissions of one piece of news do; a day apart, two
+    posts that share a product name are usually different discussions.
+    """
+    if _outlet(left) and _outlet(left) == _outlet(right):
+        return True
+    return bool(left.get("group") == right.get("group") == "forum" and left.get("publisher")
+                and left.get("publisher") == right.get("publisher")
+                and abs((a_date - b_date).total_seconds()) > FORUM_RESUBMISSION_SECONDS)
+
+
+def _repository_address(item):
+    """The repository root an observation links to (owner/name), or None for any other page."""
+    url = item.get("canonical_url") or canonical_url(item.get("url"))
+    if not url:
+        return None
+    parts = urlsplit(url)
+    host = (parts.hostname or "").removeprefix("www.")
+    segments = [segment for segment in parts.path.split("/") if segment]
+    if segments and segments[0].lower() in NOT_REPOSITORY_PATHS:
+        return None
+    if host in CODE_HOSTS and (len(segments) == 2 or (
+            host == "huggingface.co" and len(segments) == 3 and segments[0] in {"datasets", "spaces"})):
+        return url
+    return None
+
+
+AMOUNT_WORDS = {"million", "billion", "trillion", "percent"}
+
+
+def _same_outlet_retitle(a_stem, b_stem, shared, jaccard):
+    """One outlet re-titling one report (an article and its video, or an updated headline).
+
+    The figures survive the rewrite while the wording changes: both headlines carry
+    exactly the same numbers (at least one that is not a year), at least two shared
+    content words besides them, and close to half of all their words. A shared name
+    alone never suffices.
+    """
+    a_figures = {w for w in a_stem if any(c.isdigit() for c in w)}
+    b_figures = {w for w in b_stem if any(c.isdigit() for c in w)}
+    if a_figures != b_figures or not any(not re.fullmatch(r"20\d{2}", w) for w in a_figures):
+        return False
+    parts = {_stem(part) for word in shared if "-" in word for part in word.split("-")}
+    words = {w for w in shared if not any(c.isdigit() for c in w) and "-" not in w
+             and w not in ENTITY_WORDS | TOPIC_WORDS | SUB_VARIANTS | AMOUNT_WORDS | parts}
+    return len(words) >= 2 and jaccard >= 0.4
+
+
 def titles_match(left, right, threshold=0.75, named_entities=None):
     a_date, b_date = instant(left.get("published_at")), instant(right.get("published_at"))
     if not a_date or not b_date or abs((a_date - b_date).total_seconds()) > 48 * 3600:
@@ -242,9 +322,14 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
     if len(shared) >= 3 and jaccard >= threshold:
         return True
 
-    # Same publisher requires standard threshold
-    if left.get("publisher") and left.get("publisher") == right.get("publisher"):
+    # Below that bar, two different code or model repositories are two artifacts, however
+    # alike their names ("…-Guard-2-22M" and "…-Guard-2-86M").
+    if _repository_address(left) and _repository_address(right):
         return False
+
+    # Same publisher: beyond the standard threshold, only its own re-title of one report
+    if _same_outlet(left, right, a_date, b_date):
+        return _same_outlet_retitle(a_stem, b_stem, shared, jaccard)
 
     # Cross-publisher general matching rule from signals that exist for any story:
     shared_entities = {w for w in shared if _stem(w) in ENTITY_WORDS}
@@ -258,8 +343,11 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
     # An entity is the anchor, not independent evidence of an event. Counting
     # it as a specific word lets one shared name (or a capitalized common word)
     # satisfy both sides of the match rule.
+    # The halves of a shared hyphenated word repeat that one word; they are not
+    # two more pieces of evidence ("open-source" must not also count "open" and "source").
+    compound_parts = {_stem(part) for word in shared if "-" in word for part in word.split("-")}
     specific = {w for w in shared
-                if _stem(w) not in (ENTITY_WORDS | TOPIC_WORDS | SUB_VARIANTS | shared_entities)
+                if _stem(w) not in (ENTITY_WORDS | TOPIC_WORDS | SUB_VARIANTS | shared_entities | compound_parts)
                 and not any(c.isdigit() for c in w) and "-" not in w}
 
     # Signal 1: Shared entity + 2 or more shared specific tokens
@@ -270,14 +358,21 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
             left.get("title", ""), right.get("title", ""), shared_entities)):
         return True
 
-    if _shared_entity_content_phrase(left.get("title", ""), right.get("title", ""),
-                                     shared_entities, specific):
+    # A person's own post (a social post, or a forum self-post) is commentary in
+    # free wording, not a headline: "the Claude team" in a remark is not the
+    # "Claude Team" plan in a report. One shared name-plus-word phrase or one
+    # announcement word is too little to attach it to an event; it needs the
+    # two independent content words of the rule above.
+    commentary = _is_commentary(left) or _is_commentary(right)
+
+    if not commentary and _shared_entity_content_phrase(left.get("title", ""), right.get("title", ""),
+                                                         shared_entities, specific):
         return True
 
     # One shared content word can support a newly named product only when it
     # appears alongside an announcement in both headlines. A lone brand, common
     # verb or topic word is insufficient.
-    if (shared_entities - ENTITY_WORDS and specific
+    if (not commentary and shared_entities - ENTITY_WORDS and specific
             and _both_announce(left.get("title", ""), right.get("title", ""))):
         return True
 
@@ -356,3 +451,77 @@ def cluster_items(items, now, threshold=0.75):
                             aliases=aliases,
                             hot_score=None, hot_reason=None, hot_signals={}))
     return sorted(stories, key=lambda story: (story["published_at"] or "", story["id"]), reverse=True)
+
+
+def _story_words(story):
+    return {_stem(token) for item in story.get("coverage", []) if isinstance(item, dict)
+            for token in _expand_tokens(item.get("title", ""))}
+
+
+def merge_repeated_events(stories, threshold=0.75):
+    """Fold a carried story into the story that tells the same event.
+
+    Retention carries a published story forward by id or URL alone, so an outlet
+    re-titling an article under a new URL, or two stories split by an earlier
+    build, would stay two cards. A carried story joins another when that story
+    already lists it as an alias, or when every pair of their observations passes
+    the same complete-link test that builds fresh clusters. Fresh stories are not
+    compared with each other: `cluster_items` already decided those. The story
+    kept is fresh before carried, then the one with more coverage; it keeps its
+    headline, translation and summary and gains the other's coverage and id.
+    """
+    stories = [story for story in stories if isinstance(story, dict)]
+    order = sorted(range(len(stories)), key=lambda index: (
+        bool(stories[index].get("carried")), -len(stories[index].get("coverage") or []),
+        stories[index].get("published_at") or "9999", str(stories[index].get("id"))))
+    items = [item for story in stories for item in story.get("coverage", []) if isinstance(item, dict)]
+    named_entities = _cluster_entities(items)
+    alias_owner = {}                      # story id or alias -> position in `kept`
+    kept, words, postings = [], [], defaultdict(list)
+    for index in order:
+        story = stories[index]
+        if not story.get("carried") or story.get("kind") == "event":
+            target = None
+        else:
+            target = alias_owner.get(story.get("id"))
+        if target is None and story.get("carried") and story.get("kind") != "event":
+            shared = defaultdict(int)
+            for word in _story_words(story):
+                for position in postings[word]:
+                    shared[position] += 1
+            for position in sorted(position for position, count in shared.items() if count >= 2):
+                other = kept[position]
+                if other.get("kind") != "event" and all(
+                        _match(a, b, threshold, named_entities)
+                        for a in story.get("coverage", []) for b in other.get("coverage", [])):
+                    target = position
+                    break
+        if target is None:
+            target = len(kept)
+            kept.append(story)
+            words.append(set())
+            for alias in story.get("aliases") or []:
+                alias_owner.setdefault(alias, target)
+        else:
+            _fold(kept[target], story)
+            for alias in [story.get("id")] + list(story.get("aliases") or []):
+                alias_owner.setdefault(alias, target)
+        for word in _story_words(story) - words[target]:
+            words[target].add(word)
+            postings[word].append(target)
+    kept_ids = {id(story) for story in kept}
+    return [story for story in stories if id(story) in kept_ids]
+
+
+def _fold(target, story):
+    coverage = target.setdefault("coverage", [])
+    present = {item.get("id") for item in coverage if isinstance(item, dict)}
+    for item in story.get("coverage") or []:
+        if isinstance(item, dict) and item.get("id") not in present:
+            coverage.append(item)
+            present.add(item.get("id"))
+    target["aliases"] = sorted((set(target.get("aliases") or []) | set(story.get("aliases") or [])
+                                | {story.get("id")}) - {target.get("id"), None})
+    target["source_count"] = len({publisher_identity(item) for item in coverage if isinstance(item, dict)})
+    target["groups"] = sorted({item.get("group", "lab") for item in coverage if isinstance(item, dict)})
+    target["primary_section"] = primary_section(coverage)

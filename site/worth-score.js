@@ -9,9 +9,23 @@ export const WORTH = {
   sameEvent: 0.34,
 };
 
+/* Mirrors radar/ranking.py hot_eligible: hot by its numbers (two independent publishers, or a count in the top fifth
+   of its source), not merely measured. Only such a story earns attention points or a place under "Đang nóng". */
+export function hotEligible(st) {
+  const s = (st && st.hot_signals) || {}, m = s.measurement || {};
+  if (st == null || st.hot_score == null) return false;
+  return (s.source_count || 0) >= 2
+    || (s.engagement_percentile != null && s.engagement_percentile >= 0.8 && (m.value || 0) > 0);
+}
+
 export function fallbackWorth(st, generatedAt, hot, n, firstHand) {
+  if (!hotEligible(st)) hot = 0;
   const coverageTimes = (st.coverage || []).map(c => Date.parse(c && c.published_at)).filter(Number.isFinite);
-  const publishedAt = coverageTimes.length ? Math.max(...coverageTimes) : Date.parse(st.published_at);
+  // A repository's creation date is not news: without first-hand origin, a second publisher or a hot count it earns no
+  // freshness (mirrors radar/worth.py).
+  const repoWithoutReason = st.time_basis === 'repository_created' && !firstHand && n < 2 && !(hot > 0);
+  const publishedAt = repoWithoutReason ? NaN
+    : coverageTimes.length ? Math.max(...coverageTimes) : Date.parse(st.published_at);
   const ageH = Number.isFinite(publishedAt) ? Math.max(0, (generatedAt - publishedAt) / 36e5) : null;
   const recency = ageH == null ? 1 : Math.pow(0.5, ageH / WORTH.halfLifeH);
   const parts = {

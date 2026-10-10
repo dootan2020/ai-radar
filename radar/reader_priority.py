@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from radar.items import instant
+from radar.ranking import hot_eligible
 from radar.worth import calculate_worth
 
 
@@ -43,7 +44,12 @@ def ordered_stories(payload, editor_picks=None):
                             require_translation=False)
     # Home uses five hot-score leaders outside the promoted events, not the
     # much larger sections.hot list prepared for other navigation surfaces.
-    hot = sorted((story for story in active if (story.get("hot_score") or 0) > 0
+    # Only stories that are hot by their numbers qualify (sections.hot, built by
+    # radar.ranking.hot_eligible); an ordinary count is not "Đang nóng".
+    hot_ids = (payload.get("sections") or {}).get("hot")
+    hot_set = set(hot_ids) if isinstance(hot_ids, list) else None
+    is_hot = (lambda story: story.get("id") in hot_set) if hot_set is not None else hot_eligible
+    hot = sorted((story for story in active if (story.get("hot_score") or 0) > 0 and is_hot(story)
                   and story not in promoted and not any(same_event(pick, story) for pick in promoted)),
                  key=lambda story: story["hot_score"], reverse=True)[:5]
     def score(story):

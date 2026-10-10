@@ -12,6 +12,7 @@ import math
 import re
 
 from radar.items import instant
+from radar.ranking import hot_eligible
 
 # THE WEIGHTS ARE A FIRST GUESS (04/10). They will be calibrated on a week of real snapshots:
 # what readers open, what the daily edition keeps, what an editor would have chosen.
@@ -225,7 +226,11 @@ def calculate_worth(story, now_dt, sources_map=None):
     """
     meas = (story.get("hot_signals") or {}).get("measurement")
     hot_score = story.get("hot_score")
-    has_hot = meas and isinstance(hot_score, (int, float)) and not (isinstance(hot_score, float) and (math.isnan(hot_score) or math.isinf(hot_score)))
+    # Attention counts only when the number makes the story hot by the pipeline's own bar
+    # (radar.ranking.hot_eligible): a count in the top fifth of its source, or two independent
+    # publishers. An ordinary count for its source is shown, but it does not promote the story.
+    has_hot = (meas and isinstance(hot_score, (int, float)) and hot_eligible(story)
+               and not (isinstance(hot_score, float) and (math.isnan(hot_score) or math.isinf(hot_score))))
     hot = max(0.0, float(hot_score)) if has_hot else 0.0
 
     covs = uniq_coverage(story.get("coverage"), sources_map)
@@ -244,6 +249,14 @@ def calculate_worth(story, now_dt, sources_map=None):
         fresh_score = 0.0
 
     fh = first_hand_of(story, sources_map)
+    # A repository's date is its creation, not anyone reporting on it. With no first-hand origin,
+    # no second publisher and no hot count, nothing measured says it is worth reading, so being
+    # new earns it no points; it stays in the feed, below stories that carry a reason.
+    if story.get("time_basis") == "repository_created" and not fh and n < 2 and not hot:
+        fresh_score = 0.0
+        pub_dt_counts = False
+    else:
+        pub_dt_counts = bool(pub_dt)
 
     att_score = WORTH["attention"] * min(1.0, hot / WORTH["attentionFull"])
     brd_score = WORTH["breadth"] * min(1.0, max(0.0, float(n - 1)) / (WORTH["breadthFull"] - 1.0))
@@ -260,7 +273,7 @@ def calculate_worth(story, now_dt, sources_map=None):
         parts["attention"] = round(att_score, 2)
     if n >= 2:
         parts["breadth"] = round(brd_score, 2)
-    if pub_dt:
+    if pub_dt_counts:
         parts["freshness"] = round(fresh_score, 2)
 
     worth_data = {

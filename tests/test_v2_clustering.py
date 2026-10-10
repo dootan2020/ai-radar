@@ -4,7 +4,7 @@ import json
 import unittest
 from pathlib import Path
 
-from radar.clustering import canonical_url, cluster_items
+from radar.clustering import _repository_address, canonical_url, cluster_items, merge_repeated_events, titles_match
 if __package__:
     from .test_v2_support import NOW, coverage
 else:
@@ -442,3 +442,169 @@ class ClusterTests(unittest.TestCase):
         ]
         stories = cluster_items(items, NOW)
         self.assertEqual(len(stories), 2)
+
+
+def forum_post(url, title, published_at="2026-10-02T10:00:00Z", source="hn-ai"):
+    return coverage(source, url, publisher="hacker-news", group="forum", kind="forum", title=title,
+                    published_at=published_at, discussion_url="https://news.ycombinator.com/item?id=" + url[-2:])
+
+
+class ForumOutletAndRetitleTests(unittest.TestCase):
+    def test_forum_posts_linking_different_sites_meet_cross_publisher_rules(self):
+        items = [
+            forum_post("https://outlet-a.example/watermark-01",
+                       "OpenAI pauses image model after watermark failure, researchers say"),
+            forum_post("https://outlet-b.example/watermark-02",
+                       "Watermark failure leads OpenAI to pause its image model",
+                       published_at="2026-10-02T07:00:00Z"),
+            coverage("press-c", "https://outlet-c.example/watermark", publisher="press-c",
+                     title="OpenAI pauses its image model over a watermark failure"),
+        ]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["source_count"], 2)
+
+    def test_forum_posts_a_day_apart_sharing_a_product_name_stay_apart(self):
+        items = [
+            forum_post("https://blog.example/assistant-01",
+                       "Claude Code’s suggested replies: I think the real customer is the model",
+                       published_at="2026-10-01T04:00:00Z"),
+            forum_post("https://reddit.example/r/trees-02",
+                       "I think I mapped every tree in my city. I used Claude Code to do it"),
+        ]
+        self.assertEqual(len(cluster_items(items, NOW)), 2)
+
+    def test_forum_self_posts_remain_one_publisher(self):
+        items = [
+            forum_post("https://news.ycombinator.com/item?id=11",
+                       "Ask HN: OpenAI agent deleted our production database backups"),
+            forum_post("https://news.ycombinator.com/item?id=12",
+                       "Ask HN: Anyone else seen the OpenAI agent wipe a production database?"),
+        ]
+        for item in items:
+            item["discussion_url"] = item["url"]
+        self.assertEqual(len(cluster_items(items, NOW)), 2)
+
+    def test_halves_of_a_shared_hyphenated_word_are_not_extra_evidence(self):
+        left = coverage("press-a", "https://a.example/garden", publisher="press-a",
+                        title="Lumen Open-Sources Garden, Where Agents Learn by Playing in Code Worlds")
+        right = coverage("press-b", "https://b.example/independence", publisher="press-b",
+                         title="Open-source software is the only path to independence, says chairman")
+        self.assertFalse(titles_match(left, right, named_entities={"open-source"}))
+        same_event = dict(right, title="Lumen open-sources Garden code worlds for agents")
+        self.assertTrue(titles_match(left, same_event, named_entities={"open-source", "lumen"}))
+
+    def test_one_outlet_retitling_a_report_with_the_same_figure_is_one_story(self):
+        items = [
+            coverage("wire", "https://wire.example/articles/quanta-funding", publisher="wire",
+                     title="Quanta Labs Seeks Funding at Valuation of $12 Billion"),
+            coverage("wire", "https://wire.example/videos/quanta-funding", publisher="wire",
+                     title="Alphabet’s Quanta Labs in Funding Talks for at Least $12 Billion Value"),
+        ]
+        self.assertEqual(len(cluster_items(items, NOW)), 1)
+
+    def test_one_outlet_with_different_figures_or_artifacts_stays_apart(self):
+        cases = [
+            ("Quanta Labs Raises $12 Billion in Debt for Data Centers",
+             "Quanta Labs in Funding Talks at $15 Billion Value for Data Centers",
+             "https://wire.example/a", "https://wire.example/b"),
+            ("Quanta Labs Says 2027 Funding Round Will Close Soon",
+             "Quanta Labs Funding Round Slips Into 2027",
+             "https://wire.example/c", "https://wire.example/d"),
+            ("example-lab/Prompt-Guard-2-22M", "example-lab/Prompt-Guard-2-86M",
+             "https://huggingface.co/example-lab/Prompt-Guard-2-22M",
+             "https://huggingface.co/example-lab/Prompt-Guard-2-86M"),
+        ]
+        for left, right, left_url, right_url in cases:
+            with self.subTest(left=left):
+                items = [coverage("wire", left_url, publisher="wire", title=left, kind="model"),
+                         coverage("wire", right_url, publisher="wire", title=right, kind="model")]
+                self.assertEqual(len(cluster_items(items, NOW)), 2)
+
+
+    def test_a_social_remark_sharing_one_name_phrase_does_not_join_a_report(self):
+        remark = coverage("bluesky-emollick", "https://bsky.app/profile/emollick.bsky.social/post/3mx63m2jb6c2o",
+                          publisher="bluesky", group="forum", kind="social",
+                          title="Here is a good explanation from the Claude team about why they are making the switch.",
+                          published_at="2026-10-05T23:39:18Z")
+        report = coverage("techcrunch-ai", "https://techcrunch.com/2026/10/06/anthropic-gives-startups-a-free-year",
+                          publisher="techcrunch",
+                          title="Anthropic is giving startups a free year of Claude Team and $1,000 in credits",
+                          published_at="2026-10-06T16:00:00Z")
+        self.assertFalse(titles_match(remark, report))
+        self.assertEqual(len(cluster_items([remark, report], NOW)), 2)
+        carried = cluster_items([report], NOW)[0]
+        carried["carried"] = True
+        self.assertEqual(len(merge_repeated_events([cluster_items([remark], NOW)[0], carried])), 2)
+        # The same phrase between two reports still joins them, and a remark still joins a
+        # report when it shares the event's own words.
+        other_report = dict(report, publisher="press-b", source="press-b",
+                            url="https://press-b.example/claude-team", canonical_url=None,
+                            title="Startups get the Claude Team plan free for a year")
+        self.assertTrue(titles_match(other_report, report))
+        detailed = dict(remark, title="Anthropic giving startups a free year of Claude Team is a smart move")
+        self.assertTrue(titles_match(detailed, report))
+
+    def test_two_repositories_with_alike_names_are_two_artifacts(self):
+        left = coverage("lab-hf", "https://huggingface.co/example/Llama-Prompt-Guard-2-22M", publisher="example",
+                        title="example/Llama-Prompt-Guard-2-22M", kind="model")
+        right = coverage("hf-trending", "https://huggingface.co/example/Llama-Prompt-Guard-2-86M",
+                         publisher="huggingface", title="example/Llama-Prompt-Guard-2-86M", kind="model")
+        self.assertFalse(titles_match(left, right))
+        # A page about the release is not a repository and still meets the usual rules.
+        article = coverage("press-a", "https://press.example/guard", publisher="press-a",
+                           title="Llama Prompt Guard 2 adds 22M and 86M classifier sizes", kind="other")
+        self.assertIsNone(_repository_address(article))
+        self.assertIsNotNone(_repository_address(left))
+        self.assertIsNone(_repository_address(coverage(url="https://huggingface.co/papers/2610.00001")))
+
+
+class MergeRepeatedEventsTests(unittest.TestCase):
+    def carried(self, item, **changes):
+        story = cluster_items([item], NOW)[0]
+        story.update(carried=True, **changes)
+        return story
+
+    def test_carried_retitle_folds_into_the_fresh_story_and_keeps_its_id(self):
+        fresh = cluster_items([coverage("wire", "https://wire.example/videos/chips", publisher="wire",
+                                        title="Lattice in Early Financing Talks for OpenAI Chips")], NOW)[0]
+        fresh["title_vi"] = "bản dịch"
+        old = self.carried(coverage("wire", "https://wire.example/articles/chips", publisher="wire",
+                                    title="Lattice Holds Early Talks About Financing for OpenAI Chips",
+                                    published_at="2026-10-01T22:00:00Z"))
+        merged = merge_repeated_events([old, fresh])
+        self.assertEqual(len(merged), 1)
+        self.assertIs(merged[0], fresh)
+        self.assertEqual(merged[0]["title_vi"], "bản dịch")
+        self.assertEqual(len(merged[0]["coverage"]), 2)
+        self.assertIn(old["id"], merged[0]["aliases"])
+        self.assertEqual(merged[0]["source_count"], 1)
+
+    def test_carried_story_already_listed_as_an_alias_is_folded(self):
+        fresh = cluster_items([coverage("lab", "https://lab.example/pcs", publisher="lab",
+                                        title="Lab and partner start a new era for desktop computers")], NOW)[0]
+        old = self.carried(coverage("press-b", "https://press-b.example/pcs", publisher="press-b",
+                                    title="Partner ships new AI laptops"))
+        fresh["aliases"] = [old["id"]]
+        merged = merge_repeated_events([fresh, old])
+        self.assertEqual([story["id"] for story in merged], [fresh["id"]])
+        self.assertEqual(merged[0]["source_count"], 2)
+
+    def test_fresh_stories_and_unrelated_carried_stories_are_left_alone(self):
+        first = cluster_items([coverage("wire", "https://wire.example/1", publisher="wire",
+                                        title="Lattice in Early Financing Talks for OpenAI Chips")], NOW)[0]
+        second = cluster_items([coverage("wire", "https://wire.example/2", publisher="wire",
+                                         title="Lattice Holds Early Talks About Financing for OpenAI Chips")], NOW)[0]
+        unrelated = self.carried(coverage("press-b", "https://press-b.example/x", publisher="press-b",
+                                          title="Robotics startup opens a factory in Ohio"))
+        merged = merge_repeated_events([first, second, unrelated])
+        self.assertEqual(len(merged), 3)
+        self.assertEqual(len(first["coverage"]), 1)
+
+    def test_events_are_never_folded(self):
+        event = cluster_items([coverage("curated-events", "https://events.example/conf", kind="event",
+                                        title="Example Conf 2026", event_id="example-conf-2026",
+                                        time_basis="scheduled")], NOW)[0]
+        event["carried"] = True
+        talk = cluster_items([coverage("press-a", "https://a.example/conf", title="Example Conf 2026")], NOW)[0]
+        self.assertEqual(len(merge_repeated_events([talk, event])), 2)
