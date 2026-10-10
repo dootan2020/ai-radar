@@ -11,6 +11,7 @@ class NewItemsNoticeTests(unittest.TestCase):
     def setUpClass(cls):
         cls.html = (SITE / "index.html").read_text(encoding="utf-8")
         cls.css = (SITE / "feed.css").read_text(encoding="utf-8")
+        cls.js = (SITE / "feed.js").read_text(encoding="utf-8")
 
     def test_one_quiet_notice_with_separate_live_region(self):
         self.assertIn('class="fresh" id="fresh" hidden', self.html)
@@ -40,7 +41,26 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertRegex(mobile, r"\.sort-switch\s*\{[^}]*order: 6;")
         source_panel = self.html.split('id="nguon"')[1].split("</section>")[0]
         self.assertIn('id="src-update"', source_panel)
-        self.assertLess(self.html.index('id="stale"'), self.html.index('id="picks"'))
+
+    def test_no_stale_banner_or_announcement(self):
+        self.assertNotIn('id="stale"', self.html)
+        self.assertNotIn(".stale", self.css)
+        self.assertNotIn("renderStale", self.js)
+        self.assertNotIn("$('#stale')", self.js)
+        self.assertNotIn("freshness.js", self.html + self.js)
+
+    def test_tabs_have_only_names_without_digit_space(self):
+        labels = re.findall(r'<button class="filter-chip"[^>]*>([^<]+)</button>', self.html)
+        self.assertEqual(labels, ["Tất cả", "Chuyện lớn", "Đang nóng", "Sản phẩm", "Thảo luận", "Mã và mô hình", "Đã lưu"])
+        self.assertNotIn(".filter-chip .count", self.css)
+        self.assertNotIn("3ch", self.css)
+
+    def test_desktop_single_row_starts_at_1024(self):
+        self.assertIn("@media (min-width: 768px) and (max-width: 1023px)", self.css)
+        compact = self.css.split("@media (min-width: 1024px) and (max-width: 1179px)")[1].split("@media")[0]
+        self.assertNotIn("flex-wrap: wrap", compact)
+        self.assertIn(".tc-link .tc-label { display: none; }", compact)
+        self.assertIn('aria-label="Tra cứu câu chuyện AI"', self.html)
 
 
 if __name__ == "__main__":

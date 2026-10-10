@@ -122,21 +122,15 @@ ul, ol { padding: 0; list-style: none; }
 }
 .filter-chip {
   position: relative; z-index: 1;
-  display: inline-flex; align-items: center; gap: var(--space-8);
+  display: inline-flex; align-items: center;
   min-height: 40px; padding: 0 var(--space-16); border-radius: var(--radius-full);
   font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2);
   white-space: nowrap;
   transition: color var(--motion-tab-glide, 280ms) var(--ease-flow);
 }
-.filter-chip .count {
-  color: var(--color-ink-3); font-size: var(--text-micro);
-  inline-size: 3ch; flex: none; text-align: right;
-  transition: color var(--motion-tab-glide, 280ms) var(--ease-flow);
-}
 .filter-chip:hover:not([aria-pressed="true"]) { background: var(--color-fill); color: var(--color-ink); }
 .filter-chip:active { transform: scale(0.98); }
 .filter-chip[aria-pressed="true"] { background: var(--color-ink); color: var(--color-canvas); }
-.filter-chip[aria-pressed="true"] .count { color: var(--color-fill); }
 .has-pill .filter-chip[aria-pressed="true"] { background: transparent; }
 
 .theme-btn {
@@ -636,7 +630,7 @@ ul, ol { padding: 0; list-style: none; }
 @keyframes toast-in { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
 
 /* ==========================================================================
-   CARRIED OVER FROM THE BENTO HOME (05/10): marks, the new-story pill, the stale line, the
+   CARRIED OVER FROM THE BENTO HOME (05/10): marks, the new-story pill, the
    no-script fallback, the story detail, calendar, repository controls, saved items, sources, shortcuts. Same flat
    vocabulary as the approved feed: fills and surfaces, no border, no shadow at rest (the fresh pill floats, so it lifts).
    ========================================================================== */
@@ -662,13 +656,6 @@ ul, ol { padding: 0; list-style: none; }
 .fresh-btn:hover { background: var(--color-fill); }
 .fresh-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .fresh-btn .i { width: 16px; height: 16px; }
-
-/* Old data says so in words */
-.stale {
-  margin-bottom: var(--space-16);
-  padding: var(--space-12) var(--space-16); border-radius: var(--feed-radius);
-  background: var(--color-warn-wash); color: var(--color-ink); font-size: var(--text-small);
-}
 
 /* Shown only if the page never finished loading: four seconds of "aria-busy", or no JavaScript at all */
 .reader-fallback { display: none; flex-basis: 100%; font-size: var(--text-small); color: var(--color-ink-2); }
@@ -1090,7 +1077,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .tab-pill {
     transition: none !important;
   }
-  .filter-chip, .filter-chip .count, .sort-btn, .seg-b {
+  .filter-chip, .sort-btn, .seg-b {
     transition: none !important;
   }
 }
@@ -1105,12 +1092,10 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
     overflow: visible; flex: none; gap: var(--space-4); padding: var(--space-4);
     -webkit-mask-image: none; mask-image: none;
   }
-  /* Counts sit below their labels: changing digits never takes room from another tab. */
   .filter-chip {
-    flex: none; flex-direction: column; justify-content: center; gap: 0;
+    flex: none; justify-content: center;
     min-height: 44px; padding: 0 var(--space-8);
   }
-  .filter-chip .count { inline-size: auto; align-self: stretch; contain: inline-size; text-align: center; }
   .sort-btn { padding: 0 var(--space-8); }
   .ed-link, .tc-link { padding: 0 var(--space-8); }
 }
@@ -1118,7 +1103,15 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .feed-bar-in { padding-inline: var(--space-16); column-gap: var(--space-4); }
   .filter-chip { padding-inline: var(--space-4); }
 }
-@media (min-width: 768px) and (max-width: 1179px){
+@media (min-width: 1024px) and (max-width: 1179px){
+  .feed-navigation { gap: var(--space-4); }
+  .feed-filters { gap: 0; }
+  .filter-chip, .sort-btn { font-size: var(--text-meta); }
+  .sort-btn { padding-inline: var(--space-4); }
+  .tc-link { padding: 0; }
+  .tc-link .tc-label { display: none; }
+}
+@media (min-width: 768px) and (max-width: 1023px){
   .feed-bar-in { height: auto; flex-wrap: wrap; row-gap: 0; padding-top: var(--space-8); }
   .feed-brand { flex: 1; }
   .feed-navigation { order: 1; flex-basis: 100%; }

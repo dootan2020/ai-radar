@@ -12,7 +12,7 @@
 
    Carried over from the bento home (now bento.html, rollback only), in the feed's own look: the edition and search
    links (static, in index.html), the new / seen marks with the same storage keys, the "N tin mới" pill
-   that goes to the first new story, the stale-data line, saved stories, the repository lists,
+   that goes to the first new story, saved stories, the repository lists,
    calendar export, live counters, every source's state, keyboard shortcuts, and every address the bento home answered
    (#tin/<id>, and the section anchors the search page links to). */
 
@@ -21,7 +21,6 @@ import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, daysLeftHTML, eventRa
 import { KIND, METRIC } from './words.js';
 import { shown, headlineShown, uniqCoverage } from './titles.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
-import { freshness, freshnessText } from './freshness.js';
 import { WORTH, fallbackWorth } from './worth-score.js';
 import { renderStoryHTML } from './story.js';
 
@@ -1785,10 +1784,10 @@ function focusStory(el) {
 /* ---------- head, filters, new items ---------- */
 let winH = 72, srcCount = 0;
 const LABELS = {};
-const DATE_VN = new Intl.DateTimeFormat('vi-VN', { day: 'numeric', month: 'numeric', timeZone: TZ });
+const DATE_VN = new Intl.DateTimeFormat('vi-VN', { day: 'numeric', month: 'numeric', year: 'numeric', timeZone: TZ });
 function updatedAt(iso) {
   const d = new Date(iso);
-  return dayKey(d) === todayKey() ? hhmm(d) : `${hhmm(d)} ngày ${DATE_VN.format(d)}`;
+  return `${hhmm(d)} ngày ${DATE_VN.format(d)}`;
 }
 function renderSub() {
   const sub = $('#filter-context');
@@ -1805,7 +1804,6 @@ function renderChips() {
     const f = b.dataset.filter;
     LABELS[f] = LABELS[f] || b.textContent.trim();
     const n = f === 'all' ? allStories.length : f === 'saved' ? saved.length : listFor(f).length;
-    b.innerHTML = `${esc(LABELS[f])} <span class="count num">${n}</span>`;
     b.hidden = f !== 'all' && n === 0 && f !== filter;
     b.setAttribute('aria-pressed', String(f === filter));
   });
@@ -1849,9 +1847,7 @@ function positionNewItems() {
   const box = $('#fresh');
   if (box.hidden) return;
   const barBottom = $('#bar').getBoundingClientRect().bottom;
-  const stale = $('#stale');
-  const staleBottom = stale.hidden ? 0 : stale.getBoundingClientRect().bottom;
-  box.style.top = `${Math.max(barBottom, staleBottom) + 12}px`;
+  box.style.top = `${barBottom + 12}px`;
 }
 function dismissNewItems() {
   clearTimeout(noticeTimer);
@@ -1986,17 +1982,6 @@ function applyPending() {
   if (filter !== 'all') filter = 'all';
   renderAll();
   setTimeout(() => { arrived = new Set(); }, 3000);
-}
-
-/* ---------- old data says so in words; rewritten only when the words change, so a screen reader hears it once ---------- */
-function renderStale() {
-  const el = $('#stale'); if (!el || !D) return;
-  const text = freshnessText(freshness(D.generated_at, D.sources), D.generated_at);
-  if (el.dataset.text === text) return;
-  el.dataset.text = text;
-  el.hidden = !text;
-  el.textContent = text || '';
-  positionNewItems();
 }
 
 /* ---------- every source of the snapshot, the live layer, and how the page works ---------- */
@@ -2366,7 +2351,6 @@ function renderAll() {
   renderHow();
   renderSortSwitch();
   renderFeed();
-  renderStale();
   renderSources();
   renderNewItems();
   positionNewItems();
@@ -2386,8 +2370,8 @@ function startLifecycle() {
   const onEngage = () => { if (!engaged) { engaged = true; commitLastSeen(); } };
   setTimeout(onEngage, 5000);
   addEventListener('scroll', onEngage, { passive: true, once: true });
-  // Relative times and the stale line stay honest while the tab is open.
-  setInterval(() => { $$('[data-ago]').forEach(el => { el.textContent = ago(el.dataset.ago); }); renderStale(); }, 60_000);
+  // Relative times stay honest while the tab is open; the source panel uses an absolute date.
+  setInterval(() => { $$('[data-ago]').forEach(el => { el.textContent = ago(el.dataset.ago); }); }, 60_000);
   window.commitLastSeen = commitLastSeen; window.storyStatus = storyStatus;
   window.openStoryModal = openStoryModal; window.closeStoryModal = closeStoryModal; window.getStory = id => STORY_ANY.get(id);
 }
