@@ -69,6 +69,30 @@ class PipelineTests(unittest.TestCase):
         defaults.update(options)
         return pipeline.translate_payload(payload, {}, self.cache, **defaults)
 
+    def test_rejected_translation_cools_down_then_retries_after_day(self):
+        calls = []
+        def reject(body, key, timeout):
+            calls.append(body)
+            return reply([{"id": item["id"], "text": "Invented 99999"} for item in inputs(body)])
+        for stamp in (100000.0, 101800.0, 186401.0):
+            self.run_payload({"stories": [story()]}, transport=reject, now=lambda: stamp)
+        self.assertEqual(len(calls), 2)
+        saved = self.ledger.read_text(encoding="utf-8")
+        self.assertNotIn(TITLE, saved)
+        self.assertNotIn("offline-sentinel", saved)
+
+    def test_paid_published_translation_is_restored_before_ledger_gate(self):
+        payload = {"stories": [story(title_vi=VI)]}
+        stats, _ = self.run_payload(payload, config=gemini.Config(api_key="offline-sentinel", confirmed=True, paid=True))
+        self.assertEqual(payload["stories"][0]["title_vi"], VI)
+        self.assertEqual(stats["kept_published"], 1)
+        self.assertEqual(self.calls, [])
+
+    def test_invisible_coverage_excerpt_never_enters_request(self):
+        payload = {"stories": [story(coverage=[{"title": TITLE, "summary": "Unseen coverage excerpt."}])]}
+        self.run_payload(payload)
+        self.assertEqual([item["text"] for item in inputs(self.calls[0][0])], [TITLE])
+
     def test_batch_deduplicates_normalized_whole_strings_across_fields(self):
         title = TITLE.replace(" ", "  ")
         payload = {"stories": [story(title, summary=SUMMARY, coverage=[
@@ -88,7 +112,7 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(body["generationConfig"]["responseMimeType"], "application/json")
         self.assertEqual(payload["stories"][0]["title_vi"], VI)
         self.assertEqual(payload["stories"][0]["summary_vi"], SUMMARY_VI)
-        self.assertEqual(payload["stories"][0]["coverage"][0]["summary_vi"], SUMMARY_VI)
+        self.assertNotIn("summary_vi", payload["stories"][0]["coverage"][0])
         self.assertEqual(payload["repos"][0]["description_vi"], VI)
         self.assertEqual(payload["live"][0]["title_vi"], VI)
         for collection in ("stories", "repos", "live"):

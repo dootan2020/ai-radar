@@ -46,20 +46,20 @@ class PaidBudgetTests(unittest.TestCase):
         self.assertIsNone(self._prepare(False, 100, 4))
         self.assertEqual(self._store(), {"version": 1, "month": "2026-10",
                                          "settled_micros": 0, "pending": {},
-                                         "settled_daily": {}, "pending_days": {}})
+                                         "settled_daily": {}, "pending_days": {}, "settled_consumers": {}})
 
     def test_cancelled_attempt_keeps_only_a_bounded_reservation_and_next_run_continues(self):
         self.assertIsNone(self._prepare(False, 100, 10))
         self.assertIsNone(self._prepare(True, 101, 11))
-        self.assertEqual(self._reserve(100_000, 11)[0], None)
+        self.assertEqual(self._reserve(40_000, 11)[0], None)
         first = self._store()
-        self.assertEqual(first["pending"], {"101-1": 1_000_000})
+        self.assertEqual(first["pending"], {"101-1": 200_000})
 
-        # Simulate cancellation before finalization: the $1 hold remains reserved.
+        # A cancelled run retains its smaller hold; its unknown consumer usage stays charged.
         self.assertIsNone(self._prepare(True, 103, 13))
         second = self._store()
-        self.assertEqual(second["pending"], {"101-1": 1_000_000, "103-1": 1_000_000})
-        self.assertIsNone(self._reserve(100_000, 13)[0])
+        self.assertEqual(second["pending"], {"101-1": 200_000, "103-1": 175_000})
+        self.assertIsNone(self._reserve(40_000, 13)[0])
 
     def test_branch_run_between_paid_runs_does_not_stale_the_durable_budget(self):
         self.assertIsNone(self._prepare(False, 200, 20))
@@ -69,41 +69,44 @@ class PaidBudgetTests(unittest.TestCase):
         self.assertIsNone(self._prepare(False, 202, 22))
         self.assertEqual(self._store(), before)
         self.assertIsNone(self._prepare(True, 203, 23))
-        self.assertIsNone(self._reserve(100_000, 23)[0])
+        self.assertIsNone(self._reserve(40_000, 23)[0])
 
     def test_missing_local_cache_reloads_month_spend_from_durable_branch(self):
         self.assertIsNone(self._prepare(False, 300, 30))
         self.assertIsNone(self._prepare(True, 301, 31))
-        error, request_id = self._reserve(100_000, 31)
+        error, request_id = self._reserve(40_000, 31)
         self.assertIsNone(error)
-        budget.settle(self.path, request_id, 50_000, now=self.now)
+        budget.settle(self.path, request_id, 20_000, now=self.now)
         self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now,
                                           run_key="301-1"))
         self.path.unlink()
 
         self.assertIsNone(self._prepare(True, 302, 32))
-        self.assertEqual(self._store()["settled_micros"], budget._micros(50_000, self.now))
-        self.assertIsNone(self._reserve(100_000, 32)[0])
+        self.assertEqual(self._store()["settled_micros"], budget._micros(20_000, self.now))
+        self.assertIsNone(self._reserve(40_000, 32)[0])
 
     def test_under_reporting_local_snapshot_cannot_override_nearly_spent_durable_ledger(self):
         self.assertIsNone(self._prepare(False, 400, 40))
         store = self._store()
-        store["settled_micros"] = 19_500_000
+        store["settled_micros"] = 19_950_000
         budget._push(str(self.remote), store)
         # This stale local snapshot claims no spend; durable state remains authoritative.
         self.path.write_text(json.dumps({"version": 1, "month": "2026-10",
                                         "last_run_number": 40, "reservations": []}),
                              encoding="utf-8")
-        self.assertEqual(self._prepare(True, 401, 41), "paid_monthly_cap")
-        self.assertEqual(self._store()["settled_micros"], 19_500_000)
+        self.assertIsNone(self._prepare(True, 401, 41))
+        self.assertEqual(self._store()["pending"]["401-1"], 50_000)
+        self.assertEqual(self._store()["settled_micros"], 19_950_000)
 
-    def test_monthly_cap_refuses_a_run_when_only_a_fractional_allowance_remains(self):
+    def test_monthly_cap_sizes_hold_when_only_a_fractional_allowance_remains(self):
         self.assertIsNone(self._prepare(False, 500, 50))
         store = self._store()
-        store["settled_micros"] = 19_500_000
+        store["settled_micros"] = 19_950_000
         budget._push(str(self.remote), store)
-        self.assertEqual(self._prepare(True, 501, 51), "paid_monthly_cap")
-        self.assertEqual(self._store()["settled_micros"], 19_500_000)
+        self.assertIsNone(self._prepare(True, 501, 51))
+        self.assertEqual(self._store()["pending"]["501-1"], 50_000)
+        self.assertEqual(self._prepare(True, 502, 52), "paid_monthly_cap")
+        self.assertEqual(self._store()["settled_micros"], 19_950_000)
 
     def test_new_month_rolls_over_and_allows_paid_reservations(self):
         self.assertIsNone(self._prepare(False, 600, 60))
@@ -122,12 +125,96 @@ class PaidBudgetTests(unittest.TestCase):
     def test_daily_cap_limits_and_sizes_the_final_run_hold(self):
         self.assertIsNone(self._prepare(False, 700, 70))
         store = self._store()
-        store["settled_daily"] = {"2026-10-07": 5_500_000}
+        store["settled_micros"] = 500_000
+        store["settled_daily"] = {"2026-10-07": 500_000}
+        store["settled_consumers"] = {"2026-10-07": {"translation": 150_000, "summary": 350_000}}
         budget._push(str(self.remote), store)
         self.assertIsNone(self._prepare(True, 701, 71))
-        self.assertEqual(json.loads(self.path.read_text(encoding="utf-8"))["run_allowance_micros"], 500_000)
+        self.assertEqual(json.loads(self.path.read_text(encoding="utf-8"))["run_allowance_micros"], 40_000)
         self.assertEqual(self._prepare(True, 702, 72), "paid_daily_cap")
-        self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 5_500_000)
+        self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 500_000)
+
+    def test_consumer_quotas_survive_cache_loss_and_do_not_borrow(self):
+        self.assertIsNone(self._prepare(False, 800, 80))
+        self.assertIsNone(self._prepare(True, 801, 81))
+        error, _ = budget.reserve(self.path, 40_000, now=self.now, run_number=81, consumer="translation")
+        self.assertIsNone(error)
+        self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now, run_key="801-1"))
+        self.path.unlink()
+        self.assertIsNone(self._prepare(True, 802, 82))
+        self.assertEqual(budget.reserve(self.path, 1, now=self.now, run_number=82,
+                                       consumer="translation")[0], "paid_translation_daily_tokens")
+        self.assertIsNone(budget.reserve(self.path, 40_000, now=self.now, run_number=82, consumer="summary")[0])
+        self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now, run_key="802-1"))
+        self.assertEqual(self._store()["settled_consumers"]["2026-10-07"],
+                         {"translation": 150_000, "summary": 150_000})
+
+    def test_reprepare_cannot_erase_unsettled_requests(self):
+        self._prepare(False, 900, 90)
+        self._prepare(True, 901, 91)
+        self._reserve(1000, 91)
+        before = self.path.read_bytes()
+        self.assertEqual(self._prepare(True, 901, 91), "paid_budget_attempt_already_reserved")
+        self.assertEqual(self.path.read_bytes(), before)
+
+    def test_stale_writer_cannot_erase_another_durable_hold(self):
+        from copy import deepcopy
+        self._prepare(False, 910, 90)
+        before = self._store()
+        stale = deepcopy(before)
+        self._prepare(True, 911, 91)
+        with self.assertRaises(RuntimeError):
+            budget._push(str(self.remote), stale, self.now, expected=before)
+        self.assertEqual(self._store()["pending"], {"911-1": 200_000})
+
+    def test_video_attempt_identity_survives_output_and_cache_loss(self):
+        self._prepare(False, 920, 90)
+        self._prepare(True, 921, 91)
+        error, request = budget.reserve(self.path, 2000, now=self.now, run_number=91,
+                                        consumer="video", idempotency_key="2026-10-07")
+        self.assertIsNone(error)
+        budget.settle(self.path, request, 100, now=self.now)
+        self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now, run_key="921-1"))
+        self.path.unlink()
+        self._prepare(True, 922, 92)
+        self.assertEqual(budget.reserve(self.path, 2000, now=self.now, run_number=92,
+                                        consumer="video", idempotency_key="2026-10-07")[0],
+                         "paid_video_already_attempted")
+
+    def test_legacy_spend_is_not_reissued_as_new_consumer_quota(self):
+        self._prepare(False, 930, 90)
+        store = self._store()
+        store.pop("settled_consumers")
+        store["settled_micros"] = 160_000
+        store["settled_daily"] = {"2026-10-07": 160_000}
+        budget._push(str(self.remote), store, self.now)
+        self.assertIsNone(self._prepare(True, 931, 91))
+        self.assertEqual(budget.remaining_tokens(self.path, "translation", now=self.now, run_number=91), 0)
+        self.assertGreater(budget.remaining_tokens(self.path, "summary", now=self.now, run_number=91), 0)
+
+    def test_complete_day_cannot_spend_beyond_pace_or_summary_share(self):
+        self._prepare(False, 950, 90)
+        for offset, (consumer, tokens) in enumerate([
+                ("translation", 40_000), ("summary", 50_000),
+                ("summary", 50_000), ("video", 4_000)], 1):
+            run = 950 + offset
+            self.assertIsNone(self._prepare(True, run, run))
+            self.assertIsNone(budget.reserve(self.path, tokens, now=self.now, run_number=run, consumer=consumer)[0])
+            if offset == 3:
+                self.assertEqual(budget.reserve(self.path, 1, now=self.now, run_number=run, consumer="summary")[0],
+                                 "paid_summary_daily_tokens")
+            self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now, run_key=f"{run}-1"))
+        self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 540_000)
+        self.assertEqual(self._prepare(True, 960, 960), "paid_daily_cap")
+
+    def test_corrupt_consumer_snapshot_cannot_authorize_spending(self):
+        self._prepare(False, 970, 90)
+        self._prepare(True, 971, 91)
+        data = json.loads(self.path.read_text(encoding="utf-8"))
+        data["consumer_remaining_micros"]["translation"] = 999_999
+        self.path.write_text(json.dumps(data), encoding="utf-8")
+        self.assertEqual(budget.reserve(self.path, 1000, now=self.now, run_number=91, consumer="translation")[0],
+                         budget.MISSING_CODE)
 
     def test_cap_configuration_can_only_lower_twenty_dollars(self):
         self.assertEqual(budget.cap_usd({}), Decimal("20"))

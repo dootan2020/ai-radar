@@ -111,7 +111,8 @@ the noncommercial constraint on NLLB output.
 Live Gemini requests require `GEMINI_API_KEY` and an explicitly enabled route:
 the owner-authorized `RADAR_GEMINI_PAID_ENABLED=1` route uses the shared
 [paid ledger](../radar/gemini_paid_budget.py), capped at USD 1/run, USD 6/day
-and USD 20/month; `RADAR_GEMINI_FREE_TIER_CONFIRMED=1` asserts a verified
+and USD 20/month, with a tighter USD 0.54 UTC-day pace and at most USD 0.20
+held per run; `RADAR_GEMINI_FREE_TIER_CONFIRMED=1` asserts a verified
 free-tier project. Code cannot verify billing or force a billed project onto
 a free tier; Google has no per-request free-only parameter. Credentials remain
 GitHub secrets and are passed only to the workflow's model steps, in the HTTPS
@@ -150,14 +151,30 @@ restore/save, separate machines or simultaneous branches can lose accounting:
 this is not a distributed quota guarantee or a billing safeguard. A missing
 ledger starts a new local window. Keep the upstream project on its free tier
 when using the free route. The paid route instead reserves against the durable
-shared USD ledger before each call.
+shared USD ledger before each call. Its separate UTC-day consumer shares are
+40,000 tokens for translation, 100,000 for summaries and 4,000 for video.
+Reservations and missing-usage failures consume these shares; validated provider
+usage settles them. Shares cannot borrow from each other. The monthly cap is
+still downward-only. The hold shrinks to available day/month budget and unused
+money is released only after successful finalization. Interrupted holds stay
+charged. Legacy daily spend without consumer attribution is conservatively
+subtracted from every consumer on the migration day.
+
+Paid work prioritizes active editor pins, the three promoted picks and the five
+home hot-score leaders, then high-worth stories within the home ranking window.
+Spending priority includes untranslated picks; video selection still requires
+translated titles. The larger `sections.hot` list is not used as the home tile. Front-page titles precede other fields. Coverage
+excerpts are no longer translation targets because reader projections omit them.
+Validation failures receive a 24-hour model/prompt-scoped cooldown keyed by a
+source hash. Paid runs restore valid published/NLLB translations before gating
+new Gemini work, so cache loss does not cause automatic paid upgrades.
 
 Gemini cache identity includes provider, model and prompt/schema version.
 Normalized identical text across titles, summaries and coverage uses one key;
 current roles and the union of protected identities accompany each request.
 Every cache hit is revalidated against the current source/context. The legacy
-`data/translations-vi.json` remains exclusively NLLB and never blocks Gemini
-upgrades. CLI dirty detection includes entry replacements/deletions. Optional
+`data/translations-vi.json` remains exclusively NLLB. Free mode can upgrade
+NLLB output; paid mode preserves valid existing output to save its title quota. CLI dirty detection includes entry replacements/deletions. Optional
 `--gemini-cache` and `--gemini-ledger` override files beside `--cache`.
 
 Shared guards reject lost names/numbers, added numbers, repetition, implausible
@@ -203,22 +220,40 @@ block the next story. Cache identity and validation use the exact fitted
 input. The prompt version invalidates incompatible old cache entries.
 
 There is at most one new story per run, with one separately reserved retry
-only on HTTP 503. Both free and paid summaries obey the existing rolling
-12-attempt/25,000-token allowance in `summary-gemini-ledger.json`; paid calls
-also require the unchanged shared USD ledger. UTF-8 request bytes plus the
-full output ceiling are reserved before transmission. Missing usage keeps
-that conservative reservation. This chooses lower throughput rather than
-raising the owner's cap. With an intact rolling ledger, summary usage is at
-most 775,000 tokens in 31 days: USD 2.90625 at the ledger's 2026 conservative
-output rate, or USD 5.8125 at its 2027 rate. Other Gemini consumers share the
-USD 20 monthly limit, so their usage can stop summaries earlier. The local
-rolling ledger is a throughput policy, not a replacement for durable billing
-protection if Actions cache is lost.
+only on HTTP 503. Free summaries retain the rolling 12-attempt/25,000-token
+allowance in `summary-gemini-ledger.json`. Paid summaries use their separate
+100,000-token UTC-day share in the durable paid ledger; the old free allowance
+cannot constrain or authorize paid work. UTF-8 request bytes plus the full
+output ceiling are reserved before transmission. Missing usage keeps that
+conservative reservation. At the ledger's 2026 rate, the summary share costs
+at most USD 0.375/day or USD 11.625/31 days. The shared USD 0.54 daily pace and
+USD 20 monthly cap always take precedence, including after rate changes.
+
+`summary-article-inputs.json` stores fitted article evidence for 24 hours keyed
+by ID, primary URL, title and excerpt. It is restored with the summary cache
+before credentials/quota gating; valid cached points for later stories are
+not blocked by the first uncached story. Changed source fields or expired
+evidence require fetching again. No raw article text enters the site payload.
+The failure cache remembers unfittable input, rejected points and unsuccessful
+attempts for 24 hours, so the next run advances rather than paying repeatedly
+for the same top story. Sentence-leading ASCII entities are grounded too;
+Vietnamese sentence starts are allowed without treating them as foreign names.
+
+Daily video identity uses the saved date/completion record, independently of
+current picks. Paid attempts also record the date in the durable ledger on
+finalization, including rejected attempts. The 4,000-token video share may be
+smaller than a conservative request reservation; that request is skipped with
+`paid_video_daily_tokens`, never funded from titles or article summaries.
+
+The finalizer logs `Gemini paid pacing` JSON with `day`, `daily_micros`,
+`monthly_micros`, `run_micros`, `hold_micros`, `consumer_micros`,
+`pending_micros` and `daily_pace_micros`. Divide micros by 1,000,000 for
+ledger-USD. These conservative ledger figures are not Google's invoice.
 
 `summary` reports status, new summaries, cache hits, pending stories, requests,
 tokens, trimmed inputs, input characters, skip counts/reasons and rejections.
-`disabled` means missing credentials, missing route confirmation or a zero
-configuration limit. Active work reports `ok`, `cache`, `partial` or `failed`.
+Missing credentials, missing route confirmation or a zero configuration limit
+report a safe error; restored cache can still provide points. Active work reports `ok`, `cache`, `partial` or `failed`.
 Budget exhaustion and unreadable sources legitimately produce no new summary.
 The snapshot marks `machine_written`; individual summaries retain
 `key_points_machine`, `key_points_source` and `key_points_prompt_version`.

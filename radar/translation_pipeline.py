@@ -8,7 +8,8 @@ import time
 
 from radar import translate as nllb
 from radar import translation_gemini as gemini
-from radar.translation_budget import reserve, rotate_sources
+from radar.translation_budget import reserve, rotate_sources, cooling_sources, record_failures, _source_id
+from radar.reader_priority import ordered_stories, load_editor_picks
 from radar import gemini_paid_budget
 
 QUOTED = re.compile(r'"[^"\n]+"|(?<!\w)\'[^\'\n]+\'(?!\w)|`[^`\n]+`')
@@ -115,13 +116,21 @@ def collect_prior_translations(payload, previous=None):
 
 def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transport=None,
                       ledger_path=None, factory=None, budget=600, clock=time.monotonic,
-                      now=time.time, provider="auto", previous=None):
+                      now=time.time, provider="auto", previous=None, editor_picks=None):
     started = clock()
     config = config or gemini.config_from_env()
     transport = transport or gemini.transport
     prior_candidates = collect_prior_translations(payload, previous)
     nllb.clear_translations(payload)
     rows, groups = nllb.targets(payload), {}
+    if config.paid:
+        ordered, active = ordered_stories(payload, editor_picks if editor_picks is not None else load_editor_picks())
+        positions = {id(story): index for index, story in enumerate(ordered)}
+        front = {id(story) for story in ordered[:60] if id(story) in active}
+        rows.sort(key=lambda row: (0 if id(row[0]) in front and row[1] == "title" else
+                                   1 if id(row[0]) in active and row[1] == "title" else
+                                   2 if row[1] == "title" else 3,
+                                   positions.get(id(row[0]), len(ordered))))
     names = nllb.payload_names(payload)
     kept = 0
     for obj, src, dst in rows:
@@ -145,7 +154,23 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
                 api["cache_hits"] += 1
             elif source in gemini_cache:
                 del gemini_cache[source]
-        missing = [source for source in rotate_sources(ledger_path, list(groups)) if source not in accepted]
+        # Restore published and local model cache before spending on upgrades.
+        if config.paid:
+            for source, group in groups.items():
+                if source in accepted:
+                    continue
+                output = validated(source, prior_candidates.get(source), group["names"])
+                if output:
+                    accepted[source] = (output, "kept")
+                    continue
+                output, _ = nllb.compose(source, nllb_cache, protected_names=group["names"])
+                output = validated(source, output, group["names"])
+                if output:
+                    accepted[source] = (output, "nllb")
+        cooling = cooling_sources(ledger_path, now())
+        api["cooldown_skipped"] = sum(_source_id(source) in cooling for source in groups if source not in accepted)
+        sources = list(groups) if config.paid else rotate_sources(ledger_path, list(groups))
+        missing = [source for source in sources if source not in accepted and _source_id(source) not in cooling]
         if not missing:
             api["status"] = "cache"
         elif not config.api_key:
@@ -167,15 +192,19 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
                     items.append(dict(id=str(len(items)), text=source, roles=sorted(groups[source]["roles"]),
                                       protected_names=sorted(groups[source]["names"])))
                     chars += len(source)
+                if config.paid:
+                    headroom = gemini_paid_budget.remaining_tokens(gemini_paid_budget.ledger_path(), "translation", now=now())
+                    while items and len(json.dumps(gemini.request_body(items)).encode("utf-8")) + gemini.MAX_OUTPUT_TOKENS > headroom:
+                        items.pop()
                 if not items:
-                    api["error"] = "input_limit" if not api["requests"] else None
+                    api["error"] = ("paid_translation_daily_tokens" if config.paid else "input_limit") if not api["requests"] else None
                     break
                 paid_reservation = None
                 if config.paid:
                     body = gemini.request_body(items)
                     estimated_tokens = len(json.dumps(body).encode("utf-8")) + gemini.MAX_OUTPUT_TOKENS
                     api["error"], paid_reservation = gemini_paid_budget.reserve(
-                        gemini_paid_budget.ledger_path(), estimated_tokens, now=now())
+                        gemini_paid_budget.ledger_path(), estimated_tokens, now=now(), consumer="translation")
                 else:
                     api["error"] = reserve(ledger_path, config.daily_limit, now(), last_source=items[-1]["text"])
                 if api["error"]:
@@ -201,9 +230,13 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
                 if request_error:
                     api["error"] = request_error
                     break
-                if any(item["text"] not in accepted for item in items):
-                    api["error"] = "validation_rejected"
-                    break
+                rejected = [item["text"] for item in items if item["text"] not in accepted]
+                if rejected:
+                    persistence_error = record_failures(ledger_path, rejected, now())
+                    api["error"] = persistence_error or "validation_rejected"
+                    missing = [source for source in missing if source not in rejected]
+                    if persistence_error:
+                        break
             api["status"] = "failed" if api["error"] and not api["translated"] else "partial" if api["error"] else "ok"
 
     # Full strings unresolved by Gemini become independent fallback rows. The

@@ -365,6 +365,17 @@ class VideoScriptPipelineTests(unittest.TestCase):
         self.assertEqual(len(ledger_data["attempts"]), 1)
         self.assertEqual(ledger_data["attempts"][0]["tokens"], 700)
 
+    def test_today_script_survives_changed_or_missing_picks_without_request(self):
+        script = make_approved_sample_script(date_str="2026-10-07")
+        self.output_file.write_text(json.dumps(script), encoding="utf-8")
+        self.input_file.write_text(json.dumps({"stories": []}), encoding="utf-8")
+        result = video_script.generate_video_script(
+            input_path=self.input_file, output_path=self.output_file, ledger_path=self.ledger_file,
+            now_val=datetime(2026, 10, 7, 5, 30, tzinfo=video_script.VIETNAM),
+            transport_fn=lambda *args: self.fail("must not call API"))
+        self.assertEqual(result["status"], "already_generated")
+        self.assertEqual(json.loads(self.output_file.read_text(encoding="utf-8")), script)
+
     def test_idempotency_does_not_spend_tokens_if_already_generated_today(self):
         # Pre-populate output file with today's script
         today_script = make_approved_sample_script(date_str="2026-10-07")

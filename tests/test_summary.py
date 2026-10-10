@@ -91,6 +91,89 @@ class SummaryTests(unittest.TestCase):
             rows.append({"id": s["id"], "key_points": pts})
         return reply_summary(rows, tokens=420)
 
+    def test_leading_invented_entity_is_rejected(self):
+        inputs = {"title": "Academic benchmark", "summary": "A research result."}
+        points, reason = summary_pipeline.validate_key_points(
+            inputs, ["Microsoft công bố kết quả nghiên cứu mới."])
+        self.assertIsNone(points)
+        self.assertEqual(reason, "invented_entity: Microsoft")
+
+    def test_rejected_top_story_does_not_starve_next_run(self):
+        base = deepcopy(self.fixture_data["stories"][0])
+        high, low = deepcopy(base), deepcopy(base)
+        high.update(id="high", url="https://publisher.example/high", worth_score=90)
+        low.update(id="low", url="https://publisher.example/low", worth_score=10)
+        failures, requested = {}, []
+
+        def reject_top(body, key, timeout):
+            sid = json.loads(body["contents"][0]["parts"][0]["text"])["stories"][0]["id"]
+            requested.append(sid)
+            return reply_summary([{"id": sid, "key_points": ["Nội dung không đủ ba ý chính."]}])
+
+        for stamp in (100000.0, 101800.0):
+            summary_pipeline.summarize_payload(
+                {"stories": [deepcopy(high), deepcopy(low)]}, {},
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+                transport_fn=reject_top, article_failures=failures,
+                ledger_path=self.ledger_path, now=lambda: stamp)
+        self.assertEqual(requested, ["high", "low"])
+
+    def test_unfit_input_cooldown_avoids_repeat_fetch(self):
+        story = deepcopy(self.fixture_data["stories"][0])
+        fetches, failures = [], {}
+        def fetch(candidate):
+            fetches.append(candidate["id"])
+            return "Readable article evidence. " * 30
+        for stamp in (100000.0, 101800.0):
+            summary_pipeline.summarize_payload(
+                {"stories": [deepcopy(story)]}, {},
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True, max_chars=200),
+                article_fetch_fn=fetch, article_failures=failures,
+                ledger_path=self.ledger_path, now=lambda: stamp)
+        self.assertEqual(len(fetches), 1)
+
+    def test_cached_later_story_restores_before_exhausted_quota_without_fetch(self):
+        base = deepcopy(self.fixture_data["stories"][0])
+        later = dict(base, id="later", worth_score=10)
+        cache, evidence = {}, {}
+        summary_pipeline.summarize_payload(
+            {"stories": [later]}, cache, article_inputs=evidence,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=self.transport_ok, ledger_path=self.ledger_path, now=lambda: 100000.0)
+        self.assertTrue(cache)
+        later.pop("key_points")
+        top = dict(base, id="uncached-top", worth_score=90)
+        payload = {"stories": [top, later]}
+        with patch.object(summary_pipeline, "fetch_article_result", side_effect=AssertionError("no fetch")):
+            stats, _ = summary_pipeline.summarize_payload(
+                payload, cache, article_inputs=evidence,
+                config=gemini.Config(api_key="offline-sentinel", confirmed=True, daily_tokens_limit=0),
+                transport_fn=lambda *args: self.fail("no request"),
+                ledger_path=self.ledger_path, now=lambda: 100100.0)
+        self.assertEqual(stats["cache_hits"], 1)
+        self.assertEqual(stats["requests"], 0)
+        self.assertIn("key_points", later)
+        self.assertNotIn("key_points", top)
+        # A changed source cannot reuse the old evidence without fetching it.
+        later["title"] = "Changed article title"
+        later.pop("key_points")
+        stats, _ = summary_pipeline.summarize_payload(
+            {"stories": [later]}, cache, article_inputs=evidence,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True, daily_tokens_limit=0),
+            ledger_path=self.ledger_path, now=lambda: 100100.0)
+        self.assertEqual(stats["cache_hits"], 0)
+        self.assertNotIn("key_points", later)
+
+    def test_rejection_cooldown_expires(self):
+        story = deepcopy(self.fixture_data["stories"][0])
+        failures = {summary_pipeline.article_signature(story): {"reason": "validation_rejected", "time": 100000.0}}
+        stats, _ = summary_pipeline.summarize_payload(
+            {"stories": [story]}, {}, article_failures=failures,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=self.transport_ok, ledger_path=self.ledger_path, now=lambda: 186401.0)
+        self.assertEqual(stats["requests"], 1)
+        self.assertEqual(stats["summarized"], 1)
+
     def test_multi_source_story_summarization(self):
         """A story with multiple sources receives synthesized key points combining coverage."""
         # Find multi-source story from fixture: b3857f26daabd24cdab2 (Apple macOS)
@@ -189,7 +272,7 @@ class SummaryTests(unittest.TestCase):
         self.assertGreater((stories_per_day + 1) * summary_budget.ESTIMATED_TOKENS_PER_REQUEST,
                            summary_budget.DEFAULT_DAILY_TOKENS)
 
-    def test_paid_mode_respects_summary_throughput_and_shared_money_ledger(self):
+    def test_paid_mode_uses_separate_summary_quota_and_shared_money_ledger(self):
         now = 100000.0
         paid_path = self.tmp_path / "paid-ledger.json"
         gemini_paid_budget.prepare(paid_path, paid=False, now=now, run_number=20)
@@ -208,12 +291,16 @@ class SummaryTests(unittest.TestCase):
         self.assertEqual(stats["error"], None)
         self.assertGreater(gemini_paid_budget.total_micros(paid_path, now=now), 0)
         self.calls.clear()
+        # Exhaust the paid summary share independently of the old free ledger.
+        with patch.dict(os.environ, {"GITHUB_RUN_NUMBER": "21"}):
+            error, _ = gemini_paid_budget.reserve(paid_path, 99_580, now=now, consumer="summary")
+        self.assertIsNone(error)
         with patch.dict(os.environ, {"GITHUB_RUN_NUMBER": "21", "RADAR_GEMINI_PAID_LEDGER": str(paid_path)}):
             stats, _ = summary_pipeline.summarize_payload(
                 {"stories": [deepcopy(story)]}, {}, config=config, transport_fn=self.transport_ok,
                 ledger_path=self.ledger_path, budget=10.0, now=lambda: now,
             )
-        self.assertEqual(stats["error"], "daily_limit")
+        self.assertEqual(stats["error"], "paid_summary_daily_tokens")
         self.assertEqual(stats["requests"], 0)
         self.assertEqual(self.calls, [])
 
