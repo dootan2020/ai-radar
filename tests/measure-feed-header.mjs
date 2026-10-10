@@ -71,9 +71,25 @@ function measure() {
   }
   const tabs = controls.filter(c => c.filter);
   const tabGaps = tabs.slice(1).map((tab, i) => tab.x - tabs[i].right);
-  const pill = rect(strip.querySelector('.tab-pill'));
-  const active = tabs.find(c => c.active);
-  const pillMatchesActive = ['x', 'y', 'width', 'height'].every(key => Math.abs(pill[key] - active[key]) <= 1);
+  const measurePill = container => {
+    if (!container.getClientRects().length) return null;
+    const pill = rect(container.querySelector('.tab-pill'));
+    const active = rect(container.querySelector('[aria-pressed="true"]'));
+    const inset = parseFloat(getComputedStyle(container).getPropertyValue('--tab-pill-inset')) || 0;
+    const expected = { x: active.x, y: active.y + inset, width: active.width, height: active.height - inset * 2 };
+    return { ...pill, inset, fullyVisible: contained(pill),
+      matchesActive: ['x', 'y', 'width', 'height'].every(key => Math.abs(pill[key] - expected[key]) <= 1),
+      centered: Math.abs(pill.y + pill.height / 2 - active.y - active.height / 2) <= 1 };
+  };
+  const pill = measurePill(strip);
+  const sortPill = measurePill(document.querySelector('#sort-switch'));
+  const utilityPills = [...document.querySelectorAll('.ed-link, .tc-link')].map(e => {
+    const box = rect(e), paint = getComputedStyle(e, '::before');
+    const top = parseFloat(paint.top), bottom = parseFloat(paint.bottom);
+    const left = parseFloat(paint.left), right = parseFloat(paint.right);
+    return { label: e.textContent.trim(), height: box.height - top - bottom,
+      width: box.width - left - right, centered: Math.abs(top - bottom) <= 0.5 && Math.abs(left - right) <= 0.5 };
+  });
   const table = document.querySelector('.arena-table');
   let arena = null;
   if (table && table.getClientRects().length && innerWidth >= 768) {
@@ -107,7 +123,9 @@ function measure() {
   }
   return { header: dimensions('#bar'), row: dimensions('.feed-bar-in'), strip: dimensions('#feed-filters'),
     navigation: dimensions('.feed-navigation'), sort: dimensions('#sort-switch'), masked, controls, overlaps,
-    tabGaps, arena, pill: { ...pill, fullyVisible: contained(pill), matchesActive: pillMatchesActive },
+    tabGaps, arena, pill, sortPill, utilityPills,
+    surface: { header: getComputedStyle(document.querySelector('#bar')).backgroundColor,
+      canvas: getComputedStyle(document.body).backgroundColor },
     tabCountElements: document.querySelectorAll('.filter-chip .count').length,
     staleBanner: !!document.querySelector('#stale'),
     document: { scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth } };
@@ -205,6 +223,14 @@ async function main() {
     assert.deepEqual(r.overlaps, [], `${r.width}: controls overlap`);
     assert.equal(r.tabCountElements, 0, `${r.width}: tab count elements remain`);
     assert.equal(r.staleBanner, false, `${r.width}: stale banner remains`);
+    assert.notEqual(r.surface.header, r.surface.canvas, `${r.width}/${r.theme}: header merges into canvas`);
+    assert.ok(r.pill.matchesActive && r.pill.centered && r.pill.inset > 0, `${r.width}: tab pill must be centred inside its hit area`);
+    assert.ok(Math.abs(r.pill.height - 32) <= 1, `${r.width}: expected compact 32px tab pill`);
+    if (r.sortPill) {
+      assert.ok(r.sortPill.matchesActive && r.sortPill.centered, `${r.width}: sort pill must be centred inside its hit area`);
+      assert.ok(Math.abs(r.sortPill.height - r.pill.height) <= 1, `${r.width}: inconsistent sort pill height`);
+    }
+    assert.ok(r.utilityPills.every(p => p.centered && Math.abs(p.height - r.pill.height) <= 1), `${r.width}: inconsistent utility pills`);
     assert.ok(r.controls.filter(c => c.filter).every(c => !/\d/.test(c.label)), `${r.width}: tab labels contain counts`);
     if (r.width >= 768) {
       assert.equal(r.controls.filter(c => c.filter).length, r.saved ? 8 : 7, `${r.width}: expected all populated sections including Rankings from real data`);
@@ -219,7 +245,7 @@ async function main() {
       assert.ok(r.controls.every(c => c.fullyVisible), `${r.width}: clipped desktop controls`);
       assert.ok(r.controls.every(c => Math.abs(c.y + c.height / 2 - r.controls[0].y - r.controls[0].height / 2) < 1), `${r.width}: multiple rows`);
     }
-    if (r.width < 1180) assert.ok(r.controls.every(c => c.height >= 44), `${r.width}: touch targets under 44px`);
+    assert.ok(r.controls.every(c => c.height >= 44 && c.width >= 44), `${r.width}: touch targets under 44px`);
   }
 }
 

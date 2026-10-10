@@ -1243,8 +1243,11 @@ function setRepo(kind, value) {
 /* ---------- Apple-like sliding tab indicator and smooth chip scroll ---------- */
 function glideTab(container, activeBtn, { immediate = false } = {}) {
   if (!container || !activeBtn) return;
-  const w = activeBtn.offsetWidth, h = activeBtn.offsetHeight;
-  if (w === 0 && h === 0) return;
+  const w = activeBtn.offsetWidth, hitHeight = activeBtn.offsetHeight;
+  if (w === 0 && hitHeight === 0) return;
+  // Header controls retain their hit area while the painted pill hugs the label.
+  const inset = parseFloat(getComputedStyle(container).getPropertyValue('--tab-pill-inset')) || 0;
+  const h = Math.max(0, hitHeight - inset * 2);
 
   let pill = container.querySelector(':scope > .tab-pill');
   if (!pill) {
@@ -1255,7 +1258,7 @@ function glideTab(container, activeBtn, { immediate = false } = {}) {
   }
   container.classList.add('has-pill');
 
-  const x = activeBtn.offsetLeft, y = activeBtn.offsetTop;
+  const x = activeBtn.offsetLeft, y = activeBtn.offsetTop + inset;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (immediate || reduced || !pill.classList.contains('is-active')) {

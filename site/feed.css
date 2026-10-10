@@ -96,20 +96,36 @@ ul, ol { padding: 0; list-style: none; }
 }
 .skip:focus { top: var(--space-16); }
 
-/* ---------- top bar: canvas-coloured, no rule under it ---------- */
+/* ---------- top bar: a quiet surface, no rule under it ---------- */
 .feed-bar {
+  --header-pill-inset: var(--space-6);
   position: sticky; top: 0; z-index: 40;
-  background: var(--color-canvas);
+  background: var(--color-bar);
 }
 .feed-bar-in {
   max-width: var(--page-max); margin: 0 auto; padding: 0 var(--page-pad);
   height: var(--bar-h); display: flex; align-items: center; gap: var(--space-24);
 }
-.feed-brand { font-size: var(--size-21); font-weight: var(--weight-bold); letter-spacing: var(--tracking-display); flex: none; display: inline-flex; align-items: center; min-height: 40px; }
+.feed-brand { font-size: var(--size-21); font-weight: var(--weight-bold); letter-spacing: var(--tracking-display); flex: none; display: inline-flex; align-items: center; min-height: 44px; }
 .feed-brand b { color: var(--color-accent); }
+
+/* The visible 32px pills sit inside 44px hit areas; keep text and paint on the same centre. */
+.filter-chip, .sort-btn, .ed-link, .tc-link {
+  isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; min-width: 44px;
+  line-height: var(--leading-body);
+}
+.filter-chip::before, .sort-btn::before, .ed-link::before, .tc-link::before {
+  content: ""; position: absolute; inset: var(--header-pill-inset) 0;
+  z-index: -1; pointer-events: none; border-radius: var(--radius-full);
+  background: var(--header-control-bg, transparent);
+  transition: background-color var(--motion-state) var(--ease-flow);
+}
 
 .feed-navigation { display: flex; align-items: center; gap: var(--space-12); flex: 1; min-width: 0; }
 .feed-filters {
+  --tab-pill-inset: var(--header-pill-inset);
   position: relative;
   display: flex; align-items: center; gap: var(--space-4);
   overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0;
@@ -123,18 +139,18 @@ ul, ol { padding: 0; list-style: none; }
 .filter-chip {
   position: relative; z-index: 1;
   display: inline-flex; align-items: center;
-  min-height: 40px; padding: 0 var(--space-16); border-radius: var(--radius-full);
+  padding: 0 var(--space-8); border-radius: var(--radius-full);
   font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2);
   white-space: nowrap;
   transition: color var(--motion-tab-glide, 280ms) var(--ease-flow);
 }
-.filter-chip:hover:not([aria-pressed="true"]) { background: var(--color-fill); color: var(--color-ink); }
+.filter-chip:hover:not([aria-pressed="true"]) { --header-control-bg: var(--color-fill); color: var(--color-ink); }
 .filter-chip:active { transform: scale(0.98); }
-.filter-chip[aria-pressed="true"] { background: var(--color-ink); color: var(--color-canvas); }
-.has-pill .filter-chip[aria-pressed="true"] { background: transparent; }
+.filter-chip[aria-pressed="true"] { --header-control-bg: var(--color-ink); color: var(--color-canvas); }
+.has-pill .filter-chip[aria-pressed="true"] { --header-control-bg: transparent; }
 
 .theme-btn {
-  width: 40px; height: 40px; flex: none; border-radius: var(--radius-full);
+  width: 44px; height: 44px; flex: none; border-radius: var(--radius-full);
   display: grid; place-items: center; color: var(--color-ink-2);
   transition: background-color var(--motion-state) var(--ease-flow);
 }
@@ -146,10 +162,10 @@ ul, ol { padding: 0; list-style: none; }
 
 /* The daily edition and the story search, carried over from the bento home (tests/test_ban_tin_link.py,
    tests/test_tra_cuu.py): static links in the bar, neutral fill chips, never hidden. Blue stays for action and selection. */
-.ed-link{position:relative;flex:none;display:inline-flex;align-items:center;min-height:40px;padding:0 var(--space-16);border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-small);font-weight:var(--weight-semibold);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
-.ed-link:hover{color:var(--color-ink);background:var(--color-hair)}
-.tc-link{position:relative;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:var(--space-8);min-height:40px;min-width:40px;padding:0 var(--space-16);border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-small);font-weight:var(--weight-semibold);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
-.tc-link:hover{color:var(--color-ink);background:var(--color-hair)}
+.ed-link{position:relative;flex:none;padding:0 var(--space-8);border-radius:var(--radius-full);--header-control-bg:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-small);font-weight:var(--weight-semibold);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow)}
+.ed-link:hover{color:var(--color-ink);--header-control-bg:var(--color-hair)}
+.tc-link{position:relative;flex:none;gap:var(--space-8);padding:0 var(--space-8);border-radius:var(--radius-full);--header-control-bg:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-small);font-weight:var(--weight-semibold);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow)}
+.tc-link:hover{color:var(--color-ink);--header-control-bg:var(--color-hair)}
 .tc-link .i{width:16px;height:16px}
 .ed-link:focus-visible,.tc-link:focus-visible{border-radius:var(--radius-full)}
 
@@ -422,9 +438,14 @@ ul, ol { padding: 0; list-style: none; }
    ========================================================================== */
 /* Sort switch: a segmented pill. The chosen side is a surface on a fill track. */
 .sort-switch {
-  position: relative;
-  margin-left: auto; flex: none; display: inline-flex; gap: var(--space-4); padding: var(--space-4);
-  border-radius: var(--radius-full); background: var(--color-fill);
+  --tab-pill-inset: var(--header-pill-inset);
+  position: relative; isolation: isolate;
+  margin-left: auto; flex: none; display: inline-flex; gap: var(--space-4); padding: 0 var(--space-4);
+  border-radius: var(--radius-full);
+}
+.sort-switch::before {
+  content: ""; position: absolute; inset: calc(var(--header-pill-inset) - var(--space-4)) 0;
+  z-index: -1; pointer-events: none; border-radius: inherit; background: var(--color-fill);
 }
 .sort-switch .tab-pill {
   background: var(--card-bg);
@@ -432,14 +453,14 @@ ul, ol { padding: 0; list-style: none; }
 }
 .sort-btn {
   position: relative; z-index: 1;
-  min-height: 44px; padding: 0 var(--space-12); border-radius: var(--radius-full);
+  padding: 0 var(--space-8); border-radius: var(--radius-full);
   font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2); white-space: nowrap;
   transition: color var(--motion-tab-glide, 280ms) var(--ease-flow);
 }
 .sort-btn:hover { color: var(--color-ink); }
 .sort-btn:active { transform: scale(0.98); }
-.sort-btn[aria-pressed="true"] { background: var(--card-bg); color: var(--color-ink); }
-.has-pill .sort-btn[aria-pressed="true"] { background: transparent; }
+.sort-btn[aria-pressed="true"] { --header-control-bg: var(--card-bg); color: var(--color-ink); }
+.has-pill .sort-btn[aria-pressed="true"] { --header-control-bg: transparent; }
 
 /* Briefing section headers */
 .briefing-head {
@@ -961,7 +982,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
     overflow: visible; flex: none; padding: 0; margin: 0;
     -webkit-mask-image: none; mask-image: none;
   }
-  .filter-chip { flex: none; min-height: 44px; background: var(--card-bg); }
+  .filter-chip { flex: none; min-height: 44px; --header-control-bg: var(--card-bg); }
   .sort-switch { display: inline-flex; align-items: center; flex: none; margin: 0; }
   .sort-btn { flex: none; min-height: 44px; }
   .feed-main { padding-top: var(--space-8); }
@@ -1110,6 +1131,9 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .filter-chip, .sort-btn, .seg-b {
     transition: none !important;
   }
+  .filter-chip::before, .sort-btn::before, .ed-link::before, .tc-link::before {
+    transition: none !important;
+  }
 }
 
 /* ==========================================================================
@@ -1143,10 +1167,12 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 @media (min-width: 1400px) and (max-width: 1599px){
   /* Search is still named for assistive technology when its icon saves space. */
   .tc-link { padding: 0; }
+  .tc-link::before { inset-inline: var(--header-pill-inset); }
   .tc-link .tc-label { display: none; }
 }
 @media (max-width: 767px){
   .tc-link{padding:0}
+  .tc-link::before { inset-inline: var(--header-pill-inset); }
   .tc-link .tc-label{display:none}
 }
 @media (max-width: 767px){
