@@ -42,6 +42,7 @@
 <link rel="preload" href="data/radar-ui.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="feed.css">
+<link rel="stylesheet" href="arena.css">
 <link rel="stylesheet" href="story.css">
 <script type="module" src="feed.js"></script>
 <link rel="modulepreload" href="faces.js">
@@ -82,6 +83,7 @@
         <button class="filter-chip" data-filter="product" aria-pressed="false">Sản phẩm</button>
         <button class="filter-chip" data-filter="forum" aria-pressed="false">Thảo luận</button>
         <button class="filter-chip" data-filter="code" aria-pressed="false">Mã và mô hình</button>
+        <button class="filter-chip" data-filter="rankings" aria-pressed="false">Xếp hạng</button>
         <button class="filter-chip" data-filter="saved" aria-pressed="false" hidden>Đã lưu</button>
       </div>
       <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin" hidden>
@@ -123,6 +125,8 @@
     <div class="picks-grid" id="picks-grid"></div>
     <div class="how-panel" id="how-panel" hidden></div>
   </section>
+
+  <section class="arena" id="arena" aria-labelledby="arena-title" hidden></section>
 
   <section class="feed-grid" id="feed-grid" aria-label="Dòng tin">
     <div class="sk-card sk-lead"><div class="sk"></div></div>

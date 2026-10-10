@@ -182,6 +182,8 @@ const chips = [...home.matchAll(/<button class="filter-chip" data-filter="([^"]+
   .map(([, filter, label]) => ({dataset:{filter}, textContent:label, innerHTML:label, hidden:false,
     attributes:{}, setAttribute(key, value) { this.attributes[key] = value; }}));
 let timerId = 0, announcements = 0, visibleStories = [], responseData;
+const navLocation = {pathname:'/index.html', search:'', hash:'#moi'};
+const replacedURLs = [];
 const doc = {activeElement:null, hidden:false, documentElement:{style:{setProperty() {}}},
   querySelector:selector => nodes.get(selector),
   querySelectorAll:selector => selector === '.filter-chip' ? chips : selector.includes('[data-sid]') ? visibleStories : [],
@@ -197,7 +199,7 @@ Object.defineProperty(nodes.get('#fresh-announcement'), 'textContent', {
 });
 const newFeed = await renderer('feed.js', '\ninit();', `
 return {renderNewItems, offerNewItems, dismissNewItems, scheduleNewItemsDismissal, checkNewItemsScroll,
-  goFirstNew, route, pollSnapshot, pendingNewIds, renderSub, renderChips, renderSources, markHTML, markRead,
+  goFirstNew, route, setFilter, pollSnapshot, pendingNewIds, renderSub, renderChips, renderSources, markHTML, markRead,
   configure(count, total, first = false) {
     D = {schema_version:2, generated_at:'2026-10-09T14:00:00Z', sources:[], stories:[]};
     allStories = Array.from({length:total}, (_, i) => ({id:'item-'+i,
@@ -214,8 +216,9 @@ return {renderNewItems, offerNewItems, dismissNewItems, scheduleNewItemsDismissa
   skip(id) { skipped.add(id); },
   seen(id) { read.add(id); },
   renderNavigation() { renderAll = () => {}; },
+  noNewsArena(show) { D = null; arenaView = {show}; },
 };`, {
-  location:{search:'', hash:'#moi'}, document:doc, matchMedia:() => ({matches:true}),
+  location:navLocation, history:{replaceState:(_state, _title, url) => replacedURLs.push(url)}, document:doc, matchMedia:() => ({matches:true}),
   localStorage:{getItem:() => null, setItem:() => {}},
   window:{scrollTo:options => jumps.push(options)}, scrollY:100,
   setTimeout:(fn, ms) => { const id = ++timerId; timers.set(id, {fn, ms}); return id; },
@@ -312,7 +315,7 @@ assert.equal(nodes.get('#filter-context').hidden, true);
 for (const total of [0, 1, 88, 999]) {
   configureNotice(0, total);
   newFeed.renderChips();
-  assert.deepEqual(chips.map(b => b.innerHTML), ['Tất cả', 'Chuyện lớn', 'Đang nóng', 'Sản phẩm', 'Thảo luận', 'Mã và mô hình', 'Đã lưu']);
+  assert.deepEqual(chips.map(b => b.innerHTML), ['Tất cả', 'Chuyện lớn', 'Đang nóng', 'Sản phẩm', 'Thảo luận', 'Mã và mô hình', 'Xếp hạng', 'Đã lưu']);
   assert.equal(chips[0].hidden, false, 'all remains available even with no stories');
   assert.equal(chips.find(b => b.dataset.filter === 'saved').hidden, true, 'empty saved tab stays hidden');
 }
@@ -337,3 +340,29 @@ for (const [iso, wording] of [
   if (wording) assert.ok(html.includes(wording), 'old snapshots retain their full Vietnam date');
 }
 console.log('PASS new-story eligibility, expiry, focus, scroll, deep link, live polling, marks, filters and metadata');
+
+// Arena deep links and navigation work even when the news request has failed.
+for (const id of ['arena', 'feed-grid', 'feed-footer', 'sort-switch', 'picks', 'feed-empty', 'feed-more', 'feed-end']) {
+  nodes.set('#' + id, {hidden:false});
+}
+nodes.get('#top').removeAttribute = () => {};
+nodes.get('#top').getBoundingClientRect = () => ({top:0});
+let arenaShows = 0;
+newFeed.noNewsArena(() => arenaShows++);
+navLocation.hash = '#xep-hang';
+newFeed.route();
+assert.equal(arenaShows, 1);
+assert.equal(nodes.get('#arena').hidden, false);
+for (const id of ['feed-grid', 'feed-footer', 'sort-switch', 'picks', 'feed-empty', 'feed-more', 'feed-end', 'filter-context']) {
+  assert.equal(nodes.get('#' + id).hidden, true, id);
+}
+assert.equal(chips.find(b => b.dataset.filter === 'rankings').attributes['aria-pressed'], 'true');
+newFeed.setFilter('all');
+assert.equal(nodes.get('#arena').hidden, true);
+assert.equal(nodes.get('#feed-empty').hidden, false);
+assert.equal(replacedURLs.at(-1), '/index.html');
+navLocation.search = '?data=data/reader.json';
+newFeed.setFilter('rankings');
+assert.equal(replacedURLs.at(-1), '/index.html?data=data/reader.json#xep-hang');
+assert.equal(chips.find(b => b.dataset.filter === 'rankings').hidden, false);
+console.log('PASS Arena deep link, named tab, URL persistence and independence from failed news');

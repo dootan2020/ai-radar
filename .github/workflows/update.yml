@@ -167,6 +167,32 @@ jobs:
             data/ai-image-ledger.json
             site/assets/ai
           key: radar-image-cache-v2-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Restore Arena rankings and compact history
+        id: arena-restore
+        continue-on-error: true
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/arena-state.json
+          key: radar-arena-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            radar-arena-v1-${{ github.ref_name }}-
+            radar-arena-v1-main-
+      - name: Install optional Arena Parquet reader
+        continue-on-error: true
+        timeout-minutes: 2
+        run: python -m pip install --disable-pip-version-check pyarrow==23.0.1
+      - name: Refresh Arena rankings when due
+        id: arena
+        continue-on-error: true
+        timeout-minutes: 4
+        run: python -m radar.arena
+      - name: Save Arena rankings and compact history
+        if: steps.arena.outputs.arena_written == 'true'
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/arena-state.json
+          key: radar-arena-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       # Translation is optional: failed steps leave original titles and summaries usable.
       - name: Install translation libraries
         id: mt-install

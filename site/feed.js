@@ -23,6 +23,7 @@ import { shown, headlineShown, uniqCoverage } from './titles.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
 import { WORTH, fallbackWorth } from './worth-score.js';
 import { renderStoryHTML } from './story.js';
+import { createArenaView } from './arena.js';
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/ (as on the
    bento home). The first request matches index.html's preload (same mode, no cache option), so it is reused. */
@@ -85,6 +86,7 @@ let STORY_ANY = new Map();    // every story in the snapshot, also outside the w
 let bigSet = new Set();
 let HOT = [];
 let filter = 'all';
+let arenaView = null;
 let sortMode = 'worth';       // 'worth' (Đáng đọc nhất) or 'new' (Mới nhất); the reader's choice is remembered
 const PICKS = new Map();      // story id -> {note}, from editor-picks.json, in the file's order
 let RAW_PICKS = [];
@@ -1733,6 +1735,19 @@ function renderEnd() {
 }
 
 function renderFeed() {
+  const rankings = filter === 'rankings';
+  $('#arena').hidden = !rankings;
+  $('#feed-grid').hidden = rankings;
+  $('#feed-footer').hidden = rankings;
+  $('#sort-switch').hidden = rankings || !D;
+  if (rankings) {
+    for (const id of ['picks', 'feed-empty', 'feed-more', 'feed-end', 'filter-context']) $('#' + id).hidden = true;
+    $('#top').removeAttribute('aria-busy');
+    arenaView.show();
+    renderChips();
+    return;
+  }
+  if (!D) { $('#feed-empty').hidden = false; renderChips(); return; }
   renderPicks();
   seq = filter === 'all' ? buildAll() : buildFiltered(filter);
   pos = 0; shownCards = 0;
@@ -1812,18 +1827,18 @@ function renderChips() {
     const f = b.dataset.filter;
     LABELS[f] = LABELS[f] || b.textContent.trim();
     const n = f === 'all' ? allStories.length : f === 'saved' ? saved.length : listFor(f).length;
-    b.hidden = f !== 'all' && n === 0 && f !== filter;
+    b.hidden = f !== 'all' && f !== 'rankings' && n === 0 && f !== filter;
     b.setAttribute('aria-pressed', String(f === filter));
   });
   const container = $('#feed-filters');
   const active = container ? container.querySelector('.filter-chip[aria-pressed="true"]') : null;
   if (container && active) glideTab(container, active);
 }
-/* fromHash: the address chose the view, so it stays in the address bar; a chip clears it. */
+/* Keep the Arena deep link when its tab is selected; news filters retain their existing URL behavior. */
 function setFilter(f, fromHash = false) {
-  if (!D) return;
+  if (!D && f !== 'rankings' && f !== 'all') return;
   filter = f;
-  if (!fromHash && location.hash.length > 1) history.replaceState(null, '', location.pathname + location.search);
+  if (!fromHash) history.replaceState(null, '', location.pathname + location.search + (f === 'rankings' ? '#xep-hang' : ''));
   renderFeed();
   const top = $('#top').getBoundingClientRect().top;
   if (top < 0) window.scrollTo({ top: window.scrollY + top - 8 });
@@ -2058,6 +2073,7 @@ function openStory(id) {
   openStoryModal(id);
 }
 function route() {
+  if (location.hash === '#xep-hang') { setFilter('rankings', true); return; }
   if (!D) return;
   const h = decodeURIComponent(location.hash.slice(1));
   if (!h || h === 'top') return;                 // the browser scrolls; a filter the reader chose stays
@@ -2417,6 +2433,9 @@ async function init() {
   watchPictures();
   watchImageLoad();
   attachEvents();
+  arenaView = createArenaView($('#arena'));
+  addEventListener('hashchange', route);
+  route();
   try {
     const [, data, picks, fieldData] = await Promise.all([loadImages(), loadData(), loadPicks(), loadFieldRankings()]);
     RAW_PICKS = picks;
@@ -2447,7 +2466,7 @@ async function init() {
     const b = $('#reset-filter-btn');
     b.textContent = 'Tải lại';
     b.addEventListener('click', () => location.reload());
-    em.hidden = false;
+    em.hidden = filter === 'rankings';
     return;
   }
   if (history.state && history.state.storyModal && STORY_ANY.has(history.state.storyModal)) {
@@ -2455,7 +2474,6 @@ async function init() {
   } else {
     route();
   }
-  addEventListener('hashchange', route);
   startLifecycle();
   startLiveLayer();
 }
