@@ -19,9 +19,13 @@ IDENTITY = re.compile(r"(?:\b(?:Introducing|Announcing|Launching|called|named|us
                       r"(?:\s+[0-9][A-Za-z0-9_.+-]*)?)")
 
 
+AI_BRAND = re.compile(r"\b([A-Z][A-Za-z0-9_.+-]*\s+AI)\s+(?:Unveils?|Launches?|Announces?|Raises?|Releases?|Introduces?|Debuts?|Expands?|Partners?|Backs?|Opens?|Signs?|Tests?|Shows?|Pitches?)\b")
+
+
 def protected_names(source, names):
     names = nllb._names(source, names)
     names.update(match.group(1) for match in IDENTITY.finditer(source))
+    names.update(match.group(1) for match in AI_BRAND.finditer(source))
     head = nllb.HEAD_NAME.match(source)
     if head:
         names.add(head.group().rstrip().rstrip(":"))

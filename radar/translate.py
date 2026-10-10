@@ -145,9 +145,50 @@ GLOSSARY = [
     (r"\btokens?\b", [
         (r"mã thông báo|\bthẻ\b", "token"),
     ]),
+    (r"\bchilling[- ]effect\b", [
+        (r"(?:tác động|hiệu ứng)\s+làm\s+lạnh", "hiệu ứng răn đe"),
+    ]),
+    (r"\bworkloads?\b", [
+        (r"tải trọng làm việc|khối lượng tải trọng|tải làm việc", "khối lượng công việc"),
+    ]),
+    (r"\b(?:tech(?:nology)?|infrastructure|software)?\s*stack\b", [
+        (r"bộ sưu tập cơ sở hạ tầng", "ngăn xếp cơ sở hạ tầng"),
+        (r"bộ sưu tập công nghệ", "ngăn xếp công nghệ"),
+        (r"bộ sưu tập", "ngăn xếp"),
+    ]),
+    (r"\bAI supremacy\b", [
+        (r"sự cao cấp của AI", "vị thế thống trị AI"),
+    ]),
+    (r"\braises?\s+(?:[A-Za-z0-9_-]+\s+)*(?:funding|capital|round|Series\s+[A-Z]|seed)\b", [
+        (r"tăng quỹ", "gọi vốn"),
+    ]),
 ]
 _GLOSSARY = [(re.compile(src, re.IGNORECASE), [(re.compile(vi, re.IGNORECASE), out) for vi, out in fixes])
              for src, fixes in GLOSSARY]
+
+QUALITY_GUARDS = [
+    (re.compile(r"\b(?:tác\s+động|hiệu\s+ứng)\s+làm\s+lạnh\b", re.IGNORECASE), "chilling effect mistranslated as cooling"),
+    (re.compile(r"\btải\s+trọng\s+làm\s+việc\b", re.IGNORECASE), "workloads mistranslated as structural load"),
+    (re.compile(r"\bhạ\s+cánh\b", re.IGNORECASE), "land mistranslated in computing context",
+     re.compile(r"\b(?:workloads?|clusters?|cloud|nodes?|gpu)\b", re.IGNORECASE)),
+    (re.compile(r"\bRogue\s+Anthropic\b", re.IGNORECASE), "rogue conjoined with company name"),
+    (re.compile(r"\bdã\s+ngoại\s+bên\s+đường\b", re.IGNORECASE), "roadside picnic mistranslated literally"),
+    (re.compile(r"\bbộ\s+sưu\s+tập\s+(?:cơ\s+sở\s+hạ\s+tầng|công\s+nghệ)\b", re.IGNORECASE), "stack mistranslated as collection"),
+    (re.compile(r"\bsự\s+cao\s+cấp\s+của\s+AI\b", re.IGNORECASE), "AI supremacy mistranslated as premium"),
+    (re.compile(r"\bgiao\s+tiếp\s+với\s+tội\s+phạm\s+mạng\b", re.IGNORECASE), "messing with inverted to communicating"),
+    (re.compile(r"\bchúng\s+ta\s+đang\s+làm\s+nô\s+lệ\b", re.IGNORECASE), "making slaves inverted"),
+    (re.compile(r"\bcửa\s+hàng\s+tiện\s+nghi\b", re.IGNORECASE), "convenience store mistranslated as amenity"),
+    (re.compile(r"\bthỏa\s+thuận\s+dịch\s+vụ\b", re.IGNORECASE), "service launch mistranslated as agreement",
+     re.compile(r"\b(?:launch|unveils?|releases?)\b", re.IGNORECASE)),
+    (re.compile(r"\bchuyển\s+hướng\s+công\s+nghệ\b", re.IGNORECASE), "diverting tech mistranslated as pivot",
+     re.compile(r"\bdiverting\b", re.IGNORECASE)),
+    (re.compile(r"\bbăng\s+ghế(?:\s+dự\s+bị)?\b", re.IGNORECASE), "benchmark mistranslated as bench",
+     re.compile(r"\bbenchmarks?\b", re.IGNORECASE)),
+    (re.compile(r"\b(?:các\s+|những\s+)?người\s+mẫu\b", re.IGNORECASE), "model mistranslated as fashion model",
+     re.compile(AI_CONTEXT + r".*\bmodels?\b", re.IGNORECASE)),
+    (re.compile(r"\bAI\s+tiến\s+bộ\b", re.IGNORECASE), "brand mistranslated as progress",
+     re.compile(r"\bStriding\s+AI\b", re.IGNORECASE)),
+]
 
 
 def normalize(text):
@@ -244,6 +285,15 @@ def rejection(source, vi, *, protected_names=CATALOG_NAMES):
     lost = [name for name in _names(source, protected_names) if not re.search(name_pattern(name), vi)]
     if lost:
         return "name lost: " + ",".join(sorted(lost))
+    for guard in QUALITY_GUARDS:
+        if len(guard) == 3:
+            vi_pattern, reason, src_condition = guard
+            if src_condition.search(source) and vi_pattern.search(vi):
+                return "garbled: " + reason
+        else:
+            vi_pattern, reason = guard
+            if vi_pattern.search(vi):
+                return "garbled: " + reason
     return None
 
 
