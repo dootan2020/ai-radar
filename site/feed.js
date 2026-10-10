@@ -1460,6 +1460,27 @@ function glideTab(container, activeBtn, { immediate = false } = {}) {
   pill.style.height = `${h}px`;
 }
 
+/* The header is one row from 1400px (feed.css), but whether the tabs fit depends on the tabs shown, the font and the
+   reader's browser font size, not on the width alone. Measure the one-row layout and stack it when the last tab would
+   come closer than BAR_SLACK to the sort switch. Below 1400px the CSS already stacks it. The sort switch is measured
+   even while the rankings tab hides it, so changing tabs never changes the bar's shape. */
+const WIDE_BAR = matchMedia('(min-width: 1400px)');
+const BAR_SLACK = 24;
+function fitBar() {
+  const bar = $('#bar'), filters = $('#feed-filters'), sort = $('#sort-switch');
+  if (!bar || !filters || !sort) return;
+  bar.classList.remove('is-stacked');
+  if (!WIDE_BAR.matches) return;
+  const sortHidden = sort.hidden;
+  sort.hidden = false;   // measured and restored before the browser paints
+  const chips = [...filters.querySelectorAll('.filter-chip:not([hidden])')];
+  const last = chips[chips.length - 1];
+  const crowded = filters.scrollWidth > filters.clientWidth + 1
+    || Boolean(last && last.getBoundingClientRect().right + BAR_SLACK > sort.getBoundingClientRect().left);
+  sort.hidden = sortHidden;
+  bar.classList.toggle('is-stacked', crowded);
+}
+
 function scrollChipIntoView(container, chip) {
   if (!container || !chip) return;
   const scroller = container.scrollWidth > container.clientWidth + 1
@@ -2023,6 +2044,7 @@ function renderChips() {
     b.hidden = f !== 'all' && f !== 'rankings' && n === 0 && f !== filter;
     b.setAttribute('aria-pressed', String(f === filter));
   });
+  fitBar();
   const container = $('#feed-filters');
   const active = container ? container.querySelector('.filter-chip[aria-pressed="true"]') : null;
   if (container && active) glideTab(container, active);
@@ -2042,6 +2064,7 @@ function setFilter(f, fromHash = false) {
 function renderSortSwitch() {
   $$('.sort-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === sortMode)));
   $('#sort-switch').hidden = false;
+  fitBar();
   const container = $('#sort-switch');
   const active = container ? container.querySelector('.sort-btn[aria-pressed="true"]') : null;
   if (container && active) glideTab(container, active);
@@ -2587,7 +2610,10 @@ function attachEvents() {
     });
   }
   $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
+  // The webfont swaps in after first paint and changes every tab's width.
+  if (document.fonts) document.fonts.addEventListener('loadingdone', fitBar);
   window.addEventListener('resize', () => {
+    fitBar();
     positionNewItems();
     const filters = $('#feed-filters');
     if (filters) {

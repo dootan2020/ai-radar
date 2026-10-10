@@ -96,16 +96,21 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
     from radar.items import is_x_item
     from radar.headlines import annotate_headlines
     from radar.press_relevance import accepts_observation, filter_published_stories
+    from radar.catalog import is_retired
+
+    def accepts(item):
+        # Retired sources stay disabled in the inventory; their observations never reach readers.
+        return not is_retired(item) and accepts_observation(item)
 
     # The full RSS observations, before v1 URL dedupe, retain media and coverage.
     legacy_payload = dict(payload, updates=[], hf_releases=[])
     items = coverage + legacy_items(legacy_payload, now) + event_items(events, now)
     items = [item for item in items if not (is_x_item(item) and x_collector.is_reply(item))]
-    items = [item for item in items if accepts_observation(item)]
+    items = [item for item in items if accepts(item)]
     fresh_stories = cluster_items(items, now)
     if isinstance(published, dict) and isinstance(published.get("stories"), list):
         retained = x_collector.without_reply_stories(published["stories"])
-        published = dict(published, stories=filter_published_stories(retained, now))
+        published = dict(published, stories=filter_published_stories(retained, now, accepts))
     stories = retain_stories(fresh_stories, published, now)
     stories = x_collector.expire_x_coverage(stories, now=now)
     stories = rank_stories(stories, now, previous)

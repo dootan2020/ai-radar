@@ -43,6 +43,9 @@ FILTERED_SOURCES = {
     "technode", "pandaily", "scmp-tech", "restofworld", "meta-newsroom", "microsoft-blog",
 }
 
+# Captain's editorial decision: Vietnamese press mostly republishes; read the origin instead.
+RETIRED_VN_PRESS = {"vnexpress-tech", "genk-ai", "tuoitre-so", "thanhnien-cong-nghe"}
+
 UNFILTERED_SOURCES = {
     "genk-ai", "theregister-ai", "wired-ai", "nextgov-ai", "aws-ml-blog",
 }
@@ -61,7 +64,10 @@ class CatalogNewSourcesTests(unittest.TestCase):
                 self.assertEqual(src["parser"], "feed")
                 self.assertEqual(src["kind"], "rss")
                 self.assertTrue(src.get("first_wave"))
-                if id_ == "cnbc-tech":
+                if id_ in RETIRED_VN_PRESS:
+                    self.assertTrue(src.get("disabled"))
+                    self.assertIn("quyết định biên tập", src.get("disabled_reason", ""))
+                elif id_ == "cnbc-tech":
                     self.assertTrue(src.get("disabled"))
                     self.assertIn("máy dựng của GitHub", src.get("disabled_reason", ""))
                 elif id_ not in {"theregister-ai"}:

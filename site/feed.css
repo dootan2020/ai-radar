@@ -1332,6 +1332,30 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .feed-brand, .ed-link, .tc-link { min-height: 44px; }
   .theme-btn { width: 44px; height: 44px; }
 }
+/* One row is a width guess; its contents are not fixed. Tabs come and go with the data (Đã lưu), labels are rem
+   (browser font size Large/Very large) and the fallback font is wider. feed.js measures the row at 1400px and up
+   and stacks it the tablet way when the tabs would crowd the sort switch, instead of clipping or colliding. */
+@media (min-width: 1400px){
+  .feed-brand { margin-inline-end: var(--space-16); }
+  .feed-navigation { margin-inline-end: var(--space-8); }
+}
+.feed-bar.is-stacked .feed-bar-in {
+  height: auto; flex-wrap: wrap; row-gap: var(--space-4);
+  padding-block: var(--space-8);
+}
+.feed-bar.is-stacked .feed-brand { flex: 1; margin-inline-end: 0; }
+.feed-bar.is-stacked .feed-navigation { order: 1; flex-basis: 100%; margin-inline-end: 0; }
+/* A stacked tab row that still does not fit wraps for a mouse, which cannot reach tabs behind a hidden scroll.
+   Touch keeps the one-line swipe strip (a third header row costs a tablet too much) and fades its edge to say "more". */
+@media (min-width: 768px) and (max-width: 1399px) and (hover: hover) and (pointer: fine){
+  .feed-filters { flex-wrap: wrap; overflow-x: visible; }
+  .feed-navigation { align-items: flex-start; }   /* the sort switch stays level with the first line of tabs */
+}
+@media (min-width: 768px) and (max-width: 1399px) and (pointer: coarse){
+  .feed-filters { padding-inline-end: var(--space-32); -webkit-mask-image: var(--nav-fade); mask-image: var(--nav-fade); }
+}
+.feed-bar.is-stacked .feed-filters { flex-wrap: wrap; overflow-x: visible; }
+.feed-bar.is-stacked .feed-navigation { align-items: flex-start; }
 @media (min-width: 1400px) and (max-width: 1599px){
   /* Search is still named for assistive technology when its icon saves space. */
   .tc-link { padding: 0; }

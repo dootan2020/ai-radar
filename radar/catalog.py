@@ -42,14 +42,27 @@ RSS = [
 ]
 NVIDIA_CHANNEL = ("nvidia-youtube", "nvidia", "NVIDIA", "NVIDIA", "UCHuiy8bXnmK5nisYHUd1J5g")
 
+# Editorial retirements stay in the inventory as disabled sources, so observations
+# still held by 7-day retention resolve to a source record during publication.
+# Their coverage is withdrawn from every reader-facing output (see is_retired).
+_VN_PRESS_REASON = ("Đã gỡ theo quyết định biên tập: báo Việt Nam đa số đăng lại tin của nơi khác; "
+                    "radar lấy tin trực tiếp từ nguồn gốc.")
+RETIRED = dict.fromkeys(("vnexpress-tech", "genk-ai", "tuoitre-so", "thanhnien-cong-nghe"), _VN_PRESS_REASON)
+
 # Keep unavailable endpoints in the inventory and exported source health records.
 DISABLED = {
+    **RETIRED,
     "latent-space": "Nguồn podcast trên Substack trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế.",
     "cnbc-tech": "Nguồn CNBC trả mã HTTP 403 trên máy dựng của GitHub; chưa kiểm được nguồn thay thế.",
     "ai-news": "Nguồn smol.ai được đo ngày 2026-10-09 nhưng mục mới nhất là 2026-09-09; hiện không còn đăng đều.",
     "theregister-ai": "Nguồn này không cho phép radar thu thập nội dung.",
     "lobsters-ai": "Nguồn này không cho phép radar thu thập nội dung.",
 }
+
+
+def is_retired(item):
+    """True for an observation whose source was editorially retired."""
+    return isinstance(item, dict) and item.get("source") in RETIRED
 
 
 def source(id_, name, url, parser, group, publisher, **extra):
