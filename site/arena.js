@@ -58,6 +58,75 @@ export function makerName(maker) {
   return name ? (Object.hasOwn(makers, name.toLowerCase()) ? makers[name.toLowerCase()] : readableWords(name)) : 'Chưa rõ hãng';
 }
 export const scoreText = score => number.format(score);
+const gapNumber = new Intl.NumberFormat('vi-VN', { minimumFractionDigits: 1, maximumFractionDigits: 1, useGrouping: false });
+const makerStyles = { google: 'google', anthropic: 'anthropic', meta: 'meta', moonshot: 'moonshot', openai: 'openai' };
+const makerStyle = maker => Object.hasOwn(makerStyles, maker.trim().toLowerCase()) ? makerStyles[maker.trim().toLowerCase()] : 'other';
+export function makerInitial(maker) {
+  const name = makerName(maker).trim();
+  const lower = name.toLowerCase();
+  if (lower === 'openai') return 'O';
+  if (lower === 'anthropic') return 'A';
+  if (lower === 'google') return 'G';
+  if (lower === 'meta') return 'M';
+  if (lower === 'moonshot') return 'M';
+  if (lower === 'xai') return 'x';
+  if (lower === 'deepseek') return 'D';
+  if (lower === 'mistral') return 'M';
+  if (lower === 'bytedance') return 'B';
+  if (lower === 'alibaba' || lower === 'qwen') return 'Q';
+  return (name[0] || '·').toUpperCase();
+}
+export function parseModelDisplay(id) {
+  const full = modelName(id);
+  const match = full.match(/^(.*?)(?:\s*\(suy luận:\s*([^)]+)\))?$/);
+  if (!match) return { full, core: full, effort: '' };
+  return { full, core: match[1].trim(), effort: match[2] ? match[2].trim() : '' };
+}
+function chartHTML(data, rows, category) {
+  const highest = Math.max(...rows.map(row => row.score));
+  const leaders = rows.filter(row => row.score === highest);
+  const runnerUp = [...rows].sort((a, b) => b.score - a.score)[1];
+  // Keep ten points below every score on one tight, shared absolute scale.
+  const allScores = Object.keys(ARENA_CATEGORIES).flatMap(key => {
+    const scores = Array.isArray(data.categories[key]) ? data.categories[key].map(row => row?.score) : [];
+    return scores.length === 10 && scores.every(Number.isFinite) ? scores : [];
+  });
+  const floor = Math.floor(Math.min(...allScores) / 10) * 10 - 10;
+  const ceiling = Math.max(floor + 20, Math.ceil(Math.max(...allScores) / 10) * 10);
+  const midpoint = (floor + ceiling) / 2;
+  const gap = gapNumber.format(highest - runnerUp.score);
+  const legend = [...new Set(rows.map(row => row.maker))].map(maker => `<span class="arena-maker arena-maker-${makerStyle(maker)}"><span class="arena-mark" aria-hidden="true">${makerInitial(maker)}</span><small>${esc(makerName(maker))}</small></span>`).join('');
+  return `<figure class="arena-chart" aria-labelledby="arena-chart-title" aria-describedby="arena-scale arena-note">
+    <div class="arena-lead"><div class="arena-lead-main"><p class="arena-eyebrow">${leaders.length > 1 ? 'CÙNG ĐIỂM CAO NHẤT' : 'ĐIỂM CAO NHẤT'} · ${esc(ARENA_CATEGORIES[category])}</p><div class="arena-lead-title-row"><h3 id="arena-chart-title">${leaders.map(row => esc(modelName(row.id))).join(' · ')}</h3><span class="arena-lead-score-pill"><strong>${scoreText(highest)}</strong> điểm</span></div><p class="arena-lead-diff">${leaders.length > 1 ? 'Các mô hình dẫn đầu bằng điểm nhau.' : `Hơn mô hình kế tiếp <strong>${gap} điểm</strong>.`}</p></div></div>
+    <div class="arena-chart-key"><span>Điểm Arena</span><div class="arena-legend" aria-label="Hãng phát triển">${legend}</div></div>
+    <div class="arena-mobile-axis" aria-hidden="true"><span>${scoreText(floor)}</span><span>${scoreText(midpoint)}</span><span>${scoreText(ceiling)}</span></div>
+    <ol class="arena-columns" role="list" aria-label="10 mô hình dẫn đầu, điểm Arena và thay đổi hạng so với tuần trước" aria-describedby="arena-comparison">
+      ${rows.map(row => {
+        const { full, core, effort } = parseModelDisplay(row.id);
+        const effortPill = effort ? `<span class="arena-effort-tag">${esc(effort)}</span>` : '';
+        return `<li class="arena-column arena-maker-${makerStyle(row.maker)}${row.score === highest ? ' arena-leader' : ''}" value="${row.rank}" tabindex="0" aria-label="${esc(full)}, Hạng ${row.rank}, ${scoreText(row.score)} điểm Arena, ${esc(makerName(row.maker))}, ${movement(row).replace(/<[^>]+>/g, '')}">
+          <div class="arena-column-label">
+            <div class="arena-model-block"><span class="arena-model" title="${esc(full)}">${esc(core)}</span>${effortPill}</div>
+            <div class="arena-meta-line">
+              <span class="arena-rank">#${row.rank}</span>
+              <span class="arena-maker arena-maker-${makerStyle(row.maker)}" title="${esc(makerName(row.maker))}"><span class="arena-mark" aria-hidden="true">${makerInitial(row.maker)}</span><small>${esc(makerName(row.maker))}</small></span>
+            </div>
+          </div>
+          <div class="arena-movement">${movement(row)}</div>
+          <div class="arena-plot" style="--arena-bar-size:${(row.score - floor) / (ceiling - floor) * 100}%"><div class="arena-ticks" aria-hidden="true"><span>${scoreText(ceiling)}</span><span>${scoreText(midpoint)}</span><span>${scoreText(floor)}</span></div><div class="arena-bar" aria-hidden="true"></div><div class="arena-value"><strong class="arena-score"><span class="sr">Điểm Arena </span>${scoreText(row.score)}</strong></div></div>
+          <div class="arena-tooltip" role="tooltip" aria-hidden="true">
+            <div class="arena-tooltip-model">${esc(full)}</div>
+            <div class="arena-tooltip-row">
+              <span class="arena-tooltip-maker">${esc(makerName(row.maker))}</span>
+              <span class="arena-tooltip-score"><strong>${scoreText(row.score)}</strong> điểm</span>
+            </div>
+            <div class="arena-tooltip-change">${movement(row)}</div>
+          </div></li>`;
+      }).join('')}
+    </ol>
+    <figcaption id="arena-scale" class="arena-scale-note"><strong>Trục điểm Arena: ${scoreText(floor)}–${scoreText(ceiling)}, dùng chung cho cả ba nhóm.</strong> ${floor === 0 ? 'Trục bắt đầu từ 0.' : 'Trục không bắt đầu từ 0; độ dài thanh không biểu thị tỷ lệ năng lực.'} Điểm hiển thị được làm tròn; biểu đồ và chênh lệch dùng điểm gốc.</figcaption>
+  </figure>`;
+}
 export function movement(row) {
   if (row.change_status === 'unlisted') return '<span class="arena-change">Chưa có hạng cũ</span>';
   if (row.change_status !== 'compared' || !Number.isInteger(row.rank_change)) return '<span class="arena-change">Chưa đủ dữ liệu</span>';
@@ -80,9 +149,7 @@ export function arenaHTML(data, category = 'overall') {
   return `${intro}<p class="arena-date">Theo Arena, công bố ngày <strong>${dateText(data.published_at)}</strong>.${status}${stale}</p>
     <div class="arena-switch" role="group" aria-label="Nhóm xếp hạng Arena">${tabs}</div>
     <p class="arena-comparison" id="arena-comparison">${comparison}</p>
-    <table class="arena-table" aria-describedby="arena-comparison arena-note"><caption class="sr">10 mô hình dẫn đầu · ${esc(ARENA_CATEGORIES[category])}</caption>
-    <thead><tr><th scope="col">Hạng</th><th scope="col">Mô hình / Hãng</th><th scope="col">Điểm Arena</th><th scope="col">So với tuần trước</th></tr></thead>
-    <tbody>${rows.map(row => `<tr><td class="arena-rank">${row.rank}</td><th scope="row" class="arena-model"><span title="${esc(row.id)}">${esc(modelName(row.id))}</span><small>${esc(makerName(row.maker))}</small></th><td class="arena-score"><span class="arena-mobile-label">Điểm Arena </span>${scoreText(row.score)}</td><td class="arena-movement">${movement(row)}</td></tr>`).join('')}</tbody></table>
+    ${chartHTML(data, rows, category)}
     <p class="arena-note" id="arena-note">Điểm cao hơn thể hiện được ưa thích hơn trong các lượt so sánh của Arena. Chênh lệch nhỏ có thể nằm trong sai số; thứ hạng không khẳng định mô hình tốt hơn cho mọi tác vụ.</p>${attribution}`;
 }
 
