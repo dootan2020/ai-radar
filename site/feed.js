@@ -1277,17 +1277,22 @@ function glideTab(container, activeBtn, { immediate = false } = {}) {
 
 function scrollChipIntoView(container, chip) {
   if (!container || !chip) return;
-  const maxScroll = container.scrollWidth - container.clientWidth;
+  const scroller = container.scrollWidth > container.clientWidth + 1
+    ? container
+    : (container.closest('.feed-navigation') || container);
+  const maxScroll = scroller.scrollWidth - scroller.clientWidth;
   if (maxScroll <= 0) return;
 
-  const cRect = container.getBoundingClientRect();
+  const cRect = scroller.getBoundingClientRect();
   const bRect = chip.getBoundingClientRect();
   const isPartlyOff = bRect.left < cRect.left + 12 || bRect.right > cRect.right - 32;
   if (!isPartlyOff) return;
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const targetScroll = Math.max(0, Math.min(maxScroll, chip.offsetLeft - (container.clientWidth - chip.offsetWidth) / 2));
-  container.scrollTo({ left: targetScroll, behavior: reduced ? 'auto' : 'smooth' });
+  const currentScroll = scroller.scrollLeft;
+  const chipRelLeft = bRect.left - cRect.left + currentScroll;
+  const targetScroll = Math.max(0, Math.min(maxScroll, chipRelLeft - (scroller.clientWidth - chip.offsetWidth) / 2));
+  scroller.scrollTo({ left: targetScroll, behavior: reduced ? 'auto' : 'smooth' });
 }
 
 function flipRepoPill(container, oldBox, oldVal) {
@@ -1416,6 +1421,9 @@ function rerenderRepos() {
     if (nextViewSeg) flipRepoPill(nextViewSeg, oldViewBox, oldViewVal);
     const nextWinSeg = next.querySelector('.seg.seg-quiet');
     if (nextWinSeg) flipRepoPill(nextWinSeg, oldWinBox, oldWinVal);
+    const repoCtl = next.querySelector('.repo-ctl');
+    const activeSeg = repoCtl && repoCtl.querySelector('.seg-b[aria-pressed="true"]');
+    if (repoCtl && activeSeg) scrollChipIntoView(repoCtl, activeSeg);
   }
 
   if (next && areas.size) {
@@ -2009,14 +2017,27 @@ function footHTML() {
   return `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${rank}${scoring} ${translationNote()}${views} ${local}`;
 }
 function renderSources() {
-  const srcs = asArray(D.sources), bad = srcs.filter(s => !s.ok);
-  $('#src-update').innerHTML = `Cập nhật lúc <time datetime="${esc(D.generated_at)}">${esc(updatedAt(D.generated_at))}</time> · <span class="num">${srcCount}</span> nguồn`;
-  $('#src-note').innerHTML = `<span class="num">${srcs.length - bad.length}/${srcs.length}</span> nguồn chạy được lúc ${esc(hhmm(new Date(D.generated_at)))}. Mỗi nguồn kèm số tin lấy được.`;
-  $('#src-list').innerHTML = [...srcs].sort((a, b) => a.ok - b.ok || (b.count || 0) - (a.count || 0)).map(s => `<li${s.ok ? '' : ' class="is-bad"'}>${avatar(faceOfSource({ source: s.id, lab: s.lab, publisher: s.publisher }, SRC), 'xs')}<a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.name || s.id)}</a>
+  const el = $('#src-update');
+  if (el) {
+    el.innerHTML = `Cập nhật lúc <time datetime="${esc(D.generated_at)}">${esc(updatedAt(D.generated_at))}</time> · <a class="src-link" href="nguon.html"><span class="num">${srcCount}</span> nguồn</a>`;
+  }
+  const noteEl = $('#src-note');
+  if (noteEl) {
+    const srcs = asArray(D.sources), bad = srcs.filter(s => !s.ok);
+    noteEl.innerHTML = `<span class="num">${srcs.length - bad.length}/${srcs.length}</span> nguồn chạy được lúc ${esc(hhmm(new Date(D.generated_at)))}. Mỗi nguồn kèm số tin lấy được.`;
+  }
+  const listEl = $('#src-list');
+  if (listEl) {
+    const srcs = asArray(D.sources);
+    listEl.innerHTML = [...srcs].sort((a, b) => a.ok - b.ok || (b.count || 0) - (a.count || 0)).map(s => `<li${s.ok ? '' : ' class="is-bad"'}>${avatar(faceOfSource({ source: s.id, lab: s.lab, publisher: s.publisher }, SRC), 'xs')}<a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.name || s.id)}</a>
     <span class="src-n num">${s.ok ? `${s.count ?? 0} tin` : 'lỗi'}</span>${s.error ? `<span class="src-err">${esc(s.error_vi || 'Không đọc được nguồn này')}</span>` : ''}</li>`).join('');
-  $('#src-live').innerHTML = liveRows();
-  $('#src-foot').innerHTML = footHTML();
-  $('#nguon').hidden = false;
+  }
+  const liveEl = $('#src-live');
+  if (liveEl) liveEl.innerHTML = liveRows();
+  const footEl = $('#src-foot');
+  if (footEl) footEl.innerHTML = footHTML();
+  const nguonEl = $('#nguon');
+  if (nguonEl) nguonEl.hidden = false;
 }
 
 /* ---------- live counters (live.js, as on the bento home): the numbers on screen follow the sources ---------- */
@@ -2043,7 +2064,7 @@ function route() {
   if (h === 'nong') { setFilter('hot', true); return; }
   if (h === 'repo') { setFilter('code', true); return; }
   if (h === 'da-luu') { if (saved.length) setFilter('saved', true); return; }
-  if (h === 'nguon') { $('#nguon').scrollIntoView(); return; }
+  if (h === 'nguon') { location.replace('nguon.html'); return; }
   if (SECTIONS[h]) { setFilter('sec:' + h, true); return; }
   const m = /^tin\/(.+)$/.exec(h);
   if (m) openStory(m[1]);
