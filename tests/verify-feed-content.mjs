@@ -61,7 +61,52 @@ for (const [kind, label] of [['research', 'Nghiên cứu'], ['product', 'Sản p
   assert.ok(!feed.mediaHTML(feed.pickImage(item), 'std').includes('aws.amazon.com'));
 }
 feed.configure([story]);
-assert.equal(feed.pickImage(story).cover.num, '10', 'real measured evidence keeps precedence over the category');
+assert.equal(feed.pickImage(story).cover.num, null, "another item's counter is not the card's measurement");
+const measured = {...story, id:'measured-story', coverage:[{...story.coverage[0], url:story.url}]};
+feed.configure([measured]);
+assert.equal(feed.pickImage(measured).cover.num, '10', 'real measured evidence keeps precedence over the category');
+
+// A number on a card measures the page the card links to. A cluster's other items (a social post quoting the article,
+// another outlet's piece, a forum thread about a different link) keep their counters to the detail panel.
+{
+  const lead = {source:'outlet-a', publisher:'outlet-a', title:'Lead article', url:'https://outlet-a.example/lead', metrics:{}};
+  const post = {id:'post-1', source:'social-b', publisher:'social-b', title:'A post quoting it',
+    url:'https://social-b.example/post/1', metrics:{likes:99, reposts:15}};
+  const thread = {id:'thread-1', source:'forum-c', publisher:'forum-c', title:'Lead article',
+    url:'https://outlet-a.example/lead/', discussion_url:'https://forum-c.example/item/1', metrics:{points:47}};
+  const other = {...thread, id:'thread-2', url:'https://outlet-d.example/other', metrics:{points:61}};
+  const base = {id:'cluster', title:'Lead article', url:lead.url, published_at:'2026-10-09T12:00:00Z', kind:'article', image_screened:true, source_count:2};
+  const numbers = item => [item.id, feed.pickImage(item).cover, ['std', 'lead', 'wide'].map(size => feed.renderCard(item, size)).join('')
+    + feed.renderCard(item, 'lead', {rank:1, why:true, h:'h3'}) + feed.renderHot([item])];
+  const borrowed = {...base, coverage:[lead, post]};
+  const pipeBorrowed = {...base, id:'cluster-pipe', coverage:[lead, other],
+    hot_signals:{measurement:{source:'forum-c', metric:'points', value:61}}};
+  for (const item of [borrowed, pipeBorrowed]) {
+    feed.configure([item]);
+    const [id, cover, html] = numbers(item);
+    assert.notEqual(cover.num, '99', `${id}: cover borrows a social post's likes`);
+    assert.notEqual(cover.num, '61', `${id}: cover borrows a thread about another link`);
+    assert.equal(cover.num, '2', `${id}: cover falls back to the independent source count`);
+    assert.ok(!/>(99|61)</.test(html), `${id}: card, why line or hot row shows another item's number`);
+  }
+  const ownThread = {...base, id:'cluster-own', coverage:[lead, thread, post],
+    hot_signals:{measurement:{source:'forum-c', metric:'points', value:47}}};
+  feed.configure([ownThread]);
+  assert.equal(feed.pickImage(ownThread).cover.num, '47', 'a forum thread about the same link (trailing slash aside) is shown');
+  assert.match(feed.pickImage(ownThread).cover.word, / trên forum-c$/, 'the forum is named with its number');
+  assert.match(feed.renderCard(ownThread, 'std'), /data-live="thread-1\|points">47</);
+  // The same forum with a thread on each link: the measurement taken from the other link's thread is not printed
+  // under this card's thread id; this card shows its own thread's number.
+  const twoThreads = {...base, id:'cluster-two', coverage:[lead, other, thread],
+    hot_signals:{measurement:{source:'forum-c', metric:'points', value:61}}};
+  feed.configure([twoThreads]);
+  assert.equal(feed.pickImage(twoThreads).cover.num, '47');
+  assert.ok(!/>61</.test(feed.renderCard(twoThreads, 'std')), "the other thread's points are not shown");
+  // When the headline comes from a coverage item, the card links there, and that item's own counter is the one shown.
+  const fromPost = {...base, id:'cluster-post', title_vi:undefined, coverage:[lead, {...post, title_vi:'Bài đăng đã dịch'}]};
+  feed.configure([fromPost]);
+  assert.equal(feed.pickImage(fromPost).cover.num, '99', "the linked item's own counter is shown");
+}
 const coverageTranslated = {...story, title_vi:undefined};
 assert.equal(feed.titleOf(coverageTranslated).text, story.coverage[0].headline_vi);
 assert.equal(feed.titleOf(coverageTranslated).orig, story.coverage[0].title);
