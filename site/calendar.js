@@ -6,13 +6,34 @@ const esc = s => String(s ?? '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').rep
 const ymd = s => s.replaceAll('-', '');
 /* A real calendar date (rejects 2026-02-31) and a parseable instant. */
 const isDate = s => { if (!/^\d{4}-\d{2}-\d{2}$/.test(s || '')) return false; const [y, m, d] = s.split('-').map(Number); const t = new Date(Date.UTC(y, m - 1, d)); return t.getUTCFullYear() === y && t.getUTCMonth() === m - 1 && t.getUTCDate() === d; };
-const isInstant = s => typeof s === 'string' && !Number.isNaN(Date.parse(s));
+const isInstant = s => typeof s === 'string' && /T.*(?:Z|[+-]\d{2}:\d{2})$/i.test(s) && !Number.isNaN(Date.parse(s));
+const isTimezone = s => {
+  if (typeof s !== 'string' || !s) return false;
+  try { new Intl.DateTimeFormat('en', { timeZone: s }); return true; } catch { return false; }
+};
 /* URL is a URI value (RFC 5545 3.3.13): no backslash escaping, only line breaks removed. */
 const uri = s => String(s ?? '').replace(/[\r\n]+/g, '');
 const utc = iso => new Date(iso).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-function nextDay(s) {
+export function nextDay(s) {
   const [y, m, d] = s.split('-').map(Number);
   return new Date(Date.UTC(y, m - 1, d + 1)).toISOString().slice(0, 10);
+}
+/* First instant of a local date, independent of the browser's timezone. Search the
+   date boundary so midnight offset changes and 23/25-hour DST days stay correct. */
+export function dateStart(s, timezone) {
+  if (!isDate(s) || !isTimezone(timezone)) return NaN;
+  const formatter = new Intl.DateTimeFormat('en', { timeZone: timezone, year: 'numeric', month: '2-digit', day: '2-digit' });
+  const localDate = ms => {
+    const parts = Object.fromEntries(formatter.formatToParts(ms).map(p => [p.type, p.value]));
+    return `${parts.year}-${parts.month}-${parts.day}`;
+  };
+  const center = Date.parse(`${s}T00:00:00Z`);
+  let low = center - 36 * 36e5, high = center + 36 * 36e5;
+  while (high - low > 1) {
+    const mid = Math.floor((low + high) / 2);
+    if (localDate(mid) < s) low = mid; else high = mid;
+  }
+  return high;
 }
 /* RFC 5545 folds lines at 75 octets; Vietnamese letters take 2–3 bytes, so fold by bytes. */
 function fold(line) {
@@ -32,17 +53,19 @@ export function verifiedNote(verifiedAt, sourceUrl) {
   return ['Ngày đã xác minh', verifiedAt, sourceUrl ? `từ ${sourceUrl}` : ''].filter(Boolean).join(' ');
 }
 
-/* ev: {uid, title, url, location, startDate, endDate, startAt, endAt, note} */
+/* ev: {uid, title, url, location, startDate, endDate, startAt, endAt, timezone, note} */
 /* Every value that reaches the file must be valid; an optional end may be absent but never malformed. */
 export function canCalendar(ev) {
   if (!ev) return false;
+  if (ev.timezone != null && !isTimezone(ev.timezone)) return false;
   if (ev.startAt) return isInstant(ev.startAt) && (!ev.endAt || (isInstant(ev.endAt) && Date.parse(ev.endAt) >= Date.parse(ev.startAt)));
   return isDate(ev.startDate) && (!ev.endDate || (isDate(ev.endDate) && ev.endDate >= ev.startDate));
 }
 
 export function buildIcs(ev) {
   if (!canCalendar(ev)) throw new Error('sự kiện không có ngày hợp lệ');
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ai-radar//vi', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ai-radar//vi', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    ...(ev.timezone ? [`X-WR-TIMEZONE:${esc(ev.timezone)}`] : []), 'BEGIN:VEVENT',
     `UID:${esc(ev.uid)}@ai-radar`, `DTSTAMP:${utc(new Date().toISOString())}`];
   if (ev.startAt) {
     lines.push(`DTSTART:${utc(ev.startAt)}`);
@@ -76,6 +99,7 @@ export function gcalURL(ev) {
     ? `${utc(ev.startAt)}/${utc(ev.endAt || ev.startAt)}`
     : `${ymd(ev.startDate)}/${ymd(nextDay(ev.endDate || ev.startDate))}`;
   const p = new URLSearchParams({ action: 'TEMPLATE', text: String(ev.title || ''), dates });
+  if (ev.timezone) p.set('ctz', ev.timezone);
   const details = [ev.note, ev.url].filter(Boolean).join('\n');
   if (details) p.set('details', details);
   if (ev.location) p.set('location', String(ev.location));

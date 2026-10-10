@@ -2,8 +2,9 @@
 
 import json
 import re
-from datetime import date
+from datetime import date, datetime, time, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from radar.common import web_url
 from radar.items import instant
@@ -42,6 +43,11 @@ def load_events(path, now):
             raise ValueError("Event requires valid start/end/verification dates") from None
         if end < start or verified > now.date():
             raise ValueError("Event date order or verification date invalid")
+        try:
+            zone = ZoneInfo(row["timezone"])
+        except (KeyError, TypeError, ValueError, ZoneInfoNotFoundError):
+            raise ValueError("Event requires a valid IANA timezone") from None
+        exact_end = None
         precision = row.get("time_precision")
         if precision == "date":
             if row.get("start_at") is not None or row.get("end_at") is not None:
@@ -52,8 +58,11 @@ def load_events(path, now):
                 raise ValueError("Exact event timestamps require explicit timezone")
             if exact_end and exact_end < exact_start:
                 raise ValueError("Event end precedes start")
+            if exact_start.astimezone(zone).date() != start or exact_end and exact_end.astimezone(zone).date() != end:
+                raise ValueError("Event timestamps must match dates in the event timezone")
         else:
             raise ValueError("Event time_precision must be date or exact")
-        if end >= now.date():
+        boundary = exact_end or datetime.combine(end + timedelta(days=1), time.min, zone)
+        if now < boundary:
             result.append(dict(row, end_date=end.isoformat(), start_at=row.get("start_at"), end_at=row.get("end_at")))
     return sorted(result, key=lambda row: (row["start_date"], row["id"]))

@@ -259,6 +259,14 @@ class PipelineV2Tests(unittest.TestCase):
         self.assertTrue(any(story["url"] == "https://lab.example/release" for story in result["stories"]))
         self.assertTrue(any(not source["ok"] and source["group"] == "event" for source in result["sources"]))
 
+    def test_event_timezone_and_partial_exact_time_reach_published_projection(self):
+        row = event(timezone="Asia/Kolkata", time_precision="exact", start_date="2026-10-16",
+                    end_date="2026-10-16", start_at="2026-10-16T14:00:00+05:30")
+        self.events.write_bytes(json.dumps([row]).encode("utf-8"))
+        result = self.build()
+        self.assertEqual(result["events"], [row])
+        inspect_snapshot(result)
+
     def test_observed_http_error_retains_status_separate_from_transport_denial(self):
         self.sources = [source("blocked")]
         def denied(url, **kwargs):
