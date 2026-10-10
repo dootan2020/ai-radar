@@ -359,9 +359,9 @@ function titleOf(st) {
   for (const c of st.coverage || []) if (ok(c.title, c.title_vi)) return { text: headlineShown(c), orig: c.title, cov: c };
   return { text: headlineShown(st), orig: null, cov: null };
 }
-/* Under a translated headline: a "Translated" chip, a gap, then the original. Never glued together. */
-const origLine = t => !t.orig ? '' :
-  `<p class="card-orig"><span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span><span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span><span class="orig-text"${langAttr(t.orig)}>${esc(t.orig)}</span></p>`;
+/* Feed metadata identifies machine translations; the reading view carries the original. */
+const translationMark = t => !t.orig ? '' :
+  `<span class="mt" aria-hidden="true" title="Bản dịch máy">Translated</span><span class="sr" lang="vi">Bản dịch máy. </span>`;
 
 /* ==========================================================================
    "ĐÁNG ĐỌC": WHAT TO READ FIRST
@@ -439,7 +439,7 @@ const reasonTag = st => {
 };
 
 /* "Vì sao nên đọc": real numbers only, saying each fact once without repeating time or source counts. */
-function worthWhy(st) {
+function worthParts(st) {
   const w = worthOf(st), m = measureOf(st), r = reasonOf(st), parts = [];
   if (m) {
     parts.push(`${numB(m)} ${esc(m.word)}${m.where ? ` trên ${esc(m.where)}` : ''}`);
@@ -447,8 +447,12 @@ function worthWhy(st) {
   } else if (w.fh && (!r || r.text !== w.fh.label)) {
     parts.push(esc(w.fh.why));
   }
-  return parts.join(' · ');
+  return parts;
 }
+const worthWhy = st => worthParts(st).join(' · ');
+/* A ranked row's facts, each kept whole; the dot between two is drawn by CSS and is clipped when a fact starts a
+   line, so a wrap never leaves "·" hanging at either end. */
+const whyParts = parts => parts.map(p => `<span class="why-part">${p}</span>`).join('<span class="sr">, </span>');
 
 /* The pipeline sometimes leaves one event as two stories (two outlets, two headlines). In the five-story block that
    reads as a repeat, so a story whose headline shares most of its words with one already picked is skipped there.
@@ -620,7 +624,7 @@ const liveCal = v => v && v.status === 'upcoming' && v.start_at && v.time_precis
 function calButtons(cal, attr, label) {
   if (!cal || !canCalendar(cal)) return '';
   return `<span class="calbtn" role="group" aria-label="Thêm ${esc(label)} vào lịch">
-    <a class="calbtn-g" href="${esc(gcalURL(cal))}" target="_blank" rel="noopener">${icon('i-cal')}<span>Google Calendar</span></a>
+    <a class="calbtn-g" href="${esc(gcalURL(cal))}" target="_blank" rel="noopener" aria-label="Thêm vào Google Calendar">${icon('i-cal')}<span>Google<span class="calbtn-long"> Calendar</span></span></a>
     <button class="calbtn-ics" ${attr} title="Tải tệp .ics cho Apple Calendar, Outlook">.ics</button></span>`;
 }
 function addToCalendar(ev) {
@@ -792,11 +796,10 @@ function renderCard(st, size = 'std', opts = {}) {
   ${mediaHTML(img, size)}
   <div class="${photo ? 'photo-body' : 'card-body'}">
     ${photo ? '' : reasonTag(st)}
-    <div class="src-row">${markHTML(st)}${opts.rank ? `<span class="pick-n num"><span class="sr">Số </span>${opts.rank}</span>` : ''}<span class="src-av" aria-hidden="true">${avatar(face, 'xs')}</span><span class="src-name">${esc(name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}</div>
+    <div class="src-row">${markHTML(st)}${opts.rank ? `<span class="pick-n num"><span class="sr">Số </span>${opts.rank}</span>` : ''}<span class="src-who"><span class="src-av" aria-hidden="true">${avatar(face, 'xs')}</span><span class="src-name">${esc(name)}</span></span><span class="src-when">${timeEl(st.published_at)}${translationMark(t)}</span></div>
     ${h === 'h3'
       ? `<h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>`
       : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>`}
-    ${origLine(t)}
     ${why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${why}</p>` : ''}
     ${opts.why && pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
     ${sum ? `<p class="card-sum">${esc(sum)}</p>` : ''}
@@ -821,12 +824,14 @@ function daysUntil(start, end) {
   if (t > a && t <= b) return -1;
   return Math.round((a - t) / 864e5);
 }
-function renderLive() {
+/* The home shows the three nearest events and links to the "Sắp diễn ra" view, which lists them all. */
+function renderLive(all = false) {
   const items = D.live || [];
   const it = items.find(x => x.status === 'live') || items.find(x => x.status === 'upcoming') || items[0];
   const tk = todayKey();
-  const events = (D.events || []).filter(e => (e.end_date || e.start_date || '') >= tk)
-    .sort((a, b) => String(a.start_date).localeCompare(String(b.start_date))).slice(0, 3);
+  const upcoming = (D.events || []).filter(e => (e.end_date || e.start_date || '') >= tk)
+    .sort((a, b) => String(a.start_date).localeCompare(String(b.start_date)));
+  const events = all ? upcoming : upcoming.slice(0, 3);
   if (!it && !events.length) return '';
 
   let head = 'Sắp diễn ra', video = '';
@@ -852,20 +857,25 @@ function renderLive() {
     ${it.status === 'upcoming' ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}</div></div>`;
   }
   const evStory = e => asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
-  const evHTML = events.length ? `<div class="live-events">${it ? '<h3 class="tile-sub">Sắp diễn ra</h3>' : ''}
-    <ul class="events">${events.map(e => {
+  const more = upcoming.length - events.length;
+  const moreHTML = more > 0 ? `<a class="tile-more" href="#sap-toi"><span>Xem cả <span class="num">${upcoming.length}</span> sự kiện</span></a>` : '';
+  const evHTML = events.length ? `<div class="live-events">${it ? `<div class="tile-subhead"><h3 class="tile-sub">Sắp diễn ra</h3>${moreHTML}</div>` : ''}
+    <ul class="events" data-n="${events.length}">${events.map(e => {
       const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(e.start_date || '');
       const st = evStory(e);
       const cal = st ? calOf(st) : { uid: e.id, title: String(e.title), url: e.url, location: e.location, startDate: e.start_date, endDate: e.end_date,
         startAt: e.time_precision === 'exact' ? e.start_at : null, endAt: e.time_precision === 'exact' ? e.end_at : null, note: verifiedNote(e.verified_at, e.source_url) };
-      return `<li${st ? ` data-sid="${esc(st.id)}" class="${statusClass(st)}"` : ''}><a class="event" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>
-        <span class="date-badge" aria-hidden="true">${d ? `<b class="num">${+d[3]}</b><span>thg ${+d[2]}</span>` : ''}</span>
-        <span class="event-text"><span class="event-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>
-        <span class="event-when">${esc(eventRange(e.start_date, e.end_date))} · ${esc(e.location || '')} · ${daysLeftHTML(daysUntil(e.start_date, e.end_date))}</span></span></a>
-        ${calButtons(cal, st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</li>`;
+      const left = daysLeftHTML(daysUntil(e.start_date, e.end_date));
+      // Only the parts that exist, so a missing place never leaves a stray "·".
+      const when = [eventRange(e.start_date, e.end_date), e.location].filter(x => x && String(x).trim()).map(esc).join(' · ');
+      return `<li${st ? ` data-sid="${esc(st.id)}" class="${statusClass(st)}"` : ''}><div class="ev"><a class="event" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>
+        <span class="date-badge" aria-hidden="true">${d ? `<span class="date-m">thg ${+d[2]}</span><b class="num">${+d[3]}</b>` : ''}</span>
+        <span class="event-text">${left ? `<span class="event-left">${left}</span>` : ''}<span class="event-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>
+        <span class="event-when">${when}</span></span></a>
+        ${calButtons(cal, st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</div></li>`;
     }).join('')}</ul></div>` : '';
-  return `<section class="tile tile-live" aria-labelledby="live-h">
-    <div class="tile-head"><h2 class="tile-title" id="live-h">${esc(head)}</h2>${it ? '<span class="tile-note">phát sóng</span>' : ''}</div>
+  return `<section class="tile tile-live${it ? ' has-video' : ''}" aria-labelledby="live-h">
+    <div class="tile-head"><h2 class="tile-title" id="live-h">${esc(head)}</h2>${it ? '<span class="tile-note">phát sóng</span>' : moreHTML}</div>
     <div class="live-body">${video}${evHTML}</div></section>`;
 }
 
@@ -876,7 +886,7 @@ function whyHTML(st) {
   if (m && m.speed) parts.push(`tăng <b class="num">${nf1.format(m.speed)}</b> mỗi giờ`);
   if (n > 1) parts.push(`<b class="num">${n}</b> nguồn cùng đưa`);
   if (!parts.length) parts.push(esc(ago(st.published_at)));
-  return parts.join(' · ');
+  return whyParts(parts);
 }
 function renderHot(list = HOT) {
   if (!list.length) return '';
@@ -887,7 +897,7 @@ function renderHot(list = HOT) {
       return `<li><a class="hot-row ${statusClass(st)}" href="tin/${esc(st.id)}/" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
         <span class="thumb" data-id="${esc(st.id)}">${img.src ? `<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
         <span class="hot-rank num" aria-hidden="true">${i + 1}</span>
-        <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${esc(t.text)}</span><span class="hot-why">${whyHTML(st)}</span></span></a></li>`;
+        <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${esc(t.text)}</span><span class="hot-why">${translationMark(t)}${whyHTML(st)}</span></span></a></li>`;
     }).join('')}</ol></section>`;
 }
 
@@ -1497,7 +1507,7 @@ function pickRow(st, rank) {
     <span class="thumb pick-thumb" data-id="${esc(st.id)}">${img.src ? `<img src="${esc(img.src)}" alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
     <span class="hot-rank num" aria-hidden="true">${rank}</span>
     <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${esc(t.text)}</span>
-      <span class="hot-why">${pin ? '<span class="tag is-editor">Biên tập chọn</span>' : ''}<span class="sr">Vì sao nên đọc: </span>${worthWhy(st)}</span>
+      <span class="hot-why">${translationMark(t)}${pin ? '<span class="tag is-editor">Biên tập chọn</span>' : ''}<span class="sr">Vì sao nên đọc: </span>${whyParts(worthParts(st))}</span>
       ${pin && pin.note ? `<span class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</span>` : ''}</span></a></li>`;
 }
 function renderPicks() {
@@ -1698,7 +1708,7 @@ function renderSectionHead(it) {
 
 function renderItem(it) {
   if (it.t === 'card') return renderCard(it.st, it.size, it.opts);
-  if (it.t === 'live') return renderLive();
+  if (it.t === 'live') return renderLive(true);
   if (it.t === 'hot') return renderHot();
   if (it.t === 'repos') return renderRepos();
   if (it.t === 'repos-full') return renderRepos(true);
@@ -2022,7 +2032,7 @@ function translationNote() {
   const t = D.translation;
   if (!t || typeof t !== 'object') return 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
   const done = Number.isFinite(t.translated) && t.translated > 0;
-  const base = done ? 'Tiêu đề tiếng Việt là bản dịch máy bằng mô hình NLLB-200 (giấy phép CC-BY-NC 4.0, chỉ dùng phi thương mại); tiêu đề gốc nằm ngay dưới, kèm nhãn “Translated”.' : 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
+  const base = done ? 'Tiêu đề tiếng Việt là bản dịch máy bằng mô hình NLLB-200 (giấy phép CC-BY-NC 4.0, chỉ dùng phi thương mại), kèm nhãn “Translated”. Tiêu đề gốc hiện khi mở bài đọc.' : 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
   const left = Number.isFinite(t.pending) && t.pending > 0 ? ` Còn ${fmt(t.pending)} tiêu đề chưa dịch kịp, đang hiện bản gốc.` : '';
   return `${base}${t.error_vi ? ` ${esc(t.error_vi)}` : left}`;
 }

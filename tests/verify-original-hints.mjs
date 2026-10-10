@@ -41,7 +41,7 @@ try {
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.waitForSelector('.card-lead .card-title');
     await page.evaluate(() => document.fonts.ready);
-    await page.waitForFunction(() => document.querySelectorAll('.card-orig').length > 1);
+    await page.waitForFunction(() => document.querySelectorAll('.feed-card .mt').length > 1);
     // Finish entrances before measuring, without changing the production layout.
     await page.evaluate(async () => {
       await Promise.all(document.getAnimations().filter(a => a.effect.getTiming().iterations !== Infinity)
@@ -73,27 +73,26 @@ try {
               + metricGap * Math.max(0, items.length - 1) + footerGap + box(actions).width,
           };
         }),
-        originals: [...document.querySelectorAll('.card-orig')].map(el => ({
+        originals: document.querySelectorAll('.feed-card .card-orig, .feed-card .orig-text, .hot-row .card-orig, .hot-row .orig-text').length,
+        markers: [...document.querySelectorAll('.feed-card .mt, .hot-row .mt')].map(el => ({
           ...box(el),
-          lineHeight: parseFloat(getComputedStyle(el).lineHeight),
-          clamp: getComputedStyle(el).webkitLineClamp,
-          chipBaseline: getComputedStyle(el.querySelector('.mt')).verticalAlign,
-          text: el.querySelector('.orig-text').textContent,
-          card: el.closest('.feed-card').className,
-          cardHeight: el.closest('.feed-card').getBoundingClientRect().height,
+          text: el.textContent,
+          metadata: el.parentElement.matches('.src-row > .src-when, .hot-why'),
+          card: box(el.closest('.feed-card, .hot-row')),
+          visible: getComputedStyle(el).visibility === 'visible' && getComputedStyle(el).display !== 'none',
         })),
       };
     });
     const session = await page.createCDPSession();
     const { nodes } = await session.send('Accessibility.getFullAXTree');
     const accessibleTexts = nodes.filter(n => !n.ignored && n.role?.value === 'StaticText').map(n => n.name?.value);
-    result.fullOriginalsAccessible = result.originals.every(o => accessibleTexts.includes(o.text));
+    result.translationAccessible = accessibleTexts.some(text => text?.includes('Bản dịch máy.'));
     await page.screenshot({ path: path.join(out, `${theme}-${width}.png`) });
-    results.push({ theme, width, ...result });
     const check = (ok, message) => { if (!ok) failures.push(`${theme} ${width}: ${message}`); };
-    check(result.originals.length > 0, 'no originals rendered');
+    check(result.originals === 0, 'original title rendered on the feed');
+    check(result.markers.length > 0, 'no translation markers rendered');
     check(!result.overflow, 'horizontal overflow');
-    check(result.fullOriginalsAccessible, 'full original absent from accessibility tree');
+    check(result.translationAccessible, 'translation attribution absent from accessibility tree');
     for (const footer of result.footers) {
       const label = `footer ${footer.cardId}`;
       if (footer.requiredWidth <= footer.width + 0.5) {
@@ -110,23 +109,50 @@ try {
         Math.min(a.right, b.right) - Math.max(a.left, b.left) <= 0.5
         || Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) <= 0.5)), `${label} overlaps controls or text`);
     }
-    for (const original of result.originals) {
-      check(original.clamp === '2' && original.height <= original.lineHeight * 2 + 1,
-        `original exceeds two lines (${original.height}px): ${original.text.slice(0, 70)}`);
-      check(original.chipBaseline === 'baseline', 'chip lost baseline alignment');
+    for (const marker of result.markers) {
+      check(marker.text === 'Translated' && marker.metadata, 'translation marker missing from metadata');
+      check(marker.visible && marker.width > 0 && marker.height > 0, 'translation marker hidden');
+      check(marker.left >= marker.card.left - 0.5 && marker.right <= marker.card.right + 0.5
+        && marker.top >= marker.card.top - 0.5 && marker.bottom <= marker.card.bottom + 0.5,
+      'translation marker clips outside its card');
     }
     if (width >= 1024) {
       check(result.headline.top >= 0 && result.headline.bottom <= 760, 'lead headline extends below 760px');
       check(result.source.bottom <= 900, 'lead source outside first screen');
     }
     console.log(JSON.stringify({ theme, width, headlineBottom: result.headline.bottom,
-      leadHeight: result.lead.height, originals: result.originals.length,
-      fullOriginalsAccessible: result.fullOriginalsAccessible }));
+      leadHeight: result.lead.height, originals: result.originals, markers: result.markers.length,
+      translationAccessible: result.translationAccessible }));
+    // Opening a translated story must retain its complete original and attribution.
+    const snapshot = JSON.parse(await fs.readFile(new URL('../site/data/radar-ui.json', import.meta.url), 'utf8'));
+    const translatedIds = snapshot.stories.filter(item => item.title && item.title_vi?.trim()
+      && item.title_vi.trim() !== item.title.trim()).map(item => item.id);
+    const storyId = await page.evaluate(ids => {
+      const card = [...document.querySelectorAll('.feed-card:has(.mt)')].find(el => ids.includes(el.dataset.sid));
+      card?.querySelector('.story-link').click();
+      return card?.dataset.sid;
+    }, translatedIds);
+    const story = snapshot.stories.find(item => item.id === storyId);
+    assert.ok(story, `missing snapshot story ${storyId}`);
+    await page.waitForSelector('.story-article .story-orig-block .orig-text', { visible: true });
+    result.modal = await page.$eval('.story-article .story-orig-block', el => ({
+      original: el.querySelector('.orig-text').textContent,
+      marker: el.querySelector('.mt').textContent,
+      clamp: getComputedStyle(el.querySelector('.card-orig')).webkitLineClamp,
+    }));
+    check(result.modal.original === story.title, 'modal lost the complete original');
+    check(result.modal.marker === 'Translated', 'modal lost translation attribution');
+    check(result.modal.clamp === 'none', 'modal original is clamped');
+    const modalAX = await session.send('Accessibility.getFullAXTree');
+    check(modalAX.nodes.some(n => !n.ignored && n.role?.value === 'StaticText' && n.name?.value === story.title),
+      'modal original absent from accessibility tree');
+    await page.screenshot({ path: path.join(out, `${theme}-${width}-modal.png`) });
+    results.push({ theme, width, ...result });
     await page.close();
   }
   await fs.writeFile(path.join(out, 'measurements.json'), JSON.stringify(results, null, 2) + '\n');
   assert.deepEqual(failures, [], failures.join('\n'));
-  console.log('PASS two-line originals, accessible full text, baseline alignment, compact reachable footers and lead headlines above 760px');
+  console.log('PASS feed attribution without originals, accessible full modal originals, compact reachable footers and lead headlines above 760px');
 } finally {
   await browser.close();
 }
