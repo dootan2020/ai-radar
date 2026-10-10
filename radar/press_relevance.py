@@ -82,7 +82,7 @@ def accepts_observation(item):
     return not press_subject_reason(item.get("title", ""), item.get("summary", "")).startswith("drop-")
 
 
-def filter_published_stories(stories, now):
+def filter_published_stories(stories, now, accepts=accepts_observation):
     """Remove rejected retained coverage before it can merge into fresh stories.
 
     Rebuild changed stories from remaining observations so an excluded primary
@@ -94,7 +94,7 @@ def filter_published_stories(stories, now):
     result = []
     for story in stories:
         coverage = story.get("coverage") or []
-        kept = [item for item in coverage if accepts_observation(item)]
+        kept = [item for item in coverage if accepts(item)]
         if len(kept) == len(coverage):
             result.append(story)
         elif kept:
