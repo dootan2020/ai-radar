@@ -56,7 +56,9 @@ def _request(items, config, transport, timeout):
 
     def work():
         try:
-            response = transport(gemini.request_body(items), config.api_key, timeout)
+            output_tokens = gemini.estimated_output_tokens(items) if config.paid else gemini.MAX_OUTPUT_TOKENS
+            body = gemini.request_body(items, max_output_tokens=output_tokens)
+            response = transport(body, config.api_key, timeout)
             state["outputs"] = gemini.parse_response(response, {item["id"] for item in items})
             metadata = response.get("usageMetadata", {}) if isinstance(response, dict) else {}
             state["tokens"] = metadata.get("totalTokenCount", 0) if isinstance(metadata, dict) else 0
@@ -158,7 +160,7 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
                 api["cache_hits"] += 1
             elif source in gemini_cache:
                 del gemini_cache[source]
-        # Restore published and local model cache before spending on upgrades.
+        # Restore published translations before spending on upgrades.
         if config.paid:
             for source, group in groups.items():
                 if source in accepted:
@@ -166,11 +168,6 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
                 output = validated(source, prior_candidates.get(source), group["names"])
                 if output:
                     accepted[source] = (output, "kept")
-                    continue
-                output, _ = nllb.compose(source, nllb_cache, protected_names=group["names"])
-                output = validated(source, output, group["names"])
-                if output:
-                    accepted[source] = (output, "nllb")
         cooling = cooling_sources(ledger_path, now())
         api["cooldown_skipped"] = sum(_source_id(source) in cooling for source in groups if source not in accepted)
         sources = list(groups) if config.paid else rotate_sources(ledger_path, list(groups))
@@ -198,15 +195,21 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
                     chars += len(source)
                 if config.paid:
                     headroom = gemini_paid_budget.remaining_tokens(gemini_paid_budget.ledger_path(), "translation", now=now())
-                    while items and len(json.dumps(gemini.request_body(items)).encode("utf-8")) + gemini.MAX_OUTPUT_TOKENS > headroom:
+                    while items:
+                        output_bound = gemini.estimated_output_tokens(items)
+                        body = gemini.request_body(items, max_output_tokens=output_bound)
+                        estimated_tokens = len(json.dumps(body).encode("utf-8")) + output_bound
+                        if estimated_tokens <= headroom:
+                            break
                         items.pop()
                 if not items:
                     api["error"] = ("paid_translation_daily_tokens" if config.paid else "input_limit") if not api["requests"] else None
                     break
                 paid_reservation = None
                 if config.paid:
-                    body = gemini.request_body(items)
-                    estimated_tokens = len(json.dumps(body).encode("utf-8")) + gemini.MAX_OUTPUT_TOKENS
+                    output_bound = gemini.estimated_output_tokens(items)
+                    body = gemini.request_body(items, max_output_tokens=output_bound)
+                    estimated_tokens = len(json.dumps(body).encode("utf-8")) + output_bound
                     api["error"], paid_reservation = gemini_paid_budget.reserve(
                         gemini_paid_budget.ledger_path(), estimated_tokens, now=now(), consumer="translation")
                 else:

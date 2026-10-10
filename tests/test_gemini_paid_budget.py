@@ -154,10 +154,10 @@ class PaidBudgetTests(unittest.TestCase):
         first = self._store()
         self.assertEqual(first["pending"], {"101-1": 200_000})
 
-        # A cancelled run retains its smaller hold; its unknown consumer usage stays charged.
+        # A cancelled run retains its hold; unreserved pace remains accessible to subsequent runs.
         self.assertIsNone(self._prepare(True, 103, 13))
         second = self._store()
-        self.assertEqual(second["pending"], {"101-1": 200_000, "103-1": 175_000})
+        self.assertEqual(second["pending"], {"101-1": 200_000, "103-1": 200_000})
         self.assertIsNone(self._reserve(40_000, 13)[0])
 
     def test_branch_run_between_paid_runs_does_not_stale_the_durable_budget(self):
@@ -288,8 +288,14 @@ class PaidBudgetTests(unittest.TestCase):
         store["settled_daily"] = {"2026-10-07": 160_000}
         budget._push(str(self.remote), store, self.now)
         self.assertIsNone(self._prepare(True, 931, 91))
-        self.assertEqual(budget.remaining_tokens(self.path, "translation", now=self.now, run_number=91), 0)
+        # Legacy spend (160_000) is deducted proportionally (40/140 to translation, 100/140 to summary)
+        # without double-counting against either consumer.
+        self.assertGreater(budget.remaining_tokens(self.path, "translation", now=self.now, run_number=91), 0)
+        self.assertEqual(budget.remaining_tokens(self.path, "translation", now=self.now, run_number=91),
+                         int((150_000 - 160_000 * 40 // 140) / 3.75))
         self.assertGreater(budget.remaining_tokens(self.path, "summary", now=self.now, run_number=91), 0)
+        self.assertEqual(budget.remaining_tokens(self.path, "summary", now=self.now, run_number=91),
+                         int(min(200_000, 375_000 - (160_000 - 160_000 * 40 // 140)) / 3.75))
 
     def test_complete_day_cannot_spend_beyond_pace_or_summary_share(self):
         self._prepare(False, 950, 90)
@@ -381,8 +387,8 @@ class PaidBudgetTests(unittest.TestCase):
             prep_err = budget.prepare(self.path, paid=True, now=now_utc, run_number=991,
                                       remote=str(self.remote), run_key="991-1")
             self.assertIsNone(prep_err)
-            self.assertEqual(budget.remaining_tokens(self.path, "translation", now=now_utc, run_number=991), 0)
-            self.assertEqual(budget.remaining_tokens(self.path, "summary", now=now_utc, run_number=991), 0)
+            self.assertEqual(budget.remaining_tokens(self.path, "translation", now=now_utc, run_number=991), 8_998)
+            self.assertEqual(budget.remaining_tokens(self.path, "summary", now=now_utc, run_number=991), 22_494)
             self.assertGreaterEqual(budget.remaining_tokens(self.path, "video", now=now_utc, run_number=991), 8_309)
 
             error, req_id = budget.reserve(self.path, 8_309, now=now_utc, run_number=991,

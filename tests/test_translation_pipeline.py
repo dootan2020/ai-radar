@@ -1,10 +1,12 @@
 """Offline provider orchestration checks; all inference is replaced at the boundary."""
 
 from copy import deepcopy
+from decimal import Decimal
 import io
 import json
 import os
 from pathlib import Path
+import subprocess
 import tempfile
 import threading
 import time
@@ -212,6 +214,137 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(self.calls, [])
         self.assertEqual(stats["gemini"]["error"], "paid_monthly_cap")
         self.assertEqual(stats["provider"], "nllb")
+
+    def test_replay_day_2026_10_10_allows_gemini_translation_with_legacy_spend(self):
+        """Replay day 2026-10-10: 406,902 legacy micros present, normal title volume (24 titles).
+        Gemini is allowed to translate because proportional legacy deduction leaves 8,998 tokens,
+        and dynamic headroom estimation fits the batch without popping items."""
+        from datetime import datetime, timezone
+        now_ts = datetime(2026, 10, 10, 14, 0, tzinfo=timezone.utc).timestamp()
+        remote_path = Path(self.tmp.name) / "remote_replay.git"
+        subprocess.run(["git", "init", "--bare", str(remote_path)], check=True, capture_output=True)
+        paid_path = Path(self.tmp.name) / "paid-ledger.json"
+
+        legacy_store = {
+            "version": 1,
+            "month": "2026-10",
+            "settled_micros": 406_902,
+            "settled_daily": {"2026-10-10": 406_902},
+            "pending": {},
+        }
+        gemini_paid_budget._push(str(remote_path), legacy_store, now=now_ts)
+
+        with patch.dict(os.environ, {"GITHUB_RUN_ID": "1010", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_RUN_NUMBER": "1010"}):
+            err = gemini_paid_budget.prepare(paid_path, paid=True, now=now_ts, run_number=1010,
+                                             remote=str(remote_path), run_key="1010-1")
+            self.assertIsNone(err)
+
+            titles = [f"AI research breakthrough report number {i}" for i in range(24)]
+            payload = {"stories": [story(t, id=f"s-{i}") for i, t in enumerate(titles)]}
+
+            def replay_transport(body, key, timeout):
+                self.calls.append((body, key, timeout))
+                items = inputs(body)
+                return reply([{"id": item["id"], "text": f"Báo cáo đột phá nghiên cứu AI số {i}"}
+                              for i, item in enumerate(items)]) | {"usageMetadata": {"totalTokenCount": 650}}
+
+            config = gemini.Config(api_key="offline-sentinel", paid=True, confirmed=True, batch_size=24)
+            with patch.dict(os.environ, {"RADAR_GEMINI_PAID_LEDGER": str(paid_path)}):
+                stats, _ = pipeline.translate_payload(
+                    payload, {}, {}, config=config,
+                    transport=replay_transport,
+                    now=lambda: now_ts,
+                    factory=lambda: (_ for _ in ()).throw(AssertionError("NLLB fallback should not be invoked"))
+                )
+
+            self.assertEqual(stats["provider"], "gemini")
+            self.assertEqual(stats["gemini"]["status"], "ok")
+            self.assertEqual(stats["gemini"]["translated"], 24)
+            self.assertEqual(stats["gemini"]["requests"], 1)
+            self.assertEqual(len(self.calls), 1)
+            for i, s in enumerate(payload["stories"]):
+                self.assertEqual(s["title_vi"], f"Báo cáo đột phá nghiên cứu AI số {i}")
+
+            self.assertIsNone(gemini_paid_budget.finalize(paid_path, str(remote_path), now=now_ts, run_key="1010-1"))
+            with tempfile.TemporaryDirectory() as temp:
+                restored = gemini_paid_budget._restore(str(remote_path), Path(temp) / "repo", now_ts)
+            expected_micros = gemini_paid_budget._micros(650, now_ts)
+            self.assertEqual(restored["settled_consumers"]["2026-10-10"]["translation"], expected_micros)
+            self.assertEqual(restored["settled_daily"]["2026-10-10"], 406_902 + expected_micros)
+
+    def test_monthly_cap_strictly_stops_spending_at_twenty_dollars(self):
+        """Monthly cap proof:
+        1. When month is already at $20.00 (20,000,000 micros), prepare strictly refuses with paid_monthly_cap.
+        2. When near cap ($19.99 settled), reserve strictly blocks any request exceeding the remaining $0.01.
+        3. Translation pipeline stops Gemini before transport and falls back to NLLB.
+        4. Arithmetic check: 31 days * $0.57 daily pace = $17.67 <= $20.00 hard cap."""
+        from datetime import datetime, timezone
+        now_ts = datetime(2026, 10, 25, 12, 0, tzinfo=timezone.utc).timestamp()
+        remote_path = Path(self.tmp.name) / "remote_cap.git"
+        subprocess.run(["git", "init", "--bare", str(remote_path)], check=True, capture_output=True)
+        paid_path = Path(self.tmp.name) / "paid-ledger.json"
+
+        # 1. At cap ($20.00 = 20,000,000 micros): prepare refuses immediately
+        at_cap_store = {
+            "version": 1,
+            "month": "2026-10",
+            "settled_micros": 20_000_000,
+            "settled_daily": {"2026-10-25": 100_000},
+            "settled_consumers": {"2026-10-25": {"translation": 100_000}},
+            "pending": {},
+        }
+        gemini_paid_budget._push(str(remote_path), at_cap_store, now=now_ts)
+
+        with patch.dict(os.environ, {"GITHUB_RUN_ID": "2020", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_RUN_NUMBER": "2020"}):
+            prep_err = gemini_paid_budget.prepare(paid_path, paid=True, now=now_ts, run_number=2020,
+                                                  remote=str(remote_path), run_key="2020-1")
+            self.assertEqual(prep_err, "paid_monthly_cap")
+
+        # 2. Near cap: $19.99 (19,990,000 micros) - only 10,000 micros ($0.01) remaining
+        near_cap_store = {
+            "version": 1,
+            "month": "2026-10",
+            "settled_micros": 19_990_000,
+            "settled_daily": {"2026-10-25": 100_000},
+            "settled_consumers": {"2026-10-25": {"translation": 100_000}},
+            "pending": {},
+        }
+        paid_path.unlink(missing_ok=True)
+        gemini_paid_budget._push(str(remote_path), near_cap_store, now=now_ts)
+        with patch.dict(os.environ, {"GITHUB_RUN_ID": "2021", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_RUN_NUMBER": "2021"}):
+            self.assertIsNone(gemini_paid_budget.prepare(paid_path, paid=True, now=now_ts, run_number=2021,
+                                                         remote=str(remote_path), run_key="2021-1"))
+            # 5,000 tokens = 18,750 micros > 10,000 micros remaining to cap -> reserve refuses with paid_monthly_cap
+            res_err, _ = gemini_paid_budget.reserve(paid_path, 5000, now=now_ts, run_number=2021, consumer="translation")
+            self.assertEqual(res_err, "paid_monthly_cap")
+
+            # 3. Pipeline falls back to NLLB with 0 transport calls when cap is hit
+            config = gemini.Config(api_key="offline-sentinel", paid=True, confirmed=True)
+            payload = {"stories": [story()]}
+            with patch.dict(os.environ, {"RADAR_GEMINI_PAID_LEDGER": str(paid_path),
+                                         "RADAR_GEMINI_PAID_MONTHLY_CAP_USD": "0.00001"}):
+                stats, _ = pipeline.translate_payload(
+                    payload, {}, {}, config=config,
+                    transport=self.transport,
+                    now=lambda: now_ts,
+                    factory=lambda: lambda batch: [VI for _ in batch]
+                )
+
+            self.assertEqual(self.calls, [])
+            self.assertEqual(stats["gemini"]["error"], "paid_monthly_cap")
+            self.assertEqual(stats["provider"], "nllb")
+            self.assertEqual(payload["stories"][0]["title_vi"], VI)
+
+            # Finalize ensures settled_micros never exceeds 20,000,000 micros
+            self.assertIsNone(gemini_paid_budget.finalize(paid_path, str(remote_path), now=now_ts, run_key="2021-1"))
+            with tempfile.TemporaryDirectory() as temp:
+                restored = gemini_paid_budget._restore(str(remote_path), Path(temp) / "repo", now_ts)
+            self.assertLessEqual(restored["settled_micros"], 20_000_000)
+
+        # 4. Arithmetic invariants
+        self.assertEqual(gemini_paid_budget.DEFAULT_CAP_USD, 20)
+        self.assertEqual(gemini_paid_budget.DAILY_PACE_USD * 31, Decimal("17.67"))
+        self.assertLessEqual(gemini_paid_budget.DAILY_PACE_USD * 31, Decimal("20.00"))
 
     def test_transport_errors_fall_back_without_exposing_exception_text(self):
         for error in (TimeoutError("offline-sentinel timeout"), OSError("offline-sentinel error")):
