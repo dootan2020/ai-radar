@@ -58,75 +58,7 @@ export function makerName(maker) {
   return name ? (Object.hasOwn(makers, name.toLowerCase()) ? makers[name.toLowerCase()] : readableWords(name)) : 'Chưa rõ hãng';
 }
 export const scoreText = score => number.format(score);
-const gapNumber = new Intl.NumberFormat('vi-VN', { minimumFractionDigits: 1, maximumFractionDigits: 1, useGrouping: false });
-const makerStyles = { google: 'google', anthropic: 'anthropic', meta: 'meta', moonshot: 'moonshot', openai: 'openai' };
-const makerStyle = maker => Object.hasOwn(makerStyles, maker.trim().toLowerCase()) ? makerStyles[maker.trim().toLowerCase()] : 'other';
-export function makerInitial(maker) {
-  const name = makerName(maker).trim();
-  const lower = name.toLowerCase();
-  if (lower === 'openai') return 'O';
-  if (lower === 'anthropic') return 'A';
-  if (lower === 'google') return 'G';
-  if (lower === 'meta') return 'M';
-  if (lower === 'moonshot') return 'M';
-  if (lower === 'xai') return 'x';
-  if (lower === 'deepseek') return 'D';
-  if (lower === 'mistral') return 'M';
-  if (lower === 'bytedance') return 'B';
-  if (lower === 'alibaba' || lower === 'qwen') return 'Q';
-  return (name[0] || '·').toUpperCase();
-}
-export function parseModelDisplay(id) {
-  const full = modelName(id);
-  const match = full.match(/^(.*?)(?:\s*\(suy luận:\s*([^)]+)\))?$/);
-  if (!match) return { full, core: full, effort: '' };
-  return { full, core: match[1].trim(), effort: match[2] ? match[2].trim() : '' };
-}
-function chartHTML(data, rows, category) {
-  const highest = Math.max(...rows.map(row => row.score));
-  const leaders = rows.filter(row => row.score === highest);
-  const runnerUp = [...rows].sort((a, b) => b.score - a.score)[1];
-  // Keep ten points below every score on one tight, shared absolute scale.
-  const allScores = Object.keys(ARENA_CATEGORIES).flatMap(key => {
-    const scores = Array.isArray(data.categories[key]) ? data.categories[key].map(row => row?.score) : [];
-    return scores.length === 10 && scores.every(Number.isFinite) ? scores : [];
-  });
-  const floor = Math.floor(Math.min(...allScores) / 10) * 10 - 10;
-  const ceiling = Math.max(floor + 20, Math.ceil(Math.max(...allScores) / 10) * 10);
-  const midpoint = (floor + ceiling) / 2;
-  const gap = gapNumber.format(highest - runnerUp.score);
-  const legend = [...new Set(rows.map(row => row.maker))].map(maker => `<span class="arena-maker arena-maker-${makerStyle(maker)}"><span class="arena-mark" aria-hidden="true">${makerInitial(maker)}</span><small>${esc(makerName(maker))}</small></span>`).join('');
-  return `<figure class="arena-chart" aria-labelledby="arena-chart-title" aria-describedby="arena-scale arena-note">
-    <div class="arena-lead"><div class="arena-lead-main"><p class="arena-eyebrow">${leaders.length > 1 ? 'CÙNG ĐIỂM CAO NHẤT' : 'ĐIỂM CAO NHẤT'} · ${esc(ARENA_CATEGORIES[category])}</p><div class="arena-lead-title-row"><h3 id="arena-chart-title">${leaders.map(row => esc(modelName(row.id))).join(' · ')}</h3><span class="arena-lead-score-pill"><strong>${scoreText(highest)}</strong> điểm</span></div><p class="arena-lead-diff">${leaders.length > 1 ? 'Các mô hình dẫn đầu bằng điểm nhau.' : `Hơn mô hình kế tiếp <strong>${gap} điểm</strong>.`}</p></div></div>
-    <div class="arena-chart-key"><span>Điểm Arena</span><div class="arena-legend" aria-label="Hãng phát triển">${legend}</div></div>
-    <div class="arena-mobile-axis" aria-hidden="true"><span>${scoreText(floor)}</span><span>${scoreText(midpoint)}</span><span>${scoreText(ceiling)}</span></div>
-    <ol class="arena-columns" role="list" aria-label="10 mô hình dẫn đầu, điểm Arena và thay đổi hạng so với tuần trước" aria-describedby="arena-comparison">
-      ${rows.map(row => {
-        const { full, core, effort } = parseModelDisplay(row.id);
-        const effortPill = effort ? `<span class="arena-effort-tag">${esc(effort)}</span>` : '';
-        return `<li class="arena-column arena-maker-${makerStyle(row.maker)}${row.score === highest ? ' arena-leader' : ''}" value="${row.rank}" tabindex="0" aria-label="${esc(full)}, Hạng ${row.rank}, ${scoreText(row.score)} điểm Arena, ${esc(makerName(row.maker))}, ${movement(row).replace(/<[^>]+>/g, '')}">
-          <div class="arena-column-label">
-            <div class="arena-model-block"><span class="arena-model" title="${esc(full)}">${esc(core)}</span>${effortPill}</div>
-            <div class="arena-meta-line">
-              <span class="arena-rank">#${row.rank}</span>
-              <span class="arena-maker arena-maker-${makerStyle(row.maker)}" title="${esc(makerName(row.maker))}"><span class="arena-mark" aria-hidden="true">${makerInitial(row.maker)}</span><small>${esc(makerName(row.maker))}</small></span>
-            </div>
-          </div>
-          <div class="arena-movement">${movement(row)}</div>
-          <div class="arena-plot" style="--arena-bar-size:${(row.score - floor) / (ceiling - floor) * 100}%"><div class="arena-ticks" aria-hidden="true"><span>${scoreText(ceiling)}</span><span>${scoreText(midpoint)}</span><span>${scoreText(floor)}</span></div><div class="arena-bar" aria-hidden="true"></div><div class="arena-value"><strong class="arena-score"><span class="sr">Điểm Arena </span>${scoreText(row.score)}</strong></div></div>
-          <div class="arena-tooltip" role="tooltip" aria-hidden="true">
-            <div class="arena-tooltip-model">${esc(full)}</div>
-            <div class="arena-tooltip-row">
-              <span class="arena-tooltip-maker">${esc(makerName(row.maker))}</span>
-              <span class="arena-tooltip-score"><strong>${scoreText(row.score)}</strong> điểm</span>
-            </div>
-            <div class="arena-tooltip-change">${movement(row)}</div>
-          </div></li>`;
-      }).join('')}
-    </ol>
-    <figcaption id="arena-scale" class="arena-scale-note"><strong>Trục điểm Arena: ${scoreText(floor)}–${scoreText(ceiling)}, dùng chung cho cả ba nhóm.</strong> ${floor === 0 ? 'Trục bắt đầu từ 0.' : 'Trục không bắt đầu từ 0; độ dài thanh không biểu thị tỷ lệ năng lực.'} Điểm hiển thị được làm tròn; biểu đồ và chênh lệch dùng điểm gốc.</figcaption>
-  </figure>`;
-}
+
 export function movement(row) {
   if (row.change_status === 'unlisted') return '<span class="arena-change">Chưa có hạng cũ</span>';
   if (row.change_status !== 'compared' || !Number.isInteger(row.rank_change)) return '<span class="arena-change">Chưa đủ dữ liệu</span>';
@@ -134,6 +66,165 @@ export function movement(row) {
   if (!n) return '<span class="arena-change">— Giữ hạng</span>';
   return `<span class="arena-change ${n > 0 ? 'arena-up' : 'arena-down'}">${n > 0 ? '↑ Tăng' : '↓ Giảm'} ${Math.abs(n)}</span>`;
 }
+
+export function computeAxis(rows) {
+  let minVal = Infinity;
+  let maxVal = -Infinity;
+  for (const row of rows) {
+    const low = Number.isFinite(row?.rating_lower) ? row.rating_lower : row?.score;
+    const high = Number.isFinite(row?.rating_upper) ? row.rating_upper : row?.score;
+    if (Number.isFinite(low) && low < minVal) minVal = low;
+    if (Number.isFinite(high) && high > maxVal) maxVal = high;
+  }
+  if (!Number.isFinite(minVal) || !Number.isFinite(maxVal)) {
+    minVal = 1480;
+    maxVal = 1540;
+  }
+  const STEP = 20;
+  let floor = Math.floor(minVal / STEP) * STEP;
+  let ceiling = Math.ceil(maxVal / STEP) * STEP;
+  if (ceiling <= floor) ceiling = floor + STEP;
+  const ticks = [];
+  for (let t = floor; t <= ceiling; t += STEP) {
+    ticks.push(t);
+  }
+  return { floor, ceiling, ticks };
+}
+
+export function formatCI(row) {
+  if (!Number.isFinite(row?.rating_lower) || !Number.isFinite(row?.rating_upper)) return '';
+  const low = row.rating_lower.toFixed(1);
+  const high = row.rating_upper.toFixed(1);
+  const margin = Math.round((row.rating_upper - row.rating_lower) / 2);
+  return `CI 95%: ${low} – ${high} (±${margin})`;
+}
+
+function tableHTML(rows, category) {
+  const { floor, ceiling, ticks } = computeAxis(rows);
+  const rangeSpan = ceiling - floor;
+  const rangeText = `${floor} – ${ceiling}`;
+
+  return `<figure class="arena-card arena-chart" aria-labelledby="arena-title" aria-describedby="arena-comparison arena-note">
+    <div class="arena-legend-strip">
+      <div class="arena-legend-items">
+        <span class="arena-legend-item">
+          <span class="arena-legend-bar-icon" aria-hidden="true"></span>
+          <span>Thanh điểm ước lượng</span>
+        </span>
+        <span class="arena-legend-item">
+          <span class="arena-legend-ci-icon" aria-hidden="true">
+            <svg width="24" height="12" viewBox="0 0 24 12" fill="none" aria-hidden="true">
+              <line x1="1" y1="2" x2="1" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="1" y1="6" x2="23" y2="6" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="23" y1="2" x2="23" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="12" cy="6" r="2" fill="currentColor"/>
+            </svg>
+          </span>
+          <span>Râu khoảng tin cậy 95% (CI)</span>
+        </span>
+      </div>
+      <p class="arena-legend-note">Các mô hình có râu đè lên nhau nghĩa là chênh lệch nằm trong biên độ sai số.</p>
+    </div>
+    <table class="arena-table" aria-describedby="arena-comparison">
+      <caption class="sr">10 mô hình dẫn đầu · ${esc(ARENA_CATEGORIES[category])}</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="arena-th-rank">Hạng</th>
+          <th scope="col" class="arena-th-model">Mô hình / Hãng</th>
+          <th scope="col" class="arena-th-plot">
+            <div class="arena-axis-header">
+              <span class="arena-axis-title">
+                <span class="arena-title-full">Điểm Arena & <span class="arena-axis-ci-label">Khoảng tin cậy 95%</span></span>
+                <span class="arena-title-short">Khoảng tin cậy 95%</span>
+              </span>
+              <span class="arena-axis-range">
+                <span class="arena-range-full">Dải đo: ${rangeText}</span>
+                <span class="arena-range-short">${rangeText}</span>
+              </span>
+            </div>
+            <div class="arena-axis-ticks" aria-hidden="true">
+              ${ticks.map((t, idx) => {
+                const pct = (t - floor) / rangeSpan * 100;
+                const alignClass = idx === 0 ? ' arena-tick-first' : idx === ticks.length - 1 ? ' arena-tick-last' : '';
+                return `<span class="arena-axis-tick${alignClass}" style="left: ${pct}%">${t}</span>`;
+              }).join('')}
+            </div>
+          </th>
+          <th scope="col" class="arena-th-score">
+            <span class="arena-score-full">Điểm Arena</span>
+            <span class="arena-score-short">Điểm</span>
+          </th>
+          <th scope="col" class="arena-th-change">
+            <span class="arena-change-full">So với tuần trước</span>
+            <span class="arena-change-short">So tuần trước</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map(row => {
+          const isLeader = row.rank === 1;
+          const scorePct = Math.max(0, Math.min(100, (row.score - floor) / rangeSpan * 100));
+          const hasCI = Number.isFinite(row.rating_lower) && Number.isFinite(row.rating_upper);
+          const low = hasCI ? row.rating_lower : row.score;
+          const high = hasCI ? row.rating_upper : row.score;
+          const lowPct = Math.max(0, Math.min(100, (low - floor) / rangeSpan * 100));
+          const highPct = Math.max(0, Math.min(100, (high - floor) / rangeSpan * 100));
+          const ciWidthPct = Math.max(0, highPct - lowPct);
+          const ciText = formatCI(row);
+
+          return `<tr class="arena-row${isLeader ? ' arena-leader' : ''}">
+            <td class="arena-col-rank">
+              <span class="arena-rank-num">${row.rank}</span>
+            </td>
+            <th scope="row" class="arena-col-model">
+              <div class="arena-model-header">
+                <div class="arena-model-left">
+                  <span class="arena-rank-mobile">${row.rank}</span>
+                  <span class="arena-model-name" title="${esc(row.id)}">${esc(modelName(row.id))}</span>
+                </div>
+                <span class="arena-score-mobile"><strong>${scoreText(row.score)}</strong></span>
+              </div>
+              <div class="arena-model-meta">
+                <span class="arena-model-maker"><small>${esc(makerName(row.maker))}</small></span>
+                <span class="arena-movement-mobile">${movement(row)}</span>
+              </div>
+            </th>
+            <td class="arena-col-plot">
+              <div class="arena-plot-track">
+                <div class="arena-gridlines" aria-hidden="true">
+                  ${ticks.map((t, idx) => {
+                    const pct = (t - floor) / rangeSpan * 100;
+                    const alignClass = idx === 0 ? ' arena-gridline-first' : idx === ticks.length - 1 ? ' arena-gridline-last' : '';
+                    return `<span class="arena-gridline${alignClass}" style="left: ${pct}%"></span>`;
+                  }).join('')}
+                </div>
+                <div class="arena-bar" style="width: ${scorePct}%" aria-hidden="true"></div>
+                ${hasCI ? `<div class="arena-whisker" style="left: ${lowPct}%; width: ${ciWidthPct}%" aria-hidden="true">
+                  <span class="arena-whisker-cap arena-cap-left"></span>
+                  <span class="arena-whisker-stem"></span>
+                  <span class="arena-whisker-cap arena-cap-right"></span>
+                </div>` : ''}
+                <div class="arena-dot" style="left: ${scorePct}%" aria-hidden="true"></div>
+              </div>
+              ${hasCI ? `<div class="arena-mobile-ci" aria-hidden="true">
+                <span>${floor}</span>
+                <span class="arena-mobile-ci-center">${ciText}</span>
+                <span>${ceiling}</span>
+              </div>` : ''}
+            </td>
+            <td class="arena-col-score">
+              <strong>${scoreText(row.score)}</strong>
+            </td>
+            <td class="arena-col-change">
+              ${movement(row)}
+            </td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>
+  </figure>`;
+}
+
 export function arenaHTML(data, category = 'overall') {
   const rows = data?.categories?.[category];
   const valid = Array.isArray(rows) && rows.length === 10 && rows.every(row =>
@@ -149,7 +240,7 @@ export function arenaHTML(data, category = 'overall') {
   return `${intro}<p class="arena-date">Theo Arena, công bố ngày <strong>${dateText(data.published_at)}</strong>.${status}${stale}</p>
     <div class="arena-switch" role="group" aria-label="Nhóm xếp hạng Arena">${tabs}</div>
     <p class="arena-comparison" id="arena-comparison">${comparison}</p>
-    ${chartHTML(data, rows, category)}
+    ${tableHTML(rows, category)}
     <p class="arena-note" id="arena-note">Điểm cao hơn thể hiện được ưa thích hơn trong các lượt so sánh của Arena. Chênh lệch nhỏ có thể nằm trong sai số; thứ hạng không khẳng định mô hình tốt hơn cho mọi tác vụ.</p>${attribution}`;
 }
 

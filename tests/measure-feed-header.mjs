@@ -74,9 +74,40 @@ function measure() {
   const pill = rect(strip.querySelector('.tab-pill'));
   const active = tabs.find(c => c.active);
   const pillMatchesActive = ['x', 'y', 'width', 'height'].every(key => Math.abs(pill[key] - active[key]) <= 1);
+  const table = document.querySelector('.arena-table');
+  let arena = null;
+  if (table && table.getClientRects().length && innerWidth >= 768) {
+    const labels = [];
+    for (const cell of table.querySelectorAll('thead th')) {
+      const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) {
+        const node = walker.currentNode, text = node.textContent;
+        if (!text.trim()) continue;
+        const range = document.createRange();
+        range.setStart(node, text.length - text.trimStart().length);
+        range.setEnd(node, text.trimEnd().length);
+        const boxes = [...range.getClientRects()].filter(b => b.width > 0);
+        const b = range.getBoundingClientRect(), c = cell.getBoundingClientRect();
+        labels.push({ text: text.trim(), x: b.x, y: b.y, right: b.right, bottom: b.bottom,
+          lines: boxes.length, fits: b.x >= c.x - 0.5 && b.right <= c.right + 0.5 });
+      }
+    }
+    const collisions = [];
+    for (let i = 0; i < labels.length; i++) for (let j = i + 1; j < labels.length; j++) {
+      const a = labels[i], b = labels[j];
+      if (Math.min(a.right, b.right) - Math.max(a.x, b.x) > 0.5 &&
+          Math.min(a.bottom, b.bottom) - Math.max(a.y, b.y) > 0.5) collisions.push([a.text, b.text]);
+    }
+    const axis = rect(table.querySelector('.arena-axis-ticks'));
+    const tracks = [...table.querySelectorAll('.arena-plot-track')].map(rect);
+    arena = { labels, collisions, axis, tracks,
+      headerBottom: rect(table.querySelector('.arena-axis-header')).bottom,
+      modelWidth: rect(table.querySelector('.arena-col-model')).width,
+      scrollWidth: table.scrollWidth, clientWidth: table.clientWidth };
+  }
   return { header: dimensions('#bar'), row: dimensions('.feed-bar-in'), strip: dimensions('#feed-filters'),
     navigation: dimensions('.feed-navigation'), sort: dimensions('#sort-switch'), masked, controls, overlaps,
-    tabGaps, pill: { ...pill, fullyVisible: contained(pill), matchesActive: pillMatchesActive },
+    tabGaps, arena, pill: { ...pill, fullyVisible: contained(pill), matchesActive: pillMatchesActive },
     tabCountElements: document.querySelectorAll('.filter-chip .count').length,
     staleBanner: !!document.querySelector('#stale'),
     document: { scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth } };
@@ -135,6 +166,14 @@ async function main() {
       await evaluate(`document.querySelector('[data-filter="${filter}"]').click()`);
       await sleep(700);
       await capture(filter, true);
+      if (filter === 'rankings') {
+        assert.ok(await evaluate(`!!document.querySelector('.arena-table')`), 'Real Arena data must finish loading');
+        for (const category of ['hard_prompts', 'non_english']) {
+          await evaluate(`document.querySelector('[data-arena-category="${category}"]').click()`);
+          await capture(`rankings-${category}`, true);
+        }
+        await evaluate(`document.querySelector('[data-arena-category="overall"]').click()`);
+      }
     }
     // A selected rightmost tab must stay revealed when the available width changes.
     if (width === 1920) {
@@ -149,6 +188,18 @@ async function main() {
   if (out) fs.writeFileSync(path.join(out, 'header-measurements.json'), JSON.stringify(results, null, 2));
   console.log(JSON.stringify(results, null, 2));
   if (!observe) for (const r of results) {
+    if (r.state.startsWith('rankings') && r.width >= 768 && r.width <= 1199) {
+      const context = `${r.width}/${r.theme}/${r.state}`;
+      assert.ok(r.arena, `${context}: missing Arena measurements`);
+      assert.ok(r.arena.labels.every(label => label.lines === 1 && label.fits), `${context}: wrapped or clipped Arena header`);
+      assert.deepEqual(r.arena.collisions, [], `${context}: Arena labels or ticks collide`);
+      assert.ok(r.arena.headerBottom <= r.arena.axis.y, `${context}: labels intrude on axis ticks`);
+      assert.ok(r.arena.scrollWidth <= r.arena.clientWidth + 1, `${context}: Arena table overflow`);
+      assert.equal(r.arena.tracks.length, 10, `${context}: expected ten plot tracks`);
+      assert.ok(r.arena.tracks.every(track => track.width >= 200), `${context}: CI track narrower than 200px`);
+      assert.ok(r.arena.tracks.every(track => Math.abs(track.x - r.arena.axis.x) < 1 &&
+        Math.abs(track.width - r.arena.axis.width) < 1), `${context}: ticks and bars are misaligned`);
+    }
     assert.equal(r.header.scrollWidth, r.header.clientWidth, `${r.width}: header overflow`);
     assert.equal(r.document.scrollWidth, r.document.clientWidth, `${r.width}: document overflow`);
     assert.deepEqual(r.overlaps, [], `${r.width}: controls overlap`);
