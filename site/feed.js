@@ -1858,7 +1858,7 @@ function buildAll() {
 
 const FILTERS = {
   big: st => bigSet.has(st.id),
-  hot: st => st.hot_score > 0,
+  hot: st => st.hot_score > 0 && hotEligible(st),
   product: st => st.kind === 'product',
   forum: st => st.kind === 'forum',
   code: st => st.kind === 'repository' || st.kind === 'model',
