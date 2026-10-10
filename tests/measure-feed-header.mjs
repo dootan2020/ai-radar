@@ -95,17 +95,23 @@ function measure() {
   if (table && table.getClientRects().length && innerWidth >= 768) {
     const labels = [];
     for (const cell of table.querySelectorAll('thead th')) {
+      const c = cell.getBoundingClientRect(), style = getComputedStyle(cell);
+      // A label must sit inside the cell's padding, so neighbouring labels and the card edge keep room.
+      const inner = { x: c.x + parseFloat(style.paddingLeft), right: c.right - parseFloat(style.paddingRight) };
       const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
       while (walker.nextNode()) {
         const node = walker.currentNode, text = node.textContent;
         if (!text.trim()) continue;
+        // The short/long label variants swap with display:none; a label that is not rendered has no
+        // boxes and nothing to wrap or clip. Every rendered label is still measured.
+        if (!node.parentElement.getClientRects().length) continue;
         const range = document.createRange();
         range.setStart(node, text.length - text.trimStart().length);
         range.setEnd(node, text.trimEnd().length);
         const boxes = [...range.getClientRects()].filter(b => b.width > 0);
-        const b = range.getBoundingClientRect(), c = cell.getBoundingClientRect();
+        const b = range.getBoundingClientRect();
         labels.push({ text: text.trim(), x: b.x, y: b.y, right: b.right, bottom: b.bottom,
-          lines: boxes.length, fits: b.x >= c.x - 0.5 && b.right <= c.right + 0.5 });
+          lines: boxes.length, fits: b.x >= inner.x - 0.5 && b.right <= inner.right + 0.5 });
       }
     }
     const collisions = [];
@@ -209,7 +215,10 @@ async function main() {
     if (r.state.startsWith('rankings') && r.width >= 768 && r.width <= 1199) {
       const context = `${r.width}/${r.theme}/${r.state}`;
       assert.ok(r.arena, `${context}: missing Arena measurements`);
-      assert.ok(r.arena.labels.every(label => label.lines === 1 && label.fits), `${context}: wrapped or clipped Arena header`);
+      for (const text of ['Hạng', 'Mô hình / Hãng', 'Điểm', 'So tuần trước'])
+        assert.ok(r.arena.labels.some(label => label.text === text), `${context}: Arena header label "${text}" is not rendered`);
+      const cramped = r.arena.labels.filter(label => label.lines !== 1 || !label.fits);
+      assert.deepEqual(cramped.map(label => label.text), [], `${context}: wrapped or clipped Arena header`);
       assert.deepEqual(r.arena.collisions, [], `${context}: Arena labels or ticks collide`);
       assert.ok(r.arena.headerBottom <= r.arena.axis.y, `${context}: labels intrude on axis ticks`);
       assert.ok(r.arena.scrollWidth <= r.arena.clientWidth + 1, `${context}: Arena table overflow`);

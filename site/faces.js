@@ -31,9 +31,13 @@ export function ytIdOf(st){
 const ghOwner = url => { const m = /^https:\/\/github\.com\/([\w.-]+)\/[\w.-]+/.exec(url || ''); return m && !['orgs','topics','features','sponsors'].includes(m[1]) ? m[1] : null; };
 const hfOwner = url => { const m = /^https:\/\/huggingface\.co\/(?:spaces\/)?([\w.-]+)\/[\w.-]+\/?$/.exec(url || ''); return m && !['papers','datasets','api','blog','docs'].includes(m[1]) ? m[1] : null; };
 
+/* Letters and digits only, each kept whole with its combining marks (decomposed "ế" is one letter), so an
+   emoji or symbol in a name ("🚨 AI News") is skipped instead of being split into half a surrogate pair. */
+const lettersOf = word => word.match(/[\p{L}\p{N}]\p{M}*/gu) || [];
 export function monogram(name){
-  const w = String(name || '?').replace(/\(.*?\)/g, '').trim().split(/[\s/._-]+/).filter(Boolean);
-  return ((w[0] || '?')[0] + (w[1] ? w[1][0] : (w[0] || '').slice(1, 2))).toUpperCase();
+  const w = String(name || '').replace(/\(.*?\)/g, '').trim().split(/[\s/._|-]+/).map(lettersOf).filter(l => l.length);
+  if (!w.length) return '?';
+  return (w[0][0] + (w[1] ? w[1][0] : (w[0][1] || ''))).toUpperCase();
 }
 /* A monogram's tint comes from its letters, so the same publisher always gets the same tile. */
 const monoHue = s => [...String(s)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7);
