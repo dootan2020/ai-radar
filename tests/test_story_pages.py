@@ -87,6 +87,43 @@ def story(story_id="story-1", **overrides):
 
 
 class StoryPageRenderingTests(unittest.TestCase):
+    def test_screened_story_uses_site_metadata_image_and_keeps_full_title(self):
+        item = story(image_screened=True, image=None, headline="Short", headline_vi="Ngắn")
+        document = render_story_page(item)
+        parser = PageParser()
+        parser.feed(document)
+        self.assertEqual(parser.metas["og:image"], f"{BASE_URL}/og-image.png")
+        self.assertEqual(parser.metas["twitter:image"], parser.metas["og:image"])
+        self.assertEqual(json.loads(parser.jsonld[0])["image"], [parser.metas["og:image"]])
+        self.assertEqual(parser.metas["twitter:card"], "summary_large_image")
+        self.assertIn('id="story-modal-title">Tiêu đề tiếng Việt</h1>', document)
+        self.assertEqual(json.loads(parser.scripts[0])["headline_vi"], "Ngắn")
+        self.assertIsNone(json.loads(parser.scripts[0])["image"])
+
+    def test_screened_approved_image_is_the_metadata_image(self):
+        for src, expected in [("assets/ai/story-1.jpg", f"{BASE_URL}/assets/ai/story-1.jpg"),
+                              ("https://publisher.example/photo.jpg", "https://publisher.example/photo.jpg")]:
+            with self.subTest(src=src):
+                item = story(image_screened=True, image={"src": src})
+                parser = PageParser()
+                parser.feed(render_story_page(item))
+                self.assertEqual(parser.metas["og:image"], expected)
+                self.assertEqual(parser.metas["twitter:image"], expected)
+                self.assertEqual(json.loads(parser.jsonld[0])["image"], [expected])
+
+    def test_screened_missing_or_invalid_image_never_borrows_coverage_media(self):
+        for image in [None, {}, {"src": ""}, {"src": "javascript:alert(1)"}]:
+            with self.subTest(image=image):
+                item = story(image_screened=True, image=image)
+                item["coverage"][0]["media"] = [{"type": "image", "url": "https://rejected.example/image.jpg"}]
+                parser = PageParser()
+                parser.feed(render_story_page(item, base_url="https://radar.example/"))
+                expected = "https://radar.example/og-image.png"
+                self.assertEqual(parser.metas["og:image"], expected)
+                self.assertEqual(parser.metas["twitter:image"], expected)
+                self.assertEqual(json.loads(parser.jsonld[0])["image"], [expected])
+                self.assertEqual(json.loads(parser.scripts[0])["image"], image)
+
     def test_metadata_fallback_content_relative_assets_and_json_are_safe(self):
         malicious = story(
             title_vi='Tiêu đề </title><script>alert("x")</script>',

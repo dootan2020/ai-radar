@@ -143,7 +143,10 @@ def _page_fields(story, base_url):
         else:
             raise ValueError(f"Story {_story_id(story)} has no safe original URL")
     image = story.get("image")
-    image_url = _http_url(image.get("src")) if isinstance(image, dict) else None
+    image_src = _text(image.get("src")) if isinstance(image, dict) else ""
+    image_url = _http_url(image_src)
+    if re.fullmatch(r"assets/ai/[\w-]+\.jpg", image_src):
+        image_url = f"{base_url}/{image_src}"
     if not image_url:
         image_url = f"{base_url}/og-image.png"
     publisher = (_text(first_coverage.get("publisher")) or _text(first_coverage.get("source")) or
@@ -189,9 +192,10 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
         "@context": "https://schema.org",
         "@type": "NewsArticle",
         "headline": fields["title"],
-        "image": [fields["image"]],
         "publisher": {"@type": "Organization", "name": SITE_NAME},
     }
+    if fields["image"]:
+        article_data["image"] = [fields["image"]]
     if fields["date_published"]:
         article_data["datePublished"] = fields["date_published"]
     encoded_article = json.dumps(article_data, ensure_ascii=False, separators=(",", ":"))
@@ -214,7 +218,13 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
     document = TEMPLATE_PATH.read_text(encoding="utf-8")
     values = {
         "{{TITLE}}": esc(fields["title"]), "{{DESCRIPTION}}": esc(fields["description"]),
-        "{{CANONICAL}}": esc(fields["canonical"]), "{{IMAGE}}": esc(fields["image"]),
+        "{{CANONICAL}}": esc(fields["canonical"]),
+        "{{IMAGE_META}}": (
+            f'<meta property="og:image" content="{esc(fields["image"])}">\n'
+            f'<meta property="og:image:alt" content="{esc(fields["title"])}">\n'
+            f'<meta name="twitter:card" content="summary_large_image">\n'
+            f'<meta name="twitter:image" content="{esc(fields["image"])}">'
+            if fields["image"] else '<meta name="twitter:card" content="summary">'),
         "{{STORY_ID}}": esc(story["id"]), "{{PUBLISHER}}": publisher_html,
         "{{PUBLISHER_NAME}}": esc(fields["publisher"]),
         "{{ORIGINAL_TITLE}}": esc(fields["original_title"]), "{{ORIGINAL_URL}}": esc(fields["original_url"]),

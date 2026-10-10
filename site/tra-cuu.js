@@ -5,7 +5,7 @@
 
 import { esc, fmt, faceOfStory, faceOfSource, avatar, avatarStack, monogram, watchImageErrors, loadDeferredImages } from './faces.js';
 import { ago, dayKey, hhmm, TZ } from './time-text.js';
-import { shown, origLine } from './titles.js';
+import { headlineShown, origLine } from './titles.js';
 import { KIND } from './words.js';
 
 // Các từ dừng dùng khi so khớp tựa đề để gom nhóm câu chuyện
@@ -356,7 +356,7 @@ function renderHeroTile(topStory) {
     leadId = p.id;
     leadOpen = false;
   }
-  const titleText = esc(shown(p.title, p.title_vi));
+  const titleText = esc(headlineShown(p));
   const isTranslated = Boolean(p.title_vi && p.title && p.title_vi.trim() !== p.title.trim());
 
   // Avatars nguồn
@@ -437,8 +437,7 @@ function renderHeroTile(topStory) {
 function renderStoryCard(st) {
   const p = st.primary;
   const face = safeFaceOfStory(p, SRC);
-  const titleText = esc(shown(p.title, p.title_vi));
-  const isTranslated = Boolean(p.title_vi && p.title && p.title_vi.trim() !== p.title.trim());
+  const titleText = esc(headlineShown(p));
   const timeStr = ago(st.latestDate || p.published_at);
   const pubsStr = Array.from(st.publishers).map(srcName).join(', ');
   const kindTag = KIND[p.kind] ? `<span class="kind">${esc(KIND[p.kind])}</span>` : '';
@@ -448,7 +447,7 @@ function renderStoryCard(st) {
       ${avatar(face, 'sm')}
       <span class="row-m">
         <span class="t"><h4 class="tc-card-title">${titleText}</h4></span>
-        ${isTranslated ? `<span class="orig">${esc(p.title)}</span>` : ''}
+        ${origLine(p.title, p.title_vi, esc)}
         <span class="k">${kindTag}<span class="pub">${esc(pubsStr)}</span>${timeStr ? ` · ${esc(timeStr)}` : ''}</span>
       </span>
       <span class="r">

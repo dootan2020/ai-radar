@@ -5,7 +5,8 @@ import re
 import unicodedata
 
 SEARCH_STORY_FIELDS = (
-    "id", "title", "title_vi", "url", "published_at", "publishers", "kind", "search_text"
+    "id", "title", "title_vi", "headline", "headline_vi", "url", "published_at",
+    "publishers", "kind", "search_text"
 )
 
 
@@ -98,6 +99,7 @@ def search_story_row(story):
         "id": sid,
         "title": title,
         "title_vi": title_vi,
+        **{key: story[key] for key in ("headline", "headline_vi") if key in story},
         "url": url,
         "published_at": published_at,
         "publishers": publishers,

@@ -7,6 +7,14 @@ const viOf = (orig, vi) => (typeof vi === 'string' && vi.trim() && vi.trim() !==
 /* The line a reader reads first: the Vietnamese when there is one, otherwise the original. */
 export const shown = (orig, vi) => viOf(orig, vi) || String(orig == null ? '' : orig);
 
+/* Compact listing text follows the full title's language eligibility. Attribution and
+   opened stories still use the full fields, never a shortened translation as evidence. */
+export function headlineShown(item) {
+  const translated = viOf(item.title, item.title_vi);
+  const headline = translated ? item.headline_vi : item.headline;
+  return (typeof headline === 'string' && headline.trim()) || translated || String(item.title || '');
+}
+
 /* The small line under a translated title: the original, labelled as a machine translation. Empty when untranslated.
    The chip reads "Translated", in Google Translate's colours (owner, 03/10 17:49); a screen reader hears the
    Vietnamese sentence beside it instead. */

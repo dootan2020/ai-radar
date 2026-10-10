@@ -1,25 +1,25 @@
 /* ai·radar · the site root since 05/10 (owner, 05/10 ~01:30: the feed replaces the bento home).
    Owner, 04/10 20:28: flat like the Edge start page and Google Discover. No borders, no accent bars, every card led by
    a picture. Pictures are the ones each source publishes, or a labelled AI illustration from the pipeline; a story
-   without either gets a flat cover drawn from its own data.
+   without either gets the site's factual cover.
 
-   One function decides every story picture: pickImage(). It walks IMAGE_PROVIDERS in order and falls back to the
-   cover.
+   One function decides every story picture: pickImage(). Screened stories use the pipeline image, then the cover; legacy
+   stories walk IMAGE_PROVIDERS before the cover fallback.
 
    "Đáng đọc" round (owner, 04/10 21:35): what to read first. One score per story from measured signals only (WORTH,
    worthOf), a block of 3 to 5 stories on top with a reason line in real numbers, a reason chip per card, a sort switch,
    and "Biên tập chọn" only from editor-picks.json.
 
    Carried over from the bento home (now bento.html, rollback only), in the feed's own look: the edition and search
-   links (static, in index.html), the new / seen / skipped marks with the same keys and priority, the "N tin mới" pill
-   that goes to the first new story, the fresh-snapshot pill, the stale-data line, saved stories, the repository lists,
+   links (static, in index.html), the new / seen marks with the same storage keys, the "N tin mới" pill
+   that goes to the first new story, the stale-data line, saved stories, the repository lists,
    calendar export, live counters, every source's state, keyboard shortcuts, and every address the bento home answered
    (#tin/<id>, and the section anchors the search page links to). */
 
 import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
 import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, daysLeftHTML, eventRange } from './time-text.js';
 import { KIND, METRIC } from './words.js';
-import { shown, uniqCoverage } from './titles.js';
+import { shown, headlineShown, uniqCoverage } from './titles.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
 import { freshness, freshnessText } from './freshness.js';
 import { WORTH, fallbackWorth } from './worth-score.js';
@@ -94,8 +94,9 @@ let seq = [], pos = 0, shownCards = 0, totalCards = 0;
 
 /* ---------- new, seen, skipped (the bento home's rules, tests/test_tin_moi.py) ----------
    new: published after the reader's last look; seen: opened; skipped: scrolled past without opening.
-   Priority: seen, then skipped, then new. The last look moves on engagement (five seconds or the first scroll), when
-   the page is hidden or left, and when the reader applies a fresh snapshot; never only by a button. */
+   Skipped IDs suppress the new dot without adding a visual mark. Priority: seen, then skipped, then new.
+   The last look moves on engagement (five seconds or the first scroll), when the page is hidden or left, and when
+   the reader applies a fresh snapshot; never only by a button. */
 const read = new Set([...asArray(store.get(K.read, [])), ...asArray(store.get(LEGACY.read, []))]);
 const skipped = new Set(asArray(store.get(K.skipped, [])));
 let saved = asArray(store.get(K.saved, [])).filter(x => x && typeof x.key === 'string');
@@ -107,17 +108,16 @@ const isNew = st => !!lastSeen && !!st.published_at && st.published_at > lastSee
 function storyStatus(id, st) {
   if (!id) return 'none';
   if (read.has(id)) return 'seen';
-  if (skipped.has(id)) return 'skipped';
+  if (skipped.has(id)) return 'none';
   if (arrived.has(id) || (st && isNew(st))) return 'new';
   return 'none';
 }
 const MARK = {
   new: '<span class="new-mark" aria-hidden="true"></span><span class="sr">Mới. </span>',
   seen: `<span class="seen-mark" aria-hidden="true">${icon('i-check')}</span><span class="sr">Đã xem. </span>`,
-  skipped: '<span class="skipped-mark" aria-hidden="true"></span><span class="sr">Bỏ qua chưa xem. </span>',
   none: '',
 };
-const STATUS_CLASS = { seen: 'is-read', new: 'is-new', skipped: 'is-skipped', none: '' };
+const STATUS_CLASS = { seen: 'is-read', new: 'is-new', none: '' };
 const markHTML = st => `<span class="st-mark">${MARK[storyStatus(st.id, st)]}</span>`;
 const statusClass = st => STATUS_CLASS[storyStatus(st.id, st)];
 function commitLastSeen(ts = D ? D.generated_at : null) {
@@ -129,7 +129,7 @@ function commitLastSeen(ts = D ? D.generated_at : null) {
 function paintStatus(id) {
   const st = STORY_ANY.get(id), s = storyStatus(id, st);
   $$(`[data-sid="${CSSq(id)}"]`).forEach(el => {
-    el.classList.remove('is-read', 'is-new', 'is-skipped');
+    el.classList.remove('is-read', 'is-new');
     if (STATUS_CLASS[s]) el.classList.add(STATUS_CLASS[s]);
     el.dataset.status = s;
     const m = el.querySelector('.st-mark'); if (m) m.innerHTML = MARK[s];
@@ -141,12 +141,14 @@ function markRead(id) {
   if (skipped.delete(id)) store.set(K.skipped, [...skipped].slice(-2000));
   store.set(K.read, [...read].slice(-3000));
   paintStatus(id);
+  retireNewItem(id);
 }
 function markSkipped(id) {
   if (!id || read.has(id) || skipped.has(id) || arrived.has(id)) return;
   skipped.add(id);
   store.set(K.skipped, [...skipped].slice(-2000));
   paintStatus(id);
+  retireNewItem(id);
 }
 let skipObserver = null;
 function observeSkips() {
@@ -352,9 +354,9 @@ const numB = m => `<b class="num"${m.live ? ` data-live="${esc(m.live)}"` : ''}>
    the card then names that item's source and links to that item's address, so headline, source and link agree. */
 function titleOf(st) {
   const ok = (o, v) => typeof v === 'string' && v.trim() && v.trim() !== String(o || '').trim();
-  if (ok(st.title, st.title_vi)) return { text: st.title_vi.trim(), orig: st.title, cov: null };
-  for (const c of st.coverage || []) if (ok(c.title, c.title_vi)) return { text: c.title_vi.trim(), orig: c.title, cov: c };
-  return { text: String(st.title || ''), orig: null, cov: null };
+  if (ok(st.title, st.title_vi)) return { text: headlineShown(st), orig: st.title, cov: null };
+  for (const c of st.coverage || []) if (ok(c.title, c.title_vi)) return { text: headlineShown(c), orig: c.title, cov: c };
+  return { text: headlineShown(st), orig: null, cov: null };
 }
 /* Under a translated headline: a "Translated" chip, a gap, then the original. Never glued together. */
 const origLine = t => !t.orig ? '' :
@@ -427,9 +429,6 @@ function reasonOf(st) {
   const w = worthOf(st);
   if (w.fh) return { text: w.fh.label };
   const loud = w.hot >= WORTH.hotLabel;
-  const att = (w.parts && w.parts.attention) || 0;
-  const brd = (w.parts && w.parts.breadth) || 0;
-  if (w.n >= 2 && (!loud || brd >= att)) return { text: `${w.n} nguồn đưa tin` };
   if (loud) return { text: DISCUSSED.has(w.metric) ? 'Đang bàn nhiều' : 'Đang được chú ý' };
   return null;
 }
@@ -438,14 +437,15 @@ const reasonTag = st => {
   return r ? `<span class="why-tag${r.editor ? ' is-editor' : ''}"><span class="sr">Vì sao có mặt: </span>${esc(r.text)}</span>` : '';
 };
 
-/* "Vì sao nên đọc": facts only, each one a field of the feed. At most four parts, the age always last. */
+/* "Vì sao nên đọc": real numbers only, saying each fact once without repeating time or source counts. */
 function worthWhy(st) {
-  const w = worthOf(st), m = measureOf(st), parts = [];
-  if (w.fh) parts.push(esc(w.fh.why));
-  if (w.n >= 2) parts.push(`<b class="num">${w.n}</b> nguồn cùng đưa tin`);
-  if (m) parts.push(`${numB(m)} ${esc(m.word)}${m.where ? ` trên ${esc(m.where)}` : ''}`);
-  if (m && m.speed && parts.length < 3) parts.push(`tăng <b class="num">${nf1.format(m.speed)}</b> ${esc(m.word)} mỗi giờ`);
-  parts.push(`đăng ${esc(ago(st.published_at).replace(/^Hôm qua/, 'hôm qua'))}`);
+  const w = worthOf(st), m = measureOf(st), r = reasonOf(st), parts = [];
+  if (m) {
+    parts.push(`${numB(m)} ${esc(m.word)}${m.where ? ` trên ${esc(m.where)}` : ''}`);
+    if (m.speed && parts.length < 3) parts.push(`tăng <b class="num">${nf1.format(m.speed)}</b> ${esc(m.word)} mỗi giờ`);
+  } else if (w.fh && (!r || r.text !== w.fh.label)) {
+    parts.push(esc(w.fh.why));
+  }
   return parts.join(' · ');
 }
 
@@ -505,8 +505,7 @@ function choosePicks() {
    THE IMAGE SEAM. Every story picture comes from pickImage(st).
    Returns {src, via, kind}: kind 'photo' (an editorial picture: text may sit on it), 'graphic' (a generated card such
    as GitHub's social preview: text goes below it), or 'cover' (no published picture; drawn from data, see coverFor).
-   To plug in AI-generated or stock pictures later, add a provider to IMAGE_PROVIDERS before the cover fallback, with
-   its own `via` (for example 'ai' or 'stock') so the report and the page can always tell them apart.
+   Screened stories use story.image or a factual cover. IMAGE_PROVIDERS serve unscreened archives only.
    ========================================================================== */
 const KIND_OF_VIA = { 'feed-media': 'photo', 'og:image': 'photo', 'linked-article': 'photo', 'youtube': 'photo',
   'github-social': 'graphic', 'hf-thumbnail': 'graphic', 'ai': 'photo' };
@@ -555,10 +554,10 @@ function pickImage(st) {
   let r = null;
   if (st.image && st.image.src) {
     r = { src: st.image.src, via: st.image.via, kind: st.image.kind || KIND_OF_VIA[st.image.via] || 'photo' };
-  } else {
+  } else if (!st.image_screened) {
     for (const p of IMAGE_PROVIDERS) { r = p(st); if (r) break; }
-    if (!r) r = coverPick(st);
   }
+  if (!r) r = coverPick(st);
   PICKED.set(st.id, r);
   return r;
 }
@@ -784,6 +783,7 @@ function renderCard(st, size = 'std', opts = {}) {
   ].filter(Boolean).join('<span aria-hidden="true">·</span>');
   const cal = calOf(st);
   const isSaved = savedHas(st.id);
+  const why = opts.why ? worthWhy(st) : '';
   const cls = ['feed-card', `card-${size}`, opts.debate ? 'card-debate' : '', photo ? 'card-photo' : '', statusClass(st)].filter(Boolean).join(' ');
 
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}" data-worth="${worthOf(st).score.toFixed(1)}">
@@ -795,7 +795,7 @@ function renderCard(st, size = 'std', opts = {}) {
       ? `<h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>`
       : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>`}
     ${origLine(t)}
-    ${opts.why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${worthWhy(st)}</p>` : ''}
+    ${why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${why}</p>` : ''}
     ${opts.why && pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
     ${sum ? `<p class="card-sum">${esc(sum)}</p>` : ''}
     <div class="card-foot">
@@ -1791,9 +1791,10 @@ function updatedAt(iso) {
   return dayKey(d) === todayKey() ? hhmm(d) : `${hhmm(d)} ngày ${DATE_VN.format(d)}`;
 }
 function renderSub() {
-  const sub = $('#feed-sub');
-  if (filter === 'all') {
-    sub.innerHTML = `<span class="num">${allStories.length}</span> tin trong ${winH} giờ qua, từ <a class="text-link" href="#nguon"><span class="num">${srcCount}</span> nguồn</a>. Cập nhật lúc <time datetime="${esc(D.generated_at)}">${esc(updatedAt(D.generated_at))}</time>.`;
+  const sub = $('#filter-context');
+  sub.hidden = filter === 'all';
+  if (sub.hidden) {
+    sub.textContent = '';
   } else {
     const s = secOf(filter), n = filter === 'saved' ? saved.length : listFor(filter).length;
     sub.innerHTML = `${s ? 'Đang xem mục' : 'Đang lọc'}: ${esc(LABELS[filter] || '')} · <span class="num">${n}</span> ${filter === 'saved' ? 'mục' : 'tin'} <button class="text-btn" data-reset>${s ? 'Về dòng tin' : 'Bỏ lọc'}</button>`;
@@ -1838,28 +1839,96 @@ function setSort(m) {
   renderFeed();
 }
 const newCount = () => allStories.filter(st => storyStatus(st.id, st) === 'new').length;
-/* "N tin mới": what arrived since the reader's last look (on a first visit, the last 24 hours), as on the bento home. */
+/* One notice per batch. Dismissed IDs cannot be re-offered by an unchanged poll or a redraw. */
+const RETURN_NEW_CAP = 20, NEW_NOTICE_MS = 12_000;
+let returnNoticeChecked = false, noticeTimer = 0, noticeDeferred = false;
+let noticeIds = new Set();
+const offeredNewIds = new Set();
+function positionNewItems() {
+  document.documentElement.style.setProperty('--feed-bar-height', `${$('#bar').offsetHeight}px`);
+  const box = $('#fresh');
+  if (box.hidden) return;
+  const barBottom = $('#bar').getBoundingClientRect().bottom;
+  const stale = $('#stale');
+  const staleBottom = stale.hidden ? 0 : stale.getBoundingClientRect().bottom;
+  box.style.top = `${Math.max(barBottom, staleBottom) + 12}px`;
+}
+function dismissNewItems() {
+  clearTimeout(noticeTimer);
+  // Automatic dismissal must never remove the keyboard user's current control.
+  if ($('#fresh').contains(document.activeElement)) { noticeDeferred = true; return; }
+  $('#fresh').hidden = true;
+  $('#fresh-announcement').textContent = '';
+  noticeIds.clear();
+  noticeDeferred = false;
+}
+function scheduleNewItemsDismissal() {
+  clearTimeout(noticeTimer);
+  if ($('#fresh').hidden || $('#fresh').contains(document.activeElement) || $('#fresh').matches(':hover')) return;
+  if (noticeDeferred) { dismissNewItems(); return; }
+  noticeTimer = setTimeout(dismissNewItems, NEW_NOTICE_MS);
+}
+function offerNewItems(ids) {
+  const eligible = [...new Set(ids)].filter(id => !read.has(id) && !skipped.has(id)
+    && (!offeredNewIds.has(id) || noticeIds.has(id)));
+  if (!eligible.some(id => !offeredNewIds.has(id))) return;
+  const wasVisible = !$('#fresh').hidden;
+  noticeIds = new Set(eligible);
+  eligible.forEach(id => offeredNewIds.add(id));
+  $('#fresh-text').textContent = `${noticeIds.size} tin mới`;
+  $('#fresh').hidden = false;
+  noticeDeferred = false;
+  positionNewItems();
+  // Count changes within a visible notice are silent; a new appearance gets one announcement.
+  if (!wasVisible) $('#fresh-announcement').textContent = `${noticeIds.size} tin mới. Nhấn U để tới tin mới đầu tiên.`;
+  scheduleNewItemsDismissal();
+}
+function retireNewItem(id) {
+  if (!noticeIds.delete(id)) return;
+  if (!noticeIds.size) dismissNewItems();
+  else $('#fresh-text').textContent = `${noticeIds.size} tin mới`;
+}
+function checkNewItemsScroll() {
+  if ($('#fresh').hidden) return;
+  positionNewItems();
+  const edge = $('#bar').getBoundingClientRect().bottom;
+  const elements = $$('#picks-grid [data-sid], #feed-grid [data-sid]');
+  for (const id of noticeIds) {
+    if (elements.some(el => el.dataset.sid === id && !el.closest('[hidden]') && el.getBoundingClientRect().bottom <= edge)) retireNewItem(id);
+  }
+}
 function renderNewItems() {
-  const n = newCount();
-  $('#moi').hidden = !n;
-  if (n) $('#new-items-text').textContent = firstVisit ? `${n} tin mới trong 24 giờ qua` : `${n} tin mới từ lần trước bạn ghé`;
+  if (returnNoticeChecked) return;
+  returnNoticeChecked = true;
+  const ids = allStories.filter(st => storyStatus(st.id, st) === 'new').map(st => st.id);
+  if (!firstVisit && ids.length <= RETURN_NEW_CAP && ids.length < allStories.length / 2) offerNewItems(ids);
 }
 function goFirstNew() {
   if (!D) return;
+  const targets = new Set(noticeIds);
+  if (pending) {
+    if (!targets.size) pendingNewIds(pending).forEach(id => targets.add(id));
+    applyPending();
+  }
   if (filter !== 'all') setFilter('all', true);
-  const el = revealStory(id => { const st = STORY_ANY.get(id); return !!st && storyStatus(id, st) === 'new'; });
-  if (!el) { toast('Chưa có tin mới. Trang tự kiểm mỗi 3 phút'); return; }
-  focusStory(el);
+  const matches = id => { const st = STORY_ANY.get(id); return !!st && storyStatus(id, st) === 'new'; };
+  const el = (targets.size && revealStory(id => targets.has(id) && matches(id))) || revealStory(matches);
+  if (el) focusStory(el);
+  else {
+    if ($('#fresh').contains(document.activeElement)) $('#top').focus({ preventScroll: true });
+    toast('Chưa có tin mới. Trang tự kiểm mỗi 3 phút');
+  }
+  dismissNewItems();
 }
 /* "Đánh dấu đã xem": the last look moves to this snapshot, so nothing here counts as new any more. */
 function markSeen() {
   if (!D) return;
-  const hadFocus = $('#moi').contains(document.activeElement);
+  const hadFocus = $('#fresh').contains(document.activeElement);
   store.set(K.lastSeen, D.generated_at);
   lastSeen = D.generated_at; firstVisit = false; arrived = new Set();
   new Set($$('[data-sid]').map(el => el.dataset.sid)).forEach(paintStatus);
-  renderNewItems();
   if (hadFocus) $('#top').focus({ preventScroll: true });
+  dismissNewItems();
   toast('Đã đánh dấu đã xem hết');
 }
 
@@ -1893,29 +1962,29 @@ function toggleSave(key) {
 
 /* ---------- a newer snapshot: polled every 3 minutes, applied only when the reader asks ---------- */
 let pending = null;
+function pendingNewIds(data) {
+  const hours = Number(data.ranking && data.ranking.window_hours) || 72;
+  const gen = ms(data.generated_at), from = gen - Math.max(1, hours) * 36e5;
+  return asArray(data.stories).filter(st => !STORY_ANY.has(st.id) && !read.has(st.id) && !skipped.has(st.id)
+    && ms(st.published_at) >= from && ms(st.published_at) <= Math.min(gen + 3e5, Date.now())).map(st => st.id);
+}
 async function pollSnapshot() {
   if (document.hidden || !D) return;
   try {
     const j = await loadData({ cache: 'no-cache' });
-    if (!j || !j.generated_at || j.generated_at <= D.generated_at) return;
+    if (!j || !j.generated_at || j.generated_at <= (pending || D).generated_at) return;
     pending = j;
-    const fresh = asArray(j.stories).filter(s => !STORY_ANY.has(s.id)).length;
-    $('#fresh').innerHTML = `<button class="fresh-btn" id="fresh-go" aria-keyshortcuts="U">${icon('i-up')}<span>${fresh ? `<span class="num">${fresh}</span> tin mới` : 'Số liệu vừa cập nhật'}</span><span aria-hidden="true">·</span><span>Xem</span></button>`;
+    offerNewItems(pendingNewIds(j));
   } catch { /* a failed poll keeps the current snapshot; the next poll tries again */ }
 }
 function applyPending() {
   if (!pending) return;
   commitLastSeen();
-  const newIds = asArray(pending.stories).filter(s => !STORY_ANY.has(s.id)).map(s => s.id);
-  arrived = new Set(newIds);
+  arrived = new Set(pendingNewIds(pending));
   const data = pending; pending = null;
-  $('#fresh').innerHTML = '';
   ingest(data);
   if (filter !== 'all') filter = 'all';
   renderAll();
-  const el = newIds.length ? revealStory(id => arrived.has(id)) : null;
-  if (el) focusStory(el);
-  else { scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' }); $('#top').focus({ preventScroll: true }); }
   setTimeout(() => { arrived = new Set(); }, 3000);
 }
 
@@ -1927,6 +1996,7 @@ function renderStale() {
   el.dataset.text = text;
   el.hidden = !text;
   el.textContent = text || '';
+  positionNewItems();
 }
 
 /* ---------- every source of the snapshot, the live layer, and how the page works ---------- */
@@ -1955,6 +2025,7 @@ function footHTML() {
 }
 function renderSources() {
   const srcs = asArray(D.sources), bad = srcs.filter(s => !s.ok);
+  $('#src-update').innerHTML = `Cập nhật lúc <time datetime="${esc(D.generated_at)}">${esc(updatedAt(D.generated_at))}</time> · <span class="num">${srcCount}</span> nguồn`;
   $('#src-note').innerHTML = `<span class="num">${srcs.length - bad.length}/${srcs.length}</span> nguồn chạy được lúc ${esc(hhmm(new Date(D.generated_at)))}. Mỗi nguồn kèm số tin lấy được.`;
   $('#src-list').innerHTML = [...srcs].sort((a, b) => a.ok - b.ok || (b.count || 0) - (a.count || 0)).map(s => `<li${s.ok ? '' : ' class="is-bad"'}>${avatar(faceOfSource({ source: s.id, lab: s.lab, publisher: s.publisher }, SRC), 'xs')}<a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.name || s.id)}</a>
     <span class="src-n num">${s.ok ? `${s.count ?? 0} tin` : 'lỗi'}</span>${s.error ? `<span class="src-err">${esc(s.error_vi || 'Không đọc được nguồn này')}</span>` : ''}</li>`).join('');
@@ -1993,7 +2064,7 @@ function route() {
   if (m) openStory(m[1]);
 }
 
-/* ---------- a picture that fails to load becomes its cover, never an empty box ---------- */
+/* Failed pictures use the site's factual cover without consulting external providers. */
 function watchPictures() {
   document.addEventListener('error', e => {
     const img = e.target;
@@ -2003,7 +2074,7 @@ function watchPictures() {
       if (!st) return;
       const cv = coverPick(st);
       PICKED.set(st.id, cv);
-      card.dataset.via = 'cover';
+      card.dataset.via = cv.via;
       img.parentElement.innerHTML = coverHTML(cv.cover);
       if (card.classList.contains('card-photo')) {
         card.classList.remove('card-photo');
@@ -2012,7 +2083,12 @@ function watchPictures() {
       return;
     }
     const thumb = img.closest('.thumb');
-    if (thumb) { const st = STORY_ANY.get(thumb.dataset.id); thumb.innerHTML = st ? miniCover(st) : ''; return; }
+    if (thumb) {
+      const st = STORY_ANY.get(thumb.dataset.id);
+      if (st && st.image_screened) PICKED.set(st.id, coverPick(st));
+      thumb.innerHTML = st ? miniCover(st) : '';
+      return;
+    }
     if (img.closest('.tile-video, .repo-img, .model-img')) img.remove();
   }, true);
 }
@@ -2078,7 +2154,7 @@ function onKey(e) {
     const el = currentEl(), st = el && STORY_ANY.get(el.dataset.sid), cal = st ? calOf(st) : null;
     if (cal) addToCalendar(cal); else if (el) toast('Tin này không có lịch để thêm');
   }
-  else if (k === 'u' || k === 'U') { if (pending) applyPending(); else goFirstNew(); }
+  else if (k === 'u' || k === 'U') goFirstNew();
   else if (k === 'm' || k === 'M') { if (D && newCount()) markSeen(); }
   else if (k === 'g' || k === 'G') { scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' }); }
   else if (k === '/') { e.preventDefault(); location.href = 'tra-cuu.html'; }
@@ -2172,7 +2248,7 @@ function onClick(e) {
   }
   const moreBtn = t.closest('[data-repo-more]');
   if (moreBtn) { showMoreRepos(moreBtn); return; }
-  if (t.closest('#fresh-go')) { applyPending(); return; }
+  if (t.closest('#fresh-go')) { goFirstNew(); return; }
   if (t.closest('#keys-open')) { $('#keys').showModal(); return; }
   if (t.closest('#keys-x')) { $('#keys').close(); return; }
   if (t.closest('[data-reset]')) { setFilter('all'); return; }
@@ -2199,8 +2275,13 @@ function attachEvents() {
   $('#sort-switch').addEventListener('click', e => { const b = e.target.closest('.sort-btn'); if (b && b.dataset.sort) setSort(b.dataset.sort); });
   $('#reset-filter-btn').addEventListener('click', () => setFilter('all'));
   $('#more-btn').addEventListener('click', () => more());
-  $('#new-go').addEventListener('click', goFirstNew);
-  $('#mark-seen-btn').addEventListener('click', markSeen);
+  const notice = $('#fresh');
+  notice.addEventListener('mouseenter', () => clearTimeout(noticeTimer));
+  notice.addEventListener('mouseleave', scheduleNewItemsDismissal);
+  notice.addEventListener('focusin', () => clearTimeout(noticeTimer));
+  notice.addEventListener('focusout', () => setTimeout(scheduleNewItemsDismissal, 0));
+  window.addEventListener('scroll', checkNewItemsScroll, { passive: true });
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(positionNewItems).observe($('#bar'));
   $('#mark-all-btn').addEventListener('click', () => {
     if (!D) return;
     listFor(filter).forEach(st => markRead(st.id));
@@ -2220,6 +2301,7 @@ function attachEvents() {
   }
   $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
   window.addEventListener('resize', () => {
+    positionNewItems();
     const filters = $('#feed-filters');
     if (filters) {
       const activeChip = filters.querySelector('.filter-chip[aria-pressed="true"]');
@@ -2281,12 +2363,13 @@ function ingest(data) {
 }
 function renderAll() {
   renderChips();
-  renderNewItems();
   renderHow();
   renderSortSwitch();
   renderFeed();
   renderStale();
   renderSources();
+  renderNewItems();
+  positionNewItems();
 }
 
 /* ---------- start ---------- */
@@ -2352,7 +2435,6 @@ async function init() {
     console.error('feed load failed', err);
     $('#top').removeAttribute('aria-busy');
     $('#feed-grid').innerHTML = '';
-    $('#feed-sub').textContent = 'Chưa nạp được dòng tin. Kiểm tra kết nối rồi tải lại trang.';
     const em = $('#feed-empty');
     em.querySelector('h2').textContent = 'Chưa nạp được dòng tin';
     em.querySelector('p').textContent = 'Lỗi mạng hoặc dữ liệu không hợp lệ. Trang không thay bằng tin mẫu.';

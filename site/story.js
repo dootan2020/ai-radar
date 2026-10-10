@@ -409,11 +409,13 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
   // Media image block
   let mediaHTML = '';
   if (story.image && story.image.src) {
+    const imageSrc = story.image.src.startsWith('assets/')
+      ? new URL(story.image.src, import.meta.url).href : story.image.src;
     mediaHTML = `
       <figure class="story-media">
-        <img class="story-media-img" src="${esc(story.image.src)}" alt="${esc(titleVi)}" loading="eager" decoding="async">
+        <img class="story-media-img" src="${esc(imageSrc)}" alt="${esc(titleVi)}" loading="eager" decoding="async">
         <figcaption class="story-media-caption">
-          <span>Ảnh từ bài viết gốc</span>
+          <span>${story.image.via === 'ai' ? 'Ảnh minh hoạ do AI tạo' : 'Ảnh từ bài viết gốc'}</span>
           <span class="story-pub-name">${esc(name)}</span>
         </figcaption>
       </figure>

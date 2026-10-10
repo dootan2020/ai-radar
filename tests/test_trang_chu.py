@@ -108,9 +108,9 @@ class RootPageHeadTests(unittest.TestCase):
         # Theme button
         self.assertIn('id="theme-btn"', self.html)
         # New items marker
-        self.assertIn('id="moi"', self.html)
-        self.assertIn('id="new-go"', self.html)
-        self.assertIn('id="mark-seen-btn"', self.html)
+        self.assertIn('id="fresh"', self.html)
+        self.assertIn('id="fresh-go"', self.html)
+        self.assertIn('id="fresh-announcement"', self.html)
         # Sort switch
         self.assertIn('id="sort-switch"', self.html)
         self.assertIn('data-sort="worth"', self.html)

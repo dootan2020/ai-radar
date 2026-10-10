@@ -10,6 +10,7 @@ from pathlib import Path
 import unittest
 
 from radar.editions import build_edition
+from radar.headlines import annotate_headlines
 
 FIXTURE = Path(__file__).parent / "fixtures" / "edition-real-snapshot.json"
 NOW = datetime(2026, 10, 3, 9, 18, 1, tzinfo=timezone.utc)
@@ -48,17 +49,27 @@ class EditionSelectionTests(unittest.TestCase):
 
     def test_existing_translations_and_source_text_are_copied_without_prose(self):
         payload = real_snapshot()
+        baseline = build_edition(payload, NOW)
+        for story in payload["stories"]:
+            annotate_headlines(story)
+        original_payload = copy.deepcopy(payload)
+        edition = build_edition(payload, NOW)
+        self.assertEqual([row["id"] for row in edition["stories"]],
+                         [row["id"] for row in baseline["stories"]])
+        self.assertEqual([row["selection"] for row in edition["stories"]],
+                         [row["selection"] for row in baseline["stories"]])
         by_id = {row["id"]: row for row in payload["stories"]}
-        for row in build_edition(payload, NOW)["stories"]:
+        for row in edition["stories"]:
             original = by_id[row["id"]]
-            for field in ("title", "title_vi", "url", "published_at"):
+            for field in ("title", "title_vi", "headline", "headline_vi", "url", "published_at"):
                 self.assertEqual(row[field], original[field])
             for field in ("summary", "summary_vi", "editorial", "analysis", "why_it_matters"):
                 self.assertNotIn(field, row)
             evidence = {item["id"]: item for item in original["coverage"]}
             for item in row["coverage"]:
-                for field in ("id", "source", "publisher", "title", "title_vi", "url"):
+                for field in ("id", "source", "publisher", "title", "title_vi", "headline", "headline_vi", "url"):
                     self.assertEqual(item[field], evidence[item["id"]][field])
+        self.assertEqual(payload, original_payload)
 
     def test_missing_translation_does_not_trigger_invented_text(self):
         payload = subset(real_snapshot(), {ASTA})
@@ -68,6 +79,9 @@ class EditionSelectionTests(unittest.TestCase):
         row = build_edition(payload, NOW)["stories"][0]
         self.assertNotIn("title_vi", row)
         self.assertTrue(all("title_vi" not in item for item in row["coverage"]))
+        for item in [row, *row["coverage"]]:
+            self.assertNotIn("headline", item)
+            self.assertNotIn("headline_vi", item)
 
     def test_slow_day_keeps_one_or_zero_without_padding(self):
         for identities in ({ASTA}, {ASTA, APPLE}, {"b6aee1da4c9da9519c63"}):

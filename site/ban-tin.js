@@ -8,7 +8,7 @@
 import { esc, fmt, faceOfStory, faceOfSource, avatar, hydrateHF, watchImageErrors } from './faces.js';
 import { ago, hhmm, dayKey } from './time-text.js';
 import { KIND, METRIC, signalText } from './words.js';
-import { shown, origLine, uniqCoverage } from './titles.js';
+import { headlineShown, origLine, uniqCoverage } from './titles.js';
 
 /* ---------- Hằng số & Cấu hình ---------- */
 export const DEFAULT_DATA_DIR = 'data/editions';
@@ -129,7 +129,7 @@ export function renderStoryTileHTML(story, isLead = false, sources = null) {
   const firstCov = (story.coverage && story.coverage[0]) || {};
   const sItem = srcMap.get(firstCov.source);
   const sourceDisplayName = sItem?.name || firstCov.name || face.label || face.id || 'Nguồn tin';
-  const titleDisplay = shown(story.title, story.title_vi);
+  const titleDisplay = headlineShown(story);
   const origHtml = origLine(story.title, story.title_vi, esc);
   const summary = getStorySummary(story);
   const reasons = (story.selection && Array.isArray(story.selection.reasons)) ? story.selection.reasons : [];

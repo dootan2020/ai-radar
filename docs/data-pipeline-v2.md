@@ -264,6 +264,74 @@ different authority; inspect the workflow's branch guards before dispatching.
 
 ## Reader snapshot
 
+### Editorial image and headline producer contract
+
+[Headline extraction](../radar/headlines.py) adds `headline` and, when a
+translation exists, `headline_vi` to stories and coverage. Each is at most 140
+characters. A long title uses its first sentence of at least 35 characters that
+fits the limit; otherwise it ends at a word boundary with an ellipsis. Source
+`title`, translated `title_vi`, summaries, identities and worth fields remain
+unchanged. Assembly and the translation CLI refresh these derived fields in the
+full snapshot; reader and first-screen projections also derive them from current
+titles. The shared writer leaves its input evidence unchanged. This extraction does not invent a
+summary or claim to rewrite a headline editorially.
+
+The frontend consumer must select `headline_vi` alongside the same object's
+`title_vi`, and `headline` alongside its `title`. Coverage-level translation
+fallback must still carry that coverage item's own attribution and original.
+The existing `title` remains the full original for the “Translated” treatment.
+These additive producer fields require consumer integration; they do not change
+old frontend code automatically.
+
+[X parsing](../radar/x_collector.py) independently rejects `replied_to`
+references, reply-user/status metadata and mention-led conversational text,
+even if the search query's `-is:reply` filter leaks. Assembly applies the same
+rule to fresh observations and retained coverage before clustering/retention,
+ranking and section generation. A story with only replies disappears; mixed
+coverage survives with a remaining representative. Quotes and mentions inside
+an original post survive. An original post beginning with `@handle` can be
+excluded by the conservative legacy heuristic; stored snapshots cannot prove
+reply identity from text alone.
+
+[Image screening](../radar/image_quality.py) uses local layout heuristics, not
+a model API. Known repository preview endpoints and explicit logo, screenshot
+or banner asset names are rejected. Pixel inspection requires **Pillow installed
+before collection**. The [update workflow](../.github/workflows/update.yml)
+pins the decoder in its required `Install image decoder` step before offline
+tests and collection. For local collection, use that same install command.
+Core collection can run without it, but uninspected source images are withheld.
+The later optional translation-library installation is independent of this step.
+
+Inspection caps downloads at 5 MiB and decoded images at 80 million pixels for
+resource safety, then measures at most 400 × 300 pixels. JPEG draft decoding
+reduces memory use for large photographs. Images at least 64 pixels on each
+side are eligible regardless of aspect ratio. The policy favors retaining
+photographs: a small label or aligned scene texture alone is insufficient to
+reject an image. Flat-color rejection requires stronger dominance; glyph rows
+require substantial coverage and a sufficiently smooth surrounding image.
+Thresholds and diagnostic metrics live in the screening module. Policy version
+2 invalidates earlier cached decisions, including rejected photographs.
+This heuristic cannot distinguish every logo from a minimalist illustration,
+or every photographed logo from a subject. Download limits can still withhold
+large photographs; truncated bytes are never treated as a complete picture.
+Missing decoders, unreadable images and expired/unversioned approval records
+fail closed. Source-image checks are cached by URL and policy version for 48
+hours; old seeds and carried images receive the same checks as fresh candidates.
+
+Screened stories carry `image_screened: true`. A screened story uses its
+approved `story.image` (source photo or pipeline AI illustration) first, then
+the site's own factual cover; static story pages fall back to the site's
+`site/og-image.png` for sharing. Third-party fallbacks (`site/feed-images.json`,
+coverage media, GitHub/HF/YouTube previews, the client AI manifest) stay
+blocked. The AI provider's window, 8,000-neuron daily cap, per-run limit and
+ledger behavior are unchanged.
+
+Offline contracts: [content quality](../tests/test_content_quality.py),
+[source images](../tests/test_images.py) and [AI fallback](../tests/test_ai_images.py).
+Synthetic pixel fixtures exercise the algorithms; they do not measure precision
+on publisher photos. Network access and frontend integration remain separate
+release checks.
+
 Repository rankings by field are a separate optional data contract:
 [field rankings, history and live verification](field-rankings.md). Their
 `field-rankings.json` does not affect news publication eligibility or replace

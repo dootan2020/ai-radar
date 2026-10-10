@@ -28,6 +28,7 @@ if str(TESTS_DIR) not in sys.path:
 
 import build
 from radar import search_index, site_payload
+from radar.headlines import annotate_headlines
 from test_publication import snapshot
 
 FIXTURES = TESTS_DIR / "fixtures"
@@ -86,6 +87,21 @@ def sample_vietnamese_stories():
 
 
 class SearchIndexTests(unittest.TestCase):
+    def test_headlines_preserve_full_title_search_and_input(self):
+        story = sample_vietnamese_stories()[0]
+        story["title"] += ": " + "Detailed research findings " * 8 + "unique appendix"
+        story["title_vi"] += ": " + "Kết quả nghiên cứu chi tiết " * 8 + "phụ lục riêng"
+        annotate_headlines(story)
+        original = deepcopy(story)
+        row = search_index.search_payload({"stories": [story]})["stories"][0]
+        for field in ("title", "title_vi", "headline", "headline_vi"):
+            self.assertEqual(row[field], original[field])
+        self.assertNotIn("unique appendix", row["headline"])
+        self.assertNotIn("phụ lục riêng", row["headline_vi"])
+        self.assertIn("unique appendix", row["search_text"])
+        self.assertIn("phu luc rieng", row["search_text"])
+        self.assertEqual(story, original)
+
     def test_normalize_vietnamese_comprehensive(self):
         # Tone marks and diacritical marks
         self.assertEqual(
@@ -214,6 +230,9 @@ class SearchIndexTests(unittest.TestCase):
         self.assertEqual(row1["published_at"], "")
         self.assertEqual(row1["publishers"], [])
         self.assertEqual(row1["kind"], "")
+        for row in index["stories"]:
+            self.assertNotIn("headline", row)
+            self.assertNotIn("headline_vi", row)
 
         row2 = index["stories"][1]
         self.assertEqual(row2["title"], "Some title")
@@ -298,6 +317,7 @@ class SearchIndexTests(unittest.TestCase):
             story = data["stories"][0]
             story.update(title="AI Test Story", title_vi="Tin thử nghiệm AI")
             story["coverage"][0].update(publisher="test-publisher")
+            annotate_headlines(story)
 
             site_payload.write_site_snapshot(data, target)
 
@@ -311,6 +331,8 @@ class SearchIndexTests(unittest.TestCase):
             self.assertEqual(loaded["story_count"], len(data["stories"]))
             self.assertEqual(loaded["stories"][0]["id"], story["id"])
             self.assertEqual(loaded["stories"][0]["publishers"], ["test-publisher"])
+            for field in ("title", "title_vi", "headline", "headline_vi"):
+                self.assertEqual(loaded["stories"][0][field], story[field])
             self.assertIn("ai test story", loaded["stories"][0]["search_text"])
             self.assertIn("tin thu nghiem ai", loaded["stories"][0]["search_text"])
 

@@ -639,8 +639,8 @@ class AIImagePageLabelTests(unittest.TestCase):
 
 
 class AIImagePipelineIntegrationTests(InsideWindowTestCase):
-    def test_pipeline_resolves_ai_image_for_unresolved_story_and_preserves_source_priority(self):
-        """Stories with source images keep them; stories without source images get AI illustration."""
+    def test_pipeline_illustrates_rejected_preview_card_and_missing_image(self):
+        """Rejected repository previews enter the same budgeted fallback as missing images."""
         stories = [
             {
                 "id": "st-with-source",
@@ -683,16 +683,15 @@ class AIImagePipelineIntegrationTests(InsideWindowTestCase):
                 ai_transport=mock_ai_transport,
             )
 
-            # Story 1 resolved via source address (github-social), NOT AI!
+            # The repository preview is available but unsuitable as an editorial lead.
             self.assertIn("image", stories[0])
-            self.assertEqual(stories[0]["image"]["via"], "github-social")
-            self.assertNotEqual(stories[0]["image"]["via"], "ai")
+            self.assertEqual(stories[0]["image"]["via"], "ai")
 
             # Story 2 resolved via AI illustration
             self.assertIn("image", stories[1])
             self.assertEqual(stories[1]["image"]["via"], "ai")
             self.assertEqual(stories[1]["image"]["src"], "assets/ai/st-without-source.jpg")
-            self.assertEqual(len(calls), 1)
+            self.assertEqual(len(calls), 2)
 
             # File is stored on disk under site/assets/ai/
             generated_file = site_dir / "assets" / "ai" / "st-without-source.jpg"
@@ -720,7 +719,7 @@ class AIImagePipelineIntegrationTests(InsideWindowTestCase):
             # Reused without calling AI transport again
             self.assertIn("image", stories_rerun[0])
             self.assertEqual(stories_rerun[0]["image"]["via"], "ai")
-            self.assertEqual(len(calls), 1)
+            self.assertEqual(len(calls), 2)
 
     def test_pipeline_ai_stops_when_ledger_capped(self):
         """When ledger daily cap is hit, stories without source images fall back to cover (no image)."""

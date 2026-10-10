@@ -124,6 +124,8 @@ class PageHeadTests(unittest.TestCase):
         for host in fetched:
             self.assertIn(f"https://{host}", self.csp["connect-src"], host)
         images = set(re.findall(r"imgSrc\(`https://([a-z0-9.-]+)/", js["app.js"] + js["faces.js"]))
+        thumbnail_helper = js["app.js"].split("function thumbImg(", 1)[1].split("\n}", 1)[0]
+        images |= set(re.findall(r"https://([a-z0-9.-]+)/", thumbnail_helper))
         # Hugging Face avatar URLs come from its API and are accepted only on this host (okHF in faces.js).
         if r"^https:\/\/cdn-avatars\.huggingface\.co\/" in js["faces.js"]:
             images.add("cdn-avatars.huggingface.co")
