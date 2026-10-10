@@ -398,12 +398,67 @@ ul, ol { padding: 0; list-style: none; }
 .date-badge b { font-size: var(--size-21); font-weight: var(--weight-bold); letter-spacing: var(--tracking-number); color: var(--color-ink); }
 .event-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .event-left { font-size: var(--text-micro); font-weight: var(--weight-semibold); color: var(--color-accent); }
+/* The countdown: one line that never wraps; its figures are tabular, so a ticking second never moves a neighbour. */
+.cd { position: relative; white-space: nowrap; }
+.cd b { font-weight: var(--weight-bold); letter-spacing: var(--tracking-number); }
+.cd.is-on { color: var(--color-live); }
+.cd.is-over { color: var(--color-ink-3); font-weight: var(--weight-medium); }
+.cd-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; margin-inline-end: var(--space-4); vertical-align: 0.1em; }
 .event-name {
   font-size: var(--text-small); font-weight: var(--weight-semibold); line-height: var(--leading-snug); overflow-wrap: anywhere;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   transition: color var(--motion-state) var(--ease-flow);
 }
 .event-when { font-size: var(--text-meta); color: var(--color-ink-3); }
+
+/* The home's events as a shelf: cards side by side in a row that scrolls sideways and snaps to a card, the next one
+   peeking at the edge so the row reads as "there is more". The row runs to the tile's edges and its first card lines
+   up with the tile's text. One event is a single card across the tile, not a lonely shelf. */
+.events.shelf {
+  --shelf-bleed: var(--space-24);
+  --shelf-card: 280px;
+  /* A card is 280px (85% of a phone's row, so the next one still peeks); cards that all fit share the row instead
+     of leaving a gap or scrolling by a few pixels. */
+  grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(min(var(--shelf-card), 85%), 1fr);
+  gap: var(--space-12);
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+  margin-inline: calc(var(--shelf-bleed) * -1); padding: var(--space-4) var(--shelf-bleed);
+  scroll-padding-inline: var(--shelf-bleed);
+  scrollbar-width: none;
+}
+.events.shelf::-webkit-scrollbar { display: none; }
+.events.shelf[data-n="1"] { grid-auto-columns: 100%; overflow-x: visible; }
+.events.shelf > li {
+  scroll-snap-align: start; display: flex; flex-direction: column;
+  border: 1px solid var(--color-hair); border-radius: var(--radius-12); padding: var(--space-12);
+}
+/* The row's end is a resting place too, so the last card never settles half out of view. */
+.events.shelf > li:last-child { scroll-snap-align: end; }
+.events.shelf .ev { flex: 1; align-content: space-between; }
+/* Beside a stream the row has no tile edge of its own to run to. */
+.tile-live.has-video .events.shelf { --shelf-bleed: 0px; }
+/* Previous / next: quiet round buttons, only for a mouse, only when the row overflows (set from feed.js). */
+.tile-tools { display: inline-flex; align-items: center; gap: var(--space-8); }
+.shelf-nav { display: inline-flex; gap: var(--space-4); }
+.shelf-nav[hidden] { display: none; }
+.shelf-btn {
+  display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: var(--radius-full);
+  color: var(--color-ink-2); background: none; position: relative; isolation: isolate;
+  transition: color var(--motion-state) var(--ease-flow);
+}
+.shelf-btn::before {
+  content: ""; position: absolute; inset: var(--space-4); z-index: -1; border-radius: var(--radius-full); background: var(--color-fill);
+  transition: background-color var(--motion-state) var(--ease-flow);
+}
+.shelf-btn .i { width: 16px; height: 16px; stroke-width: 2.2; }
+.shelf-btn:hover { color: var(--color-ink); }
+.shelf-btn:hover::before { background: var(--color-hair); }
+.shelf-btn[aria-disabled="true"] { color: var(--color-ink-3); cursor: default; }
+.shelf-btn[aria-disabled="true"]::before { background: var(--color-fill); }
+.shelf-btn:focus-visible { border-radius: var(--radius-full); outline-offset: -2px; }
+@media (max-width: 767px), (hover: none), (pointer: coarse) {
+  .shelf-nav { display: none !important; }
+}
 
 /* Hot: ranked rows, each with its picture */
 .hot-list { display: flex; flex-direction: column; gap: var(--space-16); counter-reset: hot; }
@@ -611,15 +666,21 @@ ul, ol { padding: 0; list-style: none; }
     padding-block: var(--space-16);
   }
   .picks-grid > .tile-live:not(.has-video) .tile-head { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+  .picks-grid > .tile-live:not(.has-video) .tile-tools { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
   .picks-grid > .tile-live:not(.has-video) .tile-more { margin-block: calc(var(--space-12) * -1) 0; }
-  .picks-grid > .tile-live:not(.has-video) .events { grid-template-columns: repeat(var(--ev-cols, 1), minmax(0, 1fr)); }
-  .picks-grid > .tile-live:not(.has-video) .events[data-n="2"] { --ev-cols: 2; }
-  .picks-grid > .tile-live:not(.has-video) .events[data-n="3"] { --ev-cols: 3; }
-  .picks-grid > .tile-live:not(.has-video) .events > li {
-    border-top: 0; border-inline-start: 1px solid var(--color-hair);
+  .picks-grid > .tile-live:not(.has-video) .shelf-nav { margin-inline-start: calc(var(--space-4) * -1); }
+  /* Here the shelf is the strip: columns divided by hairlines that share the width while they fit, and scroll,
+     at a readable width each, once they do not. */
+  .picks-grid > .tile-live .events.shelf {
+    grid-auto-columns: minmax(var(--ev-min, 260px), 1fr); gap: 0;
+    margin-inline: 0; padding-inline: 0; scroll-padding-inline: 0;
+  }
+  .picks-grid > .tile-live .events.shelf > li {
+    border: 0; border-radius: 0; border-inline-start: 1px solid var(--color-hair);
     padding: var(--space-4) var(--space-24);
   }
-  .picks-grid > .tile-live:not(.has-video) .events > li:last-child { padding-inline-end: 0; }
+  .picks-grid > .tile-live .events.shelf > li:last-child { padding-inline-end: 0; }
+  .picks-grid > .tile-live.has-video .events.shelf > li:first-child { border-inline-start: 0; padding-inline-start: 0; }
 
   .picks-grid > .tile-live.has-video .live-body {
     display: grid;
@@ -1098,6 +1159,8 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .sk-card, .sk-lead { min-height: 280px; }
 
   .tile { padding: var(--space-16); }
+  .events.shelf { --shelf-bleed: var(--space-16); }
+  .tile-live.has-video .events.shelf { --shelf-bleed: var(--space-16); }   /* stacked under the stream, it has the tile's edges again */
   .tile-video { margin: 0 calc(var(--space-16) * -1); }
   .repo { grid-template-columns: 128px minmax(0, 1fr); }
   .model { display: grid; grid-template-columns: 128px 1fr; column-gap: var(--space-12); align-items: center; }
