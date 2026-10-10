@@ -12,8 +12,10 @@ import tempfile
 import time
 from urllib.parse import urlsplit
 
+from radar.catalog import is_retired
 from radar.clustering import canonical_url
 from radar.common import stable_id
+from radar.items import publisher_identity
 from radar.site_config import SITE_BASE_URL
 
 BASE_URL = SITE_BASE_URL
@@ -322,8 +324,29 @@ def _validated_story_map(stories):
     return result
 
 
+def reader_story(story):
+    """Withdraw retired-source coverage from a page; None when the page itself must go.
+
+    Archived records stay untouched (history is append-only); only rendering
+    changes. A story led by a retired observation is withheld entirely, because
+    its headline, summary and image came from that observation.
+    """
+    coverage = story.get("coverage")
+    if story.get("redirect_to") or not isinstance(coverage, list):
+        return story
+    kept = [item for item in coverage if not is_retired(item)]
+    if len(kept) == len(coverage):
+        return story
+    if not kept or any(item.get("url") == story.get("url") for item in coverage if is_retired(item)):
+        return None
+    return dict(story, coverage=kept,
+                source_count=len({publisher_identity(item) or item.get("source") for item in kept}))
+
+
 def render_site(stories, site, base_url=BASE_URL, sources=None):
     """Write exactly the archived story pages and matching sitemap."""
+    stories = {story_id: shown for story_id, shown in
+               ((story_id, reader_story(story)) for story_id, story in stories.items()) if shown is not None}
     site = Path(site)
     tin = site / "tin"
     if tin.is_symlink():

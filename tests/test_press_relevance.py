@@ -43,12 +43,12 @@ GENUINE = [
 ]
 
 
-def source(id_="genk-ai", **extra):
+def source(id_="wired-ai", **extra):
     return dict(id=id_, group="press", publisher=id_, filter_ai=False,
                 url="https://press.example/feed") | extra
 
 
-def item(title, summary, id_="genk-ai", url="https://press.example/story", **extra):
+def item(title, summary, id_="wired-ai", url="https://press.example/story", **extra):
     return observation(source(id_, **extra), title, url, NOW, NOW, summary=summary)
 
 
