@@ -162,7 +162,8 @@ function observeSkips() {
       else if (el._seen && e.boundingClientRect.bottom <= ($('#bar') ? $('#bar').offsetHeight : 64) + 12) markSkipped(id);
     }
   }, { threshold: [0, 0.2] });
-  $$('[data-sid]').forEach(el => { if (!el._observed) { el._observed = true; skipObserver.observe(el); } });
+  // The "Vừa đăng" row repeats stories that also have their own place; only that place counts as passed.
+  $$('[data-sid]').forEach(el => { if (!el._observed && !el.closest('#fresh-row')) { el._observed = true; skipObserver.observe(el); } });
 }
 
 /* ---------- motion: staggered fade-up & blur-up images ---------- */
@@ -429,9 +430,18 @@ function reasonOf(st) {
   if (PICKS.has(st.id)) return { text: 'Biên tập chọn', editor: true };
   const w = worthOf(st);
   if (w.fh) return { text: w.fh.label };
-  const loud = w.hot >= WORTH.hotLabel;
-  if (loud) return { text: DISCUSSED.has(w.metric) ? 'Đang bàn nhiều' : 'Đang được chú ý' };
   return null;
+}
+/* Hot is no longer a label but a flame at the start of the headline, the way a news front marks a hot story (owner,
+   10/10 19:44: "ngọn lửa đó phải gắn ở tiêu đề bài viết '[ngọn lửa] tiêu đề'"). The flame and the first word stay
+   together, so a wrap never leaves the flame alone on a line; a screen reader hears the reason once. */
+const isHot = st => worthOf(st).hot >= WORTH.hotLabel;
+const FLAME = '<svg class="flame" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M12.2 1.5c.9 3.1 3.2 4.9 4.9 7.2 1.4 1.9 2.2 3.9 2.2 6a7.3 7.3 0 0 1-14.6 0c0-2.9 1.6-5 3.3-6.7.1 1.9.8 3.2 2.1 3.7-.5-3.7.5-7.2 2.1-10.2zM12 21.2a3.1 3.1 0 0 0 3.1-3.1c0-1.6-.9-2.7-2-3.9-.3 1-.9 1.6-1.6 1.8.1-1.3-.2-2.4-.8-3.4-1.3 1.4-1.9 2.9-1.9 4.5A3.1 3.1 0 0 0 12 21.2z"/></svg>';
+function titleHTML(st, text) {
+  if (!isHot(st)) return esc(text);
+  const why = DISCUSSED.has(worthOf(st).metric) ? 'Đang bàn nhiều' : 'Đang được chú ý';
+  const m = /^(\S+)([\s\S]*)$/.exec(String(text));
+  return `<span class="sr">${why}: </span><span class="flame-lead">${FLAME}${esc(m ? m[1] : text)}</span>${esc(m ? m[2] : '')}`;
 }
 const reasonTag = st => {
   const r = reasonOf(st);
@@ -460,9 +470,10 @@ const whyParts = parts => parts.map(p => `<span class="why-part">${p}</span>`).j
 const STOP = new Set(('the and for with from that this its are was has have will into over after about says said than '
   + 'then what when your their they them how why who now new via').split(' '));
 const WORDS = new Map();
+const titleWords = t => String(t || '').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+  .split(/[^a-z0-9]+/).filter(x => x.length >= 3 && !STOP.has(x));
 const wordsOf = st => {
-  if (!WORDS.has(st.id)) WORDS.set(st.id, new Set(String(st.title || '').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
-    .split(/[^a-z0-9]+/).filter(x => x.length >= 3 && !STOP.has(x))));
+  if (!WORDS.has(st.id)) WORDS.set(st.id, new Set(titleWords(st.title)));
   return WORDS.get(st.id);
 };
 function sameEvent(a, b) {
@@ -483,9 +494,35 @@ const isNewsCov = c => c && c.source !== 'hn-ai' && c.publisher !== 'hacker-news
 const newsCovsOf = st => covsOf(st).filter(isNewsCov);
 const nNewsSrc = st => newsCovsOf(st).length;
 
+/* The top row takes stories at most PICKS_MAX_AGE_H old (by their shown publication time), up to three; when fewer
+   qualify it shows fewer, and the whole window fills in only when none does. The owner's own picks stay as he chose them. */
+const PICKS_MAX_AGE_H = 24;
+/* One event, told once on the first screen (owner, 10/10 21:01): the top row skips any story that is the same event as
+   one shown in "Vừa đăng". Same event, strongest signal first:
+     1. the pipeline's own identity: the same story id, or one listed in the other's `aliases` (merged clusters);
+     2. a shared address: any article or discussion URL that both stories' coverage carries;
+     3. the cluster's own wording: at least four of the newer headline's words, and 60% of the shorter word set, appear
+        across every headline the other story's coverage carries (each outlet titles one event differently, so one
+        title against one title misses it: "Rogue Anthropic AI agent gave police fake tip…" shares 0.20 with
+        TechCrunch's title but 0.70 with that cluster's coverage); the block's own title check (sameEvent) also counts. */
+const urlsOf = st => new Set([st.url, ...(st.coverage || []).flatMap(c => [c && c.url, c && c.discussion_url])].filter(Boolean));
+const coverageWords = st => new Set([st.title, ...(st.coverage || []).map(c => c && c.title)].flatMap(titleWords));
+function oneEvent(a, b) {
+  if (a.id === b.id || asArray(a.aliases).includes(b.id) || asArray(b.aliases).includes(a.id)) return true;
+  const ua = urlsOf(a);
+  for (const u of urlsOf(b)) if (ua.has(u)) return true;
+  const A = coverageWords(a), B = coverageWords(b);
+  let k = 0;
+  A.forEach(x => { if (B.has(x)) k++; });
+  if (k >= 4 && k / Math.min(A.size, B.size) >= 0.6) return true;
+  return sameEvent(a, b);
+}
 function choosePicks() {
+  const shown = filter === 'all' && D ? newestStories().list : [];
+  const elsewhere = st => shown.some(n => oneEvent(n, st));
   const out = [...PICKS.keys()].map(id => STORY.get(id)).filter(st => st && nNewsSrc(st) >= 2).slice(0, 3);
-  const candidates = allStories.filter(st => !PICKS.has(st.id) && nNewsSrc(st) >= 2 && worthOf(st).evidence).sort(byWorth);
+  const candidates = allStories.filter(st => !PICKS.has(st.id) && nNewsSrc(st) >= 2 && worthOf(st).evidence
+    && GEN - ms(st.published_at) <= PICKS_MAX_AGE_H * 36e5 && !elsewhere(st)).sort(byWorth);
   if (!out.length) {
     const photoLeadIndex = candidates.findIndex(st => pickImage(st).kind === 'photo');
     if (photoLeadIndex >= 0) {
@@ -496,8 +533,11 @@ function choosePicks() {
     if (out.length >= 3) break;
     if (!out.some(o => sameEvent(o, st))) out.push(st);
   }
-  if (out.length < 3) {
-    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && nNewsSrc(st) >= 2 && worthOf(st).evidence).sort(byWorth);
+  // Young stories only: two cards, or the lead alone, beat an old one filling the row. The whole window is the
+  // fallback only when nothing young qualifies (coordinator, 10/10, within "người dùng luôn muốn xem tin mới trước").
+  if (!out.length) {
+    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && nNewsSrc(st) >= 2 && worthOf(st).evidence
+      && !elsewhere(st)).sort(byWorth);
     for (const st of fallback) {
       if (out.length >= 3) break;
       if (!out.some(o => sameEvent(o, st))) out.push(st);
@@ -794,14 +834,13 @@ function renderCard(st, size = 'std', opts = {}) {
   const cls = ['feed-card', `card-${size}`, opts.debate ? 'card-debate' : '', photo ? 'card-photo' : '', statusClass(st)].filter(Boolean).join(' ');
 
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}" data-worth="${worthOf(st).score.toFixed(1)}">
-  ${photo ? reasonTag(st) : ''}
   ${mediaHTML(img, size)}
   <div class="${photo ? 'photo-body' : 'card-body'}">
-    ${photo ? '' : reasonTag(st)}
+    ${reasonTag(st)}
     <div class="src-row">${markHTML(st)}${opts.rank ? `<span class="pick-n num"><span class="sr">Số </span>${opts.rank}</span>` : ''}<span class="src-who"><span class="src-av" aria-hidden="true">${avatar(face, 'xs')}</span><span class="src-name">${esc(name)}</span></span><span class="src-when">${timeEl(st.published_at)}${translationMark(t)}</span></div>
     ${h === 'h3'
-      ? `<h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>`
-      : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>`}
+      ? `<h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${titleHTML(st, t.text)}</a></h3>`
+      : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${titleHTML(st, t.text)}</a></h2>`}
     ${why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${why}</p>` : ''}
     ${opts.why && pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
     ${sum ? `<p class="card-sum">${esc(sum)}</p>` : ''}
@@ -959,7 +998,7 @@ function renderLive(all = false) {
    (aria-disabled, so a focused button keeps its focus). */
 let shelfRO = null;
 function shelfState(ul) {
-  const nav = ul && ul.closest('.tile-live') && ul.closest('.tile-live').querySelector('.shelf-nav');
+  const nav = ul && ul.closest('.tile') && ul.closest('.tile').querySelector('.shelf-nav');
   if (!nav) return;
   const max = ul.scrollWidth - ul.clientWidth, x = Math.abs(ul.scrollLeft);
   nav.hidden = max <= 1;
@@ -970,16 +1009,19 @@ function shelfState(ul) {
 function initShelves(root) {
   if (shelfRO) shelfRO.disconnect();
   shelfRO = null;
-  const shelves = [...root.querySelectorAll('.events.shelf[id]')];
+  const shelves = [...root.querySelectorAll('.shelf[id]')];
   if (!shelves.length) return;
   if ('ResizeObserver' in window) shelfRO = new ResizeObserver(es => es.forEach(en => shelfState(en.target.closest('.events'))));
   for (const ul of shelves) {
-    ul.addEventListener('scroll', () => shelfState(ul), { passive: true });
-    // Tab onto a card that only peeks: bring the whole card in (the snap would otherwise hold the row where it was).
-    ul.addEventListener('focusin', e => {
-      const li = e.target.closest('.events.shelf > li');
-      if (li) li.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: RM.matches ? 'auto' : 'smooth' });
-    });
+    if (!ul._shelf) {             // the home's two shelves are set up together, so a redraw of one meets the other again
+      ul._shelf = true;
+      ul.addEventListener('scroll', () => shelfState(ul), { passive: true });
+      // Tab onto a card that only peeks: bring the whole card in (the snap would otherwise hold the row where it was).
+      ul.addEventListener('focusin', e => {
+        const li = e.target.closest('.shelf > li');
+        if (li) li.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: RM.matches ? 'auto' : 'smooth' });
+      });
+    }
     if (shelfRO) { shelfRO.observe(ul); if (ul.firstElementChild) shelfRO.observe(ul.firstElementChild); }
     shelfState(ul);
   }
@@ -1014,7 +1056,7 @@ function renderHot(list = HOT) {
       return `<li><a class="hot-row ${statusClass(st)}" href="tin/${esc(st.id)}/" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
         <span class="thumb" data-id="${esc(st.id)}">${img.src ? `<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
         <span class="hot-rank num" aria-hidden="true">${i + 1}</span>
-        <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${esc(t.text)}</span><span class="hot-why">${translationMark(t)}${whyHTML(st)}</span></span></a></li>`;
+        <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span><span class="hot-why">${translationMark(t)}${whyHTML(st)}</span></span></a></li>`;
     }).join('')}</ol></section>`;
 }
 
@@ -1623,7 +1665,7 @@ function pickRow(st, rank) {
   return `<li><a class="hot-row pick-row ${statusClass(st)}" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-worth="${worthOf(st).score.toFixed(1)}">
     <span class="thumb pick-thumb" data-id="${esc(st.id)}">${img.src ? `<img src="${esc(img.src)}" alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
     <span class="hot-rank num" aria-hidden="true">${rank}</span>
-    <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${esc(t.text)}</span>
+    <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span>
       <span class="hot-why">${translationMark(t)}${pin ? '<span class="tag is-editor">Biên tập chọn</span>' : ''}<span class="sr">Vì sao nên đọc: </span>${whyParts(worthParts(st))}</span>
       ${pin && pin.note ? `<span class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</span>` : ''}</span></a></li>`;
 }
@@ -1634,11 +1676,15 @@ function renderPicks() {
   const [first, ...mid] = PICKLIST;
   const noteEl = $('#picks-note');
   if (noteEl) noteEl.textContent = '';
+  // The subtitle names the window the row really drew from: 24 hours, or the whole window when older stories filled in.
+  const subEl = $('#picks-sub');
+  const span = PICKLIST.every(st => GEN - ms(st.published_at) <= PICKS_MAX_AGE_H * 36e5) ? PICKS_MAX_AGE_H : winH;
+  if (subEl) subEl.textContent = `Các sự kiện lớn được từ 2 đến 4 nguồn tin độc lập cùng xác nhận trong ${span} giờ qua.`;
   const grid = $('#picks-grid');
   grid.innerHTML = renderCard(first, 'lead', { why: true, h: 'h3' })
     + (mid.length ? `<div class="picks-mid">${mid.map(st => renderCard(st, 'std', { h: 'h3' })).join('')}</div>` : '')
     + renderLive();
-  initShelves(grid);
+  initShelves($('#top'));
   scheduleCountdown();
 }
 
@@ -1653,7 +1699,7 @@ function renderHow() {
       <li><b>Độ mới</b>: toàn bộ điểm giảm một nửa sau mỗi <span class="num">${W.halfLifeH}</span> giờ tính từ lần đưa tin gần nhất; phần độ mới có tối đa <span class="num">${W.freshness}</span> điểm.</li>
       <li><b>Nguồn gốc</b>: tin do chính phòng nghiên cứu công bố, hoặc bài báo gốc của nhóm nghiên cứu, được nhân <span class="num">${f1(W.firstHand)}</span>.</li>
     </ul>
-    <p>Nhãn trên thẻ ghi lý do mạnh nhất. “Đang bàn nhiều” và “Đang được chú ý” là tin có điểm nóng từ <span class="num">${W.hotLabel}</span> trở lên. Tin không có nhãn là tin chưa có tín hiệu nào ngoài giờ đăng. Chỉ tin mang nhãn “Biên tập chọn” là do người chọn.</p>
+    <p>Ngọn lửa trước tiêu đề đánh dấu tin đang nóng: điểm nóng từ <span class="num">${W.hotLabel}</span> trở lên. Dòng chữ nhỏ trên thẻ ghi nguồn gốc của tin, như một hãng tự công bố hay bài báo gốc. Chỉ tin mang dòng “Biên tập chọn” là do người chọn.</p>
     <p>Trọng số hiện là phỏng đoán ban đầu, sẽ được chỉnh lại sau một tuần dữ liệu thật.</p>`;
 }
 
@@ -1875,12 +1921,15 @@ function renderFeed() {
   $('#sort-switch').hidden = rankings || !D;
   if (rankings) {
     for (const id of ['picks', 'feed-empty', 'feed-more', 'feed-end', 'filter-context']) $('#' + id).hidden = true;
+    renderFreshRow();
     $('#top').removeAttribute('aria-busy');
     arenaView.show();
     renderChips();
     return;
   }
   if (!D) { $('#feed-empty').hidden = false; renderChips(); return; }
+  renderFreshRow();
+  PICKLIST = choosePicks();       // the top row depends on what "Vừa đăng" shows right now (one event, told once)
   renderPicks();
   seq = filter === 'all' ? buildAll() : buildFiltered(filter);
   pos = 0; shownCards = 0;
@@ -2056,6 +2105,59 @@ function renderNewItems() {
   const ids = allStories.filter(st => storyStatus(st.id, st) === 'new').map(st => st.id);
   if (!firstVisit && ids.length <= RETURN_NEW_CAP && ids.length < allStories.length / 2) offerNewItems(ids);
 }
+/* "Vừa đăng" (renamed from "Mới nhất" on 10/10 21:01 so it no longer reads as the sort switch): the top of the home, directly under the header and above "Nhiều nguồn cùng đưa". A reader opening a news
+   page wants the newest first (owner, 10/10 19:50: "người dùng vào đọc tin thì luôn muốn xem tin mới trước chứ"), so
+   this row holds the stories published in the last NEWEST.hours, newest first; when fewer than NEWEST.min stories are
+   that young it reaches back up to NEWEST.maxHours. The "N tin mới" pill brings the reader here: the batch it announced
+   leads the row (newest first) with the usual new dot until each is opened. The row is a view; every story keeps its
+   own place in the blocks below and in "Dòng tin", whose order is untouched. */
+const NEWEST = { hours: 6, min: 4, maxHours: 24, cap: 8 };
+let freshIds = [];            // the batch the reader asked to see with the pill, pinned first while unread
+const NEWEST_SHELF_LABEL = 'Tin vừa đăng, trượt ngang để xem thêm';
+function newestStories() {
+  const young = h => allStories.filter(st => GEN - ms(st.published_at) <= h * 36e5);
+  let pool = young(NEWEST.hours), hours = NEWEST.hours;
+  if (pool.length < NEWEST.min) { pool = young(NEWEST.maxHours); hours = NEWEST.maxHours; }
+  const pinned = freshIds.filter(id => !read.has(id)).map(id => STORY_ANY.get(id)).filter(Boolean).sort(byNew);
+  const rest = pool.slice().sort(byNew).filter(st => !pinned.includes(st));
+  return { list: [...pinned, ...rest].slice(0, Math.max(NEWEST.cap, pinned.length)), hours };
+}
+function freshBox() {
+  let box = $('#fresh-row');
+  if (!box && typeof document.createElement === 'function' && $('#picks')) {
+    box = document.createElement('div');
+    box.id = 'fresh-row';
+    box.hidden = true;
+    $('#picks').before(box);
+  }
+  return box;
+}
+function freshItem(st) {
+  const img = pickImage(st), t = titleOf(st);
+  const from = t.cov || covsOf(st)[0] || {};
+  const name = covName(from) || hostOf(safe(st.url));
+  return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><a class="fresh-item" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-read="${esc(st.id)}">
+    <span class="thumb">${img.src ? `<img src="${esc(img.src)}" alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
+    <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span>
+      <span class="hot-why"><span class="why-part">${esc(name)}</span><span class="sr">, </span><span class="why-part">${timeEl(st.published_at)}</span>${translationMark(t)}</span></span></a></li>`;
+}
+function renderFreshRow() {
+  const box = freshBox();
+  if (!box) return;
+  const { list, hours } = D && filter === 'all' ? newestStories() : { list: [], hours: 0 };
+  box.hidden = !list.length;
+  if (box.hidden) { box.innerHTML = ''; return; }
+  const n = list.length, shelf = n > 1;
+  const nav = shelf ? `<span class="shelf-nav" hidden>
+    <button type="button" class="shelf-btn" data-shelf="-1" aria-controls="fresh-shelf" aria-label="Tin trước">${chevron(false)}</button>
+    <button type="button" class="shelf-btn" data-shelf="1" aria-controls="fresh-shelf" aria-label="Tin tiếp theo">${chevron(true)}</button></span>` : '';
+  box.innerHTML = `<section class="tile tile-fresh" aria-labelledby="fresh-row-h">
+    <div class="tile-head"><div class="fresh-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2>
+      <span class="tile-note">đăng trong <span class="num">${hours}</span> giờ qua, tin sau cùng đứng đầu</span></div>
+      ${nav ? `<span class="tile-tools">${nav}</span>` : ''}</div>
+    <div class="fresh-body"${shelf ? ` role="region" aria-label="${NEWEST_SHELF_LABEL}"` : ''}><ul class="fresh-list${shelf ? ' shelf' : ''}" id="fresh-shelf" data-n="${n}">${list.map(freshItem).join('')}</ul></div></section>`;
+  initShelves($('#top'));
+}
 function goFirstNew() {
   if (!D) return;
   const targets = new Set(noticeIds);
@@ -2064,6 +2166,23 @@ function goFirstNew() {
     applyPending();
   }
   if (filter !== 'all') setFilter('all', true);
+  let heading = null;
+  if (targets.size) {
+    freshIds = [...targets];
+    renderFreshRow();
+    // The block under the row skips events the row now shows; redraw it only when that changes its stories.
+    const next = choosePicks();
+    if (next.map(st => st.id).join() !== PICKLIST.map(st => st.id).join()) renderFeed();
+    const box = $('#fresh-row');
+    if (box && !box.hidden) heading = $('#fresh-row-h');
+  }
+  if (heading) {
+    // The row sits at the very top of the page: go there, then hand keyboard and screen-reader users its heading.
+    window.scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' });
+    heading.focus({ preventScroll: true });
+    dismissNewItems();
+    return;
+  }
   const matches = id => { const st = STORY_ANY.get(id); return !!st && storyStatus(id, st) === 'new'; };
   const el = (targets.size && revealStory(id => targets.has(id) && matches(id))) || revealStory(matches);
   if (el) focusStory(el);
@@ -2081,6 +2200,7 @@ function markSeen() {
   lastSeen = D.generated_at; firstVisit = false; arrived = new Set();
   new Set($$('[data-sid]').map(el => el.dataset.sid)).forEach(paintStatus);
   if (hadFocus) $('#top').focus({ preventScroll: true });
+  freshIds = [];
   dismissNewItems();
   toast('Đã đánh dấu đã xem hết');
 }
@@ -2361,7 +2481,7 @@ function onClick(e) {
   }
 
   // Intercept clicks on story links or cards to open modal
-  const storyLink = t.closest('.story-link, .hot-row[data-sid], .pick-row[data-sid]');
+  const storyLink = t.closest('.story-link, .hot-row[data-sid], .pick-row[data-sid], .fresh-item[data-id]');
   if (storyLink && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0) {
     const sid = storyLink.dataset.id || storyLink.dataset.sid || storyLink.closest('[data-sid]')?.dataset.sid;
     if (sid && STORY_ANY.has(sid)) {

@@ -102,21 +102,21 @@ class WorthScorePartsTests(unittest.TestCase):
         res_4 = calculate_worth(story_4, NOW)
         self.assertAlmostEqual(res_4["parts"]["breadth"], 35.0, places=1)
 
-    def test_freshness_halves_every_24_hours(self):
-        story_24h = {
-            "id": "story-f24",
-            "published_at": "2026-10-03T12:00:00Z",
+    def test_freshness_halves_every_6_hours(self):
+        story_6h = {
+            "id": "story-f6",
+            "published_at": "2026-10-04T06:00:00Z",
             "source_count": 1,
             "coverage": [{"source": "src-1", "publisher": "pub-1", "metrics": {}}],
             "hot_score": None,
             "hot_signals": {"measurement": None},
         }
-        res_24h = calculate_worth(story_24h, NOW)
-        self.assertAlmostEqual(res_24h["parts"]["freshness"], 7.5, places=1)
+        res_6h = calculate_worth(story_6h, NOW)
+        self.assertAlmostEqual(res_6h["parts"]["freshness"], 7.5, places=1)
 
-        story_48h = dict(story_24h, published_at="2026-10-02T12:00:00Z")
-        res_48h = calculate_worth(story_48h, NOW)
-        self.assertAlmostEqual(res_48h["parts"]["freshness"], 3.75, places=2)
+        story_12h = dict(story_6h, published_at="2026-10-04T00:00:00Z")
+        res_12h = calculate_worth(story_12h, NOW)
+        self.assertAlmostEqual(res_12h["parts"]["freshness"], 3.75, places=2)
 
     def test_first_hand_multiplier_scales_all_parts(self):
         story_fh = {
@@ -159,7 +159,7 @@ class WorthScorePartsTests(unittest.TestCase):
             "hot_score": None, "hot_signals": {"measurement": None},
         }
         res = calculate_worth(story, datetime(2026, 10, 5, 14, 0, tzinfo=timezone.utc))
-        self.assertAlmostEqual(res["parts"]["freshness"], 15 * (0.5 ** (1 / 24)), places=2)
+        self.assertAlmostEqual(res["parts"]["freshness"], 15 * (0.5 ** (1 / 6)), places=2)
         self.assertGreater(res["score"], 20)
 
     @unittest.skipUnless(shutil.which("node"), "Node required for Python/JavaScript worth parity")

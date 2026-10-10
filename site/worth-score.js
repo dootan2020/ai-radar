@@ -2,7 +2,7 @@
 export const WORTH = {
   attention: 35, attentionFull: 60,
   breadth: 35, breadthFull: 4,
-  freshness: 15, halfLifeH: 24,
+  freshness: 15, halfLifeH: 6,   // a news reader wants the newest first (owner, 10/10): half after 6 h, a sixteenth after a day
   firstHand: 1.3,
   hotLabel: 20,
   picksMax: 5,

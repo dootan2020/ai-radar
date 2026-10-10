@@ -414,7 +414,7 @@ ul, ol { padding: 0; list-style: none; }
 /* The home's events as a shelf: cards side by side in a row that scrolls sideways and snaps to a card, the next one
    peeking at the edge so the row reads as "there is more". The row runs to the tile's edges and its first card lines
    up with the tile's text. One event is a single card across the tile, not a lonely shelf. */
-.events.shelf {
+.events.shelf, .fresh-list.shelf {
   --shelf-bleed: var(--space-24);
   --shelf-card: 280px;
   /* A card is 280px (85% of a phone's row, so the next one still peeks); cards that all fit share the row instead
@@ -426,14 +426,14 @@ ul, ol { padding: 0; list-style: none; }
   scroll-padding-inline: var(--shelf-bleed);
   scrollbar-width: none;
 }
-.events.shelf::-webkit-scrollbar { display: none; }
+.events.shelf::-webkit-scrollbar, .fresh-list.shelf::-webkit-scrollbar { display: none; }
 .events.shelf[data-n="1"] { grid-auto-columns: 100%; overflow-x: visible; }
-.events.shelf > li {
+.events.shelf > li, .fresh-list.shelf > li {
   scroll-snap-align: start; display: flex; flex-direction: column;
   border: 1px solid var(--color-hair); border-radius: var(--radius-12); padding: var(--space-12);
 }
 /* The row's end is a resting place too, so the last card never settles half out of view. */
-.events.shelf > li:last-child { scroll-snap-align: end; }
+.events.shelf > li:last-child, .fresh-list.shelf > li:last-child { scroll-snap-align: end; }
 .events.shelf .ev { flex: 1; align-content: space-between; }
 /* Beside a stream the row has no tile edge of its own to run to. */
 .tile-live.has-video .events.shelf { --shelf-bleed: 0px; }
@@ -729,22 +729,18 @@ ul, ol { padding: 0; list-style: none; }
     oklch(0.10 0.006 var(--hue) / 0) 100%);
 }
 
-/* An opaque editorial mark stays legible on any photo; clicks fall through to the story. */
+/* The card's origin line ("OpenAI công bố", "Bài báo gốc", "Biên tập chọn"): a quiet kicker above the source row,
+   plain text on every card, never a pill on the photo (owner, 10/10: "anh không muốn pilltext nữa"). Hot stories
+   carry the flame in their headline instead. */
 .why-tag {
-  position: absolute; top: var(--feed-pad); left: var(--feed-pad); z-index: 2; pointer-events: none;
-  max-width: calc(100% - var(--feed-pad) * 2);
-  padding: var(--space-6) var(--space-12); border-radius: var(--radius-8);
-  background: var(--color-surface); color: var(--color-ink);
+  align-self: flex-start; max-width: 100%;
+  color: var(--color-ink-2);
   font-size: var(--text-micro); font-weight: var(--weight-semibold); line-height: var(--leading-body);
   letter-spacing: 0.02em;
 }
-.card-lead .why-tag { top: var(--feed-pad-lead); left: var(--feed-pad-lead); max-width: calc(100% - var(--feed-pad-lead) * 2); }
-.why-tag.is-editor { background: var(--color-accent); color: var(--color-on-accent); }
-.feed-card:not(.card-photo) .why-tag {
-  position: static; align-self: flex-start; max-width: 100%; padding: 0;
-  background: none; color: var(--color-ink-2);
-}
-.feed-card:not(.card-photo) .why-tag.is-editor { color: var(--color-accent); }
+.why-tag.is-editor { color: var(--color-accent); }
+.card-photo .why-tag { color: var(--card-ink-on-photo-2); }
+.card-photo .why-tag.is-editor { color: var(--card-ink-on-photo); }
 
 /* AI illustration badge on cards */
 .ai-badge {
@@ -834,7 +830,32 @@ ul, ol { padding: 0; list-style: none; }
 .fresh-btn:hover { background: var(--color-fill); }
 .fresh-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .fresh-btn .i { width: 16px; height: 16px; }
+/* "Vừa đăng": the top of the home, directly under the header. The events shelf's language: on a phone a row that
+   slides sideways, wider a compact row that the cards share, with arrows when it overflows. Each story reads like a
+   hot row: its picture, the headline (with the new dot while it is new), the source and the time. */
+#fresh-row { margin-bottom: var(--space-24); }
+#fresh-row[hidden] { display: none; }
+.tile-fresh { gap: var(--space-12); }
+.tile-fresh .tile-head { align-items: center; }
+.fresh-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-4) var(--space-12); min-width: 0; }
+.fresh-head .tile-note { white-space: normal; }
+.tile-fresh .tile-tools { margin-block: calc(var(--space-8) * -1); }
+.fresh-item { display: grid; grid-template-columns: var(--thumb-hot) minmax(0, 1fr); align-items: center; gap: var(--space-12); min-height: var(--thumb-hot); min-width: 0; }
+.fresh-item:hover .hot-title { color: var(--color-accent); }
+.fresh-item > .thumb:empty { display: none; }
+.fresh-item:has(> .thumb:empty) { grid-template-columns: minmax(0, 1fr); }
+.fresh-body { min-width: 0; }
+.fresh-list { display: grid; grid-template-columns: minmax(0, 1fr); }
+/* Positioned, so the screen-reader text inside a card (absolutely placed) scrolls and clips with its card instead of
+   widening the page from a card that sits off to the right. */
+.fresh-list.shelf > li { position: relative; padding: var(--space-8); justify-content: center; }
+.fresh-list li.is-read .hot-title { color: var(--color-ink-2); }
 
+/* The hot flame opens the headline, sized and coloured with it: about the cap height, sitting on the first line's
+   baseline, never alone on a line (it shares a no-wrap box with the first word). */
+.flame-lead { white-space: nowrap; }
+.flame { display: inline-block; width: 0.9em; height: 0.9em; margin-inline-end: 0.18em; vertical-align: -0.1em; fill: var(--color-live); }
+.card-photo .flame { fill: var(--red-70); }
 /* Shown only if the page never finished loading: four seconds of "aria-busy", or no JavaScript at all */
 .reader-fallback { display: none; flex-basis: 100%; font-size: var(--text-small); color: var(--color-ink-2); }
 .feed-main[aria-busy="true"] .reader-fallback { display: block; visibility: hidden; animation: late 1ms linear 4s forwards; }
@@ -1138,7 +1159,6 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .card-debate { align-self: stretch; width: 100%; max-width: 100%; height: auto; }
   .card-lead { min-height: clamp(480px, 25vw + 380px, 560px); aspect-ratio: auto; }
   .card-lead .photo-body { padding: var(--space-16); gap: var(--space-8); }
-  .card-lead .why-tag { top: var(--space-16); left: var(--space-16); max-width: calc(100% - var(--space-32)); }
   .card-lead .card-title {
     font-size: clamp(1.125rem, 1rem + 0.6vw, 1.35rem);
     max-width: 100%;
@@ -1159,7 +1179,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .sk-card, .sk-lead { min-height: 280px; }
 
   .tile { padding: var(--space-16); }
-  .events.shelf { --shelf-bleed: var(--space-16); }
+  .events.shelf, .fresh-list.shelf { --shelf-bleed: var(--space-16); }
   .tile-live.has-video .events.shelf { --shelf-bleed: var(--space-16); }   /* stacked under the stream, it has the tile's edges again */
   .tile-video { margin: 0 calc(var(--space-16) * -1); }
   .repo { grid-template-columns: 128px minmax(0, 1fr); }
