@@ -67,18 +67,42 @@ assert.equal(feed.titleOf(coverageTranslated).orig, story.coverage[0].title);
 assert.equal(feed.titleOf(coverageTranslated).cov, story.coverage[0]);
 assert.equal(feed.titleOf({...story, title_vi:undefined, coverage:[]}).text, story.headline);
 
-// Visual clamping must never shorten the text available to readers opening a story or using assistive tech.
+// Feed variants carry accessible attribution; complete originals belong to the reading view.
 const longOriginal = {...story, title:'A long original with evidence and context. '.repeat(30).trim()};
-feed.configure([longOriginal]);
-for (const [size, opts] of [['std', {}], ['lead', {}], ['wide', {}], ['std', {debate:true}]]) {
-  const html = feed.renderCard(longOriginal, size, opts);
-  assert.match(html, /<span class="sr" lang="vi">Bản dịch máy\. Tiêu đề gốc: <\/span>/);
-  assert.ok(html.includes(`<span class="orig-text" lang="en">${longOriginal.title}</span>`),
-    `${size} original remains complete and accessible`);
+const feedVariants = item => [
+  ...['std', 'lead', 'wide'].map(size => feed.renderCard(item, size)),
+  feed.renderCard(item, 'std', {debate:true}),
+  feed.renderCard(item, 'lead', {rank:1, why:true, h:'h3'}),
+  feed.renderHot([item]), feed.pickRow(item, 2),
+];
+for (const translated of [longOriginal, coverageTranslated]) {
+  for (const image of [undefined, {src:'https://approved.example/photo.jpg', via:'og:image', kind:'photo'}]) {
+    const item = {...translated, image};
+    feed.configure([item]);
+    for (const html of feedVariants(item)) {
+      assert.equal((html.match(/>Translated<\/span>/g) || []).length, 1);
+      assert.match(html, /<span class="sr" lang="vi">Bản dịch máy\. <\/span>/);
+      assert.match(html, /(?:class="src-row"|class="hot-why")[\s\S]*?class="mt"/);
+      assert.doesNotMatch(html, /card-orig|orig-text/);
+      assert.ok(!html.includes(feed.titleOf(item).orig), 'feed does not print the original title');
+      assert.ok(html.includes(feed.titleOf(item).text), 'translated headline remains present');
+    }
+  }
+}
+for (const title_vi of [undefined, '', ' ', story.title]) {
+  const item = {...story, title_vi, coverage:[]};
+  feed.configure([item]);
+  for (const html of feedVariants(item)) {
+    assert.ok(html.includes(story.headline), 'untranslated headline remains readable');
+    assert.doesNotMatch(html, /Translated|Bản dịch máy|card-orig|orig-text/);
+  }
 }
 for (const options of [{isModal:true}, {isPage:true}]) {
-  assert.ok(renderStoryHTML(longOriginal, new Map(), options).includes(longOriginal.title),
+  const html = renderStoryHTML(longOriginal, new Map(), options);
+  assert.ok(html.includes(`<span class="orig-text" lang="en">${longOriginal.title}</span>`),
     'story views retain the complete original');
+  assert.match(html, /<span class="sr" lang="vi">Bản dịch máy\. Tiêu đề gốc: <\/span>/);
+  assert.ok(html.includes('>Translated</span>'));
 }
 
 // Each old provider is a real candidate, not merely absent from the input.
@@ -132,7 +156,7 @@ for (const image of [
   }
   const html = feed.renderCard(item, 'lead');
   assert.ok(html.includes(`src="${image.src}"`));
-  assert.ok(html.includes('Translated') && html.includes(story.title));
+  assert.ok(html.includes('Translated') && !html.includes(story.title));
   assert.ok(html.includes(story.headline_vi));
   if (image.via === 'ai') assert.ok(html.includes('Ảnh minh hoạ do AI tạo'));
 }

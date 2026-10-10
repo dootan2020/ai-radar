@@ -121,14 +121,17 @@ class TranslationDisplayTests(unittest.TestCase):
         # hidden from screen readers which hear the Vietnamese sentence beside it.
         self.assertIn('>Translated</span>', self.feed_js)
         self.assertNotIn('>dịch máy</span>', self.feed_js)
-        self.assertIn('<span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span>', self.feed_js)
-        self.assertIn('<span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span>', self.feed_js)
+        self.assertIn('<span class="mt" aria-hidden="true" title="Bản dịch máy">Translated</span>', self.feed_js)
+        self.assertIn('<span class="sr" lang="vi">Bản dịch máy. </span>', self.feed_js)
+        self.assertNotIn('class="card-orig"', self.feed_js)
+        self.assertNotIn('class="orig-text"', self.feed_js)
 
-    def test_feed_original_hint_is_clamped_with_inline_baseline_attribution(self):
+    def test_reading_view_original_styles_remain_without_feed_clamping(self):
+        # Original lines still belong to story.js; feed cards no longer render them.
         original_rule = self.feed_css.split('.card-orig {', 1)[1].split('}', 1)[0]
-        for declaration in ('display: -webkit-box', '-webkit-box-orient: vertical',
-                            '-webkit-line-clamp: 2', 'overflow: hidden'):
-            self.assertIn(declaration, original_rule)
+        self.assertNotIn('-webkit-line-clamp', original_rule)
+        self.assertNotIn('overflow: hidden', original_rule)
+        self.assertNotIn('.card-photo .card-orig', self.feed_css)
         chip_rule = self.feed_css.split('.card-orig .mt {', 1)[1].split('}', 1)[0]
         self.assertIn('display: inline-block', chip_rule)
         self.assertIn('vertical-align: baseline', chip_rule)
@@ -143,6 +146,8 @@ class TranslationDisplayTests(unittest.TestCase):
     def test_feed_footer_names_translated_label(self):
         self.assertIn('kèm nhãn “Translated”.', self.feed_js)
         self.assertNotIn('kèm nhãn “dịch máy”.', self.feed_js)
+        self.assertIn('Tiêu đề gốc hiện khi mở bài đọc.', self.feed_js)
+        self.assertNotIn('tiêu đề gốc nằm ngay dưới', self.feed_js)
 
 
 if __name__ == "__main__":

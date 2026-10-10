@@ -215,6 +215,13 @@ ul, ol { padding: 0; list-style: none; }
 .card-body { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--feed-pad) var(--feed-pad) var(--space-12); flex: 1; }
 
 .src-row { display: flex; align-items: center; gap: var(--space-8); min-width: 0; font-size: var(--text-micro); color: var(--color-ink-3); }
+/* A card's source row is two unbreakable groups: who (picture and name) and when (time and the Translated marker).
+   They share a line when both fit, the name giving way first; otherwise "when" drops below. The dot lives on "when"
+   and hangs into the gap, so a wrapped "when" pushes it past the row's left edge, where it is clipped. */
+.feed-card .src-row { flex-wrap: wrap; gap: var(--space-4) var(--space-12); overflow: hidden; }
+.src-who { display: flex; align-items: center; gap: var(--space-8); min-width: 0; max-width: 100%; flex: 0 1 auto; }
+.src-when { position: relative; display: flex; align-items: center; gap: var(--space-8); flex: none; }
+.src-when::before { content: "·" / ""; position: absolute; inset-inline-end: 100%; width: var(--space-12); text-align: center; }
 .src-name { font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .src-row time { font-size: var(--text-micro); font-weight: var(--weight-regular); color: var(--color-ink-3); white-space: nowrap; flex: none; }
 .src-row .new-tag { color: var(--color-accent); font-weight: var(--weight-medium); flex: none; }
@@ -229,10 +236,9 @@ ul, ol { padding: 0; list-style: none; }
 .feed-card:has(.story-link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 .feed-card:not(.card-photo):hover .story-link { color: var(--color-accent); }
 
-/* A quiet two-line hint; the complete original stays in the DOM and story view. */
+/* Original lines are used by the reading view. */
 .card-orig {
   min-width: 0; font-size: var(--text-sub); color: var(--color-ink-2); line-height: var(--leading-body); overflow-wrap: anywhere;
-  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
 }
 .card-orig .mt { display: inline-block; margin-inline-end: var(--mt-gap); vertical-align: baseline; }
 .card-orig .orig-text { white-space: normal; font-weight: var(--weight-regular); font-size: var(--text-sub); }
@@ -273,11 +279,10 @@ ul, ol { padding: 0; list-style: none; }
   /* Reserve space above the text for its editorial mark. */
   margin-top: calc(var(--feed-pad-lead) + var(--space-48));
 }
-.card-photo .src-row, .card-photo .metric, .card-photo .card-orig { color: var(--card-ink-on-photo-2); }
+.card-photo .src-row, .card-photo .metric { color: var(--card-ink-on-photo-2); }
 .card-photo .src-row time { color: var(--card-ink-on-photo-2); }
 .card-photo .src-name, .card-photo .metric b { color: var(--card-ink-on-photo); }
 .card-photo .card-title, .card-photo .story-link { color: var(--card-ink-on-photo); }
-.card-photo .card-orig .orig-text { color: var(--card-ink-on-photo-2); }
 .card-photo .act { color: var(--card-ink-on-photo-2); }
 .card-photo .act:hover { background: oklch(0.99 0 0 / 0.16); color: var(--card-ink-on-photo); }
 .card-photo .card-sum { color: var(--card-ink-on-photo-2); }
@@ -361,19 +366,43 @@ ul, ol { padding: 0; list-style: none; }
 .live-body { display: flex; flex-direction: column; gap: var(--space-16); }
 .live-video { display: flex; flex-direction: column; gap: var(--space-12); min-width: 0; }
 .video-text { display: contents; }   /* a box of its own only where the picture sits beside the text */
-.live-events { display: flex; flex-direction: column; gap: var(--space-12); min-width: 0; }
-.tile-sub { font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2); margin-top: var(--space-8); }
-.events { display: flex; flex-direction: column; gap: var(--space-12); margin-top: calc(var(--space-8) * -1); }
-.event { display: flex; align-items: center; gap: var(--space-12); min-height: 44px; }
-.event:hover .event-name { color: var(--color-accent); }
-.date-badge {
-  flex: none; width: 48px; height: 48px; border-radius: var(--radius-8); background: var(--color-fill);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1;
+.live-events { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.tile-subhead { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); margin-top: var(--space-8); }
+.tile-sub { font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2); }
+/* "Xem cả N sự kiện": a quiet link with a full-height hit area that does not push the heading apart. */
+.tile-more {
+  display: inline-flex; align-items: center; min-height: 44px; margin-block: calc(var(--space-12) * -1);
+  font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-accent); white-space: nowrap;
 }
-.date-badge b { font-size: var(--size-18); }
-.date-badge span { font-size: var(--datebadge-text); color: var(--color-ink-3); text-transform: uppercase; letter-spacing: 0.06em; }
-.event-text { display: flex; flex-direction: column; min-width: 0; }
-.event-name { font-size: var(--text-small); font-weight: var(--weight-semibold); line-height: var(--leading-snug); overflow-wrap: anywhere; transition: color var(--motion-state) var(--ease-flow); }
+.tile-more:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Events: one row each, divided by a hairline. A row is a container: wide enough, its calendar control sits at
+   the right end; narrower, the control drops under the text and lines up with it. */
+.events { --datebadge-w: 52px; display: grid; grid-template-columns: minmax(0, 1fr); }
+.events > li { container: ev / inline-size; padding-block: var(--space-12); border-top: 1px solid var(--color-hair); min-width: 0; }
+.events > li:first-child { border-top: 0; padding-top: var(--space-4); }
+.events > li:last-child { padding-bottom: 0; }
+.ev { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-4) var(--space-16); }
+@container ev (max-width: 479px) {
+  .ev { grid-template-columns: minmax(0, 1fr); }
+  .ev > .calbtn { justify-self: start; margin-inline-start: calc(var(--datebadge-w) + var(--space-12)); }
+}
+.event { display: flex; align-items: center; gap: var(--space-12); min-height: 44px; min-width: 0; }
+.event:hover .event-name { color: var(--color-accent); }
+/* The date as a calendar leaf: the month in red over the day, the way a calendar icon reads. */
+.date-badge {
+  flex: none; width: var(--datebadge-w); height: 56px; border-radius: var(--radius-12); background: var(--color-fill);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; line-height: 1;
+}
+.date-m { font-size: var(--datebadge-text); font-weight: var(--weight-semibold); color: var(--color-live); text-transform: uppercase; letter-spacing: 0.04em; }
+.date-badge b { font-size: var(--size-21); font-weight: var(--weight-bold); letter-spacing: var(--tracking-number); color: var(--color-ink); }
+.event-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.event-left { font-size: var(--text-micro); font-weight: var(--weight-semibold); color: var(--color-accent); }
+.event-name {
+  font-size: var(--text-small); font-weight: var(--weight-semibold); line-height: var(--leading-snug); overflow-wrap: anywhere;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  transition: color var(--motion-state) var(--ease-flow);
+}
 .event-when { font-size: var(--text-meta); color: var(--color-ink-3); }
 
 /* Hot: ranked rows, each with its picture */
@@ -388,7 +417,11 @@ ul, ol { padding: 0; list-style: none; }
 .hot-row:first-child .hot-rank { color: var(--color-ink); }
 .hot-text { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
 .hot-title { font-size: var(--text-small); font-weight: var(--weight-semibold); line-height: var(--leading-snug); overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: color var(--motion-state) var(--ease-flow); }
-.hot-why { font-size: var(--text-meta); color: var(--color-ink-3); }
+/* Facts as whole pieces that wrap between, never inside a "·" (the same hanging dot as a card's source row). */
+.hot-why { display: flex; flex-wrap: wrap; align-items: center; gap: 2px var(--space-12); overflow: hidden; font-size: var(--text-meta); color: var(--color-ink-3); }
+.hot-why > .mt { margin-inline-end: calc(var(--space-4) * -1); }
+.why-part { position: relative; min-width: 0; }
+.why-part + .sr + .why-part::before { content: "·" / ""; position: absolute; inset-inline-end: 100%; width: var(--space-12); text-align: center; }
 .hot-why b { color: var(--color-ink-2); font-weight: var(--weight-semibold); }
 
 /* Repos: GitHub's own social preview leads each row; 144 x 72, the same height as a hot thumbnail beside it */
@@ -563,15 +596,35 @@ ul, ol { padding: 0; list-style: none; }
 }
 .picks-mid:has(> .feed-card:only-child) { grid-template-columns: minmax(0, 1fr); }
 .picks-mid > .feed-card { grid-column: span 1; min-width: 0; }
-.picks-grid > .tile-live { grid-column: 1 / -1; }
+.picks-grid > .tile-live { grid-column: 1 / -1; align-self: stretch; }   /* full width on the phone's flex column too */
 /* Without the two cards, the lead takes the whole row. */
 .picks-grid:not(:has(> .picks-mid)) > .feed-card.card-lead { grid-column: 1 / -1; min-height: var(--lead-min-h); }
-/* The events tile under the row: a stream (picture beside its text) on the left, the events across the rest. */
+/* The events tile under the row. Without a stream it is a slim strip: the heading as a rail on the left, the events
+   across the rest, one column each, divided by hairlines; it is as tall as its content, never a box to fill. With a
+   stream, the picture and its text take the left third and the events stack as rows beside them. */
 @media (min-width: 1200px){
-  .picks-grid > .tile-live .live-body {
+  .picks-grid > .tile-live:not(.has-video) {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 10fr);
+    align-items: center;
+    gap: 0 var(--space-24);
+    padding-block: var(--space-16);
+  }
+  .picks-grid > .tile-live:not(.has-video) .tile-head { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+  .picks-grid > .tile-live:not(.has-video) .tile-more { margin-block: calc(var(--space-12) * -1) 0; }
+  .picks-grid > .tile-live:not(.has-video) .events { grid-template-columns: repeat(var(--ev-cols, 1), minmax(0, 1fr)); }
+  .picks-grid > .tile-live:not(.has-video) .events[data-n="2"] { --ev-cols: 2; }
+  .picks-grid > .tile-live:not(.has-video) .events[data-n="3"] { --ev-cols: 3; }
+  .picks-grid > .tile-live:not(.has-video) .events > li {
+    border-top: 0; border-inline-start: 1px solid var(--color-hair);
+    padding: var(--space-4) var(--space-24);
+  }
+  .picks-grid > .tile-live:not(.has-video) .events > li:last-child { padding-inline-end: 0; }
+
+  .picks-grid > .tile-live.has-video .live-body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-    gap: var(--space-24);
+    gap: var(--space-32);
     align-items: start;
   }
   .picks-grid > .tile-live .live-video {
@@ -582,34 +635,19 @@ ul, ol { padding: 0; list-style: none; }
   }
   .picks-grid > .tile-live .video-text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-12); min-width: 0; }
   .picks-grid > .tile-live .tile-video { margin: 0; border-radius: var(--radius-8); }
-  .picks-grid > .tile-live .tile-sub { margin-top: 0; }
-  .picks-grid > .tile-live .live-events:only-child { grid-column: 1 / -1; }
-  .picks-grid > .tile-live .events {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-    gap: var(--feed-gap);
-    margin-top: 0;
-  }
+  .picks-grid > .tile-live .tile-subhead { margin-top: 0; }
 }
-/* Tablet: the events tile under the cards, video and events side by side, events two across. */
+/* Tablet: the events tile under the cards; a stream and the event rows side by side. */
 @media (min-width: 768px) and (max-width: 1199px){
-  .picks-grid > .tile-live .live-body {
+  .picks-grid > .tile-live.has-video .live-body {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--feed-gap);
     align-items: start;
   }
   .picks-grid > .tile-live .tile-video { margin: 0; border-radius: var(--radius-8); }
-  .picks-grid > .tile-live .tile-sub { margin-top: 0; }
-  .picks-grid > .tile-live .events { margin-top: 0; }
-  .picks-grid > .tile-live .live-events:only-child { grid-column: 1 / -1; }
-  .picks-grid > .tile-live .live-events:only-child .events {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--feed-gap);
-  }
+  .picks-grid > .tile-live .tile-subhead { margin-top: 0; }
 }
-
 /* The rank of the block's lead, at the head of its source line */
 .pick-n { font-size: var(--size-21); font-weight: var(--weight-bold); line-height: 1; letter-spacing: var(--tracking-number); color: var(--color-ink); margin-right: var(--space-4); }
 .card-photo .pick-n { color: var(--card-ink-on-photo); }
@@ -789,9 +827,28 @@ ul, ol { padding: 0; list-style: none; }
 .card-photo .calbtn-ics { background: oklch(0.99 0 0 / 0.10); }
 .card-photo .calbtn-g:hover, .card-photo .calbtn-ics:hover,
 .card-photo .calbtn-g:active, .card-photo .calbtn-ics:active { background: var(--color-surface); color: var(--color-ink); }
-.events li { display: flex; flex-direction: column; gap: var(--space-8); }
-.events .calbtn { align-self: flex-start; }
 .tile-live .calbtn { align-self: flex-start; }
+/* In an event row the control is secondary: a slim pill drawn inside a 44px hit area, "Google" without "Calendar"
+   (the link's accessible name keeps the full words). */
+.events .calbtn { background: none; overflow: visible; border-radius: 0; }
+.events .calbtn-long { display: none; }
+.events .calbtn-g, .events .calbtn-ics {
+  position: relative; isolation: isolate; background: none; padding: 0 var(--space-12);
+  font-size: var(--text-micro); color: var(--color-ink-2);
+}
+.events .calbtn-g .i { width: 14px; height: 14px; }
+.events .calbtn-g::before, .events .calbtn-ics::before {
+  content: ""; position: absolute; inset: var(--space-8) 0; z-index: -1; background: var(--color-fill);
+  transition: background-color var(--motion-state) var(--ease-flow);
+}
+.events .calbtn-g::before { border-radius: var(--radius-full) 0 0 var(--radius-full); }
+.events .calbtn-ics::before { border-radius: 0 var(--radius-full) var(--radius-full) 0; background: var(--color-hair); }
+.events .calbtn-g:hover, .events .calbtn-ics:hover, .events .calbtn-g:active, .events .calbtn-ics:active { background: none; }
+.events .calbtn-g:hover { color: var(--color-ink); }
+.events .calbtn-g:hover::before { background: var(--color-hair); }
+.events .calbtn-ics:hover, .events .calbtn-ics:active, .events .calbtn-g:active { color: var(--color-canvas); }
+.events .calbtn-ics:hover::before, .events .calbtn-ics:active::before, .events .calbtn-g:active::before { background: var(--color-ink); }
+.events .calbtn :focus-visible { outline-offset: -6px; }
 
 /* Repository controls: the sort switch's segmented pill, work areas as filter chips */
 .repo-ctl { display: flex; flex-wrap: wrap; gap: var(--space-8); align-items: center; }
@@ -985,9 +1042,6 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 @media (max-width: 1199px) and (min-width: 768px){
   .feed-grid > .card-wide .media { max-height: 280px; }
 }
-@media (max-width: 1199px){
-  .events .calbtn { margin-left: 0; }
-}
 
 /* ==========================================================================
    PHONE (up to 767): one column, Discover-style. Big pictures, whitespace between.
@@ -1019,6 +1073,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .feed-main { padding-top: var(--space-8); }
 
   .feed-grid { display: flex; flex-direction: column; }
+  .feed-grid > .tile-live { align-self: stretch; }   /* its event rows are size containers and give it no width of their own */
   .card-debate { align-self: stretch; width: 100%; max-width: 100%; height: auto; }
   .card-lead { min-height: clamp(480px, 25vw + 380px, 560px); aspect-ratio: auto; }
   .card-lead .photo-body { padding: var(--space-16); gap: var(--space-8); }
@@ -1245,7 +1300,6 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .src-panel { padding: var(--space-16); margin-top: var(--space-48); }
   .src-panel.is-page { margin-top: var(--space-16); }
   .src-list { grid-template-columns: minmax(0, 1fr); }
-  .events .calbtn { margin-left: 0; }
   .calbtn-g, .calbtn-ics, .seg-b, .area-chip, .cov-btn, .repo-more-btn { min-height: 44px; }
   .repo-more-btn { width: 100%; }
   .saved-list li { grid-template-columns: minmax(0, 1fr) auto; }
