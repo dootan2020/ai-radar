@@ -38,8 +38,9 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c=' https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; img-src 'self' https:; font-src 'self'; connect-src 'self' https://hn.algolia.com https://huggingface.co https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';">
 <!-- Apply the reader's saved theme before first paint, so a dark-mode reader never sees a light flash. -->
 <script>try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
-<!-- The snapshot is the page's only content: fetch it while the HTML is still parsing, not after the module graph. -->
-<link rel="preload" href="data/radar-ui.json" as="fetch" crossorigin>
+<!-- The snapshot is the page's only content: fetch it while the HTML is still parsing, not after the module graph. The window
+     file holds the stories the first screen can show (radar/site_payload.py); feed.js loads the complete one after it. -->
+<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="feed.css">
 <link rel="stylesheet" href="arena.css">
@@ -115,6 +116,16 @@
     <noscript><p>Dòng tin cần JavaScript để hiển thị. Hãy bật JavaScript trong trình duyệt rồi tải lại trang.</p></noscript>
   </div>
 
+  <!-- The loading placeholder sits where the first screen will appear and is removed when it does, so nothing that
+       stays on the page is pushed down by the content arriving above it (layout shift). -->
+  <div class="feed-grid" id="feed-skeleton">
+    <div class="sk-card sk-lead"><div class="sk"></div></div>
+    <div class="sk-card"><div class="sk sk-media"></div><div class="sk sk-line"></div><div class="sk sk-line short"></div></div>
+    <div class="sk-card sk-tall"><div class="sk sk-media"></div><div class="sk sk-line"></div></div>
+    <div class="sk-card"><div class="sk sk-media"></div><div class="sk sk-line"></div><div class="sk sk-line short"></div></div>
+    <p class="sr" role="status">Đang tải dòng tin…</p>
+  </div>
+
   <!-- Khối 1: Nhiều nguồn cùng đưa - các sự kiện lớn được nhiều cơ quan báo chí và phòng nghiên cứu độc lập cùng xác nhận -->
   <section class="picks" id="picks" aria-labelledby="picks-h" hidden>
     <div class="block-head">
@@ -128,13 +139,7 @@
 
   <section class="arena" id="arena" aria-labelledby="arena-title" hidden></section>
 
-  <section class="feed-grid" id="feed-grid" aria-label="Dòng tin">
-    <div class="sk-card sk-lead"><div class="sk"></div></div>
-    <div class="sk-card"><div class="sk sk-media"></div><div class="sk sk-line"></div><div class="sk sk-line short"></div></div>
-    <div class="sk-card sk-tall"><div class="sk sk-media"></div><div class="sk sk-line"></div></div>
-    <div class="sk-card"><div class="sk sk-media"></div><div class="sk sk-line"></div><div class="sk sk-line short"></div></div>
-    <p class="sr" role="status">Đang tải dòng tin…</p>
-  </section>
+  <section class="feed-grid" id="feed-grid" aria-label="Dòng tin"></section>
 
   <div class="feed-more" id="feed-more" hidden>
     <button class="btn" id="more-btn">Xem thêm</button>

@@ -219,5 +219,84 @@ class SitePayloadTests(unittest.TestCase):
                     site_payload.write_site_snapshot(data, target)
             self.assertFalse(site_payload.head_path(target).exists())
 
+    def test_window_projection_keeps_what_the_first_screen_can_show(self):
+        data = reader_fixture()
+        data["ranking"] = {"window_hours": 72}
+        data["generated_at"] = "2026-10-10T12:00:00+00:00"
+        base = data["stories"][0]
+        def story(sid, published, **extra):
+            return {**deepcopy(base), "id": sid, "url": f"https://example.org/{sid}", "title": sid,
+                    "published_at": published, **extra}
+        data["stories"] = [
+            story("fresh", "2026-10-10T11:00:00Z"),
+            story("edge-old", "2026-10-07T12:00:00Z"),            # exactly at the window start: kept
+            story("near-future", "2026-10-10T12:04:00Z"),          # inside the reader's five-minute allowance
+            story("future", "2026-10-10T12:30:00Z"),
+            story("old", "2026-10-01T00:00:00Z"),
+            story("old-event", "2026-09-01T00:00:00Z"),
+            story("old-event-title", "2026-09-01T00:00:00Z"),
+            story("old-upcoming", "2026-09-01T00:00:00Z"),
+            story("undated", None),
+            story("unreadable", "not a time"),
+        ]
+        data["events"] = [{"url": "https://example.org/old-event", "title": "x"}, {"url": None, "title": "old-event-title"}]
+        data["sections"] = {"upcoming": ["old-upcoming"], "today": ["old"]}
+        page = site_payload.page_payload(data)
+        window = site_payload.window_payload(page)
+        self.assertEqual([s["id"] for s in window["stories"]],
+                         ["fresh", "edge-old", "near-future", "old-event", "old-event-title", "old-upcoming",
+                          "undated", "unreadable"])
+        self.assertEqual({k: v for k, v in window.items() if k != "stories"},
+                         {k: v for k, v in page.items() if k != "stories"})
+        self.assertEqual(window["stories"][0], page["stories"][0])
+        self.assertEqual(site_payload.window_path("site/data/radar.json").name, "radar-window.json")
+
+    def test_window_projection_keeps_every_story_when_the_snapshot_time_is_unreadable(self):
+        page = site_payload.page_payload(reader_fixture())
+        page["generated_at"] = "unknown"
+        self.assertEqual(site_payload.window_payload(page)["stories"], page["stories"])
+
+    def test_window_projection_defaults_to_the_reader_window(self):
+        page = site_payload.page_payload(reader_fixture())
+        page["generated_at"] = "2026-10-10T12:00:00Z"
+        page["ranking"] = {"window_hours": "bad"}
+        page["stories"][0]["published_at"] = "2026-10-07T13:00:00Z"
+        self.assertEqual(len(site_payload.window_payload(page)["stories"]), 1)
+        page["stories"][0]["published_at"] = "2026-10-07T11:00:00Z"
+        self.assertEqual(site_payload.window_payload(page)["stories"], [])
+
+    def test_write_site_snapshot_writes_window_and_cleans_up_on_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            data = reader_fixture()
+            target = Path(directory) / "radar.json"
+            site_payload.write_site_snapshot(data, target)
+            window = site_payload.window_path(target)
+            self.assertEqual(json.loads(window.read_bytes()),
+                             site_payload.window_payload(site_payload.page_payload(data)))
+            self.assertEqual(window.read_bytes().count(b"\n"), 1)
+
+            real_writer = site_payload.write_atomic
+            def fail_window(payload, path, **kwargs):
+                if "window" in str(path):
+                    raise OSError("window write failed")
+                return real_writer(payload, path, **kwargs)
+
+            with patch.object(site_payload, "write_atomic", side_effect=fail_window):
+                with self.assertRaises(OSError):
+                    site_payload.write_site_snapshot(data, target)
+            self.assertFalse(window.exists())
+            self.assertFalse(site_payload.head_path(target).exists())
+            self.assertTrue(site_payload.page_path(target).exists())
+
+    def test_build_refuses_window_collisions_before_collecting(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "radar.json"
+            with patch.dict(os.environ, {"RADAR_OUTPUT": str(target),
+                    "RADAR_BASELINE": str(site_payload.window_path(target))}, clear=True), \
+                    patch.object(build, "build_v2") as collect:
+                with self.assertRaisesRegex(ValueError, "different files"):
+                    build.main()
+                collect.assert_not_called()
+
 if __name__ == "__main__":
     unittest.main()

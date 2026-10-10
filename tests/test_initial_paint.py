@@ -137,7 +137,7 @@ process.stdout.write(JSON.stringify({pending,ready,disabled:clicks}));
         self.assertEqual(font_preloads, [])
 
         feed_html = (ROOT / 'site/index.html').read_text(encoding='utf-8')
-        self.assertIn('<link rel="preload" href="data/radar-ui.json" as="fetch" crossorigin>', feed_html)
+        self.assertIn('<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>', feed_html)
         self.assertEqual(re.findall(r'<link rel="preload" href="([^"]+)" as="font"', feed_html), [])
 
 

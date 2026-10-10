@@ -1,6 +1,7 @@
 """A complete reader projection alongside the full collection/evidence snapshot."""
 
 from copy import deepcopy
+from datetime import datetime, timedelta
 from pathlib import Path
 import re
 
@@ -48,6 +49,59 @@ def head_path(path):
     """Companion first-screen projection path, e.g. radar-head.json."""
     path = Path(path)
     return path.with_name(f"{path.stem}-head{path.suffix}")
+
+
+def window_path(path):
+    """Companion first-load projection path for the feed, e.g. radar-window.json."""
+    path = Path(path)
+    return path.with_name(f"{path.stem}-window{path.suffix}")
+
+
+def _instant(value):
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return None
+
+
+def window_payload(page):
+    """The page projection cut to the stories the home feed can show on first load.
+
+    The feed (site/feed.js, ingest) ranks and draws its first screen only from stories published inside the ranking
+    window, so this file renders the same first screen as the complete projection at a fraction of its bytes. Every
+    other reader field is kept whole. Stories outside the window that the first render still looks up are kept too:
+    the ones an upcoming event links to (the live tile's event list) and the "Sắp diễn ra" section. The complete
+    projection (radar-ui.json) loads after the first paint for sections, saved stories and story addresses.
+
+    Inclusion errs wide: a story whose time cannot be read here is kept, because the reader filters again.
+    """
+    result = {key: value for key, value in page.items() if key != "stories"}
+    stories = page.get("stories", [])
+    generated = _instant(page.get("generated_at"))
+    try:
+        hours = float((page.get("ranking") or {}).get("window_hours"))
+    except (TypeError, ValueError):
+        hours = 0
+    if generated is None or generated.tzinfo is None:
+        result["stories"] = list(stories)
+        return result
+    if not hours > 0:
+        hours = 72
+    start, end = generated - timedelta(hours=hours), generated + timedelta(minutes=5)
+    events = [e for e in page.get("events") or [] if isinstance(e, dict)]
+    event_urls = {e.get("url") for e in events if e.get("url")}
+    event_titles = {e.get("title") for e in events if e.get("title")}
+    upcoming = set((page.get("sections") or {}).get("upcoming") or [])
+
+    def keep(story):
+        published = _instant(story.get("published_at"))
+        if published is None or published.tzinfo is None or start <= published <= end:
+            return True
+        return (story.get("id") in upcoming or story.get("url") in event_urls
+                or story.get("title") in event_titles)
+
+    result["stories"] = [story for story in stories if keep(story)]
+    return result
 
 
 def yt_id_from_url(url):
@@ -189,12 +243,22 @@ def write_site_snapshot(payload, path):
     """
     write_atomic(payload, path)
     companion = page_path(path)
+    window_file = window_path(path)
     head_file = head_path(path)
     search_file = search_path(path)
     try:
-        write_atomic(page_payload(payload), companion, compact=True)
+        page = page_payload(payload)
+        write_atomic(page, companion, compact=True)
     except Exception:
         companion.unlink(missing_ok=True)
+        window_file.unlink(missing_ok=True)
+        head_file.unlink(missing_ok=True)
+        search_file.unlink(missing_ok=True)
+        raise
+    try:
+        write_atomic(window_payload(page), window_file, compact=True)
+    except Exception:
+        window_file.unlink(missing_ok=True)
         head_file.unlink(missing_ok=True)
         search_file.unlink(missing_ok=True)
         raise
