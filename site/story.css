@@ -467,6 +467,41 @@ dialog.story-dialog::backdrop {
   }
 }
 
+/* Long headlines (story.js headlineSizeClass): a 300-character social post set at display size
+   filled 483px of a 375px-wide screen. Step the size down by length so the summary stays in view;
+   headlines up to 100 characters keep the display size above. */
+.story-headline.is-long,
+.story-page-container .story-headline.is-long {
+  font-size: clamp(var(--size-28), 2.2vw, var(--size-32));
+  line-height: var(--leading-snug);
+}
+
+/* The page sets short headlines one step larger than the modal; long ones follow one step down too. */
+.story-page-container .story-headline.is-long {
+  font-size: clamp(var(--size-28), 2.8vw, var(--size-40));
+}
+
+.story-headline.is-post,
+.story-page-container .story-headline.is-post {
+  font-size: var(--text-tile);
+  font-weight: var(--weight-semibold);
+  letter-spacing: normal;
+  line-height: var(--leading-snug);
+  text-wrap: pretty;
+}
+
+@media (max-width: 767px) {
+  .story-headline.is-long,
+  .story-page-container .story-headline.is-long {
+    font-size: var(--text-tile);
+  }
+
+  .story-headline.is-post,
+  .story-page-container .story-headline.is-post {
+    font-size: var(--text-title);
+  }
+}
+
 /* Translated line */
 .story-orig-block {
   margin-bottom: var(--space-16);
@@ -503,7 +538,10 @@ dialog.story-dialog::backdrop {
   display: inline-flex;
   align-items: center;
   gap: var(--space-8);
-  min-height: 38px;
+  /* One line always: a pill that wraps to two lines turns into a distorted lozenge. A long
+     publisher name ellipsizes instead; the full label stays in the accessible name and title. */
+  max-width: 100%;
+  min-height: 44px;
   padding: 0 var(--space-16);
   border-radius: var(--radius-full);
   background: var(--color-surface);
@@ -511,8 +549,9 @@ dialog.story-dialog::backdrop {
   color: var(--color-ink);
   font-size: var(--text-small);
   font-weight: var(--weight-medium);
+  white-space: nowrap;
   text-decoration: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px oklch(var(--shadow-tint) / 0.05);
   transition: transform var(--duration-150) var(--ease-flow),
               background var(--duration-150) var(--ease-flow),
               border-color var(--duration-150) var(--ease-flow);
@@ -533,7 +572,14 @@ dialog.story-dialog::backdrop {
   outline-offset: var(--focus-offset);
 }
 
+.story-cta-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .story-cta-arrow {
+  flex-shrink: 0;
   color: var(--color-accent);
   font-size: var(--size-14);
   line-height: 1;
