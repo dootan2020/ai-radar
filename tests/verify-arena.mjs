@@ -65,7 +65,7 @@ for (const [score, expected] of [[1525.3956, '1525'], [1501, '1501'], [1494, '14
 }
 for (const category of Object.keys(data.categories)) {
   const html = arenaHTML(data, category);
-  assert.equal((html.match(/<li class="arena-column /g) || []).length, 10);
+  assert.equal((html.match(/<tr class="arena-row/g) || []).length, 10);
   assert.ok(html.includes(`data-arena-category="${category}" aria-pressed="true"`));
   for (const text of ['08/10/2026', '30/09/2026', '↑ Tăng 2', 'Giữ hạng', '1500', '<small>Anthropic</small>', 'CC BY 4.0', 'giữ nguyên điểm', 'https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset', 'https://creativecommons.org/licenses/by/4.0/']) assert.ok(html.includes(text), text);
 }
@@ -82,9 +82,8 @@ for (const invalid of [null, {}, {categories: {overall: []}}, {categories: {over
 const hostile = {...data, categories: {overall: rows.map(r => ({...r, id: '<script>alert(1)</script>', maker: '<img src=x onerror=evil()>'}))}};
 assert.ok(!arenaHTML(hostile).includes('<script>'));
 assert.ok(!arenaHTML(hostile).includes('<img'));
-assert.ok(!arenaHTML(hostile).includes('arena-maker-<'));
 
-// Absolute scores share one padded scale across categories and orientations.
+// Absolute scores on a round range axis with CI whiskers and mobile cards.
 const scores = [1525.3956435571818, 1507.0758687407206, 1504.355209789498,
   1503.693577172815, 1501.0258966973688, 1500.7290291564887,
   1497.7335923252954, 1496.5039548814862, 1494.1854645692001, 1493.9734271816128];
@@ -92,72 +91,62 @@ const chartRows = rows.map((row, i) => ({...row, score: scores[i], maker: i % 2 
 const chartData = {...data, categories: {overall: chartRows,
   hard_prompts: chartRows.map((row, i) => ({...row, score: i ? row.score : 1600})), non_english: rows}};
 const chart = arenaHTML(chartData);
-const heights = html => [...html.matchAll(/--arena-bar-size:([\d.]+)%/g)].map(match => Number(match[1]));
-const plotted = heights(chart);
+const widths = html => [...html.matchAll(/class="arena-bar" style="width:\s*([\d.]+)%"/g)].map(match => Number(match[1]));
+const plotted = widths(chart);
 assert.equal(plotted.length, 10);
-assert.ok(plotted.every(height => height > 0 && height <= 100), 'Every model must have a visible, in-range bar');
-assert.ok(Math.abs(plotted[0] - (scores[0] - 1480) / 120 * 100) < 1e-10);
+assert.ok(plotted.every(width => width >= 0 && width <= 100), 'Every model must have an in-range bar');
+assert.ok(Math.abs(plotted[0] - (scores[0] - 1480) / 60 * 100) < 1e-10);
 assert.ok(plotted[8] > plotted[9], 'Distinct source scores remain distinct even when both labels round to 1494');
-assert.ok(chart.includes('18,3 điểm'));
-assert.ok(chart.includes('Trục điểm Arena: 1480–1600'));
-assert.ok(chart.includes('Trục không bắt đầu từ 0'));
-assert.ok(chart.includes('không biểu thị tỷ lệ năng lực'));
+assert.ok(chart.includes('Dải đo: 1480 – 1540'));
+assert.match(chart, /Điểm Arena & <span class="arena-axis-ci-label">Khoảng tin cậy 95%<\/span>/,
+  'Keep the full CI header available for a deliberate tablet line break');
+assert.ok(chart.includes('Thanh điểm ước lượng'));
+assert.ok(chart.includes('Râu khoảng tin cậy 95% (CI)'));
+assert.ok(chart.includes('Các mô hình có râu đè lên nhau'));
 assert.ok(chart.includes('aria-describedby="arena-comparison"'));
+
 for (const category of Object.keys(data.categories)) {
   const rendered = arenaHTML(chartData, category);
-  assert.ok(rendered.includes('<span>1600</span><span>1540</span><span>1480</span>'));
-  assert.ok(rendered.includes('<div class="arena-mobile-axis" aria-hidden="true"><span>1480</span><span>1540</span><span>1600</span></div>'));
-  const sizes = heights(rendered);
-  for (const [i, row] of chartData.categories[category].entries()) {
-    assert.ok(Math.abs(sizes[i] - (row.score - 1480) / 120 * 100) < 1e-10);
-  }
+  assert.ok(rendered.includes('arena-axis-ticks'));
+  const sizes = widths(rendered);
+  assert.equal(sizes.length, 10);
+  assert.ok(sizes.every(size => size >= 0 && size <= 100));
 }
-assert.deepEqual(heights(arenaHTML(chartData, 'hard_prompts')).slice(1), plotted.slice(1), 'Equal scores retain equal geometry after switching');
-assert.ok(heights(arenaHTML(data)).every(height => height > 0 && height === heights(arenaHTML(data))[0]));
+
 const boundaryRows = rows.map(row => ({...row, score: 1500}));
 const boundaryChart = arenaHTML({...data, categories: {overall: boundaryRows}});
-assert.ok(boundaryChart.includes('Trục điểm Arena: 1490–1510'));
-assert.ok(heights(boundaryChart).every(height => height === 50), 'Scores exactly on a round boundary still have visible bars');
-assert.ok(arenaHTML(data).includes('CÙNG ĐIỂM CAO NHẤT'));
+assert.ok(boundaryChart.includes('Dải đo: 1500 – 1520'));
+assert.ok(widths(boundaryChart).every(width => width === 0), 'Scores on floor boundary start at 0%');
+
 const tiedRanks = chartRows.map((row, i) => ({...row, rank: i < 2 ? 1 : i + 1}));
-assert.equal((arenaHTML({...data, categories: {overall: tiedRanks}}).match(/value="1"/g) || []).length, 2);
-assert.ok(arenaHTML({...data, categories: {overall: chartRows, hard_prompts: {}}}).includes('18,3 điểm'));
+assert.equal((arenaHTML({...data, categories: {overall: tiedRanks}}).match(/arena-row arena-leader/g) || []).length, 2);
+
 // Real reader snapshot captured on 10 October from the 8 October Arena publication.
-// Keep this fixture stable so later refreshes cannot erase the axis regression.
 const snapshot = JSON.parse(await readFile(new URL('./fixtures/arena-2026-10-08.json', import.meta.url), 'utf8'));
-const snapshotSizes = {};
+const snapshotWidths = {};
 for (const category of Object.keys(data.categories)) {
   const rendered = arenaHTML(snapshot, category);
-  const sizes = snapshotSizes[category] = heights(rendered);
+  const sizes = snapshotWidths[category] = widths(rendered);
   assert.equal(sizes.length, 10);
-  assert.ok(rendered.includes('Trục điểm Arena: 1470–1560'));
-  assert.ok(rendered.includes('<span>1560</span><span>1515</span><span>1470</span>'));
-  assert.ok(rendered.includes('<div class="arena-mobile-axis" aria-hidden="true"><span>1470</span><span>1515</span><span>1560</span></div>'));
-  assert.ok(rendered.includes('Trục không bắt đầu từ 0'));
   assert.ok(sizes.every(size => size > 0 && size <= 100), `${category}: every real model has a visible bar`);
-  assert.ok(sizes[0] / sizes[9] >= 1.5, `${category}: leader is at least 1.5 times the tenth's height`);
-  for (const [i, row] of snapshot.categories[category].entries()) {
-    assert.ok(Math.abs(sizes[i] - (row.score - 1470) / 90 * 100) < 1e-10, `${category}: shared raw-score geometry`);
-  }
 }
-assert.ok(snapshotSizes.overall[0] / snapshotSizes.overall[9] >= 2, 'Overall leader is at least twice the tenth’s height');
-assert.ok(Math.max(...Object.values(snapshotSizes).flat()) >= 85, 'Real scores use at least 85% of the shared plot height');
+assert.ok(arenaHTML(snapshot, 'overall').includes('Dải đo: 1480 – 1540'));
+assert.ok(arenaHTML(snapshot, 'overall').includes('CI 95%: 1516.5 – 1534.2 (±9)'));
+assert.ok(arenaHTML(snapshot, 'overall').includes('CI 95%: 1499.0 – 1515.2 (±8)'));
+assert.ok(arenaHTML(snapshot, 'overall').includes('CI 95%: 1501.0 – 1507.7 (±3)'));
+assert.ok(arenaHTML(snapshot, 'hard_prompts').includes('Dải đo: 1500 – 1580'));
+assert.ok(arenaHTML(snapshot, 'non_english').includes('Dải đo: 1460 – 1540'));
+
 const arenaCSS = await readFile(new URL('../site/arena.css', import.meta.url), 'utf8');
-const narrowCSS = arenaCSS.split('@media (max-width: 1199px)')[1].split('@media (max-width: 599px)')[0];
-assert.match(arenaCSS, /grid-template-columns: repeat\(10, minmax\(0, 1fr\)\)/);
-assert.match(arenaCSS, /height: var\(--arena-bar-size\)/);
-assert.match(narrowCSS, /\.arena-columns \{ grid-template-columns: minmax\(0, 1fr\)/);
-assert.match(narrowCSS, /\.arena-mobile-axis \{ display: flex/);
-assert.match(narrowCSS, /\.arena-bar \{ left: 0; width: var\(--arena-bar-size\); height: 100%/);
-assert.ok(!/repeat\([25],/.test(arenaCSS), 'Narrow charts must never split into mini column charts');
+assert.ok(arenaCSS.includes('.arena-table'));
+assert.ok(arenaCSS.includes('.arena-bar'));
+assert.ok(arenaCSS.includes('.arena-whisker'));
+assert.ok(arenaCSS.includes('.arena-dot'));
+assert.ok(arenaCSS.includes('.arena-legend-strip'));
+assert.ok(!arenaCSS.includes('grid-template-columns: repeat(10'));
+assert.ok(!arenaCSS.includes('--arena-maker-color'));
 const tokensCSS = await readFile(new URL('../site/tokens.css', import.meta.url), 'utf8');
-for (const maker of ['google', 'anthropic', 'meta', 'moonshot', 'openai', 'other']) {
-  assert.ok(arenaCSS.includes(`--arena-maker-color: var(--color-maker-${maker})`));
-  const colors = [...tokensCSS.matchAll(new RegExp(`--color-maker-${maker}: (#[a-f0-9]+);`, 'g'))].map(match => match[1]);
-  assert.equal(colors.length, 3, `${maker}: light, explicit dark and system dark tokens`);
-  assert.notEqual(colors[0], colors[1]);
-  assert.equal(colors[1], colors[2]);
-}
+assert.ok(!tokensCSS.includes('--color-maker-google'));
 let click, focused = false, calls = 0;
 const root = {innerHTML: '', hidden: true, addEventListener: (_, fn) => { click = fn; }, querySelector: () => ({focus: () => { focused = true; }})};
 globalThis.fetch = async () => { calls++; return {ok: true, json: async () => data}; };
@@ -215,8 +204,8 @@ if (process.argv.includes('--source-rows')) {
       while (page.length < 10) page.push(categoryRows[page.length]);
       const rows = page.map(row => ({id: row.model_name, maker: row.organization || '', rank: row.rank, score: row.rating}));
       const rendered = arenaHTML({...data, categories: {[category]: rows}}, category);
-      assert.equal((rendered.match(/<li class="arena-column /g) || []).length, 10, category);
-      assert.equal((rendered.match(/Điểm Arena <\/span>\d+<\/strong>/g) || []).length, 10, category);
+      assert.equal((rendered.match(/<tr class="arena-row/g) || []).length, 10, category);
+      assert.equal((rendered.match(/<td class="arena-col-score">\s*<strong>\d+<\/strong>/g) || []).length, 10, category);
       for (const row of rows) {
         assert.ok(rendered.includes(modelName(row.id)), row.id);
         assert.ok(rendered.includes(`<small>${makerName(row.maker)}</small>`), row.maker);

@@ -15,12 +15,17 @@ LICENSE = "https://creativecommons.org/licenses/by/4.0/"
 BASE = DATASET + "/resolve/main/text_style_control/"
 CATEGORIES = ("overall", "hard_prompts", "non_english")
 COLUMNS = ["model_name", "organization", "rating", "rank", "category", "leaderboard_publish_date"]
+OPTIONAL_COLUMNS = ["rating_lower", "rating_upper", "vote_count"]
 
 
 def parse_parquet(content, since=None):
     """Read only owned columns; reject incomplete publications, never invent ranks."""
     import pyarrow.parquet as pq
-    batches = pq.ParquetFile(io.BytesIO(content)).iter_batches(columns=COLUMNS)
+    parquet_file = pq.ParquetFile(io.BytesIO(content))
+    schema_names = set(parquet_file.schema.names)
+    read_cols = [c for c in COLUMNS if c in schema_names]
+    opt_cols = [c for c in OPTIONAL_COLUMNS if c in schema_names]
+    batches = parquet_file.iter_batches(columns=read_cols + opt_cols)
     rows = (row for batch in batches for row in batch.to_pylist())
     publications = {}
     for row in rows:
@@ -39,7 +44,14 @@ def parse_parquet(content, since=None):
         group = publications.setdefault(published, {}).setdefault(category, {})
         if model in group:
             raise ValueError("Duplicate Arena model")
-        group[model] = {"id": model, "maker": maker, "rank": rank, "score": score}
+        item = {"id": model, "maker": maker, "rank": rank, "score": score}
+        if "rating_lower" in row and isinstance(row["rating_lower"], (int, float)) and math.isfinite(row["rating_lower"]):
+            item["rating_lower"] = float(row["rating_lower"])
+        if "rating_upper" in row and isinstance(row["rating_upper"], (int, float)) and math.isfinite(row["rating_upper"]):
+            item["rating_upper"] = float(row["rating_upper"])
+        if "vote_count" in row and isinstance(row["vote_count"], (int, float)) and math.isfinite(row["vote_count"]):
+            item["vote_count"] = int(row["vote_count"]) if float(row["vote_count"]).is_integer() else float(row["vote_count"])
+        group[model] = item
     if not publications:
         raise ValueError("No Arena publications")
     result = {}

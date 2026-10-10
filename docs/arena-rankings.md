@@ -7,48 +7,39 @@ Each shows ten models, source rank, readable model identifier, maker, Arena scor
 and rank movement. Source ties and gaps are retained; equal ranks are ordered by
 score and then identifier. Scores are rounded to whole numbers with no grouping
 separator (for example, `1525`), without changing
-the underlying value. A short explanation warns that small differences may be
-within uncertainty; confidence intervals and vote counts are omitted from the
-reader view.
+the underlying value. A short explanation reminds readers that models with
+overlapping whiskers have score differences within the margin of error.
 
-## Reading the column chart
+## Reading the horizontal bar chart with 95% CI
 
-The ranking uses the home feed's full content width. Ten vertical columns show
-the top ten at desktop widths of 1200px and above. Below 1200px, one horizontal
-bar chart contains all ten models on a common aligned track, with source rank,
-full name, maker, score and weekly movement. It does not wrap into separate
-mini charts or require horizontal scrolling. Maker identity is presented through small, elegant monogram marks (such as [G], [A], [M], [O])
-paired with brand names in the legend and rich detail on hover or keyboard focus. The palette is
-calm and restrained: runner-up columns use a subtle neutral fill while the leader carries the
-primary accent colour, making "who leads, by how much" unmistakable in a single glance. Columns
-are slim and softly finished with light hairline gridlines. The leader callout is seamlessly
-integrated into the headline without visual clutter, and technical axis notes rest quietly as a
-footnote below the columns. On mobile and narrow viewports below 1200px, one aligned horizontal
-bar chart provides the same restrained, dignified experience without overflowing.
+The ranking uses the home feed's full content width. A full-width card presents
+the top ten models in a structured table on desktop and tablet, and as individual
+cards on mobile viewports (such as 375px), avoiding horizontal page scroll.
 
-The axis measures **absolute Arena scores**. Its shared floor is the lowest
-score across all available complete categories, rounded down to a multiple of
-10, then reduced by 10. This guarantees at least 10 points of space below the
-lowest model, including scores on a round boundary. The ceiling is the highest
-score rounded up to 10, with a minimum range of 20 points above the floor for
-ties or tightly clustered scores. Endpoints are multiples of 10; midpoint ticks
-are multiples of 5. The supplied 8 October 2026 snapshot uses 1470–1560 in all
-three categories, with ticks at 1470, 1515 and 1560 on desktop and mobile.
-The lowest score is 1483.92 in the non-English category; the highest column fills
-about 90% of the plot. Overall, the leader's column is about 2.31 times the
-tenth's height, making the point gap visible while every column remains positive.
-The caption explicitly states that this axis does
-not start at zero and that bar lengths do not represent ability ratios.
+A top legend strip inside the card defines:
+- **Thanh điểm ước lượng**: The horizontal bar from axis floor to estimated Arena score.
+- **Râu khoảng tin cậy 95% (CI)**: The whisker spanning `rating_lower` to `rating_upper` with end caps and a dot at the score.
+- **Ghi chú sai số**: "Các mô hình có râu đè lên nhau nghĩa là chênh lệch nằm trong biên độ sai số."
 
-Column height and mobile bar width both equal `(score - floor) / (ceiling -
-floor)`. They use raw source values, so two models labelled `1494` can still
-have different lengths. Every model has a positive bar, without an artificial
-minimum size that distorts the scale. Rounded scores are shown above desktop
-columns and in an aligned score column beside mobile bars. Category switching
-and layout changes never rescale the same snapshot. New snapshots can change
-the range, whose endpoints remain explicit in the caption. The native HTML
-figure and single list expose every value in real text; no canvas, tooltip,
-image or chart library is required. Category controls retain keyboard focus.
+The desktop table columns:
+- **Hạng**: 1 through 10. The leader row is highlighted in brand accent colour.
+- **Mô hình / Hãng**: Readable model name on line 1, maker on line 2.
+- **Điểm Arena & Khoảng tin cậy 95%**: Includes a header with round measurement range (such as `Dải đo: 1480 – 1540`) and axis ticks every 20 points. Continuous light hairline gridlines descend from each tick. In each row, a bar extends to the model's score, overlaid by its 95% CI whisker and score dot. Runner-up rows use neutral tones while the leader carries the primary accent colour.
+- **Điểm Arena**: Whole-number Arena score in bold tabular figures.
+- **So với tuần trước**: Movement status (`— Giữ hạng`, `↑ Tăng n`, `↓ Giảm n`).
+
+On mobile viewports (375px and under 768px):
+Each model transforms into an independent card:
+- Top row: Rank, model name, and bold score.
+- Second row: Maker and weekly movement.
+- Third row: The horizontal bar and CI whisker across the axis track with gridlines.
+- Fourth row: Axis start (e.g. `1480`), center confidence interval `CI 95%: lower – upper (±margin)`, and axis end (e.g. `1540`).
+- The leader card is framed with an accent border.
+
+The axis measures **absolute Arena scores**. Its range is rounded to multiples of
+20 based on the lowest lower bound and highest upper bound of displayed models.
+For the 8 October 2026 snapshot, the overall category spans `1480 – 1540` with ticks
+at 1480, 1500, 1520, and 1540.
 
 Names are formatted in the reader, so cached JSON benefits immediately. Known
 Claude major/minor slugs and Grok `4-1` recover their version dots; existing
