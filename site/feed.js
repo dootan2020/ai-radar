@@ -31,6 +31,13 @@ const qp = new URLSearchParams(location.search).get('data');
 const customData = !!qp && /^data\/[\w.-]+\.json$/.test(qp);
 const DATA_URL = customData ? qp : 'data/radar-ui.json';
 const SOURCES = customData ? [qp] : [DATA_URL, 'data/radar.json'];
+/* First load: only the stories inside the ranking window, every other field whole (radar/site_payload.py,
+   window_payload). The first screen is drawn from those stories alone, so it paints from about a fifth of the bytes.
+   The complete snapshot follows once the page has settled, for sections, saved stories and story addresses outside
+   the window. index.html preloads this file. */
+const WINDOW_URL = customData ? null : 'data/radar-window.json';
+let complete = customData;    // true once D holds every story of the snapshot
+let completeLoad = null;      // the one request for the complete snapshot in flight
 const IMAGES_URL = 'feed-images.json';
 const PICKS_URL = 'editor-picks.json';   // the owner's own picks; the only thing allowed to say "Biên tập chọn"
 const FIELD_RANKINGS_URL = 'data/field-rankings.json';
@@ -307,6 +314,21 @@ async function loadData(init = {}) {
     } catch (e) { lastErr = e; }
   }
   throw lastErr || new Error('Không nạp được dữ liệu');
+}
+
+/* The window file, or the complete snapshot when the window file is missing or unreadable. An address that names a
+   section, the saved list or a story opens on the complete snapshot directly: drawing the window feed first and then
+   switching view would count the stories on that first screen as scrolled past. */
+async function loadFirst() {
+  if (WINDOW_URL && !needsComplete(true)) {
+    try {
+      const j = await fetchJSON(WINDOW_URL);
+      if (j && j.schema_version === 2 && Array.isArray(j.stories)) return j;
+      console.warn('radar-window.json is not a v2 snapshot; loading the complete snapshot');
+    } catch (e) { console.warn('radar-window.json unavailable; loading the complete snapshot', e); }
+  }
+  complete = true;
+  return loadData();
 }
 
 /* ---------- small readers ---------- */
@@ -655,7 +677,7 @@ function mediaHTML(img, size) {
   if (!img.src) return `<div class="media">${coverHTML(img.cover)}</div>`;
   const [w, h] = DIMS[size];
   const aiBadge = img.via === 'ai' ? `<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>` : '';
-  return `<div class="media"><img class="media-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="lazy" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadge}</div>`;
+  return `<div class="media"><img class="media-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${size === 'lead' ? 'eager' : 'lazy'}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadge}</div>`;
 }
 
 /* ---------- calendar: the bento home's targets, the same split control ---------- */
@@ -1945,6 +1967,8 @@ function renderEnd() {
 }
 
 function renderFeed() {
+  const skeleton = $('#feed-skeleton');
+  if (skeleton) skeleton.remove();
   const rankings = filter === 'rankings';
   $('#arena').hidden = !rankings;
   $('#feed-grid').hidden = rankings;
@@ -2278,6 +2302,9 @@ async function pollSnapshot() {
   if (document.hidden || !D) return;
   try {
     const j = await loadData({ cache: 'no-cache' });
+    // The window file holds every story the new snapshot's window can share with this one, so new stories are
+    // judged correctly before the complete snapshot arrives; a poll that brings the same snapshot completes it.
+    if (!complete && j && j.generated_at === D.generated_at) { adoptComplete(j); return; }
     if (!j || !j.generated_at || j.generated_at <= (pending || D).generated_at) return;
     pending = j;
     offerNewItems(pendingNewIds(j));
@@ -2289,6 +2316,7 @@ function applyPending() {
   arrived = new Set(pendingNewIds(pending));
   const data = pending; pending = null;
   ingest(data);
+  complete = true;              // a polled snapshot is always the complete one
   if (filter !== 'all') filter = 'all';
   renderAll();
   setTimeout(() => { arrived = new Set(); }, 3000);
@@ -2720,6 +2748,53 @@ async function startLiveLayer() {
     });
   } catch (e) { console.warn('live counters unavailable; the snapshot numbers stay', e); }
 }
+/* Field rankings add repositories the snapshot does not carry; every ingest rebuilds REPO from the snapshot. */
+function mergeFieldRepos() {
+  if (!FIELD_DATA || !Array.isArray(FIELD_DATA.fields)) return;
+  for (const f of FIELD_DATA.fields) {
+    for (const r of [...asArray(f.ranked), ...asArray(f.tracking)]) {
+      const key = String(r.id || r.repository_id || r.full_name);
+      if (!REPO.has(key)) REPO.set(key, r);
+    }
+  }
+}
+/* The complete snapshot, once, at low priority so it never competes with the first screen's pictures. */
+function loadComplete() {
+  if (complete || !D) return Promise.resolve();
+  if (!completeLoad) {
+    completeLoad = loadData({ priority: 'low' }).then(adoptComplete).catch(e => {
+      console.warn('complete snapshot unavailable; the feed keeps the window stories and tries again on the next poll', e);
+    }).finally(() => { completeLoad = null; });
+  }
+  return completeLoad;
+}
+/* The same snapshot as the window file draws the same feed, so the page stays as the reader sees it: only a view that
+   reaches outside the window (a section, saved stories) is drawn again. A newer snapshot redraws everything; an older
+   one (a deploy still spreading) is dropped and the next poll asks again. */
+function adoptComplete(data) {
+  if (complete || !data || !data.generated_at || data.generated_at < D.generated_at) return;
+  const same = data.generated_at === D.generated_at;
+  const keep = { lastSeen, firstVisit };
+  ingest(data);
+  mergeFieldRepos();
+  ({ lastSeen, firstVisit } = keep);
+  complete = true;
+  if (!same) renderAll();
+  else if (filter !== 'all' && filter !== 'rankings') renderFeed();
+  else renderChips();
+}
+/* Addresses that name a section, the saved list or a story outside the window wait for the complete snapshot. */
+function needsComplete(beforeData = false) {
+  if (complete || (!D && !beforeData)) return false;
+  let h = '';
+  try { h = decodeURIComponent(location.hash.slice(1)); } catch { return false; }
+  const m = /^tin\/(.+)$/.exec(h);
+  return !!SECTIONS[h] || h === 'da-luu' || (!!m && (beforeData || !STORY_ANY.has(m[1])));
+}
+async function routeWhenReady() {
+  if (needsComplete()) await loadComplete();
+  route();
+}
 async function init() {
   const th = store.get(K.theme, null);
   if (th) document.documentElement.setAttribute('data-theme', th);
@@ -2729,24 +2804,17 @@ async function init() {
   watchImageLoad();
   attachEvents();
   arenaView = createArenaView($('#arena'));
-  addEventListener('hashchange', route);
+  addEventListener('hashchange', routeWhenReady);
   route();
   try {
-    const [, data, picks, fieldData] = await Promise.all([loadImages(), loadData(), loadPicks(), loadFieldRankings()]);
+    const [, data, picks, fieldData] = await Promise.all([loadImages(), loadFirst(), loadPicks(), loadFieldRankings()]);
     RAW_PICKS = picks;
     FIELD_DATA = fieldData;
     if (FIELD_DATA && Array.isArray(FIELD_DATA.fields)) {
       FIELD_MAP = new Map(FIELD_DATA.fields.map(f => [f.id, f]));
     }
     ingest(data);
-    if (FIELD_DATA && Array.isArray(FIELD_DATA.fields)) {
-      for (const f of FIELD_DATA.fields) {
-        for (const r of [...asArray(f.ranked), ...asArray(f.tracking)]) {
-          const key = String(r.id || r.repository_id || r.full_name);
-          if (!REPO.has(key)) REPO.set(key, r);
-        }
-      }
-    }
+    mergeFieldRepos();
     sortMode = store.get(K.sort, store.get(LEGACY.sort, 'worth')) === 'new' ? 'new' : 'worth';
     for (const [k, s] of Object.entries(SECTIONS)) LABELS['sec:' + k] = s.label;
     $('#feed-empty p').textContent = `Trong ${winH} giờ qua chưa có tin thuộc nhóm này. Chọn nhóm khác hoặc xem tất cả.`;
@@ -2754,6 +2822,8 @@ async function init() {
   } catch (err) {
     console.error('feed load failed', err);
     $('#top').removeAttribute('aria-busy');
+    const skeleton = $('#feed-skeleton');
+    if (skeleton) skeleton.remove();
     $('#feed-grid').innerHTML = '';
     const em = $('#feed-empty');
     em.querySelector('h2').textContent = 'Chưa nạp được dòng tin';
@@ -2764,13 +2834,16 @@ async function init() {
     em.hidden = filter === 'rankings';
     return;
   }
-  if (history.state && history.state.storyModal && STORY_ANY.has(history.state.storyModal)) {
-    openStoryModal(history.state.storyModal, { pushHistory: false, fromHistory: true });
+  const reopen = history.state && history.state.storyModal;
+  if (reopen && !STORY_ANY.has(reopen)) await loadComplete();
+  if (reopen && STORY_ANY.has(reopen)) {
+    openStoryModal(reopen, { pushHistory: false, fromHistory: true });
   } else {
-    route();
+    await routeWhenReady();
   }
   startLifecycle();
   startLiveLayer();
+  whenIdle().then(loadComplete);
 }
 
 init();

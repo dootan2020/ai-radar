@@ -77,8 +77,10 @@ class RootPageHeadTests(unittest.TestCase):
         self.assertLess(self.head.index('src="feed.js"'), self.head.index(attrs))
         self.assertLess(self.head.rindex('rel="modulepreload"'), self.head.index(attrs))
 
-    def test_snapshot_preload_is_radar_ui(self):
-        self.assertIn('<link rel="preload" href="data/radar-ui.json" as="fetch" crossorigin>', self.head)
+    def test_snapshot_preload_is_the_window_file(self):
+        # The first screen draws from the window file; feed.js loads radar-ui.json after it (tests/test_feed_first_load.py).
+        self.assertIn('<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>', self.head)
+        self.assertNotIn('href="data/radar-ui.json"', self.head)
 
     def test_canonical_and_seo_elements(self):
         self.assertIn(f'<link rel="canonical" href="{SITE_URL}">', self.head)
