@@ -523,11 +523,14 @@ def summarize_payload(payload: dict,
                       script_path: str | None = None,
                       budget: float = DEFAULT_BUDGET,
                       clock=time.monotonic,
-                      now=time.time) -> tuple[dict, bool]:
+                      now=None) -> tuple[dict, bool]:
     """Summarize eligible stories in payload, annotating them with `key_points`.
 
     Returns (summary_stats, worker_alive).
     """
+    # Resolve the wall clock per call, not at import time: summarize.main
+    # prunes the stamps written here with time.time(), so both must share it.
+    now = time.time if now is None else now
     started = clock()
     config = config or gemini.config_from_env()
     transport_fn = transport_fn or gemini.transport
