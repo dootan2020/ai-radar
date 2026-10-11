@@ -365,6 +365,13 @@ the shared reader order: editor picks, promoted stories, hot leaders, then worth
 and recency. The free route uses worth and recency within the ranking window.
 No ranking or budget constants change. An input that cannot retain at least
 300 article characters is skipped with `skipped_reasons.input_limit`.
+When a paid reservation refuses `paid_summary_daily_tokens`, the same candidate
+is fitted again by removing whole paragraphs until its exact UTF-8 request bytes
+plus the output ceiling fit the remaining summary allowance. It must obtain a
+new reservation before transmission. If no valid input fits, selection continues
+in reader priority order within the existing time budget; a quota-dependent skip
+does not enter the 24-hour source failure cache. Other budget refusals still stop
+the run. If no candidate fits, the run retains `paid_summary_daily_tokens`.
 Cache identity includes the fitted evidence, all source hashes, source links,
 selection version, model, prompt version, prompt text and schema. Fetch time
 alone does not invalidate an otherwise identical input.
@@ -430,6 +437,20 @@ ledger-USD. These conservative ledger figures are not Google's invoice.
 tokens, trimmed inputs, input characters, exact request bytes, selected source
 characters, skip counts/reasons and rejections. Each CLI run also logs
 `Summary contract: summary-vi-5-full; model=gemini-3.8-flash; full=4-8 points; max_source_chars=16000; max_output_tokens=4096`.
+The JSON `Summary run:` line reports `candidates_tried` (candidates visited
+after initial cache restoration, including skips), `reservations_refused`, `requests_sent`, `accepted`
+(new summaries only), `rejected` (validation rejects), `settled_micros`,
+`settled_tokens`, and `usage_tokens`. Paid settlement totals cover only this
+summary invocation's reservations, including a 503 attempt and its retry;
+prior translation/video spend and cache hits contribute nothing. Missing usage
+retains the estimated token charge, so settled tokens can exceed reported usage.
+These are conservative ledger charges, not a provider invoice. `accounting_error`
+flags unavailable ledger evidence or an unconfirmed settlement; unavailable
+charges are null, not zero. Free runs have zero paid settlement totals.
+For runs with accepted summaries, ledger USD per accepted summary is
+`settled_micros / 1_000_000 / accepted`. For a multi-run average, sum charges
+from all runs (including rejects/failures) and divide by total accepted summaries;
+zero accepted summaries means the ratio is undefined.
 Missing credentials, missing route confirmation or a zero configuration limit
 report a safe error; restored cache can still provide points. Active work reports `ok`, `cache`, `partial` or `failed`.
 Budget exhaustion and unreadable sources legitimately produce no new summary.

@@ -279,6 +279,42 @@ def fit_story_inputs(inputs: dict[str, Any], max_chars: int) -> dict[str, Any] |
     return fit_inputs(inputs, max_chars)
 
 
+def fit_paid_inputs(inputs: dict, token_limit: int) -> dict | None:
+    """Drop whole paragraphs until the exact wire request fits, retaining source minimums."""
+    fitted = inputs
+    while fitted is not None:
+        estimated = len(gemini.encode_request(gemini.request_body([fitted]))) + gemini.MAX_OUTPUT_TOKENS
+        if estimated <= token_limit:
+            return fitted
+        # Each smaller character ceiling removes at least one complete paragraph.
+        # Refit the original evidence so omission IDs and primary-source flags survive.
+        fitted = fit_story_inputs(inputs, len(json.dumps(fitted, ensure_ascii=False)) - 1)
+    return None
+
+
+def _record_paid_charge(stats, charges, request_id, estimated_tokens, tokens, now):
+    """Read this invocation's charges after settlement, including conservative holds."""
+    path = gemini_paid_budget.ledger_path()
+    gemini_paid_budget.settle(path, request_id, tokens, now=now)
+    charges[request_id] = (estimated_tokens, tokens)
+    ledger = gemini_paid_budget._read(path, now)
+    recorded = {item["id"]: item["micros"] for item in (ledger or {}).get("reservations", [])}
+    if not charges.keys() <= recorded.keys():
+        stats["settled_tokens"] = stats["settled_micros"] = None
+        stats["accounting_error"] = "paid_charge_unavailable"
+        return
+    settled_tokens = 0
+    for rid, (estimate, usage) in charges.items():
+        charged_tokens = usage if usage > 0 else estimate
+        if recorded[rid] != gemini_paid_budget._micros(charged_tokens, now):
+            # settle fails closed on a locked/unwritable ledger; report the retained estimate.
+            charged_tokens = estimate
+            stats["accounting_error"] = "paid_settlement_unconfirmed"
+        settled_tokens += charged_tokens
+    stats["settled_tokens"] = settled_tokens
+    stats["settled_micros"] = sum(recorded[rid] for rid in charges)
+
+
 def collect_inputs(story, article_text, links, robots_cache, *, fetch_primary=True, fetched_at=""):
     url = article_url(story) or ""
     publisher = next((c.get("publisher") for c in story.get("coverage") or []
@@ -599,6 +635,10 @@ def summarize_payload(payload: dict,
         "cache_hits": 0,
         "pending": 0,
         "requests": 0,
+        "candidates_tried": 0,
+        "reservations_refused": 0,
+        "settled_micros": 0,
+        "settled_tokens": 0,
         "tokens": 0,
         "rejected": 0,
         "skipped": 0,
@@ -667,9 +707,11 @@ def summarize_payload(payload: dict,
         payload["summary"] = stats
         return stats, False
 
-    # Read in ranking order and stop once a request-sized batch is ready.
+    # Read in ranking order; a paid summary-quota refusal may advance to a smaller story.
     story_map = {}
     missing = []
+    paid_reservation = None
+    paid_charges = {}
     failure_now = now() if callable(now) else now
     shared_robots_cache = {}
     for story in eligible_stories:
@@ -678,6 +720,7 @@ def summarize_payload(payload: dict,
         if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
             stats["error"] = "time_budget"
             break
+        stats["candidates_tried"] += 1
         sid = story.get("id")
         url = article_url(story)
         url_hash = article_url_hash(url) if url else None
@@ -725,7 +768,8 @@ def summarize_payload(payload: dict,
             for key in ("key_points", "key_points_machine", "key_points_source", "key_points_prompt_version"):
                 story.pop(key, None)
             continue
-        if len(json.dumps(inputs, ensure_ascii=False)) > config.max_chars:
+        trimmed_for_chars = len(json.dumps(inputs, ensure_ascii=False)) > config.max_chars
+        if trimmed_for_chars:
             stats["trimmed"] += 1
         inputs = fitted
         article_inputs[article_signature(story)] = {
@@ -744,6 +788,49 @@ def summarize_payload(payload: dict,
             else:
                 del cache[chash]
 
+        if config.paid:
+            if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
+                stats["error"] = "time_budget"
+                break
+            reserve_now = now()
+            estimated_toks = len(gemini.encode_request(gemini.request_body([inputs]))) + gemini.MAX_OUTPUT_TOKENS
+            reserve_err, paid_reservation = gemini_paid_budget.reserve(
+                gemini_paid_budget.ledger_path(), estimated_toks, now=reserve_now, consumer="summary")
+            if reserve_err:
+                stats["reservations_refused"] += 1
+            if reserve_err == "paid_summary_daily_tokens":
+                fitted = fit_paid_inputs(inputs, gemini_paid_budget.remaining_tokens(
+                    gemini_paid_budget.ledger_path(), "summary", now=reserve_now))
+                if fitted is None:
+                    stats["error"] = reserve_err
+                    stats["skipped"] += 1
+                    stats["skipped_reasons"]["input_limit"] = stats["skipped_reasons"].get("input_limit", 0) + 1
+                    # Budget-dependent skips must not enter the 24-hour source failure cache.
+                    continue
+                if fitted == inputs:
+                    stats["error"] = reserve_err
+                    continue
+                inputs = fitted
+                if not trimmed_for_chars:
+                    stats["trimmed"] += 1
+                if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
+                    stats["error"] = "time_budget"
+                    break
+                estimated_toks = len(gemini.encode_request(gemini.request_body([inputs]))) + gemini.MAX_OUTPUT_TOKENS
+                reserve_now = now()
+                reserve_err, paid_reservation = gemini_paid_budget.reserve(
+                    gemini_paid_budget.ledger_path(), estimated_toks, now=reserve_now, consumer="summary")
+                if reserve_err:
+                    stats["reservations_refused"] += 1
+            stats["error"] = reserve_err
+            if reserve_err == "paid_summary_daily_tokens":
+                continue
+            if reserve_err:
+                break
+            article_inputs[article_signature(story)]["inputs"] = inputs
+            story_map[sid].update(inputs=inputs, hash=content_hash(inputs))
+            _record_paid_charge(stats, paid_charges, paid_reservation, estimated_toks, 0, reserve_now)
+
         missing.append(sid)
         if len(missing) >= config.batch_size:
             break
@@ -751,7 +838,10 @@ def summarize_payload(payload: dict,
     if not missing:
         pending_count = len(eligible_stories) - (stats["cache_hits"] + stats["summarized"])
         stats["pending"] = pending_count if stats["error"] else stats["skipped"]
-        stats["status"] = "partial" if stats["skipped"] or stats["error"] else ("cache" if stats["cache_hits"] else "ok")
+        if stats["error"]:
+            stats["status"] = "partial" if stats["cache_hits"] else "failed"
+        else:
+            stats["status"] = "partial" if stats["skipped"] else ("cache" if stats["cache_hits"] else "ok")
         payload["summary"] = stats
         return stats, False
 
@@ -781,14 +871,14 @@ def summarize_payload(payload: dict,
         return stats, False
 
     # Reserve budget in ledger
-    reserve_now = now()
+    if not config.paid:
+        reserve_now = now()
     # Reserve input tokens plus the full output ceiling and fixed prompt overhead.
     request_body = gemini.request_body(batch_items)
     stats["input_chars"] = batch_chars
     stats["input_bytes"] = len(gemini.encode_request(request_body))
     stats["source_chars"] = sum(len(p["text"]) for item in batch_items for source in item["sources"] for p in source["paragraphs"])
     estimated_toks = len(gemini.encode_request(request_body)) + gemini.MAX_OUTPUT_TOKENS
-    paid_reservation = None
     reserve_err = None if config.paid else summary_budget.reserve(
         ledger_path,
         request_limit=config.daily_requests_limit,
@@ -798,11 +888,8 @@ def summarize_payload(payload: dict,
         last_story_id=batch_items[-1]["id"],
         reserve_for_script=reserve_script,
     )
-    if not reserve_err and config.paid:
-        reserve_err, paid_reservation = gemini_paid_budget.reserve(
-            gemini_paid_budget.ledger_path(), estimated_toks, now=reserve_now, consumer="summary")
-
     if reserve_err:
+        stats["reservations_refused"] += 1
         stats["error"] = reserve_err
         stats["pending"] = len(eligible_stories) - stats["cache_hits"]
         stats["status"] = "failed"
@@ -813,6 +900,9 @@ def summarize_payload(payload: dict,
     stats["requests"] = 1
     remaining_time = min(config.timeout, max(0.0, budget - (clock() - started)))
     outputs, tokens, err, alive = _request_gemini(batch_items, config, transport_fn, remaining_time)
+    stats["tokens"] += tokens
+    if config.paid:
+        _record_paid_charge(stats, paid_charges, paid_reservation, estimated_toks, tokens, reserve_now)
     retry_now = None
     if err and err.startswith("http_503:"):
         remaining_time = min(config.timeout, max(0.0, budget - (clock() - started)))
@@ -832,6 +922,7 @@ def summarize_payload(payload: dict,
                 retry_err, retry_reservation = gemini_paid_budget.reserve(
                     gemini_paid_budget.ledger_path(), estimated_toks, now=retry_now, consumer="summary")
             if retry_err:
+                stats["reservations_refused"] += 1
                 err = retry_err
             else:
                 stats["requests"] += 1
@@ -841,12 +932,11 @@ def summarize_payload(payload: dict,
                     batch_items, config, transport_fn,
                     min(config.timeout, max(0.0, budget - (clock() - started))),
                 )
-    stats["tokens"] = tokens
+                stats["tokens"] += tokens
+                if config.paid:
+                    _record_paid_charge(stats, paid_charges, paid_reservation, estimated_toks, tokens, retry_now)
     stats["error"] = err
 
-    if config.paid:
-        gemini_paid_budget.settle(gemini_paid_budget.ledger_path(), paid_reservation, tokens,
-                                 now=retry_now or reserve_now)
     if tokens and ledger_path and not config.paid:
         summary_budget.update_actual_tokens(ledger_path, retry_now or reserve_now, tokens)
 
