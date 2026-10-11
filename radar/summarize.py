@@ -156,6 +156,17 @@ def main(argv=None):
                 pass
 
     print(f"Summary contract: {gemini.PROMPT_VERSION}; model={gemini.MODEL_ID}; full=4-8 points; max_source_chars=16000; max_output_tokens=4096")
+    print("Summary run: " + json.dumps({
+        "candidates_tried": stats.get("candidates_tried", 0),
+        "reservations_refused": stats.get("reservations_refused", 0),
+        "requests_sent": stats.get("requests", 0),
+        "accepted": stats.get("summarized", 0),
+        "rejected": stats.get("rejected", 0),
+        "settled_micros": stats.get("settled_micros"),
+        "settled_tokens": stats.get("settled_tokens"),
+        "usage_tokens": stats.get("tokens", 0),
+        "accounting_error": stats.get("accounting_error"),
+    }, sort_keys=True))
     print(f"Summary {stats['status']}: {stats.get('summarized', 0)}/{stats.get('stories', 0)} stories summarized, "
           f"{stats.get('requests', 0)} requests, "
           f"{stats.get('cache_hits', 0)} cache hits, {stats.get('pending', 0)} pending, "
