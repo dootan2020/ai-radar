@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-13",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-11T23:00:00Z",
+  "cutoff_at": "2026-10-12T23:00:00Z",
+  "created_at": "2026-10-12T23:03:27Z",
+  "snapshot_generated_at": "2026-10-12T23:01:29Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-12T23:01:29Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "ead189c6459e35dedc25",
+      "title": "Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents",
+      "title_vi": "Ra mắt Muse Wonder và Muse Wonder Full: Mô hình tiên phong cho các agent",
+      "headline": "Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents",
+      "headline_vi": "Ra mắt Muse Wonder và Muse Wonder Full: Mô hình tiên phong cho các agent",
+      "url": "https://about.fb.com/news/2026/10/introducing-muse-wonder-models/",
+      "published_at": "2026-10-12T17:08:05Z",
+      "kind": "model",
+      "time_basis": "published",
+      "source_count": 4,
+      "coverage": [
+        {
+          "id": "f3c00bc4614b7f89aaea",
+          "title": "Meta Releases New AI Model Called Muse Wonder",
+          "title_vi": "Meta phát hành mô hình AI mới được gọi là Muse Wonder",
+          "headline": "Meta Releases New AI Model Called Muse Wonder",
+          "headline_vi": "Meta phát hành mô hình AI mới được gọi là Muse Wonder",
+          "url": "https://www.bloomberg.com/news/videos/2026-10-12/meta-releases-new-ai-model-called-muse-wonder-video",
+          "published_at": "2026-10-12T20:55:48Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-12T23:01:29Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "dad9be35410e0ab37b4c",
+          "title": "Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents",
+          "title_vi": "Ra mắt Muse Wonder và Muse Wonder Full: Mô hình tiên phong cho các agent",
+          "headline": "Introducing Muse Wonder and Muse Wonder Full: Frontier Models for Agents",
+          "headline_vi": "Ra mắt Muse Wonder và Muse Wonder Full: Mô hình tiên phong cho các agent",
+          "url": "https://about.fb.com/news/2026/10/introducing-muse-wonder-models/",
+          "published_at": "2026-10-12T17:08:05Z",
+          "kind": "model",
+          "time_basis": "published",
+          "source": "meta-newsroom",
+          "publisher": "meta",
+          "entity": "meta",
+          "group": "lab",
+          "observed_at": "2026-10-12T23:01:29Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "db963c8b53ee4d123f40",
+          "title": "Meta releases its first frontier model, Muse Wonder",
+          "title_vi": "Meta phát hành mô hình tiên phong đầu tiên của mình, Muse Wonder",
+          "headline": "Meta releases its first frontier model, Muse Wonder",
+          "headline_vi": "Meta phát hành mô hình tiên phong đầu tiên của mình, Muse Wonder",
+          "url": "https://techcrunch.com/2026/10/12/meta-releases-its-first-frontier-model-muse-wonder/",
+          "published_at": "2026-10-12T17:56:56Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-12T23:01:29Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "903a65c0003bf58f9679",
+          "title": "Muse Wonder Puts Meta Back at the AI Frontier",
+          "title_vi": "Muse Wonder đặt Meta trở lại tiên phong AI",
+          "headline": "Muse Wonder Puts Meta Back at the AI Frontier",
+          "headline_vi": "Muse Wonder đặt Meta trở lại tiên phong AI",
+          "url": "https://www.wired.com/story/muse-wonder-puts-meta-back-at-the-ai-frontier/",
+          "published_at": "2026-10-12T17:00:27Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "wired-ai",
+          "publisher": "wired",
+          "entity": "wired",
+          "group": "press",
+          "observed_at": "2026-10-12T23:01:29Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "dad9be35410e0ab37b4c"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "4 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "meta",
+              "techcrunch",
+              "wired"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "meta",
+            "techcrunch",
+            "wired"
+          ],
+          "age_hours_at_cutoff": 5.8653,
+          "hot_score": 94.487,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "ec57d6d98ad04b577cbc",
+      "title": "Neostellar’s Willy Lee on AI Landscape Ahead of Anthropic Pre-IPO Investor Day",
+      "title_vi": "Willy Lee của Neostellar về cảnh quan AI trước ngày đầu tư trước IPO Anthropic",
+      "headline": "Neostellar’s Willy Lee on AI Landscape Ahead of Anthropic Pre-IPO Investor Day",
+      "headline_vi": "Willy Lee của Neostellar về cảnh quan AI trước ngày đầu tư trước IPO Anthropic",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-12/neostellar-s-willy-lee-ai-market-is-starting-to-mature-video",
+      "published_at": "2026-10-12T21:33:35Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "580b754acee01d78bae3",
+          "title": "Neostellar’s Willy Lee on AI Landscape Ahead of Anthropic Pre-IPO Investor Day",
+          "title_vi": "Willy Lee của Neostellar về cảnh quan AI trước ngày đầu tư trước IPO Anthropic",
+          "headline": "Neostellar’s Willy Lee on AI Landscape Ahead of Anthropic Pre-IPO Investor Day",
+          "headline_vi": "Willy Lee của Neostellar về cảnh quan AI trước ngày đầu tư trước IPO Anthropic",
+          "url": "https://www.bloomberg.com/news/videos/2026-10-12/neostellar-s-willy-lee-ai-market-is-starting-to-mature-video",
+          "published_at": "2026-10-12T21:33:35Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-12T23:01:29Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "c161a3c03d2d29fbe9b0",
+          "title": "Research Firm Calls Anthropic's IPO 'Unprecedented Test of Investor Gullibity'",
+          "title_vi": "Công ty nghiên cứu gọi đợt IPO của Anthropic là 'phép thử chưa từng có đối với sự cả tin của nhà đầu tư'",
+          "headline": "Research Firm Calls Anthropic's IPO 'Unprecedented Test of Investor Gullibity'",
+          "headline_vi": "Công ty nghiên cứu gọi đợt IPO của Anthropic là 'phép thử chưa từng có đối với sự cả tin của nhà đầu tư'",
+          "url": "https://www.cnbc.com/2026/10/07/anthropic-will-be-most-ridiculous-ipo-of-year-analyst-says.html",
+          "published_at": "2026-10-12T05:03:47Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-12T15:13:17Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50051583",
+          "metrics": {
+            "points": 224,
+            "comments": 175
+          }
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 0.8314606741573034,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 224,
+              "observed_at": "2026-10-12T15:13:17Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg"
+          ],
+          "age_hours_at_cutoff": 1.4403,
+          "hot_score": 72.529,
+          "engagement_percentile": 0.8314606741573034
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 67,
+    "failed_remote_sources": []
+  }
+}
