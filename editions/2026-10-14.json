@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-12T23:00:00Z",
+  "cutoff_at": "2026-10-13T23:00:00Z",
+  "created_at": "2026-10-13T23:03:24Z",
+  "snapshot_generated_at": "2026-10-13T23:01:25Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-13T23:01:25Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "709864dc2d811aa2ce74",
+      "title": "NVIDIA Run:ai Is Now Open Source as Part of NVIDIA DSX AI Factory Platform",
+      "title_vi": "NVIDIA Run:ai bây giờ là mã nguồn mở như là một phần của NVIDIA DSX AI Factory Platform",
+      "headline": "NVIDIA Run:ai Is Now Open Source as Part of NVIDIA DSX AI Factory Platform",
+      "headline_vi": "NVIDIA Run:ai bây giờ là mã nguồn mở như là một phần của NVIDIA DSX AI Factory Platform",
+      "url": "https://developer.nvidia.com/blog/nvidia-runai-is-now-open-source-as-part-of-nvidia-dsx-ai-factory-platform/",
+      "published_at": "2026-10-13T14:19:40Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "d1e9d8ce03cb1559f82e",
+          "title": "NVIDIA Run:ai Is Now Open Source as Part of NVIDIA DSX AI Factory Platform",
+          "title_vi": "NVIDIA Run:ai bây giờ là mã nguồn mở như là một phần của NVIDIA DSX AI Factory Platform",
+          "headline": "NVIDIA Run:ai Is Now Open Source as Part of NVIDIA DSX AI Factory Platform",
+          "headline_vi": "NVIDIA Run:ai bây giờ là mã nguồn mở như là một phần của NVIDIA DSX AI Factory Platform",
+          "url": "https://developer.nvidia.com/blog/nvidia-runai-is-now-open-source-as-part-of-nvidia-dsx-ai-factory-platform/",
+          "published_at": "2026-10-13T14:19:40Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "nvidia-blog",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-13T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "d1e9d8ce03cb1559f82e"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "nvidia"
+          ],
+          "age_hours_at_cutoff": 8.6722,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "d0030755a2ec2a96a05a",
+      "title": "Gemini 4 Argon (gemini-4-argon) generally available (GA)",
+      "title_vi": "Gemini 4 Argon (gemini-4-argon) phổ biến (GA)",
+      "headline": "Gemini 4 Argon (gemini-4-argon) generally available (GA)",
+      "headline_vi": "Gemini 4 Argon (gemini-4-argon) phổ biến (GA)",
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-4-argon",
+      "published_at": "2026-10-13T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "64b695f098b9de527b61",
+          "title": "Gemini 4 Argon (gemini-4-argon) generally available (GA)",
+          "title_vi": "Gemini 4 Argon (gemini-4-argon) phổ biến (GA)",
+          "headline": "Gemini 4 Argon (gemini-4-argon) generally available (GA)",
+          "headline_vi": "Gemini 4 Argon (gemini-4-argon) phổ biến (GA)",
+          "url": "https://ai.google.dev/gemini-api/docs/models/gemini-4-argon",
+          "published_at": "2026-10-13T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "google-ai-studio",
+          "publisher": "google",
+          "entity": "google",
+          "group": "lab",
+          "observed_at": "2026-10-13T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "64b695f098b9de527b61"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "google"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "c49df01b10d488b69559",
+      "title": "Google wants to host your personal vibe-coded apps in the Play Store",
+      "title_vi": "Google sẽ cho phép bất cứ ai xuất bản các ứng dụng có mã Vibe riêng tư trên Play Store",
+      "headline": "Google wants to host your personal vibe-coded apps in the Play Store",
+      "headline_vi": "Google sẽ cho phép bất cứ ai xuất bản các ứng dụng có mã Vibe riêng tư trên Play Store",
+      "url": "https://arstechnica.com/google/2026/10/google-wants-to-host-your-personal-vibe-coded-apps-in-the-play-store/",
+      "published_at": "2026-10-13T17:00:39Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "3c5e94db584a2120f919",
+          "title": "Google wants to host your personal vibe-coded apps in the Play Store",
+          "title_vi": "Google sẽ cho phép bất cứ ai xuất bản các ứng dụng có mã Vibe riêng tư trên Play Store",
+          "headline": "Google wants to host your personal vibe-coded apps in the Play Store",
+          "headline_vi": "Google sẽ cho phép bất cứ ai xuất bản các ứng dụng có mã Vibe riêng tư trên Play Store",
+          "url": "https://arstechnica.com/google/2026/10/google-wants-to-host-your-personal-vibe-coded-apps-in-the-play-store/",
+          "published_at": "2026-10-13T17:00:39Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "ars-ai",
+          "publisher": "ars-technica",
+          "entity": "ars-technica",
+          "group": "press",
+          "observed_at": "2026-10-13T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "2a36c353714fac5dd4f9",
+          "title": "Google Will Let Anyone Publish Privately Listed Vibe-Coded Apps on Play Store",
+          "title_vi": "Google sẽ cho phép bất cứ ai xuất bản các ứng dụng có mã Vibe riêng tư trên Play Store",
+          "headline": "Google Will Let Anyone Publish Privately Listed Vibe-Coded Apps on Play Store",
+          "headline_vi": "Google sẽ cho phép bất cứ ai xuất bản các ứng dụng có mã Vibe riêng tư trên Play Store",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-13/google-will-let-anyone-publish-privately-listed-vibe-coded-apps-on-play-store",
+          "published_at": "2026-10-13T17:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-13T20:41:27Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "ars-technica",
+              "bloomberg"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "ars-technica",
+            "bloomberg"
+          ],
+          "age_hours_at_cutoff": 5.9892,
+          "hot_score": 61.794,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "677117a6476c9ea93f69",
+      "title": "Your Algorithm, Your Words: New Ways to Shape What You See on Facebook",
+      "title_vi": "Facebook sẽ cho phép bạn tùy chỉnh thuật toán cấp dữ liệu của mình bằng cách sử dụng AI",
+      "headline": "Your Algorithm, Your Words: New Ways to Shape What You See on Facebook",
+      "headline_vi": "Facebook sẽ cho phép bạn tùy chỉnh thuật toán cấp dữ liệu của mình bằng cách sử dụng AI",
+      "url": "https://about.fb.com/news/2026/10/introducing-your-algorithm-facebook/",
+      "published_at": "2026-10-13T16:00:29Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "da22e2edd04e65c1f1b9",
+          "title": "Your Algorithm, Your Words: New Ways to Shape What You See on Facebook",
+          "title_vi": "Facebook sẽ cho phép bạn tùy chỉnh thuật toán cấp dữ liệu của mình bằng cách sử dụng AI",
+          "headline": "Your Algorithm, Your Words: New Ways to Shape What You See on Facebook",
+          "headline_vi": "Facebook sẽ cho phép bạn tùy chỉnh thuật toán cấp dữ liệu của mình bằng cách sử dụng AI",
+          "url": "https://about.fb.com/news/2026/10/introducing-your-algorithm-facebook/",
+          "published_at": "2026-10-13T16:00:29Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "meta-newsroom",
+          "publisher": "meta",
+          "entity": "meta",
+          "group": "lab",
+          "observed_at": "2026-10-13T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "4ae80b26d3a1ffe51e48",
+          "title": "Facebook will let you customize your feed algorithm using AI",
+          "title_vi": "Facebook sẽ cho phép bạn tùy chỉnh thuật toán cấp dữ liệu của mình bằng cách sử dụng AI",
+          "headline": "Facebook will let you customize your feed algorithm using AI",
+          "headline_vi": "Facebook sẽ cho phép bạn tùy chỉnh thuật toán cấp dữ liệu của mình bằng cách sử dụng AI",
+          "url": "https://www.theverge.com/tech/1010344/meta-facebook-your-algorithm-ai",
+          "published_at": "2026-10-13T17:01:31Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-13T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "meta",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "meta",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 6.9919,
+          "hot_score": 61.2,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "540f856caa5181656e7e",
+      "title": "Just 5 years in, interactive chatbot platform Character.AI files for bankruptcy",
+      "title_vi": "Chỉ sau 5 năm hoạt động, nền tảng chatbot tương tác Character.AI đã nộp đơn xin phá sản",
+      "headline": "Just 5 years in, interactive chatbot platform Character.AI files for bankruptcy",
+      "headline_vi": "Chỉ sau 5 năm hoạt động, nền tảng chatbot tương tác Character.AI đã nộp đơn xin phá sản",
+      "url": "https://techcrunch.com/2026/10/13/just-5-years-in-interactive-chatbot-platform-character-ai-files-for-bankruptcy/",
+      "published_at": "2026-10-13T12:23:42Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "04343596da8372282ab7",
+          "title": "Just 5 years in, interactive chatbot platform Character.AI files for bankruptcy",
+          "title_vi": "Chỉ sau 5 năm hoạt động, nền tảng chatbot tương tác Character.AI đã nộp đơn xin phá sản",
+          "headline": "Just 5 years in, interactive chatbot platform Character.AI files for bankruptcy",
+          "headline_vi": "Chỉ sau 5 năm hoạt động, nền tảng chatbot tương tác Character.AI đã nộp đơn xin phá sản",
+          "url": "https://techcrunch.com/2026/10/13/just-5-years-in-interactive-chatbot-platform-character-ai-files-for-bankruptcy/",
+          "published_at": "2026-10-13T12:23:42Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-13T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "115ded175855af66a3e8",
+          "title": "Character.AI files for bankruptcy",
+          "title_vi": "Character.AI nộp đơn xin phá sản",
+          "headline": "Character.AI files for bankruptcy",
+          "headline_vi": "Character.AI nộp đơn xin phá sản",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1009802/character-ai-files-for-bankruptcy-disney",
+          "published_at": "2026-10-13T10:32:23Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-13T19:41:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 10.605,
+          "hot_score": 59.108,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 66,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
