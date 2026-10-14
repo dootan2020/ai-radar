@@ -1,0 +1,315 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-13T23:00:00Z",
+  "cutoff_at": "2026-10-14T23:00:00Z",
+  "created_at": "2026-10-14T23:03:37Z",
+  "snapshot_generated_at": "2026-10-14T23:01:20Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-14T23:01:20Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "75aa40e09badce18735b",
+      "title": "An OpenAI Employee Allegedly Used a Chatbot to Help Plant a Recording Device at the Office",
+      "title_vi": "Một nhân viên OpenAI bị cáo buộc đã sử dụng chatbot để hỗ trợ đặt thiết bị ghi âm tại văn phòng",
+      "headline": "An OpenAI Employee Allegedly Used a Chatbot to Help Plant a Recording Device at the Office",
+      "headline_vi": "Một nhân viên OpenAI bị cáo buộc đã sử dụng chatbot để hỗ trợ đặt thiết bị ghi âm tại văn phòng",
+      "url": "https://www.wired.com/story/an-openai-employee-allegedly-used-a-chatbot-to-help-plant-a-recording-device-at-the-office/",
+      "published_at": "2026-10-13T23:17:59Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 4,
+      "coverage": [
+        {
+          "id": "db51f65468a03719475a",
+          "title": "Recording device hidden in toilet paper found in top-secret OpenAI meeting room",
+          "title_vi": "Thiết bị ghi âm ẩn trong giấy vệ sinh được tìm thấy trong phòng họp bí mật của OpenAI",
+          "headline": "Recording device hidden in toilet paper found in top-secret OpenAI meeting room",
+          "headline_vi": "Thiết bị ghi âm ẩn trong giấy vệ sinh được tìm thấy trong phòng họp bí mật của OpenAI",
+          "url": "https://arstechnica.com/tech-policy/2026/10/fbi-arrests-openai-engineer-suspected-of-planting-bug-in-conference-room/",
+          "published_at": "2026-10-14T16:41:49Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "ars-ai",
+          "publisher": "ars-technica",
+          "entity": "ars-technica",
+          "group": "press",
+          "observed_at": "2026-10-14T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "5cccc1ab14f2ac755533",
+          "title": "OpenAI Employee Arrested Over Hidden Recording Device",
+          "title_vi": "Nhân viên OpenAI bị bắt vì thiết bị ghi âm ẩn",
+          "headline": "OpenAI Employee Arrested Over Hidden Recording Device",
+          "headline_vi": "Nhân viên OpenAI bị bắt vì thiết bị ghi âm ẩn",
+          "url": "https://www.bloomberg.com/news/videos/2026-10-14/openai-employee-arrested-over-hidden-recording-device-video",
+          "published_at": "2026-10-14T17:28:43Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-14T21:41:27Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "6c46a58f101eb5f9fe4b",
+          "title": "OpenAI claims employee sent secret device information to Apple",
+          "title_vi": "OpenAI tuyên bố nhân viên đã gửi thông tin thiết bị bí mật cho Apple",
+          "headline": "OpenAI claims employee sent secret device information to Apple",
+          "headline_vi": "OpenAI tuyên bố nhân viên đã gửi thông tin thiết bị bí mật cho Apple",
+          "url": "https://www.ft.com/content/18b65495-9e2a-45d6-be85-7641442ab61a",
+          "published_at": "2026-10-14T17:39:37Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-14T18:41:36Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50091684",
+          "metrics": {
+            "points": 20,
+            "comments": 3
+          }
+        },
+        {
+          "id": "23103161a6873ecb775b",
+          "title": "Saudi national arrested over alleged planting of recording device at OpenAI",
+          "title_vi": "Một công dân Ả Rập Saudi bị bắt vì bị cáo buộc đậu một thiết bị ghi âm tại OpenAI",
+          "headline": "Saudi national arrested over alleged planting of recording device at OpenAI",
+          "headline_vi": "Một công dân Ả Rập Saudi bị bắt vì bị cáo buộc đậu một thiết bị ghi âm tại OpenAI",
+          "url": "https://www.semafor.com/article/10/14/2026/saudi-national-arrested-over-alleged-planting-of-recording-device-at-openai",
+          "published_at": "2026-10-14T12:03:26Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-10-14T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "1a9f6658e6e1292f2ff1",
+          "title": "An OpenAI Employee Allegedly Used a Chatbot to Help Plant a Recording Device at the Office",
+          "title_vi": "Một nhân viên OpenAI bị cáo buộc đã sử dụng chatbot để hỗ trợ đặt thiết bị ghi âm tại văn phòng",
+          "headline": "An OpenAI Employee Allegedly Used a Chatbot to Help Plant a Recording Device at the Office",
+          "headline_vi": "Một nhân viên OpenAI bị cáo buộc đã sử dụng chatbot để hỗ trợ đặt thiết bị ghi âm tại văn phòng",
+          "url": "https://www.wired.com/story/an-openai-employee-allegedly-used-a-chatbot-to-help-plant-a-recording-device-at-the-office/",
+          "published_at": "2026-10-13T23:17:59Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "wired-ai",
+          "publisher": "wired",
+          "entity": "wired",
+          "group": "press",
+          "observed_at": "2026-10-14T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "4 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "ars-technica",
+              "bloomberg",
+              "semafor",
+              "wired"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "ars-technica",
+            "bloomberg",
+            "semafor",
+            "wired"
+          ],
+          "age_hours_at_cutoff": 23.7003,
+          "hot_score": 30.776,
+          "engagement_percentile": 0.22123893805309736
+        }
+      }
+    },
+    {
+      "id": "71c698c9f186d9bdf165",
+      "title": "YouTube sticks new labels on AI-generated songs",
+      "title_vi": "YouTube dán nhãn mới cho các bài hát được tạo ra bởi AI",
+      "headline": "YouTube sticks new labels on AI-generated songs",
+      "headline_vi": "YouTube dán nhãn mới cho các bài hát được tạo ra bởi AI",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1011369/youtube-music-ai-label",
+      "published_at": "2026-10-14T18:22:56Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "39f76a7e0a99de33d7a9",
+          "title": "YouTube Music launches new labels as AI-generated music floods streaming platforms",
+          "title_vi": "YouTube Music ra mắt các nhãn hiệu mới khi AI tạo ra âm nhạc tràn ngập các nền tảng phát trực tuyến",
+          "headline": "YouTube Music launches new labels as AI-generated music floods streaming platforms",
+          "headline_vi": "YouTube Music ra mắt các nhãn hiệu mới khi AI tạo ra âm nhạc tràn ngập các nền tảng phát trực tuyến",
+          "url": "https://techcrunch.com/2026/10/14/youtube-music-launches-new-labels-as-ai-generated-music-floods-streaming-platforms/",
+          "published_at": "2026-10-14T18:23:46Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-14T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "de2fc1e6404e95b63b4b",
+          "title": "YouTube sticks new labels on AI-generated songs",
+          "title_vi": "YouTube dán nhãn mới cho các bài hát được tạo ra bởi AI",
+          "headline": "YouTube sticks new labels on AI-generated songs",
+          "headline_vi": "YouTube dán nhãn mới cho các bài hát được tạo ra bởi AI",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1011369/youtube-music-ai-label",
+          "published_at": "2026-10-14T18:22:56Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-14T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 4.6178,
+          "hot_score": 69.468,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "3edeaa8d7764aa277fd5",
+      "title": "Containment and monitoring failures are to blame for AI hacking reports: experts",
+      "title_vi": "Những thất bại trong việc ngăn chặn và giám sát là nguyên nhân gây ra các báo cáo tấn công AI: các chuyên gia",
+      "headline": "Containment and monitoring failures are to blame for AI hacking reports: experts",
+      "headline_vi": "Những thất bại trong việc ngăn chặn và giám sát là nguyên nhân gây ra các báo cáo tấn công AI: các chuyên gia",
+      "url": "https://www.csoonline.com/article/4234854/ai-agents-arent-going-rogue-frontier-labs-are-skipping-security-basics.html",
+      "published_at": "2026-10-14T17:45:23Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "source_count": 0,
+      "coverage": [
+        {
+          "id": "6e34b81eb3db5b7c1d6f",
+          "title": "Containment and monitoring failures are to blame for AI hacking reports: experts",
+          "title_vi": "Những thất bại trong việc ngăn chặn và giám sát là nguyên nhân gây ra các báo cáo tấn công AI: các chuyên gia",
+          "headline": "Containment and monitoring failures are to blame for AI hacking reports: experts",
+          "headline_vi": "Những thất bại trong việc ngăn chặn và giám sát là nguyên nhân gây ra các báo cáo tấn công AI: các chuyên gia",
+          "url": "https://www.csoonline.com/article/4234854/ai-agents-arent-going-rogue-frontier-labs-are-skipping-security-basics.html",
+          "published_at": "2026-10-14T17:45:23Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-14T23:01:20Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50091788",
+          "metrics": {
+            "points": 795,
+            "comments": 411
+          }
+        },
+        {
+          "id": "9dae8fc1bbe911524296",
+          "title": "Containment and monitoring failures are to blame for AI hacking reports: experts",
+          "title_vi": "Những thất bại trong việc ngăn chặn và giám sát là nguyên nhân gây ra các báo cáo tấn công AI: các chuyên gia",
+          "headline": "Containment and monitoring failures are to blame for AI hacking reports: experts",
+          "headline_vi": "Những thất bại trong việc ngăn chặn và giám sát là nguyên nhân gây ra các báo cáo tấn công AI: các chuyên gia",
+          "url": "https://www.csoonline.com/article/4234854/ai-agents-arent-going-rogue-frontier-labs-are-skipping-security-basics.html",
+          "published_at": "2026-10-14T17:45:23Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-14T23:01:20Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50091788",
+          "metrics": {
+            "points": 795,
+            "comments": 411
+          }
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Ngoại lệ diễn đàn: tương tác thuộc nhóm 3% cao nhất và ít nhất 100 bình luận",
+            "percentile": 1.0,
+            "measurement": {
+              "source": "hn-ai",
+              "metric": "points",
+              "value": 795,
+              "observed_at": "2026-10-14T23:01:20Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [],
+          "age_hours_at_cutoff": 5.2436,
+          "hot_score": 53.479,
+          "engagement_percentile": 1.0
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 66,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
