@@ -1,0 +1,385 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-14T23:00:00Z",
+  "cutoff_at": "2026-10-15T23:00:00Z",
+  "created_at": "2026-10-15T23:03:15Z",
+  "snapshot_generated_at": "2026-10-15T23:01:19Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-15T23:01:19Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "468b3077a208433fef72",
+      "title": "Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark",
+      "title_vi": "Làm thế nào Windows được tối ưu hóa cho máy tính xách tay RTX Spark của NVIDIA",
+      "headline": "Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark",
+      "headline_vi": "Làm thế nào Windows được tối ưu hóa cho máy tính xách tay RTX Spark của NVIDIA",
+      "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-launch-event-invite/",
+      "published_at": "2026-10-15T17:00:23Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "c52f4335c27dc73987b7",
+          "title": "Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark",
+          "title_vi": "Làm thế nào Windows được tối ưu hóa cho máy tính xách tay RTX Spark của NVIDIA",
+          "headline": "Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark",
+          "headline_vi": "Làm thế nào Windows được tối ưu hóa cho máy tính xách tay RTX Spark của NVIDIA",
+          "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-launch-event-invite/",
+          "published_at": "2026-10-15T17:00:23Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "nvidia-newsroom",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-15T23:01:19Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "5fde9b828f6c37cb58fd",
+          "title": "How Windows is being optimized for Nvidia’s RTX Spark laptops",
+          "title_vi": "Làm thế nào Windows được tối ưu hóa cho máy tính xách tay RTX Spark của Nvidia",
+          "headline": "How Windows is being optimized for Nvidia’s RTX Spark laptops",
+          "headline_vi": "Làm thế nào Windows được tối ưu hóa cho máy tính xách tay RTX Spark của Nvidia",
+          "url": "https://www.theverge.com/tech/1011996/microsoft-windows-rtx-spark-platform-changes-notepad",
+          "published_at": "2026-10-15T14:30:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-15T23:01:19Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "c52f4335c27dc73987b7"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "nvidia",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "nvidia",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 5.9936,
+          "hot_score": 68.635,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "370d8453b070a7bffccc",
+      "title": "Introducing Timestral",
+      "title_vi": "Ra mắt Timestral",
+      "headline": "Introducing Timestral",
+      "headline_vi": "Ra mắt Timestral",
+      "url": "https://mistral.ai/news/timestral",
+      "published_at": "2026-10-15T12:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "077765f1d1ee6ea51eba",
+          "title": "Introducing Timestral",
+          "title_vi": "Ra mắt Timestral",
+          "headline": "Introducing Timestral",
+          "headline_vi": "Ra mắt Timestral",
+          "url": "https://mistral.ai/news/timestral",
+          "published_at": "2026-10-15T12:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "mistral-news",
+          "publisher": "mistral",
+          "entity": "mistral",
+          "group": "lab",
+          "observed_at": "2026-10-15T23:01:19Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "077765f1d1ee6ea51eba"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "mistral"
+          ],
+          "age_hours_at_cutoff": 11.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "39052ad94a8a76cc68a2",
+      "title": "Apertus 1.5 Release Notes",
+      "headline": "Apertus 1.5 Release Notes",
+      "url": "https://huggingface.co/blog/swiss-ai/apertus-v15-release-notes",
+      "published_at": "2026-10-15T09:08:45Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "25716c2d725ff5a53423",
+          "title": "Apertus 1.5 Release Notes",
+          "headline": "Apertus 1.5 Release Notes",
+          "url": "https://huggingface.co/blog/swiss-ai/apertus-v15-release-notes",
+          "published_at": "2026-10-15T09:08:45Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "huggingface-blog",
+          "publisher": "huggingface",
+          "entity": "huggingface",
+          "group": "lab",
+          "observed_at": "2026-10-15T23:01:19Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "25716c2d725ff5a53423"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "huggingface"
+          ],
+          "age_hours_at_cutoff": 13.8542,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "67e0e2ca251faa5910ae",
+      "title": "Code Review is now generally available",
+      "title_vi": "Việc xem xét quy tắc hiện nay có sẵn",
+      "headline": "Code Review is now generally available",
+      "headline_vi": "Việc xem xét quy tắc hiện nay có sẵn",
+      "url": "https://claude.com/resources/articles/code-review-is-now-generally-available",
+      "published_at": "2026-10-15T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "844ef2c8a1ad6e585f8c",
+          "title": "Code Review is now generally available",
+          "title_vi": "Việc xem xét quy tắc hiện nay có sẵn",
+          "headline": "Code Review is now generally available",
+          "headline_vi": "Việc xem xét quy tắc hiện nay có sẵn",
+          "url": "https://claude.com/resources/articles/code-review-is-now-generally-available",
+          "published_at": "2026-10-15T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "anthropic-claude",
+          "publisher": "anthropic",
+          "entity": "anthropic",
+          "group": "lab",
+          "observed_at": "2026-10-15T23:01:19Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "844ef2c8a1ad6e585f8c"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "anthropic"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "fc94b0a99c247635aa46",
+      "title": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
+      "title_vi": "Chào mừng bạn Muse Spark Open: mô hình đa phương tiện hỗn hợp các chuyên gia từ Meta",
+      "headline": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
+      "headline_vi": "Chào mừng bạn Muse Spark Open: mô hình đa phương tiện hỗn hợp các chuyên gia từ Meta",
+      "url": "https://huggingface.co/blog/meta-muse-spark-open",
+      "published_at": "2026-10-15T00:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 3,
+      "coverage": [
+        {
+          "id": "04118ad52837d6a32e0e",
+          "title": "Meta’s Muse Spark Open now available in Amazon SageMaker JumpStart",
+          "title_vi": "Muse Spark Open của Meta hiện có sẵn tại Amazon SageMaker JumpStart",
+          "headline": "Meta’s Muse Spark Open now available in Amazon SageMaker JumpStart",
+          "headline_vi": "Muse Spark Open của Meta hiện có sẵn tại Amazon SageMaker JumpStart",
+          "url": "https://aws.amazon.com/blogs/machine-learning/metas-muse-spark-open-now-available-in-amazon-sagemaker-jumpstart/",
+          "published_at": "2026-10-15T17:43:35Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-10-15T23:01:19Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "71615c6000253be41d54",
+          "title": "Muse Spark Open",
+          "title_vi": "Muse Spark mở",
+          "headline": "Muse Spark Open",
+          "headline_vi": "Muse Spark mở",
+          "url": "https://research.meta.ai/blog/muse-spark-open",
+          "published_at": "2026-10-15T17:47:39Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-15T23:01:19Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50107379",
+          "metrics": {
+            "points": 543,
+            "comments": 306
+          }
+        },
+        {
+          "id": "b452726626d193c21b45",
+          "title": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
+          "title_vi": "Chào mừng bạn Muse Spark Open: mô hình đa phương tiện hỗn hợp các chuyên gia từ Meta",
+          "headline": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
+          "headline_vi": "Chào mừng bạn Muse Spark Open: mô hình đa phương tiện hỗn hợp các chuyên gia từ Meta",
+          "url": "https://huggingface.co/blog/meta-muse-spark-open",
+          "published_at": "2026-10-15T00:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "huggingface-blog",
+          "publisher": "huggingface",
+          "entity": "huggingface",
+          "group": "lab",
+          "observed_at": "2026-10-15T23:01:19Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "1698b574195e50c1a9c3",
+          "title": "Scale Agentic Coding Workflows with Meta’s Muse Spark Open on NVIDIA GB300 NVL72",
+          "title_vi": "Scale Agentic Coding Workflows với Muse Spark của Meta mở trên NVIDIA GB300 NVL72",
+          "headline": "Scale Agentic Coding Workflows with Meta’s Muse Spark Open on NVIDIA GB300 NVL72",
+          "headline_vi": "Scale Agentic Coding Workflows với Muse Spark của Meta mở trên NVIDIA GB300 NVL72",
+          "url": "https://developer.nvidia.com/blog/scale-agentic-coding-workflows-with-metas-muse-spark-open-on-nvidia-gb300-nvl72/",
+          "published_at": "2026-10-15T18:00:01Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "nvidia-blog",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-15T23:01:19Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "3 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "amazon",
+              "huggingface",
+              "nvidia"
+            ]
+          },
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 0.9572649572649573,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 543,
+              "observed_at": "2026-10-15T23:01:19Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon",
+            "huggingface",
+            "nvidia"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": 49.866,
+          "engagement_percentile": 0.9572649572649573
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 66,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
