@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-15T23:00:00Z",
+  "cutoff_at": "2026-10-16T23:00:00Z",
+  "created_at": "2026-10-16T23:03:41Z",
+  "snapshot_generated_at": "2026-10-16T23:01:22Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-16T23:01:22Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "4f379e8b58549775d4b2",
+      "title": "Introducing Reflection Beam: an open-weight model for agentic coding on AWS",
+      "title_vi": "Ra mắt Reflection Beam: Một mô hình trọng số mở cho lập trình cơ quan trên AWS",
+      "headline": "Introducing Reflection Beam: an open-weight model for agentic coding on AWS",
+      "headline_vi": "Ra mắt Reflection Beam: Một mô hình trọng số mở cho lập trình cơ quan trên AWS",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-reflection-beam-an-open-weight-model-for-agentic-coding-on-aws/",
+      "published_at": "2026-10-16T15:23:10Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "fb39eedfb52900f2addd",
+          "title": "Introducing Reflection Beam: an open-weight model for agentic coding on AWS",
+          "title_vi": "Ra mắt Reflection Beam: Một mô hình trọng số mở cho lập trình cơ quan trên AWS",
+          "headline": "Introducing Reflection Beam: an open-weight model for agentic coding on AWS",
+          "headline_vi": "Ra mắt Reflection Beam: Một mô hình trọng số mở cho lập trình cơ quan trên AWS",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-reflection-beam-an-open-weight-model-for-agentic-coding-on-aws/",
+          "published_at": "2026-10-16T15:23:10Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-10-16T23:01:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "fb39eedfb52900f2addd"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 7.6139,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "918cdd953ecffda0b678",
+      "title": "Claude reveals ECDSA curve origins",
+      "title_vi": "Claude tiết lộ nguồn gốc đường cong ECDSA",
+      "headline": "Claude reveals ECDSA curve origins",
+      "headline_vi": "Claude tiết lộ nguồn gốc đường cong ECDSA",
+      "url": "https://www.anthropic.com/research/ecdsa-curve-origins",
+      "published_at": "2026-10-16T00:00:00Z",
+      "kind": "research",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "1c6dcb60e013d7016837",
+          "title": "Claude reveals ECDSA curve origins",
+          "title_vi": "Claude tiết lộ nguồn gốc đường cong ECDSA",
+          "headline": "Claude reveals ECDSA curve origins",
+          "headline_vi": "Claude tiết lộ nguồn gốc đường cong ECDSA",
+          "url": "https://www.anthropic.com/research/ecdsa-curve-origins",
+          "published_at": "2026-10-16T00:00:00Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "anthropic-research",
+          "publisher": "anthropic",
+          "entity": "anthropic",
+          "group": "lab",
+          "observed_at": "2026-10-16T23:01:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "c277b67254b64960fc31",
+          "title": "Claude reveals ECDSA curve origins",
+          "title_vi": "Claude tiết lộ nguồn gốc đường cong ECDSA",
+          "headline": "Claude reveals ECDSA curve origins",
+          "headline_vi": "Claude tiết lộ nguồn gốc đường cong ECDSA",
+          "url": "https://www.anthropic.com/research/ecdsa-curve-origins",
+          "published_at": "2026-10-16T18:55:59Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-16T23:01:22Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50122800",
+          "metrics": {
+            "points": 544,
+            "comments": 234
+          }
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 0.9396551724137931,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 544,
+              "observed_at": "2026-10-16T23:01:22Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "anthropic"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": 43.338,
+          "engagement_percentile": 0.9396551724137931
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 66,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
