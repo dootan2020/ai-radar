@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-20",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-18T23:00:00Z",
+  "cutoff_at": "2026-10-19T23:00:00Z",
+  "created_at": "2026-10-19T23:03:55Z",
+  "snapshot_generated_at": "2026-10-19T23:01:26Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-19T23:01:26Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "4a7596781535f7f0daef",
+      "title": "AI stocks rally ahead of Meta earnings",
+      "title_vi": "Các cổ phiếu AI tăng lên trước lợi nhuận Meta",
+      "headline": "AI stocks rally ahead of Meta earnings",
+      "headline_vi": "Các cổ phiếu AI tăng lên trước lợi nhuận Meta",
+      "url": "https://www.semafor.com/article/10/19/2026/ai-stocks-rally-ahead-of-meta-earnings",
+      "published_at": "2026-10-19T22:25:58Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "349679fa5310f2b971ad",
+          "title": "Tech Earnings Ahead: SpaceX, Meta to Test AI Monetization",
+          "title_vi": "Tiền công nghệ phía trước: SpaceX, Meta để kiểm tra kiếm tiền AI",
+          "headline": "Tech Earnings Ahead: SpaceX, Meta to Test AI Monetization",
+          "headline_vi": "Tiền công nghệ phía trước: SpaceX, Meta để kiểm tra kiếm tiền AI",
+          "url": "https://www.bloomberg.com/news/videos/2026-10-19/tech-earnings-spacex-meta-to-test-ai-monetization-video",
+          "published_at": "2026-10-19T15:24:10Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-19T20:21:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "fac6586c10a065eec72f",
+          "title": "AI stocks rally ahead of Meta earnings",
+          "title_vi": "Các cổ phiếu AI tăng lên trước lợi nhuận Meta",
+          "headline": "AI stocks rally ahead of Meta earnings",
+          "headline_vi": "Các cổ phiếu AI tăng lên trước lợi nhuận Meta",
+          "url": "https://www.semafor.com/article/10/19/2026/ai-stocks-rally-ahead-of-meta-earnings",
+          "published_at": "2026-10-19T22:25:58Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-10-19T23:01:26Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "semafor"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 0.5672,
+          "hot_score": 57.484,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "aa36fe0b20a779860359",
+      "title": "DHS to ban DeepSeek from federal civilian agencies",
+      "title_vi": "DHS sẽ cấm DeepSeek từ các cơ quan dân sự liên bang",
+      "headline": "DHS to ban DeepSeek from federal civilian agencies",
+      "headline_vi": "DHS sẽ cấm DeepSeek từ các cơ quan dân sự liên bang",
+      "url": "https://cyberscoop.com/dhs-bans-deepseek-federal-agencies/",
+      "published_at": "2026-10-19T15:41:18Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "1ff9a7fea1aa09c8458b",
+          "title": "US Moves to Bar China’s DeepSeek From Federal Agency Systems",
+          "headline": "US Moves to Bar China’s DeepSeek From Federal Agency Systems",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-19/us-moves-to-bar-deepseek-from-federal-agencies-and-contracts",
+          "published_at": "2026-10-19T13:37:53Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-19T21:41:21Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "170f30dbe5672f40b539",
+          "title": "DHS to ban DeepSeek from federal civilian agencies",
+          "title_vi": "DHS sẽ cấm DeepSeek từ các cơ quan dân sự liên bang",
+          "headline": "DHS to ban DeepSeek from federal civilian agencies",
+          "headline_vi": "DHS sẽ cấm DeepSeek từ các cơ quan dân sự liên bang",
+          "url": "https://cyberscoop.com/dhs-bans-deepseek-federal-agencies/",
+          "published_at": "2026-10-19T15:41:18Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "fedscoop",
+          "publisher": "fedscoop",
+          "entity": "fedscoop",
+          "group": "press",
+          "observed_at": "2026-10-19T23:01:26Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "fedscoop"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "fedscoop"
+          ],
+          "age_hours_at_cutoff": 7.3117,
+          "hot_score": 53.871,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 66,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
