@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-21",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-19T23:00:00Z",
+  "cutoff_at": "2026-10-20T23:00:00Z",
+  "created_at": "2026-10-20T23:03:35Z",
+  "snapshot_generated_at": "2026-10-20T23:01:11Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-20T23:01:11Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "11c7e6dde0dc11c16510",
+      "title": "Eric Schmidt reportedly owns about half as much of Anthropic as CEO Dario Amodei",
+      "title_vi": "Eric Schmidt được cho là sở hữu khoảng một nửa phần lớn của Anthropic như CEO Dario Amodei",
+      "headline": "Eric Schmidt reportedly owns about half as much of Anthropic as CEO Dario Amodei",
+      "headline_vi": "Eric Schmidt được cho là sở hữu khoảng một nửa phần lớn của Anthropic như CEO Dario Amodei",
+      "url": "https://techcrunch.com/2026/10/20/eric-schmidt-reportedly-owns-about-half-as-much-of-anthropic-as-ceo-dario-amodei/",
+      "published_at": "2026-10-20T17:55:12Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "b2cfd07afb0c62531434",
+          "title": "Eric Schmidt’s Early Anthropic Bet Set to Pay Huge Windfall",
+          "title_vi": "Cuộc cá cược Anthropic sớm của Eric Schmidt đã được đặt ra để trả tiền rất lớn",
+          "headline": "Eric Schmidt’s Early Anthropic Bet Set to Pay Huge Windfall",
+          "headline_vi": "Cuộc cá cược Anthropic sớm của Eric Schmidt đã được đặt ra để trả tiền rất lớn",
+          "url": "https://www.bloomberg.com/news/videos/2026-10-20/eric-schmidt-s-early-anthropic-bet-to-pay-huge-windfall-video",
+          "published_at": "2026-10-20T17:20:13Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-20T20:01:14Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "492f2fc5982273aa82c9",
+          "title": "Eric Schmidt reportedly owns about half as much of Anthropic as CEO Dario Amodei",
+          "title_vi": "Eric Schmidt được cho là sở hữu khoảng một nửa phần lớn của Anthropic như CEO Dario Amodei",
+          "headline": "Eric Schmidt reportedly owns about half as much of Anthropic as CEO Dario Amodei",
+          "headline_vi": "Eric Schmidt được cho là sở hữu khoảng một nửa phần lớn của Anthropic như CEO Dario Amodei",
+          "url": "https://techcrunch.com/2026/10/20/eric-schmidt-reportedly-owns-about-half-as-much-of-anthropic-as-ceo-dario-amodei/",
+          "published_at": "2026-10-20T17:55:12Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-20T23:01:11Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 5.08,
+          "hot_score": 65.318,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "6682fdf756de37556cc5",
+      "title": "Google Public Sector unveils Gemini for government services",
+      "title_vi": "Google Public Sector công bố Gemini cho các dịch vụ chính phủ",
+      "headline": "Google Public Sector unveils Gemini for government services",
+      "headline_vi": "Google Public Sector công bố Gemini cho các dịch vụ chính phủ",
+      "url": "https://www.nextgov.com/artificial-intelligence/2026/10/google-public-sector-unveils-gemini-government-services/416681/",
+      "published_at": "2026-10-20T10:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "65ab85f55f585fed64f4",
+          "title": "Google launches Gemini for government services as new ‘agentic solution’",
+          "headline": "Google launches Gemini for government services as new ‘agentic solution’",
+          "url": "https://fedscoop.com/google-launches-gemini-for-government-services/",
+          "published_at": "2026-10-20T21:53:24Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "fedscoop",
+          "publisher": "fedscoop",
+          "entity": "fedscoop",
+          "group": "press",
+          "observed_at": "2026-10-20T23:01:11Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "17e90ade3f893e7f38ee",
+          "title": "Google Public Sector unveils Gemini for government services",
+          "title_vi": "Google Public Sector công bố Gemini cho các dịch vụ chính phủ",
+          "headline": "Google Public Sector unveils Gemini for government services",
+          "headline_vi": "Google Public Sector công bố Gemini cho các dịch vụ chính phủ",
+          "url": "https://www.nextgov.com/artificial-intelligence/2026/10/google-public-sector-unveils-gemini-government-services/416681/",
+          "published_at": "2026-10-20T10:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "nextgov-ai",
+          "publisher": "nextgov",
+          "entity": "nextgov",
+          "group": "press",
+          "observed_at": "2026-10-20T23:01:11Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "fedscoop",
+              "nextgov"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "fedscoop",
+            "nextgov"
+          ],
+          "age_hours_at_cutoff": 13.0,
+          "hot_score": 60.523,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "1cfb6291fa158d05a5ba",
+      "title": "OpenAI acquires Orchestra Bio",
+      "title_vi": "OpenAI mua lại Orchestra Bio",
+      "headline": "OpenAI acquires Orchestra Bio",
+      "headline_vi": "OpenAI mua lại Orchestra Bio",
+      "url": "https://openai.com/index/openai-to-acquire-orchestra-bio",
+      "published_at": "2026-10-20T00:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "2cfdbd29e0dacf4d338c",
+          "title": "OpenAI acquires Orchestra Bio",
+          "title_vi": "OpenAI mua lại Orchestra Bio",
+          "headline": "OpenAI acquires Orchestra Bio",
+          "headline_vi": "OpenAI mua lại Orchestra Bio",
+          "url": "https://openai.com/index/openai-to-acquire-orchestra-bio",
+          "published_at": "2026-10-20T00:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "openai-news",
+          "publisher": "openai",
+          "entity": "openai",
+          "group": "lab",
+          "observed_at": "2026-10-20T23:01:11Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "f5b791b218e275308218",
+          "title": "OpenAI acquires startup Orchestra Bio⁠ to beef up its biotech business",
+          "title_vi": "OpenAI mua lại startup Orchestra Bio để tăng cường kinh doanh công nghệ sinh học của mình",
+          "headline": "OpenAI acquires startup Orchestra Bio⁠ to beef up its biotech business",
+          "headline_vi": "OpenAI mua lại startup Orchestra Bio để tăng cường kinh doanh công nghệ sinh học của mình",
+          "url": "https://techcrunch.com/2026/10/20/openai-acquires-startup-orchestra-bio%e2%81%a0-to-beef-up-its-biotech-business/",
+          "published_at": "2026-10-20T20:35:10Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-20T23:01:11Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "openai",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "openai",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": 54.968,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "be38b11f937cd76cc249",
+      "title": "DeepInfer: High-performance inference framework for DeepSeek models",
+      "title_vi": "DeepInfer: Khung kết hiệu suất cao, quy mô lớn cho các mô hình DeepSeek",
+      "headline": "DeepInfer: High-performance inference framework for DeepSeek models",
+      "headline_vi": "DeepInfer: Khung kết hiệu suất cao, quy mô lớn cho các mô hình DeepSeek",
+      "url": "https://github.com/deepseek-ai/DeepInfer",
+      "published_at": "2026-10-20T09:08:54Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "source_count": 0,
+      "coverage": [
+        {
+          "id": "33f602cab03575453830",
+          "title": "DeepInfer: High-performance inference framework for DeepSeek models",
+          "title_vi": "DeepInfer: Khung kết hiệu suất cao, quy mô lớn cho các mô hình DeepSeek",
+          "headline": "DeepInfer: High-performance inference framework for DeepSeek models",
+          "headline_vi": "DeepInfer: Khung kết hiệu suất cao, quy mô lớn cho các mô hình DeepSeek",
+          "url": "https://github.com/deepseek-ai/DeepInfer",
+          "published_at": "2026-10-20T09:08:54Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-20T23:01:11Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50163277",
+          "metrics": {
+            "points": 2074,
+            "comments": 811
+          }
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Ngoại lệ diễn đàn: tương tác thuộc nhóm 3% cao nhất và ít nhất 100 bình luận",
+            "percentile": 1.0,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 2074,
+              "observed_at": "2026-10-20T23:01:11Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [],
+          "age_hours_at_cutoff": 13.8517,
+          "hot_score": 40.116,
+          "engagement_percentile": 1.0
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 66,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
