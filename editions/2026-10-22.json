@@ -1,0 +1,399 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-22",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-20T23:00:00Z",
+  "cutoff_at": "2026-10-21T23:00:00Z",
+  "created_at": "2026-10-21T23:06:01Z",
+  "snapshot_generated_at": "2026-10-21T23:01:08Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-21T23:01:08Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "8860c6bfedf824046aa3",
+      "title": "NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations",
+      "title_vi": "NVIDIA cuDSS bây giờ phổ biến để tăng tốc kỹ thuật và mô phỏng khoa học",
+      "headline": "NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations",
+      "headline_vi": "NVIDIA cuDSS bây giờ phổ biến để tăng tốc kỹ thuật và mô phỏng khoa học",
+      "url": "https://blogs.nvidia.com/blog/cudss-generally-available-engineering-scientific-simulation/",
+      "published_at": "2026-10-21T10:30:25Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "b4c073904948b1369579",
+          "title": "NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations",
+          "title_vi": "NVIDIA cuDSS bây giờ phổ biến để tăng tốc kỹ thuật và mô phỏng khoa học",
+          "headline": "NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations",
+          "headline_vi": "NVIDIA cuDSS bây giờ phổ biến để tăng tốc kỹ thuật và mô phỏng khoa học",
+          "url": "https://blogs.nvidia.com/blog/cudss-generally-available-engineering-scientific-simulation/",
+          "published_at": "2026-10-21T10:30:25Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "nvidia-newsroom",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-21T23:01:08Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "b4c073904948b1369579"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "nvidia"
+          ],
+          "age_hours_at_cutoff": 12.4931,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "47061ab25aa38c9d1c41",
+      "title": "NVIDIA Launches OpenShell Reference Architecture for Safe AI Agents",
+      "title_vi": "NVIDIA ra mắt kiến trúc tham chiếu OpenShell cho các agent AI an toàn",
+      "headline": "NVIDIA Launches OpenShell Reference Architecture for Safe AI Agents",
+      "headline_vi": "NVIDIA ra mắt kiến trúc tham chiếu OpenShell cho các agent AI an toàn",
+      "url": "https://nvidianews.nvidia.com/news/openshell-reference-architecture",
+      "published_at": "2026-10-21T09:48:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "b9e1916c8e012104b180",
+          "title": "NVIDIA Launches OpenShell Reference Architecture for Safe AI Agents",
+          "title_vi": "NVIDIA ra mắt kiến trúc tham chiếu OpenShell cho các agent AI an toàn",
+          "headline": "NVIDIA Launches OpenShell Reference Architecture for Safe AI Agents",
+          "headline_vi": "NVIDIA ra mắt kiến trúc tham chiếu OpenShell cho các agent AI an toàn",
+          "url": "https://nvidianews.nvidia.com/news/openshell-reference-architecture",
+          "published_at": "2026-10-21T09:48:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "nvidia-newsroom",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-21T23:01:08Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "b9e1916c8e012104b180"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "nvidia"
+          ],
+          "age_hours_at_cutoff": 13.2,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "283a10a734a97f3fd2cf",
+      "title": "NVIDIA Introduces DSX POD AI Factories to Accelerate Europe’s Infrastructure Deployment",
+      "title_vi": "NVIDIA giới thiệu các nhà máy AI DSX POD để tăng tốc triển khai cơ sở hạ tầng ở châu Âu",
+      "headline": "NVIDIA Introduces DSX POD AI Factories to Accelerate Europe’s Infrastructure Deployment",
+      "headline_vi": "NVIDIA giới thiệu các nhà máy AI DSX POD để tăng tốc triển khai cơ sở hạ tầng ở châu Âu",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-introduces-dsx-pod-ai-factories-to-accelerate-europes-infrastructure-deployment",
+      "published_at": "2026-10-21T09:34:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "4a5c6632def4b429bb81",
+          "title": "NVIDIA Introduces DSX POD AI Factories to Accelerate Europe’s Infrastructure Deployment",
+          "title_vi": "NVIDIA giới thiệu các nhà máy AI DSX POD để tăng tốc triển khai cơ sở hạ tầng ở châu Âu",
+          "headline": "NVIDIA Introduces DSX POD AI Factories to Accelerate Europe’s Infrastructure Deployment",
+          "headline_vi": "NVIDIA giới thiệu các nhà máy AI DSX POD để tăng tốc triển khai cơ sở hạ tầng ở châu Âu",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-introduces-dsx-pod-ai-factories-to-accelerate-europes-infrastructure-deployment",
+          "published_at": "2026-10-21T09:34:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "nvidia-newsroom",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-21T23:01:08Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "4a5c6632def4b429bb81"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "nvidia"
+          ],
+          "age_hours_at_cutoff": 13.4333,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "5cf5746e4258a1b748d2",
+      "title": "NVIDIA GTC Berlin 2026 | Live Keynote Pregame",
+      "title_vi": "NVIDIA GTC Berlin 2026 | Phần mở đầu bài phát biểu trực tiếp",
+      "headline": "NVIDIA GTC Berlin 2026 | Live Keynote Pregame",
+      "headline_vi": "NVIDIA GTC Berlin 2026 | Phần mở đầu bài phát biểu trực tiếp",
+      "url": "https://www.youtube.com/watch?v=PrA_ayyy22E",
+      "published_at": "2026-10-21T06:50:15Z",
+      "kind": "video",
+      "time_basis": "published",
+      "source_count": 3,
+      "coverage": [
+        {
+          "id": "2faf4969e9ac5906c27a",
+          "title": "Nvidia CEO Huang Pushes Europe on All Industries Adopting AI",
+          "title_vi": "Giám đốc điều hành Nvidia Huang thúc đẩy châu Âu áp dụng AI cho tất cả các ngành công nghiệp",
+          "headline": "Nvidia CEO Huang Pushes Europe on All Industries Adopting AI",
+          "headline_vi": "Giám đốc điều hành Nvidia Huang thúc đẩy châu Âu áp dụng AI cho tất cả các ngành công nghiệp",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-21/nvidia-ceo-huang-pitches-europe-on-all-industries-adopting-ai",
+          "published_at": "2026-10-21T10:54:07Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-21T15:41:19Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "5449af09591b9fbc2234",
+          "title": "(NVDA) Nvidia CEO Jensen Huang Speaks at GTC Berlin",
+          "title_vi": "(NVDA) CEO Nvidia Jensen Huang phát biểu tại GTC Berlin",
+          "headline": "(NVDA) Nvidia CEO Jensen Huang Speaks at GTC Berlin",
+          "headline_vi": "(NVDA) CEO Nvidia Jensen Huang phát biểu tại GTC Berlin",
+          "url": "https://www.bloomberg.com/news/live-blog/2026-10-21/nvda-nvidia-ceo-jensen-huang-at-gtc-berlin",
+          "published_at": "2026-10-21T08:50:17Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-21T13:41:21Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "10379b64439e248873d5",
+          "title": "GTC Berlin 2026: Live Updates From NVIDIA CEO Jensen Huang’s Keynote",
+          "headline": "GTC Berlin 2026: Live Updates From NVIDIA CEO Jensen Huang’s Keynote",
+          "url": "https://blogs.nvidia.com/blog/gtc-berlin-2026-keynote/",
+          "published_at": "2026-10-21T09:30:16Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "nvidia-newsroom",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-21T23:01:08Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "13efffa1632430835c3d",
+          "title": "NVIDIA GTC Berlin 2026 Keynote With CEO Jensen Huang",
+          "title_vi": "NVIDIA GTC Berlin 2026 Keynote Với CEO Jensen Huang",
+          "headline": "NVIDIA GTC Berlin 2026 Keynote With CEO Jensen Huang",
+          "headline_vi": "NVIDIA GTC Berlin 2026 Keynote Với CEO Jensen Huang",
+          "url": "https://www.youtube.com/watch?v=PvFjbPYEOZI",
+          "published_at": "2026-10-21T08:40:06Z",
+          "kind": "video",
+          "time_basis": "published",
+          "source": "nvidia-youtube",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-21T11:01:14Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "25deb0b387ce7b168a53",
+          "title": "NVIDIA GTC Berlin 2026 | Live Keynote Pregame",
+          "title_vi": "NVIDIA GTC Berlin 2026 | Phần mở đầu bài phát biểu trực tiếp",
+          "headline": "NVIDIA GTC Berlin 2026 | Live Keynote Pregame",
+          "headline_vi": "NVIDIA GTC Berlin 2026 | Phần mở đầu bài phát biểu trực tiếp",
+          "url": "https://www.youtube.com/watch?v=PrA_ayyy22E",
+          "published_at": "2026-10-21T06:50:15Z",
+          "kind": "video",
+          "time_basis": "published",
+          "source": "nvidia-youtube",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-21T23:01:08Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "3173e0ce031d1373f9fb",
+          "title": "Nvidia CEO to deliver keynote speech in Berlin as his firm faces investor scrutiny over AI",
+          "title_vi": "CEO Nvidia sẽ có bài phát biểu quan trọng tại Berlin khi công ty của ông đối mặt với sự giám sát chặt chẽ từ các nhà đầu tư về AI",
+          "headline": "Nvidia CEO to deliver keynote speech in Berlin as his firm faces investor scrutiny over AI",
+          "headline_vi": "CEO Nvidia sẽ có bài phát biểu quan trọng tại Berlin khi công ty của ông đối mặt với sự giám sát chặt chẽ từ các nhà đầu tư về AI",
+          "url": "https://www.scmp.com/tech/big-tech/article/3371604/can-nvidia-ceo-deliver-keynote-speech-berlin-his-firm-faces-investor-scrutiny-over-ai",
+          "published_at": "2026-10-21T06:07:51Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-10-21T23:01:08Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "3 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "nvidia",
+              "scmp"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "nvidia",
+            "scmp"
+          ],
+          "age_hours_at_cutoff": 16.1625,
+          "hot_score": 84.019,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "07fdd48f420f6936c963",
+      "title": "Meta plans nonvoting shares, eyeing more stock sales to fund its AI dreams",
+      "title_vi": "Meta lên kế hoạch cổ phiếu không bỏ phiếu, hướng tới việc bán cổ phiếu nhiều hơn để tài trợ cho giấc mơ AI của mình",
+      "headline": "Meta plans nonvoting shares, eyeing more stock sales to fund its AI dreams",
+      "headline_vi": "Meta lên kế hoạch cổ phiếu không bỏ phiếu, hướng tới việc bán cổ phiếu nhiều hơn để tài trợ cho giấc mơ AI của mình",
+      "url": "https://www.semafor.com/article/10/21/2026/meta-plans-nonvoting-shares-eyeing-more-stock-sales-to-fund-its-ai-dreams",
+      "published_at": "2026-10-21T19:17:10Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "63dd2527f999c776ee70",
+          "title": "Meta Plans to Issue New Non-Voting Stock for Capital Raising",
+          "title_vi": "Các kế hoạch Meta để phát hành cổ phiếu không bỏ phiếu mới để huy động vốn",
+          "headline": "Meta Plans to Issue New Non-Voting Stock for Capital Raising",
+          "headline_vi": "Các kế hoạch Meta để phát hành cổ phiếu không bỏ phiếu mới để huy động vốn",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-21/meta-plans-to-issue-new-non-voting-stock-semafor-reports",
+          "published_at": "2026-10-21T19:56:24Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-21T23:01:08Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "0573610fd5964370e0a3",
+          "title": "Meta plans nonvoting shares, eyeing more stock sales to fund its AI dreams",
+          "title_vi": "Meta lên kế hoạch cổ phiếu không bỏ phiếu, hướng tới việc bán cổ phiếu nhiều hơn để tài trợ cho giấc mơ AI của mình",
+          "headline": "Meta plans nonvoting shares, eyeing more stock sales to fund its AI dreams",
+          "headline_vi": "Meta lên kế hoạch cổ phiếu không bỏ phiếu, hướng tới việc bán cổ phiếu nhiều hơn để tài trợ cho giấc mơ AI của mình",
+          "url": "https://www.semafor.com/article/10/21/2026/meta-plans-nonvoting-shares-eyeing-more-stock-sales-to-fund-its-ai-dreams",
+          "published_at": "2026-10-21T19:17:10Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-10-21T23:01:08Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "semafor"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 3.7139,
+          "hot_score": 68.406,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 66,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
