@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-21T23:00:00Z",
+  "cutoff_at": "2026-10-22T23:00:00Z",
+  "created_at": "2026-10-22T23:03:38Z",
+  "snapshot_generated_at": "2026-10-22T23:01:25Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-22T23:01:25Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "b9843ad88f05a84c240b",
+      "title": "The full Claude Platform, available on Google Cloud",
+      "title_vi": "Nền tảng Claude đầy đủ, có sẵn trên Google Cloud",
+      "headline": "The full Claude Platform, available on Google Cloud",
+      "headline_vi": "Nền tảng Claude đầy đủ, có sẵn trên Google Cloud",
+      "url": "https://claude.com/resources/articles/claude-models-on-google-cloud-anthropic-managed",
+      "published_at": "2026-10-22T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "d075ee9421d370073c84",
+          "title": "The full Claude Platform, available on Google Cloud",
+          "title_vi": "Nền tảng Claude đầy đủ, có sẵn trên Google Cloud",
+          "headline": "The full Claude Platform, available on Google Cloud",
+          "headline_vi": "Nền tảng Claude đầy đủ, có sẵn trên Google Cloud",
+          "url": "https://claude.com/resources/articles/claude-models-on-google-cloud-anthropic-managed",
+          "published_at": "2026-10-22T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "anthropic-claude",
+          "publisher": "anthropic",
+          "entity": "anthropic",
+          "group": "lab",
+          "observed_at": "2026-10-22T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "d075ee9421d370073c84"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "anthropic"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "60acf5449ac6330a8180",
+      "title": "China's AI leader DeepSeek raises $15B",
+      "title_vi": "Nhà lãnh đạo AI của Trung Quốc DeepSeek huy động 15 tỷ đô la",
+      "headline": "China's AI leader DeepSeek raises $15B",
+      "headline_vi": "Nhà lãnh đạo AI của Trung Quốc DeepSeek huy động 15 tỷ đô la",
+      "url": "https://www.semafor.com/article/10/22/2026/chinas-ai-leader-deepseek-raises-15b",
+      "published_at": "2026-10-22T10:30:40Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "8867d2f41e46a31cd86a",
+          "title": "DeepSeek Raises $15 Billion in Challenge to Leading US Labs",
+          "title_vi": "DeepSeek huy động được 15 tỷ USD trong lời thách thức gửi tới các phòng thí nghiệm hàng đầu của Mỹ",
+          "headline": "DeepSeek Raises $15 Billion in Challenge to Leading US Labs",
+          "headline_vi": "DeepSeek huy động được 15 tỷ USD trong lời thách thức gửi tới các phòng thí nghiệm hàng đầu của Mỹ",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-22/deepseek-raises-15-billion-in-challenge-to-leading-us-labs",
+          "published_at": "2026-10-22T02:17:34Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-22T09:21:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "1392b5cb8cfb5159433e",
+          "title": "China's AI leader DeepSeek raises $15B",
+          "title_vi": "Nhà lãnh đạo AI của Trung Quốc DeepSeek huy động 15 tỷ đô la",
+          "headline": "China's AI leader DeepSeek raises $15B",
+          "headline_vi": "Nhà lãnh đạo AI của Trung Quốc DeepSeek huy động 15 tỷ đô la",
+          "url": "https://www.semafor.com/article/10/22/2026/chinas-ai-leader-deepseek-raises-15b",
+          "published_at": "2026-10-22T10:30:40Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-10-22T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "semafor"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 12.4889,
+          "hot_score": 59.101,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "eda525050cea8fce4b13",
+      "title": "Uber brings ChatGPT Work to all employees with OpenAI",
+      "title_vi": "Uber mang ChatGPT Work cho tất cả nhân viên với OpenAI",
+      "headline": "Uber brings ChatGPT Work to all employees with OpenAI",
+      "headline_vi": "Uber mang ChatGPT Work cho tất cả nhân viên với OpenAI",
+      "url": "https://openai.com/index/uber-chatgpt-work-rollout",
+      "published_at": "2026-10-22T00:00:00Z",
+      "kind": "research",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "342dc1f49c8c44212962",
+          "title": "Uber brings ChatGPT Work to all employees with OpenAI",
+          "title_vi": "Uber mang ChatGPT Work cho tất cả nhân viên với OpenAI",
+          "headline": "Uber brings ChatGPT Work to all employees with OpenAI",
+          "headline_vi": "Uber mang ChatGPT Work cho tất cả nhân viên với OpenAI",
+          "url": "https://openai.com/index/uber-chatgpt-work-rollout",
+          "published_at": "2026-10-22T00:00:00Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "openai-news",
+          "publisher": "openai",
+          "entity": "openai",
+          "group": "lab",
+          "observed_at": "2026-10-22T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "8ce435382c3f421facec",
+          "title": "Uber puts all 30,000 employees on ChatGPT Work",
+          "title_vi": "Uber đưa tất cả 30.000 nhân viên vào ChatGPT Work",
+          "headline": "Uber puts all 30,000 employees on ChatGPT Work",
+          "headline_vi": "Uber đưa tất cả 30.000 nhân viên vào ChatGPT Work",
+          "url": "https://techcrunch.com/2026/10/22/uber-puts-all-30000-employees-on-chatgpt-work/",
+          "published_at": "2026-10-22T16:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-22T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "openai",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "openai",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": 53.413,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "ee487a66d7e4ee85c2e1",
+      "title": "Donating Agent Skills to the Agentic AI Foundation",
+      "title_vi": "Cung cấp kỹ năng agent cho Quỹ AI Agentic",
+      "headline": "Donating Agent Skills to the Agentic AI Foundation",
+      "headline_vi": "Cung cấp kỹ năng agent cho Quỹ AI Agentic",
+      "url": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation",
+      "published_at": "2026-10-22T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "7e77db4657ba08bf7d1e",
+          "title": "Donating Agent Skills to the Agentic AI Foundation",
+          "title_vi": "Cung cấp kỹ năng agent cho Quỹ AI Agentic",
+          "headline": "Donating Agent Skills to the Agentic AI Foundation",
+          "headline_vi": "Cung cấp kỹ năng agent cho Quỹ AI Agentic",
+          "url": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation",
+          "published_at": "2026-10-22T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "anthropic-news",
+          "publisher": "anthropic",
+          "entity": "anthropic",
+          "group": "lab",
+          "observed_at": "2026-10-22T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "395742ac850d80cc9f4c",
+          "title": "Donating Agent Skills to the Agentic AI Foundation",
+          "title_vi": "Cung cấp kỹ năng agent cho Quỹ AI Agentic",
+          "headline": "Donating Agent Skills to the Agentic AI Foundation",
+          "headline_vi": "Cung cấp kỹ năng agent cho Quỹ AI Agentic",
+          "url": "https://simonwillison.net/2026/Oct/22/donating-agent-skills/",
+          "published_at": "2026-10-22T18:09:56Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "simon-willison",
+          "publisher": "simon-willison",
+          "entity": "simon-willison",
+          "group": "research",
+          "observed_at": "2026-10-22T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "anthropic",
+              "simon-willison"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "anthropic",
+            "simon-willison"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": 53.413,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 66,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
