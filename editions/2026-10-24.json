@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-24",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-22T23:00:00Z",
+  "cutoff_at": "2026-10-23T23:00:00Z",
+  "created_at": "2026-10-23T23:03:28Z",
+  "snapshot_generated_at": "2026-10-23T23:01:17Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-23T23:01:17Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "644ddfd667dec49f7eca",
+      "title": "OpenAI Resumes Training AI, But Without Internet Access",
+      "title_vi": "OpenAI để huấn luyện các mô hình AI mà không có Internet sau các sự cố mạng",
+      "headline": "OpenAI Resumes Training AI, But Without Internet Access",
+      "headline_vi": "OpenAI để huấn luyện các mô hình AI mà không có Internet sau các sự cố mạng",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-23/openai-to-train-ai-models-without-internet-after-cyber-incidents",
+      "published_at": "2026-10-23T19:39:17Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "4d333355701c21863bc9",
+          "title": "OpenAI Resumes Training AI, But Without Internet Access",
+          "title_vi": "OpenAI để huấn luyện các mô hình AI mà không có Internet sau các sự cố mạng",
+          "headline": "OpenAI Resumes Training AI, But Without Internet Access",
+          "headline_vi": "OpenAI để huấn luyện các mô hình AI mà không có Internet sau các sự cố mạng",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-23/openai-to-train-ai-models-without-internet-after-cyber-incidents",
+          "published_at": "2026-10-23T19:39:17Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-23T23:01:17Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "18fc41502e1a66c880e3",
+          "title": "OpenAI now trains its frontier AI models with no internet access",
+          "title_vi": "OpenAI hiện đang huấn luyện các mô hình AI hàng rào của mình mà không có truy cập internet",
+          "headline": "OpenAI now trains its frontier AI models with no internet access",
+          "headline_vi": "OpenAI hiện đang huấn luyện các mô hình AI hàng rào của mình mà không có truy cập internet",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1018021/openai-training-top-ai-models-no-internet",
+          "published_at": "2026-10-23T21:11:07Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-23T23:01:17Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 3.3453,
+          "hot_score": 59.795,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "ec89aa0ae2cfb5cb2e4f",
+      "title": "DeepSeek and MiniMax Complete AI Export Registration and Move Ahead With Overseas Licensing",
+      "title_vi": "DeepSeek và MiniMax hoàn tất đăng ký xuất khẩu AI và tiến hành cấp phép ra nước ngoài",
+      "headline": "DeepSeek and MiniMax Complete AI Export Registration and Move Ahead With Overseas Licensing",
+      "headline_vi": "DeepSeek và MiniMax hoàn tất đăng ký xuất khẩu AI và tiến hành cấp phép ra nước ngoài",
+      "url": "https://pandaily.com/deepseek-minimax-complete-ai-technology-export-registration-open-source-overseas-licensing",
+      "published_at": "2026-10-23T01:51:16Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "0177342905c64f22bed2",
+          "title": "DeepSeek and MiniMax Complete AI Export Registration and Move Ahead With Overseas Licensing",
+          "title_vi": "DeepSeek và MiniMax hoàn tất đăng ký xuất khẩu AI và tiến hành cấp phép ra nước ngoài",
+          "headline": "DeepSeek and MiniMax Complete AI Export Registration and Move Ahead With Overseas Licensing",
+          "headline_vi": "DeepSeek và MiniMax hoàn tất đăng ký xuất khẩu AI và tiến hành cấp phép ra nước ngoài",
+          "url": "https://pandaily.com/deepseek-minimax-complete-ai-technology-export-registration-open-source-overseas-licensing",
+          "published_at": "2026-10-23T01:51:16Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-10-23T23:01:17Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "072cc8c0c4aaaf1b8db2",
+          "title": "DeepSeek, MiniMax secure open-source licences days after new China export rules: state media",
+          "title_vi": "DeepSeek, MiniMax nhận giấy phép mã nguồn mở vài ngày sau các quy định xuất khẩu mới của Trung Quốc: truyền thông nhà nước",
+          "headline": "DeepSeek, MiniMax secure open-source licences days after new China export rules: state media",
+          "headline_vi": "DeepSeek, MiniMax nhận giấy phép mã nguồn mở vài ngày sau các quy định xuất khẩu mới của Trung Quốc: truyền thông nhà nước",
+          "url": "https://www.scmp.com/tech/policy/article/3371880/deepseek-minimax-secure-open-source-licenses-days-after-new-china-export-rules-state-media",
+          "published_at": "2026-10-23T06:00:25Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-10-23T23:01:17Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "pandaily",
+              "scmp"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "pandaily",
+            "scmp"
+          ],
+          "age_hours_at_cutoff": 21.1456,
+          "hot_score": 50.378,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 67,
+    "successful_remote_sources": 66,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
