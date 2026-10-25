@@ -197,7 +197,7 @@ class StoryPageRenderingTests(unittest.TestCase):
 
     def test_story_text_cannot_expand_template_placeholders(self):
         document = render_story_page(story(title_vi="{{CONTENT}}", summary_vi="{{JSONLD}}."))
-        self.assertIn("<title>{{CONTENT}} · ai·radar</title>", document)
+        self.assertIn("<title>{{CONTENT}} · LogosTab</title>", document)
         self.assertIn('content="{{JSONLD}}."', document)
         self.assertNotIn('<title><section class="story-keypoints-box"', document)
 
@@ -234,7 +234,7 @@ class StoryPageRenderingTests(unittest.TestCase):
 
         # Gateway description for fallback does not claim AI summarization
         self.assertIn('Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
-        self.assertNotIn('ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện.', document)
+        self.assertNotIn('LogosTab tóm tắt ý chính để bạn nắm nhanh sự kiện.', document)
 
     def test_key_points_and_missing_picture_use_site_default(self):
         document = render_story_page(story(
@@ -253,7 +253,7 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn('Tóm tắt bằng AI từ phần nội dung bài gốc đọc được.', document)
         self.assertNotIn('class="story-summary-text">Tóm tắt tiếng Việt.</p>', document)
         # When key points exist, gateway description notes AI summarization
-        self.assertIn('ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
+        self.assertIn('LogosTab tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
 
     def test_rejects_unsafe_ids_and_non_http_original_links(self):
         with self.assertRaisesRegex(ValueError, "unsafe id"):

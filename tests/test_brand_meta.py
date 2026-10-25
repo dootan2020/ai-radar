@@ -160,6 +160,15 @@ class BrandKitTest(unittest.TestCase):
             self.assertEqual((dest / name).read_bytes(), (BRAND / name).read_bytes(),
                              f"site/brand/{name} drifted: run python brand/publish_kit.py")
 
+    def test_published_logo_contains_only_images(self):
+        logo = SITE / "brand" / "logo"
+        allowed = {".svg", ".png", ".ico", ".jpg", ".jpeg", ".webp", ".gif", ".avif"}
+        self.assertTrue(logo.is_dir())
+        for item in logo.rglob("*"):
+            self.assertNotEqual(item.name, "__pycache__", item)
+            if item.is_file():
+                self.assertIn(item.suffix.lower(), allowed, item)
+
     def test_published_page_resolves_inside_site_brand(self):
         dest = (SITE / "brand").resolve()
         for ref in parse(dest / "index.html").refs:

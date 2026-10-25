@@ -1,4 +1,4 @@
-/* ai·radar · Trang Tra cứu câu chuyện AI 7 ngày qua (tra-cuu.js)
+/* LogosTab · Trang Tra cứu câu chuyện AI 7 ngày qua (tra-cuu.js)
    Bento Keynote: Ô chính + dòng thời gian.
    Dữ liệu tải từ data/radar-search.json khi cần.
    Không phát sinh số liệu giả, tính toán trực tiếp từ dữ liệu thực tế. */
@@ -576,7 +576,7 @@ function renderEmptyPrompt(suggestedNames, history) {
     <div class="board tc-results-board">
       <article class="tile t-lead" id="tc-prompt" style="padding: var(--tile-pad-hero);">
         <div class="lead-top">
-          ${avatar({ kind: 'mono', id: 'AR', label: 'ai-radar' }, 'xl')}
+          ${avatar({ kind: 'brand', label: 'LogosTab' }, 'xl')}
           <p class="lead-label">
             <span class="pill pill-hot"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg>Tra một chuyện</span>
             <span class="lead-src">Dữ liệu 7 ngày qua · Đo lường bằng số nguồn thật</span>

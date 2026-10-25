@@ -231,12 +231,14 @@ class RenderedFixWiringTests(unittest.TestCase):
         self.assertIn("l.insertAdjacentHTML('beforeend', rest());", self.app)
         self.assertNotIn("kids.slice(cap).forEach(k => k.hidden = true)", self.app)
 
-    def test_brand_light_plates_keep_light_ink_in_dark_mode(self):
+    def test_brand_book_uses_separate_light_and_dark_logo_variants(self):
         for path in (ROOT / "brand" / "index.html", SITE / "brand" / "index.html"):
-            self.assertIn(".on-light,.on-white{--color-ink:var(--gray-21);--color-ink-2:var(--gray-44);--color-ink-3:var(--gray-51)",
-                          read(path), path)
-            # The safe-area label sits on a fixed light chip, so its ink is the light accent in both modes (2.26:1 before).
-            self.assertIn("color:var(--blue-53);background:var(--gray-99)", read(path), path)
+            book = read(path)
+            self.assertIn("[data-theme=light] .only-dark,[data-theme=dark] .only-light{display:none}", book)
+            self.assertIn('mark-light.svg', book)
+            self.assertIn('mark-dark.svg', book)
+            self.assertIn('lockup-light.svg', book)
+            self.assertIn('lockup-dark.svg', book)
 
     def test_story_kind_is_a_tag_with_its_own_shape(self):
         # Owner, 03/10 ~18:05: a story's kind must read at a glance, never by colour alone.

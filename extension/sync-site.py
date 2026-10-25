@@ -151,7 +151,7 @@ def sync():
                  'faces.js', 'time-text.js', 'words.js', 'titles.js',
                  'calendar.js', 'worth-score.js', 'live.js',
                  'feed-images.json', 'editor-picks.json',
-                 'favicon.ico', 'apple-touch-icon.png'):
+                 'favicon.ico', 'apple-touch-icon.png', 'logo.svg'):
         shutil.copyfile(SITE / name, EXT / name)
     shutil.copytree(SITE / 'fonts', EXT / 'fonts', dirs_exist_ok=True)
     write(EXT / 'arena.js', arena)

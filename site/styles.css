@@ -110,7 +110,7 @@
 /* ---------------------------------------------------------------- components */
 @layer components{
   /* bar */
-  .brand{font-size:var(--text-tile);font-weight:var(--weight-bold);letter-spacing:var(--tracking-display);white-space:nowrap}
+  .brand{display:inline-flex;align-items:center;font-size:var(--text-tile);font-weight:var(--weight-bold);letter-spacing:var(--tracking-display);white-space:nowrap}
   .brand b{color:var(--color-accent)}
   /* Link to the daily edition page. Neutral like the "Bản tin" badge on that page: blue stays for action and the selected item. */
   .ed-link{position:relative;flex:none;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-meta);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:color var(--motion-state) var(--ease-flow)}
