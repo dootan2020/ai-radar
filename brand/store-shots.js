@@ -1,5 +1,6 @@
-// Capture the installed extension with the background worker's live snapshot.
+// Capture the extension new tab with a local, real site snapshot.
 const fs = require('node:fs');
+const http = require('node:http');
 const os = require('node:os');
 const path = require('node:path');
 const puppeteer = require('puppeteer');
@@ -7,49 +8,55 @@ const puppeteer = require('puppeteer');
 const root = path.resolve(__dirname, '..');
 const extension = path.join(root, 'extension');
 const output = path.join(__dirname, 'assets', 'store');
-const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'ar-store-'));
+const snapshotPath = path.join(root, 'site', 'data', 'radar-window.json');
+const mime = {'.css': 'text/css', '.html': 'text/html', '.ico': 'image/x-icon',
+  '.js': 'text/javascript', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml'};
+
+function localServer() {
+  return http.createServer((request, response) => {
+    const file = path.resolve(extension, `.${new URL(request.url, 'http://localhost').pathname}`);
+    if (!file.startsWith(extension + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+      response.writeHead(404).end();
+      return;
+    }
+    response.setHeader('Content-Type', mime[path.extname(file)] || 'application/octet-stream');
+    fs.createReadStream(file).pipe(response);
+  });
+}
 
 async function main() {
+  const snapshot = JSON.parse(fs.readFileSync(snapshotPath, 'utf8'));
+  if (snapshot.schema_version !== 2 || !Array.isArray(snapshot.stories) || !snapshot.stories.length) {
+    throw new Error(`${snapshotPath} is not a populated radar-window snapshot`);
+  }
+  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'ar-store-'));
+  const server = localServer();
   let browser;
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      pipe: true,
-      enableExtensions: true,
-      userDataDir: profile,
-      executablePath: process.env.CHROME || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-    });
-    const id = await browser.installExtension(extension);
-    const target = await browser.waitForTarget(item =>
-      item.type() === 'service_worker' && item.url().startsWith(`chrome-extension://${id}/`),
-    {timeout: 20000});
-    const worker = await target.worker();
-    const snapshot = await worker.evaluate(async () => {
-      const deadline = Date.now() + 30000;
-      while (Date.now() < deadline) {
-        const {radarWindow, radarFetchedAt} = await chrome.storage.local.get(['radarWindow', 'radarFetchedAt']);
-        if (radarWindow?.schema_version === 2 && radarWindow.stories?.length && radarFetchedAt) {
-          return {generatedAt: radarWindow.generated_at, stories: radarWindow.stories.length};
-        }
-        await new Promise(resolve => setTimeout(resolve, 250));
-      }
-      throw new Error('Background worker did not save the live radar-window.json');
-    });
-    const bangkokDay = value => new Intl.DateTimeFormat('en-CA', {
-      timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit', day: '2-digit',
-    }).format(new Date(value));
-    if (!snapshot.generatedAt || bangkokDay(snapshot.generatedAt) !== bangkokDay(Date.now())) {
-      throw new Error(`Live radar-window.json is not from today: ${snapshot.generatedAt}`);
-    }
-
+    await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+    browser = await puppeteer.launch({headless: true, pipe: true, userDataDir: profile,
+      executablePath: process.env.CHROME || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'});
     fs.mkdirSync(output, {recursive: true});
     const page = await browser.newPage();
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.setViewport({width: 1280, height: 800, deviceScaleFactor: 1});
-    const url = `chrome-extension://${id}/newtab.html`;
-    await page.goto(url, {waitUntil: 'domcontentloaded'});
+    await page.evaluateOnNewDocument(value => {
+      globalThis.chrome = {
+        storage: {onChanged: {addListener() {}}, local: {async get() {return {radarWindow: value};}}},
+        search: {query() {}},
+      };
+    }, snapshot);
+    await page.setRequestInterception(true);
+    page.on('request', request => {
+      if (request.url() === 'https://radar-ai-vn.pages.dev/data/radar-ui.json') {
+        return request.respond({status: 200, contentType: 'application/json', body: JSON.stringify(snapshot)});
+      }
+      return request.continue();
+    });
+    const url = `http://127.0.0.1:${server.address().port}/newtab.html`;
     for (const theme of ['light', 'dark']) {
+      await page.goto(url, {waitUntil: 'domcontentloaded'});
       await page.evaluate(value => localStorage.setItem('air2:theme', JSON.stringify(value)), theme);
       await page.reload({waitUntil: 'domcontentloaded'});
       await page.waitForFunction(() => {
@@ -71,13 +78,13 @@ async function main() {
       }));
       if (details.theme !== theme || details.overflow) throw new Error(`Invalid ${theme} page: ${JSON.stringify(details)}`);
       await page.screenshot({path: path.join(output, `new-tab-${theme}.png`), fullPage: false});
-      console.log(`new-tab-${theme}.png: 1280x800, ${details.cards} live cards`);
+      console.log(`new-tab-${theme}.png: 1280x800, ${details.cards} local snapshot cards`);
     }
     if (errors.length) throw new Error(`Page errors: ${JSON.stringify(errors)}`);
-    console.log(`Live snapshot: ${snapshot.generatedAt}, ${snapshot.stories} stories`);
-    await page.close();
+    console.log(`Local snapshot: ${snapshot.generated_at}, ${snapshot.stories.length} stories`);
   } finally {
     if (browser) await browser.close();
+    await new Promise(resolve => server.close(resolve));
     if (path.dirname(profile) === os.tmpdir() && path.basename(profile).startsWith('ar-store-')) {
       fs.rmSync(profile, {recursive: true, force: true});
     }

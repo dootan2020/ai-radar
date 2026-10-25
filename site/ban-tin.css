@@ -820,6 +820,8 @@ body {
 
 /* ---------- Responsive Adjustments ---------- */
 @media (max-width: 767px) {
+  .bt-brand { white-space: nowrap; }
+  .bt-brand-badge { display: none; }
   .bt-bar {
     height: 56px;
     padding: 0 var(--space-16);

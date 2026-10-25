@@ -95,7 +95,7 @@ class Homepage(HTMLParser):
 
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
-        if tag == "meta" and attrs.get("property") == "og:site_name" and attrs.get("content") == "LogosTab":
+        if tag == "meta" and attrs.get("property") == "og:site_name" and attrs.get("content") == "AIBit News":
             self.markers.add("identity")
         if (tag, attrs.get("id")) in (("main", "top"), ("section", "board"), ("section", "feed-grid")):
             self.markers.add(attrs["id"])

@@ -1,4 +1,4 @@
-/* LogosTab · Bộ đọc Bản Tin Buổi Sáng (ban-tin.js)
+/* AIBit News · Bộ đọc Bản Tin Buổi Sáng (ban-tin.js)
    Bản quyền & quy chuẩn thiết kế: Bento Keynote Apple (docs/ngon-ngu-thiet-ke.md).
    - Tải bản tin đóng băng lúc 06:00 sáng theo giờ Việt Nam.
    - Trình bày 1-5 tin: tiêu đề tiếng Việt, lý do chọn, số đo thật, logo nguồn, liên kết bài gốc, tóm tắt khi có.

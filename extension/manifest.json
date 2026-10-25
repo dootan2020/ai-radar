@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "LogosTab",
+  "name": "AIBit News",
   "version": "0.1.0",
-  "description": "LogosTab shows AI headlines and web search on each new tab, including the last saved refresh.",
+  "description": "Những mẩu tin AI ngắn gọn trên tab mới, kèm tìm kiếm web và bản tin đã lưu gần nhất.",
   "permissions": ["storage", "alarms", "search"],
   "host_permissions": ["https://radar-ai-vn.pages.dev/*"],
   "chrome_url_overrides": {"newtab": "newtab.html"},

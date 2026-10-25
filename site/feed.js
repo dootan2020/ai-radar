@@ -1,4 +1,4 @@
-/* LogosTab · the site root since 05/10 (owner, 05/10 ~01:30: the feed replaces the bento home).
+/* AIBit News · the site root since 05/10 (owner, 05/10 ~01:30: the feed replaces the bento home).
    Owner, 04/10 20:28: flat like the Edge start page and Google Discover. No borders, no accent bars, every card led by
    a picture. Pictures are the ones each source publishes, or a labelled AI illustration from the pipeline; a story
    without either gets the site's factual cover.
@@ -653,7 +653,7 @@ function coverFor(st) {
   const c0 = covsOf(st)[0] || {};
   const s = SRC.get(c0.source) || {};
   const pub = c0.publisher || s.publisher || '';
-  const name = srcName(c0.source) || pub || hostOf(st.url) || 'LogosTab';
+  const name = srcName(c0.source) || pub || hostOf(st.url) || 'AIBit News';
   const b = BRAND[pub] || { h: monoHue(name), c: 0.07, l: 0.40 };
   const m = measureOf(st), n = nSrc(st);
   let num = null, word;
@@ -2341,7 +2341,7 @@ function footHTML() {
   const r = D.ranking;
   const rank = r ? `Xếp hạng nóng: ${esc(r.description || 'xếp theo số đo của từng nguồn')}, cửa sổ ${esc(r.window_hours)} giờ${r.description && r.calibration ? `, hiệu chỉnh: ${esc(r.calibration)}` : ''}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.';
   const scoring = ' Điểm đáng đọc được tính tự động từ 4 tín hiệu số đo (độ chú ý, độ lan rộng nhiều nguồn, độ mới và công bố gốc), không có điểm gõ tay.';
-  const views = D.views && Number.isFinite(D.views.total) ? ` Lượt xem trên LogosTab: <span class="num">${fmt(D.views.total)}</span>, đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie.` : '';
+  const views = D.views && Number.isFinite(D.views.total) ? ` Lượt xem trên AIBit News: <span class="num">${fmt(D.views.total)}</span>, đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie.` : '';
   const local = storageOk ? 'Mốc đã xem, tin đã đọc, tin đã lưu và lựa chọn của bạn chỉ lưu trên máy này.'
     : 'Trình duyệt đang chặn bộ nhớ cục bộ, nên mốc đã xem, tin đã lưu và lựa chọn của bạn chỉ giữ tới khi đóng trang.';
   return `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${rank}${scoring} ${translationNote()}${views} ${local}`;

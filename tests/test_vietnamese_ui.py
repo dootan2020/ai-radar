@@ -57,7 +57,7 @@ EXCEPTIONS = {
     # Loanwords in Vietnamese dictionaries
     **dict.fromkeys(["video", "podcast", "blog", "logo"], "từ mượn đã vào tiếng Việt"),
     # Brand mark
-    **dict.fromkeys(["logostab"], "tên trang"),
+    **dict.fromkeys(["aibit"], "tên trang"),
 }
 
 # Unaccented Vietnamese syllable: initial consonant, vowel nucleus, final. English words that happen to fit
@@ -286,7 +286,7 @@ class VietnameseInterfaceTests(unittest.TestCase):
         self.assertEqual(foreign_words("+1.234 stars this week"), ["stars", "this", "week"])
         self.assertEqual(foreign_words("hot new model"), ["hot", "new", "model"])
         self.assertEqual(foreign_words("Kho mã AI đang lên trên GitHub, xem tin trong ngày"), [])
-        self.assertEqual(foreign_words("LogosTab · Tin AI hôm nay"), [])
+        self.assertEqual(foreign_words("AIBit News · Tin AI hôm nay"), [])
         self.assertEqual(foreign_words("Hãy bật JavaScript trong trình duyệt rồi tải lại trang"), [])
 
     def test_extractor_reads_html_fragments_ui_keys_and_skips_code(self):
