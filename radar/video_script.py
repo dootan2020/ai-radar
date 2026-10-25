@@ -61,7 +61,7 @@ def is_non_main_ref(ref: str | None) -> bool:
 
 # Allowed standard terms in video format boilerplate
 ALLOWED_BOILERPLATE_ENTITIES = {
-    "ai", "logostab", "radar", "reels", "tiktok", "shorts", "tv", "pro", "app"
+    "ai", "aibit", "news", "radar", "reels", "tiktok", "shorts", "tv", "pro", "app"
 }
 
 # Vietnamese grammar words that can appear capitalized at sentence / clause starts
@@ -100,14 +100,14 @@ KIND_OF_VIA = {
     "ai": "photo"
 }
 
-SYSTEM_INSTRUCTION = """Bạn là biên tập viên kịch bản video ngắn (Reels, TikTok, Shorts) của LogosTab.
+SYSTEM_INSTRUCTION = """Bạn là biên tập viên kịch bản video ngắn (Reels, TikTok, Shorts) của AIBit News.
 Nhiệm vụ: Viết kịch bản video 45 giây từ 3 tin AI nổi bật nhất trong ngày được chọn sẵn.
 
 Cấu trúc kịch bản bắt buộc:
 1. Mở đầu (hook): 0–3 giây, từ 15 đến 20 chữ. Nêu ngay sự thật/con số gây tò mò hoặc bất ngờ nhất trong 3 tin để giữ chân người xem ngay lập tức.
 2. Gợi trước (hint): Khoảng 8-12 chữ, theo cấu trúc: 'Ba tin AI đáng chú ý nhất, trong 45 giây.'
 3. Ba tin (stories): Đúng 3 tin tương ứng với 3 story id được cung cấp. Tin có chi tiết bất ngờ nhất ở phần Mở đầu phải được đặt làm Tin 1 để kết nối mạch lạc với Mở đầu. Mỗi tin đúng MỘT câu nói ngắn gọn, súc tích (dưới 25 chữ), nêu sự thật bất ngờ nhất lên trước.
-4. Kêu gọi hành động (cta): Đúng một lời kêu gọi duy nhất (ví dụ: 'Mỗi sáng LogosTab chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.').
+4. Kêu gọi hành động (cta): Đúng một lời kêu gọi duy nhất (ví dụ: 'Mỗi sáng AIBit News chọn 3 tin AI đáng đọc nhất. Theo dõi kênh để cập nhật tin AI nóng nhất. Bạn quan tâm tin nào nhất? Bình luận cho mình biết nhé.').
 
 NGUYÊN TẮC BẮT BUỘC:
 1. TUYỆT ĐỐI KHÔNG BỊA ĐẶT SỰ THẬT (No invented facts): Mọi con số, tên riêng, số tiền, ngày tháng, sản phẩm xuất hiện trong hook, từng câu tin và cta PHẢI xuất hiện chính xác trong dữ liệu được cung cấp (title, title_vi, summary, summary_vi, key_points). Tuyệt đối không tự suy diễn hay thêm bất kỳ số liệu hay tên riêng nào ngoài dữ liệu.

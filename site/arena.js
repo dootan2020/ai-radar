@@ -231,7 +231,7 @@ export function arenaHTML(data, category = 'overall') {
     row && typeof row.id === 'string' && typeof row.maker === 'string' && Number.isInteger(row.rank) && row.rank > 0 && Number.isFinite(row.score));
   const source = `<a href="${dataset}" target="_blank" rel="noopener">Arena / LMArena</a>`;
   const intro = `<header class="arena-heading"><p class="arena-eyebrow">BẢNG XẾP HẠNG MÔ HÌNH</p><h2 id="arena-title">Ai đang dẫn đầu Arena?</h2><p>10 mô hình dẫn đầu theo bình chọn của người dùng Arena.</p></header>`;
-  const attribution = `<p class="arena-credit">Nguồn: ${source} · <a href="${licence}" target="_blank" rel="noopener">CC BY 4.0</a>.<br>LogosTab lọc nhóm, trình bày tên mô hình, dịch nhãn và tính thay đổi hạng; giữ nguyên điểm và hạng từ nguồn.</p>`;
+  const attribution = `<p class="arena-credit">Nguồn: ${source} · <a href="${licence}" target="_blank" rel="noopener">CC BY 4.0</a>.<br>AIBit News lọc nhóm, trình bày tên mô hình, dịch nhãn và tính thay đổi hạng; giữ nguyên điểm và hạng từ nguồn.</p>`;
   if (!valid) return `${intro}<div class="arena-empty" role="status"><h3>Chưa tải được bảng xếp hạng</h3><p>Anh chị có thể tải lại hoặc xem dữ liệu tại ${source}.</p><button class="btn" type="button" data-arena-retry>Thử lại</button></div>${attribution}`;
   const tabs = Object.entries(ARENA_CATEGORIES).map(([id, label]) => `<button type="button" data-arena-category="${id}" aria-pressed="${id === category}">${label}</button>`).join('');
   const comparison = data.comparison_at ? `So với bản công bố ngày ${dateText(data.comparison_at)} (mốc tuần trước).` : 'Chưa có bản công bố phù hợp để so với tuần trước.';

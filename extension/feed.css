@@ -1130,7 +1130,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 @media (max-width: 767px){
   :root { --feed-gap: var(--space-16); --feed-pad-photo: var(--space-16); --feed-pad-lead: var(--space-24); }
   .feed-bar-in { height: auto; flex-wrap: wrap; row-gap: 0; padding-top: var(--space-4); padding-bottom: var(--space-4); column-gap: var(--space-8); }
-  .feed-brand { order: 1; flex: 1; min-height: 44px; }
+  .feed-brand { order: 1; flex: 1; min-height: 44px; font-size: var(--size-16); white-space: nowrap; }
   .ed-link { order: 2; flex: none; min-height: 44px; }
   .tc-link { order: 3; flex: none; min-height: 44px; min-width: 44px; }
   .theme-btn { order: 4; flex: none; width: 44px; height: 44px; }

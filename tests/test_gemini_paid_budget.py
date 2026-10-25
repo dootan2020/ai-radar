@@ -324,7 +324,7 @@ class PaidBudgetTests(unittest.TestCase):
         self.assertEqual(len(stories), 3)
         body = video_script.build_gemini_request(stories)
         tokens = len(json.dumps(body).encode("utf-8")) + body["generationConfig"]["maxOutputTokens"]
-        self.assertEqual(tokens, 8_309)
+        self.assertEqual(tokens, 8_313)
         calls = []
 
         def offline_transport(request, key, timeout):

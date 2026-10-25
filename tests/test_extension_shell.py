@@ -31,7 +31,7 @@ class ExtensionShellTests(unittest.TestCase):
         self.assertEqual(set(manifest['permissions']), {'storage', 'alarms', 'search'})
         self.assertEqual(manifest['host_permissions'], [LIVE + '*'])
         self.assertEqual(manifest['background']['service_worker'], 'background.js')
-        self.assertIn('search', manifest['description'].lower())
+        self.assertIn('tìm kiếm', manifest['description'].lower())
         self.assertEqual(manifest['icons'], {str(size): f'icons/{size}.png'
                                              for size in (16, 32, 48, 128)})
         for icon in manifest['icons'].values():
@@ -40,8 +40,8 @@ class ExtensionShellTests(unittest.TestCase):
         full = (ROOT / 'brand/assets/extension-icon-48.svg').read_text(encoding='utf-8')
         self.assertIn('#00B377', small)
         self.assertIn('#00B377', full)
-        self.assertIn('LogosTab kingfisher', small)
-        self.assertIn('LogosTab kingfisher', full)
+        self.assertIn('AIBit News kingfisher', small)
+        self.assertIn('AIBit News kingfisher', full)
         self.assertNotIn('circle cx="491.52"', small)
         self.assertIn('circle cx="491.52"', full)
         self.assertNotEqual(small, full)

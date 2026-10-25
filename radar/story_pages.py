@@ -19,7 +19,7 @@ from radar.items import publisher_identity
 from radar.site_config import SITE_BASE_URL
 
 BASE_URL = SITE_BASE_URL
-SITE_NAME = "LogosTab"
+SITE_NAME = "AIBit News"
 BRANCH = "radar-story-pages"
 REF = f"refs/heads/{BRANCH}"
 STORY_ID = re.compile(r"[a-z0-9][a-z0-9_-]*\Z")
@@ -130,7 +130,7 @@ def _page_fields(story, base_url):
                    and (_text(item.get("title_vi")) or _text(item.get("title")))), ""))
     if not title:
         if story.get("redirect_to"):
-            title = "LogosTab"
+            title = SITE_NAME
         else:
             raise ValueError(f"Story {_story_id(story)} has no headline")
     first_coverage = next((item for item in coverage if isinstance(item, dict)), {})
@@ -224,7 +224,7 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
             '<section class="story-summary-box" aria-label="Đoạn trích bài viết">'
             '<h2 class="story-section-h2">Đoạn trích bài viết</h2>'
             f'<p class="story-summary-text">{esc(fields["summary"] or "Chưa có đoạn trích cho bài viết này. Bạn có thể mở đọc toàn văn bài viết gốc bên dưới.")}</p></section>')
-    gateway_desc = ('LogosTab tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.'
+    gateway_desc = (f'{SITE_NAME} tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.'
                     if fields["key_points"] else
                     'Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.')
     publisher_html = f'<span class="story-pub-name">{esc(fields["publisher"])}</span>' if fields["publisher"] else ""
@@ -261,7 +261,7 @@ def render_redirect_page(target_url, title, base_url=BASE_URL):
         '<head>\n'
         '<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
-        f'<title>{safe_title} · LogosTab</title>\n'
+        f'<title>{safe_title} · {SITE_NAME}</title>\n'
         '<meta name="robots" content="noindex, follow">\n'
         f'<meta http-equiv="refresh" content="0; url={canonical}">\n'
         f'<link rel="canonical" href="{canonical}">\n'
@@ -388,7 +388,7 @@ def render_site(stories, site, base_url=BASE_URL, sources=None):
         target_story = alias_targets[alias_id]
         target_id = target_story["id"]
         target_url = f"{base_url.rstrip('/')}/tin/{target_id}/"
-        title = (_text(target_story.get("title_vi")) or _text(target_story.get("title")) or "LogosTab")
+        title = (_text(target_story.get("title_vi")) or _text(target_story.get("title")) or SITE_NAME)
         path = tin / alias_id / "index.html"
         _write_bytes(path, render_redirect_page(target_url, title, base_url).encode("utf-8"))
 

@@ -20,7 +20,7 @@ async function refresh() {
     }
     await chrome.storage.local.set({radarWindow: payload, radarFetchedAt: new Date().toISOString()});
   } catch (error) {
-    console.warn('LogosTab refresh failed; saved stories remain available', error);
+    console.warn('AIBit News refresh failed; saved stories remain available', error);
   }
 }
 
