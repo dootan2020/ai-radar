@@ -22,3 +22,11 @@ Các token source/brand/public/extension giống byte; 1.317 unittest pass (8 sk
 
 Lucy stage/commit trong checkout có quyền ghi Git index (`plans/` cần `git add -f`; không stage `.skills/`). Lucy chụp 16 trạng thái trên browser có viewport hoạt động và cho reviewer thứ hai xem cùng ảnh.
 
+
+## Round 2 update
+
+- Trả `--color-ok` về xanh lá hue 145, chroma thấp, khác emerald brand; thêm wash sáng/tối và ghi các phép đo mới vào bảng Round 2 của báo cáo kết quả.
+- `.ed-link` là CTA emerald trên header home, với `--color-on-accent`; hover tối hơn. Focus giữ nguyên, selected tab vẫn đen, chip Translated không đổi.
+- Chạy ba bước đồng bộ đều exit 0; bốn `tokens.css` giống byte. Contrast script exit 0; full unittest: 1.317 test, 6 skip, exit 0; `git diff --check` exit 0.
+- Mở home và bản tin ở sáng/tối. Home hiển thị CTA emerald; bản tin local còn “Đang tải”. Browser capture không hỗ trợ kích thước 375/1440 hay ghi screenshot ra report; URL `javascript:` để đọc computed DOM bị browser policy chặn. Giá trị DOM cho `.lab.dung-ngay`, `.dot.ok`, `.ed-link` và ảnh `v2-*.png` còn thiếu.
+- Giữ nguyên các thay đổi đã có từ trước trong `brand/assets/`, `site/brand/assets/`, `extension/arena.js`, `extension/feed.js`, `extension/newtab.html` và các file ngoài phạm vi. Lucy cần capture đúng viewport, lấy computed style từ DOM và review ảnh ở lượt sau.

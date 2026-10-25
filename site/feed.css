@@ -162,10 +162,9 @@ ul, ol { padding: 0; list-style: none; }
 [data-theme="dark"] .theme-btn .i-sun { display: none; }
 [data-theme="dark"] .theme-btn .i-moon { display: block; }
 
-/* The daily edition and the story search, carried over from the bento home (tests/test_ban_tin_link.py,
-   tests/test_tra_cuu.py): static links in the bar, neutral fill chips, never hidden. Blue stays for action and selection. */
-.ed-link{position:relative;flex:none;padding:0 var(--space-8);border-radius:var(--radius-full);--header-control-bg:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-small);font-weight:var(--weight-semibold);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow)}
-.ed-link:hover{color:var(--color-ink);--header-control-bg:var(--color-hair)}
+/* The daily edition is the header's one always-visible primary action; search stays quiet. */
+.ed-link{position:relative;flex:none;padding:0 var(--space-8);border-radius:var(--radius-full);--header-control-bg:var(--color-accent);color:var(--color-on-accent);font-size:var(--text-small);font-weight:var(--weight-semibold);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow),background-color var(--motion-state) var(--ease-flow)}
+.ed-link:hover{--header-control-bg:var(--color-accent-hover)}
 .tc-link{position:relative;flex:none;gap:var(--space-8);padding:0 var(--space-8);border-radius:var(--radius-full);--header-control-bg:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-small);font-weight:var(--weight-semibold);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow)}
 .tc-link:hover{color:var(--color-ink);--header-control-bg:var(--color-hair)}
 .tc-link .i{width:16px;height:16px}

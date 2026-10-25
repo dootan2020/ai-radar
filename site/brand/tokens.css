@@ -31,7 +31,9 @@
   --gray-17: oklch(0.175 0.008 var(--hue));
   --gray-13: oklch(0.135 0.006 var(--hue));
   --emerald-ink: #007A55;                         /* readable link/action emerald on near-white paper */
+  --emerald-ink-hover: #006A49;                   /* a deeper press/hover state for the primary action */
   --emerald-bright: #00D68F;                      /* the approved dark-mode kingfisher emerald */
+  --emerald-bright-hover: #00C982;
   --red-55:  oklch(0.52 0.21 27);
   --red-70:  oklch(0.70 0.18 27);
   --amber-47: oklch(0.48 0.11 65);
@@ -72,14 +74,15 @@
   --color-ink-2: var(--gray-44);
   --color-ink-3: var(--gray-51);
   --color-accent: var(--emerald-ink);
+  --color-accent-hover: var(--emerald-ink-hover);
   --color-on-accent: var(--gray-99);
   --color-accent-wash: color-mix(in srgb, var(--color-accent) 10%, transparent);
   --color-live: var(--red-55);
   --color-live-wash: oklch(0.52 0.21 27 / 0.10);
   --color-mt-ink: var(--gt-blue-700);
   --color-mt-bg: var(--gt-blue-50);
-  --color-ok: var(--color-ink-2);
-  --color-ok-wash: var(--color-fill);
+  --color-ok: oklch(0.52 0.10 145);
+  --color-ok-wash: oklch(0.95 0.018 145);
   --color-warn: var(--amber-47);
   --color-warn-wash: oklch(0.48 0.11 65 / 0.13);
   --color-media-scrim: oklch(0.13 0.006 var(--hue) / 0.62);
@@ -157,14 +160,15 @@
   --color-ink-2: var(--gray-80);
   --color-ink-3: var(--gray-70);
   --color-accent: var(--emerald-bright);
+  --color-accent-hover: var(--emerald-bright-hover);
   --color-on-accent: var(--gray-13);
   --color-accent-wash: color-mix(in srgb, var(--color-accent) 16%, transparent);
   --color-live: var(--red-70);
   --color-live-wash: oklch(0.70 0.18 27 / 0.18);
   --color-mt-ink: var(--gt-blue-300);
   --color-mt-bg: var(--gt-blue-night);
-  --color-ok: var(--color-ink-2);
-  --color-ok-wash: var(--color-fill);
+  --color-ok: oklch(0.78 0.10 145);
+  --color-ok-wash: oklch(0.28 0.025 145);
   --color-warn: var(--amber-80);
   --color-warn-wash: oklch(0.82 0.12 75 / 0.14);
   --color-scrim: oklch(0.05 0.004 var(--hue) / 0.55);
@@ -187,14 +191,15 @@
     --color-ink-2: var(--gray-80);
     --color-ink-3: var(--gray-70);
     --color-accent: var(--emerald-bright);
+    --color-accent-hover: var(--emerald-bright-hover);
     --color-on-accent: var(--gray-13);
     --color-accent-wash: color-mix(in srgb, var(--color-accent) 16%, transparent);
     --color-live: var(--red-70);
     --color-live-wash: oklch(0.70 0.18 27 / 0.18);
     --color-mt-ink: var(--gt-blue-300);
     --color-mt-bg: var(--gt-blue-night);
-    --color-ok: var(--color-ink-2);
-    --color-ok-wash: var(--color-fill);
+    --color-ok: oklch(0.78 0.10 145);
+    --color-ok-wash: oklch(0.28 0.025 145);
     --color-warn: var(--amber-80);
     --color-warn-wash: oklch(0.82 0.12 75 / 0.14);
     --color-scrim: oklch(0.05 0.004 var(--hue) / 0.55);

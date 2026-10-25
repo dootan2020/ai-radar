@@ -112,10 +112,10 @@
   /* bar */
   .brand{display:inline-flex;align-items:center;font-size:var(--text-tile);font-weight:var(--weight-bold);letter-spacing:var(--tracking-display);white-space:nowrap}
 .brand b{color:var(--color-ink)}
-  /* Link to the daily edition page. Neutral like the "Bản tin" badge on that page: blue stays for action and the selected item. */
-  .ed-link{position:relative;flex:none;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-meta);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:color var(--motion-state) var(--ease-flow)}
+  /* The daily edition is the header's one always-visible primary action. */
+  .ed-link{position:relative;flex:none;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-on-accent);font-size:var(--text-meta);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:background-color var(--motion-state) var(--ease-flow),color var(--motion-state) var(--ease-flow)}
   .ed-link::after{content:"";position:absolute;inset:-6px -4px}
-  .ed-link:hover{color:var(--color-ink)}
+  .ed-link:hover{background:var(--color-accent-hover)}
   /* Link to story search page. Matches .ed-link idiom in the header bar. */
   .tc-link{position:relative;flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-meta);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
   .tc-link::after{content:"";position:absolute;inset:-6px -4px}

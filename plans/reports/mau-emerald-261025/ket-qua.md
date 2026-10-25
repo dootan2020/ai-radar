@@ -46,3 +46,24 @@ Trên homepage, coordinator đếm **56** phần tử xanh trước khi sửa �
 ## Giới hạn còn lại
 
 Lucy cần chụp `/`, `/ban-tin.html`, một trang `site/tin/` và extension newtab ở sáng/tối, 375/1440 trên máy có browser capture hoạt động rồi review cùng reviewer thứ hai. Browser ở đây không cấp được ảnh đúng kích thước. Các bản PNG xuất bằng ImageMagick cần được nhìn lại cùng SVG khi thực hiện lượt chụp đó.
+
+## Round 2
+
+Khôi phục trạng thái tốt bằng xanh lá dịu, tách sắc emerald thương hiệu: sáng `--color-ok: oklch(0.52 0.10 145)` với wash `oklch(0.95 0.018 145)`; tối `oklch(0.78 0.10 145)` với wash `oklch(0.28 0.025 145)`. Header CTA `.ed-link` được tô `--color-accent`/`--color-on-accent`, hover dùng emerald sâu hơn; focus ring và pill tab đang chọn giữ nguyên. Chip Translated không đổi.
+
+| Cặp mới | Contrast | Ngưỡng |
+| --- | ---: | ---: |
+| Trạng thái tốt sáng / wash | 4.58:1 | 4.5:1 |
+| Dot tốt sáng / surface | 5.17:1 | 3:1 |
+| Dot tốt sáng / fill | 4.32:1 | 3:1 |
+| Trạng thái tốt tối / wash | 7.50:1 | 4.5:1 |
+| Dot tốt tối / surface | 9.83:1 | 3:1 |
+| Dot tốt tối / fill | 8.29:1 | 3:1 |
+| Chữ CTA sáng / hover emerald | 6.52:1 | 4.5:1 |
+| Chữ CTA tối / hover emerald | 9.22:1 | 4.5:1 |
+
+`contrast.py` đo những cặp này bên cạnh bảng Round 1. `site/tokens.css`, `site/brand/tokens.css`, `brand/tokens.css`, `extension/tokens.css` giống byte sau khi chạy `brand/build-assets.py --site`, `brand/publish_kit.py`, `extension/sync-site.py` (cả ba exit 0). `python -m unittest discover -s tests`: 1.317 test, 6 skip, exit 0. `git diff --check`: exit 0.
+
+### Walk giao diện và giới hạn capture
+
+Mở `/` và `/ban-tin.html` trên server local 8097, đổi theme sáng/tối trên từng trang. Ảnh trình duyệt hiển thị pill “Bản tin sáng” màu emerald ở home; pill tab chọn vẫn đen, chip Translated vẫn xanh Google. Trang `/ban-tin.html` giữ trạng thái “Đang tải bản tin...” trong lượt xem này. Không tạo được ảnh `v2-*.png` ở 375px/1440px: browser capture hiện tại không có viewport override và chỉ trả ảnh viewport nhỏ; URL `javascript:` dùng để đọc computed style bị chính sách browser chặn. Vì thế không ghi nhận computed DOM của `.lab.dung-ngay`, `.dot.ok` hay `.ed-link`; các giá trị trong bảng là số đo từ token script, không phải DOM. Chưa có screenshot phù hợp để lưu vào thư mục report.
