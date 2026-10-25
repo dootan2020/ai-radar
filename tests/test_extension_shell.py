@@ -32,6 +32,19 @@ class ExtensionShellTests(unittest.TestCase):
         self.assertEqual(manifest['host_permissions'], [LIVE + '*'])
         self.assertEqual(manifest['background']['service_worker'], 'background.js')
         self.assertIn('search', manifest['description'].lower())
+        self.assertEqual(manifest['icons'], {str(size): f'icons/{size}.png'
+                                             for size in (16, 32, 48, 128)})
+        for icon in manifest['icons'].values():
+            self.assertTrue((EXT / icon).is_file(), icon)
+        small = (ROOT / 'brand/assets/extension-icon-16.svg').read_text(encoding='utf-8')
+        full = (ROOT / 'brand/assets/extension-icon-48.svg').read_text(encoding='utf-8')
+        self.assertIn('#00B377', small)
+        self.assertIn('#00B377', full)
+        self.assertIn('LogosTab kingfisher', small)
+        self.assertIn('LogosTab kingfisher', full)
+        self.assertNotIn('circle cx="491.52"', small)
+        self.assertIn('circle cx="491.52"', full)
+        self.assertNotEqual(small, full)
         for path in EXT.rglob('*.html'):
             html = path.read_text(encoding='utf-8')
             self.assertNotRegex(html, r'<script\b(?![^>]*\bsrc="(?:\./)?[\w./-]+\.js")[^>]*>', path.name)
