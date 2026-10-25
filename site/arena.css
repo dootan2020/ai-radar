@@ -3,7 +3,7 @@
 
 .arena { min-width: 0; margin: var(--space-24) 0 var(--space-48); }
 .arena-heading { margin-bottom: var(--space-16); }
-.arena-eyebrow { font-size: var(--text-meta); font-weight: 600; letter-spacing: .08em; color: var(--color-accent); margin: 0 0 var(--space-8); text-transform: uppercase; }
+.arena-eyebrow { font-size: var(--text-meta); font-weight: 600; letter-spacing: .08em; color: var(--color-ink-2); margin: 0 0 var(--space-8); text-transform: uppercase; }
 .arena-heading h2 { font-size: var(--text-lead); letter-spacing: var(--tracking-display); line-height: 1.25; margin: 0 0 var(--space-12); }
 .arena-heading > p:last-child, .arena-date, .arena-comparison, .arena-note, .arena-credit { color: var(--color-ink-2); line-height: 1.65; }
 .arena-date { font-size: var(--text-small); margin: 0 0 var(--space-24); }

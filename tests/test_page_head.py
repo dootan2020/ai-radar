@@ -270,10 +270,11 @@ class RenderedFixWiringTests(unittest.TestCase):
         self.assertIn('<h2 id="h-${id}">${title} <span class="ch-c">${count}</span></h2>', self.app)
         self.assertEqual(self.app.count("${chHead("), 3, "saved, every topic chapter, and sources")
 
-    def test_translated_chip_uses_google_translate_colours(self):
+    def test_translated_chip_uses_neutral_semantic_colours(self):
         tokens = read(SITE / "tokens.css")
-        self.assertIn("--gt-blue-700: #1967d2; --gt-blue-50: #e8f0fe; --gt-blue-300: #8ab4f8; --gt-blue-night: #283a57;", tokens)
-        self.assertEqual(tokens.count("--color-mt-ink:"), 3, "light, dark and system-dark")
+        self.assertNotIn("--gt-blue-", tokens)
+        self.assertEqual(tokens.count("--color-mt-bg: var(--color-fill);"), 3, "light, dark and system-dark")
+        self.assertEqual(tokens.count("--color-mt-ink: var(--color-ink-2);"), 3, "light, dark and system-dark")
         self.assertIn("background:var(--color-mt-bg);color:var(--color-mt-ink)", self.css)
 
 

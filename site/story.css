@@ -1006,7 +1006,7 @@ dialog.story-dialog::backdrop {
   font-weight: var(--weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-accent);
+  color: var(--color-ink-2);
   margin-bottom: var(--space-8);
 }
 

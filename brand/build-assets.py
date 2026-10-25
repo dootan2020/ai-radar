@@ -51,14 +51,16 @@ def load_tokens():
     out = {}
     for name, L, C, H in re.findall(r"--([a-z]+-\d+):\s*oklch\(([\d.]+)\s+([\d.]+)\s+([^)\s]+)\)", css):
         out[name] = oklch_to_hex(float(L), float(C), hue if "hue" in H else float(H))
+    for name, value in re.findall(r"--(emerald-[a-z]+):\s*(#[0-9a-fA-F]{6})", css):
+        out[name] = value.upper()
     return out
 
 
 T = load_tokens()
 LIGHT = dict(canvas=T["gray-96"], surface=T["gray-99"], fill=T["gray-93"], ink=T["gray-21"],
-             ink2=T["gray-44"], ink3=T["gray-51"], accent=T["blue-53"], live=T["red-55"])
+             ink2=T["gray-44"], ink3=T["gray-51"], accent=T["emerald-ink"], live=T["red-55"])
 DARK = dict(canvas=T["gray-13"], surface=T["gray-17"], fill=T["gray-25"], ink=T["gray-96"],
-            ink2=T["gray-80"], ink3=T["gray-70"], accent=T["blue-74"], live=T["red-70"])
+            ink2=T["gray-80"], ink3=T["gray-70"], accent=T["emerald-bright"], live=T["red-70"])
 
 
 # ---------- type: text -> outlines, with GPOS pair kerning ----------
