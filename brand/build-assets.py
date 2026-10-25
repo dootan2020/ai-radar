@@ -1,17 +1,15 @@
-"""Build every SVG in brand/assets/ from one geometry and the live tokens.
+"""Build LogosTab extension and Store SVGs from the approved kingfisher.
 
 Run from the repository root:  python brand/build-assets.py
+Use --site for the existing ai·radar website kit pipeline.
 Needs fontTools (pip install fonttools). Text is converted to outlines with the
 Be Vietnam Pro files in brand/fonts/, so each SVG opens correctly anywhere,
-without the font installed. Colours are read from site/tokens.css (oklch) and
-converted to sRGB hex, so the kit cannot drift from the running site.
-
-The mark, "Vòng tín hiệu": one ring (everything ai-radar listens to), one gap
-(the filter), one blue dot sitting in the gap (the one thing worth your time).
+without the font installed. The website kit retains its existing tokens.
 """
 import json
 import math
 import re
+import sys
 from pathlib import Path
 
 from fontTools.pens.svgPathPen import SVGPathPen
@@ -19,6 +17,7 @@ from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
 
 import publish_kit
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from radar.site_config import SITE_URL
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -192,6 +191,40 @@ def write(name, svg):
     print("wrote", name, len(svg), "bytes")
 
 
+def approved_logo(name, x, y, width, height):
+    """Embed the approved vector without changing its silhouette or palette."""
+    source = (ROOT / "brand" / "logo" / "a-kingfisher-emerald" / name).read_text(encoding="utf-8")
+    body = source.split(">", 1)[1].rsplit("</svg>", 1)[0]
+    return (f'<svg x="{x}" y="{y}" width="{width}" height="{height}" '
+            f'viewBox="0 0 {1020 if name.startswith("lockup") else 1024} '
+            f'{256 if name.startswith("lockup") else 1024}">{body}</svg>')
+
+
+def small_kingfisher(size):
+    """Head, beak and chest from the approved pose, enlarged for toolbar pixels."""
+    body = f'<rect width="{size}" height="{size}" rx="{size * .225:g}" fill="#00B377"/>'
+    body += (f'<g transform="scale({size / 1024:g})" fill="#FFFFFF">'
+             '<path d="M 392 393 C 480 390 604 454 640 570 C 646 660 554 758 398 790 '
+             'C 308 780 282 692 314 584 C 324 516 350 438 392 393 Z"/>'
+             '<circle cx="444" cy="385" r="153"/>'
+             '<path d="M 415 245 L 182 288 L 330 357 L 162 402 L 335 441 Z"/>'
+             '<path d="M 505 315 L 899 408 L 505 446 Z"/>'
+             '</g>')
+    return doc(size, size, body, "LogosTab kingfisher toolbar icon")
+
+
+def extension_assets():
+    OUT.mkdir(parents=True, exist_ok=True)
+    for pixels in (16, 32):
+        write(f"extension-icon-{pixels}.svg", small_kingfisher(pixels))
+    write("extension-icon-48.svg", doc(48, 48, approved_logo("mark-light.svg", 0, 0, 48, 48), "LogosTab kingfisher extension icon"))
+    write("extension-icon-128.svg", doc(128, 128, approved_logo("mark-light.svg", 16, 16, 96, 96), "LogosTab Chrome Web Store icon"))
+    promo = '<rect width="440" height="280" fill="#00B377"/>'
+    promo += approved_logo("lockup-light.svg", 36, 52, 368, 92)
+    promo += text(MED, "Mở tab sáng, sáng ngày mới.", 22, 38, 218, "#091E16")
+    write("store-promo-small.svg", doc(440, 280, promo, "LogosTab Chrome Web Store promo"))
+
+
 def nf(n):
     """Vietnamese number format: 50.562"""
     return f"{n:,}".replace(",", ".")
@@ -242,6 +275,7 @@ def main():
     write("favicon-16.svg", doc(16, 16, fav16, "ai·radar"))
     fav32 = f'<rect width="32" height="32" rx="7" fill="{L["ink"]}"/>' + mark(16, 16.5, 22, D["ink"], D["accent"])
     write("favicon-32.svg", doc(32, 32, fav32, "ai·radar"))
+    extension_assets()
     # apple-touch: full bleed, iOS rounds the corners itself
     write("apple-touch-icon-180.svg", doc(180, 180, mark(90, 92, 112, D["ink"], D["accent"]), "ai·radar", L["ink"]))
 
@@ -334,4 +368,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main() if "--site" in sys.argv else extension_assets()
