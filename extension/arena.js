@@ -252,7 +252,7 @@ export function createArenaView(root) {
     root.innerHTML = '<p class="arena-loading" role="status">Đang tải bảng xếp hạng Arena…</p>';
     pending = (async () => {
       try {
-        const response = await fetch('data/arena.json', { signal: AbortSignal.timeout(12000) });
+        const response = await fetch('https://radar-ai-vn.pages.dev/data/arena.json', { signal: AbortSignal.timeout(12000) });
         if (!response.ok) throw new Error('Chưa tải được Arena');
         data = await response.json();
       } catch { data = null; }

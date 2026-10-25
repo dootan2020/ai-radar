@@ -1,6 +1,14 @@
 const DATA_URL = 'https://radar-ai-vn.pages.dev/data/radar-window.json';
 const ALARM = 'refresh-radar-window';
 
+async function ensureAlarm() {
+  if (!await chrome.alarms.get(ALARM)) {
+    await chrome.alarms.create(ALARM, {periodInMinutes: 30});
+  }
+}
+
+void ensureAlarm();
+
 async function refresh() {
   try {
     const response = await fetch(DATA_URL, {cache: 'no-cache', signal: AbortSignal.timeout(10000)});
@@ -17,11 +25,9 @@ async function refresh() {
 }
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.alarms.create(ALARM, {periodInMinutes: 30});
   void refresh();
 });
 chrome.runtime.onStartup.addListener(() => {
-  chrome.alarms.create(ALARM, {periodInMinutes: 30});
   void refresh();
 });
 chrome.alarms.onAlarm.addListener(alarm => {

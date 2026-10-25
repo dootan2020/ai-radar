@@ -448,7 +448,7 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
   let mediaHTML = '';
   if (story.image && story.image.src) {
     const imageSrc = story.image.src.startsWith('assets/')
-      ? new URL(story.image.src, import.meta.url).href : story.image.src;
+      ? new URL(story.image.src, 'https://radar-ai-vn.pages.dev/').href : story.image.src;
     mediaHTML = `
       <figure class="story-media">
         <img class="story-media-img" src="${esc(imageSrc)}" alt="${esc(titleVi)}" loading="eager" decoding="async">
@@ -463,7 +463,7 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
   // Footer navigation
   const footerHTML = isPage ? `
     <footer class="story-footer">
-      <a class="story-footer-link" href="../../index.html">← Quay lại dòng tin chính</a>
+      <a class="story-footer-link" href="https://radar-ai-vn.pages.dev/index.html">← Quay lại dòng tin chính</a>
       <a class="story-footer-link" href="#story-root">Lên đầu bài viết ↑</a>
     </footer>
   ` : `

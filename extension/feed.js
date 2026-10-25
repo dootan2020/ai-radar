@@ -39,8 +39,10 @@ const SOURCES = [DATA_URL];
 const WINDOW_URL = null; // The worker supplies the first snapshot from chrome.storage.local.
 let complete = false;    // true once D holds every story of the snapshot
 let completeLoad = null;      // the one request for the complete snapshot in flight
-const IMAGES_URL = 'feed-images.json';
-const PICKS_URL = 'editor-picks.json';   // the owner's own picks; the only thing allowed to say "Biên tập chọn"
+const IMAGES_URL = 'https://radar-ai-vn.pages.dev/feed-images.json';
+const PACKAGED_IMAGES_URL = 'feed-images.json';
+const PICKS_URL = 'https://radar-ai-vn.pages.dev/editor-picks.json';
+const PACKAGED_PICKS_URL = 'editor-picks.json';   // the owner's own picks; the only thing allowed to say "Biên tập chọn"
 const FIELD_RANKINGS_URL = 'https://radar-ai-vn.pages.dev/data/field-rankings.json';
 let FIELD_DATA = null;
 let FIELD_MAP = new Map();
@@ -258,7 +260,7 @@ async function fetchJSON(url, init = {}) {
 /* editor-picks.json: {picks: [{id | url, note?, until?}]}. Empty by default. A missing or broken file means no picks. */
 async function loadPicks() {
   try {
-    const j = await fetchJSON(PICKS_URL, { cache: 'no-cache' });
+    const j = await fetchJSON(PICKS_URL, { cache: 'no-cache' }).catch(() => fetchJSON(PACKAGED_PICKS_URL));
     return Array.isArray(j && j.picks) ? j.picks : [];
   } catch (e) { console.warn('editor-picks.json unavailable; no editor picks', e); return []; }
 }
@@ -288,7 +290,7 @@ function matchPicks(list) {
 
 async function loadImages() {
   try {
-    const j = await fetchJSON(IMAGES_URL);
+    const j = await fetchJSON(IMAGES_URL).catch(() => fetchJSON(PACKAGED_IMAGES_URL));
     // New format {_meta, images}; the previous round wrote a flat {url: src} map.
     const map = j && j.images ? j.images : (j || {});
     for (const [u, v] of Object.entries(map)) {
