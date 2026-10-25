@@ -3,7 +3,7 @@
   "name": "ai·radar New Tab",
   "version": "0.1.0",
   "description": "AI headlines on a new tab, available from the last saved refresh.",
-  "permissions": ["storage", "alarms", "search", "topSites"],
+  "permissions": ["storage", "alarms", "search"],
   "host_permissions": ["https://radar-ai-vn.pages.dev/*"],
   "chrome_url_overrides": {"newtab": "newtab.html"},
   "background": {"service_worker": "background.js", "type": "module"},

@@ -1,0 +1,46 @@
+/* Shared fallback scoring math; mirrors radar/worth.py for snapshots without pipeline scores. */
+export const WORTH = {
+  attention: 35, attentionFull: 60,
+  breadth: 35, breadthFull: 4,
+  freshness: 15, halfLifeH: 6,   // a news reader wants the newest first (owner, 10/10): half after 6 h, a sixteenth after a day
+  firstHand: 1.3,
+  hotLabel: 20,
+  picksMax: 5,
+  sameEvent: 0.34,
+};
+
+/* Mirrors radar/ranking.py hot_eligible: hot by its numbers (two independent publishers, or a count in the top fifth
+   of its source), not merely measured. Only such a story earns attention points or a place under "Đang nóng". */
+export function hotEligible(st) {
+  const s = (st && st.hot_signals) || {}, m = s.measurement || {};
+  if (st == null || st.hot_score == null) return false;
+  return (s.source_count || 0) >= 2
+    || (s.engagement_percentile != null && s.engagement_percentile >= 0.8 && (m.value || 0) > 0);
+}
+
+export function fallbackWorth(st, generatedAt, hot, n, firstHand) {
+  if (!hotEligible(st)) hot = 0;
+  const coverageTimes = (st.coverage || []).map(c => Date.parse(c && c.published_at)).filter(Number.isFinite);
+  // A repository's creation date is not news: without first-hand origin, a second publisher or a hot count it earns no
+  // freshness (mirrors radar/worth.py).
+  const repoWithoutReason = st.time_basis === 'repository_created' && !firstHand && n < 2 && !(hot > 0);
+  const publishedAt = repoWithoutReason ? NaN
+    : coverageTimes.length ? Math.max(...coverageTimes) : Date.parse(st.published_at);
+  const ageH = Number.isFinite(publishedAt) ? Math.max(0, (generatedAt - publishedAt) / 36e5) : null;
+  const recency = ageH == null ? 1 : Math.pow(0.5, ageH / WORTH.halfLifeH);
+  const parts = {
+    attention: WORTH.attention * Math.min(1, hot / WORTH.attentionFull) * recency,
+    breadth: WORTH.breadth * Math.min(1, Math.max(0, n - 1) / (WORTH.breadthFull - 1)) * recency,
+    freshness: ageH == null ? 0 : WORTH.freshness * recency,
+  };
+  if (!(st.hot_signals && st.hot_signals.measurement) || hot <= 0) delete parts.attention;
+  if (n < 2) delete parts.breadth;
+  if (ageH == null) delete parts.freshness;
+  const base = WORTH.attention * Math.min(1, hot / WORTH.attentionFull)
+    + WORTH.breadth * Math.min(1, Math.max(0, n - 1) / (WORTH.breadthFull - 1))
+    + (ageH == null ? 0 : WORTH.freshness);
+  return {
+    score: base * recency * (firstHand ? WORTH.firstHand : 1),
+    parts: Object.fromEntries(Object.entries(parts).map(([key, value]) => [key, Math.round(value * 100) / 100])),
+  };
+}

@@ -1,46 +1,57 @@
-@import url('./tokens.css');
-
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--color-canvas); color: var(--color-ink); font: 400 16px/1.55 system-ui, sans-serif; }
-a { color: inherit; }
-.page { max-width: 1120px; margin: auto; padding: 24px clamp(16px, 4vw, 48px) 80px; }
-header { margin-bottom: 64px; }
-.brand { color: var(--color-accent); font-size: 23px; font-weight: 700; text-decoration: none; }
-main { min-width: 0; }
-#search { max-width: 740px; margin: 0 auto 48px; }
-#search label { display: block; margin-bottom: 12px; font-size: clamp(24px, 4vw, 40px); font-weight: 700; line-height: 1.2; }
-.search-row { display: flex; gap: 8px; min-width: 0; }
-input, button { min-height: 52px; border-radius: 12px; font: inherit; }
-input { flex: 1; min-width: 0; padding: 0 16px; border: 1px solid var(--color-hair); color: var(--color-ink); background: var(--color-surface); }
-button { padding: 0 20px; border: 0; color: var(--color-on-accent); background: var(--color-accent); cursor: pointer; }
-:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
-h2 { font-size: 21px; margin: 0 0 16px; }
-nav { margin-bottom: 52px; }
-.shortcuts { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
-.shortcuts li { min-width: 0; }
-.shortcuts a { display: block; overflow: hidden; padding: 14px 8px; border-radius: 12px; background: var(--color-surface); text-align: center; text-overflow: ellipsis; white-space: nowrap; text-decoration: none; }
-.feed-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-#freshness { color: var(--color-ink-2); font-size: 13px; }
-.feed-content { display: grid; gap: 24px; }
-.card { min-width: 0; padding: 24px; border-radius: 20px; background: var(--color-surface); overflow-wrap: anywhere; }
-.lead { padding: clamp(24px, 4vw, 48px); }
-.card h3, .card h4 { margin: 0; line-height: 1.3; }
-.lead h3 { font-size: clamp(26px, 3vw, 38px); }
-.card h4 { font-size: 18px; }
-.card a { text-decoration: none; }
-.card a:hover { text-decoration: underline; }
-.summary { color: var(--color-ink-2); margin: 14px 0 0; }
-.measure { color: var(--color-accent); font-weight: 600; margin: 16px 0 0; }
-.feed-section h3 { font-size: 20px; margin: 0 0 16px; }
-.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.empty { padding: 32px; border-radius: 20px; background: var(--color-surface); }
-@media (max-width: 700px) {
-  header { margin-bottom: 40px; }
-  .shortcuts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .card-grid { grid-template-columns: 1fr; }
+#web-search {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-12);
+  margin: var(--space-8) 0 var(--space-16);
+  font: inherit;
 }
-@media (max-width: 400px) {
-  .search-row { flex-wrap: wrap; }
-  .search-row button { width: 100%; }
-  .shortcuts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.web-search-field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  flex: 1;
+  min-width: 0;
+  min-height: 52px;
+  padding: 0 var(--space-16);
+  border: 1px solid var(--color-hair);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-ink-2);
+}
+.web-search-field:focus-within {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.web-search-field .i { width: 20px; height: 20px; flex: none; }
+#web-query {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--color-ink);
+  font: inherit;
+}
+#web-query::placeholder { color: var(--color-ink-2); opacity: 1; }
+#web-search button {
+  min-width: 78px;
+  min-height: 52px;
+  padding: 0 var(--space-24);
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font: inherit;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+#web-search button:hover { filter: brightness(1.08); }
+#web-search button:active { transform: scale(.98); }
+#web-search button:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 2px; }
+@media (max-width: 767px) {
+  #web-search { gap: var(--space-8); }
+  .web-search-field { min-height: 48px; }
+  #web-search button { min-width: 64px; min-height: 48px; padding: 0 var(--space-16); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #web-search button:active { transform: none; }
 }
