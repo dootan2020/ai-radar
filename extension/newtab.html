@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ai·radar</title>
+  <link rel="stylesheet" href="newtab.css">
+  <script type="module" src="newtab.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header><a class="brand" href="https://radar-ai-vn.pages.dev/">ai·radar</a></header>
+    <main>
+      <form id="search" role="search" aria-label="Tìm kiếm trên web">
+        <label for="query">Tìm trên web</label>
+        <div class="search-row"><input id="query" name="q" type="search" autocomplete="off" placeholder="Bạn muốn tìm gì?" required><button type="submit">Tìm kiếm</button></div>
+      </form>
+      <nav aria-label="Trang thường truy cập"><h2>Truy cập nhanh</h2><ul id="shortcuts" class="shortcuts"></ul></nav>
+      <section id="feed" aria-labelledby="feed-title"><div class="feed-heading"><h2 id="feed-title">Mới trên ai·radar</h2><p id="freshness" role="status"></p></div><div id="stories"></div></section>
+    </main>
+  </div>
+</body>
+</html>
