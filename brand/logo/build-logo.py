@@ -1,7 +1,7 @@
-"""Build LogosTab Logo Round 2: Animal Mascots in Emerald and Blue.
+"""Build the approved LogosTab emerald kingfisher logo.
 
 Generates:
-  - Two variant folders: a-kingfisher-emerald and b-owl-azure
+  - The approved variant folder: a-kingfisher-emerald
   - SVG marks (light/dark, with tile and glyph-only)
   - SVG lock-ups with the full word "LogosTab"
   - PNG marks at 1024px
@@ -35,12 +35,6 @@ EMERALD_DARK = "#00D68F"     # High-luminosity electric emerald for dark mode (s
 INK_EMERALD = "#091E16"      # Deep obsidian emerald slate
 TEAL_DEEP = "#004532"        # Deep cool teal for radar eye accent
 
-# Variant B: Azure Owl (Cú Lam Biếc)
-BLUE_LIGHT = "#007AFF"       # Apple system electric azure (clean, luminous, high-energy)
-BLUE_DARK = "#0091FF"        # High-luminosity electric cyan-blue (beacon on dark toolbar)
-INK_NAVY = "#061324"         # Deep obsidian navy slate
-NAVY_DEEP = "#041B3B"        # Midnight navy for radar eye aperture
-
 WHITE = "#FFFFFF"
 PAPER = "#F1F2F5"
 INK = "#16181D"
@@ -62,22 +56,6 @@ THEMES = {
             "text": PAPER,
         }
     },
-    "b-owl-azure": {
-        "light": {
-            "tile": BLUE_LIGHT,
-            "glyph": WHITE,
-            "eye": NAVY_DEEP,
-            "sparkle": WHITE,
-            "text": INK,
-        },
-        "dark": {
-            "tile": BLUE_DARK,
-            "glyph": INK_NAVY,
-            "eye": WHITE,
-            "sparkle": BLUE_DARK,
-            "text": PAPER,
-        }
-    }
 }
 
 # --- Geometry math -----------------------------------------------------------
@@ -163,76 +141,8 @@ def kingfisher_def():
     ]
     return ops, dots
 
-def owl_def():
-    """Owl: symmetrical architectural radar sentinel with ear tufts, wide eyes, beak."""
-    ops = [
-        # 1. Outer heraldic silhouette: ear tufts, outer cheeks, wings, base
-        ("polygon", [
-            (0.50, 0.29),  # Center brow V
-            (0.38, 0.24),  # Left ear inner slope
-            (0.24, 0.21),  # Left ear peak
-            (0.21, 0.32),  # Left ear outer slope
-            (0.18, 0.42),  # Left cheek
-            (0.20, 0.58),  # Left wing upper
-            (0.25, 0.76),  # Left wing tip
-            (0.38, 0.77),  # Left tail base
-            (0.50, 0.78),  # Base center
-            (0.62, 0.77),  # Right tail base
-            (0.75, 0.76),  # Right wing tip
-            (0.80, 0.58),  # Right wing upper
-            (0.82, 0.42),  # Right cheek
-            (0.79, 0.32),  # Right ear outer slope
-            (0.76, 0.21),  # Right ear peak
-            (0.62, 0.24),  # Right ear inner slope
-        ], 1),
-        # 2. Sleek grounding perch bar
-        ("rrect", 0.16, 0.79, 0.84, 0.84, 0.025, 1),
-        # 3. Left wing separator groove
-        ("bezier_poly", [
-            ('M', (0.24, 0.44)),
-            ('C', ((0.28, 0.52), (0.32, 0.62), (0.31, 0.74))),
-            ('C', ((0.29, 0.74), (0.26, 0.62), (0.22, 0.44))),
-            ('Z', None)
-        ], -1),
-        # 4. Right wing separator groove
-        ("bezier_poly", [
-            ('M', (0.76, 0.44)),
-            ('C', ((0.72, 0.52), (0.68, 0.62), (0.69, 0.74))),
-            ('C', ((0.71, 0.74), (0.74, 0.62), (0.78, 0.44))),
-            ('Z', None)
-        ], -1),
-        # 5. Left eye socket cut (negative space)
-        ("circle", 0.37, 0.43, 0.095, -1),
-        # 6. Right eye socket cut (negative space)
-        ("circle", 0.63, 0.43, 0.095, -1),
-        # 7. Dagger Beak (sharp geometric diamond between eye sockets)
-        ("polygon", [
-            (0.50, 0.42),
-            (0.46, 0.49),
-            (0.50, 0.57),
-            (0.54, 0.49),
-        ], 1),
-        # 8. Chest chevron radar arc cut
-        ("bezier_poly", [
-            ('M', (0.42, 0.63)),
-            ('C', ((0.46, 0.66), (0.54, 0.66), (0.58, 0.63))),
-            ('C', ((0.54, 0.68), (0.46, 0.68), (0.42, 0.63))),
-            ('Z', None)
-        ], -1),
-    ]
-    dots = [
-        # Left eye radar aperture
-        (0.37, 0.43, 0.048, "eye"),
-        (0.38, 0.42, 0.018, "sparkle"),
-        # Right eye radar aperture
-        (0.63, 0.43, 0.048, "eye"),
-        (0.64, 0.42, 0.018, "sparkle"),
-    ]
-    return ops, dots
-
 OPTIONS = {
-    "a-kingfisher-emerald": ("A · Kingfisher · Ngọc Lục Bảo", kingfisher_def),
-    "b-owl-azure": ("B · Owl · Lam Biếc", owl_def),
+    "a-kingfisher-emerald": ("Kingfisher · Ngọc Lục Bảo", kingfisher_def),
 }
 
 # --- Raster rendering (Pillow with supersampling) ----------------------------
@@ -475,7 +385,7 @@ def check_image_health(path):
 # --- Main execution ----------------------------------------------------------
 
 def main():
-    print("=== Building LogosTab Round 2 Logos ===")
+    print("=== Building approved LogosTab kingfisher ===")
     hashes = {}
     for name in OPTIONS:
         out = HERE / name

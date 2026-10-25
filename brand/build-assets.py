@@ -219,10 +219,9 @@ def extension_assets():
         write(f"extension-icon-{pixels}.svg", small_kingfisher(pixels))
     write("extension-icon-48.svg", doc(48, 48, approved_logo("mark-light.svg", 0, 0, 48, 48), "LogosTab kingfisher extension icon"))
     write("extension-icon-128.svg", doc(128, 128, approved_logo("mark-light.svg", 16, 16, 96, 96), "LogosTab Chrome Web Store icon"))
-    promo = '<rect width="440" height="280" fill="#F1F2F5"/>'
-    promo += '<rect x="16" y="16" width="408" height="248" rx="24" fill="#FFFFFF"/>'
-    promo += approved_logo("lockup-light.svg", 46, 69, 348, 87)
-    promo += text(MED, "Mở tab sáng, sáng ngày mới.", 22, 46, 211, "#16181D")
+    promo = '<rect width="440" height="280" fill="#00B377"/>'
+    promo += approved_logo("lockup-light.svg", 36, 52, 368, 92)
+    promo += text(MED, "Mở tab sáng, sáng ngày mới.", 22, 38, 218, "#091E16")
     write("store-promo-small.svg", doc(440, 280, promo, "LogosTab Chrome Web Store promo"))
 
 

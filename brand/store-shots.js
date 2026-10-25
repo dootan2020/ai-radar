@@ -2,7 +2,7 @@
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const puppeteer = require('C:/Users/Admin/node_modules/puppeteer');
+const puppeteer = require('puppeteer');
 
 const root = path.resolve(__dirname, '..');
 const extension = path.join(root, 'extension');
