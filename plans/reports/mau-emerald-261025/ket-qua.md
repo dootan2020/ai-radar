@@ -67,3 +67,23 @@ Khôi phục trạng thái tốt bằng xanh lá dịu, tách sắc emerald thư
 ### Walk giao diện và giới hạn capture
 
 Mở `/` và `/ban-tin.html` trên server local 8097, đổi theme sáng/tối trên từng trang. Ảnh trình duyệt hiển thị pill “Bản tin sáng” màu emerald ở home; pill tab chọn vẫn đen, chip Translated vẫn xanh Google. Trang `/ban-tin.html` giữ trạng thái “Đang tải bản tin...” trong lượt xem này. Không tạo được ảnh `v2-*.png` ở 375px/1440px: browser capture hiện tại không có viewport override và chỉ trả ảnh viewport nhỏ; URL `javascript:` dùng để đọc computed style bị chính sách browser chặn. Vì thế không ghi nhận computed DOM của `.lab.dung-ngay`, `.dot.ok` hay `.ed-link`; các giá trị trong bảng là số đo từ token script, không phải DOM. Chưa có screenshot phù hợp để lưu vào thư mục report.
+
+
+## Round 3 — chip Translated trung tính
+
+`--color-mt-bg` và `--color-mt-ink` hiện lần lượt dùng `--color-fill` và `--color-ink-2` trong cả ba khối light, dark và `prefers-color-scheme: dark`. Bốn token `--gt-blue-*` đã được gỡ sau khi rà soát consumer; `.orig .mt` và `.mt` feed dùng các semantic token này, còn `story.css` không dùng riêng chúng. Hai trang brandbook trong scope không có quy tắc màu chip cần sửa. Nội dung “Translated” và accessible text không đổi; không thêm logo hoặc glyph.
+
+`python plans/reports/mau-emerald-261025/contrast.py` exit 0. Cặp mới light đạt **6.36:1** (`gray-44` trên `gray-93`), dark đạt **8.56:1** (`gray-80` trên `gray-25`), đều trên ngưỡng 4.5:1. Script giữ baseline màu Google cũ dưới dạng literal để tiếp tục ghi nhận độ tương phản trước thay đổi; baseline light là 4.68:1 và dark là 5.44:1.
+
+Bốn bản `tokens.css` byte-identical sau ba lệnh đồng bộ. Đã mở `/` và `/tin/_sample/` trên `http://127.0.0.1:8098/`, xem homepage light/dark và bài mẫu light/dark. Ảnh giao diện cho thấy nhãn “Translated” dùng màu trung tính; “Bản tin sáng” vẫn emerald. Công cụ browser chỉ trả ảnh viewport 636×316, không cho đặt 375/1440 hoặc ghi PNG vào report. CUA không có API DOM evaluate; mở DevTools qua cửa sổ Chrome cũng bị từ chối quyền. Vì vậy giá trị computed DOM của `.mt` chưa lấy được, và không có file `v3-*.png`. CSS mapping đã được kiểm tra từ source, còn screenshot đúng kích thước cần Lucy chụp bằng browser có responsive viewport và file capture.
+
+Brandbook: không có dòng nào mô tả màu chip Translated ở `brand/logostab/index.html`, `site/brand/index.html` hay `brand/index.html`, nên không phát sinh sửa nội dung.
+
+- `brand/build-assets.py --site`: exit 0.
+- `brand/publish_kit.py`: exit 0.
+- `extension/sync-site.py`: exit 0.
+- `python plans/reports/mau-emerald-261025/contrast.py`: exit 0.
+- `git diff --check`: exit 0 (chỉ cảnh báo line-ending trên các file có sẵn thay đổi trong worktree).
+- `python -m unittest discover -s tests`: 1.317 tests, 6 skipped, exit 0 (173.421s); cập nhật assertion legacy thành contract neutral trong `tests/test_page_head.py` để khớp quyết định màu mới.
+
+- `git add` bị sandbox từ chối tạo `.git/worktrees/ai-radar-wt-mau-emerald/index.lock` (Permission denied); chưa stage hoặc commit. Lucy cần stage file trong scope, dùng `git add -f` cho `plans/`, và commit trên `design/mau-emerald`; `.skills/` tuyệt đối không stage.

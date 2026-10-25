@@ -30,3 +30,11 @@ Lucy stage/commit trong checkout có quyền ghi Git index (`plans/` cần `git 
 - Chạy ba bước đồng bộ đều exit 0; bốn `tokens.css` giống byte. Contrast script exit 0; full unittest: 1.317 test, 6 skip, exit 0; `git diff --check` exit 0.
 - Mở home và bản tin ở sáng/tối. Home hiển thị CTA emerald; bản tin local còn “Đang tải”. Browser capture không hỗ trợ kích thước 375/1440 hay ghi screenshot ra report; URL `javascript:` để đọc computed DOM bị browser policy chặn. Giá trị DOM cho `.lab.dung-ngay`, `.dot.ok`, `.ed-link` và ảnh `v2-*.png` còn thiếu.
 - Giữ nguyên các thay đổi đã có từ trước trong `brand/assets/`, `site/brand/assets/`, `extension/arena.js`, `extension/feed.js`, `extension/newtab.html` và các file ngoài phạm vi. Lucy cần capture đúng viewport, lấy computed style từ DOM và review ảnh ở lượt sau.
+
+
+## Round 3 update — 26/10
+
+- Đổi cả ba theme entries của `--color-mt-bg`/`--color-mt-ink` sang `--color-fill`/`--color-ink-2`; gỡ bốn `--gt-blue-*` không còn consumer. `.orig .mt` và `.mt` feed tiêu thụ token; `story.css` không có dùng riêng. Hai trang brandbook không mô tả màu chip.
+- Ba bước đồng bộ exit 0; bốn `tokens.css` byte-identical. Contrast script exit 0; Round 3 đạt 6.36:1 light và 8.56:1 dark. Assertion legacy trong `tests/test_page_head.py` được cập nhật theo token trung tính. Full unittest: 1.317 tests, 6 skipped, exit 0; `git add`/commit còn chờ.
+- Đã đi `/` và `/tin/_sample/` trên port 8098 ở sáng/tối. Chip hiển thị chữ “Translated” trên màu trung tính; pill “Bản tin sáng” vẫn emerald. Browser CUA chỉ xuất ảnh 636×316, không hỗ trợ viewport 375/1440 hay lưu ảnh vào thư mục; DOM evaluate không có và DevTools bị từ chối quyền. Chưa có computed DOM values hoặc `v3-*.png`; Lucy cần capture/review viewport đúng kích thước.
+- `git add` bị sandbox từ chối tạo `.git/worktrees/ai-radar-wt-mau-emerald/index.lock` (Permission denied); chưa stage/commit. Lucy stage các file thuộc brief, dùng `git add -f` với `plans/`, rồi commit trên branch này. Không stage `.skills/`. Giữ nguyên thay đổi có sẵn ngoài scope.
