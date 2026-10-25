@@ -1,4 +1,4 @@
-/* ai·radar · site/story.js
+/* LogosTab · site/story.js
    Shared render module for the story modal and static story page.
    Combines Direction A ("the article made whole") with Direction B's evidence block
    ("Vì sao được chọn": worth score, unique publishers, discussion signals).
@@ -400,7 +400,7 @@ export function renderOriginGatewayHTML(story, srcMap = new Map()) {
   const origUrl = story.url || (story.coverage && story.coverage[0] && story.coverage[0].url) || '#';
   const hasKp = hasEditorialSummary(story);
   const desc = hasKp
-    ? 'ai-radar tóm tắt ý chính để bạn nắm nhanh sự kiện. Đọc bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.'
+    ? 'LogosTab tóm tắt ý chính để bạn nắm nhanh sự kiện. Đọc bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.'
     : 'Mở bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.';
 
   return `

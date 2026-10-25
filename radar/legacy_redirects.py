@@ -50,7 +50,7 @@ def preview_metadata(page):
     parser = PreviewMetadata()
     if page is not None and Path(page).is_file():
         parser.feed(Path(page).read_text(encoding="utf-8"))
-    title = "".join(parser.title_parts).strip() or "Chuyển tới ai·radar"
+    title = "".join(parser.title_parts).strip() or "Chuyển tới LogosTab"
     title_tag = f"<title>{html.escape(title)}</title>\n"
     meta_tags = "".join(
         f'<meta {key}="{html.escape(name, quote=True)}" content="{html.escape(content, quote=True)}">\n'
@@ -68,7 +68,7 @@ def redirect_page(target_url, source_page=None):
             f"<link rel=\"canonical\" href=\"{target}\">\n"
             f"<meta http-equiv=\"refresh\" content=\"0; url={target}\">\n"
             f"{preview}</head>\n<body>\n"
-            f"<p>Trang đã chuyển. <a href=\"{target}\">Mở ai·radar</a>.</p>\n"
+            f"<p>Trang đã chuyển. <a href=\"{target}\">Mở LogosTab</a>.</p>\n"
             "</body>\n</html>\n")
 
 
@@ -103,8 +103,8 @@ def not_found_page():
     base = html.escape(SITE_BASE_URL, quote=True)
     return ("<!doctype html>\n<html lang=\"vi\">\n<head>\n"
             "<meta charset=\"utf-8\">\n<meta name=\"robots\" content=\"noindex\">\n"
-            "<title>Chuyển tới ai·radar</title>\n</head>\n<body>\n"
-            "<p>Trang đã chuyển. <a id=\"fallback\">Mở ai·radar</a>.</p>\n"
+            "<title>Chuyển tới LogosTab</title>\n</head>\n<body>\n"
+            "<p>Trang đã chuyển. <a id=\"fallback\">Mở LogosTab</a>.</p>\n"
             "<script>\n"
             f"const base = '{base}';\n"
             "let oldPath = window.location.pathname;\n"

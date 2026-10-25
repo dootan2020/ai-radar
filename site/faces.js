@@ -1,4 +1,4 @@
-/* ai·radar · the visual pieces every tile is built from: source logos (avatars), measured charts.
+/* LogosTab · the visual pieces every tile is built from: source logos (avatars), measured charts.
    Shared by app.js (the page) and design/tokens.js (the showcase), so the showcase renders the markup the page ships.
    Nothing here invents an image or a number:
    - a logo is a GitHub or Hugging Face avatar derived from a real owner or organisation in the data, or a

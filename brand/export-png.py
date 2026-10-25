@@ -1,7 +1,7 @@
 """Export LogosTab extension and Store PNGs from the SVGs in brand/assets/.
 
 Run from anywhere, after brand/build-assets.py:  python brand/export-png.py
-Use --site for the existing ai·radar website kit, ICO and screenshot pipeline.
+Use --site for the LogosTab website kit, ICO and screenshot pipeline.
 Each SVG is rendered by headless Chrome with a fresh profile under
 plans/nhap/, then every PNG's pixel size is read back from its IHDR header and checked
 against the platform size below; a mismatch stops the run. The extension path
@@ -78,10 +78,11 @@ def render(svg, png, w, h, scale, transparent):
         shutil.rmtree(profile, ignore_errors=True)
     if done.returncode != 0 or not (ASSETS / png).exists():
         magick = shutil.which("magick")
-        if not magick or "--site" in sys.argv:
+        if not magick:
             raise RuntimeError(f"chrome failed on {svg}: {done.stderr.strip()[-400:]}")
         fallback = subprocess.run([magick, "-background", "none", str(ASSETS / svg),
-                                   str(ASSETS / png)], capture_output=True, text=True, timeout=60)
+                                   "-resize", f"{w * scale}x{h * scale}!", str(ASSETS / png)],
+                                  capture_output=True, text=True, timeout=60)
         if fallback.returncode != 0 or not (ASSETS / png).exists():
             raise RuntimeError(f"Chrome and ImageMagick failed on {svg}: {fallback.stderr.strip()[-400:]}")
         print(f"{png}: rendered with ImageMagick after Chrome failed")
@@ -106,7 +107,7 @@ def write_ico(parts, out):
 
 
 def main():
-    if not Path(CHROME).exists() and ("--site" in sys.argv or not shutil.which("magick")):
+    if not Path(CHROME).exists() and not shutil.which("magick"):
         sys.exit(f"Chrome not found at {CHROME}; set CHROME")
     if "--site" not in sys.argv:
         for job in JOBS:
