@@ -332,7 +332,7 @@ function renderBoard(split = false, reveal = true){
   const board = $('#board');
   const loading = !reveal ? board.querySelector('.reader-fallback')?.outerHTML || '' : '';
   if (!D.stories.length) {
-    board.innerHTML = loading + `<div class="tile t-empty" role="status">${avatar({kind:'mono', id:'AR', label:'LogosTab'}, 'lg')}<h2>Bản tin này chưa có tin nào</h2><p class="muted">Dữ liệu tạo lúc ${esc(exact(D.generated_at))} không chứa tin. Trang không điền tin mẫu.</p></div>`;
+    board.innerHTML = loading + `<div class="tile t-empty" role="status">${avatar({kind:'brand', label:'LogosTab'}, 'lg')}<h2>Bản tin này chưa có tin nào</h2><p class="muted">Dữ liệu tạo lúc ${esc(exact(D.generated_at))} không chứa tin. Trang không điền tin mẫu.</p></div>`;
     if (reveal) revealBoard();
     return '';
   }

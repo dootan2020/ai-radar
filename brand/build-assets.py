@@ -171,10 +171,10 @@ def extension_assets():
     for pixels in (16, 32):
         write(f"extension-icon-{pixels}.svg", small_kingfisher(pixels))
     write("extension-icon-48.svg", doc(48, 48, approved_logo("mark-light.svg", 0, 0, 48, 48), "LogosTab kingfisher extension icon"))
-    write("extension-icon-128.svg", doc(128, 128, approved_logo("mark-light.svg", 16, 16, 96, 96), "LogosTab Chrome Web Store icon"))
-    promo = '<rect width="440" height="280" fill="#00B377"/>'
-    promo += approved_logo("lockup-light.svg", 36, 52, 368, 92)
-    promo += text(MED, "Mở tab sáng, sáng ngày mới.", 22, 38, 218, "#091E16")
+    write("extension-icon-128.svg", doc(128, 128, approved_logo("mark-light.svg", 0, 0, 128, 128), "LogosTab Chrome Web Store icon"))
+    promo = f'<rect width="440" height="280" fill="{DARK["canvas"]}"/>'
+    promo += approved_logo("lockup-dark.svg", 36, 52, 368, 92)
+    promo += text(MED, "Tín hiệu trước, nhiễu sau.", 22, 38, 218, DARK["ink2"])
     write("store-promo-small.svg", doc(440, 280, promo, "LogosTab Chrome Web Store promo"))
 
 
@@ -211,28 +211,35 @@ def main():
         "avatar-light.svg": "mark-light.svg",
     }
     for target, source in logo_files.items():
-        if target in {"favicon-16.svg", "favicon-32.svg", "apple-touch-icon-180.svg"}:
-            size = 180 if target.startswith("apple") else int(target.split("-")[1].split(".")[0])
+        if target in {"avatar.svg", "avatar-light.svg"}:
+            size = 800
+            write(target, doc(size, size, approved_logo(source, 0, 0, size, size), "LogosTab"))
+        elif target == "apple-touch-icon-180.svg":
+            size = 180
+            tile = f'<rect width="{size}" height="{size}" fill="#00B377"/>'
+            write(target, doc(size, size, tile + approved_logo(source, 0, 0, size, size), "LogosTab"))
+        elif target in {"favicon-16.svg", "favicon-32.svg"}:
+            size = int(target.split("-")[1].split(".")[0])
             write(target, doc(size, size, approved_logo(source, 0, 0, size, size), "LogosTab"))
         else:
             write(target, (logo_dir / source).read_text(encoding="utf-8"))
     (ROOT / "site" / "logo.svg").write_bytes((logo_dir / "mark-light.svg").read_bytes())
     extension_assets()
 
-    # Use the approved artwork at the same placements as the existing social layouts.
-    def mark(cx, cy, size, *_args, **_kwargs):
-        return approved_logo("mark-light.svg", cx - size / 2, cy - size / 2, size, size)
+    # Keep each approved vector inside its own canvas; choose the light or dark palette.
+    def mark(cx, cy, size, theme="light"):
+        return approved_logo(f"mark-{theme}.svg", cx - size / 2, cy - size / 2, size, size)
 
-    def lockup(x, baseline, size, *_args, **_kwargs):
+    def lockup(x, baseline, size, theme="light"):
         width = size * 1020 / 256
-        return approved_logo("lockup-light.svg", x, baseline - size, width, size), width
+        return approved_logo(f"lockup-{theme}.svg", x, baseline - size, width, size), width
 
     gh, hf, day = real_data()
 
     # share image 1200 x 630, a real story: the repo with the most stars gained in one day
     owner, repo = gh["repo"].split("/")
     body = f'<rect x="40" y="40" width="1120" height="550" rx="24" fill="{L["surface"]}"/>'
-    body += lockup(96, 120, 34, L["ink"], L["accent"])[0]
+    body += lockup(96, 120, 34)[0]
     body += text(MED, f"GitHub Trending · {day}", 22, 1104, 118, L["ink3"], anchor="end")
     chip = "Nóng nhất hôm nay"
     cw = SEMI.width(chip, 26) + 64
@@ -252,8 +259,8 @@ def main():
 
     # share image 1200 x 630, default for the home page (no dated number, so it never goes stale)
     body = f'<rect x="40" y="40" width="1120" height="550" rx="24" fill="{L["surface"]}"/>'
-    body += mark(900, 315, 380, L["fill"], L["accent"])
-    body += lockup(96, 196, 72, L["ink"], L["accent"])[0]
+    body += mark(914, 326, 300)
+    body += lockup(96, 196, 72)[0]
     body += text(BOLD, "Tín hiệu trước,", 60, 96, 350, L["ink"], TRACK_DISPLAY)
     body += text(BOLD, "nhiễu sau.", 60, 96, 424, L["ink"], TRACK_DISPLAY)
     body += text(MED, "Tin AI mỗi sáng, lọc bằng số đo thật.", 26, 96, 500, L["ink2"])
@@ -262,16 +269,15 @@ def main():
 
     # Facebook cover 1640 x 624. Mobile shows only the centre ~1110 px; desktop covers the
     # bottom-left with the page avatar. Everything that matters sits in the centre.
-    lw = lockup(0, 0, 96, "#000", "#000")[1]
-    body = lockup(820 - lw / 2, 300, 96, L["ink"], L["accent"])[0]
+    lw = lockup(0, 0, 96)[1]
+    body = lockup(820 - lw / 2, 300, 96)[0]
     body += text(MED, TAG, 40, 820, 400, L["ink2"], anchor="middle")
     body += text(MED, "Lab · Paper · Repo · Podcast · Diễn đàn", 26, 820, 460, L["ink3"], anchor="middle")
     write("cover-facebook.svg", doc(1640, 624, body, "LogosTab, bìa trang Facebook", L["canvas"]))
 
     # YouTube banner 2560 x 1440. Safe area on every device: centre 1546 x 423 (y 508-931).
-    lw = lockup(0, 0, 150, "#000", "#000")[1]
-    body = mark(1280, 720, 1300, D["surface"], D["surface"])          # tone on tone; whole only on TV
-    body += lockup(1280 - lw / 2, 720, 150, D["ink"], D["accent"])[0]
+    lw = lockup(0, 0, 150, "dark")[1]
+    body = lockup(1280 - lw / 2, 720, 150, "dark")[0]
     body += text(MED, TAG, 52, 1280, 864, D["ink2"], anchor="middle")
     write("cover-youtube.svg", doc(2560, 1440, body, "LogosTab, ảnh bìa kênh YouTube", D["canvas"]))
 
@@ -280,7 +286,7 @@ def main():
     downloads = hf["downloads"]
     millions = f"{downloads / 1e6:.1f}".replace(".", ",")
     org, model = hf["id"].split("/")
-    body = lockup(80, 200, 52, L["ink"], L["accent"])[0]
+    body = lockup(80, 200, 52)[0]
     body += f'<rect x="56" y="300" width="968" height="1180" rx="48" fill="{L["surface"]}"/>'
     chip = "Model mở · Hugging Face"
     cw = SEMI.width(chip, 32) + 56
@@ -296,8 +302,8 @@ def main():
 
     # 9:16 brand frame 1080 x 1920 for stories and video covers. No dated number, so it never
     # goes stale. Same free zones as the thumbnail: bottom 420 px and right 160 px.
-    body = mark(540, 760, 900, L["fill"], L["accent"])               # tone on tone behind the words
-    body += lockup(96, 240, 64, L["ink"], L["accent"])[0]
+    body = mark(540, 690, 520)
+    body += lockup(96, 240, 64)[0]
     body += text(BOLD, "Tín hiệu trước,", 104, 96, 1120, L["ink"], TRACK_DISPLAY)
     body += text(BOLD, "nhiễu sau.", 104, 96, 1244, L["ink"], TRACK_DISPLAY)
     body += text(MED, "Tin AI mỗi sáng,", 44, 96, 1340, L["ink2"])

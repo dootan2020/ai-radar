@@ -79,6 +79,7 @@ export function loadDeferredImages(root = document){
 const PX = {xs:20, sm:28, md:40, lg:56, xl:72};
 export function avatar(face, size = 'md'){
   const px = PX[size] || 40;
+  if (face.kind === 'brand') return `<span class="av av-${size}" role="img" aria-label="${esc(face.label || 'LogosTab')}"><img class="av-img" src="logo.svg" alt="" width="${px}" height="${px}"></span>`;
   const mono = esc(face.kind === 'mono' ? face.id : monogram(face.label || face.id));
   const style = ` style="--mono-h:${monoHue(face.label || face.id)}"`;
   if (face.kind === 'mono') return `<span class="av av-${size} is-fallback" data-mono="${mono}"${style} role="img" aria-label="${esc(face.label || '')}"></span>`;

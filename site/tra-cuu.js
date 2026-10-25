@@ -576,7 +576,7 @@ function renderEmptyPrompt(suggestedNames, history) {
     <div class="board tc-results-board">
       <article class="tile t-lead" id="tc-prompt" style="padding: var(--tile-pad-hero);">
         <div class="lead-top">
-          ${avatar({ kind: 'mono', id: 'AR', label: 'LogosTab' }, 'xl')}
+          ${avatar({ kind: 'brand', label: 'LogosTab' }, 'xl')}
           <p class="lead-label">
             <span class="pill pill-hot"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg>Tra một chuyện</span>
             <span class="lead-src">Dữ liệu 7 ngày qua · Đo lường bằng số nguồn thật</span>
