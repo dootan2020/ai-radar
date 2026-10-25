@@ -1,0 +1,4 @@
+{
+  "_doc": "Biên tập chọn. Chỉ tin có trong tệp này mới được mang nhãn \"Biên tập chọn\" và được ghim lên đầu khối \"Đáng đọc hôm nay\", theo thứ tự trong danh sách. Mỗi mục cần \"id\" (id của tin trong radar-ui.json) hoặc \"url\" (địa chỉ của tin hoặc của một bản đưa tin). Không bắt buộc: \"note\" là một câu của biên tập viên, hiện kèm chữ \"Ghi chú biên tập\"; \"until\" là thời điểm ISO 8601, sau đó mục tự hết hiệu lực. Tin đã ra khỏi cửa sổ 72 giờ sẽ không hiện. Ví dụ: {\"url\": \"https://openai.com/index/...\", \"note\": \"Đọc trước khi họp sáng thứ Hai.\", \"until\": \"2026-10-06T09:00:00+07:00\"}",
+  "picks": []
+}
