@@ -380,6 +380,54 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
     if len(shared_entities) >= 1 and len(shared_variants) >= 1 and len(shared_versions) >= 1:
         return True
 
+    return _same_event_from_context(left, right, shared_entities)
+
+
+CONTEXT_STOP = TOPIC_WORDS | ENTITY_WORDS | STOPWORDS | {"company", "firm", "startup", "new", "latest", "users", "available", "according", "says", "said"}
+RELEASE_CONTEXT = re.compile(r"\b(?:introduc\w*|launch\w*|releas\w*|unveil\w*|announc\w*|new (?:model|agent|feature)|latest model|research preview|available (?:through|by) waitlist)\b", re.I)
+
+
+def _context_words(item):
+    text = (str(item.get("title") or "") + " " + str(item.get("summary") or "")
+            + " " + urlsplit(str(item.get("url") or "")).path.replace("-", " "))
+    words = {_stem(word) for word in _expand_tokens(text)}
+    if re.search(r"\b(?:offline|no internet|without internet)\b", text, re.I):
+        words.add("offline")
+    if re.search(r"\b(?:log(?:s|ging)? (?:in|into)|sign(?:s|ing)? (?:in|into)|login)\b", text, re.I):
+        words.add("login")
+    if re.search(r"\b(?:rais\w*|funding|financing)\b", text, re.I):
+        words.add("funding")
+    for amount in re.findall(r"\$\s*(\d+(?:\.\d+)?)\s*(?:billion|bn|b)\b", text, re.I):
+        words.add("amount-" + amount + "b")
+    return words
+
+
+def _same_event_from_context(left, right, shared_entities):
+    """Join paraphrased reports only with a common actor and specific event evidence."""
+    if _is_commentary(left) or _is_commentary(right):
+        return False
+    if left.get("kind") in {"repository", "model"} or right.get("kind") in {"repository", "model"}:
+        return False
+    a, b = _context_words(left), _context_words(right)
+    common = a & b
+    def names(item):
+        text = str(item.get("title") or "") + " " + str(item.get("summary") or "")
+        return {word.casefold() for word in re.findall(r"\b(?:[A-Z][A-Za-z0-9]{3,}|[0-9][A-Za-z]{3,})\b", text)
+                if word.casefold() not in ENTITY_WORDS | TOPIC_WORDS | GENERIC_CAPITALIZED_WORDS | STOPWORDS}
+    distinctive = common - CONTEXT_STOP
+    shared_names = names(left) & names(right)
+    if not (shared_entities or common & ENTITY_WORDS or shared_names):
+        return False
+    if {"funding"} <= common and any(word.startswith("amount-") for word in common):
+        return True
+    if {"offline", "training"} <= distinctive or {"password", "login"} <= distinctive:
+        return True
+    titles = str(left.get("title") or "") + " " + str(right.get("title") or "")
+    named_event = shared_names & distinctive
+    if (RELEASE_CONTEXT.search(str(left.get("title") or "") + " " + str(left.get("summary") or ""))
+            and RELEASE_CONTEXT.search(str(right.get("title") or "") + " " + str(right.get("summary") or ""))
+            and any(re.search(r"\b" + re.escape(name) + r"\b", titles, re.I) for name in named_event)):
+        return True
     return False
 
 
@@ -443,8 +491,10 @@ def cluster_items(items, now, threshold=0.75):
         story_id = stable_id(anchor)
         coverage_ids = {stable_id("event:" + item.get("event_id", item["id"]) if item.get("kind") == "event" else item["canonical_url"]) for item in group}
         aliases = sorted(coverage_ids - {story_id})
+        latest = max((item.get("published_at") for item in group if instant(item.get("published_at"))), default=None)
         stories.append(dict(id=story_id, title=representative["title"], url=representative["url"],
                             summary=representative.get("summary", ""), published_at=representative.get("published_at"),
+                            latest_coverage_at=latest,
                             kind=representative.get("kind", "other"), time_basis=representative.get("time_basis", "unknown"),
                             primary_section=primary_section(group), groups=sorted({item.get("group", "lab") for item in group}),
                             coverage=group, source_count=len({publisher_identity(item) for item in group}),
@@ -471,6 +521,10 @@ def merge_repeated_events(stories, threshold=0.75):
     headline, translation and summary and gains the other's coverage and id.
     """
     stories = [story for story in stories if isinstance(story, dict)]
+    for story in stories:
+        story["latest_coverage_at"] = max((item.get("published_at") for item in story.get("coverage") or []
+                                           if isinstance(item, dict) and instant(item.get("published_at"))),
+                                          default=story.get("published_at"))
     order = sorted(range(len(stories)), key=lambda index: (
         bool(stories[index].get("carried")), -len(stories[index].get("coverage") or []),
         stories[index].get("published_at") or "9999", str(stories[index].get("id"))))
@@ -510,7 +564,45 @@ def merge_repeated_events(stories, threshold=0.75):
             words[target].add(word)
             postings[word].append(target)
     kept_ids = {id(story) for story in kept}
-    return [story for story in stories if id(story) in kept_ids]
+    result = [story for story in stories if id(story) in kept_ids]
+    _link_release_artifacts(result)
+    return result
+
+
+def _link_release_artifacts(stories):
+    """Keep model repositories separate while pointing to their announcement."""
+    for story in stories:
+        story.pop("related_artifacts", None)
+        story.pop("related_story_id", None)
+    for artifact in stories:
+        if artifact.get("kind") not in {"model", "repository"}:
+            continue
+        url = canonical_url(artifact.get("url"))
+        if not url or urlsplit(url).hostname not in {"huggingface.co", "github.com"}:
+            continue
+        parts = [part for part in urlsplit(url).path.split("/") if part]
+        if len(parts) != 2 or not re.fullmatch(r"[A-Za-z][A-Za-z0-9.-]{4,}", parts[-1]):
+            continue
+        name = parts[-1].casefold()
+        when = instant(artifact.get("published_at"))
+        candidates = []
+        for story in stories:
+            if story is artifact or story.get("kind") in {"model", "repository", "event"}:
+                continue
+            published = instant(story.get("published_at"))
+            if not when or not published or abs((when - published).total_seconds()) > 72 * 3600:
+                continue
+            coverage = story.get("coverage") or []
+            text = " ".join(str(item.get("title") or "") + " " + str(item.get("summary") or "")
+                            for item in coverage if isinstance(item, dict))
+            if re.search(r"\b" + re.escape(name) + r"\b", text, re.I) and RELEASE_CONTEXT.search(text):
+                candidates.append(story)
+        if candidates:
+            target = max(candidates, key=lambda story: len(story.get("coverage") or []))
+            artifact["related_story_id"] = target["id"]
+            links = target.setdefault("related_artifacts", [])
+            if not any(link.get("story_id") == artifact.get("id") for link in links):
+                links.append({"story_id": artifact["id"], "title": artifact.get("title"), "url": artifact.get("url")})
 
 
 def _fold(target, story):
@@ -523,5 +615,7 @@ def _fold(target, story):
     target["aliases"] = sorted((set(target.get("aliases") or []) | set(story.get("aliases") or [])
                                 | {story.get("id")}) - {target.get("id"), None})
     target["source_count"] = len({publisher_identity(item) for item in coverage if isinstance(item, dict)})
+    target["latest_coverage_at"] = max((item.get("published_at") for item in coverage
+                                        if isinstance(item, dict) and instant(item.get("published_at"))), default=None)
     target["groups"] = sorted({item.get("group", "lab") for item in coverage if isinstance(item, dict)})
     target["primary_section"] = primary_section(coverage)

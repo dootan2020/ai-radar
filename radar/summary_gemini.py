@@ -171,16 +171,16 @@ def parse_response(response: dict, expected_ids: set[str]) -> tuple[dict[str, di
             raise ValueError
         outputs = {document["id"]: document}
 
-        tokens = 0
-        metadata = response.get("usageMetadata", {})
-        if isinstance(metadata, dict) and "totalTokenCount" in metadata:
-            total = metadata["totalTokenCount"]
-            if type(total) is int and total > 0:
-                tokens = total
-
-        return outputs, tokens
+        return outputs, usage_tokens(response)
     except (KeyError, TypeError, ValueError, AttributeError, IndexError):
         raise ProviderError("invalid_response") from None
+
+
+def usage_tokens(response: dict) -> int:
+    """Read provider usage even if its generated content fails validation."""
+    metadata = response.get("usageMetadata") if isinstance(response, dict) else None
+    total = metadata.get("totalTokenCount") if isinstance(metadata, dict) else None
+    return total if type(total) is int and total > 0 else 0
 
 
 def load_cache(path: str | Path) -> dict[str, dict]:

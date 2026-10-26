@@ -22,7 +22,7 @@ from radar import gemini_paid_budget
 from radar import shadow_collector, transport
 from radar.common import web_url
 from radar.summary_sources import (source_record, primary_link, fit_inputs, clear_summary,
-                                   publish_summary, SELECTION_VERSION)
+                                    publish_summary, PUBLIC_SUMMARY_FIELDS, SELECTION_VERSION)
 from radar.summary_validation import validate_summary
 from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
 
@@ -216,6 +216,26 @@ def fetch_article_text(story: dict, robots_cache: dict | None = None) -> str:
     """Compatibility wrapper returning text only for a readable publisher page."""
     return fetch_article_result(story, robots_cache=robots_cache)[0]
 
+
+def fetch_story_article(story, robots_cache, details):
+    """Try one independent coverage page when the representative page is unreadable."""
+    urls = [article_url(story)]
+    urls.extend(c.get("url") for c in story.get("coverage") or [] if isinstance(c, dict))
+    seen = set()
+    reason = "no_url"
+    for url in urls:
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        if len(seen) > 2:
+            break
+        local_details = {}
+        text, reason = fetch_article_result({"url": url}, robots_cache=robots_cache, details=local_details)
+        if text:
+            details.update(local_details)
+            return text, None, url
+    return "", reason, None
+
 # Common Vietnamese words that may appear capitalized at sentence starts
 VN_GRAMMAR_CAPS = {
     "Đây", "Được", "Theo", "Các", "Những", "Người", "Một", "Hai", "Ba", "Bốn", "Năm",
@@ -223,6 +243,7 @@ VN_GRAMMAR_CAPS = {
     "Tại", "Trong", "Ngoài", "Trên", "Dưới", "Để", "Với", "Về", "Bởi", "Công", "Hãng",
     "Mô", "Bản", "Việc", "Nhóm", "Dự", "Tính", "Hiện", "Báo", "Tin", "Nghiên", "Ứng",
     "Hệ", "Cụ", "Thông", "Tổng", "Thực", "Phần", "Toàn", "Quốc", "Mới", "Cũ", "Đã", "Sẽ",
+    "Quy", "Nhà", "Điều",
     "Đang", "Có", "Không", "Chưa", "Nhiều", "Ít", "Lớn", "Nhỏ", "Mạnh", "Yếu", "Nâng", "Hạ"
 }
 
@@ -260,6 +281,37 @@ def article_signature(story):
         for c in story.get("coverage") or [] if isinstance(c, dict)
     ], key=lambda c: json.dumps(c, sort_keys=True))
     return content_hash(stable)
+
+
+def _published_key(story):
+    # New independent coverage must not erase a previously approved account of
+    # the representative article. The evidence cache still uses all coverage.
+    identity = {key: story.get(key) for key in ("id", "url", "title", "summary")}
+    return "published:" + content_hash(identity)
+
+
+def _restore_published(story, cache):
+    """Restore approved public fields when the short-lived article evidence expires."""
+    record = cache.get(_published_key(story))
+    if not isinstance(record, dict) or record.get("key_points_prompt_version") != gemini.PROMPT_VERSION:
+        return False
+    points = record.get("key_points")
+    sources = record.get("summary_sources")
+    if (record.get("key_points_machine") is not True
+            or record.get("key_points_source") != "machine"
+            or not isinstance(points, list) or not 4 <= len(points) <= 8
+            or not all(isinstance(p, str) and p.strip() for p in points)
+            or not isinstance(record.get("editorial_headline_vi"), str)
+            or not record["editorial_headline_vi"].strip()
+            or not isinstance(sources, list) or not sources
+            or not all(isinstance(s, dict) and web_url(s.get("url")) for s in sources)):
+        return False
+    story.update({key: value for key, value in record.items() if key in PUBLIC_SUMMARY_FIELDS})
+    return True
+
+
+def _save_published(story, cache):
+    cache[_published_key(story)] = {key: story[key] for key in PUBLIC_SUMMARY_FIELDS if key in story}
 
 
 def content_hash(inputs: dict[str, Any]) -> str:
@@ -315,8 +367,8 @@ def _record_paid_charge(stats, charges, request_id, estimated_tokens, tokens, no
     stats["settled_micros"] = sum(recorded[rid] for rid in charges)
 
 
-def collect_inputs(story, article_text, links, robots_cache, *, fetch_primary=True, fetched_at=""):
-    url = article_url(story) or ""
+def collect_inputs(story, article_text, links, robots_cache, *, fetch_primary=True, fetched_at="", outlet_url=None):
+    url = outlet_url or article_url(story) or ""
     publisher = next((c.get("publisher") for c in story.get("coverage") or []
                       if isinstance(c, dict) and c.get("url") == url and c.get("publisher")), "")
     outlet = source_record("outlet", "outlet", url, str(story.get("title") or ""), publisher,
@@ -494,6 +546,7 @@ def _request_gemini(stories_batch: list[dict], config: gemini.Config, transport_
         try:
             body = gemini.request_body(stories_batch)
             response = transport_fn(body, config.api_key, timeout)
+            state["tokens"] = gemini.usage_tokens(response)
             expected_ids = {s["id"] for s in stories_batch}
             outputs, tokens = gemini.parse_response(response, expected_ids)
             state["outputs"] = outputs
@@ -538,7 +591,7 @@ def is_in_ranking_window(story: dict, gen_dt: datetime, window_hours: float) -> 
     Matches site/feed.js:
     const t = ms(st.published_at); return t && t >= from && t <= gen + 3e5;
     """
-    pub_dt = instant(story.get("published_at"))
+    pub_dt = instant(story.get("latest_coverage_at")) or instant(story.get("published_at"))
     if not pub_dt:
         return False
     from_dt = gen_dt - timedelta(hours=window_hours)
@@ -613,18 +666,23 @@ def summarize_payload(payload: dict,
             continue
         eligible_stories.append(s)
 
-    # Order stories: highest worth_score first, newest first on ties
+    # One ranking for free and paid queues; legacy payloads use the previous priority.
     def sort_key(s: dict):
         score = story_worth_score(s, gen_dt)
         pub = instant(s.get("published_at"))
         ts = pub.timestamp() if pub else 0.0
         return (score, ts)
 
-    eligible_stories.sort(key=sort_key, reverse=True)
-    if config.paid:
+    if any(isinstance(story.get("importance_weight"), (int, float)) for story in eligible_stories):
+        eligible_stories.sort(key=lambda story: (
+            story.get("importance_weight") or 0,
+            (instant(story.get("published_at")) or gen_dt).timestamp()), reverse=True)
+    elif config.paid:
         ordered, _ = ordered_stories(payload, editor_picks if editor_picks is not None else load_editor_picks())
         order = {id(story): index for index, story in enumerate(ordered)}
-        eligible_stories.sort(key=lambda story: order[id(story)])
+        eligible_stories.sort(key=lambda story: order.get(id(story), len(order)))
+    else:
+        eligible_stories.sort(key=sort_key, reverse=True)
 
     stats = {
         "model": gemini.MODEL_ID,
@@ -652,9 +710,19 @@ def summarize_payload(payload: dict,
 
     request_now = now() if callable(now) else now
     restored = set()
+    eligible_ids = {id(story) for story in eligible_stories}
+    for story in stories:
+        if isinstance(story, dict) and id(story) not in eligible_ids:
+            _restore_published(story, cache)
+    for story in eligible_stories:
+        if _restore_published(story, cache):
+            stats["cache_hits"] += 1
+            restored.add(id(story))
     # The article cache carries the exact evidence used for validation. It can
     # restore every later story even when the first uncached story cannot run.
     for story in eligible_stories:
+        if id(story) in restored:
+            continue
         signature = article_signature(story)
         entry = article_inputs.get(signature)
         if not isinstance(entry, dict) or entry.get("prompt_version") != gemini.PROMPT_VERSION:
@@ -668,6 +736,7 @@ def summarize_payload(payload: dict,
             points, _ = validate_summary(inputs, cached)
             if points:
                 publish_summary(story, points, inputs, gemini.PROMPT_VERSION)
+                _save_published(story, cache)
                 stats["cache_hits"] += 1
                 restored.add(id(story))
     if eligible_stories and len(restored) == len(eligible_stories):
@@ -739,13 +808,14 @@ def summarize_payload(payload: dict,
             article_failures.pop(article_signature(story), None)
         details = {}
         if article_fetch_fn is fetch_article_text:
-            article_text, skip_reason = fetch_article_result(story, robots_cache=shared_robots_cache, details=details)
+            article_text, skip_reason, outlet_url = fetch_story_article(story, shared_robots_cache, details)
         else:
             try:
                 article_text = article_fetch_fn(story, robots_cache=shared_robots_cache)
             except TypeError:
                 article_text = article_fetch_fn(story)
             skip_reason = None
+            outlet_url = None
         if len(article_text or "") < MIN_ARTICLE_TEXT_CHARS:
             skip_reason = skip_reason or "too_short"
             stats["skipped"] += 1
@@ -758,7 +828,8 @@ def summarize_payload(payload: dict,
             continue
         inputs = collect_inputs(story, article_text, details.get("links", []), shared_robots_cache,
                                 fetch_primary=budget - (clock() - started) >= MIN_REQUEST_TIMEOUT,
-                                fetched_at=datetime.fromtimestamp(failure_now, timezone.utc).isoformat())
+                                fetched_at=datetime.fromtimestamp(failure_now, timezone.utc).isoformat(),
+                                outlet_url=outlet_url)
         fitted = fit_story_inputs(inputs, config.max_chars)
         if fitted is None:
             if url_hash:
@@ -783,6 +854,7 @@ def summarize_payload(payload: dict,
             valid_pts, reason = validate_summary(inputs, cached)
             if valid_pts:
                 publish_summary(story, valid_pts, inputs, gemini.PROMPT_VERSION)
+                _save_published(story, cache)
                 stats["cache_hits"] += 1
                 continue
             else:
@@ -798,7 +870,7 @@ def summarize_payload(payload: dict,
                 gemini_paid_budget.ledger_path(), estimated_toks, now=reserve_now, consumer="summary")
             if reserve_err:
                 stats["reservations_refused"] += 1
-            if reserve_err == "paid_summary_daily_tokens":
+            if reserve_err in {"paid_summary_daily_tokens", "paid_run_allowance"}:
                 fitted = fit_paid_inputs(inputs, gemini_paid_budget.remaining_tokens(
                     gemini_paid_budget.ledger_path(), "summary", now=reserve_now))
                 if fitted is None:
@@ -806,6 +878,9 @@ def summarize_payload(payload: dict,
                     stats["skipped"] += 1
                     stats["skipped_reasons"]["input_limit"] = stats["skipped_reasons"].get("input_limit", 0) + 1
                     # Budget-dependent skips must not enter the 24-hour source failure cache.
+                    if (reserve_err == "paid_run_allowance" and gemini_paid_budget.remaining_tokens(
+                            gemini_paid_budget.ledger_path(), "summary", now=reserve_now) <= gemini.MAX_OUTPUT_TOKENS):
+                        break
                     continue
                 if fitted == inputs:
                     stats["error"] = reserve_err
@@ -823,7 +898,7 @@ def summarize_payload(payload: dict,
                 if reserve_err:
                     stats["reservations_refused"] += 1
             stats["error"] = reserve_err
-            if reserve_err == "paid_summary_daily_tokens":
+            if reserve_err in {"paid_summary_daily_tokens", "paid_run_allowance"}:
                 continue
             if reserve_err:
                 break
@@ -953,6 +1028,7 @@ def summarize_payload(payload: dict,
             if valid_pts:
                 publish_summary(story_obj, valid_pts, story_info["inputs"], gemini.PROMPT_VERSION)
                 cache[story_h] = valid_pts
+                _save_published(story_obj, cache)
                 stats["summarized"] += 1
                 if story_info["url_hash"]:
                     article_failures.pop(story_info["url_hash"], None)

@@ -176,6 +176,47 @@ class SummaryTests(unittest.TestCase):
         self.assertEqual(stats["cache_hits"], 0)
         self.assertNotIn("key_points", later)
 
+    def test_approved_summary_survives_expired_evidence_and_reaches_page_projection(self):
+        story = deepcopy(self.fixture_data["stories"][0])
+        story["importance_tier"] = "top"
+        cache, evidence = {}, {}
+        stats, _ = summary_pipeline.summarize_payload(
+            {"stories": [story]}, cache, article_inputs=evidence,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            transport_fn=self.transport_ok, ledger_path=self.ledger_path, now=lambda: 100000.0)
+        self.assertEqual(stats["summarized"], 1)
+        restored = deepcopy(story)
+        restored.pop("key_points")
+        with patch.object(summary_pipeline, "fetch_article_result", side_effect=AssertionError("no fetch")):
+            stats, _ = summary_pipeline.summarize_payload(
+                {"stories": [restored]}, cache, article_inputs={},
+                config=gemini.Config(), now=lambda: 100000.0 + 2 * 86400)
+        self.assertEqual(stats["cache_hits"], 1)
+        self.assertEqual(stats["requests"], 0)
+        projected = page_payload({"stories": [restored]})["stories"][0]
+        self.assertEqual(projected["key_points"], story["key_points"])
+        self.assertEqual(projected["key_points_prompt_version"], gemini.PROMPT_VERSION)
+        self.assertTrue(projected["summary_sources"])
+        self.assertNotIn("paragraphs", json.dumps(projected))
+
+        expanded = deepcopy(restored)
+        expanded.setdefault("coverage", []).append({"url": "https://independent.example/report",
+                                                     "publisher": "Independent Press",
+                                                     "summary": "A second outlet reported the event."})
+        stats, _ = summary_pipeline.summarize_payload(
+            {"stories": [expanded]}, cache, article_inputs={}, config=gemini.Config(),
+            now=lambda: 100000.0 + 2 * 86400)
+        self.assertEqual(stats["cache_hits"], 1)
+        self.assertEqual(expanded["key_points"], story["key_points"])
+
+        changed = deepcopy(restored)
+        changed["summary"] = "A materially changed publisher excerpt."
+        stats, _ = summary_pipeline.summarize_payload(
+            {"stories": [changed]}, cache, article_inputs={}, config=gemini.Config(),
+            now=lambda: 100000.0 + 2 * 86400)
+        self.assertEqual(stats["cache_hits"], 0)
+        self.assertNotIn("key_points", changed)
+
     def test_rejection_cooldown_expires(self):
         story = deepcopy(self.fixture_data["stories"][0])
         failures = {summary_pipeline.article_signature(story): {"reason": "validation_rejected", "time": 100000.0}}
@@ -849,7 +890,7 @@ class SummaryTests(unittest.TestCase):
         # Verify cache persisted
         self.assertTrue(cache.exists())
         loaded_cache = gemini.load_cache(cache)
-        self.assertEqual(len(loaded_cache), 1)
+        self.assertEqual(len(loaded_cache), 2)
 
         # Verify GITHUB_OUTPUT
         self.assertTrue(gh.exists())

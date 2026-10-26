@@ -221,6 +221,9 @@ def _read(path: Path, now: float):
             name not in CONSUMER_TOKENS or type(amount) is not int or not 0 <= amount <= _micros(CONSUMER_TOKENS[name], now)
             for name, amount in remaining.items())):
         return None
+    for key in ("monthly_remaining_micros", "daily_remaining_micros"):
+        if key in data and (type(data[key]) is not int or data[key] < 0):
+            return None
     if not isinstance(data.get("video_dates", []), list) or any(
             not isinstance(day, str) for day in data.get("video_dates", [])):
         return None
@@ -284,6 +287,9 @@ def prepare(path: str | Path, *, paid: bool, now: float | None = None, run_numbe
                     "run_day": store["pending_days"].get(run_key),
                     "consumer_remaining_micros": _consumer_remaining(store, now, exclude_run=run_key),
                     "video_dates": store.get("video_dates", [])}
+            if paid:
+                data["monthly_remaining_micros"] = monthly_remaining
+                data["daily_remaining_micros"] = daily_remaining
             write_atomic(data, path)
             return None
         except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
@@ -425,8 +431,14 @@ def reserve(path: str | Path, estimated_tokens: int, *, now: float | None = None
         allowance = data.get("run_allowance_micros", min(cap_micros, max_run_allowance))
         if type(allowance) is not int or allowance < 0 or allowance > max_run_allowance:
             return MISSING_CODE, None
-        if used + amount > allowance or used + amount > cap_micros:
+        if used + amount > cap_micros:
             return "paid_monthly_cap", None
+        if used + amount > data.get("monthly_remaining_micros", cap_micros):
+            return "paid_monthly_cap", None
+        if used + amount > data.get("daily_remaining_micros", int(DAILY_PACE_USD * 1_000_000)):
+            return "paid_daily_cap", None
+        if used + amount > allowance:
+            return "paid_run_allowance", None
         if estimated_tokens > remaining_tokens(path, consumer, now=now, run_number=run_number):
             return "paid_" + consumer + "_daily_tokens", None
         data["reservations"].append({"id": request_id, "micros": amount, "consumer": consumer})

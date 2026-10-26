@@ -18,8 +18,14 @@ def ordered_stories(payload, editor_picks=None):
             hours = 72
     except (ValueError, TypeError):
         hours = 72
-    active = [s for s in stories if instant(s.get("published_at"))
-              and generated - timedelta(hours=hours) <= instant(s["published_at"]) <= generated + timedelta(minutes=5)]
+    def latest(story):
+        return instant(story.get("latest_coverage_at")) or instant(story.get("published_at"))
+    active = [s for s in stories if latest(s)
+              and generated - timedelta(hours=hours) <= latest(s) <= generated + timedelta(minutes=5)]
+    if any(isinstance(s.get("importance_weight"), (int, float)) for s in active):
+        ranked = sorted(active, key=lambda s: (s.get("importance_weight") or 0,
+                       (latest(s) or generated).timestamp()), reverse=True)
+        return ranked + [s for s in stories if s not in ranked], {id(s) for s in active}
     if editor_picks is None:
         editor_picks = payload.get("editor_picks", [])
     pins = []
