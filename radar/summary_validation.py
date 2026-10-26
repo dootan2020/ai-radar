@@ -135,14 +135,22 @@ def entity_error(text, evidence):
     # These cross-language renderings remain an explicit fallback for names
     # whose Vietnamese words alone cannot identify them as proper names.
     for source, vietnamese in (
-        ("Silicon Valley", "Thung lũng Silicon"),
-        ("European Union", "Liên minh châu Âu"),
-        ("United States", "Hoa Kỳ"),
+        (r"(?i:Silicon Valley)", "Thung lũng Silicon"),
+        (r"(?i:European Union)", "Liên minh châu Âu"),
+        (r"(?i:United States)|U\.S\.|US", "Hoa Kỳ"),
     ):
         if re.search(r"(?<!\w)" + re.escape(vietnamese) + r"(?!\w)", text, re.I):
-            if folded(source) not in folded(evidence):
+            if not re.search(r"(?<!\w)(?:" + source + r")(?!\w)", evidence):
                 return "unsupported_name: " + vietnamese
             text = re.sub(r"(?<!\w)" + re.escape(vietnamese) + r"(?!\w)", " ", text, flags=re.I)
+    # A cited surname can support the conventional full name of that same person.
+    # Keep the mapping narrow: an unrelated given name must still fail.
+    for full_name, surname in (("Donald Trump", "Trump"), ("Elon Musk", "Musk")):
+        if re.search(r"(?<!\w)" + re.escape(surname) + r"(?!\w)", evidence):
+            text = re.sub(r"(?<!\w)" + re.escape(full_name) + r"(?!\w)", " ", text)
+    # Ai2 is the Allen Institute for AI's published short name.
+    if re.search(r"(?<!\w)Ai2(?!\w)", evidence, re.I):
+        text = re.sub(r"(?<!\w)(?:Viện Allen|Allen Institute(?: for AI)?)(?!\w)", " ", text)
     allowed = {folded(token) for token in ENTITY_WORD.findall(evidence)}
     for word in ENTITY_WORD.findall(text):
         if (word[0].isupper() and not vietnamese_syllable(word)

@@ -31,7 +31,7 @@ SUMMARY_RETRY_DELAY = 0.25
 DEFAULT_BUDGET = 180.0
 MIN_REQUEST_TIMEOUT = 3.0
 ARTICLE_FAILURE_TTL = 24 * 60 * 60
-VALIDATION_FAILURE_CACHE_TAG = "vietnamese-syllables-and-evidence-2"
+VALIDATION_FAILURE_CACHE_TAG = "supported-name-aliases-3"
 PAYWALL_TEXT = re.compile(
     r"\b(?:subscribe to (?:read|continue)|sign in to (?:read|continue)|"
     r"subscriber[- ]only|members[- ]only|unlock the full article|please subscribe)\b",
