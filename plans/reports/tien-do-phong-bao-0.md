@@ -61,3 +61,11 @@ Lucy chạy discovery live, năm lệnh bàn duyệt trên 150 story, rồi eval
 - Batch tối đa 32 story/60.000 ký tự qua stdin Codex; agy dùng argv được chia ở 24.000 ký tự. Reporter bỏ gọi boat khi không có candidate, chỉ gửi excerpt 900 ký tự; editor nhận excerpt 1.200 ký tự; checker nhận claim và các đoạn nguồn liên quan.
 - `run --from editor --through chief` cho phép Lucy tính lại job cũ, bỏ quyết định cũ trước khi tính. Fixture bảy case thật từ live và các test bảo vệ mọi loại rác đã được thêm. Chưa chạy boat/model hoặc sửa `phong-bao/jobs/`; lượt chấm 150 tin mới thuộc Lucy.
 - Kiểm chứng bản cuối: `python -m unittest tests.test_phong_bao` cho `Ran 26 tests in 0.672s`, `OK`; `python -m unittest discover -s tests` cho `Ran 1392 tests in 277.495s`, `OK (skipped=8)`. Cả hai exit 0; `git diff --check` exit 0.
+
+## Round 6: cô lập row lỗi, giữ raw reply và quyết định cũ
+
+- Nguyên nhân: `_editor` ném lỗi khi một row JSON hợp lệ thiếu trường bắt buộc, khiến toàn desk batch bị mất. Prompt đã nêu các trường round 5, nhưng chưa nói rõ giới hạn tối đa tám claims và 520 ký tự/claim như validator yêu cầu.
+- Reporter, editor và checker ghi các row JSON đã parse vào `raw/<desk>-<n>.json`. Row sai schema được thử lại riêng một lần; nếu vẫn sai, desk ghi `invalid_rows`, reporter/checker hạ chứng cứ, còn editor đặt `editor_invalid` và đưa tin qua nhánh publish standard không summary. Lỗi batch/ID và admission stop vẫn dừng desk.
+- Prompt editor nay nêu rõ tối đa tám claims, mỗi claim 1–520 ký tự. `--from` không xóa `quyet-dinh.json`; file cũ chỉ bị thay khi lượt chief mới ghi quyết định hoàn chỉnh.
+- Không chạy boat/model, không sửa `phong-bao/jobs/`. Có regression tests cho retry row riêng, raw files, suy giảm sau lần retry lỗi và giữ quyết định qua rerun thất bại.
+- Kiểm chứng bản cuối: `python -m unittest tests.test_phong_bao` cho `Ran 28 tests in 1.386s`, `OK`; `python -m unittest discover -s tests` cho `Ran 1394 tests in 354.396s`, `OK (skipped=8)`. `git diff --check` exit 0.

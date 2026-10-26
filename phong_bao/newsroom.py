@@ -40,7 +40,7 @@ EDITOR_PROMPT = ("You are a newsroom editor. Decide whether each card is an actu
                  "but marked the October 8 Anthropic Cyber Mission and October 13 Qwen glasses launches as non-junk. "
                  "Vendor product announcements are news, not vendor_sales. "
                  "A missing or short source is uncertainty, not junk: use the title and teaser to classify the event, "
-                 "and return no claims without source support. Never use source_count as proof. "
+                 "and return no claims without source support. Return at most 8 distinct claims, each 1 to 520 characters. Never use source_count as proof. "
                  "Reject advertising, customer case studies, tutorials, incidental AI, social chatter without an event, "
                  "and genuinely stale resurfacing. Separate unrelated coverage IDs.")
 REPORTER_PROMPT = "You are a reporter. Read each public article excerpt. If the representative article is unreadable, choose at most one readable candidate from a different publisher about the exact same event, or null. A 403 is not evidence of paywall. Never bypass robots, sign in, or infer facts from source_count. Return each {id, selected_url:string|null, same_event:boolean, reason:string}."
@@ -171,14 +171,18 @@ def _batches(rows, max_chars=MAX_BATCH_CHARS):
         yield batch
 
 
-def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner, *, boat_exclude=()):
+def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner, *, boat_exclude=(), raw_dir=None):
     candidates = [tool for tool in providers(capability, tools, discovery, boat_exclude=boat_exclude)
                   if tool.get("runner") == "batch-cli"]
     if not candidates:
         raise RunnerError(f"no configured batch CLI for {desk} on an eligible boat")
     output, batches = {}, []
 
+    existing_raw = list(Path(raw_dir).glob(f"{desk}-*.json")) if raw_dir is not None and Path(raw_dir).exists() else []
+    batch_number = max((int(path.stem.removeprefix(f"{desk}-")) for path in existing_raw), default=0)
+
     def send(batch, index=0):
+        nonlocal batch_number
         provider = candidates[index]
         limit = ARGUMENT_BATCH_CHARS if provider.get("prompt_transport") == "argument" else MAX_BATCH_CHARS
         for part in _batches(batch, limit):
@@ -191,6 +195,10 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
                     raise RunnerError(f"{provider['id']}: {error}") from error
                 send(part, index + 1)
                 continue
+            batch_number += 1
+            if raw_dir is not None:
+                _write_json(Path(raw_dir) / f"{desk}-{batch_number}.json",
+                            {"desk": desk, "batch": batch_number, "provider": provider["id"], "stories": result.rows})
             for row in result.rows:
                 output[row["id"]] = {**row, "provider": provider["id"], "boat": provider.get("boat")}
             batches.append({"provider": provider["id"], **result.usage})
@@ -200,7 +208,7 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
     return output, batches
 
 
-def _reporter(stories, intake, articles, tools, discovery, runner, corpus):
+def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_dir=None):
     readers = providers("doc-bai", tools, discovery)
     searchers = providers("tim-kiem", tools, discovery)
     if not any(tool.get("runner") == "http-fetch" for tool in readers):
@@ -241,26 +249,37 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus):
             payload.append({"id": story["id"], "title": story["title"], "published_at": story.get("published_at"),
                             "representative_url": story["url"], "representative_status": statuses[story["id"]],
                             "candidates": [{**candidate, "text": candidate["text"][:REPORTER_EXCERPT_LIMIT]} for candidate in candidates]})
-    replies, usage = _agent_desk("reporter", payload, REPORTER_PROMPT, "doc-bai", tools, discovery, runner) if payload else ({}, [])
+    replies, usage = _agent_desk("reporter", payload, REPORTER_PROMPT, "doc-bai", tools, discovery, runner, raw_dir=raw_dir) if payload else ({}, [])
     output = {}
     for story in stories:
         row = replies.get(story["id"])
+        invalid = bool(row and (type(row.get("same_event")) is not bool or
+                                (row.get("selected_url") is not None and not isinstance(row.get("selected_url"), str))))
+        if invalid:
+            retry_payload = next(item for item in payload if item["id"] == story["id"])
+            retry, retry_usage = _agent_desk("reporter", [retry_payload], REPORTER_PROMPT, "doc-bai", tools,
+                                             discovery, runner, raw_dir=raw_dir)
+            usage.extend(retry_usage)
+            row = retry.get(story["id"])
+            invalid = bool(row and (type(row.get("same_event")) is not bool or
+                                    (row.get("selected_url") is not None and not isinstance(row.get("selected_url"), str))))
         url = row.get("selected_url") if row else None
         candidate = source_map.get(story["id"], {}).get(url)
-        valid = bool(candidate and row.get("same_event") is True and (url == story["url"] or candidate["publisher"] != _publisher(story["url"])))
-        reason = (_reason(row.get("reason"), "source selected") if valid else
+        valid = bool(not invalid and candidate and row.get("same_event") is True and (url == story["url"] or candidate["publisher"] != _publisher(story["url"])))
+        reason = "reporter_invalid" if invalid else (_reason(row.get("reason"), "source selected") if valid else
                   _reason(row.get("reason"), "no readable same-event source") if row and not url else
                   "selected source is unreadable, wrong-event, or not independent" if row else
                   "no readable same-event candidate" if intake[story["id"]]["pass"] else "intake hold")
         output[story["id"]] = {"id": story["id"], "readable": valid, "selected_url": url if valid else None,
                                "source_text": candidate["text"] if valid else "",
                                "reason": reason,
+                               "invalid_response": invalid,
                                "representative_status": statuses.get(story["id"], "not_checked"),
                                "provider": row.get("provider") if row else None, "boat": row.get("boat") if row else None}
     return output, usage
 
 
-def _editor(stories, intake, reporter, tools, discovery, runner):
+def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
     payload = []
     for story in stories:
         if not intake[story["id"]]["pass"]:
@@ -273,7 +292,7 @@ def _editor(stories, intake, reporter, tools, discovery, runner):
                         "source_url": reporter[story["id"]]["selected_url"],
                         "source_status": reporter[story["id"]]["representative_status"],
                         "source_excerpt": reporter[story["id"]]["source_text"][:EDITOR_EXCERPT_LIMIT]})
-    replies, usage = _agent_desk("editor", payload, EDITOR_PROMPT, "bien-tap", tools, discovery, runner) if payload else ({}, [])
+    replies, usage = _agent_desk("editor", payload, EDITOR_PROMPT, "bien-tap", tools, discovery, runner, raw_dir=raw_dir) if payload else ({}, [])
     output = {}
     for story in stories:
         row = replies.get(story["id"])
@@ -289,22 +308,36 @@ def _editor(stories, intake, reporter, tools, discovery, runner):
                      and isinstance(row.get("event_type"), str) and row["event_type"].strip()
                      and isinstance(row.get("importance"), str) and row["importance"] in {"top", "notable", "standard"}
                      and (row.get("event_at") is None or isinstance(row.get("event_at"), str)))
-        if row and row.get("news") is True and not valid:
-            raise RunnerError(f"invalid editorial response for {story['id']}")
-        if row and row.get("news") is False and row.get("junk_kind") not in JUNK_KINDS:
-            raise RunnerError(f"editor gave no recognized junk kind for {story['id']}")
-        if row and type(row.get("news")) is not bool:
-            raise RunnerError(f"editor gave no news verdict for {story['id']}")
+        invalid = bool(row and (type(row.get("news")) is not bool or not valid or
+                                row.get("news") is False and row.get("junk_kind") not in JUNK_KINDS))
+        if invalid:
+            retry, retry_usage = _agent_desk("editor", [next(item for item in payload if item["id"] == story["id"])],
+                                             EDITOR_PROMPT, "bien-tap", tools, discovery, runner, raw_dir=raw_dir)
+            usage.extend(retry_usage)
+            row = retry.get(story["id"])
+            same = row.get("same_event_coverage_ids") if row else []
+            claims = row.get("claims") if row else None
+            valid = bool(row and isinstance(same, list) and all(isinstance(value, str) for value in same)
+                         and set(same) <= coverage_ids and isinstance(claims, list) and len(claims) <= 8
+                         and all(isinstance(c, str) and 0 < len(c.strip()) <= 520 for c in claims)
+                         and len({c.casefold().strip() for c in claims}) == len(claims)
+                         and isinstance(row.get("subject"), str) and row["subject"].strip()
+                         and isinstance(row.get("event_type"), str) and row["event_type"].strip()
+                         and isinstance(row.get("importance"), str) and row["importance"] in {"top", "notable", "standard"}
+                         and (row.get("event_at") is None or isinstance(row.get("event_at"), str)))
+            invalid = bool(row and (type(row.get("news")) is not bool or not valid or
+                                    row.get("news") is False and row.get("junk_kind") not in JUNK_KINDS))
         if not valid:
             same = []
         representative_ids = {c["id"] for c in story.get("coverage") or [] if isinstance(c, dict) and isinstance(c.get("id"), str)
                               and _same_rep_url(c.get("url"), story.get("url"))}
         same = sorted(set(same) | representative_ids)
-        output[story["id"]] = {"id": story["id"], "news": valid and row.get("news") is True if row else False,
-                               "reason": _reason(row.get("reason"), "editor marked junk") if row else "earlier desk hold",
+        output[story["id"]] = {"id": story["id"], "news": True if invalid else valid and row.get("news") is True if row else False,
+                               "reason": "editor_invalid" if invalid else _reason(row.get("reason"), "editor marked junk") if row else "earlier desk hold",
+                               "invalid_response": invalid,
                                "junk_kind": row.get("junk_kind") if row and row.get("news") is False else None,
                                "subject": row.get("subject") if row else None, "event_type": row.get("event_type") if row else None,
-                               "importance": row.get("importance", "standard") if row and row.get("news") is True else "standard",
+                               "importance": row.get("importance", "standard") if row and row.get("news") is True and not invalid else "standard",
                                "event_at": row.get("event_at") if row and row.get("news") is True else None,
                                "claims": row.get("claims", []) if valid and row.get("news") is True else [],
                                "same_event_coverage_ids": same,
@@ -313,7 +346,7 @@ def _editor(stories, intake, reporter, tools, discovery, runner):
     return output, usage
 
 
-def _checker(stories, intake, reporter, editor, tools, discovery, runner):
+def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_dir=None):
     def cited_paragraphs(text, title, claims):
         paragraphs = [part.strip()[offset:offset + 400]
                       for part in text.splitlines() if len(part.strip()) >= 35
@@ -337,17 +370,28 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner):
     replies, usage = {}, []
     for boat, payload in payload_by_boat.items():
         group_replies, group_usage = _agent_desk("checker", payload, CHECKER_PROMPT, "kiem-chung", tools, discovery, runner,
-                                                 boat_exclude={boat})
+                                                 boat_exclude={boat}, raw_dir=raw_dir)
         replies.update(group_replies)
         usage.extend(group_usage)
     output = {}
     for story in stories:
         row = replies.get(story["id"])
+        editor_boat = editor[story["id"]]["boat"]
+        invalid = bool(row and (row.get("boat") == editor_boat or
+                                type(row.get("title_supported", row.get("verified"))) is not bool or
+                                not isinstance(row.get("supported_claims", []), list)))
+        if invalid:
+            retry_payload = next(item for rows in payload_by_boat.values() for item in rows if item["id"] == story["id"])
+            retry, retry_usage = _agent_desk("checker", [retry_payload], CHECKER_PROMPT, "kiem-chung", tools,
+                                             discovery, runner, boat_exclude={editor_boat}, raw_dir=raw_dir)
+            usage.extend(retry_usage)
+            row = retry.get(story["id"])
+            invalid = bool(row and (row.get("boat") == editor_boat or
+                                    type(row.get("title_supported", row.get("verified"))) is not bool or
+                                    not isinstance(row.get("supported_claims", []), list)))
         evidence = reporter[story["id"]]["source_text"]
         claims = editor[story["id"]]["claims"]
-        if row and row.get("boat") == editor[story["id"]]["boat"]:
-            raise RunnerError(f"checker used the editor boat for {story['id']}")
-        supported = row.get("supported_claims", []) if row else []
+        supported = row.get("supported_claims", []) if row and not invalid else []
         if not isinstance(supported, list):
             supported = []
         supported = [claim for claim in claims if claim in supported and not number_error(claim, evidence)] if evidence else []
@@ -359,7 +403,7 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner):
         output[story["id"]] = {"id": story["id"], "verified": verified,
                                "title_supported": title_supported, "supported_claims": supported,
                                "rejected_claims": [claim for claim in claims if claim not in supported],
-                               "reason": reason,
+                               "reason": "checker_invalid" if invalid else reason, "invalid_response": invalid,
                                "provider": row.get("provider") if row else None, "boat": row.get("boat") if row else None}
     return output, usage
 
@@ -439,7 +483,6 @@ def run(input_path, job, tools, discovery, runner, *, through="chief", articles=
             raise ValueError("rerun start must not follow the requested last desk")
         for desk in DESKS[DESKS.index(rerun_from):]:
             status["desks"].pop(desk, None)
-        (job / "quyet-dinh.json").unlink(missing_ok=True)
         _write_json(status_path, status)
     articles = articles or Articles()
     corpus = load_stories(corpus_path)[1] if corpus_path else stories
@@ -455,17 +498,19 @@ def run(input_path, job, tools, discovery, runner, *, through="chief", articles=
             if desk == "intake":
                 output, usage = _intake(stories, now), []
             elif desk == "reporter":
-                output, usage = _reporter(stories, state["intake"], articles, tools, discovery, runner, corpus)
+                output, usage = _reporter(stories, state["intake"], articles, tools, discovery, runner, corpus, job / "raw")
             elif desk == "editor":
-                output, usage = _editor(stories, state["intake"], state["reporter"], tools, discovery, runner)
+                output, usage = _editor(stories, state["intake"], state["reporter"], tools, discovery, runner, job / "raw")
             elif desk == "checker":
-                output, usage = _checker(stories, state["intake"], state["reporter"], state["editor"], tools, discovery, runner)
+                output, usage = _checker(stories, state["intake"], state["reporter"], state["editor"], tools, discovery, runner, job / "raw")
             else:
                 output, usage = _chief(stories, state["intake"], state["reporter"], state["editor"], state["checker"], now), []
             _write_json(path, output)
             state[desk] = output
             status["desks"][desk] = {"state": "done", "completed_at": datetime.now(timezone.utc).isoformat(),
-                                      "count": len(output), "batches": usage}
+                                      "count": len(output),
+                                      "invalid_rows": sum(bool(row.get("invalid_response")) for row in (output.values() if isinstance(output, dict) else output)),
+                                      "batches": usage}
             if desk == "chief":
                 _write_json(job / "quyet-dinh.json", {"schema_version": 1, "generated_at": datetime.now(timezone.utc).isoformat(),
                                                      "input_generated_at": generated_at, "decisions": output})

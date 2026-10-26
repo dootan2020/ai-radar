@@ -220,7 +220,61 @@ class NewsroomTests(unittest.TestCase):
             self.assertNotEqual(editor[first]["boat"], checker[first]["boat"])
             self.assertEqual(status["desks"]["reporter"]["batches"][0]["batch_size"], 3)
             self.assertEqual(status["desks"]["reporter"]["batches"][0]["source"], "character_estimate")
+            self.assertTrue((job / "raw" / "reporter-1.json").exists())
+            self.assertTrue((job / "raw" / "editor-1.json").exists())
+            self.assertTrue((job / "raw" / "checker-1.json").exists())
             self.assertEqual(evaluate(job / "quyet-dinh.json", FIXTURES / "labels.json")["junk_leaked"], 0)
+
+    def test_invalid_editor_row_retries_alone_then_publishes_degraded(self):
+        class OneBadEditorRow(FixtureRunner):
+            def __init__(self, replies):
+                super().__init__(replies)
+                self.editor_calls = []
+                self.invalid_id = None
+
+            def run(self, desk, rows, provider, instruction):
+                result = super().run(desk, rows, provider, instruction)
+                if desk == "editor":
+                    self.editor_calls.append([row["id"] for row in rows])
+                    if self.invalid_id is None:
+                        self.invalid_id = rows[0]["id"]
+                    for row in result.rows:
+                        if row["id"] == self.invalid_id:
+                            row.pop("subject", None)
+                return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            job = Path(directory) / "job"
+            runner = OneBadEditorRow(fixture("responses.json"))
+            status = run(FIXTURES / "snapshot.json", job, self.tools, self.discovery, runner,
+                         articles=self.articles)
+            self.assertEqual(len(runner.editor_calls), 2)
+            self.assertEqual(len(runner.editor_calls[1]), 1)
+            decisions = json.loads((job / "quyet-dinh.json").read_text(encoding="utf-8"))["decisions"]
+            self.assertEqual(decisions[0]["decision"], "publish")
+            self.assertEqual(decisions[0]["importance_tier"], "standard")
+            self.assertEqual(decisions[0]["summary"], "none")
+            editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
+            self.assertEqual(editor[decisions[0]["id"]]["reason"], "editor_invalid")
+            self.assertEqual(status["desks"]["editor"]["invalid_rows"], 1)
+            self.assertTrue((job / "raw" / "editor-2.json").exists())
+
+    def test_failed_rerun_keeps_previous_decisions_file(self):
+        class EditorFailure(FixtureRunner):
+            def run(self, desk, rows, provider, instruction):
+                if desk == "editor":
+                    raise RunnerError("temporary editor failure")
+                return super().run(desk, rows, provider, instruction)
+
+        with tempfile.TemporaryDirectory() as directory:
+            job = Path(directory) / "job"
+            run(FIXTURES / "snapshot.json", job, self.tools, self.discovery, self.runner, articles=self.articles)
+            decisions_path = job / "quyet-dinh.json"
+            previous = decisions_path.read_bytes()
+            with self.assertRaises(RunnerError):
+                run(FIXTURES / "snapshot.json", job, self.tools, self.discovery, EditorFailure(fixture("responses.json")),
+                    articles=self.articles, rerun_from="editor")
+            self.assertEqual(decisions_path.read_bytes(), previous)
 
     def test_checker_without_second_boat_stops_job(self):
         discovery = {**self.discovery, "commands": ["python", "codex"]}
