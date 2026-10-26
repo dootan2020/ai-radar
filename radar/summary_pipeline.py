@@ -31,7 +31,7 @@ SUMMARY_RETRY_DELAY = 0.25
 DEFAULT_BUDGET = 180.0
 MIN_REQUEST_TIMEOUT = 3.0
 ARTICLE_FAILURE_TTL = 24 * 60 * 60
-VALIDATION_FAILURE_CACHE_TAG = "supported-name-aliases-3"
+VALIDATION_FAILURE_CACHE_TAG = "source-wide-entity-evidence-4"
 PAYWALL_TEXT = re.compile(
     r"\b(?:subscribe to (?:read|continue)|sign in to (?:read|continue)|"
     r"subscriber[- ]only|members[- ]only|unlock the full article|please subscribe)\b",
@@ -771,7 +771,8 @@ def _summarize_once(payload: dict,
             continue
         cached = cache.get(content_hash(inputs))
         if cached:
-            points, _ = validate_summary(inputs, cached)
+            points, _ = validate_summary(inputs, cached,
+                                         source_entity_evidence=entry.get("source_entity_evidence"))
             if points:
                 publish_summary(story, points, inputs, gemini.PROMPT_VERSION)
                 _save_published(story, cache)
@@ -877,6 +878,9 @@ def _summarize_once(payload: dict,
                                 fetch_primary=budget - (clock() - started) >= MIN_REQUEST_TIMEOUT,
                                 fetched_at=datetime.fromtimestamp(failure_now, timezone.utc).isoformat(),
                                 outlet_url=outlet_url)
+        source_entity_evidence = {
+            source["id"]: " ".join(p["text"] for p in source["paragraphs"])
+            for source in inputs["sources"]}
         fitted = fit_story_inputs(inputs, config.max_chars)
         if fitted is None:
             if url_hash:
@@ -891,14 +895,17 @@ def _summarize_once(payload: dict,
             stats["trimmed"] += 1
         inputs = fitted
         article_inputs[article_signature(story)] = {
-            "inputs": inputs, "time": failure_now, "prompt_version": gemini.PROMPT_VERSION}
+            "inputs": inputs, "source_entity_evidence": source_entity_evidence,
+            "time": failure_now, "prompt_version": gemini.PROMPT_VERSION}
         chash = content_hash(inputs)
-        story_map[sid] = {"story": story, "inputs": inputs, "hash": chash, "url_hash": url_hash}
+        story_map[sid] = {"story": story, "inputs": inputs, "hash": chash,
+                          "source_entity_evidence": source_entity_evidence, "url_hash": url_hash}
 
         # Check content cache
         cached = cache.get(chash)
         if cached:
-            valid_pts, reason = validate_summary(inputs, cached)
+            valid_pts, reason = validate_summary(inputs, cached,
+                                                 source_entity_evidence=source_entity_evidence)
             if valid_pts:
                 publish_summary(story, valid_pts, inputs, gemini.PROMPT_VERSION)
                 _save_published(story, cache)
@@ -1071,7 +1078,9 @@ def _summarize_once(payload: dict,
 
         candidate_pts = outputs.get(sid)
         if candidate_pts:
-            valid_pts, reason = validate_summary(story_info["inputs"], candidate_pts)
+            valid_pts, reason = validate_summary(
+                story_info["inputs"], candidate_pts,
+                source_entity_evidence=story_info["source_entity_evidence"])
             if valid_pts:
                 publish_summary(story_obj, valid_pts, story_info["inputs"], gemini.PROMPT_VERSION)
                 cache[story_h] = valid_pts

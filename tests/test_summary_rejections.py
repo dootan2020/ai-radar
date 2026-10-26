@@ -13,15 +13,18 @@ CASES = json.loads((Path(__file__).parent / "fixtures" / "summary-rejections" /
 
 class RejectedSummaryCases(unittest.TestCase):
     def test_source_backed_claims_and_real_inventions(self):
-        self.assertEqual(len(CASES), 20)
+        self.assertEqual(len(CASES), 27)
         for case in CASES:
             with self.subTest(story=case["id"], reason=case["reason"]):
                 if case.get("check") == "partial_flag":
                     error = self.partial_flag_error(case)
                 else:
+                    entity_evidence = " ".join([case["evidence"], *case.get("article_paragraphs", [])])
                     error = claim_error({"text": case["claim"],
                                          "evidence_refs": case.get("evidence_refs", ["p"])},
-                                        {"p": case["evidence"]}, {"p"}, max_length=520)
+                                        {"p": case["evidence"]}, {"p"}, max_length=520,
+                                        entity_evidence=entity_evidence,
+                                        publication_years=case.get("publication_years", ()))
                 if case["verdict"] == "false":
                     self.assertIsNone(error)
                 else:
