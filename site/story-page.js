@@ -1,4 +1,4 @@
-/* AIBit News · site/story-page.js
+/* Halcyon · site/story-page.js
    Boot script for static story pages (site/tin/<story id>/index.html).
    Reads story data from #story-data JSON script and hydrates #story-root
    using the shared renderStoryHTML function from site/story.js.

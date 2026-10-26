@@ -1,4 +1,4 @@
-/* AIBit News · renders the complete reader snapshot (schema v2) as the "Bento Keynote" page (docs/ngon-ngu-thiet-ke.md).
+/* Halcyon · renders the complete reader snapshot (schema v2) as the "Bento Keynote" page (docs/ngon-ngu-thiet-ke.md).
    Plain ES modules, no framework, no build. Every data string passes through esc(); every link through safe().
    Each tile is one story: a source logo, one measured number, a label. A tile with no data hides or says so. */
 import { canCalendar, downloadIcs, gcalURL, verifiedNote } from './calendar.js';
@@ -108,7 +108,7 @@ const KIND_ICON = {model:'i-k-model', product:'i-k-product', research:'i-k-resea
 const kindTag = st => `<span class="kind" data-kind="${esc(st.kind)}">${icon(KIND_ICON[st.kind] || 'i-k-article')}${kindName(st)}</span>`;
 const faceSt = st => faceOfStory(st, SRC);
 const viewsOf = id => (D.views && D.views.by_story && Number.isFinite(D.views.by_story[id])) ? D.views.by_story[id] : null;
-const viewsEl = (n, id) => `<span class="views" title="Lượt xem trên AIBit News">${icon('i-eye')}<span class="num" data-views="${esc(id)}" data-v="${n}">${fmt(n)}</span><span class="sr"> lượt xem</span></span>`;
+const viewsEl = (n, id) => `<span class="views" title="Lượt xem trên Halcyon">${icon('i-eye')}<span class="num" data-views="${esc(id)}" data-v="${n}">${fmt(n)}</span><span class="sr"> lượt xem</span></span>`;
 function metricsHTML(c){
   if (!c.metrics) return '';
   return Object.entries(c.metrics).filter(([,v]) => typeof v === 'number' && Number.isFinite(v))
@@ -332,7 +332,7 @@ function renderBoard(split = false, reveal = true){
   const board = $('#board');
   const loading = !reveal ? board.querySelector('.reader-fallback')?.outerHTML || '' : '';
   if (!D.stories.length) {
-    board.innerHTML = loading + `<div class="tile t-empty" role="status">${avatar({kind:'brand', label:'AIBit News'}, 'lg')}<h2>Bản tin này chưa có tin nào</h2><p class="muted">Dữ liệu tạo lúc ${esc(exact(D.generated_at))} không chứa tin. Trang không điền tin mẫu.</p></div>`;
+    board.innerHTML = loading + `<div class="tile t-empty" role="status">${avatar({kind:'brand', label:'Halcyon'}, 'lg')}<h2>Bản tin này chưa có tin nào</h2><p class="muted">Dữ liệu tạo lúc ${esc(exact(D.generated_at))} không chứa tin. Trang không điền tin mẫu.</p></div>`;
     if (reveal) revealBoard();
     return '';
   }
@@ -377,7 +377,7 @@ function leadTile(L){
     ${cov}
     <div class="lead-foot">
       ${st.hot_score != null ? ring(st.hot_score, 'Điểm nóng') : ''}
-      <div class="lead-facts">${st.hot_reason ? `<p>Nóng vì ${reasonHTML(st)}</p>` : ''}${v != null ? `<p>${viewsEl(v, st.id)} trên AIBit News</p>` : ''}
+      <div class="lead-facts">${st.hot_reason ? `<p>Nóng vì ${reasonHTML(st)}</p>` : ''}${v != null ? `<p>${viewsEl(v, st.id)} trên Halcyon</p>` : ''}
         <div class="acts">
           ${primary ? `<a class="btn primary" href="${esc(safe(primary.discussion_url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">Mở thảo luận ${icon('i-out')}</a>` : ''}
           <a class="btn ${primary ? 'second' : 'primary'}" href="${esc(safe(st.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">Bài gốc ${icon('i-out')}</a>
@@ -687,7 +687,7 @@ async function renderChapters(progressive = false){
     });
     l.after(b);
   });
-  const views = D.views && Number.isFinite(D.views.total) ? `Lượt xem trên AIBit News đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie. ` : '';
+  const views = D.views && Number.isFinite(D.views.total) ? `Lượt xem trên Halcyon đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie. ` : '';
   $('#foot').innerHTML = `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${D.ranking ? `Xếp hạng nóng: ${esc(D.ranking.description || 'xếp theo số đo của từng nguồn')}, cửa sổ ${esc(D.ranking.window_hours)} giờ${D.ranking.description && D.ranking.calibration ? `, hiệu chỉnh: ${esc(D.ranking.calibration)}` : ''}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.'} ${translationNote()} ${views}
     ${storageOk ? 'Mốc đã xem, tin đã đọc, tin đã lưu và mảng bạn chọn chỉ lưu trên máy này.' : 'Trình duyệt đang chặn bộ nhớ cục bộ, nên mốc đã xem, tin đã lưu và mảng bạn chọn chỉ giữ tới khi đóng trang.'}
     <button class="btn-quiet" id="keys-open">Phím tắt (?)</button>`;
@@ -772,7 +772,7 @@ function detailStory(st){
       <dt>Số nguồn</dt><dd class="num">${st.source_count}</dd>
       ${st.hot_score != null ? '' : `<dt>Điểm nóng</dt><dd class="faint">Chưa có số đo</dd>`}
       ${sig ? `<dt>Đo lúc</dt><dd>${esc(exact(sig.observed_at))}</dd>` : ''}
-      ${v != null ? `<dt>Lượt xem</dt><dd>${viewsEl(v, st.id)} trên AIBit News</dd>` : ''}
+      ${v != null ? `<dt>Lượt xem</dt><dd>${viewsEl(v, st.id)} trên Halcyon</dd>` : ''}
     </dl>
     <div class="acts">
       <a class="btn primary" href="${esc(safe(st.url))}" target="_blank" rel="noopener" data-read="${esc(st.id)}">Mở bài gốc ${icon('i-out')}</a>
