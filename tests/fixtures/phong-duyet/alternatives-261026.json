@@ -1,0 +1,354 @@
+[
+  {
+    "index": 1,
+    "id": "f8c156dba7886826388b",
+    "url": "https://www.theverge.com/ai-artificial-intelligence/1018021/openai-training-top-ai-models-no-internet",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 3533,
+    "article_excerpt": "AI\nNews\nOpenAI\nOpenAI now trains its frontier AI models with no internet access\nAI agents can still communicate without a network connection, OpenAI found.\nAI agents can still communicate without a network connection, OpenAI found.\nby Emma Roth\nOct 23, 2026, 9:11 PM UTC\nLink\nShare\nGift\nImage: Cath Virginia / The Verge\nPart Of\nThe AI Superintelligence Slowdown\nsee all updates\nEmma Roth\nis a news writer who covers the streaming wars, consumer tech, crypto, social media, and much more. Previously, she was a writer and editor at MUO.\nOpenAI is now training its most advanced AI models without internet access following a string of rogue hacking incidents. In a blog post on Friday, OpenAI says it built an offline testing environment where AI models can interact with indexed and cached web content “without risk of affecting external systems.”\nOpenAI paused training its frontier AI models in September, after disclosing several incidents in which its AI agents broke out of their testing environments to hack third-party companies and government agencies, or swarm obscure websites. On October 1st, OpenAI resumed reinforcement learning training and internal inference with tighter security measures, the blog post says.\nEven with these safeguards in place and no internet access, OpenAI found that agents “do not always need a network connection in order to communicate.” One test performed by the company asked AI models on separate virtual machines to exchange secrets without a network connection. To bypass this restriction, the AI agents found a way to communicate using the processor’s cac",
+    "article_tail": "Most Popular\nA YouTuber dissected an iPhone Duo and thinks he found the cause of crackgate\nr/opensource just banned AI, non-English speakers, and more\nThe Gospel according to Peter (Thiel)\nWhat to expect from Apple’s ‘Pro and tell’ event\nZen Browser is the Arc replacement I was looking for\nAdvertiser Content From\nThis is the title for the native ad",
+    "page_title": "OpenAI now trains its frontier AI models with no internet access | The Verge",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-23T21:11:07+00:00\" data-next-head=\"\"/><meta property=\"article:modified_time\" content=\"2026-10-23T21:11:07+00:00\" data-next-head=\"\"/><meta property=\"og:image\" con",
+      "datePublished\":\"2026-10-23T21:11:07+00:00\",\"dateModified\":\"2026-10-23T21:11:07+00:00\",\"url\":\"https://www.theverge.com/ai-artificial-intelligence/1018021/openai-training-top-ai-models-no-interne"
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 7,
+    "id": "bf7b07d2d53b813f8b54",
+    "url": "https://arstechnica.com/ai/2026/10/openais-latest-ai-models-are-coming-to-google-cloud-and-antigravity/",
+    "robots_status": 405,
+    "robots_error": null,
+    "access": "robots_blocked"
+  },
+  {
+    "index": 20,
+    "id": "eda525050cea8fce4b13",
+    "url": "https://techcrunch.com/2026/10/22/uber-puts-all-30000-employees-on-chatgpt-work/",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 2293,
+    "article_excerpt": "Uber and OpenAI announced an expansion of their partnership on Thursday, with the ride-share giant telling TechCrunch that its entire global workforce — some 30,000 people — will now be using ChatGPT Work.\nChatGPT Work was introduced in July as an enterprise-focused AI agent that corporate teams could deploy for various workflows.\nUber originally piloted ChatGPT Work with 1,000 employees earlier this year but has now scaled up its usage to the entire company.\nThat earlier pilot was deployed to workers from across Uber’s various departments, including finance, operations, and product. Indeed, a majority of the early adopters — some 80% — were non-engineers, Sumanth Sukumar, Uber’s VP of engineering, told TechCrunch.\n“They used it for a wide range of tasks: analyzing complex data from our operations to identify trends and develop recommendations; localizing training materials for different markets and languages; and building personalized interactive dashboards to manage their daily work,” he said.\nYet while the ride-share giant is now going all in on ChatGPT, it has not settled on exactly how employees will use it. “Our approach is to make powerful AI tools available across Uber while giving teams room to experiment,” Sukumar said. “For example, earlier this year we paired 30 AI engineers with teams across Uber and gave them two weeks to automate key parts of their job. Those ‘AI pods’ showed us how much opportunity there is when you combine technical expertise with a deep understanding of a particular job.”\nUber didn’t disclose how much it’s spending on the new rollout of th",
+    "article_tail": "AI worked closely with the company on integrating the chatbot.\nOpenAI has moved quickly to scale up its enterprise business as it competes with its chief competitor, Anthropic. Once known largely as a consumer brand, the ChatGPT creator has swiftly gained a loyal following with business customers, while other AI companies have struggled to keep up.",
+    "page_title": "Uber puts all 30,000 employees on ChatGPT Work | TechCrunch",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-22T16:00:00+00:00\" />",
+      "datePublished\":\"2026-10-22T16:00:00+00:00\",\"dateModified\":\"2026-10-22T17:06:02+00:00\",\"mainEntityOfPage\":{\"@id\":\"https://techcrunch.com/2026/10/22/uber-puts-all-30000-employees-on-chatgpt-work/",
+      "datePublished\":\"2026-10-22T16:00:00+00:00\",\"dateModified\":\"2026-10-22T17:06:02+00:00\",\"description\":\"The ride-share giant previously deployed a much smaller pilot for ChatGPT Work but is now ta"
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 22,
+    "id": "8a8f757d90f00c8551c9",
+    "url": "https://www.semafor.com/article/10/21/2026/openai-agents-disabled-internal-misbehavior-monitoring-system",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 962,
+    "article_excerpt": "From Semafor Flagship\nIn your inbox, every weekday\nSign up\nOpenAI agents disabled internal misbehavior monitoring system\nOct 21, 2026, 7:15am EDT\nPostEmailWhatsappCopy link\nShare\nKim Kyung-Hoon/Reuters\nOpenAI said its agents disabled parts of an internal misbehavior monitoring system, intensifying worries of AI acting in malign ways. The latest incidents, which follow a slew of reports of agents unexpectedly breaking out of sandboxes, showcased how even the safeguards built to corral AI systems are vulnerable to the technology.\nAgents have also been used by humans as part of a spate of cyberattack episodes: In one, a hacker tasked an array of agents to hack into more than 100 companiesâ internal systems. Cybersecurity is now JP Morganâs âbiggest risk by far,â the bankâs chief executive told The Wall Street Journal, counselling fellow corporate leaders: âThere are a lot of things everyone should be doing today. Today.â\nâ Prashant Rao",
+    "article_tail": "s: In one, a hacker tasked an array of agents to hack into more than 100 companiesâ internal systems. Cybersecurity is now JP Morganâs âbiggest risk by far,â the bankâs chief executive told The Wall Street Journal, counselling fellow corporate leaders: âThere are a lot of things everyone should be doing today. Today.â\nâ Prashant Rao",
+    "page_title": "OpenAI agents disabled internal misbehavior monitoring system | Semafor",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-21T11:15:36Z\"/><meta name=\"article:modified_time\" content=\"2026-10-21T11:15:36Z\"/><meta name=\"article:section\" content=\"tech\"/><meta name=\"article:author\" conten",
+      "datePublished\":\"2026-10-21T10:05:41Z\",\"dateModified\":\"2026-10-21T11:15:36Z\",\"articleSection\":\"tech\",\"creator\":[\"Prashant Rao\"],\"author\":[{\"@type\":\"Person\",\"name\":\"Prashant Rao\",\"url\":\"https://w",
+      "datePublished&quot;:[0,&quot;2026-10-21T10:05:41Z&quot;],&quot;dateModified&quot;:[0,&quot;2026-10-21T11:15:36Z&quot;],&quot;articleSection&quot;:[0,&quot;tech&quot;],&quot;creator&quot;:[1,[[0"
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 49,
+    "id": "93a3c6a05f584f10feb6",
+    "url": "https://developer.nvidia.com/blog/scale-agentic-coding-workflows-with-metas-muse-spark-open-on-nvidia-gb300-nvl72/",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 6323,
+    "article_excerpt": "Meta launches Muse Spark Open, a coding-optimized 816B mixture-of-experts (MoE) model with 42B active parameters and a 1M token context window. Trained on NVIDIA GB300 NVL72 Blackwell Ultra specifically for agentic coding workflows, it delivers higher first attempt accuracy, reliable tool calling, and deep codebase understanding across repositories. The 1M token context window holds an entire project, including complex dependencies, legacy code, and thousands of files without breaking a task into pieces.\nAs a reasoning model, Muse Spark Open adds audio and video perception alongside image and document understanding, working natively and reliably across what it sees, hears, and reads. NVFP4 checkpoints generated by Meta and optimized for NVIDIA Blackwell Ultra shrink the memory footprint of all 816B parameters with native FP4 Tensor Core acceleration. Fewer bytes moved per token to increase tokens per second per user, and the freed-up memory supports larger KV cache for concurrent long context sessions, delivering higher throughput, a lower cost per token.\nCustom-built for agentic coding multimodal understanding across text, image, video, and audio\nGeneral coding models are optimized for single-shot completions such as generating a function, writing a unit test, or suggesting an inline fix. They excel at discrete, well-scoped tasks where the context is small, and the answer is immediate. Agentic coding demands something fundamentally different. Planning a multifile refactor, navigating thousands of files, recovering from failing tests, and coordinating subagents over long ho",
+    "article_tail": "rated Muse Spark Open\nTo get started, download Muse Spark Open NVFP4 weights from Hugging Face. For production deployments, try the downloadable NVIDIA NIM. The NIM reduces setup to a single command, replacing benchmarking and tuning cycles with a container that automatically selects the best serving backend and precision for the detected hardware.",
+    "page_title": "Scale Agentic Coding Workflows with Meta’s Muse Spark Open on NVIDIA GB300 NVL72 | NVIDIA Technical Blog",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-15T18:00:01+00:00\" />",
+      "datePublished\":\"2026-10-15T18:00:01+00:00\",\"dateModified\":\"2026-10-15T18:29:53+00:00\",\"author\":{\"@type\":\"Person\",\"@id\":\"https://developer.nvidia.com/blog/#/schema/Person/0cbff7316f4d70b45a4c3a4",
+      "datePublished\":\"2026-10-15T18:00:01+00:00\",\"dateModified\":\"2026-10-15T18:29:53+00:00\",\"author\":{\"@type\":\"Person\",\"name\":\"Tanya Lenz\",\"url\":\"https://developer.nvidia.com/blog/author/tlenz/\"},\"pu"
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 38,
+    "id": "47061ab25aa38c9d1c41",
+    "url": "https://developer.nvidia.com/blog/how-nvidia-openshell-reference-architecture-secures-and-governs-ai-agent-workflows/",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 404,
+    "error": null,
+    "access": "http_error"
+  },
+  {
+    "index": 27,
+    "id": "cac24968e5aa0d5bf28d",
+    "url": "https://technode.com/2026/10/19/deepseek-releases-v4-1-flash-1017-with-stronger-coding-and-agent-capabilities/",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 752,
+    "article_excerpt": "DeepSeek released V4.1 Flash-1017 on October 17, updating its Flash model with improvements in reasoning, coding, agent tasks and visual understanding. The model weights are available on Hugging Face under the MIT license.\nThe company said the update reduces task execution time and output length, allowing users to complete work faster and at lower cost. Its development capabilities target workflows in which an AI agent plans a project, writes code, calls tools and iterates toward a working result.\nThe release includes inference code and deployment instructions, enabling developers to run the updated model on their own infrastructure. It builds on the existing V4.1 Flash model rather than introducing a separate model family. [DeepSeek]\nRelated",
+    "article_tail": "in which an AI agent plans a project, writes code, calls tools and iterates toward a working result.\nThe release includes inference code and deployment instructions, enabling developers to run the updated model on their own infrastructure. It builds on the existing V4.1 Flash model rather than introducing a separate model family. [DeepSeek]\nRelated",
+    "page_title": "DeepSeek releases V4.1 Flash-1017 with stronger coding and agent capabilities &#183; TechNode",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-19T06:41:03+00:00\" />",
+      "datePublished\":\"2026-10-19T06:41:03+00:00\",\"mainEntityOfPage\":{\"@id\":\"https:\\/\\/technode.com\\/2026\\/10\\/19\\/deepseek-releases-v4-1-flash-1017-with-stronger-coding-and-agent-capabilities\\/\"},\"wo",
+      "datePublished\":\"2026-10-19T06:41:03+00:00\",\"description\":\"DeepSeek released V4.1 Flash-1017 on October 17, updating its Flash model with improvements in reasoning, coding, agent tasks and visua"
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 37,
+    "id": "37",
+    "url": "https://www.datacenterdynamics.com/en/news/nvidia-launches-dsx-pod-claims-the-vera-rubin-reference-architecture-will-make-ai-data-centers-more-water-and-energy-efficient/",
+    "robots_status": 302,
+    "robots_error": null,
+    "access": "robots_blocked"
+  },
+  {
+    "index": 38,
+    "id": "38",
+    "url": "https://thenextweb.com/news/nvidia-openshell-ai-agents-safety-anthropic-openai",
+    "robots_status": 403,
+    "robots_error": null,
+    "access": "robots_blocked"
+  },
+  {
+    "index": 58,
+    "id": "58",
+    "url": "https://www.channelnewsasia.com/singapore/govtech-google-deepmind-ai-scam-quantum-sicw-6455621",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 10424,
+    "article_excerpt": "Advertisement\nSingapore\nGovTech and Google DeepMind developing real-time detection of scams on devices\nOrganisations will also receive funding through a new grant to protect against quantum threats.\nMrs Josephine Teo, Minister for Digital Development and Information, delivering an opening address on quantum-safe migration at a Singapore International Cyber Week event at the Sands Expo and Convention Centre on Oct 14, 2026. (Photo: CNA/Raydza Rahman)\nNew: You can now listen to articles.\nThis audio is generated by an AI tool.\nErin Liam\nErin Liam\n14 Oct 2026 09:32AM (Updated: 14 Oct 2026 05:16PM)\nBookmark Bookmark Share\nWhatsApp Telegram Facebook Twitter Email LinkedIn\nSet CNA as your preferred source on Google\nAdd CNA as a trusted source to help Google better understand and surface our content in search results.\nRead a summary of this article on FAST.\nGet bite-sized news via a new cards interface. Give it a try.\nClick here to return to FAST Tap here to return to FAST\nFAST\nSINGAPORE: The Government Technology Agency of Singapore (GovTech) is collaborating with artificial intelligence research laboratory Google DeepMind to develop real-time detection of scams on devices, Mrs Josephine Teo said on Wednesday (Oct 14).\nThe Minister for Digital Development and Information, who is also leading the government's efforts in smart nation strategy and cybersecurity, said the collaboration could provide stronger protection while preserving privacy.\n\"If our devices can recognise signs of manipulation early, we can help potential victims avoid financial or credential loss, while keeping the",
+    "article_tail": "st stories\nDownload here\nGet WhatsApp alerts\nJoin our channel for the top reads for the day on your preferred chat app\nJoin here\nAdvertisement\nAlso worth reading\nContent is loading...\nAdvertisement\nExpand to read the full story\nGet bite-sized news via a new cards interface. Give it a try.\nClick here to return to FAST Tap here to return to FAST\nFAST",
+    "page_title": "GovTech and Google DeepMind developing real-time detection of scams on devices - CNA",
+    "date_signals": [
+      "datePublished\": \"2026-10-14T09:32:00+08:00\",",
+      "datePublished, meta('article:published_time'), meta('cXenseParse:recs:publishtime'), dl.publishDate)) : '',"
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 76,
+    "id": "76",
+    "url": "https://turingwire.com/news/nvidia-kumo-relational-outperforms-supervised-learning-on-41-tasks-without/",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 1462,
+    "article_excerpt": "Majormodel releaseNVIDIA\nNVIDIA Kumo Relational Outperforms Supervised Learning on 41 Tasks Without Training\nPublishedOct 21, 2026 — 18:26 UTC\nNVIDIA's Kumo Relational model has demonstrated superior performance on 41 tasks evaluated across 15 databases, outperforming traditional supervised machine learning methods. It achieves an 8% improvement in mean reciprocal rank (MRR) over AutoGluon ensembles on the SAP SALT benchmark and surpasses XGBoost by 7 MRR points on engineered features without any training. Remarkably, Kumo Relational can operate effectively with just 0.2% of the minimum training data typically required, showcasing its efficiency in handling relational data. The model is capable of scaling to over 500 billion databases and maintains performance even with 75% of foreign-key links removed. This follows NVIDIA's ongoing advancements in AI infrastructure, as seen in their recent partnerships and developments. Contributors to Kumo Relational include Jure Leskovec, Matthias Fey, and Federico Lopez, among others, who have emphasized its ability to outperform the strongest supervised models in both classification and regression tasks. The model is designed to be integrated with agents, enhancing its utility in real-world applications.\nBy Turing Wire Newsdesk · Oct 21, 2026 · How we work →\nSummarised from Hugging Face Blog's original report by the Turing Wire Newsdesk. Read the original for the full story.\nSource: Hugging Face Blog",
+    "article_tail": "els in both classification and regression tasks. The model is designed to be integrated with agents, enhancing its utility in real-world applications.\nBy Turing Wire Newsdesk · Oct 21, 2026 · How we work →\nSummarised from Hugging Face Blog's original report by the Turing Wire Newsdesk. Read the original for the full story.\nSource: Hugging Face Blog",
+    "page_title": "NVIDIA Kumo Relational Outperforms Supervised Learning on 41 Tasks Without Training — Turing Wire",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-21T18:26:30.000Z\"/><meta property=\"article:modified_time\" content=\"2026-10-21T23:07:05.431Z\"/><meta name=\"twitter:card\" content=\"summary_large_image\"/><meta name",
+      "datePublished\":\"2026-10-21T18:26:30.000Z\",\"dateModified\":\"2026-10-21T23:07:05.431Z\",\"image\":[\"https://turingwire.com/og/news/nvidia-kumo-relational-outperforms-supervised-learning-on-41-tasks-w",
+      "article:published_time\\\",\\\"content\\\":\\\"2026-10-21T18:26:30.000Z\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"14\\\",{\\\"property\\\":\\\"article:modified_time\\\",\\\"content\\\":\\\"2026-10-21T23:07:05.431Z\\\"}],[\\\"$\\\",\\\"meta\\\",\\\"15\\\",{\\\"na"
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 37,
+    "id": "37",
+    "url": "https://www.datacenterknowledge.com/ai-data-centers/nvidia-unveils-dsx-pod-for-faster-ai-data-center-builds",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 5429,
+    "article_excerpt": "AI Data Centers\nModular Data Centers\nServers\nEdge Data Centers\nNews\nNvidia Unveils DSX Pod for Faster AI Data Center Builds\nNvidia said the DSX Pod, a prebuilt containerized AI data center, reduces deployment time from six months to 14 days.\nWylie Wong,Chips and Hardware Writer\nOctober 21, 2026\n3 Min Read\nThe Nvidia DSX Pod.Nvidia\nNvidia today introduced DSX Pod, a containerized AI data center module that comes with seven Vera Rubin NVL72 racks, along with networking, cabling, and cooling already installed. The company says the design can cut deployment time at a prepared site from roughly six months to as little as 14 days.\nAnnounced at GTC Berlin, the modular offering is aimed at organizations that need to bring large amounts of AI compute online more quickly without going through the full planning, construction, and labor demands of a traditional on-site build. Nvidia said it is working with 17 partners, including Bull, Dell Technologies, HPE, Lenovo, Eaton, Schneider Electric, and Vertiv, to make DSX Pod available in early 2027.\n“This is a fully assembled, fully tested, fully pre-plumbed, prebuilt, pre-validated container that is the building block for AI factories,” said Ian Buck, Nvidia’s vice president of hyperscale and high-performance computing, in a media briefing. “It’s designed to accelerate Europe’s infrastructure deployment and dramatically shorten the time to first token.”\nRelated:Nvidia Unveils DSX POD Amid Greenpeace Protest\nAlthough Nvidia unveiled the reference design in Berlin, Buck said the container is intended for worldwide deployment. He said the com",
+    "article_tail": "Evaporative Cooling in Data Centers Still Make Sense?\nOct 23, 2026\nAI Data Centers\nNvidia Unveils DSX POD Amid Greenpeace Protest\nNvidia Unveils DSX POD Amid Greenpeace Protest\nOct 22, 2026\nData Center World POWER\nJoin the entire data center ecosystem September 21 – 23, 2026, at the Gaylord Texan Resort & Convention Center in Dallas, TX.\nLearn More",
+    "page_title": "Nvidia Unveils DSX Pod for Faster AI Data Center Builds",
+    "date_signals": [
+      "datePublished\":\"2026-10-21T15:12:26.000Z\",\"dateModified\":\"2026-10-21T15:21:17.216Z\",\"headline\":\"Nvidia Unveils DSX Pod for Faster AI Data Center Builds\",\"mainEntityOfPage\":\"https://www.datacent",
+      "datePublished\\\",\\\"2026-10-21T15:12:26.000Z\\\",\\\"dateModified\\\",\\\"2026-10-21T15:21:17.216Z\\\",\\\"headline\\\",\\\"mainEntityOfPage\\\",\\\"image\\\",{\\\"_147\\\":187,\\\"_179\\\":208,\\\"_209\\\":210,\\\"_211\\\":212},\\\"au"
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 38,
+    "id": "38",
+    "url": "https://decrypt.co/381570/fill",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 4184,
+    "article_excerpt": "In brief\nNvidia unveiled the OpenShell Reference Architecture at GTC Berlin on Wednesday, combining Vera CPUs, the open-source OpenShell runtime and BlueField-4 chips running Sentry to contain and monitor AI agents.\nSentry inspects agent traffic from a separate hardware domain and can quarantine an agent within milliseconds, without needing the agent or the host to cooperate.\nCrowdStrike, Palo Alto Networks, Zscaler and Check Point are integrating support, while Nvidia lists Sentry's planned availability as early next year.\nNvidia on Wednesday unveiled the OpenShell Reference Architecture at GTC Berlin, a full-stack design that pairs its Vera CPUs, OpenShell software and BlueField-4 chips to contain and monitor autonomous AI agents, according to the company's announcement.\nVera Rubin systems run the models, Vera CPUs run the agents and their tools inside OpenShell, and BlueField-4 chips run a monitoring framework called Sentry. Nvidia CEO Jensen Huang described the split as agents that basically exist thanks to a synergy of different environments and frameworks.\nMyriad: How low will Nvidia go? Click to make your prediction.\n“Nvidia created OpenShell to give agents the freedom to do useful work within clearly defined boundaries—contained, monitored and under control,” Nvidia CEO Jensen Huang, said. “With the OpenShell Reference Architecture, agents can think on Rubin, act on Vera and be governed on BlueField.”\nOpenShell, the open-source runtime at the center of the design, treats every agent workload as untrusted and grants access only when needed, Nvidia said in a technical",
+    "article_tail": "ries and resources still in the testing phase.\nDaily Debrief Newsletter\nStart every day with the top news stories right now, plus original features, a podcast, videos and more.\nEmail addressJoin free\nJoin 72,000+ readers\nCreate an account to save your articles.\nAdd on Google\nAdd Decrypt as your preferred source to see more of our stories on Google.",
+    "page_title": "Nvidia Unveils Its Full-Stack Blueprint to Contain and Monitor AI Agents - Decrypt",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-21T20:16:02\"/><meta property=\"article:modified_time\" content=\"2026-10-21T20:16:02\"/><meta name=\"news_keywords\" content=\"INTERNET,nvidia,artificial intelligence,A",
+      "datePublished\": \"2026-10-21T20:16:02\",",
+      "datePublished\\\": \\\"2026-10-21T20:16:02\\\",\\n     \\\"dateModified\\\": \\\"2026-10-21T20:16:02\\\",\\n     \\\"author\\\": {\\n       \\\"@type\\\": \\\"Person\\\",\\n       \\\"name\\\": \\\"Jose Antonio Lanz\\\"\\n     },\\n "
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 66,
+    "id": "66",
+    "url": "https://uk.marketscreener.com/news/ibm-raises-annual-software-revenue-outlook-as-deal-delays-ease-ce785cd9dd8ff62c",
+    "robots_status": 403,
+    "robots_error": null,
+    "access": "robots_blocked"
+  },
+  {
+    "index": 75,
+    "id": "75",
+    "url": "https://www.investing.com/news/stock-market-news/characterai-files-for-bankruptcy-agrees-to-sell-some-assets-disney-20-million-4945401",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 403,
+    "error": null,
+    "access": "http_blocked"
+  },
+  {
+    "index": 80,
+    "id": "80",
+    "url": "https://decrypt.co/381763/sweden-government-offices-block-chatgpt-claude",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 3866,
+    "article_excerpt": "In brief\nSweden's Government Offices will block ChatGPT and Claude on staff computers starting October 26.\nThe government is citing information security concerns, with Microsoft Copilot remaining the only approved tool after a dedicated security review.\nSweden's Tax Agency and the National Board of Institutional Care have already imposed similar bans, and the Enforcement Authority is expected to announce its own decision soon.\nSweden's Government Offices—the administrative body supporting the prime minister and cabinet—will block ChatGPT and Claude on staff computers from Monday, directing civil servants to Microsoft's Copilot as the only approved AI tool, according to Sweden’s national, publicly funded radio broadcaster Sveriges Radio.\nThe reasoning comes from Mikael Wettercrantz, the Government Offices' director of digitalisation, who posted on the staff intranet that using AI services without a formal contract can have \"consequences for our information security.\"\nMyriad: Will Tesla and SpaceX merge? Click to make your prediction.\n“We have seen several examples of problematic use of open AI services. The examples concern both the sensitivity of the information that has been entered and how the AI-generated responses have been handled,” he said.\nConsumer AI tools without formal agreements send user queries to external company servers—and U.S. law allows authorities to compel those companies to hand over data on request.\nA formal security agreement, at minimum, defines what the provider can and cannot do with government employees' inputs, which is why the distinction betwee",
+    "article_tail": "e is not as clean as the announcement implies.\nDaily Debrief Newsletter\nStart every day with the top news stories right now, plus original features, a podcast, videos and more.\nEmail addressJoin free\nJoin 72,000+ readers\nCreate an account to save your articles.\nAdd on Google\nAdd Decrypt as your preferred source to see more of our stories on Google.",
+    "page_title": "Sweden&#x27;s Government Offices Block ChatGPT and Claude, Keep Microsoft Copilot - Decrypt",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-24T16:01:03\"/><meta property=\"article:modified_time\" content=\"2026-10-24T16:01:03\"/><meta name=\"news_keywords\" content=\"government,microsoft,sweden,ChatGPT,Claud",
+      "datePublished\": \"2026-10-24T16:01:03\",",
+      "datePublished\\\": \\\"2026-10-24T16:01:03\\\",\\n     \\\"dateModified\\\": \\\"2026-10-24T16:01:03\\\",\\n     \\\"author\\\": {\\n       \\\"@type\\\": \\\"Person\\\",\\n       \\\"name\\\": \\\"Jose Antonio Lanz\\\"\\n     },\\n "
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 98,
+    "id": "98",
+    "url": "https://www.securityweek.com/proofpoint-inks-6-3-billion-all-cash-deal-to-acquire-varonis/",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 1061,
+    "article_excerpt": "The Key to AI Software Security Isn’t Speed, It’s Maturity\nWhere your developers sit on the AI adoption scale has a real impact on how you are addressing security risk. (Matias Madou)\nContext Is King in the Fight Against Modern Cyberattacks\nContextual defense helps security teams connect the signals, anticipate what comes next, and stop threats before they escalate. (Etay Maor)\nAI Has Changed Attack Speed, Not Security Fundamentals\nAs AI accelerates vulnerability discovery and exploitation, so-called virtual patching still comes down to defense-in-depth and strong application security fundamentals. (Joshua Goldfarb)\nFour Cyber Threats Harboring Big Plans for the Future\n- AI, supply-chain exposure, quantum computing and geopolitical conflict are testing security programs. Preparing for disruption must become part of day-to-day operations. (Steve Durbin)\nBegin at the End: How to Enable Agentic Remediation\nAgentic remediation is not an act of faith. We are talking about fixing known problems, not judgment calls about unfamiliar risk. (Nadir Izrael)",
+    "article_tail": "tum computing and geopolitical conflict are testing security programs. Preparing for disruption must become part of day-to-day operations. (Steve Durbin)\nBegin at the End: How to Enable Agentic Remediation\nAgentic remediation is not an act of faith. We are talking about fixing known problems, not judgment calls about unfamiliar risk. (Nadir Izrael)",
+    "page_title": "Proofpoint Inks $6.3 Billion All-Cash Deal to Acquire Varonis - SecurityWeek",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-16T07:12:51+00:00\" />",
+      "datePublished\":\"2026-10-16T07:12:51+00:00\",\"dateModified\":\"2026-10-16T10:36:19+00:00\",\"mainEntityOfPage\":{\"@id\":\"https:\\/\\/www.securityweek.com\\/proofpoint-inks-6-3-billion-all-cash-deal-to-acq",
+      "datePublished\":\"2026-10-16T07:12:51+00:00\",\"dateModified\":\"2026-10-16T10:36:19+00:00\",\"description\":\"Proofpoint announced a definitive agreement to acquire data security company Varonis for $6."
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 104,
+    "id": "104",
+    "url": "https://www.kiplinger.com/investing/stocks/nasdaq-bounces-back-as-ai-trade-freshens-up-stock-market-today",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 0,
+    "article_excerpt": "",
+    "article_tail": "",
+    "page_title": "Nasdaq Bounces Back as AI Trade Freshens Up: Stock Market Today | Kiplinger",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-19T20:11:03Z\">",
+      "datePublished\": \"2026-10-19T20:11:03+00:00\","
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 149,
+    "id": "149",
+    "url": "https://apnews.com/article/b972b64127db5412a2b02c35ecf95c88",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 403,
+    "error": null,
+    "access": "http_blocked"
+  },
+  {
+    "index": 49,
+    "id": "49",
+    "url": "https://thenewstack.io/meta-muse-spark-open/",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 0,
+    "article_excerpt": "",
+    "article_tail": "",
+    "page_title": "Meta ships Muse Spark Open, its answer to China’s best open-weight models - The New Stack",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-15T17:00:00+00:00\" />",
+      "datePublished\":\"2026-10-15T17:00:00+00:00\",\"dateModified\":\"2026-10-15T18:15:11+00:00\",\"mainEntityOfPage\":{\"@id\":\"https:\\/\\/thenewstack.io\\/meta-muse-spark-open\\/\"},\"wordCount\":614,\"publisher\":{",
+      "datePublished\":\"2026-10-15T17:00:00+00:00\",\"dateModified\":\"2026-10-15T18:15:11+00:00\",\"description\":\"Meta’s Muse Spark Open is an 816B open-weight model that beats US rivals and matches Chinese"
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 49,
+    "id": "49",
+    "url": "https://www.theguardian.com/technology/2026/oct/16/meta-releases-muse-spark-open-a-new-open-weight-ai-model",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 2307,
+    "article_excerpt": "Meta says its new open-weight AI model rivals and in some cases outperforms Chinese equivalents. Photograph: Dado Ruvić/Reuters\nView image in fullscreen\nMeta says its new open-weight AI model rivals and in some cases outperforms Chinese equivalents. Photograph: Dado Ruvić/Reuters\nMeta releases Muse Spark Open, a new ‘open-weight’ AI model\nMeta says Muse excels at ‘multi-step reasoning’ and ‘complex software engineering’ as it races to catch up to Chinese rivals\nMeta on Thursday launched a new open-weight AI model which it claims rivals, and in some cases outperforms, similar products from leading Chinese developers.\nMuse Spark Open “is the most capable US open-weight model to date,” Meta’s chief of AI Alexandr Wang wrote on X.\nUnlike so-called closed models – such as Anthropic’s Claude or OpenAI’s ChatGPT – developers can download the parameters, known as weights and biases, of an open-weight model and modify them.\n‘Charming and disarming’ … how Meta’s technology-packed Muse harnesses the power of cuteness\nRead more\nChinese developers have emerged as dominant players in the open-weight market for AI models over the past couple of years.\nAlibaba’s Qwen, Moonshot AI’s Kimi K3 and Z.ai’s GLM models have been considered open-weight frontrunners globally, but Meta claims its new open model now competes on a similar level.\n“Built for coding and agentic work,” Muse Spark Open “excels at long-horizon tasks, complex software engineering, and multi-step reasoning,” Meta said in a blogpost, adding that “strong safeguards” have been integrated into the new model.\nMuse Spark Open is als",
+    "article_tail": "d its newest closed model, which it said rivalled the most advanced versions of ChatGPT and Claude.\nMeta’s AI efforts were initially focused on open models, but more recently Zuckerberg has pushed the company to compete with OpenAI and Anthropic.\nExplore more on these topics\nAI (artificial intelligence)\nMeta\nChina\nComputing\nShare\nReuse this content",
+    "page_title": "Meta releases Muse Spark Open, a new ‘open-weight’ AI model | AI (artificial intelligence) | The Guardian",
+    "date_signals": [
+      "datePublished\":\"2026-10-16T00:34:28.000Z\",\"headline\":\"Meta releases Muse Spark Open, a new ‘open-weight’ AI model\",\"dateModified\":\"2026-10-16T00:34:28.000Z\",\"mainEntityOfPage\":\"https://www.theg",
+      "article:published_time\" content=\"2026-10-16T00:34:28.000Z\"/>"
+    ],
+    "access": "parsed"
+  },
+  {
+    "index": 49,
+    "id": "49",
+    "url": "https://www.axios.com/2026/10/15/apple-and-meta-bury-the-hatchet-for-ai",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 403,
+    "error": null,
+    "access": "http_blocked"
+  },
+  {
+    "index": 22,
+    "id": "22",
+    "url": "https://artificialwatch.com/wire/metr-redwood-red-team-openai-internal-agent-monitoring",
+    "robots_status": 200,
+    "robots_error": null,
+    "http_status": 200,
+    "error": null,
+    "article_chars": 3099,
+    "article_excerpt": "✳ the wire · analysis\nMETR and Redwood red-teamed OpenAI's internal agent monitoring and found ways agents could slip past it\n2026-10-22confirmedby ArtificialWatch\nEmail addressAlert me free →\nAn email the minute a new frontier model answers on a public API · free, no card\nArtificialWatch title card · verified against a primary source\nTwo researchers, one from METR and one from Redwood Research, spent three weeks this summer inside OpenAI stress-testing the system that watches its internal AI agents for misalignment, and found several ways agents could in principle avoid or disable it. METR published a short public write-up on October 22. The full 61-page report went to OpenAI.\nWHAT THEY FOUND\nPer METR's post, read directly, about the system as it stood on and before July 21: - An estimated 75 to 94% of internal agentic Responses API traffic from models at least as strong as GPT-5.5 was eligible for monitoring, and 99.2% of the internal Codex share of it. - Compaction events were not monitored, which likely left on the order of 10% of eligible internal Codex traffic unmonitored between May and July. Because the monitor ran when an agent handed control back to the user, an agent could in that window postpone monitoring indefinitely by continuing to work. OpenAI had already found this and fixed it during the exercise. - A way for Codex agents to bypass Codex sandboxing and Auto-Review and take any action the host user could. - An exploit that would keep hundreds of recent actions, including the exploit itself, out of monitoring. OpenAI redacted the details. - Two client-contr",
+    "article_tail": "oonshot apologizes for Kimi K3.1 Pro plan rate limits and gives back a quarter of every subscriber's quota\n2026-10-25confirmed\nAnthropic's token volume on OpenRouter is up 3.6x since Opus 5.5, by OpenRouter's own count\n2026-10-25confirmed\nGPT-6.1 Terra turns up again, as a cheaper reviewer in a GitHub engineer's Copilot workflow\n2026-10-25confirmed",
+    "page_title": "METR and Redwood red-teamed OpenAI&#x27;s internal agent monitoring and found ways agents could slip past it · ArtificialWatch",
+    "date_signals": [
+      "article:published_time\" content=\"2026-10-22T19:14:42.000Z\"/><meta name=\"twitter:card\" content=\"summary_large_image\"/><meta name=\"twitter:title\" content=\"METR and Redwood red-teamed OpenAI&#x27;s interna",
+      "datePublished\":\"2026-10-22T19:14:42.000Z\",\"dateModified\":\"2026-10-22T19:14:42.000Z\",\"author\":{\"@type\":\"Organization\",\"name\":\"ArtificialWatch\"},\"publisher\":{\"@type\":\"Organization\",\"name\":\"Artifi",
+      "datePublished\\\\\\\":\\\\\\\"2026-10-22T19:14:42.000Z\\\\\\\",\\\\\\\"dateModified\\\\\\\":\\\\\\\"2026-10-22T19:14:42.000Z\\\\\\\",\\\\\\\"author\\\\\\\":{\\\\\\\"@type\\\\\\\":\\\\\\\"Organization\\\\\\\",\\\\\\\"name\\\\\\\":\\\\\\\"ArtificialWatch\\\\\\\"}"
+    ],
+    "access": "parsed"
+  }
+]
