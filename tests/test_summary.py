@@ -554,10 +554,10 @@ class SummaryTests(unittest.TestCase):
         points[1:] = ["Các ứng dụng cần được cấp quyền truy cập.", "Thay đổi tác động tới 987654 người dùng."]
         self.assertIn("invented_number", summary_pipeline.validate_key_points(fitted, points)[1])
 
-    def test_translated_language_name_requires_source_evidence(self):
+    def test_vietnamese_language_word_is_ordinary_prose(self):
         point = ["Mô hình hỗ trợ tiếng Anh trong phân loại nội dung."]
         for text, expected in (("Model supports English classification.", None),
-                               ("Model supports classification.", "invented_entity: Anh")):
+                               ("Model supports classification.", None)):
             _, reason = summary_pipeline.validate_key_points({"title": text}, point)
             self.assertEqual(reason, expected)
 

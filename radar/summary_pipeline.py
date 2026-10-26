@@ -23,17 +23,15 @@ from radar import shadow_collector, transport
 from radar.common import web_url
 from radar.summary_sources import (source_record, primary_link, fit_inputs, clear_summary,
                                     publish_summary, PUBLIC_SUMMARY_FIELDS, SELECTION_VERSION)
-from radar.summary_validation import validate_summary
+from radar.summary_validation import validate_summary, entity_error
 from radar.translate import DIGITS, NUMBER_WORDS, SMALL_NUMBERS, VIETNAMESE
 
-# Capitalized entities pattern (e.g. OpenAI, DeepSeek, Claude, Apple, Google, macOS)
-ENTITY_TOKEN = re.compile(r"\b[A-Z][A-Za-z0-9_.+-]*(?:\s+[A-Z][A-Za-z0-9_.+-]*)*\b")
 MIN_ARTICLE_TEXT_CHARS = 300
 SUMMARY_RETRY_DELAY = 0.25
 DEFAULT_BUDGET = 180.0
 MIN_REQUEST_TIMEOUT = 3.0
 ARTICLE_FAILURE_TTL = 24 * 60 * 60
-VALIDATION_FAILURE_CACHE_TAG = "grounded-vietnamese-names"
+VALIDATION_FAILURE_CACHE_TAG = "vietnamese-syllables-and-evidence-2"
 PAYWALL_TEXT = re.compile(
     r"\b(?:subscribe to (?:read|continue)|sign in to (?:read|continue)|"
     r"subscriber[- ]only|members[- ]only|unlock the full article|please subscribe)\b",
@@ -237,18 +235,6 @@ def fetch_story_article(story, robots_cache, details):
             return text, None, url
     return "", reason, None
 
-# Common Vietnamese words that may appear capitalized at sentence starts
-VN_GRAMMAR_CAPS = {
-    "Đây", "Được", "Theo", "Các", "Những", "Người", "Một", "Hai", "Ba", "Bốn", "Năm",
-    "Ngày", "Tháng", "Năm", "Tuy", "Nhưng", "Vì", "Do", "Nếu", "Khi", "Sau", "Trước",
-    "Tại", "Trong", "Ngoài", "Trên", "Dưới", "Để", "Với", "Về", "Bởi", "Công", "Hãng",
-    "Mô", "Bản", "Việc", "Nhóm", "Dự", "Tính", "Hiện", "Báo", "Tin", "Nghiên", "Ứng",
-    "Hệ", "Cụ", "Thông", "Tổng", "Thực", "Phần", "Toàn", "Quốc", "Mới", "Cũ", "Đã", "Sẽ",
-    "Quy", "Nhà", "Điều",
-    "Đang", "Có", "Không", "Chưa", "Nhiều", "Ít", "Lớn", "Nhỏ", "Mạnh", "Yếu", "Nâng", "Hạ"
-}
-
-
 def story_inputs(story: dict) -> dict[str, Any]:
     """Extract canonical input data available in the pipeline for this story."""
     coverage_items = []
@@ -443,33 +429,6 @@ def extract_source_numbers(inputs: dict[str, Any]) -> set[str]:
     return numbers
 
 
-def extract_source_entities(inputs: dict[str, Any]) -> set[str]:
-    """Collect proper nouns, model names, and publishers present in the inputs."""
-    texts = [inputs.get("title", ""), inputs.get("summary", ""), inputs.get("article_text", "")]
-    for c in inputs.get("coverage") or []:
-        texts.append(c.get("title", ""))
-        texts.append(c.get("summary", ""))
-        pub = c.get("publisher", "")
-        if pub:
-            texts.append(pub.replace("-", " ").title())
-
-    full_text = " ".join(texts)
-    entities = {token.strip("._+-") for token in re.findall(r"[a-zA-Z][a-zA-Z0-9_.+-]*", full_text.lower())}
-    for match in ENTITY_TOKEN.finditer(full_text):
-        ent = match.group().strip()
-        if ent:
-            entities.add(ent.lower())
-            for part in ent.split():
-                if len(part) >= 2:
-                    entities.add(part.lower())
-    # Vietnamese language names may be ASCII capitals; allow their translated
-    # form only when the corresponding source language is explicitly present.
-    for source_name, translated_name in (("english", "anh"), ("chinese", "trung")):
-        if source_name in entities:
-            entities.add(translated_name)
-    return entities
-
-
 def validate_key_points(inputs: dict[str, Any], key_points: list[str]) -> tuple[list[str] | None, str | None]:
     """Strictly validate generated key points against source inputs.
 
@@ -499,7 +458,11 @@ def validate_key_points(inputs: dict[str, Any], key_points: list[str]) -> tuple[
         return None, "duplicate_points"
 
     source_numbers = extract_source_numbers(inputs)
-    source_entities = extract_source_entities(inputs)
+    entity_evidence = " ".join([
+        inputs.get("title", ""), inputs.get("summary", ""), inputs.get("article_text", ""),
+        *(part for coverage in inputs.get("coverage") or []
+          for part in (coverage.get("title", ""), coverage.get("summary", ""), coverage.get("publisher", ""))),
+    ])
 
     for point in cleaned:
         if len(point) < 15:
@@ -523,18 +486,10 @@ def validate_key_points(inputs: dict[str, Any], key_points: list[str]) -> tuple[
         if added_numbers:
             return None, f"invented_number: {','.join(sorted(added_numbers))}"
 
-        # Entity integrity: any distinctive capitalized entity in point must be grounded in source
-        point_words = point.split()
-        for word in point_words:
-            clean_word = re.sub(r"^[^\w]+|[^\w]+$", "", word)
-            if not clean_word:
-                continue
-            # Sentence-leading entities need the same grounding as other entities.
-            if clean_word[0].isupper() and clean_word not in VN_GRAMMAR_CAPS:
-                lower_val = clean_word.lower()
-                # Check if it was in source entities
-                if lower_val not in source_entities and clean_word.isascii():
-                    return None, f"invented_entity: {clean_word}"
+        # Use the same entity boundary as evidence-backed summaries.
+        error = entity_error(point, entity_evidence)
+        if error:
+            return None, error
 
     return cleaned, None
 

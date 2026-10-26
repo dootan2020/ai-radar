@@ -1,0 +1,93 @@
+[
+  {
+    "id": "046ddc4018512a37e021",
+    "reason": "invented_entity: Trung",
+    "verdict": "false",
+    "source_url": "https://pandaily.com/alipay-ai-pay-payathon-2026-hackathon-vibe-skill-token-machine-agent-pay",
+    "evidence": "The hackathon reflects a wider shift in China's agent ecosystem from building tools to settling transactions.",
+    "claim": "Trung Quốc đang chuyển từ xây dựng công cụ sang thanh toán giữa các agent.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "4ba4e1df53aa59664069",
+    "reason": "invented_entity: Trung",
+    "verdict": "false",
+    "source_url": "https://pandaily.com/nanbeige4-3-33b-open-source-agent-coding-model-512k-context-apache-2-boss-zhipin",
+    "evidence": "The release adds another mid-sized option to the growing set of Chinese open-weight models aimed at coding agents rather than chat alone.",
+    "claim": "Trung Quốc có thêm mô hình mở phục vụ agent lập trình.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "4f191176fc71332b094f",
+    "reason": "invented_entity: Doanh",
+    "verdict": "false",
+    "source_url": "https://pandaily.com/primotion-paimon-0-embodied-foundation-model-300ms-action-chunk-fpga-control-chip-roadmap",
+    "evidence": "Primotion, a Shenzhen startup founded in July 2026 to build chips for embodied AI, has made its first public appearance not with silicon but with a model.",
+    "claim": "Doanh nghiệp Primotion tại Thâm Quyến bắt đầu bằng mô hình trước khi ra chip.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "a3a1ab3f9ca49fc77e75",
+    "reason": "invented_entity: Giao",
+    "verdict": "false",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-10-26/anthropic-ipo-s-1-filing-offers-first-look-at-claude-maker-s-finances",
+    "corroborating_url": "https://www.anthropic.com/news/s1-sec",
+    "evidence": "Anthropic intends to list its Class A common stock on the Nasdaq Global Select Market under the symbol ANT.",
+    "claim": "Giao dịch cổ phiếu Anthropic trên Nasdaq là kế hoạch được công bố.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "912d0050e8fe565d6512",
+    "reason": "invented_entity: AI",
+    "verdict": "false",
+    "source_url": "https://techcrunch.com/2026/10/25/grok-releases-the-first-seven-minutes-of-its-ai-generated-odyssey/",
+    "evidence": "Grok has published a whole seven minutes, which the company is now calling Episode 1 of our Odyssey series. The article describes AI-generated footage.",
+    "claim": "AI tạo ra đoạn phim dài bảy phút cho loạt Odyssey của Grok.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "9a064d95901e645ea065",
+    "reason": "invented_entity: IPO",
+    "verdict": "false",
+    "source_url": "https://www.anthropic.com/news/s1-sec",
+    "evidence": "Anthropic, PBC filed a registration statement on Form S-1 with the U.S. Securities and Exchange Commission relating to its proposed initial public offering.",
+    "claim": "IPO của Anthropic đang ở giai đoạn nộp hồ sơ S-1.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "4c5a75eeee531fa7c614",
+    "reason": "invented_entity: Joe",
+    "verdict": "true",
+    "source_url": "https://www.semafor.com/article/10/23/2026/democratic-ai-pac-takes-its-fight-to-senate-republicans",
+    "evidence": "The group was founded by Biden White House alum Rob Flaherty and former Bernie Sanders spokesman Karthik Ganapathy.",
+    "claim": "Joe Biden thành lập nhóm Tomorrow Together để vận động quy định AI.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "5d794c3788a3a4be0d42",
+    "reason": "invented_entity: Ai2",
+    "verdict": "false",
+    "source_url": "https://huggingface.co/blog/allenai/litpivot",
+    "evidence": "With collaborators at the University of Pennsylvania, we developed LitPivot, a system that helps researchers navigate these pivots. At Ai2, we are developing AI to help researchers formulate testable ideas and examine the evidence behind them.",
+    "claim": "AI2 phát triển LitPivot để hỗ trợ các nhà nghiên cứu tìm ý tưởng.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "0dd3bed5c7dd1c272c8d",
+    "reason": "unsupported_number_unit: percent",
+    "verdict": "false",
+    "source_url": "https://www.anthropic.com/claude-opus-5-5",
+    "evidence": "Claude Opus 5.5 matched Opus 5 quality in about half the turns, time and output tokens, cutting the cost of that workload by 40 to 50%.",
+    "claim": "Chi phí khối lượng công việc này giảm tới 50 phần trăm so với Opus 5.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "b514b87bc64d3d97773b",
+    "reason": "unsupported_amount_role",
+    "verdict": "true",
+    "source_url": "https://techcrunch.com/2026/10/22/openai-working-on-new-30b-raise-at-1-25t-valuation-ahead-of-ipo/",
+    "evidence": "The AI lab is working on raising up to $30 billion at a $1.25 trillion pre-money valuation in a round led by Coatue and investors in UAE.",
+    "claim": "OpenAI được định giá 30 tỷ USD trong vòng vốn mới.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  }
+]
