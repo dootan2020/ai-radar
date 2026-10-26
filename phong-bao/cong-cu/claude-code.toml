@@ -1,0 +1,12 @@
+id = "claude-code"
+capabilities = ["tim-kiem", "doc-bai", "bien-tap", "kiem-chung", "tao-anh"]
+kind = "subscription-boat"
+cost_class = "subscription"
+priority = 30
+monthly_cap_usd = 0
+boat = "claude"
+runner = "batch-cli"
+argv = ["claude", "-p", "{prompt}"]
+prompt_transport = "argument"
+[detect]
+command = "claude"

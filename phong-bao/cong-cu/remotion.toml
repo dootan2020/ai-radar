@@ -1,0 +1,9 @@
+id = "remotion"
+capabilities = ["dung-video"]
+kind = "local-command"
+cost_class = "free"
+priority = 10
+monthly_cap_usd = 0
+runner = "external"
+[detect]
+file = "D:/BACHDYON/VAS-v1.3/video-automator-skills-main/node_modules/.bin/remotion.cmd"

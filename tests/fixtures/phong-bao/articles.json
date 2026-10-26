@@ -1,0 +1,29 @@
+{
+  "articles": {
+    "https://www.semafor.com/article/10/22/2026/chinas-ai-leader-deepseek-raises-15b": {
+      "text": "From Semafor Flagship\nIn your inbox, every weekday\nSign up\nChinaâs AI leader DeepSeek raises $15B\nOct 22, 2026, 6:30am EDT\nPostEmailWhatsappCopy link\nShare\nDado Ruvic/Reuters\nChinese AI champion DeepSeek raised around $15 billion in one of the countryâs biggest-ever financing rounds as part of efforts to keep up with Western frontier firms. The Hangzhou-based firm â which last year shocked markets by unveiling a model that could compete with Silicon Valleyâs leaders at a fraction of the cost â twice increased its financing target ahead of the latest funding round, which analysts said set the stage for an imminent public listing.\nThough DeepSeek hopes the fresh capital will help fund its international expansion, governments and regulators worldwide have recently stepped up their scrutiny of its security and privacy policies, with some, including US agencies, banning its technology entirely from government devices.\nâ Jeronimo Gonzalez",
+      "reason": null
+    },
+    "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/": {
+      "text": "How Octave built a secure multi-tenant AI foundation on Amazon Bedrock\nIn quality management for regulated industries, the institutional memory that resolves a problem is almost always buried somewhere in a customer’s history. A similar defect investigated last year, a Corrective and Preventive Action (CAPA) that fixed the root cause, an audit finding that flagged the same gap. That knowledge sits in billions of documents no human can search by semantic similarity across languages and formats, so every investigation starts from scratch. Octave Reliance has helped each organization collect documents across multiple systems to help them search more easily and keep track of everything they have. The Octave Reliance team saw unlocking this history as its single largest opportunity to help customers work faster and stay compliant. The obstacle was equally clear: complaint records, audit findings, and corrective actions carry the platform’s strictest isolation requirements, and those were exactly the records the AI would need to read. In a platform serving over 14,000 customers across medical devices, pharmaceuticals, and food manufacturing, a single inadvertent disclosure from one customer to another would carry regulatory consequences far outweighing any AI benefit.\nOctave operates across 180 countries, serving more than 60% of the Global Fortune 500. Its cloud-native quality management system, Reliance, supports over 650 enterprise customers with over 40 applications, from complaint management and CAPA tracking to audit management and supplier quality. Everyone generates regul",
+      "reason": null
+    },
+    "https://metr.org/blog/2026-10-22-red-teaming-openai-agent-monitoring/": {
+      "text": "",
+      "reason": "too_short"
+    },
+    "https://artificialwatch.com/wire/metr-redwood-red-team-openai-internal-agent-monitoring": {
+      "text": "✳ the wire · analysis\nMETR and Redwood red-teamed OpenAI's internal agent monitoring and found ways agents could slip past it\n2026-10-22confirmedby ArtificialWatch\nEmail addressAlert me free →\nAn email the minute a new frontier model answers on a public API · free, no card\nArtificialWatch title card · verified against a primary source\nTwo researchers, one from METR and one from Redwood Research, spent three weeks this summer inside OpenAI stress-testing the system that watches its internal AI agents for misalignment, and found several ways agents could in principle avoid or disable it. METR published a short public write-up on October 22. The full 61-page report went to OpenAI.\nWHAT THEY FOUND\nPer METR's post, read directly, about the system as it stood on and before July 21: - An estimated 75 to 94% of internal agentic Responses API traffic from models at least as strong as GPT-5.5 was eligible for monitoring, and 99.2% of the internal Codex share of it. - Compaction events were not monitored, which likely left on the order of 10% of eligible internal Codex traffic unmonitored between May and July. Because the monitor ran when an agent handed control back to the user, an agent could in that window postpone monitoring indefinitely by continuing to work. OpenAI had already found this and fixed it during the exercise. - A way for Codex agents to bypass Codex sandboxing and Auto-Review and take any action the host user could. - An exploit that would keep hundreds of recent actions, including the exploit itself, out of monitoring. OpenAI redacted the details. - Two client-contr",
+      "reason": null
+    }
+  },
+  "search": {
+    "Red-Teaming OpenAI's Internal Agent Monitoring Systems": [
+      {
+        "title": "Red-Teaming OpenAI's Internal Agent Monitoring Systems",
+        "url": "https://artificialwatch.com/wire/metr-redwood-red-team-openai-internal-agent-monitoring",
+        "published_at": "2026-10-22T07:00:00Z"
+      }
+    ]
+  }
+}

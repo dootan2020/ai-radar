@@ -1,0 +1,9 @@
+id = "gemini-api"
+capabilities = ["bien-tap", "kiem-chung"]
+kind = "paid-api"
+cost_class = "paid"
+priority = 100
+monthly_cap_usd = 20
+runner = "disabled-until-budget-adapter"
+[detect]
+env_key = "GEMINI_API_KEY"

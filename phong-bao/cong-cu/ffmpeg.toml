@@ -1,0 +1,9 @@
+id = "ffmpeg"
+capabilities = ["dung-video"]
+kind = "local-command"
+cost_class = "free"
+priority = 20
+monthly_cap_usd = 0
+runner = "external"
+[detect]
+command = "ffmpeg"

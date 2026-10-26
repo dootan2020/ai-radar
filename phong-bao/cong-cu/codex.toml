@@ -1,0 +1,12 @@
+id = "codex"
+capabilities = ["tim-kiem", "doc-bai", "bien-tap", "kiem-chung"]
+kind = "subscription-boat"
+cost_class = "subscription"
+priority = 10
+monthly_cap_usd = 0
+boat = "codex"
+runner = "batch-cli"
+argv = ["codex", "exec", "--model", "gpt-6-sol", "-"]
+prompt_transport = "stdin"
+[detect]
+command = "codex"

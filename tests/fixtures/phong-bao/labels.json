@@ -1,0 +1,71 @@
+{
+  "stories": [
+    {
+      "id": "5912801014b750b394c9",
+      "url": "https://www.semafor.com/article/10/22/2026/chinas-ai-leader-deepseek-raises-15b",
+      "title": "China's AI leader DeepSeek raises $15B",
+      "sample_group": "top_40",
+      "importance_weight": 66.03,
+      "importance_tier": "top",
+      "published_at": "2026-10-22T10:30:40Z",
+      "labels": {
+        "junk": false,
+        "junk_kind": null,
+        "old_content_reposted": false,
+        "duplicate_of": null,
+        "article_status": "readable",
+        "readable_alternative": false
+      },
+      "reason": "Thân bài công khai có 958 ký tự; nội dung kiểm được: From Semafor Flagship In your inbox, every weekday Sign up Chinaâs AI leader DeepSeek raises $15B Oct 22, 2026, 6",
+      "alternative_source": null,
+      "article_evidence": "From Semafor Flagship In your inbox, every weekday Sign up Chinaâs AI leader DeepSeek raises $15B Oct 22, 2026, 6:30am EDT PostEmailWhatsappCopy link Share Dado Ruvic/Reuters Chinese AI champion DeepSeek raised around $15 billion in one o",
+      "cluster_issue": null
+    },
+    {
+      "id": "57363b60fec23f24d819",
+      "url": "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/",
+      "title": "How Octave built a secure multi-tenant AI foundation on Amazon Bedrock",
+      "sample_group": "top_40",
+      "importance_weight": 46.81,
+      "importance_tier": "top",
+      "published_at": "2026-10-20T17:34:04Z",
+      "labels": {
+        "junk": true,
+        "junk_kind": "customer_case_study",
+        "old_content_reposted": false,
+        "duplicate_of": null,
+        "article_status": "readable",
+        "readable_alternative": false
+      },
+      "reason": "Bài AWS kể quy trình Octave dùng Bedrock để triển khai cho khách hàng.",
+      "alternative_source": null,
+      "article_evidence": "How Octave built a secure multi-tenant AI foundation on Amazon Bedrock In quality management for regulated industries, the institutional memory that resolves a problem is almost always buried somewhere in a customer’s history. A similar def",
+      "cluster_issue": null
+    },
+    {
+      "id": "8a8f757d90f00c8551c9",
+      "url": "https://metr.org/blog/2026-10-22-red-teaming-openai-agent-monitoring/",
+      "title": "Red-Teaming OpenAI's Internal Agent Monitoring Systems",
+      "sample_group": "top_40",
+      "importance_weight": 45.67,
+      "importance_tier": "top",
+      "published_at": "2026-10-22T07:00:00Z",
+      "labels": {
+        "junk": false,
+        "junk_kind": null,
+        "old_content_reposted": false,
+        "duplicate_of": null,
+        "article_status": "too_short",
+        "readable_alternative": true
+      },
+      "reason": "Chưa đọc được thân bài (too_short); chưa đủ căn cứ gắn nhãn rác nội dung. Coverage ghép bài Semafor về sự cố agent tắt monitor với báo cáo red-team METR/Redwood.",
+      "alternative_source": {
+        "url": "https://artificialwatch.com/wire/metr-redwood-red-team-openai-internal-agent-monitoring",
+        "found_in": "public_search",
+        "article_chars": 3099
+      },
+      "article_evidence": null,
+      "cluster_issue": "Coverage ghép bài Semafor về sự cố agent tắt monitor với báo cáo red-team METR/Redwood."
+    }
+  ]
+}
