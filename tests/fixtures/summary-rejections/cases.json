@@ -105,6 +105,7 @@
     "verdict": "false",
     "source_url": "https://techcrunch.com/2026/10/25/grok-releases-the-first-seven-minutes-of-its-ai-generated-odyssey/",
     "evidence": "Musk had previously lashed out at Christopher Nolan's version of The Odyssey. Grok has published seven minutes of its version.",
+    "article_paragraphs": ["Three months after Elon Musk declared that Grok would release a full-length movie version of The Odyssey, Grok published seven minutes."],
     "claim": "Elon Musk từng chỉ trích phiên bản Odyssey của Christopher Nolan.",
     "claim_origin": "reconstructed from rejection reason; original model output unavailable"
   },
@@ -183,5 +184,74 @@
     "claim": "Claude Opus 5.5 giảm 40% chi phí so với Opus 5.",
     "claim_origin": "reconstructed from rejection reason; original model output unavailable",
     "evidence_refs": []
+  },
+  {
+    "id": "0dd3bed5c7dd1c272c8d",
+    "reason": "invented_entity: Clio",
+    "verdict": "false",
+    "source_url": "https://www.anthropic.com/claude-opus-5-5",
+    "evidence": "I handed Claude Opus 5.5 a large engineering task across six of our repositories and let it run overnight, unattended.",
+    "article_paragraphs": ["Company Clio. Author Sean Heintz, Staff Software Developer."],
+    "claim": "Clio thử nghiệm Claude Opus 5.5 qua đêm trên sáu kho mã.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "dd532f8754363bd8a06a",
+    "reason": "invented_entity: ARI",
+    "verdict": "false",
+    "source_url": "https://www.nextgov.com/artificial-intelligence/2026/10/policy-proposal-would-require-firms-disclose-how-they-use-ai-develop-new-models/416812/",
+    "evidence": "The plan, developed by Americans for Responsible Innovation, would require major developers to submit quarterly reports to a new Commerce Department office.",
+    "article_paragraphs": ["ARI wants companies to report when AI takes on more of the work of building new models, even if nothing goes wrong."],
+    "claim": "ARI đề xuất yêu cầu các công ty báo cáo cách dùng AI để phát triển mô hình.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "5d794c3788a3a4be0d42",
+    "reason": "invented_entity: Ai2",
+    "verdict": "false",
+    "source_url": "https://huggingface.co/blog/allenai/litpivot",
+    "evidence": "With collaborators at the University of Pennsylvania, we developed LitPivot, a system that helps researchers navigate these pivots.",
+    "article_paragraphs": ["At Ai2, we're developing AI to help researchers formulate testable ideas and examine the evidence behind them."],
+    "claim": "Ai2 phát triển LitPivot cùng các nhà nghiên cứu tại Pennsylvania.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "833d5d33c61d3b3b5d16",
+    "reason": "invented_entity: GPT",
+    "verdict": "false",
+    "source_url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/",
+    "evidence": "The topics each AI model searched for were also split by party, according to Parikh.",
+    "article_paragraphs": ["The researchers in the study asked GPT and Grok, via their APIs, one question."],
+    "claim": "GPT tìm kiếm chủ đề khác với Grok trong nghiên cứu bầu cử.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "f9bf689d97fdb4556aa8",
+    "reason": "invented_entity: HKU",
+    "verdict": "false",
+    "source_url": "https://www.scmp.com/tech/tech-trends/article/3372107/chinese-video-ai-models-beat-us-rivals-visual-quality-lag-safeguards-hku-study",
+    "evidence": "Chinese AI video-generation models have surpassed leading US rivals in visual quality, but several fall behind in safety safeguards, according to researchers at the University of Hong Kong.",
+    "article_paragraphs": ["The study was led by Zhenhui Jack Jiang, professor of innovation and information management at HKU's business school."],
+    "claim": "HKU nhận thấy mô hình video AI Trung Quốc dẫn đầu về chất lượng hình ảnh.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "a3a1ab3f9ca49fc77e75",
+    "reason": "invented_number: 2026",
+    "verdict": "false",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-10-26/anthropic-ipo-s-1-filing-offers-first-look-at-claude-maker-s-finances",
+    "evidence": "Anthropic PBC filed for its long-awaited IPO, a landmark moment in an industry growing ever-hungrier for cash.",
+    "publication_years": ["2026"],
+    "claim": "Năm 2026, Anthropic nộp hồ sơ IPO được mong đợi từ lâu.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "662a60bcede23d92b9cd",
+    "reason": "invented_number: 100",
+    "verdict": "false",
+    "source_url": "https://pandaily.com/sanxingdui-future-past-first-licensed-all-ai-workflow-feature-film-bona-cloud-studio",
+    "evidence": "The film was made by Bona Film Group using its in-house Boka Film Cloud Studio platform. Over two years, the team produced more than 1.2 million base images and ran more than a hundred full-film iterations.",
+    "claim": "Bona thực hiện hơn 100 vòng lặp toàn phim bằng quy trình AI.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
   }
 ]

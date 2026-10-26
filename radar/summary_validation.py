@@ -91,7 +91,7 @@ def money_claims(text):
     return claims
 
 
-def number_error(text, evidence):
+def number_error(text, evidence, *, publication_years=()):
     evidence = normalized(evidence)
     source_money = money_claims(evidence)
     for value, role in money_claims(text):
@@ -100,7 +100,10 @@ def number_error(text, evidence):
             return "unsupported_amount_role"
     # Remove scaled currency amounts before ordinary numeric comparison; notation may translate.
     source_numbers = {n.replace(",", ".").casefold() for n in NUMBER.findall(MONEY.sub("", evidence))}
+    source_numbers.update(publication_years)
     source_words = set(re.findall(r"[a-z]+", evidence.casefold()))
+    if "hundred" in source_words:
+        source_numbers.add("100")
     for index, word in enumerate(("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten")):
         if word in source_words:
             source_numbers.add(str(index))
@@ -145,7 +148,7 @@ def entity_error(text, evidence):
             text = re.sub(r"(?<!\w)" + re.escape(vietnamese) + r"(?!\w)", " ", text, flags=re.I)
     # A cited surname can support the conventional full name of that same person.
     # Keep the mapping narrow: an unrelated given name must still fail.
-    for full_name, surname in (("Donald Trump", "Trump"), ("Elon Musk", "Musk")):
+    for full_name, surname in (("Donald Trump", "Trump"),):
         if re.search(r"(?<!\w)" + re.escape(surname) + r"(?!\w)", evidence):
             text = re.sub(r"(?<!\w)" + re.escape(full_name) + r"(?!\w)", " ", text)
     # Ai2 is the Allen Institute for AI's published short name.
@@ -163,7 +166,8 @@ def entity_error(text, evidence):
     return None
 
 
-def claim_error(claim, refs, paragraph_refs, *, max_length):
+def claim_error(claim, refs, paragraph_refs, *, max_length, entity_evidence=None,
+                publication_years=()):
     text = normalized(claim["text"]).strip()
     used = claim["evidence_refs"]
     if (len(text) < 15 or len(text) > max_length or not used or len(set(used)) != len(used)
@@ -174,8 +178,9 @@ def claim_error(claim, refs, paragraph_refs, *, max_length):
     if not VIETNAMESE.search(text):
         return "untranslated_vietnamese_missing"
     evidence = " ".join(refs[ref] for ref in used)
-    # Headline/date metadata never licenses body facts. Publisher metadata only licenses attribution.
-    error = number_error(text, evidence) or entity_error(text, evidence)
+    # Only the source publication year is allowed from date metadata; other numbers stay with citations.
+    error = number_error(text, evidence, publication_years=publication_years) or entity_error(
+        text, evidence if entity_evidence is None else entity_evidence)
     if error:
         return error
     # English connective prose is different from technical names such as CUDA or GPU.
@@ -201,7 +206,7 @@ def claim_error(claim, refs, paragraph_refs, *, max_length):
     return None
 
 
-def validate_summary(inputs, output):
+def validate_summary(inputs, output, *, source_entity_evidence=None):
     from radar.summary_gemini import OUTPUT_SCHEMA
     if not valid_shape(output, OUTPUT_SCHEMA) or output["id"] != inputs.get("id"):
         return None, "invalid_contract"
@@ -220,6 +225,7 @@ def validate_summary(inputs, output):
     if len(set(points)) != len(points):
         return None, "duplicate_points"
     refs, owners, paragraph_refs = {}, {}, set()
+    source_by_id = {source["id"]: source for source in sources}
     for source in sources:
         for p in [*source["paragraphs"], source["publisher"]]:
             if p["id"] in refs:
@@ -229,11 +235,23 @@ def validate_summary(inputs, output):
     claims = [(output["title_vi"], 240), *[(p, 520) for p in output["key_points"]]]
     for claim, limit in claims:
         claim_refs = dict(refs)
+        cited_sources = {owners[ref] for ref in claim["evidence_refs"] if ref in owners}
+        entity_evidence = " ".join(
+            part for source_id in cited_sources
+            for part in (source_by_id[source_id].get("title", ""), source_by_id[source_id]["publisher"]["text"],
+                         (source_entity_evidence or {}).get(source_id) or " ".join(
+                             p["text"] for p in source_by_id[source_id]["paragraphs"])))
+        publication_years = {
+            match[1] for source_id in cited_sources
+            if (match := re.match(r"^(20\d{2})-\d{2}-\d{2}(?:T|$)",
+                                  str(source_by_id[source_id].get("published_at") or "")))
+        }
         for ref in claim["evidence_refs"]:
             if ref in owners:
                 publisher = next(s["publisher"]["text"] for s in sources if s["id"] == owners[ref])
                 claim_refs[ref] += " " + publisher
-        error = claim_error(claim, claim_refs, paragraph_refs, max_length=limit)
+        error = claim_error(claim, claim_refs, paragraph_refs, max_length=limit,
+                            entity_evidence=entity_evidence, publication_years=publication_years)
         if error:
             return None, error
     used = {owners[ref] for claim, _ in claims for ref in claim["evidence_refs"]}
