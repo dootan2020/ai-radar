@@ -1,6 +1,7 @@
 """RSS/Atom observations with actual podcast enclosure and image links."""
 
 import xml.etree.ElementTree as ET
+from urllib.parse import urljoin
 
 from radar.common import classify, clean_text, web_url
 from radar.feeds import _field, _local, _research_copy
@@ -78,7 +79,8 @@ def parse_feed(text, source, observed_at):
                     medium = "audio"
                 if target and medium in {"audio", "video", "image"}:
                     media.append(dict(url=target, type=medium, mime_type=mime))
-        if not web_url(url) or not title:
+        url = web_url(urljoin(source.get("url", ""), url))
+        if not url or not title:
             continue
         usable += 1
         if url in seen:
@@ -87,7 +89,9 @@ def parse_feed(text, source, observed_at):
         summary = clean_text(_field(entry, "description", "summary", "encoded", "content"))
         if source["id"] == "anthropic-research":
             title, summary = _research_copy(title, summary)
-        if not accepts_feed_item(source, title, summary):
+        categories = [child.get("term") or "".join(child.itertext())
+                      for child in entry if _local(child.tag) == "category"]
+        if not accepts_feed_item(source, title, summary, categories):
             continue
         kind = "podcast" if source.get("group") == "podcast" else classify(title, summary)
         if source["id"] == "anthropic-research":

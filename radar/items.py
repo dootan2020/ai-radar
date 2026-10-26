@@ -18,7 +18,7 @@ AI_TERMS_CI = re.compile(
     r"dall-e|dalle|sora|zhipu|chatglm|elevenlabs|multimodal|"
     r"trí tuệ nhân tạo|trí thông minh nhân tạo|siêu trí tuệ|học máy|mô hình ngôn ngữ|"
     r"trợ lý ảo|thị giác máy tính|mạng nơ-ron|mạng nơron|mạng thần kinh|vinai|nvidia)\b", re.I)
-AI_EXACT = re.compile(r"\bAI\b")
+AI_EXACT = re.compile(r"(?<![A-Za-z])AI(?![A-Za-z])")
 
 
 def relevant(title, summary=""):

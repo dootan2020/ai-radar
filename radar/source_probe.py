@@ -32,6 +32,30 @@ from radar.transport import MAX_BYTES, USER_AGENT, ResponseText, SafeRedirectHan
 FETCH_TIMEOUT = 10
 
 
+def enrich_source_health(records, observations, now, previous=None):
+    """Carry source health across snapshots without treating silence as success."""
+    prior = {row["id"]: row for row in (previous or {}).get("sources", []) if row.get("id")}
+    newest = {}
+    for item in observations:
+        source_id, date = item.get("source"), item.get("published_at")
+        if source_id and date and (source_id not in newest or date > newest[source_id]):
+            newest[source_id] = date
+    checked_at = iso_date(now)
+    for record in records:
+        old = prior.get(record["id"], {})
+        record["last_successful_fetch"] = (
+            checked_at if record.get("ok") and record.get("http_requests")
+            else old.get("last_successful_fetch")
+            or (old.get("checked_at") if old.get("ok") and old.get("http_requests") else None)
+        )
+        record["newest_item_date"] = max(
+            (date for date in (newest.get(record["id"]), old.get("newest_item_date")) if date),
+            default=None,
+        )
+        record["last_error"] = record.get("error") or old.get("last_error") or old.get("error")
+    return records
+
+
 class AlternateFeedParser(HTMLParser):
     """Extract <link rel="alternate" ...> feed autodiscovery tags from HTML."""
 

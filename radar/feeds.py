@@ -4,6 +4,7 @@ from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
 import re
 import xml.etree.ElementTree as ET
+from urllib.parse import urljoin
 
 from radar.common import classify, clean_text, iso_date, stable_id, web_url
 
@@ -36,7 +37,9 @@ def _field(entry, *names):
     for name in names:
         for child in entry:
             if _local(child.tag) == name:
-                return "".join(child.itertext())
+                value = "".join(child.itertext())
+                if value.strip():
+                    return value
     return ""
 
 
@@ -80,7 +83,7 @@ def parse_feed(text, source):
             if _local(link.tag) == "link" and link.get("href") and link.get("rel", "alternate") == "alternate":
                 url = link.get("href")
                 break
-        url = web_url(url.strip())
+        url = web_url(urljoin(source.get("url", ""), url.strip()))
         title = clean_text(_field(entry, "title"), 500)
         date = _field(entry, "pubDate", "published", "date", "updated")
         default_tz = source.get("default_tz") or source.get("timezone") or source.get("tz")
