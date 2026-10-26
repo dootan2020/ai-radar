@@ -132,6 +132,19 @@ jobs:
             radar-image-cache-v2-main-
             radar-image-cache-v1-${{ github.ref_name }}-
             radar-image-cache-v1-main-
+      - name: Fetch newsroom decisions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          rm -f phong-bao/decisions.json
+          if gh api -H 'Accept: application/vnd.github.raw+json' "repos/${GITHUB_REPOSITORY}/contents/decisions.json?ref=newsroom-decisions" > "$RUNNER_TEMP/newsroom-decisions.json" 2> "$RUNNER_TEMP/newsroom-decisions-error"; then
+            mv "$RUNNER_TEMP/newsroom-decisions.json" phong-bao/decisions.json
+          elif grep -q 'HTTP 404' "$RUNNER_TEMP/newsroom-decisions-error"; then
+            echo 'No newsroom decisions branch or file; using existing publication behavior.'
+          else
+            cat "$RUNNER_TEMP/newsroom-decisions-error" >&2
+            exit 1
+          fi
       - name: Fetch public sources
         id: collect
         env:

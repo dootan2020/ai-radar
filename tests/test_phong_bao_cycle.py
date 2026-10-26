@@ -1,12 +1,16 @@
 """Offline scheduled-cycle behavior with the phase 0 fixture runner."""
 
 import json
+from io import BytesIO
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.error import HTTPError
+from unittest.mock import patch
 
-from phong_bao.cycle import cycle, cycle_lock
+from phong_bao.cycle import cycle, cycle_lock, fetch_snapshot
+from phong_bao.__main__ import main
 from phong_bao.newsroom import FixtureArticles
 from phong_bao.registry import load_registry
 from phong_bao.runner import FixtureRunner
@@ -30,6 +34,31 @@ class CountingRunner(FixtureRunner):
 
 
 class CycleTests(unittest.TestCase):
+    def test_snapshot_uses_browser_user_agent_and_falls_back_only_on_intake_404(self):
+        seen = []
+        def fake_open(request, timeout):
+            seen.append((request.full_url, request.get_header("User-agent"), timeout))
+            if request.full_url.endswith("radar-intake.json"):
+                raise HTTPError(request.full_url, 404, "Not Found", {}, None)
+            return BytesIO(b'{"stories": []}')
+
+        with patch("phong_bao.cycle.urlopen", side_effect=fake_open):
+            self.assertEqual(fetch_snapshot("https://example.org/data/radar-intake.json"), {"stories": []})
+        self.assertEqual([row[0] for row in seen], ["https://example.org/data/radar-intake.json",
+                                                 "https://example.org/data/radar.json"])
+        self.assertTrue(all(row[1].startswith("Mozilla/5.0") and row[2] == 60 for row in seen))
+
+        with patch("phong_bao.cycle.urlopen", side_effect=HTTPError("https://example.org/data/radar-intake.json",
+                                                                     403, "Forbidden", {}, None)) as opener:
+            with self.assertRaises(HTTPError):
+                fetch_snapshot("https://example.org/data/radar-intake.json")
+            self.assertEqual(opener.call_count, 1)
+
+    def test_cli_passes_custom_snapshot_url(self):
+        with patch("phong_bao.__main__.cycle", return_value={"state": "no_new_stories"}) as run_cycle:
+            self.assertEqual(main(["cycle", "--snapshot-url", "https://example.org/data/radar-intake.json"]), 0)
+        run_cycle.assert_called_once_with(snapshot_url="https://example.org/data/radar-intake.json")
+
     def test_only_new_stories_are_decided_and_history_keeps_holds(self):
         snapshot = fixture("snapshot.json")
         first = snapshot["stories"][0]["id"]

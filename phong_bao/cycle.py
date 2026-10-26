@@ -8,7 +8,8 @@ import json
 import os
 from pathlib import Path
 import tempfile
-from urllib.request import urlopen
+from urllib.error import HTTPError
+from urllib.request import Request, urlopen
 
 from .discovery import discover_raw
 from .newsroom import DEFAULT_DESK_BUDGET_SECONDS, _write_json, run
@@ -17,6 +18,7 @@ from .runner import CLIRunner
 
 
 SNAPSHOT_URL = "https://radar-ai-vn.pages.dev/data/radar-intake.json"
+USER_AGENT = "Mozilla/5.0 (compatible; AIRadarNewsroom/1.0)"
 ROOT = Path(__file__).resolve().parents[1]
 DECISIONS_PATH = ROOT / "phong-bao" / "decisions.json"
 CYCLES_DIR = ROOT / "phong-bao" / "cycles"
@@ -48,9 +50,17 @@ def cycle_lock(path):
                 fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
 
 
-def fetch_snapshot():
-    with urlopen(SNAPSHOT_URL, timeout=60) as response:
-        return json.load(response)
+def fetch_snapshot(url=SNAPSHOT_URL):
+    def read(address):
+        with urlopen(Request(address, headers={"User-Agent": USER_AGENT}), timeout=60) as response:
+            return json.load(response)
+
+    try:
+        return read(url)
+    except HTTPError as error:
+        if error.code != 404 or not url.endswith("/radar-intake.json"):
+            raise
+        return read(url.removesuffix("radar-intake.json") + "radar.json")
 
 
 def _read_history(path):
@@ -75,7 +85,7 @@ def _lanes_available(tools, discovery):
     return any(editor.get("boat") != checker.get("boat") for editor in editors for checker in checkers)
 
 
-def cycle(*, snapshot_fetcher=fetch_snapshot, decisions_path=DECISIONS_PATH, cycles_dir=CYCLES_DIR,
+def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DECISIONS_PATH, cycles_dir=CYCLES_DIR,
           discovery=None, runner=None, articles=None, tools=None,
           desk_budget_seconds=DEFAULT_DESK_BUDGET_SECONDS, now=None):
     """Review new story IDs and keep every earlier decision, including holds."""
@@ -89,7 +99,7 @@ def cycle(*, snapshot_fetcher=fetch_snapshot, decisions_path=DECISIONS_PATH, cyc
         job_dir.mkdir(parents=True)
         old = _read_history(decisions_path)
         known = {row["id"] for row in old}
-        snapshot = snapshot_fetcher()
+        snapshot = snapshot_fetcher() if snapshot_fetcher is not None else fetch_snapshot(snapshot_url)
         if not isinstance(snapshot, dict) or not isinstance(snapshot.get("stories"), list):
             raise ValueError("published snapshot has no stories")
         stories = snapshot["stories"]

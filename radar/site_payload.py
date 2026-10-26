@@ -54,6 +54,36 @@ def intake_path(path):
     return path.with_name(f"{path.stem}-intake{path.suffix}")
 
 
+def complete_published_snapshot(payload, published_path):
+    """Carry reader updates into the full history kept for the next build."""
+    try:
+        previous = json.loads(Path(published_path).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return payload
+    if (not isinstance(previous, dict) or previous.get("generated_at") != payload.get("generated_at")
+            or not isinstance(previous.get("stories"), list)):
+        return payload
+    original = {story.get("id"): story for story in previous["stories"] if isinstance(story, dict)}
+    current = payload.get("stories", [])
+    if not isinstance(current, list) or any(not isinstance(story, dict) or story.get("id") not in original
+                                            for story in current):
+        return payload
+    result = deepcopy(previous)
+    result.update({key: value for key, value in payload.items() if key not in {"stories", "sections"}})
+    updated = {story["id"]: story for story in current}
+    result["stories"] = []
+    for story in previous["stories"]:
+        revised = deepcopy(updated.get(story.get("id"), story))
+        if story.get("id") in updated:
+            for key in ("importance_tier", "importance_weight", "importance_reason"):
+                if key in story:
+                    revised[key] = story[key]
+                else:
+                    revised.pop(key, None)
+        result["stories"].append(revised)
+    return result
+
+
 def head_path(path):
     """Companion first-screen projection path, e.g. radar-head.json."""
     path = Path(path)

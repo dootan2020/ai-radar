@@ -28,7 +28,9 @@ Cho phòng báo chạy `python -m phong_bao cycle` theo lịch trên máy này, 
 - Không gọi model, không push, không đăng ký Scheduled Task và không sửa `phong-bao/jobs/`.
 - `git add` các file trong scope bị sandbox từ chối tại `.git/worktrees/ai-radar-wt-phong-bao/index.lock` (`Permission denied`). Worktree để nguyên cho Lucy stage; report này bị `plans/` ignore nên Lucy cần `git add -f -- plans/reports/tien-do-phong-bao-1.md`.
 
-## Next Steps
+## Next Steps from Phase 1a (superseded)
+
+Các hướng dẫn pha 1a bên dưới đã được pha 1b thay thế. Không push `decisions.json` lên `main`.
 
 1. Lucy merge code vào checkout `main`, chạy cycle thật sau khi kiểm tra CLI vẫn đúng subscription/model. Trong checkout đó, lệnh chuyển quyết định là:
 
@@ -41,3 +43,13 @@ Cho phòng báo chạy `python -m phong_bao cycle` theo lịch trên máy này, 
 
 2. Lucy xem `phong-bao/cong-cu/register-newsroom-cycle.ps1`, xác nhận checkout lâu dài và Python đúng; khi sẵn sàng mới chạy `powershell -File phong-bao/cong-cu/register-newsroom-cycle.ps1`. Script tự lấy đường dẫn repo tại nơi nó nằm.
 3. Cần anh chốt: endpoint intake công khai có chấp nhận được không? Nếu không, cần một kênh snapshot riêng tư từ Actions tới máy này và phải mở rộng phạm vi workflow/quyền truy cập trước khi đăng ký lịch.
+
+## Phase 1b: branch riêng và bản đọc tiếng Việt
+
+- `cycle` gửi user agent tường minh, nhận `--snapshot-url`, và chỉ thử `/data/radar.json` nếu `/data/radar-intake.json` trả 404. Lần đầu chưa có intake vẫn đọc được snapshot live.
+- `apply_decisions` chỉ bỏ story có quyết định hold và cap tier cho story publish được xét; ID chưa được xét giữ nguyên hành vi hiện tại. Không sửa `summary`, `summary_vi`, key points hoặc headline đã dịch. Bản intake vẫn đầy đủ. Bước fetch trong `update.yml` xóa seed ở checkout rồi lấy duy nhất `decisions.json` từ branch `newsroom-decisions` bằng raw media type (không vướng giới hạn 1 MB của base64 Contents API); branch/file 404 dùng hành vi cũ, lỗi khác làm step thất bại.
+- `run-newsroom-cycle.ps1` dùng clone riêng, đồng bộ lịch sử branch về file local trước cycle (giữ quyết định local chưa push nếu nó là phần mở rộng của branch; dừng khi hai lịch sử phân kỳ), rồi commit/push duy nhất `decisions.json` lên `newsroom-decisions` bằng push thường. Nếu chưa có branch, nó tạo orphan branch. Nó không sửa `main`; registration gọi script này. Chưa chạy script, push hay đăng ký task trong phiên này.
+- Kiểm tra các reader: translate và summarize đọc `radar.json` đã lọc, nên không tốn lượt cho hold. Trước sửa, cả hai ghi bản lọc đè `data/published-snapshot.json`, làm mất history đầy đủ; nay merge các trường mới của story còn hiển thị vào bản full trước khi ghi cache, giữ story hold, sections gốc và ranking tier gốc. Cache dịch và summary riêng vẫn là file riêng, không reset khi lọc. `edition_publish` và `video_script` chọn từ bản đọc đã lọc, đúng mục tiêu; nếu dưới ngưỡng chọn video, bước video trả `insufficient_stories`. `health_probe` chỉ xác thực schema và timestamp, không đòi số story tối thiểu. `build.py` ghi bản full vào published cache và baseline trước bước dịch, và intake full trước bộ lọc; với cache restored bình thường, hold không trở lại như story mới trong history. Khi cache published bị mất, fallback từ `site/data/radar.json` có thể thiếu history, nhưng quyết định theo ID vẫn giữ hold khỏi site khi branch còn mới.
+- Tốc độ đo 110 story/24 giờ tương đương khoảng 550.000 token/ngày ở mức 5.000 token/story. Giữ lịch 06:00, 10:00, 14:00, 18:00, 20:00 Asia/Bangkok: ca 4 giờ khoảng 18–19 story (~92.000 token), ca đêm 10 giờ khoảng 46 story (~229.000 token). Cửa sổ quyết định 12 giờ đủ qua ca đêm nếu task hoàn tất. Lần đầu chưa có lịch sử sẽ thấy tối đa khoảng 1.821 ID cũ (~9,1 triệu token theo mức 1a), vượt xa ca thông thường và có thể chạm giới hạn task 2 giờ; Lucy cần chuẩn bị bootstrap trước khi kích hoạt lịch thật.
+- Test HTTP/CLI cycle: `Ran 4 tests in 0.087s`, `OK`; quyết định: `Ran 2 tests in 0.175s`, `OK`; payload/build: `Ran 19 tests in 0.506s`, `OK`. Suite toàn repo trên code cuối: `Ran 1414 tests in 247.557s`, `OK (skipped=8)`. `py_compile`, `git diff --check` và cú pháp hai script PowerShell đều qua. Không đọc admission/observation, không chạy model, không chạm `.env`, secret, fixture hay `phong-bao/jobs/`.
+- `git add` bị sandbox từ chối tại `C:/Users/Admin/ai-radar/.git/worktrees/ai-radar-wt-phong-bao/index.lock` (`Permission denied`). Worktree để nguyên cho Lucy stage và commit; report hiện là file đã tracked.

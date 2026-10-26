@@ -22,11 +22,13 @@ def reader_fixture():
 
 
 class DecisionProjectionTests(unittest.TestCase):
-    def test_fresh_file_filters_every_reader_projection_and_uses_checked_claims(self):
+    def test_fresh_file_filters_every_reader_projection_and_keeps_vietnamese(self):
         payload = reader_fixture()
         original = deepcopy(payload["stories"][0])
         approved = deepcopy(original)
         approved["id"] = "approved"
+        approved.update(key_points=["Điểm đã dịch"], key_points_machine=True,
+                        key_points_source="machine", editorial_headline_vi="Tiêu đề biên tập")
         held = deepcopy(original)
         held["id"] = "held"
         unknown = deepcopy(original)
@@ -47,12 +49,14 @@ class DecisionProjectionTests(unittest.TestCase):
             with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice)}):
                 site_payload.write_site_snapshot(payload, target)
             full = json.loads(target.read_bytes())
-            self.assertEqual([story["id"] for story in full["stories"]], ["approved"])
+            self.assertEqual([story["id"] for story in full["stories"]], ["approved", "unknown"])
             story = full["stories"][0]
             self.assertEqual(story["importance_tier"], "standard")
-            self.assertEqual(story["summary"], "First checked fact. Second checked fact.")
-            self.assertNotIn("summary_vi", story)
-            self.assertEqual(full["sections"]["today"], ["approved"])
+            for key in ("summary", "summary_vi", "key_points", "key_points_machine",
+                        "key_points_source", "editorial_headline_vi"):
+                self.assertEqual(story[key], approved[key])
+            self.assertEqual(full["stories"][1], unknown)
+            self.assertEqual(full["sections"]["today"], ["approved", "unknown"])
             self.assertEqual(len(json.loads(site_payload.intake_path(target).read_bytes())["stories"]), 3)
             with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice)}):
                 site_payload.write_site_snapshot(full, target)
@@ -60,7 +64,7 @@ class DecisionProjectionTests(unittest.TestCase):
             for path in (site_payload.page_path(target), site_payload.window_path(target),
                          site_payload.head_path(target), site_payload.search_path(target)):
                 reader = json.loads(path.read_bytes())
-                self.assertEqual([row["id"] for row in reader["stories"]], ["approved"])
+                self.assertEqual([row["id"] for row in reader["stories"]], ["approved", "unknown"])
 
     def test_missing_and_stale_decisions_write_identical_payload(self):
         payload = reader_fixture()

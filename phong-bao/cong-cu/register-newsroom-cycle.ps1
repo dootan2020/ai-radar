@@ -1,8 +1,8 @@
 # Run this from the permanent checkout, after reviewing its resolved paths.
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..')).Path
-$python = (Get-Command python.exe -ErrorAction Stop).Source
-$action = New-ScheduledTaskAction -Execute $python -Argument '-m phong_bao cycle' -WorkingDirectory $repo
+$runScript = Join-Path $PSScriptRoot 'run-newsroom-cycle.ps1'
+$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument ('-NoProfile -File "{0}"' -f $runScript) -WorkingDirectory $repo
 $triggers = foreach ($hour in 6, 10, 14, 18, 20) {
     New-ScheduledTaskTrigger -Daily -At ("{0:D2}:00" -f $hour)
 }

@@ -35,12 +35,14 @@ def main(argv=None):
     newsroom.add_argument("--runner-fixture")
     newsroom.add_argument("--articles-fixture")
     scoring = sub.add_parser("evaluate")
-    sub.add_parser("cycle")
+    cycle_parser = sub.add_parser("cycle")
+    cycle_parser.add_argument("--snapshot-url")
     scoring.add_argument("--decisions", required=True)
     scoring.add_argument("--labels", required=True)
     args = parser.parse_args(argv)
     if args.command == "cycle":
-        print(json.dumps(cycle(), ensure_ascii=False, indent=2))
+        options = {"snapshot_url": args.snapshot_url} if args.snapshot_url else {}
+        print(json.dumps(cycle(**options), ensure_ascii=False, indent=2))
         return 0
     if args.command == "evaluate":
         value = evaluate(args.decisions, args.labels)
