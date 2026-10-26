@@ -99,6 +99,19 @@ class SummaryQuotaTests(unittest.TestCase):
         self.assertEqual(estimate(text), 19598)
         return text
 
+    def test_snapshot_reports_active_boost_and_charged_usage(self):
+        ledger = json.loads(self.path.read_text())
+        ledger.update(run_day="2026-10-11", settled_daily_micros=600_000,
+                      daily_remaining_micros=370_000)
+        self.path.write_text(json.dumps(ledger), encoding="utf-8", newline="\n")
+        payload = {"stories": [], "generated_at": "2026-10-11T17:00:00Z"}
+        with patch.dict(os.environ, {"RADAR_GEMINI_PAID_BOOST": "2026-10-11:0.40"}):
+            stats, _ = pipeline.summarize_payload(payload, {}, config=self.config,
+                                                   now=lambda: self.now)
+        self.assertEqual(stats["paid_boost"], {"date": "2026-10-11", "limit_micros": 400_000,
+                                               "used_micros": 30_000})
+        self.assertEqual(payload["summary"], stats)
+
     def test_production_headroom_trims_first_story_and_preserves_cached_evidence(self):
         story = self.story()
         article = self.production_article(story)

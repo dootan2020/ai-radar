@@ -244,6 +244,80 @@ class PaidBudgetTests(unittest.TestCase):
         self.assertEqual(self._prepare(True, 702, 72), "paid_daily_cap")
         self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 500_000)
 
+    def test_dated_boost_opens_daily_pace_and_reports_used_amount(self):
+        self.assertIsNone(self._prepare(False, 710, 710))
+        store = self._store()
+        store["settled_micros"] = 570_000
+        store["settled_daily"] = {"2026-10-07": 570_000}
+        store["settled_consumers"] = {"2026-10-07": {"summary": 375_000, "translation": 150_000,
+                                                      "video": 45_000}}
+        budget._push(str(self.remote), store, self.now)
+        with patch.dict(os.environ, {"RADAR_GEMINI_PAID_BOOST": "2026-10-07:0.40"}):
+            self.assertIsNone(self._prepare(True, 711, 711))
+            self.assertEqual(json.loads(self.path.read_text())["run_allowance_micros"], 200_000)
+            error, request_id = self._reserve(40_000, 711)
+            self.assertIsNone(error)
+            budget.settle(self.path, request_id, 20_000, now=self.now)
+            self.assertEqual(budget.boost_usage(self.path, now=self.now),
+                             {"date": "2026-10-07", "limit_micros": 400_000,
+                              "used_micros": 75_000})
+            self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now,
+                                              run_key="711-1"))
+        self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 645_000)
+
+    def test_boost_is_ignored_on_the_next_utc_day(self):
+        self.now = datetime(2026, 10, 8, 0, tzinfo=timezone.utc).timestamp()
+        self.assertIsNone(self._prepare(False, 720, 720))
+        store = self._store()
+        store["settled_micros"] = 570_000
+        store["settled_daily"] = {"2026-10-08": 570_000}
+        budget._push(str(self.remote), store, self.now)
+        with patch.dict(os.environ, {"RADAR_GEMINI_PAID_BOOST": "2026-10-07:2"}):
+            self.assertEqual(self._prepare(True, 721, 721), "paid_daily_cap")
+            self.assertIsNone(budget.boost_usage(self.path, now=self.now))
+
+    def test_malformed_boost_fails_closed(self):
+        for raw in ("", "2026-10-07", "2026-02-30:1", "2026-10-07:-1",
+                    "2026-10-07:NaN", "2026-10-07:Infinity", "2026-10-07:1 extra"):
+            with self.subTest(raw=raw):
+                self.assertEqual(budget.boost_usd("2026-10-07", {"RADAR_GEMINI_PAID_BOOST": raw}), 0)
+
+    def test_boost_above_two_dollars_is_clamped(self):
+        with patch.dict(os.environ, {"RADAR_GEMINI_PAID_BOOST": "2026-10-07:99"}):
+            self.assertEqual(budget.boost_usd("2026-10-07"), Decimal("2"))
+            self.assertEqual(budget._daily_limit_usd("2026-10-07"), Decimal("2.57"))
+            self.assertIsNone(self._prepare(False, 730, 730))
+            self.assertIsNone(self._prepare(True, 731, 731))
+            self.assertEqual(budget.boost_usage(self.path, now=self.now)["limit_micros"], 2_000_000)
+
+    def test_monthly_cap_still_limits_boosted_hold(self):
+        self.assertIsNone(self._prepare(False, 740, 740))
+        store = self._store()
+        store["settled_micros"] = 19_950_000
+        store["settled_daily"] = {"2026-10-07": 570_000}
+        budget._push(str(self.remote), store, self.now)
+        with patch.dict(os.environ, {"RADAR_GEMINI_PAID_BOOST": "2026-10-07:2"}):
+            self.assertIsNone(self._prepare(True, 741, 741))
+            self.assertEqual(self._store()["pending"]["741-1"], 50_000)
+            self.assertEqual(self._prepare(True, 742, 742), "paid_monthly_cap")
+            self.assertEqual(budget.MAX_CAP_USD, Decimal("20"))
+
+    def test_summary_consumer_quota_grows_in_proportion_to_boost(self):
+        self.assertIsNone(self._prepare(False, 750, 750))
+        store = self._store()
+        store["settled_micros"] = 375_000
+        store["settled_daily"] = {"2026-10-07": 375_000}
+        store["settled_consumers"] = {"2026-10-07": {"summary": 375_000}}
+        budget._push(str(self.remote), store, self.now)
+        with patch.dict(os.environ, {"RADAR_GEMINI_PAID_BOOST": "2026-10-07:0.57"}):
+            self.assertEqual(budget._consumer_tokens("summary", self.now), 200_000)
+            self.assertEqual(budget._consumer_tokens("translation", self.now), 40_000)
+            self.assertIsNone(self._prepare(True, 751, 751))
+            self.assertGreater(budget.remaining_tokens(self.path, "summary", now=self.now,
+                                                       run_number=751), 0)
+            self.assertIsNone(budget.reserve(self.path, 40_000, now=self.now, run_number=751,
+                                             consumer="summary")[0])
+
     def test_consumer_quotas_survive_cache_loss_and_do_not_borrow(self):
         self.assertIsNone(self._prepare(False, 800, 80))
         self.assertIsNone(self._prepare(True, 801, 81))

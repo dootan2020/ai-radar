@@ -37,6 +37,7 @@ jobs:
           RADAR_GEMINI_PAID_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
           RADAR_GEMINI_PAID_ENABLED: ${{ vars.RADAR_GEMINI_PAID_ENABLED }}
           RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_BOOST: ${{ vars.RADAR_GEMINI_PAID_BOOST }}
           RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
         run: python -m radar.gemini_paid_budget
       - name: Upload paid budget reservation
@@ -245,6 +246,7 @@ jobs:
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
           RADAR_GEMINI_PAID_ENABLED: ${{ github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0' }}
           RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_BOOST: ${{ vars.RADAR_GEMINI_PAID_BOOST }}
           RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
           RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
         run: python -m radar.translate --input site/data/radar.json --cache data/translations-vi.json
@@ -305,6 +307,7 @@ jobs:
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
           RADAR_GEMINI_PAID_ENABLED: ${{ github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0' }}
           RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_BOOST: ${{ vars.RADAR_GEMINI_PAID_BOOST }}
           RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
           RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
         run: python -m radar.summarize --input site/data/radar.json --cache data/summaries-gemini-vi.json
@@ -318,6 +321,7 @@ jobs:
           RADAR_GEMINI_FREE_TIER_CONFIRMED: ${{ vars.RADAR_GEMINI_FREE_TIER_CONFIRMED }}
           RADAR_GEMINI_PAID_ENABLED: ${{ github.ref == 'refs/heads/main' && vars.RADAR_GEMINI_PAID_ENABLED || '0' }}
           RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_BOOST: ${{ vars.RADAR_GEMINI_PAID_BOOST }}
           RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
         run: python -m radar.video_script --input site/data/radar-ui.json --output site/data/video-script.json --ledger data/summary-gemini-ledger.json
       - name: Save daily video script
@@ -547,6 +551,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RADAR_GEMINI_PAID_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
           RADAR_GEMINI_PAID_MONTHLY_CAP_USD: ${{ vars.RADAR_GEMINI_PAID_MONTHLY_CAP_USD }}
+          RADAR_GEMINI_PAID_BOOST: ${{ vars.RADAR_GEMINI_PAID_BOOST }}
           RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
         run: python -m radar.gemini_paid_budget finalize
   finalize-x-paid-budget:
