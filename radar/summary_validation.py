@@ -33,7 +33,40 @@ UNITS = {
     "percent": r"(?:%|percent|phần trăm)",
     "usd": r"(?:USD|dollars?|đô la)",
 }
+PERCENT_RANGE = re.compile(r"(?<!\w)(\d+(?:[.,]\d+)?)\s*(?:to|[-–])\s*\d+(?:[.,]\d+)?\s*(?:%|percent|phần trăm)", re.I)
 MONEY = re.compile(r"(?P<dollar>\$)?(?P<value>\d+(?:[.,]\d+)?)\s*(?P<scale>billion|million|tỷ|triệu|[BM])\b(?:\s*(?:USD|dollars?))?", re.I)
+
+COMMON_ACRONYMS = {"AI", "IPO", "CEO", "CTO", "CFO", "COO", "GPU", "CPU", "API", "USD",
+                   "LLM", "LLMS", "AGI", "SEC", "PAC", "FPGA", "JSON", "XML", "SQL", "HTTP",
+                   "HTTPS", "RISC", "UI", "UX", "US", "UK", "EU"}
+VIETNAMESE_ONSETS = ("ngh", "ng", "nh", "ch", "gh", "gi", "kh", "ph", "qu", "th", "tr",
+                    "b", "c", "d", "g", "h", "k", "l", "m", "n", "p", "r", "s", "t", "v", "x", "")
+VIETNAMESE_CODAS = ("ch", "ng", "nh", "c", "m", "n", "p", "t", "")
+ENTITY_WORD = re.compile(r"(?u)\b[^\W\d][\w]*(?:[.+-][\w]+)*\b")
+
+
+def folded(text):
+    text = text.casefold().replace("đ", "d")
+    return "".join(char for char in unicodedata.normalize("NFD", text)
+                   if unicodedata.category(char) != "Mn")
+
+
+def vietnamese_syllable(word):
+    """Recognize Vietnamese spelling even when tones are omitted."""
+    plain = folded(word)
+    if not plain.isalpha():
+        return False
+    for onset in VIETNAMESE_ONSETS:
+        if not plain.startswith(onset):
+            continue
+        rest = plain[len(onset):]
+        for coda in VIETNAMESE_CODAS:
+            if coda and not rest.endswith(coda):
+                continue
+            vowel = rest[:-len(coda)] if coda else rest
+            if 1 <= len(vowel) <= 3 and all(char in "aeiouy" for char in vowel):
+                return True
+    return False
 
 
 def money_claims(text):
@@ -89,44 +122,35 @@ def number_error(text, evidence):
     for unit, pattern in UNITS.items():
         for match in re.finditer(r"(\d+(?:[.,]\d+)?)\s*(?:" + pattern + r")", text, re.I):
             number = re.escape(match[1].replace(",", ".")).replace(r"\.", "[.,]")
-            if not re.search(r"\b" + number + r"\s*(?:" + pattern + r")", evidence, re.I):
+            direct = re.search(r"\b" + number + r"\s*(?:" + pattern + r")", evidence, re.I)
+            ranged = (unit == "percent" and any(
+                re.fullmatch(number, match[1])
+                for match in PERCENT_RANGE.finditer(evidence)))
+            if not direct and not ranged:
                 return "unsupported_number_unit: " + unit
     return None
 
 
 def entity_error(text, evidence):
-    from radar.summary_pipeline import VN_GRAMMAR_CAPS
-    # A translated proper name is grounded only when its source name occurs in
-    # the cited evidence. Remove the whole rendering before token checks.
+    # These cross-language renderings remain an explicit fallback for names
+    # whose Vietnamese words alone cannot identify them as proper names.
     for source, vietnamese in (
         ("Silicon Valley", "Thung lũng Silicon"),
         ("European Union", "Liên minh châu Âu"),
         ("United States", "Hoa Kỳ"),
     ):
-        if re.search(r"(?<!\w)" + re.escape(source) + r"(?!\w)", evidence, re.I):
+        if re.search(r"(?<!\w)" + re.escape(vietnamese) + r"(?!\w)", text, re.I):
+            if folded(source) not in folded(evidence):
+                return "unsupported_name: " + vietnamese
             text = re.sub(r"(?<!\w)" + re.escape(vietnamese) + r"(?!\w)", " ", text, flags=re.I)
-    # Tokenize both sides identically: GPU. and **GPU** are the same proper noun.
-    tokens = re.findall(r"\b[A-Za-z][A-Za-z0-9]*(?:[.+-][A-Za-z0-9]+)*\b", evidence.casefold())
-    allowed = set(tokens)
-    if re.search(r"\bartificial intelligence\b|\bAI\b|\bmodels?\b", evidence, re.I):
-        allowed.add("ai")
-    if re.search(r"\$\d|\bdollars?\b", evidence, re.I):
-        allowed.add("usd")
-    for source, target in (("english", "anh"), ("chinese", "trung")):
-        if source in allowed:
-            allowed.add(target)
-    entities = []
-    for word in re.findall(r"\b[^\W\d][\w.+-]*", text):
-        word = word.strip("._+-")
-        if word and word[0].isupper() and word.isascii() and word not in VN_GRAMMAR_CAPS:
-            if word.casefold() not in allowed:
-                return "invented_entity: " + word
-            entities.append(word)
-    # Reject assembled names whose component tokens happen to occur elsewhere.
-    for name in re.findall(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+\b", text):
-        if any(word in VN_GRAMMAR_CAPS for word in name.split()):
-            continue
-        if name.casefold() not in evidence.casefold():
+    allowed = {folded(token) for token in ENTITY_WORD.findall(evidence)}
+    for word in ENTITY_WORD.findall(text):
+        if (word[0].isupper() and not vietnamese_syllable(word)
+                and word.upper() not in COMMON_ACRONYMS and folded(word) not in allowed):
+            return "invented_entity: " + word
+    # Names made of distinctive tokens must also occur as a complete name.
+    for name in re.findall(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+){2,}\b", text):
+        if any(not vietnamese_syllable(word) for word in name.split()) and folded(name) not in folded(evidence):
             return "unsupported_name: " + name
     return None
 

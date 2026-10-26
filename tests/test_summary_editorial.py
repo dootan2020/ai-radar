@@ -55,7 +55,7 @@ class EditorialSummaryTests(unittest.TestCase):
         self.assertIsNone(entity_error("Liên minh châu Âu được nhắc đến.", evidence))
         self.assertIsNone(entity_error("Theo nguồn, DeepSeek công bố nghiên cứu.", evidence))
         self.assertEqual(entity_error("Thung lũng Silicon được nhắc đến.", "DeepSeek discussed the valley."),
-                         "invented_entity: Thung")
+                         "unsupported_name: Thung lũng Silicon")
         self.assertEqual(entity_error("Microsoft công bố nghiên cứu.", evidence),
                          "invented_entity: Microsoft")
         self.assertEqual(entity_error("DeepSeek hợp tác với NovaForge.", evidence),
