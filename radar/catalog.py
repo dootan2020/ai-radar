@@ -39,6 +39,10 @@ RSS = [
     ("aws-ml-blog", "AWS Machine Learning Blog", "lab", "amazon", "https://aws.amazon.com/blogs/machine-learning/feed/", False),
     ("nvidia-newsroom", "NVIDIA Newsroom", "lab", "nvidia", "https://nvidianews.nvidia.com/releases.xml", True),
     ("qwen-blog", "Qwen Blog", "lab", "qwen", "https://qwenlm.github.io/blog/index.xml", False),
+    ("metr", "METR", "lab", "metr", "https://metr.org/feed.xml", False),
+    ("cloudflare-blog", "Cloudflare Blog", "lab", "cloudflare", "https://blog.cloudflare.com/rss/", True),
+    ("github-changelog", "GitHub Changelog", "lab", "github", "https://github.blog/changelog/feed/", True),
+    ("sakana-blog", "Sakana AI", "lab", "sakana", "https://sakana.ai/feed.xml", False),
 ]
 NVIDIA_CHANNEL = ("nvidia-youtube", "nvidia", "NVIDIA", "NVIDIA", "UCHuiy8bXnmK5nisYHUd1J5g")
 

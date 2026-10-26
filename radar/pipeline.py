@@ -190,7 +190,7 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
     payload["hf_releases"].sort(key=lambda item: item["created_at"] or "", reverse=True)
     payload["sources"].sort(key=lambda source: source["id"])
     if v2:
-        from radar import assembly, events
+        from radar import assembly, events, source_probe
         known = {source["id"]: source for source, _, _ in all_jobs}
         known.update({source["id"]: source for source in youtube_sources})
         known.update({record["id"]: record for record in payload["sources"]
@@ -214,6 +214,8 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
                       http_status=None, http_requests=[], first_wave=True)
         payload["sources"].append(record)
         payload["sources"].sort(key=lambda source: source["id"])
+        observations = coverage + assembly.legacy_items(payload, now) + assembly.event_items(curated, now)
+        source_probe.enrich_source_health(payload["sources"], observations, now, previous)
         from radar import tool_updates
         try:
             payload["tool_updates"], payload["tool_updates_meta"] = tool_updates.finish(

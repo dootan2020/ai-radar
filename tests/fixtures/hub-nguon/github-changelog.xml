@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2005/Atom" xmlns:ns1="http://purl.org/rss/1.0/modules/syndication/" xmlns:ns2="com-wordpress:feed-additions:1" xmlns:ns4="http://purl.org/rss/1.0/modules/content/" version="2.0">
+
+<channel>
+	<title>Archive: 2026 - GitHub Changelog</title>
+	<ns0:link href="https://github.blog/changelog/feed/" rel="self" type="application/rss+xml" />
+	<link>https://github.blog/changelog/</link>
+	<description>Updates, ideas, and inspiration from GitHub to help developers build and design software.</description>
+	<lastBuildDate>Sat, 24 Oct 2026 00:58:28 +0000</lastBuildDate>
+	<language>en-US</language>
+	<ns1:updatePeriod>
+	hourly	</ns1:updatePeriod>
+	<ns1:updateFrequency>
+	1	</ns1:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.3</generator>
+
+<image>
+	<url>https://github.blog/wp-content/uploads/2019/01/cropped-github-favicon-512.png?fit=32%2C32</url>
+	<title>Archive: 2026 - GitHub Changelog</title>
+	<link>https://github.blog/changelog/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<ns2:site>153214340</ns2:site>	<item>
+		<title>Turn notifications into code with GitHub Copilot in Teams</title>
+		<link>https://github.blog/changelog/2026-10-23-turn-notifications-into-code-with-github-copilot-in-teams</link>
+		
+		<dc:creator>Allison</dc:creator>
+		<pubDate>Fri, 23 Oct 2026 21:29:58 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-10-23-turn-notifications-into-code-with-github-copilot-in-teams</guid>
+
+					<description>&lt;p&gt;The new GitHub app in Teams brings notifications and Copilot together, helping teams turn issues into fixes and ship code faster without leaving the conversation. Get notified in channels, group&amp;#8230;&lt;/p&gt;
+&lt;p&gt;The post &lt;a href="https://github.blog/changelog/2026-10-23-turn-notifications-into-code-with-github-copilot-in-teams"&gt;Turn notifications into code with GitHub Copilot in Teams&lt;/a&gt; appeared first on &lt;a href="https://github.blog"&gt;The GitHub Blog&lt;/a&gt;.&lt;/p&gt;
+</description>
+										<ns4:encoded>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"&gt;
+&lt;html&gt;&lt;body&gt;&lt;p&gt;The new GitHub app in Teams brings notifications and Copilot together, helping teams turn issues into fixes and ship code faster without leaving the conversation.&lt;/p&gt;
+&lt;p&gt;Get notified in channels, group chats, or private chats, then @mention GitHub to turn updates into action.&lt;/p&gt;
+&lt;h2 id="turn-an-issue-notification-into-a-pull-request" id="turn-an-issue-notification-into-a-pull-request" &gt;&lt;a class="heading-link" href="#turn-an-issue-notification-into-a-pull-request"&gt;Turn an issue notification into a pull request&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;video width="100%" loop controls autoplay muted src="https://github.com/user-attachments/assets/ff505e5e-85c1-45d2-b43c-9f32a34e4866"&gt;&lt;br&gt;
+&lt;/video&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Get notified:&lt;/strong&gt; A bug report arrives in Teams.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Take action:&lt;/strong&gt; @github investigates the issue, fixes the bug, and creates a pull request.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Review and ship:&lt;/strong&gt; Your team reviews, tests, and merges the fix.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="get-started" id="get-started" &gt;&lt;a class="heading-link" href="#get-started"&gt;Get started&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Explore the new &lt;a href="https://teams.microsoft.com/l/app/ca9e26b7-dce5-44a0-b2b7-a70a3d65ce25"&gt;GitHub app in Microsoft Teams&lt;/a&gt;, previously called GitHub notifications. If you already have GitHub notifications installed, update the app to the latest version. Your existing notification capabilities will continue to work.&lt;/p&gt;
+&lt;p&gt;If you use the legacy GitHub app, which will be renamed &amp;ldquo;GitHub (deprecated)&amp;rdquo; and retired on November 16, install the consolidated GitHub app using the link above to continue using Copilot in Teams. In the consolidated app, mention &lt;code&gt;@GitHub&lt;/code&gt; and follow any prompts to connect your GitHub account and select a repository.&lt;/p&gt;
+&lt;p&gt;Join the discussion within the &lt;a href="https://github.com/orgs/community/discussions/211133"&gt;GitHub Community&lt;/a&gt;.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+&lt;p&gt;The post &lt;a href="https://github.blog/changelog/2026-10-23-turn-notifications-into-code-with-github-copilot-in-teams"&gt;Turn notifications into code with GitHub Copilot in Teams&lt;/a&gt; appeared first on &lt;a href="https://github.blog"&gt;The GitHub Blog&lt;/a&gt;.&lt;/p&gt;
+</ns4:encoded>
+					
+		
+		
+		<category domain="changelog-type">Improvement</category>
+<category domain="changelog-label">client apps</category>
+<category domain="changelog-label">copilot</category>
+<ns2:post-id>99694</ns2:post-id>	</item>
+		<item>
+		<title>EMU deletions fix</title>
+		<link>https://github.blog/changelog/2026-10-23-emu-deletions-fix</link>
+		
+		<dc:creator>Allison</dc:creator>
+		<pubDate>Fri, 23 Oct 2026 18:56:18 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-10-23-emu-deletions-fix</guid>
+
+					<description>&lt;p&gt;Between June 1 and June 13, 2026, some Enterprise Managed User accounts that were deprovisioned through SCIM were incorrectly deleted instead of being suspended and obfuscated as expected. As a&amp;#8230;&lt;/p&gt;
+&lt;p&gt;The post &lt;a href="https://github.blog/changelog/2026-10-23-emu-deletions-fix"&gt;EMU deletions fix&lt;/a&gt; appeared first on &lt;a href="https://github.blog"&gt;The GitHub Blog&lt;/a&gt;.&lt;/p&gt;
+</description>
+										<ns4:encoded>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"&gt;
+&lt;html&gt;&lt;body&gt;&lt;p&gt;Between June 1 and June 13, 2026, some Enterprise Managed User accounts that were deprovisioned through SCIM were incorrectly deleted instead of being suspended and obfuscated as expected.&lt;/p&gt;
+&lt;p&gt;As a result, affected users appeared as ghost users in issues, pull requests, and audit logs, rather than retaining their expected suspended and obfuscated user records within the enterprise.&lt;/p&gt;
+&lt;h2 id="who-was-affected" id="who-was-affected" &gt;&lt;a class="heading-link" href="#who-was-affected"&gt;Who was affected&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;This affected approximately 12,285 Enterprise Managed User accounts across multiple enterprises.&lt;/p&gt;
+&lt;p&gt;Most affected accounts had already been suspended and hard-deprovisioned, which means they couldn&amp;rsquo;t be reprovisioned by design. A smaller group of 76 accounts were active at the time of deletion.&lt;/p&gt;
+&lt;h2 id="how-to-tell-if-you-were-affected" id="how-to-tell-if-you-were-affected" &gt;&lt;a class="heading-link" href="#how-to-tell-if-you-were-affected"&gt;How to tell if you were affected&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;You were affected if your enterprise audit logs contain a &lt;code&gt;user.delete&lt;/code&gt; event for an Enterprise Managed User account during the June 1 to June 13, 2026 window. If you do not see any such events in that window, your enterprise was not impacted.&lt;/p&gt;
+&lt;p&gt;If you do see these events, no action is required from you. GitHub is restoring the affected accounts.&lt;/p&gt;
+&lt;h2 id="what-caused-the-issue" id="what-caused-the-issue" &gt;&lt;a class="heading-link" href="#what-caused-the-issue"&gt;What caused the issue&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;On June 1, 2026, GitHub enabled a change that routed deprovisioning requests through a new path. That path didn&amp;rsquo;t correctly check whether the account was an Enterprise Managed User account, which caused the affected accounts to be deleted instead of following the expected suspend-and-obfuscate flow.&lt;/p&gt;
+&lt;p&gt;GitHub contained the issue by disabling the affected path on June 13, 2026.&lt;/p&gt;
+&lt;h2 id="what-were-doing-to-fix-it" id="what-were-doing-to-fix-it" &gt;&lt;a class="heading-link" href="#what-were-doing-to-fix-it"&gt;What we&amp;rsquo;re doing to fix it&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ve made code changes to prevent this from happening again. We&amp;rsquo;ve also restored affected user records in October 2026.&lt;/p&gt;
+&lt;p&gt;The restoration process returned affected accounts to their expected suspended and obfuscated state, preserving traceability and audit history within the enterprise. Enterprise owners don&amp;rsquo;t need to take any action.&lt;/p&gt;
+&lt;p&gt;Hard-deprovisioned Enterprise Managed User accounts can&amp;rsquo;t be reprovisioned by design, so this issue doesn&amp;rsquo;t affect the reprovisioning workflow.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+&lt;p&gt;The post &lt;a href="https://github.blog/changelog/2026-10-23-emu-deletions-fix"&gt;EMU deletions fix&lt;/a&gt; appeared first on &lt;a href="https://github.blog"&gt;The GitHub Blog&lt;/a&gt;.&lt;/p&gt;
+</ns4:encoded>
+					
+		
+		
+		<category domain="changelog-type">Improvement</category>
+<category domain="changelog-label">account management</category>
+<ns2:post-id>99689</ns2:post-id>	</item>
+		<item>
+		<title>GitHub Copilot in Visual Studio — September update</title>
+		<link>https://github.blog/changelog/2026-10-22-github-copilot-in-visual-studio-september-update-2</link>
+		
+		<dc:creator>Allison</dc:creator>
+		<pubDate>Fri, 23 Oct 2026 00:17:51 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-10-22-github-copilot-in-visual-studio-september-update-2</guid>
+
+					<description>&lt;p&gt;September 2026 brought deeper visibility into your work: explore pull requests without leaving chat, bring the AI model your team trusts, and fix vulnerable packages the moment Visual Studio flags&amp;#8230;&lt;/p&gt;
+&lt;p&gt;The post &lt;a href="https://github.blog/changelog/2026-10-22-github-copilot-in-visual-studio-september-update-2"&gt;GitHub Copilot in Visual Studio — September update&lt;/a&gt; appeared first on &lt;a href="https://github.blog"&gt;The GitHub Blog&lt;/a&gt;.&lt;/p&gt;
+</description>
+										<ns4:encoded>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"&gt;
+&lt;html&gt;&lt;body&gt;&lt;p&gt;September 2026 brought deeper visibility into your work: explore pull requests without leaving chat, bring the AI model your team trusts, and fix vulnerable packages the moment Visual Studio flags them.&lt;/p&gt;
+&lt;h2 id="highlights" id="highlights" &gt;&lt;a class="heading-link" href="#highlights"&gt;Highlights&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Here&amp;rsquo;s what&amp;rsquo;s new with GitHub Copilot in Visual Studio 2026. Check the Insiders channel for the latest:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Explore pull requests with the Git agent&lt;/strong&gt;: The Git agent can now explore a pull request for you. Open GitHub Copilot Chat, select the Git agent, and attach a pull request as context from the Git Repository window to get a summary with navigable links to the underlying comments and files. This functionality requires connecting your Git provider&amp;rsquo;s MCP servers; GitHub and Azure DevOps are both supported.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Updates to Bring Your Own Model (BYOM)&lt;/strong&gt;: BYOM is available in preview and lets you use the models your team prefers, through GitHub Copilot or your own model deployments, whether or not you&amp;rsquo;re signed in to GitHub. This feature is on by default across the Community, Professional, and Enterprise editions. &lt;strong&gt;Breaking change:&lt;/strong&gt; BYOM now requires the new Agent (Preview), built on the GitHub Copilot SDK-powered harness. The previous Ask and Agent modes no longer support BYOM, and you&amp;rsquo;ll need to re-add previously configured Ollama models after updating. Supported providers include Microsoft Foundry, OpenAI, Anthropic, and Ollama.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fix NuGet Vulnerabilities from the Error List&lt;/strong&gt;: NuGet Audit warnings in the Error List now include a fixer action that opens GitHub Copilot Chat in agent mode and asks Copilot to fix the vulnerable packages using the NuGet MCP server. This functionality requires signing in to GitHub Copilot and enabling the NuGet MCP server from the Copilot Chat tools menu.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This update is available to users on all &lt;a href="https://docs.github.com/copilot/get-started/plans"&gt;GitHub Copilot plans&lt;/a&gt;, including Copilot Free, Student, Pro, Pro+, Max, Business, and Enterprise.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://visualstudio.microsoft.com/downloads"&gt;Download Visual Studio 2026&lt;/a&gt; to experience all the new Copilot features today. To learn more about what&amp;rsquo;s new, check out the &lt;a href="https://devblogs.microsoft.com/visualstudio/visual-studio-september-update-power-your-workflow-with-your-model"&gt;Visual Studio blog&lt;/a&gt; and &lt;a href="https://learn.microsoft.com/visualstudio/releases/2026/release-notes"&gt;release notes&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id="whats-next-for-copilot-in-visual-studio" id="whats-next-for-copilot-in-visual-studio" &gt;&lt;a class="heading-link" href="#whats-next-for-copilot-in-visual-studio"&gt;What&amp;rsquo;s next for Copilot in Visual Studio&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Stay up to date on the latest Copilot features by following the &lt;a href="https://devblogs.microsoft.com/visualstudio"&gt;Visual Studio blog&lt;/a&gt;, where you&amp;rsquo;ll find roadmap updates and opportunities to share feedback.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+&lt;p&gt;The post &lt;a href="https://github.blog/changelog/2026-10-22-github-copilot-in-visual-studio-september-update-2"&gt;GitHub Copilot in Visual Studio — September update&lt;/a&gt; appeared first on &lt;a href="https://github.blog"&gt;The GitHub Blog&lt;/a&gt;.&lt;/p&gt;
+</ns4:encoded>
+					
+		
+		
+		<category domain="changelog-type">Release</category>
+<category domain="changelog-label">copilot</category>
+<ns2:post-id>99676</ns2:post-id>	</item>
+		</channel>
+</rss>

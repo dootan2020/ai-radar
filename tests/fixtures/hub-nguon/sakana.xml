@@ -1,0 +1,574 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:feed xmlns:ns0="http://www.w3.org/2005/Atom" xml:lang="en"><ns0:generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</ns0:generator><ns0:link href="/feed.xml" rel="self" type="application/atom+xml" /><ns0:link href="/" rel="alternate" type="text/html" hreflang="en" /><ns0:updated>2026-10-23T10:48:01+09:00</ns0:updated><ns0:id>/feed.xml</ns0:id><ns0:title type="html">Blog</ns0:title><ns0:subtitle>&amp;copy; &lt;a href="/"&gt;Sakana AI 株式会社&lt;/a&gt;</ns0:subtitle><ns0:author><ns0:name>Sakana AI</ns0:name></ns0:author><ns0:entry xml:lang="ja"><ns0:title type="html">オントロジーを基盤に、意思決定・実行を支援するAIエージェントプラットフォーム「Sakana Aquarium」</ns0:title><ns0:link href="/aquarium-release/" rel="alternate" type="text/html" title="オントロジーを基盤に、意思決定・実行を支援するAIエージェントプラットフォーム「Sakana Aquarium」" /><ns0:published>2026-10-23T00:00:00+09:00</ns0:published><ns0:updated>2026-10-23T00:00:00+09:00</ns0:updated><ns0:id>/aquarium-release</ns0:id><ns0:content type="html" xml:base="/aquarium-release/">&lt;center&gt;
+&lt;video src="/assets/aquarium-release/aquarium-layers-v2.mp4" type="video/mp4" autoplay="" muted="" playsinline="" loop="" style="margin: 0; width: 100%;"&gt;&lt;/video&gt;
+&lt;/center&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Sakana AIは、オントロジーを基盤に組織の意思決定とその実行を支援するAIエージェント構築・実行・運用プラットフォーム「Sakana Aquarium（以下、Aquarium）」を発表しました。&lt;/p&gt;
+
+&lt;p&gt;Aquariumは、組織に合わせたAIエージェントを効率的に構築し、安全に運用し続けるためのプラットフォームです。散らばる情報をオントロジーで共通の定義に整理し、その上でAIエージェントが情報の確認から判断、実行までを担います。&lt;/p&gt;
+
+&lt;p&gt;詳細は、&lt;a href="/aquarium/"&gt;Aquariumのプラットフォーム紹介ページ&lt;/a&gt;をご覧ください。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id="aquariumとは"&gt;Aquariumとは&lt;/h2&gt;
+
+&lt;p&gt;何を根拠に、どのような手順で判断するかは、組織ごとに異なります。Aquariumは、こうした組織固有の判断の前提をAIが扱える形に整え、その上でAIエージェントを動かすためのプラットフォームです。中核となるのは、次の3つの仕組みです。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;b&gt;Ontology（オントロジー）&lt;/b&gt;：組織の判断を支える知識・ルール・データを、それぞれの意味や相互の関係とともに体系化します。テーブルや文書など形式の異なる情報を、既存の保存先から移し替えることなくつなぎ、更新も反映するため、AIエージェントは最新の状況をもとに判断できます。&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;Governance（ガバナンス）&lt;/b&gt;：データ・オントロジー・エージェントを統制します。アクセス権限や実行前の承認を設定し、判断の根拠から実行結果までを記録します。実行の速度・精度やモデルの利用状況も把握できます。&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;Managed Agents（エージェント実行基盤）&lt;/b&gt;：オントロジー上の情報をもとに、AIエージェントがタスクを実行します。情報の参照、AIによる判断、関数の実行、人の承認をワークフローとして記述するだけでデプロイでき、エージェントのライフサイクル全体を管理します。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;整備したデータとオントロジーは別のエージェントでもそのまま使えるため、オペレーションごとのエージェントを素早く立ち上げ、同じ基盤でまとめて管理できます。多くの魚がひとつの水槽で整えられた環境のもとに泳ぐ姿になぞらえ、「Aquarium（水族館）」と名付けました。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id="aquariumで変わる組織の判断と行動"&gt;Aquariumで変わる組織の判断と行動&lt;/h2&gt;
+
+&lt;p&gt;Aquariumが目指すのは、組織に蓄積された情報を、日々の判断と行動に活かせるようにすることです。一度整備したデータの接続とオントロジーは別のエージェントでもそのまま使えるため、AIの活用を組織の中で広げやすくなります。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;b&gt;組織のあらゆる情報を、意思決定に。&lt;/b&gt; 組織に蓄積されたデータや文書をAIが読み取り、幅広い情報を判断の材料にできます。&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;状況の変化を捉え、迅速な対応へ。&lt;/b&gt; 更新された情報をもとに状況を把握できるため、各所から情報を集め直す負担が減り、判断と対応に集中できます。&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;人の関与の下、AIが機敏に実行。&lt;/b&gt; 定められた権限とルールのもとで、AIが情報の確認から実行までを担い、必要な箇所で人が承認します。&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;判断の根拠をたどり、オペレーションを改善。&lt;/b&gt; AIが参照した情報、判断、承認、実行結果を記録からたどり、手順の見直しにつなげられます。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;center&gt;
+&lt;video src="/assets/aquarium-release/aquarium-features.mp4" type="video/mp4" autoplay="" muted="" playsinline="" loop="" style="margin: 0; width: 100%;"&gt;&lt;/video&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id="aiソリューション構築のこれまでとこれから"&gt;AIソリューション構築の、これまでとこれから&lt;/h2&gt;
+
+&lt;p&gt;Sakana AIは設立以来、&lt;a href="/ab-mcts-jp/"&gt;推論時スケーリング&lt;/a&gt;や複数モデルの協調、&lt;a href="/rsi-lab-jp/"&gt;自己改善&lt;/a&gt;など、モデルを大きくすること以外の方法でAIの能力を引き上げる研究に取り組んできました。並行して、金融をはじめ精度と説明責任が求められる領域で、AIの実装を重ねてきました（三菱UFJ銀行との&lt;a href="/mufg-ai-lending/"&gt;AI融資エキスパート&lt;/a&gt;、SMBCグループとの&lt;a href="/smbc-proposal-ai/"&gt;提案書自動生成&lt;/a&gt;、大和証券グループとの&lt;a href="/daiwa-shoken/"&gt;共同開発&lt;/a&gt;など）。&lt;/p&gt;
+
+&lt;p&gt;いずれの案件でも、FDE（Forward Deployed Engineer）が現場のデータや手順を理解し、ワークフローの設計から評価、精度改善までを担ってきました。その中で、データの接続や用語・判断基準の整理を案件ごとに一から繰り返している課題が見えてきました。Aquariumは、こうした作業を組織の中で共通して使える基盤にまとめたものです。開発には、Sakana AIでAI実装を担ってきたAREやFDEと、Palantir、Snowflake、Microsoft、AWSなどでデータ基盤やデータガバナンスの構築に携わってきたメンバーが取り組んでいます。&lt;/p&gt;
+
+&lt;p&gt;Aquariumは今後も機能の拡充を続けていきます。運用の中で生まれる修正や判断を取り込み、組織の変化に合わせてオントロジーとエージェントを更新し続ける仕組みや、エージェントの構築そのものをAIが支援する仕組みの開発も進めています。&lt;/p&gt;
+
+&lt;p&gt;あわせて、Sakana AIのFDEがお客様とともに構築と検証を重ね、ひとつのオペレーションから組織全体へと、AIの活用を広げていきます。活用事例も順次ご紹介する予定です。&lt;/p&gt;
+
+&lt;p&gt;解決したい課題やオペレーションの条件に応じて、導入・活用のご相談を承ります。Aquariumの詳細やお問い合わせについては、&lt;a href="/aquarium/"&gt;プラットフォーム紹介ページ&lt;/a&gt;をご覧ください。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;video src="/assets/aquarium-release/aquarium-hero-v3.mp4" type="video/mp4" autoplay="" muted="" playsinline="" loop="" style="margin: 0; width: 100%;"&gt;&lt;/video&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id="sakana-ai"&gt;Sakana AI&lt;/h2&gt;
+
+&lt;p&gt;日本でのAIの未来を、Sakana AIと一緒に切り拓いてくださる方を募集しています。当社の&lt;a href="https://sakana.ai/applied-careers/#jobs"&gt;採用情報&lt;/a&gt;をご覧ください。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</ns0:content><ns0:author><ns0:name>Sakana AI</ns0:name></ns0:author><ns0:category term="media" /><ns0:summary type="html" /></ns0:entry><ns0:entry xml:lang="ja"><ns0:title type="html">【イベントレポート】Sakana AI Engineer Open House 2026</ns0:title><ns0:link href="/open-house-2026/" rel="alternate" type="text/html" title="【イベントレポート】Sakana AI Engineer Open House 2026" /><ns0:published>2026-10-21T00:00:00+09:00</ns0:published><ns0:updated>2026-10-21T00:00:00+09:00</ns0:updated><ns0:id>/open-house-2026</ns0:id><ns0:content type="html" xml:base="/open-house-2026/">&lt;p&gt;&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/thumbnail.jpg" style="width: 100%;" /&gt;&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;2026年10月5日、Sakana AIは昨年に続き2回目となるエンジニア向けOpen Houseを開催しました。昨年はApplied Research Engineerに絞った内容でしたが、今年はApplied Research Engineer / Forward Deployed Engineer / Software Engineer / Solution Engineer / Cybersecurity Engineerの5職種を対象として、各職種で働くメンバーが「何をしているか」「何が面白いか」などを語りました。また、Q&amp;amp;Aセッションには多くの質問が寄せられました。本記事ではイベントの内容をお伝えします。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id="会社紹介日本からai主権をつくる--david-ha"&gt;会社紹介：日本からAI主権をつくる —— David Ha&lt;/h2&gt;
+
+&lt;p&gt;共同創業者兼CEOであるDavid Haの会社紹介から始まりました。ゴールドマン・サックスのデリバティブ・トレーダーから研究者へ転身し、Googleで「&lt;a href="https://worldmodels.github.io/"&gt;World Models&lt;/a&gt;」や「&lt;a href="https://magenta.tensorflow.org/sketch-rnn-demo"&gt;Sketch-RNN&lt;/a&gt;」など現代の生成AIの基礎となる研究に携わってきたDavidは、「キャリアチェンジを考えている皆さんと同じで、私もキャリアを変えた一人です」と来場者に語りかけました。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/david01.jpg" style="width: 100%;" /&gt;&lt;br /&gt;
+&lt;small&gt;&lt;i&gt;会社紹介を行う共同創業者兼CEOのDavid Ha&lt;/i&gt;&lt;/small&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;社名の「Sakana AI」には、絵本『&lt;a href="https://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%BC"&gt;スイミー&lt;/a&gt;』に着想を得た思想が込められています。知性とは一匹の魚ではなく、群れ全体の「集合知」である。他と同じ方向に泳ぐのではなく自分たちの方向を見出し世界に挑む——このアイデンティティがSakana AIの根底にあります。&lt;/p&gt;
+
+&lt;p&gt;Davidが見据えるのは「日本から世界と戦えるAI企業をつくること」です。海外製のオープンソースモデルには開発国の政治的・文化的バイアスが含まれ、日本の政治や文化に関する質問に誤答したり回答を拒否したりする課題があります。&lt;br /&gt;
+そこでSakana AIは事前学習（Pre-training）、事後学習（Post-training）、オーケストレーション（Orchestration）の3層で「AI主権」の確立を進めています。事前学習では日本独自のエージェント・ネイティブLLMをスクラッチから開発し、事後学習ではSakana AIが開発した「Namazu」によって海外モデルを日本の文化・習慣に適応させ、オーケストレーションでは地政学リスク等で海外モデルが使えなくなる事態に備え、複数モデルを賢く切り替える「Fugu」を展開しています。&lt;/p&gt;
+
+&lt;p&gt;直近半年でSakana Chat, Sakana Marlin, Sakana Fugu, Sakana Translateとプロダクトポートフォリオを一気に拡充しました。Sakana AIは今後、「エンタープライズ事業」「政府・防衛向け事業」「プロダクト事業」を柱に、日本発のグローバルAI企業として成長を加速させていく、とDavidは語りました。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/david02.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id="部門紹介4つの部門がいま何をしているか"&gt;部門紹介：4つの部門が、いま何をしているか&lt;/h2&gt;
+
+&lt;p&gt;部門紹介パートでは、Applied Team（金融領域／防衛領域）、Product Team、GTM Teamについて、各チームのマネージャーが説明しました。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/slide.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id="applied-team金融領域--中川貴徳"&gt;Applied Team（金融領域） —— 中川貴徳&lt;/h3&gt;
+
+&lt;p&gt;Appliedチームで金融領域をリードする中川は、MUFG、大和証券グループ、SMBCグループといった大手金融機関と、経営層から現場までを巻き込んでAIソリューションを提供していると説明しました。&lt;/p&gt;
+
+&lt;p&gt;これまでSakana AIが得意としてきたのは議事録作成やコールセンターのような「オペレーション」領域ではなく、抽象度が高く、総合判断を要する「意思決定支援」の領域です。中期経営計画の策定、マクロ環境分析、M&amp;amp;A提案、高度な与信判断など、数百・数千のデータソースを統合し、数億円規模以上のインパクトやリスクを伴う判断を支えます。市場にまだソリューションが存在しない領域だからこそ、差別化の源泉になる、と中川は語りました。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/nakagawa.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;そのため、チームには元投資銀行のバンカーや元戦略コンサルのアナリストといったドメインエキスパートが在籍し、エンジニアと一緒にソリューションをつくっています。また、ソリューション事業には単体でのスケーラビリティがないため、Forward Deployed Engineerが顧客先で解いた課題やアセットをプラットフォームへ還流させ、次の案件やプロダクトに活かすサイクルを回していると説明しました。直近ではサイバーセキュリティや製造業など、テーマは金融以外にも広がり始めているとのことです。&lt;/p&gt;
+
+&lt;h3 id="product-team--大村壮太"&gt;Product Team —— 大村壮太&lt;/h3&gt;
+
+&lt;p&gt;Head of Productの大村は、半年前にSakana Chatをリリースして以降、Sakana Chat, Sakana Marlin, Sakana Fugu, Sakana Translate, Sakana Namazuと、半年で多くのプロダクトを出してきたと説明しました。Appliedチームが大手顧客との案件で得た成果からユースケースを抽出してプロダクト化する一方、Researchからアイデアの種をもらうことも多く、両者と密接に連携しています。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/sota.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;チームはプロダクト単位で編成され、コンシューマー（Sakana Chat、Sakana Translate）、エンタープライズ（Sakana Marlin）のそれぞれにビジネスリードとテックリードを置き、その下に各職種のメンバーが入る体制です。メンバーは20名強で、日本・インド・中国など多国籍。SWE、PM、ARE、デザイナー、セールス、マーケティングと、プロダクトをつくって売るために必要な職種が揃っており、チームは拡大中であると話しました。&lt;/p&gt;
+
+&lt;h3 id="gtm-team--柿島英和"&gt;GTM Team —— 柿島英和&lt;/h3&gt;
+
+&lt;p&gt;柿島はAWS Japanの立ち上げ、SORACOMの創業メンバー、Skydio日本法人代表を経て、Sakana AIでGTM部門を立ち上げました。GTMチームは2026年9月に立ち上がったばかりで、Account Executive 3名、Forward Deployed Engineer数名と、今まさにチームをつくっている段階だと話しました。&lt;/p&gt;
+
+&lt;p&gt;GTMのFDEは、商用プロダクトを顧客のシステムと業務に「深く刺す」役割です。問い合わせをくれた顧客自身も「どう実装していいかわからない」ことが多いため、AEと一緒に課題を探索し、まず動くものを見せ、インテグレーションまで支援します。そこで得た顧客の声をProductやResearchに戻していきます。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/hide.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id="applied-team防衛領域--沢田恭兵"&gt;Applied Team（防衛領域） —— 沢田恭兵&lt;/h3&gt;
+
+&lt;p&gt;Applied Research Engineerでエンジニアリングマネージャーも務める沢田が防衛事業について説明しました。&lt;/p&gt;
+
+&lt;p&gt;強調したのは、自国でモデルを持つ「主権AI（Sovereign AI）」から、必要なときに必要なAIにアクセスできる「AI主権（AI Sovereignty）」という考え方です。複数のモデルを評価・選択・統合運用し、あるモデルが使えなくなっても別のモデルに切り替えられる。このルーティング技術こそが安全保障の文脈で重要になるという見方は、フロンティアAIを「単一の技術ではなくエコシステム」と捉えるSakana AIの思想と直結しています。&lt;/p&gt;
+
+&lt;p&gt;具体的な取り組みとして、防衛省情報本部との「総合分析業務に必要なAI機能の調査・実証」、および防衛装備庁 防衛イノベーション科学技術研究所との委託研究を紹介しました。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/sawada.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id="職種紹介メンバーが語るエンジニア職種"&gt;職種紹介：メンバーが語るエンジニア職種&lt;/h2&gt;
+
+&lt;p&gt;ここからは、各職種で働くメンバー自身による職種紹介です。Sakana AIではForward Deployed EngineerやSoftware Engineerなど、エンジニア職種だけでも多くのポジションがオープンしています。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Applied Research Engineer&lt;/strong&gt;：リサーチのバックグラウンドを持つ人が多く、プロジェクトの中でソリューションの核となる技術的に難しい部分にチャレンジする。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Forward Deployed Engineer&lt;/strong&gt;：顧客の業務を理解し、ドメインモデル（業務の概念やルールを整理した設計）をつくり、AREと一緒にソリューションを組み立てて精度改善を進める。そのため、AIの能力も求められる。また、プラットフォームを使い、プラットフォーム自体を磨いていくのもミッション。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Software Engineer&lt;/strong&gt;：汎用的で堅牢なAIプロダクト・プラットフォームを、優れたUI/UXも含めて構築し、継続的に進化させる&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Solution Engineer&lt;/strong&gt;：AREやFDEがつくったソリューションを、顧客のシステムの中で動くように導入し、業務で使えるようにする。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Cybersecurity Engineer&lt;/strong&gt;：システム開発プロセスのシフトレフト、データ保護に関する要件定義・設計・実装、脆弱性診断等の技術的なリスク評価、システムの脆弱性管理などを推進する&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;各職として働くメンバーがそれぞれの役割の中でのおもしろさ、やりがいなどについて語りました。&lt;/p&gt;
+
+&lt;h3 id="applied-team金融領域--applied-research-engineer--村上直輝"&gt;Applied Team（金融領域） / Applied Research Engineer —— 村上直輝&lt;/h3&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/kami.jpg" style="width: 100%;" /&gt;&lt;br /&gt;
+&lt;small&gt;&lt;i&gt;「自分の案件がSakana AIの成長にも、お客さんの会社の成長にも直結している。それをオーナーシップを持って進められるのが面白い」と語る&lt;/i&gt;&lt;/small&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;村上はKaggle Competitions Grandmasterで、人工知能オリンピック日本委員会の理事も務めています。Sakana AIでは金融機関向けの営業支援プロジェクトを担当しています。顧客の課題をAIでどう解くかを整理し、実装まで自分で行います。「働き方はFDEに近づいている」と話し、週2〜3日は顧客のオフィスに出向き、そこでしか触れない実データで開発を進めています。&lt;/p&gt;
+
+&lt;p&gt;業務の面白さとして、多様なバックグラウンドを持つ優秀なメンバーからの学びが多いこと、そして規模の大きい案件にオーナーシップを持って関われること、という2点を挙げました。&lt;/p&gt;
+
+&lt;h3 id="applied-team金融領域--applied-research-engineer--太田真人"&gt;Applied Team（金融領域） / Applied Research Engineer —— 太田真人&lt;/h3&gt;
+
+&lt;p&gt;『現場で活用するためのAIエージェント実践入門』の共著者でもある太田は、MUFGとの融資AIエキスパート開発をリードしてきました。「AREと言いつつ、最近はFDEの仕事もたくさんしていて、自分がどっちなのかわからなくなってきている」と笑いつつ、Sakana AIで大事なのは職種の枠に収まりすぎないことだと話しました。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/masato.jpg" style="width: 100%;" /&gt;&lt;br /&gt;
+&lt;small&gt;&lt;i&gt;「会社の方針は変わり続けます。そのたびに全力で適応して、やれることをひたすらやる。」と語る&lt;/i&gt;&lt;/small&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;金融チームの特徴は、1つのプロジェクトにBiz、Software Engineer、Applied Research Engineer、FDEを含めて10人ほどをアサインすること。一般的な3〜4人体制より大きく、プロジェクトごとに「小さな会社」のようなカルチャーが生まれると話しました。研究論文を追いながら、それを顧客の業務課題にどう適用できるか考えるのがApplied Researchの醍醐味だと語りました。&lt;/p&gt;
+
+&lt;h3 id="product-team--applied-research-engineer--kriti-agarwal"&gt;Product Team / Applied Research Engineer —— Kriti Agarwal&lt;/h3&gt;
+
+&lt;p&gt;IIT Bombay卒業後、AIスタートアップでプロダクト開発チームを率いたKritiは、2026年6月にProductチームのAREとして入社しました。「AREは会社によってProduct EngineerやSolution Engineerとも呼ばれる役割」と前置きし、エージェントのハーネスやメモリといった、LLMを「テキストを出力するだけのもの」から「実際に仕事をするシステム」に変える部分を開発しています。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/kriti.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Productチームで活躍するのはどんな人か。Kritiは4つ挙げました。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Ships fast&lt;/strong&gt;：1か月磨くより、今週ユーザーに届けることを選ぶ人&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Turns research into product&lt;/strong&gt;：論文を読んで「これがプロダクトになったら」と想像できる人&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Starts from the user’s problem&lt;/strong&gt;：AIは手段であって目的ではないと考える人&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Owns it end to end&lt;/strong&gt;：アイデアからローンチ、その後まで自分ごととして持てる人&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="applied-teamplatform--software-engineer--岩井龍之介"&gt;Applied Team（Platform） / Software Engineer —— 岩井龍之介&lt;/h3&gt;
+
+&lt;p&gt;メルカリでKubernetes上のCI/CD基盤、CloudbaseでクラウドセキュリティSaaSの開発を経て、2025年10月に入社した岩井は、Platformチームのリードを務めています。各案件で見つかった共通課題や使える技術をプラットフォーム化し、社内に展開するのがミッションです。&lt;br /&gt;
+具体的には、顧客データを統合してエージェントが検索できる検索基盤、数時間に及ぶ長時間実行を支えるランタイム、エージェントが業務ナレッジを蓄積する長期記憶のためのナレッジベースなどです。&lt;/p&gt;
+
+&lt;p&gt;岩井が面白いと感じているのは、エージェント時代のアーキテクチャをゼロから考えられること。「これまでは長くても5分で終わるトランザクションを大量にさばくのが主でしたが、LLMの登場でジョブベースの長時間タスクが増えた。データ構造も変わるし、長期記憶のようなエージェント特有のモジュールも必要になる。『エージェント時代の最適なアーキテクチャとは何か』を考えてプラットフォームに落とすのが面白い」と語りました。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/ryunosuke.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Platformチームはドキュメントは英語、会話は英語と日本語を混ぜて働いており、海外のトップ企業出身のメンバーも多く在籍しています。「自分ももともと英語が得意ではなかったが、話す機会があるので練習になっている」と話しました。&lt;/p&gt;
+
+&lt;h3 id="applied-team防衛領域--software-engineer--高橋賢"&gt;Applied Team（防衛領域） / Software Engineer —— 高橋賢&lt;/h3&gt;
+
+&lt;p&gt;LINEヤフーでYahoo!フリマのバックエンド開発と生成AI機能のテックリードを務め、Sakana AIに入社した高橋は、現在、防衛・インテリジェンス領域のSoftware Engineer兼スクラムマスターを担当しています。&lt;br /&gt;
+「フルスタックに設計・開発し、技術的な実現性や非機能要件も含めて少数精鋭で安定したシステムを構築することを目指しています。顧客先を訪問して業務ヒアリングやソリューション提示も行います」と語りました。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/ken.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;toCサービスから防衛という大きなキャリアチェンジでしたが、面白さは3つあると語りました。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;ドメイン&lt;/strong&gt;：国防・安全保障という巨大で重要であり、大きなインパクトを出すことができる領域&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;人&lt;/strong&gt;：エンジニアはKaggle Grandmaster、Ph.D.、GAFAM出身など。ビジネス側は現役予備自衛官や元省庁勤務のドメインエキスパートなど。定期的な勉強会でドメイン知識をキャッチアップしている。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;技術&lt;/strong&gt;：Webアプリにとどまらず、指揮統制に必要なネットワークやドローン、インテリジェンス分析のためのデータ統合、それらを繋ぐ大規模アーキテクチャまで、情報統制の厳しいドメインの中でどう繋ぐかを考える。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="applied-team金融領域--solution-engineer--桐生宜昭"&gt;Applied Team（金融領域） / Solution Engineer —— 桐生宜昭&lt;/h3&gt;
+
+&lt;p&gt;桐生は、AWS JapanでCloud Support EngineerとTechnical Account Managerを経験し、2026年7月に入社しました。融資AIエキスパートシステムの導入に向けたエンタープライズ版のデリバリー（要件定義、設計、Kubernetes/CI/CDなどのインフラ構築）を担当しています。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/kiryu.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Solution Engineerの役割を、桐生は3つのキーワードで説明しました。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;つなぐ&lt;/strong&gt;：AREとSWEがつくったAIアプリケーションを、顧客の既存システム・インフラ・クラウドに統合する&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;守る&lt;/strong&gt;：立ち上げたシステムの信頼性を保ち、たとえば全行員が使えるレベルまでスケーリングさせ、それを担保する&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;届ける&lt;/strong&gt;：PoCで終わらせず、ちゃんと動かして、動かし続けて、価値を出すところまでやる&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;「ベンチャーでもPoCで終わるプロジェクトはたくさんあります。Sakana AIの一番の違い、Solution Engineerの一番の役割は『届ける』ことです」と語りました。&lt;/p&gt;
+
+&lt;h3 id="cybersecurity-engineer--吉川允樹"&gt;Cybersecurity Engineer —— 吉川允樹&lt;/h3&gt;
+
+&lt;p&gt;吉川は攻撃側（脆弱性診断、ペネトレーションテスト）から守る側（SOC、インシデントレスポンス、脅威インテリジェンス）まで一貫してセキュリティ畑を歩んできました。「エンジニアだが、やっていることはエンジニアだけでも、サイバーだけでもない」と語るとおり、業務は多岐にわたります。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;全社・顧客・プロダクトのセキュリティガバナンス：金融のFISC安全対策基準、防衛のISMAPや防衛産業サイバーセキュリティ基準、NIST SP 800-171、SOC 2など、各案件の要件にビジネスチームやエンジニアと伴走&lt;/li&gt;
+  &lt;li&gt;自社プロダクト・顧客プロジェクトのクラウド環境・開発基盤のセキュリティ強化、監視体制の構築&lt;/li&gt;
+  &lt;li&gt;コーポレートセキュリティ／IT：ID・デバイス・ネットワークのポリシー最適化から、オフィス移転時のネットワーク構築まで「物理層からアプリケーション層まで全部」&lt;/li&gt;
+  &lt;li&gt;顧客のサイバーセキュリティ案件の開発・デリバリー&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/yoshikawa.jpg" style="width: 100%;" /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;面白さは、金融・プロダクト・防衛という幅広い分野に携われること、しがらみなく最適なセキュリティ製品を選んでコスト投下を判断できること。そして「AREやSWEではないが、セキュリティ側もLLMをガンガン回せる点も嬉しい」と語りました。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id="qaセッション"&gt;Q&amp;amp;Aセッション&lt;/h2&gt;
+
+&lt;p&gt;当日は多くの質問が寄せられました。お答えしたものをテーマ別に整理してご紹介します。&lt;/p&gt;
+
+&lt;h3 id="働き方求める人物像"&gt;働き方・求める人物像&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Q. エンジニアは一人何案件を担当しますか？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A. 基本は一人一案件です。100%の力で一つのプロジェクトに成果を出してほしいと考えています。腕に自信がある、もっとやりたい、という方は2案件以上に関わることも可能です。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q. 英語は必要ですか？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A. 必須ではないですが、できると面白い機会がたくさんあります。たとえば、Platformチームには海外のトップ企業出身のエンジニアが多く、Researchチームは英語が原則共通言語です。海外の案件も取りに行っているので、英語ができることは大きなプラスになります。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q. さまざまな業界から来ている方が多いようですが、AI開発の経験がなくても応募できますか？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A. 応募可能です。ただし、応募者の比較の中でAI開発経験のある方とない方がいた場合、そのギャップを埋められるかは選考で見させていただきます。ビジネス側ではAIやシステム開発の経験がない方も採用しています。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q. 業務でAIを使った開発はしていますが、AIを作る・組み込む開発はしていません。それでも採用対象ですか？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A. ロールによります。すべてのSWEがAIを組み込む開発をしているわけでもないので一概には言えませんが、可能性は誰にでもあります。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q. 福利厚生はどんなものがありますか？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A. スタートアップですが、基本的なものは揃っています。ビッグテックから転職してきたメンバーもその点には満足して入社しているので、ご安心ください。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q. 防衛や金融は情報漏洩のリスクが大きく、攻撃側が有利な領域だと思います。メガバンクや国にはどのように説明しているのですか？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A. 防衛や金融では、500〜600項目に及ぶチェックリストを相手に、非常に堅牢なシステムをつくることが求められます。私たちはPoCで終わらせず、エンタープライズで最も高機密なレベルのシステムに対応することをポリシーにしています。加えて、Fugu Cyberをはじめ、サイバーセキュリティ自体をソリューション・プロダクトとして事業化し始めており、プロアクティブに情報収集しながらチームとして対応しています。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q. Researchチームとはどのような関わりがありますか？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A. Researchチームは、私たちの技術とプロダクトを支える基盤技術を開発しています。たとえばFuguはResearchチームが開発し、Productチームが大規模にデプロイし、Appliedチームも使っています。NamazuもResearch発で、今は全社で使われています。AB-MCTSはSakana Marlinに搭載されました。Researchチームはプロダクトに載せられ、エンタープライズで使える技術を届けることに強くフォーカスしています。Research、Applied、Productの3チームは、3匹の魚のように一つのサイクルとして動いています。&lt;/p&gt;
+
+&lt;h3 id="事業会社"&gt;事業・会社&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Q. 今後エンジニア採用はどれくらい拡大していく予定ですか？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A. 正確な人数は申し上げられませんが、少なくとも今の2倍以上に拡大することを考えています。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q. 今後、海外展開や海外拠点を設立するプランはありますか？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A. プロダクトはすでにグローバルにGTMを行っているので、海外展開はしていると言えます。シリーズBでは海外の金融機関からも出資を受けており、日本の金融機関と同様のソリューションを海外の顧客に提供する協議も進めています。拠点については具体的なプランをお話しできる段階ではありませんが、進捗に応じて拡大していくものとご理解ください。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q. 相対的にフロンティアラボより計算資源が少ない中で、事前学習・事後学習のレイヤーでどう競争していくのですか？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A. 計算資源の差はありますが、GPUの確保は進んでいます。そのため、現在は事前学習を手がける良い時期だと考えています。今後は大規模モデルの事前学習を手がけ、その規模をさらに拡大していく計画です。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id="採用情報"&gt;採用情報&lt;/h2&gt;
+
+&lt;p&gt;Sakana AIは、世界最先端のAI技術を日本が直面する最も困難で重要な課題の解決のために実装していくことを目指しています。今回のOpen Houseで、5つのエンジニア職種それぞれの現場のリアルと、そこで働くメンバーの熱量が少しでも伝わっていれば幸いです。&lt;/p&gt;
+
+&lt;p&gt;ご紹介した職種はいずれも積極採用中です。「どの職種が合うかわからない」という方も、まずはカジュアル面談でお話ししましょう。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Applied Team 募集中のポジションはこちら：&lt;a href="https://sakana.ai/applied-careers"&gt;https://sakana.ai/applied-careers&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;Product / GTM 募集中のポジションはこちら：&lt;a href="https://sakana.ai/careers/"&gt;https://sakana.ai/careers/&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;カジュアル面談のお申し込みはこちら：&lt;a href="https://forms.gle/CWy8KSyfSr57Yiu59"&gt;https://forms.gle/CWy8KSyfSr57Yiu59&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/open-house-2026/sakana.jpg" style="width: 100%;" /&gt;&lt;br /&gt;
+&lt;small&gt;&lt;i&gt;イベントに参加した社員の集合写真&lt;/i&gt;&lt;/small&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</ns0:content><ns0:author><ns0:name>Sakana AI</ns0:name></ns0:author><ns0:category term="media" /><ns0:summary type="html" /></ns0:entry><ns0:entry xml:lang="ja"><ns0:title type="html">オープンエンドな探索を意思決定支援へ：推薦の質と多様性を高める「QD-Rec」を提案</ns0:title><ns0:link href="/qd-rec/" rel="alternate" type="text/html" title="オープンエンドな探索を意思決定支援へ：推薦の質と多様性を高める「QD-Rec」を提案" /><ns0:published>2026-10-20T00:00:00+09:00</ns0:published><ns0:updated>2026-10-20T00:00:00+09:00</ns0:updated><ns0:id>/qd-rec</ns0:id><ns0:content type="html" xml:base="/qd-rec/">&lt;center&gt;
+&lt;video src="/assets/qd-rec/qd-rec-three-maps.mp4" type="video/mp4" autoplay="" muted="" playsinline="" loop="" style="margin: 0; width: 100%;"&gt;&lt;/video&gt;
+&lt;/center&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Sakana AIは、オープンエンドな探索の考え方を意思決定支援に応用した推薦手法「QD-Rec」を開発しました。QD-Recは、企業や顧客、論文などの「候補」と、それを選ぶ理由を述べた「仮説」の組を推薦の単位とし、過去の優れた仮説をもとに生成AIが新しい仮説を書くサイクルを繰り返します。これにより、質が高く切り口の異なる推薦を蓄積していきます。M&amp;amp;A、顧客ターゲティング、論文推薦の3つの課題で実験したところ、QD-Recは多くの設定で、毎回ゼロから仮説を書くベースラインなどより平均評価が高く、規模も大きい推薦の集合を構築しました。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;論文：&lt;a href="https://arxiv.org/abs/2610.23470"&gt;https://arxiv.org/abs/2610.23470&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;技術記事：&lt;a href="https://pub.sakana.ai/qd-rec/"&gt;https://pub.sakana.ai/qd-rec/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;コード：&lt;a href="https://github.com/SakanaAI/QD-Rec"&gt;https://github.com/SakanaAI/QD-Rec&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id="はじめに"&gt;はじめに&lt;/h2&gt;
+
+&lt;p&gt;どの企業を買収候補として検討するか。どの顧客に新しい製品を提案するか。膨大な論文の中から、次に何を読むか。こうした「多くの選択肢から一つを選ぶ」判断は、実社会のあらゆる場面にあります。その判断を支えるために、これまでさまざまな推薦アルゴリズムが研究されてきました。しかし、とくに複数の可能性を比較しながら方針を決める場面では、最もスコアの高い候補を一つ選んだり、上位の候補をランキングとして提示したりするだけでは、十分でないことがあります。&lt;/p&gt;
+
+&lt;p&gt;現実の意思決定に必要なのは、「何を選ぶか」に加えて、「なぜそれを選ぶのか」「選んだ先にどのような可能性があるのか」という具体的な提案です。例えば企業買収では、企業名とスコアだけでなく、「その企業の技術を自社の製品に組み込むことで、どのような価値を生み出せるか」といった事業のシナリオが判断材料になります。論文推薦でも、単に研究テーマが近いと示すだけでなく、「その手法を自分の研究にどう応用できるか」まで示されれば、読む価値を判断しやすくなります。ここでは、候補を選ぶ理由や期待される可能性を述べた文章を「仮説」と呼びます。&lt;/p&gt;
+
+&lt;p&gt;さらに、提案には多様性も必要です。有望な買収候補がいくつ見つかっても、すべてが同じ戦略に基づく提案なら、検討できる方向性は限られます。技術力の獲得、新しい市場への参入、既存事業との相乗効果など、異なる観点からの提案を比較できれば、最終的な候補を絞り込むためのショートリストにも幅が生まれます。目指すのは、単に種類の違う候補を並べることではなく、それぞれに検討する価値があり、選ぶ理由にも意味のある違いがある提案の集合です。&lt;/p&gt;
+
+&lt;p&gt;もちろん、推薦の説明可能性や多様性を重視する研究は、これまでも行われてきました。 ただし、同じ候補にも異なる切り口の仮説が考えられるため、生成AIで候補ごとに一つの理由を書くだけでは、有望な提案を見逃す可能性があります。かといって、数千件、ときには1万件を超える候補それぞれについて、さまざまな仮説を生成し、その妥当性や有用性を評価し尽くすのは、コストの面で現実的ではありません。私たちは、このように限られた予算の中で「候補」と「仮説」の組を探索し、質が高く多様な推薦を見つける問題を、「オープンエンドな推薦」として捉えました。&lt;/p&gt;
+
+&lt;p&gt;そこで着目したのが、オープンエンドな探索の研究で発展してきた &lt;a href="https://sakana.ai/cycleqd-jp/#quality-diversity%E3%81%A8%E3%81%AF"&gt;Quality-Diversity&lt;/a&gt;（QD） です。QDは、単一の最良解だけを探すのではなく、異なる特徴を持つ、高品質な解の集合を見つけることを目指します。一つの方向で高得点の提案ばかりを集めるのではなく、異なる方向の提案を残し、それぞれを磨いていく。この考え方は、さまざまな可能性を比較したいという推薦の目的によく合っています。&lt;/p&gt;
+
+&lt;p&gt;生成AIは、この探索の中で新しい仮説を生み出す役割を担えます。ある企業について見つけた買収の着眼点を別の企業に応用したり、複数の提案の発想を組み合わせたりすることで、毎回ゼロから考えるだけでは得られなかった提案につながる可能性があります。その際、現時点では最良でない提案であっても、独自の着眼点を持つものは、次の発見の「踏み石」になり得ます。&lt;/p&gt;
+
+&lt;p&gt;この考え方を具体化したのが、私たちが開発した推薦手法 「QD-Rec」 です。QD-Recは、過去の評価結果と探索の偏りを考慮して次に調べる候補を選び、蓄積された仮説をもとに生成AIが新しい仮説を提案します。そして、新しい切り口を持つ推薦や、似た既存の推薦より優れたものを残していきます。このサイクルを繰り返すことで、人が比較し、判断するための多様で有望な提案を育てていくことを目指します。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id="qd-recの仕組み"&gt;QD-Recの仕組み&lt;/h2&gt;
+
+&lt;center&gt;
+&lt;video src="/assets/qd-rec/qd-rec-fig1-jp.mp4" type="video/mp4" autoplay="" muted="" playsinline="" loop="" style="margin: 0; width: 100%;"&gt;&lt;/video&gt;
+&lt;/center&gt;
+
+&lt;p&gt;QD-Recは、以下の三つのステップを繰り返します。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;b&gt;候補の選択：&lt;/b&gt; 過去の採点結果をもとに、「良い仮説が生まれそうな有望な候補」と「まだ誰も調べていない未知の候補」をバランスよく選び出します。次に仮説を生成・評価する候補を選ぶために、バンディットと呼ばれる技術を使います。&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;仮説の生成：&lt;/b&gt; 提案役のLLMが、アーカイブ（保存庫）に残っている過去の優れた仮説を「親」として参考にします。親の切り口を新しい候補に合わせて少し変えたり（突然変異：mutate）、複数の仮説を掛け合わせたり（交叉：crossover）して、新しい仮説（子）を生み出します。&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;アーカイブの更新：&lt;/b&gt; 採点役のAI（または人間）が新しい仮説を評価します。ここでのポイントは、自然界の「ニッチ（生態的地位）」の仕組みを模していることです。新しい仮説は、全体の中でトップの座を争うわけではありません。もしその仮説が「これまでになかった全く新しい切り口」であれば、無条件で新たなニッチを獲得しアーカイブに保存されます。一方で新しい切り口でなかった場合は、「最も内容が似ている既存の仮説1件」とだけ局所的な1対1の対決を行い、勝てばそのポジション（ニッチ）を奪って生き残ります。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;全体で1位を決めるのではなく、この「似た者同士のローカルな戦い」だけを繰り返すことで、多様な切り口の仮説がそれぞれのニッチで同時に共存し、次の世代の「踏み石」として進化していくことができるのです。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id="多様な分野への応用例"&gt;多様な分野への応用例&lt;/h2&gt;
+
+&lt;p&gt;論文では、QD-Recの汎用性を検証するため、同じアルゴリズムを異なる推薦の課題に適用しました。例えば、以下の３つに関する実験を行いました。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;b&gt;M&amp;amp;A&lt;/b&gt;：2024年8月時点の約6,300社の米国企業データ（平均約123語の事業説明と7項目の財務データ）の中から、エンターテインメントや金融セクターの企業にとって有望な買収候補と、その買収を正当化する論拠を探索します。&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;マーケティング&lt;/b&gt;：1万件の顧客プロファイル（平均約685語、架空、カリフォルニア州在住を想定）の中から、特定の製品（3Dプリンターやオンライン学習サービス）に響く有望なターゲット層と、そのターゲティング理由を探索します。&lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;論文推薦&lt;/b&gt;：最新のAI国際会議に採択された約17,500本の論文（タイトルと要旨）の中から、特定の研究者のプロファイルに合った論文と、その結びつきを解説する研究メモを探索します。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;下のアニメーションでは、三つのドメインで新しい推薦が生成され、アーカイブに追加されたり、既存の推薦と入れ替わったりする様子を再生しています。各区画の色はその区画にある推薦の最高評価スコアを、赤い線は親として使った推薦と新しい推薦のつながりを示します。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;video src="/assets/qd-rec/qd-rec-three-maps.mp4?v=2" type="video/mp4" autoplay="" muted="" playsinline="" loop="" style="margin: 0; width: 100%;"&gt;&lt;/video&gt;
+&lt;/center&gt;
+
+&lt;p style="text-align: center;"&gt;&lt;small&gt;&lt;i&gt;図：3つの事例において、既存の推薦から新しい推薦が生み出され、推薦が進化していく様子。&lt;/i&gt;&lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;次に、1,000回の生成・評価を終えた時点で、QD-Recとベースライン（Novelty）のアーカイブを比較します。Noveltyは、過去の仮説を参考にせず、毎回ゼロから仮説を生成する手法です。実験では、QD-Recは多くの設定で、平均評価が高く、規模も大きなアーカイブを構築しました。下図は、Walt Disney Coの買収候補を探索した例です。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/qd-rec/archive-disney.png" style="width: 80%;" /&gt;
+&lt;/center&gt;
+
+&lt;p style="text-align: center;"&gt;&lt;small&gt;&lt;i&gt;図：M&amp;amp;A（買収企業：Walt Disney Co）のアーカイブ。左：進化しないベースライン（Novelty）、右：QD-Rec。エントリの埋め込みをPCAで2次元に射影して25×25の区画に分け、各区画で最も高い採点者のスコアを色で示す（提案者claude-sonnet-5、seed 2）。進化しないベースラインは、過去の仮説を参考にせず、毎回ゼロから仮説を書く。&lt;/i&gt;&lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;さらに探索プロセスの履歴を分析すると、QD-Recが構築するアーカイブの品質と規模は、探索サイクルを重ねるにつれて右肩上がりに成長していくことが分かりました。以下では、毎回ゼロから仮説を生成する手法（Novelty）に加え、仮説を進化させるもののバンディットを使わず候補をランダムに選ぶ手法（Novelty+Evo）とも比較しています。&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class="b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/assets/qd-rec/history-disney.png" style="width: 80%;" /&gt;
+&lt;/center&gt;
+
+&lt;p style="text-align: center;"&gt;&lt;small&gt;&lt;i&gt;図：M&amp;amp;A（買収企業：Walt Disney Co）の探索過程。左：評価回数に対する、その時点のアーカイブの平均Qualityの推移。右：アーカイブサイズnの推移。Noveltyは過去の仮説を参考にせず、毎回ゼロから仮説を書く。Novelty+Evoは仮説を進化させるが、バンディットを使わず候補をランダムに選ぶ手法。提案者はclaude-sonnet-5、5シードの平均 ± 標準誤差。&lt;/i&gt;&lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id="実際の生成例"&gt;実際の生成例&lt;/h2&gt;
+
+&lt;p&gt;では、QD-Recの実験結果の中で、仮説がどのように「進化」して別の候補に当てはめられ、優れた提案に繋がったのでしょうか。提案者にclaude-sonnet-5、採点者にgpt-5.6-terraを使った場合の2つの具体的な進化の過程を見てみましょう。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id="例1jpmorganに旅行の口コミと予約のサービスを運営する企業の買収を薦める"&gt;&lt;strong&gt;例1：JPMorganに、旅行の口コミと予約のサービスを運営する企業の買収を薦める&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;span style="color: #666666;"&gt;&lt;b&gt;M&amp;amp;A（買収企業：JPMorgan Chase &amp;amp; Co）&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;M&amp;amp;Aのドメインにおいて、米国の巨大金融機関であるJPMorgan Chase &amp;amp; Coが、旅行の口コミ・予約サイトを運営するLiberty TripAdvisor Holdingsを買収すべきか、というケースを見てみましょう。同社は「Tripadvisor」のほか、ツアー予約の「Viator」やレストラン予約の「TheFork」を抱えていました（データ時点）。&lt;/p&gt;
+
+&lt;p&gt;まずは、過去のアーカイブを参考にせず、AIにゼロから仮説を書かせた進化しないベースラインの出力です。AIは、JPMorganがすでに自社で旅行予約サービス（Chase Travel）を展開していることに触れ、「わざわざ買収しなくても提携で十分だ」と買収に反対しました。買収の積極的な論拠を示せなかったため、採点者は「10点満点中1点」という厳しい評価を下しています。&lt;/p&gt;
+
+&lt;div style="border: 1px solid #E0E0E0; border-radius: 6px; padding: 1em 1.25em; margin: 1.5em 0;"&gt;
+&lt;div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5em;"&gt;&lt;b&gt;進化しないベースライン（参考例なし） &lt;/b&gt;&lt;span style="color: #CC2B2B;"&gt;&lt;b&gt;1点（10点満点）&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p style="margin: 0.75em 0 0.5em;"&gt;&lt;b&gt;Liberty TripAdvisor Holdings（旅行の口コミ・予約）&lt;/b&gt;&lt;/p&gt;
+&lt;p style="margin: 0; font-size: 0.95em;"&gt;この買収には戦略的な論理がない。JPMorganは多角的な金融持株会社であり、Liberty TripAdvisorとは能力、技術、顧客の必要に意味のある重なりがなく、重なる部分もChase Travelと既存のカード連携の旅行提携ですでに得ている。規模が小さく財務への影響もなく、業績は悪化しており、Google、Booking Holdings、Expediaとの競争にさらされている。Chase Sapphireの旅行特典やChase Travelの予約の強化のような旅行関連の相乗効果は、買収より提携やライセンスで効率よく得られる。したがって、この買収は薦めない。&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;一方でQD-Recのアーカイブには、これとは全く別の企業に関する、ある「失敗した仮説（親）」が保存されていました。それは、航空会社であるSouthwest Airlinesの買収提案です。&lt;/p&gt;
+
+&lt;div style="border: 1px solid #E0E0E0; border-radius: 6px; padding: 1em 1.25em; margin: 1.5em 0;"&gt;
+&lt;div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5em;"&gt;&lt;b&gt;親 &lt;/b&gt;&lt;span style="color: #CC2B2B;"&gt;&lt;b&gt;1点（10点満点）&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p style="margin: 0.75em 0 0.5em;"&gt;&lt;b&gt;Southwest Airlines（航空会社）&lt;/b&gt;&lt;/p&gt;
+&lt;p style="margin: 0; font-size: 0.95em;"&gt;JPMorganはSouthwestの提携クレジットカードを発行しており、買収すればポイントの販売や失効益などのロイヤルティプログラムの収益を、提携で分け合わずにすべて得られる。企業価値は153億ドルで、業界全体の燃料費と利益率の圧迫により2年前と4年前の水準を下回っており、国内有数の航空会社と1億人を超える会員基盤を買う機会である。垂直統合により、&lt;span style="color: #D55E00;"&gt;旅行の購入の流れに銀行、融資、決済の商品を直接組み込み、Chaseのバランスシートを使って航空券の分割払いの融資を提供できる&lt;/span&gt;。&lt;span style="color: #0072B2;"&gt;Chase Travelでの予約をまとめて提供し&lt;/span&gt;、&lt;span style="color: #007A5A;"&gt;より詳しい取引データを、与信の審査と、個人向け銀行部門のカードや預金の商品のクロスセルに使える&lt;/span&gt;。企業価値はJPMorganの約1.6%で無理なく取り込めるが、燃料、労働、輸送力の周期といった、従来のリスクモデルの外にある航空会社の事業リスクを引き受ける必要がある。&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;この航空会社の買収仮説に対し、採点者は「旅行の購入動線に融資や決済、ポイントを組み込む」という金融シナジーのアイデア自体は評価しました。しかし、銀行が航空会社のような事業会社を保有することは規制上難しく、かつ燃料費や労働問題などの重い事業リスクを丸抱えするのは現実的ではないと判断し、こちらも「1点」と評価されていました。&lt;/p&gt;
+
+&lt;p&gt;ここからが進化的アプローチの面白いところです。QD-Recの突然変異（mutate）オペレータは、この親の仮説から「旅行の購入動線に融資、決済、特典、データを組み込む」という優れたアイデアだけを抽出し、先ほどの旅行口コミ・予約サイト（Liberty TripAdvisor）へと移植しました。&lt;/p&gt;
+
+&lt;div style="border: 1px solid #E0E0E0; border-radius: 6px; padding: 1em 1.25em; margin: 1.5em 0;"&gt;
+&lt;div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5em;"&gt;&lt;b&gt;子・QD-Rec &lt;/b&gt;&lt;span style="color: #CC2B2B;"&gt;&lt;b&gt;5点（10点満点）&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p style="margin: 0.75em 0 0.5em;"&gt;&lt;b&gt;Liberty TripAdvisor Holdings（旅行の口コミ・予約）&lt;/b&gt;&lt;/p&gt;
+&lt;p style="margin: 0; font-size: 0.95em;"&gt;Tripadvisor、Viator、TheForkの3つのマーケットプレイスが抱える、旅行を調べて予約する世界中の利用者を、JPMorganは&lt;span style="color: #0072B2;"&gt;自社で育てている予約サービスのChase Travelと、特典のChase Offers、ポイントのUltimate Rewardsの交換に直接つなげられる&lt;/span&gt;。これにより、加盟店手数料、ポイントでの予約に加えて、&lt;span style="color: #D55E00;"&gt;今は第三者の決済網に流れている、ツアー、飲食、宿泊の分割払いの融資の収益&lt;/span&gt;を得られる。企業価値は20.8億ドルで、3年前の33.9億ドルから大きく下がっており、知名度のある旅行ブランドと、旅行者と事業者をつなぐマーケットプレイスの基盤を安く買える。利用者との接点を持てば、&lt;span style="color: #007A5A;"&gt;豊富な取引と行動のデータを得て、与信の審査と、Chaseのカードや旅行特典の商品のクロスセルに使える&lt;/span&gt;。企業価値はJPMorganの約0.2%で、旅行の商取引の戦略を隣接する分野に広げる、小さく取り込みやすい買収である。&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;親の仮説では「航空会社を丸抱えする」という部分が最大のネックでした。しかし、旅行の予約動線そのものをプラットフォームとして提供しているLiberty TripAdvisorにアイデアを移したことで、重い事業リスクや規制の壁を回避しつつ、決済網やポイント経済の恩恵だけを安価に獲得できるという提案に生まれ変わりました。&lt;/p&gt;
+
+&lt;p&gt;採点者も、この体験・飲食・宿泊サービスと金融の隣接性を評価しました。競争の激しさや提携で済む可能性などの懸念点が残ることなどを総合的に考慮し、スコアは「5点」へと向上しました。1点という低い評価だった親の仮説が別の企業に移されることで、より良い提案を生み出すための「踏み石」として機能したことがわかります。&lt;/p&gt;
+
+&lt;div style="background: #F5F5F5; border: 1px solid #E0E0E0; border-radius: 6px; padding: 1em 1.25em; margin: 1.5em 0;"&gt;
+&lt;p style="margin: 0 0 0.5em;"&gt;&lt;b&gt;この生成例の注意点&lt;/b&gt;&lt;/p&gt;
+&lt;p style="margin: 0; font-size: 0.95em;"&gt;本記事で示す買収案は、推薦手法を評価するためにモデルが生成した仮説です。各企業の実際の買収計画を示すものではなく、投資助言でもありません。さらに、この例には、「1億人を超える会員基盤」など、モデルが入力情報にない事柄や解釈を生成した箇所があります。会員数は、モデルの知識カットオフ後の&lt;a href="https://investors.southwest.com/news-events/press-releases/detail/1935/southwest-airlines-reports-second-quarter-2026-results-earnings-power-on-full-display"&gt;2026年7月の公式発表&lt;/a&gt;で「1億人近く（nearly 100 million Members）」とされていますが、1億人超えという情報は確認できませんでした。なお、データ時点は2024年8月ですが、Liberty TripAdvisor Holdingsは&lt;a href="https://www.sec.gov/Archives/edgar/data/1526520/000110465925041251/tm2513424d1_ex99-1.htm"&gt;2025年4月にTripadvisor社に買収されています&lt;/a&gt;。今回は簡易的な財務データと短い事業説明のみをモデルに与えましたが、実際の意思決定に活用するには、より詳細かつ最新の情報を与える必要があります。&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id="例2看護師に地域の健診プログラムの立ち上げに向けてオンライン学習サービスを薦める"&gt;&lt;strong&gt;例2：看護師に、地域の健診プログラムの立ち上げに向けてオンライン学習サービスを薦める&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;span style="color: #666666;"&gt;&lt;b&gt;顧客ターゲティング（製品：架空のオンライン学習サービス）&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;続いて、マーケティング（顧客ターゲティング）のドメインを見てみましょう。ここでは架空のオンライン学習サービス（ビジネス、テクノロジー、クリエイティブなどの講座を月額提供）を誰にどう勧めるかを探索します。今回のターゲット候補は、National Cityに住む29歳の看護師Jesus Montalvo（架空の人物）です。彼は看護の学位取得やチャージナース（チームのまとめ役）への昇格に加え、「地元で予防のための健診プログラムを立ち上げる」という目標を持っています。&lt;/p&gt;
+
+&lt;p&gt;まず、過去のアーカイブに頼らずゼロから書かせた進化しないベースラインの仮説です。AIは、プロジェクト管理などの講座がプログラム立ち上げに少しは役立つと気づきつつも、「それは付随的な用途にすぎない」と切り捨てました。さらに「シフト勤務で忙しいから時間が取れないだろう」とネガティブに解釈し、最終的に「戦略的に合わない（推薦しない）」と結論づけています。採点者も賛同し「10点満点中2点」という低評価をつけました。&lt;/p&gt;
+
+&lt;div style="border: 1px solid #E0E0E0; border-radius: 6px; padding: 1em 1.25em; margin: 1.5em 0;"&gt;
+&lt;div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5em;"&gt;&lt;b&gt;進化しないベースライン（参考例なし） &lt;/b&gt;&lt;span style="color: #CC2B2B;"&gt;&lt;b&gt;2点（10点満点）&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p style="margin: 0.75em 0 0.5em;"&gt;&lt;b&gt;Jesus Montalvo（29歳、看護師）&lt;/b&gt;&lt;/p&gt;
+&lt;p style="margin: 0; font-size: 0.95em;"&gt;Jesusの当面の目標は、看護の学位、上級資格、地域の保健プログラムの立ち上げで、ほぼすべて臨床のものである。このサービスは看護や医療の認定資格を出さないので、どのコースもこれらの代わりにはならない。チャージナースとしての指導力を磨き、いずれ予防の健診プログラムを組み立てるために、ビジネスコースのプロジェクト管理やデータ分析の講座に少し惹かれるかもしれないが、それは中心の必要ではなく付随的な用途である。シフト勤務ですでに忙しく、ハイキング、ギター、料理などの自由な時間を好むので、週3〜4時間を定額のサービスに足すのは難しい。サービスの価値提案は実際のキャリアの道筋に合わず、副収入への関心も示していないので、戦略的に合わない顧客である。&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;一方、QD-Recのアーカイブには、全く別の顧客に関する「優れた仮説（親）」が保存されていました。それは、学区のリーダーを目指す46歳の幼稚園教諭に対する推薦理由です。&lt;/p&gt;
+
+&lt;div style="border: 1px solid #E0E0E0; border-radius: 6px; padding: 1em 1.25em; margin: 1.5em 0;"&gt;
+&lt;div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5em;"&gt;&lt;b&gt;親 &lt;/b&gt;&lt;span style="color: #CC2B2B;"&gt;&lt;b&gt;7点（10点満点）&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p style="margin: 0.75em 0 0.5em;"&gt;&lt;b&gt;Sharon English（46歳、幼稚園教諭）&lt;/b&gt;&lt;/p&gt;
+&lt;p style="margin: 0; font-size: 0.95em;"&gt;&lt;span style="color: #D55E00;"&gt;教室を離れて学区全体のリーダーになるというSharonの目標&lt;/span&gt;には、&lt;span style="color: #0072B2;"&gt;幼児教育とSTEM教育の訓練では十分に身につかない力が要る。学区全体にプログラムを広げるプロジェクト管理、学習成果を評価するデータ分析、管理職や教育委員会にインクルーシブな方針を訴えるプレゼンテーションである&lt;/span&gt;。ビジネスコースはこの不足に直接応え、修士課程に在学しながらすぐに使える実務の枠組みを与える。構造や表計算を好むので、&lt;span style="color: #007A5A;"&gt;テクノロジーコースのPythonとデータの講座も魅力的で、STEMのカリキュラムの効果を追う簡単な道具やダッシュボードを作れる&lt;/span&gt;。週3〜4時間の学習、専門家とのライブQ&amp;amp;A、LinkedInに載せられる修了証は、規律ある生活に無理なく入り、教育のリーダーへ移るのに要る信用を補う。&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;この親の仮説は、「専門の教育訓練（現場）では身につかないが、全体をまとめるリーダーになるために不可欠な力（プロジェクト管理、データ分析、プレゼンテーション）」を補うものとしてサービスを位置づけ、7点の高評価を獲得していました。&lt;/p&gt;
+
+&lt;p&gt;QD-Recの突然変異（mutate）オペレータは、この幼稚園教諭に対する「現場の専門家が、管理・運営側に回るために足りないビジネススキルを補う」という論理構造を抽出し、先ほどの看護師Jesusに当てはめました。&lt;/p&gt;
+
+&lt;div style="border: 1px solid #E0E0E0; border-radius: 6px; padding: 1em 1.25em; margin: 1.5em 0;"&gt;
+&lt;div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5em;"&gt;&lt;b&gt;子・QD-Rec &lt;/b&gt;&lt;span style="color: #CC2B2B;"&gt;&lt;b&gt;7点（10点満点）&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;p style="margin: 0.75em 0 0.5em;"&gt;&lt;b&gt;Jesus Montalvo（29歳、看護師）&lt;/b&gt;&lt;/p&gt;
+&lt;p style="margin: 0; font-size: 0.95em;"&gt;&lt;span style="color: #D55E00;"&gt;チャージナースになり、いずれNational Cityで予防のための健診を行う地域プログラムを立ち上げるというJesusの目標&lt;/span&gt;には、&lt;span style="color: #0072B2;"&gt;看護の訓練では身につかなかった力が要る。健診の取り組みを調整するプロジェクト管理、健康状態の成果を追って報告する基本的なデータ分析、病院の管理職や助成金の出し手にプログラムを提案するプレゼンテーションである&lt;/span&gt;。ビジネスコースはこの不足に直接応え、&lt;span style="color: #007A5A;"&gt;テクノロジーコースのデータ講座で、地域の健診の効果を示す簡単なダッシュボードも作れる&lt;/span&gt;。シフト単位の柔軟な勤務と、本人も認める整理の苦手さには、週3〜4時間の決まったリズム、進捗のダッシュボード、いつでも解約できるプランが合う。看護の学位や上級資格の課程の代わりにはならないが、プログラムの運営や働きかけに要る力を今すぐ補えるので、臨床を扱わないサービスでも、ニッチだが確かな顧客である。&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;進化しないベースラインでは「付随的だ」と切り捨てられたスキルが、QD-Recでは「健診プログラムの運営や病院管理職への提案に不可欠な、看護の訓練では身につかない力」として据え直されました。さらに、進化しないベースラインが「シフト勤務だから無理」とした点も、「柔軟な形式だからこそ、不規則なシフト勤務に合う」とロジックに変換されています。&lt;/p&gt;
+
+&lt;p&gt;採点者もこの目標とスキルの具体的な結びつきを妥当と評価し、スコアは「7点」へと上がりました。幼稚園教諭に向けられた親の仮説が、別の顧客を見る新しい視点を与える「踏み石」となり、進化しないベースラインでは「合わない」と結論づけられていた看護師に、説得力のある推薦理由を見つけ出しています。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id="実務での活用に向けて"&gt;実務での活用に向けて&lt;/h2&gt;
+
+&lt;p&gt;今回の研究では、候補の選択、仮説の生成、評価・対戦を繰り返し、有望な推薦を蓄積する仕組みを作りました。その中で仮説を生成する部分（アニメーションの&lt;b&gt;②「提案者」&lt;/b&gt;）は、LLMを1回呼び出し、少量のテキスト（論文ではタイトルと要旨、企業では短い事業説明といくつかの財務データのみ）をもとに仮説を生成してもらっただけでしたが、実務への応用では「提案者」自身を発展させることが考えられます。豊富なデータへのアクセスを許可することや、リサーチエージェントを組み込むことも考えられます。&lt;/p&gt;
+
+&lt;p&gt;もう一つ重要なのが、アニメーションの&lt;b&gt;③「採点者」&lt;/b&gt;です。今回紹介した実験ではLLMが推薦を採点しました。しかし、主観的な好みや、経験に基づくセンスが求められる場面では、人の方が採点者として適している場合もあります。また、LLMの採点には、内容の質を高めずに採点者の弱点を突いて高得点を得るハックのリスクもあります。そこで、LLMの代わりに社内の担当者や専門家が採点を担ったり、人とLLMで評価を分担したりすることが考えられます。専門家による評価と照合しながら、LLMの評価基準や採点方法を見直し、仮説の根拠の確かさや実行可能性をより適切に評価できるようにすることも重要です。&lt;/p&gt;
+
+&lt;p&gt;こうした取り組みを通して、QD-Recが次世代の意思決定を支える基盤技術になり得ると考えています。&lt;/p&gt;
+
+&lt;p&gt;QD-Recのコードと複数のドメインの実装例は、&lt;a href="https://github.com/SakanaAI/QD-Rec"&gt;GitHub&lt;/a&gt;で公開しています。実装例を参考に、ぜひお手元の課題でもお試しください。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id="sakana-ai"&gt;Sakana AI&lt;/h2&gt;
+
+&lt;p&gt;Sakana AIは、AIの未来を私たちと一緒に切り拓いてくださる方を募集しています。当社の&lt;a href="/careers/"&gt;募集要項&lt;/a&gt;をご覧ください。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;
+&lt;a href="/careers/"&gt;&lt;img src="/assets/azabudai-hills/fish-outside-hills.jpeg" style="width: 80%;" /&gt;&lt;/a&gt;&lt;br /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</ns0:content><ns0:author><ns0:name>Sakana AI</ns0:name></ns0:author><ns0:category term="media" /><ns0:summary type="html" /></ns0:entry></ns0:feed>

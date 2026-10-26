@@ -62,11 +62,17 @@ def press_subject_reason(title, summary=""):
     return "keep-insufficient-copy"
 
 
-def accepts_feed_item(source, title, summary=""):
+def accepts_feed_item(source, title, summary="", categories=()):
     if source.get("group") == "press":
         if press_subject_reason(title, summary).startswith("drop-"):
             return False
-    return not source.get("filter_ai") or relevant(title, summary)
+    if not source.get("filter_ai") or relevant(title, summary):
+        return True
+    # Cloudflare's mixed-topic feed labels AI posts even when the short teaser
+    # names only a new model. Trust its explicit subject tag, not its URL.
+    return (source.get("id") == "cloudflare-blog"
+            and any(category.casefold() in {"ai", "machine learning", "workers ai"}
+                    for category in categories))
 
 
 @lru_cache(maxsize=1)
