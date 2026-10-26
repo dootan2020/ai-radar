@@ -2,8 +2,62 @@
 
 from collections import defaultdict
 from decimal import Decimal
+import math
+import re
 
 from radar.items import instant, measured, publisher_identity
+
+
+EVENT_POINTS = {"product": 12, "model": 14, "paper": 24, "research": 20,
+                "policy": 30, "funding": 30, "security": 26, "repository": 8,
+                "video": 6, "podcast": 6, "social": 4, "event": 5, "forum": 3}
+EVENT_WORDS = ((re.compile(r"\b(?:regulat\w*|policy|legislat\w*|government bans?)(?:\b|$)", re.I), "policy", 30),
+               (re.compile(r"\b(?:rais\w*\s+\$|funding round|series [a-f]|invest\w*\s+\$)", re.I), "funding", 30),
+               (re.compile(r"\b(?:secur\w*|contain\w*|offline training|safety incident)\b", re.I), "security", 26),
+               (re.compile(r"\b(?:launch\w*|releas\w*|introduc\w*|debut\w*|unveil\w*|open.sources?|rolls? out|announc\w*)\b", re.I), "release", 30))
+TUTORIAL_RE = re.compile(r"\b(?:how to|hands.on guide|tutorial|part (?:i+|\d+)|using .+ to|scaling .+ with)\b", re.I)
+EVIDENCE_RE = re.compile(r"(?:\$\s*\d|\b\d[\d,.]*\s*(?:%|percent\b|million\b|billion\b|trillion\b|users?\b|tokens?\b|GPUs?\b|hours?\b|times\b|USD\b))", re.I)
+
+
+def importance_of(story, now):
+    """A stable snapshot weight, using distinct evidence once per component."""
+    coverage = [item for item in story.get("coverage", []) if isinstance(item, dict)]
+    count = len({publisher_identity(item) for item in coverage})
+    kind = story.get("kind") or "other"
+    event, event_points = kind, EVENT_POINTS.get(kind, 12)
+    title = str(story.get("title") or "")
+    if kind not in {"paper", "repository", "event", "forum", "social"}:
+        for pattern, label, points in EVENT_WORDS:
+            if pattern.search(title):
+                event, event_points = label, points
+                break
+    if event == kind and TUTORIAL_RE.search(title):
+        event, event_points = "guide", 4
+    breadth = min(25, max(0, count - 1) * 12)
+    official = any(((item.get("group") == "lab" or item.get("lab")) and item.get("source") != "hf-trending") or item.get("kind") == "paper"
+                   for item in coverage)
+    evidence = any(EVIDENCE_RE.search(str(item.get("title") or "") + " " + str(item.get("summary") or ""))
+                   for item in coverage)
+    hot_signals = story.get("hot_signals") or {}
+    percentile = hot_signals.get("engagement_percentile")
+    attention = 6 * min(1, max(0, percentile)) if (hot_signals.get("measurement")
+                 and isinstance(percentile, (int, float)) and math.isfinite(percentile)) else 0
+    published = max((instant(item.get("published_at")) for item in coverage
+                     if instant(item.get("published_at"))), default=instant(story.get("published_at")))
+    age = max(0, (now - published).total_seconds() / 3600) if now and published else None
+    freshness = 12 * 0.5 ** (age / 36) if age is not None else 0
+    weight = round(min(100, event_points + breadth + 12 * official + 8 * evidence + attention + freshness), 2)
+    tier = "top" if weight >= 45 else "notable" if weight >= 30 else "standard"
+    reasons = [event, f"{count} nguồn độc lập"]
+    if official:
+        reasons.append("nguồn gốc chính thức")
+    if evidence:
+        reasons.append("có số liệu")
+    if attention:
+        reasons.append("được quan tâm")
+    if age is not None:
+        reasons.append(f"{int(age)} giờ tuổi")
+    return weight, tier, " · ".join(reasons)
 
 METRICS = ("points", "score", "upvotes", "trending_score", "stars_today", "stars")
 LABELS = {"points": "điểm", "score": "điểm", "upvotes": "lượt bình chọn", "trending_score": "điểm thịnh hành",
@@ -93,7 +147,7 @@ def rank_stories(stories, now, previous=None):
         velocity_rank = velocity_percentiles.get(key)
         count = len({publisher_identity(item) for item in story["coverage"]})
         spread = min(count, 5) / 5 if count >= 2 else None
-        published = instant(story.get("published_at"))
+        published = instant(story.get("latest_coverage_at")) or instant(story.get("published_at"))
         age = (now - published).total_seconds() / 3600 if now and published else None
         has_counter = any(_metric(item)[1] is not None for item in story["coverage"])
         half_life = 24 if has_counter else 72
@@ -131,6 +185,8 @@ def rank_stories(stories, now, previous=None):
         prefix = "kho mã được tạo" if story.get("time_basis") == "repository_created" else "đăng"
         reasons.append(f"{prefix} {max(0, int(age))} giờ trước")
         story["hot_reason"] = " · ".join(reasons)
+    for story in stories:
+        story["importance_weight"], story["importance_tier"], story["importance_reason"] = importance_of(story, now)
     return stories
 
 

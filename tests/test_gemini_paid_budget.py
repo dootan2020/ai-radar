@@ -38,6 +38,19 @@ class PaidBudgetTests(unittest.TestCase):
         with patch.dict(os.environ, {"GITHUB_RUN_NUMBER": str(run_number)}):
             return budget.reserve(self.path, tokens, now=self.now, run_number=run_number)
 
+    def test_reservation_names_run_and_month_limits_separately(self):
+        self.assertIsNone(self._prepare(False, 1000, 1000))
+        local = json.loads(self.path.read_text(encoding="utf-8"))
+        local["run_allowance_micros"] = 50_000
+        self.path.write_text(json.dumps(local), encoding="utf-8", newline="\n")
+        self.assertEqual(self._reserve(20_000, 1000)[0], "paid_run_allowance")
+        self.assertEqual(budget.reserve(self.path, 20_000, now=self.now, run_number=1000,
+                                        cap=Decimal("0.05"))[0], "paid_monthly_cap")
+        local["run_allowance_micros"] = 200_000
+        local["daily_remaining_micros"] = 50_000
+        self.path.write_text(json.dumps(local), encoding="utf-8", newline="\n")
+        self.assertEqual(self._reserve(20_000, 1000)[0], "paid_daily_cap")
+
     def _store(self, now=None):
         with tempfile.TemporaryDirectory() as temp:
             return budget._restore(str(self.remote), Path(temp) / "repo", self.now if now is None else now)
@@ -122,13 +135,11 @@ class PaidBudgetTests(unittest.TestCase):
                 ui = json.loads((self.root / "radar-ui.json").read_text(encoding="utf-8"))
                 stats = ui["summary"]
                 self.assertEqual(stats["stories"], 3)
-                # Translation consumes $0.15 of this run's $0.20 hold: a larger summary waits.
-                self.assertEqual(stats["requests"], int(1 <= offset <= 3))
-                self.assertEqual(stats["cache_hits"], min(max(offset - 1, 0), 3))
-                self.assertEqual(stats["summarized"], int(1 <= offset <= 3))
-                self.assertEqual(stats["pending"], max(3 - offset, 0))
-                if offset == 0:
-                    self.assertEqual(stats["error"], "paid_monthly_cap")
+                # A smaller but evidence-complete input may fit after translation's hold.
+                self.assertEqual(stats["requests"], int(offset < 3))
+                self.assertEqual(stats["summarized"], int(offset < 3))
+                self.assertEqual(stats["cache_hits"], min(offset, 3))
+                self.assertEqual(stats["pending"], max(2 - offset, 0))
                 for story in ui["stories"]:
                     if story.get("key_points"):
                         self.assertEqual(story["key_points"], points)
@@ -138,7 +149,7 @@ class PaidBudgetTests(unittest.TestCase):
                 self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now, run_key=f"{run}-1"))
         self.assertEqual(len(requested), 3)
         self.assertEqual(len(set(requested)), 3)
-        self.assertEqual(sum(not url.endswith("/robots.txt") for url in fetched), 4)
+        self.assertEqual(sum(not url.endswith("/robots.txt") for url in fetched), 3)
         store = self._store()
         self.assertEqual(store["settled_consumers"]["2026-10-10"]["summary"], budget._micros(1260, self.now))
         self.assertEqual(store["settled_consumers"]["2026-10-10"]["translation"], budget._micros(40_000, self.now))

@@ -461,6 +461,7 @@ function worthOf(st) {
 const DISCUSSED = new Set(['points', 'score', 'comments', 'upvotes']);
 function reasonOf(st) {
   if (PICKS.has(st.id)) return { text: 'Biên tập chọn', editor: true };
+  if (st.importance_tier === 'top') return { text: 'Ưu tiên cao', why: st.importance_reason };
   const w = worthOf(st);
   if (w.fh) return { text: w.fh.label };
   return null;
@@ -478,7 +479,7 @@ function titleHTML(st, text) {
 }
 const reasonTag = st => {
   const r = reasonOf(st);
-  return r ? `<span class="why-tag${r.editor ? ' is-editor' : ''}"><span class="sr">Vì sao có mặt: </span>${esc(r.text)}</span>` : '';
+  return r ? `<span class="why-tag${r.editor ? ' is-editor' : ''}"${r.why ? ` title="${esc(r.why)}"` : ''}><span class="sr">Vì sao có mặt: </span>${esc(r.text)}</span>` : '';
 };
 
 /* "Vì sao nên đọc": real numbers only, saying each fact once without repeating time or source counts. */
@@ -517,8 +518,11 @@ function sameEvent(a, b) {
   return k / (A.size + B.size - k) >= WORTH.sameEvent;
 }
 
-const byWorth = (a, b) => worthOf(b).score - worthOf(a).score || ms(b.published_at) - ms(a.published_at);
-const byNew = (a, b) => ms(b.published_at) - ms(a.published_at);
+const rankTime = st => ms(st.latest_coverage_at || st.published_at);
+const byWorth = (a, b) => (Number.isFinite(b.importance_weight) ? b.importance_weight : worthOf(b).score)
+  - (Number.isFinite(a.importance_weight) ? a.importance_weight : worthOf(a).score)
+  || rankTime(b) - rankTime(a);
+const byNew = (a, b) => rankTime(b) - rankTime(a);
 const pinFirst = (a, b) => (PICKS.has(b.id) ? 1 : 0) - (PICKS.has(a.id) ? 1 : 0);
 /* Every list on the page goes through here: editor picks first, then the reader's chosen order. */
 const ordered = list => [...list].sort((a, b) => pinFirst(a, b) || (sortMode === 'new' ? byNew : byWorth)(a, b));
@@ -555,8 +559,8 @@ function choosePicks() {
   const shown = filter === 'all' && D ? newestStories().list : [];
   const elsewhere = st => shown.some(n => oneEvent(n, st));
   const out = [...PICKS.keys()].map(id => STORY.get(id)).filter(st => st && nNewsSrc(st) >= 2).slice(0, 3);
-  const candidates = allStories.filter(st => !PICKS.has(st.id) && nNewsSrc(st) >= 2 && worthOf(st).evidence
-    && GEN - ms(st.published_at) <= PICKS_MAX_AGE_H * 36e5 && !elsewhere(st)).sort(byWorth);
+  const candidates = allStories.filter(st => !PICKS.has(st.id) && (st.importance_tier === 'top' || nNewsSrc(st) >= 2) && worthOf(st).evidence
+    && GEN - rankTime(st) <= PICKS_MAX_AGE_H * 36e5 && !elsewhere(st)).sort(byWorth);
   if (!out.length) {
     const photoLeadIndex = candidates.findIndex(st => pickImage(st).kind === 'photo');
     if (photoLeadIndex >= 0) {
@@ -570,7 +574,7 @@ function choosePicks() {
   // Young stories only: two cards, or the lead alone, beat an old one filling the row. The whole window is the
   // fallback only when nothing young qualifies (coordinator, 10/10, within "người dùng luôn muốn xem tin mới trước").
   if (!out.length) {
-    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && nNewsSrc(st) >= 2 && worthOf(st).evidence
+    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && (st.importance_tier === 'top' || nNewsSrc(st) >= 2) && worthOf(st).evidence
       && !elsewhere(st)).sort(byWorth);
     for (const st of fallback) {
       if (out.length >= 3) break;
@@ -728,7 +732,10 @@ function detailHTML(st) {
     e ? `<p class="dt-ev">${esc(eventWhen(e))}${e.verified_at ? ` · xác minh ${esc(e.verified_at)}` : ''}</p>` : '',
     st.time_basis === 'repository_created' ? '<p class="dt-ev">Ngày ghi là ngày tạo kho mã, không phải ngày phát hành.</p>' : '',
   ].join('');
-  return `${facts}<p class="dt-h">Các nguồn, theo thời gian</p><ul class="dt-src">${covs.map(c => {
+  const artifacts = (st.related_artifacts || []).filter(a => a && a.url && a.title);
+  const related = artifacts.length ? `<p class="dt-h">Tài nguyên liên quan</p><ul class="dt-src">${artifacts.map(a =>
+    `<li><a class="cov-t" href="${esc(safe(a.url))}" target="_blank" rel="noopener">${esc(a.title)}</a></li>`).join('')}</ul>` : '';
+  return `${facts}${related}<p class="dt-h">Các nguồn, theo thời gian</p><ul class="dt-src">${covs.map(c => {
     const ct = typeof c.title_vi === 'string' && c.title_vi.trim() ? c.title_vi.trim() : String(c.title || '');
     const mx = metricsHTML(c);
     return `<li><span class="cov-src">${esc(covName(c) || hostOf(c.url))}${c.published_at ? ` · ${timeEl(c.published_at)}` : ''}</span>
@@ -1782,7 +1789,7 @@ function buildAll() {
 
   // --- Khối 2: Cộng đồng đang tranh luận ---
   HOT = allStories.filter(st => !used.has(st.id) && (st.hot_score || 0) > 0 && hotEligible(st) && !PICKLIST.some(p => sameEvent(p, st)))
-    .sort((a, b) => b.hot_score - a.hot_score).slice(0, 5);
+    .sort(byWorth).slice(0, 5);
   HOT.forEach(st => used.add(st.id));
 
   const discussions = allStories.filter(st => !used.has(st.id) && (st.kind === 'forum' || (st.hot_score || 0) > 0))
@@ -2688,8 +2695,8 @@ function ingest(data) {
   if (!Number.isFinite(winH) || winH <= 0) winH = 72;
   const gen = ms(D.generated_at), from = gen - winH * 36e5;
   GEN = gen || Date.now();
-  allStories = asArray(D.stories).filter(st => { const t = ms(st.published_at); return t && t >= from && t <= gen + 3e5; })
-    .sort((a, b) => ms(b.published_at) - ms(a.published_at));
+  allStories = asArray(D.stories).filter(st => { const t = rankTime(st); return t && t >= from && t <= gen + 3e5; })
+    .sort(byNew);
   STORY = new Map(allStories.map(st => [st.id, st]));
   STORY_ANY = new Map(asArray(D.stories).map(st => [st.id, st]));
   REPO = new Map(asArray(D.repos).filter(r => r && r.id != null && r.full_name).map(r => [String(r.id), r]));

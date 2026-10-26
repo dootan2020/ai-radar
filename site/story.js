@@ -525,6 +525,11 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
 
       ${renderCoverageListHTML(story.coverage, srcMap)}
 
+      ${(story.related_artifacts || []).length ? `<section class="story-coverage-wrap" aria-label="Tài nguyên liên quan">
+        <h2>Tài nguyên liên quan</h2><ul class="story-coverage-list">${story.related_artifacts.map(a =>
+          `<li><a href="${esc(safe(a.url))}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a></li>`).join('')}</ul>
+      </section>` : ''}
+
       ${renderOriginGatewayHTML(story, srcMap)}
 
       ${footerHTML}

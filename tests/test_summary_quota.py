@@ -193,6 +193,19 @@ class SummaryQuotaTests(unittest.TestCase):
         self.assertEqual(stats["settled_tokens"], estimate)
         self.assertEqual(stats["settled_micros"], paid._micros(estimate, self.now))
 
+    def test_invalid_response_settles_reported_usage_instead_of_full_hold(self):
+        def invalid(body, key, timeout):
+            response = self.provider(body, key, timeout)
+            response["candidates"][0]["finishReason"] = "MAX_TOKENS"
+            return response
+        story = self.story()
+        stats = self.run_summary([story], {"first": ARTICLE}, transport_fn=invalid)
+        self.assertEqual(stats["error"], "invalid_response")
+        self.assertEqual(stats["summarized"], 0)
+        self.assertEqual(stats["tokens"], 420)
+        self.assertEqual(stats["settled_micros"], paid._micros(420, self.now))
+        self.assertNotIn("key_points", story)
+
     def test_retry_counts_both_charges_and_excludes_prior_consumer_spend(self):
         ledger = json.loads(self.path.read_text())
         ledger["consumer_remaining_micros"]["summary"] = 375000
@@ -233,7 +246,7 @@ class SummaryQuotaTests(unittest.TestCase):
         ledger["run_allowance_micros"] = 10000
         self.path.write_text(json.dumps(ledger), encoding="utf-8", newline="\n")
         stats = self.run_summary([self.story(), self.story("later")], {"first": ARTICLE})
-        self.assertEqual(stats["error"], "paid_monthly_cap")
+        self.assertEqual(stats["error"], "paid_run_allowance")
         self.assertEqual(stats["candidates_tried"], 1)
         self.assertEqual(stats["requests"], 0)
         self.assertEqual(self.calls, [])
