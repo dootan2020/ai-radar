@@ -53,3 +53,11 @@ Lucy chạy discovery live, năm lệnh bàn duyệt trên 150 story, rồi eval
 - Discovery nay giữ các dòng nhiên liệu trên exit 0 và exit 3; lỗi khác, crash hoặc timeout vẫn là `unavailable`. Parser nhận `CHẠM DỰ TRỮ` trong dòng có phần trăm sử dụng, đồng thời vẫn chỉ nhận `CẠN` ở đầu verdict để tránh nhầm lời nhắc “chưa đo”. Claude chỉ được chọn khi đo rõ còn dưới ngưỡng. Codex/Gemini chưa đo vẫn có thể được dùng vì quota tách biệt với coordinator; chỉ Claude dùng chung pool cần fail closed.
 - Fixture exit 3 chứa Codex và Gemini còn nhiên liệu cùng Claude tuần 84% chạm ngưỡng 80%; test xác nhận chọn Codex và agy, loại claude-code. Fixture không có dòng đo cũng không chọn Claude. Không chạy boat/model và không chỉnh `phong-bao/jobs/`.
 - Kiểm chứng vòng 4: `python -m unittest tests.test_phong_bao` cho `Ran 20 tests in 0.913s`, `OK`; `python -m unittest discover -s tests` cho `Ran 1386 tests in 407.512s`, `OK (skipped=8)`.
+
+## Round 5: chỉ giữ rác, hạ cấp tin thiếu chứng cứ
+
+- Lượt live của Lucy: 0/54 rác lọt, 52/96 tin tốt giữ nhầm; reporter 25, editor 12, checker 14, intake 1. Ba bàn dùng tổng 1.817.062 token, khoảng 12.114/tin.
+- Chief chỉ hold khi intake loại hoặc editor xác định một loại rác. Tin không đọc được vẫn qua editor để phân loại từ metadata, sau đó lên standard với title gốc/link, không summary. Checker trả claim được hỗ trợ và cờ title; chief bỏ claim sai hoặc summary, hạ tier theo ngày và chứng cứ. Quyết định ghi `summary`, `tier_capped`, lý do suy giảm và cờ dùng title gốc.
+- Batch tối đa 32 story/60.000 ký tự qua stdin Codex; agy dùng argv được chia ở 24.000 ký tự. Reporter bỏ gọi boat khi không có candidate, chỉ gửi excerpt 900 ký tự; editor nhận excerpt 1.200 ký tự; checker nhận claim và các đoạn nguồn liên quan.
+- `run --from editor --through chief` cho phép Lucy tính lại job cũ, bỏ quyết định cũ trước khi tính. Fixture bảy case thật từ live và các test bảo vệ mọi loại rác đã được thêm. Chưa chạy boat/model hoặc sửa `phong-bao/jobs/`; lượt chấm 150 tin mới thuộc Lucy.
+- Kiểm chứng bản cuối: `python -m unittest tests.test_phong_bao` cho `Ran 26 tests in 0.672s`, `OK`; `python -m unittest discover -s tests` cho `Ran 1392 tests in 277.495s`, `OK (skipped=8)`. Cả hai exit 0; `git diff --check` exit 0.

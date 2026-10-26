@@ -39,6 +39,7 @@
     "57363b60fec23f24d819": {
       "id": "57363b60fec23f24d819",
       "news": false,
+      "junk_kind": "customer_case_study",
       "reason": "Vendor customer case study, not a news event.",
       "subject": "Octave customer deployment",
       "event_type": "case_study",

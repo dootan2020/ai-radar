@@ -10,7 +10,7 @@ from unittest.mock import patch
 from phong_bao.discovery import discover_raw, report
 from phong_bao.__main__ import main
 from phong_bao.evaluation import evaluate
-from phong_bao.newsroom import FixtureArticles, _checker, _chief, _intake, _same_rep_url, run
+from phong_bao.newsroom import ARGUMENT_BATCH_CHARS, BATCH_SIZE, JUNK_KINDS, FixtureArticles, _agent_desk, _batches, _checker, _chief, _intake, _same_rep_url, run
 from phong_bao.registry import load_registry, providers
 from phong_bao.runner import AdmissionError, CLIRunner, FixtureRunner, RunnerError, _admission_excerpt, _json_response
 
@@ -138,11 +138,13 @@ class NewsroomTests(unittest.TestCase):
         stderr = (diagnostics["codex_echo"]["stderr_prefix"] + echoed_prompt +
                   diagnostics["codex_echo"]["stderr_suffix"])
         completed = type("Completed", (), {"returncode": 0, "stdout": codex_events, "stderr": stderr})()
-        with patch("phong_bao.runner.subprocess.run", return_value=completed):
+        with patch("phong_bao.runner.subprocess.run", return_value=completed) as command:
             result = CLIRunner().run("reporter", [row], codex, instruction)
         self.assertEqual(result.rows, [{"id": "story-1", "ok": True}])
         self.assertEqual(result.usage["source"], "cli")
         self.assertEqual(result.usage["tokens_per_story"], 120)
+        self.assertIn("story-1", command.call_args.kwargs["input"])
+        self.assertNotIn("story-1", " ".join(command.call_args.args[0]))
 
         agy_output = json.dumps({"response": json.dumps({"stories": [{"id": "story-1", "ok": True}]})})
         agy_stderr = (diagnostics["agy_echo"]["stderr_prefix"] + echoed_prompt +
@@ -262,6 +264,29 @@ class NewsroomTests(unittest.TestCase):
                 run(input_path, job, self.tools, self.discovery, self.runner,
                     articles=self.articles)
 
+    def test_rerun_from_editor_recomputes_downstream_without_repeating_reporter(self):
+        calls = []
+
+        class CountingRunner(FixtureRunner):
+            def run(self, desk, rows, provider, instruction):
+                calls.append(desk)
+                return super().run(desk, rows, provider, instruction)
+
+        with tempfile.TemporaryDirectory() as directory:
+            job = Path(directory) / "job"
+            runner = CountingRunner(fixture("responses.json"))
+            run(FIXTURES / "snapshot.json", job, self.tools, self.discovery, runner, articles=self.articles)
+            calls.clear()
+            run(FIXTURES / "snapshot.json", job, self.tools, self.discovery, runner,
+                articles=self.articles, rerun_from="editor")
+            self.assertNotIn("reporter", calls)
+            self.assertIn("editor", calls)
+            self.assertIn("checker", calls)
+            self.assertTrue((job / "quyet-dinh.json").exists())
+            with self.assertRaisesRegex(ValueError, "rerun start"):
+                run(FIXTURES / "snapshot.json", job, self.tools, self.discovery, runner,
+                    articles=self.articles, through="reporter", rerun_from="editor")
+
     def test_intake_holds_stale_original_and_chief_demotes_older_tier(self):
         now = datetime(2026, 10, 26, tzinfo=timezone.utc)
         story = {"id": "old", "title": "OpenAI launches a new AI model", "url": "https://example.org/news",
@@ -287,12 +312,141 @@ class NewsroomTests(unittest.TestCase):
         responses = fixture("responses.json")
         second = stories[1]["id"]
         responses["checker"][second] = {"id": second, "verified": True, "reason": "checked", "supported_claims": []}
-        reporter = {s["id"]: {"source_text": self.articles.read(s["url"])[0], "selected_url": s["url"]} for s in stories}
+        reporter = {s["id"]: {"source_text": self.articles.read(s["url"])[0], "selected_url": s["url"], "readable": True} for s in stories}
         editor = {s["id"]: {"news": True, "boat": boat, "claims": []} for s, boat in zip(stories, ("codex", "agy"))}
         output, usage = _checker(stories, {}, reporter, editor, self.tools, self.discovery, FixtureRunner(responses))
         self.assertEqual(output[stories[0]["id"]]["boat"], "agy")
         self.assertEqual(output[second]["boat"], "codex")
         self.assertEqual(len(usage), 2)
+
+    def test_live_held_good_stories_publish_with_degradation_and_junk_stays_held(self):
+        cases = fixture("live-held-cases.json")
+        captured = []
+
+        class CapturingRunner(FixtureRunner):
+            def run(self, desk, rows, provider, instruction):
+                captured.extend((desk, row) for row in rows)
+                return super().run(desk, rows, provider, instruction)
+
+        with tempfile.TemporaryDirectory() as directory:
+            snapshot = Path(directory) / "snapshot.json"
+            snapshot.write_bytes(json.dumps(cases["snapshot"], ensure_ascii=False).encode("utf-8"))
+            job = Path(directory) / "job"
+            run(snapshot, job, self.tools, self.discovery, CapturingRunner(cases["responses"]),
+                articles=FixtureArticles(cases["articles"]))
+            decisions = {row["id"]: row for row in json.loads((job / "quyet-dinh.json").read_text(encoding="utf-8"))["decisions"]}
+            reporter = json.loads((job / "reporter.json").read_text(encoding="utf-8"))
+            checker = json.loads((job / "checker.json").read_text(encoding="utf-8"))
+
+        unreadable = decisions["bf7b07d2d53b813f8b54"]
+        self.assertEqual((unreadable["decision"], unreadable["importance_tier"], unreadable["summary"]),
+                         ("publish", "standard", "none"))
+        self.assertTrue(unreadable["tier_capped"])
+        self.assertTrue(unreadable["use_original_title"])
+        self.assertEqual(unreadable["source_url"], cases["snapshot"]["stories"][0]["url"])
+        self.assertFalse(reporter[unreadable["id"]]["readable"])
+
+        old_launch = decisions["c4a1f46e5a98744a7c57"]
+        self.assertEqual((old_launch["decision"], old_launch["importance_tier"]), ("publish", "standard"))
+        self.assertTrue(old_launch["tier_capped"])
+        self.assertIn("older than seven days", old_launch["reason"])
+
+        partial = decisions["f5220dab8f55b741ff6e"]
+        self.assertEqual(partial["decision"], "publish")
+        self.assertEqual(partial["importance_tier"], "standard")
+        self.assertEqual(partial["summary"], "claims")
+        self.assertEqual(len(partial["key_points"]), 2)
+        self.assertNotIn("tại Mỹ", " ".join(partial["key_points"]))
+        self.assertEqual(len(checker[partial["id"]]["rejected_claims"]), 1)
+
+        junk = decisions["57363b60fec23f24d819"]
+        self.assertEqual((junk["decision"], junk["round"]), ("hold", "editor"))
+        social_junk = decisions["31aa8a84f9a3c6c3879e"]
+        self.assertEqual((social_junk["decision"], social_junk["round"]), ("hold", "editor"))
+        self.assertFalse(reporter[social_junk["id"]]["readable"])
+        bad_title = decisions["283a10a734a97f3fd2cf"]
+        self.assertEqual(bad_title["decision"], "publish")
+        self.assertEqual(bad_title["importance_tier"], "standard")
+        self.assertTrue(bad_title["use_original_title"])
+        self.assertIn("checker rejected title", bad_title["degradation_reasons"])
+        self.assertEqual(len(bad_title["key_points"]), 3)
+        bad_number = decisions["653d201e892868835018"]
+        self.assertEqual(bad_number["decision"], "publish")
+        self.assertEqual(bad_number["importance_tier"], "standard")
+        self.assertEqual(len(bad_number["key_points"]), 2)
+        self.assertEqual(len(checker[bad_number["id"]]["rejected_claims"]), 1)
+        editor_payload = [row for desk, row in captured if desk == "editor"]
+        checker_payload = [row for desk, row in captured if desk == "checker"]
+        self.assertEqual(len(editor_payload), 7)
+        self.assertTrue(all("source_text" not in row and len(row["source_excerpt"]) <= 1200 for row in editor_payload))
+        self.assertTrue(all(row["original_url"].startswith("https://") and "kind" in row for row in editor_payload))
+        self.assertTrue(all("source_text" not in row and "cited_paragraphs" in row for row in checker_payload))
+        self.assertTrue(all(len(row["cited_paragraphs"]) <= len(row["claims"]) + 1 and
+                            all(len(part) <= 400 for part in row["cited_paragraphs"]) for row in checker_payload))
+        self.assertNotIn(unreadable["id"], [row["id"] for row in checker_payload])
+
+    def test_each_junk_kind_is_held_but_checker_rejection_keeps_news(self):
+        now = datetime(2026, 10, 26, tzinfo=timezone.utc)
+        story = {"id": "story", "title": "AI product announcement", "url": "https://example.org/news",
+                 "published_at": now.isoformat()}
+        intake = {"story": {"pass": True, "reason": "pass"}}
+        reporter = {"story": {"readable": True, "selected_url": story["url"], "reason": "pass"}}
+        checker = {"story": {"verified": False, "title_supported": False,
+                              "supported_claims": [], "rejected_claims": ["Unsupported figure"], "reason": "unsupported figure"}}
+        for kind in JUNK_KINDS:
+            with self.subTest(kind=kind):
+                editor = {"story": {"news": False, "junk_kind": kind, "reason": kind,
+                                    "importance": "top", "event_at": now.isoformat(), "claims": [],
+                                    "same_event_coverage_ids": [], "split_coverage_ids": []}}
+                decision = _chief([story], intake, reporter, editor, checker, now)[0]
+                self.assertEqual((decision["decision"], decision["round"]), ("hold", "editor"))
+        editor["story"]["news"] = True
+        decision = _chief([story], intake, reporter, editor, checker, now)[0]
+        self.assertEqual((decision["decision"], decision["summary"], decision["importance_tier"]),
+                         ("publish", "none", "standard"))
+        self.assertTrue(decision["use_original_title"])
+
+    def test_checker_rejection_without_claim_list_degrades_instead_of_stopping(self):
+        cases = fixture("live-held-cases.json")
+        story = next(row for row in cases["snapshot"]["stories"] if row["id"] == "f5220dab8f55b741ff6e")
+        sid = story["id"]
+        reporter = {sid: {"readable": True, "selected_url": story["url"],
+                          "source_text": cases["articles"]["articles"][story["url"]]["text"]}}
+        editor = {sid: {**cases["responses"]["editor"][sid], "boat": "codex"}}
+        runner = FixtureRunner({"checker": {sid: {"id": sid, "title_supported": False,
+                                                     "reason": "Unsupported title and claims"}}})
+        checked, _ = _checker([story], {}, reporter, editor, self.tools, self.discovery, runner)
+        self.assertEqual(checked[sid]["supported_claims"], [])
+        self.assertEqual(len(checked[sid]["rejected_claims"]), 3)
+        decision = _chief([story], {sid: {"pass": True, "reason": "pass"}}, reporter,
+                          {sid: {**editor[sid], "split_coverage_ids": []}}, checked,
+                          datetime(2026, 10, 26, tzinfo=timezone.utc))[0]
+        self.assertEqual((decision["decision"], decision["summary"], decision["importance_tier"]),
+                         ("publish", "none", "standard"))
+
+    def test_batch_limit_shares_codex_overhead_across_32_stories(self):
+        batches = list(_batches([{"id": str(index)} for index in range(50)]))
+        self.assertEqual(BATCH_SIZE, 32)
+        self.assertEqual([len(batch) for batch in batches], [32, 18])
+
+    def test_argument_boat_chunks_large_fallback_batch(self):
+        seen = []
+
+        class CapturingRunner:
+            def run(self, desk, rows, provider, instruction):
+                seen.append((provider["id"], rows))
+                if provider["id"] == "codex":
+                    raise RunnerError("temporary CLI failure")
+                return FixtureRunner({"editor": {row["id"]: {"id": row["id"]} for row in rows}}).run(
+                    desk, rows, provider, instruction)
+
+        payload = [{"id": str(index), "excerpt": "x" * 1200} for index in range(32)]
+        result, usage = _agent_desk("editor", payload, "Return JSON", "bien-tap", self.tools,
+                                    self.discovery, CapturingRunner())
+        self.assertEqual(len(result), 32)
+        self.assertGreater(len(usage), 1)
+        self.assertTrue(all(len(json.dumps(rows, ensure_ascii=False)) <= ARGUMENT_BATCH_CHARS
+                            for provider, rows in seen if provider == "agy"))
 
     def test_evaluation_rejects_missing_decisions(self):
         with tempfile.TemporaryDirectory() as directory:

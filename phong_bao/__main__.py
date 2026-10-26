@@ -28,6 +28,7 @@ def main(argv=None):
     newsroom.add_argument("--corpus")
     newsroom.add_argument("--job", required=True)
     newsroom.add_argument("--through", choices=DESKS, default="chief")
+    newsroom.add_argument("--from", dest="rerun_from", choices=DESKS)
     newsroom.add_argument("--discovery-fixture")
     newsroom.add_argument("--runner-fixture")
     newsroom.add_argument("--articles-fixture")
@@ -53,7 +54,7 @@ def main(argv=None):
     runner = FixtureRunner(_json(args.runner_fixture)) if args.runner_fixture else CLIRunner()
     articles = FixtureArticles(_json(args.articles_fixture)) if args.articles_fixture else None
     status = run(args.input, args.job, tools, raw, runner, through=args.through, articles=articles,
-                 corpus_path=args.corpus)
+                 corpus_path=args.corpus, rerun_from=args.rerun_from)
     print(json.dumps(status, ensure_ascii=False, indent=2))
     return 0
 
