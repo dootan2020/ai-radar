@@ -1,4 +1,4 @@
-# AIBit News · Những mẩu tin AI ngắn gọn
+# Halcyon · Những mẩu tin AI ngắn gọn
 
 Mở mỗi sáng để xem các phòng lab AI vừa có gì mới, buổi phát trực tiếp nào đáng theo dõi và dự án nào đang nổi. Mỗi tin dẫn về nguồn gốc để đọc tiếp.
 
@@ -62,7 +62,7 @@ Offline fixtures include captured live/upcoming/ended channel metadata and actua
 
 ## Website and automatic updates
 
-The published site is [AIBit News](https://radar-ai-vn.pages.dev/). The existing [Update AI Radar workflow](.github/workflows/update.yml) runs tests, builds fresh data, deploys `site/` through Cloudflare Pages, and refreshes GitHub Pages redirects for old links. It is scheduled at minutes 07 and 37 of every hour; GitHub may delay scheduled runs. A manual run is available in the repository's Actions tab.
+The published site is [Halcyon](https://radar-ai-vn.pages.dev/). The existing [Update AI Radar workflow](.github/workflows/update.yml) runs tests, builds fresh data, deploys `site/` through Cloudflare Pages, and refreshes GitHub Pages redirects for old links. It is scheduled at minutes 07 and 37 of every hour; GitHub may delay scheduled runs. A manual run is available in the repository's Actions tab.
 
 The separate [Offline CI workflow](.github/workflows/ci.yml) checks pushes and pull requests. Making its test job a required branch check needs repository settings; adding the workflow does not enable that protection automatically. See [operations and rollback](docs/operations.md), the [data contract](docs/data-pipeline-v2.md), and the [dated feed verification](docs/source-feed-check-2026-10-03.md).
 
@@ -70,6 +70,6 @@ The separate [Offline CI workflow](.github/workflows/ci.yml) checks pushes and p
 
 The optional translation step can use Gemini for Vietnamese titles and existing summaries, with Meta's [NLLB-200 distilled 600M](https://huggingface.co/facebook/nllb-200-distilled-600M) and original text as fallbacks. Gemini requests require `GEMINI_API_KEY` and `RADAR_GEMINI_FREE_TIER_CONFIRMED=1`; before enabling, the owner must verify that the key's project has no billing attached and check its actual free quotas in AI Studio. The confirmation flag and application limits cannot verify billing or guarantee Google's quota. See the [translation contract and setup](docs/data-pipeline-v2.md#title-and-summary-translation) for provider status, cache, budgets and offline verification. Frontend summary display and provider attribution still require the separate UI integration.
 
-NLLB output uses [Creative Commons Attribution-NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/). AIBit News applies the model to source text and adds terminology corrections; originals remain available. This attribution does not imply endorsement by Meta.
+NLLB output uses [Creative Commons Attribution-NonCommercial 4.0](https://creativecommons.org/licenses/by-nc/4.0/). Halcyon applies the model to source text and adds terminology corrections; originals remain available. This attribution does not imply endorsement by Meta.
 
 The NLLB fallback must be replaced before commercial use of its translations, including advertising or paid access. Its license does not license the articles linked by the site. [NLLB dependencies](requirements-translate.txt) belong to the optional [translation step](radar/translate.py); core collection/build and Gemini HTTP remain Python standard-library only. Collection/build needs no model API key. Name/number guards apply to fresh and cached translations; rejected text keeps the original.

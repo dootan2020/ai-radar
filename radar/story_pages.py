@@ -19,7 +19,7 @@ from radar.items import publisher_identity
 from radar.site_config import SITE_BASE_URL
 
 BASE_URL = SITE_BASE_URL
-SITE_NAME = "AIBit News"
+SITE_NAME = "Halcyon"
 BRANCH = "radar-story-pages"
 REF = f"refs/heads/{BRANCH}"
 STORY_ID = re.compile(r"[a-z0-9][a-z0-9_-]*\Z")

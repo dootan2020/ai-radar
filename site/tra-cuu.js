@@ -1,4 +1,4 @@
-/* AIBit News · Trang Tra cứu câu chuyện AI 7 ngày qua (tra-cuu.js)
+/* Halcyon · Trang Tra cứu câu chuyện AI 7 ngày qua (tra-cuu.js)
    Bento Keynote: Ô chính + dòng thời gian.
    Dữ liệu tải từ data/radar-search.json khi cần.
    Không phát sinh số liệu giả, tính toán trực tiếp từ dữ liệu thực tế. */
@@ -576,7 +576,7 @@ function renderEmptyPrompt(suggestedNames, history) {
     <div class="board tc-results-board">
       <article class="tile t-lead" id="tc-prompt" style="padding: var(--tile-pad-hero);">
         <div class="lead-top">
-          ${avatar({ kind: 'brand', label: 'AIBit News' }, 'xl')}
+          ${avatar({ kind: 'brand', label: 'Halcyon' }, 'xl')}
           <p class="lead-label">
             <span class="pill pill-hot"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg>Tra một chuyện</span>
             <span class="lead-src">Dữ liệu 7 ngày qua · Đo lường bằng số nguồn thật</span>

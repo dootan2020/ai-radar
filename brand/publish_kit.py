@@ -47,7 +47,7 @@ def files(base):
 
 
 def publish():
-    source_book = (BRAND / "aibit-news" / "index.html").read_text(encoding="utf-8")
+    source_book = (BRAND / "halcyon" / "index.html").read_text(encoding="utf-8")
     source_book = source_book.replace('../assets/', 'assets/').replace('../fonts/', 'fonts/').replace('../logo/', 'logo/')
     downloads = "".join(
         f'<a href="assets/{name}" download>{name}</a>'

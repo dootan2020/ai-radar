@@ -85,7 +85,7 @@ class RootPageHeadTests(unittest.TestCase):
     def test_canonical_and_seo_elements(self):
         self.assertIn(f'<link rel="canonical" href="{SITE_URL}">', self.head)
         self.assertIn('<meta name="referrer" content="strict-origin-when-cross-origin">', self.head)
-        self.assertIn('<meta property="og:site_name" content="AIBit News">', self.head)
+        self.assertIn('<meta property="og:site_name" content="Halcyon">', self.head)
         self.assertIn('<meta property="og:type" content="website">', self.head)
         self.assertIn(f'<meta property="og:url" content="{SITE_URL}">', self.head)
         self.assertIn(f'<meta property="og:image" content="{SITE_URL}og-image.png">', self.head)

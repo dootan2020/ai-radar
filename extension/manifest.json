@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "AIBit News",
+  "name": "Halcyon",
   "version": "0.1.0",
-  "description": "Những mẩu tin AI ngắn gọn trên tab mới, kèm tìm kiếm web và bản tin đã lưu gần nhất.",
+  "description": "Halcyon — Những mẩu tin AI ngắn gọn trên tab mới, kèm tìm kiếm web và bản tin đã lưu gần nhất.",
   "permissions": ["storage", "alarms", "search"],
   "host_permissions": ["https://radar-ai-vn.pages.dev/*"],
   "chrome_url_overrides": {"newtab": "newtab.html"},

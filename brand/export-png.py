@@ -1,7 +1,7 @@
-"""Export AIBit News extension and Store PNGs from the SVGs in brand/assets/.
+"""Export Halcyon extension and Store PNGs from the SVGs in brand/assets/.
 
 Run from anywhere, after brand/build-assets.py:  python brand/export-png.py
-Use --site for the AIBit News website kit, ICO and screenshot pipeline.
+Use --site for the Halcyon website kit, ICO and screenshot pipeline.
 Each SVG is rendered by headless Chrome with a fresh profile under
 plans/nhap/, then every PNG's pixel size is read back from its IHDR header and checked
 against the platform size below; a mismatch stops the run. The extension path

@@ -1,9 +1,9 @@
-"""Build the approved AIBit News emerald kingfisher logo.
+"""Build the approved Halcyon emerald kingfisher logo.
 
 Generates:
   - The approved variant folder: a-kingfisher-emerald
   - SVG marks (light/dark, with tile and glyph-only)
-  - SVG lock-ups with the full word "AIBit News"
+  - SVG lock-ups with the full word "Halcyon"
   - PNG marks at 1024px
   - PNG icons at 16, 32, 48, 128px
   - PNG lock-ups at 512px height
@@ -266,12 +266,12 @@ def svg_lockup(name, theme):
     t = THEMES[name][theme]
     text_colour = t["text"]
     baseline = mark / 2 + cap / 2
-    d, width = wordmark_path("AIBit News", mark + gap, baseline, cap)
+    d, width = wordmark_path("Halcyon", mark + gap, baseline, cap)
     total_w = mark + gap + width + 8
     defs, body = svg_mark(name, theme, s=mark, uid="-lk")
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{total_w:.0f}" height="{mark}" '
-            f'viewBox="0 0 {total_w:.0f} {mark}" role="img" aria-label="AIBit News">'
-            f'<title>AIBit News</title><defs>{defs}</defs>{body}'
+            f'viewBox="0 0 {total_w:.0f} {mark}" role="img" aria-label="Halcyon">'
+            f'<title>Halcyon</title><defs>{defs}</defs>{body}'
             f'<path fill="{text_colour}" d="{d}"/></svg>')
 
 def png_lockup(name, theme, height=512):
@@ -283,7 +283,7 @@ def png_lockup(name, theme, height=512):
     font = ImageFont.truetype(str(FONT), size=round(cap / cap_ratio))
     t = THEMES[name][theme]
     text_colour = t["text"]
-    wordmark = "AIBit News"
+    wordmark = "Halcyon"
     tw = sum(font.getlength(c) for c in wordmark) - 0.03 * font.size * (len(wordmark) - 1)
     W = int(mark + gap + tw + height * 0.05)
     img = Image.new("RGBA", (W, height), (0, 0, 0, 0))
@@ -386,7 +386,7 @@ def check_image_health(path):
 # --- Main execution ----------------------------------------------------------
 
 def main():
-    print("=== Building approved AIBit News kingfisher ===")
+    print("=== Building approved Halcyon kingfisher ===")
     hashes = {}
     for name in OPTIONS:
         out = HERE / name
@@ -396,14 +396,14 @@ def main():
             # Mark SVG (with tile)
             defs, body = svg_mark(name, theme)
             mark_svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" '
-                        f'role="img" aria-label="AIBit News"><title>AIBit News</title><defs>{defs}</defs>{body}</svg>\n')
+                        f'role="img" aria-label="Halcyon"><title>Halcyon</title><defs>{defs}</defs>{body}</svg>\n')
             p_mark_svg = out / f"mark-{theme}.svg"
             p_mark_svg.write_text(mark_svg, encoding="utf-8", newline="\n")
 
             # Glyph SVG (tile=False)
             defs_g, body_g = svg_mark(name, theme, tile=False, uid="-g")
             glyph_svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" '
-                         f'role="img" aria-label="AIBit News"><title>AIBit News</title><defs>{defs_g}</defs>{body_g}</svg>\n')
+                         f'role="img" aria-label="Halcyon"><title>Halcyon</title><defs>{defs_g}</defs>{body_g}</svg>\n')
             p_glyph_svg = out / f"glyph-{theme}.svg"
             p_glyph_svg.write_text(glyph_svg, encoding="utf-8", newline="\n")
 

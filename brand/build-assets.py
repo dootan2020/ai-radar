@@ -1,7 +1,7 @@
-"""Build AIBit News extension and Store SVGs from the approved kingfisher.
+"""Build Halcyon extension and Store SVGs from the approved kingfisher.
 
 Run from the repository root:  python brand/build-assets.py
-Use --site for the AIBit News website kit pipeline.
+Use --site for the Halcyon website kit pipeline.
 Needs fontTools (pip install fonttools). Text is converted to outlines with the
 Be Vietnam Pro files in brand/fonts/, so each SVG opens correctly anywhere,
 without the font installed. The website kit retains its existing tokens.
@@ -172,19 +172,19 @@ def small_kingfisher(size):
              '<path d="M 415 245 L 182 288 L 330 357 L 162 402 L 335 441 Z"/>'
              '<path d="M 505 315 L 899 408 L 505 446 Z"/>'
              '</g>')
-    return doc(size, size, body, "AIBit News kingfisher toolbar icon")
+    return doc(size, size, body, "Halcyon kingfisher toolbar icon")
 
 
 def extension_assets():
     OUT.mkdir(parents=True, exist_ok=True)
     for pixels in (16, 32):
         write(f"extension-icon-{pixels}.svg", small_kingfisher(pixels))
-    write("extension-icon-48.svg", doc(48, 48, approved_logo("mark-light.svg", 0, 0, 48, 48), "AIBit News kingfisher extension icon"))
-    write("extension-icon-128.svg", doc(128, 128, approved_logo("mark-light.svg", 0, 0, 128, 128), "AIBit News Chrome Web Store icon"))
+    write("extension-icon-48.svg", doc(48, 48, approved_logo("mark-light.svg", 0, 0, 48, 48), "Halcyon kingfisher extension icon"))
+    write("extension-icon-128.svg", doc(128, 128, approved_logo("mark-light.svg", 0, 0, 128, 128), "Halcyon Chrome Web Store icon"))
     promo = f'<rect width="440" height="280" fill="{DARK["canvas"]}"/>'
     promo += approved_logo("lockup-dark.svg", 36, 52, 368, 368 / lockup_ratio())
     promo += text(MED, "Những mẩu tin AI ngắn gọn", 22, 38, 218, DARK["ink2"])
-    write("store-promo-small.svg", doc(440, 280, promo, "AIBit News Chrome Web Store promo"))
+    write("store-promo-small.svg", doc(440, 280, promo, "Halcyon Chrome Web Store promo"))
 
 
 def nf(n):
@@ -222,14 +222,14 @@ def main():
     for target, source in logo_files.items():
         if target in {"avatar.svg", "avatar-light.svg"}:
             size = 800
-            write(target, doc(size, size, approved_logo(source, 0, 0, size, size), "AIBit News"))
+            write(target, doc(size, size, approved_logo(source, 0, 0, size, size), "Halcyon"))
         elif target == "apple-touch-icon-180.svg":
             size = 180
             tile = f'<rect width="{size}" height="{size}" fill="#00B377"/>'
-            write(target, doc(size, size, tile + approved_logo(source, 0, 0, size, size), "AIBit News"))
+            write(target, doc(size, size, tile + approved_logo(source, 0, 0, size, size), "Halcyon"))
         elif target in {"favicon-16.svg", "favicon-32.svg"}:
             size = int(target.split("-")[1].split(".")[0])
-            write(target, doc(size, size, approved_logo(source, 0, 0, size, size), "AIBit News"))
+            write(target, doc(size, size, approved_logo(source, 0, 0, size, size), "Halcyon"))
         else:
             write(target, (logo_dir / source).read_text(encoding="utf-8"))
     (ROOT / "site" / "logo.svg").write_bytes((logo_dir / "mark-light.svg").read_bytes())
@@ -274,7 +274,7 @@ def main():
     body += text(BOLD, "ngắn gọn", 60, 96, 424, L["ink"], TRACK_DISPLAY)
     body += text(MED, "Tin AI mỗi sáng, lọc bằng số đo thật.", 26, 96, 500, L["ink2"])
     body += text(MED, URL, 22, 96, 546, L["accent"])
-    write("og-default.svg", doc(1200, 630, body, "AIBit News, Những mẩu tin AI ngắn gọn", L["canvas"]))
+    write("og-default.svg", doc(1200, 630, body, "Halcyon, Những mẩu tin AI ngắn gọn", L["canvas"]))
 
     # Facebook cover 1640 x 624. Mobile shows only the centre ~1110 px; desktop covers the
     # bottom-left with the page avatar. Everything that matters sits in the centre.
@@ -282,13 +282,13 @@ def main():
     body = lockup(820 - lw / 2, 300, 96)[0]
     body += text(MED, TAG, 40, 820, 400, L["ink2"], anchor="middle")
     body += text(MED, "Lab · Paper · Repo · Podcast · Diễn đàn", 26, 820, 460, L["ink3"], anchor="middle")
-    write("cover-facebook.svg", doc(1640, 624, body, "AIBit News, bìa trang Facebook", L["canvas"]))
+    write("cover-facebook.svg", doc(1640, 624, body, "Halcyon, bìa trang Facebook", L["canvas"]))
 
     # YouTube banner 2560 x 1440. Safe area on every device: centre 1546 x 423 (y 508-931).
     lw = lockup(0, 0, 150, "dark")[1]
     body = lockup(1280 - lw / 2, 720, 150, "dark")[0]
     body += text(MED, TAG, 52, 1280, 864, D["ink2"], anchor="middle")
-    write("cover-youtube.svg", doc(2560, 1440, body, "AIBit News, ảnh bìa kênh YouTube", D["canvas"]))
+    write("cover-youtube.svg", doc(2560, 1440, body, "Halcyon, ảnh bìa kênh YouTube", D["canvas"]))
 
     # short-video thumbnail 1080 x 1920 (9:16). Bottom 420 px and right 160 px stay free for the
     # platform's caption and buttons.
@@ -318,7 +318,7 @@ def main():
     body += text(MED, "Tin AI mỗi sáng,", 44, 96, 1340, L["ink2"])
     body += text(MED, "lọc bằng số đo thật.", 44, 96, 1400, L["ink2"])
     body += text(MED, URL, 36, 96, 1480, L["accent"])
-    write("khung-9x16.svg", doc(1080, 1920, body, "AIBit News, khung 9:16", L["canvas"]))
+    write("khung-9x16.svg", doc(1080, 1920, body, "Halcyon, khung 9:16", L["canvas"]))
 
     # the brand page must stand alone when brand/ is published by itself: ship its own tokens
     (ROOT / "brand" / "tokens.css").write_bytes((ROOT / "site" / "tokens.css").read_bytes())
