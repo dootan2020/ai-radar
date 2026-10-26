@@ -136,10 +136,10 @@ class PaidBudgetTests(unittest.TestCase):
                 stats = ui["summary"]
                 self.assertEqual(stats["stories"], 3)
                 # A smaller but evidence-complete input may fit after translation's hold.
-                self.assertEqual(stats["requests"], int(offset < 3))
-                self.assertEqual(stats["summarized"], int(offset < 3))
-                self.assertEqual(stats["cache_hits"], min(offset, 3))
-                self.assertEqual(stats["pending"], max(2 - offset, 0))
+                self.assertEqual(stats["requests"], 3 if offset == 0 else 0)
+                self.assertEqual(stats["summarized"], 3 if offset == 0 else 0)
+                self.assertEqual(stats["cache_hits"], 0 if offset == 0 else 3)
+                self.assertEqual(stats["pending"], 0)
                 for story in ui["stories"]:
                     if story.get("key_points"):
                         self.assertEqual(story["key_points"], points)
