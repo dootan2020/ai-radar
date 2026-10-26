@@ -57,7 +57,7 @@ class CycleTests(unittest.TestCase):
     def test_cli_passes_custom_snapshot_url(self):
         with patch("phong_bao.__main__.cycle", return_value={"state": "no_new_stories"}) as run_cycle:
             self.assertEqual(main(["cycle", "--snapshot-url", "https://example.org/data/radar-intake.json"]), 0)
-        run_cycle.assert_called_once_with(snapshot_url="https://example.org/data/radar-intake.json")
+        run_cycle.assert_called_once_with(snapshot_url="https://example.org/data/radar-intake.json", since_hours=36)
 
     def test_only_new_stories_are_decided_and_history_keeps_holds(self):
         snapshot = fixture("snapshot.json")
@@ -70,7 +70,7 @@ class CycleTests(unittest.TestCase):
             runner = CountingRunner()
             args = dict(snapshot_fetcher=lambda: snapshot, decisions_path=path, cycles_dir=base / "cycles",
                         discovery=fixture("discovery.json"), tools=load_registry(), runner=runner,
-                        articles=FixtureArticles(fixture("articles.json")))
+                        articles=FixtureArticles(fixture("articles.json")), since_hours=200)
             start = datetime(2026, 10, 27, 7, tzinfo=timezone.utc)
             status = cycle(**args, now=start)
             self.assertEqual((status["state"], status["new_count"], status["decided_count"]),
@@ -88,6 +88,25 @@ class CycleTests(unittest.TestCase):
             self.assertEqual(len(runner.calls), calls)
             self.assertEqual(len(json.loads(path.read_bytes())["decisions"]), 3)
 
+    def test_cycle_only_considers_stories_inside_recency_window(self):
+        snapshot = fixture("snapshot.json")
+        snapshot["stories"][0]["published_at"] = "2026-10-20T00:00:00Z"
+        snapshot["stories"][0]["latest_coverage_at"] = "2026-10-25T18:00:00Z"
+        snapshot["stories"][1]["published_at"] = "2026-10-27T05:00:00Z"
+        snapshot["stories"][1]["latest_coverage_at"] = "2026-10-27T05:00:00Z"
+        snapshot["stories"][2]["published_at"] = "2026-10-25T00:00:00Z"
+        snapshot["stories"][2]["latest_coverage_at"] = "2026-10-25T00:00:00Z"
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            runner = CountingRunner()
+            status = cycle(snapshot_fetcher=lambda: snapshot, decisions_path=base / "decisions.json",
+                           cycles_dir=base / "cycles", discovery=fixture("discovery.json"),
+                           tools=load_registry(), runner=runner,
+                           articles=FixtureArticles(fixture("articles.json")),
+                           now=datetime(2026, 10, 27, 7, tzinfo=timezone.utc))
+        self.assertEqual((status["considered_count"], status["new_count"]), (1, 1))
+        self.assertTrue(all("5912801014b750b394c9" not in ids for _, ids in runner.calls))
+
     def test_overlap_guard_releases_lock_and_dry_lane_records_no_decision(self):
         snapshot = fixture("snapshot.json")
         with tempfile.TemporaryDirectory() as directory:
@@ -96,7 +115,7 @@ class CycleTests(unittest.TestCase):
             args = dict(snapshot_fetcher=lambda: snapshot, decisions_path=base / "decisions.json",
                         cycles_dir=base / "cycles", tools=load_registry(),
                         discovery={**fixture("discovery.json"), "commands": ["python", "codex"]},
-                        runner=CountingRunner())
+                        runner=CountingRunner(), since_hours=200)
             with cycle_lock(lock):
                 with self.assertRaisesRegex(RuntimeError, "already running"):
                     cycle(**args)

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import json
 import os
 from pathlib import Path
@@ -85,9 +85,22 @@ def _lanes_available(tools, discovery):
     return any(editor.get("boat") != checker.get("boat") for editor in editors for checker in checkers)
 
 
+def _story_timestamp(story):
+    values = []
+    for key in ("published_at", "latest_coverage_at"):
+        value = story.get(key)
+        if value:
+            try:
+                parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            except (AttributeError, TypeError, ValueError):
+                continue
+            values.append(parsed.replace(tzinfo=timezone.utc) if parsed.tzinfo is None else parsed.astimezone(timezone.utc))
+    return max(values) if values else None
+
+
 def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DECISIONS_PATH, cycles_dir=CYCLES_DIR,
           discovery=None, runner=None, articles=None, tools=None,
-          desk_budget_seconds=DEFAULT_DESK_BUDGET_SECONDS, now=None):
+          desk_budget_seconds=DEFAULT_DESK_BUDGET_SECONDS, since_hours=36, now=None):
     """Review new story IDs and keep every earlier decision, including holds."""
     decisions_path, cycles_dir = Path(decisions_path), Path(cycles_dir)
     with cycle_lock(cycles_dir / "cycle.lock"):
@@ -107,8 +120,10 @@ def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DE
             raise ValueError("published snapshot contains invalid stories")
         if len({row["id"] for row in stories}) != len(stories):
             raise ValueError("published snapshot contains duplicate story IDs")
-        new = [row for row in stories if row["id"] not in known]
-        _write_json(job_dir / "status.json", {"started_at": started.isoformat(), "new_count": len(new),
+        cutoff = started - timedelta(hours=since_hours)
+        recent = [row for row in stories if (timestamp := _story_timestamp(row)) is not None and timestamp >= cutoff]
+        new = [row for row in recent if row["id"] not in known]
+        _write_json(job_dir / "status.json", {"started_at": started.isoformat(), "considered_count": len(recent), "new_count": len(new),
                                               "state": "running"})
         if not new:
             state = "no_new_stories"
@@ -133,7 +148,7 @@ def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DE
                     fresh = json.loads((job_dir / "job" / "quyet-dinh.json").read_text(encoding="utf-8"))["decisions"]
                 if {row["id"] for row in fresh} != {row["id"] for row in new}:
                     raise ValueError("newsroom did not decide every new story")
-        status = {"started_at": started.isoformat(), "state": state, "new_count": len(new),
+        status = {"started_at": started.isoformat(), "state": state, "considered_count": len(recent), "new_count": len(new),
                   "decided_count": len(fresh), "total_decisions": len(old) + len(fresh)}
         if state != "dry_lane":
             value = {"schema_version": 1, "generated_at": datetime.now(timezone.utc).isoformat(),

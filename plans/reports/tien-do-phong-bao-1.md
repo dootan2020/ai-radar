@@ -53,3 +53,11 @@ Các hướng dẫn pha 1a bên dưới đã được pha 1b thay thế. Không 
 - Tốc độ đo 110 story/24 giờ tương đương khoảng 550.000 token/ngày ở mức 5.000 token/story. Giữ lịch 06:00, 10:00, 14:00, 18:00, 20:00 Asia/Bangkok: ca 4 giờ khoảng 18–19 story (~92.000 token), ca đêm 10 giờ khoảng 46 story (~229.000 token). Cửa sổ quyết định 12 giờ đủ qua ca đêm nếu task hoàn tất. Lần đầu chưa có lịch sử sẽ thấy tối đa khoảng 1.821 ID cũ (~9,1 triệu token theo mức 1a), vượt xa ca thông thường và có thể chạm giới hạn task 2 giờ; Lucy cần chuẩn bị bootstrap trước khi kích hoạt lịch thật.
 - Test HTTP/CLI cycle: `Ran 4 tests in 0.087s`, `OK`; quyết định: `Ran 2 tests in 0.175s`, `OK`; payload/build: `Ran 19 tests in 0.506s`, `OK`. Suite toàn repo trên code cuối: `Ran 1414 tests in 247.557s`, `OK (skipped=8)`. `py_compile`, `git diff --check` và cú pháp hai script PowerShell đều qua. Không đọc admission/observation, không chạy model, không chạm `.env`, secret, fixture hay `phong-bao/jobs/`.
 - `git add` bị sandbox từ chối tại `C:/Users/Admin/ai-radar/.git/worktrees/ai-radar-wt-phong-bao/index.lock` (`Permission denied`). Worktree để nguyên cho Lucy stage và commit; report hiện là file đã tracked.
+
+## Phase 1c: cửa sổ story gần đây và fallback khi fetch quyết định lỗi
+
+- `python -m phong_bao cycle` chỉ chọn story có `published_at` hoặc `latest_coverage_at` mới hơn trong hai trường và nằm trong cửa sổ gần đây; mặc định 36 giờ, cấu hình bằng `--since-hours`. Story cũ không được gửi qua newsroom và vẫn giữ nguyên trong dữ liệu site.
+- Cycle status ghi `considered_count` để CLI in số story nằm trong cửa sổ; `new_count` tiếp tục chỉ số story mới chưa có quyết định.
+- Trong riêng step `Fetch newsroom decisions`, lỗi khác 404 giờ in GitHub Actions warning và tiếp tục với file quyết định đã xóa, tương tự fallback 404.
+- Test mục tiêu: `Ran 5 tests in 0.124s`, `OK`. Toàn bộ suite: `Ran 1415 tests in 244.031s`, `OK (skipped=8)`.
+- Không chạy model, push, register task; không sửa `.env`, secrets, fixtures hoặc `phong-bao/jobs/`.

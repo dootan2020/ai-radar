@@ -37,11 +37,14 @@ def main(argv=None):
     scoring = sub.add_parser("evaluate")
     cycle_parser = sub.add_parser("cycle")
     cycle_parser.add_argument("--snapshot-url")
+    cycle_parser.add_argument("--since-hours", type=float, default=36)
     scoring.add_argument("--decisions", required=True)
     scoring.add_argument("--labels", required=True)
     args = parser.parse_args(argv)
     if args.command == "cycle":
-        options = {"snapshot_url": args.snapshot_url} if args.snapshot_url else {}
+        options = {"since_hours": args.since_hours}
+        if args.snapshot_url:
+            options["snapshot_url"] = args.snapshot_url
         print(json.dumps(cycle(**options), ensure_ascii=False, indent=2))
         return 0
     if args.command == "evaluate":

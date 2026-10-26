@@ -142,8 +142,7 @@ jobs:
           elif grep -q 'HTTP 404' "$RUNNER_TEMP/newsroom-decisions-error"; then
             echo 'No newsroom decisions branch or file; using existing publication behavior.'
           else
-            cat "$RUNNER_TEMP/newsroom-decisions-error" >&2
-            exit 1
+            echo '::warning::Could not fetch newsroom decisions; using existing publication behavior.'
           fi
       - name: Fetch public sources
         id: collect
