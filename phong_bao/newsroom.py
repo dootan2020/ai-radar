@@ -29,18 +29,23 @@ ARTICLE_LIMIT = 3200
 REPORTER_EXCERPT_LIMIT = 900
 EDITOR_EXCERPT_LIMIT = 1200
 JUNK_KINDS = {"non_news_page", "vendor_sales", "customer_case_study", "tutorial", "incidental_ai", "mis_merged_cluster", "stale_content"}
+IMPORTANCE_TIERS = ("top", "notable", "standard")
 EDITOR_PROMPT = ("You are a newsroom editor. Decide whether each card is an actual AI news event or junk. "
                  "Return each {id, news:boolean, junk_kind:string|null, reason:string, subject:string, event_type:string, "
                  "importance:string, event_at:string|null, claims:[string], same_event_coverage_ids:[string]}. "
-                 "For news=false, junk_kind must be one of non_news_page, vendor_sales, customer_case_study, tutorial, "
-                 "incidental_ai, mis_merged_cluster, stale_content. Only call an item stale_content when an old item "
+                 f"For news=true, importance must be exactly {', '.join(IMPORTANCE_TIERS[:-1])}, "
+                 f"or {IMPORTANCE_TIERS[-1]}; never high, low, or none. "
+                 "For news=false, use importance=standard and an exact junk_kind from the list below. "
+                 "For news=true, use junk_kind=null and 0 to 8 distinct supported claims; 0 claims is valid news without a summary. "
+                 f"For news=false, junk_kind must be one of {', '.join(sorted(JUNK_KINDS))}. "
+                 "Only call an item stale_content when an old item "
                  "is resurfaced without a new event; an actual launch on October 7, 8 or 13 is news even when reviewed "
                  "on October 26, and belongs in standard tier after seven days. Phase A labels distinguish old_content_reposted "
                  "from a merely old launch: Phase A marked the September 22 Claude Opus 5.5 page old_content_reposted, "
                  "but marked the October 8 Anthropic Cyber Mission and October 13 Qwen glasses launches as non-junk. "
                  "Vendor product announcements are news, not vendor_sales. "
                  "A missing or short source is uncertainty, not junk: use the title and teaser to classify the event, "
-                 "and return no claims without source support. Return at most 8 distinct claims, each 1 to 520 characters. Never use source_count as proof. "
+                 "and return no claims without source support. Each nonempty claim must be 1 to 520 characters. Never use source_count as proof. "
                  "Reject advertising, customer case studies, tutorials, incidental AI, social chatter without an event, "
                  "and genuinely stale resurfacing. Separate unrelated coverage IDs.")
 REPORTER_PROMPT = "You are a reporter. Read each public article excerpt. If the representative article is unreadable, choose at most one readable candidate from a different publisher about the exact same event, or null. A 403 is not evidence of paywall. Never bypass robots, sign in, or infer facts from source_count. Return each {id, selected_url:string|null, same_event:boolean, reason:string}."
@@ -250,20 +255,21 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
                             "representative_url": story["url"], "representative_status": statuses[story["id"]],
                             "candidates": [{**candidate, "text": candidate["text"][:REPORTER_EXCERPT_LIMIT]} for candidate in candidates]})
     replies, usage = _agent_desk("reporter", payload, REPORTER_PROMPT, "doc-bai", tools, discovery, runner, raw_dir=raw_dir) if payload else ({}, [])
+    def invalid_reply(row):
+        return bool(row and (type(row.get("same_event")) is not bool or
+                             (row.get("selected_url") is not None and not isinstance(row.get("selected_url"), str))))
+
+    retry_payload = [item for item in payload if invalid_reply(replies.get(item["id"]))]
+    if retry_payload:
+        retry, retry_usage = _agent_desk("reporter", retry_payload, REPORTER_PROMPT, "doc-bai", tools,
+                                         discovery, runner, raw_dir=raw_dir)
+        replies.update(retry)
+        usage.extend(retry_usage)
     output = {}
     for story in stories:
         row = replies.get(story["id"])
-        invalid = bool(row and (type(row.get("same_event")) is not bool or
-                                (row.get("selected_url") is not None and not isinstance(row.get("selected_url"), str))))
-        if invalid:
-            retry_payload = next(item for item in payload if item["id"] == story["id"])
-            retry, retry_usage = _agent_desk("reporter", [retry_payload], REPORTER_PROMPT, "doc-bai", tools,
-                                             discovery, runner, raw_dir=raw_dir)
-            usage.extend(retry_usage)
-            row = retry.get(story["id"])
-            invalid = bool(row and (type(row.get("same_event")) is not bool or
-                                    (row.get("selected_url") is not None and not isinstance(row.get("selected_url"), str))))
-        url = row.get("selected_url") if row else None
+        invalid = invalid_reply(row)
+        url = row.get("selected_url") if row and not invalid else None
         candidate = source_map.get(story["id"], {}).get(url)
         valid = bool(not invalid and candidate and row.get("same_event") is True and (url == story["url"] or candidate["publisher"] != _publisher(story["url"])))
         reason = "reporter_invalid" if invalid else (_reason(row.get("reason"), "source selected") if valid else
@@ -277,6 +283,23 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
                                "representative_status": statuses.get(story["id"], "not_checked"),
                                "provider": row.get("provider") if row else None, "boat": row.get("boat") if row else None}
     return output, usage
+
+
+def _editor_news_fields_valid(row, coverage_ids, *, require_importance=True):
+    if not row or row.get("news") is not True:
+        return False
+    same = row.get("same_event_coverage_ids")
+    claims = row.get("claims")
+    return bool(isinstance(same, list) and all(isinstance(value, str) for value in same)
+                and set(same) <= coverage_ids
+                and isinstance(claims, list) and len(claims) <= 8
+                and all(isinstance(c, str) and 0 < len(c.strip()) <= 520 for c in claims)
+                and len({c.casefold().strip() for c in claims}) == len(claims)
+                and isinstance(row.get("subject"), str) and row["subject"].strip()
+                and isinstance(row.get("event_type"), str) and row["event_type"].strip()
+                and (not require_importance or
+                     isinstance(row.get("importance"), str) and row["importance"] in IMPORTANCE_TIERS)
+                and (row.get("event_at") is None or isinstance(row.get("event_at"), str)))
 
 
 def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
@@ -293,53 +316,48 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
                         "source_status": reporter[story["id"]]["representative_status"],
                         "source_excerpt": reporter[story["id"]]["source_text"][:EDITOR_EXCERPT_LIMIT]})
     replies, usage = _agent_desk("editor", payload, EDITOR_PROMPT, "bien-tap", tools, discovery, runner, raw_dir=raw_dir) if payload else ({}, [])
+    coverage_by_id = {story["id"]: {c["id"] for c in story.get("coverage") or []
+                                    if isinstance(c, dict) and isinstance(c.get("id"), str)} for story in stories}
+
+    def needs_retry(row, sid):
+        return (type(row.get("news")) is not bool if row else True) or (
+            row.get("news") is True and not _editor_news_fields_valid(row, coverage_by_id[sid]))
+
+    junk_hints = {sid: row["junk_kind"] for sid, row in replies.items()
+                  if type(row.get("news")) is not bool and row.get("junk_kind")}
+    retry_payload = [item for item in payload if needs_retry(replies.get(item["id"]), item["id"])]
+    if retry_payload:
+        retry, retry_usage = _agent_desk("editor", retry_payload, EDITOR_PROMPT, "bien-tap", tools,
+                                         discovery, runner, raw_dir=raw_dir)
+        replies.update(retry)
+        usage.extend(retry_usage)
     output = {}
     for story in stories:
-        row = replies.get(story["id"])
-        coverage_ids = {c["id"] for c in story.get("coverage") or [] if isinstance(c, dict) and isinstance(c.get("id"), str)}
-        same = row.get("same_event_coverage_ids") if row else []
-        claims = row.get("claims") if row else None
-        valid = bool(row and isinstance(same, list) and all(isinstance(value, str) for value in same)
-                     and set(same) <= coverage_ids
-                     and isinstance(claims, list) and len(claims) <= 8
-                     and all(isinstance(c, str) and 0 < len(c.strip()) <= 520 for c in claims)
-                     and len({c.casefold().strip() for c in claims}) == len(claims)
-                     and isinstance(row.get("subject"), str) and row["subject"].strip()
-                     and isinstance(row.get("event_type"), str) and row["event_type"].strip()
-                     and isinstance(row.get("importance"), str) and row["importance"] in {"top", "notable", "standard"}
-                     and (row.get("event_at") is None or isinstance(row.get("event_at"), str)))
-        invalid = bool(row and (type(row.get("news")) is not bool or not valid or
-                                row.get("news") is False and row.get("junk_kind") not in JUNK_KINDS))
-        if invalid:
-            retry, retry_usage = _agent_desk("editor", [next(item for item in payload if item["id"] == story["id"])],
-                                             EDITOR_PROMPT, "bien-tap", tools, discovery, runner, raw_dir=raw_dir)
-            usage.extend(retry_usage)
-            row = retry.get(story["id"])
-            same = row.get("same_event_coverage_ids") if row else []
-            claims = row.get("claims") if row else None
-            valid = bool(row and isinstance(same, list) and all(isinstance(value, str) for value in same)
-                         and set(same) <= coverage_ids and isinstance(claims, list) and len(claims) <= 8
-                         and all(isinstance(c, str) and 0 < len(c.strip()) <= 520 for c in claims)
-                         and len({c.casefold().strip() for c in claims}) == len(claims)
-                         and isinstance(row.get("subject"), str) and row["subject"].strip()
-                         and isinstance(row.get("event_type"), str) and row["event_type"].strip()
-                         and isinstance(row.get("importance"), str) and row["importance"] in {"top", "notable", "standard"}
-                         and (row.get("event_at") is None or isinstance(row.get("event_at"), str)))
-            invalid = bool(row and (type(row.get("news")) is not bool or not valid or
-                                    row.get("news") is False and row.get("junk_kind") not in JUNK_KINDS))
-        if not valid:
-            same = []
+        sid = story["id"]
+        row = replies.get(sid)
+        coverage_ids = coverage_by_id[sid]
+        news = row.get("news") if row else None
+        valid_news_fields = _editor_news_fields_valid(row, coverage_ids)
+        usable_news_fields = _editor_news_fields_valid(row, coverage_ids, require_importance=False)
+        junk_kind = (row.get("junk_kind") if row else None)
+        if news is not False and not junk_kind:
+            junk_kind = junk_hints.get(sid)
+        unknown_junk_kind = news is False and (not isinstance(junk_kind, str) or junk_kind not in JUNK_KINDS)
+        invalid = bool(intake[sid]["pass"] and (needs_retry(row, sid) or unknown_junk_kind))
+        is_junk = news is False or sid in junk_hints or (type(news) is not bool and bool(junk_kind))
+        is_news = not is_junk and (news is True or invalid)
+        same = row.get("same_event_coverage_ids") if usable_news_fields else []
         representative_ids = {c["id"] for c in story.get("coverage") or [] if isinstance(c, dict) and isinstance(c.get("id"), str)
                               and _same_rep_url(c.get("url"), story.get("url"))}
         same = sorted(set(same) | representative_ids)
-        output[story["id"]] = {"id": story["id"], "news": True if invalid else valid and row.get("news") is True if row else False,
-                               "reason": "editor_invalid" if invalid else _reason(row.get("reason"), "editor marked junk") if row else "earlier desk hold",
+        output[sid] = {"id": sid, "news": is_news if intake[sid]["pass"] else False,
+                               "reason": "editor_invalid" if invalid and not is_junk else _reason(row.get("reason"), "editor marked junk") if row else "earlier desk hold",
                                "invalid_response": invalid,
-                               "junk_kind": row.get("junk_kind") if row and row.get("news") is False else None,
+                               "junk_kind": junk_kind if is_junk else None,
                                "subject": row.get("subject") if row else None, "event_type": row.get("event_type") if row else None,
-                               "importance": row.get("importance", "standard") if row and row.get("news") is True and not invalid else "standard",
-                               "event_at": row.get("event_at") if row and row.get("news") is True else None,
-                               "claims": row.get("claims", []) if valid and row.get("news") is True else [],
+                               "importance": row["importance"] if valid_news_fields else "standard",
+                               "event_at": row.get("event_at") if usable_news_fields else None,
+                               "claims": row["claims"] if usable_news_fields else [],
                                "same_event_coverage_ids": same,
                                "split_coverage_ids": sorted(coverage_ids - set(same)),
                                "provider": row.get("provider") if row else None, "boat": row.get("boat") if row else None}
@@ -373,22 +391,23 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
                                                  boat_exclude={boat}, raw_dir=raw_dir)
         replies.update(group_replies)
         usage.extend(group_usage)
+    def invalid_reply(row, boat):
+        return bool(row and (row.get("boat") == boat or
+                             type(row.get("title_supported", row.get("verified"))) is not bool or
+                             not isinstance(row.get("supported_claims", []), list)))
+
+    for boat, payload in payload_by_boat.items():
+        retry_payload = [item for item in payload if invalid_reply(replies.get(item["id"]), boat)]
+        if retry_payload:
+            retry, retry_usage = _agent_desk("checker", retry_payload, CHECKER_PROMPT, "kiem-chung", tools,
+                                             discovery, runner, boat_exclude={boat}, raw_dir=raw_dir)
+            replies.update(retry)
+            usage.extend(retry_usage)
     output = {}
     for story in stories:
         row = replies.get(story["id"])
         editor_boat = editor[story["id"]]["boat"]
-        invalid = bool(row and (row.get("boat") == editor_boat or
-                                type(row.get("title_supported", row.get("verified"))) is not bool or
-                                not isinstance(row.get("supported_claims", []), list)))
-        if invalid:
-            retry_payload = next(item for rows in payload_by_boat.values() for item in rows if item["id"] == story["id"])
-            retry, retry_usage = _agent_desk("checker", [retry_payload], CHECKER_PROMPT, "kiem-chung", tools,
-                                             discovery, runner, boat_exclude={editor_boat}, raw_dir=raw_dir)
-            usage.extend(retry_usage)
-            row = retry.get(story["id"])
-            invalid = bool(row and (row.get("boat") == editor_boat or
-                                    type(row.get("title_supported", row.get("verified"))) is not bool or
-                                    not isinstance(row.get("supported_claims", []), list)))
+        invalid = invalid_reply(row, editor_boat)
         evidence = reporter[story["id"]]["source_text"]
         claims = editor[story["id"]]["claims"]
         supported = row.get("supported_claims", []) if row and not invalid else []
@@ -414,7 +433,7 @@ def _chief(stories, intake, reporter, editor, checker, now):
         sid = story["id"]
         gate = (("intake", intake[sid]["reason"]) if not intake[sid]["pass"] else
                 ("editor", editor[sid]["reason"]) if not editor[sid]["news"] else None)
-        tier = editor[sid]["importance"] if editor[sid]["importance"] in {"top", "notable", "standard"} else "standard"
+        tier = editor[sid]["importance"] if editor[sid]["importance"] in IMPORTANCE_TIERS else "standard"
         original_at = instant(story.get("published_at"))
         proposed_at = instant(editor[sid]["event_at"])
         event_at = min(original_at, proposed_at) if original_at and proposed_at else original_at

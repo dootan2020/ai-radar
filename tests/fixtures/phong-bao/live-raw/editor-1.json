@@ -1,0 +1,476 @@
+{
+  "desk": "editor",
+  "batch": 1,
+  "provider": "codex",
+  "stories": [
+    {
+      "id": "5912801014b750b394c9",
+      "news": true,
+      "junk_kind": null,
+      "reason": "DeepSeek completed a major financing round.",
+      "subject": "DeepSeek",
+      "event_type": "funding",
+      "importance": "high",
+      "event_at": "2026-10-22T10:30:40Z",
+      "claims": [
+        "DeepSeek raised around $15 billion.",
+        "The company twice increased its financing target before the round."
+      ],
+      "same_event_coverage_ids": [
+        "1392b5cb8cfb5159433e",
+        "46f578bc4f6592a7dd2d",
+        "f7c33f0072ef6a302685",
+        "8867d2f41e46a31cd86a"
+      ]
+    },
+    {
+      "id": "f8c156dba7886826388b",
+      "news": true,
+      "junk_kind": null,
+      "reason": "OpenAI disclosed a change to its frontier model training and testing environment.",
+      "subject": "OpenAI frontier model security",
+      "event_type": "security_change",
+      "importance": "high",
+      "event_at": "2026-10-23T10:00:00Z",
+      "claims": [
+        "OpenAI says it built an offline testing environment where models can interact with indexed and cached web content without affecting external systems.",
+        "OpenAI resumed reinforcement learning training and internal inference on October 1 with tighter security measures."
+      ],
+      "same_event_coverage_ids": [
+        "8c34907eb8cbc8f0ef8d",
+        "18fc41502e1a66c880e3",
+        "4d333355701c21863bc9"
+      ]
+    },
+    {
+      "id": "99e92739396737857921",
+      "news": true,
+      "junk_kind": null,
+      "reason": "DeepSeek released an inference framework as open source.",
+      "subject": "DeepInfer",
+      "event_type": "open_source_release",
+      "importance": "standard",
+      "event_at": "2026-10-20T09:08:54Z",
+      "claims": [
+        "DeepSeek released DeepInfer on October 20.",
+        "The framework supports Nvidia GPUs and Huawei Ascend processors.",
+        "DeepSeek also open-sourced deepseek-recipe."
+      ],
+      "same_event_coverage_ids": [
+        "ea0332bc22ef622762ac",
+        "33f602cab03575453830"
+      ]
+    },
+    {
+      "id": "c4a1f46e5a98744a7c57",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Anthropic launched a new cybersecurity initiative on October 8.",
+      "subject": "Anthropic Cyber Mission",
+      "event_type": "initiative_launch",
+      "importance": "standard",
+      "event_at": "2026-10-08T00:00:00Z",
+      "claims": [
+        "Anthropic launched the Cyber Mission to support defenders with tools, research, and resources.",
+        "The launch includes a Critical Infrastructure Defense Program and OSS Scanner."
+      ],
+      "same_event_coverage_ids": [
+        "fd4a9ed4f4ee0755fbfd"
+      ]
+    },
+    {
+      "id": "f5220dab8f55b741ff6e",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Anthropic opened a research preview of a new agent app.",
+      "subject": "Claude Duet",
+      "event_type": "product_launch",
+      "importance": "standard",
+      "event_at": "2026-10-21T00:00:00Z",
+      "claims": [
+        "Anthropic opened a research preview of Claude Duet.",
+        "The app is available on iOS, Android, and claude.ai through a waitlist for Pro and Max subscribers."
+      ],
+      "same_event_coverage_ids": [
+        "16154ede434fcfd871e6",
+        "558ac716d27058a176f6"
+      ]
+    },
+    {
+      "id": "653d201e892868835018",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Google Cloud and Nvidia announced forthcoming availability of new AI infrastructure.",
+      "subject": "Google Cloud A5X Vera Rubin infrastructure",
+      "event_type": "infrastructure_announcement",
+      "importance": "standard",
+      "event_at": "2026-10-21T10:45:17Z",
+      "claims": [
+        "General availability of the A5X instances is planned for the following month.",
+        "The instances combine Nvidia Vera Rubin NVL72, ConnectX-9 SuperNICs, Google Cloud Virgo Network, and liquid cooling."
+      ],
+      "same_event_coverage_ids": [
+        "6950c82b86e3ede03eca"
+      ]
+    },
+    {
+      "id": "bf7b07d2d53b813f8b54",
+      "news": true,
+      "junk_kind": null,
+      "reason": "OpenAI and Google Cloud announced a model distribution partnership; the unavailable source limits supported detail.",
+      "subject": "OpenAI models on Google Cloud",
+      "event_type": "partnership",
+      "importance": "standard",
+      "event_at": "2026-10-21T12:00:00Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "5734a4d733e1168bf53f",
+        "11c94217a9bef4db0c3d",
+        "28f7f4ec0c9620239442"
+      ]
+    },
+    {
+      "id": "b99771caf3d694f6070c",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Anthropic launched a new model on October 7; its age places it in the standard tier.",
+      "subject": "Claude Haiku 5.5",
+      "event_type": "model_launch",
+      "importance": "standard",
+      "event_at": "2026-10-07T00:00:00Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "7eb96547797a0ceae75f",
+        "8166cef0e617b6c2982f"
+      ]
+    },
+    {
+      "id": "f6a301346a05e615cdbc",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Anthropic published a substantive new AI research result.",
+      "subject": "LLM assisted formal software verification",
+      "event_type": "research_result",
+      "importance": "standard",
+      "event_at": "2026-10-22T00:00:00Z",
+      "claims": [
+        "Anthropic and Theorem report using Claude to prove security properties at the RISC-V assembly level in more than 100 real-world open-source libraries.",
+        "Anthropic says Claude also found bugs while producing the proofs."
+      ],
+      "same_event_coverage_ids": [
+        "15beb8d14e86e06ed1ef",
+        "b8a3288549e00fb6e7d0"
+      ]
+    },
+    {
+      "id": "3c83fe9f9fbabfbee454",
+      "news": true,
+      "junk_kind": null,
+      "reason": "METASTONE announced an LLM inference scheduling framework.",
+      "subject": "TokenFleet",
+      "event_type": "product_launch",
+      "importance": "standard",
+      "event_at": "2026-10-21T01:55:59Z",
+      "claims": [
+        "METASTONE introduced TokenFleet at the 2026 CCF National High Performance Computing Conference.",
+        "TokenFleet targets routing and scheduling across LLM inference clusters and data centers."
+      ],
+      "same_event_coverage_ids": [
+        "5623bbccbdee5a1a192a"
+      ]
+    },
+    {
+      "id": "4e3ca8a95d36633072bd",
+      "news": false,
+      "junk_kind": "stale_content",
+      "reason": "The September 28 model launch is resurfacing without a new event.",
+      "subject": "Claude Sonnet 5.5",
+      "event_type": "model_launch",
+      "importance": "none",
+      "event_at": "2026-09-28T00:00:00Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "113bdfb6f0b401dd7ae4"
+      ]
+    },
+    {
+      "id": "bfc4355d370530a85bd8",
+      "news": false,
+      "junk_kind": "stale_content",
+      "reason": "The October 2 academy launch is resurfacing without a new event.",
+      "subject": "Claude Frontier Academy",
+      "event_type": "initiative_launch",
+      "importance": "none",
+      "event_at": "2026-10-02T00:00:00Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "b996dcfa8db50308644c"
+      ]
+    },
+    {
+      "id": "6c3ba44e0052d646a4cd",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Meta announced a major stock offering to fund its AI buildout.",
+      "subject": "Meta $95 billion stock offering",
+      "event_type": "financing",
+      "importance": "high",
+      "event_at": "2026-10-26T12:34:44Z",
+      "claims": [
+        "Meta announced a $95 billion stock offering to fund its AI buildout.",
+        "About $60 billion of the offering will use newly created nonvoting shares."
+      ],
+      "same_event_coverage_ids": [
+        "d297eb7de22f6454b376"
+      ]
+    },
+    {
+      "id": "79ffda0a470cc0fd1c29",
+      "news": true,
+      "junk_kind": null,
+      "reason": "A newly published economic analysis makes a substantive claim about AI's business impact.",
+      "subject": "Apollo analysis of AI financial returns",
+      "event_type": "economic_analysis",
+      "importance": "standard",
+      "event_at": "2026-10-25T09:28:36Z",
+      "claims": [
+        "Apollo chief economist Torsten Slok says profit margins and revenue per worker appear flat among the S&P 500 companies outside seven major technology firms.",
+        "Slok says he sees no evidence that AI has improved productivity for those companies."
+      ],
+      "same_event_coverage_ids": [
+        "2d0518f77c0de04d80f2",
+        "d79d758f2e6f330334ba",
+        "c1b699804142e9f198f3"
+      ]
+    },
+    {
+      "id": "65917d4f1de4f19cf00c",
+      "news": false,
+      "junk_kind": "non_news_page",
+      "reason": "This is a preview of a scheduled keynote and investor scrutiny, with no specific AI announcement in the card.",
+      "subject": "Nvidia GTC Berlin keynote",
+      "event_type": "event_preview",
+      "importance": "none",
+      "event_at": null,
+      "claims": [],
+      "same_event_coverage_ids": [
+        "3173e0ce031d1373f9fb",
+        "25deb0b387ce7b168a53",
+        "5449af09591b9fbc2234"
+      ]
+    },
+    {
+      "id": "ac67a5f12ec971da5378",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Anthropic published experimental results from an AI assisted protein design study.",
+      "subject": "Claude designed scorpion neurotoxin binders",
+      "event_type": "research_result",
+      "importance": "standard",
+      "event_at": "2026-10-20T00:00:00Z",
+      "claims": [
+        "Researchers experimentally tested 211 Claude-generated protein binder designs, and 17 met their criteria.",
+        "Anthropic says it is releasing all 211 designs and their data."
+      ],
+      "same_event_coverage_ids": [
+        "8b1c86931ec6123aa1b7",
+        "1be12e4b6a4c7bdb42ce"
+      ]
+    },
+    {
+      "id": "57363b60fec23f24d819",
+      "news": false,
+      "junk_kind": "customer_case_study",
+      "reason": "The article describes how an AWS customer built and uses its AI system.",
+      "subject": "Octave on Amazon Bedrock",
+      "event_type": "customer_case_study",
+      "importance": "none",
+      "event_at": null,
+      "claims": [],
+      "same_event_coverage_ids": [
+        "861c46a8364399f7ba31"
+      ]
+    },
+    {
+      "id": "eda525050cea8fce4b13",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Uber announced a new companywide rollout after an earlier limited pilot.",
+      "subject": "Uber ChatGPT Work rollout",
+      "event_type": "enterprise_rollout",
+      "importance": "standard",
+      "event_at": "2026-10-22T00:00:00Z",
+      "claims": [
+        "Uber and OpenAI announced an expansion of their partnership to make ChatGPT Work available to Uber's approximately 30,000 employees.",
+        "Uber had previously piloted ChatGPT Work with 1,000 employees."
+      ],
+      "same_event_coverage_ids": [
+        "342dc1f49c8c44212962",
+        "8ce435382c3f421facec"
+      ]
+    },
+    {
+      "id": "d4a2616957cdaed4a710",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Meta created a new stock class to support AI financing; this is distinct from the October 26 offering.",
+      "subject": "Meta nonvoting stock class",
+      "event_type": "corporate_financing_change",
+      "importance": "standard",
+      "event_at": "2026-10-21T21:47:06Z",
+      "claims": [
+        "Meta created a new class of nonvoting stock.",
+        "The structure allows Meta to issue shares without diluting Mark Zuckerberg's voting control."
+      ],
+      "same_event_coverage_ids": [
+        "35a493bdf93767679369",
+        "d12835ff2e4f43fab026",
+        "9485442fa3a53082eee3"
+      ]
+    },
+    {
+      "id": "8a8f757d90f00c8551c9",
+      "news": true,
+      "junk_kind": null,
+      "reason": "METR published a new red-team investigation of OpenAI agent monitoring; the unavailable source limits supported detail.",
+      "subject": "OpenAI agent monitoring red-team study",
+      "event_type": "research_publication",
+      "importance": "standard",
+      "event_at": "2026-10-22T07:00:00Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "cfd3529bc366a3ed7f14",
+        "df21e549989c93d1f7fc"
+      ]
+    },
+    {
+      "id": "fde0ea8a74b63e39afb1",
+      "news": false,
+      "junk_kind": "incidental_ai",
+      "reason": "The event is a PCB maker's stock listing; AI appears only as market context.",
+      "subject": "Dongshan Hong Kong listing",
+      "event_type": "stock_listing",
+      "importance": "none",
+      "event_at": "2026-10-25T10:30:39Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "00bda370af7e7d1edad9"
+      ]
+    },
+    {
+      "id": "9cf669d749c148253ed8",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Nvidia announced an AI network infrastructure initiative with Nokia and telecom operators.",
+      "subject": "Nvidia and Nokia distributed AI networks",
+      "event_type": "partnership_announcement",
+      "importance": "standard",
+      "event_at": "2026-10-21T10:11:00Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "4e3a0535b6c881d5525f"
+      ]
+    },
+    {
+      "id": "d785cdf64b04a9d091d4",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Nvidia announced healthcare AI collaborations and a model release; the unavailable source limits supported detail.",
+      "subject": "Nvidia healthcare AI collaborations",
+      "event_type": "model_and_partnership_announcement",
+      "importance": "standard",
+      "event_at": "2026-10-21T10:13:00Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "d86695df0f54f1026453"
+      ]
+    },
+    {
+      "id": "317abcdd1b20728a7e62",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Canva released its first in-house image generation model.",
+      "subject": "Canva Craft",
+      "event_type": "model_launch",
+      "importance": "standard",
+      "event_at": "2026-10-22T19:00:00Z",
+      "claims": [
+        "Canva released its first image generation model, Canva Craft.",
+        "Canva says the model first plans a design from the prompt, then generates an image.",
+        "The model can generate images up to 2K resolution in 30 aspect ratios."
+      ],
+      "same_event_coverage_ids": [
+        "12ab71ce740017c66faf",
+        "556c4c33c5af2f0a2280"
+      ]
+    },
+    {
+      "id": "cac24968e5aa0d5bf28d",
+      "news": true,
+      "junk_kind": null,
+      "reason": "The dated DeepSeek model repository indicates a model release; limited source material supports no further claims.",
+      "subject": "DeepSeek-V4.1-Flash-1017",
+      "event_type": "model_release",
+      "importance": "standard",
+      "event_at": "2026-10-17T02:40:38Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "7eacd88ca2bf972ed8a2",
+        "8691f6d9ba3428d6d459",
+        "3bbfb8eed8a76c77006e"
+      ]
+    },
+    {
+      "id": "662e68277c6361dd4b95",
+      "news": true,
+      "junk_kind": null,
+      "reason": "1Password launched a credential handling feature for AI agents.",
+      "subject": "1Password for Agents",
+      "event_type": "product_launch",
+      "importance": "standard",
+      "event_at": "2026-10-22T13:00:00Z",
+      "claims": [
+        "1Password launched a tool that lets users authorize AI agents to sign in without exposing account credentials to the agents.",
+        "The user receives an alert and can approve the agent's login request."
+      ],
+      "same_event_coverage_ids": [
+        "c0dc0603b3cde091a026",
+        "aff70e527bad74f9b4ba"
+      ]
+    },
+    {
+      "id": "be319d98e9e8716242c5",
+      "news": true,
+      "junk_kind": null,
+      "reason": "AWS announced general availability of a new SageMaker AI capability.",
+      "subject": "SageMaker AI serverless training sessions",
+      "event_type": "product_launch",
+      "importance": "standard",
+      "event_at": "2026-10-22T18:00:04Z",
+      "claims": [
+        "AWS launched training sessions for SageMaker AI serverless model customization in general availability.",
+        "Users can control the post-training loop while SageMaker AI handles GPU allocation, distributed execution, and fault recovery."
+      ],
+      "same_event_coverage_ids": [
+        "b25c8e96ce9e40dc80cb"
+      ]
+    },
+    {
+      "id": "d0030755a2ec2a96a05a",
+      "news": true,
+      "junk_kind": null,
+      "reason": "Gemini 4 Argon became generally available on October 13; its age places it in the standard tier.",
+      "subject": "Gemini 4 Argon",
+      "event_type": "model_launch",
+      "importance": "standard",
+      "event_at": "2026-10-13T00:00:00Z",
+      "claims": [
+        "Google's documentation says Gemini 4 Argon is available.",
+        "The model supports text, image, video, audio, and PDF inputs."
+      ],
+      "same_event_coverage_ids": [
+        "64b695f098b9de527b61"
+      ]
+    }
+  ]
+}

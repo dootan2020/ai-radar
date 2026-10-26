@@ -10,7 +10,7 @@ from unittest.mock import patch
 from phong_bao.discovery import discover_raw, report
 from phong_bao.__main__ import main
 from phong_bao.evaluation import evaluate
-from phong_bao.newsroom import ARGUMENT_BATCH_CHARS, BATCH_SIZE, JUNK_KINDS, FixtureArticles, _agent_desk, _batches, _checker, _chief, _intake, _same_rep_url, run
+from phong_bao.newsroom import ARGUMENT_BATCH_CHARS, BATCH_SIZE, EDITOR_PROMPT, JUNK_KINDS, FixtureArticles, _agent_desk, _batches, _checker, _chief, _editor, _intake, _same_rep_url, run
 from phong_bao.registry import load_registry, providers
 from phong_bao.runner import AdmissionError, CLIRunner, FixtureRunner, RunnerError, _admission_excerpt, _json_response
 
@@ -225,39 +225,143 @@ class NewsroomTests(unittest.TestCase):
             self.assertTrue((job / "raw" / "checker-1.json").exists())
             self.assertEqual(evaluate(job / "quyet-dinh.json", FIXTURES / "labels.json")["junk_leaked"], 0)
 
-    def test_invalid_editor_row_retries_alone_then_publishes_degraded(self):
-        class OneBadEditorRow(FixtureRunner):
+    def test_invalid_editor_rows_retry_together_then_publish_degraded(self):
+        class BadEditorRows(FixtureRunner):
             def __init__(self, replies):
                 super().__init__(replies)
                 self.editor_calls = []
-                self.invalid_id = None
+                self.invalid_ids = None
 
             def run(self, desk, rows, provider, instruction):
                 result = super().run(desk, rows, provider, instruction)
                 if desk == "editor":
                     self.editor_calls.append([row["id"] for row in rows])
-                    if self.invalid_id is None:
-                        self.invalid_id = rows[0]["id"]
+                    if self.invalid_ids is None:
+                        self.invalid_ids = {rows[0]["id"], rows[-1]["id"]}
                     for row in result.rows:
-                        if row["id"] == self.invalid_id:
+                        if row["id"] in self.invalid_ids:
                             row.pop("subject", None)
                 return result
 
         with tempfile.TemporaryDirectory() as directory:
             job = Path(directory) / "job"
-            runner = OneBadEditorRow(fixture("responses.json"))
+            runner = BadEditorRows(fixture("responses.json"))
             status = run(FIXTURES / "snapshot.json", job, self.tools, self.discovery, runner,
                          articles=self.articles)
             self.assertEqual(len(runner.editor_calls), 2)
-            self.assertEqual(len(runner.editor_calls[1]), 1)
+            self.assertEqual(len(runner.editor_calls[1]), 2)
             decisions = json.loads((job / "quyet-dinh.json").read_text(encoding="utf-8"))["decisions"]
             self.assertEqual(decisions[0]["decision"], "publish")
             self.assertEqual(decisions[0]["importance_tier"], "standard")
             self.assertEqual(decisions[0]["summary"], "none")
             editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
             self.assertEqual(editor[decisions[0]["id"]]["reason"], "editor_invalid")
-            self.assertEqual(status["desks"]["editor"]["invalid_rows"], 1)
+            self.assertEqual(status["desks"]["editor"]["invalid_rows"], 2)
             self.assertTrue((job / "raw" / "editor-2.json").exists())
+
+    def test_invalid_reporter_rows_retry_together_then_degrade(self):
+        calls = []
+
+        class BadReporterRows(FixtureRunner):
+            def run(self, desk, rows, provider, instruction):
+                result = super().run(desk, rows, provider, instruction)
+                if desk == "reporter":
+                    calls.append([row["id"] for row in rows])
+                    for row in result.rows:
+                        if row["id"] in {calls[0][0], calls[0][-1]}:
+                            row["selected_url"] = ["not a URL"]
+                return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            job = Path(directory) / "job"
+            status = run(FIXTURES / "snapshot.json", job, self.tools, self.discovery,
+                         BadReporterRows(fixture("responses.json")), through="reporter", articles=self.articles)
+            reporter = json.loads((job / "reporter.json").read_text(encoding="utf-8"))
+        self.assertEqual([len(call) for call in calls], [3, 2])
+        self.assertEqual(status["desks"]["reporter"]["invalid_rows"], 2)
+        self.assertTrue(all(reporter[sid]["invalid_response"] and reporter[sid]["selected_url"] is None
+                            for sid in calls[1]))
+
+    def test_live_raw_editor_reply_holds_every_junk_verdict(self):
+        raw = fixture("live-raw/editor-1.json")["stories"]
+        by_id = {row["id"]: row for row in raw}
+        stories = [story for story in fixture("baseline-150.json")["stories"] if story["id"] in by_id]
+        calls = []
+
+        class RecordingRunner(FixtureRunner):
+            def run(self, desk, rows, provider, instruction):
+                calls.append([row["id"] for row in rows])
+                return super().run(desk, rows, provider, instruction)
+
+        intake = {story["id"]: {"pass": True, "reason": "pass"} for story in stories}
+        reporter = {story["id"]: {"selected_url": None, "representative_status": "unavailable",
+                                   "source_text": "", "readable": False} for story in stories}
+        editor, _ = _editor(stories, intake, reporter, self.tools, self.discovery,
+                            RecordingRunner({"editor": by_id}))
+        checker = {story["id"]: {"supported_claims": [], "title_supported": False,
+                                  "rejected_claims": []} for story in stories}
+        decisions = {row["id"]: row for row in _chief(stories, intake, reporter, editor, checker,
+                                                       datetime(2026, 10, 27, tzinfo=timezone.utc))}
+        junk = [row for row in raw if row["news"] is False]
+        self.assertEqual(len(junk), 5)
+        for row in junk:
+            with self.subTest(id=row["id"]):
+                self.assertEqual((decisions[row["id"]]["decision"], decisions[row["id"]]["round"]),
+                                 ("hold", "editor"))
+                self.assertEqual(editor[row["id"]]["junk_kind"], row["junk_kind"])
+                self.assertFalse(editor[row["id"]]["invalid_response"])
+        for row in raw:
+            if row["news"] is True and row["importance"] == "high":
+                self.assertEqual((editor[row["id"]]["importance"], editor[row["id"]]["claims"]),
+                                 ("standard", row["claims"]))
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(len(calls[1]), 3)
+
+    def test_editor_preserves_unknown_junk_and_zero_claim_news(self):
+        stories = fixture("snapshot.json")["stories"][:3]
+        stories.append({**stories[0], "id": "no-verdict"})
+        ids = [story["id"] for story in stories]
+        replies = {
+            ids[0]: {"id": ids[0], "news": False, "junk_kind": "unlisted_kind", "importance": "none"},
+            ids[1]: {"id": ids[1], "news": True, "junk_kind": None, "reason": "News event",
+                     "subject": "AI", "event_type": "launch", "importance": "standard",
+                     "event_at": None, "claims": [], "same_event_coverage_ids": []},
+            ids[2]: {"id": ids[2], "junk_kind": "suspected_junk"},
+            ids[3]: {"id": ids[3]},
+        }
+        intake = {sid: {"pass": True} for sid in ids}
+        reporter = {sid: {"selected_url": None, "representative_status": "unavailable", "source_text": ""}
+                    for sid in ids}
+
+        class DroppedJunkHint(FixtureRunner):
+            def __init__(self, answers):
+                super().__init__(answers)
+                self.calls = 0
+
+            def run(self, desk, rows, provider, instruction):
+                result = super().run(desk, rows, provider, instruction)
+                self.calls += 1
+                if self.calls == 2:
+                    for row in result.rows:
+                        if row["id"] == ids[2]:
+                            row.pop("junk_kind")
+                return result
+
+        editor, usage = _editor(stories, intake, reporter, self.tools, self.discovery,
+                                DroppedJunkHint({"editor": replies}))
+        self.assertEqual((editor[ids[0]]["news"], editor[ids[0]]["junk_kind"]), (False, "unlisted_kind"))
+        self.assertTrue(editor[ids[0]]["invalid_response"])
+        self.assertEqual((editor[ids[1]]["news"], editor[ids[1]]["claims"], editor[ids[1]]["invalid_response"]),
+                         (True, [], False))
+        self.assertEqual((editor[ids[2]]["news"], editor[ids[2]]["junk_kind"]), (False, "suspected_junk"))
+        self.assertEqual((editor[ids[3]]["news"], editor[ids[3]]["importance"], editor[ids[3]]["claims"]),
+                         (True, "standard", []))
+        self.assertTrue(editor[ids[3]]["invalid_response"])
+        self.assertEqual(len(usage), 2)
+        self.assertIn("top, notable, or standard", EDITOR_PROMPT)
+        self.assertIn("0 claims is valid news", EDITOR_PROMPT)
+        for kind in JUNK_KINDS:
+            self.assertIn(kind, EDITOR_PROMPT)
 
     def test_failed_rerun_keeps_previous_decisions_file(self):
         class EditorFailure(FixtureRunner):
@@ -372,6 +476,26 @@ class NewsroomTests(unittest.TestCase):
         self.assertEqual(output[stories[0]["id"]]["boat"], "agy")
         self.assertEqual(output[second]["boat"], "codex")
         self.assertEqual(len(usage), 2)
+
+    def test_checker_retries_invalid_rows_together(self):
+        stories = [fixture("snapshot.json")["stories"][index] for index in (0, 2)]
+        calls = []
+
+        class RecordingRunner(FixtureRunner):
+            def run(self, desk, rows, provider, instruction):
+                calls.append([row["id"] for row in rows])
+                return super().run(desk, rows, provider, instruction)
+
+        reporter = {story["id"]: {"source_text": "AI model released with public documentation.",
+                                   "selected_url": story["url"], "readable": True} for story in stories}
+        editor = {story["id"]: {"news": True, "boat": "codex", "claims": []} for story in stories}
+        replies = {story["id"]: {"id": story["id"], "title_supported": "yes", "supported_claims": []}
+                   for story in stories}
+        checked, usage = _checker(stories, {}, reporter, editor, self.tools, self.discovery,
+                                  RecordingRunner({"checker": replies}))
+        self.assertEqual([len(call) for call in calls], [2, 2])
+        self.assertEqual(len(usage), 2)
+        self.assertTrue(all(row["invalid_response"] for row in checked.values()))
 
     def test_live_held_good_stories_publish_with_degradation_and_junk_stays_held(self):
         cases = fixture("live-held-cases.json")

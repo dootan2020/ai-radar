@@ -1,6 +1,6 @@
 # Phòng báo pha 0: khung chạy tay và kiểm chứng offline
 
-Khung năm bàn đã chạy trọn trên fixture pha A. Lucy đo lượt live 150 tin từ 23:40 ngày 26/10 đến 00:20 ngày 27/10/2026 ICT: rác lọt **0/54 (0%)**, tin tốt giữ nhầm **52/96 (54,17%)**. Ngưỡng rác lọt ≤2% đạt, ngưỡng giữ nhầm ≤10% chưa đạt. Các thay đổi sau phép đo được kiểm chứng offline; Lucy sẽ chạy lại live.
+Khung năm bàn đã chạy trọn trên fixture pha A. Lượt live đầu có rác lọt **0/54** và tin tốt giữ nhầm **52/96**; lượt live sau sửa vòng 6 đảo chiều thành rác lọt **20/54 (37%)** và tin tốt giữ nhầm **1/96 (1%)**. Bản sửa hiện tại được kiểm chứng offline; chưa có phép chấm live sau sửa. Cả hai lượt live đều chưa đồng thời đạt ngưỡng rác lọt ≤2% và giữ nhầm ≤10%.
 
 ## Kết quả giao
 
@@ -33,7 +33,17 @@ Fixture `tests/fixtures/phong-bao/live-held-cases.json` sao chép card và excer
 
 Kiểm chứng bản sửa: `python -m unittest tests.test_phong_bao` → `Ran 26 tests in 0.672s`, `OK`; `python -m unittest discover -s tests` → `Ran 1392 tests in 277.495s`, `OK (skipped=8)`. Cả hai exit 0. `git diff --check` exit 0.
 
-Để Lucy tính lại trên job đã hoàn thành mà giữ intake/reporter cũ, chạy lệnh `run` với **`--from editor --through chief`** và cùng `--input`, `--corpus`, `--job` như trên. Lệnh xóa quyết định cũ trước khi tính lại editor, checker và chief; nếu muốn đo luôn tiết kiệm của reporter, dùng `--from reporter`. Sau đó chạy lại `evaluate`. Không chạy boat/model trong worktree này.
+Để Lucy tính lại trên job đã hoàn thành mà giữ intake/reporter cũ, chạy lệnh `run` với **`--from editor --through chief`** và cùng `--input`, `--corpus`, `--job` như trên. Quyết định cũ được giữ cho tới khi chief ghi quyết định mới hoàn chỉnh; nếu muốn đo luôn tiết kiệm của reporter, dùng `--from reporter`. Sau đó chạy lại `evaluate`. Không chạy boat/model trong worktree này.
+
+## Lượt live sau vòng 6 và sửa hợp đồng editor
+
+Lucy đo lại từ editor ngày 27/10, khoảng 01:1x–01:4x ICT: **20/54 rác lọt (37%, ngưỡng ≤2%)**, **1/96 tin tốt giữ nhầm (1%)**. Editor giữ **0** tin rác, chạy **46 batch**, ghi **28 row lỗi** và tiêu thụ **1.631.346 input token**. Phần lớn token đến từ retry từng story, khoảng **35.000 input token cố định** mỗi lệnh Codex. Raw reply đầu tiên được lưu ở `tests/fixtures/phong-bao/live-raw/editor-1.json`; điểm chấm ở `tests/fixtures/phong-bao/live-raw/danh-gia-vong6.json`.
+
+Model trả `importance` là `high`, `low` hoặc `none` dù validator chỉ nhận `top`, `notable`, `standard`. Cả verdict `news:false` có `junk_kind` hợp lệ cũng bị validator coi là row lỗi vì thiếu metadata của tin; nhánh suy giảm vòng 6 đổi chúng thành publish standard. Bản sửa tách verdict khỏi metadata: mọi `news:false` được giữ và giữ nguyên `junk_kind`, kể cả giá trị chưa nhận diện. Tin `news:true` có 0 claim là hợp lệ và không có summary. Prompt dùng chung danh sách `junk_kind` với validator, nêu chính xác tier và số claim. Không tự ánh xạ `high` sang `notable`: ý nghĩa tier chưa đủ rõ để nâng hạng; row tin sai tier được retry, rồi hạ metadata về standard nếu vẫn sai. Retry row lỗi của từng bàn được gom theo batch, không gọi Codex riêng cho từng story.
+
+Test offline đưa toàn bộ 28 row của raw reply đầu qua editor và chief: cả **5 verdict rác đều hold**; 3 row tin có tier `high` được retry cùng một batch. Chưa chạy boat/model và chưa có số đo chất lượng live cho bản sửa này.
+
+Kiểm chứng bản sửa hiện tại: `python -m unittest tests.test_phong_bao` → `Ran 32 tests in 0.721s`, `OK`; `python -m unittest discover -s tests` → `Ran 1398 tests in 246.815s`, `OK (skipped=8)`. Cả hai exit 0.
 
 ## Lệnh Lucy chạy thật
 
@@ -61,7 +71,7 @@ Script chấm lỗi nếu thiếu ID hoặc vượt một trong hai ngưỡng. `
 
 1. Gemini API có profile đúng trần **20 USD/tháng** nhưng runner cố ý disabled: quy tắc owner của phiên này chỉ cho model work trên subscription đã cấp. Muốn dùng paid API thật cần chủ sở hữu cho phép riêng và có adapter kiểm ngân sách trước mỗi request. Trần X **30 USD/tháng** không đổi.
 2. Registry có thể nhận một plugin hoặc key mới chỉ bằng file profile, nhưng bàn ảnh/video và một paid adapter chưa thuộc pha 0. Công cụ mới được thấy mà chưa có profile sẽ không được gọi.
-3. Lượt live đầu đạt ngưỡng rác nhưng chưa đạt ngưỡng giữ nhầm. Lucy cần chạy lại editor/checker/chief và chấm đủ 150 tin trước khi kết luận bản sửa đạt ≤10%; usage mới cũng chưa được đo. Vài trang redirect vẫn bị parser `radar` báo chưa đọc được; phóng viên tìm nguồn độc lập, không tự vượt redirect khi chưa kiểm robots ở đích.
+3. Lượt live sau vòng 6 đạt ngưỡng giữ nhầm nhưng vượt ngưỡng rác lọt. Lucy cần chạy lại editor/checker/chief và chấm đủ 150 tin trước khi kết luận bản sửa đạt cả hai ngưỡng; usage mới cũng chưa được đo. Vài trang redirect vẫn bị parser `radar` báo chưa đọc được; phóng viên tìm nguồn độc lập, không tự vượt redirect khi chưa kiểm robots ở đích.
 
 ## Nguồn quyết định
 

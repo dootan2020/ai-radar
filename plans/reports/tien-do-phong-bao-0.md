@@ -69,3 +69,12 @@ Lucy chạy discovery live, năm lệnh bàn duyệt trên 150 story, rồi eval
 - Prompt editor nay nêu rõ tối đa tám claims, mỗi claim 1–520 ký tự. `--from` không xóa `quyet-dinh.json`; file cũ chỉ bị thay khi lượt chief mới ghi quyết định hoàn chỉnh.
 - Không chạy boat/model, không sửa `phong-bao/jobs/`. Có regression tests cho retry row riêng, raw files, suy giảm sau lần retry lỗi và giữ quyết định qua rerun thất bại.
 - Kiểm chứng bản cuối: `python -m unittest tests.test_phong_bao` cho `Ran 28 tests in 1.386s`, `OK`; `python -m unittest discover -s tests` cho `Ran 1394 tests in 354.396s`, `OK (skipped=8)`. `git diff --check` exit 0.
+
+## Round 7: giữ verdict rác và gom retry
+
+- Lucy đo live sau vòng 6: rác lọt 20/54 (37%), tin tốt giữ nhầm 1/96 (1%); editor giữ 0 rác, có 46 batch, 28 row lỗi và 1.631.346 input token. Raw reply đầu và kết quả chấm được đưa vào `tests/fixtures/phong-bao/live-raw/`.
+- Nguyên nhân: validator bắt mọi row editor có metadata của tin, nên `news:false` với `importance:none` bị coi là sai; nhánh `editor_invalid` đổi nó thành publish. Retry từng row làm phát sinh lệnh Codex riêng.
+- Editor nay giữ mọi `news:false`, kể cả kind chưa nhận diện và giữ nguyên giá trị kind. Row tin sai metadata được retry; tier không hợp lệ bị hạ về standard nhưng claims hợp lệ vẫn được giữ. Row thiếu verdict chỉ publish standard khi không có dấu hiệu rác. Prompt và validator dùng cùng danh sách kind và tier; không ánh xạ `high` sang `notable` vì có thể nâng tier sai. Tin 0 claim vẫn là tin hợp lệ và không có summary.
+- Retry row lỗi được gom theo batch ở reporter, editor và checker. Test offline chạy toàn bộ raw reply editor đầu, xác nhận cả năm verdict rác đều hold; test riêng kiểm retry theo batch, kind lạ và verdict thiếu.
+- Không chạy boat/model hoặc sửa `phong-bao/jobs/`.
+- Kiểm chứng bản cuối: `python -m unittest tests.test_phong_bao` cho `Ran 32 tests in 0.721s`, `OK`; `python -m unittest discover -s tests` cho `Ran 1398 tests in 246.815s`, `OK (skipped=8)`. Cả hai exit 0.

@@ -1,0 +1,37 @@
+{
+  "stories": 150,
+  "junk_total": 54,
+  "good_total": 96,
+  "junk_leaked": 20,
+  "junk_leak_percent": 37.04,
+  "good_wrongly_held": 1,
+  "good_hold_percent": 1.04,
+  "targets_met": false,
+  "by_desk": {
+    "intake": {
+      "junk_held": 34,
+      "good_held": 1,
+      "published": 0
+    },
+    "reporter": {
+      "junk_held": 0,
+      "good_held": 0,
+      "published": 0
+    },
+    "editor": {
+      "junk_held": 0,
+      "good_held": 0,
+      "published": 0
+    },
+    "checker": {
+      "junk_held": 0,
+      "good_held": 0,
+      "published": 0
+    },
+    "chief": {
+      "junk_held": 0,
+      "good_held": 0,
+      "published": 115
+    }
+  }
+}
