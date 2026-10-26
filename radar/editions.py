@@ -7,6 +7,7 @@ import re
 from radar.clustering import canonical_url
 from radar.common import iso_date
 from radar.items import instant, measured, publisher_identity
+from radar.story_pages import _has_editorial_summary
 
 TIMEZONE_NAME = "Asia/Ho_Chi_Minh"
 # Modern Vietnamese dates use UTC+07 year-round; Windows need not install tzdata.
@@ -97,6 +98,10 @@ def _candidate(story, sources, start, cutoff):
         return None
     score = measured(story.get("hot_score"))
     result = _project(story, STORY_FIELDS)
+    if _has_editorial_summary(story) and isinstance(story.get("editorial_headline_vi"), str) \
+            and story["editorial_headline_vi"].strip():
+        result["editorial_headline_vi"] = story["editorial_headline_vi"].strip()
+        result["editorial_headline_verified"] = True
     result.update(source_count=len(publishers), coverage=[_project(row, COVERAGE_FIELDS) for row in coverage],
                   selection=dict(reasons=reasons, signals=dict(publishers=publishers,
                       age_hours_at_cutoff=round((cutoff - published).total_seconds() / 3600, 4),

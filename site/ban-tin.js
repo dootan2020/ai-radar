@@ -8,7 +8,8 @@
 import { esc, fmt, faceOfStory, faceOfSource, avatar, hydrateHF, watchImageErrors } from './faces.js';
 import { ago, hhmm, dayKey } from './time-text.js';
 import { KIND, METRIC, signalText } from './words.js';
-import { headlineShown, origLine, uniqCoverage } from './titles.js';
+import { origLine, uniqCoverage } from './titles.js';
+import { headlineShown } from './editorial-headline.js';
 
 /* ---------- Hằng số & Cấu hình ---------- */
 export const DEFAULT_DATA_DIR = 'data/editions';

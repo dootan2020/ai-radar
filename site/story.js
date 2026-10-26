@@ -8,7 +8,9 @@
 import { esc, fmt, avatar, faceOfStory, faceOfSource } from './faces.js';
 import { ago } from './time-text.js';
 import { KIND, METRIC } from './words.js';
-import { shown, uniqCoverage } from './titles.js';
+import { uniqCoverage } from './titles.js';
+import { headlineShown, hasEditorialSummary } from './editorial-headline.js';
+export { hasEditorialSummary } from './editorial-headline.js';
 import { fallbackWorth } from './worth-score.js';
 
 const safe = u => /^https?:\/\//i.test(String(u || '')) ? String(u) : '#';
@@ -202,16 +204,8 @@ export function renderEvidenceBlockHTML(story, srcMap = new Map()) {
   `;
 }
 
-export function hasEditorialSummary(story) {
-  return story.key_points_prompt_version === 'summary-vi-5-full'
-    && Array.isArray(story.key_points) && story.key_points.length >= 4
-    && story.key_points.length <= 8 && story.key_points.every(p => typeof p === 'string' && p.trim())
-    && Array.isArray(story.summary_sources) && story.summary_sources.some(s => safe(s?.url) !== '#');
-}
-
 export function storyTitle(story) {
-  return hasEditorialSummary(story) && story.editorial_headline_vi
-    ? story.editorial_headline_vi : shown(story.title, story.title_vi);
+  return headlineShown(story, true);
 }
 
 const summaryText = text => esc(text).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');

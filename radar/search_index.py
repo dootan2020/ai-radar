@@ -4,9 +4,11 @@ from pathlib import Path
 import re
 import unicodedata
 
+from radar.story_pages import _has_editorial_summary
+
 SEARCH_STORY_FIELDS = (
     "id", "title", "title_vi", "headline", "headline_vi", "url", "published_at",
-    "publishers", "kind", "search_text"
+    "publishers", "kind", "search_text", "editorial_headline_vi", "editorial_headline_verified"
 )
 
 
@@ -95,7 +97,7 @@ def search_story_row(story):
     publishers = extract_publishers(story)
     search_text = make_search_text(title, title_vi, publishers)
 
-    return {
+    row = {
         "id": sid,
         "title": title,
         "title_vi": title_vi,
@@ -106,6 +108,14 @@ def search_story_row(story):
         "kind": kind,
         "search_text": search_text,
     }
+    if _has_editorial_summary(story) and isinstance(story.get("editorial_headline_vi"), str) \
+            and story["editorial_headline_vi"].strip():
+        row["editorial_headline_vi"] = story["editorial_headline_vi"].strip()
+        row["editorial_headline_verified"] = True
+        editorial_words = normalize_vietnamese(row["editorial_headline_vi"])
+        if editorial_words and editorial_words not in row["search_text"]:
+            row["search_text"] = f'{row["search_text"]} {editorial_words}'.strip()
+    return row
 
 
 def search_payload(payload):
