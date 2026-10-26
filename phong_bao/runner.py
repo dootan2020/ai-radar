@@ -31,6 +31,20 @@ def _json_response(stdout):
         result = json.loads(text)
     except json.JSONDecodeError as error:
         raise RunnerError("boat did not return JSON") from error
+    if isinstance(result, dict) and isinstance(result.get("response"), str):
+        response = result["response"].strip()
+        if response.startswith("```"):
+            response = re.sub(r"^```(?:json)?\s*|\s*```$", "", response)
+        try:
+            payload = json.loads(response)
+        except json.JSONDecodeError as error:
+            raise RunnerError("boat JSON envelope contains an invalid response") from error
+        if isinstance(payload, list):
+            payload = {"stories": payload}
+        if isinstance(payload, dict) and isinstance(payload.get("stories"), list):
+            if result.get("usage") and not payload.get("usage"):
+                payload["usage"] = result["usage"]
+            result = payload
     if isinstance(result, list):
         return {"stories": result}
     if not isinstance(result, dict) or not isinstance(result.get("stories"), list):

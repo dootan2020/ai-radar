@@ -45,7 +45,9 @@ def main(argv=None):
     found = report(raw, tools)
     if args.command == "discover":
         if args.output:
-            Path(args.output).write_bytes((json.dumps(found, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
+            output = Path(args.output)
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_bytes((json.dumps(found, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
         print(json.dumps(found, ensure_ascii=False, indent=2))
         return 0
     runner = FixtureRunner(_json(args.runner_fixture)) if args.runner_fixture else CLIRunner()

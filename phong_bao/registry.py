@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import tomllib
+import re
 from pathlib import Path
 
 CAPABILITIES = {"tim-kiem", "doc-bai", "bien-tap", "kiem-chung", "tao-anh", "dung-video", "giong-doc"}
@@ -37,19 +38,31 @@ def load_registry(directory=DEFAULT_REGISTRY):
     return tools
 
 
+def fuel_status(tool, discovery):
+    fuel = discovery.get("fuel")
+    boat = tool.get("boat")
+    if not boat:
+        return None
+    if not isinstance(fuel, str):
+        return "unmeasured"
+    fuel_name = "gemini" if boat == "agy" else boat
+    for line in fuel.splitlines():
+        stripped = line.strip()
+        if stripped.casefold().startswith((fuel_name + " ", fuel_name + ":")):
+            verdict = stripped.partition(":")[2].strip().upper()
+            if re.match(r"^(?:CẠN\b|CHẠM TRẦN\b|CHẠM DỰ TRỮ\b)", verdict):
+                return "dry"
+            if verdict.startswith(("CÒN", "CON NHIEN LIEU", "ĐỦ", "DU ")):
+                return "available"
+    return "unmeasured"
+
+
 def available(tool, discovery):
     method, name = next(iter(tool["detect"].items()))
     if name not in discovery.get({"command": "commands", "mcp_server": "mcp_servers", "env_key": "key_names", "file": "files"}[method], []):
         return False
-    fuel = discovery.get("fuel")
-    boat = tool.get("boat")
-    if boat and isinstance(fuel, str):
-        fuel_name = "gemini" if boat == "agy" else boat
-        for line in fuel.splitlines():
-            if line.strip().casefold().startswith(fuel_name + " ") or line.strip().casefold().startswith(fuel_name + ":"):
-                if any(marker in line.upper() for marker in ("CẠN", "CHẠM TRẦN", "CHẠM DỰ TRỮ")):
-                    return False
-    return True
+    # Unknown fuel is not evidence of exhaustion; discovery measures Gemini by default.
+    return fuel_status(tool, discovery) != "dry"
 
 
 def providers(capability, tools, discovery, *, exclude=(), boat_exclude=()):

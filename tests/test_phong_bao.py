@@ -1,14 +1,18 @@
 import json
+import io
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from unittest.mock import patch
 
-from phong_bao.discovery import report
+from phong_bao.discovery import discover_raw, report
+from phong_bao.__main__ import main
 from phong_bao.evaluation import evaluate
 from phong_bao.newsroom import FixtureArticles, _checker, _chief, _intake, _same_rep_url, run
 from phong_bao.registry import load_registry, providers
-from phong_bao.runner import FixtureRunner, RunnerError
+from phong_bao.runner import AdmissionError, FixtureRunner, RunnerError, _json_response
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "phong-bao"
@@ -38,10 +42,54 @@ class NewsroomTests(unittest.TestCase):
             self.assertEqual([tool["id"] for tool in providers("dung-video", added, self.discovery)], ["capcut"])
 
     def test_fuel_exhaustion_removes_a_boat(self):
-        discovery = {**self.discovery, "fuel": "  codex        : CẠN — usage limit\n  gemini       : chưa đo"}
+        lines = fixture("fuel-lines.json")
+        discovery = {**self.discovery, "fuel": "  codex        : CẠN — usage limit\n" + lines["unmeasured"]}
         self.assertEqual([tool["id"] for tool in providers("bien-tap", self.tools, discovery)], ["agy"])
+        self.assertTrue(next(tool for tool in self.tools if tool["id"] == "agy"))
+        agy = next(tool for tool in report(discovery, self.tools)["tools"] if tool["id"] == "agy")
+        self.assertTrue(agy["available"])
+        self.assertEqual(agy["fuel_status"], "unmeasured")
+        discovery["fuel"] = "  codex        : còn\n" + lines["measured"]
+        self.assertEqual([tool["id"] for tool in providers("bien-tap", self.tools, discovery)], ["codex", "agy"])
+        self.assertEqual(next(tool for tool in report(discovery, self.tools)["tools"] if tool["id"] == "agy")["fuel_status"], "available")
         discovery["fuel"] = "  codex        : còn\n  gemini       : CẠN"
         self.assertEqual([tool["id"] for tool in providers("bien-tap", self.tools, discovery)], ["codex"])
+        discovery["fuel"] = "  codex        : còn\n  gemini       : CẠNH TRANH, còn fuel"
+        self.assertIn("agy", [tool["id"] for tool in providers("bien-tap", self.tools, discovery)])
+
+    def test_discovery_measures_gemini_and_reports_canva_session_only(self):
+        completed = type("Completed", (), {"returncode": 0, "stdout": "  gemini       : CON NHIEN LIEU · gemini-3.8-flash-high (exit 0)\n", "stderr": ""})()
+        with patch("phong_bao.discovery.FUEL_SCRIPT", FIXTURES / "fuel-lines.json"), \
+                patch("phong_bao.discovery._call", return_value=completed) as call:
+            raw = discover_raw()
+        self.assertIn("--do-gemini", call.call_args.args[0])
+        found = report({**raw, "commands": ["agy"], "mcp_servers": []}, self.tools)
+        canva = next(tool for tool in found["tools"] if tool["id"] == "canva-mcp")
+        self.assertFalse(canva["available"])
+        self.assertEqual(canva["state"], "session_only")
+        self.assertEqual(canva["required_context"], "Claude session")
+
+    def test_fuel_discovery_stops_on_account_or_payment_prompt(self):
+        prompt = type("Completed", (), {"returncode": 1, "stdout": "Please sign in to continue", "stderr": ""})()
+        with patch("phong_bao.discovery.FUEL_SCRIPT", FIXTURES / "fuel-lines.json"), \
+                patch("phong_bao.discovery._call", return_value=prompt):
+            with self.assertRaisesRegex(AdmissionError, "requested account, payment, or model change"):
+                discover_raw()
+
+    def test_discover_creates_output_parent_directory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "new" / "nested" / "discovery.json"
+            with patch("phong_bao.__main__.discover_raw", return_value=self.discovery):
+                with redirect_stdout(io.StringIO()):
+                    self.assertEqual(main(["discover", "--fixture", str(FIXTURES / "discovery.json"), "--output", str(target)]), 0)
+            self.assertEqual(json.loads(target.read_text(encoding="utf-8"))["detected"]["commands"], self.discovery["commands"])
+
+    def test_agy_json_envelope_is_unwrapped_and_profile_pins_model(self):
+        envelope = json.dumps({"response": json.dumps({"stories": [{"id": "a"}]})})
+        self.assertEqual(_json_response(envelope)["stories"], [{"id": "a"}])
+        agy = next(tool for tool in self.tools if tool["id"] == "agy")
+        self.assertIn("gemini-3.8-flash-high", agy["argv"])
+        self.assertEqual(agy["argv"][-2:], ["--output-format", "json"])
 
     def test_fixture_pass_records_every_desk_and_separate_checker(self):
         with tempfile.TemporaryDirectory() as directory:

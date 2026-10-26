@@ -6,7 +6,7 @@ priority = 20
 monthly_cap_usd = 0
 boat = "agy"
 runner = "batch-cli"
-argv = ["agy", "-p", "{prompt}"]
+argv = ["agy", "-p", "{prompt}", "--model", "gemini-3.8-flash-high", "--output-format", "json"]
 prompt_transport = "argument"
 [detect]
 command = "agy"

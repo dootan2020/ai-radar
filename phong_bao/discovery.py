@@ -9,7 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from .registry import CAPABILITIES, available, load_registry, providers
+from .registry import CAPABILITIES, available, fuel_status, load_registry, providers
 from .runner import AdmissionError
 
 FUEL_SCRIPT = Path("C:/Users/Admin/agent-config/tools/hai-thuyen.py")
@@ -56,7 +56,10 @@ def discover_raw(*, fixture=None):
                 mcp = _mcp_names(result.stdout)
     fuel = "unavailable"
     if FUEL_SCRIPT.is_file():
-        result = _call([sys.executable, str(FUEL_SCRIPT), "trang-thai"], timeout=30)
+        result = _call([sys.executable, str(FUEL_SCRIPT), "trang-thai", "--do-gemini"], timeout=90)
+        if result and re.search(r"sign\s*in|log\s*in|billing|payment|purchase|upgrade your plan|different account|different model",
+                                result.stdout + result.stderr, re.I):
+            raise AdmissionError("Gemini fuel discovery requested account, payment, or model change")
         if result and result.returncode == 0:
             # Keep only fuel lines; the script also prints unrelated job titles.
             fuel = "\n".join(line for line in result.stdout.splitlines()
@@ -73,7 +76,12 @@ def report(raw, tools=None):
         configured[{"command": "commands", "mcp_server": "mcp_servers", "env_key": "key_names", "file": "files"}[method]].add(name)
     return {
         "detected": raw,
-        "tools": [{"id": tool["id"], "available": available(tool, raw), "kind": tool["kind"]} for tool in tools],
+        "tools": [{"id": tool["id"], "available": available(tool, raw), "kind": tool["kind"],
+                   **({"fuel_status": fuel_status(tool, raw)} if tool.get("boat") else {}),
+                   **({"state": "session_only"} if tool["id"] == "canva-mcp"
+                      and "canva" not in raw["mcp_servers"] else {}),
+                   **({"required_context": "Claude session"} if tool["id"] == "canva-mcp"
+                      and "canva" not in raw["mcp_servers"] else {})} for tool in tools],
         "selected": {cap: [tool["id"] for tool in providers(cap, tools, raw)] for cap in sorted(CAPABILITIES)},
         "found_not_configured": {key: sorted(set(raw[key]) - configured[key]) for key in configured},
     }
