@@ -1,5 +1,6 @@
 import json
 import io
+import inspect
 import re
 import tempfile
 import unittest
@@ -41,14 +42,17 @@ class NewsroomTests(unittest.TestCase):
         def model_ids(value):
             return set(re.findall(r"\b[a-z][\w-]*/[a-z][\w.-]*\d[\w.-]*\b", value.lower()))
 
-        titles = (story["title"] for name in ("baseline-150.json",)
-                  for story in fixture(name)["stories"])
-        phase_titles = (story["title"] for story in json.loads(
+        titles = [story["title"] for story in fixture("baseline-150.json")["stories"]]
+        titles.extend(story["title"] for story in json.loads(
             (FIXTURES.parent / "phong-duyet" / "nhan-tin-261026.json").read_text(encoding="utf-8"))["stories"])
+        holdout = Path("C:/Users/Admin/ai-radar-wt-holdout/tests/fixtures/phong-duyet/holdout-261026/stories.json")
+        if holdout.exists():
+            titles.extend(story["title"] for story in json.loads(holdout.read_text(encoding="utf-8"))["stories"])
         prompts = {name: value for name, value in vars(newsroom).items()
                    if name.endswith("_PROMPT") and isinstance(value, str)}
+        prompts["intake rules"] = inspect.getsource(newsroom._intake)
         self.assertTrue(prompts)
-        for title in set((*titles, *phase_titles)):
+        for title in set(titles):
             title_words = words(title)
             phrases = {tuple(title_words[index:index + 3])
                        for index in range(len(title_words) - 2)}
@@ -436,6 +440,119 @@ class NewsroomTests(unittest.TestCase):
                          through="reporter", articles=self.articles)
             self.assertEqual(status["desks"]["reporter"]["batches"][0]["provider"], "agy")
 
+    def test_timed_out_batches_split_and_degrade_only_failed_cards(self):
+        snapshot = fixture("snapshot.json")
+        stories = snapshot["stories"]
+        extra = {**stories[2], "id": "second-research-card"}
+        stories.append(extra)
+        replies = fixture("responses.json")
+        replies["checker"][stories[1]["id"]] = {"id": stories[1]["id"], "title_supported": True,
+                                                "supported_claims": [], "reason": "checked"}
+        for desk in ("reporter", "editor", "checker"):
+            replies[desk][extra["id"]] = {**replies[desk][stories[2]["id"]], "id": extra["id"]}
+        failing = {"reporter": stories[0]["id"], "editor": stories[1]["id"],
+                   "checker": stories[2]["id"]}
+        calls = []
+
+        class TimeoutRunner(FixtureRunner):
+            def run(self, desk, rows, provider, instruction):
+                calls.append((desk, provider["id"], [row["id"] for row in rows]))
+                if failing.get(desk) in {row["id"] for row in rows}:
+                    raise RunnerError("simulated timeout")
+                return super().run(desk, rows, provider, instruction)
+
+        with tempfile.TemporaryDirectory() as directory:
+            job = Path(directory) / "job"
+            input_path = Path(directory) / "snapshot.json"
+            input_path.write_bytes(json.dumps(snapshot).encode("utf-8"))
+            status = run(input_path, job, self.tools, self.discovery,
+                         TimeoutRunner(replies), articles=self.articles)
+            decisions = {row["id"]: row for row in json.loads(
+                (job / "quyet-dinh.json").read_text(encoding="utf-8"))["decisions"]}
+            reporter = json.loads((job / "reporter.json").read_text(encoding="utf-8"))
+            editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
+            checker = json.loads((job / "checker.json").read_text(encoding="utf-8"))
+            for desk, sid in failing.items():
+                self.assertEqual(status["desks"][desk]["state"], "done")
+                self.assertGreater(status["desks"][desk]["splits"], 0)
+                self.assertEqual(status["desks"][desk]["model_failures"], [sid])
+                self.assertEqual({event["event"] for event in status["desks"][desk]["events"]},
+                                 {"split", "failure"})
+                self.assertTrue(all("input_tokens" in batch for batch in status["desks"][desk]["batches"]))
+                raw = [json.loads(path.read_text(encoding="utf-8"))
+                       for path in (job / "raw").glob(f"{desk}-*.json")]
+                self.assertIn("split", {entry.get("event") for entry in raw})
+                self.assertIn("failure", {entry.get("event") for entry in raw})
+        self.assertTrue(any(desk == "reporter" and len(ids) == 1 for desk, _, ids in calls))
+        self.assertTrue(reporter[failing["reporter"]]["invalid_response"])
+        self.assertEqual(reporter[failing["reporter"]]["reason"], "reporter_model_failure")
+        self.assertTrue(editor[failing["editor"]]["invalid_response"])
+        self.assertEqual(editor[failing["editor"]]["reason"], "editor_model_failure")
+        self.assertEqual(decisions[failing["editor"]]["importance_tier"], "standard")
+        self.assertTrue(checker[failing["checker"]]["invalid_response"])
+        self.assertEqual(checker[failing["checker"]]["reason"], "checker_model_failure")
+        self.assertEqual(decisions[failing["checker"]]["importance_tier"], "standard")
+
+    def test_whole_model_desk_failure_still_stops_job(self):
+        class TimeoutRunner(FixtureRunner):
+            def run(self, desk, rows, provider, instruction):
+                if desk == "editor":
+                    raise RunnerError("simulated timeout")
+                return super().run(desk, rows, provider, instruction)
+
+        with tempfile.TemporaryDirectory() as directory:
+            job = Path(directory) / "job"
+            with self.assertRaisesRegex(RunnerError, "all model calls failed"):
+                run(FIXTURES / "snapshot.json", job, self.tools, self.discovery,
+                    TimeoutRunner(fixture("responses.json")), articles=self.articles)
+            status = json.loads((job / "status.json").read_text(encoding="utf-8"))
+            self.assertEqual(status["desks"]["editor"]["state"], "failed")
+            self.assertGreater(status["desks"]["editor"]["splits"], 0)
+            self.assertEqual(len(status["desks"]["editor"]["model_failures"]), 3)
+            self.assertFalse((job / "quyet-dinh.json").exists())
+
+    def test_timed_out_invalid_row_retry_keeps_other_editor_results(self):
+        target = fixture("snapshot.json")["stories"][0]["id"]
+        calls = 0
+
+        class RetryTimeoutRunner(FixtureRunner):
+            def run(self, desk, rows, provider, instruction):
+                nonlocal calls
+                if desk == "editor":
+                    calls += 1
+                    if calls > 1:
+                        raise RunnerError("simulated retry timeout")
+                result = super().run(desk, rows, provider, instruction)
+                if desk == "editor":
+                    next(row for row in result.rows if row["id"] == target).pop("subject")
+                return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            job = Path(directory) / "job"
+            status = run(FIXTURES / "snapshot.json", job, self.tools, self.discovery,
+                         RetryTimeoutRunner(fixture("responses.json")), articles=self.articles)
+            editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
+            self.assertEqual(status["desks"]["editor"]["model_failures"], [target])
+            self.assertEqual(editor[target]["reason"], "editor_model_failure")
+            self.assertEqual(status["desks"]["editor"]["state"], "done")
+            self.assertEqual(status["desks"]["editor"]["invalid_rows"], 1)
+            self.assertTrue((job / "quyet-dinh.json").exists())
+
+    def test_intake_sends_uncertain_model_and_research_subjects_to_editor(self):
+        now = datetime(2026, 10, 26, tzinfo=timezone.utc)
+        stories = [
+            {"id": "model", "title": "Introducing a new foundation model", "summary": "Release details",
+             "url": "https://example.org/model", "published_at": now.isoformat()},
+            {"id": "paper", "title": "A machine-learning research paper", "summary": "New benchmark",
+             "url": "https://example.org/paper", "published_at": now.isoformat()},
+            {"id": "aside", "title": "Bank transfer limits related to AI", "summary": "New payment rules",
+             "url": "https://example.org/rules", "published_at": now.isoformat()},
+        ]
+        intake = _intake(stories, now)
+        self.assertTrue(intake["model"]["pass"])
+        self.assertTrue(intake["paper"]["pass"])
+        self.assertFalse(intake["aside"]["pass"])
+
     def test_job_resumes_after_intake_and_rejects_changed_input(self):
         with tempfile.TemporaryDirectory() as directory:
             job = Path(directory) / "job"
@@ -477,12 +594,11 @@ class NewsroomTests(unittest.TestCase):
                 run(FIXTURES / "snapshot.json", job, self.tools, self.discovery, runner,
                     articles=self.articles, through="reporter", rerun_from="editor")
 
-    def test_intake_holds_stale_original_and_chief_demotes_older_tier(self):
+    def test_intake_passes_old_launch_and_chief_demotes_older_tier(self):
         now = datetime(2026, 10, 26, tzinfo=timezone.utc)
         story = {"id": "old", "title": "OpenAI launches a new AI model", "url": "https://example.org/news",
                  "published_at": (now - timedelta(days=31)).isoformat(), "summary": "OpenAI model release"}
-        self.assertFalse(_intake([story], now)["old"]["pass"])
-        story["published_at"] = (now - timedelta(days=10)).isoformat()
+        self.assertTrue(_intake([story], now)["old"]["pass"])
         decisions = _chief([story], {"old": {"pass": True, "reason": "pass"}},
                            {"old": {"readable": True, "selected_url": story["url"], "reason": "pass"}},
                            {"old": {"news": True, "reason": "pass", "importance": "top",

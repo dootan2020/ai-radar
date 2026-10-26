@@ -12,7 +12,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from radar.clustering import canonical_url, titles_match
-from radar.items import instant, relevant
+from radar.items import instant
 from radar.press_relevance import press_subject_reason
 from radar.summary_pipeline import fetch_article_result, story_inputs
 from radar.summary_validation import number_error
@@ -168,9 +168,9 @@ def _intake(stories, now):
             reason = "missing reliable publication date"
         elif date > now + timedelta(days=1):
             reason = "publication date is in the future"
-        elif date < now - timedelta(days=30):
-            reason = "original event is over 30 days old without verified update"
-        elif not relevant(story.get("title"), story.get("summary")) and press_subject_reason(story.get("title"), story.get("summary")).startswith("drop-"):
+        elif press_subject_reason(
+                story.get("title"), story.get("summary")) in {
+                    "drop-title-aside", "drop-incidental-consumer-subject", "drop-summary-aside"}:
             reason = "no evidence that AI is the main subject"
         output[story["id"]] = {"id": story["id"], "pass": reason is None, "reason": reason or "eligible for reporting"}
     return output
@@ -189,7 +189,8 @@ def _batches(rows, max_chars=MAX_BATCH_CHARS):
         yield batch
 
 
-def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner, *, boat_exclude=(), raw_dir=None):
+def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner, *, boat_exclude=(), raw_dir=None,
+                require_success=True):
     candidates = [tool for tool in providers(capability, tools, discovery, boat_exclude=boat_exclude)
                   if tool.get("runner") == "batch-cli"]
     if not candidates:
@@ -198,6 +199,17 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
 
     existing_raw = list(Path(raw_dir).glob(f"{desk}-*.json")) if raw_dir is not None and Path(raw_dir).exists() else []
     batch_number = max((int(path.stem.removeprefix(f"{desk}-")) for path in existing_raw), default=0)
+
+    def record(event, part, provider, error=None):
+        nonlocal batch_number
+        batch_number += 1
+        entry = {"event": event, "provider": provider["id"], "ids": [row["id"] for row in part]}
+        if error is not None:
+            entry["error"] = str(error)
+        batches.append(entry)
+        if raw_dir is not None:
+            _write_json(Path(raw_dir) / f"{desk}-{batch_number}.json",
+                        {"desk": desk, "batch": batch_number, **entry})
 
     def send(batch, index=0):
         nonlocal batch_number
@@ -210,7 +222,16 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
                 raise
             except RunnerError as error:
                 if index + 1 == len(candidates):
-                    raise RunnerError(f"{provider['id']}: {error}") from error
+                    if len(part) > 1:
+                        record("split", part, provider, error)
+                        middle = len(part) // 2
+                        send(part[:middle])
+                        send(part[middle:])
+                    else:
+                        record("failure", part, provider, error)
+                        output[part[0]["id"]] = {"id": part[0]["id"], "model_failure": True,
+                                                  "provider": None, "boat": None}
+                    continue
                 send(part, index + 1)
                 continue
             batch_number += 1
@@ -223,6 +244,10 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
 
     for batch in _batches(payload):
         send(batch)
+    if payload and require_success and all(row.get("model_failure") for row in output.values()):
+        error = RunnerError(f"{desk}: all model calls failed")
+        error.events = batches
+        raise error
     return output, batches
 
 
@@ -269,13 +294,14 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
                             "candidates": [{**candidate, "text": candidate["text"][:REPORTER_EXCERPT_LIMIT]} for candidate in candidates]})
     replies, usage = _agent_desk("reporter", payload, REPORTER_PROMPT, "doc-bai", tools, discovery, runner, raw_dir=raw_dir) if payload else ({}, [])
     def invalid_reply(row):
-        return bool(row and (type(row.get("same_event")) is not bool or
+        return bool(row and (row.get("model_failure") or type(row.get("same_event")) is not bool or
                              (row.get("selected_url") is not None and not isinstance(row.get("selected_url"), str))))
 
-    retry_payload = [item for item in payload if invalid_reply(replies.get(item["id"]))]
+    retry_payload = [item for item in payload if invalid_reply(replies.get(item["id"]))
+                     and not replies[item["id"]].get("model_failure")]
     if retry_payload:
         retry, retry_usage = _agent_desk("reporter", retry_payload, REPORTER_PROMPT, "doc-bai", tools,
-                                         discovery, runner, raw_dir=raw_dir)
+                                         discovery, runner, raw_dir=raw_dir, require_success=False)
         replies.update(retry)
         usage.extend(retry_usage)
     output = {}
@@ -285,7 +311,7 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
         url = row.get("selected_url") if row and not invalid else None
         candidate = source_map.get(story["id"], {}).get(url)
         valid = bool(not invalid and candidate and row.get("same_event") is True and (url == story["url"] or candidate["publisher"] != _publisher(story["url"])))
-        reason = "reporter_invalid" if invalid else (_reason(row.get("reason"), "source selected") if valid else
+        reason = "reporter_model_failure" if row and row.get("model_failure") else "reporter_invalid" if invalid else (_reason(row.get("reason"), "source selected") if valid else
                   _reason(row.get("reason"), "no readable same-event source") if row and not url else
                   "selected source is unreadable, wrong-event, or not independent" if row else
                   "no readable same-event candidate" if intake[story["id"]]["pass"] else "intake hold")
@@ -335,6 +361,8 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
                                     if isinstance(c, dict) and isinstance(c.get("id"), str)} for story in stories}
 
     def needs_retry(row, sid):
+        if row and row.get("model_failure"):
+            return False
         return (type(row.get("news")) is not bool if row else True) or (
             row.get("news") is True and not _editor_news_fields_valid(row, coverage_by_id[sid]))
 
@@ -343,7 +371,7 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
     retry_payload = [item for item in payload if needs_retry(replies.get(item["id"]), item["id"])]
     if retry_payload:
         retry, retry_usage = _agent_desk("editor", retry_payload, EDITOR_PROMPT, "bien-tap", tools,
-                                         discovery, runner, raw_dir=raw_dir)
+                                         discovery, runner, raw_dir=raw_dir, require_success=False)
         replies.update(retry)
         usage.extend(retry_usage)
     output = {}
@@ -358,7 +386,8 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
         if news is not False and not junk_kind:
             junk_kind = junk_hints.get(sid)
         unknown_junk_kind = news is False and (not isinstance(junk_kind, str) or junk_kind not in JUNK_KINDS)
-        invalid = bool(intake[sid]["pass"] and (needs_retry(row, sid) or unknown_junk_kind))
+        invalid = bool(intake[sid]["pass"] and (needs_retry(row, sid) or unknown_junk_kind or
+                                                 (row and row.get("model_failure"))))
         is_junk = bool(news is False or (row and row.get("content_kind") == "junk")
                        or sid in junk_hints or (type(news) is not bool and junk_kind))
         is_news = not is_junk and (news is True or invalid)
@@ -370,7 +399,8 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
                                "content_kind": "junk" if is_junk else "analysis" if row and row.get("content_kind") == "analysis" else "event_news",
                                "analysis_kind": (row.get("analysis_kind") if row.get("analysis_kind") in ANALYSIS_KINDS else "analysis")
                                if row and row.get("content_kind") == "analysis" and not is_junk else None,
-                               "reason": "editor_invalid" if invalid and not is_junk else _reason(row.get("reason"), "editor marked junk") if row else "earlier desk hold",
+                               "reason": "editor_model_failure" if row and row.get("model_failure") else
+                               "editor_invalid" if invalid and not is_junk else _reason(row.get("reason"), "editor marked junk") if row else "earlier desk hold",
                                "invalid_response": invalid,
                                "junk_kind": junk_kind if is_junk else None,
                                "subject": row.get("subject") if row else None, "event_type": row.get("event_type") if row else None,
@@ -407,21 +437,27 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
     replies, usage = {}, []
     for boat, payload in payload_by_boat.items():
         group_replies, group_usage = _agent_desk("checker", payload, CHECKER_PROMPT, "kiem-chung", tools, discovery, runner,
-                                                 boat_exclude={boat}, raw_dir=raw_dir)
+                                                 boat_exclude={boat}, raw_dir=raw_dir, require_success=False)
         replies.update(group_replies)
         usage.extend(group_usage)
     def invalid_reply(row, boat):
-        return bool(row and (row.get("boat") == boat or
+        return bool(row and (row.get("model_failure") or row.get("boat") == boat or
                              type(row.get("title_supported", row.get("verified"))) is not bool or
                              not isinstance(row.get("supported_claims", []), list)))
 
     for boat, payload in payload_by_boat.items():
-        retry_payload = [item for item in payload if invalid_reply(replies.get(item["id"]), boat)]
+        retry_payload = [item for item in payload if invalid_reply(replies.get(item["id"]), boat)
+                         and not replies[item["id"]].get("model_failure")]
         if retry_payload:
             retry, retry_usage = _agent_desk("checker", retry_payload, CHECKER_PROMPT, "kiem-chung", tools,
-                                             discovery, runner, boat_exclude={boat}, raw_dir=raw_dir)
+                                             discovery, runner, boat_exclude={boat}, raw_dir=raw_dir,
+                                             require_success=False)
             replies.update(retry)
             usage.extend(retry_usage)
+    if payload_by_boat and all(row.get("model_failure") for row in replies.values()):
+        error = RunnerError("checker: all model calls failed")
+        error.events = usage
+        raise error
     output = {}
     for story in stories:
         row = replies.get(story["id"])
@@ -441,7 +477,8 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
         output[story["id"]] = {"id": story["id"], "verified": verified,
                                "title_supported": title_supported, "supported_claims": supported,
                                "rejected_claims": [claim for claim in claims if claim not in supported],
-                               "reason": "checker_invalid" if invalid else reason, "invalid_response": invalid,
+                               "reason": "checker_model_failure" if row and row.get("model_failure") else
+                               "checker_invalid" if invalid else reason, "invalid_response": invalid,
                                "provider": row.get("provider") if row else None, "boat": row.get("boat") if row else None}
     return output, usage
 
@@ -554,12 +591,22 @@ def run(input_path, job, tools, discovery, runner, *, through="chief", articles=
             status["desks"][desk] = {"state": "done", "completed_at": datetime.now(timezone.utc).isoformat(),
                                       "count": len(output),
                                       "invalid_rows": sum(bool(row.get("invalid_response")) for row in (output.values() if isinstance(output, dict) else output)),
-                                      "batches": usage}
+                                      "splits": sum(row.get("event") == "split" for row in usage),
+                                      "model_failures": [sid for row in usage if row.get("event") == "failure" for sid in row["ids"]],
+                                      "events": [row for row in usage if row.get("event")],
+                                      "batches": [row for row in usage if not row.get("event")]}
             if desk == "chief":
                 _write_json(job / "quyet-dinh.json", {"schema_version": 1, "generated_at": datetime.now(timezone.utc).isoformat(),
                                                      "input_generated_at": generated_at, "decisions": output})
         except Exception as error:
             status["desks"][desk] = {"state": "failed", "error": str(error)}
+            if hasattr(error, "events"):
+                events = error.events
+                status["desks"][desk].update({"splits": sum(row.get("event") == "split" for row in events),
+                                                "model_failures": [sid for row in events if row.get("event") == "failure"
+                                                                   for sid in row["ids"]],
+                                                "events": [row for row in events if row.get("event")],
+                                                "batches": [row for row in events if not row.get("event")]})
             _write_json(status_path, status)
             raise
         _write_json(status_path, status)

@@ -6,7 +6,7 @@ Khung năm bàn đã chạy trọn trên fixture pha A. Lượt live đầu có 
 
 - `phong_bao/` cung cấp registry TOML, discovery, batch runner thay được, năm bàn, job có `status.json` từng bàn, `quyet-dinh.json` version 1, và evaluation. Input 150 story không nhãn ở `tests/fixtures/phong-bao/baseline-150.json` được trích từ snapshot pha A, khớp 150 ID của bộ nhãn.
 - Chín file trong `phong-bao/cong-cu/` mô tả Codex CLI, agy, Claude Code, Gemini API, Remotion, ffmpeg, Canva MCP, HN Algolia và HTTP fetch. Vai khai năng lực; registry tự đọc file mới mỗi lượt. Công cụ không có file được báo `found_not_configured` và không được gọi.
-- Bàn tiếp nhận dùng `radar.items.relevant` và `radar.press_relevance.press_subject_reason`; bàn phóng viên dùng `radar.summary_pipeline.fetch_article_result` với robots check, so nguồn trong coverage và corpus bằng `radar.clustering.titles_match`, rồi tìm HN Algolia. Bàn kiểm chứng dùng guard số của `radar.summary_validation`. Không đọc URL yêu cầu đăng nhập, không vượt paywall, và không suy 403 là paywall.
+- Bàn tiếp nhận dùng `radar.press_relevance.press_subject_reason` (hàm này gọi `radar.items.relevant`); bàn phóng viên dùng `radar.summary_pipeline.fetch_article_result` với robots check, so nguồn trong coverage và corpus bằng `radar.clustering.titles_match`, rồi tìm HN Algolia. Bàn kiểm chứng dùng guard số của `radar.summary_validation`. Không đọc URL yêu cầu đăng nhập, không vượt paywall, và không suy 403 là paywall.
 - Editor xuất các ID coverage cùng sự kiện và ID cần tách. Checker chạy thuyền khác editor cho từng tin. Tổng biên tập chỉ giữ tin bị intake loại hoặc editor xác định là rác; nguồn không đọc được, claim/title bị bác và tin cũ hơn bảy ngày được ghi là suy giảm trong quyết định.
 
 ## Bằng chứng offline
@@ -62,6 +62,14 @@ Prompt editor của vòng 7 và 8 đã đưa tiêu đề hoặc dấu hiệu nh�
 Prompt hiện tại chỉ nêu quy tắc phân loại tổng quát. Test hồi quy đối chiếu tất cả hằng prompt trong `phong_bao/newsroom.py` với tiêu đề của `baseline-150.json` và `nhan-tin-261026.json`, chặn cụm ba từ có nghĩa liên tiếp hoặc model ID trùng. Test này đã thất bại với prompt cũ trước khi sửa. Các case thật vẫn nằm trong test để kiểm hợp đồng editor/chief, không đưa vào prompt. Cần đánh giá lại bằng dữ liệu chưa từng lộ tiêu đề trong prompt để có số đo chất lượng công bằng.
 
 Kiểm chứng sau sửa: `python -m unittest tests.test_phong_bao` → `Ran 35 tests in 0.915s`, `OK`; `python -m unittest discover -s tests` → `Ran 1401 tests in 258.178s`, `OK (skipped=8)`. Cả hai exit 0.
+
+## Cập nhật vòng 10
+
+Lượt holdout độc lập do Lucy đo trên 100 tin cho thấy **0/23 rác lọt** và **12/77 tin tốt giữ nhầm (15,6%)**, trong đó intake giữ bốn tin tốt. Đây là số đo trước sửa vòng 10; chưa có phép đo live sau sửa.
+
+Lỗi timeout 600 giây của agy trước đây làm dừng cả job 150 tin. Runner giờ chia batch lỗi thành hai nửa cho tới từng card. Card vẫn lỗi được ghi trong `status.json` và `raw/`, rồi suy giảm qua reporter, editor hoặc checker. Cả desk không trả được card nào vẫn dừng job. Intake chuyển launch cũ và trường hợp chủ đề AI chưa rõ sang editor; chief hạ launch cũ về standard và editor quyết định bài đăng lại có thực sự stale hay không. Leak guard kiểm thêm holdout khi file đó tồn tại.
+
+Test offline dùng fake runner, không gọi boat/model thật. Việc đạt ngưỡng giữ nhầm ≤10% cần Lucy đo lại trên tập độc lập sau khi cập nhật job.
 
 ## Lệnh Lucy chạy thật
 
