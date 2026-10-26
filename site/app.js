@@ -7,7 +7,8 @@ import { isSnapshotV2, loadSnapshot } from './snapshot.js';
 import { freshness, freshnessText } from './freshness.js';
 import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, faceOfRepo, ytIdOf, hydrateHF, watchImageErrors, hourHistogram, ring, meter, imgSrc, setDeferImages, loadDeferredImages } from './faces.js';
 import { KIND, METRIC, licenseText, SIGNALS, signalText } from './words.js';
-import { shown as viShown, headlineShown, origLine, uniqCoverage } from './titles.js';
+import { shown as viShown, origLine, uniqCoverage } from './titles.js';
+import { headlineShown } from './editorial-headline.js';
 
 const CHAPTERS = [
   {id:'hom-nay', sec:'today', label:'Hôm nay', title:'Hôm nay', note:'Đăng trong 24 giờ qua, mới nhất trước.'},
@@ -761,7 +762,7 @@ function detailStory(st){
   const sig = st.hot_signals && st.hot_signals.measurement;
   const cov = [...covOf(st)].sort((a, b) => (a.published_at || '').localeCompare(b.published_at || ''));
   const sv = savedKey(st.id);
-  return `<div class="sh-head">${avatar(faceSt(st), 'lg')}<div class="sh-t"><h2 id="sheet-h">${esc(viShown(st.title, st.title_vi))}</h2>${orig(st)}</div></div>
+  return `<div class="sh-head">${avatar(faceSt(st), 'lg')}<div class="sh-t"><h2 id="sheet-h">${esc(headlineShown(st, true))}</h2>${orig(st)}</div></div>
     ${id ? `<span class="thumb">${thumbImg(id, st.title, false, st)}</span>` : ''}
     ${st.summary ? `<p class="sum">${esc(st.summary)}</p>` : ''}
     ${st.hot_score != null ? `<div class="sh-score">${ring(st.hot_score, 'Điểm nóng')}<p>Nóng vì ${reasonHTML(st)}</p></div>` : ''}

@@ -95,7 +95,7 @@ class TranslationDisplayTests(unittest.TestCase):
         self.assertNotIn("(st.coverage || []).map(c => `<li>", self.app)
 
     def test_every_headline_slot_reads_the_translation(self):
-        self.assertIn("import { shown as viShown, headlineShown, origLine, uniqCoverage } from './titles.js';", self.app)
+        self.assertIn("import { headlineShown } from './editorial-headline.js';", self.app)
         # Rows, hot list, lead, videos, sheet and coverage links all go through tt(); none print the raw title.
         self.assertGreaterEqual(self.app.count("${tt("), 10)
         for raw in ("${esc(String(st.title))}</span>", "${esc(String(s.title))}</span>", "${esc(String(c.title))}</a>",

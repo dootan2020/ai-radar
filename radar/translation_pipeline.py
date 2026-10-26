@@ -11,6 +11,7 @@ from radar import translation_gemini as gemini
 from radar.translation_budget import reserve, rotate_sources, cooling_sources, record_failures, _source_id
 from radar.reader_priority import ordered_stories, load_editor_picks
 from radar import gemini_paid_budget
+from radar.translation_semantics import changes_meaning
 
 QUOTED = re.compile(r'"[^"\n]+"|(?<!\w)\'[^\'\n]+\'(?!\w)|`[^`\n]+`')
 # Distinctive positions reveal unknown identities without freezing every Title Case word.
@@ -39,6 +40,8 @@ def protected_names(source, names):
 def validated(source, text, names):
     if not isinstance(text, str):
         return None
+    if changes_meaning(source, text):
+        return None
     output = nllb.apply_glossary(source, nllb.normalize(text), protected_names=names)
     if nllb.rejection(source, output, protected_names=names):
         return None
@@ -48,6 +51,18 @@ def validated(source, text, names):
     if [quote[0] for quote in QUOTED.findall(source)] != [quote[0] for quote in QUOTED.findall(output)]:
         return None
     return output
+
+
+def invalidate_wrong_cache(groups, nllb_cache, gemini_cache):
+    """Remove only observed wrong senses, including NLLB sentence segments."""
+    for source in groups:
+        cached = gemini_cache.get(source)
+        if changes_meaning(source, cached):
+            del gemini_cache[source]
+        for segment in nllb.split_source(source)[1]:
+            cached = nllb_cache.get(segment)
+            if changes_meaning(segment, cached):
+                del nllb_cache[segment]
 
 
 def _request(items, config, transport, timeout):
@@ -149,6 +164,8 @@ def translate_payload(payload, nllb_cache, gemini_cache, *, config=None, transpo
         group["rows"].append((obj, src, dst))
         group["names"].update(protected_names(source, names | nllb.object_names(obj)))
         group["roles"].add(src)
+
+    invalidate_wrong_cache(groups, nllb_cache, gemini_cache)
 
     accepted, api_alive = {}, False
     api = dict(model=gemini.MODEL_ID, status="disabled", requests=0, cache_hits=0, translated=0, error=None)

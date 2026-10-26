@@ -127,7 +127,7 @@ const feedVariants = item => [
   feed.renderCard(item, 'lead', {rank:1, why:true, h:'h3'}),
   feed.renderHot([item]), feed.pickRow(item, 2),
 ];
-// Generated article summaries belong only to reader views, including any retired fields.
+// A verified editorial headline is shared with cards; summary body fields stay in reader views.
 const summaryOnly = {...story, key_points_prompt_version:'summary-vi-5-full',
   editorial_headline_vi:'SUMMARY_HEADLINE_SENTINEL',
   key_points:Array.from({length:4}, (_, i) => `SUMMARY_POINT_SENTINEL_${i}`),
@@ -135,7 +135,8 @@ const summaryOnly = {...story, key_points_prompt_version:'summary-vi-5-full',
   summary_sources:[{name:'SUMMARY_SOURCE_SENTINEL', role:'outlet', url:'https://summary.example/source'}]};
 feed.configure([summaryOnly]);
 for (const html of [...feedVariants(summaryOnly), renderStoryTileHTML(summaryOnly, true)]) {
-  assert.doesNotMatch(html, /SUMMARY_\w+_SENTINEL|summary\.example/);
+  assert.match(html, /SUMMARY_HEADLINE_SENTINEL/);
+  assert.doesNotMatch(html, /SUMMARY_(?:POINT|SHORT|TAKEAWAY|SOURCE)_\w*_?SENTINEL|summary\.example/);
 }
 for (const translated of [longOriginal, coverageTranslated]) {
   for (const image of [undefined, {src:'https://approved.example/photo.jpg', via:'og:image', kind:'photo'}]) {

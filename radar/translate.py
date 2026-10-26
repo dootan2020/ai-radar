@@ -83,11 +83,61 @@ GLOSSARY = [
         (r"(?<!đa )(?:đại lý|nhân viên|đặc vụ|tác nhân|tác tử|người đại diện|điệp viên)\b", "agent"),
     ]),
     (r"\bharness(es)?\b", [
-        (r"(?:bộ |cái )?(?:vòng xoắn|bộ đeo|dây nịt|dây đeo|dây an toàn|khai thác|bộ khai thác|yên cương)", "khung chạy"),
+        (r"(?:bộ |cái )?(?:vòng xoắn|vòng xoáy|bộ đeo|dây nịt|dây đeo|dây an toàn|khai thác|bộ khai thác|yên cương)", "khung chạy"),
     ]),
     (r"\bfrontier\b", [
         (r"tình báo biên giới|trí thông minh biên giới|trí tuệ biên giới", "trí tuệ tiên phong"),
+        (r"hàng rào", "tiên phong"),
         (r"biên giới", "tiên phong"),
+    ]),
+    (r"\bcredentials?\b", [
+        (r"thông tin tín dụng", "thông tin xác thực"),
+    ]),
+    (r"\blocales?\b", [
+        (r"địa phương", "biến thể ngôn ngữ/khu vực"),
+    ]),
+    (r"\bgenerally available\b", [
+        (r"thường có sẵn|sẵn có chung", "đã phát hành chính thức"),
+    ]),
+    (r"\bliterature landscape\b", [
+        (r"bối cảnh văn học", "hệ thống tài liệu nghiên cứu"),
+    ]),
+    (r"\bfabs?\b", [
+        (r"phim truyền hình", "nhà máy chế tạo chip"),
+    ]),
+    (r"\bsole-source award\b", [
+        (r"giải thưởng nguồn duy nhất", "hợp đồng chỉ định thầu"),
+    ]),
+    (r"\bvital\b", [
+        (r'dịch vụ "trách nhiệm', 'dịch vụ "thiết yếu'),
+        (r"dịch vụ trách nhiệm", "dịch vụ thiết yếu"),
+    ]),
+    (r"\beach operator\b", [
+        (r"nhà điều hành", "toán tử"),
+    ]),
+    (r"\bcompilation problem\b", [
+        (r"vấn đề tổng hợp", "bài toán biên dịch"),
+    ]),
+    (r"\bformal software verification\b", [
+        (r"xác minh phần mềm chính thức", "kiểm chứng phần mềm hình thức"),
+    ]),
+    (r"\bhigh-dimensional spaces\b", [
+        (r"không gian chiều cao", "không gian nhiều chiều"),
+    ]),
+    (r"\bthe Singularity\b", [
+        (r"sự kỳ lạ", "điểm kỳ dị công nghệ"),
+    ]),
+    (r"\bTPUs?, Natively\b", [
+        (r"theo cách bản địa", "trực tiếp"),
+    ]),
+    (r"\bbiggest shot at\b", [
+        (r"vụ tấn công lớn nhất", "nỗ lực cạnh tranh lớn nhất"),
+    ]),
+    (r"\bDiffusion\b", [
+        (r"sự pha trộn", "khuếch tán"),
+    ]),
+    (r"\bopen-source AI\b.*\bthe best\b", [
+        (r"người tốt nhất", "mô hình tốt nhất"),
     ]),
     (r"\bfine[- ]?tun(e|ed|ing)\b", [
         (r"điều chỉnh tinh tế|điều chỉnh tốt|tinh chỉnh tốt|tinh tế điều chỉnh", "tinh chỉnh"),

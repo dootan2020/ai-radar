@@ -148,7 +148,7 @@ def sync():
     validate_urls(arena)
     validate_urls(story)
     for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css',
-                 'faces.js', 'time-text.js', 'words.js', 'titles.js',
+                 'faces.js', 'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js',
                  'calendar.js', 'worth-score.js', 'live.js',
                  'feed-images.json', 'editor-picks.json',
                  'favicon.ico', 'apple-touch-icon.png', 'logo.svg'):

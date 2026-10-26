@@ -33,6 +33,19 @@ def subset(payload, identities):
 
 
 class EditionSelectionTests(unittest.TestCase):
+    def test_verified_editorial_headline_survives_edition_projection(self):
+        audited = json.loads((Path(__file__).parent / "fixtures" / "audited-headlines-live.json").read_text(encoding="utf-8"))
+        s107 = audited["stories"][0]
+        payload = subset(real_snapshot(), {ASTA})
+        story = payload["stories"][0]
+        for field in ("editorial_headline_vi", "key_points_prompt_version", "key_points", "summary_sources"):
+            story[field] = s107[field]
+        row = build_edition(payload, NOW)["stories"][0]
+        self.assertEqual(row["editorial_headline_vi"], s107["editorial_headline_vi"])
+        self.assertTrue(row["editorial_headline_verified"])
+        story["key_points"] = []
+        self.assertNotIn("editorial_headline_vi", build_edition(payload, NOW)["stories"][0])
+
     def test_real_snapshot_excludes_uncorroborated_forum_and_single_publisher(self):
         payload = real_snapshot()
         original = copy.deepcopy(payload)

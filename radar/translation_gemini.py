@@ -26,6 +26,10 @@ all facts, numbers, negation, uncertainty, product/model/person/organization nam
 version identifiers and URLs. Translate quoted sentences faithfully while preserving
 quotation marks and attribution; quoted product names and backtick identifiers stay
 verbatim. protected_names must retain their exact source spelling.
+Keep technical senses in context: frontier AI models are advanced models, fabs are chip
+fabrication plants, credentials are authentication details, diffusion is khuếch tán,
+formal verification is kiểm chứng hình thức, and a serving harness is an AI
+serving/orchestration framework. Preserve names of tools and works such as Quick Study.
 Return exactly one translation per supplied id, with the same id. No commentary."""
 
 

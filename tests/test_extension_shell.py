@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EXT = ROOT / 'extension'
 SITE = ROOT / 'site'
 FIXTURE = ROOT / 'tests/fixtures/radar-window-sample.json'
+HEADLINE_FIXTURE = ROOT / 'tests/fixtures/audited-headlines-live.json'
 LIVE = 'https://radar-ai-vn.pages.dev/'
 
 
@@ -63,9 +64,9 @@ class ExtensionShellTests(unittest.TestCase):
         self.assertEqual(payload['schema_version'], 2)
         self.assertGreater(len(payload['stories']), 100)
         for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'faces.js',
-                     'time-text.js', 'words.js', 'titles.js', 'calendar.js',
+                     'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js', 'calendar.js',
                      'worth-score.js', 'live.js', 'feed-images.json',
-                     'editor-picks.json'):
+                     'editor-picks.json', 'favicon.ico', 'apple-touch-icon.png', 'logo.svg'):
             self.assertEqual((EXT / name).read_bytes(), (SITE / name).read_bytes(), name)
         self.assertTrue((EXT / 'fonts/be-vietnam-pro-400-vietnamese.woff2').is_file())
         html = (EXT / 'newtab.html').read_text(encoding='utf-8')
@@ -87,9 +88,32 @@ class ExtensionShellTests(unittest.TestCase):
         for name in ('feed-images.json', 'editor-picks.json'):
             self.assertIn(LIVE + name, feed)
             self.assertIn(f"'{name}'", feed)
+        module_patterns = (
+            r"\bfrom\s*(['\"])(\.[^'\"]+\.js)\1",
+            r"\bimport\s*\(\s*(['\"])(\.[^'\"]+\.js)\1",
+            r"\bimport\s+(['\"])(\.[^'\"]+\.js)\1",
+        )
         for source in EXT.glob('*.js'):
-            for imported in re.findall(r"(?:\bfrom\s*|\bimport\s*\()(['\"])(\./[^'\"]+\.js)\1", source.read_text(encoding='utf-8')):
-                self.assertTrue((EXT / imported[1][2:]).is_file(), f'{source.name}: {imported[1]}')
+            code = source.read_text(encoding='utf-8')
+            for pattern in module_patterns:
+                for _, imported in re.findall(pattern, code):
+                    target = (source.parent / imported).resolve()
+                    self.assertTrue(target.is_relative_to(EXT.resolve()) and target.is_file(),
+                                    f'{source.name}: {imported}')
+
+    @unittest.skipUnless(shutil.which('node'), 'Node required for JavaScript behavior tests')
+    def test_extension_s107_headline_matches_site(self):
+        script = r'''
+import {readFileSync} from 'node:fs';
+import {headlineShown as siteHeadline} from './site/editorial-headline.js';
+import {headlineShown as extensionHeadline} from './extension/editorial-headline.js';
+import {storyTitle} from './extension/story.js';
+const story = JSON.parse(readFileSync(process.argv[1], 'utf8')).stories.find(row => row.index === 107);
+process.stdout.write(JSON.stringify({site:siteHeadline(story),extension:extensionHeadline(story),detail:storyTitle(story)}));
+'''
+        shown = node(script, HEADLINE_FIXTURE)
+        expected = 'OpenAI cắt kết nối internet khi huấn luyện mô hình AI tiên phong sau loạt sự cố tấn công mạng'
+        self.assertEqual(shown, {'site': expected, 'extension': expected, 'detail': expected})
 
     @unittest.skipUnless(shutil.which('node'), 'Node required for JavaScript behavior tests')
     def test_relative_story_image_uses_live_site_origin(self):

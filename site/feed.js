@@ -19,7 +19,8 @@
 import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
 import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange } from './time-text.js';
 import { KIND, METRIC } from './words.js';
-import { shown, headlineShown, uniqCoverage } from './titles.js';
+import { shown, uniqCoverage } from './titles.js';
+import { headlineShown, hasEditorialSummary } from './editorial-headline.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote, dateStart, nextDay } from './calendar.js';
 import { WORTH, fallbackWorth, hotEligible } from './worth-score.js';
 import { renderStoryHTML } from './story.js';
@@ -387,6 +388,7 @@ const numB = m => `<b class="num"${m.live ? ` data-live="${esc(m.live)}"` : ''}>
    the card then names that item's source and links to that item's address, so headline, source and link agree. */
 function titleOf(st) {
   const ok = (o, v) => typeof v === 'string' && v.trim() && v.trim() !== String(o || '').trim();
+  if (hasEditorialSummary(st) && st.editorial_headline_vi) return { text: headlineShown(st), orig: st.title, cov: null };
   if (ok(st.title, st.title_vi)) return { text: headlineShown(st), orig: st.title, cov: null };
   for (const c of st.coverage || []) if (ok(c.title, c.title_vi)) return { text: headlineShown(c), orig: c.title, cov: c };
   return { text: headlineShown(st), orig: null, cov: null };

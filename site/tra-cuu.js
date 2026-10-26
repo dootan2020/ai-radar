@@ -5,7 +5,8 @@
 
 import { esc, fmt, faceOfStory, faceOfSource, avatar, avatarStack, monogram, watchImageErrors, loadDeferredImages } from './faces.js';
 import { ago, dayKey, hhmm, TZ } from './time-text.js';
-import { headlineShown, origLine } from './titles.js';
+import { origLine } from './titles.js';
+import { headlineShown } from './editorial-headline.js';
 import { KIND } from './words.js';
 
 // Các từ dừng dùng khi so khớp tựa đề để gom nhóm câu chuyện
@@ -114,7 +115,7 @@ function canonicalUrl(url) {
  */
 function titleTokens(story) {
   const t1 = normalizeVietnamese(story.title || '');
-  const t2 = normalizeVietnamese(story.title_vi || '');
+  const t2 = normalizeVietnamese(headlineShown(story));
   const raw = `${t1} ${t2}`.split(/\s+/);
   return new Set(raw.filter(w => w.length >= 3 && !STOPWORDS.has(w)));
 }
