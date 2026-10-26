@@ -29,24 +29,37 @@ ARTICLE_LIMIT = 3200
 REPORTER_EXCERPT_LIMIT = 900
 EDITOR_EXCERPT_LIMIT = 1200
 JUNK_KINDS = {"non_news_page", "vendor_sales", "customer_case_study", "tutorial", "incidental_ai", "mis_merged_cluster", "stale_content"}
+CONTENT_KINDS = ("event_news", "analysis", "junk")
+ANALYSIS_KINDS = ("analysis", "interview", "opinion", "podcast", "survey")
 IMPORTANCE_TIERS = ("top", "notable", "standard")
-EDITOR_PROMPT = ("You are a newsroom editor. Decide whether each card is an actual AI news event or junk. "
-                 "Return each {id, news:boolean, junk_kind:string|null, reason:string, subject:string, event_type:string, "
+EDITOR_PROMPT = ("You are a newsroom editor. Classify each card as event_news, analysis, or junk. "
+                 "Return each {id, content_kind:event_news|analysis|junk, analysis_kind:string|null, news:boolean, "
+                 "junk_kind:string|null, reason:string, subject:string, event_type:string, "
                  "importance:string, event_at:string|null, claims:[string], same_event_coverage_ids:[string]}. "
+                 "Set news=true for event_news and analysis, news=false for junk. "
                  f"For news=true, importance must be exactly {', '.join(IMPORTANCE_TIERS[:-1])}, "
                  f"or {IMPORTANCE_TIERS[-1]}; never high, low, or none. "
                  "For news=false, use importance=standard and an exact junk_kind from the list below. "
                  "For news=true, use junk_kind=null and 0 to 8 distinct supported claims; 0 claims is valid news without a summary. "
+                 f"For analysis, set analysis_kind to one of {', '.join(ANALYSIS_KINDS)} and importance=standard. "
+                 "For analysis use event_type=analysis_kind and event_at=null when no dated event is reported. "
+                 "Analysis includes reported trend analysis, interviews, opinion, podcasts, and literature surveys whose main subject is AI, "
+                 "even without a single new dated event; event_at may be null. Publish these as standard, never top or notable. "
+                 "An interview with an AI researcher, an assessment of AI market economics, or a reported account "
+                 "of changes across AI vendors can qualify as analysis without a newly announced event. "
+                 "Business reporting qualifies when AI is its main subject, including company results, acquisitions, "
+                 "and market activity; a passing reference to AI does not qualify. "
                  f"For news=false, junk_kind must be one of {', '.join(sorted(JUNK_KINDS))}. "
-                 "Only call an item stale_content when an old item "
-                 "is resurfaced without a new event; an actual launch on October 7, 8 or 13 is news even when reviewed "
-                 "on October 26, and belongs in standard tier after seven days. Phase A labels distinguish old_content_reposted "
-                 "from a merely old launch: Phase A marked the September 22 Claude Opus 5.5 page old_content_reposted, "
-                 "but marked the October 8 Anthropic Cyber Mission and October 13 Qwen glasses launches as non-junk. "
-                 "Vendor product announcements are news, not vendor_sales. "
+                 "The absence of a new dated event alone does not make AI-focused analysis junk. "
+                 "Use stale_content only when the same old item is re-posted with nothing new. "
+                 "A real launch remains event_news when reviewed more than seven days later, at standard tier. "
+                 "A concrete vendor launch with a dated announcement is event_news. A Show HN pitch or product landing page "
+                 "consisting of demos, sales copy, or a call to buy without independent reporting or a substantive release is vendor_sales; "
+                 "a bare model or dataset card with no announcement is non_news_page. "
+                 "A documented release or independently reported launch can be event_news even on a model hub or social forum. "
                  "A missing or short source is uncertainty, not junk: use the title and teaser to classify the event, "
                  "and return no claims without source support. Each nonempty claim must be 1 to 520 characters. Never use source_count as proof. "
-                 "Reject advertising, customer case studies, tutorials, incidental AI, social chatter without an event, "
+                 "Reject advertising, customer case studies, tutorials, incidental AI, casual social chatter without substantive reporting, "
                  "and genuinely stale resurfacing. Separate unrelated coverage IDs.")
 REPORTER_PROMPT = "You are a reporter. Read each public article excerpt. If the representative article is unreadable, choose at most one readable candidate from a different publisher about the exact same event, or null. A 403 is not evidence of paywall. Never bypass robots, sign in, or infer facts from source_count. Return each {id, selected_url:string|null, same_event:boolean, reason:string}."
 CHECKER_PROMPT = ("You are an independent fact checker. Compare the original title and each claim with the cited "
@@ -299,7 +312,9 @@ def _editor_news_fields_valid(row, coverage_ids, *, require_importance=True):
                 and isinstance(row.get("event_type"), str) and row["event_type"].strip()
                 and (not require_importance or
                      isinstance(row.get("importance"), str) and row["importance"] in IMPORTANCE_TIERS)
-                and (row.get("event_at") is None or isinstance(row.get("event_at"), str)))
+                and (row.get("event_at") is None or isinstance(row.get("event_at"), str))
+                and row.get("content_kind", "event_news") in CONTENT_KINDS[:2]
+                and (row.get("content_kind") != "analysis" or row.get("analysis_kind") in ANALYSIS_KINDS))
 
 
 def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
@@ -344,13 +359,17 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
             junk_kind = junk_hints.get(sid)
         unknown_junk_kind = news is False and (not isinstance(junk_kind, str) or junk_kind not in JUNK_KINDS)
         invalid = bool(intake[sid]["pass"] and (needs_retry(row, sid) or unknown_junk_kind))
-        is_junk = news is False or sid in junk_hints or (type(news) is not bool and bool(junk_kind))
+        is_junk = bool(news is False or (row and row.get("content_kind") == "junk")
+                       or sid in junk_hints or (type(news) is not bool and junk_kind))
         is_news = not is_junk and (news is True or invalid)
         same = row.get("same_event_coverage_ids") if usable_news_fields else []
         representative_ids = {c["id"] for c in story.get("coverage") or [] if isinstance(c, dict) and isinstance(c.get("id"), str)
                               and _same_rep_url(c.get("url"), story.get("url"))}
         same = sorted(set(same) | representative_ids)
         output[sid] = {"id": sid, "news": is_news if intake[sid]["pass"] else False,
+                               "content_kind": "junk" if is_junk else "analysis" if row and row.get("content_kind") == "analysis" else "event_news",
+                               "analysis_kind": (row.get("analysis_kind") if row.get("analysis_kind") in ANALYSIS_KINDS else "analysis")
+                               if row and row.get("content_kind") == "analysis" and not is_junk else None,
                                "reason": "editor_invalid" if invalid and not is_junk else _reason(row.get("reason"), "editor marked junk") if row else "earlier desk hold",
                                "invalid_response": invalid,
                                "junk_kind": junk_kind if is_junk else None,
@@ -451,6 +470,10 @@ def _chief(stories, intake, reporter, editor, checker, now):
         if summary == "none":
             degradations.append("too few verified claims for summary")
         tier_capped = not reporter[sid]["readable"]
+        if editor[sid].get("content_kind") == "analysis":
+            tier_capped = True
+            tier = "standard"
+            degradations.append("analysis is standard tier")
         if tier_capped:
             tier = "standard"
         if reporter[sid]["readable"] and (checker[sid].get("rejected_claims") or use_original_title):
@@ -474,6 +497,8 @@ def _chief(stories, intake, reporter, editor, checker, now):
             tier_capped = True
             degradations.append("top tier needs four to eight verified key points")
         output.append({"id": sid, "decision": "hold" if gate else "publish",
+                       "content_kind": editor[sid].get("content_kind", "event_news"),
+                       "analysis_kind": editor[sid].get("analysis_kind"),
                        "round": gate[0] if gate else "chief", "reason": gate[1] if gate else "; ".join(degradations) if degradations else "news and claims checked",
                        "importance_tier": tier, "tier_capped": tier_capped,
                        "summary": summary if not gate else "none", "degradation_reasons": degradations if not gate else [],

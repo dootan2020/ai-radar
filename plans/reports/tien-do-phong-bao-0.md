@@ -78,3 +78,16 @@ Lucy chạy discovery live, năm lệnh bàn duyệt trên 150 story, rồi eval
 - Retry row lỗi được gom theo batch ở reporter, editor và checker. Test offline chạy toàn bộ raw reply editor đầu, xác nhận cả năm verdict rác đều hold; test riêng kiểm retry theo batch, kind lạ và verdict thiếu.
 - Không chạy boat/model hoặc sửa `phong-bao/jobs/`.
 - Kiểm chứng bản cuối: `python -m unittest tests.test_phong_bao` cho `Ran 32 tests in 0.721s`, `OK`; `python -m unittest discover -s tests` cho `Ran 1398 tests in 246.815s`, `OK (skipped=8)`. Cả hai exit 0.
+
+## Round 8: phân biệt phân tích với rác
+
+- Lucy đo lượt live sau vòng 7: rác lọt **2/54 (3,7%)**, tin tốt giữ nhầm **22/96 (22,9%)**; editor giữ 21 tin tốt. Editor dùng 4 batch và khoảng 190.000 input token, checker 4 batch và khoảng 65.000. Hai rác lọt là model card `InternScience/Sage-A1.5` và pitch Vortex Code.
+- Prompt editor trước đó chỉ có hai ngả tin sự kiện hoặc rác, nên coi nhiều phân tích, phỏng vấn, podcast và khảo sát về AI không có sự kiện định ngày là `non_news_page`. Hợp đồng mới ghi `content_kind` ba giá trị `event_news`, `analysis`, `junk`, và `analysis_kind`; chief luôn hạ phân tích về standard. Launch thật cũ hơn bảy ngày vẫn publish standard; chỉ cùng bài cũ nổi lại không có cập nhật mới là `stale_content`.
+- Prompt phân biệt pitch Show HN/trang bán hàng với release có nội dung thực chất và phân biệt model card trơ với thông báo model. Test offline dùng tám case thật trong baseline và nhãn pha A để kiểm đường đi editor/chief; chưa chạy boat/model hay sửa `phong-bao/jobs/`.
+- Nếu reply phân tích vẫn thiếu subtype sau một lần retry, editor ghi subtype chung `analysis` để quyết định không mất kind. Kiểm chứng bản cuối: `python -m unittest tests.test_phong_bao` cho `Ran 34 tests in 0.778s`, `OK`; `python -m unittest discover -s tests` cho `Ran 1400 tests in 245.696s`, `OK (skipped=8)`. Cả hai exit 0.
+
+## Round 9: bỏ tiêu đề fixture khỏi prompt
+
+- Prompt các vòng 7 và 8 chứa tiêu đề hoặc dấu hiệu nhận diện story trong bộ 150 tin. Vì vậy điểm chấm vòng 7 và mọi điểm chấm vòng 8 trên bộ này bị thổi phồng một phần bởi rò rỉ đáp án; không thể coi là phép đo độc lập về khả năng phân loại. Test mới đối chiếu prompt với cả hai fixture theo cụm ba từ có nghĩa và model ID, đã đỏ trên prompt vòng 8 trước khi sửa.
+- Editor prompt nay diễn đạt quy tắc chung cho phân tích, launch cũ, bài đăng lại, pitch bán hàng, model card trơ và AI chỉ xuất hiện thoáng qua. Không gọi boat/model hoặc sửa `phong-bao/jobs/`. Cần đo lại trên bộ đánh giá sạch trước khi kết luận chất lượng thực tế.
+- Kiểm chứng: `python -m unittest tests.test_phong_bao` → `Ran 35 tests in 0.915s`, `OK`; `python -m unittest discover -s tests` → `Ran 1401 tests in 258.178s`, `OK (skipped=8)`. Cả hai exit 0.

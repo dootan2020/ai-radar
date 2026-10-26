@@ -1,5 +1,6 @@
 import json
 import io
+import re
 import tempfile
 import unittest
 from contextlib import redirect_stdout
@@ -7,6 +8,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 
+import phong_bao.newsroom as newsroom
 from phong_bao.discovery import discover_raw, report
 from phong_bao.__main__ import main
 from phong_bao.evaluation import evaluate
@@ -28,6 +30,36 @@ class NewsroomTests(unittest.TestCase):
         self.discovery = fixture("discovery.json")
         self.runner = FixtureRunner(fixture("responses.json"))
         self.articles = FixtureArticles(fixture("articles.json"))
+
+    def test_prompts_do_not_repeat_fixture_title_phrases(self):
+        stop_words = {"a", "an", "and", "are", "as", "at", "by", "for", "from", "in", "into",
+                      "is", "of", "on", "or", "the", "to", "with", "you", "your", "ai"}
+
+        def words(value):
+            return [word for word in re.findall(r"[a-z0-9]+", value.lower()) if word not in stop_words]
+
+        def model_ids(value):
+            return set(re.findall(r"\b[a-z][\w-]*/[a-z][\w.-]*\d[\w.-]*\b", value.lower()))
+
+        titles = (story["title"] for name in ("baseline-150.json",)
+                  for story in fixture(name)["stories"])
+        phase_titles = (story["title"] for story in json.loads(
+            (FIXTURES.parent / "phong-duyet" / "nhan-tin-261026.json").read_text(encoding="utf-8"))["stories"])
+        prompts = {name: value for name, value in vars(newsroom).items()
+                   if name.endswith("_PROMPT") and isinstance(value, str)}
+        self.assertTrue(prompts)
+        for title in set((*titles, *phase_titles)):
+            title_words = words(title)
+            phrases = {tuple(title_words[index:index + 3])
+                       for index in range(len(title_words) - 2)}
+            ids = model_ids(title)
+            for name, prompt in prompts.items():
+                prompt_words = words(prompt)
+                shared = phrases.intersection(tuple(prompt_words[index:index + 3])
+                                              for index in range(len(prompt_words) - 2))
+                shared_ids = ids & model_ids(prompt)
+                if shared or shared_ids:
+                    self.fail(f"{name} repeats fixture title {title!r}: {sorted(shared or shared_ids)[0]!r}")
 
     def test_registry_adds_new_tool_from_one_file_and_reports_unknowns(self):
         found = report(self.discovery, self.tools)
@@ -632,6 +664,85 @@ class NewsroomTests(unittest.TestCase):
             path.write_bytes(b'{"decisions": []}')
             with self.assertRaises(ValueError):
                 evaluate(path, FIXTURES / "labels.json")
+
+    def test_real_analysis_old_launch_and_self_promotion_cases(self):
+        titles = {
+            "AI in Early Stages of a Bubble, Gabelli's Marangi Says": ("analysis", "interview"),
+            "Can the AI Boom Survive a Margin Squeeze?": ("analysis", "analysis"),
+            "Reading, Writing, Sharing, and Interacting with the World through Video": ("analysis", "survey"),
+            "Introducing Claude Sonnet 5.5": ("event_news", None),
+            "Anthropic invests $100 million to train 10,000 engineers and tackle the enterprise AI talent gap": ("event_news", None),
+            "What do you want from AI?": ("event_news", None),
+            "InternScience/Sage-A1.5": ("junk", None),
+            "Vortex Code: one prompt, an AI software team that ships": ("junk", None),
+        }
+        baseline = fixture("baseline-150.json")
+        labels = {row["id"]: row for row in json.loads(
+            (FIXTURES.parent / "phong-duyet" / "nhan-tin-261026.json").read_text(encoding="utf-8"))["stories"]}
+        stories = [row for row in baseline["stories"] if row["title"] in titles]
+        self.assertEqual(len(stories), len(titles))
+        replies = {}
+        for story in stories:
+            content_kind, analysis_kind = titles[story["title"]]
+            self.assertEqual(labels[story["id"]]["labels"]["junk"], content_kind == "junk")
+            replies[story["id"]] = {
+                "id": story["id"], "content_kind": content_kind, "analysis_kind": analysis_kind,
+                "news": content_kind != "junk",
+                "junk_kind": {"InternScience/Sage-A1.5": "non_news_page",
+                              "Vortex Code: one prompt, an AI software team that ships": "vendor_sales"}.get(story["title"]),
+                "reason": "classified from source and card", "subject": "AI", "event_type": "launch",
+                "importance": "notable" if content_kind == "analysis" else "top",
+                "event_at": None if content_kind == "analysis" else story["published_at"],
+                "claims": [], "same_event_coverage_ids": [],
+            }
+        with tempfile.TemporaryDirectory() as directory:
+            snapshot = Path(directory) / "snapshot.json"
+            snapshot.write_bytes(json.dumps({"generated_at": baseline["generated_at"], "stories": stories}).encode("utf-8"))
+            job = Path(directory) / "job"
+            run(snapshot, job, self.tools, self.discovery, FixtureRunner({"editor": replies}),
+                articles=FixtureArticles({}))
+            decisions = {row["id"]: row for row in json.loads(
+                (job / "quyet-dinh.json").read_text(encoding="utf-8"))["decisions"]}
+            editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
+        for story in stories:
+            expected_kind, analysis_kind = titles[story["title"]]
+            with self.subTest(title=story["title"]):
+                decision = decisions[story["id"]]
+                self.assertEqual(decision["content_kind"], expected_kind)
+                self.assertEqual(decision["decision"], "hold" if expected_kind == "junk" else "publish")
+                if expected_kind != "junk":
+                    self.assertEqual(decision["importance_tier"], "standard")
+                if expected_kind == "analysis":
+                    self.assertEqual(decision["analysis_kind"], analysis_kind)
+                    self.assertTrue(decision["tier_capped"])
+                    self.assertIsNone(editor[story["id"]]["event_at"])
+                if expected_kind == "event_news":
+                    self.assertIn("older than seven days", decision["reason"])
+                if expected_kind == "junk":
+                    self.assertEqual(decision["round"], "editor")
+        for phrase in ("event_news, analysis, or junk", "The absence of a new dated event alone does not make AI-focused analysis junk",
+                       "bare model or dataset card", "Show HN pitch or product landing page"):
+            self.assertIn(phrase, EDITOR_PROMPT)
+
+    def test_analysis_kind_is_recorded_when_editor_omits_subtype_after_retry(self):
+        story = next(row for row in fixture("baseline-150.json")["stories"]
+                     if row["title"] == "AI's Next Frontier: The Agent Economy")
+        sid = story["id"]
+        reply = {"id": sid, "news": True, "content_kind": "analysis", "junk_kind": None,
+                 "reason": "AI economy analysis", "subject": "AI", "event_type": "analysis",
+                 "importance": "standard", "event_at": None, "claims": [], "same_event_coverage_ids": []}
+        intake = {sid: {"pass": True, "reason": "pass"}}
+        reporter = {sid: {"selected_url": None, "representative_status": "unavailable", "source_text": "",
+                          "readable": False}}
+        editor, usage = _editor([story], intake, reporter, self.tools, self.discovery,
+                                FixtureRunner({"editor": {sid: reply}}))
+        self.assertEqual(len(usage), 2)
+        self.assertTrue(editor[sid]["invalid_response"])
+        self.assertEqual((editor[sid]["content_kind"], editor[sid]["analysis_kind"]), ("analysis", "analysis"))
+        decision = _chief([story], intake, reporter, editor, {sid: {"supported_claims": []}},
+                          datetime(2026, 10, 26, tzinfo=timezone.utc))[0]
+        self.assertEqual((decision["decision"], decision["importance_tier"], decision["analysis_kind"]),
+                         ("publish", "standard", "analysis"))
 
 
 if __name__ == "__main__":

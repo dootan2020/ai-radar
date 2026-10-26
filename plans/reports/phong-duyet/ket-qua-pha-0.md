@@ -1,6 +1,6 @@
 # Phòng báo pha 0: khung chạy tay và kiểm chứng offline
 
-Khung năm bàn đã chạy trọn trên fixture pha A. Lượt live đầu có rác lọt **0/54** và tin tốt giữ nhầm **52/96**; lượt live sau sửa vòng 6 đảo chiều thành rác lọt **20/54 (37%)** và tin tốt giữ nhầm **1/96 (1%)**. Bản sửa hiện tại được kiểm chứng offline; chưa có phép chấm live sau sửa. Cả hai lượt live đều chưa đồng thời đạt ngưỡng rác lọt ≤2% và giữ nhầm ≤10%.
+Khung năm bàn đã chạy trọn trên fixture pha A. Lượt live đầu có rác lọt **0/54** và tin tốt giữ nhầm **52/96**; lượt sau vòng 6 có **20/54 (37%)** và **1/96 (1%)**. Lượt sau vòng 7 có **2/54 rác lọt (3,7%)** và **22/96 tin tốt giữ nhầm (22,9%)**. Chưa lượt live nào đồng thời đạt ngưỡng rác lọt ≤2% và giữ nhầm ≤10%.
 
 ## Kết quả giao
 
@@ -45,6 +45,24 @@ Test offline đưa toàn bộ 28 row của raw reply đầu qua editor và chief
 
 Kiểm chứng bản sửa hiện tại: `python -m unittest tests.test_phong_bao` → `Ran 32 tests in 0.721s`, `OK`; `python -m unittest discover -s tests` → `Ran 1398 tests in 246.815s`, `OK (skipped=8)`. Cả hai exit 0.
 
+## Lượt live sau vòng 7 và hiệu chỉnh ba loại nội dung
+
+Lucy đo lại từ editor ngày 27/10 khoảng 02:1x ICT: **2/54 rác lọt (3,7%, ngưỡng ≤2%)** và **22/96 tin tốt giữ nhầm (22,9%, ngưỡng ≤10%)**. Editor giữ 21 trong 22 tin tốt; editor và checker mỗi bàn chạy 4 batch, dùng lần lượt khoảng **190.000** và **65.000 input token**. Hai rác lọt là model card trơ `InternScience/Sage-A1.5` và trang chào sản phẩm Vortex Code.
+
+Nguyên nhân chính là prompt editor chỉ có hai ngả “news event” và “junk”. Phần lớn tin tốt bị giữ là phân tích, phỏng vấn, podcast, bình luận hoặc khảo sát về AI không có một sự kiện định ngày. Hợp đồng editor nay phân biệt `event_news`, `analysis` và `junk`; `analysis_kind` ghi kiểu bài. Chief publish phân tích ở standard ngay cả khi editor đề xuất hạng cao hơn. Launch có thật quá bảy ngày vẫn là `event_news` ở standard; `stale_content` chỉ dành cho cùng bài cũ đăng lại mà không có cập nhật. Prompt nêu rõ trang bán hàng hoặc Show HN chỉ là pitch, và model/dataset card trơ không có thông báo, là rác; một release có tài liệu thực chất vẫn có thể là tin dù nằm trên Hugging Face hoặc Show HN.
+
+Test offline chọn tám case có thật từ bộ 150: ba bài phân tích/khảo sát, ba launch cũ được gắn nhãn tốt, và hai rác lọt. Một test thêm kiểm subtype phân tích vẫn được ghi sau retry lỗi. Test dùng nhãn để kiểm kỳ vọng và reply fixture để kiểm đường đi editor → chief; nó **không đo** hành vi model trên 150 story. Lucy cần chạy lại editor/checker/chief và evaluation để xác nhận hai ngưỡng live.
+
+Kiểm chứng bản cuối: `python -m unittest tests.test_phong_bao` → `Ran 34 tests in 0.778s`, `OK`; `python -m unittest discover -s tests` → `Ran 1400 tests in 245.696s`, `OK (skipped=8)`. Cả hai exit 0.
+
+## Sửa rò rỉ tiêu đề trong prompt
+
+Prompt editor của vòng 7 và 8 đã đưa tiêu đề hoặc dấu hiệu nhận diện các story trong chính bộ 150 tin vào lời hướng dẫn. Vì thế điểm vòng 7 và 8 trên bộ này **bị thổi phồng một phần bởi rò rỉ đáp án**; các con số ghi trên là lịch sử chạy, không phải ước lượng độc lập đáng tin cậy. Vòng 8 chưa có lượt đo model mới sau khi đổi hợp đồng ba loại nội dung.
+
+Prompt hiện tại chỉ nêu quy tắc phân loại tổng quát. Test hồi quy đối chiếu tất cả hằng prompt trong `phong_bao/newsroom.py` với tiêu đề của `baseline-150.json` và `nhan-tin-261026.json`, chặn cụm ba từ có nghĩa liên tiếp hoặc model ID trùng. Test này đã thất bại với prompt cũ trước khi sửa. Các case thật vẫn nằm trong test để kiểm hợp đồng editor/chief, không đưa vào prompt. Cần đánh giá lại bằng dữ liệu chưa từng lộ tiêu đề trong prompt để có số đo chất lượng công bằng.
+
+Kiểm chứng sau sửa: `python -m unittest tests.test_phong_bao` → `Ran 35 tests in 0.915s`, `OK`; `python -m unittest discover -s tests` → `Ran 1401 tests in 258.178s`, `OK (skipped=8)`. Cả hai exit 0.
+
 ## Lệnh Lucy chạy thật
 
 Chạy từ gốc worktree. `discover` chỉ kiểm tra sự hiện diện và nhiên liệu; nó không bắn thử boat:
@@ -71,7 +89,7 @@ Script chấm lỗi nếu thiếu ID hoặc vượt một trong hai ngưỡng. `
 
 1. Gemini API có profile đúng trần **20 USD/tháng** nhưng runner cố ý disabled: quy tắc owner của phiên này chỉ cho model work trên subscription đã cấp. Muốn dùng paid API thật cần chủ sở hữu cho phép riêng và có adapter kiểm ngân sách trước mỗi request. Trần X **30 USD/tháng** không đổi.
 2. Registry có thể nhận một plugin hoặc key mới chỉ bằng file profile, nhưng bàn ảnh/video và một paid adapter chưa thuộc pha 0. Công cụ mới được thấy mà chưa có profile sẽ không được gọi.
-3. Lượt live sau vòng 6 đạt ngưỡng giữ nhầm nhưng vượt ngưỡng rác lọt. Lucy cần chạy lại editor/checker/chief và chấm đủ 150 tin trước khi kết luận bản sửa đạt cả hai ngưỡng; usage mới cũng chưa được đo. Vài trang redirect vẫn bị parser `radar` báo chưa đọc được; phóng viên tìm nguồn độc lập, không tự vượt redirect khi chưa kiểm robots ở đích.
+3. Lượt live sau vòng 7 vượt cả hai ngưỡng. Lucy cần chạy lại editor/checker/chief và chấm đủ 150 tin trước khi kết luận bản hiệu chỉnh ba loại nội dung đạt ngưỡng; usage của bản mới chưa được đo. Vài trang redirect vẫn bị parser `radar` báo chưa đọc được; phóng viên tìm nguồn độc lập, không tự vượt redirect khi chưa kiểm robots ở đích.
 
 ## Nguồn quyết định
 
