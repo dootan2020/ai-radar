@@ -35,8 +35,10 @@ from radar.common import clean_text, iso_date, web_url
 from radar.feeds import parse_feed
 from radar.items import relevant
 from radar.transport import MAX_BYTES, USER_AGENT, ResponseText
+from radar.vn_origin import classify_origin_item
 
 FETCH_TIMEOUT = 10
+LIVE_FEED_URL = "https://radar-ai-vn.pages.dev/data/radar-ui.json"
 GDELT_MIN_INTERVAL = 6.0
 VALID_KINDS = ("fixed feed", "query", "signal")
 
@@ -599,7 +601,10 @@ def parse_generic_feed(text, candidate):
     if not text or not str(text).strip():
         return [], None, "Empty content"
     try:
-        raw_items = parse_feed(text, {"id": candidate["id"], "lab": ""})
+        raw_items = parse_feed(text, {
+            "id": candidate["id"], "lab": "",
+            "default_tz": candidate.get("default_tz"),
+        })
         if raw_items is not None:
             items = []
             for it in raw_items:
@@ -607,12 +612,15 @@ def parse_generic_feed(text, candidate):
                 url = web_url(it.get("url") or "")
                 published_at = parse_date_safely(it.get("published_at"))
                 if title and url:
-                    items.append({
+                    item = {
                         "title": title,
                         "url": url,
                         "publisher": candidate.get("name", candidate["id"]),
                         "published_at": published_at,
-                    })
+                    }
+                    if candidate.get("origin_trial"):
+                        item["summary"] = clean_text(it.get("summary") or "")
+                    items.append(item)
             return items, {"item_count": len(items)}, None
     except Exception as err:
         return [], None, f"Feed parse error: {err}"
@@ -794,7 +802,8 @@ def load_shadow_candidates(candidates_path=None, watchlist_path=None, include_wa
     return candidates
 
 
-def collect_candidate(candidate, fetch_fn=None, robots_cache=None, check_robots_policy=True):
+def collect_candidate(candidate, fetch_fn=None, robots_cache=None, check_robots_policy=True,
+                      live_stories=None):
     """Collect data from a single candidate source following politeness boundaries.
 
     Makes at most 1 HTTP request for candidate content (plus cached robots.txt if needed).
@@ -816,6 +825,7 @@ def collect_candidate(candidate, fetch_fn=None, robots_cache=None, check_robots_
     if robots_info["disallowed"]:
         return {
             "candidate_id": cand_id,
+            "origin_trial": bool(candidate.get("origin_trial")),
             "name": cand_name,
             "kind": cand_kind,
             "request_time": req_time_iso,
@@ -869,6 +879,10 @@ def collect_candidate(candidate, fetch_fn=None, robots_cache=None, check_robots_
 
         parsed_items, parsed_numbers, parse_err = parser_func(resp_text, candidate)
         items = parsed_items or []
+        if candidate.get("origin_trial"):
+            for item in items:
+                item["vn_origin"] = classify_origin_item(
+                    item, live_stories, vietnamese_language=candidate.get("origin_language") == "vi")
         numbers = parsed_numbers
         if parse_err and not error:
             error = parse_err
@@ -877,6 +891,7 @@ def collect_candidate(candidate, fetch_fn=None, robots_cache=None, check_robots_
 
     return {
         "candidate_id": cand_id,
+        "origin_trial": bool(candidate.get("origin_trial")),
         "name": cand_name,
         "kind": cand_kind,
         "request_time": req_time_iso,
@@ -894,6 +909,18 @@ def collect_all(candidates, fetch_fn=None, delay=0.25, check_robots_policy=True)
     robots_cache = {}
     records = []
     last_gdelt_time = 0.0
+    live_stories = None
+    if any(candidate.get("origin_trial") for candidate in candidates):
+        if not check_robots_policy or check_robots(
+                LIVE_FEED_URL, fetch_fn=fetch_fn, robots_cache=robots_cache)["allowed"]:
+            try:
+                response = (fetch_fn or default_fetch)(LIVE_FEED_URL)
+                if getattr(response, "status", None) == 200 and not getattr(response, "error", None):
+                    payload = json.loads(str(response))
+                    if isinstance(payload, dict) and isinstance(payload.get("stories"), list):
+                        live_stories = payload["stories"]
+            except (OSError, TypeError, ValueError):
+                pass
 
     started_at = format_iso_utc()
     total = len(candidates)
@@ -914,6 +941,7 @@ def collect_all(candidates, fetch_fn=None, delay=0.25, check_robots_policy=True)
             fetch_fn=fetch_fn,
             robots_cache=robots_cache,
             check_robots_policy=check_robots_policy,
+            live_stories=live_stories,
         )
         records.append(record)
 
