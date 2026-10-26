@@ -64,14 +64,16 @@ def main(argv=None):
         if not isinstance(stored_failures, dict):
             stored_failures = {}
         article_failures = {
-            key: {"reason": value["reason"], "time": value["time"]}
+            key: {field: value[field] for field in ("reason", "time", "validator") if field in value}
             for key, value in stored_failures.items()
             if isinstance(key, str)
             and re.fullmatch(r"[0-9a-f]{64}", key)
             and isinstance(value, dict)
-            and set(value) == {"reason", "time"}
+            and set(value) in ({"reason", "time"}, {"reason", "time", "validator"})
             and value.get("reason") in {"robots", "redirect", "non_html", "too_short", "paywall", "error", "input_limit", "validation_rejected", "generation_failed"}
             and isinstance(value.get("time"), (int, float))
+            and ("validator" not in value or (value["reason"] == "validation_rejected"
+                 and value["validator"] == summary_pipeline.VALIDATION_FAILURE_CACHE_TAG))
         }
     except (OSError, ValueError):
         article_failures = {}

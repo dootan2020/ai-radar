@@ -96,6 +96,15 @@ def number_error(text, evidence):
 
 def entity_error(text, evidence):
     from radar.summary_pipeline import VN_GRAMMAR_CAPS
+    # A translated proper name is grounded only when its source name occurs in
+    # the cited evidence. Remove the whole rendering before token checks.
+    for source, vietnamese in (
+        ("Silicon Valley", "Thung lũng Silicon"),
+        ("European Union", "Liên minh châu Âu"),
+        ("United States", "Hoa Kỳ"),
+    ):
+        if re.search(r"(?<!\w)" + re.escape(source) + r"(?!\w)", evidence, re.I):
+            text = re.sub(r"(?<!\w)" + re.escape(vietnamese) + r"(?!\w)", " ", text, flags=re.I)
     # Tokenize both sides identically: GPU. and **GPU** are the same proper noun.
     tokens = re.findall(r"\b[A-Za-z][A-Za-z0-9]*(?:[.+-][A-Za-z0-9]+)*\b", evidence.casefold())
     allowed = set(tokens)
