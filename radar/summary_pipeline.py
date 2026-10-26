@@ -709,6 +709,13 @@ def summarize_payload(payload: dict,
     }
 
     request_now = now() if callable(now) else now
+    def publish_stats():
+        if config.paid:
+            boost = gemini_paid_budget.boost_usage(gemini_paid_budget.ledger_path(), now=request_now)
+            if boost is not None:
+                stats["paid_boost"] = boost
+        payload["summary"] = stats
+
     restored = set()
     eligible_ids = {id(story) for story in eligible_stories}
     for story in stories:
@@ -741,7 +748,7 @@ def summarize_payload(payload: dict,
                 restored.add(id(story))
     if eligible_stories and len(restored) == len(eligible_stories):
         stats["status"] = "cache"
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
     reserve_script = not config.paid and summary_budget.is_script_reserve_active(
         now=request_now, script_path=script_path, ledger_path=ledger_path)
@@ -764,7 +771,7 @@ def summarize_payload(payload: dict,
         stats["error"] = gate_error
         stats["pending"] = len(eligible_stories) - stats["cache_hits"]
         stats["status"] = "partial" if stats["cache_hits"] else "failed"
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
     stats["status"] = "failed"
 
@@ -773,7 +780,7 @@ def summarize_payload(payload: dict,
         stats["error"] = "time_budget"
         stats["pending"] = len(eligible_stories)
         stats["status"] = "failed"
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
 
     # Read in ranking order; a paid summary-quota refusal may advance to a smaller story.
@@ -917,14 +924,14 @@ def summarize_payload(payload: dict,
             stats["status"] = "partial" if stats["cache_hits"] else "failed"
         else:
             stats["status"] = "partial" if stats["skipped"] else ("cache" if stats["cache_hits"] else "ok")
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
 
     if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
         stats["error"] = "time_budget"
         stats["pending"] = len(eligible_stories) - (stats["cache_hits"] + stats["summarized"])
         stats["status"] = "partial" if stats["cache_hits"] else "failed"
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
 
     # Prepare batch of stories to request
@@ -942,7 +949,7 @@ def summarize_payload(payload: dict,
         stats["error"] = "input_limit"
         stats["status"] = "partial" if stats["cache_hits"] else "failed"
         stats["pending"] = len(eligible_stories) - stats["cache_hits"]
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
 
     # Reserve budget in ledger
@@ -968,7 +975,7 @@ def summarize_payload(payload: dict,
         stats["error"] = reserve_err
         stats["pending"] = len(eligible_stories) - stats["cache_hits"]
         stats["status"] = "failed"
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
 
     # Execute REST request
@@ -1056,5 +1063,5 @@ def summarize_payload(payload: dict,
     else:
         stats["status"] = "ok" if pending_count == 0 else "partial"
 
-    payload["summary"] = stats
+    publish_stats()
     return stats, alive
