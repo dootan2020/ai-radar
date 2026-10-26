@@ -488,9 +488,12 @@ class NewsroomTests(unittest.TestCase):
         self.assertEqual(reporter[failing["reporter"]]["reason"], "reporter_model_failure")
         self.assertTrue(editor[failing["editor"]]["invalid_response"])
         self.assertEqual(editor[failing["editor"]]["reason"], "editor_model_failure")
-        self.assertEqual(decisions[failing["editor"]]["importance_tier"], "standard")
+        self.assertEqual(decisions[failing["editor"]]["decision"], "hold")
+        self.assertEqual(decisions[failing["editor"]]["reason"], "editor_model_failure")
         self.assertTrue(checker[failing["checker"]]["invalid_response"])
         self.assertEqual(checker[failing["checker"]]["reason"], "checker_model_failure")
+        self.assertEqual(decisions[failing["checker"]]["decision"], "publish")
+        self.assertEqual(decisions[failing["checker"]]["summary"], "none")
         self.assertEqual(decisions[failing["checker"]]["importance_tier"], "standard")
 
     def test_whole_model_desk_failure_still_stops_job(self):
@@ -594,11 +597,14 @@ class NewsroomTests(unittest.TestCase):
                 run(FIXTURES / "snapshot.json", job, self.tools, self.discovery, runner,
                     articles=self.articles, through="reporter", rerun_from="editor")
 
-    def test_intake_passes_old_launch_and_chief_demotes_older_tier(self):
+    def test_intake_holds_launch_older_than_30_days_and_passes_28_day_launch(self):
         now = datetime(2026, 10, 26, tzinfo=timezone.utc)
         story = {"id": "old", "title": "OpenAI launches a new AI model", "url": "https://example.org/news",
                  "published_at": (now - timedelta(days=31)).isoformat(), "summary": "OpenAI model release"}
-        self.assertTrue(_intake([story], now)["old"]["pass"])
+        self.assertFalse(_intake([story], now)["old"]["pass"])
+        self.assertIn("over 30 days old", _intake([story], now)["old"]["reason"])
+        recent = {**story, "id": "recent", "published_at": (now - timedelta(days=28)).isoformat()}
+        self.assertTrue(_intake([recent], now)["recent"]["pass"])
         decisions = _chief([story], {"old": {"pass": True, "reason": "pass"}},
                            {"old": {"readable": True, "selected_url": story["url"], "reason": "pass"}},
                            {"old": {"news": True, "reason": "pass", "importance": "top",
@@ -607,6 +613,25 @@ class NewsroomTests(unittest.TestCase):
                            {"old": {"verified": True, "reason": "pass"}}, now)
         self.assertEqual(decisions[0]["decision"], "publish")
         self.assertEqual(decisions[0]["importance_tier"], "standard")
+
+    def test_desk_budget_marks_unanswered_cards_without_calling_runner(self):
+        stories = [{"id": "a"}, {"id": "b"}]
+
+        class NeverCalledRunner:
+            calls = 0
+
+            def run(self, *args):
+                self.calls += 1
+                raise AssertionError("runner called after desk budget expired")
+
+        runner = NeverCalledRunner()
+        with patch.object(newsroom.time, "monotonic", return_value=10.0):
+            result, events = _agent_desk("editor", stories, EDITOR_PROMPT, "bien-tap", self.tools,
+                                         self.discovery, runner, deadline=9.0)
+        self.assertEqual(runner.calls, 0)
+        self.assertEqual(set(result), {"a", "b"})
+        self.assertTrue(all(row["model_failure"] for row in result.values()))
+        self.assertIn("budget_exhausted", {row["event"] for row in events})
 
     def test_changelog_fragments_are_distinct_events(self):
         first = "https://platform.openai.com/docs/changelog#20260826-29"

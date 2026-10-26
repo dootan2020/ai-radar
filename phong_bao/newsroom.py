@@ -6,6 +6,7 @@ import gzip
 import hashlib
 import json
 import re
+import time
 import urllib.parse
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -19,13 +20,14 @@ from radar.summary_validation import number_error
 from radar import shadow_collector, transport
 
 from .registry import providers
-from .runner import AdmissionError, RunnerError
+from .runner import AdmissionError, CLIRunner, RunnerError
 
 DESKS = ("intake", "reporter", "editor", "checker", "chief")
 BATCH_SIZE = 32
 MAX_BATCH_CHARS = 60_000
 ARGUMENT_BATCH_CHARS = 24_000
 ARTICLE_LIMIT = 3200
+DEFAULT_DESK_BUDGET_SECONDS = 20 * 60
 REPORTER_EXCERPT_LIMIT = 900
 EDITOR_EXCERPT_LIMIT = 1200
 JUNK_KINDS = {"non_news_page", "vendor_sales", "customer_case_study", "tutorial", "incidental_ai", "mis_merged_cluster", "stale_content"}
@@ -168,6 +170,8 @@ def _intake(stories, now):
             reason = "missing reliable publication date"
         elif date > now + timedelta(days=1):
             reason = "publication date is in the future"
+        elif date < now - timedelta(days=30):
+            reason = "original event is over 30 days old without a verified update"
         elif press_subject_reason(
                 story.get("title"), story.get("summary")) in {
                     "drop-title-aside", "drop-incidental-consumer-subject", "drop-summary-aside"}:
@@ -190,7 +194,7 @@ def _batches(rows, max_chars=MAX_BATCH_CHARS):
 
 
 def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner, *, boat_exclude=(), raw_dir=None,
-                require_success=True):
+                require_success=True, deadline=None):
     candidates = [tool for tool in providers(capability, tools, discovery, boat_exclude=boat_exclude)
                   if tool.get("runner") == "batch-cli"]
     if not candidates:
@@ -216,12 +220,28 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
         provider = candidates[index]
         limit = ARGUMENT_BATCH_CHARS if provider.get("prompt_transport") == "argument" else MAX_BATCH_CHARS
         for part in _batches(batch, limit):
+            if deadline is not None and time.monotonic() >= deadline:
+                for row in part:
+                    output[row["id"]] = {"id": row["id"], "model_failure": True,
+                                          "provider": None, "boat": None}
+                record("budget_exhausted", part, provider)
+                continue
             try:
-                result = runner.run(desk, part, provider, instruction)
+                if deadline is not None and isinstance(runner, CLIRunner):
+                    result = runner.run(desk, part, provider, instruction,
+                                       timeout=max(0.001, deadline - time.monotonic()))
+                else:
+                    result = runner.run(desk, part, provider, instruction)
             except AdmissionError:
                 raise
             except RunnerError as error:
                 if index + 1 == len(candidates):
+                    if deadline is not None and time.monotonic() >= deadline:
+                        for row in part:
+                            output[row["id"]] = {"id": row["id"], "model_failure": True,
+                                                  "provider": None, "boat": None}
+                        record("budget_exhausted", part, provider, error)
+                        continue
                     if len(part) > 1:
                         record("split", part, provider, error)
                         middle = len(part) // 2
@@ -244,14 +264,15 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
 
     for batch in _batches(payload):
         send(batch)
-    if payload and require_success and all(row.get("model_failure") for row in output.values()):
+    budget_exhausted = any(row.get("event") == "budget_exhausted" for row in batches)
+    if payload and require_success and not budget_exhausted and all(row.get("model_failure") for row in output.values()):
         error = RunnerError(f"{desk}: all model calls failed")
         error.events = batches
         raise error
     return output, batches
 
 
-def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_dir=None):
+def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_dir=None, deadline=None):
     readers = providers("doc-bai", tools, discovery)
     searchers = providers("tim-kiem", tools, discovery)
     if not any(tool.get("runner") == "http-fetch" for tool in readers):
@@ -292,7 +313,7 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
             payload.append({"id": story["id"], "title": story["title"], "published_at": story.get("published_at"),
                             "representative_url": story["url"], "representative_status": statuses[story["id"]],
                             "candidates": [{**candidate, "text": candidate["text"][:REPORTER_EXCERPT_LIMIT]} for candidate in candidates]})
-    replies, usage = _agent_desk("reporter", payload, REPORTER_PROMPT, "doc-bai", tools, discovery, runner, raw_dir=raw_dir) if payload else ({}, [])
+    replies, usage = _agent_desk("reporter", payload, REPORTER_PROMPT, "doc-bai", tools, discovery, runner, raw_dir=raw_dir, deadline=deadline) if payload else ({}, [])
     def invalid_reply(row):
         return bool(row and (row.get("model_failure") or type(row.get("same_event")) is not bool or
                              (row.get("selected_url") is not None and not isinstance(row.get("selected_url"), str))))
@@ -301,7 +322,7 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
                      and not replies[item["id"]].get("model_failure")]
     if retry_payload:
         retry, retry_usage = _agent_desk("reporter", retry_payload, REPORTER_PROMPT, "doc-bai", tools,
-                                         discovery, runner, raw_dir=raw_dir, require_success=False)
+                                             discovery, runner, raw_dir=raw_dir, require_success=False, deadline=deadline)
         replies.update(retry)
         usage.extend(retry_usage)
     output = {}
@@ -343,7 +364,7 @@ def _editor_news_fields_valid(row, coverage_ids, *, require_importance=True):
                 and (row.get("content_kind") != "analysis" or row.get("analysis_kind") in ANALYSIS_KINDS))
 
 
-def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
+def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None, deadline=None):
     payload = []
     for story in stories:
         if not intake[story["id"]]["pass"]:
@@ -356,7 +377,7 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
                         "source_url": reporter[story["id"]]["selected_url"],
                         "source_status": reporter[story["id"]]["representative_status"],
                         "source_excerpt": reporter[story["id"]]["source_text"][:EDITOR_EXCERPT_LIMIT]})
-    replies, usage = _agent_desk("editor", payload, EDITOR_PROMPT, "bien-tap", tools, discovery, runner, raw_dir=raw_dir) if payload else ({}, [])
+    replies, usage = _agent_desk("editor", payload, EDITOR_PROMPT, "bien-tap", tools, discovery, runner, raw_dir=raw_dir, deadline=deadline) if payload else ({}, [])
     coverage_by_id = {story["id"]: {c["id"] for c in story.get("coverage") or []
                                     if isinstance(c, dict) and isinstance(c.get("id"), str)} for story in stories}
 
@@ -371,7 +392,7 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
     retry_payload = [item for item in payload if needs_retry(replies.get(item["id"]), item["id"])]
     if retry_payload:
         retry, retry_usage = _agent_desk("editor", retry_payload, EDITOR_PROMPT, "bien-tap", tools,
-                                         discovery, runner, raw_dir=raw_dir, require_success=False)
+                                         discovery, runner, raw_dir=raw_dir, require_success=False, deadline=deadline)
         replies.update(retry)
         usage.extend(retry_usage)
     output = {}
@@ -390,7 +411,7 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
                                                  (row and row.get("model_failure"))))
         is_junk = bool(news is False or (row and row.get("content_kind") == "junk")
                        or sid in junk_hints or (type(news) is not bool and junk_kind))
-        is_news = not is_junk and (news is True or invalid)
+        is_news = not (row and row.get("model_failure")) and not is_junk and (news is True or invalid)
         same = row.get("same_event_coverage_ids") if usable_news_fields else []
         representative_ids = {c["id"] for c in story.get("coverage") or [] if isinstance(c, dict) and isinstance(c.get("id"), str)
                               and _same_rep_url(c.get("url"), story.get("url"))}
@@ -413,7 +434,7 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None):
     return output, usage
 
 
-def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_dir=None):
+def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_dir=None, deadline=None):
     def cited_paragraphs(text, title, claims):
         paragraphs = [part.strip()[offset:offset + 400]
                       for part in text.splitlines() if len(part.strip()) >= 35
@@ -437,7 +458,7 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
     replies, usage = {}, []
     for boat, payload in payload_by_boat.items():
         group_replies, group_usage = _agent_desk("checker", payload, CHECKER_PROMPT, "kiem-chung", tools, discovery, runner,
-                                                 boat_exclude={boat}, raw_dir=raw_dir, require_success=False)
+                                                 boat_exclude={boat}, raw_dir=raw_dir, require_success=False, deadline=deadline)
         replies.update(group_replies)
         usage.extend(group_usage)
     def invalid_reply(row, boat):
@@ -451,10 +472,11 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
         if retry_payload:
             retry, retry_usage = _agent_desk("checker", retry_payload, CHECKER_PROMPT, "kiem-chung", tools,
                                              discovery, runner, boat_exclude={boat}, raw_dir=raw_dir,
-                                             require_success=False)
+                                             require_success=False, deadline=deadline)
             replies.update(retry)
             usage.extend(retry_usage)
-    if payload_by_boat and all(row.get("model_failure") for row in replies.values()):
+    budget_exhausted = any(row.get("event") == "budget_exhausted" for row in usage)
+    if payload_by_boat and not budget_exhausted and all(row.get("model_failure") for row in replies.values()):
         error = RunnerError("checker: all model calls failed")
         error.events = usage
         raise error
@@ -488,6 +510,7 @@ def _chief(stories, intake, reporter, editor, checker, now):
     for story in stories:
         sid = story["id"]
         gate = (("intake", intake[sid]["reason"]) if not intake[sid]["pass"] else
+                ("editor", editor[sid]["reason"]) if editor[sid].get("reason") == "editor_model_failure" else
                 ("editor", editor[sid]["reason"]) if not editor[sid]["news"] else None)
         tier = editor[sid]["importance"] if editor[sid]["importance"] in IMPORTANCE_TIERS else "standard"
         original_at = instant(story.get("published_at"))
@@ -547,7 +570,10 @@ def _chief(stories, intake, reporter, editor, checker, now):
     return output
 
 
-def run(input_path, job, tools, discovery, runner, *, through="chief", articles=None, corpus_path=None, rerun_from=None):
+def run(input_path, job, tools, discovery, runner, *, through="chief", articles=None, corpus_path=None, rerun_from=None,
+        desk_budget_seconds=DEFAULT_DESK_BUDGET_SECONDS):
+    if desk_budget_seconds <= 0:
+        raise ValueError("desk budget must be positive")
     generated_at, stories = load_stories(input_path)
     now = instant(generated_at) or datetime.now(timezone.utc)
     job = Path(job)
@@ -574,16 +600,17 @@ def run(input_path, job, tools, discovery, runner, *, through="chief", articles=
             state[desk] = json.loads(path.read_text(encoding="utf-8"))
             continue
         status["desks"][desk] = {"state": "running", "started_at": datetime.now(timezone.utc).isoformat()}
+        deadline = time.monotonic() + desk_budget_seconds
         _write_json(status_path, status)
         try:
             if desk == "intake":
                 output, usage = _intake(stories, now), []
             elif desk == "reporter":
-                output, usage = _reporter(stories, state["intake"], articles, tools, discovery, runner, corpus, job / "raw")
+                output, usage = _reporter(stories, state["intake"], articles, tools, discovery, runner, corpus, job / "raw", deadline)
             elif desk == "editor":
-                output, usage = _editor(stories, state["intake"], state["reporter"], tools, discovery, runner, job / "raw")
+                output, usage = _editor(stories, state["intake"], state["reporter"], tools, discovery, runner, job / "raw", deadline)
             elif desk == "checker":
-                output, usage = _checker(stories, state["intake"], state["reporter"], state["editor"], tools, discovery, runner, job / "raw")
+                output, usage = _checker(stories, state["intake"], state["reporter"], state["editor"], tools, discovery, runner, job / "raw", deadline)
             else:
                 output, usage = _chief(stories, state["intake"], state["reporter"], state["editor"], state["checker"], now), []
             _write_json(path, output)
@@ -592,7 +619,8 @@ def run(input_path, job, tools, discovery, runner, *, through="chief", articles=
                                       "count": len(output),
                                       "invalid_rows": sum(bool(row.get("invalid_response")) for row in (output.values() if isinstance(output, dict) else output)),
                                       "splits": sum(row.get("event") == "split" for row in usage),
-                                      "model_failures": [sid for row in usage if row.get("event") == "failure" for sid in row["ids"]],
+                                      "budget_exhausted": any(row.get("event") == "budget_exhausted" for row in usage),
+                                      "model_failures": [sid for row in usage if row.get("event") in {"failure", "budget_exhausted"} for sid in row["ids"]],
                                       "events": [row for row in usage if row.get("event")],
                                       "batches": [row for row in usage if not row.get("event")]}
             if desk == "chief":
@@ -603,7 +631,7 @@ def run(input_path, job, tools, discovery, runner, *, through="chief", articles=
             if hasattr(error, "events"):
                 events = error.events
                 status["desks"][desk].update({"splits": sum(row.get("event") == "split" for row in events),
-                                                "model_failures": [sid for row in events if row.get("event") == "failure"
+                                                "model_failures": [sid for row in events if row.get("event") in {"failure", "budget_exhausted"}
                                                                    for sid in row["ids"]],
                                                 "events": [row for row in events if row.get("event")],
                                                 "batches": [row for row in events if not row.get("event")]})

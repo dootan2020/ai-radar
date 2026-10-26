@@ -65,11 +65,13 @@ Kiểm chứng sau sửa: `python -m unittest tests.test_phong_bao` → `Ran 35 
 
 ## Cập nhật vòng 10
 
-Lượt holdout độc lập do Lucy đo trên 100 tin cho thấy **0/23 rác lọt** và **12/77 tin tốt giữ nhầm (15,6%)**, trong đó intake giữ bốn tin tốt. Đây là số đo trước sửa vòng 10; chưa có phép đo live sau sửa.
+Lượt holdout độc lập sau vòng 10 do Lucy đo trên 100 tin cho thấy **10/23 rác lọt (43%)** và **7/77 tin tốt giữ nhầm (9,1%)**. So với vòng 9, intake bỏ hold của bài gốc quá 30 ngày đã làm tăng rác lọt; mốc 7–30 ngày vẫn là publish ở standard. Đây là số đo trước sửa vòng 11; chưa có phép đo live sau sửa.
 
-Lỗi timeout 600 giây của agy trước đây làm dừng cả job 150 tin. Runner giờ chia batch lỗi thành hai nửa cho tới từng card. Card vẫn lỗi được ghi trong `status.json` và `raw/`, rồi suy giảm qua reporter, editor hoặc checker. Cả desk không trả được card nào vẫn dừng job. Intake chuyển launch cũ và trường hợp chủ đề AI chưa rõ sang editor; chief hạ launch cũ về standard và editor quyết định bài đăng lại có thực sự stale hay không. Leak guard kiểm thêm holdout khi file đó tồn tại.
+Vòng 10 runner chia batch lỗi làm hai nửa cho tới từng card, nhưng mỗi call có thể chờ đủ 600 giây trước khi bắt đầu chia. Vòng 11 thêm budget wall-clock độc lập cho mỗi desk, mặc định 1.200 giây, cấu hình qua `--desk-budget-seconds`. CLI nhận timeout theo thời gian còn lại; khi budget hết, các card chưa có phản hồi được ghi model failure và desk không gửi thêm. Editor model failure giữ card với `editor_model_failure`; checker model failure vẫn publish degraded không summary. Intake giữ bài có ngày xuất bản gốc trên 30 ngày nếu không có cập nhật được xác minh; bài 7–30 ngày tiếp tục qua intake và chief hạ về standard.
 
-Test offline dùng fake runner, không gọi boat/model thật. Việc đạt ngưỡng giữ nhầm ≤10% cần Lucy đo lại trên tập độc lập sau khi cập nhật job.
+Test offline dùng fake runner, không gọi boat/model thật. Leak guard không đổi và không thêm dữ liệu từ holdout. Bản vòng 11 cần Lucy đo lại trên tập độc lập để xác nhận tỉ lệ rác lọt; phép thử hiện tại chưa phải số đo live.
+
+Kiểm chứng code vòng 11: `python -m unittest tests.test_phong_bao` → `Ran 40 tests in 0.999s`, `OK`; `python -m unittest discover -s tests` → `Ran 1406 tests in 244.782s`, `OK (skipped=8)`. Không chạy boat/model trong phiên này.
 
 ## Lệnh Lucy chạy thật
 

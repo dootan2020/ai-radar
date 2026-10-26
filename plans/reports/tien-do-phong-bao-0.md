@@ -98,3 +98,10 @@ Lucy chạy discovery live, năm lệnh bàn duyệt trên 150 story, rồi eval
 - Intake không giữ launch chỉ vì ngày đăng quá 30 ngày; chief vẫn hạ sự kiện cũ về standard. Intake chỉ giữ các trường hợp AI là lời nhắc phụ rõ ràng; card thiếu chứng cứ chủ đề, gồm release model và nghiên cứu machine learning, được chuyển tới editor phân loại.
 - Leak guard kiểm thêm tiêu đề từ holdout ngoài worktree nếu có, đồng thời kiểm source quy tắc intake bên cạnh mọi prompt. Test fake runner gây timeout ở reporter, editor, checker xác nhận run vẫn hoàn tất và đúng card bị suy giảm; test riêng xác nhận cả desk lỗi vẫn dừng. Không chạy boat/model hoặc sửa `phong-bao/jobs/`.
 - Kiểm chứng code cuối: `python -m unittest tests.test_phong_bao` → `Ran 39 tests in 0.929s`, `OK`; `python -m unittest discover -s tests` → `Ran 1405 tests in 245.090s`, `OK (skipped=8)`. Cả hai exit 0.
+
+## Round 11: giữ bài cũ, giới hạn thời gian desk và chặn editor lỗi
+
+- Intake giữ bài có ngày xuất bản gốc quá 30 ngày với lý do `original event is over 30 days old without a verified update`; bài 28 ngày vẫn qua intake và chief hạ về standard theo quy tắc hiện có. Leak guard không đổi và không thêm dấu hiệu từ các bài holdout.
+- Mỗi desk có budget riêng, mặc định 1.200 giây; `run(..., desk_budget_seconds=...)` và CLI `--desk-budget-seconds` cho phép cấu hình. Deadline được kiểm tra trước mỗi lần gửi/retry/chia batch; CLI nhận timeout bằng thời gian còn lại. Story chưa được trả lời sau khi hết budget ghi model failure và `budget_exhausted`, không gửi thêm. Budget cạn cho phép job ghi trạng thái desk và tiếp tục xử lý fail closed.
+- Editor model failure giữ card với `editor_model_failure`; checker model failure vẫn publish degraded không summary. Fake-runner regression xác nhận cả hai hành vi cùng với budget hết trước khi gọi runner.
+- Không chạy boat/model, không sửa `phong-bao/jobs/`. Kiểm chứng code cuối: `python -m unittest tests.test_phong_bao` → `Ran 40 tests in 0.999s`, `OK`; `python -m unittest discover -s tests` → `Ran 1406 tests in 244.782s`, `OK (skipped=8)`. Cả hai exit 0.
