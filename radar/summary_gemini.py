@@ -36,7 +36,8 @@ SYSTEM_INSTRUCTION = Path(__file__).with_name("summary-system-prompt.txt").read_
 
 # Upstream free-tier limits for gemini-3.8-flash (e.g. 15 RPM, 1,500 RPD, 1M TPM)
 # are unverified assumptions (no official source was consulted); conservative
-# application ceilings (12 req/24h, 25k tokens/24h) are maintained regardless.
+# application ceilings (12 req/24h, 25k tokens/24h) remain for free mode.
+# Paid calls use the durable USD and summary-token ledger instead.
 DEFAULT_TIMEOUT = 90.0
 MAX_TIMEOUT = 180.0
 
@@ -46,7 +47,7 @@ class Config:
     api_key: str = field(default="", repr=False)
     confirmed: bool = False
     paid: bool = False
-    max_requests: int = 1
+    max_requests: int = 128
     daily_requests_limit: int = 12
     daily_tokens_limit: int = 25000
     batch_size: int = 1
@@ -54,7 +55,7 @@ class Config:
     timeout: float = DEFAULT_TIMEOUT
 
     def __post_init__(self):
-        for name, ceiling in (("max_requests", 1), ("daily_requests_limit", 12),
+        for name, ceiling in (("max_requests", 128 if self.paid else 1), ("daily_requests_limit", 12),
                               ("daily_tokens_limit", 25000), ("batch_size", 1),
                               ("max_chars", MAX_STORY_INPUT_CHARS)):
             value = getattr(self, name)

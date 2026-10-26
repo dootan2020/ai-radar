@@ -33,6 +33,7 @@ SUMMARY_RETRY_DELAY = 0.25
 DEFAULT_BUDGET = 180.0
 MIN_REQUEST_TIMEOUT = 3.0
 ARTICLE_FAILURE_TTL = 24 * 60 * 60
+VALIDATION_FAILURE_CACHE_TAG = "grounded-vietnamese-names"
 PAYWALL_TEXT = re.compile(
     r"\b(?:subscribe to (?:read|continue)|sign in to (?:read|continue)|"
     r"subscriber[- ]only|members[- ]only|unlock the full article|please subscribe)\b",
@@ -617,6 +618,79 @@ def summarize_payload(payload: dict,
 
     Returns (summary_stats, worker_alive).
     """
+    config = config or gemini.config_from_env()
+    if not config.paid:
+        return _summarize_once(
+            payload, cache, config=config, transport_fn=transport_fn,
+            article_fetch_fn=article_fetch_fn, article_failures=article_failures,
+            article_inputs=article_inputs, editor_picks=editor_picks,
+            ledger_path=ledger_path, script_path=script_path, budget=budget,
+            clock=clock, now=now)
+
+    started = clock()
+    article_failures = article_failures if article_failures is not None else {}
+    article_inputs = article_inputs if article_inputs is not None else {}
+    totals = None
+    remaining_stories = list(payload.get("stories") or [])
+    for _ in range(config.max_requests):
+        if totals is not None and totals["requests"] >= config.max_requests:
+            break
+        remaining = budget - (clock() - started)
+        if totals is not None and remaining < MIN_REQUEST_TIMEOUT:
+            totals["error"] = "time_budget"
+            break
+        processed = set()
+        stats, alive = _summarize_once(
+            {**payload, "stories": remaining_stories}, cache, config=config, transport_fn=transport_fn,
+            article_fetch_fn=article_fetch_fn, article_failures=article_failures,
+            article_inputs=article_inputs, editor_picks=editor_picks,
+            ledger_path=ledger_path, script_path=script_path, budget=remaining,
+            clock=clock, now=now, processed=processed,
+            request_limit=config.max_requests - (totals["requests"] if totals else 0))
+        remaining_stories = [story for story in remaining_stories if id(story) not in processed]
+        if totals is None:
+            totals = stats.copy()
+            totals["skipped_reasons"] = dict(stats["skipped_reasons"])
+            totals["rejected_reasons"] = list(stats["rejected_reasons"])
+        else:
+            for key in ("summarized", "requests", "candidates_tried", "reservations_refused",
+                        "settled_micros", "settled_tokens", "tokens", "rejected", "skipped",
+                        "trimmed", "input_chars", "input_bytes", "source_chars"):
+                totals[key] = totals.get(key, 0) + stats.get(key, 0)
+            for reason, count in stats["skipped_reasons"].items():
+                totals["skipped_reasons"][reason] = totals["skipped_reasons"].get(reason, 0) + count
+            totals["rejected_reasons"].extend(stats["rejected_reasons"])
+            totals["rejected_reasons"] = totals["rejected_reasons"][:10]
+            totals["pending"] = totals["stories"] - totals["cache_hits"] - totals["summarized"]
+            totals["error"] = stats["error"]
+            if "accounting_error" in stats:
+                totals["accounting_error"] = stats["accounting_error"]
+            if "paid_boost" in stats:
+                totals["paid_boost"] = stats["paid_boost"]
+        if alive or stats["error"] or not stats["requests"] or not totals["pending"] or not remaining_stories:
+            break
+    if totals is None:
+        return _summarize_once(
+            payload, cache, config=config, transport_fn=transport_fn,
+            article_fetch_fn=article_fetch_fn, article_failures=article_failures,
+            article_inputs=article_inputs, editor_picks=editor_picks,
+            ledger_path=ledger_path, script_path=script_path, budget=budget,
+            clock=clock, now=now)
+    totals["status"] = ("partial" if totals["summarized"] or totals["cache_hits"] else "failed") if totals["error"] else (
+        "partial" if totals["pending"] else "cache" if totals["cache_hits"] and not totals["summarized"] else "ok")
+    payload["summary"] = totals
+    return totals, alive
+
+
+def _summarize_once(payload: dict,
+                    cache: dict[str, dict],
+                    *, config: gemini.Config, transport_fn=None, article_fetch_fn=None,
+                    article_failures: dict | None = None, article_inputs: dict | None = None,
+                    editor_picks: list | None = None, ledger_path: str | None = None,
+                    script_path: str | None = None, budget: float = DEFAULT_BUDGET,
+                    clock=time.monotonic, now=None, processed: set | None = None,
+                    request_limit: int | None = None) -> tuple[dict, bool]:
+    """Run one bounded summary request, restoring approved cache entries first."""
     # Resolve the wall clock per call, not at import time: summarize.main
     # prunes the stamps written here with time.time(), so both must share it.
     now = time.time if now is None else now
@@ -709,6 +783,13 @@ def summarize_payload(payload: dict,
     }
 
     request_now = now() if callable(now) else now
+    def publish_stats():
+        if config.paid:
+            boost = gemini_paid_budget.boost_usage(gemini_paid_budget.ledger_path(), now=request_now)
+            if boost is not None:
+                stats["paid_boost"] = boost
+        payload["summary"] = stats
+
     restored = set()
     eligible_ids = {id(story) for story in eligible_stories}
     for story in stories:
@@ -718,6 +799,8 @@ def summarize_payload(payload: dict,
         if _restore_published(story, cache):
             stats["cache_hits"] += 1
             restored.add(id(story))
+            if processed is not None:
+                processed.add(id(story))
     # The article cache carries the exact evidence used for validation. It can
     # restore every later story even when the first uncached story cannot run.
     for story in eligible_stories:
@@ -739,9 +822,11 @@ def summarize_payload(payload: dict,
                 _save_published(story, cache)
                 stats["cache_hits"] += 1
                 restored.add(id(story))
+                if processed is not None:
+                    processed.add(id(story))
     if eligible_stories and len(restored) == len(eligible_stories):
         stats["status"] = "cache"
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
     reserve_script = not config.paid and summary_budget.is_script_reserve_active(
         now=request_now, script_path=script_path, ledger_path=ledger_path)
@@ -764,7 +849,7 @@ def summarize_payload(payload: dict,
         stats["error"] = gate_error
         stats["pending"] = len(eligible_stories) - stats["cache_hits"]
         stats["status"] = "partial" if stats["cache_hits"] else "failed"
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
     stats["status"] = "failed"
 
@@ -773,7 +858,7 @@ def summarize_payload(payload: dict,
         stats["error"] = "time_budget"
         stats["pending"] = len(eligible_stories)
         stats["status"] = "failed"
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
 
     # Read in ranking order; a paid summary-quota refusal may advance to a smaller story.
@@ -789,11 +874,18 @@ def summarize_payload(payload: dict,
         if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
             stats["error"] = "time_budget"
             break
+        if processed is not None:
+            processed.add(id(story))
         stats["candidates_tried"] += 1
         sid = story.get("id")
         url = article_url(story)
         url_hash = article_url_hash(url) if url else None
         remembered = article_failures.get(article_signature(story)) or (article_failures.get(url_hash) if url_hash else None)
+        if isinstance(remembered, dict):
+            if (remembered.get("reason") == "validation_rejected"
+                    and remembered.get("validator") != VALIDATION_FAILURE_CACHE_TAG):
+                article_failures.pop(article_signature(story), None)
+                remembered = None
         if remembered:
             failed_at = remembered.get("time") if isinstance(remembered, dict) else None
             if isinstance(failed_at, (int, float)) and 0 <= failure_now - failed_at < ARTICLE_FAILURE_TTL:
@@ -917,14 +1009,14 @@ def summarize_payload(payload: dict,
             stats["status"] = "partial" if stats["cache_hits"] else "failed"
         else:
             stats["status"] = "partial" if stats["skipped"] else ("cache" if stats["cache_hits"] else "ok")
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
 
     if budget - (clock() - started) < MIN_REQUEST_TIMEOUT:
         stats["error"] = "time_budget"
         stats["pending"] = len(eligible_stories) - (stats["cache_hits"] + stats["summarized"])
         stats["status"] = "partial" if stats["cache_hits"] else "failed"
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
 
     # Prepare batch of stories to request
@@ -942,7 +1034,7 @@ def summarize_payload(payload: dict,
         stats["error"] = "input_limit"
         stats["status"] = "partial" if stats["cache_hits"] else "failed"
         stats["pending"] = len(eligible_stories) - stats["cache_hits"]
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
 
     # Reserve budget in ledger
@@ -968,7 +1060,7 @@ def summarize_payload(payload: dict,
         stats["error"] = reserve_err
         stats["pending"] = len(eligible_stories) - stats["cache_hits"]
         stats["status"] = "failed"
-        payload["summary"] = stats
+        publish_stats()
         return stats, False
 
     # Execute REST request
@@ -979,7 +1071,7 @@ def summarize_payload(payload: dict,
     if config.paid:
         _record_paid_charge(stats, paid_charges, paid_reservation, estimated_toks, tokens, reserve_now)
     retry_now = None
-    if err and err.startswith("http_503:"):
+    if err and err.startswith("http_503:") and (request_limit is None or request_limit > 1):
         remaining_time = min(config.timeout, max(0.0, budget - (clock() - started)))
         if remaining_time > SUMMARY_RETRY_DELAY:
             time.sleep(SUMMARY_RETRY_DELAY)
@@ -1035,7 +1127,9 @@ def summarize_payload(payload: dict,
             else:
                 stats["rejected"] += 1
                 if story_info["url_hash"]:
-                    article_failures[article_signature(story_obj)] = {"reason": "validation_rejected", "time": reserve_now}
+                    article_failures[article_signature(story_obj)] = {
+                        "reason": "validation_rejected", "time": reserve_now,
+                        "validator": VALIDATION_FAILURE_CACHE_TAG}
                 for key in ("key_points", "key_points_machine", "key_points_source", "key_points_prompt_version"):
                     story_obj.pop(key, None)
                 if reason and len(stats["rejected_reasons"]) < 10:
@@ -1056,5 +1150,5 @@ def summarize_payload(payload: dict,
     else:
         stats["status"] = "ok" if pending_count == 0 else "partial"
 
-    payload["summary"] = stats
+    publish_stats()
     return stats, alive

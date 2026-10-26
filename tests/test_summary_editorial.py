@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 from radar import summary_gemini as gemini, summary_pipeline as pipeline
 from radar.summary_sources import source_record, fit_inputs, primary_link, publish_summary
-from radar.summary_validation import validate_summary, number_error, claim_error
+from radar.summary_validation import validate_summary, number_error, claim_error, entity_error
 from radar.transport import ResponseText
 
 
@@ -48,6 +48,24 @@ class EditorialSummaryTests(unittest.TestCase):
                 self.assertIn(reason, validate_summary(self.inputs, output)[1])
         self.output["key_points"][0]["evidence_refs"] = ["outlet:absent"]
         self.assertEqual(validate_summary(self.inputs, self.output)[1], "invalid_evidence_or_length")
+
+    def test_grounded_vietnamese_names_and_sentence_capitals_are_accepted(self):
+        evidence = "DeepSeek discussed Silicon Valley and the European Union with US partners."
+        self.assertIsNone(entity_error("Thung lũng Silicon được nhắc đến.", evidence))
+        self.assertIsNone(entity_error("Liên minh châu Âu được nhắc đến.", evidence))
+        self.assertIsNone(entity_error("Theo nguồn, DeepSeek công bố nghiên cứu.", evidence))
+        self.assertEqual(entity_error("Thung lũng Silicon được nhắc đến.", "DeepSeek discussed the valley."),
+                         "invented_entity: Thung")
+        self.assertEqual(entity_error("Microsoft công bố nghiên cứu.", evidence),
+                         "invented_entity: Microsoft")
+        self.assertEqual(entity_error("DeepSeek hợp tác với NovaForge.", evidence),
+                         "invented_entity: NovaForge")
+
+        self.inputs["sources"][0]["paragraphs"][0]["text"] += " The discussion mentions Silicon Valley."
+        self.output["key_points"][0]["text"] += " Thung lũng Silicon cũng được nhắc đến."
+        self.assertIsNone(validate_summary(self.inputs, self.output)[1])
+        self.output["key_points"][0]["text"] += " NovaForge cùng tham gia."
+        self.assertEqual(validate_summary(self.inputs, self.output)[1], "invented_entity: NovaForge")
 
     def test_numeric_notation_and_units_remain_bound_to_the_claim(self):
         source = "HelioLab raised $870 million at a valuation of $7.5 billion. A third of teams use it."

@@ -9,6 +9,7 @@ import json
 import math
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -23,6 +24,7 @@ STORE_REF = f"refs/heads/{STORE_BRANCH}"
 RUN_ALLOWANCE_USD = Decimal("1")
 DAILY_CAP_USD = Decimal("6")
 DAILY_PACE_USD = Decimal("0.57")
+MAX_BOOST_USD = Decimal("2")
 RUN_HOLD_USD = Decimal("0.20")
 CONSUMER_TOKENS = {"translation": 40_000, "summary": 100_000, "video": 12_000}
 DEFAULT_CAP_USD = Decimal("20")
@@ -47,6 +49,39 @@ def cap_usd(env=None) -> Decimal:
         return min(value, MAX_CAP_USD)
     except (InvalidOperation, TypeError, ValueError):
         return Decimal(0)
+
+
+def boost_usd(day: str, env=None) -> Decimal:
+    """Return the bounded boost for one UTC day; invalid settings do nothing."""
+    env = os.environ if env is None else env
+    raw = env.get("RADAR_GEMINI_PAID_BOOST", "")
+    if not isinstance(raw, str):
+        return Decimal(0)
+    match = re.fullmatch(r"(\d{4}-\d{2}-\d{2}):(\d+(?:\.\d+)?)", raw)
+    if not match or match.group(1) != day:
+        return Decimal(0)
+    try:
+        datetime.strptime(match.group(1), "%Y-%m-%d")
+        amount = Decimal(match.group(2))
+        return min(amount, MAX_BOOST_USD) if amount.is_finite() and amount > 0 else Decimal(0)
+    except (InvalidOperation, ValueError):
+        return Decimal(0)
+
+
+def _day(now: float) -> str:
+    return datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
+
+
+def _daily_limit_usd(day: str) -> Decimal:
+    boost = boost_usd(day)
+    return min(DAILY_CAP_USD + boost, DAILY_PACE_USD + boost)
+
+
+def _consumer_tokens(name: str, now: float) -> int:
+    tokens = CONSUMER_TOKENS[name]
+    if name == "summary":
+        tokens = int(Decimal(tokens) * (DAILY_PACE_USD + boost_usd(_day(now))) / DAILY_PACE_USD)
+    return tokens
 
 
 def ledger_path(env=None) -> Path:
@@ -218,10 +253,10 @@ def _read(path: Path, now: float):
     if "run_key" in data and (not isinstance(remaining, dict) or set(remaining) != set(CONSUMER_TOKENS)):
         return None
     if remaining is not None and (not isinstance(remaining, dict) or any(
-            name not in CONSUMER_TOKENS or type(amount) is not int or not 0 <= amount <= _micros(CONSUMER_TOKENS[name], now)
+            name not in CONSUMER_TOKENS or type(amount) is not int or not 0 <= amount <= _micros(_consumer_tokens(name, now), now)
             for name, amount in remaining.items())):
         return None
-    for key in ("monthly_remaining_micros", "daily_remaining_micros"):
+    for key in ("monthly_remaining_micros", "daily_remaining_micros", "settled_daily_micros"):
         if key in data and (type(data[key]) is not int or data[key] < 0):
             return None
     if not isinstance(data.get("video_dates", []), list) or any(
@@ -262,8 +297,8 @@ def prepare(path: str | Path, *, paid: bool, now: float | None = None, run_numbe
                     return "paid_budget_attempt_already_reserved"
                 cap = cap_usd()
                 cap_micros = int(cap * 1_000_000)
-                day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
-                daily_cap_micros = int(min(DAILY_CAP_USD, DAILY_PACE_USD) * 1_000_000)
+                day = _day(now)
+                daily_cap_micros = int(_daily_limit_usd(day) * 1_000_000)
                 daily_reserved = sum(value for key, value in pending.items()
                                      if store["pending_days"].get(key) == day)
                 monthly_remaining = cap_micros - store["settled_micros"] - sum(pending.values())
@@ -286,6 +321,7 @@ def prepare(path: str | Path, *, paid: bool, now: float | None = None, run_numbe
                     "run_allowance_micros": pending.get(run_key, 0),
                     "run_day": store["pending_days"].get(run_key),
                     "consumer_remaining_micros": _consumer_remaining(store, now, exclude_run=run_key),
+                    "settled_daily_micros": store["settled_daily"].get(_day(now), 0),
                     "video_dates": store.get("video_dates", [])}
             if paid:
                 data["monthly_remaining_micros"] = monthly_remaining
@@ -338,7 +374,7 @@ def _micros(tokens: int, now: float) -> int:
 
 
 def _consumer_remaining(store, now, *, exclude_run=None):
-    day = datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
+    day = _day(now)
     amounts = store.get("settled_consumers", {}).get(day, {})
     # Legacy spend before consumer attribution was incurred by translation
     # and summary workflows; video had no legacy spend. Distribute legacy spend
@@ -351,7 +387,7 @@ def _consumer_remaining(store, now, *, exclude_run=None):
     legacy_base = CONSUMER_TOKENS["translation"] + CONSUMER_TOKENS["summary"]
     legacy_trans = min(_micros(CONSUMER_TOKENS["translation"], now),
                        int(legacy * CONSUMER_TOKENS["translation"] / legacy_base))
-    legacy_summary = min(_micros(CONSUMER_TOKENS["summary"], now),
+    legacy_summary = min(_micros(_consumer_tokens("summary", now), now),
                          legacy - legacy_trans)
     legacy_video = max(0, legacy - legacy_trans - legacy_summary)
     legacy_amounts = {
@@ -366,7 +402,7 @@ def _consumer_remaining(store, now, *, exclude_run=None):
     total_tokens = sum(CONSUMER_TOKENS.values())
     pending_trans = min(_micros(CONSUMER_TOKENS["translation"], now),
                         int(pending * CONSUMER_TOKENS["translation"] / total_tokens))
-    pending_summary = min(_micros(CONSUMER_TOKENS["summary"], now),
+    pending_summary = min(_micros(_consumer_tokens("summary", now), now),
                           int(pending * CONSUMER_TOKENS["summary"] / total_tokens))
     pending_video = min(_micros(CONSUMER_TOKENS["video"], now),
                         pending - pending_trans - pending_summary)
@@ -379,9 +415,23 @@ def _consumer_remaining(store, now, *, exclude_run=None):
         "video": pending_video,
     }
 
-    return {name: max(0, _micros(tokens, now) - amounts.get(name, 0)
+    return {name: max(0, _micros(_consumer_tokens(name, now), now) - amounts.get(name, 0)
                       - pending_amounts.get(name, 0) - legacy_amounts.get(name, 0))
-            for name, tokens in CONSUMER_TOKENS.items()}
+            for name in CONSUMER_TOKENS}
+
+
+def boost_usage(path: str | Path, *, now: float) -> dict | None:
+    """Report charged spend above the ordinary daily pace on an active boost day."""
+    day = _day(now)
+    boost_micros = int(boost_usd(day) * 1_000_000)
+    if not boost_micros:
+        return None
+    data = _read(Path(path), now)
+    spent = None
+    if data is not None and data.get("run_day") == day and "settled_daily_micros" in data:
+        charged = data["settled_daily_micros"] + sum(item["micros"] for item in data["reservations"])
+        spent = min(boost_micros, max(0, charged - int(DAILY_PACE_USD * 1_000_000)))
+    return {"date": day, "limit_micros": boost_micros, "used_micros": spent}
 
 
 def remaining_tokens(path, consumer, *, now=None, run_number=None):
@@ -394,7 +444,7 @@ def remaining_tokens(path, consumer, *, now=None, run_number=None):
     used = sum(item["micros"] for item in data["reservations"])
     consumer_used = sum(item["micros"] for item in data["reservations"]
                         if item.get("consumer", "summary") == consumer)
-    available = data.get("consumer_remaining_micros", {}).get(consumer, _micros(CONSUMER_TOKENS[consumer], now))
+    available = data.get("consumer_remaining_micros", {}).get(consumer, _micros(_consumer_tokens(consumer, now), now))
     allowance = data.get("run_allowance_micros", int(DAILY_PACE_USD * 1_000_000))
     return max(0, int(min(allowance - used, available - consumer_used) / _price_per_million(now)))
 
@@ -419,7 +469,7 @@ def reserve(path: str | Path, estimated_tokens: int, *, now: float | None = None
         data = _read(path, now)
         if data is None or data.get("last_run_number") != run_number:
             return MISSING_CODE, None
-        if data.get("run_day") and data["run_day"] != datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d"):
+        if data.get("run_day") and data["run_day"] != _day(now):
             return "paid_budget_day_changed", None
         if idempotency_key and idempotency_key in data.get("video_dates", []):
             return "paid_video_already_attempted", None
@@ -435,7 +485,7 @@ def reserve(path: str | Path, estimated_tokens: int, *, now: float | None = None
             return "paid_monthly_cap", None
         if used + amount > data.get("monthly_remaining_micros", cap_micros):
             return "paid_monthly_cap", None
-        if used + amount > data.get("daily_remaining_micros", int(DAILY_PACE_USD * 1_000_000)):
+        if used + amount > data.get("daily_remaining_micros", int(_daily_limit_usd(_day(now)) * 1_000_000)):
             return "paid_daily_cap", None
         if used + amount > allowance:
             return "paid_run_allowance", None
@@ -533,7 +583,7 @@ def finalize(path: str | Path, remote: str, *, now: float | None = None,
         cap_micros = int((cap * Decimal(1_000_000)).to_integral_value(rounding=ROUND_CEILING))
         if store["settled_micros"] + sum(store["pending"].values()) > cap_micros:
             return "paid_monthly_cap"
-        daily_cap_micros = int((min(DAILY_CAP_USD, DAILY_PACE_USD) * Decimal(1_000_000)).to_integral_value())
+        daily_cap_micros = int((_daily_limit_usd(day) * Decimal(1_000_000)).to_integral_value())
         daily_pending = sum(value for key, value in store["pending"].items()
                             if store["pending_days"].get(key) == day)
         if store["settled_daily"][day] + daily_pending > daily_cap_micros:
@@ -544,7 +594,7 @@ def finalize(path: str | Path, remote: str, *, now: float | None = None,
             "monthly_micros": store["settled_micros"], "run_micros": spent,
             "hold_micros": allowance, "consumer_micros": consumers,
             "pending_micros": sum(store["pending"].values()),
-            "daily_pace_micros": int(DAILY_PACE_USD * 1_000_000)}, sort_keys=True))
+            "daily_pace_micros": daily_cap_micros}, sort_keys=True))
         return None
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
         return MISSING_CODE

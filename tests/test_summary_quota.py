@@ -29,6 +29,14 @@ POINTS = [
 
 
 class SummaryQuotaTests(unittest.TestCase):
+    def test_paid_request_ceiling_preserves_free_limits(self):
+        self.assertEqual(gemini.Config().max_requests, 1)
+        self.assertEqual(gemini.Config(max_requests=999, batch_size=999).max_requests, 1)
+        self.assertEqual(gemini.Config(max_requests=999, batch_size=999).batch_size, 1)
+        self.assertEqual(gemini.Config(paid=True).max_requests, 128)
+        self.assertEqual(gemini.Config(paid=True, max_requests=999).max_requests, 128)
+        self.assertEqual(gemini.config_from_env({"RADAR_GEMINI_PAID_ENABLED": "1"}).max_requests, 128)
+
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
@@ -99,6 +107,19 @@ class SummaryQuotaTests(unittest.TestCase):
         self.assertEqual(estimate(text), 19598)
         return text
 
+    def test_snapshot_reports_active_boost_and_charged_usage(self):
+        ledger = json.loads(self.path.read_text())
+        ledger.update(run_day="2026-10-11", settled_daily_micros=600_000,
+                      daily_remaining_micros=370_000)
+        self.path.write_text(json.dumps(ledger), encoding="utf-8", newline="\n")
+        payload = {"stories": [], "generated_at": "2026-10-11T17:00:00Z"}
+        with patch.dict(os.environ, {"RADAR_GEMINI_PAID_BOOST": "2026-10-11:0.40"}):
+            stats, _ = pipeline.summarize_payload(payload, {}, config=self.config,
+                                                   now=lambda: self.now)
+        self.assertEqual(stats["paid_boost"], {"date": "2026-10-11", "limit_micros": 400_000,
+                                               "used_micros": 30_000})
+        self.assertEqual(payload["summary"], stats)
+
     def test_production_headroom_trims_first_story_and_preserves_cached_evidence(self):
         story = self.story()
         article = self.production_article(story)
@@ -147,13 +168,110 @@ class SummaryQuotaTests(unittest.TestCase):
     def test_first_fitting_editor_pick_keeps_priority_without_trimming(self):
         first, later = self.story(), self.story("later")
         first["worth_score"], later["worth_score"] = 1, 100
-        stats = self.run_summary([first, later], {"first": ARTICLE})
-        self.assertEqual(stats["summarized"], 1)
+        stats = self.run_summary([first, later], {"first": ARTICLE, "later": ARTICLE})
+        self.assertEqual(stats["summarized"], 2)
         self.assertEqual(first["key_points"], POINTS)
-        self.assertNotIn("key_points", later)
+        self.assertEqual(later["key_points"], POINTS)
+        self.assertEqual(json.loads(self.calls[0]["contents"][0]["parts"][0]["text"])["stories"][0]["id"], "first")
         self.assertEqual(stats["trimmed"], 0)
-        self.assertEqual(stats["candidates_tried"], 1)
+        self.assertEqual(stats["candidates_tried"], 2)
         self.assertEqual(stats["reservations_refused"], 0)
+
+    def test_paid_run_follows_importance_weight_across_requests(self):
+        stories = [self.story("low"), self.story("high"), self.story("middle")]
+        for story, weight in zip(stories, (1, 10, 5)):
+            story["importance_weight"] = weight
+        stats = self.run_summary(stories, {story["id"]: ARTICLE for story in stories})
+        ids = [json.loads(call["contents"][0]["parts"][0]["text"])["stories"][0]["id"]
+               for call in self.calls]
+        self.assertEqual(ids, ["high", "middle", "low"])
+        self.assertEqual(stats["requests"], 3)
+        self.assertEqual(stats["summarized"], 3)
+        self.assertEqual(stats["pending"], 0)
+        self.assertEqual(stats["settled_tokens"], 1260)
+
+    def test_paid_run_stops_when_time_cannot_fit_another_request(self):
+        elapsed = [0.0]
+        def advancing_provider(body, key, timeout):
+            response = self.provider(body, key, timeout)
+            elapsed[0] = 8.0
+            return response
+        stories = [self.story("first"), self.story("later")]
+        stats = self.run_summary(stories, {story["id"]: ARTICLE for story in stories},
+                                 transport_fn=advancing_provider, budget=10.0,
+                                 clock=lambda: elapsed[0])
+        self.assertEqual(stats["requests"], 1)
+        self.assertEqual(stats["pending"], 1)
+        self.assertEqual(stats["error"], "time_budget")
+
+    def test_paid_run_honors_request_bound_even_with_pending_stories(self):
+        self.config = gemini.Config(api_key="offline-sentinel", confirmed=True,
+                                    paid=True, max_requests=2)
+        stories = [self.story(str(i)) for i in range(3)]
+        stats = self.run_summary(stories, {story["id"]: ARTICLE for story in stories})
+        self.assertEqual(stats["requests"], 2)
+        self.assertEqual(stats["summarized"], 2)
+        self.assertEqual(stats["pending"], 1)
+
+    def test_rejected_paid_story_does_not_block_next_story(self):
+        def one_invalid(body, key, timeout):
+            response = self.provider(body, key, timeout)
+            item = response["candidates"][0]["content"]["parts"][0]
+            row = json.loads(item["text"])
+            if row["id"] == "first":
+                row["key_points"][0]["text"] = "NovaForge thay đổi cách quản lý dữ liệu người dùng."
+                item["text"] = json.dumps(row, ensure_ascii=False)
+            return response
+        first, later = self.story(), self.story("later")
+        stats = self.run_summary([first, later], {"first": ARTICLE, "later": ARTICLE},
+                                 transport_fn=one_invalid)
+        self.assertEqual(stats["requests"], 2)
+        self.assertEqual(stats["rejected"], 1)
+        self.assertEqual(stats["summarized"], 1)
+        self.assertEqual(stats["rejected_reasons"][0]["reason"], "invented_entity: NovaForge")
+        self.assertNotIn("key_points", first)
+        self.assertEqual(later["key_points"], POINTS)
+
+    def test_old_validation_rejection_is_retried_after_validator_change(self):
+        story = self.story()
+        failures = {pipeline.article_signature(story): {
+            "reason": "validation_rejected", "time": self.now}}
+        stats = self.run_summary([story], {"first": ARTICLE}, article_failures=failures)
+        self.assertEqual(stats["requests"], 1)
+        self.assertEqual(stats["summarized"], 1)
+        self.assertEqual(failures, {})
+
+    def test_current_validation_rejection_keeps_cooldown(self):
+        story = self.story()
+        failures = {}
+        def invalid(body, key, timeout):
+            response = self.provider(body, key, timeout)
+            item = response["candidates"][0]["content"]["parts"][0]
+            row = json.loads(item["text"])
+            row["key_points"][0]["text"] = "NovaForge thay đổi cách quản lý dữ liệu người dùng."
+            item["text"] = json.dumps(row, ensure_ascii=False)
+            return response
+        first = self.run_summary([story], {"first": ARTICLE}, transport_fn=invalid,
+                                 article_failures=failures)
+        self.assertEqual(first["rejected"], 1)
+        self.assertEqual(failures[pipeline.article_signature(story)]["validator"],
+                         pipeline.VALIDATION_FAILURE_CACHE_TAG)
+        second = self.run_summary([self.story()], {}, article_failures=failures)
+        self.assertEqual(second["requests"], 0)
+        self.assertEqual(len(self.calls), 1)
+        source = self.path.parent / "radar.json"
+        cache = self.path.parent / "summaries.json"
+        source.write_text(json.dumps({"stories": [self.story()],
+                                      "generated_at": "2026-10-11T17:00:00Z"}),
+                          encoding="utf-8", newline="\n")
+        failure_path = self.path.parent / "article-read-failures.json"
+        failure_path.write_text(json.dumps(failures), encoding="utf-8", newline="\n")
+        with patch.object(gemini, "config_from_env", return_value=self.config), \
+                patch.object(gemini, "transport", side_effect=AssertionError("must not call provider")), \
+                patch.object(pipeline.time, "time", return_value=self.now), \
+                patch("sys.stdout", new_callable=io.StringIO):
+            self.assertEqual(summarize.main(["--input", str(source), "--cache", str(cache)]), 0)
+        self.assertEqual(json.loads(source.read_text(encoding="utf-8"))["summary"]["requests"], 0)
 
     def test_trimming_below_article_minimum_skips_without_call(self):
         story = self.story()
