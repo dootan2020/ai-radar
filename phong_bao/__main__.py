@@ -11,6 +11,7 @@ from .evaluation import evaluate
 from .newsroom import DEFAULT_DESK_BUDGET_SECONDS, DESKS, FixtureArticles, run
 from .registry import load_registry
 from .runner import CLIRunner, FixtureRunner
+from .cycle import cycle
 
 
 def _json(path):
@@ -18,7 +19,7 @@ def _json(path):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="Local newsroom phase 0")
+    parser = argparse.ArgumentParser(description="Local newsroom")
     sub = parser.add_subparsers(dest="command", required=True)
     discovery = sub.add_parser("discover")
     discovery.add_argument("--fixture")
@@ -34,9 +35,13 @@ def main(argv=None):
     newsroom.add_argument("--runner-fixture")
     newsroom.add_argument("--articles-fixture")
     scoring = sub.add_parser("evaluate")
+    sub.add_parser("cycle")
     scoring.add_argument("--decisions", required=True)
     scoring.add_argument("--labels", required=True)
     args = parser.parse_args(argv)
+    if args.command == "cycle":
+        print(json.dumps(cycle(), ensure_ascii=False, indent=2))
+        return 0
     if args.command == "evaluate":
         value = evaluate(args.decisions, args.labels)
         print(json.dumps(value, ensure_ascii=False, indent=2))

@@ -1,13 +1,15 @@
-"""A complete reader projection alongside the full collection/evidence snapshot."""
+"""Reader projections, published snapshot, and the next newsroom's intake copy."""
 
 from copy import deepcopy
 from datetime import datetime, timedelta
 from pathlib import Path
+import json
 import re
 
 from radar.pipeline import write_atomic
 from radar.search_index import search_payload, search_path
 from radar.headlines import annotate_headlines
+from radar.newsroom_decisions import apply_decisions, load_decisions
 
 
 PAGE_FIELDS = (
@@ -19,8 +21,9 @@ PAGE_FIELDS = (
 def page_payload(payload):
     """Keep every story and reader field; omit collection-only duplicated evidence.
 
-    Full originals, including coverage summaries, remain in radar.json. This
-    projection is not an input to collection, ranking, editions or translation.
+    Approved originals, including coverage summaries, remain in radar.json;
+    the complete collection remains in radar-intake.json. This projection is
+    not an input to collection, ranking, editions or translation.
     """
     result = deepcopy({key: payload[key] for key in PAGE_FIELDS if key in payload})
     for story in result.get("stories", []):
@@ -43,6 +46,12 @@ def page_path(path):
     """Companion follows custom output paths too, never the default site directory."""
     path = Path(path)
     return path.with_name(f"{path.stem}-ui{path.suffix}")
+
+
+def intake_path(path):
+    """Full collection snapshot retained for the next off-machine newsroom cycle."""
+    path = Path(path)
+    return path.with_name(f"{path.stem}-intake{path.suffix}")
 
 
 def head_path(path):
@@ -235,12 +244,22 @@ def head_payload(payload):
 
 
 def write_site_snapshot(payload, path):
-    """Write full evidence, then page and first-screen projections without leaving a stale copy.
+    """Write intake evidence and the approved public snapshot with reader projections.
 
     Each file is atomic. If projection generation/publication fails after the
     full snapshot was replaced, remove old companions so the page's fallback
     reads the new complete snapshot instead of old translations or timestamps.
     """
+    source = intake_path(path)
+    # Translation rewrites the same generated snapshot from the public projection.
+    # Do not replace the unfiltered intake copy with that smaller projection.
+    try:
+        existing_at = json.loads(source.read_text(encoding="utf-8")).get("generated_at")
+    except (OSError, ValueError, AttributeError):
+        existing_at = None
+    if existing_at != payload.get("generated_at"):
+        write_atomic(payload, source)
+    payload = apply_decisions(payload, load_decisions())
     write_atomic(payload, path)
     companion = page_path(path)
     window_file = window_path(path)
