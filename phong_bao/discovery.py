@@ -60,8 +60,9 @@ def discover_raw(*, fixture=None):
         excerpt = _admission_excerpt(result.stderr, require_error_prefix=True) if result and result.returncode else None
         if excerpt:
             raise AdmissionError(f"Gemini fuel discovery admission stopped ({excerpt})")
-        if result and result.returncode == 0:
-            # Keep only fuel lines; the script also prints unrelated job titles.
+        if result and result.returncode in {0, 3}:
+            # Exit 3 warns that at least one lane hit its reserve; stdout still
+            # contains the measurements needed to exclude that lane.
             fuel = "\n".join(line for line in result.stdout.splitlines()
                              if line.strip().casefold().startswith(("codex ", "codex :", "gemini ", "claude ")))
     return {"commands": commands, "mcp_servers": mcp, "key_names": sorted(keys), "files": files, "fuel": fuel}

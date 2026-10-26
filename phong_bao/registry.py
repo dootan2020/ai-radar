@@ -50,7 +50,8 @@ def fuel_status(tool, discovery):
         stripped = line.strip()
         if stripped.casefold().startswith((fuel_name + " ", fuel_name + ":")):
             verdict = stripped.partition(":")[2].strip().upper()
-            if re.match(r"^(?:CẠN\b|CHẠM TRẦN\b|CHẠM DỰ TRỮ\b)", verdict):
+            if (re.match(r"^(?:CẠN\b|CHẠM TRẦN\b)", verdict)
+                    or "CHẠM DỰ TRỮ" in verdict):
                 return "dry"
             if verdict.startswith(("CÒN", "CON NHIEN LIEU", "ĐỦ", "DU ")):
                 return "available"
@@ -61,8 +62,13 @@ def available(tool, discovery):
     method, name = next(iter(tool["detect"].items()))
     if name not in discovery.get({"command": "commands", "mcp_server": "mcp_servers", "env_key": "key_names", "file": "files"}[method], []):
         return False
-    # Unknown fuel is not evidence of exhaustion; discovery measures Gemini by default.
-    return fuel_status(tool, discovery) != "dry"
+    status = fuel_status(tool, discovery)
+    # Claude shares the coordinator's pool, so use it only when measured below
+    # reserve. Codex and Gemini have separate pools; unknown fuel does not prove
+    # they are exhausted and they remain available as fallback providers.
+    if tool.get("boat") == "claude":
+        return status == "available"
+    return status != "dry"
 
 
 def providers(capability, tools, discovery, *, exclude=(), boat_exclude=()):

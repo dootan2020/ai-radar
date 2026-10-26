@@ -69,6 +69,29 @@ class NewsroomTests(unittest.TestCase):
         self.assertEqual(canva["state"], "session_only")
         self.assertEqual(canva["required_context"], "Claude session")
 
+    def test_exit_three_fuel_output_excludes_claude_at_reserve(self):
+        lines = fixture("fuel-lines.json")
+        completed = type("Completed", (), {"returncode": 3, "stdout": lines["reserve_exit_3"], "stderr": ""})()
+        with patch("phong_bao.discovery.FUEL_SCRIPT", FIXTURES / "fuel-lines.json"), \
+                patch("phong_bao.discovery._call", return_value=completed):
+            raw = discover_raw()
+        raw["commands"] = [*raw["commands"], "codex", "agy", "claude"]
+        selected = report(raw, self.tools)["selected"]["bien-tap"]
+        self.assertEqual(selected, ["codex", "agy"])
+        self.assertIn("claude       : đã dùng 5 giờ 30% · tuần 84% · CHẠM DỰ TRỮ", raw["fuel"])
+
+    def test_missing_fuel_output_does_not_select_claude(self):
+        lines = fixture("fuel-lines.json")
+        completed = type("Completed", (), {"returncode": 3, "stdout": lines["no_fuel_output"], "stderr": ""})()
+        with patch("phong_bao.discovery.FUEL_SCRIPT", FIXTURES / "fuel-lines.json"), \
+                patch("phong_bao.discovery._call", return_value=completed):
+            raw = discover_raw()
+        raw["commands"] = [*raw["commands"], "codex", "agy", "claude"]
+        report_data = report(raw, self.tools)
+        self.assertNotIn("claude-code", report_data["selected"]["bien-tap"])
+        self.assertIn("codex", report_data["selected"]["bien-tap"])
+        self.assertIn("agy", report_data["selected"]["bien-tap"])
+
     def test_fuel_discovery_stops_on_account_or_payment_prompt(self):
         echoed_prompt = type("Completed", (), {"returncode": 1,
                                                  "stdout": "Gemini fuel output includes: please sign in or log in",

@@ -46,3 +46,10 @@ Lucy chạy discovery live, năm lệnh bàn duyệt trên 150 story, rồi eval
 - Discovery nhiên liệu/MCP không quét stdout, vốn là nội dung báo cáo/đo; chỉ xem stderr khi process lỗi và chỉ nhận dòng CLI có tiền tố error/fatal, rồi ghi excerpt admission an toàn. Fixture offline kiểm tra echo có “sign in”, “log in”, “subscribe” qua cả codex/agy mà vẫn qua; lỗi sign-in thật qua event/error dừng; kiểm tra riêng payment, usage limit, account mismatch và model mismatch; usage limit của phép đo fuel dừng. Kiểm tra integration xác nhận `status.json` ghi excerpt và không chứa bài nguồn.
 - Không chạy boat/model. `codex` CLI không có trong môi trường; `agy --help` chỉ được dùng để kiểm tra option, không khởi chạy inference. Không sửa `phong-bao/jobs/`.
 - Kiểm chứng vòng 3 trên code cuối: `python -m unittest tests.test_phong_bao` cho `Ran 18 tests in 0.481s`, `OK`; `python -m unittest discover -s tests` cho `Ran 1384 tests in 309.425s`, `OK (skipped=8)`.
+
+## Round 4: không bỏ số đo khi lane chạm dự trữ
+
+- Nguyên nhân: `hai-thuyen.py` trả exit 3 khi có lane còn nhiên liệu nhưng chưa được giao việc, đồng thời vẫn in các dòng đo; discovery chỉ giữ stdout khi exit 0 nên bỏ cả số đo Claude chạm dự trữ. Registry trước đó cho phép Claude chưa đo được chọn tự động.
+- Discovery nay giữ các dòng nhiên liệu trên exit 0 và exit 3; lỗi khác, crash hoặc timeout vẫn là `unavailable`. Parser nhận `CHẠM DỰ TRỮ` trong dòng có phần trăm sử dụng, đồng thời vẫn chỉ nhận `CẠN` ở đầu verdict để tránh nhầm lời nhắc “chưa đo”. Claude chỉ được chọn khi đo rõ còn dưới ngưỡng. Codex/Gemini chưa đo vẫn có thể được dùng vì quota tách biệt với coordinator; chỉ Claude dùng chung pool cần fail closed.
+- Fixture exit 3 chứa Codex và Gemini còn nhiên liệu cùng Claude tuần 84% chạm ngưỡng 80%; test xác nhận chọn Codex và agy, loại claude-code. Fixture không có dòng đo cũng không chọn Claude. Không chạy boat/model và không chỉnh `phong-bao/jobs/`.
+- Kiểm chứng vòng 4: `python -m unittest tests.test_phong_bao` cho `Ran 20 tests in 0.913s`, `OK`; `python -m unittest discover -s tests` cho `Ran 1386 tests in 407.512s`, `OK (skipped=8)`.
