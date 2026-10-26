@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 from .registry import CAPABILITIES, available, fuel_status, load_registry, providers
-from .runner import AdmissionError
+from .runner import AdmissionError, _admission_excerpt
 
 FUEL_SCRIPT = Path("C:/Users/Admin/agent-config/tools/hai-thuyen.py")
 COMMANDS_TO_CHECK = {"codex", "agy", "claude", "npx", "remotion", "ffmpeg", "python"}
@@ -49,17 +49,17 @@ def discover_raw(*, fixture=None):
     if "claude" in commands:
         result = _call([shutil.which("claude"), "mcp", "list"])
         if result:
-            if result.returncode and re.search(r"sign\s*in|log\s*in|billing|payment|purchase|upgrade your plan|different account|different model",
-                                               result.stdout + result.stderr, re.I):
-                raise AdmissionError("Claude MCP discovery requested account, payment, or model change")
+            excerpt = _admission_excerpt(result.stderr, require_error_prefix=True) if result.returncode else None
+            if excerpt:
+                raise AdmissionError(f"Claude MCP discovery admission stopped ({excerpt})")
             if result.returncode == 0:
                 mcp = _mcp_names(result.stdout)
     fuel = "unavailable"
     if FUEL_SCRIPT.is_file():
         result = _call([sys.executable, str(FUEL_SCRIPT), "trang-thai", "--do-gemini"], timeout=90)
-        if result and re.search(r"sign\s*in|log\s*in|billing|payment|purchase|upgrade your plan|different account|different model",
-                                result.stdout + result.stderr, re.I):
-            raise AdmissionError("Gemini fuel discovery requested account, payment, or model change")
+        excerpt = _admission_excerpt(result.stderr, require_error_prefix=True) if result and result.returncode else None
+        if excerpt:
+            raise AdmissionError(f"Gemini fuel discovery admission stopped ({excerpt})")
         if result and result.returncode == 0:
             # Keep only fuel lines; the script also prints unrelated job titles.
             fuel = "\n".join(line for line in result.stdout.splitlines()

@@ -6,7 +6,7 @@ priority = 10
 monthly_cap_usd = 0
 boat = "codex"
 runner = "batch-cli"
-argv = ["codex", "exec", "--model", "gpt-6-sol", "-"]
+argv = ["codex", "exec", "--model", "gpt-6-sol", "--json", "-"]
 prompt_transport = "stdin"
 [detect]
 command = "codex"
