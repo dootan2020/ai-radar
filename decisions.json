@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T11:05:33.213898+00:00",
-  "input_generated_at": "2026-10-27T10:41:43Z",
+  "generated_at": "2026-10-27T13:03:20.901529+00:00",
+  "input_generated_at": "2026-10-27T12:41:37Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -4588,6 +4588,178 @@
       ],
       "same_event_coverage_ids": [
         "456b053bb866c10e4eb9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0fa71fcc03f57574cda3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://spectrum.ieee.org/wikipedia-wikiproject-ai-writing-cleanup",
+      "key_points": [
+        "WikiProject AI Cleanup là một nỗ lực tình nguyện bắt đầu năm 2023 nhằm tìm và xóa nội dung do AI tạo vi phạm hướng dẫn của Wikipedia.",
+        "Các tình nguyện viên đang phát triển công cụ để phát hiện những dạng văn bản do AI tạo khó nhận ra hơn."
+      ],
+      "same_event_coverage_ids": [
+        "1ce3d1424664e252e233",
+        "d7f9714b2b1ce7660961"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "11b65591c0394c280a16",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://oioannou.com/blog/ai-promised-less-work/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3622d17a25bd917b8078",
+        "59ab65a661312f2764ea"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "849fc0f8e381c54306fb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-10-27/anthropic-relies-on-close-connections-with-amazon-google-and-microsoft",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "340a069c7ba3a2ff6393"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "deae10a0b0e101ceeff0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/economy/article/3372302/bytedances-zhang-yiming-tops-china-rich-list-us997-billion-ai-fuels-fortunes",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f302828f04c6bf5d7743"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "93d8b38790e5bd877c16",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/27/nvidia-backs-indian-startup-helping-companies-run-ai-models-with-fewer-gpus/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c37cd25455af4696480c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4d7746a3bca6ecc8e96b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/ai-agents-are-medias-new-favorite-audience/",
+      "key_points": [
+        "Một số hãng tin đang bắt đầu sản xuất nội dung coi AI agents là đối tượng tiếp nhận trực tiếp.",
+        "Các cách tiếp cận được nêu gồm nguồn cấp dữ liệu tối ưu cho AI và nội dung có cấu trúc để agents tạo bài viết cá nhân hóa."
+      ],
+      "same_event_coverage_ids": [
+        "0bc550b67528577ac8c2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d5429477a92140d4e2d0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/anthropic-ipo-filings-reveal-finances-risks-strategy/",
+      "key_points": [
+        "Theo hồ sơ, Anthropic dự định niêm yết trên Nasdaq với mã ANT.",
+        "Bản cáo bạch S-1 chưa nêu số tiền Anthropic dự định huy động hoặc mức định giá mục tiêu.",
+        "Hồ sơ cho biết doanh thu của Anthropic vượt 16 tỷ USD trong nửa đầu năm 2026, so với khoảng 4,5 tỷ USD trong năm 2025."
+      ],
+      "same_event_coverage_ids": [
+        "7afc9d9432b65732ac2a",
+        "abab59b5fb2924793b63"
       ],
       "split_coverage_ids": []
     }
