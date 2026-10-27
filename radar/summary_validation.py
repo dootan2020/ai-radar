@@ -42,7 +42,10 @@ MONEY = re.compile(r"(?P<dollar>\$)?(?P<value>\d+(?:[.,]\d+)?)\s*(?P<scale>billi
 
 COMMON_ACRONYMS = {"AI", "IPO", "CEO", "CTO", "CFO", "COO", "GPU", "CPU", "API", "USD",
                    "LLM", "LLMS", "AGI", "SEC", "PAC", "FPGA", "JSON", "XML", "SQL", "HTTP",
-                   "HTTPS", "RISC", "UI", "UX", "US", "UK", "EU"}
+                   "HTTPS", "RISC", "UI", "UX", "US", "UK", "EU",
+                   # Plain technical acronyms name file formats and parts, never a person or company.
+                   "PDF", "URL", "HTML", "CSS", "RAM", "VRAM", "SSD", "NPU", "TPU", "SDK", "OS", "PC", "USB",
+                   "ID", "FAQ", "SMS", "GPS", "VPN", "AR", "VR", "IT", "CSV", "PNG", "JPEG", "MP3", "MP4"}
 # A currency code is a unit, not a name: allow it when the evidence names that currency in any form
 # (sources write RMB2.96 billion, HK$86.80, 680 million yuan).
 CURRENCY_EVIDENCE = {
@@ -230,6 +233,157 @@ def claim_error(claim, refs, paragraph_refs, *, max_length, entity_evidence=None
         return "needs_review: long_source_overlap"
     if re.search(r"\b(\w+)(?:\s+\1){2}\b", text, re.I):
         return "repetition_detected"
+    return None
+
+
+# Who says what, and why. These are lexical checks for the newsroom writer's Vietnamese prose against the
+# English paragraphs it cites. They catch the visible forms of three faults: a purpose ("nhằm ...") the cited
+# paragraphs never state, a judgement or cause that drops the attribution its paragraph carries ("ORG found
+# that ..."), and a speaker ("Theo Opera", "nguồn tin nội bộ") that the cited paragraphs do not name. They
+# cannot tell who holds an opinion written in the outlet's own voice, nor whether an "average" or a one-mode
+# trade-off kept its scope; those stay with the prompt and the reviewer.
+# Bare "để" is left to the prompt: in Vietnamese it mostly marks use or result ("dùng để", "khung để tác tử
+# hoạt động"); the round-4 sample of 13 stories had 13 "để" and 9 "nhằm", and every "nhằm" stated a purpose.
+PURPOSE_VI = re.compile(r"(?<!\w)(?:nhằm|với mục đích|mục đích (?:là|của)|với mục tiêu|mục tiêu là"
+                        r"|đặt mục tiêu)(?!\w)", re.I)
+PURPOSE_EN = re.compile(
+    r"\b(?:in order to|so that|so as to|aim(?:s|ed|ing)? (?:to|at)|goals?|targets?|purpose|intend(?:s|ed)? to|intention"
+    r"|designed to|meant to|in a bid to|in an effort to|bid to|effort to|mission|objective|strategy|to help"
+    r"|hop(?:e|es|ed|ing) to|want(?:s|ed)? to|push(?:es|ed|ing)? to|plan(?:s|ned)? to|looking to"
+    r"|allow(?:s|ed|ing)?|let(?:s|ting)?|enabl(?:e|es|ed|ing)|used to|to ensure|to make sure|to prevent"
+    r"|to protect|to avoid|to stay|to keep|to compete|to reduce|to cut|to save|to free|to focus|to boost"
+    r"|to improve|to maximi[sz]e|to minimi[sz]e|for the purpose"
+    r"|help(?:s|ed|ing)? (?:you|users?|people|developers|companies|customers))\b", re.I)
+# Reporting verbs: a sentence that has one names a speaker or a finding.
+SAYING_VI = (r"cho biết|cho rằng|cho thấy|cho hay|nhận định|nhận xét|nhận thấy|thấy rằng|khẳng định|tuyên bố"
+             r"|ước tính|dự báo|cảnh báo|tiết lộ|thừa nhận|lập luận|đánh giá|phát hiện|kết luận|công bố|thông báo"
+             r"|giải thích|tin rằng|kỳ vọng|nhấn mạnh|lưu ý|đưa tin|dẫn lời|chia sẻ|xác nhận|bác bỏ|ghi nhận|mô tả"
+             r"|viết rằng|phát biểu|trả lời|nói")
+SAYING = re.compile(r"(?<!\w)(?:" + SAYING_VI + r")(?!\w)", re.I)
+# "Theo X," at the start of a clause, or ", theo X." at its end; "theo dõi" and "theo đó" are not attributions.
+THEO = re.compile(r"(?:^|[,;:(]\s*|(?<!\w)(?:và|nhưng|còn|song)\s+)theo\s+(?!(?:dõi|đuổi|kịp|sau|đó|tỷ lệ|cách|hướng"
+                  r"|thời gian|kế hoạch)(?!\w))([^,.;:()]{2,60}?)\s*(?:,|[.;]?\s*$)", re.I)
+NAMED_SPEAKER = re.compile(r"((?:[^\W\d_][\w.+-]*\s+){0,3}[^\W\d_][\w.+-]*)\s+(?:" + SAYING_VI + r")(?!\w)")
+SOURCE_ATTRIBUTION = re.compile(
+    r"\b(?:according to|said|says|say|told|tells|found|finds|argues?|argued|believes?|believed|claim(?:s|ed)?"
+    r"|estimates?|estimated|warns?|warned|thinks?|predicts?|predicted|suggests?|suggested|wrote|writes|noted"
+    r"|insists?|insisted|contends?|contended|reports? that|reported that|reportedly|alleges?|alleged|concluded"
+    r"|revealed|announced|disclosed|question(?:s|ed|ing)|per the \w+|in (?:his|her|their|its) view)\b", re.I)
+JUDGEMENT_VI = re.compile(
+    r"(?<!\w)(?:hơn|nhất|quyết liệt|rủi ro|nguy cơ|nghiêm trọng|đáng kể|đáng chú ý|thất bại|không đạt|vượt trội"
+    r"|đột phá|bước ngoặt|lo ngại|thách thức|rào cản|khó khăn|ảo giác|không phù hợp|sai sót|tham vọng|ấn tượng"
+    r"|hiệu quả|vì|bởi|nguyên nhân|dẫn đến|dẫn tới|khiến|nhờ|là do|gây ra|kéo theo|hệ quả)(?!\w)", re.I)
+# Words that only look like judgements: "Thống nhất" in a name, "hơn 15%" (more than a figure).
+NOT_JUDGEMENT = re.compile(r"(?<!\w)(?:thống nhất|duy nhất|hợp nhất|nhất quán|đồng nhất|nhất định|nhất là"
+                           r"|hơn nữa|hơn(?=\s+(?:\d|khoảng|một|hai|ba|gấp)))(?!\w)", re.I)
+LEAD_IN_WORDS = 6
+OUTLET_SPEAKER = re.compile(r"tác giả|bài viết|bài báo|bài phân tích|tòa soạn|tờ báo|phóng viên|nhà báo|người viết",
+                            re.I)
+INSIDER_SPEAKER = (re.compile(r"nguồn tin|người trong cuộc|người thạo tin|người am hiểu|giấu tên|nội bộ", re.I),
+                   re.compile(r"\binsiders?\b|\bsources? (?:say|said|says|told|familiar|close)|familiar with"
+                              r"|according to (?:a |two |three |several |multiple )?(?:people|person|sources?)"
+                              r"|anonymity|not authori[sz]ed to", re.I))
+EXPERT_SPEAKER = (re.compile(r"chuyên gia|nhà phân tích|giới phân tích|nhà quan sát|giới quan sát|nhà nghiên cứu"
+                             r"|nhà khoa học|giới khoa học|học giả", re.I),
+                  re.compile(r"\b(?:experts?|analysts?|researchers?|scientists?|economists?|academics?|professors?"
+                             r"|specialists?|scholars?|observers?)\b", re.I))
+
+
+def _speakers(text):
+    """Speakers a Vietnamese sentence names: "Theo X," and "X cho biết/cho rằng/..." with a capitalised X."""
+    found = [match[1].strip() for match in THEO.finditer(text)]
+    for match in NAMED_SPEAKER.finditer(text):
+        words = match[1].split()
+        while words and not words[0][0].isupper():
+            words.pop(0)
+        if words:
+            found.append(" ".join(words))
+    return found
+
+
+def _speaker_in(speaker, paragraph, publisher):
+    """Whether one cited paragraph can carry a named speaker: it names them or its outlet, or it reports
+    someone's words ("the company said", "per the outlet"); None when the speaker has no foreign name token."""
+    names = [word for word in ENTITY_WORD.findall(speaker)
+             if word[0].isupper() and not vietnamese_syllable(word) and word.upper() not in COMMON_ACRONYMS]
+    if not names:
+        return None
+    keys = {folded(word) for word in names}
+    if len(names) > 1:
+        keys.add(folded("".join(word[0] for word in names)))
+    return (bool(keys & {folded(word) for word in re.findall(r"\w+", paragraph + " " + publisher)})
+            or bool(SOURCE_ATTRIBUTION.search(paragraph)))
+
+
+def _outlet_voice(clause, paragraphs):
+    """Whether an unattributed judgement can be the outlet's own narration rather than a quoted finding.
+
+    The clause belongs to an attributed source sentence when it shares a number or a foreign name with one
+    ("9%" with "ORG found ... 9 percent"), or when every sentence of the cited paragraphs is attributed.
+    Otherwise the paragraph holds narration in the outlet's voice ("the domestic economy remains a drag"),
+    which the outlet byline already attributes.
+    """
+    sentences = [s for p in paragraphs for s in re.split(r"(?<=[.!?])[\"”’]?\s+(?=[\"“A-Z])", p) if s.strip()]
+    attributed = [s for s in sentences if SOURCE_ATTRIBUTION.search(s)]
+    if len(attributed) == len(sentences):
+        return False
+    numbers = {n.replace(",", ".") for n in NUMBER.findall(clause)}
+    names = {folded(word) for word in ENTITY_WORD.findall(clause)
+             if word[0].isupper() and not vietnamese_syllable(word) and word.upper() not in COMMON_ACRONYMS}
+    for sentence in attributed:
+        if numbers & {n.replace(",", ".") for n in NUMBER.findall(sentence)}:
+            return False
+        if names & {folded(word) for word in re.findall(r"\w+", sentence)}:
+            return False
+    return True
+
+
+def attribution_error(text, cited):
+    """Who-said-what error for one writer sentence, or None.
+
+    cited is a list of (paragraph text, publisher name) pairs for the paragraphs the sentence cites.
+    """
+    text = normalized(text)
+    paragraphs = [paragraph for paragraph, _ in cited]
+    if PURPOSE_VI.search(text) and not any(PURPOSE_EN.search(p) for p in paragraphs):
+        return "unsupported_purpose"
+    judgement = bool(JUDGEMENT_VI.search(NOT_JUDGEMENT.sub(" ", text)))
+    speakers = _speakers(text)
+    for speaker in speakers:
+        if OUTLET_SPEAKER.search(speaker):
+            continue
+        for vietnamese, english in (INSIDER_SPEAKER, EXPERT_SPEAKER):
+            # An unnamed group must be the one each cited paragraph quotes.
+            if vietnamese.search(speaker) and not all(english.search(p) for p in paragraphs):
+                return "speaker_not_in_source: " + speaker
+        if INSIDER_SPEAKER[0].search(speaker) or EXPERT_SPEAKER[0].search(speaker):
+            continue
+        # A named speaker needs a cited paragraph that can carry them; a judgement needs every cited one to.
+        found = [_speaker_in(speaker, *pair) for pair in cited]
+        if None in found:
+            continue
+        if not any(found) or (judgement and not all(found)):
+            return "speaker_not_in_source: " + speaker
+    if judgement and any(SOURCE_ATTRIBUTION.search(p) for p in paragraphs):
+        # A clause is attributed when it, or an earlier main clause, names a speaker or a reporting verb; a
+        # short lead-in ("Bên cạnh nguy cơ tài chính,") takes the attribution of the clause right after it.
+        # A concessive clause ("Dù ước tính ...,") does not carry its attribution to the next one.
+        # Narration in the outlet's own voice needs no speaker (see _outlet_voice).
+        attributed, pending = False, None
+        for clause in re.split(r"[,;:]", NOT_JUDGEMENT.sub(" ", text)):
+            says = bool(SAYING.search(clause) or THEO.search(clause.strip() + ","))
+            if pending is not None and not says and not _outlet_voice(pending, paragraphs):
+                return "unattributed_judgement"
+            pending = None
+            if says and not re.match(r"\s*(?:dù|mặc dù|tuy|dẫu)(?!\w)", clause, re.I):
+                attributed = True
+            elif JUDGEMENT_VI.search(clause) and not says and not attributed:
+                if len(clause.split()) <= LEAD_IN_WORDS:
+                    pending = clause
+                elif not _outlet_voice(clause, paragraphs):
+                    return "unattributed_judgement"
+        if pending is not None and not _outlet_voice(pending, paragraphs):
+            return "unattributed_judgement"
     return None
 
 

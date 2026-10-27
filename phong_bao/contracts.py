@@ -152,6 +152,9 @@ DESK_CONTRACTS = {
             "summary_sources", "summary_limitations", "key_points_prompt_version", "dropped_points",
             "provider", "boat",
         ],
+        # Audit record of every drafted story: the source paragraphs the writer read, at most
+        # radar.summary_sources.MAX_SOURCE_CHARS characters. Kept in the cycle folder, never published.
+        "optional_output_fields": ["writer_sources", "writer_source_chars"],
         "skip_conditions": [
             "not publishable with a readable source",
             "published outside the writer window (PHONG_BAO_WRITER_WINDOW_HOURS, default 48)",
@@ -165,6 +168,9 @@ DESK_CONTRACTS = {
             "after dropping failing sentences (including a significance sentence that cites no paragraph "
             "holding a listed condition): any paragraph lost, fewer than three paragraphs, development not "
             "first, significance not last, or outside 90-230 words",
+            "a sentence or the title fails radar.summary_validation.attribution_error: a purpose (nhằm, mục "
+            "đích) its cited paragraphs never state, a judgement or cause without the attribution its paragraph "
+            "carries, or a speaker its cited paragraphs do not name",
         ],
     },
     "chief": {
