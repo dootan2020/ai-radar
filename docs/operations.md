@@ -11,6 +11,9 @@ Arena model rankings have an independent daily refresh and last-good cache; see
 [the Arena rankings runbook](arena-rankings.md) for source licensing, weekly
 comparison, failures and first-run verification.
 
+Newsroom story reviews score each Vietnamese summary against the ten-item
+[story scorecard](bang-cham-ban-tin.md) (pass at 9/10) instead of a feel score.
+
 ## When the page looks old
 
 1. Compare the served `data/radar.json` timestamp with the latest successful
