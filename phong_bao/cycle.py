@@ -53,12 +53,20 @@ def cycle_lock(path):
 def fetch_snapshot(url=SNAPSHOT_URL):
     def read(address):
         with urlopen(Request(address, headers={"User-Agent": USER_AGENT}), timeout=60) as response:
-            return json.load(response)
+            headers = getattr(response, "headers", {})
+            content_type = headers.get("Content-Type", "").split(";", 1)[0].strip().lower()
+            if content_type in {"text/html", "application/xhtml+xml"}:
+                raise ValueError("snapshot response is not JSON")
+            try:
+                return json.loads(response.read())
+            except json.JSONDecodeError as error:
+                raise ValueError("snapshot response is not JSON") from error
 
     try:
         return read(url)
-    except HTTPError as error:
-        if error.code != 404 or not url.endswith("/radar-intake.json"):
+    except (HTTPError, ValueError) as error:
+        fallbackable = isinstance(error, ValueError) or error.code == 404
+        if not fallbackable or not url.endswith("/radar-intake.json"):
             raise
         return read(url.removesuffix("radar-intake.json") + "radar.json")
 

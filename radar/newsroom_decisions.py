@@ -42,9 +42,10 @@ def load_decisions(path=None, *, now=None, max_age_hours=None):
 
 
 def apply_decisions(payload, decisions):
-    """Hide held stories and cap published tiers while the desk is fresh."""
+    """Hide held stories and optionally cap published tiers while the desk is fresh."""
     if decisions is None:
         return payload
+    cap_tiers = os.environ.get("RADAR_NEWSROOM_CAP_TIERS", "").strip().lower() in {"1", "true", "yes", "on"}
     result = deepcopy(payload)
     reviewed = {row["id"]: row for row in decisions["decisions"]}
     stories = []
@@ -52,7 +53,7 @@ def apply_decisions(payload, decisions):
         row = reviewed.get(story.get("id"))
         if row is not None and row["decision"] == "hold":
             continue
-        if row is not None and (row.get("content_kind") == "analysis" or row.get("tier_capped")
+        if cap_tiers and row is not None and (row.get("content_kind") == "analysis" or row.get("tier_capped")
                                 or row.get("importance_tier") == "standard"):
             story["importance_tier"] = "standard"
             story["importance_weight"] = min(story.get("importance_weight", 0) or 0, 29.99)

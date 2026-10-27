@@ -54,6 +54,31 @@ class CycleTests(unittest.TestCase):
                 fetch_snapshot("https://example.org/data/radar-intake.json")
             self.assertEqual(opener.call_count, 1)
 
+    def test_snapshot_falls_back_when_intake_returns_html_with_success_status(self):
+        class Response(BytesIO):
+            def __init__(self, body, content_type):
+                super().__init__(body)
+                self.headers = {"Content-Type": content_type}
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                self.close()
+
+        for body, content_type in ((b"<!doctype html><html>Not found</html>", "text/html"),
+                                   (b"<!doctype html><html>Not found</html>", "application/json")):
+            with self.subTest(content_type=content_type):
+                seen = []
+                def fake_open(request, timeout):
+                    seen.append(request.full_url)
+                    if request.full_url.endswith("radar-intake.json"):
+                        return Response(body, content_type)
+                    return Response(b'{"stories": []}', "application/json")
+
+                with patch("phong_bao.cycle.urlopen", side_effect=fake_open):
+                    self.assertEqual(fetch_snapshot("https://example.org/data/radar-intake.json"), {"stories": []})
+                self.assertEqual(seen, ["https://example.org/data/radar-intake.json",
+                                        "https://example.org/data/radar.json"])
+
     def test_cli_passes_custom_snapshot_url(self):
         with patch("phong_bao.__main__.cycle", return_value={"state": "no_new_stories"}) as run_cycle:
             self.assertEqual(main(["cycle", "--snapshot-url", "https://example.org/data/radar-intake.json"]), 0)

@@ -22,6 +22,29 @@ def reader_fixture():
 
 
 class DecisionProjectionTests(unittest.TestCase):
+    def test_fresh_decisions_hide_holds_but_preserve_tiers_unless_capping_is_enabled(self):
+        payload = reader_fixture()
+        story = payload["stories"][0]
+        story.update(importance_tier="top", importance_weight=90, importance_reason="top story")
+        held = deepcopy(story)
+        held["id"] = "held"
+        payload["stories"] = [story, held]
+        decisions = {"decisions": [
+            {"id": story["id"], "decision": "publish", "content_kind": "analysis",
+             "importance_tier": "standard"},
+            {"id": "held", "decision": "hold"},
+        ]}
+
+        with patch.dict("os.environ", {"RADAR_NEWSROOM_CAP_TIERS": ""}):
+            default_result = apply_decisions(payload, decisions)
+        self.assertEqual([row["id"] for row in default_result["stories"]], [story["id"]])
+        self.assertEqual(default_result["stories"][0], story)
+
+        with patch.dict("os.environ", {"RADAR_NEWSROOM_CAP_TIERS": "true"}):
+            capped = apply_decisions(payload, decisions)
+        self.assertEqual(capped["stories"][0]["importance_tier"], "standard")
+        self.assertEqual(capped["stories"][0]["importance_weight"], 29.99)
+
     def test_fresh_file_filters_every_reader_projection_and_keeps_vietnamese(self):
         payload = reader_fixture()
         original = deepcopy(payload["stories"][0])
@@ -46,7 +69,8 @@ class DecisionProjectionTests(unittest.TestCase):
             choice = base / "decisions.json"
             choice.write_bytes(json.dumps(decisions).encode())
             target = base / "radar.json"
-            with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice)}):
+            with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice),
+                                            "RADAR_NEWSROOM_CAP_TIERS": "true"}):
                 site_payload.write_site_snapshot(payload, target)
             full = json.loads(target.read_bytes())
             self.assertEqual([story["id"] for story in full["stories"]], ["approved", "unknown"])
@@ -58,7 +82,8 @@ class DecisionProjectionTests(unittest.TestCase):
             self.assertEqual(full["stories"][1], unknown)
             self.assertEqual(full["sections"]["today"], ["approved", "unknown"])
             self.assertEqual(len(json.loads(site_payload.intake_path(target).read_bytes())["stories"]), 3)
-            with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice)}):
+            with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice),
+                                            "RADAR_NEWSROOM_CAP_TIERS": "true"}):
                 site_payload.write_site_snapshot(full, target)
             self.assertEqual(len(json.loads(site_payload.intake_path(target).read_bytes())["stories"]), 3)
             for path in (site_payload.page_path(target), site_payload.window_path(target),

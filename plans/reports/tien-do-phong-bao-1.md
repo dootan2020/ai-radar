@@ -61,3 +61,10 @@ Các hướng dẫn pha 1a bên dưới đã được pha 1b thay thế. Không 
 - Trong riêng step `Fetch newsroom decisions`, lỗi khác 404 giờ in GitHub Actions warning và tiếp tục với file quyết định đã xóa, tương tự fallback 404.
 - Test mục tiêu: `Ran 5 tests in 0.124s`, `OK`. Toàn bộ suite: `Ran 1415 tests in 244.031s`, `OK (skipped=8)`.
 - Không chạy model, push, register task; không sửa `.env`, secrets, fixtures hoặc `phong-bao/jobs/`.
+
+## Phase 1d: chỉ áp dụng hold mặc định và nhận diện intake HTML
+
+- Nhà in tiếp tục loại story có quyết định `hold`; mặc định story `publish` giữ nguyên tier, weight và reason cùng mọi summary/field khác. Tier capping chỉ chạy khi `RADAR_NEWSROOM_CAP_TIERS` đặt thành `1`, `true`, `yes` hoặc `on`.
+- `fetch_snapshot` fallback từ `radar-intake.json` sang `radar.json` khi intake trả HTTP 404, content type không phải JSON, hoặc body không parse được JSON. Response lỗi khác và lỗi từ URL không phải intake vẫn được raise.
+- Regression tests: default giữ nguyên tier, opt-in cap tier, và cả HTML content type lẫn body không phải JSON với HTTP 200 fallback thành công. Test hẹp: `Ran 9 tests in 0.306s`, `OK`. Toàn suite: `Ran 1417 tests in 242.137s`, `OK (skipped=8)`.
+- Không chạy model, push hoặc register task; không sửa `.github/workflows/`, `.env`, secrets, fixtures hay `phong-bao/jobs/`.
