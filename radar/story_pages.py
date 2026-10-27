@@ -16,6 +16,7 @@ from radar.catalog import is_retired
 from radar.clustering import canonical_url
 from radar.common import stable_id
 from radar.items import publisher_identity
+from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE
 from radar.site_config import SITE_BASE_URL
 
 BASE_URL = SITE_BASE_URL
@@ -109,10 +110,16 @@ def _text(value):
     return value if isinstance(value, str) else ""
 
 
+def _is_desk_prose(story):
+    return (story.get("key_points_source") == DESK_SUMMARY_SOURCE
+            and story.get("key_points_prompt_version") == DESK_PROMPT_VERSION)
+
+
 def _has_editorial_summary(story):
     points = story.get("key_points")
-    return (story.get("key_points_prompt_version") == "summary-vi-5-full"
-            and isinstance(points, list) and 4 <= len(points) <= 8
+    low, high = (3, 4) if _is_desk_prose(story) else (4, 8)
+    return ((story.get("key_points_prompt_version") == "summary-vi-5-full" or _is_desk_prose(story))
+            and isinstance(points, list) and low <= len(points) <= high
             and all(isinstance(p, str) and p.strip() for p in points)
             and isinstance(story.get("summary_sources"), list)
             and any(_http_url(source.get("url")) for source in story["summary_sources"] if isinstance(source, dict)))
@@ -216,10 +223,21 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
             f'{esc(source.get("name", "Nguồn"))}{" — nguồn gốc" if source.get("role") == "primary" else ""}</a>'
             for source in story["summary_sources"] if isinstance(source, dict) and _http_url(source.get("url")))
         sources_html = f'<p class="story-summary-sources">Nguồn: {links}</p>'
-        fallback_content = (
-            '<section class="story-keypoints-box" aria-label="Tóm tắt bài viết">'
-            '<p class="story-section-sub">Tóm tắt bằng AI từ phần nội dung bài gốc đọc được.</p>'
-            f'<ol class="story-points-list">{points_html}</ol>{sources_html}')
+        if _is_desk_prose(story):
+            outlet = next((s.get("name") for s in story["summary_sources"]
+                           if isinstance(s, dict) and s.get("role") == "outlet" and s.get("name")), "")
+            label = f"Phòng báo Halcyon tóm tắt từ {esc(outlet)}" if outlet else "Phòng báo Halcyon tóm tắt từ bài gốc"
+            prose_html = "".join(f'<p class="story-prose-text">{_summary_text(paragraph)}</p>'
+                                 for paragraph in fields["key_points"])
+            fallback_content = (
+                '<section class="story-keypoints-box story-prose-box" aria-label="Tóm tắt bài viết">'
+                f'<p class="story-section-sub">{label}</p>'
+                f'<div class="story-prose">{prose_html}</div>{sources_html}')
+        else:
+            fallback_content = (
+                '<section class="story-keypoints-box" aria-label="Tóm tắt bài viết">'
+                '<p class="story-section-sub">Tóm tắt bằng AI từ phần nội dung bài gốc đọc được.</p>'
+                f'<ol class="story-points-list">{points_html}</ol>{sources_html}')
         if "partial_source" in story.get("summary_limitations", []):
             fallback_content += '<p class="story-section-sub">Bản tóm tắt dựa trên các phần nguồn đọc được.</p>'
         if "missing_primary" in story.get("summary_limitations", []):

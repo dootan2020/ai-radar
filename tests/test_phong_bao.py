@@ -243,7 +243,7 @@ class NewsroomTests(unittest.TestCase):
             job = Path(directory) / "job"
             status = run(FIXTURES / "snapshot.json", job, self.tools, self.discovery, self.runner,
                          articles=self.articles)
-            self.assertEqual(set(status["desks"]), {"intake", "reporter", "editor", "checker", "chief"})
+            self.assertEqual(set(status["desks"]), {"intake", "reporter", "editor", "checker", "writer", "chief"})
             self.assertTrue(all(row["state"] == "done" for row in status["desks"].values()))
             decisions = json.loads((job / "quyet-dinh.json").read_text(encoding="utf-8"))["decisions"]
             self.assertEqual([row["decision"] for row in decisions], ["publish", "hold", "publish"])
@@ -566,7 +566,7 @@ class NewsroomTests(unittest.TestCase):
             self.assertEqual(list(first["desks"]), ["intake"])
             second = run(input_path, job, self.tools, self.discovery, self.runner,
                          articles=self.articles)
-            self.assertEqual(len(second["desks"]), 5)
+            self.assertEqual(len(second["desks"]), 6)
             changed = fixture("snapshot.json")
             changed["stories"][0]["summary"] = "Changed source input"
             input_path.write_bytes(json.dumps(changed).encode("utf-8"))

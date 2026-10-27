@@ -9,7 +9,7 @@ import { esc, fmt, avatar, faceOfStory, faceOfSource } from './faces.js';
 import { ago } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { uniqCoverage } from './titles.js';
-import { headlineShown, hasEditorialSummary } from './editorial-headline.js';
+import { headlineShown, hasEditorialSummary, isDeskProse } from './editorial-headline.js';
 export { hasEditorialSummary } from './editorial-headline.js';
 import { fallbackWorth } from './worth-score.js';
 
@@ -215,13 +215,34 @@ export function renderEditorialSummaryHTML(story, publisherName = '') {
   const sources = story.summary_sources.filter(s => safe(s?.url) !== '#').map(s =>
     `<a href="${esc(safe(s?.url))}" target="_blank" rel="noopener noreferrer">${esc(s.name)}${s.role === 'primary' ? ' — nguồn gốc' : ''}</a>`).join(' · ');
   const partial = (story.summary_limitations || []).includes('partial_source');
+  const outlet = (story.summary_sources.find(s => s?.role === 'outlet' && s?.name) || {}).name || publisherName;
   return `
-    ${renderKeyPointsHTML(story.key_points, publisherName)}
+    ${isDeskProse(story) ? renderDeskProseHTML(story.key_points, outlet) : renderKeyPointsHTML(story.key_points, publisherName)}
     <div class="story-summary-attribution">
       <p class="story-summary-sources">Nguồn: ${sources}</p>
       ${partial ? '<p class="story-section-sub">Bản tóm tắt dựa trên các phần nguồn đọc được.</p>' : ''}
       ${(story.summary_limitations || []).includes('missing_primary') ? '<p class="story-section-sub">Chưa đọc được nguồn gốc được bài báo dẫn.</p>' : ''}
     </div>`;
+}
+
+/* The newsroom writer desk's short paragraphs, labelled with who wrote them and from which source. */
+export function renderDeskProseHTML(paragraphs, outletName = '') {
+  if (!Array.isArray(paragraphs) || !paragraphs.length) return '';
+  const label = outletName
+    ? `Phòng báo Halcyon tóm tắt từ ${esc(outletName)}`
+    : 'Phòng báo Halcyon tóm tắt từ bài gốc';
+  return `
+    <section class="story-keypoints-box story-prose-box" aria-label="Tóm tắt bài viết">
+      <div class="story-section-head">
+        <div>
+          <p class="story-section-sub">${label}</p>
+        </div>
+      </div>
+      <div class="story-prose">
+        ${paragraphs.map(text => `<p class="story-prose-text">${summaryText(text)}</p>`).join('')}
+      </div>
+    </section>
+  `;
 }
 
 /* Render Key Points block (Direction A) */

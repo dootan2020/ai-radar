@@ -10,3 +10,6 @@ argv = ["agy", "-p", "{prompt}", "--model", "gemini-3.8-flash-high", "--output-f
 prompt_transport = "argument"
 [detect]
 command = "agy"
+# Owner 2026-10-27: the writer desk runs agy first (every reviewed sample was agy-written); Codex is its fallback.
+[desk_priority]
+writer = 5

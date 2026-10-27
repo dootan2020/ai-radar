@@ -390,7 +390,8 @@ class SummaryQuotaTests(unittest.TestCase):
         with patch.object(gemini, "config_from_env", return_value=self.config), \
                 patch.object(gemini, "transport", side_effect=self.provider), \
                 patch.object(pipeline, "fetch_article_result", return_value=(ARTICLE, None)), \
-                patch.object(pipeline.time, "time", return_value=self.now):
+                patch.object(pipeline.time, "time", return_value=self.now), \
+                patch.dict("os.environ", {"RADAR_SUMMARY_API_FALLBACK": "1"}):
             logs = []
             for _ in range(2):
                 with patch("sys.stdout", new_callable=io.StringIO) as output:

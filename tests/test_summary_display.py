@@ -48,3 +48,34 @@ console.log(JSON.stringify([
         self.assertNotIn('class="story-keypoints-box"', fallback)
         self.assertNotIn("Tóm tắt bằng AI", fallback)
         self.assertIn("Publisher excerpt.", fallback)
+
+    def test_desk_prose_renders_paragraphs_with_newsroom_label(self):
+        module = (ROOT / "site" / "story.js").as_uri()
+        program = f"""
+import {{ renderStoryHTML }} from {json.dumps(module)};
+const story = {{id: 'desk-example', title: 'Source title', url: 'https://publisher.example/article',
+  published_at: '2026-10-10T00:00:00Z', summary: 'Publisher excerpt.', key_points_machine: true,
+  key_points_source: 'nguoi-viet', key_points_prompt_version: 'summary-vi-6-prose',
+  editorial_headline_vi: 'Tiêu đề phòng báo',
+  summary_sources: [{{name:'The Verge', url:'https://publisher.example/article', role:'outlet'}}],
+  key_points: ['Diễn biến <b>chính</b>.', 'Nguyên nhân và ví dụ.', 'Ý nghĩa của sự kiện.']}};
+const options = {{now: Date.parse('2026-10-10T01:00:00Z')}};
+console.log(JSON.stringify([
+  renderStoryHTML(story, new Map(), {{...options, isPage: true}}),
+  renderStoryHTML(story, new Map(), {{...options, isModal: true}}),
+  renderStoryHTML({{...story, key_points: story.key_points.slice(0, 2)}}, new Map(), {{...options, isPage: true}})
+]));
+"""
+        result = subprocess.run(["node", "--input-type=module", "-e", program], cwd=ROOT,
+                                capture_output=True, text=True, encoding="utf-8", timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        page, modal, thin = json.loads(result.stdout)
+        for document in (page, modal):
+            self.assertIn('class="story-prose-text">Diễn biến &lt;b&gt;chính&lt;/b&gt;.</p>', document)
+            self.assertIn('class="story-prose-text">Ý nghĩa của sự kiện.</p>', document)
+            self.assertIn("Phòng báo Halcyon tóm tắt từ The Verge", document)
+            self.assertNotIn("Tóm tắt bằng AI", document)
+            self.assertNotIn('class="story-point-num"', document)
+            self.assertIn("Tiêu đề phòng báo", document)
+        self.assertNotIn("story-prose-text", thin)
+        self.assertIn("Publisher excerpt.", thin)

@@ -950,6 +950,7 @@ class SummaryTests(unittest.TestCase):
         env = {
             "GEMINI_API_KEY": "offline-sentinel",
             "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1",
+            "RADAR_SUMMARY_API_FALLBACK": "1",
             "GITHUB_OUTPUT": str(gh),
         }
 
