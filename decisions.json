@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T18:40:36.884296+00:00",
-  "input_generated_at": "2026-10-27T18:01:30Z",
+  "generated_at": "2026-10-27T23:20:18.600267+00:00",
+  "input_generated_at": "2026-10-27T22:41:11Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -5918,6 +5918,693 @@
       ],
       "same_event_coverage_ids": [
         "d65bf732a7d05fe2a26a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d453c39193c141129135",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://fedscoop.com/gsa-onegov-deal-claude-anthropic/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fcbdd7f12d3fcee50dad"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e734c0e90ec1424e9cd6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/tech-policy/2026/10/no-human-at-the-helm-delaware-plan-would-let-ai-agents-run-entire-businesses/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c2a9b90227b65a4e1630"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9a3764356b202945ed7a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/27/bank-of-america-kindly-asks-that-you-dont-share-your-banking-password-with-your-ai-assistant/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "072ee220e646ef03b2d6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f74f3a0c358e9a1dab0e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/27/whos-really-in-charge-at-anthropic-after-the-ipo/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6fb90373bbd9114c1c8e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "92608e65bdba9862559e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.blog/changelog/2026-10-27-github-copilot-supports-server-to-server-authentication",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dd8cc7c0b0c0dc6fe02e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3680aedf70659ea79553",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/ai/2026/10/anthropic-ipo-warns-its-ai-could-blackmail-people-become-sentient-end-humanity/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3b48a6281622fba0fac4",
+        "b74adcf73e2c60127e34"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bf87b87159c5ec4b2b7e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/fmr-msft-exec-buyouts-is-a-harbinger-of-ai-future-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f593a0d744cfb5db0f13"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "449070727cbfb984c712",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical how-to guide on developer.nvidia.com instructing how to configure GPU memory sharing in Kubernetes.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/memory-enforced-gpu-sharing-in-kubernetes-with-nvidia-cuda-13-4/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0bb2d3b03c389328be9e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "578f4a1cc2a6a4ecc178",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1019921/openai-breakthrough-math-computer-science-physics",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "de53950ccc84c7c1a401"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b9b5de18e9156d548c9e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Product landing page and sales pitch lacking independent journalistic reporting or concrete release documentation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.brangus.io/survival-llm",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8fa01abf766c1ab8c94b",
+        "a2a6fa955e15bf20fcb7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0c4235309cd2d9d4e05a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/robotics-lab-physical-intelligence-in-talks-for-a-20-billion-valuation",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "da31ce3e0131c9ace002"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b1e376bba5838b3f7304",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/anthropic-says-it-will-revolutionize-biology-some-day/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9194487c371736a5d29c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "28d2e77e3774752ad83f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/ai-s-game-changing-ipo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6b9f13de69cda081cf56"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "68b12007f7f448554e3b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal blog post detailing hardware badge hacking at a conference with only an incidental passing reference to Gemini.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Oct/27/game-boy-color-on-my-conference-badge/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "32d5f4020213262548d3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1e9b1470566b8d6142f9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://thehill.com/homenews/administration/6175633-trump-bans-artificial-intelligence-term/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a3f4b2acb89fbebb8523"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ff390db43c3b5faf08c1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General venture fund raise where AI startups are mentioned only in passing as historical investments.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/27/disruptive-raises-10b-fund-to-make-big-bets-on-at-least-10-companies/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2304dd3fceb69ccabf51"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c725efb1b2c45b80891c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/science/2026/10/vibe-genes-naturalish-language-comes-to-protein-genome-design-software/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f2ffc279fb646d27b66d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4242630c8128ed07378d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/bloomberg-tech-10-27-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "756fbfa608d8bce6e72a",
+        "fa5caf09ba5761f1c441"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2d6948b5b0022bc88fdc",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Corporate marketing blog post promoting AWS recognition in an analyst report for contact center software.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/aws-named-a-leader-in-the-2026-gartner-magic-quadrant-for-contact-center-as-a-service/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bd272434e3c328b9233d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8fc62bcb0cb101040102",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/tech/1019076/google-genie-4-ai-model",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7fc068a4cc48de4a58d1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d15727cb91d71bdac502",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual online forum discussion thread on Hacker News lacking substantive news reporting or announcements.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50253524",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0750c34febb0efb88918"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dcad83d827337ce853e7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.anthropic.com/research/early-progress-drug-development",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "398c498577275138abbd",
+        "60cd8ab43bbe66155e79",
+        "9f568f0e9218ea81d59c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c44dc9ed271ff418b14a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor-published customer success story illustrating how Check Point utilizes OpenAI Daybreak.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/check-point-daybreak",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "eedfb747f9319a880e61"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "723372c8dc681795e858",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.anthropic.com/research/agents-judgment-calls",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dc27b37836877cfc858b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "65ec4e9c8cacc3f6910f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://claude.com/resources/articles/claude-for-financial-advisors",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f3b5e96c6f831f399037"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "550f4d88633d42452645",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.anthropic.com/news/expanding-partnership-gsa",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1ad24f0057f319d643a4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3043e32bee1c77986969",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Best practices tutorial for managing infrastructure spending and calculating ROI on Google Cloud.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://claude.com/resources/articles/how-to-manage-costs-and-demonstrate-roi-for-claude-code-on-google-cloud",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "52da4b27e06b2fff20be"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b555ce2afa55383d5d6c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1019143/openai-eth-kaseya-science-math-physics",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c92b8726b81b36bb31d7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5a66c2ed13f88dca32b2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Hacker News discussion thread asking users about their career plans, representing casual social chatter without substantive reporting or news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50249194",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ac52521989a18be5bfc4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c6910c41cb8af5459671",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/analysis-china-ai-bubble-already-120038616.html",
+      "key_points": [
+        "China's mainland STAR50 index of AI and semiconductor leaders dropped 40% in less than four months, wiping out roughly $480 billion in market value.",
+        "Valuations for Chinese tech stocks collapsed amid concerns regarding AI demand and restrictions on Chinese exports.",
+        "China's broad blue-chip index has fallen about 20% from its June highs, halting a two-year market rally."
+      ],
+      "same_event_coverage_ids": [
+        "1e5eb26320dd865fc2e5",
+        "20fa1d29b3a56b7eb96e",
+        "75987043633a670403f5"
       ],
       "split_coverage_ids": []
     }
