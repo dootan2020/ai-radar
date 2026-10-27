@@ -279,7 +279,7 @@ class PipelineTests(unittest.TestCase):
         3. Translation pipeline stops Gemini before transport and falls back to NLLB.
         4. Arithmetic check: 31 days * $0.57 daily pace = $17.67 <= $20.00 hard cap."""
         from datetime import datetime, timezone
-        now_ts = datetime(2026, 10, 25, 12, 0, tzinfo=timezone.utc).timestamp()
+        now_ts = datetime(2026, 10, 31, 12, 0, tzinfo=timezone.utc).timestamp()
         remote_path = Path(self.tmp.name) / "remote_cap.git"
         subprocess.run(["git", "init", "--bare", str(remote_path)], check=True, capture_output=True)
         paid_path = Path(self.tmp.name) / "paid-ledger.json"
@@ -289,8 +289,8 @@ class PipelineTests(unittest.TestCase):
             "version": 1,
             "month": "2026-10",
             "settled_micros": 20_000_000,
-            "settled_daily": {"2026-10-25": 100_000},
-            "settled_consumers": {"2026-10-25": {"translation": 100_000}},
+            "settled_daily": {"2026-10-31": 100_000},
+            "settled_consumers": {"2026-10-31": {"translation": 100_000}},
             "pending": {},
         }
         gemini_paid_budget._push(str(remote_path), at_cap_store, now=now_ts)
@@ -305,8 +305,8 @@ class PipelineTests(unittest.TestCase):
             "version": 1,
             "month": "2026-10",
             "settled_micros": 19_990_000,
-            "settled_daily": {"2026-10-25": 100_000},
-            "settled_consumers": {"2026-10-25": {"translation": 100_000}},
+            "settled_daily": {"2026-10-31": 100_000},
+            "settled_consumers": {"2026-10-31": {"translation": 100_000}},
             "pending": {},
         }
         paid_path.unlink(missing_ok=True)

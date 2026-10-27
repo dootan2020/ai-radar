@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import calendar
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation, ROUND_CEILING
 import json
@@ -72,15 +73,68 @@ def _day(now: float) -> str:
     return datetime.fromtimestamp(now, timezone.utc).strftime("%Y-%m-%d")
 
 
-def _daily_limit_usd(day: str) -> Decimal:
-    boost = boost_usd(day)
-    return min(DAILY_CAP_USD + boost, DAILY_PACE_USD + boost)
+def days_left_in_month(day_or_dt: str | datetime | float) -> int:
+    """Return number of days remaining in the calendar month, including the current day."""
+    if isinstance(day_or_dt, (int, float)):
+        dt = datetime.fromtimestamp(day_or_dt, timezone.utc)
+    elif isinstance(day_or_dt, datetime):
+        dt = day_or_dt
+    else:
+        dt = datetime.strptime(str(day_or_dt), "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    _, total_days = calendar.monthrange(dt.year, dt.month)
+    return max(1, total_days - dt.day + 1)
 
 
-def _consumer_tokens(name: str, now: float) -> int:
+def daily_pace_usd(now: float | str | datetime | None = None, store: dict | None = None, env=None) -> Decimal:
+    """Pacing that spreads what is left of the monthly cap over days left in the month."""
+    if now is None:
+        now_ts = datetime.now(timezone.utc).timestamp()
+    elif isinstance(now, (int, float)):
+        now_ts = float(now)
+    elif isinstance(now, datetime):
+        now_ts = now.timestamp()
+    else:
+        now_ts = datetime.strptime(str(now), "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp()
+
+    day = _day(now_ts)
+    days_left = days_left_in_month(now_ts)
+    cap = cap_usd(env)
+    if cap <= 0:
+        return Decimal(0)
+
+    if store is not None:
+        settled_today = store.get("settled_daily", {}).get(day, 0)
+        settled_before_today = max(0, store.get("settled_micros", 0) - settled_today)
+        pending_before_today = sum(
+            amount for key, amount in store.get("pending", {}).items()
+            if store.get("pending_days", {}).get(key) != day
+        )
+        spent_before_today = Decimal(settled_before_today + pending_before_today) / Decimal(1_000_000)
+        month_left = max(Decimal(0), cap - spent_before_today)
+    else:
+        month_left = cap
+
+    return month_left / Decimal(days_left)
+
+
+def _daily_limit_usd(day: str, now: float | None = None, store: dict | None = None, env=None) -> Decimal:
+    boost = boost_usd(day, env=env)
+    pace = daily_pace_usd(now if now is not None else day, store=store, env=env)
+    return min(DAILY_CAP_USD + boost, pace + boost)
+
+
+def _consumer_tokens(name: str, now: float, store: dict | None = None) -> int:
     tokens = CONSUMER_TOKENS[name]
     if name == "summary":
-        tokens = int(Decimal(tokens) * (DAILY_PACE_USD + boost_usd(_day(now))) / DAILY_PACE_USD)
+        day = _day(now)
+        limit = _daily_limit_usd(day, now=now, store=store)
+        other_micros = _micros(CONSUMER_TOKENS["translation"], now) + _micros(CONSUMER_TOKENS["video"], now)
+        limit_micros = int((limit * Decimal(1_000_000)).to_integral_value())
+        if limit_micros <= other_micros:
+            tokens = int(Decimal(limit_micros) / _price_per_million(now))
+        else:
+            summary_micros = limit_micros - other_micros
+            tokens = int(Decimal(summary_micros) / _price_per_million(now))
     return tokens
 
 
@@ -252,8 +306,14 @@ def _read(path: Path, now: float):
     remaining = data.get("consumer_remaining_micros")
     if "run_key" in data and (not isinstance(remaining, dict) or set(remaining) != set(CONSUMER_TOKENS)):
         return None
+    def max_consumer_micros(name: str) -> int:
+        if name == "summary":
+            return int((DAILY_CAP_USD + MAX_BOOST_USD) * 1_000_000)
+        return _micros(CONSUMER_TOKENS[name], now)
+
     if remaining is not None and (not isinstance(remaining, dict) or any(
-            name not in CONSUMER_TOKENS or type(amount) is not int or not 0 <= amount <= _micros(_consumer_tokens(name, now), now)
+            name not in CONSUMER_TOKENS or type(amount) is not int
+            or not 0 <= amount <= max_consumer_micros(name)
             for name, amount in remaining.items())):
         return None
     for key in ("monthly_remaining_micros", "daily_remaining_micros", "settled_daily_micros"):
@@ -290,6 +350,9 @@ def prepare(path: str | Path, *, paid: bool, now: float | None = None, run_numbe
             expected_store = deepcopy(store) if not store_was_missing else None
             allowance = int((RUN_ALLOWANCE_USD * Decimal(1_000_000)).to_integral_value())
             pending = store["pending"]
+            day = _day(now)
+            daily_limit = _daily_limit_usd(day, now=now, store=store)
+            daily_cap_micros = int(daily_limit * 1_000_000)
             if paid:
                 # An attempt may only be prepared once: never reset local charges
                 # while reusing an existing durable hold after a crash or retry.
@@ -297,8 +360,6 @@ def prepare(path: str | Path, *, paid: bool, now: float | None = None, run_numbe
                     return "paid_budget_attempt_already_reserved"
                 cap = cap_usd()
                 cap_micros = int(cap * 1_000_000)
-                day = _day(now)
-                daily_cap_micros = int(_daily_limit_usd(day) * 1_000_000)
                 daily_reserved = sum(value for key, value in pending.items()
                                      if store["pending_days"].get(key) == day)
                 monthly_remaining = cap_micros - store["settled_micros"] - sum(pending.values())
@@ -322,6 +383,7 @@ def prepare(path: str | Path, *, paid: bool, now: float | None = None, run_numbe
                     "run_day": store["pending_days"].get(run_key),
                     "consumer_remaining_micros": _consumer_remaining(store, now, exclude_run=run_key),
                     "settled_daily_micros": store["settled_daily"].get(_day(now), 0),
+                    "daily_limit_micros": daily_cap_micros,
                     "video_dates": store.get("video_dates", [])}
             if paid:
                 data["monthly_remaining_micros"] = monthly_remaining
@@ -387,7 +449,7 @@ def _consumer_remaining(store, now, *, exclude_run=None):
     legacy_base = CONSUMER_TOKENS["translation"] + CONSUMER_TOKENS["summary"]
     legacy_trans = min(_micros(CONSUMER_TOKENS["translation"], now),
                        int(legacy * CONSUMER_TOKENS["translation"] / legacy_base))
-    legacy_summary = min(_micros(_consumer_tokens("summary", now), now),
+    legacy_summary = min(_micros(_consumer_tokens("summary", now, store=store), now),
                          legacy - legacy_trans)
     legacy_video = max(0, legacy - legacy_trans - legacy_summary)
     legacy_amounts = {
@@ -402,7 +464,7 @@ def _consumer_remaining(store, now, *, exclude_run=None):
     total_tokens = sum(CONSUMER_TOKENS.values())
     pending_trans = min(_micros(CONSUMER_TOKENS["translation"], now),
                         int(pending * CONSUMER_TOKENS["translation"] / total_tokens))
-    pending_summary = min(_micros(_consumer_tokens("summary", now), now),
+    pending_summary = min(_micros(_consumer_tokens("summary", now, store=store), now),
                           int(pending * CONSUMER_TOKENS["summary"] / total_tokens))
     pending_video = min(_micros(CONSUMER_TOKENS["video"], now),
                         pending - pending_trans - pending_summary)
@@ -415,7 +477,7 @@ def _consumer_remaining(store, now, *, exclude_run=None):
         "video": pending_video,
     }
 
-    return {name: max(0, _micros(_consumer_tokens(name, now), now) - amounts.get(name, 0)
+    return {name: max(0, _micros(_consumer_tokens(name, now, store=store), now) - amounts.get(name, 0)
                       - pending_amounts.get(name, 0) - legacy_amounts.get(name, 0))
             for name in CONSUMER_TOKENS}
 
@@ -445,7 +507,7 @@ def remaining_tokens(path, consumer, *, now=None, run_number=None):
     consumer_used = sum(item["micros"] for item in data["reservations"]
                         if item.get("consumer", "summary") == consumer)
     available = data.get("consumer_remaining_micros", {}).get(consumer, _micros(_consumer_tokens(consumer, now), now))
-    allowance = data.get("run_allowance_micros", int(DAILY_PACE_USD * 1_000_000))
+    allowance = data.get("run_allowance_micros", data.get("daily_limit_micros", int(DAILY_PACE_USD * 1_000_000)))
     return max(0, int(min(allowance - used, available - consumer_used) / _price_per_million(now)))
 
 
@@ -583,7 +645,7 @@ def finalize(path: str | Path, remote: str, *, now: float | None = None,
         cap_micros = int((cap * Decimal(1_000_000)).to_integral_value(rounding=ROUND_CEILING))
         if store["settled_micros"] + sum(store["pending"].values()) > cap_micros:
             return "paid_monthly_cap"
-        daily_cap_micros = int((_daily_limit_usd(day) * Decimal(1_000_000)).to_integral_value())
+        daily_cap_micros = int((_daily_limit_usd(day, now=now, store=store) * Decimal(1_000_000)).to_integral_value())
         daily_pending = sum(value for key, value in store["pending"].items()
                             if store["pending_days"].get(key) == day)
         if store["settled_daily"][day] + daily_pending > daily_cap_micros:

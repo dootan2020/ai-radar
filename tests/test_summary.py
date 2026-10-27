@@ -433,7 +433,8 @@ class SummaryTests(unittest.TestCase):
         self.calls.clear()
         # Exhaust the paid summary share independently of the old free ledger.
         with patch.dict(os.environ, {"GITHUB_RUN_NUMBER": "21"}):
-            error, _ = gemini_paid_budget.reserve(paid_path, 99_580, now=now, consumer="summary")
+            rem_tokens = gemini_paid_budget.remaining_tokens(paid_path, "summary", now=now)
+            error, _ = gemini_paid_budget.reserve(paid_path, rem_tokens, now=now, consumer="summary")
         self.assertIsNone(error)
         with patch.dict(os.environ, {"GITHUB_RUN_NUMBER": "21", "RADAR_GEMINI_PAID_LEDGER": str(paid_path)}):
             stats, _ = summary_pipeline.summarize_payload(

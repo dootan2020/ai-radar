@@ -16,6 +16,10 @@ from urllib.parse import urlsplit, urljoin
 
 from radar.items import instant
 from radar.reader_priority import ordered_stories, load_editor_picks
+try:
+    import trafilatura
+except ImportError:
+    trafilatura = None
 from radar import summary_budget
 from radar import summary_gemini as gemini
 from radar import gemini_paid_budget
@@ -44,13 +48,14 @@ class _ArticleTextParser(HTMLParser):
 
     BLOCKS = {"p", "li", "h1", "h2", "h3", "h4", "blockquote", "figcaption", "tr", "div"}
 
-    def __init__(self, prefer_body=False, prefer_article=False, article_depth=1):
+    def __init__(self, prefer_body=False, prefer_article=False, article_depth=1, fallback_mode=False):
         super().__init__(convert_charrefs=True)
         self.stack, self.parts, self.links, self.buffer = [], [], [], []
         self.anchor = None
         self.prefer_body, self.has_body = prefer_body, False
         self.prefer_article, self.has_article = prefer_article, False
         self.article_depth, self.max_article_depth = article_depth, 0
+        self.fallback_mode = fallback_mode
 
     def flush(self):
         value = " ".join("".join(self.buffer).split())
@@ -66,19 +71,42 @@ class _ArticleTextParser(HTMLParser):
         attrs = dict(attrs)
         if tag in self.BLOCKS:
             self.flush()
-        body = "entry-content" in attrs.get("class", "").split() or (
-            attrs.get("data-framer-name") == "Blog content"
-            and attrs.get("data-framer-component-type") == "RichTextContainer")
+        cls_list = attrs.get("class", "").split()
+        classes = attrs.get("class", "") + " " + attrs.get("id", "")
+        body = ("entry-content" in cls_list
+                or "post-content" in cls_list
+                or "article-body" in cls_list
+                or "article__body" in cls_list
+                or "article-content" in cls_list
+                or "single-post" in cls_list
+                or "entryPage" in cls_list
+                or (attrs.get("data-framer-name") == "Blog content"
+                    and attrs.get("data-framer-component-type") == "RichTextContainer"))
         self.has_body |= body
         self.has_article |= tag == "article"
         depth = sum(t == "article" for t, _, _ in self.stack) + (tag == "article")
         self.max_article_depth = max(self.max_article_depth, depth)
-        readable = body or (not self.prefer_body and (
-            (tag == "article" and depth >= self.article_depth)
-            or (tag == "main" and not self.prefer_article)))
-        classes = attrs.get("class", "") + " " + attrs.get("id", "")
-        skipped = tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"} or bool(
-            re.search(r"(?:^|[ _-])(?:related|recommended|advertisement|author-bio|newsletter|cookie|social-share)(?:$|[ _-])", classes, re.I))
+        if self.fallback_mode:
+            readable = (body
+                        or tag in {"article", "main"}
+                        or attrs.get("role") in {"main", "article"}
+                        or any(c in cls_list for c in ("entry", "post", "content", "entryPage"))
+                        or attrs.get("id") in {"content", "primary", "main", "entry"}
+                        or (tag == "p" and not any(skip for _, _, skip in self.stack)))
+        else:
+            readable = body or (not self.prefer_body and (
+                (tag == "article" and depth >= self.article_depth)
+                or (tag == "main" and not self.prefer_article)))
+
+        is_article_tag = (tag == "article") or body
+        skip_pattern = r"(?:^|[ _-])(?:related|recommended|advertisement|author-bio|cookie|social-share|newsletter-(?:signup|form|box|widget|subscribe|prompt|join))(?:$|[ _-])"
+        matched_skip = bool(re.search(skip_pattern, classes, re.I))
+        if not is_article_tag and re.search(r"(?:^|[ _-])newsletter(?:$|[ _-])", classes, re.I):
+            if not re.search(r"(?:post|content|body|entry|article)", classes, re.I):
+                matched_skip = True
+
+        skipped = (tag in {"script", "style", "noscript", "nav", "footer", "header", "aside"}
+                   or (not is_article_tag and matched_skip))
         self.stack.append((tag, readable, skipped))
         if tag == "a" and self.readable():
             self.anchor = [attrs.get("href", ""), ""]
@@ -147,18 +175,48 @@ def parse_article(html, url):
     parser = _ArticleTextParser()
     parser.feed(html)
     parser.flush()
+    best = parser
     if parser.has_body or parser.has_article:
-        parser = _ArticleTextParser(prefer_body=parser.has_body, prefer_article=True,
-                                    article_depth=parser.max_article_depth)
-        parser.feed(html)
-        parser.flush()
-    if not parser.parts:
+        refined = _ArticleTextParser(prefer_body=parser.has_body, prefer_article=True,
+                                     article_depth=parser.max_article_depth)
+        refined.feed(html)
+        refined.flush()
+        if parser.has_body and parser.has_article and len("\n".join(refined.parts)) < MIN_ARTICLE_TEXT_CHARS:
+            article_only = _ArticleTextParser(prefer_body=False, prefer_article=True,
+                                             article_depth=parser.max_article_depth)
+            article_only.feed(html)
+            article_only.flush()
+            if len("\n".join(article_only.parts)) >= MIN_ARTICLE_TEXT_CHARS:
+                refined = article_only
+        best = refined
+    else:
+        fallback = _ArticleTextParser(fallback_mode=True)
+        fallback.feed(html)
+        fallback.flush()
+        if len("\n".join(fallback.parts)) > len("\n".join(best.parts)):
+            best = fallback
+    if not best.parts:
         article_html = _pandaily_article_html(html, url)
         if article_html:
-            parser = _ArticleTextParser()
-            parser.feed("<article>" + article_html + "</article>")
-            parser.flush()
-    return parser
+            p = _ArticleTextParser()
+            p.feed("<article>" + article_html + "</article>")
+            p.flush()
+            best = p
+
+    # trafilatura extracts article text first; existing parser is the fallback
+    if trafilatura is not None:
+        try:
+            traf_text = trafilatura.extract(html, url=url, favor_precision=True)
+            if traf_text and len(traf_text.strip()) >= MIN_ARTICLE_TEXT_CHARS:
+                parts = [p.strip() for p in traf_text.splitlines() if p.strip()]
+                best.parts = parts
+                best.extractor = "trafilatura"
+                return best
+        except Exception:
+            pass
+
+    best.extractor = "parser"
+    return best
 
 
 def article_url_hash(url: str) -> str:
@@ -256,6 +314,7 @@ def fetch_article_result(story: dict, robots_cache: dict | None = None, *, detai
             return "", "too_short"
         if details is not None:
             details["links"] = parser.links
+            details["extractor"] = parser.extractor
             details["resolved_url"] = current_url
         return text, None
 
@@ -265,23 +324,85 @@ def fetch_article_text(story: dict, robots_cache: dict | None = None) -> str:
 
 
 def fetch_story_article(story, robots_cache, details):
-    """Try one independent coverage page when the representative page is unreadable."""
+    """Try coverage pages or linked official sources when representative page is unreadable."""
     urls = [article_url(story)]
     urls.extend(c.get("url") for c in story.get("coverage") or [] if isinstance(c, dict))
     seen = set()
     reason = "no_url"
+    candidate_links = []
+    max_coverage_attempts = 6
+
     for url in urls:
         if not url or url in seen:
             continue
         seen.add(url)
-        if len(seen) > 2:
+        if len(seen) > max_coverage_attempts:
             break
         local_details = {}
         text, reason = fetch_article_result({"url": url}, robots_cache=robots_cache, details=local_details)
+        if local_details.get("links"):
+            candidate_links.extend(local_details["links"])
         if text:
             details.update(local_details)
             return text, None, url
+
+    if candidate_links:
+        title = str(story.get("title") or "")
+        primary = primary_link(candidate_links, article_url(story) or "", title, "")
+        if primary and primary not in seen:
+            seen.add(primary)
+            local_details = {}
+            text, prim_reason = fetch_article_result({"url": primary}, robots_cache=robots_cache, details=local_details)
+            if text:
+                details.update(local_details)
+                return text, None, primary
+
     return "", reason, None
+
+def honest_fallback_summary(story: dict) -> str:
+    """Build a natural, honest Vietnamese summary line from known metadata (title, publisher, coverage).
+    Ensures complete sentence punctuation so the reader UI never displays an empty box.
+    """
+    raw_vi = str(story.get("summary_vi") or "").strip()
+    if raw_vi:
+        if not re.search(r'[.!?。！？…][\'"”’\)\]]*$', raw_vi):
+            raw_vi += "."
+        return raw_vi
+
+    title_vi = str(story.get("title_vi") or story.get("title") or "").strip()
+    if not title_vi:
+        return ""
+
+    clean_title = title_vi.strip('\'"“”')
+
+    coverage = [c for c in story.get("coverage") or [] if isinstance(c, dict)]
+    first_pub = ""
+    for c in coverage:
+        p = str(c.get("publisher") or "").strip()
+        if p and p.lower() != "hacker-news":
+            first_pub = p
+            break
+    if not first_pub and coverage:
+        first_pub = str(coverage[0].get("publisher") or "").strip()
+    if not first_pub:
+        host = urlsplit(story.get("url") or "").hostname or ""
+        first_pub = host.removeprefix("www.")
+
+    other_pubs = []
+    for c in coverage:
+        p = str(c.get("publisher") or "").strip()
+        if p and p != first_pub and p not in other_pubs and p.lower() != "hacker-news":
+            other_pubs.append(p)
+
+    if first_pub and other_pubs:
+        line = f"Sự việc \"{clean_title}\" được ghi nhận từ {first_pub} cùng các nguồn theo dõi {', '.join(other_pubs[:2])}."
+    elif first_pub:
+        line = f"Thông tin về \"{clean_title}\" được ghi nhận từ nguồn {first_pub}."
+    else:
+        line = f"Ghi nhận thông tin về sự việc: {clean_title}."
+
+    return line
+
 
 def story_inputs(story: dict) -> dict[str, Any]:
     """Extract canonical input data available in the pipeline for this story."""
@@ -681,6 +802,11 @@ def summarize_payload(payload: dict,
             clock=clock, now=now)
     totals["status"] = ("partial" if totals["summarized"] or totals["cache_hits"] else "failed") if totals["error"] else (
         "partial" if totals["pending"] else "cache" if totals["cache_hits"] and not totals["summarized"] else "ok")
+    for story in payload.get("stories") or []:
+        if isinstance(story, dict) and not story.get("key_points"):
+            fallback = honest_fallback_summary(story)
+            if fallback:
+                story["summary_vi"] = fallback
     payload["summary"] = totals
     return totals, alive
 
@@ -752,7 +878,7 @@ def _summarize_once(payload: dict,
 
     if any(isinstance(story.get("importance_weight"), (int, float)) for story in eligible_stories):
         eligible_stories.sort(key=lambda story: (
-            story.get("importance_weight") or 0,
+            story.get("importance_weight") if isinstance(story.get("importance_weight"), (int, float)) else -1.0,
             (instant(story.get("published_at")) or gen_dt).timestamp()), reverse=True)
     elif config.paid:
         ordered, _ = ordered_stories(payload, editor_picks if editor_picks is not None else load_editor_picks())
@@ -791,6 +917,11 @@ def _summarize_once(payload: dict,
             boost = gemini_paid_budget.boost_usage(gemini_paid_budget.ledger_path(), now=request_now)
             if boost is not None:
                 stats["paid_boost"] = boost
+        for story in stories:
+            if isinstance(story, dict) and not story.get("key_points"):
+                fallback = honest_fallback_summary(story)
+                if fallback:
+                    story["summary_vi"] = fallback
         payload["summary"] = stats
 
     restored = set()

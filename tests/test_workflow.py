@@ -205,6 +205,19 @@ class WorkflowTests(unittest.TestCase):
         self.assertLess(names.index("Prepare permanent story pages"), names.index("Upload Cloudflare Pages site artifact"))
         self.assertIn("RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json", steps["Summarize stories"])
 
+    def test_article_extractor_is_installed_immediately_before_summarizing(self):
+        steps = self.steps()
+        names = list(steps)
+        install_index = names.index("Install article extractor")
+        self.assertEqual(names[install_index + 1], "Summarize stories")
+        self.assertIn("python -m pip install --disable-pip-version-check -r requirements-summary.txt",
+                      steps["Install article extractor"])
+        requirements = (WORKFLOW.parents[2] / "requirements-summary.txt").read_text(encoding="utf-8")
+        self.assertEqual(requirements.splitlines(), [
+            "# Article extraction dependency for the story summary pipeline.",
+            "trafilatura==2.3.1",
+        ])
+
     def test_gemini_credentials_are_isolated_to_optional_translation_step(self):
         steps = self.steps()
         translate = steps["Translate headlines"]
