@@ -228,10 +228,10 @@ class WriterDeskTests(unittest.TestCase):
         self.assertEqual(len(row["key_points"]), 3)
         self.assertTrue(row["reason"].startswith("prose written: development/cause/significance"))
 
-    def test_writer_runs_agy_first_while_the_editor_keeps_codex_first(self):
+    def test_writer_and_editor_run_agy_first_while_the_default_order_keeps_codex_first(self):
         discovery = {"commands": ["agy", "codex"], "fuel": None}
         self.assertEqual([t["id"] for t in providers("bien-tap", self.tools, discovery, desk="writer")], ["agy", "codex"])
-        self.assertEqual([t["id"] for t in providers("bien-tap", self.tools, discovery, desk="editor")], ["codex", "agy"])
+        self.assertEqual([t["id"] for t in providers("bien-tap", self.tools, discovery, desk="editor")], ["agy", "codex"])
         self.assertEqual([t["id"] for t in providers("bien-tap", self.tools, discovery)], ["codex", "agy"])
         seen = []
 

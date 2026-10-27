@@ -12,7 +12,7 @@ Arena model rankings have an independent daily refresh and last-good cache; see
 comparison, failures and first-run verification.
 
 Newsroom story reviews score each Vietnamese summary against the ten-item
-[story scorecard](bang-cham-ban-tin.md) (pass at 9/10) instead of a feel score.
+[story scorecard](bang-cham-ban-tin.md) (pass at 9/10) instead of a feel score. Every newsroom desk (reporter, editor, checker, writer) tries Antigravity (`agy`) first and falls back to Codex only when `agy` is unavailable; the lane order lives in `[desk_priority]` of `phong-bao/cong-cu/agy.toml`.
 
 ## When the page looks old
 

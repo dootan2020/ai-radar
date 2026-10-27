@@ -10,6 +10,10 @@ argv = ["agy", "-p", "{prompt}", "--model", "gemini-3.8-flash-high", "--output-f
 prompt_transport = "argument"
 [detect]
 command = "agy"
-# Owner 2026-10-27: the writer desk runs agy first (every reviewed sample was agy-written); Codex is its fallback.
+# Owner 2026-10-28: Codex is near its weekly limit and reserved for content review, so every desk runs agy first;
+# Codex (priority 10) stays the fallback. The checker still excludes the editor's boat, so it uses Codex when the editor ran on agy.
 [desk_priority]
+reporter = 5
+editor = 5
+checker = 5
 writer = 5
