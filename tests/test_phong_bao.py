@@ -261,7 +261,7 @@ class NewsroomTests(unittest.TestCase):
             self.assertTrue((job / "raw" / "checker-1.json").exists())
             self.assertEqual(evaluate(job / "quyet-dinh.json", FIXTURES / "labels.json")["junk_leaked"], 0)
 
-    def test_invalid_editor_rows_retry_together_then_publish_degraded(self):
+    def test_invalid_editor_rows_retry_together_then_hold(self):
         class BadEditorRows(FixtureRunner):
             def __init__(self, replies):
                 super().__init__(replies)
@@ -287,9 +287,9 @@ class NewsroomTests(unittest.TestCase):
             self.assertEqual(len(runner.editor_calls), 2)
             self.assertEqual(len(runner.editor_calls[1]), 2)
             decisions = json.loads((job / "quyet-dinh.json").read_text(encoding="utf-8"))["decisions"]
-            self.assertEqual(decisions[0]["decision"], "publish")
-            self.assertEqual(decisions[0]["importance_tier"], "standard")
-            self.assertEqual(decisions[0]["summary"], "none")
+            self.assertEqual(decisions[0]["decision"], "hold")
+            self.assertEqual(decisions[0]["round"], "editor")
+            self.assertEqual(decisions[0]["reason"], "editor_invalid")
             editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
             self.assertEqual(editor[decisions[0]["id"]]["reason"], "editor_invalid")
             self.assertEqual(status["desks"]["editor"]["invalid_rows"], 2)
@@ -390,8 +390,8 @@ class NewsroomTests(unittest.TestCase):
         self.assertEqual((editor[ids[1]]["news"], editor[ids[1]]["claims"], editor[ids[1]]["invalid_response"]),
                          (True, [], False))
         self.assertEqual((editor[ids[2]]["news"], editor[ids[2]]["junk_kind"]), (False, "suspected_junk"))
-        self.assertEqual((editor[ids[3]]["news"], editor[ids[3]]["importance"], editor[ids[3]]["claims"]),
-                         (True, "standard", []))
+        self.assertEqual((editor[ids[3]]["news"], editor[ids[3]]["reason"]),
+                         (False, "editor_invalid"))
         self.assertTrue(editor[ids[3]]["invalid_response"])
         self.assertEqual(len(usage), 2)
         self.assertIn("top, notable, or standard", EDITOR_PROMPT)
@@ -882,8 +882,8 @@ class NewsroomTests(unittest.TestCase):
         self.assertEqual((editor[sid]["content_kind"], editor[sid]["analysis_kind"]), ("analysis", "analysis"))
         decision = _chief([story], intake, reporter, editor, {sid: {"supported_claims": []}},
                           datetime(2026, 10, 26, tzinfo=timezone.utc))[0]
-        self.assertEqual((decision["decision"], decision["importance_tier"], decision["analysis_kind"]),
-                         ("publish", "standard", "analysis"))
+        self.assertEqual((decision["decision"], decision["round"], decision["reason"], decision["analysis_kind"]),
+                         ("hold", "editor", "editor_invalid", "analysis"))
 
 
 if __name__ == "__main__":
