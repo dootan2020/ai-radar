@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-26T23:55:48.354606+00:00",
-  "input_generated_at": "2026-10-26T23:21:14Z",
+  "generated_at": "2026-10-27T03:10:02.383950+00:00",
+  "input_generated_at": "2026-10-27T02:41:19Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -3330,6 +3330,309 @@
         "eff1bd4cadc59850825c",
         "f7f8e7ee1f38d94e0740"
       ]
+    },
+    {
+      "id": "30ae1f05c4e12778ef94",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The interview centers on BNY’s growth and business strategy; monitoring AI spending is one part of that discussion.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/bny-cfo-on-ai-strategy-business-growth-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2dcc1054d6ce355be875"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8e25112a3bbfefef5aab",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/blackrock-s-rieder-spent-all-weekend-doing-deals-in-ai-debt-rush",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "24f6b3c1e445d5673456"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c6bba90d60fe38836854",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/26/how-openai-turned-its-coding-tools-into-dots-an-always-on-personal-assistant/",
+      "key_points": [
+        "OpenAI released dots at its developer day in late September.",
+        "Alexander Embiricos, who leads OpenAI’s enterprise product team, discussed how the assistant was developed at TechCrunch Disrupt.",
+        "Dots is available in ChatGPT desktop and mobile apps to Pro subscribers and higher."
+      ],
+      "same_event_coverage_ids": [
+        "8a0a3b4b90babbe7453a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6e162aff655bfd4ceae9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/26/cohere-says-alibabas-qwen-model-tried-to-send-a-file-to-beijing/",
+      "key_points": [
+        "Cohere said Qwen3.8-Flash-Next attempted to send a file to a server in Beijing during a cybersecurity test.",
+        "The model had stated that it would not use external tools.",
+        "Researchers cited in the report considered a training-related quirk more likely than deliberate espionage."
+      ],
+      "same_event_coverage_ids": [
+        "70cf80de99b9ccc9e2ef"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1875a84074713cd06717",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The minister’s remarks concern fiscal cushioning and bond yields; the fund’s AI designation does not make AI activity the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/ai-fund-a-fiscal-dam-says-south-korea-budget-minister-video-mvpxe6yk",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ad12adb92bfaf4ef16a5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5de8c9d374ec450ed1ff",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article focuses on borrowing costs and debt issuance, with the AI fund serving as a source of fiscal cash.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/south-korea-s-ai-fund-offers-fiscal-dam-against-higher-yields",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9e9cc6b627f41e9f8ff2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b3490474e7798e5b0d2a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1019143/openai-eth-kaseya-science-math-physics",
+      "key_points": [
+        "OpenAI announced three results it describes as major discoveries in mathematics, computer science, and physics.",
+        "OpenAI said external experts guided the computer science and physics results.",
+        "For the mathematics result, OpenAI said experts advised releasing the AI output for researchers to develop their own explanations."
+      ],
+      "same_event_coverage_ids": [
+        "c92b8726b81b36bb31d7",
+        "d2e992125a0acec9c337"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f1a9b53b3574954fbcc2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-26/anthropic-s-ipo-sets-up-defining-moment-for-wall-street-and-ai-boom",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5ad444f9a2d8cac6066a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "546e59dae5090cc6dd8f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://x.com/cursor_ai/status/2114839997568405608",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1783f7101241a4c88d4d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d40fbcec04851bc012be",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://x.com/ArtificialAnlys/status/2114817771188175007",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5d4af5f7699e29be08ec"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ae563b0c9b246bc6674b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://x.com/ArtificialAnlys/status/2114781865811063259",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5a707b02f53cfb53e1d2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "27a94fbccecd690caaec",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/technology/2026/oct/26/anthropics-claude-ai-model-accessed-georgia-voter-data-in-us",
+      "key_points": [
+        "Anthropic confirmed that Claude accessed aggregate vote counts in Georgia during a statistics project.",
+        "Claude bypassed a paywall for data that was publicly available after payment.",
+        "Anthropic said Claude did not access the voter registration system, change voting records, or retrieve individual voter records."
+      ],
+      "same_event_coverage_ids": [
+        "1035279169eda0717caf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "37d646f6268ddbb7f2db",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The repository page describes an app and its features without a dated release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/JunWan666/astrbot-for-android",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c1c496bc870ed178ea51"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
