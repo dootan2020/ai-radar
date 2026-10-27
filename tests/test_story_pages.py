@@ -255,6 +255,28 @@ class StoryPageRenderingTests(unittest.TestCase):
         # When key points exist, gateway description notes AI summarization
         self.assertIn('Halcyon tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
 
+    def test_desk_prose_renders_as_paragraphs_with_newsroom_label(self):
+        paragraphs = ["Đoạn một nêu diễn biến chính.", "Đoạn hai giải thích nguyên nhân.",
+                      "Đoạn ba nêu ý nghĩa của sự kiện."]
+        document = render_story_page(story(
+            key_points=paragraphs, key_points_source="nguoi-viet", key_points_prompt_version="summary-vi-6-prose",
+            summary_sources=[{"name": "The Verge", "role": "outlet", "url": "https://publisher.example/story"}],
+        ))
+        for paragraph in paragraphs:
+            self.assertIn(f'<p class="story-prose-text">{paragraph}</p>', document)
+        self.assertIn("Phòng báo Halcyon tóm tắt từ The Verge", document)
+        self.assertNotIn("Tóm tắt bằng AI", document)
+        self.assertNotIn('class="story-point-num"', document)
+        # The prose contract never applies to API points, nor to a desk row of the wrong length.
+        api = render_story_page(story(
+            key_points=paragraphs, key_points_prompt_version="summary-vi-6-prose",
+            summary_sources=[{"name": "The Verge", "role": "outlet", "url": "https://publisher.example/story"}]))
+        self.assertNotIn("story-prose-text", api)
+        thin = render_story_page(story(
+            key_points=paragraphs[:2], key_points_source="nguoi-viet", key_points_prompt_version="summary-vi-6-prose",
+            summary_sources=[{"name": "The Verge", "role": "outlet", "url": "https://publisher.example/story"}]))
+        self.assertNotIn("story-prose-text", thin)
+
     def test_rejects_unsafe_ids_and_non_http_original_links(self):
         with self.assertRaisesRegex(ValueError, "unsafe id"):
             render_story_page(story("../bad"))

@@ -31,14 +31,29 @@ UNITS = {
     "fps": r"(?:frames?\s*(?:per|/)\s*second|fps|khung hình\s*/\s*giây)",
     "seconds": r"(?:seconds?|giây)",
     "percent": r"(?:%|percent|phần trăm)",
-    "usd": r"(?:USD|dollars?|đô la)",
+    # "đô la Hồng Kông" is the Hong Kong dollar, never USD; it is checked as hkd below.
+    "usd": r"(?:USD|dollars?|đô la(?!\s+(?:Hồng Kông|Hong Kong|HK)\b))",
+    "hkd": r"(?:HKD|Hong Kong dollars?|đô la\s+(?:Hồng Kông|Hong Kong|HK)\b)",
 }
+# Sources often write a currency before the number (HK$86.80); this form also supports the unit.
+UNIT_PREFIXES = {"hkd": r"(?:HK\$|HKD)\s*"}
 PERCENT_RANGE = re.compile(r"(?<!\w)(\d+(?:[.,]\d+)?)\s*(?:to|[-–])\s*\d+(?:[.,]\d+)?\s*(?:%|percent|phần trăm)", re.I)
 MONEY = re.compile(r"(?P<dollar>\$)?(?P<value>\d+(?:[.,]\d+)?)\s*(?P<scale>billion|million|tỷ|triệu|[BM])\b(?:\s*(?:USD|dollars?))?", re.I)
 
 COMMON_ACRONYMS = {"AI", "IPO", "CEO", "CTO", "CFO", "COO", "GPU", "CPU", "API", "USD",
                    "LLM", "LLMS", "AGI", "SEC", "PAC", "FPGA", "JSON", "XML", "SQL", "HTTP",
                    "HTTPS", "RISC", "UI", "UX", "US", "UK", "EU"}
+# A currency code is a unit, not a name: allow it when the evidence names that currency in any form
+# (sources write RMB2.96 billion, HK$86.80, 680 million yuan).
+CURRENCY_EVIDENCE = {
+    "USD": r"\$|USD|dollars?", "HKD": r"HK\$|HKD|Hong Kong dollars?", "RMB": r"RMB|CNY|yuan|renminbi",
+    "CNY": r"RMB|CNY|yuan|renminbi", "EUR": r"€|EUR|euros?", "JPY": r"¥|JPY|yen",
+    "GBP": r"£|GBP|pounds? sterling|British pounds?", "VND": r"VND|đồng|\bdong\b",
+    "KRW": r"₩|KRW|\bwon\b", "INR": r"₹|INR|rupees?", "TWD": r"NT\$|TWD|Taiwan dollars?",
+    "SGD": r"S\$|SGD|Singapore dollars?",
+}
+# Conventional Vietnamese renderings that are not spelled as native syllables.
+VIETNAMESE_TRANSLITERATIONS = {"latinh"}
 VIETNAMESE_ONSETS = ("ngh", "ng", "nh", "ch", "gh", "gi", "kh", "ph", "qu", "th", "tr",
                     "b", "c", "d", "g", "h", "k", "l", "m", "n", "p", "r", "s", "t", "v", "x", "")
 VIETNAMESE_CODAS = ("ch", "ng", "nh", "c", "m", "n", "p", "t", "")
@@ -54,6 +69,12 @@ def folded(text):
 def vietnamese_syllable(word):
     """Recognize Vietnamese spelling even when tones are omitted."""
     plain = folded(word)
+    if plain in VIETNAMESE_TRANSLITERATIONS:
+        return True
+    if "-" in word:
+        # Hyphenated phonetic renderings (Xin-ga-po, Ca-na-đa) are runs of Vietnamese syllables.
+        parts = word.split("-")
+        return len(parts) > 1 and all(part and vietnamese_syllable(part) for part in parts)
     if not plain.isalpha():
         return False
     for onset in VIETNAMESE_ONSETS:
@@ -104,7 +125,9 @@ def number_error(text, evidence, *, publication_years=()):
     source_words = set(re.findall(r"[a-z]+", evidence.casefold()))
     if "hundred" in source_words:
         source_numbers.add("100")
-    for index, word in enumerate(("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten")):
+    for index, word in enumerate(("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+                                  "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
+                                  "seventeen", "eighteen", "nineteen", "twenty")):
         if word in source_words:
             source_numbers.add(str(index))
     for number, word in NUMBER_WORDS.items():
@@ -125,7 +148,9 @@ def number_error(text, evidence, *, publication_years=()):
     for unit, pattern in UNITS.items():
         for match in re.finditer(r"(\d+(?:[.,]\d+)?)\s*(?:" + pattern + r")", text, re.I):
             number = re.escape(match[1].replace(",", ".")).replace(r"\.", "[.,]")
-            direct = re.search(r"\b" + number + r"\s*(?:" + pattern + r")", evidence, re.I)
+            direct = (re.search(r"\b" + number + r"\s*(?:" + pattern + r")", evidence, re.I)
+                      or (unit in UNIT_PREFIXES
+                          and re.search(UNIT_PREFIXES[unit] + number + r"(?![\d.,]\d)", evidence, re.I)))
             ranged = (unit == "percent" and any(
                 re.fullmatch(number, match[1])
                 for match in PERCENT_RANGE.finditer(evidence)))
@@ -155,6 +180,8 @@ def entity_error(text, evidence):
     if re.search(r"(?<!\w)Ai2(?!\w)", evidence, re.I):
         text = re.sub(r"(?<!\w)(?:Viện Allen|Allen Institute(?: for AI)?)(?!\w)", " ", text)
     allowed = {folded(token) for token in ENTITY_WORD.findall(evidence)}
+    allowed.update(code.casefold() for code, pattern in CURRENCY_EVIDENCE.items()
+                   if re.search(pattern, evidence, re.I))
     for word in ENTITY_WORD.findall(text):
         if (word[0].isupper() and not vietnamese_syllable(word)
                 and word.upper() not in COMMON_ACRONYMS and folded(word) not in allowed):

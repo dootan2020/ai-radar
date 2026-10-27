@@ -748,6 +748,23 @@ dialog.story-dialog::backdrop {
   border: none;
 }
 
+/* The newsroom writer desk publishes short paragraphs, read as prose rather than a numbered list. */
+.story-prose {
+  display: grid;
+  gap: var(--space-12);
+  margin: var(--space-16) 0 0;
+}
+
+.story-prose-text {
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-ink);
+  margin: 0;
+  max-width: 68ch;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
 .story-point-text {
   font-size: var(--text-body);
   line-height: var(--leading-body);

@@ -128,6 +128,7 @@ class PaidBudgetTests(unittest.TestCase):
                 src.write_text(json.dumps(deepcopy(payload)), encoding="utf-8", newline="\n")
                 published.write_text("{}", encoding="utf-8")
                 env = {"GITHUB_RUN_NUMBER": str(run), "GEMINI_API_KEY": "offline-sentinel",
+                       "RADAR_SUMMARY_API_FALLBACK": "1",
                        "RADAR_GEMINI_PAID_ENABLED": "1", "RADAR_GEMINI_PAID_LEDGER": str(self.path),
                        "RADAR_PUBLISHED_SNAPSHOT": str(published), "GITHUB_OUTPUT": str(output)}
                 with patch.dict(os.environ, env, clear=True), patch("sys.stdout", new_callable=io.StringIO):

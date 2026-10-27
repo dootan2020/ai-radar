@@ -24,6 +24,10 @@ def load_registry(directory=DEFAULT_REGISTRY):
             raise ValueError(f"invalid capabilities: {path.name}")
         if not isinstance(tool["priority"], int) or not isinstance(tool["monthly_cap_usd"], (int, float)) or tool["monthly_cap_usd"] < 0:
             raise ValueError(f"invalid cost settings: {path.name}")
+        desk_priority = tool.get("desk_priority", {})
+        if not isinstance(desk_priority, dict) or not all(
+                isinstance(desk, str) and isinstance(value, int) for desk, value in desk_priority.items()):
+            raise ValueError(f"invalid desk priority: {path.name}")
         if tool["kind"] == "paid-api" and not tool["monthly_cap_usd"]:
             raise ValueError(f"paid API requires a spending cap: {path.name}")
         if tool["kind"] != "paid-api" and tool["monthly_cap_usd"]:
@@ -71,8 +75,10 @@ def available(tool, discovery):
     return status != "dry"
 
 
-def providers(capability, tools, discovery, *, exclude=(), boat_exclude=()):
+def providers(capability, tools, discovery, *, exclude=(), boat_exclude=(), desk=None):
+    """Eligible tools in lane order; a profile's [desk_priority] overrides its priority for one desk."""
     selected = [tool for tool in tools if capability in tool["capabilities"] and available(tool, discovery)
                 and tool["id"] not in exclude and tool.get("boat") not in boat_exclude
                 and tool.get("runner") != "disabled-until-budget-adapter"]
-    return sorted(selected, key=lambda tool: (KINDS[tool["kind"]], tool["priority"], tool["id"]))
+    return sorted(selected, key=lambda tool: (KINDS[tool["kind"]],
+                                              tool.get("desk_priority", {}).get(desk, tool["priority"]), tool["id"]))

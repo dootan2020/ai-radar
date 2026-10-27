@@ -5,6 +5,8 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from radar.newsroom_decisions import DESK_SUMMARY_SOURCE as WRITER_SOURCE, desk_fields_valid
+
 IMPORTANCE_TIERS = ("top", "notable", "standard")
 CONTENT_KINDS = ("event_news", "analysis", "junk")
 ANALYSIS_KINDS = ("analysis", "interview", "opinion", "podcast", "survey")
@@ -137,6 +139,34 @@ DESK_CONTRACTS = {
             "supported_claims is not a list",
         ],
     },
+    "writer": {
+        "desk": "writer",
+        "description": "Writer ('Người viết'): 3-4 short Vietnamese paragraphs (development, cause, "
+                       "examples, significance; contract summary-vi-6-prose) for recent publishable stories, "
+                       "each sentence held to the shared number and name checks",
+        "input_fields": ["id", "sources", "missing_primary", "linked_primary"],
+        "model_reply_fields": ["id", "status", "conditions", "title_vi", "paragraphs", "used_source_ids",
+                               "limitations"],
+        "output_fields": [
+            "id", "written", "reason", "invalid_response", "key_points", "editorial_headline_vi",
+            "summary_sources", "summary_limitations", "key_points_prompt_version", "dropped_points",
+            "provider", "boat",
+        ],
+        "skip_conditions": [
+            "not publishable with a readable source",
+            "published outside the writer window (PHONG_BAO_WRITER_WINDOW_HOURS, default 48)",
+            "article unreadable or contains prompt injection",
+        ],
+        "rejectable_reply_conditions": [
+            "reply does not match the paragraph shape (3-4 paragraphs with known roles)",
+            "status is not ready",
+            "the title fails radar.summary_validation's number or name check",
+            "conditions is not a list (verbatim source spans of at most 25 words, each with its paragraph ID)",
+            "after dropping failing sentences (including a significance sentence that cites no paragraph "
+            "holding a listed condition): any paragraph lost, fewer than three paragraphs, development not "
+            "first, significance not last, or outside 90-230 words",
+        ],
+    },
     "chief": {
         "desk": "chief",
         "description": "Chief gatekeeper applying fail-closed publication decisions",
@@ -146,6 +176,10 @@ DESK_CONTRACTS = {
             "reason", "importance_tier", "tier_capped", "summary",
             "degradation_reasons", "use_original_title", "source_url",
             "key_points", "same_event_coverage_ids", "split_coverage_ids",
+        ],
+        "optional_output_fields": [
+            "written_by", "editorial_headline_vi", "summary_sources", "summary_limitations",
+            "key_points_prompt_version",
         ],
         "hold_conditions": [
             "intake rejected (fail-closed)",
@@ -299,6 +333,30 @@ def validate_checker_output(row: dict[str, Any]) -> bool:
     return True
 
 
+
+def _written_fields_valid(row: dict[str, Any]) -> bool:
+    sources = row.get("summary_sources")
+    return (desk_fields_valid(row) and bool(sources)
+            and all(isinstance(s, dict) and isinstance(s.get("url"), str)
+                    and s["url"].startswith(("https://", "http://")) for s in sources))
+
+
+def validate_writer_output(row: dict[str, Any] | None) -> bool:
+    """Validate writer desk final output; a written row must carry a complete public summary."""
+    if not isinstance(row, dict):
+        return False
+    required = DESK_CONTRACTS["writer"]["output_fields"]
+    if any(k not in row for k in required):
+        return False
+    if type(row["written"]) is not bool or type(row["invalid_response"]) is not bool:
+        return False
+    if not isinstance(row["dropped_points"], list):
+        return False
+    if row["written"]:
+        return _written_fields_valid(row)
+    return row["key_points"] == []
+
+
 def validate_chief_output(row: dict[str, Any]) -> bool:
     """Validate chief desk final output record against chief contract."""
     if not isinstance(row, dict):
@@ -321,4 +379,9 @@ def validate_chief_output(row: dict[str, Any]) -> bool:
         return False
     if not isinstance(row["degradation_reasons"], list) or not isinstance(row["key_points"], list):
         return False
+    written_by = row.get("written_by")
+    if written_by is not None:
+        if written_by != WRITER_SOURCE or row["decision"] != "publish" or row["summary"] != "written":
+            return False
+        return _written_fields_valid(row)
     return True

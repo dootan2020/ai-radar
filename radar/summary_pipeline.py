@@ -25,6 +25,7 @@ from radar import summary_gemini as gemini
 from radar import gemini_paid_budget
 from radar import shadow_collector, transport
 from radar.common import web_url
+from radar.newsroom_decisions import is_desk_summary
 from radar.summary_sources import (source_record, primary_link, fit_inputs, clear_summary,
                                     publish_summary, PUBLIC_SUMMARY_FIELDS, SELECTION_VERSION)
 from radar.summary_validation import validate_summary, entity_error
@@ -831,8 +832,10 @@ def _summarize_once(payload: dict,
 
     article_inputs = article_inputs if article_inputs is not None else {}
     stories = payload.get("stories") or []
+    # Key points written by the newsroom desk are kept; the API only fills the rest.
+    desk_written = {id(story) for story in stories if is_desk_summary(story)}
     for story in stories:
-        if isinstance(story, dict):
+        if isinstance(story, dict) and id(story) not in desk_written:
             # Restore only from validated evidence, never stale retained public fields.
             clear_summary(story)
 
@@ -860,7 +863,7 @@ def _summarize_once(payload: dict,
 
     eligible_stories = []
     for s in stories:
-        if not isinstance(s, dict):
+        if not isinstance(s, dict) or id(s) in desk_written:
             continue
         if s.get("kind") == "event" or "event" in (s.get("groups") or []):
             continue
@@ -908,6 +911,7 @@ def _summarize_once(payload: dict,
         "skipped_reasons": {},
         "rejected_reasons": [],
         "machine_written": True,
+        "desk_written": len(desk_written),
         "error": None,
     }
 
@@ -927,7 +931,7 @@ def _summarize_once(payload: dict,
     restored = set()
     eligible_ids = {id(story) for story in eligible_stories}
     for story in stories:
-        if isinstance(story, dict) and id(story) not in eligible_ids:
+        if isinstance(story, dict) and id(story) not in eligible_ids and id(story) not in desk_written:
             _restore_published(story, cache)
     for story in eligible_stories:
         if _restore_published(story, cache):

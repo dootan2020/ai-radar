@@ -6,6 +6,7 @@ Run: python -m radar.summarize --input site/data/radar.json --cache data/summari
 from __future__ import annotations
 
 import argparse
+from dataclasses import replace
 import json
 import os
 from pathlib import Path
@@ -20,6 +21,7 @@ from radar import summary_pipeline
 
 
 DEFAULT_BUDGET = 180.0
+API_FALLBACK_ENV = "RADAR_SUMMARY_API_FALLBACK"
 
 
 def main(argv=None):
@@ -83,10 +85,15 @@ def main(argv=None):
     except OSError:
         ledger_before = None
 
+    # The newsroom writer desk owns key points. The Gemini API path runs only on explicit opt-in;
+    # without it this step sends no request, keeps desk prose and restores already validated summaries.
+    api_fallback = os.environ.get(API_FALLBACK_ENV) == "1"
+    config = None if api_fallback else replace(gemini.config_from_env(), api_key="", paid=False)
     try:
         stats, alive = summary_pipeline.summarize_payload(
             payload,
             cache,
+            config=config,
             article_failures=article_failures,
             article_inputs=article_inputs,
             ledger_path=ledger_path,
@@ -103,6 +110,10 @@ def main(argv=None):
         }
         payload["summary"] = stats
         alive = False
+    if not api_fallback and stats.get("error") == "missing_key":
+        stats["error"] = None
+        stats["status"] = "skipped"
+        stats["skipped_by"] = "writer_desk"
 
     article_inputs_written = article_inputs != before_article_inputs
     if article_inputs_written:
@@ -157,6 +168,11 @@ def main(argv=None):
             except Exception:
                 pass
 
+    if not api_fallback:
+        print(f"Summary skipped: writer desk owns summaries ({stats.get('desk_written', 0)} desk-written, "
+              f"{stats.get('cache_hits', 0)} restored from cache, 0 API requests; set {API_FALLBACK_ENV}=1 to run the API)")
+        sys.stdout.flush()
+        return 0
     print(f"Summary contract: {gemini.PROMPT_VERSION}; model={gemini.MODEL_ID}; full=4-8 points; max_source_chars=16000; max_output_tokens=4096")
     print("Summary run: " + json.dumps({
         "candidates_tried": stats.get("candidates_tried", 0),
