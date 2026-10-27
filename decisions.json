@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T07:08:57.960982+00:00",
-  "input_generated_at": "2026-10-27T06:47:45Z",
+  "generated_at": "2026-10-27T11:05:33.213898+00:00",
+  "input_generated_at": "2026-10-27T10:41:43Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -4192,6 +4192,402 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "0c90529d39361776d096"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8a7a44af98853e020bd2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/memory-stocks-lost-their-mojo-and-strong-earnings-aren-t-helping",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "45443473e0cd4e1f73eb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2a6081d59506f02d20ce",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/microsoft-alumni-score-funding-to-build-ai-agents-for-finance",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1aabc0667e45247e2edd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "10515f024c670e282247",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/policy/1019152/data-centers-midterm-elections",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1b6d31f4ee8a590f4fee"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3ba81838af30b2b86326",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/i-tested-every-major-ai-agent-for-a-day-heres-the-best-one/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a72ec164bc202d12af9d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cb89730423006fed0cb5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/jpmorgan-private-bank-on-how-to-balance-ai-exposure-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9023f9f8af79b9cba9a0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6d9745083a8295736ea4",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.plagiarismtoday.com/2026/10/26/ai-is-ruining-haunted-attractions/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5c7d6c7c58ae0b49575f",
+        "73c060bc3b09c5b5aaa2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5b908f91b482e116ae6d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/policy/article/3372285/beijing-pushes-un-led-governance-artificial-intelligence-global-forum",
+      "key_points": [
+        "A consensus document called Global Governance: Xiong’an Vision was released on Sunday at the close of a three-day forum in Xiong’an New Area.",
+        "Chinese officials said delegates from more than 90 countries and international bodies attended the forum."
+      ],
+      "same_event_coverage_ids": [
+        "18a1897bb40dc4f185ef"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bb31347aba7fcdb69140",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The factory investment serves AI data centers alongside electric vehicles and robotics; AI is one of several demand sources.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/infineon-to-invest-1-1-billion-in-key-austrian-chip-factory",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "21dca7346542e288c74d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "30efc281e32d0994ca19",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://technode.com/2026/10/27/dongshan-precision-acquisition-led-ai-bet-hong-kong/",
+      "key_points": [
+        "Dongshan Precision reported first-half 2026 net profit attributable to shareholders of RMB2.96 billion, up 290% year on year.",
+        "Its Hong Kong offering was priced at HK$86.80 a share ahead of an expected October 28 debut.",
+        "The article reports weak margin-financed retail subscriptions alongside US$680 million in commitments from cornerstone investors."
+      ],
+      "same_event_coverage_ids": [
+        "396a48fb2fe61a98e993"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b1b5cee947aaac13dc04",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/anthropic-brings-mega-ipo-to-australia-s-ai-starved-retail-crowd",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c7f485db65038641a3ce"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "71fdde578aa1e342ea0d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://fishbowl.pastiche.org/2026/10/26/ai-skills",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e22cf3d01eb1b69f32cc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "de6edf7c4f4573522a6f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://j11g.com/the-mythical-man-month-in-the-age-of-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "604656756ae1e85dce1a",
+        "cb4708b0d16e2dda9f43"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1e8516bb385aa71b8ae9",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Game enhancement repository and download instructions with no substantive AI news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Maefdancer29436/rpocket-team-elden-ring",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "857ad2ff2dca247c831b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f1ed6530207c60ff802b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.34654",
+      "key_points": [
+        "The paper introduces Thinking-in-Bets, a training-free method that records an agent's claims, supporting checks and confidence before it reads user feedback.",
+        "The paper says an agent consults that record when challenged to preserve verified work while investigating uncertain parts.",
+        "The authors evaluated the method across five Gemini models and eight benchmarks."
+      ],
+      "same_event_coverage_ids": [
+        "5eccd5946094521d3f69"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ce1931d0c82b17af428b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.35328",
+      "key_points": [
+        "The paper distinguishes format, validity and reasoning constraints in LLM decoding.",
+        "The authors argue theoretically that suitable constraints can preserve or improve performance by eliminating invalid paths.",
+        "The study reports causal ablations across four model families and eleven open-source models."
+      ],
+      "same_event_coverage_ids": [
+        "cdf1bef82e1f9b8f958e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6f7d8ed3fd30b09092ec",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.35001",
+      "key_points": [
+        "The paper introduces VMem-Bench, a two-track study of visual memory in long-video generation.",
+        "One track measures reference selection using 92 real films comprising 16,548 segments.",
+        "The other track compares four retrieval policies with no-memory and gold-informed controls across 30 generated stories."
+      ],
+      "same_event_coverage_ids": [
+        "b4bece8e098d476653df"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6162f96ecddc80886680",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.35385",
+      "key_points": [
+        "The paper presents EmbodiedLab as a benchmark for agents that interact with their surroundings to learn what a task requires or discover a goal.",
+        "The authors distinguish this setting from manipulation benchmarks with a given target state and scientific-discovery benchmarks that use symbolic actions instead of physical experimentation."
+      ],
+      "same_event_coverage_ids": [
+        "456b053bb866c10e4eb9"
       ],
       "split_coverage_ids": []
     }
