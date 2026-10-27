@@ -51,7 +51,68 @@ class JobPostTests(unittest.TestCase):
                 self.assertIsNone(noise_reason(dict(coverage(title="Model release"), url=url)))
 
 
+MOLLICK = ("The end of detailed summarized thinking traces for Claude and ChatGPT (likely both for "
+           "anti-distillation & to simplify UX) has made being a human in the loop challenging. It pushes "
+           "us towards automation, rather than augmentation, as it has become much harder to weigh in on "
+           "in-process AI work.")
+
+
+def post(text, title=None, url="https://bsky.app/profile/emollick.bsky.social/post/3myuv4onqt22z"):
+    return coverage("bluesky-emollick", url, publisher="bluesky", group="forum", kind="social",
+                    title=text if title is None else title, summary=text)
+
+
+class HeadlineOnlyTests(unittest.TestCase):
+    def test_a_short_post_that_is_its_own_headline_is_skipped(self):
+        # The live story d7c32b96beb507a1ebdc (2026-10-28): headline, excerpt and body were this one post.
+        for item in (post(MOLLICK), post(MOLLICK, title=MOLLICK[:140] + "…"), post("", title="Agents are here")):
+            with self.subTest(title=item["title"][:30], summary=item["summary"][:30]):
+                self.assertEqual(noise_reason(item), "headline-only")
+
+    def test_a_post_that_says_more_than_its_headline_stays(self):
+        long_text = MOLLICK + " " + " ".join(["The trace showed which tool the agent picked and why."] * 3)
+        self.assertGreater(len(long_text), 300)
+        self.assertIsNone(noise_reason(post(long_text)))
+        self.assertIsNone(noise_reason(post("Short note with a different body.", title="Claude ships a new model")))
+
+    def test_articles_whose_feed_repeats_the_title_stay(self):
+        # A blog or press feed often carries no excerpt; the URL still opens the article.
+        for kind, source in (("other", "huggingface-blog"), ("research", "anthropic-research"),
+                             ("forum", "hn-ai"), ("model", "hf-models-ranked")):
+            item = coverage(source, "https://example.org/a", kind=kind, title="Gemma 4 release",
+                            summary="Gemma 4 release")
+            with self.subTest(source=source):
+                self.assertIsNone(noise_reason(item))
+
+    def test_the_floor_is_exactly_three_hundred_characters(self):
+        self.assertEqual(noise_reason(post("a" * 300)), "headline-only")
+        self.assertIsNone(noise_reason(post("a" * 301)))
+
+    def test_missing_or_malformed_text_does_not_raise(self):
+        for title, summary in ((None, None), ("", ""), ("Agents", None)):
+            with self.subTest(title=title):
+                self.assertEqual(noise_reason(dict(post("x"), title=title, summary=summary)), "headline-only")
+
+
 class AssemblyTests(unittest.TestCase):
+    def test_build_skips_headline_only_posts_but_keeps_the_article_they_share_a_story_with(self):
+        from radar import assembly
+        from radar.clustering import cluster_items
+        if __package__:
+            from .test_v2_support import NOW
+        else:
+            from test_v2_support import NOW
+        bare = post("OpenAI released Codex Atlas today, an agent for whole repositories.")
+        old_bare = post(MOLLICK, url="https://bsky.app/profile/emollick.bsky.social/post/old")
+        article = coverage("wire", "https://wire.example/codex-atlas", publisher="wire",
+                           title="OpenAI releases Codex Atlas, an agent for whole repositories",
+                           summary="The agent reads a whole repository before it edits. " * 8)
+        published = dict(schema_version=2, generated_at=NOW.isoformat(), stories=cluster_items([old_bare], NOW))
+        result = assembly.finish(dict(sources=[], trending={}), [bare, article], [], NOW, None,
+                                 published=published, resolve_images=False)
+        urls = [c["url"] for story in result["stories"] for c in story["coverage"]]
+        self.assertEqual(urls, [article["url"]])
+
     def test_build_refuses_job_posts_and_tells_a_retitled_report_once(self):
         from copy import deepcopy
         from radar import assembly

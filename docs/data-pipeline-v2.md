@@ -83,7 +83,12 @@ calls, paid-ledger changes or additional fetches are involved.
 Job posts are not news: [radar/noise.py](../radar/noise.py) refuses links to
 applicant-tracking hosts and forum hiring ads or hiring threads, with a reason
 code and a one-line reader sentence for each, and the build log counts refusals.
-Press reporting that a company is hiring is not matched. [Synthetic tests](../tests/test_press_relevance.py) cover admission
+Press reporting that a company is hiring is not matched. The same module skips
+`headline-only` social posts: a post links to itself, so when its text is at most
+300 characters and adds nothing to its headline, the story page would only repeat
+it. Longer posts, posts that say more than their headline, and articles whose feed
+repeats the title stay. Skipped posts leave the feed and the newsroom; the story
+and edition archives keep what was already published. [Synthetic tests](../tests/test_press_relevance.py) cover admission
 and retention; `python tests/measure_press_relevance.py` lists all dropped and
 borderline kept press inputs from committed JSON fixtures and local `site/data`
 snapshots without modifying either.
