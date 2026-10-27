@@ -12,7 +12,7 @@ import re
 import threading
 import time
 from typing import Any
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urljoin
 
 from radar.items import instant
 from radar.reader_priority import ordered_stories, load_editor_picks
@@ -165,12 +165,16 @@ def article_url_hash(url: str) -> str:
     return hashlib.sha256(url.encode("utf-8")).hexdigest()
 
 
+MAX_REDIRECT_HOPS = 5
+
+
 def fetch_article_result(story: dict, robots_cache: dict | None = None, *, details=None) -> tuple[str, str | None]:
-    """Return article text and a safe skip reason, respecting robots.txt."""
+    """Return article text and a safe skip reason, respecting robots.txt and safe redirects."""
     url = article_url(story)
     if not url:
         return "", "no_url"
-    if not url.lower().startswith("https://"):
+    url_lower = url.lower()
+    if not (url_lower.startswith("https://") or url_lower.startswith("http://")):
         return "", "non_https"
 
     def fetch_without_redirects(target):
@@ -179,37 +183,81 @@ def fetch_article_result(story: dict, robots_cache: dict | None = None, *, detai
     if robots_cache is None:
         robots_cache = {}
 
-    # Cache parsed rules per origin, but evaluate permission for every path.
-    robots = shadow_collector.check_robots(url, fetch_fn=fetch_without_redirects, robots_cache=robots_cache)
-    if robots["robots_status"] not in (200, 404) or robots["disallowed"]:
-        return "", "robots"
+    current_url = url
+    visited = {current_url}
+    hops = 0
 
-    try:
-        response = fetch_without_redirects(url)
-    except Exception as error:
-        status = getattr(error, "code", getattr(error, "http_status", None))
-        if isinstance(status, int) and 300 <= status < 400:
-            return "", "redirect"
-        return "", "error"
-    if (getattr(response, "status", None) != 200
-            or getattr(response, "url", url) != url):
-        return "", "redirect" if getattr(response, "status", None) in range(300, 400) or getattr(response, "url", url) != url else "error"
-    if "html" not in getattr(response, "content_type", "").lower():
-        return "", "non_html"
+    while True:
+        # Cache parsed rules per origin, but evaluate permission for every path.
+        robots = shadow_collector.check_robots(current_url, fetch_fn=fetch_without_redirects, robots_cache=robots_cache)
+        if robots["robots_status"] not in (200, 404) or robots["disallowed"]:
+            return "", "robots"
 
-    try:
-        parser = parse_article(str(response), url)
-    except Exception:
-        return "", "error"
-    text = "\n".join(parser.parts)
-    if PAYWALL_TEXT.search(text):
-        return "", "paywall"
-    if len(text) < MIN_ARTICLE_TEXT_CHARS:
-        return "", "too_short"
-    if details is not None:
-        details["links"] = parser.links
-    return text, None
+        response = None
+        redirect_url = None
+        try:
+            response = fetch_without_redirects(current_url)
+        except Exception as error:
+            status = getattr(error, "code", getattr(error, "http_status", None))
+            headers = getattr(error, "headers", None)
+            if isinstance(status, int) and 300 <= status < 400 and headers:
+                loc = headers.get("Location") or headers.get("location")
+                if loc:
+                    redirect_url = urljoin(current_url, loc)
+            if not redirect_url:
+                if isinstance(status, int) and 300 <= status < 400:
+                    return "", "redirect"
+                return "", "error"
 
+        if response is not None:
+            status = getattr(response, "status", None)
+            resp_url = getattr(response, "url", current_url)
+            headers = getattr(response, "headers", {})
+            if isinstance(status, int) and 300 <= status < 400:
+                loc = None
+                if hasattr(headers, "get"):
+                    loc = headers.get("Location") or headers.get("location")
+                if loc:
+                    redirect_url = urljoin(current_url, loc)
+                elif resp_url != current_url:
+                    redirect_url = resp_url
+                else:
+                    return "", "redirect"
+            elif resp_url != current_url:
+                redirect_url = resp_url
+
+        if redirect_url:
+            red_lower = redirect_url.lower()
+            if not (red_lower.startswith("https://") or red_lower.startswith("http://")):
+                return "", "non_https"
+            if redirect_url in visited:
+                return "", "redirect_loop"
+            hops += 1
+            if hops > MAX_REDIRECT_HOPS:
+                return "", "redirect_limit"
+            visited.add(redirect_url)
+            current_url = redirect_url
+            continue
+
+        # Non-redirect response reached
+        if getattr(response, "status", None) != 200:
+            return "", "error"
+        if "html" not in getattr(response, "content_type", "").lower():
+            return "", "non_html"
+
+        try:
+            parser = parse_article(str(response), current_url)
+        except Exception:
+            return "", "error"
+        text = "\n".join(parser.parts)
+        if PAYWALL_TEXT.search(text):
+            return "", "paywall"
+        if len(text) < MIN_ARTICLE_TEXT_CHARS:
+            return "", "too_short"
+        if details is not None:
+            details["links"] = parser.links
+            details["resolved_url"] = current_url
+        return text, None
 
 def fetch_article_text(story: dict, robots_cache: dict | None = None) -> str:
     """Compatibility wrapper returning text only for a readable publisher page."""

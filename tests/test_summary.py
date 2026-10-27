@@ -339,19 +339,61 @@ class SummaryTests(unittest.TestCase):
                 patch.object(summary_pipeline.transport, "read_url", return_value=paywall):
             self.assertEqual(summary_pipeline.fetch_article_text(story), "")
 
-    def test_article_fetch_skips_redirect_and_non_html(self):
+    def test_article_fetch_follows_redirects_with_hop_limit_and_skips_non_html(self):
+        from urllib.error import HTTPError
+        from email.message import Message
+
         url = "https://publisher.example/story"
         story = {"url": url, "coverage": []}
         with patch.object(summary_pipeline.shadow_collector, "check_robots",
                           return_value={"robots_status": 404, "disallowed": False}):
-            for response in (
-                ResponseText("<article>" + "x" * 400 + "</article>", status=200,
-                             url="https://other.example/story", content_type="text/html"),
-                ResponseText("<article>" + "x" * 400 + "</article>", status=200,
-                             url=url, content_type="application/pdf"),
-            ):
-                with patch.object(summary_pipeline.transport, "read_url", return_value=response):
-                    self.assertEqual(summary_pipeline.fetch_article_text(story), "")
+            # Non-HTML content is rejected
+            with patch.object(summary_pipeline.transport, "read_url",
+                              return_value=ResponseText("<article>" + "x" * 400 + "</article>",
+                                                       status=200, url=url, content_type="application/pdf")):
+                self.assertEqual(summary_pipeline.fetch_article_text(story), "")
+
+            # Safe HTTP redirect is followed to final destination
+            target_dest = "https://destination.example/article"
+            def fake_fetch(target, allow_redirects=False):
+                if target == url:
+                    headers = Message()
+                    headers["Location"] = target_dest
+                    raise HTTPError(target, 301, "Moved Permanently", headers, None)
+                if target == target_dest:
+                    return ResponseText("<article>" + "x" * 400 + "</article>",
+                                        status=200, url=target, content_type="text/html")
+                raise ValueError(f"unexpected fetch target: {target}")
+
+            with patch.object(summary_pipeline.transport, "read_url", side_effect=fake_fetch):
+                text, reason = summary_pipeline.fetch_article_result(story)
+                self.assertIsNone(reason)
+                self.assertTrue(len(text) >= 300)
+
+            # Redirect loop is caught and rejected
+            def loop_fetch(target, allow_redirects=False):
+                headers = Message()
+                headers["Location"] = url if target != url else "https://loop.example/step"
+                raise HTTPError(target, 302, "Found", headers, None)
+
+            with patch.object(summary_pipeline.transport, "read_url", side_effect=loop_fetch):
+                text, reason = summary_pipeline.fetch_article_result(story)
+                self.assertEqual(reason, "redirect_loop")
+                self.assertEqual(text, "")
+
+            # Hop limit is enforced
+            hop_count = 0
+            def infinite_fetch(target, allow_redirects=False):
+                nonlocal hop_count
+                hop_count += 1
+                headers = Message()
+                headers["Location"] = f"https://infinite.example/hop-{hop_count}"
+                raise HTTPError(target, 302, "Found", headers, None)
+
+            with patch.object(summary_pipeline.transport, "read_url", side_effect=infinite_fetch):
+                text, reason = summary_pipeline.fetch_article_result(story)
+                self.assertIn(reason, ("redirect_limit", "redirect"))
+                self.assertEqual(text, "")
 
     def test_daily_budget_bounds_72_scheduler_runs(self):
         """The request and token ledgers cap 72 scheduled executions to 8 stories/day."""
