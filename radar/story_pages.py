@@ -149,9 +149,15 @@ def _page_fields(story, base_url):
         image_url = f"{base_url}/og-image.png"
     publisher = (_text(first_coverage.get("publisher")) or _text(first_coverage.get("source")) or
                  urlsplit(original_url).hostname or "")
-    summary_vi = trim_complete_sentences(_text(story.get("summary_vi")))
+    raw_vi = _text(story.get("summary_vi"))
+    summary_vi = trim_complete_sentences(raw_vi)
+    if not summary_vi and raw_vi:
+        summary_vi = trim_complete_sentences(raw_vi + ".")
     summary_en = trim_complete_sentences(_text(story.get("summary")))
     clean_summary = summary_vi or summary_en
+    if not clean_summary and not _has_editorial_summary(story):
+        from radar.summary_pipeline import honest_fallback_summary
+        clean_summary = trim_complete_sentences(honest_fallback_summary(story))
     description = (story["key_points"][0] if _has_editorial_summary(story) else clean_summary) or title
     original_title = (_text(first_coverage.get("title")) or _text(story.get("title")) or title)
     story_id = _story_id(story)

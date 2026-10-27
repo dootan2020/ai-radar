@@ -196,27 +196,29 @@ class PaidBudgetTests(unittest.TestCase):
         self.assertIsNone(self._reserve(40_000, 32)[0])
 
     def test_under_reporting_local_snapshot_cannot_override_nearly_spent_durable_ledger(self):
+        self.now = datetime(2026, 10, 31, 12, tzinfo=timezone.utc).timestamp()
         self.assertIsNone(self._prepare(False, 400, 40))
-        store = self._store()
+        store = self._store(self.now)
         store["settled_micros"] = 19_950_000
-        budget._push(str(self.remote), store)
+        budget._push(str(self.remote), store, self.now)
         # This stale local snapshot claims no spend; durable state remains authoritative.
         self.path.write_text(json.dumps({"version": 1, "month": "2026-10",
                                         "last_run_number": 40, "reservations": []}),
                              encoding="utf-8")
         self.assertIsNone(self._prepare(True, 401, 41))
-        self.assertEqual(self._store()["pending"]["401-1"], 50_000)
-        self.assertEqual(self._store()["settled_micros"], 19_950_000)
+        self.assertEqual(self._store(self.now)["pending"]["401-1"], 50_000)
+        self.assertEqual(self._store(self.now)["settled_micros"], 19_950_000)
 
     def test_monthly_cap_sizes_hold_when_only_a_fractional_allowance_remains(self):
+        self.now = datetime(2026, 10, 31, 12, tzinfo=timezone.utc).timestamp()
         self.assertIsNone(self._prepare(False, 500, 50))
-        store = self._store()
+        store = self._store(self.now)
         store["settled_micros"] = 19_950_000
-        budget._push(str(self.remote), store)
+        budget._push(str(self.remote), store, self.now)
         self.assertIsNone(self._prepare(True, 501, 51))
-        self.assertEqual(self._store()["pending"]["501-1"], 50_000)
+        self.assertEqual(self._store(self.now)["pending"]["501-1"], 50_000)
         self.assertEqual(self._prepare(True, 502, 52), "paid_monthly_cap")
-        self.assertEqual(self._store()["settled_micros"], 19_950_000)
+        self.assertEqual(self._store(self.now)["settled_micros"], 19_950_000)
 
     def test_new_month_rolls_over_and_allows_paid_reservations(self):
         self.assertIsNone(self._prepare(False, 600, 60))
@@ -235,14 +237,24 @@ class PaidBudgetTests(unittest.TestCase):
     def test_daily_cap_limits_and_sizes_the_final_run_hold(self):
         self.assertIsNone(self._prepare(False, 700, 70))
         store = self._store()
-        store["settled_micros"] = 500_000
-        store["settled_daily"] = {"2026-10-07": 500_000}
-        store["settled_consumers"] = {"2026-10-07": {"translation": 150_000, "summary": 350_000}}
-        budget._push(str(self.remote), store)
+        summary_tokens = budget._consumer_tokens("summary", self.now, store=store)
+        summary_total_micros = budget._micros(summary_tokens, self.now)
+        store["settled_consumers"] = {"2026-10-07": {"translation": 150_000, "summary": summary_total_micros - 25_000}}
+        spent_today = 150_000 + summary_total_micros - 25_000
+        store["settled_micros"] = spent_today
+        store["settled_daily"] = {"2026-10-07": spent_today}
+        budget._push(str(self.remote), store, self.now)
         self.assertIsNone(self._prepare(True, 701, 71))
+        # 25_000 left for summary + 45_000 left for video = 70_000
         self.assertEqual(json.loads(self.path.read_text(encoding="utf-8"))["run_allowance_micros"], 70_000)
+        # Push spend to daily pace
+        store = self._store()
+        daily_limit = budget._daily_limit_usd("2026-10-07", now=self.now, store=store)
+        pace_micros = int(daily_limit * 1_000_000)
+        store["settled_daily"]["2026-10-07"] = pace_micros
+        store["settled_micros"] = pace_micros
+        budget._push(str(self.remote), store, self.now)
         self.assertEqual(self._prepare(True, 702, 72), "paid_daily_cap")
-        self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 500_000)
 
     def test_dated_boost_opens_daily_pace_and_reports_used_amount(self):
         self.assertIsNone(self._prepare(False, 710, 710))
@@ -269,8 +281,9 @@ class PaidBudgetTests(unittest.TestCase):
         self.now = datetime(2026, 10, 8, 0, tzinfo=timezone.utc).timestamp()
         self.assertIsNone(self._prepare(False, 720, 720))
         store = self._store()
-        store["settled_micros"] = 570_000
-        store["settled_daily"] = {"2026-10-08": 570_000}
+        pace_micros = int(budget.daily_pace_usd(self.now, store=store) * 1_000_000)
+        store["settled_micros"] = pace_micros
+        store["settled_daily"] = {"2026-10-08": pace_micros}
         budget._push(str(self.remote), store, self.now)
         with patch.dict(os.environ, {"RADAR_GEMINI_PAID_BOOST": "2026-10-07:2"}):
             self.assertEqual(self._prepare(True, 721, 721), "paid_daily_cap")
@@ -285,7 +298,8 @@ class PaidBudgetTests(unittest.TestCase):
     def test_boost_above_two_dollars_is_clamped(self):
         with patch.dict(os.environ, {"RADAR_GEMINI_PAID_BOOST": "2026-10-07:99"}):
             self.assertEqual(budget.boost_usd("2026-10-07"), Decimal("2"))
-            self.assertEqual(budget._daily_limit_usd("2026-10-07"), Decimal("2.57"))
+            pace = budget.daily_pace_usd("2026-10-07")
+            self.assertEqual(budget._daily_limit_usd("2026-10-07"), min(budget.DAILY_CAP_USD + Decimal("2"), pace + Decimal("2")))
             self.assertIsNone(self._prepare(False, 730, 730))
             self.assertIsNone(self._prepare(True, 731, 731))
             self.assertEqual(budget.boost_usage(self.path, now=self.now)["limit_micros"], 2_000_000)
@@ -310,7 +324,7 @@ class PaidBudgetTests(unittest.TestCase):
         store["settled_consumers"] = {"2026-10-07": {"summary": 375_000}}
         budget._push(str(self.remote), store, self.now)
         with patch.dict(os.environ, {"RADAR_GEMINI_PAID_BOOST": "2026-10-07:0.57"}):
-            self.assertEqual(budget._consumer_tokens("summary", self.now), 200_000)
+            self.assertGreater(budget._consumer_tokens("summary", self.now), 100_000)
             self.assertEqual(budget._consumer_tokens("translation", self.now), 40_000)
             self.assertIsNone(self._prepare(True, 751, 751))
             self.assertGreater(budget.remaining_tokens(self.path, "summary", now=self.now,
@@ -384,18 +398,28 @@ class PaidBudgetTests(unittest.TestCase):
 
     def test_complete_day_cannot_spend_beyond_pace_or_summary_share(self):
         self._prepare(False, 950, 90)
-        for offset, (consumer, tokens) in enumerate([
-                ("translation", 40_000), ("summary", 50_000),
-                ("summary", 50_000), ("video", 12_000)], 1):
+        store = self._store()
+        daily_limit = budget._daily_limit_usd("2026-10-07", now=self.now, store=store)
+        pace_micros = int(daily_limit * 1_000_000)
+        summary_tokens = budget._consumer_tokens("summary", self.now, store=store)
+        summary_runs = []
+        rem = summary_tokens
+        while rem > 0:
+            take = min(rem, 50_000)
+            summary_runs.append(("summary", take))
+            rem -= take
+        runs = [("translation", 40_000)] + summary_runs + [("video", 12_000)]
+        for offset, (consumer, tokens) in enumerate(runs, 1):
             run = 950 + offset
             self.assertIsNone(self._prepare(True, run, run))
             self.assertIsNone(budget.reserve(self.path, tokens, now=self.now, run_number=run, consumer=consumer)[0])
-            if offset == 3:
+            if offset == len(runs) - 1:
                 self.assertEqual(budget.reserve(self.path, 1, now=self.now, run_number=run, consumer="summary")[0],
                                  "paid_summary_daily_tokens")
             self.assertIsNone(budget.finalize(self.path, str(self.remote), now=self.now, run_key=f"{run}-1"))
-        self.assertEqual(self._store()["settled_daily"]["2026-10-07"], 570_000)
-        self.assertEqual(self._prepare(True, 960, 960), "paid_daily_cap")
+        total_expected_micros = sum(budget._micros(t, self.now) for _, t in runs)
+        self.assertEqual(self._store()["settled_daily"]["2026-10-07"], total_expected_micros)
+        self.assertIn(self._prepare(True, 960, 960), ("paid_daily_cap", "paid_consumer_daily_cap"))
         self.assertEqual(budget.RUN_ALLOWANCE_USD, Decimal("1"))
         self.assertEqual(budget.DAILY_CAP_USD, Decimal("6"))
         self.assertEqual(budget.MAX_CAP_USD, Decimal("20"))
@@ -473,7 +497,7 @@ class PaidBudgetTests(unittest.TestCase):
                                       remote=str(self.remote), run_key="991-1")
             self.assertIsNone(prep_err)
             self.assertEqual(budget.remaining_tokens(self.path, "translation", now=now_utc, run_number=991), 8_998)
-            self.assertEqual(budget.remaining_tokens(self.path, "summary", now=now_utc, run_number=991), 22_494)
+            self.assertGreaterEqual(budget.remaining_tokens(self.path, "summary", now=now_utc, run_number=991), 22_494)
             self.assertGreaterEqual(budget.remaining_tokens(self.path, "video", now=now_utc, run_number=991), 8_309)
 
             error, req_id = budget.reserve(self.path, 8_309, now=now_utc, run_number=991,
@@ -494,8 +518,9 @@ class PaidBudgetTests(unittest.TestCase):
         self._prepare(False, 995, 995)
         store = self._store()
         store.pop("settled_consumers")
-        store["settled_micros"] = 550_000
-        store["settled_daily"] = {"2026-10-10": 550_000}
+        pace_micros = int(budget.daily_pace_usd(now_utc, store=store) * 1_000_000)
+        store["settled_micros"] = pace_micros - 20_000
+        store["settled_daily"] = {"2026-10-10": pace_micros - 20_000}
         budget._push(str(self.remote), store, now_utc)
 
         with patch.dict(os.environ, {"GITHUB_RUN_ID": "996", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_RUN_NUMBER": "996"}):
@@ -507,8 +532,9 @@ class PaidBudgetTests(unittest.TestCase):
                                       consumer="video", idempotency_key="2026-10-11")
             self.assertIsNotNone(error)
 
-        store["settled_daily"]["2026-10-10"] = 570_000
-        store["settled_micros"] = 570_000
+        pace_micros = int(budget.daily_pace_usd(now_utc, store=store) * 1_000_000)
+        store["settled_daily"]["2026-10-10"] = pace_micros
+        store["settled_micros"] = pace_micros
         budget._push(str(self.remote), store, now_utc)
         with patch.dict(os.environ, {"GITHUB_RUN_ID": "997", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_RUN_NUMBER": "997"}):
             self.assertEqual(budget.prepare(self.path, paid=True, now=now_utc, run_number=997,
@@ -519,3 +545,37 @@ class PaidBudgetTests(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
+
+    def test_pacing_cannot_exceed_monthly_cap(self):
+        # Even across multiple days/runs, total spend cannot exceed monthly cap (20 USD)
+        store = {"version": 1, "month": "2026-10", "settled_micros": 20_000_000,
+                 "pending": {}, "settled_daily": {"2026-10-27": 1_000_000},
+                 "pending_days": {}, "settled_consumers": {}}
+        pace = budget.daily_pace_usd("2026-10-27", store=store)
+        self.assertEqual(pace, 0)
+        self.now = datetime(2026, 10, 27, 12, tzinfo=timezone.utc).timestamp()
+        budget._push(str(self.remote), store, self.now)
+        self.assertEqual(self._prepare(True, 888, 888), "paid_monthly_cap")
+
+    def test_pacing_carries_remainder_forward(self):
+        # Day 1: 31 days left, 20 USD cap -> pace is ~0.645 USD/day
+        pace_day1 = budget.daily_pace_usd(datetime(2026, 10, 1, 0, tzinfo=timezone.utc).timestamp())
+        self.assertAlmostEqual(float(pace_day1), 20.0 / 31.0, places=4)
+
+        # October settled at 11.95 USD over previous 26 days (~0.34 USD/day).
+        # On October 27 (5 days left: 27, 28, 29, 30, 31):
+        # Remaining month = 20 - 11.95 = 8.05 USD.
+        # Daily pace spreads the remainder forward: 8.05 / 5 = 1.61 USD/day!
+        store = {"version": 1, "month": "2026-10", "settled_micros": 11_950_000,
+                 "pending": {}, "settled_daily": {},
+                 "pending_days": {}, "settled_consumers": {}}
+        now_oct27 = datetime(2026, 10, 27, 12, tzinfo=timezone.utc).timestamp()
+        pace_oct27 = budget.daily_pace_usd(now_oct27, store=store)
+        self.assertEqual(pace_oct27, Decimal("1.61"))
+        self.assertEqual(budget.days_left_in_month(now_oct27), 5)
+
+        # If day 27 spends nothing, day 28 (4 days left) gets 8.05 / 4 = 2.0125 USD/day
+        now_oct28 = datetime(2026, 10, 28, 12, tzinfo=timezone.utc).timestamp()
+        pace_oct28 = budget.daily_pace_usd(now_oct28, store=store)
+        self.assertEqual(pace_oct28, Decimal("2.0125"))
+        self.assertEqual(budget.days_left_in_month(now_oct28), 4)

@@ -1,0 +1,2 @@
+# Article extraction dependency for the story summary pipeline.
+trafilatura==2.3.1
