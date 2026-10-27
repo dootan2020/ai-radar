@@ -1,0 +1,1 @@
+Halcyon provides a curated Vietnamese-language AI news feed on the browser's new tab page, offers convenient web search using the user's default search engine without hijacking or redirects, and stores the latest edition locally so stories remain readable offline.
