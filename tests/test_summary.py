@@ -261,6 +261,51 @@ class SummaryTests(unittest.TestCase):
         self.assertEqual(story["key_points_source"], "machine")
         self.assertIn("Apple", story["key_points"][0])
 
+    def test_fetched_article_name_survives_input_trimming_and_cache_validation(self):
+        story = deepcopy(self.fixture_data["stories"][0])
+        story.update(id="trimmed-name", title="Legal workflow research",
+                     summary="A research team tested a legal workflow.",
+                     url="https://publisher.example/legal-workflow")
+        paragraphs = [
+            "The research team tested an AI workflow for reviewing legal documents. " * 6
+            for _ in range(30)]
+        paragraphs[23] = "Clio is the research team behind this legal workflow. " * 8
+        article = "\n".join(paragraphs)
+        inputs = summary_pipeline.collect_inputs(story, article, [], {})
+        fitted = summary_pipeline.fit_story_inputs(inputs, gemini.Config().max_chars)
+        self.assertIsNotNone(fitted)
+        self.assertNotIn("Clio", " ".join(p["text"] for p in fitted["sources"][0]["paragraphs"]))
+
+        points = [
+            "Clio thử nghiệm quy trình AI để xem xét tài liệu pháp lý.",
+            "Nhóm nghiên cứu dùng AI trong quy trình xem xét tài liệu.",
+            "Quy trình được thử nghiệm trong công việc pháp lý.",
+            "Bài viết mô tả việc xem xét các tài liệu pháp lý bằng AI.",
+        ]
+        cache, evidence = {}, {}
+        def respond(body, key, timeout):
+            row = editorial_row(story["id"], points)
+            row["limitations"] = ["partial_source"]
+            return reply_summary([row])
+
+        stats, _ = summary_pipeline.summarize_payload(
+            {"stories": [story]}, cache, article_inputs=evidence,
+            config=gemini.Config(api_key="offline-sentinel", confirmed=True),
+            article_fetch_fn=lambda *_args, **_kwargs: article,
+            transport_fn=respond, ledger_path=self.ledger_path, now=lambda: 100000.0)
+        self.assertEqual(stats["summarized"], 1)
+        self.assertIn("Clio", story["key_points"][0])
+        self.assertIn("Clio", evidence[summary_pipeline.article_signature(story)]["source_entity_evidence"]["outlet"])
+
+        cache = {key: value for key, value in cache.items() if not key.startswith("published:")}
+        restored = deepcopy(story)
+        restored.pop("key_points")
+        stats, _ = summary_pipeline.summarize_payload(
+            {"stories": [restored]}, cache, article_inputs=evidence,
+            config=gemini.Config(), now=lambda: 100001.0)
+        self.assertEqual(stats["cache_hits"], 1)
+        self.assertIn("Clio", restored["key_points"][0])
+
     def test_article_fetch_requires_allowed_robots_and_semantic_html(self):
         url = "https://publisher.example/story"
         story = {"url": url, "coverage": []}
@@ -554,10 +599,10 @@ class SummaryTests(unittest.TestCase):
         points[1:] = ["Các ứng dụng cần được cấp quyền truy cập.", "Thay đổi tác động tới 987654 người dùng."]
         self.assertIn("invented_number", summary_pipeline.validate_key_points(fitted, points)[1])
 
-    def test_translated_language_name_requires_source_evidence(self):
+    def test_vietnamese_language_word_is_ordinary_prose(self):
         point = ["Mô hình hỗ trợ tiếng Anh trong phân loại nội dung."]
         for text, expected in (("Model supports English classification.", None),
-                               ("Model supports classification.", "invented_entity: Anh")):
+                               ("Model supports classification.", None)):
             _, reason = summary_pipeline.validate_key_points({"title": text}, point)
             self.assertEqual(reason, expected)
 

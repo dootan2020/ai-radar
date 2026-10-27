@@ -38,7 +38,7 @@ class EditorialSummaryTests(unittest.TestCase):
             (1, "30 khung hình/giây", "71 khung hình/giây", "invented_number"),
             (3, "Sydney Von Arx", "Sydney Von Atlas", "invented_entity"),
             (0, "HelioLab", "UnknownCorp", "invented_entity"),
-            (0, "HelioLab", "Sydney", "invented_entity"),
+            (0, "HelioLab", "Jordan", "invented_entity"),
             (3, "chưa hoàn tất", "đã hoàn tất", "unsupported_completion"),
         ]
         for index, old, new, reason in cases:
@@ -55,7 +55,7 @@ class EditorialSummaryTests(unittest.TestCase):
         self.assertIsNone(entity_error("Liên minh châu Âu được nhắc đến.", evidence))
         self.assertIsNone(entity_error("Theo nguồn, DeepSeek công bố nghiên cứu.", evidence))
         self.assertEqual(entity_error("Thung lũng Silicon được nhắc đến.", "DeepSeek discussed the valley."),
-                         "invented_entity: Thung")
+                         "unsupported_name: Thung lũng Silicon")
         self.assertEqual(entity_error("Microsoft công bố nghiên cứu.", evidence),
                          "invented_entity: Microsoft")
         self.assertEqual(entity_error("DeepSeek hợp tác với NovaForge.", evidence),
@@ -66,6 +66,42 @@ class EditorialSummaryTests(unittest.TestCase):
         self.assertIsNone(validate_summary(self.inputs, self.output)[1])
         self.output["key_points"][0]["text"] += " NovaForge cùng tham gia."
         self.assertEqual(validate_summary(self.inputs, self.output)[1], "invented_entity: NovaForge")
+
+    def test_entity_names_use_the_cited_article_but_not_another_source(self):
+        self.inputs["sources"][0]["paragraphs"][0]["text"] = self.inputs["sources"][0]["paragraphs"][0]["text"].replace(
+            "HelioLab introduced CanvasKit", "The company introduced CanvasKit")
+        self.assertIsNone(validate_summary(self.inputs, self.output)[1])
+        self.inputs["sources"].append(source_record(
+            "coverage", "coverage", "https://other.example/report", "AtlasForge report",
+            "OtherNews", "AtlasForge reviewed a separate research tool."))
+        self.output["key_points"][0]["text"] = self.output["key_points"][0]["text"].replace(
+            "HelioLab", "AtlasForge")
+        self.assertEqual(validate_summary(self.inputs, self.output)[1], "invented_entity: AtlasForge")
+
+    def test_entity_name_in_fetched_but_trimmed_paragraph_is_supported(self):
+        self.output["key_points"][0]["text"] += " Clio cũng tham gia nghiên cứu."
+        self.assertEqual(validate_summary(self.inputs, self.output)[1], "invented_entity: Clio")
+        full_article = " ".join(p["text"] for p in self.inputs["sources"][0]["paragraphs"])
+        self.assertIsNone(validate_summary(
+            self.inputs, self.output,
+            source_entity_evidence={"outlet": full_article + " Clio also participated in the research."})[1])
+        self.output["key_points"][0]["text"] = self.output["key_points"][0]["text"].replace("Clio", "UnknownCorp")
+        self.assertEqual(validate_summary(
+            self.inputs, self.output,
+            source_entity_evidence={"outlet": full_article + " Clio also participated in the research."})[1],
+            "invented_entity: UnknownCorp")
+
+    def test_publication_year_is_supported_but_other_numbers_stay_cited(self):
+        self.inputs["sources"][0]["published_at"] = "2026-10-26T12:00:00Z"
+        self.output["key_points"][0]["text"] += " Bài nghiên cứu được công bố năm 2026."
+        self.assertIsNone(validate_summary(self.inputs, self.output)[1])
+        self.output["key_points"][0]["text"] = self.output["key_points"][0]["text"].replace("2026", "2027")
+        self.assertEqual(validate_summary(self.inputs, self.output)[1], "invented_number: 2027")
+
+        self.output = deepcopy(self.example["output"])
+        self.inputs["sources"][0]["paragraphs"][3]["text"] += " A separate test ran at 72 fps."
+        self.output["key_points"][1]["text"] = self.output["key_points"][1]["text"].replace("30 khung", "72 khung")
+        self.assertEqual(validate_summary(self.inputs, self.output)[1], "invented_number: 72")
 
     def test_numeric_notation_and_units_remain_bound_to_the_claim(self):
         source = "HelioLab raised $870 million at a valuation of $7.5 billion. A third of teams use it."

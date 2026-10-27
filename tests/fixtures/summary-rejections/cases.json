@@ -1,0 +1,257 @@
+[
+  {
+    "id": "046ddc4018512a37e021",
+    "reason": "invented_entity: Trung",
+    "verdict": "false",
+    "source_url": "https://pandaily.com/alipay-ai-pay-payathon-2026-hackathon-vibe-skill-token-machine-agent-pay",
+    "evidence": "The hackathon reflects a wider shift in China's agent ecosystem from building tools to settling transactions.",
+    "claim": "Trung Quốc đang chuyển từ xây dựng công cụ sang thanh toán giữa các agent.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "4ba4e1df53aa59664069",
+    "reason": "invented_entity: Trung",
+    "verdict": "false",
+    "source_url": "https://pandaily.com/nanbeige4-3-33b-open-source-agent-coding-model-512k-context-apache-2-boss-zhipin",
+    "evidence": "The release adds another mid-sized option to the growing set of Chinese open-weight models aimed at coding agents rather than chat alone.",
+    "claim": "Trung Quốc có thêm mô hình mở phục vụ agent lập trình.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "4f191176fc71332b094f",
+    "reason": "invented_entity: Doanh",
+    "verdict": "false",
+    "source_url": "https://pandaily.com/primotion-paimon-0-embodied-foundation-model-300ms-action-chunk-fpga-control-chip-roadmap",
+    "evidence": "Primotion, a Shenzhen startup founded in July 2026 to build chips for embodied AI, has made its first public appearance not with silicon but with a model.",
+    "claim": "Doanh nghiệp Primotion tại Thâm Quyến bắt đầu bằng mô hình trước khi ra chip.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "a3a1ab3f9ca49fc77e75",
+    "reason": "invented_entity: Giao",
+    "verdict": "false",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-10-26/anthropic-ipo-s-1-filing-offers-first-look-at-claude-maker-s-finances",
+    "corroborating_url": "https://www.anthropic.com/news/s1-sec",
+    "evidence": "Anthropic intends to list its Class A common stock on the Nasdaq Global Select Market under the symbol ANT.",
+    "claim": "Giao dịch cổ phiếu Anthropic trên Nasdaq là kế hoạch được công bố.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "912d0050e8fe565d6512",
+    "reason": "invented_entity: AI",
+    "verdict": "false",
+    "source_url": "https://techcrunch.com/2026/10/25/grok-releases-the-first-seven-minutes-of-its-ai-generated-odyssey/",
+    "evidence": "Grok has published a whole seven minutes, which the company is now calling Episode 1 of our Odyssey series. The article describes AI-generated footage.",
+    "claim": "AI tạo ra đoạn phim dài bảy phút cho loạt Odyssey của Grok.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "9a064d95901e645ea065",
+    "reason": "invented_entity: IPO",
+    "verdict": "false",
+    "source_url": "https://www.anthropic.com/news/s1-sec",
+    "evidence": "Anthropic, PBC filed a registration statement on Form S-1 with the U.S. Securities and Exchange Commission relating to its proposed initial public offering.",
+    "claim": "IPO của Anthropic đang ở giai đoạn nộp hồ sơ S-1.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "4c5a75eeee531fa7c614",
+    "reason": "invented_entity: Joe",
+    "verdict": "true",
+    "source_url": "https://www.semafor.com/article/10/23/2026/democratic-ai-pac-takes-its-fight-to-senate-republicans",
+    "evidence": "The group was founded by Biden White House alum Rob Flaherty and former Bernie Sanders spokesman Karthik Ganapathy.",
+    "claim": "Joe Biden thành lập nhóm Tomorrow Together để vận động quy định AI.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "5d794c3788a3a4be0d42",
+    "reason": "invented_entity: Ai2",
+    "verdict": "false",
+    "source_url": "https://huggingface.co/blog/allenai/litpivot",
+    "evidence": "With collaborators at the University of Pennsylvania, we developed LitPivot, a system that helps researchers navigate these pivots. At Ai2, we are developing AI to help researchers formulate testable ideas and examine the evidence behind them.",
+    "claim": "AI2 phát triển LitPivot để hỗ trợ các nhà nghiên cứu tìm ý tưởng.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "0dd3bed5c7dd1c272c8d",
+    "reason": "unsupported_number_unit: percent",
+    "verdict": "false",
+    "source_url": "https://www.anthropic.com/claude-opus-5-5",
+    "evidence": "Claude Opus 5.5 matched Opus 5 quality in about half the turns, time and output tokens, cutting the cost of that workload by 40 to 50%.",
+    "claim": "Chi phí khối lượng công việc này giảm tới 50 phần trăm so với Opus 5.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "b514b87bc64d3d97773b",
+    "reason": "unsupported_amount_role",
+    "verdict": "true",
+    "source_url": "https://techcrunch.com/2026/10/22/openai-working-on-new-30b-raise-at-1-25t-valuation-ahead-of-ipo/",
+    "evidence": "The AI lab is working on raising up to $30 billion at a $1.25 trillion pre-money valuation in a round led by Coatue and investors in UAE.",
+    "claim": "OpenAI được định giá 30 tỷ USD trong vòng vốn mới.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "4c5a75eeee531fa7c614",
+    "reason": "invented_entity: Donald",
+    "verdict": "false",
+    "source_url": "https://www.semafor.com/article/10/23/2026/democratic-ai-pac-takes-its-fight-to-senate-republicans",
+    "evidence": "A second ad running in Ohio and Kansas focuses on former Trump AI czar and venture capitalist David Sacks.",
+    "claim": "Quảng cáo nhắc tới David Sacks, cựu cố vấn AI của Donald Trump.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "912d0050e8fe565d6512",
+    "reason": "invented_entity: Elon",
+    "verdict": "false",
+    "source_url": "https://techcrunch.com/2026/10/25/grok-releases-the-first-seven-minutes-of-its-ai-generated-odyssey/",
+    "evidence": "Musk had previously lashed out at Christopher Nolan's version of The Odyssey. Grok has published seven minutes of its version.",
+    "article_paragraphs": ["Three months after Elon Musk declared that Grok would release a full-length movie version of The Odyssey, Grok published seven minutes."],
+    "claim": "Elon Musk từng chỉ trích phiên bản Odyssey của Christopher Nolan.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "5d794c3788a3a4be0d42",
+    "reason": "invented_entity: Allen",
+    "verdict": "false",
+    "source_url": "https://huggingface.co/blog/allenai/litpivot",
+    "corroborating_url": "https://allenai.org/responsible-use",
+    "evidence": "At Ai2, we are developing AI to help researchers formulate testable ideas. With collaborators at the University of Pennsylvania, we developed LitPivot.",
+    "claim": "Viện Allen phát triển LitPivot cùng các cộng tác viên tại Đại học Pennsylvania.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "4f191176fc71332b094f",
+    "reason": "invented_entity: Primotion",
+    "verdict": "false",
+    "source_url": "https://pandaily.com/primotion-paimon-0-embodied-foundation-model-300ms-action-chunk-fpga-control-chip-roadmap",
+    "evidence": "Primotion, a Shenzhen startup founded in July 2026 to build chips for embodied AI, has made its first public appearance with a model, Paimon-0.",
+    "claim": "Primotion giới thiệu mô hình Paimon-0 trước khi sản xuất chip robot.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "fcee7fe2ae9bec9bd7c9",
+    "reason": "unsupported_name: Hoa Kỳ",
+    "verdict": "false",
+    "source_url": "https://www.anthropic.com/news/s1-sec",
+    "evidence": "Anthropic, PBC filed a registration statement on Form S-1 with the U.S. Securities and Exchange Commission relating to its proposed initial public offering.",
+    "claim": "Anthropic nộp hồ sơ S-1 lên Ủy ban Chứng khoán và Giao dịch Hoa Kỳ.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "b514b87bc64d3d97773b",
+    "reason": "unsupported_amount_role",
+    "verdict": "true",
+    "source_url": "https://techcrunch.com/2026/10/22/openai-working-on-new-30b-raise-at-1-25t-valuation-ahead-of-ipo/",
+    "evidence": "OpenAI is working on raising up to $30 billion at a $1.25 trillion pre-money valuation.",
+    "claim": "OpenAI được định giá 30 tỷ USD trong vòng vốn mới.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "f2d117b398782633567a",
+    "reason": "unsupported_amount_role",
+    "verdict": "true",
+    "source_url": "https://technode.com/2026/10/26/meitus-paying-subscribers-approach-20-million-as-ai-productivity-revenue-expands/",
+    "evidence": "Revenue from its image and design products reached approximately RMB 1 billion during the quarter, up 28.2% from a year earlier.",
+    "claim": "Meitu được định giá 1 tỷ RMB trong quý này.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "833d5d33c61d3b3b5d16",
+    "reason": "invented_number_word",
+    "verdict": "false",
+    "source_url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/",
+    "evidence": "Grok 4.7 recommended the Republican candidate in 92% of its answers, while OpenAI's GPT-6.1 Sol picked the Democrat in 97%. Across nearly 500 races, the two models agreed less than 10% of the time.",
+    "claim": "Hai mô hình Grok 4.7 và GPT-6.1 Sol có lựa chọn khác nhau trong các cuộc đua bầu cử.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "a3a1ab3f9ca49fc77e75",
+    "reason": "missing_partial_flag",
+    "verdict": "true",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-10-26/anthropic-ipo-s-1-filing-offers-first-look-at-claude-maker-s-finances",
+    "corroborating_url": "https://www.anthropic.com/news/s1-sec",
+    "evidence": "Anthropic intends to list its Class A common stock on the Nasdaq Global Select Market under the symbol ANT.",
+    "claim": "Anthropic dự định niêm yết cổ phiếu trên sàn Nasdaq.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable",
+    "check": "partial_flag"
+  },
+  {
+    "id": "0dd3bed5c7dd1c272c8d",
+    "reason": "invalid_evidence_or_length",
+    "verdict": "true",
+    "source_url": "https://www.anthropic.com/claude-opus-5-5",
+    "evidence": "Our tests show that at default settings it will cost 40% less than Opus 5 on typical workloads.",
+    "claim": "Claude Opus 5.5 giảm 40% chi phí so với Opus 5.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable",
+    "evidence_refs": []
+  },
+  {
+    "id": "0dd3bed5c7dd1c272c8d",
+    "reason": "invented_entity: Clio",
+    "verdict": "false",
+    "source_url": "https://www.anthropic.com/claude-opus-5-5",
+    "evidence": "I handed Claude Opus 5.5 a large engineering task across six of our repositories and let it run overnight, unattended.",
+    "article_paragraphs": ["Company Clio. Author Sean Heintz, Staff Software Developer."],
+    "claim": "Clio thử nghiệm Claude Opus 5.5 qua đêm trên sáu kho mã.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "dd532f8754363bd8a06a",
+    "reason": "invented_entity: ARI",
+    "verdict": "false",
+    "source_url": "https://www.nextgov.com/artificial-intelligence/2026/10/policy-proposal-would-require-firms-disclose-how-they-use-ai-develop-new-models/416812/",
+    "evidence": "The plan, developed by Americans for Responsible Innovation, would require major developers to submit quarterly reports to a new Commerce Department office.",
+    "article_paragraphs": ["ARI wants companies to report when AI takes on more of the work of building new models, even if nothing goes wrong."],
+    "claim": "ARI đề xuất yêu cầu các công ty báo cáo cách dùng AI để phát triển mô hình.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "5d794c3788a3a4be0d42",
+    "reason": "invented_entity: Ai2",
+    "verdict": "false",
+    "source_url": "https://huggingface.co/blog/allenai/litpivot",
+    "evidence": "With collaborators at the University of Pennsylvania, we developed LitPivot, a system that helps researchers navigate these pivots.",
+    "article_paragraphs": ["At Ai2, we're developing AI to help researchers formulate testable ideas and examine the evidence behind them."],
+    "claim": "Ai2 phát triển LitPivot cùng các nhà nghiên cứu tại Pennsylvania.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "833d5d33c61d3b3b5d16",
+    "reason": "invented_entity: GPT",
+    "verdict": "false",
+    "source_url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/",
+    "evidence": "The topics each AI model searched for were also split by party, according to Parikh.",
+    "article_paragraphs": ["The researchers in the study asked GPT and Grok, via their APIs, one question."],
+    "claim": "GPT tìm kiếm chủ đề khác với Grok trong nghiên cứu bầu cử.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "f9bf689d97fdb4556aa8",
+    "reason": "invented_entity: HKU",
+    "verdict": "false",
+    "source_url": "https://www.scmp.com/tech/tech-trends/article/3372107/chinese-video-ai-models-beat-us-rivals-visual-quality-lag-safeguards-hku-study",
+    "evidence": "Chinese AI video-generation models have surpassed leading US rivals in visual quality, but several fall behind in safety safeguards, according to researchers at the University of Hong Kong.",
+    "article_paragraphs": ["The study was led by Zhenhui Jack Jiang, professor of innovation and information management at HKU's business school."],
+    "claim": "HKU nhận thấy mô hình video AI Trung Quốc dẫn đầu về chất lượng hình ảnh.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "a3a1ab3f9ca49fc77e75",
+    "reason": "invented_number: 2026",
+    "verdict": "false",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-10-26/anthropic-ipo-s-1-filing-offers-first-look-at-claude-maker-s-finances",
+    "evidence": "Anthropic PBC filed for its long-awaited IPO, a landmark moment in an industry growing ever-hungrier for cash.",
+    "publication_years": ["2026"],
+    "claim": "Năm 2026, Anthropic nộp hồ sơ IPO được mong đợi từ lâu.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  },
+  {
+    "id": "662a60bcede23d92b9cd",
+    "reason": "invented_number: 100",
+    "verdict": "false",
+    "source_url": "https://pandaily.com/sanxingdui-future-past-first-licensed-all-ai-workflow-feature-film-bona-cloud-studio",
+    "evidence": "The film was made by Bona Film Group using its in-house Boka Film Cloud Studio platform. Over two years, the team produced more than 1.2 million base images and ran more than a hundred full-film iterations.",
+    "claim": "Bona thực hiện hơn 100 vòng lặp toàn phim bằng quy trình AI.",
+    "claim_origin": "reconstructed from rejection reason; original model output unavailable"
+  }
+]

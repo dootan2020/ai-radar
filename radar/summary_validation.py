@@ -33,7 +33,40 @@ UNITS = {
     "percent": r"(?:%|percent|phần trăm)",
     "usd": r"(?:USD|dollars?|đô la)",
 }
+PERCENT_RANGE = re.compile(r"(?<!\w)(\d+(?:[.,]\d+)?)\s*(?:to|[-–])\s*\d+(?:[.,]\d+)?\s*(?:%|percent|phần trăm)", re.I)
 MONEY = re.compile(r"(?P<dollar>\$)?(?P<value>\d+(?:[.,]\d+)?)\s*(?P<scale>billion|million|tỷ|triệu|[BM])\b(?:\s*(?:USD|dollars?))?", re.I)
+
+COMMON_ACRONYMS = {"AI", "IPO", "CEO", "CTO", "CFO", "COO", "GPU", "CPU", "API", "USD",
+                   "LLM", "LLMS", "AGI", "SEC", "PAC", "FPGA", "JSON", "XML", "SQL", "HTTP",
+                   "HTTPS", "RISC", "UI", "UX", "US", "UK", "EU"}
+VIETNAMESE_ONSETS = ("ngh", "ng", "nh", "ch", "gh", "gi", "kh", "ph", "qu", "th", "tr",
+                    "b", "c", "d", "g", "h", "k", "l", "m", "n", "p", "r", "s", "t", "v", "x", "")
+VIETNAMESE_CODAS = ("ch", "ng", "nh", "c", "m", "n", "p", "t", "")
+ENTITY_WORD = re.compile(r"(?u)\b[^\W\d][\w]*(?:[.+-][\w]+)*\b")
+
+
+def folded(text):
+    text = text.casefold().replace("đ", "d")
+    return "".join(char for char in unicodedata.normalize("NFD", text)
+                   if unicodedata.category(char) != "Mn")
+
+
+def vietnamese_syllable(word):
+    """Recognize Vietnamese spelling even when tones are omitted."""
+    plain = folded(word)
+    if not plain.isalpha():
+        return False
+    for onset in VIETNAMESE_ONSETS:
+        if not plain.startswith(onset):
+            continue
+        rest = plain[len(onset):]
+        for coda in VIETNAMESE_CODAS:
+            if coda and not rest.endswith(coda):
+                continue
+            vowel = rest[:-len(coda)] if coda else rest
+            if 1 <= len(vowel) <= 3 and all(char in "aeiouy" for char in vowel):
+                return True
+    return False
 
 
 def money_claims(text):
@@ -58,7 +91,7 @@ def money_claims(text):
     return claims
 
 
-def number_error(text, evidence):
+def number_error(text, evidence, *, publication_years=()):
     evidence = normalized(evidence)
     source_money = money_claims(evidence)
     for value, role in money_claims(text):
@@ -67,7 +100,10 @@ def number_error(text, evidence):
             return "unsupported_amount_role"
     # Remove scaled currency amounts before ordinary numeric comparison; notation may translate.
     source_numbers = {n.replace(",", ".").casefold() for n in NUMBER.findall(MONEY.sub("", evidence))}
+    source_numbers.update(publication_years)
     source_words = set(re.findall(r"[a-z]+", evidence.casefold()))
+    if "hundred" in source_words:
+        source_numbers.add("100")
     for index, word in enumerate(("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten")):
         if word in source_words:
             source_numbers.add(str(index))
@@ -89,49 +125,49 @@ def number_error(text, evidence):
     for unit, pattern in UNITS.items():
         for match in re.finditer(r"(\d+(?:[.,]\d+)?)\s*(?:" + pattern + r")", text, re.I):
             number = re.escape(match[1].replace(",", ".")).replace(r"\.", "[.,]")
-            if not re.search(r"\b" + number + r"\s*(?:" + pattern + r")", evidence, re.I):
+            direct = re.search(r"\b" + number + r"\s*(?:" + pattern + r")", evidence, re.I)
+            ranged = (unit == "percent" and any(
+                re.fullmatch(number, match[1])
+                for match in PERCENT_RANGE.finditer(evidence)))
+            if not direct and not ranged:
                 return "unsupported_number_unit: " + unit
     return None
 
 
 def entity_error(text, evidence):
-    from radar.summary_pipeline import VN_GRAMMAR_CAPS
-    # A translated proper name is grounded only when its source name occurs in
-    # the cited evidence. Remove the whole rendering before token checks.
+    # These cross-language renderings remain an explicit fallback for names
+    # whose Vietnamese words alone cannot identify them as proper names.
     for source, vietnamese in (
-        ("Silicon Valley", "Thung lũng Silicon"),
-        ("European Union", "Liên minh châu Âu"),
-        ("United States", "Hoa Kỳ"),
+        (r"(?i:Silicon Valley)", "Thung lũng Silicon"),
+        (r"(?i:European Union)", "Liên minh châu Âu"),
+        (r"(?i:United States)|U\.S\.|US", "Hoa Kỳ"),
     ):
-        if re.search(r"(?<!\w)" + re.escape(source) + r"(?!\w)", evidence, re.I):
+        if re.search(r"(?<!\w)" + re.escape(vietnamese) + r"(?!\w)", text, re.I):
+            if not re.search(r"(?<!\w)(?:" + source + r")(?!\w)", evidence):
+                return "unsupported_name: " + vietnamese
             text = re.sub(r"(?<!\w)" + re.escape(vietnamese) + r"(?!\w)", " ", text, flags=re.I)
-    # Tokenize both sides identically: GPU. and **GPU** are the same proper noun.
-    tokens = re.findall(r"\b[A-Za-z][A-Za-z0-9]*(?:[.+-][A-Za-z0-9]+)*\b", evidence.casefold())
-    allowed = set(tokens)
-    if re.search(r"\bartificial intelligence\b|\bAI\b|\bmodels?\b", evidence, re.I):
-        allowed.add("ai")
-    if re.search(r"\$\d|\bdollars?\b", evidence, re.I):
-        allowed.add("usd")
-    for source, target in (("english", "anh"), ("chinese", "trung")):
-        if source in allowed:
-            allowed.add(target)
-    entities = []
-    for word in re.findall(r"\b[^\W\d][\w.+-]*", text):
-        word = word.strip("._+-")
-        if word and word[0].isupper() and word.isascii() and word not in VN_GRAMMAR_CAPS:
-            if word.casefold() not in allowed:
-                return "invented_entity: " + word
-            entities.append(word)
-    # Reject assembled names whose component tokens happen to occur elsewhere.
-    for name in re.findall(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+\b", text):
-        if any(word in VN_GRAMMAR_CAPS for word in name.split()):
-            continue
-        if name.casefold() not in evidence.casefold():
+    # A cited surname can support the conventional full name of that same person.
+    # Keep the mapping narrow: an unrelated given name must still fail.
+    for full_name, surname in (("Donald Trump", "Trump"),):
+        if re.search(r"(?<!\w)" + re.escape(surname) + r"(?!\w)", evidence):
+            text = re.sub(r"(?<!\w)" + re.escape(full_name) + r"(?!\w)", " ", text)
+    # Ai2 is the Allen Institute for AI's published short name.
+    if re.search(r"(?<!\w)Ai2(?!\w)", evidence, re.I):
+        text = re.sub(r"(?<!\w)(?:Viện Allen|Allen Institute(?: for AI)?)(?!\w)", " ", text)
+    allowed = {folded(token) for token in ENTITY_WORD.findall(evidence)}
+    for word in ENTITY_WORD.findall(text):
+        if (word[0].isupper() and not vietnamese_syllable(word)
+                and word.upper() not in COMMON_ACRONYMS and folded(word) not in allowed):
+            return "invented_entity: " + word
+    # Names made of distinctive tokens must also occur as a complete name.
+    for name in re.findall(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+){2,}\b", text):
+        if any(not vietnamese_syllable(word) for word in name.split()) and folded(name) not in folded(evidence):
             return "unsupported_name: " + name
     return None
 
 
-def claim_error(claim, refs, paragraph_refs, *, max_length):
+def claim_error(claim, refs, paragraph_refs, *, max_length, entity_evidence=None,
+                publication_years=()):
     text = normalized(claim["text"]).strip()
     used = claim["evidence_refs"]
     if (len(text) < 15 or len(text) > max_length or not used or len(set(used)) != len(used)
@@ -142,8 +178,9 @@ def claim_error(claim, refs, paragraph_refs, *, max_length):
     if not VIETNAMESE.search(text):
         return "untranslated_vietnamese_missing"
     evidence = " ".join(refs[ref] for ref in used)
-    # Headline/date metadata never licenses body facts. Publisher metadata only licenses attribution.
-    error = number_error(text, evidence) or entity_error(text, evidence)
+    # Only the source publication year is allowed from date metadata; other numbers stay with citations.
+    error = number_error(text, evidence, publication_years=publication_years) or entity_error(
+        text, evidence if entity_evidence is None else entity_evidence)
     if error:
         return error
     # English connective prose is different from technical names such as CUDA or GPU.
@@ -169,7 +206,7 @@ def claim_error(claim, refs, paragraph_refs, *, max_length):
     return None
 
 
-def validate_summary(inputs, output):
+def validate_summary(inputs, output, *, source_entity_evidence=None):
     from radar.summary_gemini import OUTPUT_SCHEMA
     if not valid_shape(output, OUTPUT_SCHEMA) or output["id"] != inputs.get("id"):
         return None, "invalid_contract"
@@ -188,6 +225,7 @@ def validate_summary(inputs, output):
     if len(set(points)) != len(points):
         return None, "duplicate_points"
     refs, owners, paragraph_refs = {}, {}, set()
+    source_by_id = {source["id"]: source for source in sources}
     for source in sources:
         for p in [*source["paragraphs"], source["publisher"]]:
             if p["id"] in refs:
@@ -197,11 +235,23 @@ def validate_summary(inputs, output):
     claims = [(output["title_vi"], 240), *[(p, 520) for p in output["key_points"]]]
     for claim, limit in claims:
         claim_refs = dict(refs)
+        cited_sources = {owners[ref] for ref in claim["evidence_refs"] if ref in owners}
+        entity_evidence = " ".join(
+            part for source_id in cited_sources
+            for part in (source_by_id[source_id].get("title", ""), source_by_id[source_id]["publisher"]["text"],
+                         (source_entity_evidence or {}).get(source_id) or " ".join(
+                             p["text"] for p in source_by_id[source_id]["paragraphs"])))
+        publication_years = {
+            match[1] for source_id in cited_sources
+            if (match := re.match(r"^(20\d{2})-\d{2}-\d{2}(?:T|$)",
+                                  str(source_by_id[source_id].get("published_at") or "")))
+        }
         for ref in claim["evidence_refs"]:
             if ref in owners:
                 publisher = next(s["publisher"]["text"] for s in sources if s["id"] == owners[ref])
                 claim_refs[ref] += " " + publisher
-        error = claim_error(claim, claim_refs, paragraph_refs, max_length=limit)
+        error = claim_error(claim, claim_refs, paragraph_refs, max_length=limit,
+                            entity_evidence=entity_evidence, publication_years=publication_years)
         if error:
             return None, error
     used = {owners[ref] for claim, _ in claims for ref in claim["evidence_refs"]}
