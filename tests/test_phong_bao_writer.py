@@ -181,6 +181,41 @@ class WriterDeskTests(unittest.TestCase):
         self.assertEqual(row["reason"], "paragraph_roles")
         self.assertEqual(row["dropped_points"][0]["error"], "condition_not_cited")
 
+    def test_an_invented_purpose_or_a_misnamed_speaker_is_dropped(self):
+        reply = deepcopy(PROSE)
+        reply["paragraphs"][1]["sentences"].append(
+            sentence("HelioLab phát triển CanvasKit nhằm thay thế robot thật trong nhà máy.", "outlet:p001"))
+        reply["paragraphs"][2]["sentences"].append(
+            sentence("Theo HelioLab, bộ dựng hình này vượt trội so với các cách dựng hình khác.", "outlet:p002"))
+        row, _, runner = self.write(reply)
+        self.assertTrue(row["written"], row)
+        self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]],
+                         [("cause", "unsupported_purpose"), ("examples", "speaker_not_in_source: HelioLab")])
+        self.assertIn("STEP 4: WHO SAYS IT", runner.calls[0][2])
+        self.assertIn("Every judgement, cause or purpose says who said it in the source, or is dropped.",
+                      runner.calls[0][2])
+
+        purpose_title = deepcopy(PROSE)
+        purpose_title["title_vi"]["text"] = "HelioLab ra mắt CanvasKit nhằm thay thế robot thật trong nhà máy"
+        row = self.write(purpose_title)[0]
+        self.assertEqual((row["reason"], row["dropped_points"][0]["error"]), ("title_rejected", "title: unsupported_purpose"))
+
+    def test_writer_keeps_the_paragraphs_it_read_for_audit_but_never_publishes_them(self):
+        row, _, runner = self.write()
+        sent = runner.calls[0][1][0]["sources"]
+        self.assertEqual([[p["text"] for p in s["paragraphs"]] for s in row["writer_sources"]],
+                         [[p["text"] for p in s["paragraphs"]] for s in sent])
+        self.assertEqual(row["writer_sources"][0]["paragraphs"][0]["id"], "outlet:p001")
+        self.assertEqual(row["writer_source_chars"], sum(len(text) for text in EXAMPLE["paragraphs"]))
+        self.assertTrue(validate_writer_output(row))
+        intake, reporter, editor, checker = desks()
+        decision = _chief([story()], intake, reporter, editor, checker, NOW, {SID: row})[0]
+        self.assertTrue(validate_chief_output(decision))
+        self.assertNotIn("writer_sources", json.dumps(decision))
+        self.assertNotIn(EXAMPLE["paragraphs"][0], json.dumps(decision, ensure_ascii=False))
+        old = self.write(item=story(hours_old=72))[0]
+        self.assertNotIn("writer_sources", old)
+
     def test_conditions_must_be_copied_from_the_cited_paragraph(self):
         invented = deepcopy(PROSE)
         invented["conditions"] = [{"text": "results hold for all real robots", "ref": "outlet:p004"},

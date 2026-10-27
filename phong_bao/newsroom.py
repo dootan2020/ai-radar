@@ -19,7 +19,7 @@ from radar.press_relevance import press_subject_reason
 from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE
 from radar.summary_pipeline import collect_inputs, fetch_article_result, story_inputs
 from radar.summary_sources import fit_inputs, publish_summary
-from radar.summary_validation import claim_error, number_error
+from radar.summary_validation import attribution_error, claim_error, number_error
 from radar import shadow_collector, transport
 
 from .contracts import (
@@ -76,6 +76,15 @@ Three paragraphs are fine when cause and examples share one paragraph (role caus
 
 STEP 3: KEEP THE CONDITION WITH THE RESULT
 A condition goes in the same sentence as the result it limits, never saved for the end. Never write a conclusion stronger than its paragraph: "can preserve" is not "never harms", "largely" is not "entirely", "in a simulated lab" is not "on robots", a proposal is not an established law. The significance paragraph states the meaning and its limit; each significance sentence cites the paragraph that holds the condition it keeps. Drop proper names and counts before you drop a condition.
+
+STEP 4: WHO SAYS IT
+Every judgement, cause or purpose says who said it in the source, or is dropped. Before writing such a sentence, find the paragraph that holds it and see whose words they are: the company, a person or organisation the article quotes, insiders, or the outlet's own reporter or author.
+- Name that speaker as the paragraph does, and cite the paragraph that names them. When the paragraph is the reporter's or author's own remark, write it as the outlet's view ("TechCrunch nhận xét", "tác giả bài viết trên Futurism cho rằng"), never as the company's or as insiders'.
+- A finding stays the finding of whoever found it ("ORG found that" becomes "tổ chức ORG phát hiện"), never a general fact.
+- Insiders, experts or a named company speak only for what their own paragraph says; do not hang the author's inference on them in the same sentence.
+- Keep the scope: an average stays an average, a hedge stays with its claim, and a trade-off of one mode or one feature stays with that mode, never moved to the whole product.
+- Write a purpose (nhằm, để, với mục đích, mục tiêu) only when a cited paragraph states that purpose for that actor. "As part of savings" or "built on models from" is not a purpose. When no paragraph says why, state what happened without a reason.
+If you cannot tell who said it, leave the sentence out. Sentences that break this rule are removed.
 
 STYLE
 Natural Vietnamese for a phone reader. Use fewer proper names and secondary details. When grouping actors with different positions, say that they differ. Explain a specialist term in plain Vietnamese in parentheses on first use, including what an agent or benchmark is. Keep the author's opinion marked as opinion. Keep proper names, product names and model versions as the source spells them. No value judgements the source does not make (do not call a use "abuse"). No markdown, lists, URLs or bold text; at most one attributed quotation of up to 20 source words.
@@ -592,10 +601,12 @@ def _point_error(inputs, claim, evidence, *, max_length=400):
                   for ref, text in refs.items()}
     entity_evidence = " ".join(
         part for sid in cited
-        for part in (by_id[sid].get("title", ""), by_id[sid]["publisher"]["text"],
+        for part in (by_id[sid].get("title", ""), by_id[sid]["publisher"]["text"], _outlet_names(by_id[sid]),
                      evidence.get(sid) or " ".join(p["text"] for p in by_id[sid]["paragraphs"])))
     years = {match[1] for sid in cited
              if (match := re.match(r"^(20\d{2})-\d{2}-\d{2}(?:T|$)", str(by_id[sid].get("published_at") or "")))}
+    # "Theo" opening a clause is the preposition "according to", not the first word of a name ("Theo The Verge").
+    claim = {**claim, "text": re.sub(r"(^|[,;:]\s*)Theo\b", r"\1theo", claim["text"])}
     return claim_error(claim, claim_refs, paragraph_refs, max_length=max_length,
                        entity_evidence=entity_evidence, publication_years=years)
 
@@ -628,6 +639,29 @@ def _grounded_conditions(inputs, conditions):
     return refs, rejected
 
 
+def _outlet_names(source):
+    """The outlet as a reader names it: the publisher label without slug hyphens, and the site's host name
+    ("the-verge" -> "the verge"; a Hacker News link to futurism.com -> "futurism")."""
+    host = (urlsplit(source.get("url") or "").hostname or "").removeprefix("www.").split(".")[0]
+    return f"{source['publisher']['text'].replace('-', ' ')} {host}".strip()
+
+
+def _cited(inputs, refs):
+    """(paragraph text, outlet names) for each paragraph a sentence cites."""
+    by_ref = {part["id"]: (part["text"], _outlet_names(source))
+              for source in inputs["sources"] for part in source["paragraphs"]}
+    return [by_ref[ref] for ref in refs if ref in by_ref]
+
+
+def _audit_sources(inputs):
+    """The exact paragraphs the writer read, kept in writer.json so a reviewer can check every cited ID."""
+    return [{"id": source["id"], "role": source["role"], "url": source["url"],
+             "publisher": source["publisher"]["text"], "body_complete": source["body_complete"],
+             "omitted_paragraph_ids": source.get("omitted_paragraph_ids", []),
+             "paragraphs": [{"id": part["id"], "text": part["text"]} for part in source["paragraphs"]]}
+            for source in inputs["sources"]]
+
+
 def _written_prose(inputs, reply, evidence):
     """Validate a writer reply sentence by sentence with the shared number and name checks.
 
@@ -649,7 +683,8 @@ def _written_prose(inputs, reply, evidence):
             or any(not isinstance(p, dict) or p.get("role") not in WRITER_ROLES or not isinstance(p.get("sentences"), list)
                    or not p["sentences"] or not all(_claim_shape(s) for s in p["sentences"]) for p in paragraphs)):
         return None, [], "writer_invalid"
-    error = _point_error(inputs, title, evidence, max_length=240)
+    error = (_point_error(inputs, title, evidence, max_length=240)
+             or attribution_error(title["text"], _cited(inputs, title["evidence_refs"])))
     if error:
         return None, [{"text": title["text"][:240], "error": "title: " + error}], "title_rejected"
     condition_refs, dropped = _grounded_conditions(inputs, conditions)
@@ -662,6 +697,8 @@ def _written_prose(inputs, reply, evidence):
             if (not error and paragraph["role"] == "significance" and condition_refs
                     and not condition_refs.intersection(sentence["evidence_refs"])):
                 error = "condition_not_cited"
+            if not error:
+                error = attribution_error(sentence["text"], _cited(inputs, sentence["evidence_refs"]))
             if error:
                 dropped.append({"role": paragraph["role"], "text": sentence["text"][:400], "error": error})
             else:
@@ -761,6 +798,11 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
                    "key_points_prompt_version": fields.get("key_points_prompt_version"),
                    "dropped_points": dropped,
                    "provider": reply.get("provider") if reply else None, "boat": reply.get("boat") if reply else None}
+        if sid in inputs_by_id:
+            # Audit only: the chief copies named public fields, so these paragraphs never reach decisions or the site.
+            out_row["writer_sources"] = _audit_sources(inputs_by_id[sid])
+            out_row["writer_source_chars"] = sum(len(part["text"]) for source in out_row["writer_sources"]
+                                                 for part in source["paragraphs"])
         validate_writer_output(out_row)
         output[sid] = out_row
     return output, usage
