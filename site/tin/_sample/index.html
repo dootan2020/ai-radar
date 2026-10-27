@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="../../tokens.css">
 <link rel="stylesheet" href="../../feed.css">
 <link rel="stylesheet" href="../../story.css">
+<link rel="stylesheet" href="../../menu-cong-cu.css">
+<script defer src="../../menu-cong-cu.js"></script>
 <script type="module" src="../../story-page.js"></script>
 </head>
 <body>
@@ -33,24 +35,26 @@
   <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M18 20l-6-4.3L6 20V5.5A1.5 1.5 0 0 1 7.5 4h9A1.5 1.5 0 0 1 18 5.5z"/></symbol>
   <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
 </svg>
 
 <header class="feed-bar" id="bar">
   <div class="feed-bar-in">
-    <a class="feed-brand" href="../../index.html" aria-label="Halcyon, về trang chủ dòng tin"><img src="../../logo.svg" width="24" height="24" alt="" style="margin-right:6px">Halcyon</a>
+    <a class="feed-brand" href="../../index.html" aria-label="Halcyon, về trang chủ dòng tin"><img src="../../logo.svg" width="24" height="24" alt="" style="margin-right:6px"><span class="feed-brand-label">Halcyon</span></a>
     <nav class="doc-nav" aria-label="Điều hướng trang đọc bài">
       <a class="story-modal-close" href="../../index.html" id="doc-back-btn" style="text-decoration:none">
         <svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg>
         <span>Dòng tin</span>
       </a>
     </nav>
-    <div style="flex:1"></div>
-    <a class="ed-link" href="../../ban-tin.html">Bản tin sáng</a>
+    <div class="doc-spacer"></div>
+    <a class="ed-link" href="../../ban-tin.html" aria-label="Bản tin sáng"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg><span class="ed-label">Bản tin sáng</span></a>
     <a class="tc-link" href="../../tra-cuu.html" aria-label="Tra cứu câu chuyện AI"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg><span class="tc-label">Tra cứu</span></a>
     <button class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Chuyển chế độ sáng hoặc tối">
       <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
       <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
     </button>
+    <div class="tool-launcher"></div>
   </div>
 </header>
 

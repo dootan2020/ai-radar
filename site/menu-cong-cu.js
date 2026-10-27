@@ -16,8 +16,9 @@
   ];
   const header = document.querySelector('header.feed-bar, header.bt-bar, header.bar');
   if (!header) return;
+  if (header.querySelector('.tool-launcher-button')) return;
 
-  const host = document.createElement('div');
+  const host = header.querySelector('.tool-launcher') || document.createElement('div');
   host.className = 'tool-launcher';
 
   const button = document.createElement('button');
@@ -81,7 +82,31 @@
   host.append(button, panel);
 
   const actions = header.querySelector('.bt-bar-actions') || header.querySelector('.feed-bar-in') || header;
-  actions.append(host);
+  if (!host.isConnected) actions.append(host);
+
+  const story = location.pathname.includes('/tin/');
+  const prefix = story ? '../../' : '';
+  const page = location.pathname.split('/').pop() || 'index.html';
+  const current = story ? 'index.html' : page;
+  const destinations = [
+    ['index.html', 'Dòng tin', '<path d="M4 6h16M4 12h16M4 18h10"/>'],
+    ['ban-tin.html', 'Bản tin', '<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4m8-4v4M4 10h16"/>'],
+    ['tra-cuu.html', 'Tra cứu', '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>'],
+    ['nguon.html', 'Nguồn', '<path d="M5 5h14v14H5zM8 9h8M8 13h8M8 17h5"/>']
+  ];
+  const mobileNav = document.createElement('nav');
+  mobileNav.className = 'mobile-nav';
+  mobileNav.setAttribute('aria-label', 'Điều hướng chính');
+  for (const [file, label, paths] of destinations) {
+    const link = document.createElement('a');
+    link.href = `${prefix}${file}`;
+    link.className = 'mobile-nav-link';
+    if (file === 'ban-tin.html') link.setAttribute('aria-label', 'Bản tin sáng');
+    if (file === current || (page === 'bento.html' && file === 'index.html')) link.setAttribute('aria-current', 'page');
+    link.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths}</svg><span>${label}</span>`;
+    mobileNav.append(link);
+  }
+  header.after(mobileNav);
 
   let closeTimer;
   function loadIcons() {

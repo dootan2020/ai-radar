@@ -101,14 +101,17 @@ function setupTheme() {
 }
 
 function setupToolLauncher() {
-  const stylesheet = document.createElement('link');
-  stylesheet.rel = 'stylesheet';
-  stylesheet.href = new URL('menu-cong-cu.css', import.meta.url);
-  document.head.append(stylesheet);
-
-  const script = document.createElement('script');
-  script.src = new URL('menu-cong-cu.js', import.meta.url);
-  document.head.append(script);
+  if (!document.querySelector('link[href$="menu-cong-cu.css"]')) {
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = new URL('menu-cong-cu.css', import.meta.url);
+    document.head.append(stylesheet);
+  }
+  if (!document.querySelector('script[src$="menu-cong-cu.js"]')) {
+    const script = document.createElement('script');
+    script.src = new URL('menu-cong-cu.js', import.meta.url);
+    document.head.append(script);
+  }
 }
 
 async function boot() {

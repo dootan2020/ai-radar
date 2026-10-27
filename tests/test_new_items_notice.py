@@ -11,6 +11,7 @@ class NewItemsNoticeTests(unittest.TestCase):
     def setUpClass(cls):
         cls.html = (SITE / "index.html").read_text(encoding="utf-8")
         cls.css = (SITE / "feed.css").read_text(encoding="utf-8")
+        cls.header_css = (SITE / "menu-cong-cu.css").read_text(encoding="utf-8")
         cls.js = (SITE / "feed.js").read_text(encoding="utf-8")
 
     def test_one_quiet_notice_with_separate_live_region(self):
@@ -58,34 +59,20 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertNotIn("3ch", self.css)
 
     def test_header_preserves_tab_space_and_utilities(self):
-        desktop = self.css.split("@media (min-width: 768px){")[1].split("@media")[0]
-        strip = re.search(r"\.feed-filters\s*\{([^}]+)\}", desktop)[1]
-        self.assertIn("overflow-x: auto", strip)
-        self.assertIn("gap: var(--space-8)", strip)
-        self.assertIn("padding: 0 var(--space-8)", desktop)
-        tablet = self.css.split("@media (min-width: 768px) and (max-width: 1399px)")[1].split("@media")[0]
-        self.assertIn(".feed-navigation { order: 1; flex-basis: 100%; }", tablet)
-        self.assertNotIn(".filter-chip", tablet)
-        compact = self.css.split("@media (min-width: 1400px) and (max-width: 1599px)")[1].split("@media")[0]
-        self.assertIn(".tc-link .tc-label { display: none; }", compact)
+        self.assertIn(".feed-bar-in{", self.header_css)
+        self.assertIn("flex-wrap:nowrap", self.header_css)
+        self.assertIn(".feed-navigation{", self.header_css)
+        self.assertIn(".feed-filters{", self.header_css)
+        self.assertIn("overflow-x:auto", self.header_css)
+        self.assertIn(".tc-link .tc-label{display:none}", self.header_css)
         self.assertIn('aria-label="Tra cứu câu chuyện AI"', self.html)
 
-    def test_one_row_header_stacks_when_its_contents_do_not_fit(self):
-        # The one-row bar must not rely on width alone: tabs, fonts and the reader's font size change what fits.
-        fit = self.js.split("function fitBar()")[1].split("\n}")[0]
-        self.assertIn("matchMedia('(min-width: 1400px)')", self.js)
-        self.assertIn("classList.toggle('is-stacked'", fit)
-        self.assertIn("filters.scrollWidth > filters.clientWidth", fit)
-        self.assertIn("sort.hidden = false", fit)   # measured with the sort switch, so changing tabs keeps the shape
-        for caller in ["function renderChips()", "function renderSortSwitch()", "window.addEventListener('resize'"]:
-            self.assertIn("fitBar();", self.js.split(caller)[1][:600], caller)
-        self.assertIn("document.fonts.addEventListener('loadingdone', fitBar)", self.js)
-        self.assertIn(".feed-bar.is-stacked .feed-navigation { order: 1; flex-basis: 100%;", self.css)
-        self.assertIn(".feed-bar.is-stacked .feed-filters { flex-wrap: wrap; overflow-x: visible; }", self.css)
-        mouse = self.css.split("@media (min-width: 768px) and (max-width: 1399px) and (hover: hover) and (pointer: fine)")[1].split("}")[0]
-        self.assertIn("flex-wrap: wrap", mouse)
-        touch = self.css.split("@media (min-width: 768px) and (max-width: 1399px) and (pointer: coarse)")[1].split("}")[0]
-        self.assertIn("mask-image: var(--nav-fade)", touch)
+    def test_header_never_stacks_when_its_contents_do_not_fit(self):
+        self.assertNotIn("function fitBar()", self.js)
+        self.assertNotIn("is-stacked", self.js)
+        self.assertIn("flex-wrap:nowrap", self.header_css)
+        self.assertIn(".feed-bar.is-stacked .feed-navigation{order:0;flex:1 1 auto;flex-basis:auto", self.header_css)
+        self.assertIn(".feed-bar.is-stacked .feed-filters{flex-wrap:nowrap;overflow-x:auto}", self.header_css)
 
 
 if __name__ == "__main__":

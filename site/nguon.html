@@ -48,18 +48,19 @@
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
 </svg>
 
-<header class="feed-bar" id="bar">
+<header class="feed-bar source-bar" id="bar">
   <div class="feed-bar-in">
-    <a class="feed-brand" href="index.html" aria-label="Halcyon, về dòng tin"><img src="logo.svg" width="24" height="24" alt="" style="margin-right:6px">Halcyon</a>
+    <a class="feed-brand" href="index.html" aria-label="Halcyon, về dòng tin"><img src="logo.svg" width="24" height="24" alt="" style="margin-right:6px"><span class="feed-brand-label">Halcyon</span></a>
     <div class="feed-navigation">
       <a class="filter-chip" href="index.html">Dòng tin</a>
     </div>
-    <a class="ed-link" href="ban-tin.html">Bản tin sáng</a>
+    <a class="ed-link" href="ban-tin.html" aria-label="Bản tin sáng"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg><span class="ed-label">Bản tin sáng</span></a>
     <a class="tc-link" href="tra-cuu.html" aria-label="Tra cứu câu chuyện AI"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span class="tc-label">Tra cứu</span></a>
     <button class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Chuyển chế độ sáng hoặc tối">
       <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
       <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
     </button>
+    <div class="tool-launcher"></div>
   </div>
 </header>
 

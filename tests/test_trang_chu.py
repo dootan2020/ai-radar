@@ -106,7 +106,8 @@ class RootPageHeadTests(unittest.TestCase):
         # Search entry point
         self.assertRegex(self.html, r'<a\s+class="tc-link"\s+href="tra-cuu\.html"')
         # Daily edition link
-        self.assertRegex(self.html, r'<a\s+class="ed-link"\s+href="ban-tin\.html">Bản tin sáng</a>')
+        self.assertRegex(self.html, r'<a\s+class="ed-link"\s+href="ban-tin\.html"\s+aria-label="Bản tin sáng"><svg')
+        self.assertIn('<span class="ed-label">Bản tin sáng</span>', self.html)
         # Theme button
         self.assertIn('id="theme-btn"', self.html)
         # New items marker
