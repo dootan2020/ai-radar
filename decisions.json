@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T03:10:02.383950+00:00",
-  "input_generated_at": "2026-10-27T02:41:19Z",
+  "generated_at": "2026-10-27T07:08:57.960982+00:00",
+  "input_generated_at": "2026-10-27T06:47:45Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -3631,6 +3631,567 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "c1c496bc870ed178ea51"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8c1670c68dd9db755075",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/what-anthropic-s-ipo-means-for-the-ai-trade-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9f489af357c101bfb55f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bd44b227ad3822264318",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/27/bytedance-is-rewiring-its-ai-video-bet/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "127131179ee9cedc5a34"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5ad1f4f2e32ff7e9db5e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/27/deepseek-reportedly-ramps-up-hiring-as-it-maps-out-new-growth-plans/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "23eaa3abd1ff736b46a9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3f89e6cfda638ba7484e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-and-meta-to-expand-collaboration-on-muse-and-muse-family-of-models-amid-robust-growth",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f9c58353e957f0b7e612"
+      ],
+      "split_coverage_ids": [
+        "cd1370c1740226757dbc"
+      ]
+    },
+    {
+      "id": "99691782fef12c846f17",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/27/bytedance-launches-ai-studio-for-short-drama-production/",
+      "key_points": [
+        "Studio của Jimeng AI kết hợp viết kịch bản, tạo nhân vật và bối cảnh, dựng storyboard, sản xuất video và hậu kỳ trong một quy trình.",
+        "Nền tảng sử dụng ba mô hình nội bộ: DreamScript, Anycook và DreamShot."
+      ],
+      "same_event_coverage_ids": [
+        "1d0e6af1a1a8c3f96797"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "42c62d5b81dd9c8fc96c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/27/ant-launches-lingguang-2-0-ai-assistant-for-ongoing-personal-tasks/",
+      "key_points": [
+        "LingGuang 2.0 bổ sung bộ nhớ liên tục và khả năng tiếp tục quản lý công việc sau khi người dùng rời cuộc trò chuyện.",
+        "Khi được cấp quyền, trợ lý có thể theo dõi thay đổi và chủ động tiếp tục công việc theo thời gian.",
+        "Trợ lý kết nối với Alipay, DingTalk, Feishu, email và nền tảng nhà thông minh Mijia."
+      ],
+      "same_event_coverage_ids": [
+        "2e6a06ff3ab853018e6e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1c65597565f1c87fb0d0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/27/desktop-robot-startup-cybopal-secures-investment-from-tcl-and-shenzhen-capital-group/",
+      "key_points": [
+        "CyboPal nhận vòng đầu tư chiến lược từ bộ phận đầu tư của TCL Industries và Shenzhen Capital Group; số tiền không được công bố.",
+        "Công ty phát triển phần cứng kết nối người dùng, AI agent cá nhân và quy trình làm việc trên máy tính."
+      ],
+      "same_event_coverage_ids": [
+        "7b3141fe12db659d52d8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "52481c03a6ffc3853642",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/27/tencent-open-sources-ai-model-for-real-time-chinese-english-interpretation/",
+      "key_points": [
+        "Tencent phát hành Hy-SimulMT để phiên dịch đồng thời tiếng Trung và tiếng Anh.",
+        "Bản phát hành gồm trọng số mô hình, phần mềm suy luận và công cụ huấn luyện.",
+        "Tencent báo cáo độ trễ dịch trực tuyến khoảng ba giây trên benchmark RealSI."
+      ],
+      "same_event_coverage_ids": [
+        "3b78b6679184bd305b9a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5a24e14dcd271d5b985b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Đây là trang liệt kê nhà cung cấp suy luận, không có báo cáo hay thông báo phát hành đủ cụ thể.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://allmodels.io/llm/abliterated",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "413db1a9aa6cf52f732e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "caa4a3a95adec388ced3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Trọng tâm là biến động tiền tệ châu Á do nhiều yếu tố; AI chỉ là một yếu tố được nhắc đến.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/oil-shock-ai-boom-asian-dollar-philippine-peso-korean-won-thai-baht-ringgit",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fa5b5f84db534731db8d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2c5e2d0861c2ad55d900",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/anthropic-ipo-cba-commonwealth-bank-of-australia-multi-billion-windfall",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1776fc4db5dbf9b7b3f2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "96c1538300a24180c40b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3372231/zte-7-after-ai-pivot-computing-surge-drive-fivefold-increase-third-quarter-profit",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ed28cb8750c019aca414"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "aa8770ed43d2ae8606a2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Kế hoạch chủ yếu nói về mạng internet vệ tinh; tính toán AI trên vệ tinh chỉ là một chỉ tiêu trong nhiều chỉ tiêu.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/shanghai-satellite-internet-action-plan-2027-2030-laser-links-onboard-ai-direct-to-phone",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f27105ba257136c8ff9f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b02b967fc160e8ca4550",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/kuaishou-ecommerce-ai-digital-staff-merchant-workbench-store-manager-video-livestream-after-sales",
+      "key_points": [
+        "Kuaishou bổ sung AI digital staff vào merchant workbench của Kuaishou Shop.",
+        "Người bán có thể đặt câu hỏi bằng ngôn ngữ tự nhiên để hệ thống truy xuất dữ liệu cửa hàng và chuyển việc cho agent phù hợp."
+      ],
+      "same_event_coverage_ids": [
+        "66c0475f03933f3ee4d2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4e855af0177decffbe0b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/infinigence-ai-three-body-universe-character-agent-agentworks-pdd-heterogeneous-inference",
+      "key_points": [
+        "Infinigence AI và Three-Body Universe ra mắt character agent tại sự kiện Three-Body Day ngày 25/10.",
+        "Agent chạy trên nền tảng AgentWorks của Infinigence.",
+        "Hệ thống dùng kho tri thức, prompt có cấu trúc và bộ nhớ xuyên phiên để duy trì nhân vật."
+      ],
+      "same_event_coverage_ids": [
+        "b86bb427747aef8754e8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "91b4af186bec1f2786a7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài đăng diễn đàn chỉ đặt câu hỏi cá nhân, không có sự kiện hay nội dung phân tích được báo cáo.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50253561",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7b941a7128ddeb85b79f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "05ded41571827964167e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Đoạn mô tả tập trung vào vai trò ngân sách của quỹ và lợi suất trái phiếu; chưa cho thấy AI là chủ đề chính của cuộc phỏng vấn.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/ai-fund-a-fiscal-dam-says-south-korea-budget-minister-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "639311486254a860fd62"
+      ],
+      "split_coverage_ids": [
+        "ad12adb92bfaf4ef16a5"
+      ]
+    },
+    {
+      "id": "b26f70c790034ce0463a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.blog/changelog/2026-10-26-github-copilot-assisted-permissions-generally-available",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e55c44105445833f70f5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dd6bb1a8f1457962c9fe",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://sakana.ai/vp-of-gtm-interview/",
+      "key_points": [
+        "Sakana AI cho biết đội go-to-market của họ bắt đầu hoạt động đầy đủ vào tháng 9/2026.",
+        "Bài phỏng vấn tập trung vào Hidekazu Kakishima, VP of GTM của Sakana AI, và việc mở rộng các sản phẩm của công ty."
+      ],
+      "same_event_coverage_ids": [
+        "66a570e4e6ddb6133110"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ef0305d62fa9ac4d452a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Chỉ có tên một Hugging Face Space, không có thông báo phát hành hay nội dung mô tả.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/spaces/WizardTY/GEAR",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6cb6bd0dfc51d76ea6ab"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9cd4a9cd56f8d9b1fe08",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.35434",
+      "key_points": [
+        "Các tác giả giới thiệu Skill∞, trong đó meta agent tối ưu kỹ năng thực hiện tác vụ và cả meta-skill dùng để tối ưu chúng.",
+        "Phương pháp dùng cùng một quy trình để cải thiện meta-skill thông qua việc chẩn đoán execution trace."
+      ],
+      "same_event_coverage_ids": [
+        "494a736689605e030c96"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7879d80f8ba77ad5ef8e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.34662",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b33c2b19fb59a7c277b6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "47e008c461c64eb65661",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.35845",
+      "key_points": [
+        "Bài viết xem work agents là hệ thống kết hợp foundation model và runtime harness để thực hiện công việc trong workspace có trạng thái.",
+        "Các tác giả đề xuất hai chiều mô tả điều kiện làm việc là work persistence và work openness."
+      ],
+      "same_event_coverage_ids": [
+        "79ef6197140ea8d6be44"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3b7f2fe0b2750f8f3ad5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.35518",
+      "key_points": [
+        "Các tác giả giới thiệu S3AC, một phương pháp actor-critic cho suy luận LLM.",
+        "Critic được huấn luyện để cung cấp advantage theo token và baseline theo prompt."
+      ],
+      "same_event_coverage_ids": [
+        "e8bb7e8d47169125e500"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "27096c6218492febfd50",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.35193",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0c90529d39361776d096"
       ],
       "split_coverage_ids": []
     }
