@@ -97,7 +97,7 @@ class PageHeadTests(unittest.TestCase):
 
     def test_reader_loads_no_other_script_sources(self):
         self.assertEqual(ScriptSources(self.html).sources, [
-            "app.js", "https://static.cloudflareinsights.com/beacon.min.js",
+            "app.js", "https://static.cloudflareinsights.com/beacon.min.js", "menu-cong-cu.js",
         ])
 
     def test_cloudflare_permissions_do_not_broaden_script_or_connection_sources(self):
