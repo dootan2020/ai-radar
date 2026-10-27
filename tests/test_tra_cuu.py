@@ -399,7 +399,7 @@ process.stdout.write(JSON.stringify(results));
         app_js = (ROOT / "site" / "app.js").read_text(encoding="utf-8")
 
         # 1. Wordmark takes reader to home
-        self.assertRegex(html, r'<a class="brand" href="index\.html"[^>]*><img src="logo\.svg"[^>]*>Halcyon</a>')
+        self.assertRegex(html, r'<a class="brand" href="index\.html"[^>]*><img src="logo\.svg"[^>]*><span class="brand-label">Halcyon</span></a>')
 
         # 2. Desktop section links (.nav a)
         nav_match = re.search(r'<nav class="nav" id="nav"[^>]*>([\s\S]*?)</nav>', html)

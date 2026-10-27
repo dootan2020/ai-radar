@@ -100,8 +100,23 @@ function setupTheme() {
   });
 }
 
+function setupToolLauncher() {
+  if (!document.querySelector('link[href$="menu-cong-cu.css"]')) {
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = new URL('menu-cong-cu.css', import.meta.url);
+    document.head.append(stylesheet);
+  }
+  if (!document.querySelector('script[src$="menu-cong-cu.js"]')) {
+    const script = document.createElement('script');
+    script.src = new URL('menu-cong-cu.js', import.meta.url);
+    document.head.append(script);
+  }
+}
+
 async function boot() {
   setupTheme();
+  setupToolLauncher();
 
   const dataScript = $('#story-data');
   const root = $('#story-root');

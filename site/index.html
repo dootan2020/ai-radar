@@ -52,6 +52,8 @@
 <link rel="modulepreload" href="titles.js">
 <link rel="modulepreload" href="calendar.js">
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9e0e7831b103411d848691a0223eb54c"}'></script><!-- End Cloudflare Web Analytics -->
+ <link rel="stylesheet" href="menu-cong-cu.css">
+ <script defer src="menu-cong-cu.js"></script>
 </head>
 <body>
 <a class="skip" href="#top">Bỏ qua tới nội dung</a>
@@ -71,11 +73,10 @@
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
 </svg>
 
-<!-- The edition and search links are static HTML in the sticky bar, outside the filters, so they need no script,
-     never shift the layout and stay visible at every width (tests/test_ban_tin_link.py, tests/test_tra_cuu.py). -->
+<!-- Desktop links stay beside the filters; the phone bar shows the same destinations below the feed. -->
 <header class="feed-bar" id="bar">
   <div class="feed-bar-in">
-    <a class="feed-brand" href="#top" aria-label="Halcyon, về đầu trang"><img src="logo.svg" width="24" height="24" alt="" style="margin-right:6px">Halcyon</a>
+    <a class="feed-brand" href="#top" aria-label="Halcyon, về đầu trang"><img src="logo.svg" width="24" height="24" alt="" style="margin-right:6px"><span class="feed-brand-label">Halcyon</span></a>
     <div class="feed-navigation">
       <div class="feed-filters" id="feed-filters" role="group" aria-label="Lọc dòng tin">
         <button class="filter-chip" data-filter="all" aria-pressed="true">Tất cả</button>
@@ -87,17 +88,19 @@
         <button class="filter-chip" data-filter="rankings" aria-pressed="false">Xếp hạng</button>
         <button class="filter-chip" data-filter="saved" aria-pressed="false" hidden>Đã lưu</button>
       </div>
-      <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin" hidden>
-        <button class="sort-btn" data-sort="worth" aria-pressed="true">Đáng đọc nhất</button>
-        <button class="sort-btn" data-sort="new" aria-pressed="false">Mới nhất</button>
+      <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin">
+        <button class="sort-btn" data-sort="worth" aria-label="Đáng đọc nhất" aria-pressed="true"><span class="sort-label-full">Đáng đọc nhất</span><span class="sort-label-short">Đọc</span></button>
+        <button class="sort-btn" data-sort="new" aria-label="Mới nhất" aria-pressed="false"><span class="sort-label-full">Mới nhất</span><span class="sort-label-short">Mới</span></button>
+        <button class="sort-btn sort-btn-compact" data-sort="toggle" aria-label="Đang sắp xếp: Đáng đọc nhất. Chuyển sang Mới nhất" aria-pressed="false"><span class="sort-current">Đáng đọc</span></button>
       </div>
     </div>
-    <a class="ed-link" href="ban-tin.html">Bản tin sáng</a>
+    <a class="ed-link" href="ban-tin.html" aria-label="Bản tin sáng"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg><span class="ed-label">Bản tin sáng</span></a>
     <a class="tc-link" href="tra-cuu.html" aria-label="Tra cứu câu chuyện AI"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span class="tc-label">Tra cứu</span></a>
     <button class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Chuyển chế độ sáng hoặc tối">
       <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
       <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
     </button>
+    <div class="tool-launcher"></div>
   </div>
 </header>
 
