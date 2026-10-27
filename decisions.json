@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T13:03:20.901529+00:00",
-  "input_generated_at": "2026-10-27T12:41:37Z",
+  "generated_at": "2026-10-27T18:40:36.884296+00:00",
+  "input_generated_at": "2026-10-27T18:01:30Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -4760,6 +4760,1164 @@
       "same_event_coverage_ids": [
         "7afc9d9432b65732ac2a",
         "abab59b5fb2924793b63"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e10e3fdfca533ea978cf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/asm-lifts-2027-outlook-as-ai-buildout-fuels-demand-for-its-tools",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8b30f2cbe220f8ed8f48"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b2aff63a03e983b29f98",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài chủ yếu bình luận một series Marvel; AI ngoài đời là chủ đề liên hệ.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1017064/visionquest-marvel-rogue-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "544cf6ea7946a6fc369e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1c5b51464767c2ad2949",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Tiêu đề hướng dẫn xây dựng mô hình bằng LFM3, không cho thấy một thông báo phát hành.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/LiquidAI/lfm3",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "52c6710f397f5b609e02"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "99c4b370650b49868fec",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/crusoe-ceo-defends-rival-coreweave-calls-selloff-overblown",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "200b72747b8bfeb0a721"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "64295c3ae779f4acba31",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/27/frontier-ai-labs-say-their-models-refuted-the-exponential-time-hypothesis-what-does-that-mean/",
+      "key_points": [
+        "Theo tuyên bố từ OpenAI và Anthropic, mô hình trí tuệ nhân tạo (AI) của họ đã bác bỏ Giả thuyết Thời gian Hàm mũ (ETH, giả định then chốt về độ khó tính toán).",
+        "Hai phòng thí nghiệm OpenAI và Anthropic khẳng định mô hình của họ đã tìm ra thuật toán giải câu đố logic trong thời gian dưới hàm mũ (sub-exponential time, nhanh hơn mức từng cho là khả thi). Sự việc diễn ra khi OpenAI công bố kết quả trước, sau đó Anthropic cũng công bố lời bác bỏ riêng.",
+        "Dù vậy, nhà toán học Levent Alpöge của Anthropic cho rằng OpenAI dựa trên nghiên cứu có sẵn. Giáo sư Ryan Williams nhận thấy chứng minh có phần xa lạ cần thẩm định, và cho rằng thuật toán của OpenAI có thể chưa phải tối ưu nhất.",
+        "Nếu tuyên bố bác bỏ giả thuyết được xác thực, nhiều công trình khoa học trong thập kỷ qua sẽ phải xem xét lại. Trước lo ngại về hệ thống mật mã, OpenAI khá tự tin rằng kết quả nghiên cứu chưa phá vỡ bảo mật."
+      ],
+      "same_event_coverage_ids": [
+        "244281e7cfee66fe46a3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI và Anthropic tuyên bố mô hình AI của họ đã bác bỏ Giả thuyết Thời gian Hàm mũ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/10/27/frontier-ai-labs-say-their-models-refuted-the-exponential-time-hypothesis-what-does-that-mean/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "58ff7a6a906611649d17",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/announcing-soci-indexed-images-for-faster-sagemaker-ai-jobs/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1a572f756e3358dc7e96"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a9a41b70941237e40882",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://developer.nvidia.com/blog/nvidia-rtx-spark-powers-neural-rendering-and-ai-characters-in-games/",
+      "key_points": [
+        "NVIDIA giới thiệu nền tảng Windows mới NVIDIA RTX Spark nhằm phát triển trí tuệ nhân tạo và chơi game trên máy tính nhỏ gọn.",
+        "Nền tảng NVIDIA RTX Spark kết hợp chip đồ họa Blackwell và vi xử lý Grace với bộ nhớ thống nhất (bộ nhớ dùng chung giữa CPU và đồ họa) tối đa 128 GB để chạy mô hình AI cục bộ.",
+        "Hãng cho biết mô hình Nemotron 3.5 Bolt E4B 4GB đạt chất lượng cao hơn khoảng 40% so với phiên bản trước trên các bài kiểm tra chuẩn (bài đánh giá năng lực), trong khi công nghệ DLSS 5 nâng tốc độ gấp hai lần bản tháng 9 nhưng chế độ hiệu năng phải đánh đổi một phần chất lượng hình ảnh.",
+        "Nền tảng giúp đưa việc tương tác với nhân vật AI và kết xuất đồ họa lên thiết bị cá nhân thay vì đám mây, nhưng các tính năng đồ họa chỉ hoạt động trong những trò chơi được hỗ trợ."
+      ],
+      "same_event_coverage_ids": [
+        "6b085ed6455c2882e09a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA ra mắt RTX Spark chạy đồ họa thần kinh và nhân vật AI trên máy tính nhỏ gọn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://developer.nvidia.com/blog/nvidia-rtx-spark-powers-neural-rendering-and-ai-characters-in-games/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "2eb317e634c166703036",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài do AWS và khách hàng đồng viết, kể cách Property Finder cải thiện quy trình đánh giá mô hình trên Bedrock.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/fix-evaluation-bias-to-unlock-better-models-on-amazon-bedrock/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2da3e71190d012c7f517"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bb9f02a56d8cd14e9863",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1019470/anthropic-ipo-resist-investor-pressure-cut-corners-safety",
+      "key_points": [
+        "Anthropic chuẩn bị phát hành cổ phiếu lần đầu ra công chúng (IPO) với cấu trúc quản trị đặc biệt nhằm huy động vốn mà không từ bỏ mục tiêu an toàn trí tuệ nhân tạo.",
+        "Là công ty lợi ích công cộng (loại hình ràng buộc nghĩa vụ xã hội bên cạnh lợi nhuận), hãng lập quỹ tín thác độc lập và giữ 50,1% quyền biểu quyết qua Founder LLC để ngăn cổ đông ép đẩy nhanh sản phẩm bất chấp an toàn.",
+        "Dù vậy, cơ chế bảo vệ của những người sáng lập có thể chấm dứt nếu đa số thành viên rời đi, trong khi nhu cầu vốn và áp lực cạnh tranh có thể làm xói mòn cam kết an toàn theo thời gian.",
+        "Các chuyên gia nhận định không mô hình doanh nghiệp nào có thể cách ly công ty hoàn toàn khỏi áp lực thị trường, và nhà đầu tư chỉ chấp nhận mất tiếng nói chừng nào mọi việc còn suôn sẻ."
+      ],
+      "same_event_coverage_ids": [
+        "5ad444f9a2d8cac6066a",
+        "9d38c1f61baef25fe388"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic lập cấu trúc quản trị đặc biệt để giữ an toàn AI khi lên sàn chứng khoán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1019470/anthropic-ipo-resist-investor-pressure-cut-corners-safety"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-26/anthropic-s-ipo-sets-up-defining-moment-for-wall-street-and-ai-boom"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "b4af5d547e592189c478",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "AWS mô tả cách khách hàng Exowatt dùng SageMaker để tạo mô hình cho hoạt động của mình.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/exowatt-beats-frontier-models-on-accuracy-with-sagemaker-serverless-model-customization/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7fac751f839ad678cd93"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b7bdac3bb4ce8ed2469c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://gizmodo.com/police-are-using-ai-to-pull-over-drivers-for-suspicious-behavior-2000831220",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "67a020ba4a97d523e3b7",
+        "a7d9bf9e8d75987c5fa2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a17083d6bd141e2d3bbd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://futurism.com/artificial-intelligence/amazon-ai-division-failure-nova",
+      "key_points": [
+        "Theo Bloomberg, Amazon đang thu hẹp tham vọng đối với phần lớn mô hình trí tuệ nhân tạo (AI) Nova và tái cấu trúc các đội ngũ phát triển.",
+        "Quyết định này diễn ra sau khi các mô hình ngôn ngữ lớn (hệ thống AI chuyên về ngôn ngữ) ngốn năng lượng không đạt kết quả, buộc Amazon phải thu hẹp trọng tâm vào các mục tiêu ưu tiên cao nhất.",
+        "Theo nguồn tin nội bộ, các mô hình Nova xử lý văn bản, hình ảnh và video của Amazon chỉ nhận tài nguyên tối thiểu dù vẫn được duy trì kỹ thuật, trong khi tài lực được dồn vào dự án AI cho robot.",
+        "Sau khi đóng văn phòng nghiên cứu trí tuệ nhân tạo tổng quát tại San Francisco, tác giả nhận định bước đi này có thể cho thấy Amazon đang rút khỏi làn sóng thổi phồng AI giữa hoài nghi về khả năng sinh lời."
+      ],
+      "same_event_coverage_ids": [
+        "6acde8ee4b59fa12caa7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon thu hẹp phần lớn mô hình AI Nova nhằm tập trung nguồn lực phát triển robot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://futurism.com/artificial-intelligence/amazon-ai-division-failure-nova"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "54ba8a3265e2281edd89",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Đây là chương trình tổng hợp nhiều chủ đề giao dịch và báo cáo kết quả kinh doanh; AI chỉ là một phần.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/open-interest-10-27-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b242fcc343dcb886e511"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "991356d9e9385200ab3c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1019551/firefox-smart-window-ai-fill-forms",
+      "key_points": [
+        "Mozilla vừa cập nhật Smart Window (trải nghiệm duyệt web tích hợp trí tuệ nhân tạo của Firefox) với tính năng hỗ trợ tự động điền biểu mẫu trực tuyến và theo dõi trang web.",
+        "Công cụ này cho phép người dùng Firefox tận dụng dữ liệu từ các thẻ đang mở để điền hồ sơ xin việc, đồng thời nhận thông báo khi trang web mục tiêu có thay đổi hoặc đợt giảm giá mới.",
+        "Người dùng Firefox có thể chọn thẻ nguồn để AI gợi ý dữ liệu cho biểu mẫu có từ bốn trường văn bản, hoặc đặt lệnh theo dõi định kỳ nhưng chỉ kiểm tra khi trình duyệt đang mở.",
+        "Hiện tại, hai tính năng Smart Window này mới được thử nghiệm trên bản máy tính tại Mỹ và Canada, chỉ hỗ trợ trường văn bản và dữ liệu trang nguồn sẽ được chia sẻ với Google Gemini 3.1 Flash Lite."
+      ],
+      "same_event_coverage_ids": [
+        "6f6f65e96b77183388d5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Firefox thử nghiệm tính năng AI tự động điền biểu mẫu và theo dõi trang web tại Mỹ và Canada",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1019551/firefox-smart-window-ai-fill-forms"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "1d6c5c59e46e52b936cb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/allenai/novelty-bench",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "30d4f2ee68bbd8b2560e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e960e8891f7d7ad86d1b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "68e02ea880f041eae705"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c7cc848b2884e07731ed",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1019076/google-genie-4-ai-model",
+      "key_points": [
+        "Google vừa ra mắt Genie 4, một mô hình thế giới (mô hình AI mô phỏng môi trường tương tác) dưới dạng bản thử nghiệm nghiên cứu dành cho những người kiểm thử đáng tin cậy.",
+        "Mô hình Genie 4 được phát triển nhằm tăng tính chân thực cho các thế giới ảo, sử dụng Gemini 3.8 Flash làm nền tảng hỗ trợ mô phỏng và cho phép điều chỉnh theo thời gian thực bằng ngôn ngữ tự nhiên.",
+        "Theo công bố của Google, Genie 4 có thể tự tạo âm thanh đi kèm và tạo ra trải nghiệm kéo dài khoảng hai phút, tăng từ mức một phút của mô hình Genie 3 tiền nhiệm.",
+        "Dù Google kỳ vọng Genie 4 sẽ hỗ trợ dựng cảnh phim, thử nghiệm trò chơi và huấn luyện robot, công ty cảnh báo chi tiết và tính ổn định của vật thể có thể biến đổi khi thời gian mô phỏng kéo dài."
+      ],
+      "same_event_coverage_ids": [
+        "7fc068a4cc48de4a58d1",
+        "91ee6b0c69cc72afa20d",
+        "cd70a779c726c836ac23"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google thử nghiệm mô hình thế giới Genie 4 tạo trải nghiệm tương tác kèm âm thanh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1019076/google-genie-4-ai-model"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/10/27/googles-genie-4-world-model-adds-audio-more-realistic-worlds-and-real-time-steering/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "5ed14fffd1748be81239",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài trình bày quy trình tạo dữ liệu, fine-tune và đánh giá Nemotron cho quy tắc địa phương.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/fine-tuning-nvidia-nemotron-to-know-local-rules-not-just-local-languages/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6d9da7291044665e0502"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "258f6f664bcb9221b430",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/oracle-to-offer-cerebras-systems-computers-in-ai-cloud-service",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "764d4d1ab4316fde40a4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "03d1cd2173ab003c0436",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/google-upgrades-ai-world-model-that-rattled-video-game-stocks",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aa2a430f93a200ef4b8f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f3e020b4efe873953ef4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://stanforddaily.com/2026/10/27/professors-books-pirated-to-train-claude/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "04055dc60584a2c3c634"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0d9dacd0b28df324b2ee",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN dẫn tới trang giới thiệu sản phẩm và bản demo, không có tường thuật độc lập hoặc thông báo phát hành đủ nội dung.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://spec-first.dev/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b7e9feee976ff6acea36"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c9f08b7f37026212ca8f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/uk-home-office-may-face-investigation-over-use-of-openai-tools/",
+      "key_points": [
+        "Cơ quan giám sát tại Anh đang xem xét điều tra Bộ Nội vụ về việc dùng công cụ AI xử lý hồ sơ tị nạn. Phía Bộ Nội vụ khẳng định AI chỉ hỗ trợ tra cứu chứ không tự quyết định hay thay thế con người.",
+        "Cuộc điều tra được cân nhắc do lo ngại về độ chính xác và sự thiếu minh bạch khi chính quyền dùng AI giải quyết 100.000 hồ sơ tồn đọng.",
+        "Dù ước tính tiết kiệm một giờ mỗi hồ sơ, tỷ lệ tóm tắt không đạt chuẩn trong thực tế cao hơn mức lỗi 9% khi thử nghiệm, thậm chí tòa án từng ghi nhận tài liệu do AI ảo giác (tự tạo thông tin sai) để bác đơn.",
+        "Dù cơ quan quản lý khẳng định AI không hoạt động độc lập, các chuyên gia cảnh báo sự thiếu minh bạch khiến người nộp đơn không thể khiếu nại sai sót và che giấu nhiều hệ thống AI rủi ro chưa công bố."
+      ],
+      "same_event_coverage_ids": [
+        "f4ccbdd8c85485ea17ae"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cơ quan giám sát Anh xem xét điều tra Bộ Nội vụ vì dùng công cụ AI xử lý đơn xin tị nạn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/uk-home-office-may-face-investigation-over-use-of-openai-tools/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "d7e464add4da97a4e759",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài của NVIDIA giới thiệu cách đối tác C-BRAIN dùng AI trong nghiên cứu sa sút trí tuệ; mốc ra mắt được nêu là tháng 11/2025.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/open-source-ai-tools-cbrain-dementia/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4a5f141a5b1da6d19ee7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b836eb939c37ffa509e8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài hướng dẫn ba cách tối ưu suy luận MoE trên DGX Spark.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/3-ways-to-boost-moe-inference-on-nvidia-dgx-spark/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "41eae9b15951d71552ef"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dc291fa0a78ddf3b2364",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/27/meta-ai-director-rohit-patel-leaves-to-take-on-microsoft-office-and-google-workspace/",
+      "key_points": [
+        "Cựu giám đốc trí tuệ nhân tạo (AI) của Meta là Rohit Patel đã rời tập đoàn để thành lập Ndoc, công cụ mà ông quảng bá là sẽ thay thế Microsoft Office và Google Workspace.",
+        "Theo Patel, ông muốn tạo ra một không gian làm việc thống nhất thay cho các ứng dụng phân mảnh, đồng thời rời công ty lớn để có thể tự do phát triển và mở mã nguồn định dạng tài liệu nhanh hơn.",
+        "Hiện tại Ndoc mới chỉ mở thử nghiệm giới hạn cho một số khách hàng doanh nghiệp, cung cấp nền tảng tích hợp trang trình chiếu, phân tích số liệu và mã Python minh bạch để người dùng kiểm chứng kết quả từ các mô hình mã nguồn mở.",
+        "Tuy nhiên, việc thay đổi thói quen dùng phần mềm là rào cản rất khó khăn, đặt ra phép thử lớn cho một nhóm chỉ vỏn vẹn ba người chưa gọi vốn khi phải cạnh tranh với hàng loạt ông lớn công nghệ."
+      ],
+      "same_event_coverage_ids": [
+        "fe4569bf0e59251053d5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cựu giám đốc Meta lập Ndoc nhằm thay thế bộ ứng dụng văn phòng của Microsoft và Google",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/10/27/meta-ai-director-rohit-patel-leaves-to-take-on-microsoft-office-and-google-workspace/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "cd5f65c54341aa8c7b51",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/the-ai-boom-will-pull-back-warns-gary-gensler-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cff562948f18cafad6ca"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "70d96e780ce1c42f6d66",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Liên kết là trang trợ giúp về chính sách dữ liệu của Anthropic, không phải bài đưa tin về một thay đổi mới.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "90fc7fdadc7947531289"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "90e64da75edcca056f82",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/27/2026/anthropics-ipo-needs-believers-to-bridge-it-to-the-payoff",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8239428be80952298b5b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "77387043f69a853ed6d4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1019373/apple-pages-keynote-numbers-ai-chatbot-update",
+      "key_points": [
+        "Apple thông báo tích hợp trợ lý trí tuệ nhân tạo (AI) vào bộ ứng dụng văn phòng gồm Pages, Keynote và Numbers dưới dạng thử nghiệm giới hạn (beta).",
+        "Hãng xây dựng công cụ này dựa trên các mô hình của Apple và OpenAI nhằm tự động hóa xử lý nội dung, đồng thời hỗ trợ giao thức mở để các tác tử AI (agent - phần mềm tự động thực hiện tác vụ) bên thứ ba có thể kết nối vào ứng dụng.",
+        "Theo Apple, trợ lý mới có thể thiết kế và tạo hiệu ứng cho slide trong Keynote, biên tập văn bản trong Pages, cũng như tính toán dữ liệu và gợi ý biểu đồ tùy chỉnh trong Numbers.",
+        "Đợt nâng cấp đánh dấu bước mở rộng của Apple Intelligence vào công việc văn phòng, dẫu vậy phạm vi sử dụng hiện chỉ giới hạn ở bản thử nghiệm beta trên các thiết bị tương thích chạy hệ điều hành phiên bản 27 trở lên."
+      ],
+      "same_event_coverage_ids": [
+        "112ea8b5338859ede491"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Apple thử nghiệm tích hợp trợ lý trí tuệ nhân tạo vào Pages, Keynote và Numbers trên hệ điều hành 27",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1019373/apple-pages-keynote-numbers-ai-chatbot-update"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "99d08351b8af8481346a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/10/27/2026/anthropic-says-energy-difficulties-could-slow-down-the-ai-buildout",
+      "key_points": [
+        "Trong hồ sơ chào bán cổ phiếu ra công chúng (IPO), công ty Anthropic đã cảnh báo các nhà đầu tư rằng chi phí năng lượng leo thang cùng sự chậm trễ trong việc cấp điện có thể làm chậm tốc độ mở rộng của ngành trí tuệ nhân tạo (AI).",
+        "Áp lực này gia tăng do các cuộc đàm phán kéo dài, nguy cơ đội vốn và yêu cầu các doanh nghiệp công nghệ phải trả tiền nâng cấp mạng lưới điện ngay cả khi không trực tiếp tiêu thụ nguồn điện đó.",
+        "Doanh nghiệp này tiết lộ đã chịu khoản lỗ 81 tỷ USD trong nửa đầu năm nay và phải gánh cam kết khoảng 400 tỷ USD tiền mua chip cùng thuê trung tâm dữ liệu, bên cạnh các rủi ro vật lý như cháy rừng đe dọa cơ sở hạ tầng.",
+        "Tài liệu cho thấy rủi ro tài chính rất lớn từ cấu trúc hợp đồng, khi Anthropic có thể vẫn phải chi trả các khoản phí năng lượng ngay cả khi công suất cấp điện bị trì hoãn hoặc không bao giờ được cung ứng trên thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "d18270271e638c729e41"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic cảnh báo khó khăn năng lượng có thể làm chậm quá trình phát triển trí tuệ nhân tạo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/10/27/2026/anthropic-says-energy-difficulties-could-slow-down-the-ai-buildout"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "1361404d44e04a12091a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/disruptive-closes-10-billion-megafund-for-ai-defense-startups",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "da72e1c9c14c5a858e8c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "098398b107ec447c8e5c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài bình luận chủ yếu bàn về quan điểm của Marissa Mayer đối với phụ nữ trong ngành công nghệ; ứng dụng AI chỉ là bối cảnh.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/marissa-mayer-nyt-interview/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ee8fa5b131a13cb797d9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "db715aa8b1686c574dec",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài đăng mạng xã hội kể lại một thử nghiệm hỏi mô hình AI, không có sự kiện hay tường thuật đáng kể.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://bsky.app/profile/emollick.bsky.social/post/3myucj4frec2l",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "43195938eece6fd4fc37"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "30c375c3aa36108d677b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/10/27/2026/chinas-industrial-profits-surge-amid-ai-buildout",
+      "key_points": [
+        "Lợi nhuận công nghiệp của Trung Quốc đạt mức tăng trưởng mạnh nhất trong nhiều tháng qua nhờ lĩnh vực sản xuất liên quan đến trí tuệ nhân tạo (AI) bứt phá, dẫu giới phân tích cảnh báo về khoảng cách kinh tế ngày càng gia tăng.",
+        "Đà tăng này xuất phát từ việc các nhà sản xuất Trung Quốc ồ ạt đẩy mạnh xuất khẩu ra thị trường quốc tế, dẫn đến việc nhiều nơi yêu cầu chính quyền Bắc Kinh phải cắt giảm tình trạng dư thừa năng lực sản xuất.",
+        "Lợi nhuận tại các doanh nghiệp công nghiệp lớn đã tăng hơn 15% so với cùng kỳ trong chín tháng đầu năm 2026, trái ngược hoàn toàn với bức tranh tiêu dùng nội địa vẫn ảm đạm do ảnh hưởng nặng nề từ cuộc khủng hoảng bất động sản.",
+        "Dù tổng sản lượng kinh tế chung vẫn đạt mục tiêu của chính phủ, một chuyên gia đánh giá mức đóng góp quá thấp từ tiêu dùng và đầu tư khiến sự bứt phá này chỉ tương đương với một sự tăng trưởng rỗng."
+      ],
+      "same_event_coverage_ids": [
+        "b042ad50760a098723a0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Lợi nhuận công nghiệp Trung Quốc tăng mạnh nhờ AI dù đối mặt cảnh báo về khoảng cách kinh tế",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/10/27/2026/chinas-industrial-profits-surge-amid-ai-buildout"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "8f3cfb5cce39de3e6208",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/27/general-compute-raises-100-million-series-a-countering-the-neocloud-disaster-narrative/",
+      "key_points": [
+        "General Compute gọi vốn 100 triệu USD trong vòng Series A.",
+        "Công ty đặt cược vào chip suy luận ngoài hệ sinh thái Nvidia."
+      ],
+      "same_event_coverage_ids": [
+        "9e0c96178dc857653537"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "257d2044442d252a598e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/27/opera-introduces-a-new-web-standard-to-let-users-deploy-ai-locally-in-their-browser/",
+      "key_points": [
+        "Trình duyệt Opera vừa giới thiệu tiêu chuẩn WebAI dưới dạng bản thử nghiệm sớm, cho phép người dùng vận hành các mô hình trí tuệ nhân tạo trực tiếp trên thiết bị mà không cần phụ thuộc vào máy chủ đám mây.",
+        "Tính năng này được phát triển nhằm tăng quyền riêng tư và cắt giảm chi phí thuê bao, giúp các lập trình viên bổ sung tác vụ tạo văn bản hay phân loại dữ liệu mà không phải gửi thông tin cá nhân lên mạng.",
+        "Tiêu chuẩn mới hỗ trợ nhiều mô hình mở trọng số (mô hình AI công khai tham số để tùy biến) như Gemma của Google hay hệ thống cục bộ của Apple, nhưng người dùng phải tự chọn bật tính năng để sử dụng.",
+        "Theo Opera, dù phương pháp xử lý trên thiết bị tăng khả năng kiểm soát dữ liệu, giải pháp này không thể loại trừ mọi rủi ro bảo mật và hiệu năng thực tế vẫn phụ thuộc trực tiếp vào phần cứng máy tính."
+      ],
+      "same_event_coverage_ids": [
+        "b384113afbf7b194931e"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Opera ra mắt tiêu chuẩn WebAI thử nghiệm hỗ trợ chạy mô hình AI trực tiếp trên trình duyệt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/10/27/opera-introduces-a-new-web-standard-to-let-users-deploy-ai-locally-in-their-browser/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "48d3b6a76e41fad5aa1f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/10/27/2026/netherlands-to-slash-state-jobs-as-part-of-ai-related-savings",
+      "key_points": [
+        "Chính phủ Hà Lan vừa thông báo sẽ cắt giảm 25.000 việc làm trong khu vực công như một phần của kế hoạch tiết kiệm ngân sách nhờ ứng dụng trí tuệ nhân tạo.",
+        "Đợt cắt giảm quy mô lớn chiếm hơn 15% tổng lực lượng công chức này được đưa ra nhằm tối ưu hóa hiệu quả dịch vụ công, đi kèm kế hoạch triển khai AI trong chính phủ sắp được công bố.",
+        "Xu hướng này cũng diễn ra ở các quốc gia khác khi New Zealand đang cân nhắc cắt giảm nhân sự theo tỷ lệ tương tự, còn Các Tiểu vương quốc Ả Rập Thống nhất nỗ lực trở thành chính phủ bản địa AI (chính quyền lấy AI làm nền tảng cốt lõi) đầu tiên nhằm nâng cao năng suất.",
+        "Theo Semafor, động thái này là một trong những bước đi quyết liệt nhất của các chính phủ khi thích ứng với công nghệ, dù lộ trình triển khai chi tiết vẫn chưa chính thức được ban hành."
+      ],
+      "same_event_coverage_ids": [
+        "d24bd911156e1c6a75c5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hà Lan lên kế hoạch cắt giảm 25.000 việc làm công chức để tiết kiệm ngân sách nhờ AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/10/27/2026/netherlands-to-slash-state-jobs-as-part-of-ai-related-savings"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "a9aca13af0b2a2cff539",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/healthcare-stocks-become-anti-ai-bet-as-investors-turn-defensive",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3d110040fb3b4754f34a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ca0388b647a86b80d90d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/dutch-plan-to-cut-25-000-jobs-will-show-whether-ai-can-shrink-government",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6719b524ec46062fdeb5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8281e7df230d9ab9463d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/oracle-apps-in-chatgpt",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bd54e5fea2cdf8af53e1"
+      ],
+      "split_coverage_ids": [
+        "097b701d50b4a5676334"
+      ]
+    },
+    {
+      "id": "55edade81a507672248f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.aclu.org/news/privacy-technology/ai-driven-police-stops",
+      "key_points": [
+        "ACLU cho biết cảnh sát ngày càng dùng đánh giá từ AI về kiểu lái xe để quyết định dừng phương tiện.",
+        "Bài viết thuật lại lời kể của một người lái xe bị cảnh sát dừng trên hành trình tới Florida vào năm 2025."
+      ],
+      "same_event_coverage_ids": [
+        "d65bf732a7d05fe2a26a"
       ],
       "split_coverage_ids": []
     }
