@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-26T14:58:34.523915+00:00",
+  "input_generated_at": "2026-10-26T13:21:10Z",
+  "decisions": [
+    {
+      "id": "5912801014b750b394c9",
+      "decision": "publish",
+      "round": "chief",
+      "reason": "readable source and independent check passed",
+      "importance_tier": "standard",
+      "source_url": "https://www.semafor.com/article/10/22/2026/chinas-ai-leader-deepseek-raises-15b",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1392b5cb8cfb5159433e",
+        "46f578bc4f6592a7dd2d",
+        "8867d2f41e46a31cd86a",
+        "f7c33f0072ef6a302685"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "57363b60fec23f24d819",
+      "decision": "hold",
+      "round": "editor",
+      "reason": "Vendor customer case study, not a news event.",
+      "importance_tier": "standard",
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "861c46a8364399f7ba31"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8a8f757d90f00c8551c9",
+      "decision": "publish",
+      "round": "chief",
+      "reason": "readable source and independent check passed",
+      "importance_tier": "notable",
+      "source_url": "https://artificialwatch.com/wire/metr-redwood-red-team-openai-internal-agent-monitoring",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cfd3529bc366a3ed7f14"
+      ],
+      "split_coverage_ids": [
+        "df21e549989c93d1f7fc"
+      ]
+    }
+  ]
+}

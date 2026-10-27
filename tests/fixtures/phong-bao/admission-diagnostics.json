@@ -1,0 +1,18 @@
+{
+  "codex_echo": {
+    "stderr_prefix": "OpenAI Codex CLI\nReading prompt from stdin:\n",
+    "stderr_suffix": "\nCompleted turn successfully."
+  },
+  "codex_admission": {
+    "events": [
+      {"type": "turn.failed", "error": {"message": "Please sign in to continue (401 Unauthorized)."}}
+    ]
+  },
+  "agy_echo": {
+    "stderr_prefix": "agy: starting print session\nPrompt:\n",
+    "stderr_suffix": "\nagy: request completed"
+  },
+  "agy_admission": {
+    "stderr": "ERROR: Please sign in to continue (401 Unauthorized)."
+  }
+}

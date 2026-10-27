@@ -1,0 +1,9 @@
+id = "http-fetch"
+capabilities = ["doc-bai"]
+kind = "local-command"
+cost_class = "free"
+priority = 10
+monthly_cap_usd = 0
+runner = "http-fetch"
+[detect]
+command = "python"

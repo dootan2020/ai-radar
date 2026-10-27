@@ -1,0 +1,20 @@
+{
+  "commands": [
+    "python",
+    "codex",
+    "agy",
+    "ffmpeg"
+  ],
+  "mcp_servers": [
+    "canva",
+    "capcut"
+  ],
+  "key_names": [
+    "GEMINI_API_KEY",
+    "NEW_VENDOR_API_KEY"
+  ],
+  "fuel": "fixture: boats available",
+  "files": [
+    "D:/BACHDYON/VAS-v1.3/video-automator-skills-main/node_modules/.bin/remotion.cmd"
+  ]
+}

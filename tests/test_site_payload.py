@@ -88,6 +88,47 @@ class SitePayloadTests(unittest.TestCase):
             self.assertEqual(json.loads(reader.read_bytes()), site_payload.page_payload(data))
             self.assertEqual(reader.read_bytes().count(b"\n"), 1)
 
+    def test_complete_published_snapshot_keeps_held_history_and_translations(self):
+        full = reader_fixture()
+        held = deepcopy(full["stories"][0])
+        held["id"] = "held"
+        full["stories"].append(held)
+        full["sections"]["today"] = [full["stories"][0]["id"], "held"]
+        visible = deepcopy(full)
+        visible["stories"] = visible["stories"][:1]
+        visible["stories"][0]["summary_vi"] = "Bản tóm tắt mới"
+        visible["stories"][0]["importance_tier"] = "standard"
+        visible["sections"]["today"] = [visible["stories"][0]["id"]]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "published.json"
+            path.write_bytes(json.dumps(full).encode())
+            result = site_payload.complete_published_snapshot(visible, path)
+        self.assertEqual([story["id"] for story in result["stories"]],
+                         [story["id"] for story in full["stories"]])
+        self.assertEqual(result["stories"][0]["summary_vi"], "Bản tóm tắt mới")
+        self.assertEqual(result["stories"][0].get("importance_tier"), full["stories"][0].get("importance_tier"))
+        self.assertEqual(result["sections"], full["sections"])
+
+    def test_build_without_decisions_file_keeps_existing_publication_behavior(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "site" / "data" / "radar.json"
+            data = reader_fixture()
+            data["updates"] = []
+            data["hf_releases"] = []
+            data["trending"] = {"github": [], "huggingface": []}
+            environment = {"RADAR_OUTPUT": str(target), "RADAR_BASELINE": str(Path(directory) / "baseline.json"),
+                           "RADAR_PUBLISHED_SNAPSHOT": str(Path(directory) / "published.json"),
+                           "RADAR_PUBLISH_STATUS": str(Path(directory) / "status.json"),
+                           "RADAR_SITEMAP": str(Path(directory) / "site" / "sitemap.xml"),
+                           "RADAR_NEWSROOM_DECISIONS": str(Path(directory) / "missing-branch.json")}
+            with patch.dict(os.environ, environment, clear=True), patch.object(build, "build_v2", return_value=data), \
+                    patch.object(build, "prepare_publication", return_value=(data, {"published": True,
+                                                                                       "freshness": {}})), \
+                    patch.object(build, "promotion_reason", return_value="unchanged"), \
+                    redirect_stdout(io.StringIO()):
+                self.assertEqual(build.main(), 0)
+            self.assertEqual(json.loads(target.read_bytes())["stories"], data["stories"])
+
     def test_failed_companion_write_invalidates_old_projection(self):
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory) / "radar.json"

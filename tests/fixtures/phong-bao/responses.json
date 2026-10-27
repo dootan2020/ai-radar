@@ -1,0 +1,81 @@
+{
+  "reporter": {
+    "5912801014b750b394c9": {
+      "id": "5912801014b750b394c9",
+      "selected_url": "https://www.semafor.com/article/10/22/2026/chinas-ai-leader-deepseek-raises-15b",
+      "same_event": true,
+      "reason": "Public Semafor article describes the DeepSeek financing."
+    },
+    "57363b60fec23f24d819": {
+      "id": "57363b60fec23f24d819",
+      "selected_url": "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/",
+      "same_event": true,
+      "reason": "Public vendor article describes Octave customer deployment."
+    },
+    "8a8f757d90f00c8551c9": {
+      "id": "8a8f757d90f00c8551c9",
+      "selected_url": "https://artificialwatch.com/wire/metr-redwood-red-team-openai-internal-agent-monitoring",
+      "same_event": true,
+      "reason": "Independent ArtificialWatch article covers the METR red-team report."
+    }
+  },
+  "editor": {
+    "5912801014b750b394c9": {
+      "id": "5912801014b750b394c9",
+      "news": true,
+      "reason": "DeepSeek financing is a current AI industry event.",
+      "subject": "DeepSeek financing",
+      "event_type": "funding",
+      "importance": "top",
+      "event_at": "2026-10-22T10:30:40Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "1392b5cb8cfb5159433e",
+        "46f578bc4f6592a7dd2d",
+        "f7c33f0072ef6a302685",
+        "8867d2f41e46a31cd86a"
+      ]
+    },
+    "57363b60fec23f24d819": {
+      "id": "57363b60fec23f24d819",
+      "news": false,
+      "junk_kind": "customer_case_study",
+      "reason": "Vendor customer case study, not a news event.",
+      "subject": "Octave customer deployment",
+      "event_type": "case_study",
+      "importance": "standard",
+      "event_at": "2026-10-20T17:34:04Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "861c46a8364399f7ba31"
+      ]
+    },
+    "8a8f757d90f00c8551c9": {
+      "id": "8a8f757d90f00c8551c9",
+      "news": true,
+      "reason": "METR report describes an AI safety evaluation event.",
+      "subject": "METR red-team report",
+      "event_type": "research",
+      "importance": "notable",
+      "event_at": "2026-10-22T07:00:00Z",
+      "claims": [],
+      "same_event_coverage_ids": [
+        "cfd3529bc366a3ed7f14"
+      ]
+    }
+  },
+  "checker": {
+    "5912801014b750b394c9": {
+      "id": "5912801014b750b394c9",
+      "verified": true,
+      "reason": "Title and financing amount appear in the public article.",
+      "supported_claims": []
+    },
+    "8a8f757d90f00c8551c9": {
+      "id": "8a8f757d90f00c8551c9",
+      "verified": true,
+      "reason": "Title is supported by the independent report.",
+      "supported_claims": []
+    }
+  }
+}

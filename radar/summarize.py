@@ -14,7 +14,7 @@ import sys
 import time
 
 from radar.pipeline import write_atomic
-from radar.site_payload import page_path, write_site_snapshot
+from radar.site_payload import complete_published_snapshot, page_path, write_site_snapshot
 from radar import summary_gemini as gemini
 from radar import summary_pipeline
 
@@ -153,7 +153,7 @@ def main(argv=None):
         published_path = Path(published_arg)
         if published_path.is_file():
             try:
-                write_atomic(payload, published_path)
+                write_atomic(complete_published_snapshot(payload, published_path), published_path)
             except Exception:
                 pass
 

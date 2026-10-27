@@ -1,0 +1,9 @@
+id = "canva-mcp"
+capabilities = ["tao-anh"]
+kind = "mcp-plugin"
+cost_class = "subscription"
+priority = 10
+monthly_cap_usd = 0
+runner = "external"
+[detect]
+mcp_server = "canva"

@@ -1,0 +1,387 @@
+{
+  "snapshot": {
+    "generated_at": "2026-10-26T13:21:10Z",
+    "stories": [
+      {
+        "id": "bf7b07d2d53b813f8b54",
+        "title": "OpenAI models are coming to Google Cloud",
+        "url": "https://openai.com/index/openai-models-google-cloud",
+        "published_at": "2026-10-21T12:00:00Z",
+        "summary": "OpenAI and Google Cloud are bringing frontier models and Codex workflows to Gemini’s Model Garden, available through Google Cloud Marketplace.",
+        "coverage": [
+          {
+            "id": "5734a4d733e1168bf53f",
+            "title": "OpenAI models are coming to Google Cloud",
+            "url": "https://openai.com/index/openai-models-google-cloud",
+            "published_at": "2026-10-21T12:00:00Z"
+          },
+          {
+            "id": "11c94217a9bef4db0c3d",
+            "title": "OpenAI's latest AI models are coming to Google Cloud and Antigravity",
+            "url": "https://arstechnica.com/ai/2026/10/openais-latest-ai-models-are-coming-to-google-cloud-and-antigravity/",
+            "published_at": "2026-10-21T18:51:42Z"
+          },
+          {
+            "id": "28f7f4ec0c9620239442",
+            "title": "OpenAI models are coming to Google Cloud",
+            "url": "https://openai.com/index/openai-models-google-cloud/",
+            "published_at": "2026-10-21T12:53:11Z"
+          }
+        ],
+        "kind": "other"
+      },
+      {
+        "id": "c4a1f46e5a98744a7c57",
+        "title": "Introducing the Anthropic Cyber Mission",
+        "url": "https://www.anthropic.com/news/anthropic-cyber-mission",
+        "published_at": "2026-10-08T00:00:00Z",
+        "summary": "We’re launching the Anthropic Cyber Mission, a long-term commitment to securing the systems everyone depends on.",
+        "coverage": [
+          {
+            "id": "fd4a9ed4f4ee0755fbfd",
+            "title": "Introducing the Anthropic Cyber Mission",
+            "url": "https://www.anthropic.com/news/anthropic-cyber-mission",
+            "published_at": "2026-10-08T00:00:00Z"
+          },
+          {
+            "id": "fba2f5a3167ba3269a01",
+            "title": "White House unveils billions in investments for Genesis Mission",
+            "url": "https://www.nextgov.com/artificial-intelligence/2026/10/white-house-unveils-billions-investments-genesis-mission/416517/",
+            "published_at": "2026-10-08T22:34:00Z"
+          }
+        ],
+        "kind": "product"
+      },
+      {
+        "id": "f5220dab8f55b741ff6e",
+        "title": "Introducing Claude Duet",
+        "url": "https://claude.com/resources/articles/claude-duet",
+        "published_at": "2026-10-21T00:00:00Z",
+        "summary": "A research preview is available by waitlist today, starting with US Pro and Max subscribers.",
+        "coverage": [
+          {
+            "id": "16154ede434fcfd871e6",
+            "title": "Introducing Claude Duet",
+            "url": "https://claude.com/resources/articles/claude-duet",
+            "published_at": "2026-10-21T00:00:00Z"
+          },
+          {
+            "id": "558ac716d27058a176f6",
+            "title": "Claude Duet",
+            "url": "https://claude.com/resources/articles/claude-duet",
+            "published_at": "2026-10-21T19:40:18Z"
+          }
+        ],
+        "kind": "research"
+      },
+      {
+        "id": "57363b60fec23f24d819",
+        "title": "How Octave built a secure multi-tenant AI foundation on Amazon Bedrock",
+        "url": "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/",
+        "published_at": "2026-10-20T17:34:04Z",
+        "summary": "Octave built a secure, multi-tenant AI foundation on Amazon Bedrock, using Cohere Embed v4 for embeddings and Amazon Bedrock AgentCore for isolated agent execution, to power a Complaint Triage Assistant that searches 2 billion regulated documents without crossing tenant boundaries.",
+        "coverage": [
+          {
+            "id": "861c46a8364399f7ba31",
+            "title": "How Octave built a secure multi-tenant AI foundation on Amazon Bedrock",
+            "url": "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/",
+            "published_at": "2026-10-20T17:34:04Z"
+          }
+        ],
+        "kind": "product"
+      },
+      {
+        "id": "31aa8a84f9a3c6c3879e",
+        "title": "It was coding agents. Prior to Claude Code and Codex (and the Opus 4.5 / GPT 5.1 models that made those actually work) it was hard to spend more than $50/month on AI tokens, there just wasn't enough useful stuff to do with them A good coding agent can justify $50/day or more",
+        "url": "https://bsky.app/profile/simonwillison.net/post/3mwn2q4igys2z",
+        "published_at": "2026-09-29T05:08:25Z",
+        "summary": "It was coding agents. Prior to Claude Code and Codex (and the Opus 4.5 / GPT 5.1 models that made those actually work) it was hard to spend more than $50/month on AI tokens, there just wasn't enough useful stuff to do with them A good coding agent can justify $50/day or more",
+        "kind": "social",
+        "coverage": [
+          {
+            "id": "e92e869483b63797712b",
+            "title": "It was coding agents. Prior to Claude Code and Codex (and the Opus 4.5 / GPT 5.1 models that made those actually work) it was hard to spend more than $50/month on AI tokens, there just wasn't enough useful stuff to do with them A good coding agent can justify $50/day or more",
+            "url": "https://bsky.app/profile/simonwillison.net/post/3mwn2q4igys2z",
+            "published_at": "2026-09-29T05:08:25Z"
+          }
+        ]
+      },
+      {
+        "id": "283a10a734a97f3fd2cf",
+        "title": "NVIDIA Introduces DSX POD AI Factories to Accelerate Europe’s Infrastructure Deployment",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-introduces-dsx-pod-ai-factories-to-accelerate-europes-infrastructure-deployment",
+        "published_at": "2026-10-21T09:34:00Z",
+        "summary": "NVIDIA today introduced DSX POD, a reference design for complete NVIDIA Vera Rubin AI factories built by partners inside modular containers, integrated and validated before delivery.",
+        "kind": "product",
+        "coverage": [
+          {
+            "id": "4a5c6632def4b429bb81",
+            "title": "NVIDIA Introduces DSX POD AI Factories to Accelerate Europe’s Infrastructure Deployment",
+            "url": "https://nvidianews.nvidia.com/news/nvidia-introduces-dsx-pod-ai-factories-to-accelerate-europes-infrastructure-deployment",
+            "published_at": "2026-10-21T09:34:00Z"
+          }
+        ]
+      },
+      {
+        "id": "653d201e892868835018",
+        "title": "Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera Rubin Infrastructure",
+        "url": "https://blogs.nvidia.com/blog/google-cloud-vera-rubin-infrastructure/",
+        "published_at": "2026-10-21T10:45:17Z",
+        "summary": "General availability of the instances is coming next month, with planned expansion of availability to Europe — bringing an integrated platform for training, inference and large-scale reinforcement learning to cloud customers. A5X instances bring together NVIDIA Vera Rubin NVL72, NVIDIA ConnectX-9 Su",
+        "kind": "other",
+        "coverage": [
+          {
+            "id": "6950c82b86e3ede03eca",
+            "title": "Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera Rubin Infrastructure",
+            "url": "https://blogs.nvidia.com/blog/google-cloud-vera-rubin-infrastructure/",
+            "published_at": "2026-10-21T10:45:17Z"
+          },
+          {
+            "id": "de8547a1095e15fb1260",
+            "title": "Tencent opens Yuanbao Search to developers building AI models and agents",
+            "url": "https://technode.com/2026/10/21/tencent-opens-yuanbao-search-to-developers-building-ai-models-and-agents/",
+            "published_at": "2026-10-21T07:46:08Z"
+          }
+        ]
+      }
+    ]
+  },
+  "articles": {
+    "articles": {
+      "https://openai.com/index/openai-models-google-cloud": {
+        "text": "",
+        "reason": "error"
+      },
+      "https://www.anthropic.com/news/anthropic-cyber-mission": {
+        "text": "Chapter 01: Defending critical infrastructure\nToday we’re launching the Anthropic Cyber Mission, a long-term commitment to securing the systems everyone depends on. The Cyber Mission is a new effort to support defenders with tools, research, and resources to secure their software and systems. We’re starting with two areas:\nCritical infrastructure: Starting with securing the operational technology behind power grids, water systems, and transportation networks, and protecting government systems. Today, we’re introducing the Critical Infrastructure Defense Program (CIDP), which brings frontier models, on-site engineers, and threat research to the defenders that protect operational technology.\nOpen-source software: Finding vulnerabilities and proposing patches in the free, shared code that most software depends on, and hardening the underlying code. Today, we’re launching OSS Scanner, which offers open-source projects regular security scans from our strongest models, for free.\nFrontier models can be misused to exploit vulnerabilities and conduct cyber operations. Despite best efforts, many areas of technology remain dangerously exposed. State-sponsored adversaries have spent years gaining footholds in these systems, across many sectors, so that they can disrupt them. Defenders of critical infrastructure and the OSS community have decades of security experience but have faced severe resource shortages that are exacerbated by this moment. We are recognizing their expertise in these domains and offering our support. We will also expand the Cyber Mission to release tools, research, and resources in new areas to help secure the world.\nAs part of Project Glasswing, partners uncovered many vulnerabilities, but we haven’t yet achieved a sufficient reduction in cyber risk. It’s easier than ever to find vulnerabilities, but verifying, prioritizing, and fixing these findings remains challenging. Based on lessons from Project Glasswing, we’re starting these new efforts to support defenders. Earlier this week, we merged Project Glasswing into our expanded Cyber Verification Program, which gives many more defenders access to our most capable models. And through the Anthropic Cyber Mission, we’ll deploy Anthropic engineering talent and provide tools and funding for those who secure critical infrastructure and open-source software.\nDefending critical infrastructure\nPower grids, water utilities, factories, and transportation networks run on controllers, control software, and industrial networks built to last for decades. These systems are known as “operational technology,” and they often cannot be taken offline to patch, so known vulnerabilities can stay unresolved for years. Securing them is specialized work: the equipment is proprietary, changes are risky, and a mistake can take down a plant. Operators of every size rely on a small set of trusted providers to support that work, telling them what’s exposed and which fixes to make on a running system.\nToday, we’re introducing the Critical Infrastructure Defense Program, which brings frontier Claude models, on-site engineers, and our threat research to those trusted providers. Its founding partners are Accenture, ",
+        "reason": "readable"
+      },
+      "https://claude.com/resources/articles/claude-duet": {
+        "text": "Today, we’re opening a research preview of Claude Duet, a new app where Claude works as a proactive agent. It comes to you with what needs your attention, completes tasks you ask of it, keeps working even when you step away, and checks with you before it acts on your behalf. We built Claude Duet for professionals and small business owners with more on their plates than they can track.\nIt’s available as a standalone app on iOS and Android, and on claude.ai. For this research preview, Claude Duet is included in Pro and Max plans and uses the same usage limits as the rest of Claude. To get access, join the waitlist (opens in new tab).\nPut your attention where it matters most\nWe designed Claude Duet to be a partner you can trust. Professionals of all kinds have to juggle many decisions a day, and we think they’ll find Claude Duet most useful. It helps you prioritize where to spend your time and energy, and to leave room for the ambitious projects that felt impossible or daunting before.\nWhat makes Claude Duet so helpful is its judgment. We designed it around Claude Opus 5.5 (opens in new tab) and built it to be resourceful and to decide what needs you, what can wait, and when to check with you first.\nEach morning, it sends you a short brief on the most important items across your connected apps. Throughout the day, it keeps tabs on those apps and messages you only when something needs your attention. You can also hand it tasks of all shapes—from simple administrative tasks of scheduling meetings to more complex ones, such as building dashboards with dozens of tools, creating financial or sales forecasts, prototyping, and building web apps.\nSafety and discretion are built in\nClaude Duet draws on years of security, safety, and privacy work on agents, both our own and the infrastructure businesses use to run theirs:\nClaude Duet draws on our framework for trustworthy agents (opens in new tab), which also guides agents like Claude Code and Claude in Chrome.\nClaude Duet’s handling of credentials follows the design we use for Claude Managed Agents (opens in new tab), so it never directly sees your passwords or sign-in tokens.\nActions are approved by our auto mode classifier (opens in new tab), the same safeguard that protects Claude and Claude Code from taking steps you didn’t ask for.\nClaude Duet’s defenses against hidden instructions and prompt injection come from our browser-use research (opens in new tab), and our models and safeguards also cover this more broadly.\nWe run adversarial tests for Claude Duet’s security infrastructure. Red teams and an external firm penetration tested Claude Duet, and it’s covered by our public bug bounty program (opens in new tab).\nHow Claude Duet handles sensitive information. We’re also releasing Claude Duet with a new dedicated classifier and safety system prompt that checks each message and guards against leaks of sensitive information. An agent that reads email and sends messages for you is constantly deciding where information should go. This new classifier and prompt are designed to reject requests to share the strictest tier of information, including credit card numbers and government identification. Other sens",
+        "reason": "readable"
+      },
+      "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/": {
+        "text": "How Octave built a secure multi-tenant AI foundation on Amazon Bedrock\nIn quality management for regulated industries, the institutional memory that resolves a problem is almost always buried somewhere in a customer’s history. A similar defect investigated last year, a Corrective and Preventive Action (CAPA) that fixed the root cause, an audit finding that flagged the same gap. That knowledge sits in billions of documents no human can search by semantic similarity across languages and formats, so every investigation starts from scratch. Octave Reliance has helped each organization collect documents across multiple systems to help them search more easily and keep track of everything they have. The Octave Reliance team saw unlocking this history as its single largest opportunity to help customers work faster and stay compliant. The obstacle was equally clear: complaint records, audit findings, and corrective actions carry the platform’s strictest isolation requirements, and those were exactly the records the AI would need to read. In a platform serving over 14,000 customers across medical devices, pharmaceuticals, and food manufacturing, a single inadvertent disclosure from one customer to another would carry regulatory consequences far outweighing any AI benefit.\nOctave operates across 180 countries, serving more than 60% of the Global Fortune 500. Its cloud-native quality management system, Reliance, supports over 650 enterprise customers with over 40 applications, from complaint management and CAPA tracking to audit management and supplier quality. Everyone generates regulated data that AI could reason over. Each customer is a separate tenant and no data can cross a tenant boundary.\nFaced with that, the Reliance team made an unusual call: rather than shipping one AI feature, it spent its first cycle building a foundation every future feature would sit on. That foundation has since cut deployment time per use case by 50 percent. If you are bringing AI to a software as a service (SaaS) platform where the data is valuable, but isolation is non-negotiable, the reasoning travels beyond quality management. In this post, we walk through the four tensions that shaped the design and the three-layer foundation Octave built with Cohere Embed v4 on Amazon Bedrock. We then follow the pipeline that embedded 2 billion documents and the Complaint Triage Assistant that proved it in production.\nWhy a foundation, not a feature\nEnvisioning workshops with AWS surfaced four high-impact use cases: complaint summarization and triage, audit readiness monitoring, incident narrative generation, and predictive quality risk scoring. They also surfaced the insight that shaped everything after dozens of applications, each with different document types and workflows. Building AI for one in a silo meant rebuilding the infrastructure for the next.\nSo, the team inverted the plan: build the horizontal platform first, then cut vertical feature slices into it. Complaint summarization and triage went first, to prove the architecture before the rest followed.\nThe four tensions\nBefore selecting a single model, the team spent its time on four problems that pulled in different direct",
+        "reason": "readable"
+      },
+      "https://bsky.app/profile/simonwillison.net/post/3mwn2q4igys2z": {
+        "text": "",
+        "reason": "too_short"
+      },
+      "https://nvidianews.nvidia.com/news/nvidia-introduces-dsx-pod-ai-factories-to-accelerate-europes-infrastructure-deployment": {
+        "text": "",
+        "reason": "too_short"
+      },
+      "https://developer.nvidia.com/blog/achieve-productive-ai-capacity-faster-and-more-predictably-with-nvidia-dsx-pod/": {
+        "text": "AI factories turn energy into intelligence. But before an AI workload can produce its first token, operators must bring an interconnected system of compute, networking, storage, power, cooling, and software online as one productive unit.\nIn a conventional data center build, teams must first select the site, design power and cooling for the deployment, lay out the data center, and plan and install racks and cables. Then they can validate the network and cluster incrementally and bring service online. This work requires coordinated specialized labor, with critical dependencies among installation, infrastructure readiness, and system testing. Delays can push back bring-up and the date the infrastructure begins producing tokens.\nNVIDIA DSX POD shifts more of this work into a controlled factory environment. One of multiple AI factory implementation models supported by NVIDIA DSX AI Factory Platform, NVIDIA DSX POD reference design is the standardized, factory-built implementation. It enables partners to build standardized containers that pre-integrate AI infrastructure, complete critical validation before shipment, and connect to prepared site infrastructure after delivery. The result is a repeatable approach designed to reduce onsite integration complexity and help operators reach productive AI capacity faster and more predictably.\nThis post explains the foundation of NVIDIA DSX POD, how the reference design aligns with the NVIDIA Vera Rubin platform, and how NVIDIA and its ecosystem partners work through product engineering, deployment, and support.\nA design foundation for moving AI factory integration upstream\nModular and prefabricated data centers already exist. The engineering challenge for an AI factory extends beyond placing conventional IT equipment in an enclosure.\nRack-scale AI systems combine high-density compute, high-speed scale-up and scale-out networking, liquid cooling, power delivery, telemetry, and management software. These elements behave as one system. Their mechanical, electrical, thermal, and network requirements must remain within specification during factory integration, transportation, installation, and operation.\nNVIDIA DSX POD provides the design foundation for partners to install rack-scale systems in containers at the factory, functionally test the integrated unit, transport it, and bring it online safely through repeatable processes at the destination. NVIDIA’s investment spans the engineering disciplines required to make that possible, including rack layout, structural loading, power, cooling, cabling, service access, reliability, and validation.\nThis work extends the progression toward greater factory integration to reduce installation complexity and accelerate deployment. NVIDIA has moved from chips and boards to complete rack-scale systems, and large-scale reference architectures like NVIDIA DGX SuperPOD.\nNVIDIA DSX POD carries this approach into a factory-built AI factory implementation, moving most component integration from the customer site into a controlled manufacturing environment. The reference design does not make containerization mandatory for every AI factory. Conventional data center construction and ",
+        "reason": "readable"
+      },
+      "https://blogs.nvidia.com/blog/google-cloud-vera-rubin-infrastructure/": {
+        "text": "General availability of the instances is coming next month, with planned expansion of availability to Europe — bringing an integrated platform for training, inference and large-scale reinforcement learning to cloud customers.\nA5X instances bring together NVIDIA Vera Rubin NVL72, NVIDIA ConnectX-9 SuperNICs, Google Cloud Virgo Network and Google Cloud’s fourth-generation advanced liquid-cooling technology for demanding agentic inference and reinforcement learning workloads at scale. Google Cloud plans to scale its Vera Rubin-based infrastructure to as many as 960,000 Rubin GPUs across multiple sites.\nIneffable Intelligence, a London-based technology company founded by AlphaGo creator David Silver, was the first customer to access A5X. Ineffable is using the platform to advance large-scale reinforcement learning and shape “superlearner” systems that learn continuously from experience.\nRead All NVIDIA in Europe Announcements\nLearning through interaction requires a continuous cycle of generating experience, evaluating outcomes and updating models, requiring infrastructure that can support the entire process at scale. A5X brings Vera Rubin into Google Cloud’s AI Hypercomputer as an integrated system, combining compute, networking and storage to support experience-driven learning at scale.\n“We’re building superlearners that continually improve through their own experience,” said David Silver, founder and CEO of Ineffable Intelligence. “That demands both substantial compute and a tight connection between generating experience and training on it, so each improvement in the agent can quickly shape its next experience. Vera Rubin’s combination of compute performance and high-bandwidth connectivity, between the Vera CPU and Rubin GPUs and between the Rubin GPUs within the rack, allow us to push the scale and ambition of our reinforcement learning research further.”\nWPP, a London-based marketing and communications company, has also demonstrated its creative agent reference architecture on NVIDIA Vera Rubin-based A5X instances using NVIDIA Nemotron models and NVIDIA OpenShell, part of the NVIDIA OpenShell Reference Architecture for safe AI agents.\nThe agents turn conversational requests into multistep creative workflows, such as video generation, upscaling and restyling, with human approval before execution. OpenShell provides governed sandboxes for agent execution, helping control access to sensitive brand assets and creative tools. In WPP’s initial tests, workloads that typically required a multi-node cluster ran on a single A5X instance.\nAs organizations deploy agentic systems, they need to protect the proprietary models and sensitive data that power these systems — even when running on infrastructure they don’t own.\nGoogle Cloud will be among the first cloud providers to offer NVIDIA Confidential Computing at rack scale on bare metal instances such as A4X Max instances powered by NVIDIA GB300 NVL72. Additionally, Google Cloud is making Confidential Computing generally available on G4 VMs powered by NVIDIA RTX PRO 6000 Blackwell Server Edition GPUs, offering a flexible platform for confidential inference and fine-tuning. Customers including Vertebrae, ",
+        "reason": "readable"
+      }
+    },
+    "search": {
+      "NVIDIA Introduces DSX POD AI Factories to Accelerate Europe’s Infrastructure Deployment": [
+        {
+          "title": "NVIDIA Introduces DSX POD AI Factories to Accelerate Europe’s Infrastructure Deployment",
+          "url": "https://developer.nvidia.com/blog/achieve-productive-ai-capacity-faster-and-more-predictably-with-nvidia-dsx-pod/",
+          "published_at": "2026-10-21T09:34:00Z"
+        }
+      ]
+    }
+  },
+  "responses": {
+    "reporter": {
+      "bf7b07d2d53b813f8b54": {
+        "id": "bf7b07d2d53b813f8b54",
+        "selected_url": null,
+        "same_event": false,
+        "reason": "Representative article is unreadable; the only candidate concerns Claw Shield, not OpenAI models on Google Cloud."
+      },
+      "c4a1f46e5a98744a7c57": {
+        "id": "c4a1f46e5a98744a7c57",
+        "selected_url": "https://www.anthropic.com/news/anthropic-cyber-mission",
+        "same_event": true,
+        "reason": "Bài đại diện đọc được và công bố Anthropic Cyber Mission."
+      },
+      "f5220dab8f55b741ff6e": {
+        "id": "f5220dab8f55b741ff6e",
+        "selected_url": "https://claude.com/resources/articles/claude-duet",
+        "same_event": true,
+        "reason": "Bài đại diện đọc được và giới thiệu Claude Duet."
+      },
+      "57363b60fec23f24d819": {
+        "id": "57363b60fec23f24d819",
+        "selected_url": "https://aws.amazon.com/blogs/machine-learning/how-octave-built-a-secure-multi-tenant-ai-foundation-on-amazon-bedrock/",
+        "same_event": true,
+        "reason": "Bài đại diện đọc được và mô tả nền tảng AI đa tenant của Octave trên Amazon Bedrock."
+      },
+      "283a10a734a97f3fd2cf": {
+        "id": "283a10a734a97f3fd2cf",
+        "selected_url": "https://developer.nvidia.com/blog/achieve-productive-ai-capacity-faster-and-more-predictably-with-nvidia-dsx-pod/",
+        "same_event": true,
+        "reason": "The readable NVIDIA Developer article covers the introduction of DSX POD and its AI factory deployment design."
+      },
+      "653d201e892868835018": {
+        "id": "653d201e892868835018",
+        "selected_url": "https://blogs.nvidia.com/blog/google-cloud-vera-rubin-infrastructure/",
+        "same_event": true,
+        "reason": "Bài đại diện đọc được và nói về hạ tầng NVIDIA Vera Rubin trên Google Cloud."
+      }
+    },
+    "editor": {
+      "bf7b07d2d53b813f8b54": {
+        "id": "bf7b07d2d53b813f8b54",
+        "news": true,
+        "reason": "OpenAI and Google Cloud announce model availability; source could not be read.",
+        "subject": "OpenAI models on Google Cloud",
+        "event_type": "product_announcement",
+        "importance": "notable",
+        "event_at": "2026-10-21T12:00:00Z",
+        "claims": [],
+        "same_event_coverage_ids": [
+          "28f7f4ec0c9620239442",
+          "5734a4d733e1168bf53f"
+        ]
+      },
+      "c4a1f46e5a98744a7c57": {
+        "id": "c4a1f46e5a98744a7c57",
+        "news": true,
+        "reason": "October 8 launch is a real event; cap its tier after seven days.",
+        "subject": "Anthropic Cyber Mission",
+        "event_type": "program_launch",
+        "importance": "top",
+        "event_at": "2026-10-08",
+        "claims": [
+          "Anthropic công bố Cyber Mission, tập trung ban đầu vào bảo vệ hạ tầng trọng yếu và phần mềm mã nguồn mở.",
+          "Chương trình gồm Critical Infrastructure Defense Program và OSS Scanner."
+        ],
+        "same_event_coverage_ids": [
+          "fd4a9ed4f4ee0755fbfd"
+        ]
+      },
+      "f5220dab8f55b741ff6e": {
+        "id": "f5220dab8f55b741ff6e",
+        "news": true,
+        "reason": "Anthropic mở danh sách chờ cho bản thử nghiệm của ứng dụng AI mới.",
+        "subject": "Claude Duet",
+        "event_type": "product_launch",
+        "importance": "notable",
+        "event_at": "2026-10-21",
+        "claims": [
+          "Claude Duet là ứng dụng agent chủ động có bản thử nghiệm trên iOS, Android và claude.ai.",
+          "Người dùng gói Pro và Max tại Mỹ có thể đăng ký danh sách chờ.",
+          "Ứng dụng được xây dựng trên Claude Opus 5.5."
+        ],
+        "same_event_coverage_ids": [
+          "16154ede434fcfd871e6",
+          "558ac716d27058a176f6"
+        ]
+      },
+      "57363b60fec23f24d819": {
+        "id": "57363b60fec23f24d819",
+        "news": false,
+        "reason": "The AWS post is a customer case study explaining Octave's implementation, with no dated new announcement.",
+        "subject": "Octave's Amazon Bedrock implementation",
+        "event_type": "customer_case_study",
+        "importance": "standard",
+        "event_at": null,
+        "claims": [
+          "AWS says Octave built a tenant-isolated AI foundation using Cohere Embed v4 on Amazon Bedrock.",
+          "The post describes a Complaint Triage Assistant and a pipeline that embedded 2 billion documents."
+        ],
+        "same_event_coverage_ids": [
+          "861c46a8364399f7ba31"
+        ],
+        "junk_kind": "customer_case_study"
+      },
+      "31aa8a84f9a3c6c3879e": {
+        "id": "31aa8a84f9a3c6c3879e",
+        "news": false,
+        "junk_kind": "non_news_page",
+        "reason": "A Bluesky opinion about token spending, without a reported event.",
+        "subject": "coding agent costs",
+        "event_type": "social_opinion",
+        "importance": "standard",
+        "event_at": "2026-09-29T05:08:25Z",
+        "claims": [],
+        "same_event_coverage_ids": []
+      },
+      "283a10a734a97f3fd2cf": {
+        "id": "283a10a734a97f3fd2cf",
+        "news": true,
+        "reason": "NVIDIA announced a new AI infrastructure reference design; a vendor product announcement can be news.",
+        "subject": "NVIDIA DSX POD",
+        "event_type": "product_announcement",
+        "importance": "notable",
+        "event_at": "2026-10-21",
+        "claims": [
+          "DSX POD is a reference design for partners to integrate AI infrastructure in containers at a factory.",
+          "The design calls for functional validation before shipment and connection to prepared site infrastructure after delivery.",
+          "NVIDIA says the approach is designed to reduce onsite integration complexity."
+        ],
+        "same_event_coverage_ids": [
+          "4a5c6632def4b429bb81"
+        ]
+      },
+      "653d201e892868835018": {
+        "id": "653d201e892868835018",
+        "news": true,
+        "reason": "Google Cloud and NVIDIA announced A5X infrastructure with general availability planned for next month. The Tencent item covers a different event.",
+        "subject": "Google Cloud A5X instances powered by NVIDIA Vera Rubin",
+        "event_type": "product_announcement",
+        "importance": "top",
+        "event_at": "2026-10-21",
+        "claims": [
+          "General availability of A5X instances is planned for November 2026, with expansion to Europe planned.",
+          "A5X combines NVIDIA Vera Rubin NVL72, ConnectX-9 SuperNICs, Google Cloud Virgo Network, and Google's liquid-cooling technology.",
+          "Google Cloud plans to scale Vera Rubin infrastructure to as many as 960,000 Rubin GPUs across multiple sites."
+        ],
+        "same_event_coverage_ids": [
+          "6950c82b86e3ede03eca"
+        ]
+      }
+    },
+    "checker": {
+      "c4a1f46e5a98744a7c57": {
+        "id": "c4a1f46e5a98744a7c57",
+        "title_supported": true,
+        "reason": "Only the cited claims are supported.",
+        "supported_claims": [
+          "Anthropic công bố Cyber Mission, tập trung ban đầu vào bảo vệ hạ tầng trọng yếu và phần mềm mã nguồn mở.",
+          "Chương trình gồm Critical Infrastructure Defense Program và OSS Scanner."
+        ]
+      },
+      "f5220dab8f55b741ff6e": {
+        "id": "f5220dab8f55b741ff6e",
+        "title_supported": true,
+        "reason": "Only the cited claims are supported.",
+        "supported_claims": [
+          "Claude Duet là ứng dụng agent chủ động có bản thử nghiệm trên iOS, Android và claude.ai.",
+          "Ứng dụng được xây dựng trên Claude Opus 5.5."
+        ]
+      },
+      "283a10a734a97f3fd2cf": {
+        "id": "283a10a734a97f3fd2cf",
+        "title_supported": false,
+        "reason": "The source does not support Europe in the original title.",
+        "supported_claims": [
+          "DSX POD is a reference design for partners to integrate AI infrastructure in containers at a factory.",
+          "The design calls for functional validation before shipment and connection to prepared site infrastructure after delivery.",
+          "NVIDIA says the approach is designed to reduce onsite integration complexity."
+        ]
+      },
+      "653d201e892868835018": {
+        "id": "653d201e892868835018",
+        "title_supported": true,
+        "reason": "Claims selected for local numeric guard.",
+        "supported_claims": [
+          "General availability of A5X instances is planned for November 2026, with expansion to Europe planned.",
+          "A5X combines NVIDIA Vera Rubin NVL72, ConnectX-9 SuperNICs, Google Cloud Virgo Network, and Google's liquid-cooling technology.",
+          "Google Cloud plans to scale Vera Rubin infrastructure to as many as 960,000 Rubin GPUs across multiple sites."
+        ]
+      }
+    }
+  }
+}
