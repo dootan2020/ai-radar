@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-28",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-26T23:00:00Z",
+  "cutoff_at": "2026-10-27T23:00:00Z",
+  "created_at": "2026-10-27T23:04:32Z",
+  "snapshot_generated_at": "2026-10-27T23:02:27Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-27T23:02:27Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "bb9f02a56d8cd14e9863",
+      "title": "Anthropic’s elaborate plan to keep Wall Street at bay",
+      "title_vi": "Kế hoạch phức tạp của Anthropic để giữ cho Wall Street tránh xa",
+      "headline": "Anthropic’s elaborate plan to keep Wall Street at bay",
+      "headline_vi": "Kế hoạch phức tạp của Anthropic để giữ cho Wall Street tránh xa",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1019470/anthropic-ipo-resist-investor-pressure-cut-corners-safety",
+      "published_at": "2026-10-27T16:51:22Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Anthropic lập cấu trúc quản trị đặc biệt để giữ an toàn AI khi lên sàn chứng khoán",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "5ad444f9a2d8cac6066a",
+          "title": "Anthropic’s IPO Sets Up Defining Moment for Wall Street and AI Boom",
+          "title_vi": "IPO của Anthropic đặt ra thời điểm xác định cho Wall Street và AI boom",
+          "headline": "Anthropic’s IPO Sets Up Defining Moment for Wall Street and AI Boom",
+          "headline_vi": "IPO của Anthropic đặt ra thời điểm xác định cho Wall Street và AI boom",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-26/anthropic-s-ipo-sets-up-defining-moment-for-wall-street-and-ai-boom",
+          "published_at": "2026-10-26T23:23:19Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-27T10:21:39Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "9d38c1f61baef25fe388",
+          "title": "Anthropic’s elaborate plan to keep Wall Street at bay",
+          "title_vi": "Kế hoạch phức tạp của Anthropic để giữ cho Wall Street tránh xa",
+          "headline": "Anthropic’s elaborate plan to keep Wall Street at bay",
+          "headline_vi": "Kế hoạch phức tạp của Anthropic để giữ cho Wall Street tránh xa",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1019470/anthropic-ipo-resist-investor-pressure-cut-corners-safety",
+          "published_at": "2026-10-27T16:51:22Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-27T23:02:27Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 6.1439,
+          "hot_score": 58.706,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "c7cc848b2884e07731ed",
+      "title": "DeepMind unveils Genie 4 world model promising more realistic physics and humans",
+      "title_vi": "DeepMind tiết lộ mô hình thế giới Genie 4 hứa hẹn vật lý và con người thực tế hơn",
+      "headline": "DeepMind unveils Genie 4 world model promising more realistic physics and humans",
+      "headline_vi": "DeepMind tiết lộ mô hình thế giới Genie 4 hứa hẹn vật lý và con người thực tế hơn",
+      "url": "https://arstechnica.com/google/2026/10/deepminds-genie-4-world-model-adds-audio-and-more-realistic-people-to-simulations/",
+      "published_at": "2026-10-27T16:00:22Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Google thử nghiệm mô hình thế giới Genie 4 tạo trải nghiệm tương tác kèm âm thanh",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "cd70a779c726c836ac23",
+          "title": "DeepMind unveils Genie 4 world model promising more realistic physics and humans",
+          "title_vi": "DeepMind tiết lộ mô hình thế giới Genie 4 hứa hẹn vật lý và con người thực tế hơn",
+          "headline": "DeepMind unveils Genie 4 world model promising more realistic physics and humans",
+          "headline_vi": "DeepMind tiết lộ mô hình thế giới Genie 4 hứa hẹn vật lý và con người thực tế hơn",
+          "url": "https://arstechnica.com/google/2026/10/deepminds-genie-4-world-model-adds-audio-and-more-realistic-people-to-simulations/",
+          "published_at": "2026-10-27T16:00:22Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "ars-ai",
+          "publisher": "ars-technica",
+          "entity": "ars-technica",
+          "group": "press",
+          "observed_at": "2026-10-27T23:02:27Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "91ee6b0c69cc72afa20d",
+          "title": "Google’s Genie 4 world model adds audio, more realistic worlds, and real-time steering",
+          "title_vi": "Mô hình thế giới Genie 4 của Google thêm âm thanh, thế giới thực tế hơn và điều khiển thời gian thực",
+          "headline": "Google’s Genie 4 world model adds audio, more realistic worlds, and real-time steering",
+          "headline_vi": "Mô hình thế giới Genie 4 của Google thêm âm thanh, thế giới thực tế hơn và điều khiển thời gian thực",
+          "url": "https://techcrunch.com/2026/10/27/googles-genie-4-world-model-adds-audio-more-realistic-worlds-and-real-time-steering/",
+          "published_at": "2026-10-27T16:30:57Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-27T23:02:27Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "ars-technica",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "ars-technica",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 6.9939,
+          "hot_score": 58.514,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "8281e7df230d9ab9463d",
+      "title": "OpenAI expands partnership with Oracle to bring its apps to ChatGPT",
+      "title_vi": "OpenAI mở rộng hợp tác với Oracle để đưa các ứng dụng của mình đến ChatGPT",
+      "headline": "OpenAI expands partnership with Oracle to bring its apps to ChatGPT",
+      "headline_vi": "OpenAI mở rộng hợp tác với Oracle để đưa các ứng dụng của mình đến ChatGPT",
+      "url": "https://openai.com/index/oracle-apps-in-chatgpt",
+      "published_at": "2026-10-27T07:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "097b701d50b4a5676334",
+          "title": "NVIDIA and Oracle Expand NVIDIA Vera Rubin to Multi-Gigawatt Scale and Bring NVIDIA Vera CPU to Oracle Cloud Infrastructure",
+          "title_vi": "NVIDIA và Oracle mở rộng NVIDIA Vera Rubin đến quy mô nhiều gigawatt và đưa NVIDIA Vera CPU đến cơ sở hạ tầng đám mây Oracle",
+          "headline": "NVIDIA and Oracle Expand NVIDIA Vera Rubin to Multi-Gigawatt Scale and Bring NVIDIA Vera CPU to Oracle Cloud Infrastructure",
+          "headline_vi": "NVIDIA và Oracle mở rộng NVIDIA Vera Rubin đến quy mô nhiều gigawatt và đưa NVIDIA Vera CPU đến cơ sở hạ tầng đám mây Oracle",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-and-oracle-expand-nvidia-vera-rubin-to-multi-gigawatt-scale-and-bring-nvidia-vera-cpu-to-oracle-cloud-infrastructure",
+          "published_at": "2026-10-27T16:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "nvidia-newsroom",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-10-27T23:02:27Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "bd54e5fea2cdf8af53e1",
+          "title": "OpenAI expands partnership with Oracle to bring its apps to ChatGPT",
+          "title_vi": "OpenAI mở rộng hợp tác với Oracle để đưa các ứng dụng của mình đến ChatGPT",
+          "headline": "OpenAI expands partnership with Oracle to bring its apps to ChatGPT",
+          "headline_vi": "OpenAI mở rộng hợp tác với Oracle để đưa các ứng dụng của mình đến ChatGPT",
+          "url": "https://openai.com/index/oracle-apps-in-chatgpt",
+          "published_at": "2026-10-27T07:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "openai-news",
+          "publisher": "openai",
+          "entity": "openai",
+          "group": "lab",
+          "observed_at": "2026-10-27T23:02:27Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "nvidia",
+              "openai"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "nvidia",
+            "openai"
+          ],
+          "age_hours_at_cutoff": 16.0,
+          "hot_score": 58.224,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "11b65591c0394c280a16",
+      "title": "AI promised less work. I've never worked more",
+      "title_vi": "AI hứa sẽ làm ít hơn. Tôi chưa bao giờ làm việc nhiều hơn.",
+      "headline": "AI promised less work. I've never worked more",
+      "headline_vi": "AI hứa sẽ làm ít hơn. Tôi chưa bao giờ làm việc nhiều hơn.",
+      "url": "https://oioannou.com/blog/ai-promised-less-work/",
+      "published_at": "2026-10-27T11:08:14Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "editorial_headline_vi": "Lãnh đạo kỹ thuật Bold.org kiệt sức vì AI khiến khối lượng công việc bùng nổ",
+      "editorial_headline_verified": true,
+      "source_count": 0,
+      "coverage": [
+        {
+          "id": "3622d17a25bd917b8078",
+          "title": "AI promised less work. I've never worked more",
+          "title_vi": "AI hứa sẽ làm ít hơn. Tôi chưa bao giờ làm việc nhiều hơn.",
+          "headline": "AI promised less work. I've never worked more",
+          "headline_vi": "AI hứa sẽ làm ít hơn. Tôi chưa bao giờ làm việc nhiều hơn.",
+          "url": "https://oioannou.com/blog/ai-promised-less-work/",
+          "published_at": "2026-10-27T11:08:14Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-27T23:02:27Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50257325",
+          "metrics": {
+            "points": 610,
+            "comments": 602
+          }
+        },
+        {
+          "id": "59ab65a661312f2764ea",
+          "title": "AI promised less work. I've never worked more",
+          "title_vi": "AI hứa sẽ làm ít hơn. Tôi chưa bao giờ làm việc nhiều hơn.",
+          "headline": "AI promised less work. I've never worked more",
+          "headline_vi": "AI hứa sẽ làm ít hơn. Tôi chưa bao giờ làm việc nhiều hơn.",
+          "url": "https://oioannou.com/blog/ai-promised-less-work/",
+          "published_at": "2026-10-27T11:08:14Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-27T16:21:33Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50257325",
+          "metrics": {
+            "points": 527,
+            "comments": 453
+          }
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Ngoại lệ diễn đàn: tương tác thuộc nhóm 3% cao nhất và ít nhất 100 bình luận",
+            "percentile": 0.9814814814814815,
+            "measurement": {
+              "source": "hn-ai",
+              "metric": "points",
+              "value": 610,
+              "observed_at": "2026-10-27T23:02:27Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [],
+          "age_hours_at_cutoff": 11.8628,
+          "hot_score": 40.797,
+          "engagement_percentile": 0.9814814814814815
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 71,
+    "successful_remote_sources": 70,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
