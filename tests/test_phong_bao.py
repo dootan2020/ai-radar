@@ -332,7 +332,8 @@ class NewsroomTests(unittest.TestCase):
         intake = {story["id"]: {"pass": True, "reason": "pass"} for story in stories}
         reporter = {story["id"]: {"selected_url": None, "representative_status": "unavailable",
                                    "source_text": "", "readable": False} for story in stories}
-        editor, _ = _editor(stories, intake, reporter, self.tools, self.discovery,
+        codex_only = {**self.discovery, "commands": ["codex"]}
+        editor, _ = _editor(stories, intake, reporter, self.tools, codex_only,
                             RecordingRunner({"editor": by_id}))
         checker = {story["id"]: {"supported_claims": [], "title_supported": False,
                                   "rejected_claims": []} for story in stories}
