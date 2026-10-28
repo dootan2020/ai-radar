@@ -1,7 +1,7 @@
 /* Halcyon · site/story.js
    Shared render module for the story modal and static story page.
-   Combines Direction A ("the article made whole") with Direction B's evidence block
-   ("Vì sao được chọn": worth score, unique publishers, discussion signals).
+   The story reads as one vertical column: publisher line, headline, link to the original,
+   image, text, other coverage, then the full-article gateway. Nothing sits beside anything else.
    Adheres strictly to the Bento Keynote design language and 4pt token scale.
 */
 
@@ -9,7 +9,7 @@ import { esc, fmt, avatar, faceOfStory, faceOfSource } from './faces.js';
 import { ago } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { uniqCoverage } from './titles.js';
-import { headlineShown, hasEditorialSummary } from './editorial-headline.js';
+import { headlineShown, hasEditorialSummary, isDeskProse } from './editorial-headline.js';
 export { hasEditorialSummary } from './editorial-headline.js';
 import { fallbackWorth } from './worth-score.js';
 
@@ -22,8 +22,7 @@ const hostOf = u => {
   }
 };
 
-/* Format number to 1 decimal place with Vietnamese locale */
-const nf1 = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 1 });
+/* Format numbers with Vietnamese locale */
 const nf0 = new Intl.NumberFormat('vi-VN');
 
 /* Publisher metadata resolution */
@@ -154,56 +153,6 @@ export function firstHandOf(st, srcMap = new Map()) {
   return null;
 }
 
-/* Render "Vì sao được chọn" evidence block (Direction B as a quiet editorial aside) */
-export function renderEvidenceBlockHTML(story, srcMap = new Map()) {
-  const worth = worthOfStory(story);
-  const scoreFormatted = Number.isFinite(worth.score) ? nf1.format(worth.score) : '10.0';
-  const cov = Array.isArray(story.coverage) ? story.coverage : [];
-  const pubCount = Number.isFinite(story.source_count) ? story.source_count : uniquePublishers(cov);
-  const disc = discussionMetrics(cov);
-
-  const rows = [
-    `<div class="story-evidence-row">
-      <dt class="story-evidence-label">Điểm đáng đọc</dt>
-      <dd class="story-evidence-val num">${scoreFormatted}</dd>
-    </div>`,
-    `<div class="story-evidence-row">
-      <dt class="story-evidence-label">Nhà xuất bản</dt>
-      <dd class="story-evidence-val num">${pubCount} nguồn</dd>
-    </div>`
-  ];
-
-  if (disc) {
-    rows.push(`
-      <div class="story-evidence-row">
-        <dt class="story-evidence-label">Thảo luận cộng đồng</dt>
-        <dd class="story-evidence-val">
-          ${disc.url ? `<a class="story-evidence-link" href="${esc(safe(disc.url))}" target="_blank" rel="noopener noreferrer">${esc(disc.text)} <span aria-hidden="true">↗</span></a>` : `<span class="num">${esc(disc.text)}</span>`}
-        </dd>
-      </div>
-    `);
-  }
-
-  const fh = firstHandOf(story, srcMap);
-  if (fh && fh.why) {
-    rows.push(`
-      <div class="story-evidence-row">
-        <dt class="story-evidence-label">Công bố gốc</dt>
-        <dd class="story-evidence-val">${esc(fh.why)}</dd>
-      </div>
-    `);
-  }
-
-  return `
-    <aside class="story-evidence-box" aria-label="Vì sao được chọn">
-      <h2 class="story-evidence-title">Vì sao được chọn</h2>
-      <dl class="story-evidence-list">
-        ${rows.join('')}
-      </dl>
-    </aside>
-  `;
-}
-
 export function storyTitle(story) {
   return headlineShown(story, true);
 }
@@ -215,13 +164,34 @@ export function renderEditorialSummaryHTML(story, publisherName = '') {
   const sources = story.summary_sources.filter(s => safe(s?.url) !== '#').map(s =>
     `<a href="${esc(safe(s?.url))}" target="_blank" rel="noopener noreferrer">${esc(s.name)}${s.role === 'primary' ? ' — nguồn gốc' : ''}</a>`).join(' · ');
   const partial = (story.summary_limitations || []).includes('partial_source');
+  const outlet = (story.summary_sources.find(s => s?.role === 'outlet' && s?.name) || {}).name || publisherName;
   return `
-    ${renderKeyPointsHTML(story.key_points, publisherName)}
+    ${isDeskProse(story) ? renderDeskProseHTML(story.key_points, outlet) : renderKeyPointsHTML(story.key_points, publisherName)}
     <div class="story-summary-attribution">
       <p class="story-summary-sources">Nguồn: ${sources}</p>
       ${partial ? '<p class="story-section-sub">Bản tóm tắt dựa trên các phần nguồn đọc được.</p>' : ''}
       ${(story.summary_limitations || []).includes('missing_primary') ? '<p class="story-section-sub">Chưa đọc được nguồn gốc được bài báo dẫn.</p>' : ''}
     </div>`;
+}
+
+/* The newsroom writer desk's short paragraphs, labelled with who wrote them and from which source. */
+export function renderDeskProseHTML(paragraphs, outletName = '') {
+  if (!Array.isArray(paragraphs) || !paragraphs.length) return '';
+  const label = outletName
+    ? `Phòng báo Halcyon tóm tắt từ ${esc(outletName)}`
+    : 'Phòng báo Halcyon tóm tắt từ bài gốc';
+  return `
+    <section class="story-keypoints-box story-prose-box" aria-label="Tóm tắt bài viết">
+      <div class="story-section-head">
+        <div>
+          <p class="story-section-sub">${label}</p>
+        </div>
+      </div>
+      <div class="story-prose">
+        ${paragraphs.map(text => `<p class="story-prose-text">${summaryText(text)}</p>`).join('')}
+      </div>
+    </section>
+  `;
 }
 
 /* Render Key Points block (Direction A) */
@@ -513,17 +483,18 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
         </div>
       </header>
 
-      <div class="story-body-grid">
-        <div class="story-col-main">
-          ${renderEditorialSummaryHTML(story, name)}
-        </div>
-        <div class="story-col-aside">
-          ${mediaHTML}
-          ${renderEvidenceBlockHTML(story, srcMap)}
-        </div>
+      ${mediaHTML}
+
+      <div class="story-body">
+        ${renderEditorialSummaryHTML(story, name)}
       </div>
 
       ${renderCoverageListHTML(story.coverage, srcMap)}
+
+      ${(story.related_artifacts || []).length ? `<section class="story-coverage-wrap" aria-label="Tài nguyên liên quan">
+        <h2>Tài nguyên liên quan</h2><ul class="story-coverage-list">${story.related_artifacts.map(a =>
+          `<li><a href="${esc(safe(a.url))}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a></li>`).join('')}</ul>
+      </section>` : ''}
 
       ${renderOriginGatewayHTML(story, srcMap)}
 

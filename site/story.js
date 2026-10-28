@@ -1,7 +1,7 @@
 /* Halcyon · site/story.js
    Shared render module for the story modal and static story page.
-   Combines Direction A ("the article made whole") with Direction B's evidence block
-   ("Vì sao được chọn": worth score, unique publishers, discussion signals).
+   The story reads as one vertical column: publisher line, headline, link to the original,
+   image, text, other coverage, then the full-article gateway. Nothing sits beside anything else.
    Adheres strictly to the Bento Keynote design language and 4pt token scale.
 */
 
@@ -22,8 +22,7 @@ const hostOf = u => {
   }
 };
 
-/* Format number to 1 decimal place with Vietnamese locale */
-const nf1 = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 1 });
+/* Format numbers with Vietnamese locale */
 const nf0 = new Intl.NumberFormat('vi-VN');
 
 /* Publisher metadata resolution */
@@ -152,56 +151,6 @@ export function firstHandOf(st, srcMap = new Map()) {
   }
   if (st.kind === 'paper') return { label: 'Bài báo gốc', why: 'Bài báo gốc của nhóm nghiên cứu' };
   return null;
-}
-
-/* Render "Vì sao được chọn" evidence block (Direction B as a quiet editorial aside) */
-export function renderEvidenceBlockHTML(story, srcMap = new Map()) {
-  const worth = worthOfStory(story);
-  const scoreFormatted = Number.isFinite(worth.score) ? nf1.format(worth.score) : '10.0';
-  const cov = Array.isArray(story.coverage) ? story.coverage : [];
-  const pubCount = Number.isFinite(story.source_count) ? story.source_count : uniquePublishers(cov);
-  const disc = discussionMetrics(cov);
-
-  const rows = [
-    `<div class="story-evidence-row">
-      <dt class="story-evidence-label">Điểm đáng đọc</dt>
-      <dd class="story-evidence-val num">${scoreFormatted}</dd>
-    </div>`,
-    `<div class="story-evidence-row">
-      <dt class="story-evidence-label">Nhà xuất bản</dt>
-      <dd class="story-evidence-val num">${pubCount} nguồn</dd>
-    </div>`
-  ];
-
-  if (disc) {
-    rows.push(`
-      <div class="story-evidence-row">
-        <dt class="story-evidence-label">Thảo luận cộng đồng</dt>
-        <dd class="story-evidence-val">
-          ${disc.url ? `<a class="story-evidence-link" href="${esc(safe(disc.url))}" target="_blank" rel="noopener noreferrer">${esc(disc.text)} <span aria-hidden="true">↗</span></a>` : `<span class="num">${esc(disc.text)}</span>`}
-        </dd>
-      </div>
-    `);
-  }
-
-  const fh = firstHandOf(story, srcMap);
-  if (fh && fh.why) {
-    rows.push(`
-      <div class="story-evidence-row">
-        <dt class="story-evidence-label">Công bố gốc</dt>
-        <dd class="story-evidence-val">${esc(fh.why)}</dd>
-      </div>
-    `);
-  }
-
-  return `
-    <aside class="story-evidence-box" aria-label="Vì sao được chọn">
-      <h2 class="story-evidence-title">Vì sao được chọn</h2>
-      <dl class="story-evidence-list">
-        ${rows.join('')}
-      </dl>
-    </aside>
-  `;
 }
 
 export function storyTitle(story) {
@@ -534,14 +483,10 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
         </div>
       </header>
 
-      <div class="story-body-grid">
-        <div class="story-col-main">
-          ${renderEditorialSummaryHTML(story, name)}
-        </div>
-        <div class="story-col-aside">
-          ${mediaHTML}
-          ${renderEvidenceBlockHTML(story, srcMap)}
-        </div>
+      ${mediaHTML}
+
+      <div class="story-body">
+        ${renderEditorialSummaryHTML(story, name)}
       </div>
 
       ${renderCoverageListHTML(story.coverage, srcMap)}
