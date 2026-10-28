@@ -362,21 +362,13 @@ export function renderCoverageListHTML(coverage, srcMap = new Map()) {
 export function renderOriginGatewayHTML(story, srcMap = new Map()) {
   const { name } = getPublisherMeta(story, srcMap);
   const origUrl = story.url || (story.coverage && story.coverage[0] && story.coverage[0].url) || '#';
-  const hasKp = hasEditorialSummary(story);
-  const desc = hasKp
-    ? 'Halcyon tóm tắt ý chính để bạn nắm nhanh sự kiện. Đọc bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.'
-    : 'Mở bài gốc để xem trọn vẹn chi tiết, dẫn chứng và các phân tích chuyên sâu.';
-
+  /* A quiet closing line, not a card: the summary stays the main content and the exit reads as secondary. */
   return `
     <section class="story-origin-gateway" aria-label="Chuyển đến bài viết gốc">
-      <div class="story-origin-info">
-        <span class="story-origin-eyebrow">Toàn văn bài viết</span>
-        <h3 class="story-origin-title">Đọc bài viết đầy đủ trên ${esc(name)}</h3>
-        <p class="story-origin-desc">${desc}</p>
-      </div>
-      <a class="btn primary story-origin-btn" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer" id="story-open-origin-btn">
+      <p class="story-origin-desc">Toàn văn bài viết, với đầy đủ chi tiết và dẫn chứng, nằm trên ${esc(name)}.</p>
+      <a class="story-origin-btn" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer" id="story-open-origin-btn">
         <span>Mở bài viết gốc</span>
-        <svg class="i" aria-hidden="true"><use href="#i-out"/></svg>
+        <span class="story-cta-arrow" aria-hidden="true">↗</span>
       </a>
     </section>
   `;

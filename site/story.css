@@ -545,42 +545,35 @@ dialog.story-dialog::backdrop {
   min-width: 0;
 }
 
-/* Header Primary CTA */
+/* Link to the original under the headline: a small secondary text link, quieter than the summary. */
 .story-header-cta {
-  margin: var(--space-16) 0 0;
+  margin: var(--space-4) 0 0;
 }
 
 .story-origin-cta {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-8);
-  /* One line always: a pill that wraps to two lines turns into a distorted lozenge. A long
-     publisher name ellipsizes instead; the full label stays in the accessible name and title. */
+  gap: var(--space-4);
+  /* One line always: a long publisher name ellipsizes; the full label stays in the accessible
+     name and title. The link box keeps a 44px touch height while the text stays small. */
   max-width: 100%;
   min-height: 44px;
-  padding: 0 var(--space-16);
-  border-radius: var(--radius-full);
-  background: var(--color-surface);
-  border: 1px solid var(--color-hair);
-  color: var(--color-ink);
+  color: var(--color-ink-2);
   font-size: var(--text-small);
   font-weight: var(--weight-medium);
   white-space: nowrap;
-  text-decoration: none;
-  box-shadow: 0 1px 2px oklch(var(--shadow-tint) / 0.05);
-  transition: transform var(--duration-150) var(--ease-flow),
-              background var(--duration-150) var(--ease-flow),
-              border-color var(--duration-150) var(--ease-flow);
+  text-decoration: underline;
+  text-decoration-color: var(--color-hair);
+  text-underline-offset: 3px;
+  transition: color var(--duration-150) var(--ease-flow),
+              text-decoration-color var(--duration-150) var(--ease-flow);
 }
 
-.story-origin-cta:hover {
-  background: var(--color-fill);
-  border-color: var(--color-ink-2);
-  transform: translateY(-1px);
-}
-
-.story-origin-cta:active {
-  transform: translateY(1px);
+@media (hover: hover) and (pointer: fine) {
+  .story-origin-cta:hover {
+    color: var(--color-ink);
+    text-decoration-color: currentColor;
+  }
 }
 
 .story-origin-cta:focus-visible {
@@ -596,8 +589,8 @@ dialog.story-dialog::backdrop {
 
 .story-cta-arrow {
   flex-shrink: 0;
-  color: var(--color-accent);
-  font-size: var(--size-14);
+  color: var(--color-ink-3);
+  font-size: var(--size-12);
   line-height: 1;
 }
 
@@ -868,87 +861,57 @@ dialog.story-dialog::backdrop {
 }
 
 /* ==========================================================================
-   7. PROMINENT ORIGINAL ARTICLE GATEWAY (TEXT ABOVE, BUTTON BELOW, AT EVERY WIDTH)
+   7. WAY OUT TO THE ORIGINAL: A QUIET CLOSING LINE, SECONDARY TO THE SUMMARY
    ========================================================================== */
 
 .story-origin-gateway {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-24);
-  padding: var(--space-24);
-  border-radius: var(--radius-16);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-lift);
-  border: none;
-  box-sizing: border-box;
-}
-
-@media (max-width: 767px) {
-  .story-origin-gateway {
-    padding: var(--space-16);
-    gap: var(--space-16);
-  }
-}
-
-.story-origin-info {
-  min-width: 0;
-}
-
-.story-origin-eyebrow {
-  display: inline-block;
-  font-size: var(--text-micro);
-  font-weight: var(--weight-bold);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--color-ink-2);
-  margin-bottom: var(--space-8);
-}
-
-.story-origin-title {
-  font-size: var(--size-21);
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--tracking-display);
-  color: var(--color-ink);
-  line-height: var(--leading-snug);
-  margin: 0 0 var(--space-8) 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-16);
+  padding-top: var(--space-16);
+  border-top: 1px solid var(--color-hair);
 }
 
 .story-origin-desc {
+  flex: 1 1 24ch;
+  min-width: 0;
   font-size: var(--text-small);
   color: var(--color-ink-2);
   line-height: var(--leading-body);
   margin: 0;
 }
 
+/* Both exits (under the headline and at the end) are small text links, never pills or buttons.
+   The link box keeps a 44px touch height while the visible text stays at the small size. */
 .story-origin-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--space-8);
-  min-height: 48px;
-  min-width: 170px;
-  padding: 0 var(--space-24);
-  white-space: nowrap;
-  border-radius: var(--radius-full);
-  font-size: var(--text-small);
-  font-weight: var(--weight-semibold);
-  background: var(--color-ink);
-  color: var(--color-canvas);
-  border: none;
-  text-decoration: none;
+  gap: var(--space-4);
+  min-height: 44px;
   flex-shrink: 0;
-  transition: transform var(--duration-150) var(--ease-flow),
-              opacity var(--duration-150) var(--ease-flow);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--color-hair);
+  text-underline-offset: 3px;
+  white-space: nowrap;
+  transition: color var(--duration-150) var(--ease-flow),
+              text-decoration-color var(--duration-150) var(--ease-flow);
 }
 
-.story-origin-btn:hover {
-  transform: translateY(-1px);
-  opacity: 0.92;
+@media (hover: hover) and (pointer: fine) {
+  .story-origin-btn:hover {
+    color: var(--color-ink);
+    text-decoration-color: currentColor;
+  }
 }
 
-.story-origin-btn:active {
-  transform: translateY(1px);
+.story-origin-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
 }
 
 /* ==========================================================================
