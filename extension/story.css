@@ -982,3 +982,100 @@ dialog.story-dialog::backdrop {
   overflow-wrap: anywhere;
 }
 .story-summary-sources a { color: inherit; text-underline-offset: 3px; }
+
+/* ==========================================================================
+   10. HALCYON SUMMARY: AN EDITORIAL PIECE WITH A LEAD PARAGRAPH
+   ========================================================================== */
+
+/* The byline names the desk and the outlet; the credit names the sources. */
+.story-body .story-byline {
+  margin: 0;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-2);
+  line-height: var(--leading-snug);
+}
+
+/* A short accent rule opens the summary above the byline, like a section mark in print. */
+.story-body .story-byline::before {
+  content: "";
+  display: block;
+  width: var(--space-32);
+  height: 2px;
+  margin-bottom: var(--space-12);
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+}
+
+.story-credit-label {
+  color: var(--color-ink-3);
+}
+
+/* Spacing alone separates the credit: the closing area already has the gateway and footer rules. */
+.story-body .story-summary-attribution {
+  margin-top: var(--space-24);
+}
+
+.story-body .story-summary-sources {
+  margin: 0;
+  font-size: var(--text-meta);
+  color: var(--color-ink-2);
+}
+
+.story-body .story-summary-sources a {
+  color: var(--color-ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--color-hair);
+  text-underline-offset: 3px;
+}
+
+.story-body .story-summary-attribution .story-section-sub {
+  font-size: var(--text-meta);
+  color: var(--color-ink-3);
+}
+
+/* Desk prose: the first paragraph is the lead, set larger; the rest follow one step quieter. */
+.story-prose-box .story-prose {
+  gap: var(--space-16);
+  margin: 0;
+}
+
+.story-prose-box .story-prose-text:first-child {
+  font-size: var(--text-title);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+}
+
+.story-prose-box .story-prose-text:not(:first-child) {
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 768px) {
+  .story-prose-box .story-prose {
+    gap: var(--space-24);
+  }
+  .story-prose-box .story-prose-text:first-child {
+    font-size: var(--text-tile);
+  }
+}
+
+/* Key points: a quiet numbered list with hanging accent numerals, no circles. */
+.story-body .story-points-list {
+  gap: var(--space-16);
+  margin: 0;
+}
+
+.story-body .story-point-item {
+  grid-template-columns: var(--space-24) 1fr;
+  gap: var(--space-8);
+}
+
+.story-body .story-point-num {
+  width: auto;
+  height: auto;
+  justify-content: flex-start;
+  background: none;
+  color: var(--color-accent);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+}
