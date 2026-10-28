@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T23:20:18.600267+00:00",
-  "input_generated_at": "2026-10-27T22:41:11Z",
+  "generated_at": "2026-10-28T03:19:13.789339+00:00",
+  "input_generated_at": "2026-10-28T02:41:19Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -6605,6 +6605,532 @@
         "1e5eb26320dd865fc2e5",
         "20fa1d29b3a56b7eb96e",
         "75987043633a670403f5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8935d54daf5fbe3aaba9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/somark-open-sources-oxr-1-0-1-3b-document-parsing-model-omnidocbench-olmocr-docparsingbench",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "158bfff4091fea781f1d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "948cd1be96d636ba68f9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/baidu-open-sources-unlimited-ocr-2-sr-swa-any-length-document-parsing-marathondocbench",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dbffc0dc10b5bda89873"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "58c258a55ea4335f154b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Telecom hardware product announcement for an active antenna unit with only a passing marketing reference to AI traffic.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/huawei-vitaaau-u6ghz-retinamimo-256trx-1500-antenna-elements-decoding-china-2026",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cc2cc7a234a9bdf5e853"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b46a9bab64c405689ca7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/agibot-genie-master-embodied-agent-framework-eep-harness-rsi-policy-rsi-convenience-store",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c249c793b7523a87d006"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0b875f63f7ac6924f02f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/openai-plans-to-buy-google-s-chips-as-part-of-its-ai-build-out",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ca07e4e9f70c0267907f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8128c7853b28b7676e19",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/27/vcs-will-make-billions-on-anthropics-ipo-but-amazon-is-set-to-make-much-much-more/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "da58960dc84c351873b6"
+      ],
+      "split_coverage_ids": [
+        "1776fc4db5dbf9b7b3f2"
+      ]
+    },
+    {
+      "id": "42fe1005fe2077c9f0eb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/nvidia-backed-firm-launches-3-1-billion-gpu-loan-into-market",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b7a1f00c01c4323049fb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c5f6a65ed4251d0b31a5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/asmpt-sales-jump-49-on-ai-demand-as-chip-unit-misses-estimate",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "37ba72ffabcd8fef37e1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "db05b50ceb26005ac81d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/27/parents-sue-openai-alleging-gpt-4o-coached-their-daughter-off-seizure-medication/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "75cef281f75310fd7900"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "82de465f87aea8845943",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/sk-hynix-profit-jumps-seven-fold-to-soothe-doubts-over-ai-rush",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "466d15418cc826e3183e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bfb2b101b076c529124b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/china-ai-hardware-firms-face-earnings-test-after-stock-selloff",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "870e2fd01016fb1b6a59"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a660049bd369894dbfc9",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/27/the-data-center-boom-has-an-upside-innovation-for-the-us-grid/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "109d825c3c30672a7c24"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2c681cf3c5898ff692fb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.eff.org/deeplinks/2026/10/new-records-obtained-eff-expose-more-problems-medicares-ai-experiment",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2f5379faa079bea88722"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "94dc6bcd1df95440755b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository link without a documented substantive release announcement or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/ChannelCooperStart/capri-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5c5973464774a6640c42"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1e3ebf94e41ebe19793b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor marketing customer case study on OpenAI's website profiling Retell's commercial adoption and performance metrics.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/retell-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "41f41fc19ee97ff53b02"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9cb9e8acea266f770c50",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3372247/moonshot-apologises-after-kimi-k31-pro-roll-out-stumbles-promotional-scrutiny-widens",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1d91c57380ec3f3651e8",
+        "363e6a1fcec6cc5f6b8d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "13347cc46aef6df7e315",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-and-meta-to-expand-collaboration-on-muse-and-muse-family-of-models-amid-robust-growth",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f9c58353e957f0b7e612"
+      ],
+      "split_coverage_ids": [
+        "c9e5845314baad66d630",
+        "cd1370c1740226757dbc"
+      ]
+    },
+    {
+      "id": "e317104553f318ac9e44",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://ai.google.dev/gemini-api/docs/cli",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0dac35374a73cf2d1c5b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b67fccb163ee32d4d59b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2610.36420",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "892b6c4efb7af6752cc7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9b8a04c573ff3eb42a9b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2610.37649",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "23b13c3a02255c2c3ce2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "858778515195d8c5b4da",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2610.36466",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2d3fe5935bff4922e696"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4350842a8873cb2ff202",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2610.36456",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cc6d0e84a85de654dbdf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "12ca4a45f1a3899acb63",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2610.36729",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2100bf01836fbcaf74c5"
       ],
       "split_coverage_ids": []
     }
