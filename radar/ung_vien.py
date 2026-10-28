@@ -4,6 +4,10 @@ Reads the published site snapshot, keeps stories inside a time window that
 carry no summary yet, fetches each representative article with the existing
 robots- and paywall-aware reader, and writes one JSON file following
 `docs/hop-dong-ung-vien.md` (schema_version 1). No model is called.
+
+Offline: `--snapshot <file>` replaces only the snapshot download; articles are
+still fetched over the network unless `--articles <fixture.json>` (url ->
+{text, reason, fetched_at}) is given too. `--now` anchors the window for replays.
 """
 
 from __future__ import annotations
@@ -52,6 +56,24 @@ PARTIAL_LINE = re.compile(
     re.IGNORECASE,
 )
 PARTIAL_LINE_MAX = 120
+# An outlet page this short after cleaning is a teaser or excerpt, not the whole story.
+OUTLET_FULL_MIN_CHARS = 1_500
+# Page furniture, all in one place. FURNITURE lines are dropped wherever they stand.
+FURNITURE = re.compile(
+    r"^(?:ad|advertisement|close ad|listen|select voice|select speed|ai-generated voice|1x|"
+    r"[\d.]+x(?:[\d.]+x)*|\d\d:\d\d(?:\d\d:\d\d)?|press enter to search.*|\d+-min read.*|"
+    r"view pdf(?: html \(experimental\))?|view a pdf of the paper titled .*)$",
+    re.IGNORECASE,
+)
+# A paper page's footer (arXiv) starts here; it and everything after it are dropped.
+PAPER_FOOTER = re.compile(r"^(?:subjects:|full-text links:|submission history|about arxivlabs|bibliographic tools)",
+                          re.IGNORECASE)
+# The publisher's cut-off near the end of the raw page: an audio player or a sign-up wall
+# after a few paragraphs (SCMP, Substack) means the reader got an excerpt.
+CUTOFF_TAIL = re.compile(r"^(?:select voice|ai-generated voice|subscribe(?: for free| now)? to (?:continue|keep) reading.*|"
+                         r"already have an account\? sign in)$", re.IGNORECASE)
+CUTOFF_TAIL_LINES = 12
+FUTURE_TOLERANCE = timedelta(hours=1)
 
 
 def _iso(value):
@@ -121,9 +143,23 @@ def source_of(story):
     return {"name": name, "kind": kind}
 
 
-def clean_text(text):
-    paragraphs = [" ".join(line.split()) for line in (text or "").splitlines()]
-    return "\n\n".join(p for p in paragraphs if p)
+def _lines(text):
+    return [line for line in (" ".join(raw.split()) for raw in (text or "").splitlines()) if line]
+
+
+def clean_text(text, kind=None):
+    """Paragraphs without page furniture; a paper page stops where its footer starts."""
+    kept = []
+    for line in _lines(text):
+        if kind == "paper" and PAPER_FOOTER.match(line):
+            break
+        if not FURNITURE.match(line):
+            kept.append(line)
+    return "\n\n".join(kept)
+
+
+def cut_off_by_publisher(raw_text):
+    return any(CUTOFF_TAIL.match(line) for line in _lines(raw_text)[-CUTOFF_TAIL_LINES:])
 
 
 def cut(text, limit=TEXT_LIMIT):
@@ -135,10 +171,13 @@ def cut(text, limit=TEXT_LIMIT):
     return (head[:boundary] if boundary > 0 else head).rstrip(), True
 
 
-def text_source(text, kind, untruncated_chars):
+def text_source(text, kind, untruncated_chars, cut_off=False):
+    """`partial` when the publisher cut the page (cut-off line, player/sign-up tail) or an
+    outlet page is under OUTLET_FULL_MIN_CHARS; `abstract` for a short paper page."""
     if kind == "paper" and untruncated_chars < ABSTRACT_MAX_CHARS:
         return "abstract"
-    if any(len(line) <= PARTIAL_LINE_MAX and PARTIAL_LINE.match(line) for line in text.split("\n\n")):
+    if cut_off or (kind == "outlet" and untruncated_chars < OUTLET_FULL_MIN_CHARS) or any(
+            len(line) <= PARTIAL_LINE_MAX and PARTIAL_LINE.match(line) for line in text.split("\n\n")):
         return "partial"
     return "full"
 
@@ -208,7 +247,7 @@ def fixture_reader(path):
 
 def _candidate(story, text, fetched_at):
     source = source_of(story)
-    cleaned = clean_text(text)
+    cleaned = clean_text(text, source["kind"])
     body, truncated = cut(cleaned)
     row = {
         "id": story["id"],
@@ -219,7 +258,7 @@ def _candidate(story, text, fetched_at):
         "published_at": _iso(instant(story["published_at"])),
         "text": body,
         "text_chars": len(body),
-        "text_source": text_source(body, source["kind"], len(cleaned)),
+        "text_source": text_source(body, source["kind"], len(cleaned), cut_off_by_publisher(text)),
         "text_fetched_at": _iso(fetched_at),
         "coverage": _coverage(story),
         "same_event_published": [],
@@ -236,7 +275,7 @@ def build(snapshot, *, hours, limit, now, read, decided=frozenset(), keep_window
     in_window, rejected = [], []
     for story in stories:
         when = instant(story.get("published_at"))
-        if when and start <= when <= now + timedelta(days=1):
+        if when and start <= when <= now + FUTURE_TOLERANCE:
             in_window.append(story)
         elif keep_window:
             rejected.append(_reject(story, "outside_window",
@@ -253,6 +292,8 @@ def build(snapshot, *, hours, limit, now, read, decided=frozenset(), keep_window
             rejected.append(_reject(story, "duplicate_published", "same event as " + ", ".join(siblings)))
         elif not canonical_url(story.get("url")):
             rejected.append(_reject(story, "unreadable", "no public URL"))
+        elif not story["url"].lower().startswith("https://"):
+            rejected.append(_reject(story, "unreadable", "not https"))
         else:
             queue.append((story, siblings))
 

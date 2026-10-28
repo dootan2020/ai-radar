@@ -125,7 +125,7 @@ class OfflineRunTest(unittest.TestCase):
         self.assertEqual(data["window_hours"], 40)
         self.assertEqual(data["snapshot_generated_at"], NOW)
         self.assertEqual({row["reason"] for row in data["rejected"]}, {"already_summarised", "unreadable", "too_short"})
-        self.assertEqual(counts, {"in_window": 13, "candidates": 7, "rejected": 6})
+        self.assertEqual(counts, {"in_window": 14, "candidates": 8, "rejected": 6})
 
     def test_validator_rejects_a_broken_file(self):
         _, _, data = self.run_main()
@@ -156,16 +156,21 @@ class OfflineRunTest(unittest.TestCase):
 class WindowTest(unittest.TestCase):
     def test_window_keeps_only_recent_stories_and_does_not_list_the_rest(self):
         wide, narrow = build(hours=40), build(hours=8)
-        self.assertEqual(wide["counts"]["in_window"], 13)
-        self.assertEqual(narrow["counts"]["in_window"], 12)  # the arXiv paper is 38 hours old
+        self.assertEqual(wide["counts"]["in_window"], 14)
+        self.assertEqual(narrow["counts"]["in_window"], 13)  # the arXiv paper is 38 hours old
         self.assertNotIn("outside_window", {row["reason"] for row in narrow["rejected"]})
         listed = {row["id"] for row in narrow["candidates"] + narrow["rejected"]}
         self.assertNotIn("f749bb8136379d77e619", listed)
 
-    def test_future_dated_story_beyond_a_day_is_ignored(self):
-        snapshot = fixture_snapshot()
-        snapshot["stories"][2]["published_at"] = "2026-11-05T00:00:00Z"
-        self.assertEqual(build(snapshot)["counts"]["in_window"], 12)
+    def test_future_dates_are_tolerated_for_one_hour_only(self):
+        for published_at, inside in (("2026-10-28T15:10:00Z", True), ("2026-10-28T16:30:00Z", False),
+                                     ("2026-10-29T10:00:00Z", False), ("2026-11-05T00:00:00Z", False)):
+            snapshot = fixture_snapshot()
+            snapshot["stories"][2]["published_at"] = published_at
+            data = build(snapshot)
+            self.assertEqual(data["counts"]["in_window"], 14 if inside else 13, published_at)
+            listed = {row["id"] for row in data["candidates"] + data["rejected"]}
+            self.assertEqual(snapshot["stories"][2]["id"] in listed, inside, published_at)
 
 
 class RejectReasonTest(unittest.TestCase):
@@ -192,6 +197,21 @@ class RejectReasonTest(unittest.TestCase):
                          "fetch_article_result: error")
         self.assertEqual({row["reason"] for row in rows if "bloomberg" in row["url"] or "kotaku" in row["url"]},
                          {"unreadable"})
+
+    def test_plain_http_url_is_unreadable_and_not_fetched(self):
+        snapshot = fixture_snapshot()
+        story = next(s for s in snapshot["stories"] if "404media" in s["url"])
+        story["url"] = story["url"].replace("https://", "http://")
+        fetched = []
+
+        def read(url):
+            fetched.append(url)
+            return fixture_read()(url)
+        data = build(snapshot, read=read)
+        self.assertEqual(contract_errors(data), [])
+        row = next(row for row in data["rejected"] if row["id"] == story["id"])
+        self.assertEqual((row["reason"], row["detail"]), ("unreadable", "not https"))
+        self.assertNotIn(story["url"], fetched)
 
     def test_too_short_below_six_hundred_characters(self):
         row = by_url(build()["rejected"], "terk-terkowitz")
@@ -265,6 +285,37 @@ class TextSourceTest(unittest.TestCase):
         self.assertEqual((outlet["text_source"], outlet["source"]), ("full", {"name": "404media", "kind": "outlet"}))
         teaser = by_url(rows, "interconnects.ai")
         self.assertEqual((teaser["text_source"], teaser["source"]["kind"]), ("partial", "blog"))
+
+    def test_audio_player_tail_marks_an_outlet_excerpt_partial(self):
+        row = by_url(build()["candidates"], "unitree-reports-70-surge")
+        self.assertEqual((row["text_source"], row["source"]["kind"]), ("partial", "outlet"))
+        for furniture in ("Select Voice", "AI-generated voice", "Advertisement", "0.9x1.0x", "00:0000:00"):
+            self.assertNotIn(furniture, row["text"].split("\n\n"))
+        self.assertIn("Unitree Robotics", row["text"])
+
+    def test_long_outlet_text_with_a_player_tail_is_partial_and_without_is_full(self):
+        body = "\n".join(["A full paragraph about the model release and what it changes for users."] * 30)
+
+        def read_with(tail):
+            return lambda url: (body + tail, None, datetime.now(timezone.utc))
+        self.assertEqual(by_url(build(read=read_with("\nSelect Voice\n1x\nAI-generated voice"))["candidates"],
+                                "404media")["text_source"], "partial")
+        self.assertEqual(by_url(build(read=read_with("\nAD"))["candidates"], "404media")["text_source"], "full")
+
+    def test_short_outlet_text_is_partial(self):
+        text = "\n".join(["A complete looking paragraph that is nevertheless short for an outlet."] * 12)
+        row = by_url(build(read=lambda url: (text, None, datetime.now(timezone.utc)))["candidates"], "404media")
+        self.assertLess(row["text_chars"], 1500)
+        self.assertEqual(row["text_source"], "partial")
+
+    def test_page_furniture_is_removed_and_arxiv_keeps_the_abstract(self):
+        raw = "Advertisement\nPress Enter to search · Advanced search\nFirst paragraph.\nAD\nSecond paragraph.\nClose Ad"
+        self.assertEqual(ung_vien.clean_text(raw), "First paragraph.\n\nSecond paragraph.")
+        paper = by_url(build()["candidates"], "arxiv.org")
+        self.assertTrue(paper["text"].split("\n\n")[-1].startswith("Abstract:"))
+        for furniture in ("Press Enter to search", "arXivLabs", "Bibliographic", "Submission history", "View PDF"):
+            self.assertNotIn(furniture, paper["text"])
+        self.assertLess(paper["text_chars"], 2200)
 
     def test_short_abstract_is_still_a_candidate(self):
         def read(url):

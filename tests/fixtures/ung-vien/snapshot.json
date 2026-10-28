@@ -484,6 +484,34 @@
      "published_at": null
     }
    ]
+  },
+  {
+   "id": "8e965bd62081e366e175",
+   "title": "Unitree reports 70% surge in quarterly revenue, though AI investment weighs on net profit",
+   "url": "https://www.scmp.com/tech/article/3372474/unitree-reports-70-surge-quarterly-revenue-though-ai-investment-weighs-net-profit",
+   "summary": "Leading Chinese robotics company Unitree Robotics on Wednesday reported a 69.93 per cent year-on-year increase in quarterly revenue to 665 million yuan (US$99.7 million), though net profits excluding non-recurring items fell 17.42 per cent to 105 million yuan, as the company released its first earni",
+   "published_at": "2026-10-28T13:38:07Z",
+   "kind": "product",
+   "groups": [
+    "press"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Unitree báo cáo tăng 70% doanh thu hàng quý, mặc dù đầu tư AI cân nặng vào lợi nhuận ròng",
+   "headline_vi": "Unitree báo cáo tăng 70% doanh thu hàng quý, mặc dù đầu tư AI cân nặng vào lợi nhuận ròng",
+   "coverage": [
+    {
+     "id": "ce5a8584025141753aae",
+     "source": "scmp-tech",
+     "publisher": "scmp",
+     "group": "press",
+     "kind": "product",
+     "title": "Unitree reports 70% surge in quarterly revenue, though AI investment weighs on net profit",
+     "url": "https://www.scmp.com/tech/article/3372474/unitree-reports-70-surge-quarterly-revenue-though-ai-investment-weighs-net-profit",
+     "canonical_url": "https://www.scmp.com/tech/article/3372474/unitree-reports-70-surge-quarterly-revenue-though-ai-investment-weighs-net-profit",
+     "published_at": "2026-10-28T13:38:07Z"
+    }
+   ]
   }
  ]
 }

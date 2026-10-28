@@ -8,7 +8,8 @@ Phiên bản 1. Lucy viết 2026-10-28 22:0x cho lát 1 (ai-radar `radar/ung_vie
 python -m radar.ung_vien --hours 8 --limit 30 --out <đường dẫn json> [--snapshot <tệp hoặc URL>] [--decisions <tệp>]
 ```
 
-- Mặc định đọc ảnh chụp site `https://radar-ai-vn.pages.dev/data/radar-intake.json` (hằng `SNAPSHOT_URL` trong `phong_bao/cycle.py`); `--snapshot` nhận tệp cục bộ để test không mạng.
+- Mặc định đọc ảnh chụp site `https://radar-ai-vn.pages.dev/data/radar-intake.json` (hằng `SNAPSHOT_URL` trong `phong_bao/cycle.py`); `--snapshot` nhận tệp cục bộ hoặc URL thay cho ảnh chụp.
+- Chạy hoàn toàn không mạng cần thêm `--articles <tệp json>` (`{url: {text, reason, fetched_at}}`, chép từ một lần tải thật): chỉ `--snapshot` thì bài vẫn được tải qua mạng. `--now <ISO UTC>` neo cửa sổ thời gian cho test và chạy lại. Hai cờ này không thêm trường nào vào tệp JSON.
 - Exit 0 khi ghi được tệp, kể cả khi 0 ứng viên. Exit khác 0 chỉ khi không lấy được ảnh chụp hoặc không ghi được tệp. Lỗi tải từng bài không làm lệnh thất bại; bài đó vào `rejected`.
 - Chỉ in ra stdout một dòng tóm tắt đếm (`in_window=… candidates=… rejected=…`); mọi thứ khác vào tệp.
 
