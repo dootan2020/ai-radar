@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T11:17:38.395199+00:00",
-  "input_generated_at": "2026-10-28T10:41:17Z",
+  "generated_at": "2026-10-28T13:23:01.961204+00:00",
+  "input_generated_at": "2026-10-28T12:41:25Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -8082,6 +8082,215 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "7ad77daeda1f625f4af4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f143bf66df7b8ac9cf15",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.technologyreview.com/2026/10/28/1147637/pairing-industrial-ai-autonomy-and-human-control/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f59e5fa2e01141f492db"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3a0e6f223eff99ed1756",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on local community opposition and voter sentiment toward data center construction in Texas; AI is not the primary subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1018676/data-center-midterm-election-energy-water-texas",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "68096f07eaf94f3f4a21"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3efc3c2b3db7dbcd5aa1",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-28/ai-capex-in-mid-cycle-boom-morgan-stanley-s-shalett-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a1d36ae651a63394c7e5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "db716413c30033d75df0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/10/28/2026/nigerian-serial-tech-founder-launches-ai-startup",
+      "key_points": [
+        "Chia sẻ với trang tin Semafor, ông Aboyeji cho biết Talent Nation đặt mục tiêu đào tạo một triệu kỹ sư AI (trí tuệ nhân tạo) trong mười năm tới.",
+        "Các nhà sáng lập Talent Nation nhận định nguồn nhân lực là khoảng trống lớn nhất toàn cầu trong phát triển AI. Bà Kesiah Valkin, giám đốc điều hành của Talent Nation, cũng cho rằng mức thù lao tăng vọt hiện nay phản ánh tình trạng nguồn cung đang bị thắt chặt.",
+        "Ở khóa học đầu tiên được miễn học phí, Talent Nation tiếp nhận 63.000 hồ sơ nhưng chỉ tuyển chọn dưới 3% học viên.",
+        "Dù vậy, bà Valkin nhấn mạnh việc xây dựng hạ tầng để phát triển nhân tài đạt chuẩn cạnh tranh toàn cầu là thách thức rất phức tạp. Theo Semafor, Talent Nation vẫn chưa quyết định liệu các kỹ sư được đào tạo sẽ làm việc toàn thời gian hay tự do."
+      ],
+      "same_event_coverage_ids": [
+        "a0c3a2cce5677dee44b3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Talent Nation đặt mục tiêu đào tạo một triệu kỹ sư AI châu Phi trong mười năm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/10/28/2026/nigerian-serial-tech-founder-launches-ai-startup"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "3c84bdc9f1b42a292410",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1020410/meta-launched-ai-pet-journal-app-waddle-world",
+      "key_points": [
+        "Meta vừa âm thầm ra mắt ứng dụng nuôi thú ảo Waddle World, tích hợp AI (trí tuệ nhân tạo) để trò chuyện và vẽ hình minh họa.",
+        "Theo phần mô tả trên cửa hàng ứng dụng, Waddle World thực chất là nhật ký thường ngày dưới vỏ bọc thú ảo, nơi người dùng trò chuyện bằng giọng nói thay vì gõ phím.",
+        "Meta cũng âm thầm ra mắt ứng dụng thời trang Style Sketch, mà ông Navarra cho biết chỉ có tại Indonesia, Singapore và Thái Lan, dù The Verge chưa thể tự kiểm chứng giới hạn này.",
+        "The Verge nhận định các ứng dụng thú ảo này xuất hiện khi Meta thúc đẩy trợ lý AI Muse, đồng thời cho biết vẫn chưa rõ liệu hãng có kế hoạch phát hành Waddle World tại Mỹ hay các nơi khác hay không."
+      ],
+      "same_event_coverage_ids": [
+        "c3301293279ca13414c0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta âm thầm phát hành ứng dụng nhật ký nuôi thú ảo tích hợp AI tại Philippines",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1020410/meta-launched-ai-pet-journal-app-waddle-world"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "9c89cd85a1fe1a2b8666",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/ai-cybersecurity-startup-upwind-raises-at-3-8-billion-value",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0fec8b58428594d34356"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4d224673622874b16e45",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/moore-threads-sales-surge-nearly-1-800-on-ai-hardware-demand",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0405e51435eab93a8e77"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ed1394c834ecc2061503",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://kotaku.com/now-that-the-shoe-is-on-the-other-foot-microsoft-and-epic-games-suddenly-agree-that-ai-is-theft-2000749316",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "29980bc28a7d93ab7d8e"
       ],
       "split_coverage_ids": []
     }
