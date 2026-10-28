@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T07:37:52.715007+00:00",
-  "input_generated_at": "2026-10-28T06:41:27Z",
+  "generated_at": "2026-10-28T11:17:38.395199+00:00",
+  "input_generated_at": "2026-10-28T10:41:17Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -7629,6 +7629,459 @@
       ],
       "same_event_coverage_ids": [
         "6bfc63444ca21ddd7c55"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2948c012f5ec6bc46dcf",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-10-28/ai-could-boost-us-economy-gdp-growth-by-0-8-percentage-point-in-2026",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "75c69d7f3312ead23e80"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "580eb2775725ea47c295",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/macmillan-staff-say-the-publisher-threw-a-party-for-a-workplace-ai-assistant-that-was-later-killed/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d409b0687bc592089517"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6d1e998db622c805a94e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal blog post merely quoting an excerpt from Terk Terkowitz without independent reporting or substantive analysis; constitutes casual social chatter/quote snippet.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Oct/28/terk-terkowitz/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fb0342f6441802e18b32"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2e2d96a19c63b5c92ae0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://fedscoop.com/scale-chemistry-ai-benchmark-caissi-partnership-dualchem/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "790dfc6468efc150e943"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ffcb0fd28336f83e14d5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting interview focusing on semiconductor equipment maker ASM International's Q3 results and revenue targets, with only a passing incidental reference to the AI build-out as a sales driver.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-28/asm-i-s-ceo-to-hit-2030-target-3-years-early-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "502cb80021f26aabb036"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "67c6b18b0a76451db874",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor promotional customer case study from OpenAI illustrating how customer Legora leverages OpenAI models, ChatGPT, and Codex for legal workflows.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/legora-agentic-operating-system-for-legal-work",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "770aa25f0b44c60935e6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cc501eb0e65cb875d0ff",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/microsoft-and-alphabet-earnings-put-focus-on-ai-cash-flow-drain",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "95337c3ec9b2dd2f5fa9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d3d00954da834a3a0304",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/26/2026/across-africa-parents-embrace-ai-math-tutor",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4f96478bef4b2df4439b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b435e0fe135f9f55ec9b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/26/2026/taobaos-ai-enabled-deliveries-help-close-pay-gap-for-deaf-couriers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8e068973c87f61076722"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a4d620c3a5231193391b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/26/2026/ai-takes-on-the-paperwork-clogging-indias-court-system",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c87e919aa76a2683a7dc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "67e6763c87a452f7d843",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/26/2026/a-free-ai-tool-speeds-up-the-search-for-new-antibiotics",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c797410b948a3068d7d0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "459157ec51e5b3e72251",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/26/2026/using-ai-to-map-disaster-damage-for-faster-rescue-and-recovery",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9a507dab44b3a04e0a06"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3ad44041eca6559adfb6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/27/2026/britains-ai-testing-agency-outguns-us",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "427244af61d966be4efe"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4f9cf693308117251e45",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/ai-emergency-alerts-coming-humans-not-ready/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0a9853cbff81aebfb672"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a382a225a83fbc4557b7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Financial news broadcast with BNP Paribas CFO primarily addressing equities trading and French sovereign bonds, containing only an incidental passing reference to AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-28/bnp-paribas-cfo-on-equities-trading-french-bonds-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d36587387b8a1f8eae9d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cb96793d8a37ea6c9cdc",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3372414/how-lao-gan-ma-chinas-iconic-chilli-brand-got-caught-ai-storm",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6dcaae175267feb83340"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5c5c569c2a9175c18287",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/hi3d-v1-0-open-source-sparc3d-high-resolution-3d-geometry-refinement-1536",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d79d085eaf47e77d4bc5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6db59b8a686567fc6320",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2610.37624",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e5c0b1026b2237d25bb2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2fcd5ea85c1ac182322e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2610.37662",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aae5178a320962b7b0bf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "011638e46489f0f910aa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2610.37037",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7ad77daeda1f625f4af4"
       ],
       "split_coverage_ids": []
     }
