@@ -1,0 +1,489 @@
+{
+ "generated_at": "2026-10-28T14:21:19Z",
+ "schema_version": 2,
+ "stories": [
+  {
+   "id": "db716413c30033d75df0",
+   "title": "Nigerian serial tech founder launches AI startup",
+   "url": "https://www.semafor.com/article/10/28/2026/nigerian-serial-tech-founder-launches-ai-startup",
+   "summary": "Iyinoluwa Aboyeji is betting that African software engineers will fill the rising global demand for AI talent.",
+   "published_at": "2026-10-28T11:42:06Z",
+   "kind": "product",
+   "groups": [
+    "press"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Nhà sáng lập công nghệ hàng loạt Nigeria ra mắt công ty khởi nghiệp AI",
+   "headline_vi": "Nhà sáng lập công nghệ hàng loạt Nigeria ra mắt công ty khởi nghiệp AI",
+   "editorial_headline_vi": "Talent Nation đặt mục tiêu đào tạo một triệu kỹ sư AI châu Phi trong mười năm",
+   "key_points": [
+    "Chia sẻ với trang tin Semafor, ông Aboyeji cho biết Talent Nation đặt mục tiêu đào tạo một triệu kỹ sư AI (trí tuệ nhân tạo) trong mười năm tới.",
+    "Các nhà sáng lập Talent Nation nhận định nguồn nhân lực là khoảng trống lớn nhất toàn cầu trong phát triển AI. Bà Kesiah Valkin, giám đốc điều hành của Talent Nation, cũng cho rằng mức thù lao tăng vọt hiện nay phản ánh tình trạng nguồn cung đang bị thắt chặt.",
+    "Ở khóa học đầu tiên được miễn học phí, Talent Nation tiếp nhận 63.000 hồ sơ nhưng chỉ tuyển chọn dưới 3% học viên.",
+    "Dù vậy, bà Valkin nhấn mạnh việc xây dựng hạ tầng để phát triển nhân tài đạt chuẩn cạnh tranh toàn cầu là thách thức rất phức tạp. Theo Semafor, Talent Nation vẫn chưa quyết định liệu các kỹ sư được đào tạo sẽ làm việc toàn thời gian hay tự do."
+   ],
+   "key_points_source": "nguoi-viet",
+   "key_points_prompt_version": "summary-vi-6-prose",
+   "coverage": [
+    {
+     "id": "a0c3a2cce5677dee44b3",
+     "source": "semafor",
+     "publisher": "semafor",
+     "group": "press",
+     "kind": "product",
+     "title": "Nigerian serial tech founder launches AI startup",
+     "url": "https://www.semafor.com/article/10/28/2026/nigerian-serial-tech-founder-launches-ai-startup",
+     "canonical_url": "https://www.semafor.com/article/10/28/2026/nigerian-serial-tech-founder-launches-ai-startup",
+     "published_at": "2026-10-28T11:42:06Z"
+    }
+   ]
+  },
+  {
+   "id": "3c84bdc9f1b42a292410",
+   "title": "Meta quietly launched an ‘AI pet journal’ app",
+   "url": "https://www.theverge.com/ai-artificial-intelligence/1020410/meta-launched-ai-pet-journal-app-waddle-world",
+   "summary": "Meta has launched a \"tamagotchi-style\" pet game called Waddle World, with virtual creatures that chat with users and create doodles to illustrate conversations. According to its Apple and Play Store listings, the \"16-bit pet care game\" is not really a game, but \"a daily journal disguised as a pet.\"",
+   "published_at": "2026-10-28T11:27:30Z",
+   "kind": "product",
+   "groups": [
+    "press"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Meta lặng lẽ ra mắt một ứng dụng 'AI pet journal'",
+   "headline_vi": "Meta lặng lẽ ra mắt một ứng dụng 'AI pet journal'",
+   "editorial_headline_vi": "Meta âm thầm phát hành ứng dụng nhật ký nuôi thú ảo tích hợp AI tại Philippines",
+   "key_points": [
+    "Meta vừa âm thầm ra mắt ứng dụng nuôi thú ảo Waddle World, tích hợp AI (trí tuệ nhân tạo) để trò chuyện và vẽ hình minh họa.",
+    "Theo phần mô tả trên cửa hàng ứng dụng, Waddle World thực chất là nhật ký thường ngày dưới vỏ bọc thú ảo, nơi người dùng trò chuyện bằng giọng nói thay vì gõ phím.",
+    "Meta cũng âm thầm ra mắt ứng dụng thời trang Style Sketch, mà ông Navarra cho biết chỉ có tại Indonesia, Singapore và Thái Lan, dù The Verge chưa thể tự kiểm chứng giới hạn này.",
+    "The Verge nhận định các ứng dụng thú ảo này xuất hiện khi Meta thúc đẩy trợ lý AI Muse, đồng thời cho biết vẫn chưa rõ liệu hãng có kế hoạch phát hành Waddle World tại Mỹ hay các nơi khác hay không."
+   ],
+   "key_points_source": "nguoi-viet",
+   "key_points_prompt_version": "summary-vi-6-prose",
+   "coverage": [
+    {
+     "id": "c3301293279ca13414c0",
+     "source": "verge-ai",
+     "publisher": "the-verge",
+     "group": "press",
+     "kind": "product",
+     "title": "Meta quietly launched an ‘AI pet journal’ app",
+     "url": "https://www.theverge.com/ai-artificial-intelligence/1020410/meta-launched-ai-pet-journal-app-waddle-world",
+     "canonical_url": "https://www.theverge.com/ai-artificial-intelligence/1020410/meta-launched-ai-pet-journal-app-waddle-world",
+     "published_at": "2026-10-28T11:27:30Z"
+    }
+   ]
+  },
+  {
+   "id": "5c0e62d42f14a6cede08",
+   "title": "If You're In the UK or EU, Here's How to Object to Meta's AI Training",
+   "url": "https://www.404media.co/meta-ai-training-uk-eu/",
+   "summary": "In light of Meta's new terms that will allow it to scrape users' data for AI, people in the EU and UK have the option to \"object\" to certain uses of their information, for now.",
+   "published_at": "2026-10-28T14:18:35Z",
+   "kind": "other",
+   "groups": [
+    "press"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "coverage": [
+    {
+     "id": "8133cd35d6f71e01cc44",
+     "source": "404media",
+     "publisher": "404-media",
+     "group": "press",
+     "kind": "other",
+     "title": "If You're In the UK or EU, Here's How to Object to Meta's AI Training",
+     "url": "https://www.404media.co/meta-ai-training-uk-eu/",
+     "canonical_url": "https://www.404media.co/meta-ai-training-uk-eu",
+     "published_at": "2026-10-28T14:18:35Z"
+    }
+   ]
+  },
+  {
+   "id": "3ad44041eca6559adfb6",
+   "title": "Britain’s AI testing agency outguns US",
+   "url": "https://www.semafor.com/article/10/27/2026/britains-ai-testing-agency-outguns-us",
+   "summary": "The UK wants to put another $160 million into its AI Security Institute. America’s equivalent runs on about $10 million a year.",
+   "published_at": "2026-10-28T14:13:27Z",
+   "kind": "other",
+   "groups": [
+    "press"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Cơ quan thử nghiệm AI của Anh vượt qua Mỹ",
+   "headline_vi": "Cơ quan thử nghiệm AI của Anh vượt qua Mỹ",
+   "coverage": [
+    {
+     "id": "427244af61d966be4efe",
+     "source": "semafor",
+     "publisher": "semafor",
+     "group": "press",
+     "kind": "other",
+     "title": "Britain’s AI testing agency outguns US",
+     "url": "https://www.semafor.com/article/10/27/2026/britains-ai-testing-agency-outguns-us",
+     "canonical_url": "https://www.semafor.com/article/10/27/2026/britains-ai-testing-agency-outguns-us",
+     "published_at": "2026-10-28T14:13:27Z"
+    }
+   ]
+  },
+  {
+   "id": "580eb2775725ea47c295",
+   "title": "Macmillan Staff Say the Publisher Threw a Party for a Workplace AI Assistant That Was Later Killed",
+   "url": "https://www.wired.com/story/macmillan-staff-say-the-publisher-threw-a-party-for-a-workplace-ai-assistant-that-was-later-killed/",
+   "summary": "Workers tell WIRED that NOA—or “No Ordinary Assistant”—was unhelpful. Bestselling authors also say AI is ruining their relationships with Big Five publishers.",
+   "published_at": "2026-10-28T10:15:00Z",
+   "kind": "other",
+   "groups": [
+    "press"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Nhân viên Macmillan nói nhà xuất bản đã tổ chức một bữa tiệc cho một trợ lý AI tại nơi làm việc mà sau đó đã bị giết",
+   "headline_vi": "Nhân viên Macmillan nói nhà xuất bản đã tổ chức một bữa tiệc cho một trợ lý AI tại nơi làm việc mà sau đó đã bị giết",
+   "coverage": [
+    {
+     "id": "d409b0687bc592089517",
+     "source": "wired-ai",
+     "publisher": "wired",
+     "group": "press",
+     "kind": "other",
+     "title": "Macmillan Staff Say the Publisher Threw a Party for a Workplace AI Assistant That Was Later Killed",
+     "url": "https://www.wired.com/story/macmillan-staff-say-the-publisher-threw-a-party-for-a-workplace-ai-assistant-that-was-later-killed/",
+     "canonical_url": "https://www.wired.com/story/macmillan-staff-say-the-publisher-threw-a-party-for-a-workplace-ai-assistant-that-was-later-killed",
+     "published_at": "2026-10-28T10:15:00Z"
+    }
+   ]
+  },
+  {
+   "id": "f143bf66df7b8ac9cf15",
+   "title": "Pairing industrial AI autonomy and human control",
+   "url": "https://www.technologyreview.com/2026/10/28/1147637/pairing-industrial-ai-autonomy-and-human-control/",
+   "summary": "",
+   "published_at": "2026-10-28T12:00:00Z",
+   "kind": "other",
+   "groups": [
+    "press"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Kết hợp tự trị AI công nghiệp và kiểm soát con người",
+   "headline_vi": "Kết hợp tự trị AI công nghiệp và kiểm soát con người",
+   "coverage": [
+    {
+     "id": "f59e5fa2e01141f492db",
+     "source": "mit-tech-review",
+     "publisher": "mit-tech-review",
+     "group": "press",
+     "kind": "other",
+     "title": "Pairing industrial AI autonomy and human control",
+     "url": "https://www.technologyreview.com/2026/10/28/1147637/pairing-industrial-ai-autonomy-and-human-control/",
+     "canonical_url": "https://www.technologyreview.com/2026/10/28/1147637/pairing-industrial-ai-autonomy-and-human-control",
+     "published_at": "2026-10-28T12:00:00Z"
+    }
+   ]
+  },
+  {
+   "id": "70f2bbbd704a353daaa0",
+   "title": "The October inflection point for vibe game development",
+   "url": "https://simonwillison.net/2026/Oct/28/vibe-game-development/",
+   "summary": "I've written before about how November 2025 was an inflection point for coding agents - the point where Opus 4.5 and GPT-5.1 crossed a tipping point that meant their respective coding agents became reliable daily drivers for software engineers. I think we've reached a new inflection point in October",
+   "published_at": "2026-10-28T13:55:15Z",
+   "kind": "product",
+   "groups": [
+    "research"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Điểm nghiêng tháng 10 cho phát triển trò chơi vibe",
+   "headline_vi": "Điểm nghiêng tháng 10 cho phát triển trò chơi vibe",
+   "coverage": [
+    {
+     "id": "c6f3697255b522a0c911",
+     "source": "simon-willison",
+     "publisher": "simon-willison",
+     "group": "research",
+     "kind": "product",
+     "title": "The October inflection point for vibe game development",
+     "url": "https://simonwillison.net/2026/Oct/28/vibe-game-development/",
+     "canonical_url": "https://simonwillison.net/2026/Oct/28/vibe-game-development",
+     "published_at": "2026-10-28T13:55:15Z"
+    }
+   ]
+  },
+  {
+   "id": "887c59818f68e469bbe9",
+   "title": "Artificial Analysis v5 and the benchmarker's dilemma",
+   "url": "https://www.interconnects.ai/p/artificial-analysis-v5-and-the-benchmarkers",
+   "summary": "A sort of review of the benchmarking industry and what's missing.",
+   "published_at": "2026-10-28T12:58:39Z",
+   "kind": "other",
+   "groups": [
+    "research"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "coverage": [
+    {
+     "id": "359444ef32f92a370d6d",
+     "source": "interconnects",
+     "publisher": "interconnects",
+     "group": "research",
+     "kind": "other",
+     "title": "Artificial Analysis v5 and the benchmarker's dilemma",
+     "url": "https://www.interconnects.ai/p/artificial-analysis-v5-and-the-benchmarkers",
+     "canonical_url": "https://www.interconnects.ai/p/artificial-analysis-v5-and-the-benchmarkers",
+     "published_at": "2026-10-28T12:58:39Z"
+    }
+   ]
+  },
+  {
+   "id": "6d1e998db622c805a94e",
+   "title": "Quoting Terk Terkowitz",
+   "url": "https://simonwillison.net/2026/Oct/28/terk-terkowitz/",
+   "summary": "If your work does not benefit from current AI tooling, that is a finding, not a failing. Document why, share it with your community of peers, bring it to your manager, and work to find solutions. An engineer who can explain where AI does not yet help their work is demonstrating the judgement we are",
+   "published_at": "2026-10-28T10:09:07Z",
+   "kind": "product",
+   "groups": [
+    "research"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Trích lời Terk Terkowitz",
+   "headline_vi": "Trích lời Terk Terkowitz",
+   "coverage": [
+    {
+     "id": "fb0342f6441802e18b32",
+     "source": "simon-willison",
+     "publisher": "simon-willison",
+     "group": "research",
+     "kind": "product",
+     "title": "Quoting Terk Terkowitz",
+     "url": "https://simonwillison.net/2026/Oct/28/terk-terkowitz/",
+     "canonical_url": "https://simonwillison.net/2026/Oct/28/terk-terkowitz",
+     "published_at": "2026-10-28T10:09:07Z"
+    }
+   ]
+  },
+  {
+   "id": "9c89cd85a1fe1a2b8666",
+   "title": "AI Cybersecurity Startup Upwind Raises at $3.8 Billion Value",
+   "url": "https://www.bloomberg.com/news/articles/2026-10-28/ai-cybersecurity-startup-upwind-raises-at-3-8-billion-value",
+   "summary": "Upwind Security, a San Francisco-based startup offering cybersecurity for artificial intelligence and cloud applications, has secured $400 million in fresh financing that values the company at $3.8 billion.",
+   "published_at": "2026-10-28T11:00:00Z",
+   "kind": "product",
+   "groups": [
+    "press"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "AI Cybersecurity Startup Upwind tăng giá trị lên 3,8 tỷ đô la",
+   "headline_vi": "AI Cybersecurity Startup Upwind tăng giá trị lên 3,8 tỷ đô la",
+   "coverage": [
+    {
+     "id": "0fec8b58428594d34356",
+     "source": "bloomberg-tech",
+     "publisher": "bloomberg",
+     "group": "press",
+     "kind": "product",
+     "title": "AI Cybersecurity Startup Upwind Raises at $3.8 Billion Value",
+     "url": "https://www.bloomberg.com/news/articles/2026-10-28/ai-cybersecurity-startup-upwind-raises-at-3-8-billion-value",
+     "canonical_url": "https://www.bloomberg.com/news/articles/2026-10-28/ai-cybersecurity-startup-upwind-raises-at-3-8-billion-value",
+     "published_at": "2026-10-28T11:00:00Z"
+    }
+   ]
+  },
+  {
+   "id": "4d224673622874b16e45",
+   "title": "Moore Threads Sales Surge Nearly 1,800% on AI Hardware Demand",
+   "url": "https://www.bloomberg.com/news/articles/2026-10-28/moore-threads-sales-surge-nearly-1-800-on-ai-hardware-demand",
+   "summary": "AI chipmaker Moore Threads Technology Co. said sales grew 1,774% in the three months through September, buoyed by accelerating domestic demand for artificial intelligence hardware.",
+   "published_at": "2026-10-28T10:52:45Z",
+   "kind": "other",
+   "groups": [
+    "press"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Moore Threads tăng doanh số bán hàng gần 1,800% về nhu cầu phần cứng AI",
+   "headline_vi": "Moore Threads tăng doanh số bán hàng gần 1,800% về nhu cầu phần cứng AI",
+   "coverage": [
+    {
+     "id": "0405e51435eab93a8e77",
+     "source": "bloomberg-tech",
+     "publisher": "bloomberg",
+     "group": "press",
+     "kind": "other",
+     "title": "Moore Threads Sales Surge Nearly 1,800% on AI Hardware Demand",
+     "url": "https://www.bloomberg.com/news/articles/2026-10-28/moore-threads-sales-surge-nearly-1-800-on-ai-hardware-demand",
+     "canonical_url": "https://www.bloomberg.com/news/articles/2026-10-28/moore-threads-sales-surge-nearly-1-800-on-ai-hardware-demand",
+     "published_at": "2026-10-28T10:52:45Z"
+    }
+   ]
+  },
+  {
+   "id": "ed1394c834ecc2061503",
+   "title": "Microsoft and Epic Games Suddenly Agree That AI Is Theft",
+   "url": "https://kotaku.com/now-that-the-shoe-is-on-the-other-foot-microsoft-and-epic-games-suddenly-agree-that-ai-is-theft-2000749316",
+   "summary": "",
+   "published_at": "2026-10-28T10:10:58Z",
+   "kind": "forum",
+   "groups": [
+    "forum"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Microsoft và Epic Games đột nhiên đồng ý rằng AI là trộm cắp",
+   "headline_vi": "Microsoft và Epic Games đột nhiên đồng ý rằng AI là trộm cắp",
+   "coverage": [
+    {
+     "id": "29980bc28a7d93ab7d8e",
+     "source": "hn-ai",
+     "publisher": "hacker-news",
+     "group": "forum",
+     "kind": "forum",
+     "title": "Microsoft and Epic Games Suddenly Agree That AI Is Theft",
+     "url": "https://kotaku.com/now-that-the-shoe-is-on-the-other-foot-microsoft-and-epic-games-suddenly-agree-that-ai-is-theft-2000749316",
+     "canonical_url": "https://kotaku.com/now-that-the-shoe-is-on-the-other-foot-microsoft-and-epic-games-suddenly-agree-that-ai-is-theft-2000749316",
+     "published_at": "2026-10-28T10:10:58Z"
+    }
+   ]
+  },
+  {
+   "id": "f749bb8136379d77e619",
+   "title": "CodeCap-Bench: Can Code Serve as a Good Video Caption?",
+   "url": "https://arxiv.org/abs/2610.37341",
+   "summary": "Video captioning aims to preserve visual information through compact descriptions, predominantly using natural language. However, precisely expressing fine-grained spatial structures and temporal dynamics in natural language often leads to lengthy and potentially ambiguous descriptions. In this work",
+   "published_at": "2026-10-27T00:00:00Z",
+   "kind": "paper",
+   "groups": [
+    "paper"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "CodeCap-Bench: Có thể có mã làm tiêu đề video tốt không?",
+   "headline_vi": "CodeCap-Bench: Có thể có mã làm tiêu đề video tốt không?",
+   "coverage": [
+    {
+     "id": "90b60233cc183cbc655f",
+     "source": "hf-papers",
+     "publisher": "huggingface",
+     "group": "paper",
+     "kind": "paper",
+     "title": "CodeCap-Bench: Can Code Serve as a Good Video Caption?",
+     "url": "https://arxiv.org/abs/2610.37341",
+     "canonical_url": "https://arxiv.org/abs/2610.37341",
+     "published_at": "2026-10-27T00:00:00Z"
+    }
+   ]
+  },
+  {
+   "id": "4ba4e1df53aa59664069",
+   "title": "BOSS Zhipin's Nanbeige Team Open-Sources Nanbeige4.3-33B, a 512K-Context Agentic Coding Model",
+   "url": "https://pandaily.com/nanbeige4-3-33b-open-source-agent-coding-model-512k-context-apache-2-boss-zhipin",
+   "summary": "The Nanbeige team at BOSS Zhipin parent Kanzhun released Nanbeige4.3-33B on Hugging Face, a teacher model for agentic coding and office work that will be distilled into a 3B version.",
+   "published_at": "2026-10-26T06:51:59Z",
+   "kind": "product",
+   "groups": [
+    "press"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Đội ngũ Nanbeige của BOSS Zhipin mã nguồn mở Nanbeige4.3-33B, mô hình lập trình agentic với ngữ cảnh 512K",
+   "headline_vi": "Đội ngũ Nanbeige của BOSS Zhipin mã nguồn mở Nanbeige4.3-33B, mô hình lập trình agentic với ngữ cảnh 512K",
+   "editorial_headline_vi": "Đội ngũ Nanbeige phát hành mở mô hình Nanbeige4.3-33B phục vụ lập trình đại lý và tác vụ văn phòng",
+   "key_points": [
+    "Đội ngũ Nanbeige thuộc Kanzhun, công ty vận hành nền tảng tuyển dụng BOSS Zhipin tại Trung Quốc, đã phát hành mã nguồn mở mô hình Nanbeige4.3-33B chuyên cho lập trình dạng đại lý và công việc văn phòng chuyên nghiệp.",
+    "Trọng số mô hình được chia sẻ trên kho lưu trữ Hugging Face chính thức của nhóm theo giấy phép Apache 2.0, cho phép người dùng khai thác cho mục đích thương mại.",
+    "Nanbeige4.3-33B đóng vai trò là mô hình giáo viên hàng đầu để chưng cất kỹ năng sang các mô hình nhỏ hơn như phiên bản Nanbeige4.3-3B theo kế hoạch, đồng thời cũng có thể triển khai trực tiếp một cách hiệu quả về mặt chi phí.",
+    "Mô hình hỗ trợ khung ngữ cảnh lên đến 524.288 token (512K), tích hợp cơ chế giữ luồng suy luận qua nhiều lượt trò chuyện, hỗ trợ gọi công cụ bằng định dạng XML hoặc JSON và tạo tối đa 65.536 token mỗi câu trả lời.",
+    "Theo kết quả tự công bố chưa qua kiểm chứng độc lập từ bên thứ ba, nhóm nghiên cứu cho biết mô hình dẫn đầu phần lớn các bài thử nghiệm về lập trình và công cụ văn phòng khi so sánh với Qwen3.8-27B, Muse-Glimmer-30B và Gemma4-31B.",
+    "Mô hình vận hành tương thích với Transformers, SGLang hoặc vLLM, đồng thời đội ngũ phát triển bày tỏ mong muốn hợp tác cùng các đối tác để xây dựng đại lý chuyên biệt cho từng ngành nghề."
+   ],
+   "key_points_source": "machine",
+   "key_points_prompt_version": "summary-vi-5-full",
+   "coverage": [
+    {
+     "id": "d22b35aa492c488e727d",
+     "source": "pandaily",
+     "publisher": "pandaily",
+     "group": "press",
+     "kind": "product",
+     "title": "BOSS Zhipin's Nanbeige Team Open-Sources Nanbeige4.3-33B, a 512K-Context Agentic Coding Model",
+     "url": "https://pandaily.com/nanbeige4-3-33b-open-source-agent-coding-model-512k-context-apache-2-boss-zhipin",
+     "canonical_url": "https://pandaily.com/nanbeige4-3-33b-open-source-agent-coding-model-512k-context-apache-2-boss-zhipin",
+     "published_at": "2026-10-26T06:51:59Z"
+    }
+   ]
+  },
+  {
+   "id": "653d82f9a29531960373",
+   "title": "Nanbeige/Nanbeige4.3-33B",
+   "url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B",
+   "summary": "",
+   "published_at": "2026-10-24T02:49:18Z",
+   "kind": "model",
+   "groups": [
+    "repository"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "related_story_id": "4ba4e1df53aa59664069",
+   "coverage": [
+    {
+     "id": "4a9969b101af9f6215ad",
+     "source": "hf-models-ranked",
+     "publisher": "huggingface",
+     "group": "repository",
+     "kind": "model",
+     "title": "Nanbeige/Nanbeige4.3-33B",
+     "url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B",
+     "canonical_url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B",
+     "published_at": "2026-10-24T02:49:18Z"
+    },
+    {
+     "id": "4f9eaf1d8bc15534218c",
+     "source": "hf-trending",
+     "publisher": "huggingface",
+     "group": "repository",
+     "kind": "model",
+     "title": "Nanbeige/Nanbeige4.3-33B",
+     "url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B",
+     "canonical_url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B",
+     "published_at": null
+    }
+   ]
+  },
+  {
+   "id": "f06ebea86352f4969220",
+   "title": "Bringing AI to the Data Cloud, with Snowflake's CEO Frank Slootman",
+   "url": "https://no-priors.com/",
+   "summary": "Frank Slootman, CEO of Snowflake Computing, joins Sarah Guo and Elad Gil this week on No Priors. Before scaling Snowflake to its blockbuster IPO and beyond, Frank was also the CEO from early to scale for landmark enterprise companies ServiceNow and Data Domain. Frank grew up in the Netherlands and i",
+   "published_at": null,
+   "kind": "podcast",
+   "groups": [
+    "podcast"
+   ],
+   "source_count": 1,
+   "aliases": [],
+   "title_vi": "Đưa AI lên Đám mây Dữ liệu, cùng với CEO của Snowflake Frank Slootman",
+   "headline_vi": "Đưa AI lên Đám mây Dữ liệu, cùng với CEO của Snowflake Frank Slootman",
+   "coverage": [
+    {
+     "id": "893db98e9fb726b8d389",
+     "source": "no-priors",
+     "publisher": "no-priors",
+     "group": "podcast",
+     "kind": "podcast",
+     "title": "Bringing AI to the Data Cloud, with Snowflake's CEO Frank Slootman",
+     "url": "https://no-priors.com/",
+     "canonical_url": "https://no-priors.com",
+     "published_at": null
+    }
+   ]
+  }
+ ]
+}
