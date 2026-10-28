@@ -152,9 +152,9 @@ DESK_CONTRACTS = {
             "summary_sources", "summary_limitations", "key_points_prompt_version", "dropped_points",
             "provider", "boat",
         ],
-        # Audit record of every drafted story: the source paragraphs the writer read, at most
-        # radar.summary_sources.MAX_SOURCE_CHARS characters. Kept in the cycle folder, never published.
-        "optional_output_fields": ["writer_sources", "writer_source_chars"],
+        # Audit record of drafted stories: source paragraphs and editor provider when enabled.
+        # Kept in the cycle folder, never published.
+        "optional_output_fields": ["writer_sources", "writer_source_chars", "editor_provider", "editor_boat"],
         "skip_conditions": [
             "not publishable with a readable source",
             "published outside the writer window (PHONG_BAO_WRITER_WINDOW_HOURS, default 48)",
