@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T19:15:55.591858+00:00",
+  "generated_at": "2026-10-28T21:22:24.778074+00:00",
   "input_generated_at": "2026-10-28T12:41:25Z",
   "decisions": [
     {
@@ -8725,6 +8725,68 @@
         "writer": "codex:gpt-6-astra",
         "checker": "claude:sonnet",
         "score": 9,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "bb1f2f07f5994d40a024",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "Anthropic công bố bộ công cụ báo cáo mới giúp doanh nghiệp hiểu giá trị nhận được từ chi tiêu token. Động thái đáp ứng nhu cầu đánh giá hiệu quả đầu tư AI của khách hàng lớn.",
+        "Công cụ kết hợp phân tích nội bộ với khảo sát nhân viên. Quản lý có thể xem sản phẩm, chi phí và điểm nghẽn của nhóm theo khoảng thời gian, kèm khuyến nghị cải thiện. Anthropic nói mặc định không dùng dữ liệu này để huấn luyện mô hình AI. Công ty cũng đang tạo ngân sách chung cho các nhóm để quản lý chi tiêu token.",
+        "Theo Jellyfish, trong nhóm 276.000 khách hàng, chi tiêu cho Claude Code và công cụ dùng mô hình Anthropic tăng gấp 10 từ đầu năm. Cũng trong nhóm này, Jellyfish ghi nhận chi phí các công cụ đó hiện bằng khoảng 2% tổng chi phí kỹ thuật.",
+        "Theo Nikolas Albarran của Jellyfish, công sức chuẩn hóa quy trình khiến doanh nghiệp ngày càng khó chuyển sang nhà cung cấp khác. Tuy nhiên, phần lớn doanh nghiệp Fortune 500 chưa thấy lợi ích lớn từ triển khai AI."
+      ],
+      "editorial_headline_vi": "Anthropic ra mắt công cụ báo cáo giúp doanh nghiệp biết chi tiêu AI mang lại giá trị gì",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch-ai",
+          "url": "https://techcrunch.com/2026/10/28/anthropic-just-launched-tools-to-show-companies-what-their-ai-spending-is-buying/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://techcrunch.com/2026/10/28/anthropic-just-launched-tools-to-show-companies-what-their-ai-spending-is-buying/",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-astra",
+        "checker": "claude:sonnet",
+        "score": 10,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "1583c560106073a3e7c9",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "Meta cho biết có thể hoãn điều khoản kinh doanh mới qua ngày 20/11, trước phản đối của các nhà xuất bản. Họ lo nội dung trên các trang tin dùng Facebook và Instagram có thể bị dùng để huấn luyện mô hình AI.",
+        "Điều khoản ban đầu dường như cho phép Meta dùng nội dung thu thập từ các trang tin đó để huấn luyện mô hình. Meta đã xóa phần nói về việc huấn luyện sản phẩm bằng nội dung thu thập từ các trang tin. Theo các chuyên gia pháp lý trao đổi với Nieman Lab, bản sửa vẫn chưa loại trừ khả năng đó.",
+        "Điều khoản dự kiến có hiệu lực ngày 30/10, rồi Meta lùi sang 20/11 trước những lo ngại trên. News/Media Alliance cũng phản đối điều khoản mới. Thượng nghị sĩ Marsha Blackburn chỉ trích điều khoản mới; Thượng nghị sĩ Adam Schiff kêu gọi Meta rút lại thay đổi.",
+        "Andy Stone nói Meta không định đổi chính sách trước khi tham vấn đầy đủ các nhóm và lãnh đạo ngành. Nếu tham vấn kéo dài quá 20/11, Meta sẽ tiếp tục hoãn; điều khoản hiện hành vẫn có hiệu lực trong lúc đó."
+      ],
+      "editorial_headline_vi": "Meta có thể tiếp tục hoãn điều khoản kinh doanh mới sau phản đối từ các nhà xuất bản",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "verge-ai",
+          "url": "https://www.theverge.com/tech/1020769/meta-updated-business-terms-delay-indefinitely"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://www.theverge.com/tech/1020769/meta-updated-business-terms-delay-indefinitely",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-sol",
+        "checker": "claude:sonnet",
+        "score": 10,
         "cap_nhat": false
       }
     }
