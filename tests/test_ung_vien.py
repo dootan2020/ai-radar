@@ -305,8 +305,14 @@ class TextSourceTest(unittest.TestCase):
     def test_short_outlet_text_is_partial(self):
         text = "\n".join(["A complete looking paragraph that is nevertheless short for an outlet."] * 12)
         row = by_url(build(read=lambda url: (text, None, datetime.now(timezone.utc)))["candidates"], "404media")
-        self.assertLess(row["text_chars"], 1500)
+        self.assertLess(row["text_chars"], 1000)
         self.assertEqual(row["text_source"], "partial")
+
+    def test_complete_outlet_brief_over_one_thousand_characters_is_full(self):
+        text = "\n".join(["A complete brief paragraph from an outlet that runs short but has no cut-off."] * 15)
+        row = by_url(build(read=lambda url: (text, None, datetime.now(timezone.utc)))["candidates"], "404media")
+        self.assertTrue(1000 <= row["text_chars"] < 1500)
+        self.assertEqual(row["text_source"], "full")
 
     def test_page_furniture_is_removed_and_arxiv_keeps_the_abstract(self):
         raw = "Advertisement\nPress Enter to search · Advanced search\nFirst paragraph.\nAD\nSecond paragraph.\nClose Ad"

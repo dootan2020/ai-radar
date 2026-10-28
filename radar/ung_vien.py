@@ -57,7 +57,7 @@ PARTIAL_LINE = re.compile(
 )
 PARTIAL_LINE_MAX = 120
 # An outlet page this short after cleaning is a teaser or excerpt, not the whole story.
-OUTLET_FULL_MIN_CHARS = 1_500
+OUTLET_FULL_MIN_CHARS = 1_000
 # Page furniture, all in one place. FURNITURE lines are dropped wherever they stand.
 FURNITURE = re.compile(
     r"^(?:ad|advertisement|close ad|listen|select voice|select speed|ai-generated voice|1x|"
