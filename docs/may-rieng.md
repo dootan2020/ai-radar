@@ -71,6 +71,14 @@ Nếu captain bật Antigravity trên máy, mở phần AI Credit Overages và c
 
 ## 6. Lên lịch và phục hồi sau mất điện
 
+Với tác vụ `HalcyonNewsroomCycle`, `PHONG_BAO_WRITER_WINDOW_HOURS` mặc định là `48`: bàn viết chỉ viết tin mới trong số giờ này; đặt `0` để tắt bàn viết. `PHONG_BAO_SOURCE_EDITOR` mặc định tắt; đặt `1` trong môi trường của tiến trình chạy task để thêm một lượt biên tập đối chiếu nguồn sau bản nháp. Để thử đúng một cycle thủ công khi task đang nghỉ, chạy trong PowerShell từ thư mục repo rồi xóa biến khỏi phiên đó:
+
+```powershell
+$env:PHONG_BAO_SOURCE_EDITOR = '1'
+python -m phong_bao cycle
+Remove-Item Env:\PHONG_BAO_SOURCE_EDITOR
+```
+
 Tạo tác vụ “Radar collect” trong Task Scheduler với Program là đường dẫn `python.exe`, Arguments là `build.py`, Start in là thư mục repo; đặt trigger lặp mỗi 30 phút. Tạo riêng “Radar daily clip” với Program là đường dẫn `node.exe`, Arguments là `video/render.js site/data/radar-ui.json`, Start in là thư mục repo; lên lịch sau lần thu thập/dịch thành công trong ngày. Nếu bật dịch NLLB, cài các thư viện từ `requirements-translate.txt` theo lựa chọn của captain và chuẩn bị model cache để không phụ thuộc tải model lúc chạy; lệnh dịch là `python -m radar.translate --input site/data/radar.json --cache data/translations-vi.json`. Dịch Gemini cần `GEMINI_API_KEY` và cờ xác nhận, theo mục secret-intake. Đặt env vars tại môi trường mà chính tài khoản chạy task nhìn thấy. Cấu hình “Run whether user is logged on or not”, “If the task fails, restart every…” cùng số lần thử hợp lý, và “Run task as soon as possible after a scheduled start is missed”. “Run with highest privileges” chỉ bật nếu thật sự cần. Workflow GitHub hiện vẫn chạy ở phút 07 và 37 mỗi giờ và tự deploy Pages; chạy collector cục bộ không thay thế việc tắt/đổi lịch workflow hoặc quyền xuất bản trên GitHub. Captain cần chọn một nơi duy nhất làm publisher để tránh lịch chồng nhau.
 
 Trong Task Scheduler, bật “Run task as soon as possible after a scheduled start is missed”. Trong BIOS/UEFI bật khởi động lại sau khi có điện trở lại (Restore on AC Power Loss). Thử khởi động lại máy và xác nhận task chạy trước khi giao vận hành. Không đưa mật khẩu Windows vào script hoặc repo.
