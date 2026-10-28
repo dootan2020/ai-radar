@@ -22,7 +22,7 @@ ISO_Z = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
 REASONS = {"already_summarised", "outside_window", "unreadable", "too_short", "duplicate_published", "limit"}
 KINDS = {"outlet", "lab", "paper", "regulator", "blog", "other"}
 CANDIDATE_FIELDS = {"id", "title", "title_vi", "url", "source", "published_at", "text", "text_chars",
-                    "text_source", "text_fetched_at", "coverage", "same_event_published"}
+                    "text_source", "text_fetched_at", "coverage", "same_event_published", "same_event_links"}
 
 
 def contract_errors(data):
@@ -80,6 +80,14 @@ def contract_errors(data):
             errors.append(f"{name} coverage")
         if not all(isinstance(item, str) for item in row["same_event_published"]):
             errors.append(f"{name} same_event_published")
+        links = row["same_event_links"]
+        if not isinstance(links, list) or any(
+                not isinstance(link, dict) or set(link) != {"id", "kind", "reason"}
+                or not isinstance(link["id"], str) or link["kind"] not in {"published", "candidate"}
+                or not isinstance(link["reason"], str) or not link["reason"] for link in links):
+            errors.append(f"{name} same_event_links")
+        elif {link["id"] for link in links if link["kind"] == "published"} != set(row["same_event_published"]):
+            errors.append(f"{name} published links disagree")
     for row in data["rejected"]:
         if set(row) != {"id", "title", "url", "reason", "detail"} or row["reason"] not in REASONS \
                 or not isinstance(row["detail"], str):
@@ -274,6 +282,69 @@ class RejectReasonTest(unittest.TestCase):
         newest_limited = max(instant(s["published_at"]) for s in fixture_snapshot()["stories"]
                              if s["id"] in {row["id"] for row in limited})
         self.assertTrue(all(instant(row["published_at"]) >= newest_limited for row in data["candidates"]))
+
+
+class SameEventTitleTest(unittest.TestCase):
+    @staticmethod
+    def story(id, title, published_at, title_vi=None):
+        return {"id": id, "title": title, "title_vi": title_vi,
+                "url": f"https://example.com/{id}", "published_at": published_at, "coverage": []}
+
+    @staticmethod
+    def run_stories(stories, decisions=(), **options):
+        return ung_vien.build({"stories": stories}, hours=72, limit=30, now=instant(NOW),
+                              read=lambda url: ("An article paragraph. " * 60, None, instant(NOW)),
+                              decisions=decisions, **options)
+
+    def test_recent_published_headline_links_carbon_but_not_a_different_event(self):
+        original = self.story("original", "Gemini 4 Carbon: our next frontier model", "2026-10-27T14:21:19Z")
+        carbon = self.story("carbon", "Gemini 4 Carbon", "2026-10-28T14:00:00Z")
+        other = self.story("other", "Gemini 4 Argon", "2026-10-28T13:00:00Z")
+        original["key_points"] = ["published"]
+        decisions = [{"id": "original", "decision": "publish", "editorial_headline_vi":
+                      "Google DeepMind công bố Gemini 4 Carbon với năng lực an ninh mạng"}]
+        data = self.run_stories([original, carbon, other], decisions)
+        rows = {row["id"]: row for row in data["candidates"]}
+        self.assertEqual(rows["carbon"]["same_event_published"], ["original"])
+        self.assertEqual(rows["carbon"]["same_event_links"], [
+            {"id": "original", "kind": "published", "reason": "title terms: 4, carbon, gemini"}])
+        self.assertEqual(rows["other"]["same_event_links"], [])
+
+    def test_only_published_decisions_inside_configured_window_match_titles(self):
+        old = self.story("old", "Gemini 4 Carbon", "2026-10-26T14:21:18Z")
+        old["key_points"] = ["published"]
+        current = self.story("current", "Gemini 4 Carbon", "2026-10-28T14:00:00Z")
+        decisions = [{"id": "old", "decision": "publish", "editorial_headline_vi":
+                      "Google công bố Gemini 4 Carbon"}]
+        self.assertEqual(self.run_stories([old, current], decisions)["candidates"][0]["same_event_published"], [])
+        wider = self.run_stories([old, current], decisions, same_event_hours=49)
+        self.assertEqual(wider["candidates"][0]["same_event_published"], ["old"])
+        decisions[0]["decision"] = "hold"
+        self.assertEqual(self.run_stories([old, current], decisions, same_event_hours=49)
+                         ["candidates"][0]["same_event_published"], [])
+
+    def test_decision_without_a_dated_story_does_not_create_a_title_link(self):
+        current = self.story("current", "Gemini 4 Carbon", "2026-10-28T14:00:00Z")
+        decisions = [{"id": "missing", "decision": "publish", "editorial_headline_vi":
+                      "Google công bố Gemini 4 Carbon"}]
+        self.assertEqual(self.run_stories([current], decisions)["candidates"][0]["same_event_links"], [])
+
+    def test_batch_pairs_are_symmetric_and_distinct_updates_stay_separate(self):
+        first = self.story("first", "Gemini 4 Carbon launched by Google", "2026-10-28T14:00:00Z")
+        second = self.story("second", "Gemini 4 Carbon", "2026-10-28T13:00:00Z")
+        update = self.story("update", "Gemini 4 Carbon safety benchmark", "2026-10-28T12:00:00Z")
+        rows = {row["id"]: row for row in self.run_stories([first, second, update])["candidates"]}
+        self.assertEqual(rows["first"]["same_event_links"], [
+            {"id": "second", "kind": "candidate", "reason": "title terms: 4, carbon, gemini"}])
+        self.assertEqual(rows["second"]["same_event_links"][0]["id"], "first")
+        self.assertEqual(rows["update"]["same_event_links"], [])
+
+    def test_identical_short_announcement_titles_are_linked(self):
+        first = self.story("first", "Google launches Carbon", "2026-10-28T14:00:00Z")
+        second = self.story("second", "Google launches Carbon", "2026-10-28T13:00:00Z")
+        rows = self.run_stories([first, second])["candidates"]
+        self.assertEqual(rows[0]["same_event_links"], [
+            {"id": "second", "kind": "candidate", "reason": "title terms: carbon, google, launches"}])
 
 
 class TextSourceTest(unittest.TestCase):
