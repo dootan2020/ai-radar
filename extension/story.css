@@ -64,7 +64,8 @@ dialog.story-dialog::backdrop {
   }
 
   .story-dialog-scroller {
-    width: min(940px, calc(100vw - var(--space-48)));
+    /* The panel hugs the single reading column (68ch plus the body gutters). */
+    width: min(760px, calc(100vw - var(--space-48)));
     max-height: min(90vh, 1000px);
     margin: auto;
     border-radius: var(--tile-radius);
@@ -357,14 +358,29 @@ dialog.story-dialog::backdrop {
   }
 }
 
+/* One reading column: every block stacks at the same width, separated by one rhythm. */
 .story-article {
   display: flex;
   flex-direction: column;
+  gap: var(--space-32);
+  width: 100%;
+  max-width: 68ch;
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .story-article {
+    gap: var(--space-24);
+  }
+}
+
+.story-article > * {
+  margin: 0;
 }
 
 /* Header & Publisher Info */
 .story-header {
-  margin-bottom: var(--space-24);
+  min-width: 0;
 }
 
 .story-meta-row {
@@ -529,42 +545,35 @@ dialog.story-dialog::backdrop {
   min-width: 0;
 }
 
-/* Header Primary CTA */
+/* Link to the original under the headline: a small secondary text link, quieter than the summary. */
 .story-header-cta {
-  margin: var(--space-12) 0 var(--space-8);
+  margin: var(--space-4) 0 0;
 }
 
 .story-origin-cta {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-8);
-  /* One line always: a pill that wraps to two lines turns into a distorted lozenge. A long
-     publisher name ellipsizes instead; the full label stays in the accessible name and title. */
+  gap: var(--space-4);
+  /* One line always: a long publisher name ellipsizes; the full label stays in the accessible
+     name and title. The link box keeps a 44px touch height while the text stays small. */
   max-width: 100%;
   min-height: 44px;
-  padding: 0 var(--space-16);
-  border-radius: var(--radius-full);
-  background: var(--color-surface);
-  border: 1px solid var(--color-hair);
-  color: var(--color-ink);
+  color: var(--color-ink-2);
   font-size: var(--text-small);
   font-weight: var(--weight-medium);
   white-space: nowrap;
-  text-decoration: none;
-  box-shadow: 0 1px 2px oklch(var(--shadow-tint) / 0.05);
-  transition: transform var(--duration-150) var(--ease-flow),
-              background var(--duration-150) var(--ease-flow),
-              border-color var(--duration-150) var(--ease-flow);
+  text-decoration: underline;
+  text-decoration-color: var(--color-hair);
+  text-underline-offset: 3px;
+  transition: color var(--duration-150) var(--ease-flow),
+              text-decoration-color var(--duration-150) var(--ease-flow);
 }
 
-.story-origin-cta:hover {
-  background: var(--color-fill);
-  border-color: var(--color-ink-2);
-  transform: translateY(-1px);
-}
-
-.story-origin-cta:active {
-  transform: translateY(1px);
+@media (hover: hover) and (pointer: fine) {
+  .story-origin-cta:hover {
+    color: var(--color-ink);
+    text-decoration-color: currentColor;
+  }
 }
 
 .story-origin-cta:focus-visible {
@@ -580,123 +589,64 @@ dialog.story-dialog::backdrop {
 
 .story-cta-arrow {
   flex-shrink: 0;
-  color: var(--color-accent);
-  font-size: var(--size-14);
+  color: var(--color-ink-3);
+  font-size: var(--size-12);
   line-height: 1;
 }
 
 /* ==========================================================================
-   4. TWO-COLUMN KEYNOTE BODY GRID (MAIN POINTS + ASIDE)
+   4. IMAGE: FULL COLUMN WIDTH, BETWEEN THE HEADLINE BLOCK AND THE TEXT
    ========================================================================== */
 
-.story-body-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.85fr);
-  gap: var(--space-24);
-  align-items: start;
-  margin: var(--space-24) 0;
-}
-
-.story-col-main {
-  min-width: 0;
-}
-
-.story-col-aside {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-24);
-}
-
-@media (max-width: 767px) {
-  .story-body-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    min-width: 0;
-    gap: var(--space-16);
-    margin: var(--space-16) 0;
-  }
-
-  .story-col-aside {
-    display: contents;
-  }
-
-  .story-media {
-    order: 1;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: var(--space-4);
-  }
-
-  .story-col-main {
-    order: 2;
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-  }
-
-  .story-evidence-box {
-    order: 3;
-    width: 100%;
-    box-sizing: border-box;
-  }
-}
-
-/* Media Figure */
 .story-media {
   margin: 0;
-  overflow: hidden;
-  border-radius: var(--radius-16);
-  background: var(--color-fill);
-  border: none;
-  box-shadow: var(--shadow-lift);
+  min-width: 0;
 }
 
 .story-media-img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
+  border-radius: var(--radius-16);
+  background: var(--color-fill);
 }
 
+/* The caption is a quiet line under the picture, not a bar attached to it. */
 .story-media-caption {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: baseline;
   justify-content: space-between;
-  padding: var(--space-8) var(--space-16);
+  gap: var(--space-4) var(--space-12);
+  padding-top: var(--space-8);
   font-size: var(--text-micro);
+  line-height: var(--leading-snug);
   color: var(--color-ink-3);
-  background: var(--color-surface);
-  border-top: 1px solid var(--color-hair);
+}
+
+.story-media-caption .story-pub-name {
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-2);
 }
 
 /* ==========================================================================
-   5. KEY POINTS & SUMMARY (MAIN CONTENT)
+   5. TEXT: SUMMARY OR EXCERPT, SET AS ARTICLE PROSE ON THE PAGE ITSELF
    ========================================================================== */
+
+.story-body {
+  min-width: 0;
+}
 
 .story-keypoints-box + .story-summary-box {
   margin-top: var(--space-24);
 }
 
+/* No card around the text: it is the article, so it sits on the canvas like the headline. */
 .story-keypoints-box,
 .story-summary-box {
-  background: var(--color-surface);
-  border-radius: var(--radius-16);
-  padding: var(--space-24);
-  box-shadow: var(--shadow-lift);
-  border: none;
   min-width: 0;
   max-width: 100%;
-  box-sizing: border-box;
-}
-
-@media (max-width: 767px) {
-  .story-keypoints-box,
-  .story-summary-box {
-    padding: var(--space-16);
-  }
 }
 
 .story-section-head {
@@ -710,6 +660,12 @@ dialog.story-dialog::backdrop {
   line-height: var(--leading-snug);
   color: var(--color-ink);
   margin: 0;
+}
+
+/* Inside the reading column the excerpt's label is a quiet subhead, not a second headline. */
+.story-body .story-section-h2 {
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
 }
 
 .story-section-sub {
@@ -792,9 +748,19 @@ dialog.story-dialog::backdrop {
   line-height: var(--leading-body);
 }
 
+/* On wider screens the reading text steps up one size, as an article body rather than a card note. */
+@media (min-width: 768px) {
+  .story-prose-text,
+  .story-point-text,
+  .story-summary-text {
+    font-size: var(--text-title);
+  }
+}
+
 .story-empty-box {
-  text-align: center;
-  padding: var(--space-32) var(--space-24);
+  padding: var(--space-24) 0;
+  border-top: 1px solid var(--color-hair);
+  border-bottom: 1px solid var(--color-hair);
 }
 
 .story-empty-text {
@@ -804,88 +770,11 @@ dialog.story-dialog::backdrop {
 }
 
 /* ==========================================================================
-   6. EVIDENCE BLOCK ("VÌ SAO ĐƯỢC CHỌN" - QUIET EDITORIAL ASIDE)
-   ========================================================================== */
-
-.story-evidence-box {
-  background: var(--color-surface);
-  border-radius: var(--radius-16);
-  padding: var(--space-24);
-  box-shadow: var(--shadow-lift);
-  border: none;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-@media (max-width: 767px) {
-  .story-evidence-box {
-    padding: var(--space-16);
-  }
-}
-
-.story-evidence-title {
-  font-size: var(--size-18);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-display);
-  line-height: var(--leading-snug);
-  color: var(--color-ink);
-  margin: 0 0 var(--space-12) 0;
-}
-
-.story-evidence-list {
-  display: grid;
-  margin: 0;
-  padding: 0;
-}
-
-.story-evidence-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--space-12);
-  align-items: baseline;
-  padding: var(--space-12) 0;
-  border-top: 1px solid var(--color-hair);
-}
-
-.story-evidence-label {
-  font-size: var(--text-small);
-  font-weight: var(--weight-regular);
-  color: var(--color-ink-2);
-  margin: 0;
-}
-
-.story-evidence-val {
-  font-size: var(--text-small);
-  font-weight: var(--weight-semibold);
-  color: var(--color-ink);
-  margin: 0;
-  text-align: right;
-}
-
-.story-evidence-val.num {
-  font-variant-numeric: tabular-nums;
-}
-
-.story-evidence-link {
-  color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  font-weight: var(--weight-semibold);
-  transition: color var(--duration-150) var(--ease-flow);
-}
-
-.story-evidence-link:hover {
-  color: var(--color-ink);
-}
-
-
-
-/* ==========================================================================
-   7. COVERAGE LIST ("CÁC NGUỒN CÙNG ĐƯA TIN")
+   6. COVERAGE LIST ("CÁC NGUỒN CÙNG ĐƯA TIN"): ONE COLUMN OF HAIRLINE ROWS
    ========================================================================== */
 
 .story-coverage-wrap {
-  margin: var(--space-24) 0;
+  min-width: 0;
 }
 
 .story-coverage-wrap .story-section-head {
@@ -903,17 +792,14 @@ dialog.story-dialog::backdrop {
 
 .story-coverage-list {
   display: grid;
-  gap: var(--space-12);
   margin: 0;
   padding: 0;
   list-style: none;
+  border-bottom: 1px solid var(--color-hair);
 }
 
-@media (min-width: 768px) {
-  .story-coverage-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-12);
-  }
+.story-coverage-list > li {
+  border-top: 1px solid var(--color-hair);
 }
 
 .story-cov-item {
@@ -921,24 +807,17 @@ dialog.story-dialog::backdrop {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-16);
-  padding: var(--space-16);
-  border-radius: var(--radius-12);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-lift);
-  border: none;
+  min-height: 44px;
+  padding: var(--space-12) 0;
+  color: var(--color-ink);
   text-decoration: none;
-  transition: background var(--duration-150) var(--ease-flow),
-              transform var(--duration-150) var(--ease-flow),
-              box-shadow var(--duration-150) var(--ease-flow);
+  transition: color var(--duration-150) var(--ease-flow);
 }
 
-.story-cov-item:hover {
-  background: var(--color-fill);
-  transform: translateY(-1px);
-}
-
-.story-cov-item:active {
-  transform: translateY(1px);
+@media (hover: hover) and (pointer: fine) {
+  .story-cov-item:hover .story-cov-title {
+    color: var(--color-accent);
+  }
 }
 
 .story-cov-item:focus-visible {
@@ -982,95 +861,57 @@ dialog.story-dialog::backdrop {
 }
 
 /* ==========================================================================
-   8. PROMINENT ORIGINAL ARTICLE GATEWAY
+   7. WAY OUT TO THE ORIGINAL: A QUIET CLOSING LINE, SECONDARY TO THE SUMMARY
    ========================================================================== */
 
 .story-origin-gateway {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-24);
-  margin: var(--space-24) 0;
-  padding: var(--space-24);
-  border-radius: var(--radius-16);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-lift);
-  border: none;
-  box-sizing: border-box;
-}
-
-@media (max-width: 767px) {
-  .story-origin-gateway {
-    padding: var(--space-16);
-    gap: var(--space-16);
-  }
-}
-
-@media (min-width: 640px) {
-  .story-origin-gateway {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-.story-origin-info {
-  max-width: 480px;
-}
-
-.story-origin-eyebrow {
-  display: inline-block;
-  font-size: var(--text-micro);
-  font-weight: var(--weight-bold);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--color-ink-2);
-  margin-bottom: var(--space-8);
-}
-
-.story-origin-title {
-  font-size: var(--size-21);
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--tracking-display);
-  color: var(--color-ink);
-  line-height: var(--leading-snug);
-  margin: 0 0 var(--space-8) 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-16);
+  padding-top: var(--space-16);
+  border-top: 1px solid var(--color-hair);
 }
 
 .story-origin-desc {
+  flex: 1 1 24ch;
+  min-width: 0;
   font-size: var(--text-small);
   color: var(--color-ink-2);
   line-height: var(--leading-body);
   margin: 0;
 }
 
+/* Both exits (under the headline and at the end) are small text links, never pills or buttons.
+   The link box keeps a 44px touch height while the visible text stays at the small size. */
 .story-origin-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--space-8);
-  min-height: 48px;
-  min-width: 170px;
-  padding: 0 var(--space-24);
-  white-space: nowrap;
-  border-radius: var(--radius-full);
-  font-size: var(--text-small);
-  font-weight: var(--weight-semibold);
-  background: var(--color-ink);
-  color: var(--color-canvas);
-  border: none;
-  text-decoration: none;
+  gap: var(--space-4);
+  min-height: 44px;
   flex-shrink: 0;
-  transition: transform var(--duration-150) var(--ease-flow),
-              opacity var(--duration-150) var(--ease-flow);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--color-hair);
+  text-underline-offset: 3px;
+  white-space: nowrap;
+  transition: color var(--duration-150) var(--ease-flow),
+              text-decoration-color var(--duration-150) var(--ease-flow);
 }
 
-.story-origin-btn:hover {
-  transform: translateY(-1px);
-  opacity: 0.92;
+@media (hover: hover) and (pointer: fine) {
+  .story-origin-btn:hover {
+    color: var(--color-ink);
+    text-decoration-color: currentColor;
+  }
 }
 
-.story-origin-btn:active {
-  transform: translateY(1px);
+.story-origin-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
 }
 
 /* ==========================================================================
@@ -1083,7 +924,6 @@ dialog.story-dialog::backdrop {
   justify-content: space-between;
   gap: var(--space-16);
   padding-top: var(--space-24);
-  margin-top: var(--space-24);
   border-top: 1px solid var(--color-hair);
 }
 
