@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T17:36:02.054522+00:00",
+  "generated_at": "2026-10-28T18:21:40.287342+00:00",
   "input_generated_at": "2026-10-28T12:41:25Z",
   "decisions": [
     {
@@ -8413,6 +8413,254 @@
       "doi_thuyen": {
         "prompt_version": "doi-thuyen-v1",
         "writer": "codex:gpt-6-astra",
+        "checker": "claude:sonnet",
+        "score": 9,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "a92d7b7ef0e2da4d5922",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "Google công bố mô hình AI Gemini 4 Carbon và sẽ cấp quyền cho một nhóm chuyên gia phòng thủ mạng tuần này. Theo Google, đây là mô hình mạnh nhất của hãng, có năng lực an ninh mạng và xử lý tác vụ kéo dài.",
+        "Google cho biết Carbon kế thừa Gemini 4 Argon, với cải thiện về lập trình, công việc nhiều bước và khoa học. Hãng cũng huấn luyện mô hình để ứng phó đúng cách với nhiệm vụ phức tạp, đồng thời duy trì nhiều lớp bảo vệ.",
+        "Theo Google, khi không bật biện pháp bảo vệ, Carbon đạt 88,2% trên benchmark (bài kiểm chuẩn) SEC-bench Pro về tìm lỗ hổng. Trong các bài kiểm tra nội bộ, Google ghi nhận tỷ lệ tạo mã an toàn thành công của Carbon hơn gấp đôi Argon.",
+        "Quyền truy cập sẽ mở rộng dần tới các đối tác tin cậy qua Fairwind. Google đang lấy phản hồi và điều chỉnh biện pháp bảo vệ trước khi đưa Carbon tới nhà phát triển, doanh nghiệp và người dùng."
+      ],
+      "editorial_headline_vi": "Google công bố Gemini 4 Carbon, bắt đầu cấp quyền cho nhóm phòng thủ mạng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hn-front",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-sol",
+        "checker": "claude:sonnet",
+        "score": 9,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "af8e72e013cbe8cf712f",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "GitHub Copilot Fusion được cung cấp rộng rãi, tự chọn và phối hợp các mô hình cho từng tác vụ.",
+        "Người dùng chọn mức nỗ lực, còn Fusion chọn mô hình bằng cách kết hợp cơ chế HydraFusion với lựa chọn tự động của Copilot. Hệ thống có thể dùng một mô hình, hoặc kiểm tra bản nháp rồi chuyển sang mô hình mạnh hơn khi cần.",
+        "Theo GitHub, trên Artificial Analysis Coding Agent Index, Copilot Fusion Max đạt 60 điểm, cách Claude Code dùng Opus 5.5 Max không quá hai điểm. Theo GitHub, Fusion Max tốn khoảng nửa chi phí API trung bình mỗi tác vụ của Claude Code Opus 5.5 Max trên chỉ số này. Theo GitHub, trên chỉ số đó, Fusion Max dùng ít thời gian hơn khoảng 40% mỗi tác vụ so với Claude Code Opus 5.5 Max.",
+        "Fusion có trên mọi gói Copilot ở Visual Studio Code, ứng dụng GitHub Copilot, Copilot CLI và JetBrains IDEs. Quản trị viên có thể giới hạn mô hình Fusion sử dụng và đặt Fusion làm mặc định. GitHub tính phí từng mô hình; người dùng gói trả phí tạm thời được giảm 30% chi phí mô hình khi dùng Fusion."
+      ],
+      "editorial_headline_vi": "GitHub Copilot Fusion được cung cấp rộng rãi, tự chọn và phối hợp các mô hình AI cho từng tác vụ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github-changelog",
+          "url": "https://github.blog/changelog/2026-10-28-route-and-orchestrate-models-with-github-copilot-fusion"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://github.blog/changelog/2026-10-28-route-and-orchestrate-models-with-github-copilot-fusion",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-sol",
+        "checker": "claude:sonnet",
+        "score": 10,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "c2494667117d789fe0c0",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "GitHub mở thử nghiệm công khai Copilot Projects, nơi gom ngữ cảnh và kết quả công việc trong một dự án. Tính năng phục vụ nhiệm vụ trải nhiều kho mã hoặc kế hoạch ra mắt không cần chạm tới kho mã.",
+        "Người dùng nêu mục tiêu, thêm kho mã, bản thiết kế hoặc ghi chú, rồi chọn mô hình AI và công cụ. Copilot chạy các agent (tác nhân AI tự thực hiện việc) cần thiết trong nền và liên hệ khi cần người dùng. Kết quả như pull request được đưa về để người dùng xem xét.",
+        "Với việc lặp lại, tự động hóa dự án có thể tạo video quảng bá mỗi khi một tính năng hoàn tất. Copilot cũng có thể dùng ngữ cảnh từ Slack và Figma để nghiên cứu yêu cầu hoặc soạn đặc tả. Trong ứng dụng máy tính, Copilot có thể xử lý quy trình báo cáo chi phí bằng cách đọc, nhấp và nhập liệu.",
+        "Khả năng điều khiển máy tính đang thử nghiệm công khai trên macOS và Windows. Nó hoạt động cả với ứng dụng không có API, giao diện dòng lệnh hoặc tích hợp MCP. Copilot phải xin phép trước khi điều khiển ứng dụng; tổ chức có thể tắt tính năng qua cài đặt quản trị."
+      ],
+      "editorial_headline_vi": "GitHub mở thử nghiệm Copilot Projects và khả năng điều khiển ứng dụng trên máy tính",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github-changelog",
+          "url": "https://github.blog/changelog/2026-10-28-github-copilot-app-universe-releases"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://github.blog/changelog/2026-10-28-github-copilot-app-universe-releases",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-sol",
+        "checker": "claude:sonnet",
+        "score": 9,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "532ef9d141d935742f5b",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "GitHub mở dùng thử công khai tiện ích bảo mật, cho phép xử lý cảnh báo quét mã ngay trong ứng dụng Copilot. Người dùng có thể tìm cảnh báo cần ưu tiên, nhờ Copilot giải thích hoặc hỗ trợ sửa lỗi.",
+        "Trước đây, việc sửa cảnh báo đòi hỏi chuyển giữa trang cảnh báo trên github.com và mã trong trình biên tập. Tiện ích đưa chi tiết cảnh báo, mã bị ảnh hưởng và thao tác sửa vào cùng ứng dụng. Copilot chỉ sửa bản sao đang làm việc trên máy, không tạo commit hay đẩy mã lên.",
+        "Với kho đã bật quét mã, tiện ích xếp cảnh báo còn mở theo mức độ nghiêm trọng cho người có quyền xem. Lệnh /security-review rà soát thay đổi hiện tại trước khi mở yêu cầu gộp mã và hiển thị phát hiện mới cạnh cảnh báo cũ.",
+        "Mọi gói Copilot đều có thể dùng /security-review cho thay đổi cục bộ. Việc xem và xử lý cảnh báo cũ cần quét mã và quyền truy cập; kho riêng tư còn cần GitHub Code Security. Tiện ích hỗ trợ github.com và GitHub Enterprise Cloud có lưu trú dữ liệu, nhưng chưa hỗ trợ GitHub Enterprise Server."
+      ],
+      "editorial_headline_vi": "GitHub mở dùng thử tiện ích bảo mật để xử lý cảnh báo quét mã ngay trong ứng dụng Copilot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github-changelog",
+          "url": "https://github.blog/changelog/2026-10-28-security-extension-for-the-github-copilot-app"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://github.blog/changelog/2026-10-28-security-extension-for-the-github-copilot-app",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-sol",
+        "checker": "claude:sonnet",
+        "score": 9,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "f48a388f03b95e78329d",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "GitHub Copilot Fusion bắt đầu thử nghiệm định tuyến thông minh giữa mô hình trên thiết bị và mô hình đám mây. Người dùng cần bật tính năng này trong Copilot CLI, ứng dụng Copilot hoặc Visual Studio Code.",
+        "Khi người dùng chọn Standard, Copilot Fusion tự chọn mô hình cục bộ hoặc đám mây cho từng yêu cầu. Vì vậy, họ không phải chuyển mô hình thủ công mỗi lần.",
+        "Trên thiết bị Windows được hỗ trợ, người dùng có thể tải và cấu hình MAI Code 1.1 Flash qua Windows ML. Trong Copilot CLI trên Windows, macOS và Linux, định tuyến cũng hỗ trợ mô hình tự cấu hình qua máy chủ tương thích OpenAI. Hai mô hình được hỗ trợ theo cách này là MAI Code 1.1 Flash và Qwen3.8 Flash Next.",
+        "Ứng dụng Copilot cho phép kết nối và chọn trực tiếp mô hình cục bộ tương thích. Tuy nhiên, định tuyến thông minh trong ứng dụng hiện chỉ hỗ trợ mô hình Windows ML được quản lý. Chạy mô hình cục bộ không khiến phiên làm việc ngoại tuyến, vì Copilot Fusion vẫn quyết định định tuyến trên đám mây. Các mô hình cục bộ có thể có biện pháp an toàn khác mô hình đám mây do Copilot cung cấp."
+      ],
+      "editorial_headline_vi": "GitHub Copilot Fusion mở thử nghiệm định tuyến giữa mô hình AI cục bộ và đám mây",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github-changelog",
+          "url": "https://github.blog/changelog/2026-10-28-github-copilot-fusion-now-supports-selection-of-local-models"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://github.blog/changelog/2026-10-28-github-copilot-fusion-now-supports-selection-of-local-models",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-sol",
+        "checker": "claude:sonnet",
+        "score": 9,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "7281347817fe3ba228cd",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "Laptop RTX Spark hiện bán từ ASUS, Dell, HP, Lenovo, Microsoft và MSI. NVIDIA đồng thời công bố các cập nhật về AI, phân bổ GPU và trò chơi; một số đã có, số khác sắp ra mắt.",
+        "Siêu chip ghép GPU Blackwell RTX với CPU Grace và tối đa 128GB bộ nhớ hợp nhất cho tác vụ sáng tạo và AI. NVIDIA App cho phép phân bổ GPU giữa ứng dụng đang dùng và agent (tác nhân AI tự thực hiện việc) chạy nền. Tính năng này cần bật lập lịch GPU tăng tốc phần cứng trong Windows.",
+        "Theo NVIDIA, mô hình AI Nemotron 3.5 Transcribe đứng đầu Hugging Face Open ASR nhưng thứ hai trong nhóm trọng số mở trên Artificial Analysis. NVIDIA nói Transcribe có khoảng 4,3 tỷ tham số hoạt động, ít hơn 80% so với mô hình trọng số mở đứng đầu. RTX Remix 1.6 hiện hỗ trợ Minecraft Java Edition 1.21.1 với dò tia đường đi và DLSS.",
+        "Transcribe gộp phiên âm, gắn nhãn người nói và dịch trong một mô hình. Bản lượng tử hóa để chạy Transcribe cục bộ trên RTX Spark vẫn sắp ra mắt."
+      ],
+      "editorial_headline_vi": "Laptop NVIDIA RTX Spark từ sáu hãng có thêm công cụ AI, điều khiển GPU và hỗ trợ trò chơi",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia-newsroom",
+          "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-updates-models-agents-games/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-updates-models-agents-games/",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-sol",
+        "checker": "claude:sonnet",
+        "score": 9,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "2c5fcb5691316a28921f",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "Chrome đang triển khai tính năng tự động điền nâng cao bằng AI, lấy gợi ý từ Gmail cho biểu mẫu trực tuyến. Tính năng được triển khai cho người dùng Mỹ trên máy tính, cùng ứng dụng Gemini trong Chrome trên iOS và Android.",
+        "Bản cập nhật mở rộng Personal Intelligence của Google. Tính năng này đã cho phép Gemini tìm chi tiết trong các ứng dụng Google được kết nối để trả lời câu hỏi phức tạp.",
+        "Khi điền biểu mẫu, người dùng có thể nhận gợi ý từ email về mã xác nhận chuyến bay hoặc thông tin theo dõi. Chrome cũng có thể gợi ý mã thành viên, địa chỉ, số điện thoại và số thẻ tín dụng.",
+        "Người dùng có thể chọn bật tính năng trong cài đặt Chrome; Google cho biết dữ liệu nhạy cảm được mã hóa. Việc điền biểu mẫu có thể trở nên thuận tiện hơn, tạo thêm lý do để người dùng tiếp tục sử dụng Chrome."
+      ],
+      "editorial_headline_vi": "Chrome triển khai tự động điền biểu mẫu bằng AI, gợi ý thông tin từ Gmail cho người dùng Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch-ai",
+          "url": "https://techcrunch.com/2026/10/28/chromes-ai-powered-autofill-can-now-dig-through-your-gmail-to-fill-out-forms/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://techcrunch.com/2026/10/28/chromes-ai-powered-autofill-can-now-dig-through-your-gmail-to-fill-out-forms/",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-sol",
+        "checker": "claude:sonnet",
+        "score": 10,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "83a93c348b55de589206",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "Nvidia phát hành miễn phí Nemotron 3.5 Transcribe, mô hình trọng số mở có thể phiên âm âm thanh bằng tối đa 40 ngôn ngữ. Hãng cũng phát hành phiên bản 2 của Granary, bộ dữ liệu tiếng nói mã nguồn mở.",
+        "Nvidia cho biết nhà phát triển có thể dùng mô hình, Granary và NeMo Speech để tùy chỉnh ứng dụng. Các công cụ này giúp ứng dụng nhận diện thuật ngữ chuyên ngành trong từng ngôn ngữ.",
+        "Theo Nvidia, mô hình có thể dịch 31 ngôn ngữ sang và từ tiếng Anh, xử lý bản ghi dài tới một giờ. Hãng cũng tuyên bố mô hình phân biệt được tối đa tám người nói. Nvidia nói mô hình vượt đối thủ trên các benchmark (bài kiểm chuẩn), gồm Open ASR Leaderboard của Hugging Face.",
+        "Bộ công cụ hướng tới ứng dụng cho họp doanh nghiệp và phiên âm y tế. Transcribe chỉ xử lý âm thanh đã ghi, không xử lý âm thanh phát trực tiếp. Nvidia nói mô hình 30 tỷ tham số có thể chạy trên một chip, kể cả Jetson AGX Thor và chip Blackwell."
+      ],
+      "editorial_headline_vi": "Nvidia phát hành mô hình AI phiên âm Nemotron 3.5 Transcribe trọng số mở, hỗ trợ tối đa 40 ngôn ngữ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch-ai",
+          "url": "https://techcrunch.com/2026/10/28/voice-ai-in-vogue-nvidia-releases-new-open-transcription-model/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://techcrunch.com/2026/10/28/voice-ai-in-vogue-nvidia-releases-new-open-transcription-model/",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-sol",
         "checker": "claude:sonnet",
         "score": 9,
         "cap_nhat": false
