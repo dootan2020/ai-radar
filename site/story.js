@@ -159,16 +159,32 @@ export function storyTitle(story) {
 
 const summaryText = text => esc(text).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 
-export function renderEditorialSummaryHTML(story, publisherName = '') {
+/* Summary sources carry the publisher key in lowercase ("nvidia", "hacker-news"). Show the
+   source's display name instead: the story's own source first, then any source of that publisher,
+   then the key with each word capitalised. A name that already has capitals is kept as written. */
+export function sourceDisplayName(raw, story = {}, srcMap = new Map()) {
+  const key = String(raw || '').trim();
+  if (!key || key !== key.toLowerCase()) return key;
+  const own = (story.coverage || []).map(c => c && srcMap.get(c.source)).find(s => s && s.publisher === key && s.name);
+  if (own) return own.name;
+  for (const s of srcMap.values()) {
+    if (s && s.name && (s.publisher === key || s.id === key) && s.name !== s.name.toLowerCase()) return s.name;
+  }
+  return key.split(/[-_\s]+/).filter(Boolean).map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+}
+
+export function renderEditorialSummaryHTML(story, publisherName = '', srcMap = new Map()) {
   if (!hasEditorialSummary(story)) return renderFallbackBodyHTML(story, publisherName);
+  const shown = name => sourceDisplayName(name, story, srcMap);
   const sources = story.summary_sources.filter(s => safe(s?.url) !== '#').map(s =>
-    `<a href="${esc(safe(s?.url))}" target="_blank" rel="noopener noreferrer">${esc(s.name)}${s.role === 'primary' ? ' — nguồn gốc' : ''}</a>`).join(' · ');
+    `<a href="${esc(safe(s?.url))}" target="_blank" rel="noopener noreferrer">${esc(shown(s.name))}${s.role === 'primary' ? ' — nguồn gốc' : ''}</a>`).join(' · ');
   const partial = (story.summary_limitations || []).includes('partial_source');
-  const outlet = (story.summary_sources.find(s => s?.role === 'outlet' && s?.name) || {}).name || publisherName;
+  const outletRaw = (story.summary_sources.find(s => s?.role === 'outlet' && s?.name) || {}).name;
+  const outlet = outletRaw ? shown(outletRaw) : publisherName;
   return `
     ${isDeskProse(story) ? renderDeskProseHTML(story.key_points, outlet) : renderKeyPointsHTML(story.key_points, publisherName)}
     <div class="story-summary-attribution">
-      <p class="story-summary-sources">Nguồn: ${sources}</p>
+      <p class="story-summary-sources"><span class="story-credit-label">Nguồn:</span> ${sources}</p>
       ${partial ? '<p class="story-section-sub">Bản tóm tắt dựa trên các phần nguồn đọc được.</p>' : ''}
       ${(story.summary_limitations || []).includes('missing_primary') ? '<p class="story-section-sub">Chưa đọc được nguồn gốc được bài báo dẫn.</p>' : ''}
     </div>`;
@@ -184,7 +200,7 @@ export function renderDeskProseHTML(paragraphs, outletName = '') {
     <section class="story-keypoints-box story-prose-box" aria-label="Tóm tắt bài viết">
       <div class="story-section-head">
         <div>
-          <p class="story-section-sub">${label}</p>
+          <p class="story-section-sub story-byline">${label}</p>
         </div>
       </div>
       <div class="story-prose">
@@ -212,7 +228,7 @@ export function renderKeyPointsHTML(keyPoints, publisherName = '') {
     <section class="story-keypoints-box" aria-label="Tóm tắt bài viết">
       <div class="story-section-head">
         <div>
-          <p class="story-section-sub">${sub}</p>
+          <p class="story-section-sub story-byline">${sub}</p>
         </div>
       </div>
       <ol class="story-points-list">
@@ -478,7 +494,7 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
       ${mediaHTML}
 
       <div class="story-body">
-        ${renderEditorialSummaryHTML(story, name)}
+        ${renderEditorialSummaryHTML(story, name, srcMap)}
       </div>
 
       ${renderCoverageListHTML(story.coverage, srcMap)}
