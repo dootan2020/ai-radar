@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-29",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-27T23:00:00Z",
+  "cutoff_at": "2026-10-28T23:00:00Z",
+  "created_at": "2026-10-28T23:03:11Z",
+  "snapshot_generated_at": "2026-10-28T23:01:20Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-28T23:01:20Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "c2494667117d789fe0c0",
+      "title": "GitHub Copilot app, Universe releases",
+      "title_vi": "Ứng dụng GitHub Copilot, Universe phát hành",
+      "headline": "GitHub Copilot app, Universe releases",
+      "headline_vi": "Ứng dụng GitHub Copilot, Universe phát hành",
+      "url": "https://github.blog/changelog/2026-10-28-github-copilot-app-universe-releases",
+      "published_at": "2026-10-28T15:55:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "GitHub mở thử nghiệm Copilot Projects và khả năng điều khiển ứng dụng trên máy tính",
+      "editorial_headline_verified": true,
+      "source_count": 3,
+      "coverage": [
+        {
+          "id": "12214f0d538399e8e4d3",
+          "title": "GitHub Copilot app, Universe releases",
+          "title_vi": "Ứng dụng GitHub Copilot, Universe phát hành",
+          "headline": "GitHub Copilot app, Universe releases",
+          "headline_vi": "Ứng dụng GitHub Copilot, Universe phát hành",
+          "url": "https://github.blog/changelog/2026-10-28-github-copilot-app-universe-releases",
+          "published_at": "2026-10-28T15:55:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "github-changelog",
+          "publisher": "github",
+          "entity": "github",
+          "group": "lab",
+          "observed_at": "2026-10-28T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "e1d603188eb2a9364559",
+          "title": "Introducing the Microsoft Copilot harness: Unlocking the potential of truly multi-model agentic work",
+          "title_vi": "Ra mắt Microsoft Copilot harness: Khởi mở tiềm năng của công việc thực sự đa mô hình đại lý",
+          "headline": "Introducing the Microsoft Copilot harness: Unlocking the potential of truly multi-model agentic work",
+          "headline_vi": "Ra mắt Microsoft Copilot harness: Khởi mở tiềm năng của công việc thực sự đa mô hình đại lý",
+          "url": "https://blogs.microsoft.com/blog/2026/10/28/introducing-the-microsoft-copilot-harness-unlocking-the-potential-of-truly-multi-model-agentic-work/",
+          "published_at": "2026-10-28T16:51:35Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "microsoft-blog",
+          "publisher": "microsoft",
+          "entity": "microsoft",
+          "group": "lab",
+          "observed_at": "2026-10-28T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "f0efecc9c3fe6b14c78d",
+          "title": "Microsoft is ending Copilot support on smart TVs",
+          "title_vi": "Microsoft sẽ chấm dứt hỗ trợ Copilot trên TV thông minh",
+          "headline": "Microsoft is ending Copilot support on smart TVs",
+          "headline_vi": "Microsoft sẽ chấm dứt hỗ trợ Copilot trên TV thông minh",
+          "url": "https://www.theverge.com/tech/1021143/microsoft-lg-samsung-copilot-ai-assistant-smart-tvs-ending",
+          "published_at": "2026-10-28T18:36:26Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-28T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "12214f0d538399e8e4d3",
+              "e1d603188eb2a9364559"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "3 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "github",
+              "microsoft",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "github",
+            "microsoft",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 7.0833,
+          "hot_score": 88.232,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "1e84e499960d1fc40c51",
+      "title": "GitHub Copilot in VS Code, Universe releases",
+      "title_vi": "GitHub Copilot trong VS Code, vũ trụ phát hành",
+      "headline": "GitHub Copilot in VS Code, Universe releases",
+      "headline_vi": "GitHub Copilot trong VS Code, vũ trụ phát hành",
+      "url": "https://github.blog/changelog/2026-10-28-github-copilot-in-vs-code-universe-releases",
+      "published_at": "2026-10-28T15:33:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "9efe126a74123e666a13",
+          "title": "GitHub Copilot in VS Code, Universe releases",
+          "title_vi": "GitHub Copilot trong VS Code, vũ trụ phát hành",
+          "headline": "GitHub Copilot in VS Code, Universe releases",
+          "headline_vi": "GitHub Copilot trong VS Code, vũ trụ phát hành",
+          "url": "https://github.blog/changelog/2026-10-28-github-copilot-in-vs-code-universe-releases",
+          "published_at": "2026-10-28T15:33:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "github-changelog",
+          "publisher": "github",
+          "entity": "github",
+          "group": "lab",
+          "observed_at": "2026-10-28T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "9efe126a74123e666a13"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "github"
+          ],
+          "age_hours_at_cutoff": 7.45,
+          "hot_score": 59.085,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "d48e37e09df5a7b1656f",
+      "title": "GitHub Agentic Workflows generally available",
+      "title_vi": "GitHub Agentic Workflows đã phát hành chính thức",
+      "headline": "GitHub Agentic Workflows generally available",
+      "headline_vi": "GitHub Agentic Workflows đã phát hành chính thức",
+      "url": "https://github.blog/changelog/2026-10-28-github-agentic-workflows-generally-available",
+      "published_at": "2026-10-28T15:30:15Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "GitHub Agentic Workflows chính thức phát hành, tự động hóa công việc trong GitHub Actions",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "12363bd1f3cb501c6fd8",
+          "title": "GitHub Agentic Workflows generally available",
+          "title_vi": "GitHub Agentic Workflows đã phát hành chính thức",
+          "headline": "GitHub Agentic Workflows generally available",
+          "headline_vi": "GitHub Agentic Workflows đã phát hành chính thức",
+          "url": "https://github.blog/changelog/2026-10-28-github-agentic-workflows-generally-available",
+          "published_at": "2026-10-28T15:30:15Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "github-changelog",
+          "publisher": "github",
+          "entity": "github",
+          "group": "lab",
+          "observed_at": "2026-10-28T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "12363bd1f3cb501c6fd8"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "github"
+          ],
+          "age_hours_at_cutoff": 7.4958,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "047d81f60ca5ab879683",
+      "title": "Introducing artifacts for legal work",
+      "title_vi": "Ra mắt đồ tạo tác cho công việc pháp lý",
+      "headline": "Introducing artifacts for legal work",
+      "headline_vi": "Ra mắt đồ tạo tác cho công việc pháp lý",
+      "url": "https://claude.com/resources/articles/introducing-artifacts-for-legal-work",
+      "published_at": "2026-10-28T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "7674530eb06d630efc33",
+          "title": "Introducing artifacts for legal work",
+          "title_vi": "Ra mắt đồ tạo tác cho công việc pháp lý",
+          "headline": "Introducing artifacts for legal work",
+          "headline_vi": "Ra mắt đồ tạo tác cho công việc pháp lý",
+          "url": "https://claude.com/resources/articles/introducing-artifacts-for-legal-work",
+          "published_at": "2026-10-28T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "anthropic-claude",
+          "publisher": "anthropic",
+          "entity": "anthropic",
+          "group": "lab",
+          "observed_at": "2026-10-28T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "7674530eb06d630efc33"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "anthropic"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "c2a542e2cd0cb42f99d2",
+      "title": "Voters in Texas agree: They hate data centers",
+      "title_vi": "Các cử tri ở Texas đồng ý: Họ ghét các trung tâm dữ liệu",
+      "headline": "Voters in Texas agree: They hate data centers",
+      "headline_vi": "Các cử tri ở Texas đồng ý: Họ ghét các trung tâm dữ liệu",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1018676/data-center-midterm-election-energy-water-texas",
+      "published_at": "2026-10-28T12:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "fdb0c472a9b6c59c9b39",
+          "title": "Banks Shelve Bond Sale for Anthropic-Tied Texas Data Center",
+          "title_vi": "Các ngân hàng bán trái phiếu cho trung tâm dữ liệu Texas Anthropic-Tied",
+          "headline": "Banks Shelve Bond Sale for Anthropic-Tied Texas Data Center",
+          "headline_vi": "Các ngân hàng bán trái phiếu cho trung tâm dữ liệu Texas Anthropic-Tied",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-28/banks-shelve-bond-sale-for-anthropic-tied-texas-data-center",
+          "published_at": "2026-10-28T21:50:15Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-28T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "68096f07eaf94f3f4a21",
+          "title": "Voters in Texas agree: They hate data centers",
+          "title_vi": "Các cử tri ở Texas đồng ý: Họ ghét các trung tâm dữ liệu",
+          "headline": "Voters in Texas agree: They hate data centers",
+          "headline_vi": "Các cử tri ở Texas đồng ý: Họ ghét các trung tâm dữ liệu",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1018676/data-center-midterm-election-energy-water-texas",
+          "published_at": "2026-10-28T12:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-10-28T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 11.0,
+          "hot_score": 62.772,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 71,
+    "successful_remote_sources": 70,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
