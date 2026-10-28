@@ -5,11 +5,12 @@ Phiên bản 1. Lucy viết 2026-10-28 22:0x cho lát 1 (ai-radar `radar/ung_vie
 ## Lệnh
 
 ```
-python -m radar.ung_vien --hours 8 --limit 30 --out <đường dẫn json> [--snapshot <tệp hoặc URL>] [--decisions <tệp>]
+python -m radar.ung_vien --hours 8 --limit 30 --out <đường dẫn json> [--snapshot <tệp hoặc URL>] [--decisions <tệp>] [--same-event-hours 48]
 ```
 
 - Mặc định đọc ảnh chụp site `https://radar-ai-vn.pages.dev/data/radar-intake.json` (hằng `SNAPSHOT_URL` trong `phong_bao/cycle.py`); `--snapshot` nhận tệp cục bộ hoặc URL thay cho ảnh chụp.
 - Chạy hoàn toàn không mạng cần thêm `--articles <tệp json>` (`{url: {text, reason, fetched_at}}`, chép từ một lần tải thật): chỉ `--snapshot` thì bài vẫn được tải qua mạng. `--now <ISO UTC>` neo cửa sổ thời gian cho test và chạy lại. Hai cờ này không thêm trường nào vào tệp JSON.
+- `--same-event-hours` đổi cửa sổ so tiêu đề với decision `publish` (mặc định 48 giờ, phải dương). Decision cần có `published_at`, hoặc story cùng `id` trong snapshot cần có `published_at`; decision thiếu cả hai không được so tiêu đề.
 - Exit 0 khi ghi được tệp, kể cả khi 0 ứng viên. Exit khác 0 chỉ khi không lấy được ảnh chụp hoặc không ghi được tệp. Lỗi tải từng bài không làm lệnh thất bại; bài đó vào `rejected`.
 - Chỉ in ra stdout một dòng tóm tắt đếm (`in_window=… candidates=… rejected=…`); mọi thứ khác vào tệp.
 
@@ -36,7 +37,8 @@ python -m radar.ung_vien --hours 8 --limit 30 --out <đường dẫn json> [--sn
       "text_source": "full",
       "text_fetched_at": "2026-10-28T15:04:58Z",
       "coverage": [{"id": "244281e7cfee66fe46a3", "title": "…", "url": "https://…"}],
-      "same_event_published": []
+      "same_event_published": [],
+      "same_event_links": []
     }
   ],
   "rejected": [
@@ -63,6 +65,9 @@ python -m radar.ung_vien --hours 8 --limit 30 --out <đường dẫn json> [--sn
 | `text_fetched_at` | string ISO UTC | lúc tải |
 | `coverage` | list | các bài khác cùng sự kiện trong ảnh chụp (`coverage` của story), mỗi phần tử `{id, title, url}` |
 | `same_event_published` | list id | story cùng sự kiện đã có tóm tắt trên site (để bàn Chọn đánh giá "cập nhật" theo tiêu chí 4) |
+| `same_event_links` | list `{id, kind, reason}` | giải thích từng liên kết; `kind` là `published` hoặc `candidate`, `reason` ghi alias/URL hoặc các từ tiêu đề trùng; liên kết `candidate` xuất hiện ở cả hai hàng trong batch |
+
+Liên kết qua tiêu đề chỉ xét decision `publish` trong cửa sổ trên. Sau khi bỏ dấu và từ nối thông dụng, hai tiêu đề cần trùng ít nhất ba từ; tên ngắn ba từ có số phiên bản chỉ nối với tiêu đề công bố/phát hành hoặc tên giống hệt, còn tiêu đề dài cần trùng ít nhất bốn từ và đủ tỷ lệ từ ở cả hai phía. Các số phiên bản khác nhau không nối. Ứng viên trùng trong cùng batch chỉ được đánh dấu, không bị loại; bàn Chọn quyết định đăng hay cập nhật. Liên kết alias/coverage đã có vẫn được giữ.
 
 ### Lý do loại (`rejected[].reason`)
 

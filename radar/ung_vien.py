@@ -20,6 +20,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import unicodedata
 from urllib.parse import urlsplit
 
 from radar.clustering import canonical_url
@@ -74,6 +75,13 @@ CUTOFF_TAIL = re.compile(r"^(?:select voice|ai-generated voice|subscribe(?: for 
                          r"already have an account\? sign in)$", re.IGNORECASE)
 CUTOFF_TAIL_LINES = 12
 FUTURE_TOLERANCE = timedelta(hours=1)
+SAME_EVENT_HOURS = 48
+TITLE_WORDS = re.compile(r"[a-z]+|\d+(?:\.\d+)?")
+TITLE_STOPWORDS = {"a", "an", "and", "at", "by", "for", "from", "in", "of", "on", "the", "to",
+                   "with", "va", "voi", "cua", "cho", "trong", "tai", "tu", "la", "nhung", "mot",
+                   "duoc", "ve", "sau", "khi", "theo", "ai"}
+ANNOUNCEMENT_TERMS = {"announces", "announced", "launches", "launched", "introducing", "introduced",
+                      "releases", "released", "unveils", "unveiled"}
 
 
 def _iso(value):
@@ -107,16 +115,21 @@ def load_snapshot(source):
 
 def published_decision_ids(path):
     """IDs the newsroom already published; an unreadable file counts as none."""
+    return {row["id"] for row in published_decisions(path)}
+
+
+def published_decisions(path):
+    """Published decision rows; an unreadable file counts as none."""
     if not path:
-        return set()
+        return []
     try:
         data = json.loads(Path(path).read_text(encoding="utf-8"))
     except (OSError, ValueError) as error:
         print(f"ung_vien: decisions ignored: {error}", file=sys.stderr)
-        return set()
+        return []
     rows = data.get("decisions") if isinstance(data, dict) else None
-    return {row["id"] for row in rows or [] if isinstance(row, dict) and row.get("id")
-            and row.get("decision") == "publish"}
+    return [row for row in rows or [] if isinstance(row, dict) and row.get("id")
+            and row.get("decision") == "publish"]
 
 
 def representative(story):
@@ -209,6 +222,48 @@ def same_event_published(story, published):
     return ids
 
 
+def _plain_title(title):
+    plain = unicodedata.normalize("NFKD", title or "").casefold()
+    return "".join(char for char in plain if not unicodedata.combining(char))
+
+
+def _title_terms(title):
+    return set(TITLE_WORDS.findall(_plain_title(title))) - TITLE_STOPWORDS
+
+
+def title_event_reason(left, right):
+    """Conservative title overlap; a shared brand alone cannot identify an event."""
+    first, second = _title_terms(left), _title_terms(right)
+    shared = first & second
+    if len(shared) < 3 or not first or not second:
+        return None
+    first_numbers = {term for term in first if term[0].isdigit()}
+    second_numbers = {term for term in second if term[0].isdigit()}
+    if first_numbers and second_numbers and first_numbers != second_numbers:
+        return None
+    short, long = sorted((len(first), len(second)))
+    longer_title = left if len(first) >= len(second) else right
+    plain_longer = " ".join(TITLE_WORDS.findall(_plain_title(longer_title)))
+    announcement = (bool(_title_terms(longer_title) & ANNOUNCEMENT_TERMS)
+                    or any(phrase in plain_longer for phrase in ("cong bo", "ra mat", "gioi thieu", "phat hanh")))
+    numbered_name = (short == 3 and len(shared) == 3 and first_numbers & second_numbers
+                     and (long == 3 or announcement))
+    exact_title = short == long == len(shared) and short >= 3 and announcement
+    if len(shared) / short < 0.8 or not (len(shared) >= 4 and len(shared) / long >= 0.65
+                                           or numbered_name or exact_title):
+        return None
+    return "title terms: " + ", ".join(sorted(shared))
+
+
+def _title_link(left, right):
+    for title in (left.get("title"), left.get("title_vi"), left.get("editorial_headline_vi")):
+        for other in (right.get("title"), right.get("title_vi"), right.get("editorial_headline_vi")):
+            reason = title_event_reason(title, other)
+            if reason:
+                return reason
+    return None
+
+
 def _reject(story, reason, detail=""):
     return {"id": story["id"], "title": story.get("title") or "", "url": story.get("url") or "",
             "reason": reason, "detail": detail}
@@ -262,14 +317,25 @@ def _candidate(story, text, fetched_at):
         "text_fetched_at": _iso(fetched_at),
         "coverage": _coverage(story),
         "same_event_published": [],
+        "same_event_links": [],
     }
     if truncated:
         row["text_truncated"] = True
     return row
 
 
-def build(snapshot, *, hours, limit, now, read, decided=frozenset(), keep_window=False, workers=FETCH_WORKERS):
+def build(snapshot, *, hours, limit, now, read, decided=frozenset(), decisions=(),
+          same_event_hours=SAME_EVENT_HOURS, keep_window=False, workers=FETCH_WORKERS):
     stories = snapshot["stories"]
+    story_by_id = {story["id"]: story for story in stories}
+    decision_rows = [row for row in decisions if row.get("decision") == "publish" and row.get("id")]
+    decided = set(decided) | {row["id"] for row in decision_rows}
+    recent_decisions = []
+    for decision in decision_rows:
+        story = story_by_id.get(decision["id"], {})
+        when = instant(decision.get("published_at") or story.get("published_at"))
+        if when and now - timedelta(hours=same_event_hours) <= when <= now + FUTURE_TOLERANCE:
+            recent_decisions.append((decision, story))
     start = now - timedelta(hours=hours)
     published = [s for s in stories if s.get("key_points") or s["id"] in decided]
     in_window, rejected = [], []
@@ -316,12 +382,28 @@ def build(snapshot, *, hours, limit, now, read, decided=frozenset(), keep_window
                 if row["text_chars"] < MIN_TEXT_CHARS and row["text_source"] != "abstract":
                     rejected.append(_reject(story, "too_short", f"text_chars {row['text_chars']}"))
                     continue
+                links = [{"id": sibling, "kind": "published", "reason": "alias or shared coverage URL"}
+                         for sibling in siblings]
+                for decision, other in recent_decisions:
+                    if decision["id"] == story["id"] or decision["id"] in siblings:
+                        continue
+                    reason = _title_link(story, {**other, **decision})
+                    if reason:
+                        siblings.append(decision["id"])
+                        links.append({"id": decision["id"], "kind": "published", "reason": reason})
                 row["same_event_published"] = siblings
+                row["same_event_links"] = links
                 candidates.append(row)
     for story, _ in queue[position:]:
         rejected.append(_reject(story, "limit", f"beyond --limit {limit}"))
 
     candidates.sort(key=lambda row: row["published_at"], reverse=True)
+    for index, left in enumerate(candidates):
+        for right in candidates[index + 1:]:
+            reason = _title_link(left, right)
+            if reason:
+                left["same_event_links"].append({"id": right["id"], "kind": "candidate", "reason": reason})
+                right["same_event_links"].append({"id": left["id"], "kind": "candidate", "reason": reason})
     generated = instant(snapshot.get("generated_at"))
     return {
         "schema_version": SCHEMA_VERSION,
@@ -359,6 +441,8 @@ def main(argv=None):
     parser.add_argument("--out", required=True)
     parser.add_argument("--snapshot", help="local snapshot file or URL (default: the live site)")
     parser.add_argument("--decisions", help="phong-bao/decisions.json; published IDs count as summarised")
+    parser.add_argument("--same-event-hours", type=_positive(float), default=SAME_EVENT_HOURS,
+                        help="look back this many hours for title matches to published decisions (default: 48)")
     parser.add_argument("--keep-rejected-window", action="store_true",
                         help="also list stories outside the window as outside_window")
     parser.add_argument("--articles", help="offline article fixture {url: {text, reason}} instead of the network")
@@ -376,7 +460,8 @@ def main(argv=None):
         return 2
     read = fixture_reader(args.articles) if args.articles else network_reader()
     result = build(snapshot, hours=hours, limit=args.limit, now=now, read=read,
-                   decided=published_decision_ids(args.decisions), keep_window=args.keep_rejected_window)
+                   decisions=published_decisions(args.decisions), same_event_hours=args.same_event_hours,
+                   keep_window=args.keep_rejected_window)
     try:
         write_json(args.out, result)
     except OSError as error:
