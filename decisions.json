@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T18:21:40.287342+00:00",
+  "generated_at": "2026-10-28T19:15:55.591858+00:00",
   "input_generated_at": "2026-10-28T12:41:25Z",
   "decisions": [
     {
@@ -8661,6 +8661,68 @@
       "doi_thuyen": {
         "prompt_version": "doi-thuyen-v1",
         "writer": "codex:gpt-6-sol",
+        "checker": "claude:sonnet",
+        "score": 9,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "9084abaaec71303f8aba",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "Doanh nghiệp làm việc với đội tài khoản GitHub hoặc Microsoft nay có thể nhận Copilot cho mỗi người có giấy phép GitHub Enterprise Cloud.",
+        "Trước đây, doanh nghiệp quản lý số suất Copilot trả phí lẫn lượng sử dụng AI; nay ngân sách doanh nghiệp là trọng tâm. Mỗi yêu cầu AI được tính vào ngân sách từ đầu, theo chính sách, cảnh báo và phân bổ sẵn có. Không có hạn mức sử dụng kèm theo để theo dõi hay nạp thêm.",
+        "Người thuộc tài khoản doanh nghiệp nhưng không có giấy phép GitHub Enterprise có thể dùng Copilot Standalone với giá 10 USD/người/tháng. Quyền dùng qua GitHub Enterprise và Copilot Standalone có tính năng, mô hình AI như Copilot Enterprise. Cả hai không kèm tín dụng AI hằng tháng cho mỗi suất.",
+        "Khi ngân sách cạn, quyền truy cập vẫn còn; gợi ý hoàn thành mã và chỉnh sửa tiếp theo tiếp tục hoạt động. Copilot Chat, Copilot code review và Copilot trên đám mây cần ngân sách còn lại để sử dụng. Doanh nghiệp tự đăng ký chưa được áp dụng; gói hiện tại không đổi, còn Copilot Business và Copilot Enterprise vẫn được bán."
+      ],
+      "editorial_headline_vi": "GitHub Enterprise Cloud nay kèm Copilot cho mọi người có giấy phép ở doanh nghiệp đủ điều kiện",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github-changelog",
+          "url": "https://github.blog/changelog/2026-10-28-github-enterprise-now-includes-access-to-github-copilot"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://github.blog/changelog/2026-10-28-github-enterprise-now-includes-access-to-github-copilot",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-sol",
+        "checker": "claude:sonnet",
+        "score": 10,
+        "cap_nhat": false
+      }
+    },
+    {
+      "id": "090274bcc4740a7076a1",
+      "decision": "publish",
+      "written_by": "nguoi-viet",
+      "key_points": [
+        "Google ra mắt Connected Apps Platform, cho phép doanh nghiệp đưa ứng dụng vào các trải nghiệm AI trên Gemini và Google Search. Bản xem trước hiện dành cho nhà phát triển tại Mỹ đăng ký danh sách chờ.",
+        "Theo Google, nhà phát triển kết nối qua máy chủ MCP hoặc Android MCP, rồi đăng ký, thử nghiệm và gửi ứng dụng. Họ có thể chọn cung cấp ứng dụng trên Search, Gemini hoặc cả hai. Khi ứng dụng hoạt động, họ có thể theo dõi lưu lượng truy cập, độ trễ và tỷ lệ lỗi.",
+        "Gemini hiện có hơn 50 ứng dụng kết nối, trong khi Search có ít tích hợp hơn. Những ứng dụng trên Gemini sẽ đến Search trong vài tuần tới. Người dùng có thể kết nối Canva để thiết kế tờ rơi hoặc YouTube Music để tạo danh sách phát.",
+        "Theo TechCrunch, tích hợp này có thể chuyển việc sử dụng dịch vụ từ từng ứng dụng sang nhà cung cấp AI. TechCrunch nhận định cần nhiều ứng dụng kết nối để thu hút và giữ chân người dùng. Google chưa công bố khi nào nền tảng được cung cấp rộng rãi hơn."
+      ],
+      "editorial_headline_vi": "Google mở nền tảng kết nối ứng dụng với Gemini và Search, thử nghiệm tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch-ai",
+          "url": "https://techcrunch.com/2026/10/28/as-ai-agents-reshape-the-web-google-opens-gemini-and-search-to-more-apps/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "content_kind": "event_news",
+      "source_url": "https://techcrunch.com/2026/10/28/as-ai-agents-reshape-the-web-google-opens-gemini-and-search-to-more-apps/",
+      "doi_thuyen": {
+        "prompt_version": "doi-thuyen-v1",
+        "writer": "codex:gpt-6-astra",
         "checker": "claude:sonnet",
         "score": 9,
         "cap_nhat": false
