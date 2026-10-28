@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T03:19:13.789339+00:00",
-  "input_generated_at": "2026-10-28T02:41:19Z",
+  "generated_at": "2026-10-28T07:37:52.715007+00:00",
+  "input_generated_at": "2026-10-28T06:41:27Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -7131,6 +7131,504 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "2100bf01836fbcaf74c5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "956a655989033a5cefe0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses primarily on Deutsche Bank's Q3 fixed-income trading earnings and market outlook, mentioning the AI boom only incidentally.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-28/deutsche-bank-cfo-on-fixed-income-trading-ai-markets-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "231c7717219a83c2097e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "df65cd12f346a5f252dd",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/geoffrey-vos-uk-judge-ai-legal-profession-challenges/",
+      "key_points": [
+        "English judges are currently advised to restrict AI use to administrative tasks, though Vos reports regularly using Microsoft Copilot to find documents and summarize text.",
+        "Vos's stance was influenced by a visit to Shenzhen, China, where judges already decide civil disputes with substantial assistance from AI."
+      ],
+      "same_event_coverage_ids": [
+        "99dfd28d6bd449e4f949"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5a0112e0e46e4ad9eabb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/gen-z-is-still-skeptical-of-ai-infused-dating-apps-new-survey-finds",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7d9a6f04b09eefdc54e5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "780358676b68393b0938",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-28/tsinghua-uni-s-zhang-on-ai-innovation-outlook-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aafef67d2590bbe931d6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9094fcb898569167e8eb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/china-set-to-lead-in-ai-models-other-key-areas-by-2030-bi-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "751a279bd76b8b2ff5c8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3a0e725839a217b317e4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3372295/bytedance-accelerates-robotics-commercialisation-new-recruitment-drive",
+      "key_points": [
+        "ByteDance is accelerating its push into embodied artificial intelligence by stepping up recruitment for robotics talent.",
+        "The company is hiring for around a dozen hardware and software robotics positions within its internal Seed team.",
+        "Most openings are based in Beijing and span the robotics pipeline, including data-collection and model-training systems."
+      ],
+      "same_event_coverage_ids": [
+        "c85bc384087dff085991"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "119a8adb3ba006903215",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.aboutamazon.com/news/company-news/amazon-software-engineer-role-guideline-ai",
+      "key_points": [
+        "Amazon engineering leadership developed an updated role guideline for Software Development Engineers to reflect how AI is transforming development work.",
+        "Amazon framed the concept of the 'Renaissance Developer,' emphasizing that engineers combine AI tools with human judgment and domain expertise.",
+        "Amazon stated that prolific engineers have shown that developer roles and outputs are not defined solely by the use of AI."
+      ],
+      "same_event_coverage_ids": [
+        "318f723012b59dd51404"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7985eaa4d4b49f55251e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Educational tutorial repository providing a step-by-step beginner guide to building GPT-2 from scratch in PyTorch.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/aa1143/NamiGPT",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c9cfb49b58c0cb14ddb7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fc860eb46913be726d39",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.37175",
+      "key_points": [
+        "Nhóm tác giả giới thiệu MLE-World, một world model (mô hình thế giới mô phỏng) tinh chỉnh từ Qwen3.5-4B giúp dự đoán kết quả đầu ra của chương trình máy học mà không cần chạy thực tế, dù dự đoán vẫn có thể sai.",
+        "Theo các tác giả, việc chạy từng chương trình đòi hỏi huấn luyện mô hình gây tốn kém và giới hạn số ứng viên mà agent (tác nhân tự hành) có thể khám phá, nên họ thiết lập năm chiến lược để so sánh ứng viên qua kết quả dự đoán.",
+        "Trên 17 tác vụ của benchmark (bộ kiểm chuẩn đánh giá) MLE-bench Lite, nhóm nghiên cứu ghi nhận MLE-World khớp kết quả thực tế ở 77,9% chương trình thử nghiệm, so với 41,1% của các mô hình dùng câu lệnh nhắc lớn hơn nhiều.",
+        "Các tác giả kết luận mô hình giúp tăng tới 22,1% hiệu suất trung bình quan sát được so với tác nhân không có mô hình thế giới và giảm việc chạy mã thực tế, song hệ thống chỉ chạy thử thật khi điểm tin cậy ở mức thấp."
+      ],
+      "same_event_coverage_ids": [
+        "cb933f5bc8afc7c462ed"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình MLE-World giúp tăng tới 22,1% hiệu suất trung bình quan sát được trên 17 tác vụ MLE-bench Lite",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2610.37175"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "f749bb8136379d77e619",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.37341",
+      "key_points": [
+        "The Code as Video Caption paradigm represents visual content using graphical primitives, layout rules, and functions of time to capture fine-grained spatial and temporal dynamics.",
+        "The benchmark evaluates whether code captions effectively preserve video information by comparing them with natural language captions on downstream tasks."
+      ],
+      "same_event_coverage_ids": [
+        "90b60233cc183cbc655f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f11c120345a76678f849",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.37666",
+      "key_points": [
+        "Nhóm tác giả do Chaehyun Kim dẫn đầu giới thiệu khung học ThinkWorld cho mô hình thị giác - ngôn ngữ - hành động (mô hình AI kết hợp nhìn và điều khiển robot), ghi nhận khả năng chuyển giao sang robot trong mô phỏng lẫn thực tế.",
+        "Theo nhóm nghiên cứu, mô hình robot bị giới hạn bởi độ bao phủ của dữ liệu có nhãn, trong khi video người gặp sự đánh đổi giữa quy mô dữ liệu và việc gắn nhãn hành động. Nhóm biểu diễn tư duy qua chuỗi động lực học (chuỗi đơn vị chuyển động rời rạc), khởi tạo từ dữ liệu mẫu rồi củng cố các dự đoán khớp với kết quả quan sát.",
+        "Theo bài báo, phương pháp này giúp tận dụng video không nhãn của người, song khả năng khái quát hóa sang nhiệm vụ và môi trường mới chỉ được xác nhận trong mô phỏng và trên robot thật."
+      ],
+      "same_event_coverage_ids": [
+        "fb79fce98a272946b4be"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung học ThinkWorld nâng cao khả năng thao tác trong mô phỏng và trên robot thật",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2610.37666"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "c67dec328ad2601d42d0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2610.37585",
+      "key_points": [
+        "Nhóm nghiên cứu do Adrien Petralia đứng đầu giới thiệu Timestral, bộ bốn mô hình nền tảng chuỗi thời gian (mô hình AI phân tích dữ liệu biến thiên theo thời gian) cho bài toán dự báo xác suất với quy mô từ 5 triệu đến 209 triệu tham số.",
+        "Theo các tác giả, mô hình đạt hiệu năng nhờ cơ chế dự báo tách rời ngữ cảnh, tích hợp biến phụ tương lai trong kiến trúc nhân quả và quy trình tiền huấn luyện trên dữ liệu tổng hợp quy mô lớn trước khi tinh chỉnh trên dữ liệu hỗn hợp.",
+        "Nhóm công bố Timestral-209M và Timestral-123M đứng đầu trên mọi thước đo của các bài kiểm chuẩn (bộ dữ liệu đo lường tiêu chuẩn) gồm GIFT-Eval, TIME và fev-bench, dù vậy kết quả này mới chỉ giới hạn trong môi trường kiểm chuẩn và nhóm đã mở mã nguồn cùng trọng số."
+      ],
+      "same_event_coverage_ids": [
+        "8d3306c41c081aa36434"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình chuỗi thời gian Timestral dẫn đầu các bài kiểm chuẩn GIFT-Eval và TIME",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2610.37585"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "c597ebcff760d44931a3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.37219",
+      "key_points": [
+        "Theo nhóm nghiên cứu của tác giả Yonghao Yu, mô hình Just Action Model (JAM) giúp các chính sách điều khiển robot cải thiện hiệu năng trên các bộ kiểm chuẩn (benchmark - hệ thống đánh giá chuẩn) mà không cần sinh hình ảnh khi huấn luyện hay suy luận.",
+        "Nhóm tác giả cho biết các tranh cãi trước đó đã gộp lẫn việc khởi tạo mạng nền tảng với mục tiêu dự đoán tương lai, nên họ đã tách rời các yếu tố này và thử nghiệm nhiều mục tiêu trên một kiến trúc cố định.",
+        "So với mô hình FastWAM trên ba bộ kiểm chuẩn LIBERO, LIBERO-Plus và RoboTwin, JAM nâng tỷ lệ thành công (thước đo mức độ hoàn thành nhiệm vụ) từ 97,0%, 55,3% và 91,2% lên tương ứng 98,2%, 64,5% và 91,4%.",
+        "Theo nhóm nghiên cứu, kết quả này cho thấy việc giám sát tương lai nâng cao khả năng điều khiển mà không cần thêm bộ máy suy luận, dù mức cải thiện trên bộ kiểm chuẩn RoboTwin chỉ tương đương hoặc nhỉnh hơn đôi chút."
+      ],
+      "same_event_coverage_ids": [
+        "a348061977645c9afc43"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu mô hình JAM giúp tối ưu điều khiển trên các bộ kiểm chuẩn mà không cần sinh hình ảnh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2610.37219"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "be2e154912e49267d462",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.35864",
+      "key_points": [
+        "Theo nhóm nghiên cứu của tác giả Muxi Diao, bộ kiểm chuẩn (benchmark - hệ thống đánh giá) VibeVideoBench cho thấy các tác tử (agent - chương trình AI tự chủ) có thể tạo video bằng mã lệnh trong môi trường đóng giới hạn thời gian một giờ.",
+        "Nhóm tác giả cho biết mô hình khuếch tán video khó hiển thị chính xác công thức hay biểu đồ, nên họ thiết kế 239 nhiệm vụ để đánh giá khả năng viết mã kết xuất từng khung hình và âm thanh thay vì dùng mô hình sinh hình ảnh.",
+        "Qua 2.151 lượt thử nghiệm trên chín hệ thống tác tử tiên tiến, GPT-6 Astra và Claude Opus 5.5 dẫn đầu bảng xếp hạng, với hệ thống mạnh nhất đạt tỷ lệ đáp ứng mọi yêu cầu cốt lõi (thước đo độ chuẩn xác kỹ thuật) ở 76,3% nhiệm vụ.",
+        "Theo các tác giả, thử nghiệm này chỉ ra điểm nghẽn trong khâu quản lý thời gian của các tác tử, khi ba phần tư số video bị mất là do khâu kết xuất cuối bắt đầu quá trễ, chạy quá chậm hoặc không hề khởi động."
+      ],
+      "same_event_coverage_ids": [
+        "08167f5a5f76d32c05c3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "VibeVideoBench đánh giá tác tử tạo video bằng mã lệnh: GPT-6 Astra dẫn đầu trong thử nghiệm một giờ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2610.35864"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "9012c023703e1f658bb5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.37381",
+      "key_points": [
+        "PDRVLA incorporates a lightweight Physical Dynamics Module that extracts physical tokens from vision-language features to condition action generation.",
+        "The Physical Dynamics Module learns through direct prediction of future RGB, depth, and optical-flow features with auxiliary supervision."
+      ],
+      "same_event_coverage_ids": [
+        "9b88e23f43102f238a72"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6f3eb9cf2315ee1fe02d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.37386",
+      "key_points": [
+        "Researchers demonstrated that channel selection for Mixture-of-Experts (MoE) decoding does not require calibration data.",
+        "Channel selectors mitigate the memory loading bottleneck in MoE interactive decoding at small batch sizes by predicting and reading only significant intermediate channel weights."
+      ],
+      "same_event_coverage_ids": [
+        "04cd45eee0fd733dfef2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3efc09e769e337d1f277",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.36791",
+      "key_points": [
+        "Researchers introduced RynnWorld-Latent, a cross-embodiment video world model for learning controllable world dynamics across diverse robot platforms and human videos.",
+        "The model employs 3D-grounded latent actions from RynnLAM as a shared conditioning interface to bridge incompatible robot action spaces and unlabelled human videos.",
+        "Built on a pretrained video transformer, RynnWorld-Latent enables joint pretraining on human interaction videos, robot demonstrations, and simulation rollouts."
+      ],
+      "same_event_coverage_ids": [
+        "498e1cb972c454bb70c9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "097e9580778f89999333",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.37255",
+      "key_points": [
+        "Researchers analyzed the decision geometry of agent interfaces, studying how language model policies learn from and retain preferences embedded in their deployment harnesses.",
+        "Under KL-regularized control, the log odds of an optimal policy recover how strongly its harness favors each action over others, demonstrating that trained policies carry harness preferences.",
+        "The authors establish that deployed return equals the maximum return ceiling offered by the harness minus the return lost to policy mismatch."
+      ],
+      "same_event_coverage_ids": [
+        "6bfc63444ca21ddd7c55"
       ],
       "split_coverage_ids": []
     }
