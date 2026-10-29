@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-29T11:17:06.729674+00:00",
-  "input_generated_at": "2026-10-29T10:41:35Z",
+  "generated_at": "2026-10-29T13:24:20.925463+00:00",
+  "input_generated_at": "2026-10-29T12:41:24Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -11299,6 +11299,229 @@
       "same_event_coverage_ids": [
         "2cb2b4a891780ea5d5a5",
         "67d2a54d9876dc8d57d9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "34033dc40ddafcf690b9",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-29/anthropic-ipo-may-spark-ai-rally-as-short-bets-on-tech-pile-up",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a26ae6305d8c4f652809"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4fb78875c7a6c097b2f6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General equities market report on US stock futures where AI is only mentioned in passing as background market context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-29/us-stock-futures-today-alphabet-caterpillar-instacart-microsoft",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e8d91441e50dbb845072"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7e9ff45dda5f999f2232",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Reporting on a corporate bond sale where funding the artificial intelligence investment boom is a passing reference rather than the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-29/microsoft-kicks-off-first-us-high-grade-bond-sale-since-2017",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1c820a201274d2be2500"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5a2838ac9b8e01cfb21a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://sonidoselva.com/perspectiva-kogui",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6fd113921a05d1cf91a7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7dda6fcbb67d3fdf6011",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/10/29/2026/ai-disillusionment-puts-regulation-at-forefront-ahead-of-midterms",
+      "key_points": [
+        "Polling shared with Semafor found that voters preferred reasonable safeguards on AI, even if such rules hurt US competitiveness.",
+        "The Trump administration has pursued a laissez-faire approach to AI despite warnings from some industry leaders that the technology poses an existential risk to humanity.",
+        "A recent Heatmap poll found that the broader public remains highly opposed to AI data center construction, despite some recovery in support among Republicans."
+      ],
+      "same_event_coverage_ids": [
+        "c3f59db94363b9ae0282"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "acc1f57c80165303742b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-10-29/alphabet-s-google-cloud-rises-in-prominence-in-ai-era",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9ed22ca3fabf1bbadcc4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "14f85431e71bfbb9b903",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/features/2026-10-29/ai-industry-stands-to-lose-in-midterm-elections-after-aligning-with-trump",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4ece216e204515af1c8a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "562ada87341186dc7d5b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://spectrum.ieee.org/ai-generated-scientific-papers",
+      "key_points": [
+        "Tác giả Benjamin Skuse cho biết đã thử tạo bài báo khoa học giả chỉ bằng ChatGPT và Gemini miễn phí mà không tự chỉnh sửa kết quả.",
+        "Theo bài viết, áp lực phải liên tục xuất bản để có tài trợ và thăng tiến đã khiến khâu bình duyệt (peer review, thẩm định bài báo) quá tải, và AI tiếp tục khuếch đại vấn đề này.",
+        "Trong thử nghiệm, chuyên gia Mahoney nhận thấy bài viết không có lỗi khoa học lớn, nhưng công cụ kiểm tra phát hiện 12 trích dẫn ảo và 24 tài liệu không thể xác thực khiến công trình bị nghi ngờ.",
+        "Đại diện IEEE Luigi Longobardi cảnh báo công cụ hiện tại có thể không còn hiệu quả khi bài báo AI tiếp tục vượt qua rào chắn bảo vệ."
+      ],
+      "same_event_coverage_ids": [
+        "43f0d5ca3d5a8a6a4613"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm tạo bài báo khoa học bằng AI cho thấy nguy cơ từ các trích dẫn bịa đặt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://spectrum.ieee.org/ai-generated-scientific-papers"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "6394645bd5105adc5435",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/anydecisionmodel",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "898d297a90759aef366f"
       ],
       "split_coverage_ids": []
     }
