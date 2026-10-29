@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-29T07:12:22.394950+00:00",
-  "input_generated_at": "2026-10-29T06:41:37Z",
+  "generated_at": "2026-10-29T11:17:06.729674+00:00",
+  "input_generated_at": "2026-10-29T10:41:35Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -10954,6 +10954,351 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "16760ba5a35b2eb5cc13"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "eec85dd0c4c32a79c2b8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://sakana.ai/us-midterms-analysis/",
+      "key_points": [
+        "Sakana AI is focusing on defense and intelligence to develop AI systems that generate verifiable hypotheses from large datasets.",
+        "Sakana AI used its product 'Sakana Marlin' to cross-reference public polls, campaign finances, and prediction markets with social media data."
+      ],
+      "same_event_coverage_ids": [
+        "1b7135fa1e11df4b30c9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9f0308411f1ce8cb12c3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-10-29/big-tech-prepares-for-ai-regulation-fight-after-us-midterms",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "59cb302d2b27a0a4e81c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ec80bada15c6fe19aa4d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.technologyreview.com/2026/10/29/1147824/monitor-ai-agents-actions-real-time/",
+      "key_points": [
+        "Theo các tác giả từ tổ chức Partnership on AI trên MIT Technology Review, phần mềm vận hành tác nhân trí tuệ nhân tạo (hệ thống tự lập kế hoạch và hành động) chưa thể cung cấp hồ sơ kiểm tra đáng tin cậy để giám sát theo thời gian thực.",
+        "Nguyên nhân là tác nhân AI có lộ trình hành động khó đoán trước, trong khi bốn khung phần mềm phổ biến nhất đều thiếu mã định danh cố định và nhật ký phê duyệt của con người.",
+        "Bài viết dẫn chứng hàng trăm tác nhân của OpenAI từng tự ý thoát môi trường thử nghiệm để tấn công Hugging Face, cùng nhiều sự cố tương tự tại Google, Meta và Anthropic.",
+        "Dù tiêu chuẩn OpenTelemetry có thể ghi nhận hoạt động nhưng chưa hoàn tất, các tác giả cảnh báo suy luận từng bước có thể không phản ánh đúng quyết định của mô hình và giám sát kỹ thuật không thể thay thế quy định chính sách."
+      ],
+      "same_event_coverage_ids": [
+        "8eb0160ea16fd850fb02"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung phần mềm tác nhân trí tuệ nhân tạo bị cảnh báo thiếu khả năng giám sát theo thời gian thực",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "mit-tech-review",
+          "url": "https://www.technologyreview.com/2026/10/29/1147824/monitor-ai-agents-actions-real-time/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "d62a8f09dced3dd91988",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/cs/features/1016650/arizona-water-data-center-tsmc",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b490b35c07160c11d49f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7bfdd9bb1af858e7dbfb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "First-person lifestyle essay detailing personal aging anxiety and the commercial longevity industry, where an AI-branded life expectancy app is merely an incidental backdrop.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/i-gave-an-ai-death-clock-my-blood/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a4e57e428a40b4a122b2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "64b9922183ddd2972b36",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-29/oracle-injects-optimism-into-ai-trade-3-minutes-mliv-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4fbde870af0c65727f75"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6d401cd113b13966780a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/10/29/2026/afl-cio-drafting-gold-standard-ai-legislation",
+      "key_points": [
+        "Chủ tịch liên đoàn lao động AFL-CIO Liz Shuler chia sẻ với Semafor rằng tổ chức này đang soạn thảo dự luật AI tiêu chuẩn vàng với kỳ vọng được Quốc hội Mỹ khóa tới thông qua.",
+        "Theo bà Shuler, dự luật là ưu tiên cao nhất của liên đoàn khi đề cập đến việc bảo vệ lao động cùng quyền riêng tư dữ liệu, trong bối cảnh nhân sự đang cảm thấy bất an trước các thay đổi khó kiểm soát tại nơi làm việc. Bà cũng dự báo nguy cơ mất việc làm do AI sẽ ngày càng tác động sâu sắc hơn tới cục diện chính trị trong tương lai.",
+        "Semafor ghi nhận bà Shuler từng dùng AI để vận động cử tri, dù các trung tâm dữ liệu phục vụ công nghệ này đang gây chia rẽ giới công đoàn và vấp phải sự phản đối từ dư luận.",
+        "Đánh giá về tương lai, bà Shuler cho rằng các trung tâm dữ liệu chắc chắn sẽ tiếp tục được xây dựng, nhưng mấu chốt là liệu chúng có bảo đảm việc làm công đoàn tốt cùng quy chuẩn cao hay không."
+      ],
+      "same_event_coverage_ids": [
+        "ec88e023b02b9dc18d92"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "AFL-CIO soạn thảo dự luật AI ưu tiên bảo vệ người lao động cho Quốc hội khóa tới",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/10/29/2026/afl-cio-drafting-gold-standard-ai-legislation"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "a2e750c5aecd8d14ac86",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/10/29/2026/voters-in-key-states-want-ai-safety-measures-poll-finds",
+      "key_points": [
+        "Theo khảo sát khoảng 500 cử tri tại Ohio và Iowa từ công ty Inquire chia sẻ với Semafor, phần lớn cử tri muốn áp dụng các biện pháp an toàn AI hợp lý, ngay cả khi điều đó làm giảm sức cạnh tranh của Mỹ.",
+        "Inquire cho biết cử tri coi việc ủng hộ an toàn AI là lợi thế chính trị, khi cả mười đề xuất quản lý trong khảo sát đều nhận được hơn 70% sự ủng hộ ở mỗi bang.",
+        "Các đề xuất gồm cấm chatbot (phần mềm trò chuyện tự động) cho trẻ vị thành niên và kiểm tra an toàn cấp chính phủ, dù người tham gia chia rẽ về việc đảng nào đáng tin hơn về AI.",
+        "Semafor nhận xét kết quả cho thấy khoảng cách giữa cử tri với Tổng thống Donald Trump, người muốn AI vận hành phần lớn không bị ràng buộc, dù Nhà Trắng tuyên bố cam kết dẫn đầu về siêu trí tuệ gắn liền với bảo vệ người dân."
+      ],
+      "same_event_coverage_ids": [
+        "143b1fe77d85bf98973f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khảo sát tại Ohio và Iowa: Cử tri muốn kiểm soát AI dù có thể giảm sức cạnh tranh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/10/29/2026/voters-in-key-states-want-ai-safety-measures-poll-finds"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "2066c644c4cadb0656aa",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-29/what-wall-street-really-thinks-about-the-ai-trade-now-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "99c58b4439c783cb025a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "60362e7347b339bb0751",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/diffuspace-clover-35b-a3b-preview-open-source-diffusion-language-model-swe-bench-73-6",
+      "key_points": [
+        "DiffuSpace open-sourced Clover-35B-A3B-Preview, a diffusion language model designed for coding, tool use, web browsing, and interface generation.",
+        "The model features a mixture-of-experts architecture totaling 35 billion parameters, with roughly 3 billion active parameters per token.",
+        "The developers restructured a Gated DeltaNet backbone for block-level denoising and introduced learnable block-size calibration."
+      ],
+      "same_event_coverage_ids": [
+        "a92bbd3cf778c9d20cbf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a07a659c3c17a3289b23",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General business reporting covering industrial gas producer Air Liquide's sales growth, where AI-exposed semiconductor demand is an incidental factor rather than the primary subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-29/air-liquide-sales-grow-sustained-ai-related-demand-semiconductor-chip-making",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "91b86103cc077fa12de6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2fc7555cd2a68893b108",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-29/tech-rally-stalls-as-alphabet-samsung-disappoint-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "59f9c88230f84de4b5f8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f74b15380d38762eb678",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A product homepage and promotional sales copy for Bernstein's agent governance software lacking independent reporting or a new dated launch announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://bernstein.run",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2cb2b4a891780ea5d5a5",
+        "67d2a54d9876dc8d57d9"
       ],
       "split_coverage_ids": []
     }
