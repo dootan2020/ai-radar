@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T23:42:10.001120+00:00",
-  "input_generated_at": "2026-10-28T22:41:26Z",
+  "generated_at": "2026-10-29T03:27:01.791496+00:00",
+  "input_generated_at": "2026-10-29T02:41:28Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -10374,6 +10374,368 @@
         "dfbdf7e91d9b2c1fe563",
         "fd7397f24fbe28de3d2e"
       ]
+    },
+    {
+      "id": "39e2912ab88af592c975",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-29/tencent-cloud-chief-says-ai-demand-justifies-capex-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ce314dc429e63084396f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8963cb05043daddede90",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/first-fengyun-satellite-extreme-weather-ai-models-typhoon-cloud-image-interpretation-severe-convection-nowcasting",
+      "key_points": [
+        "China released its first extreme-weather artificial intelligence models built on Fengyun meteorological satellite data on October 29 at the 2026 Fengyun Satellite User Conference.",
+        "The typhoon interpretation model covers seven categories of typhoon features using more than 20 real-time satellite products."
+      ],
+      "same_event_coverage_ids": [
+        "58dc3b7b65ea282cfb89"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b200aae92722be25014f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/dingtalk-open-sources-dws-workspace-cli-ai-agents-harmonyos-pc-openharmony-arm64-build",
+      "key_points": [
+        "Alibaba's DingTalk open-sourced DWS (DingTalk Workspace), a command-line tool built for people and AI agents, on GitHub under the Apache 2.0 license.",
+        "DingTalk released a build of DWS running on Huawei's HarmonyOS PCs."
+      ],
+      "same_event_coverage_ids": [
+        "04be48c646722c7ee866"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bfacfd80c59a58d4280d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/apex-intelligence-apex-35b-v1-0-qwen3-6-35b-a3b-apex-research-automated-ai-research-cfd-bench",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ca291a5973deae554810"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d84f1979b679834d3021",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Corporate financial report on Samsung's chip division profit miss, where AI infrastructure demand is only mentioned incidentally as a market driver.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-29/samsung-chip-profit-misses-estimates-lifted-by-resurgent-ai-hope",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0bbd91bda46e65fc0f18"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ef9d5fd64ced66223337",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.com/ZigEmbeddedGroup/microzig/blob/main/CODE_OF_CONDUCT.md",
+      "key_points": [
+        "Tổ chức Zig Embedded Group vừa ban hành chính sách mới trong quy tắc ứng xử của dự án MicroZig, nghiêm cấm hoàn toàn việc sử dụng mô hình ngôn ngữ lớn (công nghệ AI tạo văn bản và mã nguồn) kể từ ngày 28 tháng 10 năm 2026.",
+        "Văn bản quy tắc ứng xử nêu rõ các điều khoản nghiêm ngặt này được đưa ra do không gian dự án chỉ dành riêng cho công việc kỹ thuật tập trung và đúng chủ đề của MicroZig cùng Zig Embedded Group.",
+        "Chính sách này cấm tạo mã nguồn, soạn văn bản, sửa lỗi chính tả hay tìm lỗi bằng AI, nhưng vẫn cho phép thành viên đăng bài bằng tiếng mẹ đẻ và để người khác tự dùng công cụ dịch thuật phù hợp.",
+        "Ban quản trị nhấn mạnh quy định áp dụng trên hệ thống GitHub và Discord của nhóm, đồng thời cấm thảo luận công khai về quy tắc ứng xử này trên các kênh làm việc chung vì không gian này chỉ phục vụ lập trình trực tiếp."
+      ],
+      "same_event_coverage_ids": [
+        "48e5de0c851fe92bdaeb",
+        "d7176549410c62a52423"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Zig Embedded Group cấm hoàn toàn AI và mô hình ngôn ngữ lớn trong dự án MicroZig",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/ZigEmbeddedGroup/microzig/blob/main/CODE_OF_CONDUCT.md"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "90ae1ed202ca47655e6c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.niemanlab.org/2026/10/the-new-york-times-is-adding-more-ai-features-to-its-cooking-app-and-users-arent-thrilled/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bacd2e7beb5e76330523",
+        "ce5c1710879e617f93bf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dc1c96713025fa46b670",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/features/2026-10-29/nscale-s-unproven-ceo-braves-ai-turmoil-in-bid-for-30-billion-neocloud-ipo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "799d6061801cd562ecfd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5732b1b1a4344e04d89b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Corporate quarterly earnings report covering Alphabet's core business sales misses, with AI capex cited only as background investor context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-28/alphabet-shares-tank-on-sales-misses-across-businesses-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5547bffc331706b73567"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bfb31ceb6c55c182711c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Oct/28/ted-sanders/",
+      "key_points": [
+        "Ted Sanders stated that LLM performance is multidimensional but much of the variation is explained by model size.",
+        "Sanders explained that version numbers signify order of release, relationship to other releases, and the magnitude of improvement."
+      ],
+      "same_event_coverage_ids": [
+        "5dd9143b16c5db5bb80d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3b64f2126ca310fc1aab",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1021644/adam-mosseri-instagram-ai-negativity",
+      "key_points": [
+        "Instagram head Adam Mosseri acknowledged in an interview that negativity and anger toward AI are going to get worse.",
+        "Mosseri stated that anxiety and frustration surrounding AI are particularly pronounced within creative industries."
+      ],
+      "same_event_coverage_ids": [
+        "5622a4283223cf8a4fd4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9fe9a65605603ab3dbd9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/furiosaai-quadruples-valuation-to-2-9-billion-in-nvidia-chase",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b34e08b510f71e6cec07"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ec191f02f28a7fe6e065",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social media post sharing an individual anecdote without independent reporting or substantive news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/coolerwave/status/2114088769112477849",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "73f30bac693154f45226"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c30bc32461956d027808",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://x.com/ArtificialAnlys/status/2115537966189715873",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0b64ec274ebb27f5a0b2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "39742f5b5dffd2a90364",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal blog write-up serving as a technical guide and walkthrough on decompiling games using AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://bou.ke/blog/zoetermeer/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "98483e3bd0467d445eaf"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
