@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-29T03:27:01.791496+00:00",
-  "input_generated_at": "2026-10-29T02:41:28Z",
+  "generated_at": "2026-10-29T07:12:22.394950+00:00",
+  "input_generated_at": "2026-10-29T06:41:37Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -10734,6 +10734,226 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "98483e3bd0467d445eaf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1a6d1632c6bd0609243a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3372535/google-supplier-biwin-gpu-leader-moore-threads-see-stocks-plunge-despite-revenue-surge",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8f14963a335675ea8853"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fed1432cf0c59d6b109b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/29/werides-physical-ai-data-subsidiary-raises-tens-of-millions-of-dollars/",
+      "key_points": [
+        "WeRide subsidiary Jingshuo raised tens of millions of dollars in pre-Series A funding.",
+        "Investors include Vision Knight Capital, Hong Kong Science and Technology Parks Corporation, and Sirius Capital.",
+        "The company plans to use the funds to expand R&D and develop its data platform, world models, and reusable robot skill systems.",
+        "Jingshuo remains a majority-owned subsidiary of WeRide and operates independently while its financials are consolidated."
+      ],
+      "same_event_coverage_ids": [
+        "449c7c578b1126b43f58"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fbde21a7a25856e001eb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/29/tencent-says-upcoming-hy4-and-hy4-flash-models-will-support-visual-understanding/",
+      "key_points": [
+        "Tencent announced plans to release upcoming Hy4 and Hy4 flash models with visual understanding capabilities.",
+        "Senior executive vice president Dowson Tong announced the models at the Tencent Global Digital Ecosystem Conference on October 29.",
+        "The full Hy4 model will target improved sustained reasoning and execution for real-world productivity workflows.",
+        "Hy4 flash will focus on cost efficiency while retaining visual understanding and AI agent capabilities.",
+        "The Hy4 preview features 770 billion total parameters, 49 billion activated inference parameters, and a one-million-token context window."
+      ],
+      "same_event_coverage_ids": [
+        "a4dbf7f5bcdb4bc4831f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "58ed982d4122879d6caf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/29/deepseek-v5-identifiers-surface-in-official-harness-code-repository/",
+      "key_points": [
+        "Ba mã định danh mô hình DeepSeek V5 gồm deepseek-v5, deepseek-v5-open và deepseek-v5-next đã xuất hiện trong kho lưu trữ Harness của DeepSeek trên GitHub, thu hút sự chú ý tới thế hệ mô hình tiếp theo.",
+        "Các định danh này nằm trong bài kiểm thử nhằm đánh giá cách phần mềm xử lý độ tương thích của mô hình, gồm hiển thị danh sách mô hình và xác định khi nào cần nâng cấp ứng dụng khách.",
+        "Trong một thử nghiệm, mục deepseek-v5-open được hiển thị cạnh DeepSeek Flash, trong khi các mục khác kích hoạt phản hồi về tính tương thích.",
+        "Theo TechNode, đoạn mã này hé lộ cách đặt tên V5 nhưng chỉ thuộc kịch bản thử nghiệm, hoàn toàn không kèm thông số kỹ thuật, kết quả benchmark (bài kiểm tra đánh giá hiệu năng tiêu chuẩn) hay lịch phát hành."
+      ],
+      "same_event_coverage_ids": [
+        "b9f51a52b6e93990f549"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mã định danh DeepSeek V5 xuất hiện trong kho lưu trữ thử nghiệm trên GitHub",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/10/29/deepseek-v5-identifiers-surface-in-official-harness-code-repository/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "5614ba48c3b183056645",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-29/ai-and-cybersecurity-why-cyberattacks-are-getting-harder-to-stop",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "04bff1fc2280eb2cda61"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "94430ceaa839cbc65bd3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A how-to tutorial and workaround script on GitHub Gist instructing users how to disable Claude Code background status-line requests.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://gist.github.com/flamerix-ai/c3905705cc4205e5de3011fa2e74efce",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ade94b1e692586af1980"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5387e0e8bc7e8a78b12a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-29/furiosa-ai-ceo-on-2-9b-valuation-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "50d26644dc94ad00f074"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1a3327d7cd5887a6d9e6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-29/tencent-s-cloud-boss-plays-long-game-to-patch-leaky-ai-ship",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7dd5800f1662abb2e680"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3e421a94dacd9a080093",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A GitHub repository README and documentation page for an open-source Windows systems programming library rather than a news article or announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/w0ldan/exoproc",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "16760ba5a35b2eb5cc13"
       ],
       "split_coverage_ids": []
     }
