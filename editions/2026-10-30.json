@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-30",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-28T23:00:00Z",
+  "cutoff_at": "2026-10-29T23:00:00Z",
+  "created_at": "2026-10-29T23:03:27Z",
+  "snapshot_generated_at": "2026-10-29T23:01:20Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-29T23:01:20Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "6394645bd5105adc5435",
+      "title": "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms",
+      "title_vi": "Ra mắt AnySpeechRecognizer và AnyDecisionModel: Mô hình mở cho phát biểu và quyết định trên nền tảng Apple",
+      "headline": "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms",
+      "headline_vi": "Ra mắt AnySpeechRecognizer và AnyDecisionModel: Mô hình mở cho phát biểu và quyết định trên nền tảng Apple",
+      "url": "https://huggingface.co/blog/anydecisionmodel",
+      "published_at": "2026-10-29T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "898d297a90759aef366f",
+          "title": "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms",
+          "title_vi": "Ra mắt AnySpeechRecognizer và AnyDecisionModel: Mô hình mở cho phát biểu và quyết định trên nền tảng Apple",
+          "headline": "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms",
+          "headline_vi": "Ra mắt AnySpeechRecognizer và AnyDecisionModel: Mô hình mở cho phát biểu và quyết định trên nền tảng Apple",
+          "url": "https://huggingface.co/blog/anydecisionmodel",
+          "published_at": "2026-10-29T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "huggingface-blog",
+          "publisher": "huggingface",
+          "entity": "huggingface",
+          "group": "lab",
+          "observed_at": "2026-10-29T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "898d297a90759aef366f"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "huggingface"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "e0b45e4a3fafe6bfea48",
+      "title": "US investigated Chinese spy plot aimed at Nvidia CEO",
+      "title_vi": "Hoa Kỳ điều tra âm mưu gián điệp Trung Quốc nhắm vào CEO Nvidia",
+      "headline": "US investigated Chinese spy plot aimed at Nvidia CEO",
+      "headline_vi": "Hoa Kỳ điều tra âm mưu gián điệp Trung Quốc nhắm vào CEO Nvidia",
+      "url": "https://techcrunch.com/2026/10/29/u-s-investigated-chinese-spy-plot-aimed-at-nvidia-ceo/",
+      "published_at": "2026-10-29T16:42:32Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "730c1932b7287477e13f",
+          "title": "Alleged Chinese spy had 'close relationship' with Nvidia boss Jensen Huang",
+          "title_vi": "Người bị cáo buộc là gián điệp Trung Quốc có 'sự liên hệ gần gũi' với ông chủ của Nvidia Jensen Huang",
+          "headline": "Alleged Chinese spy had 'close relationship' with Nvidia boss Jensen Huang",
+          "headline_vi": "Người bị cáo buộc là gián điệp Trung Quốc có 'sự liên hệ gần gũi' với ông chủ của Nvidia Jensen Huang",
+          "url": "https://nypost.com/2026/10/29/business/alleged-chinese-spy-had-close-relationship-with-nvidia-boss-jensen-huang-report/",
+          "published_at": "2026-10-29T17:43:48Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-29T23:01:20Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50293047",
+          "metrics": {
+            "points": 249,
+            "comments": 164
+          }
+        },
+        {
+          "id": "acb38561416c6b1ad2e7",
+          "title": "Nvidia chief targeted in alleged spy plot",
+          "title_vi": "Giám đốc Nvidia bị nhắm mục tiêu trong âm mưu gián điệp",
+          "headline": "Nvidia chief targeted in alleged spy plot",
+          "headline_vi": "Giám đốc Nvidia bị nhắm mục tiêu trong âm mưu gián điệp",
+          "url": "https://www.semafor.com/article/10/29/2026/nvidia-chief-jensen-huang-targeted-in-alleged-spy-plot",
+          "published_at": "2026-10-29T22:36:37Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-10-29T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "8905383a457828975024",
+          "title": "US investigated Chinese spy plot aimed at Nvidia CEO",
+          "title_vi": "Hoa Kỳ điều tra âm mưu gián điệp Trung Quốc nhắm vào CEO Nvidia",
+          "headline": "US investigated Chinese spy plot aimed at Nvidia CEO",
+          "headline_vi": "Hoa Kỳ điều tra âm mưu gián điệp Trung Quốc nhắm vào CEO Nvidia",
+          "url": "https://techcrunch.com/2026/10/29/u-s-investigated-chinese-spy-plot-aimed-at-nvidia-ceo/",
+          "published_at": "2026-10-29T16:42:32Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-29T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "semafor",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "semafor",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 6.2911,
+          "hot_score": 82.247,
+          "engagement_percentile": 0.7282608695652174
+        }
+      }
+    },
+    {
+      "id": "f8adb1021dcc3d4cffb4",
+      "title": "Wabi, the AI agent that builds mini apps, now valued at $1.25B after latest round",
+      "title_vi": "Wabi, agent AI xây dựng các ứng dụng mini, hiện được định giá là 1,25 tỷ đô la sau vòng cuối cùng",
+      "headline": "Wabi, the AI agent that builds mini apps, now valued at $1.25B after latest round",
+      "headline_vi": "Wabi, agent AI xây dựng các ứng dụng mini, hiện được định giá là 1,25 tỷ đô la sau vòng cuối cùng",
+      "url": "https://techcrunch.com/2026/10/29/wabi-the-ai-agent-that-builds-mini-apps-now-valued-at-1-25b-after-latest-round/",
+      "published_at": "2026-10-29T14:35:26Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "600a13f5dd4a074fd8ea",
+          "title": "AI Assistant Startup Wabi Raises $55 Million at $1.25 Billion Value",
+          "title_vi": "Người trợ lý khởi nghiệp AI Wabi huy động 55 triệu đô la với giá trị 1,25 tỷ đô la",
+          "headline": "AI Assistant Startup Wabi Raises $55 Million at $1.25 Billion Value",
+          "headline_vi": "Người trợ lý khởi nghiệp AI Wabi huy động 55 triệu đô la với giá trị 1,25 tỷ đô la",
+          "url": "https://www.bloomberg.com/news/articles/2026-10-29/ai-assistant-startup-wabi-raises-55-million-at-1-25-billion-value",
+          "published_at": "2026-10-29T11:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-10-29T15:21:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "69ef52f475c9366ac447",
+          "title": "Wabi, the AI agent that builds mini apps, now valued at $1.25B after latest round",
+          "title_vi": "Wabi, agent AI xây dựng các ứng dụng mini, hiện được định giá là 1,25 tỷ đô la sau vòng cuối cùng",
+          "headline": "Wabi, the AI agent that builds mini apps, now valued at $1.25B after latest round",
+          "headline_vi": "Wabi, agent AI xây dựng các ứng dụng mini, hiện được định giá là 1,25 tỷ đô la sau vòng cuối cùng",
+          "url": "https://techcrunch.com/2026/10/29/wabi-the-ai-agent-that-builds-mini-apps-now-valued-at-1-25b-after-latest-round/",
+          "published_at": "2026-10-29T14:35:26Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-10-29T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 8.4094,
+          "hot_score": 56.999,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "fbde21a7a25856e001eb",
+      "title": "Tencent says upcoming Hy4 and Hy4 flash models will support visual understanding",
+      "title_vi": "Tencent nói các mô hình Hy4 và Hy4 sắp tới sẽ hỗ trợ sự hiểu biết trực quan",
+      "headline": "Tencent says upcoming Hy4 and Hy4 flash models will support visual understanding",
+      "headline_vi": "Tencent nói các mô hình Hy4 và Hy4 sắp tới sẽ hỗ trợ sự hiểu biết trực quan",
+      "url": "https://technode.com/2026/10/29/tencent-says-upcoming-hy4-and-hy4-flash-models-will-support-visual-understanding/",
+      "published_at": "2026-10-29T05:16:52Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "1ba06d33dd4dc8a7d876",
+          "title": "Tencent targets Southeast Asia as launch pad for AI agent WorkBuddy amid tough local market",
+          "title_vi": "Tencent nhắm đến Đông Nam Á như là sân phóng cho agent AI WorkBuddy trong bối cảnh thị trường cục bộ khó khăn",
+          "headline": "Tencent targets Southeast Asia as launch pad for AI agent WorkBuddy amid tough local market",
+          "headline_vi": "Tencent nhắm đến Đông Nam Á như là sân phóng cho agent AI WorkBuddy trong bối cảnh thị trường cục bộ khó khăn",
+          "url": "https://www.scmp.com/tech/big-tech/article/3372550/tencent-targets-southeast-asia-launch-pad-ai-agent-workbuddy-amid-tough-local-market",
+          "published_at": "2026-10-29T07:30:10Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-10-29T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "a4dbf7f5bcdb4bc4831f",
+          "title": "Tencent says upcoming Hy4 and Hy4 flash models will support visual understanding",
+          "title_vi": "Tencent nói các mô hình Hy4 và Hy4 sắp tới sẽ hỗ trợ sự hiểu biết trực quan",
+          "headline": "Tencent says upcoming Hy4 and Hy4 flash models will support visual understanding",
+          "headline_vi": "Tencent nói các mô hình Hy4 và Hy4 sắp tới sẽ hỗ trợ sự hiểu biết trực quan",
+          "url": "https://technode.com/2026/10/29/tencent-says-upcoming-hy4-and-hy4-flash-models-will-support-visual-understanding/",
+          "published_at": "2026-10-29T05:16:52Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "technode",
+          "publisher": "technode",
+          "entity": "technode",
+          "group": "press",
+          "observed_at": "2026-10-29T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "scmp",
+              "technode"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "scmp",
+            "technode"
+          ],
+          "age_hours_at_cutoff": 17.7189,
+          "hot_score": 53.239,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "5a25565ab71a8d06b3b9",
+      "title": "Le Chonk: Built for Coders, Trusted by Defenders.",
+      "title_vi": "Le Chonk: Được xây dựng cho Coders, được bảo vệ tin cậy.",
+      "headline": "Le Chonk: Built for Coders, Trusted by Defenders.",
+      "headline_vi": "Le Chonk: Được xây dựng cho Coders, được bảo vệ tin cậy.",
+      "url": "https://mistral.ai/news/mistral-large-4-oss",
+      "published_at": "2026-10-29T12:00:07Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "f964312cb1316ae8f59c",
+          "title": "We're releasing the weights of Mistral Large 4",
+          "title_vi": "Chúng ta đang giải phóng trọng số của Mistral Large 4",
+          "headline": "We're releasing the weights of Mistral Large 4",
+          "headline_vi": "Chúng ta đang giải phóng trọng số của Mistral Large 4",
+          "url": "https://mistral.ai/news/mistral-large-4-oss/",
+          "published_at": "2026-10-29T14:13:21Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-29T23:01:20Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50289418",
+          "metrics": {
+            "points": 1087,
+            "comments": 316
+          }
+        },
+        {
+          "id": "fb648c4a51b90614f119",
+          "title": "Le Chonk: Built for Coders, Trusted by Defenders.",
+          "title_vi": "Le Chonk: Được xây dựng cho Coders, được bảo vệ tin cậy.",
+          "headline": "Le Chonk: Built for Coders, Trusted by Defenders.",
+          "headline_vi": "Le Chonk: Được xây dựng cho Coders, được bảo vệ tin cậy.",
+          "url": "https://mistral.ai/news/mistral-large-4-oss",
+          "published_at": "2026-10-29T12:00:07Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "mistral-news",
+          "publisher": "mistral",
+          "entity": "mistral",
+          "group": "lab",
+          "observed_at": "2026-10-29T23:01:20Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 0.9891304347826086,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 1087,
+              "observed_at": "2026-10-29T23:01:20Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "mistral"
+          ],
+          "age_hours_at_cutoff": 10.9981,
+          "hot_score": 62.33,
+          "engagement_percentile": 0.9891304347826086
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 71,
+    "successful_remote_sources": 69,
+    "failed_remote_sources": [
+      "microsoft-research",
+      "restofworld"
+    ]
+  }
+}
