@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-29T23:50:55.345100+00:00",
-  "input_generated_at": "2026-10-29T22:41:31Z",
+  "generated_at": "2026-10-30T07:42:02.123113+00:00",
+  "input_generated_at": "2026-10-30T06:41:32Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -13325,6 +13325,880 @@
       "split_coverage_ids": [
         "06bbc60c7ad40b01a104"
       ]
+    },
+    {
+      "id": "a5f7f03d544b7f8c28f5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/30/ai-inference-chip-startup-nano-core-chip-raises-over-rmb-1-billion-in-series-c2-funding/",
+      "key_points": [
+        "Hangzhou-based AI inference chip developer Nano-core Chip announced on October 28 that it raised more than RMB 1 billion in Series C2 funding.",
+        "The round was led by JianTou Investment, with participation from Hangzhou Capital, Kaitai Capital, and other investors.",
+        "Proceeds will support product development and preparation for volume production of chips combining 3D near-memory computing, in-memory computing, and RISC-V processing.",
+        "Nano-core Chip announced its first three chips completed tape-out, with customer sampling and initial volume shipments scheduled for early 2027."
+      ],
+      "same_event_coverage_ids": [
+        "b98a6f79b6313d068b80"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3d191ffe84276cf6cc00",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/30/kai-fu-lees-01-ai-secures-hangzhou-state-investment-worth-hundreds-of-millions-of-rmb/",
+      "key_points": [
+        "01.AI announced on October 30 that it secured investment totaling hundreds of millions of RMB from state-backed investors in Hangzhou and Linping district.",
+        "01.AI is focusing on enterprise AI solutions, customizing Chinese open-weight models including DeepSeek, Qwen, and GLM for commercial clients."
+      ],
+      "same_event_coverage_ids": [
+        "6c0cd40fd13a1ad1edde"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "137a0dc5d85d7c0b684e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article reports on the launch of consumer sleep tracking hardware (smart ring and temperature-controlled bed system) with only incidental mention of AI in the title.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://technode.com/2026/10/30/former-xiaomi-executive-launches-smart-ring-and-ai-powered-sleep-system/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d5d049ef2ad3c7177037"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "93a0e4c62d36ed54ecb3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-30/murata-boosts-mlcc-output-investment-to-keep-pace-with-ai-demand",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "be26baa476e72df8b306"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cbee982671234688b523",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3372672/chinas-optical-suppliers-extend-sell-fears-slower-ai-growth-trump-upbeat-earnings",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "88b934ef02db7addc68e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "04ea0f0ddc1b02e28e37",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/envision-s-zheng-on-china-s-ai-data-center-buildout-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "74b6d4bba9fae249b79b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ce39219d4d28aaa83d0c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/30/tencents-workbuddy-adds-remote-control-letting-users-manage-ai-tasks-from-their-phones/",
+      "key_points": [
+        "Nền tảng đại lý AI (phần mềm tự thực hiện tác vụ) WorkBuddy của Tencent vừa bổ sung tính năng điều khiển từ xa, cho phép người dùng theo dõi và kiểm soát tác vụ máy tính qua điện thoại di động.",
+        "Theo bài viết trên TechNode, công cụ này giải quyết nhu cầu can thiệp thủ công trong quy trình làm việc của AI khi tác vụ đi chệch hướng, gặp lỗi hoặc cần cấp quyền truy cập.",
+        "Màn hình máy tính hiển thị dưới dạng cửa sổ nổi trong ứng dụng, hỗ trợ chuột ảo và bàn phím cảm ứng để xử lý sự cố trực tiếp trên điện thoại mà không tiêu tốn hạn ngạch token (đơn vị đo lường xử lý AI).",
+        "Tác giả bài viết trên TechNode đánh giá việc giữ lại sự giám sát của con người là cách tiếp cận thực tế hơn việc cố gắng tự động hóa hoàn toàn; tuy nhiên, điện thoại không thể thay thế trải nghiệm máy tính và hiệu quả ở các quy trình phức tạp nhiều cửa sổ vẫn cần thời gian kiểm chứng."
+      ],
+      "same_event_coverage_ids": [
+        "12ed361662c8d0027a89"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent ra mắt tính năng điều khiển từ xa cho WorkBuddy để giám sát đại lý AI qua điện thoại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/10/30/tencents-workbuddy-adds-remote-control-letting-users-manage-ai-tasks-from-their-phones/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "b5636e2775ac4bb7c9cb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A self-promotional Show HN post and GitHub README pitching an early-stage Lean 4 compiler without independent reporting or a substantive AI release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Millillion/lasm",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ef3aae0e86b3c0356b37"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d05cfb08b2c24c6f1b76",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/huawei-pharmaceutical-unit-no-drug-pipeline-ai-drug-discovery-computing-base-1024-card-superpod",
+      "key_points": [
+        "Huawei tuyên bố sẽ không tự phát triển thuốc mà hướng đến mục tiêu trở thành nền tảng hạ tầng công nghệ và điện toán cho các đơn vị ứng dụng AI trong nghiên cứu dược phẩm.",
+        "Theo lãnh đạo bộ phận dược phẩm của Huawei, định hướng này tương tự cách tiếp cận của tập đoàn ở các lĩnh vực khác, khi Huawei cung cấp năng lực tính toán và lưu trữ để các công ty đối tác chuyên trách xây dựng mô hình.",
+        "Doanh nghiệp đã phối hợp xây dựng các cụm khoảng một trăm thẻ tăng tốc cùng hai công ty y tế và viện nghiên cứu, đồng thời thúc đẩy thiết kế SuperPoD gồm 1.024 thẻ tăng tốc cho việc huấn luyện mô hình lớn.",
+        "Tuy nhiên, vị lãnh đạo này lưu ý rằng toàn bộ chuỗi phát triển thuốc hiện chưa được kết nối hoàn chỉnh, và hiệu quả thực tế của AI sẽ chỉ được khẳng định thông qua kết quả từ các quy trình nghiên cứu thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "39fd23151b3113e52717"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Huawei không tự sản xuất thuốc, hướng tới làm nền tảng điện toán cho AI dược phẩm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/huawei-pharmaceutical-unit-no-drug-pipeline-ai-drug-discovery-computing-base-1024-card-superpod"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "e885f7319bc7754d8182",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/doubao-work-third-party-models-enterprise-kimi-k3-1-pro-glm-5-3-deepseek-v4-1-flash",
+      "key_points": [
+        "Ứng dụng Doubao Work của ByteDance vừa thông báo mở quyền truy cập các mô hình AI bên thứ ba cho khách hàng thuộc gói thuê bao nhóm và doanh nghiệp.",
+        "Theo trang tin Pandaily, việc cập nhật này giúp doanh nghiệp linh hoạt chọn mô hình riêng cho từng tác vụ và trừ trực tiếp chi phí vào hạn mức tín dụng AI sẵn có mà không cần nộp đơn riêng cho từng bên.",
+        "Đợt cung cấp đầu tiên tích hợp các mô hình Kimi K3.1 Pro, GLM-5.3 cùng DeepSeek-V4.1-Flash vào danh mục lựa chọn mô hình bên cạnh các mẫu Doubao của ByteDance.",
+        "Pandaily nhận định động thái này biến lớp ứng dụng tác tử (phần mềm AI tự hành thực hiện tác vụ) thành sản phẩm chính thay vì phần lớn chỉ phô diễn mô hình nội bộ, dù ByteDance chưa cho biết các mô hình kế tiếp sau đợt đầu."
+      ],
+      "same_event_coverage_ids": [
+        "2bc72b7f39e7c565a67f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "ByteDance mở mô hình AI bên thứ ba cho khách hàng doanh nghiệp trên Doubao Work",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/doubao-work-third-party-models-enterprise-kimi-k3-1-pro-glm-5-3-deepseek-v4-1-flash"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "5068049567d381ff2561",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-30/big-tech-s-750-billion-ai-bet-collides-with-slowing-core-growth",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f8bd64ed6b97a7be23a4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1eb76f8232a323160238",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/odd-lots-what-wall-street-really-thinks-about-the-ai-trade-now",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b9b90071a460fda9ad1d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "15d288f315339849f888",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-30/indian-ai-firm-seeks-3-billion-financing-for-nvidia-chips-order",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e1a0e40833b9fee08aa9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a888836bd8b4c3e89287",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/29/you-dont-need-to-believe-in-a-god-to-get-a-religious-exemption-from-using-ai-at-work/",
+      "key_points": [
+        "Một nhân viên quản lý tại Đại học Kentucky theo chủ nghĩa nhân văn phi thần quyền vừa đạt được thỏa thuận miễn trừ tôn giáo để không phải dùng AI ở nơi làm việc.",
+        "Nhân viên này tìm kiếm sự bảo vệ pháp lý vì tin rằng công nghệ AI đi ngược lại niềm tin nhân văn của mình, dù công việc hiện tại chưa bắt buộc ông phải sử dụng công cụ này.",
+        "Theo TechCrunch, đây là người theo chủ nghĩa nhân văn đầu tiên được chấp thuận miễn trừ sử dụng AI, sau khi lấy cảm hứng từ một kỹ sư phần mềm từng đạt được sự bảo vệ tương tự.",
+        "Người phát ngôn của Đại học Kentucky nêu rõ trường xét duyệt theo từng trường hợp riêng lẻ, đồng thời các diện miễn trừ có thể bị xem xét lại để bảo đảm nhân viên vẫn hoàn thành nhiệm vụ cốt lõi khi công nghệ thay đổi."
+      ],
+      "same_event_coverage_ids": [
+        "f46b260b43b39cf37a83"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhân viên đại học tại Mỹ được miễn sử dụng AI tại nơi làm việc theo diện tôn giáo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/10/29/you-dont-need-to-believe-in-a-god-to-get-a-religious-exemption-from-using-ai-at-work/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "a5d1e2fe9dc74da10bcb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-29/nvidia-in-talks-to-offer-credit-support-for-nscale-project",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c00187780116566a66a5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f3faa96e8f7b995be1f0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/29/aws-will-be-a-1t-business-jassy-says-but-first-it-will-spend-big/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "40b4baac6c0d929b3737"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d37ffc88f2d0cd61330f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/features/2026-10-29/29-year-old-female-founder-breaths-life-into-next-generation-home-help-robots",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "454a3d38313a796c4d99"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "88899755dba00e8dcefc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Oct/29/api-credits/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "faf3a6f5891694ffed37"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5e18df37f28424925427",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/10/29/2026/canada-to-take-equity-stake-in-ai-firm",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d22682e3a7a81b9e96f8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "09174079a1bd1a6043d7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://epoch.ai/publications/open-weight-models-patch-gap",
+      "key_points": [
+        "Epoch AI demonstrated that open-weight model GLM 5.3 can identify and exploit vulnerabilities in Mozilla Firefox during the patch gap.",
+        "In tests, GLM 5.3 created an exploit webpage capable of extracting local files from visitors using unpatched Firefox versions without additional user interaction."
+      ],
+      "same_event_coverage_ids": [
+        "319a3139ee0b30a74937",
+        "b25b05a09d42ac8e2200"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1b1f9605e0bc7df6bcb3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bbc.com/news/articles/cm9qzdqpxy48o",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "242a7d22b74a0332ecec"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "da771810d3cb06074874",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social chatter on a Mastodon/forum instance without substantive reporting or release documentation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://convo.casa/@b/117525936178835007",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "626ce70cebf38de821bc",
+        "886a70ca12a2afe12b80"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "48356a5a0d97b1772c63",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The core reporting covers Apple's procurement dynamics with flash memory suppliers; AI datacenters are only an incidental reference explaining market demand shifts.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.msn.com/en-us/news/other/the-beleaguered-chip-sellers-getting-their-revenge-on-apple/ar-AA2ghTPi",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8af5667b4157b47eb7f5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1e7d133375f9472d066b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=MgngwkPAuqQ",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "17203d48e8e9243d10b5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d705f30bbf589517a29f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://medium.com/effortless-programming/ai-made-me-homeless-a7266d716e59",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6b151c35c9a8ef24c80a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "990b533cbb64ab7a1489",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/29/u-s-investigated-chinese-spy-plot-aimed-at-nvidia-ceo/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "730c1932b7287477e13f",
+        "8905383a457828975024",
+        "acb38561416c6b1ad2e7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e3c4c1c080c4432d2a89",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://thedataexchange.media/leo-de-moura-lean-aws/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "13b31d624a96bbf0c95d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1e03415a592fab8662c3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/wangzan101/Mika",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "03fe241a1bba6ae86649"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9b2441579ab16563fa7f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/deepseek-v5-placeholder-identifiers-harness-code-v4-1-flash-1017-frontiercode-2-0-aa-index-v5",
+      "key_points": [
+        "Placeholder identifiers for deepseek-v5, deepseek-v5-open, and deepseek-v5-next appeared in DeepSeek's official Harness GitHub repository.",
+        "DeepSeek has not officially announced a V5 model, and the identifiers are non-callable entries in test code."
+      ],
+      "same_event_coverage_ids": [
+        "b47033ac3c7c0b2d01ec",
+        "b9f51a52b6e93990f549"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e8044300d9c01b8ee988",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.40362",
+      "key_points": [
+        "Pretraining loss gains in weight-normalized training are driven primarily by the induced effective learning rate trajectory rather than by normalization alone.",
+        "Matching effective learning rate trajectories largely collapses the training loss dynamics between weight-normalized training and conventional weight decay.",
+        "The authors propose AIR (Affine Inverse-square-Root decay), combining a 1/sqrt(t) decay with an affine adjustment to satisfy peak and terminal learning rates over a finite horizon."
+      ],
+      "same_event_coverage_ids": [
+        "1d1484e77ad3b4fe1695"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d0b51042cafdf4b2a4fc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.39633",
+      "key_points": [
+        "Distribution matching distillation uses score differences to align a generated text-to-image distribution with a reference distribution in one-step and few-step generation.",
+        "The authors estimate score differences using internal velocity branches to avoid requiring a separate fake-score network.",
+        "Intrinsic Distribution Matching (IDM) decomposes the reverse-KL field into a Gaussian moment component and a non-Gaussian residual to enable explicit moment constraints."
+      ],
+      "same_event_coverage_ids": [
+        "44f4fa88cfefbb7b51e3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "be37d41dd10472ef828d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.40454",
+      "key_points": [
+        "Glance equips a generation model with a lightweight decision adapter and pointer head to score candidate passages from a shared prefill.",
+        "A single resident 9B backbone supports generation, general decisions, and reranking with approximately 0.1 GiB of additional memory per decision skill.",
+        "After 39 minutes of MS MARCO fine-tuning, Glance achieves an nDCG@10 of 0.741 on SciFact and 0.345 on NFCorpus, outperforming bge-reranker-v2-m3.",
+        "On 300 HotpotQA questions, Glance's selected context improves downstream answer F1 score by 0.045."
+      ],
+      "same_event_coverage_ids": [
+        "bcc4f7fc7231e204e26e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7324e5c847ac43f600b7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.40599",
+      "key_points": [
+        "The hair of stylized characters in games and avatars is built from hair cards animated by spring bones.",
+        "Existing image-based hair generation methods produce realistic hair or a single fused mesh, while CHARM decodes hairstyles autoregressively as sequences of control points.",
+        "HairDeck treats card hairstyles as an unordered set of artist-defined primitives, representing each card as a single token.",
+        "HairDeck uses a set diffusion transformer to denoise all cards together.",
+        "From a single image, HairDeck generates cards and the spring-bone chains that drive them to yield animatable assets."
+      ],
+      "same_event_coverage_ids": [
+        "f928a092c8f6cf5c7337"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4a6e83fc6b01f273ab60",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.39664",
+      "key_points": [
+        "Researchers argue agentic image editors are bounded by action space (what tools are available) and observation space (what judges can evaluate).",
+        "On an expert-annotated benchmark, general-purpose image editors yield no usable result in over 40% of cases, and no judge is reliable across edit types.",
+        "EditAgent expands action and observation spaces by routing steps to general editors and specialized methods while attaching verification records to candidates.",
+        "With verification records, off-the-shelf vision-language model judges outperform finetuned reward models."
+      ],
+      "same_event_coverage_ids": [
+        "b207ddb284c6a38c17cd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "397ec68d1b530d3cfc78",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.39264",
+      "key_points": [
+        "Frontier vision-language models have high inference costs that limit their everyday use for UI navigation.",
+        "Smaller UI models trained with supervised fine-tuning or offline reinforcement learning often memorize static trajectories and struggle to recover from errors.",
+        "The paper proposes an online reinforcement learning framework that trains UI navigation agents directly on live iOS applications.",
+        "The framework decouples navigation into a Planning agent and a UI Grounding model, relying on an LLM-as-a-Judge."
+      ],
+      "same_event_coverage_ids": [
+        "2417f569ff42ce4f6e4b"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
