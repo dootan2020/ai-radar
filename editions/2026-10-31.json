@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-31",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-29T23:00:00Z",
+  "cutoff_at": "2026-10-30T23:00:00Z",
+  "created_at": "2026-10-30T23:04:03Z",
+  "snapshot_generated_at": "2026-10-30T23:01:25Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-10-30T23:01:25Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "879d4e3e75e83582bde6",
+      "title": "Computer Use generally available (GA)",
+      "title_vi": "Sử dụng máy tính (Computer Use)",
+      "headline": "Computer Use generally available (GA)",
+      "headline_vi": "Sử dụng máy tính (Computer Use)",
+      "url": "https://ai.google.dev/gemini-api/docs/computer-use",
+      "published_at": "2026-10-30T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "e864d8cbdecb6926766f",
+          "title": "Computer Use generally available (GA)",
+          "title_vi": "Sử dụng máy tính (Computer Use)",
+          "headline": "Computer Use generally available (GA)",
+          "headline_vi": "Sử dụng máy tính (Computer Use)",
+          "url": "https://ai.google.dev/gemini-api/docs/computer-use",
+          "published_at": "2026-10-30T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "google-ai-studio",
+          "publisher": "google",
+          "entity": "google",
+          "group": "lab",
+          "observed_at": "2026-10-30T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "e864d8cbdecb6926766f"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "google"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "28168c91138a1b4163d5",
+      "title": "Proton’s CEO Cancels AI ‘Re-Interviews’",
+      "headline": "Proton’s CEO Cancels AI ‘Re-Interviews’",
+      "url": "https://www.404media.co/protons-ceo-cancels-ai-re-interviews/",
+      "published_at": "2026-10-30T16:40:39Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "1733e19be5745a989dd7",
+          "title": "Proton’s CEO Cancels AI ‘Re-Interviews’",
+          "headline": "Proton’s CEO Cancels AI ‘Re-Interviews’",
+          "url": "https://www.404media.co/protons-ceo-cancels-ai-re-interviews/",
+          "published_at": "2026-10-30T16:40:39Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "404media",
+          "publisher": "404-media",
+          "entity": "404-media",
+          "group": "press",
+          "observed_at": "2026-10-30T23:01:25Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "e0ee5ada096c3e25cb87",
+          "title": "Proton's CEO Cancels AI 'Re-Interviews'",
+          "headline": "Proton's CEO Cancels AI 'Re-Interviews'",
+          "url": "https://www.404media.co/protons-ceo-cancels-ai-re-interviews/",
+          "published_at": "2026-10-30T17:24:45Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-30T23:01:25Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50307183",
+          "metrics": {
+            "points": 247,
+            "comments": 205
+          }
+        },
+        {
+          "id": "74c49bf81250db352efe",
+          "title": "Proton's CEO Cancels AI 'Re-Interviews'",
+          "headline": "Proton's CEO Cancels AI 'Re-Interviews'",
+          "url": "https://www.404media.co/protons-ceo-cancels-ai-re-interviews/",
+          "published_at": "2026-10-30T17:24:45Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-30T19:01:12Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50307183",
+          "metrics": {
+            "points": 169,
+            "comments": 124
+          }
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 0.8504672897196262,
+            "measurement": {
+              "source": "hn-ai",
+              "metric": "points",
+              "value": 247,
+              "observed_at": "2026-10-30T23:01:25Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "404-media"
+          ],
+          "age_hours_at_cutoff": 6.3225,
+          "hot_score": 62.146,
+          "engagement_percentile": 0.8504672897196262
+        }
+      }
+    },
+    {
+      "id": "6edd96eae3e66dcbe1d7",
+      "title": "Backdoor in Claude Code for VS Code extension on the Cursor Marketplace",
+      "title_vi": "Cửa sau trong Claude Code cho VS Code mở rộng trên Cursor Marketplace",
+      "headline": "Backdoor in Claude Code for VS Code extension on the Cursor Marketplace",
+      "headline_vi": "Cửa sau trong Claude Code cho VS Code mở rộng trên Cursor Marketplace",
+      "url": "https://phorion.io/blog/offical-claude-code-vsx-compromise/",
+      "published_at": "2026-10-30T07:09:12Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "source_count": 0,
+      "coverage": [
+        {
+          "id": "44272596fee00a622cf4",
+          "title": "Backdoors in official Claude Code extensions",
+          "title_vi": "Cửa sau trong các phần mở rộng chính thức của Claude Code",
+          "headline": "Backdoors in official Claude Code extensions",
+          "headline_vi": "Cửa sau trong các phần mở rộng chính thức của Claude Code",
+          "url": "https://cyberplace.social/@GossiTheDog/117528831681803563",
+          "published_at": "2026-10-30T11:05:53Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-30T14:21:22Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50302334",
+          "metrics": {
+            "points": 612,
+            "comments": 178
+          }
+        },
+        {
+          "id": "f76fc6ffbd08d162b127",
+          "title": "Backdoor in Claude Code for VS Code extension on the Cursor Marketplace",
+          "title_vi": "Cửa sau trong Claude Code cho VS Code mở rộng trên Cursor Marketplace",
+          "headline": "Backdoor in Claude Code for VS Code extension on the Cursor Marketplace",
+          "headline_vi": "Cửa sau trong Claude Code cho VS Code mở rộng trên Cursor Marketplace",
+          "url": "https://phorion.io/blog/offical-claude-code-vsx-compromise/",
+          "published_at": "2026-10-30T07:09:12Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-10-30T23:01:25Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50300683",
+          "metrics": {
+            "points": 696,
+            "comments": 439
+          }
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Ngoại lệ diễn đàn: tương tác thuộc nhóm 3% cao nhất và ít nhất 100 bình luận",
+            "percentile": 0.9719626168224299,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 696,
+              "observed_at": "2026-10-30T23:01:25Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [],
+          "age_hours_at_cutoff": 15.8467,
+          "hot_score": 39.949,
+          "engagement_percentile": 0.9719626168224299
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 71,
+    "successful_remote_sources": 70,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
