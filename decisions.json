@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-30T13:28:35.635390+00:00",
-  "input_generated_at": "2026-10-30T12:41:17Z",
+  "generated_at": "2026-10-30T23:53:42.111836+00:00",
+  "input_generated_at": "2026-10-30T22:41:13Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -14945,6 +14945,1779 @@
       ],
       "same_event_coverage_ids": [
         "acb38561416c6b1ad2e7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f2058f87d4da17e2f998",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-30/baseten-set-for-30-billion-valuation-with-new-funding",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "430b581b46cc4cf2a4b5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "54f20f9f7f25bd156a2f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Oct/30/nesformer/",
+      "key_points": [
+        "Drew Breunig built a working emulator for a Nintendo Entertainment System 6502 CPU into the weights of Qwen3.5-4B.",
+        "The model allows running NES ROMs like Super Mario Bros inside Qwen."
+      ],
+      "same_event_coverage_ids": [
+        "d3e9d6654353e08f7b50"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b232231c4b2968bab36e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-30/meta-s-credit-rating-outlook-downgraded-to-negative-by-s-p",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bdc0f224244ab1d3859c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5ae1d67b9d2847639ce6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The story centers on Intel's stock crash and weak fourth-quarter revenue outlook; AI is only mentioned in passing as background market context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/30/intels-stock-crashes-knocking-12b-from-governments-stake/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7d6273009bb50a166791"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1abfdb6dc9802b6f4db0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/30/anthropic-expected-to-receive-high-junk-rating-from-credit-agencies-following-ipo-report-says/",
+      "key_points": [
+        "Theo báo cáo từ Financial Times được TechCrunch dẫn lại, Anthropic dự kiến sẽ nhận mức xếp hạng tín nhiệm rác (hạng đầu cơ rủi ro cao) sau khi nộp hồ sơ phát hành cổ phiếu lần đầu ra công chúng (IPO).",
+        "Theo Financial Times, tập đoàn Blackstone, nhà đầu tư chủ chốt trong thỏa thuận tài trợ chip 63 tỷ USD, đã chia sẻ dự báo trên với các nhà đầu tư của thương vụ.",
+        "Cả Anthropic và Blackstone đều từ chối bình luận khi TechCrunch liên hệ.",
+        "TechCrunch nhận định dù dự báo từ Blackstone chỉ là phỏng đoán, xếp hạng rác sẽ khiến Anthropic khó khăn và tốn kém hơn khi huy động vốn tài trợ các gói chi tiêu điện toán khổng lồ."
+      ],
+      "same_event_coverage_ids": [
+        "037838656481ba1a1bfc",
+        "9a99498450daadaff6a1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Blackstone dự báo Anthropic có thể nhận xếp hạng rác sau IPO dù đây chỉ là phỏng đoán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/10/30/anthropic-expected-to-receive-high-junk-rating-from-credit-agencies-following-ipo-report-says/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "fce6942f063d001dedbf",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/fuelcell-energy-ceo-ai-race-won-t-be-won-by-pausing-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "46d96b47c326195e412d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "208850a6ee7c8b5578ec",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on the delayed timeline of Boom Supersonic's passenger airliner, with AI data center power mentioned only as an incidental secondary venture.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/gadgets/2026/10/united-airlines-ceo-doubts-supersonic-airliner-from-boom-will-be-ready-by-2029/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "eb1df1febe58ba462abf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "24c1285ad5edaaad29cb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "An AWS developer tutorial guiding users step-by-step on deploying a coding agent and previewing web apps with Amazon Bedrock AgentCore runtime.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/preview-web-apps-live-as-your-coding-agent-builds-them-with-amazon-bedrock-agentcore-runtime/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f25a5e89fa03e3a1a70f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "869014b81cc7bf413692",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A technical guide and recipe tutorial demonstrating how to build and configure a Kubernetes runtime for NVIDIA Dynamo inference using AICR.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/build-a-validated-kubernetes-runtime-for-nvidia-dynamo/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2c629657c26bbcefd732"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "03ea0cb6a82382c62e33",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A humorous holiday costume listicle with tech industry jokes that mentions AI only incidentally as a costume gag.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/30/last-minute-halloween-costumes-for-tech-nerds/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d2a03eb3a01e0495ce30"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c063c2f3517d60612df9",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/uncanny-valley-podcast-how-a-contractors-claude-agent-got-into-the-pentagon/",
+      "key_points": [
+        "Wired's Uncanny Valley podcast discusses a scoop on a defense contractor who connected Claude Code to a secure Department of Defense system.",
+        "The podcast analyzes potential risks and flags identified in Anthropic's IPO filing."
+      ],
+      "same_event_coverage_ids": [
+        "267d6b57ab12a2f0126d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "434071bc563a35a61d42",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/30/cracks-are-emerging-in-the-ai-spending-boom/",
+      "key_points": [
+        "Alphabet, Amazon, Meta, and Microsoft have outlined plans to spend more than $740 billion on capital expenditures this year, driven by AI infrastructure.",
+        "Investors are growing concerned about mounting debt, negative free cash flow, and the return on massive AI infrastructure investments.",
+        "Market anxiety over AI capital spending contributed to a 2.9% drop in the Nasdaq and a sell-off in chip stocks like Nvidia."
+      ],
+      "same_event_coverage_ids": [
+        "c2bc1865d3d3c7efb38c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "eaad933c9eb95379c7b5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://phorion.io/blog/offical-claude-code-vsx-compromise/",
+      "key_points": [
+        "Phorion phát hiện tiện ích Claude Code trên Cursor Marketplace bị chèn mã độc cửa sau (backdoor - phần mềm ngầm chiếm quyền) SSH trên macOS, Linux và Windows trước khi Cursor gỡ bỏ bản phát hành.",
+        "Phorion giải thích mã độc tự kích hoạt ngay khi phần mềm tải tệp và chèn khóa bảo mật nhằm mục tiêu duy trì quyền truy cập tương tác lâu dài vào thiết bị nạn nhân.",
+        "Phorion chỉ ra lỗi lập trình trên macOS khiến mã độc bỏ qua bước bật SSH khi thiếu quyền quản trị, làm mất đường truy cập từ bên ngoài nếu máy nạn nhân chưa mở sẵn tính năng Đăng nhập từ xa.",
+        "Phorion cảnh báo đây vẫn là mối đe dọa lớn do mã độc vẫn chạy ngầm và do thám máy chủ, trong khi việc chỉ gỡ tiện ích sẽ không xóa được cửa sau. Theo Ars Technica, hiện vẫn chưa rõ bằng cách nào kẻ tấn công chiếm được tài khoản Cursor đã xác thực của Anthropic."
+      ],
+      "same_event_coverage_ids": [
+        "58d08abcfa1f7933174c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cursor gỡ bỏ tiện ích Claude Code sau khi Phorion phát hiện mã độc cửa sau SSH",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "phorion.io",
+          "url": "https://phorion.io/blog/offical-claude-code-vsx-compromise/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "ars-technica",
+          "url": "https://arstechnica.com/security/2026/10/anthropic-vs-code-extension-on-cursor-backdoored-for-nearly-12-hours/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "05a1378ae455d54de0c6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1023820/sam-altman-ram-shortage-cloud-servers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "464cfd966eaf051f4fbc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c8804a79ad56c280f72b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/30/2026/dartmouth-made-a-bad-call-on-provosts-ai-use",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9d3b5b284c3b73a920e4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cfb4189f31938d74a87f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Developer how-to guide and technical tutorial for running edge AI models on NVIDIA DGX Spark hardware using the trtedge CLI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/run-ai-models-for-edge-application-development-with-just-a-few-commands/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0493a65b89a1c3a5af94"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7a24eca35f77e86d873f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1023763/openai-google-microsoft-ai-scraping-standard-opt-out",
+      "key_points": [
+        "OpenAI, Google, Microsoft, and Anthropic announced they will adopt a shared standard for publishers to opt out of AI web scraping.",
+        "The standard enables publishers to apply AI training preferences across multiple AI crawlers at once instead of setting them individually.",
+        "The shared 'policy token' signal was proposed by Anthropic technical standards lead Kevin Kelley through the Internet Engineering Task Force (IETF).",
+        "The policy token signal will be located within a website's robots.txt file."
+      ],
+      "same_event_coverage_ids": [
+        "66c29b931fa277d81b0c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b98f5f400a5677df78f7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.nextgov.com/artificial-intelligence/2026/10/democrats-press-openai-over-safety-researcher-firings-security-incidents/416954/",
+      "key_points": [
+        "Lawmakers demanded OpenAI commit to not firing whistleblowers who share model safety concerns.",
+        "Lawmakers urged OpenAI to maintain its pause on its most capable models until independent third-party oversight is established."
+      ],
+      "same_event_coverage_ids": [
+        "c7a4a9976414b8a42ad1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "abc5566bda42b5a9b55f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/ai/2026/10/doordash-says-outside-ai-agents-have-only-led-to-hundreds-of-orders-so-far/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "964b1fe844a08f033db8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "229cd1a08e10762cd2e6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-30/big-tech-holds-3-trillion-in-spending-commitments-for-ai-boom",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6cdb5413cdeac411f3ef"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bf2d4805640141562083",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-30/ai-media-firm-needs-privacy-ombudsman-in-disney-deal-judge-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "da7d985a807fcb595b22"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b9ee8bb30716fa37b159",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1023528/google-project-suncatcher-ai-satellite-transmission",
+      "key_points": [
+        "Theo Google, vệ tinh thử nghiệm gắn chip trí tuệ nhân tạo của hãng đã truyền thành công phản hồi đầu tiên từ không gian về Trái Đất.",
+        "Google cho biết vụ thử nghiệm thuộc Project Suncatcher, một sáng kiến thử nghiệm có thể hướng tới việc đặt các trung tâm dữ liệu AI ngoài không gian.",
+        "Google cho biết đã khởi động thành công các vi xử lý Tensor Processing Units (TPU, chip AI chuyên dụng) để mô hình Gemma 4 tạo một bài thơ haiku về vũ trụ, đồng thời thử nghiệm thêm các câu lệnh đo xa.",
+        "Theo Google, việc xác minh TPU vận hành ổn định ngoài không gian là tiền đề mở đường cho mục tiêu kết nối hai vệ tinh vào năm 2027."
+      ],
+      "same_event_coverage_ids": [
+        "cc2b1743455cb0addd39"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Vệ tinh thử nghiệm của Google lần đầu gửi phản hồi AI từ không gian về Trái Đất",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1023528/google-project-suncatcher-ai-satellite-transmission"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "037154e824aaff256e14",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/nvidia/nemotron-halloween",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b13c7297b4fad2a5ca73"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1d48dbec944c65110d4f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/30/zests-new-ai-agent-finds-restaurants-and-books-reservations-over-text/",
+      "key_points": [
+        "Theo TechCrunch, Zest vừa ra mắt một AI agent (tác nhân trí tuệ nhân tạo tự động thực hiện tác vụ) trên tin nhắn để gợi ý quán ăn và đặt bàn.",
+        "Zest cho biết ứng dụng chỉ theo dõi chi tiêu ăn uống qua thẻ tín dụng để nắm bắt khẩu vị khách hàng. Nhà sáng lập Mario Gomez-Hall giải thích rằng hệ thống học sở thích từ những nơi người dùng từng đến thay vì mất nhiều tuần trò chuyện.",
+        "Trong thử nghiệm của TechCrunch, công cụ gợi ý khá tốt theo khẩu vị và thời gian đặt chỗ. Dù vậy, TechCrunch nhận xét tính năng tìm bàn đã có từ lâu, điểm tiện ích là người dùng có thể trao đổi trực tiếp qua tin nhắn.",
+        "Zest kỳ vọng giao diện tin nhắn sẽ giúp công ty mở rộng vượt quy mô vài nghìn người dùng và tạo doanh thu từ dịch vụ đặt chỗ."
+      ],
+      "same_event_coverage_ids": [
+        "0ae509c17d8b041fcb94"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Zest ra mắt tính năng trợ lý AI hỗ trợ gợi ý nhà hàng và đặt bàn qua tin nhắn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/10/30/zests-new-ai-agent-finds-restaurants-and-books-reservations-over-text/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "9c79addb856a9fb17d99",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Article focuses on Fujifilm's magnetic tape manufacturing capacity and archival storage economics; AI data center growth is only an incidental background factor.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/gadgets/2026/10/fujifilm-to-boost-tape-production-5x-as-ai-fuels-archiving-demand/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9d2e3494d69ea2fa1141"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8789b25f4f928a029c45",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Starbucks CEO made an exploratory comment during an earnings call about personalized drive-thru menus; AI is not the main subject of company business and represents only an incidental reference.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1023440/starbucks-ai-personalized-menu-drive-thru",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "adc662d39d1411d27d3d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d4d35b3da5b2f2860dee",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.interconnects.ai/p/was-i-wrong-about-open-models-and",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "713e4e8ddc3c41e9b5a5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7dcc9758baf5cb29b362",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "AWS vendor blog post presenting a customer case study of Worldwide Express automating freight billing exceptions using Amazon Bedrock.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-worldwide-express-automated-freight-exceptions-with-amazon-bedrock/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c7c9133f4d683c4598f2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3ff015fb9176e4938d75",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General financial market broadcast focused on Intel's PC outlook and cryptocurrency slumps, where AWS AI spending is only an incidental segment.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/bloomberg-tech-10-30-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b67195791418058331fd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "30feb7a6b056dc5f2e38",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Step-by-step technical deployment walkthrough and configuration guide for routing ChatGPT desktop app inference to Amazon Bedrock in AWS GovCloud.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/configure-the-chatgpt-desktop-app-with-amazon-bedrock-in-aws-govcloud-us/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8f659cde722236784f35"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "08af9744982eec8c171b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/why-anthropic-s-ai-edge-appeals-to-long-term-investors-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "28fc6102ca1203db3303"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3866c38d792d4de4c4e3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Earnings and business performance report for Roblox focusing on daily active user declines, bookings drops, and safety measures, with only an incidental reference to AI content.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/roblox-sees-ai-content-surge-as-daily-active-users-fall-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c6ea62be8c719760d1cc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c991551ae02e5d7cc117",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/ai-to-drive-40-growth-for-aws-ceo-garman-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4cfcdc2e0cd2a3d34150"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d28bbd920840fe22ea9b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/30/2026/the-ai-boom-spawns-job-market-for-data-center-liaisons",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8d4ac1db5e4cd14ba731"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "edd8084f4c3feab47794",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/30/2026/dartmouth-made-a-bad-call-on-provosts-ai-use",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "13b21d9617beabc50db2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "80f8b80136c143f203fd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN pitch for an inference server product from Spinf Inc without independent reporting or a substantive editorial release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/spinfinc/spinf-serve",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "66d4620f713d210534ec"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8479e43a6387fbd883a7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/amazon-s-ai-spending-spooks-investors-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "90ddb4302c8a7657696f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "42474e919319ea83293b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/30/googles-first-data-center-satellite-is-online-and-writing-poetry/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f1f0879dcfef6810d589"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4da51a8d3c864c8d2325",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/tech-policy/2026/10/doj-exposes-ghost-students-using-ai-to-complete-courses-steal-student-loans/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "54224ae8b605d12360aa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "28168c91138a1b4163d5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/protons-ceo-cancels-ai-re-interviews/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1733e19be5745a989dd7",
+        "74c49bf81250db352efe",
+        "e0ee5ada096c3e25cb87"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "44da56d320b41406002b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.com/dbreunig/nesformer",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ab18b45e716d61177b11"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0976db17da27c0357f56",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-30/amazon-taps-80-billion-supplier-loan-facility-to-help-fund-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "60322f43a0468758fd45"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fc2e20c6a0abf976d943",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-30/ecb-s-lane-says-ai-significant-contributor-to-euro-area-growth",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1e33ad08fe138e1dda85"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "627d39a352db7da338e7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/anthropic-s-s1-google-s-ai-problem-the-rundown-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1a18da45b9516b78190c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e0560c89dba7252fc343",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bbc.co.uk/news/articles/cvwy72e0n72yo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a96a7afb4a8e2c47e8e2",
+        "f0342c16f845b42c4703"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9d1f246a30c48eae12f8",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/30/theranos-whistleblower-tyler-shultz-warns-that-the-ai-boom-is-a-great-opportunity-to-go-deceive-people/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9e27d19622702079a1de"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b0afceb347e7b188bf46",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/build-specialized-agents-on-a-stack-you-control-with-nvidia-nemoclaw/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "36710089464e7d7f47ee"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "635946f488232f0a9331",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://alanbellows.com/some-thing-is-happening/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "84b5cffdfe7ee8c707af"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "55737272f83db8f20c92",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://newsletter.signoz.io/p/ai-isnt-replacing-sres-its-deskilling",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "54ed6899ad84b8c2a8ef",
+        "a24ab002d85a862e8dfc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bfdca6ea7ece0a0498b4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Standalone financial calculator and tracking website (sbfindex.com) lacking editorial reporting or news content.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://sbfindex.com/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5c425150b757d438aa40"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "70bf1d27d2ea37bf5f1a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://skypilot.ai/blog/flying-roadster-rl",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4d56ced576535494c24b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b4b5d4708ea8c5f7b0dc",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN pitch and demo landing page for an agent game proof-of-concept without independent reporting or a substantive software release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://sketch.wakeshift.ai/games/q5ucru",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "542922e8fee9baca2c73"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4ff51e4e30dd0b368966",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository code page with README documentation lacking an official news announcement or journalistic coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/N1nEmAn/sapper-v2",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6bc2979e17ea9423f902"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "457063de4ee2957a09d5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical how-to guide and configuration tutorial on setting up NVIDIA GPUDirect Storage rather than news or analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/how-to-check-and-configure-nvidia-gpudirect-storage-for-your-platform/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4760df87c2ae5310beec"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "91038b3a35f762ad5020",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor blog post highlighting how external partners (SETI Institute and Breakthrough Listen) deploy NVIDIA Holoscan and GPUs, functioning as a promotional customer case study.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/ai-joins-the-search-for-extraterrestrial-signals/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "34401c73d2ad5f0c6d2a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d7f3b41f1dba70c81d25",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1023188/pope-leo-disarm-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c688bdc654596a3d87fa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "645661eb84ac44ecaacd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Pharmaceutical business reporting focused primarily on company earnings, drug pipelines, and restructuring, with only a passing reference to AI usage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/astrazeneca-cfo-on-ai-earnings-restructuring-plan-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0b85110695b9fef3e06e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "155fd22d3defde31c619",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social chatter consisting of a single post on X/Twitter without substantive journalistic reporting or verified documentation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/chasmmmmmmmmmmm/status/2116062991686721968",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "60841aadbe24fcadfd7f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c8ec07a97e3bf5409b29",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=Ii-aeW5pHPQ",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6ed5ea4dc05a32b4ee38",
+        "b92e85730d6f5e96c60f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8db759a7708af2519568",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.tomshardware.com/tech-industry/big-tech/cisco-gives-27-year-old-engineer-unlimited-ai-tokens-to-rewrite-98-percent-of-the-companys-legacy-code-in-24-months-president-plucks-former-startup-founder-telling-him-to-go-nuts",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d4a84a3a5f7bf332737",
+        "753d7b10debb1f9044fd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6e71e92aae50069aef3a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/30/doordash-said-its-only-received-several-hundred-orders-from-ai-agents/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c60bdf8d6e1146c0ba8b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "eaca4ca06922d7274c18",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/foxconn-chairman-ai-demand-is-real-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fe23bd8d832bcefff6a2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "aa5eae6e81eff46000e7",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://seekingalpha.com/article/4960031-ai-bubble-burst-confirmed-by-alphabet-caterpillar-servicenow-amazon",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "842081cd720a521debca"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "354ec118ea486c05a6de",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/10/30/2026/africas-ai-bet-is-on-building-not-catching-up",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ee70292740304eaa00ac"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fc5039ff007d31250db5",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/apple-iphone-duo-not-great-ai-experience-piecyk-says-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "03142031e162c4437bdf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bafa68df361fc999449e",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.microsoft.com/en-us/research/blog/from-synthetic-enterprise-data-evaluations-to-real-microsoft-copilot-ai-confidence/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a2882aa3db0520d7bfb3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1c953c6f303dffb252a4",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1023054/altman-cheeky-pint-ai-math-interview",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c4bafd06ca386fcd8771"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3ff23f142c77481e11a6",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/10/30/can-ai-data-centers-be-mass-produced-like-cars-and-online-in-48-hours-this-startup-aims-to-find-out/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "32dc333d32fc4ede26a6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4fb53936da739d3f3a3f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3372774/ai-fuelled-advanced-chips-set-power-semiconductor-manufacturing-industry-veteran",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5f72957f4b1ce38c022a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a74aad64f75e031362ea",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.cnbc.com/2026/10/30/trump-tech-allies-swap-ai-for-super-intelligence-in-earnings-calls.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2e740282532dcaf9ce86"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "200b1ad46013bb9371d9",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=MENoB3Rex28",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4ef68b436eb7d157bbb4",
+        "9b2e5ec461db5425c092"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "84abd1857de5dfd951d9",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/helping-websites-express-ai-training-preferences",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "10d7cd47e0abc0dbcc7e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a86d24c59c826150d16d",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/community-safety-report-and-new-protections-for-teens",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e29a5fb3ca1a040ce369"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6edd96eae3e66dcbe1d7",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://phorion.io/blog/offical-claude-code-vsx-compromise/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f76fc6ffbd08d162b127"
+      ],
+      "split_coverage_ids": [
+        "44272596fee00a622cf4"
+      ]
+    },
+    {
+      "id": "4431d381df5894925feb",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-30/foxconn-ai-will-boost-consumer-electronics-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4b0c953ba2252c7689f6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "574dbaf7fc8731e40575",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/fair-use-benefits-everyone",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ce3ffeb15e685d15f27b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "97c67637a7780f4fa42f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/sgondala2/status/2115832070274723875",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0461fab1ba1a09649d4a",
+        "47d2aebafdad1fa687b2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0ae524ee7a4c5e73c0c6",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/Pika-Labs/Pika-H3-Flex",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3d48e143d43bcb611722"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3a2c48ea865090f028fb",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/unitshaperextol/Legion-os",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "13fe7df6075de7952a91"
       ],
       "split_coverage_ids": []
     }
