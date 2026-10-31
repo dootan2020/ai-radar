@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-31T11:13:18.391563+00:00",
-  "input_generated_at": "2026-10-31T10:41:27Z",
+  "generated_at": "2026-10-31T13:06:38.636332+00:00",
+  "input_generated_at": "2026-10-31T12:41:15Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -17346,6 +17346,121 @@
       "split_coverage_ids": [
         "19627e10ca654a8113cb"
       ]
+    },
+    {
+      "id": "e2485d313c2cda815be6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/opinion/world-opinion/article/3372415/si-future-ai-just-not-way-trump-thinks",
+      "key_points": [
+        "The author asserts that the next leap in AI requires systems capable of recognizing what they do not know, acquiring that knowledge, and acting safely.",
+        "The commentary notes that academics, critics, and major AI firms calling for a development pause have realized current AI is on the wrong trajectory."
+      ],
+      "same_event_coverage_ids": [
+        "2e30af1cf871400641bc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cfd9c022f552f991968f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/kernel-panic-volta-autodoxer-ai-infostealer-malware/",
+      "key_points": [
+        "Các nhà nghiên cứu tại Cisco Talos phát hiện tin tặc đã tích hợp trí tuệ nhân tạo vào biến thể mã độc Volta-Autodoxer (phần mềm chuyên thu thập dữ liệu đăng nhập) nhằm tự động lập hồ sơ nạn nhân.",
+        "Chuyên gia Ryan Fetterman từ Cisco Talos giải thích mã độc cần chức năng phân tích này để xác định mục tiêu giá trị nhanh hơn trước khi các mã xác thực hết hạn hoặc mật khẩu bị thay đổi.",
+        "Sau khi quét mật khẩu và lịch sử giao dịch cá nhân, mã độc gửi chỉ dẫn dài 240 từ yêu cầu mô hình Claude Opus 4.6 hoặc các phương án dự phòng đánh giá giá trị nạn nhân.",
+        "Ông Fetterman nhận định công nghệ giúp kẻ tấn công trình độ thấp tiếp cận các kỹ thuật tinh vi hơn, dù Cisco Talos lưu ý chưa theo dõi liệu Volta đã phát tán trong thực tế hay chưa."
+      ],
+      "same_event_coverage_ids": [
+        "dea4213b2a6f4c70c29a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cisco Talos phát hiện mã độc Volta dùng AI lập hồ sơ nạn nhân dù chưa rõ lây lan thực tế",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/kernel-panic-volta-autodoxer-ai-infostealer-malware/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "459f85ac04596d6e1998",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-31/ai-spending-fears-hammer-big-tech-stocks-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a922b5e09064a64c624e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1c640f88e053cb517a45",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.parameter.ai/labs/we-found-a-gap-at-openai",
+      "key_points": [
+        "Security researchers bypassed ChatGPT's sandbox and content security policy to achieve account takeovers via shared conversation links.",
+        "The exploit could enumerate private conversation lists, exfiltrate private chat data, and call authenticated ChatGPT APIs on the victim's behalf."
+      ],
+      "same_event_coverage_ids": [
+        "9d3ff0829a88d006c000"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
