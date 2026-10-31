@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-31T07:15:32.324576+00:00",
-  "input_generated_at": "2026-10-31T06:55:10Z",
+  "generated_at": "2026-10-31T11:13:18.391563+00:00",
+  "input_generated_at": "2026-10-31T10:41:27Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -17148,6 +17148,203 @@
       "split_coverage_ids": [
         "1ba06d33dd4dc8a7d876",
         "78dbcdb048f88e06b831"
+      ]
+    },
+    {
+      "id": "e491d34d72154f0e09b4",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/metas-muse-could-upend-all-kinds-of-businesses-it-hasnt-yet/",
+      "key_points": [
+        "Meta has claimed that its agentic AI shopping tool Muse is used by millions of people to make purchases averaging over $200.",
+        "Executives across roughly 50 companies on recent earnings calls downplayed immediate business disruption from Meta's Muse and other AI shopping agents.",
+        "Companies including DoorDash, Hilton, Ally Financial, eBay, and T-Mobile characterized activity and bookings from AI agents as very small or insignificant."
+      ],
+      "same_event_coverage_ids": [
+        "3c161a540417e9d5a9da"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9d9ef03d64cf85ba8dcd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3372831/apple-intelligence-roll-out-iphones-china-december-alibaba-backing",
+      "key_points": [
+        "Apple announced that Apple Intelligence features will launch for iPhone users in China in December alongside the iOS 27.3 update.",
+        "An open beta test of Apple Intelligence for Chinese developers is scheduled to begin on November 4.",
+        "The initial rollout will include around 18 features, including writing tools, live translation for calls and messages, and camera-based visual intelligence."
+      ],
+      "same_event_coverage_ids": [
+        "0b3c869e121dd979e000"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "69f3e1526a4d78e59993",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/an-ai-agent-did-brain-surgery-on-live-mouse/",
+      "key_points": [
+        "Biotech founder Gabriel Ocana Santero used an AI agent connected to lab equipment to carry out a brain injection procedure on a living mouse.",
+        "Santero is the CEO and co-founder of Exin Therapeutics, a startup developing AI models to analyze brain activity for epilepsy and neurodegenerative disease drugs."
+      ],
+      "same_event_coverage_ids": [
+        "afed5c790ec0aa35962d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a60503873f5b5b3b7688",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/china-ai-labs-recursive-self-improvement-rsi-zhipu-deepseek-modelbest-moonshot-qwen-bytedance-seed-xiaomi",
+      "key_points": [
+        "A survey of disclosures shows Chinese AI labs are focusing recursive self-improvement on training pipelines, inference systems, and agent harnesses rather than rewriting model weights.",
+        "A research paper titled 'The Last AI Built by Humans' defines five levels of self-improvement and places most current frontier systems between levels one and two.",
+        "Zhipu deployed an Infra Agent powered by GLM-5.3 that built the serving stack for GLM-5.3-Flash across approximately 100,000 domestic accelerators in two weeks.",
+        "DeepSeek and Tsinghua's DSec cluster generates roughly 3 million sandboxes daily to train agents within self-improving environments."
+      ],
+      "same_event_coverage_ids": [
+        "e7697bca7b8ce298538d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bdf2f99aa4c8f3edf635",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/tsinghua-zhipu-harnesspro-recursive-harness-self-improvement-pareto-cost-26-percent-terminal-bench-2",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "20a883fd9bde6378132d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "acaf6f3e3f4f84b40d4d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting on a strategic agreement focused primarily on power grid infrastructure, carbon-compute coordination, and the Dianhong IoT OS, with AI mentioned only incidentally as a minor bullet point.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/china-southern-power-grid-huawei-deepened-strategic-cooperation-oct-27-ai-dianhong-power-iot-os-openharmony",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "11ee53d48086e84699f4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e4b5c95db3b08a177970",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-30/apple-overtakes-nvidia-to-become-world-s-most-valuable-company",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b043f7142910f59ecfe2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2d212d63bacb723e9826",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/30/tencents-workbuddy-adds-remote-control-letting-users-manage-ai-tasks-from-their-phones/",
+      "key_points": [
+        "Tencent's AI agent platform WorkBuddy launched a remote control feature supported by the company's Edge One team.",
+        "The feature allows users to connect to their computer via the mobile app, view the desktop in real time, and intervene in AI agent operations.",
+        "Using the feature requires updating the mobile app to version 2.7.0 or later and the macOS desktop client to version 5.9.3 or later."
+      ],
+      "same_event_coverage_ids": [
+        "12ed361662c8d0027a89"
+      ],
+      "split_coverage_ids": [
+        "19627e10ca654a8113cb"
       ]
     }
   ]
