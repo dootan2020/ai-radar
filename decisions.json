@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-31T03:14:11.604622+00:00",
-  "input_generated_at": "2026-10-31T02:41:15Z",
+  "generated_at": "2026-10-31T07:15:32.324576+00:00",
+  "input_generated_at": "2026-10-31T06:55:10Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -16876,6 +16876,278 @@
       "split_coverage_ids": [
         "730c1932b7287477e13f",
         "8905383a457828975024"
+      ]
+    },
+    {
+      "id": "a02759432a2ccf29ed55",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-31/openai-sam-altman-samsung-executives-memory-crunch-deepens",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "039749ec0bf7c7f56d95"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9773206e5f8980819b61",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/article/3372807/ai-cyber-risks-grow-chinese-chip-expert-urges-shared-ethics-standards-us-rivals",
+      "key_points": [
+        "Cambricon Technologies co-founder Chen Yunji urged the introduction of universal ethical requirements for leading Chinese and American AI models to mitigate societal risks.",
+        "Chen proposed a universal 'ethics checker' that leading models from companies including DeepSeek, ByteDance, and OpenAI would need to satisfy.",
+        "The remarks at a Shanghai event follow high-profile cyberattacks that have threatened critical infrastructure and breached government servers."
+      ],
+      "same_event_coverage_ids": [
+        "0d4132f07b58886007a9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a23ab1f7aba747d5bc93",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-31/openai-funding-goal-cut-by-10-billion-as-ai-stocks-dip-ft-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "88cf1db44af7cda78c42"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d289974c9974603b73c2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wsj.com/tech/ai/openai-raises-less-than-half-of-30-billion-target-in-latest-round-91aecdc5",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "89592f9335cc77a1747d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e25959f297ef3e6fcf33",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/lenovo-tianxi-ai-4-5-ai-pc-super-mode-phone-tablet-remote-tasks-ai-host-p7-auto-mode",
+      "key_points": [
+        "Lenovo released Tianxi AI 4.5, its personal AI agent, for AI PCs on October 30, completing coverage across phones, tablets, and PCs.",
+        "Tianxi AI 4.5 adds a Super Mode that carries out multi-step tasks across applications such as Feishu, WeCom, and the Lenovo Browser.",
+        "The release features a rebuilt AI note-taker providing real-time transcription with subtitles for meetings."
+      ],
+      "same_event_coverage_ids": [
+        "6d89d1cfb3097b9458a5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d3f62f3d0ddec4a68dbe",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/inspatio-simulation-embodied-ai-data-collection-center-hangzhou-million-hours-month-topos-pro-hesai-kosmo",
+      "key_points": [
+        "Theo trang tin Leiphone, công ty InSpatio ngày 29 tháng 10 đã khai trương cơ sở mà họ tự mô tả là trung tâm thu thập dữ liệu bằng mô phỏng đầu tiên tại Trung Quốc dành cho AI hiện thân (trí tuệ nhân tạo tích hợp trên robot vật lý).",
+        "InSpatio lập luận rằng robot hiện nay thiếu sự đa dạng về dữ liệu khi tỷ lệ gắp thành công giảm mạnh nếu kệ bị xoay, trong khi việc sắp đặt môi trường thực tế làm gia tăng chi phí.",
+        "Theo bài viết, hệ thống của InSpatio sử dụng các bản quét thực tế từ hãng Hesai và phần mềm mô phỏng Topos Pro để tạo ra quỹ đạo vận hành trong hàng trăm môi trường giả lập song song.",
+        "Dù trung tâm đặt mục tiêu sản xuất một triệu giờ dữ liệu mỗi tháng, InSpatio cho biết các thuật toán điều khiển cuối cùng vẫn phải được kiểm tra lại trên robot thật."
+      ],
+      "same_event_coverage_ids": [
+        "430365cd7513ced6cf6d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "InSpatio mở trung tâm dữ liệu mô phỏng cho robot nhưng vẫn cần kiểm chứng thực tế",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/inspatio-simulation-embodied-ai-data-collection-center-hangzhou-million-hours-month-topos-pro-hesai-kosmo"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "2a5a0267b4b53975bc7e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/baidu-search-recursive-self-evolution-search-ai-api-4-9-yuan-per-1000-calls-below-deepseek",
+      "key_points": [
+        "Baidu thông báo ngày 30 tháng 10 rằng công cụ tìm kiếm của họ đạt khả năng tự tiến hóa đệ quy, đồng thời ra mắt gói API (giao diện lập trình ứng dụng) tìm kiếm có giá khuyến mại thấp hơn DeepSeek.",
+        "Theo Baidu, quy trình này khép kín việc tiếp nhận phản hồi thành tín hiệu huấn luyện, giúp nhiều tác tử AI (chương trình trí tuệ nhân tạo tự hành) cùng cải thiện và tăng hơn 80% hiệu quả lặp lại mà không cần can thiệp thủ công.",
+        "Gói tìm kiếm nâng cấp có giá ưu đãi 4,9 nhân dân tệ cho mỗi 1.000 lượt gọi đến hết ngày 31 tháng 12 và giới hạn trong 1 triệu lượt trước khi áp dụng giá gốc 40 nhân dân tệ.",
+        "Tuy nhiên, bài viết trên Pandaily lưu ý rằng Baidu không công bố bất kỳ đánh giá độc lập nào cho tuyên bố về hiệu quả nói trên."
+      ],
+      "same_event_coverage_ids": [
+        "87a50d211bf23742ed93"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Baidu tuyên bố tìm kiếm tự tiến hóa và giảm giá API nhưng thiếu đánh giá độc lập",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/baidu-search-recursive-self-evolution-search-ai-api-4-9-yuan-per-1000-calls-below-deepseek"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "144a293a50f0da60d3d7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "GitHub repository providing a step-by-step educational tutorial for building an AI agent from scratch.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/aa1143/NamiAgent",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d720f3e677ca19bae0cf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6b7d9816cbd8e8941c60",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/mistral-says-le-chonk-surpasses-chinese-models-cybersecurity/",
+      "key_points": [
+        "Mistral released the finalized version of its trillion-parameter open-weight AI model Le Chonk, making it freely available for anyone to access.",
+        "Mistral claims Le Chonk matches or surpasses leading Chinese models from DeepSeek and Z.ai in automated coding and cybersecurity.",
+        "Mistral VP of science Pierre Stock stated the model provides frontier capabilities for enterprises and governments to defend against increasing cyber threats."
+      ],
+      "same_event_coverage_ids": [
+        "94b57660fc9a82fedee1"
+      ],
+      "split_coverage_ids": [
+        "123553b4af16094aa80e"
+      ]
+    },
+    {
+      "id": "970963e9c5fdf0931453",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/10/29/tencent-says-upcoming-hy4-and-hy4-flash-models-will-support-visual-understanding/",
+      "key_points": [
+        "Tencent announced at the Tencent Global Digital Ecosystem Conference on October 29 that upcoming Hy4 and Hy4 flash models will support visual understanding.",
+        "The full Hy4 model will improve reasoning efficiency and sustained reasoning performance on real-world productivity workflows compared to its August preview.",
+        "Hy4 flash will focus on cost efficiency while retaining visual understanding and AI agent capabilities.",
+        "The Hy4 preview has 770 billion total parameters, with 49 billion activated during inference, and supports a one-million-token context window."
+      ],
+      "same_event_coverage_ids": [
+        "a4dbf7f5bcdb4bc4831f"
+      ],
+      "split_coverage_ids": [
+        "1ba06d33dd4dc8a7d876",
+        "78dbcdb048f88e06b831"
       ]
     }
   ]
