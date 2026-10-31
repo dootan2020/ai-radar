@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-30T23:53:42.111836+00:00",
-  "input_generated_at": "2026-10-30T22:41:13Z",
+  "generated_at": "2026-10-31T03:14:11.604622+00:00",
+  "input_generated_at": "2026-10-31T02:41:15Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -16720,6 +16720,163 @@
         "13fe7df6075de7952a91"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "778066fca87ac97904e5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/30/nvidia-weighs-playing-the-cosigner-for-nscales-ai-data-center-in-west-virginia/",
+      "key_points": [
+        "The Information đưa tin Nvidia đang đàm phán bảo lãnh hàng tỷ USD nợ cho dự án trung tâm dữ liệu phục vụ Anthropic của Nscale tại Tây Virginia.",
+        "Theo The Information, đề xuất này giúp Nscale có vốn chi trả tiền điện và xây dựng, kèm điều kiện Nvidia tạm tiếp quản nếu đối tác vỡ nợ. Một nhà đầu tư nói với The Information rằng sự tham gia của Anthropic giúp giải thích lý do Nvidia muốn giữ dự án đúng tiến độ.",
+        "Theo TechCrunch, Nscale gặp nhiều khó khăn khi chỉ vận hành khoảng 25.000 chip AI vào tháng 8, kém xa kế hoạch gần 500.000 chip. Tháng này, Microsoft cũng rút khỏi một cơ sở của Nscale tại Anh sau khi việc cấp điện bị hoãn sang thập niên 2030.",
+        "TechCrunch nhận định việc bảo lãnh nợ phản ánh nỗ lực duy trì hạ tầng AI khi giới đầu tư lo ngại quy mô vốn. Tuy vậy, Blackstone cảnh báo Anthropic có thể nhận xếp hạng tín nhiệm dưới mức đầu tư sau đợt chào bán cổ phiếu."
+      ],
+      "same_event_coverage_ids": [
+        "59998014884096560f77"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia đàm phán bảo lãnh hàng tỷ USD nợ cho dự án trung tâm dữ liệu của Nscale",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/10/30/nvidia-weighs-playing-the-cosigner-for-nscales-ai-data-center-in-west-virginia/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "bdbd23b4babdea0e86db",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/30/ollie-a-privacy-focused-ai-assistant-is-shutting-down/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7cd6bcd695e325d027b6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7f9f135df680a48af008",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The post is an operational playbook and technical how-to guide for platform and FinOps teams managing Amazon Bedrock costs, making it a tutorial rather than news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/managing-amazon-bedrock-costs-end-to-end-a-playbook-for-finops-and-platform-teams/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4ed5021a450f9fbac7c8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8bd5bd943cc30ba5bab6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.phoronix.com/news/PostgreSQL-19-Late",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "400c1d87b4c987985d68"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a008a0bb5a2e614ee9e3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://fortune.com/2026/10/30/cisco-president-jeetu-patel-gen-z-27-year-old-unlimited-ai-tokens-rewrite-legacy-code-entry-level-jobs/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d4a84a3a5f7bf332737",
+        "753d7b10debb1f9044fd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c8aca8d42c624c4503ef",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/tech-war/article/3372743/china-dismisses-us-report-suspected-spy-targeting-nvidia-ceo-jensen-huang-groundless",
+      "key_points": [
+        "China's foreign ministry rejected US intelligence allegations that a suspected Chinese spy targeted Nvidia CEO Jensen Huang, calling them groundless speculation aimed at smearing Beijing.",
+        "Chinese foreign ministry spokesman Guo Jiakun addressed the allegations during a regular media briefing in Beijing on Friday.",
+        "The pushback followed a New York Times report that US intelligence identified Chinese businesswoman Alice Huang as a suspected asset who sought ties with the Nvidia chief."
+      ],
+      "same_event_coverage_ids": [
+        "c363055591085568e5ca"
+      ],
+      "split_coverage_ids": [
+        "730c1932b7287477e13f",
+        "8905383a457828975024"
+      ]
     }
   ]
 }
