@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-02",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-10-31T23:00:00Z",
+  "cutoff_at": "2026-11-01T23:00:00Z",
+  "created_at": "2026-11-01T23:03:04Z",
+  "snapshot_generated_at": "2026-11-01T23:00:59Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-01T23:00:59Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "5d8603e7c18007f4abc4",
+      "title": "DeepSeek Harness Team Open-Sources a Super-agent Prototype That Finds and Fixes Bugs on Its Own",
+      "title_vi": "Đội ngũ DeepSeek Harness mở nguồn một nguyên mẫu siêu agent tìm thấy và sửa lỗi một mình",
+      "headline": "DeepSeek Harness Team Open-Sources a Super-agent Prototype That Finds and Fixes Bugs on Its Own",
+      "headline_vi": "Đội ngũ DeepSeek Harness mở nguồn một nguyên mẫu siêu agent tìm thấy và sửa lỗi một mình",
+      "url": "https://pandaily.com/deepseek-harness-super-agent-prototype-router-worker-event-driven-watchdog-open-source-mit",
+      "published_at": "2026-11-01T01:49:36Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "DeepSeek Harness công bố nguyên mẫu Super-agent; thử nghiệm giả lập cho kết quả sơ bộ",
+      "editorial_headline_verified": true,
+      "source_count": 3,
+      "coverage": [
+        {
+          "id": "fb9d12818536c2777168",
+          "title": "DeepSeek Drops Enhanced Coding Agent With Aim to Rival Anthropic",
+          "title_vi": "DeepSeek Drop Enhanced Coding Agent với mục đích cạnh tranh với Anthropic",
+          "headline": "DeepSeek Drops Enhanced Coding Agent With Aim to Rival Anthropic",
+          "headline_vi": "DeepSeek Drop Enhanced Coding Agent với mục đích cạnh tranh với Anthropic",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-01/deepseek-drops-enhanced-coding-agent-with-aim-to-rival-anthropic",
+          "published_at": "2026-11-01T03:48:18Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-01T23:00:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "4a0557bc1f4aa33f0768",
+          "title": "DeepSeek Harness Team Open-Sources a Super-agent Prototype That Finds and Fixes Bugs on Its Own",
+          "title_vi": "Đội ngũ DeepSeek Harness mở nguồn một nguyên mẫu siêu agent tìm thấy và sửa lỗi một mình",
+          "headline": "DeepSeek Harness Team Open-Sources a Super-agent Prototype That Finds and Fixes Bugs on Its Own",
+          "headline_vi": "Đội ngũ DeepSeek Harness mở nguồn một nguyên mẫu siêu agent tìm thấy và sửa lỗi một mình",
+          "url": "https://pandaily.com/deepseek-harness-super-agent-prototype-router-worker-event-driven-watchdog-open-source-mit",
+          "published_at": "2026-11-01T01:49:36Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-11-01T23:00:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "34b4bf8ab7178d36e3dd",
+          "title": "DeepSeek unveils AI ‘super agent’ in coding race with OpenAI, Anthropic",
+          "title_vi": "DeepSeek tiết lộ AI 'super agent' trong cuộc đua lập trình với OpenAI, Anthropic",
+          "headline": "DeepSeek unveils AI ‘super agent’ in coding race with OpenAI, Anthropic",
+          "headline_vi": "DeepSeek tiết lộ AI 'super agent' trong cuộc đua lập trình với OpenAI, Anthropic",
+          "url": "https://www.scmp.com/tech/article/3372884/deepseek-unveils-ai-super-agent-coding-race-openai-anthropic",
+          "published_at": "2026-11-01T10:00:26Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-01T23:00:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "3 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "pandaily",
+              "scmp"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "pandaily",
+            "scmp"
+          ],
+          "age_hours_at_cutoff": 21.1733,
+          "hot_score": 80.102,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 71,
+    "successful_remote_sources": 70,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
