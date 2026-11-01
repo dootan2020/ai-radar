@@ -1,1 +1,1 @@
-{"month": "2026-11", "pending": {}, "pending_days": {}, "settled_consumers": {"2026-11-01": {"translation": 149150}}, "settled_daily": {"2026-11-01": 149150}, "settled_micros": 149150, "version": 1, "video_dates": []}
+{"month": "2026-11", "pending": {"41327499611-1": 200000}, "pending_days": {"41327499611-1": "2026-11-01"}, "settled_consumers": {"2026-11-01": {"translation": 149150}}, "settled_daily": {"2026-11-01": 149150}, "settled_micros": 149150, "version": 1, "video_dates": []}
