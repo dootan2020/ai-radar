@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-31T13:06:38.636332+00:00",
-  "input_generated_at": "2026-10-31T12:41:15Z",
+  "generated_at": "2026-11-01T07:49:13.433483+00:00",
+  "input_generated_at": "2026-11-01T06:46:22Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -17459,6 +17459,763 @@
       ],
       "same_event_coverage_ids": [
         "9d3ff0829a88d006c000"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "aaa468ec3ea212c9a07b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3372785/us-or-china-why-kazakhstan-refuses-pick-sides-it-eyes-ai-revolution",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bad659827cb179a71d30"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5d8603e7c18007f4abc4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/deepseek-harness-super-agent-prototype-router-worker-event-driven-watchdog-open-source-mit",
+      "key_points": [
+        "Nhóm DeepSeek Harness công bố thiết kế và mã nguồn một nguyên mẫu Super-agent, tức tác nhân AI có thể theo dõi và xử lý nhiều việc cùng lúc. Tài liệu dự án nhấn mạnh đây là mã nghiên cứu cho một kho GitHub, chưa phải sản phẩm chính thức và chưa triển khai hết thiết kế.",
+        "Theo nhóm, kiến trúc này chia việc tiếp nhận yêu cầu và thực hiện tác vụ giữa một phiên Router thường trực với các phiên Worker riêng biệt. Worker nhận trực tiếp những phản hồi liên quan đến việc mình đang làm, thay vì mọi phản hồi đều phải qua Router.",
+        "Trong thử nghiệm sơ bộ với khối lượng công việc giả lập, một nửa số tác vụ được Super-agent hoàn tất trong 12,4 phút, nhanh hơn cách dùng một phiên có công cụ gọi tác nhân phụ, nhưng tốn nhiều token lưu đệm hơn.",
+        "Nhóm chỉ xem kết quả trên công việc giả lập là tham chiếu ban đầu; khả năng mở rộng Router, bộ nhớ dài hạn và rủi ro chèn chỉ dẫn độc hại vẫn là vấn đề chưa giải quyết."
+      ],
+      "same_event_coverage_ids": [
+        "4a0557bc1f4aa33f0768"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepSeek Harness công bố nguyên mẫu Super-agent; thử nghiệm giả lập cho kết quả sơ bộ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/deepseek-harness-super-agent-prototype-router-worker-event-driven-watchdog-open-source-mit"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "b88e9492c7911cb657ee",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The submission re-posts a Guardian article from July 2026 that is more than three months old with no new reporting or developments.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theguardian.com/technology/2026/jul/21/ai-tech-workers-unionize",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d6bb77a668601ee8f819"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2f32b1a58a5bb90b7b67",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General election preview for Asian stock traders across diverse sectors including clean energy and defense, with only passing incidental mentions of AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-01/an-asian-stock-trader-s-guide-ahead-of-the-us-midterm-elections",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "885bd721d0d0d560b390"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "785d4ceb71a807a6705c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Oct/31/how-we-took-over-chatgpt-accounts/",
+      "key_points": [
+        "Theo Simon Willison, Parameter Labs phát hiện một chuỗi lỗ hổng trong cách ChatGPT hiển thị ứng dụng HTML tương tác bên trong khung được cô lập. Chuỗi này có thể tạo liên kết chia sẻ ChatGPT để lấy dữ liệu riêng tư hoặc thực hiện hành động thay người khác, nếu người đó mở liên kết khi đang đăng nhập.",
+        "Willison giải thích rằng mã nhận thông điệp của thư viện MathLive dùng innerHTML, cho phép khung xem trước HTML đưa nội dung vào trang chính. Từ đó, chuỗi tấn công có thể tạo khung mới không bị cô lập và dùng một điểm cuối của YouTube để chạy JavaScript, dù quy tắc bảo mật của OpenAI chặn mã viết trực tiếp trong trang.",
+        "Willison cho biết OpenAI đã đóng lỗ hổng và trả thưởng cho báo cáo; nguy cơ ông mô tả phụ thuộc vào việc người dùng đang đăng nhập truy cập liên kết chia sẻ được tạo cho cuộc tấn công."
+      ],
+      "same_event_coverage_ids": [
+        "9d3ff0829a88d006c000",
+        "a70577295ad6f0e083b2"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Parameter Labs phát hiện lỗ hổng ở bản xem trước HTML của ChatGPT; OpenAI đã khắc phục",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "simon-willison",
+          "url": "https://simonwillison.net/2026/Oct/31/how-we-took-over-chatgpt-accounts/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "83d5f3a97dc6154e078f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-29/computer-science-degree-programs-lose-students-as-ai-takes-jobs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3cea93b92112e5665e83"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9fc5ee213b01bfece998",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Oct/31/datasette-llm/",
+      "key_points": [
+        "Simon Willison phát hành datasette-llm 0.1a9, phiên bản plugin tích hợp LLM để các plugin khác dùng chung. Thay đổi được ông nêu là datasette-llm nay nhận model mặc định đang được phần mềm LLM sử dụng.",
+        "Willison mô tả đây là cải thiện nhỏ về trải nghiệm dùng Datasette Agent, công cụ tác nhân AI chạy cùng Datasette. Trước thay đổi này, lệnh khởi chạy còn cần một tùy chọn chỉ định riêng model mặc định cho Datasette Agent; ví dụ ông đưa ra dùng gpt-6-astra.",
+        "Theo Willison, người đã chọn model mặc định trong LLM có thể bắt đầu dùng Datasette Agent mà không cần thêm cấu hình model riêng trong lệnh khởi chạy."
+      ],
+      "same_event_coverage_ids": [
+        "e81398f1fd4590c39180"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "datasette-llm 0.1a9 dùng model mặc định của LLM, giúp khởi chạy Datasette Agent gọn hơn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "simon-willison",
+          "url": "https://simonwillison.net/2026/Oct/31/datasette-llm/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "4694cfbe3b290c441c2a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blog.keyvan.net/p/ai-text-watermarking-and-quality",
+      "key_points": [
+        "The author argues that model written output has degraded since AI labs shifted focus to code production, and questions whether text watermarking could worsen it further.",
+        "Some participants in the watermarking debate argued that watermarking does not affect quality because it merely alters the random numbers used during generation."
+      ],
+      "same_event_coverage_ids": [
+        "45f97c451be9cda8834b",
+        "f6a9514a2eb476e9cd01"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4ea2bbfbe1de5d96de46",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://help.openai.com/en/articles/20001625-understanding-chatgpt-and-codex-usage-limits",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ca6d2bfb9497daa7ccac"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "362d7951270f22867c3f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/31/apple-ceo-says-the-company-doesnt-want-to-ship-ai-for-ais-sake/",
+      "key_points": [
+        "Theo TechCrunch, Apple từng bị đánh giá là tụt hậu trong vài năm qua do hoãn ra mắt phiên bản nâng cấp của trợ lý ảo Siri.",
+        "Dù thừa nhận dư luận có nhiều quan điểm trái chiều, ông John Ternus khẳng định rất hài lòng với vị trí hiện tại và tuyên bố Apple chắc chắn sẽ tận dụng công nghệ này trong các sản phẩm mới.",
+        "Lãnh đạo Apple nhấn mạnh công ty không muốn phát hành tính năng chỉ vì chạy theo phong trào, mà ưu tiên tạo ra sản phẩm người dùng thực sự yêu thích để họ không cần bận tâm về công nghệ bên dưới.",
+        "Trước câu hỏi về việc các tác nhân (phần mềm tự hành) có thể khiến ứng dụng trở nên thừa thãi, ông John Ternus cho rằng việc sáng tạo sản phẩm vẫn mang tính cá nhân sâu sắc của con người dù công nghệ có thể giúp cuộc sống dễ dàng hơn."
+      ],
+      "same_event_coverage_ids": [
+        "63e356f4ffbea399d080"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tổng giám đốc Apple khẳng định không tung ra trí tuệ nhân tạo chỉ vì chạy theo phong trào",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/10/31/apple-ceo-says-the-company-doesnt-want-to-ship-ai-for-ais-sake/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "b57691e750415c605a04",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/31/judge-allows-naacp-lawsuit-over-xai-data-center-pollution-to-move-forward/",
+      "key_points": [
+        "Vụ kiện cáo buộc công ty trực thuộc SpaceX vận hành các tuabin khí không phép để cấp điện cho trung tâm dữ liệu Colossus ở ngoại ô Memphis.",
+        "Đại diện pháp lý của NAACP cho biết xAI đã lắp đặt ít nhất 35 tuabin đốt gây ô nhiễm mà chưa từng xin giấy phép xây dựng hoặc vận hành theo Đạo luật Không khí Sạch.",
+        "Phía xAI đề nghị hủy kiện với lý do tuabin được miễn trừ vì mang tính di động, nhưng Thẩm phán Debra M. Brown kết luận thiết bị này không phải là nguồn di động theo quy định.",
+        "Đại diện NAACP coi phán quyết là thắng lợi quan trọng, trong khi TechCrunch ghi nhận vụ việc diễn ra giữa lúc làn sóng phản đối trung tâm dữ liệu lan rộng khiến bang New York phải tạm dừng cấp phép mới."
+      ],
+      "same_event_coverage_ids": [
+        "15ee4f574824bd74fac7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tòa án Mỹ bác bỏ yêu cầu của xAI và cho phép tiếp tục vụ kiện về ô nhiễm trung tâm dữ liệu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/10/31/judge-allows-naacp-lawsuit-over-xai-data-center-pollution-to-move-forward/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "3c488a5d9e8fc9b748df",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social media post making unverified anecdotal assertions about Anthropic account bans without substantive reporting or documentation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/jiahaoshao1/status/2116475922190922088",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "95646337b916a4ce7014"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f4160ff23c480239731c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://ryanmadden.net/gpt-56-beats-factorio/",
+      "key_points": [
+        "Ryan Madden demonstrated that GPT-5.6 Sol running in Codex with low thinking level completed a peaceful Factorio game run in 13.5 hours.",
+        "The setup utilized a Python game manager library allowing the model to play programmatically under standard human player GUI restrictions like fog of war."
+      ],
+      "same_event_coverage_ids": [
+        "84b81245da0718852c08"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d004c37dd3b3195c7a7f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://dl.acm.org/doi/full/10.1145/3706598.3713778",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "33aa1cdf33145d8ba8a8",
+        "45cd8af97d9e2d70411d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3df08811a6ac1ac01c6e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.gadgetreview.com/ai-data-centers-could-erase-15-years-of-americas-climate-progress-by-2030",
+      "key_points": [
+        "U.S. power-sector emissions could reach 2.1 billion metric tons of CO2 by 2030, approximately 42% above 2025 levels, according to a Sierra Club analysis.",
+        "The projected increase from AI data center power demand threatens to erase roughly 15 years of greenhouse-gas reductions in the electricity sector.",
+        "Off-grid generators built or contracted for data centers could produce more than 460 million metric tons of CO2 annually by 2030."
+      ],
+      "same_event_coverage_ids": [
+        "bcc4caddd1272faf7dff"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1a86510e062662af7737",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theregister.com/ai-and-ml/2026/10/31/amazon-sends-chills-through-its-workforce-with-mixed-message-memo-about-ai-use-corey-quinn/5306804",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a31196eb9298332ba268"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c361ea6e6eba35fb9e53",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/10/31/openai-reportedly-lowers-funding-target-for-new-round/",
+      "key_points": [
+        "OpenAI reportedly lowered its funding target for its latest round from $30 billion to $20 billion ahead of an IPO.",
+        "The new funding round is reported to be led by an investor group from the United Arab Emirates.",
+        "OpenAI has secured $11 billion so far toward the round amid a tepid response from some large investors."
+      ],
+      "same_event_coverage_ids": [
+        "88cf1db44af7cda78c42",
+        "9beb89213a3c23b4789e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "95235900cc342af4eb02",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal DIY hardware build log and tutorial detailing how an author assembled a handheld AI gadget at home.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/gadgets/1013375/muse-charm-gadgets-preview-waveshare-esp32-claude-vibe-code",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8d3657819a8346c39b77"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d5b759e92af45c653bd7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional social media marketing post touting financial trading profits of a vendor's AI agent without independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/DeployFinance/status/2116556597082116490",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fe5c328038bfd9ad506e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "df8ca25721250f37d7b1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/tavern-labs-ai/persona-ai-sdk",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8f0d01f1e06fe05ab597"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "727cd7ac2006e0c543fa",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The card title and URL point to character-ai-sdk, but the body content belongs to persona-ai-sdk, representing a mis-merged cluster.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/tavern-labs-ai/character-ai-sdk",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "83cbd8ab74855b7a3b84"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c0588a787514ce74708f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blog.talosintelligence.com/appraisal-by-ai-model-driven-victim-prioritization-in-the-volta-infostealer/",
+      "key_points": [
+        "Theo nghiên cứu từ sáng kiến CAIRN, mã độc đánh cắp dữ liệu VOLTA trên Windows có lớp tích hợp mô hình ngôn ngữ lớn (LLM, hệ thống AI xử lý văn bản) tùy chọn để xếp hạng các tài sản bị trộm theo giá trị thương mại [outlet:p001, outlet:p004].",
+        "Tác giả bài viết cho biết lớp AI của VOLTA được bổ sung với mục đích duy nhất là giảm bớt công sức phân tích cho kẻ điều hành [outlet:p045].",
+        "Mã độc VOLTA dùng các phiên đăng nhập bị đánh cắp để quét hóa đơn xác minh địa chỉ, yêu cầu AI xếp hạng nạn nhân theo ba mức giá trị và tự chuyển mô hình nếu bị từ chối [outlet:p002, outlet:p005, outlet:p006, outlet:p031].",
+        "Tác giả bài viết nhận định lớp AI của VOLTA nhằm thay thế sự chú ý của con người chứ không tăng tốc độ, dù việc chặn chạy ngầm Chrome có thể vô hiệu hóa đường đánh cắp dữ liệu [outlet:p042, outlet:p045]."
+      ],
+      "same_event_coverage_ids": [
+        "29849ffd0cb1191274db"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mã độc VOLTA tích hợp AI tùy chọn để phân tích và xếp hạng giá trị tài sản của nạn nhân",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://blog.talosintelligence.com/appraisal-by-ai-model-driven-victim-prioritization-in-the-volta-infostealer/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "c7f2f2555d06b6e424cb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://n.aspencreekbs.com/RZo9ksiKqtTiTLy6b0xiKj2j",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6264bef532404b920298"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7247e45965d695796bbe",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article was originally published on October 26, 2026 and was re-posted on October 31, 2026 without any new reporting or updates.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.indiatoday.in/technology/news/story/ai-startup-hacks-anthropic-in-12-hours-gains-access-to-employee-details-and-internal-messages-3025452-2026-10-26",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6f8413622687d83b52d5",
+        "8134cbc407546abf1a3e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "45e8e2b022a7ae8a20f0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/anthropics-ai-model-is-now-blocking-attempts-at-video-game-recreation-and-cloning-users-also-claim-non-malicious-generic-reverse-engineering-tasks-are-blocked",
+      "key_points": [
+        "Anthropic's Claude models have reportedly begun blocking user attempts to reverse-engineer and clone existing video games.",
+        "The rule update follows concerns over AI-cloned titles and extortion scams targeting game developers with cloned versions of demos."
+      ],
+      "same_event_coverage_ids": [
+        "70d9fda44eac602f25a0",
+        "f94b4cb1747a42104740",
+        "fead0abe7a02f8a86531"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "778916995661ca3bd36a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://github.com/kerlenton/bootgpt",
+      "key_points": [
+        "BootGPT runs an 11.5 KB int8 neural network from a PC master boot record in 16-bit real mode on a 386.",
+        "The MBR inference implementation is written in 512 bytes of hand-written assembly without an operating system or C runtime.",
+        "The model generates simulated Linux boot logs featuring synthetic timestamps, PCI bars, and ACPI events."
+      ],
+      "same_event_coverage_ids": [
+        "a4be0cce6065f3ced66a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9b3687d667ab1608d3db",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.thebignewsletter.com/p/why-anthropics-filing-crushed-tech",
+      "key_points": [
+        "Theo tác giả Matt Stoller, đợt IPO (phát hành cổ phiếu lần đầu) của Anthropic gắn chặt với các đối thủ Google và Amazon. Anthropic thừa nhận quan hệ với các đối tác chiến lược tạo xung đột lợi ích khó lường trước hoặc giảm thiểu.",
+        "Tác giả chỉ ra các đối thủ vừa đầu tư, cho vay, phân phối, vừa cung cấp điện toán đám mây cho Anthropic. Theo tác giả, các tập đoàn lớn thiếu động lực cạnh tranh vì đối đầu sẽ làm giảm giá trị cổ phần họ nắm giữ.",
+        "Google ghi nhận 117 tỷ USD lãi trên giấy tờ từ Anthropic theo định giá Google tự chọn trước IPO. Trái lại, năm ngoái Anthropic lỗ 80 tỷ USD còn Amazon âm 42 tỷ USD dòng tiền tự do.",
+        "Tác giả Matt Stoller nhận định các bên liên kết để tối đa hóa định giá bất kể dòng tiền thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "9d6140891df3ce40adaa"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hồ sơ IPO của Anthropic hé lộ mạng lưới đan cài lợi ích giữa các tập đoàn công nghệ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.thebignewsletter.com/p/why-anthropics-filing-crushed-tech"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "304e5b146bea6af4a508",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/Aevonix/FlashAlign",
+      "key_points": [
+        "FlashAlign works with base and quantized model weights dynamically without permanently modifying them.",
+        "The tool's initial starter profiles focus on refusal reduction and support integration with harnesses such as Hermes and OpenClaw."
+      ],
+      "same_event_coverage_ids": [
+        "08fdb1e47363fdd1f1e4"
       ],
       "split_coverage_ids": []
     }
