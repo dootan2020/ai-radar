@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-01T07:49:13.433483+00:00",
-  "input_generated_at": "2026-11-01T06:46:22Z",
+  "generated_at": "2026-11-01T11:12:49.196746+00:00",
+  "input_generated_at": "2026-11-01T10:41:22Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -18216,6 +18216,117 @@
       ],
       "same_event_coverage_ids": [
         "08fdb1e47363fdd1f1e4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9cc601c88b93f2dfebba",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/chatbots-are-leading-hikers-astray-with-dangerous-consequences/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5f9080723b7efd3ab9df"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e1e7a4b3bc282eda7fdc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/tencent-cloud-ai-agents-create-20000-tdsql-c-databases-daily-li-ning-50-agents-workbuddy",
+      "key_points": [
+        "Tencent Cloud cho biết các agent AI (trợ lý trí tuệ nhân tạo tự thực hiện tác vụ) hiện tạo hơn 20.000 phiên bản cơ sở dữ liệu TDSQL-C mỗi ngày, tăng hơn 80 lần sau một năm với hơn một triệu phiên bản đang hoạt động.",
+        "Đại diện Tencent Cloud giải thích sự thay đổi này diễn ra vì đối tượng sử dụng cơ sở dữ liệu ban đầu đã chuyển sang các agent, vốn đòi hỏi tạo dữ liệu nhanh và phân nhánh môi trường để kiểm thử trước khi phát hành.",
+        "Về quy mô ứng dụng, tập đoàn Li Ning cho biết đã vận hành khoảng 50 agent AI để cung cấp 460.000 giờ làm việc tương đương mỗi năm, đồng thời nền tảng Zhihu cũng sử dụng CloudBase để triển khai ứng dụng do công cụ lập trình AI tạo ra.",
+        "Lãnh đạo Dowson Tong của Tencent nhận định việc triển khai agent phụ thuộc vào khả năng kết nối con người, công cụ, hệ thống và dữ liệu, dù hiệu năng tự co giãn của TDSQL-C mới chỉ được xác nhận qua bài kiểm tra áp lực."
+      ],
+      "same_event_coverage_ids": [
+        "e443a87fa29713d9097a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent Cloud cho biết agent AI tạo hơn 20.000 cơ sở dữ liệu TDSQL-C mỗi ngày",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/tencent-cloud-ai-agents-create-20000-tdsql-c-databases-daily-li-ning-50-agents-workbuddy"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "967be99077d13f07b201",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks/",
+      "key_points": [
+        "Decisions regarding web development frameworks are frequently based on vibes and marketing claims rather than empirical evidence.",
+        "In the agentic era, where developers no longer write code by hand, framework choices continue to be driven largely by vibes rather than data."
+      ],
+      "same_event_coverage_ids": [
+        "2b836af28a782067416b",
+        "82904da6c4ee75b4578a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e6d594ea2a28ff43dd71",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/world/2026/oct/27/chinese-markets-lose-trillions-ai-race-beijing",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0dd99847e3fb98e58562"
       ],
       "split_coverage_ids": []
     }
