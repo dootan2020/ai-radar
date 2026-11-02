@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-02T11:30:19.286195+00:00",
-  "input_generated_at": "2026-11-02T10:41:27Z",
+  "generated_at": "2026-11-02T13:18:14.657101+00:00",
+  "input_generated_at": "2026-11-02T12:41:39Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -19700,6 +19700,211 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "08416cf5faccd3e143c7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b172eb64d294ab7ae6d9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/marvell-reaches-115-billion-deal-for-lumentum-holdings",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a0efec1c9dbc1f0aa466"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "59a736295c16d3a8c00a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "User guide and practical advice on when and how to use AI search chatbots rather than substantive news reporting or industry analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/when-you-should-and-shouldnt-use-ai-to-search-the-web/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ea4fb7ea936bd25c7220"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e2478c8f55eff36282c9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/02/2026/alphabet-launches-second-euro-bond-sale",
+      "key_points": [
+        "Theo Semafor, Alphabet đã phát hành đợt trái phiếu bằng đồng euro thứ hai trong năm nay, giữa lúc thị trường ngày càng cảnh giác với các giao dịch AI.",
+        "Semafor cho biết động thái này diễn ra khi nhà đầu tư có dấu hiệu chạm trần tiếp nhận nợ, sau khi Morgan Stanley ghi nhận quy mô vay vốn cho AI đã tăng lên gần 500 tỷ USD tính đến tháng 9 so với 100 tỷ USD cùng kỳ năm trước.",
+        "Làn sóng vay mượn vẫn tiếp diễn bất chấp lãi suất tăng cao, kể cả với các tập đoàn lớn như SpaceX khi phải chịu mức lãi tới 8,75% cho một phần khoản vay mới nhất theo Semafor.",
+        "Đánh giá về bối cảnh này, một chuyên gia nhận định trên Semafor rằng đợt bùng nổ công nghệ dù mang tính chuyển biến lớn nhất lịch sử nhưng vẫn không đủ sức vượt qua chi phí tiền tệ đắt đỏ."
+      ],
+      "same_event_coverage_ids": [
+        "f79803e92c9b3df226b3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Alphabet phát hành trái phiếu euro khi nhà đầu tư dần chạm giới hạn nợ cho AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/02/2026/alphabet-launches-second-euro-bond-sale"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "85624bc51495ee2db244",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/02/2026/ai-hacks-on-government-infrastructure-underscore-cybersecurity-concerns",
+      "key_points": [
+        "Theo Semafor, các vụ xâm nhập hạ tầng chính phủ gần đây làm gia tăng lo ngại về việc dùng AI làm suy yếu an ninh mạng.",
+        "Cả Ukraine và Nga cho biết ứng dụng cảnh báo khẩn cấp bị xâm nhập và phát cảnh báo giả về tấn công tên lửa hay hạt nhân. Đức cũng ghi nhận điện thoại của giới chức bị tấn công, dù một bộ trưởng lưu ý rằng chưa rõ AI có được dùng hay không.",
+        "Tại Mỹ, tạp chí WIRED đưa tin một tác tử AI (phần mềm tự vận hành) của nhà thầu Lầu Năm Góc đã hoạt động trong mạng chính phủ nhiều tháng trước khi bị phát hiện và vá lỗi.",
+        "Về rủi ro, một nhà nghiên cứu chia sẻ với BBC rằng đây là lần đầu sự cố xảy ra với ứng dụng chính thức của Ukraine, nhưng dự đoán đây chưa phải là lần cuối cùng."
+      ],
+      "same_event_coverage_ids": [
+        "c6fe53c5cf233d7fa565"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàng loạt vụ xâm nhập hạ tầng chính phủ làm gia tăng lo ngại về an ninh mạng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/02/2026/ai-hacks-on-government-infrastructure-underscore-cybersecurity-concerns"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "d67eaa0168f33eaf2e28",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/yardeni-bond-vigilantes-are-allocating-credit-properly-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "30ef664d20b72233cad2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e82c15520602d5f345e4",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-02/ai-is-making-employees-work-longer-days-new-data-shows",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c628f79468551f020925"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d98a2cf47d97afc0f289",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "too few verified claims for summary; no verified summary for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "too few verified claims for summary",
+        "no verified summary for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/02/2026/alphabet-launches-second-euro-bond-sale",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e0a6c3cd7e91a636c579"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8c132669acb050f97048",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Self-promotional Show HN project pitch lacking independent reporting or a substantive release; additionally, the author explicitly disclaims using AI ('No AI used for this btw').",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "219c51e5772234e29802"
       ],
       "split_coverage_ids": []
     }
