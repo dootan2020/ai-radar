@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-01T13:09:00.167471+00:00",
-  "input_generated_at": "2026-11-01T12:41:28Z",
+  "generated_at": "2026-11-02T03:34:00.613801+00:00",
+  "input_generated_at": "2026-11-02T02:41:21Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -18367,6 +18367,742 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "0d3304a0211577285b1e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/macquarie-executive-sees-ai-fast-tracking-junior-analyst-careers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "21781c40af81e40aed44"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ebfa72589d084e1cc90b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/qwen-ai-glasses-ota-call-translation-media-translation-noise-reduction",
+      "key_points": [
+        "Theo IT Home, dòng kính thông minh Qwen AI Glasses của Alibaba đã nhận bản cập nhật qua mạng (OTA - cập nhật phần mềm từ xa) vào ngày 1 tháng 11, bổ sung tính năng dịch cuộc gọi, dịch truyền thông và cải thiện khả năng chống ồn.",
+        "Tính năng dịch cuộc gọi cung cấp khả năng dịch trực tiếp giữa các ngôn ngữ trong cuộc gọi và cuộc họp trực tuyến, nhằm phục vụ trò chuyện với người ở nước ngoài. Về khả năng chống ồn, công ty cho biết việc cải thiện nhận diện giọng nói trong môi trường nhiều tạp âm giúp quá trình phiên dịch song song chính xác và kịp thời hơn.",
+        "Khi tiếp cận nội dung truyền thông như podcast hay phim nước ngoài, kính thực hiện việc dịch âm thanh theo thời gian thực và đồng bộ văn bản hiển thị lên ứng dụng trên điện thoại.",
+        "Dù vậy, bài viết trên Pandaily ghi nhận thông báo cập nhật vẫn chưa nêu rõ các dòng kính cụ thể sẽ nhận bản cập nhật cũng như danh sách ngôn ngữ được hỗ trợ."
+      ],
+      "same_event_coverage_ids": [
+        "13c84ae931cfd9eb37a1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kính Qwen AI cập nhật tính năng dịch trực tiếp nhưng chưa rõ dòng máy hỗ trợ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/qwen-ai-glasses-ota-call-translation-media-translation-noise-reduction"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "092fb88be5c8a42d8ef9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/ccid-china-ai-inference-data-surpasses-training-data-175-trillion-daily-token-calls",
+      "key_points": [
+        "Theo Viện Phát triển Công nghiệp Thông tin Trung Quốc (CCID), dữ liệu suy luận AI (quá trình đưa dữ liệu vào mô hình để lấy kết quả) tại nước này lần đầu tiên vượt qua dữ liệu huấn luyện.",
+        "CCID cho biết sự dịch chuyển này phản ánh việc mở rộng ứng dụng công nghiệp tại hơn 1.000 kịch bản sản xuất, song hành cùng hơn 700 triệu người dùng AI tạo sinh theo Trung tâm Thông tin Mạng Internet Trung Quốc.",
+        "Báo cáo của CCID ước tính số lượt gọi token (đơn vị từ ngữ mô hình xử lý) hàng ngày đạt hơn 175 nghìn tỷ lượt tính đến tháng 6 năm 2026, tăng hơn 1.000 lần so với đầu năm 2024.",
+        "Pandaily lưu ý rằng các báo cáo không giải thích cách đo lường khối lượng dữ liệu suy luận và con số token vẫn có sự chênh lệch so với ước tính 500 nghìn tỷ từ cơ quan khác."
+      ],
+      "same_event_coverage_ids": [
+        "2f3b208b103f320073da"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Dữ liệu suy luận AI Trung Quốc lần đầu vượt mức huấn luyện theo báo cáo CCID",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/ccid-china-ai-inference-data-surpasses-training-data-175-trillion-daily-token-calls"
+        }
+      ],
+      "summary_limitations": [
+        "source_conflict"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "c37d47bfdac77c9f2621",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/meituan-longcat-2-5-official-release-1-6t-native-multimodal-long-horizon-agentic-coding-w4a4",
+      "key_points": [
+        "Theo IT Home, nhóm LongCat của Meituan đã phát hành mô hình đa phương thức LongCat-2.5 có 1,6 nghìn tỷ tham số, được xây dựng cho các tác vụ tác nhân AI (hệ thống tự vận hành chuỗi thao tác) dài hạn nhưng chỉ kích hoạt khoảng 48 tỷ tham số mỗi từ.",
+        "Meituan cho biết họ áp dụng học tăng cường chuỗi dài và dữ liệu quỹ đạo bổ sung để tăng cường kỹ thuật phần mềm phức tạp, đồng thời tích hợp xử lý hình ảnh và văn bản dưới cùng định dạng để hỗ trợ lập trình trực quan.",
+        "Trên bảng đo chuẩn (bộ thử nghiệm đánh giá chuẩn) do Meituan đưa ra, LongCat-2.5 đạt 88,4 điểm ở bài kiểm tra Terminal Bench v2.1 so với 70,8 điểm của LongCat-2.0, nhưng chỉ đạt 25,5 điểm ở Program Bench so với mức 37 của mô hình dẫn đầu.",
+        "Pandaily nhấn mạnh những số liệu đo lường này hiện chưa được kiểm chứng độc lập, và kết quả kiểm tra cho thấy mô hình vẫn chưa thể dẫn đầu toàn bộ các bài đánh giá."
+      ],
+      "same_event_coverage_ids": [
+        "1a7a6558e10e202f0674"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meituan ra mắt mô hình LongCat-2.5 nhưng các điểm chuẩn chưa được kiểm chứng độc lập",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/meituan-longcat-2-5-official-release-1-6t-native-multimodal-long-horizon-agentic-coding-w4a4"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "4cd81f9499f27a538fe7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting on a syndicated bank loan negotiation for data center operator STT GDC, where AI is mentioned only in passing as broader contextual backdrop.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/singapore-s-sttgdc-eyes-2-4-billion-loan-adds-to-ai-debt-binge",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7485dc56610958f23324"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a95f0bfab705b58c2ce2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.eurogamer.net/ai-fan-wikis-errors-complicating-games-culture",
+      "key_points": [
+        "Theo bài viết trên Eurogamer, các trang bách khoa (wiki - trang thông tin mở) do AI tạo ra chứa đầy sai lệch đang tràn ngập kết quả tìm kiếm, thường nhắm vào các tựa game độc lập chưa có cộng đồng lớn.",
+        "Ông Tim Bender, Giám đốc điều hành nhà xuất bản Hooded Horse, giải thích rằng rào cản chi phí thấp khiến nhiều doanh nghiệp dùng AI sản xuất web hàng loạt nhằm chiếm đoạt lượt truy cập để kiếm tiền quảng cáo.",
+        "Chẳng hạn, một trang mạo danh wiki cho game Nighthawks đã bịa đặt nhiều nhân vật và kỹ năng không tồn tại, trong khi tác giả bài viết nhận thấy có trang còn dẫn dụ người đọc tải phần mềm không an toàn.",
+        "Thành viên Mạng lưới Wiki Game Độc lập FlamingMojo cảnh báo làn sóng này làm tổn hại uy tín giới làm wiki tình nguyện và tăng mạnh chi phí máy chủ, dù tác giả thừa nhận các trang cộng đồng vốn cũng có thể có sơ suất."
+      ],
+      "same_event_coverage_ids": [
+        "90ae35f2cb7b984dddd9"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Trang wiki game do AI tạo chứa nhiều sai lệch nhắm vào các trò chơi độc lập",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.eurogamer.net/ai-fan-wikis-errors-complicating-games-culture"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "9e359a598cda090071fa",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://picon.dev/en/publications/ai-assisted-engineering/",
+      "key_points": [
+        "Tác giả bài viết trên trang picon.dev nhận định rằng các agent (phần mềm AI tự hành) có thể hỗ trợ triển khai mã nguồn, nhưng kỹ sư vẫn phải chịu trách nhiệm quyết định kiến trúc và tiêu chuẩn nghiệm thu.",
+        "Theo tác giả, ngữ cảnh mô hình luôn có giới hạn khiến việc tóm tắt dễ làm mất đi điều kiện cốt lõi của quyết định, đồng thời đầu ra của agent mang tính xác suất nên cần bằng chứng thực nghiệm để đánh giá.",
+        "Tác giả đề xuất lưu các quyết định vào tài liệu dự án kèm kiểm tra từng bước, nhưng cảnh báo việc lưu tài liệu không bảo đảm mô hình sẽ tuân thủ và việc duy trì tài liệu cũng tiêu tốn tài nguyên.",
+        "Tác giả nêu rõ bài viết chỉ thể hiện quan điểm làm việc cá nhân chứ chưa phải nghiên cứu có đối chứng về tăng năng suất, và hiệu quả phụ thuộc lớn vào chi phí duy trì hướng dẫn cùng năng lực của kỹ sư."
+      ],
+      "same_event_coverage_ids": [
+        "a3bda13daead5ae33c0a",
+        "e8fbad6748a7e35f0a4f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quan điểm: Kỹ sư vẫn phải nắm quyền quyết định và kiểm chứng khi dùng AI lập trình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://picon.dev/en/publications/ai-assisted-engineering/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "1743ebd18a507cf183f3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting on memory manufacturer Kioxia's earnings outlook and stock decline, where AI is mentioned solely in passing as a growth factor.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/kioxia-shares-tumble-after-outlook-suggests-demand-leveling-off",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5455811e1bd70ad15a17"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d7783695bb5c218279b5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/01/2026/ai-trade-falters-after-disappointing-tech-earnings",
+      "key_points": [
+        "Theo Semafor, một số nhà đầu tư bắt đầu giảm kỳ vọng tăng trưởng kinh tế Mỹ khi chỉ số Nasdaq rơi vào vùng điều chỉnh do làn sóng thoái vốn khỏi các khoản đặt cược vào trí tuệ nhân tạo.",
+        "Một chiến lược gia trao đổi với Bloomberg cho biết các báo cáo lợi nhuận gây thất vọng đang đặt ra nghi vấn nghiêm túc về tính bền vững của dòng vốn đầu tư AI.",
+        "Cụ thể, cổ phiếu Intel giảm 29%, S&P Global hạ triển vọng của Meta xuống mức tiêu cực vì chi phí capex (chi phí vốn) cao, còn kết quả kinh doanh của Amazon và Google làm dấy lên lo ngại về chi tiêu của các hyperscaler (nhà cung cấp dịch vụ đám mây quy mô lớn).",
+        "Dù vậy, một nhà quản lý danh mục đầu tư cho biết trên Financial Times rằng dữ liệu kinh tế chưa ghi nhận đà suy giảm, nhưng việc định giá lại AI đồng nghĩa với việc phải xem xét lại triển vọng tăng trưởng."
+      ],
+      "same_event_coverage_ids": [
+        "a493f208965e252e142f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Giới đầu tư hạ kỳ vọng tăng trưởng kinh tế Mỹ khi làn sóng đặt cược AI chững lại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/01/2026/ai-trade-falters-after-disappointing-tech-earnings"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "7ef52e0b08b2b23c67e1",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://proton.me/blog/ai-manifesto",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fa0b96ff4b0e3391f517"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e621a5b384ce839c8a49",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/01/openai-might-rebrand-its-data-centers-as-ai-compute-campuses/",
+      "key_points": [
+        "OpenAI is preparing a public relations campaign scheduled to roll out after the midterm elections, according to Axios.",
+        "OpenAI Chief Global Affairs Officer Chris Lehane projected that the midterm elections will preview AI becoming the defining issue in the 2028 presidential race.",
+        "OpenAI's planned policy proposals include establishing AI speed limits and promoting US leadership in developing global standards.",
+        "OpenAI is considering rebranding data centers as 'AI compute campuses' as part of its public outreach effort."
+      ],
+      "same_event_coverage_ids": [
+        "f8ddb3424f24890a088c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3e7a74cb045b33c76303",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal blog post containing casual personal musings without substantive reporting, verified facts, or journalistic analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://eva.ac/blog/llms/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "022d7f9330273bca6004"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "af5acfaf49cc80c646be",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/opinion/world-opinion/article/3372563/china-and-us-need-join-hands-against-another-powerful-adversary-ai",
+      "key_points": [
+        "Former South China Morning Post editor-in-chief Wang Xiangwei argues that the US and China must treat artificial intelligence as a shared adversary requiring mutual cooperation.",
+        "The op-ed advocates establishing an expert-staffed global governance body if bilateral agreements between the two superpowers cannot be reached."
+      ],
+      "same_event_coverage_ids": [
+        "c90de5967c1c0501c366"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c33aab374796d53e0f1d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/01/ai-can-make-tech-ceos-lives-easier-what-about-everyone-else/",
+      "key_points": [
+        "Nhiều lãnh đạo công nghệ vấp phải chỉ trích vì các phát ngôn dường như xa rời thực tế khi ca ngợi trí tuệ nhân tạo (AI - công nghệ mô phỏng trí tuệ con người). Cây bút Amanda Silberling của TechCrunch đặt câu hỏi liệu giới điều hành có quá xa cách để xây dựng sản phẩm cho người dùng bình thường.",
+        "Anthony Ha của TechCrunch chỉ ra các lãnh đạo có động lực tài chính lớn để quảng bá việc đưa AI vào mọi mặt đời sống, dù điều này trong một số trường hợp tạo cảm giác phản địa đàng.",
+        "Chẳng hạn, Marissa Mayer của Dazzle AI nhờ AI viết nhận xét về con gái, còn Sam Altman của OpenAI gợi ý phụ huynh tạo podcast cho con nghe trên xe.",
+        "Theo Amanda Silberling của TechCrunch, dù người dùng rõ ràng vẫn thấy giá trị ở ChatGPT và Claude, ngành công nghệ vẫn chưa tìm được điểm cân bằng giữa sự tối ưu hóa hữu ích và cảm giác giữ trọn tính người."
+      ],
+      "same_event_coverage_ids": [
+        "2749ac5bd823992d1b03"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhiều CEO công nghệ vấp phải chỉ trích vì các phát ngôn dường như xa rời thực tế khi ca ngợi AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/01/ai-can-make-tech-ceos-lives-easier-what-about-everyone-else/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "1d387a7e4fac34900071",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blog.raed.dev/posts/proton-loser-thinking/",
+      "key_points": [
+        "Theo quan điểm của tác giả bài viết, tranh cãi tại công ty Proton bắt nguồn từ cách điều hành của ban lãnh đạo chứ không phải do trí tuệ nhân tạo (AI - công nghệ mô phỏng trí tuệ con người).",
+        "Dẫn điều tra từ 404 Media, tác giả cho biết CEO Andy Yen gọi đề xuất kiểm thử xâm nhập (pentest - đánh giá an ninh) là tư duy thất bại và yêu cầu dùng AI nhiều hơn.",
+        "Tác giả nhìn nhận việc dùng AI viết mã là bình thường nếu có rào chắn kiểm định, và một nhân viên cũng nêu rằng CEO vẫn đồng ý kiểm thử miễn là không làm chậm tiến độ.",
+        "Tác giả nhấn mạnh rằng dù phần lớn doanh nghiệp có thể đánh đổi sự cẩn trọng lấy tốc độ, lỗi làm lộ thư người dùng sẽ mang tính chí mạng đối với một công ty quyền riêng tư như Proton."
+      ],
+      "same_event_coverage_ids": [
+        "11c944636401813c3ff5",
+        "f8a9c1ee2bb30d9c7427"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả bài viết cho rằng tranh cãi tại Proton bắt nguồn từ ban lãnh đạo chứ không phải do AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://blog.raed.dev/posts/proton-loser-thinking/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "2fc5152fc1ef6b4ae408",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "An article published on Substack on October 13, 2026 re-shared to a forum weeks later with no new updates or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://paulfwalsh.substack.com/p/metas-muse-ai-agent-is-a-commercial",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fc709f453fcde79ec098"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ef839756a5860e543253",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social media post describing a personal weekend hack for filtering YouTube videos, where an AI model was used only incidentally.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://x.com/karpathy/status/2116957135661945283",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bee1750811d30b8c2a45"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c3d2be0d7f3d000b9b1e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://x.com/btibor91/status/2116955752267206776",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5a489c654035f59a0270"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "202b9d690f3a74b6e173",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A product landing page and repository promotional pitch for an AI coding harness without independent reporting or a substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Balanov/uncut",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "541c4c86e9fd91a31bbc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2dd1a315b516efdb2ccb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/1/kyle-kingsbury/",
+      "key_points": [
+        "Kyle Kingsbury observed that LLM usage erodes trust in software, documentation, and the organizations producing them.",
+        "Kingsbury noted that traditional signals used by engineers to identify mature software systems are now easier to counterfeit.",
+        "Kingsbury raised the question of how maintainers can ensure correctness and demonstrate software quality in the age of LLMs."
+      ],
+      "same_event_coverage_ids": [
+        "c5b5e9d7dc566228ea5b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "12844ee7f8055ffe846c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A Show HN promotional pitch for a book index site without independent reporting or a substantive AI release, where AI was merely used to build the page.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://hackerbooks.org",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b7327bfce08065b5432b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "be88e8f6a7ec1636c5f5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "An unverified forum discussion based on an anonymous Hugging Face upload removed for malware concerns, lacking independent reporting or a genuine model release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50326727",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7f44b5356a06ce4f5ee0",
+        "c5c05e2d73226dfa09ca"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c174d37326d22bce0d01",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://sakana.ai/symposium-2026/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "36a413f59b0c6a56e13a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6e57dee758dbd144461f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-agent-swarms-unleashed-in-minecraft-to-build-a-thriving-civilization-50-agent-teams-fail-after-falling-into-paralyzing-bureaucracy",
+      "key_points": [
+        "Trong môi trường trò chơi Minecraft, các nhà nghiên cứu tại ycombinator và Olam Labs nhận thấy đàn 50 tác nhân AI (chương trình tự hành) GPT-6.1 Sol không thể lập nên nền văn minh thịnh vượng mà rơi vào tình trạng quan liêu.",
+        "Trong thử nghiệm kéo dài ba giờ, sau khi thây ma tiêu diệt nhiều thành viên ở đêm đầu tiên, nhóm tác nhân đã từ bỏ các mục tiêu tham vọng ban đầu và chuyển sang sinh tồn thận trọng.",
+        "Ở chế độ đối kháng Mindustry trong Minecraft, số ván thắng ghi nhận 10 tác nhân GPT-6.1 Sol thắng 6-1 trước 10 tác nhân Claude Opus 5.5 qua 7 trận, mà nhóm nghiên cứu kết luận là nhờ lối phối hợp kiểu bầy đàn.",
+        "Nhóm nghiên cứu nhận xét hành vi bầy đàn này tương tự AI lập trình, song kết quả chỉ giới hạn trong môi trường trò chơi mô phỏng và cần thêm thử nghiệm ở các quy mô khác nhau."
+      ],
+      "same_event_coverage_ids": [
+        "445ecf41da4a125630a8",
+        "7ed119de016c96a6fd8b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm bầy đàn AI trong Minecraft thất bại vì quan liêu nhưng thắng áp đảo ở đối kháng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-agent-swarms-unleashed-in-minecraft-to-build-a-thriving-civilization-50-agent-teams-fail-after-falling-into-paralyzing-bureaucracy"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "edc2185a6cbe6e0761de",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://joshbocanegra.medium.com/a-90-chance-of-ai-saving-humanity-bf12fb7914ee",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "200ccf8d2407a583290c",
+        "d587ac4e96cab72d7ff3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8eea618e3b63472ff7b8",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.cnn.com/2026/10/30/business/ai-stocks-bonds-debt",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1b098667cc75aea800bb",
+        "93c22f158c42e4d3fc86"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
