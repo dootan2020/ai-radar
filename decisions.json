@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-02T13:18:14.657101+00:00",
-  "input_generated_at": "2026-11-02T12:41:39Z",
+  "generated_at": "2026-11-02T23:45:19.362999+00:00",
+  "input_generated_at": "2026-11-02T20:17:21Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -19907,6 +19907,1301 @@
         "219c51e5772234e29802"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "875640fcef876ac1c94d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/bloomberg-tech-11-02-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "61c48a4be8272ee3c790"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bcb02ed54caa534702c0",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/ai-will-create-weird-economic-benefits-manidis-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1878dda8691dda04ff81"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "aa8982301ab67bbb548a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/anthropic-to-spend-895-billion-in-the-years-ahead-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "022b09d81e46be98a41f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1263ce4e09302da828b2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "40bc8833eb66f710358d",
+        "bd135052fcc70ff8a55a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "95bf85d3225febed4ce3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/opinion-gta-vi-shows-why-gaming-needs-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c75588609c094ee359d9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5426dcc4966dc2198453",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1024632/anthropic-claude-ai-video-game-clones",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8b5acf114bd1a167a25f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5010fb296f767bbc9bf2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://terrytao.wordpress.com/2026/11/02/egoless-mathematics-in-the-ai-era/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3e296da07a3eddb1f993",
+        "da0268a1b843628697b6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6725ad9e90d62dcc66ed",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Article reports product rumors about an Apple smart home robot for FaceTime and home automation without AI as the primary focus.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/apple/2026/11/apples-roaming-home-robot-may-do-facetime-switch-lights-on-and-yell-at-your-cat/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "38a56ec4f582a6e2034a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dc7eb9e8885fba44653a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.37741",
+      "key_points": [
+        "Các tác giả cho biết việc đầu độc dữ liệu tiền huấn luyện có thể cấy cửa sau thực thi mã từ xa, khiến tác nhân (agent - hệ thống AI tự hành) thực thi lệnh của kẻ tấn công trên máy người dùng.",
+        "Nhóm nghiên cứu tiền huấn luyện mô hình Qwen3 ở các kích thước 0.6B, 1.7B và 4B từ dữ liệu web chưa chọn lọc, rồi hậu huấn luyện thành tác nhân CLI bằng quy trình sạch để đo lường mối đe dọa.",
+        "Thử nghiệm cho thấy tỷ lệ tấn công thành công (ASR) tăng theo quy mô mô hình, đạt khoảng 92% ASR ở mô hình 4B với mức đầu độc 0,1% và vẫn ở mức dương khi tỷ lệ đầu độc giảm còn 0,0005%.",
+        "Nhóm tác giả nhận định nghiên cứu chứng minh nguy cơ cửa sau từ khâu tiền huấn luyện, song tác nhân chỉ chạy lệnh độc hại khi có chuỗi kích hoạt và vẫn hoạt động bình thường trên đầu vào sạch."
+      ],
+      "same_event_coverage_ids": [
+        "ef47cb71c6642f718f54"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đầu độc tiền huấn luyện có thể cấy cửa sau thực thi mã từ xa vào tác nhân AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://arxiv.org/abs/2610.37741"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "32b3bf2b225f3d4c4445",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://rikiyat.github.io/blog/weight-space-programming/",
+      "key_points": [
+        "Theo các tác giả tại MIT CSAIL, mô hình GPT-6 Astra có thể đọc và sửa trực tiếp trọng số mạng nơ-ron (Weight-Space Programming) bằng ngôn ngữ tự nhiên mà không dùng thuật toán hạ độ dốc (gradient descent).",
+        "Nghiên cứu can thiệp trọng số để xử lý lỗi lặp văn bản ở mô hình lý luận nhỏ. Astra lần ra lỗi lặp ở các lớp 15 và 19, rồi trừ hướng này khỏi 131,072 trọng số.",
+        "Khi cho phép 50 lượt lan truyền xuôi (forward pass), điểm đánh giá tuân thủ chỉ dẫn IFEval tăng từ 21,0% lên 62,3%, còn điểm chuẩn toán MATH-500 tăng từ 7,9% lên 48,1%.",
+        "Các tác giả nhấn mạnh việc sửa trọng số có thể gỡ bỏ rào cản che giấu năng lực sẵn có nhưng không thể thêm năng lực mới, khiến Astra không thể cải thiện mô hình Gemma 3 270M. Nhóm nghiên cứu nhận định năng lực này vẫn bị giới hạn bởi độ dài ngữ cảnh và hệ thống điều phối."
+      ],
+      "same_event_coverage_ids": [
+        "dd37209f2d2ed128d2f1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm GPT-6 Astra can thiệp trực tiếp trọng số mạng nơ-ron để sửa lỗi mô hình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://rikiyat.github.io/blog/weight-space-programming/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "1ef57adff6c837a2359f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/medicares-ai-assisted-coverage-review-pilot-hit-early-snags-documents-show/416978/",
+      "key_points": [
+        "Freedom of Information Act documents released by the Electronic Frontier Foundation revealed problems with Medicare's AI-assisted coverage review pilot after a rushed start.",
+        "Under the CMS WISeR program, technology companies used AI in six states to assist clinicians in determining coverage for select services like skin substitutes."
+      ],
+      "same_event_coverage_ids": [
+        "7083c704d1573f7190d8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "99ad6172f2132059c707",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/goldman-restricts-traders-and-bankers-from-using-some-ai-tools",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "20e04c9e2b00090ea3a3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6e38c6d82605d6222af8",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/ai/2026/11/claudes-new-rules-against-game-cloning-wont-stop-the-ai-copying-boom/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f21f03f287124174fc2a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6663ba9af98ba4a1d59d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical tutorial and recipe guide on NVIDIA Developer Blog explaining how to configure and deploy Kubernetes clusters for NVIDIA Vera Rubin hardware.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/making-kubernetes-ai-ready-for-nvidia-vera-rubin-on-day-one/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a1ea970c9c2031708fc1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9736e53c133415732714",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1024588/brave-lawsuit-ai-scraping-new-york-times",
+      "key_points": [
+        "The New York Times and a group of other publications filed lawsuits against Brave Software over alleged unlawful web scraping to train AI models and paywall bypassing.",
+        "Complaints from publications including the New York Daily News and Chicago Tribune allege Brave monetized scraped content by selling AI companies paid access to the Brave Index."
+      ],
+      "same_event_coverage_ids": [
+        "9cc0a3a72db93a40d86e",
+        "e31f98ff95892cf45465"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "996c88dfa31d64c0a9d6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Google blog post re-posting a recap of previously announced October 2026 AI updates with no new information, and unrelated Apple/Qwen coverage is separated.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-october-2026/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8dcd52573b12df7616e4"
+      ],
+      "split_coverage_ids": [
+        "446eb0a827c0067df250"
+      ]
+    },
+    {
+      "id": "16f08e8918bd4dfaa7d2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting focused on Apple's valuation and upcoming earnings report ahead of market close, with only an incidental passing reference to AI jitters in the headline.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/apple-s-valuation-premium-confronts-ai-jitters-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0c057e5843e4e47d862c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cb20cf085ba2cd3e4a92",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical how-to blog post demonstrating how to configure Crawl4AI as a data ingestion preprocessing layer for Amazon Bedrock Knowledge Bases.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/prepare-web-content-for-amazon-bedrock-knowledge-bases-with-crawl4ai/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "49ac88101b334b774ddc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7e203c274434cb6cae50",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Instructional developer tutorial showing how to apply sequence-level knowledge distillation to reduce agent inference costs on Amazon SageMaker AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/build-efficient-agents-with-knowledge-distillation-on-amazon-sagemaker-ai/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ba33fe57ab849d50a542"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "046f31786bb677e60806",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Educational walkthrough demonstrating how to build a multi-agent aerospace component evaluation assistant with Amazon Nova and Bedrock AgentCore.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/agentic-engineering-intelligence-with-amazon-nova-multimodal-embeddings-and-amazon-bedrock-agentcore/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9b3ded3042093dc02bfa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4cb0c7e800cdcdc0ecc7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor customer case study co-authored with Circle K detailing their internal implementation of Amazon Bedrock for DevOps triage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-circle-k-accelerated-devops-incident-triage-to-under-15-minutes-with-amazon-bedrock/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "82d9267b3d3a0f7d76ae"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a840098ac4436b9824e7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Developer guide and recipe tutorial on the NVIDIA Technical Blog explaining how to build and deploy interactive simulation models using Cosmos.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/build-world-models-for-interactive-simulation-with-nvidia-cosmos/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4499498dfb736b521023"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a4ce434711b60add75d3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/nyc-comptroller-steps-up-criticism-of-anthropic-after-ipo-filing",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "21ef9affa13ca630e815"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "43988feebac4c4309da2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Sponsored advertising content and lead-generation report partner-produced with Snowflake rather than independent journalism.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.technologyreview.com/2026/11/02/1147660/raising-the-quality-of-insights-in-agentic-analytics/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ab923f623c9415470c70"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0db7b6f459a78855c303",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.businessinsider.com/anthropic-claude-internal-ai-use-exceeds-employee-pay-tokens-2026-11",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "222005ac3a3c5a326f67",
+        "3fd76ad753e8adc92b52"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "08d84184eea4b92c09d9",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.404media.co/voting-in-2026-is-getting-an-ai-slop-i-voted-sticker/",
+      "key_points": [
+        "Tác giả Matthew Gault trên 404 Media bày tỏ thất vọng khi nhận phải nhãn dán cử tri \"I Voted\" (Tôi đã bỏ phiếu) do trí tuệ nhân tạo (AI) tạo ra bị lỗi trong cuộc bầu cử năm 2026. Nhận nhãn dán sau khi bỏ phiếu vốn là truyền thống tôn vinh nền dân chủ tại Mỹ từ thập niên 1980.",
+        "Theo tác giả, chiếc nhãn dán này bị sai chữ và rối rắm vì người tạo ra không dùng mô hình AI mới nhất khiến chi tiết sắc nét biến mất.",
+        "Tác giả nhận thấy dường như chỉ nơi ông sống và thành phố Denton dùng nhãn dán AI, trái ngược với bang South Carolina hay Louisiana phát nhãn dán đẹp mắt do nghệ sĩ vẽ.",
+        "Dù thừa nhận việc phàn nàn có thể bị xem là tầm thường, tác giả trên 404 Media cho rằng các phiền toái nhỏ tích tụ sẽ khiến xã hội dần bình thường hóa những sản phẩm AI kém chất lượng."
+      ],
+      "same_event_coverage_ids": [
+        "08a8d59f126abc906e6c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả trên 404 Media thất vọng khi nhãn dán cử tri năm 2026 bị thay bằng hình ảnh AI kém chất lượng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "404-media",
+          "url": "https://www.404media.co/voting-in-2026-is-getting-an-ai-slop-i-voted-sticker/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "cfe776d783ceaa5caccc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/02/42ai-comes-out-of-stealth-with-62-5m-and-a-world-model-that-can-predict-human-behavior/",
+      "key_points": [
+        "Hệ thống dự đoán này bước đầu được vận hành tại một số công ty môi giới tài chính.",
+        "Theo 42AI, mô hình đo lường xu hướng tâm lý tiềm ẩn từ tương tác gián tiếp như cuộc gọi hỗ trợ, rồi chuyển thành biểu diễn toán học để tính xác suất quyết định.",
+        "42AI tuyên bố mô hình đạt độ chính xác 98%, nhưng làm rõ đây chỉ là tỷ lệ giao dịch rơi vào khoảng dự đoán chứ không phải đúng từng lệnh, cùng chỉ số F1 (thước đo cân bằng giữa đoán đúng và sai sót) đạt 0,8 đến 0,85.",
+        "Dù vậy, 42AI thừa nhận hệ thống có giới hạn tự nhiên và giảm độ chính xác khi thiếu ngữ cảnh như lời khuyên từ người quen, trong khi TechCrunch cảnh báo nguy cơ công ty môi giới trục lợi từ khách hàng."
+      ],
+      "same_event_coverage_ids": [
+        "b7212cae0bdc915e20c3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "42AI gọi vốn 62,5 triệu USD và tuyên bố phát triển mô hình AI dự đoán hành vi con người",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/02/42ai-comes-out-of-stealth-with-62-5m-and-a-world-model-that-can-predict-human-behavior/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "87906e26ddaac56898d9",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://stephenjgallagher.substack.com/p/ai-can-draw-blueprints-now",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ad47c131e1c6ef8853e3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d2ebc506d8c8ced16e9c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/02/elon-musk-throttles-grok-bot-limits-due-to-unsustainably-high-costs/",
+      "key_points": [
+        "TechCrunch đưa tin nhiều người dùng Grok Bot (hệ thống AI tự chủ thực hiện tác vụ) bất ngờ bị áp mức trần sử dụng hằng tuần dù không kích hoạt công cụ qua đêm.",
+        "Giám đốc điều hành SpaceX Elon Musk xác nhận sự việc không phải lỗi hệ thống, khẳng định chi phí vận hành Grok Bot ở mức cao không thể duy trì bền vững so với doanh thu.",
+        "Một số người dùng phản ánh trên mạng xã hội X rằng mức sử dụng tăng từ 50% lên 100%, dù SpaceX báo cáo mảng AI đạt lợi nhuận 431 triệu USD sau khi trừ chi phí một lần 1,2 tỷ USD để mua lại Cursor.",
+        "Theo TechCrunch, dù Grok Bot được định vị là sản phẩm thành công, Elon Musk hiện vẫn chưa công bố giới hạn sử dụng của thuê bao sẽ bị tác động ra sao trong thời gian tới."
+      ],
+      "same_event_coverage_ids": [
+        "3f783cd238d29b719126"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Elon Musk siết giới hạn sử dụng Grok Bot do chi phí vận hành cao không bền vững so với doanh thu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/02/elon-musk-throttles-grok-bot-limits-due-to-unsustainably-high-costs/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "a3f8559d806b2071f9fb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.niemanlab.org/2026/11/elon-musks-grokipedia-is-littered-with-mistakes-but-wikipedia-could-still-learn-some-things-from-it/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b45d81ddd828f36ba438"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "884de568e109248a4ccf",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report covers a general corporate debt offering by Meta, with AI mentioned only in passing as broader market context rather than the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/meta-readies-cross-border-investment-bond-offering",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4612597e3e3b2c441304"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fb338bda1aab8560d191",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://developer.nvidia.com/blog/support-new-ai-frameworks-faster-using-nvidia-workload-map/",
+      "key_points": [
+        "NVIDIA Workload Map provides a common Kubernetes workload description enabling schedulers, controllers, and platforms to interpret distributed workloads without framework-specific parsing code.",
+        "The project includes a catalog of prebuilt definitions for JobSet, PyTorchJob, RayCluster, RayJob, RayService, KServe, Knative, MPIJob, NVIDIA NIM, LeaderWorkerSet, Milvus, Grove PodCliqueSet, and NVIDIA Dynamo.",
+        "A single JobSet definition supports workload inspection via the Workload Map CLI, gang scheduling through KAI Scheduler, and management in NVIDIA Run:ai."
+      ],
+      "same_event_coverage_ids": [
+        "7352eae2f27e27e4feeb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "48bfcdb128df6de3488d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/anthropic-revenue-hits-nearly-17b-before-mega-ipo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "54fc301bb81af4f10a76",
+        "9ead19f4c5af5bf2a915"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "327e862bb29c2bb4f765",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://longcat.ai/blog/longcat-2.5/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c80e1edc2ca50b676a61"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d9c7a4169daa71511aa7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/02/omen-ai-adds-liquid-know-how-in-16-million-aquatic-labs-acquisition/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f8bde9cc4a99badd187d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5d33ed0c66ace544e65f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1024604/openai-data-center-grid-protection-program",
+      "key_points": [
+        "OpenAI announced it will pilot its Grid Protectors Program at an upcoming data center in Effingham County, Georgia.",
+        "The Grid Protectors Program promises to free up to 1,000 megawatts of power during extreme weather or emergencies."
+      ],
+      "same_event_coverage_ids": [
+        "06289f506c21fc975561",
+        "ea2c9cc64d6db5e0e263"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5192656040346573963c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://deploymentsafety.openai.com/gpt-rosalind-6",
+      "key_points": [
+        "OpenAI announced GPT-Rosalind-6, a frontier reasoning model for biology, drug discovery, and translational medicine.",
+        "GPT-Rosalind-6 uses the same weights as OpenAI's flagship reasoning model GPT-6 Astra.",
+        "GPT-Rosalind-6 Research is offered via trusted access with fewer refusals on dual-use biological research queries.",
+        "OpenAI assessed the GPT-Rosalind-6 launch as High capability in the Biological and Chemical domain under its Preparedness Framework."
+      ],
+      "same_event_coverage_ids": [
+        "1eb63477d72973c1df91"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "446c81ea252e88b22b8d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "An older Bloomberg feature article from September 17, 2026 reposted to a forum on November 2, 2026 with no new reporting or substantive update.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/features/2026-09-17/san-francisco-s-ai-wealth-boom-skirts-engineers-as-openai-anthropic-ipos-near",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "60463839aede9305dcee",
+        "bff54f114b7299fd229b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6e98f979afd8dac38e98",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.cnbc.com/2026/11/02/anthropic-ant-s-1-quarter-financials.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "702b7801d3f1863d907c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "297bcdf8e35a7bc2eb0d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/anthropic-revenue-hits-nearly-17-billion-before-blockbuster-ipo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "88315ec86fe3eae3061e",
+        "cb1b26d08f66fbc3611c",
+        "d69d7301b1f777f48b95"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a7d06db3298395c6ac72",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "42cd20d2c0e25c2ce062"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4aae8a454655c5b39c7e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Corporate earnings preview focused primarily on Apple's fourth-quarter financial results, containing only an incidental passing reference to the AI trade.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/apple-earnings-on-deck-after-1-trillion-rally-preview-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d56f2cc96b9712c72735"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "36bda4f7a78936c57aa1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/02/2026/openais-sam-altman-courts-abu-dhabi-ahead-of-ipo",
+      "key_points": [
+        "OpenAI CEO Sam Altman secured contracts in Abu Dhabi to deploy AI products across government, oil, and sovereign wealth sectors.",
+        "ADNOC and G42 subsidiary Inception42 signed a multi-year deal to deploy OpenAI's Frontier platform for building and managing AI agents.",
+        "The Abu Dhabi government is working with OpenAI to make select government policies readable by AI agents.",
+        "Mubadala will apply OpenAI models to analyze prospective investment deals.",
+        "A UAE consortium including MGX is expected to be the largest investor in OpenAI's latest funding round."
+      ],
+      "same_event_coverage_ids": [
+        "96947c24168a74e86e5b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dc101bf128590792a3e0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/02/openai-is-finally-merging-chatgpts-chat-and-work-tabs/",
+      "key_points": [
+        "The merged experience will initially roll out to select users for feedback before a wider release.",
+        "ChatGPT and Codex will draw usage from the same allocation pool after the merge."
+      ],
+      "same_event_coverage_ids": [
+        "28eeb1bc19c1ac367362"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "63e413263583f2a9136d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/02/2026/saudi-turns-to-aramco-to-fuel-ai-ambitions",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5a1bc819120dd595312a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4f66ac885f23143fdbe7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Financial market commentary focusing on Treasury Inflation Protected Securities (TIPS) and fixed income portfolio hedging, where the AI trade is an incidental macro backdrop rather than the primary subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/tips-are-perfect-hedge-for-ai-says-bmo-s-davis-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "12c161804849a74aef97"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1e75cc35b491a3109e48",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/2/census-bureau-super-intelligence/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "15d9672fa2b4d4d752f5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8c62a7af1d6782d65ba8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Sponsored vendor content provided by HPE marketing its perspective on developer agent token efficiency and ROI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.technologyreview.com/2026/11/02/1147702/stop-counting-tokens-start-counting-what-ships/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cbe95a0b9ebf1e038284"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9e8a6cc08fde12e12236",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/OcanaSantero/status/2115442964574908902",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c342e14514e1a9a3425a",
+        "ecea8d688a2a284fb0c3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c3c6dfd1647c13293f90",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/02/2026/bragawatts-and-why-all-data-center-investing-isnt-created-equal",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "be12e71f8f17006b4571"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3c23ff9e92b216603d49",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/02/2026/blackstone-backed-data-center-operator-tests-ai-debt-fears",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2a8d1e9298fd8e1c7fda"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5a014341bc3fc0f1d8b6",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/lifeval",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b58048be44da3a3f088d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b22d8c99fffc95fe1ddb",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://claude.com/resources/articles/message-threads",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ce23f7b41ba1c531862b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4094d4340f9e66f9e2fc",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/qodo-codex-plugin",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "235afeb474027a430dbf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fa46565cf020d02cc2c1",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/article/3372884/deepseek-unveils-ai-super-agent-coding-race-openai-anthropic",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "34b4bf8ab7178d36e3dd"
+      ],
+      "split_coverage_ids": [
+        "123553b4af16094aa80e",
+        "a2d77303f9733baf1b77",
+        "fb9d12818536c2777168"
+      ]
     }
   ]
 }
