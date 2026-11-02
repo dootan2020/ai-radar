@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-02T03:34:00.613801+00:00",
-  "input_generated_at": "2026-11-02T02:41:21Z",
+  "generated_at": "2026-11-02T07:10:20.679599+00:00",
+  "input_generated_at": "2026-11-02T06:41:15Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -19101,6 +19101,273 @@
       "same_event_coverage_ids": [
         "1b098667cc75aea800bb",
         "93c22f158c42e4d3fc86"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "180eb5ab0ecbd20fd6eb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/north-korea-s-hackers-supercharge-crypto-heists-with-ai-skills",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5d271af3f8fba4b68ec4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "15251fccf75a0eb31330",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/where-do-you-hide-from-an-ai-bubble-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "95e2fc57cdc27cd8a790"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "957a3022081208a5c2e2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/02/tencents-wechat-pay-puts-ai-sales-robot-to-work-in-7-eleven-store/",
+      "key_points": [
+        "WeChat Pay của Tencent đã triển khai một robot bán lẻ tích hợp trí tuệ nhân tạo (AI - công nghệ mô phỏng nhận thức con người) tại một cửa hàng 7-Eleven trong khuôn viên trụ sở Thâm Quyến. Thiết bị này xuất hiện lần đầu vào ngày 29 tháng 10 tại lễ khai trương chi nhánh 7-Eleven thứ 2.000 của tỉnh Quảng Đông.",
+        "WeChat Pay cho biết mục đích của robot là giải quyết một số tương tác thường nhật với khách hàng, giúp nhân viên cửa hàng có thêm thời gian bổ sung hàng lên kệ, chế biến đồ ăn và hỗ trợ người mua.",
+        "Nhờ vận hành bằng mô hình AI Hunyuan cùng công nghệ âm thanh của Tencent trong môi trường ồn ào, robot có thể chào đón khách sắm, gợi ý các gói khuyến mãi và tiếp nhận đơn hàng qua hội thoại.",
+        "Dù robot có khả năng hỗ trợ đặt món qua đàm thoại, người mua hàng tại cửa hàng vẫn phải tự quét mã để hoàn tất bước thanh toán."
+      ],
+      "same_event_coverage_ids": [
+        "6813116a4286cd28dc07"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "WeChat Pay triển khai robot AI hỗ trợ bán lẻ tại một cửa hàng 7-Eleven ở Thâm Quyến",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/02/tencents-wechat-pay-puts-ai-sales-robot-to-work-in-7-eleven-store/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "8c66351745a699fcbd35",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/02/sensetime-open-sources-9-billion-parameter-ai-model-that-reuses-layers-for-deeper-processing/",
+      "key_points": [
+        "SenseTime released SenseNova Loop-9B-Preview, an open-source multimodal model that uses repeated computation to extend processing depth without duplicating weights.",
+        "The release of the model was announced on October 30.",
+        "The model runs a shared block of 24 decoder layers twice to create a deeper computation path from approximately nine billion parameters.",
+        "SenseTime distributed model weights, inference instructions, and training guidance under the Apache 2.0 license, supporting context sequences of up to 262,144 tokens."
+      ],
+      "same_event_coverage_ids": [
+        "3ddd26ddcf30a023a355"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fc895c39f880a83a422c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/02/robot-training-data-startup-genrobot-ai-raises-100-million-in-series-a-funding/",
+      "key_points": [
+        "GenRobot AI, công ty tại Bắc Kinh chuyên cung cấp hạ tầng dữ liệu cho việc phát triển robot, đã hoàn tất vòng gọi vốn Series A+ trị giá 100 triệu USD.",
+        "Vòng tài trợ này thu hút các đối tác công nghiệp như hãng xe SAIC Motor và tập đoàn Baidu, bên cạnh sự tham gia của các quỹ đầu tư tài chính.",
+        "Doanh nghiệp này chế tạo thiết bị và phần mềm để ghi lại thao tác của con người, thu thập hình ảnh cùng chuyển động tay và cơ thể trong các tác vụ gia đình, sản xuất và logistics (hậu cần vận chuyển).",
+        "Nền tảng Matrix của công ty sau đó đồng bộ, làm sạch và gắn nhãn những dữ liệu ghi hình này để cung cấp dữ liệu huấn luyện và đánh giá cho các nhà phát triển robot."
+      ],
+      "same_event_coverage_ids": [
+        "ea602116afaf769189f7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GenRobot AI tại Bắc Kinh hoàn tất vòng gọi vốn 100 triệu USD phát triển robot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/02/robot-training-data-startup-genrobot-ai-raises-100-million-in-series-a-funding/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "12436b0ccc6cc3e12fc4",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/oaktree-s-howard-marks-says-ai-stumbles-have-boosted-skepticism",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cec12f2c49676a36a7ee",
+        "e19b613b59506429ec1d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "90036fd4953e03bc73d9",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Forum link discussing an alleged model leak that was removed for malware concerns, constituting unverified social chatter without substantive reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50326727",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c5c05e2d73226dfa09ca"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4b76a7270dcedb608b54",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/article/3372884/deepseek-unveils-ai-super-agent-coding-race-openai-anthropic",
+      "key_points": [
+        "DeepSeek của Trung Quốc vừa giới thiệu kế hoạch phát triển một tác tử trí tuệ nhân tạo (agent - phần mềm tự vận hành tác vụ) có tính tự chủ cao hơn để cạnh tranh trợ lý lập trình với OpenAI và Anthropic. Hệ thống đề xuất mang tên siêu tác tử, hướng đến xử lý nhiều công việc với sự can thiệp tối thiểu từ con người.",
+        "Theo nhóm DeepSeek Harness, hệ thống đề xuất này nhằm giảm bớt việc con người phải phối hợp và theo dõi nhiều tác tử AI, qua đó xử lý điểm nghẽn trong các quy trình làm việc phức tạp.",
+        "DeepSeek cho biết tiến bộ AI đã thúc đẩy những tác tử tự động hóa nhiều tác vụ, từ xếp lịch và viết email đến lập báo cáo và viết mã.",
+        "Dù SCMP nhấn mạnh đây mới là kế hoạch được đề xuất trên tài liệu kỹ thuật, Bloomberg cho biết DeepSeek đã phát hành một bản thử nghiệm để cạnh tranh với Claude Code của Anthropic."
+      ],
+      "same_event_coverage_ids": [
+        "34b4bf8ab7178d36e3dd",
+        "fb9d12818536c2777168"
+      ],
+      "split_coverage_ids": [
+        "123553b4af16094aa80e"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepSeek giới thiệu kế hoạch siêu tác tử AI nhằm cạnh tranh trong lĩnh vực lập trình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/article/3372884/deepseek-unveils-ai-super-agent-coding-race-openai-anthropic"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-01/deepseek-drops-enhanced-coding-agent-with-aim-to-rival-anthropic"
+        }
+      ],
+      "summary_limitations": [
+        "source_conflict",
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "b614d75466f30ae72353",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3372831/apple-intelligence-roll-out-iphones-china-december-alibaba-backing",
+      "key_points": [
+        "Apple announced that Apple Intelligence will officially launch in China in December alongside the iOS 27.3 update, backed by Alibaba Group Holding.",
+        "Alibaba's flagship AI model Qwen will be integrated into Apple Intelligence for Chinese iPhone users.",
+        "An open beta test for developers is scheduled to begin on November 4.",
+        "The initial rollout will include around 18 features such as writing tools, live translation for phone calls and messages, and visual intelligence via camera controls."
+      ],
+      "same_event_coverage_ids": [
+        "0b3c869e121dd979e000",
+        "446eb0a827c0067df250"
       ],
       "split_coverage_ids": []
     }
