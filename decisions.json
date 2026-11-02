@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-02T07:10:20.679599+00:00",
-  "input_generated_at": "2026-11-02T06:41:15Z",
+  "generated_at": "2026-11-02T11:30:19.286195+00:00",
+  "input_generated_at": "2026-11-02T10:41:27Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -19368,6 +19368,338 @@
       "same_event_coverage_ids": [
         "0b3c869e121dd979e000",
         "446eb0a827c0067df250"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3cd732f334636921aa44",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/us-gdp-dollar-very-exposed-to-ai-pullback-mufg-says-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2da89326e9671b645350"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "afb23aed13a6a60da6c1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on Hong Kong's broader fintech and tokenisation strategy, mentioning artificial intelligence only incidentally.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/business/banking-finance/article/3372968/how-hong-kongs-fintech-strategy-progressing-and-where-growth-still-lags",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7f3ee1aae0b29defd169"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6305e141035d81c82167",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/hundreds-of-mundane-ai-apps-are-hiding-abusive-deepfake-features/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e869dc40d50366ad6db8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d6e69eeb61b0bf5e3acb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/02/2026/election-war-rooms-enter-the-ai-age",
+      "key_points": [
+        "The establishment of election war rooms marks a first for both OpenAI and Anthropic.",
+        "An Anthropic spokesperson confirmed that the company has a dedicated war room monitoring its platform to respond rapidly to election misuse incidents."
+      ],
+      "same_event_coverage_ids": [
+        "ed867083d02cd76e63b7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3615c38e010c6fac5999",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.technologyreview.com/2026/11/02/1147846/the-agentic-web-is-here/",
+      "key_points": [
+        "Theo tác giả trên MIT Technology Review, các hệ thống AI mạnh mẽ đang mở ra kỷ nguyên web tác nhân (mạng lưới cho phần mềm tự hành), phát triển theo hướng có thể không hoàn toàn thuộc tầm kiểm soát của con người.",
+        "Tác giả giải thích các tác nhân giúp tìm kiếm trực quan hơn, cho phép duyệt hàng trăm trang web chỉ trong vài giây.",
+        "Nhóm của giáo sư Akshit Kumar tại Đại học Toronto nhận thấy tác nhân mua sắm bỏ qua hoàn toàn các mục tài trợ, dù mức ưu tiên vị trí khác nhau giữa các mô hình và thế hệ.",
+        "Tác giả nhận định khó có thể biết chính xác hình thái của web tác nhân và nguy cơ người dùng bị bó hẹp trong các nền tảng khép kín."
+      ],
+      "same_event_coverage_ids": [
+        "ae50a10e05d6330be49c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả MIT Technology Review nhận định kỷ nguyên web tác nhân AI đang tái định hình Internet",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "mit-tech-review",
+          "url": "https://www.technologyreview.com/2026/11/02/1147846/the-agentic-web-is-here/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "af2cd42639f63d337109",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/altman-says-ai-will-transform-the-economics-of-energy-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6e8c0acb45abf97528d2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "947f8f0cf6ec471fe827",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/ubs-fowler-sees-appetite-for-buying-back-into-ai-trade-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "80912db7348b2e4874fa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0cf35570dae36863c27f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://labs.cloudsecurityalliance.org/research/csa-research-note-china-ai-export-controls-announcement-48-2/",
+      "key_points": [
+        "On October 16, 2026, China's MOFCOM and MOST issued Announcement No. 48 of 2026 proposing export restrictions on 40 technologies, including 23 in artificial intelligence.",
+        "The proposed export restrictions cover frontier model weights, agent architectures, and AI-enabled offensive cyber capabilities with explicit technical thresholds.",
+        "Announcement No. 48 imposes an immediate pre-export registration requirement, while the catalogue additions remain open for public comment until November 15, 2026."
+      ],
+      "same_event_coverage_ids": [
+        "0638bf40493dc340f316",
+        "2184a09bf7cdede38e3e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "40e68d9927ec1d084fc6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3372961/china-touts-ai-milestone-running-models-now-uses-more-data-training-them",
+      "key_points": [
+        "Theo báo cáo từ Trung tâm Phát triển Công nghiệp Thông tin Trung Quốc (CCID), lượng dữ liệu suy luận do các hệ thống AI tạo ra lần đầu tiên đã vượt qua lượng dữ liệu dùng để huấn luyện.",
+        "Báo cáo của CCID thuộc Bộ Công nghiệp và Công nghệ Thông tin Trung Quốc nêu rõ điều này phản ánh việc ứng dụng AI đang tăng tốc trên quy mô lớn. Dữ liệu chính thức cho thấy số lượt gọi token trung bình mỗi ngày tại Trung Quốc vượt 175 nghìn tỷ lượt, tăng hơn 1.000 lần so với đầu năm 2024.",
+        "Theo báo cáo, lượng gọi token qua các dịch vụ đám mây công cộng là chỉ dấu cho thấy nhu cầu sử dụng AI tiếp tục tăng mạnh."
+      ],
+      "same_event_coverage_ids": [
+        "6d30998f514f08e7e298"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Trung Quốc lần đầu ghi nhận dữ liệu suy luận AI vượt mức huấn luyện theo báo cáo mới",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/big-tech/article/3372961/china-touts-ai-milestone-running-models-now-uses-more-data-training-them"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "117a805cae261c55e891",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/openai-s-altman-travels-to-uae-to-sign-energy-investment-deals",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "059aef68c8f4423e7d8b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b3048d12d8022e927f38",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social media post on Twitter without substantive reporting or news value.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/huskirl/status/2116941001335947635",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8f760904abbadbe4c960"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ef79256ca5d9d3167597",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://chaosmanage.github.io/i-killed-unlimited-chatgpt/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ca74b3e7cb0e862c85cd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4ed584eb2c6720108d22",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release notes, or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/SAOS-3624/dsh-see-now",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "08416cf5faccd3e143c7"
       ],
       "split_coverage_ids": []
     }
