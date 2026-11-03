@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-02T23:45:19.362999+00:00",
-  "input_generated_at": "2026-11-02T20:17:21Z",
+  "generated_at": "2026-11-03T03:33:44.723921+00:00",
+  "input_generated_at": "2026-11-03T02:37:31Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -21202,6 +21202,750 @@
         "a2d77303f9733baf1b77",
         "fb9d12818536c2777168"
       ]
+    },
+    {
+      "id": "5f9e9c17155d0e904d8b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://technode.com/2026/11/03/robots-climb-mount-tai-in-chinas-first-major-mountain-challenge/",
+      "key_points": [
+        "The inaugural China Media Group World Robot Climbing Mount Tai Competition concluded on Monday in Tai'an, Shandong province.",
+        "Robots from more than 50 embodied AI companies, universities, and research teams across China tackled a 3.9-kilometer mountain course from Hongmen to Zhongtianmen.",
+        "The competition course featured over 3,100 stone steps with a cumulative elevation gain of nearly 600 meters on an uneven mountain trail."
+      ],
+      "same_event_coverage_ids": [
+        "587a0afb47a3bafa4867"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4ecc1d4fd1f26ed2c77e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-03/dbs-ceo-on-how-southeast-asia-s-biggest-bank-deploys-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0db6ac4193ab0f09bcfe"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2aeb4a6e4de9eaefa468",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/hkust-harnesssql-deepseek-harness-text-to-sql-agent-8b-spider-2-0-sqlite-45-percent",
+      "key_points": [
+        "On the Spider 2.0-SQLite benchmark, HarnessSQL increased the accuracy of an 8B model based on Qwen3-8B from 15.5% to 45.2%, with a 14B model reaching 54.8%.",
+        "The DSH-SQL agent adapts DeepSeek Harness using four tools: listing tables, reading schemas, executing queries, and submitting final answers across 79 sandboxed databases.",
+        "The training pipeline uses supervised fine-tuning on full agent trajectories averaging 11,800 tokens followed by reinforcement learning with DAPO."
+      ],
+      "same_event_coverage_ids": [
+        "015caa42ef086ac92746"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "74cf24c94933debfc1d4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/moore-threads-wuxi-huishan-mtt-s5000-cluster-2112-gpus-92-9-percent-utilization-deepseek-v4-flash",
+      "key_points": [
+        "The cluster reached 92.9% utilization, onboarding 55 customers and supporting more than 30 model families including Qwen, DeepSeek, GLM, Kimi, and MiniMax.",
+        "Workloads on the cluster comprise more than 62% training, 14.7% mixed training and inference, and 23.1% pure inference.",
+        "Inference tests on the cluster with DeepSeek V4 Flash recorded single-machine output throughput of 994.97 tokens per second."
+      ],
+      "same_event_coverage_ids": [
+        "eb759adb765b7d9ecd3c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9ff666e7421f5314e201",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Reporting on Apple's quarterly earnings call where company results were the focus and the CFO made only an unelaborated passing reference to third-party AI opportunities.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/02/apple-may-try-to-increase-revenue-by-doing-something-with-third-party-ai-apps/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "42ffe6c94f566c1689d7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d38f7b5068359c020195",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/02/y-combinators-garry-tan-uses-ai-agents-so-much-he-spends-up-to-200k-a-year-on-tokens/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3c58edbda2cd1687cea2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9d52bf97ae05725130de",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/2/llm/",
+      "key_points": [
+        "Tác giả Simon Willison thông báo phát hành bản cập nhật llm 0.37 cho công cụ dòng lệnh (CLI - giao diện tương tác bằng văn bản) và thư viện Python sau khoảng hai tháng tích lũy tính năng mới. Phiên bản này đổi mô hình mặc định sang gpt-6-luna với chi phí bằng một nửa phiên bản trước, nếu người dùng chưa tự thiết lập mặc định.",
+        "Theo giải thích của Simon Willison, dù nhiều người quản lý dự án mã nguồn mở than phiền về làn sóng đề xuất mã có AI hỗ trợ, ông không coi đó là vấn đề nhờ dùng Opus 5.5 hoặc GPT-6 Astra giúp phân loại.",
+        "Bản phát hành lần này tiếp nhận sửa lỗi từ 12 tác giả với hầu hết đều có AI hỗ trợ, nhưng Simon Willison nhận thấy gánh nặng rà soát không hề lớn như ông từng lo ngại.",
+        "Theo góc nhìn của Simon Willison, các đóng góp này hoạt động như báo cáo lỗi kèm ví dụ minh họa, giúp ông có thể trực tiếp chấp thuận áp dụng hoặc đôi khi tự viết phương án sửa đổi riêng."
+      ],
+      "same_event_coverage_ids": [
+        "0aee94470648615cb9d3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả Simon Willison ra mắt llm 0.37 và nhờ mô hình AI sàng lọc các đóng góp mã nguồn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "simon-willison",
+          "url": "https://simonwillison.net/2026/Nov/2/llm/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "0dde73a752eec2652b74",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://developer.nvidia.com/blog/diagnose-distributed-ai-workload-failures-with-nvidia-attribution/",
+      "key_points": [
+        "NVIDIA công bố mở mã nguồn NVIDIA Attribution để hỗ trợ chẩn đoán sự cố cho khối lượng công việc AI phân tán. Hệ thống vận hành qua dịch vụ Attribution Service cùng bộ kết nối dữ liệu Attribution Blueprint.",
+        "Theo NVIDIA, ngoại lệ báo cáo chỉ thể hiện nơi tác vụ dừng lại thay vì nơi phát sinh sự cố. Công cụ dùng các quy tắc tất định (quy tắc cho kết quả cố định theo đầu vào) để bóc tách triệu chứng phái sinh khỏi nguyên nhân gốc.",
+        "Trên một khối lượng công việc giả lập, hệ thống chỉ ra lỗi tín hiệu NVLink ở một máy chủ là nguyên nhân gốc và giữ lại các lỗi NCCL làm triệu chứng bổ trợ.",
+        "Theo NVIDIA, công cụ này phân tích từng lần chạy tác vụ tại một thời điểm và các quy tắc mới không thể tải lên động qua HTTP mà phải đóng gói kèm dịch vụ."
+      ],
+      "same_event_coverage_ids": [
+        "0e09ffe1793d05c1b561"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA công bố mã nguồn mở Attribution để chẩn đoán sự cố cho hệ thống AI phân tán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://developer.nvidia.com/blog/diagnose-distributed-ai-workload-failures-with-nvidia-attribution/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "977334dcf0434eb1c0ae",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/02/trajectory-raises-45m-to-make-ai-model-training-accessible-to-nontechnical-experts/",
+      "key_points": [
+        "AI startup Trajectory raised $45 million in a Series A funding round at a $300 million valuation led by Sequoia.",
+        "Trajectory was founded about a year ago by three Stanford classmates with experience at Google DeepMind and Apple."
+      ],
+      "same_event_coverage_ids": [
+        "74de4c80d21fb01eeb76"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "349d99e3bd7c88488626",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Financial analyst commentary focusing on Apple's upcoming quarterly iPhone sales and potential foldable device demand, where AI spend is only mentioned incidentally in the headline.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-02/apple-looks-very-smart-in-modest-ai-spend-tom-forte-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "79920deec6089a40dc8a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6d49bd650ae9b86be9f3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://developer.nvidia.com/blog/keep-distributed-training-running-with-automated-workload-recovery/",
+      "key_points": [
+        "The service executes a four-stage loop that detects anomalies, attributes failures, isolates implicated nodes, and restarts or stops workloads based on policy.",
+        "Integration with Slurm is provided through a reference Advisor Controller deployable via Helm chart in either in-cluster or SSH mode."
+      ],
+      "same_event_coverage_ids": [
+        "d572caffc5425d2b883f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2ae3df16daafa11323d1",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/02/2026/political-opposition-to-data-centers-mounts-in-us-and-abroad",
+      "key_points": [
+        "Theo Semafor, làn sóng phản đối trung tâm dữ liệu (hạ tầng máy chủ) phục vụ AI đang lan rộng toàn cầu, khi cuộc đua thống đốc Texas có thể định hình tương lai một thị trường lớn của Mỹ.",
+        "Tại Texas, các ứng viên thể hiện lập trường khác biệt khi Thống đốc Greg Abbott phải điều chỉnh chính sách ủng hộ trước đây, còn đối thủ đảng Dân chủ cam kết tạm hoãn nghiêm ngặt.",
+        "Theo Semafor, khoảng hơn 300 lệnh tạm hoãn cấp bang và địa phương đang đe dọa hoạt động xây dựng tại Mỹ, riêng cam kết tại Texas có thể ảnh hưởng tới khoảng 29% công suất bổ sung ròng dự kiến toàn quốc năm 2028."
+      ],
+      "same_event_coverage_ids": [
+        "c2c699ea1133a9aec9fe"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Làn sóng phản đối trung tâm dữ liệu AI lan rộng toàn cầu và có thể tác động thị trường Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/02/2026/political-opposition-to-data-centers-mounts-in-us-and-abroad"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "4fbe630e0f0ceedf83ff",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.techpolicy.press/the-sec-should-block-anthropics-ipo-to-protect-the-public/",
+      "key_points": [
+        "Anthropic filed a registration statement for an initial public offering ahead of a planned November stock market debut.",
+        "The author argues that murky finances, circular dealings, and financial engineering in the AI industry justify SEC intervention in Anthropic's IPO."
+      ],
+      "same_event_coverage_ids": [
+        "910e96a567b5b4f1c91a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2d51d402c1fed64604da",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/anthropic-taps-macquarie-commsec-for-australia-ipo-retail-offer",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "33a75f7442296d593b67"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "62954b6003d956addf30",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/02/anthropic-warns-that-its-very-close-to-rsi-capability-aka-self-building-ai/",
+      "key_points": [
+        "Anthropic warned in a revised S-1A SEC filing that it is near the point of creating an AI model capable of recursive self-improvement (RSI).",
+        "The filing revealed rapidly increasing revenue alongside substantially growing expenses."
+      ],
+      "same_event_coverage_ids": [
+        "551c681b94f99f2883c6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e9c7bb5e97164cf0c69c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/isomorphic-labs-president-says-ai-will-design-all-drugs-one-day",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "847f1ca469f3fa657444"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4b0f05c03c3fe7058c97",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The story covers a congressional bill to revive the Office of Technology Assessment; artificial intelligence is only mentioned in passing as one of several emerging technologies.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://fedscoop.com/congress-office-of-technology-assessment-bill/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cf58c28a815209251e3c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1b8e89c9a14b1b6d0a5b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/tech-companies-brace-ai-driven-election-misinformation/416983/",
+      "key_points": [
+        "Trước kỳ bầu cử giữa nhiệm kỳ tại Mỹ, các công ty công nghệ lớn đang triển khai nhiều biện pháp nhằm đảm bảo mô hình trí tuệ nhân tạo cung cấp thông tin chính xác. Theo Nextgov, OpenAI và Anthropic đã lập các phòng tác chiến riêng, còn Meta kích hoạt trung tâm chỉ huy để giám sát nguy cơ lạm dụng nền tảng theo thời gian thực.",
+        "Các hệ thống này được thiết lập nhằm cung cấp thông tin bỏ phiếu tin cậy và ngăn chặn phát tán hình ảnh sai lệch khi cử tri tìm đến AI ngày càng nhiều.",
+        "Tuy nhiên, Trung tâm Brennan ghi nhận Gemini của Google và Meta AI lại sẵn sàng tạo ra các hình ảnh bầu cử giả mạo có độ thuyết phục cao hơn.",
+        "Nextgov nhận định các kết quả thử nghiệm độc lập cho thấy những công ty công nghệ vẫn còn nhiều việc phải làm vì các rào chắn bảo vệ chưa đồng đều."
+      ],
+      "same_event_coverage_ids": [
+        "52e034ba283cf133a073"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Các hãng công nghệ siết kiểm soát thông tin bầu cử từ AI nhưng kết quả còn phân hóa",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nextgov",
+          "url": "https://www.nextgov.com/artificial-intelligence/2026/11/tech-companies-brace-ai-driven-election-misinformation/416983/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "9e00001109d348c2e77a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/palantir-boosts-2026-revenue-outlook-on-strong-commercial-sales",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "62ced719af1b873d3a24"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ea307d35f7398452dad4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.ft.com/content/4d91dbab-6fe4-45ab-beee-d77e091cb37f",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "88315ec86fe3eae3061e",
+        "cb1b26d08f66fbc3611c",
+        "d69d7301b1f777f48b95"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ad5d5621e393f57eb18f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.cnbc.com/2026/11/02/south-korea-ai-spending-budget.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e98f7de83799c27415d1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "743735c39df71f813c1a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://nltimes.nl/2026/11/02/researchers-face-record-low-chances-getting-grant-partly-due-rise-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "760de0d841a4d4fd5810"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "aa3b0cf5f575cef27e49",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://seldo.com/posts/a-proposal-how-to-hire-junior-engineers-in-the-age-of-ai/",
+      "key_points": [
+        "Tác giả bài viết trên trang cá nhân nhận định sự bùng nổ của việc lập trình bằng AI đang làm sụp đổ hoạt động tuyển dụng kỹ sư phần mềm mới vào nghề.",
+        "Theo tác giả, nguyên nhân là các bài phỏng vấn viết mã truyền thống đã mất tác dụng khi các tác nhân (phần mềm tự hành) đảm nhận lập trình, khiến nhiều doanh nghiệp né tránh rủi ro bằng cách chỉ tuyển nhân sự có kinh nghiệm.",
+        "Dẫn số liệu thực tế, tác giả bài viết chỉ ra nghiên cứu của Stanford cho thấy việc làm của lập trình viên từ 22 đến 25 tuổi giảm gần 20 phần trăm so với đỉnh cuối năm 2022, còn tại Anthropic tỷ lệ tuyển kỹ sư mới giảm từ 27 phần trăm xuống 9 phần trăm kể từ năm 2025.",
+        "Tác giả bài viết đề xuất mô hình phỏng vấn giải quyết bài toán thực tế kết hợp người chấm và AI kiểm thử, dù thừa nhận phương pháp này hiện hoàn toàn mang tính lý thuyết và chưa được thử nghiệm."
+      ],
+      "same_event_coverage_ids": [
+        "f47d3da448912c51c96f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đề xuất cải tổ phỏng vấn khi AI làm giảm mạnh tuyển dụng lập trình viên mới vào nghề",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://seldo.com/posts/a-proposal-how-to-hire-junior-engineers-in-the-age-of-ai/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "f03a73352ea1e63de287",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A company blog post detailing how fynk rebuilt its contract assistant by integrating third-party tools CopilotKit and AG-UI, functioning as a customer case study.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://fynk.com/en/blog/fynk-assistant-copilotkit-vue/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "899a3c68e1c672b588e6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "08a9eaa2504ba380d23c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://ketanjoshi.co/2026/11/02/microsoft-just-gave-us-the-perfect-name-for-ai-thieves-kyle/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1acd2c4f7c642c80c618"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "277870ffc8d71544c046",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/scaling-git-at-openai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d16dcb2a2f6ea158048e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5e0c504543eefb212430",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/02/deepseek-team-open-sources-proactive-coding-agent-research-prototype/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4a0557bc1f4aa33f0768",
+        "b77fe959aaab52561441"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "945f879ef3a469b4aebe",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/dan-driscoll-joins-openai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2817f0467408b93aa84e",
+        "e75fb855307e61a0957d"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
