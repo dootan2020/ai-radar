@@ -1,0 +1,417 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-02T23:00:00Z",
+  "cutoff_at": "2026-11-03T23:00:00Z",
+  "created_at": "2026-11-03T23:19:38Z",
+  "snapshot_generated_at": "2026-11-03T23:14:55Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-03T23:14:55Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "0102caec8d7f80a0c4a3",
+      "title": "Introducing India-based inference for Kimi K3 on Amazon Bedrock",
+      "headline": "Introducing India-based inference for Kimi K3 on Amazon Bedrock",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-india-based-inference-for-kimi-k3-on-amazon-bedrock/",
+      "published_at": "2026-11-03T16:32:54Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "e36e42371c4066322bc4",
+          "title": "Introducing India-based inference for Kimi K3 on Amazon Bedrock",
+          "headline": "Introducing India-based inference for Kimi K3 on Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-india-based-inference-for-kimi-k3-on-amazon-bedrock/",
+          "published_at": "2026-11-03T16:32:54Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "e36e42371c4066322bc4"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 6.4517,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "2b4786f99076579d8179",
+      "title": "GitHub Copilot is now available in JetBrains Air",
+      "title_vi": "GitHub Copilot bây giờ có sẵn trong JetBrains Air",
+      "headline": "GitHub Copilot is now available in JetBrains Air",
+      "headline_vi": "GitHub Copilot bây giờ có sẵn trong JetBrains Air",
+      "url": "https://github.blog/changelog/2026-11-03-github-copilot-is-now-available-in-jetbrains-air",
+      "published_at": "2026-11-03T15:11:46Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "344e17d42e14a1bd7a9f",
+          "title": "GitHub Copilot is now available in JetBrains Air",
+          "title_vi": "GitHub Copilot bây giờ có sẵn trong JetBrains Air",
+          "headline": "GitHub Copilot is now available in JetBrains Air",
+          "headline_vi": "GitHub Copilot bây giờ có sẵn trong JetBrains Air",
+          "url": "https://github.blog/changelog/2026-11-03-github-copilot-is-now-available-in-jetbrains-air",
+          "published_at": "2026-11-03T15:11:46Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "github-changelog",
+          "publisher": "github",
+          "entity": "github",
+          "group": "lab",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "344e17d42e14a1bd7a9f"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "github"
+          ],
+          "age_hours_at_cutoff": 7.8039,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "b3b7fa6c1f3dcbf6ed06",
+      "title": "Google will let schools disable its AI tools, but not without sacrificing Search",
+      "title_vi": "Google sẽ cho phép các trường học vô hiệu hóa các công cụ AI của mình, nhưng không phải mà không hy sinh tìm kiếm",
+      "headline": "Google will let schools disable its AI tools, but not without sacrificing Search",
+      "headline_vi": "Google sẽ cho phép các trường học vô hiệu hóa các công cụ AI của mình, nhưng không phải mà không hy sinh tìm kiếm",
+      "url": "https://techcrunch.com/2026/11/03/google-will-let-schools-disable-its-ai-tools-but-not-without-sacrificing-search/",
+      "published_at": "2026-11-03T16:30:34Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 3,
+      "coverage": [
+        {
+          "id": "e358dc5eb5e8d0d3a3c0",
+          "title": "Google will let schools skip AI tools, but they have to give up search, too",
+          "title_vi": "Google sẽ cho phép các trường học bỏ qua các công cụ AI, nhưng họ cũng phải từ bỏ tìm kiếm.",
+          "headline": "Google will let schools skip AI tools, but they have to give up search, too",
+          "headline_vi": "Google sẽ cho phép các trường học bỏ qua các công cụ AI, nhưng họ cũng phải từ bỏ tìm kiếm.",
+          "url": "https://arstechnica.com/ai/2026/11/google-will-let-schools-skip-ai-tools-but-they-have-to-give-up-search-too/",
+          "published_at": "2026-11-03T17:54:43Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "ars-ai",
+          "publisher": "ars-technica",
+          "entity": "ars-technica",
+          "group": "press",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "5b2c7ac9e7fe5d337223",
+          "title": "Google Lets Schools Turn Off Gemini, But Not the AI in Search",
+          "headline": "Google Lets Schools Turn Off Gemini, But Not the AI in Search",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-03/google-lets-schools-turn-off-gemini-but-not-the-ai-in-search",
+          "published_at": "2026-11-03T20:22:17Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "c13ca7971cb368b74ea5",
+          "title": "Google will turn off search for schools that reject AI",
+          "title_vi": "Google sẽ tắt tìm kiếm cho các trường học từ chối AI",
+          "headline": "Google will turn off search for schools that reject AI",
+          "headline_vi": "Google sẽ tắt tìm kiếm cho các trường học từ chối AI",
+          "url": "https://www.nytimes.com/2026/11/03/us/google-search-schools-restrict-ai.html",
+          "published_at": "2026-11-03T15:25:47Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50353192",
+          "metrics": {
+            "points": 520,
+            "comments": 377
+          }
+        },
+        {
+          "id": "c0bdd791d9207f4bfd1c",
+          "title": "Google will turn off search for schools that reject AI",
+          "title_vi": "Google sẽ tắt tìm kiếm cho các trường học từ chối AI",
+          "headline": "Google will turn off search for schools that reject AI",
+          "headline_vi": "Google sẽ tắt tìm kiếm cho các trường học từ chối AI",
+          "url": "https://www.nytimes.com/2026/11/03/us/google-search-schools-restrict-ai.html",
+          "published_at": "2026-11-03T15:25:47Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50353192",
+          "metrics": {
+            "points": 520,
+            "comments": 377
+          }
+        },
+        {
+          "id": "b131b93ff075c5ba0d6b",
+          "title": "Google will let schools disable its AI tools, but not without sacrificing Search",
+          "title_vi": "Google sẽ cho phép các trường học vô hiệu hóa các công cụ AI của mình, nhưng không phải mà không hy sinh tìm kiếm",
+          "headline": "Google will let schools disable its AI tools, but not without sacrificing Search",
+          "headline_vi": "Google sẽ cho phép các trường học vô hiệu hóa các công cụ AI của mình, nhưng không phải mà không hy sinh tìm kiếm",
+          "url": "https://techcrunch.com/2026/11/03/google-will-let-schools-disable-its-ai-tools-but-not-without-sacrificing-search/",
+          "published_at": "2026-11-03T16:30:34Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "3 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "ars-technica",
+              "bloomberg",
+              "techcrunch"
+            ]
+          },
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 0.9818181818181818,
+            "measurement": {
+              "source": "hn-ai",
+              "metric": "points",
+              "value": 520,
+              "observed_at": "2026-11-03T23:14:55Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "ars-technica",
+            "bloomberg",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 6.4906,
+          "hot_score": 91.189,
+          "engagement_percentile": 0.9818181818181818
+        }
+      }
+    },
+    {
+      "id": "019edb616369c3322f4c",
+      "title": "OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer",
+      "title_vi": "OpenAI bổ nhiệm Jill Hazelbaker làm Giám đốc Công ty",
+      "headline": "OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer",
+      "headline_vi": "OpenAI bổ nhiệm Jill Hazelbaker làm Giám đốc Công ty",
+      "url": "https://openai.com/index/jill-hazelbaker-chief-corporate-affairs-officer",
+      "published_at": "2026-11-03T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "bdf868fd926dfa1f1de9",
+          "title": "OpenAI Hires Uber’s Hazelbaker as Corporate Affairs Chief",
+          "title_vi": "OpenAI thuê Hazelbaker của Uber làm Giám đốc các vấn đề doanh nghiệp",
+          "headline": "OpenAI Hires Uber’s Hazelbaker as Corporate Affairs Chief",
+          "headline_vi": "OpenAI thuê Hazelbaker của Uber làm Giám đốc các vấn đề doanh nghiệp",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-03/uber-president-longtime-executive-hazelbaker-departs-for-openai",
+          "published_at": "2026-11-03T19:45:41Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "97c71644be3ba83ad609",
+          "title": "OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer",
+          "title_vi": "OpenAI bổ nhiệm Jill Hazelbaker làm Giám đốc Công ty",
+          "headline": "OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer",
+          "headline_vi": "OpenAI bổ nhiệm Jill Hazelbaker làm Giám đốc Công ty",
+          "url": "https://openai.com/index/jill-hazelbaker-chief-corporate-affairs-officer",
+          "published_at": "2026-11-03T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "openai-news",
+          "publisher": "openai",
+          "entity": "openai",
+          "group": "lab",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "openai"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "openai"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": 61.622,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "d05cff2b935d0ed4bfcd",
+      "title": "Netflix will show you themed recommendations through a new ‘AI Discover’ tab",
+      "title_vi": "Netflix sẽ hiển thị cho bạn các khuyến nghị chủ đề thông qua tab 'AI Discover' mới",
+      "headline": "Netflix will show you themed recommendations through a new ‘AI Discover’ tab",
+      "headline_vi": "Netflix sẽ hiển thị cho bạn các khuyến nghị chủ đề thông qua tab 'AI Discover' mới",
+      "url": "https://www.theverge.com/streaming/1025029/netflix-ai-discover-recommendations",
+      "published_at": "2026-11-03T18:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "d817055e0c0e5a17b569",
+          "title": "Netflix’s new AI Discover tab helps you find something to watch based on your mood",
+          "title_vi": "Tab Discover AI mới của Netflix giúp bạn tìm kiếm thứ gì đó để xem dựa trên tâm trạng của bạn",
+          "headline": "Netflix’s new AI Discover tab helps you find something to watch based on your mood",
+          "headline_vi": "Tab Discover AI mới của Netflix giúp bạn tìm kiếm thứ gì đó để xem dựa trên tâm trạng của bạn",
+          "url": "https://techcrunch.com/2026/11/03/netflixs-new-ai-discover-tab-helps-you-find-something-to-watch-based-on-your-mood/",
+          "published_at": "2026-11-03T18:42:16Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "f1710c3bea2bdb3845b2",
+          "title": "Netflix will show you themed recommendations through a new ‘AI Discover’ tab",
+          "title_vi": "Netflix sẽ hiển thị cho bạn các khuyến nghị chủ đề thông qua tab 'AI Discover' mới",
+          "headline": "Netflix will show you themed recommendations through a new ‘AI Discover’ tab",
+          "headline_vi": "Netflix sẽ hiển thị cho bạn các khuyến nghị chủ đề thông qua tab 'AI Discover' mới",
+          "url": "https://www.theverge.com/streaming/1025029/netflix-ai-discover-recommendations",
+          "published_at": "2026-11-03T18:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-03T23:14:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 5.0,
+          "hot_score": 60.998,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 101,
+    "successful_remote_sources": 100,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
