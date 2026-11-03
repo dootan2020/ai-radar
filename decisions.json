@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-03T07:00:10.132144+00:00",
-  "input_generated_at": "2026-11-03T02:37:31Z",
+  "generated_at": "2026-11-03T11:44:35.469467+00:00",
+  "input_generated_at": "2026-11-03T10:01:44Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -21944,6 +21944,927 @@
       "same_event_coverage_ids": [
         "2817f0467408b93aa84e",
         "e75fb855307e61a0957d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8d66edec34da7bf3bf15",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/03/2026/openai-pushes-policy-rebrand-to-a-skeptical-audience",
+      "key_points": [
+        "OpenAI introduced a multi-pronged policy push rebranding data centers as 'compute campuses' and seeking community input on their buildouts.",
+        "OpenAI's policy proposals liken AI regulations to speed limits for cars and advocate for global AI standards.",
+        "OpenAI's policy rebrand faces skepticism from members of Congress and AI safety advocates.",
+        "Americans for Responsible Innovation president Brad Carson criticized OpenAI's renaming effort as an Orwellian attempt to change the AI debate."
+      ],
+      "same_event_coverage_ids": [
+        "1c2ac66aca406fb27157"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "46b265da532b2f2b421a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-03/investors-split-on-earnings-season-job-cuts-tied-to-ai-and-costs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "40a0cba23716fe0aa35f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f4ce5382770b033fc5c3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-03/ai-evolution-stokes-fear-factor-stanchart-ceo-winters-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dd6ed9606a76e0f0fd86"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b0b84c07d575e9f99b58",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/02/apple-watchs-ai-features-for-rewinding-and-recapping-conversations-begin-beta-testing/",
+      "key_points": [
+        "Apple bắt đầu thử nghiệm beta bốn tính năng trí tuệ nhân tạo (AI) tùy chọn mang tên Audio Intelligence, ban đầu cho nhà phát triển trên Apple Watch Series 12 ở bản cập nhật iOS 27.3.",
+        "Theo TechCrunch, trước làn sóng phản đối các thiết bị ghi âm AI, Apple cố gắng tạo ra công cụ hữu ích cho người dùng mà vẫn tôn trọng quyền riêng tư của người xung quanh.",
+        "Cụ thể, Live Rewind cho phép xem lại văn bản 15 giây hội thoại khi bấm đúp núm xoay kèm chuông báo, còn Siri Recaps tóm lược các ý chính của cuộc trò chuyện. Apple khẳng định tính năng không định danh người nói, không lưu âm thanh gốc hay chép nguyên văn, và bản ghi sẽ tự xóa nếu không được lưu.",
+        "TechCrunch nhận định tính năng lắng nghe hội thoại này tiềm ẩn tranh cãi, dù Apple cam kết dữ liệu được xử lý trong bộ nhớ bảo mật mà không ai tiếp cận được, kể cả hãng."
+      ],
+      "same_event_coverage_ids": [
+        "eb9cd9cc5c56a16f417c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Apple thử nghiệm beta tính năng AI nghe lại cuộc trò chuyện trên Apple Watch cho nhà phát triển",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/02/apple-watchs-ai-features-for-rewinding-and-recapping-conversations-begin-beta-testing/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "834f867a452076917a14",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/NVIDIA/auto-ontology",
+      "key_points": [
+        "Dự án công bố NVIDIA Auto Ontology, một thư viện mã nguồn mở theo giấy phép Apache License 2.0 giúp tạo lớp ngữ cảnh dữ liệu cho các tác nhân AI (phần mềm tự hành).",
+        "Tài liệu dự án giải thích rằng độ tin cậy là rào cản phân tích tự động vì số liệu doanh thu trả về nhanh sẽ vô giá trị nếu sai lệch, nên tác nhân AI cần lớp ngữ cảnh để hiểu rõ ý nghĩa và nguồn gốc dữ liệu. Hệ thống hỗ trợ chuyển câu hỏi tự nhiên thành mã SQL để truy vấn cơ sở dữ liệu kết nối thông qua dịch vụ NVIDIA NIM.",
+        "Dự án cho biết công cụ giúp đối soát truy vấn với định nghĩa chuẩn, song hiện chưa tiếp nhận đóng góp mã nguồn từ bên ngoài. Tài liệu cũng lưu ý phần mềm cung cấp nguyên trạng không kèm bảo hành, còn cổng FastAPI nội bộ không được mở công khai vì chưa tự xác thực."
+      ],
+      "same_event_coverage_ids": [
+        "0b321b9f55c3c10a655e"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA phát hành thư viện mở Auto Ontology nhưng chưa nhận đóng góp bên ngoài",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/NVIDIA/auto-ontology"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "2eec94a2d2923fe40183",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Corporate promotional blog post showcasing customer and municipal deployments of Nvidia physical and agentic AI technology.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/cities-physical-agentic-ai-applications/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a5110e95a304627beeca"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "64db910d77fd8c04c047",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/plus/tech/tech-trends/article/3373080/scmp-plus-fireside-chat-about-ai-professor-alan-macfarlane",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2bc96ca182a08845d160"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "18e1a9d32769bb8bc679",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373090/chinas-lipstick-king-hawks-tokens-ai-gets-mass-market-singles-day-push",
+      "key_points": [
+        "Top Chinese live-streamer Li Jiaqi partnered with an Alibaba executive to sell nearly 100,000 monthly AI subscription packages in 30 minutes.",
+        "The broadcast on Taobao and Tmall marked the first time generative AI products took center stage during the Singles' Day shopping festival."
+      ],
+      "same_event_coverage_ids": [
+        "3848f504693a6d58e123"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f981cc7b6a8903bb8dad",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.abc.net.au/news/2026-10-19/ai-stock-market-concentration-data/107261078",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6f220df61d4be0adb69c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c218bc4a7140e74ad917",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-03/nvidia-tells-data-center-clients-to-trim-china-business-ft-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1d8ad616ed3f33d9eb56"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "75b2fd03afa5e6bae1f3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-03/china-plans-broad-ai-guardrails-after-global-security-lapses",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0fedecd7cbc722dbd257"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6e62dfe0d9523728de85",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/03/sensetime-launches-sensenova-6-8-flash-for-office-and-design-workflows/",
+      "key_points": [
+        "Tập đoàn SenseTime đã phát hành phiên bản chính thức của SenseNova 6.8 Flash vào ngày 2 tháng 11, mở rộng năng lực của các tác nhân (hệ thống AI tự hành) đa phương thức phục vụ cộng tác văn phòng và thiết kế.",
+        "SenseTime cho biết các tính năng về bộ nhớ dài hạn và cộng tác qua nhiều cuộc đối thoại được hướng tới việc giúp tác nhân lưu giữ yêu cầu dự án, kết nối thông tin từ tác vụ trước và gợi ý chỉnh sửa khi dữ liệu thay đổi. Mô hình được phân phối qua trợ lý Raccoon và gói SenseNova Token Plan, hỗ trợ tạo trình chiếu động, áp phích, trang web cũng như đồ họa ba chiều qua Blender.",
+        "Dù đơn vị truyền thông QbitAI đã chứng minh khả năng tạo trang web trên ứng dụng Raccoon, họ lưu ý bài kiểm tra riêng biệt về bộ nhớ dài hạn và cộng tác chủ động chỉ được thực hiện trên phiên bản phát triển nội bộ."
+      ],
+      "same_event_coverage_ids": [
+        "0d72a87665b9c9256d83"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "SenseTime ra mắt SenseNova 6.8 Flash nhưng bộ nhớ dài hạn mới thử nghiệm nội bộ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/03/sensetime-launches-sensenova-6-8-flash-for-office-and-design-workflows/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "8004d56d794a0f4bcf8c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/03/ai-inference-chipmaker-moffett-ai-raises-nearly-rmb-1-billion-in-series-c-funding/",
+      "key_points": [
+        "Moffett AI announced on November 3 that it completed nearly RMB 1 billion in Series C+ funding.",
+        "The financing follows another funding round of nearly RMB 1 billion closed approximately five months earlier.",
+        "Proceeds will support upgrades to sparse-computing inference chips and research into next-generation processors.",
+        "Moffett AI has deployed inference clusters across four Chinese regions and plans to release its SP200 accelerator card before year-end."
+      ],
+      "same_event_coverage_ids": [
+        "291c9f1b1995792563e3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6454bc16ebdeba791a13",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/03/mercedes-benz-brings-doubao-ai-and-china-developed-cockpit-to-updated-e-class/",
+      "key_points": [
+        "Mercedes-Benz launched its updated long-wheelbase E-Class in China on November 2, introducing an AI cockpit developed by its Chinese research team.",
+        "The cockpit integrates ByteDance's Doubao model into the Mercedes-Benz virtual assistant alongside Apple CarPlay and Huawei HiCar.",
+        "The voice system features on-screen command support and voiceprint recognition for up to six users.",
+        "Mercedes-Benz plans major quarterly over-the-air updates and intends to expand the system to more combustion and electric models."
+      ],
+      "same_event_coverage_ids": [
+        "b00c6df5db1863533e1b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e49f106bbad9b8976521",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/03/deepseek-showcases-creator-mode-for-building-custom-plugins-through-conversation/",
+      "key_points": [
+        "Vào ngày 2 tháng 11, nhóm phát triển Harness của DeepSeek giới thiệu tính năng Creator Mode, cho phép người dùng tạo plugin (tiện ích mở rộng) tùy chỉnh bằng câu lệnh ngôn ngữ tự nhiên.",
+        "Harness là nền tảng agent (trí tuệ nhân tạo tự hành) mã nguồn mở của hãng, mở rộng qua các tiện ích. Theo Bloomberg, tính năng này nhằm củng cố các dịch vụ tác nhân AI của DeepSeek và hỗ trợ giải quyết nhiều tác vụ phức tạp.",
+        "Hãng công bố bảy câu lệnh mẫu bằng tiếng Trung và tiếng Anh cho các công cụ như đọc tài liệu hay thiết kế áp phích, bên cạnh không gian thiết kế và dựng video thử nghiệm.",
+        "Dù thao tác nhanh chóng, DeepSeek cho biết một số plugin được trình diễn đã phải trải qua nhiều vòng đối thoại để tinh chỉnh."
+      ],
+      "same_event_coverage_ids": [
+        "56fad007174452789506",
+        "a2d77303f9733baf1b77"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepSeek ra mắt Creator Mode giúp tạo plugin tùy biến bằng ngôn ngữ tự nhiên",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/03/deepseek-showcases-creator-mode-for-building-custom-plugins-through-conversation/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-02/deepseek-boosts-ai-agent-offering-with-new-creator-mode"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "0723600873adff59853f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-03/wall-street-ceos-big-global-money-managers-debate-ai-risks",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bdb027771e440bf25f29"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "442666e00c78474291d6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Full broadcast of a general business and macroeconomic news program covering China's overall economy where AI is merely an incidental passing topic rather than the program's primary subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-03/the-china-show-11-03-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ddc321a20620d43381f2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8289a65b86803237107e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.technologyreview.com/2026/11/02/1147932/heres-who-is-falling-in-line-for-trumps-super-intelligence-loyalty-test/",
+      "key_points": [
+        "At the end of September, President Trump signed an executive order instructing federal agencies to rebrand artificial intelligence as 'Super Intelligence'.",
+        "The term 'Super Intelligence' won over contenders like 'Extreme Intelligence' and 'Supreme Intelligence' following an earlier poll on X.",
+        "The stated official rationale for the rebrand is that modern AI systems amplify human ingenuity rather than merely imitate intelligence."
+      ],
+      "same_event_coverage_ids": [
+        "bbd4b2fd2db62fcf4e15"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "06d4bff79f9f3fe6f450",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-03/morgan-stanley-ceo-sees-up-to-15t-ai-investment-wave-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "058cd77879f44a97d9ba"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "53ddd171676d3db0ca25",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-03/blackstone-pimco-chiefs-debate-the-perils-of-ai-boom-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c1bb95a9a335b72f2c68"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "11a3e4cb137f52664836",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/02/google-takes-dreambeans-to-india-in-bid-to-bring-ai-generated-personal-stories-to-the-masses/",
+      "key_points": [
+        "Ứng dụng hỗ trợ 13 ngôn ngữ địa phương cùng tiếng Anh sau khi mở cho người dùng từ 18 tuổi tại Mỹ.",
+        "Google cho biết hãng chọn Ấn Độ do nhu cầu cao và các dịch vụ của công ty được dùng rộng rãi tại đây.",
+        "Theo ước tính từ Sensor Tower gửi TechCrunch, Dreambeans đạt gần 55.000 lượt tải tại Mỹ từ tháng 6 nhưng sụt 84% trong tháng 10 xuống khoảng 5.500 lượt.",
+        "TechCrunch nhận định việc chưa thể trộn ngôn ngữ có thể hạn chế sức hút của ứng dụng tại Ấn Độ, nơi người dân thường nói tiếng Hindi lẫn tiếng Anh."
+      ],
+      "same_event_coverage_ids": [
+        "1e69172296e731ebce80"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google thử nghiệm ứng dụng AI Dreambeans tại Ấn Độ giữa áp lực sụt giảm lượt tải",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/02/google-takes-dreambeans-to-india-in-bid-to-bring-ai-generated-personal-stories-to-the-masses/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "09e10582776e69fdb555",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Product landing page featuring marketing copy, product demos, and a call-to-action to register for a free site, lacking independent reporting or substantive release documentation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://ownhackertube.cc/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "263ecbaaa9b341c39961"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c4df45adc0f9ac52309c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-03/goldman-s-solomon-sees-very-robust-demand-for-ai-deals",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "15ab53f6f633c77fffa9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a6f54d325d31634f8916",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/transformers-mic",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "568bbf5150c05d02e035"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ed87e07850c2ab9b62de",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://thenewstack.io/claude-code-developer-refusals/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fdd3e98bde5dba7dc97b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0948db3ba76883a631d9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.03602",
+      "key_points": [
+        "Researchers proposed Reviso, an agentic video captioning framework that learns what to observe and how to gather relevant visual evidence.",
+        "From a low-frame-rate global preview, Reviso constructs a hierarchical Context-Focus-Points observation plan.",
+        "The framework addresses the tendency of multimodal large language models to overemphasize minor details while overlooking essential context and key events."
+      ],
+      "same_event_coverage_ids": [
+        "56bd7d6a7df9012152d4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bca108e4c77bd86b238b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/rewarding-defenders-with-bigger-bug-bounties",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5cbe98fb5f74972d5820"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0d297090385ad5a72451",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "09f6b25482b1617abaaa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2a06eab5841765e7ae24",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.03526",
+      "key_points": [
+        "Researchers introduced Library of Layers (LoL), an architecture that dynamically orders its transformer layers during inference to solve given tasks.",
+        "LoL uses a single hyperparameter governing the size of its global transformer block library to transition between parameter reuse and sparsity.",
+        "The architecture generalizes parameter-efficiency and compute tradeoffs across dense, depth-recurrent, and mixture of experts models."
+      ],
+      "same_event_coverage_ids": [
+        "3444da6c7672f7e7c419"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "82b696530e71982fd969",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.03344",
+      "key_points": [
+        "Researchers presented FLAMIA, a family of attention kernels for NVIDIA Blackwell GPUs featuring MXFP8 and mixed NVFP4/FP8 training paths.",
+        "FLAMIA incorporates targeted safeguards against scale-induced causal information leakage and addresses forward-backward numerical inconsistencies."
+      ],
+      "same_event_coverage_ids": [
+        "091e107ed5fb9dda849b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c1e5534e6b4bd335abdb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.03178",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3057f321858c911edf24"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "33f8aff81891a42af7c4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.03126",
+      "key_points": [
+        "Researchers introduced CUA-Master, a nested double-loop recursive improvement framework designed to scale computer-use agents.",
+        "The authors identify limited data diversity, controllability, and lack of iterative feedback as key constraints in conventional computer-use agent pipelines."
+      ],
+      "same_event_coverage_ids": [
+        "eac410151c2d2e095400"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "739116b1af02e5dbabd0",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2611.02928",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "36d06c2df08b71249845"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "96197faf377be404000b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2611.02633",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b0eba2b8f0bc46b4b180"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ea8299ea963b49c55ad9",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2611.03092",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "db700cd0159bbe7debad"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b63eb380f793e8cb6808",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2611.03219",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "57b3eb2c986fc1bdad18"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "43862ef771dfba655e31",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.anthropic.com/research/provable-inference",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8f3914810545379b06a9"
       ],
       "split_coverage_ids": []
     }
