@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-03",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-01T23:00:00Z",
+  "cutoff_at": "2026-11-02T23:00:00Z",
+  "created_at": "2026-11-03T02:41:11Z",
+  "snapshot_generated_at": "2026-11-03T02:37:31Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-03T02:37:31Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "5d33ed0c66ace544e65f",
+      "title": "Introducing the Grid Protectors Program",
+      "title_vi": "Ra mắt chương trình bảo vệ lưới",
+      "headline": "Introducing the Grid Protectors Program",
+      "headline_vi": "Ra mắt chương trình bảo vệ lưới",
+      "url": "https://openai.com/index/grid-protectors-program",
+      "published_at": "2026-11-02T15:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "ea2c9cc64d6db5e0e263",
+          "title": "Introducing the Grid Protectors Program",
+          "title_vi": "Ra mắt chương trình bảo vệ lưới",
+          "headline": "Introducing the Grid Protectors Program",
+          "headline_vi": "Ra mắt chương trình bảo vệ lưới",
+          "url": "https://openai.com/index/grid-protectors-program",
+          "published_at": "2026-11-02T15:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "openai-news",
+          "publisher": "openai",
+          "entity": "openai",
+          "group": "lab",
+          "observed_at": "2026-11-03T02:37:31Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "06289f506c21fc975561",
+          "title": "OpenAI pitches data center power plants as a way to protect nearby areas",
+          "title_vi": "OpenAI đưa ra các nhà máy điện trung tâm dữ liệu như một cách để bảo vệ các khu vực gần đó",
+          "headline": "OpenAI pitches data center power plants as a way to protect nearby areas",
+          "headline_vi": "OpenAI đưa ra các nhà máy điện trung tâm dữ liệu như một cách để bảo vệ các khu vực gần đó",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1024604/openai-data-center-grid-protection-program",
+          "published_at": "2026-11-02T18:01:30Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-03T02:37:31Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "ea2c9cc64d6db5e0e263"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "openai",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "openai",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 8.0,
+          "hot_score": 46.027,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "9736e53c133415732714",
+      "title": "The New York Times sues Brave web browser for AI scraping and bypassing paywalls",
+      "title_vi": "The New York Times kiện Brave web browser vì AI cạn kiệt và bỏ qua paywalls",
+      "headline": "The New York Times sues Brave web browser for AI scraping and bypassing paywalls",
+      "headline_vi": "The New York Times kiện Brave web browser vì AI cạn kiệt và bỏ qua paywalls",
+      "url": "https://www.theverge.com/tech/1024588/brave-lawsuit-ai-scraping-new-york-times",
+      "published_at": "2026-11-02T17:51:19Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "6bd58150b6d8163ce3e4",
+          "title": "The New York Times sues Brave web browser for AI scraping and bypassing paywalls",
+          "title_vi": "The New York Times kiện Brave web browser vì AI cạn kiệt và bỏ qua paywalls",
+          "headline": "The New York Times sues Brave web browser for AI scraping and bypassing paywalls",
+          "headline_vi": "The New York Times kiện Brave web browser vì AI cạn kiệt và bỏ qua paywalls",
+          "url": "https://www.theverge.com/tech/1024588/brave-lawsuit-ai-scraping-new-york-times",
+          "published_at": "2026-11-02T18:00:57Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-03T02:37:31Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50340837",
+          "metrics": {
+            "points": 15,
+            "comments": 1
+          }
+        },
+        {
+          "id": "9cc0a3a72db93a40d86e",
+          "title": "New York Times and other outlets sue web browser Brave over alleged content scraping",
+          "title_vi": "New York Times và các trang khác kiện trình duyệt web Brave vì cáo buộc xóa nội dung",
+          "headline": "New York Times and other outlets sue web browser Brave over alleged content scraping",
+          "headline_vi": "New York Times và các trang khác kiện trình duyệt web Brave vì cáo buộc xóa nội dung",
+          "url": "https://techcrunch.com/2026/11/02/new-york-times-and-other-outlets-sue-web-browser-brave-over-alleged-content-scraping/",
+          "published_at": "2026-11-02T19:19:17Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-03T02:37:31Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "e31f98ff95892cf45465",
+          "title": "The New York Times sues Brave web browser for AI scraping and bypassing paywalls",
+          "title_vi": "The New York Times kiện Brave web browser vì AI cạn kiệt và bỏ qua paywalls",
+          "headline": "The New York Times sues Brave web browser for AI scraping and bypassing paywalls",
+          "headline_vi": "The New York Times kiện Brave web browser vì AI cạn kiệt và bỏ qua paywalls",
+          "url": "https://www.theverge.com/tech/1024588/brave-lawsuit-ai-scraping-new-york-times",
+          "published_at": "2026-11-02T17:51:19Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-03T02:37:31Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 5.1447,
+          "hot_score": 44.859,
+          "engagement_percentile": 0.2
+        }
+      }
+    },
+    {
+      "id": "c37d47bfdac77c9f2621",
+      "title": "Meituan Releases LongCat-2.5, a 1.6T Native Multimodal Model Built for Long-Horizon Agentic Coding",
+      "title_vi": "Meituan phát hành LongCat-2.5, một mô hình đa mô hình bản địa 1.6T được xây dựng cho lập trình đại lý đường dài",
+      "headline": "Meituan Releases LongCat-2.5, a 1.6T Native Multimodal Model Built for Long-Horizon Agentic Coding",
+      "headline_vi": "Meituan phát hành LongCat-2.5, một mô hình đa mô hình bản địa 1.6T được xây dựng cho lập trình đại lý đường dài",
+      "url": "https://pandaily.com/meituan-longcat-2-5-official-release-1-6t-native-multimodal-long-horizon-agentic-coding-w4a4",
+      "published_at": "2026-11-02T02:10:33Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Meituan ra mắt mô hình LongCat-2.5 nhưng các điểm chuẩn chưa được kiểm chứng độc lập",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "1a7a6558e10e202f0674",
+          "title": "Meituan Releases LongCat-2.5, a 1.6T Native Multimodal Model Built for Long-Horizon Agentic Coding",
+          "title_vi": "Meituan phát hành LongCat-2.5, một mô hình đa mô hình bản địa 1.6T được xây dựng cho lập trình đại lý đường dài",
+          "headline": "Meituan Releases LongCat-2.5, a 1.6T Native Multimodal Model Built for Long-Horizon Agentic Coding",
+          "headline_vi": "Meituan phát hành LongCat-2.5, một mô hình đa mô hình bản địa 1.6T được xây dựng cho lập trình đại lý đường dài",
+          "url": "https://pandaily.com/meituan-longcat-2-5-official-release-1-6t-native-multimodal-long-horizon-agentic-coding-w4a4",
+          "published_at": "2026-11-02T02:10:33Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-11-03T02:37:31Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "55ec325e3786fa0ebbbe",
+          "title": "Meituan launches LongCat-2.5 multimodal AI model for extended coding tasks",
+          "title_vi": "Meituan ra mắt mô hình AI đa phương thức LongCat-2.5 cho các nhiệm vụ lập trình mở rộng",
+          "headline": "Meituan launches LongCat-2.5 multimodal AI model for extended coding tasks",
+          "headline_vi": "Meituan ra mắt mô hình AI đa phương thức LongCat-2.5 cho các nhiệm vụ lập trình mở rộng",
+          "url": "https://technode.com/2026/11/02/meituan-launches-longcat-2-5-multimodal-ai-model-for-extended-coding-tasks/",
+          "published_at": "2026-11-02T04:32:41Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "technode",
+          "publisher": "technode",
+          "entity": "technode",
+          "group": "press",
+          "observed_at": "2026-11-03T02:37:31Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "pandaily",
+              "technode"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "pandaily",
+            "technode"
+          ],
+          "age_hours_at_cutoff": 20.8242,
+          "hot_score": 40.425,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "32b3bf2b225f3d4c4445",
+      "title": "Astra can read and write weights to improve Qwen",
+      "title_vi": "Astra có thể đọc và viết trọng số để cải thiện Qwen",
+      "headline": "Astra can read and write weights to improve Qwen",
+      "headline_vi": "Astra có thể đọc và viết trọng số để cải thiện Qwen",
+      "url": "https://rikiyat.github.io/blog/weight-space-programming/",
+      "published_at": "2026-11-02T18:21:28Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "editorial_headline_vi": "Thử nghiệm GPT-6 Astra can thiệp trực tiếp trọng số mạng nơ-ron để sửa lỗi mô hình",
+      "editorial_headline_verified": true,
+      "source_count": 0,
+      "coverage": [
+        {
+          "id": "dd37209f2d2ed128d2f1",
+          "title": "Astra can read and write weights to improve Qwen",
+          "title_vi": "Astra có thể đọc và viết trọng số để cải thiện Qwen",
+          "headline": "Astra can read and write weights to improve Qwen",
+          "headline_vi": "Astra có thể đọc và viết trọng số để cải thiện Qwen",
+          "url": "https://rikiyat.github.io/blog/weight-space-programming/",
+          "published_at": "2026-11-02T18:21:28Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-03T02:37:31Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50341174",
+          "metrics": {
+            "points": 2009,
+            "comments": 654
+          }
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Ngoại lệ diễn đàn: tương tác thuộc nhóm 3% cao nhất và ít nhất 100 bình luận",
+            "percentile": 1.0,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 2009,
+              "observed_at": "2026-11-03T02:37:31Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [],
+          "age_hours_at_cutoff": 4.6422,
+          "hot_score": 43.006,
+          "engagement_percentile": 1.0
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 101,
+    "successful_remote_sources": 100,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
