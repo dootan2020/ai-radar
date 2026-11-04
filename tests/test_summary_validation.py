@@ -6,7 +6,7 @@ source sentence the reviewers quoted against it.
 
 import unittest
 
-from radar.summary_validation import attribution_error, entity_error
+from radar.summary_validation import attribution_error, entity_error, source_speaker_held
 
 OPERA = ("That doesn't eliminate every privacy risk, but it does give users a bit more control.", "TechCrunch")
 OPERA_SAYS = ("There's the additional advantage of privacy, the company said.", "TechCrunch")
@@ -176,6 +176,118 @@ class AttributionTests(unittest.TestCase):
             "đồng thời nhận thông báo khi trang web mục tiêu có thay đổi hoặc đợt giảm giá mới.",
             [("As an example, Mozilla says Smart Window can pull information from your online portfolio or "
               "LinkedIn page to paste your work history into a job application.", "The Verge")]))
+
+
+# Paragraphs of the 2026-11-04 16:31 cycle and earlier stored cycles, with the outlet names the writer desk
+# passes ("the-verge" -> "the verge theverge").
+VERGE_VIEW = ("As we've noted before, this first wave of AI agents still have a long way to go before people begin "
+              "seeing them as a viable way to order food or book a ride somewhere. There still is a lot of friction "
+              "points.", "the verge theverge")
+ELLIOTT = ("“This is the first major disruption that Google is facing to its core business in decades,” "
+           "Nate Elliott, an eMarketer principal analyst covering AI and advertising, tells The Verge.",
+           "the verge theverge")
+ELLIOTT_LATER = ("Elliott cautions that finding effective ad formats can take years.", "the verge theverge")
+TINUITI = ("Tinuiti's same-store advertisers increased their Google paid search spending 14 percent year over year "
+           "in the third quarter while maintaining their return-on-ad-spend targets.", "the verge theverge")
+TAYLOR = ("The catch is that advertisers can't isolate how Google's AI ads are doing. Google doesn't let them "
+          "separately target that inventory or break out its performance, Taylor says.", "the verge theverge")
+HOEFER = ("Hoefer said that for AI companies looking to buoy continued AI sector growth, “the goal is to give "
+          "lawmakers a case for AI investment they can defend back home.”", "semafor semafor")
+ESSAY = ("Seen in this light, we need not be afraid of what AI may achieve in mathematics. Its worth does not "
+         "depend on our accomplishments.", "hacker news example")
+ONWURAH = ("Dame Chi Onwurah, the Labour MP who chairs the Commons Science, Innovation and Technology Committee, "
+           "told WIRED the reports highlight one of the central barriers to digital transformation: hype.",
+           "wired wired")
+BOOSTERISM = ("The spat over these two numbers is part of a wider debate over the line between government support "
+              "and boosterism, while many parliamentarians outside of government raised questions.", "wired wired")
+ADA = ("“Figures about AI that look precise often have assumptions and incentives built into them, and industry "
+       "often funds or shapes the research behind them,” Sumedha Deshmukh of the Ada Lovelace Institute told "
+       "WIRED.", "wired wired")
+
+
+class SignificanceSpeakerTests(unittest.TestCase):
+    """A significance sentence that states whose view it is keeps its scope without citing a listed condition."""
+
+    def test_a_view_held_by_its_cited_speaker_counts(self):
+        self.assertTrue(source_speaker_held(
+            "Trang tin The Verge nhận định làn sóng tác tử AI hiện nay vẫn còn nhiều trở ngại.", [VERGE_VIEW]))
+        self.assertTrue(source_speaker_held(
+            "Chuyên gia Nate Elliott của eMarketer nhận định trên The Verge rằng đây là sự xáo trộn lớn đầu tiên "
+            "với mảng kinh doanh cốt lõi của Google sau nhiều thập kỷ.", [ELLIOTT]))
+        self.assertTrue(source_speaker_held(
+            "Đồng thời, chuyên gia Joseph Hoefer cho rằng các hãng AI cần cung cấp lý lẽ giúp giới lập pháp bảo vệ "
+            "việc đầu tư trước cử tri.", [HOEFER]))
+        self.assertTrue(source_speaker_held(
+            "Từ đó, tác giả kết luận con người không cần e sợ AI trong toán học.", [ESSAY]))
+        self.assertTrue(source_speaker_held(
+            "Theo The Verge, tác tử AI vẫn còn nhiều trở ngại trước khi được dùng để đặt xe.", [VERGE_VIEW]))
+
+    def test_the_writers_own_conclusion_or_a_finding_is_not_a_view(self):
+        # No speaker at all: the writer's own opinion presented as fact.
+        self.assertFalse(source_speaker_held(
+            "Vì vậy tác tử AI sẽ sớm thay thế ứng dụng đặt xe trong vài năm tới.", [VERGE_VIEW]))
+        # A finding verb is evidence, not a view; it keeps its scope only with its condition.
+        self.assertFalse(source_speaker_held("Kết quả cho thấy tác tử AI đã sẵn sàng để đặt xe.", [VERGE_VIEW]))
+        # The claim comes first and the speaker is hung on its end.
+        self.assertFalse(source_speaker_held(
+            "Tác tử AI sẽ thay thế hoàn toàn ứng dụng đặt xe trong vài năm tới như nhiều người vẫn kỳ vọng, "
+            "The Verge nhận định.", [VERGE_VIEW]))
+
+    def test_a_speaker_the_cited_paragraph_does_not_hold_fails(self):
+        # Nate Elliott is not in Taylor's paragraph.
+        self.assertFalse(source_speaker_held(
+            "Chuyên gia Nate Elliott nhận định quảng cáo AI của Google khó đo lường.", [TAYLOR]))
+        # The outlet cannot hold a paragraph that only reports someone else's words.
+        self.assertFalse(source_speaker_held(
+            "Trang The Verge nhận định đây là sự xáo trộn lớn đầu tiên với Google sau nhiều thập kỷ.",
+            [("“This is the first major disruption that Google is facing in decades,” Nate Elliott tells "
+              "The Verge.", "the verge theverge")]))
+        # A name the paragraph mentions without reporting anything they said.
+        self.assertFalse(source_speaker_held(
+            "Hãng Tinuiti nhận định quảng cáo AI của Google sẽ thay thế hoàn toàn quảng cáo tìm kiếm.",
+            [("Tinuiti manages Google paid search campaigns for retail advertisers.", "the verge theverge")]))
+        # An unnamed group must be quoted by every cited paragraph.
+        self.assertFalse(source_speaker_held(
+            "Các chuyên gia cảnh báo tác tử AI sẽ thay thế ứng dụng đặt xe.", [VERGE_VIEW, ELLIOTT]))
+        self.assertFalse(source_speaker_held("Theo The Verge, tác tử AI còn nhiều trở ngại.", []))
+
+
+class NamedAndGroupSpeakerTests(unittest.TestCase):
+    """Speakers the 2026-11-04 16:31 cycle dropped, judged against the paragraphs each sentence cited."""
+
+    def test_a_named_person_with_a_role_word_is_checked_by_name(self):
+        self.assertIsNone(attribution_error(
+            "Chuyên gia Nate Elliott cảnh báo việc tìm ra định dạng quảng cáo hiệu quả có thể mất nhiều năm.",
+            [ELLIOTT_LATER]))
+        self.assertEqual(attribution_error(
+            "Chuyên gia Nate Elliott cảnh báo việc tìm ra định dạng quảng cáo hiệu quả có thể mất nhiều năm.",
+            [("Search engines started with banner ads before adopting paid listings.", "the verge theverge")]),
+            "speaker_not_in_source: Chuyên gia Nate Elliott")
+
+    def test_two_speakers_may_each_cite_their_own_paragraph(self):
+        sentence = ("Hãng Tinuiti cho biết khách hàng vẫn tăng 14% chi tiêu quảng cáo tìm kiếm trên Google trong "
+                    "quý 3, song chuyên gia Andy Taylor lưu ý họ chưa thể đánh giá riêng hiệu quả vì Google không "
+                    "tách biệt số liệu quảng cáo AI.")
+        self.assertIsNone(attribution_error(sentence, [TINUITI, TAYLOR]))
+        # The judgement still cannot rest on a paragraph that names neither speaker.
+        self.assertEqual(attribution_error(sentence, [TAYLOR, (
+            "Steady overall returns could mean AI ad traffic is still too small to affect the results.",
+            "the verge theverge")]), "speaker_not_in_source: Hãng Tinuiti")
+        # The outlet named by the byline does not vouch for a paragraph the company never speaks in.
+        self.assertEqual(attribution_error(
+            "TechCrunch đưa tin về Opera, song Opera cho rằng giải pháp này không thể loại trừ mọi rủi ro bảo mật.",
+            [OPERA_SAYS, OPERA]), "speaker_not_in_source: Opera")
+
+    def test_an_unnamed_group_must_be_quoted_by_every_cited_paragraph(self):
+        sentence = ("Tạp chí WIRED nhận định sự việc làm dấy lên tranh cãi về làn sóng thổi phồng công nghệ, trong "
+                    "bối cảnh các nhà lập pháp cảnh báo việc hoạch định chính sách dựa trên số liệu do doanh nghiệp "
+                    "tài trợ.")
+        # The warning about industry-funded figures is the Ada Lovelace Institute's, not lawmakers'.
+        self.assertEqual(attribution_error(sentence, [ONWURAH, BOOSTERISM, ADA]),
+                         "speaker_not_in_source: các nhà lập pháp")
+        self.assertIsNone(attribution_error(
+            "Tạp chí WIRED nhận định tranh cãi này thuộc cuộc tranh luận về ranh giới giữa ủng hộ và thổi phồng, "
+            "trong bối cảnh các nhà lập pháp cảnh báo về sự thổi phồng.", [ONWURAH, BOOSTERISM]))
 
 
 if __name__ == "__main__":

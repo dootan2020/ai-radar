@@ -182,6 +182,53 @@ class WriterDeskTests(unittest.TestCase):
         self.assertEqual(row["reason"], "paragraph_roles")
         self.assertEqual(row["dropped_points"][0]["error"], "condition_not_cited")
 
+    def test_a_view_its_speaker_holds_keeps_its_scope_without_a_condition_paragraph(self):
+        # Cycle 2026-11-04 16:31 lost three stories whose significance was an attributed view from a paragraph
+        # the writer had not listed as a condition ("Trang tin The Verge nhận định ...").
+        reply = deepcopy(PROSE)
+        reply["conditions"] = PROSE["conditions"][:1]
+        row, _, _ = self.write(reply)
+        self.assertTrue(row["written"], row)
+        self.assertEqual(row["dropped_points"], [])
+        self.assertTrue(row["reason"].endswith("conditions outlet:p003"), row["reason"])
+
+    def test_a_significance_claim_without_grounding_is_still_dropped(self):
+        reply = deepcopy(PROSE)
+        reply["conditions"] = PROSE["conditions"][:1]
+        reply["paragraphs"][3]["sentences"] += [
+            # The writer's own conclusion presented as fact.
+            sentence("Vì vậy CanvasKit sẽ sớm được dùng để huấn luyện robot ngoài đời thật.", "outlet:p004"),
+            # A finding is not anyone's view.
+            sentence("Kết quả cho thấy CanvasKit đã sẵn sàng cho robot ngoài đời thật.", "outlet:p004"),
+            # A view hung on a speaker the cited paragraph never names.
+            sentence("Người đánh giá Sydney Von Arx cho rằng CanvasKit đã sẵn sàng cho robot thật.", "outlet:p002")]
+        row, _, _ = self.write(reply)
+        self.assertTrue(row["written"], row)
+        self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]],
+                         [("significance", "condition_not_cited")] * 3)
+        self.assertNotIn("sẵn sàng", row["key_points"][-1])
+
+    def test_a_rewrite_is_told_which_paragraphs_hold_the_drafts_conditions(self):
+        reply = deepcopy(PROSE)
+        reply["paragraphs"][3]["sentences"] = [
+            sentence("Người đánh giá Sydney Von Arx cho rằng CanvasKit đã sẵn sàng cho robot thật.", "outlet:p002")]
+        rewrite = {"id": SID, "status": "ready", "paragraphs": [deepcopy(PROSE["paragraphs"][3])]}
+        row, _, runner = self.write(runner=self.rewrite_runner(reply, rewrite))
+        self.assertTrue(row["written"], row)
+        self.assertEqual(row["rewrite"], {"roles": ["significance"], "result": "written"})
+        self.assertEqual([d["error"] for d in row["dropped_points"]], ["condition_not_cited"])
+        desk, rows, instruction = runner.calls[1]
+        self.assertEqual(desk, "rewrite-writer")
+        self.assertEqual(rows[0]["rewrite"]["conditions"], PROSE["conditions"])
+        self.assertEqual(rows[0]["rewrite"]["rejected"][0]["error"], "condition_not_cited")
+        self.assertIn("For condition_not_cited", instruction)
+        # An invented condition is not passed on as one.
+        invented = deepcopy(reply)
+        invented["conditions"] = [{"text": "results hold for all real robots", "ref": "outlet:p004"},
+                                  PROSE["conditions"][0]]
+        _, _, runner = self.write(runner=self.rewrite_runner(invented, rewrite))
+        self.assertEqual(runner.calls[1][1][0]["rewrite"]["conditions"], PROSE["conditions"][:1])
+
     def test_an_invented_purpose_or_a_misnamed_speaker_is_dropped(self):
         reply = deepcopy(PROSE)
         reply["paragraphs"][1]["sentences"].append(

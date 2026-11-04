@@ -270,7 +270,13 @@ def entity_error(text, evidence):
     unpossessed = folded(re.sub(r"['’]s\b", "", evidence))
     for name in re.findall(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+){2,}\b", text):
         if any(not vietnamese_syllable(word) for word in name.split()) and folded(name) not in unpossessed:
-            return "unsupported_name: " + name
+            # A capitalised Vietnamese word can open the run without being part of the name: "Bộ trưởng AI
+            # của Anh Kanishka Narayan" (Anh is Britain). The name after it must then occur complete.
+            words = name.split()
+            while words and vietnamese_syllable(words[0]):
+                words.pop(0)
+            if len(words) == len(name.split()) or (len(words) > 1 and folded(" ".join(words)) not in unpossessed):
+                return "unsupported_name: " + name
     return None
 
 
@@ -341,7 +347,7 @@ PURPOSE_EN = re.compile(
 SAYING_VI = (r"cho biết|cho rằng|cho thấy|cho hay|nhận định|nhận xét|nhận thấy|thấy rằng|khẳng định|tuyên bố"
              r"|ước tính|dự báo|cảnh báo|tiết lộ|thừa nhận|lập luận|đánh giá|phát hiện|kết luận|công bố|thông báo"
              r"|giải thích|tin rằng|kỳ vọng|nhấn mạnh|lưu ý|đưa tin|dẫn lời|chia sẻ|xác nhận|bác bỏ|ghi nhận|mô tả"
-             r"|viết rằng|phát biểu|trả lời|nói")
+             r"|viết rằng|phát biểu|trả lời|đặt câu hỏi|nói")
 SAYING = re.compile(r"(?<!\w)(?:" + SAYING_VI + r")(?!\w)", re.I)
 # "Theo X," at the start of a clause, or ", theo X." at its end; "theo dõi" and "theo đó" are not attributions.
 THEO = re.compile(r"(?:^|[,;:(]\s*|(?<!\w)(?:và|nhưng|còn|song)\s+)theo\s+(?!(?:dõi|đuổi|kịp|sau|đó|tỷ lệ|cách|hướng"
@@ -370,10 +376,16 @@ EXPERT_SPEAKER = (re.compile(r"chuyên gia|nhà phân tích|giới phân tích|n
                              r"|nhà khoa học|giới khoa học|học giả", re.I),
                   re.compile(r"\b(?:experts?|analysts?|researchers?|scientists?|economists?|academics?|professors?"
                              r"|specialists?|scholars?|observers?)\b", re.I))
+LAWMAKER_SPEAKER = (re.compile(r"nhà lập pháp|giới lập pháp|nghị sĩ|dân biểu|thượng nghị sĩ|hạ nghị sĩ", re.I),
+                    re.compile(r"\b(?:lawmakers?|legislators?|parliamentarians?|MPs?|senators?|congress(?:wo)?man"
+                               r"|congress(?:wo)?men|members of (?:parliament|congress))\b", re.I))
+# Unnamed groups: a sentence may give them a view only when every cited paragraph quotes that group.
+GROUP_SPEAKERS = (INSIDER_SPEAKER, EXPERT_SPEAKER, LAWMAKER_SPEAKER)
 
 
 def _speakers(text):
-    """Speakers a Vietnamese sentence names: "Theo X," and "X cho biết/cho rằng/..." with a capitalised X."""
+    """Speakers a Vietnamese sentence names: "Theo X," and "X cho biết/cho rằng/..." with a capitalised X or an
+    unnamed group ("các nhà lập pháp cảnh báo") anywhere in the sentence."""
     found = [match[1].strip() for match in THEO.finditer(text)]
     for match in NAMED_SPEAKER.finditer(text):
         words = match[1].split()
@@ -381,21 +393,49 @@ def _speakers(text):
             words.pop(0)
         if words:
             found.append(" ".join(words))
+        elif any(vietnamese.search(match[1]) for vietnamese, _ in GROUP_SPEAKERS):
+            found.append(match[1].strip())
     return found
+
+
+def _name_words(text):
+    """Folded foreign name words in Vietnamese text ("Chuyên gia Nate Elliott" -> nate, elliott)."""
+    return [folded(word) for word in ENTITY_WORD.findall(text)
+            if word[0].isupper() and not vietnamese_syllable(word) and word.upper() not in COMMON_ACRONYMS]
+
+
+def _name_keys(speaker):
+    """A speaker's name words plus their initials; empty for a speaker written only in Vietnamese words
+    ("giới chuyên gia", "tác giả")."""
+    names = _name_words(speaker)
+    keys = set(names)
+    if len(names) > 1:
+        keys.add("".join(word[0] for word in names))
+    return keys
+
+
+def _words(text):
+    return {folded(word) for word in re.findall(r"\w+", text)}
+
+
+def _sentences(paragraph):
+    return [s for s in re.split(r"(?<=[.!?])[\"”’]?\s+(?=[\"“A-Z])", paragraph) if s.strip()]
 
 
 def _speaker_in(speaker, paragraph, publisher):
     """Whether one cited paragraph can carry a named speaker: it names them or its outlet, or it reports
     someone's words ("the company said", "per the outlet"); None when the speaker has no foreign name token."""
-    names = [word for word in ENTITY_WORD.findall(speaker)
-             if word[0].isupper() and not vietnamese_syllable(word) and word.upper() not in COMMON_ACRONYMS]
-    if not names:
+    keys = _name_keys(speaker)
+    if not keys:
         return None
-    keys = {folded(word) for word in names}
-    if len(names) > 1:
-        keys.add(folded("".join(word[0] for word in names)))
-    return (bool(keys & {folded(word) for word in re.findall(r"\w+", paragraph + " " + publisher)})
-            or bool(SOURCE_ATTRIBUTION.search(paragraph)))
+    return bool(keys & _words(paragraph + " " + publisher)) or bool(SOURCE_ATTRIBUTION.search(paragraph))
+
+
+def _named_by(speaker, paragraph, publisher):
+    """Whether a paragraph's own text names a speaker who is not the outlet (the byline carries the outlet
+    everywhere, so it never vouches for one paragraph)."""
+    keys = _name_keys(speaker)
+    return bool(keys) and not keys & _words(publisher) and bool(keys & _words(paragraph))
 
 
 def _outlet_voice(clause, paragraphs):
@@ -406,13 +446,12 @@ def _outlet_voice(clause, paragraphs):
     Otherwise the paragraph holds narration in the outlet's voice ("the domestic economy remains a drag"),
     which the outlet byline already attributes.
     """
-    sentences = [s for p in paragraphs for s in re.split(r"(?<=[.!?])[\"”’]?\s+(?=[\"“A-Z])", p) if s.strip()]
+    sentences = [s for p in paragraphs for s in _sentences(p)]
     attributed = [s for s in sentences if SOURCE_ATTRIBUTION.search(s)]
     if len(attributed) == len(sentences):
         return False
     numbers = {n.replace(",", ".") for n in NUMBER.findall(clause)}
-    names = {folded(word) for word in ENTITY_WORD.findall(clause)
-             if word[0].isupper() and not vietnamese_syllable(word) and word.upper() not in COMMON_ACRONYMS}
+    names = set(_name_words(clause))
     for sentence in attributed:
         if numbers & {n.replace(",", ".") for n in NUMBER.findall(sentence)}:
             return False
@@ -435,17 +474,24 @@ def attribution_error(text, cited):
     for speaker in speakers:
         if OUTLET_SPEAKER.search(speaker):
             continue
-        for vietnamese, english in (INSIDER_SPEAKER, EXPERT_SPEAKER):
-            # An unnamed group must be the one each cited paragraph quotes.
-            if vietnamese.search(speaker) and not all(english.search(p) for p in paragraphs):
+        named = bool(_name_keys(speaker))
+        groups = [english for vietnamese, english in GROUP_SPEAKERS if vietnamese.search(speaker)]
+        # An unnamed group must be the one each cited paragraph quotes. A named person with a role word
+        # ("chuyên gia Nate Elliott") is checked by name below, like any named speaker.
+        for english in groups if not named else ():
+            if not all(english.search(p) for p in paragraphs):
                 return "speaker_not_in_source: " + speaker
-        if INSIDER_SPEAKER[0].search(speaker) or EXPERT_SPEAKER[0].search(speaker):
+        if groups and not named:
             continue
-        # A named speaker needs a cited paragraph that can carry them; a judgement needs every cited one to.
+        # A named speaker needs a cited paragraph that can carry them; a judgement needs every cited one to,
+        # except a paragraph that names another speaker of the same sentence ("Tinuiti reports a 14% rise,
+        # but Taylor cautions ..." cites one paragraph for each).
         found = [_speaker_in(speaker, *pair) for pair in cited]
         if None in found:
             continue
-        if not any(found) or (judgement and not all(found)):
+        others = [other for other in speakers if other != speaker]
+        if not any(found) or (judgement and not all(
+                held or any(_named_by(other, *pair) for other in others) for held, pair in zip(found, cited))):
             return "speaker_not_in_source: " + speaker
     if judgement and any(SOURCE_ATTRIBUTION.search(p) for p in paragraphs):
         # A clause is attributed when it, or an earlier main clause, names a speaker or a reporting verb; a
@@ -468,6 +514,67 @@ def attribution_error(text, cited):
         if pending is not None and not _outlet_voice(pending, paragraphs):
             return "unattributed_judgement"
     return None
+
+
+# A source's view, as opposed to evidence: "cho thấy" (shows) and "phát hiện" (found) state a finding, which
+# keeps its scope only with its condition.
+VIEW_VI = re.compile(r"(?<!\w)(?:" + "|".join(
+    verb for verb in SAYING_VI.split("|") if verb not in {"cho thấy", "thấy rằng", "phát hiện"}) + r")(?!\w)", re.I)
+# An English sentence that reports someone's words: the attribution verbs above, a few more, or a quotation.
+SPEECH = re.compile(SOURCE_ATTRIBUTION.pattern + r"|\b(?:cautions?|cautioned|asserts?|asserted|adds?|added"
+                    r"|explains?|explained|points? out|pointed out|acknowledg(?:es|ed)|admits?|admitted)\b|[\"“”]",
+                    re.I)
+
+
+def _speaker_lead(text):
+    """Who holds a sentence's claim: X in "Theo X," or the at most six words that open the clause of the first
+    view verb with a speaker before it, after a lead-in of at most LEAD_IN_WORDS words ("Đồng thời,"). A verb
+    word inside a noun ("người đánh giá", the reviewer) has no speaker before it and is passed over. None when
+    the sentence states its claim before naming anyone."""
+    theo = THEO.search(text)
+    if theo:
+        return theo[1]
+    before = 0
+    for clause in re.split(r"[,;:]", text):
+        for verb in VIEW_VI.finditer(clause):
+            lead = " ".join(clause[:verb.start()].split())
+            if len(lead.split()) > 6:
+                return None
+            if (_name_words(lead) or OUTLET_SPEAKER.search(lead)
+                    or any(vietnamese.search(lead) for vietnamese, _ in GROUP_SPEAKERS)):
+                return lead
+        before += len(clause.split())
+        if before > LEAD_IN_WORDS:
+            return None
+    return None
+
+
+def source_speaker_held(text, cited):
+    """Whether a sentence presents its claim as a named source's view that a cited paragraph holds.
+
+    An assessment attributed to whoever made it keeps its scope as that speaker's view: "The Verge nhận định
+    ...", "chuyên gia Nate Elliott cảnh báo ...", "tác giả kết luận ...". cited is a list of (paragraph text,
+    outlet names) pairs. A person or organisation holds the claim when a cited paragraph names them and reports
+    speech ("said", "tells", a quotation). The outlet, or "tác giả"/"bài viết", holds it when a cited paragraph
+    has a sentence in the outlet's own voice, not reported from someone else. An unnamed group (experts,
+    insiders, lawmakers) must be the one every cited paragraph quotes. A finding ("kết quả cho thấy") is not a
+    view. This proves who holds a claim, not that the paragraph says it: numbers, names and purposes are
+    checked separately, and wording stays with the prompt and review.
+    """
+    lead = _speaker_lead(normalized(text))
+    if not lead or not cited:
+        return False
+    names = set(_name_words(lead))
+    outlet_words = set().union(*(_words(publisher) for _, publisher in cited))
+    if (names and names <= outlet_words) or (not names and OUTLET_SPEAKER.search(lead)):
+        return any(not SOURCE_ATTRIBUTION.search(s) for paragraph, _ in cited for s in _sentences(paragraph))
+    if names:
+        keys = _name_keys(lead)
+        return any(keys & _words(paragraph) and SPEECH.search(paragraph) for paragraph, _ in cited)
+    for vietnamese, english in GROUP_SPEAKERS:
+        if vietnamese.search(lead):
+            return all(english.search(paragraph) for paragraph, _ in cited)
+    return False
 
 
 def validate_summary(inputs, output, *, source_entity_evidence=None):
