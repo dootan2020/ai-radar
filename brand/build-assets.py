@@ -1,10 +1,11 @@
-"""Build Halcyon extension and Store SVGs from the approved kingfisher.
+"""Build Halcyon extension, Store and website SVGs from the approved Lime Anchor kit.
 
 Run from the repository root:  python brand/build-assets.py
 Use --site for the Halcyon website kit pipeline.
-Needs fontTools (pip install fonttools). Text is converted to outlines with the
-Be Vietnam Pro files in brand/fonts/, so each SVG opens correctly anywhere,
-without the font installed. The website kit retains its existing tokens.
+The logo, wordmark and icon are the kit's own files in brand/logo/lime-anchor/ (Halcyon Lime Anchor
+Brandkit v1.0), copied or embedded unchanged: never redrawn, re-coloured or set in a font.
+Needs fontTools (pip install fonttools). Supporting text is converted to outlines with the
+Be Vietnam Pro files in brand/fonts/, so each SVG opens correctly anywhere, without the font installed.
 """
 import json
 import math
@@ -52,16 +53,17 @@ def load_tokens():
     out = {}
     for name, L, C, H in re.findall(r"--([a-z]+-\d+):\s*oklch\(([\d.]+)\s+([\d.]+)\s+([^)\s]+)\)", css):
         out[name] = oklch_to_hex(float(L), float(C), hue if "hue" in H else float(H))
-    for name, value in re.findall(r"--(emerald-[a-z]+):\s*(#[0-9a-fA-F]{6})", css):
+    for name, value in re.findall(r"--(brand-[a-z]+):\s*(#[0-9a-fA-F]{6})", css):
         out[name] = value.upper()
     return out
 
 
 T = load_tokens()
-LIGHT = dict(canvas=T["gray-96"], surface=T["gray-99"], fill=T["gray-93"], ink=T["gray-21"],
-             ink2=T["gray-44"], ink3=T["gray-51"], accent=T["emerald-ink"], live=T["red-55"])
-DARK = dict(canvas=T["gray-13"], surface=T["gray-17"], fill=T["gray-25"], ink=T["gray-96"],
-            ink2=T["gray-80"], ink3=T["gray-70"], accent=T["emerald-bright"], live=T["red-70"])
+# The same roles as the semantic layer of site/tokens.css (light block and dark block).
+LIGHT = dict(canvas=T["gray-95"], surface=T["brand-surface"], fill=T["gray-93"], ink=T["brand-ink"],
+             ink2=T["gray-44"], ink3=T["gray-51"], accent=T["brand-signature"], live=T["red-55"])
+DARK = dict(canvas=T["deep-16"], surface=T["deep-20"], fill=T["deep-27"], ink=T["brand-surface"],
+            ink2=T["gray-80"], ink3=T["gray-70"], accent=T["brand-lime"], live=T["red-70"])
 
 
 # ---------- type: text -> outlines, with GPOS pair kerning ----------
@@ -147,9 +149,17 @@ def write(name, svg):
     print("wrote", name, len(svg), "bytes")
 
 
+KIT = ROOT / "brand" / "logo" / "lime-anchor"
+# Kit file for each role: the primary wordmark on light, the dark variant (Surface letters, lime beak) on dark,
+# and the icon cut from the y and its beak for every small slot.
+WORDMARK = {"light": "logos/halcyon-primary.svg", "dark": "logos/halcyon-dark.svg"}
+ICON = "icons/halcyon-icon-primary.svg"
+EXTENSION_ICON_SIZES = (16, 32, 48, 128)
+
+
 def approved_logo(name, x, y, width, height):
-    """Embed the approved vector without changing its silhouette or palette."""
-    source = (ROOT / "brand" / "logo" / "a-kingfisher-emerald" / name).read_text(encoding="utf-8")
+    """Embed a kit vector unchanged: same paths, same colours, scaled into the given box."""
+    source = (KIT / name).read_text(encoding="utf-8")
     body = source.split(">", 1)[1].rsplit("</svg>", 1)[0]
     view_box = ElementTree.fromstring(source).attrib["viewBox"]
     return (f'<svg x="{x}" y="{y}" width="{width}" height="{height}" '
@@ -157,32 +167,14 @@ def approved_logo(name, x, y, width, height):
 
 
 def lockup_ratio():
-    source = ROOT / "brand" / "logo" / "a-kingfisher-emerald" / "lockup-light.svg"
-    _, _, width, height = map(float, ElementTree.parse(source).getroot().attrib["viewBox"].split())
+    _, _, width, height = map(float, ElementTree.parse(KIT / WORDMARK["light"]).getroot().attrib["viewBox"].split())
     return width / height
-
-
-def small_kingfisher(size):
-    """Head, beak and chest from the approved pose, enlarged for toolbar pixels."""
-    body = f'<rect width="{size}" height="{size}" rx="{size * .225:g}" fill="#00B377"/>'
-    body += (f'<g transform="scale({size / 1024:g})" fill="#FFFFFF">'
-             '<path d="M 392 393 C 480 390 604 454 640 570 C 646 660 554 758 398 790 '
-             'C 308 780 282 692 314 584 C 324 516 350 438 392 393 Z"/>'
-             '<circle cx="444" cy="385" r="153"/>'
-             '<path d="M 415 245 L 182 288 L 330 357 L 162 402 L 335 441 Z"/>'
-             '<path d="M 505 315 L 899 408 L 505 446 Z"/>'
-             '</g>')
-    return doc(size, size, body, "Halcyon kingfisher toolbar icon")
 
 
 def extension_assets():
     OUT.mkdir(parents=True, exist_ok=True)
-    for pixels in (16, 32):
-        write(f"extension-icon-{pixels}.svg", small_kingfisher(pixels))
-    write("extension-icon-48.svg", doc(48, 48, approved_logo("mark-light.svg", 0, 0, 48, 48), "Halcyon kingfisher extension icon"))
-    write("extension-icon-128.svg", doc(128, 128, approved_logo("mark-light.svg", 0, 0, 128, 128), "Halcyon Chrome Web Store icon"))
     promo = f'<rect width="440" height="280" fill="{DARK["canvas"]}"/>'
-    promo += approved_logo("lockup-dark.svg", 36, 52, 368, 368 / lockup_ratio())
+    promo += approved_logo(WORDMARK["dark"], 36, 52, 368, 368 / lockup_ratio())
     promo += text(MED, "Những mẩu tin AI ngắn gọn", 22, 38, 218, DARK["ink2"])
     write("store-promo-small.svg", doc(440, 280, promo, "Halcyon Chrome Web Store promo"))
 
@@ -207,41 +199,34 @@ def main():
     TAG = "Những mẩu tin AI ngắn gọn"
     URL = SITE_URL.removeprefix("https://").rstrip("/")
 
-    # The approved vectors are the single source for the public identity.
-    logo_dir = ROOT / "brand" / "logo" / "a-kingfisher-emerald"
-    logo_files = {
-        "logo-full.svg": "lockup-light.svg", "logo-full-dark.svg": "lockup-dark.svg",
-        "logo-full-mono-ink.svg": "lockup-light.svg", "logo-full-mono-white.svg": "lockup-dark.svg",
-        "wordmark.svg": "lockup-light.svg", "wordmark-dark.svg": "lockup-dark.svg",
-        "mark.svg": "mark-light.svg", "mark-dark.svg": "mark-dark.svg",
-        "mark-mono-ink.svg": "mark-light.svg", "mark-mono-white.svg": "mark-dark.svg",
-        "favicon-16.svg": "mark-light.svg", "favicon-32.svg": "mark-light.svg",
-        "apple-touch-icon-180.svg": "mark-light.svg", "avatar.svg": "mark-light.svg",
-        "avatar-light.svg": "mark-light.svg",
+    # The kit's vectors are the single source for the public identity: copied byte for byte.
+    copies = {
+        "logo-full.svg": WORDMARK["light"], "logo-full-dark.svg": WORDMARK["dark"],
+        "logo-full-mono-ink.svg": "logos/halcyon-mono-ink.svg", "logo-full-mono-white.svg": "logos/halcyon-mono-white.svg",
+        "logo-full-on-surface.svg": "logos/halcyon-on-surface.svg", "logo-full-on-ink.svg": "logos/halcyon-on-ink.svg",
+        "wordmark.svg": WORDMARK["light"], "wordmark-dark.svg": WORDMARK["dark"],
+        "mark.svg": ICON, "mark-light.svg": "icons/halcyon-icon-light.svg", "mark-lime.svg": "icons/halcyon-icon-lime.svg",
+        "favicon.svg": "favicons/favicon.svg",
     }
-    for target, source in logo_files.items():
-        if target in {"avatar.svg", "avatar-light.svg"}:
-            size = 800
-            write(target, doc(size, size, approved_logo(source, 0, 0, size, size), "Halcyon"))
-        elif target == "apple-touch-icon-180.svg":
-            size = 180
-            tile = f'<rect width="{size}" height="{size}" fill="#00B377"/>'
-            write(target, doc(size, size, tile + approved_logo(source, 0, 0, size, size), "Halcyon"))
-        elif target in {"favicon-16.svg", "favicon-32.svg"}:
-            size = int(target.split("-")[1].split(".")[0])
-            write(target, doc(size, size, approved_logo(source, 0, 0, size, size), "Halcyon"))
-        else:
-            write(target, (logo_dir / source).read_text(encoding="utf-8"))
-    (ROOT / "site" / "logo.svg").write_bytes((logo_dir / "mark-light.svg").read_bytes())
+    for target, source in copies.items():
+        (OUT / target).write_bytes((KIT / source).read_bytes())
+        print("copied", target, "<-", source)
+    write("avatar.svg", doc(800, 800, approved_logo(ICON, 0, 0, 800, 800), "Halcyon"))
+    write("avatar-light.svg", doc(800, 800, approved_logo("icons/halcyon-icon-light.svg", 0, 0, 800, 800), "Halcyon"))
+    # The site serves the icon, both wordmarks and the SVG favicon from its root; extension/sync-site.py copies them on.
+    for target, source in {"logo.svg": ICON, "wordmark.svg": WORDMARK["light"],
+                           "wordmark-dark.svg": WORDMARK["dark"], "favicon.svg": "favicons/favicon.svg"}.items():
+        (ROOT / "site" / target).write_bytes((KIT / source).read_bytes())
+        print("copied site/" + target, "<-", source)
     extension_assets()
 
-    # Keep each approved vector inside its own canvas; choose the light or dark palette.
-    def mark(cx, cy, size, theme="light"):
-        return approved_logo(f"mark-{theme}.svg", cx - size / 2, cy - size / 2, size, size)
+    # Keep each approved vector inside its own canvas; choose the light or dark variant.
+    def mark(cx, cy, size):
+        return approved_logo(ICON, cx - size / 2, cy - size / 2, size, size)
 
     def lockup(x, baseline, size, theme="light"):
         width = size * lockup_ratio()
-        return approved_logo(f"lockup-{theme}.svg", x, baseline - size, width, size), width
+        return approved_logo(WORDMARK[theme], x, baseline - size, width, size), width
 
     gh, hf, day = real_data()
 

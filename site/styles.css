@@ -112,18 +112,26 @@
   /* bar */
   .brand{display:inline-flex;align-items:center;font-size:var(--text-tile);font-weight:var(--weight-bold);letter-spacing:var(--tracking-display);white-space:nowrap}
 .brand b{color:var(--color-ink)}
+  /* The kit's wordmark (primary on light, dark variant on dark; tokens.css picks one). Kit clearspace is half the height of the h,
+     15px at 160px wide: 2px inside the file plus a 16px margin keeps every neighbour clear. A phone header row (56px) cannot hold
+     15px above and below the 40px-tall wordmark, so phones show the kit icon instead. */
+  .brand-logo{width:160px;height:auto;flex:none;margin-inline:var(--space-16)}
+  .brand-logo-light{display:var(--show-logo-light)}
+  .brand-logo-dark{display:var(--show-logo-dark)}
+  .brand-icon{display:none;width:32px;height:32px;flex:none}
+  @media (max-width: 767px){.brand-logo-light,.brand-logo-dark{display:none}.brand-icon{display:block}}
   /* The daily edition is the header's one always-visible primary action. */
-  .ed-link{position:relative;flex:none;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-on-accent);font-size:var(--text-meta);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:background-color var(--motion-state) var(--ease-flow),color var(--motion-state) var(--ease-flow)}
+  .ed-link{position:relative;flex:none;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-on-accent);font-size:var(--text-small);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:background-color var(--motion-state) var(--ease-flow),color var(--motion-state) var(--ease-flow)}
   .ed-link::after{content:"";position:absolute;inset:-6px -4px}
   .ed-link:hover{background:var(--color-accent-hover)}
   /* Link to story search page. Matches .ed-link idiom in the header bar. */
-  .tc-link{position:relative;flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-meta);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
+  .tc-link{position:relative;flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-small);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
   .tc-link::after{content:"";position:absolute;inset:-6px -4px}
   .tc-link:hover{color:var(--color-ink);background:var(--color-hair)}
   .tc-link:focus-visible{border-radius:var(--radius-full)}
   .tc-link .i{width:14px;height:14px}
   .when-line{display:none;font-size:var(--text-meta);color:var(--color-ink-2);white-space:nowrap}
-  .nav{display:flex;gap:var(--space-4);flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;mask-image:var(--nav-fade);font-size:var(--text-meta);font-weight:var(--weight-medium)}
+  .nav{display:flex;gap:var(--space-4);flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;mask-image:var(--nav-fade);font-size:var(--text-small);font-weight:var(--weight-medium)}
   .nav a{padding:var(--space-8) var(--space-8);border-radius:var(--radius-full);color:var(--color-ink-2);white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
   .nav a:hover{color:var(--color-ink);background:var(--color-fill)}
   .nav a[aria-current="true"]{color:var(--color-ink);background:var(--color-surface)}
@@ -148,7 +156,7 @@
     transition:transform var(--motion-feedback) var(--ease-press), background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow), box-shadow var(--motion-state) var(--ease-flow)}
   .btn .i{width:16px;height:16px;transition:transform var(--motion-state) var(--ease-flow)}
   .btn.primary{background:var(--color-accent);color:var(--color-on-accent)}
-  .btn.primary:hover{box-shadow:var(--shadow-lift)}
+  .btn.primary:hover{background:var(--color-accent-hover);box-shadow:var(--shadow-lift)}
   .btn.primary:hover .i{transform:translate(2px, -2px)}
   .btn.second{background:var(--color-fill);color:var(--color-ink)}
   .btn.second:hover{background:var(--color-hair)}
@@ -157,9 +165,10 @@
   .btn[aria-pressed="true"] .i{fill:currentColor}
   .btn:active{transform:scale(0.96)}
   .btn:disabled,.btn[aria-disabled="true"]{opacity:0.45;pointer-events:none}
+  .btn.primary:disabled,.btn.primary[aria-disabled="true"]{background:var(--color-disabled);color:var(--color-on-disabled);opacity:1}
   .btn.is-loading{color:transparent;position:relative;pointer-events:none}
   .btn.is-loading::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;border:2px solid var(--color-on-accent);border-right-color:transparent;animation:spin 700ms linear infinite}
-  .btn-quiet{display:inline-flex;align-items:center;min-height:36px;padding:0 var(--space-12);border-radius:var(--radius-full);font-size:var(--text-meta);font-weight:var(--weight-semibold);color:var(--color-accent);
+  .btn-quiet{display:inline-flex;align-items:center;min-height:36px;padding:0 var(--space-12);border-radius:var(--radius-full);font-size:var(--text-small);font-weight:var(--weight-semibold);color:var(--color-accent);
     transition:background-color var(--motion-state) var(--ease-flow), transform var(--motion-feedback) var(--ease-press)}
   .btn-quiet:hover{background:var(--color-accent-wash)}
   .btn-quiet:active{transform:scale(0.96)}
@@ -346,7 +355,7 @@
   .datebadge span{font-size:var(--datebadge-text);color:var(--color-ink-3);margin-top:2px}
   /* calendar split control: Google Calendar link + .ics file */
   .calbtn{display:inline-flex;align-items:stretch;border-radius:var(--radius-full);background:var(--color-fill);overflow:hidden;flex:none;max-width:100%}
-  .calbtn-g,.calbtn-ics{display:inline-flex;white-space:nowrap;align-items:center;gap:var(--space-8);min-height:40px;padding:0 var(--space-16);font-size:var(--text-meta);font-weight:var(--weight-semibold);
+  .calbtn-g,.calbtn-ics{display:inline-flex;white-space:nowrap;align-items:center;gap:var(--space-8);min-height:40px;padding:0 var(--space-16);font-size:var(--text-small);font-weight:var(--weight-semibold);
     transition:background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow)}
   .calbtn-g{color:var(--color-accent)}
   .calbtn-g .i{width:16px;height:16px}
@@ -399,7 +408,7 @@
   /* Repository list: one segmented track, like Apple's segmented control. The chosen segment is a raised thumb
      (surface on the fill track; one step lighter than the track in dark mode). Phones get a 44px touch height. */
   .seg{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0, 1fr);padding:calc(var(--space-4) / 2);border-radius:var(--radius-full);background:var(--color-fill);width:100%;max-width:calc(var(--space-96) * 4)}
-  .seg-b{position:relative;min-height:calc(var(--chip-h) - var(--space-4));padding:0 var(--space-8);text-align:center;border-radius:var(--radius-full);font-size:var(--text-meta);font-weight:var(--weight-medium);color:var(--color-ink-2);line-height:var(--leading-snug);
+  .seg-b{position:relative;min-height:calc(var(--chip-h) - var(--space-4));padding:0 var(--space-8);text-align:center;border-radius:var(--radius-full);font-size:var(--text-small);font-weight:var(--weight-medium);color:var(--color-ink-2);line-height:var(--leading-snug);
     transition:background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow), box-shadow var(--motion-state) var(--ease-flow)}
   .seg-b:hover{color:var(--color-ink)}
   .seg-b:active:not([aria-pressed="true"]){background:var(--color-hair)}
@@ -409,7 +418,7 @@
   .seg-b:focus-visible{outline-offset:0;border-radius:var(--radius-full)}
   /* Window (or total): plain words; the chosen one turns blue, the colour this page keeps for "chosen". */
   .tabs-t{display:flex;flex-wrap:wrap;column-gap:var(--space-16);margin-top:calc(var(--space-4) * -1)}
-  .tab-t{position:relative;min-height:var(--space-24);font-size:var(--text-meta);font-weight:var(--weight-medium);color:var(--color-ink-3);transition:color var(--motion-state) var(--ease-flow)}
+  .tab-t{position:relative;min-height:var(--space-24);font-size:var(--text-small);font-weight:var(--weight-medium);color:var(--color-ink-3);transition:color var(--motion-state) var(--ease-flow)}
   .tab-t:hover{color:var(--color-ink)}
   .tab-t:active{color:var(--color-ink-2)}
   .tab-t[aria-pressed="true"]{color:var(--color-accent);font-weight:var(--weight-semibold)}
@@ -475,7 +484,7 @@
   .tabs{display:none}
   @media (max-width: 767px){
     .tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5, 1fr);background:var(--color-surface);box-shadow:0 -1px 0 var(--color-hair);padding-bottom:env(safe-area-inset-bottom)}
-    .tabs a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;font-size:var(--text-micro);color:var(--color-ink-3)}
+    .tabs a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;font-size:var(--text-small);color:var(--color-ink-3)}
     .tabs a[aria-current="true"]{color:var(--color-accent)}
     .tabs .num{position:absolute;top:6px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-on-accent);font-size:var(--tab-badge-text);display:grid;place-items:center}
     .sheet{top:auto;left:0;right:0;bottom:0;width:auto;max-height:88dvh;border-radius:var(--tile-radius) var(--tile-radius) 0 0;transform:translateY(100%)}

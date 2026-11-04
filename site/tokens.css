@@ -2,27 +2,31 @@
    Language: docs/ngon-ngu-thiet-ke.md. Showcase of every token and component state: tokens.html.
 
    Three layers, read top to bottom:
-     1. primitive  raw values named by what they are (gray-95, emerald-ink, space-24). Nothing outside this file uses them.
+     1. primitive  raw values named by what they are (gray-95, brand-signature, space-24). Nothing outside this file uses them.
      2. semantic   named by role (color-canvas, color-ink-2, text-title). Light and dark differ ONLY here.
      3. component  named by the component that owns it (tile-*, num-*, av-*, ring-*).
 
    Where the values come from (the five principles, short):
      P1 Diện tích là thứ bậc   -> one grid, tile spans, big radius, wide gaps (space-24/32)
      P2 Mỗi ô một con số       -> a separate number scale (num-*) far above the text scale
-     P3 Logo và số là màu      -> neutral ramp at chroma <= 0.012; emerald for action; red only for "live"
+     P3 Logo và số là màu      -> neutral ramp at chroma <= 0.012 tinted to the Lime Anchor Surface; Signature green
+                                  for action (lime on dark only, never as text on a light surface); red only for "live"
+   Brand colours: Halcyon Lime Anchor kit v1.0 (brand/logo/lime-anchor/README.md). Roles the kit does not define (hover,
+   dark mode, disabled) are a proposal the owner approved on 04/11, not kit standard.
      P4 Khoảng thở             -> tile padding 32-48px, 4pt spacing only
      P5 Chuyển động như dòng chảy -> one easing family (decelerate), durations from the 02/10 motion spec */
 
 :root{
   /* ---------- 1. primitive ---------- */
-  --hue: 265;                                        /* a faint cool tint, the hue of Apple's #F5F5F7 family */
-  --gray-99: oklch(0.993 0.002 var(--hue));
-  --gray-97: oklch(0.975 0.003 var(--hue));
-  --gray-96: oklch(0.962 0.004 var(--hue));
-  --gray-93: oklch(0.932 0.005 var(--hue));
-  --gray-90: oklch(0.900 0.006 var(--hue));
-  --gray-80: oklch(0.800 0.008 var(--hue));
-  --gray-70: oklch(0.700 0.009 var(--hue));
+  --hue: 130;                                        /* a faint green tint between the kit's Surface (123°) and Ink (155°) */
+  --gray-99: oklch(0.993 0.003 var(--hue));
+  --gray-97: oklch(0.975 0.006 var(--hue));
+  --gray-96: oklch(0.962 0.007 var(--hue));
+  --gray-95: oklch(0.952 0.008 var(--hue));
+  --gray-93: oklch(0.932 0.009 var(--hue));
+  --gray-90: oklch(0.900 0.010 var(--hue));
+  --gray-80: oklch(0.800 0.010 var(--hue));
+  --gray-70: oklch(0.700 0.010 var(--hue));
   --gray-51: oklch(0.510 0.012 var(--hue));
   --gray-44: oklch(0.440 0.012 var(--hue));
   --gray-30: oklch(0.300 0.010 var(--hue));
@@ -30,10 +34,19 @@
   --gray-21: oklch(0.210 0.009 var(--hue));
   --gray-17: oklch(0.175 0.008 var(--hue));
   --gray-13: oklch(0.135 0.006 var(--hue));
-  --emerald-ink: #007A55;                         /* readable link/action emerald on near-white paper */
-  --emerald-ink-hover: #006A49;                   /* a deeper press/hover state for the primary action */
-  --emerald-bright: #00D68F;                      /* the approved dark-mode kingfisher emerald */
-  --emerald-bright-hover: #00C982;
+  /* Lime Anchor kit colours, exact values from brand/logo/lime-anchor. */
+  --brand-signature: #2F6B00;                        /* links, primary action, focus ring on light surfaces */
+  --brand-secondary: #174A34;                        /* hover of the primary action; icon tile */
+  --brand-lime: #D7FF2F;                             /* accent: the beak; dark-mode action. Never text on a light surface */
+  --brand-surface: #F8FBF3;                          /* light reading surface; text colour in dark mode */
+  --brand-ink: #142018;                              /* text on light surfaces; dark-mode bar; text on lime */
+  --brand-white: #FFFFFF;                            /* text on the Signature button */
+  --brand-lime-hover: oklch(0.86 0.195 121);         /* dark-mode hover: the lime one step deeper, same hue */
+  /* Dark ramp derived from the kit's Ink (hue 155): canvas, tile, fill and hairline around the Ink bar. */
+  --deep-16: oklch(0.160 0.015 155);
+  --deep-20: oklch(0.195 0.019 155);
+  --deep-27: oklch(0.270 0.020 155);
+  --deep-32: oklch(0.320 0.020 155);
   --red-55:  oklch(0.52 0.21 27);
   --red-70:  oklch(0.70 0.18 27);
   --amber-47: oklch(0.48 0.11 65);
@@ -61,18 +74,22 @@
 
 /* ---------- 2. semantic (light, the default). Also on any element marked data-theme="light". ---------- */
 :root, [data-theme="light"]{
-  --color-canvas: var(--gray-96);
-  --color-bar: var(--gray-99);                       /* sticky navigation, distinct from the canvas */
-  --color-surface: var(--gray-99);                   /* a tile */
+  --color-canvas: var(--gray-95);                    /* the page between tiles, one step below the kit Surface */
+  --color-bar: var(--brand-surface);                 /* sticky navigation, distinct from the canvas */
+  --color-surface: var(--brand-surface);             /* a tile: the kit's reading surface */
   --color-inset: var(--gray-97);                     /* a panel inside a tile */
   --color-fill: var(--gray-93);                      /* chips, skeleton, meter track */
   --color-hair: var(--gray-90);
-  --color-ink: var(--gray-21);
+  --color-ink: var(--brand-ink);
   --color-ink-2: var(--gray-44);
   --color-ink-3: var(--gray-51);
-  --color-accent: var(--emerald-ink);
-  --color-accent-hover: var(--emerald-ink-hover);
-  --color-on-accent: var(--gray-99);
+  --color-accent: var(--brand-signature);
+  --color-accent-hover: var(--brand-secondary);
+  --color-on-accent: var(--brand-white);
+  --color-disabled: var(--color-fill);               /* a disabled control is neutral grey, never the accent */
+  --color-on-disabled: var(--color-ink-3);
+  --show-logo-light: block;                          /* header wordmark: the kit's primary variant on light surfaces */
+  --show-logo-dark: none;
   --color-accent-wash: color-mix(in srgb, var(--color-accent) 10%, transparent);
   --color-live: var(--red-55);
   --color-live-wash: oklch(0.52 0.21 27 / 0.10);
@@ -147,18 +164,20 @@
 
 /* ---------- dark: same roles, new values. Surfaces lighten to rise; numbers stay the brightest thing. ---------- */
 [data-theme="dark"]{
-  --color-canvas: var(--gray-13);
-  --color-bar: var(--gray-21);
-  --color-surface: var(--gray-17);
-  --color-inset: var(--gray-21);
-  --color-fill: var(--gray-25);
-  --color-hair: var(--gray-30);
-  --color-ink: var(--gray-96);
+  --color-canvas: var(--deep-16);
+  --color-bar: var(--brand-ink);
+  --color-surface: var(--deep-20);
+  --color-inset: var(--brand-ink);
+  --color-fill: var(--deep-27);
+  --color-hair: var(--deep-32);
+  --color-ink: var(--brand-surface);
   --color-ink-2: var(--gray-80);
   --color-ink-3: var(--gray-70);
-  --color-accent: var(--emerald-bright);
-  --color-accent-hover: var(--emerald-bright-hover);
-  --color-on-accent: var(--gray-13);
+  --color-accent: var(--brand-lime);
+  --color-accent-hover: var(--brand-lime-hover);
+  --color-on-accent: var(--brand-ink);
+  --show-logo-light: none;                         /* the kit's dark variant: Surface letters, lime beak */
+  --show-logo-dark: block;
   --color-accent-wash: color-mix(in srgb, var(--color-accent) 16%, transparent);
   --color-live: var(--red-70);
   --color-live-wash: oklch(0.70 0.18 27 / 0.18);
@@ -178,18 +197,20 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --color-canvas: var(--gray-13);
-    --color-bar: var(--gray-21);
-    --color-surface: var(--gray-17);
-    --color-inset: var(--gray-21);
-    --color-fill: var(--gray-25);
-    --color-hair: var(--gray-30);
-    --color-ink: var(--gray-96);
+    --color-canvas: var(--deep-16);
+    --color-bar: var(--brand-ink);
+    --color-surface: var(--deep-20);
+    --color-inset: var(--brand-ink);
+    --color-fill: var(--deep-27);
+    --color-hair: var(--deep-32);
+    --color-ink: var(--brand-surface);
     --color-ink-2: var(--gray-80);
     --color-ink-3: var(--gray-70);
-    --color-accent: var(--emerald-bright);
-    --color-accent-hover: var(--emerald-bright-hover);
-    --color-on-accent: var(--gray-13);
+    --color-accent: var(--brand-lime);
+    --color-accent-hover: var(--brand-lime-hover);
+    --color-on-accent: var(--brand-ink);
+    --show-logo-light: none;                       /* the kit's dark variant: Surface letters, lime beak */
+    --show-logo-dark: block;
     --color-accent-wash: color-mix(in srgb, var(--color-accent) 16%, transparent);
     --color-live: var(--red-70);
     --color-live-wash: oklch(0.70 0.18 27 / 0.18);

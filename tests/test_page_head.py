@@ -235,10 +235,9 @@ class RenderedFixWiringTests(unittest.TestCase):
         for path in (ROOT / "brand" / "index.html", SITE / "brand" / "index.html"):
             book = read(path)
             self.assertIn("[data-theme=light] .only-dark,[data-theme=dark] .only-light{display:none}", book)
-            self.assertIn('mark-light.svg', book)
-            self.assertIn('mark-dark.svg', book)
-            self.assertIn('lockup-light.svg', book)
-            self.assertIn('lockup-dark.svg', book)
+            self.assertIn('lime-anchor/logos/halcyon-primary.svg', book)
+            self.assertIn('lime-anchor/logos/halcyon-dark.svg', book)
+            self.assertIn('lime-anchor/icons/halcyon-icon-primary.svg', book)
 
     def test_story_kind_is_a_tag_with_its_own_shape(self):
         # Owner, 03/10 ~18:05: a story's kind must read at a glance, never by colour alone.
