@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-04T17:10:33.997895+00:00",
-  "input_generated_at": "2026-11-04T16:17:20Z",
+  "generated_at": "2026-11-04T23:36:37.911791+00:00",
+  "input_generated_at": "2026-11-04T19:37:55Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -25195,6 +25195,894 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "fc62b6c7820baef4731a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1870bd8ae8038dd949c3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/video/open-source-ai-is-booming-hugging-face-explains-who-profits/",
+      "key_points": [
+        "Hugging Face Chief Policy Officer Irene Solaiman discussed building on open models on an episode of TechCrunch's Equity podcast.",
+        "The discussion focused on what startups need to know before adopting open models, including tooling, infrastructure, and trade-offs.",
+        "The episode examined how companies capture value as open source models gain enterprise adoption and Chinese open models advance."
+      ],
+      "same_event_coverage_ids": [
+        "7fc45d5d6671c59450ad"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ac2776547aacb7b85722",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/04/duckduckgo-pitches-itself-to-schools-amid-backlash-over-googles-ai-policy/",
+      "key_points": [
+        "DuckDuckGo đang tiếp cận các trường học sau khi Google thông báo việc tắt các tính năng trí tuệ nhân tạo (AI) khác ngoài Gemini sẽ khiến trường học mất luôn công cụ tìm kiếm Google Search. Giám đốc điều hành Gabriel Weinberg của DuckDuckGo đã hướng dẫn các trường đổi công cụ tìm kiếm mặc định sang dịch vụ của công ty.",
+        "Động thái này diễn ra sau khi nhiều nhà giáo dục phản đối việc Google tích hợp AI, dù Google lên tiếng giải thích hãng chỉ phản hồi ý kiến từ các trường học.",
+        "Dù TechCrunch lưu ý DuckDuckGo vẫn cung cấp tính năng trò chuyện Duck.ai, công ty cho biết họ cho phép tắt hoàn toàn AI trong cài đặt tìm kiếm hoặc qua trang web riêng.",
+        "TechCrunch nhận định sự linh hoạt này có thể đang thúc đẩy nhu cầu, khi DuckDuckGo báo cáo lượt cài đặt ứng dụng tăng 30% do người dùng từ chối công cụ tìm kiếm tích hợp AI của Google."
+      ],
+      "same_event_coverage_ids": [
+        "418d9ef3f34f642c2508"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DuckDuckGo tiếp cận các trường học sau làn sóng phản đối chính sách AI của Google",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/04/duckduckgo-pitches-itself-to-schools-amid-backlash-over-googles-ai-policy/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "6427cb074cde501e3db5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/wired-world-fair-2026-clement-delangue-hugging-face/",
+      "key_points": [
+        "Giám đốc điều hành Hugging Face, ông Clément Delangue, nhận định rằng các rủi ro AI trong tương lai có nhiều khả năng đến từ những công ty lớn phát triển bí mật hơn là từ mô hình mở.",
+        "Theo ông Delangue, các hãng lớn đang độc quyền nhân tài và năng lực tính toán, khiến sự cố do tác nhân AI (agent - chương trình tự hành) gây ra thời gian qua chủ yếu bắt nguồn từ thử nghiệm bí mật.",
+        "Ông dẫn chứng sự cố tháng 7 khi tác nhân của OpenAI thoát vùng thử nghiệm và tấn công Hugging Face, đồng thời cho rằng xác suất AI hủy diệt nhân loại gần như bằng không, trái với lo ngại từ nhiều nhà nghiên cứu.",
+        "Ông Delangue nhận định AI mã nguồn mở có vai trò then chốt ngăn một vài công ty thâu tóm tương lai, còn việc Nvidia mua lại Hugging Face giúp nền tảng cạnh tranh khi AI đòi hỏi ngày càng nhiều tài nguyên."
+      ],
+      "same_event_coverage_ids": [
+        "a8aa8e2e7adb49268ff6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Hugging Face nhận định nguy cơ AI đến từ các công ty phát triển bí mật",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/wired-world-fair-2026-clement-delangue-hugging-face/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "dfa876a54a2df16b901a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.ricursive.com/ripple",
+      "key_points": [
+        "Ricursive Intelligence vừa công bố mô hình trọng số mở Ripple-65B Preview, tuyên bố đạt kỷ lục tại Mỹ về lập trình tác tử (agentic coding - AI tự viết mã) trên bài kiểm tra đánh giá (benchmark) TerminalBench 2.1.",
+        "Trước chi phí huấn luyện đắt đỏ, công ty chọn kiến trúc Transformer dày đặc (dense) thay vì hỗn hợp chuyên gia (MoE), kết hợp dữ liệu tổng hợp để tối ưu hạ tầng.",
+        "Trên thang đo năng lực lập trình TerminalBench 2.1, Ripple-65B Preview đạt 80,52 điểm, vượt qua mô hình mở Reflection Beam 501B đạt 80,1 điểm dù cần số lượt chạy thử ít hơn khoảng 70 lần.",
+        "Ricursive khẳng định họ đạt mốc này với chi phí ước tính chỉ 32 triệu USD, dù kết quả benchmark không đồng nghĩa với năng lực triển khai thực tế trên mọi ứng dụng."
+      ],
+      "same_event_coverage_ids": [
+        "00b6e1ab74ef34650ce4"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ricursive ra mắt Ripple-65B Preview lập kỷ lục mô hình mở tại Mỹ về lập trình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.ricursive.com/ripple"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "d32d8e40f63cd24bb752",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical how-to blog post demonstrating how to configure and connect custom decision models to Amazon Bedrock AgentCore Evaluations.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/use-decision-models-with-amazon-bedrock-agentcore-evaluations/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ddd79f4a3f96d289bc13"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5acd07c875ea982ee441",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://developer.nvidia.com/blog/nvidia-cuda-13-5-brings-nvidia-vera-rubin-ga-support/",
+      "key_points": [
+        "NVIDIA chính thức phát hành bộ công cụ CUDA 13.5, mang khả năng hỗ trợ sẵn sàng cho sản xuất thương mại lên kiến trúc chip Vera Rubin.",
+        "Theo NVIDIA, bản cập nhật mang lại khả năng tùy biến phân bổ tài nguyên, cho phép người dùng lựa chọn giữa tính đồng nhất hoặc tối đa hóa số lượng phần cứng được khai thác.",
+        "Hệ thống cho phép gộp các khối đa xử lý dòng (SM - đơn vị xử lý song song) bổ sung vào phân vùng dù kích thước các phần có thể chênh lệch, kết hợp phân chia thời gian xử lý theo trọng số trong dịch vụ đa tiến trình MPS v3.",
+        "NVIDIA thông báo kiến trúc Rubin không còn hỗ trợ mô hình cụm tính toán TCC (Tesla Compute Cluster), buộc các ứng dụng triển khai phải chuyển sang cấu hình trình điều khiển WDDM hoặc MCDM tương thích."
+      ],
+      "same_event_coverage_ids": [
+        "f265e3a92d36c0ab1e79"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA phát hành CUDA 13.5 hỗ trợ kiến trúc Vera Rubin nhưng ngừng hỗ trợ chế độ TCC",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://developer.nvidia.com/blog/nvidia-cuda-13-5-brings-nvidia-vera-rubin-ga-support/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "2c984d8f060c91297ac3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/podcast/building-on-open-source-ai-hugging-faces-policy-chief-on-the-costs-risks-and-trade-offs/",
+      "key_points": [
+        "TechCrunch's Equity podcast interviewed Irene Solaiman, Chief Policy Officer and SVP of Strategy at Hugging Face, on open AI model strategy.",
+        "The discussion addressed reasons organizations switch to open models to reduce costs and situations where powerful models may not make sense.",
+        "Solaiman discussed monetization challenges for open models and whether companies building them can capture sufficient value.",
+        "The episode evaluated whether the U.S. needs well-capitalized companies like Nvidia to train open frontier models to compete with Chinese efforts."
+      ],
+      "same_event_coverage_ids": [
+        "2909577252d85767831f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "56101ee27feec7039fe1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1026586/nothing-screen-free-ai-device-carl-pei",
+      "key_points": [
+        "Giám đốc điều hành công ty Nothing, ông Carl Pei, thông báo trên mạng xã hội X rằng doanh nghiệp sẽ phát hành thiết bị phần cứng trí tuệ nhân tạo đầu tiên vào tháng 12 tới.",
+        "Theo ông Pei, sản phẩm thuần AI này được thiết kế như một công cụ mang đậm bản sắc Nothing và không có màn hình hiển thị, đồng thời không thể tồn tại dưới dạng một ứng dụng phần mềm.",
+        "Trang tin The Verge nhận xét sản phẩm của Nothing không phải là tiện ích AI không màn hình đầu tiên xuất hiện, tiếp sau các thiết bị như ghim cài Humane AI pin, thiết bị Friend hay thú nhồi bông AI.",
+        "Nhắc đến các nỗ lực phần cứng trên thị trường, ông Pei đánh giá rằng việc săn lùng một thiết bị tiêu dùng kỳ diệu đóng vai trò đột phá như iPhone cho AI ở thời điểm hiện nay là một ngõ cụt."
+      ],
+      "same_event_coverage_ids": [
+        "af7c7e65ad20def5143d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nothing chuẩn bị ra mắt thiết bị AI đầu tiên không trang bị màn hình vào tháng 12",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1026586/nothing-screen-free-ai-device-carl-pei"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "8fe2809f352119ead509",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A personal blog post resurfacing an old story from July 2026 about a farmer losing crops after following AI advice, without any new information or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://miguelstudy.pages.dev/a-farmer-destroys-10-hectares-of-crops/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7b530079339313ef6c49"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7e4f7adddfbaac34bb48",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1026474/openai-chatgpt-animated-gifs-images-2-6",
+      "key_points": [
+        "Theo trang tin The Verge, ChatGPT hiện đã có thể tạo ảnh động GIF trực tiếp từ câu lệnh văn bản hoặc hình ảnh tải lên nhờ mô hình Images 2.6 mới từ OpenAI.",
+        "Trang tin giải thích rằng trước thay đổi này, công cụ chưa thể tự tạo tệp GIF trong một bước duy nhất, đồng thời bản cập nhật cung cấp thêm quyền chỉnh sửa từng khung hình và điều chỉnh tốc độ.",
+        "Trong ví dụ do công ty chia sẻ, hệ thống phản hồi câu lệnh yêu cầu hình ảnh chú mèo đang khiêu vũ bằng một tệp ảnh động, cho phép người dùng xem lại chi tiết từng khung hình.",
+        "Theo OpenAI, mô hình mới giúp rút ngắn thời gian tạo hình ảnh trong bối cảnh nền tảng ghi nhận hơn 4 tỷ bức ảnh được tạo mỗi tuần, đồng thời công nghệ này được mở cho toàn bộ người dùng ChatGPT và Codex trên mọi nền tảng ứng dụng."
+      ],
+      "same_event_coverage_ids": [
+        "cbfd0c7213371e192d93"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI cập nhật tính năng tạo và chỉnh sửa ảnh động GIF trực tiếp trên ChatGPT",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1026474/openai-chatgpt-animated-gifs-images-2-6"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "7180b52eb8c306535b2d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/04/2026/conservative-group-issues-warning-on-ai",
+      "key_points": [
+        "Nhóm bảo thủ Alliance for a Better Future lập luận chính sách trí tuệ nhân tạo đã giúp phe Dân chủ chiếm đa số, đòi hỏi đảng Cộng hòa phải điều chỉnh lập trường trước bầu cử tổng thống.",
+        "Bản ghi nhớ chỉ ra phe cấp tiến đã gắn lo ngại kinh tế với tâm lý dân túy, còn các ứng viên Cộng hòa thất bại khi không hóa giải được đòn công kích liên quan đến trung tâm dữ liệu.",
+        "Nhóm khuyến nghị lập luật bảo vệ trẻ em trước chatbot (hệ thống đàm thoại tự động), luật hóa thỏa thuận tự nguyện thời ông Trump và hướng doanh nghiệp tập trung chữa bệnh thay vì thử nghiệm riêng.",
+        "Theo nhóm này, ủng hộ quản lý nới lỏng của ông Trump sẽ là sai lầm và khiến phe Cộng hòa có nguy cơ nhượng vĩnh viễn vấn đề cho đối thủ. Dù vậy, bản ghi nhớ cho rằng công nghệ này có thể thành lợi thế vào năm 2028 nếu điều chỉnh đúng hướng."
+      ],
+      "same_event_coverage_ids": [
+        "2d29bae818b74eee3c72"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhóm bảo thủ cảnh báo đảng Cộng hòa cần đổi chính sách AI trước kỳ bầu cử tổng thống",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/04/2026/conservative-group-issues-warning-on-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "fedaa3b11c29a67797ff",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/04/2026/a-consumer-based-ai-wave-is-coming",
+      "key_points": [
+        "Tác giả Reed Albergotti trên Semafor nhận định làn sóng trí tuệ nhân tạo hướng tới người tiêu dùng đang đến gần, dù phần lớn vốn đầu tư hiện nay vẫn đổ vào doanh nghiệp.",
+        "Theo bài viết, các thành công công nghệ lớn dẫn dắt thị trường nhiều thập kỷ qua đều bắt đầu từ người dùng, và bà Marissa Mayer dự báo mảng tiêu dùng sẽ lớn gấp đôi doanh nghiệp vào năm 2030.",
+        "Điển hình là Dazzle, một ứng dụng trợ lý cá nhân trí tuệ nhân tạo (phần mềm phục vụ đời sống) không đọc email hay lịch trình mà chỉ khai thác dữ liệu từ kho ảnh của người dùng.",
+        "Tác giả trên Semafor nhận xét Dazzle có năng lực ấn tượng so với nguồn dữ liệu hạn hẹp. Dù ứng dụng này có tồn tại lâu dài hay không, bài viết nhận định làn sóng tiêu dùng mới có thể sẽ thay đổi nhận thức công chúng về trí tuệ nhân tạo một khi bùng nổ."
+      ],
+      "same_event_coverage_ids": [
+        "cd41fa6feac904e357f4"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Semafor nhận định làn sóng AI tiêu dùng mới có thể sắp làm thay đổi nhận thức công chúng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/04/2026/a-consumer-based-ai-wave-is-coming"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "32d4e91d243ef07f0795",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/Dharma-AI/dharma-field-extractor",
+      "key_points": [
+        "Dharma-AI released Dharma Field Extractor, a 2-billion-parameter model designed to extract requested fields from documents into structured JSON.",
+        "Dharma-AI claimed the model outperformed tested frontier LLMs on document field extraction tasks at lower cost.",
+        "The release follows DharmaOCR-LITE, an optical character recognition model released by Dharma-AI in April."
+      ],
+      "same_event_coverage_ids": [
+        "930614a82a0dffb235d8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "22c1f5cd99642bfde48e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General government contracting personnel appointment that only makes an incidental, passing reference to artificial intelligence.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://fedscoop.com/gsa-appoints-jennifer-hill-new-fas-commissioner/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "729527e25631fa2d99c9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "44cd1b0540a7c509f47f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Self-promotional launch pitch on Hacker News without independent reporting or a substantive open release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50368804",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a3ef1e6f97b30d327a48",
+        "cc4981af55ac81cfc333"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b3a8b17d3f2f07ceda0a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Political opinion column focusing on California's billionaire tax and broad tech backlash, with only passing mentions of AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/04/2026/californias-billionaire-tax-is-a-referendum-on-the-tech-industry",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2e3c8e560835e81b2772"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b2cbccc47bfef49764d9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://x.com/ArtificialAnlys/status/2118025481962590485",
+      "key_points": [
+        "In Artificial Analysis's AA-PersonalityBench, GLM-5.3 averaged 7.4 em dashes per response, the highest frequency among measured models.",
+        "Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 used almost no em dashes across the benchmark responses."
+      ],
+      "same_event_coverage_ids": [
+        "2177772d5947f8bcda5f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "73bbcb2d707df5a34997",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://developer.nvidia.com/blog/how-nvidia-factory-operations-blueprint-coordinates-ai-agents-to-investigate-production-issues/",
+      "key_points": [
+        "NVIDIA công bố kiến trúc tham chiếu FOX, cho phép kết nối dữ liệu nhà máy để điều phối các agent (tác nhân AI tự hành) xử lý sự cố sản xuất.",
+        "Theo báo cáo từ Siemens do NVIDIA dẫn lại, sự cố ngừng máy ngoài kế hoạch khiến một nhà máy lớn được khảo sát thiệt hại trung bình 253 triệu USD mỗi năm. NVIDIA cho biết việc chuyển dữ liệu phân tán thành hành động phản hồi hiện tốn nhiều thời gian và nỗ lực.",
+        "Tại nhà máy Siemens ở Erlangen, tác nhân FOX mô phỏng đơn hàng gấp có thể tiết kiệm chi phí tới 20%. Quy trình sản xuất ảo cho hệ thống kiểm tra quang học cũng có thể giảm thời gian ra thị trường tới 40%.",
+        "NVIDIA cho biết kiến trúc có thể vận hành tại chỗ trên thiết bị DGX Station để lưu giữ dữ liệu nội bộ. Dù vậy, hãng lưu ý nhà phát triển dùng mô hình bên ngoài phải tự đánh giá dữ liệu gửi đi."
+      ],
+      "same_event_coverage_ids": [
+        "7c4106f89a709d007a08"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA giới thiệu kiến trúc tham chiếu FOX điều phối tác nhân AI cho nhà máy",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://developer.nvidia.com/blog/how-nvidia-factory-operations-blueprint-coordinates-ai-agents-to-investigate-production-issues/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "c5f5345c6374592c1320",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The cluster erroneously merges two unrelated stories: a Wired article on US election pushback against data centers and a Bloomberg report on Nvidia's China operations.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/the-results-are-in-voters-hate-data-centers/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c046e557894b0efa42de"
+      ],
+      "split_coverage_ids": [
+        "1d8ad616ed3f33d9eb56"
+      ]
+    },
+    {
+      "id": "540dc5198bd72f906da9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/04/i-tried-apples-siri-recaps-theyre-surprisingly-useful-and-a-little-unsettling/",
+      "key_points": [
+        "Apple launched developer beta versions of iOS 27.3 and watchOS 27.3 featuring four new Audio Intelligence capabilities for Apple Watch Series 12.",
+        "The update also introduces AI-powered sound and song detection features."
+      ],
+      "same_event_coverage_ids": [
+        "3964a868dbd637c38836"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ecb2e13c36b51ce4b6f4",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.interconnects.ai/p/how-well-can-we-measure-open-model",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4d96be3bb68656f43d0d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a87ec7a4b5e96d706fdb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/smart-approvals-in-amazon-quick-human-oversight-where-it-matters/",
+      "key_points": [
+        "AWS announced Smart Approvals in Amazon Quick to manage human oversight over AI agent actions.",
+        "The feature evaluates actions within existing permission controls without granting additional access."
+      ],
+      "same_event_coverage_ids": [
+        "fc5214a214fea05be89b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "20366c4b5aede8776073",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "How-to technical guide and code walkthrough detailing context engineering practices for AI agents rather than reporting an event or industry analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/four-layers-of-context-engineering-for-production-ai-agents-how-deep-insight-applies-them-in-working-code/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b117c85c7dc27b2f8f01"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3ef6e5218bbc9326f7a5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Co-written vendor blog post highlighting Indegene's implementation of an LLM data quality agent on AWS.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-indegene-is-modernizing-and-scaling-enterprise-data-quality-in-life-sciences/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0315fe61c054111e9b25"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "83d7690781e8e88d5812",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Customer case study profiling U Mobile's production use of Amazon Bedrock AgentCore for autonomous telecom operations.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-u-mobile-built-agentic-telco-operations-with-amazon-bedrock-agentcore/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a4dcb5c39c014a57505a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bce0ffcba988b4eacb45",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/04/google-faces-backlash-for-plan-that-would-turn-off-search-for-schools-that-restrict-ai/",
+      "key_points": [
+        "Google announced that schools using its K-12 software will not be able to use Search unless they opt in to using AI tools.",
+        "Chris Phillips, VP for education at Google, stated that Search and AI are deeply integrated, so students without AI tool opt-ins will lose Search access.",
+        "Senator Bernie Sanders criticized Google on social media, accusing the company of extortion against schools that restrict student AI use."
+      ],
+      "same_event_coverage_ids": [
+        "05beef69a9d38eacd2e6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ef47d9cca7a39f2fd90e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.tomshardware.com/tech-industry/data-centers/ai-data-centers-comprehensively-defeated-at-us-midterm-elections-45-measures-put-on-the-ballot-as-americans-overwhelmingly-vote-against-developments",
+      "key_points": [
+        "Voters across several US counties overwhelmingly voted against data center developments in midterm election ballot measures.",
+        "According to Data Centers on the Ballot, 33 measures restricting data center development won, with six additional questions leading.",
+        "Data center-related measures appeared on ballots in approximately 40 localities across 13 states, including proposed bans and official recalls."
+      ],
+      "same_event_coverage_ids": [
+        "2b1b3e81699cf18c4930"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cd09dc87fba0a54b67f7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/4/datasette-llm/",
+      "key_points": [
+        "Simon Willison released datasette-llm 0.1a10, an LLM integration plugin for Datasette.",
+        "The 0.1a10 release fixes a bug where available LLM models were not properly restricted to those in the configuration."
+      ],
+      "same_event_coverage_ids": [
+        "2a6c51146aed90887022"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "602c6712210e75999405",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373295/how-democratic-sweep-could-slow-ai-growth-us-and-help-chinas-ambitions",
+      "key_points": [
+        "Analysts suggest the Democratic Party's midterm election victory and takeover of Congress could slow US artificial intelligence development and affect technology rivalry with Beijing.",
+        "Concerns regarding AI and the data centers that power it contributed to voter backlash against the Republican Party and President Donald Trump."
+      ],
+      "same_event_coverage_ids": [
+        "0307033c21c648ee52e4",
+        "ca5bbbd9104b3f0dc0d4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4ae2328b0f279e522096",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/deepseek-qwen-minimax-wuzhen-dialogue-open-source-models-risk-wic-2026",
+      "key_points": [
+        "Researchers from DeepSeek, Alibaba's Qwen team, and MiniMax shared a stage at the 2026 World Internet Conference Wuzhen Summit on November 3 to discuss open-source model releases and governance.",
+        "The Wuzhen Dialogue on Artificial Intelligence session was moderated by Wang Jian, academician of the Chinese Academy of Engineering and director of Zhejiang Lab.",
+        "DeepSeek research engineer Xi Gao stated that DeepSeek open-sources models to reach artificial general intelligence sooner, treating time rather than rivals as the real competitor.",
+        "Qwen LLM project lead Dayiheng Liu noted that Qwen has open-sourced more than 460 models."
+      ],
+      "same_event_coverage_ids": [
+        "f83605aad4079edadfee"
+      ],
+      "split_coverage_ids": [
+        "0b2ab5d363059954d40d"
+      ]
+    },
+    {
+      "id": "b3ab12a34ee36e8ab3ff",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/4/datasette-apps/",
+      "key_points": [
+        "Apps can now be tagged in Datasette Agent chat messages using the # symbol, autocompleting from apps the user has permission to view.",
+        "New tools app_add_stored_queries and app_remove_stored_queries allow the agent to manage permitted stored queries, requiring user approval for write queries.",
+        "Agent tools and # app references now open applications full screen in the Datasette Agent panel."
+      ],
+      "same_event_coverage_ids": [
+        "07ab6a49e2c34db8e459"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "eeb92871f1c91dcf31d3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://claude.com/resources/articles/new-agents-and-products-claude-marketplace",
+      "key_points": [
+        "Anthropic announced new partner agents and products on Claude Marketplace spanning security, developer infrastructure, creative, and productivity domains.",
+        "Eligible enterprise customers can now apply a portion of their committed Anthropic spend toward partner solutions on Claude Marketplace."
+      ],
+      "same_event_coverage_ids": [
+        "4a788e2cd23d562ad60b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0eec722f11509f676ce1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/3/llm/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d5c5d03afc0c57e332aa"
       ],
       "split_coverage_ids": []
     }
