@@ -35,10 +35,19 @@ UNITS = {
     "usd": r"(?:USD|dollars?|đô la(?!\s+(?:Hồng Kông|Hong Kong|HK)\b))",
     "hkd": r"(?:HKD|Hong Kong dollars?|đô la\s+(?:Hồng Kông|Hong Kong|HK)\b)",
 }
-# Sources often write a currency before the number (HK$86.80); this form also supports the unit.
-UNIT_PREFIXES = {"hkd": r"(?:HK\$|HKD)\s*"}
+# Sources often write a currency before the number (HK$86.80, $200,000); this form also supports the unit.
+# A bare "$" counts as USD only when no letter precedes it, so HK$, NT$ or S$ never support USD.
+UNIT_PREFIXES = {"hkd": r"(?:HK\$|HKD)\s*", "usd": r"(?:(?<![A-Za-z])\$|US\$)\s*"}
+# One unit can serve several numbers in the source: "69 and 94 seconds", "a 60-second timeout".
+UNIT_NUMBER_LIST = r"(?:\s*(?:,|and|or|to|[-–])\s*\d+(?:[.,]\d+)?)*[\s-]*"
 PERCENT_RANGE = re.compile(r"(?<!\w)(\d+(?:[.,]\d+)?)\s*(?:to|[-–])\s*\d+(?:[.,]\d+)?\s*(?:%|percent|phần trăm)", re.I)
 MONEY = re.compile(r"(?P<dollar>\$)?(?P<value>\d+(?:[.,]\d+)?)\s*(?P<scale>billion|million|tỷ|triệu|[BM])\b(?:\s*(?:USD|dollars?))?", re.I)
+# "15 đến 20 tỷ USD" and "$15-20 billion" scale both ends; each end is then checked as its own amount.
+MONEY_RANGE = re.compile(r"(?<![\w.,])(?P<low>\d+(?:[.,]\d+)?)\s*(?P<sep>đến|tới|to|[-–])\s*(?P<high>\$?\d+(?:[.,]\d+)?\s*"
+                         r"(?P<scale>billion|million|tỷ|triệu|[BM])\b)", re.I)
+# "quý 3" is the source's "third quarter" (or Q3); the ordinal word is not a digit in the source.
+QUARTER_VI = re.compile(r"(?<!\w)quý\s+([1-4])(?!\w)", re.I)
+QUARTER_ORDINALS = {"1": "first", "2": "second", "3": "third", "4": "fourth"}
 
 COMMON_ACRONYMS = {"AI", "IPO", "CEO", "CTO", "CFO", "COO", "GPU", "CPU", "API", "USD",
                    "LLM", "LLMS", "AGI", "SEC", "PAC", "FPGA", "JSON", "XML", "SQL", "HTTP",
@@ -61,6 +70,14 @@ VIETNAMESE_ONSETS = ("ngh", "ng", "nh", "ch", "gh", "gi", "kh", "ph", "qu", "th"
                     "b", "c", "d", "g", "h", "k", "l", "m", "n", "p", "r", "s", "t", "v", "x", "")
 VIETNAMESE_CODAS = ("ch", "ng", "nh", "c", "m", "n", "p", "t", "")
 ENTITY_WORD = re.compile(r"(?u)\b[^\W\d][\w]*(?:[.+-][\w]+)*\b")
+# A short symbol after a number ("41 độ C", "24 GB") is a unit, not a name, when the evidence writes the
+# same unit after a number ("24GB", "19.4dB") or spells it out ("degrees Celsius").
+# A number inside a name ("Loop-9B-Preview", "Qwen3.6-35B") is part of that name, not a measurement.
+UNIT_AFTER_NUMBER = re.compile(r"(?<![\w.,+-])(\d+(?:[.,]\d+)*\s*(?:độ\s*)?)(°?[^\W\d_]{1,4})(?![\w+-]|\.\w)")
+UNIT_SPELLED = {"c": r"Celsius|°C", "f": r"Fahrenheit|°F"}
+# Inflected forms that still name the same thing: plurals (NDAs) and demonyms (Israeli, Australian, Chinese).
+NAME_SUFFIXES = ("s", "es", "i", "n", "an", "ian", "ese", "ish")
+NAME_CONNECTORS = {"of", "and", "for", "the", "&"}
 
 
 def folded(text):
@@ -93,6 +110,19 @@ def vietnamese_syllable(word):
     return False
 
 
+def _scaled_ranges(text):
+    return MONEY_RANGE.sub(lambda m: f"{m['low']} {m['scale']} {m['sep']} {m['high']}", text)
+
+
+def _supported_quarters(text, evidence):
+    """Blank out "quý N" when the evidence names that quarter ("third quarter", "third-quarter", "Q3")."""
+    def keep(match):
+        number = match[1]
+        pattern = r"\b(?:" + QUARTER_ORDINALS[number] + r"[\s-]+quarter|Q" + number + r")\b"
+        return " " if re.search(pattern, evidence, re.I) else match[0]
+    return QUARTER_VI.sub(keep, text)
+
+
 def money_claims(text):
     claims = set()
     for match in MONEY.finditer(text):
@@ -104,7 +134,8 @@ def money_claims(text):
         # Stop context at adjacent amounts; the nearest amount role owns the value.
         before = re.split(r"\d", before)[-1]
         after = re.split(r"\d|[.;]", after)[0]
-        role_pattern = r"valuation|valued|định giá|rais\w*|funding|huy động|gọi vốn"
+        # "The deal values Fal at $16 billion" states a valuation as plainly as "valued at".
+        role_pattern = r"valuation|valued|values|định giá|rais\w*|funding|huy động|gọi vốn"
         preceding = list(re.finditer(role_pattern, before))
         following = re.search(role_pattern, after)
         role_word = preceding[-1][0] if preceding else ""
@@ -116,7 +147,8 @@ def money_claims(text):
 
 
 def number_error(text, evidence, *, publication_years=()):
-    evidence = normalized(evidence)
+    evidence = _scaled_ranges(normalized(evidence))
+    text = _supported_quarters(_scaled_ranges(text), evidence)
     source_money = money_claims(evidence)
     for value, role in money_claims(text):
         if not any(value == number and (role is None or role == source_role)
@@ -151,7 +183,7 @@ def number_error(text, evidence, *, publication_years=()):
     for unit, pattern in UNITS.items():
         for match in re.finditer(r"(\d+(?:[.,]\d+)?)\s*(?:" + pattern + r")", text, re.I):
             number = re.escape(match[1].replace(",", ".")).replace(r"\.", "[.,]")
-            direct = (re.search(r"\b" + number + r"\s*(?:" + pattern + r")", evidence, re.I)
+            direct = (re.search(r"\b" + number + UNIT_NUMBER_LIST + r"(?:" + pattern + r")", evidence, re.I)
                       or (unit in UNIT_PREFIXES
                           and re.search(UNIT_PREFIXES[unit] + number + r"(?![\d.,]\d)", evidence, re.I)))
             ranged = (unit == "percent" and any(
@@ -160,6 +192,38 @@ def number_error(text, evidence, *, publication_years=()):
             if not direct and not ranged:
                 return "unsupported_number_unit: " + unit
     return None
+
+
+def _units_removed(text, evidence):
+    def unit(match):
+        symbol = match[2].lstrip("°")
+        supported = (re.search(r"\d\s?°?" + re.escape(symbol) + r"(?!\w)", evidence, re.I)
+                     or (symbol.casefold() in UNIT_SPELLED
+                         and re.search(UNIT_SPELLED[symbol.casefold()], evidence, re.I)))
+        return match[1] + (" " if supported else match[2])
+    return UNIT_AFTER_NUMBER.sub(unit, text)
+
+
+def _name_forms(word):
+    plain = folded(word)
+    stems = {plain, plain[:-1]} if plain[-1:] in ("a", "e", "y") and len(plain) > 3 else {plain}
+    return {plain} | {stem + suffix for stem in stems for suffix in NAME_SUFFIXES}
+
+
+def _initials(words, *, skip_connectors):
+    return folded("".join(word[0] for word in words
+                          if not (skip_connectors and word.casefold() in NAME_CONNECTORS)))
+
+
+def _spelled_acronyms(evidence):
+    """Initialisms of names the evidence spells out: over-the-air -> ota, Cloud Security Alliance -> csa."""
+    found = {_initials(compound.split("-"), skip_connectors=False)
+             for compound in re.findall(r"\b[A-Za-z]+(?:-[A-Za-z]+)+\b", evidence)}
+    # Every leading part of a capitalised run counts: "Cloud Security Alliance AI Safety Initiative" -> csa.
+    for run in re.findall(r"\b[A-Z]\w*(?:\s+(?:(?:of|and|for|the|&)\s+)*[A-Z]\w*)+", evidence):
+        words = run.split()
+        found.update(_initials(words[:end], skip_connectors=True) for end in range(2, len(words) + 1))
+    return {acronym for acronym in found if len(acronym) >= 2}
 
 
 def entity_error(text, evidence):
@@ -182,16 +246,30 @@ def entity_error(text, evidence):
     # Ai2 is the Allen Institute for AI's published short name.
     if re.search(r"(?<!\w)Ai2(?!\w)", evidence, re.I):
         text = re.sub(r"(?<!\w)(?:Viện Allen|Allen Institute(?: for AI)?)(?!\w)", " ", text)
-    allowed = {folded(token) for token in ENTITY_WORD.findall(evidence)}
+    text = _units_removed(text, evidence)
+    tokens = ENTITY_WORD.findall(evidence)
+    allowed = {folded(token) for token in tokens}
+    # A part of a hyphenated name ("Pro" of openPangu-2.0-Pro) occurs in the evidence as written.
+    allowed.update(folded(part) for token in tokens if re.search(r"[.+-]", token)
+                   for part in re.split(r"[.+-]", token) if part)
     allowed.update(code.casefold() for code, pattern in CURRENCY_EVIDENCE.items()
                    if re.search(pattern, evidence, re.I))
+    # A spelled-out name whose initials the evidence uses ("South China Morning Post" for an outlet
+    # labelled scmp) names the same thing; three or more capitalised words keep chance matches out.
+    for run in re.findall(r"\b[A-Z]\w*(?:\s+[A-Z]\w*){2,}", text):
+        if _initials(run.split(), skip_connectors=False) in allowed:
+            text = text.replace(run, " ")
+    acronyms = _spelled_acronyms(evidence)
     for word in ENTITY_WORD.findall(text):
         if (word[0].isupper() and not vietnamese_syllable(word)
-                and word.upper() not in COMMON_ACRONYMS and folded(word) not in allowed):
+                and word.upper() not in COMMON_ACRONYMS and not _name_forms(word) & allowed
+                and not (word.isupper() and folded(word) in acronyms)):
             return "invented_entity: " + word
-    # Names made of distinctive tokens must also occur as a complete name.
+    # Names made of distinctive tokens must also occur as a complete name; a possessive
+    # ("Google's Play Store") does not split the name.
+    unpossessed = folded(re.sub(r"['’]s\b", "", evidence))
     for name in re.findall(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+){2,}\b", text):
-        if any(not vietnamese_syllable(word) for word in name.split()) and folded(name) not in folded(evidence):
+        if any(not vietnamese_syllable(word) for word in name.split()) and folded(name) not in unpossessed:
             return "unsupported_name: " + name
     return None
 
@@ -249,7 +327,12 @@ PURPOSE_VI = re.compile(r"(?<!\w)(?:nhằm|với mục đích|mục đích (?:l�
 PURPOSE_EN = re.compile(
     r"\b(?:in order to|so that|so as to|aim(?:s|ed|ing)? (?:to|at)|goals?|targets?|purpose|intend(?:s|ed)? to|intention"
     r"|designed to|meant to|in a bid to|in an effort to|bid to|effort to|mission|objective|strategy|to help"
-    r"|hop(?:e|es|ed|ing) to|want(?:s|ed)? to|push(?:es|ed|ing)? to|plan(?:s|ned)? to|looking to"
+    r"|hop(?:e|es|ed|ing) to|want(?:s|ed)? to|push(?:es|ed|ing)? to|plan(?:s|ned)? to|look(?:s|ed|ing)? to"
+    # Purpose stated without an infinitive: "designed for 24/7 operation so agents can run",
+    # "war rooms dedicated to ensuring", "our aim here is", "a testing ground for pushing", "to steer it away".
+    r"|(?:designed|built|intended|dedicated|tailored) (?:to|for)|(?:testing|proving) ground for"
+    r"|so (?:that )?(?:\w+ ){1,3}(?:can|could|will|would|may|might)|(?:our|the|its|their|his|her|main) aims?"
+    r"|to steer"
     r"|allow(?:s|ed|ing)?|let(?:s|ting)?|enabl(?:e|es|ed|ing)|used to|to ensure|to make sure|to prevent"
     r"|to protect|to avoid|to stay|to keep|to compete|to reduce|to cut|to save|to free|to focus|to boost"
     r"|to improve|to maximi[sz]e|to minimi[sz]e|for the purpose"

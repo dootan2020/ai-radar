@@ -9,7 +9,8 @@ import unittest
 from unittest.mock import patch
 
 from phong_bao.contracts import validate_chief_output, validate_writer_output
-from phong_bao.newsroom import WRITER_PROMPT, FixtureArticles, _chief, _writer, writer_window_hours
+from phong_bao.newsroom import (WRITER_PROMPT, WRITER_REWRITE_PROMPT, FixtureArticles, _chief, _writer,
+                                writer_window_hours)
 from phong_bao.registry import load_registry, providers
 from phong_bao.runner import AdmissionError, CLIRunner, FixtureRunner
 from radar.newsroom_decisions import DESK_PROMPT_VERSION
@@ -236,10 +237,76 @@ class WriterDeskTests(unittest.TestCase):
         reply = deepcopy(PROSE)
         reply["paragraphs"][2]["sentences"] = [
             sentence("HelioLab cho biết CanvasKit đã chạy trên 500 GPU trong thử nghiệm.", "outlet:p002")]
-        row, _, _ = self.write(reply)
+        row, _, runner = self.write(reply)
         self.assertFalse(row["written"])
         self.assertEqual(row["reason"], "paragraph_lost")
         self.assertEqual(row["key_points"], [])
+        # The one rewrite was asked for and the fixture lane had no answer, so the loss stands.
+        self.assertEqual(row["rewrite"], {"roles": ["examples"], "result": "rewrite_model_failure"})
+        self.assertTrue(validate_writer_output(row))
+
+    def lost_examples(self):
+        reply = deepcopy(PROSE)
+        reply["paragraphs"][2]["sentences"] = [
+            sentence("HelioLab cho biết CanvasKit đã chạy trên 500 GPU trong thử nghiệm.", "outlet:p002")]
+        return reply
+
+    def rewrite_runner(self, reply, rewrite):
+        return RecordingRunner({"writer": {SID: reply}, "rewrite-writer": {SID: rewrite}})
+
+    def test_a_lost_paragraph_is_rewritten_once_from_the_same_sources_and_checked_again(self):
+        rewrite = {"id": SID, "status": "ready", "paragraphs": [
+            # Only the lost role is taken; a rewritten kept paragraph is ignored.
+            {"role": "development", "sentences": [sentence("HelioLab ra mắt CanvasKit cho mọi nhà máy.", "outlet:p001")]},
+            deepcopy(PROSE["paragraphs"][2])]}
+        row, usage, runner = self.write(runner=self.rewrite_runner(self.lost_examples(), rewrite))
+        self.assertTrue(row["written"], row)
+        self.assertTrue(validate_writer_output(row))
+        self.assertEqual(row["rewrite"], {"roles": ["examples"], "result": "written"})
+        self.assertTrue(row["key_points"][0].startswith("HelioLab giới thiệu CanvasKit"))
+        self.assertIn("30 khung hình/giây", row["key_points"][2])
+        self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]],
+                         [("examples", "invented_number: 500")])
+        self.assertEqual([call[0] for call in runner.calls], ["writer", "rewrite-writer"])
+        _, rows, instruction = runner.calls[1]
+        self.assertEqual(instruction, WRITER_REWRITE_PROMPT)
+        self.assertTrue(instruction.startswith(WRITER_PROMPT))
+        self.assertEqual(rows[0]["sources"], runner.calls[0][1][0]["sources"])
+        self.assertEqual(rows[0]["rewrite"]["roles"], ["examples"])
+        self.assertEqual(rows[0]["rewrite"]["rejected"][0]["error"], "invented_number: 500")
+        self.assertEqual([p["role"] for p in rows[0]["rewrite"]["kept"]], ["development", "cause", "significance"])
+        self.assertTrue(any(event.get("desk") == "rewrite-writer" for event in usage))
+
+    def test_a_rewrite_that_still_fails_the_checks_loses_the_story_without_a_second_try(self):
+        rewrite = {"id": SID, "status": "ready", "paragraphs": [{"role": "examples", "sentences": [
+            sentence("Trong thí nghiệm, CanvasKit chạy trên 700 GPU của HelioLab.", "outlet:p002")]}]}
+        row, _, runner = self.write(runner=self.rewrite_runner(self.lost_examples(), rewrite))
+        self.assertFalse(row["written"])
+        self.assertEqual(row["reason"], "paragraph_lost")
+        self.assertEqual(row["rewrite"], {"roles": ["examples"], "result": "paragraph_lost"})
+        self.assertEqual([d["error"] for d in row["dropped_points"]],
+                         ["invented_number: 500", "invented_number: 700"])
+        self.assertEqual(len(runner.calls), 2)
+
+        declined = {"id": SID, "status": "insufficient_evidence", "paragraphs": []}
+        row, _, _ = self.write(runner=self.rewrite_runner(self.lost_examples(), declined))
+        self.assertEqual((row["written"], row["reason"]), (False, "paragraph_lost"))
+        self.assertEqual(row["rewrite"]["result"], "rewrite_insufficient_evidence")
+
+    def test_a_story_that_keeps_every_paragraph_is_not_rewritten(self):
+        reply = deepcopy(PROSE)
+        reply["paragraphs"][2]["sentences"].append(
+            sentence("HelioLab cho biết CanvasKit đã chạy trên 500 GPU trong thử nghiệm.", "outlet:p002"))
+        row, _, runner = self.write(reply)
+        self.assertTrue(row["written"])
+        self.assertNotIn("rewrite", row)
+        self.assertEqual(len(runner.calls), 1)
+        bad_title = deepcopy(PROSE)
+        bad_title["title_vi"]["text"] = "HelioLab gọi vốn 900 triệu USD cho CanvasKit"
+        row, _, runner = self.write(bad_title)
+        self.assertEqual(row["reason"], "title_rejected")
+        self.assertNotIn("rewrite", row)
+        self.assertEqual(len(runner.calls), 1)
 
     def test_paper_frame_validates_with_three_paragraphs(self):
         paper = deepcopy(PROSE)

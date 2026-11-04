@@ -27,6 +27,35 @@ NVIDIA = ("Nemotron 3.5 Bolt E4B 4GB offers ~40% higher average quality against 
           "benchmarks and outputs up to ~80% fewer tokens versus peers.", "NVIDIA Technical Blog")
 
 
+LENOVO = ("The company pitches the host as an always-on digital employee. It is designed for 24/7 operation so agents "
+          "can run scheduled tasks such as organizing files, with inference handled on the device rather than through "
+          "cloud tokens, keeping data local.", "pandaily")
+
+
+class PurposeTests(unittest.TestCase):
+    """Purposes the writer wrote in newsroom cycles of 2026-11-02 to 2026-11-04, against the paragraph each cited."""
+
+    def test_a_purpose_the_cited_paragraph_states_passes(self):
+        self.assertIsNone(attribution_error(
+            "Lenovo thiết kế thiết bị hoạt động liên tục 24/7 để các phần mềm tự hành xử lý công việc trên máy, "
+            "nhằm giữ kín dữ liệu nội bộ.", [LENOVO]))
+        for paragraph in (
+                "Both OpenAI and Anthropic will have war rooms dedicated to ensuring accurate election information.",
+                "We added two sentences to the prompt to steer it away from recreating someone else's game.",
+                "Our aim here is not to settle particular questions of policy.",
+                "Organizers described the course as a natural testing ground for pushing embodied AI to its limits.",
+                "Google launched Dreambeans in India as the company looks to tap the second-largest internet market."):
+            self.assertIsNone(attribution_error("Họ làm việc này nhằm phục vụ người dùng.", [(paragraph, "outlet")]),
+                              paragraph)
+
+    def test_a_purpose_no_cited_paragraph_states_still_fails(self):
+        plain = ("The host runs Kylin OS and has two independent 2.5GbE ports.", "pandaily")
+        self.assertEqual(attribution_error("Lenovo trang bị hệ điều hành Kylin nhằm giữ kín dữ liệu.", [plain]),
+                         "unsupported_purpose")
+        listing = ("It drafts documents, summarizes information and so on, with no cloud tokens.", "pandaily")
+        self.assertEqual(attribution_error("Máy soạn tài liệu nhằm giữ kín dữ liệu.", [listing]), "unsupported_purpose")
+
+
 class AttributionTests(unittest.TestCase):
     def test_a_remark_in_the_outlets_voice_cannot_be_given_to_the_company(self):
         sentence = ("Theo Opera, dù phương pháp xử lý trên thiết bị tăng khả năng kiểm soát dữ liệu, giải pháp này "
