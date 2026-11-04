@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-04T13:31:23.780857+00:00",
-  "input_generated_at": "2026-11-04T11:30:27Z",
+  "generated_at": "2026-11-04T17:10:33.997895+00:00",
+  "input_generated_at": "2026-11-04T16:17:20Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -25575,6 +25575,485 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "1f522e8436ab4f4eb31b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Instructional developer blog post explaining how to use NVIDIA NeMo tools to test and optimize agent harnesses rather than reporting a timely news event.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/use-nvidia-nemo-to-turn-agent-failures-into-tests-and-harness-fixes/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2a39edc7a5a13b5be0cf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "eef47e2f46ab6ae8ee70",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/transportation/1026306/uber-ai-agents-q3-earnings-disintermediation",
+      "key_points": [
+        "Uber executives disclosed that third-party AI agents arranged only four rides during the third quarter of 2026.",
+        "Third-party AI bots fulfilled around 500 Uber Eats food orders during the week of Halloween, out of 320 million total transactions."
+      ],
+      "same_event_coverage_ids": [
+        "64d02f0d11b343b92793"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d99935ec0efe25e7f2d1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A Show HN submission and product landing page for a PC evaluation tool consisting of a pitch and promotional beta copy without independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://pcdealcheck.com/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "50f5cc33a8708614b049"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d8f7a03fc5c5ca232e76",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373295/how-democratic-sweep-could-slow-ai-growth-us-and-help-chinas-ambitions",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0307033c21c648ee52e4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2322faed842dfa6f3d15",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Coverage centers on social media banter and consumer PC hardware memory purchases, with AI only incidentally referenced via Sam Altman's role.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1026292/sam-altman-ram-shortage-pcs-comments",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "75def283942a767a4fa1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d7d9a2a25df6ba5386fd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "An Ask HN discussion forum thread crowdsourcing user experiences rather than an edited news report or published study.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50366117",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "18dd44d84d375fbac3ba",
+        "33060104ff436c15dfb5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1be4fdd8e6ca80f0ec01",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/openai-to-acquire-pierre",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0a40263b8be1212f7fe2",
+        "19b9da772e1c8959723a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "13fe6fe70be3a3b23bd9",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=WxaRn8kX2eI",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2b3ef56b42545b58c8f2",
+        "d716be9f4f3556d5e2fd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "982ed481e075c1fb75dc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://blog.cloudflare.com/personal-agents-visibility-control/",
+      "key_points": [
+        "Cloudflare ra mắt công cụ phân tích và các chính sách kiểm soát mới hỗ trợ chủ trang web quản lý cách tác tử AI cá nhân (phần mềm thay mặt con người thao tác trực tuyến) truy cập hệ thống.",
+        "Theo Cloudflare, lưu lượng từ tác tử AI thường hiển thị như truy cập tự động, khiến trang web khó phân biệt giữa cơ hội kinh doanh và nguy cơ nếu thiếu công cụ giám sát.",
+        "Trong bảng cài đặt bảo mật của Cloudflare, quản trị viên có thể đặt quy tắc cho từng tác tử AI theo ba mức: cho phép, chặn trên trang có quảng cáo hoặc chặn hoàn toàn. Đối với tính năng chống lạm dụng tài khoản đang ở giai đoạn tiếp cận sớm, hệ thống của Cloudflare cho phép xem tác tử AI đang đại diện cho người dùng cụ thể nào.",
+        "Cloudflare nhấn mạnh việc nhận biết tác tử mới chỉ là bước đầu, bởi trang web vẫn có thể thiếu bối cảnh người dùng và cần phát triển thêm cơ chế bảo vệ quyền riêng tư cùng trách nhiệm giải trình."
+      ],
+      "same_event_coverage_ids": [
+        "759ec96e7d5d8bfa54e4"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cloudflare ra mắt công cụ theo dõi và quản lý quyền truy cập của tác tử AI cá nhân",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "cloudflare",
+          "url": "https://blog.cloudflare.com/personal-agents-visibility-control/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "dafda9cf8b1d20b221fa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/uk-officials-said-ai-would-add-400-billion-to-the-economy-that-figure-mainly-came-from-google/",
+      "key_points": [
+        "UK AI minister Kanishka Narayan conceded that prior claims of a £400 billion economic boost from AI were more than three times higher than the government's actual projections.",
+        "The British government's £400 billion AI estimate originated from a 2023 report commissioned by Google and produced by Public First.",
+        "The UK government's updated assessment estimates AI adoption and data investment could add £55 billion to £140 billion to the economy by 2030, with a central estimate of £120 billion."
+      ],
+      "same_event_coverage_ids": [
+        "96a2be7a00c2d8086197"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ff8685c2bc7b9252613d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Political campaign analysis centered on midterm election donor spending and political losses, with only incidental mention of AI in the teaser.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/04/2026/how-big-money-lost-the-2026-midterms",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ead4433edf131fcc5602"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0bb52c4b905431dfb231",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Sponsored vendor content produced in partnership with Cyberhaven featuring commercial promotional copy and a call to download a vendor report.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.technologyreview.com/2026/11/04/1147596/securing-the-agentic-enterprise-with-data-lineage/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "04deb8ca5acca7f5b447"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f61980c2876372530051",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/04/2026/ai-generated-data-found-on-nigeria-voter-roll",
+      "key_points": [
+        "Theo Semafor, cơ quan bầu cử Nigeria đang chịu nhiều sức ép sau khi dữ liệu cử tri và ảnh thẻ do trí tuệ nhân tạo (AI) tạo ra bị phát hiện trên bản danh sách cử tri dự thảo.",
+        "Giải thích về sự việc, cơ quan này cho biết tài liệu gây tranh cãi chỉ là bản tạm thời để rà soát lỗi, đồng thời một quan chức cấp cao quy trách nhiệm cho nhân viên nội bộ tự ý can thiệp.",
+        "Đại diện cho các sai sót, nhà phân tích công nghệ Martin Uwakwe cho biết khi xem xét danh sách dự thảo, ông còn phát hiện các mục trùng lặp và tên của những người đã qua đời.",
+        "Theo Semafor, những lo ngại hiện tại có thể khiến công chúng hoài nghi về kết quả bầu cử được công bố."
+      ],
+      "same_event_coverage_ids": [
+        "39df75b377b821f560c1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nigeria chịu sức ép sau khi phát hiện dữ liệu do AI tạo ra trên danh sách cử tri dự thảo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/04/2026/ai-generated-data-found-on-nigeria-voter-roll"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "f8ab1a4c00a81a8ff47c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article is political commentary regarding election outcomes and Silicon Valley influence, with AI referenced only incidentally as rhetorical phrasing.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/there-is-one-fight-american-voters-reject-tech-oligarchy/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "35bf2b05917b9c97eb22"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4bae8d5f025fb0a4a48f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373262/deepseek-engineer-defends-push-open-source-ai-smarter-humans-despite-higher-risks",
+      "key_points": [
+        "DeepSeek engineer Gao Xi stated the company remains committed to open-source AI to accelerate the arrival of AGI despite safety risks.",
+        "Speaking at the World Internet Conference in Wuzhen, Gao characterized AI development as a race against time rather than rival companies."
+      ],
+      "same_event_coverage_ids": [
+        "fafcc1144e41ed8b62b3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9a66a9476221031c0ee3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1024862/google-search-ai-overviews-alphabet-earnings-q3",
+      "key_points": [
+        "Google's search revenue growth slowed to 12 percent year over year in Q3, down from roughly 17 percent in Q2.",
+        "Growth in paid clicks on Google ads decelerated from 13 percent to 8 percent."
+      ],
+      "same_event_coverage_ids": [
+        "360e28e98df7c4dbe74a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "857e942cc1110bf466bd",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://spectrum.ieee.org/ai-in-cybersecurity-php2shell-vulnerability",
+      "key_points": [
+        "Theo IEEE Spectrum, giới nghiên cứu vừa phát hiện lỗ hổng nghiêm trọng PHP2Shell đe dọa nhiều website, nhưng bản vá đã kịp phát hành trước khi bị kẻ xấu khai thác.",
+        "Giáo sư Suman Jana tại Đại học Columbia cho biết lỗi bộ nhớ cũ vốn chỉ gây sập máy, nhưng AI đã hỗ trợ rất tốt khâu suy luận phức tạp để chuyển thành đòn tấn công máy chủ.",
+        "Điển hình là công ty Calif đã dùng AI phát hiện cách thực thi mã độc chỉ trong hai tuần, dù chuyên gia con người vẫn phải am hiểu sâu chứ AI không thể tự làm tất cả.",
+        "Theo ông Jana, sự cố cho thấy thế bất cân xứng lớn giữa việc phát hiện và sửa lỗi, khi bốn kỹ sư phải mất hai tháng mới khắc phục xong. Giáo sư Matthew Green tại Đại học Johns Hopkins nhận định nguồn lực phòng thủ sẽ chưa được đầu tư thỏa đáng cho đến khi một sự cố tồi tệ thực sự xảy ra."
+      ],
+      "same_event_coverage_ids": [
+        "7aaa7251383c716f1e2d",
+        "9554e24e31606c7b0eea"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Lỗ hổng PHP2Shell bị AI phơi bày nhưng không thể tự khai thác nếu thiếu chuyên gia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://spectrum.ieee.org/ai-in-cybersecurity-php2shell-vulnerability"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "06e4c2827221d6b5097e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/04/2026/brazilian-court-curbs-metas-use-of-local-media-to-train-ai",
+      "key_points": [
+        "Một tòa án Brazil đã yêu cầu Meta ngừng thu thập nội dung từ các cơ quan báo chí địa phương để huấn luyện các mô hình trí tuệ nhân tạo (AI). Theo trang tin Semafor, phán quyết này củng cố vai trò của Brazil như một đối thủ đáng chú ý của các tập đoàn công nghệ lớn.",
+        "Theo bài viết, lệnh cấm xuất phát từ cáo buộc của Tổng thống Luiz Inácio Lula da Silva rằng Meta đã thiên vị đối thủ của ông trong cuộc bầu cử gần đây.",
+        "Quốc gia gần 180 triệu người dùng mạng xã hội này từng cấm nền tảng X trên toàn quốc năm 2024 sau khi Elon Musk bác bỏ lệnh của Tòa án Tối cao.",
+        "Theo Semafor, giới chuyên gia nhận định việc ông Lula tái đắc cử đồng nghĩa áp lực siết chặt quản lý các công ty công nghệ tại Brazil sẽ tiếp tục gia tăng."
+      ],
+      "same_event_coverage_ids": [
+        "db3bfae6c8be9fca8deb"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tòa án Brazil cấm Meta thu thập nội dung báo chí địa phương để huấn luyện mô hình AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/04/2026/brazilian-court-curbs-metas-use-of-local-media-to-train-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "a3433e936d2c04bfa772",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/daybreak-red-aws-govcloud",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fc62b6c7820baef4731a"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
