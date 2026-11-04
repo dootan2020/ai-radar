@@ -458,6 +458,7 @@ function worthOf(st) {
 const DISCUSSED = new Set(['points', 'score', 'comments', 'upvotes']);
 function reasonOf(st) {
   if (PICKS.has(st.id)) return { text: 'Biên tập chọn', editor: true };
+  if (st.importance_tier === 'top') return { text: 'Ưu tiên cao', why: st.importance_reason };
   const w = worthOf(st);
   if (w.fh) return { text: w.fh.label };
   return null;
@@ -475,7 +476,7 @@ function titleHTML(st, text) {
 }
 const reasonTag = st => {
   const r = reasonOf(st);
-  return r ? `<span class="why-tag${r.editor ? ' is-editor' : ''}"><span class="sr">Vì sao có mặt: </span>${esc(r.text)}</span>` : '';
+  return r ? `<span class="why-tag${r.editor ? ' is-editor' : ''}"${r.why ? ` title="${esc(r.why)}"` : ''}><span class="sr">Vì sao có mặt: </span>${esc(r.text)}</span>` : '';
 };
 
 /* "Vì sao nên đọc": real numbers only, saying each fact once without repeating time or source counts. */
@@ -514,8 +515,11 @@ function sameEvent(a, b) {
   return k / (A.size + B.size - k) >= WORTH.sameEvent;
 }
 
-const byWorth = (a, b) => worthOf(b).score - worthOf(a).score || ms(b.published_at) - ms(a.published_at);
-const byNew = (a, b) => ms(b.published_at) - ms(a.published_at);
+const rankTime = st => ms(st.latest_coverage_at || st.published_at);
+const byWorth = (a, b) => (Number.isFinite(b.importance_weight) ? b.importance_weight : worthOf(b).score)
+  - (Number.isFinite(a.importance_weight) ? a.importance_weight : worthOf(a).score)
+  || rankTime(b) - rankTime(a);
+const byNew = (a, b) => rankTime(b) - rankTime(a);
 const pinFirst = (a, b) => (PICKS.has(b.id) ? 1 : 0) - (PICKS.has(a.id) ? 1 : 0);
 /* Every list on the page goes through here: editor picks first, then the reader's chosen order. */
 const ordered = list => [...list].sort((a, b) => pinFirst(a, b) || (sortMode === 'new' ? byNew : byWorth)(a, b));
@@ -552,8 +556,8 @@ function choosePicks() {
   const shown = filter === 'all' && D ? newestStories().list : [];
   const elsewhere = st => shown.some(n => oneEvent(n, st));
   const out = [...PICKS.keys()].map(id => STORY.get(id)).filter(st => st && nNewsSrc(st) >= 2).slice(0, 3);
-  const candidates = allStories.filter(st => !PICKS.has(st.id) && nNewsSrc(st) >= 2 && worthOf(st).evidence
-    && GEN - ms(st.published_at) <= PICKS_MAX_AGE_H * 36e5 && !elsewhere(st)).sort(byWorth);
+  const candidates = allStories.filter(st => !PICKS.has(st.id) && (st.importance_tier === 'top' || nNewsSrc(st) >= 2) && worthOf(st).evidence
+    && GEN - rankTime(st) <= PICKS_MAX_AGE_H * 36e5 && !elsewhere(st)).sort(byWorth);
   if (!out.length) {
     const photoLeadIndex = candidates.findIndex(st => pickImage(st).kind === 'photo');
     if (photoLeadIndex >= 0) {
@@ -567,7 +571,7 @@ function choosePicks() {
   // Young stories only: two cards, or the lead alone, beat an old one filling the row. The whole window is the
   // fallback only when nothing young qualifies (coordinator, 10/10, within "người dùng luôn muốn xem tin mới trước").
   if (!out.length) {
-    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && nNewsSrc(st) >= 2 && worthOf(st).evidence
+    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && (st.importance_tier === 'top' || nNewsSrc(st) >= 2) && worthOf(st).evidence
       && !elsewhere(st)).sort(byWorth);
     for (const st of fallback) {
       if (out.length >= 3) break;
@@ -725,7 +729,10 @@ function detailHTML(st) {
     e ? `<p class="dt-ev">${esc(eventWhen(e))}${e.verified_at ? ` · xác minh ${esc(e.verified_at)}` : ''}</p>` : '',
     st.time_basis === 'repository_created' ? '<p class="dt-ev">Ngày ghi là ngày tạo kho mã, không phải ngày phát hành.</p>' : '',
   ].join('');
-  return `${facts}<p class="dt-h">Các nguồn, theo thời gian</p><ul class="dt-src">${covs.map(c => {
+  const artifacts = (st.related_artifacts || []).filter(a => a && a.url && a.title);
+  const related = artifacts.length ? `<p class="dt-h">Tài nguyên liên quan</p><ul class="dt-src">${artifacts.map(a =>
+    `<li><a class="cov-t" href="${esc(safe(a.url))}" target="_blank" rel="noopener">${esc(a.title)}</a></li>`).join('')}</ul>` : '';
+  return `${facts}${related}<p class="dt-h">Các nguồn, theo thời gian</p><ul class="dt-src">${covs.map(c => {
     const ct = typeof c.title_vi === 'string' && c.title_vi.trim() ? c.title_vi.trim() : String(c.title || '');
     const mx = metricsHTML(c);
     return `<li><span class="cov-src">${esc(covName(c) || hostOf(c.url))}${c.published_at ? ` · ${timeEl(c.published_at)}` : ''}</span>
@@ -1481,27 +1488,6 @@ function glideTab(container, activeBtn, { immediate = false } = {}) {
   pill.style.height = `${h}px`;
 }
 
-/* The header is one row from 1400px (feed.css), but whether the tabs fit depends on the tabs shown, the font and the
-   reader's browser font size, not on the width alone. Measure the one-row layout and stack it when the last tab would
-   come closer than BAR_SLACK to the sort switch. Below 1400px the CSS already stacks it. The sort switch is measured
-   even while the rankings tab hides it, so changing tabs never changes the bar's shape. */
-const WIDE_BAR = matchMedia('(min-width: 1400px)');
-const BAR_SLACK = 24;
-function fitBar() {
-  const bar = $('#bar'), filters = $('#feed-filters'), sort = $('#sort-switch');
-  if (!bar || !filters || !sort) return;
-  bar.classList.remove('is-stacked');
-  if (!WIDE_BAR.matches) return;
-  const sortHidden = sort.hidden;
-  sort.hidden = false;   // measured and restored before the browser paints
-  const chips = [...filters.querySelectorAll('.filter-chip:not([hidden])')];
-  const last = chips[chips.length - 1];
-  const crowded = filters.scrollWidth > filters.clientWidth + 1
-    || Boolean(last && last.getBoundingClientRect().right + BAR_SLACK > sort.getBoundingClientRect().left);
-  sort.hidden = sortHidden;
-  bar.classList.toggle('is-stacked', crowded);
-}
-
 function scrollChipIntoView(container, chip) {
   if (!container || !chip) return;
   const scroller = container.scrollWidth > container.clientWidth + 1
@@ -1779,7 +1765,7 @@ function buildAll() {
 
   // --- Khối 2: Cộng đồng đang tranh luận ---
   HOT = allStories.filter(st => !used.has(st.id) && (st.hot_score || 0) > 0 && hotEligible(st) && !PICKLIST.some(p => sameEvent(p, st)))
-    .sort((a, b) => b.hot_score - a.hot_score).slice(0, 5);
+    .sort(byWorth).slice(0, 5);
   HOT.forEach(st => used.add(st.id));
 
   const discussions = allStories.filter(st => !used.has(st.id) && (st.kind === 'forum' || (st.hot_score || 0) > 0))
@@ -2067,7 +2053,6 @@ function renderChips() {
     b.hidden = f !== 'all' && f !== 'rankings' && n === 0 && f !== filter;
     b.setAttribute('aria-pressed', String(f === filter));
   });
-  fitBar();
   const container = $('#feed-filters');
   const active = container ? container.querySelector('.filter-chip[aria-pressed="true"]') : null;
   if (container && active) glideTab(container, active);
@@ -2085,12 +2070,18 @@ function setFilter(f, fromHash = false) {
   if (container && active) scrollChipIntoView(container, active);
 }
 function renderSortSwitch() {
-  $$('.sort-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === sortMode)));
+  $$('.sort-btn:not(.sort-btn-compact)').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === sortMode)));
+  const compact = $('.sort-btn-compact');
+  if (compact) {
+    const next = sortMode === 'worth' ? 'Mới nhất' : 'Đáng đọc nhất';
+    compact.setAttribute('aria-label', `Đang sắp xếp: ${sortMode === 'worth' ? 'Đáng đọc nhất' : 'Mới nhất'}. Chuyển sang ${next}`);
+    compact.setAttribute('aria-pressed', String(sortMode === 'new'));
+    compact.querySelector('.sort-current').textContent = sortMode === 'worth' ? 'Đáng đọc' : 'Mới nhất';
+  }
   $('#sort-switch').hidden = false;
-  fitBar();
   const container = $('#sort-switch');
-  const active = container ? container.querySelector('.sort-btn[aria-pressed="true"]') : null;
-  if (container && active) glideTab(container, active);
+  const active = container ? container.querySelector('.sort-btn[aria-pressed="true"]:not(.sort-btn-compact)') : null;
+  if (container && active && matchMedia('(min-width: 768px)').matches) glideTab(container, active);
 }
 function setSort(m) {
   sortMode = m === 'new' ? 'new' : 'worth';
@@ -2609,7 +2600,12 @@ function attachEvents() {
   });
   $('.feed-brand').addEventListener('click', () => { if (filter !== 'all') setFilter('all'); });
   $('#feed-filters').addEventListener('click', e => { const b = e.target.closest('.filter-chip'); if (b) setFilter(b.dataset.filter); });
-  $('#sort-switch').addEventListener('click', e => { const b = e.target.closest('.sort-btn'); if (b && b.dataset.sort) setSort(b.dataset.sort); });
+  $('#sort-switch').addEventListener('click', e => {
+    const b = e.target.closest('.sort-btn');
+    if (!b) return;
+    if (b.dataset.sort === 'toggle') setSort(sortMode === 'worth' ? 'new' : 'worth');
+    else if (b.dataset.sort) setSort(b.dataset.sort);
+  });
   $('#reset-filter-btn').addEventListener('click', () => setFilter('all'));
   $('#more-btn').addEventListener('click', () => more());
   const notice = $('#fresh');
@@ -2637,10 +2633,7 @@ function attachEvents() {
     });
   }
   $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
-  // The webfont swaps in after first paint and changes every tab's width.
-  if (document.fonts) document.fonts.addEventListener('loadingdone', fitBar);
   window.addEventListener('resize', () => {
-    fitBar();
     positionNewItems();
     const filters = $('#feed-filters');
     if (filters) {
@@ -2652,8 +2645,8 @@ function attachEvents() {
     }
     const sort = $('#sort-switch');
     if (sort) {
-      const activeSort = sort.querySelector('.sort-btn[aria-pressed="true"]');
-      if (activeSort) glideTab(sort, activeSort, { immediate: true });
+      const activeSort = sort.querySelector('.sort-btn[aria-pressed="true"]:not(.sort-btn-compact)');
+      if (activeSort && matchMedia('(min-width: 768px)').matches) glideTab(sort, activeSort, { immediate: true });
     }
     initRepoPills();
   }, { passive: true });
@@ -2685,8 +2678,8 @@ function ingest(data) {
   if (!Number.isFinite(winH) || winH <= 0) winH = 72;
   const gen = ms(D.generated_at), from = gen - winH * 36e5;
   GEN = gen || Date.now();
-  allStories = asArray(D.stories).filter(st => { const t = ms(st.published_at); return t && t >= from && t <= gen + 3e5; })
-    .sort((a, b) => ms(b.published_at) - ms(a.published_at));
+  allStories = asArray(D.stories).filter(st => { const t = rankTime(st); return t && t >= from && t <= gen + 3e5; })
+    .sort(byNew);
   STORY = new Map(allStories.map(st => [st.id, st]));
   STORY_ANY = new Map(asArray(D.stories).map(st => [st.id, st]));
   REPO = new Map(asArray(D.repos).filter(r => r && r.id != null && r.full_name).map(r => [String(r.id), r]));

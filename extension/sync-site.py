@@ -145,21 +145,30 @@ def sync():
                          'new URL(story.image.src, import.meta.url).href',
                          f"new URL(story.image.src, '{LIVE}').href")
     story = replace_once(story, 'href="../../index.html"', f'href="{LIVE}index.html"')
+    # The header's Google apps launcher and phone navigation bar. The extension has no site pages, so the
+    # phone bar's "Dòng tin" is this new tab and the other destinations open on the live site.
+    menu = replace_once((SITE / 'menu-cong-cu.js').read_text(encoding='utf-8'),
+                        "const current = story ? 'index.html' : page;", "const current = 'index.html';")
+    menu = replace_once(menu, 'link.href = `${prefix}${file}`;',
+                        f"link.href = file === 'index.html' ? '#top' : `{LIVE}${{file}}`;")
+    if re.search(r"""\$\{prefix\}|href = ['"`](?!https://|#)""", menu):
+        raise ValueError('Relative page link left in generated menu-cong-cu.js')
     validate_urls(arena)
     validate_urls(story)
     for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css',
                  'faces.js', 'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js',
-                 'calendar.js', 'worth-score.js', 'live.js',
+                 'calendar.js', 'worth-score.js', 'live.js', 'menu-cong-cu.css',
                  'feed-images.json', 'editor-picks.json',
                  'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg', 'wordmark.svg', 'wordmark-dark.svg'):
         shutil.copyfile(SITE / name, EXT / name)
     shutil.copytree(SITE / 'fonts', EXT / 'fonts', dirs_exist_ok=True)
     write(EXT / 'arena.js', arena)
     write(EXT / 'story.js', story)
+    write(EXT / 'menu-cong-cu.js', menu)
     write(EXT / 'newtab.html', html)
     write(EXT / 'feed.js', feed)
     validate_html((EXT / 'newtab.html').read_text(encoding='utf-8'))
-    for name in ('feed.js', 'arena.js', 'story.js'):
+    for name in ('feed.js', 'arena.js', 'story.js', 'menu-cong-cu.js'):
         validate_urls((EXT / name).read_text(encoding='utf-8'))
 
 

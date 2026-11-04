@@ -60,7 +60,7 @@ class ExtensionShellTests(unittest.TestCase):
         self.assertGreater(len(payload['stories']), 100)
         for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'faces.js',
                      'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js', 'calendar.js',
-                     'worth-score.js', 'live.js', 'feed-images.json',
+                     'worth-score.js', 'live.js', 'menu-cong-cu.css', 'feed-images.json',
                      'editor-picks.json', 'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg',
                      'wordmark.svg', 'wordmark-dark.svg'):
             self.assertEqual((EXT / name).read_bytes(), (SITE / name).read_bytes(), name)
@@ -68,6 +68,11 @@ class ExtensionShellTests(unittest.TestCase):
         html = (EXT / 'newtab.html').read_text(encoding='utf-8')
         feed = (EXT / 'feed.js').read_text(encoding='utf-8')
         self.assertIn('<form id="web-search"', html)
+        for local in re.findall(r'(?:href|src)="([^"#:]+)"', html):
+            self.assertTrue((EXT / local).is_file(), f'newtab.html references missing {local}')
+        menu = (EXT / 'menu-cong-cu.js').read_text(encoding='utf-8')
+        self.assertIn("link.href = file === 'index.html' ? '#top' : `" + LIVE + "${file}`;", menu)
+        self.assertNotIn('${prefix}${file}', menu)
         self.assertLess(html.index('id="web-search"'), html.index('id="picks"'))
         for link in ('ban-tin.html', 'tra-cuu.html'):
             self.assertIn(f'href="{LIVE}{link}"', html)
