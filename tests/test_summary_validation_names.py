@@ -125,6 +125,19 @@ class NameFormTests(unittest.TestCase):
         self.assertEqual(entity_error("Ứng dụng từng có trên Play Store Google.", "A user review on Google’s Play Store."),
                          "unsupported_name: Play Store Google")
 
+    def test_a_vietnamese_word_before_a_name_is_not_part_of_it(self):
+        # Cycle 2026-11-04 16:31, WIRED: "Anh" is Britain, the name is Kanishka Narayan.
+        evidence = ("But the UK AI minister admitted last week that figure was significantly higher. AI minister "
+                    "Kanishka Narayan, answering a parliamentary question, said the estimate was uncertain. Economist "
+                    "Priya Shah disagreed.")
+        self.assertIsNone(entity_error("Bộ trưởng phụ trách AI của Anh Kanishka Narayan thừa nhận ước tính này.",
+                                       evidence))
+        # The name after the Vietnamese word must still occur complete.
+        self.assertEqual(entity_error("Bộ trưởng phụ trách AI của Anh Priya Narayan thừa nhận ước tính này.",
+                                      evidence), "unsupported_name: Anh Priya Narayan")
+        self.assertEqual(entity_error("Nhà kinh tế Kanishka Priya Shah phản đối.", evidence),
+                         "unsupported_name: Kanishka Priya Shah")
+
 
 if __name__ == "__main__":
     unittest.main()

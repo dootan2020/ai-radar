@@ -178,5 +178,60 @@ class AttributionTests(unittest.TestCase):
               "LinkedIn page to paste your work history into a job application.", "The Verge")]))
 
 
+# Paragraphs of the 2026-11-04 16:31 cycle, with the outlet names the writer desk passes
+# ("the-verge" -> "the verge theverge").
+ELLIOTT_LATER = ("Elliott cautions that finding effective ad formats can take years.", "the verge theverge")
+TINUITI = ("Tinuiti's same-store advertisers increased their Google paid search spending 14 percent year over year "
+           "in the third quarter while maintaining their return-on-ad-spend targets.", "the verge theverge")
+TAYLOR = ("The catch is that advertisers can't isolate how Google's AI ads are doing. Google doesn't let them "
+          "separately target that inventory or break out its performance, Taylor says.", "the verge theverge")
+ONWURAH = ("Dame Chi Onwurah, the Labour MP who chairs the Commons Science, Innovation and Technology Committee, "
+           "told WIRED the reports highlight one of the central barriers to digital transformation: hype.",
+           "wired wired")
+BOOSTERISM = ("The spat over these two numbers is part of a wider debate over the line between government support "
+              "and boosterism, while many parliamentarians outside of government raised questions.", "wired wired")
+ADA = ("“Figures about AI that look precise often have assumptions and incentives built into them, and industry "
+       "often funds or shapes the research behind them,” Sumedha Deshmukh of the Ada Lovelace Institute told "
+       "WIRED.", "wired wired")
+
+
+class NamedAndGroupSpeakerTests(unittest.TestCase):
+    """Speakers the 2026-11-04 16:31 cycle dropped, judged against the paragraphs each sentence cited."""
+
+    def test_a_named_person_with_a_role_word_is_checked_by_name(self):
+        self.assertIsNone(attribution_error(
+            "Chuyên gia Nate Elliott cảnh báo việc tìm ra định dạng quảng cáo hiệu quả có thể mất nhiều năm.",
+            [ELLIOTT_LATER]))
+        self.assertEqual(attribution_error(
+            "Chuyên gia Nate Elliott cảnh báo việc tìm ra định dạng quảng cáo hiệu quả có thể mất nhiều năm.",
+            [("Search engines started with banner ads before adopting paid listings.", "the verge theverge")]),
+            "speaker_not_in_source: Chuyên gia Nate Elliott")
+
+    def test_two_speakers_may_each_cite_their_own_paragraph(self):
+        sentence = ("Hãng Tinuiti cho biết khách hàng vẫn tăng 14% chi tiêu quảng cáo tìm kiếm trên Google trong "
+                    "quý 3, song chuyên gia Andy Taylor lưu ý họ chưa thể đánh giá riêng hiệu quả vì Google không "
+                    "tách biệt số liệu quảng cáo AI.")
+        self.assertIsNone(attribution_error(sentence, [TINUITI, TAYLOR]))
+        # The judgement still cannot rest on a paragraph that names neither speaker.
+        self.assertEqual(attribution_error(sentence, [TAYLOR, (
+            "Steady overall returns could mean AI ad traffic is still too small to affect the results.",
+            "the verge theverge")]), "speaker_not_in_source: Hãng Tinuiti")
+        # The outlet named by the byline does not vouch for a paragraph the company never speaks in.
+        self.assertEqual(attribution_error(
+            "TechCrunch đưa tin về Opera, song Opera cho rằng giải pháp này không thể loại trừ mọi rủi ro bảo mật.",
+            [OPERA_SAYS, OPERA]), "speaker_not_in_source: Opera")
+
+    def test_an_unnamed_group_must_be_quoted_by_every_cited_paragraph(self):
+        sentence = ("Tạp chí WIRED nhận định sự việc làm dấy lên tranh cãi về làn sóng thổi phồng công nghệ, trong "
+                    "bối cảnh các nhà lập pháp cảnh báo việc hoạch định chính sách dựa trên số liệu do doanh nghiệp "
+                    "tài trợ.")
+        # The warning about industry-funded figures is the Ada Lovelace Institute's, not lawmakers'.
+        self.assertEqual(attribution_error(sentence, [ONWURAH, BOOSTERISM, ADA]),
+                         "speaker_not_in_source: các nhà lập pháp")
+        self.assertIsNone(attribution_error(
+            "Tạp chí WIRED nhận định tranh cãi này thuộc cuộc tranh luận về ranh giới giữa ủng hộ và thổi phồng, "
+            "trong bối cảnh các nhà lập pháp cảnh báo về sự thổi phồng.", [ONWURAH, BOOSTERISM]))
+
+
 if __name__ == "__main__":
     unittest.main()

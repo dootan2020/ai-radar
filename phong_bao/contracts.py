@@ -153,7 +153,8 @@ DESK_CONTRACTS = {
             "provider", "boat",
         ],
         # Audit record of drafted stories: source paragraphs, editor provider when enabled, and
-        # rewrite {roles, result} when the checks removed whole paragraphs and the writer redid them once.
+        # rewrite {roles, result} when the checks removed whole paragraphs and the writer redid them once
+        # (the request carries the draft's grounded conditions).
         # Kept in the cycle folder, never published.
         "optional_output_fields": ["writer_sources", "writer_source_chars", "editor_provider", "editor_boat",
                                    "rewrite"],
@@ -168,11 +169,14 @@ DESK_CONTRACTS = {
             "the title fails radar.summary_validation's number or name check",
             "conditions is not a list (verbatim source spans of at most 25 words, each with its paragraph ID)",
             "after dropping failing sentences (including a significance sentence that cites no paragraph "
-            "holding a listed condition): any paragraph lost, fewer than three paragraphs, development not "
-            "first, significance not last, or outside 90-230 words",
+            "holding a listed condition, that is a span found verbatim in that paragraph; naming a speaker "
+            "does not replace it) and after one rewrite of the lost paragraphs, which is given the draft's "
+            "grounded conditions and may add verbatim ones: any paragraph lost, fewer than three paragraphs, "
+            "development not first, significance not last, or outside 90-230 words",
             "a sentence or the title fails radar.summary_validation.attribution_error: a purpose (nhằm, mục "
             "đích) its cited paragraphs never state, a judgement or cause without the attribution its paragraph "
-            "carries, or a speaker its cited paragraphs do not name",
+            "carries, a named speaker its cited paragraphs do not name, or an unnamed group (insiders, experts, "
+            "lawmakers) that some cited paragraph does not quote",
         ],
     },
     "chief": {
