@@ -37,13 +37,16 @@ DEFAULT_BUDGET = 180.0
 MIN_REQUEST_TIMEOUT = 3.0
 ARTICLE_FAILURE_TTL = 24 * 60 * 60
 VALIDATION_FAILURE_CACHE_TAG = "source-wide-entity-evidence-4"
-# Phrases that gate the rest of an article. A bare "please subscribe" is a plea that free
-# newsletters print above complete issues, so it is not one; "please subscribe to read" still is.
+# Phrases that gate the rest of an article, whatever the length of the text around them.
 PAYWALL_TEXT = re.compile(
     r"\b(?:subscribe to (?:read|continue)|sign in to (?:read|continue)|"
     r"subscriber[- ]only|members[- ]only|unlock the full article)\b",
     re.IGNORECASE,
 )
+# A bare "please subscribe" is ambiguous: below a teaser it is the gate, above a complete free
+# newsletter issue it is a plea. Only a short text, where it may be all the reader gets, is refused.
+PAYWALL_PLEA = re.compile(r"\bplease subscribe\b", re.IGNORECASE)
+PAYWALL_PLEA_MAX_CHARS = 3000
 
 
 class _ArticleTextParser(HTMLParser):
@@ -51,7 +54,8 @@ class _ArticleTextParser(HTMLParser):
 
     BLOCKS = {"p", "li", "h1", "h2", "h3", "h4", "blockquote", "figcaption", "tr", "div"}
 
-    def __init__(self, prefer_body=False, prefer_article=False, article_depth=1, fallback_mode=False):
+    def __init__(self, prefer_body=False, prefer_article=False, article_depth=1, fallback_mode=False,
+                 article_ids=None):
         super().__init__(convert_charrefs=True)
         self.stack, self.parts, self.links, self.buffer = [], [], [], []
         self.anchor = None
@@ -59,6 +63,10 @@ class _ArticleTextParser(HTMLParser):
         self.prefer_article, self.has_article = prefer_article, False
         self.article_depth, self.max_article_depth = article_depth, 0
         self.fallback_mode = fallback_mode
+        # <article> tags are numbered in document order; article_ids, when given, names the
+        # only ones read. deepest_paths holds the numbers of each deepest article's ancestors.
+        self.article_ids, self.article_count = article_ids, 0
+        self.open_articles, self.deepest_paths = [], []
 
     def flush(self):
         value = " ".join("".join(self.buffer).split())
@@ -90,6 +98,14 @@ class _ArticleTextParser(HTMLParser):
         self.has_article |= tag == "article"
         depth = sum(t == "article" for t, _, _ in self.stack) + (tag == "article")
         self.max_article_depth = max(self.max_article_depth, depth)
+        ordinal = None
+        if tag == "article":
+            ordinal, self.article_count = self.article_count, self.article_count + 1
+            self.open_articles.append(ordinal)
+            if not self.deepest_paths or len(self.open_articles) > len(self.deepest_paths[0]):
+                self.deepest_paths = [list(self.open_articles)]
+            elif len(self.open_articles) == len(self.deepest_paths[0]):
+                self.deepest_paths.append(list(self.open_articles))
         if self.fallback_mode:
             readable = (body
                         or tag in {"article", "main"}
@@ -98,8 +114,10 @@ class _ArticleTextParser(HTMLParser):
                         or attrs.get("id") in {"content", "primary", "main", "entry"}
                         or (tag == "p" and not any(skip for _, _, skip in self.stack)))
         else:
+            chosen_article = (ordinal in self.article_ids if self.article_ids is not None
+                              else depth >= self.article_depth)
             readable = body or (not self.prefer_body and (
-                (tag == "article" and depth >= self.article_depth)
+                (tag == "article" and chosen_article)
                 or (tag == "main" and not self.prefer_article)))
 
         is_article_tag = (tag == "article") or body
@@ -126,6 +144,9 @@ class _ArticleTextParser(HTMLParser):
             self.anchor = None
         for index in range(len(self.stack) - 1, -1, -1):
             if self.stack[index][0] == tag:
+                closed_articles = sum(t == "article" for t, _, _ in self.stack[index:])
+                if closed_articles:
+                    del self.open_articles[-closed_articles:]
                 del self.stack[index:]
                 break
 
@@ -192,13 +213,17 @@ def parse_article(html, url):
             article_only.flush()
             if len("\n".join(article_only.parts)) >= MIN_ARTICLE_TEXT_CHARS:
                 refined = article_only
-        # Nested <article> tags make the deepest one a fragment; try the enclosing articles.
+        # Nested <article> tags make the deepest one a fragment; widen to the articles that
+        # enclose it, one level at a time. Only its ancestors count: a sibling <article> is
+        # another story (related news), never the rest of this one.
         depth = parser.max_article_depth - 1
         while parser.has_article and depth >= 1 and len("\n".join(refined.parts)) < MIN_ARTICLE_TEXT_CHARS:
-            enclosing = _ArticleTextParser(prefer_article=True, article_depth=depth)
+            enclosing = _ArticleTextParser(prefer_article=True,
+                                           article_ids={path[depth - 1] for path in parser.deepest_paths})
             enclosing.feed(html)
             enclosing.flush()
-            if len("\n".join(enclosing.parts)) >= MIN_ARTICLE_TEXT_CHARS:
+            # A short ancestor replaces only an empty fragment, so that text still counts below.
+            if len("\n".join(enclosing.parts)) >= MIN_ARTICLE_TEXT_CHARS or (enclosing.parts and not refined.parts):
                 refined = enclosing
             depth -= 1
         # Labelled containers that hold no text at all (side-card <article>s, an empty body
@@ -339,7 +364,7 @@ def fetch_article_result(story: dict, robots_cache: dict | None = None, *, detai
         except Exception as error:
             return fail("error", f"parse_{type(error).__name__}")
         text = "\n".join(parser.parts)
-        paywall = PAYWALL_TEXT.search(text)
+        paywall = PAYWALL_TEXT.search(text) or (len(text) < PAYWALL_PLEA_MAX_CHARS and PAYWALL_PLEA.search(text))
         if paywall:
             return fail("paywall", f"phrase '{paywall.group(0).lower()}' at char {paywall.start()}")
         if len(text) < MIN_ARTICLE_TEXT_CHARS:

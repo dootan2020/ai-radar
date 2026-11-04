@@ -186,7 +186,40 @@ class FetchRealPagesTests(unittest.TestCase):
         site = Site({"https://publisher.example/robots.txt": ALLOW_ALL, "https://publisher.example/s": html})
         self.assertEqual(site.fetch("https://publisher.example/s")[:2], ("", "too_short"))
 
+    def test_sibling_related_story_does_not_complete_a_nested_teaser(self):
+        # The fragment's only ancestor is the teaser; the long <article> beside it is another story.
+        related = "<article><h2>Related</h2><p>" + "A different story about chip exports. " * 30 + "</p></article>"
+        html = ("<main><article><p>A short subscriber teaser.</p><article><p>Short fragment.</p></article>"
+                f"</article>{related}</main>")
+        site = Site({"https://publisher.example/robots.txt": ALLOW_ALL, "https://publisher.example/s": html})
+        self.assertEqual(site.fetch("https://publisher.example/s"),
+                         ("", "too_short", {"cause": "15 chars"}))  # the fragment, never the sibling
+        empty_fragment = html.replace("<p>Short fragment.</p>", "")
+        site = Site({"https://publisher.example/robots.txt": ALLOW_ALL, "https://publisher.example/s": empty_fragment})
+        self.assertEqual(site.fetch("https://publisher.example/s"),
+                         ("", "too_short", {"cause": "26 chars"}))  # the teaser around the empty fragment
+
+    def test_enclosing_article_completes_its_own_nested_fragment(self):
+        body = "<p>" + "The enclosing article carries the reported event in full. " * 10 + "</p>"
+        html = (f"<main><article>{body}<article><p>Nested quote card.</p></article></article>"
+                "<article><p>Sibling card.</p></article></main>")
+        site = Site({"https://publisher.example/robots.txt": ALLOW_ALL, "https://publisher.example/s": html})
+        text, reason, _ = site.fetch("https://publisher.example/s")
+        self.assertIsNone(reason)
+        self.assertIn("reported event in full", text)
+        self.assertIn("Nested quote card.", text)
+        self.assertNotIn("Sibling card.", text)
+
     # Paywalls
+
+    def test_long_teaser_ending_in_a_bare_subscription_plea_is_a_paywall(self):
+        teaser = "<p>" + "The opening paragraphs of a reported story about model pricing. " * 25 + "</p>"
+        html = f"<article>{teaser}<p>Please subscribe.</p></article>"
+        site = Site({"https://publisher.example/robots.txt": ALLOW_ALL, "https://publisher.example/s": html})
+        text, reason, details = site.fetch("https://publisher.example/s")
+        self.assertEqual((text, reason), ("", "paywall"))
+        self.assertTrue(details["cause"].startswith("phrase 'please subscribe'"))
+        self.assertLess(len(teaser), summary_pipeline.PAYWALL_PLEA_MAX_CHARS)
 
     def test_free_newsletter_asking_readers_to_subscribe_is_read(self):
         page = "https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/"
