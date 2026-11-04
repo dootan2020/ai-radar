@@ -757,6 +757,36 @@ dialog.story-dialog::backdrop {
   }
 }
 
+/* The publisher's own description, shown when Halcyon has no summary: a quoted note on an inset panel, set at body
+   size and quieter ink, so it never reads as the desk's prose (which opens with the accent rule and a larger lead). */
+.story-source-desc {
+  padding: var(--space-16);
+  border-radius: var(--inner-radius);
+  background: var(--color-inset);
+}
+
+.story-source-desc .story-section-head {
+  margin-bottom: var(--space-12);
+}
+
+.story-body .story-source-desc .story-section-h2 {
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  letter-spacing: normal;
+  color: var(--color-ink);
+}
+
+.story-source-desc .story-section-sub {
+  font-size: var(--text-small);
+}
+
+.story-source-desc .story-summary-text {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--color-ink-2);
+  max-width: 68ch;
+}
+
 .story-empty-box {
   padding: var(--space-24) 0;
   border-top: 1px solid var(--color-hair);

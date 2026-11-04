@@ -6,7 +6,7 @@
 import { esc, fmt, faceOfStory, faceOfSource, avatar, avatarStack, monogram, watchImageErrors, loadDeferredImages } from './faces.js';
 import { ago, dayKey, hhmm, TZ } from './time-text.js';
 import { origLine } from './titles.js';
-import { headlineShown } from './editorial-headline.js';
+import { headlineShown, sourceDescriptionMark } from './editorial-headline.js';
 import { KIND } from './words.js';
 
 // Các từ dừng dùng khi so khớp tựa đề để gom nhóm câu chuyện
@@ -402,7 +402,7 @@ function renderHeroTile(topStory) {
 
       <div class="lead-details" id="lead-details">
         ${isTranslated ? `<p class="orig lead-orig">${esc(p.title)}</p>` : ''}
-        ${p.summary ? `<p class="lead-sum">${esc(p.summary)}</p>` : ''}
+        ${p.summary ? `<p class="lead-sum">${sourceDescriptionMark()}${esc(p.summary)}</p>` : ''}
 
         ${topStory.sourceCount > 1 ? `
           <ul class="cov" aria-label="Các nguồn đưa chuyện này">

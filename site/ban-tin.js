@@ -9,7 +9,7 @@ import { esc, fmt, faceOfStory, faceOfSource, avatar, hydrateHF, watchImageError
 import { ago, hhmm, dayKey } from './time-text.js';
 import { KIND, METRIC, signalText } from './words.js';
 import { origLine, uniqCoverage } from './titles.js';
-import { headlineShown } from './editorial-headline.js';
+import { headlineShown, sourceDescriptionMark } from './editorial-headline.js';
 
 /* ---------- Hằng số & Cấu hình ---------- */
 export const DEFAULT_DATA_DIR = 'data/editions';
@@ -242,7 +242,7 @@ export function renderStoryTileHTML(story, isLead = false, sources = null) {
 
       ${origHtml ? origHtml : ''}
 
-      ${summary ? `<p class="bt-story-summary">${esc(summary)}</p>` : ''}
+      ${summary ? `<p class="bt-story-summary">${sourceDescriptionMark()}${esc(summary)}</p>` : ''}
 
       ${reasons.length > 0 ? `
         <div class="bt-reasons-box" aria-label="Lý do chọn tin">

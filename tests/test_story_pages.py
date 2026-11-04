@@ -154,7 +154,7 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn('class="story-page-container" id="story-root"', document)
         self.assertIn('class="story-article"', document)
         self.assertIn('class="story-headline"', document)
-        self.assertIn('class="story-summary-box"', document)
+        self.assertIn('class="story-summary-box story-source-desc"', document)
         self.assertIn('class="story-origin-gateway"', document)
         self.assertIn('class="skip" href="#story-root"', document)
         self.assertIn('id="i-arrow-left"', document)
@@ -227,14 +227,33 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertNotIn("cũng là cơ sở cho nước", "".join(parser.main_text))
         self.assertNotIn("the basis for the water", "".join(parser.main_text))
 
-        # Honest label: fallback says 'Đoạn trích bài viết', NOT 'Tóm lược bài viết'
-        self.assertIn('aria-label="Đoạn trích bài viết"', document)
-        self.assertIn('<h2 class="story-section-h2">Đoạn trích bài viết</h2>', document)
+        # Honest label: the publisher's description is named as such, NOT 'Tóm lược bài viết'
+        self.assertIn('aria-label="Mô tả từ nguồn"', document)
+        self.assertIn('<h2 class="story-section-h2">Mô tả từ nguồn</h2>', document)
+        self.assertIn('Halcyon chưa tóm tắt tin này.', document)
         self.assertNotIn('<h2 class="story-section-h2">Tóm lược bài viết</h2>', document)
 
         # Gateway description for fallback does not claim AI summarization
         self.assertIn('Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
         self.assertNotIn('Halcyon tóm tắt ý chính để bạn nắm nhanh sự kiện.', document)
+
+    def test_story_without_source_description_never_labels_generated_text_as_publishers(self):
+        from radar.story_pages import trim_complete_sentences
+        from radar.summary_pipeline import honest_fallback_summary
+        item = story(summary=None, summary_vi=None)
+        generated = trim_complete_sentences(honest_fallback_summary(item))
+        self.assertTrue(generated)
+        document = render_story_page(item)
+        parser = PageParser()
+        parser.feed(document)
+        main_text = "".join(parser.main_text)
+        # The generated line may describe the page to crawlers, but the body shows the same empty excerpt as the
+        # hydrated page (site/story.js) instead of presenting it as the publisher's description.
+        self.assertEqual(parser.metas["description"], generated)
+        self.assertNotIn("Mô tả từ nguồn", document)
+        self.assertNotIn("Lời giới thiệu ngắn của", document)
+        self.assertNotIn(generated, main_text)
+        self.assertIn("Chưa có đoạn trích cho bài viết này.", main_text)
 
     def test_key_points_and_missing_picture_use_site_default(self):
         document = render_story_page(story(
