@@ -8,7 +8,6 @@ import json
 import os
 import re
 import time
-import urllib.parse
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -21,7 +20,6 @@ from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE
 from radar.summary_pipeline import collect_inputs, fetch_article_result, story_inputs
 from radar.summary_sources import fit_inputs, publish_summary
 from radar.summary_validation import attribution_error, claim_error, number_error
-from radar import shadow_collector, transport
 
 from .contracts import (
     DESK_CONTRACTS,
@@ -39,6 +37,7 @@ from .contracts import (
 )
 from .registry import providers
 from .runner import AdmissionError, CLIRunner, RunnerError
+from .search import READABLE_PER_STORY, RUNNERS as SEARCH_RUNNERS, SearchBudget, rank, search as same_event_search
 
 DESKS = ("intake", "reporter", "editor", "checker", "writer", "chief")
 # The writer ("Người viết") only drafts stories published within this many hours
@@ -196,22 +195,8 @@ class Articles:
             self.results[url] = (text, f"{reason}:{cause}" if reason and cause and cause != reason else reason)
         return self.results[url]
 
-    def search(self, title):
-        query = urllib.parse.urlencode({"query": title[:150], "tags": "story", "hitsPerPage": 8})
-        url = "https://hn.algolia.com/api/v1/search?" + query
-        try:
-            robots = shadow_collector.check_robots(url, fetch_fn=lambda target: transport.read_url(target, allow_redirects=False),
-                                                   robots_cache=self.robots_cache)
-            if robots["robots_status"] not in (200, 404) or robots["disallowed"]:
-                return []
-            response = transport.read_url(url, allow_redirects=False)
-            if response.status != 200 or response.url != url:
-                return []
-            hits = json.loads(str(response)).get("hits", [])
-        except (OSError, ValueError, AttributeError, TypeError):
-            return []
-        return [{"title": hit.get("title") or "", "url": hit.get("url") or "",
-                 "published_at": hit.get("created_at") or "", "publisher": ""} for hit in hits if isinstance(hit, dict)]
+    def search(self, story, runners, budget):
+        return same_event_search(story, runners, budget, self.robots_cache)
 
 
 class FixtureArticles:
@@ -222,8 +207,8 @@ class FixtureArticles:
         item = self.fixture.get("articles", {}).get(url, {})
         return item.get("text", ""), item.get("reason", "unavailable")
 
-    def search(self, title):
-        return self.fixture.get("search", {}).get(title, [])
+    def search(self, story, runners, budget):
+        return rank(story, self.fixture.get("search", {}).get(story["title"], []))
 
 
 def _publisher(url):
@@ -382,7 +367,8 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
     searchers = providers("tim-kiem", tools, discovery)
     if not any(tool.get("runner") == "http-fetch" for tool in readers):
         raise RunnerError("no configured local article reader")
-    can_search_hn = any(tool.get("runner") == "hn-algolia" for tool in searchers)
+    search_runners = list(dict.fromkeys(tool["runner"] for tool in searchers if tool.get("runner") in SEARCH_RUNNERS))
+    budget = SearchBudget(deadline)
     payload, source_map = [], {}
     statuses = {}
     for story in stories:
@@ -409,15 +395,22 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
                     candidates.append(candidate)
                 if len(candidates) >= 5:
                     break
-            for item in articles.search(story["title"]) if can_search_hn else []:
+            # Another outlet's report of the same event; the reporter model still judges it.
+            found = 0
+            for item in articles.search(story, search_runners, budget) if search_runners else []:
+                if budget.left() <= 0 or found >= READABLE_PER_STORY:
+                    break
                 candidate = _candidate(story, item, articles, strict_title=False)
                 if candidate and candidate["url"] not in {c["url"] for c in candidates}:
                     candidates.append(candidate)
+                    found += 1
         source_map[story["id"]] = {c["url"]: c for c in candidates}
         if candidates:
             payload.append({"id": story["id"], "title": story["title"], "published_at": story.get("published_at"),
                             "representative_url": story["url"], "representative_status": statuses[story["id"]],
                             "candidates": [{**candidate, "text": candidate["text"][:REPORTER_EXCERPT_LIMIT]} for candidate in candidates]})
+    if budget.events and raw_dir is not None:
+        _write_json(Path(raw_dir) / "tim-kiem.json", {"desk": "reporter", "searches": budget.events})
     replies, usage = _agent_desk("reporter", payload, REPORTER_PROMPT, "doc-bai", tools, discovery, runner, raw_dir=raw_dir, deadline=deadline) if payload else ({}, [])
     def invalid_reply(row, sid=None):
         candidate_urls = set(source_map.get(sid, {}).keys()) if sid else None
