@@ -114,6 +114,11 @@ body {
 .bt-brand b {
   color: var(--color-ink);
 }
+/* The kit's wordmark (primary on light, dark variant on dark; tokens.css picks one) and the kit icon where it would fall under 160px. */
+.brand-logo { width: 160px; height: auto; flex: none; }
+.brand-logo-light { display: var(--show-logo-light); }
+.brand-logo-dark { display: var(--show-logo-dark); }
+.brand-icon { display: none; width: 32px; height: 32px; flex: none; }
 .bt-brand-badge {
   font-size: var(--size-12);
   font-weight: var(--weight-semibold);
@@ -171,7 +176,7 @@ body {
   border: none;
   background: transparent;
   font-family: inherit;
-  font-size: var(--size-13);
+  font-size: var(--text-small);
   font-weight: var(--weight-semibold);
   color: var(--color-ink);
   padding: 0 var(--space-8);
@@ -573,7 +578,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: var(--size-13);
+  font-size: var(--text-small);
   color: var(--color-accent);
   text-decoration: none;
 }

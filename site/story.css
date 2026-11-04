@@ -296,7 +296,7 @@ dialog.story-dialog::backdrop {
   .feed-bar-in:has(#doc-back-btn) .ed-link {
     order: 2;
     padding: 0 var(--space-12);
-    font-size: var(--text-meta);
+    font-size: var(--text-small);
     min-height: 40px;
   }
   .feed-bar:has(.doc-nav) .tc-link,

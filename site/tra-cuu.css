@@ -205,7 +205,7 @@
   .tc-submit-btn {
     min-height: 36px;
     padding: 0 var(--space-12);
-    font-size: var(--text-meta);
+    font-size: var(--text-small);
   }
 
   .t-lead .lead-top {

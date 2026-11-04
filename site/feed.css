@@ -110,6 +110,11 @@ ul, ol { padding: 0; list-style: none; }
 }
 .feed-brand { font-size: var(--size-21); font-weight: var(--weight-bold); letter-spacing: var(--tracking-display); flex: none; display: inline-flex; align-items: center; min-height: 44px; }
 .feed-brand b { color: var(--color-ink); }
+/* The kit's wordmark (primary on light, dark variant on dark; tokens.css picks one) and the kit icon where it would fall under 160px. */
+.brand-logo { width: 160px; height: auto; flex: none; }
+.brand-logo-light { display: var(--show-logo-light); }
+.brand-logo-dark { display: var(--show-logo-dark); }
+.brand-icon { display: none; width: 32px; height: 32px; flex: none; }
 
 /* The visible 32px pills sit inside 44px hit areas; keep text and paint on the same centre. */
 .filter-chip, .sort-btn, .ed-link, .tc-link {
@@ -864,7 +869,7 @@ ul, ol { padding: 0; list-style: none; }
 .cov-btn {
   position: relative; z-index: 2; display: inline-flex; align-items: center; gap: var(--space-4);
   min-height: 44px; min-width: 44px; padding: 2px var(--space-4); border-radius: var(--radius-full);
-  color: var(--color-ink-2); font-size: var(--text-micro); font-weight: var(--weight-medium);
+  color: var(--color-ink-2); font-size: var(--text-small); font-weight: var(--weight-medium);
   white-space: nowrap; transition: background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow);
   flex-shrink: 0; max-width: 100%;
 }
@@ -895,7 +900,7 @@ ul, ol { padding: 0; list-style: none; }
 /* Calendar: Google Calendar or an .ics file, one split chip */
 .card-cal { position: relative; z-index: 2; }
 .calbtn { display: inline-flex; align-items: stretch; max-width: 100%; border-radius: var(--radius-full); background: var(--color-fill); overflow: hidden; flex: none; }
-.calbtn-g, .calbtn-ics { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8); min-height: 44px; min-width: 44px; padding: 0 var(--space-12); font-size: var(--text-meta); font-weight: var(--weight-semibold); white-space: nowrap; transition: background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow); }
+.calbtn-g, .calbtn-ics { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8); min-height: 44px; min-width: 44px; padding: 0 var(--space-12); font-size: var(--text-small); font-weight: var(--weight-semibold); white-space: nowrap; transition: background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow); }
 .calbtn-g { color: var(--color-ink); }
 .calbtn-g .i { width: 16px; height: 16px; }
 .calbtn-ics { color: var(--color-ink-2); padding: 0 var(--space-12); background: var(--color-hair); }
@@ -915,7 +920,7 @@ ul, ol { padding: 0; list-style: none; }
 .events .calbtn-long { display: none; }
 .events .calbtn-g, .events .calbtn-ics {
   position: relative; isolation: isolate; background: none; padding: 0 var(--space-12);
-  font-size: var(--text-micro); color: var(--color-ink-2);
+  font-size: var(--text-small); color: var(--color-ink-2);
 }
 .events .calbtn-g .i { width: 14px; height: 14px; }
 .events .calbtn-g::before, .events .calbtn-ics::before {
@@ -952,7 +957,7 @@ ul, ol { padding: 0; list-style: none; }
 .seg-b {
   position: relative; z-index: 1;
   min-height: 32px; padding: 0 var(--space-12); border-radius: var(--radius-full); white-space: nowrap;
-  font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-ink-2);
+  font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2);
   line-height: 22px; display: inline-flex; align-items: center; justify-content: center;
   transition: color var(--motion-tab-glide, 280ms) var(--ease-flow);
 }
@@ -980,7 +985,7 @@ ul, ol { padding: 0; list-style: none; }
   flex: none;
   display: inline-flex; align-items: center; gap: var(--space-8); min-height: 36px; padding: 0 var(--space-12);
   border-radius: var(--radius-full); background: var(--color-fill); color: var(--color-ink-2);
-  font-size: var(--text-meta); font-weight: var(--weight-medium); white-space: nowrap;
+  font-size: var(--text-small); font-weight: var(--weight-medium); white-space: nowrap;
   transition: background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow);
 }
 .area-chip .count { color: var(--color-ink-3); font-size: var(--text-micro); }
@@ -1414,7 +1419,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 @media (max-width: 360px){
   :root { --page-pad: var(--space-8); }
   .feed-bar-in { padding: 0 var(--space-8); column-gap: var(--space-4); }
-  .ed-link { padding: 0 var(--space-8); font-size: var(--text-meta); }
+  .ed-link { padding: 0 var(--space-8); font-size: var(--text-small); }
   .card-lead .photo-body { padding: var(--space-16); }
   .card-foot { flex-wrap: wrap; row-gap: var(--space-4); }
 }
