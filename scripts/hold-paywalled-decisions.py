@@ -7,8 +7,8 @@ source" (its source_url is then the story's own URL) and whose source_url belong
 measured as paywalled. The fetch result "paywall" is not stored in decisions files, so this script
 only applies the measured publisher list.
 
-Dry run (default) prints the rows; --apply OUT writes a copy with those rows held. It never writes
-the input file.
+Dry run (default) prints the rows; --apply OUT writes a copy with those rows held to a new file.
+It never writes the input file or any file that already exists.
 
 usage: python scripts/hold-paywalled-decisions.py DECISIONS [--stories SNAPSHOT] [--apply OUT]
 """
@@ -68,11 +68,16 @@ def main(argv=None):
         print(f"{row['id']}\t{host}\t{title_of(row, titles)}")
     print(f"{len(rows)} of {sum(r.get('decision') == 'publish' for r in data['decisions'])} publish rows would be held")
     if args.apply:
-        if args.apply.resolve() == args.decisions.resolve():
-            parser.error("--apply must name a new file, never the input")
+        if args.apply.resolve() == args.decisions.resolve() or args.apply.exists():
+            parser.error("--apply must name a new file, never the input or an existing file")
         ids = {row["id"] for row in rows}
         data = {**data, "decisions": [held(row) if row["id"] in ids else row for row in data["decisions"]]}
-        args.apply.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+        try:
+            # Exclusive create: a file that appeared after the check above is still never overwritten.
+            with args.apply.open("x", encoding="utf-8", newline="\n") as handle:
+                handle.write(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+        except FileExistsError:
+            parser.error("--apply must name a new file, never the input or an existing file")
         print(f"wrote {args.apply}")
     return 0
 

@@ -111,6 +111,26 @@ class ExistingDecisionsScriptTests(unittest.TestCase):
         self.assertEqual(rows["bbg-recovered"]["decision"], "publish")
         self.assertEqual(rows["openai"]["decision"], "publish")
 
+    def test_apply_never_overwrites_an_existing_file(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path, other = Path(directory) / "decisions.json", Path(directory) / "other-snapshot.json"
+            path.write_text(json.dumps(self.fixture()), encoding="utf-8")
+            other.write_text('{"schema_version": 1, "decisions": []}', encoding="utf-8")
+            before = other.read_bytes()
+            with self.assertRaises(SystemExit), redirect_stdout(io.StringIO()), \
+                    unittest.mock.patch("sys.stderr", io.StringIO()):
+                SCRIPT.main([str(path), "--apply", str(other)])
+            self.assertEqual(other.read_bytes(), before)
+            # A file created between the check and the write is refused by the exclusive create.
+            late = Path(directory) / "late.json"
+            real_exists = Path.exists
+            with unittest.mock.patch.object(Path, "exists", lambda p: False if p == late else real_exists(p)):
+                late.write_text("keep", encoding="utf-8")
+                with self.assertRaises(SystemExit), redirect_stdout(io.StringIO()), \
+                        unittest.mock.patch("sys.stderr", io.StringIO()):
+                    SCRIPT.main([str(path), "--apply", str(late)])
+            self.assertEqual(late.read_text(encoding="utf-8"), "keep")
+
 
 if __name__ == "__main__":
     unittest.main()
