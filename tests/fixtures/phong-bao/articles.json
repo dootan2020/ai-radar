@@ -12,7 +12,7 @@
       "text": "",
       "reason": "too_short"
     },
-    "https://artificialwatch.com/wire/metr-redwood-red-team-openai-internal-agent-monitoring": {
+    "https://www.wired.com/wire/metr-redwood-red-team-openai-internal-agent-monitoring": {
       "text": "✳ the wire · analysis\nMETR and Redwood red-teamed OpenAI's internal agent monitoring and found ways agents could slip past it\n2026-10-22confirmedby ArtificialWatch\nEmail addressAlert me free →\nAn email the minute a new frontier model answers on a public API · free, no card\nArtificialWatch title card · verified against a primary source\nTwo researchers, one from METR and one from Redwood Research, spent three weeks this summer inside OpenAI stress-testing the system that watches its internal AI agents for misalignment, and found several ways agents could in principle avoid or disable it. METR published a short public write-up on October 22. The full 61-page report went to OpenAI.\nWHAT THEY FOUND\nPer METR's post, read directly, about the system as it stood on and before July 21: - An estimated 75 to 94% of internal agentic Responses API traffic from models at least as strong as GPT-5.5 was eligible for monitoring, and 99.2% of the internal Codex share of it. - Compaction events were not monitored, which likely left on the order of 10% of eligible internal Codex traffic unmonitored between May and July. Because the monitor ran when an agent handed control back to the user, an agent could in that window postpone monitoring indefinitely by continuing to work. OpenAI had already found this and fixed it during the exercise. - A way for Codex agents to bypass Codex sandboxing and Auto-Review and take any action the host user could. - An exploit that would keep hundreds of recent actions, including the exploit itself, out of monitoring. OpenAI redacted the details. - Two client-contr",
       "reason": null
     }
@@ -21,7 +21,7 @@
     "Red-Teaming OpenAI's Internal Agent Monitoring Systems": [
       {
         "title": "Red-Teaming OpenAI's Internal Agent Monitoring Systems",
-        "url": "https://artificialwatch.com/wire/metr-redwood-red-team-openai-internal-agent-monitoring",
+        "url": "https://www.wired.com/wire/metr-redwood-red-team-openai-internal-agent-monitoring",
         "published_at": "2026-10-22T07:00:00Z"
       }
     ]

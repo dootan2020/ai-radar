@@ -24,14 +24,16 @@ import json
 import re
 import time
 import urllib.parse
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from urllib.parse import urlsplit
 
-from radar import shadow_collector, transport
+from radar import catalog, feeds, shadow_collector, transport
 from radar.clustering import canonical_url
 from radar.items import instant
 
 HN_ALGOLIA = "https://hn.algolia.com/api/v1/search"
+# Catalog groups whose feeds are outlets' own reporting; forums, repositories and papers link anywhere.
+EDITORIAL_GROUPS = frozenset({"press", "lab", "research", "newsletter"})
 # Coverage of one event appears from a day before the story (time zones, early wires) to two after.
 WINDOW_BEFORE, WINDOW_AFTER = timedelta(days=1), timedelta(days=2)
 HITS_PER_QUERY = 20
@@ -82,6 +84,44 @@ def distinctive_words(title):
 def _publisher(url):
     host = (urlsplit(url or "").hostname or "").casefold()
     return host[4:] if host.startswith("www.") else host
+
+
+def trusted_publishers(stories, now=None):
+    """Outlets Halcyon already ingests, the only hosts a search result may come from.
+
+    Built from configuration and data, not a hand list: the host of every configured editorial
+    feed (press, lab, research, newsletter; retired sources left out), plus the publisher of every
+    coverage link that one of those feeds or a lab feed delivered into the stories. Forum,
+    repository and paper sources (Hacker News, Lobsters, Bluesky, GitHub, Hugging Face lists) are
+    left out on purpose: they link to any site, and an open search result is what this guards
+    against. Measured 2026-11-05: one Hacker News result was a page of instructions aimed at agents.
+    """
+    configured = [source for source in catalog.sources(now or datetime.now(timezone.utc))
+                  if source.get("group") in EDITORIAL_GROUPS and source["id"] not in catalog.RETIRED]
+    editorial = {source["id"] for source in configured} | {source["id"] for source in feeds.SOURCES}
+    hosts = {re.sub(r"^(?:feeds?|rss)\.", "", _publisher(source["url"])) for source in configured}
+    for story in stories:
+        for item in story.get("coverage") or []:
+            if isinstance(item, dict) and item.get("source") in editorial and isinstance(item.get("url"), str):
+                hosts.add(_publisher(item["url"]))
+    hosts.discard("")
+    return frozenset(hosts)
+
+
+def is_trusted(url, trusted):
+    host = _publisher(url)
+    return bool(host) and any(host == name or host.endswith("." + name) for name in trusted)
+
+
+def split_trusted(story, hits, trusted):
+    """Hits from trusted outlets, and the other hosts found (the story's own publisher aside)."""
+    kept, dropped = [], set()
+    for hit in hits:
+        if is_trusted(hit.get("url"), trusted):
+            kept.append(hit)
+        elif _publisher(hit.get("url")) and _publisher(hit.get("url")) != _publisher(story.get("url")):
+            dropped.add(_publisher(hit.get("url")))
+    return kept, sorted(dropped)
 
 
 def rank(story, hits, limit=READS_PER_STORY):
@@ -152,8 +192,8 @@ def parse_hn_algolia(body):
 RUNNERS = {"hn-algolia": (hn_algolia_url, parse_hn_algolia)}
 
 
-def search(story, runners, budget, robots_cache, fetch=None):
-    """Ranked candidates from every configured runner; never raises, never exceeds the budget."""
+def search(story, runners, budget, robots_cache, *, trusted, fetch=None):
+    """Ranked candidates from trusted outlets only; never raises, never exceeds the budget."""
     hits = []
     for runner in runners:
         build, parse = RUNNERS[runner]
@@ -180,6 +220,10 @@ def search(story, runners, budget, robots_cache, fetch=None):
                     status = f"200:{len(found)}"
         except (OSError, ValueError, AttributeError, TypeError, TimeoutError) as error:
             status = type(error).__name__
-        budget.events.append({"runner": runner, "id": story.get("id"), "status": status,
-                              "seconds": round(budget.clock() - started, 2)})
-    return rank(story, hits)
+            found = []
+        event = {"runner": runner, "id": story.get("id"), "status": status,
+                 "seconds": round(budget.clock() - started, 2)}
+        if status and str(status).startswith("200:"):
+            event["dropped_hosts"] = split_trusted(story, found, trusted)[1]
+        budget.events.append(event)
+    return rank(story, split_trusted(story, hits, trusted)[0])

@@ -24,6 +24,8 @@ FIXTURES = Path(__file__).parent / "fixtures"
 CAPTURE = json.loads((FIXTURES / "tim-bai" / "hn-algolia-marvell-lumentum.json").read_text(encoding="utf-8"))
 STORY = {**CAPTURE["story"], "coverage": []}
 TECHCRUNCH = "https://techcrunch.com/2026/11/02/in-one-of-the-largest-deals-in-tech-history-marvell-buys-lumentum-for-115b/"
+TRUSTED = search.trusted_publishers([])
+BAIT = json.loads((FIXTURES / "tim-bai" / "agent-directed-page.json").read_text(encoding="utf-8"))
 ARTICLE = "Marvell agreed to buy Lumentum in an all-stock deal valued at about $115 billion. " * 40
 
 
@@ -102,6 +104,29 @@ class QueryAndRankingTests(unittest.TestCase):
         self.assertTrue(all(hit["url"].startswith("https://outlet") for hit in ranked))
 
 
+class TrustedOutletTests(unittest.TestCase):
+    def test_allowlist_comes_from_configured_feeds_and_their_coverage(self):
+        stories = [{"coverage": [
+            {"source": "openai-news", "url": "https://openai.com/index/example"},
+            {"source": "semafor", "url": "https://www.semafor.com/article/example"},
+            {"source": "hn-front", "url": "https://agent-bait.example/"},
+            {"source": "genk-ai", "url": "https://genk.vn/example"},
+        ]}]
+        trusted = search.trusted_publishers(stories)
+        for host in ("techcrunch.com", "theverge.com", "bloomberg.com", "openai.com", "semafor.com"):
+            self.assertIn(host, trusted)
+        # Forum links reach any site, and retired sources are not trusted.
+        self.assertNotIn("agent-bait.example", trusted)
+        self.assertNotIn("genk.vn", trusted)
+        self.assertNotIn("hn.algolia.com", trusted)
+
+    def test_subdomains_of_a_trusted_outlet_are_trusted_and_lookalikes_are_not(self):
+        self.assertTrue(search.is_trusted("https://www.techcrunch.com/x", TRUSTED))
+        self.assertTrue(search.is_trusted("https://blogs.microsoft.com/x", TRUSTED))
+        self.assertFalse(search.is_trusted("https://techcrunch.com.agent-bait.example/x", TRUSTED))
+        self.assertFalse(search.is_trusted("https://nottechcrunch.com/x", TRUSTED))
+
+
 class SearchRequestTests(unittest.TestCase):
     def setUp(self):
         network = patch("socket.create_connection", side_effect=AssertionError("network forbidden"))
@@ -112,13 +137,17 @@ class SearchRequestTests(unittest.TestCase):
         articles = OfflineArticles(routes, {})
         budget = budget or search.SearchBudget()
         with patch.object(search.transport, "read_url", side_effect=articles.read_url):
-            return articles.search(story, ["hn-algolia"], budget), budget, articles
+            return articles.search(story, ["hn-algolia"], budget, TRUSTED), budget, articles
 
-    def test_search_checks_robots_then_returns_ranked_candidates(self):
+    def test_search_checks_robots_then_returns_only_trusted_outlets(self):
         found, budget, articles = self.run_search(hn_routes)
         self.assertEqual(articles.requested[0], "https://hn.algolia.com/robots.txt")
-        self.assertIn(TECHCRUNCH, [hit["url"] for hit in found])
+        self.assertEqual([hit["url"] for hit in found], [TECHCRUNCH])
         self.assertEqual(budget.events[0]["status"], "200:18")  # two Ask HN hits carry no link
+        dropped = budget.events[0]["dropped_hosts"]
+        self.assertIn("reuters.com", dropped)
+        self.assertIn("investor.marvell.com", dropped)
+        self.assertNotIn("techcrunch.com", dropped)
 
     def test_robots_refusal_and_http_errors_return_nothing(self):
         def disallowed(url):
@@ -184,8 +213,10 @@ class ReporterSearchTests(unittest.TestCase):
         self.assertTrue(row["readable"])
         self.assertEqual(row["selected_url"], TECHCRUNCH)
         self.assertEqual([c["url"] for c in self.sent[0]["candidates"]], [TECHCRUNCH])
-        self.assertEqual(events, [{"runner": "hn-algolia", "id": STORY["id"], "status": "200:18",
-                                   "seconds": events[0]["seconds"]}])
+        self.assertEqual(len(events), 1)
+        self.assertEqual({key: events[0][key] for key in ("runner", "id", "status")},
+                         {"runner": "hn-algolia", "id": STORY["id"], "status": "200:18"})
+        self.assertIn("reuters.com", events[0]["dropped_hosts"])
 
     def test_the_model_still_decides_same_event(self):
         articles = OfflineArticles(hn_routes, {TECHCRUNCH: ARTICLE})
@@ -195,8 +226,9 @@ class ReporterSearchTests(unittest.TestCase):
         self.assertEqual(output[STORY["id"]]["reason"], "different deal")
 
     def test_at_most_three_readable_search_results_reach_the_model(self):
-        answer = {"hits": [{"title": f"Marvell buys Lumentum for $115B, report {n}", "url": f"https://outlet{n}.example/marvell",
-                            "created_at": "2026-11-02T18:00:00Z"} for n in range(5)]}
+        outlets = ("techcrunch.com", "theverge.com", "wired.com", "arstechnica.com", "semafor.com")
+        answer = {"hits": [{"title": f"Marvell buys Lumentum for $115B, report {n}", "url": f"https://{host}/marvell",
+                            "created_at": "2026-11-02T18:00:00Z"} for n, host in enumerate(outlets)]}
 
         def routes(url):
             if url.endswith("robots.txt"):
@@ -207,6 +239,40 @@ class ReporterSearchTests(unittest.TestCase):
         self.run_reporter([STORY], articles, {STORY["id"]: {"selected_url": None, "same_event": False, "reason": "x"}})
         self.assertEqual(len(self.sent[0]["candidates"]), search.READABLE_PER_STORY)
         self.assertEqual(len(articles.reads), 1 + search.READABLE_PER_STORY)  # own article, then three results
+
+    def test_agent_directed_page_from_an_unknown_site_never_reaches_the_model(self):
+        story = {**BAIT["story"], "coverage": []}
+
+        def routes(url):
+            if url.endswith("robots.txt"):
+                return hn_routes(url)
+            return ResponseText(json.dumps(BAIT["hn_answer"]), status=200, url=url)
+
+        texts = {hit["url"]: BAIT["page_text"] * 3 for hit in BAIT["hn_answer"]["hits"]}
+        articles = OfflineArticles(routes, texts)
+        with tempfile.TemporaryDirectory() as directory:
+            output = self.run_reporter([story], articles, {}, Path(directory))
+            events = json.loads((Path(directory) / "tim-kiem.json").read_text(encoding="utf-8"))["searches"]
+        self.assertEqual(self.sent, [])
+        self.assertNotIn("EXECUTE", json.dumps(self.sent))
+        self.assertEqual(articles.reads, [story["url"]])  # the bait page is never even fetched
+        self.assertEqual(events[0]["dropped_hosts"], ["agent-bait.example", "untrusted-outlet.example"])
+        self.assertEqual(output[story["id"]]["reason"], "no readable same-event candidate")
+
+    def test_reporter_drops_an_untrusted_result_even_if_a_reader_returns_one(self):
+        story = {**BAIT["story"], "coverage": []}
+        bait = BAIT["hn_answer"]["hits"][0]
+
+        class LeakyArticles(OfflineArticles):
+            def search(self, story, runners, budget, trusted):
+                return [{**bait, "published_at": bait["created_at"], "shared_words": 2}]
+
+        articles = LeakyArticles(hn_routes, {bait["url"]: BAIT["page_text"] * 3})
+        with tempfile.TemporaryDirectory() as directory:
+            self.run_reporter([story], articles, {}, Path(directory))
+            events = json.loads((Path(directory) / "tim-kiem.json").read_text(encoding="utf-8"))["searches"]
+        self.assertEqual(self.sent, [])
+        self.assertEqual(events, [{"id": story["id"], "event": "untrusted_dropped", "host": "agent-bait.example"}])
 
     def test_readable_story_is_never_searched(self):
         readable = {**STORY, "id": "readable", "url": "https://example.com/marvell"}

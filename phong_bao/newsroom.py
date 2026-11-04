@@ -37,7 +37,8 @@ from .contracts import (
 )
 from .registry import providers
 from .runner import AdmissionError, CLIRunner, RunnerError
-from .search import READABLE_PER_STORY, RUNNERS as SEARCH_RUNNERS, SearchBudget, rank, search as same_event_search
+from .search import (READABLE_PER_STORY, RUNNERS as SEARCH_RUNNERS, SearchBudget, is_trusted, rank,
+                     search as same_event_search, split_trusted, trusted_publishers)
 
 DESKS = ("intake", "reporter", "editor", "checker", "writer", "chief")
 # The writer ("Người viết") only drafts stories published within this many hours
@@ -195,8 +196,8 @@ class Articles:
             self.results[url] = (text, f"{reason}:{cause}" if reason and cause and cause != reason else reason)
         return self.results[url]
 
-    def search(self, story, runners, budget):
-        return same_event_search(story, runners, budget, self.robots_cache)
+    def search(self, story, runners, budget, trusted):
+        return same_event_search(story, runners, budget, self.robots_cache, trusted=trusted)
 
 
 class FixtureArticles:
@@ -207,8 +208,8 @@ class FixtureArticles:
         item = self.fixture.get("articles", {}).get(url, {})
         return item.get("text", ""), item.get("reason", "unavailable")
 
-    def search(self, story, runners, budget):
-        return rank(story, self.fixture.get("search", {}).get(story["title"], []))
+    def search(self, story, runners, budget, trusted):
+        return rank(story, split_trusted(story, self.fixture.get("search", {}).get(story["title"], []), trusted)[0])
 
 
 def _publisher(url):
@@ -369,6 +370,8 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
         raise RunnerError("no configured local article reader")
     search_runners = list(dict.fromkeys(tool["runner"] for tool in searchers if tool.get("runner") in SEARCH_RUNNERS))
     budget = SearchBudget(deadline)
+    # Search results may only come from outlets Halcyon already ingests.
+    trusted = trusted_publishers(list(stories) + list(corpus)) if search_runners else frozenset()
     payload, source_map = [], {}
     statuses = {}
     for story in stories:
@@ -397,9 +400,13 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
                     break
             # Another outlet's report of the same event; the reporter model still judges it.
             found = 0
-            for item in articles.search(story, search_runners, budget) if search_runners else []:
+            for item in articles.search(story, search_runners, budget, trusted) if search_runners else []:
                 if budget.left() <= 0 or found >= READABLE_PER_STORY:
                     break
+                if not is_trusted(item.get("url"), trusted):
+                    budget.events.append({"id": story["id"], "event": "untrusted_dropped",
+                                          "host": _publisher(item.get("url") or "")})
+                    continue
                 candidate = _candidate(story, item, articles, strict_title=False)
                 if candidate and candidate["url"] not in {c["url"] for c in candidates}:
                     candidates.append(candidate)

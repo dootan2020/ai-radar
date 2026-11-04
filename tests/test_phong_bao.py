@@ -249,7 +249,7 @@ class NewsroomTests(unittest.TestCase):
             self.assertEqual([row["decision"] for row in decisions], ["publish", "hold", "publish"])
             self.assertEqual(decisions[0]["importance_tier"], "standard")
             self.assertEqual(decisions[1]["round"], "editor")
-            self.assertIn("artificialwatch.com", decisions[2]["source_url"])
+            self.assertIn("wired.com", decisions[2]["source_url"])
             editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
             checker = json.loads((job / "checker.json").read_text(encoding="utf-8"))
             first = decisions[0]["id"]
