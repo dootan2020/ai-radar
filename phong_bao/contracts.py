@@ -152,9 +152,11 @@ DESK_CONTRACTS = {
             "summary_sources", "summary_limitations", "key_points_prompt_version", "dropped_points",
             "provider", "boat",
         ],
-        # Audit record of drafted stories: source paragraphs and editor provider when enabled.
+        # Audit record of drafted stories: source paragraphs, editor provider when enabled, and
+        # rewrite {roles, result} when the checks removed whole paragraphs and the writer redid them once.
         # Kept in the cycle folder, never published.
-        "optional_output_fields": ["writer_sources", "writer_source_chars", "editor_provider", "editor_boat"],
+        "optional_output_fields": ["writer_sources", "writer_source_chars", "editor_provider", "editor_boat",
+                                   "rewrite"],
         "skip_conditions": [
             "not publishable with a readable source",
             "published outside the writer window (PHONG_BAO_WRITER_WINDOW_HOURS, default 48)",
