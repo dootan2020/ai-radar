@@ -40,6 +40,9 @@ async function main() {
     async function shot(name, width, height, theme, state = 'cached') {
       await page.setViewport({width, height, deviceScaleFactor: 1, isMobile: width === 375});
       offline = state === 'offline';
+      // Leave the extension page first: an empty new tab reloads itself when the first snapshot arrives, and that
+      // reload would race the navigation below (net::ERR_ABORTED) when the previous shot was the empty state.
+      await page.goto('about:blank');
       if (state === 'empty') await worker.evaluate(() => chrome.storage.local.clear());
       else await worker.evaluate(data => chrome.storage.local.set({radarWindow: data, radarFetchedAt: new Date().toISOString()}), fixture);
       await page.goto(url, {waitUntil: 'domcontentloaded'});
