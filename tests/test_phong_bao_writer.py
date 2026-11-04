@@ -182,31 +182,50 @@ class WriterDeskTests(unittest.TestCase):
         self.assertEqual(row["reason"], "paragraph_roles")
         self.assertEqual(row["dropped_points"][0]["error"], "condition_not_cited")
 
-    def test_a_view_its_speaker_holds_keeps_its_scope_without_a_condition_paragraph(self):
-        # Cycle 2026-11-04 16:31 lost three stories whose significance was an attributed view from a paragraph
-        # the writer had not listed as a condition ("Trang tin The Verge nhận định ...").
-        reply = deepcopy(PROSE)
-        reply["conditions"] = PROSE["conditions"][:1]
-        row, _, _ = self.write(reply)
-        self.assertTrue(row["written"], row)
-        self.assertEqual(row["dropped_points"], [])
-        self.assertTrue(row["reason"].endswith("conditions outlet:p003"), row["reason"])
+    # Two more paragraphs: experts in general, and a named reviewer beside someone else's quotation.
+    WIDER = "\n".join([*EXAMPLE["paragraphs"],
+                       "Industry experts said simulators like CanvasKit are getting cheaper to run.",
+                       "Sydney Von Arx visited the lab in May. \"The renderer is fast,\" a HelioLab engineer said."])
 
-    def test_a_significance_claim_without_grounding_is_still_dropped(self):
+    def test_a_significance_claim_without_a_condition_paragraph_is_dropped_whoever_it_names(self):
         reply = deepcopy(PROSE)
-        reply["conditions"] = PROSE["conditions"][:1]
         reply["paragraphs"][3]["sentences"] += [
             # The writer's own conclusion presented as fact.
-            sentence("Vì vậy CanvasKit sẽ sớm được dùng để huấn luyện robot ngoài đời thật.", "outlet:p004"),
-            # A finding is not anyone's view.
-            sentence("Kết quả cho thấy CanvasKit đã sẵn sàng cho robot ngoài đời thật.", "outlet:p004"),
-            # A view hung on a speaker the cited paragraph never names.
-            sentence("Người đánh giá Sydney Von Arx cho rằng CanvasKit đã sẵn sàng cho robot thật.", "outlet:p002")]
-        row, _, _ = self.write(reply)
+            sentence("Vì vậy CanvasKit sẽ sớm được dùng để huấn luyện robot ngoài đời thật.", "outlet:p002"),
+            # An invented assessment given to the outlet, citing the outlet's own narration.
+            sentence("WorkshopNews nhận định AI sẽ xóa sổ toàn bộ ngành ngân hàng trong tuần tới.", "outlet:p002"),
+            # An invented warning given to experts, citing a paragraph that mentions experts.
+            sentence("Các chuyên gia cảnh báo AI sẽ gây khủng hoảng kinh tế toàn cầu.", "outlet:p005"),
+            # A named reviewer and a quotation in the same paragraph, but the quotation is someone else's.
+            sentence("Người đánh giá Sydney Von Arx cho rằng CanvasKit đã sẵn sàng cho robot thật.", "outlet:p006")]
+        row, _, _ = self.write(reply, text=self.WIDER)
         self.assertTrue(row["written"], row)
         self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]],
-                         [("significance", "condition_not_cited")] * 3)
+                         [("significance", "condition_not_cited")] * 4)
         self.assertNotIn("sẵn sàng", row["key_points"][-1])
+        self.assertNotIn("ngân hàng", row["key_points"][-1])
+
+    def test_a_rewrite_may_add_a_verbatim_condition_and_cite_it(self):
+        reply = deepcopy(PROSE)
+        reply["paragraphs"][3]["sentences"] = [
+            sentence("Giới chuyên gia cho biết các trình mô phỏng như CanvasKit ngày càng rẻ hơn khi vận hành.",
+                     "outlet:p005")]
+        self.assertEqual(self.write(reply, text=self.WIDER)[0]["reason"], "paragraph_roles")
+        rewrite = {"id": SID, "status": "ready",
+                   "conditions": [{"text": "Industry experts said simulators like CanvasKit are getting cheaper to run",
+                                   "ref": "outlet:p005"}],
+                   "paragraphs": [deepcopy(reply["paragraphs"][3])]}
+        row, _, _ = self.write(runner=self.rewrite_runner(reply, rewrite), text=self.WIDER)
+        self.assertTrue(row["written"], row)
+        self.assertEqual(row["rewrite"], {"roles": ["significance"], "result": "written"})
+        self.assertTrue(row["reason"].endswith("conditions outlet:p003,outlet:p004,outlet:p005"), row["reason"])
+        # A condition the rewrite invents is rejected like any other, so the sentence citing it still fails.
+        invented = {**rewrite, "conditions": [{"text": "experts agree CanvasKit is ready for real robots",
+                                               "ref": "outlet:p005"}]}
+        row, _, _ = self.write(runner=self.rewrite_runner(reply, invented), text=self.WIDER)
+        self.assertFalse(row["written"])
+        self.assertEqual(row["rewrite"], {"roles": ["significance"], "result": "paragraph_roles"})
+        self.assertIn("condition_not_in_source", [d["error"] for d in row["dropped_points"]])
 
     def test_a_rewrite_is_told_which_paragraphs_hold_the_drafts_conditions(self):
         reply = deepcopy(PROSE)

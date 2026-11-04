@@ -347,7 +347,7 @@ PURPOSE_EN = re.compile(
 SAYING_VI = (r"cho biết|cho rằng|cho thấy|cho hay|nhận định|nhận xét|nhận thấy|thấy rằng|khẳng định|tuyên bố"
              r"|ước tính|dự báo|cảnh báo|tiết lộ|thừa nhận|lập luận|đánh giá|phát hiện|kết luận|công bố|thông báo"
              r"|giải thích|tin rằng|kỳ vọng|nhấn mạnh|lưu ý|đưa tin|dẫn lời|chia sẻ|xác nhận|bác bỏ|ghi nhận|mô tả"
-             r"|viết rằng|phát biểu|trả lời|đặt câu hỏi|nói")
+             r"|viết rằng|phát biểu|trả lời|nói")
 SAYING = re.compile(r"(?<!\w)(?:" + SAYING_VI + r")(?!\w)", re.I)
 # "Theo X," at the start of a clause, or ", theo X." at its end; "theo dõi" and "theo đó" are not attributions.
 THEO = re.compile(r"(?:^|[,;:(]\s*|(?<!\w)(?:và|nhưng|còn|song)\s+)theo\s+(?!(?:dõi|đuổi|kịp|sau|đó|tỷ lệ|cách|hướng"
@@ -514,67 +514,6 @@ def attribution_error(text, cited):
         if pending is not None and not _outlet_voice(pending, paragraphs):
             return "unattributed_judgement"
     return None
-
-
-# A source's view, as opposed to evidence: "cho thấy" (shows) and "phát hiện" (found) state a finding, which
-# keeps its scope only with its condition.
-VIEW_VI = re.compile(r"(?<!\w)(?:" + "|".join(
-    verb for verb in SAYING_VI.split("|") if verb not in {"cho thấy", "thấy rằng", "phát hiện"}) + r")(?!\w)", re.I)
-# An English sentence that reports someone's words: the attribution verbs above, a few more, or a quotation.
-SPEECH = re.compile(SOURCE_ATTRIBUTION.pattern + r"|\b(?:cautions?|cautioned|asserts?|asserted|adds?|added"
-                    r"|explains?|explained|points? out|pointed out|acknowledg(?:es|ed)|admits?|admitted)\b|[\"“”]",
-                    re.I)
-
-
-def _speaker_lead(text):
-    """Who holds a sentence's claim: X in "Theo X," or the at most six words that open the clause of the first
-    view verb with a speaker before it, after a lead-in of at most LEAD_IN_WORDS words ("Đồng thời,"). A verb
-    word inside a noun ("người đánh giá", the reviewer) has no speaker before it and is passed over. None when
-    the sentence states its claim before naming anyone."""
-    theo = THEO.search(text)
-    if theo:
-        return theo[1]
-    before = 0
-    for clause in re.split(r"[,;:]", text):
-        for verb in VIEW_VI.finditer(clause):
-            lead = " ".join(clause[:verb.start()].split())
-            if len(lead.split()) > 6:
-                return None
-            if (_name_words(lead) or OUTLET_SPEAKER.search(lead)
-                    or any(vietnamese.search(lead) for vietnamese, _ in GROUP_SPEAKERS)):
-                return lead
-        before += len(clause.split())
-        if before > LEAD_IN_WORDS:
-            return None
-    return None
-
-
-def source_speaker_held(text, cited):
-    """Whether a sentence presents its claim as a named source's view that a cited paragraph holds.
-
-    An assessment attributed to whoever made it keeps its scope as that speaker's view: "The Verge nhận định
-    ...", "chuyên gia Nate Elliott cảnh báo ...", "tác giả kết luận ...". cited is a list of (paragraph text,
-    outlet names) pairs. A person or organisation holds the claim when a cited paragraph names them and reports
-    speech ("said", "tells", a quotation). The outlet, or "tác giả"/"bài viết", holds it when a cited paragraph
-    has a sentence in the outlet's own voice, not reported from someone else. An unnamed group (experts,
-    insiders, lawmakers) must be the one every cited paragraph quotes. A finding ("kết quả cho thấy") is not a
-    view. This proves who holds a claim, not that the paragraph says it: numbers, names and purposes are
-    checked separately, and wording stays with the prompt and review.
-    """
-    lead = _speaker_lead(normalized(text))
-    if not lead or not cited:
-        return False
-    names = set(_name_words(lead))
-    outlet_words = set().union(*(_words(publisher) for _, publisher in cited))
-    if (names and names <= outlet_words) or (not names and OUTLET_SPEAKER.search(lead)):
-        return any(not SOURCE_ATTRIBUTION.search(s) for paragraph, _ in cited for s in _sentences(paragraph))
-    if names:
-        keys = _name_keys(lead)
-        return any(keys & _words(paragraph) and SPEECH.search(paragraph) for paragraph, _ in cited)
-    for vietnamese, english in GROUP_SPEAKERS:
-        if vietnamese.search(lead):
-            return all(english.search(paragraph) for paragraph, _ in cited)
-    return False
 
 
 def validate_summary(inputs, output, *, source_entity_evidence=None):
