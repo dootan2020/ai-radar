@@ -20,7 +20,7 @@ import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, hydrateHF, mo
 import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { shown, uniqCoverage } from './titles.js';
-import { headlineShown, hasEditorialSummary } from './editorial-headline.js';
+import { headlineShown, hasEditorialSummary, sourceDescriptionMark } from './editorial-headline.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote, dateStart, nextDay } from './calendar.js';
 import { WORTH, fallbackWorth, hotEligible } from './worth-score.js';
 import { renderStoryHTML } from './story.js';
@@ -881,7 +881,7 @@ function renderCard(st, size = 'std', opts = {}) {
       : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-id="${esc(st.id)}">${titleHTML(st, t.text)}</a></h2>`}
     ${why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${why}</p>` : ''}
     ${opts.why && pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
-    ${sum ? `<p class="card-sum">${esc(sum)}</p>` : ''}
+    ${sum ? `<p class="card-sum">${sourceDescriptionMark()}${esc(sum)}</p>` : ''}
     <div class="card-foot">
       <span class="metric">${metric}</span>
       <div class="card-actions">

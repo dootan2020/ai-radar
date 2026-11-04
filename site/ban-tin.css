@@ -452,6 +452,10 @@ body {
   text-wrap: pretty;
 }
 
+/* "Mô tả từ nguồn": the publisher's own description, not a Halcyon summary (same label as the feed). */
+.bt-story-summary .src-desc { font-weight: var(--weight-semibold); color: var(--color-ink); }
+.bt-story-summary .src-desc::after { content: " ·"; font-weight: var(--weight-regular); color: var(--color-ink-3); }
+
 /* Selection Reasons Panel */
 .bt-reasons-box {
   background-color: var(--color-inset);
