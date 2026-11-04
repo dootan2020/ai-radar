@@ -35,6 +35,7 @@ from .contracts import (
     validate_reporter_reply,
     validate_writer_output,
 )
+from .paywall import HOLD_REASON as PAYWALL_HOLD_REASON, held_for_paywall
 from .registry import providers
 from .runner import AdmissionError, CLIRunner, RunnerError
 from .search import (READABLE_PER_STORY, RUNNERS as SEARCH_RUNNERS, SearchBudget, is_trusted, rank,
@@ -1010,7 +1011,9 @@ def _chief(stories, intake, reporter, editor, checker, now, writer=None):
         gate = (("intake", intake[sid]["reason"]) if not intake[sid]["pass"] else
                 ("editor", editor[sid]["reason"]) if editor[sid].get("reason") in {"editor_model_failure", "editor_invalid"} else
                 ("editor", editor[sid]["reason"]) if not editor[sid]["news"] else
-                ("chief", "unverifiable rumour without independent readable source") if (not reporter[sid]["readable"] and is_unverifiable_rumour(story)) else None)
+                ("chief", "unverifiable rumour without independent readable source") if (not reporter[sid]["readable"] and is_unverifiable_rumour(story)) else
+                ("chief", PAYWALL_HOLD_REASON) if held_for_paywall(story.get("url"), reporter[sid]["readable"],
+                                                                   reporter[sid].get("representative_status")) else None)
         tier = editor[sid].get("importance") if editor[sid].get("importance") in IMPORTANCE_TIERS else "standard"
         original_at = instant(story.get("published_at"))
         proposed_at = instant(editor[sid]["event_at"])

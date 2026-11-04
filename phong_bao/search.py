@@ -8,8 +8,8 @@ account, and is reached through its published JSON API after a robots.txt check:
 - ``hn-algolia``: Hacker News Search API (https://hn.algolia.com/api). Measured 2026-11-05 on the
   74 approved stories of 02-04/11 whose article was unreadable: the old full-title query (every
   word required, no date filter) gave no readable same-event article for any of them; title words
-  as optional words inside the event window gave one for 4 of the 26 Bloomberg articles and 11 of
-  the 67 stories still unreadable.
+  as optional words inside the event window gave one for 11 of the 67 stories still unreadable,
+  and 2 of them (both Bloomberg articles) once results were limited to trusted outlets.
 
 GDELT's DOC 2.0 API (free, open terms) was measured the same day on the 26 Bloomberg articles and
 left out: of 26 requests spaced 45 s apart, 18 answered 429, each took 9-22 s, and the six answers
