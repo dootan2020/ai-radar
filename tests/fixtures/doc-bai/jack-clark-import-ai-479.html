@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4 | Import AI </title>
+<noscript></noscript>
+</head>
+<body class="wp-singular post-template-default single single-post postid-3290 single-format-standard wp-theme-manifest group-blog custom-colors">
+<div id="site-wrapper">
+<h1 class="vcard author" id="site-title"><a href="https://jack-clark.net/" class="fn">Import AI </a></h1>
+<nav id="main-nav">
+<ul>
+<li class="page_item page-item-2"><a href="https://jack-clark.net/about/">About</a></li>
+<li class="page_item page-item-2472"><a href="https://jack-clark.net/thinking/">Work</a></li>
+</ul>
+</nav>
+<div id="site-description">
+</div>
+<div id="core-content">
+<div class="post-3290 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized" id="post-3290">
+<div class="post-content">
+<h3 class="entry-title">Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4</h3>
+<h4 class="vcard author">by <span class="fn">Jack Clark</span></h4>
+<div class="entry-content">
+<p>Welcome to Import AI, a newsletter about AI research. Import AI runs on arXiv, cappuccinos, and feedback from readers. If you’d like to support this, please subscribe.</p>
+<p class="button-wrapper"><a class="button primary" href="https://importai.substack.com/subscribe?"><span>Subscribe now</span></a></p>
+<p><strong>LLMs are very bad at low-latency tasks:<br /></strong><em>…Realtime-Bench says it’ll be a while till AI systems can play games or do online auctions for you…<br /></em>Researchers have built Realtime-Bench, “a suite of carefully curated dynamic tasks where delayed actions directly affect success”. The test helps evaluate how well modern, general-purpose AI systems can perform tasks where decisions need to be made in real-time.<br />   The benchmark consists of 50 interactive game and web tasks, split across 30 web tasks in four categories (travel, e-commerce, service, and security), and 20 game tasks (arcade, puzzle, strategy, and simulation).</p>
+<p><strong>Who did the research:</strong> The benchmark was built by people at the University of Texas at Austin, Ohio State University, University of Illinois at Urbana-Champaign, NVIDIA, Northwestern University, and Steadyworks.</p>
+<p><strong>What it measures: </strong>The test is designed to probe for three qualities: <em>temporal state awareness</em> (”RT-Perceive”), where models can use observations to track changes in the world; <em>adaptive deliberation</em> (”RT-Deliberate”), where models alter their reasoning length and depth according to available time; and <em>time-aware action selection</em> (”RT-Act”) where models need to appropriately time their actions for the situation.<br />  “For example, an agent purchasing a ticket must track the sale status and assess whether observed availability is still current (RT-Perceive), limit further deliberation when the purchase window is closing (RT-Deliberate), and choose between waiting for sales to open and purchasing while tickets remain available (RT-Act).”<br />    They have three different conditions: Wall clock, which is designed to test out performance under real-world latency. Paused clock, which lets you arbitrarily pause things so you can get a sense of baseline capability, and Token clock, which “advances the environment at a fixed rate per generation token. An action is applied at the simulated time reached when it is committed, so consuming more tokens delays execution regardless of actual inference latency”.</p>
+<p><strong>How well do models do?</strong> The authors tested out models from OpenAI (GPT-6-Astra, GPT-5.6 Sol, GPT-Realtime-2, OpenAI Decisions), Anthropic (Claude Fable 5.1, Claude Opus 5), Google (Gemini 3.8 Flash, Gemini 3.1 Flash Live, Gemini 3.8 Live), Jev 1.13, as well as Chinese models from Deepseek (V4.1) and Moonshot AI (Kimi-K3).<br />   GPT-6 Astra (high) got the highest pass rate on the ‘wall clock’ evaluation setting, with 36%.<br />   By comparison, with a paused clock, models with high reasoning get closer to 70% or even 80% success.</p>
+<p><strong>Why this matters:</strong> This benchmark is an effective proxy for where AI agents will break &#8211; the low scores here point to tasks where AI agents cannot yet be expected to perform well.<br />
+<strong> Check out the leaderboard</strong>: <a href="https://realtimeagents.org/">Realtime-Bench (official website)</a>.<br />
+<strong>Read the paper</strong>: <a href="https://arxiv.org/abs/2610.22155">Realtime-Bench: Can Frontier Models Solve Real-time Interactive Problems? (arXiv)</a>.</p>
+<p>***</p>
+<p><strong>The future of spacewar, courtesy of the Defense Intelligence Agency:<br /></strong><em>…Anti-satellite tech, space nukes, and more…<br /></em>Working in AI can be stressful so sometimes to relax myself I like to read about other topics to get a sense for what horrors lie elsewhere. I take the same approach with depression, where if I feel sad I will try and listen to music by people sadder than me in an attempt to cheer myself up (e.g., Radiohead, Neil Young, and in very dark moments Bill Callahan / Smog, etc).<br />    So with that in mind I recently read “Challenges to Security in Space”, by the Defense Intelligence Agency.</p>
+<p><strong>What’s going on in space: </strong>As with conflict on Earth, space is defined by conflict between the US versus China, Russia, Iran, and North Korea, with China the most technologically sophisticated, and Russia the most seemingly gung ho.<br />   “China and Russia are developing a formidable spectrum of offensive capabilities to degrade or destroy space services of other countries, from kinetic destruction to sophisticated jamming and cyber operations,” the DIA writes. “China has more than tripled its space launches per year in the past decade, with 22 launches in 2016 and 93 launches in 2025… Beijing judges space is central to the United States and its allies’ operations. Beijing also considers space an offensive military domain, which has shaped integral components of PLA military planning and campaigns.”</p>
+<p><strong>Spacewar:</strong> The general vibe you get from reading this 100+ page report is there is a huge amount of ugly, frightening stuff happening in space, or being done to things in space by things on the ground. Some example quotes:</p>
+<ul>
+<li>
+<p>“By the late 2020s, China may field space-based directed energy systems and higher-powered ground-based directed energy systems capable of threatening satellites in higher orbits”</p>
+</li>
+<li>
+<p>“China is developing space-based technology, including on-orbit counterspace weapons, capable of holding space systems at risk”</p>
+</li>
+<li>
+<p>“Russia’s Peresvet, a ground-based laser system, is designed to dazzle enemy satellites’ optical systems to mask the movement of Russia’s strategic missile systems”</p>
+</li>
+<li>
+<p>“Russia has launched several satellites over the last few years which conducted test activities on orbit for technologies that could enable attacks on other countries’ satellites and result in temporary or permanent damage”</p>
+</li>
+<li>
+<p>China has a couple of spaceplanes, akin to the US’s hyper-secret X-37B vehicle, and they appear to be getting more sophisticated. In 2023, one of China’s aforementioned vehicles, “released and interacted with an object.”</p>
+</li>
+</ul>
+<p><strong>Satellite-on-satellite fights:</strong> It’s obvious throughout the report that we’re in a world where rival nations have satellites that try to go up and mess with other satellites from other people.</p>
+<ul>
+<li>
+<p>“In 2019, Russia launched satellite Cosmos 2542, which released a second satellite, Cosmos 2543. Cosmos 2543 then began following a U.S. national security satellite and approached it multiple times at a distance close enough to create potentially dangerous operating conditions,” the DIA writes. “Russia is developing kinetic orbital systems to permanently disable, or “kill,” satellites. Moscow’s Burevestnik is a developmental, co-orbital air-launched ASAT weapon for killing spacecraft in LEO”.</p>
+</li>
+<li>
+<p>“In February 2022, Russia launched a satellite called Cosmos, which Moscow claimed at the time was testing the effects of space radiation on electronic systems. This satellite was launched into an unusual and isolated orbit not used by any other spacecraft”.</p>
+</li>
+</ul>
+<p><strong>Space nukes:</strong> Russia is experimenting with nukes in space. “A nuclear detonation in space would create an electromagnetic pulse, which would immediately affect satellites within range and could impact civilian infrastructure,” the DIA writes. “A nuclear detonation in space could be tailored to impact satellites in most orbits—LEO for commercial and reconnaissance satellites, GEO for critical communications, and MEO for navigation and timing satellites”.</p>
+<p><strong>Why this matters &#8211; infrastructure for the next phase of the AI power struggle:</strong> As people spend more resources on building space-based data centers (and eventually, perhaps, lunar-based ones), space will become ever more strategically and commercially valuable and ever more contested. Research like this gives us a sense of the hardware which is already in space and will arrive in the future. Perhaps in some far-off future an AI might seek to take control of such space assets as well.<br /><strong>   Read more:</strong>
+<a href="https://www.dia.mil/Articles/Press-Release/Article/4633953/dia-releases-challenges-to-security-in-space/">DIA Releases Challenges to Security in Space (Defense Intelligence Agency, press release)</a>.<br /><strong>   Read the report</strong>: <a href="https://www.dia.mil/Portals/110/Images/News/Military_Powers_Publications/Challenges_Security_Space_2026.pdf">Challenges to Security in Space (DIA, PDF)</a>.</p>
+<p>***</p>
+<p><strong>Metis: A startup trying to fuse symbolic and neural reasoning:<br /></strong><em>…Towards Vulcan-like machine minds…<br /></em>Metis, a startup that wants to build novel AI architectures oriented around developing machines with better reasoning, has published a research paper laying out its research approach. The high-level summary is simple &#8211; Metis wants to do for modern open-domain problems what DeepMind did for closed-domain problems like board games via its work on AlphaGo and AlphaGo Zero.</p>
+<p><strong>What they want to do:</strong> The key idea here is to add a reasoning core to modern AI architectures which is far more reliable than what we have today. “In modern AI architectures much of the other surrounding machinery that made AlphaGo a successful reasoning system remains either implicit or absent,” they write. “The first missing element is an explicit and persistent epistemic state… the second missing element is a criterion that allows the system to choose reasoning moves that make progress towards the goal.”<br />    This is more of a position paper than a technical paper, so they don’t have a ton of detail here. The main idea is to train a reasoning policy and value function based on real-world data collection, then use this to guide the system to perform reasoning that reduces long-term uncertainty, and have these sit on a basic core of data made up of claims or hypotheses about the world. “Any change to a claim’s evidential status must be licensed by evidence or verified through explicit calculation and approved by an independent judgment system,” they write. “Model-generated content cannot enter the accepted epistemic state merely by being plausible; it must pass warrant assessment, which lowers hallucinations. Sources of evidence can be attached directly to the propositions they support, providing a clear chain of provenance. The reasoning process becomes explicitly auditable.”</p>
+<p><strong>Why this matters &#8211; building reliable substrates that are also deeply inhuman: </strong>Ideas like the architecture described here are fascinating both because of the promise they bring for increasing the reliability of AI systems, but also for how deeply inhuman they are: humans do not reason from some pristine base of facts, rather it’s all a big messy blob of memory and intuitions and some rules (some of which are learned from experience and some of which seem more platonic, like forms of logical reasoning). In this way, contemporary LLMs are more like humans than the system described here.<br />   “While the history of AI can be understood as a contest between symbolic and neural methods, it may be more constructive to view it as a story of two incomplete successes,” Metis writes. “Classical systems made aspects of the reasoning process explicit but depended on representations, operators, heuristics and knowledge supplied largely by hand. Contemporary LLMs learn extraordinary semantic operations and vast bodies of implicit knowledge but leave the organisation, evaluation and accumulation of reasoning implicit.”<br />   The AI system described here would ‘think’ in a way that is very different to how humans think and such a system might show us more about the differences between our own intelligence and that of machines.<br /><strong>   Read more:</strong>
+<a href="https://metisreasoning.ai/whitepaper/the-age-of-reasoning-2026-10.pdf">The Age of Reasoning (Metis, PDF)</a>.</p>
+<p>***</p>
+<p><strong>Google summons Genie 4 for better world modeling:<br /></strong><em>…One of Google’s most interesting projects continues to live!&#8230;<br /></em>Google DeepMind has published details on Genie 4, a new iteration of its Genie world model. The company is rolling out access to Genie 4 currently as a research preview for some trusted testers and will eventually come to Google AI Ultra subscribers. The Genie series of models are fascinating, showing a world where you can take a photograph of anything and turn it into an interactable environment, or one where you can convert a 2D drawing into the stage for a videogame, and more.</p>
+<p><strong>Key features:</strong> Google calls out four features that make Genie 4 different to previous ones. These include:</p>
+<ul>
+<li>
+<p><strong>Real-time modification</strong>: “You can use natural language to modify a simulation in real-time — like changing the weather, moving the camera, or introducing a new person or object — and Gemini will contextually adapt your prompt to match the surrounding scene.”</p>
+</li>
+</ul>
+<ul>
+<li>
+<p><strong>Physics and human action simulation:</strong> “Genie 4 simulates real-world physics scenarios, such as aerodynamics, collisions, and more,” and it also simulates people better. “The most dramatic leap is how Genie 4 simulates people, creating characters that move naturally, respond organically to their environments, and can be interactively steered in real-time.”</p>
+</li>
+</ul>
+<ul>
+<li>
+<p><strong>Sound modeling:</strong> “Genie 4 is our first real-time world model to generate audio natively,” Google writes. It also “introduces interactive dialogue that adapts on the fly.”</p>
+</li>
+</ul>
+<ul>
+<li>
+<p><strong>Simulating complex events</strong>: Google has embedded Gemini 3.8 Flash into Genie 4, so that the fast Flash model “serves as a guiding agent in the loop”, providing continual calibration. “Gemini continuously observes the scene, breaks down goals into a sequence of steps, and reviews incoming frames to track the progress and verify that each step succeeded. As the world shifts or the user intervenes, Gemini adapts its plan in the moment, unlocking worlds with reliable causality, procedural behaviors, and multi-step reasoning.”</p>
+</li>
+</ul>
+<p><strong>Why this matters &#8211; towards a multitude of worlds all dreamed up by machines:</strong> Though the technology is currently quite janky (e.g., robotic voices, a dreamlike sort of inconsistency in the visualized environments, etc), it points towards a world where we can generate infinite forms of entertainment (and potentially data?) via creating and prompting custom worlds.<br /><strong>    Read the announcement post</strong>: <a href="https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/">Genie 4: A new generation of world simulation (Google DeepMind blog)</a>.<br /><strong>   Watch the video</strong>: <a href="https://www.youtube.com/watch?v=sFfPkUJd_Jk&amp;t=5s">Genie 4: A new generation of world simulation (Google DeepMind, YouTube)</a>.</p>
+<p><strong>Tech Tales:</strong></p>
+<p>City Race<br /><em>[Description of a game played in the 2040s]<br /></em>One of the favorite games that children would play after The Uplift was called City Race; in it, they competed against one another to plan, build, and manage cities, expanding across the domain of a novel planet.</p>
+<p>The cities were trapped in time, starting with the technology of whatever era they were in, and the games took place over the course of about a century, allowing some further technology development to occur.</p>
+<p>Each game was played using a slice of the resources from the Dyson Swarm, allowing for a powerfully complex simulation (albeit with local-agent cognitive gating, such that nothing could develop enough sophistication to be deemed a Conscious Entity).</p>
+<p>Hundreds of thousands of simulated minds lived and died, sometimes thriving in cities run by careful and effective owners, and other times trapped in squalor, or growing old in places whose economies were hollowing out; casualties of the successes of others.</p>
+<p>It was deemed good for the children to learn what it meant to be gods, before they became adults. At the closure of every game, the children would need to spend a day living inside each of the cities in the gameworld they had played; those who had built marvelous cities experienced the wonders of their own creation, then walked through the broken towns whose success had been stymied by their own. Those who had struggled lived in their twilight towns, then got to tour the far off places that had doomed them.</p>
+<p><strong>Things that inspired this story:</strong> Player of Games by Iain M Banks; Simcity; game playing; urban design; The Glass Bead Game by Hermann Hesse.</p>
+<p><em>Thanks for reading!</em></p><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a
+			
+				class="share-facebook sd-button share-icon"
+				href="https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/?share=facebook"
+				target="_blank"
+			
+				>
+<span id="sharing-facebook-3290" hidden>Share on Facebook (Opens in new window)</span>
+<span>Facebook</span>
+</a></li><li class="share-twitter"><a
+			
+				class="share-twitter sd-button share-icon"
+				href="https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/?share=twitter"
+				target="_blank"
+			
+				>
+<span id="sharing-twitter-3290" hidden>Share on X (Opens in new window)</span>
+<span>X</span>
+</a></li><li class="share-email"><a
+			
+				class="share-email sd-button share-icon"
+				href="mailto:?subject=%5BShared%20Post%5D%20Import%20AI%20479%3A%20Spacewar%3B%20low-latency%20tasks%20versus%20LLMs%3B%20Genie%204&#038;body=https%3A%2F%2Fjack-clark.net%2F2026%2F11%2F02%2Fimport-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4%2F&#038;share=email"
+				target="_blank"
+			
+			>
+<span id="sharing-email-3290" hidden>Email a link to a friend (Opens in new window)</span>
+<span>Email</span>
+</a></li><li class="share-end"></li></ul></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-10738737-3290-6aeb6202e08e1'><h3 class="sd-title">Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder'><span class='button'><span>Like</span></span>
+<span class="loading"><svg class="jetpack-spinner" width="18" height="18" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" focusable="false"><circle cx="50" cy="50" r="46" fill="none" stroke="#ddd" stroke-width="8"/><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" dur="1.4s" from="0 50 50" to="360 50 50" repeatCount="indefinite"/></path></svg><span class="screen-reader-text">Loading…</span></span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div>
+</div>
+</div>
+<div class="post-meta">
+<div class="post-date"><span>Published:</span>
+<abbr class="published"><a href="https://jack-clark.net/2026/11/02/">November 2, 2026</a></abbr></div>
+<div class="categories"><span>Filed Under:</span>
+<a href="https://jack-clark.net/category/uncategorized/">Uncategorized</a></div>
+</div>
+</div>
+<div id="comments">
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a id="cancel-comment-reply-link" href="/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/#respond">Cancel reply</a></small></h3><form action="https://jack-clark.net/wp-comments-post.php" method="post" id="commentform" class="comment-form"><div class="jetpack-comments"><p class="comment-form-comment"><label for="comment">Comment</label><textarea id="comment" name="comment" rows="4" required></textarea></p><p class="comment-form-author"><label for="author">Name</label><input id="author" name="author" type="text" value="" required /></p><p class="comment-form-email"><label for="email">Email</label><input id="email" name="email" type="email" value="" required /></p><p class="comment-form-url"><label for="url">Website</label><input id="url" name="url" type="text" value="" maxlength="200" /></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Comment" />
+</p></div><noscript><p>Turn on JavaScript to leave a comment.</p></noscript><input type='hidden' name='comment_post_ID' value='3290' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+<p><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="72984076e1" /></p><p class="akismet-fields-container"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="94"/>
+</p></form>
+</div>
+</div>
+<div class="navigation">
+<div class="prev"><a href="https://jack-clark.net/2026/10/26/import-ai-478-math-for-alignment-programbench-and-mirendil-shows-what-rsi-means/">&laquo; Previous Post</a></div>
+<div class="next"></div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div class="footer-content">
+<form method="get" id="searchform" action="https://jack-clark.net/">
+<div id="search">
+<input type="text" value="" name="s" id="s" />
+<input type="submit" id="searchsubmit" value="Search" />
+</div>
+</form>
+<p>
+<a href="https://wordpress.com/?ref=footer_custom_svg"><svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img">
+<title id="title">Create a website or blog at WordPress.com</title>
+<path id="wordpress-logo-simplified-cmyk" stroke="none" fill=“currentColor” fill-rule="evenodd"></path>
+</svg></a>
+</p>
+</div>
+</div>
+<iframe scrolling='no' id='likes-master' name='likes-master'></iframe>
+<div id='likes-other-gravatars' role="dialog" tabindex="-1"><div class="likes-text"><span>%d</span></div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+</body>
+</html>
+

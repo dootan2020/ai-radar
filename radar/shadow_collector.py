@@ -25,7 +25,7 @@ import re
 import sys
 import time
 import urllib.error
-from urllib.parse import quote_plus, urlsplit, urlunsplit
+from urllib.parse import quote_plus, urljoin, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 from urllib.robotparser import RobotFileParser
 import xml.etree.ElementTree as ET
@@ -154,6 +154,49 @@ def default_fetch(url, timeout=FETCH_TIMEOUT):
         return res
 
 
+ROBOTS_REDIRECT_HOPS = 5
+
+
+def _redirect_target(current, status, headers):
+    """Return the http(s) Location of a 3xx answer, or None."""
+    if not (isinstance(status, int) and 300 <= status < 400 and hasattr(headers, "get")):
+        return None
+    location = headers.get("Location") or headers.get("location")
+    target = urljoin(current, location) if location else None
+    return target if target and urlsplit(target).scheme in {"http", "https"} else None
+
+
+def _read_robots(fetch, robots_url):
+    """Fetch robots.txt, following up to five redirects as RFC 9309 section 2.3.1.2 requires.
+
+    The rules found at the end of the chain apply to the origin that was asked about.
+    A chain that still redirects after five hops keeps its 3xx status, which callers treat as
+    unavailable rules. Fetch failures keep the HTTP status or, without one, the exception class.
+    """
+    current, visited = robots_url, {robots_url}
+    for _ in range(ROBOTS_REDIRECT_HOPS + 1):
+        try:
+            resp = fetch(current)
+        except Exception as err:
+            status = getattr(err, "code", getattr(err, "http_status", 0)) or type(err).__name__
+            target = _redirect_target(current, status, getattr(err, "headers", None))
+        else:
+            status = getattr(resp, "status", 200)
+            target = _redirect_target(current, status, getattr(resp, "headers", None))
+            if target is None:
+                resp_str = str(resp) if resp is not None else ""
+                if status == 200 and resp_str:
+                    rp = RobotFileParser()
+                    rp.parse(resp_str.splitlines())
+                    return (200, rp)
+                return (404, None) if status == 404 else (status, None)
+        if target is None or target in visited:
+            return (status, None)
+        visited.add(target)
+        current = target
+    return (status, None)
+
+
 def check_robots(url, fetch_fn=None, user_agent=USER_AGENT, robots_cache=None):
     """Politely check robots.txt for a URL. Caches robots.txt per origin."""
     if robots_cache is None:
@@ -165,21 +208,7 @@ def check_robots(url, fetch_fn=None, user_agent=USER_AGENT, robots_cache=None):
     robots_url = f"{origin}/robots.txt"
 
     if origin not in robots_cache:
-        try:
-            resp = fetch(robots_url)
-            status = getattr(resp, "status", 200)
-            resp_str = str(resp) if resp is not None else ""
-            if status == 200 and resp_str:
-                rp = RobotFileParser()
-                rp.parse(resp_str.splitlines())
-                robots_cache[origin] = (200, rp)
-            elif status == 404:
-                robots_cache[origin] = (404, None)
-            else:
-                robots_cache[origin] = (status, None)
-        except Exception as err:
-            err_status = getattr(err, "code", getattr(err, "http_status", 0)) or "error"
-            robots_cache[origin] = (err_status, None)
+        robots_cache[origin] = _read_robots(fetch, robots_url)
 
     status, rp = robots_cache.get(origin, (200, None))
     if rp is not None:

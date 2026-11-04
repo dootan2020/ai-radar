@@ -1,0 +1,63 @@
+{
+  "proton-ai-manifesto.html": {
+    "url": "https://proton.me/blog/ai-manifesto",
+    "fetched": "2026-11-04",
+    "original_bytes": 317592,
+    "trimmed_bytes": 169984,
+    "parser_chars": 8918
+  },
+  "abc-ai-stock-market-concentration.html": {
+    "url": "https://www.abc.net.au/news/2026-10-19/ai-stock-market-concentration-data/107261078",
+    "fetched": "2026-11-04",
+    "original_bytes": 452292,
+    "trimmed_bytes": 187509,
+    "parser_chars": 9592
+  },
+  "huggingface-transformers-mic.html": {
+    "url": "https://huggingface.co/blog/transformers-mic",
+    "fetched": "2026-11-04",
+    "original_bytes": 178344,
+    "trimmed_bytes": 86211,
+    "parser_chars": 10632
+  },
+  "jack-clark-import-ai-479.html": {
+    "url": "https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/",
+    "fetched": "2026-11-04",
+    "original_bytes": 81531,
+    "trimmed_bytes": 23931,
+    "parser_chars": 15594
+  },
+  "cnn-ai-stocks-bonds-debt.html": {
+    "url": "https://edition.cnn.com/2026/10/30/business/ai-stocks-bonds-debt",
+    "fetched": "2026-11-04",
+    "original_bytes": 5783851,
+    "trimmed_bytes": 317548,
+    "parser_chars": 7126
+  },
+  "businessinsider-paywall.html": {
+    "url": "https://www.businessinsider.com/anthropic-claude-internal-ai-use-exceeds-employee-pay-tokens-2026-11",
+    "fetched": "2026-11-04",
+    "original_bytes": 444492,
+    "trimmed_bytes": 115600,
+    "parser_chars": 251
+  },
+  "scmp-plus-paywall.html": {
+    "url": "https://www.scmp.com/plus/tech/tech-trends/article/3373080/scmp-plus-fireside-chat-about-ai-professor-alan-macfarlane",
+    "fetched": "2026-11-04",
+    "original_bytes": 201339,
+    "trimmed_bytes": 544,
+    "parser_chars": 0
+  },
+  "cnn-edition-robots.txt": {
+    "url": "https://edition.cnn.com/robots.txt",
+    "fetched": "2026-11-04"
+  },
+  "x-robots.txt": {
+    "url": "https://x.com/robots.txt",
+    "fetched": "2026-11-04"
+  },
+  "theregister-robots.txt": {
+    "url": "https://www.theregister.com/robots.txt",
+    "fetched": "2026-11-04"
+  }
+}
