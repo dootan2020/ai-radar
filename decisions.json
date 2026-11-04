@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-04T07:47:11.946965+00:00",
-  "input_generated_at": "2026-11-04T03:11:31Z",
+  "generated_at": "2026-11-04T13:31:23.780857+00:00",
+  "input_generated_at": "2026-11-04T11:30:27Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -24926,6 +24926,655 @@
       "split_coverage_ids": [
         "bdf868fd926dfa1f1de9"
       ]
+    },
+    {
+      "id": "d161872056621626ac64",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-04/democrats-midterm-wins-threaten-to-slow-the-ai-data-center-boom",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f5e5495c47dceae2849c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c23be7450e5c68c42032",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Consumer GPU street pricing report where AI is not the primary subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aroundprague.cz/en/news/us/rtx-5090-street-prices-top-9-000-as-nvidia-gpu-costs-climb",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "69d5e3770cc5886d47de"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "96fe654d833fe36f856a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/uk-news/2026/nov/03/ai-godfather-geoffrey-hinton-better-off-without-ai",
+      "key_points": [
+        "Nhà khoa học Geoffrey Hinton cảnh báo AI có thể kích hoạt sự cố lớn làm tê liệt hệ thống điện hoặc tài chính, và nhận định nhân loại có thể sẽ tốt hơn nếu chưa từng phát triển nó. Ông Hinton cũng chia sẻ với The Guardian rằng bản thân không hoàn toàn bi quan và tin công nghệ này vẫn có tiềm năng mang lại tương lai tốt đẹp.",
+        "Theo ông Geoffrey Hinton, rủi ro gia tăng do lãnh đạo các hãng công nghệ lớn sẵn sàng mạo hiểm liên tục phát hành mô hình mạnh hơn khi chạy đua giành thị phần.",
+        "Ông Geoffrey Hinton dẫn chứng vụ tác tử AI (phần mềm tự hành) tấn công trang Hugging Face như lời cảnh báo trước nguy cơ xảy ra sự cố làm tê liệt lưới điện hoặc tài chính.",
+        "Dù vậy, ông Geoffrey Hinton về tổng thể vẫn hy vọng có thể ngăn ngừa thảm họa nếu nhân loại dồn nỗ lực rất lớn để duy trì quyền kiểm soát."
+      ],
+      "same_event_coverage_ids": [
+        "59d68923848d611a2885",
+        "672e37f2f78f3e39f6f7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Geoffrey Hinton cảnh báo nhân loại có thể sẽ tốt hơn nếu chưa từng phát triển AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.theguardian.com/uk-news/2026/nov/03/ai-godfather-geoffrey-hinton-better-off-without-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "d5eecd06151a76634490",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social forum thread summarizing existing product support documentation without new reporting or announcements.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50363461",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bf8271a58ddc69b1d1d9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "babf518c2a7db1608e01",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-04/google-to-spend-15-billion-in-malaysia-data-center-expansion",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fb7aa2f83a10af977778"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "23d5cc8219ef6b655f2c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.mindstudio.ai/blog/linux-nvidia-rtx-spark-laptop",
+      "key_points": [
+        "Thử nghiệm từ MindStudio cho thấy máy tính Nvidia RTX Spark chạy Linux cài trực tiếp bị khóa xung nhịp đồ họa ở khoảng 780 MHz khi cắm sạc, khiến tốc độ suy luận giảm mạnh so với Windows.",
+        "Theo MindStudio, sự cố bắt nguồn từ việc bảng phân phối điện năng của firmware (phần mềm điều khiển phần cứng) bị mã hóa, khiến chỉ trình điều khiển Windows mới giải mã được còn Linux thì không.",
+        "Trong bài kiểm tra chuẩn hóa (benchmark) với mô hình GPT-OSS-120B khi cắm sạc, tốc độ suy luận đo bằng token mỗi giây trên Windows đạt 65,4 còn Linux chỉ đạt 13,9. Ngược lại, khi máy tính chạy bằng pin, tốc độ của Linux đạt khoảng 61 đến 67 token mỗi giây trên ứng dụng LM Studio, tương đương Windows.",
+        "MindStudio nhận định giới hạn này khiến Linux chưa thể tận dụng tối đa phần cứng khi cắm sạc, và việc khắc phục phụ thuộc vào việc Nvidia cập nhật logic nguồn vào trình điều khiển Linux."
+      ],
+      "same_event_coverage_ids": [
+        "b208a64e307965829d90"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Laptop Nvidia RTX Spark chạy Linux bị giảm mạnh tốc độ suy luận khi cắm điện sạc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.mindstudio.ai/blog/linux-nvidia-rtx-spark-laptop"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "47833a83a9364f7a5a99",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/04/bytedance-reportedly-tightens-access-to-claude-and-codex-even-for-employees-paying-out-of-pocket/",
+      "key_points": [
+        "ByteDance introduced restrictions barring employees from using personally purchased accounts for third-party AI tools such as Claude and Codex to access internal resources.",
+        "The restrictions apply to all L4-level code repositories and Feishu documents across ByteDance, with select use cases in the Seed team exempt."
+      ],
+      "same_event_coverage_ids": [
+        "2bc86fbd1b92eaa89894"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e2089879e69476a7c2b7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-04/meta-starts-debut-euro-bond-sale-after-15-billion-dollar-deal",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "14c39fb98bb302c995b2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6288553b2cb6bee22d28",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/04/apple-intelligence-enters-developer-beta-in-china-with-qwen-integration/",
+      "key_points": [
+        "Vào ngày 4 tháng 11 theo giờ Bắc Kinh, Apple bắt đầu thử nghiệm hệ thống trí tuệ nhân tạo Apple Intelligence tại Trung Quốc qua bản cập nhật iOS 27.3 dành cho nhà phát triển. Các nhà phát triển sở hữu thiết bị iPhone tương thích có thể kích hoạt tính năng sau khi cập nhật, trước đợt phát hành chính thức dự kiến vào tháng 12.",
+        "Phiên bản này của Apple tích hợp mô hình Qwen của Alibaba vào Siri, công cụ Writing Tools và Visual Intelligence để hỗ trợ trả lời chi tiết, tạo văn bản và hiểu hình ảnh. Bản cập nhật cũng bao gồm tính năng tóm tắt email và thông báo, dịch trực tiếp (Live Translation), sửa ảnh Clean Up cùng biểu tượng Genmoji.",
+        "Động thái này mang các công cụ AI cấp hệ thống của Apple tới thị trường Trung Quốc trước thềm phát hành chính thức vào tháng 12. Dù vậy, theo TechNode dẫn nguồn MacRumors, đợt ra mắt hiện không bao gồm trợ lý Siri AI thế hệ mới hay các tính năng từng công bố tại WWDC 2026."
+      ],
+      "same_event_coverage_ids": [
+        "1a6df121095d53808e1b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Apple thử nghiệm Apple Intelligence tại Trung Quốc với mô hình Qwen của Alibaba",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/04/apple-intelligence-enters-developer-beta-in-china-with-qwen-integration/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "6d1773a0fc8106bbe33c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/04/tencent-reportedly-preparing-consumer-ai-search-engine/",
+      "key_points": [
+        "Trang tin Huxiu đưa tin ngày 3 tháng 11 rằng Tencent đang chuẩn bị ra mắt công cụ tìm kiếm trí tuệ nhân tạo cho người tiêu dùng. Theo báo cáo, sản phẩm mới của Tencent sẽ kết hợp câu trả lời từ AI với tra cứu web, có giao diện tối giản và ưu tiên nguồn tin xác thực.",
+        "Một nguồn tin nội bộ Tencent chia sẻ với Huxiu rằng dịch vụ tìm kiếm này dùng chung năng lực cốt lõi với ứng dụng Yuanbao và API (giao diện lập trình) Yuanbao Search của Tencent Cloud. Nhóm phát triển tìm kiếm của Tencent được thành lập giữa năm 2024, tận dụng công nghệ sẵn có từ QQ Browser và Sogou.",
+        "Theo Huxiu, hạ tầng chung này mang lại cho Tencent nền tảng để triển khai đồng bộ trên cả sản phẩm cá nhân lẫn dịch vụ lập trình. Kế hoạch tìm kiếm tiêu dùng diễn ra sau khi Tencent Cloud mở dịch vụ tìm kiếm Yuanbao cho khách hàng doanh nghiệp hai tuần trước."
+      ],
+      "same_event_coverage_ids": [
+        "95e623d00456964edfd6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent chuẩn bị ra mắt công cụ tìm kiếm AI kết hợp tra cứu web cho người dùng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/04/tencent-reportedly-preparing-consumer-ai-search-engine/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "6a1adef579aa421c033d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/04/overseas-markets-reportedly-account-for-half-of-seedance-revenue/",
+      "key_points": [
+        "Theo bài báo ngày 3 tháng 11 từ ấn phẩm Zhinen Yongxian thuộc 36Kr, thị trường quốc tế hiện đóng góp 50% doanh thu của mô hình tạo video Seedance từ ByteDance. Một người thân cận với mảng đám mây Volcano Engine của ByteDance cho biết doanh thu quốc tế của Seedance đã tăng gần năm lần trong sáu tháng qua.",
+        "Báo cáo của 36Kr cũng chỉ ra nhiều tập đoàn internet lớn của Trung Quốc đang là những khách hàng quan trọng của mô hình tạo video Seedance. Theo các nguồn thạo tin, Tencent nằm trong nhóm ba khách hàng hàng đầu tại Trung Quốc theo mức tiêu thụ token (đơn vị dữ liệu xử lý) và doanh thu, còn Bilibili thuộc top mười.",
+        "Trang TechNode đánh giá các số liệu này phản ánh nhu cầu của khối doanh nghiệp đối với công nghệ tạo video từ ByteDance. Dù vậy, báo cáo của 36Kr không tiết lộ con số doanh thu tuyệt đối của dịch vụ Seedance."
+      ],
+      "same_event_coverage_ids": [
+        "f938683cd6b6ba2bf480"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thị trường quốc tế chiếm 50% doanh thu từ mô hình video Seedance của ByteDance",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/04/overseas-markets-reportedly-account-for-half-of-seedance-revenue/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "91c49ae4bb3940a47f39",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.cnbc.com/2026/11/04/ai-stocks-texas-governor-data-centers.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3090115d9e28fb15473d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3480d96310a21831e4df",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/deepblue-technology-huawei-wowoker-agent-work-phone-harmonyos-kirin-sales-agents",
+      "key_points": [
+        "Theo The Paper, DeepBlue Technology và Huawei ra mắt Wowoker, dòng điện thoại doanh nghiệp tích hợp agent (tác tử AI, phần mềm tự hành tác vụ) nhắm riêng vào đội ngũ bán hàng thay vì người tiêu dùng cá nhân.",
+        "DeepBlue giải thích việc chế tạo phần cứng giúp tùy biến sâu và xử lý dữ liệu trên thiết bị, vượt qua các hạn chế về quyền truy cập mà phần mềm đám mây gặp phải trong ứng dụng bên thứ ba.",
+        "Trong thử nghiệm ban đầu tại Greenland OPC, DeepBlue cho biết tác tử đã sàng lọc hơn 200 khách hàng tiềm năng trong nửa ngày, dẫn tới hơn 50 cuộc trao đổi thực chất.",
+        "Thiết bị không bán lẻ mà đi kèm gói dịch vụ ba năm với giá mở bán 4.999 nhân dân tệ."
+      ],
+      "same_event_coverage_ids": [
+        "2fe5f3d2c97ee2d6a853"
+      ],
+      "split_coverage_ids": [
+        "7c9f7e0c8ce43114eccc"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepBlue và Huawei ra mắt điện thoại Wowoker tích hợp tác tử AI cho nhân viên bán hàng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/deepblue-technology-huawei-wowoker-agent-work-phone-harmonyos-kirin-sales-agents"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "81d96412c8fab9948145",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/hongyun-hyperlm-v2-5-native-huawei-ascend-950dt-atlas-850e-superpod-ascend-native-certification",
+      "key_points": [
+        "Theo IT Home, công ty HongYun vừa ra mắt bản cập nhật HyperLM V2.5 và tuyên bố là bên đầu tiên hoàn thành thích ứng sâu với chip Ascend 950DT của Huawei.",
+        "HongYun cho rằng mức độ tương thích hiện nay thường bị định nghĩa quá lỏng lẻo khi chỉ cần mô hình chạy được, do đó nền tảng hướng tới việc giúp doanh nghiệp khai thác trọn vẹn hiệu năng định mức của chip khi triển khai nội bộ.",
+        "Về mặt kỹ thuật, công ty cho biết hệ thống hỗ trợ băng thông UnifiedBus 2.0 đạt 13,4TB/giây để tránh nghẽn mạch dữ liệu ngữ cảnh dài và tối ưu hóa suy luận mxFP4 đạt 14,2 PFLOPS trên một nút.",
+        "Theo HongYun, việc tối ưu này phục vụ nhu cầu suy luận của agent (tác tử AI, phần mềm tự hành tác vụ) nhưng giới hạn trọng tâm ở các hệ thống máy chủ nội bộ thuộc những ngành chịu quản lý nghiêm ngặt."
+      ],
+      "same_event_coverage_ids": [
+        "4c8fc72d121a1897bf28"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "HongYun ra mắt HyperLM V2.5 thích ứng sâu với phần cứng Ascend 950DT của Huawei",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/hongyun-hyperlm-v2-5-native-huawei-ascend-950dt-atlas-850e-superpod-ascend-native-certification"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "32584298cee762f122f7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/netease-yidun-ai-native-security-agent-guard-skill-mcp-supply-chain-wuzhen-wic-2026",
+      "key_points": [
+        "Theo Sina Tech, NetEase Yidun vừa ra mắt hệ thống bảo mật với công cụ Agent Guard nhằm chuyển từ kiểm soát nội dung AI nói sang giám sát hành vi do agent (tác tử AI, phần mềm tự hành tác vụ) thực hiện.",
+        "Đại diện Yidun cho biết việc này nhằm kiểm soát rủi ro khi các tác tử được cấp quyền truy cập hệ thống doanh nghiệp, tránh nguy cơ vượt quyền hoặc rò rỉ dữ liệu.",
+        "Trong thử nghiệm xử lý hơn 2,5 triệu vé khiếu nại mỗi tháng của một khách hàng, Yidun cho biết hệ thống kết hợp người duyệt đã giảm thời gian xử lý từ 35,7 phút xuống 12,3 phút với độ chính xác 99,2%.",
+        "Công ty cho biết giải pháp này giúp phát hiện mã độc ẩn trong chuỗi cung ứng công cụ, đồng thời ngăn chặn các phần mềm AI tự phát nhân viên dùng lén ngoài tầm kiểm soát nội bộ."
+      ],
+      "same_event_coverage_ids": [
+        "0df946ac28bfa232e8e4"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NetEase Yidun ra mắt hệ thống bảo mật kiểm soát hành vi của các tác tử AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/netease-yidun-ai-native-security-agent-guard-skill-mcp-supply-chain-wuzhen-wic-2026"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "9fed2222904cd166fac0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/gpuworks-open-source-40mb-ai-inference-platform-ascend-t-head-ppu-hygon-dcu-nvidia-1003-servers",
+      "key_points": [
+        "GPUWorks open-sourced its lightweight enterprise AI inference platform under the Apache-2.0 license on November 4.",
+        "The platform aggregates accelerators from NVIDIA, AMD, Huawei Ascend, T-Head PPU, and Hygon DCU into a unified managed pool served via an OpenAI-compatible API.",
+        "The installer is just over 40MB, operates without Kubernetes, and includes launch configurations for nearly 400 models."
+      ],
+      "same_event_coverage_ids": [
+        "1300843e4f66bc2834fe"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d6ec7d37f5fa4f5c9883",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://technode.com/2026/11/04/tencent-launches-hy4-with-vision-and-computer-use-capabilities/",
+      "key_points": [
+        "Theo Bloomberg, Tencent tuyên bố mô hình này lần đầu tiên gia nhập nhóm các hệ thống AI trọng số mở hàng đầu của Trung Quốc.",
+        "Tencent cho biết việc phát triển tập trung vào tác vụ văn phòng, phân tích tài chính và phát triển game, với sự hỗ trợ từ các nhóm sản phẩm trên quy trình thực tế.",
+        "Doanh nghiệp cho biết Hy4 có thể đọc biểu đồ, tài liệu, thao tác dòng lệnh và giao diện đồ họa, được huấn luyện chuyên sâu cho các phần mềm như Blender hay CAD.",
+        "Tencent dự kiến sớm công bố trọng số mô hình và lên kế hoạch phát triển bản Hy4 flash chi phí thấp hơn. Trước mắt, hãng chỉ cung cấp hạn ngạch dùng thử miễn phí giới hạn từ ngày 4 đến ngày 15 tháng 11 trên WorkBuddy và CodeBuddy."
+      ],
+      "same_event_coverage_ids": [
+        "39c813e3562b5e4e6560",
+        "acc29c91f619fe67a346",
+        "d349ba70c33af7c56021"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent ra mắt mô hình AI chủ lực Hy4 với năng lực thị giác và điều khiển máy tính",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/04/tencent-launches-hy4-with-vision-and-computer-use-capabilities/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-04/tencent-declares-latest-ai-model-ranks-among-china-s-best"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "ed707b05fb3858207f28",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-04/nvidia-china-clients-to-get-1-of-70-billion-rtx-chips-ordered",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "febc27b818c7249d4f4d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d952ab6d652f8f98f294",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theregister.com/ai-and-ml/2026/11/03/british-fintech-revolut-slashes-ai-coding-costs-10x-by-cutting-out-claude-and-going-self-hosted/5307345",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9bc3f6e48917cf5d80e8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "309d5deba160037dc84a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN founder pitch and game landing page with promotional copy and teaser video links rather than substantive independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://uncracked.city",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1fbf62aba8ce0dfefe35"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "791e9d1f0aae68780ab1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/03/google-will-let-schools-disable-its-ai-tools-but-not-without-sacrificing-search/",
+      "key_points": [
+        "Google thông báo sẽ tắt các công cụ AI đối với học sinh phổ thông vào năm tới, trừ khi nhà trường chủ động bật lại. Theo TechCrunch, quyết định này đồng nghĩa các trường chọn chặn hoàn toàn AI sẽ không thể dùng Google Search vì AI đã tích hợp sâu vào tìm kiếm.",
+        "Google cho biết thay đổi trên diễn ra sau các cuộc tham vấn với trường học, giáo viên, chuyên gia nghiên cứu và nhà hoạch định chính sách. Đại diện mảng giáo dục của Google chia sẻ với tờ The New York Times rằng học sinh sẽ nhận thông báo không khả dụng nếu trường chọn chặn AI.",
+        "TechCrunch nhận định sự việc gây khó cho nhà trường khi giáo viên không muốn học sinh dùng câu trả lời AI để làm bài, nhưng vẫn cần công cụ tìm kiếm để tra cứu tài liệu.",
+        "Theo TechCrunch, điều này nêu bật ảnh hưởng của Google trong giáo dục, buộc các trường muốn dùng công cụ tìm kiếm phải chấp nhận luôn các tính năng AI đi kèm."
+      ],
+      "same_event_coverage_ids": [
+        "2a5b8e5359b3d28c5cb9",
+        "5b2c7ac9e7fe5d337223",
+        "b131b93ff075c5ba0d6b",
+        "c0bdd791d9207f4bfd1c",
+        "c13ca7971cb368b74ea5",
+        "e358dc5eb5e8d0d3a3c0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google cho phép trường học tắt công cụ AI nhưng phải từ bỏ công cụ Tìm kiếm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/03/google-will-let-schools-disable-its-ai-tools-but-not-without-sacrificing-search/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
     }
   ]
 }
