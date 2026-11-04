@@ -154,7 +154,7 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn('class="story-page-container" id="story-root"', document)
         self.assertIn('class="story-article"', document)
         self.assertIn('class="story-headline"', document)
-        self.assertIn('class="story-summary-box"', document)
+        self.assertIn('class="story-summary-box story-source-desc"', document)
         self.assertIn('class="story-origin-gateway"', document)
         self.assertIn('class="skip" href="#story-root"', document)
         self.assertIn('id="i-arrow-left"', document)
@@ -227,9 +227,10 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertNotIn("cũng là cơ sở cho nước", "".join(parser.main_text))
         self.assertNotIn("the basis for the water", "".join(parser.main_text))
 
-        # Honest label: fallback says 'Đoạn trích bài viết', NOT 'Tóm lược bài viết'
-        self.assertIn('aria-label="Đoạn trích bài viết"', document)
-        self.assertIn('<h2 class="story-section-h2">Đoạn trích bài viết</h2>', document)
+        # Honest label: the publisher's description is named as such, NOT 'Tóm lược bài viết'
+        self.assertIn('aria-label="Mô tả từ nguồn"', document)
+        self.assertIn('<h2 class="story-section-h2">Mô tả từ nguồn</h2>', document)
+        self.assertIn('Halcyon chưa tóm tắt tin này.', document)
         self.assertNotIn('<h2 class="story-section-h2">Tóm lược bài viết</h2>', document)
 
         # Gateway description for fallback does not claim AI summarization

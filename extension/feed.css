@@ -258,6 +258,9 @@ ul, ol { padding: 0; list-style: none; }
   font-size: var(--text-micro); font-weight: var(--weight-medium); line-height: 1.5;
 }
 .card-sum { font-size: var(--text-sub); color: var(--color-ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: var(--leading-body); }
+/* "Mô tả từ nguồn" opens a summary that is the publisher's own description, so it is never read as Halcyon's. */
+.card-sum .src-desc { font-weight: var(--weight-semibold); color: var(--color-ink); }
+.card-sum .src-desc::after { content: " ·"; font-weight: var(--weight-regular); color: var(--color-ink-3); }
 
 .card-foot { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-8); padding-top: var(--space-8); min-height: 44px; }
 .metric { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-8); font-size: var(--text-micro); color: var(--color-ink-3); min-width: min-content; max-width: 100%; }
@@ -296,6 +299,8 @@ ul, ol { padding: 0; list-style: none; }
 .card-photo .act { color: var(--card-ink-on-photo-2); }
 .card-photo .act:hover { background: oklch(0.99 0 0 / 0.16); color: var(--card-ink-on-photo); }
 .card-photo .card-sum { color: var(--card-ink-on-photo-2); }
+.card-photo .card-sum .src-desc { color: var(--card-ink-on-photo); }
+.card-photo .card-sum .src-desc::after { color: var(--card-ink-on-photo-2); }
 .card-photo:hover .story-link { color: var(--card-ink-on-photo); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .card-photo.is-read .card-title, .card-photo.is-read .story-link { color: var(--card-ink-on-photo-2); }
 

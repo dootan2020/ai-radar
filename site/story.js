@@ -9,7 +9,7 @@ import { esc, fmt, avatar, faceOfStory, faceOfSource } from './faces.js';
 import { ago } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { uniqCoverage } from './titles.js';
-import { headlineShown, hasEditorialSummary, isDeskProse } from './editorial-headline.js';
+import { headlineShown, hasEditorialSummary, isDeskProse, SOURCE_DESCRIPTION_LABEL } from './editorial-headline.js';
 export { hasEditorialSummary } from './editorial-headline.js';
 import { fallbackWorth } from './worth-score.js';
 
@@ -299,19 +299,14 @@ export function renderFallbackBodyHTML(story, publisherName = '') {
     `;
   }
 
-  const sub = isTranslated
-    ? (publisherName
-        ? `Đoạn trích từ bài viết gốc của ${esc(publisherName)}, bản dịch máy`
-        : 'Đoạn trích từ bài viết gốc, bản dịch máy')
-    : (publisherName
-        ? `Đoạn trích từ bài viết gốc của ${esc(publisherName)}`
-        : 'Đoạn trích từ bài viết gốc');
+  // The machine translation is named once, by the "Translated" chip on the original below; the label says whose text it is.
+  const sub = `Lời giới thiệu ngắn của ${publisherName ? esc(publisherName) : 'bài gốc'}. Halcyon chưa tóm tắt tin này.`;
 
   return `
-    <section class="story-summary-box" aria-label="Đoạn trích bài viết">
+    <section class="story-summary-box story-source-desc" aria-label="${SOURCE_DESCRIPTION_LABEL}">
       <div class="story-section-head">
         <div>
-          <h2 class="story-section-h2">Đoạn trích bài viết</h2>
+          <h2 class="story-section-h2">${SOURCE_DESCRIPTION_LABEL}</h2>
           <p class="story-section-sub">${sub}</p>
         </div>
       </div>

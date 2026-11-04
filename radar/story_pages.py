@@ -21,6 +21,7 @@ from radar.site_config import SITE_BASE_URL
 
 BASE_URL = SITE_BASE_URL
 SITE_NAME = "Halcyon"
+SOURCE_DESCRIPTION_LABEL = "Mô tả từ nguồn"  # same words as site/editorial-headline.js
 BRANCH = "radar-story-pages"
 REF = f"refs/heads/{BRANCH}"
 STORY_ID = re.compile(r"[a-z0-9][a-z0-9_-]*\Z")
@@ -243,11 +244,19 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
         if "missing_primary" in story.get("summary_limitations", []):
             fallback_content += '<p class="story-section-sub">Chưa đọc được nguồn gốc được bài báo dẫn.</p>'
         fallback_content += '</section>'
+    elif fields["summary"]:
+        # The publisher's own description stands in for a summary; say so, as the hydrated page does (site/story.js).
+        owner = esc(fields["publisher"]) if fields["publisher"] else "bài gốc"
+        fallback_content = (
+            f'<section class="story-summary-box story-source-desc" aria-label="{SOURCE_DESCRIPTION_LABEL}">'
+            f'<h2 class="story-section-h2">{SOURCE_DESCRIPTION_LABEL}</h2>'
+            f'<p class="story-section-sub">Lời giới thiệu ngắn của {owner}. Halcyon chưa tóm tắt tin này.</p>'
+            f'<p class="story-summary-text">{esc(fields["summary"])}</p></section>')
     else:
         fallback_content = (
             '<section class="story-summary-box" aria-label="Đoạn trích bài viết">'
             '<h2 class="story-section-h2">Đoạn trích bài viết</h2>'
-            f'<p class="story-summary-text">{esc(fields["summary"] or "Chưa có đoạn trích cho bài viết này. Bạn có thể mở đọc toàn văn bài viết gốc bên dưới.")}</p></section>')
+            '<p class="story-summary-text">Chưa có đoạn trích cho bài viết này. Bạn có thể mở đọc toàn văn bài viết gốc bên dưới.</p></section>')
     gateway_desc = (f'{SITE_NAME} tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.'
                     if fields["key_points"] else
                     'Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.')
