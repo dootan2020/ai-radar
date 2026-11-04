@@ -37,11 +37,16 @@ DEFAULT_BUDGET = 180.0
 MIN_REQUEST_TIMEOUT = 3.0
 ARTICLE_FAILURE_TTL = 24 * 60 * 60
 VALIDATION_FAILURE_CACHE_TAG = "source-wide-entity-evidence-4"
+# Phrases that gate the rest of an article, whatever the length of the text around them.
 PAYWALL_TEXT = re.compile(
     r"\b(?:subscribe to (?:read|continue)|sign in to (?:read|continue)|"
-    r"subscriber[- ]only|members[- ]only|unlock the full article|please subscribe)\b",
+    r"subscriber[- ]only|members[- ]only|unlock the full article)\b",
     re.IGNORECASE,
 )
+# A bare "please subscribe" is ambiguous: below a teaser it is the gate, above a complete free
+# newsletter issue it is a plea. Only a short text, where it may be all the reader gets, is refused.
+PAYWALL_PLEA = re.compile(r"\bplease subscribe\b", re.IGNORECASE)
+PAYWALL_PLEA_MAX_CHARS = 3000
 
 
 class _ArticleTextParser(HTMLParser):
@@ -49,7 +54,8 @@ class _ArticleTextParser(HTMLParser):
 
     BLOCKS = {"p", "li", "h1", "h2", "h3", "h4", "blockquote", "figcaption", "tr", "div"}
 
-    def __init__(self, prefer_body=False, prefer_article=False, article_depth=1, fallback_mode=False):
+    def __init__(self, prefer_body=False, prefer_article=False, article_depth=1, fallback_mode=False,
+                 article_ids=None):
         super().__init__(convert_charrefs=True)
         self.stack, self.parts, self.links, self.buffer = [], [], [], []
         self.anchor = None
@@ -57,6 +63,10 @@ class _ArticleTextParser(HTMLParser):
         self.prefer_article, self.has_article = prefer_article, False
         self.article_depth, self.max_article_depth = article_depth, 0
         self.fallback_mode = fallback_mode
+        # <article> tags are numbered in document order; article_ids, when given, names the
+        # only ones read. deepest_paths holds the numbers of each deepest article's ancestors.
+        self.article_ids, self.article_count = article_ids, 0
+        self.open_articles, self.deepest_paths = [], []
 
     def flush(self):
         value = " ".join("".join(self.buffer).split())
@@ -72,8 +82,9 @@ class _ArticleTextParser(HTMLParser):
         attrs = dict(attrs)
         if tag in self.BLOCKS:
             self.flush()
-        cls_list = attrs.get("class", "").split()
-        classes = attrs.get("class", "") + " " + attrs.get("id", "")
+        # HTML allows attributes without a value (<div class>); HTMLParser reports those as None.
+        cls_list = (attrs.get("class") or "").split()
+        classes = (attrs.get("class") or "") + " " + (attrs.get("id") or "")
         body = ("entry-content" in cls_list
                 or "post-content" in cls_list
                 or "article-body" in cls_list
@@ -87,6 +98,14 @@ class _ArticleTextParser(HTMLParser):
         self.has_article |= tag == "article"
         depth = sum(t == "article" for t, _, _ in self.stack) + (tag == "article")
         self.max_article_depth = max(self.max_article_depth, depth)
+        ordinal = None
+        if tag == "article":
+            ordinal, self.article_count = self.article_count, self.article_count + 1
+            self.open_articles.append(ordinal)
+            if not self.deepest_paths or len(self.open_articles) > len(self.deepest_paths[0]):
+                self.deepest_paths = [list(self.open_articles)]
+            elif len(self.open_articles) == len(self.deepest_paths[0]):
+                self.deepest_paths.append(list(self.open_articles))
         if self.fallback_mode:
             readable = (body
                         or tag in {"article", "main"}
@@ -95,8 +114,10 @@ class _ArticleTextParser(HTMLParser):
                         or attrs.get("id") in {"content", "primary", "main", "entry"}
                         or (tag == "p" and not any(skip for _, _, skip in self.stack)))
         else:
+            chosen_article = (ordinal in self.article_ids if self.article_ids is not None
+                              else depth >= self.article_depth)
             readable = body or (not self.prefer_body and (
-                (tag == "article" and depth >= self.article_depth)
+                (tag == "article" and chosen_article)
                 or (tag == "main" and not self.prefer_article)))
 
         is_article_tag = (tag == "article") or body
@@ -110,7 +131,7 @@ class _ArticleTextParser(HTMLParser):
                    or (not is_article_tag and matched_skip))
         self.stack.append((tag, readable, skipped))
         if tag == "a" and self.readable():
-            self.anchor = [attrs.get("href", ""), ""]
+            self.anchor = [attrs.get("href") or "", ""]
 
     def readable(self):
         return not any(skip for _, _, skip in self.stack) and any(read for _, read, _ in self.stack)
@@ -123,6 +144,9 @@ class _ArticleTextParser(HTMLParser):
             self.anchor = None
         for index in range(len(self.stack) - 1, -1, -1):
             if self.stack[index][0] == tag:
+                closed_articles = sum(t == "article" for t, _, _ in self.stack[index:])
+                if closed_articles:
+                    del self.open_articles[-closed_articles:]
                 del self.stack[index:]
                 break
 
@@ -189,7 +213,24 @@ def parse_article(html, url):
             article_only.flush()
             if len("\n".join(article_only.parts)) >= MIN_ARTICLE_TEXT_CHARS:
                 refined = article_only
-        best = refined
+        # Nested <article> tags make the deepest one a fragment; widen to the articles that
+        # enclose it, one level at a time. Only its ancestors count: a sibling <article> is
+        # another story (related news), never the rest of this one.
+        depth = parser.max_article_depth - 1
+        while parser.has_article and depth >= 1 and len("\n".join(refined.parts)) < MIN_ARTICLE_TEXT_CHARS:
+            enclosing = _ArticleTextParser(prefer_article=True,
+                                           article_ids={path[depth - 1] for path in parser.deepest_paths})
+            enclosing.feed(html)
+            enclosing.flush()
+            # A short ancestor replaces only an empty fragment, so that text still counts below.
+            if len("\n".join(enclosing.parts)) >= MIN_ARTICLE_TEXT_CHARS or (enclosing.parts and not refined.parts):
+                refined = enclosing
+            depth -= 1
+        # Labelled containers that hold no text at all (side-card <article>s, an empty body
+        # wrapper) were the wrong containers, so the first pass over main and articles stands.
+        # A container with some text but too little stays too short: that is how teasers look.
+        if refined.parts or len("\n".join(parser.parts)) < MIN_ARTICLE_TEXT_CHARS:
+            best = refined
     else:
         fallback = _ArticleTextParser(fallback_mode=True)
         fallback.feed(html)
@@ -228,13 +269,23 @@ MAX_REDIRECT_HOPS = 5
 
 
 def fetch_article_result(story: dict, robots_cache: dict | None = None, *, details=None) -> tuple[str, str | None]:
-    """Return article text and a safe skip reason, respecting robots.txt and safe redirects."""
+    """Return article text and a safe skip reason, respecting robots.txt and safe redirects.
+
+    The reason stays one of the fixed values that caches and callers compare against. When it
+    fails, ``details["cause"]`` says what actually happened: the HTTP status, the robots.txt
+    status, or the exception class, so a bot wall is not mistaken for a robots.txt refusal.
+    """
+    def fail(reason, cause=None):
+        if details is not None:
+            details["cause"] = cause or reason
+        return "", reason
+
     url = article_url(story)
     if not url:
-        return "", "no_url"
+        return fail("no_url")
     url_lower = url.lower()
     if not (url_lower.startswith("https://") or url_lower.startswith("http://")):
-        return "", "non_https"
+        return fail("non_https")
 
     def fetch_without_redirects(target):
         return transport.read_url(target, allow_redirects=False)
@@ -249,8 +300,10 @@ def fetch_article_result(story: dict, robots_cache: dict | None = None, *, detai
     while True:
         # Cache parsed rules per origin, but evaluate permission for every path.
         robots = shadow_collector.check_robots(current_url, fetch_fn=fetch_without_redirects, robots_cache=robots_cache)
-        if robots["robots_status"] not in (200, 404) or robots["disallowed"]:
-            return "", "robots"
+        if robots["disallowed"]:
+            return fail("robots", "disallow")
+        if robots["robots_status"] not in (200, 404):
+            return fail("robots", f"unavailable_{robots['robots_status']}")
 
         response = None
         redirect_url = None
@@ -265,8 +318,10 @@ def fetch_article_result(story: dict, robots_cache: dict | None = None, *, detai
                     redirect_url = urljoin(current_url, loc)
             if not redirect_url:
                 if isinstance(status, int) and 300 <= status < 400:
-                    return "", "redirect"
-                return "", "error"
+                    return fail("redirect", f"http_{status}")
+                if isinstance(status, int) and status >= 400:
+                    return fail("error", f"http_{status}")
+                return fail("error", type(error).__name__)
 
         if response is not None:
             status = getattr(response, "status", None)
@@ -281,38 +336,39 @@ def fetch_article_result(story: dict, robots_cache: dict | None = None, *, detai
                 elif resp_url != current_url:
                     redirect_url = resp_url
                 else:
-                    return "", "redirect"
+                    return fail("redirect", f"http_{status}")
             elif resp_url != current_url:
                 redirect_url = resp_url
 
         if redirect_url:
             red_lower = redirect_url.lower()
             if not (red_lower.startswith("https://") or red_lower.startswith("http://")):
-                return "", "non_https"
+                return fail("non_https")
             if redirect_url in visited:
-                return "", "redirect_loop"
+                return fail("redirect_loop")
             hops += 1
             if hops > MAX_REDIRECT_HOPS:
-                return "", "redirect_limit"
+                return fail("redirect_limit")
             visited.add(redirect_url)
             current_url = redirect_url
             continue
 
         # Non-redirect response reached
         if getattr(response, "status", None) != 200:
-            return "", "error"
+            return fail("error", f"http_{getattr(response, 'status', None)}")
         if "html" not in getattr(response, "content_type", "").lower():
-            return "", "non_html"
+            return fail("non_html")
 
         try:
             parser = parse_article(str(response), current_url)
-        except Exception:
-            return "", "error"
+        except Exception as error:
+            return fail("error", f"parse_{type(error).__name__}")
         text = "\n".join(parser.parts)
-        if PAYWALL_TEXT.search(text):
-            return "", "paywall"
+        paywall = PAYWALL_TEXT.search(text) or (len(text) < PAYWALL_PLEA_MAX_CHARS and PAYWALL_PLEA.search(text))
+        if paywall:
+            return fail("paywall", f"phrase '{paywall.group(0).lower()}' at char {paywall.start()}")
         if len(text) < MIN_ARTICLE_TEXT_CHARS:
-            return "", "too_short"
+            return fail("too_short", f"{len(text)} chars")
         if details is not None:
             details["links"] = parser.links
             details["extractor"] = parser.extractor

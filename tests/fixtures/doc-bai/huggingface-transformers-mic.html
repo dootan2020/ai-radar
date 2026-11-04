@@ -1,0 +1,522 @@
+<!doctype html>
+<html class="">
+<head>
+<noscript>
+</noscript>
+<title>Transformers Model Integration Contracts</title>
+</head>
+<body class="flex flex-col min-h-dvh bg-white dark:bg-gray-950 text-black BlogPage">
+<div class="flex min-h-dvh flex-col"><div class="SVELTE_HYDRATER contents"></div>
+<div class="SVELTE_HYDRATER contents"></div>
+<div class="SVELTE_HYDRATER contents"><header class="border-b border-gray-100 "><div class="w-full px-4 container flex h-16 items-center"><div class="flex flex-1 items-center"><a class="mr-5 flex flex-none items-center lg:mr-6" href="/"><img class="w-7 md:mr-2"/>
+<span class="hidden whitespace-nowrap text-lg font-bold md:block">Hugging Face</span></a>
+<div class="relative flex-1 lg:max-w-sm mr-2 sm:mr-4 md:mr-3 xl:mr-6"><input autocomplete="off" value="" class="w-full dark:bg-gray-950 pl-8 form-input-alt h-9 pr-3 focus:shadow-xl " name="" placeholder="Search models, datasets, users..." spellcheck="false" type="text"/>
+<svg class="absolute left-2.5 text-gray-400 top-1/2 transform -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor"></path></svg>
+</div>
+<div class="flex flex-none items-center justify-center p-0.5 place-self-stretch lg:hidden"><button class="relative z-40 flex h-6 w-8 items-center justify-center" type="button"><svg width="1em" height="1em" viewBox="0 0 10 10" class="text-xl" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" preserveAspectRatio="xMidYMid meet" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+</button>
+</div></div>
+<nav class="ml-auto hidden lg:block"><ul class="flex items-center gap-x-1 2xl:gap-x-2"><li class="hover:text-indigo-700"><a class="group flex items-center px-2 py-0.5 dark:text-gray-300 dark:hover:text-gray-100" href="/models"><svg class="mr-1.5 text-gray-400 group-hover:text-indigo-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" opacity=".5" fill="currentColor"></path><path class="uim-primary" fill="currentColor"></path></svg> Models</a></li><li class="hover:text-red-700"><a class="group flex items-center px-2 py-0.5 dark:text-gray-300 dark:hover:text-gray-100" href="/datasets"><svg class="mr-1.5 text-gray-400 group-hover:text-red-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 25 25"><ellipse cx="12.5" cy="5" fill="currentColor" fill-opacity="0.25" rx="7.5" ry="2"></ellipse><path fill="currentColor" opacity="0.5"></path><path fill="currentColor" opacity="0.5"></path><path fill="currentColor"></path></svg> Datasets</a></li><li class="hover:text-blue-700"><a class="group flex items-center px-2 py-0.5 dark:text-gray-300 dark:hover:text-gray-100" href="/spaces"><svg class="mr-1.5 text-gray-400 group-hover:text-blue-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 25 25"><path opacity=".5" fill="currentColor"></path><path opacity=".75" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path><path opacity=".25" fill="currentColor"></path></svg> Spaces</a></li><li class="hover:text-blue-700 max-xl:hidden"><a class="group flex items-center px-2 py-0.5 dark:text-gray-300 dark:hover:text-gray-100" href="/storage"><svg class=" mr-1.5 text-gray-400 group-hover:text-blue-500 svelte-11u2e10" xmlns="http://www.w3.org/2000/svg" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 48 48" fill="none"><path opacity="0.25" fill="currentColor" class="svelte-11u2e10"></path><path opacity="0.5" fill="currentColor" class="svelte-11u2e10"></path><path fill="currentColor" class="svelte-11u2e10"></path></svg> Buckets</a></li><li class="hover:text-yellow-700"><a class="group flex items-center px-2 py-0.5 dark:text-gray-300 dark:hover:text-gray-100" href="/docs"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" class="mr-1.5 text-gray-400 group-hover:text-yellow-500" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path fill="currentColor" class="dark:opacity-40"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="opacity-40 dark:opacity-100"></path><path fill="currentColor" class="dark:opacity-40"></path></svg> Docs</a></li><li class="hover:text-black dark:hover:text-white max-2xl:hidden"><a class="group flex items-center px-2 py-0.5 dark:text-gray-300 dark:hover:text-gray-100" href="/enterprise"><svg class="mr-1.5 text-gray-400 group-hover:text-black dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path></svg> Enterprise</a></li>
+<li><a class="group flex items-center px-2 py-0.5 dark:text-gray-300 dark:hover:text-gray-100" href="/pricing">Pricing</a></li>
+<li><div class="relative group"><button class="px-2 py-0.5 hover:text-gray-500 dark:hover:text-gray-600 flex items-center " type="button"><svg class=" text-gray-500 w-5 group-hover:text-gray-400 dark:text-gray-300 dark:group-hover:text-gray-100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 32 18" preserveAspectRatio="xMidYMid meet"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path></svg>
+</button>
+<nav class="sr-only" inert="">
+<ul><li><div class="bg-linear-to-r col-span-full flex items-center justify-between whitespace-nowrap to-white font-semibold dark:to-gray-925 px-4 py-0.5 text-blue-800 from-blue-50 dark:text-blue-100 dark:from-blue-900">Website</div>
+<ul><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/tasks"><svg class="mr-1.5 flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-tertiary" opacity=".5" fill="currentColor"></path><path class="uim-primary" fill="currentColor"></path></svg>
+<span class="truncate">Tasks</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/chat"><svg width=".8em" height=".8em" class="mr-1.5 flex-none text-gray-400 dark:invert" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#000"></path><path fill="#fff"></path></svg>
+<span class="truncate">HuggingChat</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/collections"><svg class="mr-1.5 flex-none text-gray-400" width="1em" height="1em" focusable="false" role="img" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect x="2" y="2.49902" width="8" height="3.76425" rx="1.16774" fill="currentColor" fill-opacity="0.4"></rect><rect x="6.21875" y="6.7334" width="3.78055" height="3.76425" rx="1.16774" fill="currentColor" fill-opacity="0.7"></rect><rect x="2" y="6.73438" width="3.78055" height="3.76425" rx="1.16774" fill="currentColor" fill-opacity="0.5"></rect></svg>
+<span class="truncate">Collections</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/languages"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" class="mr-1.5 flex-none text-gray-400" preserveAspectRatio="xMidYMid meet" width="1em" height="1em" viewBox="0 0 10 10"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path></svg>
+<span class="truncate">Languages</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/organizations"><svg class="mr-1.5 flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-tertiary" opacity=".5" fill="currentColor"></path><path class="uim-primary" fill="currentColor"></path><path class="uim-tertiary" opacity=".5" fill="currentColor"></path><path class="uim-quaternary" opacity=".25" fill="currentColor"></path></svg>
+<span class="truncate">Organizations</span></a>
+</li></ul></li>
+<li><div class="bg-linear-to-r col-span-full flex items-center justify-between whitespace-nowrap to-white font-semibold dark:to-gray-925 px-4 py-0.5 text-yellow-800 from-yellow-50 dark:text-yellow-100 dark:from-yellow-900">Community</div>
+<ul><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/blog"><svg class="mr-1.5 flex-none text-gray-400 " xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 15 15"><path fill="currentColor"></path></svg>
+<span class="truncate">Blog</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/posts"><svg class="mr-1.5 flex-none text-gray-400 " xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+<span class="truncate">Posts</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/papers"><svg class="mr-1.5 flex-none text-gray-400 " xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet" fill="none"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" fill-opacity=".8"></path><path fill="currentColor" fill-opacity=".2" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+<span class="truncate">Daily Papers</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/hardware"><svg class="mr-1.5 flex-none text-gray-400 " xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" fill-opacity="0.4"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path></svg>
+<span class="truncate">Hardware</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/learn"><svg class="mr-1.5 flex-none text-gray-400 " xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 32 32"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" fill-opacity="0.8"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" fill-opacity="0.5"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" fill-opacity="0.25"></path><path fill="currentColor" fill-opacity="0.25"></path></svg>
+<span class="truncate">Learn</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/join/discord" target="_blank"><svg class="mr-1.5 flex-none text-gray-400 " xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 32 32" preserveAspectRatio="xMidYMid meet"><path fill="currentColor"></path></svg>
+<span class="truncate">Discord</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="https://discuss.huggingface.co/" target="_blank"><svg class="mr-1.5 flex-none text-gray-400 " xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor"></path></svg>
+<span class="truncate">Forum</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="https://github.com/huggingface" target="_blank"><svg class="mr-1.5 flex-none text-gray-400 text-sm" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1.03em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 250"><path fill="currentColor"></path></svg>
+<span class="truncate">GitHub</span></a>
+</li></ul></li>
+<li><div class="bg-linear-to-r col-span-full flex items-center justify-between whitespace-nowrap to-white font-semibold dark:to-gray-925 px-4 py-0.5 text-pink-800 from-pink-50 dark:text-gray-200 dark:from-pink-900">Solutions</div>
+<ul><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/enterprise"><svg class="mr-1.5 flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path></svg>
+<span class="truncate">Team &amp; Enterprise</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/pro"><svg class="mr-1.5 flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 12 12" fill="none"><path fill="url(#pro-sparkle-gradient-s1)"></path><defs><linearGradient id="pro-sparkle-gradient-s1" x1="3.37" y1="3.43" x2="8.14" y2="8.9" gradientUnits="userSpaceOnUse"><stop stop-color="#FF0789"></stop><stop offset=".63" stop-color="#21DE75"></stop><stop offset="1" stop-color="#FF8D00"></stop></linearGradient></defs></svg>
+<span class="truncate">Hugging Face PRO</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/support"><svg class="mr-1.5 flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 25 24"><path opacity=".5" fill="currentColor"></path><path opacity="1" fill="currentColor"></path></svg>
+<span class="truncate">Enterprise Support</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/inference/models"><svg class="mr-1.5 flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="text-gray-400 dark:text-gray-500"></path><path fill="currentColor" class="text-yellow-500"></path></svg>
+<span class="truncate">Inference Providers</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/inference-endpoints" target="_blank"><svg class="mr-1.5 flex-none text-gray-400 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" fill="none"><path fill="currentColor"></path><path fill="currentColor"></path></svg>
+<span class="truncate">Inference Endpoints</span></a>
+</li><li><a class="flex w-full cursor-pointer items-center whitespace-nowrap px-3 py-1.5 text-left leading-tight hover:bg-gray-50 dark:hover:bg-gray-800  hover:underline " href="/storage"><svg class=" mr-1.5 flex-none text-gray-400 svelte-11u2e10" xmlns="http://www.w3.org/2000/svg" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 48 48" fill="none"><path opacity="0.25" fill="currentColor" class="svelte-11u2e10"></path><path opacity="0.5" fill="currentColor" class="svelte-11u2e10"></path><path fill="currentColor" class="svelte-11u2e10"></path></svg>
+<span class="truncate">Storage Buckets</span></a>
+</li></ul></li></ul></nav>
+</div></li>
+<li><hr class="h-5 w-0.5 border-none bg-gray-100 dark:bg-gray-800"/></li>
+<li><a class="block cursor-pointer whitespace-nowrap px-2 py-0.5 hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-100" href="/login">Log In</a></li>
+<li><a class="whitespace-nowrap rounded-full border border-transparent bg-gray-900 px-3 py-1 leading-none text-white hover:border-black hover:bg-white hover:text-black" href="/join">Sign Up</a></li></ul></nav></div></header></div>
+<div class="SVELTE_HYDRATER contents"></div>
+<main class="flex flex-1 flex-col"><div class="container relative flex flex-row justify-center gap-12"><div class="max-w-full pb-16 pt-6 lg:max-w-3xl lg:flex-1 lg:pt-16 2xl:max-w-4xl"><div class="max-lg:overflow-hidden"><div class="blog-content copiable-code-container [&amp;_h1]:mr-0! prose mx-auto mb-8 lg:prose-lg 2xl:prose-lg prose-h1:mb-3 lg:px-8"><div class="SVELTE_HYDRATER contents"><div></div></div>
+<div class="mb-4"><a href="/blog" class="text-gray-500! no-underline! hover:underline! flex items-center font-sans"><svg class="mr-2 h-3 w-3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor"></path></svg> Back to Articles</a></div>
+<h1 class="group relative flex items-center max-md:[&amp;>a]:hidden">
+<a id="transformers-model-integration-contracts" class="block pr-1.5 text-lg md:absolute md:p-1.5 md:opacity-0 md:group-hover:opacity-100 md:right-full" href="#transformers-model-integration-contracts">
+<span class="header-link"><svg class="text-gray-500 hover:text-black dark:hover:text-gray-200 w-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor"></path></svg></span>
+</a>
+<span>
+		Transformers Model Integration Contracts
+	</span>
+</h1>
+<div><div class="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-base">
+<div class="flex items-center gap-x-4"><span class="whitespace-nowrap text-sm sm:text-base">Published
+					November 3, 2026</span>
+</div></div>
+<a target="_blank" class="btn mb-5 font-sans text-sm no-underline" href="https://github.com/huggingface/blog/blob/main/transformers-mic.md">Update on GitHub</a></div>
+<div class="not-prose mb-6 font-sans xl:hidden"><div class="SVELTE_HYDRATER contents"><div class="flex flex-wrap items-center gap-2.5 pt-1  z-1 lg:sticky lg:top-8"><a href="/login?next=%2Fblog%2Ftransformers-mic" class="self-start"><div role="checkbox" class="shadow-alternate group flex h-9 cursor-pointer select-none items-center gap-2 rounded-lg border pl-3 pr-3.5 border-gray-300 bg-white dark:bg-gray-850 "><input disabled="" type="checkbox" class="peer hidden"/>
+<svg class="text-xs text-gray-500 peer-checked:text-gray-500 group-hover:text-orange-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill="currentColor"></path></svg> Upvote <div class="font-semibold text-orange-500">12</div></div>
+</a>
+<ul class="flex items-center text-gray-600  flex-row  text-base   "><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/loleg"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/naolaiduoc"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/tomaarsen"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/Dagdixel"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/AntonV"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/IlyasMoutawwakil"><img class="overflow-hidden rounded-full"/></a></li>
+<li class="text-xs hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 order-last ml-3"><button class="btn bg-linear-to-br -ml-3 translate-x-px rounded-full border-2 border-white px-1.5 py-0.5 text-xs">+6</button></li></ul></div>
+<dialog class="shadow-alternate z-40 mx-4 my-auto h-fit select-text overflow-hidden rounded-xl bg-white max-sm:max-w-[calc(100dvw-2rem)] sm:mx-auto lg:mt-26 md:portrait:mt-30 xl:mt-30 2xl:mt-32 w-full sm:w-96 max-w-[calc(100%-4rem)] text-base not-prose "><div tabindex="-1" class="outline-none focus:ring-0 focus-visible:ring-0"></div></dialog></div></div>
+<div class="not-prose"><div class="SVELTE_HYDRATER contents"><div class="not-prose"><div class="mb-12 grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-x-5 gap-y-3.5"><div class="flex min-w-0 items-center font-sans leading-tight"><span class="inline-block flex-none"><span class="contents"><a href="/tarekziade"><img class="rounded-full! m-0 mr-2.5 size-9 sm:mr-3 sm:size-12"/></a></span>
+</span>
+<div class="min-w-0 text-gray-900 dark:text-gray-300"><a href="/tarekziade"><span class="fullname block truncate font-sans font-semibold max-sm:text-sm">Tarek Ziadé</span>
+<div class="my-0.5 flex items-center gap-x-2"><span class="inline-block min-w-0"><span class="contents"><span class="leading-tight! block truncate font-mono text-xs underline">tarekziade</span></span>
+</span>
+<div role="button" tabindex="0"><div class="relative flex items-center gap-1.5  "><button class="flex items-center justify-center rounded-full border-[1.5px] transition-colors duration-200   w-18 h-[20px] text-xs  border-transparent bg-black text-white dark:bg-white dark:text-black" type="button"><div class="flex h-full flex-1 items-center justify-center rounded-full">Follow</div></button>
+</div></div></div></a>
+<div class="flex items-center pt-0.5"></div></div></div></div>
+</div></div></div>
+<div class="relative overflow-clip [overflow-clip-margin:3rem] [&amp;>:last-child]:mb-0"><div class="SVELTE_HYDRATER contents"><div class="absolute -left-12 bottom-0 top-0 z-30 not-prose hidden lg:block"><div class="sticky top-4 flex"><div class="h-7 pt-[0.175rem]"><span class="peer" tabindex="0"><button class="select-none text-gray-400 hover:cursor-pointer hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-400"><svg width="1em" height="1em" viewBox="0 0 10 10" class="text-lg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" preserveAspectRatio="xMidYMid meet" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd"></path></svg></button></span>
+<div class="invisible w-0 -translate-x-8 -translate-y-6 overflow-hidden rounded-xl border bg-white transition-transform hover:visible hover:w-52 hover:translate-x-0 peer-focus-within:visible peer-focus-within:w-52 peer-focus-within:translate-x-0"><nav class="max-h-[550px] overflow-y-auto p-3"><ul><li class="mb-3 text-sm last:mb-0"><a class="mb-1 block break-words font-semibold text-gray-700 *:break-words hover:underline active:text-gray-900 dark:active:text-gray-200" href="#why-bugs-reach-main">Why bugs reach main</a>
+<ul class="pl-1"></ul></li><li class="mb-3 text-sm last:mb-0"><a class="mb-1 block break-words font-semibold text-gray-700 *:break-words hover:underline active:text-gray-900 dark:active:text-gray-200" href="#introducing-model-integration-contracts">Introducing Model Integration Contracts</a>
+<ul class="pl-1"></ul></li><li class="mb-3 text-sm last:mb-0"><a class="mb-1 block break-words font-semibold text-gray-700 *:break-words hover:underline active:text-gray-900 dark:active:text-gray-200" href="#the-umt5-regression">The UMT5 regression</a>
+<ul class="pl-1"></ul></li><li class="mb-3 text-sm last:mb-0"><a class="mb-1 block break-words font-semibold text-gray-700 *:break-words hover:underline active:text-gray-900 dark:active:text-gray-200" href="#how-models-are-shrunk">How models are shrunk</a>
+<ul class="pl-1"><li><a class="mb-0.5 block break-words hover:underline active:text-gray-700 dark:active:text-gray-300 text-gray-500" href="#building-mics-with-agents">Building MICs with agents</a>
+<ul class="pl-2"></ul></li></ul></li><li class="mb-3 text-sm last:mb-0"><a class="mb-1 block break-words font-semibold text-gray-700 *:break-words hover:underline active:text-gray-900 dark:active:text-gray-200" href="#random-vs-overfit">Random vs Overfit</a>
+<ul class="pl-1"></ul></li><li class="mb-3 text-sm last:mb-0"><a class="mb-1 block break-words font-semibold text-gray-700 *:break-words hover:underline active:text-gray-900 dark:active:text-gray-200" href="#open-questions">Open questions</a>
+<ul class="pl-1"></ul></li></ul></nav></div></div></div></div></div>
+<p>On July 30, 2026, Transformers enabled PyTorch's scaled dot-product attention
+(SDPA) for T5. As a side effect, UMT5's decoder could attend to future tokens.
+During training, it could peek at the answer it was supposed to predict.
+Nothing crashed, and the bug stayed in main for almost two months.</p>
+<p>When we later replayed those commits, a small UMT5 model running on CPU flagged
+it on every one of them. This post is about that model and the tests built
+around it.</p>
+<h2 class="relative group flex items-baseline">
+<a id="why-bugs-reach-main" class="block pr-1.5 text-lg md:absolute md:p-1.5 md:opacity-0 md:group-hover:opacity-100 md:right-full" href="#why-bugs-reach-main">
+<span class="header-link"><svg class="text-gray-500 hover:text-black dark:hover:text-gray-200 w-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor"></path></svg></span>
+</a>
+<span>
+		Why bugs reach main
+	</span>
+</h2>
+<p><a href="https://github.com/huggingface/transformers">Transformers</a> supports over 750
+model types, and its test suite is big: <strong>88,000+ CPU tests on main, plus
+200,000+ GPU tests in a daily run.</strong> Model tests are only part of it: we also
+test pipelines, training, distributed execution, quantization and attention
+kernels.</p>
+<p><a href="/blog/assets/transformers-mic/ci-test-suite.svg"><img></a></p>
+<p>The integration tests load real checkpoints and exercise the model's API on
+real hardware. Running all of that on every PR would mean keeping a lot of GPUs
+busy all day long, which isn't practical. By the time a scheduled run finds a
+regression, it may already be in main.</p>
+<p>Our approach is to shrink the model instead. We build a <strong>fixture</strong>: a small
+model made from the real checkpoint's configuration, with fewer and narrower
+layers but every kind of layer it has, and its tokenizer and processor files
+unchanged. It is published once, then reused. We run "fast integration tests"
+against it on a cheap CPU runner. In our
+<a href="https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#on-cpu">CPU study</a>,
+the experimental UMT5 fixture used 66 MB of weights; the source checkpoint
+is 1,227 MB.</p>
+<p>This also covers very large models: some don't fit on our standard GPU
+runners, but their fixtures run on CPU.</p>
+<p>Model integrators already build tiny test models (Transformers' <code>tiny-random-*</code>
+checkpoints). We wanted a common recipe, and
+checks that go beyond loading the model and running a forward pass. The UMT5
+bug would have passed a forward pass just fine.</p>
+<p>Fixtures won't replace full integration tests, but on PRs they give us a
+chance to catch bugs before they reach main.</p>
+<h2 class="relative group flex items-baseline">
+<a id="introducing-model-integration-contracts" class="block pr-1.5 text-lg md:absolute md:p-1.5 md:opacity-0 md:group-hover:opacity-100 md:right-full" href="#introducing-model-integration-contracts">
+<span class="header-link"><svg class="text-gray-500 hover:text-black dark:hover:text-gray-200 w-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor"></path></svg></span>
+</a>
+<span>
+		Introducing Model Integration Contracts
+	</span>
+</h2>
+<p><a href="https://github.com/huggingface/transformers-mic">transformers-mic</a> is a proposed
+standard for packaging these tests. A Model Integration Contract (MIC) has
+three parts:</p>
+<ul>
+<li>a <strong>fixture</strong>: the shrunk model described above, published once and pinned</li>
+<li>a <strong>usage path</strong>: a runnable Markdown example of something people do with the
+model, such as generating text or running a training step</li>
+<li><strong>baselines</strong>: the outputs recorded when running that example, reviewed by a
+human</li>
+</ul>
+<p>The contract holds if running the usage path on the fixture still produces the
+baselines.</p>
+<p>A contract covers an architecture and a usage path, not a single checkpoint:
+compatible checkpoints can share a fixture, while each keeps its own expected
+results. We publish them in <a href="https://huggingface.co/huggingface-mic">huggingface-mic</a>.</p>
+<p>For example, the SmolLM contract generates from prompts such as "The capital
+of France is" and compares its token IDs with a recorded answer. After loading
+the model and tokenizer, the generation code is, simplified to one prompt:</p>
+<pre><code class="language-python">inputs = tokenizer(<span class="hljs-string">"The capital of France is"</span>, return_tensors=<span class="hljs-string">"pt"</span>)
+outputs = model.generate(**inputs, max_new_tokens=<span class="hljs-number">4</span>, do_sample=<span class="hljs-literal">False</span>)
+new_tokens = outputs[:, inputs[<span class="hljs-string">"input_ids"</span>].shape[<span class="hljs-number">1</span>]:]
+<span class="hljs-built_in">print</span>(tokenizer.batch_decode(new_tokens, skip_special_tokens=<span class="hljs-literal">True</span>))
+</code></pre>
+<p>It also compares training loss, checks that gradients are finite and verifies
+that an optimizer step changes the weights. See the full
+<a href="https://huggingface.co/huggingface-mic/smollm-mic/blob/main/integrations/transformers/usage.md">usage.md</a>.</p>
+<p>A <a href="https://huggingface.co/datasets/huggingface-mic/transformers-fleet">fleet dataset</a>
+on the Hub pins each MIC to a frozen revision, along with the package versions
+used to record its baselines. Each CI run records the fleet revision it
+used, so we can reproduce it later.</p>
+<p>On a PR, we pick MICs based on the files the patch changes.</p>
+<h2 class="relative group flex items-baseline">
+<a id="the-umt5-regression" class="block pr-1.5 text-lg md:absolute md:p-1.5 md:opacity-0 md:group-hover:opacity-100 md:right-full" href="#the-umt5-regression">
+<span class="header-link"><svg class="text-gray-500 hover:text-black dark:hover:text-gray-200 w-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor"></path></svg></span>
+</a>
+<span>
+		The UMT5 regression
+	</span>
+</h2>
+<p>We replayed frozen MICs over five months of Transformers commits. The small
+UMT5 fixture flagged the regression from its introduction on <a href="https://github.com/huggingface/transformers/commit/560f36cc561fa154d224b7a6dfcba1d57a621d7b">July 30, 2026</a>
+until its fix on <a href="https://github.com/huggingface/transformers/commit/d7ba937671edb174fd80d33f9ecbd38f6559dfca">September 28</a>.
+Label log-probabilities differed from the reviewed baseline by 1.22 and training
+loss by about 0.20.</p>
+<p>One detail mattered: the contract used SDPA, the default attention path.
+Running only the eager attention variant missed the bug. A fixture only
+helps if it goes through the same code as the real checkpoint.</p>
+<p>We then reverted the fix on a proof branch in Transformers' CI. The check
+failed with the same differences, and the selected T5 contract's runner step
+took 13.4 seconds on CPU, excluding setup.</p>
+<p>The <a href="https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#shadow-backfill">replay results</a>
+and the <a href="https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#transformers-ci-proof">CI demo</a>
+have the measurements and reproduction details.</p>
+<h2 class="relative group flex items-baseline">
+<a id="how-models-are-shrunk" class="block pr-1.5 text-lg md:absolute md:p-1.5 md:opacity-0 md:group-hover:opacity-100 md:right-full" href="#how-models-are-shrunk">
+<span class="header-link"><svg class="text-gray-500 hover:text-black dark:hover:text-gray-200 w-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor"></path></svg></span>
+</a>
+<span>
+		How models are shrunk
+	</span>
+</h2>
+<p>The first recipe was simple: make the dimensions smaller and keep fewer
+layers. That wasn't enough for mixed architectures. Keeping two layers is no
+use if both use sliding attention and the full-attention layers disappear.</p>
+<p>The recipe now has four steps:</p>
+<ol>
+<li><strong>Shrink the configuration.</strong> Start from a real checkpoint and reduce
+hidden sizes, attention heads and depth. Keep the different layer kinds,
+including mixtures of sliding and full attention or dense and MoE layers.
+Some architectures need extra rules to keep their components compatible.
+We also look at the model's own Transformers tests: the <code>ModelTester</code> in
+<code>test_modeling_&lt;model&gt;.py</code> already picks a small config by hand, so we
+take its sizes for any width our generic rule doesn't know by name.</li>
+<li><strong>Keep preprocessing unchanged.</strong> Preserve vocabulary, special tokens and
+input dimensions, and copy tokenizer and processor files byte for byte.
+Loading and preprocessing are part of what we want to test.</li>
+<li><strong>Build and validate the weights.</strong> Try seeded random weights and change
+the inputs to check that the model responds. If it doesn't, try training
+it on the contract's small batch of examples. Reload the saved model and
+check that outputs, loss and gradients are finite. Reject failed builds.</li>
+<li><strong>Freeze and record.</strong> Save the accepted weights and measure repeatable
+outputs on a known-good Transformers build. Review the baselines for each
+supported platform and precision, then publish a pinned snapshot. CI reuses
+it; it does not rebuild the fixture for every PR.</li>
+</ol>
+<p>We also keep the original weights file format. Otherwise we would skip the
+conversion code that runs when a user loads the real checkpoint.
+<a href="https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#recipe">The full recipe</a>
+has more detail.</p>
+<p>The <a href="https://huggingface-mic-mic-coverage.static.hf.space/shrink/Llama-4-Scout-17B-16E-Instruct-mic.html">Llama 4 Scout shrink report</a>
+shows what this looks like on a big model. 108.6 billion parameters become 44.7
+million. The vision stack goes from 34 layers to 2 and the language stack from
+48 to 4, keeping the checked layer kinds and MoE routing style.</p>
+<h3 class="relative group flex items-baseline">
+<a id="building-mics-with-agents" class="block pr-1.5 text-lg md:absolute md:p-1.5 md:opacity-0 md:group-hover:opacity-100 md:right-full" href="#building-mics-with-agents">
+<span class="header-link"><svg class="text-gray-500 hover:text-black dark:hover:text-gray-200 w-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor"></path></svg></span>
+</a>
+<span>
+		Building MICs with agents
+	</span>
+</h3>
+<p>Our CLI, <code>tmic</code>, creates the contract and builds the fixture. For a new
+model, an LLM drafts the usage code and manifest, and CPU and GPU runs measure
+the candidate baselines. The LLM drafts; it doesn't approve. Changed
+expectations require human review.</p>
+<p>To try it on your machine, use your source checkpoint in place of <code>org/model</code>:</p>
+<pre><code class="language-sh">pip install <span class="hljs-string">"transformers-mic[runtime]"</span>
+<span class="hljs-string">"hf-doc-builder @ git+https://github.com/huggingface/doc-builder.git"</span>
+hf auth login
+tmic run org/model --local-only --fixtures-only --no-history --bill-to <span class="hljs-string">''</span>
+</code></pre>
+<p>It drafts the contract, builds the fixture and records its baselines on your
+machine, asking you to review each step, and stops before uploading anything.
+For a new model, the draft comes from an LLM through Inference Providers, billed
+to your own account (<code>--bill-to ''</code>). The
+<a href="https://github.com/huggingface/transformers-mic/blob/main/docs/cli.md#automated-mode">CLI docs</a>
+cover the individual steps.</p>
+<p>We used agents to build MICs across model families. When they hit an edge
+case, we fixed the recipe itself rather than the one fixture, with help from
+model experts. The published models and remaining gaps are in the
+<a href="https://huggingface.co/spaces/huggingface-mic/mic-coverage">coverage space</a>.</p>
+<h2 class="relative group flex items-baseline">
+<a id="random-vs-overfit" class="block pr-1.5 text-lg md:absolute md:p-1.5 md:opacity-0 md:group-hover:opacity-100 md:right-full" href="#random-vs-overfit">
+<span class="header-link"><svg class="text-gray-500 hover:text-black dark:hover:text-gray-200 w-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor"></path></svg></span>
+</a>
+<span>
+		Random vs Overfit
+	</span>
+</h2>
+<p>With random weights, our Whisper fixture barely responded to changes in
+the audio. It ran, but that made it a poor test of the audio path.</p>
+<p>So we trained it on a few tones paired with words such as "red" and "green".
+We weren't teaching it speech recognition, just making audio changes visible
+in its outputs. In our <a href="https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#choosing-the-weights">weight-initialization study</a>,
+the random Whisper fixtures caught 18 of 24 injected faults. The overfit
+fixtures caught all 24.</p>
+<p>That gives us two ways to build the weights:</p>
+<ul>
+<li>Start with random weights and a fixed seed.</li>
+<li>Overfit on a few examples, like "The capital of France is" =&gt; "Paris".</li>
+</ul>
+<p>The Whisper result doesn't settle which is better. Those were synthetic
+faults, and we haven't found a real regression caught only by the overfit
+version. Both versions missed an assisted-decoding bug that the real Whisper
+checkpoint exposed.</p>
+<p>So we keep random weights when they pass the checks, and overfit when we need
+better sensitivity or readable answers. Training takes seconds, but it is one
+more step that can fail to converge, and one more thing to maintain. The <a href="https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#overfit-versus-random-what-can-we-conclude">comparison</a>
+has the results for both.</p>
+<h2 class="relative group flex items-baseline">
+<a id="open-questions" class="block pr-1.5 text-lg md:absolute md:p-1.5 md:opacity-0 md:group-hover:opacity-100 md:right-full" href="#open-questions">
+<span class="header-link"><svg class="text-gray-500 hover:text-black dark:hover:text-gray-200 w-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor"></path></svg></span>
+</a>
+<span>
+		Open questions
+	</span>
+</h2>
+<p>As of November 1, 2026, the <a href="https://transformers-ci.huggingface.cool/d/mic-failures/mic-failures?from=now-4w&amp;to=now&amp;timezone=browser">MIC job in Transformers CI</a>
+reports failures without blocking PRs. Whether it should block depends on
+things we haven't measured yet:</p>
+<ul>
+<li>How many real bugs does it catch on PRs, not just in replays?</li>
+<li>How often does it send us chasing false alarms?</li>
+<li>How much work do baseline reviews take?</li>
+</ul>
+<p>We also don't know how many bugs, like the Whisper assisted-decoding one, only
+show up with real weights, or whether overfitting catches real bugs that random weights miss.</p>
+<p>Coverage is still partial, across model families and the APIs people use.
+When a regression slips through, we can add the missing usage path and replay
+it on the broken and fixed versions. We'll keep existing tests until their
+coverage is accounted for.</p>
+<p>Finally, we'd like to link original Hub model pages to their MICs, so a
+developer or an agent using a checkpoint could start from an example tested on
+that checkpoint, its environment and its expected outputs.</p>
+<p>Want to help? Pick an uncovered model from the
+<a href="https://huggingface.co/spaces/huggingface-mic/mic-coverage">coverage space</a>, try
+the <a href="https://github.com/huggingface/transformers-mic/blob/main/docs/cli.md#automated-mode">tmic workflow</a>,
+and contribute a usage path or review a generated contract.</p>
+</div></div></div>
+<div class="mx-auto mt-8 max-w-5xl border-t border-gray-200 pt-8 xl:hidden"><div class="flex flex-col gap-6"><div><h2 class="mb-5 flex items-baseline overflow-hidden whitespace-nowrap text-base font-semibold text-gray-800"><svg class="mr-1 inline self-center flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" opacity=".5" fill="currentColor"></path><path class="uim-primary" fill="currentColor"></path></svg> Models mentioned in this article <span class="ml-3 font-normal text-gray-400">1</span></h2>
+<nav class="flex flex-col space-y-3 pb-1.5"><article class="overview-card-wrapper group/repo  "><a class="flex items-center justify-between gap-4 p-2" href="/huggingface-mic/smollm-mic"><div class="w-full truncate"><header class="flex items-center mb-1"><div class="flex-none  mr-1.5"><img class="max-w-none size-3 rounded-xs  flex-none select-none " crossorigin="anonymous"/>
+</div>
+<h4 class="text-md truncate font-mono text-black dark:group-hover/repo:text-yellow-500 group-hover/repo:text-indigo-600 text-sm">huggingface-mic/smollm-mic</h4>
+</header>
+<div class="mr-1 flex items-center overflow-hidden whitespace-nowrap text-sm leading-tight text-gray-400">
+<span class="inline-flex flex-none items-center"><svg class="flex-none mr-1 size-3 -ml-px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill="currentColor"></path></svg> 3.22M</span>
+<span class="px-1.5 text-gray-300 dark:text-gray-500">•</span>
+<span class="truncate">Updated <time datetime="2026-11-01T09:26:19">3 days ago</time></span>
+<span class="px-1.5 text-gray-300 dark:text-gray-500">•</span>
+<svg class="flex-none w-3 text-gray-400 mr-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor"></path></svg> 1.11k   </div></div>
+</a></article></nav></div>
+<div><h2 class="mb-5 flex items-baseline overflow-hidden whitespace-nowrap text-base font-semibold text-gray-800"><svg class="mr-1 inline self-center flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 25 25"><ellipse cx="12.5" cy="5" fill="currentColor" fill-opacity="0.25" rx="7.5" ry="2"></ellipse><path fill="currentColor" opacity="0.5"></path><path fill="currentColor" opacity="0.5"></path><path fill="currentColor"></path></svg> Datasets mentioned in this article <span class="ml-3 font-normal text-gray-400">1</span></h2>
+<nav class="flex flex-col space-y-3 pb-1.5"><article class="overview-card-wrapper group/repo  "><a class="flex items-center justify-between gap-4 p-2" href="/datasets/huggingface-mic/transformers-fleet"><div class="w-full truncate"><header class="flex items-center mb-1"><svg class="mr-1 text-gray-400 group/repo-hover:text-red-500 flex-none -ml-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 25 25"><ellipse cx="12.5" cy="5" fill="currentColor" fill-opacity="0.25" rx="7.5" ry="2"></ellipse><path fill="currentColor" opacity="0.5"></path><path fill="currentColor" opacity="0.5"></path><path fill="currentColor"></path></svg>
+<h4 class="text-md truncate font-mono text-black dark:group-hover/repo:text-yellow-500 group-hover/repo:text-red-600 text-sm">huggingface-mic/transformers-fleet</h4>
+</header>
+<div class="mr-1 flex items-center overflow-hidden whitespace-nowrap text-sm leading-tight text-gray-400"><svg class="flex-none w-3 text-gray-400 mr-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill="currentColor"></path></svg> Viewer <span class="px-1.5 text-gray-300 dark:text-gray-500">•</span>
+<span class="truncate">Updated <time datetime="2026-11-04T09:51:06">about 7 hours ago</time></span>
+<span class="px-1.5 text-gray-300 dark:text-gray-500">•</span>
+<svg class="flex-none text-gray-400 mr-1 w-3" xmlns="http://www.w3.org/2000/svg" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+<span>228</span>
+<span class="px-1.5 text-gray-300 dark:text-gray-500">•</span>
+<svg class="flex-none w-3 text-gray-400 mr-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor"></path></svg> 2.76k   </div></div>
+</a></article></nav></div>
+<div><h2 class="mb-5 flex items-baseline overflow-hidden whitespace-nowrap text-base font-semibold text-gray-800"><svg class="mr-1 inline self-center flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="#FF3270"></path><path fill="#861FFF"></path><path fill="#097EFF"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="black"></path><path fill="#FFD702"></path></svg> Spaces mentioned in this article <span class="ml-3 font-normal text-gray-400">1</span></h2>
+<nav class="flex flex-col space-y-3 pb-1.5"><article class=" relative"><a href="/spaces/huggingface-mic/mic-coverage" class="bg-linear-to-br group relative z-0 mx-auto flex flex-col justify-between overflow-hidden hover:shadow-inner from-blue-600 to-green-600 shadow-sm dark:bg-gray-900 hover:brightness-110 h-15.5 rounded-lg"><div class="bg-linear-to-br pointer-events-none absolute left-0 top-0 h-full w-1/2 from-black/20 via-transparent to-transparent"></div>
+<header class="@container/header bg-linear-to-t flex gap-x-1 overflow-hidden rounded-b-2xl bg-black/[0.04] from-black/[0.04] to-transparent to-10% lg:gap-x-1.5 hidden"><div class="@max-xs/header:gap-x-1 mt-[8.5px] flex h-[16px] shrink grow-0 basis-auto flex-wrap gap-x-1.5 gap-y-5">
+<div class="cursor-pointer select-none overflow-hidden font-mono  border-white/5! inline-flex items-center rounded-sm border bg-white/10 leading-tight text-white opacity-90"><div class="inline-flex items-center whitespace-nowrap px-1 py-0"> Running </div>
+</div>
+</div>
+</header>
+<main class="px-3 flex flex-col justify-center h-full pt-0.5 relative"><div class="text-white text-sm"><div class="flex items-center justify-between gap-3"><div class="mb-0.5 flex items-center justify-start gap-1.5 truncate font-semibold leading-tight"><h4 class="overflow-hidden text-ellipsis whitespace-nowrap text-balance text-left drop-shadow-lg">MIC coverage</h4>
+<div class="leading-none drop-shadow-2xl">📋</div></div>
+</div>
+<p class="line-clamp-1 text-left text-[0.8375rem]/[1.15rem] text-gray-200 opacity-85 drop-shadow-sm">MIC contract coverage of Transformers model types</p></div></main>
+</a></article></nav></div>
+</div></div>
+<div class="mx-auto mt-16 max-w-7xl border-t border-gray-200"><div class="grid gap-4 px-4 py-8 sm:px-6 lg:px-8"><div class="grid grid-cols-1 gap-6"><p class="col-span-1 mb-4 text-center text-lg font-semibold">More Articles from our Blog</p>
+<div class="SVELTE_HYDRATER contents"><a class="shadow-xs group relative flex flex-col overflow-hidden rounded-xl border border-gray-100 transition-shadow hover:shadow-inner dark:border-gray-800 lg:col-span-1 lg:flex-row lg:items-stretch " href="/blog/peft-beyond-lora"><div class="shadow-alternate relative aspect-[2/1] w-full flex-none overflow-hidden lg:aspect-[1.91/1] lg:w-72"><div class="relative flex h-full w-full items-center justify-center overflow-hidden "><div class="absolute inset-0 animate-pulse flex items-center justify-center bg-gray-200 dark:bg-gray-800"></div>
+<img class="group-hover:scale-102 absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-in-out invisible" onload="this.__e=event" onerror="this.__e=event"/></div></div>
+<div class="flex flex-1 flex-col justify-center px-4 py-4 lg:py-2 lg:pl-8 lg:pr-5 "><div class="mb-2 flex items-center justify-between gap-1.5"><div class="flex flex-wrap gap-1.5"><span class="rounded-full bg-gray-100 px-2 py-0.5 font-mono text-xs capitalize text-gray-600 dark:bg-gray-800 dark:text-gray-300">peft</span><span class="rounded-full bg-gray-100 px-2 py-0.5 font-mono text-xs capitalize text-gray-600 dark:bg-gray-800 dark:text-gray-300">lora</span><span class="rounded-full bg-gray-100 px-2 py-0.5 font-mono text-xs capitalize text-gray-600 dark:bg-gray-800 dark:text-gray-300">guide</span></div>
+</div>
+<h2 class="text-pretty font-serif text-xl font-semibold decoration-gray-400 group-hover:underline dark:decoration-gray-600 lg:line-clamp-2 lg:text-2xl">Beyond LoRA: Can you beat the most popular fine-tuning technique?</h2>
+<div class="mt-1.5 flex max-w-full items-center gap-2 font-mono text-xs text-gray-500"><div class="flex-none"><ul class="flex items-center text-gray-600  flex-row  text-base   "><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><img class="overflow-hidden rounded-full"/></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><img class="overflow-hidden rounded-full"/></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><img class="overflow-hidden rounded-full"/></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><img class="overflow-hidden rounded-full"/></li>
+<li class="text-xs hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 order-last ml-3"></li></ul></div>
+<div class="ml-auto flex flex-none items-center gap-3"><div class="flex items-center"><svg class="flex-none w-3 mr-1 text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12" fill="transparent"><path stroke="currentColor"></path></svg> 109</div>
+<span class="whitespace-nowrap">June 18, 2026</span>
+</div></div>
+<span class="invisible absolute whitespace-nowrap font-mono text-sm"></span></div></a></div><div class="SVELTE_HYDRATER contents"><a class="shadow-xs group relative flex flex-col overflow-hidden rounded-xl border border-gray-100 transition-shadow hover:shadow-inner dark:border-gray-800 lg:col-span-1 lg:flex-row lg:items-stretch " href="/blog/ulysses-sp"><div class="shadow-alternate relative aspect-[2/1] w-full flex-none overflow-hidden lg:aspect-[1.91/1] lg:w-72"><div class="relative flex h-full w-full items-center justify-center overflow-hidden "><div class="absolute inset-0 animate-pulse flex items-center justify-center bg-gray-200 dark:bg-gray-800"></div>
+<img class="group-hover:scale-102 absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-in-out invisible" onload="this.__e=event" onerror="this.__e=event"/></div></div>
+<div class="flex flex-1 flex-col justify-center px-4 py-4 lg:py-2 lg:pl-8 lg:pr-5 "><div class="mb-2 flex items-center justify-between gap-1.5"><div class="flex flex-wrap gap-1.5"><span class="rounded-full bg-gray-100 px-2 py-0.5 font-mono text-xs capitalize text-gray-600 dark:bg-gray-800 dark:text-gray-300">guide</span><span class="rounded-full bg-gray-100 px-2 py-0.5 font-mono text-xs capitalize text-gray-600 dark:bg-gray-800 dark:text-gray-300">distributed-training</span><span class="rounded-full bg-gray-100 px-2 py-0.5 font-mono text-xs capitalize text-gray-600 dark:bg-gray-800 dark:text-gray-300">accelerate</span></div>
+</div>
+<h2 class="text-pretty font-serif text-xl font-semibold decoration-gray-400 group-hover:underline dark:decoration-gray-600 lg:line-clamp-2 lg:text-2xl">Ulysses Sequence Parallelism: Training with Million-Token Contexts</h2>
+<div class="mt-1.5 flex max-w-full items-center gap-2 font-mono text-xs text-gray-500"><div class="flex-none"><ul class="flex items-center text-gray-600  flex-row  text-base   "><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><img class="overflow-hidden rounded-full"/></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><img class="overflow-hidden rounded-full"/></li>
+<li class="text-xs hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 order-last ml-3"></li></ul></div>
+<div class="ml-auto flex flex-none items-center gap-3"><div class="flex items-center"><svg class="flex-none w-3 mr-1 text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12" fill="transparent"><path stroke="currentColor"></path></svg> 34</div>
+<span class="whitespace-nowrap">March 9, 2026</span>
+</div></div>
+<span class="invisible absolute whitespace-nowrap font-mono text-sm"></span></div></a></div></div></div></div>
+<div class="mx-auto my-8 max-w-5xl border-t border-gray-200 py-8"><h3 class="mb-6 flex items-center text-lg font-semibold"><svg class="mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="#FF9D00"></path><path fill="#FFD21E"></path></svg>Community</h3>
+<div class="SVELTE_HYDRATER contents"><div class="relative -mx-2.5">
+<div class="relative">
+<div class="relative pt-0 pb-3">
+<dialog class="shadow-alternate z-40 mx-4 my-auto h-fit select-text overflow-hidden rounded-xl bg-white max-sm:max-w-[calc(100dvw-2rem)] sm:mx-auto lg:mt-26 md:portrait:mt-30 xl:mt-30 2xl:mt-32 w-full lg:w-10/12 xl:w-8/12 2xl:w-7/12 max-w-[calc(100%-4rem)] lg:max-w-4xl  "><div tabindex="-1" class="outline-none focus:ring-0 focus-visible:ring-0"></div></dialog>
+<div id="6ae9ef688b63a8264b74fb25" class="relative scroll-mt-4 "><div class="flex h-10 items-center justify-between gap-1 px-3  "><div class="flex max-w-full items-center overflow-hidden"><span class="inline-block "><span class="contents"><div class="mr-2 flex shrink-0 items-center"><div class="flex-none  mr-2"><img class="max-w-none size-3.5 rounded-full  flex-none select-none " crossorigin="anonymous"/>
+</div>
+<a class="whitespace-nowrap font-semibold hover:underline " href="/Shofiulalam">Shofiulalam</a></div></span>
+</span>
+<a href="#6ae9ef688b63a8264b74fb25" class="truncate text-xs text-gray-400 hover:underline sm:text-sm"><time datetime="2026-11-03T14:27:52">1 day ago</time></a>
+</div>
+<div class="flex items-center space-x-2">
+<div class="relative flex items-center"><button class="text-gray-500 focus:text-gray-900 dark:focus:text-gray-400 " type="button"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><circle cx="16" cy="7" r="3" fill="currentColor"></circle><circle cx="16" cy="16" r="3" fill="currentColor"></circle><circle cx="16" cy="25" r="3" fill="currentColor"></circle></svg>
+</button>
+</div></div></div>
+<div class="break-words rounded-b-lg bg-white px-3.5 pb-2.5 pt-1"><div class="prose text-smd/6 sm:text-base/[1.6rem] prose-card hf-sanitized copiable-code-container">
+<p>Good</p>
+</div>
+<div class="mt-3 flex items-center gap-2">
+<div class="peer-first:mt-2! -ml-1 flex gap-y-1.5 space-x-1 overflow-hidden text-sm"><div class="scrollbar-hidden mr-1 flex select-none gap-x-1 overflow-x-auto overflow-y-hidden text-sm"></div>
+<div><div class="flex" slot="anchor"><button class="group z-10 select-none"><span class="group relative flex aspect-square size-7 flex-none select-none items-center justify-center rounded-full border-none text-lg leading-none text-gray-500/80 ring-1 ring-inset ring-gray-100 hover:bg-gray-100 hover:text-gray-700 active:ring-gray-300 dark:ring-gray-800 dark:hover:bg-gray-900 dark:hover:text-yellow-500 dark:active:ring-orange-500/30"><svg class="size-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor"></path></svg></span></button></div>
+</div></div>
+<div class="ml-auto"><button class="shadow-xs ml-1.5 flex items-center gap-1.5 rounded-md border px-2 py-1 text-sm leading-none text-gray-500 hover:bg-gray-50 hover:text-gray-700 hover:shadow-inner dark:border-gray-800 dark:hover:bg-gray-900 dark:hover:text-gray-200"><svg class="text-[.7rem]" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 117 109" preserveAspectRatio="xMidYMid meet"><path fill="currentColor"></path></svg>Reply</button></div></div></div>
+<dialog class="shadow-alternate z-40 mx-4 my-auto h-fit select-text overflow-hidden rounded-xl bg-white max-sm:max-w-[calc(100dvw-2rem)] sm:mx-auto lg:mt-26 md:portrait:mt-30 xl:mt-30 2xl:mt-32 w-full lg:w-7/12 max-w-[calc(100%-4rem)] md:max-w-2xl  "><div tabindex="-1" class="outline-none focus:ring-0 focus-visible:ring-0"></div></dialog>
+<dialog class="shadow-alternate z-40 mx-4 my-auto h-fit select-text overflow-hidden rounded-xl bg-white max-sm:max-w-[calc(100dvw-2rem)] sm:mx-auto lg:mt-26 md:portrait:mt-30 xl:mt-30 2xl:mt-32 w-full lg:w-7/12 max-w-[calc(100%-4rem)] md:max-w-2xl  "><div tabindex="-1" class="outline-none focus:ring-0 focus-visible:ring-0"></div></dialog></div></div></div><div class="relative">
+<div class="relative pt-3! pb-0">
+<dialog class="shadow-alternate z-40 mx-4 my-auto h-fit select-text overflow-hidden rounded-xl bg-white max-sm:max-w-[calc(100dvw-2rem)] sm:mx-auto lg:mt-26 md:portrait:mt-30 xl:mt-30 2xl:mt-32 w-full lg:w-10/12 xl:w-8/12 2xl:w-7/12 max-w-[calc(100%-4rem)] lg:max-w-4xl  "><div tabindex="-1" class="outline-none focus:ring-0 focus-visible:ring-0"></div></dialog>
+<div id="6aea48800a895cd61d27d950" class="relative scroll-mt-4 "><div class="flex h-10 items-center justify-between gap-1 px-3  "><div class="flex max-w-full items-center overflow-hidden"><span class="inline-block "><span class="contents"><div class="mr-2 flex shrink-0 items-center"><div class="flex-none bg-linear-to-br relative rounded-full from-pink-500 via-green-500 to-yellow-500 p-px mr-2"><img class="max-w-none size-3.5 rounded-full  flex-none select-none bg-white p-px" crossorigin="anonymous"/>
+<svg class="absolute -bottom-1 -right-1 text-sm text-white dark:text-gray-950 " xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill="url(#paint0_linear_345_4)" stroke="currentColor" stroke-linejoin="round"></path><defs><linearGradient id="paint0_linear_345_4" x1="3.69298" y1="3.83122" x2="7.69421" y2="8.60076" gradientUnits="userSpaceOnUse"><stop stop-color="#FF0789"></stop><stop offset="0.63" stop-color="#21DE75"></stop><stop offset="1" stop-color="#FF8D00"></stop></linearGradient></defs></svg></div>
+<a class="whitespace-nowrap font-semibold hover:underline " href="/pszemraj">pszemraj</a></div></span>
+</span>
+<a href="#6aea48800a895cd61d27d950" class="truncate text-xs text-gray-400 hover:underline sm:text-sm"><time datetime="2026-11-03T20:48:00">about 20 hours ago</time></a>
+<div class="mx-1 text-xs text-gray-300 lg:mx-2">•</div>
+<a class="flex-1 truncate text-xs text-gray-400 hover:underline sm:text-sm" href="#6aea48800a895cd61d27d950">edited about 20 hours ago</a>
+</div>
+<div class="flex items-center space-x-2">
+<div class="relative flex items-center"><button class="text-gray-500 focus:text-gray-900 dark:focus:text-gray-400 " type="button"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><circle cx="16" cy="7" r="3" fill="currentColor"></circle><circle cx="16" cy="16" r="3" fill="currentColor"></circle><circle cx="16" cy="25" r="3" fill="currentColor"></circle></svg>
+</button>
+</div></div></div>
+<div class="break-words rounded-b-lg bg-white px-3.5 pb-2.5 pt-1"><div class="prose text-smd/6 sm:text-base/[1.6rem] prose-card hf-sanitized copiable-code-container">
+<p>t5/umt5 in a blog post in 2026, never thought I’d see the day 😍</p>
+</div>
+<div class="mt-1 leading-tight"><button class="cursor-pointer text-sm text-blue-500 hover:text-blue-700 dark:hover:text-blue-400">See translation</button>
+</div>
+<div class="mt-3 flex items-center gap-2">
+<div class="peer-first:mt-2! -ml-1 flex gap-y-1.5 space-x-1 overflow-hidden text-sm"><div class="scrollbar-hidden mr-1 flex select-none gap-x-1 overflow-x-auto overflow-y-hidden text-sm"></div>
+<div><div class="flex" slot="anchor"><button class="group z-10 select-none"><span class="group relative flex aspect-square size-7 flex-none select-none items-center justify-center rounded-full border-none text-lg leading-none text-gray-500/80 ring-1 ring-inset ring-gray-100 hover:bg-gray-100 hover:text-gray-700 active:ring-gray-300 dark:ring-gray-800 dark:hover:bg-gray-900 dark:hover:text-yellow-500 dark:active:ring-orange-500/30"><svg class="size-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor"></path></svg></span></button></div>
+</div></div>
+<div class="ml-auto"><button class="shadow-xs ml-1.5 flex items-center gap-1.5 rounded-md border px-2 py-1 text-sm leading-none text-gray-500 hover:bg-gray-50 hover:text-gray-700 hover:shadow-inner dark:border-gray-800 dark:hover:bg-gray-900 dark:hover:text-gray-200"><svg class="text-[.7rem]" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 117 109" preserveAspectRatio="xMidYMid meet"><path fill="currentColor"></path></svg>Reply</button></div></div></div>
+<dialog class="shadow-alternate z-40 mx-4 my-auto h-fit select-text overflow-hidden rounded-xl bg-white max-sm:max-w-[calc(100dvw-2rem)] sm:mx-auto lg:mt-26 md:portrait:mt-30 xl:mt-30 2xl:mt-32 w-full lg:w-7/12 max-w-[calc(100%-4rem)] md:max-w-2xl  "><div tabindex="-1" class="outline-none focus:ring-0 focus-visible:ring-0"></div></dialog>
+<dialog class="shadow-alternate z-40 mx-4 my-auto h-fit select-text overflow-hidden rounded-xl bg-white max-sm:max-w-[calc(100dvw-2rem)] sm:mx-auto lg:mt-26 md:portrait:mt-30 xl:mt-30 2xl:mt-32 w-full lg:w-7/12 max-w-[calc(100%-4rem)] md:max-w-2xl  "><div tabindex="-1" class="outline-none focus:ring-0 focus-visible:ring-0"></div></dialog></div></div></div></div>
+<div class="overflow-hidden rounded-lg border border-gray-200 bg-white  rounded-b-none border-b-0 mt-6"><div class="flex h-9 items-center justify-between border-b border-gray-200 from-gray-100-to-white bg-linear-to-t"><div class="flex h-full items-stretch"><button class="tab active" type="button">Edit</button><button class="tab " type="button">Preview</button></div>
+<div></div></div>
+<div class="p-4"><div class="contents"><div class="contents"><textarea class="form-input peer relative !mt-0 min-h-[140px] w-full resize-none overflow-y-hidden !rounded-b-none !border-b-0 px-3 pb-3 pt-2 " name="comment" placeholder="Start discussing this article" required="" disabled="" rows="3"></textarea>
+</div>
+</div>
+<label class="border-t-1 flex cursor-default items-center rounded-b-lg border-b-2 border-l-2 border-r-2 border-gray-200 px-2.5 py-1.5 text-sm text-gray-400 shadow-sm cursor-not-allowed opacity-70"><svg class="flex-none text-sm mr-1.5 text-gray-300 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" opacity=".5"></path><path fill="currentColor"></path><path fill="currentColor" opacity=".25"></path></svg>
+<div class="hidden md:block">Upload images, audio, and videos by dragging in the text input, pasting, or <span class="cursor-pointer underline">clicking here</span>.</div>
+<div class="md:hidden">Tap or paste here to upload images</div>
+<input accept="image/png, image/jpeg, image/gif, image/webp, video/mp4, video/quicktime, video/webm, audio/mpeg, audio/wav" class="hidden" disabled="" type="file" multiple=""/></label></div>
+</div>
+<div class="mb-4 overflow-hidden rounded-lg rounded-t-none border border-gray-200"><div class="p-4">
+<div class="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0"><button class="btn btn-large" disabled=""><svg class="text-gray-400 mr-1.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-primary" fill="currentColor"></path><path class="uim-tertiary" opacity=".5" fill="currentColor"></path><path class="uim-primary" fill="currentColor"></path></svg> Comment</button>
+<p class="py-1 text-gray-800"><span class="ml-2 mr-3.5 hidden text-gray-400 md:inline">·</span>
+<a class="underline hover:text-gray-500" href="/join?next=%2Fblog%2Ftransformers-mic">Sign up</a> or <a class="underline hover:text-gray-500" href="/login?next=%2Fblog%2Ftransformers-mic">log in</a> to comment</p></div></div></div></div></div></div>
+<div class="w-88 sticky top-0 max-h-screen flex-none self-start overflow-y-auto pt-28 [scrollbar-width:none] max-xl:hidden [&amp;::-webkit-scrollbar]:hidden"><div class="SVELTE_HYDRATER contents"><div class="flex flex-wrap items-center gap-2.5 pt-1 lg:max-w-60 lg:flex-col lg:items-start! lg:static! z-1 lg:sticky lg:top-8"><a href="/login?next=%2Fblog%2Ftransformers-mic" class="self-start"><div role="checkbox" class="shadow-alternate group flex h-9 cursor-pointer select-none items-center gap-2 rounded-lg border pl-3 pr-3.5 border-gray-300 bg-white dark:bg-gray-850 "><input disabled="" type="checkbox" class="peer hidden"/>
+<svg class="text-xs text-gray-500 peer-checked:text-gray-500 group-hover:text-orange-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill="currentColor"></path></svg> Upvote <div class="font-semibold text-orange-500">12</div></div>
+</a>
+<ul class="flex items-center text-gray-600  flex-row  text-base   "><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/loleg"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/naolaiduoc"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/tomaarsen"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/Dagdixel"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/AntonV"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/IlyasMoutawwakil"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/RaushanTurganbay"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/kashif"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/Shofiulalam"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/bennibyx"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/pszemraj"><img class="overflow-hidden rounded-full"/></a></li><li class="  -mr-2 h-5 w-5 md:h-6 md:w-6   bg-linear-to-br block flex-none rounded-full border-2 border-white from-gray-300 to-gray-100 dark:border-gray-900 dark:from-gray-600 dark:to-gray-800 "><a href="/darrowoflykos"><img class="overflow-hidden rounded-full"/></a></li>
+<li class="text-xs hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 order-last ml-3"></li></ul></div>
+<dialog class="shadow-alternate z-40 mx-4 my-auto h-fit select-text overflow-hidden rounded-xl bg-white max-sm:max-w-[calc(100dvw-2rem)] sm:mx-auto lg:mt-26 md:portrait:mt-30 xl:mt-30 2xl:mt-32 w-full sm:w-96 max-w-[calc(100%-4rem)] text-base  "><div tabindex="-1" class="outline-none focus:ring-0 focus-visible:ring-0"></div></dialog></div>
+<div class="mt-8 flex flex-col gap-6 pb-8"><div><h2 class="mb-5 flex items-baseline overflow-hidden whitespace-nowrap text-base font-semibold text-gray-800"><svg class="mr-1 inline self-center flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path class="uim-quaternary" opacity=".25" fill="currentColor"></path><path class="uim-tertiary" opacity=".5" fill="currentColor"></path><path class="uim-primary" fill="currentColor"></path></svg> Models mentioned in this article <span class="ml-3 font-normal text-gray-400">1</span></h2>
+<nav class="flex flex-col space-y-3 pb-1.5"><article class="overview-card-wrapper group/repo  "><a class="flex items-center justify-between gap-4 p-2" href="/huggingface-mic/smollm-mic"><div class="w-full truncate"><header class="flex items-center mb-1"><div class="flex-none  mr-1.5"><img class="max-w-none size-3 rounded-xs  flex-none select-none " crossorigin="anonymous"/>
+</div>
+<h4 class="text-md truncate font-mono text-black dark:group-hover/repo:text-yellow-500 group-hover/repo:text-indigo-600 text-sm">huggingface-mic/smollm-mic</h4>
+</header>
+<div class="mr-1 flex items-center overflow-hidden whitespace-nowrap text-sm leading-tight text-gray-400">
+<span class="inline-flex flex-none items-center"><svg class="flex-none mr-1 size-3 -ml-px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill="currentColor"></path></svg> 3.22M</span>
+<span class="px-1.5 text-gray-300 dark:text-gray-500">•</span>
+<span class="truncate">Updated <time datetime="2026-11-01T09:26:19">3 days ago</time></span>
+<span class="px-1.5 text-gray-300 dark:text-gray-500">•</span>
+<svg class="flex-none w-3 text-gray-400 mr-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor"></path></svg> 1.11k   </div></div>
+</a></article></nav></div>
+<div><h2 class="mb-5 flex items-baseline overflow-hidden whitespace-nowrap text-base font-semibold text-gray-800"><svg class="mr-1 inline self-center flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 25 25"><ellipse cx="12.5" cy="5" fill="currentColor" fill-opacity="0.25" rx="7.5" ry="2"></ellipse><path fill="currentColor" opacity="0.5"></path><path fill="currentColor" opacity="0.5"></path><path fill="currentColor"></path></svg> Datasets mentioned in this article <span class="ml-3 font-normal text-gray-400">1</span></h2>
+<nav class="flex flex-col space-y-3 pb-1.5"><article class="overview-card-wrapper group/repo  "><a class="flex items-center justify-between gap-4 p-2" href="/datasets/huggingface-mic/transformers-fleet"><div class="w-full truncate"><header class="flex items-center mb-1"><svg class="mr-1 text-gray-400 group/repo-hover:text-red-500 flex-none -ml-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 25 25"><ellipse cx="12.5" cy="5" fill="currentColor" fill-opacity="0.25" rx="7.5" ry="2"></ellipse><path fill="currentColor" opacity="0.5"></path><path fill="currentColor" opacity="0.5"></path><path fill="currentColor"></path></svg>
+<h4 class="text-md truncate font-mono text-black dark:group-hover/repo:text-yellow-500 group-hover/repo:text-red-600 text-sm">huggingface-mic/transformers-fleet</h4>
+</header>
+<div class="mr-1 flex items-center overflow-hidden whitespace-nowrap text-sm leading-tight text-gray-400"><svg class="flex-none w-3 text-gray-400 mr-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill="currentColor"></path></svg> Viewer <span class="px-1.5 text-gray-300 dark:text-gray-500">•</span>
+<span class="truncate">Updated <time datetime="2026-11-04T09:51:06">about 7 hours ago</time></span>
+<span class="px-1.5 text-gray-300 dark:text-gray-500">•</span>
+<svg class="flex-none text-gray-400 mr-1 w-3" xmlns="http://www.w3.org/2000/svg" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+<span>228</span>
+<span class="px-1.5 text-gray-300 dark:text-gray-500">•</span>
+<svg class="flex-none w-3 text-gray-400 mr-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor"></path></svg> 2.76k   </div></div>
+</a></article></nav></div>
+<div><h2 class="mb-5 flex items-baseline overflow-hidden whitespace-nowrap text-base font-semibold text-gray-800"><svg class="mr-1 inline self-center flex-none text-gray-400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="#FF3270"></path><path fill="#861FFF"></path><path fill="#097EFF"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="black"></path><path fill="#FFD702"></path></svg> Spaces mentioned in this article <span class="ml-3 font-normal text-gray-400">1</span></h2>
+<nav class="flex flex-col space-y-3 pb-1.5"><article class=" relative"><a href="/spaces/huggingface-mic/mic-coverage" class="bg-linear-to-br group relative z-0 mx-auto flex flex-col justify-between overflow-hidden hover:shadow-inner from-blue-600 to-green-600 shadow-sm dark:bg-gray-900 hover:brightness-110 h-15.5 rounded-lg"><div class="bg-linear-to-br pointer-events-none absolute left-0 top-0 h-full w-1/2 from-black/20 via-transparent to-transparent"></div>
+<header class="@container/header bg-linear-to-t flex gap-x-1 overflow-hidden rounded-b-2xl bg-black/[0.04] from-black/[0.04] to-transparent to-10% lg:gap-x-1.5 hidden"><div class="@max-xs/header:gap-x-1 mt-[8.5px] flex h-[16px] shrink grow-0 basis-auto flex-wrap gap-x-1.5 gap-y-5">
+<div class="cursor-pointer select-none overflow-hidden font-mono  border-white/5! inline-flex items-center rounded-sm border bg-white/10 leading-tight text-white opacity-90"><div class="inline-flex items-center whitespace-nowrap px-1 py-0"> Running </div>
+</div>
+</div>
+</header>
+<main class="px-3 flex flex-col justify-center h-full pt-0.5 relative"><div class="text-white text-sm"><div class="flex items-center justify-between gap-3"><div class="mb-0.5 flex items-center justify-start gap-1.5 truncate font-semibold leading-tight"><h4 class="overflow-hidden text-ellipsis whitespace-nowrap text-balance text-left drop-shadow-lg">MIC coverage</h4>
+<div class="leading-none drop-shadow-2xl">📋</div></div>
+</div>
+<p class="line-clamp-1 text-left text-[0.8375rem]/[1.15rem] text-gray-200 opacity-85 drop-shadow-sm">MIC contract coverage of Transformers model types</p></div></main>
+</a></article></nav></div>
+</div></div></div></main>
+<footer class="b-12 mb-2 flex border-t border-gray-100 md:h-14"><nav class="container relative flex flex-col justify-between space-y-2 py-6 text-gray-500 max-md:*:self-start md:flex-row md:items-center md:space-y-0 md:py-0 md:text-sm"><div class="SVELTE_HYDRATER contents"><div class="relative inline-block max-md:mb-5 max-md:*:self-start"><button class="rounded-full border border-gray-100 pl-2 py-1 pr-2.5  flex items-center text-sm text-gray-500 bg-white hover:bg-purple-50 hover:border-purple-200 dark:hover:bg-gray-800 dark:hover:border-gray-950 dark:border-gray-800 " type="button"><svg class="mr-1.5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path><path fill="currentColor" fill-opacity=".4"></path><path fill="currentColor"></path></svg> System theme </button>
+</div></div>
+<div class="font-semibold text-black md:hidden">Company</div>
+<a class="hover:underline" href="/terms-of-service">TOS</a>
+<a class="hover:underline" href="/privacy">Privacy</a>
+<a class="hover:underline" href="/huggingface">About</a>
+<a class="hover:underline" href="https://apply.workable.com/huggingface/">Careers</a>
+<a href="/" class="max-md:mb-4! max-md:mt-8! group flex-none max-md:order-last"><svg class="h-7 w-7 transition-transform group-hover:-translate-y-px" viewBox="0 0 95 88" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#FFD21E"></path><path fill="#FF9D0B"></path><path fill="#3A3B45"></path><path fill="#3A3B45"></path><path fill="#3A3B45"></path><mask id="mask0" maskUnits="userSpaceOnUse" x="33" y="41" width="27" height="16"><path fill="white"></path></mask><g mask="url(#mask0)"><path fill="#F94040"></path></g><path fill="#FF9D0B"></path><path fill="#FF9D0B"></path><path class="origin-bottom-right transition-transform group-hover:-rotate-6" fill="#FF9D0B"></path><path class="origin-bottom-right transition-transform group-hover:-rotate-6" fill="#FFD21E"></path><path class="origin-bottom-left transition-transform group-hover:rotate-6" fill="#FF9D0B"></path><path class="origin-bottom-left transition-transform group-hover:rotate-6" fill="#FFD21E"></path></svg></a>
+<div class="max-md:mt-8! font-semibold text-black md:hidden">Website</div>
+<a class="hover:underline" href="/models">Models</a>
+<a class="hover:underline" href="/datasets">Datasets</a>
+<a class="hover:underline" href="/spaces">Spaces</a>
+<a class="hover:underline" href="/pricing">Pricing</a>
+<a class="hover:underline" href="/docs">Docs</a></nav></footer></div>
+</body>
+</html>

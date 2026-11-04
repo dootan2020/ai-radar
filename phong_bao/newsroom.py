@@ -187,8 +187,13 @@ class Articles:
 
     def read(self, url):
         # The writer reads the full article the reporter already fetched; fetch each URL once per run.
+        # A failure carries its real cause ("robots:unavailable_403", "error:http_403") so the
+        # reporter file tells a bot wall from a robots.txt refusal.
         if url not in self.results:
-            self.results[url] = fetch_article_result({"url": url}, self.robots_cache)
+            details = {}
+            text, reason = fetch_article_result({"url": url}, self.robots_cache, details=details)
+            cause = details.get("cause")
+            self.results[url] = (text, f"{reason}:{cause}" if reason and cause and cause != reason else reason)
         return self.results[url]
 
     def search(self, title):
@@ -426,9 +431,12 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
         replies.update(retry)
         usage.extend(retry_usage)
     output = {}
+    sent = {item["id"] for item in payload}
     for story in stories:
-        row = replies.get(story["id"])
-        invalid = invalid_reply(row, story["id"])
+        # Only a story sent to the model can have an invalid reply; one with no readable
+        # candidate was never sent and keeps its own reason below.
+        row = replies.get(story["id"]) if story["id"] in sent else None
+        invalid = story["id"] in sent and invalid_reply(row, story["id"])
         url = row.get("selected_url") if row and not invalid else None
         # A readable representative is the only candidate sent; null with same_event true means "keep it".
         if (url is None and row and not invalid and row.get("same_event") is True
