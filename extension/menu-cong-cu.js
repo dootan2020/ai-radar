@@ -63,9 +63,11 @@
     label.setAttribute('aria-hidden', 'true');
     label.textContent = name;
 
-    image.addEventListener('error', () => {
-      image.hidden = true;
-      fallback.hidden = false;
+    // The letter holds the slot until the icon has loaded; offline or blocked, the letter stays.
+    image.hidden = true;
+    image.addEventListener('load', () => {
+      image.hidden = false;
+      fallback.hidden = true;
     }, { once: true });
     link.append(image, fallback, label);
     grid.append(link);

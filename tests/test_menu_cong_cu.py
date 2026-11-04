@@ -44,7 +44,10 @@ class GoogleAppsLauncherTests(unittest.TestCase):
         self.assertIn("image.dataset.iconUrl", script)
         self.assertIn("image.src = image.dataset.iconUrl", script)
         self.assertIn("fallback.textContent = name.slice(0, 1)", script)
-        self.assertIn("image.addEventListener('error'", script)
+        # The letter holds the slot until the icon loads; offline or blocked, the letter stays and the icon never shows.
+        self.assertIn("image.hidden = true;\n    image.addEventListener('load', () => {\n      image.hidden = false;\n      fallback.hidden = true;",
+                      script.replace("\r\n", "\n"))
+        self.assertNotIn("fallback.hidden = false", script)
         self.assertIn("image.alt = name", script)
 
     def test_panel_supports_keyboard_focus_and_responsive_motion(self):
