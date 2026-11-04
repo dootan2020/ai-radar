@@ -111,13 +111,7 @@
   .tool-launcher-panel{max-height:calc(100dvh - var(--bar-h) - var(--mobile-nav-h) - env(safe-area-inset-bottom) - var(--space-16))}
   #doc-back-btn.story-modal-close{width:44px;height:44px;min-width:44px}
 }
-@media(max-width:480px){
-  .bar>.brand .brand-logo,.bt-brand .brand-logo{display:none}
-  .bar>.brand .brand-icon,.bt-brand .brand-icon{display:block}
-}
 @media(max-width:360px){
-  .feed-brand .brand-logo{display:none}
-  .feed-brand .brand-icon{display:block}
   .feed-bar-in,.feed-navigation,.bar,.bt-bar{gap:0}
   .bt-current-date-btn{max-width:76px}
 }
