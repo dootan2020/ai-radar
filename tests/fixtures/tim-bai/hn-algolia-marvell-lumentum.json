@@ -1,0 +1,156 @@
+{
+ "captured_at": "2026-11-05",
+ "request_url": "https://hn.algolia.com/api/v1/search?query=marvell+reaches+115+billion+deal+lumentum+holdings&optionalWords=marvell+reaches+115+billion+deal+lumentum+holdings&tags=story&hitsPerPage=20&numericFilters=created_at_i%3E%3D1793535300%2Ccreated_at_i%3C%3D1793794500",
+ "story": {
+  "id": "b172eb64d294ab7ae6d9",
+  "title": "Marvell Reaches $115 Billion Deal for Lumentum Holdings",
+  "url": "https://www.bloomberg.com/news/articles/2026-11-02/marvell-reaches-115-billion-deal-for-lumentum-holdings",
+  "published_at": "2026-11-02T12:15:00Z"
+ },
+ "response": {
+  "hits": [
+   {
+    "title": "Marvell doubles down on AI boom with costly $115B Lumentum deal",
+    "url": "https://www.reuters.com/legal/transactional/marvell-buy-lumentum-115-billion-deal-ai-data-center-bet-2026-11-02/",
+    "created_at": "2026-11-02T20:34:34Z",
+    "created_at_i": 1793651674,
+    "objectID": "50343329"
+   },
+   {
+    "title": "Marvell and Lumentum to Combine, Creating a Category Leader in AI Connectivity",
+    "url": "https://investor.marvell.com/news-events/press-releases/detail/1040/marvell-and-lumentum-to-combine-creating-a-category-leader-in-ai-connectivity",
+    "created_at": "2026-11-03T08:21:31Z",
+    "created_at_i": 1793694091,
+    "objectID": "50349432"
+   },
+   {
+    "title": "Marvell and Lumentum to Combine, Creating a Category Leader in AI Connectivity",
+    "url": "https://investor.marvell.com/news-events/press-releases/detail/1040/marvell-and-lumentum-to-combine-creating-a-category-leader-in-ai-connectivity",
+    "created_at": "2026-11-02T12:26:46Z",
+    "created_at_i": 1793622406,
+    "objectID": "50335920"
+   },
+   {
+    "title": "In one of the largest deals in tech history, Marvell buys Lumentum for $115B",
+    "url": "https://techcrunch.com/2026/11/02/in-one-of-the-largest-deals-in-tech-history-marvell-buys-lumentum-for-115b/",
+    "created_at": "2026-11-02T18:28:50Z",
+    "created_at_i": 1793644130,
+    "objectID": "50341294"
+   },
+   {
+    "title": "NYT demands Brave shut down its paywall blocker and end deals with AI firms",
+    "url": "https://arstechnica.com/tech-policy/2026/11/nyt-demands-brave-shut-down-its-paywall-blocker-and-end-deals-with-ai-firms/",
+    "created_at": "2026-11-03T19:10:15Z",
+    "created_at_i": 1793733015,
+    "objectID": "50356686"
+   },
+   {
+    "title": "Trump Demands a Cut of Alina Habba's $50M Pardon Deal",
+    "url": "https://newrepublic.com/post/217360/donald-trump-alina-habba-50-million-pardon",
+    "created_at": "2026-11-02T02:32:47Z",
+    "created_at_i": 1793586767,
+    "objectID": "50332441"
+   },
+   {
+    "title": "US ending $4 billion in annual aid to Israel after Trump talks with Netanyahu",
+    "url": "https://apnews.com/article/trump-israel-military-aid-hardware-5cad93330300b2d45a9665d5eccb2ab2",
+    "created_at": "2026-11-03T15:19:59Z",
+    "created_at_i": 1793719199,
+    "objectID": "50353106"
+   },
+   {
+    "title": "Large Hadron Collider finds evidence of one-in-ten-billion particle decay",
+    "url": "https://home.cern/lhcb-finds-evidence-of-one-in-ten-billion-particle-decay/",
+    "created_at": "2026-11-03T13:15:16Z",
+    "created_at_i": 1793711716,
+    "objectID": "50351595"
+   },
+   {
+    "title": "Are There Problems Beyond the Reach of AI [video]",
+    "url": "https://www.youtube.com/watch?v=NWNbAEivyvs",
+    "created_at": "2026-11-01T20:06:51Z",
+    "created_at_i": 1793563611,
+    "objectID": "50329218"
+   },
+   {
+    "title": "Oracle cancels $7B Tencent AI deal under Trump pressure",
+    "url": "https://www.ft.com/content/c5a6a738-cd78-4a8e-a814-57a7473ebb9c",
+    "created_at": "2026-11-04T06:14:13Z",
+    "created_at_i": 1793772853,
+    "objectID": "50362002"
+   },
+   {
+    "title": "Voyager 1 Is About to Reach 1 Light-Day from Earth",
+    "url": "https://www.iflscience.com/voyager-1-is-about-to-reach-1-light-day-from-earth-what-do-we-know-about-whats-out-there-85014",
+    "created_at": "2026-11-02T19:14:00Z",
+    "created_at_i": 1793646840,
+    "objectID": "50342033"
+   },
+   {
+    "title": "GPUlayer: Train PyTorch on every GPU you can reach-faster than PyTorch Lightning",
+    "url": "https://www.gpulayer.dev/",
+    "created_at": "2026-11-01T17:03:27Z",
+    "created_at_i": 1793552607,
+    "objectID": "50327437"
+   },
+   {
+    "title": "Valve making changes to deal with a 'significant increase' in Steam submission",
+    "url": "https://www.theverge.com/games/1025722/valve-steam-game-increase-submissions",
+    "created_at": "2026-11-04T12:11:22Z",
+    "created_at_i": 1793794282,
+    "objectID": "50364500"
+   },
+   {
+    "title": "Greece buys up to six KC-390s from Brazil's Embraer in €590M deal",
+    "url": "https://breakingdefense.com/2026/11/greece-inks-deal-for-kc-390-fleet/",
+    "created_at": "2026-11-03T15:23:03Z",
+    "created_at_i": 1793719383,
+    "objectID": "50353152"
+   },
+   {
+    "title": "Spent 5 months on an enterprise deal, only to lose the deal to the CPO's buddy",
+    "url": null,
+    "created_at": "2026-11-02T13:12:09Z",
+    "created_at_i": 1793625129,
+    "objectID": "50336389"
+   },
+   {
+    "title": "Meta Quest 2 and Meta Quest Pro Reach End of Feature Development: Developer Info",
+    "url": "https://developers.meta.com/vr/blog/meta-quest-2-quest-pro-end-of-feature-development-what-to-know/",
+    "created_at": "2026-11-02T20:53:01Z",
+    "created_at_i": 1793652781,
+    "objectID": "50343558"
+   },
+   {
+    "title": "EraseAI Firewall – stop secrets and PII before they reach Public LLMs",
+    "url": null,
+    "created_at": "2026-11-01T14:45:27Z",
+    "created_at_i": 1793544327,
+    "objectID": "50326183"
+   },
+   {
+    "title": "LLMs Deal with Fraudulent Papers",
+    "url": "https://www.science.org/content/blog-post/how-llms-deal-fraudulent-papers",
+    "created_at": "2026-11-04T12:00:13Z",
+    "created_at_i": 1793793613,
+    "objectID": "50364391"
+   },
+   {
+    "title": "Trump Accepts Iran Deal Framework [video]",
+    "url": "https://www.youtube.com/watch?v=uEAn9TO6aew",
+    "created_at": "2026-11-03T15:14:31Z",
+    "created_at_i": 1793718871,
+    "objectID": "50353026"
+   },
+   {
+    "title": "Trim - local proxy that compresses coding prompts before they reach your LLM",
+    "url": "https://github.com/usetrim/trim",
+    "created_at": "2026-11-03T10:38:11Z",
+    "created_at_i": 1793702291,
+    "objectID": "50350269"
+   }
+  ],
+  "nbHits": 321,
+  "query": "marvell reaches 115 billion deal lumentum holdings"
+ }
+}

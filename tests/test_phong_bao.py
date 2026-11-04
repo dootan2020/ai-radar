@@ -14,6 +14,7 @@ from phong_bao.discovery import discover_raw, report
 from phong_bao.__main__ import main
 from phong_bao.evaluation import evaluate
 from phong_bao.newsroom import ARGUMENT_BATCH_CHARS, BATCH_SIZE, EDITOR_PROMPT, JUNK_KINDS, FixtureArticles, _agent_desk, _batches, _checker, _chief, _editor, _intake, _same_rep_url, run
+from phong_bao.paywall import HOLD_REASON as PAYWALL_HOLD_REASON, held_for_paywall
 from phong_bao.registry import load_registry, providers
 from phong_bao.runner import AdmissionError, CLIRunner, FixtureRunner, RunnerError, _admission_excerpt, _json_response
 
@@ -249,7 +250,7 @@ class NewsroomTests(unittest.TestCase):
             self.assertEqual([row["decision"] for row in decisions], ["publish", "hold", "publish"])
             self.assertEqual(decisions[0]["importance_tier"], "standard")
             self.assertEqual(decisions[1]["round"], "editor")
-            self.assertIn("artificialwatch.com", decisions[2]["source_url"])
+            self.assertIn("wired.com", decisions[2]["source_url"])
             editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
             checker = json.loads((job / "checker.json").read_text(encoding="utf-8"))
             first = decisions[0]["id"]
@@ -851,7 +852,11 @@ class NewsroomTests(unittest.TestCase):
             with self.subTest(title=story["title"]):
                 decision = decisions[story["id"]]
                 self.assertEqual(decision["content_kind"], expected_kind)
-                self.assertEqual(decision["decision"], "hold" if expected_kind == "junk" else "publish")
+                # No article is readable here; a paywalled publisher's story is then held (captain, 2026-11-05).
+                paywalled = expected_kind != "junk" and held_for_paywall(story["url"], False, "unavailable")
+                self.assertEqual(decision["decision"], "hold" if expected_kind == "junk" or paywalled else "publish")
+                if paywalled:
+                    self.assertEqual(decision["reason"], PAYWALL_HOLD_REASON)
                 if expected_kind != "junk":
                     self.assertEqual(decision["importance_tier"], "standard")
                 if expected_kind == "analysis":

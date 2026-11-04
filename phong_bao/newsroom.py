@@ -8,20 +8,18 @@ import json
 import os
 import re
 import time
-import urllib.parse
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
 
 from radar.clustering import canonical_url, titles_match
-from radar.items import instant
+from radar.items import instant, is_x_item
 from radar.press_relevance import press_subject_reason
 from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE
-from radar.summary_pipeline import collect_inputs, fetch_article_result, story_inputs
+from radar.summary_pipeline import MIN_ARTICLE_TEXT_CHARS, collect_inputs, fetch_article_result, story_inputs
 from radar.summary_sources import fit_inputs, publish_summary
 from radar.summary_validation import attribution_error, claim_error, number_error
-from radar import shadow_collector, transport
 
 from .contracts import (
     DESK_CONTRACTS,
@@ -37,8 +35,11 @@ from .contracts import (
     validate_reporter_reply,
     validate_writer_output,
 )
+from .paywall import HOLD_REASON as PAYWALL_HOLD_REASON, held_for_paywall
 from .registry import providers
 from .runner import AdmissionError, CLIRunner, RunnerError
+from .search import (READABLE_PER_STORY, RUNNERS as SEARCH_RUNNERS, SearchBudget, is_trusted, rank,
+                     search as same_event_search, split_trusted, trusted_publishers)
 
 DESKS = ("intake", "reporter", "editor", "checker", "writer", "chief")
 # The writer ("Người viết") only drafts stories published within this many hours
@@ -196,39 +197,55 @@ class Articles:
             self.results[url] = (text, f"{reason}:{cause}" if reason and cause and cause != reason else reason)
         return self.results[url]
 
-    def search(self, title):
-        query = urllib.parse.urlencode({"query": title[:150], "tags": "story", "hitsPerPage": 8})
-        url = "https://hn.algolia.com/api/v1/search?" + query
-        try:
-            robots = shadow_collector.check_robots(url, fetch_fn=lambda target: transport.read_url(target, allow_redirects=False),
-                                                   robots_cache=self.robots_cache)
-            if robots["robots_status"] not in (200, 404) or robots["disallowed"]:
-                return []
-            response = transport.read_url(url, allow_redirects=False)
-            if response.status != 200 or response.url != url:
-                return []
-            hits = json.loads(str(response)).get("hits", [])
-        except (OSError, ValueError, AttributeError, TypeError):
-            return []
-        return [{"title": hit.get("title") or "", "url": hit.get("url") or "",
-                 "published_at": hit.get("created_at") or "", "publisher": ""} for hit in hits if isinstance(hit, dict)]
+    def remember(self, url, text):
+        """Serve text Halcyon already holds for this URL instead of fetching it."""
+        self.results[url] = (text, None)
+
+    def search(self, story, runners, budget, trusted):
+        return same_event_search(story, runners, budget, self.robots_cache, trusted=trusted)
 
 
 class FixtureArticles:
     def __init__(self, fixture):
         self.fixture = fixture
+        self.remembered = {}
 
     def read(self, url):
+        if url in self.remembered:
+            return self.remembered[url], None
         item = self.fixture.get("articles", {}).get(url, {})
         return item.get("text", ""), item.get("reason", "unavailable")
 
-    def search(self, title):
-        return self.fixture.get("search", {}).get(title, [])
+    def remember(self, url, text):
+        self.remembered[url] = text
+
+    def search(self, story, runners, budget, trusted):
+        return rank(story, split_trusted(story, self.fixture.get("search", {}).get(story["title"], []), trusted)[0])
 
 
 def _publisher(url):
     host = (urlsplit(url).hostname or "").casefold()
     return host[4:] if host.startswith("www.") else host
+
+
+X_HOSTS = {"x.com", "twitter.com", "mobile.twitter.com"}
+
+
+def _x_post_text(story):
+    """The post text the X collector stored for a story whose own URL is that post, if long enough.
+
+    x.com refuses the reader (robots.txt), but the official API already returned the post's full text
+    into the story's coverage; reading it costs no new request. Measured 2026-11-05: 1 of the 5 x.com
+    stories since 02/11 came from the collector; the others arrived through Hacker News.
+    """
+    if _publisher(story.get("url") or "") not in X_HOSTS:
+        return ""
+    match = re.search(r"/status(?:es)?/(\d{1,19})", urlsplit(story["url"]).path)
+    for item in story.get("coverage") or []:
+        if (match and isinstance(item, dict) and is_x_item(item) and str(item.get("post_id")) == match.group(1)
+                and isinstance(item.get("summary"), str) and len(item["summary"].strip()) >= MIN_ARTICLE_TEXT_CHARS):
+            return item["summary"].strip()
+    return ""
 
 
 def _same_rep_url(left, right):
@@ -382,12 +399,18 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
     searchers = providers("tim-kiem", tools, discovery)
     if not any(tool.get("runner") == "http-fetch" for tool in readers):
         raise RunnerError("no configured local article reader")
-    can_search_hn = any(tool.get("runner") == "hn-algolia" for tool in searchers)
+    search_runners = list(dict.fromkeys(tool["runner"] for tool in searchers if tool.get("runner") in SEARCH_RUNNERS))
+    budget = SearchBudget(deadline)
+    # Search results may only come from outlets Halcyon already ingests.
+    trusted = trusted_publishers(list(stories) + list(corpus)) if search_runners else frozenset()
     payload, source_map = [], {}
     statuses = {}
     for story in stories:
         if not intake[story["id"]]["pass"]:
             continue
+        post_text = _x_post_text(story)
+        if post_text:
+            articles.remember(story["url"], post_text)
         text, reason = articles.read(story["url"])
         statuses[story["id"]] = "readable" if text else reason
         candidates = []
@@ -409,15 +432,26 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
                     candidates.append(candidate)
                 if len(candidates) >= 5:
                     break
-            for item in articles.search(story["title"]) if can_search_hn else []:
+            # Another outlet's report of the same event; the reporter model still judges it.
+            found = 0
+            for item in articles.search(story, search_runners, budget, trusted) if search_runners else []:
+                if budget.left() <= 0 or found >= READABLE_PER_STORY:
+                    break
+                if not is_trusted(item.get("url"), trusted):
+                    budget.events.append({"id": story["id"], "event": "untrusted_dropped",
+                                          "host": _publisher(item.get("url") or "")})
+                    continue
                 candidate = _candidate(story, item, articles, strict_title=False)
                 if candidate and candidate["url"] not in {c["url"] for c in candidates}:
                     candidates.append(candidate)
+                    found += 1
         source_map[story["id"]] = {c["url"]: c for c in candidates}
         if candidates:
             payload.append({"id": story["id"], "title": story["title"], "published_at": story.get("published_at"),
                             "representative_url": story["url"], "representative_status": statuses[story["id"]],
                             "candidates": [{**candidate, "text": candidate["text"][:REPORTER_EXCERPT_LIMIT]} for candidate in candidates]})
+    if budget.events and raw_dir is not None:
+        _write_json(Path(raw_dir) / "tim-kiem.json", {"desk": "reporter", "searches": budget.events})
     replies, usage = _agent_desk("reporter", payload, REPORTER_PROMPT, "doc-bai", tools, discovery, runner, raw_dir=raw_dir, deadline=deadline) if payload else ({}, [])
     def invalid_reply(row, sid=None):
         candidate_urls = set(source_map.get(sid, {}).keys()) if sid else None
@@ -1010,7 +1044,9 @@ def _chief(stories, intake, reporter, editor, checker, now, writer=None):
         gate = (("intake", intake[sid]["reason"]) if not intake[sid]["pass"] else
                 ("editor", editor[sid]["reason"]) if editor[sid].get("reason") in {"editor_model_failure", "editor_invalid"} else
                 ("editor", editor[sid]["reason"]) if not editor[sid]["news"] else
-                ("chief", "unverifiable rumour without independent readable source") if (not reporter[sid]["readable"] and is_unverifiable_rumour(story)) else None)
+                ("chief", "unverifiable rumour without independent readable source") if (not reporter[sid]["readable"] and is_unverifiable_rumour(story)) else
+                ("chief", PAYWALL_HOLD_REASON) if held_for_paywall(story.get("url"), reporter[sid]["readable"],
+                                                                   reporter[sid].get("representative_status")) else None)
         tier = editor[sid].get("importance") if editor[sid].get("importance") in IMPORTANCE_TIERS else "standard"
         original_at = instant(story.get("published_at"))
         proposed_at = instant(editor[sid]["event_at"])
