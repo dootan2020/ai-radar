@@ -24,6 +24,7 @@ Halcyon does not collect, remotely store, sell, or share personal data. The exte
    - avatars.githubusercontent.com (GitHub avatars), opengraph.githubassets.com (GitHub article preview images), and cdn-thumbnails.huggingface.co (Hugging Face article thumbnails): article/source imagery.
    - i.ytimg.com (YouTube thumbnails): video article thumbnails.
    - calendar.google.com (Google Calendar): opened when you choose to add an event to your calendar.
+   - www.google.com (Google favicon service): Google app icons, loaded only when you open the Google apps menu; the Google app you pick (for example mail.google.com, about.google) opens in a new tab.
    - creativecommons.org: the attribution license link for Arena data.
    These requests carry normal browser request data, such as IP address, to the named provider. Requests do not include Halcyon account or browsing-history data. Search queries go directly through Chrome's default search provider using chrome.search.query.
 ```
