@@ -884,7 +884,7 @@ function renderCard(st, size = 'std', opts = {}) {
       : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${titleHTML(st, t.text)}</a></h2>`}
     ${why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${why}</p>` : ''}
     ${opts.why && pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
-    ${sum ? `<p class="card-sum">${sourceDescriptionMark(st)}${esc(sum)}</p>` : ''}
+    ${sum ? `<p class="card-sum">${sourceDescriptionMark()}${esc(sum)}</p>` : ''}
     <div class="card-foot">
       <span class="metric">${metric}</span>
       <div class="card-actions">

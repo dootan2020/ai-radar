@@ -232,3 +232,7 @@
     transition: none !important;
   }
 }
+
+/* "Mô tả từ nguồn": the publisher's own description, not a Halcyon summary (same label as the feed). */
+.lead-sum .src-desc { font-weight: var(--weight-semibold); color: var(--color-ink); }
+.lead-sum .src-desc::after { content: " ·"; font-weight: var(--weight-regular); color: var(--color-ink-3); }

@@ -16,13 +16,13 @@ export function hasEditorialSummary(story) {
     && Array.isArray(story.summary_sources) && story.summary_sources.some(s => /^https?:\/\//i.test(String(s?.url || ''))));
 }
 
-/* Without a Halcyon summary, the text under a headline is the publisher's own description (the RSS dek, usually
-   machine-translated). Readers took it for Halcyon's summary (owner, 04/11), so it carries this label wherever it
-   stands in for one. */
+/* The publisher's own description (the RSS dek, usually machine-translated) read as Halcyon's summary (owner,
+   04/11). The label follows the text, not the story: every surface that shows the dek opens it with this mark,
+   desk-written stories included; the desk's own paragraphs are never labelled. */
 export const SOURCE_DESCRIPTION_LABEL = 'Mô tả từ nguồn';
 
-export function sourceDescriptionMark(story, cls = 'src-desc') {
-  return hasEditorialSummary(story) ? '' : `<span class="${cls}">${SOURCE_DESCRIPTION_LABEL}</span> `;
+export function sourceDescriptionMark(cls = 'src-desc') {
+  return `<span class="${cls}">${SOURCE_DESCRIPTION_LABEL}</span> `;
 }
 
 export function headlineShown(item, full = false) {

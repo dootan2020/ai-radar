@@ -242,7 +242,7 @@ export function renderStoryTileHTML(story, isLead = false, sources = null) {
 
       ${origHtml ? origHtml : ''}
 
-      ${summary ? `<p class="bt-story-summary">${sourceDescriptionMark(story)}${esc(summary)}</p>` : ''}
+      ${summary ? `<p class="bt-story-summary">${sourceDescriptionMark()}${esc(summary)}</p>` : ''}
 
       ${reasons.length > 0 ? `
         <div class="bt-reasons-box" aria-label="Lý do chọn tin">

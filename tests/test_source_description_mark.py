@@ -1,4 +1,4 @@
-"""A story without a Halcyon summary labels its publisher's description; a desk story does not."""
+"""The publisher's description is labelled wherever it is shown; the desk's own summary never is."""
 
 import json
 from pathlib import Path
@@ -33,9 +33,10 @@ const srcMap = new Map([['pandaily', {{id: 'pandaily', name: 'Pandaily', publish
 const view = (s, o) => renderStoryHTML(s, srcMap, o);
 console.log(JSON.stringify({{
   fallback: {{page: view(fallback, {{isPage: true}}), modal: view(fallback, {{isModal: true}}),
-    card: sourceDescriptionMark(fallback), edition: renderStoryTileHTML(fallback)}},
+    edition: renderStoryTileHTML(fallback)}},
   desk: {{page: view(desk, {{isPage: true}}), modal: view(desk, {{isModal: true}}),
-    card: sourceDescriptionMark(desk), edition: renderStoryTileHTML(desk)}},
+    edition: renderStoryTileHTML(desk)}},
+  mark: sourceDescriptionMark(),
 }}));
 """
         result = subprocess.run(["node", "--input-type=module", "-e", program], cwd=ROOT,
@@ -54,22 +55,26 @@ console.log(JSON.stringify({{
             self.assertIn('>Translated</span>', document)
             self.assertNotIn("Đoạn trích bài viết", document)
             self.assertNotIn("Phòng báo Halcyon tóm tắt", document)
-        self.assertEqual(out["card"], f'<span class="src-desc">{LABEL}</span> ')
         self.assertIn(f'<p class="bt-story-summary"><span class="src-desc">{LABEL}</span> Máy chủ AI', out["edition"])
 
-    def test_desk_story_keeps_its_summary_without_the_mark(self):
+    def test_desk_story_labels_the_source_description_but_not_its_summary(self):
         out = self.render()["desk"]
         for surface in ("page", "modal"):
             document = out[surface]
             self.assertNotIn(LABEL, document)
             self.assertIn("Phòng báo Halcyon tóm tắt từ Pandaily", document)
             self.assertIn('class="story-prose-text">Diễn biến chính.</p>', document)
-        self.assertEqual(out["card"], "")
-        self.assertNotIn(LABEL, out["edition"])
+        # Cards and the morning edition show the dek even for a desk story, so the label follows the text.
+        self.assertIn(f'<p class="bt-story-summary"><span class="src-desc">{LABEL}</span> Máy chủ AI', out["edition"])
 
-    def test_feed_card_and_static_page_use_the_shared_label(self):
+    def test_every_dek_surface_uses_the_shared_label(self):
+        self.assertEqual(self.render()["mark"], f'<span class="src-desc">{LABEL}</span> ')
+        # The feed card summary is the dek for every story (shown(st.summary, st.summary_vi)), desk stories included.
         feed = (ROOT / "site" / "feed.js").read_text(encoding="utf-8")
-        self.assertIn("<p class=\"card-sum\">${sourceDescriptionMark(st)}${esc(sum)}</p>", feed)
+        self.assertIn("const sumRaw = shown(st.summary, st.summary_vi);", feed)
+        self.assertIn("<p class=\"card-sum\">${sourceDescriptionMark()}${esc(sum)}</p>", feed)
+        search = (ROOT / "site" / "tra-cuu.js").read_text(encoding="utf-8")
+        self.assertIn("<p class=\"lead-sum\">${sourceDescriptionMark()}${esc(p.summary)}</p>", search)
         from radar.story_pages import SOURCE_DESCRIPTION_LABEL
         self.assertEqual(SOURCE_DESCRIPTION_LABEL, LABEL)
 
