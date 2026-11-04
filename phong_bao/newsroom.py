@@ -14,10 +14,10 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from radar.clustering import canonical_url, titles_match
-from radar.items import instant
+from radar.items import instant, is_x_item
 from radar.press_relevance import press_subject_reason
 from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE
-from radar.summary_pipeline import collect_inputs, fetch_article_result, story_inputs
+from radar.summary_pipeline import MIN_ARTICLE_TEXT_CHARS, collect_inputs, fetch_article_result, story_inputs
 from radar.summary_sources import fit_inputs, publish_summary
 from radar.summary_validation import attribution_error, claim_error, number_error
 
@@ -197,6 +197,10 @@ class Articles:
             self.results[url] = (text, f"{reason}:{cause}" if reason and cause and cause != reason else reason)
         return self.results[url]
 
+    def remember(self, url, text):
+        """Serve text Halcyon already holds for this URL instead of fetching it."""
+        self.results[url] = (text, None)
+
     def search(self, story, runners, budget, trusted):
         return same_event_search(story, runners, budget, self.robots_cache, trusted=trusted)
 
@@ -204,10 +208,16 @@ class Articles:
 class FixtureArticles:
     def __init__(self, fixture):
         self.fixture = fixture
+        self.remembered = {}
 
     def read(self, url):
+        if url in self.remembered:
+            return self.remembered[url], None
         item = self.fixture.get("articles", {}).get(url, {})
         return item.get("text", ""), item.get("reason", "unavailable")
+
+    def remember(self, url, text):
+        self.remembered[url] = text
 
     def search(self, story, runners, budget, trusted):
         return rank(story, split_trusted(story, self.fixture.get("search", {}).get(story["title"], []), trusted)[0])
@@ -216,6 +226,26 @@ class FixtureArticles:
 def _publisher(url):
     host = (urlsplit(url).hostname or "").casefold()
     return host[4:] if host.startswith("www.") else host
+
+
+X_HOSTS = {"x.com", "twitter.com", "mobile.twitter.com"}
+
+
+def _x_post_text(story):
+    """The post text the X collector stored for a story whose own URL is that post, if long enough.
+
+    x.com refuses the reader (robots.txt), but the official API already returned the post's full text
+    into the story's coverage; reading it costs no new request. Measured 2026-11-05: 1 of the 5 x.com
+    stories since 02/11 came from the collector; the others arrived through Hacker News.
+    """
+    if _publisher(story.get("url") or "") not in X_HOSTS:
+        return ""
+    match = re.search(r"/status(?:es)?/(\d{1,19})", urlsplit(story["url"]).path)
+    for item in story.get("coverage") or []:
+        if (match and isinstance(item, dict) and is_x_item(item) and str(item.get("post_id")) == match.group(1)
+                and isinstance(item.get("summary"), str) and len(item["summary"].strip()) >= MIN_ARTICLE_TEXT_CHARS):
+            return item["summary"].strip()
+    return ""
 
 
 def _same_rep_url(left, right):
@@ -378,6 +408,9 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
     for story in stories:
         if not intake[story["id"]]["pass"]:
             continue
+        post_text = _x_post_text(story)
+        if post_text:
+            articles.remember(story["url"], post_text)
         text, reason = articles.read(story["url"])
         statuses[story["id"]] = "readable" if text else reason
         candidates = []
