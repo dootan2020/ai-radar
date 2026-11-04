@@ -162,7 +162,7 @@ def _page_fields(story, base_url):
     if not summary_vi and raw_vi:
         summary_vi = trim_complete_sentences(raw_vi + ".")
     summary_en = trim_complete_sentences(_text(story.get("summary")))
-    clean_summary = summary_vi or summary_en
+    clean_summary = source_summary = summary_vi or summary_en
     if not clean_summary and not _has_editorial_summary(story):
         from radar.summary_pipeline import honest_fallback_summary
         clean_summary = trim_complete_sentences(honest_fallback_summary(story))
@@ -179,6 +179,8 @@ def _page_fields(story, base_url):
         "original_url": original_url,
         "publisher": publisher,
         "summary": clean_summary,
+        # Only the publisher's own text; the generated fallback line above serves the meta description alone.
+        "source_summary": source_summary,
         "title": title,
     }
 
@@ -244,14 +246,14 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
         if "missing_primary" in story.get("summary_limitations", []):
             fallback_content += '<p class="story-section-sub">Chưa đọc được nguồn gốc được bài báo dẫn.</p>'
         fallback_content += '</section>'
-    elif fields["summary"]:
+    elif fields["source_summary"]:
         # The publisher's own description stands in for a summary; say so, as the hydrated page does (site/story.js).
         owner = esc(fields["publisher"]) if fields["publisher"] else "bài gốc"
         fallback_content = (
             f'<section class="story-summary-box story-source-desc" aria-label="{SOURCE_DESCRIPTION_LABEL}">'
             f'<h2 class="story-section-h2">{SOURCE_DESCRIPTION_LABEL}</h2>'
             f'<p class="story-section-sub">Lời giới thiệu ngắn của {owner}. Halcyon chưa tóm tắt tin này.</p>'
-            f'<p class="story-summary-text">{esc(fields["summary"])}</p></section>')
+            f'<p class="story-summary-text">{esc(fields["source_summary"])}</p></section>')
     else:
         fallback_content = (
             '<section class="story-summary-box" aria-label="Đoạn trích bài viết">'

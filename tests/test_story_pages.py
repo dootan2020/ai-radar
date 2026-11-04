@@ -237,6 +237,24 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn('Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
         self.assertNotIn('Halcyon tóm tắt ý chính để bạn nắm nhanh sự kiện.', document)
 
+    def test_story_without_source_description_never_labels_generated_text_as_publishers(self):
+        from radar.story_pages import trim_complete_sentences
+        from radar.summary_pipeline import honest_fallback_summary
+        item = story(summary=None, summary_vi=None)
+        generated = trim_complete_sentences(honest_fallback_summary(item))
+        self.assertTrue(generated)
+        document = render_story_page(item)
+        parser = PageParser()
+        parser.feed(document)
+        main_text = "".join(parser.main_text)
+        # The generated line may describe the page to crawlers, but the body shows the same empty excerpt as the
+        # hydrated page (site/story.js) instead of presenting it as the publisher's description.
+        self.assertEqual(parser.metas["description"], generated)
+        self.assertNotIn("Mô tả từ nguồn", document)
+        self.assertNotIn("Lời giới thiệu ngắn của", document)
+        self.assertNotIn(generated, main_text)
+        self.assertIn("Chưa có đoạn trích cho bài viết này.", main_text)
+
     def test_key_points_and_missing_picture_use_site_default(self):
         document = render_story_page(story(
             image=None, key_points=["Điểm một", "Điểm hai", "Điểm ba", "Điểm bốn"],
