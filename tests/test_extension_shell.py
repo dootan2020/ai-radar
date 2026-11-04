@@ -37,15 +37,10 @@ class ExtensionShellTests(unittest.TestCase):
                                              for size in (16, 32, 48, 128)})
         for icon in manifest['icons'].values():
             self.assertTrue((EXT / icon).is_file(), icon)
-        small = (ROOT / 'brand/assets/extension-icon-16.svg').read_text(encoding='utf-8')
-        full = (ROOT / 'brand/assets/extension-icon-48.svg').read_text(encoding='utf-8')
-        self.assertIn('#00B377', small)
-        self.assertIn('#00B377', full)
-        self.assertIn('Halcyon kingfisher', small)
-        self.assertIn('Halcyon kingfisher', full)
-        self.assertNotIn('circle cx="491.52"', small)
-        self.assertIn('circle cx="491.52"', full)
-        self.assertNotEqual(small, full)
+        # Toolbar and Store icons are the Lime Anchor kit's own PNGs, copied unchanged.
+        for size in (16, 32, 48, 128):
+            kit = (ROOT / f'brand/logo/lime-anchor/icons/halcyon-icon-primary-{size}.png').read_bytes()
+            self.assertEqual((EXT / f'icons/{size}.png').read_bytes(), kit, size)
         for path in EXT.rglob('*.html'):
             html = path.read_text(encoding='utf-8')
             self.assertNotRegex(html, r'<script\b(?![^>]*\bsrc="(?:\./)?[\w./-]+\.js")[^>]*>', path.name)
@@ -66,7 +61,8 @@ class ExtensionShellTests(unittest.TestCase):
         for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'faces.js',
                      'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js', 'calendar.js',
                      'worth-score.js', 'live.js', 'feed-images.json',
-                     'editor-picks.json', 'favicon.ico', 'apple-touch-icon.png', 'logo.svg'):
+                     'editor-picks.json', 'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg',
+                     'wordmark.svg', 'wordmark-dark.svg'):
             self.assertEqual((EXT / name).read_bytes(), (SITE / name).read_bytes(), name)
         self.assertTrue((EXT / 'fonts/be-vietnam-pro-400-vietnamese.woff2').is_file())
         html = (EXT / 'newtab.html').read_text(encoding='utf-8')

@@ -148,6 +148,16 @@ class BrandKitTest(unittest.TestCase):
                           ("favicon.ico", "favicon.ico")):
             self.assertEqual((BRAND / "assets" / kit).read_bytes(), (SITE / site).read_bytes(), site)
 
+    def test_site_logo_files_are_the_kit_files(self):
+        kit = BRAND / "logo" / "lime-anchor"
+        for site, source in (("logo.svg", "icons/halcyon-icon-primary.svg"), ("wordmark.svg", "logos/halcyon-primary.svg"),
+                             ("wordmark-dark.svg", "logos/halcyon-dark.svg"), ("favicon.svg", "favicons/favicon.svg"),
+                             ("favicon.ico", "favicons/favicon.ico"), ("apple-touch-icon.png", "favicons/apple-touch-icon.png")):
+            self.assertEqual((SITE / site).read_bytes(), (kit / source).read_bytes(), site)
+        tokens = (SITE / "tokens.css").read_text(encoding="utf-8")
+        for hex_value in ("#2F6B00", "#174A34", "#D7FF2F", "#F8FBF3", "#142018"):
+            self.assertIn(hex_value, tokens)
+
     def test_published_kit_matches_the_source(self):
         sys.path.insert(0, str(BRAND))
         try:

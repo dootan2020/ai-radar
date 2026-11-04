@@ -1,12 +1,13 @@
-"""Export Halcyon extension and Store PNGs from the SVGs in brand/assets/.
+"""Export Halcyon extension and Store PNGs: the kit's own icon PNGs, plus renders of composed SVGs.
 
 Run from anywhere, after brand/build-assets.py:  python brand/export-png.py
-Use --site for the Halcyon website kit, ICO and screenshot pipeline.
-Each SVG is rendered by headless Chrome with a fresh profile under
-plans/nhap/, then every PNG's pixel size is read back from its IHDR header and checked
-against the platform size below; a mismatch stops the run. The extension path
-falls back to ImageMagick when Chrome cannot render. The default command
-copies the extension icons and leaves the website untouched.
+Use --site for the Halcyon website kit, favicon and screenshot pipeline.
+Icons, the favicon ICO and the Apple touch icon are the Lime Anchor kit's own pixel files
+(brand/logo/lime-anchor/), copied unchanged; each PNG's pixel size is read back from its IHDR header.
+Composed SVGs (covers, share images, avatar, Store promo) are rendered by headless Chrome with a
+fresh profile under plans/nhap/ and checked the same way; a mismatch stops the run. Rendering
+falls back to ImageMagick when Chrome cannot render. The default command copies the extension
+icons, renders the Store promo and leaves the website untouched.
 
 Chrome path: CHROME env var, else the default Windows install path.
 """
@@ -22,6 +23,7 @@ import publish_kit
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "brand" / "assets"
+KIT = ROOT / "brand" / "logo" / "lime-anchor"
 SITE = ROOT / "site"
 SCRATCH = ROOT / "plans" / "nhap"
 CHROME = os.environ.get("CHROME", r"C:\Program Files\Google\Chrome\Application\chrome.exe")
@@ -37,18 +39,15 @@ JOBS = [
     ("avatar.svg", "avatar.png", 400, 400, 2, False),
     ("og-default.svg", "og-default.png", 1200, 630, 1, False),
     ("khung-9x16.svg", "khung-9x16.png", 1080, 1920, 1, False),
-    ("apple-touch-icon-180.svg", "apple-touch-icon.png", 180, 180, 1, False),
-    ("favicon-16.svg", "favicon-16.png", 16, 16, 1, True),
-    ("favicon-32.svg", "favicon-32.png", 32, 32, 1, True),
-    ("extension-icon-16.svg", "store/extension-icon-16.png", 16, 16, 1, True),
-    ("extension-icon-32.svg", "store/extension-icon-32.png", 32, 32, 1, True),
-    ("extension-icon-48.svg", "store/extension-icon-48.png", 48, 48, 1, True),
-    ("extension-icon-128.svg", "store/extension-icon-128.png", 128, 128, 1, True),
     ("store-promo-small.svg", "store/promo-small.png", 440, 280, 1, False),
 ]
 EXTENSION_ICONS = (16, 32, 48, 128)
 STORE_SHOTS = ("new-tab-light.png", "new-tab-dark.png")
-ICO_PARTS = ("favicon-16.png", "favicon-32.png")
+# (kit file, brand/assets file, pixel size or None for the ICO)
+KIT_COPIES = [(f"icons/halcyon-icon-primary-{n}.png", f"store/extension-icon-{n}.png", (n, n)) for n in EXTENSION_ICONS] + [
+    ("favicons/apple-touch-icon.png", "apple-touch-icon.png", (180, 180)),
+    ("favicons/favicon.ico", "favicon.ico", None),
+]
 TO_SITE = {"og-default.png": "og-image.png", "apple-touch-icon.png": "apple-touch-icon.png",
            "favicon.ico": "favicon.ico"}
 
@@ -92,46 +91,41 @@ def render(svg, png, w, h, scale, transparent):
     print(f"{png}: {got[0]}x{got[1]}")
 
 
-def write_ico(parts, out):
-    """ICO with PNG-compressed entries (Windows Vista+, every current browser)."""
-    blobs = [(ASSETS / p).read_bytes() for p in parts]
-    offset = 6 + 16 * len(blobs)
-    header = struct.pack("<HHH", 0, 1, len(blobs))
-    entries = b""
-    for p, blob in zip(parts, blobs):
-        w, h = png_size(ASSETS / p)
-        entries += struct.pack("<BBBBHHII", w % 256, h % 256, 0, 0, 1, 32, len(blob), offset)
-        offset += len(blob)
-    (ASSETS / out).write_bytes(header + entries + b"".join(blobs))
-    print(f"{out}: " + " + ".join("%dx%d" % png_size(ASSETS / p) for p in parts))
+def copy_kit(names):
+    """Copy the kit's own pixel files unchanged and check each PNG's size."""
+    for src, dst, size in KIT_COPIES:
+        if dst not in names:
+            continue
+        (ASSETS / dst).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(KIT / src, ASSETS / dst)
+        if size and png_size(ASSETS / dst) != size:
+            raise RuntimeError(f"{dst}: {png_size(ASSETS / dst)}, expected {size}")
+        print(f"{dst} <- brand/logo/lime-anchor/{src}")
+
+
+def copy_extension_icons():
+    copy_kit({f"store/extension-icon-{size}.png" for size in EXTENSION_ICONS})
+    icons = ROOT / "extension" / "icons"
+    icons.mkdir(parents=True, exist_ok=True)
+    for size in EXTENSION_ICONS:
+        shutil.copyfile(ASSETS / "store" / f"extension-icon-{size}.png", icons / f"{size}.png")
+        print(f"extension/icons/{size}.png <- brand/assets/store/extension-icon-{size}.png")
 
 
 def main():
     if not Path(CHROME).exists() and not shutil.which("magick"):
         sys.exit(f"Chrome not found at {CHROME}; set CHROME")
     if "--site" not in sys.argv:
-        for job in JOBS:
-            if job[0].startswith("extension-icon-") or job[0] == "store-promo-small.svg":
-                render(*job)
-        icons = ROOT / "extension" / "icons"
-        icons.mkdir(parents=True, exist_ok=True)
-        for size in EXTENSION_ICONS:
-            shutil.copyfile(ASSETS / "store" / f"extension-icon-{size}.png", icons / f"{size}.png")
-            print(f"extension/icons/{size}.png <- brand/assets/store/extension-icon-{size}.png")
+        render(*next(job for job in JOBS if job[0] == "store-promo-small.svg"))
+        copy_extension_icons()
         return
     for job in JOBS:
         render(*job)
-    write_ico(ICO_PARTS, "favicon.ico")
-    for part in ICO_PARTS:                     # only the .ico is a deliverable
-        (ASSETS / part).unlink()
+    copy_kit({"apple-touch-icon.png", "favicon.ico"})
     for src, dst in TO_SITE.items():
         shutil.copyfile(ASSETS / src, SITE / dst)
         print(f"site/{dst} <- brand/assets/{src}")
-    icons = ROOT / "extension" / "icons"
-    icons.mkdir(parents=True, exist_ok=True)
-    for size in EXTENSION_ICONS:
-        shutil.copyfile(ASSETS / "store" / f"extension-icon-{size}.png", icons / f"{size}.png")
-        print(f"extension/icons/{size}.png <- brand/assets/store/extension-icon-{size}.png")
+    copy_extension_icons()
     subprocess.run(["node", str(ROOT / "brand" / "store-shots.js")], cwd=ROOT, check=True)
     for name in STORE_SHOTS:
         got = png_size(ASSETS / "store" / name)
