@@ -352,10 +352,12 @@ SAYING = re.compile(r"(?<!\w)(?:" + SAYING_VI + r")(?!\w)", re.I)
 # "Theo X," at the start of a clause, or ", theo X." at its end; "theo dõi" and "theo đó" are not attributions.
 THEO = re.compile(r"(?:^|[,;:(]\s*|(?<!\w)(?:và|nhưng|còn|song)\s+)theo\s+(?!(?:dõi|đuổi|kịp|sau|đó|tỷ lệ|cách|hướng"
                   r"|thời gian|kế hoạch)(?!\w))([^,.;:()]{2,60}?)\s*(?:,|[.;]?\s*$)", re.I)
-NAMED_SPEAKER = re.compile(r"((?:[^\W\d_][\w.+-]*\s+){0,3}[^\W\d_][\w.+-]*)\s+(?:" + SAYING_VI + r")(?!\w)")
+# A name may carry an apostrophe ("Tom's Hardware cho biết" names the whole outlet, not "Hardware").
+NAMED_SPEAKER = re.compile(r"((?:[^\W\d_][\w.+'’-]*\s+){0,3}[^\W\d_][\w.+'’-]*)\s+(?:" + SAYING_VI + r")(?!\w)")
 SOURCE_ATTRIBUTION = re.compile(
     r"\b(?:according to|said|says|say|told|tells|found|finds|argues?|argued|believes?|believed|claim(?:s|ed)?"
     r"|estimates?|estimated|warns?|warned|thinks?|predicts?|predicted|suggests?|suggested|wrote|writes|noted"
+    r"|notes that"
     r"|insists?|insisted|contends?|contended|reports? that|reported that|reportedly|alleges?|alleged|concluded"
     r"|revealed|announced|disclosed|question(?:s|ed|ing)|per the \w+|in (?:his|her|their|its) view)\b", re.I)
 JUDGEMENT_VI = re.compile(
@@ -381,6 +383,11 @@ LAWMAKER_SPEAKER = (re.compile(r"nhà lập pháp|giới lập pháp|nghị sĩ|
                                r"|congress(?:wo)?men|members of (?:parliament|congress))\b", re.I))
 # Unnamed groups: a sentence may give them a view only when every cited paragraph quotes that group.
 GROUP_SPEAKERS = (INSIDER_SPEAKER, EXPERT_SPEAKER, LAWMAKER_SPEAKER)
+# A paper's own text speaks as its authors ("We ask whether ..."), so "các nhà nghiên cứu" may take the view of
+# a paragraph from a paper host that says "we"; experts or analysts in general may not.
+PAPER_HOSTS = {"arxiv", "openreview", "biorxiv", "medrxiv"}
+PAPER_AUTHORS_VI = re.compile(r"nhà nghiên cứu|nhà khoa học", re.I)
+PAPER_VOICE = re.compile(r"\b(?:we|our)\b", re.I)
 
 
 def _speakers(text):
@@ -422,20 +429,49 @@ def _sentences(paragraph):
     return [s for s in re.split(r"(?<=[.!?])[\"”’]?\s+(?=[\"“A-Z])", paragraph) if s.strip()]
 
 
+def _is_outlet(speaker, publisher):
+    """Whether a speaker is the paragraph's outlet written as one host name ("Tom's Hardware" is tomshardware.com,
+    which a Hacker News link records under the publisher label "hacker-news")."""
+    return "".join(re.findall(r"\w+", folded(speaker))) in _words(publisher)
+
+
 def _speaker_in(speaker, paragraph, publisher):
     """Whether one cited paragraph can carry a named speaker: it names them or its outlet, or it reports
     someone's words ("the company said", "per the outlet"); None when the speaker has no foreign name token."""
     keys = _name_keys(speaker)
     if not keys:
         return None
-    return bool(keys & _words(paragraph + " " + publisher)) or bool(SOURCE_ATTRIBUTION.search(paragraph))
+    return (bool(keys & _words(paragraph + " " + publisher)) or _is_outlet(speaker, publisher)
+            or bool(SOURCE_ATTRIBUTION.search(paragraph)))
 
 
 def _named_by(speaker, paragraph, publisher):
     """Whether a paragraph's own text names a speaker who is not the outlet (the byline carries the outlet
     everywhere, so it never vouches for one paragraph)."""
     keys = _name_keys(speaker)
-    return bool(keys) and not keys & _words(publisher) and bool(keys & _words(paragraph))
+    return (bool(keys) and not keys & _words(publisher) and not _is_outlet(speaker, publisher)
+            and bool(keys & _words(paragraph)))
+
+
+def _group_in(speaker, english, paragraph, publisher):
+    """Whether one cited paragraph quotes an unnamed group, or is a paper's own "we" for its researchers."""
+    if english.search(paragraph):
+        return True
+    return (english is EXPERT_SPEAKER[1] and bool(PAPER_AUTHORS_VI.search(speaker))
+            and bool(PAPER_HOSTS & _words(publisher)) and bool(PAPER_VOICE.search(paragraph)))
+
+
+def _closing_source(text, cited):
+    """Whether a sentence ends with "..., theo X." for an X that every cited paragraph names in its text or as
+    its outlet; the reporting-verb fallback of _speaker_in does not count here."""
+    # THEO only matches a clause that starts with "theo"; the last clause has no comma, so X runs to the end.
+    match = THEO.search(re.split(r"[,;:]", text)[-1].strip())
+    if not match:
+        return False
+    speaker = match[1].strip()
+    keys = _name_keys(speaker)
+    return bool(keys) and all(keys & _words(paragraph + " " + publisher) or _is_outlet(speaker, publisher)
+                              for paragraph, publisher in cited)
 
 
 def _outlet_voice(clause, paragraphs):
@@ -479,7 +515,7 @@ def attribution_error(text, cited):
         # An unnamed group must be the one each cited paragraph quotes. A named person with a role word
         # ("chuyên gia Nate Elliott") is checked by name below, like any named speaker.
         for english in groups if not named else ():
-            if not all(english.search(p) for p in paragraphs):
+            if not all(_group_in(speaker, english, *pair) for pair in cited):
                 return "speaker_not_in_source: " + speaker
         if groups and not named:
             continue
@@ -497,8 +533,9 @@ def attribution_error(text, cited):
         # A clause is attributed when it, or an earlier main clause, names a speaker or a reporting verb; a
         # short lead-in ("Bên cạnh nguy cơ tài chính,") takes the attribution of the clause right after it.
         # A concessive clause ("Dù ước tính ...,") does not carry its attribution to the next one.
-        # Narration in the outlet's own voice needs no speaker (see _outlet_voice).
-        attributed, pending = False, None
+        # Narration in the outlet's own voice needs no speaker (see _outlet_voice). A closing "..., theo X."
+        # attributes the whole sentence when every cited paragraph names X (see _closing_source).
+        attributed, pending = _closing_source(text, cited), None
         for clause in re.split(r"[,;:]", NOT_JUDGEMENT.sub(" ", text)):
             says = bool(SAYING.search(clause) or THEO.search(clause.strip() + ","))
             if pending is not None and not says and not _outlet_voice(pending, paragraphs):
