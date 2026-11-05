@@ -6,7 +6,7 @@ source sentence the reviewers quoted against it.
 
 import unittest
 
-from radar.summary_validation import attribution_error, entity_error
+from radar.summary_validation import attribution_error, entity_error, number_error
 
 OPERA = ("That doesn't eliminate every privacy risk, but it does give users a bit more control.", "TechCrunch")
 OPERA_SAYS = ("There's the additional advantage of privacy, the company said.", "TechCrunch")
@@ -342,6 +342,22 @@ class CorrectAttributionTests(unittest.TestCase):
         yang = ("Trưởng nhóm mô hình thế giới Ze Yang giải thích Apollo World tập trung vào mô phỏng khép kín các "
                 "nhiệm vụ hoàn chỉnh của toàn bộ chuyến đi thay vì chỉ kiểm tra từng thao tác riêng lẻ.")
         self.assertEqual(attribution_error(yang, [APOLLO_NARRATION, APOLLO_YANG]), "speaker_not_in_source: Ze Yang")
+
+
+class MonthTests(unittest.TestCase):
+    APOLLO_DAY = "SHENZHEN, China — Nov. 3: Baidu’s Apollo unit unveiled Apollo World, an agent-driven multimodal world model."
+
+    def test_a_month_the_source_names_is_not_an_invented_number(self):
+        self.assertIsNone(number_error("Ngày 3 tháng 11, Baidu giới thiệu Apollo World.", self.APOLLO_DAY))
+        self.assertIsNone(number_error("Baidu giới thiệu Apollo World ngày 3 tháng 11.", self.APOLLO_DAY))
+        self.assertIsNone(number_error("Nghiên cứu đăng ngày 4 tháng 11 năm 2026.", "[Submitted on 4 Nov 2026]"))
+
+    def test_another_month_or_a_count_of_months_is_still_invented(self):
+        self.assertEqual(number_error("Ngày 3 tháng 12, Baidu giới thiệu Apollo World.", self.APOLLO_DAY),
+                         "invented_number: 12")
+        self.assertEqual(number_error("Sau 11 tháng, Baidu giới thiệu Apollo World.", self.APOLLO_DAY),
+                         "invented_number: 11")
+        self.assertEqual(number_error("Baidu có 11 mô hình.", self.APOLLO_DAY), "invented_number: 11")
 
 
 if __name__ == "__main__":

@@ -48,6 +48,11 @@ MONEY_RANGE = re.compile(r"(?<![\w.,])(?P<low>\d+(?:[.,]\d+)?)\s*(?P<sep>đến|
 # "quý 3" is the source's "third quarter" (or Q3); the ordinal word is not a digit in the source.
 QUARTER_VI = re.compile(r"(?<!\w)quý\s+([1-4])(?!\w)", re.I)
 QUARTER_ORDINALS = {"1": "first", "2": "second", "3": "third", "4": "fourth"}
+# "tháng 11" is November; sources write the month as a capitalised name, never as the digit.
+MONTH_VI = re.compile(r"(?<!\w)tháng\s+(1[0-2]|0?[1-9])(?![\w/]|[.,]\d)", re.I)
+MONTHS_EN = [r"\b" + name + r"\b" for name in (
+    "Jan(?:uary)?", "Feb(?:ruary)?", "Mar(?:ch)?", "Apr(?:il)?", "May", "June?", "July?", "Aug(?:ust)?",
+    "Sep(?:t(?:ember)?)?", "Oct(?:ober)?", "Nov(?:ember)?", "Dec(?:ember)?")]
 
 COMMON_ACRONYMS = {"AI", "IPO", "CEO", "CTO", "CFO", "COO", "GPU", "CPU", "API", "USD",
                    "LLM", "LLMS", "AGI", "SEC", "PAC", "FPGA", "JSON", "XML", "SQL", "HTTP",
@@ -146,9 +151,16 @@ def money_claims(text):
     return claims
 
 
+def _supported_months(text, evidence):
+    """Drop "tháng N" (the month, not N months) when the evidence names that month ("Nov. 3", "November")."""
+    def month(match):
+        return "" if re.search(MONTHS_EN[int(match[1]) - 1], evidence) else match[0]
+    return MONTH_VI.sub(month, text)
+
+
 def number_error(text, evidence, *, publication_years=()):
     evidence = _scaled_ranges(normalized(evidence))
-    text = _supported_quarters(_scaled_ranges(text), evidence)
+    text = _supported_months(_supported_quarters(_scaled_ranges(text), evidence), evidence)
     source_money = money_claims(evidence)
     for value, role in money_claims(text):
         if not any(value == number and (role is None or role == source_role)
