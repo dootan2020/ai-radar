@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-05T07:20:00.782468+00:00",
-  "input_generated_at": "2026-11-05T04:30:27Z",
+  "generated_at": "2026-11-05T11:48:34.146347+00:00",
+  "input_generated_at": "2026-11-05T09:01:19Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -27152,6 +27152,561 @@
         "7cb3d7ea4d5873c317e8"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "2ab556afe3509702433c",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-05/nuveen-sees-attractive-opportunities-in-ai-credit-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "169e67868893731e8815"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7515844d1d1c49d3d3f9",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/nvidia-partner-hon-hai-s-sales-rise-46-thanks-to-ai-demand",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4e947d4e19deb41740ea"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4b92fbd0c479ce7f974d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/alibaba-cloud-lingjun-zhenwu-m890-day-zero-kimi-k3-1-pro-zhongwei-panmai-920",
+      "key_points": [
+        "Alibaba Cloud cho biết cụm máy chủ quy mô lớn Lingjun Zhenwu M890 của hãng đã hoàn tất việc tương thích ngay ngày đầu ra mắt cho trọng số mô hình Kimi K3.1 Pro của Moonshot AI và hoàn tất xác thực toàn diện trên hai khung suy luận vLLM cùng SGLang, theo IT Home đưa tin ngày 5 tháng 11 dẫn lời nhà cung cấp điện toán đám mây này.",
+        "Theo bài viết trên Pandaily, Kimi K3.1 Pro là mô hình kết hợp chuyên gia phân tán quy mô 2,8 nghìn tỷ tham số với cửa sổ ngữ cảnh khoảng một triệu mã token, tích hợp cơ chế chú ý Kimi Delta Attention, cơ chế chú ý phân tán DSA và khả năng dự đoán đa token. Bài viết cho biết những đặc điểm kiến trúc này đặt ra yêu cầu rất lớn về dung lượng bộ nhớ cũng như hệ thống kết nối liên kết mở rộng tốc độ cao giữa các chip. Alibaba Cloud, bộ phận bán dẫn T-Head và nhóm Kimi cho biết đã phối hợp tinh chỉnh mô hình trên phần mềm T-Head SAIL để tối ưu các toán tử FlashMLA, DeepGEMM MoE, MegaMoE cùng MoonEP nhằm giúp khách hàng triển khai suy luận trên máy chủ vật lý hoặc qua dịch vụ REIN.",
+        "Tài liệu kỹ thuật từ các dự án SGLang và vLLM xác nhận bộ xử lý Zhenwu PPU hỗ trợ Kimi K3.1 Pro trên cấu hình M890 và 810E, đồng thời Alibaba Cloud cũng xuất bản tài liệu hướng dẫn trên SGLang cho các cấu hình xử lý song song đa máy. Tại trung tâm Trung Vệ, Alibaba bổ sung thêm thẻ mạng thông minh Panmai 920 của T-Head với băng thông đỉnh 400Gbps, tích hợp bộ chuyển mạch PCIe giúp GPU và ổ SSD kết nối giảm phụ thuộc thiết bị ngoài, một thiết kế mà công ty cho biết có thể giảm khoảng 30% chi phí hệ thống. Alibaba Cloud hiện cung cấp các phiên bản cụm máy chủ hỗ trợ ngày đầu cho các mô hình lớn ở cả hai trung tâm dữ liệu Ô Lan Sát Bố và Trung Vệ.",
+        "Các ghi chú độc lập từ SGLang và vLLM đánh giá đây là lần đầu tiên phần cứng Zhenwu hỗ trợ ngay ngày đầu cho một mô hình lớn trọng số mở chủ lưu với tư cách là phần phụ trợ phần cứng tích hợp sẵn. Alibaba Cloud cho biết các cụm máy chủ M890 hiện phục vụ hơn 100 khách hàng lớn, đồng thời nhắc lại phiên bản Zhenwu V900 thế hệ kế tiếp dự kiến đạt hiệu năng gấp khoảng ba lần thế hệ hiện tại. Theo Pandaily, thông báo này kết hợp với bước đi tương tự của Huawei Ascend trong cùng tuần đã mang lại hai lựa chọn hạ tầng cụm máy chủ nội địa tại Trung Quốc sẵn sàng chạy Kimi K3.1 Pro ngay ngày đầu ra mắt."
+      ],
+      "same_event_coverage_ids": [
+        "4f79097fe803775380b6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Alibaba Cloud hỗ trợ ngày đầu cho Kimi K3.1 Pro trên cụm máy chủ Zhenwu M890",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/alibaba-cloud-lingjun-zhenwu-m890-day-zero-kimi-k3-1-pro-zhongwei-panmai-920"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "5afb0c673b19feeab69c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/moonshot-ai-kimi-hosted-agents-harness-as-a-service-sandbox-inference-hook",
+      "key_points": [
+        "Dịch vụ này cung cấp khung thực thi dưới dạng dịch vụ (Harness as a Service), cho phép các nhóm kỹ thuật cấu hình tác tử trên hạ tầng của Kimi và vận hành môi trường máy chủ 24/7 phục vụ các tác vụ dài hạn cùng sự cộng tác đa tác tử.",
+        "Kimi Hosted Agents cung cấp các hộp cát (sandbox - môi trường cách ly an toàn) có kiểm soát truy cập mạng, ranh giới phiên chạy mà người quản trị có thể dừng bất cứ lúc nào và nhật ký thực thi xuất được để phục vụ kiểm toán. Nền tảng cũng cung cấp thành phần an toàn tùy chọn Kimi Inference Hook để kiểm tra dữ liệu đầu vào và kết quả công cụ trước mỗi lượt gọi mô hình, hiện chỉ dành riêng cho khách hàng doanh nghiệp đã qua xác minh.",
+        "Về chi phí, báo cáo tách riêng giờ chạy hộp cát, suy luận mô hình và gọi phần trình cắm (plugin), trong đó IT Home ghi nhận mức giá hộp cát là 0,072 nhân dân tệ mỗi giờ cộng thêm phí suy luận và tiện ích. Nền tảng hiện có hơn 140 kỹ năng cùng hơn 30 phần trình cắm, đồng thời tài liệu cung cấp 12 mẫu tác tử chính thức đầu tiên cho trò chơi và ứng cứu sự cố hệ thống, trong đó IT Home nhấn mạnh tám mẫu tài chính chuyên biệt như lập mô hình và theo dõi IPO. Tài liệu kỹ thuật cũng mô tả tùy chọn tự lưu trữ, nơi các công cụ hộp cát chạy trên máy chủ do khách hàng kiểm soát trong khi việc điều phối logic vẫn diễn ra trên nền tảng đám mây.",
+        "Moonshot khẳng định dịch vụ này mở rộng danh mục của Kimi từ các mô hình và tác tử máy tính đơn lẻ sang một môi trường thực thi máy chủ lưu trữ mà công ty cam kết sẽ duy trì và nâng cấp. Theo bài viết trên Pandaily, sự kiện này diễn ra ngay sau khi Huawei Ascend hỗ trợ ngày đầu cho mô hình Kimi K3.1 Pro, làm nổi bật nỗ lực lớn hơn nhằm giúp các tác tử Kimi vận hành dễ dàng hơn trong môi trường sản xuất thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "5237891a3c8edadc7fe7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Moonshot AI ra mắt Kimi Hosted Agents cung cấp môi trường thực thi tác tử trọn gói",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/moonshot-ai-kimi-hosted-agents-harness-as-a-service-sandbox-inference-hook"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "fd985f9b140165540f46",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://technode.com/2026/11/05/baidu-tests-a-new-way-to-train-robotaxis/",
+      "key_points": [
+        "Theo Baidu, mô hình này đang được đưa vào sử dụng để kiểm tra và xác thực dịch vụ gọi xe không người lái Apollo Go trong bối cảnh dịch vụ mở rộng sang nhiều thị trường mới. Hệ thống tạo môi trường ảo khép kín nơi ô tô và người đi bộ phản ứng lại xe, đồng thời dữ liệu mô phỏng từ camera và cảm biến lidar liên tục phản hồi cho tài xế ảo.",
+        "Apollo định nghĩa mô hình thế giới qua hai tiêu chuẩn là tính nhân quả và tương tác, trong đó kiến trúc sư trưởng Liang Wang nhấn mạnh mô hình không phải là công cụ vẽ video mà là người thẩm định an toàn lái xe tự hành. Hệ thống hướng tới mục tiêu cắt giảm chi phí thử nghiệm thực tế đắt đỏ, khi mỗi lần lặp mô hình trung bình đòi hỏi hơn 700.000 km chạy thử trên đường.",
+        "Apollo World được huấn luyện trên hơn một tỷ khung hình giá trị cao và kết hợp đồng thời cả dữ liệu camera lẫn cảm biến lidar. Trả lời TechNode, ông Wang cho biết mô hình hợp nhất hai luồng tín hiệu này, còn ông Yang giải thích việc kết hợp mang lại nhiều thông tin hơn cho hệ thống so với việc chỉ dựa vào thị giác thông thường. Tại Trung Quốc, Apollo Go đã vận hành hoàn toàn không người lái 100% trên đất liền với hơn 23 triệu chuyến đi và ghi nhận 240 triệu km di chuyển tự hành hoàn toàn. Ở thị trường quốc tế, dịch vụ đã chạy thương mại hoàn toàn không người lái tại Dubai, đồng thời đang tiến hành thử nghiệm hoặc mở rộng tại Luân Đôn, Thụy Sĩ, Hồng Kông, Abu Dhabi và Hàn Quốc.",
+        "Về mức độ an toàn và giới hạn công nghệ, ông Wang cho biết thử nghiệm ảo giúp phát hiện sớm sự cố trước khi các mô hình đầu cuối (end-to-end) vốn khó dự đoán hơn được triển khai trên quy mô lớn. Theo phân tích của TechNode, cuộc đua taxi không người lái đang mở rộng toàn cầu khi các hãng cạnh tranh thích ứng hệ thống với nhiều thành phố, khung pháp lý và môi trường giao thông khác nhau. Tạp chí này cũng nhận định bước đi của Baidu diễn ra khi các đối thủ như Waymo, WeRide và Pony.ai cũng đang mở rộng ra nước ngoài, làm gia tăng cạnh tranh thiết lập dịch vụ tại các thị trường mới."
+      ],
+      "same_event_coverage_ids": [
+        "38e6dc928061153ed484"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Baidu ra mắt mô hình thế giới Apollo World phục vụ thử nghiệm an toàn taxi tự hành",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/05/baidu-tests-a-new-way-to-train-robotaxis/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "8c667c037c6de84b155e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Financial market commentary focusing on foreign capital flows into India where an AI investment boom correction is referenced only incidentally as a market condition.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/asia-s-richest-banker-uday-kotak-sees-ai-correction-boosting-flows-to-india",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d4cfc652a88f3cf4f66b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e934b7e0a59aba19bbc2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/05/oracle-reportedly-cancels-7-billion-tencent-ai-chip-lease-under-us-pressure/",
+      "key_points": [
+        "Tập đoàn Oracle đã hủy bỏ một thỏa thuận có thời hạn năm năm về việc cho Tencent thuê các chip trí tuệ nhân tạo tiên tiến sau khi chịu sức ép từ chính quyền Tổng thống Trump, theo thông tin do tờ Financial Times đăng tải vào ngày 4 tháng 11. Thỏa thuận này có giá trị ước tính khoảng 7 tỷ USD và theo kế hoạch ban đầu sẽ cấp quyền cho Tencent tiếp cận khoảng 100.000 chip trí tuệ nhân tạo tiên tiến tại các trung tâm dữ liệu của Oracle ở khu vực Đông Nam Á.",
+        "Về lý do đằng sau quyết định này, Financial Times cho biết các quan chức chính phủ Mỹ đã bày tỏ quan ngại với Oracle về thỏa thuận hợp tác nói trên. Đồng thời, báo cáo cũng ghi nhận Tencent đã nhận được các chuyến thăm từ các quan chức cấp cao của tỉnh Quảng Đông với yêu cầu công ty này phải ủng hộ các dòng chip của Trung Quốc.",
+        "Về tính xác thực của thông tin, hãng thông tấn Reuters cho biết họ không thể kiểm chứng độc lập báo cáo trên của Financial Times. Reuters đồng thời cho biết phía Oracle, Tencent và Nhà Trắng đều không đưa ra phản hồi nào trước các yêu cầu bình luận được gửi tới. Theo phản ánh từ Financial Times và Reuters, việc thỏa thuận trị giá khoảng 7 tỷ USD này bị hủy bỏ phản ánh trực tiếp sự can thiệp từ giới chức Mỹ cũng như định hướng thúc đẩy sử dụng chip nội địa từ các quan chức chính quyền tỉnh Quảng Đông."
+      ],
+      "same_event_coverage_ids": [
+        "551388a129ad5356ba8a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Oracle hủy thỏa thuận 7 tỷ USD cho Tencent thuê chip AI trước sức ép từ Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/05/oracle-reportedly-cancels-7-billion-tencent-ai-chip-lease-under-us-pressure/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "d3458042077dfb801293",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/china-blocks-softbank-s-acquisition-of-abb-industrial-robot-unit",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "87822159a46c654c3686"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f4ccb24458db1cc184d2",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/claude-lowers-chatgpt-s-lead-in-1-billion-uk-consumer-ai-market",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "74c4c050d517b7db39c7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "75767d8337bdcc359b42",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.tomshardware.com/pc-components/ai-demand-triggers-massive-pcb-shortage-for-pc-makers-as-order-books-full-until-2030-lead-times-stretch-to-30-months-as-material-costs-surge-12x",
+      "key_points": [
+        "Theo báo cáo của Nikkei Asia được Tom's Hardware dẫn lại, ngành trí tuệ nhân tạo đang chiếm dụng tài nguyên sản xuất bo mạch in (PCB - bảng mạch in kết nối linh kiện điện tử), khiến các nhà sản xuất máy tính đối mặt nguy cơ thiếu hụt nguồn cung và tăng giá trong những tháng tới. Tình trạng khan hiếm linh kiện cơ bản này diễn ra sau đợt tăng giá mạnh của bộ nhớ RAM, chip đồ họa (GPU) và ổ SSD suốt năm 2026 do nhu cầu AI tăng vọt. Một giám đốc từ nhà sản xuất máy tính Mỹ chia sẻ với Nikkei rằng dù lượng xuất xưởng máy tính có thể tiếp tục giảm vào năm tới, họ vẫn chật vật tìm đủ bo mạch in để lên kế hoạch sản phẩm mới.",
+        "Nikkei Asia và các nguồn tin chuỗi cung ứng cho biết nhu cầu bo mạch in truyền thống không được đáp ứng thỏa đáng do các đơn hàng sản phẩm AI có nhu cầu lớn và chi trả giá cao hơn. Nhiều ý kiến trong ngành cũng chỉ rõ nhu cầu điện toán AI đang chiếm dụng phần lớn công suất sản xuất tại các nhà máy.",
+        "Một nhà sản xuất chia sẻ với Nikkei rằng thời gian giao nhiều đơn hàng bo mạch in đã tăng gấp đôi và kéo dài tới 30 tháng, trong khi một công ty khác cho biết đơn hàng mới đặt phải đến cuối năm 2028 mới có thể hoàn tất. Về chi phí, một nhà sản xuất máy tính Đài Loan ghi nhận giá thu mua vật liệu phủ đồng đã tăng ít nhất 12 lần kể từ tháng 7. Một nhà cung cấp vật liệu phủ đồng hàng đầu thế giới còn tiết lộ với Nikkei rằng đơn hàng của họ đã kín chỗ tới năm 2030 dù có kế hoạch tăng gấp ba công suất vào năm 2028.",
+        "Báo cáo nguồn cũng lưu ý rằng các cơ sở sản xuất mới ngày càng khó tuyển dụng đội ngũ kỹ sư cần thiết, trong khi tiền lương trên toàn ngành bo mạch in đã tăng từ 20% đến 30% nhằm giữ chân lực lượng lao động lành nghề."
+      ],
+      "same_event_coverage_ids": [
+        "afdc7375963dda752c48"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cơn sốt AI khiến ngành máy tính đối mặt khủng hoảng thiếu bo mạch in và vật liệu phủ đồng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.tomshardware.com/pc-components/ai-demand-triggers-massive-pcb-shortage-for-pc-makers-as-order-books-full-until-2030-lead-times-stretch-to-30-months-as-material-costs-surge-12x"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "40b1c777d53ad09729b7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1026586/nothing-screen-free-ai-device-carl-pei",
+      "key_points": [
+        "Theo The Verge, Giám đốc điều hành hãng công nghệ Nothing là Carl Pei vừa thông báo trên mạng xã hội X rằng công ty sẽ phát hành thiết bị trí tuệ nhân tạo (AI) đầu tiên vào tháng 12 năm 2026. Động thái này diễn ra sau hơn một năm kể từ khi Pei công bố kế hoạch phát triển các thiết bị thuần AI (AI-native - phần cứng xây dựng từ gốc cho trí tuệ nhân tạo) và hệ điều hành AI. Dù chưa tiết lộ chi tiết thiết bị, Pei cho biết đây là một công cụ mang bản sắc Nothing, hoàn toàn không có màn hình và không thể chỉ là một ứng dụng phần mềm.",
+        "Giải thích về định hướng sản phẩm, Carl Pei cho rằng toàn ngành công nghệ đang mải mê tìm kiếm khoảnh khắc iPhone cho AI qua các thiết bị như trâm cài, mặt dây chuyền, kính hay thiết bị đồng hành. Tuy nhiên, Pei khẳng định việc săn lùng một thiết bị thần kỳ tương tự iPhone cho trí tuệ nhân tạo hiện nay là một ngõ cụt. Thay vào đó, Nothing thiết kế sản phẩm như một công cụ hỗ trợ và Pei nhấn mạnh các tính năng này không thể vận hành nếu chỉ thông qua ứng dụng di động đơn thuần.",
+        "The Verge ghi nhận thiết bị của Nothing không phải phần cứng AI không màn hình đầu tiên, sau các sản phẩm như trâm cài Humane AI pin, thiết bị Friend hay thú nhồi bông tích hợp AI. Bài viết cho biết thêm tổ chức OpenAI cũng được đưa tin là đang phát triển loa thông minh AI cùng nhà thiết kế Jony Ive. Pei chỉ hé lộ hình ảnh một góc bo tròn màu đen, giữa lúc rộ lên tin đồn rằng Nothing dự kiến tung ra hai mẫu kính thông minh và chuyển hướng sang mảng phụ kiện AI.",
+        "Theo đánh giá từ The Verge, Nothing đang bước vào thị trường phần cứng AI đầy rủi ro, nơi các tiện ích không màn hình đi trước đều chưa tạo được sức hút lớn với người dùng. Nhận định của Carl Pei rằng việc tìm kiếm một sản phẩm thần kỳ là ngõ cụt cho thấy cách tiếp cận thận trọng hơn, nhưng việc công ty giữ kín mọi thông tin ngoại trừ việc không có màn hình khiến năng lực thực tế của thiết bị vẫn là dấu hỏi lớn."
+      ],
+      "same_event_coverage_ids": [
+        "37a1f14d89b609c61333",
+        "af7c7e65ad20def5143d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nothing chuẩn bị ra mắt thiết bị trí tuệ nhân tạo không màn hình đầu tiên vào tháng 12",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1026586/nothing-screen-free-ai-device-carl-pei"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/05/nothing-plans-december-launch-for-first-ai-native-device/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "2509537decd965f0028b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.06768",
+      "key_points": [
+        "Researchers introduced PyRUA-REAL, an embodied recursive self-improvement framework using coding agents for real-world robotic exploration, code refinement, and deployment.",
+        "Under PyRUA-REAL, coding agents preserve physical interaction experiences as persistent memory and reusable executable skills to guide future improvement.",
+        "The framework connects spatial reasoning from models like GPT-6-Astra with executable robot behaviors centered around physical manipulation tasks."
+      ],
+      "same_event_coverage_ids": [
+        "6fdf2333733aeaadbbb4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6918dac91c55645b7f9f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.06483",
+      "key_points": [
+        "A research paper investigated multi-turn agentic reinforcement learning across sampling breadth K and interaction depth T using the Pass@(K,T) evaluation metric.",
+        "The authors found that trajectory-level RL advantages depend heavily on sufficient turn budgets, diminishing significantly when budgets are restricted.",
+        "The study demonstrated that agentic RL primarily strengthens error recovery and long-horizon resilience rather than uniformly raising single-step decision quality."
+      ],
+      "same_event_coverage_ids": [
+        "f0e5a386c842a0ac8615"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "de07894e4ae4dcad0cec",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.06728",
+      "key_points": [
+        "Streaming video understanding requires models to repeatedly decide whether to respond or continue observing.",
+        "Existing GRPO approaches for streaming video retain a single trajectory-level advantage across turns, which can reinforce redundant replies after earlier successes and discourage useful follow-ups after earlier failures.",
+        "Researchers propose TurnWise, a turn-level GRPO framework that aligns reinforcement learning with individual turns."
+      ],
+      "same_event_coverage_ids": [
+        "72c8e8a515c368988050"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bbe316c38581f5731e29",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.06796",
+      "key_points": [
+        "Nhóm tác giả cho biết kết quả thử nghiệm sâu rộng chứng minh VA-TDM đạt hiệu năng dẫn đầu ở thiết lập bốn bước lấy mẫu khi tạo ảnh và video từ văn bản trên nhiều kiến trúc nền tảng, đồng thời mở rộng hiệu quả lên mô hình MiniMax-H3 quy mô 33 tỷ tham số. Tuy nhiên, nhóm nghiên cứu nhấn mạnh điều kiện giới hạn rằng trong khi kỹ thuật chưng cất ít bước giúp tạo sinh hiệu quả, việc duy trì chất lượng khi chỉ dùng vài bước lấy mẫu vẫn là một thách thức kỹ thuật lớn.",
+        "Theo nhóm tác giả, các phương pháp khớp phân phối qua chưng cất theo hàm điểm cung cấp nền tảng tốt nhưng phụ thuộc vào việc theo dõi chính xác phân phối của mô hình học sinh (mô hình tinh gọn được huấn luyện để tạo mẫu nhanh). Nhóm nghiên cứu nhận định ở các bước tạo sinh trung gian, việc ước lượng hàm điểm của mô hình học sinh có thể gặp khó khăn và các bộ ước lượng phổ biến có thể mô tả phân phối khác với phân phối dùng để cập nhật học sinh. Để giải quyết vấn đề, nhóm dựa trên kỹ thuật khớp dòng chảy nhằm giám sát linh hoạt hơn qua các trường vận tốc được xây dựng từ tiến trình lấy mẫu của học sinh, trong đó VAD dùng mạng đánh giá để so sánh trường của học sinh và giáo viên rồi biến bất đồng thành phản hồi học tập. Nhóm tiếp tục phát triển VA-TDM theo nguyên lý khớp phân phối theo quỹ đạo nhằm giám sát quá trình khử nhiễu từng phần, kết hợp học vận tốc trực tuyến nhận biết chuyển tiếp và giám sát VAD dạng kép qua các bước chuyển đổi trung gian.",
+        "Để cung cấp minh chứng so sánh, nhóm tác giả đã thử nghiệm biến thể VA-TDM-H3 khi mở rộng trên kiến trúc MiniMax-H3 quy mô 33 tỷ tham số. Theo thước đo sở thích đánh giá của con người (human preference, phản ánh mức độ bình chọn yêu thích trực quan), mô hình VA-TDM-H3 vượt trội rõ rệt so với mô hình ít bước Fast-H3. Dù vậy, nhóm tác giả chỉ ra điểm đối trọng cụ thể là kết quả của VA-TDM-H3 theo đánh giá của con người chỉ tiến gần hơn tới mô hình H3 gốc nhiều bước chứ chưa thể vượt qua mô hình gốc này.",
+        "Nhóm nghiên cứu kết luận rằng VAD hợp nhất kỹ thuật chưng cất hàm điểm, khớp Fisher và khớp mô-men, giải thích các cập nhật MMD kinh nghiệm trước đó và mang lại các hàm mục tiêu huấn luyện mới. Dù vậy, các tác giả lưu ý rằng hiệu quả của VA-TDM vẫn chịu giới hạn bởi thách thức ước lượng hàm điểm ở các bước trung gian và bài toán bảo toàn chất lượng khi bị bó hẹp trong bốn bước lấy mẫu."
+      ],
+      "same_event_coverage_ids": [
+        "7ef8cb7c2bba82042401"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu VA-TDM cải thiện mô hình khuếch tán với hiệu năng bốn bước tạo ảnh và video",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.06796"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "b17395183e61aa3f7dd2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.06518",
+      "key_points": [
+        "Nhóm nghiên cứu nhận định rằng dù thuật toán GRPO đã thúc đẩy hậu huấn luyện mô hình trong các lĩnh vực có thể kiểm chứng như lập trình và toán học, việc đánh giá chất lượng video biểu cảm lại phụ thuộc vào thẩm mỹ chủ quan và không có mục tiêu chuẩn xác duy nhất. Để khắc phục, EmoReward tự tiến hóa bằng cách chắt lọc độ tin cậy từ dấu vết phần thưởng trong lượt huấn luyện thực tế nhằm định hướng phân bổ trọng số thích ứng ở lượt tiếp theo mà không cần cập nhật các mô hình phần thưởng.",
+        "Các tác giả giải thích rằng các phương pháp hiện tại dựa vào phần thưởng cố định cho chất lượng hình ảnh, chuyển động và văn bản, vốn phản ánh kém ý định cảm xúc và dễ gây ra hiện tượng gian lận phần thưởng (hành vi mô hình tối ưu điểm số nhưng tạo kết quả kém tự nhiên). Đồng thời, phương pháp RLHF rất khó mở rộng và chịu ảnh hưởng bởi thẩm mỹ cá nhân, gây phức tạp cho việc hiệu chuẩn các dấu hiệu khuôn mặt, cử động cơ thể và màu sắc trong các bối cảnh cốt truyện. Về quy trình, EmoReward lập kế hoạch các dấu hiệu căn chỉnh từ lời nhắc cảm xúc để định hướng đánh giá, rồi dùng các tín hiệu nguyên thủy không đồng nhất để chấm điểm video tạo ra trong giai đoạn thực thi. Cơ chế cổng phần thưởng phản xạ Reflective Reward Gating sẽ hiệu chuẩn đóng góp của các tín hiệu qua cổng cấp độ thực thể về giai đoạn, độ tin cậy khuôn mặt, xung đột và độ tinh tế để tạo phần thưởng hợp nhất. Bộ nhớ RewardMemory tiếp tục ước lượng độ tin cậy của từng tín hiệu từ điểm số trong lượt huấn luyện đã kết thúc, rồi cố định các hệ số nhân có giới hạn nhằm hiệu chuẩn trọng số ở lượt huấn luyện sau. Về thực nghiệm, nhóm tác giả báo cáo thử nghiệm trên HunyuanVideo 1.5 ghi nhận cải thiện qua nhiều thuật toán học tăng cường và so sánh EmoReward với các phương pháp phần thưởng tác tử dưới SAGE-GRPO, đồng thời các thử nghiệm chuyển giao trên SD 3.5 và FLUX củng cố thêm tính hiệu quả của phương pháp.",
+        "Nhóm tác giả kết luận rằng EmoReward cung cấp cơ chế hiệu chuẩn thích ứng hiệu quả cho việc tạo sinh thị giác bằng cách tự động phân bổ trọng số các tín hiệu cảm xúc mà không cần tinh chỉnh mạng phần thưởng. Tuy vậy, các tác giả lưu ý rằng việc đánh giá video cảm xúc vốn phụ thuộc vào thẩm mỹ chủ quan và không có mục tiêu đúng đắn duy nhất, nên các hệ số điều chỉnh vẫn chịu giới hạn trong khuôn khổ dấu vết đã thu thập."
+      ],
+      "same_event_coverage_ids": [
+        "4893ccd3fe7b101c0695"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu EmoReward tự tiến hóa giúp hiệu chuẩn phần thưởng tạo video cảm xúc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.06518"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "6c5047350a90074a90a6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.06083",
+      "key_points": [
+        "Nhóm tác giả do Peiran Wu dẫn đầu giới thiệu SleuthVLM, một khung điều phối tác tử (agent harness - công cụ giúp mô hình tự vận hành) được xây dựng trên nền tảng mô hình thị giác - ngôn ngữ (VLM) có thể hiểu video mà không tiếp nhận trực tiếp âm thanh. Theo các tác giả, trong thử nghiệm trên bốn bài kiểm chuẩn toàn năng (omni benchmarks - bài kiểm tra năng lực đa phương thức) với video dài tới 90 phút, SleuthVLM đã đạt độ chính xác trung bình cao nhất. Kết quả này mở ra hướng tiếp cận hiểu video bằng năng lực suy luận của tác tử thay vì để mô hình trực tiếp nghe âm thanh.",
+        "Nhóm tác giả chỉ ra rằng các mô hình toàn năng hiện nay trả lời câu hỏi về video bằng cách xử lý đồng thời khung hình lấy mẫu cùng âm thanh trong một lượt, với tiến bộ phần lớn nhờ mở rộng quy mô mô hình và dữ liệu huấn luyện. Để kiểm tra xem mô hình có thực sự cần nghe trực tiếp hay không, nhóm nghiên cứu chuyển lời nói trong video thành văn bản rồi để mô hình VLM tự mình điều tra nội dung mà không theo quy trình định sẵn nào.",
+        "Trên bốn bài kiểm chuẩn toàn năng với video dài tới 90 phút, SleuthVLM đạt độ chính xác trung bình 75,0%, cao hơn 2,6 điểm phần trăm so với Gemini 3.8 Flash. Hệ thống này cũng đứng đầu bảng xếp hạng bài kiểm chuẩn Video-MME-v2 với tỷ lệ chính xác đạt mức 77,8%. Khi kết hợp với một mô hình VLM mã nguồn mở quy mô 27 tỷ tham số (27B), SleuthVLM đánh bại toàn bộ các mô hình toàn năng mã nguồn mở được so sánh.",
+        "Từ kết quả trên các bài kiểm chuẩn, nhóm tác giả khẳng định SleuthVLM vượt qua mô hình chỉ quan sát thoáng qua, đồng thời chứng minh việc nghe âm thanh trực tiếp không phải là điểm nghẽn mà chính năng lực tác tử mới đóng vai trò quyết định. Dù vậy, các tác giả lưu ý nghiên cứu mới cung cấp điểm khởi đầu đơn giản nhưng hiệu quả, cho thấy bài toán hiểu video toàn năng cần những tác tử tốt hơn thay vì chỉ xây dựng các mô hình lớn hơn biết nghe."
+      ],
+      "same_event_coverage_ids": [
+        "48e93c63f03730ff9278"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "SleuthVLM đạt độ chính xác cao trên bài kiểm chuẩn hiểu video dù không trực tiếp nghe âm thanh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.06083"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "57242503914f0d845dfe",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.06910",
+      "key_points": [
+        "Nhóm tác giả do Bingran You dẫn đầu đã giới thiệu FrontierPhysics, một bài kiểm chuẩn (benchmark - bộ công cụ đánh giá tiêu chuẩn) toàn trình gồm 56 nhiệm vụ do 42 nhà vật lý xây dựng dựa trên chính nghiên cứu của họ. Bài kiểm chuẩn này bao quát chín lĩnh vực thuộc ba nhánh vật lý lý thuyết, vật lý tính toán và vật lý thực nghiệm để đánh giá năng lực của các tác tử (agents - chương trình AI tự động thực hiện chuỗi thao tác độc lập). Mỗi nhiệm vụ yêu cầu các tác tử phải tự tổng quan tài liệu, xây dựng kế hoạch nghiên cứu, thực hiện nghiên cứu và thí nghiệm, đồng thời tạo ra các kết quả có cấu trúc cùng bản thảo bài báo khoa học.",
+        "Nhóm nghiên cứu giải thích rằng các bài kiểm chuẩn vật lý hiện nay chỉ đánh giá các câu hỏi cố định, các nhiệm vụ con riêng lẻ hoặc tái lập bài báo với lời giải có sẵn, đồng thời hiếm khi kiểm tra chất lượng nghiên cứu song hành cùng tính chính xác.",
+        "Trong kết quả thực nghiệm trên 22 mô hình ở 26 cấu hình khác nhau, nhóm tác giả ghi nhận không có cấu hình nào vượt qua được quá 46 lượt trong tổng số 168 lượt chạy thử nghiệm (rollouts) của mỗi cấu hình. Thước đo số lượt vượt qua này phản ánh tỷ lệ thành công của tác tử khi phải hoàn thành đồng thời cả yêu cầu về tính chính xác lẫn chất lượng xuất bản khoa học. Kết quả đo lường này cho thấy khoảng cách lớn giữa khả năng giải quyết từng bài toán đơn lẻ với việc tự mình thực hiện một quy trình nghiên cứu khoa học trọn vẹn trong môi trường thử nghiệm.",
+        "Từ việc rà soát thủ công các quỹ đạo hành động của tác tử trong các lượt chạy thử nghiệm, nhóm nghiên cứu nhận định rằng điểm yếu chính của các tác tử hàng đầu là khả năng suy luận chưa đủ chặt chẽ và trực giác chuyên gia còn hạn chế. Các tác giả chỉ rõ rằng những thất bại này không bắt nguồn từ việc thiếu hụt kiến thức vật lý hay các lỗi thực thi mã lệnh của mô hình. Kết luận này cho thấy trong phạm vi bài kiểm chuẩn đã đánh giá, việc mở rộng tri thức vật lý đơn thuần sẽ không giúp giải quyết bài toán, mà điều cốt lõi là cần nâng cao năng lực lập luận chặt chẽ và trực giác nghiên cứu sâu sắc cho các tác tử AI."
+      ],
+      "same_event_coverage_ids": [
+        "1fdfd13dcc507699504a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bài kiểm chuẩn FrontierPhysics: Các tác tử AI bộc lộ nhiều hạn chế khi nghiên cứu vật lý toàn trình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.06910"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
     }
   ]
 }
