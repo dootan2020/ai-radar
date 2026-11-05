@@ -377,6 +377,40 @@ class WriterDeskTests(unittest.TestCase):
         self.assertNotIn("rewrite", row)
         self.assertEqual(len(runner.calls), 1)
 
+    def lost_lead(self):
+        # The 2026-11-05 18:00 Kimi story: the lead failed and the paragraph opened on "Dịch vụ này ...".
+        reply = deepcopy(PROSE)
+        reply["paragraphs"][0]["sentences"] = [
+            sentence("HelioLab giới thiệu CanvasKit chạy trên 500 GPU để dựng xưởng ảo cho tác tử.", "outlet:p001"),
+            sentence("Khung này vẫn là thí nghiệm nghiên cứu, chưa phải sản phẩm robot đã triển khai.", "outlet:p001")]
+        return reply
+
+    def test_a_development_paragraph_that_loses_its_lead_is_rewritten_not_published_without_its_subject(self):
+        row, _, runner = self.write(self.lost_lead())
+        self.assertFalse(row["written"])
+        self.assertEqual(row["reason"], "paragraph_roles")
+        self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]],
+                         [("development", "invented_number: 500"), ("development", "lead_dropped")])
+        self.assertEqual(row["rewrite"], {"roles": ["development"], "result": "rewrite_model_failure"})
+        _, rows, instruction = runner.calls[1]
+        self.assertIn("lead_dropped", instruction)
+        self.assertEqual([item["error"] for item in rows[0]["rewrite"]["rejected"]],
+                         ["invented_number: 500", "lead_dropped"])
+
+        rewrite = {"id": SID, "status": "ready", "paragraphs": [deepcopy(PROSE["paragraphs"][0])]}
+        row, _, _ = self.write(runner=self.rewrite_runner(self.lost_lead(), rewrite))
+        self.assertTrue(row["written"], row)
+        self.assertTrue(row["key_points"][0].startswith("HelioLab giới thiệu CanvasKit, một khung mô phỏng"))
+
+    def test_a_later_paragraph_may_lose_its_first_sentence(self):
+        reply = deepcopy(PROSE)
+        reply["paragraphs"][2]["sentences"].insert(
+            0, sentence("HelioLab cho biết CanvasKit đã chạy trên 500 GPU trong thử nghiệm.", "outlet:p002"))
+        row, _, runner = self.write(reply)
+        self.assertTrue(row["written"], row)
+        self.assertEqual([d["error"] for d in row["dropped_points"]], ["invented_number: 500"])
+        self.assertEqual(len(runner.calls), 1)
+
     def test_paper_frame_validates_with_three_paragraphs(self):
         paper = deepcopy(PROSE)
         paper["paragraphs"] = [

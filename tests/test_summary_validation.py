@@ -6,7 +6,7 @@ source sentence the reviewers quoted against it.
 
 import unittest
 
-from radar.summary_validation import attribution_error, entity_error
+from radar.summary_validation import attribution_error, entity_error, number_error
 
 OPERA = ("That doesn't eliminate every privacy risk, but it does give users a bit more control.", "TechCrunch")
 OPERA_SAYS = ("There's the additional advantage of privacy, the company said.", "TechCrunch")
@@ -231,6 +231,133 @@ class NamedAndGroupSpeakerTests(unittest.TestCase):
         self.assertIsNone(attribution_error(
             "Tạp chí WIRED nhận định tranh cãi này thuộc cuộc tranh luận về ranh giới giữa ủng hộ và thổi phồng, "
             "trong bối cảnh các nhà lập pháp cảnh báo về sự thổi phồng.", [ONWURAH, BOOSTERISM]))
+
+
+# Cycle 20261105T110009Z: the writer's sentences and the paragraphs each cited, with the outlet names the newsroom
+# passes (publisher label plus the URL's host; a Hacker News item keeps "hacker-news" as its label).
+KIMI_LEAD = ("Moonshot AI has launched Kimi Hosted Agents, a cloud service that packages the agent runtime, or harness, "
+             "as a managed product rather than leaving enterprises to build and maintain that layer themselves, "
+             "according to IT Home and the company's open-platform documentation. The offering is framed as Harness "
+             "as a Service: teams configure agents on Kimi's infrastructure and get a 24/7 hosted environment for "
+             "long-running tasks and multi-agent collaboration.", "pandaily pandaily")
+KIMI_USES = ("Companies can point agents at internal systems for monitoring, research and operations work, or embed "
+             "them in customer-facing products as research or support assistants. Kimi Hosted Agents provides "
+             "isolated sandboxes with network-access controls, session boundaries that operators can stop at any "
+             "time, and execution logs that can be exported for audit. Usage reports break out sandbox hours, model "
+             "inference and plugin calls; IT Home cites a sandbox rate of 0.072 yuan per hour plus model and plugin "
+             "charges.", "pandaily pandaily")
+KIMI_SENTENCE = ("Moonshot AI đã ra mắt dịch vụ đám mây Kimi Hosted Agents đóng gói môi trường thực thi tác tử (agent "
+                 "harness - khung điều phối và chạy tác vụ tự động) thành sản phẩm quản lý trọn gói thay vì để doanh "
+                 "nghiệp tự xây dựng")
+PCB_MATERIALS = ("Though PCB makers are planning to invest and expand, they also need to secure multiple upstream "
+                 "materials. These can include copper clad laminates (CCLs) and the specialized fiberglass used for "
+                 "PCB construction.", "hacker news tomshardware")
+PCB_LOW_TECH = ("PCBs have been viewed as an unglamorous lower-tech part of the supply chain, partly due to the small "
+                "numbers on the BoM. That may change. Companies are now racing to ramp up production of advanced PCBs "
+                "and chip substrates to meet demand, and boost income.", "hacker news tomshardware")
+PCB_STAFF = ("Finally, the source report also notes that it is increasingly difficult to get the engineering staff "
+             "required at new production facilities. Salaries have already risen 20% to 30% across the PCB industry "
+             "to keep skilled employees.", "hacker news tomshardware")
+PCB_CAUSE = ("Bên cạnh đó, Tom's Hardware cho biết các hãng sản xuất bo mạch in dù muốn mở rộng quy mô cũng gặp khó "
+             "khăn khi tìm kiếm vật liệu thượng nguồn như vật liệu phủ đồng (CCL - tấm nền phủ đồng chế tạo bo mạch) "
+             "và sợi thủy tinh chuyên dụng.")
+PCB_SIGNIFICANCE = ("Theo Tom's Hardware, bo mạch in từng bị xem là phần công nghệ thấp và ít giá trị trong bảng kê "
+                    "nguyên vật liệu (BoM), nhưng điều này có thể thay đổi khi các hãng chạy đua mở rộng sản xuất bo "
+                    "mạch tiên tiến và đế chip để đáp ứng nhu cầu và tăng thu nhập.")
+NIKKEI_SENTENCE = ("Báo cáo của Nikkei nhấn mạnh các cơ sở mới rất khó tuyển kỹ sư, buộc lương toàn ngành bo mạch in "
+                   "phải tăng 20% đến 30% để giữ chân nhân sự lành nghề.")
+SLEUTH_ABSTRACT = (
+    "Abstract:Omni models answer questions about videos by jointly processing sampled frames and audio in one turn, "
+    "with progress driven largely by scaling model size and omni training data. We ask whether a model needs to hear "
+    "the audio directly at all, and present SleuthVLM, an agent harness built on a VLM that never hears the audio "
+    "directly. We draw three findings: SleuthVLM beats a model that glances; hearing is not the bottleneck, agentic "
+    "ability is; omni understanding needs better agentic ability, not just more omni data for modality alignment.",
+    "huggingface arxiv")
+SLEUTH_SENTENCE = ("Các nhà nghiên cứu nhận định việc hiểu video toàn năng đòi hỏi nâng cao năng lực tác tử thay vì "
+                   "chỉ tiếp tục bổ sung thêm dữ liệu đa phương thức để căn chỉnh phương thức.")
+APOLLO_NARRATION = ("It can test complete trips, not just isolated maneuvers.", "technode technode")
+APOLLO_YANG = ("“Apollo World focuses more on closed-loop simulation of complete tasks,” said Ze Yang, Baidu IDG "
+               "distinguished architect and world-model lead.", "technode technode")
+
+
+class CorrectAttributionTests(unittest.TestCase):
+    """Sentences the 2026-11-05 18:00 cycle dropped although they name who reported what, and the fabrications of
+    the same shape that must still fail."""
+
+    def test_a_closing_theo_covers_the_judgement_before_it(self):
+        self.assertIsNone(attribution_error(KIMI_SENTENCE + ", theo IT Home và tài liệu nền tảng mở của hãng.",
+                                            [KIMI_LEAD]))
+        # A closing source the paragraph does not name covers nothing, even though the paragraph reports someone.
+        self.assertEqual(attribution_error(KIMI_SENTENCE + ", theo Reuters.", [KIMI_LEAD]), "unattributed_judgement")
+        self.assertEqual(attribution_error(KIMI_SENTENCE + ", theo tài liệu của hãng.", [KIMI_LEAD]),
+                         "unattributed_judgement")
+        # Every cited paragraph must name it; one that only reports someone else ("the company said") does not.
+        self.assertEqual(attribution_error(KIMI_SENTENCE + ", theo IT Home.", [KIMI_LEAD, (
+            "The company said sandboxes are billed by the hour.", "pandaily pandaily")]), "unattributed_judgement")
+        self.assertIsNone(attribution_error(KIMI_SENTENCE + ", theo IT Home.", [KIMI_LEAD, KIMI_USES]))
+
+    def test_an_outlet_reached_through_a_link_aggregator_is_named_by_its_host(self):
+        self.assertIsNone(attribution_error(PCB_CAUSE, [PCB_MATERIALS]))
+        self.assertIsNone(attribution_error(PCB_SIGNIFICANCE, [PCB_LOW_TECH]))
+        elsewhere = [(PCB_LOW_TECH[0], "hacker news futurism")]
+        self.assertEqual(attribution_error(PCB_SIGNIFICANCE, elsewhere), "speaker_not_in_source: Tom's Hardware")
+        self.assertEqual(attribution_error(PCB_CAUSE, [(PCB_MATERIALS[0], "hacker news futurism")]),
+                         "speaker_not_in_source: Tom's Hardware")
+        # Part of the outlet's name is not the outlet.
+        self.assertEqual(attribution_error("Theo Hardware Times, " + PCB_SIGNIFICANCE[20:], [PCB_LOW_TECH]),
+                         "speaker_not_in_source: Hardware Times")
+
+    def test_a_report_that_notes_something_carries_its_speaker(self):
+        self.assertIsNone(attribution_error(NIKKEI_SENTENCE, [PCB_STAFF]))
+        self.assertEqual(attribution_error(NIKKEI_SENTENCE, [PCB_MATERIALS]),
+                         "speaker_not_in_source: Báo cáo của Nikkei")
+        # "notes" as a noun reports nobody.
+        self.assertEqual(attribution_error(NIKKEI_SENTENCE, [(
+            "The release notes list salary changes of 20% to 30% at new production facilities.",
+            "hacker news tomshardware")]), "speaker_not_in_source: Báo cáo của Nikkei")
+
+    def test_a_papers_we_speaks_for_its_researchers(self):
+        self.assertIsNone(attribution_error(SLEUTH_SENTENCE, [SLEUTH_ABSTRACT]))
+        # A company blog's "we" is not a group of researchers.
+        self.assertEqual(attribution_error(SLEUTH_SENTENCE, [(
+            "We think omni understanding needs better agentic ability, not just more omni data.", "pandaily pandaily")]),
+            "speaker_not_in_source: Các nhà nghiên cứu")
+        # A paper paragraph that does not speak as its authors gives them no view.
+        self.assertEqual(attribution_error(SLEUTH_SENTENCE, [(
+            "Omni understanding needs better agentic ability, not just more omni data.", "huggingface arxiv")]),
+            "speaker_not_in_source: Các nhà nghiên cứu")
+        # The authors are not experts or analysts in general.
+        self.assertEqual(attribution_error(SLEUTH_SENTENCE.replace("Các nhà nghiên cứu", "Các chuyên gia"),
+                                           [SLEUTH_ABSTRACT]), "speaker_not_in_source: Các chuyên gia")
+
+    def test_a_source_the_cited_paragraph_does_not_name_still_fails(self):
+        cause = ("Theo tài liệu từ Moonshot AI, doanh nghiệp có thể trỏ tác tử vào hệ thống nội bộ để làm nhiệm vụ "
+                 "giám sát, nghiên cứu và vận hành, hoặc nhúng trực tiếp vào các sản phẩm hướng tới khách hàng để hỗ "
+                 "trợ người dùng.")
+        self.assertEqual(attribution_error(cause, [KIMI_USES]), "speaker_not_in_source: tài liệu từ Moonshot AI")
+        # Citing the paragraph that names the documentation as well is what the writer had to do.
+        self.assertIsNone(attribution_error(cause, [KIMI_LEAD, KIMI_USES]))
+
+    def test_the_outlets_contrast_cannot_be_put_in_a_speakers_mouth(self):
+        yang = ("Trưởng nhóm mô hình thế giới Ze Yang giải thích Apollo World tập trung vào mô phỏng khép kín các "
+                "nhiệm vụ hoàn chỉnh của toàn bộ chuyến đi thay vì chỉ kiểm tra từng thao tác riêng lẻ.")
+        self.assertEqual(attribution_error(yang, [APOLLO_NARRATION, APOLLO_YANG]), "speaker_not_in_source: Ze Yang")
+
+
+class MonthTests(unittest.TestCase):
+    APOLLO_DAY = "SHENZHEN, China — Nov. 3: Baidu’s Apollo unit unveiled Apollo World, an agent-driven multimodal world model."
+
+    def test_a_month_the_source_names_is_not_an_invented_number(self):
+        self.assertIsNone(number_error("Ngày 3 tháng 11, Baidu giới thiệu Apollo World.", self.APOLLO_DAY))
+        self.assertIsNone(number_error("Baidu giới thiệu Apollo World ngày 3 tháng 11.", self.APOLLO_DAY))
+        self.assertIsNone(number_error("Nghiên cứu đăng ngày 4 tháng 11 năm 2026.", "[Submitted on 4 Nov 2026]"))
+
+    def test_another_month_or_a_count_of_months_is_still_invented(self):
+        self.assertEqual(number_error("Ngày 3 tháng 12, Baidu giới thiệu Apollo World.", self.APOLLO_DAY),
+                         "invented_number: 12")
+        self.assertEqual(number_error("Sau 11 tháng, Baidu giới thiệu Apollo World.", self.APOLLO_DAY),
+                         "invented_number: 11")
+        self.assertEqual(number_error("Baidu có 11 mô hình.", self.APOLLO_DAY), "invented_number: 11")
 
 
 if __name__ == "__main__":
