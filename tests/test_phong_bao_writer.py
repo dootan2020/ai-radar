@@ -270,6 +270,22 @@ class WriterDeskTests(unittest.TestCase):
         row = self.write(purpose_title)[0]
         self.assertEqual((row["reason"], row["dropped_points"][0]["error"]), ("title_rejected", "title: unsupported_purpose"))
 
+    def test_a_reporting_verb_carries_a_reporter_the_article_named_before(self):
+        # "The source report also notes" carries HelioLab, which the article names in its first paragraph, not
+        # the reviewer it names only in the next one; a name absent from the article is an invented entity.
+        paragraphs = list(EXAMPLE["paragraphs"])
+        paragraphs[2] = paragraphs[2].replace("HelioLab reports that", "The source report also notes that")
+        for speaker, dropped in (
+                ("HelioLab", []),
+                ("Sydney Von Arx", [("examples", "speaker_not_in_source: Sydney Von Arx")]),
+                ("Reuters", [("examples", "invented_entity: Reuters")])):
+            reply = deepcopy(PROSE)
+            reply["paragraphs"][2]["sentences"].append(sentence(
+                f"Báo cáo của {speaker} nhấn mạnh hai xe mô phỏng mất 71 giây để qua cầu.", "outlet:p003"))
+            row = self.write(reply, text="\n".join(paragraphs))[0]
+            self.assertTrue(row["written"], row)
+            self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]], dropped, speaker)
+
     def test_writer_keeps_the_paragraphs_it_read_for_audit_but_never_publishes_them(self):
         row, _, runner = self.write()
         sent = runner.calls[0][1][0]["sources"]

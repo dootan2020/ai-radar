@@ -53,6 +53,10 @@ MONTH_VI = re.compile(r"(?<!\w)tháng\s+(1[0-2]|0?[1-9])(?![\w/]|[.,]\d)", re.I)
 MONTHS_EN = [r"\b" + name + r"\b" for name in (
     "Jan(?:uary)?", "Feb(?:ruary)?", "Mar(?:ch)?", "Apr(?:il)?", "May", "June?", "July?", "Aug(?:ust)?",
     "Sep(?:t(?:ember)?)?", "Oct(?:ober)?", "Nov(?:ember)?", "Dec(?:ember)?")]
+# "May" is also a verb that opens sentences ("May cause failures") and a surname (Theresa May); it names the month
+# only beside a date ("May 3", "May 2026") or after a word that introduces a time ("in May", "mid-May").
+MONTHS_EN[4] = (r"\bMay\b(?=,?\s+\d)|\b(?i:in|on|since|until|till|by|from|of|early|late|mid|last|next|this|through"
+                r"|during|before|after|between|and|or|to)[\s-]+May\b")
 
 COMMON_ACRONYMS = {"AI", "IPO", "CEO", "CTO", "CFO", "COO", "GPU", "CPU", "API", "USD",
                    "LLM", "LLMS", "AGI", "SEC", "PAC", "FPGA", "JSON", "XML", "SQL", "HTTP",
@@ -177,8 +181,11 @@ def number_error(text, evidence, *, publication_years=()):
                                   "seventeen", "eighteen", "nineteen", "twenty")):
         if word in source_words:
             source_numbers.add(str(index))
-    for number, word in NUMBER_WORDS.items():
-        if word in source_words:
+    # A month the evidence spells out supports its number ("11 tháng" against "November"), but only as the written
+    # month: capitalised, and "May" beside a date, so "may" the verb or "march" the noun supports no 5 or 3.
+    for number, name in NUMBER_WORDS.items():
+        pattern = MONTHS_EN[4] if name == "may" else r"\b" + name.capitalize() + r"\b"
+        if re.search(pattern, evidence):
             source_numbers.add(number)
     for number in NUMBER.findall(MONEY.sub("", text)):
         if number.replace(",", ".").casefold() not in source_numbers:
@@ -380,6 +387,9 @@ JUDGEMENT_VI = re.compile(
 NOT_JUDGEMENT = re.compile(r"(?<!\w)(?:thống nhất|duy nhất|hợp nhất|nhất quán|đồng nhất|nhất định|nhất là"
                            r"|hơn nữa|hơn(?=\s+(?:\d|khoảng|một|hai|ba|gấp)))(?!\w)", re.I)
 LEAD_IN_WORDS = 6
+# A contrast opens a second claim ("A nhưng B", "A, trong khi B"); an attribution before or after it covers only
+# its own side. "song song" (in parallel) is not "song" (but).
+CONTRAST = re.compile(r"(?<!\w)(?<!song )(?=(?:nhưng|tuy nhiên|song(?!\s+song)|trong khi|ngược lại)(?!\w))", re.I)
 OUTLET_SPEAKER = re.compile(r"tác giả|bài viết|bài báo|bài phân tích|tòa soạn|tờ báo|phóng viên|nhà báo|người viết",
                             re.I)
 INSIDER_SPEAKER = (re.compile(r"nguồn tin|người trong cuộc|người thạo tin|người am hiểu|giấu tên|nội bộ", re.I),
@@ -434,27 +444,49 @@ def _name_keys(speaker):
 
 
 def _words(text):
-    return {folded(word) for word in re.findall(r"\w+", text)}
+    """Folded words, plus whole hyphenated names ("VA-TDM-H3"), which _name_keys keeps as one key."""
+    return {folded(word) for word in re.findall(r"\w+", text) + ENTITY_WORD.findall(text)}
 
 
 def _sentences(paragraph):
     return [s for s in re.split(r"(?<=[.!?])[\"”’]?\s+(?=[\"“A-Z])", paragraph) if s.strip()]
 
 
+def _outlet_name_forms(publisher):
+    """The whole names an outlet string carries. The newsroom passes the publisher label followed by the URL's
+    host ("hacker news tomshardware", "the verge theverge", "import ai jack-clark"): the label joined, the host,
+    or both together. A single word of a longer label ("hacker" or "news" of a Hacker News link to Tom's
+    Hardware) names the outlet only when the label is the site's own name ("simon willison simonwillison")."""
+    *label, host = folded(publisher).split() or [""]
+    label = re.findall(r"\w+", " ".join(label))
+    host = "".join(re.findall(r"\w+", host))
+    names = {host, "".join(label), "".join(label) + host}
+    if len(label) == 1 or "".join(label) == host:
+        names.update(label)
+    return names - {""} - NAME_CONNECTORS
+
+
 def _is_outlet(speaker, publisher):
-    """Whether a speaker is the paragraph's outlet written as one host name ("Tom's Hardware" is tomshardware.com,
-    which a Hacker News link records under the publisher label "hacker-news")."""
-    return "".join(re.findall(r"\w+", folded(speaker))) in _words(publisher)
+    """Whether a run of the speaker's words is a whole name of the paragraph's outlet: "Tom's Hardware" is
+    tomshardware.com, which a Hacker News link records under the label "hacker-news"; "Tạp chí WIRED", "bài viết
+    trên The Verge" and "Sakana AI" carry their outlet's name among other words."""
+    words = re.findall(r"\w+", folded(speaker))
+    names = _outlet_name_forms(publisher)
+    return any("".join(words[start:end]) in names
+               for start in range(len(words)) for end in range(start + 1, len(words) + 1))
 
 
-def _speaker_in(speaker, paragraph, publisher):
+def _speaker_in(speaker, paragraph, publisher, before=""):
     """Whether one cited paragraph can carry a named speaker: it names them or its outlet, or it reports
-    someone's words ("the company said", "per the outlet"); None when the speaker has no foreign name token."""
+    someone's words ("the company said", "the source report also notes") and the article has named the speaker
+    before it (before: the article's title and earlier paragraphs). A reporting verb proves only that someone is
+    reported, never who, and "the company" points back to a name already given. None when the speaker has no
+    foreign name token."""
     keys = _name_keys(speaker)
     if not keys:
         return None
-    return (bool(keys & _words(paragraph + " " + publisher)) or _is_outlet(speaker, publisher)
-            or bool(SOURCE_ATTRIBUTION.search(paragraph)))
+    return (bool(keys & _words(paragraph)) or _is_outlet(speaker, publisher)
+            or (bool(SOURCE_ATTRIBUTION.search(paragraph)) and bool(keys & _words(before))))
 
 
 def _named_by(speaker, paragraph, publisher):
@@ -482,7 +514,7 @@ def _closing_source(text, cited):
         return False
     speaker = match[1].strip()
     keys = _name_keys(speaker)
-    return bool(keys) and all(keys & _words(paragraph + " " + publisher) or _is_outlet(speaker, publisher)
+    return bool(keys) and all(keys & _words(paragraph) or _is_outlet(speaker, publisher)
                               for paragraph, publisher in cited)
 
 
@@ -511,9 +543,12 @@ def _outlet_voice(clause, paragraphs):
 def attribution_error(text, cited):
     """Who-said-what error for one writer sentence, or None.
 
-    cited is a list of (paragraph text, publisher name) pairs for the paragraphs the sentence cites.
+    cited lists, for each paragraph the sentence cites, (paragraph text, outlet names) or (paragraph text, outlet
+    names, the article's title and paragraphs before it). Without that text a reporting verb names nobody.
     """
     text = normalized(text)
+    befores = [item[2] if len(item) > 2 else "" for item in cited]
+    cited = [(paragraph, publisher) for paragraph, publisher, *_ in cited]
     paragraphs = [paragraph for paragraph, _ in cited]
     if PURPOSE_VI.search(text) and not any(PURPOSE_EN.search(p) for p in paragraphs):
         return "unsupported_purpose"
@@ -534,7 +569,7 @@ def attribution_error(text, cited):
         # A named speaker needs a cited paragraph that can carry them; a judgement needs every cited one to,
         # except a paragraph that names another speaker of the same sentence ("Tinuiti reports a 14% rise,
         # but Taylor cautions ..." cites one paragraph for each).
-        found = [_speaker_in(speaker, *pair) for pair in cited]
+        found = [_speaker_in(speaker, *pair, before) for pair, before in zip(cited, befores)]
         if None in found:
             continue
         others = [other for other in speakers if other != speaker]
@@ -546,20 +581,32 @@ def attribution_error(text, cited):
         # short lead-in ("Bên cạnh nguy cơ tài chính,") takes the attribution of the clause right after it.
         # A concessive clause ("Dù ước tính ...,") does not carry its attribution to the next one.
         # Narration in the outlet's own voice needs no speaker (see _outlet_voice). A closing "..., theo X."
-        # attributes the whole sentence when every cited paragraph names X (see _closing_source).
-        attributed, pending = _closing_source(text, cited), None
-        for clause in re.split(r"[,;:]", NOT_JUDGEMENT.sub(" ", text)):
-            says = bool(SAYING.search(clause) or THEO.search(clause.strip() + ","))
-            if pending is not None and not says and not _outlet_voice(pending, paragraphs):
-                return "unattributed_judgement"
-            pending = None
-            if says and not re.match(r"\s*(?:dù|mặc dù|tuy|dẫu)(?!\w)", clause, re.I):
-                attributed = True
-            elif JUDGEMENT_VI.search(clause) and not says and not attributed:
-                if len(clause.split()) <= LEAD_IN_WORDS:
-                    pending = clause
-                elif not _outlet_voice(clause, paragraphs):
+        # attributes the sentence back to the nearest contrast when every cited paragraph names X (see
+        # _closing_source); a leading "Theo X," or "X cho biết" carries forward only up to the next contrast.
+        # A contrast starts a second claim that an attribution on the other side does not cover (see CONTRAST);
+        # a contrast no longer than a lead-in ("đơn giản nhưng hiệu quả hơn") qualifies the same claim and stays
+        # with it.
+        segments = []
+        for segment in CONTRAST.split(NOT_JUDGEMENT.sub(" ", text)):
+            if segments and len(segment.split()) <= LEAD_IN_WORDS:
+                segments[-1] += segment
+            else:
+                segments.append(segment)
+        closing, pending = _closing_source(text, cited), None
+        for index, segment in enumerate(segments):
+            attributed = closing and index == len(segments) - 1
+            for clause in re.split(r"[,;:]", segment):
+                says = bool(SAYING.search(clause) or THEO.search(clause.strip() + ","))
+                if pending is not None and not says and not _outlet_voice(pending, paragraphs):
                     return "unattributed_judgement"
+                pending = None
+                if says and not re.match(r"\s*(?:dù|mặc dù|tuy|dẫu)(?!\w)", clause, re.I):
+                    attributed = True
+                elif JUDGEMENT_VI.search(clause) and not says and not attributed:
+                    if len(clause.split()) <= LEAD_IN_WORDS:
+                        pending = clause
+                    elif not _outlet_voice(clause, paragraphs):
+                        return "unattributed_judgement"
         if pending is not None and not _outlet_voice(pending, paragraphs):
             return "unattributed_judgement"
     return None

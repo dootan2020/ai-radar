@@ -104,12 +104,14 @@ class AttributionTests(unittest.TestCase):
                   "billion in chip purchases and data center leases, and lost $81 billion in the first half of this "
                   "year. Rising temperatures and heightened risk from wildfires due to climate change also pose "
                   "physical threats to the company's infrastructure, it warned.", "semafor")
+        # "the company said" and "the tech giant revealed" carry the company their own article names.
+        opera_said = "There's the additional advantage of privacy, the company said."
         self.assertIsNone(attribution_error(
             "Theo công bố từ Opera, việc xử lý cục bộ giúp bảo vệ quyền riêng tư do dữ liệu lưu trên thiết bị "
-            "cá nhân.", [("There's the additional advantage of privacy, the company said.", "techcrunch")]))
+            "cá nhân.", [(opera_said, "techcrunch", "Opera launches on-device AI. " + opera_said)]))
         self.assertIsNone(attribution_error(
             "Anthropic cho biết đang chịu ràng buộc khoảng 400 tỷ USD tiền mua chip và thuê trung tâm dữ liệu.",
-            [filing]))
+            [(*filing, "Anthropic files for an IPO. " + filing[0])]))
         self.assertIsNone(attribution_error(
             "Bên cạnh nguy cơ tài chính, tài liệu cảnh báo nhiệt độ tăng cao và cháy rừng do biến đổi khí hậu "
             "cũng đang đe dọa hạ tầng kỹ thuật của doanh nghiệp.", [filing]))
@@ -258,6 +260,11 @@ PCB_LOW_TECH = ("PCBs have been viewed as an unglamorous lower-tech part of the 
 PCB_STAFF = ("Finally, the source report also notes that it is increasingly difficult to get the engineering staff "
              "required at new production facilities. Salaries have already risen 20% to 30% across the PCB industry "
              "to keep skilled employees.", "hacker news tomshardware")
+# What the Tom's Hardware article says before p031: its opening paragraph names the report p031 calls
+# "the source report".
+PCB_BEFORE_STAFF = ("A news report published by Nikkei Asia quotes several leading PC and PCB industry managers, "
+                    "making it clear we are going to see PCB (and PCB subcomponent) shortages and price rises in the "
+                    "coming months. " + PCB_MATERIALS[0] + " " + PCB_LOW_TECH[0])
 PCB_CAUSE = ("Bên cạnh đó, Tom's Hardware cho biết các hãng sản xuất bo mạch in dù muốn mở rộng quy mô cũng gặp khó "
              "khăn khi tìm kiếm vật liệu thượng nguồn như vật liệu phủ đồng (CCL - tấm nền phủ đồng chế tạo bo mạch) "
              "và sợi thủy tinh chuyên dụng.")
@@ -288,12 +295,14 @@ class CorrectAttributionTests(unittest.TestCase):
         self.assertIsNone(attribution_error(KIMI_SENTENCE + ", theo IT Home và tài liệu nền tảng mở của hãng.",
                                             [KIMI_LEAD]))
         # A closing source the paragraph does not name covers nothing, even though the paragraph reports someone.
-        self.assertEqual(attribution_error(KIMI_SENTENCE + ", theo Reuters.", [KIMI_LEAD]), "unattributed_judgement")
+        self.assertEqual(attribution_error(KIMI_SENTENCE + ", theo Reuters.", [KIMI_LEAD]),
+                         "speaker_not_in_source: Reuters")
         self.assertEqual(attribution_error(KIMI_SENTENCE + ", theo tài liệu của hãng.", [KIMI_LEAD]),
                          "unattributed_judgement")
         # Every cited paragraph must name it; one that only reports someone else ("the company said") does not.
         self.assertEqual(attribution_error(KIMI_SENTENCE + ", theo IT Home.", [KIMI_LEAD, (
-            "The company said sandboxes are billed by the hour.", "pandaily pandaily")]), "unattributed_judgement")
+            "The company said sandboxes are billed by the hour.", "pandaily pandaily")]),
+            "speaker_not_in_source: IT Home")
         self.assertIsNone(attribution_error(KIMI_SENTENCE + ", theo IT Home.", [KIMI_LEAD, KIMI_USES]))
 
     def test_an_outlet_reached_through_a_link_aggregator_is_named_by_its_host(self):
@@ -308,8 +317,9 @@ class CorrectAttributionTests(unittest.TestCase):
                          "speaker_not_in_source: Hardware Times")
 
     def test_a_report_that_notes_something_carries_its_speaker(self):
-        self.assertIsNone(attribution_error(NIKKEI_SENTENCE, [PCB_STAFF]))
-        self.assertEqual(attribution_error(NIKKEI_SENTENCE, [PCB_MATERIALS]),
+        # p031's "the source report" is the Nikkei Asia report an earlier paragraph of the same article names.
+        self.assertIsNone(attribution_error(NIKKEI_SENTENCE, [(*PCB_STAFF, PCB_BEFORE_STAFF)]))
+        self.assertEqual(attribution_error(NIKKEI_SENTENCE, [(*PCB_MATERIALS, PCB_BEFORE_STAFF)]),
                          "speaker_not_in_source: Báo cáo của Nikkei")
         # "notes" as a noun reports nobody.
         self.assertEqual(attribution_error(NIKKEI_SENTENCE, [(
@@ -358,6 +368,74 @@ class MonthTests(unittest.TestCase):
         self.assertEqual(number_error("Sau 11 tháng, Baidu giới thiệu Apollo World.", self.APOLLO_DAY),
                          "invented_number: 11")
         self.assertEqual(number_error("Baidu có 11 mô hình.", self.APOLLO_DAY), "invented_number: 11")
+
+    def test_may_names_the_month_only_beside_a_date(self):
+        launched = "Hệ thống ra mắt vào tháng 5."
+        for evidence in ("The system launched in May 2026.", "In May, the system launched.", "It shipped on May 3.",
+                         "Sales slowed in mid-May."):
+            self.assertIsNone(number_error(launched, evidence), evidence)
+        # "May" the verb, a surname or "march" the noun names no month and supports no 5 or 3.
+        for evidence in ("May cause failures in the system.", "Theresa May said the system launched.",
+                         "The system may launch soon."):
+            self.assertEqual(number_error(launched, evidence), "invented_number: 5", evidence)
+        self.assertEqual(number_error("Có 3 lỗi.", "The march of progress continues."), "invented_number: 3")
+
+
+# Paragraphs for fabricated attributions of the shapes the four checker gaps of 2026-11-05 let through.
+TH_LAUNCH = ("Tom's Hardware announces a product launch.", "hacker news tomshardware")
+TH_RISK = ("Tom's Hardware says the product carries a serious risk.", "hacker news tomshardware")
+
+
+class InventedAttributionTests(unittest.TestCase):
+    """Attributions the checker accepted before 2026-11-05 although the cited paragraphs never name the speaker."""
+
+    def test_one_word_of_a_publisher_label_is_not_the_outlet(self):
+        for speaker in ("Hacker", "News"):
+            self.assertEqual(attribution_error(speaker + " cho biết sản phẩm gây nguy cơ nghiêm trọng cho người dùng.",
+                                               [TH_LAUNCH]), "speaker_not_in_source: " + speaker)
+        # The outlet's whole name, the label's whole name, and an outlet named after a description still pass.
+        self.assertIsNone(attribution_error("Tom's Hardware cho biết sản phẩm sắp ra mắt.", [TH_LAUNCH]))
+        self.assertIsNone(attribution_error("Tạp chí WIRED đưa tin sản phẩm sắp ra mắt.",
+                                            [("The product launches next week.", "wired wired")]))
+        # A label that is the site's own name keeps its single words ("Willison" writes simonwillison.net).
+        self.assertIsNone(attribution_error("Willison cho biết công cụ mới đã ra mắt.",
+                                            [("I released a new tool today.", "simon willison simonwillison")]))
+
+    def test_a_reporting_verb_carries_only_a_reporter_the_article_named_before(self):
+        reuters = "Báo cáo của Reuters nhấn mạnh các cơ sở mới rất khó tuyển kỹ sư."
+        for verb in ("also notes that", "also noted"):
+            paragraph = (f"Finally, the source report {verb} it is increasingly difficult to get engineering staff.",
+                         "hacker news tomshardware")
+            self.assertEqual(attribution_error(reuters, [(*paragraph, PCB_BEFORE_STAFF)]),
+                             "speaker_not_in_source: Báo cáo của Reuters")
+            # Without the text before it, a reporting verb names nobody.
+            self.assertEqual(attribution_error(reuters, [paragraph]), "speaker_not_in_source: Báo cáo của Reuters")
+        self.assertEqual(attribution_error(NIKKEI_SENTENCE, [PCB_STAFF]), "speaker_not_in_source: Báo cáo của Nikkei")
+        # "the company said" points back to the company already named, not to one the article names later.
+        said = ("On the transportation giant's third-quarter earnings call on Wednesday, the company said that only "
+                "four rides were ordered through an AI agent.", "techcrunch techcrunch",
+                "Uber says few riders use AI agents. Very few people are using personal AI agents to order Ubers.")
+        self.assertIsNone(attribution_error("Công ty Uber cho biết chỉ có bốn chuyến xe được đặt qua tác nhân AI.",
+                                            [said]))
+        self.assertEqual(attribution_error("Công ty DoorDash cho biết chỉ có bốn chuyến xe được đặt qua tác nhân AI.",
+                                           [said]), "speaker_not_in_source: Công ty DoorDash")
+
+    def test_an_attribution_covers_only_its_side_of_a_contrast(self):
+        for sentence in ("Sản phẩm có nguy cơ nghiêm trọng nhưng chắc chắn gây thiệt hại lớn, theo Tom's Hardware.",
+                         "Theo Tom's Hardware, sản phẩm có nguy cơ nghiêm trọng nhưng chắc chắn gây ra thất bại lớn "
+                         "cho người dùng.",
+                         "Tom's Hardware cho biết sản phẩm có nguy cơ nghiêm trọng, trong khi giới đầu tư đang lo ngại "
+                         "về thất bại của dự án."):
+            self.assertEqual(attribution_error(sentence, [TH_RISK]), "unattributed_judgement", sentence)
+        # One claim, and a contrast of a few words inside it, keep the attribution.
+        self.assertIsNone(attribution_error("Sản phẩm có nguy cơ nghiêm trọng, theo Tom's Hardware.", [TH_RISK]))
+        self.assertIsNone(attribution_error("Theo Tom's Hardware, sản phẩm có nguy cơ nghiêm trọng.", [TH_RISK]))
+        self.assertIsNone(attribution_error("Tom's Hardware cho biết sản phẩm đơn giản nhưng hiệu quả hơn.",
+                                            [TH_RISK]))
+        # Each side of the contrast with its own attribution passes.
+        self.assertIsNone(attribution_error(
+            "Theo Tom's Hardware, sản phẩm có nguy cơ nghiêm trọng, nhưng hãng này cũng nhận định thất bại lớn là "
+            "khó xảy ra.", [TH_RISK]))
 
 
 if __name__ == "__main__":

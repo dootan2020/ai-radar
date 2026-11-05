@@ -762,9 +762,15 @@ def _outlet_names(source):
 
 
 def _cited(inputs, refs):
-    """(paragraph text, outlet names) for each paragraph a sentence cites."""
-    by_ref = {part["id"]: (part["text"], _outlet_names(source))
-              for source in inputs["sources"] for part in source["paragraphs"]}
+    """(paragraph text, outlet names, the article's title and paragraphs before it) for each paragraph a sentence
+    cites; the text before lets attribution_error resolve "the company said" or "the source report also notes" to
+    a reporter the article has already named."""
+    by_ref = {}
+    for source in inputs["sources"]:
+        before = [source.get("title") or ""]
+        for part in source["paragraphs"]:
+            by_ref[part["id"]] = (part["text"], _outlet_names(source), " ".join(before))
+            before.append(part["text"])
     return [by_ref[ref] for ref in refs if ref in by_ref]
 
 
