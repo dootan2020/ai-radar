@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-05",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-03T23:00:00Z",
+  "cutoff_at": "2026-11-04T23:00:00Z",
+  "created_at": "2026-11-05T00:22:32Z",
+  "snapshot_generated_at": "2026-11-05T00:19:16Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-05T00:19:16Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "d53634b505a78ccb6c4a",
+      "title": "GitHub Copilot is now available in Xcode’s coding assistant",
+      "title_vi": "GitHub Copilot bây giờ có sẵn trong trợ lý lập trình của Xcode",
+      "headline": "GitHub Copilot is now available in Xcode’s coding assistant",
+      "headline_vi": "GitHub Copilot bây giờ có sẵn trong trợ lý lập trình của Xcode",
+      "url": "https://github.blog/changelog/2026-11-04-github-copilot-is-now-available-in-xcodes-coding-assistant",
+      "published_at": "2026-11-04T19:10:40Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "13477248dbce79816d71",
+          "title": "GitHub Copilot is now available in Xcode’s coding assistant",
+          "title_vi": "GitHub Copilot bây giờ có sẵn trong trợ lý lập trình của Xcode",
+          "headline": "GitHub Copilot is now available in Xcode’s coding assistant",
+          "headline_vi": "GitHub Copilot bây giờ có sẵn trong trợ lý lập trình của Xcode",
+          "url": "https://github.blog/changelog/2026-11-04-github-copilot-is-now-available-in-xcodes-coding-assistant",
+          "published_at": "2026-11-04T19:10:40Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "github-changelog",
+          "publisher": "github",
+          "entity": "github",
+          "group": "lab",
+          "observed_at": "2026-11-05T00:19:16Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "13477248dbce79816d71"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "github"
+          ],
+          "age_hours_at_cutoff": 3.8222,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "a3433e936d2c04bfa772",
+      "title": "Daybreak Red is now available in AWS GovCloud (US-East)",
+      "title_vi": "Daybreak Red hiện có sẵn trên AWS GovCloud (US-East)",
+      "headline": "Daybreak Red is now available in AWS GovCloud (US-East)",
+      "headline_vi": "Daybreak Red hiện có sẵn trên AWS GovCloud (US-East)",
+      "url": "https://openai.com/index/daybreak-red-aws-govcloud",
+      "published_at": "2026-11-04T07:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "fc62b6c7820baef4731a",
+          "title": "Daybreak Red is now available in AWS GovCloud (US-East)",
+          "title_vi": "Daybreak Red hiện có sẵn trên AWS GovCloud (US-East)",
+          "headline": "Daybreak Red is now available in AWS GovCloud (US-East)",
+          "headline_vi": "Daybreak Red hiện có sẵn trên AWS GovCloud (US-East)",
+          "url": "https://openai.com/index/daybreak-red-aws-govcloud",
+          "published_at": "2026-11-04T07:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "openai-news",
+          "publisher": "openai",
+          "entity": "openai",
+          "group": "lab",
+          "observed_at": "2026-11-05T00:19:16Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "fc62b6c7820baef4731a"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "openai"
+          ],
+          "age_hours_at_cutoff": 16.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "295354ff422b0d4db922",
+      "title": "Introducing Images 2.6",
+      "title_vi": "Ra mắt Images 2.6",
+      "headline": "Introducing Images 2.6",
+      "headline_vi": "Ra mắt Images 2.6",
+      "url": "https://openai.com/index/introducing-images-2-6",
+      "published_at": "2026-11-04T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "eee8a60b638e210f4fe9",
+          "title": "Introducing Images 2.6",
+          "title_vi": "Ra mắt Images 2.6",
+          "headline": "Introducing Images 2.6",
+          "headline_vi": "Ra mắt Images 2.6",
+          "url": "https://openai.com/index/introducing-images-2-6",
+          "published_at": "2026-11-04T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "openai-news",
+          "publisher": "openai",
+          "entity": "openai",
+          "group": "lab",
+          "observed_at": "2026-11-05T00:19:16Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "eee8a60b638e210f4fe9"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "openai"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "d6ec7d37f5fa4f5c9883",
+      "title": "Tencent unveils Hy4 as open-weight AI race with DeepSeek, Z.ai, Alibaba heats up",
+      "title_vi": "Tencent công bố Hy4 là cuộc đua AI trọng số mở với DeepSeek, Z.ai, Alibaba nóng lên",
+      "headline": "Tencent unveils Hy4 as open-weight AI race with DeepSeek, Z.ai, Alibaba heats up",
+      "headline_vi": "Tencent công bố Hy4 là cuộc đua AI trọng số mở với DeepSeek, Z.ai, Alibaba nóng lên",
+      "url": "https://www.scmp.com/tech/big-tech/article/3373227/tencent-unveils-hy4-open-weight-ai-race-deepseek-zai-alibaba-heats",
+      "published_at": "2026-11-04T07:01:09Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Tencent ra mắt mô hình AI chủ lực Hy4 với năng lực thị giác và điều khiển máy tính",
+      "editorial_headline_verified": true,
+      "source_count": 4,
+      "coverage": [
+        {
+          "id": "d349ba70c33af7c56021",
+          "title": "Tencent Declares Latest AI Model Ranks Among China’s Best",
+          "title_vi": "Tencent tuyên bố các mô hình AI mới nhất nằm trong số những mô hình tốt nhất của Trung Quốc",
+          "headline": "Tencent Declares Latest AI Model Ranks Among China’s Best",
+          "headline_vi": "Tencent tuyên bố các mô hình AI mới nhất nằm trong số những mô hình tốt nhất của Trung Quốc",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-04/tencent-declares-latest-ai-model-ranks-among-china-s-best",
+          "published_at": "2026-11-04T05:01:21Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-04T11:30:27Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "acc29c91f619fe67a346",
+          "title": "Tencent’s Hy4 Adds Vision and Computer Use, Joining the Top Tier of Open-Weight Models",
+          "title_vi": "Hy4 của Tencent tăng tầm nhìn và sử dụng máy tính, gia nhập cấp cao nhất của các mô hình trọng số mở",
+          "headline": "Tencent’s Hy4 Adds Vision and Computer Use, Joining the Top Tier of Open-Weight Models",
+          "headline_vi": "Hy4 của Tencent tăng tầm nhìn và sử dụng máy tính, gia nhập cấp cao nhất của các mô hình trọng số mở",
+          "url": "https://pandaily.com/tencent-hy4-vision-computer-use-open-weight-model-workbuddy",
+          "published_at": "2026-11-04T09:22:06Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-11-05T00:19:16Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "6e2c201ef5fa68c55feb",
+          "title": "Tencent unveils Hy4 as open-weight AI race with DeepSeek, Z.ai, Alibaba heats up",
+          "title_vi": "Tencent công bố Hy4 là cuộc đua AI trọng số mở với DeepSeek, Z.ai, Alibaba nóng lên",
+          "headline": "Tencent unveils Hy4 as open-weight AI race with DeepSeek, Z.ai, Alibaba heats up",
+          "headline_vi": "Tencent công bố Hy4 là cuộc đua AI trọng số mở với DeepSeek, Z.ai, Alibaba nóng lên",
+          "url": "https://www.scmp.com/tech/big-tech/article/3373227/tencent-unveils-hy4-open-weight-ai-race-deepseek-zai-alibaba-heats",
+          "published_at": "2026-11-04T07:01:09Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-05T00:19:16Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "39c813e3562b5e4e6560",
+          "title": "Tencent launches Hy4 with vision and computer-use capabilities",
+          "title_vi": "Tencent ra mắt Hy4 với khả năng nhìn và sử dụng máy tính",
+          "headline": "Tencent launches Hy4 with vision and computer-use capabilities",
+          "headline_vi": "Tencent ra mắt Hy4 với khả năng nhìn và sử dụng máy tính",
+          "url": "https://technode.com/2026/11/04/tencent-launches-hy4-with-vision-and-computer-use-capabilities/",
+          "published_at": "2026-11-04T09:15:40Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "technode",
+          "publisher": "technode",
+          "entity": "technode",
+          "group": "press",
+          "observed_at": "2026-11-05T00:19:16Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "4 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "pandaily",
+              "scmp",
+              "technode"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "pandaily",
+            "scmp",
+            "technode"
+          ],
+          "age_hours_at_cutoff": 15.9808,
+          "hot_score": 84.428,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "3480d96310a21831e4df",
+      "title": "DeepBlue Technology and Huawei Launch Wowoker, a HarmonyOS Work Phone Run by Sales Agents",
+      "title_vi": "Công nghệ DeepBlue và Huawei ra mắt Wowoker, một điện thoại làm việc HarmonyOS được điều hành bởi các agent bán hàng",
+      "headline": "DeepBlue Technology and Huawei Launch Wowoker, a HarmonyOS Work Phone Run by Sales Agents",
+      "headline_vi": "Công nghệ DeepBlue và Huawei ra mắt Wowoker, một điện thoại làm việc HarmonyOS được điều hành bởi các agent bán hàng",
+      "url": "https://pandaily.com/deepblue-technology-huawei-wowoker-agent-work-phone-harmonyos-kirin-sales-agents",
+      "published_at": "2026-11-04T06:54:41Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "DeepBlue và Huawei ra mắt điện thoại Wowoker tích hợp tác tử AI cho nhân viên bán hàng",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "2fe5f3d2c97ee2d6a853",
+          "title": "DeepBlue Technology and Huawei Launch Wowoker, a HarmonyOS Work Phone Run by Sales Agents",
+          "title_vi": "Công nghệ DeepBlue và Huawei ra mắt Wowoker, một điện thoại làm việc HarmonyOS được điều hành bởi các agent bán hàng",
+          "headline": "DeepBlue Technology and Huawei Launch Wowoker, a HarmonyOS Work Phone Run by Sales Agents",
+          "headline_vi": "Công nghệ DeepBlue và Huawei ra mắt Wowoker, một điện thoại làm việc HarmonyOS được điều hành bởi các agent bán hàng",
+          "url": "https://pandaily.com/deepblue-technology-huawei-wowoker-agent-work-phone-harmonyos-kirin-sales-agents",
+          "published_at": "2026-11-04T06:54:41Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-11-05T00:19:16Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "7c9f7e0c8ce43114eccc",
+          "title": "DeepSeek reportedly plans to train V5 model on Huawei Ascend chips",
+          "title_vi": "DeepSeek được cho là có kế hoạch huấn luyện mô hình V5 trên chip Ascend của Huawei",
+          "headline": "DeepSeek reportedly plans to train V5 model on Huawei Ascend chips",
+          "headline_vi": "DeepSeek được cho là có kế hoạch huấn luyện mô hình V5 trên chip Ascend của Huawei",
+          "url": "https://technode.com/2026/11/04/deepseek-reportedly-plans-to-train-v5-model-on-huawei-ascend-chips/",
+          "published_at": "2026-11-04T07:58:27Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "technode",
+          "publisher": "technode",
+          "entity": "technode",
+          "group": "press",
+          "observed_at": "2026-11-05T00:19:16Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "pandaily",
+              "technode"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "pandaily",
+            "technode"
+          ],
+          "age_hours_at_cutoff": 16.0886,
+          "hot_score": 53.399,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 101,
+    "successful_remote_sources": 100,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
