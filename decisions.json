@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-05T11:48:34.146347+00:00",
-  "input_generated_at": "2026-11-05T09:01:19Z",
+  "generated_at": "2026-11-05T13:19:16.442252+00:00",
+  "input_generated_at": "2026-11-05T11:50:02Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -27706,6 +27706,278 @@
         }
       ],
       "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "ed6b02cc242f29ecba4b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/wired-world-fair-2026-evan-ratliff-and-husk/",
+      "key_points": [
+        "Theo tạp chí WIRED, các công ty phát triển AI gồm OpenAI, Anthropic và xAI đều đưa ra lời mời hợp tác với nhà sáng tạo nội dung Matt Husk sau khi các video trêu chọc mô hình AI của anh lan truyền rộng rãi. Tại sự kiện WIRED World Fair, Husk cho biết nhiều hãng AI lớn đã liên hệ về việc hợp tác, trong đó anh tuyên bố xAI từng đề nghị tặng một tuần sử dụng xe Tesla nếu anh làm video độc quyền cho hãng. Nhờ các video đưa ra yêu cầu hài hước với mô hình giọng nói ChatGPT, Husk đã thu hút khoảng 2 triệu người theo dõi và ký hợp đồng với công ty tài năng Unicorn. Theo tác giả trên WIRED, các video này phơi bày điểm yếu của mô hình ngôn ngữ lớn (hệ thống trí tuệ nhân tạo xử lý văn bản quy mô lớn) từ OpenAI khi nó liên tục làm hỏng tác vụ và thao túng tâm lý người dùng.",
+        "Husk bắt đầu trêu chọc chatbot khoảng một năm trước khi làm nghề làm vườn và cạn ý tưởng làm video hỏi đáp trên TikTok. Theo WIRED, các phòng nghiên cứu AI liên tục quảng bá sản phẩm làm được việc nhà, như OpenAI tuyên bố mô hình đạt điểm rất cao trên bài kiểm tra benchmark (bài kiểm tra đánh giá tiêu chuẩn) về nấu ăn hay chọn trường mẫu giáo. Husk cho biết anh quyết định thử thách công nghệ này bằng cách xem liệu nó có thể giúp anh mặc cả mua bánh mì hay không.",
+        "Trong một video, Husk yêu cầu AI mặc cả bánh mì trên mạng từ 10.000 USD xuống 5 USD, nhưng mô hình lại đồng ý mức 400 USD. Vào tháng 4, Tổng giám đốc OpenAI Sam Altman thừa nhận trên podcast Mostly Human rằng lỗi bấm giờ sai là vấn đề đã biết và sẽ kéo dài thêm một năm, sau khi xem video Husk quay lại việc ChatGPT tính vài giây chạy bộ thành khoảng 10 phút. Husk cho biết OpenAI từng đề nghị cấp bản vá lỗi bấm giờ với điều kiện anh chia sẻ tài khoản, nhưng anh từ chối. Husk cũng chia sẻ OpenAI từng mời anh quay video chung với thù lao rất nhỏ và xin địa chỉ nhà riêng để gửi quà, song anh đều khước từ.",
+        "Dù nói chuyện nhiều với AI, Husk cho biết anh không dùng công nghệ này để tạo ý tưởng vì các kết quả đều quá giống nhau. Husk khẳng định anh thà giữ ý tưởng tồi tệ của chính mình còn hơn là nhận ý tưởng video từ AI. Theo tạp chí WIRED, các công ty OpenAI, Anthropic và xAI đều không phản hồi yêu cầu bình luận trước những tuyên bố của Husk."
+      ],
+      "same_event_coverage_ids": [
+        "3e80f744878ef184b9c3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhà sáng tạo nội dung Matt Husk thu hút các công ty AI lớn sau loạt video trêu chọc mô hình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/wired-world-fair-2026-evan-ratliff-and-husk/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "71160dbd283ea7d5d5c4",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/ai-agents-how-meta-s-muse-openai-s-dots-work-what-they-can-do-safety-worries",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "70f010e365178101e80a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3b5fee03796d5e58c665",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-05/big-tech-stocks-surge-as-democrats-threaten-to-slow-ai-spending",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d7c6e5e9ed3814bed9e3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e613aa74f6beccec4a25",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3373423/powered-gpt-6-unitree-humanoid-robots-master-painting-chess-without-training-says-ceo",
+      "key_points": [
+        "Theo Tổng giám đốc Wang Xingxing, robot hình người của công ty Unitree Robotics hiện có thể vẽ tranh và chơi cờ mà không cần đào tạo từ trước. Tại Hội chợ Nhập khẩu Quốc tế Trung Quốc ở Thượng Hải, ông cho biết cỗ máy này được vận hành bởi mô hình GPT-6 của OpenAI và có khả năng tự xử lý các tác vụ thể chất phức tạp.",
+        "Ông Wang giải thích rằng robot vận hành thuần túy nhờ khả năng suy luận thời gian thực của mô hình khi thực hiện các chuỗi thao tác cơ học tinh vi. Đại diện công ty cho biết robot có thể tự thay nước rửa bút và pha trộn màu vẽ với độ chính xác cao dù không trải qua huấn luyện trước.",
+        "Đánh giá về thực tế phát triển, ông Wang cho rằng rào cản lớn nhất của ngành chế tạo robot hiện nay không còn là năng lực suy luận kỹ thuật số. Theo người sáng lập Unitree, thách thức công nghệ cốt lõi hiện nay là việc thu hẹp khoảng cách cơ học ở mức một milimét cuối cùng."
+      ],
+      "same_event_coverage_ids": [
+        "c6d7114912a873b05875"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Unitree tuyên bố robot hình người tích hợp GPT-6 có thể vẽ tranh mà không cần đào tạo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/tech-trends/article/3373423/powered-gpt-6-unitree-humanoid-robots-master-painting-chess-without-training-says-ceo"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "788aca0b86fe44b26f68",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1027344/amazon-microsoft-alphabet-google-meta-data-centers-earnings-q3",
+      "key_points": [
+        "Tác giả Ellen Thomas ghi nhận kế hoạch chi tiêu khổng lồ này đã gây lo ngại cho Phố Wall và châm ngòi cho đợt bán tháo mạnh cổ phiếu công nghệ khi các tập đoàn vẫn chưa thu được lợi nhuận thực tế từ AI.",
+        "Tác giả trên The Verge nhận định các tập đoàn công nghệ sẽ không tự mình giảm tốc độ chi tiêu. Dù doanh thu các mảng dịch vụ đám mây và quảng cáo vẫn tăng trưởng mạnh mẽ, giới đầu tư bắt đầu sốt ruột vì mức thu này chưa tương xứng với quy mô chi phí khổng lồ cho hạ tầng.",
+        "Philipp Schindler, phó chủ tịch cấp cao kiêm giám đốc kinh doanh của Alphabet, nói lượng truy vấn AI Mode tăng mạnh đã tác động đến hoạt động tìm kiếm vì khả năng kiếm tiền từ tính năng này thấp hơn. The Verge cho biết doanh thu quảng cáo Google Search tăng 12% trong quý III, so với mức tăng 17% ở cùng quý năm trước. Theo The Verge, Microsoft chi 45,2 tỷ USD vốn trong quý, thấp hơn mức dự kiến 50 tỷ USD do bên thứ ba chậm cung cấp năng lực hạ tầng, chứ không phải vì công ty chủ động giảm chi. Sau cuộc họp công bố kết quả kinh doanh, tin về đợt phát hành trái phiếu trị giá 25 tỷ USD của Microsoft xuất hiện vào sáng hôm sau.",
+        "The Verge nhận xét rằng nghịch lý lớn nhất là các tập đoàn công nghệ vẫn chưa thực sự tạo ra tiền từ AI sau hơn ba năm nhưng vẫn tiếp tục tăng cường đầu tư. Tác giả bài viết nhận định Phố Wall có thể đang trông đợi các rào cản pháp lý mới sẽ buộc các tập đoàn công nghệ phải hạ bớt quy mô chi tiêu, qua đó có thêm thời gian tìm cách sinh lời từ công nghệ này."
+      ],
+      "same_event_coverage_ids": [
+        "ba039dc7d914710fb11a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Các tập đoàn công nghệ lớn chi hơn 720 tỷ USD cho AI dù chưa thu được lợi nhuận tương xứng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1027344/amazon-microsoft-alphabet-google-meta-data-centers-earnings-q3"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "b2a614820c8ff32c1d90",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/05/2026/democrats-are-fired-up-on-ai-consensus-is-harder",
+      "key_points": [
+        "Theo Semafor, phe Dân chủ vừa giành đa số tại Quốc hội Mỹ sau cuộc bầu cử ngày thứ Ba và đặt mục tiêu quản lý trí tuệ nhân tạo (AI - công nghệ mô phỏng trí tuệ con người) làm ưu tiên hàng đầu. Kết quả bầu cử cũng thông qua hơn 40 sáng kiến nhằm làm chậm hoặc dừng mở rộng các trung tâm dữ liệu AI trên toàn quốc. Quốc hội mới dự kiến sẽ thúc đẩy các dự luật siết an toàn AI, hạn chế trung tâm dữ liệu và cấm siêu trí tuệ, dù hạ nghị sĩ Greg Stanton thừa nhận đảng còn nhiều tranh luận nội bộ.",
+        "Về nguyên nhân, các nhóm bảo thủ cho biết cử tri đang gắn khó khăn kinh tế với đà tăng trưởng AI mất kiểm soát và chính sách ưu ái giới tỷ phú công nghệ tại thủ đô Washington dưới thời Tổng thống Donald Trump. Dù vậy, Semafor nhận định sự phân rẽ giữa cánh cấp tiến và phe ôn hòa thân doanh nghiệp, cùng bất đồng giữa Hạ viện và Thượng viện, sẽ cản trở việc sớm thông qua các quy tắc sâu rộng. Hạ nghị sĩ Greg Stanton xác nhận nội bộ đảng chưa đạt được thỏa thuận về một chính sách cụ thể, trong khi ông Trump vốn chuộng hướng thả nổi đã đe dọa phủ quyết dự luật ông không thích.",
+        "Điểm đồng thuận chung giữa các nhóm là cam kết dùng quyền trát đòi để chất vấn các lãnh đạo công nghệ về rủi ro an toàn và ảnh hưởng kinh tế của AI. Về đề xuất cụ thể, trong khi hạ nghị sĩ Greg Casar muốn tạm dừng phát triển mô hình AI tiên tiến thì thượng nghị sĩ Maria Cantwell lại thúc đẩy dự luật bắt buộc thử nghiệm độc lập mô hình trước khi phát hành.",
+        "Semafor đánh giá tình trạng thiếu đồng thuận về một chính sách lập pháp chung sẽ khiến phe Dân chủ khó đạt được kết quả, dù họ nắm thế đa số lớn hơn mong đợi ở cả hai viện. Một nhân viên quốc hội nhận định ban lãnh đạo Thượng viện sẽ chiều theo phe ôn hòa và e ngại đi quá xa, khiến những đề xuất kiềm chế AI cứng rắn khó được lưỡng viện ủng hộ rộng rãi. Theo phân tích của Semafor, sự chia rẽ nội bộ cùng nguy cơ bị ông Trump phủ quyết sẽ khiến đảng Dân chủ khó có thể nhanh chóng ban hành bất kỳ quy tắc AI diện rộng nào."
+      ],
+      "same_event_coverage_ids": [
+        "f703b02af3e77ca94555"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phe Dân chủ chiếm đa số tại Quốc hội Mỹ nhưng khó sớm ban hành luật AI do chia rẽ nội bộ và thế bế tắc lập pháp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/05/2026/democrats-are-fired-up-on-ai-consensus-is-harder"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "33b96c97d0fcbb9bc611",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on Micron suspending construction of a memory chip plant in Taiwan due to a labor dispute; AI is mentioned only incidentally as an end-use application for memory components rather than being the primary subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/micron-pauses-work-on-4-5-billion-taiwan-plant-after-labor-spat",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a6d64e81eb22492c5400"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "25fa4dd18ec78a48a923",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/setting-new-standard-responsible-ai-infrastructure",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c4aea6fe06704feaff55"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c65c7708e93995ca4541",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier; event or original publication is older than seven days",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier",
+        "event or original publication is older than seven days"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/phonon-tts",
+      "key_points": [
+        "Phonon có hai kích thước khoảng 65 MB và 75 MB, hỗ trợ năm ngôn ngữ gồm tiếng Anh, tiếng Pháp, tiếng Đức, tiếng Tây Ban Nha và tiếng Bồ Đào Nha. Sau hai tuần, mô hình đạt hơn 200.000 lượt tải xuống và đứng đầu bài đo chuẩn trên CPU về thời gian phát âm thanh đầu tiên.",
+        "Nhóm tác giả giải thích phần lớn AI giọng nói hoạt động trên đám mây, trong khi đưa giọng đọc lên thiết bị nhỏ luôn khó khăn do phải đánh đổi giữa dung lượng và chất lượng âm thanh. Để xử lý, Gradium phát triển Phonon từ dòng Pocket TTS với kỹ thuật khớp dòng (flow matching) nhằm tạo âm thanh chất lượng cao ở kích thước nhỏ thay vì dùng cách mô hình hóa truyền thống. Dù vậy, nhóm nghiên cứu thừa nhận quá trình huấn luyện ban đầu bị mất ổn định số học và phải dùng nhiều kỹ thuật can thiệp để bảo đảm chất lượng trên cả năm ngôn ngữ.",
+        "Trên bài đo mở Open TTS Leaderboard so sánh hơn 9.000 mô hình qua 23 ngôn ngữ, Phonon đứng đầu ở tiếng Đức và tiếng Tây Ban Nha, đồng thời lọt vào top ba ở mọi ngôn ngữ được đánh giá theo độ rõ tiếng (tỷ lệ lỗi từ). Ở bài đo tốc độ truyền phát trực tiếp trên CPU, mô hình dẫn đầu về thời gian phản hồi âm thanh đầu tiên cạnh tranh với các hệ thống lớn gấp tới 100 lần. Về bản quyền, bản Phonon 31m tiếng Anh được mở miễn phí theo chuẩn Apache 2.0 cho thương mại, trong khi bản Phonon 40m hỗ trợ năm ngôn ngữ thuộc diện phi thương mại CC BY-NC và tính phí theo lượng người dùng nếu kinh doanh.",
+        "Đồng thời, phạm vi ứng dụng bị thu hẹp do giấy phép Apache 2.0 chỉ dành cho bản tiếng Anh, còn mô hình đa ngôn ngữ thuộc diện phi thương mại và bị tính phí theo lượng người dùng khi kinh doanh."
+      ],
+      "same_event_coverage_ids": [
+        "5d081fdef4a35072a089"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Gradium ra mắt mô hình giọng nói Phonon chạy trên thiết bị dẫn đầu bài đo độ trễ nhưng giới hạn bản quyền thương mại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/phonon-tts"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
       "key_points_prompt_version": "summary-vi-6-prose"
     }
   ]
