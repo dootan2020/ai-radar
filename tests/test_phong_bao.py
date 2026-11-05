@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import time
 import unittest
@@ -954,9 +955,10 @@ class ScheduledCycleScriptTests(unittest.TestCase):
                                    (self.TOOLS / "register-newsroom-cycle.ps1").read_text(encoding="utf-8")).group(1)) * 3600
         git_timeout = int(re.search(r"\[int\]\$GitTimeoutSeconds = (\d+)", text).group(1))
         git_calls = len(re.findall(r"Invoke-RemoteGit @\(", text))
+        build_request = int(re.search(r"\[int\]\$BuildTriggerTimeoutSeconds = (\d+)", text).group(1))
         # fetch_snapshot: intake URL, then radar.json fallback, each with urlopen(timeout=60).
         snapshot = 2 * 60
-        worst = DEFAULT_RUN_BUDGET_SECONDS + snapshot + git_calls * git_timeout
+        worst = DEFAULT_RUN_BUDGET_SECONDS + snapshot + git_calls * git_timeout + build_request
         self.assertLessEqual(DEFAULT_WRITER_BUDGET_SECONDS, DEFAULT_RUN_BUDGET_SECONDS)
         self.assertLessEqual(worst, task_limit - 15 * 60, f"worst case {worst / 60:.0f} min of {task_limit / 60:.0f}")
 
@@ -982,6 +984,120 @@ class ScheduledCycleScriptTests(unittest.TestCase):
         self.assertIn("git clone timed out after 2 seconds", result.stdout + result.stderr)
         self.assertLess(elapsed, 30)
         self.assertEqual(left.stdout.strip(), "0", "the hung git's child process was left running")
+
+
+FAKE_GIT = r'''import os, sys
+args = sys.argv[1:]
+with open(os.environ["FAKE_LOG"], "a", encoding="utf-8") as log:
+    log.write("git " + " ".join(args) + "\n")
+if "get-url" in args:
+    print("https://github.com/owner/radar.git")
+elif "clone" in args:
+    os.makedirs(args[-1])
+elif "show-ref" in args:
+    sys.exit(1)
+elif "diff" in args:
+    sys.exit(int(os.environ.get("FAKE_DIFF_EXIT", "1")))
+elif "push" in args:
+    sys.exit(int(os.environ.get("FAKE_PUSH_EXIT", "0")))
+'''
+FAKE_GH = r'''import os, sys, time
+with open(os.environ["FAKE_LOG"], "a", encoding="utf-8") as log:
+    log.write("gh " + " ".join(sys.argv[1:]) + "\n")
+if os.environ.get("FAKE_GH") == "hang":
+    time.sleep(45)
+sys.exit(int(os.environ.get("FAKE_GH_EXIT", "0")))
+'''
+# Stands in for "python -m phong_bao cycle": writes decisions and reports a decided cycle, no network or model.
+FAKE_CYCLE = r'''import json, pathlib
+pathlib.Path("phong-bao/decisions.json").write_text(json.dumps({"schema_version": 1, "decisions": [{"id": "a"}]}))
+print(json.dumps({"state": "decided"}))
+'''
+
+
+@unittest.skipUnless(os.name == "nt" and shutil.which("powershell.exe"), "Windows PowerShell runs the scheduled task")
+class SiteBuildRequestTests(unittest.TestCase):
+    """After a cycle pushes decisions, the runner asks GitHub to build the site; that request is best effort."""
+
+    def setUp(self):
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        root = Path(temp.name)
+        self.repo, fake = root / "repo", root / "bin"
+        (self.repo / "phong-bao" / "cong-cu").mkdir(parents=True)
+        (self.repo / "phong-bao" / "cycles").mkdir()
+        (self.repo / "phong_bao").mkdir()
+        (self.repo / "phong_bao" / "__init__.py").write_text("", encoding="utf-8")
+        (self.repo / "phong_bao" / "__main__.py").write_text(FAKE_CYCLE, encoding="utf-8")
+        shutil.copy(ScheduledCycleScriptTests.SCRIPT, self.repo / "phong-bao" / "cong-cu")
+        fake.mkdir()
+        (fake / "fake_git.py").write_text(FAKE_GIT, encoding="utf-8")
+        (fake / "fake_gh.py").write_text(FAKE_GH, encoding="utf-8")
+        (fake / "git.cmd").write_text('@python "%~dp0fake_git.py" %*\r\n', encoding="ascii")
+        self.gh = fake / "gh.cmd"
+        self.gh.write_text('@python "%~dp0fake_gh.py" %*\r\n', encoding="ascii")
+        self.log = root / "calls.log"
+        self.log.write_text("", encoding="utf-8")
+        windows = os.environ.get("SystemRoot", r"C:\Windows")
+        # Only the fakes, Python and Windows itself: the real git and gh are never reachable.
+        path = os.pathsep.join([str(fake), str(Path(sys.executable).parent), os.path.join(windows, "System32"),
+                                windows, os.path.join(windows, "System32", "WindowsPowerShell", "v1.0")])
+        self.env = {**os.environ, "PATH": path, "FAKE_LOG": str(self.log)}
+        self.powershell = shutil.which("powershell.exe")
+
+    def run_cycle(self, timeout_seconds=20, **fake):
+        trigger = self.repo / "phong-bao" / "cycles" / "build-trigger.log"
+        trigger.unlink(missing_ok=True)
+        self.log.write_text("", encoding="utf-8")
+        started = time.monotonic()
+        result = subprocess.run([self.powershell, "-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
+                                 str(self.repo / "phong-bao" / "cong-cu" / "run-newsroom-cycle.ps1"),
+                                 "-BuildTriggerTimeoutSeconds", str(timeout_seconds)],
+                                capture_output=True, text=True, env={**self.env, **fake}, timeout=60,
+                                cwd=self.repo)
+        calls = self.log.read_text(encoding="utf-8").splitlines()
+        logged = trigger.read_text(encoding="utf-8-sig") if trigger.exists() else ""
+        return result, calls, logged, time.monotonic() - started
+
+    def test_a_pushed_cycle_requests_one_site_build(self):
+        result, calls, logged, _ = self.run_cycle()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        pushes = [i for i, call in enumerate(calls) if call.startswith("git ") and " push " in call + " "]
+        builds = [i for i, call in enumerate(calls) if call.startswith("gh ")]
+        self.assertEqual(len(pushes), 1, calls)
+        self.assertEqual([calls[i] for i in builds], ["gh workflow run update.yml --ref main --repo owner/radar"])
+        self.assertGreater(builds[0], pushes[0])
+        self.assertIn("site build requested update.yml on owner/radar", logged)
+
+    def test_a_failed_or_hung_build_request_never_fails_the_cycle(self):
+        result, calls, logged, _ = self.run_cycle(FAKE_GH_EXIT="1")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertTrue(any(" push " in call for call in calls))
+        self.assertIn("site build gh workflow run exited 1", logged)
+
+        result, _, logged, elapsed = self.run_cycle(timeout_seconds=2, FAKE_GH="hang")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("not requested: gh workflow run timed out after 2 seconds", logged)
+        self.assertLess(elapsed, 40)
+
+        self.gh.unlink()
+        result, calls, logged, _ = self.run_cycle()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertTrue(any(" push " in call for call in calls))
+        self.assertIn("site build not requested:", logged)
+
+    def test_no_build_is_requested_without_a_successful_push(self):
+        result, calls, logged, _ = self.run_cycle(FAKE_PUSH_EXIT="1")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Cannot push newsroom decisions", result.stdout + result.stderr)
+        self.assertFalse(any(call.startswith("gh ") for call in calls), calls)
+        self.assertEqual(logged, "")
+        # Nothing new to publish: no commit, no push, no build.
+        result, calls, logged, _ = self.run_cycle(FAKE_DIFF_EXIT="0")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertTrue(any(" diff " in call for call in calls), calls)
+        self.assertFalse(any(call.startswith("gh ") or " push " in call for call in calls), calls)
+        self.assertEqual(logged, "")
 
 
 if __name__ == "__main__":

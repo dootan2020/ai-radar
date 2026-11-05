@@ -57,7 +57,9 @@ class SourceEditorTests(unittest.TestCase):
         self.assertEqual((row["editor_provider"], row["editor_boat"]), ("codex", "codex"))
         self.assertEqual([call[0] for call in runner.calls], ["writer", "editor-source"])
         packet = runner.calls[1][1][0]
-        self.assertEqual(set(packet), {"id", "sources", "missing_primary", "linked_primary", "draft"})
+        self.assertEqual(set(packet), {"id", "sources", "missing_primary", "linked_primary", "length", "draft"})
+        # The editor's final is checked against this window, so it is told the window.
+        self.assertEqual(packet["length"], {"least": 90, "aim": 160, "most": 230})
         self.assertEqual(packet["draft"], PROSE["paragraphs"])
         self.assertNotIn("conditions", packet)
         self.assertEqual([p["text"] for p in packet["sources"][0]["paragraphs"]], EXAMPLE["paragraphs"])

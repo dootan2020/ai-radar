@@ -495,6 +495,179 @@ class WriterDeskTests(unittest.TestCase):
         self.assertFalse(validate_chief_output(decision))
 
 
+LONG = json.loads((FIXTURES / "summary-articles" / "reference-length-case.json").read_text(encoding="utf-8"))
+LONG_ID = LONG["id"]
+
+
+def units(paragraphs):
+    return sum(len(s["text"].split()) for p in paragraphs for s in p["sentences"])
+
+
+class WriterLengthTests(unittest.TestCase):
+    """A full article gets a summary of the reference's size; the checks stay a fence at that length."""
+
+    def setUp(self):
+        self.tools = load_registry()
+
+    def write(self, reply, rewrite=None):
+        intake, reporter, editor, _ = desks()
+        intake ={LONG_ID: {**intake[SID], "id": LONG_ID}}
+        reporter = {LONG_ID: {**reporter[SID], "id": LONG_ID, "selected_url": LONG["url"]}}
+        editor = {LONG_ID: {**editor[SID], "id": LONG_ID}}
+        item = {"id": LONG_ID, "title": LONG["title"], "url": LONG["url"], "summary": "Publisher excerpt.",
+                "published_at": (NOW - timedelta(hours=2)).isoformat(),
+                "coverage": [{"id": "c1", "url": LONG["url"], "publisher": LONG["publisher"]}]}
+        replies = {"writer": {LONG_ID: reply}}
+        if rewrite is not None:
+            replies["rewrite-writer"] = {LONG_ID: rewrite}
+        runner = RecordingRunner(replies)
+        source = FixtureArticles({"articles": {LONG["url"]: {"text": "\n".join(LONG["paragraphs"]), "reason": None}}})
+        with patch("socket.create_connection", side_effect=AssertionError("network forbidden")):
+            output, _ = _writer([item], intake, reporter, editor, source, self.tools, DISCOVERY, runner, NOW)
+        return output[LONG_ID], runner
+
+    def draft(self):
+        return deepcopy(LONG["draft"])
+
+    def test_a_reference_size_summary_passes_and_the_writer_is_told_its_window(self):
+        draft = self.draft()
+        self.assertEqual(len(draft["paragraphs"]), 4)
+        self.assertTrue(all(len(p["sentences"]) >= 3 for p in draft["paragraphs"]))
+        self.assertTrue(450 <= units(draft["paragraphs"]) <= 550, units(draft["paragraphs"]))
+        row, runner = self.write(draft)
+        self.assertTrue(row["written"], row)
+        self.assertEqual(row["dropped_points"], [])
+        self.assertEqual(len(row["key_points"]), 4)
+        self.assertIn("199 nhân dân tệ", row["key_points"][2])
+        self.assertIn(f"{units(draft['paragraphs'])} words", row["reason"])
+        sent = runner.calls[0][1][0]
+        self.assertEqual(sent["length"], {"least": 250, "aim": 425, "most": 600})
+        self.assertEqual(sent["length"], newsroom.writer_length(sent))
+
+    def test_the_window_scales_with_the_source_the_writer_reads(self):
+        def window(chars):
+            length = newsroom.writer_length({"sources": [{"paragraphs": [{"text": "x" * chars}]}]})
+            return length["least"], length["most"]
+
+        self.assertEqual(window(800), (90, 230))
+        self.assertEqual(window(2400), (200, 480))
+        self.assertEqual(window(3000), (250, 600))
+        self.assertEqual(window(16000), (250, 600))
+        small = newsroom.writer_length({"sources": [{"paragraphs": [{"text": text} for text in EXAMPLE["paragraphs"]]}]})
+        self.assertEqual(small, {"least": 90, "aim": 160, "most": 230})
+
+    def test_one_sentence_per_paragraph_is_too_thin_for_a_full_article(self):
+        thin = self.draft()
+        for paragraph in thin["paragraphs"]:
+            paragraph["sentences"] = paragraph["sentences"][:1]
+        self.assertLess(units(thin["paragraphs"]), 250)
+        row, _ = self.write(thin)
+        self.assertFalse(row["written"])
+        self.assertEqual(row["key_points"], [])
+        self.assertTrue(row["reason"].startswith("word_count: ") and row["reason"].endswith("outside 250-600"),
+                        row["reason"])
+
+    def test_a_summary_past_the_window_is_rejected(self):
+        long = self.draft()
+        long["paragraphs"][1]["sentences"] += [sentence(
+            f"Ở lần mô tả thứ {word}, mỗi tác tử có hộp thư riêng, kho bộ nhớ và hạn mức chi tiêu hằng tháng do "
+            f"chủ sở hữu đặt.", "outlet:p003") for word in ("hai", "ba", "tư", "năm", "sáu")]
+        self.assertGreater(units(long["paragraphs"]), 600)
+        row, _ = self.write(long)
+        self.assertFalse(row["written"])
+        self.assertEqual(row["dropped_points"], [])
+        self.assertTrue(row["reason"].endswith("outside 250-600"), row["reason"])
+
+    # The checker stays a fence at the new length: every fabrication it blocked in a short draft is still
+    # removed sentence by sentence from a long one.
+    def test_fabrications_in_a_long_draft_are_still_removed(self):
+        draft = self.draft()
+        draft["paragraphs"][0]["sentences"].append(
+            sentence("Theo Harbor Lines, Hosted Agents là dịch vụ tác tử rẻ nhất Trung Quốc.", "outlet:p003"))
+        draft["paragraphs"][1]["sentences"].append(
+            sentence("Kestrel Labs ra mắt dịch vụ nhằm giành khách hàng của các hãng đám mây lớn.", "outlet:p008"))
+        draft["paragraphs"][2]["sentences"] += [
+            sentence("Gói dành cho doanh nghiệp lớn có giá 299 nhân dân tệ cho mỗi tác tử mỗi tháng.", "outlet:p005"),
+            sentence("Hãng thương mại điện tử Alibaba cũng đang thử Hosted Agents.", "outlet:p006")]
+        draft["paragraphs"][3]["sentences"].append(
+            sentence("Vì vậy Hosted Agents sẽ thay đổi cách mọi doanh nghiệp dùng AI.", "outlet:p001"))
+        row, _ = self.write(draft)
+        self.assertTrue(row["written"], row)
+        self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]], [
+            ("development", "speaker_not_in_source: Harbor Lines"),
+            ("cause", "unsupported_purpose"),
+            ("examples", "invented_number: 299"),
+            ("examples", "invented_entity: Alibaba"),
+            ("significance", "condition_not_cited")])
+        published = " ".join(row["key_points"])
+        for invented in ("rẻ nhất", "nhằm", "299", "Alibaba", "thay đổi cách mọi"):
+            self.assertNotIn(invented, published)
+        self.assertEqual(row["key_points"], self.write(self.draft())[0]["key_points"])
+
+    def test_padding_a_thin_draft_with_invented_facts_does_not_reach_the_window(self):
+        padded = self.draft()
+        for index, paragraph in enumerate(padded["paragraphs"]):
+            ref = paragraph["sentences"][0]["evidence_refs"][0]
+            paragraph["sentences"] = paragraph["sentences"][:1] + [sentence(
+                f"Theo số liệu riêng, có thêm {7000 + index * 100 + extra} doanh nghiệp đang xếp hàng chờ dùng "
+                f"dịch vụ trong đợt mở rộng tới.", ref) for extra in range(4)]
+        self.assertGreaterEqual(units(padded["paragraphs"]), 250)
+        row, _ = self.write(padded)
+        self.assertFalse(row["written"])
+        self.assertEqual(len(row["dropped_points"]), 16)
+        self.assertTrue(all(d["error"].startswith("invented_number") for d in row["dropped_points"]))
+        self.assertTrue(row["reason"].startswith("word_count: "), row["reason"])
+
+    def test_a_cause_paragraph_of_invented_reasons_is_lost_not_published(self):
+        # The prompt may explain how the thing works when the article gives no reason; an invented reason
+        # still fails, and a paragraph made only of them leaves the story to the API.
+        draft = self.draft()
+        draft["paragraphs"][1]["sentences"] = [
+            sentence("Kestrel Labs ra mắt Hosted Agents nhằm đối phó với giá máy chủ ngày càng tăng.", "outlet:p001"),
+            sentence("Theo Zhou Ping, hộp thư riêng của mỗi tác tử ra đời vì khách hàng phàn nàn về chi phí.", "outlet:p003")]
+        row, runner = self.write(draft)
+        self.assertFalse(row["written"])
+        self.assertEqual(row["reason"], "paragraph_lost")
+        self.assertEqual([d["error"] for d in row["dropped_points"]],
+                         ["unsupported_purpose", "speaker_not_in_source: Zhou Ping"])
+        self.assertEqual(row["rewrite"], {"roles": ["cause"], "result": "rewrite_model_failure"})
+        rewrite_rows = runner.calls[1][1]
+        self.assertEqual(rewrite_rows[0]["length"], {"least": 250, "aim": 425, "most": 600})
+
+    def test_prompts_ask_for_specifics_in_plain_vietnamese_within_the_window(self):
+        for phrase in ("length gives {least, aim, most}", "two to six full sentences", "never invent a cause",
+                       "who said what", "kiến trúc đàn"):
+            self.assertIn(phrase, WRITER_PROMPT)
+        self.assertNotIn("120 to 180", WRITER_PROMPT)
+        self.assertNotIn("Use fewer proper names", WRITER_PROMPT)
+        self.assertIn("within length", WRITER_REWRITE_PROMPT)
+        self.assertIn("length {least, aim, most}", newsroom.SOURCE_EDITOR_PROMPT)
+        self.assertNotIn("90-230", newsroom.SOURCE_EDITOR_PROMPT)
+        inputs = {"id": LONG_ID, "sources": [{"paragraphs": [{"text": text} for text in LONG["paragraphs"]]}],
+                  "missing_primary": False, "linked_primary": None}
+        packet = newsroom._source_editor_packet(inputs, {**self.draft(), "id": LONG_ID})
+        self.assertEqual(packet["length"], {"least": 250, "aim": 425, "most": 600})
+
+    def test_a_longer_prompt_leaves_fewer_characters_for_rows_on_one_command_line(self):
+        discovery = {"commands": ["agy"], "fuel": None}
+        payload = [{"id": f"s{index}", "text": "x" * 5800} for index in range(10)]
+
+        def calls(instruction):
+            runner = RecordingRunner({"writer": {row["id"]: {"id": row["id"]} for row in payload}})
+            newsroom._agent_desk("writer", payload, instruction, "bien-tap", self.tools, discovery, runner,
+                                 require_success=False)
+            return [rows for _, rows, _ in runner.calls]
+
+        for instruction in (WRITER_PROMPT, WRITER_REWRITE_PROMPT):
+            batches = calls(instruction)
+            self.assertEqual(sum(len(rows) for rows in batches), len(payload))
+            for rows in batches:
+                self.assertLessEqual(len(instruction) + sum(len(json.dumps(row)) for row in rows),
+                                     newsroom.ARGUMENT_COMMAND_CHARS)
+        # A prompt no longer than the one the writer ran with keeps the full row budget.
+        self.assertEqual([len(rows) for rows in calls("x" * 6869)], [4, 4, 2])
+
+
 class SlowWriterLane(FixtureRunner):
     """A writer lane that takes 90 seconds of fake time per story, the pace agy kept on 05/11."""
 
