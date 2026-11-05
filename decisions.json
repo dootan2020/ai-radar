@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-04T23:36:37.911791+00:00",
-  "input_generated_at": "2026-11-04T19:37:55Z",
+  "generated_at": "2026-11-05T04:27:31.126696+00:00",
+  "input_generated_at": "2026-11-05T00:19:16Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -26083,6 +26083,781 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "d5c5d03afc0c57e332aa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "36885bd4637ca1605569",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on South Korea's national current account surplus and macroeconomic trade balance; AI demand is mentioned only in passing as a contributing factor to semiconductor exports.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/south-korea-s-current-account-surplus-hits-record-on-chip-boom",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "81a6794749e1ba718e99"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e394d28ac6bc71667d97",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/the-blue-wave-has-tech-bros-scrambling-for-data-centers-in-space/",
+      "key_points": [
+        "Following Democratic midterm election victories in data center hot spots like Texas, tech figures and data center enthusiasts promoted the idea of building data centers in space.",
+        "Elon Musk, after spending more than $400 million backing losing Republican candidates, posted on X that data centers in space look appealing.",
+        "Winning Democratic candidates in key data center hubs had voiced opposition to the local data center industry."
+      ],
+      "same_event_coverage_ids": [
+        "124654d8c6e15ad6472e"
+      ],
+      "split_coverage_ids": [
+        "f5e5495c47dceae2849c"
+      ]
+    },
+    {
+      "id": "80154a433b3389275400",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-04/isomorphic-labs-in-talks-for-about-5-billion-in-funding",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "81893ee3e37fad1b96ed"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5523ef782a102f9407e4",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/04/ai-pacs-spent-millions-trying-to-shape-congress-heres-how-they-fared/",
+      "key_points": [
+        "TechCrunch đưa tin các ủy ban hành động chính trị (nhóm gây quỹ vận động bầu cử) ủng hộ và kiểm soát trí tuệ nhân tạo đã chi hàng triệu USD nhưng chỉ nhận kết quả trái chiều.",
+        "TechCrunch nhận xét khó phân định tác động chi tiêu này trước làn sóng của đảng Dân chủ, còn nhóm Leading the Future cho biết vòng bầu cử sơ bộ mới là trọng tâm chính của họ.",
+        "Về phía doanh nghiệp, tổ chức American Mission chi 4,8 triệu USD cho một ứng viên nhưng thất bại; ngược lại, tổ chức Public First ủng hộ quản lý lại thu được kết quả khả quan hơn từ các ứng viên Dân chủ.",
+        "Theo TechCrunch, tranh chấp cốt lõi giữa hai bên là liệu Quốc hội sẽ lập khung pháp lý toàn quốc hay để các bang duy trì quyền tự áp đặt biện pháp bảo vệ. Phía Leading the Future cho biết dự định tiếp tục chi tiền năm 2028, trong khi đại diện Guardrails Alliance khẳng định mục tiêu biến dòng tiền từ ngành AI thành bất lợi chính trị."
+      ],
+      "same_event_coverage_ids": [
+        "a722d68bdc3786b8678b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Các ủy ban vận động chi hàng triệu USD vào bầu cử AI nhận kết quả trái chiều",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/04/ai-pacs-spent-millions-trying-to-shape-congress-heres-how-they-fared/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "1c489ae1190ae0d554c3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report covers conventional cyberattacks against French blood banks and European supermarkets; AI is only mentioned in passing as a speculative future threat.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/04/2026/cyberattacks-in-europe-target-supermarkets-blood-banks",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "187a5ee5c346c47bb197"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b531b56f4ce7687d64ce",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1026867/qualcomm-earnings-data-centers",
+      "key_points": [
+        "The Verge đưa tin tập đoàn công nghệ Qualcomm đang chuyển hướng đặt cược lớn vào mảng trung tâm dữ liệu (hệ thống máy chủ xử lý tính toán) khi doanh số điện thoại thông minh sụt giảm.",
+        "Theo The Verge, hãng tìm cách cải thiện lợi nhuận sau khi doanh số điện thoại thông minh giảm khoảng 20% so với năm 2025, dựa trên việc hợp tác cung cấp chip với Amazon và Meta.",
+        "Qualcomm dự báo mảng máy chủ sẽ mang về khoảng 650 triệu USD trong quý 1 năm 2027, kỳ vọng đạt 15 tỷ USD vào năm 2029 và chiếm khoảng 30% quy mô kinh doanh của công ty.",
+        "The Verge nhận xét mục tiêu này chưa tham vọng bằng AMD khi hãng này kỳ vọng hơn 80% doanh thu sẽ đến từ trung tâm dữ liệu, nhưng cho thấy nhu cầu và nguồn tiền cho AI vẫn còn rất lớn."
+      ],
+      "same_event_coverage_ids": [
+        "99163ad0e197d378a2b7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Qualcomm đặt cược lớn vào trung tâm dữ liệu khi doanh số điện thoại giảm mạnh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1026867/qualcomm-earnings-data-centers"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "e6c6ef2f779293e36d43",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-04/months-old-chip-startup-tenspresso-in-talks-for-500-million-valuation",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0eac63c833dd426baf98"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a59ab2f8bfe61db160e7",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-04/john-chambers-backs-ai-calling-it-a-win-for-society-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c34769dc007b2958aefb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "95666940021eb80c23c6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/04/nothing-ceo-says-companys-mysterious-ai-first-device-is-dropping-next-month/",
+      "key_points": [
+        "Giám đốc điều hành Carl Pei thông báo trên mạng xã hội X rằng sản phẩm AI gốc (AI-native, sản phẩm xây dựng cốt lõi từ trí tuệ nhân tạo) đầu tiên của Nothing sẽ ra mắt vào tháng 12 tới. Trang TechCrunch cho biết công ty khởi nghiệp Nothing đang phát triển một sản phẩm trí tuệ nhân tạo nhưng chi tiết cụ thể vẫn chưa rõ ràng.",
+        "Carl Pei mô tả sản phẩm sắp ra mắt là một công cụ hỗ trợ năng suất không có màn hình mới và không thể tồn tại dưới dạng ứng dụng.",
+        "Dù công ty Nothing từng lên kế hoạch phát hành kính thông minh và tai nghe tích hợp trí tuệ nhân tạo, Carl Pei dường như lại hạ thấp mối liên hệ giữa thiết bị mới với phần cứng đeo trên người.",
+        "Theo TechCrunch, hãng Nothing chưa công bố ngày phát hành chính thức, trong khi Pei tuyên bố ông nhìn nhận thời điểm phát triển phần cứng trí tuệ nhân tạo khác với toàn ngành."
+      ],
+      "same_event_coverage_ids": [
+        "aa0fba9ad3079c14e07f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Lãnh đạo Nothing thông báo sắp ra mắt thiết bị AI bí ẩn không màn hình vào tháng 12",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/04/nothing-ceo-says-companys-mysterious-ai-first-device-is-dropping-next-month/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "4376fc05a5786b49752e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor developer blog post describing technical implementation blueprints and architectural learnings for building operational AI agents.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/how-nvidia-uses-ai-agents-to-streamline-ai-factory-operations/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1942cba76847a09fe0b7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8a0eacda93f2823371bd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/04/almost-no-one-uses-ai-agents-to-book-their-uber-company-says/",
+      "key_points": [
+        "Công ty Uber cho biết chỉ có bốn chuyến xe được đặt qua agent (tác nhân AI tự động thực hiện tác vụ) trong tuần lễ Halloween bận rộn nhất tháng 10.",
+        "Giám đốc điều hành Dara Khosrowshahi chỉ ra rằng việc đặt xe chỉ mất trung bình 50 giây và đặt lại đồ ăn mất 90 giây trên ứng dụng, cho thấy tác nhân AI chưa hẳn giúp tiết kiệm thời gian.",
+        "Giám đốc tài chính Balaji Krishnamurthy cho biết Uber Eats chỉ nhận 500 đơn qua AI trên tổng số khoảng 320 triệu giao dịch trong tuần đó, trong khi DoorDash cũng chỉ ghi nhận vài trăm đơn qua AI.",
+        "Khosrowshahi đánh giá lực hút từ người dùng đối với tác nhân AI hiện còn rất sớm và hạn chế. Dù vậy, lãnh đạo Uber vẫn tin rằng các công cụ tác nhân này sẽ mang lại tác động tích cực cho nhu cầu trên toàn hệ sinh thái."
+      ],
+      "same_event_coverage_ids": [
+        "8141d3e819e7af56f883"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Uber ghi nhận rất ít người dùng đặt xe qua tác nhân AI trong tuần lễ Halloween",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/04/almost-no-one-uses-ai-agents-to-book-their-uber-company-says/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "4c65af7ddad1f5b56b6f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/04/openai-is-already-trying-to-shape-the-2028-election/",
+      "key_points": [
+        "Trong bài tiểu luận mới, Chris Lehane, giám đốc phụ trách vấn đề toàn cầu của OpenAI, bày tỏ quan điểm rằng cuộc bầu cử tổng thống Mỹ năm 2028 sẽ là thời điểm then chốt định hình chính sách trí tuệ nhân tạo (AI).",
+        "Lehane thúc giục giới chính trị gia học tập chương trình New Deal thập niên 1930 nhằm giải quyết nỗi lo của công chúng và chia sẻ lợi ích từ AI, thay vì chỉ phản đối các trung tâm dữ liệu.",
+        "Lehane đề xuất ưu đãi thuế để lao động học kỹ năng AI, song TechCrunch chỉ ra rằng kế hoạch này thiếu các quy định ràng buộc buộc doanh nghiệp bù đắp cho nhân sự bị công nghệ thay thế.",
+        "Trang TechCrunch nhận xét tầm nhìn này chưa làm rõ trách nhiệm của các công ty công nghệ trước những xáo trộn kinh tế và chưa rõ có thể tái phân phối quyền lực hay không."
+      ],
+      "same_event_coverage_ids": [
+        "0fc543490ed8f9a8a20c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Lãnh đạo OpenAI đề xuất định hình chính sách trí tuệ nhân tạo hướng tới bầu cử Mỹ 2028",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/04/openai-is-already-trying-to-shape-the-2028-election/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "6a20e43d9a7aa26d0452",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-04/big-tech-rallies-on-ai-outlook-closing-bell-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9e89d45447dae2caba4f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2f7abd088fe66e28f452",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/04/meta-acquires-ai-coding-startup-conductor/",
+      "key_points": [
+        "Meta đã mua lại Conductor, startup cho phép tạo dự án bằng cách triển khai nhiều agent (chương trình trí tuệ nhân tạo tự hành) trong không gian làm việc song song. Conductor thành lập năm 2024 và mới ra mắt sản phẩm cốt lõi vào mùa hè qua.",
+        "Theo TechCrunch, Meta từng tụt hậu trong dịch vụ AI và đã dành vài tháng qua để nỗ lực bắt kịp. Các nhóm tác tử của Conductor được thiết kế nhằm giúp kỹ sư phối hợp xử lý từng phần riêng biệt của dự án.",
+        "Conductor không tự phát triển tác tử mà dùng công nghệ từ Anthropic và OpenAI. Dịch vụ đám mây của Conductor sẽ đóng cửa ngày 20 tháng 11 và xóa dữ liệu, dù các tính năng chính duy trì đến đầu năm sau.",
+        "TechCrunch nhận định thương vụ Conductor tiếp nối chuỗi thâu tóm AI của Meta trong nỗ lực bắt kịp, dù Meta từ chối nêu chi tiết thỏa thuận."
+      ],
+      "same_event_coverage_ids": [
+        "794a9aa6ee55c84504c7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta mua lại startup lập trình AI Conductor trong bối cảnh dịch vụ đám mây sắp bị đóng cửa",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/04/meta-acquires-ai-coding-startup-conductor/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "763ead0d4889bd176088",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-04/goldman-apollo-in-talks-to-sell-spacex-s-40-billion-ai-deal",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ad7ca720f09445f42d58"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "882b511506f75c102c22",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-04/arm-forecast-meets-estimates-after-data-center-push-pays-off",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1c4d8a7b9df02fa871b9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "721c0b25a4158ae0d7c1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A personal blog post published on August 28, 2026 re-posted months later without any new reporting, updates, or substance.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.davidralphlewis.co.uk/posts/everything-is-an-ai-scam-now/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8946f5a6c61996be3f32"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "486c70c94cb0cc7c69c7",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/tech-policy/2026/11/big-tech-claims-voters-ai-backlash-is-anti-trump-not-anti-tech/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "04bda4719eb36790553e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a7783aa1a7906d9c224e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/the-biggest-pro-ai-super-pac-network-didnt-really-impact-the-midterms/",
+      "key_points": [
+        "Leading the Future, siêu PAC (ủy ban hành động chính trị độc lập) ủng hộ AI lớn nhất tại Mỹ, không tạo được nhiều tác động trong bầu cử giữa kỳ. Dù vậy, Leading the Future vẫn còn hơn 20 triệu USD ngân quỹ và có hàng chục ứng viên thắng cử.",
+        "Theo Wired, mạng lưới chuyển hướng tài trợ áp đảo sang ứng viên an toàn khi cử tri bất tín nhiệm các hãng công nghệ lớn. Mạng lưới cũng không ghi nhận thêm khoản quyên góp nào trong quý hai và quý ba.",
+        "Ở các cuộc đua rủi ro, ứng viên được mạng lưới tài trợ hơn 2 triệu USD tại South Carolina đã thất bại. Ngoại lệ hiếm hoi là dân biểu Jared Moskowitz tại Florida tái đắc cử với cách biệt 13.000 phiếu.",
+        "Wired dự báo giới công nghệ sắp đối mặt với các phiên điều trần tại quốc hội."
+      ],
+      "same_event_coverage_ids": [
+        "39e428bcf1bf5684d4a5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Siêu PAC ủng hộ AI lớn nhất nước Mỹ hụt hơi trong bầu cử dù còn hơn 20 triệu USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/the-biggest-pro-ai-super-pac-network-didnt-really-impact-the-midterms/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "97689e4470033f7c3c03",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1026787/att-gemini-for-home-connected-life-security-system",
+      "key_points": [
+        "Theo AT&T, hệ thống an ninh nhà thông minh Connected Life của hãng đã tích hợp trợ lý Gemini for Home của Google, mang lại khả năng tóm tắt sự kiện và tra cứu lịch sử ghi hình.",
+        "The Verge cho biết AT&T thực hiện cập nhật này nhờ tận dụng các giao diện lập trình ứng dụng (API, phương thức kết nối phần mềm) Home của Google, công cụ cho phép các nhà phát triển đưa tính năng trí tuệ nhân tạo vào thiết bị.",
+        "Với bản cập nhật, công nghệ này có thể mô tả chi tiết sự việc camera an ninh ghi lại như người giao nhận cùng số lượng gói hàng, đồng thời cho phép tìm kiếm đoạn phim bằng câu hỏi ngôn ngữ tự nhiên.",
+        "Tuy nhiên, AT&T cho biết các tính năng trí tuệ nhân tạo này chỉ dành riêng cho khách hàng đăng ký gói giám sát Connected Life chuyên nghiệp với mức giá 29,99 USD mỗi tháng. Trong khi đó, The Verge ghi nhận thương hiệu an ninh đối thủ ADT cũng đã gợi ý về việc sẽ đưa các tiện ích tương tự của Gemini for Home lên hệ thống của mình."
+      ],
+      "same_event_coverage_ids": [
+        "593f93a1eee76e3c394f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "AT&T tích hợp tính năng Gemini vào hệ thống Connected Life ở gói giám sát trả phí",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1026787/att-gemini-for-home-connected-life-security-system"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "50546847feddef54a1a5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/google-is-forcing-ai-overviews-in-classrooms-schools-are-searching-for-a-way-out/",
+      "key_points": [
+        "Google thông báo từ chối cho các trường học tùy chọn tắt tính năng AI Overviews (câu trả lời do chatbot tạo ra ở đầu tìm kiếm), buộc họ phải chặn toàn bộ công cụ tìm kiếm từ năm sau nếu muốn loại bỏ tính năng này.",
+        "Google lập luận các trường có thêm quyền kiểm soát khi dịch vụ được tắt mặc định, song WIRED chỉ ra hãng xem AI Overviews là phần không thể tách rời khỏi trải nghiệm tìm kiếm truyền thống.",
+        "Theo WIRED, các trường học đã áp dụng giải pháp kỹ thuật, trong đó các trường công lập quận Fairfax tại bang Virginia tự phát triển tiện ích mở rộng. Nghiên cứu từ Đại học Washington ở St. Louis phát hiện chỉ khoảng 42% phản hồi của AI Overviews có thể xác minh đầy đủ bằng trích dẫn, dù Google cho biết tính năng trải qua thử nghiệm nghiêm ngặt.",
+        "Google cho biết dự kiến bổ sung tính năng Guided Learning trong những tháng tới nhằm hướng dẫn học sinh tự tìm thông tin thay vì nhận đáp án tức thì. Dù vậy, chuyên gia Stephen Aguilar tại USC nhận định nhiều học khu khó khăn sẽ không có đủ năng lực để từ bỏ công cụ tìm kiếm của Google."
+      ],
+      "same_event_coverage_ids": [
+        "efba92d1b59045c58cf8"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google từ chối cho trường học tắt AI Overviews nếu không chặn toàn bộ tìm kiếm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/google-is-forcing-ai-overviews-in-classrooms-schools-are-searching-for-a-way-out/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "3a41f9480808b6855719",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A direct product catalog landing page on Qualcomm's website without independent reporting or announcement text.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.qualcomm.com/data-center/products/cloud-ai-100-ultra",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "97fa7211d3acdefd447f",
+        "a18917809bbb687e151d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2858ac02eb9cd48613d2",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-04/apple-cuts-internal-ai-usage-budgets-in-move-to-reduce-spending",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a2fab9003c878e85140d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d53634b505a78ccb6c4a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-04-github-copilot-is-now-available-in-xcodes-coding-assistant",
+      "key_points": [
+        "GitHub Copilot is now available in public preview directly within Xcode's built-in coding assistant.",
+        "The existing GitHub Copilot for Xcode extension will remain available as a separate option."
+      ],
+      "same_event_coverage_ids": [
+        "13477248dbce79816d71"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fbaa86a829ad59fd10c5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/a-thousand-fewer-paths-to-root",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "27dd447013029f2f7fc6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "981785a01550309d0739",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A vendor customer case study marketing DevRev's enterprise adoption and use of OpenAI's GPT-6.1 Sol model.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/devrev-enterprise-self-service",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f11cda069b1b14d758d1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "49b5a8702a50f62ba5fd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/research/investigating-vault-particles-with-claude",
+      "key_points": [
+        "Anthropic công bố cấu trúc 3D đầu tiên của hạt vault (vỏ protein hình thùng rỗng) ở sinh vật nhân sơ nhờ Claude, dù chức năng sinh học của hạt này vẫn chưa rõ.",
+        "Theo Anthropic, nghiên cứu hạt vault ở vi khuẩn mang lại hệ thống đơn giản hơn do vi khuẩn phát triển nhanh, giúp tìm hiểu nguồn gốc và có thể hé lộ chức năng của chúng.",
+        "Theo dữ liệu hiển vi điện tử nghiệm lạnh (kỹ thuật chụp đông lạnh bằng electron), vỏ vault từ thể thực khuẩn (virus lây vi khuẩn) gồm 96 bản sao protein so với 78 ở người, đồng thời bao bọc thể tích lớn hơn khoảng 25% so với cấu trúc ở động vật có vú.",
+        "Theo Anthropic, phát hiện này giúp làm rõ cách thức lắp ráp phân tử và gợi ý khả năng ứng dụng công nghệ sinh học như làm nang nano vận chuyển enzyme, dù chức năng tự nhiên của hạt vault vẫn chưa được làm rõ."
+      ],
+      "same_event_coverage_ids": [
+        "2e4c5bdddcc32ad3e7bd"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic dựng cấu trúc 3D của hạt vault ở sinh vật nhân sơ dù chưa rõ chức năng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://www.anthropic.com/research/investigating-vault-particles-with-claude"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "295354ff422b0d4db922",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/introducing-images-2-6",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "eee8a60b638e210f4fe9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4f07cf39a16a2fefd479",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A lifestyle article centered on Silicon Valley dating trends that mentions AI only incidentally alongside spreadsheets and coaches.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.techspot.com/news/114425-dating-silicon-valley-now-involves-spreadsheets-ai-analysis.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ea2dece01111a705569"
       ],
       "split_coverage_ids": []
     }
