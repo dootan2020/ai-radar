@@ -12,8 +12,7 @@ from unittest.mock import patch
 
 import phong_bao.newsroom as newsroom
 from phong_bao.contracts import validate_chief_output, validate_writer_output
-from phong_bao.newsroom import (DEFAULT_DESK_BUDGET_SECONDS, DEFAULT_RUN_BUDGET_SECONDS, DEFAULT_WRITER_BUDGET_SECONDS,
-                                WRITER_PROMPT, WRITER_REWRITE_PROMPT, FixtureArticles, _chief, _writer, run,
+from phong_bao.newsroom import (DEFAULT_DESK_BUDGET_SECONDS, WRITER_PROMPT, WRITER_REWRITE_PROMPT, FixtureArticles, _chief, _writer, run,
                                 writer_window_hours)
 from phong_bao.registry import load_registry, providers
 from phong_bao.runner import AdmissionError, CLIRunner, FixtureRunner
@@ -594,12 +593,9 @@ class WriterBudgetTests(unittest.TestCase):
         self.assertEqual(sorted(lane.sent + desk["model_failures"]), ids)
         self.assertEqual(set(written), set(ids))
 
-    def test_the_worst_case_cycle_stays_well_inside_the_two_hour_task_limit(self):
-        task_limit = 2 * 60 * 60  # HalcyonNewsroomCycle ExecutionTimeLimit PT2H
-        # Snapshot fetch, git clone and push of the decisions branch sit outside the run budget.
-        self.assertLessEqual(DEFAULT_RUN_BUDGET_SECONDS, task_limit - 20 * 60)
-        self.assertLessEqual(DEFAULT_WRITER_BUDGET_SECONDS, DEFAULT_RUN_BUDGET_SECONDS)
-        self.assertGreater(DEFAULT_WRITER_BUDGET_SECONDS, DEFAULT_DESK_BUDGET_SECONDS)
+    def test_budgets_must_be_positive(self):
+        # The whole scheduled cycle against its 2-hour limit is checked in tests/test_phong_bao.py
+        # (ScheduledCycleScriptTests), where the runner script's git bounds are read.
         with self.assertRaises(ValueError):
             run(Path(self.temp.name) / "missing.json", Path(self.temp.name) / "job", self.tools, DISCOVERY,
                 FixtureRunner({}), run_budget_seconds=0)
