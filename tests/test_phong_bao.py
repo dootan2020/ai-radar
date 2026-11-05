@@ -10,8 +10,10 @@ from pathlib import Path
 from unittest.mock import patch
 
 import phong_bao.newsroom as newsroom
+from phong_bao.cycle import cycle
 from phong_bao.discovery import discover_raw, report
 from phong_bao.__main__ import main
+from phong_bao.newsroom import DEFAULT_DESK_BUDGET_SECONDS, DEFAULT_RUN_BUDGET_SECONDS, DEFAULT_WRITER_BUDGET_SECONDS
 from phong_bao.evaluation import evaluate
 from phong_bao.newsroom import ARGUMENT_BATCH_CHARS, BATCH_SIZE, EDITOR_PROMPT, JUNK_KINDS, FixtureArticles, _agent_desk, _batches, _checker, _chief, _editor, _intake, _same_rep_url, run
 from phong_bao.paywall import HOLD_REASON as PAYWALL_HOLD_REASON, held_for_paywall
@@ -634,6 +636,25 @@ class NewsroomTests(unittest.TestCase):
         self.assertEqual(set(result), {"a", "b"})
         self.assertTrue(all(row["model_failure"] for row in result.values()))
         self.assertIn("budget_exhausted", {row["event"] for row in events})
+
+    def test_scheduled_cycle_and_manual_run_pass_the_writer_and_run_budgets(self):
+        snapshot = fixture("snapshot.json")
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            with patch("phong_bao.cycle.run", wraps=run) as cycle_run:
+                cycle(snapshot_fetcher=lambda: snapshot, decisions_path=base / "decisions.json",
+                      cycles_dir=base / "cycles", discovery=self.discovery, tools=self.tools, runner=self.runner,
+                      articles=self.articles, since_hours=200, now=datetime(2026, 10, 27, 7, tzinfo=timezone.utc))
+        self.assertEqual(cycle_run.call_args.kwargs["writer_budget_seconds"], DEFAULT_WRITER_BUDGET_SECONDS)
+        self.assertEqual(cycle_run.call_args.kwargs["run_budget_seconds"], DEFAULT_RUN_BUDGET_SECONDS)
+
+        with patch("phong_bao.__main__.run", return_value={}) as manual_run, redirect_stdout(io.StringIO()):
+            self.assertEqual(main(["run", "--input", "input.json", "--job", "job",
+                                   "--discovery-fixture", str(FIXTURES / "discovery.json"),
+                                   "--writer-budget-seconds", "120", "--run-budget-seconds", "300"]), 0)
+        self.assertEqual(manual_run.call_args.kwargs["writer_budget_seconds"], 120)
+        self.assertEqual(manual_run.call_args.kwargs["run_budget_seconds"], 300)
+        self.assertEqual(manual_run.call_args.kwargs["desk_budget_seconds"], DEFAULT_DESK_BUDGET_SECONDS)
 
     def test_changelog_fragments_are_distinct_events(self):
         first = "https://platform.openai.com/docs/changelog#20260826-29"
