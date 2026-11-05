@@ -141,10 +141,10 @@ DESK_CONTRACTS = {
     },
     "writer": {
         "desk": "writer",
-        "description": "Writer ('Người viết'): 3-4 short Vietnamese paragraphs (development, cause, "
+        "description": "Writer ('Người viết'): 3-4 Vietnamese paragraphs (development, cause, "
                        "examples, significance; contract summary-vi-6-prose) for recent publishable stories, "
                        "each sentence held to the shared number and name checks",
-        "input_fields": ["id", "sources", "missing_primary", "linked_primary"],
+        "input_fields": ["id", "sources", "missing_primary", "linked_primary", "length"],
         "model_reply_fields": ["id", "status", "conditions", "title_vi", "paragraphs", "used_source_ids",
                                "limitations"],
         "output_fields": [
@@ -172,7 +172,8 @@ DESK_CONTRACTS = {
             "holding a listed condition, that is a span found verbatim in that paragraph; naming a speaker "
             "does not replace it) and after one rewrite of the lost paragraphs, which is given the draft's "
             "grounded conditions and may add verbatim ones: any paragraph lost, fewer than three paragraphs, "
-            "development not first, significance not last, or outside 90-230 words",
+            "development not first, significance not last, or a total outside the story's length window "
+            "(newsroom.writer_length, by source size: a least of 90 to 250 units and a most of 230 to 600)",
             "a sentence or the title fails radar.summary_validation.attribution_error: a purpose (nhằm, mục "
             "đích) its cited paragraphs never state, a judgement or cause without the attribution its paragraph "
             "carries, a named speaker its cited paragraphs do not name, or an unnamed group (insiders, experts, "

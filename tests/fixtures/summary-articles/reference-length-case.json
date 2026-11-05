@@ -1,0 +1,56 @@
+{
+  "note": "Synthetic article and an authored reference-shape summary (4 paragraphs of 3-6 sentences, about 480 Vietnamese units) for the writer's length window. Every name and number is in the article. No publisher prose or live model output.",
+  "id": "synthetic-hosted-agents",
+  "title": "Kestrel Labs launches Hosted Agents to keep business AI agents running",
+  "url": "https://publisher.example/ai/kestrel-hosted-agents",
+  "publisher": "WireDesk",
+  "paragraphs": [
+    "Kestrel Labs, an AI startup based in Hangzhou, launched Hosted Agents on Tuesday, a cloud service that runs its Lumen models as always-on agents for business customers. The company said a customer can start an agent from one of 40 templates in under ten minutes and keep it working around the clock without running its own servers. Hosted Agents is available in mainland China first.",
+    "Kestrel Labs said it built the service because most business customers stopped at prototypes. According to Kestrel Labs, 62 percent of the 1,400 teams that tested its agent toolkit last year never put an agent into daily use. The company said the main reasons were that teams could not keep agents running for long jobs and could not see what the agents were spending.",
+    "Each hosted agent has its own inbox, a memory store and a monthly spending limit set by its owner. When an agent's context window, the amount of text a model can consider at once, nears its limit, the service summarizes the work so far and hands the task to a fresh session, so a long job continues with its history. Owners can review every step an agent takes in an activity log. The log also records how many tokens each step used.",
+    "Agents can also be placed in a team chat with employees. In that mode an agent answers only when it is mentioned, or it can be set to reply on its own when a question matches its duties. Kestrel Labs said agents from other developers, including coding assistants, can join the same chat as outside experts and take on tasks that the owner assigns.",
+    "Pricing starts at 199 yuan per agent per month, which includes 2 million tokens, the units of text that models process; extra usage costs 12 yuan per million tokens. A free tier allows one agent with 200,000 tokens a month. Kestrel Labs did not say how many customers have signed up.",
+    "One early customer, the logistics company Harbor Lines, said it runs 35 hosted agents that answer shipping questions in its customer chat. Its operations director, Mei Lin, said the agents handled about 40 percent of routine questions during a three-month pilot, while staff still answered complaints and refund requests.",
+    "Zhou Ping, an analyst at Coastline Research, said hosted agents lower the barrier for small companies that cannot run their own infrastructure. She warned that customers remain responsible for checking what the agents tell their clients, and said the pilot results come from one company and may not hold in other industries.",
+    "The launch follows similar hosted agent services from larger cloud providers this year. Kestrel Labs said its service differs because each agent keeps a single identity across chats and apps, instead of starting from an empty conversation every time a user opens a new chat window. Kestrel Labs did not name those providers.",
+    "Kestrel Labs said it plans to offer Hosted Agents in other regions later this year, to add voice calls to agents in a future update, and to publish a report on how agents use customer data before the end of the year. It did not give a date for the voice feature."
+  ],
+  "draft": {
+    "id": "synthetic-hosted-agents",
+    "status": "ready",
+    "conditions": [
+      {"text": "the pilot results come from one company and may not hold in other industries", "ref": "outlet:p007"},
+      {"text": "customers remain responsible for checking what the agents tell their clients", "ref": "outlet:p007"},
+      {"text": "Kestrel Labs did not say how many customers have signed up", "ref": "outlet:p005"}
+    ],
+    "title_vi": {"text": "Kestrel Labs ra mắt Hosted Agents, dịch vụ đám mây giữ tác tử AI của doanh nghiệp chạy liên tục", "evidence_refs": ["outlet:p001"]},
+    "paragraphs": [
+      {"role": "development", "sentences": [
+        {"text": "Kestrel Labs, công ty khởi nghiệp AI ở Hàng Châu, hôm thứ Ba ra mắt Hosted Agents, dịch vụ đám mây chạy các mô hình Lumen thành tác tử AI (chương trình tự thực hiện nhiệm vụ) hoạt động liên tục cho khách hàng doanh nghiệp.", "evidence_refs": ["outlet:p001"]},
+        {"text": "Công ty cho biết khách hàng có thể dựng tác tử từ một trong 40 mẫu có sẵn trong chưa đầy mười phút và để nó chạy suốt ngày đêm mà không cần máy chủ riêng.", "evidence_refs": ["outlet:p001"]},
+        {"text": "Theo Kestrel Labs, khác với dịch vụ tương tự của các hãng đám mây lớn, mỗi tác tử giữ một danh tính trên mọi cuộc trò chuyện và ứng dụng, thay vì bắt đầu lại từ cuộc hội thoại trống.", "evidence_refs": ["outlet:p008"]}
+      ]},
+      {"role": "cause", "sentences": [
+        {"text": "Kestrel Labs cho biết họ làm dịch vụ này vì phần lớn khách hàng doanh nghiệp chỉ dừng ở bản thử nghiệm.", "evidence_refs": ["outlet:p002"]},
+        {"text": "Theo Kestrel Labs, 62% trong số 1.400 nhóm dùng thử bộ công cụ tác tử của hãng năm ngoái chưa bao giờ đưa tác tử nào vào dùng hằng ngày.", "evidence_refs": ["outlet:p002"]},
+        {"text": "Hãng nêu lý do là các nhóm không giữ được tác tử chạy cho việc dài và không biết tác tử đã chi bao nhiêu.", "evidence_refs": ["outlet:p002"]},
+        {"text": "Trong dịch vụ mới, mỗi tác tử có hộp thư riêng, kho bộ nhớ và hạn mức chi tiêu hằng tháng do chủ sở hữu đặt.", "evidence_refs": ["outlet:p003"]},
+        {"text": "Khi cửa sổ ngữ cảnh (lượng văn bản mô hình xem được cùng lúc) sắp đầy, dịch vụ tự tóm tắt rồi chuyển việc sang phiên mới, nên việc dài vẫn tiếp tục cùng lịch sử của nó.", "evidence_refs": ["outlet:p003"]}
+      ]},
+      {"role": "examples", "sentences": [
+        {"text": "Tác tử có thể vào nhóm chat chung với nhân viên, chỉ trả lời khi được nhắc tên hoặc được cài để tự trả lời khi câu hỏi đúng nhiệm vụ của nó.", "evidence_refs": ["outlet:p004"]},
+        {"text": "Kestrel Labs cho biết tác tử của nhà phát triển khác, kể cả trợ lý lập trình, có thể vào nhóm như chuyên gia bên ngoài.", "evidence_refs": ["outlet:p004"]},
+        {"text": "Giá khởi điểm là 199 nhân dân tệ cho mỗi tác tử mỗi tháng, gồm 2 triệu token (đơn vị văn bản mà mô hình xử lý); dùng thêm tính 12 nhân dân tệ cho mỗi triệu token.", "evidence_refs": ["outlet:p005"]},
+        {"text": "Công ty logistics Harbor Lines, một khách hàng dùng sớm, cho biết họ chạy 35 tác tử trả lời câu hỏi về vận chuyển trong kênh chat với khách hàng.", "evidence_refs": ["outlet:p006"]},
+        {"text": "Giám đốc vận hành Mei Lin cho biết trong ba tháng thử nghiệm, tác tử xử lý khoảng 40% câu hỏi thông thường, còn khiếu nại và hoàn tiền vẫn do nhân viên trả lời.", "evidence_refs": ["outlet:p006"]}
+      ]},
+      {"role": "significance", "sentences": [
+        {"text": "Nhà phân tích Zhou Ping của Coastline Research cho rằng dịch vụ này giúp công ty nhỏ không tự vận hành được hạ tầng dễ bắt đầu hơn.", "evidence_refs": ["outlet:p007"]},
+        {"text": "Zhou Ping cũng cảnh báo khách hàng vẫn phải tự kiểm tra những gì tác tử nói với khách của họ, và kết quả thử nghiệm chỉ đến từ một công ty nên có thể không đúng ở ngành khác.", "evidence_refs": ["outlet:p007"]},
+        {"text": "Kestrel Labs chưa cho biết đã có bao nhiêu khách hàng đăng ký dịch vụ.", "evidence_refs": ["outlet:p005"]}
+      ]}
+    ],
+    "used_source_ids": ["outlet"],
+    "limitations": []
+  }
+}
