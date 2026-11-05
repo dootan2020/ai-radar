@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-05T04:27:31.126696+00:00",
-  "input_generated_at": "2026-11-05T00:19:16Z",
+  "generated_at": "2026-11-05T07:20:00.782468+00:00",
+  "input_generated_at": "2026-11-05T04:30:27Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -26858,6 +26858,298 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "8ea2dece01111a705569"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b999d2a46aec5e09506f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/china-merchants-lionrock-ai-lab-lion-er-35b-a3b-embodied-reasoning-model-open-source",
+      "key_points": [
+        "Phòng thí nghiệm LionRock AI đã phát hành mô hình mã nguồn mở Lion-ER-35B-A3B nhằm hỗ trợ robot hiểu không gian ba chiều và trạng thái vật thể. Theo hồ sơ mô hình, Lion-ER-35B-A3B được tinh chỉnh từ Qwen3.6-35B-A3B và đạt trung bình 65,29 điểm trên mười bài kiểm tra chuẩn (benchmark - bài kiểm tra năng lực) công khai.",
+        "Phòng nghiên cứu cho rằng nhiều dữ liệu không đồng nghĩa với năng lực cao hơn, nên nhóm lập tập huấn luyện có giám sát gồm 312.380 ví dụ phân theo nhu cầu năng lực.",
+        "Ở kết quả riêng lẻ, phòng thí nghiệm báo cáo mô hình đạt 64,28 điểm trong bài kiểm tra định vị không gian Where2Place, tăng 9,30 điểm so với bản gốc.",
+        "Dù vậy, hồ sơ mô hình lưu ý Lion-ER chỉ phục vụ nghiên cứu, chưa được kiểm chứng cho quyết định an toàn trọng yếu hay tự hành, và kết quả kiểm tra chuẩn có thể không chuyển giao sang môi trường mới."
+      ],
+      "same_event_coverage_ids": [
+        "d39f0d5da6980ee3ebb6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "LionRock mở mã nguồn mô hình Lion-ER-35B-A3B phục vụ nghiên cứu thị giác robot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/china-merchants-lionrock-ai-lab-lion-er-35b-a3b-embodied-reasoning-model-open-source"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "536176c36c829e136e0e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/openjiuwen-hyper-agent-swarm-architecture-persistent-agents-workswarm-digital-employees",
+      "key_points": [
+        "Cộng đồng mã nguồn mở openJiuwen do Huawei hậu thuẫn đã ra mắt kiến trúc đàn Hyper-Agent trong WorkSwarm, đưa các tác nhân (agent - chương trình trí tuệ nhân tạo tự hành) vào nhóm trò chuyện công việc như nhân viên số liên tục.",
+        "Thay vì bị ràng buộc trong một cuộc trò chuyện, tác nhân duy trì danh tính cùng trạng thái riêng để nhận việc liên tục, trong khi các phiên hội thoại trở thành tài nguyên được hệ thống phân bổ và khôi phục ngữ cảnh.",
+        "Tác nhân có thể hoạt động giữa các ứng dụng văn phòng như Feishu và DingTalk, nhận lệnh ở một kênh và trả kết quả ở kênh khác, nhưng chia sẻ xuyên nhóm bắt buộc phải có sự phê duyệt của người dùng.",
+        "Mô hình này hướng đến cộng tác quy mô lớn, dù cộng đồng cho biết công việc tương lai vẫn cần giải quyết việc điều phối tài nguyên tính toán, tự học chủ động và phục hồi sau sự cố cho các phiên làm việc dài hơn."
+      ],
+      "same_event_coverage_ids": [
+        "1b0db7a3018aa9c51114"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "openJiuwen ra mắt Hyper-Agent đưa tác nhân AI thành nhân viên số trong nhóm chat",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/openjiuwen-hyper-agent-swarm-architecture-persistent-agents-workswarm-digital-employees"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "dbe873105c435b4535b1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/moxin-technology-moworld-2-0-ascend-native-4d-world-model-physics-gaussian-assets",
+      "key_points": [
+        "Moxin Technology đã ra mắt MoWorld 2.0, mô hình thế giới 4D (mô hình không gian ba chiều biến đổi theo thời gian) được huấn luyện và triển khai thuần trên phần cứng Ascend của Huawei.",
+        "Theo công ty, điểm cải tiến chính là vật lý khi mô hình tích hợp trọng lực, độ đàn hồi và đặc tính vật liệu để suy luận thời gian thực về cách vật thể tương tác và biến đổi dưới ngoại lực.",
+        "Theo ước tính nội bộ của Moxin, chi phí suy luận có thể giảm xuống mức chỉ bằng 30% so với cấu hình GPU cùng quy mô, đồng thời tốc độ suy luận video đạt khoảng 70 khung hình mỗi giây so với khoảng 50 ở bản 1.0.",
+        "Moxin cho biết đang phối hợp với đối tác để xác thực và triển khai, trong đó ứng dụng AI hiện thân sẽ tạo môi trường ảo với phản hồi vật lý cơ bản để robot luyện tập trong mô phỏng."
+      ],
+      "same_event_coverage_ids": [
+        "d64123cf4c592345cf66"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Moxin Technology ra mắt mô hình thế giới 4D MoWorld 2.0 mô phỏng vật lý trên chip Ascend",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/moxin-technology-moworld-2-0-ascend-native-4d-world-model-physics-gaussian-assets"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "4c2268a3cf02c148209f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/04/after-the-midterms-a-bigger-clash-over-data-centers-could-be-coming/",
+      "key_points": [
+        "TechCrunch nhận định kết quả bầu cử giữa kỳ tại Mỹ đang biến sự phản đối các trung tâm dữ liệu (cơ sở quy mô lớn chứa máy chủ chạy AI) thành một lực lượng chính trị khi Đảng Dân chủ kiểm soát Quốc hội.",
+        "Khảo sát của NBC ghi nhận gần 80% cử tri phản đối xây trung tâm dữ liệu ở địa phương, giữa bối cảnh nhiều người lo ngại việc phát triển AI chỉ làm giàu cho số ít còn cộng đồng chịu chi phí sinh hoạt tăng.",
+        "Tại Ohio, một hạt đã thông qua lệnh cấm sau khi Meta lên kế hoạch xây dựng cơ sở lớn, trong khi nhiều ứng viên phản đối xây dựng ồ ạt cũng đắc cử ở Texas và Georgia.",
+        "Dù vậy, bà Smith cho biết lệnh đóng băng hoàn toàn vẫn gây tranh cãi ngay trong nội bộ Đảng Dân chủ do lo ngại việc tạm dừng có thể làm chậm tiến trình phát triển AI."
+      ],
+      "same_event_coverage_ids": [
+        "71c1aef2d292ca5a8a65"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Làn sóng phản đối trung tâm dữ liệu AI trở thành tâm điểm chính trị sau bầu cử Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/04/after-the-midterms-a-bigger-clash-over-data-centers-could-be-coming/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "d893a09dd9702d8164dc",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal forum post sharing anecdotal complaints and casual commentary about AI coding assistant token limits without substantive reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://orchidfiles.com/youll-need-nerves-of-steel-to-work-with-ai-agents/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bd0c1a4a7dad4b12385f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6df289088a3e596cd259",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/04/apple-is-reportedly-cutting-budgets-for-its-internal-ai-usage/",
+      "key_points": [
+        "Theo Bloomberg, Apple đang cắt giảm hạn mức chi tiêu hàng ngày cho trí tuệ nhân tạo (AI) của các đội ngũ kỹ sư, đánh dấu sự thay đổi lớn tại doanh nghiệp vốn nỗ lực tích hợp công nghệ này vào quy trình kỹ thuật.",
+        "Bloomberg cho biết việc giảm ngân sách sử dụng AI của nhân viên là một phần trong nỗ lực cắt giảm chi phí của công ty.",
+        "Ngoài khối kỹ thuật, Apple được cho là đang cân nhắc mức giới hạn hàng ngày chỉ 25 USD.",
+        "Theo TechCrunch, sự việc cho thấy mối lo ngại kéo dài về khoảng cách rõ rệt giữa chi phí xây dựng, vận hành AI với hiệu quả năng suất thường chưa rõ ràng mà công nghệ này đem lại."
+      ],
+      "same_event_coverage_ids": [
+        "5bc0ae3b93eefb8a84b4",
+        "a2fab9003c878e85140d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bloomberg: Apple cắt giảm ngân sách dùng AI nội bộ trong nỗ lực hạ chi tiêu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/04/apple-is-reportedly-cutting-budgets-for-its-internal-ai-usage/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-04/apple-cuts-internal-ai-usage-budgets-in-move-to-reduce-spending"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "6b52b77224f0012d6674",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-04/data-center-buildout-could-help-energy-prices-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a3ffb1e7265be7e9754f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a79d3dba6dd5265c2aa7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.06918",
+      "key_points": [
+        "Nhóm nghiên cứu giới thiệu NEO-VLA, khung mô hình thị giác - ngôn ngữ - hành động (AI điều khiển bằng hình ảnh và ngôn ngữ) không dùng bộ mã hóa, giúp kiểm soát thao tác robot vững chắc hơn.",
+        "Theo các tác giả, việc nén hình ảnh qua bộ mã hóa cố định trước khi suy luận hành động thường làm mất các tín hiệu quan trọng như hình học cục bộ, ranh giới và độ sâu.",
+        "Trong các so sánh có đối chứng, kiến trúc gốc vượt trội hơn mô hình dùng bộ mã hóa về kiểm soát thao tác; việc tinh chỉnh toàn bộ chỉ thu hẹp khoảng cách, còn tăng quy mô không thể bù đắp.",
+        "Các tác giả cho rằng kết quả gợi ý việc điều khiển robot hưởng lợi từ tiếp cận biểu diễn thị giác xuyên suốt hệ thống tính toán, thay vì chỉ dựa vào đầu ra cố định từ bộ mã hóa."
+      ],
+      "same_event_coverage_ids": [
+        "f9814a41d1fb8da8f619"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu mới đề xuất NEO-VLA: Mô hình AI thao tác robot không dùng bộ mã hóa hình ảnh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.06918"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "71eb2a0b0857173f624f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting covering Circle's financial results and workforce layoffs where artificial intelligence is only referenced incidentally as part of a corporate initiative.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-04/circle-s-revenue-increases-more-than-estimated-shares-climb",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7cb3d7ea4d5873c317e8"
       ],
       "split_coverage_ids": []
     }
