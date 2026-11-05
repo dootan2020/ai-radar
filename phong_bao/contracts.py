@@ -171,7 +171,8 @@ DESK_CONTRACTS = {
             "after dropping failing sentences (including a significance sentence that cites no paragraph "
             "holding a listed condition, that is a span found verbatim in that paragraph; naming a speaker "
             "does not replace it) and after one rewrite of the lost paragraphs, which is given the draft's "
-            "grounded conditions and may add verbatim ones: any paragraph lost, fewer than three paragraphs, "
+            "grounded conditions and may add verbatim ones: any paragraph lost (a development paragraph whose "
+            "opening sentence failed counts as lost), fewer than three paragraphs, "
             "development not first, significance not last, or a total outside the story's length window "
             "(newsroom.writer_length, by source size: a least of 90 to 250 units and a most of 230 to 600)",
             "a sentence or the title fails radar.summary_validation.attribution_error: a purpose (nhằm, mục "
