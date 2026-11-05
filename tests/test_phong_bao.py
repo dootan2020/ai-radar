@@ -1,8 +1,12 @@
 import json
 import io
 import inspect
+import os
 import re
+import shutil
+import subprocess
 import tempfile
+import time
 import unittest
 from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
@@ -10,8 +14,10 @@ from pathlib import Path
 from unittest.mock import patch
 
 import phong_bao.newsroom as newsroom
+from phong_bao.cycle import cycle
 from phong_bao.discovery import discover_raw, report
 from phong_bao.__main__ import main
+from phong_bao.newsroom import DEFAULT_DESK_BUDGET_SECONDS, DEFAULT_RUN_BUDGET_SECONDS, DEFAULT_WRITER_BUDGET_SECONDS
 from phong_bao.evaluation import evaluate
 from phong_bao.newsroom import ARGUMENT_BATCH_CHARS, BATCH_SIZE, EDITOR_PROMPT, JUNK_KINDS, FixtureArticles, _agent_desk, _batches, _checker, _chief, _editor, _intake, _same_rep_url, run
 from phong_bao.paywall import HOLD_REASON as PAYWALL_HOLD_REASON, held_for_paywall
@@ -635,6 +641,25 @@ class NewsroomTests(unittest.TestCase):
         self.assertTrue(all(row["model_failure"] for row in result.values()))
         self.assertIn("budget_exhausted", {row["event"] for row in events})
 
+    def test_scheduled_cycle_and_manual_run_pass_the_writer_and_run_budgets(self):
+        snapshot = fixture("snapshot.json")
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            with patch("phong_bao.cycle.run", wraps=run) as cycle_run:
+                cycle(snapshot_fetcher=lambda: snapshot, decisions_path=base / "decisions.json",
+                      cycles_dir=base / "cycles", discovery=self.discovery, tools=self.tools, runner=self.runner,
+                      articles=self.articles, since_hours=200, now=datetime(2026, 10, 27, 7, tzinfo=timezone.utc))
+        self.assertEqual(cycle_run.call_args.kwargs["writer_budget_seconds"], DEFAULT_WRITER_BUDGET_SECONDS)
+        self.assertEqual(cycle_run.call_args.kwargs["run_budget_seconds"], DEFAULT_RUN_BUDGET_SECONDS)
+
+        with patch("phong_bao.__main__.run", return_value={}) as manual_run, redirect_stdout(io.StringIO()):
+            self.assertEqual(main(["run", "--input", "input.json", "--job", "job",
+                                   "--discovery-fixture", str(FIXTURES / "discovery.json"),
+                                   "--writer-budget-seconds", "120", "--run-budget-seconds", "300"]), 0)
+        self.assertEqual(manual_run.call_args.kwargs["writer_budget_seconds"], 120)
+        self.assertEqual(manual_run.call_args.kwargs["run_budget_seconds"], 300)
+        self.assertEqual(manual_run.call_args.kwargs["desk_budget_seconds"], DEFAULT_DESK_BUDGET_SECONDS)
+
     def test_changelog_fragments_are_distinct_events(self):
         first = "https://platform.openai.com/docs/changelog#20260826-29"
         second = "https://platform.openai.com/docs/changelog#20260829-28"
@@ -890,6 +915,73 @@ class NewsroomTests(unittest.TestCase):
                           datetime(2026, 10, 26, tzinfo=timezone.utc))[0]
         self.assertEqual((decision["decision"], decision["round"], decision["reason"], decision["analysis_kind"]),
                          ("hold", "editor", "editor_invalid", "analysis"))
+
+
+class ScheduledCycleScriptTests(unittest.TestCase):
+    """The scheduled task runs run-newsroom-cycle.ps1: git around the newsroom must not outlast its limit."""
+
+    TOOLS = Path(__file__).resolve().parents[1] / "phong-bao" / "cong-cu"
+    SCRIPT = TOOLS / "run-newsroom-cycle.ps1"
+    RAW_GIT = re.compile(r"&\s*git\s+(?:-C\s+\S+\s+)?([\w-]+)(.*)")
+
+    def script(self):
+        return self.SCRIPT.read_text(encoding="utf-8")
+
+    @staticmethod
+    def reaches_remote(command, rest):
+        # A branch switch in a blob:none clone fetches the branch's files; an orphan switch stays local.
+        return command in {"clone", "fetch", "pull", "push", "ls-remote"} or (
+            command in {"switch", "checkout"} and "--orphan" not in rest)
+
+    def test_every_remote_git_call_is_bounded(self):
+        text = self.script()
+        raw = [match for line in text.splitlines() if (match := self.RAW_GIT.search(line))]
+        self.assertIn("remote", [match.group(1) for match in raw], "the raw git pattern no longer matches the script")
+        self.assertEqual([match.group(0) for match in raw if self.reaches_remote(match.group(1), match.group(2))], [],
+                         "remote git calls must go through Invoke-RemoteGit")
+        bounded = [re.findall(r"'([^']*)'", args) for args in re.findall(r"Invoke-RemoteGit @\(([^)]*)", text)]
+        commands = [next(word for word in args if not word.startswith("-")) for args in bounded]
+        self.assertEqual(commands, ["clone", "switch", "push"])
+        for key, value in (("http.lowSpeedLimit", "1000"), ("http.lowSpeedTime", "60")):
+            index = re.search(rf"\$env:GIT_CONFIG_KEY_(\d) = '{re.escape(key)}'", text).group(1)
+            self.assertIn(f"$env:GIT_CONFIG_VALUE_{index} = '{value}'", text)
+        self.assertIn("$env:GIT_CONFIG_COUNT = '2'", text)
+        self.assertIn("$env:GIT_TERMINAL_PROMPT = '0'", text)
+
+    def test_worst_case_scheduled_cycle_stays_well_inside_the_task_limit(self):
+        text = self.script()
+        task_limit = int(re.search(r"-ExecutionTimeLimit \(New-TimeSpan -Hours (\d+)\)",
+                                   (self.TOOLS / "register-newsroom-cycle.ps1").read_text(encoding="utf-8")).group(1)) * 3600
+        git_timeout = int(re.search(r"\[int\]\$GitTimeoutSeconds = (\d+)", text).group(1))
+        git_calls = len(re.findall(r"Invoke-RemoteGit @\(", text))
+        # fetch_snapshot: intake URL, then radar.json fallback, each with urlopen(timeout=60).
+        snapshot = 2 * 60
+        worst = DEFAULT_RUN_BUDGET_SECONDS + snapshot + git_calls * git_timeout
+        self.assertLessEqual(DEFAULT_WRITER_BUDGET_SECONDS, DEFAULT_RUN_BUDGET_SECONDS)
+        self.assertLessEqual(worst, task_limit - 15 * 60, f"worst case {worst / 60:.0f} min of {task_limit / 60:.0f}")
+
+    @unittest.skipUnless(os.name == "nt" and shutil.which("powershell.exe"), "Windows PowerShell runs the scheduled task")
+    def test_a_stalled_clone_fails_the_run_instead_of_hanging(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fake = Path(directory)
+            # A git that answers the local remote lookup and hangs on anything else.
+            (fake / "git.cmd").write_text(
+                "@echo off\r\nif \"%1\"==\"-C\" if \"%3\"==\"remote\" (echo https://example.invalid/radar.git& exit /b 0)\r\n"
+                "ping -n 47 127.0.0.1 >nul\r\nexit /b 0\r\n", encoding="ascii")
+            env = {**os.environ, "PATH": f"{fake}{os.pathsep}{os.environ['PATH']}"}
+            started = time.monotonic()
+            result = subprocess.run(["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
+                                     str(self.SCRIPT), "-GitTimeoutSeconds", "2"],
+                                    capture_output=True, text=True, env=env, timeout=40, cwd=directory)
+            elapsed = time.monotonic() - started
+            left = subprocess.run(["powershell.exe", "-NoProfile", "-Command",
+                                   "@(Get-CimInstance Win32_Process -Filter \"Name='PING.EXE'\" | "
+                                   "Where-Object { $_.CommandLine -like '*-n 47 127.0.0.1*' }).Count"],
+                                  capture_output=True, text=True, timeout=40)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("git clone timed out after 2 seconds", result.stdout + result.stderr)
+        self.assertLess(elapsed, 30)
+        self.assertEqual(left.stdout.strip(), "0", "the hung git's child process was left running")
 
 
 if __name__ == "__main__":

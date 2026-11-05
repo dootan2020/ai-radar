@@ -12,7 +12,8 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 from .discovery import discover_raw
-from .newsroom import DEFAULT_DESK_BUDGET_SECONDS, _write_json, run
+from .newsroom import (DEFAULT_DESK_BUDGET_SECONDS, DEFAULT_RUN_BUDGET_SECONDS, DEFAULT_WRITER_BUDGET_SECONDS,
+                       _write_json, run)
 from .registry import load_registry, providers
 from .runner import CLIRunner
 
@@ -108,7 +109,8 @@ def _story_timestamp(story):
 
 def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DECISIONS_PATH, cycles_dir=CYCLES_DIR,
           discovery=None, runner=None, articles=None, tools=None,
-          desk_budget_seconds=DEFAULT_DESK_BUDGET_SECONDS, since_hours=36, now=None):
+          desk_budget_seconds=DEFAULT_DESK_BUDGET_SECONDS, writer_budget_seconds=DEFAULT_WRITER_BUDGET_SECONDS,
+          run_budget_seconds=DEFAULT_RUN_BUDGET_SECONDS, since_hours=36, now=None):
     """Review new story IDs and keep every earlier decision, including holds."""
     decisions_path, cycles_dir = Path(decisions_path), Path(cycles_dir)
     with cycle_lock(cycles_dir / "cycle.lock"):
@@ -152,7 +154,8 @@ def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DE
                     _write_json(corpus_path, snapshot)
                     run(input_path, job_dir / "job", tools, discovery, runner or CLIRunner(),
                         articles=articles, corpus_path=corpus_path,
-                        desk_budget_seconds=desk_budget_seconds)
+                        desk_budget_seconds=desk_budget_seconds, writer_budget_seconds=writer_budget_seconds,
+                        run_budget_seconds=run_budget_seconds)
                     fresh = json.loads((job_dir / "job" / "quyet-dinh.json").read_text(encoding="utf-8"))["decisions"]
                 if {row["id"] for row in fresh} != {row["id"] for row in new}:
                     raise ValueError("newsroom did not decide every new story")

@@ -118,6 +118,12 @@ MAX_BATCH_CHARS = 60_000
 ARGUMENT_BATCH_CHARS = 24_000
 ARTICLE_LIMIT = 3200
 DEFAULT_DESK_BUDGET_SECONDS = 20 * 60
+# The writer sends a few stories per agy call at about 1.5 minutes per story (measured 05/11: 13 stories
+# in 20 minutes, 9 more cut), so a full morning of 20-odd stories plus its rewrite pass needs about 40 minutes.
+DEFAULT_WRITER_BUDGET_SECONDS = 50 * 60
+# Every desk also stops at this mark from the start of the run, so a cycle whose desks all run to their
+# budgets still ends well inside the scheduled task's 2-hour limit.
+DEFAULT_RUN_BUDGET_SECONDS = 90 * 60
 REPORTER_EXCERPT_LIMIT = 900
 EDITOR_EXCERPT_LIMIT = 1200
 JUNK_KINDS = {"non_news_page", "vendor_sales", "customer_case_study", "tutorial", "incidental_ai", "mis_merged_cluster", "stale_content"}
@@ -1118,9 +1124,11 @@ def _chief(stories, intake, reporter, editor, checker, now, writer=None):
 
 
 def run(input_path, job, tools, discovery, runner, *, through="chief", articles=None, corpus_path=None, rerun_from=None,
-        desk_budget_seconds=DEFAULT_DESK_BUDGET_SECONDS):
-    if desk_budget_seconds <= 0:
-        raise ValueError("desk budget must be positive")
+        desk_budget_seconds=DEFAULT_DESK_BUDGET_SECONDS, writer_budget_seconds=DEFAULT_WRITER_BUDGET_SECONDS,
+        run_budget_seconds=DEFAULT_RUN_BUDGET_SECONDS):
+    if desk_budget_seconds <= 0 or writer_budget_seconds <= 0 or run_budget_seconds <= 0:
+        raise ValueError("desk, writer and run budgets must be positive")
+    run_deadline = time.monotonic() + run_budget_seconds
     generated_at, stories = load_stories(input_path)
     now = instant(generated_at) or datetime.now(timezone.utc)
     job = Path(job)
@@ -1147,7 +1155,8 @@ def run(input_path, job, tools, discovery, runner, *, through="chief", articles=
             state[desk] = json.loads(path.read_text(encoding="utf-8"))
             continue
         status["desks"][desk] = {"state": "running", "started_at": datetime.now(timezone.utc).isoformat()}
-        deadline = time.monotonic() + desk_budget_seconds
+        budget = writer_budget_seconds if desk == "writer" else desk_budget_seconds
+        deadline = min(time.monotonic() + budget, run_deadline)
         _write_json(status_path, status)
         try:
             if desk == "intake":

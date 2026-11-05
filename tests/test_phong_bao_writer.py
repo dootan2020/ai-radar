@@ -2,14 +2,17 @@
 
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+import hashlib
 import json
 import os
 from pathlib import Path
+import tempfile
 import unittest
 from unittest.mock import patch
 
+import phong_bao.newsroom as newsroom
 from phong_bao.contracts import validate_chief_output, validate_writer_output
-from phong_bao.newsroom import (WRITER_PROMPT, WRITER_REWRITE_PROMPT, FixtureArticles, _chief, _writer,
+from phong_bao.newsroom import (DEFAULT_DESK_BUDGET_SECONDS, WRITER_PROMPT, WRITER_REWRITE_PROMPT, FixtureArticles, _chief, _writer, run,
                                 writer_window_hours)
 from phong_bao.registry import load_registry, providers
 from phong_bao.runner import AdmissionError, CLIRunner, FixtureRunner
@@ -490,6 +493,112 @@ class WriterDeskTests(unittest.TestCase):
         decision = _chief([story()], intake, reporter, editor, checker, NOW, {SID: row})[0]
         decision["key_points"] = decision["key_points"][:2]
         self.assertFalse(validate_chief_output(decision))
+
+
+class SlowWriterLane(FixtureRunner):
+    """A writer lane that takes 90 seconds of fake time per story, the pace agy kept on 05/11."""
+
+    SECONDS_PER_STORY = 90
+
+    def __init__(self, replies):
+        super().__init__(replies)
+        self.clock = 0.0
+        self.sent = []
+
+    def monotonic(self):
+        return self.clock
+
+    def run(self, desk, rows, provider, instruction):
+        self.sent.extend(row["id"] for row in rows)
+        self.clock += self.SECONDS_PER_STORY * len(rows)
+        return super().run(desk, rows, provider, instruction)
+
+
+class WriterBudgetTests(unittest.TestCase):
+    """The 05/11 06:00 cycle: 22 stories reached the writer and 9 of them were cut at 20 minutes."""
+
+    STORIES = 22
+    STORIES_PER_CALL = 3
+
+    def setUp(self):
+        self.tools = load_registry()
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+
+    def cycle_at_the_writer(self):
+        """A job whose earlier desks are done, so run() resumes at the writer exactly as a cycle reaches it."""
+        root = Path(self.temp.name)
+        ids = [f"story-{index:02d}" for index in range(self.STORIES)]
+        stories = [{**story(), "id": sid} for sid in ids]
+        input_path = root / "input.json"
+        input_path.write_text(json.dumps({"generated_at": NOW.isoformat(), "stories": stories}), encoding="utf-8")
+        digest = hashlib.sha256(input_path.read_bytes()).hexdigest()
+        job = root / "job"
+        job.mkdir()
+        intake, reporter, editor, checker = desks()
+        done = {"intake": intake, "reporter": reporter, "editor": editor, "checker": checker}
+        for desk, rows in done.items():
+            (job / f"{desk}.json").write_text(json.dumps({sid: {**rows[SID], "id": sid} for sid in ids}),
+                                              encoding="utf-8")
+        (job / "status.json").write_text(json.dumps({
+            "input": str(input_path.resolve()), "input_sha256": digest, "corpus_sha256": digest,
+            "desks": {desk: {"state": "done"} for desk in done}}), encoding="utf-8")
+        lane = SlowWriterLane({"writer": {sid: {**deepcopy(PROSE), "id": sid} for sid in ids}})
+        return input_path, job, ids, lane
+
+    def run_writer(self, **budgets):
+        input_path, job, ids, lane = self.cycle_at_the_writer()
+        # Live writer rows are long articles, so agy took 2-4 per call; three stories per call keeps that shape.
+        with patch.object(newsroom, "BATCH_SIZE", self.STORIES_PER_CALL), \
+                patch.object(newsroom.time, "monotonic", side_effect=lane.monotonic), \
+                patch("socket.create_connection", side_effect=AssertionError("network forbidden")):
+            status = run(input_path, job, self.tools, DISCOVERY, lane, through="writer",
+                         articles=articles(), **budgets)
+        written = json.loads((job / "writer.json").read_text(encoding="utf-8"))
+        return status["desks"]["writer"], written, ids, lane
+
+    def test_a_morning_of_writer_batches_longer_than_twenty_minutes_is_written_in_full(self):
+        desk, written, ids, lane = self.run_writer()
+        self.assertGreater(lane.clock, DEFAULT_DESK_BUDGET_SECONDS)
+        self.assertEqual(sorted(lane.sent), ids)
+        self.assertFalse(desk["budget_exhausted"], desk["events"])
+        self.assertEqual(desk["model_failures"], [])
+        self.assertTrue(all(written[sid]["written"] for sid in ids), [written[sid]["reason"] for sid in ids])
+
+    def test_the_old_twenty_minute_writer_budget_cut_the_same_morning(self):
+        desk, written, ids, lane = self.run_writer(writer_budget_seconds=DEFAULT_DESK_BUDGET_SECONDS)
+        cut = desk["model_failures"]
+        self.assertTrue(desk["budget_exhausted"])
+        self.assertTrue(cut)
+        self.assertTrue(set(cut).isdisjoint(lane.sent))
+        self.assertEqual(sorted(lane.sent + cut), ids)
+        for sid in cut:
+            self.assertFalse(written[sid]["written"])
+            self.assertEqual(written[sid]["reason"], "writer_model_failure")
+            self.assertEqual(written[sid]["key_points"], [])
+
+    def test_a_writer_past_its_own_budget_still_records_budget_exhausted(self):
+        desk, written, ids, lane = self.run_writer(writer_budget_seconds=30 * 60)
+        self.assertTrue(desk["budget_exhausted"])
+        self.assertIn("budget_exhausted", {event["event"] for event in desk["events"]})
+        self.assertLessEqual(len(lane.sent), len(ids) - 1)
+        self.assertEqual(set(written), set(ids))
+
+    def test_the_run_budget_stops_the_writer_even_when_its_own_budget_remains(self):
+        desk, written, ids, lane = self.run_writer(run_budget_seconds=15 * 60)
+        self.assertTrue(desk["budget_exhausted"])
+        self.assertTrue(desk["model_failures"])
+        # The call in flight at the mark finishes; nothing starts after it.
+        self.assertLessEqual(lane.clock, 15 * 60 + SlowWriterLane.SECONDS_PER_STORY * self.STORIES_PER_CALL)
+        self.assertEqual(sorted(lane.sent + desk["model_failures"]), ids)
+        self.assertEqual(set(written), set(ids))
+
+    def test_budgets_must_be_positive(self):
+        # The whole scheduled cycle against its 2-hour limit is checked in tests/test_phong_bao.py
+        # (ScheduledCycleScriptTests), where the runner script's git bounds are read.
+        with self.assertRaises(ValueError):
+            run(Path(self.temp.name) / "missing.json", Path(self.temp.name) / "job", self.tools, DISCOVERY,
+                FixtureRunner({}), run_budget_seconds=0)
 
 
 if __name__ == "__main__":
