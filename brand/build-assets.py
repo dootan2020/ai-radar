@@ -1,9 +1,10 @@
-"""Build Halcyon extension, Store and website SVGs from the approved Lime Anchor kit.
+"""Build Halcyon extension, Store and website SVGs from the approved Coral Tile kit.
 
 Run from the repository root:  python brand/build-assets.py
 Use --site for the Halcyon website kit pipeline.
-The logo, wordmark and icon are the kit's own files in brand/logo/lime-anchor/ (Halcyon Lime Anchor
-Brandkit v1.0), copied or embedded unchanged: never redrawn, re-coloured or set in a font.
+The logo, wordmark and icon are the kit's own files in brand/logo/coral-tile/ (the captain's choice of
+2026-11-06, written by brand/logo-work/hot-coral/build.py), copied or embedded unchanged: never redrawn,
+re-coloured or set in a font.
 Needs fontTools (pip install fonttools). Supporting text is converted to outlines with the
 Be Vietnam Pro files in brand/fonts/, so each SVG opens correctly anywhere, without the font installed.
 """
@@ -53,17 +54,18 @@ def load_tokens():
     out = {}
     for name, L, C, H in re.findall(r"--([a-z]+-\d+):\s*oklch\(([\d.]+)\s+([\d.]+)\s+([^)\s]+)\)", css):
         out[name] = oklch_to_hex(float(L), float(C), hue if "hue" in H else float(H))
-    for name, value in re.findall(r"--(brand-[a-z]+):\s*(#[0-9a-fA-F]{6})", css):
+    for name, value in re.findall(r"--((?:brand|coral|cyan)-[a-z-]+):\s*(#[0-9a-fA-F]{6})", css):
         out[name] = value.upper()
     return out
 
 
 T = load_tokens()
 # The same roles as the semantic layer of site/tokens.css (light block and dark block).
-LIGHT = dict(canvas=T["gray-95"], surface=T["brand-surface"], fill=T["gray-93"], ink=T["brand-ink"],
-             ink2=T["gray-44"], ink3=T["gray-51"], accent=T["brand-signature"], live=T["red-55"])
-DARK = dict(canvas=T["deep-16"], surface=T["deep-20"], fill=T["deep-27"], ink=T["brand-surface"],
-            ink2=T["gray-80"], ink3=T["gray-70"], accent=T["brand-lime"], live=T["red-70"])
+LIGHT = dict(canvas=T["brand-surface"], surface=T["brand-white"], hair=T["brand-border"], fill=T["gray-95"],
+             ink=T["brand-ink"], ink2=T["gray-44"], ink3=T["brand-muted"], accent=T["coral-text"],
+             live=T["coral-breaking"], live_wash=T["coral-wash"])
+DARK = dict(canvas=T["brand-surface-dark"], surface=T["brand-card-dark"], fill=T["deep-33"], ink=T["brand-surface"],
+            ink2=T["gray-80"], ink3=T["gray-70"], accent=T["coral-light"], live=T["coral-light"])
 
 
 # ---------- type: text -> outlines, with GPOS pair kerning ----------
@@ -149,9 +151,9 @@ def write(name, svg):
     print("wrote", name, len(svg), "bytes")
 
 
-KIT = ROOT / "brand" / "logo" / "lime-anchor"
-# Kit file for each role: the primary wordmark on light, the dark variant (Surface letters, lime beak) on dark,
-# and the icon cut from the y and its beak for every small slot.
+KIT = ROOT / "brand" / "logo" / "coral-tile"
+# Kit file for each role: the primary wordmark on light (coral letters, plum beak), the dark variant (coral
+# letters, Surface beak) on dark, and the coral tile cut from the y and its beak for every small slot.
 WORDMARK = {"light": "logos/halcyon-primary.svg", "dark": "logos/halcyon-dark.svg"}
 ICON = "icons/halcyon-icon-primary.svg"
 EXTENSION_ICON_SIZES = (16, 32, 48, 128)
@@ -203,16 +205,17 @@ def main():
     copies = {
         "logo-full.svg": WORDMARK["light"], "logo-full-dark.svg": WORDMARK["dark"],
         "logo-full-mono-ink.svg": "logos/halcyon-mono-ink.svg", "logo-full-mono-white.svg": "logos/halcyon-mono-white.svg",
-        "logo-full-on-surface.svg": "logos/halcyon-on-surface.svg", "logo-full-on-ink.svg": "logos/halcyon-on-ink.svg",
+        "logo-full-on-surface.svg": "logos/halcyon-on-surface.svg", "logo-full-on-dark.svg": "logos/halcyon-on-dark.svg",
         "wordmark.svg": WORDMARK["light"], "wordmark-dark.svg": WORDMARK["dark"],
-        "mark.svg": ICON, "mark-light.svg": "icons/halcyon-icon-light.svg", "mark-lime.svg": "icons/halcyon-icon-lime.svg",
-        "favicon.svg": "favicons/favicon.svg",
+        "mark.svg": ICON, "favicon.svg": "favicons/favicon.svg",
     }
+    # Lime Anchor files with no Coral Tile counterpart: the captain chose one tile, so they leave the kit.
+    for retired in ("logo-full-on-ink.svg", "mark-light.svg", "mark-lime.svg", "avatar-light.svg"):
+        (OUT / retired).unlink(missing_ok=True)
     for target, source in copies.items():
         (OUT / target).write_bytes((KIT / source).read_bytes())
         print("copied", target, "<-", source)
     write("avatar.svg", doc(800, 800, approved_logo(ICON, 0, 0, 800, 800), "Halcyon"))
-    write("avatar-light.svg", doc(800, 800, approved_logo("icons/halcyon-icon-light.svg", 0, 0, 800, 800), "Halcyon"))
     # The site serves the icon, both wordmarks and the SVG favicon from its root; extension/sync-site.py copies them on.
     for target, source in {"logo.svg": ICON, "wordmark.svg": WORDMARK["light"],
                            "wordmark-dark.svg": WORDMARK["dark"], "favicon.svg": "favicons/favicon.svg"}.items():
@@ -232,12 +235,12 @@ def main():
 
     # share image 1200 x 630, a real story: the repo with the most stars gained in one day
     owner, repo = gh["repo"].split("/")
-    body = f'<rect x="40" y="40" width="1120" height="550" rx="24" fill="{L["surface"]}"/>'
+    body = f'<rect x="40.5" y="40.5" width="1119" height="549" rx="24" fill="{L["surface"]}" stroke="{L["hair"]}"/>'
     body += lockup(96, 120, 34)[0]
     body += text(MED, f"GitHub Trending · {day}", 22, 1104, 118, L["ink3"], anchor="end")
     chip = "Nóng nhất hôm nay"
     cw = SEMI.width(chip, 26) + 64
-    body += f'<rect x="96" y="164" width="{cw:.1f}" height="52" rx="26" fill="{L["live"]}" fill-opacity="0.1"/>'
+    body += f'<rect x="96" y="164" width="{cw:.1f}" height="52" rx="26" fill="{L["live_wash"]}"/>'
     body += f'<circle cx="122" cy="190" r="7" fill="{L["live"]}"/>'
     body += text(SEMI, chip, 26, 140, 199, L["live"])
     big = nf(gh["stars_today"])
@@ -252,7 +255,7 @@ def main():
     write("og-story.svg", doc(1200, 630, body, f'{gh["repo"]}: {big} sao mới trong một ngày', L["canvas"]))
 
     # share image 1200 x 630, default for the home page (no dated number, so it never goes stale)
-    body = f'<rect x="40" y="40" width="1120" height="550" rx="24" fill="{L["surface"]}"/>'
+    body = f'<rect x="40.5" y="40.5" width="1119" height="549" rx="24" fill="{L["surface"]}" stroke="{L["hair"]}"/>'
     body += mark(914, 326, 300)
     body += lockup(96, 196, 72)[0]
     body += text(BOLD, "Những mẩu tin AI", 60, 96, 350, L["ink"], TRACK_DISPLAY)
@@ -281,7 +284,7 @@ def main():
     millions = f"{downloads / 1e6:.1f}".replace(".", ",")
     org, model = hf["id"].split("/")
     body = lockup(80, 200, 52)[0]
-    body += f'<rect x="56" y="300" width="968" height="1180" rx="48" fill="{L["surface"]}"/>'
+    body += f'<rect x="56.5" y="300.5" width="967" height="1179" rx="48" fill="{L["surface"]}" stroke="{L["hair"]}"/>'
     chip = "Model mở · Hugging Face"
     cw = SEMI.width(chip, 32) + 56
     body += f'<rect x="112" y="368" width="{cw:.1f}" height="64" rx="32" fill="{L["accent"]}" fill-opacity="0.1"/>'

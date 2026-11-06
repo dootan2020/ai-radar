@@ -38,7 +38,7 @@
   min-height: 52px;
   padding: 0 var(--space-24);
   border-radius: var(--radius-full);
-  background: var(--color-accent);
+  background: var(--color-accent-fill);
   color: var(--color-on-accent);
   font: inherit;
   font-weight: var(--weight-semibold);

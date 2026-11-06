@@ -2,8 +2,8 @@
 
 Run from anywhere, after brand/build-assets.py:  python brand/export-png.py
 Use --site for the Halcyon website kit, favicon and screenshot pipeline.
-Icons, the favicon ICO and the Apple touch icon are the Lime Anchor kit's own pixel files
-(brand/logo/lime-anchor/), copied unchanged; each PNG's pixel size is read back from its IHDR header.
+Icons, the favicon ICO and the Apple touch icon are the Coral Tile kit's own pixel files
+(brand/logo/coral-tile/), copied unchanged; each PNG's pixel size is read back from its IHDR header.
 Composed SVGs (covers, share images, avatar, Store promo) are rendered by headless Chrome with a
 fresh profile under plans/nhap/ and checked the same way; a mismatch stops the run. Rendering
 falls back to ImageMagick when Chrome cannot render. The default command copies the extension
@@ -23,7 +23,7 @@ import publish_kit
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "brand" / "assets"
-KIT = ROOT / "brand" / "logo" / "lime-anchor"
+KIT = ROOT / "brand" / "logo" / "coral-tile"
 SITE = ROOT / "site"
 SCRATCH = ROOT / "plans" / "nhap"
 CHROME = os.environ.get("CHROME", r"C:\Program Files\Google\Chrome\Application\chrome.exe")
@@ -100,7 +100,7 @@ def copy_kit(names):
         shutil.copyfile(KIT / src, ASSETS / dst)
         if size and png_size(ASSETS / dst) != size:
             raise RuntimeError(f"{dst}: {png_size(ASSETS / dst)}, expected {size}")
-        print(f"{dst} <- brand/logo/lime-anchor/{src}")
+        print(f"{dst} <- brand/logo/coral-tile/{src}")
 
 
 def copy_extension_icons():
