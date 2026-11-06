@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import time
 from collections import Counter
 from datetime import datetime, timedelta, timezone
@@ -137,6 +138,11 @@ DEFAULT_WRITER_BUDGET_SECONDS = 50 * 60
 # Every desk also stops at this mark from the start of the run, so a cycle whose desks all run to their
 # budgets still ends well inside the scheduled task's 2-hour limit.
 DEFAULT_RUN_BUDGET_SECONDS = 90 * 60
+# One model call gives up after this long, so a hung call costs its own batch instead of the rest of the desk
+# (06/11 06:41: one agy writer call hung 36 minutes until the writer budget ran out, and 25 stories were lost).
+# Measured over 46 cycles (27/10-06/11): agy calls took a median 3.5 minutes, p95 8.1, and the slowest that
+# completed took 12.5; codex p95 under 3. Fifteen minutes is above every call that finished.
+DEFAULT_CALL_TIMEOUT_SECONDS = 15 * 60
 REPORTER_EXCERPT_LIMIT = 900
 EDITOR_EXCERPT_LIMIT = 1200
 JUNK_KINDS = {"non_news_page", "vendor_sales", "customer_case_study", "tutorial", "incidental_ai", "mis_merged_cluster", "stale_content"}
@@ -333,8 +339,14 @@ def _batches(rows, max_chars=MAX_BATCH_CHARS):
 
 
 def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner, *, boat_exclude=(), raw_dir=None,
-                require_success=True, deadline=None, record_as=None):
-    """Run one desk's batches; record_as names a second pass of that desk (same lanes, own raw files)."""
+                require_success=True, deadline=None, record_as=None, call_timeout=None):
+    """Run one desk's batches; record_as names a second pass of that desk (same lanes, own raw files).
+
+    Each CLI call waits at most call_timeout seconds (or until the deadline, if sooner). A call that hits the cap
+    moves its batch to the next lane; on the last lane its stories fail without a split, since halving a batch
+    helps a reply that is too large, not a lane that hangs.
+    """
+    cap = DEFAULT_CALL_TIMEOUT_SECONDS if call_timeout is None else call_timeout
     candidates = [tool for tool in providers(capability, tools, discovery, boat_exclude=boat_exclude, desk=desk)
                   if tool.get("runner") == "batch-cli"]
     if not candidates:
@@ -369,31 +381,39 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
                 record("budget_exhausted", part, provider)
                 continue
             try:
-                if deadline is not None and isinstance(runner, CLIRunner):
-                    result = runner.run(desk, part, provider, instruction,
-                                       timeout=max(0.001, deadline - time.monotonic()))
+                if isinstance(runner, CLIRunner):
+                    timeout = cap if deadline is None else max(0.001, min(cap, deadline - time.monotonic()))
+                    result = runner.run(desk, part, provider, instruction, timeout=timeout)
                 else:
                     result = runner.run(desk, part, provider, instruction)
             except AdmissionError:
                 raise
             except RunnerError as error:
+                out_of_time = deadline is not None and time.monotonic() >= deadline
+                # A call cut by the desk deadline is budget exhaustion; one cut by the cap alone timed out.
+                timed_out = isinstance(error.__cause__, subprocess.TimeoutExpired) and not out_of_time
+                if timed_out:
+                    error = RunnerError(f"{provider['id']} call timed out after {cap:g} seconds")
                 if index + 1 == len(candidates):
-                    if deadline is not None and time.monotonic() >= deadline:
+                    if out_of_time:
                         for row in part:
                             output[row["id"]] = {"id": row["id"], "model_failure": True,
                                                   "provider": None, "boat": None}
                         record("budget_exhausted", part, provider, error)
                         continue
-                    if len(part) > 1:
+                    if len(part) > 1 and not timed_out:
                         record("split", part, provider, error)
                         middle = len(part) // 2
                         send(part[:middle])
                         send(part[middle:])
                     else:
                         record("failure", part, provider, error)
-                        output[part[0]["id"]] = {"id": part[0]["id"], "model_failure": True,
-                                                  "provider": None, "boat": None}
+                        for row in part:
+                            output[row["id"]] = {"id": row["id"], "model_failure": True,
+                                                 "provider": None, "boat": None}
                     continue
+                if timed_out:
+                    record("timeout", part, provider, error)
                 send(part, index + 1)
                 continue
             batch_number += 1
@@ -414,7 +434,7 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
     return output, batches
 
 
-def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_dir=None, deadline=None):
+def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_dir=None, deadline=None, call_timeout=None):
     readers = providers("doc-bai", tools, discovery)
     searchers = providers("tim-kiem", tools, discovery)
     if not any(tool.get("runner") == "http-fetch" for tool in readers):
@@ -472,7 +492,7 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
                             "candidates": [{**candidate, "text": candidate["text"][:REPORTER_EXCERPT_LIMIT]} for candidate in candidates]})
     if budget.events and raw_dir is not None:
         _write_json(Path(raw_dir) / "tim-kiem.json", {"desk": "reporter", "searches": budget.events})
-    replies, usage = _agent_desk("reporter", payload, REPORTER_PROMPT, "doc-bai", tools, discovery, runner, raw_dir=raw_dir, deadline=deadline) if payload else ({}, [])
+    replies, usage = _agent_desk("reporter", payload, REPORTER_PROMPT, "doc-bai", tools, discovery, runner, raw_dir=raw_dir, deadline=deadline, call_timeout=call_timeout) if payload else ({}, [])
     def invalid_reply(row, sid=None):
         candidate_urls = set(source_map.get(sid, {}).keys()) if sid else None
         return not validate_reporter_reply(row, candidate_urls)
@@ -481,7 +501,7 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
                      and not replies[item["id"]].get("model_failure")]
     if retry_payload:
         retry, retry_usage = _agent_desk("reporter", retry_payload, REPORTER_PROMPT, "doc-bai", tools,
-                                             discovery, runner, raw_dir=raw_dir, require_success=False, deadline=deadline)
+                                             discovery, runner, raw_dir=raw_dir, require_success=False, deadline=deadline, call_timeout=call_timeout)
         replies.update(retry)
         usage.extend(retry_usage)
     output = {}
@@ -516,7 +536,7 @@ def _reporter(stories, intake, articles, tools, discovery, runner, corpus, raw_d
 def _editor_news_fields_valid(row, coverage_ids, *, require_importance=True):
     return validate_editor_reply(row, coverage_ids, require_importance=require_importance)
 
-def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None, deadline=None):
+def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None, deadline=None, call_timeout=None):
     payload = []
     for story in stories:
         if not intake[story["id"]]["pass"]:
@@ -529,7 +549,7 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None, d
                         "source_url": reporter[story["id"]]["selected_url"],
                         "source_status": reporter[story["id"]]["representative_status"],
                         "source_excerpt": reporter[story["id"]]["source_text"][:EDITOR_EXCERPT_LIMIT]})
-    replies, usage = _agent_desk("editor", payload, EDITOR_PROMPT, "bien-tap", tools, discovery, runner, raw_dir=raw_dir, deadline=deadline) if payload else ({}, [])
+    replies, usage = _agent_desk("editor", payload, EDITOR_PROMPT, "bien-tap", tools, discovery, runner, raw_dir=raw_dir, deadline=deadline, call_timeout=call_timeout) if payload else ({}, [])
     coverage_by_id = {story["id"]: {c["id"] for c in story.get("coverage") or []
                                     if isinstance(c, dict) and isinstance(c.get("id"), str)} for story in stories}
 
@@ -544,7 +564,7 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None, d
     retry_payload = [item for item in payload if needs_retry(replies.get(item["id"]), item["id"])]
     if retry_payload:
         retry, retry_usage = _agent_desk("editor", retry_payload, EDITOR_PROMPT, "bien-tap", tools,
-                                         discovery, runner, raw_dir=raw_dir, require_success=False, deadline=deadline)
+                                         discovery, runner, raw_dir=raw_dir, require_success=False, deadline=deadline, call_timeout=call_timeout)
         replies.update(retry)
         usage.extend(retry_usage)
     output = {}
@@ -591,7 +611,7 @@ def _editor(stories, intake, reporter, tools, discovery, runner, raw_dir=None, d
     return output, usage
 
 
-def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_dir=None, deadline=None):
+def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_dir=None, deadline=None, call_timeout=None):
     def cited_paragraphs(text, title, claims):
         paragraphs = [part.strip()[offset:offset + 400]
                       for part in text.splitlines() if len(part.strip()) >= 35
@@ -615,7 +635,7 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
     replies, usage = {}, []
     for boat, payload in payload_by_boat.items():
         group_replies, group_usage = _agent_desk("checker", payload, CHECKER_PROMPT, "kiem-chung", tools, discovery, runner,
-                                                 boat_exclude={boat}, raw_dir=raw_dir, require_success=False, deadline=deadline)
+                                                 boat_exclude={boat}, raw_dir=raw_dir, require_success=False, deadline=deadline, call_timeout=call_timeout)
         replies.update(group_replies)
         usage.extend(group_usage)
     def invalid_reply(row, boat):
@@ -627,7 +647,7 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
         if retry_payload:
             retry, retry_usage = _agent_desk("checker", retry_payload, CHECKER_PROMPT, "kiem-chung", tools,
                                              discovery, runner, boat_exclude={boat}, raw_dir=raw_dir,
-                                             require_success=False, deadline=deadline)
+                                             require_success=False, deadline=deadline, call_timeout=call_timeout)
             replies.update(retry)
             usage.extend(retry_usage)
     budget_exhausted = any(row.get("event") == "budget_exhausted" for row in usage)
@@ -913,7 +933,7 @@ def _published_prose(output, inputs):
     return fields
 
 
-def _writer(stories, intake, reporter, editor, articles, tools, discovery, runner, now, raw_dir=None, deadline=None):
+def _writer(stories, intake, reporter, editor, articles, tools, discovery, runner, now, raw_dir=None, deadline=None, call_timeout=None):
     """Draft 3-4 short Vietnamese paragraphs for recent publishable stories; the paid API fills the rest."""
     hours = writer_window_hours()
     edit_sources = source_editor_enabled()
@@ -952,7 +972,7 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
     if payload:
         try:
             replies, usage = _agent_desk("writer", payload, WRITER_PROMPT, "bien-tap", tools, discovery, runner,
-                                         raw_dir=raw_dir, require_success=False, deadline=deadline)
+                                         raw_dir=raw_dir, require_success=False, deadline=deadline, call_timeout=call_timeout)
         except RunnerError as error:
             # The writer is an addition: a dry or refused lane leaves every story to the API path.
             usage = [{"event": "writer_unavailable", "error": str(error)[:300], "ids": [row["id"] for row in payload]}]
@@ -978,7 +998,7 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
                 try:
                     result, events = _agent_desk("editor-source", [packet], SOURCE_EDITOR_PROMPT, "bien-tap",
                                                  editor_tools, discovery, runner, raw_dir=raw_dir,
-                                                 require_success=False, deadline=deadline)
+                                                 require_success=False, deadline=deadline, call_timeout=call_timeout)
                     edited_replies[sid] = result.get(sid)
                     usage.extend({"desk": "editor-source", **event} for event in events)
                 except AdmissionError:
@@ -999,7 +1019,7 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
             try:
                 rewritten, events = _agent_desk("writer", rewrite_payload, WRITER_REWRITE_PROMPT, "bien-tap", tools,
                                                 discovery, runner, raw_dir=raw_dir, require_success=False,
-                                                deadline=deadline, record_as="rewrite-writer")
+                                                deadline=deadline, call_timeout=call_timeout, record_as="rewrite-writer")
                 usage.extend({"desk": "rewrite-writer", **event} for event in events)
             except AdmissionError:
                 raise
@@ -1162,9 +1182,9 @@ def _chief(stories, intake, reporter, editor, checker, now, writer=None):
 
 def run(input_path, job, tools, discovery, runner, *, through="chief", articles=None, corpus_path=None, rerun_from=None,
         desk_budget_seconds=DEFAULT_DESK_BUDGET_SECONDS, writer_budget_seconds=DEFAULT_WRITER_BUDGET_SECONDS,
-        run_budget_seconds=DEFAULT_RUN_BUDGET_SECONDS):
-    if desk_budget_seconds <= 0 or writer_budget_seconds <= 0 or run_budget_seconds <= 0:
-        raise ValueError("desk, writer and run budgets must be positive")
+        run_budget_seconds=DEFAULT_RUN_BUDGET_SECONDS, call_timeout_seconds=DEFAULT_CALL_TIMEOUT_SECONDS):
+    if desk_budget_seconds <= 0 or writer_budget_seconds <= 0 or run_budget_seconds <= 0 or call_timeout_seconds <= 0:
+        raise ValueError("desk, writer, run and call budgets must be positive")
     run_deadline = time.monotonic() + run_budget_seconds
     generated_at, stories = load_stories(input_path)
     now = instant(generated_at) or datetime.now(timezone.utc)
@@ -1199,14 +1219,17 @@ def run(input_path, job, tools, discovery, runner, *, through="chief", articles=
             if desk == "intake":
                 output, usage = _intake(stories, now), []
             elif desk == "reporter":
-                output, usage = _reporter(stories, state["intake"], articles, tools, discovery, runner, corpus, job / "raw", deadline)
+                output, usage = _reporter(stories, state["intake"], articles, tools, discovery, runner, corpus, job / "raw", deadline,
+                                          call_timeout=call_timeout_seconds)
             elif desk == "editor":
-                output, usage = _editor(stories, state["intake"], state["reporter"], tools, discovery, runner, job / "raw", deadline)
+                output, usage = _editor(stories, state["intake"], state["reporter"], tools, discovery, runner, job / "raw", deadline,
+                                        call_timeout=call_timeout_seconds)
             elif desk == "checker":
-                output, usage = _checker(stories, state["intake"], state["reporter"], state["editor"], tools, discovery, runner, job / "raw", deadline)
+                output, usage = _checker(stories, state["intake"], state["reporter"], state["editor"], tools, discovery, runner,
+                                         job / "raw", deadline, call_timeout=call_timeout_seconds)
             elif desk == "writer":
                 output, usage = _writer(stories, state["intake"], state["reporter"], state["editor"], articles, tools,
-                                        discovery, runner, now, job / "raw", deadline)
+                                        discovery, runner, now, job / "raw", deadline, call_timeout=call_timeout_seconds)
             else:
                 output, usage = _chief(stories, state["intake"], state["reporter"], state["editor"], state["checker"], now,
                                        state["writer"]), []

@@ -101,7 +101,7 @@ class SourceEditorTests(unittest.TestCase):
                 return super().run(desk, rows, provider, instruction)
 
         completed = type("Completed", (), {"returncode": 0, "stdout": "not-json", "stderr": ""})()
-        with patch("phong_bao.runner.subprocess.run", return_value=completed), \
+        with patch("phong_bao.runner._run_cli", return_value=completed), \
                 patch("phong_bao.runner.shutil.which", side_effect=lambda name: name):
             row, _, _ = self.write(runner=Malformed({"writer": {SID: deepcopy(PROSE)}}))
         self.assertFalse(row["written"])
