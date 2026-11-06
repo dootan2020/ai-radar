@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-06T04:03:55.768913+00:00",
-  "input_generated_at": "2026-11-06T02:16:03Z",
+  "generated_at": "2026-11-06T05:27:55.232731+00:00",
+  "input_generated_at": "2026-11-06T04:05:36Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -28417,7 +28417,7 @@
       "reason": "checker rejected claims; incomplete checker support caps tier",
       "importance_tier": "standard",
       "tier_capped": true,
-      "summary": "claims",
+      "summary": "written",
       "degradation_reasons": [
         "checker rejected claims",
         "incomplete checker support caps tier"
@@ -28425,13 +28425,29 @@
       "use_original_title": false,
       "source_url": "https://huggingface.co/blog/nvidia/cosmos-interactive-world-simulation",
       "key_points": [
-        "NVIDIA added four new open-weight checkpoints to its Cosmos 3 model family for interactive world simulation and driving scenes.",
-        "All four models are post-trained examples of Cosmos 3 Nano featuring 16 billion trainable parameters."
+        "Vào ngày 5 tháng 11 năm 2026, nhóm nghiên cứu NVIDIA công bố bốn phiên bản trọng số mở mới thuộc dòng mô hình Cosmos 3 phục vụ việc tạo môi trường mô phỏng tương tác và cảnh quan lái xe đa cảm biến. Theo nhóm tác giả, cả bốn mô hình đều là bản hậu huấn luyện từ Cosmos 3 Nano với 16 tỷ tham số và phát hành theo giấy phép OpenMDW1.1 cho phép sử dụng thương mại lẫn phi thương mại. Dòng phát hành này gồm Cosmos3-Nano-Transfer-Auto, Cosmos3-Nano-Sim-Auto, Cosmos3-Nano-Sim-Transfer và Cosmos3-Nano-Sim-Bimanual phục vụ việc tạo dữ liệu lái xe và dự đoán video từ hành động của robot.",
+        "NVIDIA cho biết các mô hình cung cấp giải pháp cho ngành robot qua việc mô phỏng phản hồi trước các góc nhìn thay đổi, đồng thời kết nối dữ liệu thị giác với cảm biến 3D cho xe tự hành. Về kiến trúc, Cosmos 3 sử dụng mạng xương sống Mixture-of-Transformers (kết hợp các khối biến đổi Transformer) kết nối mạng xử lý văn bản riêng với mạng tạo hình ảnh qua cơ chế chú ý. Trong mô phỏng dạng luồng, mô hình áp dụng cơ chế chú ý nhân quả thời gian để đọc lịch sử kết hợp tín hiệu điều khiển hiện có và chặn các quan sát mục tiêu trong tương lai.",
+        "Đối với xe tự hành, mô hình Cosmos3-Nano-Transfer-Auto hỗ trợ tạo video đồng bộ trên tối đa 11 góc quay camera gồm cả ống kính mắt cá, kết hợp dữ liệu LiDAR (cảm biến đo khoảng cách bằng tia laser) qua bản đồ kịch bản thế giới. Ở tác vụ robot, Cosmos3-Nano-Sim-Bimanual hỗ trợ mô phỏng tương tác hai cánh tay cho các hệ thống YAM và AgiBot, sử dụng sơ đồ 59 giá trị điều khiển được đệm lên 64 giá trị trong quá trình huấn luyện.",
+        "NVIDIA hướng đến việc cung cấp nền tảng mở cho cộng đồng nghiên cứu phát triển thế giới mô phỏng, nhưng các tác giả nhấn mạnh đây vẫn là bài toán khó và cần tiếp tục đánh giá độ chuẩn xác khi hỗ trợ học chính sách. Nhóm tác giả cũng lưu ý thiết lập thử nghiệm được công bố trên một hệ thống phần cứng GB200 không đại diện cho yêu cầu bộ nhớ tối thiểu để vận hành mô hình. Ngoài ra, các nhà nghiên cứu khuyến nghị người dùng cần đánh giá chất lượng trên tập dữ liệu riêng, bởi một lượt chạy ngắn thành công chỉ xác nhận việc mã lệnh đã thực thi chứ chưa chứng minh mô hình hội tụ."
       ],
       "same_event_coverage_ids": [
         "19c318b25eb83f8e1e94"
       ],
-      "split_coverage_ids": []
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA ra mắt bốn mô hình mở Cosmos 3 với 16 tỷ tham số để mô phỏng thế giới ảo và lái xe tự hành",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/nvidia/cosmos-interactive-world-simulation"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
     },
     {
       "id": "284810c2fd047502da41",
@@ -28493,7 +28509,7 @@
       "reason": "checker rejected claims; incomplete checker support caps tier",
       "importance_tier": "standard",
       "tier_capped": true,
-      "summary": "claims",
+      "summary": "written",
       "degradation_reasons": [
         "checker rejected claims",
         "incomplete checker support caps tier"
@@ -28501,14 +28517,36 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/tech/1028015/meta-muse-ai-voice-mode-expressive-avatar",
       "key_points": [
-        "Meta CEO Mark Zuckerberg announced that users can now engage in real-time voice conversations with the Muse AI agent.",
-        "The Muse AI agent includes animated avatars that move in synchronization with its spoken words."
+        "Giám đốc điều hành Meta ông Mark Zuckerberg thông báo người dùng ứng dụng hiện có thể trò chuyện trực tiếp bằng giọng nói trong thời gian thực với tác tử Muse (phần mềm trí tuệ nhân tạo tự vận hành tương tác với người dùng). Đi kèm với tính năng này là các hình đại diện biểu cảm ở đầu giao diện, có khả năng cử động hoạt họa đồng bộ theo lời nói của tác tử. Bản cập nhật được tung ra khi ứng dụng Muse đã đạt mốc 10 triệu lượt tải xuống và thiết lập tại Mỹ.",
+        "Tính năng đàm thoại cho phép người dùng đổi âm sắc giọng nói của Muse bằng cách yêu cầu trực tiếp hoặc tùy chọn trong cài đặt hình đại diện. Theo mô tả từ Meta, việc bổ sung khả năng nhận cuộc gọi với hình đại diện động tùy biến là bước chuẩn bị để đưa công nghệ tương tác lên nhiều thiết bị phần cứng. Tập đoàn này muốn mở rộng trải nghiệm AI từ ứng dụng điện thoại sang các phụ kiện phần cứng sắp ra mắt của hãng.",
+        "Thử nghiệm thực tế trên ứng dụng iOS, phóng viên Jay Peters của trang tin The Verge nhận xét tác tử Muse phản hồi nhanh bằng giọng nói trong các bài kiểm tra ngắn. Tuy vậy, tác tử đôi lúc vẫn phải tạm dừng khi tra cứu thông tin tương tự như khi xử lý truy vấn văn bản thông thường. Phóng viên cũng cài đặt hình đại diện mang diện mạo của CEO Mark Zuckerberg để luôn nhớ rằng mình đang giao tiếp với một dịch vụ của Meta. Tác giả ghi nhận hình đại diện cử động khớp lời khá tốt nhưng tạo cảm giác kỳ dị khi nhìn bản sao kỹ thuật số trò chuyện, đồng thời giọng nói của Muse không thể mô phỏng chính xác hoàn toàn vị CEO này.",
+        "Meta cho biết chế độ giọng nói và hình đại diện biểu cảm hiện mới chỉ được triển khai trên ứng dụng di động cho người dùng tại Mỹ. Đại diện Meta thông báo tính năng này sẽ sớm có mặt trên kính AI của hãng và xuất hiện trên thiết bị đeo Muse Charm tương tự Tamagotchi dự kiến bán ra trong năm nay. Nhận định từ The Verge cho thấy dù công nghệ tạo ra bước tiến trong đàm thoại, trải nghiệm thực tế vẫn bị hạn chế bởi những khoảng dừng tra cứu và cảm giác kỳ lạ về mặt thị giác khi tương tác với bản sao kỹ thuật số."
       ],
       "same_event_coverage_ids": [
         "49c5b6fea526252dabc8",
         "5dff44e8ff9a9f755d66"
       ],
-      "split_coverage_ids": []
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta bổ sung chế độ đàm thoại giọng nói và hình đại diện biểu cảm cho ứng dụng Muse AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1028015/meta-muse-ai-voice-mode-expressive-avatar"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/05/meta-says-us-users-can-now-video-chat-with-their-muse-ai-avatar/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
     },
     {
       "id": "120c60ff52409374d901",
@@ -28540,7 +28578,7 @@
       "reason": "checker rejected claims; incomplete checker support caps tier",
       "importance_tier": "standard",
       "tier_capped": true,
-      "summary": "claims",
+      "summary": "written",
       "degradation_reasons": [
         "checker rejected claims",
         "incomplete checker support caps tier"
@@ -28548,13 +28586,27 @@
       "use_original_title": false,
       "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/department-justice-forms-ai-task-force/417074/",
       "key_points": [
-        "The Department of Justice announced the formation of the Super Intelligence Task Force (DOJ-SITF) on Thursday.",
-        "Associate Attorney General Stanley Woodward and Associate Deputy Attorney General Stephen Weiss were appointed to co-chair the task force."
+        "Bộ Tư pháp Mỹ thông báo thành lập một đội đặc nhiệm trí tuệ nhân tạo (AI) mang tên Đội đặc nhiệm Siêu trí tuệ (DOJ-SITF) nhằm bảo vệ cơ quan này trước các tác nhân AI độc hại. Theo Nextgov/FCW, lực lượng mới sẽ do Phó Tổng chưởng lý Stanley Woodward và Phó Trợ lý Tổng chưởng lý Stephen Weiss đồng chủ trì. Động thái này diễn ra sau khi Tổng thống Donald Trump ký sắc lệnh vào cuối tháng 9 chỉ đạo các cơ quan gọi trí tuệ nhân tạo là siêu trí tuệ vì ông cho rằng tên gọi này chính xác hơn.",
+        "Trong giác thư ngày 13 tháng 10, Tổng chưởng lý Todd Blanche giải thích DOJ-SITF sẽ bảo đảm vai trò dẫn đầu của Mỹ không bị suy giảm do việc sử dụng sai trái siêu trí tuệ từ các thực thể nước ngoài, tổ chức tội phạm xuyên quốc gia hay các cá nhân lừa đảo. Theo ông Blanche, đội đặc nhiệm cũng sẽ thực hiện các biện pháp khẳng định quyền tài phán, trong mức độ phù hợp, để thúc đẩy ưu thế siêu trí tuệ của Mỹ.",
+        "Ông Blanche cho biết DOJ-SITF sẽ tiếp quản Đội đặc nhiệm Tranh tụng AI thành lập hồi tháng 1 dưới thời cựu Tổng chưởng lý Pam Bondi, đồng thời điều phối các vụ kiện dân sự liên quan đến AI của bộ. Ngoài ra, ông Blanche cho biết DOJ-SITF sẽ là đầu mối làm việc với Lực lượng Siêu trí tuệ do Giám đốc Tình báo Quốc gia Jay Clayton lãnh đạo để điều phối sự tham gia của chính phủ với các công ty AI.",
+        "Dù thúc đẩy vị thế quốc gia, ông Blanche nêu rõ đội đặc nhiệm chỉ áp dụng các biện pháp khẳng định quyền tài phán trong mức độ phù hợp."
       ],
       "same_event_coverage_ids": [
         "ff882cdd29ebc1be447f"
       ],
-      "split_coverage_ids": []
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bộ Tư pháp Mỹ thành lập đội đặc nhiệm siêu trí tuệ nhằm ứng phó các tác nhân AI độc hại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nextgov",
+          "url": "https://www.nextgov.com/artificial-intelligence/2026/11/department-justice-forms-ai-task-force/417074/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
     },
     {
       "id": "49d488f143d38cbf44bb",
@@ -28649,21 +28701,34 @@
       "reason": "no verified event date for promoted tier",
       "importance_tier": "standard",
       "tier_capped": true,
-      "summary": "claims",
+      "summary": "written",
       "degradation_reasons": [
         "no verified event date for promoted tier"
       ],
       "use_original_title": false,
       "source_url": "https://www.theverge.com/ai-artificial-intelligence/1027652/anthropic-claude-plaid-personal-finance",
       "key_points": [
-        "Anthropic launched a Personal Finance feature allowing Claude to connect to bank and card accounts via Plaid.",
-        "The feature enables Claude to categorize and summarize spending across areas such as rent, utilities, shopping, and food.",
-        "Claude can answer questions regarding upcoming bills before payday, affordability of large purchases, and potential monthly savings."
+        "Công ty Anthropic vừa giới thiệu tính năng Tài chính Cá nhân (Personal Finance) cho phép chatbot Claude kết nối trực tiếp với tài khoản ngân hàng và thẻ của người dùng qua nền tảng Plaid. Theo The Verge, tính năng này đang được thử nghiệm giới hạn trong tuần này cho người đăng ký các gói trả phí Pro, Max và Ultra tại Mỹ. Động thái của Anthropic diễn ra sau khi OpenAI ra mắt tính năng tương tự cho ChatGPT vào tháng 5, vốn cũng kết nối với tài khoản ngân hàng qua Plaid.",
+        "Theo The Verge, Anthropic đưa ra tính năng này nhằm giúp người dùng quản lý tài chính cá nhân bằng cách để Claude theo dõi dòng tiền và giải thích khả năng chi trả của họ. Khi người dùng hỏi về các khoản chi trong tháng, chatbot sẽ lập bảng phân loại chi tiêu theo các danh mục như tiền thuê nhà, tiện ích, mua sắm và ăn uống. Hệ thống cũng giải đáp các hóa đơn còn lại trước ngày nhận lương, đánh giá khả năng chi trả cho các chuyến du lịch lớn, và ước tính mức tiết kiệm mỗi tháng.",
+        "Nếu được người dùng cấp quyền truy cập, Claude có thể xem tên ngân hàng, loại tài khoản, bốn chữ số cuối, số dư, hạn mức tín dụng và lịch sử giao dịch tới hai năm. Dựa vào dữ liệu đó, Claude có thể giải thích các thuật ngữ tài chính chưa hiểu và trả lời câu hỏi về số dư hay các giao dịch phát sinh. Nhờ kết nối qua Plaid ở chế độ chỉ đọc, Claude không nhìn thấy mật khẩu ngân hàng và hệ thống ngân hàng không phải xử lý việc bot AI quét tài khoản.",
+        "The Verge nhận định rằng việc cho phép trí tuệ nhân tạo giám sát tài chính cá nhân có thể gióng lên những hồi chuông cảnh báo. Tuy nhiên, Anthropic xác nhận quyền truy cập chỉ ở chế độ đọc, đồng thời nhấn mạnh Claude không thể chuyển tiền, quản lý quỹ hay đưa ra lời khuyên đầu tư. Anthropic cũng lưu ý tính năng này chỉ là bước đầu, và đối với các quyết định tiền bạc lớn hơn, người dùng vẫn được phục vụ tốt nhất bởi các chuyên gia tài chính được cấp phép. Công ty cho biết đang tìm hiểu cách mở rộng hợp tác trên Claude và mong muốn nhận phản hồi từ các ngân hàng, nhà quản lý tài sản để định hình dịch vụ."
       ],
       "same_event_coverage_ids": [
         "1ff25bbbbf8444438fd1"
       ],
-      "split_coverage_ids": []
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic thử nghiệm tính năng kết nối tài khoản ngân hàng ở chế độ chỉ đọc cho Claude",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1027652/anthropic-claude-plaid-personal-finance"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
     },
     {
       "id": "a05905dc499c67f34cf1",
@@ -28717,22 +28782,36 @@
       "reason": "analysis is standard tier",
       "importance_tier": "standard",
       "tier_capped": true,
-      "summary": "claims",
+      "summary": "written",
       "degradation_reasons": [
         "analysis is standard tier"
       ],
       "use_original_title": false,
       "source_url": "https://blog.cloudflare.com/trusted-agent-delegation/",
       "key_points": [
-        "AI agents act on the web for millions of users, appearing to websites either as individual human users or as single visitors carrying traffic for multiple users.",
-        "Intermediary AI agents remove the ability for websites to recognize, serve, and hold accountable the end users behind them.",
-        "Traditional security and fraud prevention relies on identity, reputation, and accountability to verify actors and assign responsibility.",
-        "Personal AI agents are automated tools that pursue human instructions by controlling cloud computers or browsers, often operated via managed services."
+        "Cloudflare vừa đăng bài phân tích về việc các tác nhân AI (phần mềm tự động nhận chỉ thị từ con người để kiểm soát máy tính đám mây hoặc trình duyệt) đang thay mặt hàng triệu người hoạt động trên mạng. Theo bài viết, những công cụ như Muse của Meta hay dots của OpenAI có thể thực hiện mọi hành vi trực tuyến mà không bị giới hạn bởi sự mệt mỏi hay thời gian. Cloudflare lập luận rằng các trang web hiện mất khả năng nhận diện và quy trách nhiệm cho người dùng đứng sau tác nhân, buộc hệ sinh thái phải tạo cơ chế mới để bảo toàn mối quan hệ này.",
+        "Theo Cloudflare, hạ tầng mạng hiện nay từ hoạch định dung lượng đến tạo doanh thu đều được thiết kế dựa trên các giới hạn hành vi tự nhiên của con người. Thay vì người dùng tương tác trực tiếp với trang web, sự xuất hiện của tác nhân khiến hệ thống chỉ nhìn thấy phần mềm tự động đại diện cho nhiều người hoặc qua nhiều trung gian. Bài viết chỉ ra rằng việc tác nhân mở rộng quy mô truy cập gần như không giới hạn tạo ra rủi ro mới, đồng thời phá vỡ hệ thống xác thực rủi ro vốn đòi hỏi thiết bị và vị trí phải khớp với người dùng.",
+        "Bài viết của Cloudflare nêu dẫn chứng về việc một gói thuê bao trả phí có thể bị lợi dụng để phục vụ nhiều người qua tác nhân, khiến trang web chỉ thấy một khách hàng. Trong khâu đối soát danh tính (KYC, quy trình xác thực người dùng), việc tác nhân chuyển tiếp dữ liệu làm suy yếu tính bảo mật vì hệ thống luôn mặc định người thao tác là người cần xác minh. Cloudflare nhận định việc chuyển mã CAPTCHA (công cụ kiểm tra người dùng là con người) cho người tự giải không ngăn được tình trạng trộn lẫn lưu lượng, trong khi tác nhân còn trích xuất dữ liệu trang web mà không đem lại doanh thu.",
+        "Theo bài viết của Cloudflare, tầm nhìn của họ là xây dựng mạng Internet nơi chủ trang web có quyền kiểm soát, còn tác nhân AI nhận được quyền truy cập tối đa trong phạm vi hợp lý đó. Dù vậy, Cloudflare lưu ý các tác nhân có thể sẽ không thể đăng nhập vào tài khoản ngân hàng nếu thiếu quy trình xác thực bổ sung. Để định danh tác nhân, Cloudflare ưu tiên Xác thực Bot Mạng (WBA, cơ chế ký điện tử vào yêu cầu), dù việc định danh người dùng duy nhất chưa phải trọng tâm ban đầu của sáng kiến Ủy quyền Tác nhân Đáng tin cậy (Trusted Agent Delegation). Ngoài ra, bài viết lưu ý Nhóm Công tác Tùy chọn AI của IETF hiện mới chỉ tập trung vào dữ liệu đào tạo hay tìm kiếm, chứ chưa giải quyết nhu cầu biểu đạt tùy chọn quyền hạn rộng lớn hơn này."
       ],
       "same_event_coverage_ids": [
         "68aafb8cc47fcb1e488b"
       ],
-      "split_coverage_ids": []
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cloudflare đề xuất cơ chế định danh tác nhân AI để bảo vệ trang web và cấp quyền truy cập hợp lý",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "cloudflare",
+          "url": "https://blog.cloudflare.com/trusted-agent-delegation/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
     },
     {
       "id": "c84a4cb62f0462d241c3",
@@ -28767,7 +28846,7 @@
       "reason": "checker rejected claims; incomplete checker support caps tier",
       "importance_tier": "standard",
       "tier_capped": true,
-      "summary": "claims",
+      "summary": "written",
       "degradation_reasons": [
         "checker rejected claims",
         "incomplete checker support caps tier"
@@ -28775,14 +28854,27 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/entertainment/1026282/grimes-ai-movie",
       "key_points": [
-        "The film is billed as the first AI film to come to theaters and is scheduled for release on December 4th.",
-        "Grimes will lend both her likeness and vocal performance to the production.",
-        "AI studio Fable is producing the film."
+        "Ngôi sao nhạc pop Grimes sẽ góp mặt trong bộ phim khoa học viễn tưởng tạo bởi trí tuệ nhân tạo mang tên Gods Don’t Give Gifts, dự kiến ra rạp vào ngày 4 tháng 12. Được quảng bá là phim AI đầu tiên ra rạp, tác phẩm do Jack London (nghệ danh Gossip Goblin) đạo diễn và xưởng phim Fable sản xuất. Trong dự án này, Grimes sẽ đóng góp diện mạo và giọng nói của mình, một sự tham gia mà The Verge nhận định có thể đem lại tính thuyết phục cho dự án.",
+        "Trong thông cáo báo chí, xưởng phim Fable tuyên bố việc đúc kết diện mạo và giọng nói của diễn viên sẽ ngày càng phổ biến trong phim hoạt hình dùng trí tuệ nhân tạo. Fable cho rằng khán giả sẽ thấy diễn viên, vận động viên và nhạc sĩ lồng tiếng cùng diện mạo của chính họ trong các bộ phim tương lai. Tác giả Andrew Webster trên The Verge nhận định chủ đề phim rất phù hợp với Grimes, người từng khám phá chủ nghĩa siêu nhân học (triết lý dùng công nghệ vượt giới hạn thể xác) và đang làm album về AI mang tên Psy Opera.",
+        "Gods Don’t Give Gifts là tuyển tập điện ảnh (phim gồm nhiều mẩu chuyện ngắn) lấy bối cảnh tương lai nơi thể xác bị xem nhẹ và ý thức bị thương mại hóa. Nội dung phim mô tả sự va chạm giữa bốn câu chuyện trước những hậu quả kinh hoàng từ nỗ lực vượt qua giới hạn thể xác của nhân loại. Đoạn giới thiệu được công bố cho thấy diện mạo và giọng diễn xuất của Grimes xuất hiện trong phim như một trường hợp kết hợp người nổi tiếng tiêu biểu.",
+        "Tác giả Andrew Webster trên The Verge nhận định dù Hollywood có nhiều kỳ vọng về trí tuệ nhân tạo, đến nay vẫn chưa có dự án nào chứng minh công nghệ này thực sự là công cụ kể chuyện thiết yếu. Bài viết chỉ ra những ví dụ trước đây, như hai bản chuyển thể The Odyssey gồm một bản làm bằng mô hình Grok của Elon Musk, đều còn nhiều điều gây thất vọng. Do đó, Gods Don’t Give Gifts ra rạp tháng 12 được xem là phép thử đáng chú ý cho tiềm năng thương mại của phim AI, trong đó sự tham gia của Grimes có khả năng đem lại uy tín cho dự án."
       ],
       "same_event_coverage_ids": [
         "2813ec50c70a34d9ae9d"
       ],
-      "split_coverage_ids": []
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ca sĩ Grimes góp mặt trong phim điện ảnh do AI tạo ra dự kiến ra rạp vào tháng 12",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/entertainment/1026282/grimes-ai-movie"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
     },
     {
       "id": "5ef5685b9690ae6c5fed",
@@ -28812,7 +28904,7 @@
       "reason": "checker rejected claims; incomplete checker support caps tier",
       "importance_tier": "standard",
       "tier_capped": true,
-      "summary": "claims",
+      "summary": "written",
       "degradation_reasons": [
         "checker rejected claims",
         "incomplete checker support caps tier"
@@ -28820,15 +28912,30 @@
       "use_original_title": false,
       "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
       "key_points": [
-        "Google launched Gemini Omni 1.2 Flash featuring native 15-second video creation support.",
-        "Gemini Omni 1.2 Flash includes improved reference adherence and multi-turn conversational editing.",
-        "The model capabilities are available across the Gemini API, Google Vids, and Gemini for business."
+        "Google công bố phát hành mô hình tạo video Gemini Omni 1.2 Flash trên giao diện lập trình ứng dụng (API, công cụ kết nối phần mềm) Gemini và nền tảng đám mây Google Cloud. Theo Google, mô hình mới này hỗ trợ tạo video trực tiếp dài từ 3 đến 15 giây, tăng so với mốc giới hạn 10 giây ở phiên bản Omni 1.1 trước đó. Google cho biết chi phí vận hành giảm 30% so với phiên bản Gemini Omni 1.1, với mức giá công bố là 0,07 USD cho mỗi giây video có độ phân giải 720p. Theo công bố của Google, các đoạn phim do mô hình tạo ra cũng được tích hợp sẵn công nghệ thủy vân SynthID ẩn mà mắt thường không thể nhận biết.",
+        "Google giải thích rằng quy trình mới được thiết kế để giữ chi phí ở mức thấp bằng cách cho phép người dùng phác thảo nhanh ở độ phân giải 360p hoặc 720p trước khi nâng cấp. Google cho biết thay vì phải tạo lại toàn bộ đoạn phim khi muốn điều chỉnh, người dùng có thể tinh chỉnh chi tiết thông qua các câu lệnh trò chuyện nhiều lượt. Hãng cho biết hệ thống cho phép kết hợp hình ảnh nhân vật, sản phẩm, các đoạn chuyển động ngắn tối đa ba giây và tín hiệu âm thanh để điều hướng quá trình tạo video.",
+        "Trong thử nghiệm của Google, mô hình Gemini Omni 1.2 Flash kết hợp một ảnh chụp người mẫu với ảnh chụp hai mặt của ba bộ trang phục để tạo ra chuỗi thử đồ ảo dài 15 giây xoay 360 độ. Ở một thử nghiệm khác do Google thực hiện, hệ thống thay đổi hình nền từ lều bạt sang rừng sồi, chuồng ngựa và lâu đài đá qua từng lượt hội thoại, trong khi vẫn duy trì ánh kim của áo giáp và biểu cảm nhân vật. Khi so sánh với phiên bản Gemini Omni 1.1 Flash trên cùng một áp phích tĩnh, Google cho biết phiên bản 1.2 bám sát hình ảnh tham chiếu chặt chẽ hơn và dựng lớp vật liệu ổn định đến khung hình cuối. Tuy nhiên, Google cũng ghi nhận điểm hạn chế khi người xem vẫn có thể thấy những thay đổi nhỏ ngoài ý muốn như con mèo trên mái nhà hay chiếc muôi múc súp biến thành đũa.",
+        "Google đánh giá rằng Gemini Omni 1.2 Flash lần đầu tiên sẵn sàng phục vụ nhu cầu sản xuất đại trà nhờ được bảo chứng bởi hạ tầng doanh nghiệp và bảo mật của Google Cloud. Dù vậy, Google lưu ý rằng dự án vẫn đang trong quá trình phát triển để tiếp tục hoàn thiện các cảnh hành động thể thao tốc độ nhanh, kịch bản thay đổi gấp và mô phỏng vật lý phức tạp."
       ],
       "same_event_coverage_ids": [
         "73f954aef308f814b3f7",
         "c26a8113e05cedf80581"
       ],
-      "split_coverage_ids": []
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google ra mắt Gemini Omni 1.2 Flash tạo video 15 giây với chi phí giảm 30% so với bản 1.1",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "google",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
     },
     {
       "id": "26d39cd951cac0507239",
@@ -28887,21 +28994,34 @@
       "reason": "analysis is standard tier",
       "importance_tier": "standard",
       "tier_capped": true,
-      "summary": "claims",
+      "summary": "written",
       "degradation_reasons": [
         "analysis is standard tier"
       ],
       "use_original_title": false,
       "source_url": "https://blogs.nvidia.com/blog/nvidia-life-chris-alexiuk/",
       "key_points": [
-        "Chris Alexiuk is a senior product research engineer in deep learning at NVIDIA specializing in open large language models.",
-        "Alexiuk argues that full transparency, including weights, training data, and training recipes, is necessary for open-source AI.",
-        "Alexiuk uses YouTube to teach developers how to build, fine-tune, evaluate, and deploy production LLM applications."
+        "Theo bài viết trên trang blog của NVIDIA, kỹ sư nghiên cứu sản phẩm cấp cao Chris Alexiuk tại Toronto đang tích cực thúc đẩy việc ứng dụng các mô hình ngôn ngữ lớn (LLM, mô hình AI xử lý ngôn ngữ) nguồn mở cho giới lập trình viên. Theo bài viết, trên mạng xã hội cá nhân, kỹ sư này tự nhận mình là người ủng hộ số một của gia đình mô hình đa phương thức mã nguồn mở NVIDIA Nemotron. Bài viết của NVIDIA cho biết dòng mô hình Nemotron được xây dựng phục vụ các tác tử AI hoạt động dài hạn, có khả năng tự tiến hóa và giải quyết các nhiệm vụ chuyên biệt.",
+        "Alexiuk giải thích rằng động lực thôi thúc anh chia sẻ thông tin là mong muốn đưa kiến thức đến càng nhiều người càng tốt, vì anh tin rằng những người giúp ích nhiều nhất cho việc ứng dụng AI có thể hiện chưa từng nghe về nó. Sau nhiều năm giảng dạy, Alexiuk kết luận rằng tính minh bạch toàn diện không chỉ là một đặc điểm của AI tốt mà là điều kiện tiên quyết cho công nghệ này. Kỹ sư này nhấn mạnh quan điểm rằng AI hoàn toàn nguồn mở là điều cần thiết cho sự phổ cập trí tuệ, đòi hỏi quyền tiếp cận trọng số, dữ liệu đầu vào và công thức huấn luyện. Alexiuk khẳng định niềm tin cá nhân rằng tính cởi mở là điều rất quan trọng và anh coi Nemotron là dự án quan trọng nhất đang tồn tại hiện nay.",
+        "Về mặt kỹ thuật, Alexiuk giải thích hệ sinh thái Nemotron bao gồm mô hình như Nemotron 3.5 Lightning dành cho cá nhân lập trình viên thực hiện các tác vụ lặp lại có tần suất cao. Ở cấp độ doanh nghiệp, Alexiuk cho biết hệ sinh thái này cung cấp phiên bản Nemotron Ultra phục vụ các tác tử tự hành vận hành dài hạn, nghiên cứu chuyên sâu và tác vụ quy mô lớn. Bài viết kể lại rằng Alexiuk bắt đầu đam mê học máy từ lớp vật lý tính toán tại Đại học Trent ở Ontario, Canada, khi anh học về thư viện phần mềm TensorFlow. Theo bài viết, dự án đầu tay của anh là tự viết bộ phân loại hình ảnh chạy trên vi xử lý đồ họa để cảnh báo mỗi khi con vẹt yến phụng của bạn xuất hiện trên webcam lúc chơi điện tử.",
+        "Alexiuk nhận định rằng tính cởi mở giúp nhiều người hiểu biết hơn về AI và hy vọng sẽ dẫn đến việc tạo ra nhiều sản phẩm khéo léo ở giới hạn công nghệ. Kỹ sư này lập luận rằng nếu một công cụ giúp khuếch đại kỹ năng thì công cụ đó cũng đang khuếch đại sự biểu đạt của con người. Dù vậy, theo chính chia sẻ của Alexiuk, việc anh đánh giá Nemotron là dự án quan trọng nhất hoàn toàn xuất phát từ lập trường và niềm tin cá nhân vào dự án mà anh cho là thực hiện tính mở tốt nhất."
       ],
       "same_event_coverage_ids": [
         "5e1eba383ad59d677e7a"
       ],
-      "split_coverage_ids": []
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kỹ sư Chris Alexiuk của NVIDIA thúc đẩy phổ cập mô hình ngôn ngữ lớn nguồn mở qua Nemotron",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://blogs.nvidia.com/blog/nvidia-life-chris-alexiuk/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
     },
     {
       "id": "726b04be82a22c7ae574",
@@ -30152,21 +30272,32 @@
       "reason": "news and claims checked",
       "importance_tier": "notable",
       "tier_capped": false,
-      "summary": "claims",
+      "summary": "written",
       "degradation_reasons": [],
       "use_original_title": false,
       "source_url": "https://www.theverge.com/ai-artificial-intelligence/1028302/perplexity-teammates-ai-agents-work",
       "key_points": [
-        "Perplexity launched work-focused AI agents called Teammates to compete with OpenAI and Anthropic.",
-        "Teammates are always-on AI agents capable of performing an array of tasks while running 24/7.",
-        "Teammates can take on multiple workspace roles while pulling existing projects, skills, and memory from Perplexity tools.",
-        "Teammates integrate with Perplexity Computer and build on top of it to support collaboration and ongoing large-scale work.",
-        "Users can assign each Teammate different jobs that can be performed simultaneously."
+        "Công ty khởi nghiệp Perplexity vào ngày 5 tháng 11 năm 2026 đã ra mắt tính năng Teammates gồm các tác tử AI (phần mềm trí tuệ nhân tạo có khả năng tự động thực hiện tác vụ) luôn hoạt động phục vụ công việc văn phòng. Theo The Verge, Perplexity đang cạnh tranh với OpenAI và Anthropic bằng dòng tác tử AI chuyên biệt cho môi trường làm việc này. Perplexity cho biết các tác tử Teammates có thể đảm nhận nhiều vai trò trong không gian làm việc, đồng thời trích xuất các dự án, kỹ năng và dữ liệu bộ nhớ sẵn có từ những công cụ Perplexity mà người dùng đang sử dụng.",
+        "Về mặt kỹ thuật, Teammates tích hợp với Perplexity Computer, một hệ thống trí tuệ nhân tạo có khả năng triển khai các tác tử ngay trên thiết bị của người dùng để hoàn thành các tác vụ. Perplexity cho biết Teammates được xây dựng trên nền tảng Computer bằng việc mang lại khả năng cộng tác và hoàn thành các công việc quy mô lớn diễn ra liên tục. Theo The Verge, hệ thống cho phép người dùng giao các công việc khác nhau cho từng tác tử thực hiện đồng thời, tương tự như các công cụ Dots của OpenAI và Claude Duet.",
+        "Trong ứng dụng Perplexity, mỗi tác tử Teammate đều có một luồng trao đổi riêng biệt. Perplexity lưu ý rằng người dùng có thể theo dõi tiến độ của các tác tử qua từng luồng riêng này, đồng thời có thể tương tác với chúng trong Slack.",
+        "The Verge nhận xét cách tiếp cận của Perplexity đắt hơn nhiều so với các đối thủ, khi đòi hỏi người dùng phải đăng ký gói Max với giá 200 USD mỗi tháng."
       ],
       "same_event_coverage_ids": [
         "fab45641a432ec6534c0"
       ],
-      "split_coverage_ids": []
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Perplexity ra mắt tác tử AI Teammates làm việc liên tục nhưng yêu cầu gói thuê bao 200 USD mỗi tháng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1028302/perplexity-teammates-ai-agents-work"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
     },
     {
       "id": "44a3ae3b6018cd5ab433",
@@ -30514,6 +30645,182 @@
           "role": "outlet",
           "name": "technode",
           "url": "https://technode.com/2026/11/04/tencent-reportedly-preparing-consumer-ai-search-engine/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "5b3877aa5f5fc52338dd",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/niles-ai-revenue-slowdown-demands-stock-picking-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6c0ccb4da1a2d632cfa0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8aee715d9446c529e34e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting focused primarily on private credit lending strategy and capital preservation, with only a passing reference to avoiding data centers and AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/why-australian-investor-won-t-bet-on-data-centers-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4fe1ee3cde632573bbb7"
+      ],
+      "split_coverage_ids": [
+        "c046e557894b0efa42de"
+      ]
+    },
+    {
+      "id": "e2e23a0367960f2af33f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://github.com/dsx-ai-factory/nvke",
+      "key_points": [
+        "Nvidia phát hành dự án mã nguồn mở Nvidia Kubernetes Engine (NVKE), cung cấp mặt phẳng quản lý (management plane - tầng điều khiển trung tâm) để các đội ngũ hạ tầng tự vận hành Kubernetes trên phần cứng GPU riêng. Theo tài liệu dự án, phần mềm này hiện mới ở dạng bản xem trước thử nghiệm (preview) và nhóm phát triển khuyến cáo không dùng cho các hệ thống sản xuất chính thức vì cấu hình có thể thay đổi giữa các đợt phát hành. Dự án cho biết NVKE không phải bản phân phối Kubernetes riêng, mà đóng vai trò như một hệ thống tự lưu trữ để khởi tạo cụm quản lý rồi điều phối nhiều cụm máy chủ công việc tách biệt theo yêu cầu.",
+        "Tài liệu của Nvidia giải thích nền tảng này cho phép mỗi cụm công việc của khách hàng sở hữu mặt phẳng điều khiển, cơ sở dữ liệu etcd và nhóm nút (node pool - nhóm máy chủ xử lý tác vụ) hoàn toàn độc lập. Đội ngũ quản trị sẽ trực tiếp điều hành mặt phẳng quản lý NVKE, còn khách hàng thao tác với cụm máy chủ ứng dụng qua giao diện lập trình ứng dụng (API) Kubernetes và công cụ dòng lệnh kubectl. Về an ninh, các nút máy chủ phải hoàn thành quy trình xác thực danh tính qua chuẩn SPIFFE/SPIRE bằng vi mạch TPM phần cứng trước khi nhận thông tin đăng nhập, cùng tùy chọn mã hóa dữ liệu etcd cho từng cụm.",
+        "Để đánh giá không cần phần cứng GPU hay tài khoản Nvidia, tài liệu cung cấp bản chạy nhanh cục bộ trên máy Linux hoặc máy ảo với cấu hình tối thiểu 6 CPU, 12 GiB bộ nhớ và 100 GiB đĩa trống. Người dùng thử nghiệm trên hệ điều hành macOS có thể cài đặt hệ thống thông qua máy ảo Colima hỗ trợ Docker và TPM ảo. Khi triển khai thực tế trên máy vật lý, người vận hành phải tự chuẩn bị máy chủ, mạng nội bộ, kho chứa ảnh và cấu hình quyền truy cập bộ điều khiển Nvidia Infra Controller (NICo). Quá trình biên dịch mã nguồn Go 1.27.3 sẽ tạo ra chín tệp nhị phân riêng biệt, bao gồm công cụ nvkectl, các bộ điều khiển và giao diện tenant-api cùng operator-api.",
+        "Về mặt giới hạn, tài liệu dự án lưu ý người dùng phải tự cấu hình bảo mật vì hệ thống đang tắt cơ chế xác thực API và chỉ dùng giao thức HTTP thuần sau khi cài đặt. Nhóm phát triển cũng nêu rõ bộ điều khiển NICo là nhà cung cấp hạ tầng tương thích duy nhất trong giai đoạn thử nghiệm này. Đồng thời, tài liệu cho biết cụm quản lý hiện không thể tự nâng cấp hay mở rộng, và chưa hề có quy trình nâng cấp mặt phẳng quản lý cũng như sao lưu hay khôi phục dữ liệu. Do các hạn chế kỹ thuật và cấu hình có thể thay đổi, tài liệu chính thức khuyến nghị người dùng không nên sử dụng NVKE cho các khối lượng công việc sản xuất thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "52a4206e91c5d0562341"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia ra mắt bản thử nghiệm NVKE hỗ trợ tự vận hành cụm Kubernetes trên hạ tầng GPU riêng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/dsx-ai-factory/nvke"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "216df8b2e07ead6c64dc",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://village.dev/blog/closed-ai-models-now-dominate-the-price-performance-frontier/",
+      "key_points": [
+        "Báo cáo từ công cụ LLM Atlas của Village vào cuối tháng 10 năm 2026 cho thấy các mô hình AI đóng thương mại đang chiếm lĩnh hầu hết mọi mức ngân sách trên biểu đồ tối ưu hiệu năng và giá cả. Theo Village, mô hình trọng lượng mở (open-weight - mô hình công khai các tham số trọng số) hiện chỉ còn là lựa chọn tốt nhất tại 3% các mức ngân sách, mức thấp nhất từng được ghi nhận kể từ năm 2024. Thị phần này giảm sâu so với mức 41% hồi tháng 6 năm 2026, thời điểm DeepSeek V4 Flash và Zhipu GLM-5.2 giúp mô hình mở dẫn đầu ở nhiều phân khúc chi phí.",
+        "Village đưa ra ba cách giải thích cho xu hướng các phòng nghiên cứu mô hình đóng giành lại ưu thế về chi phí. Thứ nhất, bài viết giải thích các công ty sở hữu mô hình hàng đầu có thể chắt lọc (distill - phương pháp dùng mô hình lớn dạy mô hình nhỏ) kiến thức nội bộ để tạo phiên bản giá rẻ trong vài tuần, trong khi điều khoản thương mại cấm dùng dữ liệu đầu ra để huấn luyện mô hình mở. Thứ hai, tác giả chỉ ra các hãng đóng phát hành đồng loạt cả dòng sản phẩm, như OpenAI nắm 11 trên 21 mốc tối ưu với các thế hệ GPT-6 và GPT-6.1 từ phiên bản Luna đến Astra. Thứ ba, Village nhận định các hãng lớn như OpenAI, Anthropic hay Google có thể vận hành suy luận rẻ hơn nhờ quy mô hạ tầng lớn và việc Google tự dùng chip riêng.",
+        "Dữ liệu khảo sát cho thấy gần như toàn bộ 3% ngân sách còn lại của mô hình mở chỉ nằm ở phân khúc giá siêu rẻ do Google Gemma 4 E4B và Xiaomi MiMo-V2.6-Flash nắm giữ. Trước đây, bài viết nêu rõ mô hình mở từng bứt phá như DeepSeek-V3.2-Exp dẫn đầu gần một nửa ngân sách vào tháng 9 năm 2025, nhưng thị phần giảm một nửa vào quý sau khi các hãng đóng tung gói cước rẻ hơn. Lợi thế này bị đảo ngược khi OpenAI phát hành GPT-6 Luna vào tháng 9 cùng GPT-6.1 Terra vào tháng 10 năm 2026, kết hợp với Claude Haiku 5.5 của Anthropic để thâu tóm các mức giá nhờ vừa mạnh hơn vừa rẻ hơn.",
+        "Nhóm nghiên cứu tại Village giải thích rằng công cụ LLM Atlas ước tính năng lực từ các bài kiểm chuẩn công khai và đo chi phí tác vụ tương đối so với GPT-5 ở mức suy luận cao. Báo cáo nhấn mạnh chi phí này phản ánh giá qua các giao diện lập trình đám mây (API do nhà cung cấp lưu trữ), đồng thời lưu ý mô hình mở có thể vận hành rẻ hơn nếu người dùng tự chạy trên phần cứng riêng. Village cũng chỉ rõ nếu mở rộng thang ngân sách từ 0,3% đến mười lần chi phí GPT-5, thị phần của mô hình mở sẽ đạt mức 16% nhờ lợi thế ở phân khúc giá cực rẻ. Dù vậy, Village nhận định việc các phòng nghiên cứu mô hình đóng có thể phục vụ suy luận với chi phí rẻ hơn sẽ khiến các đợt dẫn đầu của mô hình mở chỉ kéo dài từng đợt ngắn."
+      ],
+      "same_event_coverage_ids": [
+        "092c1353fa64b1ad0db6",
+        "acab33af7b372fea824b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Báo cáo của Village: Mô hình AI đóng áp đảo hiệu năng và giá cả khi thị phần mô hình mở giảm về 3%",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://village.dev/blog/closed-ai-models-now-dominate-the-price-performance-frontier/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "936a7bd9e72361ed4589",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.07854",
+      "key_points": [
+        "Researchers introduced Drex, a family of four open decision models designed to output probability distributions over user-provided options without autoregressive decoding.",
+        "The Drex family includes models with 8B parameters (DLM), 9B parameters (v1.5), 35B parameters with 3B active (v2.0), and 27B parameters (Max).",
+        "Drex was developed to address inconsistency, output parsing overhead, cost, and latency issues in production applications relying on autoregressive LLMs and long chain-of-thought reasoning."
+      ],
+      "same_event_coverage_ids": [
+        "3905e0cae1b71f9915dc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8994558155b1a433fe80",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.07909",
+      "key_points": [
+        "Trong bài báo đăng trên tạp chí ACM Transactions on Graphics, nhóm tác giả Kwan Yun, Minhyeok Bang, Colette Suhjung Koo và Junyong Noh giới thiệu mô hình EDGAR nhằm cải thiện hình đại diện phần đầu kỹ thuật số (head avatar) dựng từ kỹ thuật Gaussian splatting. Theo nhóm nghiên cứu, khung khuếch tán có điều kiện (conditional diffusion framework) này được thiết kế để sửa lỗi hình ảnh nhưng vẫn bảo toàn độ trung thực danh tính. Thử nghiệm trên ba phương pháp tái tạo trong ba thiết lập cho thấy mô hình cải thiện chất lượng, song các tác giả lưu ý kết quả chỉ xác lập một phạm vi vận hành hữu ích cho các lỗi suy giảm diện mạo có thể phục hồi.",
+        "Theo nhóm tác giả, dù kỹ thuật điểm Gauss giúp dựng đầu người hiệu quả, việc tái tạo từ ảnh hoặc video đơn mục vẫn thiếu ràng buộc hình học và kết cấu, dẫn đến lỗi mờ nhòe, co giãn và mất ổn định khung hình. Để khắc phục, các tác giả lập tập dữ liệu EDGAR-SET kết hợp mẫu thực tế và dựng tổng hợp nhằm mô phỏng các ca lỗi kết xuất khi ghép cặp ảnh suy giảm với ảnh chuẩn và ảnh tham chiếu. Mô hình đưa đặc trưng danh tính từ Sapiens vào mạng khuếch tán một bước để khử lỗi nhanh, kết hợp kiến trúc phân chia nhiều chuyên gia (Mixture-of-Experts - MoE) nhằm xử lý nhiều dạng suy giảm.",
+        "Khi thử nghiệm trên ba phương pháp tái tạo dưới ba thiết lập, EDGAR cho thấy sự cải thiện ở cả thước đo tri giác lẫn thước đo tái tạo so với đầu ra thô và phương pháp đối chứng SDEdit. Nhóm tác giả cũng cho biết phép đánh giá góc nhìn chéo chứng minh tính nhất quán đã hiệu chuẩn giữa các góc quan sát được cải thiện. Ngoài ra, các bài kiểm tra dưới điều kiện góc quay đầu lệch lớn và há miệng rộng đã xác nhận độ vững của mô hình trong những thiết lập cực đoan.",
+        "Về mặt ứng dụng, các tác giả cho biết hình ảnh đa góc nhìn sau tinh chỉnh được dùng làm mục tiêu giả để tối ưu một hình đại diện Gaussian duy nhất, giúp kết xuất mà không cần chạy EDGAR trên từng khung hình đầu ra. Dù vậy, nhóm tác giả Kwan Yun, Minhyeok Bang, Colette Suhjung Koo và Junyong Noh nhấn mạnh kết quả chỉ thể hiện một phạm vi vận hành hữu ích cho các lỗi suy giảm diện mạo có thể phục hồi. Được chấp thuận trên tạp chí ACM Transactions on Graphics, nghiên cứu đóng vai trò kiểm chứng giải pháp khử lỗi bằng mô hình khuếch tán trong phạm vi thử nghiệm đồ họa thay vì khuyến nghị triển khai thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "3f333302497804ff0ae5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình EDGAR giúp khử lỗi cho hình đại diện 3D Gaussian nhưng giới hạn ở các dạng suy giảm diện mạo có thể phục hồi",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.07909"
         }
       ],
       "summary_limitations": [],
