@@ -1,6 +1,8 @@
 """Cloudflare hosting config and legacy GitHub Pages redirect coverage."""
 
 from pathlib import Path
+import re
+import subprocess
 import tempfile
 import unittest
 
@@ -78,10 +80,41 @@ class CloudflarePagesTests(unittest.TestCase):
         self.assertIn("needs.deploy.result == 'success'", workflow)
         self.assertIn("name: Download built site for story redirects", workflow)
         self.assertIn("name: radar-cloudflare-site-${{ github.run_id }}", workflow)
-        self.assertIn("python -m radar.legacy_redirects --site site --output legacy-pages", workflow)
-        self.assertLess(workflow.index("npx --yes wrangler@4 pages deploy site"),
+        self.assertIn("python -m radar.legacy_redirects --site cloudflare-site --output legacy-pages", workflow)
+        self.assertLess(workflow.index("npx --yes wrangler@4 pages deploy cloudflare-site"),
                         workflow.index("deploy-legacy-redirects:"))
         self.assertIn('python -m radar.story_pages prepare --remote "$STORY_REMOTE"', workflow)
+
+    def test_deployed_directory_is_only_the_built_artifact_never_the_checkout(self):
+        """Cloudflare (and the legacy redirects) get exactly the gated build, with no checked-out file under it.
+
+        On 06/11 the deploy job downloaded the artifact over the checkout's site/, so the tracked design sample
+        site/tin/_sample (a story no scorer read) stayed live although the build had removed it.
+        """
+        workflow = (ROOT / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
+        jobs = workflow.split("\njobs:\n", 1)[1]
+        deploy = jobs.split("\n  deploy:\n", 1)[1].split("\n  deploy-legacy-redirects:\n", 1)[0]
+        legacy = jobs.split("\n  deploy-legacy-redirects:\n", 1)[1]
+        for name, job, uses in (("deploy", deploy, r"npx --yes wrangler@4 pages deploy (\S+) "),
+                                ("deploy-legacy-redirects", legacy, r"python -m radar\.legacy_redirects --site (\S+) ")):
+            with self.subTest(name):
+                self.assertIn("actions/checkout@", job)
+                downloads = re.findall(r"name: radar-cloudflare-site-\$\{\{ github\.run_id \}\}\n\s+path: (\S+)\n", job)
+                self.assertEqual(len(downloads), 1)
+                deployed = re.search(uses, job).group(1)
+                self.assertEqual(deployed, downloads[0])
+                # The directory holds nothing from the repository: it is not tracked or ignored content of the
+                # checkout, nor inside or around such a directory.
+                target = (ROOT / deployed).resolve()
+                self.assertFalse(target.exists(), deployed)
+                tracked = subprocess.run(["git", "-C", str(ROOT), "ls-files", "--", deployed],
+                                         capture_output=True, text=True, check=True).stdout
+                self.assertEqual(tracked, "", deployed)
+                self.assertNotEqual(target, ROOT.resolve())
+                self.assertNotIn(target, ROOT.resolve().parents)
+                self.assertFalse(any(part in {"site", ".", ".."} for part in Path(deployed).parts), deployed)
+                # No other step of the job writes into it.
+                self.assertEqual(len(re.findall(rf"(?m)(?:path:|--output|>)\s*{re.escape(deployed)}\b", job)), 1)
 
 
 if __name__ == "__main__":
