@@ -11,7 +11,8 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from radar.newsroom_decisions import (HARD_ERROR_KINDS, SCORE_THRESHOLD, SCORE_WEIGHTS, SCORER_VERSION, prose_digest,
+from radar import newsroom_decisions
+from radar.newsroom_decisions import (HARD_ERROR_KINDS, SCORE_WEIGHTS, SCORER_VERSION, answers_pass, prose_digest,
                                       weighted_score)
 
 QUESTIONS = tuple(SCORE_WEIGHTS)
@@ -117,16 +118,24 @@ def verdict(packet, reply, writer_boats, *, now=None):
              "scorer_provider": reply.get("provider"),
              "prose_sha256": prose_digest(packet["headline_vi"], packet["paragraphs_vi"]),
              "scored_at": (now or datetime.now(timezone.utc)).isoformat()}
+    if answers_pass(answers, hard):
+        return {"state": "passed", "reason": f"score {value:g}", "score": score}
     if hard:
-        return {"state": "failed", "reason": f"hard errors: {', '.join(item['kind'] for item in hard)}",
-                "score": score}
-    if value < SCORE_THRESHOLD:
-        return {"state": "failed", "reason": f"score {value:g} below {SCORE_THRESHOLD:g}", "score": score}
-    return {"state": "passed", "reason": f"score {value:g}", "score": score}
+        reason = f"hard errors: {', '.join(item['kind'] for item in hard)}"
+    elif value < newsroom_decisions.SCORE_THRESHOLD:
+        reason = f"score {value:g} below {newsroom_decisions.SCORE_THRESHOLD:g}"
+    else:
+        reason = (f"score {value:g} but {', '.join(_weak(answers))} below {newsroom_decisions.QUESTION_FLOOR:g}")
+    return {"state": "failed", "reason": reason, "score": score}
+
+
+def _weak(answers):
+    """The questions answered below the per-question floor."""
+    return [name for name in QUESTIONS if answers[name] < newsroom_decisions.QUESTION_FLOOR]
 
 
 def review_request(score, headline, paragraphs):
     """What a rewrite is told: its previous text and the scorer's hard errors and findings."""
     return {"previous_title": headline, "previous_paragraphs": list(paragraphs),
             "hard_errors": score["hard_errors"], "findings": score["findings"],
-            "weak_questions": [name for name in QUESTIONS if score["answers"][name] < SCORE_THRESHOLD]}
+            "weak_questions": _weak(score["answers"])}

@@ -10,7 +10,8 @@ import unittest
 from unittest.mock import patch
 
 import radar.newsroom_decisions as newsroom_decisions
-from radar.newsroom_decisions import (DESK_PROMPT_VERSION, SCORE_THRESHOLD, SCORER_VERSION, apply_decisions,
+from radar.newsroom_decisions import (DESK_PROMPT_VERSION, QUESTION_FLOOR, SCORE_THRESHOLD, SCORER_VERSION,
+                                      apply_decisions,
                                       load_decisions, prose_digest, score_passed, weighted_score)
 from radar import site_payload, story_pages
 from tests.test_publication import snapshot
@@ -132,13 +133,31 @@ class ScoringGateTests(unittest.TestCase):
         below = scored(desk_row("below"), JUST_UNDER)
         self.assertFalse(score_passed(below))
         with patch.object(newsroom_decisions, "SCORE_THRESHOLD", 7.8):
-            self.assertTrue(score_passed(below))
+            # meaning 7 is also under the per-question floor, so the total alone does not let it through ...
+            self.assertFalse(score_passed(below))
+            with patch.object(newsroom_decisions, "QUESTION_FLOOR", 7):
+                # ... and with both bars moved it passes: the site reads the named constants on every build.
+                self.assertTrue(score_passed(below))
         # A stored value that disagrees with its four answers is not trusted.
         inflated = deepcopy(below)
         inflated["score"]["value"] = 9.0
         self.assertFalse(score_passed(inflated))
         self.assertFalse(score_passed({**scored(desk_row("old")), "score": {**scored(desk_row("old"))["score"],
                                                                               "version": "cham-0"}}))
+
+    def test_one_question_below_the_floor_fails_however_high_the_total(self):
+        # The 06/11 18:00 Cainiao story: the scorer found its cause missing, and the weighted total still passed.
+        cainiao = {"what": 10, "why": 6, "notable": 10, "meaning": 9}
+        self.assertEqual(QUESTION_FLOOR, 8)
+        self.assertGreaterEqual(weighted_score(cainiao), SCORE_THRESHOLD)
+        row = scored(desk_row("cainiao"), cainiao)
+        self.assertFalse(score_passed(row))
+        self.assertEqual(apply_decisions(payload_with(["cainiao"]), {"decisions": [row]})["stories"], [])
+        at_floor = scored(desk_row("at-floor"), {"what": 8, "why": 8, "notable": 8, "meaning": 8})
+        self.assertTrue(score_passed(at_floor))
+        # The floor is one named constant: lowering it lets the same verdict through.
+        with patch.object(newsroom_decisions, "QUESTION_FLOOR", 6):
+            self.assertTrue(score_passed(row))
 
     def test_missing_malformed_or_future_decisions_hide_every_story(self):
         ids = ["passed", "other"]

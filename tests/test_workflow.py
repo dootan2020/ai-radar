@@ -61,7 +61,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("pages: write", legacy)
         self.assertIn("id-token: write", legacy)
         self.assertIn("CLOUDFLARE_PAGES_API_TOKEN is required", deploy)
-        self.assertLess(self.text.index("npx --yes wrangler@4 pages deploy site"),
+        self.assertLess(self.text.index("npx --yes wrangler@4 pages deploy cloudflare-site"),
                         self.text.index("deploy-legacy-redirects:"))
         self.assertNotIn("issues: write", self.text)
 

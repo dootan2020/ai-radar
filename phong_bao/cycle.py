@@ -14,7 +14,7 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 from radar.items import instant
-from radar.newsroom_decisions import SCORE_THRESHOLD, SCORER_VERSION, prose_digest, score_passed, weighted_score
+from radar.newsroom_decisions import SCORER_VERSION, answers_pass, prose_digest, score_passed, weighted_score
 
 from .discovery import discover_raw
 from .newsroom import (DEFAULT_CALL_TIMEOUT_SECONDS, DEFAULT_DESK_BUDGET_SECONDS, DEFAULT_RUN_BUDGET_SECONDS,
@@ -182,7 +182,7 @@ def _failed_verdict(row):
             or score.get("prose_sha256") != prose_digest(row.get("editorial_headline_vi"), row.get("key_points"))):
         return False
     value = weighted_score(score.get("answers"))
-    return value is not None and (bool(score["hard_errors"]) or value < SCORE_THRESHOLD)
+    return value is not None and not answers_pass(score["answers"], score["hard_errors"])
 
 
 def _rewrite_boats(folder, sid, tools):
