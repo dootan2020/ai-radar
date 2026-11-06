@@ -528,7 +528,7 @@ class WriterDeskTests(unittest.TestCase):
             return type("Completed", (), {"returncode": 0, "stdout": stdout, "stderr": ""})()
 
         tools = {tool["id"]: tool for tool in self.tools}
-        with patch("phong_bao.runner.subprocess.run", side_effect=fake_run), \
+        with patch("phong_bao.runner._run_cli", side_effect=fake_run), \
                 patch("phong_bao.runner.shutil.which", side_effect=lambda name: name):
             CLIRunner().run("writer", [{"id": SID}], tools["agy"], "instruction")
             CLIRunner().run("writer", [{"id": SID}], tools["codex"], "instruction")

@@ -5,6 +5,8 @@ that sleeps far past the per-call cap; no model, network or real boat CLI is cal
 """
 
 import json
+import os
+import subprocess
 import sys
 import tempfile
 import time
@@ -13,7 +15,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from phong_bao import newsroom
-from phong_bao.runner import BatchResult, CLIRunner
+from phong_bao.runner import BatchResult, CLIRunner, RunnerError
 
 STUB = str(Path(__file__).parent / "fixtures" / "phong-bao" / "slow-lane.py")
 CAP = 2
@@ -115,6 +117,39 @@ class TimeoutValueTest(unittest.TestCase):
                     newsroom.run(path, Path(temp) / "job", [], {}, CLIRunner(), through="reporter",
                                  call_timeout_seconds=7)
         self.assertEqual(seen.get("call_timeout"), 7)
+
+
+def alive(pid):
+    if os.name == "nt":
+        listing = subprocess.run(["tasklist", "/FI", f"PID eq {pid}", "/NH", "/FO", "CSV"], capture_output=True,
+                                 text=True, timeout=30).stdout
+        return f'"{pid}"' in listing
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    return True
+
+
+class ProcessTreeTest(unittest.TestCase):
+    HOLDER = str(Path(__file__).parent / "fixtures" / "phong-bao" / "pipe-holder.py")
+    GRANDCHILD_SECONDS = 45
+
+    def test_a_timeout_ends_a_grandchild_that_holds_the_pipes(self):
+        # Killing only the direct child leaves the grandchild holding stdout/stderr, and the call would wait
+        # GRANDCHILD_SECONDS for it instead of returning at the cap.
+        with tempfile.TemporaryDirectory() as temp:
+            pid_file = Path(temp) / "pids.txt"
+            provider = {**AGY, "argv": [sys.executable, self.HOLDER, str(pid_file), str(self.GRANDCHILD_SECONDS)]}
+            started = time.monotonic()
+            with self.assertRaises(RunnerError) as caught:
+                CLIRunner().run("writer", [{"id": "s1"}], provider, "Return JSON", timeout=CAP)
+            elapsed = time.monotonic() - started
+            pids = [int(line) for line in pid_file.read_text(encoding="utf-8").split()]
+        self.assertIsInstance(caught.exception.__cause__, subprocess.TimeoutExpired)
+        self.assertEqual(len(pids), 2)
+        self.assertLess(elapsed, CAP + 8)
+        self.assertEqual([pid for pid in pids if alive(pid)], [])
 
 
 if __name__ == "__main__":

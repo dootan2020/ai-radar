@@ -182,7 +182,7 @@ class NewsroomTests(unittest.TestCase):
         stderr = (diagnostics["codex_echo"]["stderr_prefix"] + echoed_prompt +
                   diagnostics["codex_echo"]["stderr_suffix"])
         completed = type("Completed", (), {"returncode": 0, "stdout": codex_events, "stderr": stderr})()
-        with patch("phong_bao.runner.subprocess.run", return_value=completed) as command:
+        with patch("phong_bao.runner._run_cli", return_value=completed) as command:
             result = CLIRunner().run("reporter", [row], codex, instruction)
         self.assertEqual(result.rows, [{"id": "story-1", "ok": True}])
         self.assertEqual(result.usage["source"], "cli")
@@ -194,7 +194,7 @@ class NewsroomTests(unittest.TestCase):
         agy_stderr = (diagnostics["agy_echo"]["stderr_prefix"] + echoed_prompt +
                       diagnostics["agy_echo"]["stderr_suffix"])
         completed = type("Completed", (), {"returncode": 0, "stdout": agy_output, "stderr": agy_stderr})()
-        with patch("phong_bao.runner.subprocess.run", return_value=completed):
+        with patch("phong_bao.runner._run_cli", return_value=completed):
             result = CLIRunner().run("reporter", [row], agy, instruction)
         self.assertEqual(result.rows, [{"id": "story-1", "ok": True}])
 
@@ -206,7 +206,7 @@ class NewsroomTests(unittest.TestCase):
         failed_events = "\n".join(json.dumps(event) for event in diagnostics["codex_admission"]["events"])
         completed = type("Completed", (), {"returncode": 1, "stdout": failed_events,
                                              "stderr": "Codex execution failed"})()
-        with patch("phong_bao.runner.subprocess.run", return_value=completed):
+        with patch("phong_bao.runner._run_cli", return_value=completed):
             with self.assertRaisesRegex(AdmissionError, "sign-in required") as caught:
                 CLIRunner().run("reporter", [row], codex, "Analyze this story")
         self.assertNotIn("subscribe", str(caught.exception))
@@ -214,7 +214,7 @@ class NewsroomTests(unittest.TestCase):
 
         completed = type("Completed", (), {"returncode": 1, "stdout": "",
                                              "stderr": diagnostics["agy_admission"]["stderr"]})()
-        with patch("phong_bao.runner.subprocess.run", return_value=completed):
+        with patch("phong_bao.runner._run_cli", return_value=completed):
             with self.assertRaisesRegex(AdmissionError, "sign-in required") as caught:
                 CLIRunner().run("reporter", [row], agy, "Analyze this story")
         self.assertNotIn("subscribe", str(caught.exception))
@@ -237,7 +237,7 @@ class NewsroomTests(unittest.TestCase):
                                              "stderr": "Codex execution failed"})()
         with tempfile.TemporaryDirectory() as directory:
             job = Path(directory) / "job"
-            with patch("phong_bao.runner.subprocess.run", return_value=completed):
+            with patch("phong_bao.runner._run_cli", return_value=completed):
                 with self.assertRaisesRegex(AdmissionError, "sign-in required"):
                     run(FIXTURES / "snapshot.json", job, self.tools, self.discovery,
                         CLIRunner(), through="reporter", articles=self.articles)

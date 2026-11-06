@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import shutil
+import signal
 import subprocess
 import tempfile
 from dataclasses import dataclass
+
+# How long to wait for the pipes to close after a timed-out CLI's process tree was ended.
+DRAIN_SECONDS = 10
 
 
 class RunnerError(RuntimeError):
@@ -120,6 +125,49 @@ def _codex_events(stdout):
     return (messages[-1] if messages else ""), usage, "\n".join(errors)
 
 
+def _end_tree(process):
+    """End a CLI and every process it started.
+
+    subprocess.run kills only the direct child on timeout and then waits for the pipes to close; a grandchild that
+    inherited them (codex's npm .cmd shim runs node; agy starts MCP helper processes) would keep it waiting.
+    """
+    if os.name == "nt":
+        try:
+            subprocess.run(["taskkill", "/PID", str(process.pid), "/T", "/F"], capture_output=True,
+                           timeout=DRAIN_SECONDS, check=False)
+        except (OSError, subprocess.TimeoutExpired):
+            pass
+    else:
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            pass
+    try:
+        process.kill()
+    except OSError:
+        pass
+
+
+def _run_cli(argv, *, input, timeout, cwd):
+    """Run one boat CLI; on timeout end its whole process tree and raise subprocess.TimeoutExpired."""
+    options = {} if os.name == "nt" else {"start_new_session": True}
+    process = subprocess.Popen(argv, stdin=subprocess.PIPE if input is not None else None, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE, text=True, cwd=cwd, **options)
+    try:
+        stdout, stderr = process.communicate(input, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        _end_tree(process)
+        try:
+            process.communicate(timeout=DRAIN_SECONDS)
+        except subprocess.TimeoutExpired:
+            pass  # a process outside the tree still holds the pipes; give up on its output
+        raise
+    except BaseException:
+        _end_tree(process)
+        raise
+    return subprocess.CompletedProcess(argv, process.returncode, stdout, stderr)
+
+
 class CLIRunner:
     def run(self, desk, rows, provider, instruction, *, timeout=600):
         if provider.get("runner") != "batch-cli":
@@ -133,9 +181,8 @@ class CLIRunner:
         # agy's helper can still hold the directory for a moment after exit (measured); never fail the batch on it.
         with tempfile.TemporaryDirectory(prefix="phong-bao-", ignore_cleanup_errors=True) as empty:
             try:
-                result = subprocess.run(argv, input=prompt if provider.get("prompt_transport") == "stdin" else None,
-                                        capture_output=True, text=True, timeout=timeout, check=False,
-                                        cwd=None if provider["id"] == "codex" else empty)
+                result = _run_cli(argv, input=prompt if provider.get("prompt_transport") == "stdin" else None,
+                                  timeout=timeout, cwd=None if provider["id"] == "codex" else empty)
             except (OSError, subprocess.TimeoutExpired) as error:
                 raise RunnerError(f"{provider['id']} CLI unavailable or timed out") from error
         if provider["id"] == "codex":
