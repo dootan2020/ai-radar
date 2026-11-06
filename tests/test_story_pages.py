@@ -8,6 +8,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from tests.site_gate import close_gate as tearDownModule, open_gate as setUpModule  # noqa: F401
 
 from radar.story_pages import (
     BASE_URL, CONTENT_SECURITY_POLICY, REF, SITE_NAME, persist, prepare,

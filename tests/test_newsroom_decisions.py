@@ -4,6 +4,7 @@ from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -11,7 +12,7 @@ from unittest.mock import patch
 import radar.newsroom_decisions as newsroom_decisions
 from radar.newsroom_decisions import (DESK_PROMPT_VERSION, SCORE_THRESHOLD, SCORER_VERSION, apply_decisions,
                                       load_decisions, prose_digest, score_passed, weighted_score)
-from radar import site_payload
+from radar import site_payload, story_pages
 from tests.test_publication import snapshot
 
 READER_FILES = ("radar.json", "radar-ui.json", "radar-window.json", "radar-head.json", "radar-search.json")
@@ -76,6 +77,18 @@ def reader_ids(target):
         for section, ids in (data.get("sections") or {}).items():
             found[f"{name}:{section}"] = list(ids)
     return found
+
+
+def story_page_kinds(site):
+    """Each /tin/<id>/ page: "story" for a story page; redirect pages listed by the story ID they point to."""
+    kinds = {"redirects": set()}
+    for page in (Path(site) / "tin").iterdir():
+        text = (page / "index.html").read_text(encoding="utf-8")
+        if 'http-equiv="refresh"' in text:
+            kinds["redirects"].add(text.split('rel="canonical" href="')[1].split("/tin/")[1].split("/")[0])
+        else:
+            kinds[page.name] = "story"
+    return kinds
 
 
 class ScoringGateTests(unittest.TestCase):
@@ -155,6 +168,48 @@ class ScoringGateTests(unittest.TestCase):
                 site_payload.write_site_snapshot(payload_with(ids), target)
             for name in READER_FILES:
                 self.assertEqual(reader_ids(target)[name], ["passed"], name)
+
+    def test_story_pages_exist_only_for_passed_stories_including_archived_ones(self):
+        template = reader_fixture()["stories"][0]
+        archived = {sid: {**deepcopy(template), "id": sid} for sid in
+                    ("passed", "unscored", "held", "archived-only", "to-unscored", "to-passed")}
+        archived["archived-only"]["key_points"] = ["Văn bản cũ chưa từng được chấm."]
+        archived["passed"]["key_points"] = ["Văn bản cũ trong kho lưu."]
+        archived["to-unscored"]["redirect_to"] = "unscored"
+        archived["to-passed"]["redirect_to"] = "passed"
+        decisions = {"decisions": [scored(desk_row("passed")), desk_row("unscored", score=None),
+                                   {**scored(desk_row("held")), "decision": "hold"}]}
+        with tempfile.TemporaryDirectory() as directory:
+            site = Path(directory) / "site"
+            self.assertEqual(story_pages.render_site(deepcopy(archived), site, decisions=decisions), 1)
+            # Story pages: only "passed"; every other page is a redirect to it ("to-passed", coverage aliases).
+            self.assertEqual(story_page_kinds(site), {"passed": "story", "redirects": {"passed"}})
+            page = (site / "tin" / "passed" / "index.html").read_text(encoding="utf-8")
+            self.assertIn(decisions["decisions"][0]["key_points"][0], page)
+            self.assertNotIn("Văn bản cũ trong kho lưu.", page)
+            sitemap = (site / "sitemap.xml").read_text(encoding="utf-8")
+            self.assertIn("/tin/passed/", sitemap)
+            for sid in ("unscored", "held", "archived-only", "to-unscored"):
+                self.assertNotIn(f"/tin/{sid}/", sitemap)
+            # No decisions: no page at all, and a sitemap without story URLs.
+            self.assertEqual(story_pages.render_site(deepcopy(archived), site, decisions=None), 0)
+            self.assertEqual([path.name for path in (site / "tin").iterdir()], [])
+            self.assertNotIn("/tin/", (site / "sitemap.xml").read_text(encoding="utf-8"))
+
+    def test_story_page_build_reads_the_same_decisions_file(self):
+        rows = [scored(desk_row("passed")), desk_row("unscored", score=None)]
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            remote = base / "stories.git"
+            subprocess.run(["git", "init", "--bare", "--quiet", str(remote)], check=True, capture_output=True)
+            source = base / "radar.json"
+            source.write_text(json.dumps(payload_with(["passed", "unscored"]), ensure_ascii=False), encoding="utf-8")
+            for name, choice in (("with", decisions_file(base, rows)), ("missing", base / "missing.json")):
+                site = base / name / "site"
+                with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice)}):
+                    story_pages.prepare(str(remote), source, site, base / name / "candidate")
+                expected = {"passed": "story", "redirects": {"passed"}} if name == "with" else {"redirects": set()}
+                self.assertEqual(story_page_kinds(site), expected, name)
 
     def test_tiers_of_passed_stories_are_kept_unless_capping_is_enabled(self):
         payload = payload_with(["passed"])

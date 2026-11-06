@@ -16,7 +16,7 @@ from radar.catalog import is_retired
 from radar.clustering import canonical_url
 from radar.common import stable_id
 from radar.items import publisher_identity
-from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE
+from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE, desk_summary, load_decisions
 from radar.site_config import SITE_BASE_URL
 
 BASE_URL = SITE_BASE_URL
@@ -378,8 +378,33 @@ def reader_story(story):
                 source_count=len({publisher_identity(item) or item.get("source") for item in kept}))
 
 
-def render_site(stories, site, base_url=BASE_URL, sources=None):
-    """Write exactly the archived story pages and matching sitemap."""
+def gated_stories(stories, decisions):
+    """The archived stories a reader may open, by ID: the same scoring gate as the site snapshot.
+
+    A story page exists only for a decision whose desk prose the scoring desk passed
+    (radar.newsroom_decisions.desk_summary), and it shows exactly that prose, whatever text the archive kept. A
+    redirect stays only when its chain ends at such a page. No decisions (None) means no page at all. The archive
+    itself is untouched: a story that passes later gets its page back.
+    """
+    rows = {row["id"]: row for row in decisions["decisions"]} if decisions is not None else {}
+    shown = {}
+    for story_id, story in stories.items():
+        written = None if story.get("redirect_to") else desk_summary(rows.get(story_id))
+        if written is not None:
+            shown[story_id] = {**story, **written}
+    for story_id, story in stories.items():
+        target, seen = story, {story_id}
+        while target.get("redirect_to") and target["redirect_to"] not in seen:
+            seen.add(target["redirect_to"])
+            target = stories.get(target["redirect_to"], {})
+        if story.get("redirect_to") and not target.get("redirect_to") and target.get("id") in shown:
+            shown[story_id] = story
+    return shown
+
+
+def render_site(stories, site, base_url=BASE_URL, sources=None, decisions=None):
+    """Write exactly the archived story pages that passed the scoring gate, and the matching sitemap."""
+    stories = gated_stories(stories, decisions)
     stories = {story_id: shown for story_id, shown in
                ((story_id, reader_story(story)) for story_id, story in stories.items()) if shown is not None}
     site = Path(site)
@@ -569,7 +594,8 @@ def prepare(remote, input_path, site, candidate, base_url=BASE_URL):
         _write_bytes(candidate / "manifest.json", _json_bytes({"schema_version": 1,
                                                                 "base_commit": base}))
         stories = {story_id: json.loads(content) for story_id, content in records.items()}
-        count = render_site(stories, site, base_url, source_records)
+        # The same decisions file the site snapshot used (fetched before the build): pages fail closed with it.
+        count = render_site(stories, site, base_url, source_records, load_decisions())
         if _archive_files(candidate_archive) != records:
             raise RuntimeError("Story candidate read-back failed")
     return {"count": count, "elapsed_seconds": time.perf_counter() - started,

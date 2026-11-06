@@ -1138,11 +1138,13 @@ def _published_prose(output, inputs):
 
 
 def _writer(stories, intake, reporter, editor, articles, tools, discovery, runner, now, raw_dir=None, deadline=None,
-            call_timeout=None, *, reviews=None, scorer_budget_seconds=DEFAULT_SCORER_BUDGET_SECONDS, run_deadline=None):
+            call_timeout=None, *, reviews=None, prior_boats=None, scorer_budget_seconds=DEFAULT_SCORER_BUDGET_SECONDS,
+            run_deadline=None):
     """Draft 3-4 short Vietnamese paragraphs for recent publishable stories, then have them scored.
 
     reviews maps a story ID to a scoring desk's review of an earlier draft (scoring.review_request); that story is
-    written again with it. Every prose that passes the sentence checks goes to the scoring desk (_score_prose) on a
+    written again with it, and prior_boats names the boats that wrote that draft: the rewrite may keep their words,
+    so its scorer must be none of them. Every prose that passes the sentence checks goes to the scoring desk (_score_prose) on a
     boat that wrote none of it; a story that fails gets one rewrite with the scorer's findings while the writer
     deadline allows, and that rewrite is scored again. Only prose whose verdict passed is shown on the site.
     """
@@ -1333,6 +1335,8 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
                 boats.add(edited_replies[sid].get("boat"))
             elif str(paths.get(sid)).endswith("_after_rewrite"):
                 boats.add(rewrite_boats.get(sid))
+            if sid in reviews:
+                boats |= set((prior_boats or {}).get(sid) or ())
         finals[sid] = {"valid": valid, "dropped": dropped, "error": error, "inputs": publication_inputs,
                        "invalid_response": invalid_response, "boats": boats}
     verdicts, score_rewrites = _scoring_stage(finals, inputs_by_id, evidence_by_id, tools, discovery, runner, usage,
@@ -1467,8 +1471,10 @@ def _scoring_stage(finals, inputs_by_id, evidence_by_id, tools, discovery, runne
         audit[sid] = {"first_reason": verdicts[sid]["reason"], "first_score": verdicts[sid]["score"],
                       "result": "written" if checked[0] else checked[2]}
         if checked[0]:
+            # The rewrite was told to keep what the review did not fault, so the failed draft's boats still have
+            # words in it: the next reading must be on none of them either.
             revised[sid] = {"valid": checked[0], "dropped": checked[1], "error": None, "inputs": inputs_by_id[sid],
-                            "invalid_response": False, "boats": {answer.get("boat")}}
+                            "invalid_response": False, "boats": written[sid]["boats"] | {answer.get("boat")}}
     if revised:
         again, events = _score_prose({sid: packet(sid, row) for sid, row in revised.items()},
                                      {sid: row["boats"] for sid, row in revised.items()}, tools, discovery, runner,

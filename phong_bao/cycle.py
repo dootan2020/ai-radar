@@ -178,6 +178,7 @@ def _failed_verdict(row):
     score = row.get("score")
     if (not isinstance(score, dict) or score.get("version") != SCORER_VERSION
             or not isinstance(score.get("hard_errors"), list) or not isinstance(score.get("findings"), list)
+            or not isinstance(score.get("writer_boats"), list) or not score["writer_boats"]
             or score.get("prose_sha256") != prose_digest(row.get("editorial_headline_vi"), row.get("key_points"))):
         return False
     value = weighted_score(score.get("answers"))
@@ -279,8 +280,10 @@ def writer_retries(old, stories, cycles_dir, now, *, current=None, limit=WRITER_
             continue
         candidate = {"id": sid, "mode": "write", "story": story, "cycle": path.name, "published": published, **rows}
         if row["summary"] == "written":
+            # The rewrite may keep the failed prose's words, so its scorer must avoid those boats too.
             candidate.update(mode="rewrite", review=review_request(row["score"], row["editorial_headline_vi"],
-                                                                    row["key_points"]))
+                                                                    row["key_points"]),
+                             prior_boats=list(row["score"]["writer_boats"]))
         writes.append(candidate)
     newest = lambda row: (row["published"], row["id"])  # noqa: E731
     writes.sort(key=newest, reverse=True)
@@ -310,6 +313,7 @@ def _retry_writer(candidates, decisions, job_dir, tools, discovery, runner, arti
                                 articles or Articles(), tools, discovery, runner, now, retry_dir / "raw", deadline,
                                 call_timeout=call_timeout,
                                 reviews={row["id"]: row["review"] for row in writes if row["mode"] == "rewrite"},
+                                prior_boats={row["id"]: row["prior_boats"] for row in writes if row["mode"] == "rewrite"},
                                 scorer_budget_seconds=scorer_budget_seconds, run_deadline=run_deadline)
     # Only the first writer pass decides whether a story reached a model; later passes record their own desk.
     cut = {sid for row in usage if "desk" not in row and row.get("event") in {"budget_exhausted", "writer_unavailable"}

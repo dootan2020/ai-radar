@@ -41,8 +41,9 @@ class Recording(FixtureRunner):
 
     def run(self, desk, rows, provider, instruction):
         self.calls.append((desk, provider.get("boat"), deepcopy(rows), instruction))
-        if desk in self.fail:
-            raise self.fail[desk]
+        for key in (desk, (desk, provider.get("boat"))):
+            if key in self.fail:
+                raise self.fail[key]
         return super().run(desk, rows, provider, instruction)
 
     def desks(self):
@@ -183,6 +184,30 @@ class ScoringDeskTests(unittest.TestCase):
         self.assertEqual(verdict(packet, {**reply(), "boat": "agy"}, {"agy"})["reason"], "scorer_same_boat")
         self.assertEqual(verdict(packet, {**reply(), "boat": "codex"}, set())["reason"], "writer_boat_unknown")
 
+    def test_a_rewrite_on_another_boat_keeps_every_writing_boat_away_from_the_scorer(self):
+        # agy drafts, codex scores it below the bar, agy fails the review rewrite so codex writes it, keeping
+        # what the review did not fault: both agy and codex have words in the final text.
+        replies = {"writer": {SID: deepcopy(PROSE)}, "scorer": {SID: reply(scores=(9, 9, 5, 8), findings=[FINDING])},
+                   "review-writer": {SID: deepcopy(PROSE)}, "rescorer": {SID: reply()}}
+        fail = {("review-writer", "agy"): RunnerError("agy call failed")}
+        row, decision, runner, _ = self.write(replies, fail=fail)
+        self.assertEqual(runner.desks(), [("writer", "agy"), ("scorer", "codex"), ("review-writer", "agy"),
+                                          ("review-writer", "codex")])
+        # No boat outside agy and codex has fuel here, so no second reading happens and the story stays hidden.
+        self.assertEqual((row["score_state"], row["writer_boats"]), ("unscored", ["agy", "codex"]))
+        self.assertEqual(self.shown(decision), [])
+        # With measured claude fuel, the second reading goes to claude, never to agy or codex.
+        claude = {**DISCOVERY, "commands": [*DISCOVERY["commands"], "claude"], "fuel": "claude: CÒN 40%"}
+        row, decision, runner, _ = self.write(replies, fail=fail, discovery=claude)
+        self.assertEqual(runner.desks()[-1], ("rescorer", "claude"))
+        self.assertEqual(decision["score"]["writer_boats"], ["agy", "codex"])
+        self.assertEqual(self.shown(decision), [SID])
+        # A verdict from agy on that text never passes on the site, whatever it says.
+        forged = deepcopy(decision)
+        forged["score"]["scorer_boat"] = "agy"
+        self.assertFalse(score_passed(forged))
+        self.assertEqual(self.shown(forged), [])
+
 
 class ScoringRetryTests(unittest.TestCase):
     """Prose a scorer has not passed is scored again, or written again with its findings, by a later cycle."""
@@ -256,6 +281,34 @@ class ScoringRetryTests(unittest.TestCase):
         self.assertEqual(status["writer_retry"]["written"], 1)
         self.assertEqual(status["writer_retry"]["passed"], 1)
         self.assertTrue(score_passed(self.by_id()["weak"]))
+
+    def test_a_retry_rewrite_on_another_boat_is_never_scored_by_the_failed_drafts_boat(self):
+        self.stored_cycle(NOW, {"weak": (2, 2)}, written=("weak",))
+        rows = self.by_id()
+        packet = scorer_packet("weak", [], rows["weak"]["editorial_headline_vi"], rows["weak"]["key_points"])
+        failed = verdict(packet, {**reply("weak", scores=(9, 9, 5, 8), findings=[FINDING]), "boat": "codex",
+                                  "provider": "codex"}, {"agy"})
+        rows["weak"]["score"] = failed["score"]
+        self.write_decisions(list(rows.values()))
+
+        class AgyDown(Lane):
+            """agy fails the writer, so codex rewrites the agy draft; every call is recorded with its boat."""
+
+            def run(self, desk, rows, provider, instruction):
+                self.boats = getattr(self, "boats", []) + [(desk, provider["boat"])]
+                if desk == "writer" and provider["boat"] == "agy":
+                    raise RunnerError("agy call failed")
+                return super().run(desk, rows, provider, instruction)
+
+        lane = AgyDown({"writer": {"weak": prose("weak")}, "scorer": {"weak": reply("weak")}})
+        self.next_cycle(LATER, lane)
+        self.assertIn(("writer", "codex"), lane.boats)
+        self.assertNotIn(("scorer", "agy"), lane.boats)
+        self.assertNotIn(("scorer", "codex"), lane.boats)
+        retry = json.loads((self.cycles / stamp(LATER) / "viet-bu" / "writer.json").read_text(encoding="utf-8"))
+        self.assertEqual(retry["weak"]["writer_boats"], ["agy", "codex"])
+        self.assertEqual(retry["weak"]["score_state"], "unscored")
+        self.assertFalse(score_passed(self.by_id()["weak"]))
 
     def test_a_story_whose_scorer_keeps_failing_stops_after_two_score_attempts(self):
         self.stored_cycle(NOW, {"stuck": (2, 2)}, written=("stuck",))
