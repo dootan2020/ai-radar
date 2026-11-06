@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-06",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-04T23:00:00Z",
+  "cutoff_at": "2026-11-05T23:00:00Z",
+  "created_at": "2026-11-06T00:23:09Z",
+  "snapshot_generated_at": "2026-11-06T00:19:33Z",
+  "policy": {
+    "method": "daily-evidence-v2",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-06T00:19:33Z",
+    "description": "Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"
+  },
+  "stories": [
+    {
+      "id": "5d8706e1aecfa46642db",
+      "title": "OpenAI looks to make data centers more palatable",
+      "title_vi": "OpenAI có thể làm cho các trung tâm dữ liệu dễ chịu hơn",
+      "headline": "OpenAI looks to make data centers more palatable",
+      "headline_vi": "OpenAI có thể làm cho các trung tâm dữ liệu dễ chịu hơn",
+      "url": "https://www.semafor.com/article/11/05/2026/openai-looks-to-make-data-centers-more-palatable",
+      "published_at": "2026-11-05T22:28:34Z",
+      "kind": "other",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "0a2a981b568bca824da1",
+          "title": "OpenAI to Change How It Handles Data Center Efforts After Outcry",
+          "title_vi": "OpenAI sẽ thay đổi cách xử lý các nỗ lực trung tâm dữ liệu sau khi phản đối",
+          "headline": "OpenAI to Change How It Handles Data Center Efforts After Outcry",
+          "headline_vi": "OpenAI sẽ thay đổi cách xử lý các nỗ lực trung tâm dữ liệu sau khi phản đối",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-05/openai-to-change-how-it-handles-data-center-efforts-after-outcry",
+          "published_at": "2026-11-05T10:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-05T13:20:37Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "aa23d772b7794851e758",
+          "title": "OpenAI looks to make data centers more palatable",
+          "title_vi": "OpenAI có thể làm cho các trung tâm dữ liệu dễ chịu hơn",
+          "headline": "OpenAI looks to make data centers more palatable",
+          "headline_vi": "OpenAI có thể làm cho các trung tâm dữ liệu dễ chịu hơn",
+          "url": "https://www.semafor.com/article/11/05/2026/openai-looks-to-make-data-centers-more-palatable",
+          "published_at": "2026-11-05T22:28:34Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-06T00:19:33Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "semafor"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 0.5239,
+          "hot_score": 58.385,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "f66d8f2942889cef95d9",
+      "title": "Muse has a voice mode now",
+      "title_vi": "Muse đã có chế độ giọng nói bây giờ",
+      "headline": "Muse has a voice mode now",
+      "headline_vi": "Muse đã có chế độ giọng nói bây giờ",
+      "url": "https://www.theverge.com/tech/1028015/meta-muse-ai-voice-mode-expressive-avatar",
+      "published_at": "2026-11-05T19:03:04Z",
+      "kind": "product",
+      "time_basis": "published",
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "5dff44e8ff9a9f755d66",
+          "title": "Meta says US users can now video chat with their Muse AI avatar",
+          "title_vi": "Meta nói rằng người dùng Mỹ bây giờ có thể trò chuyện video với avatar Muse AI của họ",
+          "headline": "Meta says US users can now video chat with their Muse AI avatar",
+          "headline_vi": "Meta nói rằng người dùng Mỹ bây giờ có thể trò chuyện video với avatar Muse AI của họ",
+          "url": "https://techcrunch.com/2026/11/05/meta-says-us-users-can-now-video-chat-with-their-muse-ai-avatar/",
+          "published_at": "2026-11-05T19:48:28Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-06T00:19:33Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "49c5b6fea526252dabc8",
+          "title": "Muse has a voice mode now",
+          "title_vi": "Muse đã có chế độ giọng nói bây giờ",
+          "headline": "Muse has a voice mode now",
+          "headline_vi": "Muse đã có chế độ giọng nói bây giờ",
+          "url": "https://www.theverge.com/tech/1028015/meta-muse-ai-voice-mode-expressive-avatar",
+          "published_at": "2026-11-05T19:03:04Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-06T00:19:33Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 3.9489,
+          "hot_score": 56.904,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 101,
+    "successful_remote_sources": 100,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
