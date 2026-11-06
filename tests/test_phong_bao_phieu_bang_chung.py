@@ -272,6 +272,16 @@ class EvidenceSheetTests(unittest.TestCase):
             self.assertEqual([d["error"] for d in row["dropped_points"]],
                              [] if why["quote"] else ["cause_not_in_source"])
 
+    def test_a_reason_given_with_amid_is_the_sources_reason(self):
+        reason = "Amid concerns over privacy, Orbit Labs keeps voice recordings on the phone instead of its servers."
+        page = "\n".join(BODY + [reason] + FURNITURE)
+        reply = deepcopy(REPLY)
+        reply["paragraphs"][1]["sentences"].append(sentence(
+            "Orbit Labs lưu bản ghi giọng nói trên điện thoại thay vì máy chủ vì lo ngại quyền riêng tư.", "outlet:p009"))
+        row, _ = self.write(reply, page=page)
+        self.assertEqual((row["sheet_path"], row["dropped_points"]), ("sheet", []))
+        self.assertIn("quyền riêng tư", row["key_points"][1])
+
     def test_a_title_with_an_invented_motive_falls_back_to_mains_title_check(self):
         reply = deepcopy(REPLY)
         reply["title_vi"] = sentence("Orbit Labs thêm giọng nói cho Lumo, bước chuẩn bị đưa tác tử lên kính thông minh",
@@ -404,6 +414,12 @@ class ArticleBodyTests(unittest.TestCase):
         closing = "Orbit Labs said more languages will follow next month."
         page = "\n".join([*BODY, "Related", "Orbit Labs launches Lumo", closing, *FURNITURE])
         self.assertEqual(article_body(page), "\n".join([*BODY, "Orbit Labs launches Lumo", closing]))
+
+    def test_a_short_closing_paragraph_after_a_related_articles_heading_stays(self):
+        # Codex's round-2 review: "Related articles" still ended the body there.
+        closing = "Orbit Labs said more languages will follow next month."
+        page = "\n".join([*BODY, "Related articles", closing, *FURNITURE])
+        self.assertEqual(article_body(page), "\n".join([*BODY, closing]))
 
     def test_a_sentence_that_opens_with_read_more_is_body(self):
         sentence_line = "Read more about the voice research in the company's paper, which it published in May."

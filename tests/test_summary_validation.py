@@ -78,6 +78,16 @@ class TeachingPurposeTests(unittest.TestCase):
         self.assertEqual(attribution_error("Rivera mở kênh YouTube nhằm hướng dẫn lập trình viên.", [channel]),
                          "unsupported_purpose")
 
+    def test_a_teaching_paragraph_supports_no_other_purpose(self):
+        # Codex's round-2 review: the paragraph teaches, the claimed purpose is revenue.
+        academy = ("The academy teaches students how to write code, and its app opened a paid tier this month.",
+                   "outlet")
+        self.assertEqual(attribution_error("Ứng dụng mở gói trả phí nhằm tăng doanh thu.", [academy]),
+                         "unsupported_purpose")
+        self.assertEqual(attribution_error("Học viện mở lớp nhằm dạy lập trình và nhằm tăng doanh thu.", [academy]),
+                         "unsupported_purpose")
+        self.assertIsNone(attribution_error("Học viện mở lớp nhằm dạy sinh viên cách viết mã.", [academy]))
+
 
 class AttributionTests(unittest.TestCase):
     def test_a_remark_in_the_outlets_voice_cannot_be_given_to_the_company(self):

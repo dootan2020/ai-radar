@@ -141,12 +141,13 @@ ARTICLE_LIMIT = 8000
 # paragraphs and its headline figure was published as the story's own.
 # A page-level block heading: the body ends here unless a long paragraph follows.
 BODY_END = re.compile(
-    r"(?:more in:|more from\b|most popular|most read|related (?:articles|stories|posts|coverage|content|reading)"
-    r"|recommended (?:for you|stories|reading)|you (?:may|might) also like|trending(?: now| stories)?:?$"
+    r"(?:more in:|more from\b|most popular|most read|recommended (?:for you|stories|reading)|you (?:may|might) also like|trending(?: now| stories)?:?$"
     r"|follow topics and authors|categories:|tags:|topics:$|share this|advertiser content|about the author)", re.I)
 # A link label that also appears inside articles ("Related: ...", "Read more: ..."): only its own line goes. A
 # sentence that merely opens with the words ("Read more about the study in Nature.") is body.
-BODY_LINK = re.compile(r"(?:related|read more|read next|up next|comments|newsletter|recommended)\s*(?::.*)?", re.I)
+# "Related articles" sits inside articles as often as below them, so it is a label too.
+BODY_LINK = re.compile(r"(?:related(?: articles| stories| posts| coverage| content| reading)?|read more|read next"
+                       r"|up next|comments|newsletter|recommended)\s*(?::.*)?", re.I)
 # A heading line is short; Verge's "Follow topics and authors from this story ..." line is the one long one.
 BODY_END_MAX_WORDS = 12
 # A paragraph this long after a block heading means the article goes on.
@@ -842,7 +843,7 @@ CAUSE_EN = re.compile(r"\b(?:because|due to|owing to|thanks to|as a result|resul
                       r"|leading to|caus(?:e|es|ed|ing)|reasons?|why|driven by|drives?|motivat\w*|prompt(?:s|ed)"
                       r"|in response to|therefore|thus|hence|given that|in order to|so (?:that|as to)|aim(?:s|ed)?"
                       r"|goals?|purpose|intend(?:s|ed)?|designed to|meant to|in a bid to|in an effort to"
-                      r"|want(?:s|ed)? to|hop(?:e|es|ed) to|to help|strategy)\b", re.I)
+                      r"|want(?:s|ed)? to|hop(?:e|es|ed) to|to help|strategy|amid|concerns? (?:over|about))\b", re.I)
 
 
 def _body_paragraphs(inputs):

@@ -361,11 +361,16 @@ PURPOSE_EN = re.compile(
     r"|allow(?:s|ed|ing)?|let(?:s|ting)?|enabl(?:e|es|ed|ing)|used to|to ensure|to make sure|to prevent"
     r"|to protect|to avoid|to stay|to keep|to compete|to reduce|to cut|to save|to free|to focus|to boost"
     r"|to improve|to maximi[sz]e|to minimi[sz]e|for the purpose"
-    r"|help(?:s|ed|ing)? (?:you|users?|people|developers|companies|customers)"
-    # Teaching stated as what a place or effort is for: "YouTube, where he's built a following teaching curious
-    # thousands how to build ..." (06/11: the sentence carrying that point was removed as an invented purpose).
-    r"|(?:teach|show|train|coach|guid|educat)(?:es|ing|ed|e|s)?\s+(?:[\w’'-]+\s+){0,3}how to"
-    r"|to (?:teach|train|educate))\b", re.I)
+    r"|help(?:s|ed|ing)? (?:you|users?|people|developers|companies|customers))\b", re.I)
+# Teaching stated as what a place or effort is for: "YouTube, where he's built a following teaching curious
+# thousands how to build ..." (06/11: the sentence carrying that point was removed as an invented purpose). It
+# supports only a purpose that is itself teaching ("nhằm hướng dẫn", "nhằm đào tạo"), never any purpose in the
+# same sentence: a paragraph about an academy teaching coding does not support "nhằm tăng doanh thu".
+TEACHING_EN = re.compile(r"\b(?:(?:teach|show|train|coach|guid|educat)(?:es|ing|ed|e|s)?\s+(?:[\w’'-]+\s+){0,3}how to"
+                         r"|to (?:teach|train|educate))\b", re.I)
+TEACHING_PURPOSE_VI = re.compile(r"(?<!\w)(?:nhằm|với mục đích|mục đích (?:là|của)|với mục tiêu|mục tiêu là"
+                                 r"|đặt mục tiêu)\s+(?:\S+\s+){0,2}?(?:dạy|hướng dẫn|đào tạo|giảng dạy|huấn luyện"
+                                 r"|chỉ cách)(?!\w)", re.I)
 # Reporting verbs: a sentence that has one names a speaker or a finding.
 SAYING_VI = (r"cho biết|cho rằng|cho thấy|cho hay|nhận định|nhận xét|nhận thấy|thấy rằng|khẳng định|tuyên bố"
              r"|ước tính|dự báo|cảnh báo|tiết lộ|thừa nhận|lập luận|đánh giá|phát hiện|kết luận|công bố|thông báo"
@@ -555,7 +560,11 @@ def attribution_error(text, cited):
     cited = [(paragraph, publisher) for paragraph, publisher, *_ in cited]
     paragraphs = [paragraph for paragraph, _ in cited]
     if PURPOSE_VI.search(text) and not any(PURPOSE_EN.search(p) for p in paragraphs):
-        return "unsupported_purpose"
+        # Every purpose the sentence states must be teaching for a teaching paragraph to support it.
+        teaching = (len(TEACHING_PURPOSE_VI.findall(text)) == len(PURPOSE_VI.findall(text))
+                    and any(TEACHING_EN.search(p) for p in paragraphs))
+        if not teaching:
+            return "unsupported_purpose"
     judgement = bool(JUDGEMENT_VI.search(NOT_JUDGEMENT.sub(" ", text)))
     speakers = _speakers(text)
     for speaker in speakers:
