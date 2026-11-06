@@ -175,7 +175,8 @@ class WriterDeskTests(unittest.TestCase):
         long["paragraphs"][1]["sentences"] = [sentence(
             f"Cách làm thứ {word} này nối luật mô phỏng viết bằng mã với bộ dựng hình bằng mạng nơ-ron.", "outlet:p001")
             for word in ("nhất", "hai", "ba", "tư", "năm", "sáu", "bảy", "tám", "chín")]
-        self.assertTrue(self.write(long)[0]["reason"].startswith("word_count"))
+        # Nine sentences are a paragraph, not a bullet: the paragraph is sent back before its length is counted.
+        self.assertTrue(self.write(long)[0]["reason"].startswith("bullet_sentences"))
         bad_title = deepcopy(PROSE)
         bad_title["title_vi"]["text"] = "HelioLab gọi vốn 900 triệu USD cho CanvasKit"
         row = self.write(bad_title)[0]
@@ -298,8 +299,8 @@ class WriterDeskTests(unittest.TestCase):
                 ("Sydney Von Arx", [("examples", "speaker_not_in_source: Sydney Von Arx")]),
                 ("Reuters", [("examples", "invented_entity: Reuters")])):
             reply = deepcopy(PROSE)
-            reply["paragraphs"][2]["sentences"].append(sentence(
-                f"Báo cáo của {speaker} nhấn mạnh hai xe mô phỏng mất 71 giây để qua cầu.", "outlet:p003"))
+            reply["paragraphs"][2]["sentences"][1] = sentence(
+                f"Báo cáo của {speaker} nhấn mạnh hai xe mô phỏng mất 71 giây để qua cầu.", "outlet:p003")
             row = self.write(reply, text="\n".join(paragraphs))[0]
             self.assertTrue(row["written"], row)
             self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]], dropped, speaker)
@@ -583,8 +584,21 @@ def units(paragraphs):
     return sum(len(s["text"].split()) for p in paragraphs for s in p["sentences"])
 
 
+# The reference draft was written as paragraphs of three to five sentences; a bulleted summary keeps one or two
+# of them per paragraph, by index.
+BULLETS = {"development": [0, 1], "cause": [0, 1], "examples": [0, 2], "significance": [0]}
+
+
+def bulleted(draft, picks=BULLETS):
+    draft = deepcopy(draft)
+    for paragraph in draft["paragraphs"]:
+        paragraph["sentences"] = [paragraph["sentences"][index] for index in picks[paragraph["role"]]]
+    return draft
+
+
 class WriterLengthTests(unittest.TestCase):
-    """A full article gets a summary of the reference's size; the checks stay a fence at that length."""
+    """A full article gets a bulleted summary of one or two sentences a bullet; the checks stay a fence at that
+    length."""
 
     def setUp(self):
         self.tools = load_registry()
@@ -608,13 +622,13 @@ class WriterLengthTests(unittest.TestCase):
         return output[LONG_ID], runner
 
     def draft(self):
-        return deepcopy(LONG["draft"])
+        return bulleted(LONG["draft"])
 
-    def test_a_reference_size_summary_passes_and_the_writer_is_told_its_window(self):
+    def test_a_bulleted_summary_passes_and_the_writer_is_told_its_window(self):
         draft = self.draft()
         self.assertEqual(len(draft["paragraphs"]), 4)
-        self.assertTrue(all(len(p["sentences"]) >= 3 for p in draft["paragraphs"]))
-        self.assertTrue(450 <= units(draft["paragraphs"]) <= 550, units(draft["paragraphs"]))
+        self.assertTrue(all(1 <= len(p["sentences"]) <= 2 for p in draft["paragraphs"]))
+        self.assertTrue(200 <= units(draft["paragraphs"]) <= 250, units(draft["paragraphs"]))
         row, runner = self.write(draft)
         self.assertTrue(row["written"], row)
         self.assertEqual(row["dropped_points"], [])
@@ -622,7 +636,7 @@ class WriterLengthTests(unittest.TestCase):
         self.assertIn("199 nhân dân tệ", row["key_points"][2])
         self.assertIn(f"{units(draft['paragraphs'])} words", row["reason"])
         sent = runner.calls[0][1][0]
-        self.assertEqual(sent["length"], {"least": 250, "aim": 425, "most": 600})
+        self.assertEqual(sent["length"], {"least": 120, "aim": 190, "most": 260})
         self.assertEqual(sent["length"], newsroom.writer_length(sent))
 
     def test_the_window_scales_with_the_source_the_writer_reads(self):
@@ -630,34 +644,52 @@ class WriterLengthTests(unittest.TestCase):
             length = newsroom.writer_length({"sources": [{"paragraphs": [{"text": "x" * chars}]}]})
             return length["least"], length["most"]
 
-        self.assertEqual(window(800), (90, 230))
-        self.assertEqual(window(2400), (200, 480))
-        self.assertEqual(window(3000), (250, 600))
-        self.assertEqual(window(16000), (250, 600))
+        self.assertEqual(window(800), (70, 180))
+        self.assertEqual(window(2400), (96, 218))
+        self.assertEqual(window(3000), (120, 260))
+        self.assertEqual(window(16000), (120, 260))
         small = newsroom.writer_length({"sources": [{"paragraphs": [{"text": text} for text in EXAMPLE["paragraphs"]]}]})
-        self.assertEqual(small, {"least": 90, "aim": 160, "most": 230})
+        self.assertEqual(small, {"least": 70, "aim": 125, "most": 180})
 
-    def test_one_sentence_per_paragraph_is_too_thin_for_a_full_article(self):
-        thin = self.draft()
-        for paragraph in thin["paragraphs"]:
-            paragraph["sentences"] = paragraph["sentences"][:1]
-        self.assertLess(units(thin["paragraphs"]), 250)
-        row, _ = self.write(thin)
+    def test_the_old_paragraph_draft_is_sent_back_bullet_by_bullet(self):
+        # The reference draft of three to five sentences a paragraph is what the captain asked to replace.
+        paragraphs = deepcopy(LONG["draft"])
+        self.assertTrue(all(len(p["sentences"]) >= 3 for p in paragraphs["paragraphs"]))
+        row, runner = self.write(paragraphs)
         self.assertFalse(row["written"])
         self.assertEqual(row["key_points"], [])
-        self.assertTrue(row["reason"].startswith("word_count: ") and row["reason"].endswith("outside 250-600"),
-                        row["reason"])
+        self.assertEqual(row["reason"], "bullet_sentences")
+        self.assertEqual(row["rewrite"], {"roles": ["development", "cause", "examples", "significance"],
+                                          "result": "rewrite_model_failure"})
+        rejected = runner.calls[1][1][0]["rewrite"]["rejected"]
+        self.assertEqual({item["error"] for item in rejected},
+                         {"bullet_sentences: 3 above 2", "bullet_sentences: 5 above 2"})
+
+    def test_a_bullet_too_long_is_rewritten_once_and_published_when_it_fits(self):
+        crowded = self.draft()
+        crowded["paragraphs"][2]["sentences"].append(deepcopy(LONG["draft"]["paragraphs"][2]["sentences"][3]))
+        rewrite = {"id": LONG_ID, "status": "ready", "conditions": [],
+                   "paragraphs": [deepcopy(self.draft()["paragraphs"][2])]}
+        row, runner = self.write(crowded, rewrite=rewrite)
+        self.assertTrue(row["written"], row)
+        self.assertEqual(row["rewrite"], {"roles": ["examples"], "result": "written"})
+        self.assertEqual(row["key_points"], self.write(self.draft())[0]["key_points"])
+        self.assertEqual(runner.calls[1][0], "rewrite-writer")
+
+    def test_one_sentence_per_bullet_is_enough_when_it_carries_the_sheet(self):
+        thin = bulleted(LONG["draft"], {"development": [0], "cause": [0], "examples": [0], "significance": [0]})
+        self.assertTrue(120 <= units(thin["paragraphs"]) <= 260, units(thin["paragraphs"]))
+        row, _ = self.write(thin)
+        self.assertTrue(row["written"], row)
 
     def test_a_summary_past_the_window_is_rejected(self):
-        long = self.draft()
-        long["paragraphs"][1]["sentences"] += [sentence(
-            f"Ở lần mô tả thứ {word}, mỗi tác tử có hộp thư riêng, kho bộ nhớ và hạn mức chi tiêu hằng tháng do "
-            f"chủ sở hữu đặt.", "outlet:p003") for word in ("hai", "ba", "tư", "năm", "sáu")]
-        self.assertGreater(units(long["paragraphs"]), 600)
+        long = bulleted(LONG["draft"], {"development": [0, 2], "cause": [0, 1], "examples": [0, 2],
+                                        "significance": [0, 1]})
+        self.assertGreater(units(long["paragraphs"]), 260)
         row, _ = self.write(long)
         self.assertFalse(row["written"])
         self.assertEqual(row["dropped_points"], [])
-        self.assertTrue(row["reason"].endswith("outside 250-600"), row["reason"])
+        self.assertTrue(row["reason"].endswith("outside 120-260"), row["reason"])
 
     # The checker stays a fence at the new length: every fabrication it blocked in a short draft is still
     # removed sentence by sentence from a long one.
@@ -685,19 +717,17 @@ class WriterLengthTests(unittest.TestCase):
             self.assertNotIn(invented, published)
         self.assertEqual(row["key_points"], self.write(self.draft())[0]["key_points"])
 
-    def test_padding_a_thin_draft_with_invented_facts_does_not_reach_the_window(self):
+    def test_padding_with_invented_facts_never_reaches_the_reader(self):
         padded = self.draft()
         for index, paragraph in enumerate(padded["paragraphs"]):
             ref = paragraph["sentences"][0]["evidence_refs"][0]
             paragraph["sentences"] = paragraph["sentences"][:1] + [sentence(
                 f"Theo số liệu riêng, có thêm {7000 + index * 100 + extra} doanh nghiệp đang xếp hàng chờ dùng "
                 f"dịch vụ trong đợt mở rộng tới.", ref) for extra in range(4)]
-        self.assertGreaterEqual(units(padded["paragraphs"]), 250)
         row, _ = self.write(padded)
-        self.assertFalse(row["written"])
         self.assertEqual(len(row["dropped_points"]), 16)
         self.assertTrue(all(d["error"].startswith("invented_number") for d in row["dropped_points"]))
-        self.assertTrue(row["reason"].startswith("word_count: "), row["reason"])
+        self.assertNotIn("doanh nghiệp đang xếp hàng", " ".join(row["key_points"]))
 
     def test_a_cause_paragraph_of_invented_reasons_is_lost_not_published(self):
         # The prompt may explain how the thing works when the article gives no reason; an invented reason
@@ -713,10 +743,10 @@ class WriterLengthTests(unittest.TestCase):
                          ["unsupported_purpose", "speaker_not_in_source: Zhou Ping"])
         self.assertEqual(row["rewrite"], {"roles": ["cause"], "result": "rewrite_model_failure"})
         rewrite_rows = runner.calls[1][1]
-        self.assertEqual(rewrite_rows[0]["length"], {"least": 250, "aim": 425, "most": 600})
+        self.assertEqual(rewrite_rows[0]["length"], {"least": 120, "aim": 190, "most": 260})
 
     def test_prompts_ask_for_specifics_in_plain_vietnamese_within_the_window(self):
-        for phrase in ("length gives {least, aim, most}", "two to six full sentences", "never invent a cause",
+        for phrase in ("length gives {least, aim, most}", "one or two short, complete sentences", "never invent a cause",
                        "who said what", "kiến trúc đàn"):
             self.assertIn(phrase, WRITER_PROMPT)
         self.assertNotIn("120 to 180", WRITER_PROMPT)
@@ -727,7 +757,7 @@ class WriterLengthTests(unittest.TestCase):
         inputs = {"id": LONG_ID, "sources": [{"paragraphs": [{"text": text} for text in LONG["paragraphs"]]}],
                   "missing_primary": False, "linked_primary": None}
         packet = newsroom._source_editor_packet(inputs, {**self.draft(), "id": LONG_ID})
-        self.assertEqual(packet["length"], {"least": 250, "aim": 425, "most": 600})
+        self.assertEqual(packet["length"], {"least": 120, "aim": 190, "most": 260})
 
     def test_a_longer_prompt_leaves_fewer_characters_for_rows_on_one_command_line(self):
         discovery = {"commands": ["agy"], "fuel": None}

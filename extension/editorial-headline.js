@@ -2,9 +2,12 @@
    other cards keep their compact wording and reading views keep the full title. */
 import { headlineShown as compactHeadline, shown } from './titles.js';
 
-/* The newsroom's writer desk ("Người viết") publishes 3-4 short paragraphs under its own contract. */
+/* The newsroom's writer desk ("Người viết") publishes 3-4 bullets under its own contract; prose it wrote as
+   paragraphs before the bullets (summary-vi-6-prose) is still shown, one bullet per paragraph. */
+const DESK_PROMPT_VERSIONS = ['summary-vi-6-prose', 'summary-vi-7-bullets'];
+
 export function isDeskProse(story) {
-  return story?.key_points_source === 'nguoi-viet' && story.key_points_prompt_version === 'summary-vi-6-prose';
+  return story?.key_points_source === 'nguoi-viet' && DESK_PROMPT_VERSIONS.includes(story.key_points_prompt_version);
 }
 
 export function hasEditorialSummary(story) {

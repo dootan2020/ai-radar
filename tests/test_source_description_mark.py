@@ -63,7 +63,7 @@ console.log(JSON.stringify({{
             document = out[surface]
             self.assertNotIn(LABEL, document)
             self.assertIn("Phòng báo Halcyon tóm tắt từ Pandaily", document)
-            self.assertIn('class="story-prose-text">Diễn biến chính.</p>', document)
+            self.assertIn('class="story-bullet">Diễn biến chính.</li>', document)
         # Cards and the morning edition show the dek even for a desk story, so the label follows the text.
         self.assertIn(f'<p class="bt-story-summary"><span class="src-desc">{LABEL}</span> Máy chủ AI', out["edition"])
 

@@ -238,7 +238,8 @@ class EvidenceSheetTests(unittest.TestCase):
 
     def test_non_causes_are_not_deleted_when_the_source_gives_no_cause(self):
         reply = deepcopy(REPLY)
-        reply["paragraphs"][1]["sentences"] += [
+        # A bullet holds two sentences; both of these stay.
+        reply["paragraphs"][1]["sentences"] = [
             # "Vì vậy" joins two facts.
             sentence("Vì vậy, người dùng tại US có thể trò chuyện với tác tử Lumo bằng giọng nói ngay trên ứng dụng.",
                      "outlet:p008"),
@@ -265,7 +266,7 @@ class EvidenceSheetTests(unittest.TestCase):
                     deepcopy(SHEET["why"])):
             reply = deepcopy(REPLY)
             reply["sheet"]["why"] = why
-            reply["paragraphs"][1]["sentences"] = [stated, REPLY["paragraphs"][1]["sentences"][1], MOTIVE]
+            reply["paragraphs"][1]["sentences"] = [stated, MOTIVE]
             row, _ = self.write(reply, page=page)
             self.assertTrue(row["written"], row)
             self.assertIn("lái xe", row["key_points"][1])
@@ -351,7 +352,7 @@ class EvidenceSheetTests(unittest.TestCase):
 
     def test_merged_cause_and_examples_carry_the_notable_point_in_cause(self):
         reply = deepcopy(REPLY)
-        reply["paragraphs"][1]["sentences"].append(EXAMPLE)
+        reply["paragraphs"][1]["sentences"][1] = EXAMPLE
         del reply["paragraphs"][2]
         row, _ = self.write(reply)
         self.assertTrue(row["written"], row)
@@ -376,7 +377,7 @@ class PartialSourceTests(unittest.TestCase):
     def test_citing_a_coverage_excerpt_beside_a_complete_body_is_not_partial(self):
         story = item([{"id": "c2", "url": COVERAGE_URL, "publisher": "Other News", "summary": COVERAGE_TEXT}])
         reply = deepcopy(REPLY)
-        reply["paragraphs"][0]["sentences"].append(sentence(
+        reply["paragraphs"][0]["sentences"][1] = (sentence(
             "Một trang tin khác cũng cho biết tác tử của Orbit Labs nay có thể nhận cuộc gọi dưới dạng hình đại diện "
             "động.",
             "coverage1:p001"))
