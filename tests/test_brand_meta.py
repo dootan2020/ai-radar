@@ -3,6 +3,7 @@
 Every icon and share image the pages point at must exist, with the pixel size read from the
 file's own header, so a renamed or wrongly sized export fails here instead of on Facebook.
 """
+import re
 import struct
 import sys
 import unittest
@@ -149,14 +150,32 @@ class BrandKitTest(unittest.TestCase):
             self.assertEqual((BRAND / "assets" / kit).read_bytes(), (SITE / site).read_bytes(), site)
 
     def test_site_logo_files_are_the_kit_files(self):
-        kit = BRAND / "logo" / "lime-anchor"
+        kit = BRAND / "logo" / "coral-tile"
         for site, source in (("logo.svg", "icons/halcyon-icon-primary.svg"), ("wordmark.svg", "logos/halcyon-primary.svg"),
                              ("wordmark-dark.svg", "logos/halcyon-dark.svg"), ("favicon.svg", "favicons/favicon.svg"),
                              ("favicon.ico", "favicons/favicon.ico"), ("apple-touch-icon.png", "favicons/apple-touch-icon.png")):
             self.assertEqual((SITE / site).read_bytes(), (kit / source).read_bytes(), site)
         tokens = (SITE / "tokens.css").read_text(encoding="utf-8")
-        for hex_value in ("#2F6B00", "#174A34", "#D7FF2F", "#F8FBF3", "#142018"):
+        # Hot Coral, the captain's palette of 2026-11-06.
+        for hex_value in ("#F0446E", "#5B1738", "#20C7D9", "#F7F9FC", "#111827", "#101828", "#667085", "#E4E7EC"):
             self.assertIn(hex_value, tokens)
+        # Coral Tile: coral tile, Surface bird, Plum beak.
+        icon = (SITE / "logo.svg").read_text(encoding="utf-8")
+        self.assertEqual(re.findall(r'fill="(#[0-9A-F]{6})"', icon), ["#F0446E", "#F7F9FC", "#5B1738"])
+
+    def test_no_lime_anchor_colour_reaches_a_reader(self):
+        lime = re.compile(r"#(?:2F6B00|174A34|D7FF2F|F8FBF3|142018)\b", re.I)
+        served = [p for p in SITE.rglob("*") if p.is_file() and p.suffix in {".css", ".html", ".js", ".svg", ".json"}
+                  and "data" not in p.relative_to(SITE).parts[:1]]
+        served += [p for p in (ROOT / "extension").rglob("*") if p.is_file() and p.suffix in {".css", ".html", ".js", ".svg", ".json"}]
+        for path in served:
+            self.assertIsNone(lime.search(path.read_text(encoding="utf-8")), path)
+
+    def test_only_the_chosen_logo_ships(self):
+        self.assertEqual(sorted(p.name for p in (BRAND / "logo").iterdir()), ["coral-tile"])
+        self.assertEqual(sorted(p.name for p in (SITE / "brand" / "logo").iterdir()), ["coral-tile"])
+        for kept in ("lime-anchor", "hot-coral/plum-tile", "hot-coral/ink-tile"):
+            self.assertTrue((BRAND / "logo-work" / kept).is_dir(), kept)
 
     def test_published_kit_matches_the_source(self):
         sys.path.insert(0, str(BRAND))

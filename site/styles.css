@@ -121,9 +121,9 @@
   .brand-icon{display:none;width:32px;height:32px;flex:none}
   @media (max-width: 767px){.brand-logo-light,.brand-logo-dark{display:none}.brand-icon{display:block}}
   /* The daily edition is the header's one always-visible primary action. */
-  .ed-link{position:relative;flex:none;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-on-accent);font-size:var(--text-small);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:background-color var(--motion-state) var(--ease-flow),color var(--motion-state) var(--ease-flow)}
+  .ed-link{position:relative;flex:none;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-accent-fill);color:var(--color-on-accent);font-size:var(--text-small);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:background-color var(--motion-state) var(--ease-flow),color var(--motion-state) var(--ease-flow)}
   .ed-link::after{content:"";position:absolute;inset:-6px -4px}
-  .ed-link:hover{background:var(--color-accent-hover)}
+  .ed-link:hover{background:var(--color-accent-fill-hover);color:var(--color-on-accent-hover)}
   /* Link to story search page. Matches .ed-link idiom in the header bar. */
   .tc-link{position:relative;flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--radius-full);background:var(--color-fill);color:var(--color-ink-2);font-size:var(--text-small);font-weight:var(--weight-semibold);line-height:20px;white-space:nowrap;transition:color var(--motion-state) var(--ease-flow), background-color var(--motion-state) var(--ease-flow)}
   .tc-link::after{content:"";position:absolute;inset:-6px -4px}
@@ -155,8 +155,8 @@
     font-size:var(--text-small);font-weight:var(--weight-semibold);white-space:nowrap;
     transition:transform var(--motion-feedback) var(--ease-press), background-color var(--motion-state) var(--ease-flow), color var(--motion-state) var(--ease-flow), box-shadow var(--motion-state) var(--ease-flow)}
   .btn .i{width:16px;height:16px;transition:transform var(--motion-state) var(--ease-flow)}
-  .btn.primary{background:var(--color-accent);color:var(--color-on-accent)}
-  .btn.primary:hover{background:var(--color-accent-hover);box-shadow:var(--shadow-lift)}
+  .btn.primary{background:var(--color-accent-fill);color:var(--color-on-accent)}
+  .btn.primary:hover{background:var(--color-accent-fill-hover);color:var(--color-on-accent-hover);box-shadow:var(--shadow-lift)}
   .btn.primary:hover .i{transform:translate(2px, -2px)}
   .btn.second{background:var(--color-fill);color:var(--color-ink)}
   .btn.second:hover{background:var(--color-hair)}
@@ -369,7 +369,7 @@
   .new-hist{flex:1;min-width:180px;display:flex;flex-direction:column;gap:var(--space-4)}
   .hist{display:grid;grid-template-columns:repeat(24, minmax(0, 1fr));align-items:end;gap:3px;height:56px}
   .hist-bar{display:block;height:max(3px, calc(var(--h) * 100%));border-radius:3px;background:var(--color-fill);transform-origin:bottom}
-  .hist-bar.is-new{background:var(--color-accent)}
+  .hist-bar.is-new{background:var(--color-accent-fill)}
   .hist-bar.is-zero{background:var(--color-fill)}
   .hist-axis{display:flex;justify-content:space-between;font-size:var(--text-micro);color:var(--color-ink-3)}
 
@@ -438,7 +438,7 @@
 
   /* fresh-snapshot button, toast */
   .fresh{position:fixed;left:50%;top:calc(var(--bar-h) + var(--space-12));transform:translateX(-50%);z-index:35}
-  .fresh-btn{display:inline-flex;align-items:center;gap:var(--space-8);min-height:var(--btn-h);padding:0 var(--space-24);border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-on-accent);font-weight:var(--weight-semibold);font-size:var(--text-small);box-shadow:var(--shadow-lift);animation:drop var(--motion-arrive) var(--ease-flow) both}
+  .fresh-btn{display:inline-flex;align-items:center;gap:var(--space-8);min-height:var(--btn-h);padding:0 var(--space-24);border-radius:var(--radius-full);background:var(--color-accent-fill);color:var(--color-on-accent);font-weight:var(--weight-semibold);font-size:var(--text-small);box-shadow:var(--shadow-lift);animation:drop var(--motion-arrive) var(--ease-flow) both}
   .toast{position:fixed;left:50%;bottom:var(--space-32);transform:translateX(-50%);z-index:60;pointer-events:none}
   .toast span{display:block;background:var(--color-ink);color:var(--color-surface);padding:var(--space-12) var(--space-24);border-radius:var(--radius-full);font-size:var(--text-small);font-weight:var(--weight-medium);box-shadow:var(--shadow-lift);animation:rise var(--motion-arrive) var(--ease-flow) both}
   .toast span.out{animation:fade-out var(--motion-state) var(--ease-exit) both}
@@ -486,7 +486,7 @@
     .tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5, 1fr);background:var(--color-surface);box-shadow:0 -1px 0 var(--color-hair);padding-bottom:env(safe-area-inset-bottom)}
     .tabs a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;font-size:var(--text-small);color:var(--color-ink-3)}
     .tabs a[aria-current="true"]{color:var(--color-accent)}
-    .tabs .num{position:absolute;top:6px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-on-accent);font-size:var(--tab-badge-text);display:grid;place-items:center}
+    .tabs .num{position:absolute;top:6px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:var(--radius-full);background:var(--color-accent-fill);color:var(--color-on-accent);font-size:var(--tab-badge-text);display:grid;place-items:center}
     .sheet{top:auto;left:0;right:0;bottom:0;width:auto;max-height:88dvh;border-radius:var(--tile-radius) var(--tile-radius) 0 0;transform:translateY(100%)}
     .sheet-body{padding:var(--space-8) var(--space-24) calc(var(--space-48) + env(safe-area-inset-bottom))}
     .sheet-top{padding-left:var(--space-24)}

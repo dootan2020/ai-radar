@@ -37,9 +37,9 @@ class ExtensionShellTests(unittest.TestCase):
                                              for size in (16, 32, 48, 128)})
         for icon in manifest['icons'].values():
             self.assertTrue((EXT / icon).is_file(), icon)
-        # Toolbar and Store icons are the Lime Anchor kit's own PNGs, copied unchanged.
+        # Toolbar and Store icons are the Coral Tile kit's own PNGs, copied unchanged.
         for size in (16, 32, 48, 128):
-            kit = (ROOT / f'brand/logo/lime-anchor/icons/halcyon-icon-primary-{size}.png').read_bytes()
+            kit = (ROOT / f'brand/logo/coral-tile/icons/halcyon-icon-primary-{size}.png').read_bytes()
             self.assertEqual((EXT / f'icons/{size}.png').read_bytes(), kit, size)
         for path in EXT.rglob('*.html'):
             html = path.read_text(encoding='utf-8')
