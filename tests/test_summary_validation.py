@@ -56,6 +56,39 @@ class PurposeTests(unittest.TestCase):
         self.assertEqual(attribution_error("Máy soạn tài liệu nhằm giữ kín dữ liệu.", [listing]), "unsupported_purpose")
 
 
+class TeachingPurposeTests(unittest.TestCase):
+    """06/11, the Nemotron profile: the sentence saying what the engineer's YouTube channel is for was removed as an
+    invented purpose, and the published story lost the proof of its headline. The English is a paraphrase."""
+
+    CHANNEL = ("Rivera's preferred stage is YouTube, where she has built a following teaching curious thousands how "
+               "to build, tune and ship language model applications.", "NVIDIA Blog")
+    # The writer's sentence from that cycle, with the engineer's name changed.
+    SENTENCE = ("Bài viết cho biết Rivera xây dựng kênh YouTube cá nhân nhằm hướng dẫn hàng nghìn người theo dõi cách "
+                "xây dựng, tinh chỉnh và triển khai các ứng dụng mô hình ngôn ngữ.")
+
+    def test_a_purpose_the_cited_paragraph_states_as_teaching_passes(self):
+        self.assertIsNone(attribution_error(self.SENTENCE, [self.CHANNEL]))
+        self.assertIsNone(attribution_error("Khóa học được mở nhằm đào tạo kỹ sư.",
+                                            [("The academy opened to train engineers for the new plant.", "outlet")]))
+
+    def test_an_invented_purpose_of_the_same_shape_still_fails(self):
+        channel = ("Rivera has a YouTube channel with thousands of followers and posts a video every week.",
+                   "NVIDIA Blog")
+        self.assertEqual(attribution_error(self.SENTENCE, [channel]), "unsupported_purpose")
+        self.assertEqual(attribution_error("Rivera mở kênh YouTube nhằm hướng dẫn lập trình viên.", [channel]),
+                         "unsupported_purpose")
+
+    def test_a_teaching_paragraph_supports_no_other_purpose(self):
+        # Codex's round-2 review: the paragraph teaches, the claimed purpose is revenue.
+        academy = ("The academy teaches students how to write code, and its app opened a paid tier this month.",
+                   "outlet")
+        self.assertEqual(attribution_error("Ứng dụng mở gói trả phí nhằm tăng doanh thu.", [academy]),
+                         "unsupported_purpose")
+        self.assertEqual(attribution_error("Học viện mở lớp nhằm dạy lập trình và nhằm tăng doanh thu.", [academy]),
+                         "unsupported_purpose")
+        self.assertIsNone(attribution_error("Học viện mở lớp nhằm dạy sinh viên cách viết mã.", [academy]))
+
+
 class AttributionTests(unittest.TestCase):
     def test_a_remark_in_the_outlets_voice_cannot_be_given_to_the_company(self):
         sentence = ("Theo Opera, dù phương pháp xử lý trên thiết bị tăng khả năng kiểm soát dữ liệu, giải pháp này "
