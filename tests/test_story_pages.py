@@ -283,7 +283,7 @@ class StoryPageRenderingTests(unittest.TestCase):
             summary_sources=[{"name": "The Verge", "role": "outlet", "url": "https://publisher.example/story"}],
         ))
         for paragraph in paragraphs:
-            self.assertIn(f'<p class="story-prose-text">{paragraph}</p>', document)
+            self.assertIn(f'<li class="story-bullet">{paragraph}</li>', document)
         self.assertIn("Phòng báo Halcyon tóm tắt từ The Verge", document)
         self.assertNotIn("Tóm tắt bằng AI", document)
         self.assertNotIn('class="story-point-num"', document)
@@ -291,11 +291,11 @@ class StoryPageRenderingTests(unittest.TestCase):
         api = render_story_page(story(
             key_points=paragraphs, key_points_prompt_version="summary-vi-6-prose",
             summary_sources=[{"name": "The Verge", "role": "outlet", "url": "https://publisher.example/story"}]))
-        self.assertNotIn("story-prose-text", api)
+        self.assertNotIn("story-bullet", api)
         thin = render_story_page(story(
             key_points=paragraphs[:2], key_points_source="nguoi-viet", key_points_prompt_version="summary-vi-6-prose",
             summary_sources=[{"name": "The Verge", "role": "outlet", "url": "https://publisher.example/story"}]))
-        self.assertNotIn("story-prose-text", thin)
+        self.assertNotIn("story-bullet", thin)
 
     def test_rejects_unsafe_ids_and_non_http_original_links(self):
         with self.assertRaisesRegex(ValueError, "unsafe id"):

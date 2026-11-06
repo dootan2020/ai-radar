@@ -16,7 +16,7 @@ from radar.catalog import is_retired
 from radar.clustering import canonical_url
 from radar.common import stable_id
 from radar.items import publisher_identity
-from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE, desk_summary, load_decisions
+from radar.newsroom_decisions import DESK_PROMPT_VERSIONS, DESK_SUMMARY_SOURCE, desk_summary, load_decisions
 from radar.site_config import SITE_BASE_URL
 
 BASE_URL = SITE_BASE_URL
@@ -113,7 +113,7 @@ def _text(value):
 
 def _is_desk_prose(story):
     return (story.get("key_points_source") == DESK_SUMMARY_SOURCE
-            and story.get("key_points_prompt_version") == DESK_PROMPT_VERSION)
+            and story.get("key_points_prompt_version") in DESK_PROMPT_VERSIONS)
 
 
 def _has_editorial_summary(story):
@@ -230,12 +230,15 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
             outlet = next((s.get("name") for s in story["summary_sources"]
                            if isinstance(s, dict) and s.get("role") == "outlet" and s.get("name")), "")
             label = f"Phòng báo Halcyon tóm tắt từ {esc(outlet)}" if outlet else "Phòng báo Halcyon tóm tắt từ bài gốc"
-            prose_html = "".join(f'<p class="story-prose-text">{_summary_text(paragraph)}</p>'
-                                 for paragraph in fields["key_points"])
+            # One bullet per point under a visible "Tóm tắt" label, as the hydrated page draws it (site/story.js).
+            bullets_html = "".join(f'<li class="story-bullet">{_summary_text(point)}</li>'
+                                   for point in fields["key_points"])
             fallback_content = (
-                '<section class="story-keypoints-box story-prose-box" aria-label="Tóm tắt bài viết">'
-                f'<p class="story-section-sub">{label}</p>'
-                f'<div class="story-prose">{prose_html}</div>{sources_html}')
+                '<section class="story-keypoints-box story-prose-box" aria-labelledby="story-summary-label">'
+                '<div class="story-section-head">'
+                '<h2 class="story-summary-label" id="story-summary-label">Tóm tắt</h2>'
+                f'<p class="story-section-sub story-byline">{label}</p></div>'
+                f'<ul class="story-bullets">{bullets_html}</ul>{sources_html}')
         else:
             fallback_content = (
                 '<section class="story-keypoints-box" aria-label="Tóm tắt bài viết">'

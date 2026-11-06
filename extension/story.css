@@ -704,23 +704,6 @@ dialog.story-dialog::backdrop {
   border: none;
 }
 
-/* The newsroom writer desk publishes short paragraphs, read as prose rather than a numbered list. */
-.story-prose {
-  display: grid;
-  gap: var(--space-12);
-  margin: var(--space-16) 0 0;
-}
-
-.story-prose-text {
-  font-size: var(--text-body);
-  line-height: var(--leading-body);
-  color: var(--color-ink);
-  margin: 0;
-  max-width: 68ch;
-  text-wrap: pretty;
-  overflow-wrap: anywhere;
-}
-
 .story-point-text {
   font-size: var(--text-body);
   line-height: var(--leading-body);
@@ -750,7 +733,6 @@ dialog.story-dialog::backdrop {
 
 /* On wider screens the reading text steps up one size, as an article body rather than a card note. */
 @media (min-width: 768px) {
-  .story-prose-text,
   .story-point-text,
   .story-summary-text {
     font-size: var(--text-title);
@@ -1064,28 +1046,75 @@ dialog.story-dialog::backdrop {
   color: var(--color-ink-3);
 }
 
-/* Desk prose: the first paragraph is the lead, set larger; the rest follow one step quieter. */
-.story-prose-box .story-prose {
-  gap: var(--space-16);
+/* Desk summary: a "Tóm tắt" label carries the accent rule, the byline sits under it, and each point is one bullet
+   with a small accent dot hung in the margin, so the text column stays flush with the headline. */
+.story-prose-box .story-section-head {
+  margin-bottom: var(--space-12);
+}
+
+.story-summary-label {
   margin: 0;
-}
-
-.story-prose-box .story-prose-text:first-child {
-  font-size: var(--text-title);
-  font-weight: var(--weight-medium);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
   line-height: var(--leading-snug);
+  color: var(--color-ink);
 }
 
-.story-prose-box .story-prose-text:not(:first-child) {
-  color: var(--color-ink-2);
+.story-summary-label::before {
+  content: "";
+  display: block;
+  width: var(--space-32);
+  height: 2px;
+  margin-bottom: var(--space-12);
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+}
+
+.story-body .story-prose-box .story-byline {
+  margin-top: var(--space-4);
+}
+
+.story-body .story-prose-box .story-byline::before {
+  content: none;
+}
+
+.story-bullets {
+  display: grid;
+  gap: var(--space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.story-bullet {
+  position: relative;
+  max-width: 68ch;
+  padding-left: var(--space-16);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-ink);
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+/* The dot sits on the first line's x-height centre: half a line down, less half the dot. */
+.story-bullet::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(0.5lh - var(--space-6) / 2);
+  width: var(--space-6);
+  height: var(--space-6);
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
 }
 
 @media (min-width: 768px) {
-  .story-prose-box .story-prose {
-    gap: var(--space-24);
+  .story-bullets {
+    gap: var(--space-16);
   }
-  .story-prose-box .story-prose-text:first-child {
-    font-size: var(--text-tile);
+  .story-bullet {
+    font-size: var(--text-title);
   }
 }
 

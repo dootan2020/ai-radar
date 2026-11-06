@@ -141,8 +141,8 @@ DESK_CONTRACTS = {
     },
     "writer": {
         "desk": "writer",
-        "description": "Writer ('Người viết'): 3-4 Vietnamese paragraphs (development, cause, "
-                       "examples, significance; contract summary-vi-6-prose) for recent publishable stories, "
+        "description": "Writer ('Người viết'): 3-4 Vietnamese bullets of one or two sentences (development, "
+                       "cause, examples, significance; contract summary-vi-7-bullets) for recent publishable stories, "
                        "each sentence held to the shared number and name checks",
         "input_fields": ["id", "sources", "missing_primary", "linked_primary", "length"],
         "model_reply_fields": ["id", "status", "sheet", "conditions", "title_vi", "paragraphs", "used_source_ids",
