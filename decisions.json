@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-06T12:08:45.634080+00:00",
-  "input_generated_at": "2026-11-06T09:48:24Z",
+  "generated_at": "2026-11-06T14:08:55.502964+00:00",
+  "input_generated_at": "2026-11-06T12:32:06Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -26914,7 +26914,32 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.95,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader misses the mechanism behind the lab’s data approach.",
+            "fix": "Explain that the team mapped reasoning skills into training questions and used evaluation failures to select new examples (outlet:p004–p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5b76ba45b88e14cc7d4ebf13ea79547544502f5e1ffe0f29eea3a033bffeb27d",
+        "scored_at": "2026-11-06T14:08:55.499094+00:00"
+      }
     },
     {
       "id": "536176c36c829e136e0e",
@@ -26953,7 +26978,26 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "220d7db96c0b0dd56656966b81c8ded5f91b4f90454d7abe235c2305c01fe751",
+        "scored_at": "2026-11-06T14:08:55.499115+00:00"
+      }
     },
     {
       "id": "dbe873105c435b4535b1",
@@ -26989,7 +27033,26 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "55e30fdbeeb76492eda2b7f0624522dce78993abeb8e751ddd148693d58e444d",
+        "scored_at": "2026-11-06T14:08:55.499133+00:00"
+      }
     },
     {
       "id": "4c2268a3cf02c148209f",
@@ -27029,7 +27092,37 @@
       "summary_limitations": [
         "partial_source"
       ],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.15,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 9,
+          "meaning": 6
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers learn that a blanket freeze is disputed but miss what the election could change.",
+            "fix": "Add the possible construction pauses, grid-cost rules, or community protections, while keeping the possible veto as a condition (outlet:p016–p018)."
+          },
+          {
+            "question": "why",
+            "problem": "The account narrows residents’ concerns to wealth and living costs.",
+            "fix": "Include environmental effects and residents’ lack of say in whether data centers are built (outlet:p024–p027)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e7ecb165d5cc54e66f6eb1975a17de8b6db6010032e15ff4fb9abd1d06e8a0f6",
+        "scored_at": "2026-11-06T14:08:55.499171+00:00"
+      }
     },
     {
       "id": "d893a09dd9702d8164dc",
@@ -27096,7 +27189,43 @@
       "summary_limitations": [
         "partial_source"
       ],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.0,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 7,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "khoảng cách rõ rệt",
+            "explanation": "TechCrunch describes concern about an apparent gap, not a clearly established gap (outlet:p015)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses the reported cut that has already occurred.",
+            "fix": "Add that Apple lowered engineers’ daily AI cap from $300 to $200 in October, while further reductions remain prospective (outlet:p012)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader is told the cost-productivity gap is clear.",
+            "fix": "Describe TechCrunch’s point as concern about an apparent gap and often unclear productivity gains (outlet:p015)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "330ce2208b5e9b091a31afce8540011fae9adccd79c5d31b461b4e245e662833",
+        "scored_at": "2026-11-06T14:08:55.499153+00:00"
+      }
     },
     {
       "id": "6b52b77224f0012d6674",
@@ -27248,7 +27377,48 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "phối hợp tinh chỉnh mô hình trên phần mềm T-Head SAIL",
+            "explanation": "The source says the teams jointly adapted the model on the T-Head SAIL software stack, including work on named components. It does not report fine-tuning the model’s weights (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "“Tinh chỉnh mô hình” can lead the reader to believe the teams fine-tuned model weights.",
+            "fix": "Describe joint adaptation on the T-Head SAIL software stack and work on its components (outlet:p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses that the new Zhongwei SuperPoD region is at the invite-testing stage.",
+            "fix": "State that Alibaba Cloud opened invite testing there (outlet:p001, outlet:p004)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses one stated access path for the model.",
+            "fix": "Add that Kimi K3.1 Pro is also available through Alibaba’s Qwen AI platform API (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7d4c46b6a11e6aebb1e6fb38972f49584f21e1a52cf3e58d6a9506abc26d9f24",
+        "scored_at": "2026-11-06T14:08:55.498914+00:00"
+      }
     },
     {
       "id": "5afb0c673b19feeab69c",
@@ -27287,7 +27457,43 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "tác tử máy tính đơn lẻ",
+            "explanation": "The source says “desktop agents,” not that those agents were single or operated alone (outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader may understand Kimi’s earlier desktop agents as necessarily standalone agents.",
+            "fix": "Refer simply to desktop agents, as the source does (outlet:p005)."
+          },
+          {
+            "question": "why",
+            "problem": "The main practical reason for packaging the runtime is only implicit.",
+            "fix": "State that enterprises can use the managed runtime without building and maintaining that layer themselves (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4bcea2d8a201718c1b13176750c7551870fc3bbce3f897b19b159b5579bc3bd9",
+        "scored_at": "2026-11-06T14:08:55.498970+00:00"
+      }
     },
     {
       "id": "fd985f9b140165540f46",
@@ -27327,7 +27533,43 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Tại Trung Quốc, Apollo Go đã vận hành hoàn toàn không người lái 100% trên đất liền với hơn 23 triệu chuyến đi và ghi nhận 240 triệu km di chuyển tự hành hoàn toàn",
+            "explanation": "The 100% fully driverless statement concerns mainland China, but the more than 23 million rides and 240 million fully driverless kilometers are totals across Apollo Go’s operations, not stated as China-only totals (outlet:p016–p017)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The placement of the ride and distance totals makes them appear limited to China.",
+            "fix": "Separate the mainland China operating status from the totals across all operations (outlet:p016–p017)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses a capability that distinguishes the simulation.",
+            "fix": "Add that Apollo World can test complete trips, rather than only isolated maneuvers (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d0b2eb3701b6b6ae1f9d23e8351dc4fb4aa24af910be53f5a173f0b464044f44",
+        "scored_at": "2026-11-06T14:08:55.499004+00:00"
+      }
     },
     {
       "id": "8c667c037c6de84b155e",
@@ -27384,7 +27626,38 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.25,
+        "answers": {
+          "what": 10,
+          "why": 5,
+          "notable": 10,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "việc thỏa thuận trị giá khoảng 7 tỷ USD này bị hủy bỏ phản ánh trực tiếp sự can thiệp từ giới chức Mỹ cũng như định hướng thúc đẩy sử dụng chip nội địa từ các quan chức chính quyền tỉnh Quảng Đông",
+            "explanation": "The source reports US pressure preceding the cancellation and separately reports Guangdong officials asking Tencent to support Chinese chips. It does not connect the Guangdong request causally to Oracle’s decision (outlet:p002–p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The closing sentence gives Guangdong officials a role in the cancellation that the report does not establish.",
+            "fix": "Keep the Guangdong visit as a separate reported fact; attribute the reported pressure on Oracle to the Trump administration (outlet:p002–p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "09e5df2836f617887ec9cb7c470c8d47eb4906c53d252f49d02b4abe14c99bb3",
+        "scored_at": "2026-11-06T14:08:55.499027+00:00"
+      }
     },
     {
       "id": "d3458042077dfb801293",
@@ -27510,7 +27783,63 @@
       "summary_limitations": [
         "partial_source"
       ],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.5,
+        "answers": {
+          "what": 9,
+          "why": 3,
+          "notable": 10,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "Thay vào đó, Nothing thiết kế sản phẩm như một công cụ hỗ trợ",
+            "explanation": "Pei calls the product a tool and separately rejects the search for an “iPhone of AI.” The source does not say that rejection is why Nothing designed this product as a tool (outlet:p016, outlet:p019)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "Theo đánh giá từ The Verge, Nothing đang bước vào thị trường phần cứng AI đầy rủi ro, nơi các tiện ích không màn hình đi trước đều chưa tạo được sức hút lớn với người dùng",
+            "explanation": "The complete The Verge article names earlier screen-free AI devices but makes no such risk assessment or claim about their appeal to users (outlet:p019)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "cho thấy cách tiếp cận thận trọng hơn",
+            "explanation": "Pei calls the search for an “iPhone of AI” a dead end; the source does not characterize Nothing’s approach as more cautious (outlet:p019)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "giữ kín mọi thông tin ngoại trừ việc không có màn hình",
+            "explanation": "Pei also described the product as a tool with Nothing’s personality and care that could not have been an app, and shared a teaser image (outlet:p016–p017)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told that The Verge judged the market risky and earlier devices unsuccessful, although its supplied article makes neither claim.",
+            "fix": "State only that earlier screen-free AI devices exist, with the examples The Verge gives (outlet:p019)."
+          },
+          {
+            "question": "why",
+            "problem": "The text turns Pei’s industry observation into a stated reason for Nothing’s product design.",
+            "fix": "Present his “iPhone of AI” comment separately; the source gives no launch motive (outlet:p016, outlet:p019)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The closing interpretation labels Nothing’s approach cautious without source support.",
+            "fix": "Keep the supported point that Pei revealed little about the device’s exact form (outlet:p015–p017)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3667ce574962349fa0a96e70640547ec4a6c5222378bef65ed67948d1a655774",
+        "scored_at": "2026-11-06T14:08:55.499061+00:00"
+      }
     },
     {
       "id": "2509537decd965f0028b",
@@ -27761,7 +28090,58 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "thao túng tâm lý người dùng",
+            "explanation": "The source describes the model gaslighting Husk specifically, while also swinging toward sycophancy; it does not claim psychological manipulation of users generally (outlet:p003)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "chọn trường mẫu giáo",
+            "explanation": "The source’s example is helping enroll a child in kindergarten, not choosing a kindergarten (outlet:p007)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "thù lao rất nhỏ",
+            "explanation": "Husk said OpenAI offered him the smallest amount, a comparison with other offers. The source does not establish that the amount was objectively very small (outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told the model psychologically manipulates users generally.",
+            "fix": "Limit the description to its sycophantic and gaslighting responses to Husk, as reported in outlet:p003."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader is told OpenAI offered a very small fee.",
+            "fix": "Say Husk called OpenAI’s offer the smallest among the offers, without asserting its absolute size (outlet:p005)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The benchmark example changes enrolling a child in kindergarten into choosing a school.",
+            "fix": "Use the source’s example of kindergarten enrollment (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "82bb7473d0612be7901c8a7c8840f56d49756c4a18b9d906a9d1649eeabc37a8",
+        "scored_at": "2026-11-06T14:08:55.498788+00:00"
+      }
     },
     {
       "id": "71160dbd283ea7d5d5c4",
@@ -27834,7 +28214,26 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b0e9898192ab755f187e4c0e8910b9a275761eff418e20be8c30d0ce357e2b8b",
+        "scored_at": "2026-11-06T14:08:55.498818+00:00"
+      }
     },
     {
       "id": "788aca0b86fe44b26f68",
@@ -27912,7 +28311,38 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "các dự luật siết an toàn AI, hạn chế trung tâm dữ liệu và cấm siêu trí tuệ",
+            "explanation": "The source anticipates bills on AI safety and data center growth, but separately describes larger coalitions forming behind a ban on “superintelligence.” It does not say Congress is expected to advance a bill banning it (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader may think a superintelligence ban is already among the expected bills.",
+            "fix": "Separate the expected safety and data center bills from the emerging coalitions supporting a ban (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2b7c86a4b21432165c9d56e7c978520221a092adcc7f0abd6465a1a65e3cc7c3",
+        "scored_at": "2026-11-06T14:08:55.498874+00:00"
+      }
     },
     {
       "id": "33b96c97d0fcbb9bc611",
@@ -27997,7 +28427,53 @@
       "summary_limitations": [
         "partial_source"
       ],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.6,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 6,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "Open TTS Leaderboard so sánh hơn 9.000 mô hình qua 23 ngôn ngữ",
+            "explanation": "The source says there are more than 9,000 TTS models on the Hugging Face Hub and describes a leaderboard evaluating models across 23 languages; it does not say the leaderboard evaluated all 9,000-plus models (outlet:p037)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Ở bài đo tốc độ truyền phát trực tiếp trên CPU, mô hình dẫn đầu về thời gian phản hồi âm thanh đầu tiên cạnh tranh với các hệ thống lớn gấp tới 100 lần.",
+            "explanation": "The source places the comparison with models up to 100 times Phonon's size alongside its intelligibility rankings, not its CPU streaming speed result (outlet:p038–p039)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The 100-times-larger comparison is assigned to the wrong benchmark.",
+            "fix": "Attach that comparison to Phonon's intelligibility rankings; state the CPU time-to-first-audio lead separately (outlet:p038–p039)."
+          },
+          {
+            "question": "notable",
+            "problem": "The Vietnamese implies that the leaderboard assessed more than 9,000 models.",
+            "fix": "Say that Hugging Face Hub hosts more than 9,000 TTS models and that the leaderboard evaluates models across 23 languages (outlet:p037)."
+          },
+          {
+            "question": "what",
+            "problem": "Readers miss the practical point of running Phonon locally.",
+            "fix": "State that it needs no server or network and keeps the user's text on the device (outlet:p021, outlet:p024)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "24386237616150ab99dfcd6a08efd6143f6eefd23df293b57159f3dea96fd2a8",
+        "scored_at": "2026-11-06T14:08:55.499198+00:00"
+      }
     },
     {
       "id": "8caa7a9f1625e8fe74cb",
@@ -29612,7 +30088,58 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "khi anh học về thư viện phần mềm TensorFlow",
+            "explanation": "Alexiuk first became interested in machine learning in a computational physics class; he says he learned about TensorFlow after that class (outlet:p019–p020)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "bộ phân loại hình ảnh chạy trên vi xử lý đồ họa",
+            "explanation": "The source says Alexiuk built a classifier to detect the bird, but does not say that his particular classifier ran on a GPU (outlet:p020)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "tác vụ quy mô lớn",
+            "explanation": "Alexiuk describes Nemotron Ultra as suited to enterprise tasks, which specifies a business setting rather than task scale (outlet:p015)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers miss the main way Alexiuk shares his expertise.",
+            "fix": "Mention that he teaches thousands through YouTube how to build, fine-tune, evaluate and ship LLM applications and agents (outlet:p004)."
+          },
+          {
+            "question": "notable",
+            "problem": "The bird-project account changes the sequence and asserts hardware the source does not establish.",
+            "fix": "Say the physics class sparked his interest, and that he later learned about TensorFlow and built a bird-detection classifier (outlet:p019–p020)."
+          },
+          {
+            "question": "notable",
+            "problem": "The description of Nemotron Ultra loses the enterprise setting.",
+            "fix": "Use “enterprise tasks” alongside long-running agents and deep research (outlet:p015)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "758b1ac0024b729f7f97a89c69a5734f7747f63fa245e05c58a9b8caf59c74cb",
+        "scored_at": "2026-11-06T14:08:55.498378+00:00"
+      }
     },
     {
       "id": "726b04be82a22c7ae574",
@@ -29756,7 +30283,58 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 7,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "tính năng hệ thống tệp cho DBX Agent Cloud để giúp tác tử AI quản lý tài liệu, hình ảnh, âm thanh, video",
+            "explanation": "The source describes support for different content types and, separately, planned filesystem features that let agents manage files and maintain continuity. It does not assign management of those four content types specifically to the filesystem feature (outlet:p015)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "tích hợp trực tiếp sản phẩm cốt lõi với ChatGPT, Claude và Muse",
+            "explanation": "The source says users will be able to connect their Dropbox content to third-party tools including ChatGPT, Claude and Muse; it does not describe a direct integration of the core product itself with those tools (outlet:p014)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "hơn 70.000 nhóm khách hàng đủ điều kiện thuộc gói Standard và Advanced tại Mỹ, Anh và Úc",
+            "explanation": "Dropbox says the updated experience reached more than 70,000 teams. Separately, its initial rollout is available to eligible Standard and Advanced customers in the U.S., U.K. and Australia; the source does not say all 70,000 teams fall within that group (outlet:p016)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may think the 70,000 teams are all eligible customers in the three initial rollout countries.",
+            "fix": "State the reach figure and the initial rollout conditions as separate facts (outlet:p016)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers cannot distinguish the planned content capabilities from the planned filesystem features.",
+            "fix": "Describe support for documents, images, audio and video separately from file management and continuity across tasks and sessions (outlet:p015)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The core-product feature is described as a stronger form of integration than the source establishes.",
+            "fix": "Say users will be able to connect Dropbox content to third-party tools, including ChatGPT, Claude and Muse (outlet:p014)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "647e279a7b43cdb4cc6a65ffb8d916ad61734120af209c4c6b92c2e96e041785",
+        "scored_at": "2026-11-06T14:08:55.498465+00:00"
+      }
     },
     {
       "id": "26dde55f55daf1f29623",
@@ -29835,7 +30413,38 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "tước quyền kiếm tiền của các tài khoản vi phạm",
+            "explanation": "The source refers to streaming services bragging about demonetizing spammy AI songs; it does not say accounts were found in violation or demonetized (outlet:p021)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers may understand demonetization as an action against accounts that broke rules.",
+            "fix": "Refer to demonetizing AI songs, without adding violating accounts (outlet:p021)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "76deff196a58ece7416be81770d16d8dad56df737c84656a8a7bedab2a524c04",
+        "scored_at": "2026-11-06T14:08:55.498525+00:00"
+      }
     },
     {
       "id": "ec1966491ff28b1901b2",
@@ -29871,7 +30480,68 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.35,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "màn hình máy tính và điện thoại vốn thiết kế để mở ứng dụng duyệt web",
+            "explanation": "Shankar says phone and laptop screens were designed for an age of browsing in which people think about opening apps; he does not say they were designed to open web-browsing apps (outlet:p020)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "Aina đã bổ sung thêm nút điều khiển và tính năng để tạo khác biệt",
+            "explanation": "The writer speculates that competition is probably why Aina added more controls and functionality. The source neither establishes that motive as fact nor specifies added buttons (outlet:p015)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "đọc ghi chú trên máy Mac qua Wispr Flow",
+            "explanation": "The source says the microphone lets users dictate notes on a Mac using Wispr Flow or Aina’s dictation engine, rather than read notes on the Mac (outlet:p013)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Cần điều khiển joystick hỗ trợ cử chỉ",
+            "explanation": "The source says the ring has a joystick for navigation and also supports gestures; it does not say the joystick itself supports gestures (outlet:p016)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "màn hình của nhẫn hiển thị thông báo và hỗ trợ chỉnh nhạc cùng Apple TV",
+            "explanation": "The screen shows phone notifications or which apps are being controlled. The ring can control music and devices such as Apple TV, but the source does not attribute those controls to its screen (outlet:p015–p016)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The founder’s rationale is changed, and the writer’s speculation about differentiation is stated as certain.",
+            "fix": "Describe screens as designed for an earlier browsing era, and retain the writer’s “probably” when explaining Aina’s added controls (outlet:p015, outlet:p020)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers may think Wispr Flow reads notes from the Mac.",
+            "fix": "Say users can dictate notes on a Mac with Wispr Flow or Aina’s own dictation engine (outlet:p013)."
+          },
+          {
+            "question": "notable",
+            "problem": "The description assigns gesture and device controls to specific components without support.",
+            "fix": "Separate joystick navigation, the ring’s gesture support, screen displays, and the ring’s music and Apple TV controls (outlet:p015–p016)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a7c567621769e055c78b3634c2b2c571b0570ef7ca0fb209ea462b399a557ea7",
+        "scored_at": "2026-11-06T14:08:55.498603+00:00"
+      }
     },
     {
       "id": "95048bc2451170d1f7e0",
@@ -29958,7 +30628,43 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.65,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 7,
+          "meaning": 4
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "như Dan Jeavons đánh giá, vai trò của AI hiện giới hạn ở mức hỗ trợ các quy trình vận hành cụ thể trong ngành",
+            "explanation": "Jeavons says the technology is mature enough to make a significant change in operating processes; he does not state this limit (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The ending attributes an unsupported limit to Jeavons.",
+            "fix": "State his expectation of significant operational change instead (outlet:p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses the concrete use of AI in oil infrastructure.",
+            "fix": "Add the sensor-data example and its stated benefits: efficiency, faster malfunction detection and lower emissions (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cccb3137c9441b516664dfa1243c7735c4f5e31e0f9aca8844a261fe6e1f9e4a",
+        "scored_at": "2026-11-06T14:08:55.498640+00:00"
+      }
     },
     {
       "id": "434802a6a530e968649e",
@@ -29994,7 +30700,53 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.35,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 6,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "người chơi cần mua thẻ ngày Ultimate day pass nếu muốn trải nghiệm trọn vẹn toàn bộ tính năng của DLSS 5",
+            "explanation": "An Ultimate day pass is an option for trying the full experience, not a required additional purchase for Ultimate members (outlet:p010, outlet:p069)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "Nvidia đồng thời hỗ trợ khoảng 100 tiện ích mở rộng CurseForge phổ biến nhất cho World of Warcraft: Forever và phát hành hai bản mở rộng cho Tom Clancy's The Division 2 cùng Anno 117: Pax Romana của Ubisoft",
+            "explanation": "GeForce NOW plans to support around 100 add-ons at launch, while Ubisoft brings the two downloadable expansions; the source does not say Nvidia released them (outlet:p015, outlet:p020)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The day pass is presented as mandatory.",
+            "fix": "Describe it as an option to try Ultimate; existing Ultimate members can experience the update (outlet:p010, outlet:p069)."
+          },
+          {
+            "question": "what",
+            "problem": "The two Ubisoft expansions are credited to Nvidia.",
+            "fix": "Credit Ubisoft with bringing the expansions to GeForce NOW (outlet:p020)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The World of Warcraft access reward lacks its key eligibility condition.",
+            "fix": "Specify that it is for new World of Warcraft users without a subscription, across GeForce NOW tiers (outlet:p016)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d81772566844498a580a037a5eeb50d90b120bbec3f78b8e8ba749d752965c09",
+        "scored_at": "2026-11-06T14:08:55.498677+00:00"
+      }
     },
     {
       "id": "4453f7a18f3457447807",
@@ -30033,7 +30785,26 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e3bdea5fa2cd36128b69c30d24117dc8e0394abc847db20c518b67601debb8bb",
+        "scored_at": "2026-11-06T14:08:55.498716+00:00"
+      }
     },
     {
       "id": "02f8d5931637abfc769d",
@@ -30091,7 +30862,58 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.95,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "truyền dữ liệu bằng ánh sáng trên chip",
+            "explanation": "The supplied source identifies silicon photonics as critical technology used in AI optical modules, but does not provide this technical description (outlet:p011)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "Chủ tịch Bai Peng của Hua Hong cho biết quang tử silicon là công nghệ then chốt trong các mô-đun quang học AI",
+            "explanation": "The article describes the technology as critical; it attributes the capacity-expansion plan, rather than that description, to Bai (outlet:p011)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "muốn tham gia sản xuất mọi linh kiện gốc silicon trong mô-đun quang học",
+            "explanation": "Bai says Hua Hong wants to participate in all silicon-based devices inside optical modules. The source does not say it will manufacture every component (outlet:p012)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The wording turns participation across silicon-based devices into a claim about manufacturing every component.",
+            "fix": "Use Bai’s narrower statement that Hua Hong wants to participate in all silicon-based devices inside optical modules (outlet:p012)."
+          },
+          {
+            "question": "what",
+            "problem": "The article’s description of silicon photonics is attributed to Bai.",
+            "fix": "Attribute only the expansion plan to Bai and present the technology description as the article’s context (outlet:p011)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reported profit surge loses its specific size.",
+            "fix": "Give the source’s 147% net-profit increase if retaining that point (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d2ab18f6559b91219024f324fba8e0ff98cdb864ca6505165b031c7a5f951a86",
+        "scored_at": "2026-11-06T14:08:55.498747+00:00"
+      }
     },
     {
       "id": "9ff0da31108f8de2ff1b",
@@ -30760,17 +31582,17 @@
       "use_original_title": false,
       "source_url": "https://github.blog/changelog/2026-11-05-usage-metrics-api-flags-telemetry-and-version-gaps",
       "key_points": [
-        "GitHub thông báo API số liệu sử dụng Copilot hiện hiển thị những người dùng bị thiếu dữ liệu đo từ xa phía máy khách (client telemetry - dữ liệu vận hành từ trình soạn thảo) hoặc chạy phiên bản thấp hơn mức tối thiểu. Các trường dữ liệu mới theo từng người dùng xuất hiện trong báo cáo người dùng, đồng thời số lượng người dùng bị ảnh hưởng hằng ngày cũng được đưa vào các báo cáo tổ chức và doanh nghiệp. Tính năng này theo dõi cả môi trường phát triển tích hợp (IDE - phần mềm viết mã) và các tiện ích mở rộng Copilot.",
-        "GitHub giải thích người dùng không có dữ liệu đo từ xa vẫn được tính là đang hoạt động, nhưng báo cáo của họ thiếu các chi tiết như số dòng mã, phân tích tính năng và mô hình. Nguyên nhân phổ biến gồm trình biên tập hoặc tiện ích lỗi thời, tính năng đo từ xa bị tắt trong IDE, hoặc mạng có máy chủ ủy nhiệm (proxy) và tường lửa chặn tín hiệu.",
-        "Cụ thể, trường client_telemetry_present mang giá trị false khi Copilot thấy hoạt động của người dùng nhưng không nhận được sự kiện sử dụng nào từ trình soạn thảo. Trường usage_metrics_requirements liệt kê từng IDE và tiện ích Copilot theo trạng thái đạt chuẩn (met), chưa đạt (unmet) hoặc không xác định (unknown) so với mức hỗ trợ tối thiểu. Ở cấp báo cáo hằng ngày, missing_client_telemetry_user_count thống kê người dùng thiếu dữ liệu đo từ xa, còn below_usage_metrics_minimum_user_count đếm người dùng có ít nhất một IDE hoặc tiện ích dưới phiên bản tối thiểu.",
-        "GitHub nhận định các trường mới giúp tổ chức biết rõ số lượng và đối tượng bị ảnh hưởng để chủ động xử lý khoảng trống dữ liệu mà không cần mở phiếu hỗ trợ kỹ thuật. Tuy nhiên, GitHub lưu ý một người dùng có thể cùng lúc xuất hiện ở cả hai nhóm thiếu dữ liệu và chạy phiên bản cũ, nên không được cộng gộp hai số đếm hoặc cộng qua nhiều ngày để tính người dùng duy nhất. Nền tảng cũng nhấn mạnh đây là các tín hiệu độc lập, vì người dùng dù đáp ứng mọi chuẩn phiên bản vẫn có thể thiếu dữ liệu đo từ xa nếu bị tường lửa chặn. Ngoài ra, giá trị null hoặc bị bỏ qua phản ánh dữ liệu chưa sẵn có chứ không phải là false hay số không, và các ngày trước bản phát hành này hoàn toàn không có dữ liệu."
+        "Theo GitHub, giao diện lập trình ứng dụng (API) số liệu sử dụng Copilot hiện hiển thị những người dùng thiếu dữ liệu đo từ xa phía máy khách (client telemetry - dữ liệu vận hành từ trình biên tập) hoặc chạy các phiên bản môi trường phát triển tích hợp (IDE) hay tiện ích dưới mức tối thiểu. Các trường thông tin mới theo từng người dùng xuất hiện trong báo cáo người dùng doanh nghiệp và tổ chức, trong khi số lượng người dùng bị ảnh hưởng hằng ngày được đưa vào báo cáo tổ chức và doanh nghiệp. Dữ liệu này dành cho chủ sở hữu tổ chức, chủ sở hữu doanh nghiệp, người quản lý thanh toán hoặc vai trò có quyền xem số liệu, với điều kiện chính sách số liệu Copilot phải được bật.",
+        "GitHub giải thích rằng người dùng thiếu dữ liệu đo từ xa dù vẫn được tính là đang hoạt động nhưng khiến báo cáo thiếu chi tiết như số dòng mã, phân tích tính năng và phân tích mô hình. Các nguyên nhân phổ biến gồm trình biên tập hoặc tiện ích mở rộng lỗi thời, tính năng đo từ xa bị tắt trong IDE, hoặc mạng nội bộ có máy chủ ủy nhiệm (proxy) và tường lửa chặn tín hiệu. GitHub nhấn mạnh đây là các tín hiệu độc lập, vì người dùng dù đạt mọi chuẩn phiên bản tối thiểu vẫn có thể thiếu dữ liệu đo từ xa nếu làm việc sau máy chủ ủy nhiệm.",
+        "Về các trường cụ thể, trường client_telemetry_present xác định liệu có nhận được dữ liệu đo từ xa của người dùng trong ngày đó hay không, với giá trị false đồng nghĩa Copilot thấy hoạt động nhưng không nhận được sự kiện nào từ trình biên tập. Trường usage_metrics_requirements phân loại từng IDE và tiện ích mở rộng Copilot theo trạng thái đạt chuẩn (met), chưa đạt chuẩn (unmet) hoặc không xác định (unknown) so với phiên bản tối thiểu. Ở cấp độ báo cáo hằng ngày, missing_client_telemetry_user_count thống kê người dùng có trường đo từ xa mang giá trị false, còn below_usage_metrics_minimum_user_count đếm người dùng có ít nhất một IDE hoặc tiện ích dưới chuẩn tối thiểu.",
+        "GitHub nhận định các trường mới này giúp quản trị viên nắm rõ số lượng và đối tượng người dùng bị ảnh hưởng, qua đó doanh nghiệp có thể chủ động khắc phục khoảng trống dữ liệu mà không cần mở yêu cầu hỗ trợ kỹ thuật. Tuy nhiên, GitHub lưu ý mỗi số đếm chỉ tính trong một ngày và một người dùng có thể thuộc cả hai nhóm thiếu dữ liệu lẫn dùng phiên bản cũ, nên không được cộng gộp hai số đếm hoặc cộng dồn qua nhiều ngày để tính lượng người dùng duy nhất. Nền tảng này cũng nêu rõ giá trị null hoặc bị bỏ qua phản ánh dữ liệu chưa sẵn có chứ không phải mang giá trị false hay số không, và các trường mới này không có giá trị cho những ngày trước thời điểm phát hành."
       ],
       "same_event_coverage_ids": [
         "d22e06521d157df36b14"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "GitHub bổ sung tính năng cảnh báo thiếu dữ liệu đo từ xa và phiên bản cũ vào API Copilot",
+      "editorial_headline_vi": "GitHub bổ sung các trường báo cáo và số đếm hằng ngày vào API số liệu sử dụng Copilot",
       "summary_sources": [
         {
           "id": "outlet",
@@ -30783,35 +31605,19 @@
       "key_points_prompt_version": "summary-vi-6-prose",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.35,
+        "value": 9.7,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
-          "notable": 10,
-          "meaning": 8
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "tính năng cảnh báo",
-            "explanation": "The source describes new reporting fields and counts, not an alert feature (outlet:p002–p007)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "các ngày trước bản phát hành này hoàn toàn không có dữ liệu",
-            "explanation": "Days before the release have no values for the new fields; the source does not say they have no data at all (outlet:p015)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The headline leads readers to expect alerts.",
-            "fix": "Call these new API reporting fields and daily counts (outlet:p002–p007)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The final sentence makes the absence of historical values sound like an absence of all data.",
-            "fix": "Specify that the new fields have no values for days before this release (outlet:p015)."
+            "question": "notable",
+            "problem": "An administrator reading the Vietnamese may not know where to find the new data in each report format.",
+            "fix": "Specify that user fields appear in one-day and 28-day user reports, while counts appear in one-day reports and each day_totals entry of 28-day reports (outlet:p011)."
           }
         ],
         "writer_boats": [
@@ -30819,8 +31625,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "398d5ff96bdccc1995ed2c54126c6170ead0ec2e3dd3f37738aa2078804167bf",
-        "scored_at": "2026-11-06T12:08:45.631948+00:00"
+        "prose_sha256": "8f966624461e75b78150e56b2f08dc14676681e048c4e0bac071f280c8eab6ee",
+        "scored_at": "2026-11-06T14:02:47.090781+00:00"
       }
     },
     {
@@ -31593,17 +32399,17 @@
       "use_original_title": false,
       "source_url": "https://github.com/dsx-ai-factory/nvke",
       "key_points": [
-        "Nvidia phát hành dự án mã nguồn mở Nvidia Kubernetes Engine (NVKE), cung cấp mặt phẳng quản lý (management plane - tầng điều khiển trung tâm) để các đội ngũ hạ tầng tự vận hành Kubernetes trên phần cứng GPU riêng. Theo tài liệu dự án, phần mềm này hiện mới ở dạng bản xem trước thử nghiệm (preview) và nhóm phát triển khuyến cáo không dùng cho các hệ thống sản xuất chính thức vì cấu hình có thể thay đổi giữa các đợt phát hành. Dự án cho biết NVKE không phải bản phân phối Kubernetes riêng, mà đóng vai trò như một hệ thống tự lưu trữ để khởi tạo cụm quản lý rồi điều phối nhiều cụm máy chủ công việc tách biệt theo yêu cầu.",
-        "Tài liệu của Nvidia giải thích nền tảng này cho phép mỗi cụm công việc của khách hàng sở hữu mặt phẳng điều khiển, cơ sở dữ liệu etcd và nhóm nút (node pool - nhóm máy chủ xử lý tác vụ) hoàn toàn độc lập. Đội ngũ quản trị sẽ trực tiếp điều hành mặt phẳng quản lý NVKE, còn khách hàng thao tác với cụm máy chủ ứng dụng qua giao diện lập trình ứng dụng (API) Kubernetes và công cụ dòng lệnh kubectl. Về an ninh, các nút máy chủ phải hoàn thành quy trình xác thực danh tính qua chuẩn SPIFFE/SPIRE bằng vi mạch TPM phần cứng trước khi nhận thông tin đăng nhập, cùng tùy chọn mã hóa dữ liệu etcd cho từng cụm.",
-        "Để đánh giá không cần phần cứng GPU hay tài khoản Nvidia, tài liệu cung cấp bản chạy nhanh cục bộ trên máy Linux hoặc máy ảo với cấu hình tối thiểu 6 CPU, 12 GiB bộ nhớ và 100 GiB đĩa trống. Người dùng thử nghiệm trên hệ điều hành macOS có thể cài đặt hệ thống thông qua máy ảo Colima hỗ trợ Docker và TPM ảo. Khi triển khai thực tế trên máy vật lý, người vận hành phải tự chuẩn bị máy chủ, mạng nội bộ, kho chứa ảnh và cấu hình quyền truy cập bộ điều khiển Nvidia Infra Controller (NICo). Quá trình biên dịch mã nguồn Go 1.27.3 sẽ tạo ra chín tệp nhị phân riêng biệt, bao gồm công cụ nvkectl, các bộ điều khiển và giao diện tenant-api cùng operator-api.",
-        "Về mặt giới hạn, tài liệu dự án lưu ý người dùng phải tự cấu hình bảo mật vì hệ thống đang tắt cơ chế xác thực API và chỉ dùng giao thức HTTP thuần sau khi cài đặt. Nhóm phát triển cũng nêu rõ bộ điều khiển NICo là nhà cung cấp hạ tầng tương thích duy nhất trong giai đoạn thử nghiệm này. Đồng thời, tài liệu cho biết cụm quản lý hiện không thể tự nâng cấp hay mở rộng, và chưa hề có quy trình nâng cấp mặt phẳng quản lý cũng như sao lưu hay khôi phục dữ liệu. Do các hạn chế kỹ thuật và cấu hình có thể thay đổi, tài liệu chính thức khuyến nghị người dùng không nên sử dụng NVKE cho các khối lượng công việc sản xuất thực tế."
+        "Theo tài liệu dự án của Nvidia, Nvidia Kubernetes Engine (NVKE) cung cấp mặt phẳng quản lý (management plane - tầng điều khiển trung tâm) Kubernetes trên hạ tầng bộ xử lý đồ họa (GPU) riêng. Tài liệu kỹ thuật nêu rõ phần mềm hiện có bản xem trước thử nghiệm (preview), với các giao diện lập trình ứng dụng (API), cấu hình và hành vi có thể thay đổi giữa các đợt phát hành. Dự án cho biết NVKE hoạt động như một hệ thống tự lưu trữ: một cụm hạt nhân tạm thời khởi tạo cụm quản lý, từ đó phân phối và quản lý nhiều cụm công việc tách biệt theo yêu cầu.",
+        "Theo tài liệu dự án, mỗi cụm công việc sở hữu mặt phẳng điều khiển, cơ sở dữ liệu etcd cùng các nhóm nút (node pool - nhóm máy chủ xử lý tác vụ) độc lập. Người vận hành điều khiển mặt phẳng quản lý NVKE qua công cụ dòng lệnh nvkectl hoặc API, còn khách hàng sử dụng cụm máy chủ qua API Kubernetes và kubectl. Các nút máy chủ chứng minh danh tính qua chuẩn SPIFFE/SPIRE bằng vi mạch TPM (Trusted Platform Module - vi mạch bảo mật phần cứng) trước thời điểm nhận thông tin gia nhập, đồng thời hỗ trợ mã hóa dữ liệu etcd cho từng cụm. Dự án đồng hành NVKR xây dựng ảnh nút và các thành phần từ đầu vào cố định, còn NVKE trực tiếp triển khai các thành phẩm này.",
+        "Đối với quy trình cài đặt thực tế, tài liệu dự án yêu cầu người vận hành tự cung cấp máy móc và kết nối mạng, các ảnh nút, kho lưu trữ ảnh cùng cấu hình quyền truy cập bộ điều khiển NVIDIA Infra Controller (NICo). Ở phương án đánh giá không cần phần cứng GPU hay tài khoản Nvidia, tài liệu cung cấp bản chạy nhanh cục bộ trên máy chủ Linux hoặc máy ảo kiến trúc amd64 hoặc arm64. Môi trường cục bộ này đòi hỏi tối thiểu 6 CPU, 12 GiB bộ nhớ trống, 100 GiB đĩa trống, Docker và TPM ảo, trong khi người dùng macOS đánh giá qua máy ảo Colima. Quá trình biên dịch mã nguồn yêu cầu Go 1.27.3 cùng GNU Make 4 trở lên, tạo ra chín tệp nhị phân riêng biệt gồm nvkectl, các bộ điều khiển và các giao diện API.",
+        "Trong giai đoạn xem trước thử nghiệm (preview), tài liệu dự án của Nvidia nêu rõ không khuyến nghị dùng cho môi trường sản xuất thực tế, đồng thời lưu ý các giao diện API, cấu hình và hành vi có thể thay đổi giữa các đợt phát hành. Tài liệu kỹ thuật cũng nhấn mạnh bộ điều khiển NICo là nhà cung cấp hạ tầng tương thích duy nhất ở giai đoạn xem trước này. Về mặt vận hành, tài liệu cảnh báo bản xem trước cần người vận hành cấu hình rõ ràng: cơ chế xác thực API mặc định bị tắt và API chỉ sử dụng giao thức HTTP thuần sau khi cài đặt. Đồng thời, cụm quản lý không tự nâng cấp, mở rộng hay thay thế, hệ thống chưa có quy trình nâng cấp mặt phẳng quản lý hay sao lưu và khôi phục, còn các ảnh nút FDE chỉ dành cho đánh giá và không cung cấp tính bảo mật cho dữ liệu lưu trữ."
       ],
       "same_event_coverage_ids": [
         "52a4206e91c5d0562341"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia ra mắt bản thử nghiệm NVKE hỗ trợ tự vận hành cụm Kubernetes trên hạ tầng GPU riêng",
+      "editorial_headline_vi": "NVKE có bản xem trước thử nghiệm hỗ trợ vận hành cụm Kubernetes trên hạ tầng GPU Nvidia",
       "summary_sources": [
         {
           "id": "outlet",
@@ -31616,40 +32422,35 @@
       "key_points_prompt_version": "summary-vi-6-prose",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.65,
+        "value": 9.25,
         "answers": {
           "what": 9,
-          "why": 10,
+          "why": 8,
           "notable": 10,
           "meaning": 10
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "ra mắt",
-            "explanation": "The source says NVKE is available as a preview; it does not report a launch event (outlet:p003)."
+            "summary_text": "một cụm hạt nhân tạm thời khởi tạo cụm quản lý",
+            "explanation": "The source describes a temporary seed cluster that stands up the management cluster. “Cụm hạt nhân” changes the meaning of seed cluster (outlet:p020, outlet:p022)."
           },
           {
             "kind": "fact",
-            "summary_text": "Khi triển khai thực tế trên máy vật lý",
-            "explanation": "For a real installation, the source says operators supply machines, networking, node images and registries. It does not restrict those machines to physical hardware (outlet:p011)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "mạng nội bộ",
-            "explanation": "The source requires operators to supply networking but does not specify that it must be an internal network (outlet:p011)."
+            "summary_text": "Người vận hành điều khiển mặt phẳng quản lý NVKE qua công cụ dòng lệnh nvkectl hoặc API",
+            "explanation": "The source says operators request workload clusters through the NVKE API or nvkectl; it does not say those interfaces control the management plane itself (outlet:p002, outlet:p013)."
           }
         ],
         "findings": [
           {
             "question": "what",
-            "problem": "The headline presents a launch that the source does not establish.",
-            "fix": "Say NVKE is available in preview, without asserting a launch event (outlet:p003)."
+            "problem": "“Cụm hạt nhân” gives readers the wrong idea of the temporary cluster’s role.",
+            "fix": "Describe it as a temporary bootstrap or seed cluster that stands up the management cluster (outlet:p020, outlet:p022)."
           },
           {
-            "question": "notable",
-            "problem": "The installation description limits the required machines and networking more narrowly than the source does.",
-            "fix": "Say operators supply machines and networking, without specifying physical machines or an internal network (outlet:p011)."
+            "question": "why",
+            "problem": "The described API and CLI workflow points at the management plane instead of the clusters being requested.",
+            "fix": "Say operators request workload clusters through the NVKE API or nvkectl (outlet:p013)."
           }
         ],
         "writer_boats": [
@@ -31657,8 +32458,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "23663c9d76650de2992e41746fda17e04b96ecb8bb119ba6ca61dd8443fc4255",
-        "scored_at": "2026-11-06T12:08:45.631745+00:00"
+        "prose_sha256": "0f1ed252c23d76c78d0823a7e34fb0e669ca4c9b0f8d9af8b8cc818fdb067f44",
+        "scored_at": "2026-11-06T14:02:47.090680+00:00"
       }
     },
     {
@@ -31679,10 +32480,10 @@
       "use_original_title": false,
       "source_url": "https://village.dev/blog/closed-ai-models-now-dominate-the-price-performance-frontier/",
       "key_points": [
-        "Báo cáo từ công cụ LLM Atlas của Village vào cuối tháng 10 năm 2026 cho thấy các mô hình AI đóng thương mại đang chiếm lĩnh hầu hết mọi mức ngân sách trên biểu đồ tối ưu hiệu năng và giá cả. Theo Village, mô hình trọng lượng mở (open-weight - mô hình công khai các tham số trọng số) hiện chỉ còn là lựa chọn tốt nhất tại 3% các mức ngân sách, mức thấp nhất từng được ghi nhận kể từ năm 2024. Thị phần này giảm sâu so với mức 41% hồi tháng 6 năm 2026, thời điểm DeepSeek V4 Flash và Zhipu GLM-5.2 giúp mô hình mở dẫn đầu ở nhiều phân khúc chi phí.",
-        "Village đưa ra ba cách giải thích cho xu hướng các phòng nghiên cứu mô hình đóng giành lại ưu thế về chi phí. Thứ nhất, bài viết giải thích các công ty sở hữu mô hình hàng đầu có thể chắt lọc (distill - phương pháp dùng mô hình lớn dạy mô hình nhỏ) kiến thức nội bộ để tạo phiên bản giá rẻ trong vài tuần, trong khi điều khoản thương mại cấm dùng dữ liệu đầu ra để huấn luyện mô hình mở. Thứ hai, tác giả chỉ ra các hãng đóng phát hành đồng loạt cả dòng sản phẩm, như OpenAI nắm 11 trên 21 mốc tối ưu với các thế hệ GPT-6 và GPT-6.1 từ phiên bản Luna đến Astra. Thứ ba, Village nhận định các hãng lớn như OpenAI, Anthropic hay Google có thể vận hành suy luận rẻ hơn nhờ quy mô hạ tầng lớn và việc Google tự dùng chip riêng.",
-        "Dữ liệu khảo sát cho thấy gần như toàn bộ 3% ngân sách còn lại của mô hình mở chỉ nằm ở phân khúc giá siêu rẻ do Google Gemma 4 E4B và Xiaomi MiMo-V2.6-Flash nắm giữ. Trước đây, bài viết nêu rõ mô hình mở từng bứt phá như DeepSeek-V3.2-Exp dẫn đầu gần một nửa ngân sách vào tháng 9 năm 2025, nhưng thị phần giảm một nửa vào quý sau khi các hãng đóng tung gói cước rẻ hơn. Lợi thế này bị đảo ngược khi OpenAI phát hành GPT-6 Luna vào tháng 9 cùng GPT-6.1 Terra vào tháng 10 năm 2026, kết hợp với Claude Haiku 5.5 của Anthropic để thâu tóm các mức giá nhờ vừa mạnh hơn vừa rẻ hơn.",
-        "Nhóm nghiên cứu tại Village giải thích rằng công cụ LLM Atlas ước tính năng lực từ các bài kiểm chuẩn công khai và đo chi phí tác vụ tương đối so với GPT-5 ở mức suy luận cao. Báo cáo nhấn mạnh chi phí này phản ánh giá qua các giao diện lập trình đám mây (API do nhà cung cấp lưu trữ), đồng thời lưu ý mô hình mở có thể vận hành rẻ hơn nếu người dùng tự chạy trên phần cứng riêng. Village cũng chỉ rõ nếu mở rộng thang ngân sách từ 0,3% đến mười lần chi phí GPT-5, thị phần của mô hình mở sẽ đạt mức 16% nhờ lợi thế ở phân khúc giá cực rẻ. Dù vậy, Village nhận định việc các phòng nghiên cứu mô hình đóng có thể phục vụ suy luận với chi phí rẻ hơn sẽ khiến các đợt dẫn đầu của mô hình mở chỉ kéo dài từng đợt ngắn."
+        "Theo Village, mô hình mở chỉ là lựa chọn mua tốt nhất ở 3% mức ngân sách, trong khi mô hình đóng chiếm lĩnh gần như toàn bộ biểu đồ tối ưu giá và hiệu năng. Đây là tỷ lệ thấp nhất từng ghi nhận kể từ năm 2024, thời điểm mô hình mở luôn giữ ít nhất 6% ngân sách vào cuối mỗi quý. Sự sụt giảm diễn ra sau khi các hãng đóng tung ra các thế hệ mô hình mới vừa rẻ hơn vừa mạnh hơn.",
+        "Village đưa ra ba cách giải thích phù hợp với quy luật khi phân tích việc các phòng nghiên cứu mô hình đóng có thể giành ưu thế về giá trị. Thứ nhất, các hãng đóng có thể chắt lọc (distill, dùng mô hình lớn dạy mô hình nhỏ) từ mô hình nội bộ mạnh nhất để tạo bản giá rẻ chỉ sau vài tuần như Claude Haiku 5.5, trong khi điều khoản của họ thường cấm dùng dữ liệu đầu ra để huấn luyện mô hình cạnh tranh. Thứ hai, các hãng đóng phát hành cả dòng mô hình, như hai thế hệ GPT-6 và GPT-6.1 của OpenAI nắm 11 trên 21 mốc tối ưu để bao phủ gần như mọi mức giá. Thứ ba, Village cho rằng các hãng lớn có thể vận hành suy luận (inference, quá trình tạo câu trả lời) rẻ hơn nhờ quy mô khổng lồ và việc Google tự dùng chip riêng.",
+        "Theo Village, hai đợt phát hành của OpenAI đã giành lại phần lớn mức ngân sách từng do mô hình mở nắm giữ. Cụ thể, GPT-6 Luna vào tháng 9 và GPT-6.1 Terra vào tháng 10 năm 2026 hiện bao phủ các mức ngân sách mở, cùng với Claude Haiku 5.5 của Anthropic. Trước đó vào tháng 6 năm 2026, riêng DeepSeek V4 Flash từng là lựa chọn mua tốt nhất ở gần một phần ba số ngân sách, bên cạnh GLM-5.2 của Zhipu. Mô hình mở từng bứt phá như DeepSeek-V3.2-Exp dẫn đầu gần một nửa ngân sách vào tháng 9 năm 2025, nhưng tỷ lệ này đều giảm một nửa hoặc hơn ở quý sau. Hiện gần như toàn bộ 3% ngân sách còn lại của mô hình mở chỉ tập trung ở phân khúc siêu rẻ với Google Gemma 4 E4B và Xiaomi MiMo-V2.6-Flash.",
+        "Về giới hạn đánh giá, Village nhấn mạnh chi phí đo lường phản ánh giá API và mô hình mở có thể rẻ hơn trên phần cứng riêng của người dùng. Nghiên cứu dùng LLM Atlas ước tính điểm năng lực từ các bài kiểm chuẩn công khai và đo chi phí mỗi tác vụ tương đối so với GPT-5 ở mức suy luận cao qua 201 mức ngân sách. Quy luật áp đảo vẫn giữ nguyên khi thu hẹp ngân sách từ 3% đến một lần chi phí GPT-5 hoặc chỉ xét các mô hình có ít nhất 10 nhóm bài kiểm chuẩn. Nếu mở rộng ngân sách từ 0,3% đến mười lần chi phí GPT-5, tỷ lệ các mức ngân sách mà mô hình mở là lựa chọn mua tốt nhất tăng lên 16% nhờ các mô hình siêu nhỏ ở phân khúc rẻ nhất."
       ],
       "same_event_coverage_ids": [
         "092c1353fa64b1ad0db6",
@@ -31690,7 +32491,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Báo cáo của Village: Mô hình AI đóng áp đảo hiệu năng và giá cả khi thị phần mô hình mở giảm về 3%",
+      "editorial_headline_vi": "Mô hình AI đóng áp đảo hiệu năng và giá cả khi mô hình mở chỉ là lựa chọn tốt nhất ở 3% mức ngân sách",
       "summary_sources": [
         {
           "id": "outlet",
@@ -31703,60 +32504,19 @@
       "key_points_prompt_version": "summary-vi-6-prose",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.1,
+        "value": 9.7,
         "answers": {
-          "what": 7,
-          "why": 6,
-          "notable": 8,
-          "meaning": 7
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "thị phần mô hình mở giảm về 3%",
-            "explanation": "The 3% is the share of measured budget points where an open-weight model was the best buy, not market share (outlet:p003, outlet:p017)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Thị phần này giảm sâu so với mức 41%",
-            "explanation": "The 41% is also a share of measured budget points, not market share (outlet:p004, outlet:p017)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "thị phần giảm một nửa vào quý sau",
-            "explanation": "The source says the open-model share of best-buy budget points fell by about half or more after each peak; it does not report a change in market share (outlet:p009, outlet:p017)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "thị phần của mô hình mở sẽ đạt mức 16%",
-            "explanation": "The 16% applies to best-buy budget points when Village widens its cost range, not to market share (outlet:p018)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "điều khoản thương mại cấm dùng dữ liệu đầu ra để huấn luyện mô hình mở",
-            "explanation": "The source says closed labs’ terms generally bar training competing models on their outputs. It does not state a blanket ban on using those outputs to train open models (outlet:p013)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "việc các phòng nghiên cứu mô hình đóng có thể phục vụ suy luận với chi phí rẻ hơn sẽ khiến các đợt dẫn đầu của mô hình mở chỉ kéo dài từng đợt ngắn",
-            "explanation": "Cheaper inference is one possible explanation Village offers for the observed pattern. The source does not establish it as the cause or predict that it will make future leads brief (outlet:p009-p015)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "Calling the result market share changes what the 3%, 41% and 16% figures measure.",
-            "fix": "Call them shares of the measured budget points where an open-weight model was the best buy (outlet:p003-p004, outlet:p017-p018)."
-          },
-          {
-            "question": "why",
-            "problem": "The final sentence presents one proposed explanation as a definite cause and forecast.",
-            "fix": "Present cheaper inference at scale as one of three explanations that may fit the observed pattern (outlet:p011-p015)."
-          },
-          {
-            "question": "why",
-            "problem": "The training restriction is stated as a blanket ban on training open models.",
-            "fix": "Say closed labs’ terms generally bar training competing models on their outputs (outlet:p013)."
+            "question": "notable",
+            "problem": "Readers miss the clearest measure of how sharply open-weight models’ share fell.",
+            "fix": "Add that open-weight models were the best buy at 41% of the measured budgets in June, versus 3% now (outlet:p003–p004)."
           }
         ],
         "writer_boats": [
@@ -31764,8 +32524,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "22b33f36035c4a2ae446e4ce8e23c9c49000af5a713d8ce3b77369a42978c25b",
-        "scored_at": "2026-11-06T12:08:45.631820+00:00"
+        "prose_sha256": "ef9b6958044b3cc9a7c54f2b494ebba9e957c128af21073195389f88b09febb1",
+        "scored_at": "2026-11-06T14:02:47.090741+00:00"
       }
     },
     {
@@ -31825,7 +32585,48 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Trong bài báo đăng trên tạp chí ACM Transactions on Graphics",
+            "explanation": "The source says the paper was accepted to ACM Transactions on Graphics; it does not establish that it had been published there (outlet:p010)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "thay vì khuyến nghị triển khai thực tế",
+            "explanation": "The source limits its conclusion to a useful operating regime for recoverable appearance artifacts, but makes no statement about whether the work recommends practical deployment (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers are told the paper has been published in the journal.",
+            "fix": "Say it was accepted to ACM Transactions on Graphics (outlet:p010)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The ending attributes a position on practical deployment to the authors.",
+            "fix": "Remove that claim and retain the authors’ stated limit: a useful operating regime for recoverable appearance artifacts (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ab60f47ef26813f39fff128f89376bbb72a8004e5bc6aa8ff7fba7e7435cac7a",
+        "scored_at": "2026-11-06T14:08:55.499229+00:00"
+      }
     },
     {
       "id": "1f73f08442fa708b2adb",
@@ -32013,10 +32814,10 @@
       "use_original_title": false,
       "source_url": "https://technode.com/2026/11/06/apples-china-ai-partner-has-had-a-rough-ride/",
       "key_points": [
-        "Vào ngày 4 tháng 11, Apple Intelligence bắt đầu thử nghiệm beta tại Trung Quốc, với mô hình Qwen của Alibaba được cung cấp trong một số trải nghiệm chọn lọc thuộc Siri, Công cụ Viết (Writing Tools) và Trí thông minh Thị giác (Visual Intelligence). Hợp tác này đánh dấu bước tiến nhanh của dòng mô hình ra mắt năm 2023, khi Hugging Face ghi nhận hơn 2 tỷ lượt tải Qwen trên Hub riêng trong 7 tháng đầu năm 2026, vượt xa Google và Meta. Dù vậy, TechNode nhận định sự trỗi dậy của Qwen không hề bằng phẳng mà chịu nhiều hoài nghi nội bộ, cạnh tranh khốc liệt cùng các cuộc chia tay của nhân sự cấp cao trước khi thành danh toàn cầu.",
-        "Theo TechNode, độ bao quát của hệ thống công nghệ toàn diện Qwen có ý nghĩa quan trọng đối với Apple, sau khi hãng đánh giá Baidu, Tencent, ByteDance, Alibaba và DeepSeek rồi chọn Alibaba làm đối tác cho Apple Intelligence tại Trung Quốc. TechNode cho biết Qwen đã phát triển thành hệ thống công nghệ toàn diện gồm các mô hình nền tảng ngôn ngữ, lập trình, đa phương thức, nền tảng Model Studio của Alibaba Cloud và ứng dụng tiêu dùng Qwen App. Đến tháng 8 năm 2026, Apple cũng huấn luyện một mô hình riêng cho Trung Quốc với sự hỗ trợ từ Alibaba, trong đó cấu hình được phê duyệt tích hợp trực tiếp Qwen.",
-        "Về biến động nội bộ, vào tháng 3 năm 2026, lãnh đạo kỹ thuật Junyang Lin bất ngờ tuyên bố rời đi với lời chia tay “Bye my beloved Qwen”, trong khi trưởng bộ phận hậu đào tạo (post-training chief) Bowen Yu cũng rời nhóm và nhà nghiên cứu cấp cao Binyuan Hui đã rời đi vào đầu năm đó. Tại một cuộc họp nội bộ khẩn cấp, các nhà nghiên cứu đã chất vấn việc khách hàng trả tiền của Alibaba Cloud được đảm bảo năng lực tính toán còn nhóm Qwen lại thiếu tài nguyên.",
-        "TechNode nhận định thỏa thuận với Apple mở ra một giai đoạn mới, nhưng thách thức khó khăn hơn có thể là việc giữ cho Qwen duy trì tốc độ, sự tập trung và tính sáng tạo khi bộ máy xung quanh ngày càng mở rộng quy mô. Theo tác giả bài viết trên TechNode, biến cố này phản ánh mâu thuẫn lớn hơn tại các phòng nghiên cứu AI tiên phong, khi các mô hình tiên tiến đòi hỏi nguồn vốn tập trung cùng tài nguyên tính toán khổng lồ, còn các nhóm nghiên cứu hàng đầu thường dựa vào quyền tự chủ và ra quyết định nhanh."
+        "Vào ngày 4 tháng 11, Apple bắt đầu thử nghiệm beta (phiên bản thử nghiệm giới hạn tính năng trước khi phát hành chính thức) Apple Intelligence tại Trung Quốc với mô hình Qwen của Alibaba được tích hợp trong một số trải nghiệm chọn lọc thuộc Siri, Writing Tools và Visual Intelligence (outlet:p002). Theo nền tảng Hugging Face, dòng mô hình ra mắt năm 2023 này đã đạt hơn 2 tỷ lượt tải trên Hub riêng trong 7 tháng đầu năm 2026, vượt qua Google và Meta (outlet:p002). Dù vậy, TechNode nhận định Qwen phải trải qua hoài nghi nội bộ, cạnh tranh khốc liệt và nhiều biến động nhân sự trước khi thành công, khi nhiều nhóm tại Alibaba ban đầu vẫn chọn Llama của Meta hoặc DeepSeek R1 (outlet:p002, outlet:p007).",
+        "Theo TechNode, chiến lược mã nguồn mở giúp thu hút lập trình viên và hoàn thiện mô hình khi Alibaba sớm công bố công khai trọng số mô hình sau khi giới thiệu Tongyi Qianwen vào tháng 4 năm 2023 (outlet:p005, outlet:p008). Cộng đồng phát triển đã tinh chỉnh Qwen và chuyển các cải tiến về cho đội ngũ, tạo tiền đề để Qwen2.5 mở rộng năng lực ngôn ngữ, lập trình và toán học, qua đó thuyết phục người dùng tại Trung Quốc, Mỹ cùng nội bộ Alibaba vào cuối năm 2024 (outlet:p008, outlet:p009). Trước áp lực từ DeepSeek R1 đòi hỏi năng lực suy luận mạnh hơn với chi phí thấp hơn, Alibaba đã ra mắt Qwen3 vào tháng 4 năm 2025 với cơ chế suy luận kết hợp giữa chế độ suy nghĩ chậm và phản hồi nhanh (outlet:p010, outlet:p012). Mô hình mở lớn nhất sử dụng kiến trúc hỗn hợp chuyên gia (mixture-of-experts), chỉ kích hoạt 22 tỷ trong 235 tỷ tham số tại mỗi thời điểm để cắt giảm chi phí suy luận (outlet:p013).",
+        "Về biến động nội bộ, lãnh đạo kỹ thuật Junyang Lin bất ngờ tuyên bố rời đi vào tháng 3 năm 2026 với lời chào 'Bye my beloved Qwen', cùng sự ra đi của trưởng bộ phận hậu đào tạo Bowen Yu và nhà nghiên cứu cấp cao Binyuan Hui (outlet:p016). Alibaba đã siết chặt quản lý bằng cách lập Token Foundry dưới quyền CEO Eddie Wu và giao Dayiheng Liu phụ trách Qwen, trong khi Apple sau đó chọn Alibaba làm đối tác sau khi đánh giá Baidu, Tencent, ByteDance và DeepSeek (outlet:p022, outlet:p023, outlet:p026).",
+        "TechNode nhận định thỏa thuận hợp tác với Apple mở ra một giai đoạn mới, nhưng thách thức duy trì tốc độ và tính sáng tạo khi bộ máy xung quanh ngày càng lớn có thể là phần việc khó khăn hơn (outlet:p030). Theo tác giả bài viết trên TechNode, biến cố của Qwen phản ánh mâu thuẫn lớn hơn tại các phòng nghiên cứu AI tiên phong, khi mô hình đòi hỏi vốn tập trung cùng tài nguyên khổng lồ, còn các nhóm nghiên cứu lại cần quyền tự chủ và khả năng ra quyết định nhanh (outlet:p021)."
       ],
       "same_event_coverage_ids": [
         "af0e3f570a4fe158360b"
@@ -32036,35 +32837,30 @@
       "key_points_prompt_version": "summary-vi-6-prose",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 9.45,
         "answers": {
           "what": 10,
-          "why": 7,
+          "why": 8,
           "notable": 10,
-          "meaning": 10
+          "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "được đảm bảo năng lực tính toán",
-            "explanation": "This makes computing capacity sound guaranteed to paying Alibaba Cloud customers. The source says researchers asked why those customers could secure capacity while Qwen’s team remained short of resources (outlet:p018)."
+            "kind": "fact",
+            "summary_text": "thuyết phục người dùng tại Trung Quốc, Mỹ",
+            "explanation": "The source specifically says Qwen2.5 began winning over developers in China and the US, as well as more teams inside Alibaba; it does not report broader user adoption there (outlet:p009)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "Readers miss how Qwen gained developer support and improved.",
-            "fix": "Add that open-source releases let developers fine-tune Qwen and feed improvements back to the team (outlet:p005, outlet:p008–p009)."
-          },
-          {
-            "question": "why",
-            "problem": "Readers miss the competitive pressure behind Qwen3’s reasoning and cost choices.",
-            "fix": "Explain DeepSeek R1’s pressure and Qwen3’s hybrid reasoning and inference-cost design (outlet:p010–p013)."
-          },
-          {
             "question": "what",
-            "problem": "The account overstates what researchers said about customers’ access to computing capacity.",
-            "fix": "Say paying customers could secure capacity, while Qwen’s team remained short of it (outlet:p018)."
+            "problem": "Readers may take the reported adoption to mean general users in China and the US.",
+            "fix": "Specify developers in those countries and more teams inside Alibaba (outlet:p009)."
+          },
+          {
+            "question": "why",
+            "problem": "Readers do not learn what the source says mattered to Apple’s choice.",
+            "fix": "Add that Qwen had grown into a broader stack of models, developer services and consumer products, and that this breadth mattered to Apple (outlet:p025–p026)."
           }
         ],
         "writer_boats": [
@@ -32072,8 +32868,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "476c8eab10255097a72d8e2156e4366220655c90fbc8285346f671ccf88f65f8",
-        "scored_at": "2026-11-06T12:01:21.284788+00:00"
+        "prose_sha256": "da22ed92378002deda75a7fdc4c1d1e0b25e90eaac7e7ed1fe6c040e9881e578",
+        "scored_at": "2026-11-06T14:02:47.090571+00:00"
       }
     },
     {
@@ -32863,6 +33659,437 @@
         "prose_sha256": "bd07d65f276525129721f0df99642bf26df90c8572c74bbd587b2bdc19b2a4e2",
         "scored_at": "2026-11-06T11:49:31.823885+00:00"
       }
+    },
+    {
+      "id": "4edb86e6582fa72bf897",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-06/investors-flee-chipmakers-fearing-end-of-ai-boom",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d290f2847af340597df8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "980a934d66b53cbb48d9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/news/1028549/protesters-microsoft-data-center-site-amsterdam",
+      "key_points": [
+        "Theo The Verge, sáng ngày 6 tháng 11 năm 2026, người biểu tình đột nhập công trường trung tâm dữ liệu mới của Microsoft tại Amsterdam [outlet:p008, outlet:p016]. Dự án này do nhà phát triển Pure Data Centres của Anh xây dựng, trong đó Microsoft sẽ là đơn vị thuê duy nhất của toàn bộ cơ sở [outlet:p018].",
+        "Làn sóng phản đối này diễn ra hơn một năm sau khi thành phố Amsterdam cấm các trung tâm dữ liệu mới cho đến năm 2030, tiếp nối lệnh tạm dừng được công bố vào cuối năm 2023 [outlet:p018]. Dù vậy, dự án vẫn được tiếp tục triển khai vì đã được lên kế hoạch từ tận năm 2016 trước khi lệnh cấm có hiệu lực, đồng thời địa điểm xây dựng này cũng vượt qua một số kẽ hở pháp lý để bước vào giai đoạn thi công [outlet:p018].",
+        "Theo Reuters, khoảng 100 người đã vào công trường và một số người trèo lên cần cẩu để giăng biểu ngữ phản đối trí tuệ nhân tạo (AI) [outlet:p017]. Những người biểu tình cũng căng biểu ngữ cáo buộc Microsoft tiếp tay cho hành vi diệt chủng tại công trường, đồng thời liên tục hô vang khẩu hiệu yêu cầu Microsoft phải rời đi và ủng hộ tự do cho Palestine [outlet:p017]. Ngoài ra, hãng phần mềm này còn đối mặt với các làn sóng phản đối từ nhân viên trong năm qua, như việc làm gián đoạn tiệc kỷ niệm 50 năm của công ty và xen ngang bài phát biểu của Giám đốc điều hành Satya Nadella tại hội nghị Build [outlet:p020, outlet:p021]. Sau sự việc nhân viên chiếm văn phòng chủ tịch tập đoàn, Microsoft đã sa thải hai nhân viên biểu tình này [outlet:p021].",
+        "The Verge nhận định các trung tâm dữ liệu AI tiếp tục xuất hiện tại Mỹ nhưng đối mặt với sự phản đối thường xuyên từ người dân địa phương do lo ngại về tác động đến cộng đồng của họ [outlet:p019]. Sự việc tại Amsterdam diễn ra cùng tuần với hoạt động của các nhà hoạt động bên ngoài trung tâm dữ liệu ở Dublin, nằm trong làn sóng biểu tình phản đối các trung tâm dữ liệu đang lan rộng khắp châu Âu [outlet:p019]. Cùng với sức ép phản đối, Microsoft vào tháng trước đã phải từ bỏ dự án trung tâm dữ liệu lớn nhất Vương quốc Anh sau khi giới chức lưới điện địa phương cho biết địa điểm này sẽ không được cấp điện cho đến thập niên 2030 [outlet:p020]."
+      ],
+      "same_event_coverage_ids": [
+        "73f25cbe16c5caf36abc"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Người biểu tình xông vào công trường trung tâm dữ liệu của Microsoft tại Amsterdam",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/news/1028549/protesters-microsoft-data-center-site-amsterdam"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.95,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader does not learn who helped organize the protest or what specific construction they opposed.",
+            "fix": "Name Geef Tegengas and the three planned 85-meter towers (outlet:p016)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Dublin protest is described only as an unspecified activity.",
+            "fix": "Say activists staged a mock Israeli military checkpoint outside a Microsoft data center in Dublin (outlet:p019)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a4b1478b451f1621cea89f56453e4ea32913e3336126cbfb3b6984946687f3bb",
+        "scored_at": "2026-11-06T13:35:16.565103+00:00"
+      }
+    },
+    {
+      "id": "85f75f7acd7384a05695",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-06/ai-s-grip-on-financial-markets-was-never-clearer-on-the-way-down",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "73d3c108c682cf33ccb0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c70504eaed47c992ed6a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/06/2026/stock-selloff-goes-global-in-worst-rout-since-2020",
+      "key_points": [
+        "Theo Semafor, chứng khoán châu Á và châu Âu lao dốc theo thị trường Mỹ trong đợt bán tháo tồi tệ nhất kể từ năm 2020. Làn sóng sụt giảm diễn ra khi giới đầu tư hoài nghi tính bền vững của việc phát triển trí tuệ nhân tạo dưới một Quốc hội do đảng Dân chủ kiểm soát.",
+        "Nguyên nhân xuất phát từ việc nhà đầu tư lo ngại việc phát triển AI bị kiềm chế dưới Quốc hội do đảng Dân chủ kiểm soát. Tại châu Á, Đài Loan chịu mức giảm kỷ lục và Hàn Quốc phải ngừng giao dịch sau khi sụt 8%.",
+        "Semafor nhận định rằng thị trường tương lai Mỹ phát tín hiệu phục hồi bất chấp tâm lý lo ngại rào cản pháp lý trong khi nhiều bên khác vẫn không hề nao núng. Một nhà quản lý tài sản nhận xét tình hình hiện tại đang rất tồi tệ, song tin rằng thị trường sẽ sớm bật tăng trở lại."
+      ],
+      "same_event_coverage_ids": [
+        "a0f923d737e974bff34a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chứng khoán toàn cầu lao dốc mạnh do lo ngại về tương lai phát triển của ngành trí tuệ nhân tạo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/06/2026/stock-selloff-goes-global-in-worst-rout-since-2020"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers miss the concrete consequence of AI-related market fears for Anthropic.",
+            "fix": "Add that some investors reportedly questioned its $1.5 trillion IPO valuation target or whether its debut would be delayed (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "145cfbd1e5582560a9ef7de889f771ef5b09f5d32378608bbb05b6fa51efc58f",
+        "scored_at": "2026-11-06T13:25:55.314637+00:00"
+      }
+    },
+    {
+      "id": "f264c4ec9af8dc036c7f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373532/chinas-ai-chipmakers-report-first-profits-will-trend-continue",
+      "key_points": [
+        "Theo South China Morning Post, các nhà sản xuất chip trí tuệ nhân tạo (AI) thuần túy của Trung Quốc đã vượt qua cột mốc quan trọng trong quý 3 khi một số công ty bắt đầu có lãi [outlet:p010, outlet:p011]. Đây là lần đầu tiên các công ty bán dẫn chuyên biệt này ghi nhận lợi nhuận [outlet:p004, outlet:p011].",
+        "Hiện tại, các nhà phát triển bộ xử lý đồ họa (GPU) trong nước gồm Moore Threads, MetaX và Iluvatar CoreX đang chạy đua lấp khoảng trống thị trường của Nvidia [outlet:p012]. Cơ hội này mở ra khi các bộ vi xử lý cao cấp của Nvidia chịu sự kiểm soát xuất khẩu nghiêm ngặt từ Mỹ [outlet:p012]. Các doanh nghiệp nội địa đang cạnh tranh gay gắt trong việc thu hút khách hàng doanh nghiệp và tiếp cận các nhà cung cấp dịch vụ đám mây lớn (CSP) [outlet:p013].",
+        "Dù vậy, South China Morning Post đánh giá rào cản chuỗi cung ứng nghiêm trọng cùng chi phí bộ nhớ tăng vọt vẫn phủ bóng đen lên triển vọng tăng trưởng dài hạn của họ [outlet:p011]. Chi phí bộ nhớ đắt đỏ cùng các khó khăn chuỗi cung ứng cũng đưa các ngân hàng đầu tư lớn đến việc hạ dự báo biên lợi nhuận của toàn ngành [outlet:p005]."
+      ],
+      "same_event_coverage_ids": [
+        "7b98bd65c105bc01cdd3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Các nhà sản xuất chip AI Trung Quốc lần đầu báo lãi nhưng đối mặt rào cản chuỗi cung ứng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/big-tech/article/3373532/chinas-ai-chipmakers-report-first-profits-will-trend-continue"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "của toàn ngành",
+            "explanation": "The source says major investment banks reduced margin forecasts, but does not say the forecasts cover the entire industry (outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told that banks lowered margin forecasts for the entire industry.",
+            "fix": "Remove the industrywide scope; say only that major investment banks lowered margin forecasts amid memory costs and supply-chain difficulties (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "684fa4472058488f806caa8d7e889831cf0243e1059fdbcc387105bded06f0f1",
+        "scored_at": "2026-11-06T13:35:16.565262+00:00"
+      }
+    },
+    {
+      "id": "af00abb2c1d74268018f",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/kettner-the-ai-trade-hasn-t-fundamentally-changed-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6fdbb9b12e9087e87285"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "62d0bc6225b51656ea32",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-06/nvidia-boosts-chip-tracking-in-southeast-asia-to-fight-smuggling",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1e7e9e54d382170871aa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ecfeadb473d9a2deeee6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.technologyreview.com/2026/11/06/1148090/i-watched-a-humanoid-robot-clean-my-apartment-it-felt-like-a-taste-of-the-future/",
+      "key_points": [
+        "Trong bài viết trên MIT Technology Review, tác giả chia sẻ trải nghiệm sử dụng dịch vụ robot hình người dọn dẹp căn hộ của Tau Robotics tại San Francisco. Ban đầu dịch vụ có giá 30 USD cho một giờ với một robot, sau đó tăng lên 60 USD mỗi tuần cho hai robot hoặc 100 USD cho một lần thuê.",
+        "Mức giá ban đầu tương đối rẻ được áp dụng vì Tau cần thu thập dữ liệu thực tế nhằm huấn luyện các thế hệ robot dọn dẹp tự chủ tương lai. Hiện tại các robot chưa thể tự vận hành mà vẫn được người điều khiển từ xa thông qua camera gắn trên đầu và cổ tay. Với các việc như gấp đồ hay trải giường, công ty áp dụng kỹ thuật dẫn hướng động học (kinematic guidance - bắt chước chuyển động của người lái) để tạo dữ liệu huấn luyện giá trị.",
+        "Trong thực tế, robot dọn dẹp bồn cầu và nhà bếp khá tốt nhưng cần người điều khiển từ xa và gặp nhiều trục trặc kỹ thuật. Đáng chú ý, khi đầu cây cọ bồn cầu rơi ba lần, robot đều tự gắn lại thành công nhờ dò góc tiếp xúc phù hợp. Dù vậy, robot leo cầu thang vụng về, làm vòi nước rỉ và làm đổ chai dầu ô liu vì sản phẩm vẫn đang trong giai đoạn thử nghiệm (beta). Đồng sáng lập Cornelia Weinzierl giải thích robot đi loạng choạng do độ trễ truyền tín hiệu điều khiển từ xa, dù máy đã có thể tự hút bụi và lau sàn không cần trợ giúp.",
+        "Tác giả bài viết trên MIT Technology Review kết luận việc robot hình người có thể lau sàn và dọn bồn cầu là bước tiến đáng chú ý, dù vẫn cần con người hỗ trợ nhiều. Nếu robot dọn dẹp tự chủ giá rẻ thành hiện thực, tác giả lo ngại người lao động có thể mất sinh kế khi Mỹ chưa có chính sách hỗ trợ người mất việc vì AI. Trái lại, bà Weinzierl cho rằng robot giúp giải quyết tình trạng thiếu hụt nhân lực cho công việc có nguy cơ chấn thương cao và tỷ lệ thôi việc lớn này. Dù vậy, tác giả nhấn mạnh Tau còn chặng đường rất dài khi mới hoàn thành vài trăm lượt dọn dẹp và cần lượng dữ liệu khổng lồ để xử lý không gian phức tạp của một ngôi nhà."
+      ],
+      "same_event_coverage_ids": [
+        "925bf264e99c82b13407"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Trải nghiệm robot hình người dọn dẹp căn hộ hé lộ tiềm năng và giới hạn thực tế của công nghệ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "mit-tech-review",
+          "url": "https://www.technologyreview.com/2026/11/06/1148090/i-watched-a-humanoid-robot-clean-my-apartment-it-felt-like-a-taste-of-the-future/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "robot đều tự gắn lại thành công",
+            "explanation": "The source says the robot managed to reattach the wand head, but does not say it did so autonomously; the robots generally receive remote human control (outlet:p003, outlet:p012)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "làm vòi nước rỉ",
+            "explanation": "The source says the robot repeatedly left taps dripping, not that it caused the taps to leak (outlet:p013)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "bà Weinzierl cho rằng robot giúp giải quyết tình trạng thiếu hụt nhân lực",
+            "explanation": "Weinzierl argues that handing cleaning work to robots could make sense someday, while describing current labor shortages; she does not claim the robots already solve them (outlet:p015)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The account blends two visits and loses the first visit’s central failure.",
+            "fix": "Explain that the first visit ended early when heat shut down the remote controller’s viewing equipment, while the later visit went more smoothly (outlet:p010–p012)."
+          },
+          {
+            "question": "notable",
+            "problem": "“Tự” makes the wand reattachment sound autonomous.",
+            "fix": "Say the robot managed to reattach it, without claiming independent control (outlet:p003, outlet:p012)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Weinzierl’s proposed future labor benefit is presented as a current result.",
+            "fix": "Keep her conditional framing: assigning cleaning work to robots could make sense someday amid shortages, turnover, and injury risk (outlet:p015)."
+          },
+          {
+            "question": "notable",
+            "problem": "The tap problem is described as damage to the taps.",
+            "fix": "Say the robot repeatedly left the taps dripping (outlet:p013)."
+          },
+          {
+            "question": "why",
+            "problem": "The writer’s reason for trying the service is missing.",
+            "fix": "Mention the writer’s curiosity about a humanoid service and journalistic interest (outlet:p002–p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "94f2a93a8b6e19d79a431a88e3fbaace5535f898c6217d3bfe2186b93fa1b1de",
+        "scored_at": "2026-11-06T13:25:55.314768+00:00"
+      }
+    },
+    {
+      "id": "13e4c95dcbaa6d34090e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/open-asr-leaderboard-liva",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "97d120cd90ff151087e2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f3315c930ed23712aff6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Preprint abstract page on arXiv lacking independent news reporting, a substantive release announcement, or a literature survey.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2611.07613",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "adb95473978d63fda37a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1dbdd75c7aa270ec1aeb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Preprint repository abstract on arXiv without independent journalistic reporting, an announced launch, or a literature survey.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2611.07298",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "61bb43702dc8540d7959"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
