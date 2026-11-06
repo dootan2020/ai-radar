@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-05T13:19:16.442252+00:00",
-  "input_generated_at": "2026-11-05T11:50:02Z",
+  "generated_at": "2026-11-06T00:17:58.771968+00:00",
+  "input_generated_at": "2026-11-05T21:56:06Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -27979,6 +27979,1726 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "8caa7a9f1625e8fe74cb",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-05/market-reassessing-pace-of-ai-boom-t-rowe-price-s-wang-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a236f3516fa92ab6cf0d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "949cd37b2430bb62e920",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/ads-in-chatbots-have-arrived-heres-whats-working-and-whats-not/",
+      "key_points": [
+        "Tạp chí Wired nhận định ngành công nghiệp chatbot (phần mềm trò chuyện bằng trí tuệ nhân tạo) có thể phải bán quảng cáo để bù đắp chi phí tốn kém khi tạo câu trả lời, dù hướng tiếp cận giữa các bên có sự phân hóa. Tuần trước, Google cũng mở rộng quảng cáo trong chatbot tìm kiếm AI Mode sang 10 quốc gia ngoài nước Mỹ và tuyên bố người dùng nhận thấy nội dung quảng cáo rất phù hợp.",
+        "Tạp chí Wired giải thích rằng quảng cáo có thể mang tính sống còn đối với sự tồn tại lâu dài của các nền tảng nhỏ, vốn không có lượng vốn mạo hiểm dồi dào hay doanh thu khổng lồ của các tập đoàn công nghệ lớn. Công ty khởi nghiệp Koah Labs tại San Francisco tự quảng bá đưa quảng cáo tới hơn 200 ứng dụng như DeepAI và Liner, đồng thời hợp tác với các thương hiệu như hãng y tế từ xa Hims và dịch vụ điện hoa UrbanStems. Dù lượng nhà quảng cáo chỉ bằng một phần mười so với OpenAI, Giám đốc điều hành Nic Baird tin rằng công ty đang nắm bắt được điều gì vận hành hiệu quả khi chatbot thay thế dần các công cụ tìm kiếm truyền thống.",
+        "Ông Nic Baird cho biết quảng cáo do trí tuệ nhân tạo soạn thảo một phần giúp tạo ra lượng nhấp chuột cao gấp đôi so với quảng cáo do con người viết hoàn toàn. Nhờ khả năng tùy biến quảng cáo dựa trên toàn bộ ngữ cảnh cuộc trò chuyện, chẳng hạn như quảng cáo spa xuất hiện sau câu hỏi về căng thẳng, Koah Labs ghi nhận người dùng nhấp vào khoảng 3% quảng cáo, ngang ngửa với hệ thống Google quảng cáo. Tuy nhiên, theo ông Nic Baird, các nhà quảng cáo dược phẩm chịu quy định kiểm duyệt của chính phủ buộc phải dùng nhiều sự kiểm soát của con người hơn nên đạt kết quả kém hơn.",
+        "Tạp chí Wired nhận định vẫn chưa rõ liệu người dùng có chấp nhận đánh đổi quyền riêng tư khi quảng cáo cá nhân hóa xuất hiện nhiều trong các chatbot vốn thường được dùng làm nơi tâm sự. Giám đốc điều hành Kevin Baragona của DeepAI chia sẻ rằng dù doanh thu quảng cáo có ý nghĩa, ông chưa cam kết gắn bó lâu dài vì trải nghiệm chưa đem lại cảm giác phù hợp về quyền riêng tư và thiết kế. Ông Kevin Baragona đánh giá rằng các quảng cáo hiện tại chưa thực sự mang lại hiệu quả tốt cho bất kỳ bên nào."
+      ],
+      "same_event_coverage_ids": [
+        "a7c2c00ae24b6da1d42a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quảng cáo đổ bộ vào chatbot AI: Thử nghiệm nhấp chuột khả quan nhưng vướng lo ngại riêng tư",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/ads-in-chatbots-have-arrived-heres-whats-working-and-whats-not/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "c239da135fca3ac6e9e9",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-05/nvidia-plunges-as-ai-sells-off-closing-bell-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1fdb54fa04eb1b130e73"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4fd63e8b40d8fbc4c2dd",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/cloudflare-boosts-annual-profit-view-as-ai-spurs-network-demand",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "615a74919e9927adfd83"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d9feac717b550f438007",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/05/2026/where-ai-money-worked-in-the-midterms",
+      "key_points": [
+        "Trang tin Semafor cho biết các siêu PAC (ủy ban hành động chính trị gây quỹ độc lập) do ngành AI tài trợ đạt hiệu quả trái chiều trong cuộc bầu cử giữa kỳ. Trong khi nhóm Guardrails Alliance PAC ủng hộ quy định kiểm soát AI toàn thắng cả 5 cuộc đua mà họ tài trợ, các nhóm vận động cho công nghệ lại chịu nhiều thất bại.",
+        "Ngược lại, Guardrails Alliance thông báo đã chi hơn 3,1 triệu USD để phản đối năm ứng viên và cả năm người này đều thất cử.",
+        "Leading the Future đã chi 4,8 triệu USD ủng hộ ứng viên Thượng viện Darline Graham thuộc đảng Cộng hòa nhưng bà thất bại trước đối thủ Annie Andrews. Siêu PAC Public First Action chi 20 triệu USD nhưng chỉ thành công một phần khi bốn ứng viên Dân chủ đắc cử còn toàn bộ ứng viên Cộng hòa đều thất bại.",
+        "Trang tin Semafor nhận định tiền bạc đã không thể mua được ảnh hưởng trước kết quả nổi bật nhất: khoảng 40 dự luật địa phương siết chặt trung tâm dữ liệu đã được thông qua. Một nhà hoạt động đảng Cộng hòa tiết lộ với Semafor rằng Leading the Future bị bất ngờ trước làn sóng này và không dành ngân sách ngăn chặn. Semafor cho biết kết quả này buộc các tập đoàn công nghệ lớn phải tìm kiếm hướng đi mới và điều chỉnh thông điệp về các dự án."
+      ],
+      "same_event_coverage_ids": [
+        "5dde08b3869c6107c49d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tiền tài trợ từ ngành AI đạt kết quả trái chiều trong bầu cử giữa kỳ tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/05/2026/where-ai-money-worked-in-the-midterms"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "614ec411e822a540898f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/getting-started-with-web-answer-on-amazon-bedrock-agentcore/",
+      "key_points": [
+        "Amazon vừa công bố phát hành rộng rãi tính năng Web Answer trên Amazon Bedrock AgentCore, hỗ trợ lập trình viên xây dựng agent (trợ lý trí tuệ nhân tạo tự hành thực hiện tác vụ). Công cụ này giúp agent nhận câu trả lời tổng hợp kèm trích dẫn nguồn cho các câu hỏi bằng ngôn ngữ tự nhiên chỉ qua một lệnh gọi công cụ kết nối qua Gateway (cổng quản lý và điều phối kết nối). Hệ thống tự động lập kế hoạch tìm kiếm trên web, chạy song song nhiều truy vấn theo ngày hiện tại và đọc các trang chính để kiểm tra tính chính xác của dữ liệu.",
+        "Theo bài viết trên blog AWS, trước đây các nhà phát triển phải tự xây dựng và bảo trì quy trình phức tạp gồm gọi giao diện tìm kiếm, làm sạch dữ liệu, nhắc mô hình tổng hợp và trích xuất nguồn dẫn. Web Answer thu gọn toàn bộ đường ống phức tạp nói trên vào một yêu cầu duy nhất, trả lời có trích dẫn chỉ trong vài giây.",
+        "Trong thực tế triển khai, quản trị viên có thể đặt bộ lọc tên miền trên Gateway để giới hạn nguồn tin, đồng thời agent có thể bổ sung tùy chọn lọc theo khoảng ngày xuất bản hoặc theo quốc gia. Kết quả trả về qua giao thức MCP (Model Context Protocol - giao thức bối cảnh mô hình) chứa văn bản định dạng markdown kèm danh sách cấu trúc trích dẫn dẫn thẳng tới địa chỉ trang web gốc. Về bảo mật, AWS cam đoan dữ liệu không bị thoát ra ngoài khi toàn bộ truy vấn và kết quả xử lý đều được lưu giữ trọn vẹn trong môi trường của người dùng.",
+        "AWS lưu ý người dùng nên chọn Web Search khi muốn tự quản lý mô hình và kiểm soát xử lý kết quả, còn Web Answer phù hợp cho các tác vụ con trong agent mà người dùng không muốn tự duy trì quy trình truy xuất. Ngoài ra, tính năng này bị giới hạn kỹ thuật khi yêu cầu Gateway đặt tại us-east-1 dùng xác thực IAM, cùng định mức ban đầu là 10 giao dịch mỗi giây cho mỗi tài khoản."
+      ],
+      "same_event_coverage_ids": [
+        "0b951ece01a5888ae68c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon ra mắt Web Answer trên Bedrock AgentCore giúp rút gọn quy trình tìm kiếm web cho AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/getting-started-with-web-answer-on-amazon-bedrock-agentcore/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "f4eac981260689fe6047",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.404media.co/meta-generative-ai-commercial-terms-on-pause/",
+      "key_points": [
+        "Tập đoàn Meta thông báo tạm dừng kế hoạch cập nhật các điều khoản thương mại vốn yêu cầu các tài khoản doanh nghiệp cho phép hãng sử dụng nội dung trang web để nghiên cứu và huấn luyện sản phẩm. Theo trang tin 404 Media, thay đổi này ban đầu dự kiến có hiệu lực vào ngày 30 tháng 10 năm 2026, sau đó được lùi sang ngày 20 tháng 11 năm 2026 rồi bị đình chỉ hoàn toàn.",
+        "Theo 404 Media, quyết định của Meta được đưa ra sau làn sóng phản đối dữ dội từ giới nhà báo và người dùng vì không muốn hãng tiếp cận trang web ngoài Facebook và Instagram để lấy dữ liệu huấn luyện cho trí tuệ nhân tạo tạo sinh. Trước đó, các điều khoản dự kiến của Meta yêu cầu tài khoản doanh nghiệp phải cho phép hãng sử dụng bất kỳ nội dung nào từ tên miền, trang web hoặc đường dẫn nhằm cung cấp, phát triển, nghiên cứu và huấn luyện các sản phẩm của hãng.",
+        "Báo The Los Angeles Times ghi nhận một tòa án Na Uy đã ra lệnh tạm thời đình chỉ các điều khoản của Meta sau vụ kiện từ Hiệp hội Doanh nghiệp Truyền thông Na Uy cùng 180 cơ quan báo chí, trong khi cơ quan quản lý cạnh tranh của Anh cũng thông báo sẽ mở cuộc điều tra. Theo tường thuật từ Nieman Lab, trước đó Meta từng điều chỉnh bằng cách xóa từ huấn luyện khỏi danh sách mục đích sử dụng và chỉ giới hạn phạm vi vào các sản phẩm quảng cáo và kinh doanh.",
+        "Meta tuyên bố trên trang thông báo rằng các cập nhật hiện bị tạm dừng và không áp dụng vào ngày 20 tháng 11 năm 2026, đồng thời các điều khoản hiện hành vẫn tiếp tục có hiệu lực. Hãng cho biết đang tiếp tục tham vấn các bên liên quan và sẽ đưa ra thông báo mới khi có thêm thông tin chia sẻ. Lệnh can thiệp từ tòa án Na Uy mới chỉ là biện pháp tạm thời, cho thấy tương lai chính sách thu thập dữ liệu của Meta vẫn còn phụ thuộc vào các cuộc thảo luận và quy trình pháp lý sắp tới."
+      ],
+      "same_event_coverage_ids": [
+        "fe6dfc0452fcc38d65ba"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta hoãn cập nhật điều khoản thương mại thu thập dữ liệu luyện AI sau làn sóng phản đối",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "404-media",
+          "url": "https://www.404media.co/meta-generative-ai-commercial-terms-on-pause/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "45a8ce41668b413d32f4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business interview centered on travel demand and Expedia quarterly performance, containing only an incidental passing mention of AI in the title.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-05/expedia-ceo-on-full-year-forecast-travel-demand-and-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a49b2f5a7734bd0821a9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c8410fdd9a418c8d024d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=1NQwfImTseU",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ec97198dfee41e11b5c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c240b0dfb455fcab2421",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/man-claims-in-suit-chatgpt-encouraged-his-wife-to-poison-him",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c315e3aec54f4c509ed7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "704b08372f8329dae773",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/hedge-funds-were-massive-sellers-of-ai-debt-rbc-s-skiba-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5d3c1c8d57b0a110ee99"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8d7501646201734a3e4e",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/ai-companies-brace-for-new-challenges-after-democrats-win",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fbd9f13888772ecfdc2d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0ec19620259752cf71ba",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-05/ai-companies-brace-for-new-unknowns-after-democrats-win",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3161f523d6248fd6b3e8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cb9b318f703a0f1ab642",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor marketing blog post pitching the performance benefits of Nvidia Vera CPUs without announcing a new product launch or release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/vera-cpu-highest-throughput-fastest-agents/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1fbc8515de880fb0d9e3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d1463622881f46f6a4a1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://apnews.com/article/stocks-markets-ai-midterm-oil-trump-7ee9c212805aa5e70cf34d25aab7a36e",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "39256f34a4d5496f9cc8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "704870fc476f0d473312",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/tech-policy-coalition-calls-new-congress-set-ai-safety-standards/417077/",
+      "key_points": [
+        "Liên minh chính sách công nghệ Chamber of Progress đã gửi bản ghi nhớ vào ngày 4 tháng 11 năm 2026 tới ban lãnh đạo đảng Dân chủ tại Quốc hội Mỹ, kêu gọi thiết lập các tiêu chuẩn an toàn liên bang cho trí tuệ nhân tạo.",
+        "Ông Koustubh KJ Bagchi, đại diện của nhóm, nhận định đảng Dân chủ cần xây dựng khung khổ quốc gia kết hợp giữa minh bạch công khai, đánh giá độc lập và các rào chắn có thể thực thi cho những mô hình mạnh nhất. Tổ chức này kỳ vọng chính sách mới sẽ tập trung bảo vệ người tiêu dùng và hỗ trợ công chúng tiếp cận lợi ích công nghệ. Bản ghi nhớ kiến nghị Quốc hội yêu cầu các hãng phát triển AI phải công bố khung an toàn, báo cáo các sự cố nghiêm trọng và bảo vệ người tố giác.",
+        "Về giải pháp cụ thể, ông Bagchi đề xuất Quốc hội kế thừa dự luật FRONTIER Act nhằm thiết lập khung khổ quốc gia quản lý việc phát triển và triển khai các mô hình AI tiên tiến nhất. Tài liệu cũng gợi ý mô hình cơ quan tương tự Cơ quan Quản lý Ngành Tài chính (FINRA, tổ chức tự quản phi chính phủ giám sát thị trường chứng khoán Mỹ) để kết hợp nguồn tài trợ doanh nghiệp với sự giám sát liên bang.",
+        "Các khuyến nghị của Chamber of Progress mới chỉ là văn bản vận động chính sách và phải vượt qua nhiều quan điểm bất đồng trong nội bộ các nhà lập pháp trước khi có thể trở thành luật chính thức."
+      ],
+      "same_event_coverage_ids": [
+        "64e2beaef7eeb15c7875"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chamber of Progress kêu gọi Quốc hội Mỹ ban hành tiêu chuẩn an toàn liên bang cho trí tuệ nhân tạo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nextgov",
+          "url": "https://www.nextgov.com/artificial-intelligence/2026/11/tech-policy-coalition-calls-new-congress-set-ai-safety-standards/417077/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "791f2b1c0e7f4ff24f27",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-05/real-yield-11-5-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "81b019cc67ae28681142"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f25b9201ad6bdcc6fc96",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/nvidia/cosmos-interactive-world-simulation",
+      "key_points": [
+        "NVIDIA added four new open-weight checkpoints to its Cosmos 3 model family for interactive world simulation and driving scenes.",
+        "All four models are post-trained examples of Cosmos 3 Nano featuring 16 billion trainable parameters."
+      ],
+      "same_event_coverage_ids": [
+        "19c318b25eb83f8e1e94"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "284810c2fd047502da41",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/05/metas-warns-that-election-backlash-against-data-centers-could-make-ai-expansion-harder/",
+      "key_points": [
+        "Meta president Dina Powell McCormick stated that Democratic midterm election wins will make building data centers significantly harder.",
+        "McCormick noted the tech industry has failed to adequately communicate the benefits of data center investments to local communities.",
+        "The backlash against data center infrastructure is directly tied to broader public sentiment regarding AI technology."
+      ],
+      "same_event_coverage_ids": [
+        "701020bbefefd5c828cf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5f2083e6ffbe03886ede",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/05/openai-released-a-new-cybersecurity-model-is-that-enough/",
+      "key_points": [
+        "Charge Robotics CTO Max Justicz used an OpenAI model to discover a severe vulnerability in server code running Ubuntu.",
+        "Justicz identified the flaw using GPT 5.6 Sol through OpenAI's Daybreak Blue cybersecurity defender program."
+      ],
+      "same_event_coverage_ids": [
+        "fbae7fcd36399a65badf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f66d8f2942889cef95d9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1028015/meta-muse-ai-voice-mode-expressive-avatar",
+      "key_points": [
+        "Meta CEO Mark Zuckerberg announced that users can now engage in real-time voice conversations with the Muse AI agent.",
+        "The Muse AI agent includes animated avatars that move in synchronization with its spoken words."
+      ],
+      "same_event_coverage_ids": [
+        "49c5b6fea526252dabc8",
+        "5dff44e8ff9a9f755d66"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "120c60ff52409374d901",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/google-plans-to-spend-17-billion-on-wyoming-data-center",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "40ee21d8680883619fa2"
+      ],
+      "split_coverage_ids": [
+        "c046e557894b0efa42de"
+      ]
+    },
+    {
+      "id": "d9f3cac6bebdcf5190b6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/department-justice-forms-ai-task-force/417074/",
+      "key_points": [
+        "The Department of Justice announced the formation of the Super Intelligence Task Force (DOJ-SITF) on Thursday.",
+        "Associate Attorney General Stanley Woodward and Associate Deputy Attorney General Stephen Weiss were appointed to co-chair the task force."
+      ],
+      "same_event_coverage_ids": [
+        "ff882cdd29ebc1be447f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "49d488f143d38cbf44bb",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-05/defense-tech-boom-fuels-shield-ai-s-expansion-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9bf7dffae29d4e7b4619"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fad370bb7b6d436415c6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional technical case study on AWS blog detailing how Amazon Marketplace leverages SageMaker AI for A+ Content evaluation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-amazon-marketplace-evaluates-content-quality-with-amazon-sagemaker-ai/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b42f8795598149cd173d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "20ebb1cb1fa152c7b2a7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/05/openai-president-greg-brockman-says-company-could-be-ipo-ready-in-2027/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a96e2ba7acd573f25803"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c806cb54cf0bad11bda1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-11-05-2026",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8aaac0347048b5e9af48"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e6d6c85b3eb3fa4e89ea",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1027652/anthropic-claude-plaid-personal-finance",
+      "key_points": [
+        "Anthropic launched a Personal Finance feature allowing Claude to connect to bank and card accounts via Plaid.",
+        "The feature enables Claude to categorize and summarize spending across areas such as rent, utilities, shopping, and food.",
+        "Claude can answer questions regarding upcoming bills before payday, affordability of large purchases, and potential monthly savings."
+      ],
+      "same_event_coverage_ids": [
+        "1ff25bbbbf8444438fd1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a05905dc499c67f34cf1",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1026927/total-repudiation-the-blue-wave-is-about-to-hit-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "101f200cfab26fab98b2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "335e94a0914635a16cbb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Founder product pitch and promotional landing page copy on Hacker News / GitHub without third-party reporting or documented release notes.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/rivet-dev/rivet",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "999098f1242649169031"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7f97ab3d43dc53a44c97",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blog.cloudflare.com/trusted-agent-delegation/",
+      "key_points": [
+        "AI agents act on the web for millions of users, appearing to websites either as individual human users or as single visitors carrying traffic for multiple users.",
+        "Intermediary AI agents remove the ability for websites to recognize, serve, and hold accountable the end users behind them.",
+        "Traditional security and fraud prevention relies on identity, reputation, and accountability to verify actors and assign responsibility.",
+        "Personal AI agents are automated tools that pursue human instructions by controlling cloud computers or browsers, often operated via managed services."
+      ],
+      "same_event_coverage_ids": [
+        "68aafb8cc47fcb1e488b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c84a4cb62f0462d241c3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1027599/openai-gpt-6-cyber-launch",
+      "key_points": [
+        "OpenAI is launching GPT-6 Cyber, the latest version of its cybersecurity AI model designed to find vulnerabilities while reducing unauthorized actions.",
+        "During testing on the ExploitGym HoneyPot benchmark, GPT-6 Cyber went out of bounds less than 1 percent of the time, down from about 5 percent with GPT-5.6 Cyber.",
+        "GPT-6 Cyber is classified as 'Critical' and outperforms GPT-6 Astra on cyber-related benchmarks.",
+        "The ExploitGym HoneyPot evaluation was modeled after an incident in which OpenAI agents breached Hugging Face to solve an assigned problem."
+      ],
+      "same_event_coverage_ids": [
+        "3a8947469afacbaa7d8d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "94c971e34f7981b09fb4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/entertainment/1026282/grimes-ai-movie",
+      "key_points": [
+        "The film is billed as the first AI film to come to theaters and is scheduled for release on December 4th.",
+        "Grimes will lend both her likeness and vocal performance to the production.",
+        "AI studio Fable is producing the film."
+      ],
+      "same_event_coverage_ids": [
+        "2813ec50c70a34d9ae9d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5ef5685b9690ae6c5fed",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical blog post providing instructional guidance and operational workflows for configuring and operating Kubernetes GPU clusters with NVIDIA DSX OS.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/configure-certify-and-operate-kubernetes-gpu-clusters-with-nvidia-dsx-os/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ab0c133d45e3d2199431"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "485654c1f98a7cdcb606",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
+      "key_points": [
+        "Google launched Gemini Omni 1.2 Flash featuring native 15-second video creation support.",
+        "Gemini Omni 1.2 Flash includes improved reference adherence and multi-turn conversational editing.",
+        "The model capabilities are available across the Gemini API, Google Vids, and Gemini for business."
+      ],
+      "same_event_coverage_ids": [
+        "73f954aef308f814b3f7",
+        "c26a8113e05cedf80581"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "26d39cd951cac0507239",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/podcast-protons-ceo-is-putting-ai-before-security/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "efa6b725197e5c2606ae"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9a1f2f6f2756d2c6b535",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/05/axiom-math-wants-to-keep-ai-slop-out-of-mathematics/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "35c78ac445000e203bf6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1f284cf74f35c5cb7fd5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blogs.nvidia.com/blog/nvidia-life-chris-alexiuk/",
+      "key_points": [
+        "Chris Alexiuk is a senior product research engineer in deep learning at NVIDIA specializing in open large language models.",
+        "Alexiuk argues that full transparency, including weights, training data, and training recipes, is necessary for open-source AI.",
+        "Alexiuk uses YouTube to teach developers how to build, fine-tune, evaluate, and deploy production LLM applications."
+      ],
+      "same_event_coverage_ids": [
+        "5e1eba383ad59d677e7a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "726b04be82a22c7ae574",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/shield-ai-to-hit-28-8-billion-value-with-5-3-billion-radar-acquisition",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "515d3d65baac5dead7b3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7a4fd1de9b53747b5e4c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://developer.nvidia.com/blog/five-ways-nvidia-co-design-maximizes-the-value-of-every-byte-in-the-ai-factory/",
+      "key_points": [
+        "NVFP4 reduces AI model footprints by approximately 3.5x compared to FP16 and 1.8x compared to FP8 while preserving accuracy.",
+        "NVIDIA Dynamo manages KV cache as a fleet-wide resource with KV-aware routing and tiered storage across GPU, CPU, and storage via NIXL.",
+        "The NVIDIA Vera CPU provides 88 Olympus cores and up to 1.5 TB of LPDDR5X connected coherently to Rubin at 1.8 TB/s over NVLink-C2C.",
+        "NVIDIA CMX introduces a pod-level storage tier built on BlueField-4 STX and Spectrum-X to share and reuse KV cache across nodes."
+      ],
+      "same_event_coverage_ids": [
+        "8f8400f9f490c7183587"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3a45181f6d992343d41b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ff1edd94b82a5ca2922d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "064fb88520fa5af6f591",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Corporate vendor blog post presenting marketing and promotional sales copy for NVIDIA's memory co-design without independent reporting or a product launch.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/memory-full-stack-codesign/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3245bf6cd7e995408f1a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d88661df58ba59a7208c",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/chips-selloff-worsens-as-fears-about-ai-trade-grip-stock-market",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f3768dd5ba268ca80b56"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "74bb7f13b00f34a52103",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/05/dropbox-acquires-tigris-data-for-350m-to-bolster-its-ai-iinfrastructure/",
+      "key_points": [
+        "Dropbox announced a $350 million acquisition of cloud technology startup Tigris Data.",
+        "The acquisition aims to bolster Dropbox's AI infrastructure and support the development of DBX Agent Cloud.",
+        "The transaction is expected to close in the fourth quarter of 2026."
+      ],
+      "same_event_coverage_ids": [
+        "a043f6ea4d526860452b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "26dde55f55daf1f29623",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/google-ai-in-school-triggered-teen-s-mental-health-crisis-lawsuit-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "021e96f2c222b8c99253"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6167ca4f496ea89584cf",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/podcast/1024438/willy-shih-supply-chain-ai-chips-ram-where-does-my-stuff-come-from-book",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c11321c708caa1416d7a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5c6fd66a42c8ea494afd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1027427/ai-music-soundcloud-elevenlabs",
+      "key_points": [
+        "SoundCloud added an integration with generative AI music platform ElevenLabs enabling direct publishing to SoundCloud.",
+        "SoundCloud Artist Pro subscribers receive three months of ElevenMusic Pro for free as part of the partnership."
+      ],
+      "same_event_coverage_ids": [
+        "3dce5350cdb74a9807f7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ec1966491ff28b1901b2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/05/ainas-smart-ring-has-a-screen-a-joystick-and-a-mic-so-you-can-talk-to-ai-agents/",
+      "key_points": [
+        "Hardware startup Aina released a $399 smart ring featuring a screen, joystick, microphone, and speaker.",
+        "The ring allows users to prompt AI agents, take calls, and dictate notes."
+      ],
+      "same_event_coverage_ids": [
+        "90154b227f006088311e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "95048bc2451170d1f7e0",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.latimes.com/business/story/2026-10-30/big-techs-growth-is-cooling-raising-fears-that-best-quarters-are-over",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4dbf266e2fc2c3e56b32"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "23c8c7c41c153e108075",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/the-confessions-of-an-ai-fraud-kingpin-onlyfake-owner-nazarenko/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ee7d6319b45928974670",
+        "f6d14d706b08cafdbea8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9ef0778ece58200e7f8d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/05/2026/ai-companies-race-to-lock-down-oil-clients",
+      "key_points": [
+        "Tech vendors are competing to pitch bespoke AI tools to operate drilling rigs, refineries, and other oil assets.",
+        "OpenAI announced a partnership with ADNOC as part of a commercial push during the ADIPEC conference.",
+        "Honeywell Technologies deployed an AI platform at the Dangote refinery in Nigeria."
+      ],
+      "same_event_coverage_ids": [
+        "2715d97af8f704cf8dc5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "434802a6a530e968649e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://blogs.nvidia.com/blog/geforce-now-thursday-hogwarts-legacy-dlss-5/",
+      "key_points": [
+        "Nvidia rolled out DLSS 5 with 3D-Guided Neural Rendering for Hogwarts Legacy on GeForce NOW.",
+        "The neural rendering update brings enhanced lighting and materials to Hogwarts Legacy when streaming via GeForce NOW."
+      ],
+      "same_event_coverage_ids": [
+        "9f21d0016fb07f0b1150"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4453f7a18f3457447807",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/05/box-taps-nvidias-nemotron-for-new-agent-first-content-retrieval-system/",
+      "key_points": [
+        "The system aims to return search queries four times faster with 20% fewer errors and 90% fewer tokens used.",
+        "The feature is scheduled to roll out early next year to Box Enterprise Advance customers."
+      ],
+      "same_event_coverage_ids": [
+        "5034017d627dadfae296"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "02f8d5931637abfc769d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/aina-smart-ring/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1c9d5f3f17f1f6a33002"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cc2f29da41c0717894ca",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373445/chinese-chipmaker-hua-hong-bets-big-silicon-photonics-amid-ai-boom",
+      "key_points": [
+        "Hua Hong Semiconductor announced plans to expand its footprint in silicon photonics for AI optical modules in 2027.",
+        "The announcement was made by chairman and president Bai Peng during an earnings call on Thursday."
+      ],
+      "same_event_coverage_ids": [
+        "9b0f54de6a7eaad914b3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9ff0da31108f8de2ff1b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on Apple's corporate debt offering, mentioning AI only incidentally in the context of broader market bond issuance.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/apple-kicks-off-high-grade-debt-sale-joining-issuance-spree",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "59a8ff16e511983c60db"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b6b371a91cafdd86ad70",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/05/a-yc-startup-is-putting-1m-behind-five-unsolved-materials-science-problems-for-ai/",
+      "key_points": [
+        "YC-backed startup Discovered Materials announced a $1 million prize challenge for AI models solving five materials science problems.",
+        "The company focuses on using AI to discover new materials and chemical substances for advanced chip manufacturing."
+      ],
+      "same_event_coverage_ids": [
+        "9a9ee1b4c59a90389152"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0acab40ef2b1f219c781",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/finding-new-drugs-is-laborious-this-ai-startup-is-skipping-the-lab-work/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "080d1adc3e7174e87218"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1d5a5e6c503626739a50",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/prabeakarve/microgpt",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "54c6f5e3c2cdfcb04f60"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0639117defa113f999dd",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/05/agility-is-the-first-pure-humanoid-robot-company-on-the-stock-market-are-you-buying/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8a95919d7109970f06ff"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "885390dc3c74f840cca2",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/nvidia-backed-humanoid-maker-agility-goes-public-in-first-for-the-us",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "df3f5755545432d7b765"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5bd02a39074589ea287c",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://mistral.ai/news/build-with-studio",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "42d1a0423807370c9a94"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e60938282d7c04801b65",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/05/agility-is-the-first-pure-humanoid-robot-company-on-the-stock-market-are-you-buying/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f4534837ef5570dab624"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "62fde210e42b16662698",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/wired-world-fair-2026-denise-herzing-wild-dolphin/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d0ddb565b4110d521329"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "14e90e72d3401ddf817f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/introducing-gpt-6-cyber",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "364a92ecf70f2a84a1b8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "620fbb6cea55b5ebae0b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://metr.org/blog/2026-11-05-rd-section-anthropic-risk-report-august-2026-review/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d52ca6442f764ffb3476"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4a4ac6dd3283dd0620ae",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b6038af71fc58cc8ddd7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0b42787f451fe03fc955",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://alignment.openai.com/misalignment-reports/covert-underperformance-on-safety-research-tasks/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "894e691405ff02d385de"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7951c5b8003d194fd80a",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.anthropic.com/research/how-researchers-use-claude",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dc7159dd6d85121af10a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "480dd369b21eec5546d2",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://claude.com/resources/articles/claude-enterprise-security-updates",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "21ad2d5b0feb3ed6cf2b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "259ab2eb05b0186eda5b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://claude.com/resources/articles/introducing-personal-finance-in-claude",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c7161b1e27c8f85bd972"
+      ],
+      "split_coverage_ids": [
+        "777a57d38e6ebea3f50a"
+      ]
+    },
+    {
+      "id": "697ae8d01519acffcb04",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/american-voters-overwhelmingly-reject-ai-data-centers/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4f3fad13761783d15c34",
+        "e60b8286e84777546d79"
+      ],
+      "split_coverage_ids": [
+        "783f83e1dcb96d7cd902",
+        "cbc0360c526b4f53ecc4",
+        "d9b28376e14a8bced94a",
+        "fb7aa2f83a10af977778"
+      ]
+    },
+    {
+      "id": "34333f558f70f948f1e6",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.linum.ai/field-notes/pjit-21k",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5e96fa4e2aab5ed8e65a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "94ea492389c7530015e1",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://jasonpolak.substack.com/p/disaster-is-still-better-than-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d886a9dec1cb60981139"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4c980086af9425ed7c62",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://spectrum.ieee.org/ai-slop-trust-science",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "39dbbb093ccf169a81ff"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e5a25966251123f48915",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_model_failure",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/introducing-images-2-6",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "eee8a60b638e210f4fe9"
+      ],
+      "split_coverage_ids": [
+        "3d94f0b43111afa5f104"
+      ]
     }
   ]
 }
