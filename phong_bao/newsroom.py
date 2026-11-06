@@ -15,6 +15,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from radar.clustering import canonical_url, titles_match
+from radar.evidence_refs import strip_evidence_refs, unbracketed_evidence_ref
 from radar.items import instant, is_x_item
 from radar.press_relevance import press_subject_reason
 from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE
@@ -54,15 +55,17 @@ SOURCE_EDITOR_ENV = "PHONG_BAO_SOURCE_EDITOR"
 WRITER_INPUT_CHARS = 16_000
 WRITER_ROLES = ("development", "cause", "examples", "significance")
 # A summary's length in whitespace-separated units: each Vietnamese syllable, number or name counts once.
-# Measured 05/11: a fixed 90-230 window produced one sentence per paragraph (130-180 units) that lost the
-# article's facts; the coordinator's reference summary of a full article is 479 units in 4 paragraphs.
-WRITER_MIN_UNITS, WRITER_MAX_UNITS = 250, 600
-# A full Vietnamese translation runs about one unit per 4.2 characters of English (median of 496 translated
-# summaries and titles in tests/fixtures), so a short source gets a smaller window: at most one unit per
-# 5 characters (about 85% of a translation), at least one per 12 (about 35%). The shortest sources keep
-# the old window, a least of 90 and a most of 230.
-SOURCE_CHARS_PER_UNIT_MOST, SOURCE_CHARS_PER_UNIT_LEAST = 5, 12
-WRITER_SHORT_LEAST, WRITER_SHORT_MOST = 90, 230
+# The captain asked on 2026-11-06 for a tidy bulleted summary in place of 3-4 paragraphs (measured that night:
+# 26 live stories ran 139-554 units, median 349, paragraphs of up to five sentences). Each bullet is one or two
+# sentences, so a full article gets about half the old 250-600 window. The four questions stay the acceptance
+# test, and the scoring desk still hides a summary that loses the article's facts (the failure of 05/11, when a
+# 90-230 window allowed one sentence per paragraph and no scorer read the result).
+WRITER_MIN_UNITS, WRITER_MAX_UNITS = 120, 260
+# A short source gets a smaller window: at least one unit per 25 characters, at most one per 11, never below
+# the short window of 70-180.
+SOURCE_CHARS_PER_UNIT_MOST, SOURCE_CHARS_PER_UNIT_LEAST = 11, 25
+WRITER_SHORT_LEAST, WRITER_SHORT_MOST = 70, 180
+BULLET_MAX_SENTENCES = 2
 WRITER_PROMPT = """You are Halcyon's newsroom writer. Write one Vietnamese news summary per story, using only the supplied evidence.
 
 EVIDENCE
@@ -76,7 +79,7 @@ Fill sheet from the article body only, never from related-article lists, other s
 Then identify the article's central result or conclusion; a comparison or review states who or what came out ahead, a study states its main finding. Every example you choose must support that central result (time spent is not quality of output), and keep one specific counterpoint the source gives, not only a general caveat. Then list in conditions the source's words that, if dropped, would make the reader conclude something different: the setting (simulation, benchmark, lab test, survey sample, pilot), hedges (largely, can, may, appropriate, in some cases), the comparison or control a result is measured against, the metric's name and what it measures, and whose claim or opinion it is. Copy each verbatim from one paragraph, at most 25 words, with that paragraph ID. Use an empty list only when the article states nothing that bounds its claims.
 
 STEP 2: SHAPE
-Three or four paragraphs, each with a role, development first and significance last; each paragraph is two to six full sentences, never one line. length gives {least, aim, most} for the whole summary in whitespace-separated units (a syllable, number or name is one): write about aim. Sentences that fail the checks are removed before counting, and a summary outside least to most is discarded.
+Three or four paragraphs, each with a role, development first and significance last. Readers see each paragraph as one bullet of the summary, so each is one or two short, complete sentences that stand on their own: the box's point first, then the one specific or condition that carries it. A paragraph of three or more sentences is sent back. length gives {least, aim, most} for the whole summary in whitespace-separated units (a syllable, number or name is one): write about aim. Sentences that fail the checks are removed before counting, and a summary outside least to most is discarded.
 News and essays:
 - development: what happened, who did it, its key facts (product, figures, date) and the context a reader needs. For an essay, say it is the author's view.
 - cause: why it is happening, as the article explains it. When the sheet's why is empty, explain how the thing works as the article describes, with no word of cause, motive or purpose (vì, nhằm, mục đích, muốn, khiến, nhờ, bước chuẩn bị); never invent a cause.
@@ -105,14 +108,14 @@ STYLE
 Plain Vietnamese as a Vietnamese journalist writes for a phone reader: translate the meaning, not English word order or compounds (never "kiến trúc đàn" or "nhân viên số liên tục"; say what the thing does). Leave out details that answer none of the four questions. When grouping actors with different positions, say that they differ. Explain a specialist term in plain Vietnamese in parentheses on first use, including what an agent or benchmark is. Keep the author's opinion marked as opinion. Keep proper names, product names and model versions as the source spells them. No value judgements the source does not make (do not call a use "abuse"). No markdown, lists, URLs or bold text; at most one attributed quotation of up to 20 source words.
 
 GROUNDING
-Every sentence carries evidence_refs: the exact paragraph IDs that support it. Omit any sentence you cannot support. Sentences are checked one by one and a failing one is removed; write each sentence so the summary still reads correctly, with its conditions, if a neighbouring sentence is removed.
+Every sentence carries evidence_refs: the exact paragraph IDs that support it. Never write an ID in text. Omit any sentence you cannot support. Sentences are checked one by one and a failing one is removed; write each sentence so the summary still reads correctly, with its conditions, if a neighbouring sentence is removed.
 
 OUTPUT
 Return each {id, status: ready|insufficient_evidence, sheet: {what, why, notable, meaning}, conditions: [{text, ref}], title_vi: {text, evidence_refs}, paragraphs: [{role: development|cause|examples|significance, sentences: [{text, evidence_refs}]}], used_source_ids, limitations}. title_vi is a faithful Vietnamese editorial headline of 70 to 120 characters that keeps the same conditions. limitations lists any of partial_source, missing_primary, source_conflict that apply. When the evidence cannot support this shape, use status insufficient_evidence with an empty title, no paragraphs and no source IDs."""
 WRITER_REWRITE_PROMPT = WRITER_PROMPT + """
 
 REWRITE
-Every input row here is a story you already drafted, with a rewrite object: {roles, title_vi, conditions, sheet, kept, rejected}, and sheet_error when your sheet was missing or did not quote the article body: then also return a corrected sheet (roles may be empty). sheet is your evidence sheet: sheet_point_dropped names a box whose paragraph no longer cites its ref or no longer says its point, so write that paragraph again stating the box's point first and citing ref; cause_not_in_source marks a cause, motive or purpose in a story whose sheet says the source gives none, so leave it out. Every sentence of the paragraphs whose role is in roles failed the sentence checks; rejected lists each removed sentence with the check it failed. conditions lists the condition spans of your draft that were found in the source, each with its paragraph ID. Write those paragraphs again from the same source paragraphs, keeping the same role and the whole summary within length, and do not repeat what kept already says. Fix the reason given: cite the paragraph that states each fact, name the speaker the paragraph names, write a purpose only when a cited paragraph states it, and leave out what no paragraph supports. lead_dropped marks a sentence that passed but lost the development paragraph's opening sentence: open the paragraph again with a sentence that names who did what, then keep what those sentences say. For condition_not_cited, each significance sentence cites a paragraph ID listed in conditions; when the assessment you need sits in another paragraph, copy a verbatim span of at most 25 words from that paragraph into conditions, with its paragraph ID, and cite it. Return each {id, status: ready, sheet (only when sheet_error is set), conditions: [{text, ref}], paragraphs: [{role, sentences: [{text, evidence_refs}]}]} holding only the paragraphs whose role is in roles and only the conditions you add (use [] for none); return status insufficient_evidence with no paragraphs when the sources cannot support them. Each new sentence is checked the same way."""
+Every input row here is a story you already drafted, with a rewrite object: {roles, title_vi, conditions, sheet, kept, rejected}, and sheet_error when your sheet was missing or did not quote the article body: then also return a corrected sheet (roles may be empty). sheet is your evidence sheet: sheet_point_dropped names a box whose paragraph no longer cites its ref or no longer says its point, so write that paragraph again stating the box's point first and citing ref; cause_not_in_source marks a cause, motive or purpose in a story whose sheet says the source gives none, so leave it out. Every sentence of the paragraphs whose role is in roles failed the sentence checks; rejected lists each removed sentence with the check it failed. conditions lists the condition spans of your draft that were found in the source, each with its paragraph ID. Write those paragraphs again from the same source paragraphs, keeping the same role and the whole summary within length, and do not repeat what kept already says. Fix the reason given: cite the paragraph that states each fact, name the speaker the paragraph names, write a purpose only when a cited paragraph states it, and leave out what no paragraph supports. bullet_sentences marks a paragraph of more than two sentences: write it again in one or two sentences that keep its box's point and conditions. lead_dropped marks a sentence that passed but lost the development paragraph's opening sentence: open the paragraph again with a sentence that names who did what, then keep what those sentences say. For condition_not_cited, each significance sentence cites a paragraph ID listed in conditions; when the assessment you need sits in another paragraph, copy a verbatim span of at most 25 words from that paragraph into conditions, with its paragraph ID, and cite it. Return each {id, status: ready, sheet (only when sheet_error is set), conditions: [{text, ref}], paragraphs: [{role, sentences: [{text, evidence_refs}]}]} holding only the paragraphs whose role is in roles and only the conditions you add (use [] for none); return status insufficient_evidence with no paragraphs when the sources cannot support them. Each new sentence is checked the same way."""
 WRITER_REVIEW_PROMPT = WRITER_PROMPT + """
 
 REVIEW
@@ -123,11 +126,11 @@ SOURCE_EDITOR_PROMPT = """You are Halcyon's source editor. Edit one Vietnamese n
 Read the sources before evaluating the draft. Identify the article's main development or thesis, the stated reason or mechanism, the strongest concrete example, and the source-supported significance. Preserve central contrasts and counterevidence. A vivid anecdote must not replace the article's main point. An opinion piece remains its author's opinion.
 For every result you retain, keep its subject, comparison or control, setting, timeframe, metric, attribution and material qualification. Keep the qualifications with the result, not in a remote disclaimer. A study result is not a promise for every user. Do not turn an equivalent improvement into a literal duration saved. Preserve negation, uncertainty and whether an action is proposed, tested or deployed. Never calculate a new figure.
 Repair unsupported statements and omissions in the draft. A valid paragraph ID does not prove its sentence: compare what the final sentence actually asserts with what that paragraph says. If the source does not state a cause, explain its stated context or test design without inventing one. Describe the unknown as unknown only when the supplied source establishes that limitation.
-Write 3-4 Vietnamese paragraphs whose total whitespace-delimited units fall within the packet's length {least, aim, most}; write about aim. First state the main development; then explain the supported cause or mechanism; include one or two representative events, uses or measured comparisons; end with the concrete significance the article supports. Cause and examples may share one paragraph. Expert opinions may add perspective but cannot substitute for an available concrete example. Do not fill a slot with a second restatement of the lead.
+Write 3-4 Vietnamese paragraphs whose total whitespace-delimited units fall within the packet's length {least, aim, most}; write about aim. Readers see each paragraph as one bullet, so each is one or two short sentences. First state the main development; then explain the supported cause or mechanism; include one or two representative events, uses or measured comparisons; end with the concrete significance the article supports. Cause and examples may share one paragraph. Expert opinions may add perspective but cannot substitute for an available concrete example. Do not fill a slot with a second restatement of the lead.
 The final paragraph must tell the reader what changes, what problem the development addresses, or what the supported result means within its limits. Do not invent an impact on Vietnam, advice, a forecast, or a general verdict. Prefer fewer secondary names and numbers to losing a central condition. Explain necessary technical language only through facts in the supplied sources. No headings, bullets, markdown or copied source structure in the summary. Paraphrase independently; use no direct quotations in its public text.
 Check the final text against four questions: what happened, why, what is notable, and what it means. Each answer must be identifiable, supported and understandable without reading the source. Recheck every final sentence after editing; do not assume a sentence remains correct because it survived the draft's checks. Do not claim completeness if the packet is partial. If missing material prevents a faithful account of the central result, return insufficient_evidence.
 Return JSON only: {id, issues: [{kind, draft_text, explanation_vi, evidence_refs}], final: {id, status, conditions, title_vi, paragraphs, used_source_ids, limitations}}. issues records concrete draft problems; kind is unsupported, lost_condition, missing_core, weak_example, or opaque_meaning. Use an empty draft_text for an omission; evidence_refs identify the relevant supplied paragraphs. Do not output a numerical quality score.
-final uses status ready or insufficient_evidence. For ready, conditions is [{text, ref}]: copy each material condition verbatim from one supplied paragraph, at most 25 words per entry; use [] only when no conditions are stated. title_vi is {text, evidence_refs}, a faithful 70-120 character headline. paragraphs is [{role, sentences: [{text, evidence_refs}]}], with unique roles from development, cause, examples, significance; development first and significance last. Cite the exact supplied paragraphs supporting every factual clause of every sentence and title; used_source_ids lists their source IDs. limitations uses partial_source, missing_primary, source_conflict as applicable. Conflicts remain attributed conflicts. An unavailable linked source is not evidence. Never imply you read it.
+final uses status ready or insufficient_evidence. For ready, conditions is [{text, ref}]: copy each material condition verbatim from one supplied paragraph, at most 25 words per entry; use [] only when no conditions are stated. title_vi is {text, evidence_refs}, a faithful 70-120 character headline. paragraphs is [{role, sentences: [{text, evidence_refs}]}], with unique roles from development, cause, examples, significance; development first and significance last. Cite the exact supplied paragraphs supporting every factual clause of every sentence and title in evidence_refs, never in text; used_source_ids lists their source IDs. limitations uses partial_source, missing_primary, source_conflict as applicable. Conflicts remain attributed conflicts. An unavailable linked source is not evidence. Never imply you read it.
 For insufficient_evidence, final has an empty title {text: "", evidence_refs: []}, empty conditions, paragraphs and used_source_ids, and limitations ["insufficient_evidence"]. Keep issues for audit. Return no prose outside the JSON."""
 BATCH_SIZE = 32
 MAX_BATCH_CHARS = 60_000
@@ -805,6 +808,17 @@ def _claim_shape(value):
             and all(isinstance(ref, str) for ref in value["evidence_refs"]))
 
 
+def _reader_text(text):
+    """A sentence as the reader sees it: citation brackets of paragraph IDs ("(outlet:p015)") removed, since the IDs
+    already sit in evidence_refs. An ID used as a word ("theo outlet:p010") is kept, so the check refuses the
+    sentence (evidence_ref_in_text) instead of publishing what is left of it."""
+    return text if unbracketed_evidence_ref(text) else strip_evidence_refs(text)
+
+
+def _reader_claim(claim):
+    return {**claim, "text": _reader_text(claim["text"])}
+
+
 _QUOTES = str.maketrans({"‘": "'", "’": "'", "“": '"', "”": '"', "–": "-", "—": "-"})
 CONDITION_MAX_WORDS = 25
 
@@ -993,13 +1007,18 @@ def _written_prose(inputs, reply, evidence, *, sheet_required=True):
             or any(not isinstance(p, dict) or p.get("role") not in WRITER_ROLES or not isinstance(p.get("sentences"), list)
                    or not p["sentences"] or not all(_claim_shape(s) for s in p["sentences"]) for p in paragraphs)):
         return None, [], "writer_invalid"
+    # Every check, the scorer and the reader see the text without its citation brackets (measured 06/11: 35
+    # sentences of one writer call ended "(outlet:p015)").
+    title = _reader_claim(title)
+    paragraphs = [{**p, "sentences": [_reader_claim(s) for s in p["sentences"]]} for p in paragraphs]
     boxes, body = None, _body_paragraphs(inputs)
     if sheet_required:
         boxes, sheet_error = _evidence_sheet(inputs, reply.get("sheet"))
         if sheet_error:
             return None, [{"role": "sheet", "text": json.dumps(reply.get("sheet"), ensure_ascii=False)[:400],
                            "error": sheet_error}], "sheet_invalid"
-    error = (_point_error(inputs, title, evidence, max_length=240)
+    error = (("evidence_ref_in_text" if unbracketed_evidence_ref(title["text"]) else None)
+             or _point_error(inputs, title, evidence, max_length=240)
              or attribution_error(title["text"], _cited(inputs, title["evidence_refs"]))
              or (boxes and _cause_error(title, boxes, body)))
     if error:
@@ -1011,7 +1030,9 @@ def _written_prose(inputs, reply, evidence, *, sheet_required=True):
         sentences = []
         for sentence in paragraph["sentences"]:
             key = " ".join(sentence["text"].casefold().split())
-            error = "duplicate_sentence" if key in seen else _point_error(inputs, sentence, evidence)
+            error = ("duplicate_sentence" if key in seen
+                     else "evidence_ref_in_text" if unbracketed_evidence_ref(sentence["text"])
+                     else _point_error(inputs, sentence, evidence))
             if (not error and paragraph["role"] == "significance" and condition_refs
                     and not condition_refs.intersection(sentence["evidence_refs"])):
                 error = "condition_not_cited"
@@ -1044,6 +1065,12 @@ def _written_prose(inputs, reply, evidence, *, sheet_required=True):
     missing = _sheet_dropped(boxes, kept) if boxes else []
     if missing:
         return None, dropped + missing, "sheet_point_dropped"
+    # Each paragraph is shown as one bullet; a bullet of three sentences is a paragraph dressed as one.
+    crowded = [{"role": p["role"], "text": " ".join(s["text"] for s in p["sentences"])[:400],
+                "error": f"bullet_sentences: {len(p['sentences'])} above {BULLET_MAX_SENTENCES}"}
+               for p in kept if len(p["sentences"]) > BULLET_MAX_SENTENCES]
+    if crowded:
+        return None, dropped + crowded, "bullet_sentences"
     if not length["least"] <= words <= length["most"]:
         return None, dropped, f"word_count: {words} outside {length['least']}-{length['most']}"
     owners = {part["id"]: source["id"] for source in inputs["sources"]
@@ -1064,11 +1091,12 @@ def _written_prose(inputs, reply, evidence, *, sheet_required=True):
 
 
 def _rewrite_roles(reply, dropped, error):
-    """Roles to write again: paragraphs the checks removed whole, or those that no longer carry a sheet point."""
+    """Roles to write again: paragraphs the checks removed whole, those that no longer carry a sheet point, or
+    those too long for one bullet."""
     if error in REWRITE_ERRORS:
         return _lost_roles(reply, dropped)
-    if error == "sheet_point_dropped":
-        missing = {item["role"] for item in dropped if item["error"].startswith("sheet_point_dropped")}
+    if error in {"sheet_point_dropped", "bullet_sentences"}:
+        missing = {item["role"] for item in dropped if item["error"].startswith(error)}
         return [paragraph["role"] for paragraph in reply["paragraphs"] if paragraph["role"] in missing]
     return []
 
@@ -1086,9 +1114,10 @@ def _lost_roles(reply, dropped):
 def _rewrite_request(inputs, reply, dropped, roles):
     """The writer's input row plus what it needs to redo the lost paragraphs from the same sources."""
     removed = {(item.get("role"), item["text"]) for item in dropped}
+    # dropped holds the reader's text (_reader_text), so the draft's sentences are compared in that form.
     kept = [{"role": paragraph["role"],
-             "sentences": [s["text"] for s in paragraph["sentences"]
-                           if (paragraph["role"], s["text"][:400]) not in removed]}
+             "sentences": [text for text in map(_reader_text, (s["text"] for s in paragraph["sentences"]))
+                           if (paragraph["role"], text[:400]) not in removed]}
             for paragraph in reply["paragraphs"] if paragraph["role"] not in roles]
     rejected = [{"role": item["role"], "text": item["text"], "error": item["error"]}
                 for item in dropped if item.get("role") in roles]

@@ -10,6 +10,8 @@ import math
 import os
 from pathlib import Path
 
+from radar.evidence_refs import strip_evidence_refs
+
 
 DEFAULT_PATH = Path(__file__).resolve().parents[1] / "phong-bao" / "decisions.json"
 # The scoring desk ("bàn chấm") reads each story's Vietnamese headline and paragraphs against the article and
@@ -28,10 +30,13 @@ SCORER_VERSION = "cham-4-cau-1"
 HARD_ERROR_KINDS = ("fact", "cause", "number", "name", "role", "quote", "main_event_missing")
 # Provenance of summaries written by the newsroom's "Người viết" desk. The paid
 # summary step leaves such stories alone; the API only fills the rest. The desk
-# writes 3-4 short paragraphs (contract DESK_PROMPT_VERSION), carried in
+# writes 3-4 short bullets of one or two sentences (contract DESK_PROMPT_VERSION), carried in
 # `key_points` so retention, search and video scripts keep working unchanged.
 DESK_SUMMARY_SOURCE = "nguoi-viet"
-DESK_PROMPT_VERSION = "summary-vi-6-prose"
+DESK_PROMPT_VERSION = "summary-vi-7-bullets"
+# Every desk contract a reader may still be shown. Prose written as 3-4 paragraphs before the bullets
+# (summary-vi-6-prose, the captain's form of 2026-10-27) keeps its verdict and is shown one bullet per paragraph.
+DESK_PROMPT_VERSIONS = ("summary-vi-6-prose", DESK_PROMPT_VERSION)
 DESK_SUMMARY_FIELDS = ("key_points", "editorial_headline_vi", "summary_sources",
                        "summary_limitations", "key_points_prompt_version")
 
@@ -41,13 +46,13 @@ def _http(value):
 
 
 def desk_fields_valid(row):
-    """Desk prose: 3-4 non-empty paragraphs, a headline and at least one web source."""
+    """Desk prose: 3-4 non-empty bullets or paragraphs, a headline and at least one web source."""
     if not isinstance(row, dict):
         return False
     points, sources = row.get("key_points"), row.get("summary_sources")
     return bool(isinstance(points, list) and 3 <= len(points) <= 4
                 and all(isinstance(p, str) and p.strip() for p in points)
-                and row.get("key_points_prompt_version") == DESK_PROMPT_VERSION
+                and row.get("key_points_prompt_version") in DESK_PROMPT_VERSIONS
                 and isinstance(row.get("editorial_headline_vi"), str) and row["editorial_headline_vi"].strip()
                 and isinstance(row.get("summary_limitations"), list)
                 and isinstance(sources, list)
@@ -98,12 +103,21 @@ def score_passed(row):
 
 
 def desk_summary(row):
-    """Return the public summary fields of a desk-written decision that passed the scoring desk, or None."""
+    """Return the public summary fields of a desk-written decision that passed the scoring desk, or None.
+
+    The verdict is checked against the stored prose (prose_sha256), the text the scorer read; the reader then gets
+    that text with any paragraph ID removed (radar.evidence_refs). Removal only deletes the ID and its brackets, so
+    no word reaches a reader that the scorer did not read, and a passed story is not hidden for carrying one.
+    """
     if (not isinstance(row, dict) or row.get("decision") != "publish"
             or row.get("written_by") != DESK_SUMMARY_SOURCE or not desk_fields_valid(row)
             or not score_passed(row)):
         return None
     fields = {key: deepcopy(row[key]) for key in DESK_SUMMARY_FIELDS}
+    fields["key_points"] = [strip_evidence_refs(point) for point in fields["key_points"]]
+    fields["editorial_headline_vi"] = strip_evidence_refs(fields["editorial_headline_vi"])
+    if not fields["editorial_headline_vi"].strip() or not all(point.strip() for point in fields["key_points"]):
+        return None
     fields.update(key_points_machine=True, key_points_source=DESK_SUMMARY_SOURCE)
     return fields
 

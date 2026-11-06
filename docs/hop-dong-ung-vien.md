@@ -101,4 +101,4 @@ Toà soạn ghi vào `phong-bao/decisions.json` (hợp đồng `radar/newsroom_d
  "doi_thuyen": {"prompt_version": "doi-thuyen-v1", "writer": "codex:gpt-6-sol", "checker": "claude:sonnet", "score": 9}}
 ```
 
-`key_points_prompt_version` giữ nguyên `summary-vi-6-prose` vì `desk_fields_valid` của site chỉ nhận giá trị đó (đo 2026-10-28, `radar/newsroom_decisions.py` dòng 19); phiên bản prompt thật nằm trong `doi_thuyen`, site bỏ qua trường lạ. Mọi hàng cũ trong tệp được giữ; hàng cùng `id` bị thay.
+`key_points_prompt_version` giữ nguyên `summary-vi-6-prose` vì `desk_fields_valid` của site chỉ nhận các giá trị trong `DESK_PROMPT_VERSIONS` (`summary-vi-6-prose`, và từ 2026-11-07 `summary-vi-7-bullets` của bàn viết trong repo này; `radar/newsroom_decisions.py`); phiên bản prompt thật nằm trong `doi_thuyen`, site bỏ qua trường lạ. Site hiện mỗi phần tử `key_points` thành một gạch đầu dòng dưới nhãn "Tóm tắt". Mọi hàng cũ trong tệp được giữ; hàng cùng `id` bị thay.

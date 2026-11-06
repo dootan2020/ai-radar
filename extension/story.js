@@ -190,22 +190,23 @@ export function renderEditorialSummaryHTML(story, publisherName = '', srcMap = n
     </div>`;
 }
 
-/* The newsroom writer desk's short paragraphs, labelled with who wrote them and from which source. */
+/* The newsroom writer desk's summary: one bullet per point under a "Tóm tắt" label, so the reader knows it is
+   Halcyon's summary and not the article, with who wrote it and from which source. Prose written as paragraphs
+   before the bullets is shown the same way, one bullet per paragraph. */
 export function renderDeskProseHTML(paragraphs, outletName = '') {
   if (!Array.isArray(paragraphs) || !paragraphs.length) return '';
-  const label = outletName
+  const byline = outletName
     ? `Phòng báo Halcyon tóm tắt từ ${esc(outletName)}`
     : 'Phòng báo Halcyon tóm tắt từ bài gốc';
   return `
-    <section class="story-keypoints-box story-prose-box" aria-label="Tóm tắt bài viết">
+    <section class="story-keypoints-box story-prose-box" aria-labelledby="story-summary-label">
       <div class="story-section-head">
-        <div>
-          <p class="story-section-sub story-byline">${label}</p>
-        </div>
+        <h2 class="story-summary-label" id="story-summary-label">Tóm tắt</h2>
+        <p class="story-section-sub story-byline">${byline}</p>
       </div>
-      <div class="story-prose">
-        ${paragraphs.map(text => `<p class="story-prose-text">${summaryText(text)}</p>`).join('')}
-      </div>
+      <ul class="story-bullets">
+        ${paragraphs.map(text => `<li class="story-bullet">${summaryText(text)}</li>`).join('')}
+      </ul>
     </section>
   `;
 }
