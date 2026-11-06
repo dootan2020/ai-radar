@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-06T00:17:58.771968+00:00",
-  "input_generated_at": "2026-11-05T21:56:06Z",
+  "generated_at": "2026-11-06T04:03:55.768913+00:00",
+  "input_generated_at": "2026-11-06T02:16:03Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -29699,6 +29699,825 @@
       "split_coverage_ids": [
         "3d94f0b43111afa5f104"
       ]
+    },
+    {
+      "id": "cb1497f501fffb26f34a",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-06/china-s-ai-propelled-growth-may-take-a-blue-wave-hit-be-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5330b7326e10aca304e2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "12a1cbc1ad4c1fd61ab2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/deepseek-harness-1-54-million-daily-active-users-official-plugin-marketplace",
+      "key_points": [
+        "Đội ngũ DeepSeek Harness cho biết trong bản cập nhật tối 5 tháng 11 rằng môi trường thực thi tác tử (agent runtime - hệ thống chạy chương trình AI tự hành) mã nguồn mở này đạt 1,54 triệu người dùng hoạt động hằng ngày tính đến 4 tháng 11. Báo cáo từ IT Home và MyDrivers lưu ý con số này chỉ tính riêng người dùng truy cập qua giao diện lập trình ứng dụng (API) chính thức của DeepSeek. Theo đội ngũ Harness, lượng người dùng này tiêu thụ khoảng 92 nghìn tỷ mã đại diện (token) mỗi ngày. Trang Pandaily ghi nhận đây là bước tăng nhanh của sản phẩm chưa đầy ba tháng tuổi, khi bản v0.1 ra mắt ngày 13 tháng 8 và bản máy tính phát hành ngày 29 tháng 9.",
+        "Trang Pandaily giải thích phần lớn hoạt động vận hành qua các tiện ích mở rộng (plugin). Đội ngũ phát triển cho biết điều này bắt nguồn từ thiết kế cốt lõi xem mọi thứ đều là tiện ích mở rộng. Toàn bộ mô hình, công cụ, kỹ năng, phiên làm việc, môi trường cô lập (sandbox), lưu trữ và giao diện đều lắp ráp từ tiện ích để người dùng tự do hoán đổi.",
+        "Theo đội ngũ Harness, số tiện ích bên thứ ba đã đạt khoảng 35.000, và khoảng 60% người dùng hoạt động đã tự tạo hoặc cài đặt tiện ích. Về quy mô, trang MyDrivers ghi nhận người dùng hằng ngày đạt khoảng 271.000 vào ngày 30 tháng 9, nghĩa là tăng hơn năm lần chỉ trong hơn một tháng.",
+        "Đội ngũ phát triển thông báo sẽ tăng cường độ ổn định của API tiện ích, củng cố bảo mật và xây chợ tiện ích chính thức để tác giả phát hành và người dùng tìm kiếm dễ hơn. Nhóm cũng chuẩn bị chương trình hỗ trợ tác giả với ưu đãi token và hiển thị nổi bật, với chi tiết cụ thể sẽ được định hình theo phản hồi từ cộng đồng. Trang Pandaily đánh giá chợ chính thức sẽ tạo điểm phân phối trung tâm đầu tiên cho hệ sinh thái tiện ích bên cạnh các kho lưu trữ cộng đồng. Dù vậy, đội ngũ phát triển lưu ý họ chưa đưa ra ngày ra mắt cho chợ tiện ích hay chương trình hỗ trợ tác giả."
+      ],
+      "same_event_coverage_ids": [
+        "66554a404dd312fc4042"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepSeek Harness đạt 1,54 triệu người dùng qua API chính thức và dự kiến mở chợ tiện ích",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/deepseek-harness-1-54-million-daily-active-users-official-plugin-marketplace"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "3f1fa67707bbbfd0b325",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.reuters.com/legal/transactional/ai-data-center-stocks-slip-democratic-sweep-clouds-expansion-plans-2026-11-05/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3f141a02d779b342282e",
+        "ba6edef948eb54b2ef53"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6b927366fb2fa649218f",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/plato-s-allen-on-ai-selloff-investment-strategy-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fa9a63db02b125ec041f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0107bd007cb0cb059270",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Market reporting focused on the South Korean Kospi index triggering a circuit breaker, with AI industry regulation mentioned only in passing as part of the broader US tech selloff context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/kospi-slides-after-us-rout-triggering-circuit-breaker-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4332f0451fdf53a51556"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5a9bb56832bde6a41378",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Macro financial reporting on crowded hedge fund unwinds and credit concerns, containing only a passing reference to AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-06/crowded-hedge-fund-trades-are-unwinding-fast-after-ugly-october",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c2a2da90c175c3258335"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e3a5cafd2edc196e904e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wsj.com/finance/major-investors-are-skeptical-anthropic-ipo-can-achieve-1-5-trillion-valuation-ca965d8b’",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b90783ba5e749865fa30"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "525555dfe497cbaa420f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-05-usage-metrics-api-adds-code-review-details-and-addressed-rate",
+      "key_points": [
+        "GitHub thông báo các báo cáo số liệu sử dụng Copilot cấp kho lưu trữ (repository) cho doanh nghiệp và tổ chức đã bổ sung thông tin chi tiết về các phản hồi rà soát mã nguồn. Một đối tượng mới mang tên copilot_code_review trên mỗi hàng báo cáo một ngày (repos-1-day) ghi nhận số yêu cầu hợp nhất (pull request - đề xuất tích hợp mã) do Copilot rà soát được hợp nhất mà không bị con người yêu cầu chỉnh sửa tiếp, cùng số bình luận rà soát được lập trình viên xử lý. Dựa vào các chỉ số này, tổ chức có thể theo dõi tỷ lệ xử lý góp ý (addressed rate) trên từng kho lưu trữ.",
+        "GitHub giải thích các trường pull_requests hiện có chỉ đo tần suất chạy rà soát và số lượt bấm áp dụng gợi ý trực tiếp, trong khi lập trình viên xử lý phần lớn phản hồi theo nhiều cách khác. Các trường dữ liệu mới giúp phản ánh đúng thực tế liệu lập trình viên có tiếp nhận góp ý rà soát hay không và những loại bình luận nào thực sự được ghi nhận.",
+        "Cụ thể, trường total_comments_evaluated đếm số bình luận được kiểm tra xem lập trình viên có phản hồi hay không, còn total_comments_addressed ghi nhận số bình luận được xử lý bằng cách áp dụng gợi ý, nhờ Copilot sửa, tự chỉnh mã hoặc hẹn sửa ở pull request sau. Tỷ lệ xử lý góp ý được tính bằng cách lấy total_comments_addressed chia cho total_comments_evaluated. Cả hai số đếm đều phân loại theo mức độ nghiêm trọng, cấp độ đánh giá, loại nhận xét và tùy biến như chỉ dẫn tùy chỉnh, kỹ năng hay máy chủ giao thức ngữ cảnh mô hình (MCP - Model Context Protocol). Ngoài ra, trường total_merged_no_human_change_request_after_review theo dõi số pull request được hợp nhất mà không có người nào yêu cầu sửa đổi sau lần rà soát đầu tiên của Copilot.",
+        "GitHub nhận định dữ liệu này giúp đánh giá liệu các tùy biến như chỉ dẫn riêng, kỹ năng hay máy chủ MCP có tạo ra khác biệt, và người duyệt mã có tiếp tục yêu cầu chỉnh sửa sau khi Copilot rà soát hay không. Tuy vậy, GitHub giới hạn việc đánh giá bình luận chỉ diễn ra khi pull request được hợp nhất, nên số liệu tính vào ngày hợp nhất chứ không phải ngày Copilot đăng nhận xét. Nền tảng cũng lưu ý Copilot thường không đánh giá bình luận trên pull request do bot mở như Copilot cloud agent, dù trường pull request hợp nhất vẫn tính các trường hợp này. Báo cáo chỉ khả dụng cho chủ sở hữu hoặc người có quyền xem số liệu khi chính sách số liệu Copilot được kích hoạt, và các số đếm sẽ bằng không nếu kho lưu trữ không có hoạt động rà soát trong ngày."
+      ],
+      "same_event_coverage_ids": [
+        "2fcfa75c86137d769877"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub bổ sung chi tiết rà soát mã nguồn và tỷ lệ xử lý góp ý vào API đo lường Copilot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-05-usage-metrics-api-adds-code-review-details-and-addressed-rate"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "0778fb85d9153ba6e8af",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-05-usage-metrics-api-flags-telemetry-and-version-gaps",
+      "key_points": [
+        "GitHub thông báo API số liệu sử dụng Copilot hiện hiển thị những người dùng bị thiếu dữ liệu đo từ xa phía máy khách (client telemetry - dữ liệu vận hành từ trình soạn thảo) hoặc chạy phiên bản thấp hơn mức tối thiểu. Các trường dữ liệu mới theo từng người dùng xuất hiện trong báo cáo người dùng, đồng thời số lượng người dùng bị ảnh hưởng hằng ngày cũng được đưa vào các báo cáo tổ chức và doanh nghiệp. Tính năng này theo dõi cả môi trường phát triển tích hợp (IDE - phần mềm viết mã) và các tiện ích mở rộng Copilot.",
+        "GitHub giải thích người dùng không có dữ liệu đo từ xa vẫn được tính là đang hoạt động, nhưng báo cáo của họ thiếu các chi tiết như số dòng mã, phân tích tính năng và mô hình. Nguyên nhân phổ biến gồm trình biên tập hoặc tiện ích lỗi thời, tính năng đo từ xa bị tắt trong IDE, hoặc mạng có máy chủ ủy nhiệm (proxy) và tường lửa chặn tín hiệu.",
+        "Cụ thể, trường client_telemetry_present mang giá trị false khi Copilot thấy hoạt động của người dùng nhưng không nhận được sự kiện sử dụng nào từ trình soạn thảo. Trường usage_metrics_requirements liệt kê từng IDE và tiện ích Copilot theo trạng thái đạt chuẩn (met), chưa đạt (unmet) hoặc không xác định (unknown) so với mức hỗ trợ tối thiểu. Ở cấp báo cáo hằng ngày, missing_client_telemetry_user_count thống kê người dùng thiếu dữ liệu đo từ xa, còn below_usage_metrics_minimum_user_count đếm người dùng có ít nhất một IDE hoặc tiện ích dưới phiên bản tối thiểu.",
+        "GitHub nhận định các trường mới giúp tổ chức biết rõ số lượng và đối tượng bị ảnh hưởng để chủ động xử lý khoảng trống dữ liệu mà không cần mở phiếu hỗ trợ kỹ thuật. Tuy nhiên, GitHub lưu ý một người dùng có thể cùng lúc xuất hiện ở cả hai nhóm thiếu dữ liệu và chạy phiên bản cũ, nên không được cộng gộp hai số đếm hoặc cộng qua nhiều ngày để tính người dùng duy nhất. Nền tảng cũng nhấn mạnh đây là các tín hiệu độc lập, vì người dùng dù đáp ứng mọi chuẩn phiên bản vẫn có thể thiếu dữ liệu đo từ xa nếu bị tường lửa chặn. Ngoài ra, giá trị null hoặc bị bỏ qua phản ánh dữ liệu chưa sẵn có chứ không phải là false hay số không, và các ngày trước bản phát hành này hoàn toàn không có dữ liệu."
+      ],
+      "same_event_coverage_ids": [
+        "d22e06521d157df36b14"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub bổ sung tính năng cảnh báo thiếu dữ liệu đo từ xa và phiên bản cũ vào API Copilot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-05-usage-metrics-api-flags-telemetry-and-version-gaps"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "2bae9b1f767db0945e28",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Old article from October 6 covering remarks from an August podcast re-posted to a forum a month later without new reporting or developments.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://finance.yahoo.com/technology/ai/articles/mark-cuban-says-facebook-knowingly-213000020.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "02a89fad6da9cc475c93",
+        "a21eda87d105f3515ce3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2d6d275f2ed575c6ffa4",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/tiger-global-whale-rock-battered-by-ai-fears-in-painful-october",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bb870070f3f553748456"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0656927e16480f405db2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://fedscoop.com/america-gov-integration-login-national-design-studio-cio/",
+      "key_points": [
+        "Theo trang FedScoop, dịch vụ đăng nhập một lần (cơ chế dùng một tài khoản duy nhất cho nhiều hệ thống) của chính phủ Mỹ dự kiến sẽ là thành phần then chốt trong kế hoạch liên kết dịch vụ công qua nền tảng America.gov của chính quyền Donald Trump. Trả lời Fed Gov Today, bà Mary Bati, Giám đốc Thông tin tại National Design Studio (cơ quan thiết kế quốc gia), cho biết việc tích hợp với hệ thống xác thực Login.gov là một trong những nhiệm vụ lớn nhất cho giai đoạn hai của chatbot (trợ lý ảo tương tác tự động). Bà Mary Bati giải thích rằng giai đoạn hai sẽ là thời kỳ chính phủ hiện thực hóa các cam kết, trong đó Login.gov được sử dụng làm công cụ xác minh danh tính để cấp quyền tiếp cận các dịch vụ sắp tới trên nền tảng.",
+        "FedScoop đưa tin trang web America.gov do National Design Studio ra mắt là một nỗ lực tạo ra cửa ngõ chung tiếp cận dịch vụ liên bang qua giao diện trợ lý ảo. Mặc dù hiện tại trang web chủ yếu đóng vai trò như tổng đài giải đáp thắc mắc và cung cấp liên kết, kế hoạch của chính phủ là để một số quy trình diễn ra hoàn toàn ngay bên trong nền tảng. Bà Mary Bati cho biết người dùng sẽ vào America.gov, đăng nhập an toàn qua Login.gov để tiếp cận bộ dịch vụ công như bảo hiểm y tế Medicare hoặc an sinh xã hội Social Security.",
+        "Tại lễ ra mắt, Ngoại trưởng Marco Rubio đã phác thảo quy trình nộp hồ sơ xin cấp hộ chiếu trực tuyến sẽ thực hiện hoàn toàn qua America.gov với Login.gov là công cụ xác minh danh tính. Với quy trình này, bà Mary Bati cho biết hệ thống dự kiến vận hành từ tháng 12 năm 2026 và phần lớn người Mỹ có thể nộp đơn trực tuyến vào cuối năm 2027. Bà Mary Bati nhấn mạnh National Design Studio và chatbot không trực tiếp xét duyệt hồ sơ mà chỉ là cửa ngõ điều hướng tới hệ thống xử lý của Bộ Ngoại giao.",
+        "Theo FedScoop, các chuyên gia công nghệ khu vực công lưu ý bài kiểm tra thực sự là việc nền tảng có thể cung cấp dịch vụ dễ dàng hơn một cách an toàn hay không, và ở dạng hiện tại thì chatbot vẫn chưa đạt tới điều đó. Bà Mary Bati thừa nhận giới hạn này khi nhận định rằng dấu hiệu thành công lớn nhất sau cùng sẽ là số giờ tiết kiệm được cho người dân Mỹ tại nhà."
+      ],
+      "same_event_coverage_ids": [
+        "02485af4e87fd78780ba"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "America.gov dự kiến tích hợp Login.gov để mở rộng dịch vụ công trong giai đoạn hai",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "fedscoop",
+          "url": "https://fedscoop.com/america-gov-integration-login-national-design-studio-cio/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "914dc6b087d89a3374b2",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-05/markets-evaluating-ai-speed-limit-schwab-s-sonders-says-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c16b53349d0f93199783"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1121cf54e69f72cb6b4f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/05/airbnb-says-its-launching-an-ai-travel-agent-in-the-first-half-of-2027/",
+      "key_points": [
+        "Theo TechCrunch, nền tảng Airbnb thông báo trong thư gửi cổ đông quý 3 rằng hãng sẽ ra mắt một đại lý trí tuệ nhân tạo (phần mềm tự hành hỗ trợ người dùng) chuyên về du lịch vào nửa đầu năm 2027. Giám đốc điều hành Brian Chesky cho rằng các chatbot (trình tương tác hội thoại tự động) thông thường quá nặng về văn bản và không phù hợp cho việc lên kế hoạch chuyến đi. Thông báo này được đưa ra khi Airbnb ghi nhận doanh thu quý 3 tăng 19% lên 4,87 tỷ USD, vượt kỳ vọng của Phố Wall và đánh dấu mức tăng nhanh nhất trong hơn ba năm qua.",
+        "Giải thích lý do tự xây dựng công cụ riêng, ông Brian Chesky nhận định rằng người dùng sẽ không dùng chung một đại lý trí tuệ nhân tạo duy nhất cho mọi nhu cầu. Theo ông Brian Chesky, các đại lý như Muse và Instinct chỉ làm tốt tác vụ đơn giản như đặt nhà hàng hay xếp lịch hẹn, trong khi 80% du khách thích tự tìm tòi, xem ảnh, so sánh nơi ở và thảo luận cùng người đồng hành. Vì vậy, Airbnb phát triển trải nghiệm gốc bằng trí tuệ nhân tạo với giao diện chuyên biệt cho du lịch để tự động cấu trúc màn hình theo câu hỏi thay vì chỉ phản hồi qua văn bản.",
+        "Lãnh đạo Airbnb mô tả trải nghiệm này tương tự giao diện tự sinh (công nghệ tự tạo giao diện thích ứng theo ngữ cảnh) để mang lại màn hình phù hợp vào đúng thời điểm.",
+        "Thư gửi cổ đông của Airbnb nhấn mạnh đại lý này sẽ hỗ trợ khách suốt chuyến đi từ đổi phòng, thanh toán, hoàn tiền đến an toàn 24 giờ, những việc mà một đại lý bên ngoài khó tự thực hiện. Doanh nghiệp dự kiến theo thời gian sẽ mở rộng phạm vi hỗ trợ sang các dịch vụ và trải nghiệm khác thay vì chỉ dừng lại ở nhà ở và khách sạn."
+      ],
+      "same_event_coverage_ids": [
+        "a41674c14b28928c9ed4",
+        "ec23b0c04ba9e1c6d235"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Airbnb dự kiến ra mắt đại lý trí tuệ nhân tạo hỗ trợ du lịch vào nửa đầu năm 2027",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/05/airbnb-says-its-launching-an-ai-travel-agent-in-the-first-half-of-2027/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "3c5a02efa9e2d92eb93e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/05/2026/nvidia-chips-stuck-in-hong-kong-over-china-approval",
+      "key_points": [
+        "Hãng tin Reuters đưa tin khoảng 600.000 vi chip tiên tiến của Nvidia đang bị giữ lại tại Hồng Kông trên đường tới Trung Quốc. Giới chức Bắc Kinh chặn số hàng này vì lo ngại doanh nghiệp nội địa quá phụ thuộc vào công nghệ phương Tây.",
+        "Theo Semafor, dù nỗ lực tự chủ bán dẫn, nhu cầu điện toán lớn của các doanh nghiệp trong nước vẫn gây thiếu hụt và buộc họ tăng nhập khẩu. Bloomberg cho biết các nhà phát triển AI Trung Quốc dự kiến chỉ nhận được một phần nhỏ chip Nvidia đã đặt do công ty Mỹ khó tăng sản lượng.",
+        "Semafor nhận định nguồn cung chip bị kẹt lại khi Mỹ và Trung Quốc cạnh tranh nhằm tước lợi thế công nghệ của nhau trong cuộc đua trí tuệ nhân tạo."
+      ],
+      "same_event_coverage_ids": [
+        "812c3896173eaa34e23a"
+      ],
+      "split_coverage_ids": [
+        "febc27b818c7249d4f4d"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khoảng 600.000 vi chip Nvidia bị kẹt tại Hồng Kông do lệnh chặn nhập khẩu của Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/05/2026/nvidia-chips-stuck-in-hong-kong-over-china-approval"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-04/nvidia-china-clients-to-get-1-of-70-billion-rtx-chips-ordered"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "e68f41898f626eea9309",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/blue-owl-sees-gains-as-election-results-limit-ai-compute-supply",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "365f00f27a9af70a951c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2165b65a40c289be1bb3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1028302/perplexity-teammates-ai-agents-work",
+      "key_points": [
+        "Perplexity launched work-focused AI agents called Teammates to compete with OpenAI and Anthropic.",
+        "Teammates are always-on AI agents capable of performing an array of tasks while running 24/7.",
+        "Teammates can take on multiple workspace roles while pulling existing projects, skills, and memory from Perplexity tools.",
+        "Teammates integrate with Perplexity Computer and build on top of it to support collaboration and ongoing large-scale work.",
+        "Users can assign each Teammate different jobs that can be performed simultaneously."
+      ],
+      "same_event_coverage_ids": [
+        "fab45641a432ec6534c0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "44a3ae3b6018cd5ab433",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on MetLife's Q3 earnings and business outlook, containing only an incidental passing remark that the insurer has limited exposure to AI investments.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-05/metlife-seeing-volume-growth-across-the-board-ceo-says-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fe8fc99c00e1b32f67da"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "199af8aea5b61129022f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a raw user bug report on a GitHub issue tracker without an official security advisory or independent news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/anthropics/claude-code/issues/107757",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a9ba7b2ccbc2299816c6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d4abec47d2b79c410d16",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/jfrog-hikes-view-as-ai-armed-hackers-spur-security-demand",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "591165a2b483d71f339b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ec6131828b7f622d50cb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://x.com/cursor_ai/status/2118458629091426304",
+      "key_points": [
+        "Cursor launched a feature allowing users to build live applications directly in the editor and share them via a link.",
+        "Users can describe a desired tool, and Cursor will build the application, set up a database, execute security checks, and deploy it.",
+        "Cursor runs both deterministic and agentic security checks as part of the application build and deployment process."
+      ],
+      "same_event_coverage_ids": [
+        "ca12a72053666767f28c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "790a29191dcdd8248958",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a bare open-source repository page describing an agent skill without a documented release announcement or independent journalistic coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/yucezerey/turkish-anti-ai-skill",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5c0377806616a50744c3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bbd492caba72ca544b8b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a promotional vendor customer case study published by OpenAI highlighting Cult.fit's internal adoption of Codex.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/cultfit-builds-with-codex",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4937c496941b1d5518d9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4f1960ec6a11e8e6b79b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://x.com/ArtificialAnlys/status/2118426584545955993",
+      "key_points": [
+        "Benchflow AI launched FrontierPhysics, a benchmark designed to evaluate long-horizon agentic tasks in scientific domains.",
+        "FrontierPhysics features evaluation scoring designed to capture nuances and judgment required by physicists.",
+        "Artificial Analysis announced a partnership with Benchflow AI to host the FrontierPhysics benchmark."
+      ],
+      "same_event_coverage_ids": [
+        "4a14aafb644a94b27e71",
+        "bc1e861a932e50364c31"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "616c68177b707eae60eb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a vendor customer case study from OpenAI describing how Australian universities use ChatGPT in higher education.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/australian-universities-ai-native-graduates",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c8a83cbc2d7e31e36dfe"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9a696528d8f0c1630b9b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://x.com/DrJimFan/status/2118380813498892301",
+      "key_points": [
+        "VFlash was introduced as a System One Vision Model designed for Physical AI.",
+        "VFlash parses visual inputs in parallel to achieve high processing speeds for embodied AI applications.",
+        "The model is aimed at embodied prediction tasks with fixed-length float vector outputs, such as object localization, robot trajectory planning, and dense 3D motion."
+      ],
+      "same_event_coverage_ids": [
+        "0c2d1ba2b44e9e60c00f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f64eec4360494cddfd2d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/microsoft-sours-on-neoclouds-iren-nebius-nscale-on-delays-costs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "42ed17a9a31ee9919e02"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "423ba0e16aab7716f607",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/05/2026/openai-looks-to-make-data-centers-more-palatable",
+      "key_points": [
+        "OpenAI thông báo vào thứ Năm rằng công ty sẽ tránh sử dụng các thỏa thuận bảo mật thông tin (cam kết pháp lý không tiết lộ thông tin dự án) khi đàm phán xây dựng trung tâm dữ liệu với giới chức công quyền. Công ty cam kết bảo đảm các cơ sở vận hành này không làm tăng chi phí năng lượng của cư dân địa phương và người dân không phải gánh tiền điện phục vụ các dự án.",
+        "Theo Semafor, OpenAI muốn định hình lại chính sách đối thoại bằng cách đổi tên trung tâm dữ liệu thành khuôn viên điện toán và tăng cường thu thập ý kiến cộng đồng. Sự điều chỉnh định hướng này đồng thời mở ra một thị trường tuyển dụng việc làm hấp dẫn cho các nhân sự đảm nhận vai trò liên lạc viên trung tâm dữ liệu.",
+        "Dù OpenAI tin rằng khung chính sách này nên được đưa vào luật quản lý việc mở rộng trí tuệ nhân tạo, các nhà ủng hộ an toàn AI vẫn tỏ ra hoài nghi về nỗ lực tiếp cận này trước làn sóng phản đối đang gia tăng trên toàn cầu. Làn sóng phản đối được phản ánh rõ khi cử tri Mỹ bỏ phiếu siết chặt cấp phép trung tâm dữ liệu ở hầu hết các bang tuần này, cùng các cuộc biểu tình dự kiến diễn ra vào cuối tuần tại Úc và nhiều nước châu Âu."
+      ],
+      "same_event_coverage_ids": [
+        "0a2a981b568bca824da1",
+        "621951ed45271b907c42",
+        "aa23d772b7794851e758"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI cam kết bỏ thỏa thuận bảo mật và giữ giá điện khi đối mặt phản đối về trung tâm dữ liệu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/05/2026/openai-looks-to-make-data-centers-more-palatable"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-05/openai-to-change-how-it-handles-data-center-efforts-after-outcry"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1028454/openai-data-center-nda"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose"
+    },
+    {
+      "id": "db9792e954d447010915",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a vendor customer case study detailing how Merge incorporates OpenAI models and tools into its operations.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/merge-builds-with-openai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "99f4a721546ef1e3f4bd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2d1d326185a62641bed0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is an advertising case study published by OpenAI demonstrating conversion optimization results for customer Flipsnack.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/ads/customers/flipsnack",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c0549ff6ac81bd35908b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a8e215d1c3fca63aee0f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a promotional vendor customer case study describing Franklin Templeton's deployment of OpenAI workflows in equity research.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/franklin-templeton",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7882cc75c1475a78b7b3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "655a22f2f815573078fc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/04/tencent-reportedly-preparing-consumer-ai-search-engine/",
+      "key_points": [
+        "Theo thông tin từ trang tin Huxiu vào ngày 3 tháng 11, tập đoàn Tencent đang tích cực chuẩn bị ra mắt một công cụ tìm kiếm tích hợp trí tuệ nhân tạo (AI) hướng tới đối tượng người tiêu dùng cá nhân. Báo cáo này cho biết công cụ tìm kiếm mới dự kiến sẽ kết hợp trực tiếp giữa các câu trả lời do trí tuệ nhân tạo tổng hợp với dữ liệu tìm kiếm trang mạng truyền thống. Sản phẩm này được thiết kế theo hướng sở hữu một giao diện tối giản và sẽ ưu tiên trích dẫn các nguồn thông tin có thẩm quyền đáng tin cậy theo ghi nhận từ báo cáo.",
+        "Một nguồn tin nội bộ từ Tencent tiết lộ với Huxiu rằng công cụ tìm kiếm đang lên kế hoạch này chia sẻ các năng lực công nghệ nền tảng với tính năng tìm kiếm bên trong ứng dụng Yuanbao và giao diện lập trình Yuanbao Search API của Tencent Cloud. Trước đó hai tuần, bộ phận đám mây Tencent Cloud đã chính thức mở cổng cung cấp dịch vụ giao diện lập trình tìm kiếm này cho nhóm khách hàng doanh nghiệp tiếp cận. Đội ngũ kỹ thuật phụ trách mảng tìm kiếm này được thành lập song song cùng thời điểm ra mắt ứng dụng Yuanbao vào giữa năm 2024, tận dụng trực tiếp công nghệ kế thừa từ trình duyệt QQ Browser và công cụ tìm kiếm Sogou.",
+        "Báo cáo của Huxiu nhận định việc tích hợp các nguồn lực công nghệ từ QQ Browser và Sogou mang lại cho Tencent một hạ tầng tìm kiếm dùng chung để triển khai đồng thời trên các sản phẩm tiêu dùng và các dịch vụ dành cho nhà phát triển."
+      ],
+      "same_event_coverage_ids": [
+        "95e623d00456964edfd6"
+      ],
+      "split_coverage_ids": [
+        "38f4eca9cc278b02f130"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent chuẩn bị ra mắt công cụ tìm kiếm AI cho người dùng dựa trên hạ tầng chung từ QQ Browser và Sogou",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/04/tencent-reportedly-preparing-consumer-ai-search-engine/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose"
     }
   ]
 }
