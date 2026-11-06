@@ -1099,6 +1099,14 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
     return output, usage
 
 
+def written_fields(written):
+    """Decision fields a written story carries: the writer's points replace the checker's claims as its summary."""
+    return {"summary": "written", "written_by": DESK_SUMMARY_SOURCE, "key_points": written["key_points"],
+            "editorial_headline_vi": written["editorial_headline_vi"], "summary_sources": written["summary_sources"],
+            "summary_limitations": written["summary_limitations"],
+            "key_points_prompt_version": written["key_points_prompt_version"]}
+
+
 def _chief(stories, intake, reporter, editor, checker, now, writer=None):
     writer = writer or {}
     output = []
@@ -1168,13 +1176,7 @@ def _chief(stories, intake, reporter, editor, checker, now, writer=None):
                        "same_event_coverage_ids": editor[sid]["same_event_coverage_ids"],
                        "split_coverage_ids": editor[sid]["split_coverage_ids"]}
         if written:
-            # The writer's points replace the checker's claims as the published summary.
-            out_row.update(summary="written", written_by=DESK_SUMMARY_SOURCE,
-                           key_points=written["key_points"],
-                           editorial_headline_vi=written["editorial_headline_vi"],
-                           summary_sources=written["summary_sources"],
-                           summary_limitations=written["summary_limitations"],
-                           key_points_prompt_version=written["key_points_prompt_version"])
+            out_row.update(written_fields(written))
         validate_chief_output(out_row)
         output.append(out_row)
     return output
@@ -1213,7 +1215,8 @@ def run(input_path, job, tools, discovery, runner, *, through="chief", articles=
             continue
         status["desks"][desk] = {"state": "running", "started_at": datetime.now(timezone.utc).isoformat()}
         budget = writer_budget_seconds if desk == "writer" else desk_budget_seconds
-        deadline = min(time.monotonic() + budget, run_deadline)
+        desk_started = time.monotonic()
+        deadline = min(desk_started + budget, run_deadline)
         _write_json(status_path, status)
         try:
             if desk == "intake":
@@ -1235,8 +1238,9 @@ def run(input_path, job, tools, discovery, runner, *, through="chief", articles=
                                        state["writer"]), []
             _write_json(path, output)
             state[desk] = output
+            # seconds lets a cycle give its writer retries only the writer budget this run left.
             status["desks"][desk] = {"state": "done", "completed_at": datetime.now(timezone.utc).isoformat(),
-                                      "count": len(output),
+                                      "seconds": round(time.monotonic() - desk_started, 3), "count": len(output),
                                       "invalid_rows": sum(bool(row.get("invalid_response")) for row in (output.values() if isinstance(output, dict) else output)),
                                       "splits": sum(row.get("event") == "split" for row in usage),
                                       "budget_exhausted": any(row.get("event") == "budget_exhausted" for row in usage),
