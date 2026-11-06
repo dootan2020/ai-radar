@@ -10,6 +10,8 @@ import math
 import os
 from pathlib import Path
 
+from radar.evidence_refs import strip_evidence_refs
+
 
 DEFAULT_PATH = Path(__file__).resolve().parents[1] / "phong-bao" / "decisions.json"
 # The scoring desk ("bàn chấm") reads each story's Vietnamese headline and paragraphs against the article and
@@ -98,12 +100,21 @@ def score_passed(row):
 
 
 def desk_summary(row):
-    """Return the public summary fields of a desk-written decision that passed the scoring desk, or None."""
+    """Return the public summary fields of a desk-written decision that passed the scoring desk, or None.
+
+    The verdict is checked against the stored prose (prose_sha256), the text the scorer read; the reader then gets
+    that text with any paragraph ID removed (radar.evidence_refs). Removal only deletes the ID and its brackets, so
+    no word reaches a reader that the scorer did not read, and a passed story is not hidden for carrying one.
+    """
     if (not isinstance(row, dict) or row.get("decision") != "publish"
             or row.get("written_by") != DESK_SUMMARY_SOURCE or not desk_fields_valid(row)
             or not score_passed(row)):
         return None
     fields = {key: deepcopy(row[key]) for key in DESK_SUMMARY_FIELDS}
+    fields["key_points"] = [strip_evidence_refs(point) for point in fields["key_points"]]
+    fields["editorial_headline_vi"] = strip_evidence_refs(fields["editorial_headline_vi"])
+    if not fields["editorial_headline_vi"].strip() or not all(point.strip() for point in fields["key_points"]):
+        return None
     fields.update(key_points_machine=True, key_points_source=DESK_SUMMARY_SOURCE)
     return fields
 

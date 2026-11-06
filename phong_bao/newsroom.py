@@ -15,6 +15,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from radar.clustering import canonical_url, titles_match
+from radar.evidence_refs import strip_evidence_refs, unbracketed_evidence_ref
 from radar.items import instant, is_x_item
 from radar.press_relevance import press_subject_reason
 from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE
@@ -105,7 +106,7 @@ STYLE
 Plain Vietnamese as a Vietnamese journalist writes for a phone reader: translate the meaning, not English word order or compounds (never "kiến trúc đàn" or "nhân viên số liên tục"; say what the thing does). Leave out details that answer none of the four questions. When grouping actors with different positions, say that they differ. Explain a specialist term in plain Vietnamese in parentheses on first use, including what an agent or benchmark is. Keep the author's opinion marked as opinion. Keep proper names, product names and model versions as the source spells them. No value judgements the source does not make (do not call a use "abuse"). No markdown, lists, URLs or bold text; at most one attributed quotation of up to 20 source words.
 
 GROUNDING
-Every sentence carries evidence_refs: the exact paragraph IDs that support it. Omit any sentence you cannot support. Sentences are checked one by one and a failing one is removed; write each sentence so the summary still reads correctly, with its conditions, if a neighbouring sentence is removed.
+Every sentence carries evidence_refs: the exact paragraph IDs that support it. Never write an ID in text. Omit any sentence you cannot support. Sentences are checked one by one and a failing one is removed; write each sentence so the summary still reads correctly, with its conditions, if a neighbouring sentence is removed.
 
 OUTPUT
 Return each {id, status: ready|insufficient_evidence, sheet: {what, why, notable, meaning}, conditions: [{text, ref}], title_vi: {text, evidence_refs}, paragraphs: [{role: development|cause|examples|significance, sentences: [{text, evidence_refs}]}], used_source_ids, limitations}. title_vi is a faithful Vietnamese editorial headline of 70 to 120 characters that keeps the same conditions. limitations lists any of partial_source, missing_primary, source_conflict that apply. When the evidence cannot support this shape, use status insufficient_evidence with an empty title, no paragraphs and no source IDs."""
@@ -127,7 +128,7 @@ Write 3-4 Vietnamese paragraphs whose total whitespace-delimited units fall with
 The final paragraph must tell the reader what changes, what problem the development addresses, or what the supported result means within its limits. Do not invent an impact on Vietnam, advice, a forecast, or a general verdict. Prefer fewer secondary names and numbers to losing a central condition. Explain necessary technical language only through facts in the supplied sources. No headings, bullets, markdown or copied source structure in the summary. Paraphrase independently; use no direct quotations in its public text.
 Check the final text against four questions: what happened, why, what is notable, and what it means. Each answer must be identifiable, supported and understandable without reading the source. Recheck every final sentence after editing; do not assume a sentence remains correct because it survived the draft's checks. Do not claim completeness if the packet is partial. If missing material prevents a faithful account of the central result, return insufficient_evidence.
 Return JSON only: {id, issues: [{kind, draft_text, explanation_vi, evidence_refs}], final: {id, status, conditions, title_vi, paragraphs, used_source_ids, limitations}}. issues records concrete draft problems; kind is unsupported, lost_condition, missing_core, weak_example, or opaque_meaning. Use an empty draft_text for an omission; evidence_refs identify the relevant supplied paragraphs. Do not output a numerical quality score.
-final uses status ready or insufficient_evidence. For ready, conditions is [{text, ref}]: copy each material condition verbatim from one supplied paragraph, at most 25 words per entry; use [] only when no conditions are stated. title_vi is {text, evidence_refs}, a faithful 70-120 character headline. paragraphs is [{role, sentences: [{text, evidence_refs}]}], with unique roles from development, cause, examples, significance; development first and significance last. Cite the exact supplied paragraphs supporting every factual clause of every sentence and title; used_source_ids lists their source IDs. limitations uses partial_source, missing_primary, source_conflict as applicable. Conflicts remain attributed conflicts. An unavailable linked source is not evidence. Never imply you read it.
+final uses status ready or insufficient_evidence. For ready, conditions is [{text, ref}]: copy each material condition verbatim from one supplied paragraph, at most 25 words per entry; use [] only when no conditions are stated. title_vi is {text, evidence_refs}, a faithful 70-120 character headline. paragraphs is [{role, sentences: [{text, evidence_refs}]}], with unique roles from development, cause, examples, significance; development first and significance last. Cite the exact supplied paragraphs supporting every factual clause of every sentence and title in evidence_refs, never in text; used_source_ids lists their source IDs. limitations uses partial_source, missing_primary, source_conflict as applicable. Conflicts remain attributed conflicts. An unavailable linked source is not evidence. Never imply you read it.
 For insufficient_evidence, final has an empty title {text: "", evidence_refs: []}, empty conditions, paragraphs and used_source_ids, and limitations ["insufficient_evidence"]. Keep issues for audit. Return no prose outside the JSON."""
 BATCH_SIZE = 32
 MAX_BATCH_CHARS = 60_000
@@ -805,6 +806,17 @@ def _claim_shape(value):
             and all(isinstance(ref, str) for ref in value["evidence_refs"]))
 
 
+def _reader_text(text):
+    """A sentence as the reader sees it: citation brackets of paragraph IDs ("(outlet:p015)") removed, since the IDs
+    already sit in evidence_refs. An ID used as a word ("theo outlet:p010") is kept, so the check refuses the
+    sentence (evidence_ref_in_text) instead of publishing what is left of it."""
+    return text if unbracketed_evidence_ref(text) else strip_evidence_refs(text)
+
+
+def _reader_claim(claim):
+    return {**claim, "text": _reader_text(claim["text"])}
+
+
 _QUOTES = str.maketrans({"‘": "'", "’": "'", "“": '"', "”": '"', "–": "-", "—": "-"})
 CONDITION_MAX_WORDS = 25
 
@@ -993,13 +1005,18 @@ def _written_prose(inputs, reply, evidence, *, sheet_required=True):
             or any(not isinstance(p, dict) or p.get("role") not in WRITER_ROLES or not isinstance(p.get("sentences"), list)
                    or not p["sentences"] or not all(_claim_shape(s) for s in p["sentences"]) for p in paragraphs)):
         return None, [], "writer_invalid"
+    # Every check, the scorer and the reader see the text without its citation brackets (measured 06/11: 35
+    # sentences of one writer call ended "(outlet:p015)").
+    title = _reader_claim(title)
+    paragraphs = [{**p, "sentences": [_reader_claim(s) for s in p["sentences"]]} for p in paragraphs]
     boxes, body = None, _body_paragraphs(inputs)
     if sheet_required:
         boxes, sheet_error = _evidence_sheet(inputs, reply.get("sheet"))
         if sheet_error:
             return None, [{"role": "sheet", "text": json.dumps(reply.get("sheet"), ensure_ascii=False)[:400],
                            "error": sheet_error}], "sheet_invalid"
-    error = (_point_error(inputs, title, evidence, max_length=240)
+    error = (("evidence_ref_in_text" if unbracketed_evidence_ref(title["text"]) else None)
+             or _point_error(inputs, title, evidence, max_length=240)
              or attribution_error(title["text"], _cited(inputs, title["evidence_refs"]))
              or (boxes and _cause_error(title, boxes, body)))
     if error:
@@ -1011,7 +1028,9 @@ def _written_prose(inputs, reply, evidence, *, sheet_required=True):
         sentences = []
         for sentence in paragraph["sentences"]:
             key = " ".join(sentence["text"].casefold().split())
-            error = "duplicate_sentence" if key in seen else _point_error(inputs, sentence, evidence)
+            error = ("duplicate_sentence" if key in seen
+                     else "evidence_ref_in_text" if unbracketed_evidence_ref(sentence["text"])
+                     else _point_error(inputs, sentence, evidence))
             if (not error and paragraph["role"] == "significance" and condition_refs
                     and not condition_refs.intersection(sentence["evidence_refs"])):
                 error = "condition_not_cited"
@@ -1086,9 +1105,10 @@ def _lost_roles(reply, dropped):
 def _rewrite_request(inputs, reply, dropped, roles):
     """The writer's input row plus what it needs to redo the lost paragraphs from the same sources."""
     removed = {(item.get("role"), item["text"]) for item in dropped}
+    # dropped holds the reader's text (_reader_text), so the draft's sentences are compared in that form.
     kept = [{"role": paragraph["role"],
-             "sentences": [s["text"] for s in paragraph["sentences"]
-                           if (paragraph["role"], s["text"][:400]) not in removed]}
+             "sentences": [text for text in map(_reader_text, (s["text"] for s in paragraph["sentences"]))
+                           if (paragraph["role"], text[:400]) not in removed]}
             for paragraph in reply["paragraphs"] if paragraph["role"] not in roles]
     rejected = [{"role": item["role"], "text": item["text"], "error": item["error"]}
                 for item in dropped if item.get("role") in roles]
