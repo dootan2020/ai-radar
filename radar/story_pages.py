@@ -596,6 +596,13 @@ def prepare(remote, input_path, site, candidate, base_url=BASE_URL):
         stories = {story_id: json.loads(content) for story_id, content in records.items()}
         # The same decisions file the site snapshot used (fetched before the build): pages fail closed with it.
         count = render_site(stories, site, base_url, source_records, load_decisions())
+        # The tracked design sample (site/tin/_sample) holds a story no scorer read. render_site keeps it for local
+        # design work; the site prepared here is the one uploaded and deployed, so it leaves without the sample.
+        sample = site / "tin" / "_sample"
+        if sample.is_symlink() or sample.is_file():
+            sample.unlink()
+        elif sample.is_dir():
+            shutil.rmtree(sample)
         if _archive_files(candidate_archive) != records:
             raise RuntimeError("Story candidate read-back failed")
     return {"count": count, "elapsed_seconds": time.perf_counter() - started,

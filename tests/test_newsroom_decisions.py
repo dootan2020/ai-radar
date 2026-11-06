@@ -15,6 +15,7 @@ from radar.newsroom_decisions import (DESK_PROMPT_VERSION, SCORE_THRESHOLD, SCOR
 from radar import site_payload, story_pages
 from tests.test_publication import snapshot
 
+ROOT = Path(__file__).resolve().parents[1]
 READER_FILES = ("radar.json", "radar-ui.json", "radar-window.json", "radar-head.json", "radar-search.json")
 PASSING = {"what": 9, "why": 9, "notable": 8, "meaning": 8}  # 8.55
 JUST_UNDER = {"what": 8, "why": 8, "notable": 8, "meaning": 7}  # 7.85
@@ -204,12 +205,25 @@ class ScoringGateTests(unittest.TestCase):
             subprocess.run(["git", "init", "--bare", "--quiet", str(remote)], check=True, capture_output=True)
             source = base / "radar.json"
             source.write_text(json.dumps(payload_with(["passed", "unscored"]), ensure_ascii=False), encoding="utf-8")
+            sample = (ROOT / "site" / "tin" / "_sample" / "index.html").read_bytes()
             for name, choice in (("with", decisions_file(base, rows)), ("missing", base / "missing.json")):
                 site = base / name / "site"
+                # The checkout's site carries the tracked design sample, a story no scorer read.
+                (site / "tin" / "_sample").mkdir(parents=True)
+                (site / "tin" / "_sample" / "index.html").write_bytes(sample)
                 with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice)}):
                     story_pages.prepare(str(remote), source, site, base / name / "candidate")
                 expected = {"passed": "story", "redirects": {"passed"}} if name == "with" else {"redirects": set()}
                 self.assertEqual(story_page_kinds(site), expected, name)
+                self.assertFalse((site / "tin" / "_sample").exists(), name)
+        # The prepared site is exactly what is uploaded and deployed: story pages are prepared before the upload,
+        # and the deploy job publishes that artifact.
+        workflow = (ROOT / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
+        prepared = workflow.index('python -m radar.story_pages prepare --remote "$STORY_REMOTE"')
+        upload = workflow.index("name: Upload Cloudflare Pages site artifact")
+        self.assertLess(prepared, upload)
+        self.assertIn("name: radar-cloudflare-site-${{ github.run_id }}\n          path: site\n", workflow[upload:])
+        self.assertTrue(sample)
 
     def test_tiers_of_passed_stories_are_kept_unless_capping_is_enabled(self):
         payload = payload_with(["passed"])
