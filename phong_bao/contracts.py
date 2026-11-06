@@ -157,7 +157,7 @@ DESK_CONTRACTS = {
         # (the request carries the draft's grounded conditions).
         # Kept in the cycle folder, never published; evidence_sheet is the sheet the reply carried.
         "optional_output_fields": ["writer_sources", "writer_source_chars", "editor_provider", "editor_boat",
-                                   "rewrite", "evidence_sheet"],
+                                   "rewrite", "evidence_sheet", "sheet_path", "sheet_error"],
         "skip_conditions": [
             "not publishable with a readable source",
             "published outside the writer window (PHONG_BAO_WRITER_WINDOW_HOURS, default 48)",
@@ -168,14 +168,16 @@ DESK_CONTRACTS = {
             "status is not ready",
             "the title fails radar.summary_validation's number or name check",
             "conditions is not a list (verbatim source spans of at most 25 words, each with its paragraph ID)",
+            "sheet rules (they only trim or improve prose; when they fail after the one rewrite, the draft or "
+            "its rewrite is checked as main checked it, without a sheet, and sheet_path records which held): "
             "the evidence sheet {what, why, notable, meaning} is missing, or a box's quote is not a verbatim span "
             "of at most 40 words of its article-body paragraph (never a coverage excerpt), or it names no "
-            "speaker; only why may be empty (the source gives no cause)",
-            "a sentence or the title states a cause, motive or purpose (newsroom.CAUSE_VI) when the sheet's why "
-            "is empty (the source gives no cause): the sentence is dropped, the title rejected",
-            "after the checks, a sheet point is not cited by a kept paragraph of its role (what: development, "
-            "why: cause, notable: examples, or cause when they share a paragraph, meaning: significance): that "
-            "paragraph is rewritten once, then the story falls back to the API",
+            "speaker, and only why may be empty (a missing or invalid sheet gets one rewrite asking for it); "
+            "with an empty why, a sentence or title whose own words (outside quotations and names) state a cause, "
+            "motive or purpose (newsroom.CAUSE_VI) is removed unless a cited body paragraph states a reason; a "
+            "sheet point whose paragraph (what: development, why: cause, notable: examples, or cause when they "
+            "share a paragraph, meaning: significance) has no sentence citing the box's paragraph, or whose "
+            "citing sentences hold fewer than half the point's words, gets that paragraph rewritten once",
             "after dropping failing sentences (including a significance sentence that cites no paragraph "
             "holding a listed condition, that is a span found verbatim in that paragraph; naming a speaker "
             "does not replace it) and after one rewrite of the lost paragraphs, which is given the draft's "

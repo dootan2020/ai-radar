@@ -361,7 +361,11 @@ PURPOSE_EN = re.compile(
     r"|allow(?:s|ed|ing)?|let(?:s|ting)?|enabl(?:e|es|ed|ing)|used to|to ensure|to make sure|to prevent"
     r"|to protect|to avoid|to stay|to keep|to compete|to reduce|to cut|to save|to free|to focus|to boost"
     r"|to improve|to maximi[sz]e|to minimi[sz]e|for the purpose"
-    r"|help(?:s|ed|ing)? (?:you|users?|people|developers|companies|customers))\b", re.I)
+    r"|help(?:s|ed|ing)? (?:you|users?|people|developers|companies|customers)"
+    # Teaching stated as what a place or effort is for: "YouTube, where he's built a following teaching curious
+    # thousands how to build ..." (06/11: the sentence carrying that point was removed as an invented purpose).
+    r"|(?:teach|show|train|coach|guid|educat)(?:es|ing|ed|e|s)?\s+(?:[\w’'-]+\s+){0,3}how to"
+    r"|to (?:teach|train|educate))\b", re.I)
 # Reporting verbs: a sentence that has one names a speaker or a finding.
 SAYING_VI = (r"cho biết|cho rằng|cho thấy|cho hay|nhận định|nhận xét|nhận thấy|thấy rằng|khẳng định|tuyên bố"
              r"|ước tính|dự báo|cảnh báo|tiết lộ|thừa nhận|lập luận|đánh giá|phát hiện|kết luận|công bố|thông báo"

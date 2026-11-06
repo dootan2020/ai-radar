@@ -122,12 +122,33 @@ class EvidenceSheetTests(unittest.TestCase):
                                 runner, NOW)
         return output[SID], runner
 
+    def main_row(self, reply, **kwargs):
+        """The row main's checks give the same reply: every validation without the sheet rules."""
+        original = newsroom._written_prose
+
+        def without_sheet(*args, **options):
+            return original(*args, **{**options, "sheet_required": False})
+
+        with patch.object(newsroom, "_written_prose", side_effect=without_sheet):
+            return self.write(reply, **kwargs)[0]
+
+    def assert_kept_as_main(self, row, reply, path, sheet_error, **kwargs):
+        main = self.main_row(reply, **kwargs)
+        self.assertTrue(main["written"], main)
+        self.assertTrue(row["written"], row)
+        self.assertEqual(row["key_points"], main["key_points"])
+        self.assertEqual((row["sheet_path"], row.get("sheet_error")), (path, sheet_error))
+        self.assertTrue(validate_writer_output(row))
+
     def test_a_reply_that_carries_its_sheet_is_written(self):
         row, runner = self.write()
         self.assertTrue(row["written"], row)
         self.assertTrue(validate_writer_output(row))
         self.assertEqual(row["dropped_points"], [])
         self.assertEqual(row["evidence_sheet"], SHEET)
+        self.assertEqual(row["sheet_path"], "sheet")
+        self.assertNotIn("sheet_error", row)
+        self.assertEqual(len(runner.calls), 1)
         self.assertEqual(runner.calls[0][2], WRITER_PROMPT)
         for phrase in ("sheet: {what, why, notable, meaning}", "source does not say", "article body only"):
             self.assertIn(phrase, WRITER_PROMPT)
@@ -147,33 +168,38 @@ class EvidenceSheetTests(unittest.TestCase):
         self.assertNotIn("10 triệu", " ".join(row["key_points"]))
         self.assertEqual(row["dropped_points"][0]["role"], "development")
 
-    def test_a_sheet_quote_from_the_related_list_is_rejected(self):
-        reply = deepcopy(REPLY)
-        reply["sheet"]["notable"] = {"point": "10 triệu lượt tải", "ref": "outlet:p005", "speaker": "Orbit Labs",
-                                     "quote": "Orbit Labs' Lumo hits 10 million US downloads."}
-        row, _ = self.write(reply)
-        self.assertFalse(row["written"])
-        self.assertEqual(row["reason"], "sheet_invalid")
-        self.assertEqual(row["dropped_points"][0]["error"], "sheet_quote_not_in_body: notable")
-
-    def test_the_sheet_is_required_and_quotes_the_body_verbatim(self):
+    def test_a_missing_sheet_is_asked_for_once_and_the_prose_is_never_lost(self):
         missing = deepcopy(REPLY)
         del missing["sheet"]
-        row, _ = self.write(missing)
-        self.assertEqual((row["written"], row["reason"]), (False, "sheet_invalid"))
-        self.assertTrue(row["invalid_response"])
-        self.assertEqual(row["dropped_points"][0]["error"], "sheet_missing")
+        row, runner = self.write(missing)
+        # The rewrite lane gave nothing: the story keeps the prose main would have published.
+        self.assert_kept_as_main(row, missing, "without_sheet", "sheet_missing")
+        self.assertEqual(row["rewrite"], {"roles": [], "result": "rewrite_model_failure"})
+        desk, rows, instruction = runner.calls[1]
+        self.assertEqual((desk, rows[0]["rewrite"]["sheet_error"], rows[0]["rewrite"]["roles"]),
+                         ("rewrite-writer", "sheet_missing", []))
+        self.assertIn("sheet_error", instruction)
+        # A rewrite that returns the sheet puts the story back under the sheet rules.
+        rewrite = {"id": SID, "status": "ready", "sheet": deepcopy(SHEET), "conditions": [], "paragraphs": []}
+        row, _ = self.write(missing, rewrite=rewrite)
+        self.assertTrue(row["written"], row)
+        self.assertEqual(row["sheet_path"], "sheet_after_rewrite")
+        self.assertEqual(row["rewrite"], {"roles": [], "result": "written"})
+
+    def test_an_invalid_sheet_falls_back_to_mains_checks(self):
         for name, change, error in (
                 ("what", {"quote": "Orbit Labs now lets everyone talk to Lumo"}, "sheet_quote_not_in_body: what"),
                 ("meaning", {"ref": "outlet:p005"}, "sheet_quote_not_in_body: meaning"),
                 ("notable", {"speaker": ""}, "sheet_speaker_missing: notable"),
                 # Only why may be empty.
-                ("meaning", {"quote": "", "ref": None}, "sheet_quote_not_in_body: meaning")):
+                ("meaning", {"quote": "", "ref": None}, "sheet_quote_not_in_body: meaning"),
+                # A quote from the related-articles list is not body evidence.
+                ("notable", {"quote": "Orbit Labs' Lumo hits 10 million US downloads."},
+                 "sheet_quote_not_in_body: notable")):
             reply = deepcopy(REPLY)
             reply["sheet"][name].update(change)
             row, _ = self.write(reply)
-            self.assertEqual((row["written"], row["reason"]), (False, "sheet_invalid"), name)
-            self.assertEqual(row["dropped_points"][0]["error"], error)
+            self.assert_kept_as_main(row, reply, "without_sheet", error)
 
     def test_a_coverage_excerpt_is_not_body_evidence_for_the_sheet(self):
         story = item([{"id": "c2", "url": COVERAGE_URL, "publisher": "Other News", "summary": COVERAGE_TEXT}])
@@ -181,56 +207,77 @@ class EvidenceSheetTests(unittest.TestCase):
         reply["sheet"]["what"] = {"point": "nhận cuộc gọi", "ref": "coverage1:p001", "speaker": "Other News",
                                   "quote": COVERAGE_TEXT}
         row, _ = self.write(reply, story=story)
-        self.assertEqual(row["dropped_points"][0]["error"], "sheet_quote_not_in_body: what")
+        self.assertEqual(row["sheet_error"], "sheet_quote_not_in_body: what")
+        self.assertEqual(row["sheet_path"], "without_sheet")
 
     def test_with_no_cause_in_the_source_an_invented_motive_is_dropped(self):
         reply = deepcopy(REPLY)
         reply["paragraphs"][1]["sentences"] += [MOTIVE, WANTS]
         row, _ = self.write(reply)
         self.assertTrue(row["written"], row)
+        self.assertEqual(row["sheet_path"], "sheet")
         self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]],
                          [("cause", "cause_not_in_source")] * 2)
         published = " ".join(row["key_points"])
         self.assertNotIn("bước chuẩn bị", published)
         self.assertNotIn("muốn", published)
 
-    def test_a_cause_paragraph_made_only_of_invented_motives_is_rewritten(self):
+    def test_a_cause_paragraph_made_only_of_invented_motives_is_rewritten_never_lost(self):
         reply = deepcopy(REPLY)
         reply["paragraphs"][1]["sentences"] = [MOTIVE, WANTS]
         row, runner = self.write(reply)
-        self.assertFalse(row["written"])
-        self.assertEqual(row["reason"], "paragraph_lost")
-        self.assertEqual([d["error"] for d in row["dropped_points"]], ["cause_not_in_source"] * 2)
-        self.assertEqual(row["rewrite"], {"roles": ["cause"], "result": "rewrite_model_failure"})
         self.assertIn("cause_not_in_source", runner.calls[1][2])
+        self.assertEqual(row["rewrite"], {"roles": ["cause"], "result": "rewrite_model_failure"})
+        # The rewrite failed: deleting both sentences would empty the paragraph, so main's prose stands.
+        self.assert_kept_as_main(row, reply, "without_sheet", "paragraph_lost")
+        rewrite = {"id": SID, "status": "ready", "conditions": [], "paragraphs": [deepcopy(REPLY["paragraphs"][1])]}
+        row, _ = self.write(reply, rewrite=rewrite)
+        self.assertEqual(row["sheet_path"], "sheet_after_rewrite")
+        self.assertNotIn("bước chuẩn bị", " ".join(row["key_points"]))
 
-    def test_a_cause_the_sheet_holds_is_written(self):
+    def test_non_causes_are_not_deleted_when_the_source_gives_no_cause(self):
+        reply = deepcopy(REPLY)
+        reply["paragraphs"][1]["sentences"] += [
+            # "Vì vậy" joins two facts.
+            sentence("Vì vậy, người dùng tại US có thể trò chuyện với tác tử Lumo bằng giọng nói ngay trên ứng dụng.",
+                     "outlet:p008"),
+            # The cause word sits inside a quotation.
+            sentence("Phóng viên Sam Ortiz viết rằng việc nhìn hình đại diện trò chuyện \"khiến anh thấy kỳ lạ\".",
+                     "outlet:p007")]
+        row, _ = self.write(reply)
+        self.assertTrue(row["written"], row)
+        self.assertEqual((row["sheet_path"], row["dropped_points"]), ("sheet", []))
+        self.assertIn("Vì vậy", row["key_points"][1])
+        self.assertFalse(newsroom._states_cause("Ứng dụng Muốn Gì Có Nấy của Orbit Labs nay có giọng nói."))
+        self.assertTrue(newsroom._states_cause("Muốn mở rộng sang kính, Orbit Labs thêm giọng nói."))
+        self.assertTrue(newsroom._states_cause("Orbit Labs thêm giọng nói vì người dùng yêu cầu."))
+
+    def test_a_reason_the_cited_paragraph_states_is_kept_and_an_invented_one_is_not(self):
         reason = ("Reyes said the company added voice because people asked to talk with their agents while "
                   "driving to work.")
         page = "\n".join(BODY + [reason] + FURNITURE)
-        reply = deepcopy(REPLY)
-        reply["sheet"]["why"] = {"point": "người dùng muốn nói chuyện khi lái xe", "ref": "outlet:p009",
-                                 "speaker": "Dana Reyes", "quote": reason}
-        reply["paragraphs"][1]["sentences"] = [
-            sentence("Theo Dana Reyes, công ty bổ sung giọng nói vì người dùng muốn trò chuyện với tác tử khi lái xe "
-                     "đi làm.", "outlet:p009"),
-            sentence("Hình đại diện ở đầu cuộc trò chuyện chuyển động theo từng lời tác tử Lumo nói ra.",
-                     "outlet:p006")]
-        row, _ = self.write(reply, page=page)
-        self.assertTrue(row["written"], row)
-        self.assertEqual(row["dropped_points"], [])
-        self.assertIn("lái xe", row["key_points"][1])
-        # The same sentence in a story whose sheet says the source gives no cause is removed.
-        reply["sheet"]["why"] = deepcopy(SHEET["why"])
-        row, _ = self.write(reply, page=page)
-        self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]], [("cause", "cause_not_in_source")])
+        stated = sentence("Theo Dana Reyes, công ty bổ sung giọng nói vì người dùng muốn trò chuyện với tác tử khi lái "
+                          "xe đi làm.", "outlet:p009")
+        for why in ({"point": "người dùng muốn nói chuyện khi lái xe", "ref": "outlet:p009", "speaker": "Dana Reyes",
+                     "quote": reason},
+                    # The writer left the reason out of its sheet; the quoted person's own reason still stands.
+                    deepcopy(SHEET["why"])):
+            reply = deepcopy(REPLY)
+            reply["sheet"]["why"] = why
+            reply["paragraphs"][1]["sentences"] = [stated, REPLY["paragraphs"][1]["sentences"][1], MOTIVE]
+            row, _ = self.write(reply, page=page)
+            self.assertTrue(row["written"], row)
+            self.assertIn("lái xe", row["key_points"][1])
+            # The roadmap paragraph gives no reason, so the motive hung on it goes when the sheet has no why.
+            self.assertEqual([d["error"] for d in row["dropped_points"]],
+                             [] if why["quote"] else ["cause_not_in_source"])
 
-    def test_a_title_with_an_invented_motive_is_rejected(self):
+    def test_a_title_with_an_invented_motive_falls_back_to_mains_title_check(self):
         reply = deepcopy(REPLY)
         reply["title_vi"] = sentence("Orbit Labs thêm giọng nói cho Lumo, bước chuẩn bị đưa tác tử lên kính thông minh",
                                      "outlet:p008")
         row, _ = self.write(reply)
-        self.assertEqual(row["reason"], "title_rejected")
+        self.assert_kept_as_main(row, reply, "without_sheet", "title_rejected")
 
     def dropped_teaching(self):
         # The 06/11 Nemotron story: the sentence carrying the headline's proof failed a check and the paragraph
@@ -243,20 +290,19 @@ class EvidenceSheetTests(unittest.TestCase):
 
     def test_a_paragraph_that_drops_its_sheet_point_is_caught_and_rewritten(self):
         row, runner = self.write(self.dropped_teaching())
-        self.assertFalse(row["written"])
-        self.assertEqual(row["reason"], "sheet_point_dropped")
-        self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]],
-                         [("examples", "unsupported_purpose"), ("examples", "sheet_point_dropped: notable")])
         self.assertEqual(row["rewrite"], {"roles": ["examples"], "result": "rewrite_model_failure"})
         desk, rows, instruction = runner.calls[1]
         self.assertEqual((desk, instruction), ("rewrite-writer", WRITER_REWRITE_PROMPT))
         self.assertEqual(rows[0]["rewrite"]["sheet"], SHEET)
-        self.assertIn("sheet_point_dropped: notable", [item["error"] for item in rows[0]["rewrite"]["rejected"]])
+        self.assertEqual([(item["role"], item["error"]) for item in rows[0]["rewrite"]["rejected"]],
+                         [("examples", "unsupported_purpose"), ("examples", "sheet_point_dropped: notable")])
+        self.assert_kept_as_main(row, self.dropped_teaching(), "without_sheet", "sheet_point_dropped")
 
         rewrite = {"id": SID, "status": "ready", "paragraphs": [{"role": "examples", "sentences": [EXAMPLE]}]}
         row, _ = self.write(self.dropped_teaching(), rewrite=rewrite)
         self.assertTrue(row["written"], row)
-        self.assertEqual(row["rewrite"], {"roles": ["examples"], "result": "written"})
+        self.assertEqual((row["sheet_path"], row["rewrite"]), ("sheet_after_rewrite",
+                                                               {"roles": ["examples"], "result": "written"}))
         self.assertIn("tạm dừng", row["key_points"][2])
 
     def test_a_reply_that_never_cites_a_sheet_point_is_caught(self):
@@ -264,10 +310,31 @@ class EvidenceSheetTests(unittest.TestCase):
         reply["paragraphs"][0]["sentences"] = [sentence(
             "Phóng viên Sam Ortiz cho biết hình đại diện của tác tử Lumo cử động khớp với lời nói trong ứng dụng iOS.",
             "outlet:p006")]
-        row, _ = self.write(reply)
-        self.assertEqual(row["reason"], "sheet_point_dropped")
-        self.assertEqual(row["dropped_points"], [{"role": "development", "text": SHEET["what"]["point"],
-                                                  "error": "sheet_point_dropped: what"}])
+        row, runner = self.write(reply)
+        self.assertEqual(runner.calls[1][1][0]["rewrite"]["rejected"],
+                         [{"role": "development", "text": SHEET["what"]["point"], "error": "sheet_point_dropped: what"}])
+        self.assertEqual(row["sheet_error"], "sheet_point_dropped")
+
+    def test_a_point_cited_by_ref_but_not_said_is_caught(self):
+        # The 06/11 Cloudflare story: the paragraph announced a coalition and described the protocol; the prose
+        # cited it for the protocol only, so the announcement, the news, was gone.
+        announcement = ("We are also announcing the Lumo Partner coalition today, and the protocol signs every "
+                        "agent request with a delegation token that sites can verify.")
+        page = "\n".join(BODY + [announcement] + FURNITURE)
+        reply = deepcopy(REPLY)
+        reply["sheet"]["what"] = {"point": "lập liên minh Lumo Partner", "ref": "outlet:p009", "speaker": "Orbit Labs",
+                                  "quote": "We are also announcing the Lumo Partner coalition today"}
+        protocol_only = sentence("Giao thức của Lumo ký mỗi yêu cầu của tác tử bằng một mã ủy quyền mà trang web có "
+                                 "thể kiểm tra.", "outlet:p009")
+        reply["paragraphs"][0]["sentences"] = [LEAD, protocol_only]
+        row, runner = self.write(reply, page=page)
+        self.assertEqual(runner.calls[1][1][0]["rewrite"]["roles"], ["development"])
+        self.assertEqual(row["sheet_error"], "sheet_point_dropped")
+        said = sentence("Bên cạnh đó, liên minh Lumo Partner được lập, và giao thức ký mỗi yêu cầu của tác tử bằng "
+                        "một mã ủy quyền.", "outlet:p009")
+        reply["paragraphs"][0]["sentences"] = [LEAD, said]
+        row, _ = self.write(reply, page=page)
+        self.assertEqual(row["sheet_path"], "sheet")
 
     def test_merged_cause_and_examples_carry_the_notable_point_in_cause(self):
         reply = deepcopy(REPLY)
@@ -275,6 +342,7 @@ class EvidenceSheetTests(unittest.TestCase):
         del reply["paragraphs"][2]
         row, _ = self.write(reply)
         self.assertTrue(row["written"], row)
+        self.assertEqual(row["sheet_path"], "sheet")
         self.assertEqual(row["reason"].split(",")[0], "prose written: development/cause/significance")
 
 
@@ -331,6 +399,16 @@ class ArticleBodyTests(unittest.TestCase):
                  "conversations are kept for thirty days unless the user deletes them from the history page.")
         page = "\n".join([BODY[5], "Read more: Orbit Labs launches Lumo", later, *FURNITURE])
         self.assertEqual(article_body(page), "\n".join([BODY[5], later]))
+
+    def test_a_short_closing_paragraph_after_a_related_label_stays(self):
+        closing = "Orbit Labs said more languages will follow next month."
+        page = "\n".join([*BODY, "Related", "Orbit Labs launches Lumo", closing, *FURNITURE])
+        self.assertEqual(article_body(page), "\n".join([*BODY, "Orbit Labs launches Lumo", closing]))
+
+    def test_a_sentence_that_opens_with_read_more_is_body(self):
+        sentence_line = "Read more about the voice research in the company's paper, which it published in May."
+        page = "\n".join([*BODY, sentence_line, *FURNITURE])
+        self.assertEqual(article_body(page), "\n".join([*BODY, sentence_line]))
 
     def test_a_menu_above_the_article_does_not_end_it(self):
         page = "\n".join(["Most Popular", "Some other story", *BODY, *FURNITURE])
