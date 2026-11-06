@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-06T14:08:55.502964+00:00",
-  "input_generated_at": "2026-11-06T12:32:06Z",
+  "generated_at": "2026-11-06T16:04:04.685957+00:00",
+  "input_generated_at": "2026-11-06T14:10:36Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -25276,7 +25276,43 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "tắt hoàn toàn AI trong cài đặt tìm kiếm hoặc qua trang web riêng",
+            "explanation": "The source says users can disable DuckDuckGo's AI features in search and browser settings; it specifies that AI-assisted answers, AI-generated images, and AI feature suggestions are off on the dedicated site. It does not claim that all AI is turned off (outlet:p024)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may believe the settings or site turn off every form of AI.",
+            "fix": "Name the AI features the source says can be disabled, and distinguish the search and browser settings from the dedicated site (outlet:p024)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Google's response is thinner than the source's account, leaving its stated default settings unclear.",
+            "fix": "Add that Google said Gemini, Gemini Notebook, and Search would be off by default and could be enabled individually (outlet:p019)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "babca0218a9153cfbd9beee98cc35bcd8ab7aab52d08b91298556d29c6922caf",
+        "scored_at": "2026-11-06T16:04:04.674103+00:00"
+      }
     },
     {
       "id": "6427cb074cde501e3db5",
@@ -25315,7 +25351,53 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.6,
+        "answers": {
+          "what": 9,
+          "why": 5,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "các hãng lớn đang độc quyền nhân tài và năng lực tính toán, khiến sự cố do tác nhân AI (agent - chương trình tự hành) gây ra thời gian qua chủ yếu bắt nguồn từ thử nghiệm bí mật",
+            "explanation": "The source discusses concentrated talent and computing resources as a reason a few companies might dominate AI, not as the cause of past agent incidents. Delangue separately observes that misbehavior has mostly come from secret tests at large companies (outlet:p004, outlet:p011)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Nvidia mua lại Hugging Face",
+            "explanation": "The source says Nvidia announced that it would acquire Hugging Face; it does not establish that the acquisition had been completed (outlet:p008, outlet:p012)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The summary turns two separate observations into a causal claim.",
+            "fix": "Keep past agent incidents linked to secret tests, and discuss concentrated resources separately as Delangue's concern about future dominance (outlet:p004, outlet:p011)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The acquisition is presented as completed.",
+            "fix": "Say Nvidia announced an acquisition and that Delangue expects it to help Hugging Face compete (outlet:p008, outlet:p012)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss Delangue's position on accountability for agent attacks.",
+            "fix": "Add that he believes people deploying AI agents should be legally responsible for their actions (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ec9f986b92cf5406109a3e59e19fe5f893f89510c2570c39b62082216490aa44",
+        "scored_at": "2026-11-06T16:04:04.674145+00:00"
+      }
     },
     {
       "id": "dfa876a54a2df16b901a",
@@ -25351,7 +25433,63 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.85,
+        "answers": {
+          "what": 9,
+          "why": 5,
+          "notable": 8,
+          "meaning": 2
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "kết hợp dữ liệu tổng hợp để tối ưu hạ tầng",
+            "explanation": "The source links infrastructure simplicity to the dense architecture. It says Ricursive made synthetic data pipelines rather than buying post-training data, without saying those pipelines optimized infrastructure (outlet:p013, outlet:p016)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "chi phí ước tính chỉ 32 triệu USD",
+            "explanation": "Ricursive reports $32 million as its full research and development cost. Its estimate concerns the comparison with the previous state of the art, not its own $32 million figure (outlet:p011)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "kết quả benchmark không đồng nghĩa với năng lực triển khai thực tế trên mọi ứng dụng",
+            "explanation": "The supplied source does not make this benchmark-to-deployment qualification. It reports the benchmark result, discusses local-device efficiency, and lists where the preview is available (outlet:p006–p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers miss what the model is used for and where the preview can be accessed.",
+            "fix": "Say an internal variant powers Ricursive's AI chip design platform and name the preview's listed availability (outlet:p008, outlet:p023)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The closing caveat is presented without support from the supplied source.",
+            "fix": "Replace it with the source's stated purpose of connecting models and chip-design hardware (outlet:p023)."
+          },
+          {
+            "question": "why",
+            "problem": "The summary assigns synthetic data a purpose the source does not give.",
+            "fix": "Explain separately that the dense architecture aimed to simplify infrastructure and that Ricursive built synthetic data pipelines instead of buying post-training data (outlet:p013, outlet:p016)."
+          },
+          {
+            "question": "notable",
+            "problem": "The $32 million figure is described as an estimate without explaining its scope.",
+            "fix": "Call it Ricursive's reported full research and development cost, including pretraining and post-training work (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "071ddfc43f09800a42cdedec1adf4a5baa422e83479f7f70f1301b3824ce26e1",
+        "scored_at": "2026-11-06T16:04:04.674193+00:00"
+      }
     },
     {
       "id": "d32d8e40f63cd24bb752",
@@ -25408,7 +25546,48 @@
       "summary_limitations": [
         "partial_source"
       ],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.8,
+        "answers": {
+          "what": 8,
+          "why": 7,
+          "notable": 9,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "NVIDIA phát hành CUDA 13.5 hỗ trợ kiến trúc Vera Rubin nhưng ngừng hỗ trợ chế độ TCC",
+            "explanation": "The source limits the TCC restriction to Rubin and later GPUs; it does not say CUDA 13.5 ends TCC support generally (outlet:p052)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "buộc các ứng dụng triển khai phải chuyển sang cấu hình trình điều khiển WDDM hoặc MCDM tương thích",
+            "explanation": "The source addresses applications and deployment tools that assume TCC mode, and says they should use a supported configuration for their target system; it does not require every deployed application to switch (outlet:p052)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The TCC change appears broader and more compulsory than the source states.",
+            "fix": "Specify that TCC is unsupported on Rubin and later GPUs, and that applications or deployment tools assuming TCC should use WDDM or MCDM as appropriate for the target system (outlet:p052)."
+          },
+          {
+            "question": "what",
+            "problem": "The other major platform expansion is absent.",
+            "fix": "Add that Windows on Arm support now extends to NVIDIA DGX Station for Windows (outlet:p016, outlet:p028)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "397dccc4744837a19892243d9d79bcf01abc4cb351518ab72a7bf09d3a1d8301",
+        "scored_at": "2026-11-06T16:04:04.674217+00:00"
+      }
     },
     {
       "id": "2c984d8f060c91297ac3",
@@ -25529,7 +25708,48 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "nền tảng ghi nhận hơn 4 tỷ bức ảnh được tạo mỗi tuần",
+            "explanation": "The figure covers images generated across ChatGPT and OpenAI’s API together, not a single platform alone (outlet:p019)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "được mở cho toàn bộ người dùng ChatGPT và Codex trên mọi nền tảng ứng dụng",
+            "explanation": "Images 2.6 is rolling out to all ChatGPT and Codex users across web, desktop, and mobile; the source does not say rollout is complete or cover every possible platform (outlet:p020)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The availability wording makes an ongoing rollout sound complete.",
+            "fix": "Say Images 2.6 is rolling out to ChatGPT and Codex users on web, desktop, and mobile (outlet:p020)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The weekly image figure loses its ChatGPT-plus-API scope.",
+            "fix": "Attribute the more than 4 billion images per week to ChatGPT and OpenAI’s API combined (outlet:p019)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5a9ea2c6329da2cd986157e909a17bcf6c44837a4036e0befb352dbb5de3c744",
+        "scored_at": "2026-11-06T16:04:04.674240+00:00"
+      }
     },
     {
       "id": "7180b52eb8c306535b2d",
@@ -25569,7 +25789,48 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 7,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "thay vì thử nghiệm riêng",
+            "explanation": "The memo criticizes experiments that benefit only the developers themselves, not experiments merely because they are private (outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "One of the group’s concrete recommendations is missing.",
+            "fix": "Include its recommendation for economic policies that help workers (outlet:p005)."
+          },
+          {
+            "question": "notable",
+            "problem": "The account of the group’s criticism changes which experiments it objects to.",
+            "fix": "Describe experiments that benefit only developers, alongside the suggested focus on uses such as curing disease (outlet:p005)."
+          },
+          {
+            "question": "why",
+            "problem": "The account blurs the specific political association the memo says Republicans failed to counter.",
+            "fix": "Specify attacks linking Republican candidates to a pro-AI and data-center message (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d416f6c8d5417a29852ae6ae082de475b513a83627f0f76e596546bae980c5f4",
+        "scored_at": "2026-11-06T16:04:04.674262+00:00"
+      }
     },
     {
       "id": "fedaa3b11c29a67797ff",
@@ -25607,7 +25868,58 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.7,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "đang đến gần",
+            "explanation": "The source says the consumer-focused wave has not yet arrived and gives no timing for its arrival (outlet:p005)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "đều bắt đầu từ người dùng",
+            "explanation": "The source says the biggest technology successes almost all started with consumers, not that every one did (outlet:p002)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "chỉ khai thác dữ liệu từ kho ảnh của người dùng",
+            "explanation": "Dazzle looks almost exclusively at a user’s photo reel; the source does not say photos are its only data source (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The opening gives the prospective consumer AI wave an unsupported sense of imminence.",
+            "fix": "Say Dazzle previews a wave that has not yet arrived, without predicting when it will (outlet:p005)."
+          },
+          {
+            "question": "notable",
+            "problem": "The description makes Dazzle’s photo use exclusive.",
+            "fix": "Say it looks almost exclusively at the photo reel and does not read email or calendars (outlet:p004)."
+          },
+          {
+            "question": "why",
+            "problem": "The historical comparison becomes absolute.",
+            "fix": "Preserve the source’s 'almost all' qualification for major technology successes that began with consumers (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d7280851f66f6fe413124824498350507cb0452a4a40bfa08cff4d3574c14c03",
+        "scored_at": "2026-11-06T16:04:04.674288+00:00"
+      }
     },
     {
       "id": "32d4e91d243ef07f0795",
@@ -25748,7 +26060,42 @@
       "summary_limitations": [
         "partial_source"
       ],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.75,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 7,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses the SMT workflow that is the post's central reference example.",
+            "fix": "Describe the AOI alert, secondary inspection, transport for rework, and root cause analysis PDF with evidence and recommended action (outlet:p019, outlet:p031)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader may not understand the boundary between agent coordination and human decisions.",
+            "fix": "Add that developers define which decisions require operator review (outlet:p027)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The condition for keeping all investigation data local is implicit.",
+            "fix": "State that a fully on-premises deployment requires every model and service endpoint to remain within the factory network (outlet:p051)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "541be9b7a38afcbd35a4e07c703cbf6c1cd95d553fd93d0264ec9c3200b24d4d",
+        "scored_at": "2026-11-06T16:04:04.674308+00:00"
+      }
     },
     {
       "id": "c5f5345c6374592c1320",
@@ -26208,7 +26555,43 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.05,
+        "answers": {
+          "what": 8,
+          "why": 7,
+          "notable": 5,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "American Mission chi 4,8 triệu USD",
+            "explanation": "The $4.8 million was spent collectively by American Mission and Building the Future to back Darline Graham; the source does not assign the full amount to American Mission (outlet:p011)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers receive an incorrect account of who spent $4.8 million.",
+            "fix": "Attribute the combined expenditure to American Mission and Building the Future, and identify Darline Graham as the losing candidate (outlet:p011)."
+          },
+          {
+            "question": "why",
+            "problem": "Readers are told primaries were Leading the Future’s focus without its stated reason.",
+            "fix": "Add that the group said primary spending can build name recognition and help candidates establish AI policy agendas (outlet:p016)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7113510e31e99b6fa0d84cd8414ce0c3021c068d0ba564d3109b88c36c002489",
+        "scored_at": "2026-11-06T16:04:04.673815+00:00"
+      }
     },
     {
       "id": "1c489ae1190ae0d554c3",
@@ -26266,7 +26649,38 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "hợp tác cung cấp chip với Amazon và Meta",
+            "explanation": "The source reports partnerships with companies such as Amazon and Meta, but does not specify that those partnerships are chip supply agreements (outlet:p018)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader is told the Amazon and Meta partnerships involve supplying chips, a detail the source does not establish.",
+            "fix": "Describe them as partnerships supporting Qualcomm’s AI data center plans (outlet:p018)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d03bbce4a38106465cf66ab980124ebbb07647dd4c3a395244402e1fce0fdea9",
+        "scored_at": "2026-11-06T16:04:04.673843+00:00"
+      }
     },
     {
       "id": "e6c6ef2f779293e36d43",
@@ -26343,7 +26757,26 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "85adba77d9dd8cde94bd2e71f2e706c41ea7322a4510b3ba8fc516d43bcf97b2",
+        "scored_at": "2026-11-06T16:04:04.673869+00:00"
+      }
     },
     {
       "id": "4376fc05a5786b49752e",
@@ -26398,7 +26831,38 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "Uber Eats chỉ nhận 500 đơn qua AI trên tổng số khoảng 320 triệu giao dịch",
+            "explanation": "The roughly 320 million figure covers Uber trips and Uber Eats orders combined, not Uber Eats transactions alone (outlet:p012)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The comparison can lead readers to treat 320 million as Uber Eats’ transaction count.",
+            "fix": "Specify that the roughly 320 million total combines Uber trips and Uber Eats orders during Halloween week (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6d4269a992c0a485f276950656f8f947b93ce6bb5548ad47fe685837344c1f67",
+        "scored_at": "2026-11-06T16:04:04.673895+00:00"
+      }
     },
     {
       "id": "4c65af7ddad1f5b56b6f",
@@ -26438,7 +26902,58 @@
       "summary_limitations": [
         "partial_source"
       ],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 8,
+          "why": 6,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "sẽ là thời điểm then chốt định hình chính sách trí tuệ nhân tạo",
+            "explanation": "Lehane thinks the 2028 election could be a defining moment for AI; the source neither makes that outcome certain nor states that the election will define AI policy (outlet:p010)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "thúc giục giới chính trị gia học tập chương trình New Deal thập niên 1930",
+            "explanation": "Lehane compares AI’s potential economic disruption with the circumstances of the New Deal and urges politicians to find a third path. The source does not say he urges them to copy the New Deal program (outlet:p011)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "thay vì chỉ phản đối các trung tâm dữ liệu",
+            "explanation": "Lehane calls for policies addressing Americans’ concerns instead of merely paying lip service to anti-AI sentiment and backlash against data centers. The source does not characterize his alternative as politicians simply opposing data centers (outlet:p010)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader may think Lehane called for politicians to adopt New Deal policies.",
+            "fix": "Say he used the New Deal as a comparison and called for a third path that lets people share in AI’s benefits (outlet:p011)."
+          },
+          {
+            "question": "what",
+            "problem": "The Vietnamese makes Lehane’s tentative assessment of the 2028 election sound certain.",
+            "fix": "Preserve that he thinks the election could be a defining moment for AI (outlet:p010)."
+          },
+          {
+            "question": "why",
+            "problem": "The Vietnamese reduces the political response Lehane criticized to opposition to data centers.",
+            "fix": "Describe his criticism as paying lip service to anti-AI sentiment and data center backlash without addressing Americans’ concerns (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a7e73868126cbe7db02c8051fa8b1f8f6554bfc134fc2864d7e7e8bc4905fd7c",
+        "scored_at": "2026-11-06T16:04:04.673925+00:00"
+      }
     },
     {
       "id": "6a20e43d9a7aa26d0452",
@@ -26496,7 +27011,43 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "và xóa dữ liệu",
+            "explanation": "The source says Conductor will begin deleting user cloud data after the November 20 shutdown, not data generally (outlet:p016)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may think Conductor will delete all data when its cloud service closes.",
+            "fix": "Specify that deletion of user cloud data begins after November 20 (outlet:p016)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss what Conductor says customers can expect next.",
+            "fix": "Add that founder Charlie Holtz teased a new interface by early next year, without presenting it as an announced product detail (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0e108558e695465d4bf7805e6246054fb997bfdd181752c6c2690fccbc86bcac",
+        "scored_at": "2026-11-06T16:04:04.673951+00:00"
+      }
     },
     {
       "id": "763ead0d4889bd176088",
@@ -26615,7 +27166,37 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.1,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 9,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers may take voter distrust as an established cause of the spending shift.",
+            "fix": "Say the apparent shift coincided with unfavorable polling, and attribute the suggested influence motive to Sacha Haworth (outlet:p010–p011)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The account of possible hearings leaves out the article’s electoral and regulatory conclusion.",
+            "fix": "Explain that the network’s riskier bets largely failed and attribute the claimed AI safety victory to Public First Action’s Brad Carson (outlet:p002, outlet:p012–p017)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "162cd99766897c97993361af51d60c4d56af824548957cdbe1a92cb6b368f0c4",
+        "scored_at": "2026-11-06T16:04:04.673973+00:00"
+      }
     },
     {
       "id": "97689e4470033f7c3c03",
@@ -26651,7 +27232,43 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "số lượng gói hàng",
+            "explanation": "The source’s example counts how many items a delivery person dropped off, not how many packages were delivered (outlet:p016)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The delivery example changes what Gemini counts.",
+            "fix": "Describe the number of items dropped off, and consider including daily activity summaries (outlet:p016)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss another function AT&T is adding.",
+            "fix": "Mention automatic arming or disarming based on the user’s proximity to home (outlet:p017)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8c4c31a8dc53ec7d0b79ad5a5da99ac951e66c850d756effc41f9c7b998c93f9",
+        "scored_at": "2026-11-06T16:04:04.674043+00:00"
+      }
     },
     {
       "id": "50546847feddef54a1a5",
@@ -26692,7 +27309,32 @@
       "summary_limitations": [
         "partial_source"
       ],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers get little explanation of why schools and parents object to the decision.",
+            "fix": "Add that they worry immediate AI answers can reduce students’ practice evaluating sources and developing critical thinking (outlet:p001–p005, outlet:p021)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "aa96aa072f9527146f560ca7e60dc366084d747a247f97f6f15990938ab655dd",
+        "scored_at": "2026-11-06T16:04:04.674073+00:00"
+      }
     },
     {
       "id": "3a41f9480808b6855719",
@@ -27280,7 +27922,38 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 6,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "thường làm mất các tín hiệu quan trọng",
+            "explanation": "The abstract says these signals are especially vulnerable to compression by a visual encoder; it does not say that this process routinely loses them (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The summary states signal loss more firmly than the abstract does.",
+            "fix": "Say the signals are vulnerable to being obscured by the fixed visual abstraction, matching the authors' stated concern (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8391fa6a4a55ad9b81861793355fe96e3456afa65043779b92bdfcd102443a33",
+        "scored_at": "2026-11-06T16:04:04.674170+00:00"
+      }
     },
     {
       "id": "71eb2a0b0857173f624f",
@@ -27736,7 +28409,53 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.2,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 6,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "chiếm dụng phần lớn công suất sản xuất tại các nhà máy",
+            "explanation": "The source says AI demand is eating up production capacity, but gives no figure or majority share (outlet:p023)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "đơn hàng của họ đã kín chỗ tới năm 2030",
+            "explanation": "The source says the supplier’s order book is currently filling up to 2030, not that all capacity through 2030 is already booked (outlet:p028)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers are told AI uses most factory capacity without a source-supported share.",
+            "fix": "Say industry commenters pointed to AI demand consuming production capacity, without quantifying its share (outlet:p023)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers may believe the CCL supplier has no available capacity through 2030.",
+            "fix": "Say its order book is filling up to 2030 (outlet:p028)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The account omits how suppliers are responding and a constraint on expansion.",
+            "fix": "Mention the push to expand advanced PCB and chip-substrate production and the need to secure upstream materials (outlet:p027, outlet:p030)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7f3eaee3659b437dd78b8d54bf28b51f994dd53c7d2ade143e4b018fc980a7ae",
+        "scored_at": "2026-11-06T16:04:04.673773+00:00"
+      }
     },
     {
       "id": "40b1c777d53ad09729b7",
@@ -32399,10 +33118,10 @@
       "use_original_title": false,
       "source_url": "https://github.com/dsx-ai-factory/nvke",
       "key_points": [
-        "Theo tài liệu dự án của Nvidia, Nvidia Kubernetes Engine (NVKE) cung cấp mặt phẳng quản lý (management plane - tầng điều khiển trung tâm) Kubernetes trên hạ tầng bộ xử lý đồ họa (GPU) riêng. Tài liệu kỹ thuật nêu rõ phần mềm hiện có bản xem trước thử nghiệm (preview), với các giao diện lập trình ứng dụng (API), cấu hình và hành vi có thể thay đổi giữa các đợt phát hành. Dự án cho biết NVKE hoạt động như một hệ thống tự lưu trữ: một cụm hạt nhân tạm thời khởi tạo cụm quản lý, từ đó phân phối và quản lý nhiều cụm công việc tách biệt theo yêu cầu.",
-        "Theo tài liệu dự án, mỗi cụm công việc sở hữu mặt phẳng điều khiển, cơ sở dữ liệu etcd cùng các nhóm nút (node pool - nhóm máy chủ xử lý tác vụ) độc lập. Người vận hành điều khiển mặt phẳng quản lý NVKE qua công cụ dòng lệnh nvkectl hoặc API, còn khách hàng sử dụng cụm máy chủ qua API Kubernetes và kubectl. Các nút máy chủ chứng minh danh tính qua chuẩn SPIFFE/SPIRE bằng vi mạch TPM (Trusted Platform Module - vi mạch bảo mật phần cứng) trước thời điểm nhận thông tin gia nhập, đồng thời hỗ trợ mã hóa dữ liệu etcd cho từng cụm. Dự án đồng hành NVKR xây dựng ảnh nút và các thành phần từ đầu vào cố định, còn NVKE trực tiếp triển khai các thành phẩm này.",
-        "Đối với quy trình cài đặt thực tế, tài liệu dự án yêu cầu người vận hành tự cung cấp máy móc và kết nối mạng, các ảnh nút, kho lưu trữ ảnh cùng cấu hình quyền truy cập bộ điều khiển NVIDIA Infra Controller (NICo). Ở phương án đánh giá không cần phần cứng GPU hay tài khoản Nvidia, tài liệu cung cấp bản chạy nhanh cục bộ trên máy chủ Linux hoặc máy ảo kiến trúc amd64 hoặc arm64. Môi trường cục bộ này đòi hỏi tối thiểu 6 CPU, 12 GiB bộ nhớ trống, 100 GiB đĩa trống, Docker và TPM ảo, trong khi người dùng macOS đánh giá qua máy ảo Colima. Quá trình biên dịch mã nguồn yêu cầu Go 1.27.3 cùng GNU Make 4 trở lên, tạo ra chín tệp nhị phân riêng biệt gồm nvkectl, các bộ điều khiển và các giao diện API.",
-        "Trong giai đoạn xem trước thử nghiệm (preview), tài liệu dự án của Nvidia nêu rõ không khuyến nghị dùng cho môi trường sản xuất thực tế, đồng thời lưu ý các giao diện API, cấu hình và hành vi có thể thay đổi giữa các đợt phát hành. Tài liệu kỹ thuật cũng nhấn mạnh bộ điều khiển NICo là nhà cung cấp hạ tầng tương thích duy nhất ở giai đoạn xem trước này. Về mặt vận hành, tài liệu cảnh báo bản xem trước cần người vận hành cấu hình rõ ràng: cơ chế xác thực API mặc định bị tắt và API chỉ sử dụng giao thức HTTP thuần sau khi cài đặt. Đồng thời, cụm quản lý không tự nâng cấp, mở rộng hay thay thế, hệ thống chưa có quy trình nâng cấp mặt phẳng quản lý hay sao lưu và khôi phục, còn các ảnh nút FDE chỉ dành cho đánh giá và không cung cấp tính bảo mật cho dữ liệu lưu trữ."
+        "Theo tài liệu dự án của Nvidia, Nvidia Kubernetes Engine (NVKE) cung cấp mặt phẳng quản lý (management plane - tầng điều khiển trung tâm) vận hành các cụm Kubernetes cho khách hàng trên hạ tầng bộ xử lý đồ họa (GPU) riêng. Tài liệu kỹ thuật nêu rõ phần mềm hiện có bản xem trước thử nghiệm (preview), với các giao diện lập trình ứng dụng (API), cấu hình và hành vi có thể thay đổi giữa các đợt phát hành. Dự án cho biết NVKE hoạt động như một hệ thống tự lưu trữ: một cụm mầm tạm thời (temporary seed cluster - cụm khởi tạo ban đầu) thiết lập cụm quản lý, từ đó phân bổ và quản lý nhiều cụm công việc tách biệt theo yêu cầu.",
+        "Theo tài liệu dự án, mỗi cụm công việc sở hữu mặt phẳng điều khiển, cơ sở dữ liệu etcd cùng các nhóm nút (node pool - nhóm máy chủ xử lý tác vụ) độc lập. Người vận hành yêu cầu tạo cụm công việc qua giao diện API của NVKE hoặc công cụ nvkectl, sau đó NVKE phân bổ máy móc qua bộ điều khiển NICo hình thành các cụm Kubernetes riêng, trong khi khách hàng sử dụng cụm qua API Kubernetes và kubectl. Các nút máy chủ chứng minh danh tính qua chuẩn SPIFFE/SPIRE bằng vi mạch TPM (Trusted Platform Module - vi mạch bảo mật phần cứng) trước khi nhận thông tin gia nhập, còn dự án đồng hành NVKR xây dựng ảnh nút và các thành phần triển khai.",
+        "Đối với quy trình cài đặt thực tế, tài liệu dự án của Nvidia yêu cầu người vận hành tự cung cấp máy móc và cấu hình kết nối NICo. Ở phương án đánh giá không cần phần cứng GPU hay tài khoản Nvidia, tài liệu cung cấp bản chạy nhanh cục bộ trên máy chủ hoặc máy ảo Linux amd64 hoặc arm64 với yêu cầu tối thiểu 6 CPU, 12 GiB bộ nhớ trống, 100 GiB đĩa trống, Docker và TPM ảo, còn người dùng macOS đánh giá qua máy ảo Colima. Quá trình biên dịch mã nguồn đòi hỏi Go phiên bản 1.27.3 cùng GNU Make 4 trở lên, tạo ra chín tệp nhị phân riêng biệt bao gồm nvkectl, các bộ điều khiển và các dịch vụ API.",
+        "Trong giai đoạn xem trước thử nghiệm (preview), Nvidia không khuyến nghị sử dụng NVKE cho môi trường sản xuất thực tế, đồng thời cảnh báo API, cấu hình và hành vi có thể thay đổi giữa các đợt phát hành. Tài liệu kỹ thuật của dự án cũng nhấn mạnh bộ điều khiển NICo là nhà cung cấp hạ tầng tương thích duy nhất ở giai đoạn xem trước hiện tại. Về mặt vận hành, người vận hành phải cấu hình bảo vệ trước khi tiếp nhận các kết nối, khi xác thực API mặc định bị tắt và API chỉ dùng HTTP thuần sau khi cài đặt. Đồng thời, cụm quản lý không tự nâng cấp hay thay thế, hệ thống chưa có quy trình nâng cấp mặt phẳng quản lý hay sao lưu và khôi phục, còn các ảnh nút FDE chỉ dùng đánh giá và không cung cấp tính bảo mật dữ liệu lưu trữ."
       ],
       "same_event_coverage_ids": [
         "52a4206e91c5d0562341"
@@ -32422,35 +33141,19 @@
       "key_points_prompt_version": "summary-vi-6-prose",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.25,
+        "value": 9.85,
         "answers": {
-          "what": 9,
-          "why": 8,
+          "what": 10,
+          "why": 10,
           "notable": 10,
-          "meaning": 10
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "một cụm hạt nhân tạm thời khởi tạo cụm quản lý",
-            "explanation": "The source describes a temporary seed cluster that stands up the management cluster. “Cụm hạt nhân” changes the meaning of seed cluster (outlet:p020, outlet:p022)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Người vận hành điều khiển mặt phẳng quản lý NVKE qua công cụ dòng lệnh nvkectl hoặc API",
-            "explanation": "The source says operators request workload clusters through the NVKE API or nvkectl; it does not say those interfaces control the management plane itself (outlet:p002, outlet:p013)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "“Cụm hạt nhân” gives readers the wrong idea of the temporary cluster’s role.",
-            "fix": "Describe it as a temporary bootstrap or seed cluster that stands up the management cluster (outlet:p020, outlet:p022)."
-          },
-          {
-            "question": "why",
-            "problem": "The described API and CLI workflow points at the management plane instead of the clusters being requested.",
-            "fix": "Say operators request workload clusters through the NVKE API or nvkectl (outlet:p013)."
+            "question": "meaning",
+            "problem": "Readers are told the management cluster cannot upgrade or replace itself, but are not told it also cannot scale itself.",
+            "fix": "Add the scaling limit alongside the other management cluster limits (outlet:p017)."
           }
         ],
         "writer_boats": [
@@ -32458,8 +33161,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "0f1ed252c23d76c78d0823a7e34fb0e669ca4c9b0f8d9af8b8cc818fdb067f44",
-        "scored_at": "2026-11-06T14:02:47.090680+00:00"
+        "prose_sha256": "a37a88ad693140aa26295507f651d4edf3728bb7d2927e0c83e659bd03360b41",
+        "scored_at": "2026-11-06T15:57:43.579593+00:00"
       }
     },
     {
@@ -32703,7 +33406,43 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chưng cất trực tiếp có nhận biết nhiễu",
+            "explanation": "The source specifies noise-aware on-policy distillation. “Direct distillation” describes a different method and loses the on-policy condition (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers learn that Turbo exists but miss its concrete performance result.",
+            "fix": "Add that it generated a 1024 × 1024 image in 4.98 seconds on one NVIDIA H20 GPU using eight guidance-free steps (outlet:p009)."
+          },
+          {
+            "question": "what",
+            "problem": "The description changes the stated distillation method.",
+            "fix": "Describe it as noise-aware on-policy distillation (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "aeb2ec0d051fcc13fc69cfae07469dd9a93eeded36ba44e97652221518fcccf3",
+        "scored_at": "2026-11-06T16:04:04.673655+00:00"
+      }
     },
     {
       "id": "4090c8c18813ea7e220e",
@@ -32739,7 +33478,26 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose"
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "67c696e0948ca574b2bff7bfd94386923485c0f3b95e5ad844b98f652780c30f",
+        "scored_at": "2026-11-06T16:04:04.673724+00:00"
+      }
     },
     {
       "id": "742ac9568b9652b9c3a7",
@@ -32814,10 +33572,10 @@
       "use_original_title": false,
       "source_url": "https://technode.com/2026/11/06/apples-china-ai-partner-has-had-a-rough-ride/",
       "key_points": [
-        "Vào ngày 4 tháng 11, Apple bắt đầu thử nghiệm beta (phiên bản thử nghiệm giới hạn tính năng trước khi phát hành chính thức) Apple Intelligence tại Trung Quốc với mô hình Qwen của Alibaba được tích hợp trong một số trải nghiệm chọn lọc thuộc Siri, Writing Tools và Visual Intelligence (outlet:p002). Theo nền tảng Hugging Face, dòng mô hình ra mắt năm 2023 này đã đạt hơn 2 tỷ lượt tải trên Hub riêng trong 7 tháng đầu năm 2026, vượt qua Google và Meta (outlet:p002). Dù vậy, TechNode nhận định Qwen phải trải qua hoài nghi nội bộ, cạnh tranh khốc liệt và nhiều biến động nhân sự trước khi thành công, khi nhiều nhóm tại Alibaba ban đầu vẫn chọn Llama của Meta hoặc DeepSeek R1 (outlet:p002, outlet:p007).",
-        "Theo TechNode, chiến lược mã nguồn mở giúp thu hút lập trình viên và hoàn thiện mô hình khi Alibaba sớm công bố công khai trọng số mô hình sau khi giới thiệu Tongyi Qianwen vào tháng 4 năm 2023 (outlet:p005, outlet:p008). Cộng đồng phát triển đã tinh chỉnh Qwen và chuyển các cải tiến về cho đội ngũ, tạo tiền đề để Qwen2.5 mở rộng năng lực ngôn ngữ, lập trình và toán học, qua đó thuyết phục người dùng tại Trung Quốc, Mỹ cùng nội bộ Alibaba vào cuối năm 2024 (outlet:p008, outlet:p009). Trước áp lực từ DeepSeek R1 đòi hỏi năng lực suy luận mạnh hơn với chi phí thấp hơn, Alibaba đã ra mắt Qwen3 vào tháng 4 năm 2025 với cơ chế suy luận kết hợp giữa chế độ suy nghĩ chậm và phản hồi nhanh (outlet:p010, outlet:p012). Mô hình mở lớn nhất sử dụng kiến trúc hỗn hợp chuyên gia (mixture-of-experts), chỉ kích hoạt 22 tỷ trong 235 tỷ tham số tại mỗi thời điểm để cắt giảm chi phí suy luận (outlet:p013).",
-        "Về biến động nội bộ, lãnh đạo kỹ thuật Junyang Lin bất ngờ tuyên bố rời đi vào tháng 3 năm 2026 với lời chào 'Bye my beloved Qwen', cùng sự ra đi của trưởng bộ phận hậu đào tạo Bowen Yu và nhà nghiên cứu cấp cao Binyuan Hui (outlet:p016). Alibaba đã siết chặt quản lý bằng cách lập Token Foundry dưới quyền CEO Eddie Wu và giao Dayiheng Liu phụ trách Qwen, trong khi Apple sau đó chọn Alibaba làm đối tác sau khi đánh giá Baidu, Tencent, ByteDance và DeepSeek (outlet:p022, outlet:p023, outlet:p026).",
-        "TechNode nhận định thỏa thuận hợp tác với Apple mở ra một giai đoạn mới, nhưng thách thức duy trì tốc độ và tính sáng tạo khi bộ máy xung quanh ngày càng lớn có thể là phần việc khó khăn hơn (outlet:p030). Theo tác giả bài viết trên TechNode, biến cố của Qwen phản ánh mâu thuẫn lớn hơn tại các phòng nghiên cứu AI tiên phong, khi mô hình đòi hỏi vốn tập trung cùng tài nguyên khổng lồ, còn các nhóm nghiên cứu lại cần quyền tự chủ và khả năng ra quyết định nhanh (outlet:p021)."
+        "Vào ngày 4 tháng 11, Apple bắt đầu thử nghiệm beta (thử nghiệm tính năng giới hạn) Apple Intelligence tại Trung Quốc với mô hình Qwen của Alibaba trong một số trải nghiệm chọn lọc thuộc Siri, Writing Tools và Visual Intelligence (outlet:p002). Theo nền tảng Hugging Face, dòng mô hình ra mắt năm 2023 này đã đạt hơn 2 tỷ lượt tải trên Hub riêng trong 7 tháng đầu năm 2026, vượt qua Google và Meta (outlet:p002). Dù vậy, TechNode nhận định Qwen phải trải qua hoài nghi nội bộ, cạnh tranh khốc liệt và biến động nhân sự trước khi thành công, khi nhiều nhóm tại Alibaba ban đầu vẫn chọn Llama của Meta hoặc DeepSeek R1 (outlet:p002, outlet:p007).",
+        "Theo TechNode, quy mô hệ sinh thái toàn diện của Qwen đóng vai trò quan trọng đối với Apple khi đánh giá Baidu, Tencent, ByteDance, Alibaba và DeepSeek trước khi chọn Alibaba làm đối tác cho Apple Intelligence tại Trung Quốc (outlet:p026). Qwen đã phát triển thành hệ sinh thái gồm các mô hình nền tảng, nền tảng Model Studio cho doanh nghiệp và lập trình viên, cùng các sản phẩm tiêu dùng như Qwen App (outlet:p025). Alibaba sớm công khai trọng số sau khi giới thiệu Tongyi Qianwen vào tháng 4 năm 2023 và lấy mã nguồn mở làm trọng tâm, thu hút cộng đồng hoàn thiện Qwen2.5 về ngôn ngữ, lập trình và toán học (outlet:p005, outlet:p008). Đến cuối năm 2024, Qwen2.5 đã bắt đầu thuyết phục được các nhà phát triển tại Trung Quốc và Mỹ cùng thêm nhiều nhóm trong nội bộ Alibaba (outlet:p009).",
+        "Về biến cố nội bộ, lãnh đạo kỹ thuật Junyang Lin bất ngờ tuyên bố rời đi vào tháng 3 năm 2026 với lời chào 'Bye my beloved Qwen', cùng sự ra đi của trưởng bộ phận hậu đào tạo Bowen Yu và nhà nghiên cứu cấp cao Binyuan Hui (outlet:p016). Ban quản lý Alibaba đã siết chặt phối hợp bằng cách thành lập Token Foundry dưới quyền CEO Eddie Wu và giao Dayiheng Liu phụ trách Qwen (outlet:p020, outlet:p022, outlet:p023). Trước sức ép từ DeepSeek R1, Alibaba ra mắt Qwen3 vào tháng 4 năm 2025 với cơ chế suy luận lai và kiến trúc hỗn hợp chuyên gia (mixture-of-experts), chỉ kích hoạt 22 tỷ trong 235 tỷ tham số tại mỗi thời điểm để giảm chi phí suy luận (outlet:p010, outlet:p012, outlet:p013).",
+        "TechNode nhận định thỏa thuận hợp tác với Apple mở ra giai đoạn mới, nhưng thách thức duy trì tốc độ và tính sáng tạo khi bộ máy phình to có thể là phần việc khó khăn hơn (outlet:p030). Theo tác giả bài viết trên TechNode, biến cố của Qwen phản ánh mâu thuẫn lớn hơn tại các phòng nghiên cứu AI tiên phong, khi mô hình đòi hỏi vốn tập trung cùng tài nguyên khổng lồ, còn các nhóm nghiên cứu lại cần quyền tự chủ và khả năng ra quyết định nhanh (outlet:p021)."
       ],
       "same_event_coverage_ids": [
         "af0e3f570a4fe158360b"
@@ -32837,30 +33595,25 @@
       "key_points_prompt_version": "summary-vi-6-prose",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.45,
+        "value": 9.4,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 10,
-          "meaning": 9
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "thuyết phục người dùng tại Trung Quốc, Mỹ",
-            "explanation": "The source specifically says Qwen2.5 began winning over developers in China and the US, as well as more teams inside Alibaba; it does not report broader user adoption there (outlet:p009)."
+            "summary_text": "Qwen3 vào tháng 4 năm 2025 với cơ chế suy luận lai và kiến trúc hỗn hợp chuyên gia (mixture-of-experts), chỉ kích hoạt 22 tỷ trong 235 tỷ tham số tại mỗi thời điểm",
+            "explanation": "The source attributes the mixture-of-experts design and the 22-billion-of-235-billion figure specifically to Qwen3’s largest open model, not to Qwen3 as a whole (outlet:p012–p013)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "Readers may take the reported adoption to mean general users in China and the US.",
-            "fix": "Specify developers in those countries and more teams inside Alibaba (outlet:p009)."
-          },
-          {
-            "question": "why",
-            "problem": "Readers do not learn what the source says mattered to Apple’s choice.",
-            "fix": "Add that Qwen had grown into a broader stack of models, developer services and consumer products, and that this breadth mattered to Apple (outlet:p025–p026)."
+            "question": "notable",
+            "problem": "The reader may think every Qwen3 model has the stated architecture and parameter count.",
+            "fix": "Specify that these figures describe Qwen3’s largest open model (outlet:p013)."
           }
         ],
         "writer_boats": [
@@ -32868,8 +33621,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "da22ed92378002deda75a7fdc4c1d1e0b25e90eaac7e7ed1fe6c040e9881e578",
-        "scored_at": "2026-11-06T14:02:47.090571+00:00"
+        "prose_sha256": "bbe70be728ef60ddd6f4d51f2d3d01c58a3b5fe5159c6b83b9366b08dacaaec2",
+        "scored_at": "2026-11-06T15:57:43.578530+00:00"
       }
     },
     {
@@ -32938,10 +33691,10 @@
       "use_original_title": false,
       "source_url": "https://www.theguardian.com/business/live/2026/nov/06/global-stocks-tumble-ai-panic-markets-democrats-midterms-success-jobs-oil-dollar-latest-news-updates",
       "key_points": [
-        "Thị trường chứng khoán toàn cầu lao dốc mạnh sau bầu cử giữa kỳ Mỹ khi nỗi lo ngại làn sóng đầu tư trí tuệ nhân tạo (AI) bị nhấn chìm làm chao đảo các thị trường, nối tiếp các khoản thua lỗ nặng nề tại Phố Wall. Tại Nhật Bản, chỉ số Nikkei sụt giảm gần 6%, đánh dấu mức giảm sâu nhất kể từ tháng 4 năm 2025, trong khi chỉ số KOSPI của Hàn Quốc mất 6,7% và chỉ số TAIEX của Đài Loan hạ 4,5%.",
-        "Các nhà phân tích nhận định sự bất định về mặt chính sách gia tăng do đảng Dân chủ có quan điểm khắt khe hơn đối với các trung tâm dữ liệu (data centres), kết hợp cùng sự phản đối của công chúng đối với lĩnh vực này. Theo ông Christopher Forbes tại công ty chứng khoán CMC Markets, đây là một bước chuyển biến cấu trúc chính sách báo hiệu nguy cơ tạm dừng và làm nguội các dự án AI, trung tâm dữ liệu lẫn việc phê duyệt dự án.",
-        "Tại Phố Wall, chỉ số Nasdaq sụt giảm 5,5% cùng đà bán tháo cổ phiếu sản xuất chip bán dẫn sau chuỗi ngày cảnh báo về việc định giá doanh nghiệp công nghệ bị thổi phồng quá mức. Cổ phiếu hãng thẻ nhớ SanDisk bốc hơi 22% giá trị, trong khi Micron và AMD cùng mất 17%, còn cổ phiếu hãng sản xuất chip đồ họa Nvidia sụt hơn 9% để dẫn đầu đà giảm của chỉ số công nghiệp Dow Jones. Chuyên gia Dan Coatsworth tại công ty AJ Bell cho biết nhà đầu tư đã bán tháo ồ ạt để chốt lời, đồng thời các lệnh gọi bổ sung ký quỹ (margin calls - yêu cầu nộp thêm tiền bảo đảm khi giá chứng khoán giảm sâu) đã buộc những người vay tiền mua cổ phiếu phải bán tháo lượng nắm giữ.",
-        "Việc mở rộng các trung tâm dữ liệu khổng lồ tại Mỹ đứng trước nguy cơ bị kiểm soát, trong khi nhiều tập đoàn lớn nhất thế giới đã vay thêm nợ để tài trợ đầu tư và giới đầu tư ngày càng lo lắng về việc sẽ mất bao lâu để các khoản đầu tư này đem lại lợi nhuận. Mặc dù vậy, các trung tâm dữ liệu và hạ tầng AI cũng tạo ra việc làm, và đảng Dân chủ sẽ ngần ngại để những việc làm đó chuyển sang các bang khác hoặc ra bên ngoài nước Mỹ khi đầu tư AI là động lực tăng trưởng then chốt."
+        "Thị trường chứng khoán toàn cầu lao dốc trước nỗi lo bầu cử giữa kỳ Mỹ nhấn chìm làn sóng đầu tư AI, tiếp nối các khoản thua lỗ nặng nề tại Phố Wall vào đêm hôm trước. Tại Phố Wall, nhà đầu tư ồ ạt bán tháo khiến chỉ số Nasdaq sụt 5,5%, Dow Jones giảm 1.833,06 điểm (tương đương 3,44%) và S&P 500 mất 4,36%. Đợt giảm này diễn ra sau nhiều tháng xuất hiện cảnh báo rằng định giá doanh nghiệp trí tuệ nhân tạo (AI - công nghệ mô phỏng trí tuệ con người) quá cao và bong bóng có thể nổ.",
+        "Lý giải nguyên nhân, giới phân tích chỉ ra sự bất định chính sách khi đảng Dân chủ khắt khe hơn với các trung tâm dữ liệu, điều có thể làm chậm đầu tư AI trước sự phản đối của công chúng. Chuyên gia Kyle Rodda tại Capital.com nhận định nỗi lo về tương lai xây dựng AI bao trùm thị trường khi nhà đầu tư suy xét việc Quốc hội do đảng Dân chủ kiểm soát có thể siết quy định công nghệ. Bên cạnh đó, ông Christopher Forbes tại CMC Markets cho biết qua Reuters rằng công ty phải xử lý các lệnh gọi bổ sung ký quỹ (margin calls - yêu cầu nộp thêm tiền bảo đảm) cùng khiếu nại suốt ngày đêm khi khách hàng chịu thua lỗ.",
+        "Tại châu Á, chỉ số Nikkei của Nhật Bản sụt gần 6%, mức giảm sâu nhất kể từ tháng 4 năm 2025, trong khi KOSPI của Hàn Quốc mất 6,7% và TAIEX của Đài Loan giảm 4,5%. Tại Phố Wall, các hãng chip nhớ dẫn đầu đà giảm khi SanDisk bốc hơi 22% giá trị, Micron và AMD cùng mất 17%, còn Nvidia giảm hơn 9% để kéo tụt chỉ số Dow Jones.",
+        "Về dài hạn, ông Christopher Forbes tại CMC Markets nhận định đây là chuyển biến chính sách và cấu trúc có thể làm nguội đà phát triển AI cùng các trung tâm dữ liệu, việc phê duyệt dự án và thị trường vốn cổ phần. Dù các mã AMD, SanDisk và Nvidia giúp Nasdaq hồi phục 1,2% ở đầu phiên sau, The Guardian nhấn mạnh đây chỉ là mức hồi phục nhỏ sau đợt sụt 5,5% trước đó trong khi Dow Jones tiếp tục giảm."
       ],
       "same_event_coverage_ids": [
         "538ff2796a67fb7bbb95"
@@ -32950,7 +33703,7 @@
         "f5e5495c47dceae2849c"
       ],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Thị trường chứng khoán toàn cầu lao dốc trước lo ngại bầu cử Mỹ làm chậm làn sóng AI",
+      "editorial_headline_vi": "Chứng khoán toàn cầu lao dốc trước lo ngại bầu cử giữa kỳ Mỹ đe dọa làn sóng đầu tư AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -32965,44 +33718,22 @@
       "key_points_prompt_version": "summary-vi-6-prose",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.3,
+        "value": 9.45,
         "answers": {
           "what": 9,
-          "why": 7,
-          "notable": 8,
-          "meaning": 9
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "nhà đầu tư đã bán tháo ồ ạt để chốt lời",
-            "explanation": "Coatsworth said investors most likely sold to lock in profits; he did not establish that motive as fact (outlet:p039–p040)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "các lệnh gọi bổ sung ký quỹ (margin calls - yêu cầu nộp thêm tiền bảo đảm khi giá chứng khoán giảm sâu) đã buộc những người vay tiền mua cổ phiếu phải bán tháo lượng nắm giữ",
-            "explanation": "Coatsworth said some leveraged investors might have had no choice and explained that margin calls can force sales. The Vietnamese turns that possibility into a confirmed account of those investors’ sales (outlet:p041)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "Readers receive speculative explanations for selling as confirmed motives.",
-            "fix": "Preserve Coatsworth’s qualifications: investors most likely sold to lock in profits, and some borrowers might have faced forced sales (outlet:p039–p041)."
-          },
-          {
-            "question": "notable",
-            "problem": "The scale of the preceding US loss is missing.",
-            "fix": "Add that more than $3.2 trillion was wiped off the US stock market the previous day (outlet:p003)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "7d7884606619bbaafd956e1d9bcfa13f661afbb31b6159c670491bd2ad80563b",
-        "scored_at": "2026-11-06T11:49:31.823624+00:00"
+        "prose_sha256": "3347a712f3b824072314ca71aa475602537ea60be1855e28bc440a361caa87f8",
+        "scored_at": "2026-11-06T15:57:43.579460+00:00"
       }
     },
     {
@@ -33038,17 +33769,17 @@
       "use_original_title": false,
       "source_url": "https://pandaily.com/cainiao-global-warehouse-network-embodied-ai-robot-training-tech-export-three-day-delivery",
       "key_points": [
-        "Cainiao, bộ phận logistics của Alibaba, tuyên bố mở mạng lưới kho vận toàn cầu làm nơi huấn luyện thực tế cho AI và robot cho các đối tác vào ngày 5 tháng 11. Theo IT Home và Sina Tech, thông tin này được công bố tại sự kiện đối tác về AI và trí tuệ hiện thân (embodied AI - AI tích hợp trên robot vật lý) diễn ra ở Cainiao Smart Gateway tại Hong Kong. Cainiao mô tả đây là cụm huấn luyện logistics thực tế lớn nhất thế giới cho các doanh nghiệp AI và trí tuệ hiện thân. Doanh nghiệp này cũng ra mắt dịch vụ giao hàng ba ngày hướng tới các công ty điện toán AI và robot vận chuyển thiết bị ra nước ngoài.",
-        "Trong khi đó, với dịch vụ giao hàng ba ngày, ông Xiong cho biết Cainiao triển khai nhằm giúp việc gửi phần cứng thông minh ra nước ngoài đơn giản như gửi một bưu kiện thương mại điện tử.",
-        "Để chứng minh năng lực thực tế, Cainiao cung cấp hơn 100 kịch bản thực nghiệm để cùng phát triển và huấn luyện robot trên hàng chục ngành công nghiệp. Các kịch bản bao gồm lấy hàng trong kho, điều hướng giao hàng thông minh, kiểm tra trên cao, tuần tra an ninh, logistics hàng không và quản lý phụ tùng ô tô. Doanh nghiệp đã thử nghiệm trên ba nhóm nhiệm vụ: việc cơ bản như dán nhãn, độ chính xác tầm trung như nhặt lẻ, và tác vụ dài hạn như đóng gói hỗn hợp hay xếp dỡ pallet. Về vận chuyển, dịch vụ kết hợp tuyến chuyển phát nhanh cho mẫu thử với đường hàng không cho phần cứng điện toán AI, hỗ trợ hẹn giờ và mở thùng khi bàn giao.",
-        "Về triển vọng, ông Xiong Wei nhận định trí tuệ hiện thân có thể hoàn thiện trong thập kỷ tới và tăng hiệu suất từ 10 đến 50 lần. Đánh giá quy mô triển khai, Cainiao cho biết đã tiến hành các đợt thử nghiệm quy mô lớn trong lĩnh vực chuyển phát nhanh, thương mại điện tử, hàng tiêu dùng và phụ tùng ô tô. Dù vậy, Cainiao cho biết mới đạt thỏa thuận hợp tác vòng đầu tiên với một số công ty AI và trí tuệ hiện thân tại sự kiện mà chưa công bố tên cụ thể của các đối tác này."
+        "Cainiao, bộ phận logistics của Alibaba, vào ngày 5 tháng 11 thông báo mở mạng lưới kho vận toàn cầu cho đối tác làm nơi huấn luyện, thử nghiệm và triển khai thực tế cho các công ty AI và trí tuệ hiện thân (embodied AI - AI tích hợp trên robot vật lý). Theo IT Home và Sina Tech, thông báo diễn ra tại sự kiện ở Cainiao Smart Gateway tại Hong Kong, nơi Cainiao mô tả mạng lưới là cụm huấn luyện logistics thực tế lớn nhất thế giới cho AI và trí tuệ hiện thân. Doanh nghiệp cũng ra mắt dịch vụ giao hàng ba ngày hướng tới các công ty điện toán AI và robot vận chuyển thiết bị ra nước ngoài.",
+        "Giải thích lý do mở mạng lưới, ông Xiong Wei, Chủ tịch Cainiao International, lập luận rằng việc thử nghiệm robot hiện nay phần lớn phụ thuộc vào môi trường mô phỏng tự xây dựng vốn tốn kém, chậm chạp và thường không tái hiện được sự phức tạp của vận hành thực tế. Theo Cainiao, mạng lưới xuyên biên giới của hãng xử lý lượng lớn mã hàng hóa trong các đợt cao điểm mua sắm, mang lại môi trường huấn luyện thực tế và quy mô hơn. Đối với tuyến vận chuyển mới, ông Xiong cho biết Cainiao muốn mang kinh nghiệm giao hàng ba ngày và năm ngày trong thương mại điện tử sang lĩnh vực AI và robot, giúp việc gửi phần cứng thông minh ra nước ngoài đơn giản như gửi bưu kiện mua sắm trực tuyến.",
+        "Cainiao cung cấp hơn 100 kịch bản thực nghiệm trên hàng chục ngành công nghiệp cho các đối tác cùng phát triển, huấn luyện trên robot vật lý và xác thực kinh doanh, bao gồm lấy hàng trong kho, điều hướng thông minh, kiểm tra trên cao, tuần tra an ninh và quản lý phụ tùng ô tô. Doanh nghiệp cho biết đã thử nghiệm quy mô lớn trong chuyển phát nhanh, thương mại điện tử, hàng tiêu dùng và phụ tùng ô tô cho ba nhóm nhiệm vụ: việc cơ bản như dán nhãn, độ chính xác tầm trung như nhặt lẻ, và tác vụ dài hạn như đóng gói hỗn hợp cùng xếp dỡ pallet phức tạp. Về vận chuyển, tuyến chuyển phát nhanh nhận gửi mẫu thử và bổ sung hàng lô nhỏ, trong khi đường hàng không tiếp nhận phần cứng điện toán AI với quy trình có thể gồm hẹn giờ và mở thùng khi bàn giao.",
+        "Đánh giá về triển vọng phát triển, ông Xiong Wei nhận định trí tuệ hiện thân có thể hoàn thiện trong thập kỷ tới và có thể giúp nâng cao hiệu suất từ 10 đến 50 lần. Dù vậy, giới hạn hiện tại của đợt công bố là Cainiao mới chỉ đạt thỏa thuận hợp tác vòng đầu tiên với một số công ty AI và trí tuệ hiện thân tại sự kiện mà không công bố tên cụ thể của các đối tác này."
       ],
       "same_event_coverage_ids": [
         "573e45d53d09f9e01304"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cainiao mở mạng lưới kho vận toàn cầu làm nơi huấn luyện thực tế cho robot và AI",
+      "editorial_headline_vi": "Cainiao mở mạng lưới kho vận toàn cầu làm nơi huấn luyện thực tế cho AI và robot",
       "summary_sources": [
         {
           "id": "outlet",
@@ -33061,28 +33792,22 @@
       "key_points_prompt_version": "summary-vi-6-prose",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.05,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 6,
+          "why": 10,
           "notable": 10,
-          "meaning": 9
+          "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "Readers do not learn why Cainiao considers its physical network useful for robot testing.",
-            "fix": "Add Xiong’s explanation that self-built simulations can be costly, slow and unable to reproduce complex operations, while Cainiao’s cross-border network offers varied real conditions (outlet:p003)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "08576ce64341c1de13c6bbe23ba91ddef8e0f50c3ca271aa4bd6cf3ce09db728",
-        "scored_at": "2026-11-06T12:01:21.284919+00:00"
+        "prose_sha256": "6a8ee78d7546f1942a78f04cc6fbfa13ab1b0ccfb4c6af0f74d1f40318d9a885",
+        "scored_at": "2026-11-06T15:57:43.579547+00:00"
       }
     },
     {
@@ -33838,16 +34563,16 @@
       "use_original_title": false,
       "source_url": "https://www.scmp.com/tech/big-tech/article/3373532/chinas-ai-chipmakers-report-first-profits-will-trend-continue",
       "key_points": [
-        "Theo South China Morning Post, các nhà sản xuất chip trí tuệ nhân tạo (AI) thuần túy của Trung Quốc đã vượt qua cột mốc quan trọng trong quý 3 khi một số công ty bắt đầu có lãi [outlet:p010, outlet:p011]. Đây là lần đầu tiên các công ty bán dẫn chuyên biệt này ghi nhận lợi nhuận [outlet:p004, outlet:p011].",
-        "Hiện tại, các nhà phát triển bộ xử lý đồ họa (GPU) trong nước gồm Moore Threads, MetaX và Iluvatar CoreX đang chạy đua lấp khoảng trống thị trường của Nvidia [outlet:p012]. Cơ hội này mở ra khi các bộ vi xử lý cao cấp của Nvidia chịu sự kiểm soát xuất khẩu nghiêm ngặt từ Mỹ [outlet:p012]. Các doanh nghiệp nội địa đang cạnh tranh gay gắt trong việc thu hút khách hàng doanh nghiệp và tiếp cận các nhà cung cấp dịch vụ đám mây lớn (CSP) [outlet:p013].",
-        "Dù vậy, South China Morning Post đánh giá rào cản chuỗi cung ứng nghiêm trọng cùng chi phí bộ nhớ tăng vọt vẫn phủ bóng đen lên triển vọng tăng trưởng dài hạn của họ [outlet:p011]. Chi phí bộ nhớ đắt đỏ cùng các khó khăn chuỗi cung ứng cũng đưa các ngân hàng đầu tư lớn đến việc hạ dự báo biên lợi nhuận của toàn ngành [outlet:p005]."
+        "Theo South China Morning Post, các nhà sản xuất chip trí tuệ nhân tạo (AI - artificial intelligence) thuần túy của Trung Quốc đã vượt qua cột mốc quan trọng trong quý 3 năm 2026 khi một số công ty bắt đầu có lãi [outlet:p010, outlet:p011]. Đây là lần đầu tiên các doanh nghiệp chuyên biệt này ghi nhận lợi nhuận [outlet:p004, outlet:p011].",
+        "Hiện tại, các nhà phát triển bộ xử lý đồ họa (GPU - graphics processing unit) trong nước gồm Moore Threads, MetaX và Iluvatar CoreX đang chạy đua lấp khoảng trống thị trường của Nvidia [outlet:p012]. Cuộc đua diễn ra trong bối cảnh các bộ vi xử lý cao cấp của Nvidia chịu sự kiểm soát xuất khẩu nghiêm ngặt từ Mỹ [outlet:p012]. Các doanh nghiệp nội địa cạnh tranh gay gắt trong việc tiếp cận khách hàng doanh nghiệp và thâm nhập các nhà cung cấp dịch vụ đám mây lớn (CSP - cloud service providers) [outlet:p013].",
+        "Dù vậy, South China Morning Post đánh giá rào cản chuỗi cung ứng nghiêm trọng cùng chi phí bộ nhớ tăng vọt vẫn phủ bóng đen lên triển vọng tăng trưởng dài hạn của họ [outlet:p011]. Chi phí bộ nhớ đắt đỏ cùng các khó khăn chuỗi cung ứng cũng đưa các ngân hàng đầu tư lớn đến việc hạ dự báo biên lợi nhuận [outlet:p005]."
       ],
       "same_event_coverage_ids": [
         "7b98bd65c105bc01cdd3"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Các nhà sản xuất chip AI Trung Quốc lần đầu báo lãi nhưng đối mặt rào cản chuỗi cung ứng",
+      "editorial_headline_vi": "Các hãng chip AI Trung Quốc lần đầu báo lãi nhưng đối mặt chi phí tăng vọt và rào cản chuỗi cung ứng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -33860,34 +34585,22 @@
       "key_points_prompt_version": "summary-vi-6-prose",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
           "notable": 10,
-          "meaning": 6
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "của toàn ngành",
-            "explanation": "The source says major investment banks reduced margin forecasts, but does not say the forecasts cover the entire industry (outlet:p005)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader is told that banks lowered margin forecasts for the entire industry.",
-            "fix": "Remove the industrywide scope; say only that major investment banks lowered margin forecasts amid memory costs and supply-chain difficulties (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "684fa4472058488f806caa8d7e889831cf0243e1059fdbcc387105bded06f0f1",
-        "scored_at": "2026-11-06T13:35:16.565262+00:00"
+        "prose_sha256": "f69d41106091a1c535833dce2dbec07e640af7ccab326f53a53374fe4f246707",
+        "scored_at": "2026-11-06T15:57:43.578096+00:00"
       }
     },
     {
@@ -34088,6 +34801,388 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "61bb43702dc8540d7959"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5a90caffb2c87d2e6e8e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/allenai/toyblocks",
+      "key_points": [
+        "Nhóm nghiên cứu Ai2 phát hành ToyBlocks để kết nối việc tạo dữ liệu, huấn luyện và đánh giá robot trong một môi trường kiểm soát duy nhất (outlet:p010, outlet:p067). Nền tảng này không chỉ dừng lại ở thao tác gắp và xếp chồng mà còn tích hợp hình ảnh cùng chữ cái trên các mặt khối nhằm phục vụ các tác vụ tìm kiếm, phân loại và sắp xếp (outlet:p024). Theo nhóm phát triển, ToyBlocks tự động tạo ra các kỹ năng thực hiện tác vụ ngắn cùng các bài trình diễn mẫu để huấn luyện mô hình mới hoặc tinh chỉnh các mô hình đã có (outlet:p025). Đợt phát hành dữ liệu đầu tiên đóng vai trò làm bằng chứng thử nghiệm với 85.336 bài trình diễn tác vụ dài hạn, bao gồm gần 1.600 giờ dữ liệu thực thi của robot và 144 triệu khung hình (outlet:p068).",
+        "Nhóm tác giả Ai2 giải thích họ xây dựng ToyBlocks nhằm kiểm tra mức độ khái quát hóa của mô hình hành động trong môi trường tái lập đơn giản trước những dữ liệu thực tế còn nhiều mâu thuẫn (outlet:p036). Theo nhóm nghiên cứu, các mô hình hành động thị giác ngôn ngữ VLA (Vision-Language-Action) được kỳ vọng sẽ nhanh chóng thích ứng với tình huống mới nhờ tiền huấn luyện quy mô lớn, nhưng các bằng chứng thực nghiệm hiện tại vẫn cho thấy kết quả trái ngược nhau (outlet:p036). Bộ tạo dữ liệu có thể điều khiển của ToyBlocks cho phép các nhà nghiên cứu chủ động tạo ra các tổ hợp huấn luyện để lấp đầy khoảng trống dữ liệu và đo lường sự suy giảm hiệu năng khi mô hình đối mặt với các cấu hình hình học chưa từng gặp (outlet:p024, outlet:p030).",
+        "Trong các thử nghiệm cụ thể, mô tả kỹ năng tự học nâng tỷ lệ thành công từ 24% lên 63% khi tác nhân (agent - hệ thống AI tự chủ đưa ra quyết định hành động) tự tiến hành thí nghiệm để hiểu hành vi kỹ năng của chính mình (outlet:p050). Kết quả đạt được 63% từ mô tả tự học này vượt trội hơn đáng kể so với mức 36% khi hệ thống sử dụng các phần mô tả do chuyên gia con người biên soạn (outlet:p050). Trong tác vụ xếp khối ghép chữ nhiều bước, mô hình lập kế hoạch cấp cao Molmo 2 kết hợp với chính sách thực thi cấp thấp ManiFlow có thể tận dụng các quy luật ngữ nghĩa của khối để suy luận nhanh hơn và phát hiện sớm các trường hợp không thể hoàn thành (outlet:p041, outlet:p042, outlet:p049).",
+        "Dựa trên kết quả ban đầu với ManiFlow, π0.5 và MolmoAct 2, nhóm tác giả nhận thấy các mô hình hành động phổ biến này vẫn khái quát hóa kém trước khi được áp dụng các kỹ thuật tinh chỉnh như thích ứng hạng thấp LoRA (Low-Rank Adaptation) (outlet:p039). Nhóm nghiên cứu cũng nêu rõ giới hạn rằng các đánh giá hệ thống phân cấp Molmo 2–ManiFlow mới chỉ được thực hiện trong mô phỏng trên cấu hình cảnh dễ nhất, nơi các khối ký tự đều dựng đứng và hướng thẳng về phía camera (outlet:p061). Nhóm tác giả tin rằng ToyBlocks sẽ đóng vai trò như một môi trường thử nghiệm có giá trị để cộng đồng nghiên cứu khám phá một cách có hệ thống các kỹ thuật khái quát hóa cho robot (outlet:p039)."
+      ],
+      "same_event_coverage_ids": [
+        "906c9024a1e2c042fe0e"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ai2 ra mắt môi trường ToyBlocks nhằm kiểm tra khả năng khái quát hóa của robot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/allenai/toyblocks"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 10,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "trước những dữ liệu thực tế còn nhiều mâu thuẫn",
+            "explanation": "The source says the evidence about generalization is conflicting. It says real-world datasets have limited flexibility in spatial variation, not that the data themselves are conflicting (outlet:p036)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "các đánh giá hệ thống phân cấp Molmo 2–ManiFlow mới chỉ được thực hiện trong mô phỏng",
+            "explanation": "The source describes success rates for the Molmo 2–ManiFlow system in both simulation and the real world (outlet:p061)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told the Molmo 2–ManiFlow evaluations were limited to simulation.",
+            "fix": "State that the reported evaluations include simulation and the real world, while using the easiest scene configuration with visible, upright characters (outlet:p061)."
+          },
+          {
+            "question": "why",
+            "problem": "The Vietnamese makes the real-world data sound contradictory.",
+            "fix": "Say that prior findings conflict and that the authors identify limited spatial variation in real-world datasets as a reason to use a reproducible testbed (outlet:p036)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f4c8b419ed175aa0ef211635a01166a8271551bac0a18ecd85e7429788a83003",
+        "scored_at": "2026-11-06T15:25:33.906500+00:00"
+      }
+    },
+    {
+      "id": "58fc9a0b8ae1b3286a1e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1028587/amazon-alexa-shopping-ai-text-orders",
+      "key_points": [
+        "Amazon bổ sung tính năng mua sắm qua tin nhắn văn bản với trợ lý Alexa for Shopping, cho phép khách hàng mua các mặt hàng bằng cách nhắn tin trực tiếp với công cụ trí tuệ nhân tạo này (outlet:p015). Danh bạ của trợ lý này sẽ xuất hiện trên điện thoại của người dùng dưới tên hiển thị là Amazon Alexa (outlet:p016). Tính năng này phát triển dựa trên trải nghiệm Alexa for Shopping từng ra mắt vào tháng 5 năm 2026 và hỗ trợ nhiều nhu cầu mua sắm đa dạng từ thực phẩm hàng tuần cho đến gợi ý quà tặng (outlet:p008, outlet:p016).",
+        "The Verge giải thích tính năng mới nhằm cho phép đặt hàng vào thời điểm nhắn tin tiện hơn mở ứng dụng hoặc trang web của Amazon (outlet:p016). Ông Rajiv Mehta, Phó chủ tịch phụ trách mảng Mua sắm đối thoại tại Amazon, cho biết khách hàng thường ghi lại thứ họ cần ngay khi vừa nghĩ ra trong phần ghi chú, tin nhắn cá nhân hoặc các cuộc trò chuyện nhóm (outlet:p020). Theo ông Mehta, sự xuất hiện của Alexa for Shopping giúp người dùng có ngay một tác nhân (agent - trợ lý AI tự chủ thực hiện chuỗi tác vụ) mua sắm cá nhân chỉ qua một tin nhắn để tự động tìm kiếm, so sánh và đặt mua sản phẩm (outlet:p020).",
+        "Về cách thức hoạt động cụ thể, người dùng có thể mô tả sản phẩm bằng lời hoặc gửi ảnh chụp để Alexa tìm kiếm và đặt mua thay cho mình (outlet:p015). Trợ lý AI này sẽ tra cứu các kết quả phù hợp trong danh mục của Amazon, gửi lại tin nhắn chứa các gợi ý và tiến hành đặt hàng theo yêu cầu (outlet:p015). Amazon khẳng định Alexa có thể ghi nhớ sở thích cá nhân theo thời gian, chẳng hạn như lưu ý các lựa chọn đồ ăn thuần chay, đồng thời theo dõi các đợt giảm giá và giá cả để chủ động nhắn tin thông báo khi món đồ người dùng quan tâm được khuyến mãi (outlet:p016).",
+        "The Verge nhận định việc ra mắt tính năng này đưa Amazon gia nhập xu hướng tích hợp tính năng nhắn tin cho chatbot trí tuệ nhân tạo cùng nhiều công ty công nghệ khác (outlet:p021). Chuyên trang này dẫn chứng OpenAI từng giới thiệu tính năng nhắn tin với tác nhân AI Dot, trong khi DoorDash cũng triển khai tiện ích đặt món ăn qua tin nhắn với chatbot Ask DoorDash vào tháng 9 (outlet:p021). Tuy nhiên, khả năng nhắn tin này hiện chỉ mới được triển khai giới hạn cho một nhóm nhỏ khách hàng tại Mỹ nhận được tin nhắn mời dùng từ Amazon (outlet:p017). Theo thông báo từ Amazon, hãng dự kiến sẽ mở rộng quyền tiếp cận tính năng này tới hàng triệu khách hàng khác trong những tuần tiếp theo (outlet:p017)."
+      ],
+      "same_event_coverage_ids": [
+        "744e80a9a390735275c3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon cho phép người dùng nhắn tin đặt hàng trực tiếp với trợ lý ảo Alexa",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1028587/amazon-alexa-shopping-ai-text-orders"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "edf75cdbb37d47212cc505d53aa29fa964c622b709420c5545f20d76a6c75127",
+        "scored_at": "2026-11-06T15:25:33.907223+00:00"
+      }
+    },
+    {
+      "id": "ad0a85dac92715c27cac",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/is-ai-degrading-our-music-taste-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bf3c42bfbf179643e037"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f92727a2e6d1c433e090",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3373550/chinas-ai-models-led-kimi-dominate-open-source-enterprise-spending",
+      "key_points": [
+        "Theo một nghiên cứu mới, các mô hình trí tuệ nhân tạo của Trung Quốc dẫn đầu bởi Kimi chiếm gần chín phần mười chi tiêu mã nguồn mở (mô hình mở công khai trọng số) toàn cầu của các doanh nghiệp (outlet:p010). Dòng mô hình Kimi này do công ty Moonshot AI phát triển và hiện đang dẫn đầu trong nhóm hệ thống trí tuệ nhân tạo mã nguồn mở (outlet:p010).",
+        "Theo báo cáo từ công ty đầu tư mạo hiểm Menlo Ventures tại Thung lũng Silicon, các hệ thống AI Trung Quốc chiếm tám mươi chín phần trăm chi tiêu doanh nghiệp toàn cầu cho mô hình mã nguồn mở, trong đó Kimi chiếm sáu mươi mốt phần trăm thị phần của nhóm này. Xếp sau Kimi lần lượt là công ty DeepSeek với mười lăm phần trăm và dòng mô hình GLM của Z.ai với mười một phần trăm.",
+        "Ở góc độ tổng thể, nghiên cứu chỉ ra rằng các đối thủ độc quyền (mô hình đóng mã nguồn) của Mỹ tiếp tục chiếm phần lớn doanh thu tổng thể trên thị trường trí tuệ nhân tạo (outlet:p010)."
+      ],
+      "same_event_coverage_ids": [
+        "69d0ddedf003bcdb84cc"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình AI Trung Quốc áp đảo chi tiêu doanh nghiệp toàn cầu cho mã nguồn mở",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/tech-trends/article/3373550/chinas-ai-models-led-kimi-dominate-open-source-enterprise-spending"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reported spending share reads as a measured total rather than an estimate.",
+            "fix": "Identify the global enterprise spending figures as estimates from Menlo Ventures (outlet:p010, outlet:p011)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses the comparison with the leading Western model in the category.",
+            "fix": "Add that Meta’s Llama accounted for 7% of open-source enterprise spending (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8b72eb0315b92eff10854bae203bf4a65f553e9a899f4693257ee6f79ad0fe9e",
+        "scored_at": "2026-11-06T15:25:33.907662+00:00"
+      }
+    },
+    {
+      "id": "46d572ffc6754e7a28a9",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-06/strategist-who-warned-before-rout-sees-anthropic-as-bigger-risk",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4ff7c9b5ecb4288d3c54"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a128386b25427955b1c0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/06/underdog-shows-off-a-32mb-speech-model-in-new-demo/",
+      "key_points": [
+        "Công ty khởi nghiệp Underdog vừa ra mắt một trò chơi tích hợp mô hình tạo giọng nói mới mang tên Woof với dung lượng chỉ 32MB. Theo TechCrunch, trong khi các công ty trí tuệ nhân tạo (AI) trên khắp thế giới đang chạy đua tạo ra những mô hình lớn hơn đòi hỏi năng lực xử lý khổng lồ, một số nhà nghiên cứu và doanh nghiệp khởi nghiệp lại phát triển các mô hình nhỏ gọn hơn có thể chạy trực tiếp trên thiết bị biên (thiết bị cá nhân như điện thoại hoặc máy tính). Trò chơi thử nghiệm này được thiết kế theo phong cách công nghệ cổ điển với máy đánh chữ và màn hình CRT, kèm theo lời cảnh báo người dùng về sự can thiệp của các nhà cung cấp dịch vụ đám mây.",
+        "Chia sẻ với TechCrunch về lý do bắt đầu phát triển ứng dụng, người sáng lập Underdog là Sigil Wen cho biết ông muốn tự xây dựng hệ thống với các mô hình AI chạy trên thiết bị của người dùng để họ làm chủ dữ liệu cá nhân thay vì phải sử dụng các công cụ ghi chép như Granola. Nhà sáng lập này khẳng định mục tiêu của công ty là huấn luyện những mô hình mở tốt nhất do Mỹ sản xuất, có năng lực cao và cho phép người dùng sở hữu công nghệ AI riêng tư. Bản thử nghiệm Woof ra mắt vài tuần sau khi Underdog công bố Bark, một mô hình chuyển giọng nói thành văn bản dung lượng 167MB cũng được thiết kế để chạy trên thiết bị biên phục vụ ghi âm và đọc chính tả.",
+        "Về mặt kỹ thuật, mô hình tạo giọng nói Woof có 31 triệu tham số và mở cho mọi người tải về. Trong bản thử nghiệm, người dùng có thể gõ bất kỳ nội dung nào trên máy đánh chữ bằng bàn phím để trò chơi phát âm lại, đồng thời có thể xoay nút điều chỉnh để tạo ra các thể loại âm nhạc khác nhau. Theo tuyên bố từ Underdog, toàn bộ các tính năng này hoạt động bên trong trình duyệt thông qua mô hình tạo giọng nói có khả năng chạy trên hầu hết thiết bị mà không cần bất kỳ kết nối Internet nào.",
+        "TechCrunch nhận định rằng dù một mô hình nhỏ như vậy có khả năng sẽ không thay thế các mô hình lớn hơn, nó có thể vẫn đủ để vận hành trải nghiệm trợ lý cục bộ hoặc tạo các podcast cá nhân hóa. Nhà sáng lập Sigil Wen nhận định rằng người dùng có thể sẽ vận hành được hầu hết các mô hình mạnh mẽ nhất hiện nay trên chính những thiết bị họ đã sở hữu trong vòng vài tháng tới."
+      ],
+      "same_event_coverage_ids": [
+        "8edb20bcec75511c2f84"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Underdog ra mắt trò chơi thử nghiệm mô hình tạo giọng nói Woof 32MB chạy trên trình duyệt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/06/underdog-shows-off-a-32mb-speech-model-in-new-demo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-6-prose",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "phục vụ ghi âm",
+            "explanation": "The source says Bark is designed for transcription and dictation, not audio recording (outlet:p019)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader is told Bark serves audio recording.",
+            "fix": "Describe Bark as serving transcription and dictation, as stated in outlet:p019."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ff09b53a0c812deba1acfd7244a8a9b8d326f8a0ab59d8d3094a9e252f31ac01",
+        "scored_at": "2026-11-06T15:32:46.330029+00:00"
+      }
+    },
+    {
+      "id": "9a6eee5802a8318dc190",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/06/physicl-raises-10m-to-make-the-digital-world-real-enough-for-robots/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b2aa49f54521c4b018c9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "35e10b41705141399f35",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-06/ai-stocks-rebound-as-investors-weigh-whether-selloff-is-over",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6157625ace1e862e2bb5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cdafda2323a927ce87ec",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.phoronix.com/news/OpenAI-948-Linux-LPE-Bugs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aac1a06a4401583062e2"
       ],
       "split_coverage_ids": []
     }
