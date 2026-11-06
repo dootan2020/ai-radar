@@ -30,8 +30,19 @@ def sentence(text, *refs):
 
 
 # Authored for the synthetic article; every number and name is in its paragraphs.
+SHEET = {
+    "what": {"point": "HelioLab giới thiệu CanvasKit", "ref": "outlet:p001", "speaker": "HelioLab",
+             "quote": "HelioLab introduced CanvasKit, an AI simulation framework for a virtual workshop."},
+    # The article explains how CanvasKit works but gives no reason for building it.
+    "why": {"point": "source does not say", "quote": "", "ref": None, "speaker": None},
+    "notable": {"point": "30 khung hình/giây ở 480p trên một GPU", "ref": "outlet:p002", "speaker": "HelioLab",
+                "quote": "the neural renderer runs at 30 frames per second in 480p on one GPU"},
+    "meaning": {"point": "cần thử nghiệm bên ngoài trước khi nói về robot thật", "ref": "outlet:p004",
+                "speaker": "Sydney Von Arx",
+                "quote": "external tests remain necessary before claims about real robots can be made"},
+}
 PROSE = {
-    "id": SID, "status": "ready",
+    "id": SID, "status": "ready", "sheet": SHEET,
     "conditions": [
         {"text": "This result is a simulation measurement, not a real traffic trial.", "ref": "outlet:p003"},
         {"text": "external tests remain necessary before claims about real robots can be made", "ref": "outlet:p004"},
@@ -213,6 +224,8 @@ class WriterDeskTests(unittest.TestCase):
         reply["paragraphs"][3]["sentences"] = [
             sentence("Giới chuyên gia cho biết các trình mô phỏng như CanvasKit ngày càng rẻ hơn khi vận hành.",
                      "outlet:p005")]
+        reply["sheet"]["meaning"] = {"point": "mô phỏng rẻ hơn", "ref": "outlet:p005", "speaker": "Industry experts",
+                                     "quote": "simulators like CanvasKit are getting cheaper to run"}
         self.assertEqual(self.write(reply, text=self.WIDER)[0]["reason"], "paragraph_roles")
         rewrite = {"id": SID, "status": "ready",
                    "conditions": [{"text": "Industry experts said simulators like CanvasKit are getting cheaper to run",
@@ -547,6 +560,17 @@ class WriterDeskTests(unittest.TestCase):
 
 LONG = json.loads((FIXTURES / "summary-articles" / "reference-length-case.json").read_text(encoding="utf-8"))
 LONG_ID = LONG["id"]
+# The reference draft predates the sheet; this is the sheet its paragraphs carry.
+LONG_SHEET = {
+    "what": {"point": "Kestrel Labs ra mắt Hosted Agents", "ref": "outlet:p001", "speaker": "Kestrel Labs",
+             "quote": "launched Hosted Agents on Tuesday, a cloud service that runs its Lumen models as always-on agents"},
+    "why": {"point": "khách hàng dừng ở bản thử", "ref": "outlet:p002", "speaker": "Kestrel Labs",
+            "quote": "Kestrel Labs said it built the service because most business customers stopped at prototypes."},
+    "notable": {"point": "tác tử trong nhóm chat", "ref": "outlet:p004", "speaker": "Kestrel Labs",
+                "quote": "Agents can also be placed in a team chat with employees."},
+    "meaning": {"point": "hạ rào cản cho công ty nhỏ", "ref": "outlet:p007", "speaker": "Zhou Ping",
+                "quote": "hosted agents lower the barrier for small companies that cannot run their own infrastructure"},
+}
 
 
 def units(paragraphs):
@@ -560,6 +584,7 @@ class WriterLengthTests(unittest.TestCase):
         self.tools = load_registry()
 
     def write(self, reply, rewrite=None):
+        reply = {"sheet": deepcopy(LONG_SHEET), **reply}
         intake, reporter, editor, _ = desks()
         intake ={LONG_ID: {**intake[SID], "id": LONG_ID}}
         reporter = {LONG_ID: {**reporter[SID], "id": LONG_ID, "selected_url": LONG["url"]}}

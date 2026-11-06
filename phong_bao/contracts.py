@@ -145,7 +145,7 @@ DESK_CONTRACTS = {
                        "examples, significance; contract summary-vi-6-prose) for recent publishable stories, "
                        "each sentence held to the shared number and name checks",
         "input_fields": ["id", "sources", "missing_primary", "linked_primary", "length"],
-        "model_reply_fields": ["id", "status", "conditions", "title_vi", "paragraphs", "used_source_ids",
+        "model_reply_fields": ["id", "status", "sheet", "conditions", "title_vi", "paragraphs", "used_source_ids",
                                "limitations"],
         "output_fields": [
             "id", "written", "reason", "invalid_response", "key_points", "editorial_headline_vi",
@@ -155,9 +155,9 @@ DESK_CONTRACTS = {
         # Audit record of drafted stories: source paragraphs, editor provider when enabled, and
         # rewrite {roles, result} when the checks removed whole paragraphs and the writer redid them once
         # (the request carries the draft's grounded conditions).
-        # Kept in the cycle folder, never published.
+        # Kept in the cycle folder, never published; evidence_sheet is the sheet the reply carried.
         "optional_output_fields": ["writer_sources", "writer_source_chars", "editor_provider", "editor_boat",
-                                   "rewrite"],
+                                   "rewrite", "evidence_sheet"],
         "skip_conditions": [
             "not publishable with a readable source",
             "published outside the writer window (PHONG_BAO_WRITER_WINDOW_HOURS, default 48)",
@@ -168,6 +168,14 @@ DESK_CONTRACTS = {
             "status is not ready",
             "the title fails radar.summary_validation's number or name check",
             "conditions is not a list (verbatim source spans of at most 25 words, each with its paragraph ID)",
+            "the evidence sheet {what, why, notable, meaning} is missing, or a box's quote is not a verbatim span "
+            "of at most 40 words of its article-body paragraph (never a coverage excerpt), or it names no "
+            "speaker; only why may be empty (the source gives no cause)",
+            "a sentence or the title states a cause, motive or purpose (newsroom.CAUSE_VI) when the sheet's why "
+            "is empty (the source gives no cause): the sentence is dropped, the title rejected",
+            "after the checks, a sheet point is not cited by a kept paragraph of its role (what: development, "
+            "why: cause, notable: examples, or cause when they share a paragraph, meaning: significance): that "
+            "paragraph is rewritten once, then the story falls back to the API",
             "after dropping failing sentences (including a significance sentence that cites no paragraph "
             "holding a listed condition, that is a span found verbatim in that paragraph; naming a speaker "
             "does not replace it) and after one rewrite of the lost paragraphs, which is given the draft's "
