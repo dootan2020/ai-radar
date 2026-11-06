@@ -10,6 +10,7 @@ import struct
 import tempfile
 import time
 import unittest
+from tests.site_gate import close_gate as tearDownModule, open_gate as setUpModule  # noqa: F401
 from unittest.mock import patch
 import zlib
 

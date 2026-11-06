@@ -10,6 +10,7 @@ from unittest.mock import patch
 
 from radar import summarize, summary_gemini as gemini, summary_pipeline
 from radar.newsroom_decisions import DESK_PROMPT_VERSION, apply_decisions, is_desk_summary
+from tests.test_newsroom_decisions import scored
 
 EXAMPLE = json.loads((Path(__file__).parent / "fixtures" / "summary-articles" / "editorial-case.json")
                      .read_text(encoding="utf-8"))
@@ -21,11 +22,18 @@ DESK_POINTS = [
 
 
 def desk_decision(sid, points=DESK_POINTS):
-    return {"id": sid, "decision": "publish", "summary": "written", "written_by": "nguoi-viet",
-            "key_points": list(points), "editorial_headline_vi": "Tiêu đề do phòng báo viết",
-            "summary_sources": [{"id": "outlet", "role": "outlet", "name": "Desk Source",
-                                 "url": "https://desk.example/story"}],
-            "summary_limitations": [], "key_points_prompt_version": DESK_PROMPT_VERSION}
+    """Desk prose the scoring desk passed; only such prose reaches the site."""
+    return scored({"id": sid, "decision": "publish", "summary": "written", "written_by": "nguoi-viet",
+                   "key_points": list(points), "editorial_headline_vi": "Tiêu đề do phòng báo viết",
+                   "summary_sources": [{"id": "outlet", "role": "outlet", "name": "Desk Source",
+                                        "url": "https://desk.example/story"}],
+                   "summary_limitations": [], "key_points_prompt_version": DESK_PROMPT_VERSION})
+
+
+def with_api_story(desk_story):
+    """A site snapshot from before the scoring gate: one desk story and one story the API would summarize."""
+    shown = apply_decisions({"stories": [desk_story]}, {"decisions": [desk_decision("desk")]})["stories"]
+    return {"stories": shown + [api_story()], "generated_at": "2026-10-10T01:00:00Z"}
 
 
 def api_story():
@@ -42,22 +50,21 @@ class DeskSummaryProjectionTests(unittest.TestCase):
                                    desk_decision("thin", DESK_POINTS[:2]),
                                    {**desk_decision("held"), "decision": "hold"}]}
         result = apply_decisions(payload, decisions)
-        desk, plain, thin = result["stories"]
+        # A publish decision without desk prose and thin desk prose are not shown at all.
+        self.assertEqual([story["id"] for story in result["stories"]], ["desk"])
+        desk = result["stories"][0]
         self.assertEqual(desk["key_points"], DESK_POINTS)
         self.assertEqual(desk["key_points_source"], "nguoi-viet")
         self.assertIs(desk["key_points_machine"], True)
         self.assertEqual(desk["editorial_headline_vi"], "Tiêu đề do phòng báo viết")
         self.assertTrue(is_desk_summary(desk))
-        self.assertNotIn("key_points", plain)
-        self.assertNotIn("key_points", thin)
         self.assertNotIn("key_points", payload["stories"][0])
         self.assertEqual(apply_decisions(result, decisions)["stories"][0], desk)
 
     def test_summary_step_skips_desk_stories_and_still_summarizes_the_rest(self):
         desk_story = {"id": "desk", "title": "Desk story", "url": "https://desk.example/story",
                       "published_at": "2026-10-10T00:30:00Z", "summary": "Desk excerpt."}
-        payload = apply_decisions({"stories": [desk_story, api_story()], "generated_at": "2026-10-10T01:00:00Z"},
-                                  {"decisions": [desk_decision("desk")]})
+        payload = with_api_story(desk_story)
         before = deepcopy(payload["stories"][0])
         sent, fetched = [], []
 
@@ -87,13 +94,17 @@ class DeskSummaryProjectionTests(unittest.TestCase):
     def test_summary_cli_sends_no_api_request_without_explicit_opt_in(self):
         desk_story = {"id": "desk", "title": "Desk story", "url": "https://desk.example/story",
                       "published_at": "2026-10-10T00:30:00Z", "summary": "Desk excerpt."}
-        payload = apply_decisions({"stories": [desk_story, api_story()], "generated_at": "2026-10-10T01:00:00Z"},
-                                  {"decisions": [desk_decision("desk")]})
+        payload = with_api_story(desk_story)
         env = {"GEMINI_API_KEY": "offline-sentinel", "RADAR_GEMINI_FREE_TIER_CONFIRMED": "1",
                "RADAR_GEMINI_PAID_ENABLED": "1"}
         with tempfile.TemporaryDirectory() as directory:
             source, cache = Path(directory) / "radar.json", Path(directory) / "summaries.json"
             source.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            choice = Path(directory) / "decisions.json"
+            choice.write_text(json.dumps({"schema_version": 1, "generated_at": "2026-10-10T01:00:00+00:00",
+                                          "decisions": [desk_decision("desk")]}, ensure_ascii=False),
+                              encoding="utf-8")
+            env["RADAR_NEWSROOM_DECISIONS"] = str(choice)
             with patch.dict("os.environ", env, clear=True), \
                     patch("socket.create_connection", side_effect=AssertionError("network forbidden")), \
                     patch.object(gemini, "transport", side_effect=AssertionError("API must not run")), \
@@ -105,18 +116,25 @@ class DeskSummaryProjectionTests(unittest.TestCase):
         lines = stdout.getvalue().splitlines()
         self.assertEqual(len(lines), 1, lines)
         self.assertTrue(lines[0].startswith("Summary skipped: writer desk owns summaries"), lines)
-        desk, plain = written["stories"]
+        # The story the newsroom never scored is no longer published.
+        self.assertEqual([story["id"] for story in written["stories"]], ["desk"])
+        desk = written["stories"][0]
         self.assertEqual(desk["key_points"], DESK_POINTS)
         self.assertEqual(desk["key_points_source"], "nguoi-viet")
-        self.assertNotIn("key_points", plain)
         self.assertEqual(written["summary"]["status"], "skipped")
         self.assertEqual(written["summary"]["requests"], 0)
         self.assertIsNone(written["summary"]["error"])
 
     def test_desk_points_for_an_old_contract_are_cleared_like_api_points(self):
-        story = apply_decisions({"stories": [{"id": "desk", "title": "Desk"}]},
-                                {"decisions": [{**desk_decision("desk"), "key_points_prompt_version": gemini.PROMPT_VERSION}]})
-        story = story["stories"][0]
+        old = {**desk_decision("desk"), "key_points_prompt_version": gemini.PROMPT_VERSION}
+        # The site no longer shows prose of an old contract at all ...
+        self.assertEqual(apply_decisions({"stories": [{"id": "desk", "title": "Desk"}]},
+                                         {"decisions": [old]})["stories"], [])
+        # ... and a snapshot from before the gate that still carries it is cleared like API points.
+        story = {"id": "desk", "title": "Desk", "key_points": list(DESK_POINTS), "key_points_machine": True,
+                 "key_points_source": "nguoi-viet", "key_points_prompt_version": gemini.PROMPT_VERSION,
+                 "editorial_headline_vi": old["editorial_headline_vi"], "summary_sources": old["summary_sources"],
+                 "summary_limitations": []}
         self.assertFalse(is_desk_summary(story))
         payload = {"stories": [story], "generated_at": "2026-10-10T01:00:00Z"}
         summary_pipeline.summarize_payload(payload, {}, config=gemini.Config(), now=lambda: 100000.0)

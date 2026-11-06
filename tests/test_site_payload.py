@@ -10,10 +10,11 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from tests.site_gate import close_gate as tearDownModule, open_gate as setUpModule  # noqa: F401
 from unittest.mock import patch
 
 import build
-from radar import site_payload, translate, translation_pipeline
+from radar import newsroom_decisions, site_payload, translate, translation_pipeline
 from radar.headlines import annotate_headlines, compact_headline
 from test_publication import snapshot
 
@@ -109,7 +110,7 @@ class SitePayloadTests(unittest.TestCase):
         self.assertEqual(result["stories"][0].get("importance_tier"), full["stories"][0].get("importance_tier"))
         self.assertEqual(result["sections"], full["sections"])
 
-    def test_build_without_decisions_file_keeps_existing_publication_behavior(self):
+    def test_build_without_decisions_file_shows_no_story(self):
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory) / "site" / "data" / "radar.json"
             data = reader_fixture()
@@ -125,9 +126,15 @@ class SitePayloadTests(unittest.TestCase):
                     patch.object(build, "prepare_publication", return_value=(data, {"published": True,
                                                                                        "freshness": {}})), \
                     patch.object(build, "promotion_reason", return_value="unchanged"), \
+                    patch.object(site_payload, "apply_decisions", newsroom_decisions.apply_decisions), \
                     redirect_stdout(io.StringIO()):
                 self.assertEqual(build.main(), 0)
-            self.assertEqual(json.loads(target.read_bytes())["stories"], data["stories"])
+            # No newsroom decisions means no scoring desk passed anything: fail closed, never unchecked stories.
+            self.assertTrue(data["stories"])
+            for path in (target, site_payload.page_path(target), site_payload.window_path(target)):
+                self.assertEqual(json.loads(path.read_bytes())["stories"], [], path.name)
+            self.assertEqual(len(json.loads(site_payload.intake_path(target).read_bytes())["stories"]),
+                             len(data["stories"]))
 
     def test_failed_companion_write_invalidates_old_projection(self):
         with tempfile.TemporaryDirectory() as directory:

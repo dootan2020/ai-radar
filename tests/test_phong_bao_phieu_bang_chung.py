@@ -148,7 +148,8 @@ class EvidenceSheetTests(unittest.TestCase):
         self.assertEqual(row["evidence_sheet"], SHEET)
         self.assertEqual(row["sheet_path"], "sheet")
         self.assertNotIn("sheet_error", row)
-        self.assertEqual(len(runner.calls), 1)
+        # One writer call, then the scoring desk reads the prose.
+        self.assertEqual([call[0] for call in runner.calls], ["writer", "scorer"])
         self.assertEqual(runner.calls[0][2], WRITER_PROMPT)
         for phrase in ("sheet: {what, why, notable, meaning}", "source does not say", "article body only"):
             self.assertIn(phrase, WRITER_PROMPT)

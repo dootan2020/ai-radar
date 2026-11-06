@@ -8,6 +8,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from tests.site_gate import close_gate as tearDownModule, open_gate as setUpModule  # noqa: F401
 from unittest.mock import patch
 
 from radar import gemini_paid_budget as budget

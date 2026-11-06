@@ -17,6 +17,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from tests.site_gate import close_gate as tearDownModule, open_gate as setUpModule  # noqa: F401
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]

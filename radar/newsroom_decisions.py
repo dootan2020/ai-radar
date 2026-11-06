@@ -1,16 +1,27 @@
-"""Apply recent local newsroom decisions to the published site snapshot."""
+"""Show readers only the stories whose newsroom prose passed the scoring desk."""
 
 from __future__ import annotations
 
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+import hashlib
 import json
+import math
 import os
 from pathlib import Path
 
 
 DEFAULT_PATH = Path(__file__).resolve().parents[1] / "phong-bao" / "decisions.json"
-DEFAULT_MAX_AGE_HOURS = 12
+# The scoring desk ("bàn chấm") reads each story's Vietnamese headline and paragraphs against the article and
+# answers the captain's four questions (2026-10-27): what happened, why, what is notable, what it means. A story
+# reaches readers only with a weighted score of at least SCORE_THRESHOLD out of 10 and no hard error (a fact,
+# cause, number, name, role or quote the source does not support, or the main event missing). The weights are
+# the ones the captain accepted from the 06/11 review of nine published stories; a source that gives no cause
+# costs nothing. Change SCORE_THRESHOLD to move the bar; the site recomputes every verdict on each build.
+SCORE_THRESHOLD = 8.0
+SCORE_WEIGHTS = {"what": 0.35, "why": 0.20, "notable": 0.30, "meaning": 0.15}
+SCORER_VERSION = "cham-4-cau-1"
+HARD_ERROR_KINDS = ("fact", "cause", "number", "name", "role", "quote", "main_event_missing")
 # Provenance of summaries written by the newsroom's "Người viết" desk. The paid
 # summary step leaves such stories alone; the API only fills the rest. The desk
 # writes 3-4 short paragraphs (contract DESK_PROMPT_VERSION), carried in
@@ -39,10 +50,46 @@ def desk_fields_valid(row):
                 and any(isinstance(s, dict) and _http(s.get("url")) for s in sources))
 
 
+def prose_digest(headline, paragraphs):
+    """Fingerprint of the exact headline and paragraphs a verdict was given for."""
+    text = json.dumps([headline, *paragraphs], ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def weighted_score(answers):
+    """Overall score out of 10 from the four question scores, or None when any is missing or out of range."""
+    if not isinstance(answers, dict) or set(answers) != set(SCORE_WEIGHTS):
+        return None
+    total = 0.0
+    for name, weight in SCORE_WEIGHTS.items():
+        value = answers[name]
+        if (isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value)
+                or not 0 <= value <= 10):
+            return None
+        total += weight * value
+    return round(total, 2)
+
+
+def score_passed(row):
+    """True only for desk prose whose current headline and paragraphs a scorer on another boat passed."""
+    score = row.get("score") if isinstance(row, dict) else None
+    if not isinstance(score, dict) or score.get("version") != SCORER_VERSION:
+        return False
+    value = weighted_score(score.get("answers"))
+    writers, scorer = score.get("writer_boats"), score.get("scorer_boat")
+    return bool(value is not None and value >= SCORE_THRESHOLD and score.get("value") == value
+                and score.get("hard_errors") == []
+                and isinstance(writers, list) and writers and all(isinstance(boat, str) and boat for boat in writers)
+                and isinstance(scorer, str) and scorer and scorer not in writers
+                and isinstance(row.get("key_points"), list)
+                and score.get("prose_sha256") == prose_digest(row.get("editorial_headline_vi"), row["key_points"]))
+
+
 def desk_summary(row):
-    """Return the public summary fields of a desk-written decision, or None."""
+    """Return the public summary fields of a desk-written decision that passed the scoring desk, or None."""
     if (not isinstance(row, dict) or row.get("decision") != "publish"
-            or row.get("written_by") != DESK_SUMMARY_SOURCE or not desk_fields_valid(row)):
+            or row.get("written_by") != DESK_SUMMARY_SOURCE or not desk_fields_valid(row)
+            or not score_passed(row)):
         return None
     fields = {key: deepcopy(row[key]) for key in DESK_SUMMARY_FIELDS}
     fields.update(key_points_machine=True, key_points_source=DESK_SUMMARY_SOURCE)
@@ -55,22 +102,21 @@ def is_desk_summary(story):
                 and desk_fields_valid(story))
 
 
-def load_decisions(path=None, *, now=None, max_age_hours=None):
-    """An absent, malformed, future or stale file means the existing site behavior."""
+def load_decisions(path=None, *, now=None):
+    """The decisions file, or None when it is absent, malformed or dated in the future.
+
+    A file of any age is still read: it can only show stories its scoring desk passed, so an old file never shows
+    an unchecked story, and hiding passed stories when the newsroom misses a cycle would gain no safety.
+    """
     path = Path(path or os.environ.get("RADAR_NEWSROOM_DECISIONS", DEFAULT_PATH))
     try:
-        hours = float(max_age_hours if max_age_hours is not None else
-                      os.environ.get("RADAR_NEWSROOM_MAX_AGE_HOURS", DEFAULT_MAX_AGE_HOURS))
-        if hours <= 0:
-            return None
         data = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(data.get("generated_at"), str):
             return None
         stamp = datetime.fromisoformat(data["generated_at"].replace("Z", "+00:00"))
         current = now or datetime.now(timezone.utc)
         if (stamp.tzinfo is None or data.get("schema_version") != 1 or
-                not isinstance(data.get("decisions"), list) or
-                not timedelta(0) <= current - stamp <= timedelta(hours=hours)):
+                not isinstance(data.get("decisions"), list) or stamp - current > timedelta(minutes=10)):
             return None
         ids = set()
         for row in data["decisions"]:
@@ -84,25 +130,27 @@ def load_decisions(path=None, *, now=None, max_age_hours=None):
 
 
 def apply_decisions(payload, decisions):
-    """Hide held stories, publish desk-written key points, and optionally cap tiers while the desk is fresh."""
-    if decisions is None:
-        return payload
+    """Keep only stories whose desk prose passed the scoring desk, with that prose; optionally cap their tiers.
+
+    Fail closed: a held story, a story the newsroom has not decided, one without desk prose, one whose prose was
+    not scored, scored below SCORE_THRESHOLD or with a hard error, and every story when there are no decisions
+    (None) are all left out of the snapshot and of every section and projection built from it.
+    """
     cap_tiers = os.environ.get("RADAR_NEWSROOM_CAP_TIERS", "").strip().lower() in {"1", "true", "yes", "on"}
     result = deepcopy(payload)
-    reviewed = {row["id"]: row for row in decisions["decisions"]}
+    reviewed = {row["id"]: row for row in decisions["decisions"]} if decisions is not None else {}
     stories = []
     for story in result.get("stories", []):
         row = reviewed.get(story.get("id"))
-        if row is not None and row["decision"] == "hold":
+        written = desk_summary(row)
+        if written is None:
             continue
-        if cap_tiers and row is not None and (row.get("content_kind") == "analysis" or row.get("tier_capped")
-                                or row.get("importance_tier") == "standard"):
+        if cap_tiers and (row.get("content_kind") == "analysis" or row.get("tier_capped")
+                          or row.get("importance_tier") == "standard"):
             story["importance_tier"] = "standard"
             story["importance_weight"] = min(story.get("importance_weight", 0) or 0, 29.99)
             story["importance_reason"] = "newsroom standard tier"
-        written = desk_summary(row)
-        if written is not None:
-            story.update(written)
+        story.update(written)
         stories.append(story)
     result["stories"] = stories
     visible = {story["id"] for story in stories}

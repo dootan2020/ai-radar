@@ -8,6 +8,7 @@ therefore disables the row and withdraws its coverage from reader output.
 import json
 import tempfile
 import unittest
+from tests.site_gate import close_gate as tearDownModule, open_gate as setUpModule  # noqa: F401
 from copy import deepcopy
 from datetime import timedelta
 from pathlib import Path
