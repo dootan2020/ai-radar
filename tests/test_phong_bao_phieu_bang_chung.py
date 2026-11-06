@@ -272,15 +272,17 @@ class EvidenceSheetTests(unittest.TestCase):
             self.assertEqual([d["error"] for d in row["dropped_points"]],
                              [] if why["quote"] else ["cause_not_in_source"])
 
-    def test_a_reason_given_with_amid_is_the_sources_reason(self):
-        reason = "Amid concerns over privacy, Orbit Labs keeps voice recordings on the phone instead of its servers."
-        page = "\n".join(BODY + [reason] + FURNITURE)
+    def test_a_context_word_like_amid_does_not_ground_an_invented_cause(self):
+        # Codex's round-3 review: with "amid" counted as a stated reason, any cause citing this paragraph passed.
+        context = "Amid privacy concerns, Orbit Labs keeps voice recordings on the phone instead of its servers."
+        page = "\n".join(BODY + [context] + FURNITURE)
         reply = deepcopy(REPLY)
         reply["paragraphs"][1]["sentences"].append(sentence(
-            "Orbit Labs lưu bản ghi giọng nói trên điện thoại thay vì máy chủ vì lo ngại quyền riêng tư.", "outlet:p009"))
+            "Orbit Labs lưu bản ghi giọng nói trên điện thoại vì muốn tăng doanh thu.", "outlet:p009"))
         row, _ = self.write(reply, page=page)
-        self.assertEqual((row["sheet_path"], row["dropped_points"]), ("sheet", []))
-        self.assertIn("quyền riêng tư", row["key_points"][1])
+        self.assertEqual(row["sheet_path"], "sheet")
+        self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]], [("cause", "cause_not_in_source")])
+        self.assertNotIn("doanh thu", " ".join(row["key_points"]))
 
     def test_a_title_with_an_invented_motive_falls_back_to_mains_title_check(self):
         reply = deepcopy(REPLY)
@@ -415,11 +417,34 @@ class ArticleBodyTests(unittest.TestCase):
         page = "\n".join([*BODY, "Related", "Orbit Labs launches Lumo", closing, *FURNITURE])
         self.assertEqual(article_body(page), "\n".join([*BODY, "Orbit Labs launches Lumo", closing]))
 
-    def test_a_short_closing_paragraph_after_a_related_articles_heading_stays(self):
-        # Codex's round-2 review: "Related articles" still ended the body there.
-        closing = "Orbit Labs said more languages will follow next month."
-        page = "\n".join([*BODY, "Related articles", closing, *FURNITURE])
-        self.assertEqual(article_body(page), "\n".join([*BODY, closing]))
+    def test_a_real_related_articles_list_is_cut(self):
+        # The last lines of a stored IEEE Spectrum writer input (cycle 20261104T163154Z): the article's closing
+        # paragraphs, then the page's own and outside related-article lists.
+        closing = [
+            "Hopefully, the combination of specialized AI models and formal verification tools will make patching "
+            "vulnerabilities nearly as automatable as finding them.",
+            "One thing’s for sure—PHP2Shell is just the beginning. “This won’t be the last one for sure,” Jana says. "
+            "“It’s just who finds it. Hopefully, the white-hat hackers find it first, like this one.”"]
+        own_site = ["From Your Site Articles", "Your AI Agent Is Now a Target for Email Phishing ›",
+                    "With $1 Cyberattacks on the Rise, Durable Defenses Pay Off ›",
+                    "What Anthropic’s Mythos Means for the Future of Cybersecurity ›"]
+        related = [
+            "Related Articles Around the Web",
+            "The PHP Foundation — The PHP Foundation — Supporting, Advancing, and Developing the PHP Language ›",
+            "cybersecurityinternetartificial intelligence", "Dina Genkina",
+            "Dina Genkina is an associate editor at IEEE Spectrum focused on computing and hardware. She holds a PhD "
+            "in atomic physics and lives in Brooklyn.",
+            "How a Kenyan Startup Is Rethinking AI for Small Businesses", "03 Nov 2026", "5 min read",
+            "Consumer Appetite for Personal AI Goes Mainstream", "29 Oct 2026", "5 min read",
+            "What Would a U.S. Telecommunications Act 2.0 Look Like?", "02 Nov 2026", "5 min read",
+            "Crooks Are Learning to Love AI Hallucinations",
+            "With $1 Cyberattacks on the Rise, Durable Defenses Pay Off",
+            "What Anthropic’s Mythos Means for the Future of Cybersecurity"]
+        body = article_body("\n".join(closing + own_site + related)).splitlines()
+        self.assertEqual(body[:2], closing)
+        self.assertFalse(set(related) & set(body), body)
+        # Story 3's related list stays out too.
+        self.assertFalse(any("10 million" in line for line in article_body(PAGE).splitlines()))
 
     def test_a_sentence_that_opens_with_read_more_is_body(self):
         sentence_line = "Read more about the voice research in the company's paper, which it published in May."
