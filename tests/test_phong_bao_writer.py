@@ -93,6 +93,11 @@ def articles(text="\n".join(EXAMPLE["paragraphs"])):
     return FixtureArticles({"articles": {EXAMPLE["url"]: {"text": text, "reason": None}}})
 
 
+def writer_calls(runner):
+    """Calls to the writer's own desks; the scoring desk's calls follow them."""
+    return [call for call in runner.calls if call[0] not in {"scorer", "rescorer"}]
+
+
 class RecordingRunner(FixtureRunner):
     def __init__(self, replies):
         super().__init__(replies)
@@ -365,7 +370,7 @@ class WriterDeskTests(unittest.TestCase):
         self.assertIn("30 khung hình/giây", row["key_points"][2])
         self.assertEqual([(d["role"], d["error"]) for d in row["dropped_points"]],
                          [("examples", "invented_number: 500")])
-        self.assertEqual([call[0] for call in runner.calls], ["writer", "rewrite-writer"])
+        self.assertEqual([call[0] for call in runner.calls], ["writer", "rewrite-writer", "scorer"])
         _, rows, instruction = runner.calls[1]
         self.assertEqual(instruction, WRITER_REWRITE_PROMPT)
         self.assertTrue(instruction.startswith(WRITER_PROMPT))
@@ -398,7 +403,7 @@ class WriterDeskTests(unittest.TestCase):
         row, _, runner = self.write(reply)
         self.assertTrue(row["written"])
         self.assertNotIn("rewrite", row)
-        self.assertEqual(len(runner.calls), 1)
+        self.assertEqual(len(writer_calls(runner)), 1)
         bad_title = deepcopy(PROSE)
         bad_title["title_vi"]["text"] = "HelioLab gọi vốn 900 triệu USD cho CanvasKit"
         row, _, runner = self.write(bad_title)
@@ -438,7 +443,7 @@ class WriterDeskTests(unittest.TestCase):
         row, _, runner = self.write(reply)
         self.assertTrue(row["written"], row)
         self.assertEqual([d["error"] for d in row["dropped_points"]], ["invented_number: 500"])
-        self.assertEqual(len(runner.calls), 1)
+        self.assertEqual(len(writer_calls(runner)), 1)
 
     def test_paper_frame_validates_with_three_paragraphs(self):
         paper = deepcopy(PROSE)
@@ -478,7 +483,8 @@ class WriterDeskTests(unittest.TestCase):
         with patch("socket.create_connection", side_effect=AssertionError("network forbidden")):
             output, _ = _writer([story()], intake, reporter, editor, articles(), self.tools, discovery,
                                 Recording({"writer": {SID: deepcopy(PROSE)}}), NOW)
-        self.assertEqual(seen, [("writer", "agy")])
+        # The scorer reads the agy draft on the next lane in order, never on agy.
+        self.assertEqual(seen, [("writer", "agy"), ("scorer", "codex")])
         self.assertEqual(output[SID]["provider"], "agy")
 
     def test_prompt_asks_for_conditions_and_a_paper_frame(self):
@@ -757,6 +763,9 @@ class SlowWriterLane(FixtureRunner):
         return self.clock
 
     def run(self, desk, rows, provider, instruction):
+        if desk != "writer":
+            # The scoring desk has no replies here: those stories stay unscored, which these tests do not measure.
+            return super().run(desk, rows, provider, instruction)
         self.sent.extend(row["id"] for row in rows)
         self.clock += self.SECONDS_PER_STORY * len(rows)
         return super().run(desk, rows, provider, instruction)

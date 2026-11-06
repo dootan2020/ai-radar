@@ -127,11 +127,14 @@ class WriterRetryTests(unittest.TestCase):
         lane = Lane({"writer": {"failed": prose("failed")}})
         status = self.next_cycle(LATER, lane)
 
-        # Only the writer runs again: no intake, reporter, editor or checker call.
-        self.assertEqual([desk for desk, _ in lane.calls], ["writer"])
+        # Only the writer runs again, then the scoring desk reads its prose: no intake, reporter, editor or checker
+        # call. The lane has no scorer replies, so the prose stays unscored (and hidden).
+        self.assertEqual({desk for desk, _ in lane.calls}, {"writer", "scorer"})
+        self.assertEqual(lane.calls[0][0], "writer")
         self.assertEqual(lane.sent(), ["failed"])
         self.assertEqual(status["state"], "no_new_stories")
-        self.assertEqual(status["writer_retry"], {"candidates": 1, "sent": 1, "budget_cut": 0, "written": 1})
+        self.assertEqual(status["writer_retry"], {"candidates": 1, "sent": 1, "budget_cut": 0, "written": 1,
+                                                 "score_candidates": 0, "scored": 0, "passed": 0})
         after = self.by_id()["failed"]
         self.assertEqual(after["summary"], "written")
         self.assertEqual(after["written_by"], "nguoi-viet")
@@ -139,7 +142,7 @@ class WriterRetryTests(unittest.TestCase):
         self.assertTrue(after["editorial_headline_vi"])
         # The earlier publication decision is kept as it was; only prose fields are added.
         prose_fields = {"summary", "written_by", "key_points", "editorial_headline_vi", "summary_sources",
-                        "summary_limitations", "key_points_prompt_version"}
+                        "summary_limitations", "key_points_prompt_version", "score"}
         self.assertEqual({key: value for key, value in after.items() if key not in prose_fields},
                          {key: value for key, value in before.items() if key not in prose_fields})
         record = self.cycles / stamp(LATER) / "viet-bu"
@@ -147,10 +150,11 @@ class WriterRetryTests(unittest.TestCase):
                          {"failed": stamp(NOW)})
         self.assertTrue(json.loads((record / "writer.json").read_text(encoding="utf-8"))["failed"]["written"])
 
-        # A written story is never sent again.
+        # A written story is never sent to the writer again; its unscored prose is only scored again.
         again = Lane({"writer": {"failed": prose("failed")}})
         self.next_cycle(LATER + timedelta(hours=4), again)
-        self.assertEqual(again.calls, [])
+        self.assertEqual(again.sent(), [])
+        self.assertEqual({desk for desk, _ in again.calls}, {"rescorer"})
 
     def test_written_held_and_summary_less_stories_are_not_sent_again(self):
         self.stored_cycle(NOW, {"written": (2, 2), "held": (2, 2), "no-summary": (2, 1), "failed": (2, 2)},
@@ -208,7 +212,8 @@ class WriterRetryTests(unittest.TestCase):
         self.assertEqual(status["decided_count"], 1)
         self.assertEqual(order, ["new stories"])
         # One call of three fits the two minutes left; the next would start past the writer budget.
-        self.assertEqual(status["writer_retry"], {"candidates": 6, "sent": 3, "budget_cut": 3, "written": 3})
+        self.assertEqual(status["writer_retry"], {"candidates": 6, "sent": 3, "budget_cut": 3, "written": 3,
+                                                 "score_candidates": 0, "scored": 0, "passed": 0})
         self.assertIn("new-story", self.by_id())
 
         # A retry cut before its call is not an attempt: the next cycle sends the other three.
@@ -232,7 +237,8 @@ class WriterRetryTests(unittest.TestCase):
         with patch.object(cycle_module, "run", side_effect=new_story_run):
             status = self.next_cycle(LATER, lane, new=[new_story])
         self.assertEqual(lane.calls, [])
-        self.assertEqual(status["writer_retry"], {"candidates": 1, "sent": 0, "budget_cut": 1, "written": 0})
+        self.assertEqual(status["writer_retry"], {"candidates": 1, "sent": 0, "budget_cut": 1, "written": 0,
+                                                 "score_candidates": 0, "scored": 0, "passed": 0})
         self.assertEqual(self.by_id()["failed"]["summary"], "claims")
 
     def test_at_most_the_retry_limit_is_sent_per_cycle_newest_first(self):

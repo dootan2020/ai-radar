@@ -1,4 +1,4 @@
-"""Reader publication decisions and exact silent-newsroom fallback."""
+"""Readers see only stories whose newsroom prose the scoring desk passed; everything else fails closed."""
 
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
@@ -8,9 +8,15 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from radar.newsroom_decisions import apply_decisions, load_decisions
+import radar.newsroom_decisions as newsroom_decisions
+from radar.newsroom_decisions import (DESK_PROMPT_VERSION, SCORE_THRESHOLD, SCORER_VERSION, apply_decisions,
+                                      load_decisions, prose_digest, score_passed, weighted_score)
 from radar import site_payload
 from tests.test_publication import snapshot
+
+READER_FILES = ("radar.json", "radar-ui.json", "radar-window.json", "radar-head.json", "radar-search.json")
+PASSING = {"what": 9, "why": 9, "notable": 8, "meaning": 8}  # 8.55
+JUST_UNDER = {"what": 8, "why": 8, "notable": 8, "meaning": 7}  # 7.85
 
 
 def reader_fixture():
@@ -21,96 +27,148 @@ def reader_fixture():
     return data
 
 
-class DecisionProjectionTests(unittest.TestCase):
-    def test_fresh_decisions_hide_holds_but_preserve_tiers_unless_capping_is_enabled(self):
-        payload = reader_fixture()
-        story = payload["stories"][0]
-        story.update(importance_tier="top", importance_weight=90, importance_reason="top story")
-        held = deepcopy(story)
-        held["id"] = "held"
-        payload["stories"] = [story, held]
-        decisions = {"decisions": [
-            {"id": story["id"], "decision": "publish", "content_kind": "analysis",
-             "importance_tier": "standard"},
-            {"id": "held", "decision": "hold"},
-        ]}
+def desk_row(sid, **extra):
+    """A publish decision carrying desk prose, before any verdict."""
+    row = {"id": sid, "decision": "publish", "content_kind": "event_news", "importance_tier": "standard",
+           "summary": "written", "written_by": "nguoi-viet",
+           "key_points": [f"Đoạn {index} của tin {sid}, viết bằng tiếng Việt." for index in range(1, 4)],
+           "editorial_headline_vi": f"Tiêu đề biên tập của tin {sid}",
+           "summary_sources": [{"id": "outlet", "role": "outlet", "name": "Desk Source",
+                                "url": "https://desk.example/story"}],
+           "summary_limitations": [], "key_points_prompt_version": DESK_PROMPT_VERSION}
+    row.update(extra)
+    return row
 
-        with patch.dict("os.environ", {"RADAR_NEWSROOM_CAP_TIERS": ""}):
-            default_result = apply_decisions(payload, decisions)
-        self.assertEqual([row["id"] for row in default_result["stories"]], [story["id"]])
-        self.assertEqual(default_result["stories"][0], story)
 
-        with patch.dict("os.environ", {"RADAR_NEWSROOM_CAP_TIERS": "true"}):
-            capped = apply_decisions(payload, decisions)
-        self.assertEqual(capped["stories"][0]["importance_tier"], "standard")
-        self.assertEqual(capped["stories"][0]["importance_weight"], 29.99)
+def scored(row, answers=PASSING, *, hard_errors=(), writer="agy", scorer="codex"):
+    """The row with a scoring desk verdict on its exact headline and paragraphs."""
+    row = deepcopy(row)
+    row["score"] = {"version": SCORER_VERSION, "value": weighted_score(answers), "answers": dict(answers),
+                    "hard_errors": list(hard_errors), "findings": [], "writer_boats": [writer],
+                    "scorer_boat": scorer, "scorer_provider": scorer,
+                    "prose_sha256": prose_digest(row["editorial_headline_vi"], row["key_points"]),
+                    "scored_at": "2026-11-06T09:00:00+00:00"}
+    return row
 
-    def test_fresh_file_filters_every_reader_projection_and_keeps_vietnamese(self):
-        payload = reader_fixture()
-        original = deepcopy(payload["stories"][0])
-        approved = deepcopy(original)
-        approved["id"] = "approved"
-        approved.update(key_points=["Điểm đã dịch"], key_points_machine=True,
-                        key_points_source="machine", editorial_headline_vi="Tiêu đề biên tập")
-        held = deepcopy(original)
-        held["id"] = "held"
-        unknown = deepcopy(original)
-        unknown["id"] = "unknown"
-        payload["stories"] = [approved, held, unknown]
-        payload["sections"] = {"today": ["approved", "held", "unknown"]}
-        decisions = {"schema_version": 1, "generated_at": datetime.now(timezone.utc).isoformat(),
-                     "decisions": [
-                         {"id": "approved", "decision": "publish", "content_kind": "analysis",
-                          "importance_tier": "standard", "summary": "claims",
-                          "key_points": ["First checked fact.", "Second checked fact."]},
-                         {"id": "held", "decision": "hold"}]}
+
+def payload_with(ids):
+    payload = reader_fixture()
+    template = payload["stories"][0]
+    payload["stories"] = [{**deepcopy(template), "id": sid} for sid in ids]
+    payload["sections"] = {"today": list(ids), "hot": list(reversed(ids))}
+    return payload
+
+
+def decisions_file(directory, rows, *, age=timedelta(0)):
+    path = Path(directory) / "decisions.json"
+    path.write_text(json.dumps({"schema_version": 1,
+                                "generated_at": (datetime.now(timezone.utc) - age).isoformat(),
+                                "decisions": rows}, ensure_ascii=False), encoding="utf-8")
+    return path
+
+
+def reader_ids(target):
+    """Story IDs in every reader file, and every section ID of the files that carry sections."""
+    found = {}
+    for name in READER_FILES:
+        data = json.loads((target.parent / name).read_bytes())
+        found[name] = [story["id"] for story in data["stories"]]
+        for section, ids in (data.get("sections") or {}).items():
+            found[f"{name}:{section}"] = list(ids)
+    return found
+
+
+class ScoringGateTests(unittest.TestCase):
+    def test_only_prose_that_passed_the_scoring_desk_reaches_any_reader_file(self):
+        hard_error = {"kind": "role", "summary_text": "Phó Trợ lý Tổng chưởng lý",
+                      "explanation": "Paragraph p3 says Associate Deputy Attorney General."}
+        edited = scored(desk_row("edited"))
+        edited["key_points"][0] = "Đoạn đã sửa sau khi chấm."
+        rows = [
+            scored(desk_row("passed")),
+            desk_row("unscored", score=None),
+            desk_row("never-scored"),
+            scored(desk_row("below-bar"), JUST_UNDER),
+            scored(desk_row("hard-error"), {"what": 10, "why": 10, "notable": 10, "meaning": 10},
+                   hard_errors=[hard_error]),
+            scored(desk_row("own-boat"), writer="agy", scorer="agy"),
+            edited,
+            {"id": "no-prose", "decision": "publish", "summary": "claims", "key_points": ["Checked claim."]},
+            {**scored(desk_row("held")), "decision": "hold"},
+        ]
+        ids = [row["id"] for row in rows] + ["undecided"]
         with tempfile.TemporaryDirectory() as directory:
-            base = Path(directory)
-            choice = base / "decisions.json"
-            choice.write_bytes(json.dumps(decisions).encode())
-            target = base / "radar.json"
-            with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice),
-                                            "RADAR_NEWSROOM_CAP_TIERS": "true"}):
-                site_payload.write_site_snapshot(payload, target)
-            full = json.loads(target.read_bytes())
-            self.assertEqual([story["id"] for story in full["stories"]], ["approved", "unknown"])
-            story = full["stories"][0]
-            self.assertEqual(story["importance_tier"], "standard")
-            for key in ("summary", "summary_vi", "key_points", "key_points_machine",
-                        "key_points_source", "editorial_headline_vi"):
-                self.assertEqual(story[key], approved[key])
-            self.assertEqual(full["stories"][1], unknown)
-            self.assertEqual(full["sections"]["today"], ["approved", "unknown"])
-            self.assertEqual(len(json.loads(site_payload.intake_path(target).read_bytes())["stories"]), 3)
-            with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice),
-                                            "RADAR_NEWSROOM_CAP_TIERS": "true"}):
-                site_payload.write_site_snapshot(full, target)
-            self.assertEqual(len(json.loads(site_payload.intake_path(target).read_bytes())["stories"]), 3)
-            for path in (site_payload.page_path(target), site_payload.window_path(target),
-                         site_payload.head_path(target), site_payload.search_path(target)):
-                reader = json.loads(path.read_bytes())
-                self.assertEqual([row["id"] for row in reader["stories"]], ["approved", "unknown"])
-
-    def test_missing_and_stale_decisions_write_identical_payload(self):
-        payload = reader_fixture()
-        with tempfile.TemporaryDirectory() as directory:
-            base = Path(directory)
-            choice = base / "decisions.json"
-            fresh = {"schema_version": 1, "generated_at":
-                     (datetime.now(timezone.utc) - timedelta(hours=13)).isoformat(),
-                     "decisions": [{"id": payload["stories"][0]["id"], "decision": "hold"}]}
-            choice.write_bytes(json.dumps(fresh).encode())
-            with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(base / "missing.json")}):
-                site_payload.write_site_snapshot(payload, base / "without" / "radar.json")
+            target = Path(directory) / "data" / "radar.json"
+            choice = decisions_file(directory, rows)
             with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice)}):
-                site_payload.write_site_snapshot(payload, base / "stale" / "radar.json")
-            for filename in ("radar.json", "radar-ui.json", "radar-window.json", "radar-head.json", "radar-search.json"):
-                self.assertEqual((base / "without" / filename).read_bytes(), (base / "stale" / filename).read_bytes())
-            self.assertIsNone(load_decisions(choice))
-            self.assertEqual(load_decisions(choice, max_age_hours=24), fresh)
-            self.assertEqual(apply_decisions(payload, None), payload)
-            choice.write_bytes(b'{"schema_version":1,"generated_at":null,"decisions":[]}')
-            self.assertIsNone(load_decisions(choice))
+                site_payload.write_site_snapshot(payload_with(ids), target)
+            for name, shown in reader_ids(target).items():
+                self.assertTrue(set(shown) <= {"passed"}, (name, shown))
+            for name in READER_FILES:
+                self.assertEqual(reader_ids(target)[name], ["passed"], name)
+            story = json.loads(target.read_bytes())["stories"][0]
+            self.assertEqual(story["key_points"], rows[0]["key_points"])
+            self.assertEqual(story["editorial_headline_vi"], rows[0]["editorial_headline_vi"])
+            self.assertEqual(story["key_points_source"], "nguoi-viet")
+            # The newsroom still reads every story from the intake copy.
+            self.assertEqual(len(json.loads(site_payload.intake_path(target).read_bytes())["stories"]), len(ids))
+
+    def test_the_bar_is_the_named_threshold_and_the_site_recomputes_the_score(self):
+        self.assertEqual(SCORE_THRESHOLD, 8.0)
+        below = scored(desk_row("below"), JUST_UNDER)
+        self.assertFalse(score_passed(below))
+        with patch.object(newsroom_decisions, "SCORE_THRESHOLD", 7.8):
+            self.assertTrue(score_passed(below))
+        # A stored value that disagrees with its four answers is not trusted.
+        inflated = deepcopy(below)
+        inflated["score"]["value"] = 9.0
+        self.assertFalse(score_passed(inflated))
+        self.assertFalse(score_passed({**scored(desk_row("old")), "score": {**scored(desk_row("old"))["score"],
+                                                                              "version": "cham-0"}}))
+
+    def test_missing_malformed_or_future_decisions_hide_every_story(self):
+        ids = ["passed", "other"]
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            choices = {"missing": base / "missing.json", "malformed": base / "malformed.json"}
+            choices["malformed"].write_text('{"schema_version":1,"generated_at":null,"decisions":[]}',
+                                            encoding="utf-8")
+            choices["future"] = decisions_file(base, [scored(desk_row("passed"))], age=-timedelta(hours=2))
+            for name, choice in choices.items():
+                self.assertIsNone(load_decisions(choice), name)
+                target = base / name / "radar.json"
+                with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice)}):
+                    site_payload.write_site_snapshot(payload_with(ids), target)
+                for file, shown in reader_ids(target).items():
+                    self.assertEqual(shown, [], (name, file))
+        self.assertEqual(apply_decisions(payload_with(ids), None)["stories"], [])
+
+    def test_a_stale_file_still_shows_only_what_its_scorer_passed(self):
+        ids = ["passed", "held", "unscored", "undecided"]
+        rows = [scored(desk_row("passed")), {**scored(desk_row("held")), "decision": "hold"},
+                desk_row("unscored", score=None)]
+        with tempfile.TemporaryDirectory() as directory:
+            choice = decisions_file(directory, rows, age=timedelta(hours=30))
+            self.assertIsNotNone(load_decisions(choice))
+            target = Path(directory) / "radar.json"
+            with patch.dict("os.environ", {"RADAR_NEWSROOM_DECISIONS": str(choice)}):
+                site_payload.write_site_snapshot(payload_with(ids), target)
+            for name in READER_FILES:
+                self.assertEqual(reader_ids(target)[name], ["passed"], name)
+
+    def test_tiers_of_passed_stories_are_kept_unless_capping_is_enabled(self):
+        payload = payload_with(["passed"])
+        payload["stories"][0].update(importance_tier="top", importance_weight=90, importance_reason="top story")
+        decisions = {"decisions": [scored(desk_row("passed", content_kind="analysis"))]}
+        with patch.dict("os.environ", {"RADAR_NEWSROOM_CAP_TIERS": ""}):
+            kept = apply_decisions(payload, decisions)["stories"][0]
+        self.assertEqual((kept["importance_tier"], kept["importance_weight"]), ("top", 90))
+        with patch.dict("os.environ", {"RADAR_NEWSROOM_CAP_TIERS": "true"}):
+            capped = apply_decisions(payload, decisions)["stories"][0]
+        self.assertEqual((capped["importance_tier"], capped["importance_weight"]), ("standard", 29.99))
+        # Applying the same decisions to an already filtered snapshot (translation rewrites it) changes nothing.
+        once = apply_decisions(payload, decisions)
+        self.assertEqual(apply_decisions(once, decisions), once)
 
 
 if __name__ == "__main__":

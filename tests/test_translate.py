@@ -11,6 +11,7 @@ import tempfile
 import threading
 import time
 import unittest
+from tests.site_gate import close_gate as tearDownModule, open_gate as setUpModule  # noqa: F401
 from unittest import mock
 
 from radar import translate as tr

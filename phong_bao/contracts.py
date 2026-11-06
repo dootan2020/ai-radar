@@ -156,8 +156,12 @@ DESK_CONTRACTS = {
         # rewrite {roles, result} when the checks removed whole paragraphs and the writer redid them once
         # (the request carries the draft's grounded conditions).
         # Kept in the cycle folder, never published; evidence_sheet is the sheet the reply carried.
+        # A written row also carries the scoring desk's verdict: score (the block the chief copies, None when
+        # unscored), score_state passed/failed/unscored, score_reason, writer_boats (every boat whose words are in
+        # the prose), and score_rewrite when a failed story was rewritten once with the scorer's findings.
         "optional_output_fields": ["writer_sources", "writer_source_chars", "editor_provider", "editor_boat",
-                                   "rewrite", "evidence_sheet", "sheet_path", "sheet_error"],
+                                   "rewrite", "evidence_sheet", "sheet_path", "sheet_error", "score", "score_state",
+                                   "score_reason", "writer_boats", "score_rewrite"],
         "skip_conditions": [
             "not publishable with a readable source",
             "published outside the writer window (PHONG_BAO_WRITER_WINDOW_HOURS, default 48)",
@@ -191,6 +195,30 @@ DESK_CONTRACTS = {
             "lawmakers) that some cited paragraph does not quote",
         ],
     },
+    "scorer": {
+        "desk": "scorer",
+        "description": "Scoring desk ('Bàn chấm'): reads each written story's Vietnamese headline and paragraphs "
+                       "against the source paragraphs the writer used, answers the four reader questions, scores "
+                       "each 0-10 and lists hard errors; runs inside the writer stage on a boat that wrote none "
+                       "of the prose (phong_bao.scoring)",
+        "input_fields": ["id", "sources", "headline_vi", "paragraphs_vi"],
+        "model_reply_fields": ["id", "questions", "hard_errors", "findings"],
+        "output_fields": ["version", "value", "answers", "hard_errors", "findings", "writer_boats", "scorer_boat",
+                          "scorer_provider", "prose_sha256", "scored_at"],
+        "rejectable_reply_conditions": [
+            "model failure, timeout, budget exhausted, no eligible lane or an admission stop (unscored)",
+            "the reply comes from a boat that wrote any of the prose (unscored)",
+            "questions is not exactly what/why/notable/meaning, each with source_answer, summary_answer and a "
+            "score from 0 to 10 (unscored)",
+            "a hard error whose kind is not fact/cause/number/name/role/quote/main_event_missing, or a finding "
+            "without question, problem and fix (unscored)",
+        ],
+        "pass_conditions": [
+            "weighted score (what 35%, why 20%, notable 30%, meaning 15%) at least "
+            "radar.newsroom_decisions.SCORE_THRESHOLD and no hard error, for the exact headline and paragraphs "
+            "shown (prose_sha256)",
+        ],
+    },
     "chief": {
         "desk": "chief",
         "description": "Chief gatekeeper applying fail-closed publication decisions",
@@ -203,7 +231,7 @@ DESK_CONTRACTS = {
         ],
         "optional_output_fields": [
             "written_by", "editorial_headline_vi", "summary_sources", "summary_limitations",
-            "key_points_prompt_version",
+            "key_points_prompt_version", "score",
         ],
         "hold_conditions": [
             "intake rejected (fail-closed)",
@@ -406,6 +434,8 @@ def validate_chief_output(row: dict[str, Any]) -> bool:
     written_by = row.get("written_by")
     if written_by is not None:
         if written_by != WRITER_SOURCE or row["decision"] != "publish" or row["summary"] != "written":
+            return False
+        if row.get("score") is not None and not isinstance(row["score"], dict):
             return False
         return _written_fields_valid(row)
     return True

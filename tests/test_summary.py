@@ -17,6 +17,7 @@ import os
 from pathlib import Path
 import tempfile
 import unittest
+from tests.site_gate import close_gate as tearDownModule, open_gate as setUpModule  # noqa: F401
 from unittest.mock import Mock, patch
 
 from radar import summary_budget, summary_gemini as gemini, summary_pipeline

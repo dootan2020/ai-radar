@@ -143,7 +143,8 @@ class SourceEditorTests(unittest.TestCase):
                                     articles(), self.tools, DISCOVERY, runner, NOW)
         row = output[SID]
         self.assertTrue(row["written"])
-        self.assertEqual([call[0] for call in runner.calls], ["writer"])
+        # No source editor between the writer and the scoring desk.
+        self.assertEqual([call[0] for call in runner.calls], ["writer", "scorer"])
         self.assertNotIn("editor_provider", row)
         self.assertNotIn("editor_boat", row)
         self.assertFalse(any(item.get("desk") == "editor-source" for item in usage))
