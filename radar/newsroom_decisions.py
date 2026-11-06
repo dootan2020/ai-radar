@@ -19,6 +19,10 @@ DEFAULT_PATH = Path(__file__).resolve().parents[1] / "phong-bao" / "decisions.js
 # the ones the captain accepted from the 06/11 review of nine published stories; a source that gives no cause
 # costs nothing. Change SCORE_THRESHOLD to move the bar; the site recomputes every verdict on each build.
 SCORE_THRESHOLD = 8.0
+# Every one of the four answers must also reach QUESTION_FLOOR: a story answers all four questions, so a strong
+# total cannot carry one answered badly (06/11 18:00: a story scored what 10, why 6, notable 10, meaning 9 = 9.05
+# and passed without its cause). One definition, answers_pass, serves the newsroom's verdict and the site.
+QUESTION_FLOOR = 8
 SCORE_WEIGHTS = {"what": 0.35, "why": 0.20, "notable": 0.30, "meaning": 0.15}
 SCORER_VERSION = "cham-4-cau-1"
 HARD_ERROR_KINDS = ("fact", "cause", "number", "name", "role", "quote", "main_event_missing")
@@ -70,6 +74,14 @@ def weighted_score(answers):
     return round(total, 2)
 
 
+def answers_pass(answers, hard_errors):
+    """The bar: no hard error, a weighted score of at least SCORE_THRESHOLD, and every answer at least
+    QUESTION_FLOOR."""
+    value = weighted_score(answers)
+    return bool(value is not None and hard_errors == [] and value >= SCORE_THRESHOLD
+                and min(answers.values()) >= QUESTION_FLOOR)
+
+
 def score_passed(row):
     """True only for desk prose whose current headline and paragraphs a scorer on another boat passed."""
     score = row.get("score") if isinstance(row, dict) else None
@@ -77,8 +89,8 @@ def score_passed(row):
         return False
     value = weighted_score(score.get("answers"))
     writers, scorer = score.get("writer_boats"), score.get("scorer_boat")
-    return bool(value is not None and value >= SCORE_THRESHOLD and score.get("value") == value
-                and score.get("hard_errors") == []
+    return bool(value is not None and score.get("value") == value
+                and answers_pass(score["answers"], score.get("hard_errors"))
                 and isinstance(writers, list) and writers and all(isinstance(boat, str) and boat for boat in writers)
                 and isinstance(scorer, str) and scorer and scorer not in writers
                 and isinstance(row.get("key_points"), list)

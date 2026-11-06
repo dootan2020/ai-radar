@@ -131,6 +131,25 @@ class ScoringDeskTests(unittest.TestCase):
         self.assertEqual(row["score_state"], "passed")
         self.assertEqual(self.shown(decision), [SID])
 
+    def test_one_weak_answer_sends_the_story_to_a_rewrite_with_that_finding(self):
+        # 06/11 18:00 Cainiao: what 10, why 6, notable 10, meaning 9 is 9.05 overall, but the cause was missing.
+        why = {"question": "why", "problem": "The summary never says why Cainiao made the change.",
+               "fix": "State the reason the source gives (outlet:p003)."}
+        row, decision, runner, _ = self.write({
+            "writer": {SID: deepcopy(PROSE)},
+            "scorer": {SID: reply(scores=(10, 6, 10, 9), findings=[why])},
+            "review-writer": {SID: deepcopy(PROSE)},
+            "rescorer": {SID: reply()}})
+        self.assertEqual(row["score_rewrite"]["first_reason"], "score 9.05 but why below 8")
+        review = runner.calls[2][2][0]["review"]
+        self.assertEqual((review["weak_questions"], review["findings"]), (["why"], [why]))
+        self.assertEqual(row["score_state"], "passed")
+        self.assertEqual(self.shown(decision), [SID])
+        # Without a rewrite the story stays hidden.
+        row, decision, _, _ = self.write({"writer": {SID: deepcopy(PROSE)},
+                                          "scorer": {SID: reply(scores=(10, 6, 10, 9), findings=[why])}})
+        self.assertEqual((row["score_state"], self.shown(decision)), ("failed", []))
+
     def test_scorer_failure_timeout_invalid_reply_or_no_fuel_hides_the_story(self):
         timed_out = RunnerError("codex call timed out")
         timed_out.__cause__ = subprocess.TimeoutExpired("codex", 900)
@@ -281,6 +300,31 @@ class ScoringRetryTests(unittest.TestCase):
         self.assertEqual(status["writer_retry"]["written"], 1)
         self.assertEqual(status["writer_retry"]["passed"], 1)
         self.assertTrue(score_passed(self.by_id()["weak"]))
+
+    def test_a_story_passed_on_its_total_alone_is_rewritten_by_the_next_cycle(self):
+        # A verdict stored before the per-question floor: 9.05 overall with why at 6. It no longer passes, so the
+        # next cycle writes the story again with the scorer's "why" finding.
+        self.stored_cycle(NOW, {"cainiao": (2, 2)}, written=("cainiao",))
+        rows = self.by_id()
+        packet = scorer_packet("cainiao", [], rows["cainiao"]["editorial_headline_vi"], rows["cainiao"]["key_points"])
+        stored = verdict(packet, {**reply("cainiao", scores=(10, 6, 10, 9), findings=[FINDING]), "boat": "codex",
+                                  "provider": "codex"}, {"agy"})
+        self.assertEqual(stored["state"], "failed")
+        rows["cainiao"]["score"] = stored["score"]
+        self.write_decisions(list(rows.values()))
+        self.assertFalse(score_passed(self.by_id()["cainiao"]))
+
+        class Instructions(Lane):
+            def run(self, desk, rows, provider, instruction):
+                self.sent_rows = getattr(self, "sent_rows", []) + [(desk, deepcopy(rows))]
+                return super().run(desk, rows, provider, instruction)
+
+        lane = Instructions({"writer": {"cainiao": prose("cainiao")}, "scorer": {"cainiao": reply("cainiao")}})
+        status = self.next_cycle(LATER, lane)
+        desk, sent = lane.sent_rows[0]
+        self.assertEqual((desk, sent[0]["review"]["weak_questions"]), ("writer", ["why"]))
+        self.assertEqual(status["writer_retry"]["passed"], 1)
+        self.assertTrue(score_passed(self.by_id()["cainiao"]))
 
     def test_a_retry_rewrite_on_another_boat_is_never_scored_by_the_failed_drafts_boat(self):
         self.stored_cycle(NOW, {"weak": (2, 2)}, written=("weak",))
