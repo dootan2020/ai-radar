@@ -23,7 +23,7 @@ import { shown, uniqCoverage } from './titles.js';
 import { headlineShown, hasEditorialSummary, sourceDescriptionMark } from './editorial-headline.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote, dateStart, nextDay } from './calendar.js';
 import { WORTH, fallbackWorth, hotEligible } from './worth-score.js';
-import { renderStoryHTML } from './story.js';
+import { renderStoryHTML, mediaBackdrop } from './story.js';
 import { createArenaView } from './arena.js';
 import { cachedSnapshot, normalizeSnapshot } from './snapshot.js';
 
@@ -680,7 +680,8 @@ function mediaHTML(img, size) {
   if (!img.src) return `<div class="media">${coverHTML(img.cover)}</div>`;
   const [w, h] = DIMS[size];
   const aiBadge = img.via === 'ai' ? `<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>` : '';
-  return `<div class="media"><img class="media-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${size === 'lead' ? 'eager' : 'lazy'}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadge}</div>`;
+  const loading = size === 'lead' ? 'eager' : 'lazy';
+  return `<div class="media">${mediaBackdrop(img.src, { loading })}<img class="media-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadge}</div>`;
 }
 
 /* ---------- calendar: the bento home's targets, the same split control ---------- */
@@ -1092,7 +1093,7 @@ function renderHot(list = HOT) {
     <ol class="hot-list">${list.map((st, i) => {
       const img = pickImage(st), t = titleOf(st);
       return `<li><a class="hot-row ${statusClass(st)}" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
-        <span class="thumb" data-id="${esc(st.id)}">${img.src ? `<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
+        <span class="thumb" data-id="${esc(st.id)}">${img.src ? `${mediaBackdrop(img.src)}<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
         <span class="hot-rank num" aria-hidden="true">${i + 1}</span>
         <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span><span class="hot-why">${translationMark(t)}${whyHTML(st)}</span></span></a></li>`;
     }).join('')}</ol></section>`;
@@ -1701,7 +1702,7 @@ function renderModels() {
 function pickRow(st, rank) {
   const img = pickImage(st), t = titleOf(st), pin = PICKS.get(st.id);
   return `<li><a class="hot-row pick-row ${statusClass(st)}" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-worth="${worthOf(st).score.toFixed(1)}">
-    <span class="thumb pick-thumb" data-id="${esc(st.id)}">${img.src ? `<img src="${esc(img.src)}" alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
+    <span class="thumb pick-thumb" data-id="${esc(st.id)}">${img.src ? `${mediaBackdrop(img.src)}<img src="${esc(img.src)}" alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
     <span class="hot-rank num" aria-hidden="true">${rank}</span>
     <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span>
       <span class="hot-why">${translationMark(t)}${pin ? '<span class="tag is-editor">Biên tập chọn</span>' : ''}<span class="sr">Vì sao nên đọc: </span>${whyParts(worthParts(st))}</span>
@@ -2184,7 +2185,7 @@ function freshItem(st) {
   const from = t.cov || covsOf(st)[0] || {};
   const name = covName(from) || hostOf(safe(st.url));
   return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><a class="fresh-item" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-read="${esc(st.id)}">
-    <span class="thumb">${img.src ? `<img src="${esc(img.src)}" alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
+    <span class="thumb">${img.src ? `${mediaBackdrop(img.src)}<img src="${esc(img.src)}" alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
     <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span>
       <span class="hot-why"><span class="why-part">${esc(name)}</span><span class="sr">, </span><span class="why-part">${timeEl(st.published_at)}</span>${translationMark(t)}</span></span></a></li>`;
 }

@@ -603,13 +603,22 @@ dialog.story-dialog::backdrop {
   min-width: 0;
 }
 
-.story-media-img {
-  display: block;
-  width: 100%;
+/* The frame keeps its 16:9 place from the first paint; the picture inside is drawn whole, never cropped, on a
+   blurred copy of itself (.media-backdrop, feed.css), so a square chart or a tall screenshot keeps every edge. */
+.story-media-frame {
+  position: relative;
+  overflow: hidden;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
   border-radius: var(--radius-16);
   background: var(--color-fill);
+}
+
+.story-media-img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* The caption is a quiet line under the picture, not a bar attached to it. */
