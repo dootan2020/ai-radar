@@ -82,7 +82,10 @@ class TopZoneTests(unittest.TestCase):
         source = (EXT / "vung-dau.js").read_text(encoding="utf-8")
         for name in ("Gmail", "YouTube", "Drive", "Maps", "Lịch", "Dịch", "Gemini"):
             self.assertIn(f"['{name}', 'https://", source)
-        self.assertIn('<span class="svc-name">${name}</span>', source)
+        # Row 1 is icons only at every width (captain, 07/11 22:41): no visible label; the name is read from
+        # aria-label and shown as the title tooltip.
+        self.assertIn('class="svc" href="${url}" title="${name}" aria-label="${name}"', source)
+        self.assertNotIn('svc-name', source)
 
     def test_new_tab_loads_the_top_zone_only_on_the_extension(self):
         html = (EXT / "newtab.html").read_text(encoding="utf-8")

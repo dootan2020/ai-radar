@@ -15,28 +15,39 @@
   :root { --nav-h: calc(var(--btn-h) + var(--space-8)); --field-h: calc(var(--btn-h) + var(--space-4)); }
 }
 
-/* ---------- 1. Google row: quick access on the left, every Google app behind the 9 dots on the right ---------- */
+/* ---------- 1. Google row: one quiet cluster of icons with the 9 dots, at the top right ---------- */
+/* Round 5 (captain, 07/11 22:41: "thu gọn mấy cái truy cập nhanh đi, a thấy giao diện nó rối"): the seven labelled chips
+   on the left read as a second menu bar with its own alignment. Now the shortcuts are icons only at every width (named
+   by aria-label and title), 20 px glyphs in 44 px targets with nothing drawn at rest, grouped with the 9 dots at the
+   top right, so the top left is empty and the search is read first. The row is the 44 px targets plus a small top
+   inset; the search row follows without its own margin. Hover draws a tinted disc inset inside the target (smaller
+   than the target, so it never touches the search field below it at 1440). */
 .top { background: var(--color-canvas); padding-bottom: var(--space-12); }
-.g-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-height: var(--btn-h); padding-top: var(--space-8); }
-.services {
-  display: flex; align-items: center; gap: var(--space-4); min-width: 0; margin: 0; padding: 0; list-style: none;
-  overflow-x: auto; scrollbar-width: none;
+.g-row { display: flex; align-items: center; justify-content: flex-end; gap: 0; min-height: var(--btn-h); padding-top: var(--space-6); }
+.services { display: flex; align-items: center; gap: 0; margin: 0; padding: 0; list-style: none; }
+.svc, .g-row .tool-launcher-button {
+  position: relative; isolation: isolate; display: grid; place-items: center; width: var(--btn-h); height: var(--btn-h);
+  border-radius: var(--radius-full); color: var(--color-ink-2); background: transparent;
+  transition: transform var(--duration-150) var(--ease-press);
 }
-.services::-webkit-scrollbar { display: none; }
-.svc {
-  display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--btn-h); min-width: var(--btn-h); padding: 0 var(--space-12) 0 var(--space-8);
-  border-radius: var(--radius-full); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2); white-space: nowrap;
-  transition: background-color var(--duration-150) ease, color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+.svc::before, .g-row .tool-launcher-button::before {
+  content: ""; position: absolute; z-index: -1; inset: var(--space-4); border-radius: var(--radius-full);
+  background: transparent; transition: background-color var(--duration-150) ease;
 }
-.svc:hover { background: var(--color-surface); color: var(--color-ink); box-shadow: 0 0 0 1px var(--color-hair); }
-.svc:active { transform: scale(0.96); }
+.g-row .tool-launcher-button:hover, .g-row .tool-launcher-button[aria-expanded="true"] { background: transparent; }
+@media (hover: hover) and (pointer: fine) {
+  .svc:hover::before, .g-row .tool-launcher-button:hover::before { background: var(--color-fill); }
+  .g-row .tool-launcher-button:hover { color: var(--color-ink); }
+}
+.g-row .tool-launcher-button[aria-expanded="true"]::before { background: var(--color-fill); }
+.svc:active, .g-row .tool-launcher-button:active { transform: scale(0.96); }
 .svc-icon { display: grid; place-items: center; width: 20px; height: 20px; flex: none; }
 .svc-icon img { width: 20px; height: 20px; }
 .svc-letter { display: grid; place-items: center; width: 20px; height: 20px; border-radius: var(--radius-8); background: var(--color-fill); font-size: var(--size-12); font-weight: var(--weight-bold); color: var(--color-ink-2); }
 .g-row .tool-launcher { margin-inline-start: 0; }
 
 /* ---------- 2. Search row: the field, then one quiet line that holds the day ---------- */
-.hero { max-width: calc(var(--top-max) + 2 * var(--page-pad)); margin: var(--space-12) auto 0; }
+.hero { max-width: calc(var(--top-max) + 2 * var(--page-pad)); margin: 0 auto; }
 .web-search { margin: 0; }
 /* Fix 2 (18:26, "dưới thanh tìm kiếm có đổ bóng, khiến cho giao diện có vết cắt"): a border only, no shadow, at rest and
    in focus; focus shows as a stronger border plus the page's focus ring. */
@@ -186,13 +197,10 @@ button.wx-detail:hover { color: var(--color-ink); }
   .newsbar .ed-link .ed-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .newsbar .ed-link { width: var(--btn-h); padding: 0; }
 }
-/* Phone: the services show as icons (each still named for screen readers and on hover); the day line takes two lines,
+/* Phone: the day line takes two lines,
    the numeric date with the lunar date, then the weather; the weather's menu and detail open as a sheet from the
    bottom; the morning edition lives in the bottom navigation, so the bar keeps the sections the room. */
 @media (max-width: 767px) {
-  .services { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--space-24)), transparent); mask-image: linear-gradient(to right, #000 calc(100% - var(--space-24)), transparent); }
-  .svc { justify-content: center; width: var(--btn-h); padding: 0; }
-  .svc-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .web-field { padding-inline-start: var(--space-16); }
   .dayline { flex-wrap: wrap; font-size: var(--text-meta); }
   .dayline .wx-sep { display: none; }
@@ -219,7 +227,12 @@ button.wx-detail:hover { color: var(--color-ink); }
   .wx-now, .wx-city { padding-inline: var(--space-4); }
   .weather { gap: 2px; }
 }
+/* Seven icons and the 9 dots need 352 px; below 384 px (343 px of room at 375) the last shortcut, Gemini, leaves the
+   row: it stays one tap away in the 9-dot panel, and the row stays one aligned cluster with no scrolling or fade. */
+@media (max-width: 383px) {
+  .services li:nth-child(n+7) { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .web-field, .go-btn, .svc, .wx-now, .wx-city, .wx-menu, .wx-menu.open { transition: none; }
-  .go-btn:active, .svc:active { transform: none; }
+  .web-field, .go-btn, .svc, .svc::before, .g-row .tool-launcher-button, .g-row .tool-launcher-button::before, .wx-now, .wx-city, .wx-menu, .wx-menu.open { transition: none; }
+  .go-btn:active, .svc:active, .g-row .tool-launcher-button:active { transform: none; }
 }

@@ -17,7 +17,8 @@ function renderDateline() {
 }
 
 /* Google's own published product icons; a letter holds the place until one loads (offline, blocked). The Calendar
-   icon carries today's date, as Google's own does. Each button names its service (mockup A). */
+   icon carries today's date, as Google's own does. Row 1 is icons only at every width (captain, 07/11 22:41: "thu gọn
+   mấy cái truy cập nhanh đi"): each link is named by aria-label for screen readers and by title on hover. */
 const fav = host => `https://www.google.com/s2/favicons?domain=${host}&sz=64`;
 export const SERVICES = [
   ['Gmail', 'https://mail.google.com/', 'https://ssl.gstatic.com/images/branding/product/2x/gmail_2020q4_48dp.png'],
@@ -31,8 +32,8 @@ export const SERVICES = [
 function renderServices() {
   const day = todayVN().d;
   const list = $('#services');
-  list.innerHTML = SERVICES.map(([name, url, src]) => `<li><a class="svc" href="${url}" title="${name}">
-    <span class="svc-icon" aria-hidden="true"><span class="svc-letter">${name[0]}</span><img src="${typeof src === 'function' ? src(day) : src}" width="20" height="20" alt="" referrerpolicy="no-referrer" hidden></span><span class="svc-name">${name}</span></a></li>`).join('');
+  list.innerHTML = SERVICES.map(([name, url, src]) => `<li><a class="svc" href="${url}" title="${name}" aria-label="${name}">
+    <span class="svc-icon" aria-hidden="true"><span class="svc-letter">${name[0]}</span><img src="${typeof src === 'function' ? src(day) : src}" width="20" height="20" alt="" referrerpolicy="no-referrer" hidden></span></a></li>`).join('');
   list.querySelectorAll('img').forEach(img => {
     img.addEventListener('load', () => { img.hidden = false; img.previousElementSibling.hidden = true; }, { once: true });
   });
