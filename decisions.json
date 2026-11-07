@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-07T03:46:28.646772+00:00",
-  "input_generated_at": "2026-11-07T02:20:23Z",
+  "generated_at": "2026-11-07T07:42:10.185277+00:00",
+  "input_generated_at": "2026-11-07T06:43:11Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -32405,17 +32405,17 @@
       "use_original_title": false,
       "source_url": "https://fedscoop.com/america-gov-integration-login-national-design-studio-cio/",
       "key_points": [
-        "Theo trang FedScoop, dịch vụ đăng nhập một lần (cơ chế dùng một tài khoản duy nhất cho nhiều hệ thống) của chính phủ Mỹ dự kiến sẽ là thành phần then chốt trong kế hoạch liên kết dịch vụ công qua nền tảng America.gov của chính quyền Donald Trump. Trả lời Fed Gov Today, bà Mary Bati, Giám đốc Thông tin tại National Design Studio (cơ quan thiết kế quốc gia), cho biết việc tích hợp với hệ thống xác thực Login.gov là một trong những nhiệm vụ lớn nhất cho giai đoạn hai của chatbot (trợ lý ảo tương tác tự động). Bà Mary Bati giải thích rằng giai đoạn hai sẽ là thời kỳ chính phủ hiện thực hóa các cam kết, trong đó Login.gov được sử dụng làm công cụ xác minh danh tính để cấp quyền tiếp cận các dịch vụ sắp tới trên nền tảng.",
-        "FedScoop đưa tin trang web America.gov do National Design Studio ra mắt là một nỗ lực tạo ra cửa ngõ chung tiếp cận dịch vụ liên bang qua giao diện trợ lý ảo. Mặc dù hiện tại trang web chủ yếu đóng vai trò như tổng đài giải đáp thắc mắc và cung cấp liên kết, kế hoạch của chính phủ là để một số quy trình diễn ra hoàn toàn ngay bên trong nền tảng. Bà Mary Bati cho biết người dùng sẽ vào America.gov, đăng nhập an toàn qua Login.gov để tiếp cận bộ dịch vụ công như bảo hiểm y tế Medicare hoặc an sinh xã hội Social Security.",
-        "Tại lễ ra mắt, Ngoại trưởng Marco Rubio đã phác thảo quy trình nộp hồ sơ xin cấp hộ chiếu trực tuyến sẽ thực hiện hoàn toàn qua America.gov với Login.gov là công cụ xác minh danh tính. Với quy trình này, bà Mary Bati cho biết hệ thống dự kiến vận hành từ tháng 12 năm 2026 và phần lớn người Mỹ có thể nộp đơn trực tuyến vào cuối năm 2027. Bà Mary Bati nhấn mạnh National Design Studio và chatbot không trực tiếp xét duyệt hồ sơ mà chỉ là cửa ngõ điều hướng tới hệ thống xử lý của Bộ Ngoại giao.",
-        "Theo FedScoop, các chuyên gia công nghệ khu vực công lưu ý bài kiểm tra thực sự là việc nền tảng có thể cung cấp dịch vụ dễ dàng hơn một cách an toàn hay không, và ở dạng hiện tại thì chatbot vẫn chưa đạt tới điều đó. Bà Mary Bati thừa nhận giới hạn này khi nhận định rằng dấu hiệu thành công lớn nhất sau cùng sẽ là số giờ tiết kiệm được cho người dân Mỹ tại nhà."
+        "Tích hợp công cụ xác thực Login.gov là trọng tâm giai đoạn hai của chatbot (trợ lý ảo) America.gov, theo Giám đốc Thông tin Mary Bati thuộc National Design Studio. Nền tảng ra mắt ngày 29 tháng 9 và giai đoạn hai là lúc chính phủ thực hiện cam kết rồi tiếp tục hoàn thiện công cụ.",
+        "Hệ thống sẽ dùng Login.gov xác minh danh tính để cấp quyền tiếp cận các dịch vụ công sắp tới, theo bà Bati. Theo quy trình dự kiến ở giai đoạn hai, người dân vào America.gov sẽ đăng nhập qua Login.gov để dùng các dịch vụ như Medicare hoặc Social Security.",
+        "Quy trình nộp hồ sơ hộ chiếu trực tuyến dự kiến bắt đầu từ tháng 12 năm nay và mở rộng cho phần lớn người Mỹ vào cuối năm 2027, theo bà Bati. Bà Bati nhấn mạnh chatbot không xét duyệt hộ chiếu mà chỉ là cửa ngõ điều hướng người dân tới Bộ Ngoại giao.",
+        "Thử thách thực sự là phân phối quyền tiếp cận an toàn theo giới chuyên gia công nghệ khu vực công, khi chatbot chưa đạt yêu cầu và hiện chủ yếu chỉ giải đáp câu hỏi kèm dẫn liên kết. Trước lo ngại trên, bà Bati cho rằng thước đo thành công lớn nhất sau cùng sẽ là số giờ tiết kiệm được cho người dân."
       ],
       "same_event_coverage_ids": [
         "02485af4e87fd78780ba"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "America.gov dự kiến tích hợp Login.gov để mở rộng dịch vụ công trong giai đoạn hai",
+      "editorial_headline_vi": "America.gov dự kiến tích hợp Login.gov để xác minh danh tính cho các dịch vụ giai đoạn hai",
       "summary_sources": [
         {
           "id": "outlet",
@@ -32425,47 +32425,25 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.75,
+        "value": 9.45,
         "answers": {
-          "what": 9,
-          "why": 10,
-          "notable": 8,
-          "meaning": 8
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "hệ thống dự kiến vận hành từ tháng 12 năm 2026",
-            "explanation": "America.gov had already launched on September 29; Bati said the online passport application process would start to come live in December 2026 (outlet:p008, outlet:p015)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "Bà Mary Bati thừa nhận giới hạn này",
-            "explanation": "The article says Bati seemed to acknowledge the criticism; it does not establish that she expressly admitted the limitation (outlet:p023–p024)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "Readers may think America.gov itself starts operating in December.",
-            "fix": "Say the online passport application process is expected to start coming live then; America.gov launched on September 29 (outlet:p008, outlet:p015)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Bati's response is presented as an explicit admission.",
-            "fix": "Attribute the criticism to public-sector technologists and retain the article's cautious description of Bati's response (outlet:p023–p024)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "a79f7375b010a6efeb3e56c5d08f48c9989a6b0c7b447e171c23223d76d2bf5b",
-        "scored_at": "2026-11-06T12:08:45.632002+00:00"
+        "prose_sha256": "574eb88ae90217f9824fe2b6da2ebfa005c5ee48420acdd678342aae0bac5b65",
+        "scored_at": "2026-11-07T07:42:10.163864+00:00"
       }
     },
     {
@@ -32504,10 +32482,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/05/airbnb-says-its-launching-an-ai-travel-agent-in-the-first-half-of-2027/",
       "key_points": [
-        "Theo TechCrunch, nền tảng Airbnb thông báo trong thư gửi cổ đông quý 3 rằng hãng sẽ ra mắt một đại lý trí tuệ nhân tạo (phần mềm tự hành hỗ trợ người dùng) chuyên về du lịch vào nửa đầu năm 2027. Giám đốc điều hành Brian Chesky cho rằng các chatbot (trình tương tác hội thoại tự động) thông thường quá nặng về văn bản và không phù hợp cho việc lên kế hoạch chuyến đi. Thông báo này được đưa ra khi Airbnb ghi nhận doanh thu quý 3 tăng 19% lên 4,87 tỷ USD, vượt kỳ vọng của Phố Wall và đánh dấu mức tăng nhanh nhất trong hơn ba năm qua.",
-        "Giải thích lý do tự xây dựng công cụ riêng, ông Brian Chesky nhận định rằng người dùng sẽ không dùng chung một đại lý trí tuệ nhân tạo duy nhất cho mọi nhu cầu. Theo ông Brian Chesky, các đại lý như Muse và Instinct chỉ làm tốt tác vụ đơn giản như đặt nhà hàng hay xếp lịch hẹn, trong khi 80% du khách thích tự tìm tòi, xem ảnh, so sánh nơi ở và thảo luận cùng người đồng hành. Vì vậy, Airbnb phát triển trải nghiệm gốc bằng trí tuệ nhân tạo với giao diện chuyên biệt cho du lịch để tự động cấu trúc màn hình theo câu hỏi thay vì chỉ phản hồi qua văn bản.",
-        "Lãnh đạo Airbnb mô tả trải nghiệm này tương tự giao diện tự sinh (công nghệ tự tạo giao diện thích ứng theo ngữ cảnh) để mang lại màn hình phù hợp vào đúng thời điểm.",
-        "Thư gửi cổ đông của Airbnb nhấn mạnh đại lý này sẽ hỗ trợ khách suốt chuyến đi từ đổi phòng, thanh toán, hoàn tiền đến an toàn 24 giờ, những việc mà một đại lý bên ngoài khó tự thực hiện. Doanh nghiệp dự kiến theo thời gian sẽ mở rộng phạm vi hỗ trợ sang các dịch vụ và trải nghiệm khác thay vì chỉ dừng lại ở nhà ở và khách sạn."
+        "Theo TechCrunch, Airbnb thông báo sẽ ra mắt đại lý trí tuệ nhân tạo (phần mềm AI tự thực hiện tác vụ) chuyên du lịch vào nửa đầu năm 2027. Doanh thu quý 3 của hãng tăng 19% lên 4,87 tỷ USD, vượt dự báo của Phố Wall.",
+        "Giám đốc điều hành Brian Chesky nhận định các đại lý đa dụng không phù hợp nhất để lên kế hoạch du lịch vì trải nghiệm này cần sự khám phá. Theo ông, trợ lý như Muse và Instinct làm tốt việc thường nhật đơn giản, nhưng 80% du khách thích tự tìm hiểu và so sánh nơi ở cùng bạn bè.",
+        "Theo ông Chesky, đại lý này sẽ kết hợp hàng trăm thành phần trực quan theo thời gian thực thay vì chỉ dùng hội thoại nhiều chữ truyền thống. Hệ thống sẽ tự động hiển thị bản đồ, hình ảnh, lịch và bảng so sánh phù hợp với nhu cầu du lịch như giao diện tự sinh.",
+        "Airbnb khẳng định công cụ sẽ hỗ trợ khách suốt chuyến đi với những việc đại lý bên ngoài khó tự làm, từ đổi đặt chỗ đến hỗ trợ an toàn 24 giờ. Theo thời gian, hãng kỳ vọng mở rộng hỗ trợ sang dịch vụ và trải nghiệm thay vì chỉ giới hạn ở nơi lưu trú."
       ],
       "same_event_coverage_ids": [
         "a41674c14b28928c9ed4",
@@ -32515,7 +32493,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Airbnb dự kiến ra mắt đại lý trí tuệ nhân tạo hỗ trợ du lịch vào nửa đầu năm 2027",
+      "editorial_headline_vi": "Airbnb thông báo sẽ ra mắt đại lý trí tuệ nhân tạo hỗ trợ du lịch vào nửa đầu năm 2027",
       "summary_sources": [
         {
           "id": "outlet",
@@ -32525,43 +32503,33 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.0,
+        "value": 9.6,
         "answers": {
           "what": 10,
           "why": 8,
-          "notable": 9,
-          "meaning": 8
+          "notable": 10,
+          "meaning": 10
         },
         "hard_errors": [
           {
             "kind": "number",
-            "summary_text": "80% du khách thích tự tìm tòi, xem ảnh, so sánh nơi ở và thảo luận cùng người đồng hành",
-            "explanation": "The 80% figure applies to travelers who say they enjoy spending time researching trips. Photos, home comparisons, and group decisions are separate examples in Chesky's remarks (outlet:p013)."
+            "summary_text": "80% du khách thích tự tìm hiểu và so sánh nơi ở cùng bạn bè",
+            "explanation": "The 80% figure applies only to travelers who say they enjoy spending time researching trips. The source separately says people want to compare homes and make decisions with those they travel with; it gives no percentage for those activities (outlet:p013)."
           },
           {
-            "kind": "quote",
-            "summary_text": "đổi phòng",
-            "explanation": "Airbnb said the agent could help change a reservation, which is broader than changing rooms (outlet:p018)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "thanh toán",
-            "explanation": "Airbnb described help resolving a payment issue, not general payment handling (outlet:p018)."
+            "kind": "fact",
+            "summary_text": "cùng bạn bè",
+            "explanation": "The source says people want to make decisions with the people they are traveling with, who are not specified as friends (outlet:p013)."
           }
         ],
         "findings": [
           {
             "question": "why",
-            "problem": "The 80% statistic appears to cover several specific travel-planning activities.",
-            "fix": "Apply 80% only to enjoyment of researching trips, then present photos, comparisons, and shared decisions as separate examples (outlet:p013)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Two support capabilities have changed meaning.",
-            "fix": "Use reservation changes and help resolving payment issues (outlet:p018)."
+            "problem": "The Vietnamese applies the 80% figure to more activities than the source measures and identifies travel companions specifically as friends.",
+            "fix": "Say that 80% enjoy researching trips; separately say travelers want to compare homes and make decisions with the people they travel with (outlet:p013)."
           }
         ],
         "writer_boats": [
@@ -32569,8 +32537,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "44597cdb24ad5505f0ab9152a970fe48337ae221c05eff0f9bc8485f17d1ba96",
-        "scored_at": "2026-11-06T12:08:45.632043+00:00"
+        "prose_sha256": "3daa0eb42cb9694739eb4d12e6d2149e2392129a092113a1fa5b5aec070462a3",
+        "scored_at": "2026-11-07T07:42:10.163920+00:00"
       }
     },
     {
@@ -35720,16 +35688,16 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/06/2026/qai-and-brookfield-back-supersized-uk-data-center",
       "key_points": [
-        "Qatar và Brookfield rót vốn xây dựng trung tâm dữ liệu 1 gigawatt tại miền bắc nước Anh, có thể trở thành cơ sở lớn nhất quốc gia này theo Semafor. Dự án đặt tại Nhà máy điện Drax với kế hoạch đầu tư 3,4 tỷ USD trong 5 năm tới.",
-        "Khoản đầu tư 3,4 tỷ USD này là khoản đầu tư đầu tiên từ liên doanh hạ tầng AI trị giá 20 tỷ USD giữa Qai và Brookfield. Global SWF nhận xét các quỹ vùng Vịnh có chiến lược khác nhau, khi Qai hợp tác Brookfield, MGX dùng vốn ngoài, còn HUMAIN kết hợp đầu tư với vận hành AI.",
-        "Dự án có lợi thế về nguồn điện nhưng vẫn cần phê duyệt từ chính phủ và khách thuê chủ chốt, theo Global SWF. Tổ chức này lưu ý công trình đã có sẵn kết nối điện nhưng vẫn cần được bật đèn xanh trước khi bắt đầu thi công."
+        "Quỹ đầu tư quốc gia Qatar và Brookfield đang ủng hộ đề xuất xây dựng trung tâm dữ liệu 1 gigawatt tại miền bắc nước Anh, có thể trở thành cơ sở lớn nhất nước này. Hai đối tác dự định đầu tư 3,4 tỷ USD trong 5 năm tới.",
+        "Công trình tại Nhà máy điện Drax là khoản đầu tư đầu tiên từ liên doanh hạ tầng AI trị giá 20 tỷ USD giữa Qai và Brookfield. Theo Global SWF, Qai hợp tác với Brookfield phát triển tài sản điện toán, trong khi MGX huy động vốn ngoài còn HUMAIN kết hợp đầu tư với vận hành AI.",
+        "Global SWF lưu ý dự án có lợi thế khi đã có sẵn kết nối điện, nhưng vẫn cần được bật đèn xanh trước khi khởi công. Dự án cũng cần tìm được khách thuê chủ chốt và nhận các phê duyệt từ chính phủ."
       ],
       "same_event_coverage_ids": [
         "4dd6a460522c78034e35"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Quỹ đầu tư Qatar và Brookfield tài trợ dự án trung tâm dữ liệu 1 gigawatt tại Anh",
+      "editorial_headline_vi": "Quỹ đầu tư Qatar và Brookfield ủng hộ đề xuất trung tâm dữ liệu 1 gigawatt tại Anh",
       "summary_sources": [
         {
           "id": "outlet",
@@ -35742,49 +35710,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.0,
+        "value": 10.0,
         "answers": {
-          "what": 6,
+          "what": 10,
           "why": 10,
-          "notable": 9,
-          "meaning": 8
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "rót vốn xây dựng trung tâm dữ liệu",
-            "explanation": "The source says the partners are backing a proposed project and intend to invest; it does not report that construction funding has already been spent or construction has begun (outlet:p001–p002)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Khoản đầu tư 3,4 tỷ USD này là khoản đầu tư đầu tiên",
-            "explanation": "The source calls the Drax buildout the venture’s first investment and says the partners intend to invest $3.4 billion over five years. It does not establish that the full $3.4 billion is already an investment made (outlet:p001)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "cần phê duyệt từ chính phủ và khách thuê chủ chốt",
-            "explanation": "The source says the project needs government approvals and an anchor tenant; it does not say it needs approval from that tenant (outlet:p002)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The reader may believe construction and the $3.4 billion investment are already underway.",
-            "fix": "Describe the site as a proposed project backed by the partners and the $3.4 billion as their intended investment over five years (outlet:p001–p002)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader is told an anchor tenant must approve the project.",
-            "fix": "Say the project still needs to secure an anchor tenant, obtain government approvals, and receive a green light to begin construction (outlet:p002)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "310461030d67a584e17d271bee3d51db5ce5bd7cd721cc963836a2761dceabb6",
-        "scored_at": "2026-11-06T20:11:51.054822+00:00"
+        "prose_sha256": "a1780f3a396bce8538c25039675b438e545c5607fb16eb86f7150bf1b10dcf70",
+        "scored_at": "2026-11-07T07:32:59.948065+00:00"
       }
     },
     {
@@ -35967,16 +35908,16 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/podcast/1028731/2026-midterms-tech-ai-vergecast",
       "key_points": [
-        "Theo nhà báo David Pierce trên The Vergecast, hàng triệu cử tri Mỹ đã bỏ phiếu áp đảo ủng hộ Đảng Dân chủ và phản đối AI trong cuộc bầu cử năm 2026.",
-        "Trong cuộc thảo luận về doanh thu AI, hai người dẫn chương trình hoài nghi ý nghĩa từ tăng trưởng tìm kiếm web bùng nổ của OpenAI khi ngay cả Google cũng chưa tìm ra cách kiếm tiền. Tác giả David Pierce cho biết các doanh nghiệp đang cắt giảm chi tiêu cho AI và phần mềm tự hành (agent - hệ thống AI tự hoạt động) vẫn chưa có dấu hiệu tiếp quản.",
-        "Dù Quốc hội có khả năng nhắm vào các giám đốc công nghệ và quy định AI, hai người dẫn chương trình đặt dấu hỏi liệu có điều gì thực sự được thực thi trong hai năm tới."
+        "Theo nhà báo David Pierce trên The Vergecast, hàng triệu cử tri Mỹ đã bỏ phiếu áp đảo ủng hộ Đảng Dân chủ và phản đối AI trong cuộc bầu cử năm 2026. Tác giả cho rằng cuộc đối đầu với các tập đoàn công nghệ lớn sắp bùng phát trở lại.",
+        "Nhà báo David Pierce nhận định cuộc chiến về các trung tâm dữ liệu đang trở nên khó khăn hơn đối với những bên tìm cách xây dựng chúng. Trong khi đó, các doanh nghiệp đang thu hẹp quy mô và các tác tử (agent - hệ thống AI tự hành) dường như chưa thể tiếp quản.",
+        "Dù Quốc hội có thể nhắm sự chú ý vào các giám đốc công nghệ và quy định AI, người dẫn chương trình đặt câu hỏi liệu có điều gì thực sự được thực thi trong hai năm tới."
       ],
       "same_event_coverage_ids": [
         "419b104749051ed31f47"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cử tri Mỹ bỏ phiếu phản đối AI, Big Tech đối mặt nguy cơ bị siết chặt quy định sau bầu cử 2026",
+      "editorial_headline_vi": "Cử tri Mỹ bỏ phiếu phản đối AI, cuộc chiến xây dựng trung tâm dữ liệu gặp thêm trở ngại",
       "summary_sources": [
         {
           "id": "outlet",
@@ -35989,30 +35930,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.1,
+        "value": 9.4,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
-          "notable": 7,
+          "notable": 9,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "các doanh nghiệp đang cắt giảm chi tiêu cho AI",
-            "explanation": "The source says businesses are scaling back, without specifying that they are cutting AI spending (outlet:p017)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "Readers miss the election’s stated consequence for data center developers.",
-            "fix": "Add that the fight over data centers looks harder for those trying to build them (outlet:p015)."
-          },
-          {
             "question": "meaning",
-            "problem": "Readers are told businesses are cutting AI spending, which the source does not specify.",
-            "fix": "Say only that businesses are scaling back, or omit the claim (outlet:p017)."
+            "problem": "The reader misses the episode’s substantial question about making money from AI.",
+            "fix": "Add that the hosts discuss whether growth in AI search can produce revenue sufficient to sustain the industry (outlet:p017)."
           }
         ],
         "writer_boats": [
@@ -36020,8 +35950,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "49a2912c22a4d0fa3ad0302a65b3b699232525dafd266a15ae644a6e1bc90dac",
-        "scored_at": "2026-11-07T03:44:53.325114+00:00"
+        "prose_sha256": "7a289b07abdf393fbacd9e60b6ce2c0ab44822d607c2c1446f03abf51abd56d3",
+        "scored_at": "2026-11-07T07:32:59.948093+00:00"
       }
     },
     {
@@ -36401,17 +36331,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/06/2026/wall-streets-push-to-trade-ai-compute-hits-washington-roadblock",
       "key_points": [
-        "Theo Semafor, các sàn giao dịch đang chạy đua biến năng lực tính toán GPU (bộ xử lý đồ họa cho AI) thành hàng hóa giao dịch, dù gặp khó do hợp đồng bí mật của các hãng lớn.",
-        "CEO Jeff Sprecher của Intercontinental Exchange cho biết hợp đồng tương lai thường cần thị trường giao ngay, nhưng năng lực tính toán hiện chưa có thị trường này.",
-        "Sức ép từ chính quyền Trump đã buộc sàn Kalshi hủy công cụ theo dõi giá GPU vào tháng 9 theo Semafor, điều mà Sprecher cho là do lo ngại bất lợi trước Trung Quốc.",
-        "Sprecher dự đoán Washington có thể sẽ nghiêng về hướng thị trường tự do để giữ lợi thế, song thừa nhận kết quả vẫn chưa ngã ngũ khi các bên đang nín thở chờ đợi."
+        "Theo Semafor, các sàn giao dịch đang chạy đua biến năng lực tính toán GPU (bộ xử lý đồ họa cho AI) thành hàng hóa giao dịch.",
+        "Các bên mua lớn ký hợp đồng bí mật, khiến dữ liệu giá công khai chắp vá chủ yếu đến từ các neocloud (nhà cung cấp đám mây thế hệ mới). CEO Jeff Sprecher của Intercontinental Exchange cho biết năng lực tính toán chưa thực sự có thị trường giao ngay đã thiết lập.",
+        "Theo ông Sprecher, các bên cho vay xây trung tâm dữ liệu có thể thúc đẩy thị trường bằng cách yêu cầu doanh nghiệp chốt giá GPU trong suốt thời hạn vay.",
+        "Ông Sprecher phỏng đoán chính phủ Mỹ có thể ủng hộ thị trường tự do, song thừa nhận lập trường này vẫn chưa chắc chắn và các bên đang nín thở chờ đợi. Theo Semafor, sức ép từ chính quyền Trump từng buộc sàn Kalshi hủy công cụ theo dõi giá GPU vào tháng 9 vì lo ngại giá minh bạch gây bất lợi trước Trung Quốc."
       ],
       "same_event_coverage_ids": [
         "d537157103b2288b4de0"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Phố Wall muốn biến năng lực tính toán AI thành hàng hóa nhưng vấp phải rào cản Washington",
+      "editorial_headline_vi": "Sàn giao dịch chạy đua biến GPU thành hàng hóa giữa bí mật giá và rào cản từ Washington",
       "summary_sources": [
         {
           "id": "outlet",
@@ -36424,30 +36354,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.0,
+        "value": 8.05,
         "answers": {
-          "what": 10,
-          "why": 8,
-          "notable": 8,
-          "meaning": 10
+          "what": 8,
+          "why": 6,
+          "notable": 9,
+          "meaning": 9
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "năng lực tính toán hiện chưa có thị trường này",
-            "explanation": "Sprecher says compute does not really have an established spot market; the source also describes limited spot offerings from neoclouds (outlet:p002–p003)."
+            "summary_text": "biến GPU thành hàng hóa",
+            "explanation": "The exchange operators aim to make GPU compute tradable, rather than the GPU hardware itself (outlet:p002)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "vì lo ngại giá minh bạch gây bất lợi trước Trung Quốc",
+            "explanation": "The source reports that administration pressure forced Kalshi to scrap a tracker, but the competition concern is Sprecher's interpretation of that pressure, not an established government motive (outlet:p005)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "Readers may understand that no spot trading exists at all.",
-            "fix": "Say compute lacks a well-established spot market, while some limited price offerings exist (outlet:p002–p003)."
+            "question": "what",
+            "problem": "The headline says exchanges want to trade GPUs.",
+            "fix": "Specify GPU computing capacity, the commodity identified in the source (outlet:p002)."
           },
           {
-            "question": "notable",
-            "problem": "The Vietnamese omits a possible route to a GPU futures market.",
-            "fix": "Add Sprecher’s suggestion that data center lenders may require borrowers to lock in GPU prices (outlet:p004)."
+            "question": "why",
+            "problem": "The stated reason for Washington's pressure sounds confirmed.",
+            "fix": "Attribute the concern about transparent pricing and competition with China to Sprecher's interpretation (outlet:p005)."
           }
         ],
         "writer_boats": [
@@ -36455,8 +36390,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ee8cc8fac62973431c8bb026880aae99db42b062345c7ad2ea3c504ff715dada",
-        "scored_at": "2026-11-07T03:40:39.262641+00:00"
+        "prose_sha256": "22483ffbfec6c6f1e99280638b3a7adb323e6d90ad7f81aebd0ba6b5a96ce553",
+        "scored_at": "2026-11-07T07:42:10.163753+00:00"
       }
     },
     {
@@ -36815,17 +36750,17 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/ai-artificial-intelligence/902546/data-centers-ai-energy-power-grids-controversy",
       "key_points": [
-        "Theo The Verge, cử tri Mỹ phần lớn đã bỏ phiếu phản đối việc mở rộng các trung tâm dữ liệu AI (trí tuệ nhân tạo) trong cuộc bầu cử giữa kỳ năm 2026. Đây từng là vấn đề lưỡng đảng lớn trước thềm cuộc bỏ phiếu.",
-        "The Verge cho biết sự phản đối nảy sinh từ các cuộc tranh cãi toàn cầu về tác động của kho máy chủ ngốn điện tới lưới điện, hóa đơn tiện ích, cộng đồng lân cận và môi trường. Nhiều dự án lớn được triển khai với rất ít hoặc không có ý kiến từ cư dân địa phương.",
-        "Điển hình tại bang Utah, cư dân đã phản đối một dự án trung tâm dữ liệu dự kiến tiêu thụ lượng điện gấp hơn hai lần nhu cầu đỉnh điểm toàn bang năm 2025. Sau bầu cử, OpenAI cam kết không dùng thỏa thuận không tiết lộ thông tin (NDA) với quan chức công quyền trừ phạm vi hẹp cho an ninh và bí mật thương mại, tương tự Amazon.",
-        "The Verge nhận định dù OpenAI và Amazon hứa chi trả chi phí năng lượng của trung tâm dữ liệu, giới lãnh đạo Đảng Dân chủ vẫn kêu gọi siết thêm hạn chế mà các hãng AI phải đối mặt."
+        "Theo The Verge, cử tri Mỹ phần lớn đã bỏ phiếu phản đối mở rộng trung tâm dữ liệu AI (trí tuệ nhân tạo) trong bầu cử giữa kỳ năm 2026. Kho máy chủ là nền tảng vật lý cho tham vọng AI của giới công nghệ.",
+        "The Verge cho biết phản đối nảy sinh do lo ngại máy chủ ngốn điện tác động tới lưới điện, hóa đơn tiện ích và môi trường. Tại Utah, cư dân biểu tình phản đối trung tâm dữ liệu dự kiến tiêu thụ điện gấp hơn hai lần nhu cầu đỉnh điểm toàn bang năm 2025.",
+        "OpenAI cam kết không dùng thỏa thuận bảo mật với quan chức công quyền, trừ phạm vi an ninh hợp pháp, bí mật thương mại hoặc thông tin độc quyền và nhạy cảm cạnh tranh. Chính sách này diễn ra sau thông báo riêng hồi tháng 10 của Amazon rằng hãng không còn dùng thỏa thuận bảo mật với các cơ quan chính phủ trong các dự án trung tâm dữ liệu.",
+        "The Verge nhận định các hãng AI phải đối mặt sức ép khi lãnh đạo Đảng Dân chủ kêu gọi siết thêm quy định sau bầu cử. Dù OpenAI và Amazon hứa làm việc với cộng đồng và trả chi phí năng lượng, các hãng vẫn phải giải quyết những đòi hỏi hạn chế này."
       ],
       "same_event_coverage_ids": [
         "fd4dd2bb88a3d5b52407"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cử tri Mỹ phần lớn phản đối mở rộng trung tâm dữ liệu AI, buộc các hãng công nghệ phải nhượng bộ",
+      "editorial_headline_vi": "Cử tri Mỹ phần lớn phản đối trung tâm dữ liệu AI, các hãng công nghệ công bố cam kết mới",
       "summary_sources": [
         {
           "id": "outlet",
@@ -36840,34 +36775,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.65,
+        "value": 9.45,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 9,
           "notable": 10,
-          "meaning": 7
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "buộc các hãng công nghệ phải nhượng bộ",
-            "explanation": "The source reports company commitments and post-election political pressure, but does not say voter opposition forced technology companies to make concessions (outlet:p010, outlet:p037)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The headline presents the companies’ commitments as concessions forced by voters.",
-            "fix": "Say that companies have announced commitments as opposition grows, without asserting they were forced to do so (outlet:p010, outlet:p037)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "fe303ec74ebc2a4a8f2b8f1b7a85955ac97e63c31c13d6fc02d51b89a2937605",
-        "scored_at": "2026-11-07T03:46:28.642559+00:00"
+        "prose_sha256": "4d7c0098b40ab7b44b9f149f8adb2bf86023a22a27af74d62ec3f9635f028c0d",
+        "scored_at": "2026-11-07T07:42:10.163617+00:00"
       }
     },
     {
@@ -36979,17 +36902,17 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/06/hundreds-of-artex-ai-hacking-tools-found-publicly-exposed-to-the-web/",
       "key_points": [
-        "Công ty Censys phát hiện hơn 800 bản triển khai công cụ Artex bị lộ công khai trên web mà không cần mật khẩu đăng nhập. Theo TechCrunch, công cụ kiểm thử xâm nhập tự động (phần mềm tự dò tìm điểm yếu) này có thể tạo điều kiện cho người ngoài phát động tấn công vào các mục tiêu thiếu cảnh giác.",
-        "Chuyên gia Silas Cutler tại Censys cho biết hiện chưa rõ lý do hàng trăm hệ thống Artex bị lộ trên mạng, do phần mềm không đòi hỏi phải có thể truy cập được từ internet. Ông Cutler cũng lưu ý không phải mọi bản triển khai đều mang mục đích xấu và nhiều hệ thống đang phục vụ chuyên gia kiểm thử được ủy quyền.",
-        "Microsoft cho biết tin tặc đã dùng Artex xâm nhập môi trường đám mây của các khách hàng ConnectWise vào tháng 10 năm 2026 để đánh cắp dữ liệu với tốc độ rất nhanh. Trước đó, Artex cũng bị liên kết với vụ tấn công ngành tài chính Hàn Quốc vào tháng 9 năm 2026 do tin tặc để lộ thư mục máy chủ chứa công cụ.",
-        "TechCrunch nhận định những lỗ hổng đơn giản, gồm cả lỗi cấu hình sai, có thể làm lộ cả kẻ tấn công lẫn mục tiêu của họ. Dù Artex đã thông báo chuyển sang mã nguồn đóng cho khách trả phí, hàng chục bản sao mã nguồn vẫn tồn tại trên mạng và có thể tiếp tục bị lợi dụng để tấn công."
+        "Công ty Censys phát hiện hơn 800 bản triển khai công cụ Artex bị lộ trên web mà không cần mật khẩu đăng nhập. Theo TechCrunch, công cụ kiểm thử xâm nhập tự động (phần mềm tự dò tìm điểm yếu) này có thể tạo điều kiện cho người ngoài phát động tấn công.",
+        "Chuyên gia Silas Cutler tại Censys cho biết hiện chưa rõ lý do hệ thống Artex bị lộ trên mạng, khi phần mềm không đòi hỏi truy cập internet. Ông Cutler lưu ý không phải mọi bản triển khai đều vì mục đích xấu và nhiều hệ thống phục vụ chuyên gia kiểm thử được ủy quyền.",
+        "CrowdStrike quy kết vụ tấn công ngành tài chính Hàn Quốc vào tháng 9 năm 2026 cho tin tặc dùng Artex, một phần vì người này để lộ thư mục máy chủ chứa hệ thống. Microsoft cho biết tin tặc cũng dùng Artex xâm nhập môi trường đám mây của khách hàng ConnectWise vào tháng 10 năm 2026 để lấy cắp dữ liệu.",
+        "TechCrunch nhận định các lỗ hổng đơn giản, gồm lỗi cấu hình sai, có thể làm lộ cả kẻ tấn công lẫn mục tiêu. Dù Artex thông báo chuyển sang mã nguồn đóng, hàng chục bản sao mã nguồn vẫn còn trên mạng và có thể tiếp tục bị lợi dụng để tấn công."
       ],
       "same_event_coverage_ids": [
         "3599beda2e8afda03c7c"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hơn 800 bản triển khai công cụ tấn công mạng Artex bị phát hiện lộ công khai trên internet",
+      "editorial_headline_vi": "Hơn 800 bản triển khai công cụ Artex dùng AI bị phát hiện lộ công khai trên internet",
       "summary_sources": [
         {
           "id": "outlet",
@@ -37002,34 +36925,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.5,
+        "value": 9.85,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 5,
-          "meaning": 10
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "do tin tặc để lộ thư mục máy chủ chứa công cụ",
-            "explanation": "The attacker’s open directory was part of the evidence used to attribute the South Korean attacks; the source does not say it caused those attacks (outlet:p015)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "Readers may believe the exposed directory caused the Korean attacks.",
-            "fix": "Say that CrowdStrike partly linked the attacks to the hacker because the hacker had left an open directory hosting Artex (outlet:p015)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "2a1866709325d3cfcd5ac5c87b5d88068d59527e42e5f7a6fc7979b394adcd4f",
-        "scored_at": "2026-11-07T03:46:28.642620+00:00"
+        "prose_sha256": "ebd74d0dcbd37e8ecaa47484025e8fba4e9c8859788a8ee4d86b6328d14b04f2",
+        "scored_at": "2026-11-07T07:32:59.948019+00:00"
       }
     },
     {
@@ -37362,10 +37273,10 @@
       "use_original_title": false,
       "source_url": "https://www.anthropic.com/research/components-of-agent-memory",
       "key_points": [
-        "Anthropic nhận thấy cơ chế 'mơ' (dreaming, xử lý trong thời gian nghỉ) giúp tác tử (agent, phần mềm AI tự chủ) Claude tổ chức bộ nhớ hiệu quả. Cơ chế này giúp mô hình sửa lỗi, ghi chép và xây dựng kho tri thức wiki phục vụ các phiên làm việc sau.",
-        "Theo Anthropic, mô hình tận dụng thời gian nghỉ giữa các lần tương tác để tổ chức lại ngữ cảnh theo đề xuất tính toán trong thời gian nghỉ (sleep-time compute) của các nhà nghiên cứu tại Letta và UC Berkeley.",
-        "Khi kết hợp công cụ tìm kiếm với wiki, điểm số tổng hợp (aggregate score) của Claude tăng từ 54% lên 61%, so với 53% khi chỉ tìm kiếm. Dù vậy, khi chỉ dùng wiki thì điểm đạt tối đa 48%, và wiki không mang lại lợi ích rõ rệt nếu tác vụ chỉ cần một tài liệu.",
-        "Anthropic chỉ ra rằng ghi chép tức thời làm phân tán sự chú ý, còn cơ chế mơ đưa việc tạo bộ nhớ ra nền nhưng kết quả chưa thể truy cập ngay. Ngoài ra, quá trình mơ tiêu tốn năng lực tính toán và việc liên tục kiểm tra lại toàn bộ bộ nhớ là không thực tế."
+        "Anthropic nhận thấy cơ chế 'mơ' (dreaming, xử lý trong thời gian nghỉ) giúp tác tử (agent, phần mềm AI tự chủ) Claude xây dựng bộ nhớ hiệu quả. Mô hình có thể dùng cơ chế này để sửa lỗi, tạo ghi chú hoặc xây dựng các biểu diễn bộ nhớ mới cho tương lai.",
+        "Theo Anthropic, kỹ thuật này áp dụng đề xuất của các nhà nghiên cứu tại Letta và UC Berkeley về việc dùng thời gian nghỉ giữa các lần tương tác để tổ chức lại ngữ cảnh.",
+        "Khi thử nghiệm với 25 câu hỏi từ tài liệu nội bộ Stainless, điểm số tổng hợp (aggregate score) của Claude tăng từ 54% lên 61% khi wiki dần phát triển và dùng kèm công cụ tìm kiếm. Kết quả này vượt mức 53% khi chỉ tìm kiếm, còn nếu chỉ dùng wiki thì mô hình đạt tối đa 48%.",
+        "Dù vậy, trong một tác vụ LAB nơi phần lớn tiêu chí có thể đáp ứng từ một tài liệu đơn lẻ, wiki không mang lại lợi ích rõ rệt. Anthropic lưu ý thêm rằng kết quả từ cơ chế mơ có thể không truy cập được ngay, và việc liên tục kiểm tra lại toàn bộ bộ nhớ có thể không thực tế."
       ],
       "same_event_coverage_ids": [
         "60c47d7113a04ea3bdc9",
@@ -37373,7 +37284,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic thử nghiệm cơ chế 'mơ' giúp tác tử Claude tự tổ chức bộ nhớ và cải thiện hiệu năng xử lý tài liệu",
+      "editorial_headline_vi": "Anthropic thử nghiệm cơ chế 'mơ' giúp tác tử Claude tự tổ chức bộ nhớ qua kho tri thức wiki",
       "summary_sources": [
         {
           "id": "outlet",
@@ -37388,54 +37299,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 9.8,
         "answers": {
           "what": 10,
           "why": 9,
-          "notable": 9,
-          "meaning": 6
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "wiki không mang lại lợi ích rõ rệt nếu tác vụ chỉ cần một tài liệu",
-            "explanation": "The source reports one LAB task where the wiki showed no clear gain and most criteria could be met from a single document; it does not establish this as a rule for all such tasks (outlet:p057)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "kết quả chưa thể truy cập ngay",
-            "explanation": "The source says outputs from dreaming may not be immediately accessible, rather than saying they cannot be accessed immediately (outlet:p078)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "việc liên tục kiểm tra lại toàn bộ bộ nhớ là không thực tế",
-            "explanation": "The source says continuously checking all memories might not be practical, rather than stating definitively that it is impractical (outlet:p079)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The wiki result reads as a general rule about tasks needing one document.",
-            "fix": "Limit the claim to the LAB task evaluated, where most criteria could be met from one document and the wiki showed no clear gain (outlet:p057)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The memory access and checking limitations are stated with more certainty than the source supports.",
-            "fix": "Keep the source’s qualifiers: dreaming outputs may not be immediately accessible, and checking every memory might not be practical (outlet:p078, outlet:p079)."
-          },
-          {
-            "question": "notable",
-            "problem": "The score increase lacks the condition under which it occurred.",
-            "fix": "Say the search-plus-wiki score rose from 54% to 61% as the wiki grew (outlet:p053)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ad8f493a8eaece2a121fae23ca36d26ae771c47c67cc97b0d50d747578286359",
-        "scored_at": "2026-11-06T23:40:03.750435+00:00"
+        "prose_sha256": "809ac89b338e5984de1ae7e9c903bcde10f5d7f69987731bb72c9d5be717a065",
+        "scored_at": "2026-11-07T07:32:59.948202+00:00"
       }
     },
     {
@@ -37457,17 +37336,17 @@
       "use_original_title": false,
       "source_url": "https://www.anthropic.com/research/teaching-ai-to-build-scientific-models",
       "key_points": [
-        "Theo tác giả bài viết trên Anthropic, hệ thống trí tuệ nhân tạo (AI) có thể hỗ trợ hoặc đảm nhận việc thiết kế mô hình khoa học. Nhiều hệ thống dùng mô hình ngôn ngữ lớn để thiết kế mô hình đã xuất hiện trong hai năm qua.",
-        "Tác nhân (phần mềm tự hành) dựa trên mô hình ngôn ngữ lớn nhận dữ liệu cùng mô tả hệ thống rồi lập trình các mô hình ứng viên. Hệ thống sau đó chạy thử, giới hạn tham số, đối chiếu với dữ liệu thực tế và sửa phương trình đến khi khớp chuẩn xác.",
-        "Mô hình Hodgkin-Huxley nâng một biến số lên lũy thừa bốn từ trực giác sinh học khi các bản đơn giản hơn không khớp dữ liệu. Sau hơn 70 năm, mô hình này vẫn là mô tả chuẩn mực cho hoạt động điện nơ-ron (tế bào thần kinh) trên khắp giới động vật.",
-        "Theo tác giả bài viết trên Anthropic, nhiều bộ tham số khác nhau có thể giải thích dữ liệu quan sát tốt như nhau, khi các tổ hợp tham số cổng khác biệt vẫn tạo ra hoạt động điện gần như giống hệt. Do dữ liệu luôn tương thích với nhiều mô hình, giới nghiên cứu phải xem xét phạm vi các giải thích hợp lý thay vì chỉ tìm một mô hình duy nhất đúng."
+        "Theo tác giả bài viết trên Anthropic, hệ thống trí tuệ nhân tạo (AI) có thể hỗ trợ hoặc đảm nhận thiết kế mô hình khoa học. Nhiều hệ thống dùng mô hình ngôn ngữ lớn (LLM) để thiết kế mô hình đã xuất hiện trong hai năm qua.",
+        "Tác giả giải thích rằng tái tạo dữ liệu bằng một mô hình là chưa đủ để hiểu hệ thống vì nhiều mô hình khác có thể làm tương tự. Mặt khác, tác giả nhận định diễn giải mô hình là bước khó giao cho AI nhất do con người đo được độ khớp dữ liệu nhưng khó đặt mục tiêu thấu hiểu cho hệ thống.",
+        "Điển hình là việc nâng biến số lên lũy thừa bốn trong mô hình Hodgkin-Huxley xuất phát từ trực giác sinh học khi bản đơn giản không khớp dữ liệu tốt bằng. Dù vậy, nhiều tổ hợp tham số cổng khác biệt vẫn có thể tạo ra hoạt động điện nơ-ron (tế bào thần kinh) gần như giống hệt nhau.",
+        "Theo tác giả bài viết trên Anthropic, ở các quy mô này không thể tìm một mô hình đúng duy nhất và phần lớn trường hợp không có điều đó do dữ liệu luôn tương thích nhiều mô hình. Vấn đề khoa học chuyển sang xác định những đặc tính mà mọi mô hình tương thích chia sẻ cùng các dự đoán rút ra từ chúng."
       ],
       "same_event_coverage_ids": [
         "d800f34177d198d2451b"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic: Trí tuệ nhân tạo có thể thiết kế mô hình khoa học nhưng chưa thể mang lại sự thấu hiểu",
+      "editorial_headline_vi": "Anthropic: AI có thể thiết kế mô hình khoa học nhưng diễn giải là bước khó bàn giao nhất",
       "summary_sources": [
         {
           "id": "outlet",
@@ -37482,39 +37361,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.65,
+        "value": 10.0,
         "answers": {
-          "what": 8,
-          "why": 7,
-          "notable": 9,
-          "meaning": 5
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "chưa thể mang lại sự thấu hiểu",
-            "explanation": "The source says interpretation is the hardest step to hand over to AI, not that AI cannot help produce understanding. It explicitly discusses judging AI by whether its outputs help human scientists understand a problem (outlet:p040)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The headline turns a difficult, unresolved task into a claim that AI cannot bring understanding.",
-            "fix": "Say that interpreting models remains the hardest step to hand over to AI, and that fitting data alone is insufficient for understanding (outlet:p008, outlet:p040)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The ending leaves the article's proposed scientific test vague.",
-            "fix": "Explain that researchers should look for properties shared by models compatible with the data and predictions derived from them (outlet:p045)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "9a96ca4cd885f56e7dda11f995a30786b0a3ad4eaf3e889663f6d3883b809b32",
-        "scored_at": "2026-11-07T03:46:28.642675+00:00"
+        "prose_sha256": "a2d869c3ed47bbd99fb3bb4fa88cac3fec3255d6a72a4e74505a770bbe4d7aba",
+        "scored_at": "2026-11-07T07:42:10.163811+00:00"
       }
     },
     {
@@ -37611,17 +37473,17 @@
       "use_original_title": false,
       "source_url": "https://pandaily.com/nearlink-alliance-embodied-ai-short-range-connectivity-blue-book",
       "key_points": [
-        "Liên minh SparkLink Quốc tế vừa phát hành sách xanh về yêu cầu kết nối tầm ngắn cho AI hiện thân (trí tuệ nhân tạo tương tác với thế giới vật lý). Báo cáo do hơn 30 thành viên nòng cốt đóng góp, bao gồm Viện nghiên cứu China Mobile, Huawei, ZTE và TD Tech.",
-        "Theo Liên minh SparkLink, công trình định hướng hợp tác phát triển công nghệ trong toàn ngành bằng cách tập hợp các yêu cầu kỹ thuật thực tế và đề xuất kiến trúc mạng toàn stack.",
-        "Tài liệu tổ chức các yêu cầu theo ba kịch bản gồm kết nối nội bộ robot, phối hợp nhiều thiết bị và điều phối thiết bị với đám mây. Pandaily lưu ý đây là phân loại ứng dụng của tài liệu chứ không phải tuyên bố mọi sản phẩm NearLink hiện có đều đã hỗ trợ kiến trúc này.",
-        "Pandaily nhận định đây là tài liệu phát triển hệ sinh thái chứ không phải đợt ra mắt robot hay hợp đồng thương mại. Báo cáo cũng chưa đưa ra thời gian biểu triển khai hay số liệu độ tin cậy thực địa được kiểm chứng độc lập."
+        "Liên minh SparkLink Quốc tế công bố sách xanh về yêu cầu kết nối tầm ngắn cho AI hiện thân (trí tuệ nhân tạo tương tác với thế giới vật lý). Hơn 30 thành viên nòng cốt tham gia soạn thảo, gồm Viện nghiên cứu China Mobile, Huawei, ZTE và TD Tech.",
+        "Tài liệu đặt tầng truyền thông ngang hàng với cảm biến và tài nguyên tính toán thay vì chỉ coi liên kết không dây là kết nối bên ngoài.",
+        "Sách xanh tổ chức yêu cầu theo ba kịch bản gồm liên kết nội bộ robot, phối hợp nhiều thiết bị, và điều phối giữa thiết bị, hệ thống biên cùng đám mây. Pandaily lưu ý đây là phân loại của tài liệu chứ không phải tuyên bố mọi sản phẩm NearLink đều đã hỗ trợ kiến trúc này.",
+        "Pandaily nhận định ấn phẩm là tài liệu phát triển hệ sinh thái chứ không phải đợt ra mắt robot hay hợp đồng thương mại. Trang tin này nhấn mạnh thông báo không đưa ra thời gian biểu triển khai và thiếu số liệu độ tin cậy thực địa được kiểm chứng độc lập."
       ],
       "same_event_coverage_ids": [
         "3aad8d9545729650e91d"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Liên minh SparkLink công bố sách xanh về yêu cầu kết nối tầm ngắn cho AI hiện thân",
+      "editorial_headline_vi": "Liên minh SparkLink công bố sách xanh kết nối AI hiện thân nhưng thông báo chưa nêu thời gian biểu",
       "summary_sources": [
         {
           "id": "outlet",
@@ -37634,19 +37496,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.95,
+        "value": 9.4,
         "answers": {
           "what": 10,
-          "why": 10,
-          "notable": 7,
-          "meaning": 9
+          "why": 7,
+          "notable": 10,
+          "meaning": 10
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The third scenario sounds like coordination between devices and the cloud alone.",
-            "fix": "Include edge systems in device-edge-cloud coordination (outlet:p003–p004)."
+            "question": "why",
+            "problem": "The purpose of the blue book remains implicit.",
+            "fix": "State that the alliance intends the requirements and proposed architecture to guide joint industry development (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -37654,8 +37516,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "020c88b2913a82227f6e155370d34a9c319dce9ffa2566bd8640e417eea26fc7",
-        "scored_at": "2026-11-07T03:19:54.084232+00:00"
+        "prose_sha256": "5a83453d4a2e5a5a661f5563c12b2400cc9cc26790f1bc6888ee73f98a9262de",
+        "scored_at": "2026-11-07T07:42:10.163420+00:00"
       }
     },
     {
@@ -38097,17 +37959,17 @@
       "use_original_title": false,
       "source_url": "https://theainewsreport.com/2026-11-06-hn-agentic-setups-counted.html",
       "key_points": [
-        "The AI News Report thống kê công cụ của 424 lập trình viên từ 663 bình luận Ask HN và đúc kết thành bảy mô hình có thể áp dụng lại. Chủ đề do tài khoản eggbrain đăng ngày 4 tháng 11 năm 2026, ghi nhận Claude Code dẫn đầu với 180 người dùng và Codex đạt 103 người.",
-        "Tác giả bài viết giải thích việc chạy nhiều agent cùng lúc giúp tránh thời gian chờ đợi vì mỗi agent thường xử lý trong vài phút. Theo thống kê, 105 người trong thảo luận đã vận hành các agent song song.",
-        "Thống kê ghi nhận 156 người dùng từ hai coding agent (chương trình AI tự động lập trình) trở lên và 120 người kết hợp sản phẩm Claude lẫn OpenAI. Các thiết lập chi tiết áp dụng thói quen chạy agent trên từng git worktree riêng, dùng người phản biện độc lập cho mỗi thay đổi và cô lập agent trong máy ảo.",
-        "Tác giả bài viết cho biết ngay cả những người dùng nhiều cũng coi trọng nhất việc xác định rõ tiêu chí hoàn thành và kiểm tra sản phẩm trước khi giao. Các con số chỉ mang tính xấp xỉ do tác giả không trực tiếp chạy thử thiết lập, và kết quả này không đại diện cho mọi lập trình viên."
+        "The AI News Report thống kê công cụ từ 663 bình luận Ask HN của 424 lập trình viên và đúc kết 7 mô hình thiết lập. Ghi nhận ngày 6 tháng 11 năm 2026 cho thấy Claude Code dẫn đầu với 180 người dùng, tiếp theo là Codex với 103 người.",
+        "Tác giả bài viết giải thích việc chạy song song nhiều agent (chương trình AI tự động lập trình) giúp tránh chờ đợi vì mỗi agent xử lý mất vài phút. Bài viết ghi nhận 105 người chạy song song, trong đó bình luận nổi bật từ thefourthchime khuyên nên duy trì ít nhất 5 tác vụ đồng thời.",
+        "Các thiết lập chi tiết áp dụng khâu phản biện thứ hai cho mỗi thay đổi, như trường hợp enesalatas dùng Codex rà soát từng pull request (yêu cầu gộp mã) qua hook của Claude Code. Ngoài ra, người dùng thefunnyman chỉ cho agent tự chạy trong vi máy ảo Docker Sandbox sau khi đã hoàn thiện kế hoạch ở bên ngoài.",
+        "Tác giả bài viết khuyến nghị chỉ tắt hỏi quyền khi cô lập agent trong máy ảo hoặc container không chứa khóa SSH, API và bị giới hạn mạng. The AI News Report lưu ý số liệu chỉ mô tả người tự chọn trả lời trong chủ đề Ask HN chứ không đại diện cho mọi lập trình viên, đồng thời các thiết lập đều do người dùng tự khai và chưa được kiểm chứng."
       ],
       "same_event_coverage_ids": [
         "61ca82c8c807a2609a32"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Khảo sát Ask HN hé lộ bảy mô hình lập trình AI và thói quen kết hợp nhiều agent",
+      "editorial_headline_vi": "Chủ đề Ask HN hé lộ 7 mô hình thiết lập agent lập trình cùng thói quen chạy song song",
       "summary_sources": [
         {
           "id": "outlet",
@@ -38122,40 +37984,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.75,
+        "value": 7.5,
         "answers": {
-          "what": 9,
-          "why": 8,
+          "what": 6,
+          "why": 9,
           "notable": 7,
-          "meaning": 6
+          "meaning": 10
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "dùng người phản biện độc lập cho mỗi thay đổi",
-            "explanation": "The source calls for a fresh second reviewer but does not say that reviewer is a person (outlet:p009). Its concrete example has Codex review each PR (outlet:p030)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "Các con số chỉ mang tính xấp xỉ do tác giả không trực tiếp chạy thử thiết lập",
-            "explanation": "The counts are approximate because a check of ten comments found one passing mention of Claude incorrectly counted as use (outlet:p078). Not testing commenters’ setups is a separate limitation (outlet:p023, outlet:p081)."
+            "kind": "number",
+            "summary_text": "663 bình luận Ask HN của 424 lập trình viên",
+            "explanation": "The 663 comments came from 530 different people; 424 of those people named at least one AI tool (outlet:p013, outlet:p006)."
           }
         ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The reader gets the wrong reason the counts are approximate.",
-            "fix": "Explain that a spot check found one tool-use miscount, and state separately that the setups were self-described and untested (outlet:p078, outlet:p081)."
-          },
-          {
-            "question": "notable",
-            "problem": "The reader may think each change needs a human reviewer.",
-            "fix": "Say a fresh second reviewer checks each change; Codex reviewing PRs is one example (outlet:p009, outlet:p030)."
-          },
-          {
-            "question": "notable",
-            "problem": "The isolation advice loses its safety condition.",
-            "fix": "Specify that a VM or container surrounds an agent allowed to run without asking, and that such an environment should contain no keys (outlet:p009, outlet:p051)."
+            "question": "what",
+            "problem": "Readers are told that only 424 people produced the 663 comments.",
+            "fix": "Say that 530 people commented and 424 of them named at least one AI tool (outlet:p013, outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -38163,9 +38010,125 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "cc587b43a15029b3f694d97afd079a1420764807e6c805baf5786003b29b74f3",
-        "scored_at": "2026-11-07T03:24:36.766895+00:00"
+        "prose_sha256": "5e509419c63279cb61df82af31d95283bded0f41457979137a8940912a1765ae",
+        "scored_at": "2026-11-07T07:42:10.163690+00:00"
       }
+    },
+    {
+      "id": "116e8e8c624bca2f4389",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN self-promotional pitch and demo for a reverse-speaking tool without independent news reporting or a substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://backwords.greg.technology/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cf8d5b7e5472ba33b648"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bd95b63d46d959afe703",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.kadoa.com/companies/insights/ai-selloff-perspective",
+      "key_points": [
+        "Bài phân tích ghi nhận đợt bán tháo AI chỉ là mức điều chỉnh nhẹ với chỉ số S&P 500 khi thấp hơn 6% so với mức đỉnh kỷ lục ngày 6 tháng 10 năm 2026. Dữ liệu lịch sử từ năm 1928 cho thấy bốn trong năm đợt sụt giảm 6% của chỉ số S&P 500 chưa từng chạm ngưỡng giảm 20%.",
+        "Nhóm cổ phiếu chip Mỹ sụt giảm 36% ngang mức sụt giảm thời Covid theo chỉ số bán dẫn PHLX (chỉ số theo dõi ngành chip Mỹ), tính từ mức đỉnh ngày 22 tháng 6 năm 2026. Bài phân tích đánh giá đợt thoái trào này là sự sụp đổ đối với cổ phiếu chip, trong khi chỉ số công nghệ Nasdaq cũng giảm 11% kể từ ngày 6 tháng 10 năm 2026.",
+        "Tác giả bài viết lưu ý ngành công nghệ hiện chiếm khoảng một phần ba chỉ số S&P 500, cao hơn nhiều so với năm 1929 hay 1973 và làm đợt bán tháo công nghệ tác động mạnh hơn tới chỉ số này. Bài viết cũng chỉ rõ các thống kê lịch sử về thời gian phục hồi chỉ tính theo giá mà không gộp cổ tức tái đầu tư, phản ánh kịch bản xấu nhất cho người mua đúng đỉnh."
+      ],
+      "same_event_coverage_ids": [
+        "1225f0f3a664035d502a",
+        "ba126d8ddda8c783b6e1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đợt bán tháo cổ phiếu AI chỉ điều chỉnh nhẹ với S&P 500 nhưng là sự sụp đổ với nhóm cổ phiếu chip",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.kadoa.com/companies/insights/ai-selloff-perspective"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "eb00d8d58672f1db8ac1f27536a2ff3bf2cd08495e6cc61c7781eae187ed6bf6",
+        "scored_at": "2026-11-07T07:14:19.721585+00:00"
+      }
+    },
+    {
+      "id": "b990e5485919266f32d8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/04/tencent-launches-hy4-with-vision-and-computer-use-capabilities/",
+      "key_points": [
+        "Tencent launched Hy4 on November 4, adding visual understanding and computer-use capabilities to its flagship AI model.",
+        "Hy4 can interpret charts and documents, reason across multiple images, and operate command-line tools and graphical interfaces.",
+        "The 770-billion-parameter model is available across Tencent products and third-party platforms including OpenRouter, with weights and a system card planned for release shortly.",
+        "Standard API pricing remains unchanged from the preview at $0.834 per million input tokens and $2.501 per million output tokens, with a 50% discount on Tencent Cloud TokenHub through December 31.",
+        "Tencent integrated Hy4 into WorkBuddy and CodeBuddy with a limited free usage quota from November 4 to November 15, and also plans to release a lower-cost Hy4 flash model."
+      ],
+      "same_event_coverage_ids": [
+        "39c813e3562b5e4e6560",
+        "6e2c201ef5fa68c55feb",
+        "7bfca6387e0f8d6fe224",
+        "acc29c91f619fe67a346",
+        "d349ba70c33af7c56021",
+        "e0380d66fddcdf00e27a"
+      ],
+      "split_coverage_ids": [
+        "2fe5f3d2c97ee2d6a853",
+        "38f4eca9cc278b02f130",
+        "7c9f7e0c8ce43114eccc",
+        "95e623d00456964edfd6"
+      ]
     }
   ]
 }
