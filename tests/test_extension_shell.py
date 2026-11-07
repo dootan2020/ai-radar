@@ -29,7 +29,7 @@ class ExtensionShellTests(unittest.TestCase):
         manifest = json.loads((EXT / 'manifest.json').read_text(encoding='utf-8'))
         self.assertEqual(manifest['manifest_version'], 3)
         self.assertEqual(manifest['chrome_url_overrides'], {'newtab': 'newtab.html'})
-        self.assertEqual(set(manifest['permissions']), {'storage', 'alarms', 'search'})
+        self.assertEqual(set(manifest['permissions']), {'storage', 'alarms'})
         self.assertEqual(manifest['host_permissions'], [LIVE + '*'])
         self.assertEqual(manifest['background']['service_worker'], 'background.js')
         self.assertIn('tìm kiếm', manifest['description'].lower())

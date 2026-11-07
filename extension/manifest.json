@@ -3,7 +3,7 @@
   "name": "Halcyon",
   "version": "0.1.0",
   "description": "Halcyon — Những mẩu tin AI ngắn gọn trên tab mới, kèm tìm kiếm web và bản tin đã lưu gần nhất.",
-  "permissions": ["storage", "alarms", "search"],
+  "permissions": ["storage", "alarms"],
   "host_permissions": ["https://radar-ai-vn.pages.dev/*"],
   "chrome_url_overrides": {"newtab": "newtab.html"},
   "background": {"service_worker": "background.js", "type": "module"},

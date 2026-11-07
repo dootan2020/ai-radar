@@ -203,7 +203,6 @@
       <ul>
         <li><strong><code>storage</code>:</strong> Dùng để lưu trữ bộ nhớ đệm tin tức AI và tùy chọn giao diện cục bộ trên máy bạn.</li>
         <li><strong><code>alarms</code>:</strong> Dùng để đặt lịch ngầm mỗi 30 phút đánh thức tiến trình nền làm mới bản tin tin tức, tránh chạy nền liên tục ngốn pin và RAM.</li>
-        <li><strong><code>search</code>:</strong> Quyền này vẫn được khai báo trong tệp manifest nhưng tab mới không còn dùng nó: ô tìm kiếm mở thẳng trang kết quả của Google như một liên kết thông thường, không cần quyền nào và không có chuyển hướng ẩn.</li>
         <li><strong>Quyền máy chủ (<code>https://radar-ai-vn.pages.dev/*</code>):</strong> Chỉ dùng để tải về dữ liệu tin tức công khai dạng JSON và hình ảnh minh họa bài viết từ máy chủ tĩnh chính thức của Halcyon.</li>
       </ul>
 
@@ -280,7 +279,6 @@
       <ul>
         <li><strong><code>storage</code>:</strong> Stores the cached news snapshot and theme preferences locally in <code>chrome.storage.local</code>.</li>
         <li><strong><code>alarms</code>:</strong> Schedules a 30-minute background alarm to refresh the news feed without running a persistent background process, conserving memory and battery.</li>
-        <li><strong><code>search</code>:</strong> Still declared in the manifest, but the new tab no longer uses it: the search field opens Google's results page directly, like an ordinary link, which needs no permission and involves no hidden redirect.</li>
         <li><strong>Host Permission (<code>https://radar-ai-vn.pages.dev/*</code>):</strong> Exclusively fetches static JSON news feeds and story illustration images from Halcyon's official Cloudflare Pages hosting.</li>
       </ul>
 

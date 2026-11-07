@@ -1,6 +1,6 @@
 # Halcyon new tab
 
-Open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select this `extension/` directory. Open a new tab to see the Halcyon homepage and the **Tìm trên web** field. The field uses Chrome's configured default search engine.
+Open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select this `extension/` directory. Open a new tab to see the Halcyon homepage with the Google services row, the **Tìm trên Google** field (it opens Google's results page directly and needs no `search` permission) and the calendar card with the lunar date, the zodiac animals and the weather (Open-Meteo, city chosen by the reader).
 
 The background worker saves `data/radar-window.json` in `chrome.storage.local` on install, startup, and every 30 minutes. It restores the refresh alarm when the worker starts if Chrome dropped it. The page draws the saved snapshot first. When online, it loads `data/radar-ui.json`, Arena rankings, feed images, and editor picks from the live site. Feed images and editor picks fall back to their packaged copies when unavailable; saved stories remain readable offline. On a first install without a saved snapshot, the homepage's empty state appears until the first worker refresh completes. Reader preferences are stored under the extension origin and start empty.
 

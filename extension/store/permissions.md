@@ -20,15 +20,7 @@ The "alarms" permission is required to schedule a periodic background task every
 
 ---
 
-### 3. `search`
-```
-The "search" permission is required to execute user-initiated web searches from the new tab search form using the Chrome Search API (chrome.search.query). This guarantees searches strictly utilize the user's configured default search engine in Chrome, without hijacking, modifying, or redirecting queries.
-```
-*(Tiếng Việt: Quyền "search" dùng để thực hiện truy vấn tìm kiếm từ ô tìm kiếm trên tab mới qua API chrome.search.query. Thao tác này đảm bảo tìm kiếm hoàn toàn thông qua công cụ mặc định do người dùng tự cài đặt trong Chrome, không can thiệp, không chuyển hướng và không thay đổi kết quả).*
-
----
-
-### 4. Host Permission: `https://radar-ai-vn.pages.dev/*`
+### 3. Host Permission: `https://radar-ai-vn.pages.dev/*`
 ```
 This host permission is required to fetch static JSON data feeds (radar-window.json, radar-ui.json, arena.json, editor-picks.json) and load news illustration images from the official Halcyon static site hosted on Cloudflare Pages. As with any web request, the service receives ordinary browser request data such as the IP address. Halcyon does not attach personal data or browsing telemetry.
 ```

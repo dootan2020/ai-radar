@@ -101,7 +101,7 @@ class TopZoneTests(unittest.TestCase):
     def test_manifest_gains_no_permission_or_host(self):
         manifest = json.loads((EXT / "manifest.json").read_text(encoding="utf-8"))
         # The same permissions as before the top zone: Open-Meteo answers with CORS and needs no host entry.
-        self.assertEqual(manifest.get("permissions", []), ["storage", "alarms", "search"])
+        self.assertEqual(manifest.get("permissions", []), ["storage", "alarms"])
         self.assertEqual(manifest.get("host_permissions", []), ["https://radar-ai-vn.pages.dev/*"])
         self.assertNotIn("optional_permissions", manifest)
 
