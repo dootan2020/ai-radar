@@ -8,5 +8,8 @@ boat = "codex"
 runner = "batch-cli"
 argv = ["codex", "exec", "--model", "gpt-6-sol", "--json", "-"]
 prompt_transport = "stdin"
+# Every newsroom codex call runs in the owner's real ~/.codex, so two calls at once could both refresh the login
+# in auth.json with the same rotating refresh token. One call at a time; the scorer's calls take about a minute.
+max_concurrent_calls = 1
 [detect]
 command = "codex"

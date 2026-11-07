@@ -71,7 +71,7 @@ Nếu captain bật Antigravity trên máy, mở phần AI Credit Overages và c
 
 ## 6. Lên lịch và phục hồi sau mất điện
 
-Với tác vụ `HalcyonNewsroomCycle`, `PHONG_BAO_WRITER_WINDOW_HOURS` mặc định là `48`: bàn viết chỉ viết tin mới trong số giờ này; đặt `0` để tắt bàn viết. `PHONG_BAO_SOURCE_EDITOR` mặc định tắt; đặt `1` trong môi trường của tiến trình chạy task để thêm một lượt biên tập đối chiếu nguồn sau bản nháp. Để thử đúng một cycle thủ công khi task đang nghỉ, chạy trong PowerShell từ thư mục repo rồi xóa biến khỏi phiên đó:
+Với tác vụ `HalcyonNewsroomCycle`, `PHONG_BAO_WRITER_WINDOW_HOURS` mặc định là `48`: bàn viết chỉ viết tin mới trong số giờ này; đặt `0` để tắt bàn viết. `PHONG_BAO_SOURCE_EDITOR` mặc định tắt; đặt `1` trong môi trường của tiến trình chạy task để thêm một lượt biên tập đối chiếu nguồn sau bản nháp. `PHONG_BAO_DESK_CONCURRENCY` mặc định là `3`: mỗi bàn chạy tối đa ba lượt gọi model cùng lúc (kết quả, tệp raw và sự kiện vẫn ghi theo đúng thứ tự lô); đặt `1` để chạy lần lượt như trước. Lane codex luôn chạy từng lượt một (`max_concurrent_calls = 1` trong `phong-bao/cong-cu/codex.toml`) vì mọi lượt gọi dùng chung `~/.codex`. Để thử đúng một cycle thủ công khi task đang nghỉ, chạy trong PowerShell từ thư mục repo rồi xóa biến khỏi phiên đó:
 
 ```powershell
 $env:PHONG_BAO_SOURCE_EDITOR = '1'

@@ -28,6 +28,9 @@ def load_registry(directory=DEFAULT_REGISTRY):
         if not isinstance(desk_priority, dict) or not all(
                 isinstance(desk, str) and isinstance(value, int) for desk, value in desk_priority.items()):
             raise ValueError(f"invalid desk priority: {path.name}")
+        calls = tool.get("max_concurrent_calls")
+        if calls is not None and (not isinstance(calls, int) or isinstance(calls, bool) or calls < 1):
+            raise ValueError(f"invalid max_concurrent_calls: {path.name}")
         if tool["kind"] == "paid-api" and not tool["monthly_cap_usd"]:
             raise ValueError(f"paid API requires a spending cap: {path.name}")
         if tool["kind"] != "paid-api" and tool["monthly_cap_usd"]:
