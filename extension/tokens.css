@@ -105,6 +105,12 @@
   --show-logo-light: block;                          /* header wordmark: the kit's primary variant on light surfaces */
   --show-logo-dark: none;
   --color-accent-wash: color-mix(in srgb, var(--brand-signature) 10%, transparent);
+  /* The front page (07/11, mockup "Trang nhất"): small coloured text is Plum on light (coral stays a fill), a stronger
+     hairline for hover and focus, the search highlight, and a rise in a ranking. */
+  --color-link: var(--brand-secondary);
+  --color-hair-strong: var(--gray-80);
+  --color-mark: var(--coral-wash);
+  --color-up: var(--cyan-text);
   --color-live: var(--coral-breaking);               /* breaking news: #B4234D text on #FFE4EA (captain) */
   --color-live-wash: var(--coral-wash);
   --color-live-fill: var(--coral-breaking);          /* a breaking badge laid on a picture, white text 6.39 */
@@ -201,6 +207,10 @@
   --show-logo-light: none;                         /* the kit's dark variant: coral letters, Surface beak */
   --show-logo-dark: block;
   --color-accent-wash: color-mix(in srgb, var(--brand-signature) 16%, transparent);
+  --color-link: var(--coral-light);
+  --color-hair-strong: oklch(0.48 0.035 262);
+  --color-mark: color-mix(in srgb, var(--brand-signature) 30%, transparent);
+  --color-up: var(--brand-tech);
   --color-live: var(--coral-light);
   --color-live-wash: color-mix(in srgb, var(--brand-signature) 18%, transparent);
   --color-live-fill: var(--coral-breaking);
@@ -242,6 +252,10 @@
     --show-logo-light: none;                       /* the kit's dark variant: coral letters, Surface beak */
     --show-logo-dark: block;
     --color-accent-wash: color-mix(in srgb, var(--brand-signature) 16%, transparent);
+  --color-link: var(--coral-light);
+  --color-hair-strong: oklch(0.48 0.035 262);
+  --color-mark: color-mix(in srgb, var(--brand-signature) 30%, transparent);
+  --color-up: var(--brand-tech);
     --color-live: var(--coral-light);
     --color-live-wash: color-mix(in srgb, var(--brand-signature) 18%, transparent);
     --color-live-fill: var(--coral-breaking);

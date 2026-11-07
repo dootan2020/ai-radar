@@ -170,7 +170,8 @@ click({target: {closest: selector => selector === '[data-arena-retry]' ? {} : nu
 await new Promise(r => setImmediate(r));
 assert.ok(root.innerHTML.includes('08/10/2026'));
 const html = await readFile(new URL('../site/index.html', import.meta.url), 'utf8');
-assert.match(html, /data-filter="code"[^>]*>Mã và mô hình<\/button>\s*<button[^>]*data-filter="rankings"[^>]*>Xếp hạng<\/button>/);
+// Sections carry a name and a story count since the "Trang nhất" layout (07/11); Xếp hạng still follows Mã và mô hình.
+assert.match(html, /data-filter="code"[^>]*><span class="chip-label">Mã và mô hình<\/span>[^\n]*<\/button>\s*<button[^>]*data-filter="rankings"[^>]*><span class="chip-label">Xếp hạng<\/span><\/button>/);
 console.log('PASS Arena categories, dates, movement, escaping, errors, retry and selection');
 
 if (process.argv.includes('--source-rows')) {

@@ -244,18 +244,30 @@ export function arenaHTML(data, category = 'overall') {
     <p class="arena-note" id="arena-note">Điểm cao hơn thể hiện được ưa thích hơn trong các lượt so sánh của Arena. Chênh lệch nhỏ có thể nằm trong sai số; thứ hạng không khẳng định mô hình tốt hơn cho mọi tác vụ.</p>${attribution}`;
 }
 
+/* One request for the rankings, shared by the front page's tile and the "Xếp hạng" view; a failure is retried next
+   time, and the reader's "Thử lại" asks again (force). */
+let shared = null;
+export function loadArena(force = false) {
+  if (force) shared = null;
+  if (!shared) {
+    shared = (async () => {
+      const response = await fetch('data/arena.json', { signal: AbortSignal.timeout(12000) });
+      if (!response.ok) throw new Error('Chưa tải được Arena');
+      return response.json();
+    })();
+    shared.catch(() => { shared = null; });
+  }
+  return shared;
+}
+
 export function createArenaView(root) {
   let data = null, category = 'overall', pending = null;
   const paint = () => { root.innerHTML = arenaHTML(data, category); };
-  async function load() {
+  async function load(force = false) {
     if (pending) return pending;
     root.innerHTML = '<p class="arena-loading" role="status">Đang tải bảng xếp hạng Arena…</p>';
     pending = (async () => {
-      try {
-        const response = await fetch('data/arena.json', { signal: AbortSignal.timeout(12000) });
-        if (!response.ok) throw new Error('Chưa tải được Arena');
-        data = await response.json();
-      } catch { data = null; }
+      try { data = await loadArena(force); } catch { data = null; }
       paint();
       pending = null;
     })();
@@ -268,7 +280,7 @@ export function createArenaView(root) {
       paint();
       root.querySelector(`[data-arena-category="${category}"]`).focus({ preventScroll: true });
     }
-    if (event.target.closest('[data-arena-retry]')) load();
+    if (event.target.closest('[data-arena-retry]')) load(true);
   });
   return { show() { root.hidden = false; if (data) paint(); else load(); } };
 }

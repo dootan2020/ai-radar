@@ -1,57 +1,238 @@
-#web-search {
-  display: flex;
-  align-items: stretch;
-  gap: var(--space-12);
-  margin: var(--space-8) 0 var(--space-16);
-  font: inherit;
+/* The new tab's three rows above the news (captain, 07/11 18:03; mockup D "Dòng ngày" chosen 18:26 with three fixes):
+   1. the Google services, with every Google app behind the 9 dots at the top right;
+   2. the Google search ("Tìm trên Google", a border and no shadow, at rest and in focus) with the day line under it:
+      the date, the lunar date and the weather;
+   3. the Halcyon bar: the small wordmark alone (no tile), the sections, the sort, the magnifier, the morning edition
+      and the theme.
+   The website home keeps its own masthead (trang-nhat.css); this file is extension-only. Values come from tokens.css. */
+:root {
+  --nav-h: calc(var(--btn-h) + var(--space-8));          /* the Halcyon bar: 52 px, as in mockup D */
+  --top-max: 50rem;                                      /* the search column; the day line stays one line at 14 px */
+  --field-h: calc(var(--btn-h) + var(--space-8));        /* the search field: 52 px */
+  --wx-skel-w: 18rem;                                    /* the weather's place before the forecast arrives */
 }
-.web-search-field {
-  display: flex;
-  align-items: center;
-  gap: var(--space-12);
-  flex: 1;
-  min-width: 0;
-  min-height: 52px;
-  padding: 0 var(--space-16);
-  border: 1px solid var(--color-hair);
-  border-radius: var(--radius-full);
-  background: var(--color-surface);
-  color: var(--color-ink-2);
-}
-.web-search-field:focus-within {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-.web-search-field .i { width: 20px; height: 20px; flex: none; }
-#web-query {
-  width: 100%;
-  min-width: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--color-ink);
-  font: inherit;
-}
-#web-query::placeholder { color: var(--color-ink-2); opacity: 1; }
-#web-search button {
-  min-width: 78px;
-  min-height: 52px;
-  padding: 0 var(--space-24);
-  border-radius: var(--radius-full);
-  background: var(--color-accent-fill);
-  color: var(--color-on-accent);
-  font: inherit;
-  font-weight: var(--weight-semibold);
-  cursor: pointer;
-}
-#web-search button:hover { filter: brightness(1.08); }
-#web-search button:active { transform: scale(.98); }
-#web-search button:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 2px; }
 @media (max-width: 767px) {
-  #web-search { gap: var(--space-8); }
-  .web-search-field { min-height: 48px; }
-  #web-search button { min-width: 64px; min-height: 48px; padding: 0 var(--space-16); }
+  :root { --nav-h: calc(var(--btn-h) + var(--space-8)); --field-h: calc(var(--btn-h) + var(--space-4)); }
+}
+
+/* ---------- 1. Google row: one quiet cluster of icons with the 9 dots, at the top right ---------- */
+/* Round 5 (captain, 07/11 22:41: "thu gọn mấy cái truy cập nhanh đi, a thấy giao diện nó rối"): the seven labelled chips
+   on the left read as a second menu bar with its own alignment. Now the shortcuts are icons only at every width (named
+   by aria-label and title), 20 px glyphs in 44 px targets with nothing drawn at rest, grouped with the 9 dots at the
+   top right, so the top left is empty and the search is read first. The row is the 44 px targets plus a small top
+   inset; the search row follows without its own margin. Hover draws a tinted disc inset inside the target (smaller
+   than the target, so it never touches the search field below it at 1440). */
+.top { background: var(--color-canvas); padding-bottom: var(--space-12); }
+.g-row { display: flex; align-items: center; justify-content: flex-end; gap: 0; min-height: var(--btn-h); padding-top: var(--space-6); }
+.services { display: flex; align-items: center; gap: 0; margin: 0; padding: 0; list-style: none; }
+.svc, .g-row .tool-launcher-button {
+  position: relative; isolation: isolate; display: grid; place-items: center; width: var(--btn-h); height: var(--btn-h);
+  border-radius: var(--radius-full); color: var(--color-ink-2); background: transparent;
+  transition: transform var(--duration-150) var(--ease-press);
+}
+.svc::before, .g-row .tool-launcher-button::before {
+  content: ""; position: absolute; z-index: -1; inset: var(--space-4); border-radius: var(--radius-full);
+  background: transparent; transition: background-color var(--duration-150) ease;
+}
+.g-row .tool-launcher-button:hover, .g-row .tool-launcher-button[aria-expanded="true"] { background: transparent; }
+@media (hover: hover) and (pointer: fine) {
+  .svc:hover::before, .g-row .tool-launcher-button:hover::before { background: var(--color-fill); }
+  .g-row .tool-launcher-button:hover { color: var(--color-ink); }
+}
+.g-row .tool-launcher-button[aria-expanded="true"]::before { background: var(--color-fill); }
+.svc:active, .g-row .tool-launcher-button:active { transform: scale(0.96); }
+.svc-icon { display: grid; place-items: center; width: 20px; height: 20px; flex: none; }
+.svc-icon img { width: 20px; height: 20px; }
+.svc-letter { display: grid; place-items: center; width: 20px; height: 20px; border-radius: var(--radius-8); background: var(--color-fill); font-size: var(--size-12); font-weight: var(--weight-bold); color: var(--color-ink-2); }
+.g-row .tool-launcher { margin-inline-start: 0; }
+
+/* ---------- 2. Search row: the field, then one quiet line that holds the day ---------- */
+.hero { max-width: calc(var(--top-max) + 2 * var(--page-pad)); margin: 0 auto; }
+.web-search { margin: 0; }
+/* Fix 2 (18:26, "dưới thanh tìm kiếm có đổ bóng, khiến cho giao diện có vết cắt"): a border only, no shadow, at rest and
+   in focus; focus shows as a stronger border plus the page's focus ring. */
+.web-field {
+  display: flex; align-items: center; gap: var(--space-12); min-height: var(--field-h); padding: 0 calc((var(--field-h) - var(--btn-h)) / 2) 0 var(--space-24);
+  background: var(--color-surface); border: 1px solid var(--color-hair); border-radius: var(--radius-full); box-shadow: none;
+  transition: border-color var(--duration-150) ease;
+}
+.web-field:hover { border-color: var(--color-hair-strong); }
+.web-field:focus-within { border-color: var(--color-hair-strong); box-shadow: none; outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.web-field > .i { width: 22px; height: 22px; flex: none; color: var(--color-ink-3); }
+#web-query { flex: 1; min-width: 0; height: calc(var(--field-h) - 2px); border: 0; outline: 0; background: transparent; color: var(--color-ink); font: inherit; font-size: var(--text-body); }
+#web-query::placeholder { color: var(--color-ink-3); opacity: 1; }
+#web-query::-webkit-search-cancel-button { display: none; }
+.go-btn {
+  display: inline-grid; place-items: center; flex: none; width: var(--btn-h); height: var(--btn-h); border-radius: var(--radius-full);
+  background: var(--color-accent-fill); color: var(--color-on-accent);
+  transition: background-color var(--duration-150) ease, color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+}
+.go-btn:hover { background: var(--color-accent-fill-hover); color: var(--color-on-accent-hover); }
+.go-btn:active { transform: scale(0.96); }
+.go-btn .i { stroke-width: 2.25; }
+
+/* The day line: date · lunar date · weather, centred under the field on one line. The weather's 44 px buttons sit in a
+   24 px line (negative block margins), so the line stays shallow while every target keeps its 44 px. */
+.dayline {
+  display: flex; flex-wrap: nowrap; justify-content: center; align-items: center; gap: 0 var(--space-8);
+  min-height: var(--space-24); margin-top: var(--space-8); font-size: var(--text-small); line-height: 1.4; color: var(--color-ink-2); white-space: nowrap;
+}
+.day-date { margin: 0; flex: none; min-height: 1.4em; }   /* holds its line before the script writes the date */
+.day-date b { font-weight: var(--weight-semibold); color: var(--color-ink); }
+.dayline .sep { margin: 0 var(--space-8); color: var(--color-hair-strong); }
+.dayline .wx-sep { margin: 0; }
+.d-short { display: none; }
+
+.weather { position: relative; display: inline-flex; align-items: center; gap: var(--space-4); flex: 0 1 auto; min-width: 0; min-height: var(--space-24); }
+.wx-now, .wx-city, .wx-detail, .wx-retry { min-height: var(--btn-h); margin: calc((var(--space-24) - var(--btn-h)) / 2) 0; }
+.wx-now { display: inline-flex; align-items: center; gap: var(--space-4); padding: 0 var(--space-6); border-radius: var(--radius-full); color: var(--color-ink); transition: background-color var(--duration-150) ease; }
+.wx-now:hover, .wx-now[aria-expanded="true"] { background: var(--color-fill); }
+.wx-now .i { width: 18px; height: 18px; color: var(--color-ink-2); }
+.wx-temp { font-weight: var(--weight-semibold); color: var(--color-ink); }
+.wx-city {
+  display: inline-flex; align-items: center; gap: 2px; flex: none; padding: 0 var(--space-6);
+  border-radius: var(--radius-full); font-weight: var(--weight-semibold); color: var(--color-ink); white-space: nowrap;
+  transition: background-color var(--duration-150) ease;
+}
+.wx-city:hover, .wx-city[aria-expanded="true"] { background: var(--color-fill); }
+.wx-city .i { width: 14px; height: 14px; color: var(--color-ink-3); }
+.wx-detail { display: inline-flex; align-items: center; gap: var(--space-4); min-width: 0; padding: 0 var(--space-4); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-ink-2); text-align: start; }
+button.wx-detail { display: block; line-height: var(--btn-h); border-radius: var(--radius-full); }
+button.wx-detail:hover { color: var(--color-ink); }
+.wx-detail .num { color: var(--color-ink); }
+.wx-retry { padding: 0 var(--space-6); color: var(--color-link); font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 3px; }
+/* The placeholder holds the place of the forecast, so the date beside it does not move when it arrives. */
+.wx-skel { display: inline-block; flex: none; width: var(--wx-skel-w); max-width: 100%; height: var(--space-12); border-radius: var(--radius-full); background: var(--color-fill); }
+
+.wx-menu, .wx-panel {
+  position: absolute; z-index: 40; top: calc(100% + var(--space-12)); left: 0; white-space: normal; text-align: start;
+  background: var(--color-surface); border: 1px solid var(--color-hair); border-radius: var(--radius-24); box-shadow: var(--shadow-sheet);
+}
+.wx-menu {
+  width: 240px; max-height: 360px; overflow: auto; padding: var(--space-8); border-radius: var(--radius-12);
+  transform-origin: top left; opacity: 0; transform: scale(0.97) translateY(-4px); pointer-events: none; visibility: hidden;
+  transition: opacity 140ms ease-out, transform 140ms var(--ease-flow), visibility 0s linear 140ms;
+}
+.wx-menu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition: opacity 140ms ease-out, transform 140ms var(--ease-flow), visibility 0s; }
+.wx-menu-label { margin: var(--space-4) var(--space-8) var(--space-8); font-size: var(--size-12); font-weight: var(--weight-semibold); color: var(--color-ink-3); }
+.wx-menu button { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: var(--btn-h); padding: 0 var(--space-12); border-radius: var(--radius-12); font-size: var(--text-sub); text-align: start; }
+.wx-menu button:hover, .wx-menu button:focus-visible { background: var(--color-fill); outline-offset: -3px; }
+.wx-menu button[aria-checked="true"] { font-weight: var(--weight-semibold); }
+.wx-menu button[aria-checked="true"]::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent-fill); }
+
+.wx-panel { width: min(400px, calc(100vw - 2 * var(--page-pad))); padding: var(--space-24); display: grid; gap: var(--space-12); }
+.wx-big { display: flex; align-items: center; gap: var(--space-12); }
+.wx-big-i { width: 48px; height: 48px; color: var(--color-ink-2); stroke-width: 1.5; }
+.wx-big-t { font-size: var(--size-40); font-weight: var(--weight-bold); line-height: 1; letter-spacing: -0.03em; color: var(--color-ink); }
+.wx-big-l { margin-top: var(--space-4); font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink); }
+.wx-stats { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-16); font-size: var(--text-meta); color: var(--color-ink-3); }
+.wx-stats b { color: var(--color-ink); font-weight: var(--weight-semibold); }
+.wx-h { margin-top: var(--space-4); padding-top: var(--space-12); border-top: 1px solid var(--color-hair); font-size: var(--size-12); font-weight: var(--weight-semibold); color: var(--color-ink-3); }
+.wx-hours { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-4); text-align: center; font-size: var(--size-12); color: var(--color-ink-3); }
+.wx-hours li { display: grid; justify-items: center; gap: 2px; }
+.wx-hours .i { width: 20px; height: 20px; color: var(--color-ink-2); }
+.wx-hours b { font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-ink); }
+.wx-days { display: grid; gap: var(--space-4); }
+.wx-days li { display: grid; grid-template-columns: 5.5em 22px minmax(0, 1fr) auto auto; align-items: center; gap: var(--space-8); min-height: 28px; font-size: var(--text-meta); color: var(--color-ink-2); }
+.wx-days .i { width: 20px; height: 20px; color: var(--color-ink-2); }
+.wx-dname { font-weight: var(--weight-semibold); color: var(--color-ink); }
+.wx-dlabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wx-rain { color: var(--color-ink-3); }
+.wx-range { font-weight: var(--weight-semibold); color: var(--color-ink); }
+.wx-range span { font-weight: var(--weight-medium); color: var(--color-ink-3); }
+.wx-credit { font-size: var(--size-12); color: var(--color-ink-3); }
+.wx-credit a { color: var(--color-link); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- 3. Halcyon bar: the small wordmark, the sections, the sort, the magnifier, the edition, the theme ---------- */
+.newsbar-in { gap: var(--space-8); }
+/* Fix 1 (18:26, "không nên dùng cả logo chữ y + chữ halcyon"): the wordmark alone, small, always shown. */
+.newsbar .bar-brand { order: 0; flex: none; margin: 0; padding-inline: var(--space-4) var(--space-8); min-height: var(--btn-h); border-radius: var(--radius-full); }
+.newsbar .bar-brand .brand-wm { height: 22px; width: auto; margin: 0; }
+.newsbar .bar-brand .brand-logo-light { display: var(--show-logo-light); }
+.newsbar .bar-brand .brand-logo-dark { display: var(--show-logo-dark); }
+.newsbar .sections { order: 1; }
+.newsbar .sort-switch { order: 2; flex: none; margin: 0; padding: 0; }
+/* The sort is one tonal toggle in the bar (its label names the current order; the site's two-sided switch needs a line
+   of its own, which mockup D gives to the news). */
+.newsbar .sort-switch::before, .newsbar .sort-btn:not(.sort-btn-compact), .newsbar .sort-switch .tab-pill { display: none; }
+.newsbar .sort-btn-compact {
+  --header-pill-inset: 0px; --header-control-bg: var(--color-fill);
+  display: inline-flex; gap: var(--space-6); padding: 0 var(--space-12) 0 var(--space-8); font-size: var(--text-small); color: var(--color-ink);
+}
+.newsbar .sort-btn-compact:hover { --header-control-bg: var(--color-hair); }
+.newsbar .sort-btn-compact::after {
+  content: ""; order: -1; width: 18px; height: 18px; flex: none; background: var(--color-ink-2);
+  -webkit-mask: var(--sort-icon) center / contain no-repeat; mask: var(--sort-icon) center / contain no-repeat;
+}
+:root { --sort-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 4v16M3.5 7.5 7 4l3.5 3.5M17 20V4M13.5 16.5 17 20l3.5-3.5'/%3E%3C/svg%3E"); }
+.newsbar .news-search { order: 3; }
+.newsbar .ed-link { order: 4; }
+.newsbar .theme-btn { order: 5; flex: none; width: var(--btn-h); height: var(--btn-h); }
+
+/* the news search: a magnifier in the bar at every width; the field opens in place over the bar */
+.news-search { position: static; width: auto; }
+.ns-open { display: inline-grid; }
+.ns-field { display: none; }
+.news-search.open .ns-field { display: flex; position: absolute; inset: calc((var(--nav-h) - var(--btn-h)) / 2) var(--page-pad); z-index: 2; }
+.news-search.open .ns-open { visibility: hidden; }
+.news-search.open .ns-clear { display: inline-grid; }
+.ns-results { top: calc(100% + var(--space-4)); right: var(--page-pad); }
+
+/* the morning edition: a tonal button, the only filled control in the bar besides the chosen section */
+.newsbar .ed-link {
+  --header-pill-inset: 0px; --header-control-bg: var(--color-fill);
+  gap: var(--space-6); padding: 0 var(--space-12) 0 var(--space-8); font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink); white-space: nowrap;
+}
+.newsbar .ed-link:hover { --header-control-bg: var(--color-hair); }
+.newsbar .ed-link .i { width: 18px; height: 18px; color: var(--color-link); }
+
+/* The bento starts close under the bar: the heading above it is read by screen readers only, the sort lives in the bar
+   and the freshness line closes the page (mockup D). The site home keeps its own rhythm. */
+.feed-main.front { padding-top: var(--space-16); }
+.front-meta { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.feed-footer .front-fresh { margin: 0; font-size: var(--text-meta); color: var(--color-ink-3); }
+
+/* ---------- widths ---------- */
+@media (max-width: 1099px) {
+  .newsbar .ed-link .ed-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .newsbar .ed-link { width: var(--btn-h); padding: 0; }
+}
+/* Phone: the day line takes two lines,
+   the numeric date with the lunar date, then the weather; the weather's menu and detail open as a sheet from the
+   bottom; the morning edition lives in the bottom navigation, so the bar keeps the sections the room. */
+@media (max-width: 767px) {
+  .web-field { padding-inline-start: var(--space-16); }
+  .dayline { flex-wrap: wrap; font-size: var(--text-meta); }
+  .dayline .wx-sep { display: none; }
+  .d-long { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .d-short { display: inline; }
+  .weather { position: static; flex: 0 0 100%; justify-content: center; }
+  .wx-skel { width: calc(var(--wx-skel-w) - var(--space-48)); }
+  .wx-menu, .wx-panel {
+    position: fixed; z-index: 60; top: auto; left: var(--page-pad); right: var(--page-pad);
+    bottom: calc(var(--mobile-nav-h, 0px) + env(safe-area-inset-bottom) + var(--space-8));
+  }
+  .wx-menu { width: auto; max-height: 60dvh; transform-origin: bottom center; transform: translateY(var(--space-8)); }
+  .wx-panel { width: auto; max-height: 75dvh; overflow: auto; }
+  .newsbar .bar-brand { padding-inline: 0 var(--space-4); }
+  .newsbar .bar-brand .brand-wm { height: 20px; }
+  .newsbar .ed-link { display: none; }
+  /* the sort keeps its icon on a phone; its label is read from aria-label ("Đang sắp xếp: …") */
+  .newsbar .sort-switch { padding: 0; }
+  .newsbar .sections { padding-inline-end: var(--space-16); }
+  .newsbar .sort-btn-compact { width: var(--btn-h); min-width: var(--btn-h); padding: 0; --header-control-bg: transparent; }
+  .newsbar .sort-btn-compact:hover { --header-control-bg: var(--color-fill); }
+  .newsbar .sort-current { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .newsbar .sort-btn-compact::after { width: 20px; height: 20px; }
+  .wx-now, .wx-city { padding-inline: var(--space-4); }
+  .weather { gap: 2px; }
+}
+/* Seven icons and the 9 dots need 352 px; below 384 px (343 px of room at 375) the last shortcut, Gemini, leaves the
+   row: it stays one tap away in the 9-dot panel, and the row stays one aligned cluster with no scrolling or fade. */
+@media (max-width: 383px) {
+  .services li:nth-child(n+7) { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  #web-search button:active { transform: none; }
+  .web-field, .go-btn, .svc, .svc::before, .g-row .tool-launcher-button, .g-row .tool-launcher-button::before, .wx-now, .wx-city, .wx-menu, .wx-menu.open { transition: none; }
+  .go-btn:active, .svc:active, .g-row .tool-launcher-button:active { transform: none; }
 }

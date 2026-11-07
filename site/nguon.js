@@ -218,7 +218,7 @@ function initKeys() {
   document.addEventListener('keydown', e => {
     if (e.target.matches('input, textarea')) return;
     if (e.key === '?') { e.preventDefault(); d.showModal(); }
-    else if (e.key === '/') { e.preventDefault(); location.href = 'tra-cuu.html'; }
+    else if (e.key === '/') { e.preventDefault(); location.href = 'index.html#tim'; }
   });
 }
 

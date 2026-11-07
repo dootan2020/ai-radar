@@ -1,7 +1,10 @@
+/* "Tìm trên Google" (captain, 07/11 18:26: "không đặt tìm kiếm web mà là tìm kiếm google luôn"): the query opens
+   Google's results in this tab, whatever the reader's default engine is. A plain link needs no permission. */
+export const googleSearchURL = query => `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 document.querySelector('#web-search').addEventListener('submit', event => {
   event.preventDefault();
   const query = document.querySelector('#web-query').value.trim();
-  if (query) chrome.search.query({text: query, disposition: 'CURRENT_TAB'});
+  if (query) location.assign(googleSearchURL(query));
 });
 
 let initialSnapshotKnown = false;

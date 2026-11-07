@@ -124,8 +124,9 @@ class NewsPictureMarkupTests(unittest.TestCase):
             source = path.read_text(encoding="utf-8")
             media = re.search(r"function mediaHTML\(img, size\) \{[\s\S]*?\n\}", source).group()
             self.assertIn("${mediaBackdrop(img.src, { loading })}<img class=\"media-img\"", media)
+            # The hot list is the feed's one thumbnail list since 07/11 ("Vừa đăng" shows clock and headline only).
             thumbs = [line for line in source.splitlines() if 'class="thumb' in line and "<img" in line]
-            self.assertEqual(len(thumbs), 3, path)
+            self.assertEqual(len(thumbs), 1, path)
             for line in thumbs:
                 with self.subTest(path=path.relative_to(ROOT).as_posix(), line=line.strip()[:60]):
                     self.assertIn("${mediaBackdrop(img.src)}<img", line)
