@@ -146,9 +146,9 @@
       <a class="filter-chip" href="ban-tin.html">Bản tin sáng</a>
       <a class="filter-chip" href="nguon.html">Nguồn tin</a>
     </div>
-    <a class="tc-link" href="tra-cuu.html" aria-label="Tra cứu câu chuyện AI">
+    <a class="tc-link" href="index.html#tim" aria-label="Tìm trong tin Halcyon">
       <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
-      <span class="tc-label">Tra cứu</span>
+      <span class="tc-label">Tìm tin</span>
     </a>
     <button class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Chuyển chế độ sáng hoặc tối">
       <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
@@ -161,7 +161,7 @@
   <article class="policy-card">
     <header class="policy-header">
       <h1 class="policy-title">Chính Sách Quyền Riêng Tư / Privacy Policy</h1>
-      <p class="policy-meta">Cập nhật lần cuối: 27 tháng 10, 2026 · Áp dụng cho Website &amp; Tiện ích mở rộng Halcyon Chrome Extension</p>
+      <p class="policy-meta">Cập nhật lần cuối: 7 tháng 11, 2026 · Áp dụng cho Website &amp; Tiện ích mở rộng Halcyon Chrome Extension</p>
       <nav class="lang-nav" aria-label="Chọn ngôn ngữ">
         <a class="lang-btn" href="#tieng-viet">🇻🇳 Tiếng Việt</a>
         <a class="lang-btn" href="#english">🇬🇧 English</a>
@@ -194,7 +194,7 @@
       </p>
       <ul>
         <li><code>chrome.storage.local</code>: Lưu bản tin AI mới nhất (tệp JSON <code>radarWindow</code>) cùng mốc thời gian cập nhật. Dữ liệu này giúp tab mới hiển thị ngay lập tức mà không phải chờ mạng và cho phép bạn đọc tin đã lưu khi mất kết nối.</li>
-        <li><code>localStorage</code>: Lưu tùy chọn giao diện sáng/tối, trạng thái đọc/lưu bài và URL avatar Hugging Face đã lưu đệm để giảm yêu cầu lặp lại.</li>
+        <li><code>localStorage</code>: Lưu tùy chọn giao diện sáng/tối, trạng thái đọc/lưu bài, URL avatar Hugging Face đã lưu đệm để giảm yêu cầu lặp lại, thành phố bạn chọn cho ô thời tiết trên tab mới và bản dự báo của thành phố đó trong 30 phút.</li>
       </ul>
       <p>Các dữ liệu này nằm hoàn toàn trên thiết bị của bạn và sẽ tự động được xóa bỏ khi bạn gỡ tiện ích khỏi trình duyệt.</p>
 
@@ -217,7 +217,9 @@
         <li><strong><code>cdn-thumbnails.huggingface.co</code>:</strong> ảnh thu nhỏ nội dung Hugging Face.</li>
         <li><strong><code>i.ytimg.com</code>:</strong> ảnh thu nhỏ video YouTube.</li>
         <li><strong><code>calendar.google.com</code>:</strong> mở Google Calendar khi bạn chọn thêm sự kiện vào lịch.</li>
-        <li><strong><code>www.google.com</code>:</strong> biểu tượng các ứng dụng Google (dịch vụ favicon của Google), chỉ tải khi bạn mở menu ứng dụng Google; ứng dụng Google bạn chọn (ví dụ <code>mail.google.com</code>, <code>about.google</code>) mở trong tab mới.</li>
+        <li><strong><code>www.google.com</code>:</strong> biểu tượng các ứng dụng Google (dịch vụ favicon của Google), tải khi bạn mở menu ứng dụng Google và khi tab mới hiện các nút dịch vụ Google; ứng dụng Google bạn chọn (ví dụ <code>mail.google.com</code>, <code>about.google</code>) mở trong tab mới.</li>
+        <li><strong><code>ssl.gstatic.com</code>:</strong> biểu tượng Gmail, Drive và Lịch trên các nút dịch vụ Google của tab mới. Các nút chỉ là liên kết: <code>mail.google.com</code>, <code>www.youtube.com</code>, <code>drive.google.com</code>, <code>www.google.com/maps</code>, <code>calendar.google.com</code>, <code>translate.google.com</code> và <code>gemini.google.com</code> chỉ mở khi bạn bấm.</li>
+        <li><strong><code>api.open-meteo.com</code>:</strong> dự báo thời tiết cho ô thời tiết trên tab mới. Tiện ích chỉ gửi toạ độ cố định của thành phố bạn chọn trong danh sách (mặc định Hà Nội), không bao giờ hỏi hay gửi vị trí của bạn; dự báo do <code>open-meteo.com</code> cung cấp, không cần tài khoản hay khoá.</li>
         <li><strong><code>creativecommons.org</code>:</strong> liên kết giấy phép ghi công dữ liệu Arena.</li>
       </ul>
       <p>Halcyon không đính kèm thông tin cá nhân hoặc lịch sử duyệt web vào các yêu cầu này. Tiện ích không thu thập, tải lên, bán hoặc chia sẻ dữ liệu cá nhân. Từ khóa tìm kiếm được gửi trực tiếp qua Chrome tới công cụ tìm kiếm mặc định của bạn.</p>
@@ -269,7 +271,7 @@
       </p>
       <ul>
         <li><code>chrome.storage.local</code>: Stores the latest curated news snapshot (the <code>radarWindow</code> JSON data) and the refresh timestamp. This enables instant tab opening without network latency and allows offline reading.</li>
-        <li><code>localStorage</code>: Stores your light/dark theme preference, saved/read story state, and cached Hugging Face avatar URLs to avoid repeat requests.</li>
+        <li><code>localStorage</code>: Stores your light/dark theme preference, saved/read story state, cached Hugging Face avatar URLs to avoid repeat requests, the city you choose for the new tab's weather, and that city's forecast for 30 minutes.</li>
       </ul>
       <p>All stored data remains strictly on your local machine and is permanently deleted when you uninstall the extension.</p>
 
@@ -292,7 +294,9 @@
         <li><strong><code>cdn-thumbnails.huggingface.co</code>:</strong> Hugging Face content thumbnails.</li>
         <li><strong><code>i.ytimg.com</code>:</strong> YouTube video thumbnails.</li>
         <li><strong><code>calendar.google.com</code>:</strong> opens Google Calendar when you choose to add an event.</li>
-        <li><strong><code>www.google.com</code>:</strong> Google app icons (Google's favicon service), loaded only when you open the Google apps menu; the Google app you pick (for example <code>mail.google.com</code>, <code>about.google</code>) opens in a new tab.</li>
+        <li><strong><code>www.google.com</code>:</strong> Google app icons (Google's favicon service), loaded when you open the Google apps menu and when the new tab shows its Google service buttons; the Google app you pick (for example <code>mail.google.com</code>, <code>about.google</code>) opens in a new tab.</li>
+        <li><strong><code>ssl.gstatic.com</code>:</strong> the Gmail, Drive and Calendar icons on the new tab's Google service buttons. The buttons are plain links: <code>mail.google.com</code>, <code>www.youtube.com</code>, <code>drive.google.com</code>, <code>www.google.com/maps</code>, <code>calendar.google.com</code>, <code>translate.google.com</code> and <code>gemini.google.com</code> open only when you click them.</li>
+        <li><strong><code>api.open-meteo.com</code>:</strong> the weather forecast on the new tab. The extension sends only the fixed coordinates of the city you pick from its list (Hà Nội by default) and never asks for or sends your location; forecasts come from <code>open-meteo.com</code>, with no account or key.</li>
         <li><strong><code>creativecommons.org</code>:</strong> attribution license link for Arena data.</li>
       </ul>
       <p>Halcyon does not attach personal information or browsing history to these requests. The extension does not collect, upload, sell, or share personal data. Search terms are sent directly through Chrome to your default search provider.</p>

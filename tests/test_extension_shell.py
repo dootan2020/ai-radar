@@ -58,7 +58,7 @@ class ExtensionShellTests(unittest.TestCase):
         payload = json.loads(FIXTURE.read_text(encoding='utf-8'))
         self.assertEqual(payload['schema_version'], 2)
         self.assertGreater(len(payload['stories']), 100)
-        for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'faces.js',
+        for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'trang-nhat.css', 'faces.js',
                      'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js', 'calendar.js',
                      'worth-score.js', 'live.js', 'menu-cong-cu.css', 'feed-images.json',
                      'editor-picks.json', 'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg',
@@ -71,14 +71,20 @@ class ExtensionShellTests(unittest.TestCase):
         for local in re.findall(r'(?:href|src)="([^"#:]+)"', html):
             self.assertTrue((EXT / local).is_file(), f'newtab.html references missing {local}')
         menu = (EXT / 'menu-cong-cu.js').read_text(encoding='utf-8')
-        self.assertIn("link.href = file === 'index.html' ? '#top' : `" + LIVE + "${file}`;", menu)
+        self.assertIn(": file === 'index.html' ? '#top' : file.startsWith('index.html#') ? file.slice(10) : `" + LIVE + "${file}`;", menu)
         self.assertNotIn('${prefix}${file}', menu)
+        # The top zone sits between the masthead and the news bar (captain, 07/11).
+        self.assertLess(html.index('id="masthead"'), html.index('id="web-search"'))
+        self.assertLess(html.index('id="web-search"'), html.index('id="bar"'))
         self.assertLess(html.index('id="web-search"'), html.index('id="picks"'))
-        for link in ('ban-tin.html', 'tra-cuu.html'):
-            self.assertIn(f'href="{LIVE}{link}"', html)
+        for part in ('id="dateline"', 'id="weather"', 'id="services"', 'src="vung-dau.js"', 'id="news-search"'):
+            self.assertIn(part, html)
+        self.assertIn(f'href="{LIVE}ban-tin.html"', html)
+        self.assertNotIn('tra-cuu', html)
         for link in ('tin/', 'nguon.html'):
             self.assertIn(f'href="{LIVE}{link}', feed)
-        self.assertIn(f"location.href = '{LIVE}tra-cuu.html'", feed)
+        self.assertIn("if (newsSearch) newsSearch.open();", feed)
+        self.assertIn(f"const SEARCH_URL = '{LIVE}data/radar-search.json';", (EXT / 'tim-tin.js').read_text(encoding='utf-8'))
         self.assertIn(f"const u = '{LIVE}tin/'", feed)
         self.assertIn('await cachedSnapshot()', feed)
         self.assertIn('whenIdle().then(async () => {', feed)
@@ -303,11 +309,11 @@ process.stdout.write(JSON.stringify(created));
         html = (SITE / 'index.html').read_text(encoding='utf-8')
         feed = (SITE / 'feed.js').read_text(encoding='utf-8')
         for missing in ('<script>try { var t = ', '<!-- Cloudflare Web Analytics -->',
-                        'href="ban-tin.html"', 'href="tra-cuu.html"'):
+                        'href="ban-tin.html"', '<!-- News bar: the sections and the inline news search.'):
             with self.subTest(missing=missing), self.assertRaises(ValueError):
                 sync.adapt_html(html.replace(missing, 'changed', 1))
         for missing in ('href="tin/', 'href="nguon.html"', "location.replace('nguon.html')",
-                        "location.href = 'tra-cuu.html'"):
+                        "import { createNewsSearch } from './tim-tin.js';"):
             with self.subTest(missing=missing), self.assertRaises(ValueError):
                 sync.adapt_feed(feed.replace(missing, 'changed', 1))
         with self.assertRaises(ValueError):
