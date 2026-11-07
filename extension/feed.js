@@ -881,16 +881,18 @@ function renderCard(st, size = 'card', opts = {}) {
   // paragraph under a Vietnamese headline reads as noise. The desk's summary points stay in the reading views
   // (tests/verify-feed-content.mjs), so the lead carries the dek and its numbers, not the points.
   const sumRaw = shown(st.summary, st.summary_vi);
-  const sum = (lead || size === 'feature' || size === 'wide') && sumRaw && VI_RE.test(sumRaw) && sumRaw.trim() !== t.text.trim() ? sumRaw : '';
+  // A story without an approved picture is a text tile (mockup B): no stand-in block, and the dek takes its place.
+  const pic = MEDIA_SIZES.has(size) && !!img.src;
+  const sum = (lead || size === 'feature' || size === 'wide' || (size === 'card' && !pic)) && sumRaw && VI_RE.test(sumRaw) && sumRaw.trim() !== t.text.trim() ? sumRaw : '';
   const ptsHTML = sum ? `<p class="card-sum">${sourceDescriptionMark()}${esc(sum)}</p>` : '';
   const cal = calOf(st);
   const isSaved = savedHas(st.id);
   const why = opts.why ? worthWhy(st) : '';
-  const cls = ['feed-card', 'tile-story', `card-${size}`, MEDIA_SIZES.has(size) && img.src ? 'has-img' : '', opts.full ? 'is-full' : '', statusClass(st)].filter(Boolean).join(' ');
+  const cls = ['feed-card', 'tile-story', `card-${size}`, pic ? 'has-img' : 'is-text', opts.full ? 'is-full' : '', statusClass(st)].filter(Boolean).join(' ');
   const sources = `<button class="cov-btn" data-cov="${esc(st.id)}" aria-haspopup="dialog" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${nSrc(st) > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${nSrc(st)}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`;
 
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}" data-worth="${worthOf(st).score.toFixed(1)}">
-  ${MEDIA_SIZES.has(size) ? mediaHTML(img, size) : ''}
+  ${pic ? mediaHTML(img, size) : ''}
   <div class="card-body">
     ${kickerHTML(st)}
     <h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>
@@ -2409,8 +2411,10 @@ function watchPictures() {
       const cv = coverPick(st);
       PICKED.set(st.id, cv);
       card.dataset.via = cv.via;
-      img.parentElement.innerHTML = coverHTML(cv.cover);
+      // The tile carries on as a text tile, the way a story without a picture is drawn.
+      img.parentElement.remove();
       card.classList.remove('has-img');
+      card.classList.add('is-text');
       return;
     }
     const thumb = img.closest('.thumb');

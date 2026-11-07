@@ -78,6 +78,48 @@ process.stdout.write(JSON.stringify(out));
         # The index loads on the first focus, not with the page.
         self.assertIn("input.addEventListener('focus', () => { load();", source)
 
+    def test_closing_the_search_keeps_keyboard_focus(self):
+        # Escape on an empty field (or the clear button) collapses the search. Focus goes back to the button that opened
+        # it when that button is on screen (phone), otherwise it stays in the field; it never falls to the page body.
+        script = r"""
+import { createNewsSearch } from '%s';
+globalThis.fetch = async () => { throw new Error('offline'); };
+const body = { id: 'body' };
+const doc = { activeElement: body, getElementById: id => id === 'ns-status' ? status : null, querySelector: () => null, addEventListener() {} };
+globalThis.document = doc;
+const classes = () => { const s = new Set(); return { add: c => s.add(c), remove: c => s.delete(c), contains: c => s.has(c),
+  toggle: (c, on) => (on ? s.add(c) : s.delete(c)) }; };
+function el(id, shown = true) {
+  const e = { id, hidden: false, value: '', attrs: {}, on: {}, classList: classes(),
+    addEventListener(type, fn) { (this.on[type] = this.on[type] || []).push(fn); },
+    setAttribute(k, v) { this.attrs[k] = v; }, focus() { doc.activeElement = this; }, select() {},
+    blur() { if (doc.activeElement === this) doc.activeElement = body; },
+    getClientRects: () => shown ? [{}] : [], querySelectorAll: () => [], contains: () => false };
+  return e;
+}
+const status = el('ns-status');
+const key = (root, k) => { for (const fn of root.on.keydown || []) fn({ key: k, preventDefault() {}, stopPropagation() {} }); };
+const out = {};
+for (const buttonShown of [true, false]) {
+  const parts = { '#ns-q': el('ns-q'), '#ns-results': el('ns-results'), '#ns-open': el('ns-open', buttonShown), '#ns-clear': el('ns-clear') };
+  parts['#ns-results'].hidden = true;
+  const root = el('news-search');
+  root.querySelector = sel => parts[sel];
+  const search = createNewsSearch({ root, getStories: () => [] });
+  search.open();
+  key(root, 'Escape');
+  out[`escape-${buttonShown}`] = [doc.activeElement.id, root.classList.contains('open')];
+  search.open();
+  for (const fn of parts['#ns-clear'].on.click) fn({});
+  out[`clear-${buttonShown}`] = [doc.activeElement.id, root.classList.contains('open')];
+}
+process.stdout.write(JSON.stringify(out));
+""" % (SITE / "tim-tin.js").as_uri()
+        self.assertEqual(node(script), {
+            "escape-true": ["ns-open", False], "clear-true": ["ns-open", False],
+            "escape-false": ["ns-q", False], "clear-false": ["ns-q", False],
+        })
+
     def test_search_ui_is_vietnamese(self):
         leftovers = {}
         for literal, before in js_literals((SITE / "tim-tin.js").read_text(encoding="utf-8")):

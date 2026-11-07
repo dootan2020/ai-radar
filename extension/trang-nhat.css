@@ -188,6 +188,15 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
 .card-wide .card-body { padding: var(--space-32); justify-content: center; }
 .bento .card-wide .card-title { font-size: var(--size-21); line-height: 1.3; max-width: none; }
 
+/* A story without a picture is a text tile (mockup B): the headline carries the tile, the dek gets the room a picture
+   would have had, and the foot stays on the tile's bottom edge so a row still ends on one line. */
+.bento .is-text .card-body { flex: 1 1 auto; }
+.bento .is-text .card-sum { -webkit-line-clamp: 6; }
+.bento .card-feature.is-text .card-title { font-size: var(--size-28); line-height: 1.2; letter-spacing: -0.02em; }
+.bento .card-feature.is-text .card-body { padding: var(--lead-p); gap: var(--space-12); }
+.bento .card-wide.is-text .card-body { padding: var(--lead-p); }
+.bento .is-text .card-foot { margin-top: auto; }
+
 /* information tiles in the bento */
 .bento > .tile .tile-title { font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: 0; color: var(--color-ink); }
 .bento > .tile .tile-note { font-size: var(--size-12); }
@@ -277,7 +286,9 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
   .lead-points li + li { display: none; }       /* one point on a phone; the story view holds the rest */
   .lead-figs { gap: var(--space-12) var(--space-32); }
   .fig b { font-size: var(--size-21); }
-  .bento .card-card { display: grid; grid-template-columns: minmax(0, 1fr) 112px; }
+  .bento .card-card.has-img { display: grid; grid-template-columns: minmax(0, 1fr) 112px; }
+  .bento .card-feature.is-text .card-title { font-size: var(--size-21); line-height: 1.3; }
+  .bento .card-feature.is-text .card-body, .bento .card-wide.is-text .card-body { padding: var(--tile-p); }
   .bento .card-card .media { grid-column: 2; grid-row: 1; align-self: start; aspect-ratio: 16 / 9; margin: var(--tile-p) var(--tile-p) 0 0; border-radius: var(--radius-12); }
   .bento .card-card .card-body { grid-column: 1; grid-row: 1; padding-inline-end: var(--space-12); }
   .bento .card-card .card-title { font-size: var(--text-body); }

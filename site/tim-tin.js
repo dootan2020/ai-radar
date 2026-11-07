@@ -150,7 +150,14 @@ export function createNewsSearch({ root, getStories = () => [], onOpenStory = ()
   }
   function hide() { results.hidden = true; input.setAttribute('aria-expanded', 'false'); }
   function clear() { input.value = ''; root.classList.remove('has-q'); hide(); status.textContent = ''; }
-  function collapse() { root.classList.remove('open'); openBtn.setAttribute('aria-expanded', 'false'); }
+  /* Closing the search never drops keyboard focus on the page body: it goes back to the button that opened the search
+     when that button is on screen (phones, narrow bars), and otherwise stays in the field, which remains visible. */
+  function collapse() {
+    root.classList.remove('open');
+    openBtn.setAttribute('aria-expanded', 'false');
+    if (openBtn.getClientRects().length) openBtn.focus();
+    else input.focus();
+  }
   function open(query = null) {
     root.classList.add('open');
     openBtn.setAttribute('aria-expanded', 'true');
@@ -166,7 +173,7 @@ export function createNewsSearch({ root, getStories = () => [], onOpenStory = ()
   openBtn.addEventListener('click', () => open());
   clearBtn.addEventListener('click', () => {
     if (input.value) { clear(); input.focus(); }
-    else { clear(); collapse(); openBtn.focus(); }
+    else { clear(); collapse(); }
   });
   root.addEventListener('keydown', e => {
     const opts = [...results.querySelectorAll('.ns-row')];
@@ -174,7 +181,7 @@ export function createNewsSearch({ root, getStories = () => [], onOpenStory = ()
       e.stopPropagation();
       if (!results.hidden) { e.preventDefault(); hide(); input.focus(); }
       else if (input.value) { e.preventDefault(); clear(); }
-      else { collapse(); input.blur(); }
+      else collapse();
       return;
     }
     if (results.hidden || !opts.length) return;

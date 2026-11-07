@@ -186,6 +186,11 @@ const candidates = [
 ];
 const cardRenders = item => ['lead', 'wide', 'std'].map(size => feed.renderCard(item, size));
 const rankedRenders = item => [feed.renderHot([item]), feed.renderCard(item, 'feature')];
+// Without an approved picture a bento tile is a text tile, not a stand-in block: a big monogram block read as a picture
+// that failed to load (coordinator review, 07/11, mockup B). The hot list's thumbnail keeps the factual mini cover.
+const factualAbsence = html => html.startsWith('<article')
+  ? /class="feed-card[^"]*\bis-text\b/.test(html) && !html.includes('class="cover') && !html.includes('class="media')
+  : html.includes('class="cover');
 for (const candidate of candidates) {
   const item = {...story, ...candidate};
   feed.configure([item], candidate.images);
@@ -193,7 +198,7 @@ for (const candidate of candidates) {
   assert.equal(feed.pickImage(item).src, null);
   for (const html of [...cardRenders(item), ...rankedRenders(item)]) {
     assert.ok(html.includes(story.headline_vi));
-    assert.ok(html.includes('class="cover'), 'screened absence uses the factual cover');
+    assert.ok(factualAbsence(html), 'screened absence: a text tile, or the factual cover in the hot list');
     assert.ok(!html.includes('rejected.example') && !html.includes('<img'), 'screened story cannot borrow imagery');
   }
   // The same candidates remain available to unscreened archives.
@@ -238,23 +243,22 @@ for (const image_screened of [true, false]) for (const via of ['og:image', 'ai']
   const photoStory = {...story, image_screened, image:{src:'https://approved.example/broken.jpg', via}};
   feed.configure([photoStory], {[story.url]:{src:'https://rejected.example/seed.jpg'}});
   assert.equal(feed.pickImage(photoStory).src, photoStory.image.src);
-  let removed = false, photoRemoved = false;
+  let removed = false, photoRemoved = false, textAdded = false;
   // Bento tiles keep one body class (no photo-body since the "Trang nhất" layout, 07/11); the card drops has-img.
   const body = {className:'card-body'};
-  const card = {dataset:{id:story.id}, classList:{contains:() => true, remove:() => { photoRemoved = true; }}, querySelector:() => body};
+  const card = {dataset:{id:story.id}, classList:{contains:() => true, remove:() => { photoRemoved = true; }, add:cls => { textAdded = cls === 'is-text'; }}, querySelector:() => body};
   const image = new ImageElement();
   image.classList = {contains:cls => cls === 'media-img'};
   image.closest = selector => selector === '.feed-card' ? card : null;
   image.parentElement = {remove:() => { removed = true; }, innerHTML:'old image and badge'};
   errorHandler({target:image});
-  assert.ok(!removed && photoRemoved);
-  assert.ok(image.parentElement.innerHTML.includes('class="cover"'));
-  assert.ok(!image.parentElement.innerHTML.includes('<img') && !image.parentElement.innerHTML.includes('ai-badge'));
+  // The failed picture's block (image and AI badge) goes; the tile carries on as a text tile.
+  assert.ok(removed && photoRemoved && textAdded);
   assert.equal(body.className, 'card-body');
   assert.equal(card.dataset.via, 'cover');
   assert.equal(feed.pickImage(photoStory).kind, 'cover', 'rerender must not resurrect a failed approved picture');
   for (const html of [...cardRenders(photoStory), ...rankedRenders(photoStory)]) {
-    assert.ok(html.includes('class="cover') && !html.includes(photoStory.image.src) && !html.includes('rejected.example'));
+    assert.ok(factualAbsence(html) && !html.includes(photoStory.image.src) && !html.includes('rejected.example'));
   }
 
   // Exercise thumbnail failure independently, before any card has failed.
@@ -267,7 +271,7 @@ for (const image_screened of [true, false]) for (const via of ['og:image', 'ai']
   assert.ok(thumb.innerHTML.includes('class="cover is-mini"'));
   assert.equal(feed.pickImage(photoStory).kind, image_screened ? 'cover' : 'photo');
   if (image_screened) for (const html of [...cardRenders(photoStory), ...rankedRenders(photoStory)]) {
-    assert.ok(html.includes('class="cover') && !html.includes(photoStory.image.src));
+    assert.ok(factualAbsence(html) && !html.includes(photoStory.image.src));
   }
 }
 
