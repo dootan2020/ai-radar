@@ -414,12 +414,16 @@ def desk_concurrency(env=None):
     return number if number >= 1 else DEFAULT_DESK_CONCURRENCY
 
 
+class _Abandoned(Exception):
+    """A later batch's unit unwinds without a call once an earlier batch has stopped the desk."""
+
+
 class _Sink:
     """One unit of a desk's work, kept aside until every earlier unit is recorded, so files and events keep the
     order a desk running its calls in turn would give them."""
 
-    def __init__(self):
-        self.output, self.records = {}, []
+    def __init__(self, index=0):
+        self.index, self.output, self.records = index, {}, []
 
     def fail(self, part):
         for row in part:
@@ -477,6 +481,9 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
     def attempt(part, sink, index):
         provider = candidates[index]
         with lanes[provider["id"]]:
+            if stopped_before(sink.index):
+                # An earlier batch stopped the desk: a desk running in turn would never have reached this call.
+                raise _Abandoned()
             # A batch that waited for a free call checks the deadline when its turn comes.
             if deadline is not None and time.monotonic() >= deadline:
                 sink.fail(part)
@@ -526,32 +533,42 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
                 _write_json(Path(raw_dir) / f"{desk}-{batch_number}.json", {"desk": desk, "batch": batch_number, **raw})
         output.update(sink.output)
 
-    stopped = threading.Event()
+    # The lowest batch index whose unit raised (an admission stop); later batches make no further provider call,
+    # earlier ones finish and are recorded, exactly as a desk running in turn would leave them.
+    stop_lock, stop_at = threading.Lock(), [None]
 
-    def run_unit(part):
-        sink = _Sink()
-        # Batches start in order, so every batch before a stopped one has already begun and is still recorded.
-        if stopped.is_set():
-            return sink
+    def stopped_before(index):
+        with stop_lock:
+            return stop_at[0] is not None and stop_at[0] < index
+
+    def run_unit(index, part):
+        sink = _Sink(index)
         try:
             attempt(part, sink, 0)
+        except _Abandoned:
+            # Never committed: the main thread meets the earlier batch's exception first.
+            return None
         except BaseException:
-            stopped.set()
+            with stop_lock:
+                stop_at[0] = index if stop_at[0] is None else min(stop_at[0], index)
             raise
         return sink
 
     units = [part for batch in _batches(payload, batch_size=batch_size) for part in _batches(batch, limit(0), batch_size)]
     if workers == 1 or len(units) <= 1:
-        for part in units:
-            commit(run_unit(part))
+        for index, part in enumerate(units):
+            commit(run_unit(index, part))
     else:
         with ThreadPoolExecutor(max_workers=min(workers, len(units)), thread_name_prefix=f"phong-bao-{desk}") as pool:
-            futures = [pool.submit(run_unit, part) for part in units]
+            futures = [pool.submit(run_unit, index, part) for index, part in enumerate(units)]
             try:
                 for future in futures:
-                    commit(future.result())
+                    sink = future.result()
+                    if sink is None:
+                        raise RuntimeError(f"{desk}: a batch was abandoned without an earlier stop")
+                    commit(sink)
             except BaseException:
-                # As in turn: an admission stop records the batches before it and starts none after it.
+                # As in turn: an admission stop records the batches before it, and nothing after it is recorded.
                 for future in futures:
                     future.cancel()
                 raise

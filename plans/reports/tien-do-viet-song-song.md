@@ -41,6 +41,13 @@ changing what passes, failing closed exactly as today, and staying inside the wr
 - Full suite `python -B -m unittest discover -s tests -p "test_*.py"`: 1752 tests OK (8 skipped), 289 s.
   CI steps: `node --version` v22.14.0; newsroom tests under `py -3.11` (CI's Python): 221 OK.
 
+- Review fix (Codex review of PR #162): a later batch already running when an earlier batch stopped on
+  admission could still make a fallback or split call. The stop now records the lowest failing batch index;
+  any unit with a higher index raises `_Abandoned` before its next provider call (checked inside the lane, right
+  before the call) and its sink is never committed. Earlier batches finish and are recorded. New deterministic
+  race test (events: batch 1 slow, batch 2 admission while batch 3's call is open, batch 3 then fails and would
+  fall back to codex): red on e1b3933 (`('codex', ('s3',))` called), green after the fix, 10/10 repeats.
+
 ## Next Steps
 - Commit, push, draft PR; coordinator merges and watches the first real cycle (writer desk seconds, review-writer
   and rescorer events, viet-bu `sent` vs `budget_cut`).

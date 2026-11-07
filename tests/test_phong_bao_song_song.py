@@ -157,6 +157,46 @@ class ParallelDeskTest(unittest.TestCase):
         self.assertEqual(list(files), ["writer-1.json"])
         self.assertEqual([row["id"] for row in files["writer-1.json"]["stories"]], ["s1"])
 
+    def test_a_later_batch_already_running_at_an_admission_stop_makes_no_further_call_and_is_discarded(self):
+        # Batch 1 is slow, batch 2 stops on admission while batch 3's first call is open; batch 3's call then fails
+        # and would fall back to codex. In turn, batch 3 would never have reached any provider.
+        third_open, second_raising, release_first = threading.Event(), threading.Event(), threading.Event()
+
+        class RaceRunner(ScriptedRunner):
+            def run(self, desk, rows, provider, instruction, *, timeout=600):
+                sid = rows[0]["id"]
+                with self.lock:
+                    self.calls.append((provider["id"], (sid,)))
+                if sid == "s1":
+                    self.assert_wait(release_first)
+                    return BatchResult([reply(row, provider) for row in rows], {"input_tokens": 1, "output_tokens": 1})
+                if sid == "s2":
+                    self.assert_wait(third_open)
+                    second_raising.set()
+                    raise AdmissionError("agy admission stopped (sign-in required: sign in to)")
+                if provider["id"] == "agy":
+                    third_open.set()
+                    self.assert_wait(second_raising)
+                    time.sleep(0.3)  # the failing worker records the stop as its exception leaves the batch
+                    release_first.set()
+                    raise RunnerError("agy CLI exit 1")
+                return BatchResult([reply(row, provider) for row in rows], {"input_tokens": 1, "output_tokens": 1})
+
+            @staticmethod
+            def assert_wait(event):
+                if not event.wait(5):
+                    raise AssertionError("race step never happened")
+
+        runner = RaceRunner()
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaises(AdmissionError):
+                desk(runner, concurrency=3, stories=STORIES[:3], raw_dir=directory)
+            files = raw_files(directory)
+        self.assertNotIn(("codex", ("s3",)), runner.calls)
+        self.assertEqual(sorted(runner.calls), [("agy", ("s1",)), ("agy", ("s2",)), ("agy", ("s3",))])
+        self.assertEqual(list(files), ["writer-1.json"])
+        self.assertEqual([row["id"] for row in files["writer-1.json"]["stories"]], ["s1"])
+
     def test_a_lane_capped_at_one_call_never_runs_two(self):
         runner = ScriptedRunner(delays={story["id"]: 0.1 for story in STORIES})
         output, _ = desk(runner, concurrency=3, tools=(lane("codex", 10, max_concurrent_calls=1),))
