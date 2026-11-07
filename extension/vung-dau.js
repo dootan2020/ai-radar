@@ -6,9 +6,15 @@ import { createWeather } from './thoi-tiet.js';
 
 const $ = s => document.querySelector(s);
 
+/* The date sits in the masthead beside the wordmark (07/11 17:12, the top zone gives its height back to the news). The
+   words are read in full; narrow screens show the numeric form ("T7, 7/11 · 29/9 âm lịch"), which is hidden from
+   screen readers so the date is announced once. */
+const WD_SHORT = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
 function renderDateline() {
-  const t = todayVN();
-  $('#dateline').innerHTML = `<b>${t.weekday}, ${t.d} tháng ${t.m}, ${t.y}</b><span class="sep" aria-hidden="true">·</span><span class="lunar">${lunarText(solarToLunar(t.d, t.m, t.y))}</span>`;
+  const t = todayVN(), l = solarToLunar(t.d, t.m, t.y);
+  const wd = WD_SHORT[new Date(Date.UTC(t.y, t.m - 1, t.d)).getUTCDay()];
+  $('#dateline').innerHTML = `<span class="d-long"><b>${t.weekday}, ${t.d} tháng ${t.m}, ${t.y}</b><span class="sep" aria-hidden="true">·</span><span class="lunar">${lunarText(l)}</span></span>`
+    + `<span class="d-short" aria-hidden="true"><b>${wd}, ${t.d}/${t.m}</b><span class="sep">·</span><span class="lunar">${l.day}/${l.month}${l.leap ? ' nhuận' : ''} âm lịch</span></span>`;
 }
 
 /* Google's own published product icons; a letter holds the place until one loads (offline, blocked). The Calendar
@@ -26,7 +32,7 @@ export const SERVICES = [
 function renderServices() {
   const day = todayVN().d;
   const list = $('#services');
-  list.innerHTML = SERVICES.map(([name, url, src]) => `<li><a class="svc" href="${url}">
+  list.innerHTML = SERVICES.map(([name, url, src]) => `<li><a class="svc" href="${url}" title="${name}">
     <span class="svc-icon" aria-hidden="true"><span class="svc-letter">${name[0]}</span><img src="${typeof src === 'function' ? src(day) : src}" width="24" height="24" alt="" referrerpolicy="no-referrer" hidden></span><span class="svc-name">${name}</span></a></li>`).join('');
   list.querySelectorAll('img').forEach(img => {
     img.addEventListener('load', () => { img.hidden = false; img.previousElementSibling.hidden = true; }, { once: true });

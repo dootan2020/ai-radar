@@ -92,6 +92,21 @@ class TopZoneTests(unittest.TestCase):
         for part in ('vung-dau.js', 'id="weather"', 'id="web-search"', 'id="services"'):
             self.assertNotIn(part, site)
 
+    def test_new_tab_puts_the_date_in_the_masthead_and_one_row_under_it(self):
+        # Captain, 07/11 17:12: the top zone gives its height back to the news. The date with the lunar date sits in the
+        # masthead beside the wordmark; the search, the weather and the services share the row under it.
+        html = (EXT / "newtab.html").read_text(encoding="utf-8")
+        site = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
+        masthead = html[html.index('id="masthead"'):html.index('</header>')]
+        self.assertIn('id="dateline"', masthead)
+        self.assertNotIn('id="dateline"', site)
+        self.assertIn('class="brand-tag"', site)
+        zone = html[html.index('id="top-zone"'):html.index('</section>', html.index('id="top-zone"'))]
+        self.assertLess(zone.index('id="web-search"'), zone.index('id="weather"'))
+        self.assertLess(zone.index('id="weather"'), zone.index('id="services"'))
+        source = (EXT / "vung-dau.js").read_text(encoding="utf-8")
+        self.assertIn('class="d-short" aria-hidden="true"', source)
+
 
 if __name__ == "__main__":
     unittest.main()

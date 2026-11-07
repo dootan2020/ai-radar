@@ -1,25 +1,43 @@
-/* The new tab's top zone (mockup B, with mockup A's named service buttons and weather detail): the date with the
-   lunar date, the web search as the quiet hero, then the weather and the Google services in one slim row.
-   Values come from tokens.css and trang-nhat.css. */
-:root { --top-max: 760px; }
+/* The new tab's top zone (mockup B, with mockup A's named service buttons and weather detail). Round 3 (captain, 07/11
+   17:12: "đang chiếm nhiều diện tích… dành diện tích cho tin hiển thị"): the date with the lunar date moves into the
+   masthead beside the wordmark, and the web search, the weather chip and the Google services share one slim row, so the
+   first news tile starts high on the first screen. Values come from tokens.css and trang-nhat.css. */
+:root {
+  --top-row-h: calc(var(--btn-h) + var(--space-4));      /* the search pill: 48 px */
+  --top-search-max: 40rem;                               /* a wide screen gives the services the room, not the field */
+  --top-utility-w: 51rem;                                /* the weather chip and the seven named services */
+}
 
-.hero { padding-top: var(--space-16); padding-bottom: var(--space-32); }
-.hero-in { max-width: var(--top-max); margin: 0 auto; }
-.dateline { margin: 0 0 var(--space-16); text-align: center; font-size: var(--text-small); color: var(--color-ink-2); line-height: var(--leading-snug); }
+/* ---------- masthead: a slimmer bar with the date where the site has its tagline ---------- */
+.masthead-in { min-height: calc(var(--btn-h) + var(--space-12)); }
+.brand-tag { display: none; }
+.dateline {
+  margin: 0 auto 0 calc(-1 * var(--space-4)); padding-inline-start: var(--space-12); border-inline-start: 1px solid var(--color-hair);
+  min-width: 0; font-size: var(--text-meta); line-height: var(--leading-tight); color: var(--color-ink-2); white-space: nowrap;
+}
 .dateline b { font-weight: var(--weight-semibold); color: var(--color-ink); }
-.dateline .sep { margin: 0 var(--space-8); color: var(--color-hair-strong); }
-.dateline .lunar { white-space: nowrap; }
+.dateline .sep { margin: 0 var(--space-6); color: var(--color-ink-3); }
+.d-short { display: none; }
 
-#web-search { margin: 0; }
+/* The news starts closer under the bar on the new tab (the site keeps its own rhythm). */
+.feed-main.front { padding-top: var(--space-12); }
+.front-meta { margin-bottom: var(--space-8); }
+
+/* ---------- the slim row: search · weather · services ---------- */
+.hero { padding-bottom: var(--space-8); }
+.hero-in { display: flex; align-items: center; gap: var(--space-16); }
+/* The field takes what the weather and the services leave, set from the row width rather than from their content, so
+   it does not move when the forecast and the service icons arrive. */
+#web-search { flex: 0 1 clamp(18rem, 100% - var(--top-utility-w), var(--top-search-max)); min-width: 0; margin: 0; }
 .web-field {
-  display: flex; align-items: center; gap: var(--space-12); min-height: 60px; padding: 0 var(--space-8) 0 var(--space-24);
+  display: flex; align-items: center; gap: var(--space-8); height: var(--top-row-h); padding: 0 calc((var(--top-row-h) - var(--btn-h)) / 2) 0 var(--space-16);
   background: var(--color-surface); border: 1px solid var(--color-hair); border-radius: var(--radius-full);
   transition: border-color var(--duration-150) ease, box-shadow var(--duration-250) var(--ease-flow);
 }
 .web-field:hover { border-color: var(--color-hair-strong); }
 .web-field:focus-within { border-color: var(--color-hair-strong); box-shadow: var(--shadow-lift); outline: var(--focus-ring); outline-offset: var(--focus-offset); }
-.web-field > .i { width: 22px; height: 22px; color: var(--color-ink-3); }
-#web-query { flex: 1; min-width: 0; height: 58px; border: 0; outline: 0; background: transparent; color: var(--color-ink); font: inherit; font-size: var(--size-18); }
+.web-field > .i { width: 20px; height: 20px; flex: none; color: var(--color-ink-3); }
+#web-query { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; color: var(--color-ink); font: inherit; font-size: var(--text-body); }
 #web-query::placeholder { color: var(--color-ink-3); opacity: 1; }
 #web-query::-webkit-search-cancel-button { display: none; }
 .go-btn {
@@ -31,27 +49,28 @@
 .go-btn:active { transform: scale(0.96); }
 .go-btn .i { stroke-width: 2.25; }
 
-/* Weather on one line, the services on the next, both centred under the search: side by side, the services wrapped
-   to two rows and cut the forecast short. */
-.utility { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); margin-top: var(--space-16); }
+.utility { display: flex; align-items: center; gap: var(--space-16); flex: 1 0 auto; }
 
-/* weather */
-.weather { position: relative; display: flex; align-items: center; justify-content: center; gap: var(--space-4); max-width: 100%; min-width: 0; min-height: var(--btn-h); }
-.wx-now { display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--btn-h); padding: 0 var(--space-8); border-radius: var(--radius-full); color: var(--color-ink); }
+/* weather: now and the city in the row; the day's range shows beside them only where the row has room (>= 1600 px),
+   and always in the detail panel */
+.weather { position: relative; display: flex; align-items: center; gap: var(--space-4); flex: none; min-width: 0; min-height: var(--btn-h); }
+.wx-now { display: inline-flex; align-items: center; gap: var(--space-6); min-height: var(--btn-h); padding: 0 var(--space-8); border-radius: var(--radius-full); color: var(--color-ink); transition: background-color var(--duration-150) ease; }
 .wx-now:hover, .wx-now[aria-expanded="true"] { background: var(--color-fill); }
-.wx-now .i { width: 24px; height: 24px; color: var(--color-ink-2); }
-.wx-temp { font-size: var(--size-21); font-weight: var(--weight-semibold); letter-spacing: -0.02em; line-height: 1; }
+.wx-now .i { width: 22px; height: 22px; color: var(--color-ink-2); }
+.wx-temp { font-size: var(--size-18); font-weight: var(--weight-semibold); letter-spacing: -0.02em; line-height: 1; }
 .wx-city {
   display: inline-flex; align-items: center; gap: var(--space-4); flex: none; min-height: var(--btn-h); padding: 0 var(--space-8);
-  border-radius: var(--radius-full); font-size: var(--text-sub); font-weight: var(--weight-semibold); color: var(--color-ink); white-space: nowrap;
+  border-radius: var(--radius-full); font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2); white-space: nowrap;
   transition: background-color var(--duration-150) ease;
 }
-.wx-city:hover, .wx-city[aria-expanded="true"] { background: var(--color-fill); }
+.wx-city:hover, .wx-city[aria-expanded="true"] { background: var(--color-fill); color: var(--color-ink); }
 .wx-city .i { width: 16px; height: 16px; color: var(--color-ink-3); }
 .wx-detail { min-width: 0; min-height: var(--btn-h); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--text-small); color: var(--color-ink-2); text-align: start; }
+button.wx-detail { display: none; }
 .wx-detail .num { color: var(--color-ink); }
 .wx-retry { min-height: var(--btn-h); padding: 0 var(--space-8); color: var(--color-link); font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 3px; }
-.wx-skel { display: inline-block; width: 120px; height: 14px; border-radius: var(--radius-full); background: var(--color-fill); }
+/* The placeholder holds the place of the temperature button, so nothing moves when the forecast arrives. */
+.wx-skel { display: inline-block; flex: none; width: calc(var(--btn-h) + var(--space-24)); height: var(--space-16); margin: 0 var(--space-8); border-radius: var(--radius-full); background: var(--color-fill); }
 
 .wx-menu, .wx-panel {
   position: absolute; z-index: 40; top: calc(100% + var(--space-4)); left: 0;
@@ -92,11 +111,11 @@
 .wx-credit { font-size: var(--size-12); color: var(--color-ink-3); }
 .wx-credit a { color: var(--color-link); text-decoration: underline; text-underline-offset: 3px; }
 
-/* Google services, each named (mockup A) */
-.services { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-4); }
+/* Google services, each named (mockup A), at the row's right end */
+.services { display: flex; align-items: center; gap: 0; margin-inline-start: auto; flex: none; }
 .svc {
-  display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--btn-h); padding: 0 var(--space-12) 0 var(--space-8);
-  border-radius: var(--radius-full); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2);
+  display: inline-flex; align-items: center; gap: var(--space-6); min-height: var(--btn-h); min-width: var(--btn-h); padding: 0 var(--space-12) 0 var(--space-8);
+  border-radius: var(--radius-full); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2); white-space: nowrap;
   transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
 }
 .svc:hover { background: var(--color-surface); color: var(--color-ink); box-shadow: 0 0 0 1px var(--color-hair); }
@@ -105,20 +124,48 @@
 .svc-icon img { width: 24px; height: 24px; }
 .svc-letter { display: grid; place-items: center; width: 24px; height: 24px; border-radius: var(--radius-8); background: var(--color-fill); font-size: var(--size-12); font-weight: var(--weight-bold); color: var(--color-ink-2); }
 
+@media (min-width: 1600px) {
+  button.wx-detail { display: inline-flex; align-items: center; gap: var(--space-4); padding: 0 var(--space-8); }
+}
+
+/* 1100-1279 px: the row keeps the search comfortable and shows the services as icons (each still named for screen
+   readers and on hover). The names return from 1280 px. */
+@media (min-width: 1100px) and (max-width: 1279px) {
+  :root { --top-utility-w: 32rem; }
+  .svc { justify-content: center; padding: 0; }
+  .svc-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+
+/* Under 1100 px: the search takes the width; one row under it scrolls sideways with the weather first, then the
+   services as icon over label. The weather's menu and detail open as a sheet from the bottom, which the scrolling row
+   cannot clip. */
+@media (max-width: 1099px) {
+  .dateline .d-long { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .d-short { display: inline; }
+  .hero { padding-top: var(--space-4); }
+  .hero-in { flex-direction: column; align-items: stretch; gap: var(--space-8); }
+  #web-search { flex: none; }
+  .utility {
+    gap: var(--space-4); overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+    margin-inline: calc(-1 * var(--page-pad)); padding: var(--space-4) var(--page-pad);
+  }
+  .utility::-webkit-scrollbar { display: none; }
+  .weather { position: static; padding-inline-end: var(--space-8); border-inline-end: 1px solid var(--color-hair); }
+  .wx-menu, .wx-panel {
+    position: fixed; z-index: 60; top: auto; left: var(--page-pad); right: var(--page-pad);
+    bottom: calc(var(--mobile-nav-h, 0px) + env(safe-area-inset-bottom) + var(--space-8));
+  }
+  .wx-menu { width: auto; max-height: 60dvh; transform-origin: bottom center; transform: translateY(var(--space-8)); }
+  .wx-panel { width: auto; max-height: 75dvh; overflow: auto; }
+  .services { margin-inline-start: 0; gap: 0; }
+  .svc { flex-direction: column; justify-content: center; gap: 0; min-width: calc(var(--btn-h) + var(--space-12)); padding: var(--space-6) var(--space-4); font-size: var(--size-12); border-radius: var(--radius-12); }
+}
 @media (max-width: 767px) {
-  .hero { padding-top: var(--space-8); padding-bottom: var(--space-24); }
-  .dateline { font-size: var(--text-meta); }
-  .dateline .sep { display: none; }
-  .dateline .lunar { display: block; }
-  .web-field { min-height: 52px; padding-inline-start: var(--space-16); }
-  #web-query { height: 50px; font-size: var(--text-body); }
-  .utility { align-items: stretch; }
-  .weather { flex-wrap: wrap; justify-content: flex-start; }
-  .wx-detail { white-space: normal; }
-  .services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-4); }
-  .svc { width: 100%; flex-direction: column; justify-content: center; gap: var(--space-4); padding: var(--space-8) var(--space-4); font-size: var(--size-12); }
+  .dateline { font-size: var(--size-12); }
+  .d-short { display: grid; }
+  .d-short .sep { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .web-field, .go-btn, .svc, .wx-menu, .wx-menu.open { transition: none; }
+  .web-field, .go-btn, .svc, .wx-now, .wx-city, .wx-menu, .wx-menu.open { transition: none; }
   .go-btn:active, .svc:active { transform: none; }
 }

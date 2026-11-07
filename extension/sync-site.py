@@ -68,13 +68,17 @@ def adapt_html(html):
     # The brand opens the live site; on the new tab the page itself is "Trang nhất".
     html = replace_once(html, '<a class="brand feed-brand" id="brand" href="#top" aria-label="Halcyon, về đầu trang">',
                         f'<a class="brand feed-brand" id="brand" href="{LIVE}" aria-label="Halcyon, mở trang web">')
+    # On the new tab the masthead carries the date with the lunar date beside the wordmark (captain, 07/11 17:12: the top
+    # zone gives its height back to the news); the site keeps its tagline there.
+    html = replace_once(html, '\n    <div class="masthead-actions">',
+                        '\n    <p class="dateline" id="dateline"></p>\n    <div class="masthead-actions">')
     html = replace_once(html, '<!-- News bar: the sections and the inline news search.', TOP_ZONE + '\n<!-- News bar: the sections and the inline news search.')
     validate_html(html)
     return html
 
 
-# The extension's own top zone (captain, 07/11): the date with the lunar date, the web search, the weather and the
-# Google services. Between the masthead and the news bar; vung-dau.js and newtab.js fill and drive it.
+# The extension's own top zone (captain, 07/11): the web search, the weather and the Google services in one slim row
+# between the masthead and the news bar; vung-dau.js and newtab.js fill and drive it.
 TOP_ZONE = '''<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="w-clear-day" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
   <symbol id="w-clear-night" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
@@ -85,10 +89,10 @@ TOP_ZONE = '''<svg width="0" height="0" style="position:absolute" aria-hidden="t
   <symbol id="w-storm" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M12.5 15.5l-2 3.5h3l-2 3.5"/></symbol>
   <symbol id="w-snow" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M9 18.5h.01M12 20.5h.01M15 18.5h.01"/></symbol>
 </svg>
-<!-- Top zone: the web search is the quiet hero; the weather and the Google services sit in one slim row under it. -->
+<!-- Top zone: one slim row under the masthead: the web search, the weather chip, then the Google services. The date with
+     the lunar date sits in the masthead next to the wordmark (adapt_html). -->
 <section class="hero wrap" id="top-zone" aria-label="Tìm trên web, thời tiết và dịch vụ Google">
   <div class="hero-in">
-    <p class="dateline" id="dateline"></p>
     <form id="web-search" role="search" aria-label="Tìm trên web">
       <label class="web-field">
         <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
