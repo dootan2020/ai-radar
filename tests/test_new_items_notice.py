@@ -36,8 +36,9 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertIn(".seen-mark", self.css)
 
     def test_sort_and_metadata_locations(self):
-        header = self.html.split('<header class="feed-bar"')[1].split("</header>")[0]
-        self.assertIn('id="sort-switch"', header)
+        # The sort switch sits on the line above the bento (07/11, "Trang nhất").
+        meta = self.html.split('<div class="front-meta">')[1].split('id="filter-context"')[0]
+        self.assertIn('id="sort-switch"', meta)
         mobile = self.css.split("@media (max-width: 767px)", 1)[1]
         self.assertNotIn("order: 6", mobile)
         self.assertIn('id="src-update"', self.html)
@@ -52,10 +53,13 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertNotIn("$('#stale')", self.js)
         self.assertNotIn("freshness.js", self.html + self.js)
 
-    def test_tabs_have_only_names_without_digit_space(self):
-        labels = re.findall(r'<button class="filter-chip"[^>]*>([^<]+)</button>', self.html)
-        self.assertEqual(labels, ["Tất cả", "Chuyện lớn", "Đang nóng", "Sản phẩm", "Thảo luận", "Mã và mô hình", "Xếp hạng", "Đã lưu"])
-        self.assertNotIn(".filter-chip .count", self.css)
+    def test_sections_name_their_view_and_count_its_stories(self):
+        # Mockup B (captain, 07/11): each section names itself and its story count; the count is drawn from the data
+        # and an empty count takes no room.
+        labels = re.findall(r'<span class="chip-label">([^<]+)</span>', self.html)
+        self.assertEqual(labels, ["Trang nhất", "Chuyện lớn", "Đang nóng", "Sản phẩm", "Nghiên cứu", "Thảo luận", "Mã và mô hình", "Xếp hạng", "Đã lưu"])
+        self.assertIn("count.textContent = n ? String(n) : ''", self.js)
+        self.assertIn(".filter-chip .count:empty { display: none; }", (SITE / "trang-nhat.css").read_text(encoding="utf-8"))
         self.assertNotIn("3ch", self.css)
 
     def test_header_preserves_tab_space_and_utilities(self):
@@ -65,7 +69,7 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertIn(".feed-filters{", self.header_css)
         self.assertIn("overflow-x:auto", self.header_css)
         self.assertIn(".tc-link .tc-label{display:none}", self.header_css)
-        self.assertIn('aria-label="Tra cứu câu chuyện AI"', self.html)
+        self.assertIn('aria-label="Tìm trong tin Halcyon"', self.html)
 
     def test_header_never_stacks_when_its_contents_do_not_fit(self):
         self.assertNotIn("function fitBar()", self.js)

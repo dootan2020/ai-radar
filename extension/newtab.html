@@ -34,14 +34,18 @@
 <link rel="stylesheet" href="feed.css">
 <link rel="stylesheet" href="arena.css">
 <link rel="stylesheet" href="story.css">
+<link rel="stylesheet" href="trang-nhat.css">
 <script type="module" src="feed.js"></script>
 <script type="module" src="newtab.js"></script>
+<script type="module" src="vung-dau.js"></script>
 <link rel="stylesheet" href="newtab.css">
+<link rel="stylesheet" href="the-lich.css">
 <link rel="modulepreload" href="faces.js">
 <link rel="modulepreload" href="time-text.js">
 <link rel="modulepreload" href="words.js">
 <link rel="modulepreload" href="titles.js">
 <link rel="modulepreload" href="calendar.js">
+<link rel="modulepreload" href="tim-tin.js">
  <link rel="stylesheet" href="menu-cong-cu.css">
  <script defer src="menu-cong-cu.js"></script>
 </head>
@@ -50,49 +54,96 @@
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 5h10v10M19 5L6 18"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
   <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M9 7.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L9.9 6.7a.6.6 0 0 0-.9.5z"/></symbol>
   <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M18 20l-6-4.3L6 20V5.5A1.5 1.5 0 0 1 7.5 4h9A1.5 1.5 0 0 1 18 5.5z"/></symbol>
   <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.3-4.3"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.5"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
 </svg>
 
-<!-- Desktop links stay beside the filters; the phone bar shows the same destinations below the feed. -->
-<header class="feed-bar" id="bar">
-  <div class="feed-bar-in">
-    <a class="feed-brand" href="#top" aria-label="Halcyon, về đầu trang"><img class="brand-icon" src="logo.svg" width="32" height="32" alt=""><img class="brand-logo brand-logo-light" src="wordmark.svg" width="160" height="44" alt=""><img class="brand-logo brand-logo-dark" src="wordmark-dark.svg" width="160" height="44" alt=""></a>
-    <div class="feed-navigation">
-      <div class="feed-filters" id="feed-filters" role="group" aria-label="Lọc dòng tin">
-        <button class="filter-chip" data-filter="all" aria-pressed="true">Tất cả</button>
-        <button class="filter-chip" data-filter="big" aria-pressed="false">Chuyện lớn</button>
-        <button class="filter-chip" data-filter="hot" aria-pressed="false">Đang nóng</button>
-        <button class="filter-chip" data-filter="product" aria-pressed="false">Sản phẩm</button>
-        <button class="filter-chip" data-filter="forum" aria-pressed="false">Thảo luận</button>
-        <button class="filter-chip" data-filter="code" aria-pressed="false">Mã và mô hình</button>
-        <button class="filter-chip" data-filter="rankings" aria-pressed="false">Xếp hạng</button>
-        <button class="filter-chip" data-filter="saved" aria-pressed="false" hidden>Đã lưu</button>
-      </div>
-      <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin">
-        <button class="sort-btn" data-sort="worth" aria-label="Đáng đọc nhất" aria-pressed="true"><span class="sort-label-full">Đáng đọc nhất</span><span class="sort-label-short">Đọc</span></button>
-        <button class="sort-btn" data-sort="new" aria-label="Mới nhất" aria-pressed="false"><span class="sort-label-full">Mới nhất</span><span class="sort-label-short">Mới</span></button>
-        <button class="sort-btn sort-btn-compact" data-sort="toggle" aria-label="Đang sắp xếp: Đáng đọc nhất. Chuyển sang Mới nhất" aria-pressed="false"><span class="sort-current">Đáng đọc</span></button>
-      </div>
-    </div>
-    <a class="ed-link" href="https://radar-ai-vn.pages.dev/ban-tin.html" aria-label="Bản tin sáng"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg><span class="ed-label">Bản tin sáng</span></a>
-    <a class="tc-link" href="https://radar-ai-vn.pages.dev/tra-cuu.html" aria-label="Tra cứu câu chuyện AI"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span class="tc-label">Tra cứu</span></a>
-    <button class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Chuyển chế độ sáng hoặc tối">
-      <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
-      <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
-    </button>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="w-clear-day" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+  <symbol id="w-clear-night" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
+  <symbol id="w-partly" viewBox="0 0 24 24"><path d="M8.5 4.5v1.2M3.6 9.5h1.2M5 6l.9.9M12 6l-.9.9"/><path d="M5.7 12.3a3.5 3.5 0 0 1 6.4-3.2"/><path d="M8 19.5h9a3.5 3.5 0 0 0 .4-7 5 5 0 0 0-9.6 1.4A2.8 2.8 0 0 0 8 19.5z"/></symbol>
+  <symbol id="w-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 18.5z"/></symbol>
+  <symbol id="w-fog" viewBox="0 0 24 24"><path d="M7 13.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 13.5z"/><path d="M5 17h14M7 20.5h10"/></symbol>
+  <symbol id="w-rain" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M8.5 17.5l-1 2.5M12.5 17.5l-1 2.5M16.5 17.5l-1 2.5"/></symbol>
+  <symbol id="w-storm" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M12.5 15.5l-2 3.5h3l-2 3.5"/></symbol>
+  <symbol id="w-snow" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M9 18.5h.01M12 20.5h.01M15 18.5h.01"/></symbol>
+</svg>
+<!-- Rows 1 and 2 (mockup D; row 1 compacted 07/11 22:41): the Google shortcuts as one cluster of icons with every Google
+     app behind the 9 dots, at the top right, then the Google search. Row 3 is the news bar below. The date, the lunar
+     date and the weather are on the calendar card in the bento (mockup H, 08/11; the-lich.js). -->
+<header class="masthead top" id="masthead">
+  <div class="wrap g-row">
+    <ul class="services" id="services" aria-label="Dịch vụ Google"></ul>
     <div class="tool-launcher"></div>
   </div>
+  <div class="wrap hero" id="top-zone">
+    <form id="web-search" class="web-search" role="search" aria-label="Tìm trên Google" action="https://www.google.com/search">
+      <label class="web-field">
+        <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
+        <span class="sr">Tìm trên Google</span>
+        <input id="web-query" name="q" type="search" placeholder="Tìm trên Google" autocomplete="off" enterkeyhint="search">
+        <button class="go-btn" type="submit" aria-label="Tìm trên Google"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </label>
+    </form>
+  </div>
 </header>
+
+
+<!-- News bar: the sections and the inline news search. It sticks once the reader scrolls into the news. -->
+<nav class="newsbar" id="bar" aria-label="Tin AI">
+  <div class="wrap newsbar-in">
+    <a class="brand feed-brand bar-brand" id="brand" href="https://radar-ai-vn.pages.dev/" aria-label="Halcyon, mở trang web"><img class="brand-wm brand-logo-light" src="wordmark.svg" width="95" height="26" alt=""><img class="brand-wm brand-logo-dark" src="wordmark-dark.svg" width="95" height="26" alt=""></a>
+    <div class="feed-filters sections" id="feed-filters" role="group" aria-label="Lọc dòng tin">
+      <button class="filter-chip" data-filter="all" aria-pressed="true"><span class="chip-label">Trang nhất</span></button>
+      <button class="filter-chip" data-filter="big" aria-pressed="false"><span class="chip-label">Chuyện lớn</span><span class="count num"></span></button>
+      <button class="filter-chip" data-filter="hot" aria-pressed="false"><span class="chip-label">Đang nóng</span><span class="count num"></span></button>
+      <button class="filter-chip" data-filter="product" aria-pressed="false"><span class="chip-label">Sản phẩm</span><span class="count num"></span></button>
+      <button class="filter-chip" data-filter="research" aria-pressed="false"><span class="chip-label">Nghiên cứu</span><span class="count num"></span></button>
+      <button class="filter-chip" data-filter="forum" aria-pressed="false"><span class="chip-label">Thảo luận</span><span class="count num"></span></button>
+      <button class="filter-chip" data-filter="code" aria-pressed="false"><span class="chip-label">Mã và mô hình</span><span class="count num"></span></button>
+      <button class="filter-chip" data-filter="rankings" aria-pressed="false"><span class="chip-label">Xếp hạng</span></button>
+      <button class="filter-chip" data-filter="saved" aria-pressed="false" hidden><span class="chip-label">Đã lưu</span><span class="count num"></span></button>
+    </div>
+    <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin">
+      <button class="sort-btn" data-sort="worth" aria-label="Đáng đọc nhất" aria-pressed="true"><span class="sort-label-full">Đáng đọc nhất</span><span class="sort-label-short">Đọc</span></button>
+      <button class="sort-btn" data-sort="new" aria-label="Mới nhất" aria-pressed="false"><span class="sort-label-full">Mới nhất</span><span class="sort-label-short">Mới</span></button>
+      <button class="sort-btn sort-btn-compact" data-sort="toggle" aria-label="Đang sắp xếp: Đáng đọc nhất. Chuyển sang Mới nhất" aria-pressed="false"><span class="sort-current">Đáng đọc</span></button>
+    </div>
+    <div class="news-search" id="news-search">
+      <button class="icon-btn ns-open" id="ns-open" type="button" aria-label="Tìm trong tin Halcyon" aria-expanded="false" aria-controls="ns-q">
+        <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
+      </button>
+      <div class="ns-field" role="search">
+        <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
+        <label class="sr" for="ns-q">Tìm trong tin Halcyon</label>
+        <input id="ns-q" type="search" placeholder="Tìm trong tin Halcyon" autocomplete="off" spellcheck="false" enterkeyhint="search"
+               role="combobox" aria-expanded="false" aria-controls="ns-results" aria-autocomplete="list" aria-keyshortcuts="/">
+        <span class="kbd" aria-hidden="true">/</span>
+        <button class="icon-btn ns-clear" id="ns-clear" type="button" aria-label="Xoá ô tìm tin">
+          <svg class="i" aria-hidden="true"><use href="#i-close"/></svg>
+        </button>
+      </div>
+      <div class="ns-results" id="ns-results" hidden></div>
+    </div>
+    <a class="ed-link" href="https://radar-ai-vn.pages.dev/ban-tin.html" aria-label="Bản tin sáng"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg><span class="ed-label">Bản tin sáng</span></a>
+    <button class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Chuyển chế độ sáng hoặc tối">
+        <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+        <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+      </button>
+  </div>
+</nav>
+<p class="sr" id="ns-status" role="status" aria-live="polite"></p>
 
 <!-- One transient notice for meaningful new stories; the live region never contains a focusable control. -->
 <div class="fresh" id="fresh" hidden>
@@ -100,13 +151,11 @@
 </div>
 <div class="sr" id="fresh-announcement" role="status" aria-live="polite" aria-atomic="true"></div>
 
-<main class="feed-main" id="top" tabindex="-1" aria-busy="true">
-  <form id="web-search" role="search" aria-label="Tìm trên web">
-    <label class="sr" for="web-query">Tìm trên web</label>
-    <div class="web-search-field"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><input id="web-query" type="search" placeholder="Tìm trên web" autocomplete="off" required></div>
-    <button type="submit">Tìm</button>
-  </form>
+<main class="feed-main front wrap" id="top" tabindex="-1" aria-busy="true">
   <h1 class="sr">Halcyon, bản tin AI hôm nay</h1>
+  <div class="front-meta">
+    <h2 class="front-h" id="front-h">Trang nhất</h2>
+  </div>
   <p class="filter-context" id="filter-context" aria-live="polite" hidden></p>
   <!-- Shown only if the page never finished loading (a blocked module, no JavaScript). -->
   <div class="reader-fallback" role="status">
@@ -114,30 +163,31 @@
     <noscript><p>Dòng tin cần JavaScript để hiển thị. Hãy bật JavaScript trong trình duyệt rồi tải lại trang.</p></noscript>
   </div>
 
-  <!-- The loading placeholder sits where the first screen will appear and is removed when it does, so nothing that
-       stays on the page is pushed down by the content arriving above it (layout shift). -->
-  <div class="feed-grid" id="feed-skeleton">
+  <!-- The loading placeholder has the first rows' shape and is removed when they arrive, so nothing that stays on the
+       page is pushed down by the content arriving above it (layout shift). -->
+  <div class="bento feed-grid" id="feed-skeleton">
     <div class="sk-card sk-lead"><div class="sk"></div></div>
-    <div class="sk-card"><div class="sk sk-media"></div><div class="sk sk-line"></div><div class="sk sk-line short"></div></div>
-    <div class="sk-card sk-tall"><div class="sk sk-media"></div><div class="sk sk-line"></div></div>
-    <div class="sk-card"><div class="sk sk-media"></div><div class="sk sk-line"></div><div class="sk sk-line short"></div></div>
+    <div class="sk-card sk-feature"><div class="sk sk-media"></div><div class="sk sk-line"></div><div class="sk sk-line short"></div></div>
+    <div class="sk-card sk-std"><div class="sk sk-media"></div><div class="sk sk-line"></div></div>
+    <div class="sk-card sk-std"><div class="sk sk-media"></div><div class="sk sk-line"></div><div class="sk sk-line short"></div></div>
+    <div class="sk-card sk-std"><div class="sk sk-media"></div><div class="sk sk-line"></div></div>
     <p class="sr" role="status">Đang tải dòng tin…</p>
   </div>
 
-  <!-- Khối 1: Nhiều nguồn cùng đưa - các sự kiện lớn được nhiều cơ quan báo chí và phòng nghiên cứu độc lập cùng xác nhận -->
+  <!-- The front page's first row: the story most sources carry, and the next one beside it. -->
   <section class="picks" id="picks" aria-labelledby="picks-h" hidden>
-    <div class="block-head">
+    <div class="block-head sr">
       <h2 class="block-title" id="picks-h">Nhiều nguồn cùng đưa</h2>
       <p class="block-sub" id="picks-sub">Các sự kiện lớn được từ 2 đến 4 nguồn tin độc lập cùng xác nhận trong 72 giờ qua.</p>
-      <span class="sr" id="picks-note"></span>
+      <span id="picks-note"></span>
     </div>
-    <div class="picks-grid" id="picks-grid"></div>
+    <div class="bento picks-grid" id="picks-grid"></div>
     <div class="how-panel" id="how-panel" hidden></div>
   </section>
 
   <section class="arena" id="arena" aria-labelledby="arena-title" hidden></section>
 
-  <section class="feed-grid" id="feed-grid" aria-label="Dòng tin"></section>
+  <section class="bento feed-grid" id="feed-grid" aria-label="Dòng tin"></section>
 
   <div class="feed-more" id="feed-more" hidden>
     <button class="btn" id="more-btn">Xem thêm</button>
@@ -159,6 +209,7 @@
   </footer>
 
   <footer class="feed-footer" id="feed-footer">
+    <p class="front-fresh" id="front-fresh"></p>
     <p class="src-note" id="src-update"></p>
     <button class="text-btn" id="keys-open" aria-keyshortcuts="?">Phím tắt (?)</button>
   </footer>
@@ -174,7 +225,7 @@
     <dt><kbd>U</kbd></dt><dd>Tới tin mới đầu tiên</dd>
     <dt><kbd>M</kbd></dt><dd>Đánh dấu đã xem</dd>
     <dt><kbd>G</kbd></dt><dd>Về đầu trang</dd>
-    <dt><kbd>/</kbd></dt><dd>Mở trang Tra cứu</dd>
+    <dt><kbd>/</kbd></dt><dd>Tìm trong tin Halcyon</dd>
     <dt><kbd>Esc</kbd></dt><dd>Đóng phần chi tiết đang mở</dd>
     <dt><kbd>?</kbd></dt><dd>Mở bảng này</dd>
   </dl>

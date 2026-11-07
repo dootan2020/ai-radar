@@ -656,89 +656,6 @@ ul, ol { padding: 0; list-style: none; }
 .how-list { display: flex; flex-direction: column; gap: var(--space-8); }
 .how-panel b { color: var(--color-ink); font-weight: var(--weight-semibold); }
 
-/* Laptop and wider: one row of three stories (the lead over half the width, the next two beside it), all ending
-   on one line because the lead's photo takes the height of the two cards; under the row, the events tile runs
-   the full width at the height of its own content. No column is left with bare canvas, and the lead headline
-   sits in the first screen whatever the events tile holds. */
-.picks-grid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--feed-gap);
-  align-items: start;
-}
-.picks-grid > .feed-card.card-lead {
-  grid-column: 1 / span 6;
-  grid-row: auto;
-  align-self: stretch;
-  min-height: var(--picks-lead-min-h);
-}
-.picks-mid {
-  grid-column: 7 / -1;
-  align-self: stretch;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--feed-gap);
-}
-.picks-mid:has(> .feed-card:only-child) { grid-template-columns: minmax(0, 1fr); }
-.picks-mid > .feed-card { grid-column: span 1; min-width: 0; }
-.picks-grid > .tile-live { grid-column: 1 / -1; align-self: stretch; }   /* full width on the phone's flex column too */
-/* Without the two cards, the lead takes the whole row. */
-.picks-grid:not(:has(> .picks-mid)) > .feed-card.card-lead { grid-column: 1 / -1; min-height: var(--lead-min-h); }
-/* The events tile under the row. Without a stream it is a slim strip: the heading as a rail on the left, the events
-   across the rest, one column each, divided by hairlines; it is as tall as its content, never a box to fill. With a
-   stream, the picture and its text take the left third and the events stack as rows beside them. */
-@media (min-width: 1200px){
-  .picks-grid > .tile-live:not(.has-video) {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 10fr);
-    align-items: center;
-    gap: 0 var(--space-24);
-    padding-block: var(--space-16);
-  }
-  .picks-grid > .tile-live:not(.has-video) .tile-head { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
-  .picks-grid > .tile-live:not(.has-video) .tile-tools { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
-  .picks-grid > .tile-live:not(.has-video) .tile-more { margin-block: calc(var(--space-12) * -1) 0; }
-  .picks-grid > .tile-live:not(.has-video) .shelf-nav { margin-inline-start: calc(var(--space-4) * -1); }
-  /* Here the shelf is the strip: columns divided by hairlines that share the width while they fit, and scroll,
-     at a readable width each, once they do not. */
-  .picks-grid > .tile-live .events.shelf {
-    grid-auto-columns: minmax(var(--ev-min, 260px), 1fr); gap: 0;
-    margin-inline: 0; padding-inline: 0; scroll-padding-inline: 0;
-  }
-  .picks-grid > .tile-live .events.shelf > li {
-    border: 0; border-radius: 0; border-inline-start: 1px solid var(--color-hair);
-    padding: var(--space-4) var(--space-24);
-  }
-  .picks-grid > .tile-live .events.shelf > li:last-child { padding-inline-end: 0; }
-  .picks-grid > .tile-live.has-video .events.shelf > li:first-child { border-inline-start: 0; padding-inline-start: 0; }
-
-  .picks-grid > .tile-live.has-video .live-body {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-    gap: var(--space-32);
-    align-items: start;
-  }
-  .picks-grid > .tile-live .live-video {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--space-16);
-    align-items: start;
-  }
-  .picks-grid > .tile-live .video-text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-12); min-width: 0; }
-  .picks-grid > .tile-live .tile-video { margin: 0; border-radius: var(--radius-8); }
-  .picks-grid > .tile-live .tile-subhead { margin-top: 0; }
-}
-/* Tablet: the events tile under the cards; a stream and the event rows side by side. */
-@media (min-width: 768px) and (max-width: 1199px){
-  .picks-grid > .tile-live.has-video .live-body {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--feed-gap);
-    align-items: start;
-  }
-  .picks-grid > .tile-live .tile-video { margin: 0; border-radius: var(--radius-8); }
-  .picks-grid > .tile-live .tile-subhead { margin-top: 0; }
-}
 /* The rank of the block's lead, at the head of its source line */
 .pick-n { font-size: var(--size-21); font-weight: var(--weight-bold); line-height: 1; letter-spacing: var(--tracking-number); color: var(--color-ink); margin-right: var(--space-4); }
 .card-photo .pick-n { color: var(--card-ink-on-photo); }
@@ -1127,26 +1044,12 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .card-wide { grid-column: span 4; }
   .tile-hot, .tile-repos, .tile-models { grid-column: span 6; }
 
-  .picks-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  /* Stacked: the lead, then the two cards side by side, then the events tile, each across the full width. */
-  .picks-grid > .feed-card.card-lead,
-  .picks-grid:not(:has(> .picks-mid)) > .feed-card.card-lead,
-  .picks-mid {
-    grid-column: 1 / -1;
-  }
-  .picks-grid > .feed-card.card-lead,
-  .picks-grid:not(:has(> .picks-mid)) > .feed-card.card-lead {
-    min-height: clamp(480px, 40vw + 100px, 580px);
-  }
 }
 @media (max-width: 959px) and (min-width: 768px){
   .card-std, .sk-card { grid-column: span 3; }
   .card-lead, .sk-lead { grid-column: 1 / -1; }
   .card-wide { grid-column: 1 / -1; }
   .tile-live { grid-column: span 3; }
-}
-@media (max-width: 1199px) and (min-width: 768px){
-  .feed-grid > .card-wide:not(.card-photo) .media { max-height: 280px; }   /* a photo card's picture spans its two rows */
 }
 
 /* ==========================================================================
@@ -1213,9 +1116,6 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 
   /* Briefing headers and picks on phone */
   :root { --picks-gap: var(--space-32); }
-  .picks-grid { display: flex; flex-direction: column; align-items: stretch; gap: var(--feed-gap); }
-  .picks-mid { display: flex; flex-direction: column; gap: var(--feed-gap); }
-  .picks-grid > .feed-card.card-lead { min-height: clamp(480px, 25vw + 380px, 560px); aspect-ratio: auto; }
   .briefing-head { margin-top: var(--space-32); margin-bottom: var(--space-8); }
   .how-panel { padding: var(--space-16); }
 }

@@ -29,7 +29,7 @@ class ExtensionShellTests(unittest.TestCase):
         manifest = json.loads((EXT / 'manifest.json').read_text(encoding='utf-8'))
         self.assertEqual(manifest['manifest_version'], 3)
         self.assertEqual(manifest['chrome_url_overrides'], {'newtab': 'newtab.html'})
-        self.assertEqual(set(manifest['permissions']), {'storage', 'alarms', 'search'})
+        self.assertEqual(set(manifest['permissions']), {'storage', 'alarms'})
         self.assertEqual(manifest['host_permissions'], [LIVE + '*'])
         self.assertEqual(manifest['background']['service_worker'], 'background.js')
         self.assertIn('tìm kiếm', manifest['description'].lower())
@@ -58,7 +58,7 @@ class ExtensionShellTests(unittest.TestCase):
         payload = json.loads(FIXTURE.read_text(encoding='utf-8'))
         self.assertEqual(payload['schema_version'], 2)
         self.assertGreater(len(payload['stories']), 100)
-        for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'faces.js',
+        for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'trang-nhat.css', 'faces.js',
                      'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js', 'calendar.js',
                      'worth-score.js', 'live.js', 'menu-cong-cu.css', 'feed-images.json',
                      'editor-picks.json', 'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg',
@@ -71,14 +71,20 @@ class ExtensionShellTests(unittest.TestCase):
         for local in re.findall(r'(?:href|src)="([^"#:]+)"', html):
             self.assertTrue((EXT / local).is_file(), f'newtab.html references missing {local}')
         menu = (EXT / 'menu-cong-cu.js').read_text(encoding='utf-8')
-        self.assertIn("link.href = file === 'index.html' ? '#top' : `" + LIVE + "${file}`;", menu)
+        self.assertIn(": file === 'index.html' ? '#top' : file.startsWith('index.html#') ? file.slice(10) : `" + LIVE + "${file}`;", menu)
         self.assertNotIn('${prefix}${file}', menu)
+        # The Google rows replace the masthead and sit above the news bar (captain, 07/11 18:03).
+        self.assertLess(html.index('id="masthead"'), html.index('id="web-search"'))
+        self.assertLess(html.index('id="web-search"'), html.index('id="bar"'))
         self.assertLess(html.index('id="web-search"'), html.index('id="picks"'))
-        for link in ('ban-tin.html', 'tra-cuu.html'):
-            self.assertIn(f'href="{LIVE}{link}"', html)
+        for part in ('id="services"', 'src="vung-dau.js"', 'href="the-lich.css"', 'id="news-search"'):
+            self.assertIn(part, html)
+        self.assertIn(f'href="{LIVE}ban-tin.html"', html)
+        self.assertNotIn('tra-cuu', html)
         for link in ('tin/', 'nguon.html'):
             self.assertIn(f'href="{LIVE}{link}', feed)
-        self.assertIn(f"location.href = '{LIVE}tra-cuu.html'", feed)
+        self.assertIn("if (newsSearch) newsSearch.open();", feed)
+        self.assertIn(f"const SEARCH_URL = '{LIVE}data/radar-search.json';", (EXT / 'tim-tin.js').read_text(encoding='utf-8'))
         self.assertIn(f"const u = '{LIVE}tin/'", feed)
         self.assertIn('await cachedSnapshot()', feed)
         self.assertIn('whenIdle().then(async () => {', feed)
@@ -195,20 +201,28 @@ process.stdout.write(JSON.stringify({saved,afterOffline,afterTimeout:cache.radar
         })
 
     @unittest.skipUnless(shutil.which('node'), 'Node required for JavaScript behavior tests')
-    def test_search_uses_chrome_search(self):
+    def test_search_goes_to_google(self):
+        # Captain, 07/11 18:26: "tìm kiếm google luôn": the query opens Google's results in this tab, whatever the
+        # reader's default engine is; an empty field does nothing.
         script = r'''
 import {readFileSync} from 'node:fs';
 const source = readFileSync(process.argv[1], 'utf8');
-const handlers = {}, queries = [];
+const handlers = {}, opened = [], field = {value:'  mô hình AI & GPU  '};
 globalThis.document = {querySelector: selector => selector === '#web-search' ?
-  {addEventListener:(_,fn) => handlers.submit=fn} : selector === '#web-query' ? {value:'  AI radar  '} : null};
-globalThis.chrome = {search:{query:value => queries.push(value)},storage:{local:{get:async () => ({radarWindow:{}})},onChanged:{addListener:fn => handlers.changed=fn}}};
+  {addEventListener:(_,fn) => handlers.submit=fn} : selector === '#web-query' ? field : null};
+globalThis.location = {assign:url => opened.push(url)};
+globalThis.chrome = {search:{query:() => opened.push('chrome.search')},storage:{local:{get:async () => ({radarWindow:{}})},onChanged:{addListener:fn => handlers.changed=fn}}};
 await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
 handlers.submit({preventDefault(){}});
-process.stdout.write(JSON.stringify(queries));
+field.value = '   ';
+handlers.submit({preventDefault(){}});
+process.stdout.write(JSON.stringify(opened));
 '''
         self.assertEqual(node(script, EXT / 'newtab.js'),
-                         [{'text': 'AI radar', 'disposition': 'CURRENT_TAB'}])
+                         ['https://www.google.com/search?q=m%C3%B4%20h%C3%ACnh%20AI%20%26%20GPU'])
+        html = (EXT / 'newtab.html').read_text(encoding='utf-8')
+        self.assertIn('placeholder="Tìm trên Google"', html)
+        self.assertIn('action="https://www.google.com/search"', html)
 
     @unittest.skipUnless(shutil.which('node'), 'Node required for JavaScript behavior tests')
     def test_first_cache_arrival_reloads_only_an_empty_tab(self):
@@ -303,11 +317,12 @@ process.stdout.write(JSON.stringify(created));
         html = (SITE / 'index.html').read_text(encoding='utf-8')
         feed = (SITE / 'feed.js').read_text(encoding='utf-8')
         for missing in ('<script>try { var t = ', '<!-- Cloudflare Web Analytics -->',
-                        'href="ban-tin.html"', 'href="tra-cuu.html"'):
+                        'href="ban-tin.html"', '<!-- Masthead:', '<div class="tool-launcher"></div>',
+                        'id="sort-switch"', '<p class="front-fresh" id="front-fresh"></p>'):
             with self.subTest(missing=missing), self.assertRaises(ValueError):
                 sync.adapt_html(html.replace(missing, 'changed', 1))
         for missing in ('href="tin/', 'href="nguon.html"', "location.replace('nguon.html')",
-                        "location.href = 'tra-cuu.html'"):
+                        "import { createNewsSearch } from './tim-tin.js';"):
             with self.subTest(missing=missing), self.assertRaises(ValueError):
                 sync.adapt_feed(feed.replace(missing, 'changed', 1))
         with self.assertRaises(ValueError):
