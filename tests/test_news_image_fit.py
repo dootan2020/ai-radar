@@ -87,6 +87,30 @@ class NewsPictureCssTests(unittest.TestCase):
                         with self.subTest(selector=selector):
                             self.assertIn(":not(.media-backdrop", selector)
 
+    def test_photo_card_type_never_covers_the_picture(self):
+        # The lead and wide photo cards are two rows: the picture alone in the first, the type and its dark band in
+        # the second. The old card stacked the type on the picture in one grid area.
+        merged = {}
+        for selectors, declarations in rules((SITE / "feed.css").read_text(encoding="utf-8")):
+            for selector in selectors:
+                if selector.startswith(".card-photo"):
+                    merged.setdefault(selector, {}).update(declarations)
+        rows = lambda area: area.split("/")[0].strip()
+        self.assertIn(") auto /", merged[".card-photo"]["grid-template"])
+        self.assertEqual(rows(merged[".card-photo > .photo-body"]["grid-area"]), "2")
+        self.assertEqual(rows(merged[".card-photo > .media::after"]["grid-area"]), "2")
+        # The picture is placed out of flow in the first row's grid area: it fills that row and never sizes it.
+        picture = merged[".card-photo > .media .media-img"]
+        self.assertIn("grid-area", picture)
+        self.assertEqual(rows(picture["grid-area"]), "1")
+        for selector, declarations in merged.items():
+            if ".photo-body" in selector and "grid-area" in declarations:
+                with self.subTest(selector=selector):
+                    self.assertEqual(rows(declarations["grid-area"]), "2")
+        # The picture row is at least a 16:9 frame of the card's width, reserved by CSS before the picture loads.
+        floor = merged[".card-photo > .media::before"]
+        self.assertEqual((rows(floor["grid-area"]), floor["aspect-ratio"]), ("1", "16 / 9"))
+
     def test_extension_carries_the_same_stylesheets(self):
         for name in ("feed.css", "story.css"):
             with self.subTest(name=name):

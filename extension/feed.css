@@ -30,11 +30,9 @@
   --card-edge: 1px solid var(--color-card-edge);   /* white cards carry a light grey border (captain, 2026-11-06) */
   --card-ink-on-photo: var(--color-on-media);
   --card-ink-on-photo-2: var(--gray-90);
-  --photo-scrim: linear-gradient(to top,
+  --photo-band: linear-gradient(to top,             /* the photo card's type band, over the picture's blurred copy */
       oklch(0.10 0.006 var(--hue) / 0.96) 0%,
-      oklch(0.10 0.006 var(--hue) / 0.88) 55%,
-      oklch(0.10 0.006 var(--hue) / 0.65) 80%,
-      oklch(0.10 0.006 var(--hue) / 0) 100%);
+      oklch(0.10 0.006 var(--hue) / 0.82) 100%);
   --lead-min-h: clamp(480px, 32vw + 140px, 580px);
   --picks-lead-min-h: 400px;                /* the block's lead beside its two cards; the cards set the row height */
   --wide-min-h: 340px;
@@ -289,18 +287,23 @@ ul, ol { padding: 0; list-style: none; }
 .feed-card.is-read .media-img { filter: saturate(0.6); }
 .feed-card.is-read .media-backdrop { filter: blur(var(--media-backdrop-blur)) saturate(0.6); }
 
-/* ---------- photo cards: the lead and the wide ones. Type sits on the picture. ---------- */
-.card-photo { display: grid; grid-template: 1fr / 1fr; }
-.card-photo > .media, .card-photo > .photo-body { grid-area: 1 / 1; }
-.card-photo > .media { aspect-ratio: auto; min-height: 100%; }
-/* The whole picture hangs from the top edge, so on a wide picture the type below it sits on the blurred copy. */
-.card-photo > .media .media-img { position: absolute; inset: 0; object-position: top; }
-.card-photo > .media::after { content: ""; position: absolute; inset: 0; background: var(--photo-scrim); pointer-events: none; }
+/* ---------- photo cards: the lead and the wide ones. Type sits on the picture's blurred copy, never on the picture.
+   The card is two rows: the whole picture in the top row, the type on a dark band in the bottom row, and the blurred
+   copy of the picture behind both. The headline never covers the picture (captain, 2026-11-07: "không bị cắt thông
+   tin"). The top row is at least a 16:9 frame of the card's width, the same frame as every other card picture, so a
+   square chart or a tall screenshot stays readable. Everything is fixed by CSS before any picture loads, so nothing
+   moves when one arrives. ---------- */
+.card-photo { display: grid; grid-template: minmax(0, 1fr) auto / minmax(0, 1fr); }
+.card-photo > .media { grid-area: 1 / 1 / -1 / -1; display: grid; grid-template-rows: subgrid; aspect-ratio: auto; min-height: 0; }
+.card-photo > .photo-body { grid-area: 2 / 1; }
+/* Placed out of flow in the top row's area (both lines named: an abspos item's auto line is the padding edge), the
+   picture fills that row only and never sizes it. */
+.card-photo > .media .media-img { position: absolute; inset: 0; grid-area: 1 / 1 / 2 / -1; }
+.card-photo > .media::before { content: ""; grid-area: 1 / 1 / 2 / -1; aspect-ratio: 16 / 9; }   /* the picture row is at least a 16:9 frame */
+.card-photo > .media::after { content: ""; position: absolute; inset: 0; grid-area: 2 / 1 / 3 / -1; background: var(--photo-band); pointer-events: none; }
 .photo-body {
-  align-self: end; display: flex; flex-direction: column; gap: var(--space-8);
+  display: flex; flex-direction: column; gap: var(--space-8);
   padding: var(--feed-pad-photo); color: var(--card-ink-on-photo); z-index: 1; min-width: 0;
-  /* Reserve space above the text for its editorial mark. */
-  margin-top: calc(var(--feed-pad-lead) + var(--space-48));
 }
 .card-photo .src-row, .card-photo .metric { color: var(--card-ink-on-photo-2); }
 .card-photo .src-row time { color: var(--card-ink-on-photo-2); }
@@ -746,15 +749,8 @@ ul, ol { padding: 0; list-style: none; }
 .pick-note { font-size: var(--text-sub); color: var(--color-ink-2); line-height: var(--leading-body); }
 .card-photo .why-line, .card-photo .pick-note { color: var(--card-ink-on-photo-2); }
 .card-photo .why-line b { color: var(--card-ink-on-photo); }
-/* On the block's photo lead the why line replaces the summary: the type stays in the darkest part of the scrim. */
+/* On the block's photo lead the why line replaces the summary. */
 .picks .card-photo .card-sum { display: none; }
-.picks .card-photo > .media::after {
-  background: linear-gradient(to top,
-    oklch(0.10 0.006 var(--hue) / 0.96) 0%,
-    oklch(0.10 0.006 var(--hue) / 0.88) 50%,
-    oklch(0.10 0.006 var(--hue) / 0.60) 80%,
-    oklch(0.10 0.006 var(--hue) / 0) 100%);
-}
 
 /* The card's origin line ("OpenAI công bố", "Bài báo gốc", "Biên tập chọn"): a quiet kicker above the source row,
    plain text on every card, never a pill on the photo (owner, 10/10: "anh không muốn pilltext nữa"). Hot stories
@@ -1150,7 +1146,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .tile-live { grid-column: span 3; }
 }
 @media (max-width: 1199px) and (min-width: 768px){
-  .feed-grid > .card-wide .media { max-height: 280px; }
+  .feed-grid > .card-wide:not(.card-photo) .media { max-height: 280px; }   /* a photo card's picture spans its two rows */
 }
 
 /* ==========================================================================
