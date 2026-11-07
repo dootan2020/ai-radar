@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-07T19:47:42.632620+00:00",
-  "input_generated_at": "2026-11-07T15:54:06Z",
+  "generated_at": "2026-11-07T23:26:34.005929+00:00",
+  "input_generated_at": "2026-11-07T20:10:03Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -38394,17 +38394,17 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/podcast/1029038/ai-cybersecurity-hackers-data-breach-dark-age-alex-stamos",
       "key_points": [
-        "Theo chuyên gia tại công ty trí tuệ nhân tạo (AI) Cognition, công cụ mã nguồn mở ARTEX kết hợp mô hình AI cho phép xâm nhập hàng loạt tổ chức.",
-        "Chuyên gia tại Cognition cho biết ARTEX là công cụ mã nguồn mở của Trung Quốc và có bản dịch tiếng Anh trên GitHub. Hệ thống này vận hành khi được tiếp sức ở phía sau bởi mô hình ngôn ngữ lớn như GLM-5.3 đã bị loại bỏ rào cản an toàn.",
-        "Về trường hợp cụ thể, vụ việc bắt đầu từ ba ngân hàng Hàn Quốc và có thêm khoảng 200 công ty bị tấn công trong tuần này theo chuyên gia tại Cognition.",
-        "Dù vậy, người này nhấn mạnh không thể để phần mềm tự động (bot) làm toàn bộ việc phòng thủ, và ở hệ thống cụ thể của họ thì con người vẫn phải phê duyệt khi chạm ngưỡng giới hạn."
+        "Theo chuyên gia tại công ty trí tuệ nhân tạo (AI) Cognition, công cụ mở ARTEX kết hợp mô hình AI cho phép xâm nhập nhiều tổ chức khi vận hành cùng GLM-5.3 đã gỡ bỏ rào cản an toàn.",
+        "Theo chuyên gia tại Cognition, quy trình quản lý rủi ro và pháp lý quá rườm rà khiến các tổ chức không thể chấp nhận rủi ro để tự kiểm tra an ninh nội bộ. Chuyên gia tại Cognition cho biết các hệ thống còn tồn đọng nhiều mã nguồn do con người viết suốt nhiều thập kỷ bằng ngôn ngữ chưa được thay thế.",
+        "Theo chuyên gia tại Cognition, đợt xâm nhập khởi đầu từ ba ngân hàng Hàn Quốc và có thêm khoảng 200 công ty bị tấn công trong tuần này. Chuyên gia tại Cognition cho biết đang dùng công cụ của công ty hỗ trợ một số doanh nghiệp vá lỗi sau các vụ xâm nhập.",
+        "Chuyên gia tại Cognition khuyên các tổ chức phải chủ động diễn tập xâm nhập để đón đầu kẻ xấu, dù hầu như không công ty nào trên vài trăm người có khung quản lý rủi ro cho phép điều này."
       ],
       "same_event_coverage_ids": [
         "7d76bd282b25cbd00560"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mô hình AI vận hành phía sau công cụ mở ARTEX đe dọa nhiều tổ chức, chuyên gia khuyên chủ động diễn tập xâm nhập",
+      "editorial_headline_vi": "Công cụ mở ARTEX kết hợp mô hình AI đe dọa nhiều tổ chức, chuyên gia khuyên chủ động diễn tập xâm nhập",
       "summary_sources": [
         {
           "id": "outlet",
@@ -38419,29 +38419,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.85,
+        "value": 9.5,
         "answers": {
           "what": 10,
-          "why": 8,
+          "why": 9,
           "notable": 10,
-          "meaning": 5
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader does not learn why the headline recommends proactive security testing.",
-            "fix": "Explain the speaker’s advice to test the organization’s own systems before attackers reach its API endpoints and overlooked websites (outlet:p091)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The body omits the speaker’s other principal defensive recommendation.",
-            "fix": "Add that the speaker advocates automatically finding, testing, and fixing legacy software bugs at scale (outlet:p108)."
-          },
-          {
-            "question": "why",
-            "problem": "The reader misses the barriers the speaker says leave organizations exposed.",
-            "fix": "Mention restrictive approval processes for security testing and the backlog of flaws in older code (outlet:p090, outlet:p091, outlet:p108)."
+            "problem": "Readers miss the speaker’s other central recommendation: automatically find, test, and fix software bugs.",
+            "fix": "Add that the speaker describes automated bug fixing as necessary for older code and says it can take days rather than years of human work (outlet:p108)."
           }
         ],
         "writer_boats": [
@@ -38449,8 +38439,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "fff30e86568cc1120d71b22fa7f4c78528b58bfc17c215594d2f0d215a987d5a",
-        "scored_at": "2026-11-07T19:37:40.805151+00:00"
+        "prose_sha256": "a8c7de0355b073c2840127187477f7fc4d497d406f5a9324c86618180dd84401",
+        "scored_at": "2026-11-07T23:26:34.003142+00:00"
       }
     },
     {
@@ -38495,6 +38485,290 @@
       ],
       "same_event_coverage_ids": [
         "02b1d81cc75e6188bb00"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5913955d4a4ac63b6acc",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-07/ai-backlash-spreads-across-europe-with-data-center-protests",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "898945216f8e4f8ca0f4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f3f115801f55cbec81fc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://hunch.net/?p=13764006",
+      "key_points": [
+        "Một nhà nghiên cứu sáng lập nhóm AI Frontiers rời Microsoft sau khi nhóm giải thể. Nhóm được lập năm 2023 sau khi ChatGPT ra mắt và bị sáp nhập vào Microsoft AI hồi đầu tháng 9.",
+        "Nguyên nhân xuất phát từ bất đồng triết lý với ban lãnh đạo Microsoft AI, nơi ưu tiên mở rộng quy mô thay vì nghiên cứu. Dù thừa nhận mô hình lớn hơn có chất lượng dự đoán tốt hơn và mở rộng quy mô đem lại lợi nhuận kinh doanh dễ đoán hơn nghiên cứu, tác giả bài viết trên hunch.net cho rằng chỉ tập trung mở rộng là sai hướng.",
+        "Nhóm AI Frontiers từng phát triển khung Autogen cùng tác tử Fara (chương trình trí tuệ nhân tạo tự thực hiện tác vụ) dù chỉ khoảng 50 người và thiếu tài nguyên tính toán. Tác giả cũng dẫn thử nghiệm của ByteDance cho thấy biến thể Full Bandwidth Transformer có thể sánh ngang mô hình lớn gấp đôi, giúp tiết kiệm chi phí huấn luyện lẫn suy luận.",
+        "Việc giải thể đồng nghĩa không còn chương trình thực tập tại nhóm AI Frontiers trong năm tới, theo tác giả bài viết trên hunch.net. Tác giả cũng đánh giá triển vọng thành công tại Microsoft Research hiện rất nhỏ, do nghiên cứu không còn con đường ứng dụng vào thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "7891fb2aca49184d9e21",
+        "b9528c92b60834b45d0d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhà nghiên cứu sáng lập nhóm AI Frontiers rời Microsoft sau bất đồng về định hướng mở rộng mô hình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hunch.net",
+          "url": "https://hunch.net/?p=13764006"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "rời Microsoft sau khi nhóm giải thể",
+            "explanation": "The source says the author left and then concludes that AI Frontiers is over; it does not establish that the group had dissolved before the departure (outlet:p007, outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "nghiên cứu không còn con đường ứng dụng vào thực tế",
+            "explanation": "The author says they could not get their innovations used or seriously considered at Microsoft AI and therefore thought the prospects at Microsoft Research were small. The source does not establish that research there has no path to use (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The Vietnamese places the group's dissolution before the author's departure.",
+            "fix": "Say the author left after the reorganization and subsequently concluded that AI Frontiers was over (outlet:p005, outlet:p007, outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese turns the author's assessment of poor prospects into an absolute claim about research having no path to use.",
+            "fix": "Attribute the concern to the author and retain the stated limit: the author could not get the work used at Microsoft AI and judged the prospects at Microsoft Research to be small (outlet:p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses the author's other stated reason for not returning to Microsoft Research.",
+            "fix": "Mention the author's concern that doing good work had not protected the group from an unwanted reorganization (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5d1a3763ad5885df4245c6efb3d61a17a516b18872e0c7d5647d1f4604fd49e1",
+        "scored_at": "2026-11-07T23:15:27.016537+00:00"
+      }
+    },
+    {
+      "id": "7d6a970ab1ba21607a9e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://hunch.net/?p=13764006",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1d662eaed197f61a7bcc",
+        "7891fb2aca49184d9e21",
+        "b46cae0da43e0d1f4d41",
+        "b9528c92b60834b45d0d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1ab28dde47a3074f5d54",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1029489/nyt-cooking-ai-assistant-review",
+      "key_points": [
+        "Ứng dụng NYT Cooking tích hợp trợ lý trí tuệ nhân tạo (AI). Theo The Verge, công cụ này hiện chỉ khả dụng cho người dùng thuê bao trên hệ điều hành iOS vào thời điểm ra mắt.",
+        "Tính năng xuất hiện trong một khung văn bản ở trang công thức, tiếp nhận các câu hỏi tùy biến như thay thế nguyên liệu, đổi số đo hoặc chia lại khẩu phần. Hệ thống giữ nguyên công thức ban đầu và tạo ra một bản công thức riêng cho người nấu.",
+        "Trợ lý tạo phiên bản công thức mới trong vài giây khi tác giả Jennifer Pattison Tuohy thiếu nguyên liệu cho món gà nấu cơm với gừng. Hệ thống hướng dẫn hấp đậu cô ve thay cho cải cầu vồng, nhưng tác giả suýt phải dùng thiếu một nửa lượng bơ khi thử nướng bánh.",
+        "Tác giả bài viết trên The Verge đánh giá công cụ hoạt động tốt như một bếp phó nhưng không phải bếp trưởng."
+      ],
+      "same_event_coverage_ids": [
+        "312d1d2bec445f3939fc"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm trợ lý AI của NYT Cooking: Tiện lợi khi đổi nguyên liệu nhưng chưa thể thay bếp trưởng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1029489/nyt-cooking-ai-assistant-review"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is not told what the reviewer still needs to check.",
+            "fix": "Add that the reviewer checks quantities and cooking times against the original recipe (outlet:p051)."
+          },
+          {
+            "question": "why",
+            "problem": "The practical reason the assistant helped during weeknight cooking is missing.",
+            "fix": "Explain that it gave quick answers where searching hundreds of reader comments would have been impractical (outlet:p021–p023)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "01725c9d190fd5f63dd79a80ced2ddfcea781a3ecd5701a439570cfc9e979de7",
+        "scored_at": "2026-11-07T23:15:27.016579+00:00"
+      }
+    },
+    {
+      "id": "b228101c3e9d88f964f3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.com/Video-Rebirth/hyperflow-h3-flash",
+      "key_points": [
+        "The model operates in 4, 6, or 8 sampling steps without classifier-free guidance.",
+        "HyperFlow H3 Flash has a minimum footprint of 9.1 GB under Q4_K_M quantization and runs on 24 GB and 32 GB GPUs."
+      ],
+      "same_event_coverage_ids": [
+        "73830e649c1e0473a3cf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7765ff38bfaeafd89f02",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional marketing copy and discount promo code posted to a code repository without news reporting or open-source release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/DruidseaHunter22631/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f14204f29c4b222191ec"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8550db3c11c62a2edda1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional sales pitch and promo code published on GitHub without substantive code or independent news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/BesideRaelwave39799/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e29b2e88c9d7b38084b4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "678052381b6e44e6a9fa",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Duplicated advertising copy with a promotional coupon code hosted on a repository without editorial reporting or substantive release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/tireddwarf99/manus-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "56380dbb42d6e93a9bde"
       ],
       "split_coverage_ids": []
     }
