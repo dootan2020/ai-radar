@@ -73,7 +73,7 @@ class ExtensionShellTests(unittest.TestCase):
         menu = (EXT / 'menu-cong-cu.js').read_text(encoding='utf-8')
         self.assertIn(": file === 'index.html' ? '#top' : file.startsWith('index.html#') ? file.slice(10) : `" + LIVE + "${file}`;", menu)
         self.assertNotIn('${prefix}${file}', menu)
-        # The top zone sits between the masthead and the news bar (captain, 07/11).
+        # The Google rows replace the masthead and sit above the news bar (captain, 07/11 18:03).
         self.assertLess(html.index('id="masthead"'), html.index('id="web-search"'))
         self.assertLess(html.index('id="web-search"'), html.index('id="bar"'))
         self.assertLess(html.index('id="web-search"'), html.index('id="picks"'))
@@ -201,20 +201,28 @@ process.stdout.write(JSON.stringify({saved,afterOffline,afterTimeout:cache.radar
         })
 
     @unittest.skipUnless(shutil.which('node'), 'Node required for JavaScript behavior tests')
-    def test_search_uses_chrome_search(self):
+    def test_search_goes_to_google(self):
+        # Captain, 07/11 18:26: "tìm kiếm google luôn": the query opens Google's results in this tab, whatever the
+        # reader's default engine is; an empty field does nothing.
         script = r'''
 import {readFileSync} from 'node:fs';
 const source = readFileSync(process.argv[1], 'utf8');
-const handlers = {}, queries = [];
+const handlers = {}, opened = [], field = {value:'  mô hình AI & GPU  '};
 globalThis.document = {querySelector: selector => selector === '#web-search' ?
-  {addEventListener:(_,fn) => handlers.submit=fn} : selector === '#web-query' ? {value:'  AI radar  '} : null};
-globalThis.chrome = {search:{query:value => queries.push(value)},storage:{local:{get:async () => ({radarWindow:{}})},onChanged:{addListener:fn => handlers.changed=fn}}};
+  {addEventListener:(_,fn) => handlers.submit=fn} : selector === '#web-query' ? field : null};
+globalThis.location = {assign:url => opened.push(url)};
+globalThis.chrome = {search:{query:() => opened.push('chrome.search')},storage:{local:{get:async () => ({radarWindow:{}})},onChanged:{addListener:fn => handlers.changed=fn}}};
 await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
 handlers.submit({preventDefault(){}});
-process.stdout.write(JSON.stringify(queries));
+field.value = '   ';
+handlers.submit({preventDefault(){}});
+process.stdout.write(JSON.stringify(opened));
 '''
         self.assertEqual(node(script, EXT / 'newtab.js'),
-                         [{'text': 'AI radar', 'disposition': 'CURRENT_TAB'}])
+                         ['https://www.google.com/search?q=m%C3%B4%20h%C3%ACnh%20AI%20%26%20GPU'])
+        html = (EXT / 'newtab.html').read_text(encoding='utf-8')
+        self.assertIn('placeholder="Tìm trên Google"', html)
+        self.assertIn('action="https://www.google.com/search"', html)
 
     @unittest.skipUnless(shutil.which('node'), 'Node required for JavaScript behavior tests')
     def test_first_cache_arrival_reloads_only_an_empty_tab(self):
@@ -309,7 +317,8 @@ process.stdout.write(JSON.stringify(created));
         html = (SITE / 'index.html').read_text(encoding='utf-8')
         feed = (SITE / 'feed.js').read_text(encoding='utf-8')
         for missing in ('<script>try { var t = ', '<!-- Cloudflare Web Analytics -->',
-                        'href="ban-tin.html"', '<!-- News bar: the sections and the inline news search.'):
+                        'href="ban-tin.html"', '<!-- Masthead:', '<div class="tool-launcher"></div>',
+                        'id="sort-switch"', '<p class="front-fresh" id="front-fresh"></p>'):
             with self.subTest(missing=missing), self.assertRaises(ValueError):
                 sync.adapt_html(html.replace(missing, 'changed', 1))
         for missing in ('href="tin/', 'href="nguon.html"', "location.replace('nguon.html')",

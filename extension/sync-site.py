@@ -64,21 +64,44 @@ def adapt_html(html):
     html = replace_once(html, '<script type="module" src="feed.js"></script>',
                         '<script type="module" src="feed.js"></script>\n<script type="module" src="newtab.js"></script>\n'
                         '<script type="module" src="vung-dau.js"></script>\n<link rel="stylesheet" href="newtab.css">')
-    html = replace_once(html, 'href="ban-tin.html"', f'href="{LIVE}ban-tin.html"')
-    # The brand opens the live site; on the new tab the page itself is "Trang nhất".
-    html = replace_once(html, '<a class="brand feed-brand" id="brand" href="#top" aria-label="Halcyon, về đầu trang">',
-                        f'<a class="brand feed-brand" id="brand" href="{LIVE}" aria-label="Halcyon, mở trang web">')
-    # On the new tab the masthead carries the date with the lunar date beside the wordmark (captain, 07/11 17:12: the top
-    # zone gives its height back to the news); the site keeps its tagline there.
-    html = replace_once(html, '\n    <div class="masthead-actions">',
-                        '\n    <p class="dateline" id="dateline"></p>\n    <div class="masthead-actions">')
-    html = replace_once(html, '<!-- News bar: the sections and the inline news search.', TOP_ZONE + '\n<!-- News bar: the sections and the inline news search.')
+    # The new tab's three rows above the news (captain, 07/11 18:03, mockup D "Dòng ngày" chosen 18:26): the Google
+    # services with the 9 dots, the Google search with the day line under it, then the Halcyon bar. The site's masthead
+    # becomes the first two rows; its brand (the wordmark alone, no tile and no tagline), the morning edition link and
+    # the theme button move into the news bar, and the sort switch joins them so no line sits between the bar and the news.
+    masthead = re.search(r'<!-- Masthead:.*?</header>\n', html, re.S)
+    if not masthead:
+        raise ValueError('Expected the site masthead')
+    head = masthead.group(0)
+    brand = re.search(r'<a class="brand feed-brand" id="brand" href="#top" aria-label="Halcyon, về đầu trang">'
+                      r'(<img [^>]*>)(<img [^>]*>)<span class="brand-tag">[^<]*</span></a>', head)
+    edition = re.search(r'<a class="ed-link" href="ban-tin\.html".*?</a>', head)
+    theme = re.search(r'<button class="theme-btn" id="theme-btn".*?</button>', head, re.S)
+    if not (brand and edition and theme and head.count('<div class="tool-launcher"></div>') == 1):
+        raise ValueError('Unexpected masthead source')
+    html = html.replace(head, TOP_ZONE, 1)
+    html = replace_once(html, '<a class="bar-tile" href="#top" tabindex="-1" aria-hidden="true"><img src="logo.svg" width="32" height="32" alt=""></a>',
+                        f'<a class="brand feed-brand bar-brand" id="brand" href="{LIVE}" aria-label="Halcyon, mở trang web">'
+                        f'{brand.group(1)}{brand.group(2)}</a>')
+    sort = re.search(r'\n    <div class="sort-switch" id="sort-switch".*?\n    </div>', html, re.S)
+    if not sort:
+        raise ValueError('Expected the sort switch')
+    html = html.replace(sort.group(0), '', 1)
+    html = replace_once(html, '\n    <div class="news-search" id="news-search">',
+                        sort.group(0) + '\n    <div class="news-search" id="news-search">')
+    html = replace_once(html, '<div class="ns-results" id="ns-results" hidden></div>\n    </div>',
+                        '<div class="ns-results" id="ns-results" hidden></div>\n    </div>\n    '
+                        + edition.group(0).replace('href="ban-tin.html"', f'href="{LIVE}ban-tin.html"')
+                        + '\n    ' + theme.group(0))
+    # The freshness line closes the page, as in mockup D; the heading above the bento stays for screen readers.
+    html = replace_once(html, '\n    <p class="front-fresh" id="front-fresh"></p>', '')
+    html = replace_once(html, '<p class="src-note" id="src-update"></p>',
+                        '<p class="front-fresh" id="front-fresh"></p>\n    <p class="src-note" id="src-update"></p>')
     validate_html(html)
     return html
 
 
-# The extension's own top zone (captain, 07/11): the web search, the weather and the Google services in one slim row
-# between the masthead and the news bar; vung-dau.js and newtab.js fill and drive it.
+# The extension's own top rows (captain, 07/11 18:03 and 18:26): they replace the site masthead (adapt_html);
+# vung-dau.js and newtab.js fill and drive them.
 TOP_ZONE = '''<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="w-clear-day" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
   <symbol id="w-clear-night" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
@@ -89,24 +112,30 @@ TOP_ZONE = '''<svg width="0" height="0" style="position:absolute" aria-hidden="t
   <symbol id="w-storm" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M12.5 15.5l-2 3.5h3l-2 3.5"/></symbol>
   <symbol id="w-snow" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M9 18.5h.01M12 20.5h.01M15 18.5h.01"/></symbol>
 </svg>
-<!-- Top zone: one slim row under the masthead: the web search, the weather chip, then the Google services. The date with
-     the lunar date sits in the masthead next to the wordmark (adapt_html). -->
-<section class="hero wrap" id="top-zone" aria-label="Tìm trên web, thời tiết và dịch vụ Google">
-  <div class="hero-in">
-    <form id="web-search" role="search" aria-label="Tìm trên web">
+<!-- Rows 1 and 2 (mockup D): the Google services with every Google app behind the 9 dots, then the Google search with
+     the day line under it (date · lunar date · weather). Row 3 is the news bar below. -->
+<header class="masthead top" id="masthead">
+  <div class="wrap g-row">
+    <ul class="services" id="services" aria-label="Dịch vụ Google"></ul>
+    <div class="tool-launcher"></div>
+  </div>
+  <div class="wrap hero" id="top-zone">
+    <form id="web-search" class="web-search" role="search" aria-label="Tìm trên Google" action="https://www.google.com/search">
       <label class="web-field">
         <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
-        <span class="sr">Tìm trên web</span>
-        <input id="web-query" type="search" placeholder="Tìm trên web" autocomplete="off" enterkeyhint="search">
-        <button class="go-btn" type="submit" aria-label="Tìm"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        <span class="sr">Tìm trên Google</span>
+        <input id="web-query" name="q" type="search" placeholder="Tìm trên Google" autocomplete="off" enterkeyhint="search">
+        <button class="go-btn" type="submit" aria-label="Tìm trên Google"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       </label>
     </form>
-    <div class="utility">
-      <div class="weather" id="weather" aria-live="polite"><span class="wx-skel" aria-hidden="true"></span><span class="sr">Đang lấy thời tiết</span></div>
-      <ul class="services" id="services" aria-label="Dịch vụ Google"></ul>
+    <div class="dayline" id="dateline">
+      <p class="day-date" id="day-date"></p>
+      <span class="sep wx-sep" aria-hidden="true">·</span>
+      <div class="wx weather" id="weather" aria-live="polite"><span class="wx-skel" aria-hidden="true"></span><span class="sr">Đang lấy thời tiết</span></div>
     </div>
   </div>
-</section>
+</header>
+
 '''
 
 

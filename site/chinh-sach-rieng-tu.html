@@ -183,7 +183,7 @@
       <ul>
         <li><strong>Thông tin nhận dạng cá nhân (PII):</strong> Không yêu cầu tên, địa chỉ email, số điện thoại hay tài khoản cá nhân.</li>
         <li><strong>Lịch sử duyệt web (Browsing History):</strong> Tiện ích không đọc hoặc theo dõi các tab bạn mở hay trang web bạn ghé thăm.</li>
-        <li><strong>Truy vấn tìm kiếm:</strong> Ô tìm kiếm trên tab mới chuyển câu hỏi trực tiếp đến công cụ tìm kiếm mặc định do bạn cấu hình trên Chrome thông qua API <code>chrome.search</code>. Chúng tôi không ghi lại hoặc chuyển tiếp từ khóa tìm kiếm.</li>
+        <li><strong>Truy vấn tìm kiếm:</strong> Ô "Tìm trên Google" trên tab mới mở trang kết quả của Google (<code>www.google.com/search</code>) ngay trong tab đó, với từ khóa bạn gõ. Từ khóa đi thẳng từ trình duyệt của bạn tới Google; Halcyon không ghi lại, không lưu và không chuyển tiếp từ khóa tìm kiếm.</li>
         <li><strong>Vị trí địa lý &amp; Thiết bị:</strong> Không thu thập tọa độ GPS hay thông tin nhận dạng phần cứng.</li>
         <li><strong>Dữ liệu tài chính, y tế hoặc giao dịch:</strong> Hoàn toàn không liên quan và không thu thập.</li>
       </ul>
@@ -203,7 +203,7 @@
       <ul>
         <li><strong><code>storage</code>:</strong> Dùng để lưu trữ bộ nhớ đệm tin tức AI và tùy chọn giao diện cục bộ trên máy bạn.</li>
         <li><strong><code>alarms</code>:</strong> Dùng để đặt lịch ngầm mỗi 30 phút đánh thức tiến trình nền làm mới bản tin tin tức, tránh chạy nền liên tục ngốn pin và RAM.</li>
-        <li><strong><code>search</code>:</strong> Dùng để kích hoạt lệnh tìm kiếm trên tab mới thông qua công cụ tìm kiếm mặc định của bạn (Google, Bing, DuckDuckGo,...), bảo đảm tôn trọng 100% lựa chọn của người dùng và không có chuyển hướng ẩn.</li>
+        <li><strong><code>search</code>:</strong> Quyền này vẫn được khai báo trong tệp manifest nhưng tab mới không còn dùng nó: ô tìm kiếm mở thẳng trang kết quả của Google như một liên kết thông thường, không cần quyền nào và không có chuyển hướng ẩn.</li>
         <li><strong>Quyền máy chủ (<code>https://radar-ai-vn.pages.dev/*</code>):</strong> Chỉ dùng để tải về dữ liệu tin tức công khai dạng JSON và hình ảnh minh họa bài viết từ máy chủ tĩnh chính thức của Halcyon.</li>
       </ul>
 
@@ -222,7 +222,7 @@
         <li><strong><code>api.open-meteo.com</code>:</strong> dự báo thời tiết cho ô thời tiết trên tab mới. Tiện ích chỉ gửi toạ độ cố định của thành phố bạn chọn trong danh sách (mặc định Hà Nội), không bao giờ hỏi hay gửi vị trí của bạn; dự báo do <code>open-meteo.com</code> cung cấp, không cần tài khoản hay khoá.</li>
         <li><strong><code>creativecommons.org</code>:</strong> liên kết giấy phép ghi công dữ liệu Arena.</li>
       </ul>
-      <p>Halcyon không đính kèm thông tin cá nhân hoặc lịch sử duyệt web vào các yêu cầu này. Tiện ích không thu thập, tải lên, bán hoặc chia sẻ dữ liệu cá nhân. Từ khóa tìm kiếm được gửi trực tiếp qua Chrome tới công cụ tìm kiếm mặc định của bạn.</p>
+      <p>Halcyon không đính kèm thông tin cá nhân hoặc lịch sử duyệt web vào các yêu cầu này. Tiện ích không thu thập, tải lên, bán hoặc chia sẻ dữ liệu cá nhân. Từ khóa tìm kiếm được gửi trực tiếp từ trình duyệt của bạn tới Google.</p>
 
       <h2>6. Ba Cam Kết Theo Chính Sách Chrome Web Store</h2>
       <p>Chúng tôi cam kết tuân thủ tuyệt đối Chính sách Chương trình dành cho Nhà phát triển Chrome Web Store:</p>
@@ -260,7 +260,7 @@
       <ul>
         <li><strong>Personally Identifiable Information (PII):</strong> No names, email addresses, phone numbers, or account registrations required.</li>
         <li><strong>Browsing History:</strong> The extension does not inspect, read, or log the websites you visit or the tabs you open.</li>
-        <li><strong>Search Queries:</strong> The search form on the new tab page sends queries directly to your default search provider via the official <code>chrome.search</code> API. We do not inspect, log, intercept, or redirect your queries.</li>
+        <li><strong>Search Queries:</strong> The "Tìm trên Google" (Search Google) field on the new tab page opens Google's results page (<code>www.google.com/search</code>) in that tab with the words you typed. The query goes straight from your browser to Google; we do not inspect, log, store, or forward your queries.</li>
         <li><strong>Location &amp; Device Data:</strong> No geolocation tracking, no biometric data, and no unique hardware fingerprinting.</li>
         <li><strong>Financial or Health Data:</strong> None collected.</li>
       </ul>
@@ -280,7 +280,7 @@
       <ul>
         <li><strong><code>storage</code>:</strong> Stores the cached news snapshot and theme preferences locally in <code>chrome.storage.local</code>.</li>
         <li><strong><code>alarms</code>:</strong> Schedules a 30-minute background alarm to refresh the news feed without running a persistent background process, conserving memory and battery.</li>
-        <li><strong><code>search</code>:</strong> Executes web searches initiated from the new tab page using Chrome's built-in <code>chrome.search.query</code> API, strictly honoring your default search engine without modification or hijacking.</li>
+        <li><strong><code>search</code>:</strong> Still declared in the manifest, but the new tab no longer uses it: the search field opens Google's results page directly, like an ordinary link, which needs no permission and involves no hidden redirect.</li>
         <li><strong>Host Permission (<code>https://radar-ai-vn.pages.dev/*</code>):</strong> Exclusively fetches static JSON news feeds and story illustration images from Halcyon's official Cloudflare Pages hosting.</li>
       </ul>
 
@@ -299,7 +299,7 @@
         <li><strong><code>api.open-meteo.com</code>:</strong> the weather forecast on the new tab. The extension sends only the fixed coordinates of the city you pick from its list (Hà Nội by default) and never asks for or sends your location; forecasts come from <code>open-meteo.com</code>, with no account or key.</li>
         <li><strong><code>creativecommons.org</code>:</strong> attribution license link for Arena data.</li>
       </ul>
-      <p>Halcyon does not attach personal information or browsing history to these requests. The extension does not collect, upload, sell, or share personal data. Search terms are sent directly through Chrome to your default search provider.</p>
+      <p>Halcyon does not attach personal information or browsing history to these requests. The extension does not collect, upload, sell, or share personal data. Search terms are sent directly from your browser to Google.</p>
 
       <h2>6. Chrome Web Store Developer Certifications</h2>
       <p>In accordance with Chrome Web Store Developer Program Policies, we certify that:</p>

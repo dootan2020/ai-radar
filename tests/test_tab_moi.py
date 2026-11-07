@@ -92,18 +92,33 @@ class TopZoneTests(unittest.TestCase):
         for part in ('vung-dau.js', 'id="weather"', 'id="web-search"', 'id="services"'):
             self.assertNotIn(part, site)
 
-    def test_new_tab_puts_the_date_in_the_masthead_and_one_row_under_it(self):
-        # Captain, 07/11 17:12: the top zone gives its height back to the news. The date with the lunar date sits in the
-        # masthead beside the wordmark; the search, the weather and the services share the row under it.
+    def test_new_tab_has_the_captains_three_rows_above_the_news(self):
+        # Captain, 07/11 18:03: row 1 the Google services with the 9 dots at the top right, row 2 the Google search with
+        # the day line under it, row 3 a compact Halcyon bar (small logo, the sections, the magnifier), then the news.
+        # 18:26, mockup D with three fixes: the wordmark alone (no "y" tile), a border and no shadow under the search,
+        # and a Google search.
         html = (EXT / "newtab.html").read_text(encoding="utf-8")
         site = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
-        masthead = html[html.index('id="masthead"'):html.index('</header>')]
-        self.assertIn('id="dateline"', masthead)
-        self.assertNotIn('id="dateline"', site)
+        head = html[html.index('id="masthead"'):html.index('</header>')]
+        order = ['id="services"', 'class="tool-launcher"', 'id="web-search"', 'id="dateline"', 'id="day-date"', 'id="weather"']
+        self.assertEqual([head.index(p) for p in order], sorted(head.index(p) for p in order))
+        self.assertNotIn('class="brand-tag"', html)
+        bar = html[html.index('id="bar"'):html.index('</nav>', html.index('id="bar"'))]
+        for part in ('id="brand"', 'wordmark.svg', 'wordmark-dark.svg', 'id="feed-filters"', 'id="sort-switch"',
+                     'id="ns-open"', 'class="ed-link"', 'id="theme-btn"'):
+            self.assertIn(part, bar)
+        self.assertNotIn('logo.svg"', bar.replace('wordmark', ''))  # no "y" tile beside the wordmark
+        self.assertLess(bar.index('id="brand"'), bar.index('id="feed-filters"'))
+        self.assertLess(html.index('</nav>', html.index('id="bar"')), html.index('id="picks"'))
+        # The site home keeps its own masthead, tagline, sort line and no Google rows.
         self.assertIn('class="brand-tag"', site)
-        zone = html[html.index('id="top-zone"'):html.index('</section>', html.index('id="top-zone"'))]
-        self.assertLess(zone.index('id="web-search"'), zone.index('id="weather"'))
-        self.assertLess(zone.index('id="weather"'), zone.index('id="services"'))
+        self.assertIn('class="bar-tile"', site)
+        for part in ('id="dateline"', 'id="services"', 'Tìm trên Google'):
+            self.assertNotIn(part, site)
+        css = (EXT / "newtab.css").read_text(encoding="utf-8")
+        field = css[css.index('.web-field {'):css.index('#web-query {')]
+        self.assertIn('box-shadow: none', field.split('}')[0])
+        self.assertIn('.web-field:focus-within { border-color: var(--color-hair-strong); box-shadow: none;', field)
         source = (EXT / "vung-dau.js").read_text(encoding="utf-8")
         self.assertIn('class="d-short" aria-hidden="true"', source)
 
