@@ -76,7 +76,7 @@
 .ns-field:hover, .ns-field:focus-within { border-color: var(--color-hair-strong); }
 .ns-field:focus-within { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 .ns-field > .i { width: 18px; height: 18px; color: var(--color-ink-3); }
-.ns-field input { flex: 1; min-width: 0; height: 42px; border: 0; outline: 0; background: transparent; color: var(--color-ink); font: inherit; font-size: var(--text-sub); }
+.ns-field input { flex: 1; min-width: 0; height: var(--btn-h); border: 0; outline: 0; background: transparent; color: var(--color-ink); font: inherit; font-size: var(--text-sub); }
 .ns-field input::placeholder { color: var(--color-ink-3); opacity: 1; }
 .ns-field input::-webkit-search-cancel-button { display: none; }
 .kbd { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 var(--space-6); border: 1px solid var(--color-hair); border-radius: var(--radius-8); font-size: var(--size-12); color: var(--color-ink-3); }
@@ -129,6 +129,9 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
   .bento { grid-auto-flow: row dense; }
   .bento > .card-small { grid-column: span 4; }
   .bento > .tile-repos, .bento > .tile-models { grid-column: span 8; }
+  /* The picks row fills the wider grid: lead 10 + feature 6. */
+  .picks-grid > .card-lead:not(.is-full) { grid-column: span 10; }
+  .picks-grid > .card-feature { grid-column: span 6; }
 }
 
 /* the tile shell */
@@ -216,6 +219,8 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
 .arena-score small.up { color: var(--color-up); }
 .tile-foot { margin-top: auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-8); font-size: var(--text-meta); color: var(--color-ink-3); }
 .tile-foot .text-btn { color: var(--color-link); min-height: var(--btn-h); }
+/* The footer's shortcut button meets the touch floor like every other control. */
+#keys-open { min-height: var(--btn-h); }
 .arena-tile-empty { padding: var(--space-24) 0; }
 
 /* skeleton in the bento's shape */
@@ -231,10 +236,19 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
   .bento > * { grid-column: span 3; }
   .bento > .card-lead, .bento > .card-wide, .bento > .tile-live, .bento > .tile-repos, .bento > .tile-models, .bento .sk-lead { grid-column: 1 / -1; }
   .bento > .card-small { grid-column: span 3; }
+  /* Under the full-width lead, the feature takes the whole row with its picture beside the text (a half row
+     would leave the other half empty). */
+  .picks-grid > .card-feature { grid-column: 1 / -1; flex-direction: row; }
+  .picks-grid > .card-feature .media { flex: 0 0 46%; aspect-ratio: auto; min-height: 240px; }
   .brand-tag { display: none; }
 }
 @media (max-width: 767px) {
   .brand .brand-wm { height: 22px; }
+  /* feed.css swaps the wordmark for an icon on phones; the masthead has room and keeps the wordmark. */
+  .masthead .brand-logo-light { display: var(--show-logo-light); }
+  .masthead .brand-logo-dark { display: var(--show-logo-dark); }
+  /* The lead's headline is read whole on a phone (feed.css clamps it to three lines for the old lead). */
+  .bento .card-lead .card-title { display: block; -webkit-line-clamp: unset; overflow: visible; }
   .masthead .ed-link .ed-label { display: none; }
   .masthead .ed-link { padding: 0; width: var(--btn-h); }
   .newsbar-in { gap: var(--space-8); }
@@ -267,8 +281,8 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
   .bento .card-card .media { grid-column: 2; grid-row: 1; align-self: start; aspect-ratio: 16 / 9; margin: var(--tile-p) var(--tile-p) 0 0; border-radius: var(--radius-12); }
   .bento .card-card .card-body { grid-column: 1; grid-row: 1; padding-inline-end: var(--space-12); }
   .bento .card-card .card-title { font-size: var(--text-body); }
-  .bento .card-wide { flex-direction: column; }
-  .card-wide .media { flex: none; aspect-ratio: 16 / 9; min-height: 0; }
+  .bento .card-wide, .picks-grid > .card-feature { flex-direction: column; }
+  .card-wide .media, .picks-grid > .card-feature .media { flex: none; aspect-ratio: 16 / 9; min-height: 0; }
   .card-wide .card-body { padding: var(--tile-p); }
   .card-feature .media { aspect-ratio: 16 / 9; }
   .bento .card-feature .card-title, .bento .card-wide .card-title { font-size: var(--size-18); }
