@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-07T13:36:25.600637+00:00",
-  "input_generated_at": "2026-11-07T11:42:20Z",
+  "generated_at": "2026-11-07T15:33:13.772377+00:00",
+  "input_generated_at": "2026-11-07T13:38:14Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -38130,17 +38130,17 @@
       "use_original_title": true,
       "source_url": "https://www.wired.com/story/apps-for-caregivers-get-a-dose-of-ai-but-that-might-not-be-enough/",
       "key_points": [
-        "Theo tác giả bài viết trên Wired, các ứng dụng chăm sóc hỗ trợ những gia đình có người thân cần quản lý bệnh án thường xuyên. Theo tổ chức AARP, ước tính năm 2025 có 63 triệu người Mỹ chăm sóc người bệnh hoặc khuyết tật với trung bình 27 giờ mỗi tuần.",
-        "Tác giả bài viết trên Wired nhận định khủng hoảng chăm sóc trầm trọng hơn do người chăm sóc kiệt quệ sức khỏe và tài chính nên cần hệ thống hỗ trợ tốt hơn.",
-        "Cụ thể, Citizen Health đã ra mắt Ari, trợ lý trí tuệ nhân tạo (AI) giúp theo dõi lịch chăm sóc và triệu chứng qua tin nhắn. Trợ lý Ari hiện chỉ thử nghiệm (beta) cho người mắc bệnh hiếm, còn ứng dụng Mejo thu phí 6 USD mỗi tháng vẫn phải nhập liệu thủ công.",
-        "Bà Nicole Howell tại Hội đồng Quốc gia về Lão hóa nhận định giải pháp cuối cùng không thể chỉ do một gia đình tự giải quyết, dù công nghệ giúp giảm căng thẳng. Giáo sư I. Glenn Cohen tại Trường Luật Harvard cảnh báo phần lớn ứng dụng chưa qua Cục Quản lý Thực phẩm và Dược phẩm Mỹ (FDA) kiểm duyệt và không được luật bảo mật HIPAA bảo vệ."
+        "Tác giả bài viết trên Wired cho biết các ứng dụng chăm sóc giúp nhắc lịch uống thuốc hoặc chia sẻ hồ sơ tóm tắt nhằm giảm tải tinh thần cho gia đình. Theo AARP, năm 2025 ước tính 63 triệu người Mỹ chăm sóc người lớn hoặc trẻ em mắc bệnh hay khuyết tật, trung bình 27 giờ mỗi tuần.",
+        "Tác giả bài viết trên Wired nhận định việc chăm sóc kéo dài khiến nhiều người suy giảm sức khỏe, áp lực tài chính và bị cô lập. Khủng hoảng này thêm trầm trọng khi người chăm sóc đang cần thêm nhiều hỗ trợ và các hệ thống tốt hơn.",
+        "Về ứng dụng, trợ lý trí tuệ nhân tạo (AI) Ari của Citizen Health giúp chuẩn bị câu hỏi khám bệnh và tóm tắt bệnh án, dù hiện chỉ thử nghiệm cho người mắc bệnh hiếm. Ứng dụng Mejo giá 6 USD mỗi tháng cho phép chia sẻ nhật ký chăm sóc, nhưng dữ liệu hiện vẫn phải nhập thủ công.",
+        "Bà Nicole Howell tại Hội đồng Quốc gia về Lão hóa nhận định công nghệ giúp giảm căng thẳng, nhưng không một gia đình đơn lẻ nào có thể tự giải quyết cuộc khủng hoảng này."
       ],
       "same_event_coverage_ids": [
         "6bd15f1b6b2cc098c78a"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Ứng dụng chăm sóc tích hợp trí tuệ nhân tạo hỗ trợ gia đình nhưng chưa thể giải quyết triệt để khủng hoảng",
+      "editorial_headline_vi": "Ứng dụng chăm sóc tích hợp AI giúp giảm căng thẳng nhưng chưa đủ để giải quyết cuộc khủng hoảng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -38153,60 +38153,60 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.75,
+        "value": 7.9,
         "answers": {
-          "what": 9,
-          "why": 3,
-          "notable": 7,
+          "what": 8,
+          "why": 9,
+          "notable": 8,
           "meaning": 6
         },
         "hard_errors": [
           {
+            "kind": "fact",
+            "summary_text": "Ứng dụng chăm sóc tích hợp AI giúp giảm căng thẳng",
+            "explanation": "The source says apps aim to lighten caregivers’ load and may *hopefully* mean less stress; it does not establish that they reduce stress, and several apps described do not have AI features (outlet:p004, outlet:p007–p011, outlet:p027)."
+          },
+          {
             "kind": "number",
             "summary_text": "trung bình 27 giờ mỗi tuần",
-            "explanation": "The source qualifies the average as up to 27 hours per week, rather than stating an unqualified 27-hour average (outlet:p002)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "khủng hoảng chăm sóc trầm trọng hơn do người chăm sóc kiệt quệ sức khỏe và tài chính",
-            "explanation": "The source describes poor health and financial strain as results of ongoing, complex caregiving. It says the crisis is worsening as caregivers need more support and better systems (outlet:p003)."
+            "explanation": "The source says caregivers spend, on average, *up to* 27 hours per week providing care, rather than stating an unqualified 27-hour average (outlet:p002)."
           },
           {
             "kind": "fact",
-            "summary_text": "ứng dụng Mejo thu phí 6 USD mỗi tháng",
-            "explanation": "The $6 monthly price is for Mejo’s premium version, not stated as the price of the app generally (outlet:p010)."
+            "summary_text": "Ứng dụng Mejo giá 6 USD mỗi tháng",
+            "explanation": "The source assigns the $6 monthly price to Mejo’s premium version, which provides the shareable daily journal; it does not say Mejo generally costs $6 per month (outlet:p010)."
           },
           {
-            "kind": "fact",
-            "summary_text": "phần lớn ứng dụng ... không được luật bảo mật HIPAA bảo vệ",
-            "explanation": "The source says health information that patients and caregivers enter into these AI tools is typically not protected by federal HIPAA statutes; it does not make that claim about the apps themselves (outlet:p021)."
+            "kind": "quote",
+            "summary_text": "công nghệ giúp giảm căng thẳng",
+            "explanation": "Nicole Howell says apps can enable better care integration and *hopefully* less stress, not that stress reduction is established (outlet:p027)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "The Vietnamese reverses the relationship between the caregiving burden and its health and financial effects.",
-            "fix": "Say that ongoing, complex care leaves caregivers facing poor health, financial strain, and isolation, and that the worsening crisis calls for more support and better systems (outlet:p003)."
+            "question": "meaning",
+            "problem": "Readers miss the source’s cautions about unreviewed products and sensitive health data.",
+            "fix": "Add that most tools are not FDA-reviewed medical devices and that information entered by patients or caregivers is typically outside federal HIPAA protection (outlet:p020–p022)."
           },
           {
             "question": "meaning",
-            "problem": "The HIPAA warning is attached to apps instead of the information users enter into AI tools.",
-            "fix": "Specify that such user-entered health information is typically outside federal HIPAA protection (outlet:p021)."
+            "problem": "Stress reduction reads as a demonstrated outcome.",
+            "fix": "Present it as a hoped-for benefit, matching Howell’s qualification (outlet:p027)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss why an app may add work to an already overloaded caregiver.",
+            "fix": "Explain that caregivers must keep plans, schedules and tasks updated because clinicians generally will not enter those updates for them (outlet:p023–p025)."
           },
           {
             "question": "notable",
-            "problem": "The Mejo price reads as a charge for the app as a whole.",
-            "fix": "Identify $6 per month as the price of Mejo’s premium version (outlet:p010)."
+            "problem": "The $6 monthly price appears to apply to all of Mejo.",
+            "fix": "Specify that $6 per month buys the premium version with a shareable daily journal (outlet:p010)."
           },
           {
-            "question": "what",
-            "problem": "The weekly caregiving figure loses its upper-bound qualification.",
-            "fix": "Retain “up to 27 hours per week” (outlet:p002)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses a practical limit on whether these apps help.",
-            "fix": "Mention that caregivers must keep app information updated, which can add work when they are already overloaded (outlet:p023–p025)."
+            "question": "why",
+            "problem": "The time figure loses its upper-bound wording.",
+            "fix": "Retain the source’s “up to 27 hours per week” qualification (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -38214,8 +38214,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "71ab36276b779ba63792e7884ddbd569809842595ad67a4896d9c09f8dedfaed",
-        "scored_at": "2026-11-07T13:09:44.555658+00:00"
+        "prose_sha256": "fb97e0c191d488652d2c963a202d7a98db71f008e227f44c8e52d13c6b1dd124",
+        "scored_at": "2026-11-07T15:33:13.768718+00:00"
       }
     },
     {
@@ -38310,6 +38310,94 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "e80fc593b526c65a0ed0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3be26711c22b143e3732",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-07/ai-trade-faces-a-post-election-reality-check-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9e7f4eb16fe30e46c471"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "eecad6fef1daea32eacd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1029126/anthropic-metr-report-accelerating-ai-development",
+      "key_points": [
+        "Anthropic is using AI to accelerate its model development, with models improving roughly twice as quickly as a year ago.",
+        "AI safety research organization METR published a report evaluating Anthropic's AI research and development following an 11-week internal investigation.",
+        "METR's evaluation probe into Anthropic's AI development is separate from its program granting safety researchers employee-like system access."
+      ],
+      "same_event_coverage_ids": [
+        "60831d7194ba1820ea7e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ad490bfbd93099037493",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.searchenginejournal.com/brave-sells-its-search-index-to-ai-and-your-website-is-probably-in-it/595829/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c2a8afc7b0e982050761"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d0964eeff0d2878f0819",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A bare GitHub repository page with a project description and no substantive release notes, news reporting, or dated announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/quyetcao/ai-manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b1a40acd6defb11b3df2"
       ],
       "split_coverage_ids": []
     }
