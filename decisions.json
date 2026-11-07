@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-06T20:14:20.911300+00:00",
-  "input_generated_at": "2026-11-06T18:06:48Z",
+  "generated_at": "2026-11-07T00:03:08.794782+00:00",
+  "input_generated_at": "2026-11-06T22:20:50Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -35200,17 +35200,17 @@
       "use_original_title": false,
       "source_url": "https://developer.nvidia.com/blog/accelerating-reinforcement-learning-weight-refit-with-the-reshard-collective/",
       "key_points": [
-        "Theo các tác giả trên blog kỹ thuật NVIDIA, họ đã phát hành thư viện NCCL M2N Reshard mã nguồn mở trên GitHub nhằm tăng tốc quá trình làm mới trọng số (weight refit) trong học tăng cường. Bản triển khai này giúp chuyển các tensor phân tán từ nhóm GPU huấn luyện sang nhóm GPU suy luận.",
-        "Nhóm tác giả cho biết phương pháp thu thập và phát quảng bá gây truyền thừa dữ liệu, do GPU suy luận phải nhận toàn bộ tham số dù chỉ cần một phân mảnh. Ngoài ra, các cấu hình phân tán khác nhau giữa huấn luyện và suy luận khiến việc ghép nối ranh giới phân mảnh trở nên phức tạp.",
-        "Theo bài viết, khối lượng truyền thông đạt khoảng 10 TB mỗi bước refit đối với các mô hình trọng số mở lớn nhất hiện nay.",
-        "Nhóm tác giả đánh giá trừu tượng mới giúp đơn giản hóa refit và đóng gói logic truyền thông vào thư viện để thuật toán phát triển độc lập với ứng dụng. Dù vậy, họ lưu ý sự đa dạng của các cấu hình song song trong thực tế vẫn gây khó khăn khi xử lý mọi trường hợp biên."
+        "Các tác giả trên blog kỹ thuật NVIDIA phát hành mã nguồn mở NCCL M2N Reshard để tăng tốc refit (làm mới trọng số giữa GPU huấn luyện và suy luận). Bản triển khai này chỉ truyền lượng dữ liệu tối thiểu theo lý thuyết thay vì dùng phương pháp thu thập và phát quảng bá.",
+        "Theo nhóm tác giả, phương pháp truyền thống gây truyền thừa dữ liệu do GPU suy luận phải nhận toàn bộ tham số dù chỉ cần một phân mảnh. Khối lượng truyền thông này ước tính đạt khoảng 10 TB mỗi bước refit đối với các mô hình mở lớn nhất hiện nay.",
+        "Kỹ thuật Reshard đạt mức tăng tốc độ trễ refit (thời gian làm mới trọng số) từ 2,7 đến 5,7 lần so với phương pháp thông thường trong thử nghiệm chuẩn NeMo RL trên hệ thống NVIDIA DGX H100 và DGX GB200 cho các mô hình gồm Qwen 3 235B và DeepSeek v3 671B.",
+        "Nhóm tác giả cho biết sự đa dạng của các cấu hình phân tán trong thực tế khiến Reshard khó xử lý mọi trường hợp biên."
       ],
       "same_event_coverage_ids": [
         "9cfe0fa0e1a75204bd11"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "NVIDIA phát hành NCCL M2N Reshard mã nguồn mở giúp tăng tốc đồng bộ trọng số học tăng cường",
+      "editorial_headline_vi": "NCCL M2N Reshard giúp tăng tốc làm mới trọng số từ 2,7 đến 5,7 lần trong thử nghiệm NeMo RL của NVIDIA",
       "summary_sources": [
         {
           "id": "outlet",
@@ -35225,24 +35225,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.25,
+        "value": 9.3,
         "answers": {
-          "what": 9,
-          "why": 9,
-          "notable": 7,
+          "what": 10,
+          "why": 8,
+          "notable": 10,
           "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "Readers get the scale of the communication problem but no measured result for the proposed solution.",
-            "fix": "Add the 2.7× to 5.7× speedup over gather-and-broadcast in the stated NeMo RL benchmarks (outlet:p019)."
+            "question": "meaning",
+            "problem": "Readers may think the reported approach handles the whole refit through Reshard, despite the stated coverage limit.",
+            "fix": "Explain that NeMo RL applies Reshard to the large feed-forward projection weights and retains gather-and-broadcast for smaller weights to maintain coverage (outlet:p020)."
           },
           {
-            "question": "meaning",
-            "problem": "The practical response to cases Reshard cannot readily handle is unclear.",
-            "fix": "Explain that NeMo RL applies Reshard to large feed-forward projection weights while retaining gather-and-broadcast for smaller weights (outlet:p020)."
+            "question": "why",
+            "problem": "The reason inference GPUs need refit, and the difficulty caused by different training and inference layouts, are missing.",
+            "fix": "Add that training updates the policy on separate GPUs, so inference GPUs need refreshed weights, while their differing parallel layouts complicate the transfer (outlet:p025–p027)."
           }
         ],
         "writer_boats": [
@@ -35250,8 +35250,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "63407ad8ddc86152c2a3e6fd1920df1ca0888a9b0aef13c7060062d03518921d",
-        "scored_at": "2026-11-06T20:11:51.054623+00:00"
+        "prose_sha256": "0e8a7a5593dd1a4eb2b94870386f71b82b8fdd2bed562be2f8345070f4947e6f",
+        "scored_at": "2026-11-07T00:03:08.790303+00:00"
       }
     },
     {
@@ -36689,6 +36689,855 @@
         "90d5b2b19e05dd31a909"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "4e0aa3919fe104e56d23",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical developer tutorial explaining performance optimization and inference acceleration techniques for FLUX 3 Image Klein on NVIDIA Blackwell GPUs.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/speed-up-image-generation-with-flux-3-image-klein-on-nvidia-blackwell-gpus/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "edc5d040f6e12371f4af"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "282975025c6dedbc99af",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Focuses on general IT workforce hiring at the U.S. Department of the Treasury after staff cuts, with artificial intelligence mentioned only in passing.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://fedscoop.com/treasury-department-technology-hiring-ai-workforce/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "abb9afad56ad3d6ffa37"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a8118079b0b5a65b46b5",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/big-take-the-new-ai-trade-is-fogo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "59fd66a4bff3d9c3a2af"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f62bfa23d8e5afad23db",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-06/openai-completes-11-billion-portion-of-funding-at-1-25-trillion-value",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "936e71398ae30e69c0bc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "574eff7c14e91940fc4c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General financial reporting on Brookfield Asset Management's third-quarter fundraising; AI is only mentioned incidentally as an infrastructure funding area.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/brookfield-ceo-says-infrastructure-is-growing-fastest-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5c098cfdc927e708571d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3e7e648c947675d090b0",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/06/2026/nvidia-faces-a-more-hostile-washington",
+      "key_points": [
+        "Theo Semafor, Nvidia khó tránh khỏi môi trường chính trị ngày càng thù địch tại Washington dù CEO Jensen Huang thân cận với Tổng thống Trump.",
+        "Lý do là phe Dân chủ chuẩn bị tiếp quản các ủy ban quản lý, trong khi các nghị sĩ Cộng hòa chủ chốt muốn siết kiểm soát xuất khẩu công nghệ cao.",
+        "Cụ thể, ba hạ nghị sĩ Cộng hòa đã yêu cầu ông Huang dự họp giao ban kín về việc liệu ông có phải mục tiêu của gián điệp Trung Quốc. Ngoài ra, Thượng nghị sĩ Elizabeth Warren từ lâu muốn ông điều trần trước Quốc hội về các thỏa thuận công nghệ và việc bán chip sang Trung Quốc.",
+        "Theo Semafor, Tổng thống Trump phải quyết định việc bảo vệ lợi ích của ông Huang có quan trọng hơn hợp tác với Quốc hội hay không khi tranh luận về AI (trí tuệ nhân tạo) chuyển dịch."
+      ],
+      "same_event_coverage_ids": [
+        "60df54eb08b017cfc6c2"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Semafor: Nvidia đối mặt sức ép gia tăng tại Washington dù CEO thân cận với Tổng thống Trump",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/06/2026/nvidia-faces-a-more-hostile-washington"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "e0c8b4541e0b5e8be31a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.planned-obsolescence.org/p/ai-is-dramatically-accelerating-ai",
+      "key_points": [
+        "Anthropic stated in an S1 filing that it may imminently meet its Responsible Scaling Policy threshold for dramatically accelerated progress due to AI.",
+        "METR researchers carried out an investigation examining how much AI automation is accelerating AI research and development at Anthropic."
+      ],
+      "same_event_coverage_ids": [
+        "60df4c59bcbe8fbd17be",
+        "ec155b255ad3fdbb7985"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1877663a5f2fc095fd85",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/time-to-move-forward-on-sensible-ai-regulation-liccardo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7ed26f72a39384f53bd9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f4b19f3dec7c3e51f588",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/power-on-how-private-is-an-always-listening-apple-watch-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b8cdfb2551bfc315dd23"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f8fe21ba7f368ed10ce0",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/902546/data-centers-ai-energy-power-grids-controversy",
+      "key_points": [
+        "Theo The Verge, cử tri Mỹ phần lớn đã bỏ phiếu phản đối việc mở rộng các trung tâm dữ liệu AI (trí tuệ nhân tạo) trong cuộc bầu cử giữa kỳ năm 2026. Đây từng là vấn đề lưỡng đảng lớn trước thềm cuộc bỏ phiếu.",
+        "The Verge cho biết sự phản đối nảy sinh từ các cuộc tranh cãi toàn cầu về tác động của kho máy chủ ngốn điện tới lưới điện, hóa đơn tiện ích, cộng đồng lân cận và môi trường. Nhiều dự án lớn được triển khai với rất ít hoặc không có ý kiến từ cư dân địa phương.",
+        "Điển hình tại bang Utah, cư dân đã phản đối một dự án trung tâm dữ liệu dự kiến tiêu thụ lượng điện gấp hơn hai lần nhu cầu đỉnh điểm toàn bang năm 2025. Sau bầu cử, OpenAI cam kết không dùng thỏa thuận không tiết lộ thông tin (NDA) với quan chức công quyền trừ phạm vi hẹp cho an ninh và bí mật thương mại, tương tự Amazon.",
+        "The Verge nhận định dù OpenAI và Amazon hứa chi trả chi phí năng lượng của trung tâm dữ liệu, giới lãnh đạo Đảng Dân chủ vẫn kêu gọi siết thêm hạn chế mà các hãng AI phải đối mặt."
+      ],
+      "same_event_coverage_ids": [
+        "fd4dd2bb88a3d5b52407"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cử tri Mỹ phần lớn phản đối mở rộng trung tâm dữ liệu AI, buộc các hãng công nghệ phải nhượng bộ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/902546/data-centers-ai-energy-power-grids-controversy"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "e57401ecb0ea2757b0cd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN project showcase and GitHub repository promotional pitch without independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/anteloc/ldraw-mecha/tree/v0.5.0",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bd595441e952cc163f5c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "70b32db55ed34bba30c7",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-06/google-takes-over-wyoming-data-center-that-crusoe-had-pitched",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "138ea09cb48c2273b9c5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "97038bafa89955af1566",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-06/openai-staffer-pleads-not-guilty-to-office-bugging-charge",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9794696754f8d0f7b345"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b40cdea72336997a259b",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/bloomberg-tech-11-06-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4045129f7f3778bc21b9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "735518d7275a0fe07214",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/anthropic-ipo-investors-weigh-valuation-as-low-as-1-2t-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "73301ec789e82edc0b19"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0b47ae94b8dc6c928b08",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/06/hundreds-of-artex-ai-hacking-tools-found-publicly-exposed-to-the-web/",
+      "key_points": [
+        "Công ty Censys phát hiện hơn 800 bản triển khai công cụ Artex bị lộ công khai trên web mà không cần mật khẩu đăng nhập. Theo TechCrunch, công cụ kiểm thử xâm nhập tự động (phần mềm tự dò tìm điểm yếu) này có thể tạo điều kiện cho người ngoài phát động tấn công vào các mục tiêu thiếu cảnh giác.",
+        "Chuyên gia Silas Cutler tại Censys cho biết hiện chưa rõ lý do hàng trăm hệ thống Artex bị lộ trên mạng, do phần mềm không đòi hỏi phải có thể truy cập được từ internet. Ông Cutler cũng lưu ý không phải mọi bản triển khai đều mang mục đích xấu và nhiều hệ thống đang phục vụ chuyên gia kiểm thử được ủy quyền.",
+        "Microsoft cho biết tin tặc đã dùng Artex xâm nhập môi trường đám mây của các khách hàng ConnectWise vào tháng 10 năm 2026 để đánh cắp dữ liệu với tốc độ rất nhanh. Trước đó, Artex cũng bị liên kết với vụ tấn công ngành tài chính Hàn Quốc vào tháng 9 năm 2026 do tin tặc để lộ thư mục máy chủ chứa công cụ.",
+        "TechCrunch nhận định những lỗ hổng đơn giản, gồm cả lỗi cấu hình sai, có thể làm lộ cả kẻ tấn công lẫn mục tiêu của họ. Dù Artex đã thông báo chuyển sang mã nguồn đóng cho khách trả phí, hàng chục bản sao mã nguồn vẫn tồn tại trên mạng và có thể tiếp tục bị lợi dụng để tấn công."
+      ],
+      "same_event_coverage_ids": [
+        "3599beda2e8afda03c7c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hơn 800 bản triển khai công cụ tấn công mạng Artex bị phát hiện lộ công khai trên internet",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/06/hundreds-of-artex-ai-hacking-tools-found-publicly-exposed-to-the-web/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "a8fc5de6487f58f91f0a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/06/meta-introduces-spaces-a-new-way-to-collaborate-with-your-muse-agent/",
+      "key_points": [
+        "Meta ra mắt Spaces, phương thức mới để người dùng giao tiếp và cộng tác với các tác nhân (chương trình trí tuệ nhân tạo tự động thực hiện tác vụ) Muse. Theo TechCrunch, Spaces là các cuộc trò chuyện phân nhánh theo chủ đề ở thanh bên giao diện, nơi Muse thay mặt người dùng thực hiện mục tiêu.",
+        "Theo Meta, khi người dùng mô tả ý tưởng trong ô trò chuyện, Muse sẽ tạo bảng theo dõi, kế hoạch hoặc bảng dự án tương ứng. Khi người dùng kết nối ứng dụng bên ngoài, Spaces có thể tự cập nhật trong nền các thông tin như lịch hòa nhạc, biến động giá hay tiến độ tiết kiệm.",
+        "Giám đốc điều hành Mark Zuckerberg cho biết đã dùng Spaces tạo trò chơi tiệc nướng, công cụ theo dõi sự kiện và bảng điều khiển nhà thông minh. Ngoài minh họa kỳ nghỉ từ TechCrunch, Meta đưa ra các ví dụ như theo dõi quà tặng ngày lễ, lập kế hoạch đám cưới hoặc dự án tự làm.",
+        "TechCrunch nhận định Meta đang mở rộng trải nghiệm khi phải cạnh tranh với các tác nhân AI hoạt hình khác như dots của OpenAI và Grokbot của SpaceXAI. Cuộc cạnh tranh diễn ra khi các tác nhân Muse đạt 10 triệu người dùng tại Mỹ và Canada sau chưa đầy hai tháng ra mắt, theo ông Zuckerberg."
+      ],
+      "same_event_coverage_ids": [
+        "41eda16ad12110c3d3b3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta ra mắt Spaces cho phép người dùng cộng tác theo chủ đề với các tác nhân AI Muse",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/06/meta-introduces-spaces-a-new-way-to-collaborate-with-your-muse-agent/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "224c3d5c5f30d73d95d2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking/",
+      "key_points": [
+        "Nghiên cứu từ công ty Vals cho thấy các mô hình AI trọng số mở (mô hình cho phép tải về tự do) đạt năng lực xâm nhập mạng gần tương đương những mô hình đóng hàng đầu. Nhà nghiên cứu Nikil Ravi của Vals cho biết các mô hình đóng trong phòng thí nghiệm đang bắt đầu bị các mô hình mở bắt kịp.",
+        "Vals đã thử nghiệm khả năng thực hiện các lệnh mạng nhiều bước của nhiều mô hình khác nhau trên hệ thống mạng doanh nghiệp giả lập. Các kịch bản mô phỏng gồm việc thâm nhập qua cổng trang web công khai, hoặc chiếm quyền mạng doanh nghiệp thứ nhất rồi xâm nhập tiếp mạng thứ hai.",
+        "Trong thử nghiệm, mô hình đóng Daybreak của OpenAI đạt tỷ lệ hoàn thành 81% nhiệm vụ, còn mô hình mở DeepSeek của Trung Quốc bám sát với mức 73%. Vals ước tính chi phí token của DeepSeek chỉ tốn 2 đến 3 USD cho một vụ tấn công, thấp hơn nhiều mức 17 đến 46 USD của GPT-6-Sol.",
+        "Vals nhận định nỗ lực hạn chế quyền tiếp cận của các phòng thí nghiệm có nguy cơ vô hiệu, trong bối cảnh mô hình đóng không còn giữ lợi thế an ninh mạng rõ rệt. Dù vậy, WIRED ghi nhận trên thực tế giới tin tặc vẫn bảo toàn nguồn lực và chủ yếu tận dụng các mô hình cũ hơn, kém năng lực hơn."
+      ],
+      "same_event_coverage_ids": [
+        "22739314f39d52432221"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình AI trọng số mở đạt năng lực tấn công mạng gần ngang mô hình đóng trong thử nghiệm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0c591f3108c4cede02a283e9c86cb9116ef954e7083c7658f719e01237338e48",
+        "scored_at": "2026-11-06T23:40:03.750357+00:00"
+      }
+    },
+    {
+      "id": "bc00e1abe23c7a7329aa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2610.21375",
+      "key_points": [
+        "Nhóm nghiên cứu giới thiệu Memorilla, hệ thống bộ nhớ ngữ nghĩa gom thông tin tài liệu thành lượng token (đơn vị từ tố) cố định cho mô hình ngôn ngữ lớn giữ nguyên trọng số. Hệ thống mã hóa tài liệu thành các vector nhúng tái sử dụng, rồi học cách đưa thông tin truy vấn vào không gian nhúng của mô hình.",
+        "Nghiên cứu xuất phát từ rào cản của các hệ thống hiện tại khi rất khó vừa thu thập, kết hợp thông tin cần thiết, vừa duy trì độ dài ngữ cảnh ngắn. Đối với mô hình cố định trọng số, việc tiếp cận tri thức tích lũy hoàn toàn phụ thuộc vào lượng dữ liệu được đưa vào cửa sổ ngữ cảnh.",
+        "Chỉ với 16 token nhớ, Memorilla vượt qua các mô hình Mem0 và MemoRAG trên 5 trong số 8 benchmark (bộ kiểm chuẩn đánh giá). Trên tập FactKG, hệ thống đạt độ chính xác 84,33% so với 80,43% của phương pháp nạp toàn bộ ngữ cảnh, dù dùng ít hơn 108 lần số token.",
+        "Nhóm tác giả đánh giá Memorilla giúp mô hình tích lũy tri thức hiệu quả trong tương tác dài, mở ra bước tiến cho hệ thống AI học tập liên tục. Tuy nhiên, mức tăng tỷ lệ thành công của tác nhân từ 18,6% lên 24,2% mới chỉ được xác nhận trong môi trường mô phỏng thử nghiệm TextWorld."
+      ],
+      "same_event_coverage_ids": [
+        "1b1e9950b0abffbaef5f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hệ thống Memorilla giúp mô hình ngôn ngữ nén bộ nhớ ngữ nghĩa hiệu quả qua 16 token",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://arxiv.org/abs/2610.21375"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fbf799f2ee75d6a468555ec809ba2085293a6ebcb8c4702da01880cbad2be026",
+        "scored_at": "2026-11-06T23:40:03.750383+00:00"
+      }
+    },
+    {
+      "id": "fafb6a6507f8d1a47cfe",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual personal rant and social commentary without substantive reporting or journalistic analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://carlhandellen.substack.com/p/an-ai-rant",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "64f3194b3b691e3ef12f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bd9b6a6ae8215f2f6e83",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Broad market morning show focused on the US jobs report and interest rates, with only an incidental passing reference to AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-06/open-interest-11-6-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6ee4d9b69bca1d2fedad"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0a5391d7db4b8ea1805b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://epyhia.com/anthropic-ipo-valuation-talks-drop-to-1-3-trillion-as-major-investors",
+      "key_points": [
+        "Các nhà đầu tư đang đàm phán hạ định giá đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) của Anthropic xuống 1,2 đến 1,3 nghìn tỷ USD, theo Bloomberg trên Investing.com.",
+        "Theo Investing.com, đợt định giá lại diễn ra sau khi chỉ số Nasdaq 100 sụt giảm kỷ lục 6,4% vào thứ Năm, thổi bay khoảng 2,3 nghìn tỷ USD vốn hóa.",
+        "The Wall Street Journal cho biết ba nhà đầu tư lớn yêu cầu hạ giá chào bán, trong đó một bên đề xuất mức gần 1 nghìn tỷ USD. Dù vậy, Bloomberg ghi nhận các bên vẫn xúc tiến đợt phát hành chứ chưa từ bỏ lịch trình.",
+        "Tác giả bài viết nhận định nếu Anthropic lên sàn với định giá sát thực tế hơn, sự kiện này sẽ thử thách sức cầu dành cho các doanh nghiệp AI dẫn đầu sau đợt điều chỉnh của ngành. Dù vậy, bốn nguồn tin chia sẻ với Reuters rằng giới đầu tư vẫn hoài nghi về khả năng Anthropic tiến hành chào bán đúng thời hạn."
+      ],
+      "same_event_coverage_ids": [
+        "42ff6be6b04579191776",
+        "a02f303336c5a97860a7",
+        "c907c9271883ca6801ce"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic bị đàm phán hạ định giá IPO xuống 1,2 đến 1,3 nghìn tỷ USD sau đợt lao dốc của thị trường",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://epyhia.com/anthropic-ipo-valuation-talks-drop-to-1-3-trillion-as-major-investors"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "a0a44ed09dc9a1089b4e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/partnering-with-hacktron",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d763ea5ec345f4abc017",
+        "e22bbd490f218bd8b174"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f0247d2be6d23fda2798",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/research/components-of-agent-memory",
+      "key_points": [
+        "Anthropic nhận thấy cơ chế 'mơ' (dreaming, xử lý trong thời gian nghỉ) giúp tác tử (agent, phần mềm AI tự chủ) Claude tổ chức bộ nhớ hiệu quả. Cơ chế này giúp mô hình sửa lỗi, ghi chép và xây dựng kho tri thức wiki phục vụ các phiên làm việc sau.",
+        "Theo Anthropic, mô hình tận dụng thời gian nghỉ giữa các lần tương tác để tổ chức lại ngữ cảnh theo đề xuất tính toán trong thời gian nghỉ (sleep-time compute) của các nhà nghiên cứu tại Letta và UC Berkeley.",
+        "Khi kết hợp công cụ tìm kiếm với wiki, điểm số tổng hợp (aggregate score) của Claude tăng từ 54% lên 61%, so với 53% khi chỉ tìm kiếm. Dù vậy, khi chỉ dùng wiki thì điểm đạt tối đa 48%, và wiki không mang lại lợi ích rõ rệt nếu tác vụ chỉ cần một tài liệu.",
+        "Anthropic chỉ ra rằng ghi chép tức thời làm phân tán sự chú ý, còn cơ chế mơ đưa việc tạo bộ nhớ ra nền nhưng kết quả chưa thể truy cập ngay. Ngoài ra, quá trình mơ tiêu tốn năng lực tính toán và việc liên tục kiểm tra lại toàn bộ bộ nhớ là không thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "60c47d7113a04ea3bdc9",
+        "b8c4648a5950ced07147"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic thử nghiệm cơ chế 'mơ' giúp tác tử Claude tự tổ chức bộ nhớ và cải thiện hiệu năng xử lý tài liệu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://www.anthropic.com/research/components-of-agent-memory"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "wiki không mang lại lợi ích rõ rệt nếu tác vụ chỉ cần một tài liệu",
+            "explanation": "The source reports one LAB task where the wiki showed no clear gain and most criteria could be met from a single document; it does not establish this as a rule for all such tasks (outlet:p057)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "kết quả chưa thể truy cập ngay",
+            "explanation": "The source says outputs from dreaming may not be immediately accessible, rather than saying they cannot be accessed immediately (outlet:p078)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "việc liên tục kiểm tra lại toàn bộ bộ nhớ là không thực tế",
+            "explanation": "The source says continuously checking all memories might not be practical, rather than stating definitively that it is impractical (outlet:p079)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The wiki result reads as a general rule about tasks needing one document.",
+            "fix": "Limit the claim to the LAB task evaluated, where most criteria could be met from one document and the wiki showed no clear gain (outlet:p057)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The memory access and checking limitations are stated with more certainty than the source supports.",
+            "fix": "Keep the source’s qualifiers: dreaming outputs may not be immediately accessible, and checking every memory might not be practical (outlet:p078, outlet:p079)."
+          },
+          {
+            "question": "notable",
+            "problem": "The score increase lacks the condition under which it occurred.",
+            "fix": "Say the search-plus-wiki score rose from 54% to 61% as the wiki grew (outlet:p053)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ad8f493a8eaece2a121fae23ca36d26ae771c47c67cc97b0d50d747578286359",
+        "scored_at": "2026-11-06T23:40:03.750435+00:00"
+      }
+    },
+    {
+      "id": "8a424d75a52656da5062",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/research/teaching-ai-to-build-scientific-models",
+      "key_points": [
+        "Theo tác giả bài viết trên Anthropic, hệ thống trí tuệ nhân tạo (AI) có thể hỗ trợ hoặc đảm nhận việc thiết kế mô hình khoa học. Nhiều hệ thống dùng mô hình ngôn ngữ lớn để thiết kế mô hình đã xuất hiện trong hai năm qua.",
+        "Tác nhân (phần mềm tự hành) dựa trên mô hình ngôn ngữ lớn nhận dữ liệu cùng mô tả hệ thống rồi lập trình các mô hình ứng viên. Hệ thống sau đó chạy thử, giới hạn tham số, đối chiếu với dữ liệu thực tế và sửa phương trình đến khi khớp chuẩn xác.",
+        "Mô hình Hodgkin-Huxley nâng một biến số lên lũy thừa bốn từ trực giác sinh học khi các bản đơn giản hơn không khớp dữ liệu. Sau hơn 70 năm, mô hình này vẫn là mô tả chuẩn mực cho hoạt động điện nơ-ron (tế bào thần kinh) trên khắp giới động vật.",
+        "Theo tác giả bài viết trên Anthropic, nhiều bộ tham số khác nhau có thể giải thích dữ liệu quan sát tốt như nhau, khi các tổ hợp tham số cổng khác biệt vẫn tạo ra hoạt động điện gần như giống hệt. Do dữ liệu luôn tương thích với nhiều mô hình, giới nghiên cứu phải xem xét phạm vi các giải thích hợp lý thay vì chỉ tìm một mô hình duy nhất đúng."
+      ],
+      "same_event_coverage_ids": [
+        "d800f34177d198d2451b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic: Trí tuệ nhân tạo có thể thiết kế mô hình khoa học nhưng chưa thể mang lại sự thấu hiểu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://www.anthropic.com/research/teaching-ai-to-build-scientific-models"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "5f721228af3682c2417b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ac2eff0f4871c870057"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d2cf9ea98eff4e7cb74c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1028302/perplexity-teammates-ai-agents-work",
+      "key_points": [
+        "Theo The Verge, Perplexity ra mắt các tác nhân AI làm việc Teammates (phần mềm tự động hóa tác vụ) hoạt động liên tục 24/7. Công cụ này đảm nhận nhiều vai trò và kết nối dự án, kỹ năng cùng bộ nhớ sẵn có từ dịch vụ Perplexity.",
+        "Theo Perplexity, Teammates hoạt động trên nền tảng Perplexity Computer hỗ trợ xử lý công việc quy mô lớn và cho phép phân công đồng thời cho từng tác nhân.",
+        "Theo Perplexity, người dùng theo dõi tiến độ qua luồng riêng trên ứng dụng hoặc tương tác qua Slack.",
+        "The Verge nhận xét tính năng này đắt hơn nhiều khi yêu cầu gói Max giá 200 USD mỗi tháng."
+      ],
+      "same_event_coverage_ids": [
+        "615af3c305e888542cc1",
+        "b838947f96ccb31ba1ba",
+        "fab45641a432ec6534c0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Perplexity ra mắt tác nhân AI Teammates làm việc liên tục với thuê bao Max 200 USD mỗi tháng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1028302/perplexity-teammates-ai-agents-work"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f5e9588fb4d2e112769f3fe32707b6d20f5236550ca593102e7bebf82081ca5d",
+        "scored_at": "2026-11-06T23:40:03.750479+00:00"
+      }
     }
   ]
 }
