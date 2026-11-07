@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-07T15:33:13.772377+00:00",
-  "input_generated_at": "2026-11-07T13:38:14Z",
+  "generated_at": "2026-11-07T19:47:42.632620+00:00",
+  "input_generated_at": "2026-11-07T15:54:06Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -38130,17 +38130,17 @@
       "use_original_title": true,
       "source_url": "https://www.wired.com/story/apps-for-caregivers-get-a-dose-of-ai-but-that-might-not-be-enough/",
       "key_points": [
-        "Tác giả bài viết trên Wired cho biết các ứng dụng chăm sóc giúp nhắc lịch uống thuốc hoặc chia sẻ hồ sơ tóm tắt nhằm giảm tải tinh thần cho gia đình. Theo AARP, năm 2025 ước tính 63 triệu người Mỹ chăm sóc người lớn hoặc trẻ em mắc bệnh hay khuyết tật, trung bình 27 giờ mỗi tuần.",
-        "Tác giả bài viết trên Wired nhận định việc chăm sóc kéo dài khiến nhiều người suy giảm sức khỏe, áp lực tài chính và bị cô lập. Khủng hoảng này thêm trầm trọng khi người chăm sóc đang cần thêm nhiều hỗ trợ và các hệ thống tốt hơn.",
-        "Về ứng dụng, trợ lý trí tuệ nhân tạo (AI) Ari của Citizen Health giúp chuẩn bị câu hỏi khám bệnh và tóm tắt bệnh án, dù hiện chỉ thử nghiệm cho người mắc bệnh hiếm. Ứng dụng Mejo giá 6 USD mỗi tháng cho phép chia sẻ nhật ký chăm sóc, nhưng dữ liệu hiện vẫn phải nhập thủ công.",
-        "Bà Nicole Howell tại Hội đồng Quốc gia về Lão hóa nhận định công nghệ giúp giảm căng thẳng, nhưng không một gia đình đơn lẻ nào có thể tự giải quyết cuộc khủng hoảng này."
+        "Theo tác giả bài viết trên Wired, các ứng dụng hỗ trợ người chăm sóc hướng tới giảm tải gánh nặng tinh thần cho các gia đình. Một số nền tảng đang tích hợp trí tuệ nhân tạo (AI) để hỗ trợ chuẩn bị khám bệnh.",
+        "Tác giả bài viết trên Wired nhận định cuộc khủng hoảng chăm sóc ngày càng trầm trọng do thiếu hỗ trợ và hệ thống tốt hơn. Theo AARP, năm 2025 ước tính 63 triệu người Mỹ chăm sóc người thân và dành trung bình tới 27 giờ mỗi tuần.",
+        "Phiên bản trả phí của Mejo giá 6 USD mỗi tháng cung cấp nhật ký chia sẻ, dù dữ liệu hiện phải nhập thủ công. Trợ lý AI Ari của Citizen Health cũng đang thử nghiệm hỗ trợ khám bệnh, nhưng chỉ dành cho người mắc bệnh hiếm.",
+        "Giáo sư I. Glenn Cohen tại Trường Luật Harvard lưu ý hầu hết công cụ không phải thiết bị y tế được FDA kiểm duyệt, và thông tin sức khỏe người dùng nhập vào công cụ AI không được luật HIPAA bảo vệ do không đến từ đơn vị thuộc diện điều chỉnh. Bà Nicole Howell tại Hội đồng Quốc gia về Lão hóa nhận định công nghệ hy vọng giúp giảm bớt căng thẳng chứ không thể tự giải quyết khủng hoảng, khi cần sự chung tay từ chính phủ, khối tư nhân và các gia đình."
       ],
       "same_event_coverage_ids": [
         "6bd15f1b6b2cc098c78a"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Ứng dụng chăm sóc tích hợp AI giúp giảm căng thẳng nhưng chưa đủ để giải quyết cuộc khủng hoảng",
+      "editorial_headline_vi": "Ứng dụng chăm sóc người thân tích hợp AI mở ra kỳ vọng nhưng chưa đủ giải quyết khủng hoảng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -38153,60 +38153,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.9,
+        "value": 8.55,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 9,
           "notable": 8,
-          "meaning": 6
+          "meaning": 8
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "Ứng dụng chăm sóc tích hợp AI giúp giảm căng thẳng",
-            "explanation": "The source says apps aim to lighten caregivers’ load and may *hopefully* mean less stress; it does not establish that they reduce stress, and several apps described do not have AI features (outlet:p004, outlet:p007–p011, outlet:p027)."
-          },
-          {
-            "kind": "number",
-            "summary_text": "trung bình 27 giờ mỗi tuần",
-            "explanation": "The source says caregivers spend, on average, *up to* 27 hours per week providing care, rather than stating an unqualified 27-hour average (outlet:p002)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Ứng dụng Mejo giá 6 USD mỗi tháng",
-            "explanation": "The source assigns the $6 monthly price to Mejo’s premium version, which provides the shareable daily journal; it does not say Mejo generally costs $6 per month (outlet:p010)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "công nghệ giúp giảm căng thẳng",
-            "explanation": "Nicole Howell says apps can enable better care integration and *hopefully* less stress, not that stress reduction is established (outlet:p027)."
+            "summary_text": "63 triệu người Mỹ chăm sóc người thân",
+            "explanation": "The AARP estimate covers Americans who cared for adults or children with a medical condition or disability; the source does not limit them to relatives (outlet:p002)."
           }
         ],
         "findings": [
           {
             "question": "meaning",
-            "problem": "Readers miss the source’s cautions about unreviewed products and sensitive health data.",
-            "fix": "Add that most tools are not FDA-reviewed medical devices and that information entered by patients or caregivers is typically outside federal HIPAA protection (outlet:p020–p022)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Stress reduction reads as a demonstrated outcome.",
-            "fix": "Present it as a hoped-for benefit, matching Howell’s qualification (outlet:p027)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Readers miss why an app may add work to an already overloaded caregiver.",
-            "fix": "Explain that caregivers must keep plans, schedules and tasks updated because clinicians generally will not enter those updates for them (outlet:p023–p025)."
+            "problem": "Readers miss a practical limit on whether the apps will help.",
+            "fix": "Add that caregivers must keep records current and that clinicians generally will not enter updates for them (outlet:p023–p025)."
           },
           {
             "question": "notable",
-            "problem": "The $6 monthly price appears to apply to all of Mejo.",
-            "fix": "Specify that $6 per month buys the premium version with a shareable daily journal (outlet:p010)."
+            "problem": "Ari’s actual uses are left vague.",
+            "fix": "Specify that it can use medical records and calendar events to summarize history and suggest questions before appointments (outlet:p015)."
           },
           {
             "question": "why",
-            "problem": "The time figure loses its upper-bound wording.",
-            "fix": "Retain the source’s “up to 27 hours per week” qualification (outlet:p002)."
+            "problem": "The AARP estimate is narrowed to care for relatives.",
+            "fix": "Describe it as Americans caring for adults or children with a medical condition or disability (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -38214,8 +38189,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "fb97e0c191d488652d2c963a202d7a98db71f008e227f44c8e52d13c6b1dd124",
-        "scored_at": "2026-11-07T15:33:13.768718+00:00"
+        "prose_sha256": "be0b4d67384bce7e8316682cf2d26a9ca7a7fee86e80ee6e9553a1c645b9079c",
+        "scored_at": "2026-11-07T19:47:42.630181+00:00"
       }
     },
     {
@@ -38398,6 +38373,128 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "b1a40acd6defb11b3df2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4b429bd7582936e31a06",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/podcast/1029038/ai-cybersecurity-hackers-data-breach-dark-age-alex-stamos",
+      "key_points": [
+        "Theo chuyên gia tại công ty trí tuệ nhân tạo (AI) Cognition, công cụ mã nguồn mở ARTEX kết hợp mô hình AI cho phép xâm nhập hàng loạt tổ chức.",
+        "Chuyên gia tại Cognition cho biết ARTEX là công cụ mã nguồn mở của Trung Quốc và có bản dịch tiếng Anh trên GitHub. Hệ thống này vận hành khi được tiếp sức ở phía sau bởi mô hình ngôn ngữ lớn như GLM-5.3 đã bị loại bỏ rào cản an toàn.",
+        "Về trường hợp cụ thể, vụ việc bắt đầu từ ba ngân hàng Hàn Quốc và có thêm khoảng 200 công ty bị tấn công trong tuần này theo chuyên gia tại Cognition.",
+        "Dù vậy, người này nhấn mạnh không thể để phần mềm tự động (bot) làm toàn bộ việc phòng thủ, và ở hệ thống cụ thể của họ thì con người vẫn phải phê duyệt khi chạm ngưỡng giới hạn."
+      ],
+      "same_event_coverage_ids": [
+        "7d76bd282b25cbd00560"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình AI vận hành phía sau công cụ mở ARTEX đe dọa nhiều tổ chức, chuyên gia khuyên chủ động diễn tập xâm nhập",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/podcast/1029038/ai-cybersecurity-hackers-data-breach-dark-age-alex-stamos"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 5
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader does not learn why the headline recommends proactive security testing.",
+            "fix": "Explain the speaker’s advice to test the organization’s own systems before attackers reach its API endpoints and overlooked websites (outlet:p091)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The body omits the speaker’s other principal defensive recommendation.",
+            "fix": "Add that the speaker advocates automatically finding, testing, and fixing legacy software bugs at scale (outlet:p108)."
+          },
+          {
+            "question": "why",
+            "problem": "The reader misses the barriers the speaker says leave organizations exposed.",
+            "fix": "Mention restrictive approval processes for security testing and the backlog of flaws in older code (outlet:p090, outlet:p091, outlet:p108)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fff30e86568cc1120d71b22fa7f4c78528b58bfc17c215594d2f0d215a987d5a",
+        "scored_at": "2026-11-07T19:37:40.805151+00:00"
+      }
+    },
+    {
+      "id": "37e0cf49f7b4a1b7fbc7",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-07/ai-safety-advocates-make-gains-after-110-million-midterm-fight",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "607d5bb60ae0b05a6959"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6f1c3f33d52772f3303e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://kevinboone.me/ai.html",
+      "key_points": [
+        "The author observes growing interest in the 'small web' driven by user frustration with low-effort, unoriginal content generated by large language models.",
+        "The author argues that while AI-generated material is often inaccurate, a substantial amount of human-authored online content is also inaccurate."
+      ],
+      "same_event_coverage_ids": [
+        "02b1d81cc75e6188bb00"
       ],
       "split_coverage_ids": []
     }
