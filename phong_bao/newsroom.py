@@ -8,8 +8,10 @@ import json
 import os
 import re
 import subprocess
+import threading
 import time
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -176,6 +178,13 @@ DEFAULT_RUN_BUDGET_SECONDS = 90 * 60
 # Measured over 46 cycles (27/10-06/11): agy calls took a median 3.5 minutes, p95 8.1, and the slowest that
 # completed took 12.5; codex p95 under 3. Fifteen minutes is above every call that finished.
 DEFAULT_CALL_TIMEOUT_SECONDS = 15 * 60
+# A desk's model calls run this many at a time. Measured on the 02:00 cycle of 07/11: seven agy writer calls ran
+# one after another for 30.5 minutes (about 4.5 each), so the rewrite pass and the scorer ran late and every
+# review-writer call was cut at the writer deadline. Each call is a separate CLI process with its own empty
+# directory; three at once keep this shared PC well clear of the ~5 heavy jobs that stall it. A lane whose CLI
+# shares state between calls caps itself with max_concurrent_calls in its profile (codex: 1).
+DESK_CONCURRENCY_ENV = "PHONG_BAO_DESK_CONCURRENCY"
+DEFAULT_DESK_CONCURRENCY = 3
 REPORTER_EXCERPT_LIMIT = 900
 EDITOR_EXCERPT_LIMIT = 1200
 JUNK_KINDS = {"non_news_page", "vendor_sales", "customer_case_study", "tutorial", "incidental_ai", "mis_merged_cluster", "stale_content"}
@@ -395,13 +404,53 @@ def _batches(rows, max_chars=MAX_BATCH_CHARS, batch_size=None):
         yield batch
 
 
+def desk_concurrency(env=None):
+    """How many of one desk's model calls may run at once (PHONG_BAO_DESK_CONCURRENCY; 1 runs them in turn)."""
+    value = (os.environ if env is None else env).get(DESK_CONCURRENCY_ENV, "").strip()
+    try:
+        number = int(value) if value else DEFAULT_DESK_CONCURRENCY
+    except ValueError:
+        return DEFAULT_DESK_CONCURRENCY
+    return number if number >= 1 else DEFAULT_DESK_CONCURRENCY
+
+
+class _Sink:
+    """One unit of a desk's work, kept aside until every earlier unit is recorded, so files and events keep the
+    order a desk running its calls in turn would give them."""
+
+    def __init__(self):
+        self.output, self.records = {}, []
+
+    def fail(self, part):
+        for row in part:
+            self.output[row["id"]] = {"id": row["id"], "model_failure": True, "provider": None, "boat": None}
+
+    def event(self, event, part, provider, error=None):
+        entry = {"event": event, "provider": provider["id"], "ids": [row["id"] for row in part]}
+        if error is not None:
+            entry["error"] = str(error)
+        self.records.append((entry, entry))
+
+    def success(self, provider, result):
+        for row in result.rows:
+            self.output[row["id"]] = {**row, "provider": provider["id"], "boat": provider.get("boat")}
+        self.records.append(({"provider": provider["id"], **result.usage},
+                             {"provider": provider["id"], "stories": result.rows}))
+
+
 def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner, *, boat_exclude=(), raw_dir=None,
-                require_success=True, deadline=None, record_as=None, call_timeout=None, batch_size=None):
+                require_success=True, deadline=None, record_as=None, call_timeout=None, batch_size=None,
+                concurrency=None):
     """Run one desk's batches; record_as names a second pass of that desk (same lanes, own raw files).
 
     Each CLI call waits at most call_timeout seconds (or until the deadline, if sooner). A call that hits the cap
     moves its batch to the next lane; on the last lane its stories fail without a split, since halving a batch
     helps a reply that is too large, not a lane that hangs.
+
+    Up to `concurrency` (desk_concurrency()) first-lane batches run at once, and a lane whose profile sets
+    max_concurrent_calls never has more calls than that open. A batch's fallbacks and splits stay in its own turn.
+    Results, raw files and events are recorded in batch order once every earlier batch is done, so they match a
+    desk that ran its batches one after another; a batch that fails or runs out of time costs only its stories.
     """
     cap = DEFAULT_CALL_TIMEOUT_SECONDS if call_timeout is None else call_timeout
     candidates = [tool for tool in providers(capability, tools, discovery, boat_exclude=boat_exclude, desk=desk)
@@ -410,33 +459,29 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
         raise RunnerError(f"no configured batch CLI for {desk} on an eligible boat")
     output, batches = {}, []
     desk = record_as or desk
+    workers = desk_concurrency() if concurrency is None else max(1, concurrency)
+    lanes = {tool["id"]: threading.BoundedSemaphore(min(workers, tool.get("max_concurrent_calls") or workers))
+             for tool in candidates}
 
     existing_raw = list(Path(raw_dir).glob(f"{desk}-*.json")) if raw_dir is not None and Path(raw_dir).exists() else []
     batch_number = max((int(path.stem.removeprefix(f"{desk}-")) for path in existing_raw), default=0)
 
-    def record(event, part, provider, error=None):
-        nonlocal batch_number
-        batch_number += 1
-        entry = {"event": event, "provider": provider["id"], "ids": [row["id"] for row in part]}
-        if error is not None:
-            entry["error"] = str(error)
-        batches.append(entry)
-        if raw_dir is not None:
-            _write_json(Path(raw_dir) / f"{desk}-{batch_number}.json",
-                        {"desk": desk, "batch": batch_number, **entry})
+    def limit(index):
+        return (min(ARGUMENT_BATCH_CHARS, ARGUMENT_COMMAND_CHARS - len(instruction))
+                if candidates[index].get("prompt_transport") == "argument" else MAX_BATCH_CHARS)
 
-    def send(batch, index=0):
-        nonlocal batch_number
+    def send(batch, sink, index=0):
+        for part in _batches(batch, limit(index), batch_size):
+            attempt(part, sink, index)
+
+    def attempt(part, sink, index):
         provider = candidates[index]
-        limit = (min(ARGUMENT_BATCH_CHARS, ARGUMENT_COMMAND_CHARS - len(instruction))
-                 if provider.get("prompt_transport") == "argument" else MAX_BATCH_CHARS)
-        for part in _batches(batch, limit, batch_size):
+        with lanes[provider["id"]]:
+            # A batch that waited for a free call checks the deadline when its turn comes.
             if deadline is not None and time.monotonic() >= deadline:
-                for row in part:
-                    output[row["id"]] = {"id": row["id"], "model_failure": True,
-                                          "provider": None, "boat": None}
-                record("budget_exhausted", part, provider)
-                continue
+                sink.fail(part)
+                sink.event("budget_exhausted", part, provider)
+                return
             try:
                 if isinstance(runner, CLIRunner):
                     timeout = cap if deadline is None else max(0.001, min(cap, deadline - time.monotonic()))
@@ -445,44 +490,71 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
                     result = runner.run(desk, part, provider, instruction)
             except AdmissionError:
                 raise
-            except RunnerError as error:
-                out_of_time = deadline is not None and time.monotonic() >= deadline
-                # A call cut by the desk deadline is budget exhaustion; one cut by the cap alone timed out.
-                timed_out = isinstance(error.__cause__, subprocess.TimeoutExpired) and not out_of_time
-                if timed_out:
-                    error = RunnerError(f"{provider['id']} call timed out after {cap:g} seconds")
-                if index + 1 == len(candidates):
-                    if out_of_time:
-                        for row in part:
-                            output[row["id"]] = {"id": row["id"], "model_failure": True,
-                                                  "provider": None, "boat": None}
-                        record("budget_exhausted", part, provider, error)
-                        continue
-                    if len(part) > 1 and not timed_out:
-                        record("split", part, provider, error)
-                        middle = len(part) // 2
-                        send(part[:middle])
-                        send(part[middle:])
-                    else:
-                        record("failure", part, provider, error)
-                        for row in part:
-                            output[row["id"]] = {"id": row["id"], "model_failure": True,
-                                                 "provider": None, "boat": None}
-                    continue
-                if timed_out:
-                    record("timeout", part, provider, error)
-                send(part, index + 1)
-                continue
-            batch_number += 1
-            if raw_dir is not None:
-                _write_json(Path(raw_dir) / f"{desk}-{batch_number}.json",
-                            {"desk": desk, "batch": batch_number, "provider": provider["id"], "stories": result.rows})
-            for row in result.rows:
-                output[row["id"]] = {**row, "provider": provider["id"], "boat": provider.get("boat")}
-            batches.append({"provider": provider["id"], **result.usage})
+            except RunnerError as caught:
+                error = caught
+            else:
+                sink.success(provider, result)
+                return
+        out_of_time = deadline is not None and time.monotonic() >= deadline
+        # A call cut by the desk deadline is budget exhaustion; one cut by the cap alone timed out.
+        timed_out = isinstance(error.__cause__, subprocess.TimeoutExpired) and not out_of_time
+        if timed_out:
+            error = RunnerError(f"{provider['id']} call timed out after {cap:g} seconds")
+        if index + 1 == len(candidates):
+            if out_of_time:
+                sink.fail(part)
+                sink.event("budget_exhausted", part, provider, error)
+            elif len(part) > 1 and not timed_out:
+                sink.event("split", part, provider, error)
+                middle = len(part) // 2
+                send(part[:middle], sink)
+                send(part[middle:], sink)
+            else:
+                sink.event("failure", part, provider, error)
+                sink.fail(part)
+            return
+        if timed_out:
+            sink.event("timeout", part, provider, error)
+        send(part, sink, index + 1)
 
-    for batch in _batches(payload, batch_size=batch_size):
-        send(batch)
+    def commit(sink):
+        nonlocal batch_number
+        for entry, raw in sink.records:
+            batch_number += 1
+            batches.append(entry)
+            if raw_dir is not None:
+                _write_json(Path(raw_dir) / f"{desk}-{batch_number}.json", {"desk": desk, "batch": batch_number, **raw})
+        output.update(sink.output)
+
+    stopped = threading.Event()
+
+    def run_unit(part):
+        sink = _Sink()
+        # Batches start in order, so every batch before a stopped one has already begun and is still recorded.
+        if stopped.is_set():
+            return sink
+        try:
+            attempt(part, sink, 0)
+        except BaseException:
+            stopped.set()
+            raise
+        return sink
+
+    units = [part for batch in _batches(payload, batch_size=batch_size) for part in _batches(batch, limit(0), batch_size)]
+    if workers == 1 or len(units) <= 1:
+        for part in units:
+            commit(run_unit(part))
+    else:
+        with ThreadPoolExecutor(max_workers=min(workers, len(units)), thread_name_prefix=f"phong-bao-{desk}") as pool:
+            futures = [pool.submit(run_unit, part) for part in units]
+            try:
+                for future in futures:
+                    commit(future.result())
+            except BaseException:
+                # As in turn: an admission stop records the batches before it and starts none after it.
+                for future in futures:
+                    future.cancel()
+                raise
     budget_exhausted = any(row.get("event") == "budget_exhausted" for row in batches)
     if payload and require_success and not budget_exhausted and all(row.get("model_failure") for row in output.values()):
         error = RunnerError(f"{desk}: all model calls failed")
