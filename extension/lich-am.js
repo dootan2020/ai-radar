@@ -24,7 +24,8 @@ function newMoon(k, tz) {
     : -0.000278 + 0.000265 * T + 0.000262 * T2;
   return INT(jd1 + C1 - deltat + 0.5 + tz / 24);
 }
-function sunLongitude(jdn, tz) {
+/* The sun's apparent longitude, in radians, at local midnight starting day jdn. */
+function sunRadians(jdn, tz) {
   const T = (jdn - 2451545.5 - tz / 24) / 36525, T2 = T * T, dr = PI / 180;
   const M = 357.52910 + 35999.05030 * T - 0.0001559 * T2 - 0.00000048 * T * T2;
   const L0 = 280.46645 + 36000.76983 * T + 0.0003032 * T2;
@@ -32,8 +33,10 @@ function sunLongitude(jdn, tz) {
   DL = DL + (0.019993 - 0.000101 * T) * Math.sin(dr * 2 * M) + 0.000290 * Math.sin(dr * 3 * M);
   let L = (L0 + DL) * dr;
   L = L - PI * 2 * INT(L / (PI * 2));
-  return INT(L / PI * 6);
+  return L;
 }
+/* Which of the 12 major terms (30° each) the sun is in at midnight starting day jdn. */
+const sunLongitude = (jdn, tz) => INT(sunRadians(jdn, tz) / PI * 6);
 function lunarMonth11(yy, tz) {
   const off = jdFromDate(31, 12, yy) - 2415021;
   const k = INT(off / 29.530588853);
@@ -77,6 +80,72 @@ const WEEKDAY = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ N�
 export function lunarText({ day, month, year, leap }) {
   const d = day === 15 ? 'Rằm' : day <= 10 ? `Mùng ${day}` : String(day);
   return `Âm lịch ${d} tháng ${MONTH[month - 1]}${leap ? ' nhuận' : ''}, năm ${CAN[year % 10]} ${CHI[year % 12]}`;
+}
+
+/* ---------- the calendar card (mockup H "Linh vật của năm", captain 08/11 01:23) ----------
+   Can chi of the day, the lunar month and the lunar year, their animals in the Vietnamese twelve (trâu, mèo), the solar
+   term from the sun's longitude, and the one note a reader acts on today. Everything follows from the date. */
+const CAN_FROM_GIAP = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+const CHI_FROM_TY = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+/* In CHI_FROM_TY order; file is the Fluent Emoji (flat, MIT) name shipped in con-giap/. */
+export const ANIMALS = [
+  ['chuột', 'rat'], ['trâu', 'water-buffalo'], ['hổ', 'tiger'], ['mèo', 'cat'], ['rồng', 'dragon'], ['rắn', 'snake'],
+  ['ngựa', 'horse'], ['dê', 'goat'], ['khỉ', 'monkey'], ['gà', 'rooster'], ['chó', 'dog'], ['lợn', 'pig'],
+];
+/* The 24 solar terms, counted from Xuân phân at 0°. */
+export const TERMS = ['Xuân phân', 'Thanh minh', 'Cốc vũ', 'Lập hạ', 'Tiểu mãn', 'Mang chủng', 'Hạ chí', 'Tiểu thử', 'Đại thử',
+  'Lập thu', 'Xử thử', 'Bạch lộ', 'Thu phân', 'Hàn lộ', 'Sương giáng', 'Lập đông', 'Tiểu tuyết', 'Đại tuyết', 'Đông chí',
+  'Tiểu hàn', 'Đại hàn', 'Lập xuân', 'Vũ thủy', 'Kinh trập'];
+
+const addDays = ([y, m, d], k) => { const t = new Date(Date.UTC(y, m - 1, d + k)); return [t.getUTCFullYear(), t.getUTCMonth() + 1, t.getUTCDate()]; };
+const lunarOf = ([y, m, d]) => solarToLunar(d, m, y);
+/* The term in force on a day, read at the day's end (the term that starts during the day counts for that day). */
+export const solarTerm = (dd, mm, yy, tz = 7) => INT(sunRadians(jdFromDate(dd, mm, yy) + 1, tz) / PI * 12);
+const termOf = ([y, m, d]) => solarTerm(d, m, y);
+const beast = (chi, canchi) => ({ name: ANIMALS[chi][0], file: ANIMALS[chi][1], canchi });
+
+/* Can chi of the day (from the Julian day number), of the lunar month (from the year's can) and of the lunar year. */
+export function canChi(dd, mm, yy) {
+  const jdn = jdFromDate(dd, mm, yy), l = solarToLunar(dd, mm, yy);
+  const day = (jdn + 1) % 12, month = (l.month + 1) % 12, year = (l.year + 8) % 12;
+  return {
+    day: beast(day, `${CAN_FROM_GIAP[(jdn + 9) % 10]} ${CHI_FROM_TY[day]}`),
+    month: beast(month, `${CAN_FROM_GIAP[(l.year * 12 + l.month + 3) % 10]} ${CHI_FROM_TY[month]}`),
+    year: beast(year, `${CAN_FROM_GIAP[(l.year + 6) % 10]} ${CHI_FROM_TY[year]}`),
+  };
+}
+
+/* "tháng Chín", "tháng Hai nhuận". */
+export const lunarMonthName = ({ month, leap }) => `tháng ${MONTH[month - 1]}${leap ? ' nhuận' : ''}`;
+/* The lunar day as the card prints it: "Mùng 3 tháng Mười", "Rằm tháng Mười", "30 tháng Chín". */
+export function lunarDayText(l) {
+  const d = l.day === 15 ? 'Rằm' : l.day <= 10 ? `Mùng ${l.day}` : String(l.day);
+  return `${d} ${lunarMonthName(l)}`;
+}
+
+/* One note, the one a Vietnamese reader acts on today: mùng 1 or rằm today, a solar term that starts today, mùng 1 or
+   rằm tomorrow, otherwise how many days to the nearer of the two. */
+export function oneNote(dd, mm, yy) {
+  const ymd = [yy, mm, dd], l = lunarOf(ymd);
+  const moonName = x => x.day === 1 ? `mùng 1 ${lunarMonthName(x)}` : `rằm ${lunarMonthName(x)}`;
+  if (l.day === 1 || l.day === 15) return `Hôm nay là ${moonName(l)}`;
+  const t = termOf(ymd);
+  if (termOf(addDays(ymd, -1)) !== t) return `Hôm nay vào tiết ${TERMS[t]}`;
+  for (let k = 1; k <= 31; k++) {
+    const lk = lunarOf(addDays(ymd, k));
+    if (lk.day === 1 || lk.day === 15) return k === 1 ? `Mai là ${moonName(lk)}` : `Còn ${k} ngày tới ${moonName(lk)}`;
+  }
+  return '';
+}
+
+/* Everything the calendar card shows for one solar day. */
+export function calendarDay(dd, mm, yy) {
+  const l = solarToLunar(dd, mm, yy), wdi = new Date(Date.UTC(yy, mm - 1, dd)).getUTCDay();
+  const t = solarTerm(dd, mm, yy);
+  return {
+    d: dd, m: mm, y: yy, wdi, weekday: WEEKDAY[wdi], lunar: l, lunarDay: lunarDayText(l),
+    animals: canChi(dd, mm, yy), term: TERMS[t], note: oneNote(dd, mm, yy),
+  };
 }
 
 /* Today in Vietnam, whatever the machine's timezone: [weekday words, day, month, year]. */

@@ -45,6 +45,33 @@ process.stdout.write(JSON.stringify(out));
         ])
         self.assertEqual(out[7], {"weekday": "Thứ Bảy", "d": 7, "m": 11, "y": 2026})
 
+    def test_calendar_card_facts(self):
+        # The calendar card (mockup H, 08/11): can chi of the day, the lunar month and the year with their animals (the
+        # Vietnamese twelve: trâu, mèo), the solar term and the one note, all computed from the date.
+        script = r"""
+import { calendarDay } from '%s';
+const days = [[17, 2, 2026], [7, 11, 2026], [8, 11, 2026], [22, 12, 2026], [23, 11, 2026], [1, 3, 2027], [15, 3, 2026]];
+process.stdout.write(JSON.stringify(days.map(([d, m, y]) => { const c = calendarDay(d, m, y);
+  return [c.weekday, c.lunarDay, c.animals.day.canchi, c.animals.day.file, c.animals.month.canchi, c.animals.month.file,
+          c.animals.year.canchi, c.animals.year.name, c.term, c.note]; })));
+""" % (EXT / "lich-am.js").as_uri()
+        out = node(script)
+        # Tết Bính Ngọ: ngày Nhâm Tuất in tháng Canh Dần (the brief's "ngày Canh Dần" is the month's can chi; the day
+        # follows from 01/01/2000 = Mậu Ngọ and from 07/11/2026 = Ất Dậu, 263 days apart).
+        self.assertEqual(out[0], ["Thứ Ba", "Mùng 1 tháng Giêng", "Nhâm Tuất", "dog", "Canh Dần", "tiger",
+                                  "Bính Ngọ", "ngựa", "Lập xuân", "Hôm nay là mùng 1 tháng Giêng"])
+        self.assertEqual(out[1], ["Thứ Bảy", "29 tháng Chín", "Ất Dậu", "rooster", "Mậu Tuất", "dog",
+                                  "Bính Ngọ", "ngựa", "Lập đông", "Hôm nay vào tiết Lập đông"])
+        self.assertEqual(out[2], ["Chủ Nhật", "30 tháng Chín", "Bính Tuất", "dog", "Mậu Tuất", "dog",
+                                  "Bính Ngọ", "ngựa", "Lập đông", "Mai là mùng 1 tháng Mười"])
+        self.assertEqual(out[3][8:], ["Đông chí", "Hôm nay vào tiết Đông chí"])
+        self.assertEqual(out[4][1], "Rằm tháng Mười")
+        self.assertEqual(out[4][9], "Hôm nay là rằm tháng Mười")
+        self.assertEqual(out[5][6:8], ["Đinh Mùi", "dê"])      # 2027 after Tết: the goat
+        self.assertEqual(out[5][9], "Còn 7 ngày tới mùng 1 tháng Hai")
+        self.assertEqual(out[6][1], "27 tháng Giêng")
+        self.assertEqual(out[6][9], "Còn 4 ngày tới mùng 1 tháng Hai")
+
 
 @unittest.skipUnless(shutil.which("node"), "Node required for the extension modules")
 class WeatherTests(unittest.TestCase):
@@ -91,9 +118,27 @@ class TopZoneTests(unittest.TestCase):
         html = (EXT / "newtab.html").read_text(encoding="utf-8")
         site = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
         self.assertIn('src="vung-dau.js"', html)
-        self.assertIn('id="weather"', html)
-        for part in ('vung-dau.js', 'id="weather"', 'id="web-search"', 'id="services"'):
+        self.assertIn('href="the-lich.css"', html)
+        # The weather lives on the calendar card (mockup H, 08/11), which the new tab's own module builds.
+        self.assertIn('id="weather"', (EXT / "the-lich.js").read_text(encoding="utf-8"))
+        self.assertIn("import { mountCalendarCard } from './the-lich.js';", (EXT / "vung-dau.js").read_text(encoding="utf-8"))
+        for part in ('vung-dau.js', 'the-lich', 'id="weather"', 'id="web-search"', 'id="services"'):
             self.assertNotIn(part, site)
+
+    def test_calendar_card_ships_its_pictures_and_fetches_nothing_new(self):
+        # The twelve animals ship inside the extension with their licence (Fluent Emoji flat, MIT); the card names them
+        # by relative path and calls no host beyond the new tab's existing ones.
+        folder = EXT / "con-giap"
+        names = ["rat", "water-buffalo", "tiger", "cat", "dragon", "snake", "horse", "goat", "monkey", "rooster", "dog", "pig"]
+        self.assertEqual(sorted(p.stem for p in folder.glob("*.svg")), sorted(names))
+        self.assertIn("MIT License", (folder / "LICENSE.txt").read_text(encoding="utf-8"))
+        lunar = (EXT / "lich-am.js").read_text(encoding="utf-8")
+        for name in names:
+            self.assertIn(f"'{name}']", lunar)
+        source = (EXT / "the-lich.js").read_text(encoding="utf-8") + (EXT / "the-lich.css").read_text(encoding="utf-8")
+        self.assertIn("con-giap/${file}.svg", source)
+        self.assertNotIn("http", source)        # no address of any host: the pictures are local, the weather is thoi-tiet.js
+        self.assertNotIn("geolocation", source)
 
     def test_new_tab_has_the_captains_three_rows_above_the_news(self):
         # Captain, 07/11 18:03: row 1 the Google services with the 9 dots at the top right, row 2 the Google search with
@@ -103,8 +148,11 @@ class TopZoneTests(unittest.TestCase):
         html = (EXT / "newtab.html").read_text(encoding="utf-8")
         site = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
         head = html[html.index('id="masthead"'):html.index('</header>')]
-        order = ['id="services"', 'class="tool-launcher"', 'id="web-search"', 'id="dateline"', 'id="day-date"', 'id="weather"']
+        order = ['id="services"', 'class="tool-launcher"', 'id="web-search"']
         self.assertEqual([head.index(p) for p in order], sorted(head.index(p) for p in order))
+        # 08/11 (mockup H): the day line under the search is gone; its date, lunar date and weather are on the card.
+        for part in ('id="dateline"', 'id="day-date"', 'id="weather"'):
+            self.assertNotIn(part, html)
         self.assertNotIn('class="brand-tag"', html)
         bar = html[html.index('id="bar"'):html.index('</nav>', html.index('id="bar"'))]
         for part in ('id="brand"', 'wordmark.svg', 'wordmark-dark.svg', 'id="feed-filters"', 'id="sort-switch"',
@@ -123,7 +171,7 @@ class TopZoneTests(unittest.TestCase):
         self.assertIn('box-shadow: none', field.split('}')[0])
         self.assertIn('.web-field:focus-within { border-color: var(--color-hair-strong); box-shadow: none;', field)
         source = (EXT / "vung-dau.js").read_text(encoding="utf-8")
-        self.assertIn('class="d-short" aria-hidden="true"', source)
+        self.assertNotIn('day-date', source)
 
 
 if __name__ == "__main__":

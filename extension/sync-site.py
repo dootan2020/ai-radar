@@ -63,9 +63,10 @@ def adapt_html(html):
     html = replace_pattern_once(html, r'<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>\n', '')
     html = replace_once(html, '<script type="module" src="feed.js"></script>',
                         '<script type="module" src="feed.js"></script>\n<script type="module" src="newtab.js"></script>\n'
-                        '<script type="module" src="vung-dau.js"></script>\n<link rel="stylesheet" href="newtab.css">')
+                        '<script type="module" src="vung-dau.js"></script>\n<link rel="stylesheet" href="newtab.css">\n'
+                        '<link rel="stylesheet" href="the-lich.css">')
     # The new tab's three rows above the news (captain, 07/11 18:03, mockup D "Dòng ngày" chosen 18:26): the Google
-    # services with the 9 dots, the Google search with the day line under it, then the Halcyon bar. The site's masthead
+    # services with the 9 dots, the Google search (the day line moved onto the bento's calendar card, 08/11), then the bar. The site's masthead
     # becomes the first two rows; its brand (the wordmark alone, no tile and no tagline), the morning edition link and
     # the theme button move into the news bar, and the sort switch joins them so no line sits between the bar and the news.
     masthead = re.search(r'<!-- Masthead:.*?</header>\n', html, re.S)
@@ -113,8 +114,8 @@ TOP_ZONE = '''<svg width="0" height="0" style="position:absolute" aria-hidden="t
   <symbol id="w-snow" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M9 18.5h.01M12 20.5h.01M15 18.5h.01"/></symbol>
 </svg>
 <!-- Rows 1 and 2 (mockup D; row 1 compacted 07/11 22:41): the Google shortcuts as one cluster of icons with every Google
-     app behind the 9 dots, at the top right, then the Google search with the day line under it (date · lunar date ·
-     weather). Row 3 is the news bar below. -->
+     app behind the 9 dots, at the top right, then the Google search. Row 3 is the news bar below. The date, the lunar
+     date and the weather are on the calendar card in the bento (mockup H, 08/11; the-lich.js). -->
 <header class="masthead top" id="masthead">
   <div class="wrap g-row">
     <ul class="services" id="services" aria-label="Dịch vụ Google"></ul>
@@ -129,11 +130,6 @@ TOP_ZONE = '''<svg width="0" height="0" style="position:absolute" aria-hidden="t
         <button class="go-btn" type="submit" aria-label="Tìm trên Google"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       </label>
     </form>
-    <div class="dayline" id="dateline">
-      <p class="day-date" id="day-date"></p>
-      <span class="sep wx-sep" aria-hidden="true">·</span>
-      <div class="wx weather" id="weather" aria-live="polite"><span class="wx-skel" aria-hidden="true"></span><span class="sr">Đang lấy thời tiết</span></div>
-    </div>
   </div>
 </header>
 

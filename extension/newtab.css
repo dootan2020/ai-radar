@@ -1,15 +1,14 @@
 /* The new tab's three rows above the news (captain, 07/11 18:03; mockup D "Dòng ngày" chosen 18:26 with three fixes):
    1. the Google services, with every Google app behind the 9 dots at the top right;
-   2. the Google search ("Tìm trên Google", a border and no shadow, at rest and in focus) with the day line under it:
-      the date, the lunar date and the weather;
+   2. the Google search ("Tìm trên Google", a border and no shadow, at rest and in focus); the day line that sat under it
+      moved onto the bento's calendar card (08/11, mockup H, the-lich.css);
    3. the Halcyon bar: the small wordmark alone (no tile), the sections, the sort, the magnifier, the morning edition
       and the theme.
    The website home keeps its own masthead (trang-nhat.css); this file is extension-only. Values come from tokens.css. */
 :root {
   --nav-h: calc(var(--btn-h) + var(--space-8));          /* the Halcyon bar: 52 px, as in mockup D */
-  --top-max: 50rem;                                      /* the search column; the day line stays one line at 14 px */
+  --top-max: 50rem;                                      /* the search column */
   --field-h: calc(var(--btn-h) + var(--space-8));        /* the search field: 52 px */
-  --wx-skel-w: 18rem;                                    /* the weather's place before the forecast arrives */
 }
 @media (max-width: 767px) {
   :root { --nav-h: calc(var(--btn-h) + var(--space-8)); --field-h: calc(var(--btn-h) + var(--space-4)); }
@@ -71,20 +70,10 @@
 .go-btn:active { transform: scale(0.96); }
 .go-btn .i { stroke-width: 2.25; }
 
-/* The day line: date · lunar date · weather, centred under the field on one line. The weather's 44 px buttons sit in a
-   24 px line (negative block margins), so the line stays shallow while every target keeps its 44 px. */
-.dayline {
-  display: flex; flex-wrap: nowrap; justify-content: center; align-items: center; gap: 0 var(--space-8);
-  min-height: var(--space-24); margin-top: var(--space-8); font-size: var(--text-small); line-height: 1.4; color: var(--color-ink-2); white-space: nowrap;
-}
-.day-date { margin: 0; flex: none; min-height: 1.4em; }   /* holds its line before the script writes the date */
-.day-date b { font-weight: var(--weight-semibold); color: var(--color-ink); }
-.dayline .sep { margin: 0 var(--space-8); color: var(--color-hair-strong); }
-.dayline .wx-sep { margin: 0; }
-.d-short { display: none; }
-
-.weather { position: relative; display: inline-flex; align-items: center; gap: var(--space-4); flex: 0 1 auto; min-width: 0; min-height: var(--space-24); }
-.wx-now, .wx-city, .wx-detail, .wx-retry { min-height: var(--btn-h); margin: calc((var(--space-24) - var(--btn-h)) / 2) 0; }
+/* The weather's controls (thoi-tiet.js). The day line under the search is gone (08/11): the weather lives at the foot of
+   the calendar card, which lays these out (the-lich.css). */
+.weather { position: relative; min-width: 0; }
+.wx-now, .wx-city, .wx-detail, .wx-retry { min-height: var(--btn-h); }
 .wx-now { display: inline-flex; align-items: center; gap: var(--space-4); padding: 0 var(--space-6); border-radius: var(--radius-full); color: var(--color-ink); transition: background-color var(--duration-150) ease; }
 .wx-now:hover, .wx-now[aria-expanded="true"] { background: var(--color-fill); }
 .wx-now .i { width: 18px; height: 18px; color: var(--color-ink-2); }
@@ -101,8 +90,8 @@ button.wx-detail { display: block; line-height: var(--btn-h); border-radius: var
 button.wx-detail:hover { color: var(--color-ink); }
 .wx-detail .num { color: var(--color-ink); }
 .wx-retry { padding: 0 var(--space-6); color: var(--color-link); font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 3px; }
-/* The placeholder holds the place of the forecast, so the date beside it does not move when it arrives. */
-.wx-skel { display: inline-block; flex: none; width: var(--wx-skel-w); max-width: 100%; height: var(--space-12); border-radius: var(--radius-full); background: var(--color-fill); }
+/* The placeholder holds the place of the forecast. */
+.wx-skel { display: inline-block; flex: none; max-width: 100%; height: var(--space-12); border-radius: var(--radius-full); background: var(--color-fill); }
 
 .wx-menu, .wx-panel {
   position: absolute; z-index: 40; top: calc(100% + var(--space-12)); left: 0; white-space: normal; text-align: start;
@@ -197,17 +186,11 @@ button.wx-detail:hover { color: var(--color-ink); }
   .newsbar .ed-link .ed-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .newsbar .ed-link { width: var(--btn-h); padding: 0; }
 }
-/* Phone: the day line takes two lines,
-   the numeric date with the lunar date, then the weather; the weather's menu and detail open as a sheet from the
-   bottom; the morning edition lives in the bottom navigation, so the bar keeps the sections the room. */
+/* Phone: the weather's menu and detail open as a sheet from the bottom; the morning edition lives in the bottom
+   navigation, so the bar keeps the sections the room. */
 @media (max-width: 767px) {
   .web-field { padding-inline-start: var(--space-16); }
-  .dayline { flex-wrap: wrap; font-size: var(--text-meta); }
-  .dayline .wx-sep { display: none; }
-  .d-long { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .d-short { display: inline; }
-  .weather { position: static; flex: 0 0 100%; justify-content: center; }
-  .wx-skel { width: calc(var(--wx-skel-w) - var(--space-48)); }
+  .weather { position: static; }
   .wx-menu, .wx-panel {
     position: fixed; z-index: 60; top: auto; left: var(--page-pad); right: var(--page-pad);
     bottom: calc(var(--mobile-nav-h, 0px) + env(safe-area-inset-bottom) + var(--space-8));
@@ -225,7 +208,6 @@ button.wx-detail:hover { color: var(--color-ink); }
   .newsbar .sort-current { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .newsbar .sort-btn-compact::after { width: 20px; height: 20px; }
   .wx-now, .wx-city { padding-inline: var(--space-4); }
-  .weather { gap: 2px; }
 }
 /* Seven icons and the 9 dots need 352 px; below 384 px (343 px of room at 375) the last shortcut, Gemini, leaves the
    row: it stays one tap away in the 9-dot panel, and the row stays one aligned cluster with no scrolling or fade. */
