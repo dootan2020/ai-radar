@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-07T07:42:10.185277+00:00",
-  "input_generated_at": "2026-11-07T06:43:11Z",
+  "generated_at": "2026-11-07T11:40:42.577807+00:00",
+  "input_generated_at": "2026-11-07T09:11:53Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -29231,17 +29231,17 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/ads-in-chatbots-have-arrived-heres-whats-working-and-whats-not/",
       "key_points": [
-        "Tạp chí Wired nhận định ngành công nghiệp chatbot (phần mềm trò chuyện bằng trí tuệ nhân tạo) có thể phải bán quảng cáo để bù đắp chi phí tốn kém khi tạo câu trả lời, dù hướng tiếp cận giữa các bên có sự phân hóa. Tuần trước, Google cũng mở rộng quảng cáo trong chatbot tìm kiếm AI Mode sang 10 quốc gia ngoài nước Mỹ và tuyên bố người dùng nhận thấy nội dung quảng cáo rất phù hợp.",
-        "Tạp chí Wired giải thích rằng quảng cáo có thể mang tính sống còn đối với sự tồn tại lâu dài của các nền tảng nhỏ, vốn không có lượng vốn mạo hiểm dồi dào hay doanh thu khổng lồ của các tập đoàn công nghệ lớn. Công ty khởi nghiệp Koah Labs tại San Francisco tự quảng bá đưa quảng cáo tới hơn 200 ứng dụng như DeepAI và Liner, đồng thời hợp tác với các thương hiệu như hãng y tế từ xa Hims và dịch vụ điện hoa UrbanStems. Dù lượng nhà quảng cáo chỉ bằng một phần mười so với OpenAI, Giám đốc điều hành Nic Baird tin rằng công ty đang nắm bắt được điều gì vận hành hiệu quả khi chatbot thay thế dần các công cụ tìm kiếm truyền thống.",
-        "Ông Nic Baird cho biết quảng cáo do trí tuệ nhân tạo soạn thảo một phần giúp tạo ra lượng nhấp chuột cao gấp đôi so với quảng cáo do con người viết hoàn toàn. Nhờ khả năng tùy biến quảng cáo dựa trên toàn bộ ngữ cảnh cuộc trò chuyện, chẳng hạn như quảng cáo spa xuất hiện sau câu hỏi về căng thẳng, Koah Labs ghi nhận người dùng nhấp vào khoảng 3% quảng cáo, ngang ngửa với hệ thống Google quảng cáo. Tuy nhiên, theo ông Nic Baird, các nhà quảng cáo dược phẩm chịu quy định kiểm duyệt của chính phủ buộc phải dùng nhiều sự kiểm soát của con người hơn nên đạt kết quả kém hơn.",
-        "Tạp chí Wired nhận định vẫn chưa rõ liệu người dùng có chấp nhận đánh đổi quyền riêng tư khi quảng cáo cá nhân hóa xuất hiện nhiều trong các chatbot vốn thường được dùng làm nơi tâm sự. Giám đốc điều hành Kevin Baragona của DeepAI chia sẻ rằng dù doanh thu quảng cáo có ý nghĩa, ông chưa cam kết gắn bó lâu dài vì trải nghiệm chưa đem lại cảm giác phù hợp về quyền riêng tư và thiết kế. Ông Kevin Baragona đánh giá rằng các quảng cáo hiện tại chưa thực sự mang lại hiệu quả tốt cho bất kỳ bên nào."
+        "Theo tạp chí Wired, OpenAI có hơn 100.000 khách hàng quảng cáo trên ChatGPT kể từ tháng 2, trong khi Google mở rộng quảng cáo AI Mode sang 10 nước ngoài Mỹ. Trái lại, Anthropic vẫn giữ cam kết không quảng cáo trên Claude trong hồ sơ phát hành cổ phiếu gần đây.",
+        "Tạp chí Wired nhận định ngành chatbot (phần mềm trò chuyện AI) có thể phải bán quảng cáo để bù đắp chi phí tốn kém khi tạo câu trả lời. Quảng cáo đặc biệt thiết yếu cho sự tồn tại lâu dài của các nền tảng nhỏ như DeepAI, vốn thiếu nguồn vốn mạo hiểm dồi dào.",
+        "CEO Nic Baird của Koah Labs cho biết quảng cáo do AI soạn một phần đạt lượt nhấp gấp đôi so với con người viết hoàn toàn. Bên cạnh đó, Koah ghi nhận tỷ lệ nhấp chuột đạt khoảng 3% trên toàn mạng lưới, tương đương hệ thống quảng cáo của Google.",
+        "Tạp chí Wired nhận định chưa rõ người dùng có chấp nhận đánh đổi quyền riêng tư khi quảng cáo cá nhân hóa xuất hiện nhiều trên chatbot. CEO Kevin Baragona của DeepAI cho biết ông chưa cam kết lâu dài vì lo ngại riêng tư và đánh giá quảng cáo hiện chưa thực sự hiệu quả cho bên nào."
       ],
       "same_event_coverage_ids": [
         "a7c2c00ae24b6da1d42a"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Quảng cáo đổ bộ vào chatbot AI: Thử nghiệm nhấp chuột khả quan nhưng vướng lo ngại riêng tư",
+      "editorial_headline_vi": "Quảng cáo đổ bộ lên các chatbot AI nhằm bù đắp chi phí nhưng vấp phải trở ngại riêng tư",
       "summary_sources": [
         {
           "id": "outlet",
@@ -29251,28 +29251,33 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.85,
+        "value": 8.75,
         "answers": {
-          "what": 10,
+          "what": 9,
           "why": 10,
-          "notable": 10,
-          "meaning": 9
+          "notable": 8,
+          "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "cause",
-            "summary_text": "buộc phải dùng nhiều sự kiểm soát của con người hơn",
-            "explanation": "Government rules govern what drugmakers must or cannot say in ads. Baird says those advertisers default to greater human control; the source does not say the rules require that choice (outlet:p007)."
+            "kind": "fact",
+            "summary_text": "vẫn giữ cam kết không quảng cáo trên Claude trong hồ sơ phát hành cổ phiếu gần đây",
+            "explanation": "The ad-free pledge was made in a Super Bowl commercial. The recent IPO filing did not mention the possibility of selling ads; the source does not say the filing restated the pledge (outlet:p001)."
           }
         ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The Vietnamese turns drugmakers’ choice to use more human control into a government requirement.",
-            "fix": "Say drugmakers face rules about ad claims and therefore tend to retain more human control, as Baird describes (outlet:p007)."
+            "question": "what",
+            "problem": "Readers may think Anthropic repeated its ad-free pledge in the IPO filing.",
+            "fix": "Say the pledge came from its Super Bowl commercial and that the filing did not mention selling ads (outlet:p001)."
+          },
+          {
+            "question": "notable",
+            "problem": "The privacy concern lacks the concrete practice behind it.",
+            "fix": "Explain that Koah generally receives the conversation up to the ad request, while its CEO says queries are anonymized and stored without identifying information (outlet:p014–p015)."
           }
         ],
         "writer_boats": [
@@ -29280,8 +29285,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "13bb2c95376c57040001d105d1db283de5917378190080643d0fccb6a44040c6",
-        "scored_at": "2026-11-06T12:08:45.632166+00:00"
+        "prose_sha256": "43484c71254b798dec1f48f3eb35ccdf960e495c8061acc459dcd92362133bb9",
+        "scored_at": "2026-11-07T11:40:42.561695+00:00"
       }
     },
     {
@@ -29338,17 +29343,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/05/2026/where-ai-money-worked-in-the-midterms",
       "key_points": [
-        "Trang tin Semafor cho biết các siêu PAC (ủy ban hành động chính trị gây quỹ độc lập) do ngành AI tài trợ đạt hiệu quả trái chiều trong cuộc bầu cử giữa kỳ. Trong khi nhóm Guardrails Alliance PAC ủng hộ quy định kiểm soát AI toàn thắng cả 5 cuộc đua mà họ tài trợ, các nhóm vận động cho công nghệ lại chịu nhiều thất bại.",
-        "Ngược lại, Guardrails Alliance thông báo đã chi hơn 3,1 triệu USD để phản đối năm ứng viên và cả năm người này đều thất cử.",
-        "Leading the Future đã chi 4,8 triệu USD ủng hộ ứng viên Thượng viện Darline Graham thuộc đảng Cộng hòa nhưng bà thất bại trước đối thủ Annie Andrews. Siêu PAC Public First Action chi 20 triệu USD nhưng chỉ thành công một phần khi bốn ứng viên Dân chủ đắc cử còn toàn bộ ứng viên Cộng hòa đều thất bại.",
-        "Trang tin Semafor nhận định tiền bạc đã không thể mua được ảnh hưởng trước kết quả nổi bật nhất: khoảng 40 dự luật địa phương siết chặt trung tâm dữ liệu đã được thông qua. Một nhà hoạt động đảng Cộng hòa tiết lộ với Semafor rằng Leading the Future bị bất ngờ trước làn sóng này và không dành ngân sách ngăn chặn. Semafor cho biết kết quả này buộc các tập đoàn công nghệ lớn phải tìm kiếm hướng đi mới và điều chỉnh thông điệp về các dự án."
+        "Trang tin Semafor cho biết các siêu PAC (ủy ban hành động chính trị độc lập) do ngành AI tài trợ đạt kết quả trái chiều trong bầu cử giữa kỳ. Nhóm Guardrails Alliance PAC ủng hộ quy định kiểm soát AI toàn thắng cả năm cuộc đua họ chi tiền.",
+        "Người phát ngôn Jesse Hunt của Leading the Future cho biết các khoản đầu tư của nhóm tập trung vào xây dựng liên minh thúc đẩy khung pháp lý quốc gia.",
+        "Khoảng 40 biện pháp bỏ phiếu kiềm chế trung tâm dữ liệu được thông qua trên toàn quốc vào hôm thứ Ba. Tại Thượng viện, ứng viên Darline Graham thất cử dù nhóm Leading the Future đã chi 4,8 triệu USD ủng hộ.",
+        "Semafor nhận định tiền bạc không thể mua được ảnh hưởng trước các cuộc bỏ phiếu về trung tâm dữ liệu, sau khi Leading the Future bất ngờ và không chi tiền ngăn chặn. Làn sóng này diễn ra trùng thời điểm các tập đoàn công nghệ lớn đang tìm hướng đi và điều chỉnh thông điệp tại một số khu vực."
       ],
       "same_event_coverage_ids": [
         "5dde08b3869c6107c49d"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tiền tài trợ từ ngành AI đạt kết quả trái chiều trong bầu cử giữa kỳ tại Mỹ",
+      "editorial_headline_vi": "Tiền tài trợ từ ngành AI đạt kết quả trái chiều trong cuộc bầu cử giữa kỳ tại Mỹ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -29358,57 +29363,25 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.1,
+        "value": 10.0,
         "answers": {
-          "what": 8,
-          "why": 3,
-          "notable": 6,
-          "meaning": 6
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "bốn ứng viên Dân chủ đắc cử",
-            "explanation": "The source names four Public First-backed winners but identifies only Valerie Foushee’s party; it does not identify all four as Democrats (outlet:p003)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "khoảng 40 dự luật địa phương siết chặt trung tâm dữ liệu đã được thông qua",
-            "explanation": "These were local ballot measures curbing data center development, not bills regulating existing data centers (outlet:p004)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "kết quả này buộc các tập đoàn công nghệ lớn phải tìm kiếm hướng đi mới và điều chỉnh thông điệp về các dự án",
-            "explanation": "The source says the ballot initiatives coincided with large technology companies’ efforts to find a way forward in certain jurisdictions and revise their messaging; it does not say the results forced those efforts (outlet:p006)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "Readers are told that about 40 local bills passed.",
-            "fix": "Identify them as voter ballot measures curbing data center development (outlet:p004)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The Vietnamese states a causal effect on large technology companies that the source does not establish.",
-            "fix": "Say the ballot measures coincided with those companies reconsidering their path and messaging in certain jurisdictions (outlet:p006)."
-          },
-          {
-            "question": "what",
-            "problem": "The Vietnamese assigns a Democratic affiliation to all four Public First-backed winners without source support.",
-            "fix": "Call them four winning candidates, or name them without adding unreported party affiliations (outlet:p003)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "26b2eca010d45b04b6f8dc620db8a27f66a18c1bd83efa12315931af10db5461",
-        "scored_at": "2026-11-06T12:08:45.632207+00:00"
+        "prose_sha256": "880041825784aaf1f41d832cdfdf3da29d2339ac175b85665590140306d8b807",
+        "scored_at": "2026-11-07T11:36:17.517162+00:00"
       }
     },
     {
@@ -29425,17 +29398,17 @@
       "use_original_title": false,
       "source_url": "https://aws.amazon.com/blogs/machine-learning/getting-started-with-web-answer-on-amazon-bedrock-agentcore/",
       "key_points": [
-        "Amazon vừa công bố phát hành rộng rãi tính năng Web Answer trên Amazon Bedrock AgentCore, hỗ trợ lập trình viên xây dựng agent (trợ lý trí tuệ nhân tạo tự hành thực hiện tác vụ). Công cụ này giúp agent nhận câu trả lời tổng hợp kèm trích dẫn nguồn cho các câu hỏi bằng ngôn ngữ tự nhiên chỉ qua một lệnh gọi công cụ kết nối qua Gateway (cổng quản lý và điều phối kết nối). Hệ thống tự động lập kế hoạch tìm kiếm trên web, chạy song song nhiều truy vấn theo ngày hiện tại và đọc các trang chính để kiểm tra tính chính xác của dữ liệu.",
-        "Theo bài viết trên blog AWS, trước đây các nhà phát triển phải tự xây dựng và bảo trì quy trình phức tạp gồm gọi giao diện tìm kiếm, làm sạch dữ liệu, nhắc mô hình tổng hợp và trích xuất nguồn dẫn. Web Answer thu gọn toàn bộ đường ống phức tạp nói trên vào một yêu cầu duy nhất, trả lời có trích dẫn chỉ trong vài giây.",
-        "Trong thực tế triển khai, quản trị viên có thể đặt bộ lọc tên miền trên Gateway để giới hạn nguồn tin, đồng thời agent có thể bổ sung tùy chọn lọc theo khoảng ngày xuất bản hoặc theo quốc gia. Kết quả trả về qua giao thức MCP (Model Context Protocol - giao thức bối cảnh mô hình) chứa văn bản định dạng markdown kèm danh sách cấu trúc trích dẫn dẫn thẳng tới địa chỉ trang web gốc. Về bảo mật, AWS cam đoan dữ liệu không bị thoát ra ngoài khi toàn bộ truy vấn và kết quả xử lý đều được lưu giữ trọn vẹn trong môi trường của người dùng.",
-        "AWS lưu ý người dùng nên chọn Web Search khi muốn tự quản lý mô hình và kiểm soát xử lý kết quả, còn Web Answer phù hợp cho các tác vụ con trong agent mà người dùng không muốn tự duy trì quy trình truy xuất. Ngoài ra, tính năng này bị giới hạn kỹ thuật khi yêu cầu Gateway đặt tại us-east-1 dùng xác thực IAM, cùng định mức ban đầu là 10 giao dịch mỗi giây cho mỗi tài khoản."
+        "Amazon công bố phát hành rộng rãi Web Answer trên Bedrock AgentCore, giúp nhà phát triển agent (trợ lý trí tuệ nhân tạo tự hành) nhận câu trả lời kèm trích dẫn chỉ qua một lệnh gọi công cụ. Công cụ kết nối qua Gateway (cổng kết nối), tự tìm kiếm song song theo ngày hiện tại và đọc các trang chính để đối chiếu dữ liệu.",
+        "Theo AWS, việc tự xây dựng quy trình tìm kiếm dễ phát sinh lỗi ảo giác khi thiếu bằng chứng hoặc sai lệch nguồn dẫn. Web Answer thu gọn toàn bộ quy trình này vào một yêu cầu duy nhất để trả về câu trả lời có trích dẫn sau vài giây.",
+        "Quản trị viên cổng có thể đặt bộ lọc tên miền chung áp dụng cho mọi lệnh gọi, còn agent có thể tùy chọn lọc tên miền, ngày xuất bản và quốc gia theo từng lệnh riêng. Kết quả trả về qua giao thức MCP (giao thức ngữ cảnh mô hình) gồm văn bản markdown và danh sách trích dẫn kèm URL nguồn.",
+        "Theo AWS, Web Answer phù hợp khi không muốn tự duy trì quy trình truy xuất, còn Web Search dành cho nhu cầu toàn quyền kiểm soát xử lý kết quả thô. Dịch vụ áp dụng hạn ngạch từ khi ra mắt là 10 giao dịch mỗi giây cho mỗi tài khoản tại khu vực us-east-1."
       ],
       "same_event_coverage_ids": [
         "0b951ece01a5888ae68c"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Amazon ra mắt Web Answer trên Bedrock AgentCore giúp rút gọn quy trình tìm kiếm web cho AI",
+      "editorial_headline_vi": "Amazon phát hành Web Answer trên Bedrock AgentCore hỗ trợ trích dẫn web cho agent",
       "summary_sources": [
         {
           "id": "outlet",
@@ -29447,37 +29420,25 @@
       "summary_limitations": [
         "partial_source"
       ],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.35,
+        "value": 9.8,
         "answers": {
           "what": 10,
           "why": 9,
           "notable": 10,
-          "meaning": 7
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "tính năng này bị giới hạn kỹ thuật khi yêu cầu Gateway đặt tại us-east-1 dùng xác thực IAM",
-            "explanation": "The source lists a Gateway in us-east-1 with IAM inbound authentication as a prerequisite for its walkthrough, not as a stated technical limit on Web Answer generally (outlet:p023–p025)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "Readers may believe Web Answer itself is limited to the walkthrough's Gateway configuration.",
-            "fix": "Describe us-east-1 and IAM as prerequisites for the setup shown in the article (outlet:p023–p025)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "92b93368299638d8cdb25a5cbb464c76f566aad20836683f8bc455fc4a5d1f4e",
-        "scored_at": "2026-11-06T12:08:45.632244+00:00"
+        "prose_sha256": "506e9507d2ba8d8072e73cd2da2780485337460ff58cb07d9694bd4573b55bd0",
+        "scored_at": "2026-11-07T11:40:42.561803+00:00"
       }
     },
     {
@@ -29497,17 +29458,17 @@
       "use_original_title": false,
       "source_url": "https://www.404media.co/meta-generative-ai-commercial-terms-on-pause/",
       "key_points": [
-        "Tập đoàn Meta thông báo tạm dừng kế hoạch cập nhật các điều khoản thương mại vốn yêu cầu các tài khoản doanh nghiệp cho phép hãng sử dụng nội dung trang web để nghiên cứu và huấn luyện sản phẩm. Theo trang tin 404 Media, thay đổi này ban đầu dự kiến có hiệu lực vào ngày 30 tháng 10 năm 2026, sau đó được lùi sang ngày 20 tháng 11 năm 2026 rồi bị đình chỉ hoàn toàn.",
-        "Theo 404 Media, quyết định của Meta được đưa ra sau làn sóng phản đối dữ dội từ giới nhà báo và người dùng vì không muốn hãng tiếp cận trang web ngoài Facebook và Instagram để lấy dữ liệu huấn luyện cho trí tuệ nhân tạo tạo sinh. Trước đó, các điều khoản dự kiến của Meta yêu cầu tài khoản doanh nghiệp phải cho phép hãng sử dụng bất kỳ nội dung nào từ tên miền, trang web hoặc đường dẫn nhằm cung cấp, phát triển, nghiên cứu và huấn luyện các sản phẩm của hãng.",
-        "Báo The Los Angeles Times ghi nhận một tòa án Na Uy đã ra lệnh tạm thời đình chỉ các điều khoản của Meta sau vụ kiện từ Hiệp hội Doanh nghiệp Truyền thông Na Uy cùng 180 cơ quan báo chí, trong khi cơ quan quản lý cạnh tranh của Anh cũng thông báo sẽ mở cuộc điều tra. Theo tường thuật từ Nieman Lab, trước đó Meta từng điều chỉnh bằng cách xóa từ huấn luyện khỏi danh sách mục đích sử dụng và chỉ giới hạn phạm vi vào các sản phẩm quảng cáo và kinh doanh.",
-        "Meta tuyên bố trên trang thông báo rằng các cập nhật hiện bị tạm dừng và không áp dụng vào ngày 20 tháng 11 năm 2026, đồng thời các điều khoản hiện hành vẫn tiếp tục có hiệu lực. Hãng cho biết đang tiếp tục tham vấn các bên liên quan và sẽ đưa ra thông báo mới khi có thêm thông tin chia sẻ. Lệnh can thiệp từ tòa án Na Uy mới chỉ là biện pháp tạm thời, cho thấy tương lai chính sách thu thập dữ liệu của Meta vẫn còn phụ thuộc vào các cuộc thảo luận và quy trình pháp lý sắp tới."
+        "Meta thông báo tạm dừng kế hoạch cập nhật điều khoản thương mại vốn cho phép hãng dùng nội dung trang web để nghiên cứu và huấn luyện sản phẩm. Theo trang 404 Media, quy định này ban đầu dự kiến áp dụng ngày 30 tháng 10 rồi lùi sang ngày 20 tháng 11 năm 2026 trước khi bị hoãn hoàn toàn.",
+        "Theo 404 Media, Meta tạm hoãn thay đổi do làn sóng phản đối từ các nhà báo và người dùng không muốn hãng lấy dữ liệu web huấn luyện AI tạo sinh.",
+        "Báo The Los Angeles Times cho biết tòa án Na Uy đã tạm đình chỉ điều khoản mới sau vụ kiện được Hiệp hội Doanh nghiệp Truyền thông Na Uy cùng 180 cơ quan báo chí ủng hộ.",
+        "Meta tuyên bố các điều khoản hiện hành vẫn tiếp tục có hiệu lực, đồng thời hãng đang tham vấn các bên liên quan trước khi có thông báo mới."
       ],
       "same_event_coverage_ids": [
         "fe6dfc0452fcc38d65ba"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Meta hoãn cập nhật điều khoản thương mại thu thập dữ liệu luyện AI sau làn sóng phản đối",
+      "editorial_headline_vi": "Meta hoãn kế hoạch cập nhật điều khoản thương mại thu thập dữ liệu web huấn luyện AI sau làn sóng phản đối",
       "summary_sources": [
         {
           "id": "outlet",
@@ -29517,38 +29478,22 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 9.3,
         "answers": {
-          "what": 10,
+          "what": 8,
           "why": 10,
-          "notable": 8,
-          "meaning": 8
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "sau vụ kiện từ Hiệp hội Doanh nghiệp Truyền thông Na Uy cùng 180 cơ quan báo chí",
-            "explanation": "The source says the association and 180 Norwegian media companies supported the case; it does not identify them as the parties that brought it (outlet:p007)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "tương lai chính sách thu thập dữ liệu của Meta vẫn còn phụ thuộc vào các cuộc thảo luận và quy trình pháp lý sắp tới",
-            "explanation": "The source says Meta is consulting stakeholders and reports a temporary injunction and a planned UK investigation. It does not state that future policy depends on forthcoming legal processes (outlet:p003, outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The Vietnamese assigns the Norwegian case to organizations the source identifies only as supporters.",
-            "fix": "Say the case was supported by the association and 180 Norwegian media companies (outlet:p007)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The ending states an unreported dependency on future legal proceedings.",
-            "fix": "End with the reported status: existing terms remain in effect, and Meta is consulting stakeholders before another update (outlet:p003)."
+            "question": "what",
+            "problem": "The affected accounts are unclear.",
+            "fix": "Specify that the proposed requirement concerned business accounts and content from their domains, web pages, or URLs (outlet:p001)."
           }
         ],
         "writer_boats": [
@@ -29556,8 +29501,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d37ef3c93d88be8c1dba02cb46039570e504e499bcfa2239e2c51ce6d30fd1bb",
-        "scored_at": "2026-11-06T12:08:45.632278+00:00"
+        "prose_sha256": "497e7e1d82b21466ac733fa33086a24788639dbbfcef065aced66a57aa54321a",
+        "scored_at": "2026-11-07T11:36:17.517210+00:00"
       }
     },
     {
@@ -29735,10 +29680,10 @@
       "use_original_title": false,
       "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/tech-policy-coalition-calls-new-congress-set-ai-safety-standards/417077/",
       "key_points": [
-        "Liên minh chính sách công nghệ Chamber of Progress đã gửi bản ghi nhớ vào ngày 4 tháng 11 năm 2026 tới ban lãnh đạo đảng Dân chủ tại Quốc hội Mỹ, kêu gọi thiết lập các tiêu chuẩn an toàn liên bang cho trí tuệ nhân tạo.",
-        "Ông Koustubh KJ Bagchi, đại diện của nhóm, nhận định đảng Dân chủ cần xây dựng khung khổ quốc gia kết hợp giữa minh bạch công khai, đánh giá độc lập và các rào chắn có thể thực thi cho những mô hình mạnh nhất. Tổ chức này kỳ vọng chính sách mới sẽ tập trung bảo vệ người tiêu dùng và hỗ trợ công chúng tiếp cận lợi ích công nghệ. Bản ghi nhớ kiến nghị Quốc hội yêu cầu các hãng phát triển AI phải công bố khung an toàn, báo cáo các sự cố nghiêm trọng và bảo vệ người tố giác.",
-        "Về giải pháp cụ thể, ông Bagchi đề xuất Quốc hội kế thừa dự luật FRONTIER Act nhằm thiết lập khung khổ quốc gia quản lý việc phát triển và triển khai các mô hình AI tiên tiến nhất. Tài liệu cũng gợi ý mô hình cơ quan tương tự Cơ quan Quản lý Ngành Tài chính (FINRA, tổ chức tự quản phi chính phủ giám sát thị trường chứng khoán Mỹ) để kết hợp nguồn tài trợ doanh nghiệp với sự giám sát liên bang.",
-        "Các khuyến nghị của Chamber of Progress mới chỉ là văn bản vận động chính sách và phải vượt qua nhiều quan điểm bất đồng trong nội bộ các nhà lập pháp trước khi có thể trở thành luật chính thức."
+        "Liên minh Chamber of Progress kêu gọi Quốc hội Mỹ năm 2027 thiết lập tiêu chuẩn an toàn liên bang cho trí tuệ nhân tạo. Bản ghi nhớ ngày 4 tháng 11 của nhóm gửi ban lãnh đạo đảng Dân chủ đã vạch ra các ưu tiên công nghệ cho năm 2027.",
+        "Theo Nextgov/FCW, các đề xuất của liên minh hướng tới bảo vệ người tiêu dùng và tiếp cận lợi ích công nghệ.",
+        "Bản ghi nhớ gợi ý một cơ quan tương tự Cơ quan Quản lý Ngành Tài chính (FINRA) có thể kết hợp tài trợ từ ngành với sự giám sát liên bang để quản lý AI. Nhóm cũng chỉ ra dự luật FRONTIER Act là cơ sở lập pháp phù hợp để quản lý các mô hình AI tiên tiến nhất.",
+        "Bản ghi nhớ của Chamber of Progress hiện mới dừng ở việc đề xuất tiêu chuẩn để Quốc hội xem xét, trọng tâm là an toàn và minh bạch. Ông Bagchi nhấn mạnh quy định liên bang cần hài hòa luật giữa các bang nhưng vẫn bảo lưu quyền hạn của địa phương với hành vi gây hại."
       ],
       "same_event_coverage_ids": [
         "64e2beaef7eeb15c7875"
@@ -29755,38 +29700,22 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.55,
+        "value": 9.05,
         "answers": {
           "what": 9,
-          "why": 9,
-          "notable": 9,
-          "meaning": 6
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "tổ chức tự quản phi chính phủ giám sát thị trường chứng khoán Mỹ",
-            "explanation": "The supplied source identifies FINRA by its name and mentions a similar body's possible industry funding and federal supervision; it does not provide these further organizational claims (outlet:p028)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "phải vượt qua nhiều quan điểm bất đồng trong nội bộ các nhà lập pháp trước khi có thể trở thành luật chính thức",
-            "explanation": "The source reports the coalition's recommendations and some Democrats' AI positions, but no such disagreement among lawmakers or stated legislative obstacle (outlet:p023–p034)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "Readers are told that internal legislative disagreements are an established obstacle.",
-            "fix": "State only that the memo proposes standards for Congress to consider; the source reports no enactment or such disagreement (outlet:p023–p024)."
-          },
-          {
             "question": "notable",
-            "problem": "The FINRA parenthetical supplies details absent from the source.",
-            "fix": "Identify FINRA by the name given and explain only the proposed combination of industry funding and federal supervision (outlet:p028)."
+            "problem": "The reader misses the memo’s leading priority and its concrete safety measures.",
+            "fix": "Add that the 10-priority memo puts a federal transparency and safety standard first, with published safety frameworks, critical-incident reporting, and whistleblower protection (outlet:p024, outlet:p026)."
           }
         ],
         "writer_boats": [
@@ -29794,8 +29723,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8db4e8ef40c738cf78fd21dc7569a527097c54e4942997753fe5696ecc6ec3f8",
-        "scored_at": "2026-11-06T12:08:45.632308+00:00"
+        "prose_sha256": "36573a6c4765867ea381d9b5e4af7d2666c00f41b98cacb97f2f8ef870ea7930",
+        "scored_at": "2026-11-07T11:36:17.517230+00:00"
       }
     },
     {
@@ -29834,17 +29763,17 @@
       "use_original_title": false,
       "source_url": "https://huggingface.co/blog/nvidia/cosmos-interactive-world-simulation",
       "key_points": [
-        "Vào ngày 5 tháng 11 năm 2026, nhóm nghiên cứu NVIDIA công bố bốn phiên bản trọng số mở mới thuộc dòng mô hình Cosmos 3 phục vụ việc tạo môi trường mô phỏng tương tác và cảnh quan lái xe đa cảm biến. Theo nhóm tác giả, cả bốn mô hình đều là bản hậu huấn luyện từ Cosmos 3 Nano với 16 tỷ tham số và phát hành theo giấy phép OpenMDW1.1 cho phép sử dụng thương mại lẫn phi thương mại. Dòng phát hành này gồm Cosmos3-Nano-Transfer-Auto, Cosmos3-Nano-Sim-Auto, Cosmos3-Nano-Sim-Transfer và Cosmos3-Nano-Sim-Bimanual phục vụ việc tạo dữ liệu lái xe và dự đoán video từ hành động của robot.",
-        "NVIDIA cho biết các mô hình cung cấp giải pháp cho ngành robot qua việc mô phỏng phản hồi trước các góc nhìn thay đổi, đồng thời kết nối dữ liệu thị giác với cảm biến 3D cho xe tự hành. Về kiến trúc, Cosmos 3 sử dụng mạng xương sống Mixture-of-Transformers (kết hợp các khối biến đổi Transformer) kết nối mạng xử lý văn bản riêng với mạng tạo hình ảnh qua cơ chế chú ý. Trong mô phỏng dạng luồng, mô hình áp dụng cơ chế chú ý nhân quả thời gian để đọc lịch sử kết hợp tín hiệu điều khiển hiện có và chặn các quan sát mục tiêu trong tương lai.",
-        "Đối với xe tự hành, mô hình Cosmos3-Nano-Transfer-Auto hỗ trợ tạo video đồng bộ trên tối đa 11 góc quay camera gồm cả ống kính mắt cá, kết hợp dữ liệu LiDAR (cảm biến đo khoảng cách bằng tia laser) qua bản đồ kịch bản thế giới. Ở tác vụ robot, Cosmos3-Nano-Sim-Bimanual hỗ trợ mô phỏng tương tác hai cánh tay cho các hệ thống YAM và AgiBot, sử dụng sơ đồ 59 giá trị điều khiển được đệm lên 64 giá trị trong quá trình huấn luyện.",
-        "NVIDIA hướng đến việc cung cấp nền tảng mở cho cộng đồng nghiên cứu phát triển thế giới mô phỏng, nhưng các tác giả nhấn mạnh đây vẫn là bài toán khó và cần tiếp tục đánh giá độ chuẩn xác khi hỗ trợ học chính sách. Nhóm tác giả cũng lưu ý thiết lập thử nghiệm được công bố trên một hệ thống phần cứng GB200 không đại diện cho yêu cầu bộ nhớ tối thiểu để vận hành mô hình. Ngoài ra, các nhà nghiên cứu khuyến nghị người dùng cần đánh giá chất lượng trên tập dữ liệu riêng, bởi một lượt chạy ngắn thành công chỉ xác nhận việc mã lệnh đã thực thi chứ chưa chứng minh mô hình hội tụ."
+        "NVIDIA bổ sung bốn phiên bản trọng số mở Cosmos 3 để tạo mô phỏng tương tác và cảnh lái xe đa góc nhìn. Theo nhóm tác giả ngày 5 tháng 11 năm 2026, bốn mô hình Nano đều có 16 tỷ tham số và dùng giấy phép OpenMDW1.1.",
+        "Tầm nhìn của NVIDIA là hỗ trợ giới nghiên cứu tạo ra thế giới mô phỏng phong phú hơn thông qua trọng số mở. Về kiến trúc, hệ thống dùng mạng Mixture-of-Transformers và cơ chế chú ý nhân quả thời gian để đọc lịch sử, chặn quan sát tương lai.",
+        "Mô hình hỗ trợ tạo video đồng bộ tối đa 11 góc quay camera và dữ liệu LiDAR qua Cosmos3-Nano-Transfer-Auto, trong đó tạo LiDAR cần thêm điều khiển bản đồ khoảng cách HD-map căn chỉnh. Ở mảng robot, Cosmos3-Nano-Sim-Bimanual hỗ trợ mô phỏng hai cánh tay, trong đó ví dụ hành động hỗn hợp dùng 59 giá trị điều khiển được đệm lên 64 khi huấn luyện.",
+        "Đây vẫn là những bài toán khó cần tiếp tục đo lường mức độ hỗ trợ học chính sách, khi nhóm tác giả NVIDIA nhấn mạnh cần tìm hiểu các giới hạn. Nhóm nghiên cứu lưu ý phải đánh giá chất lượng trên các phân đoạn giữ lại (held-out episodes), vì lượt chạy ngắn thành công chưa chứng minh mô hình hội tụ."
       ],
       "same_event_coverage_ids": [
         "19c318b25eb83f8e1e94"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "NVIDIA ra mắt bốn mô hình mở Cosmos 3 với 16 tỷ tham số để mô phỏng thế giới ảo và lái xe tự hành",
+      "editorial_headline_vi": "NVIDIA bổ sung bốn mô hình trọng số mở Cosmos 3 với 16 tỷ tham số để tạo thế giới mô phỏng tương tác",
       "summary_sources": [
         {
           "id": "outlet",
@@ -29856,52 +29785,25 @@
       "summary_limitations": [
         "partial_source"
       ],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 9.45,
         "answers": {
-          "what": 9,
-          "why": 9,
-          "notable": 7,
+          "what": 10,
+          "why": 8,
+          "notable": 10,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "kết hợp dữ liệu LiDAR (cảm biến đo khoảng cách bằng tia laser) qua bản đồ kịch bản thế giới",
-            "explanation": "The source says per-camera World Scenario Map controls specify scene structure and traffic motion; joint LiDAR generation additionally uses aligned HD-map range-map controls (outlet:p063–p064)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "sử dụng sơ đồ 59 giá trị điều khiển được đệm lên 64 giá trị trong quá trình huấn luyện",
-            "explanation": "The 59 values padded to 64 belong to the source's mixed-action example, not a stated general schema for all Sim-Bimanual use (outlet:p089)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "Readers may think World Scenario Map controls alone produce the joint LiDAR data.",
-            "fix": "Explain that LiDAR generation additionally requires aligned HD-map range-map controls (outlet:p063–p064)."
-          },
-          {
-            "question": "notable",
-            "problem": "The 59-to-64 control count is presented as a general Bimanual specification.",
-            "fix": "Label it as the mixed-action example's control count (outlet:p089)."
-          },
-          {
-            "question": "meaning",
-            "problem": "“A separate dataset” does not clearly convey the source's evaluation condition.",
-            "fix": "Specify evaluation on held-out episodes (outlet:p113)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "689783937ac63d83f661ba3560f551c241dabdb0bd2af0f944fc004b2e459d15",
-        "scored_at": "2026-11-06T12:08:45.632342+00:00"
+        "prose_sha256": "f10984f49301dee13918d356bf34a28039b02ac1007c1c6d697364a91a17b29c",
+        "scored_at": "2026-11-07T11:36:17.517270+00:00"
       }
     },
     {
@@ -30026,10 +29928,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/tech/1028015/meta-muse-ai-voice-mode-expressive-avatar",
       "key_points": [
-        "Giám đốc điều hành Meta ông Mark Zuckerberg thông báo người dùng ứng dụng hiện có thể trò chuyện trực tiếp bằng giọng nói trong thời gian thực với tác tử Muse (phần mềm trí tuệ nhân tạo tự vận hành tương tác với người dùng). Đi kèm với tính năng này là các hình đại diện biểu cảm ở đầu giao diện, có khả năng cử động hoạt họa đồng bộ theo lời nói của tác tử. Bản cập nhật được tung ra khi ứng dụng Muse đã đạt mốc 10 triệu lượt tải xuống và thiết lập tại Mỹ.",
-        "Tính năng đàm thoại cho phép người dùng đổi âm sắc giọng nói của Muse bằng cách yêu cầu trực tiếp hoặc tùy chọn trong cài đặt hình đại diện. Theo mô tả từ Meta, việc bổ sung khả năng nhận cuộc gọi với hình đại diện động tùy biến là bước chuẩn bị để đưa công nghệ tương tác lên nhiều thiết bị phần cứng. Tập đoàn này muốn mở rộng trải nghiệm AI từ ứng dụng điện thoại sang các phụ kiện phần cứng sắp ra mắt của hãng.",
-        "Thử nghiệm thực tế trên ứng dụng iOS, phóng viên Jay Peters của trang tin The Verge nhận xét tác tử Muse phản hồi nhanh bằng giọng nói trong các bài kiểm tra ngắn. Tuy vậy, tác tử đôi lúc vẫn phải tạm dừng khi tra cứu thông tin tương tự như khi xử lý truy vấn văn bản thông thường. Phóng viên cũng cài đặt hình đại diện mang diện mạo của CEO Mark Zuckerberg để luôn nhớ rằng mình đang giao tiếp với một dịch vụ của Meta. Tác giả ghi nhận hình đại diện cử động khớp lời khá tốt nhưng tạo cảm giác kỳ dị khi nhìn bản sao kỹ thuật số trò chuyện, đồng thời giọng nói của Muse không thể mô phỏng chính xác hoàn toàn vị CEO này.",
-        "Meta cho biết chế độ giọng nói và hình đại diện biểu cảm hiện mới chỉ được triển khai trên ứng dụng di động cho người dùng tại Mỹ. Đại diện Meta thông báo tính năng này sẽ sớm có mặt trên kính AI của hãng và xuất hiện trên thiết bị đeo Muse Charm tương tự Tamagotchi dự kiến bán ra trong năm nay. Nhận định từ The Verge cho thấy dù công nghệ tạo ra bước tiến trong đàm thoại, trải nghiệm thực tế vẫn bị hạn chế bởi những khoảng dừng tra cứu và cảm giác kỳ lạ về mặt thị giác khi tương tác với bản sao kỹ thuật số."
+        "Người dùng có thể trò chuyện bằng giọng nói trong thời gian thực với tác tử Muse (phần mềm trí tuệ nhân tạo tự vận hành) của Meta theo thông báo của Giám đốc điều hành Mark Zuckerberg. Giao diện có thêm các hình đại diện biểu cảm cử động hoạt họa đồng bộ theo lời nói.",
+        "Người dùng có thể đổi âm sắc giọng nói bằng cách yêu cầu trực tiếp hoặc tùy chọn trong cài đặt. Meta thông báo các tính năng này sẽ sớm xuất hiện trên kính AI và thiết bị Muse Charm.",
+        "Tác tử Muse phản hồi nhanh bằng giọng nói trong thử nghiệm ngắn của Jay Peters trên iOS, dù đôi lúc tạm dừng khi tra cứu thông tin.",
+        "Hình đại diện hoạt họa tốt nhưng tạo cảm giác kỳ lạ theo Jay Peters khi nhìn bản sao Zuckerberg thực sự trò chuyện. Meta cho biết chế độ giọng nói và hình đại diện biểu cảm hiện mới chỉ triển khai tại Mỹ cho ứng dụng di động."
       ],
       "same_event_coverage_ids": [
         "49c5b6fea526252dabc8",
@@ -30037,60 +29939,35 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Meta bổ sung chế độ đàm thoại giọng nói và hình đại diện biểu cảm cho ứng dụng Muse AI",
+      "editorial_headline_vi": "Meta ra mắt chế độ đàm thoại giọng nói và hình đại diện biểu cảm cho ứng dụng Muse AI tại Mỹ",
       "summary_sources": [
         {
           "id": "outlet",
           "role": "outlet",
           "name": "the-verge",
           "url": "https://www.theverge.com/tech/1028015/meta-muse-ai-voice-mode-expressive-avatar"
-        },
-        {
-          "id": "coverage1",
-          "role": "coverage",
-          "name": "techcrunch",
-          "url": "https://techcrunch.com/2026/11/05/meta-says-us-users-can-now-video-chat-with-their-muse-ai-avatar/"
         }
       ],
-      "summary_limitations": [
-        "partial_source"
-      ],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.45,
+        "value": 9.85,
         "answers": {
           "what": 10,
-          "why": 3,
+          "why": 10,
           "notable": 10,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "Theo mô tả từ Meta, việc bổ sung khả năng nhận cuộc gọi với hình đại diện động tùy biến là bước chuẩn bị để đưa công nghệ tương tác lên nhiều thiết bị phần cứng.",
-            "explanation": "The source reports forthcoming availability on other devices, but does not say Meta described the voice update as preparation for them (outlet:p022; coverage1:p001)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "Tập đoàn này muốn mở rộng trải nghiệm AI từ ứng dụng điện thoại sang các phụ kiện phần cứng sắp ra mắt của hãng.",
-            "explanation": "The source gives the device rollout plans, but does not state this motive for introducing voice mode (outlet:p022)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "Readers are given a stated product motive that the source does not provide.",
-            "fix": "Report only that the features are coming soon to Meta’s AI glasses and are planned for Muse Charm (outlet:p022)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "590761d9b94705483cc0ffedaf448f7707247aa48c87123cb43842e0f67990d4",
-        "scored_at": "2026-11-06T12:08:45.632417+00:00"
+        "prose_sha256": "aa2232131a9760fbe3b5afcb17ce3fa2c13c42351cc7fda11c5168f7f2cbfa04",
+        "scored_at": "2026-11-07T11:36:17.517250+00:00"
       }
     },
     {
@@ -30131,17 +30008,17 @@
       "use_original_title": false,
       "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/department-justice-forms-ai-task-force/417074/",
       "key_points": [
-        "Bộ Tư pháp Mỹ thông báo thành lập một đội đặc nhiệm trí tuệ nhân tạo (AI) mang tên Đội đặc nhiệm Siêu trí tuệ (DOJ-SITF) nhằm bảo vệ cơ quan này trước các tác nhân AI độc hại. Theo Nextgov/FCW, lực lượng mới sẽ do Phó Tổng chưởng lý Stanley Woodward và Phó Trợ lý Tổng chưởng lý Stephen Weiss đồng chủ trì. Động thái này diễn ra sau khi Tổng thống Donald Trump ký sắc lệnh vào cuối tháng 9 chỉ đạo các cơ quan gọi trí tuệ nhân tạo là siêu trí tuệ vì ông cho rằng tên gọi này chính xác hơn.",
-        "Trong giác thư ngày 13 tháng 10, Tổng chưởng lý Todd Blanche giải thích DOJ-SITF sẽ bảo đảm vai trò dẫn đầu của Mỹ không bị suy giảm do việc sử dụng sai trái siêu trí tuệ từ các thực thể nước ngoài, tổ chức tội phạm xuyên quốc gia hay các cá nhân lừa đảo. Theo ông Blanche, đội đặc nhiệm cũng sẽ thực hiện các biện pháp khẳng định quyền tài phán, trong mức độ phù hợp, để thúc đẩy ưu thế siêu trí tuệ của Mỹ.",
-        "Ông Blanche cho biết DOJ-SITF sẽ tiếp quản Đội đặc nhiệm Tranh tụng AI thành lập hồi tháng 1 dưới thời cựu Tổng chưởng lý Pam Bondi, đồng thời điều phối các vụ kiện dân sự liên quan đến AI của bộ. Ngoài ra, ông Blanche cho biết DOJ-SITF sẽ là đầu mối làm việc với Lực lượng Siêu trí tuệ do Giám đốc Tình báo Quốc gia Jay Clayton lãnh đạo để điều phối sự tham gia của chính phủ với các công ty AI.",
-        "Dù thúc đẩy vị thế quốc gia, ông Blanche nêu rõ đội đặc nhiệm chỉ áp dụng các biện pháp khẳng định quyền tài phán trong mức độ phù hợp."
+        "Bộ Tư pháp Mỹ thông báo thành lập Đội đặc nhiệm Siêu trí tuệ (DOJ-SITF) nhằm bảo vệ bộ trước các tác nhân trí tuệ nhân tạo (AI) độc hại. Theo Nextgov/FCW, lực lượng này do Associate Attorney General Stanley Woodward và Associate Deputy Attorney General Stephen Weiss đồng chủ trì.",
+        "Tổng chưởng lý Todd Blanche cho biết đội đặc nhiệm sẽ bảo đảm vị thế dẫn đầu của Mỹ không bị tổn hại bởi các thế lực nước ngoài, tội phạm hay hành vi gian lận lạm dụng siêu trí tuệ. Tên gọi này bắt nguồn từ sắc lệnh tháng 9 của Tổng thống Donald Trump chỉ đạo các cơ quan dùng từ siêu trí tuệ thay cho AI vì cho rằng chuẩn xác hơn.",
+        "Theo ông Blanche, đội đặc nhiệm sẽ tiếp nhận phần việc từ Đội đặc nhiệm Tranh tụng AI thành lập hồi tháng 1 và điều phối các vụ kiện dân sự chủ động của bộ. Theo Nextgov/FCW, đơn vị này còn tổ chức thực thi pháp luật hình sự và dân sự, đề xuất ưu tiên và hướng dẫn truy tố các vi phạm về AI.",
+        "Ông Blanche cho biết DOJ-SITF sẽ là đầu mối liên lạc chính của bộ với Lực lượng Siêu trí tuệ của tổng thống do Giám đốc Tình báo Quốc gia Jay Clayton lãnh đạo."
       ],
       "same_event_coverage_ids": [
         "ff882cdd29ebc1be447f"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bộ Tư pháp Mỹ thành lập đội đặc nhiệm siêu trí tuệ nhằm ứng phó các tác nhân AI độc hại",
+      "editorial_headline_vi": "Bộ Tư pháp Mỹ lập Đội đặc nhiệm Siêu trí tuệ để bảo vệ trước các mối đe dọa AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -30151,63 +30028,22 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.15,
+        "value": 9.4,
         "answers": {
-          "what": 8,
-          "why": 9,
-          "notable": 6,
-          "meaning": 5
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Phó Tổng chưởng lý Stanley Woodward",
-            "explanation": "The source identifies Woodward as Associate Attorney General, a different title (outlet:p022)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Phó Trợ lý Tổng chưởng lý Stephen Weiss",
-            "explanation": "The source identifies Weiss as Associate Deputy Attorney General, a different title (outlet:p022)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "thực hiện các biện pháp khẳng định quyền tài phán, trong mức độ phù hợp, để thúc đẩy ưu thế siêu trí tuệ của Mỹ",
-            "explanation": "Blanche said the task force would take appropriate affirmative measures to promote American super-intelligence dominance; he did not specify measures to assert jurisdiction (outlet:p024)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "DOJ-SITF sẽ tiếp quản Đội đặc nhiệm Tranh tụng AI",
-            "explanation": "The new task force will incorporate the earlier task force’s work; the source does not say it will take over the task force itself (outlet:p026)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "đội đặc nhiệm chỉ áp dụng các biện pháp khẳng định quyền tài phán trong mức độ phù hợp",
-            "explanation": "The source states neither a jurisdictional measure nor an exclusive restriction of the task force to such measures (outlet:p024, outlet:p027)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "Readers may think the task force’s mandate centers on asserting jurisdiction.",
-            "fix": "Replace both jurisdiction claims with Blanche’s stated aim of taking appropriate measures to promote US leadership, and describe the enforcement remit (outlet:p024, outlet:p027)."
-          },
-          {
             "question": "notable",
-            "problem": "The concrete law-enforcement work is largely absent.",
-            "fix": "Add that the task force will coordinate criminal and civil enforcement, recommend priorities, and develop prosecution guidance (outlet:p027)."
-          },
-          {
-            "question": "what",
-            "problem": "Both co-chairs’ titles are misstated.",
-            "fix": "Translate Associate Attorney General and Associate Deputy Attorney General distinctly and accurately (outlet:p022)."
-          },
-          {
-            "question": "notable",
-            "problem": "“Take over” overstates what happens to the earlier task force.",
-            "fix": "Say the new task force will incorporate its work (outlet:p026)."
+            "problem": "Readers are told why the new label is used but may miss that it already had a different meaning.",
+            "fix": "Add that the source distinguishes the established definition of “super intelligence” from artificial intelligence (outlet:p025)."
           }
         ],
         "writer_boats": [
@@ -30215,8 +30051,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d1625b2ab214d5038246b9cea9e0689164a5cbb818f0c809aa2abeaa837003d7",
-        "scored_at": "2026-11-06T12:08:45.632453+00:00"
+        "prose_sha256": "c6f82010c14bd44cbba3c05dc881c6a7194f7d30c335c8ad5a3355409c1fdd18",
+        "scored_at": "2026-11-07T11:40:42.561982+00:00"
       }
     },
     {
@@ -30319,10 +30155,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/ai-artificial-intelligence/1027652/anthropic-claude-plaid-personal-finance",
       "key_points": [
-        "Công ty Anthropic vừa giới thiệu tính năng Tài chính Cá nhân (Personal Finance) cho phép chatbot Claude kết nối trực tiếp với tài khoản ngân hàng và thẻ của người dùng qua nền tảng Plaid. Theo The Verge, tính năng này đang được thử nghiệm giới hạn trong tuần này cho người đăng ký các gói trả phí Pro, Max và Ultra tại Mỹ. Động thái của Anthropic diễn ra sau khi OpenAI ra mắt tính năng tương tự cho ChatGPT vào tháng 5, vốn cũng kết nối với tài khoản ngân hàng qua Plaid.",
-        "Theo The Verge, Anthropic đưa ra tính năng này nhằm giúp người dùng quản lý tài chính cá nhân bằng cách để Claude theo dõi dòng tiền và giải thích khả năng chi trả của họ. Khi người dùng hỏi về các khoản chi trong tháng, chatbot sẽ lập bảng phân loại chi tiêu theo các danh mục như tiền thuê nhà, tiện ích, mua sắm và ăn uống. Hệ thống cũng giải đáp các hóa đơn còn lại trước ngày nhận lương, đánh giá khả năng chi trả cho các chuyến du lịch lớn, và ước tính mức tiết kiệm mỗi tháng.",
-        "Nếu được người dùng cấp quyền truy cập, Claude có thể xem tên ngân hàng, loại tài khoản, bốn chữ số cuối, số dư, hạn mức tín dụng và lịch sử giao dịch tới hai năm. Dựa vào dữ liệu đó, Claude có thể giải thích các thuật ngữ tài chính chưa hiểu và trả lời câu hỏi về số dư hay các giao dịch phát sinh. Nhờ kết nối qua Plaid ở chế độ chỉ đọc, Claude không nhìn thấy mật khẩu ngân hàng và hệ thống ngân hàng không phải xử lý việc bot AI quét tài khoản.",
-        "The Verge nhận định rằng việc cho phép trí tuệ nhân tạo giám sát tài chính cá nhân có thể gióng lên những hồi chuông cảnh báo. Tuy nhiên, Anthropic xác nhận quyền truy cập chỉ ở chế độ đọc, đồng thời nhấn mạnh Claude không thể chuyển tiền, quản lý quỹ hay đưa ra lời khuyên đầu tư. Anthropic cũng lưu ý tính năng này chỉ là bước đầu, và đối với các quyết định tiền bạc lớn hơn, người dùng vẫn được phục vụ tốt nhất bởi các chuyên gia tài chính được cấp phép. Công ty cho biết đang tìm hiểu cách mở rộng hợp tác trên Claude và mong muốn nhận phản hồi từ các ngân hàng, nhà quản lý tài sản để định hình dịch vụ."
+        "Anthropic ra mắt tính năng Personal Finance kết nối Claude với tài khoản ngân hàng và thẻ qua nền tảng Plaid. Theo The Verge, tính năng đang thử nghiệm beta tại Mỹ cho người dùng các gói Pro, Max và Ultra.",
+        "Theo The Verge, kết nối qua Plaid chỉ ở chế độ đọc và Claude không nhìn thấy mật khẩu ngân hàng. Chatbot có thể xem tên ngân hàng, loại tài khoản, bốn số cuối, số dư, hạn mức và lịch sử giao dịch hai năm.",
+        "Khi được cấp quyền, Claude có thể giải thích thuật ngữ tài chính và giải đáp thắc mắc về số dư cùng giao dịch. Theo The Verge, người dùng có thể hỏi tiền đã chi trong tháng và nhận phân loại gồm tiền thuê nhà, mua sắm và ăn uống.",
+        "Theo Anthropic, Claude không thể di chuyển, quản lý hay đầu tư tiền và không được thiết kế để tư vấn đầu tư. Với các quyết định tiền bạc lớn, Anthropic nhận định người dùng được phục vụ tốt nhất khi Claude làm việc cùng chuyên gia được cấp phép."
       ],
       "same_event_coverage_ids": [
         "1ff25bbbbf8444438fd1"
@@ -30339,38 +30175,28 @@
         }
       ],
       "summary_limitations": [],
-      "key_points_prompt_version": "summary-vi-6-prose",
+      "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.55,
+        "value": 9.05,
         "answers": {
           "what": 10,
-          "why": 10,
-          "notable": 10,
-          "meaning": 7
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "Claude không thể chuyển tiền, quản lý quỹ hay đưa ra lời khuyên đầu tư",
-            "explanation": "Anthropic says Claude cannot move, manage, or invest users’ money, but says it is not designed to give investment advice rather than that it cannot give such advice (outlet:p017)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "người dùng vẫn được phục vụ tốt nhất bởi các chuyên gia tài chính được cấp phép",
-            "explanation": "Anthropic says people are best served by Claude working alongside trusted licensed professionals and regulated firms for bigger money decisions (outlet:p020)."
+            "kind": "number",
+            "summary_text": "lịch sử giao dịch hai năm",
+            "explanation": "The source says Claude can see up to two years of transaction history, not necessarily a full two years (outlet:p017)."
           }
         ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "Readers may take the investment-advice restriction as a technical inability.",
-            "fix": "Say Claude is not designed to provide investment advice, and add that it cannot invest users’ money (outlet:p017)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The future proposal leaves out Claude’s intended role and regulated firms.",
-            "fix": "Describe Anthropic’s proposal as Claude working alongside trusted licensed professionals and regulated firms (outlet:p020)."
+            "question": "notable",
+            "problem": "The transaction-history limit reads as an exact two-year span.",
+            "fix": "Say “lịch sử giao dịch tối đa hai năm” to retain the source’s upper limit (outlet:p017)."
           }
         ],
         "writer_boats": [
@@ -30378,8 +30204,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "6b4c4cf1100c60191ec1a33919b836b95a9d5ac42277d15799186c69fcadb663",
-        "scored_at": "2026-11-06T12:08:45.632494+00:00"
+        "prose_sha256": "c3125483b6b5feefc6a2f92012b5f21365cac8f0229a476e859a3383e692bb32",
+        "scored_at": "2026-11-07T11:40:42.562028+00:00"
       }
     },
     {
@@ -32482,10 +32308,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/05/airbnb-says-its-launching-an-ai-travel-agent-in-the-first-half-of-2027/",
       "key_points": [
-        "Theo TechCrunch, Airbnb thông báo sẽ ra mắt đại lý trí tuệ nhân tạo (phần mềm AI tự thực hiện tác vụ) chuyên du lịch vào nửa đầu năm 2027. Doanh thu quý 3 của hãng tăng 19% lên 4,87 tỷ USD, vượt dự báo của Phố Wall.",
-        "Giám đốc điều hành Brian Chesky nhận định các đại lý đa dụng không phù hợp nhất để lên kế hoạch du lịch vì trải nghiệm này cần sự khám phá. Theo ông, trợ lý như Muse và Instinct làm tốt việc thường nhật đơn giản, nhưng 80% du khách thích tự tìm hiểu và so sánh nơi ở cùng bạn bè.",
-        "Theo ông Chesky, đại lý này sẽ kết hợp hàng trăm thành phần trực quan theo thời gian thực thay vì chỉ dùng hội thoại nhiều chữ truyền thống. Hệ thống sẽ tự động hiển thị bản đồ, hình ảnh, lịch và bảng so sánh phù hợp với nhu cầu du lịch như giao diện tự sinh.",
-        "Airbnb khẳng định công cụ sẽ hỗ trợ khách suốt chuyến đi với những việc đại lý bên ngoài khó tự làm, từ đổi đặt chỗ đến hỗ trợ an toàn 24 giờ. Theo thời gian, hãng kỳ vọng mở rộng hỗ trợ sang dịch vụ và trải nghiệm thay vì chỉ giới hạn ở nơi lưu trú."
+        "Airbnb thông báo sẽ ra mắt đại lý AI (phần mềm tự thực hiện tác vụ) du lịch vào nửa đầu năm 2027. Doanh thu quý 3 của hãng tăng 19% lên 4,87 tỷ USD, vượt dự báo của Phố Wall.",
+        "Giám đốc điều hành Brian Chesky cho rằng các đại lý đa dụng không phù hợp nhất để lên kế hoạch du lịch vì trải nghiệm này cần sự khám phá. Theo ông, 80% du khách thích dành thời gian tìm hiểu chuyến đi, đồng thời muốn so sánh chỗ ở và cùng quyết định với người đi cùng.",
+        "Theo ông Chesky, đại lý này sẽ kết hợp hàng trăm thành phần giao diện theo thời gian thực thay vì chỉ dựa vào khung chat nhiều chữ truyền thống. Hệ thống sẽ ghép bản đồ, hình ảnh, lịch và bảng so sánh để hiển thị đúng giao diện vào đúng thời điểm cho khách.",
+        "Airbnb khẳng định công cụ sẽ hỗ trợ khách suốt chuyến đi với những việc đại lý bên ngoài khó tự làm, từ đổi đặt chỗ đến hỗ trợ an toàn 24 giờ. Theo thời gian, hãng kỳ vọng đại lý sẽ mở rộng hỗ trợ sang dịch vụ và trải nghiệm thay vì chỉ giới hạn ở nơi lưu trú."
       ],
       "same_event_coverage_ids": [
         "a41674c14b28928c9ed4",
@@ -32493,7 +32319,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Airbnb thông báo sẽ ra mắt đại lý trí tuệ nhân tạo hỗ trợ du lịch vào nửa đầu năm 2027",
+      "editorial_headline_vi": "Airbnb thông báo sẽ ra mắt đại lý trí tuệ nhân tạo chuyên du lịch vào nửa đầu năm 2027",
       "summary_sources": [
         {
           "id": "outlet",
@@ -32506,39 +32332,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.6,
+        "value": 9.85,
         "answers": {
           "what": 10,
-          "why": 8,
+          "why": 10,
           "notable": 10,
-          "meaning": 10
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "80% du khách thích tự tìm hiểu và so sánh nơi ở cùng bạn bè",
-            "explanation": "The 80% figure applies only to travelers who say they enjoy spending time researching trips. The source separately says people want to compare homes and make decisions with those they travel with; it gives no percentage for those activities (outlet:p013)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "cùng bạn bè",
-            "explanation": "The source says people want to make decisions with the people they are traveling with, who are not specified as friends (outlet:p013)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The Vietnamese applies the 80% figure to more activities than the source measures and identifies travel companions specifically as friends.",
-            "fix": "Say that 80% enjoy researching trips; separately say travelers want to compare homes and make decisions with the people they travel with (outlet:p013)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3daa0eb42cb9694739eb4d12e6d2149e2392129a092113a1fa5b5aec070462a3",
-        "scored_at": "2026-11-07T07:42:10.163920+00:00"
+        "prose_sha256": "e18e23c45753ca7d8dd68e93bc444ed76950f9ee2b4cf590fa78ab9cfbe66e59",
+        "scored_at": "2026-11-07T11:36:17.517107+00:00"
       }
     },
     {
@@ -37473,9 +37282,9 @@
       "use_original_title": false,
       "source_url": "https://pandaily.com/nearlink-alliance-embodied-ai-short-range-connectivity-blue-book",
       "key_points": [
-        "Liên minh SparkLink Quốc tế công bố sách xanh về yêu cầu kết nối tầm ngắn cho AI hiện thân (trí tuệ nhân tạo tương tác với thế giới vật lý). Hơn 30 thành viên nòng cốt tham gia soạn thảo, gồm Viện nghiên cứu China Mobile, Huawei, ZTE và TD Tech.",
-        "Tài liệu đặt tầng truyền thông ngang hàng với cảm biến và tài nguyên tính toán thay vì chỉ coi liên kết không dây là kết nối bên ngoài.",
-        "Sách xanh tổ chức yêu cầu theo ba kịch bản gồm liên kết nội bộ robot, phối hợp nhiều thiết bị, và điều phối giữa thiết bị, hệ thống biên cùng đám mây. Pandaily lưu ý đây là phân loại của tài liệu chứ không phải tuyên bố mọi sản phẩm NearLink đều đã hỗ trợ kiến trúc này.",
+        "Liên minh SparkLink Quốc tế công bố sách xanh về yêu cầu kết nối tầm ngắn cho AI hiện thân (trí tuệ nhân tạo tương tác vật lý). Hơn 30 thành viên nòng cốt tham gia soạn thảo tài liệu này gồm Viện nghiên cứu China Mobile, Huawei, ZTE và TD Tech.",
+        "Liên minh cho biết tài liệu định hướng hợp tác phát triển trong toàn ngành qua việc đề xuất kiến trúc công nghệ toàn diện.",
+        "Sách xanh tổ chức yêu cầu quanh ba kịch bản kết nối gồm liên kết nội bộ robot, tương tác đa thiết bị, và điều phối giữa thiết bị với đám mây. Pandaily lưu ý đây là phân loại ứng dụng của tài liệu chứ không phải tuyên bố mọi sản phẩm NearLink đều đã hỗ trợ kiến trúc này.",
         "Pandaily nhận định ấn phẩm là tài liệu phát triển hệ sinh thái chứ không phải đợt ra mắt robot hay hợp đồng thương mại. Trang tin này nhấn mạnh thông báo không đưa ra thời gian biểu triển khai và thiếu số liệu độ tin cậy thực địa được kiểm chứng độc lập."
       ],
       "same_event_coverage_ids": [
@@ -37483,7 +37292,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Liên minh SparkLink công bố sách xanh kết nối AI hiện thân nhưng thông báo chưa nêu thời gian biểu",
+      "editorial_headline_vi": "Liên minh SparkLink ra sách xanh kết nối AI hiện thân nhưng chưa có lộ trình triển khai",
       "summary_sources": [
         {
           "id": "outlet",
@@ -37496,19 +37305,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 8.75,
         "answers": {
           "what": 10,
-          "why": 7,
-          "notable": 10,
-          "meaning": 10
+          "why": 9,
+          "notable": 7,
+          "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The purpose of the blue book remains implicit.",
-            "fix": "State that the alliance intends the requirements and proposed architecture to guide joint industry development (outlet:p002)."
+            "question": "notable",
+            "problem": "The third scenario loses the edge systems that distinguish the document's device-edge-cloud coordination.",
+            "fix": "Describe coordination among devices, edge systems and the cloud (outlet:p003–p004)."
           }
         ],
         "writer_boats": [
@@ -37516,8 +37325,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "5a83453d4a2e5a5a661f5563c12b2400cc9cc26790f1bc6888ee73f98a9262de",
-        "scored_at": "2026-11-07T07:42:10.163420+00:00"
+        "prose_sha256": "84094b8937e96a2a7a1747eea84fdf01a3392f73c166d45d13ca237dab5a400c",
+        "scored_at": "2026-11-07T11:36:17.516932+00:00"
       }
     },
     {
@@ -37959,17 +37768,17 @@
       "use_original_title": false,
       "source_url": "https://theainewsreport.com/2026-11-06-hn-agentic-setups-counted.html",
       "key_points": [
-        "The AI News Report thống kê công cụ từ 663 bình luận Ask HN của 424 lập trình viên và đúc kết 7 mô hình thiết lập. Ghi nhận ngày 6 tháng 11 năm 2026 cho thấy Claude Code dẫn đầu với 180 người dùng, tiếp theo là Codex với 103 người.",
-        "Tác giả bài viết giải thích việc chạy song song nhiều agent (chương trình AI tự động lập trình) giúp tránh chờ đợi vì mỗi agent xử lý mất vài phút. Bài viết ghi nhận 105 người chạy song song, trong đó bình luận nổi bật từ thefourthchime khuyên nên duy trì ít nhất 5 tác vụ đồng thời.",
-        "Các thiết lập chi tiết áp dụng khâu phản biện thứ hai cho mỗi thay đổi, như trường hợp enesalatas dùng Codex rà soát từng pull request (yêu cầu gộp mã) qua hook của Claude Code. Ngoài ra, người dùng thefunnyman chỉ cho agent tự chạy trong vi máy ảo Docker Sandbox sau khi đã hoàn thiện kế hoạch ở bên ngoài.",
-        "Tác giả bài viết khuyến nghị chỉ tắt hỏi quyền khi cô lập agent trong máy ảo hoặc container không chứa khóa SSH, API và bị giới hạn mạng. The AI News Report lưu ý số liệu chỉ mô tả người tự chọn trả lời trong chủ đề Ask HN chứ không đại diện cho mọi lập trình viên, đồng thời các thiết lập đều do người dùng tự khai và chưa được kiểm chứng."
+        "The AI News Report phân tích 663 bình luận từ 530 người trên Hacker News, ghi nhận 424 người dùng công cụ AI. Thống kê ngày 6 tháng 11 năm 2026 cho thấy Claude Code dẫn đầu với 180 người dùng, tiếp theo là Codex với 103 người.",
+        "Tác giả bài viết giải thích lập trình viên chạy song song nhiều agent (chương trình AI tự động lập trình) để tránh lãng phí thời gian chờ vì mỗi agent xử lý mất vài phút. Bài viết ghi nhận 105 người chạy song song, trong đó một bình luận khuyên nên duy trì ít nhất 5 tác vụ đồng thời.",
+        "Các thiết lập chi tiết kết hợp rà soát độc lập và môi trường cách ly, như trường hợp enesalatas dùng Codex duyệt từng pull request qua hook của Claude Code trong container giới hạn mạng. Ngoài ra, thefunnyman chỉ cho agent tự chạy trong vi máy ảo Docker Sandbox sau khi hoàn tất kế hoạch bên ngoài.",
+        "The AI News Report lưu ý số liệu chỉ mô tả người tự chọn trả lời trong chủ đề chứ không đại diện cho mọi lập trình viên. Trang tin nhấn mạnh nhóm thích tinh chỉnh công cụ có thể chiếm tỷ lệ quá cao, đồng thời các thiết lập đều do người dùng tự khai và chưa được kiểm chứng thực tế."
       ],
       "same_event_coverage_ids": [
         "61ca82c8c807a2609a32"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Chủ đề Ask HN hé lộ 7 mô hình thiết lập agent lập trình cùng thói quen chạy song song",
+      "editorial_headline_vi": "Thống kê từ Hacker News hé lộ các mô hình dùng agent lập trình nhưng chưa qua kiểm chứng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -37984,25 +37793,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.5,
+        "value": 8.75,
         "answers": {
-          "what": 6,
-          "why": 9,
-          "notable": 7,
-          "meaning": 10
+          "what": 8,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "663 bình luận Ask HN của 424 lập trình viên",
-            "explanation": "The 663 comments came from 530 different people; 424 of those people named at least one AI tool (outlet:p013, outlet:p006)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "what",
-            "problem": "Readers are told that only 424 people produced the 663 comments.",
-            "fix": "Say that 530 people commented and 424 of them named at least one AI tool (outlet:p013, outlet:p006)."
+            "problem": "The reader misses that the article offers seven patterns to copy, which is part of its main finding.",
+            "fix": "Mention the seven reusable setup patterns alongside the tool counts (outlet:p002–p003)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader may take the counts as exact.",
+            "fix": "Say the authors advise treating the counts as approximate after their spot check found one misclassified comment among ten (outlet:p078)."
           }
         ],
         "writer_boats": [
@@ -38010,8 +37818,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "5e509419c63279cb61df82af31d95283bded0f41457979137a8940912a1765ae",
-        "scored_at": "2026-11-07T07:42:10.163690+00:00"
+        "prose_sha256": "a8bdd6ea97fd7c9974ac3ee3a0104f4c45e0fa6af580ee99f3ccb14fd37dbcde",
+        "scored_at": "2026-11-07T11:36:17.517076+00:00"
       }
     },
     {
@@ -38129,6 +37937,317 @@
         "7c9f7e0c8ce43114eccc",
         "95e623d00456964edfd6"
       ]
+    },
+    {
+      "id": "5f82131baac5e1d1d4c7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/opencsg-agentic-27b-tool-workflows-single-gpu-commercial-license",
+      "key_points": [
+        "OpenCSG phát hành mô hình tải về Agentic-27B gồm 27,36 tỷ tham số trên nền Qwen3.8-27B, được thiết kế cho quy trình công cụ nhiều bước và triển khai nội bộ doanh nghiệp.",
+        "Theo tài liệu kỹ thuật của OpenCSG, mô hình tập trung chọn kỹ năng, tạo đối số công cụ, phục hồi sau lỗi và được tinh chỉnh LoRA DPO trên 5.857 mẫu thực thi.",
+        "74 trên 103 tác vụ đạt điểm hợp lệ trong bộ kiểm thử tiêu chuẩn (bộ công cụ đánh giá) Agentic Eval của OpenCSG đã vượt qua cả ba lần thử. Thử nghiệm trên bộ xử lý NVIDIA A800 chỉ dùng ngữ cảnh 32.768 token, thấp hơn mức tối đa 262.144 vị trí theo cấu hình.",
+        "Pandaily lưu ý việc sử dụng thương mại bắt buộc phải có giấy phép và trọng số tải về không cấp quyền thương mại tự do. Pandaily cũng nhấn mạnh kết quả kiểm thử do OpenCSG tự công bố không phải chứng nhận độc lập về độ tin cậy trong doanh nghiệp."
+      ],
+      "same_event_coverage_ids": [
+        "36f91b4dc8ba4a9b80e0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenCSG ra mắt mô hình Agentic-27B cho quy trình công cụ nhưng yêu cầu cấp phép thương mại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/opencsg-agentic-27b-tool-workflows-single-gpu-commercial-license"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "825c07c7a20ca4fea70499fb9783bdb9951841029b59bb937e556ecd248accad",
+        "scored_at": "2026-11-07T11:15:34.455743+00:00"
+      }
+    },
+    {
+      "id": "861e15750c57963785e3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/huawei-harmonyos-pc-standalone-assistant-work-office-agent-release",
+      "key_points": [
+        "Theo IT Home, Huawei phát hành trợ lý AI phiên bản 11.7.9.300 thành ứng dụng độc lập trên HarmonyOS PC cùng tác tử (chương trình tự động thực hiện tác vụ) văn phòng Work. Trợ lý này từng tích hợp trong hệ điều hành máy tính và nay có thêm bản ứng dụng riêng.",
+        "Pandaily cho biết ứng dụng riêng cung cấp kênh phân phối cập nhật bên ngoài gói hệ thống.",
+        "Theo IT Home, người dùng có thể giao tác vụ phân tích dữ liệu, soạn bài thuyết trình và báo cáo tuần chỉ bằng một câu lệnh.",
+        "Theo IT Home, bản phát hành đưa tính năng Work vượt qua giai đoạn thử nghiệm nội bộ từ tháng 9. Pandaily lưu ý thông tin về hơn 200 chuyên gia chỉ là quảng bá từ Huawei, chưa có đánh giá độc lập về chất lượng hoàn thành tác vụ."
+      ],
+      "same_event_coverage_ids": [
+        "c6b4dd22355af677a788"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Huawei phát hành ứng dụng trợ lý độc lập và ra mắt tác tử văn phòng Work trên HarmonyOS PC",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/huawei-harmonyos-pc-standalone-assistant-work-office-agent-release"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader learns which tasks Work accepts but misses the concrete result that distinguishes it from a conversational assistant.",
+            "fix": "Add that Work can produce usable Word, PowerPoint and Excel documents (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "70e3b06a718bc66a4912507aa765c34c94c456e31625c1ac734b5adfa1a75452",
+        "scored_at": "2026-11-07T11:19:16.047154+00:00"
+      }
+    },
+    {
+      "id": "f5b9ecf5f3caa36847de",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository text is promotional product copy without a substantive release or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/osarhiemenaiyevbosa-cloud/ai-manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "df0ee92c5b3975be642e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "59177a82de98e3acffa5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository text is promotional product copy without a substantive release or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/viet140612/ai-manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "069511caaa6c3ea81e7d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ba6e55f31ff39f981146",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository text is promotional product copy without a substantive release or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Abdul-Rehman7826/ai-manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5f459bd7e848274f1266"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3d91c620c7eb41bc8c95",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository text is promotional product copy without a substantive release or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/thecoderrrer/ai-manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b286b6dbf1959f4ecb36"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "520bdaf622a8ce7a75bf",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository text is promotional product copy without a substantive release or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Teolimaof/ai-manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3ee8de576382fa652b3e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3baf6696be43df8aa7a4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository text is promotional product copy without a substantive release or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/fedibenameur11/ai-manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "154670d7be883cae97ba"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "03dc9c21c100719dafa4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository text is promotional product copy without a substantive release or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/hussein1labtop-jpg/ai-manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ffdb1f9075fe65375d8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "48c4bf99bd1fd761ec15",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository text is promotional product copy without a substantive release or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/willsmanuel123-creator/ai-manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7a36b95696bb64e214a5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1c4ae1b839be77e71723",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository text is promotional product copy without a substantive release or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Gigachad-byte/ai-manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2f0054384be3049f4fe8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d32234f1074102450948",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.reuters.com/business/microsoft-is-winding-down-oracle-deal-rent-ai-cloud-capacity-bloomberg-news-2026-11-06/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3c13f1cb00152169bfa5",
+        "655fa530e44ad8b9bb57"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
