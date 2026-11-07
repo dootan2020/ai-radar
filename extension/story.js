@@ -22,6 +22,12 @@ const hostOf = u => {
   }
 };
 
+/* A news picture is never cropped: it is drawn whole inside its frame, and this blurred copy of the same picture
+   fills whatever the picture's own shape leaves empty. It copies the picture's URL, loading and referrer policy, so
+   the browser fetches the file once for both. */
+export const mediaBackdrop = (src, { loading = 'lazy', noReferrer = true } = {}) =>
+  `<img class="media-backdrop" src="${esc(src)}" alt="" loading="${loading}" decoding="async"${noReferrer ? ' referrerpolicy="no-referrer"' : ''}>`;
+
 /* Format numbers with Vietnamese locale */
 const nf0 = new Intl.NumberFormat('vi-VN');
 
@@ -419,7 +425,7 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
       ? new URL(story.image.src, 'https://radar-ai-vn.pages.dev/').href : story.image.src;
     mediaHTML = `
       <figure class="story-media">
-        <img class="story-media-img" src="${esc(imageSrc)}" alt="${esc(titleVi)}" loading="eager" decoding="async">
+        <div class="story-media-frame">${mediaBackdrop(imageSrc, { loading: 'eager', noReferrer: false })}<img class="story-media-img" src="${esc(imageSrc)}" alt="${esc(titleVi)}" loading="eager" decoding="async"></div>
         <figcaption class="story-media-caption">
           <span>${story.image.via === 'ai' ? 'Ảnh minh hoạ do AI tạo' : 'Ảnh từ bài viết gốc'}</span>
           <span class="story-pub-name">${esc(name)}</span>
