@@ -73,8 +73,6 @@ console.log(JSON.stringify({{
         feed = (ROOT / "site" / "feed.js").read_text(encoding="utf-8")
         self.assertIn("const sumRaw = shown(st.summary, st.summary_vi);", feed)
         self.assertIn("<p class=\"card-sum\">${sourceDescriptionMark()}${esc(sum)}</p>", feed)
-        search = (ROOT / "site" / "tra-cuu.js").read_text(encoding="utf-8")
-        self.assertIn("<p class=\"lead-sum\">${sourceDescriptionMark()}${esc(p.summary)}</p>", search)
         from radar.story_pages import SOURCE_DESCRIPTION_LABEL
         self.assertEqual(SOURCE_DESCRIPTION_LABEL, LABEL)
 

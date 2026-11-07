@@ -22,7 +22,7 @@ APP_HOSTS = (
 
 class GoogleAppsLauncherTests(unittest.TestCase):
     def test_launcher_is_loaded_on_each_site_header(self):
-        for page in ("index.html", "ban-tin.html", "nguon.html", "tra-cuu.html", "bento.html"):
+        for page in ("index.html", "ban-tin.html", "nguon.html", "bento.html"):
             with self.subTest(page=page):
                 html = (ROOT / "site" / page).read_text(encoding="utf-8")
                 self.assertIn('href="menu-cong-cu.css"', html)

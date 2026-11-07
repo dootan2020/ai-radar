@@ -103,8 +103,10 @@ class RootPageHeadTests(unittest.TestCase):
         self.assertIn(f'<link rel="canonical" href="{SITE_URL}">', self.feed_redirect)
 
     def test_carried_features_in_root_html(self):
-        # Search entry point
-        self.assertRegex(self.html, r'<a\s+class="tc-link"\s+href="tra-cuu\.html"')
+        # Search entry point: the news bar's inline search (captain, 07/11), no separate page
+        self.assertIn('id="news-search"', self.html)
+        self.assertIn('<input id="ns-q" type="search"', self.html)
+        self.assertNotIn('tra-cuu.html', self.html)
         # Daily edition link
         self.assertRegex(self.html, r'<a\s+class="ed-link"\s+href="ban-tin\.html"\s+aria-label="Bản tin sáng"><svg')
         self.assertIn('<span class="ed-label">Bản tin sáng</span>', self.html)

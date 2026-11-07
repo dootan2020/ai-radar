@@ -1,6 +1,6 @@
 """The home page leads to the daily edition page in one tap, on a phone and on a desktop.
 
-The link is static HTML in the top bar, outside #nav (hidden under 1100px) and outside the five bottom tabs,
+The link is static HTML in the masthead (the top bar since the "Trang nhất" layout, 07/11), outside #nav (hidden under 1100px) and outside the five bottom tabs,
 so it needs no JavaScript, never shifts the layout, and is visible at every width.
 """
 
@@ -15,7 +15,7 @@ VOID = {"meta", "link", "br", "img", "input", "hr"}
 
 
 class BarLinks(HTMLParser):
-    """Collects every <a> inside <header id="bar">, with the ids of the elements that enclose it."""
+    """Collects every <a> inside <header id="masthead">, with the ids of the elements that enclose it."""
 
     def __init__(self):
         super().__init__()
@@ -27,7 +27,7 @@ class BarLinks(HTMLParser):
             return
         a = dict(attrs)
         self.stack.append((tag, a.get("id")))
-        if tag == "a" and ("header", "bar") in self.stack:
+        if tag == "a" and ("header", "masthead") in self.stack:
             self.links.append({"attrs": a, "inside": [i for _, i in self.stack if i], "text": ""})
 
     def handle_startendtag(self, tag, attrs):
@@ -40,7 +40,7 @@ class BarLinks(HTMLParser):
                 break
 
     def handle_data(self, data):
-        if self.links and any(t == "a" for t, _ in self.stack):
+        if self.links and ("header", "masthead") in self.stack and any(t == "a" for t, _ in self.stack):
             self.links[-1]["text"] += data
 
 

@@ -37,7 +37,7 @@ assert.equal(headlineShown({title:'Full', headline:' '}), 'Full');
 let errorHandler;
 class ImageElement {}
 const feed = await renderer('feed.js', '\ninit();', `
-return {titleOf, pickImage, renderCard, renderHot, pickRow, watchPictures, mediaHTML, oneEvent,
+return {titleOf, pickImage, renderCard, renderHot, watchPictures, mediaHTML, oneEvent,
   picksFor(stories) {
     D = {stories, events:[], sources:[], generated_at:'2026-10-10T00:00:00Z'};
     GEN = Date.parse(D.generated_at); allStories = stories; STORY = STORY_ANY = new Map(stories.map(s => [s.id, s]));
@@ -125,7 +125,8 @@ const feedVariants = item => [
   ...['std', 'lead', 'wide'].map(size => feed.renderCard(item, size)),
   feed.renderCard(item, 'std', {debate:true}),
   feed.renderCard(item, 'lead', {rank:1, why:true, h:'h3'}),
-  feed.renderHot([item]), feed.pickRow(item, 2),
+  // The second pick is a feature tile since the "Trang nhất" layout (07/11), no longer a ranked pick row.
+  feed.renderHot([item]), feed.renderCard(item, 'feature'),
 ];
 // A verified editorial headline is shared with cards; summary body fields stay in reader views.
 const summaryOnly = {...story, key_points_prompt_version:'summary-vi-5-full',
@@ -145,7 +146,8 @@ for (const translated of [longOriginal, coverageTranslated]) {
     for (const html of feedVariants(item)) {
       assert.equal((html.match(/>Translated<\/span>/g) || []).length, 1);
       assert.match(html, /<span class="sr" lang="vi">Bản dịch máy\. <\/span>/);
-      assert.match(html, /(?:class="src-row"|class="hot-why")[\s\S]*?class="mt"/);
+      // The attribution row of a bento tile is "t-meta" since the "Trang nhất" layout (07/11).
+      assert.match(html, /(?:class="src-row"|class="t-meta"|class="hot-why")[\s\S]*?class="mt"/);
       assert.doesNotMatch(html, /card-orig|orig-text/);
       assert.ok(!html.includes(feed.titleOf(item).orig), 'feed does not print the original title');
       assert.ok(html.includes(feed.titleOf(item).text), 'translated headline remains present');
@@ -183,7 +185,7 @@ const candidates = [
   {url:'https://publisher.example/no-image', coverage:[]},
 ];
 const cardRenders = item => ['lead', 'wide', 'std'].map(size => feed.renderCard(item, size));
-const rankedRenders = item => [feed.renderHot([item]), feed.pickRow(item, 2)];
+const rankedRenders = item => [feed.renderHot([item]), feed.renderCard(item, 'feature')];
 for (const candidate of candidates) {
   const item = {...story, ...candidate};
   feed.configure([item], candidate.images);
@@ -237,7 +239,8 @@ for (const image_screened of [true, false]) for (const via of ['og:image', 'ai']
   feed.configure([photoStory], {[story.url]:{src:'https://rejected.example/seed.jpg'}});
   assert.equal(feed.pickImage(photoStory).src, photoStory.image.src);
   let removed = false, photoRemoved = false;
-  const body = {className:'photo-body'};
+  // Bento tiles keep one body class (no photo-body since the "Trang nhất" layout, 07/11); the card drops has-img.
+  const body = {className:'card-body'};
   const card = {dataset:{id:story.id}, classList:{contains:() => true, remove:() => { photoRemoved = true; }}, querySelector:() => body};
   const image = new ImageElement();
   image.classList = {contains:cls => cls === 'media-img'};
@@ -279,12 +282,12 @@ for (const options of [{isModal:true}, {isPage:true}]) {
 }
 const edition = renderStoryTileHTML(story);
 assert.ok(edition.includes(story.headline_vi) && edition.includes(story.title) && edition.includes('Translated'));
-const search = await renderer('tra-cuu.js', '// Tự động chạy khi DOM sẵn sàng',
-  'return {renderHeroTile, renderStoryCard, groupStories};');
-const group = {primary:story, publishers:new Set(['Publisher']), sourceCount:1, latestDate:story.published_at, rows:[story]};
-for (const html of [search.renderHeroTile(group), search.renderStoryCard(group)]) {
-  assert.ok(html.includes(story.headline_vi) && html.includes(story.title) && html.includes('Translated'));
-}
+// The news bar's inline search (07/11) replaced the search page: a result shows the Vietnamese headline with the
+// machine-translation mark; the original title is in the story view it opens.
+const {toRow, resultRow} = await import('../site/tim-tin.js');
+const found = resultRow(toRow(story), true, ['tieu']);
+assert.ok(found.includes('<mark>Tiêu</mark> đề ngắn') && found.includes('>Translated</span>') && found.includes('Bản dịch máy'));
+assert.ok(!resultRow(toRow({...story, title_vi:undefined, headline_vi:undefined, coverage:[]}), true, ['short']).includes('Translated'));
 // One event, told once on the first screen: the pipeline's identity, a shared address, or the cluster's own wording.
 const ev = (id, title, coverage = [], extra = {}) => ({id, title, url:`https://x.example/${id}`, coverage, ...extra});
 const bbc = ev('bbc', 'Rogue Anthropic AI agent gave police fake tip in unsolved murder case');
@@ -314,9 +317,15 @@ console.log('PASS headline eligibility, coverage attribution, feed/ranked cards,
 // Execute the real notification state, navigation and poll against deterministic DOM/time/network boundaries.
 const nodes = new Map(), timers = new Map(), jumps = [];
 const home = await readFile(new URL('../site/index.html', import.meta.url), 'utf8');
-const chips = [...home.matchAll(/<button class="filter-chip" data-filter="([^"]+)"[^>]*>([^<]+)<\/button>/g)]
-  .map(([, filter, label]) => ({dataset:{filter}, textContent:label, innerHTML:label, hidden:false,
-    attributes:{}, setAttribute(key, value) { this.attributes[key] = value; }}));
+// Each section chip names itself in .chip-label and may carry a .count (the "Trang nhất" layout, 07/11).
+const chips = [...home.matchAll(/<button class="filter-chip" data-filter="([^"]+)"[^>]*><span class="chip-label">([^<]+)<\/span>/g)]
+  .map(([, filter, label]) => {
+    const count = {textContent:'', attributes:{}, setAttribute(key, value) { this.attributes[key] = value; }};
+    return {dataset:{filter}, textContent:label, innerHTML:label, hidden:false, count,
+      querySelector:selector => selector === '.chip-label' ? {textContent:label} : selector === '.count' ? count : null,
+      attributes:{}, setAttribute(key, value) { this.attributes[key] = value; }};
+  });
+assert.equal(chips.length, 9, 'every section chip is read from the home page');
 let timerId = 0, announcements = 0, visibleStories = [], responseData;
 const navLocation = {pathname:'/index.html', search:'', hash:'#moi'};
 const replacedURLs = [];
@@ -419,10 +428,11 @@ assert.equal(jumps.at(-1).top, 220);
 assert.equal(jumps.at(-1).behavior, 'auto', 'reduced motion is respected');
 assert.equal(nodes.get('#fresh').hidden, true);
 
-// With the home's "Vừa đăng" row in place, the pill leads to the top of the page: the announced batch first, the
-// heading focused, no smooth scroll under reduced motion.
+// With the home's "Vừa đăng" tile in place, the pill leads to it: the announced batch first, the heading focused, no
+// smooth scroll under reduced motion. Since the "Trang nhất" layout (07/11) the tile sits in the bento, so the jump
+// lands it under the news bar (scrollY 100 + top 500 - bar 64 - 16) instead of at the top of the page.
 const rowItems = [];
-nodes.set('#fresh-row', {hidden:true, contains:el => el === nodes.get('#fresh-row-h'),
+nodes.set('#fresh-row', {hidden:true, contains:el => el === nodes.get('#fresh-row-h'), getBoundingClientRect:() => ({top:500}),
   get innerHTML() { return rowItems.at(-1) || ''; }, set innerHTML(v) { rowItems.push(v); }});
 nodes.set('#fresh-row-h', {focus() { doc.activeElement = this; }});
 nodes.get('#top').querySelectorAll = () => [];
@@ -430,7 +440,7 @@ configureNotice(2, 10); newFeed.renderNewItems();
 visibleStories = [card('item-1', 500)]; doc.activeElement = nodes.get('#fresh-go');
 newFeed.route();
 assert.equal(doc.activeElement, nodes.get('#fresh-row-h'), '#moi focuses the "Vừa đăng" heading');
-assert.deepEqual(jumps.at(-1), {top:0, behavior:'auto'}, 'the row is at the top; reduced motion jumps');
+assert.deepEqual(jumps.at(-1), {top:520, behavior:'auto'}, 'the tile lands under the bar; reduced motion jumps');
 assert.equal(nodes.get('#fresh-row').hidden, false);
 const rowIds = [...rowItems.at(-1).matchAll(/<li[^>]*data-sid="([^"]+)"/g)].map(m => m[1]);
 assert.deepEqual(rowIds.slice(0, 2).sort(), ['item-0', 'item-1'], 'the announced stories lead the row');
@@ -470,7 +480,8 @@ assert.equal(nodes.get('#filter-context').hidden, true);
 for (const total of [0, 1, 88, 999]) {
   configureNotice(0, total);
   newFeed.renderChips();
-  assert.deepEqual(chips.map(b => b.innerHTML), ['Tất cả', 'Chuyện lớn', 'Đang nóng', 'Sản phẩm', 'Thảo luận', 'Mã và mô hình', 'Xếp hạng', 'Đã lưu']);
+  assert.deepEqual(chips.map(b => b.innerHTML), ['Trang nhất', 'Chuyện lớn', 'Đang nóng', 'Sản phẩm', 'Nghiên cứu', 'Thảo luận', 'Mã và mô hình', 'Xếp hạng', 'Đã lưu']);
+  assert.equal(chips[0].count.textContent, total ? String(total) : '', 'the front page counts its stories; zero takes no room');
   assert.equal(chips[0].hidden, false, 'all remains available even with no stories');
   assert.equal(chips.find(b => b.dataset.filter === 'saved').hidden, true, 'empty saved tab stays hidden');
 }

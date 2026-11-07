@@ -24,7 +24,8 @@ import { headlineShown, hasEditorialSummary, sourceDescriptionMark } from './edi
 import { canCalendar, downloadIcs, gcalURL, verifiedNote, dateStart, nextDay } from './calendar.js';
 import { WORTH, fallbackWorth, hotEligible } from './worth-score.js';
 import { renderStoryHTML, mediaBackdrop } from './story.js';
-import { createArenaView } from './arena.js';
+import { createArenaView, loadArena, modelName, makerName, scoreText } from './arena.js';
+import { createNewsSearch } from './tim-tin.js';
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/ (as on the
    bento home). The first request matches index.html's preload (same mode, no cache option), so it is reused. */
@@ -100,6 +101,7 @@ const PICKS = new Map();      // story id -> {note}, from editor-picks.json, in 
 let RAW_PICKS = [];
 let PICKLIST = [];            // the "Đáng đọc hôm nay" block: editor picks first, then the highest scores
 let seq = [], pos = 0, shownCards = 0, totalCards = 0;
+let newsSearch = null;        // the news bar's inline search (tim-tin.js)
 
 /* ---------- new, seen, skipped (the bento home's rules, tests/test_tin_moi.py) ----------
    new: published after the reader's last look; seen: opened; skipped: scrolled past without opening.
@@ -678,7 +680,7 @@ const coverHTML = cv => `<div class="cover" style="${coverStyle(cv)}" aria-hidde
 const miniCover = st => { const cv = coverFor(st); return `<span class="cover is-mini" style="${coverStyle(cv)}" aria-hidden="true"><span class="cover-glyph">${esc(cv.glyph)}</span></span>`; };
 
 /* ---------- story card ---------- */
-const DIMS = { lead: [1280, 720], wide: [1280, 720], std: [640, 360] };
+const DIMS = { lead: [1280, 720], wide: [1280, 720], feature: [640, 360], card: [640, 360] };
 function mediaHTML(img, size) {
   if (!img.src) return `<div class="media">${coverHTML(img.cover)}</div>`;
   const [w, h] = DIMS[size];
@@ -842,53 +844,67 @@ function toggleDetail(btn, open) {
   openStoryModal(btn.dataset.cov);
 }
 
-/* opts (only the "Đáng đọc hôm nay" lead uses them): rank, the block position; why, show the reason line; h, the
-   heading level under the block's own h2. */
-function renderCard(st, size = 'std', opts = {}) {
+/* ---------- the front page's story tile (captain, 07/11: mockup "Trang nhất") ----------
+   Sizes: lead (the first story, big type, two points and its numbers), feature (a tall picture), card, wide (picture
+   beside the text) and small (text only). The picture always sits above or beside the type, never under it.
+   The kicker names why the story is here: "Đang nóng", the editor's or lab's mark, its kind and how many sources carry
+   it. The foot keeps the feed's tools: the sources disclosure, save, copy link and the calendar. */
+const MEDIA_SIZES = new Set(['lead', 'feature', 'card', 'wide']);
+function kickerHTML(st) {
+  const r = reasonOf(st), n = nSrc(st), bits = [];
+  if (isHot(st)) bits.push(`<span class="badge"><span class="sr">${DISCUSSED.has(worthOf(st).metric) ? 'Đang bàn nhiều' : 'Đang được chú ý'}: </span>Đang nóng</span>`);
+  if (r) bits.push(`<span class="why-tag${r.editor ? ' is-editor' : ''}"${r.why ? ` title="${esc(r.why)}"` : ''}><span class="sr">Vì sao có mặt: </span>${esc(r.text)}</span>`);
+  bits.push(`<span>${esc(KIND[st.kind] || 'Bài viết')}</span>`);
+  if (n > 1) bits.push(`<span><span class="num">${n}</span> nguồn cùng đưa</span>`);
+  return `<p class="kicker">${bits.join('')}</p>`;
+}
+function leadFigures(st) {
+  const figs = [], n = nSrc(st), m = measureOf(st);
+  if (n > 1) figs.push(`<span class="fig"><b class="num">${n}</b><span>nguồn cùng đưa</span></span>`);
+  if (m) figs.push(`<span class="fig">${numB(m)}<span>${esc(m.word)}${m.where ? ` trên ${esc(m.where)}` : ''}</span></span>`);
+  const hn = (st.coverage || []).map(c => c && c.metrics && c.metrics.comments).find(v => Number.isFinite(v) && v > 0);
+  if (hn && (!m || m.word !== METRIC.comments)) figs.push(`<span class="fig"><b class="num">${fmt(hn)}</b><span>bình luận</span></span>`);
+  return figs.length ? `<div class="lead-figs">${figs.join('')}</div>` : '';
+}
+function renderCard(st, size = 'card', opts = {}) {
+  if (size === 'std') size = 'card'; // the standard card's name before the bento
   const img = pickImage(st);
-  const photo = (size === 'lead' || size === 'wide') && img.kind === 'photo';
+  const m = measureOf(st);
   const covs = covsOf(st);
   const first = covs[0] || {};
   const t = titleOf(st);
   const from = t.cov || first;
   const href = safe(t.cov ? t.cov.url : st.url);
-  const face = t.cov ? faceOfSource(t.cov, SRC) : faceOfStory(st, SRC);
   const name = covName(from) || hostOf(href);
   const tid = `t-${esc(st.id)}`;
-  const m = measureOf(st);
-  const h = opts.h || 'h2';
   const pin = PICKS.get(st.id);
-  // Summaries only on the big cards, and only in Vietnamese: an English paragraph under a Vietnamese headline reads as noise.
-  const sumRaw = shown(st.summary, st.summary_vi);
-  const sum = (size !== 'std' && sumRaw && VI_RE.test(sumRaw) && sumRaw.trim() !== t.text.trim()) ? sumRaw : '';
-  // The foot carries a measured number (and where it was measured, when that is not the source named above) and the
-  // disclosure that replaces the bento home's story sheet: "N nguồn" (or "Chi tiết" for one source) opens why the
-  // story is hot, its summary and every publisher that carried it, in time order, each with its own counters and
-  // discussion link. #tin/<id> opens the same panel.
   const covId = `cov-${esc(st.id)}`;
-  const metric = [
-    (m && !opts.why) ? `<span>${numB(m)} ${esc(m.word)}</span>` : '',
-    `<button class="cov-btn" data-cov="${esc(st.id)}" aria-haspopup="dialog" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${nSrc(st) > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${nSrc(st)}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`
-  ].filter(Boolean).join('');
+  const lead = size === 'lead';
+  // The bigger tiles print the publisher's description (the dek), always labelled, and only in Vietnamese: an English
+  // paragraph under a Vietnamese headline reads as noise. The desk's summary points stay in the reading views
+  // (tests/verify-feed-content.mjs), so the lead carries the dek and its numbers, not the points.
+  const sumRaw = shown(st.summary, st.summary_vi);
+  const sum = (lead || size === 'feature' || size === 'wide') && sumRaw && VI_RE.test(sumRaw) && sumRaw.trim() !== t.text.trim() ? sumRaw : '';
+  const ptsHTML = sum ? `<p class="card-sum">${sourceDescriptionMark()}${esc(sum)}</p>` : '';
   const cal = calOf(st);
   const isSaved = savedHas(st.id);
   const why = opts.why ? worthWhy(st) : '';
-  const cls = ['feed-card', `card-${size}`, opts.debate ? 'card-debate' : '', photo ? 'card-photo' : '', statusClass(st)].filter(Boolean).join(' ');
+  const cls = ['feed-card', 'tile-story', `card-${size}`, MEDIA_SIZES.has(size) && img.src ? 'has-img' : '', opts.full ? 'is-full' : '', statusClass(st)].filter(Boolean).join(' ');
+  const sources = `<button class="cov-btn" data-cov="${esc(st.id)}" aria-haspopup="dialog" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${nSrc(st) > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${nSrc(st)}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`;
 
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}" data-worth="${worthOf(st).score.toFixed(1)}">
-  ${mediaHTML(img, size)}
-  <div class="${photo ? 'photo-body' : 'card-body'}">
-    ${reasonTag(st)}
-    <div class="src-row">${markHTML(st)}${opts.rank ? `<span class="pick-n num"><span class="sr">Số </span>${opts.rank}</span>` : ''}<span class="src-who"><span class="src-av" aria-hidden="true">${avatar(face, 'xs')}</span><span class="src-name">${esc(name)}</span></span><span class="src-when">${timeEl(st.published_at)}${translationMark(t)}</span></div>
-    ${h === 'h3'
-      ? `<h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${titleHTML(st, t.text)}</a></h3>`
-      : `<h2 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${titleHTML(st, t.text)}</a></h2>`}
+  ${MEDIA_SIZES.has(size) ? mediaHTML(img, size) : ''}
+  <div class="card-body">
+    ${kickerHTML(st)}
+    <h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>
     ${why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${why}</p>` : ''}
-    ${opts.why && pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
-    ${sum ? `<p class="card-sum">${sourceDescriptionMark()}${esc(sum)}</p>` : ''}
+    ${pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
+    ${ptsHTML}
+    ${lead ? leadFigures(st) : ''}
     <div class="card-foot">
-      <span class="metric">${metric}</span>
+      <p class="t-meta">${markHTML(st)}<span class="src-name">${esc(name)}</span><span class="dot" aria-hidden="true">·</span>${timeEl(st.published_at)}${translationMark(t)}${m && !lead && !opts.why ? `<span class="dot" aria-hidden="true">·</span><span class="t-num">${numB(m)} ${esc(m.word)}</span>` : ''}</p>
       <div class="card-actions">
+        ${sources}
         <button class="act${isSaved ? ' is-saved' : ''}" data-act="save" data-id="${esc(st.id)}" aria-pressed="${isSaved}" aria-label="Lưu tin này" aria-describedby="${tid}" aria-keyshortcuts="S" title="Lưu">${icon('i-bookmark')}</button>
         <button class="act" data-act="copy" data-url="${esc(href)}" aria-label="Chép liên kết" aria-describedby="${tid}" title="Chép liên kết">${icon('i-link')}</button>
       </div>
@@ -1701,33 +1717,18 @@ function renderModels() {
     }).join('')}</div></section>`;
 }
 
-/* ---------- "Đáng đọc hôm nay": the lead photo is number 1, a tile beside it ranks 2 to 5 ---------- */
-function pickRow(st, rank) {
-  const img = pickImage(st), t = titleOf(st), pin = PICKS.get(st.id);
-  return `<li><a class="hot-row pick-row ${statusClass(st)}" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-worth="${worthOf(st).score.toFixed(1)}">
-    <span class="thumb pick-thumb" data-id="${esc(st.id)}">${img.src ? `${mediaBackdrop(img.src)}<img src="${esc(img.src)}" alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
-    <span class="hot-rank num" aria-hidden="true">${rank}</span>
-    <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span>
-      <span class="hot-why">${translationMark(t)}${pin ? '<span class="tag is-editor">Biên tập chọn</span>' : ''}<span class="sr">Vì sao nên đọc: </span>${whyParts(worthParts(st))}</span>
-      ${pin && pin.note ? `<span class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</span>` : ''}</span></a></li>`;
-}
+/* ---------- the front page's first row: the story most sources carry (lead) and the next one beside it ---------- */
 function renderPicks() {
   const show = filter === 'all' && PICKLIST.length > 0;
   $('#picks').hidden = !show;
   if (!show) return;
-  const [first, ...mid] = PICKLIST;
-  const noteEl = $('#picks-note');
-  if (noteEl) noteEl.textContent = '';
-  // The subtitle names the window the row really drew from: 24 hours, or the whole window when older stories filled in.
+  const [first, second] = PICKLIST;
+  // The heading's note names the window the row really drew from: 24 hours, or the whole window when older stories filled in.
   const subEl = $('#picks-sub');
   const span = PICKLIST.every(st => GEN - ms(st.published_at) <= PICKS_MAX_AGE_H * 36e5) ? PICKS_MAX_AGE_H : winH;
   if (subEl) subEl.textContent = `Các sự kiện lớn được từ 2 đến 4 nguồn tin độc lập cùng xác nhận trong ${span} giờ qua.`;
-  const grid = $('#picks-grid');
-  grid.innerHTML = renderCard(first, 'lead', { why: true, h: 'h3' })
-    + (mid.length ? `<div class="picks-mid">${mid.map(st => renderCard(st, 'std', { h: 'h3' })).join('')}</div>` : '')
-    + renderLive();
-  initShelves($('#top'));
-  scheduleCountdown();
+  $('#picks-grid').innerHTML = renderCard(first, 'lead', { why: true, full: !second })
+    + (second ? renderCard(second, 'feature') : '');
 }
 
 /* "Cách chấm": written from WORTH, so the note always matches the code. */
@@ -1746,114 +1747,74 @@ function renderHow() {
 }
 
 /* ==========================================================================
-   ORDER AND RHYTHM
-   Above the grid, "Đáng đọc hôm nay" holds the lead photo (number 1) and the ranked tile (2 to 5).
-   Laptop grid (12 columns): the live tile (3 wide, 2 rows) beside six cards, three per row; then the hot and
-   repository tiles side by side, rows of four cards, a wide photo card every third row. Phone: the same order, one
-   column. The river follows the switch: "Đáng đọc nhất" (score) or "Mới nhất" (published time).
+   ORDER AND RHYTHM (captain, 07/11: the "Trang nhất" front page, mockup B)
+   A 12-column bento. The first row (above, #picks) is the lead and a feature. Then: three cards; the Arena tile beside a
+   wide story; four small text tiles; two cards beside "Vừa đăng"; the hot list beside the live and upcoming tile; the
+   repository and model tiles; then the river repeats small, card and wide rows. Each row fills the 12 columns, so the
+   visual order is the reading order. A picture slot takes the next of six stories that has a picture and a text slot
+   one that has none, so pictures and type alternate; otherwise the ranking's order holds. The river follows the switch:
+   "Đáng đọc nhất" (score) or "Mới nhất" (published time). Phone: the same order, one column.
    ========================================================================== */
-const C = (st, size = 'std', opts = {}) => ({ t: 'card', st, size, opts });
-const photoIndex = river => river.findIndex((st, k) => k < 12 && pickImage(st).kind === 'photo');
-
-function rows(river, out) {
-  for (let r = 1; river.length; r++) {
-    const wi = r % 3 === 0 ? photoIndex(river) : -1;
-    if (wi >= 0) { out.push(C(river.splice(wi, 1)[0], 'wide')); for (let i = 0; i < 2 && river.length; i++) out.push(C(river.shift())); }
-    else for (let i = 0; i < 4 && river.length; i++) out.push(C(river.shift()));
-  }
+const C = (st, size = 'card', opts = {}) => ({ t: 'card', st, size, opts });
+const hasPicture = st => !!pickImage(st).src;
+function take(pool, want) {
+  if (!pool.length) return null;
+  const fits = st => want === 'img' ? hasPicture(st) : want === 'text' ? !hasPicture(st) : true;
+  const i = pool.slice(0, 6).findIndex(fits);
+  return pool.splice(i < 0 ? 0 : i, 1)[0];
+}
+/* A row is a list of items; its first item carries row: true so a page of the river ends on a whole row. */
+function pushRow(out, items) {
+  const list = items.filter(Boolean);
+  if (list.length) { list[0].row = true; out.push(...list); }
   return out;
 }
+const cardsOf = (pool, slots) => slots.map(([size, want]) => { const st = take(pool, want); return st ? C(st, size) : null; });
+const ROWS = {
+  cards: [['card', 'img'], ['card', 'img'], ['card', 'img']],
+  small: [['small', 'text'], ['small', 'text'], ['small', 'text'], ['small', 'text']],
+  wide: [['wide', 'img'], ['card', 'img']],
+  wideEnd: [['card', 'img'], ['wide', 'img']],
+};
+const RIVER = ['small', 'cards', 'wide', 'small', 'cards', 'wideEnd'];
+function rows(river, out, start = 0) {
+  for (let r = start; river.length; r++) pushRow(out, cardsOf(river, ROWS[RIVER[r % RIVER.length]]));
+  return out;
+}
+const liveAvailable = () => !!(D && ((D.live || []).length || (D.events || []).some(e => eventSpan(e).end > Date.now())));
 
 function buildAll() {
   const out = [], used = new Set(PICKLIST.map(st => st.id));
-
-  // --- Khối 2: Cộng đồng đang tranh luận ---
+  // The hot list: the stories people are discussing most, measured, one event told once.
   HOT = allStories.filter(st => !used.has(st.id) && (st.hot_score || 0) > 0 && hotEligible(st) && !PICKLIST.some(p => sameEvent(p, st)))
     .sort(byWorth).slice(0, 5);
   HOT.forEach(st => used.add(st.id));
+  const pool = ordered(allStories.filter(st => !used.has(st.id)));
 
-  const discussions = allStories.filter(st => !used.has(st.id) && (st.kind === 'forum' || (st.hot_score || 0) > 0))
-    .sort((a, b) => (b.hot_score || 0) - (a.hot_score || 0) || ms(b.published_at) - ms(a.published_at));
-  const debateCards = [];
-  for (const st of discussions) {
-    if (debateCards.length >= 2) break;
-    if (!HOT.some(h => sameEvent(h, st))) {
-      debateCards.push(st);
-      used.add(st.id);
-    }
-  }
-
-  out.push({
-    t: 'section-head',
-    id: 'sec-tranh-luan',
-    title: 'Cộng đồng đang tranh luận',
-    sub: 'Các chủ đề thu hút nhiều thảo luận và tốc độ quan tâm đột biến trên Hacker News và các diễn đàn.'
-  });
-  out.push({ t: 'hot' });
-  debateCards.forEach(st => out.push(C(st, 'std', { debate: true, why: true })));
-
-  // --- Khối 3: Vừa ra mắt & Công bố mới ---
-  const productCandidates = allStories.filter(st => !used.has(st.id) && (st.kind === 'product' || firstHandOf(st)))
-    .sort((a, b) => (sortMode === 'new' ? byNew : byWorth)(a, b));
-  const productCards = [];
-  for (const st of productCandidates) {
-    if (productCards.length >= 4) break;
-    if (!productCards.some(p => sameEvent(p, st))) {
-      productCards.push(st);
-      used.add(st.id);
-    }
-  }
-
-  if (productCards.length) {
-    out.push({
-      t: 'section-head',
-      id: 'sec-ra-mat',
-      title: 'Vừa ra mắt & Công bố mới',
-      sub: 'Các sản phẩm, tính năng và công bố chính thức từ các hãng và phòng nghiên cứu.'
-    });
-    const wi = photoIndex(productCards);
-    if (wi >= 0 && productCards.length >= 3) {
-      out.push(C(productCards.splice(wi, 1)[0], 'wide'));
-      productCards.slice(0, 2).forEach(st => out.push(C(st, 'std')));
-    } else {
-      productCards.forEach(st => out.push(C(st, 'std')));
-    }
-  }
-
-  // --- Khối 4: Kho mã & Mô hình đáng thử ---
-  out.push({
-    t: 'section-head',
-    id: 'sec-kho-ma',
-    title: 'Kho mã & Mô hình đáng thử',
-    sub: 'Kho mã nguồn mở tăng sao nhanh nhất trên GitHub và mô hình thịnh hành trên Hugging Face.'
-  });
-  out.push({ t: 'repos' });
-  out.push({ t: 'models' });
-
-  // --- Khối 5: Dòng tin 72 giờ qua ---
-  const river = ordered(allStories.filter(st => !used.has(st.id)));
-  if (river.length) {
-    out.push({
-      t: 'section-head',
-      id: 'sec-dong-tin',
-      title: 'Dòng tin 72 giờ qua',
-      sub: 'Toàn bộ diễn biến khác trong 72 giờ qua, cập nhật liên tục từ các nguồn tin độc lập.'
-    });
-    rows(river, out);
-  }
-
-  return out;
+  // The picks after the first row lead the three cards; the ranking fills the rest.
+  const rest = PICKLIST.slice(2).map(st => C(st, 'card'));
+  pushRow(out, [...rest, ...cardsOf(pool, ROWS.cards.slice(rest.length))]);
+  pushRow(out, [{ t: 'arena' }, ...cardsOf(pool, [['wide', 'img']])]);
+  pushRow(out, cardsOf(pool, ROWS.small));
+  pushRow(out, [...cardsOf(pool, [['card', 'img'], ['card', 'img']]), D && newestStories().list.length ? { t: 'fresh' } : cardsOf(pool, [['card', 'img']])[0]]);
+  const live = liveAvailable(), hot = HOT.length > 0;
+  if (live && hot) pushRow(out, [{ t: 'hot' }, { t: 'live' }]);
+  else if (hot) pushRow(out, [{ t: 'hot' }, ...cardsOf(pool, [['card', 'img'], ['card', 'img']])]);
+  else if (live) pushRow(out, [{ t: 'live' }, ...cardsOf(pool, [['card', 'img']])]);
+  pushRow(out, [{ t: 'repos' }, getTrendingModels().length ? { t: 'models' } : null]);
+  return rows(pool, out);
 }
 
 const FILTERS = {
   big: st => bigSet.has(st.id),
   hot: st => st.hot_score > 0 && hotEligible(st),
   product: st => st.kind === 'product',
+  research: st => st.kind === 'research' || st.kind === 'paper',
   forum: st => st.kind === 'forum',
   code: st => st.kind === 'repository' || st.kind === 'model',
 };
 /* The bento home's chapters, as views of the same feed. Their lists come from the snapshot's sections (the pipeline's
-   choice), so they may reach outside the window, as the chapters did. The search page links to these addresses. */
+   choice), so they may reach outside the window, as the chapters did. Old search links point at these addresses. */
 const SECTIONS = {
   'hom-nay': { sec: 'today', label: 'Hôm nay', order: 'new' },
   model: { sec: 'models', label: 'Mô hình mới', order: 'new' },
@@ -1872,12 +1833,20 @@ function listFor(f) {
   if (s) return asArray(D.sections && D.sections[s.sec]).map(id => STORY_ANY.get(id)).filter(Boolean);
   return allStories.filter(FILTERS[f] || (() => false));
 }
+/* A filtered view opens on its own lead and feature, then the same river rows. */
+function leadRow(river, out) {
+  const first = river.shift();
+  if (!first) return out;
+  const second = take(river, 'img');
+  return pushRow(out, [C(first, 'lead', { full: !second }), second ? C(second, 'feature') : null]);
+}
 function buildFiltered(f) {
   const s = secOf(f);
   if (f === 'saved') {
     // Saved stories in the order the reader saved them (newest first); anything no longer in the snapshot follows as links.
-    const out = savedStories().map(st => C(st));
-    if (saved.some(x => !STORY_ANY.has(x.key))) out.push({ t: 'saved-rest' });
+    const list = savedStories(), out = [];
+    for (let i = 0; i < list.length; i += 3) pushRow(out, list.slice(i, i + 3).map(st => C(st, 'card')));
+    if (saved.some(x => !STORY_ANY.has(x.key))) pushRow(out, [{ t: 'saved-rest' }]);
     return out;
   }
   if (s) {
@@ -1885,15 +1854,14 @@ function buildFiltered(f) {
     const river = s.order === 'date'
       ? list.slice().sort((a, b) => String((eventOf(a) || {}).start_date || a.published_at).localeCompare(String((eventOf(b) || {}).start_date || b.published_at)))
       : list.slice().sort(byNew);
-    const out = s.sec === 'upcoming' ? [{ t: 'live' }] : [];
-    if (river.length && s.sec !== 'upcoming') out.push(C(river.shift(), 'lead'));
+    const out = s.sec === 'upcoming' ? pushRow([], [{ t: 'live', all: true }]) : [];
+    if (s.sec !== 'upcoming') leadRow(river, out);
     return rows(river, out);
   }
   const river = ordered(listFor(f)), out = [];
-  if (f === 'code') { out.push({ t: 'repos-full' }, { t: 'models' }); return rows(river, out); }
-  if (river.length) out.push(C(river.shift(), 'lead'));
-  for (let i = 0; i < 4 && river.length; i++) out.push(C(river.shift()));
-  return rows(river, out);
+  if (f === 'code') { pushRow(out, [{ t: 'repos-full' }]); pushRow(out, [{ t: 'models' }]); return rows(river, out); }
+  leadRow(river, out);
+  return rows(river, out, 1);
 }
 /* Saved items that left the snapshot (and saved repositories): the title and address kept at save time. */
 function renderSavedRest() {
@@ -1906,22 +1874,41 @@ function renderSavedRest() {
       <button class="act is-saved" data-act="save" data-id="${esc(x.key)}" aria-pressed="true" aria-label="Bỏ lưu ${esc(x.title || '')}" title="Bỏ lưu">${icon('i-close')}</button></li>`).join('')}</ul></section>`;
 }
 
-function renderSectionHead(it) {
-  return `<header class="briefing-head" id="${esc(it.id || '')}">
-    <h2 class="briefing-title">${esc(it.title)}</h2>
-    <p class="briefing-sub">${esc(it.sub)}</p>
-  </header>`;
+/* ---------- tile: the Arena leaders, woven into the front page; the full table is the "Xếp hạng" view ---------- */
+let ARENA_DATA = null;
+const arenaChange = r => r.change_status === 'unlisted' ? '<small>mới vào bảng</small>'
+  : r.change_status !== 'compared' || !Number.isInteger(r.rank_change) ? '<small>chưa đủ dữ liệu</small>'
+  : !r.rank_change ? '<small>giữ hạng</small>'
+  : r.rank_change > 0 ? `<small class="up"><span aria-hidden="true">↑ </span>tăng <span class="num">${r.rank_change}</span></small>`
+  : `<small><span aria-hidden="true">↓ </span>giảm <span class="num">${-r.rank_change}</span></small>`;
+function arenaTileBody(data) {
+  const rows = data && data.categories && Array.isArray(data.categories.overall) ? data.categories.overall.slice(0, 5) : [];
+  const date = /^(\d{4})-(\d{2})-(\d{2})$/.exec((data && data.published_at) || '');
+  const head = `<div class="tile-head"><h2 class="tile-title" id="arena-tile-h">Mô hình dẫn đầu</h2><span class="tile-note">LMArena${date ? ` · <span class="num">${+date[3]}/${+date[2]}</span>` : ''}</span></div>`;
+  if (!rows.length) return `${head}<p class="tile-note arena-tile-empty" role="status">${data === false ? 'Chưa tải được bảng xếp hạng.' : 'Đang tải bảng xếp hạng…'}</p>
+    <div class="tile-foot"><button class="text-btn" type="button" data-filter-go="rankings">Mở bảng xếp hạng</button></div>`;
+  return `${head}<ol class="arena-list">${rows.map(r => `<li class="arena-row"><span class="arena-rank num">${esc(r.rank)}</span>
+      <span class="arena-name"><b lang="en">${esc(modelName(r.id))}</b><span>${esc(makerName(r.maker))}${Number.isFinite(r.vote_count) ? ` · <span class="num">${fmt(r.vote_count)}</span> lượt bình chọn` : ''}</span></span>
+      <span class="arena-score num">${esc(scoreText(r.score))}${arenaChange(r)}</span></li>`).join('')}</ol>
+    <div class="tile-foot"><span>Điểm theo bình chọn, bảng tổng</span><button class="text-btn" type="button" data-filter-go="rankings">Xem đủ 10 mô hình</button></div>`;
+}
+function renderArenaTile() {
+  if (!ARENA_DATA) loadArena().then(d => { ARENA_DATA = d; }, () => { ARENA_DATA = false; }).then(() => {
+    const el = $('#arena-tile'); if (el) el.innerHTML = arenaTileBody(ARENA_DATA);
+  });
+  return `<section class="tile tile-arena" id="arena-tile" aria-labelledby="arena-tile-h">${arenaTileBody(ARENA_DATA)}</section>`;
 }
 
 function renderItem(it) {
   if (it.t === 'card') return renderCard(it.st, it.size, it.opts);
-  if (it.t === 'live') return renderLive(true);
+  if (it.t === 'live') return renderLive(!!it.all);
   if (it.t === 'hot') return renderHot();
   if (it.t === 'repos') return renderRepos();
   if (it.t === 'repos-full') return renderRepos(true);
   if (it.t === 'models') return renderModels();
+  if (it.t === 'arena') return renderArenaTile();
+  if (it.t === 'fresh') return freshTileHTML();
   if (it.t === 'saved-rest') return renderSavedRest();
-  if (it.t === 'section-head') return renderSectionHead(it);
   return '';
 }
 
@@ -1929,7 +1916,7 @@ function renderChunk(limit) {
   let html = '';
   while (pos < seq.length) {
     const it = seq[pos];
-    if (it.t === 'card' && shownCards >= limit) break;
+    if (it.row && shownCards >= limit) break;     // a page of the river ends on a whole row
     html += renderItem(it);
     if (it.t === 'card') shownCards++;
     pos++;
@@ -1965,14 +1952,13 @@ function renderFeed() {
   $('#sort-switch').hidden = rankings || !D;
   if (rankings) {
     for (const id of ['picks', 'feed-empty', 'feed-more', 'feed-end', 'filter-context']) $('#' + id).hidden = true;
-    renderFreshRow();
     $('#top').removeAttribute('aria-busy');
     arenaView.show();
     renderChips();
+    renderFrontMeta();
     return;
   }
   if (!D) { $('#feed-empty').hidden = false; renderChips(); return; }
-  renderFreshRow();
   PICKLIST = choosePicks();       // the top row depends on what "Vừa đăng" shows right now (one event, told once)
   renderPicks();
   seq = filter === 'all' ? buildAll() : buildFiltered(filter);
@@ -1986,7 +1972,9 @@ function renderFeed() {
   renderSub();
   renderEnd();
   renderChips();
+  renderFrontMeta();
   initRepoPills($('#feed-grid'));
+  initShelves($('#top'));
   scheduleCountdown();
   $('#top').removeAttribute('aria-busy');
   hydrateHF(document);
@@ -2052,14 +2040,26 @@ function renderSub() {
 function renderChips() {
   $$('.filter-chip').forEach(b => {
     const f = b.dataset.filter;
-    LABELS[f] = LABELS[f] || b.textContent.trim();
-    const n = f === 'all' ? allStories.length : f === 'saved' ? saved.length : listFor(f).length;
+    LABELS[f] = LABELS[f] || (b.querySelector('.chip-label') || b).textContent.trim();
+    const n = !D ? 0 : f === 'all' ? allStories.length : f === 'saved' ? saved.length : f === 'rankings' ? 0 : listFor(f).length;
     b.hidden = f !== 'all' && f !== 'rankings' && n === 0 && f !== filter;
     b.setAttribute('aria-pressed', String(f === filter));
+    const count = b.querySelector('.count');
+    if (count) { count.textContent = n ? String(n) : ''; count.setAttribute('aria-label', n ? `${n} tin` : ''); }
   });
   const container = $('#feed-filters');
   const active = container ? container.querySelector('.filter-chip[aria-pressed="true"]') : null;
   if (container && active) glideTab(container, active);
+}
+/* The line above the bento: which view this is, how many stories the window holds and when it was made. */
+function renderFrontMeta() {
+  const h = $('#front-h');
+  if (h) h.textContent = filter === 'all' ? 'Trang nhất' : (LABELS[filter] || '');
+  const el = $('#front-fresh');
+  if (!el) return;
+  if (!D || filter === 'rankings') { el.textContent = ''; return; }
+  const gen = new Date(D.generated_at), today = dayKey(new Date()) === dayKey(gen);
+  el.innerHTML = `<span class="num">${allStories.length}</span> tin trong ${winH} giờ qua · cập nhật <time datetime="${esc(D.generated_at)}" title="${esc(exact(D.generated_at))}">${today ? 'hôm nay' : esc(DATE_VN.format(gen))} lúc ${esc(hhmm(gen))}</time>`;
 }
 /* Keep the Arena deep link when its tab is selected; news filters retain their existing URL behavior. */
 function setFilter(f, fromHash = false) {
@@ -2164,7 +2164,7 @@ function renderNewItems() {
    own place in the blocks below and in "Dòng tin", whose order is untouched. */
 const NEWEST = { hours: 6, min: 4, maxHours: 24, cap: 8 };
 let freshIds = [];            // the batch the reader asked to see with the pill, pinned first while unread
-const NEWEST_SHELF_LABEL = 'Tin vừa đăng, trượt ngang để xem thêm';
+const FRESH_TILE_ROWS = 5;
 function newestStories() {
   const young = h => allStories.filter(st => GEN - ms(st.published_at) <= h * 36e5);
   let pool = young(NEWEST.hours), hours = NEWEST.hours;
@@ -2173,41 +2173,32 @@ function newestStories() {
   const rest = pool.slice().sort(byNew).filter(st => !pinned.includes(st));
   return { list: [...pinned, ...rest].slice(0, Math.max(NEWEST.cap, pinned.length)), hours };
 }
-function freshBox() {
-  let box = $('#fresh-row');
-  if (!box && typeof document.createElement === 'function' && $('#picks')) {
-    box = document.createElement('div');
-    box.id = 'fresh-row';
-    box.hidden = true;
-    $('#picks').before(box);
-  }
-  return box;
-}
+/* "Vừa đăng" is a front-page tile (mockup B's "Tin nhanh"): the clock time each story was published, then its headline. */
 function freshItem(st) {
-  const img = pickImage(st), t = titleOf(st);
-  const from = t.cov || covsOf(st)[0] || {};
-  const name = covName(from) || hostOf(safe(st.url));
-  return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><a class="fresh-item" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-read="${esc(st.id)}">
-    <span class="thumb">${img.src ? `${mediaBackdrop(img.src)}<img src="${esc(img.src)}" alt="" width="320" height="180" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
-    <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span>
-      <span class="hot-why"><span class="why-part">${esc(name)}</span><span class="sr">, </span><span class="why-part">${timeEl(st.published_at)}</span>${translationMark(t)}</span></span></a></li>`;
+  const t = titleOf(st);
+  return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><a class="brief fresh-item" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-read="${esc(st.id)}">
+    <time class="num" datetime="${esc(st.published_at)}" title="${esc(exact(st.published_at))}">${esc(hhmm(new Date(st.published_at)))}</time>
+    <span class="brief-h"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}${translationMark(t)}</span></a></li>`;
 }
-function renderFreshRow() {
-  const box = freshBox();
-  if (!box) return;
+function freshInnerHTML() {
   const { list, hours } = D && filter === 'all' ? newestStories() : { list: [], hours: 0 };
-  box.hidden = !list.length;
-  if (box.hidden) { box.innerHTML = ''; return; }
-  const n = list.length, shelf = n > 1;
-  const nav = shelf ? `<span class="shelf-nav" hidden>
-    <button type="button" class="shelf-btn" data-shelf="-1" aria-controls="fresh-shelf" aria-label="Tin trước">${chevron(false)}</button>
-    <button type="button" class="shelf-btn" data-shelf="1" aria-controls="fresh-shelf" aria-label="Tin tiếp theo">${chevron(true)}</button></span>` : '';
-  box.innerHTML = `<section class="tile tile-fresh" aria-labelledby="fresh-row-h">
-    <div class="tile-head"><div class="fresh-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2>
-      <span class="tile-note">đăng trong <span class="num">${hours}</span> giờ qua, tin sau cùng đứng đầu</span></div>
-      ${nav ? `<span class="tile-tools">${nav}</span>` : ''}</div>
-    <div class="fresh-body"${shelf ? ` role="region" aria-label="${NEWEST_SHELF_LABEL}"` : ''}><ul class="fresh-list${shelf ? ' shelf' : ''}" id="fresh-shelf" data-n="${n}">${list.map(freshItem).join('')}</ul></div></section>`;
-  initShelves($('#top'));
+  if (!list.length) return '';
+  // Five rows sit beside two cards (mockup B); a batch the "N tin mới" pill pinned is shown whole.
+  const shown = list.slice(0, Math.max(FRESH_TILE_ROWS, freshIds.filter(id => !read.has(id)).length));
+  return `<div class="tile-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2><span class="tile-note">giờ đăng, trong <span class="num">${hours}</span> giờ qua</span></div>
+    <ul class="briefs fresh-list" data-n="${shown.length}">${shown.map(freshItem).join('')}</ul>`;
+}
+function freshTileHTML() {
+  const inner = freshInnerHTML();
+  return inner ? `<section class="tile tile-fresh" id="fresh-row" aria-labelledby="fresh-row-h">${inner}</section>` : '';
+}
+/* Redraw the tile in place (the "N tin mới" pill pins its batch first). */
+function renderFreshRow() {
+  const box = $('#fresh-row');
+  if (!box) return;
+  const inner = freshInnerHTML();
+  box.innerHTML = inner;
+  box.hidden = !inner;
 }
 function goFirstNew() {
   if (!D) return;
@@ -2228,8 +2219,9 @@ function goFirstNew() {
     if (box && !box.hidden) heading = $('#fresh-row-h');
   }
   if (heading) {
-    // The row sits at the very top of the page: go there, then hand keyboard and screen-reader users its heading.
-    window.scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' });
+    // Bring the tile under the news bar, then hand keyboard and screen-reader users its heading.
+    const tile = $('#fresh-row');
+    window.scrollTo({ top: Math.max(0, scrollY + tile.getBoundingClientRect().top - $('#bar').offsetHeight - 16), behavior: RM.matches ? 'auto' : 'smooth' });
     heading.focus({ preventScroll: true });
     dismissNewItems();
     return;
@@ -2381,8 +2373,21 @@ function openStory(id) {
   revealStory(sid => sid === id, true);
   openStoryModal(id);
 }
+/* The search page's old addresses land here (tra-cuu.html forwards ?q=): the news bar's search opens with the query
+   filled, and the address is cleaned so a reload or a shared link does not reopen it. */
+function openSearchFromAddress() {
+  const url = new URL(location.href);
+  const q = url.searchParams.get('q');
+  if (q == null && url.hash !== '#tim') return false;
+  url.searchParams.delete('q');
+  if (url.hash === '#tim') url.hash = '';
+  history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+  if (newsSearch) newsSearch.open(q || '');
+  return true;
+}
 function route() {
   if (location.hash === '#xep-hang') { setFilter('rankings', true); return; }
+  if (location.hash === '#tim') { openSearchFromAddress(); return; }
   if (!D) return;
   const h = decodeURIComponent(location.hash.slice(1));
   if (!h || h === 'top') return;                 // the browser scrolls; a filter the reader chose stays
@@ -2408,10 +2413,7 @@ function watchPictures() {
       PICKED.set(st.id, cv);
       card.dataset.via = cv.via;
       img.parentElement.innerHTML = coverHTML(cv.cover);
-      if (card.classList.contains('card-photo')) {
-        card.classList.remove('card-photo');
-        const b = card.querySelector('.photo-body'); if (b) b.className = 'card-body';
-      }
+      card.classList.remove('has-img');
       return;
     }
     const thumb = img.closest('.thumb');
@@ -2489,7 +2491,7 @@ function onKey(e) {
   else if (k === 'u' || k === 'U') goFirstNew();
   else if (k === 'm' || k === 'M') { if (D && newCount()) markSeen(); }
   else if (k === 'g' || k === 'G') { scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' }); }
-  else if (k === '/') { e.preventDefault(); location.href = 'tra-cuu.html'; }
+  else if (k === '/') { e.preventDefault(); if (newsSearch) newsSearch.open(); }
   else if (k === '?') { e.preventDefault(); $('#keys').showModal(); }
 }
 
@@ -2604,6 +2606,29 @@ function attachEvents() {
   });
   $('.feed-brand').addEventListener('click', () => { if (filter !== 'all') setFilter('all'); });
   $('#feed-filters').addEventListener('click', e => { const b = e.target.closest('.filter-chip'); if (b) setFilter(b.dataset.filter); });
+  // Tiles that lead to a view of their own ("Xem đủ 10 mô hình" opens "Xếp hạng").
+  document.addEventListener('click', e => {
+    const go = e.target instanceof Element && e.target.closest('[data-filter-go]');
+    if (go) { setFilter(go.dataset.filterGo); $('#top').focus({ preventScroll: true }); }
+  });
+  newsSearch = createNewsSearch({
+    root: $('#news-search'),
+    getStories: () => allStories,
+    onOpenStory: id => {
+      if (!STORY_ANY.has(id)) return false;
+      openStoryModal(id);
+      return true;
+    },
+  });
+  // The news bar gains a hairline (and the logo tile) only once it is actually stuck.
+  const bar = $('#bar');
+  if (bar && 'IntersectionObserver' in window) {
+    const sentinel = document.createElement('div');
+    sentinel.className = 'bar-sentinel';
+    sentinel.setAttribute('aria-hidden', 'true');
+    bar.before(sentinel);
+    new IntersectionObserver(([en]) => bar.classList.toggle('is-stuck', !en.isIntersecting)).observe(sentinel);
+  }
   $('#sort-switch').addEventListener('click', e => {
     const b = e.target.closest('.sort-btn');
     if (!b) return;
@@ -2799,6 +2824,7 @@ async function init() {
   watchPictures();
   watchImageLoad();
   attachEvents();
+  openSearchFromAddress();
   arenaView = createArenaView($('#arena'));
   addEventListener('hashchange', routeWhenReady);
   route();
