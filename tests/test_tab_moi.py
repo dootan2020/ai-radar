@@ -135,8 +135,9 @@ class TopZoneTests(unittest.TestCase):
 
     def test_weather_and_calendar_keep_one_place_on_every_section(self):
         # Captain, 08/11 19:50: "cố định vị trí thẻ thời tiết và âm lịch". Every redraw of the grid (any section, sort,
-        # new stories, even a failed news load) puts the two cards back, and the stylesheet pins their cells: columns
-        # three and four of the first row, the calendar under the weather with three columns, first on a phone.
+        # new stories, even a failed news load) puts the two cards back, and the stylesheet pins their cells. Captain,
+        # 09/11: "2 thẻ cùng 1 cột. Thời tiết ở trên, lịch ở dưới": the grid's last column at every column count, the
+        # weather in the first row and the calendar under it; first on a phone.
         for folder in (ROOT / "site", EXT):
             feed = (folder / "feed.js").read_text(encoding="utf-8")
             self.assertIn("(front ? leadHTML(PICKLIST) + FIXED_SLOTS + topListHTML(FRONT_TOP) : FIXED_SLOTS) + html", feed)
@@ -144,9 +145,12 @@ class TopZoneTests(unittest.TestCase):
             self.assertEqual(feed.count("placeFixedCards("), 3)   # the definition, a redraw, a failed news load
             css = (folder / "trang-msn.css").read_text(encoding="utf-8")
             for rule in (".msn-grid:has(> .msn-wx) { grid-template-rows: var(--msn-row1); }",
-                         ".msn-grid > .msn-wx { grid-area: 1 / 3; }", ".msn-grid > .msn-cal { grid-area: 1 / 4; }",
-                         ".msn-grid > .msn-cal { grid-area: 2 / 3; }", ".msn-grid > .msn-wx { grid-area: auto / 1 / auto / -1; }"):
+                         ".msn-grid > .msn-wx { grid-area: 1 / -2; }", ".msn-grid > .msn-cal { grid-area: 2 / -2; }",
+                         ".msn-grid > .msn-wx { grid-area: auto / 1 / auto / -1; }"):
                 self.assertIn(rule, css)
+            # No width moves the pair back into the middle of a row.
+            for old in ("grid-area: 1 / 3;", "grid-area: 1 / 4;", "grid-area: 2 / 3;"):
+                self.assertNotIn(old, css)
 
     def test_nothing_inside_the_weather_card_draws_a_ring(self):
         # Captain, 08/11 19:50: "bên trong thẻ thời tiết không dùng bo viền". The weather section of the stylesheet
