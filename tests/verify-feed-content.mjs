@@ -508,9 +508,13 @@ await newFeed.pollSnapshot(); assert.equal(nodes.get('#fresh').hidden, true, 'ol
 responseData = new Error('offline');
 await newFeed.pollSnapshot(); assert.equal(nodes.get('#fresh').hidden, true, 'failed polls preserve the feed');
 newFeed.renderSub(); assert.equal(nodes.get('#filter-context').hidden, true);
+// A view with its own tab needs no line above the grid (captain, 09/11): its tab is pressed, "Trang nhất" leads back.
 newFeed.filter('saved'); newFeed.renderSub();
+assert.equal(nodes.get('#filter-context').hidden, true, 'a tabbed view shows no filter line');
+// A section opened from a link has no tab: it names itself and offers the way back.
+newFeed.filter('sec:sap-toi'); newFeed.renderSub();
 assert.equal(nodes.get('#filter-context').hidden, false);
-assert.match(nodes.get('#filter-context').innerHTML, /Đã lưu.*Bỏ lọc/);
+assert.match(nodes.get('#filter-context').innerHTML, /Sắp diễn ra.*data-reset>Về dòng tin/);
 newFeed.filter('all'); newFeed.renderSub();
 assert.equal(nodes.get('#filter-context').hidden, true);
 for (const total of [0, 1, 88, 999]) {
@@ -528,8 +532,7 @@ assert.equal(savedChip.attributes['aria-pressed'], 'true');
 newFeed.save([{key:'item-0'}]); newFeed.filter('all'); newFeed.renderChips();
 assert.equal(savedChip.hidden, false, 'saving reveals the named tab without a count');
 assert.equal(savedChip.innerHTML, 'Đã lưu');
-newFeed.filter('saved'); newFeed.renderSub();
-assert.match(nodes.get('#filter-context').innerHTML, /Đã lưu.*Bỏ lọc/);
+newFeed.filter('sec:sap-toi'); newFeed.renderSub();
 assert.doesNotMatch(nodes.get('#filter-context').innerHTML, /class="num"/, 'the filter line carries no count (captain, 08/11)');
 for (const iso of [new Date().toISOString(), '2026-10-09T02:00:00Z']) {
   newFeed.sourceTime(iso);

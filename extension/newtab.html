@@ -99,7 +99,7 @@
 
 <main class="feed-main front msn-panel" id="top" tabindex="-1" aria-busy="true">
   <h1 class="sr">Halcyon, bản tin AI hôm nay</h1>
-  <!-- The panel's header row: the logo, the sections, the date, the theme and the morning edition. -->
+  <!-- The panel's header row: the logo, the sections, the order, the theme and the morning edition. -->
   <nav class="newsbar msn-head" id="bar" aria-label="Tin AI">
     <a class="brand feed-brand" id="brand" href="https://radar-ai-vn.pages.dev/" aria-label="Halcyon, mở trang web"><img class="brand-tile" src="logo.svg" width="34" height="34" alt=""><span class="brand-name" aria-hidden="true">halcyon</span></a>
     <div class="feed-filters sections" id="feed-filters" role="group" aria-label="Lọc dòng tin">
@@ -131,7 +131,12 @@
         </div>
         <div class="ns-results" id="ns-results" hidden></div>
       </div>
-      <span class="date-chip" id="date-chip"></span>
+      <!-- The order of the stories sits in the head row (captain, 09/11: the line above the grid is gone). -->
+      <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin">
+        <button class="sort-btn" data-sort="worth" aria-label="Đáng đọc nhất" aria-pressed="true"><span class="sort-label-full">Đáng đọc nhất</span><span class="sort-label-short">Đọc</span></button>
+        <button class="sort-btn" data-sort="new" aria-label="Mới nhất" aria-pressed="false"><span class="sort-label-full">Mới nhất</span><span class="sort-label-short">Mới</span></button>
+        <button class="sort-btn sort-btn-compact" data-sort="toggle" aria-label="Đang sắp xếp: Đáng đọc nhất. Chuyển sang Mới nhất" aria-pressed="false"><span class="sort-current">Đáng đọc</span></button>
+      </div>
       <button class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Chuyển chế độ sáng hoặc tối">
         <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
         <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
@@ -139,19 +144,11 @@
       <a class="ed-link" href="https://radar-ai-vn.pages.dev/ban-tin.html" aria-label="Bản tin sáng"><span class="ed-label">Bản tin sáng</span><svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
     </div>
   </nav>
-  <!-- The line above the grid: the view's name, when the snapshot was made, and the order. No story counts (08/11). -->
+  <!-- No visible line above the grid (captain, 09/11: "Bỏ luôn cả thông báo thời điểm cập nhật"): the section tabs say
+       where the reader is, so the view's name is a heading for screen readers only. A view that has no tab of its own
+       (a section opened from a link, #sap-toi) names itself here, with its way back. -->
   <div class="front-meta">
-    <h2 class="front-h" id="front-h">Toàn cảnh AI hôm nay</h2>
-    <div class="front-tools">
-      <p class="front-updated" id="front-updated"></p>
-      <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin">
-        <button class="sort-btn" data-sort="worth" aria-label="Đáng đọc nhất" aria-pressed="true"><span class="sort-label-full">Đáng đọc nhất</span><span class="sort-label-short">Đọc</span></button>
-        <button class="sort-btn" data-sort="new" aria-label="Mới nhất" aria-pressed="false"><span class="sort-label-full">Mới nhất</span><span class="sort-label-short">Mới</span></button>
-        <button class="sort-btn sort-btn-compact" data-sort="toggle" aria-label="Đang sắp xếp: Đáng đọc nhất. Chuyển sang Mới nhất" aria-pressed="false"><span class="sort-current">Đáng đọc</span></button>
-      </div>
-    </div>
-    <!-- A section's way back sits on this line, beside the section's name, so the grid below never moves (captain, 08/11
-         19:50: the weather and the calendar keep one place on every section). -->
+    <h2 class="sr" id="front-h">Toàn cảnh AI hôm nay</h2>
     <p class="filter-context" id="filter-context" aria-live="polite" hidden></p>
   </div>
   <!-- Shown only if the page never finished loading (a blocked module, no JavaScript). -->

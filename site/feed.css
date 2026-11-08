@@ -1336,3 +1336,9 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .card-lead .photo-body { padding: var(--space-16); }
   .card-foot { flex-wrap: wrap; row-gap: var(--space-4); }
 }
+/* A touch screen without a pointer has no keyboard to speak of (captain, 09/11: "có cái gì bỏ được nữa thì bỏ luôn"):
+   the shortcuts button and the key hints go; a device with a fine pointer or a hovering cursor keeps them. */
+@media (hover: none) and (pointer: coarse) {
+  #keys-open, .ns-field .kbd, .story-modal-close .story-close-kbd { display: none; }
+}
+.src-note:empty { display: none; }

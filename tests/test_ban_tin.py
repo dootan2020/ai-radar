@@ -286,7 +286,8 @@ class BanTinRenderLogicTests(unittest.TestCase):
     def test_end_section_today(self):
         end_html = self.out["endSectionToday"]
         self.assertIn("Hết bản tin hôm nay", end_html)
-        self.assertIn("Bạn đã xem trọn vẹn điểm tin AI sáng nay", end_html)
+        # The end says so in its heading; no line explaining it (captain, 09/11).
+        self.assertNotIn("Bạn đã xem trọn vẹn", end_html)
         self.assertIn("Về đầu trang", end_html)
         # The days before: grouped by month, one same-size cell per day, the current day marked
         self.assertIn('class="bt-archive-month"', end_html)

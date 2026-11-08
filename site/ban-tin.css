@@ -125,15 +125,6 @@ body {
   .brand-logo-light, .brand-logo-dark { display: none; }
   .brand-icon { display: block; }
 }
-.bt-brand-badge {
-  font-size: var(--size-12);
-  font-weight: var(--weight-semibold);
-  background-color: var(--color-fill);
-  color: var(--color-ink-2);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  letter-spacing: normal;
-}
 .bt-brand:focus-visible {
   outline: var(--focus-ring);
   outline-offset: var(--focus-offset);
@@ -764,7 +755,6 @@ body {
 /* ---------- Responsive Adjustments ---------- */
 @media (max-width: 767px) {
   .bt-brand { white-space: nowrap; }
-  .bt-brand-badge { display: none; }
   .bt-bar {
     height: 56px;
     padding: 0 var(--space-16);

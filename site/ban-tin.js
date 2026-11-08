@@ -161,12 +161,7 @@ export function renderStoryTileHTML(story, isLead = false, sources = null) {
 
       ${summary ? `<p class="bt-story-summary">${sourceDescriptionMark()}${esc(summary)}</p>` : ''}
 
-      <div class="bt-tile-actions">
-        <a class="bt-btn-primary" href="${esc(story.url)}" target="_blank" rel="noopener noreferrer">
-          Đọc bài gốc <svg class="i"><use href="#i-out"/></svg>
-        </a>
-        ${extraSourcesHtml}
-      </div>
+      ${extraSourcesHtml ? `<div class="bt-tile-actions">${extraSourcesHtml}</div>` : ''}
     </article>
   `;
 }
@@ -182,7 +177,7 @@ export function renderEmptyStateHTML(edition, isToday = true) {
         <svg class="i" aria-hidden="true"><use href="#i-cup"/></svg>
       </div>
       <h2 class="bt-status-title" id="bt-status-h">Một buổi sáng yên ắng</h2>
-      <p class="bt-status-text">${lead} Mời bạn đọc dòng tin mới nhất hoặc xem lại các ngày trước.</p>
+      <p class="bt-status-text">${lead}</p>
       <div class="bt-status-actions">
         <a class="bt-btn-primary" href="index.html">Đọc dòng tin</a>
       </div>
@@ -198,7 +193,6 @@ export function renderMissingStateHTML(targetDate, latestDate) {
         <svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>
       </div>
       <h2 class="bt-status-title" id="bt-status-h">Không tìm thấy bản tin ngày ${esc(formatShortDateVi(targetDate) || targetDate)}</h2>
-      <p class="bt-status-text">Ngày này chưa có bản tin.</p>
       <div class="bt-status-actions">
         ${latestDate ? `
           <a class="bt-btn-primary" href="?ngay=${esc(latestDate)}">
@@ -262,9 +256,6 @@ export function renderArchiveHTML(editions = [], currentDate = null) {
 /* ---------- Sinh HTML Khối Kết Thúc ("Hết bản tin hôm nay") ---------- */
 export function renderEndSectionHTML(currentDate, isToday, availableEditions = [], empty = false) {
   const titleText = isToday ? 'Hết bản tin hôm nay' : `Hết bản tin ngày ${formatShortDateVi(currentDate)}`;
-  const subtitleText = isToday
-    ? 'Bạn đã xem trọn vẹn điểm tin AI sáng nay. Chúc bạn một ngày làm việc hiệu quả.'
-    : `Bạn đã xem trọn vẹn bản tin của ngày ${formatShortDateVi(currentDate)}.`;
 
   return `
     <section class="bt-end-section${empty ? ' is-archive-only' : ''}" aria-label="${empty ? 'Các ngày trước' : 'Kết thúc bản tin'}">
@@ -273,7 +264,6 @@ export function renderEndSectionHTML(currentDate, isToday, availableEditions = [
           <svg class="i" aria-hidden="true"><use href="#i-check"/></svg>
         </div>
         <h2 class="bt-end-title">${esc(titleText)}</h2>
-        <p class="bt-end-text">${esc(subtitleText)}</p>
       `}
       ${renderArchiveHTML(availableEditions, currentDate)}
       <a class="bt-back-to-top" href="#top">
@@ -513,15 +503,11 @@ export class BanTinReader {
     const edition = this.currentEdition;
     const isToday = Boolean(this.index?.latest?.date === edition.date);
 
-    // Cập nhật Masthead: ngày và một dòng dẫn, không số đếm (anh Tuấn, 08/11)
+    // Cập nhật Masthead: chỉ ngày, không số đếm (anh Tuấn, 08/11) và không dòng dẫn giải thích (anh Tuấn, 09/11)
     if (this.titleEl) {
       this.titleEl.textContent = formatFullDateVi(edition.date);
     }
-    if (this.subtitleEl) {
-      const hasStories = edition.stories.length > 0;
-      this.subtitleEl.textContent = hasStories ? 'Những chuyện AI đáng đọc, gói gọn cho buổi sáng.' : '';
-      this.subtitleEl.hidden = !hasStories;
-    }
+    if (this.subtitleEl) this.subtitleEl.hidden = true;
 
     // Render Board
     if (this.state === 'empty') {
