@@ -1,0 +1,311 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-09",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-07T23:00:00Z",
+  "cutoff_at": "2026-11-08T23:00:00Z",
+  "created_at": "2026-11-08T23:37:21Z",
+  "snapshot_generated_at": "2026-11-08T23:34:50Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-08T23:34:50Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "e68539633591cd5be6cb",
+      "title": "Statement from NVIDIA Board of Directors",
+      "title_vi": "Tuyên bố của Hội đồng quản trị NVIDIA",
+      "headline": "Statement from NVIDIA Board of Directors",
+      "headline_vi": "Tuyên bố của Hội đồng quản trị NVIDIA",
+      "url": "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors",
+      "published_at": "2026-11-08T20:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Hội đồng quản trị Nvidia điều tra độc lập về CEO Jensen Huang sau thông tin tình báo",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "7c4b344f9e34f95a3ad1",
+          "title": "Nvidia Board to Probe Spying Case After CEO Jensen Huang Admits Infidelity",
+          "title_vi": "Hội đồng quản trị Nvidia sẽ điều tra vụ gián điệp sau khi CEO Jensen Huang thừa nhận không trung thành",
+          "headline": "Nvidia Board to Probe Spying Case After CEO Jensen Huang Admits Infidelity",
+          "headline_vi": "Hội đồng quản trị Nvidia sẽ điều tra vụ gián điệp sau khi CEO Jensen Huang thừa nhận không trung thành",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-08/nvidia-board-to-probe-spying-case-after-ceo-jensen-huang-admits-infidelity",
+          "published_at": "2026-11-08T20:00:02Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-08T23:34:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "5ce0d26f1c67268b54f6",
+          "title": "Nvidia Board of Directors Is Investigating Jensen Huang",
+          "title_vi": "Hội đồng quản trị Nvidia đang điều tra Jensen Huang",
+          "headline": "Nvidia Board of Directors Is Investigating Jensen Huang",
+          "headline_vi": "Hội đồng quản trị Nvidia đang điều tra Jensen Huang",
+          "url": "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors",
+          "published_at": "2026-11-08T20:26:43Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-08T23:34:50Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50416801",
+          "metrics": {
+            "points": 323,
+            "comments": 255
+          }
+        },
+        {
+          "id": "5a31efe88f966da3a122",
+          "title": "Statement from NVIDIA Board of Directors",
+          "title_vi": "Tuyên bố của Hội đồng quản trị NVIDIA",
+          "headline": "Statement from NVIDIA Board of Directors",
+          "headline_vi": "Tuyên bố của Hội đồng quản trị NVIDIA",
+          "url": "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors",
+          "published_at": "2026-11-08T20:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "nvidia-newsroom",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-11-08T23:34:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "nvidia"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "nvidia"
+          ],
+          "age_hours_at_cutoff": 3.0,
+          "hot_score": 78.696,
+          "engagement_percentile": 0.7931034482758621
+        }
+      }
+    },
+    {
+      "id": "54c06e97d6e0a2b71c0f",
+      "title": "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
+      "title_vi": "Nvidia đang điều tra mối quan hệ của Jensen Huang với một điệp viên Trung Quốc.",
+      "headline": "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
+      "headline_vi": "Nvidia đang điều tra mối quan hệ của Jensen Huang với một điệp viên Trung Quốc.",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy",
+      "published_at": "2026-11-08T20:22:39Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Nvidia điều tra độc lập về CEO Jensen Huang sau thông tin là mục tiêu tình báo",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "030d85e50084c17dfbab",
+          "title": "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
+          "title_vi": "Nvidia đang điều tra mối quan hệ của Jensen Huang với một điệp viên Trung Quốc.",
+          "headline": "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
+          "headline_vi": "Nvidia đang điều tra mối quan hệ của Jensen Huang với một điệp viên Trung Quốc.",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy",
+          "published_at": "2026-11-08T20:22:39Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-08T23:34:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 2.6225,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "b9c0dd474c98ba84113b",
+      "title": "Apple is racing to make Siri more agentic",
+      "title_vi": "Apple đang chạy đua để làm cho Siri trở nên hiệu quả hơn",
+      "headline": "Apple is racing to make Siri more agentic",
+      "headline_vi": "Apple đang chạy đua để làm cho Siri trở nên hiệu quả hơn",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1029552/apple-siri-ai-agentic",
+      "published_at": "2026-11-08T19:18:19Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Apple tăng tốc phát triển Siri thành tác tử AI trước sức ép cạnh tranh từ các đối thủ",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "f0576668d0a7d589fcb0",
+          "title": "Apple is racing to make Siri more agentic",
+          "title_vi": "Apple đang chạy đua để làm cho Siri trở nên hiệu quả hơn",
+          "headline": "Apple is racing to make Siri more agentic",
+          "headline_vi": "Apple đang chạy đua để làm cho Siri trở nên hiệu quả hơn",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1029552/apple-siri-ai-agentic",
+          "published_at": "2026-11-08T19:18:19Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-08T23:34:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 3.6947,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "9a720b3178d2f33796ad",
+      "title": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+      "title_vi": "Tôi đã sử dụng công cụ sửa thức công thức mới của NYT Cooking, và nó thực sự khá tốt",
+      "headline": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+      "headline_vi": "Tôi đã sử dụng công cụ sửa thức công thức mới của NYT Cooking, và nó thực sự khá tốt",
+      "url": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good/",
+      "published_at": "2026-11-08T12:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "NYT Cooking thử nghiệm AI sửa công thức trên iOS dù vấp phải nhiều bình luận giận dữ từ độc giả",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "95b5958e6d9dcdf26263",
+          "title": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+          "title_vi": "Tôi đã sử dụng công cụ sửa thức công thức mới của NYT Cooking, và nó thực sự khá tốt",
+          "headline": "I Used NYT Cooking’s New AI-Powered Recipe Modifier, and It’s Actually Pretty Good",
+          "headline_vi": "Tôi đã sử dụng công cụ sửa thức công thức mới của NYT Cooking, và nó thực sự khá tốt",
+          "url": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good/",
+          "published_at": "2026-11-08T12:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "wired-ai",
+          "publisher": "wired",
+          "entity": "wired",
+          "group": "press",
+          "observed_at": "2026-11-08T23:34:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "wired"
+          ],
+          "age_hours_at_cutoff": 11.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "387b16841c76ecc57c9a",
+      "title": "AI will soon master biology, unleashing new safety risks, Tencent AI chief warns",
+      "title_vi": "AI sẽ sớm nắm vững sinh học, giải phóng những rủi ro an toàn mới, giám đốc AI của Tencent cảnh báo",
+      "headline": "AI will soon master biology, unleashing new safety risks, Tencent AI chief warns",
+      "headline_vi": "AI sẽ sớm nắm vững sinh học, giải phóng những rủi ro an toàn mới, giám đốc AI của Tencent cảnh báo",
+      "url": "https://www.scmp.com/tech/big-tech/article/3373697/ai-will-soon-master-biology-unleashing-new-safety-risks-tencent-ai-chief-warns",
+      "published_at": "2026-11-08T10:22:27Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Chuyên gia Tencent cảnh báo mô hình AI sắp làm chủ sinh học mang lại cả lợi ích lẫn rủi ro",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "cdebd0a09d1f4c3e6aa6",
+          "title": "AI will soon master biology, unleashing new safety risks, Tencent AI chief warns",
+          "title_vi": "AI sẽ sớm nắm vững sinh học, giải phóng những rủi ro an toàn mới, giám đốc AI của Tencent cảnh báo",
+          "headline": "AI will soon master biology, unleashing new safety risks, Tencent AI chief warns",
+          "headline_vi": "AI sẽ sớm nắm vững sinh học, giải phóng những rủi ro an toàn mới, giám đốc AI của Tencent cảnh báo",
+          "url": "https://www.scmp.com/tech/big-tech/article/3373697/ai-will-soon-master-biology-unleashing-new-safety-risks-tencent-ai-chief-warns",
+          "published_at": "2026-11-08T10:22:27Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-08T23:34:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "scmp"
+          ],
+          "age_hours_at_cutoff": 12.6258,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 71,
+    "successful_remote_sources": 70,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
