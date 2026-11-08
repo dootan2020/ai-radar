@@ -79,8 +79,15 @@ class GoogleAppsLauncherTests(unittest.TestCase):
         self.assertIn("border-radius:calc(var(--dock-radius) - var(--dock-pad))", mobile)
         self.assertIn("body{padding-bottom:calc(var(--mobile-nav-h) + var(--dock-gap) * 2 + env(safe-area-inset-bottom))}", mobile)
         # Coordinator, 08/11: through a translucent dock the headline behind it stayed readable; the dock is solid now.
+        # Captain, 08/11 21:08: no border round it either; the dock is a solid floating fill, a step above the cards.
         dock = mobile.split(".mobile-nav{", 1)[1].split("}", 1)[0]
-        self.assertIn("background:var(--color-surface)", dock)
+        self.assertIn("background:var(--color-float)", dock)
+        self.assertIn("border:0", dock)
+        tokens = (ROOT / "site" / "tokens.css").read_text(encoding="utf-8")
+        floats = [line for line in tokens.splitlines() if line.strip().startswith("--color-float:")]
+        self.assertEqual(len(floats), 3)
+        for line in floats:
+            self.assertNotIn("transparent", line)
         self.assertNotIn("backdrop-filter", dock)
         self.assertNotIn("transparent", dock.split("background:", 1)[1].split(";", 1)[0])
         self.assertNotIn("inset-inline:0;bottom:0", mobile)

@@ -197,10 +197,14 @@ class TopZoneTests(unittest.TestCase):
             self.assertIn(part, site_bar)
         for part in ('id="dateline"', 'id="services"', 'Tìm trên Google'):
             self.assertNotIn(part, site)
+        # The Google search: no shadow at rest or in focus (07/11 18:26), and no border or ring either (captain, 08/11
+        # 21:08: "Có viền màu bao quanh ... thanh tìm kiếm ... Loại bỏ nó"): a filled field whose fill deepens in focus.
         css = (EXT / "newtab.css").read_text(encoding="utf-8")
         field = css[css.index('.web-field {'):css.index('#web-query {')]
         self.assertIn('box-shadow: none', field.split('}')[0])
-        self.assertIn('.web-field:focus-within { border-color: var(--color-hair-strong); box-shadow: none;', field)
+        self.assertIn('border: 0', field.split('}')[0])
+        self.assertIn('.web-field:hover, .web-field:focus-within { background: var(--color-field-on); box-shadow: none; }', field)
+        self.assertNotIn('outline', field)
         source = (EXT / "vung-dau.js").read_text(encoding="utf-8")
         self.assertNotIn('day-date', source)
 
