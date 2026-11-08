@@ -1818,7 +1818,6 @@ function updateMore() {
   const front = filter === 'all';
   grid.insertAdjacentHTML('beforeend', `<section class="msn-card end-card" style="grid-column:${span}" aria-labelledby="end-h">
     <h2 id="end-h">${front ? 'Bạn đã xem hết tin AI hôm nay' : 'Bạn đã xem hết tin trong mục này'}</h2>
-    <p>Tin mới được thêm vào trong ngày. Bản tin sáng gom gọn những chuyện đáng đọc nhất.</p>
     <div class="end-actions"><a class="ed-link" href="${EDITION_URL}">Đọc Bản tin sáng</a><button class="ghost" type="button" id="mark-all-btn">${front ? 'Đánh dấu đã xem hết' : 'Đánh dấu nhóm này đã xem'}</button><button class="ghost" type="button" data-to-top>Lên đầu trang</button></div></section>`);
 }
 
