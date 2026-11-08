@@ -133,6 +133,31 @@ class TopZoneTests(unittest.TestCase):
         for part in ('vung-dau.js', 'id="web-search"', 'id="services"'):
             self.assertNotIn(part, site)
 
+    def test_weather_and_calendar_keep_one_place_on_every_section(self):
+        # Captain, 08/11 19:50: "cố định vị trí thẻ thời tiết và âm lịch". Every redraw of the grid (any section, sort,
+        # new stories, even a failed news load) puts the two cards back, and the stylesheet pins their cells: columns
+        # three and four of the first row, the calendar under the weather with three columns, first on a phone.
+        for folder in (ROOT / "site", EXT):
+            feed = (folder / "feed.js").read_text(encoding="utf-8")
+            self.assertIn("(front ? leadHTML(PICKLIST) + FIXED_SLOTS + topListHTML(FRONT_TOP) : FIXED_SLOTS) + html", feed)
+            self.assertNotIn("if (front) placeFixedCards", feed)
+            self.assertEqual(feed.count("placeFixedCards("), 3)   # the definition, a redraw, a failed news load
+            css = (folder / "trang-msn.css").read_text(encoding="utf-8")
+            for rule in (".msn-grid:has(> .msn-wx) { grid-template-rows: var(--msn-row1); }",
+                         ".msn-grid > .msn-wx { grid-area: 1 / 3; }", ".msn-grid > .msn-cal { grid-area: 1 / 4; }",
+                         ".msn-grid > .msn-cal { grid-area: 2 / 3; }", ".msn-grid > .msn-wx { grid-area: auto / 1 / auto / -1; }"):
+                self.assertIn(rule, css)
+
+    def test_nothing_inside_the_weather_card_draws_a_ring(self):
+        # Captain, 08/11 19:50: "bên trong thẻ thời tiết không dùng bo viền". The weather section of the stylesheet
+        # declares no border but the card's own "border: 0"; keyboard focus keeps the page's :focus-visible ring.
+        import re
+        css = (ROOT / "site" / "trang-msn.css").read_text(encoding="utf-8")
+        start = css.index("/* ---------- the weather")
+        block = css[start:css.index("/* ---------- the calendar", start)]
+        declared = re.findall(r"(?:border(?:-(?:top|right|bottom|left))?|outline)\s*:\s*([^;}]+)", block)
+        self.assertEqual(declared, ["0"])
+
     def test_calendar_card_ships_its_pictures_and_fetches_nothing_new(self):
         # The twelve animals ship inside the extension with their licence (Fluent Emoji flat, MIT); the card names them
         # by relative path and calls no host beyond the new tab's existing ones.

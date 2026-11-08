@@ -4,7 +4,9 @@
    choice is kept on this machine; the browser's location is never asked for, and the extension's manifest gains no
    permission (Open-Meteo answers with CORS). Forecasts are kept for 30 minutes per city.
    MSN's look: the city menu and "…" on top, now and a one-line outlook, "Hàng giờ / Hàng ngày", five frosted columns in
-   two pages, "Xem dự báo đầy đủ". Every number on the card is the forecast's own. */
+   two pages, "Xem dự báo đầy đủ" ("Chi tiết" on a narrow card). Every number on the card is the forecast's own.
+   Nothing inside the card draws a ring (captain, 08/11 19:50: "bên trong thẻ thời tiết không dùng bo viền"): tiles,
+   the switch and the pill are told apart by their fill and spacing, as on MSN's card. */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const KEY_CITY = 'halcyon:city';
 const KEY_UNIT = 'halcyon:wx-unit';
@@ -179,7 +181,7 @@ export function createWeatherCard() {
       <ul class="wx-days num" id="wx-days" aria-live="polite"></ul>
       <div class="wx-foot">
         <div class="wx-dots" role="group" aria-label="Trang dự báo"><button type="button" data-page="0" aria-label="Trang 1" aria-current="true"></button><button type="button" data-page="1" aria-label="Trang 2" aria-current="false"></button></div>
-        <button class="pill" id="wx-full" type="button" aria-expanded="false" aria-controls="wx-detail">Xem dự báo đầy đủ</button>
+        <button class="pill" id="wx-full" type="button" aria-expanded="false" aria-controls="wx-detail"><span class="wx-full-long">Xem dự báo đầy đủ</span><span class="wx-full-short">Chi tiết</span></button>
       </div>
       <div class="wx-detail" id="wx-detail" role="dialog" aria-label="Dự báo ${esc(city)} hôm nay" hidden>
         <div class="wx-detail-top"><p class="wx-detail-h">${esc(city)} · ${esc(label)}</p><button class="wx-more" type="button" data-wx-close aria-label="Đóng dự báo đầy đủ">${ICON.close}</button></div>
