@@ -114,7 +114,17 @@ function setupToolLauncher() {
   }
 }
 
-async function boot() {
+/* story.css keeps the static copy invisible until this script has drawn the page (or given up), so it draws once. */
+function boot() {
+  try {
+    render();
+  } finally {
+    const root = $('#story-root');
+    if (root) root.dataset.ready = '';
+  }
+}
+
+function render() {
   setupTheme();
   setupToolLauncher();
 
