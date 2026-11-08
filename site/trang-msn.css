@@ -109,12 +109,13 @@
 .msn-lead, .nc-wide { grid-column: span 2; }
 .nc-big { grid-column: span 2; grid-row: span 2; }
 /* The weather and the calendar hold the same cells on every section, sort and redraw (captain, 08/11 19:50: "cố định vị
-   trí"): the third and fourth columns of the first row, beside the lead on the front page; with three columns the
-   weather ends the first row and the calendar sits under it. The first row keeps its height on every section, so the
-   two cards keep their size too; stories fill the cells around them. */
+   trí"), stacked in the grid's last column (captain, 09/11: "2 thẻ cùng 1 cột. Thời tiết ở trên, lịch ở dưới"): the
+   weather ends the first row, the calendar sits under it, at three, five and seven columns alike. The first row keeps
+   its height on every section, so the two cards keep their size too; the lead, "Chuyện lớn" and the stories fill the
+   columns to their left. */
 .msn-grid:has(> .msn-wx) { grid-template-rows: var(--msn-row1); }
-.msn-grid > .msn-wx { grid-area: 1 / 3; }
-.msn-grid > .msn-cal { grid-area: 1 / 4; }
+.msn-grid > .msn-wx { grid-area: 1 / -2; }
+.msn-grid > .msn-cal { grid-area: 2 / -2; }
 .msn-card:has(.story-link:focus-visible), .msn-toplist li:has(.story-link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 
 /* the story card */
@@ -452,7 +453,6 @@
 }
 @media (max-width: 1099px) {
   :root { --msn-cols: 3; }
-  .msn-grid > .msn-cal { grid-area: 2 / 3; }
   .newsbar.msn-head { flex-wrap: wrap; }
   .msn-head .sections { order: 3; flex: 1 1 100%; overflow-x: auto; }
 }
