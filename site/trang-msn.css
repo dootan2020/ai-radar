@@ -101,6 +101,13 @@
 }
 .msn-lead, .nc-wide { grid-column: span 2; }
 .nc-big { grid-column: span 2; grid-row: span 2; }
+/* The weather and the calendar hold the same cells on every section, sort and redraw (captain, 08/11 19:50: "cố định vị
+   trí"): the third and fourth columns of the first row, beside the lead on the front page; with three columns the
+   weather ends the first row and the calendar sits under it. The first row keeps its height on every section, so the
+   two cards keep their size too; stories fill the cells around them. */
+.msn-grid:has(> .msn-wx) { grid-template-rows: var(--msn-row1); }
+.msn-grid > .msn-wx { grid-area: 1 / 3; }
+.msn-grid > .msn-cal { grid-area: 1 / 4; }
 .msn-card:has(.story-link:focus-visible), .msn-toplist li:has(.story-link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 
 /* the story card */
@@ -222,8 +229,9 @@
 .top-meta .st-mark:empty { display: none; }
 .top-meta .mt { margin-inline-start: var(--space-6); }
 
-/* ---------- the weather: a sky photograph, a flat ink veil, frosted tiles ---------- */
+/* ---------- the weather: a sky photograph, a flat ink veil, frosted tiles; no ring inside (captain, 08/11 19:50) ---------- */
 .msn-wx {
+  container-type: inline-size;
   isolation: isolate; display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-8) var(--space-12);
   border: 0; color: var(--msn-on-ink); text-shadow: var(--msn-wx-shadow);
   background: var(--msn-wx-sky) url("anh/bau-troi.jpg") center / cover no-repeat;
@@ -237,7 +245,7 @@
   background: transparent; color: inherit; transition: background-color var(--duration-150) ease;
 }
 .wx-city { padding: 0 var(--space-8); font-size: var(--text-sub); font-weight: var(--weight-bold); }
-.wx-more { margin-left: auto; width: var(--btn-h); justify-content: center; }
+.wx-more { flex: none; margin-left: auto; width: var(--btn-h); justify-content: center; }
 .wx-more .i circle { fill: currentColor; }
 .wx-city:hover, .wx-more:hover, .wx-outlook:hover { background: var(--msn-wx-hover); }
 .wx-body { display: flex; flex-direction: column; gap: var(--space-8); flex: 1; min-height: 0; }
@@ -247,7 +255,7 @@
 .wx-temp small { margin: var(--space-4) 0 0 var(--msn-tight); font-size: var(--text-body); font-weight: var(--weight-semibold); letter-spacing: 0; }
 .wx-outlook { margin-left: auto; max-width: 54%; gap: var(--msn-tight); padding: var(--msn-tight) 0 var(--msn-tight) var(--space-6); text-align: right; font-size: var(--text-micro); line-height: 1.35; font-weight: var(--weight-semibold); }
 .wx-switch {
-  display: flex; align-self: flex-start; border-radius: var(--radius-8); background: var(--msn-wx-pill); border: var(--msn-hair) solid var(--msn-wx-edge);
+  display: flex; align-self: flex-start; border-radius: var(--radius-8); background: var(--msn-wx-pill);
   -webkit-backdrop-filter: blur(var(--msn-blur)); backdrop-filter: blur(var(--msn-blur));
 }
 .wx-switch button { position: relative; min-height: var(--btn-h); padding: 0 var(--space-12); border-radius: var(--radius-8); font-size: var(--text-micro); font-weight: var(--weight-semibold); }
@@ -256,11 +264,12 @@
 .wx-days { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
 .wx-days li {
   display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: var(--msn-tight); min-width: 0; padding: var(--space-8) var(--msn-tight);
-  border-radius: var(--radius-8); background: var(--msn-wx-tile); border: var(--msn-hair) solid var(--msn-wx-edge);
+  border-radius: var(--radius-8); background: var(--msn-wx-tile);
   -webkit-backdrop-filter: blur(var(--msn-blur)) saturate(140%); backdrop-filter: blur(var(--msn-blur)) saturate(140%);
   font-size: var(--text-micro); font-weight: var(--weight-semibold); transition: opacity var(--duration-150) ease;
 }
-.wx-days li:first-child { background: var(--msn-wx-tile-on); }
+/* Today is lit by a white wash over the ink tile, so it reads lighter yet keeps white text at AA over a bright cloud. */
+.wx-days li:first-child { background: linear-gradient(var(--msn-wx-tile-on), var(--msn-wx-tile-on)), var(--msn-wx-tile); }
 .wx-days .wx-ic { width: var(--msn-wx-icon-sm); height: var(--msn-wx-icon-sm); }
 .wx-hi { font-size: var(--text-sub); font-weight: var(--weight-bold); }
 .wx-lo { font-size: var(--text-micro); font-weight: var(--weight-medium); }
@@ -272,13 +281,16 @@
 .wx-dots button[aria-current="true"]::before { width: var(--space-16); background: var(--msn-on-ink); }
 .msn-wx .pill {
   display: inline-flex; align-items: center; min-height: var(--btn-h); padding: 0 var(--space-16); border-radius: var(--radius-full);
-  background: var(--msn-wx-pill); border: var(--msn-hair) solid var(--msn-wx-edge); color: inherit;
+  background: var(--msn-wx-pill); color: inherit;
   -webkit-backdrop-filter: blur(var(--msn-blur)); backdrop-filter: blur(var(--msn-blur));
   font-size: var(--text-micro); font-weight: var(--weight-semibold); white-space: nowrap;
   transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
 }
 .msn-wx .pill:hover { background: var(--msn-wx-pill-hover); }
 .msn-wx .pill:active { transform: scale(0.97); }
+.wx-full-short { display: none; }
+.wx-city { min-width: 0; }
+#wx-city-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .wx-skel { display: grid; gap: var(--space-8); flex: 1; }
 .wx-skel i { display: block; border-radius: var(--radius-8); background: var(--msn-wx-tile); animation: msn-breathe 1.2s ease-in-out infinite alternate; }
 .wx-skel i:first-child { height: var(--msn-search-h); }
@@ -290,8 +302,8 @@
 .wx-detail[hidden] { display: none; }
 .wx-detail-top { display: flex; align-items: center; gap: var(--space-8); }
 .wx-detail-h { margin: 0; font-size: var(--text-sub); font-weight: var(--weight-bold); }
-.wx-stats { display: grid; gap: var(--space-8); margin: 0; }
-.wx-stats div { display: flex; justify-content: space-between; gap: var(--space-12); padding-bottom: var(--space-8); border-bottom: var(--msn-hair) solid var(--msn-wx-edge); font-size: var(--text-small); }
+.wx-stats { display: grid; gap: var(--space-4); margin: 0; }
+.wx-stats div { display: flex; justify-content: space-between; gap: var(--space-12); padding: var(--space-8) var(--space-12); border-radius: var(--radius-8); background: var(--msn-wx-tile); font-size: var(--text-small); }
 .wx-stats dt { font-weight: var(--weight-medium); }
 .wx-stats dd { margin: 0; font-weight: var(--weight-bold); }
 .wx-credit { margin-top: auto; font-size: var(--text-micro); }
@@ -314,12 +326,15 @@
 .wx-menu [aria-checked="true"]::after { content: "✓"; }
 
 /* ---------- the calendar: the mockup's layout with the "Linh vật của năm" animals ---------- */
-.msn-cal { display: flex; flex-direction: column; padding: var(--space-12) var(--space-16) var(--space-16); }
-.cal-label { display: flex; justify-content: space-between; align-items: center; margin: 0; font-size: var(--text-micro); font-weight: var(--weight-bold); letter-spacing: 0.03em; text-transform: uppercase; color: var(--color-ink-2); }
+.msn-cal { container-type: inline-size; display: flex; flex-direction: column; padding: var(--space-12) var(--space-16) var(--space-16); }
+.cal-label { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--msn-tight) var(--space-6); margin: 0; font-size: var(--text-micro); font-weight: var(--weight-bold); letter-spacing: 0.03em; text-transform: uppercase; color: var(--color-ink-2); white-space: nowrap; }
 .cal-label span:last-child { font-weight: var(--weight-medium); letter-spacing: 0; text-transform: none; color: var(--color-ink-3); }
-.cal-top { display: flex; align-items: flex-start; justify-content: space-between; margin-top: var(--space-16); }
-.msn-cal .cal-day { font-size: var(--msn-cal-day); font-weight: var(--weight-bold); line-height: 0.92; letter-spacing: -0.08em; color: var(--color-ink); }
-.cal-animal { width: var(--msn-cal-animal); height: var(--msn-cal-animal); }
+/* The big day and its weekday take the height the row leaves over, centred in it, so the spare room sits around the
+   date instead of opening a band above the lunar block. The day and the animal follow the card's width. */
+.cal-hero { flex: 1 0 auto; display: flex; flex-direction: column; justify-content: center; padding-block: var(--space-12) var(--space-4); }
+.cal-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.msn-cal .cal-day { font-size: clamp(var(--msn-cal-day-phone), var(--msn-cal-day-fluid), var(--msn-cal-day)); font-weight: var(--weight-bold); line-height: 0.92; letter-spacing: -0.08em; color: var(--color-ink); }
+.cal-animal { width: clamp(var(--msn-cal-animal-phone), var(--msn-cal-animal-fluid), var(--msn-cal-animal)); height: auto; aspect-ratio: 1; }
 .cal-week { margin: var(--space-8) 0 0; font-size: var(--text-body); font-weight: var(--weight-bold); color: var(--color-ink); }
 .cal-week.is-sunday { color: var(--color-accent); }
 .msn-cal .cal-chips { display: flex; flex-wrap: wrap; gap: var(--space-6); margin: var(--space-12) 0 0; padding: 0; list-style: none; }
@@ -329,10 +344,25 @@
 }
 .msn-cal .cal-chip img { width: var(--msn-chip-img); height: var(--msn-chip-img); }
 .msn-cal .cal-chip b { font-weight: var(--weight-semibold); color: var(--color-ink); }
-.cal-lunar { margin: auto 0 0; padding: var(--space-12); border-radius: var(--radius-8); background: var(--color-fill); }
-.cal-lunar strong { display: block; font-size: var(--text-sub); color: var(--color-ink); }
+.cal-lunar { margin: var(--space-12) 0 0; padding: var(--space-12); border-radius: var(--radius-8); background: var(--color-fill); }
+.cal-lunar strong { display: block; font-size: var(--text-sub); color: var(--color-ink); text-wrap: balance; }
 .cal-lunar span { display: block; margin-top: var(--msn-tight); font-size: var(--text-micro); color: var(--color-ink-2); }
 .msn-cal .cal-note { margin: var(--space-8) 0 0; padding: 0; font-size: var(--text-micro); color: var(--color-ink-2); }
+
+/* ---------- the two cards on a narrow cell (five columns near 1100 px, three near 768 px) ---------- */
+@container (max-width: 14rem) {
+  .wx-city { padding: 0 var(--space-6); font-size: var(--text-meta); }
+  .wx-city > .i:first-child { display: none; }
+  .wx-now { flex-wrap: wrap; row-gap: 0; }
+  .wx-outlook { flex-basis: 100%; max-width: none; margin: 0 calc(-1 * var(--space-6)); padding: 0 var(--space-6); text-align: left; }
+  .wx-days li { padding-block: var(--space-6); }
+  .wx-full-long { display: none; }
+  .wx-full-short { display: inline; }
+  .cal-year { display: none; }          /* the big day and the lunar line carry the date; the label keeps day and month */
+  .msn-cal .cal-chip span { white-space: normal; }
+  .cal-lunar { padding: var(--space-8); }
+  .cal-lunar strong { font-size: var(--text-meta); }
+}
 
 /* ---------- the front page's tiles as widgets ---------- */
 .msn-grid > .tile {
@@ -385,6 +415,7 @@
 }
 @media (max-width: 1099px) {
   :root { --msn-cols: 3; }
+  .msn-grid > .msn-cal { grid-area: 2 / 3; }
   .newsbar.msn-head { flex-wrap: wrap; }
   .msn-head .sections { order: 3; flex: 1 1 100%; overflow-x: auto; }
 }
@@ -412,7 +443,10 @@
   .msn-head .filter-chip[aria-pressed="true"]::after { left: var(--space-8); right: var(--space-8); }
   .front-meta { margin: var(--space-4) var(--msn-tight) var(--space-8); }
   .front-h { font-size: var(--text-sub); }
-  .msn-grid, .msn-grid.is-front { grid-template-rows: none; grid-auto-rows: auto; }
+  .msn-grid, .msn-grid.is-front, .msn-grid:has(> .msn-wx) { grid-template-rows: none; grid-auto-rows: auto; }
+  /* On a phone the two cards come first in the grid's own order (after the lead on the front page). */
+  .msn-grid > .msn-wx { grid-area: auto / 1 / auto / -1; }
+  .msn-grid > .msn-cal { grid-area: auto; }
   .nc { min-height: var(--msn-rowh-phone); }
   .nc-photo { height: var(--msn-photo-h-phone); }
   .nc-body { padding: var(--space-8) var(--space-8) var(--space-8); gap: var(--space-4); }
@@ -444,7 +478,7 @@
   .msn-cal { min-height: var(--msn-rowh-phone); padding: var(--space-12); }
   .msn-cal .cal-day { font-size: var(--msn-cal-day-phone); }
   .cal-animal { width: var(--msn-cal-animal-phone); height: var(--msn-cal-animal-phone); }
-  .cal-top { margin-top: var(--space-8); }
+  .cal-hero { padding-block: var(--space-8) 0; }
   .cal-week { margin-top: var(--space-4); font-size: var(--text-small); }
   .msn-cal .cal-chips { margin-top: var(--space-8); }
   .msn-cal .cal-chip span { white-space: normal; }

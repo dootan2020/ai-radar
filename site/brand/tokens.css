@@ -209,6 +209,8 @@
   --msn-slide-title: 1.25rem;                        /* 20 px */
   --msn-cal-day: 7rem;                               /* 112 px */
   --msn-cal-animal: 64px;
+  --msn-cal-day-fluid: 48cqi;                        /* the big day follows the calendar card's width, 60 to 112 px */
+  --msn-cal-animal-fluid: 27cqi;
   --msn-wx-temp: 2.875rem;                           /* 46 px */
   --msn-wx-icon: 46px; --msn-wx-icon-sm: 28px;
   --msn-wx-menu-w: 210px;
@@ -229,7 +231,6 @@
   --msn-wx-veil: color-mix(in srgb, var(--brand-ink) 16%, transparent);
   --msn-wx-tile: color-mix(in srgb, var(--brand-ink) 16%, transparent);
   --msn-wx-tile-on: color-mix(in srgb, var(--brand-white) 15%, transparent);
-  --msn-wx-edge: color-mix(in srgb, var(--brand-white) 18%, transparent);
   --msn-wx-hover: color-mix(in srgb, var(--brand-white) 12%, transparent);
   --msn-wx-pill: color-mix(in srgb, var(--brand-ink) 24%, transparent);
   --msn-wx-pill-hover: color-mix(in srgb, var(--brand-ink) 40%, transparent);

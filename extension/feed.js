@@ -1821,9 +1821,12 @@ function updateMore() {
     <div class="end-actions"><a class="ed-link" href="${EDITION_URL}">Đọc Bản tin sáng</a><button class="ghost" type="button" id="mark-all-btn">${front ? 'Đánh dấu đã xem hết' : 'Đánh dấu nhóm này đã xem'}</button><button class="ghost" type="button" data-to-top>Lên đầu trang</button></div></section>`);
 }
 
-/* The first row's two live cards are built once; the same elements go back after every redraw, so the city menu, the
-   forecast page and the weather request survive a filter or sort change. */
-function placeFrontCards(grid) {
+/* The weather and the calendar keep one place at the start of the grid on every section, sort and redraw (captain,
+   08/11 19:50: "cố định vị trí thẻ thời tiết và âm lịch"); trang-msn.css pins their cells. They are built once and the
+   same elements go back after every redraw, so the city menu, the forecast page and the weather request survive a
+   filter or sort change. */
+const FIXED_SLOTS = '<i data-slot="wx"></i><i data-slot="cal"></i>';
+function placeFixedCards(grid) {
   if (!weatherCard) weatherCard = createWeatherCard();
   if (!calendarCard) calendarCard = createCalendarCard();
   grid.querySelector('[data-slot="wx"]')?.replaceWith(weatherCard);
@@ -1858,8 +1861,8 @@ function renderFeed() {
   const empty = !html.trim();                      // tiles with no data render nothing, so judge by the output
   $('#feed-empty').hidden = !empty;
   grid.classList.toggle('is-front', front);
-  grid.innerHTML = (front ? leadHTML(PICKLIST) + '<i data-slot="wx"></i><i data-slot="cal"></i>' + topListHTML(FRONT_TOP) : '') + html;
-  if (front) placeFrontCards(grid);
+  grid.innerHTML = (front ? leadHTML(PICKLIST) + FIXED_SLOTS + topListHTML(FRONT_TOP) : FIXED_SLOTS) + html;
+  placeFixedCards(grid);
   renderSub();
   renderChips();
   renderFrontMeta();
@@ -2687,7 +2690,9 @@ async function init() {
     $('#top').removeAttribute('aria-busy');
     const skeleton = $('#feed-skeleton');
     if (skeleton) skeleton.remove();
-    $('#feed-grid').innerHTML = '';
+    // The news failed, not the weather or the date: those two cards stay in their place.
+    $('#feed-grid').innerHTML = FIXED_SLOTS;
+    placeFixedCards($('#feed-grid'));
     const em = $('#feed-empty');
     em.querySelector('h2').textContent = 'Chưa nạp được dòng tin';
     em.querySelector('p').textContent = 'Bạn kiểm tra kết nối mạng rồi thử lại nhé.';
