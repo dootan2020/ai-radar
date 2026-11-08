@@ -48,7 +48,7 @@ class EditionArchiveTests(unittest.TestCase):
             self.assertEqual(load_archive(root)[1], first)
             index = json.loads((root / "index.json").read_text(encoding="utf-8"))
             self.assertEqual(index["latest"], {"date": "2026-10-04", "path": "2026-10-04.json"})
-            self.assertEqual([row["story_count"] for row in index["editions"]], [0, 1])
+            self.assertEqual([row["story_count"] for row in index["editions"]], [3, 5])
 
     def test_same_day_rerun_is_byte_and_mtime_identical_despite_changed_snapshot(self):
         payload = real_snapshot()
@@ -255,6 +255,25 @@ class EditionArchiveTests(unittest.TestCase):
             self.assertEqual(append_archive(payload, accepted(payload), directory, NOW), legacy)
             self.assertEqual(target.read_bytes(), before)
 
+    def test_v2_archive_fixture_loads_and_keeps_exact_bytes(self):
+        source = Path(__file__).parent / "fixtures" / "editions" / "2026-10-03.json"
+        before = source.read_bytes()
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / source.name
+            target.write_bytes(before)
+            edition = load_archive(directory)[0]
+            self.assertEqual(edition["policy"]["method"], "daily-evidence-v2")
+            self.assertEqual(append_archive(real_snapshot(), accepted(real_snapshot()), directory, NOW), edition)
+            self.assertEqual(target.read_bytes(), before)
+
+    def test_v3_archive_accepts_no_signal_but_checks_desk_marker_and_reasons(self):
+        edition = build_edition(real_snapshot(), NOW)
+        self.assertEqual(_inspect_edition(edition, "2026-10-03.json"), edition)
+        no_signal = next(story for story in edition["stories"] if not story["selection"]["reasons"])
+        no_signal["selection"].pop("desk_approved")
+        with self.assertRaises(ValueError):
+            _inspect_edition(edition, "2026-10-03.json")
+
     def test_new_attention_and_publisher_evidence_survive_archive_validation(self):
         payload = real_snapshot()
         # Controlled groups/percentiles exercise new press and forum reason paths.
@@ -263,12 +282,12 @@ class EditionArchiveTests(unittest.TestCase):
         sad = next(s for s in payload["stories"] if s["id"] == "7c35e1148c5e7af2378a")
         sad["hot_signals"]["engagement_percentile"] = .97
         edition = build_edition(payload, NOW)
-        self.assertEqual(len(edition["stories"]), 3)
+        self.assertEqual(len(edition["stories"]), 5)
         self.assertEqual(_inspect_edition(edition, "2026-10-03.json"), edition)
         for mutation in ("percentile", "comments", "count", "signals", "duplicate_forum", "false_release", "borrowed_comments"):
             with self.subTest(mutation=mutation):
                 bad = copy.deepcopy(edition)
-                forum = bad["stories"][-1]
+                forum = next(story for story in bad["stories"] if story["id"] == sad["id"])
                 if mutation == "percentile":
                     forum["selection"]["reasons"][0]["percentile"] = .9699
                 elif mutation == "comments":
