@@ -193,7 +193,7 @@ button.wx-detail:hover { color: var(--color-ink); }
   .weather { position: static; }
   .wx-menu, .wx-panel {
     position: fixed; z-index: 60; top: auto; left: var(--page-pad); right: var(--page-pad);
-    bottom: calc(var(--mobile-nav-h, 0px) + env(safe-area-inset-bottom) + var(--space-8));
+    bottom: calc(var(--mobile-nav-h, 0px) + var(--dock-gap, 0px) * 2 + env(safe-area-inset-bottom) + var(--space-8));
   }
   .wx-menu { width: auto; max-height: 60dvh; transform-origin: bottom center; transform: translateY(var(--space-8)); }
   .wx-panel { width: auto; max-height: 75dvh; overflow: auto; }

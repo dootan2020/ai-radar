@@ -1,12 +1,13 @@
 /* Halcyon · Bộ đọc Bản Tin Buổi Sáng (ban-tin.js)
    Bản quyền & quy chuẩn thiết kế: Bento Keynote Apple (docs/ngon-ngu-thiet-ke.md).
    - Tải bản tin đóng băng lúc 06:00 sáng theo giờ Việt Nam.
-   - Trình bày 1-5 tin: tiêu đề tiếng Việt, lý do chọn, số đo thật, logo nguồn, liên kết bài gốc, tóm tắt khi có.
-   - Thể hiện trung thực ngày trống/thưa tin, ngày thiếu và lỗi kết nối.
-   - Điểm kết thúc rõ ràng ("Hết bản tin hôm nay") và cho phép lùi về các ngày trước. */
+   - Trình bày 1-5 tin: tiêu đề tiếng Việt, logo nguồn, liên kết bài gốc, tóm tắt khi có.
+   - Trang chỉ cho người đọc thấy tin: không giải thích cách chọn tin, không số đếm nội bộ (anh Tuấn, 08/11).
+   - Ngày trống, ngày thiếu và lỗi kết nối nói ngắn gọn, tử tế, kèm một lối đi tiếp.
+   - Điểm kết thúc rõ ràng ("Hết bản tin hôm nay") và lịch các ngày trước, chia theo tháng. */
 
-import { esc, fmt, faceOfStory, faceOfSource, avatar, hydrateHF, watchImageErrors } from './faces.js';
-import { ago, hhmm, dayKey } from './time-text.js';
+import { esc, faceOfStory, faceOfSource, avatar, hydrateHF, watchImageErrors } from './faces.js';
+import { ago } from './time-text.js';
 import { KIND, METRIC, signalText } from './words.js';
 import { origLine, uniqCoverage } from './titles.js';
 import { headlineShown, sourceDescriptionMark } from './editorial-headline.js';
@@ -45,24 +46,6 @@ export const KNOWN_SOURCES = new Map([
   ['interconnects', { id: 'interconnects', name: 'Interconnects', lab: '', publisher: 'interconnects' }],
   ['smol-ai', { id: 'smol-ai', name: 'Smol AI', lab: '', publisher: 'smol-ai' }],
 ]);
-
-/* Định dạng thời gian xuất bản và chốt dữ liệu trung thực */
-export function formatEditionTimeVi(edition) {
-  if (!edition) return '';
-  const createdStr = edition.created_at ? hhmm(new Date(edition.created_at)) : null;
-  const cutoffStr = edition.cutoff_at ? hhmm(new Date(edition.cutoff_at)) : null;
-
-  if (createdStr && cutoffStr) {
-    return `Xuất bản lúc ${createdStr} · Dữ liệu chốt ${cutoffStr} (giờ Việt Nam)`;
-  }
-  if (createdStr) {
-    return `Xuất bản lúc ${createdStr} (giờ Việt Nam)`;
-  }
-  if (cutoffStr) {
-    return `Dữ liệu chốt lúc ${cutoffStr} (giờ Việt Nam)`;
-  }
-  return '';
-}
 
 /* ---------- Định dạng ngày tháng tiếng Việt ---------- */
 export function formatFullDateVi(dateStr) {
@@ -133,74 +116,8 @@ export function renderStoryTileHTML(story, isLead = false, sources = null) {
   const titleDisplay = headlineShown(story);
   const origHtml = origLine(story.title, story.title_vi, esc);
   const summary = getStorySummary(story);
-  const reasons = (story.selection && Array.isArray(story.selection.reasons)) ? story.selection.reasons : [];
-  const signals = (story.selection && story.selection.signals) ? story.selection.signals : {};
   const kindLabel = KIND[story.kind] || 'Bài viết';
   const kindIcon = story.kind ? `i-k-${story.kind}` : 'i-k-article';
-
-  // Số đo thật về câu chuyện (không đưa phép tính kỹ thuật đường ống)
-  const numCards = [];
-
-  // 1. Số nhà xuất bản / nguồn đưa tin
-  const pubCount = story.source_count || (signals.publishers ? signals.publishers.length : 1);
-  numCards.push(`
-    <div class="bt-num-item">
-      <span class="bt-num-val num">${fmt(pubCount)}</span>
-      <span class="bt-num-lbl">${pubCount > 1 ? 'nhà xuất bản cùng đưa tin' : 'nhà xuất bản đưa tin'}</span>
-    </div>
-  `);
-
-  // 2. Tương tác / Điểm nóng (khi có số đo trong dữ liệu)
-  if (typeof signals.hot_score === 'number' && signals.hot_score > 0) {
-    numCards.push(`
-      <div class="bt-num-item">
-        <span class="bt-num-val num">${fmt(signals.hot_score)}</span>
-        <span class="bt-num-lbl">điểm nóng đo được</span>
-      </div>
-    `);
-  }
-  if (typeof signals.engagement_percentile === 'number' && signals.engagement_percentile > 0) {
-    const pct = Math.round(signals.engagement_percentile * 100);
-    numCards.push(`
-      <div class="bt-num-item">
-        <span class="bt-num-val num">${pct}%</span>
-        <span class="bt-num-lbl">nhóm tương tác cao nhất</span>
-      </div>
-    `);
-  }
-
-  // 3. Số đo bổ sung từ coverage (bình luận, điểm thảo luận)
-  for (const c of story.coverage || []) {
-    if (c && c.metrics) {
-      if (typeof c.metrics.comments === 'number' && c.metrics.comments > 0) {
-        numCards.push(`
-          <div class="bt-num-item">
-            <span class="bt-num-val num">${fmt(c.metrics.comments)}</span>
-            <span class="bt-num-lbl">bình luận thảo luận</span>
-          </div>
-        `);
-        break;
-      } else if (typeof c.metrics.points === 'number' && c.metrics.points > 0) {
-        numCards.push(`
-          <div class="bt-num-item">
-            <span class="bt-num-val num">${fmt(c.metrics.points)}</span>
-            <span class="bt-num-lbl">điểm đánh giá</span>
-          </div>
-        `);
-        break;
-      }
-    }
-  }
-
-  // 4. Nếu có nhiều góc nhìn / bài viết cùng chủ đề
-  if (Array.isArray(story.coverage) && story.coverage.length > 1) {
-    numCards.push(`
-      <div class="bt-num-item">
-        <span class="bt-num-val num">${fmt(story.coverage.length)}</span>
-        <span class="bt-num-lbl">bài viết liên quan</span>
-      </div>
-    `);
-  }
 
   // Nguồn thảo luận / bài viết khác trong coverage
   const extraSources = (story.coverage || []).filter(c => c && c.url && c.url !== story.url);
@@ -244,23 +161,6 @@ export function renderStoryTileHTML(story, isLead = false, sources = null) {
 
       ${summary ? `<p class="bt-story-summary">${sourceDescriptionMark()}${esc(summary)}</p>` : ''}
 
-      ${reasons.length > 0 ? `
-        <div class="bt-reasons-box" aria-label="Lý do chọn tin">
-          <div class="bt-reasons-head">
-            <svg class="i"><use href="#i-check"/></svg> Lý do chọn
-          </div>
-          <ul class="bt-reasons-list">
-            ${reasons.map(r => `<li>${esc(r.text)}</li>`).join('')}
-          </ul>
-        </div>
-      ` : ''}
-
-      ${numCards.length > 0 ? `
-        <div class="bt-numbers-grid" aria-label="Số đo đo lường thực tế">
-          ${numCards.join('')}
-        </div>
-      ` : ''}
-
       <div class="bt-tile-actions">
         <a class="bt-btn-primary" href="${esc(story.url)}" target="_blank" rel="noopener noreferrer">
           Đọc bài gốc <svg class="i"><use href="#i-out"/></svg>
@@ -272,29 +172,19 @@ export function renderStoryTileHTML(story, isLead = false, sources = null) {
 }
 
 /* ---------- Sinh HTML cho Ngày Trống (Empty Day) ---------- */
-export function renderEmptyStateHTML(edition) {
-  const hasCount = typeof edition?.source_health?.successful_remote_sources === 'number';
-  const sourcesChecked = hasCount ? edition.source_health.successful_remote_sources : null;
-  const cutoffTime = edition?.cutoff_at ? hhmm(new Date(edition.cutoff_at)) : '06:00';
-  const sourcesText = hasCount
-    ? `Hệ thống đã rà soát ${sourcesChecked} nguồn tin trong 24 giờ trước thời điểm chốt ${cutoffTime}, nhưng không có câu chuyện nào đáp ứng đồng thời các tiêu chí bằng chứng biên tập (dấu hiệu công bố gốc, số lượng nhà xuất bản độc lập hoặc tương tác đo lường được).`
-    : `Hệ thống đã rà soát các nguồn tin trong 24 giờ trước thời điểm chốt ${cutoffTime}, nhưng không có câu chuyện nào đáp ứng đồng thời các tiêu chí bằng chứng biên tập (dấu hiệu công bố gốc, số lượng nhà xuất bản độc lập hoặc tương tác đo lường được).`;
-  const healthBadgeText = hasCount
-    ? `Đã rà soát đủ ${sourcesChecked} nguồn tin. Không chèn tin bù lấp chỗ.`
-    : `Đã rà soát các nguồn tin độc lập. Không chèn tin bù lấp chỗ.`;
-
+/* Ngắn gọn và tử tế: không giải thích tiêu chí, không số nguồn đã quét (anh Tuấn, 08/11). */
+export function renderEmptyStateHTML(edition, isToday = true) {
+  const day = formatShortDateVi(edition?.date);
+  const lead = isToday || !day ? 'Bản tin sáng nay không có tin nào.' : `Bản tin ngày ${esc(day)} không có tin nào.`;
   return `
-    <section class="bt-tile bt-tile-status" aria-label="Thông báo bản tin trống">
+    <section class="bt-tile bt-tile-status" aria-labelledby="bt-status-h">
       <div class="bt-status-icon">
-        <svg class="i"><use href="#i-cal"/></svg>
+        <svg class="i" aria-hidden="true"><use href="#i-cup"/></svg>
       </div>
-      <h2 class="bt-status-title">Hôm nay không có tin nào đạt tiêu chuẩn biên tập</h2>
-      <p class="bt-status-text">
-        ${sourcesText}
-      </p>
-      <div class="bt-status-health">
-        <svg class="i"><use href="#i-check"/></svg>
-        ${healthBadgeText}
+      <h2 class="bt-status-title" id="bt-status-h">Một buổi sáng yên ắng</h2>
+      <p class="bt-status-text">${lead} Mời bạn đọc dòng tin mới nhất hoặc xem lại các ngày trước.</p>
+      <div class="bt-status-actions">
+        <a class="bt-btn-primary" href="index.html">Đọc dòng tin</a>
       </div>
     </section>
   `;
@@ -303,14 +193,12 @@ export function renderEmptyStateHTML(edition) {
 /* ---------- Sinh HTML cho Ngày Thiếu (Missing Day) ---------- */
 export function renderMissingStateHTML(targetDate, latestDate) {
   return `
-    <section class="bt-tile bt-tile-status" aria-label="Thông báo không tìm thấy ngày">
-      <div class="bt-status-icon is-warn">
-        <svg class="i"><use href="#i-warn"/></svg>
+    <section class="bt-tile bt-tile-status" aria-labelledby="bt-status-h">
+      <div class="bt-status-icon">
+        <svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>
       </div>
-      <h2 class="bt-status-title">Không tìm thấy bản tin ngày ${esc(formatShortDateVi(targetDate) || targetDate)}</h2>
-      <p class="bt-status-text">
-        Ngày bạn yêu cầu không có dữ liệu bản tin được lưu trữ trong kho lưu trữ hoặc chưa được xuất bản.
-      </p>
+      <h2 class="bt-status-title" id="bt-status-h">Không tìm thấy bản tin ngày ${esc(formatShortDateVi(targetDate) || targetDate)}</h2>
+      <p class="bt-status-text">Ngày này chưa có bản tin.</p>
       <div class="bt-status-actions">
         ${latestDate ? `
           <a class="bt-btn-primary" href="?ngay=${esc(latestDate)}">
@@ -323,16 +211,14 @@ export function renderMissingStateHTML(targetDate, latestDate) {
 }
 
 /* ---------- Sinh HTML cho Lỗi Tải Dữ Liệu (Failed Fetch) ---------- */
-export function renderErrorStateHTML(errorMessage) {
+export function renderErrorStateHTML() {
   return `
-    <section class="bt-tile bt-tile-status" aria-label="Thông báo lỗi tải">
+    <section class="bt-tile bt-tile-status" aria-labelledby="bt-status-h">
       <div class="bt-status-icon is-warn">
-        <svg class="i"><use href="#i-warn"/></svg>
+        <svg class="i" aria-hidden="true"><use href="#i-warn"/></svg>
       </div>
-      <h2 class="bt-status-title">Không thể tải bản tin</h2>
-      <p class="bt-status-text">
-        Đã xảy ra lỗi khi kết nối hoặc đọc tệp dữ liệu bản tin. Vui lòng kiểm tra kết nối mạng và thử lại.
-      </p>
+      <h2 class="bt-status-title" id="bt-status-h">Không thể tải bản tin</h2>
+      <p class="bt-status-text">Bạn kiểm tra kết nối mạng rồi thử lại nhé.</p>
       <div class="bt-status-actions">
         <button class="bt-btn-primary" id="bt-retry-btn" type="button">
           Thử tải lại
@@ -342,37 +228,56 @@ export function renderErrorStateHTML(errorMessage) {
   `;
 }
 
+/* ---------- Lịch các ngày trước ----------
+   Thay hàng nút ngày dài, lệch tâm (anh Tuấn, 08/11: "Bộ lọc theo ngày đang lệch lạc, rất xấu"): mỗi tháng một nhóm,
+   mỗi ngày một ô cùng cỡ trong lưới căn trái (thứ viết tắt trên, số ngày dưới), như một tờ lịch. Ngày đang xem có
+   mặt lót của màu nhấn. */
+const WEEKDAY_SHORT = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+export function renderArchiveHTML(editions = [], currentDate = null) {
+  const months = [];
+  for (const e of editions || []) {
+    const [y, m, d] = String(e?.date || '').split('-').map(Number);
+    if (!y || !m || !d) continue;
+    const key = `${y}-${m}`;
+    let group = months[months.length - 1];
+    if (!group || group.key !== key) months.push(group = { key, y, m, days: [] });
+    group.days.push({ date: e.date, d, wd: new Date(y, m - 1, d).getDay() });
+  }
+  if (!months.length) return '';
+  return `
+    <nav class="bt-archive" aria-labelledby="bt-archive-h">
+      <h3 class="bt-archive-heading" id="bt-archive-h">Các ngày trước</h3>
+      ${months.map(g => `
+        <section class="bt-archive-month" aria-label="Tháng ${g.m} năm ${g.y}">
+          <h4 class="bt-archive-month-h">Tháng ${g.m}<span class="bt-archive-year">${g.y}</span></h4>
+          <ol class="bt-archive-grid">
+            ${g.days.map(x => `<li><a class="bt-archive-day" href="?ngay=${esc(x.date)}"${x.date === currentDate ? ' aria-current="date"' : ''} aria-label="${esc(formatFullDateVi(x.date))}"><span class="bt-archive-wd">${WEEKDAY_SHORT[x.wd]}</span><span class="bt-archive-d num">${String(x.d).padStart(2, '0')}</span></a></li>`).join('')}
+          </ol>
+        </section>
+      `).join('')}
+    </nav>
+  `;
+}
+
 /* ---------- Sinh HTML Khối Kết Thúc ("Hết bản tin hôm nay") ---------- */
-export function renderEndSectionHTML(currentDate, isToday, availableEditions = []) {
+export function renderEndSectionHTML(currentDate, isToday, availableEditions = [], empty = false) {
   const titleText = isToday ? 'Hết bản tin hôm nay' : `Hết bản tin ngày ${formatShortDateVi(currentDate)}`;
   const subtitleText = isToday
     ? 'Bạn đã xem trọn vẹn điểm tin AI sáng nay. Chúc bạn một ngày làm việc hiệu quả.'
     : `Bạn đã xem trọn vẹn bản tin của ngày ${formatShortDateVi(currentDate)}.`;
 
-  const otherDays = (availableEditions || []).filter(e => e.date !== currentDate);
-
   return `
-    <section class="bt-end-section" aria-label="Kết thúc bản tin">
-      <div class="bt-end-check">
-        <svg class="i"><use href="#i-check"/></svg>
-      </div>
-      <h2 class="bt-end-title">${esc(titleText)}</h2>
-      <p class="bt-end-text">${esc(subtitleText)}</p>
-
-      ${otherDays.length > 0 ? `
-        <h3 class="bt-archive-heading">Bản tin các ngày trước</h3>
-        <nav class="bt-archive-nav" aria-label="Danh sách các ngày trước">
-          ${otherDays.map(e => `
-            <a class="bt-archive-btn" href="?ngay=${esc(e.date)}">
-              <svg class="i" style="width:1em;height:1em"><use href="#i-cal"/></svg>
-              ${esc(formatShortDateVi(e.date))}
-            </a>
-          `).join('')}
-        </nav>
-      ` : ''}
-
+    <section class="bt-end-section${empty ? ' is-archive-only' : ''}" aria-label="${empty ? 'Các ngày trước' : 'Kết thúc bản tin'}">
+      ${empty ? '' : `
+        <div class="bt-end-check">
+          <svg class="i" aria-hidden="true"><use href="#i-check"/></svg>
+        </div>
+        <h2 class="bt-end-title">${esc(titleText)}</h2>
+        <p class="bt-end-text">${esc(subtitleText)}</p>
+      `}
+      ${renderArchiveHTML(availableEditions, currentDate)}
       <a class="bt-back-to-top" href="#top">
-        <svg class="i"><use href="#i-arrow-up"/></svg> Về đầu trang
+        <svg class="i" aria-hidden="true"><use href="#i-arrow-up"/></svg> Về đầu trang
       </a>
     </section>
   `;
@@ -394,8 +299,6 @@ export class BanTinReader {
     this.endSectionEl = null;
     this.titleEl = null;
     this.subtitleEl = null;
-    this.metaChipsEl = null;
-    this.freezeBadgeEl = null;
     this.currentDateBtnEl = null;
     this.prevBtnEl = null;
     this.nextBtnEl = null;
@@ -407,8 +310,6 @@ export class BanTinReader {
     this.endSectionEl = document.getElementById('bt-end-section');
     this.titleEl = document.getElementById('bt-title');
     this.subtitleEl = document.getElementById('bt-subtitle');
-    this.metaChipsEl = document.getElementById('bt-meta-chips');
-    this.freezeBadgeEl = document.getElementById('bt-freeze-time');
     this.currentDateBtnEl = document.getElementById('bt-current-date');
     this.prevBtnEl = document.getElementById('bt-prev');
     this.nextBtnEl = document.getElementById('bt-next');
@@ -588,7 +489,8 @@ export class BanTinReader {
 
     // 2. Trạng thái Lỗi Kết Nối
     if (this.state === 'error') {
-      this.boardEl.innerHTML = renderErrorStateHTML(this.errorMessage);
+      if (this.subtitleEl) this.subtitleEl.hidden = true;
+      this.boardEl.innerHTML = renderErrorStateHTML();
       const retryBtn = document.getElementById('bt-retry-btn');
       if (retryBtn) {
         retryBtn.addEventListener('click', () => this.loadEdition(this.currentDate));
@@ -600,6 +502,8 @@ export class BanTinReader {
     // 3. Trạng thái Ngày Thiếu
     if (this.state === 'missing') {
       const latestDate = this.index?.latest?.date;
+      if (this.titleEl) this.titleEl.textContent = formatFullDateVi(this.currentDate) || 'Bản tin AI';
+      if (this.subtitleEl) this.subtitleEl.hidden = true;
       this.boardEl.innerHTML = renderMissingStateHTML(this.currentDate, latestDate);
       if (this.endSectionEl) this.endSectionEl.innerHTML = '';
       return;
@@ -609,64 +513,20 @@ export class BanTinReader {
     const edition = this.currentEdition;
     const isToday = Boolean(this.index?.latest?.date === edition.date);
 
-    // Cập nhật Masthead
-    if (this.freezeBadgeEl) {
-      const timeStr = formatEditionTimeVi(edition);
-      this.freezeBadgeEl.textContent = timeStr;
-      this.freezeBadgeEl.hidden = !timeStr;
-    }
+    // Cập nhật Masthead: ngày và một dòng dẫn, không số đếm (anh Tuấn, 08/11)
     if (this.titleEl) {
       this.titleEl.textContent = formatFullDateVi(edition.date);
     }
     if (this.subtitleEl) {
-      const storyCount = edition.stories.length;
-      if (storyCount === 0) {
-        this.subtitleEl.textContent = 'Bản tin không có câu chuyện nào đáp ứng đủ tiêu chí biên tập.';
-      } else if (storyCount === 1) {
-        this.subtitleEl.textContent = '5 phút đọc sáng cùng cà phê. Hôm nay có duy nhất 1 tin nổi bật đạt trọn vẹn tiêu chuẩn chọn lọc.';
-      } else {
-        this.subtitleEl.textContent = `5 phút đọc sáng cùng cà phê. ${storyCount} chuyện chọn lọc kèm số đo thật.`;
-      }
-    }
-
-    if (this.metaChipsEl) {
-      const hasSources = typeof edition.source_health?.successful_remote_sources === 'number';
-      const sourcesCount = hasSources ? edition.source_health.successful_remote_sources : null;
-      const count = edition.stories.length;
-      const chips = [];
-
-      chips.push(`
-        <span class="bt-chip">
-          <svg class="i"><use href="#i-check"/></svg>
-          ${count === 0 ? '0 tin đạt chuẩn' : `${count} tin chọn lọc`}
-        </span>
-      `);
-
-      if (hasSources) {
-        chips.push(`
-          <span class="bt-chip">
-            <svg class="i"><use href="#i-signal"/></svg>
-            ${sourcesCount} nguồn đã quét
-          </span>
-        `);
-      }
-
-      if (edition.policy) {
-        chips.push(`
-          <span class="bt-chip" title="${esc(edition.policy.description || 'Lọc theo dấu hiệu công bố và số đo thật')}">
-            <svg class="i"><use href="#i-shield"/></svg>
-            Lọc bằng số đo thật
-          </span>
-        `);
-      }
-
-      this.metaChipsEl.innerHTML = chips.join('');
+      const hasStories = edition.stories.length > 0;
+      this.subtitleEl.textContent = hasStories ? 'Những chuyện AI đáng đọc, gói gọn cho buổi sáng.' : '';
+      this.subtitleEl.hidden = !hasStories;
     }
 
     // Render Board
     if (this.state === 'empty') {
       this.boardEl.className = 'bt-grid is-empty';
-      this.boardEl.innerHTML = renderEmptyStateHTML(edition);
+      this.boardEl.innerHTML = renderEmptyStateHTML(edition, isToday);
     } else {
       const isSingle = edition.stories.length === 1;
       this.boardEl.className = `bt-grid ${isSingle ? 'is-single' : ''}`;
@@ -678,7 +538,8 @@ export class BanTinReader {
       this.endSectionEl.innerHTML = renderEndSectionHTML(
         edition.date,
         isToday,
-        this.index?.editions || []
+        this.index?.editions || [],
+        this.state === 'empty'
       );
     }
 

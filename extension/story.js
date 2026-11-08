@@ -184,15 +184,12 @@ export function renderEditorialSummaryHTML(story, publisherName = '', srcMap = n
   const shown = name => sourceDisplayName(name, story, srcMap);
   const sources = story.summary_sources.filter(s => safe(s?.url) !== '#').map(s =>
     `<a href="${esc(safe(s?.url))}" target="_blank" rel="noopener noreferrer">${esc(shown(s.name))}${s.role === 'primary' ? ' — nguồn gốc' : ''}</a>`).join(' · ');
-  const partial = (story.summary_limitations || []).includes('partial_source');
   const outletRaw = (story.summary_sources.find(s => s?.role === 'outlet' && s?.name) || {}).name;
   const outlet = outletRaw ? shown(outletRaw) : publisherName;
   return `
     ${isDeskProse(story) ? renderDeskProseHTML(story.key_points, outlet) : renderKeyPointsHTML(story.key_points, publisherName)}
     <div class="story-summary-attribution">
       <p class="story-summary-sources"><span class="story-credit-label">Nguồn:</span> ${sources}</p>
-      ${partial ? '<p class="story-section-sub">Bản tóm tắt dựa trên các phần nguồn đọc được.</p>' : ''}
-      ${(story.summary_limitations || []).includes('missing_primary') ? '<p class="story-section-sub">Chưa đọc được nguồn gốc được bài báo dẫn.</p>' : ''}
     </div>`;
 }
 
@@ -228,8 +225,8 @@ export function renderKeyPointsHTML(keyPoints, publisherName = '') {
   `).join('');
 
   const sub = publisherName
-    ? `Tóm tắt bằng AI từ phần nội dung đọc được của ${esc(publisherName)}`
-    : 'Tóm tắt bằng AI từ phần nội dung bài gốc đọc được';
+    ? `Tóm tắt bằng AI từ ${esc(publisherName)}`
+    : 'Tóm tắt bằng AI từ bài gốc';
 
   return `
     <section class="story-keypoints-box" aria-label="Tóm tắt bài viết">

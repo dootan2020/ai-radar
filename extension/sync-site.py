@@ -93,10 +93,6 @@ def adapt_html(html):
                         '<div class="ns-results" id="ns-results" hidden></div>\n    </div>\n    '
                         + edition.group(0).replace('href="ban-tin.html"', f'href="{LIVE}ban-tin.html"')
                         + '\n    ' + theme.group(0))
-    # The freshness line closes the page, as in mockup D; the heading above the bento stays for screen readers.
-    html = replace_once(html, '\n    <p class="front-fresh" id="front-fresh"></p>', '')
-    html = replace_once(html, '<p class="src-note" id="src-update"></p>',
-                        '<p class="front-fresh" id="front-fresh"></p>\n    <p class="src-note" id="src-update"></p>')
     validate_html(html)
     return html
 
@@ -224,6 +220,7 @@ def sync():
                  'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg', 'wordmark.svg', 'wordmark-dark.svg'):
         shutil.copyfile(SITE / name, EXT / name)
     shutil.copytree(SITE / 'fonts', EXT / 'fonts', dirs_exist_ok=True)
+    shutil.copytree(SITE / 'google-apps', EXT / 'google-apps', dirs_exist_ok=True)
     write(EXT / 'arena.js', arena)
     write(EXT / 'story.js', story)
     write(EXT / 'menu-cong-cu.js', menu)

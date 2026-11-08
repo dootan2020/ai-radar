@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Halcyon · Bản tin AI mỗi sáng</title>
-<meta name="description" content="Những mẩu tin AI ngắn gọn. Điểm tin AI mỗi sáng lúc 06:00, lọc bằng số đo thật: 1 đến 5 tin chọn lọc, lý do biên tập rõ ràng, dẫn về nguồn gốc.">
+<meta name="description" content="Những mẩu tin AI ngắn gọn. Điểm tin AI mỗi sáng, mỗi tin dẫn về nguồn gốc.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -16,7 +16,7 @@
 <meta property="og:locale" content="vi_VN">
 <meta property="og:url" content="https://radar-ai-vn.pages.dev/ban-tin.html">
 <meta property="og:title" content="Halcyon · Bản tin AI mỗi sáng">
-<meta property="og:description" content="Những mẩu tin AI ngắn gọn. Tin AI mỗi sáng lúc 06:00, lọc bằng số đo thật. Mọi mục dẫn về nguồn gốc.">
+<meta property="og:description" content="Những mẩu tin AI ngắn gọn. Điểm tin AI mỗi sáng, mỗi tin dẫn về nguồn gốc.">
 <link rel="canonical" href="https://radar-ai-vn.pages.dev/ban-tin.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c=' https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; img-src 'self' https://avatars.githubusercontent.com https://cdn-avatars.huggingface.co https://i.ytimg.com https://www.google.com https://*.gstatic.com; font-src 'self'; connect-src 'self' https://huggingface.co https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';">
@@ -43,8 +43,7 @@
   <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></symbol>
   <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
   <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
-  <symbol id="i-signal" viewBox="0 0 24 24"><path d="M2 20h20M5 20v-4M10 20v-8M15 20v-12M20 20v-16"/></symbol>
-  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3s8 3 8 9c0 6-8 9-8 9s-8-3-8-9c0-6 8-9 8-9z"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5zM16 10.5h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5c-.6.8-.6 1.7 0 2.5M11.5 3.5c-.6.8-.6 1.7 0 2.5"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
   <symbol id="i-k-model" viewBox="0 0 24 24"><path d="M12 3.5l7.5 4.2v8.6L12 20.5l-7.5-4.2V7.7zM4.5 7.7L12 12l7.5-4.3M12 12v8.5"/></symbol>
@@ -84,13 +83,9 @@
 
 <main class="bt-main" id="main-content">
   <header class="bt-masthead" id="top">
-    <div class="bt-kicker-row">
-      <span class="bt-kicker">Điểm tin buổi sáng</span>
-      <span class="bt-freeze-badge" id="bt-freeze-time">Xuất bản lúc 21:45 · Dữ liệu chốt 06:00 (giờ Việt Nam)</span>
-    </div>
+    <p class="bt-kicker">Điểm tin buổi sáng</p>
     <h1 class="bt-title" id="bt-title">Bản tin AI hôm nay</h1>
-    <p class="bt-subtitle" id="bt-subtitle">5 phút đọc sáng cùng cà phê. Mỗi chuyện có số đo thật, nguồn gốc xác minh.</p>
-    <div class="bt-meta-chips" id="bt-meta-chips"></div>
+    <p class="bt-subtitle" id="bt-subtitle" hidden></p>
   </header>
 
   <div class="bt-grid is-loading" id="bt-board" aria-live="polite">

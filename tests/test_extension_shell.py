@@ -318,7 +318,7 @@ process.stdout.write(JSON.stringify(created));
         feed = (SITE / 'feed.js').read_text(encoding='utf-8')
         for missing in ('<script>try { var t = ', '<!-- Cloudflare Web Analytics -->',
                         'href="ban-tin.html"', '<!-- Masthead:', '<div class="tool-launcher"></div>',
-                        'id="sort-switch"', '<p class="front-fresh" id="front-fresh"></p>'):
+                        'id="sort-switch"'):
             with self.subTest(missing=missing), self.assertRaises(ValueError):
                 sync.adapt_html(html.replace(missing, 'changed', 1))
         for missing in ('href="tin/', 'href="nguon.html"', "location.replace('nguon.html')",

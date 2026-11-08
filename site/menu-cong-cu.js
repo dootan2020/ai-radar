@@ -1,18 +1,24 @@
 (() => {
+  /* Each tile shows the product's own colour logo, sharp at any screen density (captain, 08/11: "Logo Account bị
+     nhoè"; the 64px favicon service was scaled up). Nine logos are vector files shipped with the site (google-apps/,
+     CC0 "SVG Logos" set, see google-apps/LICENSE.txt); News, Translate and Docs are missing from that set and come
+     from Google's own 192px product icons. Every icon loads only when the panel first opens. */
+  const GS = 'https://ssl.gstatic.com/images/branding/product/2x/';
+  const BASE = new URL('google-apps/', (document.currentScript && document.currentScript.src) || location.href).href;
   const apps = [
-    ['Account', 'myaccount.google.com'],
-    ['Search', 'www.google.com'],
-    ['Maps', 'maps.google.com'],
-    ['YouTube', 'www.youtube.com'],
-    ['Gmail', 'mail.google.com'],
-    ['Drive', 'drive.google.com'],
-    ['Calendar', 'calendar.google.com'],
-    ['News', 'news.google.com'],
-    ['Photos', 'photos.google.com'],
-    ['Meet', 'meet.google.com'],
-    ['Translate', 'translate.google.com'],
-    ['Docs', 'docs.google.com'],
-    ['Gemini', 'gemini.google.com']
+    ['Account', 'myaccount.google.com', 'google.svg'],
+    ['Search', 'www.google.com', 'google.svg'],
+    ['Maps', 'maps.google.com', 'maps.svg'],
+    ['YouTube', 'www.youtube.com', 'youtube.svg'],
+    ['Gmail', 'mail.google.com', 'gmail.svg'],
+    ['Drive', 'drive.google.com', 'drive.svg'],
+    ['Calendar', 'calendar.google.com', 'calendar.svg'],
+    ['News', 'news.google.com', GS + 'news_96dp.png'],
+    ['Photos', 'photos.google.com', 'photos.svg'],
+    ['Meet', 'meet.google.com', 'meet.svg'],
+    ['Translate', 'translate.google.com', GS + 'translate_96dp.png'],
+    ['Docs', 'docs.google.com', GS + 'docs_2020q4_96dp.png'],
+    ['Gemini', 'gemini.google.com', 'gemini.svg']
   ];
   const header = document.querySelector('header.masthead, header.feed-bar, header.bt-bar, header.bar');
   if (!header) return;
@@ -38,7 +44,7 @@
 
   const grid = document.createElement('div');
   grid.className = 'tool-launcher-grid';
-  for (const [name, domain] of apps) {
+  for (const [name, domain, logo] of apps) {
     const link = document.createElement('a');
     link.className = 'tool-launcher-tile';
     link.href = `https://${domain}/`;
@@ -48,10 +54,12 @@
 
     const image = document.createElement('img');
     image.className = 'tool-launcher-icon';
-    image.alt = name;
+    image.alt = '';
     image.width = 40;
     image.height = 40;
-    image.dataset.iconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+    image.decoding = 'async';
+    image.referrerPolicy = 'no-referrer';
+    image.dataset.iconUrl = logo.startsWith('https://') ? logo : BASE + logo;
 
     const fallback = document.createElement('span');
     fallback.className = 'tool-launcher-fallback';
@@ -63,7 +71,7 @@
     label.setAttribute('aria-hidden', 'true');
     label.textContent = name;
 
-    // The letter holds the slot until the icon has loaded; offline or blocked, the letter stays.
+    // The letter holds the slot until the logo has loaded; offline or blocked, the letter stays.
     image.hidden = true;
     image.addEventListener('load', () => {
       image.hidden = false;
@@ -131,19 +139,24 @@
     }, 150);
   }
 
-  function open() {
+  // Opened from the keyboard, focus lands on the first tile so arrow/Tab navigation starts there. Opened by
+  // mouse or touch, the panel itself takes focus so no tile shows a ring nobody asked for; Tab still walks
+  // the tiles from the top.
+  panel.tabIndex = -1;
+  function open(fromKeyboard) {
     window.clearTimeout(closeTimer);
     loadIcons();
     panel.hidden = false;
     requestAnimationFrame(() => panel.classList.add('is-open'));
     button.setAttribute('aria-expanded', 'true');
     button.setAttribute('aria-label', 'Đóng ứng dụng Google');
-    panel.querySelector('a')?.focus();
+    if (fromKeyboard) panel.querySelector('a')?.focus();
+    else panel.focus({ preventScroll: true });
   }
 
-  button.addEventListener('click', () => {
+  button.addEventListener('click', event => {
     if (button.getAttribute('aria-expanded') === 'true') close(true);
-    else open();
+    else open(event.detail === 0);
   });
   document.addEventListener('pointerdown', event => {
     if (!host.contains(event.target)) close();

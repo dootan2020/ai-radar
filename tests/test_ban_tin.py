@@ -102,7 +102,6 @@ HARNESS_CODE = """
 import {{
   formatFullDateVi,
   formatShortDateVi,
-  formatEditionTimeVi,
   getStorySummary,
   findEditionByDate,
   getAdjacentEditions,
@@ -124,13 +123,13 @@ const realEdition = JSON.parse(fs.readFileSync({real_day_path}, 'utf-8'));
 // Test date formatters
 out.fullDate = formatFullDateVi('2026-10-03');
 out.shortDate = formatShortDateVi('2026-10-03');
-out.editionTime = formatEditionTimeVi(realEdition);
 
 // Test normal day single story
 const singleStory = realEdition.stories[0];
 out.singleTileHtml = renderStoryTileHTML(singleStory, true);
 out.singleSummary = getStorySummary(singleStory);
 out.endSectionToday = renderEndSectionHTML(realEdition.date, true, realIndex.editions);
+out.endSectionEmpty = renderEndSectionHTML(realEdition.date, true, realIndex.editions, true);
 
 // Test multi-story edition with summary
 const multiEdition = JSON.parse(JSON.stringify(realEdition));
@@ -160,6 +159,7 @@ out.secondSummary = getStorySummary(secondStory);
 const emptyEdition = JSON.parse(JSON.stringify(realEdition));
 emptyEdition.stories = [];
 out.emptyStateHtml = renderEmptyStateHTML(emptyEdition);
+out.emptyPastHtml = renderEmptyStateHTML(emptyEdition, false);
 
 // Test empty day WITHOUT source_health (honest handling, no defaulted 45)
 const emptyNoHealth = JSON.parse(JSON.stringify(realEdition));
@@ -171,7 +171,7 @@ out.emptyStateNoHealthHtml = renderEmptyStateHTML(emptyNoHealth);
 out.missingStateHtml = renderMissingStateHTML('2026-09-15', realIndex.latest.date);
 
 // Test failed fetch
-out.errorStateHtml = renderErrorStateHTML('Network timeout');
+out.errorStateHtml = renderErrorStateHTML();
 
 // Test adjacent editions navigation
 const mockIndex = {{
@@ -223,10 +223,6 @@ class BanTinRenderLogicTests(unittest.TestCase):
         self.assertEqual(self.out["fullDate"], "Thứ Bảy, ngày 3 tháng 10 năm 2026")
         self.assertEqual(self.out["shortDate"], "03/10/2026")
 
-    def test_edition_creation_and_cutoff_time(self):
-        # 14:45:47Z is 21:45 in Asia/Ho_Chi_Minh; 23:00:00Z is 06:00
-        self.assertEqual(self.out["editionTime"], "Xuất bản lúc 21:45 · Dữ liệu chốt 06:00 (giờ Việt Nam)")
-
     def test_normal_day_single_story_rendering(self):
         tile = self.out["singleTileHtml"]
         # Vietnamese title rendered first
@@ -239,11 +235,11 @@ class BanTinRenderLogicTests(unittest.TestCase):
         self.assertNotIn('<span class="bt-source-name">huggingface-blog</span>', tile)
         # Verified logo present
         self.assertIn("avatars.githubusercontent.com/huggingface", tile)
-        # Selection reason present
-        self.assertIn("Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm", tile)
-        # Real numbers present
-        self.assertIn("nhà xuất bản", tile)
-        # No confusing pipeline arithmetic
+        # The reader sees the story, not how it was chosen (captain, 08/11): no reasons box, no measured numbers
+        self.assertNotIn("Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm", tile)
+        self.assertNotIn("Lý do chọn", tile)
+        self.assertNotIn("bt-numbers-grid", tile)
+        self.assertNotIn("nhà xuất bản", tile)
         self.assertNotIn("giờ trước giờ chốt", tile)
         # Link to original
         self.assertIn('href="https://huggingface.co/blog/allenai/astabrief"', tile)
@@ -258,22 +254,23 @@ class BanTinRenderLogicTests(unittest.TestCase):
         self.assertIn("Anthropic ra mắt Claude 5", tile)
         self.assertIn("bt-story-summary", tile)
         self.assertEqual(self.out["secondSummary"], "Mô hình mới tập trung vào khả năng lập trình và suy luận logic sâu.")
-        self.assertIn("3 định danh nhà xuất bản cùng đưa tin", tile)
-        self.assertIn("95", tile)  # hot score
-        self.assertIn("98%", tile)  # engagement percentile
+        self.assertNotIn("định danh nhà xuất bản", tile)
+        self.assertNotIn("điểm nóng", tile)
+        self.assertNotIn("98%", tile)
 
-    def test_empty_day_honest_state(self):
-        empty_html = self.out["emptyStateHtml"]
-        self.assertIn("Hôm nay không có tin nào đạt tiêu chuẩn biên tập", empty_html)
-        self.assertIn("Không chèn tin bù lấp chỗ", empty_html)
-        self.assertIn("45 nguồn", empty_html)
-
-        # When source_health is missing, no default 45 is shown
-        no_health_html = self.out["emptyStateNoHealthHtml"]
-        self.assertIn("Hôm nay không có tin nào đạt tiêu chuẩn biên tập", no_health_html)
-        self.assertIn("Không chèn tin bù lấp chỗ", no_health_html)
-        self.assertNotIn("45", no_health_html, "Invented 45 shown when source_health is missing")
-        self.assertIn("Đã rà soát các nguồn tin độc lập", no_health_html)
+    def test_empty_day_is_short_and_kind(self):
+        # Captain, 08/11: "Không cần giải thích kiểu như 'Bản tin không có câu chuyện nào đáp ứng đủ tiêu chí biên
+        # tập. 0 tin đạt chuẩn / 70 nguồn đã quét / Lọc bằng số đo thật'". The empty state stays, in plain words,
+        # with a way on; it names no criteria and no counts.
+        for key in ("emptyStateHtml", "emptyStateNoHealthHtml", "emptyPastHtml"):
+            with self.subTest(state=key):
+                html = self.out[key]
+                self.assertIn("Một buổi sáng yên ắng", html)
+                self.assertIn('href="index.html"', html)
+                for removed in ("tiêu chí", "tiêu chuẩn", "rà soát", "tin bù", "nguồn tin", "45", "chốt", "06:00"):
+                    self.assertNotIn(removed, html)
+        self.assertIn("Bản tin sáng nay không có tin nào.", self.out["emptyStateHtml"])
+        self.assertIn("Bản tin ngày 03/10/2026 không có tin nào.", self.out["emptyPastHtml"])
 
     def test_missing_day_honest_state(self):
         missing_html = self.out["missingStateHtml"]
@@ -291,6 +288,17 @@ class BanTinRenderLogicTests(unittest.TestCase):
         self.assertIn("Hết bản tin hôm nay", end_html)
         self.assertIn("Bạn đã xem trọn vẹn điểm tin AI sáng nay", end_html)
         self.assertIn("Về đầu trang", end_html)
+        # The days before: grouped by month, one same-size cell per day, the current day marked
+        self.assertIn('class="bt-archive-month"', end_html)
+        self.assertIn('class="bt-archive-grid"', end_html)
+        self.assertIn('href="?ngay=2026-10-03" aria-current="date"', end_html)
+        self.assertNotIn("bt-archive-btn", end_html)
+
+    def test_end_section_after_an_empty_day_holds_only_the_calendar(self):
+        empty_end = self.out["endSectionEmpty"]
+        self.assertNotIn("Hết bản tin", empty_end)
+        self.assertIn("Các ngày trước", empty_end)
+        self.assertIn("Về đầu trang", empty_end)
 
     def test_adjacent_editions_navigation(self):
         # At latest edition: next is None, prev is yesterday

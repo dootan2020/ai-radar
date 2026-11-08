@@ -270,7 +270,7 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertNotIn('Đọc nhanh', document)
         self.assertNotIn('Đọc đầy đủ', document)
         self.assertNotIn('Ý chính:', document)
-        self.assertIn('Tóm tắt bằng AI từ phần nội dung bài gốc đọc được.', document)
+        self.assertIn('<p class="story-section-sub">Tóm tắt bằng AI từ bài gốc</p>', document)
         self.assertNotIn('class="story-summary-text">Tóm tắt tiếng Việt.</p>', document)
         # When key points exist, gateway description notes AI summarization
         self.assertIn('Halcyon tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)

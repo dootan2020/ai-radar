@@ -32,7 +32,7 @@ try {
     await page.waitForSelector('#picks-grid .feed-card', { timeout: 20000 });
     await new Promise(r => setTimeout(r, 500));
     result[w] = await page.evaluate(() => {
-      const gen = Date.parse(document.querySelector('#src-update time')?.getAttribute('datetime') || '');
+      const gen = Date.parse(document.querySelector('#src-update')?.dataset.generated || '');
       const age = el => { const t = el.querySelector('time[datetime]'); return t ? Math.round((gen - Date.parse(t.getAttribute('datetime'))) / 36e5 * 10) / 10 : null; };
       const title = el => (el.querySelector('.card-title, .hot-title, .event-name') || el).textContent.trim().replace(/\s+/g, ' ').slice(0, 70);
       const rows = sel => [...document.querySelectorAll(sel)].map(el => ({ id: el.dataset.sid, ageH: age(el), title: title(el) }));

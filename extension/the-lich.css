@@ -111,5 +111,5 @@
   .the-lich button.wx-detail { display: none; }
   .the-lich .wx-skel { grid-area: now; width: var(--space-48); }
   .the-lich .wx-retry { grid-area: city; }
-  .the-lich .wx-menu, .the-lich .wx-panel { top: auto; left: var(--page-pad); right: var(--page-pad); bottom: calc(var(--mobile-nav-h, 0px) + env(safe-area-inset-bottom) + var(--space-8)); transform-origin: bottom center; }
+  .the-lich .wx-menu, .the-lich .wx-panel { top: auto; left: var(--page-pad); right: var(--page-pad); bottom: calc(var(--mobile-nav-h, 0px) + var(--dock-gap, 0px) * 2 + env(safe-area-inset-bottom) + var(--space-8)); transform-origin: bottom center; }
 }
