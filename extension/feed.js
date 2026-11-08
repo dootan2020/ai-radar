@@ -1324,6 +1324,14 @@ function glideTab(container, activeBtn, { immediate = false } = {}) {
   pill.style.height = `${h}px`;
 }
 
+/* Which edge of the sideways-scrolling section tabs still hides tabs: trang-msn.css fades that edge. */
+function markTabOverflow(el) {
+  if (!el || !el.dataset) return;
+  const max = el.scrollWidth - el.clientWidth, x = Math.abs(el.scrollLeft);
+  const more = max <= 1 ? '' : x <= 1 ? 'end' : x >= max - 1 ? 'start' : 'both';
+  if (el.dataset.more !== more) el.dataset.more = more;
+}
+
 function scrollChipIntoView(container, chip) {
   if (!container || !chip) return;
   const scroller = container.scrollWidth > container.clientWidth + 1
@@ -1633,7 +1641,7 @@ function topListHTML(list) {
   if (!list.length) return '';
   return `<section class="msn-card msn-toplist" id="top-list" aria-labelledby="top-list-h"><h2 id="top-list-h">Chuyện lớn</h2><ol>${list.map((st, i) => {
     const t = titleOf(st), s = srcOf(st);
-    return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><b class="num" aria-hidden="true">${i + 1}</b><span class="top-text"><a class="story-link top-title" href="${storyHref(st)}" data-id="${esc(st.id)}"${langAttr(t.text)}>${esc(t.text)}</a><span class="top-meta">${markHTML(st)}${esc(s.name)} · ${timeEl(st.published_at)}${translationMark(t)}</span></span></li>`;
+    return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><b class="num" aria-hidden="true">${i + 1}</b><span class="top-text"><a class="story-link top-title" href="${storyHref(st)}" data-id="${esc(st.id)}"${langAttr(t.text)}>${esc(t.text)}</a><span class="top-meta">${markHTML(st)}<span class="top-who"><span class="top-src">${esc(s.name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}</span>${translationMark(t)}</span></span></li>`;
   }).join('')}</ol></section>`;
 }
 
@@ -1927,7 +1935,8 @@ function renderSub() {
     sub.textContent = '';
   } else {
     const s = secOf(filter);
-    sub.innerHTML = `${s ? 'Đang xem mục' : 'Đang lọc'}: ${esc(LABELS[filter] || '')} <button class="text-btn" data-reset>${s ? 'Về dòng tin' : 'Bỏ lọc'}</button>`;
+    // The line's heading already names the view; the words before the button are for screen readers only.
+    sub.innerHTML = `<span class="sr">${s ? 'Đang xem mục' : 'Đang lọc'}: ${esc(LABELS[filter] || '')}. </span><button class="text-btn" data-reset>${s ? 'Về dòng tin' : 'Bỏ lọc'}</button>`;
   }
 }
 function renderChips() {
@@ -1941,6 +1950,7 @@ function renderChips() {
   const container = $('#feed-filters');
   const active = container ? container.querySelector('.filter-chip[aria-pressed="true"]') : null;
   if (container && active) glideTab(container, active);
+  markTabOverflow(container);
 }
 /* The line above the grid names the view and says when the snapshot was made ("Cập nhật lúc 14:27"); it carries no
    story count (captain, 08/11, Mẫu A). The panel head carries today's date on wide screens. */
@@ -2475,6 +2485,8 @@ function attachEvents() {
   });
   $('.feed-brand').addEventListener('click', () => { if (filter !== 'all') setFilter('all'); });
   $('#feed-filters').addEventListener('click', e => { const b = e.target.closest('.filter-chip'); if (b) setFilter(b.dataset.filter); });
+  $('#feed-filters').addEventListener('scroll', e => markTabOverflow(e.currentTarget), { passive: true });
+  if (document.fonts) document.fonts.ready.then(() => markTabOverflow($('#feed-filters')));
   // Tiles that lead to a view of their own ("Xem đủ 10 mô hình" opens "Xếp hạng").
   document.addEventListener('click', e => {
     const go = e.target instanceof Element && e.target.closest('[data-filter-go]');
@@ -2516,6 +2528,7 @@ function attachEvents() {
         glideTab(filters, activeChip, { immediate: true });
         scrollChipIntoView(filters, activeChip);
       }
+      markTabOverflow(filters);
     }
     const sort = $('#sort-switch');
     if (sort) {

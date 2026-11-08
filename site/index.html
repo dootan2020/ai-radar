@@ -151,8 +151,10 @@
         <button class="sort-btn sort-btn-compact" data-sort="toggle" aria-label="Đang sắp xếp: Đáng đọc nhất. Chuyển sang Mới nhất" aria-pressed="false"><span class="sort-current">Đáng đọc</span></button>
       </div>
     </div>
+    <!-- A section's way back sits on this line, beside the section's name, so the grid below never moves (captain, 08/11
+         19:50: the weather and the calendar keep one place on every section). -->
+    <p class="filter-context" id="filter-context" aria-live="polite" hidden></p>
   </div>
-  <p class="filter-context" id="filter-context" aria-live="polite" hidden></p>
   <!-- Shown only if the page never finished loading (a blocked module, no JavaScript). -->
   <div class="reader-fallback" role="status">
     <p>Nếu dòng tin chưa hiện, hãy thử tải lại trang. <a class="text-btn" href="">Tải lại trang</a></p>
