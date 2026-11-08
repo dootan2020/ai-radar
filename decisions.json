@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08T19:14:51.007985+00:00",
-  "input_generated_at": "2026-11-08T18:40:41Z",
+  "generated_at": "2026-11-08T23:33:02.907321+00:00",
+  "input_generated_at": "2026-11-08T22:26:36Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -39554,17 +39554,17 @@
       "use_original_title": false,
       "source_url": "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers",
       "key_points": [
-        "Theo Bloomberg News, quy định nội bộ tháng 10 của Goldman Sachs giới hạn các tác tử (công cụ phần mềm tự động viết và chạy mã) như Claude Code và GitHub cho riêng kỹ sư. Theo đó, phần lớn nhà giao dịch và nhân viên ngân hàng không còn được dùng công cụ lập trình trí tuệ nhân tạo tại nơi làm việc.",
-        "Bloomberg News cho biết quyết định hạn chế diễn ra sau đợt rà soát nội bộ về năng suất và các lo ngại rủi ro. Dù vậy, một nguồn thạo tin cho biết nhóm chuyên viên kết hợp giữa giao dịch, nghiên cứu định lượng và kỹ thuật phần mềm vẫn giữ quyền truy cập.",
-        "Đáng chú ý, Goldman Sachs là bên bảo lãnh chính cho đợt IPO của Anthropic dù phần lớn nhân viên ngân hàng không còn được dùng tác tử của đối tác này. Trước đó, một số nhà giao dịch từng dùng các công cụ này để theo dõi dòng giao dịch khách hàng và lập mô hình vị thế thị trường.",
-        "Trang The State of AI nhận định ngân hàng đúng đắn khi hạn chế công cụ, nhưng sai lầm trong cách tiến hành. Ấn phẩm này chỉ trích việc cắt quyền truy cập đột ngột sau khi Giám đốc Thông tin từng ca ngợi các công cụ do giới giao dịch phát triển hồi tháng 7."
+        "Theo Bloomberg News, phần lớn nhà giao dịch và nhân viên ngân hàng tại Goldman Sachs không còn được dùng công cụ lập trình trí tuệ nhân tạo. Quy định nội bộ cập nhật tháng 10 giới hạn Claude Code và GitHub cho kỹ sư, dù nhóm chuyên viên chiến lược vẫn giữ quyền truy cập.",
+        "Bloomberg News cho biết quyết định hạn chế diễn ra sau đợt rà soát về năng suất và lo ngại rủi ro. Quy định theo vai trò này chỉ áp dụng với tác tử (công cụ tự viết và chạy mã) bên thứ ba, trong khi trợ lý nội bộ vẫn mở cho toàn ngân hàng.",
+        "Đáng chú ý, nhân viên ngân hàng của Goldman Sachs chuẩn bị chào bán cổ phiếu trong đợt IPO của Anthropic, dù phần lớn họ không còn được dùng tác tử của công ty này. Một nguồn tin nói với Bloomberg rằng một số nhà giao dịch thất vọng vì từng dùng công cụ để theo dõi dòng giao dịch và lập mô hình vị thế.",
+        "Trang State of AI nhận định Goldman Sachs đúng đắn khi hạn chế các công cụ này, nhưng sai lầm trong cách thức triển khai. Theo tác giả bài viết, việc thu hồi quyền truy cập qua bản hướng dẫn mà không nêu giải pháp thay thế khiến các nhà giao dịch tìm ra ứng dụng tốt cảm thấy chính họ là rủi ro."
       ],
       "same_event_coverage_ids": [
         "ecf64e88ad8ac4730a4e"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Goldman Sachs giới hạn Claude Code cho kỹ sư sau khi rà soát về rủi ro và năng suất",
+      "editorial_headline_vi": "Goldman Sachs hạn chế công cụ lập trình AI đối với phần lớn nhà giao dịch và nhân viên ngân hàng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -39577,30 +39577,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 9.5,
         "answers": {
           "what": 10,
-          "why": 10,
-          "notable": 9,
+          "why": 9,
+          "notable": 10,
           "meaning": 8
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "cắt quyền truy cập đột ngột",
-            "explanation": "The source says access was withdrawn through an updated guideline; it does not establish that the withdrawal was sudden (outlet:p026)."
+            "summary_text": "không nêu giải pháp thay thế",
+            "explanation": "This attaches the absence of a replacement to the guidance. The source says only that no replacement was mentioned in Bloomberg's reporting; it does not establish what the guidance said (outlet:p026)."
           }
         ],
         "findings": [
           {
             "question": "meaning",
-            "problem": "A reader may think the restriction covers the bank's AI tools generally.",
-            "fix": "Specify that it covers third-party coding agents and that Goldman's in-house AI assistant remains available across the firm (outlet:p011)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The description adds an unsupported claim that access was withdrawn suddenly.",
-            "fix": "Say access was withdrawn through an updated guideline, with no replacement mentioned in Bloomberg's reporting (outlet:p026)."
+            "problem": "Readers may believe Goldman issued guidance without a replacement plan.",
+            "fix": "Say that Bloomberg's reporting did not mention a replacement, which is the narrower claim in outlet:p026."
           }
         ],
         "writer_boats": [
@@ -39608,8 +39603,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "9b08100c608fb9204aecddb457c64ce82087f021d280dedd799fbb80bc937350",
-        "scored_at": "2026-11-08T19:11:03.401186+00:00"
+        "prose_sha256": "aa35a6e27e07c51d19d6424d4a067f8c86ac1e4c40f4ade5b7e63e5b682bbb5e",
+        "scored_at": "2026-11-08T23:33:02.903796+00:00"
       }
     },
     {
@@ -39692,6 +39687,296 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "644524413c3e2491da8c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "25fc96dab8ac2c343520",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Executive interview focused on Gree Electric Appliances, green cooling initiatives, overseas expansion, and general manufacturing automation, with AI mentioned only as a passing buzzword in the headline.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/article/3373325/how-dong-mingzhu-chinas-manufacturing-iron-lady-maintaining-her-cool-ai-era",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e2def8b2b83beb0d0c22"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8a86cf9d70b8065c8241",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-08/read-the-memos-from-nvidia-s-board-and-ceo-jensen-huang",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a321a781bdc600a99712",
+        "ba4c73006cd1bbc5b28c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "54c06e97d6e0a2b71c0f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy",
+      "key_points": [
+        "Hội đồng quản trị Nvidia mở cuộc điều tra độc lập về CEO Jensen Huang, do các giám đốc độc lập và luật sư ngoài giám sát. Hội đồng quản trị cho biết ông Huang hoàn toàn ủng hộ và cam kết hợp tác.",
+        "Cuộc điều tra được tiến hành trước các thông tin CEO Jensen Huang là mục tiêu của tình báo nước ngoài, theo hội đồng quản trị Nvidia. The Verge dẫn tin rằng Bắc Kinh bị nghi đã tuyển mộ bà Alice Huang của Megaspeed để làm gián điệp.",
+        "Ông Jensen Huang đã thừa nhận trong bản ghi nhớ nội bộ về mối quan hệ tình cảm với một nữ lãnh đạo Megaspeed, theo The New York Times. Giới chức Mỹ tin rằng bà gửi thông tin về Bắc Kinh, còn Megaspeed bị điều tra nghi vấn buôn lậu chip AI.",
+        "Hội đồng quản trị Nvidia chưa thấy dấu hiệu bí mật công ty bị lộ nhưng vẫn rà soát mọi thông tin. Tác giả The Verge nêu lo ngại việc ông Huang thân cận với ông Donald Trump có thể làm lộ thảo luận chính sách AI."
+      ],
+      "same_event_coverage_ids": [
+        "030d85e50084c17dfbab"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia điều tra độc lập về CEO Jensen Huang sau thông tin là mục tiêu tình báo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses that the board’s reassurance also covers national security.",
+            "fix": "State that the board has no reason to believe either national security or Nvidia secrets were compromised (outlet:p017)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The concern about AI policy discussions lacks its possible route to Beijing.",
+            "fix": "Explain that the article questions whether Huang shared insights with Alice Huang and whether they then reached Beijing (outlet:p021)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b7c25977bba9e94756f2a5a3307adebcfe968a0eb377208f48e44e01ab2aaea8",
+        "scored_at": "2026-11-08T23:20:28.397448+00:00"
+      }
+    },
+    {
+      "id": "e68539633591cd5be6cb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors",
+      "key_points": [
+        "Hội đồng quản trị Nvidia tiến hành điều tra độc lập về CEO Jensen Huang, do các giám đốc độc lập cùng luật sư ngoài phụ trách. Hội đồng quản trị cho biết ông Huang hoàn toàn ủng hộ việc rà soát.",
+        "Cuộc điều tra khởi nguồn từ thông tin CEO Jensen Huang là mục tiêu của tình báo nước ngoài, theo hội đồng quản trị Nvidia.",
+        "Ông Jensen Huang đã thừa nhận với nhân viên về việc không chung thủy với vợ, theo hãng tin Bloomberg. Bloomberg cho biết cuộc điều tra xem xét liệu vị CEO có phải là mục tiêu của một âm mưu gián điệp nước ngoài hay không.",
+        "Hội đồng quản trị Nvidia chưa thấy lý do để tin bí mật công ty bị tổn hại, song sẽ kiểm tra mọi dữ liệu. Phía Nvidia khẳng định vẫn tín nhiệm ông Huang và sẽ cập nhật thêm khi phù hợp."
+      ],
+      "same_event_coverage_ids": [
+        "5a31efe88f966da3a122",
+        "5ce0d26f1c67268b54f6",
+        "7c4b344f9e34f95a3ad1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hội đồng quản trị Nvidia điều tra độc lập về CEO Jensen Huang sau thông tin tình báo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-08/nvidia-board-to-probe-spying-case-after-ceo-jensen-huang-admits-infidelity"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader does not get the board’s stated position on national security.",
+            "fix": "Add that the board also has no reason to believe national security was compromised (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "97e054f4e8af491d81b9a712eefbfc6a0ef68c3cc5116f369c09252116c54baf",
+        "scored_at": "2026-11-08T23:20:28.397543+00:00"
+      }
+    },
+    {
+      "id": "8b18a5361e6d14a958f6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal developer workflow tutorial detailing how to use git tickets and task queues to manage context when coding with AI agents.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://sergeykuhne.com/blog/fighting-ai-brain-fry",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "30b0ee10679cb6b575f7",
+        "ae835c1d7d41196489c0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b9c0dd474c98ba84113b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1029552/apple-siri-ai-agentic",
+      "key_points": [
+        "Apple đang đẩy nhanh lộ trình Siri thành tác tử AI (hệ thống tự thực hiện tác vụ), theo Mark Gurman của Bloomberg. CEO John Ternus thúc ép Craig Federighi tạo công cụ cạnh tranh với Dots hay Muse.",
+        "Theo The Verge, Apple tự nhận thấy không theo kịp đối thủ dù Federighi đã bàn giao một phiên bản Siri AI hoạt động được trong thời gian ngắn.",
+        "Siri sẽ kiểm soát chi tiết ứng dụng của Apple như cắt ảnh trong Photos hay xếp thẻ Safari dự kiến trên iOS 27.3. Theo Gurman, việc tích hợp ứng dụng bên thứ ba như Grubhub có thể ra mắt muộn hơn vào mùa xuân.",
+        "Theo The Verge, Apple muốn đưa Siri thành tác tử thực hiện chuỗi tác vụ liên tục thay vì xử lý từng việc đơn lẻ. Gurman nhận định Apple muốn Siri tự theo đuổi mục tiêu mà người dùng không cần thao tác từng bước."
+      ],
+      "same_event_coverage_ids": [
+        "f0576668d0a7d589fcb0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Apple tăng tốc phát triển Siri thành tác tử AI trước sức ép cạnh tranh từ các đối thủ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1029552/apple-siri-ai-agentic"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Grubhub reference does not tell readers what third-party integration would let Siri do.",
+            "fix": "Add the source’s concrete examples: placing an order through Grubhub or booking a dinner reservation through OpenTable (outlet:p016)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The summary omits Gurman’s tentative timing for Siri’s broader agent capabilities.",
+            "fix": "State that Gurman believes Siri could move in this direction as early as next year, while keeping that prediction conditional (outlet:p018)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c3369b2f9d012e02ed88d989e943955b05a96dbf0a43ea089e5ad2b399b7d2b8",
+        "scored_at": "2026-11-08T23:25:24.871223+00:00"
+      }
+    },
+    {
+      "id": "f400a8a2e0a8ec6a5be1",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wsj.com/tech/ai/silicon-valley-promises-ai-will-cure-disease-drugmaker-ceos-arent-buying-it-5218511c",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5035ae14f2465d4845ce",
+        "a3a4f42e434307e75d1b"
       ],
       "split_coverage_ids": []
     }
