@@ -66,18 +66,19 @@
 
 /* the inline news search */
 .news-search { position: relative; flex: none; width: var(--ns-w); }
+/* A filled field with no outline (captain, 08/11 21:08: "Có viền màu bao quanh ... thanh tìm kiếm ... Loại bỏ nó"): it
+   reads by its fill, and focus deepens the fill under the caret instead of drawing a ring. */
 .ns-field {
   display: flex; align-items: center; gap: var(--space-8); min-height: var(--btn-h); padding: 0 var(--space-6) 0 var(--space-16);
-  background: var(--color-surface); border: 1px solid var(--color-hair); border-radius: var(--radius-full);
-  transition: border-color var(--duration-150) ease;
+  background: var(--color-field); border: 0; border-radius: var(--radius-full);
+  transition: background-color var(--duration-150) ease;
 }
-.ns-field:hover, .ns-field:focus-within { border-color: var(--color-hair-strong); }
-.ns-field:focus-within { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
-.ns-field > .i { width: 18px; height: 18px; color: var(--color-ink-3); }
+.ns-field:hover, .ns-field:focus-within { background: var(--color-field-on); }
+.ns-field > .i { width: 18px; height: 18px; color: var(--color-ink-2); }
 .ns-field input { flex: 1; min-width: 0; height: var(--btn-h); border: 0; outline: 0; background: transparent; color: var(--color-ink); font: inherit; font-size: var(--text-sub); }
-.ns-field input::placeholder { color: var(--color-ink-3); opacity: 1; }
+.ns-field input::placeholder { color: var(--color-ink-2); opacity: 1; }
 .ns-field input::-webkit-search-cancel-button { display: none; }
-.kbd { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 var(--space-6); border: 1px solid var(--color-hair); border-radius: var(--radius-8); font-size: var(--size-12); color: var(--color-ink-3); }
+.kbd { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 var(--space-6); border: 0; border-radius: var(--radius-8); background: var(--color-surface); font-size: var(--size-12); color: var(--color-ink-2); }
 .ns-clear { display: none; }
 .ns-clear .i { width: 16px; height: 16px; }
 .news-search.has-q .ns-clear { display: inline-grid; }
@@ -87,7 +88,7 @@
 .ns-results {
   position: absolute; z-index: 35; top: calc(100% + var(--space-8)); right: 0; width: min(var(--ns-results-w), calc(100vw - 2 * var(--page-pad)));
   max-height: min(70vh, 640px); overflow: auto; overscroll-behavior: contain;
-  background: var(--color-surface); border: 1px solid var(--color-hair); border-radius: var(--radius-24); box-shadow: var(--shadow-sheet);
+  background: var(--color-surface); border: 0; border-radius: var(--radius-24); box-shadow: var(--shadow-sheet);
   transform-origin: top right;
 }
 @media (prefers-reduced-motion: no-preference) {

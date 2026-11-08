@@ -54,6 +54,7 @@
   --cyan-text: #0B6F7A;                              /* cyan as text on light ("ready", "up"), 5.88 on white */
   --cyan-wash: #E3F7F9;                              /* its background on light */
   /* Dark ramp in the palette's blue-grey (hue 262): fill and hairline above the dark card. */
+  --deep-24: oklch(0.235 0.030 262);                 /* the front page's panel in dark: between the page and a card */
   --deep-33: oklch(0.330 0.030 262);
   --deep-38: oklch(0.380 0.035 262);
   --amber-47: oklch(0.48 0.11 65);
@@ -116,6 +117,13 @@
   --color-live-fill: var(--coral-breaking);          /* a breaking badge laid on a picture, white text 6.39 */
   --color-mt-ink: var(--color-ink-2);
   --color-mt-bg: var(--color-fill);
+  /* No outlines (captain, 08/11 21:08: "Có viền màu bao quanh nút bấm, thanh tìm kiếm, card ... Loại bỏ nó"): surfaces
+     part by fill and elevation. The front page's panel, a floating bar (the phone dock), a filled field and its focus. */
+  --color-panel: var(--brand-white);
+  --color-float: var(--brand-white);
+  --color-field: var(--gray-95);
+  --color-field-on: var(--gray-93);                  /* a field in focus, a filled button on hover */
+  --color-art-wash: color-mix(in srgb, var(--brand-signature) 14%, transparent);   /* the calendar's animal, a seal behind the text */
   --color-ok: var(--cyan-text);                      /* "ready", "up", a healthy source: the palette's cyan, not a green */
   --color-ok-wash: var(--cyan-wash);
   --color-warn: var(--amber-47);
@@ -184,7 +192,7 @@
 
   /* The MSN-style front page (Mẫu A, captain 08/11 18:23): one panel under the search, a bento of fixed rows where a
      notable story takes 2x2 or 2x1 cells. Sizes are the mockup's (plans/reports/trang-msn/mau-a2-msn-sat.html). */
-  --msn-hair: 1px;                                   /* card and panel borders */
+  --msn-hair: 1px;                                   /* a list's dividers, the high-contrast dock edge; no card or panel border */
   --msn-tight: 2px;                                  /* the tightest gap: tabs, a tile's inner inset */
   --msn-gap: var(--space-12);
   --msn-cols: 5;
@@ -208,23 +216,22 @@
   --msn-title-ink-big: 1.875rem;                     /* 30 px: a big card without a picture */
   --msn-slide-title: 1.25rem;                        /* 20 px */
   --msn-cal-day: 7rem;                               /* 112 px */
-  --msn-cal-animal: 64px;
   --msn-cal-day-fluid: 48cqi;                        /* the big day follows the calendar card's width, 60 to 112 px */
-  --msn-cal-animal-fluid: 27cqi;
   --msn-wx-temp: 2.875rem;                           /* 46 px */
   --msn-wx-icon: 46px; --msn-wx-icon-sm: 28px;
   --msn-wx-menu-w: 210px;
   --msn-blur: 14px;
-  --msn-shadow-panel: 0 12px 40px oklch(var(--shadow-tint) / 0.05);
-  --msn-shadow-search: 0 2px 12px oklch(var(--shadow-tint) / 0.04);
-  --msn-shadow-card: 0 8px 24px oklch(var(--shadow-tint) / 0.08);
+  /* Elevation instead of a border (captain, 08/11 21:08): the panel floats on the page, a card rests on the panel. */
+  --msn-shadow-panel: 0 1px 3px oklch(var(--shadow-tint) / 0.05), 0 12px 40px oklch(var(--shadow-tint) / 0.07);
+  --msn-shadow-rest: 0 1px 2px oklch(var(--shadow-tint) / 0.06), 0 3px 12px oklch(var(--shadow-tint) / 0.07);
+  --msn-shadow-card: 0 2px 4px oklch(var(--shadow-tint) / 0.06), 0 10px 28px oklch(var(--shadow-tint) / 0.12);
+  --msn-dot-shadow: 0 1px 3px color-mix(in srgb, var(--brand-ink) 45%, transparent);   /* a carousel dot on a bright photo */
   --msn-ink-card: var(--brand-ink);                  /* a notable story without a picture, and the lead's frame */
   --msn-on-ink: var(--brand-white);
   --msn-on-ink-2: var(--gray-90);
   --msn-slide-box: color-mix(in srgb, var(--brand-ink) 90%, transparent);
   --msn-on-photo-btn: color-mix(in srgb, var(--brand-ink) 70%, transparent);
   --msn-on-photo-btn-hover: color-mix(in srgb, var(--brand-ink) 90%, transparent);
-  --msn-on-photo-edge: color-mix(in srgb, var(--brand-white) 44%, transparent);
   --msn-on-photo-dot: color-mix(in srgb, var(--brand-white) 55%, transparent);
   /* The weather card: a sky photograph (anh/bau-troi.jpg), a flat ink veil, frosted tiles; white text 4.7:1 or more. */
   --msn-wx-sky: #2B4C7A;                             /* shown until the photograph arrives */
@@ -243,8 +250,12 @@
   --msn-rowh-xl: 292px; --msn-photo-h-xl: 154px;   /* 1750 px and wider: seven columns */
   --msn-rowh-phone: 240px; --msn-photo-h-phone: 112px;
   --msn-lead-h-phone: 270px; --msn-big-h-phone: 380px; --msn-wide-h-phone: 220px; --msn-wx-h-phone: 372px;
-  --msn-cal-day-phone: 3.75rem; --msn-cal-animal-phone: 40px;
-  --msn-chip-img: 24px;
+  --msn-cal-day-phone: 3.75rem;
+  /* The calendar as a page of a Vietnamese tear-off calendar (captain, 08/11 21:08: "Đưa con giáp tháng hoặc ngày, làm
+     nền cho card lịch ... giống phong cách lịch phương đông"): the band, the lunar day, the day's animal as the page's art. */
+  --msn-cal-moon: 2.5rem;                            /* 40 px: the lunar day */
+  --msn-cal-moon-phone: 1.75rem;
+  --msn-cal-art-w: 100%;                             /* the animal's box, as wide as the card */
   --msn-menu-top: 52px; --msn-menu-max-h: 290px;
   --msn-spinner: 14px; --msn-spinner-w: 2px;
   --msn-sk-line: 12px;
@@ -283,6 +294,11 @@
   --color-live-fill: var(--coral-breaking);
   --color-mt-ink: var(--color-ink-2);
   --color-mt-bg: var(--color-fill);
+  --color-panel: var(--deep-24);
+  --color-float: var(--deep-33);
+  --color-field: var(--deep-33);
+  --color-field-on: var(--deep-38);
+  --color-art-wash: color-mix(in srgb, var(--brand-signature) 12%, transparent);
   --color-ok: var(--brand-tech);
   --color-ok-wash: color-mix(in srgb, var(--brand-tech) 16%, transparent);
   --color-warn: var(--amber-80);
@@ -328,6 +344,11 @@
     --color-live-fill: var(--coral-breaking);
     --color-mt-ink: var(--color-ink-2);
     --color-mt-bg: var(--color-fill);
+    --color-panel: var(--deep-24);
+    --color-float: var(--deep-33);
+    --color-field: var(--deep-33);
+    --color-field-on: var(--deep-38);
+    --color-art-wash: color-mix(in srgb, var(--brand-signature) 12%, transparent);
     --color-ok: var(--brand-tech);
     --color-ok-wash: color-mix(in srgb, var(--brand-tech) 16%, transparent);
     --color-warn: var(--amber-80);

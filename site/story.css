@@ -69,7 +69,7 @@ dialog.story-dialog::backdrop {
     max-height: min(90vh, 1000px);
     margin: auto;
     border-radius: var(--tile-radius);
-    border: 1px solid var(--color-hair);
+    border: 0;
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.08);
     animation: storyModalIn var(--duration-250) var(--ease-flow);
   }
@@ -151,8 +151,8 @@ dialog.story-dialog::backdrop {
   min-width: 44px;
   padding: 0 var(--space-16);
   border-radius: var(--radius-full);
-  border: 1px solid var(--color-hair);
-  background: var(--color-surface);
+  border: 0;
+  background: var(--color-fill);
   color: var(--color-ink-2);
   font-family: inherit;
   font-size: var(--text-small);
@@ -164,7 +164,7 @@ dialog.story-dialog::backdrop {
 }
 
 .story-modal-close:hover {
-  background: var(--color-fill);
+  background: var(--color-field-on);
   color: var(--color-ink);
   transform: translateY(-1px);
 }
@@ -186,7 +186,7 @@ dialog.story-dialog::backdrop {
   color: var(--color-ink-3);
   font-size: var(--text-micro);
   font-family: inherit;
-  border: 1px solid var(--color-hair);
+  border: 0;
   margin-left: var(--space-4);
 }
 
@@ -216,8 +216,8 @@ dialog.story-dialog::backdrop {
   min-height: 40px;
   padding: 0;
   border-radius: var(--radius-full);
-  border: 1px solid var(--color-hair);
-  background: var(--color-surface);
+  border: 0;
+  background: var(--color-fill);
   color: var(--color-ink-2);
   cursor: pointer;
   transition: background var(--duration-150) var(--ease-flow),
@@ -227,7 +227,7 @@ dialog.story-dialog::backdrop {
 
 .story-icon-btn:hover,
 .doc-icon-btn:hover {
-  background: var(--color-fill);
+  background: var(--color-field-on);
   color: var(--color-ink);
   transform: translateY(-1px);
 }

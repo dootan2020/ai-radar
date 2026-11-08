@@ -82,7 +82,7 @@
      the captain approved on 03/11). The page keeps room below its last line so the dock never covers it. */
   :root{--mobile-nav-h:64px;--dock-pad:var(--space-6);--dock-gap:var(--space-12);--dock-radius:calc(var(--mobile-nav-h) / 2)}
   body{padding-bottom:calc(var(--mobile-nav-h) + var(--dock-gap) * 2 + env(safe-area-inset-bottom))}
-  .mobile-nav{position:fixed;z-index:55;left:max(var(--space-16),env(safe-area-inset-left));right:max(var(--space-16),env(safe-area-inset-right));bottom:calc(var(--dock-gap) + env(safe-area-inset-bottom));max-width:420px;margin-inline:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-4);height:var(--mobile-nav-h);padding:var(--dock-pad);border:1px solid color-mix(in srgb,var(--color-hair) 70%,transparent);border-radius:var(--dock-radius);background:var(--color-surface);box-shadow:var(--shadow-lift)}
+  .mobile-nav{position:fixed;z-index:55;left:max(var(--space-16),env(safe-area-inset-left));right:max(var(--space-16),env(safe-area-inset-right));bottom:calc(var(--dock-gap) + env(safe-area-inset-bottom));max-width:420px;margin-inline:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-4);height:var(--mobile-nav-h);padding:var(--dock-pad);border:0;border-radius:var(--dock-radius);background:var(--color-float);box-shadow:var(--shadow-lift)}
   .mobile-nav-link{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;min-height:44px;border-radius:calc(var(--dock-radius) - var(--dock-pad));color:var(--color-ink-2);font-family:var(--family);font-size:var(--text-micro);font-weight:var(--weight-semibold);line-height:1.2;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent;transition:background-color var(--motion-state) var(--ease-flow),color var(--motion-state) var(--ease-flow),transform var(--motion-feedback) var(--ease-press)}
   .mobile-nav-link svg{width:22px;height:22px;flex:none}
   .mobile-nav-link[aria-current="page"]{background:var(--color-accent-wash);color:var(--color-accent)}
@@ -90,7 +90,7 @@
   .mobile-nav-link:active{transform:scale(.95);transition-duration:var(--motion-feedback)}
   .mobile-nav-link:not([aria-current="page"]):active{background:var(--color-fill)}
   .toast-container{bottom:calc(var(--mobile-nav-h) + var(--dock-gap) * 2 + env(safe-area-inset-bottom))}
-  @media(prefers-contrast:more){.mobile-nav{border-color:var(--color-hair-strong)}}
+  @media(prefers-contrast:more){.mobile-nav{border:var(--msn-hair) solid var(--color-hair-strong)}}
   @media(prefers-reduced-motion:reduce){.mobile-nav-link{transition:none}.mobile-nav-link:active{transform:none}}
   .feed-bar-in{height:112px;min-height:112px;display:grid;grid-template-columns:minmax(0,1fr) 44px 44px;grid-template-rows:56px 56px;column-gap:var(--space-4);row-gap:0;padding-inline:var(--space-8)}
   .feed-bar-in .feed-brand{grid-column:1;grid-row:1;min-width:44px;min-height:44px}

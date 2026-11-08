@@ -14,10 +14,7 @@
 .msn-top .news-search { grid-column: 2; width: 100%; position: relative; }
 .msn-top .masthead-actions { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: var(--space-8); }
 .msn-top .ns-open { display: none; }
-.msn-top .ns-field {
-  display: flex; height: var(--msn-search-h); padding: 0 var(--space-4) 0 var(--space-16);
-  border-color: var(--color-hair-strong); box-shadow: var(--msn-shadow-search);
-}
+.msn-top .ns-field { display: flex; height: var(--msn-search-h); padding: 0 var(--space-4) 0 var(--space-16); }
 .msn-top .ns-field input { height: 100%; font-size: var(--text-small); }
 .msn-top .ns-results { left: 0; right: 0; width: auto; transform-origin: top center; }
 .ns-go {
@@ -29,9 +26,12 @@
 .ns-go:active { transform: scale(0.97); }
 
 /* ---------- the panel and its header row ---------- */
+/* No outline anywhere (captain, 08/11 21:08: "Có viền màu bao quanh nút bấm, thanh tìm kiếm, card ... Loại bỏ nó"): the
+   panel parts from the page by its fill and its shadow, a card from the panel by its shadow (light) or its lighter fill
+   (dark). The panel takes focus only from a script (a jump to the top), so it never shows a ring (feed.css). */
 .feed-main.front.msn-panel {
   max-width: none; margin: 0 var(--msn-page-pad) var(--space-48); padding: var(--msn-panel-pad);
-  background: var(--color-surface); border: var(--msn-hair) solid var(--color-hair); border-radius: var(--msn-panel-r);
+  background: var(--color-panel); border: 0; border-radius: var(--msn-panel-r);
   box-shadow: var(--msn-shadow-panel);
 }
 .newsbar.msn-head {
@@ -97,7 +97,7 @@
 .msn-grid[hidden] { display: none; }
 .msn-card {
   position: relative; min-width: 0; min-height: 0; overflow: hidden;
-  background: var(--color-surface); border: var(--msn-hair) solid var(--color-hair); border-radius: var(--msn-card-r);
+  background: var(--color-surface); border: 0; border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest);
 }
 .msn-lead, .nc-wide { grid-column: span 2; }
 .nc-big { grid-column: span 2; grid-row: span 2; }
@@ -111,9 +111,9 @@
 .msn-card:has(.story-link:focus-visible), .msn-toplist li:has(.story-link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 
 /* the story card */
-.nc { display: flex; flex-direction: column; transition: border-color var(--duration-150) ease, box-shadow var(--duration-250) ease, transform var(--duration-250) var(--ease-flow); }
+.nc { display: flex; flex-direction: column; transition: box-shadow var(--duration-250) ease, transform var(--duration-250) var(--ease-flow); }
 @media (hover: hover) and (pointer: fine) {
-  .nc:hover { border-color: var(--color-hair-strong); box-shadow: var(--msn-shadow-card); transform: translateY(calc(-1 * var(--msn-tight))); }
+  .nc:hover { box-shadow: var(--msn-shadow-card); transform: translateY(calc(-1 * var(--msn-tight))); }
   .nc:hover .nc-img { transform: scale(1.03); }
   .nc:hover .story-link { color: var(--color-link); }
 }
@@ -156,7 +156,7 @@
 .nc-wide .nc-body { padding: var(--space-16); gap: var(--space-8); }
 .nc-wide .nc-title { font-size: var(--msn-title-wide); line-height: 1.35; -webkit-line-clamp: 4; }
 .nc-wide .nc-sum { margin-top: auto; -webkit-line-clamp: 3; }
-.nc-big.no-photo, .nc-wide.no-photo { background: var(--msn-ink-card); border-color: var(--msn-ink-card); color: var(--msn-on-ink); }
+.nc-big.no-photo, .nc-wide.no-photo { background: var(--msn-ink-card); color: var(--msn-on-ink); }
 .nc-big.no-photo .nc-body, .nc-wide.no-photo .nc-body { flex: 1; padding: var(--space-24); gap: var(--space-12); }
 .nc-big.no-photo .nc-title { font-size: var(--msn-title-ink-big); line-height: 1.22; letter-spacing: -0.03em; -webkit-line-clamp: 7; }
 .nc-wide.no-photo .nc-title { font-size: var(--msn-title-big); line-height: 1.3; -webkit-line-clamp: 4; }
@@ -165,12 +165,11 @@
 .nc.no-photo:is(.nc-big, .nc-wide) :is(.nc-sum, .nc-meta, .nc-src) { color: var(--msn-on-ink-2); }
 .nc.no-photo:is(.nc-big, .nc-wide) .nc-dot { background: var(--msn-on-ink-2); }
 @media (hover: hover) and (pointer: fine) {
-  .nc.no-photo:is(.nc-big, .nc-wide):hover { border-color: var(--msn-ink-card); }
   .nc.no-photo:is(.nc-big, .nc-wide):hover .story-link { color: var(--msn-on-ink); }
 }
 
 /* ---------- the lead carousel ---------- */
-.msn-lead { background: var(--msn-ink-card); border-color: var(--msn-ink-card); color: var(--msn-on-ink); }
+.msn-lead { background: var(--msn-ink-card); color: var(--msn-on-ink); }
 .slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity var(--duration-250) ease, visibility 0s linear var(--duration-250); }
 .slide.is-active { opacity: 1; visibility: visible; transition: opacity var(--duration-250) ease; }
 .slide-media { position: absolute; inset: 0; background: var(--msn-ink-card); }
@@ -193,7 +192,7 @@
 .lead-nav { position: absolute; top: var(--space-8); right: var(--space-8); z-index: 3; display: flex; gap: var(--space-6); }
 .lead-nav button {
   width: var(--btn-h); height: var(--btn-h); display: grid; place-items: center; border-radius: var(--radius-8);
-  background: var(--msn-on-photo-btn); border: var(--msn-hair) solid var(--msn-on-photo-edge); color: var(--msn-on-ink);
+  background: var(--msn-on-photo-btn); color: var(--msn-on-ink);
   transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
 }
 .lead-nav button:hover { background: var(--msn-on-photo-btn-hover); }
@@ -203,7 +202,7 @@
 .lead-dots button { width: var(--btn-h); height: var(--btn-h); display: grid; place-items: center; }
 .lead-dots button::before {
   content: ""; width: var(--msn-lead-dot); height: var(--msn-lead-dot); border-radius: var(--radius-full); background: var(--msn-on-photo-dot);
-  box-shadow: 0 0 0 var(--msn-hair) var(--msn-on-photo-btn); transition: width var(--duration-250) var(--ease-flow), background-color var(--duration-250) ease;
+  box-shadow: var(--msn-dot-shadow); transition: width var(--duration-250) var(--ease-flow), background-color var(--duration-250) ease;
 }
 .lead-dots button[aria-current="true"]::before { width: var(--msn-lead-dot-on); background: var(--msn-on-ink); }
 
@@ -325,30 +324,38 @@
 .wx-menu [aria-checked="true"] { font-weight: var(--weight-bold); }
 .wx-menu [aria-checked="true"]::after { content: "✓"; }
 
-/* ---------- the calendar: the mockup's layout with the "Linh vật của năm" animals ---------- */
-.msn-cal { container-type: inline-size; display: flex; flex-direction: column; padding: var(--space-12) var(--space-16) var(--space-16); }
-.cal-label { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--msn-tight) var(--space-6); margin: 0; font-size: var(--text-micro); font-weight: var(--weight-bold); letter-spacing: 0.03em; text-transform: uppercase; color: var(--color-ink-2); white-space: nowrap; }
-.cal-label span:last-child { font-weight: var(--weight-medium); letter-spacing: 0; text-transform: none; color: var(--color-ink-3); }
-/* The big day and its weekday take the height the row leaves over, centred in it, so the spare room sits around the
-   date instead of opening a band above the lunar block. The day and the animal follow the card's width. */
-.cal-hero { flex: 1 0 auto; display: flex; flex-direction: column; justify-content: center; padding-block: var(--space-12) var(--space-4); }
-.cal-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
-.msn-cal .cal-day { font-size: clamp(var(--msn-cal-day-phone), var(--msn-cal-day-fluid), var(--msn-cal-day)); font-weight: var(--weight-bold); line-height: 0.92; letter-spacing: -0.08em; color: var(--color-ink); }
-.cal-animal { width: clamp(var(--msn-cal-animal-phone), var(--msn-cal-animal-fluid), var(--msn-cal-animal)); height: auto; aspect-ratio: 1; }
-.cal-week { margin: var(--space-8) 0 0; font-size: var(--text-body); font-weight: var(--weight-bold); color: var(--color-ink); }
-.cal-week.is-sunday { color: var(--color-accent); }
-.msn-cal .cal-chips { display: flex; flex-wrap: wrap; gap: var(--space-6); margin: var(--space-12) 0 0; padding: 0; list-style: none; }
-.msn-cal .cal-chip {
-  display: inline-flex; align-items: center; gap: var(--space-6); padding: var(--msn-tight) var(--space-12) var(--msn-tight) var(--msn-tight); border-radius: var(--radius-full);
-  background: var(--color-fill); font-size: var(--text-micro); line-height: 1.3; color: var(--color-ink-2); white-space: nowrap;
+/* ---------- the calendar: a page of a Vietnamese tear-off calendar (lịch bloc) ----------
+   Captain, 08/11 21:08: "Đưa con giáp tháng hoặc ngày, làm nền cho card lịch. Thiết kế lại card lịch cho giống phong cách
+   lịch phương đông". The coral band is the red head of a lịch bloc; the big day and its weekday fill the page's middle
+   (coral on Sunday); the lunar half sits at the foot: the lunar day large in coral, its month, then the can chi of the
+   day, the month and the year and the solar term. The day's animal is the page's art: the shipped illustration's
+   silhouette in a coral wash (a seal), large and cut by the card's corner, behind the text. No border, no ring. */
+.msn-cal { container-type: inline-size; isolation: isolate; display: flex; flex-direction: column; padding: 0 0 var(--space-16); }
+.cal-art {
+  position: absolute; z-index: -1; top: 22%; right: -12%; width: var(--msn-cal-art-w); aspect-ratio: 1;
+  background: var(--color-art-wash);
+  -webkit-mask: var(--cal-art) center / contain no-repeat; mask: var(--cal-art) center / contain no-repeat;
 }
-.msn-cal .cal-chip img { width: var(--msn-chip-img); height: var(--msn-chip-img); }
-.msn-cal .cal-chip b { font-weight: var(--weight-semibold); color: var(--color-ink); }
-.cal-lunar { margin: var(--space-12) 0 0; padding: var(--space-12); border-radius: var(--radius-8); background: var(--color-fill); }
-.cal-lunar strong { display: block; font-size: var(--text-sub); color: var(--color-ink); text-wrap: balance; }
-.cal-lunar span { display: block; margin-top: var(--msn-tight); font-size: var(--text-micro); color: var(--color-ink-2); }
-.msn-cal .cal-note { margin: var(--space-8) 0 0; padding: 0; font-size: var(--text-micro); color: var(--color-ink-2); }
-
+.cal-band {
+  display: flex; justify-content: space-between; align-items: center; gap: var(--space-8); margin: 0; padding: var(--space-8) var(--space-16);
+  background: var(--color-accent-fill); color: var(--color-on-accent);
+  font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+}
+/* The big day and its weekday take the height the row leaves over, centred in it, so the spare room sits around the
+   date instead of opening a band above the lunar half. The day follows the card's width. */
+.cal-hero { flex: 1 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--space-8) var(--space-16) 0; text-align: center; }
+.msn-cal .cal-day { font-size: clamp(var(--msn-cal-day-phone), var(--msn-cal-day-fluid), var(--msn-cal-day)); font-weight: var(--weight-bold); line-height: 0.9; letter-spacing: -0.06em; color: var(--color-ink); }
+.cal-week { margin-top: var(--space-6); font-size: var(--text-small); font-weight: var(--weight-bold); line-height: 1.3; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink); }
+.cal-hero.is-sunday :is(.cal-day, .cal-week) { color: var(--color-accent); }
+.cal-moon { display: flex; flex-direction: column; gap: var(--space-8); margin: var(--space-12) var(--space-16) 0; }
+.cal-lunar { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: var(--space-8); align-items: end; margin: 0; }
+.cal-lunar b { grid-row: 1 / 3; font-size: var(--msn-cal-moon); line-height: 0.9; font-weight: var(--weight-bold); letter-spacing: -0.04em; color: var(--color-accent); }
+.cal-k { font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-2); }
+.cal-lunar span:last-child { font-size: var(--text-sub); line-height: 1.25; font-weight: var(--weight-bold); color: var(--color-ink); }
+.msn-cal .cal-canchi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) var(--space-8); margin: 0; padding: 0; list-style: none; }
+.cal-canchi li { font-size: var(--text-micro); line-height: 1.35; color: var(--color-ink-2); }
+.cal-canchi b { display: block; font-size: var(--text-meta); font-weight: var(--weight-bold); color: var(--color-ink); }
+.msn-cal .cal-note { margin: var(--space-8) var(--space-16) 0; padding: 0; font-size: var(--text-micro); line-height: 1.35; font-weight: var(--weight-semibold); color: var(--color-ink-2); }
 /* ---------- the two cards on a narrow cell (five columns near 1100 px, three near 768 px) ---------- */
 @container (max-width: 14rem) {
   .wx-city { padding: 0 var(--space-6); font-size: var(--text-meta); }
@@ -358,16 +365,16 @@
   .wx-days li { padding-block: var(--space-6); }
   .wx-full-long { display: none; }
   .wx-full-short { display: inline; }
-  .cal-year { display: none; }          /* the big day and the lunar line carry the date; the label keeps day and month */
-  .msn-cal .cal-chip span { white-space: normal; }
-  .cal-lunar { padding: var(--space-8); }
-  .cal-lunar strong { font-size: var(--text-meta); }
+  .cal-band, .cal-hero { padding-inline: var(--space-12); }
+  .cal-moon { margin-inline: var(--space-12); }
+  .msn-cal .cal-note { margin-inline: var(--space-12); }
+  .cal-lunar span:last-child { font-size: var(--text-meta); }
 }
 
 /* ---------- the front page's tiles as widgets ---------- */
 .msn-grid > .tile {
   min-width: 0; min-height: 0; gap: var(--space-12); padding: var(--space-16); overflow: auto; overscroll-behavior: contain;
-  background: var(--color-surface); border: var(--msn-hair) solid var(--color-hair); border-radius: var(--msn-card-r);
+  background: var(--color-surface); border: 0; border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest);
 }
 .msn-grid.is-front > .tile { grid-column: span 2; grid-row: span 2; }
 .msn-grid:not(.is-front) > .tile { grid-column: 1 / -1; overflow: visible; }
@@ -375,7 +382,7 @@
 .msn-grid > .tile .tile-note { font-size: var(--text-micro); }
 
 /* ---------- loading, more and the end ---------- */
-.msn-sk { background: var(--color-fill); border-color: transparent; animation: msn-breathe 1.2s ease-in-out infinite alternate; }
+.msn-sk { background: var(--color-fill); box-shadow: none; animation: msn-breathe 1.2s ease-in-out infinite alternate; }
 #feed-skeleton .msn-lead { grid-column: span 2; }
 @keyframes msn-breathe { from { opacity: 0.55; } to { opacity: 1; } }
 .feed-sentinel { height: var(--msn-hair); }
@@ -383,16 +390,16 @@
 .loading-line { display: flex; align-items: center; justify-content: center; gap: var(--space-8); min-height: var(--btn-h); margin-top: var(--space-8); font-size: var(--text-micro); color: var(--color-ink-3); }
 .spinner { width: var(--msn-spinner); height: var(--msn-spinner); border-radius: var(--radius-full); border: var(--msn-spinner-w) solid var(--color-hair); border-top-color: var(--color-ink-2); animation: msn-spin 700ms linear infinite; }
 @keyframes msn-spin { to { transform: rotate(360deg); } }
-.end-card { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: var(--space-12); padding: var(--space-24); background: var(--color-fill); border-color: var(--color-fill); }
+.end-card { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: var(--space-12); padding: var(--space-24); background: var(--color-fill); box-shadow: none; }
 .end-card h2 { margin: 0; font-size: var(--text-title); letter-spacing: -0.02em; color: var(--color-ink); }
 .end-card p { margin: 0; max-width: 46ch; font-size: var(--text-meta); color: var(--color-ink-2); }
 .end-actions { display: flex; flex-wrap: wrap; gap: var(--space-8); }
 .ghost {
-  display: inline-flex; align-items: center; min-height: var(--btn-h); padding: 0 var(--space-16); border: var(--msn-hair) solid var(--color-hair-strong);
+  display: inline-flex; align-items: center; min-height: var(--btn-h); padding: 0 var(--space-16); border: 0;
   border-radius: var(--radius-full); background: var(--color-surface); font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink);
   transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
 }
-.ghost:hover { background: var(--color-canvas); }
+.ghost:hover { background: var(--color-field-on); }
 .ghost:active { transform: scale(0.97); }
 .msn-panel .feed-footer { margin-top: var(--space-24); }
 .msn-panel .feed-empty { margin-top: var(--space-24); }
@@ -475,15 +482,11 @@
   .nc-wide.no-photo { height: auto; min-height: var(--msn-wide-h-phone); }
   .nc-wide.no-photo .nc-title { font-size: var(--text-title); }
   .nc-wide.no-photo .nc-sum { display: -webkit-box; -webkit-line-clamp: 3; }
-  .msn-cal { min-height: var(--msn-rowh-phone); padding: var(--space-12); }
+  .msn-cal { min-height: var(--msn-rowh-phone); padding: 0 0 var(--space-12); }
   .msn-cal .cal-day { font-size: var(--msn-cal-day-phone); }
-  .cal-animal { width: var(--msn-cal-animal-phone); height: var(--msn-cal-animal-phone); }
-  .cal-hero { padding-block: var(--space-8) 0; }
-  .cal-week { margin-top: var(--space-4); font-size: var(--text-small); }
-  .msn-cal .cal-chips { margin-top: var(--space-8); }
-  .msn-cal .cal-chip span { white-space: normal; }
-  .cal-lunar { margin-top: var(--space-8); padding: var(--space-8) var(--space-12); }
-  .cal-lunar strong { font-size: var(--text-meta); }
+  .cal-week { margin-top: var(--space-4); font-size: var(--text-micro); }
+  .cal-moon { margin-top: var(--space-8); }
+  .cal-lunar b { font-size: var(--msn-cal-moon-phone); }
   .msn-cal .cal-note { display: none; }
   .msn-grid > .tile, .msn-grid.is-front > .tile { grid-column: 1 / -1; grid-row: auto; overflow: visible; }
   .msn-sk { min-height: var(--msn-rowh-phone); }
