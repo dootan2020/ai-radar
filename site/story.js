@@ -238,7 +238,6 @@ export function renderKeyPointsHTML(keyPoints, publisherName = '') {
       <ol class="story-points-list">
         ${items}
       </ol>
-      <p class="story-points-disclosure">Tóm tắt bằng AI từ nội dung nguồn; mở bài gốc để xem toàn bộ chi tiết và dẫn chứng.</p>
     </section>
   `;
 }
@@ -303,15 +302,13 @@ export function renderFallbackBodyHTML(story, publisherName = '') {
     `;
   }
 
-  // The machine translation is named once, by the "Translated" chip on the original below; the label says whose text it is.
-  const sub = `Lời giới thiệu ngắn của ${publisherName ? esc(publisherName) : 'bài gốc'}. Halcyon chưa tóm tắt tin này.`;
-
+  // The machine translation is named once, by the "Translated" chip on the original below; the heading says whose text
+  // it is, so no line explains it (captain, 09/11).
   return `
     <section class="story-summary-box story-source-desc" aria-label="${SOURCE_DESCRIPTION_LABEL}">
       <div class="story-section-head">
         <div>
           <h2 class="story-section-h2">${SOURCE_DESCRIPTION_LABEL}</h2>
-          <p class="story-section-sub">${sub}</p>
         </div>
       </div>
       <p class="story-summary-text">${esc(sumText)}</p>
@@ -373,22 +370,6 @@ export function renderCoverageListHTML(coverage, srcMap = new Map()) {
   `;
 }
 
-/* Render Prominent Original Article Gateway (CTA to original publisher) */
-export function renderOriginGatewayHTML(story, srcMap = new Map()) {
-  const { name } = getPublisherMeta(story, srcMap);
-  const origUrl = story.url || (story.coverage && story.coverage[0] && story.coverage[0].url) || '#';
-  /* A quiet closing line, not a card: the summary stays the main content and the exit reads as secondary. */
-  return `
-    <section class="story-origin-gateway" aria-label="Chuyển đến bài viết gốc">
-      <p class="story-origin-desc">Toàn văn bài viết, với đầy đủ chi tiết và dẫn chứng, nằm trên ${esc(name)}.</p>
-      <a class="story-origin-btn" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer" id="story-open-origin-btn">
-        <span>Mở bài viết gốc</span>
-        <span class="story-cta-arrow" aria-hidden="true">↗</span>
-      </a>
-    </section>
-  `;
-}
-
 /* Main render function used by both the Modal and the Static Story Page */
 /* A social post used as a headline can run to several hundred characters. Measured on the live
    snapshot (10/10): median headline 70 characters, 90th percentile 122, 95th 214. Headlines up to
@@ -412,7 +393,6 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
   const hasKp = hasEditorialSummary(story);
   const isSaved = !!options.isSaved;
   const isModal = !!options.isModal;
-  const isPage = !!options.isPage;
   const origUrl = story.url || (story.coverage && story.coverage[0] && story.coverage[0].url) || '#';
 
   // Media image block
@@ -424,36 +404,22 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
       <figure class="story-media">
         <div class="story-media-frame">${mediaBackdrop(imageSrc, { loading: 'eager', noReferrer: false })}<img class="story-media-img" src="${esc(imageSrc)}" alt="${esc(titleVi)}" loading="eager" decoding="async"></div>
         <figcaption class="story-media-caption">
-          <span>${story.image.via === 'ai' ? 'Ảnh minh hoạ do AI tạo' : 'Ảnh từ bài viết gốc'}</span>
-          <span class="story-pub-name">${esc(name)}</span>
+          ${story.image.via === 'ai' ? '<span>Ảnh minh hoạ do AI tạo</span>' : ''}
+          <span class="story-pub-name"><span class="sr">Ảnh: </span>${esc(name)}</span>
         </figcaption>
       </figure>
     `;
   }
 
-  // Footer navigation
-  const footerHTML = isPage ? `
-    <footer class="story-footer">
-      <a class="story-footer-link" href="../../index.html">← Quay lại dòng tin chính</a>
-      <a class="story-footer-link" href="#story-root">Lên đầu bài viết ↑</a>
-    </footer>
-  ` : `
-    <footer class="story-footer">
-      <button class="story-footer-link-btn" id="story-footer-close-btn" type="button">← Quay lại dòng tin chính</button>
-      <button class="story-footer-link-btn" id="story-footer-top-btn" type="button">Lên đầu bài viết ↑</button>
-    </footer>
-  `;
-
+  // No footer links (captain, 09/11: "bỏ được thì bỏ"): the way back to the feed is the bar's back button (and the
+  // phone's dock), and a story is short enough that a link back to its top serves nobody.
   return `
     <article class="story-article" data-id="${esc(story.id)}" aria-labelledby="story-modal-title">
       <header class="story-header">
         <div class="story-meta-row">
           <div class="story-pub-info">
             <span class="src-av" aria-hidden="true">${avatar(face, 'sm')}</span>
-            <a class="story-pub-name-link" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer" title="Đọc bài viết gốc tại ${esc(name)}">
-              ${esc(name)}
-              <span class="story-ext-arrow" aria-hidden="true">↗</span>
-            </a>
+            <span class="story-pub-name">${esc(name)}</span>
             <span class="story-kind-pill">${esc(kindText)}</span>
             <span class="story-pub-dot">·</span>
             <time datetime="${esc(story.published_at || '')}">${story.published_at ? esc(ago(story.published_at)) : ''}</time>
@@ -503,9 +469,6 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
           `<li><a href="${esc(safe(a.url))}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a></li>`).join('')}</ul>
       </section>` : ''}
 
-      ${renderOriginGatewayHTML(story, srcMap)}
-
-      ${footerHTML}
     </article>
   `;
 }

@@ -175,7 +175,6 @@ def sync():
     story = replace_once((SITE / 'story.js').read_text(encoding='utf-8'),
                          'new URL(story.image.src, import.meta.url).href',
                          f"new URL(story.image.src, '{LIVE}').href")
-    story = replace_once(story, 'href="../../index.html"', f'href="{LIVE}index.html"')
     # The header's Google apps launcher and phone navigation bar. The extension has no site pages, so the
     # phone bar's "Dòng tin" is this new tab and the other destinations open on the live site.
     menu = replace_once((SITE / 'menu-cong-cu.js').read_text(encoding='utf-8'),

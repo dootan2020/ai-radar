@@ -49,7 +49,8 @@ console.log(JSON.stringify({{
         for surface in ("page", "modal"):
             document = out[surface]
             self.assertIn(f'<h2 class="story-section-h2">{LABEL}</h2>', document)
-            self.assertIn("Lời giới thiệu ngắn của Pandaily. Halcyon chưa tóm tắt tin này.", document)
+            # The heading names whose text it is; the line explaining it went (captain, 09/11).
+            self.assertNotIn("Lời giới thiệu ngắn của", document)
             self.assertIn("Máy chủ AI 1.6L của Lenovo Kaitian", document)
             # The machine translation is named once, by the existing chip, never as "dịch máy" in visible text.
             self.assertIn('>Translated</span>', document)
