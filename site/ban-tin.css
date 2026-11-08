@@ -693,18 +693,21 @@ body {
 }
 .bt-archive-day:active { transform: scale(0.96); }
 .bt-archive-day[aria-current="date"] {
-  background-color: var(--color-accent-wash);
-  color: var(--color-accent);
-  box-shadow: inset 0 0 0 1.5px var(--color-accent);
+  background-color: var(--color-accent-fill);
+  color: var(--color-on-accent);
 }
-.bt-archive-day[aria-current="date"] .bt-archive-wd { color: var(--color-accent); }
+.bt-archive-day[aria-current="date"] .bt-archive-wd { color: var(--color-on-accent); }
 .bt-archive-day:focus-visible {
   outline: var(--focus-ring);
   outline-offset: var(--focus-offset);
 }
 @media (hover: hover) and (pointer: fine) {
   .bt-archive-day:hover { background-color: var(--color-hair); }
-  .bt-archive-day[aria-current="date"]:hover { background-color: var(--color-accent-wash); }
+  .bt-archive-day[aria-current="date"]:hover {
+    background-color: var(--color-accent-fill-hover);
+    color: var(--color-on-accent-hover);
+  }
+  .bt-archive-day[aria-current="date"]:hover .bt-archive-wd { color: var(--color-on-accent-hover); }
 }
 
 
