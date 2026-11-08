@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-07T23:26:34.005929+00:00",
-  "input_generated_at": "2026-11-07T20:10:03Z",
+  "generated_at": "2026-11-08T03:26:10.459475+00:00",
+  "input_generated_at": "2026-11-07T23:54:32Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -38526,10 +38526,10 @@
       "use_original_title": true,
       "source_url": "https://hunch.net/?p=13764006",
       "key_points": [
-        "Một nhà nghiên cứu sáng lập nhóm AI Frontiers rời Microsoft sau khi nhóm giải thể. Nhóm được lập năm 2023 sau khi ChatGPT ra mắt và bị sáp nhập vào Microsoft AI hồi đầu tháng 9.",
-        "Nguyên nhân xuất phát từ bất đồng triết lý với ban lãnh đạo Microsoft AI, nơi ưu tiên mở rộng quy mô thay vì nghiên cứu. Dù thừa nhận mô hình lớn hơn có chất lượng dự đoán tốt hơn và mở rộng quy mô đem lại lợi nhuận kinh doanh dễ đoán hơn nghiên cứu, tác giả bài viết trên hunch.net cho rằng chỉ tập trung mở rộng là sai hướng.",
-        "Nhóm AI Frontiers từng phát triển khung Autogen cùng tác tử Fara (chương trình trí tuệ nhân tạo tự thực hiện tác vụ) dù chỉ khoảng 50 người và thiếu tài nguyên tính toán. Tác giả cũng dẫn thử nghiệm của ByteDance cho thấy biến thể Full Bandwidth Transformer có thể sánh ngang mô hình lớn gấp đôi, giúp tiết kiệm chi phí huấn luyện lẫn suy luận.",
-        "Việc giải thể đồng nghĩa không còn chương trình thực tập tại nhóm AI Frontiers trong năm tới, theo tác giả bài viết trên hunch.net. Tác giả cũng đánh giá triển vọng thành công tại Microsoft Research hiện rất nhỏ, do nghiên cứu không còn con đường ứng dụng vào thực tế."
+        "Tác giả bài viết trên hunch.net cho biết đã rời Microsoft sau khi nhóm AI Frontiers bị sáp nhập vào Microsoft AI hồi đầu tháng 9. Sau khi rời đi, tác giả tuyên bố nhóm nghiên cứu này đã kết thúc hoạt động.",
+        "Sự ra đi này bắt nguồn từ bất đồng triết lý với ban lãnh đạo Microsoft AI, nơi chỉ tập trung mở rộng quy mô thay vì nghiên cứu. Dù thừa nhận mô hình lớn hơn dự đoán tốt hơn và đem lại lợi nhuận dễ đoán hơn, tác giả cho rằng chỉ mở rộng quy mô là sai hướng.",
+        "Nhóm AI Frontiers từng phát triển khung Autogen cùng tác tử Fara (chương trình trí tuệ nhân tạo tự thực hiện tác vụ) dù chỉ khoảng 50 người và thiếu năng lực tính toán. Tác giả cũng dẫn thử nghiệm của ByteDance cho thấy biến thể Full Bandwidth Transformer có thể sánh ngang mô hình lớn gấp đôi, giúp tiết kiệm chi phí huấn luyện lẫn suy luận.",
+        "Về lý do không trở lại Microsoft Research, tác giả đánh giá triển vọng thành công tại đây rất nhỏ do không thể đưa đổi mới vào ứng dụng khi ở Microsoft AI. Tác giả cũng lo ngại thỏa thuận cơ bản đã đổ vỡ khi việc làm tốt vẫn không giúp nhóm tránh khỏi bị tái cơ cấu ngoài ý muốn."
       ],
       "same_event_coverage_ids": [
         "7891fb2aca49184d9e21",
@@ -38550,49 +38550,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.65,
+        "value": 9.65,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 9,
           "notable": 10,
-          "meaning": 7
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "rời Microsoft sau khi nhóm giải thể",
-            "explanation": "The source says the author left and then concludes that AI Frontiers is over; it does not establish that the group had dissolved before the departure (outlet:p007, outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "nghiên cứu không còn con đường ứng dụng vào thực tế",
-            "explanation": "The author says they could not get their innovations used or seriously considered at Microsoft AI and therefore thought the prospects at Microsoft Research were small. The source does not establish that research there has no path to use (outlet:p008)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The Vietnamese places the group's dissolution before the author's departure.",
-            "fix": "Say the author left after the reorganization and subsequently concluded that AI Frontiers was over (outlet:p005, outlet:p007, outlet:p009)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The Vietnamese turns the author's assessment of poor prospects into an absolute claim about research having no path to use.",
-            "fix": "Attribute the concern to the author and retain the stated limit: the author could not get the work used at Microsoft AI and judged the prospects at Microsoft Research to be small (outlet:p008)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses the author's other stated reason for not returning to Microsoft Research.",
-            "fix": "Mention the author's concern that doing good work had not protected the group from an unwanted reorganization (outlet:p008)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "5d1a3763ad5885df4245c6efb3d61a17a516b18872e0c7d5647d1f4604fd49e1",
-        "scored_at": "2026-11-07T23:15:27.016537+00:00"
+        "prose_sha256": "d4c0af43f5b0694f4c58f56479e058db3962f7866f819bc907512506ef160e07",
+        "scored_at": "2026-11-08T03:26:10.455684+00:00"
       }
     },
     {
@@ -38635,10 +38608,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/tech/1029489/nyt-cooking-ai-assistant-review",
       "key_points": [
-        "Ứng dụng NYT Cooking tích hợp trợ lý trí tuệ nhân tạo (AI). Theo The Verge, công cụ này hiện chỉ khả dụng cho người dùng thuê bao trên hệ điều hành iOS vào thời điểm ra mắt.",
-        "Tính năng xuất hiện trong một khung văn bản ở trang công thức, tiếp nhận các câu hỏi tùy biến như thay thế nguyên liệu, đổi số đo hoặc chia lại khẩu phần. Hệ thống giữ nguyên công thức ban đầu và tạo ra một bản công thức riêng cho người nấu.",
-        "Trợ lý tạo phiên bản công thức mới trong vài giây khi tác giả Jennifer Pattison Tuohy thiếu nguyên liệu cho món gà nấu cơm với gừng. Hệ thống hướng dẫn hấp đậu cô ve thay cho cải cầu vồng, nhưng tác giả suýt phải dùng thiếu một nửa lượng bơ khi thử nướng bánh.",
-        "Tác giả bài viết trên The Verge đánh giá công cụ hoạt động tốt như một bếp phó nhưng không phải bếp trưởng."
+        "Ứng dụng NYT Cooking tích hợp trợ lý AI (trí tuệ nhân tạo) để tùy biến công thức nấu ăn. Theo The Verge, công cụ này hiện chỉ khả dụng cho người dùng thuê bao trên hệ điều hành iOS vào thời điểm ra mắt.",
+        "Việc đọc hàng trăm bình luận không thực tế vào các bữa tối trong tuần là lý do khiến tác giả Jennifer Pattison Tuohy tìm đến trợ lý AI. Công cụ được huấn luyện từ bình luận của người dùng để gợi ý nguyên liệu thay thế thực tế và tạo công thức riêng mà không đổi bản gốc.",
+        "Hệ thống tạo phiên bản công thức mới trong vài giây khi tác giả thiếu đùi gà và phân nửa nguyên liệu cho món cơm gà nấu gừng. Công cụ gợi ý hấp đậu cô ve thay cải cầu vồng trong tám phút cuối, nhưng ở thử nghiệm nướng bánh, nó suýt làm thiếu một nửa lượng bơ.",
+        "Trợ lý AI hoạt động tốt như một bếp phó nhưng chưa thể thay thế bếp trưởng theo đánh giá trên The Verge. Người nấu vẫn cần kiểm tra lại định lượng và thời gian nấu rồi đối chiếu với công thức gốc để tránh các sai lệch bất thường."
       ],
       "same_event_coverage_ids": [
         "312d1d2bec445f3939fc"
@@ -38660,33 +38633,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 7,
+          "why": 10,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader is not told what the reviewer still needs to check.",
-            "fix": "Add that the reviewer checks quantities and cooking times against the original recipe (outlet:p051)."
-          },
-          {
-            "question": "why",
-            "problem": "The practical reason the assistant helped during weeknight cooking is missing.",
-            "fix": "Explain that it gave quick answers where searching hundreds of reader comments would have been impractical (outlet:p021–p023)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "01725c9d190fd5f63dd79a80ced2ddfcea781a3ecd5701a439570cfc9e979de7",
-        "scored_at": "2026-11-07T23:15:27.016579+00:00"
+        "prose_sha256": "6a6931097232f80724a831cbdd48a47f96563ae7a48319dad3ecb21f3da7c402",
+        "scored_at": "2026-11-08T03:26:10.455728+00:00"
       }
     },
     {
@@ -38769,6 +38731,191 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "56380dbb42d6e93a9bde"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "51a247b5b6ae00e91ef5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The podcast episode discusses the broader political and tech industry impacts of midterm elections, focusing on data center local ballot measures and Elon Musk's donations, without AI being the primary subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/07/after-the-midterms-things-are-looking-rocky-for-elon-musk-and-data-centers/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d8121b930cc8ff24237d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3b069222ecbd3b59ba7f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/07/chinese-exec-was-recruited-to-spy-on-nvidia-ceo-according-to-us-intelligence-memo/",
+      "key_points": [
+        "Theo các hãng tin, một bản ghi nhớ lưu hành đầu năm nay cáo buộc nữ giám đốc Alice Huang được Bộ An ninh Quốc gia Trung Quốc tuyển mộ theo dõi CEO Jensen Huang của Nvidia. Tờ The New York Times cho biết bản ghi nhớ về lãnh đạo Nvidia được cho là dựa trên tình báo Mỹ.",
+        "Báo Financial Times cho biết bản ghi nhớ còn nêu việc ông Jensen Huang có quan hệ tình cảm với bà Alice Huang, giám đốc công ty Megaspeed tại Singapore.",
+        "Người phát ngôn Nvidia tuyên bố công ty luôn bán công nghệ đầu tiên, tốt nhất và nhiều nhất tại Mỹ."
+      ],
+      "same_event_coverage_ids": [
+        "8835f2cbebb8af55f736"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bản ghi nhớ tình báo Mỹ cho rằng giám đốc Megaspeed bị tuyển mộ theo dõi CEO Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/07/chinese-exec-was-recruited-to-spy-on-nvidia-ceo-according-to-us-intelligence-memo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.75,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 4
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "giám đốc Megaspeed",
+            "explanation": "The source identifies Alice Huang as a Megaspeed executive, without giving her the specific title of director (outlet:p010–p012)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "nữ giám đốc Alice Huang",
+            "explanation": "The source identifies Alice Huang as a technology executive, without giving her the specific title of director (outlet:p011)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "giám đốc công ty Megaspeed",
+            "explanation": "The source calls Alice Huang an executive at Megaspeed, without saying she is the company's director (outlet:p012)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses Nvidia's response to the allegations.",
+            "fix": "Include that Nvidia called Jensen Huang's interactions with Alice Huang “not unusual” and said it does not share classified information with customers (outlet:p013)."
+          },
+          {
+            "question": "what",
+            "problem": "The Vietnamese gives Alice Huang a more specific title than the source establishes.",
+            "fix": "Call her an executive at Megaspeed rather than its director (outlet:p011–p012)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses the separate concern raised about New Matrix.",
+            "fix": "If retaining the source's second thread, explain that reporters found only a hollow shell at its listed office, raising concern that it could be a front for a blacklisted firm (outlet:p014)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4bb642ed07c6a57a5f5b80798ec7114edc41f1e2ee95e22cb538542d025b2a98",
+        "scored_at": "2026-11-08T03:22:11.935505+00:00"
+      }
+    },
+    {
+      "id": "10bdc73097cfd2386d0a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://apiiro.com/blog/coding-agents-leaking-secrets-github-dont-ask-again",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "52c7d2913099dc1791a0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "af786bd84839f9a7ed9e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A promotional GitHub repository containing marketing sales copy and promotional codes for Manus AI rather than an independent report or substantive code release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/LordobsidianFierce32779/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5369c0a1daa17e86ee13"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e46dbe04ca7d4652dccb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A promotional GitHub repository containing marketing sales copy and promotional codes for Manus AI rather than an independent report or substantive code release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/XanegshredFalcon55771/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "78a2504daa3a0da8e4e0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4b2c612fa1f45be0861b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A promotional GitHub repository containing marketing sales copy and promotional codes for Manus AI rather than an independent report or substantive code release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/CloudAssassin30642/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "07f5b3881a2d47538f10"
       ],
       "split_coverage_ids": []
     }
