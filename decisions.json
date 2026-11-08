@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08T03:26:10.459475+00:00",
-  "input_generated_at": "2026-11-07T23:54:32Z",
+  "generated_at": "2026-11-08T07:25:33.803879+00:00",
+  "input_generated_at": "2026-11-08T05:51:43Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -38767,16 +38767,16 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/07/chinese-exec-was-recruited-to-spy-on-nvidia-ceo-according-to-us-intelligence-memo/",
       "key_points": [
-        "Theo các hãng tin, một bản ghi nhớ lưu hành đầu năm nay cáo buộc nữ giám đốc Alice Huang được Bộ An ninh Quốc gia Trung Quốc tuyển mộ theo dõi CEO Jensen Huang của Nvidia. Tờ The New York Times cho biết bản ghi nhớ về lãnh đạo Nvidia được cho là dựa trên tình báo Mỹ.",
-        "Báo Financial Times cho biết bản ghi nhớ còn nêu việc ông Jensen Huang có quan hệ tình cảm với bà Alice Huang, giám đốc công ty Megaspeed tại Singapore.",
-        "Người phát ngôn Nvidia tuyên bố công ty luôn bán công nghệ đầu tiên, tốt nhất và nhiều nhất tại Mỹ."
+        "Theo các hãng tin, một bản ghi nhớ lưu hành đầu năm nay cho biết nhân sự cấp cao Alice Huang bị Bộ An ninh Quốc gia Trung Quốc tuyển mộ theo dõi CEO Jensen Huang của Nvidia. Tờ The New York Times cho biết bản ghi nhớ về lãnh đạo Nvidia được cho là dựa trên tình báo Mỹ.",
+        "Báo Financial Times cho biết bản ghi nhớ còn nêu việc ông Jensen Huang có quan hệ tình cảm với bà Alice Huang, nhân sự cấp cao của công ty Megaspeed tại Singapore.",
+        "Người phát ngôn Nvidia nói với The New York Times rằng các tiếp xúc của Jensen Huang với Alice Huang không bất thường và công ty không chia sẻ thông tin mật với khách hàng."
       ],
       "same_event_coverage_ids": [
         "8835f2cbebb8af55f736"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bản ghi nhớ tình báo Mỹ cho rằng giám đốc Megaspeed bị tuyển mộ theo dõi CEO Nvidia",
+      "editorial_headline_vi": "Bản ghi nhớ tình báo Mỹ cho rằng nhân sự cấp cao Megaspeed bị tuyển mộ theo dõi CEO Nvidia",
       "summary_sources": [
         {
           "id": "outlet",
@@ -38789,54 +38789,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.75,
+        "value": 10.0,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
           "notable": 10,
-          "meaning": 4
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "giám đốc Megaspeed",
-            "explanation": "The source identifies Alice Huang as a Megaspeed executive, without giving her the specific title of director (outlet:p010–p012)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "nữ giám đốc Alice Huang",
-            "explanation": "The source identifies Alice Huang as a technology executive, without giving her the specific title of director (outlet:p011)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "giám đốc công ty Megaspeed",
-            "explanation": "The source calls Alice Huang an executive at Megaspeed, without saying she is the company's director (outlet:p012)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader misses Nvidia's response to the allegations.",
-            "fix": "Include that Nvidia called Jensen Huang's interactions with Alice Huang “not unusual” and said it does not share classified information with customers (outlet:p013)."
-          },
-          {
-            "question": "what",
-            "problem": "The Vietnamese gives Alice Huang a more specific title than the source establishes.",
-            "fix": "Call her an executive at Megaspeed rather than its director (outlet:p011–p012)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses the separate concern raised about New Matrix.",
-            "fix": "If retaining the source's second thread, explain that reporters found only a hollow shell at its listed office, raising concern that it could be a front for a blacklisted firm (outlet:p014)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4bb642ed07c6a57a5f5b80798ec7114edc41f1e2ee95e22cb538542d025b2a98",
-        "scored_at": "2026-11-08T03:22:11.935505+00:00"
+        "prose_sha256": "1a3d9d7a900bf73fa264849383fed91d7555451918582295c986d236c7a7769f",
+        "scored_at": "2026-11-08T07:25:33.801286+00:00"
       }
     },
     {
@@ -38916,6 +38884,184 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "07f5b3881a2d47538f10"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "149c124f7b07d2a10e3f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://caleb.software/posts/claude-to-pi.html",
+      "key_points": [
+        "Tác giả bài viết quyết định ngừng dùng Claude Code làm công cụ hỗ trợ lập trình (coding harness) chính để chuyển sang Pi. Tác giả đã gắn bó với Claude Code hơn một năm kể từ khi công cụ xuất hiện trên gói thuê bao Claude Pro.",
+        "Tác giả giải thích nguyên nhân là sự bất tiện khi phải sao chép hoặc liên kết giữa hai định dạng tệp CLAUDE.md và AGENTS.md. Bên cạnh đó, tác giả phản ánh Claude Code trong VSCode chỉ cho phép kết nối một phiên, khiến tab thứ hai không thể nhận thao tác chọn văn bản từ IDE.",
+        "Dẫn chứng cụ thể, hơn ba phần tư trong 244 bản phát hành của Claude Code năm nay đã thay đổi câu lệnh hệ thống (system prompt) hoặc mô tả công cụ. Theo tác giả, các thay đổi này có thể làm biến đổi đáng kể hiệu năng mô hình và gây xáo trộn thiết lập cá nhân.",
+        "Tác giả cho biết ông hài lòng với độ ổn định, tính tối giản và khả năng tùy biến của Pi, dù vài ngày đầu cần tinh chỉnh đôi chút. Tác giả cũng nhận định Claude Code thiếu tầm nhìn rõ ràng khi vội vã thêm tính năng mà không cân nhắc nguy cơ làm trải nghiệm người dùng tệ đi."
+      ],
+      "same_event_coverage_ids": [
+        "bfefdceb2b9f0a6d3978"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả bài viết chuyển sang Pi làm công cụ lập trình chính thay cho Claude Code",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://caleb.software/posts/claude-to-pi.html"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.6,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Claude Code trong VSCode chỉ cho phép kết nối một phiên",
+            "explanation": "The one-session limit applies to sessions connected to the IDE through the harness (outlet:p008–p009). The official Claude Code VSCode GUI extension supports multiple tabs with text selections loaded into each tab’s context (outlet:p010)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "ông",
+            "explanation": "The supplied source does not state the author’s gender (outlet:p003–p016)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "A reader may think every way of using Claude Code in VSCode has the one-session limit.",
+            "fix": "Specify that the limit concerns IDE-connected harness sessions, and note that the official GUI extension supports multiple tabs, though the author reports other problems with it (outlet:p008–p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "70a9fbc7bf5e0656fccc181acae794f40d1ae623882292f352e9e2a5bb37bfd3",
+        "scored_at": "2026-11-08T07:17:21.681614+00:00"
+      }
+    },
+    {
+      "id": "d2a38eb2640b552627a1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social media post about building a YouTube viewer project with only an incidental passing reference to Claude Code.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://x.com/karpathy/status/2119114537442189652",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "87781aca5786f125c7a9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "23fa70074c348e862e87",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://digitalminds.cam/inter-ai-morality.pdf",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1d052863842f0fd509b1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a7b2024dac98cabed223",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, documentation of a substantive release, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/OmegaElfda86686/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e84b94ca86664de36ed8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ea5eb3348584082ca4f3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, documentation of a substantive release, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/LaserOrlayr58754/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6193eb869ad40ded1b44"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f4e8ce6220df06e6c19b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/NousResearch/Arete-27B",
+      "key_points": [
+        "Nous Research introduced Arete-27B, a model post-trained on Alibaba's Qwen3.8-27B to align with Western values.",
+        "Nous Research observed refusals, deflections, and CCP-framed responses on sensitive topics in Qwen3.8-27B before post-training.",
+        "In evaluations, Arete-27B increased its fact score from 2.32 to 2.98 out of 5 and reduced propaganda in answers from 22% to 0.9%.",
+        "Nous Research reported performance improvements across seven value categories without meaningful regression on general capability or agentic benchmarks."
+      ],
+      "same_event_coverage_ids": [
+        "e22015509ab3b0b6a0c2"
       ],
       "split_coverage_ids": []
     }
