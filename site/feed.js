@@ -16,7 +16,7 @@
    calendar export, live counters, every source's state, keyboard shortcuts, and every address the bento home answered
    (#tin/<id>, and the section anchors the search page links to). */
 
-import { esc, fmt, avatar, avatarStack, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
+import { esc, fmt, avatar, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
 import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { shown, uniqCoverage } from './titles.js';
@@ -26,6 +26,9 @@ import { WORTH, fallbackWorth, hotEligible } from './worth-score.js';
 import { renderStoryHTML, mediaBackdrop } from './story.js';
 import { createArenaView, loadArena, modelName, makerName, scoreText } from './arena.js';
 import { createNewsSearch } from './tim-tin.js';
+import { createWeatherCard } from './thoi-tiet.js';
+import { createCalendarCard } from './the-lich.js';
+import { todayVN } from './lich-am.js';
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/ (as on the
    bento home). The first request matches index.html's preload (same mode, no cache option), so it is reused. */
@@ -49,7 +52,8 @@ let FIELD_MAP = new Map();
 const K = { theme: 'air2:theme', read: 'air2:read', skipped: 'air2:skipped', lastSeen: 'air2:lastSeen', saved: 'air2:saved',
   sort: 'air2:sort', repoView: 'air2:repoView', repoWindow: 'air2:repoWindow', repoTotal: 'air2:repoTotal', areas: 'air2:areas' };
 const LEGACY = { read: 'airtl:read', saved: 'airtl:saved', sort: 'airtl:sort' };   // the 04/10 prototype's keys, folded in once
-const PAGE_FIRST = 40, PAGE_MORE = 24;
+const PAGE_FIRST = 22, PAGE_MORE = 14;   // infinite scroll (Mẫu A): the first screenful, then quiet batches
+const EDITION_URL = 'ban-tin.html';
 const SNAPSHOT_EVERY_MS = 180_000;
 
 const $ = s => document.querySelector(s);
@@ -483,18 +487,6 @@ const reasonTag = st => {
   return r ? `<span class="why-tag${r.editor ? ' is-editor' : ''}"${r.why ? ` title="${esc(r.why)}"` : ''}><span class="sr">Vì sao có mặt: </span>${esc(r.text)}</span>` : '';
 };
 
-/* "Vì sao nên đọc": real numbers only, saying each fact once without repeating time or source counts. */
-function worthParts(st) {
-  const w = worthOf(st), m = measureOf(st), r = reasonOf(st), parts = [];
-  if (m) {
-    parts.push(`${numB(m)} ${esc(m.word)}${m.where ? ` trên ${esc(m.where)}` : ''}`);
-    if (m.speed && parts.length < 3) parts.push(`tăng <b class="num">${nf1.format(m.speed)}</b> ${esc(m.word)} mỗi giờ`);
-  } else if (w.fh && (!r || r.text !== w.fh.label)) {
-    parts.push(esc(w.fh.why));
-  }
-  return parts;
-}
-const worthWhy = st => worthParts(st).join(' · ');
 /* A ranked row's facts, each kept whole; the dot between two is drawn by CSS and is clipped when a fact starts a
    line, so a wrap never leaves "·" hanging at either end. */
 const whyParts = parts => parts.map(p => `<span class="why-part">${p}</span>`).join('<span class="sr">, </span>');
@@ -528,13 +520,7 @@ const pinFirst = (a, b) => (PICKS.has(b.id) ? 1 : 0) - (PICKS.has(a.id) ? 1 : 0)
 /* Every list on the page goes through here: editor picks first, then the reader's chosen order. */
 const ordered = list => [...list].sort((a, b) => pinFirst(a, b) || (sortMode === 'new' ? byNew : byWorth)(a, b));
 
-const isNewsCov = c => c && c.source !== 'hn-ai' && c.publisher !== 'hacker-news';
-const newsCovsOf = st => covsOf(st).filter(isNewsCov);
-const nNewsSrc = st => newsCovsOf(st).length;
 
-/* The top row takes stories at most PICKS_MAX_AGE_H old (by their shown publication time), up to three; when fewer
-   qualify it shows fewer, and the whole window fills in only when none does. The owner's own picks stay as he chose them. */
-const PICKS_MAX_AGE_H = 24;
 /* One event, told once on the first screen (owner, 10/10 21:01): the top row skips any story that is the same event as
    one shown in "Vừa đăng", and its lead and cards are different events among themselves (the higher-ranked one stays;
    the next eligible story fills the place). Same event, strongest signal first:
@@ -555,34 +541,6 @@ function oneEvent(a, b) {
   A.forEach(x => { if (B.has(x)) k++; });
   if (k >= 4 && k / Math.min(A.size, B.size) >= 0.6) return true;
   return sameEvent(a, b);
-}
-function choosePicks() {
-  const shown = filter === 'all' && D ? newestStories().list : [];
-  const elsewhere = st => shown.some(n => oneEvent(n, st));
-  const out = [...PICKS.keys()].map(id => STORY.get(id)).filter(st => st && nNewsSrc(st) >= 2).slice(0, 3);
-  const candidates = allStories.filter(st => !PICKS.has(st.id) && (st.importance_tier === 'top' || nNewsSrc(st) >= 2) && worthOf(st).evidence
-    && GEN - rankTime(st) <= PICKS_MAX_AGE_H * 36e5 && !elsewhere(st)).sort(byWorth);
-  if (!out.length) {
-    const photoLeadIndex = candidates.findIndex(st => pickImage(st).kind === 'photo');
-    if (photoLeadIndex >= 0) {
-      out.push(candidates.splice(photoLeadIndex, 1)[0]);
-    }
-  }
-  for (const st of candidates) {
-    if (out.length >= 3) break;
-    if (!out.some(o => oneEvent(o, st))) out.push(st);
-  }
-  // Young stories only: two cards, or the lead alone, beat an old one filling the row. The whole window is the
-  // fallback only when nothing young qualifies (coordinator, 10/10, within "người dùng luôn muốn xem tin mới trước").
-  if (!out.length) {
-    const fallback = allStories.filter(st => !PICKS.has(st.id) && !out.includes(st) && (st.importance_tier === 'top' || nNewsSrc(st) >= 2) && worthOf(st).evidence
-      && !elsewhere(st)).sort(byWorth);
-    for (const st of fallback) {
-      if (out.length >= 3) break;
-      if (!out.some(o => oneEvent(o, st))) out.push(st);
-    }
-  }
-  return out;
 }
 
 /* ==========================================================================
@@ -670,23 +628,7 @@ function coverFor(st) {
   return { face: faceOfStory(st, SRC), name, num, word, glyph: monogram(name), h: b.h, c: b.c, l: b.l ?? 0.42 };
 }
 const coverStyle = cv => `--cv-l:${cv.l};--cv-c:${cv.c};--cv-h:${cv.h}`;
-const coverHTML = cv => `<div class="cover" style="${coverStyle(cv)}" aria-hidden="true">
-  <span class="cover-glyph">${esc(cv.glyph)}</span>
-  <span class="cover-top">${avatar(cv.face, 'sm')}</span>
-  <span class="cover-fig">${cv.num
-    ? `<span class="cover-num num">${esc(cv.num)}</span><span class="cover-word">${esc(cv.word)}</span>`
-    : `<span class="cover-word is-big">${esc(cv.word)}</span>`}</span></div>`;
 const miniCover = st => { const cv = coverFor(st); return `<span class="cover is-mini" style="${coverStyle(cv)}" aria-hidden="true"><span class="cover-glyph">${esc(cv.glyph)}</span></span>`; };
-
-/* ---------- story card ---------- */
-const DIMS = { lead: [1280, 720], wide: [1280, 720], feature: [640, 360], card: [640, 360] };
-function mediaHTML(img, size) {
-  if (!img.src) return `<div class="media">${coverHTML(img.cover)}</div>`;
-  const [w, h] = DIMS[size];
-  const aiBadge = img.via === 'ai' ? `<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>` : '';
-  const loading = size === 'lead' ? 'eager' : 'lazy';
-  return `<div class="media">${mediaBackdrop(img.src, { loading })}<img class="media-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadge}</div>`;
-}
 
 /* ---------- calendar: the bento home's targets, the same split control ---------- */
 const eventOf = st => asArray(D && D.events).find(e => e.url === st.url || e.title === st.title) || null;
@@ -841,79 +783,6 @@ function toggleDetail(btn, open) {
   const st = STORY_ANY.get(btn.dataset.cov);
   if (!st) return;
   openStoryModal(btn.dataset.cov);
-}
-
-/* ---------- the front page's story tile (captain, 07/11: mockup "Trang nhất") ----------
-   Sizes: lead (the first story, big type, two points and its numbers), feature (a tall picture), card, wide (picture
-   beside the text) and small (text only). The picture always sits above or beside the type, never under it.
-   The kicker names why the story is here: "Đang nóng", the editor's or lab's mark, its kind and how many sources carry
-   it. The foot keeps the feed's tools: the sources disclosure, save, copy link and the calendar. */
-const MEDIA_SIZES = new Set(['lead', 'feature', 'card', 'wide']);
-function kickerHTML(st) {
-  const r = reasonOf(st), n = nSrc(st), bits = [];
-  if (isHot(st)) bits.push(`<span class="badge"><span class="sr">${DISCUSSED.has(worthOf(st).metric) ? 'Đang bàn nhiều' : 'Đang được chú ý'}: </span>Đang nóng</span>`);
-  if (r) bits.push(`<span class="why-tag${r.editor ? ' is-editor' : ''}"${r.why ? ` title="${esc(r.why)}"` : ''}><span class="sr">Vì sao có mặt: </span>${esc(r.text)}</span>`);
-  bits.push(`<span>${esc(KIND[st.kind] || 'Bài viết')}</span>`);
-  if (n > 1) bits.push(`<span><span class="num">${n}</span> nguồn cùng đưa</span>`);
-  return `<p class="kicker">${bits.join('')}</p>`;
-}
-function leadFigures(st) {
-  // The source count is already in the kicker and beside the source marks; the figures carry the source's own numbers.
-  const figs = [], m = measureOf(st);
-  if (m) figs.push(`<span class="fig">${numB(m)}<span>${esc(m.word)}${m.where ? ` trên ${esc(m.where)}` : ''}</span></span>`);
-  const hn = (st.coverage || []).map(c => c && c.metrics && c.metrics.comments).find(v => Number.isFinite(v) && v > 0);
-  if (hn && (!m || m.word !== METRIC.comments)) figs.push(`<span class="fig"><b class="num">${fmt(hn)}</b><span>bình luận</span></span>`);
-  return figs.length ? `<div class="lead-figs">${figs.join('')}</div>` : '';
-}
-function renderCard(st, size = 'card', opts = {}) {
-  if (size === 'std') size = 'card'; // the standard card's name before the bento
-  const img = pickImage(st);
-  const m = measureOf(st);
-  const covs = covsOf(st);
-  const first = covs[0] || {};
-  const t = titleOf(st);
-  const from = t.cov || first;
-  const href = safe(t.cov ? t.cov.url : st.url);
-  const name = covName(from) || hostOf(href);
-  const tid = `t-${esc(st.id)}`;
-  const pin = PICKS.get(st.id);
-  const covId = `cov-${esc(st.id)}`;
-  const lead = size === 'lead';
-  // The bigger tiles print the publisher's description (the dek), always labelled, and only in Vietnamese: an English
-  // paragraph under a Vietnamese headline reads as noise. The desk's summary points stay in the reading views
-  // (tests/verify-feed-content.mjs), so the lead carries the dek and its numbers, not the points.
-  const sumRaw = shown(st.summary, st.summary_vi);
-  // A story without an approved picture is a text tile (mockup B): no stand-in block, and the dek takes its place.
-  const pic = MEDIA_SIZES.has(size) && !!img.src;
-  const sum = (lead || size === 'feature' || size === 'wide' || (size === 'card' && !pic)) && sumRaw && VI_RE.test(sumRaw) && sumRaw.trim() !== t.text.trim() ? sumRaw : '';
-  const ptsHTML = sum ? `<p class="card-sum">${sourceDescriptionMark()}${esc(sum)}</p>` : '';
-  const cal = calOf(st);
-  const isSaved = savedHas(st.id);
-  const why = opts.why ? worthWhy(st) : '';
-  const cls = ['feed-card', 'tile-story', `card-${size}`, pic ? 'has-img' : 'is-text', opts.full ? 'is-full' : '', statusClass(st)].filter(Boolean).join(' ');
-  const sources = `<button class="cov-btn" data-cov="${esc(st.id)}" aria-haspopup="dialog" aria-expanded="false" aria-controls="${covId}" aria-describedby="${tid}">${nSrc(st) > 1 ? `${avatarStack(covs.slice(0, 3).map(c => faceOfSource(c, SRC)), 'xs')}<span><b class="num">${nSrc(st)}</b> nguồn</span>` : '<span>Chi tiết</span>'}</button>`;
-
-  return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}" data-worth="${worthOf(st).score.toFixed(1)}">
-  ${pic ? mediaHTML(img, size) : ''}
-  <div class="card-body">
-    ${kickerHTML(st)}
-    <h3 class="card-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>
-    ${why ? `<p class="why-line"><span class="sr">Vì sao nên đọc: </span>${why}</p>` : ''}
-    ${pin && pin.note ? `<p class="pick-note">Ghi chú biên tập: ${esc(pin.note)}</p>` : ''}
-    ${ptsHTML}
-    ${lead ? leadFigures(st) : ''}
-    <div class="card-foot">
-      <p class="t-meta">${markHTML(st)}<span class="src-name">${esc(name)}</span><span class="dot" aria-hidden="true">·</span>${timeEl(st.published_at)}${translationMark(t)}${m && !lead && !opts.why ? `<span class="dot" aria-hidden="true">·</span><span class="t-num">${numB(m)} ${esc(m.word)}</span>` : ''}</p>
-      <div class="card-actions">
-        ${sources}
-        <button class="act${isSaved ? ' is-saved' : ''}" data-act="save" data-id="${esc(st.id)}" aria-pressed="${isSaved}" aria-label="Lưu tin này" aria-describedby="${tid}" aria-keyshortcuts="S" title="Lưu">${icon('i-bookmark')}</button>
-        <button class="act" data-act="copy" data-url="${esc(href)}" aria-label="Chép liên kết" aria-describedby="${tid}" title="Chép liên kết">${icon('i-link')}</button>
-      </div>
-    </div>
-    ${cal ? `<div class="card-cal">${calButtons(cal, `data-cal="${esc(st.id)}"`, t.text)}</div>` : ''}
-    <div class="cov-list" id="${covId}" hidden></div>
-  </div>
-</article>`;
 }
 
 /* ---------- tile: live and upcoming ---------- */
@@ -1667,73 +1536,128 @@ function renderModels() {
     }).join('')}</div></section>`;
 }
 
-/* ---------- the front page's first row: the story most sources carry (lead) and the next one beside it ---------- */
-function renderPicks() {
-  const show = filter === 'all' && PICKLIST.length > 0;
-  $('#picks').hidden = !show;
-  if (!show) return;
-  const [first, second] = PICKLIST;
-  $('#picks-grid').innerHTML = renderCard(first, 'lead', { why: true, full: !second })
-    + (second ? renderCard(second, 'feature') : '');
-}
-
 /* ==========================================================================
-   ORDER AND RHYTHM (captain, 07/11: the "Trang nhất" front page, mockup B)
-   A 12-column bento. The first row (above, #picks) is the lead and a feature. Then: three cards; the Arena tile beside a
-   wide story; four small text tiles; two cards beside "Vừa đăng"; the hot list beside the live and upcoming tile; the
-   repository and model tiles; then the river repeats small, card and wide rows. Each row fills the 12 columns, so the
-   visual order is the reading order. A picture slot takes the next of six stories that has a picture and a text slot
-   one that has none, so pictures and type alternate; otherwise the ranking's order holds. The river follows the switch:
-   "Đáng đọc nhất" (score) or "Mới nhất" (published time). Phone: the same order, one column.
+   THE FRONT PAGE (Mẫu A, captain 08/11 18:23: "nói chung là em làm giống msn cho anh nhưng là nội dung về AI của
+   halcyon"). One grid. Its first row: the lead carousel (the four strongest stories with a photograph), the weather,
+   the calendar and "Chuyện lớn" (the next four). Then the stories in the reader's order, where a notable one takes a
+   2x2 cell (a photograph and the editorial tier, or hot, or worth) or a 2x1 cell, at least four ordinary cards apart so
+   they spread through the page ("phải có những thẻ tin tức đáng chú ý có kích thước lớn hơn"). The front page's own
+   tiles (the Arena leaders, "Vừa đăng", "Đang nóng", live and upcoming, repositories, models) sit in the grid as 2x2
+   widgets, the way MSN's sport and market cards do. Every story appears once on the page.
    ========================================================================== */
-const C = (st, size = 'card', opts = {}) => ({ t: 'card', st, size, opts });
-const hasPicture = st => !!pickImage(st).src;
-function take(pool, want) {
-  if (!pool.length) return null;
-  const fits = st => want === 'img' ? hasPicture(st) : want === 'text' ? !hasPicture(st) : true;
-  const i = pool.slice(0, 6).findIndex(fits);
-  return pool.splice(i < 0 ? 0 : i, 1)[0];
+const C = (st, size = '', opts = {}) => ({ t: 'card', st, size, opts });
+const storyHref = st => `tin/${esc(st.id)}/`;
+const hasPhoto = st => { const p = pickImage(st); return !!p.src && p.kind === 'photo'; };
+const TIER = { top: 3, notable: 2 };
+const frontScore = st => (TIER[st.importance_tier] || 0) + (st.hot_score || 0) / 20 + Math.min(worthOf(st).score, 8) / 4;
+const isBig = st => hasPhoto(st) && (st.importance_tier === 'top' || st.importance_tier === 'notable' || (st.hot_score || 0) >= 15 || worthOf(st).score >= 3);
+const isWide = st => st.importance_tier === 'notable' || (st.hot_score || 0) >= 8 || worthOf(st).score >= 1;
+let FRONT_TOP = [];           // "Chuyện lớn" in the first row
+let FRONT_IDS = new Set();    // stories the front page already shows above the river (carousel, list, tiles)
+let weatherCard = null, calendarCard = null;   // built once; the same elements return to the grid on every redraw
+
+/* The carousel takes the editor's picks first, then the strongest stories with a photograph; "Chuyện lớn" the next
+   four of the big ones. One event is told once. */
+function chooseFront() {
+  const ranked = [...allStories].sort((a, b) => pinFirst(a, b) || frontScore(b) - frontScore(a) || rankTime(b) - rankTime(a));
+  const lead = [], top = [];
+  const distinct = (list, st) => !list.some(o => oneEvent(o, st));
+  for (const st of ranked) { if (lead.length >= 4) break; if (hasPhoto(st) && distinct(lead, st)) lead.push(st); }
+  const big = ranked.filter(st => bigSet.has(st.id));
+  for (const st of [...big, ...ranked]) { if (top.length >= 4) break; if (!top.includes(st) && distinct([...lead, ...top], st)) top.push(st); }
+  return { lead, top };
 }
-/* A row is a list of items; its first item carries row: true so a page of the river ends on a whole row. */
-function pushRow(out, items) {
-  const list = items.filter(Boolean);
-  if (list.length) { list[0].row = true; out.push(...list); }
-  return out;
-}
-const cardsOf = (pool, slots) => slots.map(([size, want]) => { const st = take(pool, want); return st ? C(st, size) : null; });
-const ROWS = {
-  cards: [['card', 'img'], ['card', 'img'], ['card', 'img']],
-  small: [['small', 'text'], ['small', 'text'], ['small', 'text'], ['small', 'text']],
-  wide: [['wide', 'img'], ['card', 'img']],
-  wideEnd: [['card', 'img'], ['wide', 'img']],
-};
-const RIVER = ['small', 'cards', 'wide', 'small', 'cards', 'wideEnd'];
-function rows(river, out, start = 0) {
-  for (let r = start; river.length; r++) pushRow(out, cardsOf(river, ROWS[RIVER[r % RIVER.length]]));
-  return out;
+/* Spread the notable cards: a big or wide card needs four ordinary cards since the last one. */
+function sizeRiver(list) {
+  let since = 4;
+  return list.map(st => {
+    let size = '';
+    if (since >= 4 && isBig(st)) size = 'big';
+    else if (since >= 4 && isWide(st)) size = 'wide';
+    since = size ? 0 : since + 1;
+    return C(st, size);
+  });
 }
 const liveAvailable = () => !!(D && ((D.live || []).length || (D.events || []).some(e => eventSpan(e).end > Date.now())));
 
 function buildAll() {
-  const out = [], used = new Set(PICKLIST.map(st => st.id));
+  const used = new Set([...PICKLIST, ...FRONT_TOP].map(st => st.id));
+  const shownAbove = [...PICKLIST, ...FRONT_TOP];
   // The hot list: the stories people are discussing most, measured, one event told once.
-  HOT = allStories.filter(st => !used.has(st.id) && (st.hot_score || 0) > 0 && hotEligible(st) && !PICKLIST.some(p => sameEvent(p, st)))
+  HOT = allStories.filter(st => !used.has(st.id) && (st.hot_score || 0) > 0 && hotEligible(st) && !shownAbove.some(p => sameEvent(p, st)))
     .sort(byWorth).slice(0, 5);
   HOT.forEach(st => used.add(st.id));
-  const pool = ordered(allStories.filter(st => !used.has(st.id)));
+  FRONT_IDS = new Set(used);
+  const fresh = D ? newestStories().list.slice(0, FRESH_TILE_ROWS) : [];
+  fresh.forEach(st => used.add(st.id));
+  const river = sizeRiver(ordered(allStories.filter(st => !used.has(st.id))));
+  const widgets = [{ t: 'arena' }, fresh.length ? { t: 'fresh' } : null, HOT.length ? { t: 'hot' } : null,
+    liveAvailable() ? { t: 'live' } : null, { t: 'repos' }, getTrendingModels().length ? { t: 'models' } : null].filter(Boolean);
+  // The first widget after eight stories, then one every ten.
+  const out = [];
+  river.forEach((it, i) => { out.push(it); if ((i + 1) % 10 === 8 && widgets.length) out.push(widgets.shift()); });
+  return out.concat(widgets);
+}
 
-  // The picks after the first row lead the three cards; the ranking fills the rest.
-  const rest = PICKLIST.slice(2).map(st => C(st, 'card'));
-  pushRow(out, [...rest, ...cardsOf(pool, ROWS.cards.slice(rest.length))]);
-  pushRow(out, [{ t: 'arena' }, ...cardsOf(pool, [['wide', 'img']])]);
-  pushRow(out, cardsOf(pool, ROWS.small));
-  pushRow(out, [...cardsOf(pool, [['card', 'img'], ['card', 'img']]), D && newestStories().list.length ? { t: 'fresh' } : cardsOf(pool, [['card', 'img']])[0]]);
-  const live = liveAvailable(), hot = HOT.length > 0;
-  if (live && hot) pushRow(out, [{ t: 'hot' }, { t: 'live' }]);
-  else if (hot) pushRow(out, [{ t: 'hot' }, ...cardsOf(pool, [['card', 'img'], ['card', 'img']])]);
-  else if (live) pushRow(out, [{ t: 'live' }, ...cardsOf(pool, [['card', 'img']])]);
-  pushRow(out, [{ t: 'repos' }, getTrendingModels().length ? { t: 'models' } : null]);
-  return rows(pool, out);
+/* ---------- the first row's cards ---------- */
+const srcOf = st => { const t = titleOf(st), c = t.cov || covsOf(st)[0] || {}; return { name: covName(c) || hostOf(st.url), face: faceOfSource(c, SRC) }; };
+/* Who and when; a machine-translated headline says so ("Translated") here on a slide, under the headline on a card. */
+const metaHTML = (st, mark = false) => { const s = srcOf(st); return `<p class="nc-meta">${markHTML(st)}<span class="nc-fav" aria-hidden="true">${avatar(s.face, 'xs')}</span><span class="nc-src">${esc(s.name)}</span><span class="nc-dot" aria-hidden="true"></span>${timeEl(st.published_at)}${mark ? translationMark(titleOf(st)) : ''}</p>`; };
+const aiBadgeHTML = img => img.via === 'ai' ? '<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>' : '';
+/* A news picture is drawn whole on a blurred copy of itself (captain, 07/11: "không bị cắt thông tin"), inside the slot
+   Mẫu A gives it, so a chart or a screenshot keeps its edges. */
+function mediaHTML(img, size) {
+  const loading = size === 'lead' ? 'eager' : 'lazy';
+  const [w, h] = size === 'lead' ? [1280, 720] : [640, 360];
+  return `${mediaBackdrop(img.src, { loading })}<img class="media-img nc-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadgeHTML(img)}`;
+}
+function leadHTML(list) {
+  if (!list.length) return '';
+  const n = list.length;
+  const slides = list.map((st, i) => {
+    const img = pickImage(st), t = titleOf(st);
+    return `<article class="slide${i ? '' : ' is-active'} ${statusClass(st)}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" aria-roledescription="slide" aria-label="${i + 1} trên ${n}"${i ? ' inert' : ''}>
+      <div class="slide-media media">${mediaHTML(img, i ? 'card' : 'lead')}</div>
+      <div class="slide-box"><p class="nc-kicker">Tin nổi bật</p><h2 class="slide-title"${langAttr(t.text)}><a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>${metaHTML(st, true)}</div></article>`;
+  }).join('');
+  const nav = n > 1 ? `<div class="lead-dots" role="group" aria-label="Chọn tin nổi bật">${list.map((st, i) => `<button type="button" data-slide="${i}" aria-label="Tin nổi bật ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>
+    <div class="lead-nav"><button type="button" data-slide-step="-1" aria-label="Tin nổi bật trước"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg></button><button type="button" data-slide-step="1" aria-label="Tin nổi bật tiếp"><svg class="i i-flip" aria-hidden="true"><use href="#i-arrow-left"/></svg></button></div>` : '';
+  return `<section class="msn-card msn-lead" id="lead" aria-roledescription="carousel" aria-label="Tin nổi bật">${slides}${nav}</section>`;
+}
+function showSlide(lead, n) {
+  const slides = [...lead.querySelectorAll('.slide')];
+  if (!slides.length) return;
+  const k = (n + slides.length) % slides.length;
+  slides.forEach((el, i) => { el.classList.toggle('is-active', i === k); el.inert = i !== k; });
+  lead.querySelectorAll('.lead-dots button').forEach((b, i) => b.setAttribute('aria-current', String(i === k)));
+  lead.dataset.slide = String(k);
+}
+function topListHTML(list) {
+  if (!list.length) return '';
+  return `<section class="msn-card msn-toplist" id="top-list" aria-labelledby="top-list-h"><h2 id="top-list-h">Chuyện lớn</h2><ol>${list.map((st, i) => {
+    const t = titleOf(st), s = srcOf(st);
+    return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><b class="num" aria-hidden="true">${i + 1}</b><span class="top-text"><a class="story-link top-title" href="${storyHref(st)}" data-id="${esc(st.id)}"${langAttr(t.text)}>${esc(t.text)}</a><span class="top-meta">${markHTML(st)}${esc(s.name)} · ${timeEl(st.published_at)}${translationMark(t)}</span></span></li>`;
+  }).join('')}</ol></section>`;
+}
+
+/* ---------- the story card: a picture over the source line and the headline; notable ones carry their dek ---------- */
+function msnCard(st, size = '') {
+  const img = pickImage(st), t = titleOf(st);
+  const pic = !!img.src;
+  const tid = `t-${esc(st.id)}`;
+  const sumRaw = shown(st.summary, st.summary_vi);
+  const sum = sumRaw && VI_RE.test(sumRaw) && sumRaw.trim() !== t.text.trim() ? sumRaw : '';
+  const cls = ['msn-card', 'nc', size ? `nc-${size}` : '', pic ? 'has-photo' : 'no-photo', statusClass(st)].filter(Boolean).join(' ');
+  return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}">
+  ${pic ? `<div class="nc-photo media">${mediaHTML(img, 'card')}</div>` : ''}
+  <div class="nc-body">
+    ${size ? '<p class="nc-kicker">Đáng chú ý</p>' : ''}
+    ${metaHTML(st)}
+    <h3 class="nc-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>
+    ${t.orig ? `<p class="nc-mt">${translationMark(t)}</p>` : ''}
+    ${sum ? `<p class="nc-sum">${sourceDescriptionMark()}${esc(sum)}</p>` : ''}
+  </div>
+</article>`;
 }
 
 const FILTERS = {
@@ -1764,20 +1688,14 @@ function listFor(f) {
   if (s) return asArray(D.sections && D.sections[s.sec]).map(id => STORY_ANY.get(id)).filter(Boolean);
   return allStories.filter(FILTERS[f] || (() => false));
 }
-/* A filtered view opens on its own lead and feature, then the same river rows. */
-function leadRow(river, out) {
-  const first = river.shift();
-  if (!first) return out;
-  const second = take(river, 'img');
-  return pushRow(out, [C(first, 'lead', { full: !second }), second ? C(second, 'feature') : null]);
-}
+/* A section, a filter or the saved list (Mẫu A): every matching story once, as ordinary cards, without the front
+   page's first row; the view's own tiles (the repositories and models, the events, saved links) lead or close it. */
 function buildFiltered(f) {
   const s = secOf(f);
   if (f === 'saved') {
     // Saved stories in the order the reader saved them (newest first); anything no longer in the snapshot follows as links.
-    const list = savedStories(), out = [];
-    for (let i = 0; i < list.length; i += 3) pushRow(out, list.slice(i, i + 3).map(st => C(st, 'card')));
-    if (saved.some(x => !STORY_ANY.has(x.key))) pushRow(out, [{ t: 'saved-rest' }]);
+    const out = savedStories().map(st => C(st));
+    if (saved.some(x => !STORY_ANY.has(x.key))) out.push({ t: 'saved-rest' });
     return out;
   }
   if (s) {
@@ -1785,14 +1703,10 @@ function buildFiltered(f) {
     const river = s.order === 'date'
       ? list.slice().sort((a, b) => String((eventOf(a) || {}).start_date || a.published_at).localeCompare(String((eventOf(b) || {}).start_date || b.published_at)))
       : list.slice().sort(byNew);
-    const out = s.sec === 'upcoming' ? pushRow([], [{ t: 'live', all: true }]) : [];
-    if (s.sec !== 'upcoming') leadRow(river, out);
-    return rows(river, out);
+    return [...(s.sec === 'upcoming' ? [{ t: 'live', all: true }] : []), ...river.map(st => C(st))];
   }
-  const river = ordered(listFor(f)), out = [];
-  if (f === 'code') { pushRow(out, [{ t: 'repos-full' }]); pushRow(out, [{ t: 'models' }]); return rows(river, out); }
-  leadRow(river, out);
-  return rows(river, out, 1);
+  const river = ordered(listFor(f)).map(st => C(st));
+  return f === 'code' ? [{ t: 'repos-full' }, { t: 'models' }, ...river] : river;
 }
 /* Saved items that left the snapshot (and saved repositories): the title and address kept at save time. */
 function renderSavedRest() {
@@ -1831,7 +1745,7 @@ function renderArenaTile() {
 }
 
 function renderItem(it) {
-  if (it.t === 'card') return renderCard(it.st, it.size, it.opts);
+  if (it.t === 'card') return msnCard(it.st, it.size);
   if (it.t === 'live') return renderLive(!!it.all);
   if (it.t === 'hot') return renderHot();
   if (it.t === 'repos') return renderRepos();
@@ -1845,9 +1759,8 @@ function renderItem(it) {
 
 function renderChunk(limit) {
   let html = '';
-  while (pos < seq.length) {
+  while (pos < seq.length && shownCards < limit) {
     const it = seq[pos];
-    if (it.row && shownCards >= limit) break;     // a page of the river ends on a whole row
     html += renderItem(it);
     if (it.t === 'card') shownCards++;
     pos++;
@@ -1855,27 +1768,84 @@ function renderChunk(limit) {
   return html;
 }
 
+/* ---------- infinite scroll (Mẫu A: "cuộn để xuống dưới để tải tin") ----------
+   A sentinel under the grid asks for the next batch 900 px before the reader reaches it. While a batch is built a row
+   of grey cards breathes in its place and "Đang tải thêm tin" is read out; at the end a closing card fills what the
+   last row left empty, with the next actions and no counts. */
+let scrollWatch = null, loadingMore = false;
+const nearEnd = () => { const el = $('#feed-sentinel'); return !!el && el.getBoundingClientRect().top < innerHeight + 900; };
+const gridCols = grid => getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length || 1;
+function setLoading(on) {
+  const grid = $('#feed-grid');
+  grid.querySelectorAll('.msn-sk').forEach(n => n.remove());
+  $('#feed-status').innerHTML = on ? '<p class="loading-line"><span class="spinner" aria-hidden="true"></span>Đang tải thêm tin</p>' : '';
+  if (on) grid.insertAdjacentHTML('beforeend', Array.from({ length: gridCols(grid) }, () => '<div class="msn-card msn-sk" aria-hidden="true"></div>').join(''));
+}
+function loadMore() {
+  if (loadingMore || pos >= seq.length || filter === 'rankings' || $('#feed-grid').hidden) return;
+  loadingMore = true;
+  setLoading(true);
+  const go = () => {
+    setLoading(false);
+    more(false);
+    loadingMore = false;
+    if (pos < seq.length) requestAnimationFrame(() => { if (nearEnd()) loadMore(); });
+  };
+  // The batch is built when the browser is idle, so the scroll that asked for it stays smooth.
+  if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 300 }); else setTimeout(go, 0);
+}
+function watchScroll() {
+  if (scrollWatch) return;
+  if (typeof IntersectionObserver === 'undefined') { scrollWatch = true; return; }
+  scrollWatch = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) loadMore(); }, { rootMargin: '0px 0px 900px 0px' });
+  scrollWatch.observe($('#feed-sentinel'));
+}
 function updateMore() {
-  const left = totalCards - shownCards;
-  $('#feed-more').hidden = left <= 0;
-  $('#feed-end').hidden = left > 0 || !totalCards;
+  const grid = $('#feed-grid');
+  grid.querySelector('.end-card')?.remove();
+  if (pos < seq.length) { if (scrollWatch === true) more(false); return; }
+  if (!totalCards) return;
+  // The closing card spans the columns the last row left free (a row of its own when that is less than two, or on a phone).
+  const n = gridCols(grid), cards = [...grid.children].filter(c => c.getClientRects().length);
+  const last = cards[cards.length - 1];
+  let free = n;
+  if (last && n > 2) {
+    const g = grid.getBoundingClientRect(), col = (g.width + parseFloat(getComputedStyle(grid).columnGap || '0')) / n;
+    const top = last.getBoundingClientRect().top;
+    const used = cards.filter(c => { const r = c.getBoundingClientRect(); return Math.abs(r.top - top) < 2 || (r.top < top && r.bottom > top + 2); })
+      .reduce((sum, c) => sum + Math.round(c.getBoundingClientRect().width / col), 0);
+    free = n - used;
+  }
+  // One free column is too narrow for the actions: the card then takes a row of its own.
+  const span = n <= 2 || free < 2 ? '1 / -1' : `span ${free}`;
+  const front = filter === 'all';
+  grid.insertAdjacentHTML('beforeend', `<section class="msn-card end-card" style="grid-column:${span}" aria-labelledby="end-h">
+    <h2 id="end-h">${front ? 'Bạn đã xem hết tin AI hôm nay' : 'Bạn đã xem hết tin trong mục này'}</h2>
+    <p>Tin mới được thêm vào trong ngày. Bản tin sáng gom gọn những chuyện đáng đọc nhất.</p>
+    <div class="end-actions"><a class="ed-link" href="${EDITION_URL}">Đọc Bản tin sáng</a><button class="ghost" type="button" id="mark-all-btn">${front ? 'Đánh dấu đã xem hết' : 'Đánh dấu nhóm này đã xem'}</button><button class="ghost" type="button" data-to-top>Lên đầu trang</button></div></section>`);
 }
 
-/* The end block offers the next action for this view; it carries no counts (captain, 08/11). */
-function renderEnd() {
-  $('#mark-all-btn').textContent = filter === 'all' ? 'Đánh dấu đã xem hết' : 'Đánh dấu nhóm này đã xem';
+/* The first row's two live cards are built once; the same elements go back after every redraw, so the city menu, the
+   forecast page and the weather request survive a filter or sort change. */
+function placeFrontCards(grid) {
+  if (!weatherCard) weatherCard = createWeatherCard();
+  if (!calendarCard) calendarCard = createCalendarCard();
+  grid.querySelector('[data-slot="wx"]')?.replaceWith(weatherCard);
+  grid.querySelector('[data-slot="cal"]')?.replaceWith(calendarCard);
 }
 
 function renderFeed() {
   const skeleton = $('#feed-skeleton');
   if (skeleton) skeleton.remove();
   const rankings = filter === 'rankings';
+  const grid = $('#feed-grid');
   $('#arena').hidden = !rankings;
-  $('#feed-grid').hidden = rankings;
+  grid.hidden = rankings;
   $('#feed-footer').hidden = rankings;
   $('#sort-switch').hidden = rankings || !D;
+  $('#feed-status').innerHTML = '';
   if (rankings) {
-    for (const id of ['picks', 'feed-empty', 'feed-more', 'feed-end', 'filter-context']) $('#' + id).hidden = true;
+    for (const id of ['feed-empty', 'filter-context']) $('#' + id).hidden = true;
     $('#top').removeAttribute('aria-busy');
     arenaView.show();
     renderChips();
@@ -1883,62 +1853,67 @@ function renderFeed() {
     return;
   }
   if (!D) { $('#feed-empty').hidden = false; renderChips(); return; }
-  PICKLIST = choosePicks();       // the top row depends on what "Vừa đăng" shows right now (one event, told once)
-  renderPicks();
-  seq = filter === 'all' ? buildAll() : buildFiltered(filter);
+  const front = filter === 'all';
+  ({ lead: PICKLIST, top: FRONT_TOP } = front ? chooseFront() : { lead: [], top: [] });
+  seq = front ? buildAll() : buildFiltered(filter);
   pos = 0; shownCards = 0;
   totalCards = seq.filter(x => x.t === 'card').length;
   const html = renderChunk(PAGE_FIRST);
   const empty = !html.trim();                      // tiles with no data render nothing, so judge by the output
   $('#feed-empty').hidden = !empty;
-  $('#feed-grid').innerHTML = html;
-  updateMore();
+  grid.classList.toggle('is-front', front);
+  grid.innerHTML = (front ? leadHTML(PICKLIST) + '<i data-slot="wx"></i><i data-slot="cal"></i>' + topListHTML(FRONT_TOP) : '') + html;
+  if (front) placeFrontCards(grid);
   renderSub();
-  renderEnd();
   renderChips();
   renderFrontMeta();
-  initRepoPills($('#feed-grid'));
+  initRepoPills(grid);
   initShelves($('#top'));
   scheduleCountdown();
   $('#top').removeAttribute('aria-busy');
   hydrateHF(document);
   observeSkips();
-  observeCardMotion(document);
+  observeCardMotion(grid);
   hydrateLoadedImages(document);
+  watchScroll();
+  updateMore();
+  requestAnimationFrame(() => { if (nearEnd()) loadMore(); });
 }
 
 function more(focus = true) {
   const grid = $('#feed-grid');
-  const before = grid.querySelectorAll('.feed-card').length;
+  const before = grid.querySelectorAll('.nc').length;
+  grid.querySelector('.end-card')?.remove();
   grid.insertAdjacentHTML('beforeend', renderChunk(shownCards + PAGE_MORE));
-  updateMore();
   initRepoPills(grid);
   hydrateHF(document);
   observeSkips();
   observeCardMotion(grid);
   hydrateLoadedImages(grid);
+  updateMore();
   // Keep keyboard users in place: focus the first card that just arrived.
-  const next = grid.querySelectorAll('.feed-card')[before];
+  const next = grid.querySelectorAll('.nc')[before];
   if (focus && next) next.querySelector('.story-link').focus({ preventScroll: true });
 }
 /* Render further chunks until an element for a matching story exists (the first new story, #tin/<id>). */
 function revealStory(pred, cardsOnly = false) {
-  const sel = cardsOnly ? '#picks-grid .feed-card[data-sid], #feed-grid .feed-card[data-sid]' : '#picks-grid [data-sid], #feed-grid [data-sid]';
+  const sel = cardsOnly ? '#feed-grid .nc[data-sid], #feed-grid .slide[data-sid]' : '#feed-grid [data-sid]';
   const find = () => $$(sel).find(el => !el.closest('[hidden]') && pred(el.dataset.sid));
   let el = find();
   while (!el && pos < seq.length) { more(false); el = find(); }
+  const lead = el && el.matches('.slide') && el.closest('.msn-lead');   // a carousel story: bring its slide forward
+  if (lead) showSlide(lead, [...lead.querySelectorAll('.slide')].indexOf(el));
   return el || null;
 }
 function focusStory(el) {
-  const card = el.closest('.feed-card, .tile');
+  const card = el.closest('.msn-card, .tile');
   if (card && card.classList.contains('motion-entry')) {
     if (motionObserver) motionObserver.unobserve(card);
     card.style.transitionDelay = '0ms';
     card.classList.remove('motion-entry', 'is-entered');
     card.classList.add('motion-done');
   }
-  const bar = $('#bar') ? $('#bar').offsetHeight : 64;
-  window.scrollTo({ top: Math.max(0, scrollY + el.getBoundingClientRect().top - bar - 16), behavior: RM.matches ? 'auto' : 'smooth' });
+  window.scrollTo({ top: Math.max(0, scrollY + el.getBoundingClientRect().top - 16), behavior: RM.matches ? 'auto' : 'smooth' });
   const f = el.matches('a, button') ? el : el.querySelector('.story-link, a');
   if (f) f.focus({ preventScroll: true });
 }
@@ -1968,10 +1943,15 @@ function renderChips() {
   const active = container ? container.querySelector('.filter-chip[aria-pressed="true"]') : null;
   if (container && active) glideTab(container, active);
 }
-/* The line above the bento names the view; it carries no story count or update time (captain, 08/11). */
+/* The line above the grid names the view and says when the snapshot was made ("Cập nhật lúc 14:27"); it carries no
+   story count (captain, 08/11, Mẫu A). The panel head carries today's date on wide screens. */
 function renderFrontMeta() {
   const h = $('#front-h');
-  if (h) h.textContent = filter === 'all' ? 'Trang nhất' : (LABELS[filter] || '');
+  if (h) h.textContent = filter === 'all' ? 'Toàn cảnh AI hôm nay' : (LABELS[filter] || '');
+  const u = $('#front-updated');
+  if (u) u.textContent = D && D.generated_at ? `Cập nhật lúc ${hhmm(new Date(D.generated_at))}` : '';
+  const d = $('#date-chip');
+  if (d) { const t = todayVN(); d.textContent = `${t.weekday}, ${String(t.d).padStart(2, '0')}/${String(t.m).padStart(2, '0')}/${t.y}`; }
 }
 /* Keep the Arena deep link when its tab is selected; news filters retain their existing URL behavior. */
 function setFilter(f, fromHash = false) {
@@ -2057,7 +2037,7 @@ function checkNewItemsScroll() {
   if ($('#fresh').hidden) return;
   positionNewItems();
   const edge = $('#bar').getBoundingClientRect().bottom;
-  const elements = $$('#picks-grid [data-sid], #feed-grid [data-sid]');
+  const elements = $$('#feed-grid [data-sid]');
   for (const id of noticeIds) {
     if (elements.some(el => el.dataset.sid === id && !el.closest('[hidden]') && el.getBoundingClientRect().bottom <= edge)) retireNewItem(id);
   }
@@ -2078,7 +2058,7 @@ const NEWEST = { hours: 6, min: 4, maxHours: 24, cap: 8 };
 let freshIds = [];            // the batch the reader asked to see with the pill, pinned first while unread
 const FRESH_TILE_ROWS = 5;
 function newestStories() {
-  const young = h => allStories.filter(st => GEN - ms(st.published_at) <= h * 36e5);
+  const young = h => allStories.filter(st => GEN - ms(st.published_at) <= h * 36e5 && !FRONT_IDS.has(st.id));
   let pool = young(NEWEST.hours), hours = NEWEST.hours;
   if (pool.length < NEWEST.min) { pool = young(NEWEST.maxHours); hours = NEWEST.maxHours; }
   const pinned = freshIds.filter(id => !read.has(id)).map(id => STORY_ANY.get(id)).filter(Boolean).sort(byNew);
@@ -2124,16 +2104,16 @@ function goFirstNew() {
   if (targets.size) {
     freshIds = [...targets];
     renderFreshRow();
-    // The block under the row skips events the row now shows; redraw it only when that changes its stories.
-    const next = choosePicks();
-    if (next.map(st => st.id).join() !== PICKLIST.map(st => st.id).join()) renderFeed();
+    // Every story once: when the river already shows a story the tile now pins, redraw so the river leaves it out.
+    if ([...targets].some(id => $(`#feed-grid .nc[data-id="${CSSq(id)}"]`))) renderFeed();
     const box = $('#fresh-row');
     if (box && !box.hidden) heading = $('#fresh-row-h');
   }
   if (heading) {
-    // Bring the tile under the news bar, then hand keyboard and screen-reader users its heading.
+    // Bring the tile to the top of the window (Mẫu A's panel head scrolls away), then hand keyboard and screen-reader
+    // users its heading.
     const tile = $('#fresh-row');
-    window.scrollTo({ top: Math.max(0, scrollY + tile.getBoundingClientRect().top - $('#bar').offsetHeight - 16), behavior: RM.matches ? 'auto' : 'smooth' });
+    window.scrollTo({ top: Math.max(0, scrollY + tile.getBoundingClientRect().top - 16), behavior: RM.matches ? 'auto' : 'smooth' });
     heading.focus({ preventScroll: true });
     dismissNewItems();
     return;
@@ -2272,23 +2252,28 @@ function route() {
   if (m) openStory(m[1]);
 }
 
+/* A publisher that blocks hotlinking, a dead address or a picture too small to be one (under 40 px, a tracking pixel)
+   never shows as a broken image: the card drops its picture slot and becomes a text card (Mẫu A); a carousel slide
+   keeps its dark frame and shows its headline large. */
+function dropPhoto(img) {
+  const card = img.closest('.nc, .slide');
+  if (!card) return;
+  const st = STORY_ANY.get(card.dataset.id);
+  if (st) { const cv = coverPick(st); PICKED.set(st.id, cv); card.dataset.via = cv.via; }
+  card.classList.remove('has-photo');
+  card.classList.add('no-photo');
+  (img.closest('.nc-photo, .slide-media') || img).remove();
+}
 /* Failed pictures use the site's factual cover without consulting external providers. */
 function watchPictures() {
+  document.addEventListener('load', e => {
+    const img = e.target;
+    if (img instanceof HTMLImageElement && img.classList.contains('nc-img') && img.naturalWidth < 40) dropPhoto(img);
+  }, true);
   document.addEventListener('error', e => {
     const img = e.target;
     if (!(img instanceof HTMLImageElement) || img.classList.contains('av-img')) return;
-    if (img.classList.contains('media-img')) {
-      const card = img.closest('.feed-card'), st = card && STORY_ANY.get(card.dataset.id);
-      if (!st) return;
-      const cv = coverPick(st);
-      PICKED.set(st.id, cv);
-      card.dataset.via = cv.via;
-      // The tile carries on as a text tile, the way a story without a picture is drawn.
-      img.parentElement.remove();
-      card.classList.remove('has-img');
-      card.classList.add('is-text');
-      return;
-    }
+    if (img.classList.contains('nc-img')) { dropPhoto(img); return; }
     const thumb = img.closest('.thumb');
     if (thumb) {
       const st = STORY_ANY.get(thumb.dataset.id);
@@ -2301,8 +2286,8 @@ function watchPictures() {
 }
 
 /* ---------- keyboard: the bento home's shortcuts ---------- */
-const STORY_SEL = '#picks-grid .story-link, #picks-grid .pick-row, #feed-grid .story-link, #feed-grid .hot-row, #feed-grid .repo';
-const storyEls = () => $$(STORY_SEL).filter(el => el.getClientRects().length && !el.closest('[hidden]'));
+const STORY_SEL = '#feed-grid .story-link, #feed-grid .hot-row, #feed-grid .repo';
+const storyEls = () => $$(STORY_SEL).filter(el => el.getClientRects().length && !el.closest('[hidden], [inert]'));
 function move(dir) {
   const list = storyEls(); if (!list.length) return;
   let i = list.indexOf(document.activeElement);
@@ -2459,6 +2444,18 @@ function onClick(e) {
   if (t.closest('#keys-open')) { $('#keys').showModal(); return; }
   if (t.closest('#keys-x')) { $('#keys').close(); return; }
   if (t.closest('[data-reset]')) { setFilter('all'); return; }
+  if (t.closest('#mark-all-btn')) {
+    if (!D) return;
+    listFor(filter).forEach(st => markRead(st.id));
+    if (filter === 'all') markSeen();
+    else toast('Đã đánh dấu nhóm này đã xem');
+    return;
+  }
+  if (t.closest('[data-to-top]')) { scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' }); $('#top').focus({ preventScroll: true }); return; }
+  const dot = t.closest('.lead-dots button');
+  if (dot) { showSlide(dot.closest('.msn-lead'), +dot.dataset.slide); return; }
+  const step = t.closest('[data-slide-step]');
+  if (step) { const lead = step.closest('.msn-lead'); showSlide(lead, (+lead.dataset.slide || 0) + +step.dataset.slideStep); return; }
   onOpenLink(e);
 }
 /* Opening a story by any link (left, middle or keyboard) marks it seen. */
@@ -2493,32 +2490,16 @@ function attachEvents() {
       return true;
     },
   });
-  // The news bar gains a hairline (and the logo tile) only once it is actually stuck.
-  const bar = $('#bar');
-  if (bar && 'IntersectionObserver' in window) {
-    const sentinel = document.createElement('div');
-    sentinel.className = 'bar-sentinel';
-    sentinel.setAttribute('aria-hidden', 'true');
-    bar.before(sentinel);
-    new IntersectionObserver(([en]) => bar.classList.toggle('is-stuck', !en.isIntersecting)).observe(sentinel);
-  }
+  // "Tìm tin" beside the field (Mẫu A) runs the search on what is typed, or puts the cursor in the field.
+  const go = $('#ns-go');
+  if (go) go.addEventListener('click', () => newsSearch.open($('#ns-q').value));
   $('#sort-switch').addEventListener('click', e => {
     const b = e.target.closest('.sort-btn');
     if (!b) return;
     if (b.dataset.sort === 'toggle') setSort(sortMode === 'worth' ? 'new' : 'worth');
     else if (b.dataset.sort) setSort(b.dataset.sort);
   });
-  // On a phone the front's heading is hidden, so the sort toggle would sit alone on its own row above the first card
-  // (coordinator, 08/11). There it joins the section bar beside the search, and the first card moves up.
-  const sortSwitch = $('#sort-switch'), sortHome = sortSwitch.parentElement, searchBox = $('#news-search');
-  if (searchBox) {
-    const phone = matchMedia('(max-width: 767px)');
-    const placeSort = () => { if (phone.matches) searchBox.before(sortSwitch); else sortHome.append(sortSwitch); };
-    placeSort();
-    phone.addEventListener('change', placeSort);
-  }
   $('#reset-filter-btn').addEventListener('click', () => setFilter('all'));
-  $('#more-btn').addEventListener('click', () => more());
   const notice = $('#fresh');
   notice.addEventListener('mouseenter', () => clearTimeout(noticeTimer));
   notice.addEventListener('mouseleave', scheduleNewItemsDismissal);
@@ -2526,12 +2507,6 @@ function attachEvents() {
   notice.addEventListener('focusout', () => setTimeout(scheduleNewItemsDismissal, 0));
   window.addEventListener('scroll', checkNewItemsScroll, { passive: true });
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(positionNewItems).observe($('#bar'));
-  $('#mark-all-btn').addEventListener('click', () => {
-    if (!D) return;
-    listFor(filter).forEach(st => markRead(st.id));
-    if (filter === 'all') markSeen();
-    else toast('Đã đánh dấu nhóm này đã xem');
-  });
   $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
   window.addEventListener('resize', () => {
     positionNewItems();
@@ -2591,7 +2566,7 @@ function ingest(data) {
   bigSet = new Set(hot.slice(0, k).map(st => st.id));
   allStories.forEach(st => { if (nSrc(st) >= 3) bigSet.add(st.id); });
   matchPicks(RAW_PICKS);
-  PICKLIST = choosePicks();
+  ({ lead: PICKLIST, top: FRONT_TOP } = chooseFront());
   // The bento home's rule: a first visit counts the last 24 hours as new; later visits count from the last look.
   const stored = store.get(K.lastSeen, null);
   firstVisit = !stored;

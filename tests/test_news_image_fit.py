@@ -123,7 +123,8 @@ class NewsPictureMarkupTests(unittest.TestCase):
         for path in (SITE / "feed.js", EXT / "feed.js"):
             source = path.read_text(encoding="utf-8")
             media = re.search(r"function mediaHTML\(img, size\) \{[\s\S]*?\n\}", source).group()
-            self.assertIn("${mediaBackdrop(img.src, { loading })}<img class=\"media-img\"", media)
+            # Mẫu A (08/11) adds its own class beside media-img; the picture still follows its backdrop.
+            self.assertIn("${mediaBackdrop(img.src, { loading })}<img class=\"media-img", media)
             # The hot list is the feed's one thumbnail list since 07/11 ("Vừa đăng" shows clock and headline only).
             thumbs = [line for line in source.splitlines() if 'class="thumb' in line and "<img" in line]
             self.assertEqual(len(thumbs), 1, path)

@@ -72,7 +72,7 @@ console.log(JSON.stringify({{
         # The feed card summary is the dek for every story (shown(st.summary, st.summary_vi)), desk stories included.
         feed = (ROOT / "site" / "feed.js").read_text(encoding="utf-8")
         self.assertIn("const sumRaw = shown(st.summary, st.summary_vi);", feed)
-        self.assertIn("<p class=\"card-sum\">${sourceDescriptionMark()}${esc(sum)}</p>", feed)
+        self.assertIn("<p class=\"nc-sum\">${sourceDescriptionMark()}${esc(sum)}</p>", feed)
         from radar.story_pages import SOURCE_DESCRIPTION_LABEL
         self.assertEqual(SOURCE_DESCRIPTION_LABEL, LABEL)
 
