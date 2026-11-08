@@ -7,6 +7,7 @@ import re
 from radar.clustering import canonical_url
 from radar.common import iso_date
 from radar.items import instant, measured, publisher_identity
+from radar.newsroom_decisions import is_desk_summary
 from radar.story_pages import _has_editorial_summary
 
 TIMEZONE_NAME = "Asia/Ho_Chi_Minh"
@@ -14,7 +15,7 @@ TIMEZONE_NAME = "Asia/Ho_Chi_Minh"
 VIETNAM = timezone(timedelta(hours=7), TIMEZONE_NAME)
 MORNING_HOUR = 6
 MAX_STORIES = 5
-POLICY_METHOD = "daily-evidence-v2"
+POLICY_METHOD = "daily-evidence-v3"
 FORUM_PERCENTILE_MIN = .97
 FORUM_COMMENTS_MIN = 100
 MAX_FORUM_STORIES = 1
@@ -52,6 +53,8 @@ def forum_attention_exception(percentile, measured_rows):
 
 
 def _candidate(story, sources, start, cutoff):
+    if not is_desk_summary(story):
+        return None
     published = instant(story.get("published_at"))
     if (story.get("time_basis") != "published" or published is None
             or not start <= published < cutoff or story.get("kind") == "event" or story.get("status") == "upcoming"):
@@ -94,8 +97,6 @@ def _candidate(story, sources, start, cutoff):
                           if corroborated else "Ngoại lệ diễn đàn: tương tác thuộc nhóm 3% cao nhất và ít nhất 100 bình luận")
         reasons.append(dict(code="measured_attention", text=attention_text,
                             percentile=percentile, measurement=deepcopy(measurement)))
-    if not reasons:
-        return None
     score = measured(story.get("hot_score"))
     result = _project(story, STORY_FIELDS)
     if _has_editorial_summary(story) and isinstance(story.get("editorial_headline_vi"), str) \
@@ -103,11 +104,12 @@ def _candidate(story, sources, start, cutoff):
         result["editorial_headline_vi"] = story["editorial_headline_vi"].strip()
         result["editorial_headline_verified"] = True
     result.update(source_count=len(publishers), coverage=[_project(row, COVERAGE_FIELDS) for row in coverage],
-                  selection=dict(reasons=reasons, signals=dict(publishers=publishers,
+                  selection=dict(desk_approved=True, reasons=reasons, signals=dict(publishers=publishers,
                       age_hours_at_cutoff=round((cutoff - published).total_seconds() / 3600, 4),
                       hot_score=score, engagement_percentile=percentile)))
     attention_only = not launches and len(publishers) < 2
-    order = (attention_only, -bool(launches), -len(publishers), -(score or 0), -published.timestamp(), story["id"])
+    order = (not bool(reasons), attention_only, -bool(launches), -len(publishers),
+             -(score or 0), -published.timestamp(), story["id"])
     return order, result
 
 
@@ -157,7 +159,7 @@ def build_edition(payload, now):
                             forum_exception_comments_min=FORUM_COMMENTS_MIN,
                             max_forum_only_stories=MAX_FORUM_STORIES,
                             score_measured_at=payload["generated_at"],
-                            description="Lọc theo dấu hiệu công bố, số nhà xuất bản và tương tác đo được; không khẳng định tầm quan trọng khách quan"),
+                            description="Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"),
                 stories=selected, source_health=dict(active_remote_sources=len(active),
                     successful_remote_sources=sum(sources[id_] for id_ in active),
                     failed_remote_sources=[id_ for id_ in active if not sources[id_]]))

@@ -8,7 +8,7 @@ import re
 import tempfile
 
 from radar.common import web_url
-from radar.editions import (MAX_STORIES, MAX_FORUM_STORIES, POLICY_METHOD, TIMEZONE_NAME,
+from radar.editions import (ACTION, PRODUCT, MAX_STORIES, MAX_FORUM_STORIES, POLICY_METHOD, TIMEZONE_NAME,
                             build_edition, edition_window, forum_attention_exception, nonforum_publishers)
 from radar.items import instant, measured
 from radar.pipeline import write_atomic
@@ -17,7 +17,7 @@ from radar.publication import assess_publication
 DAY_FILE = re.compile(r"\d{4}-\d{2}-\d{2}\.json")
 
 
-def _inspect_reason(reason, coverage, generated, strict=False):
+def _inspect_reason(reason, coverage, generated, strict=False, ranked=False):
     if (not isinstance(reason, dict) or not isinstance(reason.get("code"), str)
             or not isinstance(reason.get("text"), str) or not reason["text"].strip()):
         raise ValueError("invalid archived selection reason")
@@ -26,6 +26,11 @@ def _inspect_reason(reason, coverage, generated, strict=False):
         ids = reason.get("observation_ids")
         known = {row["id"] for row in coverage}
         valid = isinstance(ids, list) and bool(ids) and all(isinstance(id_, str) and id_ in known for id_ in ids)
+        if valid and ranked:
+            valid = all(any(row["id"] == id_ and row.get("group") == "lab"
+                            and ACTION.search(row["title"])
+                            and (row.get("kind") in {"model", "product"} or PRODUCT.search(row["title"]))
+                            for row in coverage) for id_ in ids)
     elif code == "publisher_coverage":
         publishers = nonforum_publishers(coverage) if strict else sorted({row["publisher"] for row in coverage})
         valid = len(publishers) >= 2 and reason.get("publishers") == publishers
@@ -76,9 +81,10 @@ def _inspect_edition(edition, filename):
         raise ValueError("invalid edition timestamps or timezone")
     stories = edition.get("stories")
     policy = edition.get("policy")
-    if not isinstance(policy, dict) or policy.get("method") not in {"daily-evidence-v1", POLICY_METHOD}:
+    if not isinstance(policy, dict) or policy.get("method") not in {"daily-evidence-v1", "daily-evidence-v2", POLICY_METHOD}:
         raise ValueError("invalid edition policy")
-    strict = policy["method"] == POLICY_METHOD
+    strict = policy["method"] in {"daily-evidence-v2", POLICY_METHOD}
+    ranked = policy["method"] == POLICY_METHOD
     if not isinstance(stories, list) or len(stories) > MAX_STORIES:
         raise ValueError("invalid edition stories")
     identities, forum_count = set(), 0
@@ -93,7 +99,9 @@ def _inspect_edition(edition, filename):
             raise ValueError("invalid archived story time")
         coverage, selection = story.get("coverage"), story.get("selection")
         if (not isinstance(coverage, list) or not coverage or not isinstance(selection, dict)
-                or not isinstance(selection.get("reasons"), list) or not selection["reasons"]
+                or not isinstance(selection.get("reasons"), list)
+                or (not ranked and not selection["reasons"])
+                or (ranked and selection.get("desk_approved") is not True)
                 or not isinstance(selection.get("signals"), dict)):
             raise ValueError("invalid archived story evidence")
         for row in coverage:
@@ -105,7 +113,7 @@ def _inspect_edition(edition, filename):
                     or observed is None or observed > generated or not isinstance(row.get("metrics"), dict)):
                 raise ValueError("invalid archived coverage time or metrics")
         for reason in selection["reasons"]:
-            _inspect_reason(reason, coverage, generated, strict)
+            _inspect_reason(reason, coverage, generated, strict, ranked)
         publishers = nonforum_publishers(coverage) if strict else sorted({row["publisher"] for row in coverage})
         if type(story.get("source_count")) is not int or story["source_count"] != len(publishers):
             raise ValueError("invalid archived publisher count")
@@ -113,7 +121,7 @@ def _inspect_edition(edition, filename):
             if selection["signals"].get("publishers") != publishers:
                 raise ValueError("invalid archived publisher signals")
             forum_only = all(row.get("group") == "forum" for row in coverage)
-            if forum_only and not any(reason["code"] == "measured_attention" for reason in selection["reasons"]):
+            if forum_only and not ranked and not any(reason["code"] == "measured_attention" for reason in selection["reasons"]):
                 raise ValueError("archived forum-only story requires attention evidence")
             forum_count += forum_only
             if forum_count > MAX_FORUM_STORIES:

@@ -11,6 +11,7 @@ import unittest
 
 from radar.editions import build_edition
 from radar.headlines import annotate_headlines
+from radar.newsroom_decisions import DESK_PROMPT_VERSION, DESK_SUMMARY_SOURCE
 
 FIXTURE = Path(__file__).parent / "fixtures" / "edition-real-snapshot.json"
 NOW = datetime(2026, 10, 3, 9, 18, 1, tzinfo=timezone.utc)
@@ -20,7 +21,16 @@ SAD = "7c35e1148c5e7af2378a"
 
 
 def real_snapshot():
-    return json.loads(FIXTURE.read_text(encoding="utf-8"))
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    # The captured snapshot predates the scoring desk. Supply its public prose contract in memory.
+    for story in payload["stories"]:
+        source = story["coverage"][0]
+        story.update(key_points_source=DESK_SUMMARY_SOURCE,
+                     key_points_prompt_version=DESK_PROMPT_VERSION,
+                     editorial_headline_vi=story["title"],
+                     key_points=[story["title"], source["title"], source["publisher"]],
+                     summary_sources=[{"url": source["url"]}], summary_limitations=[])
+    return payload
 
 
 def subset(payload, identities):
@@ -38,27 +48,28 @@ class EditionSelectionTests(unittest.TestCase):
         s107 = audited["stories"][0]
         payload = subset(real_snapshot(), {ASTA})
         story = payload["stories"][0]
-        for field in ("editorial_headline_vi", "key_points_prompt_version", "key_points", "summary_sources"):
+        for field in ("editorial_headline_vi", "summary_sources"):
             story[field] = s107[field]
         row = build_edition(payload, NOW)["stories"][0]
         self.assertEqual(row["editorial_headline_vi"], s107["editorial_headline_vi"])
         self.assertTrue(row["editorial_headline_verified"])
         story["key_points"] = []
-        self.assertNotIn("editorial_headline_vi", build_edition(payload, NOW)["stories"][0])
+        self.assertEqual(build_edition(payload, NOW)["stories"], [])
 
-    def test_real_snapshot_excludes_uncorroborated_forum_and_single_publisher(self):
+    def test_real_snapshot_ranks_signal_first_and_fills_without_signals(self):
         payload = real_snapshot()
         original = copy.deepcopy(payload)
         edition = build_edition(payload, NOW)
-        self.assertEqual([row["id"] for row in edition["stories"]], [ASTA])
+        self.assertEqual([row["id"] for row in edition["stories"]],
+                         [ASTA, APPLE, "674f9eeb677b6aa6c1b0", "038134d95b4f933ef0d5", "90c6c9903271281ae042"])
         self.assertEqual(edition["date"], "2026-10-03")
         self.assertEqual(edition["timezone"], "Asia/Ho_Chi_Minh")
         self.assertEqual(edition["cutoff_at"], "2026-10-02T23:00:00Z")
         self.assertEqual(edition["window_start_at"], "2026-10-01T23:00:00Z")
         self.assertEqual(payload, original)
-        for row in edition["stories"]:
-            self.assertTrue(row["selection"]["reasons"])
-            self.assertTrue(all(reason["code"] and reason["text"] for reason in row["selection"]["reasons"]))
+        self.assertTrue(edition["stories"][0]["selection"]["reasons"])
+        self.assertTrue(all(not row["selection"]["reasons"] for row in edition["stories"][1:]))
+        self.assertTrue(all(row["selection"]["desk_approved"] for row in edition["stories"]))
 
     def test_existing_translations_and_source_text_are_copied_without_prose(self):
         payload = real_snapshot()
@@ -96,15 +107,39 @@ class EditionSelectionTests(unittest.TestCase):
             self.assertNotIn("headline", item)
             self.assertNotIn("headline_vi", item)
 
-    def test_slow_day_keeps_one_or_zero_without_padding(self):
+    def test_slow_day_keeps_available_stories_without_padding(self):
         for identities in ({ASTA}, {ASTA, APPLE}, {"b6aee1da4c9da9519c63"}):
             with self.subTest(identities=identities):
                 edition = build_edition(subset(real_snapshot(), identities), NOW)
-                expected = identities & {ASTA}
+                expected = identities & {ASTA, APPLE}
                 self.assertEqual({row["id"] for row in edition["stories"]}, expected)
 
     def test_empty_snapshot_selection_stays_empty(self):
         self.assertEqual(build_edition(subset(real_snapshot(), set()), NOW)["stories"], [])
+
+    def test_story_without_passed_desk_prose_is_excluded(self):
+        payload = subset(real_snapshot(), {ASTA, APPLE})
+        apple = next(story for story in payload["stories"] if story["id"] == APPLE)
+        apple["key_points_source"] = "api-summary"
+        self.assertEqual([story["id"] for story in build_edition(payload, NOW)["stories"]], [ASTA])
+        next(story for story in payload["stories"] if story["id"] == ASTA)["key_points"] = []
+        self.assertEqual(build_edition(payload, NOW)["stories"], [])
+
+    def test_no_signal_stories_sort_by_score_then_newest(self):
+        payload = subset(real_snapshot(), {ASTA, APPLE, "674f9eeb677b6aa6c1b0", "038134d95b4f933ef0d5"})
+        for story in payload["stories"]:
+            if story["id"] != ASTA:
+                story["hot_score"] = 10
+        ids = [story["id"] for story in build_edition(payload, NOW)["stories"]]
+        self.assertEqual(ids, [ASTA, "674f9eeb677b6aa6c1b0", "038134d95b4f933ef0d5", APPLE])
+
+    def test_canonical_url_dedupe_keeps_one_story(self):
+        payload = subset(real_snapshot(), {ASTA})
+        duplicate = copy.deepcopy(payload["stories"][0])
+        duplicate["id"] = "controlled-duplicate"
+        duplicate["url"] += "?utm_source=duplicate"
+        payload["stories"].append(duplicate)
+        self.assertEqual(len(build_edition(payload, NOW)["stories"]), 1)
 
     def test_no_previous_day_backfill_before_morning_cut(self):
         for now in ("2026-10-02T17:00:00+00:00",
@@ -161,7 +196,9 @@ class EditionSelectionTests(unittest.TestCase):
         for source in payload["sources"]:
             if source["id"] == "hn-ai":
                 source["ok"] = False
-        self.assertEqual(build_edition(payload, NOW)["stories"], [])
+        stories = build_edition(payload, NOW)["stories"]
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["selection"]["reasons"], [])
 
     def test_mirror_publishers_and_inflated_source_count_do_not_qualify(self):
         payload = subset(real_snapshot(), {APPLE})
@@ -170,12 +207,17 @@ class EditionSelectionTests(unittest.TestCase):
         self.assertEqual(len(build_edition(payload, NOW)["stories"]), 1)
         row["coverage"][1]["publisher"] = row["coverage"][0]["publisher"]
         row["source_count"] = 99
-        self.assertEqual(build_edition(payload, NOW)["stories"], [])
+        stories = build_edition(payload, NOW)["stories"]
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(stories[0]["selection"]["reasons"], [])
+        self.assertEqual(stories[0]["source_count"], 1)
 
-    def test_real_personal_post_and_single_publisher_are_excluded_individually(self):
+    def test_real_personal_post_and_single_publisher_have_no_signal_reason(self):
         for identity in (SAD, APPLE):
             with self.subTest(identity=identity):
-                self.assertEqual(build_edition(subset(real_snapshot(), {identity}), NOW)["stories"], [])
+                stories = build_edition(subset(real_snapshot(), {identity}), NOW)["stories"]
+                self.assertEqual(len(stories), 1)
+                self.assertEqual(stories[0]["selection"]["reasons"], [])
 
     def test_attention_requires_real_positive_measured_evidence(self):
         baseline = subset(real_snapshot(), {SAD})
@@ -186,12 +228,16 @@ class EditionSelectionTests(unittest.TestCase):
             with self.subTest(field=field, value=value):
                 payload = copy.deepcopy(baseline)
                 payload["stories"][0]["hot_signals"][field] = value
-                self.assertEqual(build_edition(payload, NOW)["stories"], [])
+                stories = build_edition(payload, NOW)["stories"]
+                self.assertEqual(len(stories), 1)
+                self.assertEqual(stories[0]["selection"]["reasons"], [])
         for value in (0, -1, None):
             with self.subTest(measurement=value):
                 payload = copy.deepcopy(baseline)
                 payload["stories"][0]["hot_signals"]["measurement"]["value"] = value
-                self.assertEqual(build_edition(payload, NOW)["stories"], [])
+                stories = build_edition(payload, NOW)["stories"]
+                self.assertEqual(len(stories), 1)
+                self.assertEqual(stories[0]["selection"]["reasons"], [])
 
     def test_forum_exception_cannot_borrow_comments_from_another_measurement(self):
         baseline = subset(real_snapshot(), {SAD})
@@ -204,7 +250,7 @@ class EditionSelectionTests(unittest.TestCase):
         extra["metrics"]["points"] += 1
         extra["metrics"]["comments"] = 100
         story["coverage"].append(extra)
-        self.assertEqual(build_edition(baseline, NOW)["stories"], [])
+        self.assertEqual(build_edition(baseline, NOW)["stories"][0]["selection"]["reasons"], [])
 
     def test_forum_only_attention_needs_both_exception_thresholds(self):
         # Controlled signal mutations on the captured personal essay, not new observations.
@@ -216,7 +262,8 @@ class EditionSelectionTests(unittest.TestCase):
                 story = payload["stories"][0]
                 story["hot_signals"]["engagement_percentile"] = percentile
                 story["coverage"][0]["metrics"]["comments"] = comments
-                self.assertEqual(bool(build_edition(payload, NOW)["stories"]), selected)
+                reasons = build_edition(payload, NOW)["stories"][0]["selection"]["reasons"]
+                self.assertEqual(bool(reasons), selected)
 
     def test_corroborated_attention_has_exact_threshold_and_nonforum_count(self):
         # Apple already has real press + HN coverage; alter only its percentile.
@@ -224,10 +271,11 @@ class EditionSelectionTests(unittest.TestCase):
             payload = subset(real_snapshot(), {APPLE})
             payload["stories"][0]["hot_signals"]["engagement_percentile"] = percentile
             stories = build_edition(payload, NOW)["stories"]
-            self.assertEqual(bool(stories), included)
+            self.assertEqual(len(stories), 1)
+            self.assertEqual(bool(stories[0]["selection"]["reasons"]), included)
+            self.assertEqual(stories[0]["source_count"], 1)
+            self.assertEqual(stories[0]["selection"]["signals"]["publishers"], ["techcrunch"])
             if included:
-                self.assertEqual(stories[0]["source_count"], 1)
-                self.assertEqual(stories[0]["selection"]["signals"]["publishers"], ["techcrunch"])
                 self.assertEqual([r["code"] for r in stories[0]["selection"]["reasons"]], ["measured_attention"])
 
     def test_ineligible_nonforum_rows_cannot_corroborate_attention(self):
@@ -248,7 +296,9 @@ class EditionSelectionTests(unittest.TestCase):
                                     "nonpublication": ("time_basis", "repository_created"),
                                     "event": ("kind", "event"), "upcoming": ("status", "upcoming")}[mutation]
                     press[field] = value
-                self.assertEqual(build_edition(payload, NOW)["stories"], [])
+                stories = build_edition(payload, NOW)["stories"]
+                self.assertEqual(len(stories), 1)
+                self.assertEqual(stories[0]["selection"]["reasons"], [])
 
     def test_forum_exception_has_one_slot_and_sorts_after_other_evidence(self):
         payload = real_snapshot()
@@ -283,7 +333,9 @@ class EditionSelectionTests(unittest.TestCase):
                 payload["stories"][0]["coverage"][0].update(update)
                 if "title" in update:
                     payload["stories"][0]["title"] = update["title"]
-                self.assertEqual(build_edition(payload, NOW)["stories"], [])
+                stories = build_edition(payload, NOW)["stories"]
+                self.assertEqual(len(stories), 1)
+                self.assertEqual(stories[0]["selection"]["reasons"], [])
 
     def test_at_most_five_unique_stories_and_input_order_does_not_change_result(self):
         payload = real_snapshot()

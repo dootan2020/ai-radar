@@ -4,8 +4,7 @@ A daily edition is a finite morning reading list, separate from the continuously
 updated source snapshot. It selects from the first eligible collection after the
 06:00 Vietnam cutoff, using the preceding 24 hours. Once saved in durable history,
 a later run cannot rewrite that day's choices or translations. An empty edition
-is meaningful: collection passed publication checks but no story met the
-editorial selection policy.
+means no desk-approved story met the fixed time and source eligibility rules.
 Missing days stay missing; old observations are not backfilled as a new issue.
 
 The [edition selector](../radar/editions.py) owns the window, finite limit,
@@ -17,19 +16,25 @@ change does not add a rendered archive page.
 
 ## Editorial evidence and morning calibration
 
-Fewer than three stories, including zero, is an honest result; there is no
-filler tier. A discussion link is attention evidence, not another reporting
-publisher. Ordinary measured attention needs eligible non-forum coverage. The
-exception for forum-only stories is deliberately narrow: percentile at least
-0.97 and at least 100 comments on the measured forum observation, at most one
-story per issue. Attention-only picks follow primary-release or publisher-coverage
-evidence. These heuristics do not prove importance or independent reporting.
+The edition takes up to five stories from `site/data/radar.json` with passed
+desk prose, published in the 24 hours before the 06:00 cutoff and backed by
+eligible coverage. Stories with a primary release title, at least two non-forum
+publishers, or measured attention keep their existing signal order. Remaining
+stories follow by hot score, then newest publication. Fewer than five stories,
+including zero, is an honest result. A discussion link is attention evidence,
+not another reporting publisher. Ordinary measured attention needs eligible
+non-forum coverage. A forum-only story needs percentile at least 0.97 and at
+least 100 comments to gain an attention signal. At most one forum-only story
+appears per edition, even without that signal. These heuristics do not prove
+importance or independent reporting.
 The selector owns the exact thresholds and exported policy metadata.
 
-New editions identify their policy as `daily-evidence-v2`. Existing
-`daily-evidence-v1` editions remain readable under their original evidence rules;
+New editions identify their policy as `daily-evidence-v3`. A story without a
+selection signal records an empty `selection.reasons` list and a
+`selection.desk_approved` marker. Existing `daily-evidence-v1` and
+`daily-evidence-v2` editions remain readable under their original evidence rules;
 changing selection policy must not invalidate or rewrite frozen history. Consumers
-must read the stored policy when interpreting publisher counts: v2 excludes
+must read the stored policy when interpreting publisher counts: v2 and v3 exclude
 forum identities, so a forum-only exception has a publisher count of zero.
 
 Threshold calibration needs a week of real morning observations before making
