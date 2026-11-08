@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halcyon · Thành phần trang chủ Mẫu A</title>
+<!-- Internal showcase of the home page's Mẫu A components (captain, 08/11 18:23), shown inside design/tokens.html.
+     Not published: GitHub Pages uploads site/ only. It reads the live tokens, stylesheets and modules from ../site/, so
+     nothing here can drift from the page. The story cards use descriptive placeholder text, never invented news; the
+     weather card asks Open-Meteo for real, and the calendar card shows today. Serve the repository root
+     (python -m http.server 8000) and open http://localhost:8000/design/mau-a.html. -->
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<script>
+  try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="stylesheet" href="../site/tokens.css">
+<link rel="stylesheet" href="../site/feed.css">
+<link rel="stylesheet" href="../site/trang-nhat.css">
+<link rel="stylesheet" href="../site/trang-msn.css">
+<style>
+  /* Showcase-only spacing between the groups; every value reads tokens.css. */
+  .mau-sec { display: flex; flex-direction: column; gap: var(--space-12); margin-bottom: var(--space-32); }
+  .mau-sec > h2 { font-size: var(--text-title); font-weight: var(--weight-bold); }
+  .mau-sec > p { color: var(--color-ink-2); max-width: 72ch; font-size: var(--text-meta); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 5h10v10M19 5L6 18"/></symbol>
+</svg>
+<main class="feed-main front msn-panel">
+  <section class="mau-sec" aria-labelledby="h-row1">
+    <h2 id="h-row1">Hàng đầu: tin nổi bật, thời tiết, lịch, Chuyện lớn</h2>
+    <p>Lưới năm cột (bảy cột từ 1750 px, ba cột dưới 1100 px, hai cột trên điện thoại). Ô tin nổi bật chiếm hai cột; thẻ thời tiết và thẻ lịch là phần tử dựng một lần rồi trả lại lưới sau mỗi lần vẽ lại.</p>
+    <div class="msn-grid is-front" id="row1">
+      <section class="msn-card msn-lead" aria-roledescription="carousel" aria-label="Tin nổi bật">
+        <article class="slide is-active" aria-roledescription="slide" aria-label="1 trên 2">
+          <div class="slide-media media"><img class="media-backdrop" src="../site/anh/bau-troi.jpg" alt=""><img class="media-img nc-img" src="../site/anh/bau-troi.jpg" alt="" width="760" height="820"></div>
+          <div class="slide-box"><p class="nc-kicker">Tin nổi bật</p><h2 class="slide-title"><a class="story-link" href="#row1">Ô tin nổi bật: ảnh vẽ trọn trên nền mờ của chính nó, tiêu đề trên dải tối</a></h2>
+            <p class="nc-meta"><span class="nc-src">Nguồn</span><span class="nc-dot" aria-hidden="true"></span><time>2 giờ trước</time><span class="mt" aria-hidden="true" title="Bản dịch máy">Translated</span><span class="sr" lang="vi">Bản dịch máy. </span></p></div></article>
+        <article class="slide" aria-roledescription="slide" aria-label="2 trên 2" inert>
+          <div class="slide-media media"></div>
+          <div class="slide-box"><p class="nc-kicker">Tin nổi bật</p><h2 class="slide-title"><a class="story-link" href="#row1">Trang thứ hai</a></h2></div></article>
+        <div class="lead-dots" role="group" aria-label="Chọn tin nổi bật"><button type="button" aria-label="Tin nổi bật 1" aria-current="true"></button><button type="button" aria-label="Tin nổi bật 2" aria-current="false"></button></div>
+        <div class="lead-nav"><button type="button" aria-label="Tin nổi bật trước"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg></button><button type="button" aria-label="Tin nổi bật tiếp"><svg class="i i-flip" aria-hidden="true"><use href="#i-arrow-left"/></svg></button></div>
+      </section>
+      <i data-slot="wx"></i><i data-slot="cal"></i>
+      <section class="msn-card msn-toplist" aria-labelledby="top-list-h"><h2 id="top-list-h">Chuyện lớn</h2><ol>
+        <li><b class="num" aria-hidden="true">1</b><span class="top-text"><a class="story-link top-title" href="#row1">Danh sách đánh số: bốn chuyện lớn tiếp theo, mỗi chuyện một sự kiện</a><span class="top-meta">Nguồn · 1 giờ trước</span></span></li>
+        <li><b class="num" aria-hidden="true">2</b><span class="top-text"><a class="story-link top-title" href="#row1">Tiêu đề dài xuống tối đa ba dòng rồi cắt bằng dấu ba chấm</a><span class="top-meta">Nguồn · 3 giờ trước</span></span></li>
+        <li><b class="num" aria-hidden="true">3</b><span class="top-text"><a class="story-link top-title" href="#row1">Tiêu đề máy dịch mang nhãn Translated ở dòng nguồn</a><span class="top-meta">Nguồn · 4 giờ trước<span class="mt" aria-hidden="true" title="Bản dịch máy">Translated</span><span class="sr" lang="vi">Bản dịch máy. </span></span></span></li>
+        <li><b class="num" aria-hidden="true">4</b><span class="top-text"><a class="story-link top-title" href="#row1">Hàng thứ tư</a><span class="top-meta">Nguồn · 5 giờ trước</span></span></li>
+      </ol></section>
+    </div>
+  </section>
+
+  <section class="mau-sec" aria-labelledby="h-cards">
+    <h2 id="h-cards">Thẻ tin: thường, chữ, to 2x2, ngang 2x1</h2>
+    <p>Tin đáng chú ý chiếm ô 2x2 khi có ảnh, ô 2x1 khi không; giữa hai thẻ lớn có ít nhất bốn thẻ thường. Ảnh hỏng hoặc nhỏ dưới 40 px thì thẻ thành thẻ chữ. Thẻ lớn không ảnh dùng nền mực với chữ sáng.</p>
+    <div class="msn-grid">
+      <article class="msn-card nc nc-big has-photo"><div class="nc-photo media"><img class="media-backdrop" src="../site/anh/bau-troi.jpg" alt=""><img class="media-img nc-img" src="../site/anh/bau-troi.jpg" alt="" width="640" height="360"></div>
+        <div class="nc-body"><p class="nc-kicker">Đáng chú ý</p><p class="nc-meta"><span class="nc-src">Nguồn</span><span class="nc-dot" aria-hidden="true"></span><time>1 giờ trước</time></p>
+          <h3 class="nc-title"><a class="story-link" href="#h-cards">Thẻ to 2x2: ảnh chiếm phần trên, tiêu đề lớn và một đoạn mô tả</a></h3>
+          <p class="nc-sum">Đoạn mô tả của nguồn, tối đa hai dòng, chỉ hiện trên thẻ to và thẻ ngang.</p></div></article>
+      <article class="msn-card nc has-photo"><div class="nc-photo media"><img class="media-backdrop" src="../site/anh/bau-troi.jpg" alt=""><img class="media-img nc-img" src="../site/anh/bau-troi.jpg" alt="" width="640" height="360"></div>
+        <div class="nc-body"><p class="nc-meta"><span class="nc-src">Nguồn</span><span class="nc-dot" aria-hidden="true"></span><time>2 giờ trước</time></p>
+          <h3 class="nc-title"><a class="story-link" href="#h-cards">Thẻ thường có ảnh</a></h3>
+          <p class="nc-mt"><span class="mt" aria-hidden="true" title="Bản dịch máy">Translated</span><span class="sr" lang="vi">Bản dịch máy. </span></p></div></article>
+      <article class="msn-card nc no-photo"><div class="nc-body"><p class="nc-meta"><span class="nc-src">Nguồn</span><span class="nc-dot" aria-hidden="true"></span><time>3 giờ trước</time></p>
+          <h3 class="nc-title"><a class="story-link" href="#h-cards">Thẻ chữ: tin không có ảnh đã duyệt, tiêu đề to hơn, mô tả ba dòng ở chân thẻ</a></h3>
+          <p class="nc-sum">Mô tả của nguồn đặt ở chân thẻ chữ.</p></div></article>
+      <article class="msn-card nc no-photo is-read"><div class="nc-body"><p class="nc-meta"><span class="nc-src">Nguồn</span><span class="nc-dot" aria-hidden="true"></span><time>5 giờ trước</time></p>
+          <h3 class="nc-title"><a class="story-link" href="#h-cards">Thẻ đã đọc: tiêu đề nhạt hơn một bậc</a></h3></div></article>
+      <article class="msn-card nc nc-wide no-photo"><div class="nc-body"><p class="nc-kicker">Đáng chú ý</p><p class="nc-meta"><span class="nc-src">Nguồn</span><span class="nc-dot" aria-hidden="true"></span><time>6 giờ trước</time></p>
+          <h3 class="nc-title"><a class="story-link" href="#h-cards">Thẻ ngang 2x1 không ảnh: nền mực, chữ sáng</a></h3>
+          <p class="nc-sum">Mô tả của nguồn, tối đa ba dòng.</p></div></article>
+    </div>
+  </section>
+
+  <section class="mau-sec" aria-labelledby="h-end">
+    <h2 id="h-end">Cuộn vô hạn: đang tải và hết tin</h2>
+    <div class="msn-grid">
+      <div class="msn-card msn-sk" aria-hidden="true"></div><div class="msn-card msn-sk" aria-hidden="true"></div>
+      <section class="msn-card end-card" style="grid-column:span 3" aria-labelledby="end-h">
+        <h2 id="end-h">Bạn đã xem hết tin AI hôm nay</h2>
+        <p>Tin mới được thêm vào trong ngày. Bản tin sáng gom gọn những chuyện đáng đọc nhất.</p>
+        <div class="end-actions"><a class="ed-link" href="#h-end">Đọc Bản tin sáng</a><button class="ghost" type="button">Đánh dấu đã xem hết</button><button class="ghost" type="button">Lên đầu trang</button></div></section>
+    </div>
+    <div class="feed-status"><p class="loading-line"><span class="spinner" aria-hidden="true"></span>Đang tải thêm tin</p></div>
+  </section>
+</main>
+<script type="module">
+  import { createWeatherCard } from '../site/thoi-tiet.js';
+  import { createCalendarCard } from '../site/the-lich.js';
+  const row = document.getElementById('row1');
+  row.querySelector('[data-slot="wx"]').replaceWith(createWeatherCard());
+  row.querySelector('[data-slot="cal"]').replaceWith(createCalendarCard(new Date()));
+</script>
+</body>
+</html>
