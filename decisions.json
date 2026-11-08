@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08T11:24:20.082374+00:00",
-  "input_generated_at": "2026-11-08T07:27:27Z",
+  "generated_at": "2026-11-08T13:18:45.549367+00:00",
+  "input_generated_at": "2026-11-08T12:36:42Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -39167,6 +39167,305 @@
         "43b6197a6bd7375d46f5"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "9a720b3178d2f33796ad",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier; event or original publication is older than seven days",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier",
+        "event or original publication is older than seven days"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good/",
+      "key_points": [
+        "The New York Times đang thử nghiệm AI sửa công thức cho người đăng ký trong bản thử nghiệm trên iOS. Tạp chí WIRED cho biết thông báo này vấp phải 172 bình luận phản đối dữ dội cùng nhiều lời đe dọa hủy đăng ký.",
+        "Bà Camilla Velasquez, tổng quản lý NYT Cooking, cho biết AI đưa ra gợi ý dựa vào công thức gốc, hướng dẫn thay thế nguyên liệu, bình luận người dùng và chuyên môn tòa soạn. Biên tập viên tham gia lập quy tắc ban đầu, đánh giá vận hành và mọi thay đổi đều hiển thị bằng màu cam đỏ.",
+        "Khi thử nghiệm thay đổi nguyên liệu trong công thức của Alison Roman, tác giả trên WIRED yêu cầu đổi thịt đùi có xương thành ức gà rút xương. Hệ thống tự giảm thời gian ninh và thêm bơ, nhưng tác giả ghi nhận công cụ chỉ dẫn đun thịt ức xé nhỏ thêm 30 phút làm giảm độ mọng nước.",
+        "Tác giả trên WIRED đánh giá tính năng là ví dụ hiếm hoi cải thiện sản phẩm bằng công nghệ, dù bản sửa đổi kèm lưu ý chưa được tác giả công thức gốc kiểm nghiệm hay chứng thực. Bà Velasquez cho biết người dùng có thể ẩn tính năng này, đồng thời The New York Times hiện chỉ thử nghiệm trên iOS."
+      ],
+      "same_event_coverage_ids": [
+        "95b5958e6d9dcdf26263"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NYT Cooking thử nghiệm AI sửa công thức trên iOS giữa làn sóng phản đối của độc giả",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "172 bình luận phản đối dữ dội",
+            "explanation": "The source counts 172 comments in total and says they were almost exclusively angry; it does not say every one was a protest (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese makes the full count sound like a count of protesting comments.",
+            "fix": "Say there were 172 comments, almost all angry (outlet:p004)."
+          },
+          {
+            "question": "why",
+            "problem": "Readers do not get the source’s tentative explanation for the backlash.",
+            "fix": "If explaining the opposition, attribute to the writer the guess that commenters feared losing their connection with the Cooking team; present it as a guess (outlet:p030)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9c48422a5be39fcb1e5c3561127d168767ab9d28b398c15e13b44f995220e4e7",
+        "scored_at": "2026-11-08T13:18:45.504415+00:00"
+      }
+    },
+    {
+      "id": "4c109fde56c7951e4a38",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-08/anthropic-buys-power-for-ai-data-centres-in-3-4b-deal-ft-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2db28bbfb3bbd36ba433"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "387b16841c76ecc57c9a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373697/ai-will-soon-master-biology-unleashing-new-safety-risks-tencent-ai-chief-warns",
+      "key_points": [
+        "Ông Vinces Yao Shunyu, nhà khoa học AI trưởng của Tencent Holdings, nhận định các mô hình AI sẽ sớm làm chủ sinh học và tạo ra rủi ro an toàn nghiêm trọng song hành cùng lợi ích.",
+        "Theo bài viết trên báo South China Morning Post, công nghệ AI tiên tiến đang mở rộng ứng dụng trong y học với tiềm năng thúc đẩy nhanh tiến độ tìm kiếm các loại thuốc điều trị mới.",
+        "Dù vậy, các chuyên gia cảnh báo nguy cơ kẻ xấu dùng AI tạo vũ khí sinh học hoặc khơi mào đại dịch, nhất là khi mô hình được phát hành dưới dạng phần mềm mở trọng số.",
+        "Tại hội thảo khoa học ở Hồng Kông, ông Yao cảnh báo năng lực sinh học của AI sẽ sớm đạt ngưỡng có thể gây hại thực tế tương tự năng lực tấn công mạng hiện nay."
+      ],
+      "same_event_coverage_ids": [
+        "cdebd0a09d1f4c3e6aa6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chuyên gia AI của Tencent cảnh báo mô hình AI sắp làm chủ sinh học và tạo nguy cơ an toàn lớn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/big-tech/article/3373697/ai-will-soon-master-biology-unleashing-new-safety-risks-tencent-ai-chief-warns"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "tương tự năng lực tấn công mạng hiện nay",
+            "explanation": "Yao says cyber capabilities and, soon, biological capabilities will reach a threshold where harm is possible; he does not say cyber capabilities have already reached it (outlet:p012)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "ở Hồng Kông",
+            "explanation": "The source identifies a symposium co-hosted by the Hong Kong Academy of Sciences but does not state where the symposium took place (outlet:p012)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The comparison makes the cyber harm threshold sound like an established present fact.",
+            "fix": "Describe Yao’s warning as a future threshold for cyber capabilities and, soon, biological capabilities (outlet:p012)."
+          },
+          {
+            "question": "notable",
+            "problem": "The Vietnamese assigns the symposium a location the source does not give.",
+            "fix": "Identify it as a symposium co-hosted by the Hong Kong Academy of Sciences, without stating its location (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "277323addb22d06139af706f3a5747ac30eeaed6ea56f00c6b4ccc155e3bdf8c",
+        "scored_at": "2026-11-08T13:14:29.761429+00:00"
+      }
+    },
+    {
+      "id": "55858f2b4ca73bdea18b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/synchopate/llama-modchip",
+      "key_points": [
+        "Dự án llama-modchip công bố giải pháp vận hành mô hình DeepSeek 284B trên CPU với RAM dưới 59 GiB mà không cần GPU. Tài liệu dự án nêu rõ hệ thống xử lý mô hình DeepSeek-V4-Flash với ngữ cảnh 256K trên vi xử lý và chiếm dung lượng đỉnh 57,61 GiB VmRSS.",
+        "Hệ thống kết hợp thuật toán nén SwiGLU-H2 cùng kỹ thuật lượng tử hóa Fractal-64 và cơ chế cắt tỉa chuyên gia MoE. Dữ liệu được phân chia tính toán qua các tầng thanh ghi và hệ thống bộ nhớ đệm L1, L2 cùng L3 của vi xử lý.",
+        "Dự án thu nhỏ mô hình từ cỡ ban đầu 76,87 GiB xuống 56,56 GiB trên đĩa và ghi nhận tốc độ nạp ngữ cảnh đạt 44,36 token mỗi giây trên CPU. Tốc độ giải mã trên CPU thuần đạt 9,06 đến 10,74 token mỗi giây và tăng lên 11,5 đến 14,7 token mỗi giây khi có kỹ thuật PVS.",
+        "Theo dự án llama-modchip, giải pháp mang lại khả năng suy luận trực tiếp trên RAM máy tính hiện có mà không cần hoán đổi dữ liệu qua bộ nhớ NVMe. Tuy nhiên, tài liệu lưu ý việc mở các tệp này trên phần mềm llama.cpp, Ollama hoặc LM Studio chưa vá lỗi sẽ thất bại do không nhận diện được định dạng ten-xơ mới."
+      ],
+      "same_event_coverage_ids": [
+        "cd53ce9dea5e875c6fd1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Dự án llama-modchip hỗ trợ chạy mô hình DeepSeek 284B trên CPU không cần GPU với RAM 64GB",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/synchopate/llama-modchip"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ec316abda248f16d5a3d2f118f8ed9d34d28895afbac4beca49da03f111f2f66",
+        "scored_at": "2026-11-08T13:18:45.504513+00:00"
+      }
+    },
+    {
+      "id": "7a6ddd94fc2d29aa49a5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/world-models-will-soon-be-inescapable-what-you-need-to-know/",
+      "key_points": [
+        "Tạp chí Wired đưa tin Niantic, đơn vị tạo ra trò chơi Pokémon Go, đã chuyển hướng phát triển mô hình thế giới (công nghệ AI mô phỏng không gian vật lý) sau khi bán tựa game này. Khác với mô hình ngôn ngữ dựa trên văn bản, hệ thống này dùng dữ liệu thị giác để tạo ra các môi trường kỹ thuật số mô phỏng quy luật vật lý.",
+        "Brian McClendon, Giám đốc công nghệ của Niantic Spatial, cho biết mục đích của công nghệ là hỗ trợ huấn luyện robot không cần chuyển động thực tế trong môi trường. Theo ông McClendon, phần mềm có thể dựng mô hình không gian từ ảnh chụp rồi chạy hàng triệu lượt mô phỏng để robot nắm bắt các thông số.",
+        "Minh chứng cho ứng dụng này, công ty khởi nghiệp Wayve dùng video từ camera hành trình để tái tạo cung đường nguy hiểm để thử nghiệm xe tự hành thay vì lái thử ngoài đời thực. Ngoài ra, các tập đoàn lớn cũng rót vốn mạnh mẽ, tiêu biểu là việc AMD chi hơn 8 tỷ USD mua lại công ty World Labs trong năm nay.",
+        "Tác giả bài viết trên Wired đánh giá công nghệ này đang tác động đến thị trường lao động thu thập dữ liệu khi các công ty cần người thật ghi hình. Dù vậy, tác giả cho biết việc tự quay sinh hoạt cá nhân để bán dữ liệu hiện chỉ đem lại khoản thù lao khá ít ỏi."
+      ],
+      "same_event_coverage_ids": [
+        "42d6b377cff09fce1174"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Công nghệ mô hình thế giới mở ra hướng huấn luyện mới cho robot và xe tự hành",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/world-models-will-soon-be-inescapable-what-you-need-to-know/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0dff7b09277976070378c91dca149c6a0595143bc63696bc4a058e4975a6f521",
+        "scored_at": "2026-11-08T13:14:29.761493+00:00"
+      }
     }
   ]
 }
