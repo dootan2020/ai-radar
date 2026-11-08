@@ -33,7 +33,7 @@
 <main class="feed-main front msn-panel">
   <section class="mau-sec" aria-labelledby="h-row1">
     <h2 id="h-row1">Hai hàng đầu: tin nổi bật, Chuyện lớn, thời tiết và lịch ở cột cuối</h2>
-    <p>Lưới năm cột (bảy cột từ 1750 px, ba cột dưới 1100 px, hai cột trên điện thoại). Ô tin nổi bật chiếm hai cột; thẻ thời tiết và thẻ lịch là phần tử dựng một lần rồi trả lại lưới sau mỗi lần vẽ lại, cùng đứng ở cột cuối cùng bên phải: thời tiết cuối hàng đầu, lịch ngay dưới ở hàng hai, ở mọi mục, mọi cách sắp xếp và mọi số cột; tin nổi bật, Chuyện lớn và các thẻ tin lấp các cột bên trái (điện thoại: thời tiết và lịch đứng đầu lưới, sau tin nổi bật). Bên trong thẻ thời tiết không có viền: ô ngày, nút chuyển và nút dự báo tách nhau bằng nền và khoảng cách. Thẻ hẹp gọn lại theo bề rộng của chính nó.</p>
+    <p>Lưới năm cột (bảy cột từ 1750 px, ba cột dưới 1100 px, hai cột trên điện thoại). Ô tin nổi bật chiếm hai cột; thẻ thời tiết và thẻ lịch là phần tử dựng một lần rồi trả lại lưới sau mỗi lần vẽ lại, cùng đứng ở cột cuối cùng bên phải: thời tiết cuối hàng đầu, lịch ngay dưới ở hàng hai, ở mọi mục, mọi cách sắp xếp và mọi số cột; thẻ "Sắp diễn ra" (sự kiện gần nhất, đếm ngược, thêm vào lịch, nguồn) đứng ngay bên trái thẻ lịch, không có sự kiện nào sắp tới thì không có thẻ; tin nổi bật, Chuyện lớn và các thẻ tin lấp các cột còn lại (điện thoại: thời tiết, rồi lịch và "Sắp diễn ra" cạnh nhau, sau tin nổi bật). Bên trong thẻ thời tiết không có viền: ô ngày, nút chuyển và nút dự báo tách nhau bằng nền và khoảng cách. Thẻ hẹp gọn lại theo bề rộng của chính nó.</p>
     <div class="msn-grid is-front" id="row1">
       <section class="msn-card msn-lead" aria-roledescription="carousel" aria-label="Tin nổi bật">
         <article class="slide is-active" aria-roledescription="slide" aria-label="1 trên 2">
@@ -47,6 +47,10 @@
         <div class="lead-nav"><button type="button" aria-label="Tin nổi bật trước"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg></button><button type="button" aria-label="Tin nổi bật tiếp"><svg class="i i-flip" aria-hidden="true"><use href="#i-arrow-left"/></svg></button></div>
       </section>
       <i data-slot="wx"></i><i data-slot="cal"></i>
+      <section class="msn-card msn-ev" aria-labelledby="ev-h"><div class="ev-head"><h2 id="ev-h">Sắp diễn ra</h2></div>
+        <div class="ev-next"><a class="ev-link" href="https://nips.cc/Conferences/2026/Dates" target="_blank" rel="noopener"><span class="ev-date" aria-hidden="true"><b class="num">6–12</b><span>Tháng 12 · 2026</span></span><span class="sr">6–12 tháng 12: </span>
+          <span class="ev-name">NeurIPS 2026 — Sydney</span><span class="ev-when">Sydney, Australia · chưa rõ giờ khai mạc</span></a>
+          <div class="ev-foot"><span class="event-left cd is-soon"><span class="cd-face">còn <b class="num">26</b> ngày</span></span><span class="calbtn" role="group" aria-label="Thêm NeurIPS 2026 vào lịch"><a class="calbtn-g" href="#row1">Google</a><button class="calbtn-ics" type="button">.ics</button></span></div></div></section>
       <section class="msn-card msn-toplist" aria-labelledby="top-list-h"><h2 id="top-list-h">Chuyện lớn</h2><ol>
         <li><b class="num" aria-hidden="true">1</b><span class="top-text"><a class="story-link top-title" href="#row1">Danh sách đánh số: bốn chuyện lớn tiếp theo, mỗi chuyện một sự kiện</a><span class="top-meta"><span class="top-who"><span class="top-src">Nguồn</span><span aria-hidden="true">·</span><time>1 giờ trước</time></span></span></span></li>
         <li><b class="num" aria-hidden="true">2</b><span class="top-text"><a class="story-link top-title" href="#row1">Tiêu đề dài xuống tối đa ba dòng rồi cắt bằng dấu ba chấm</a><span class="top-meta"><span class="top-who"><span class="top-src">Nguồn</span><span aria-hidden="true">·</span><time>3 giờ trước</time></span></span></span></li>
@@ -61,9 +65,6 @@
           <p class="nc-sum">Mô tả của nguồn, tối đa ba dòng.</p></div></article>
       <article class="msn-card nc no-photo"><div class="nc-body"><p class="nc-meta"><span class="nc-src">Nguồn</span><span class="nc-dot" aria-hidden="true"></span><time>3 giờ trước</time></p>
           <h3 class="nc-title"><a class="story-link" href="#row1">Thẻ chữ ở hàng hai</a></h3></div></article>
-      <article class="msn-card nc has-photo"><div class="nc-photo media"><img class="media-backdrop" src="../site/anh/bau-troi.jpg" alt=""><img class="media-img nc-img" src="../site/anh/bau-troi.jpg" alt="" width="640" height="360"></div>
-        <div class="nc-body"><p class="nc-meta"><span class="nc-src">Nguồn</span><span class="nc-dot" aria-hidden="true"></span><time>4 giờ trước</time></p>
-          <h3 class="nc-title"><a class="story-link" href="#row1">Thẻ thường có ảnh ở hàng hai</a></h3></div></article>
     </div>
   </section>
 
