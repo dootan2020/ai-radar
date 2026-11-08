@@ -63,55 +63,30 @@ def adapt_html(html):
     html = replace_pattern_once(html, r'<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>\n', '')
     html = replace_once(html, '<script type="module" src="feed.js"></script>',
                         '<script type="module" src="feed.js"></script>\n<script type="module" src="newtab.js"></script>\n'
-                        '<script type="module" src="vung-dau.js"></script>\n<link rel="stylesheet" href="newtab.css">\n'
-                        '<link rel="stylesheet" href="the-lich.css">')
-    # The new tab's three rows above the news (captain, 07/11 18:03, mockup D "Dòng ngày" chosen 18:26): the Google
-    # services with the 9 dots, the Google search (the day line moved onto the bento's calendar card, 08/11), then the bar. The site's masthead
-    # becomes the first two rows; its brand (the wordmark alone, no tile and no tagline), the morning edition link and
-    # the theme button move into the news bar, and the sort switch joins them so no line sits between the bar and the news.
-    masthead = re.search(r'<!-- Masthead:.*?</header>\n', html, re.S)
-    if not masthead:
-        raise ValueError('Expected the site masthead')
-    head = masthead.group(0)
-    brand = re.search(r'<a class="brand feed-brand" id="brand" href="#top" aria-label="Halcyon, về đầu trang">'
-                      r'(<img [^>]*>)(<img [^>]*>)<span class="brand-tag">[^<]*</span></a>', head)
-    edition = re.search(r'<a class="ed-link" href="ban-tin\.html".*?</a>', head)
-    theme = re.search(r'<button class="theme-btn" id="theme-btn".*?</button>', head, re.S)
-    if not (brand and edition and theme and head.count('<div class="tool-launcher"></div>') == 1):
-        raise ValueError('Unexpected masthead source')
-    html = html.replace(head, TOP_ZONE, 1)
-    html = replace_once(html, '<a class="bar-tile" href="#top" tabindex="-1" aria-hidden="true"><img src="logo.svg" width="32" height="32" alt=""></a>',
-                        f'<a class="brand feed-brand bar-brand" id="brand" href="{LIVE}" aria-label="Halcyon, mở trang web">'
-                        f'{brand.group(1)}{brand.group(2)}</a>')
-    sort = re.search(r'\n    <div class="sort-switch" id="sort-switch".*?\n    </div>', html, re.S)
-    if not sort:
-        raise ValueError('Expected the sort switch')
-    html = html.replace(sort.group(0), '', 1)
-    html = replace_once(html, '\n    <div class="news-search" id="news-search">',
-                        sort.group(0) + '\n    <div class="news-search" id="news-search">')
-    html = replace_once(html, '<div class="ns-results" id="ns-results" hidden></div>\n    </div>',
-                        '<div class="ns-results" id="ns-results" hidden></div>\n    </div>\n    '
-                        + edition.group(0).replace('href="ban-tin.html"', f'href="{LIVE}ban-tin.html"')
-                        + '\n    ' + theme.group(0))
+                        '<script type="module" src="vung-dau.js"></script>\n<link rel="stylesheet" href="newtab.css">')
+    # The new tab's rows above the panel (captain, 07/11 18:03, mockup D chosen 18:26; Mẫu A 08/11 18:23): the Google
+    # services with the 9 dots, then the Google search, in place of the site's top row. The site's news search moves
+    # into the panel head beside the morning edition; the brand and the edition point at the live site.
+    top = re.search(r'<!-- The top row \(Mẫu A.*?</header>\n', html, re.S)
+    if not top:
+        raise ValueError('Expected the site top row')
+    search = re.search(r'\n    <div class="news-search" id="news-search">.*?<div class="ns-results" id="ns-results" hidden></div>\n    </div>', top.group(0), re.S)
+    if not (search and top.group(0).count('<div class="tool-launcher"></div>') == 1):
+        raise ValueError('Unexpected top row source')
+    html = html.replace(top.group(0), TOP_ZONE, 1)
+    html = replace_once(html, '<a class="brand feed-brand" id="brand" href="#top" aria-label="Halcyon, về đầu trang">',
+                        f'<a class="brand feed-brand" id="brand" href="{LIVE}" aria-label="Halcyon, mở trang web">')
+    html = replace_once(html, '\n    <div class="head-actions">', '\n    <div class="head-actions">' + search.group(0).replace('\n    ', '\n      '))
+    html = replace_once(html, '<a class="ed-link" href="ban-tin.html"', f'<a class="ed-link" href="{LIVE}ban-tin.html"')
     validate_html(html)
     return html
 
 
-# The extension's own top rows (captain, 07/11 18:03 and 18:26): they replace the site masthead (adapt_html);
+# The extension's own top rows (captain, 07/11 18:03 and 18:26): they replace the site's top row (adapt_html);
 # vung-dau.js and newtab.js fill and drive them.
-TOP_ZONE = '''<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="w-clear-day" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
-  <symbol id="w-clear-night" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
-  <symbol id="w-partly" viewBox="0 0 24 24"><path d="M8.5 4.5v1.2M3.6 9.5h1.2M5 6l.9.9M12 6l-.9.9"/><path d="M5.7 12.3a3.5 3.5 0 0 1 6.4-3.2"/><path d="M8 19.5h9a3.5 3.5 0 0 0 .4-7 5 5 0 0 0-9.6 1.4A2.8 2.8 0 0 0 8 19.5z"/></symbol>
-  <symbol id="w-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 18.5z"/></symbol>
-  <symbol id="w-fog" viewBox="0 0 24 24"><path d="M7 13.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 13.5z"/><path d="M5 17h14M7 20.5h10"/></symbol>
-  <symbol id="w-rain" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M8.5 17.5l-1 2.5M12.5 17.5l-1 2.5M16.5 17.5l-1 2.5"/></symbol>
-  <symbol id="w-storm" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M12.5 15.5l-2 3.5h3l-2 3.5"/></symbol>
-  <symbol id="w-snow" viewBox="0 0 24 24"><path d="M7 14.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.5 1.6A3.2 3.2 0 0 0 7 14.5z"/><path d="M9 18.5h.01M12 20.5h.01M15 18.5h.01"/></symbol>
-</svg>
-<!-- Rows 1 and 2 (mockup D; row 1 compacted 07/11 22:41): the Google shortcuts as one cluster of icons with every Google
-     app behind the 9 dots, at the top right, then the Google search. Row 3 is the news bar below. The date, the lunar
-     date and the weather are on the calendar card in the bento (mockup H, 08/11; the-lich.js). -->
+TOP_ZONE = '''<!-- Rows 1 and 2 (mockup D; row 1 compacted 07/11 22:41): the Google shortcuts as one cluster of icons with every Google
+     app behind the 9 dots, at the top right, then the Google search, MSN's search bar above the Halcyon panel (Mẫu A,
+     08/11). The weather and the calendar are cards in the panel's first row (thoi-tiet.js, the-lich.js). -->
 <header class="masthead top" id="masthead">
   <div class="wrap g-row">
     <ul class="services" id="services" aria-label="Dịch vụ Google"></ul>
@@ -175,12 +150,14 @@ def adapt_feed(feed):
                         '  if (complete || !D || !navigator.onLine) return Promise.resolve();')
     feed = replace_once(feed, '  if (document.hidden || !D) return;',
                         '  if (document.hidden || !D || !navigator.onLine) return;')
-    feed = replace_count(feed, 'href="tin/', f'href="{LIVE}tin/', 3)
+    feed = replace_count(feed, 'href="tin/', f'href="{LIVE}tin/', 2)
+    feed = replace_once(feed, 'const storyHref = st => `tin/${esc(st.id)}/`;', f'const storyHref = st => `{LIVE}tin/${{esc(st.id)}}/`;')
     feed = replace_once(feed, 'const targetUrl = `tin/${encodeURIComponent(id)}/`;',
                         'const targetUrl = `#tin/${encodeURIComponent(id)}`;')
     feed = replace_once(feed, "const u = location.origin + (location.pathname.replace(/\\/tin\\/[^/]+\\/?$/, '/') || '/') + 'tin/' + encodeURIComponent(currentModalStoryId) + '/';",
                         f"const u = '{LIVE}tin/' + encodeURIComponent(currentModalStoryId) + '/';")
     feed = replace_once(feed, 'href="nguon.html"', f'href="{LIVE}nguon.html"')
+    feed = replace_once(feed, "const EDITION_URL = 'ban-tin.html';", f"const EDITION_URL = '{LIVE}ban-tin.html';")
     feed = replace_once(feed, "location.replace('nguon.html')", f"location.replace('{LIVE}nguon.html')")
     feed = replace_once(feed, "fetchJSON(PICKS_URL, { cache: 'no-cache' })",
                         "fetchJSON(PICKS_URL, { cache: 'no-cache' }).catch(() => fetchJSON(PACKAGED_PICKS_URL))")
@@ -213,7 +190,8 @@ def sync():
     validate_urls(arena)
     validate_urls(story)
     validate_urls(search)
-    for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'trang-nhat.css',
+    for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'trang-nhat.css', 'trang-msn.css',
+                 'thoi-tiet.js', 'the-lich.js', 'lich-am.js',
                  'faces.js', 'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js',
                  'calendar.js', 'worth-score.js', 'live.js', 'menu-cong-cu.css',
                  'feed-images.json', 'editor-picks.json',
@@ -221,6 +199,8 @@ def sync():
         shutil.copyfile(SITE / name, EXT / name)
     shutil.copytree(SITE / 'fonts', EXT / 'fonts', dirs_exist_ok=True)
     shutil.copytree(SITE / 'google-apps', EXT / 'google-apps', dirs_exist_ok=True)
+    shutil.copytree(SITE / 'con-giap', EXT / 'con-giap', dirs_exist_ok=True)
+    shutil.copytree(SITE / 'anh', EXT / 'anh', dirs_exist_ok=True)
     write(EXT / 'arena.js', arena)
     write(EXT / 'story.js', story)
     write(EXT / 'menu-cong-cu.js', menu)

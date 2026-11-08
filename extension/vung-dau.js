@@ -1,9 +1,8 @@
 /* The new tab's first two rows (captain, 07/11 18:03, mockup D "Dòng ngày" chosen 18:26): the Google services, then
-   the Google search (newtab.js). The day line that sat under the search is gone (08/11, mockup H): its date, lunar date
-   and weather live on the calendar card in the bento (the-lich.js).
-   The website home has none of this; extension/sync-site.py puts these rows where the site has its masthead. */
+   the Google search (newtab.js). They play the part of MSN's search bar above the Halcyon panel (Mẫu A, 08/11 18:23).
+   The weather and the calendar are cards in the panel's first row, the same as on the website (feed.js builds them).
+   The website home has none of this; extension/sync-site.py puts these rows where the site has its top row. */
 import { todayVN } from './lich-am.js';
-import { mountCalendarCard } from './the-lich.js';
 
 const $ = s => document.querySelector(s);
 
@@ -33,4 +32,3 @@ function renderServices() {
 }
 
 renderServices();
-mountCalendarCard();

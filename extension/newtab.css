@@ -1,10 +1,9 @@
-/* The new tab's three rows above the news (captain, 07/11 18:03; mockup D "Dòng ngày" chosen 18:26 with three fixes):
+/* The new tab's top zone above the Halcyon panel (captain, 07/11 18:03; mockup D chosen 18:26; Mẫu A 08/11 18:23):
    1. the Google services, with every Google app behind the 9 dots at the top right;
-   2. the Google search ("Tìm trên Google", a border and no shadow, at rest and in focus); the day line that sat under it
-      moved onto the bento's calendar card (08/11, mockup H, the-lich.css);
-   3. the Halcyon bar: the small wordmark alone (no tile), the sections, the sort, the magnifier, the morning edition
-      and the theme.
-   The website home keeps its own masthead (trang-nhat.css); this file is extension-only. Values come from tokens.css. */
+   2. the Google search ("Tìm trên Google", a border and no shadow, at rest and in focus), which plays the part of MSN's
+      search bar above the panel.
+   The panel below is the website home's (trang-msn.css): the logo, the sections, the news search, the morning edition,
+   then the grid with the weather and the calendar. This file is extension-only. Values come from tokens.css. */
 :root {
   --nav-h: calc(var(--btn-h) + var(--space-8));          /* the Halcyon bar: 52 px, as in mockup D */
   --top-max: 50rem;                                      /* the search column */
@@ -45,7 +44,7 @@
 .svc-letter { display: grid; place-items: center; width: 20px; height: 20px; border-radius: var(--radius-8); background: var(--color-fill); font-size: var(--size-12); font-weight: var(--weight-bold); color: var(--color-ink-2); }
 .g-row .tool-launcher { margin-inline-start: 0; }
 
-/* ---------- 2. Search row: the field, then one quiet line that holds the day ---------- */
+/* ---------- 2. Search row: the Google search ---------- */
 .hero { max-width: calc(var(--top-max) + 2 * var(--page-pad)); margin: 0 auto; }
 .web-search { margin: 0; }
 /* Fix 2 (18:26, "dưới thanh tìm kiếm có đổ bóng, khiến cho giao diện có vết cắt"): a border only, no shadow, at rest and
@@ -70,144 +69,12 @@
 .go-btn:active { transform: scale(0.96); }
 .go-btn .i { stroke-width: 2.25; }
 
-/* The weather's controls (thoi-tiet.js). The day line under the search is gone (08/11): the weather lives at the foot of
-   the calendar card, which lays these out (the-lich.css). */
-.weather { position: relative; min-width: 0; }
-.wx-now, .wx-city, .wx-detail, .wx-retry { min-height: var(--btn-h); }
-.wx-now { display: inline-flex; align-items: center; gap: var(--space-4); padding: 0 var(--space-6); border-radius: var(--radius-full); color: var(--color-ink); transition: background-color var(--duration-150) ease; }
-.wx-now:hover, .wx-now[aria-expanded="true"] { background: var(--color-fill); }
-.wx-now .i { width: 18px; height: 18px; color: var(--color-ink-2); }
-.wx-temp { font-weight: var(--weight-semibold); color: var(--color-ink); }
-.wx-city {
-  display: inline-flex; align-items: center; gap: 2px; flex: none; padding: 0 var(--space-6);
-  border-radius: var(--radius-full); font-weight: var(--weight-semibold); color: var(--color-ink); white-space: nowrap;
-  transition: background-color var(--duration-150) ease;
-}
-.wx-city:hover, .wx-city[aria-expanded="true"] { background: var(--color-fill); }
-.wx-city .i { width: 14px; height: 14px; color: var(--color-ink-3); }
-.wx-detail { display: inline-flex; align-items: center; gap: var(--space-4); min-width: 0; padding: 0 var(--space-4); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-ink-2); text-align: start; }
-button.wx-detail { display: block; line-height: var(--btn-h); border-radius: var(--radius-full); }
-button.wx-detail:hover { color: var(--color-ink); }
-.wx-detail .num { color: var(--color-ink); }
-.wx-retry { padding: 0 var(--space-6); color: var(--color-link); font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 3px; }
-/* The placeholder holds the place of the forecast. */
-.wx-skel { display: inline-block; flex: none; max-width: 100%; height: var(--space-12); border-radius: var(--radius-full); background: var(--color-fill); }
-
-.wx-menu, .wx-panel {
-  position: absolute; z-index: 40; top: calc(100% + var(--space-12)); left: 0; white-space: normal; text-align: start;
-  background: var(--color-surface); border: 1px solid var(--color-hair); border-radius: var(--radius-24); box-shadow: var(--shadow-sheet);
-}
-.wx-menu {
-  width: 240px; max-height: 360px; overflow: auto; padding: var(--space-8); border-radius: var(--radius-12);
-  transform-origin: top left; opacity: 0; transform: scale(0.97) translateY(-4px); pointer-events: none; visibility: hidden;
-  transition: opacity 140ms ease-out, transform 140ms var(--ease-flow), visibility 0s linear 140ms;
-}
-.wx-menu.open { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition: opacity 140ms ease-out, transform 140ms var(--ease-flow), visibility 0s; }
-.wx-menu-label { margin: var(--space-4) var(--space-8) var(--space-8); font-size: var(--size-12); font-weight: var(--weight-semibold); color: var(--color-ink-3); }
-.wx-menu button { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: var(--btn-h); padding: 0 var(--space-12); border-radius: var(--radius-12); font-size: var(--text-sub); text-align: start; }
-.wx-menu button:hover, .wx-menu button:focus-visible { background: var(--color-fill); outline-offset: -3px; }
-.wx-menu button[aria-checked="true"] { font-weight: var(--weight-semibold); }
-.wx-menu button[aria-checked="true"]::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent-fill); }
-
-.wx-panel { width: min(400px, calc(100vw - 2 * var(--page-pad))); padding: var(--space-24); display: grid; gap: var(--space-12); }
-.wx-big { display: flex; align-items: center; gap: var(--space-12); }
-.wx-big-i { width: 48px; height: 48px; color: var(--color-ink-2); stroke-width: 1.5; }
-.wx-big-t { font-size: var(--size-40); font-weight: var(--weight-bold); line-height: 1; letter-spacing: -0.03em; color: var(--color-ink); }
-.wx-big-l { margin-top: var(--space-4); font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink); }
-.wx-stats { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-16); font-size: var(--text-meta); color: var(--color-ink-3); }
-.wx-stats b { color: var(--color-ink); font-weight: var(--weight-semibold); }
-.wx-h { margin-top: var(--space-4); padding-top: var(--space-12); border-top: 1px solid var(--color-hair); font-size: var(--size-12); font-weight: var(--weight-semibold); color: var(--color-ink-3); }
-.wx-hours { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-4); text-align: center; font-size: var(--size-12); color: var(--color-ink-3); }
-.wx-hours li { display: grid; justify-items: center; gap: 2px; }
-.wx-hours .i { width: 20px; height: 20px; color: var(--color-ink-2); }
-.wx-hours b { font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-ink); }
-.wx-days { display: grid; gap: var(--space-4); }
-.wx-days li { display: grid; grid-template-columns: 5.5em 22px minmax(0, 1fr) auto auto; align-items: center; gap: var(--space-8); min-height: 28px; font-size: var(--text-meta); color: var(--color-ink-2); }
-.wx-days .i { width: 20px; height: 20px; color: var(--color-ink-2); }
-.wx-dname { font-weight: var(--weight-semibold); color: var(--color-ink); }
-.wx-dlabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.wx-rain { color: var(--color-ink-3); }
-.wx-range { font-weight: var(--weight-semibold); color: var(--color-ink); }
-.wx-range span { font-weight: var(--weight-medium); color: var(--color-ink-3); }
-.wx-credit { font-size: var(--size-12); color: var(--color-ink-3); }
-.wx-credit a { color: var(--color-link); text-decoration: underline; text-underline-offset: 3px; }
-
-/* ---------- 3. Halcyon bar: the small wordmark, the sections, the sort, the magnifier, the edition, the theme ---------- */
-.newsbar-in { gap: var(--space-8); }
-/* Fix 1 (18:26, "không nên dùng cả logo chữ y + chữ halcyon"): the wordmark alone, small, always shown. */
-.newsbar .bar-brand { order: 0; flex: none; margin: 0; padding-inline: var(--space-4) var(--space-8); min-height: var(--btn-h); border-radius: var(--radius-full); }
-.newsbar .bar-brand .brand-wm { height: 22px; width: auto; margin: 0; }
-.newsbar .bar-brand .brand-logo-light { display: var(--show-logo-light); }
-.newsbar .bar-brand .brand-logo-dark { display: var(--show-logo-dark); }
-.newsbar .sections { order: 1; }
-.newsbar .sort-switch { order: 2; flex: none; margin: 0; padding: 0; }
-/* The sort is one tonal toggle in the bar (its label names the current order; the site's two-sided switch needs a line
-   of its own, which mockup D gives to the news). */
-.newsbar .sort-switch::before, .newsbar .sort-btn:not(.sort-btn-compact), .newsbar .sort-switch .tab-pill { display: none; }
-.newsbar .sort-btn-compact {
-  --header-pill-inset: 0px; --header-control-bg: var(--color-fill);
-  display: inline-flex; gap: var(--space-6); padding: 0 var(--space-12) 0 var(--space-8); font-size: var(--text-small); color: var(--color-ink);
-}
-.newsbar .sort-btn-compact:hover { --header-control-bg: var(--color-hair); }
-.newsbar .sort-btn-compact::after {
-  content: ""; order: -1; width: 18px; height: 18px; flex: none; background: var(--color-ink-2);
-  -webkit-mask: var(--sort-icon) center / contain no-repeat; mask: var(--sort-icon) center / contain no-repeat;
-}
-:root { --sort-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 4v16M3.5 7.5 7 4l3.5 3.5M17 20V4M13.5 16.5 17 20l3.5-3.5'/%3E%3C/svg%3E"); }
-.newsbar .news-search { order: 3; }
-.newsbar .ed-link { order: 4; }
-.newsbar .theme-btn { order: 5; flex: none; width: var(--btn-h); height: var(--btn-h); }
-
-/* the news search: a magnifier in the bar at every width; the field opens in place over the bar */
-.news-search { position: static; width: auto; }
-.ns-open { display: inline-grid; }
-.ns-field { display: none; }
-.news-search.open .ns-field { display: flex; position: absolute; inset: calc((var(--nav-h) - var(--btn-h)) / 2) var(--page-pad); z-index: 2; }
-.news-search.open .ns-open { visibility: hidden; }
-.news-search.open .ns-clear { display: inline-grid; }
-.ns-results { top: calc(100% + var(--space-4)); right: var(--page-pad); }
-
-/* the morning edition: a tonal button, the only filled control in the bar besides the chosen section */
-.newsbar .ed-link {
-  --header-pill-inset: 0px; --header-control-bg: var(--color-fill);
-  gap: var(--space-6); padding: 0 var(--space-12) 0 var(--space-8); font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink); white-space: nowrap;
-}
-.newsbar .ed-link:hover { --header-control-bg: var(--color-hair); }
-.newsbar .ed-link .i { width: 18px; height: 18px; color: var(--color-link); }
-
-/* The bento starts close under the bar: the heading above it is read by screen readers only, the sort lives in the bar
-   and the freshness line closes the page (mockup D). The site home keeps its own rhythm. */
-.feed-main.front { padding-top: var(--space-16); }
-.front-meta { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.feed-footer .front-fresh { margin: 0; font-size: var(--text-meta); color: var(--color-ink-3); }
+/* the panel starts close under the search */
+.top + .msn-panel, .msn-panel { margin-top: var(--space-4); }
 
 /* ---------- widths ---------- */
-@media (max-width: 1099px) {
-  .newsbar .ed-link .ed-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .newsbar .ed-link { width: var(--btn-h); padding: 0; }
-}
-/* Phone: the weather's menu and detail open as a sheet from the bottom; the morning edition lives in the bottom
-   navigation, so the bar keeps the sections the room. */
 @media (max-width: 767px) {
   .web-field { padding-inline-start: var(--space-16); }
-  .weather { position: static; }
-  .wx-menu, .wx-panel {
-    position: fixed; z-index: 60; top: auto; left: var(--page-pad); right: var(--page-pad);
-    bottom: calc(var(--mobile-nav-h, 0px) + var(--dock-gap, 0px) * 2 + env(safe-area-inset-bottom) + var(--space-8));
-  }
-  .wx-menu { width: auto; max-height: 60dvh; transform-origin: bottom center; transform: translateY(var(--space-8)); }
-  .wx-panel { width: auto; max-height: 75dvh; overflow: auto; }
-  .newsbar .bar-brand { padding-inline: 0 var(--space-4); }
-  .newsbar .bar-brand .brand-wm { height: 20px; }
-  .newsbar .ed-link { display: none; }
-  /* the sort keeps its icon on a phone; its label is read from aria-label ("Đang sắp xếp: …") */
-  .newsbar .sort-switch { padding: 0; }
-  .newsbar .sections { padding-inline-end: var(--space-16); }
-  .newsbar .sort-btn-compact { width: var(--btn-h); min-width: var(--btn-h); padding: 0; --header-control-bg: transparent; }
-  .newsbar .sort-btn-compact:hover { --header-control-bg: var(--color-fill); }
-  .newsbar .sort-current { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .newsbar .sort-btn-compact::after { width: 20px; height: 20px; }
-  .wx-now, .wx-city { padding-inline: var(--space-4); }
 }
 /* Seven icons and the 9 dots need 352 px; below 384 px (343 px of room at 375) the last shortcut, Gemini, leaves the
    row: it stays one tap away in the 9-dot panel, and the row stays one aligned cluster with no scrolling or fade. */
@@ -215,6 +82,6 @@ button.wx-detail:hover { color: var(--color-ink); }
   .services li:nth-child(n+7) { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .web-field, .go-btn, .svc, .svc::before, .g-row .tool-launcher-button, .g-row .tool-launcher-button::before, .wx-now, .wx-city, .wx-menu, .wx-menu.open { transition: none; }
+  .web-field, .go-btn, .svc, .svc::before, .g-row .tool-launcher-button, .g-row .tool-launcher-button::before { transition: none; }
   .go-btn:active, .svc:active, .g-row .tool-launcher-button:active { transform: none; }
 }
