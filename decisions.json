@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08T15:29:18.312389+00:00",
-  "input_generated_at": "2026-11-08T13:37:29Z",
+  "generated_at": "2026-11-08T19:14:51.007985+00:00",
+  "input_generated_at": "2026-11-08T18:40:41Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -39458,16 +39458,17 @@
       "use_original_title": true,
       "source_url": "https://github.com/RapidSailorFreeze/studsmith",
       "key_points": [
-        "Theo trang dự án trên GitHub, Studsmith là ứng dụng Windows miễn phí hỗ trợ làm game Roblox nhanh hơn. Công cụ đóng vai trò tác nhân AI (phần mềm trí tuệ nhân tạo tự thực hiện tác vụ) cho Roblox Studio, tự viết mã Luau và cung cấp bản tải về Studsmith-win-x64.zip.",
-        "Vòng lặp chạy thử tự sửa lỗi sẽ vận hành trò chơi, đọc lỗi phát sinh và tự động khắc phục. Người dùng có thể xem trước khác biệt mã trước khi áp dụng và hoàn tác tác vụ bằng các điểm khôi phục.",
-        "Trang dự án khẳng định Studsmith là dự án độc lập, không liên kết hay nhận tài trợ từ Roblox Corporation. Phần mềm yêu cầu Windows 10 hoặc 11 64-bit và có thể hiện cảnh báo SmartScreen khi chưa có chữ ký số."
+        "Theo trang GitHub, Studsmith là ứng dụng Windows miễn phí đóng vai trò tác nhân AI (trí tuệ nhân tạo tự thực hiện tác vụ) giúp làm game Roblox nhanh hơn qua tệp Studsmith-win-x64.zip.",
+        "Người dùng mô tả tính năng bằng ngôn ngữ tự nhiên, công cụ sẽ lên kế hoạch, tạo mã Luau và sắp xếp các đối tượng trong trò chơi.",
+        "Về tính năng nổi bật, vòng lặp chạy thử sẽ vận hành trò chơi, đọc lỗi phát sinh và tự động sửa chữa. Người dùng có thể xem trước khác biệt mã hoặc hoàn tác bằng các điểm khôi phục.",
+        "Trang dự án khẳng định Studsmith là dự án độc lập, không liên kết hay nhận tài trợ từ Roblox Corporation. Phần mềm yêu cầu Windows 10 hoặc 11 bản 64-bit và có thể hiện cảnh báo SmartScreen khi chưa có chữ ký số."
       ],
       "same_event_coverage_ids": [
         "404e0db42db15f916ae2"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Studsmith là ứng dụng Windows miễn phí hỗ trợ lập trình và sửa lỗi trong Roblox Studio",
+      "editorial_headline_vi": "Studsmith cung cấp tác nhân AI miễn phí trên Windows hỗ trợ phát triển game trong Roblox Studio",
       "summary_sources": [
         {
           "id": "outlet",
@@ -39480,28 +39481,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 10.0,
         "answers": {
-          "what": 9,
-          "why": 7,
-          "notable": 9,
-          "meaning": 9
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader misses the central workflow that explains how the app helps people build faster.",
-            "fix": "Say that users describe a feature in plain language and Studsmith produces a plan, Luau code, and game changes (outlet:p004, outlet:p009–p010)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4029f83745113dc60d6585b085fd5bfcd926179d67120b7d6c94bc624d6b1139",
-        "scored_at": "2026-11-08T15:17:30.405684+00:00"
+        "prose_sha256": "2178f32bf5f71c3f943b7e107f52a0dce7d55624916066d05d4d9ee0be6dc95e",
+        "scored_at": "2026-11-08T19:14:51.005576+00:00"
       }
     },
     {
@@ -39539,6 +39534,164 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "7e0f73d436adcc2e1a92"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fe5fdb83e1ea95f1b424",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers",
+      "key_points": [
+        "Theo Bloomberg News, quy định nội bộ tháng 10 của Goldman Sachs giới hạn các tác tử (công cụ phần mềm tự động viết và chạy mã) như Claude Code và GitHub cho riêng kỹ sư. Theo đó, phần lớn nhà giao dịch và nhân viên ngân hàng không còn được dùng công cụ lập trình trí tuệ nhân tạo tại nơi làm việc.",
+        "Bloomberg News cho biết quyết định hạn chế diễn ra sau đợt rà soát nội bộ về năng suất và các lo ngại rủi ro. Dù vậy, một nguồn thạo tin cho biết nhóm chuyên viên kết hợp giữa giao dịch, nghiên cứu định lượng và kỹ thuật phần mềm vẫn giữ quyền truy cập.",
+        "Đáng chú ý, Goldman Sachs là bên bảo lãnh chính cho đợt IPO của Anthropic dù phần lớn nhân viên ngân hàng không còn được dùng tác tử của đối tác này. Trước đó, một số nhà giao dịch từng dùng các công cụ này để theo dõi dòng giao dịch khách hàng và lập mô hình vị thế thị trường.",
+        "Trang The State of AI nhận định ngân hàng đúng đắn khi hạn chế công cụ, nhưng sai lầm trong cách tiến hành. Ấn phẩm này chỉ trích việc cắt quyền truy cập đột ngột sau khi Giám đốc Thông tin từng ca ngợi các công cụ do giới giao dịch phát triển hồi tháng 7."
+      ],
+      "same_event_coverage_ids": [
+        "ecf64e88ad8ac4730a4e"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Goldman Sachs giới hạn Claude Code cho kỹ sư sau khi rà soát về rủi ro và năng suất",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "cắt quyền truy cập đột ngột",
+            "explanation": "The source says access was withdrawn through an updated guideline; it does not establish that the withdrawal was sudden (outlet:p026)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "A reader may think the restriction covers the bank's AI tools generally.",
+            "fix": "Specify that it covers third-party coding agents and that Goldman's in-house AI assistant remains available across the firm (outlet:p011)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The description adds an unsupported claim that access was withdrawn suddenly.",
+            "fix": "Say access was withdrawn through an updated guideline, with no replacement mentioned in Bloomberg's reporting (outlet:p026)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9b08100c608fb9204aecddb457c64ce82087f021d280dedd799fbb80bc937350",
+        "scored_at": "2026-11-08T19:11:03.401186+00:00"
+      }
+    },
+    {
+      "id": "e78248aa982a016feea2",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-08/deepseek-s-ai-agent-platform-hits-1-54-million-daily-users",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ccd2e2a3e5bcd824a39"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c08233254ab556923442",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1029533/elvis-eminem-suno-ai-music-clone-lawsuit",
+      "key_points": [
+        "The lawsuits allege that Suno illegally generates music and lyrics that mimic Elvis Presley and Eminem.",
+        "The legal filings closely mirror a previous lawsuit brought against Suno by Jason Isbell and others in September."
+      ],
+      "same_event_coverage_ids": [
+        "0a5a3604b41d05724afd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1f9639d5e128f4b4e119",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-08/apple-explores-turning-siri-ai-into-chatgpt-dots-like-agent-ios-28-shake-up",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7cc3d82b272a3b52f806",
+        "a56bc4fcbdc9b2204774"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e7379875ca1df151693c",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-08/voters-put-the-ai-data-center-boom-on-notice-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "644524413c3e2491da8c"
       ],
       "split_coverage_ids": []
     }
