@@ -1,21 +1,24 @@
 (() => {
-  /* Each tile draws its own vector glyph on a tinted squircle (the monogram tile of tokens.css, hue per app), so the
-     panel is sharp at any screen density and calls no icon server (captain, 08/11: the remote 64px favicons were
-     blurry on the iPhone). The glyphs are this site's own line drawings, not the products' logos. */
+  /* Each tile shows the product's own colour logo, sharp at any screen density (captain, 08/11: "Logo Account bị
+     nhoè"; the 64px favicon service was scaled up). Nine logos are vector files shipped with the site (google-apps/,
+     CC0 "SVG Logos" set, see google-apps/LICENSE.txt); News, Translate and Docs are missing from that set and come
+     from Google's own 192px product icons. Every icon loads only when the panel first opens. */
+  const GS = 'https://ssl.gstatic.com/images/branding/product/2x/';
+  const BASE = new URL('google-apps/', (document.currentScript && document.currentScript.src) || location.href).href;
   const apps = [
-    ['Account', 'myaccount.google.com', 255, '<circle cx="12" cy="9" r="3.5"/><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0"/>'],
-    ['Search', 'www.google.com', 220, '<circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/>'],
-    ['Maps', 'maps.google.com', 150, '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'],
-    ['YouTube', 'www.youtube.com', 25, '<rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10.5 9.6v4.8l4-2.4z"/>'],
-    ['Gmail', 'mail.google.com', 12, '<rect x="3.5" y="6" width="17" height="12" rx="2"/><path d="m4 7.5 8 5.5 8-5.5"/>'],
-    ['Drive', 'drive.google.com', 85, '<path d="M8.5 4.5h7l5.5 9.5-3.2 5.5H6.2L3 14z"/><path d="M3 14h18M8.5 4.5l6.4 11M15.5 4.5 9 15.5"/>'],
-    ['Calendar', 'calendar.google.com', 262, '<rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>'],
-    ['News', 'news.google.com', 235, '<path d="M5 5h11v14H6a1 1 0 0 1-1-1z"/><path d="M16 9h3v9a1 1 0 0 1-1 1h-2M8 9h5M8 12.5h5M8 16h3"/>'],
-    ['Photos', 'photos.google.com', 55, '<rect x="4" y="5" width="16" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m5 17 4.5-4.5 3 3 2.5-2.5L19 17"/>'],
-    ['Meet', 'meet.google.com', 165, '<rect x="3.5" y="7" width="12" height="10" rx="2"/><path d="m15.5 11 5-3v8l-5-3"/>'],
-    ['Translate', 'translate.google.com', 200, '<path d="M4 6h8M8 4v2M6 6c0 3 2.5 5.5 5 6.5M10 6c-.5 3-3 6-5.5 7"/><path d="m12.5 20 3.5-9 3.5 9M13.8 17h4.4"/>'],
-    ['Docs', 'docs.google.com', 250, '<path d="M6 3.5h8l4 4v13H6z"/><path d="M14 3.5v4h4M9 12h6M9 15.5h6"/>'],
-    ['Gemini', 'gemini.google.com', 290, '<path d="M12 3.5c.7 4.3 3.5 7.1 8.5 8.5-5 1.4-7.8 4.2-8.5 8.5-.7-4.3-3.5-7.1-8.5-8.5 5-1.4 7.8-4.2 8.5-8.5z"/>']
+    ['Account', 'myaccount.google.com', 'google.svg'],
+    ['Search', 'www.google.com', 'google.svg'],
+    ['Maps', 'maps.google.com', 'maps.svg'],
+    ['YouTube', 'www.youtube.com', 'youtube.svg'],
+    ['Gmail', 'mail.google.com', 'gmail.svg'],
+    ['Drive', 'drive.google.com', 'drive.svg'],
+    ['Calendar', 'calendar.google.com', 'calendar.svg'],
+    ['News', 'news.google.com', GS + 'news_96dp.png'],
+    ['Photos', 'photos.google.com', 'photos.svg'],
+    ['Meet', 'meet.google.com', 'meet.svg'],
+    ['Translate', 'translate.google.com', GS + 'translate_96dp.png'],
+    ['Docs', 'docs.google.com', GS + 'docs_2020q4_96dp.png'],
+    ['Gemini', 'gemini.google.com', 'gemini.svg']
   ];
   const header = document.querySelector('header.masthead, header.feed-bar, header.bt-bar, header.bar');
   if (!header) return;
@@ -41,7 +44,7 @@
 
   const grid = document.createElement('div');
   grid.className = 'tool-launcher-grid';
-  for (const [name, domain, hue, glyph] of apps) {
+  for (const [name, domain, logo] of apps) {
     const link = document.createElement('a');
     link.className = 'tool-launcher-tile';
     link.href = `https://${domain}/`;
@@ -49,18 +52,32 @@
     link.rel = 'noopener noreferrer';
     link.setAttribute('aria-label', name);
 
-    const icon = document.createElement('span');
-    icon.className = 'tool-launcher-icon';
-    icon.setAttribute('aria-hidden', 'true');
-    icon.style.setProperty('--app-hue', hue);
-    icon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${glyph}</svg>`;
+    const image = document.createElement('img');
+    image.className = 'tool-launcher-icon';
+    image.alt = '';
+    image.width = 40;
+    image.height = 40;
+    image.decoding = 'async';
+    image.referrerPolicy = 'no-referrer';
+    image.dataset.iconUrl = logo.startsWith('https://') ? logo : BASE + logo;
+
+    const fallback = document.createElement('span');
+    fallback.className = 'tool-launcher-fallback';
+    fallback.setAttribute('aria-hidden', 'true');
+    fallback.textContent = name.slice(0, 1);
 
     const label = document.createElement('span');
     label.className = 'tool-launcher-label';
     label.setAttribute('aria-hidden', 'true');
     label.textContent = name;
 
-    link.append(icon, label);
+    // The letter holds the slot until the logo has loaded; offline or blocked, the letter stays.
+    image.hidden = true;
+    image.addEventListener('load', () => {
+      image.hidden = false;
+      fallback.hidden = true;
+    }, { once: true });
+    link.append(image, fallback, label);
     grid.append(link);
   }
 
@@ -103,6 +120,13 @@
   header.after(mobileNav);
 
   let closeTimer;
+  function loadIcons() {
+    panel.querySelectorAll('.tool-launcher-icon[data-icon-url]').forEach(image => {
+      image.src = image.dataset.iconUrl;
+      delete image.dataset.iconUrl;
+    });
+  }
+
   function close(restoreFocus = false) {
     if (panel.hidden) return;
     window.clearTimeout(closeTimer);
@@ -115,18 +139,24 @@
     }, 150);
   }
 
-  function open() {
+  // Opened from the keyboard, focus lands on the first tile so arrow/Tab navigation starts there. Opened by
+  // mouse or touch, the panel itself takes focus so no tile shows a ring nobody asked for; Tab still walks
+  // the tiles from the top.
+  panel.tabIndex = -1;
+  function open(fromKeyboard) {
     window.clearTimeout(closeTimer);
+    loadIcons();
     panel.hidden = false;
     requestAnimationFrame(() => panel.classList.add('is-open'));
     button.setAttribute('aria-expanded', 'true');
     button.setAttribute('aria-label', 'Đóng ứng dụng Google');
-    panel.querySelector('a')?.focus();
+    if (fromKeyboard) panel.querySelector('a')?.focus();
+    else panel.focus({ preventScroll: true });
   }
 
-  button.addEventListener('click', () => {
+  button.addEventListener('click', event => {
     if (button.getAttribute('aria-expanded') === 'true') close(true);
-    else open();
+    else open(event.detail === 0);
   });
   document.addEventListener('pointerdown', event => {
     if (!host.contains(event.target)) close();

@@ -7,18 +7,20 @@ import { mountCalendarCard } from './the-lich.js';
 
 const $ = s => document.querySelector(s);
 
-/* Google's own published product icons; a letter holds the place until one loads (offline, blocked). The Calendar
-   icon carries today's date, as Google's own does. Row 1 is icons only at every width (captain, 07/11 22:41: "thu gọn
-   mấy cái truy cập nhanh đi"): each link is named by aria-label for screen readers and by title on hover. */
-const fav = host => `https://www.google.com/s2/favicons?domain=${host}&sz=64`;
+/* Each product's own colour logo, sharp at any screen density: Google's 96px product icons, or the vector logos shipped
+   with the extension (google-apps/, CC0 "SVG Logos" set, see google-apps/LICENSE.txt) where the 64px favicon service was
+   blurry (08/11). A letter holds the place until one loads (offline, blocked). The Calendar icon carries today's date,
+   as Google's own does. Row 1 is icons only at every width (captain, 07/11 22:41: "thu gọn mấy cái truy cập nhanh đi"):
+   each link is named by aria-label for screen readers and by title on hover. */
+const GS = 'https://ssl.gstatic.com/images/branding/product/2x/';
 export const SERVICES = [
-  ['Gmail', 'https://mail.google.com/', 'https://ssl.gstatic.com/images/branding/product/2x/gmail_2020q4_48dp.png'],
-  ['YouTube', 'https://www.youtube.com/', fav('www.youtube.com')],
-  ['Drive', 'https://drive.google.com/', 'https://ssl.gstatic.com/images/branding/product/2x/drive_2020q4_48dp.png'],
-  ['Maps', 'https://www.google.com/maps', fav('maps.google.com')],
+  ['Gmail', 'https://mail.google.com/', GS + 'gmail_2020q4_48dp.png'],
+  ['YouTube', 'https://www.youtube.com/', 'google-apps/youtube.svg'],
+  ['Drive', 'https://drive.google.com/', GS + 'drive_2020q4_48dp.png'],
+  ['Maps', 'https://www.google.com/maps', 'google-apps/maps.svg'],
   ['Lịch', 'https://calendar.google.com/', day => `https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_${day}_2x.png`],
-  ['Dịch', 'https://translate.google.com/', fav('translate.google.com')],
-  ['Gemini', 'https://gemini.google.com/', fav('gemini.google.com')],
+  ['Dịch', 'https://translate.google.com/', GS + 'translate_96dp.png'],
+  ['Gemini', 'https://gemini.google.com/', 'google-apps/gemini.svg'],
 ];
 function renderServices() {
   const day = todayVN().d;

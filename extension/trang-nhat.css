@@ -274,7 +274,12 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
   .ns-list { padding: 0 var(--space-4) var(--space-8); }
   .ns-row { padding: var(--space-12); }
 
-  .front { padding-top: var(--space-16); }
+  /* On a phone the heading is hidden and the sort toggle moves into the section bar beside the search (feed.js),
+     so the empty row folds away and the first card sits right under the sections (coordinator, 08/11: the tall
+     band with "Đáng đọc" alone pushed the first card down). */
+  .front { padding-top: var(--space-12); }
+  .front-meta { min-height: 0; margin: 0; }
+  .newsbar-in > .sort-switch { flex: none; }
   .front-h { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .bento { grid-template-columns: minmax(0, 1fr); }
   .bento > *, .bento > .card-small, .bento .sk-card { grid-column: 1 / -1; }

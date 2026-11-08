@@ -242,12 +242,12 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
         else:
             fallback_content = (
                 '<section class="story-keypoints-box" aria-label="Tóm tắt bài viết">'
-                '<p class="story-section-sub">Tóm tắt bằng AI từ phần nội dung bài gốc đọc được.</p>'
+                '<p class="story-section-sub">Tóm tắt bằng AI từ bài gốc</p>'
                 f'<ol class="story-points-list">{points_html}</ol>{sources_html}')
         if "partial_source" in story.get("summary_limitations", []):
-            fallback_content += '<p class="story-section-sub">Bản tóm tắt dựa trên các phần nguồn đọc được.</p>'
+            fallback_content += ''
         if "missing_primary" in story.get("summary_limitations", []):
-            fallback_content += '<p class="story-section-sub">Chưa đọc được nguồn gốc được bài báo dẫn.</p>'
+            fallback_content += ''
         fallback_content += '</section>'
     elif fields["source_summary"]:
         # The publisher's own description stands in for a summary; say so, as the hydrated page does (site/story.js).

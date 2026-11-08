@@ -463,7 +463,6 @@ function worthOf(st) {
 const DISCUSSED = new Set(['points', 'score', 'comments', 'upvotes']);
 function reasonOf(st) {
   if (PICKS.has(st.id)) return { text: 'Biên tập chọn', editor: true };
-  if (st.importance_tier === 'top') return { text: 'Ưu tiên cao', why: st.importance_reason };
   const w = worthOf(st);
   if (w.fh) return { text: w.fh.label };
   return null;
@@ -2509,6 +2508,15 @@ function attachEvents() {
     if (b.dataset.sort === 'toggle') setSort(sortMode === 'worth' ? 'new' : 'worth');
     else if (b.dataset.sort) setSort(b.dataset.sort);
   });
+  // On a phone the front's heading is hidden, so the sort toggle would sit alone on its own row above the first card
+  // (coordinator, 08/11). There it joins the section bar beside the search, and the first card moves up.
+  const sortSwitch = $('#sort-switch'), sortHome = sortSwitch.parentElement, searchBox = $('#news-search');
+  if (searchBox) {
+    const phone = matchMedia('(max-width: 767px)');
+    const placeSort = () => { if (phone.matches) searchBox.before(sortSwitch); else sortHome.append(sortSwitch); };
+    placeSort();
+    phone.addEventListener('change', placeSort);
+  }
   $('#reset-filter-btn').addEventListener('click', () => setFilter('all'));
   $('#more-btn').addEventListener('click', () => more());
   const notice = $('#fresh');
