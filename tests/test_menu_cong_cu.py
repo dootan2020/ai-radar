@@ -39,16 +39,38 @@ class GoogleAppsLauncherTests(unittest.TestCase):
         self.assertIn("more.rel = 'noopener noreferrer'", script)
         self.assertIn("Thêm từ Google", script)
 
-    def test_icons_are_lazy_and_have_an_accessible_fallback(self):
-        script = (ROOT / "site" / "menu-cong-cu.js").read_text(encoding="utf-8")
-        self.assertIn("image.dataset.iconUrl", script)
-        self.assertIn("image.src = image.dataset.iconUrl", script)
-        self.assertIn("fallback.textContent = name.slice(0, 1)", script)
-        # The letter holds the slot until the icon loads; offline or blocked, the letter stays and the icon never shows.
-        self.assertIn("image.hidden = true;\n    image.addEventListener('load', () => {\n      image.hidden = false;\n      fallback.hidden = true;",
-                      script.replace("\r\n", "\n"))
-        self.assertNotIn("fallback.hidden = false", script)
-        self.assertIn("image.alt = name", script)
+    def test_icons_are_bundled_vectors_that_call_no_server(self):
+        # Captain, 08/11: the remote 64px favicons were blurry on the iPhone ("Logo Account bị nhoè"). Each tile now
+        # draws its own SVG glyph, sharp at any density, and the panel fetches nothing when it opens.
+        for name in ("site", "extension"):
+            with self.subTest(copy=name):
+                script = (ROOT / name / "menu-cong-cu.js").read_text(encoding="utf-8")
+                self.assertNotIn("s2/favicons", script)
+                self.assertNotIn("<img", script)
+                self.assertNotIn("createElement('img')", script)
+                self.assertIn('<svg viewBox="0 0 24 24"', script)
+                self.assertIn("icon.setAttribute('aria-hidden', 'true')", script)
+                self.assertIn("link.setAttribute('aria-label', name)", script)
+                self.assertEqual(script.count("['"), 13 + 4, "13 apps and 4 phone destinations")
+        css = (ROOT / "site" / "menu-cong-cu.css").read_text(encoding="utf-8")
+        self.assertIn("oklch(var(--av-mono-bg) var(--app-hue))", css)
+        self.assertIn(".tool-launcher-icon{display:grid;place-items:center;width:44px;height:44px", css)
+
+    def test_phone_navigation_is_a_floating_dock(self):
+        # Captain, 08/11: "Menu ở chuyển thành appdock nổi như các dock hiện đại". The dock clears the screen edges and
+        # the home indicator, the current page's plate sits one padding inside the dock and its radius is the dock's
+        # radius minus that padding (the dock rule approved 03/11), and the page keeps room for it.
+        css = (ROOT / "site" / "menu-cong-cu.css").read_text(encoding="utf-8")
+        mobile = css.split("@media(max-width:767px){", 1)[1]
+        self.assertIn("bottom:calc(var(--dock-gap) + env(safe-area-inset-bottom))", mobile)
+        self.assertIn("left:max(var(--space-16),env(safe-area-inset-left))", mobile)
+        self.assertIn("border-radius:var(--dock-radius)", mobile)
+        self.assertIn("padding:var(--dock-pad)", mobile)
+        self.assertIn("border-radius:calc(var(--dock-radius) - var(--dock-pad))", mobile)
+        self.assertIn("body{padding-bottom:calc(var(--mobile-nav-h) + var(--dock-gap) * 2 + env(safe-area-inset-bottom))}", mobile)
+        self.assertIn("backdrop-filter:blur(20px) saturate(180%)", mobile)
+        self.assertIn("prefers-reduced-transparency:reduce", mobile)
+        self.assertNotIn("inset-inline:0;bottom:0", mobile)
 
     def test_panel_supports_keyboard_focus_and_responsive_motion(self):
         script = (ROOT / "site" / "menu-cong-cu.js").read_text(encoding="utf-8")

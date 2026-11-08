@@ -485,7 +485,7 @@ for (const total of [0, 1, 88, 999]) {
   configureNotice(0, total);
   newFeed.renderChips();
   assert.deepEqual(chips.map(b => b.innerHTML), ['Trang nhất', 'Chuyện lớn', 'Đang nóng', 'Sản phẩm', 'Nghiên cứu', 'Thảo luận', 'Mã và mô hình', 'Xếp hạng', 'Đã lưu']);
-  assert.equal(chips[0].count.textContent, total ? String(total) : '', 'the front page counts its stories; zero takes no room');
+  assert.equal(chips[0].count.textContent, '', 'no chip shows a story count (captain, 08/11)');
   assert.equal(chips[0].hidden, false, 'all remains available even with no stories');
   assert.equal(chips.find(b => b.dataset.filter === 'saved').hidden, true, 'empty saved tab stays hidden');
 }
@@ -497,17 +497,13 @@ newFeed.save([{key:'item-0'}]); newFeed.filter('all'); newFeed.renderChips();
 assert.equal(savedChip.hidden, false, 'saving reveals the named tab without a count');
 assert.equal(savedChip.innerHTML, 'Đã lưu');
 newFeed.filter('saved'); newFeed.renderSub();
-assert.match(nodes.get('#filter-context').innerHTML, /Đã lưu.*<span class="num">1<\/span> mục.*Bỏ lọc/);
-for (const [iso, wording] of [
-  [new Date().toISOString(), null],
-  ['2026-10-09T02:00:00Z', '09:00 ngày 9/10/2026'],
-  ['2025-12-31T18:30:00Z', '01:30 ngày 1/1/2026'],
-]) {
+assert.match(nodes.get('#filter-context').innerHTML, /Đã lưu.*Bỏ lọc/);
+assert.doesNotMatch(nodes.get('#filter-context').innerHTML, /class="num"/, 'the filter line carries no count (captain, 08/11)');
+for (const iso of [new Date().toISOString(), '2026-10-09T02:00:00Z']) {
   newFeed.sourceTime(iso);
   const html = nodes.get('#src-update').innerHTML;
-  assert.ok(html.includes(`datetime="${iso}"`));
-  assert.match(html, /Cập nhật lúc.*\d{2}:\d{2} ngày \d{1,2}\/\d{1,2}\/\d{4}.*nguồn/);
-  if (wording) assert.ok(html.includes(wording), 'old snapshots retain their full Vietnam date');
+  assert.equal(html, '<a class="src-link" href="nguon.html">Nguồn tin</a>', 'the footer is one link, no update time or count');
+  assert.equal(nodes.get('#src-update').dataset.generated, iso, 'the snapshot time stays readable by measurement scripts');
 }
 console.log('PASS new-story eligibility, expiry, focus, scroll, deep link, live polling, marks, filters and metadata');
 

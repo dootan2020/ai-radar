@@ -53,13 +53,16 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertNotIn("$('#stale')", self.js)
         self.assertNotIn("freshness.js", self.html + self.js)
 
-    def test_sections_name_their_view_and_count_its_stories(self):
-        # Mockup B (captain, 07/11): each section names itself and its story count; the count is drawn from the data
-        # and an empty count takes no room.
+    def test_sections_name_their_view_without_counts(self):
+        # Mockup B (captain, 07/11) named each section; on 08/11 the captain asked for clean filters with no story
+        # count ("Làm sạch bộ lọc, không hiển thị lượng tin"), and no line counting the window's stories.
         labels = re.findall(r'<span class="chip-label">([^<]+)</span>', self.html)
         self.assertEqual(labels, ["Trang nhất", "Chuyện lớn", "Đang nóng", "Sản phẩm", "Nghiên cứu", "Thảo luận", "Mã và mô hình", "Xếp hạng", "Đã lưu"])
-        self.assertIn("count.textContent = n ? String(n) : ''", self.js)
-        self.assertIn(".filter-chip .count:empty { display: none; }", (SITE / "trang-nhat.css").read_text(encoding="utf-8"))
+        self.assertNotIn('class="count', self.html)
+        self.assertNotIn("querySelector('.count')", self.js)
+        self.assertNotIn('<span class="count num">', self.js)
+        self.assertNotIn('id="front-fresh"', self.html)
+        self.assertNotIn("tin trong ${winH} giờ qua", self.js)
         self.assertNotIn("3ch", self.css)
 
     def test_header_preserves_tab_space_and_utilities(self):

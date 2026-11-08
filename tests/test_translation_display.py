@@ -143,11 +143,14 @@ class TranslationDisplayTests(unittest.TestCase):
         self.assertIn("var(--color-mt-ink)", self.feed_css)
         self.assertNotIn(".card-photo .mt", self.feed_css)
 
-    def test_feed_footer_names_translated_label(self):
-        self.assertIn('kèm nhãn “Translated”.', self.feed_js)
-        self.assertNotIn('kèm nhãn “dịch máy”.', self.feed_js)
-        self.assertIn('Tiêu đề gốc hiện khi mở bài đọc.', self.feed_js)
-        self.assertNotIn('tiêu đề gốc nằm ngay dưới', self.feed_js)
+    def test_sources_page_names_translated_label(self):
+        # The machine-translation credit moved from the home's footer to the sources page (captain, 08/11: the home
+        # carries no notes on how the site works).
+        nguon_js = (ROOT / "site" / "nguon.js").read_text(encoding="utf-8")
+        self.assertIn('NLLB-200 (giấy phép CC-BY-NC 4.0', nguon_js)
+        self.assertIn('kèm nhãn “Translated”.', nguon_js)
+        self.assertNotIn('kèm nhãn “dịch máy”.', nguon_js)
+        self.assertNotIn('Tiêu đề tiếng Việt là bản dịch máy', self.feed_js)
 
 
 if __name__ == "__main__":

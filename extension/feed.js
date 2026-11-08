@@ -856,8 +856,8 @@ function kickerHTML(st) {
   return `<p class="kicker">${bits.join('')}</p>`;
 }
 function leadFigures(st) {
-  const figs = [], n = nSrc(st), m = measureOf(st);
-  if (n > 1) figs.push(`<span class="fig"><b class="num">${n}</b><span>nguồn cùng đưa</span></span>`);
+  // The source count is already in the kicker and beside the source marks; the figures carry the source's own numbers.
+  const figs = [], m = measureOf(st);
   if (m) figs.push(`<span class="fig">${numB(m)}<span>${esc(m.word)}${m.where ? ` trên ${esc(m.where)}` : ''}</span></span>`);
   const hn = (st.coverage || []).map(c => c && c.metrics && c.metrics.comments).find(v => Number.isFinite(v) && v > 0);
   if (hn && (!m || m.word !== METRIC.comments)) figs.push(`<span class="fig"><b class="num">${fmt(hn)}</b><span>bình luận</span></span>`);
@@ -1107,7 +1107,7 @@ function whyHTML(st) {
 function renderHot(list = HOT) {
   if (!list.length) return '';
   return `<section class="tile tile-hot" aria-labelledby="hot-h">
-    <div class="tile-head"><h2 class="tile-title" id="hot-h">Đang nóng</h2><span class="tile-note">xếp theo số đo thật</span></div>
+    <div class="tile-head"><h2 class="tile-title" id="hot-h">Đang nóng</h2></div>
     <ol class="hot-list">${list.map((st, i) => {
       const img = pickImage(st), t = titleOf(st);
       return `<li><a class="hot-row ${statusClass(st)}" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
@@ -1232,43 +1232,11 @@ function selectedAreasPool(areaSet) {
   return list;
 }
 
-function areaRepoCount(aid) {
-  if (FIELD_DATA && FIELD_MAP.size) {
-    return areaPool(aid).length;
-  }
-  return asArray(D && D.repos).filter(r => repoAreas(r).includes(aid)).length;
-}
 
-function areaPoolIsRanked(areaSet) {
-  if (!FIELD_DATA || !FIELD_MAP.size) return false;
-  for (const aid of areaSet) {
-    const fids = AREA_FIELDS[aid] || [aid];
-    for (const fid of fids) {
-      const f = FIELD_MAP.get(fid);
-      if (f && f.status === 'ranked' && Array.isArray(f.ranked) && f.ranked.length) return true;
-    }
-  }
-  return false;
-}
 
-function areaListNote(areaSet) {
-  const ranked = areaPoolIsRanked(areaSet);
-  if (areaSet.size === 1) {
-    const aid = [...areaSet][0];
-    const a = AREAS.find(x => x.id === aid);
-    const name = a ? a.label : aid;
-    return ranked
-      ? `Kho mã xếp hạng theo số sao tăng 7 ngày trong mảng ${name}.`
-      : `Kho mã đang theo dõi trong mảng ${name}, xếp theo tổng số sao (đang tích luỹ lịch sử 7 ngày để xếp hạng).`;
-  }
-  const names = [...areaSet].map(aid => {
-    const a = AREAS.find(x => x.id === aid);
-    return a ? a.label : aid;
-  }).join(', ');
-  return ranked
-    ? `Kho mã xếp hạng theo số sao tăng 7 ngày trong ${areaSet.size} mảng (${names}).`
-    : `Kho mã đang theo dõi trong ${areaSet.size} mảng (${names}), xếp theo tổng số sao (đang tích luỹ lịch sử 7 ngày để xếp hạng).`;
-}
+
+
+
 
 const REPO_PAGE_SIZE = 6;
 const REPO_PAGE_DEFAULT = 4;
@@ -1294,11 +1262,7 @@ function rankedRepos() {
   const rk = rankings(); if (!rk) return null;
   return asArray(repoView === 'stars' ? rk[repoTotal] : (rk[repoView] || {})[repoWindow]).map(id => REPO.get(String(id))).filter(Boolean);
 }
-function windowGap() {
-  if (repoView === 'stars') return '';
-  const w = D.repos_meta && D.repos_meta.windows && D.repos_meta.windows[repoWindow];
-  return w && !w.measured ? `Chưa đo được số sao tăng ${winOf(repoWindow).phrase}${w.error ? `: ${w.error}` : ''}.` : '';
-}
+
 function repoMeasure(r) {
   if (repoView === 'stars') {
     const v = r[repoTotal];
@@ -1307,13 +1271,7 @@ function repoMeasure(r) {
   const g = r.stars_gained ? r.stars_gained[repoWindow] : null;
   return Number.isFinite(g) ? `<b class="num">+${fmt(g)}</b> ${esc(winOf(repoWindow).gained)}` : `chưa đo được số sao tăng ${esc(winOf(repoWindow).phrase)}`;
 }
-function repoListNote() {
-  if (repoView === 'stars') return `Kho mã AI đang thịnh hành trên GitHub, xếp theo tổng ${totalOf(repoTotal).unit}.`;
-  const w = winOf(repoWindow);
-  return repoView === 'usable'
-    ? `Kho mã gắn nhãn Dùng ngay (có lệnh cài, bản phát hành mới, giấy phép dễ dùng), xếp theo số sao tăng ${w.phrase} trên trang thịnh hành của GitHub.`
-    : `Kho mã AI tăng sao nhanh nhất ${w.phrase} trên trang thịnh hành của GitHub. Nhãn chỉ để tham khảo, không đổi thứ tự.`;
-}
+
 function formatRepoName(fullName) {
   const s = String(fullName || '');
   const slash = s.indexOf('/');
@@ -1331,8 +1289,8 @@ function repoControls(full, inList) {
     <div class="seg" role="group" aria-label="Chọn danh sách kho mã">${REPO_VIEWS.map(v => `<button class="seg-b" data-repo-view="${v.id}" aria-pressed="${String(repoView === v.id)}">${esc(v.label)}</button>`).join('')}</div>
     ${isArea ? '' : `<div class="seg seg-quiet" role="group" aria-label="${repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian'}">${second.map(x => `<button class="seg-b" data-repo-${x.kind}="${x.id}" aria-pressed="${x.on}">${esc(x.label)}</button>`).join('')}</div>`}
   </div>
-  <div class="area-chips" role="group" aria-label="Chọn mảng bạn quan tâm">${AREAS.map(a => `<button class="area-chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${esc(a.label)} <span class="count num">${areaRepoCount(a.id)}</span></button>`).join('')}</div>
-  <p class="tile-note repo-note">${isArea ? `${esc(areaListNote(areas))} <button class="text-btn" data-area-clear>Hiện mọi mảng</button>` : `${esc(repoListNote())} Chưa chọn mảng nào, nên hiện mọi mảng.`}</p>`;
+  <div class="area-chips" role="group" aria-label="Chọn mảng bạn quan tâm">${AREAS.map(a => `<button class="area-chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${esc(a.label)}</button>`).join('')}</div>
+  ${isArea ? '<p class="tile-note repo-note"><button class="text-btn" data-area-clear>Hiện mọi mảng</button></p>' : ''}`;
 }
 function repoCard(r, measure) {
   const desc = r.description_vi || r.description || '';
@@ -1364,11 +1322,7 @@ function renderRepos(full = false) {
   const pageSize = repoPageSize(isArea);
   const list = matching.slice(0, repoVisibleLimit);
   const remaining = matching.length - list.length;
-  const why = isArea
-    ? 'Không có kho mã nào ở mảng bạn chọn.'
-    : (windowGap() || 'Danh sách này chưa có kho mã nào.');
-  const step = Math.min(pageSize, remaining);
-
+  const why = isArea ? 'Không có kho mã nào ở mảng bạn chọn.' : 'Danh sách này chưa có kho mã nào.';
   return `<section class="tile tile-repos${full ? ' is-full' : ''}${isArea ? ' has-area' : ''}" aria-labelledby="repos-h">${head}
     ${repoControls(full, matching)}
     ${list.length ? `<div class="repo-row" id="repos-list">${list.map(r => {
@@ -1378,7 +1332,7 @@ function renderRepos(full = false) {
       return repoCard(r, measure);
     }).join('')}</div>`
       : `<p class="tile-note repo-empty">${esc(why)}${areas.size ? ' <button class="text-btn" data-area-clear>Hiện mọi mảng</button>' : ''}</p>`}
-    ${remaining > 0 ? `<div class="repo-more"><button class="repo-more-btn" data-repo-more="true" aria-controls="repos-list" aria-label="Xem thêm ${step} kho mã, còn ${remaining} kho mã">Xem thêm <span class="num">+${step}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span></button></div>` : ''}
+    ${remaining > 0 ? `<div class="repo-more"><button class="repo-more-btn" data-repo-more="true" aria-controls="repos-list">Xem thêm kho mã</button></div>` : ''}
     <div class="sr" role="status" aria-live="polite" id="repo-status"></div>
   </section>`;
 }
@@ -1420,14 +1374,9 @@ function showMoreRepos(moreBtn) {
 
   const remaining = total - repoVisibleLimit;
   const statusEl = document.getElementById('repo-status');
-  if (statusEl) {
-    statusEl.textContent = `Đã tải thêm ${nextSlice.length} kho mã. Đang hiện ${repoVisibleLimit} trên tổng số ${total} kho mã.`;
-  }
+  if (statusEl) statusEl.textContent = 'Đã tải thêm kho mã.';
 
-  const nextStep = Math.min(pageSize, remaining);
   if (remaining > 0) {
-    moreBtn.setAttribute('aria-label', `Xem thêm ${nextStep} kho mã, còn ${remaining} kho mã`);
-    moreBtn.innerHTML = `Xem thêm <span class="num">+${nextStep}</span> kho mã <span class="repo-more-remain">(còn ${remaining})</span>`;
     moreBtn.focus();
   } else {
     const container = moreBtn.closest('.repo-more');
@@ -1722,27 +1671,8 @@ function renderPicks() {
   $('#picks').hidden = !show;
   if (!show) return;
   const [first, second] = PICKLIST;
-  // The heading's note names the window the row really drew from: 24 hours, or the whole window when older stories filled in.
-  const subEl = $('#picks-sub');
-  const span = PICKLIST.every(st => GEN - ms(st.published_at) <= PICKS_MAX_AGE_H * 36e5) ? PICKS_MAX_AGE_H : winH;
-  if (subEl) subEl.textContent = `Các sự kiện lớn được từ 2 đến 4 nguồn tin độc lập cùng xác nhận trong ${span} giờ qua.`;
   $('#picks-grid').innerHTML = renderCard(first, 'lead', { why: true, full: !second })
     + (second ? renderCard(second, 'feature') : '');
-}
-
-/* "Cách chấm": written from WORTH, so the note always matches the code. */
-function renderHow() {
-  const W = WORTH, f1 = v => nf1.format(v);
-  $('#how-panel').innerHTML = `
-    <p>Mỗi tin trong ${winH} giờ qua được chấm từ bốn tín hiệu có sẵn trong dữ liệu. Không có điểm nào do người gõ tay.</p>
-    <ul class="how-list">
-      <li><b>Độ chú ý</b>, tối đa <span class="num">${W.attention}</span> điểm: điểm nóng của tin, tức thứ hạng con số của tin (điểm Hacker News, sao GitHub…) so với các tin khác cùng nguồn, nhân với độ mới. Chỉ tính khi tin thật sự nóng: con số thuộc nhóm 20% cao nhất của nguồn đó, hoặc tin có từ hai nơi đăng độc lập. Điểm nóng từ <span class="num">${W.attentionFull}</span> trở lên được đủ <span class="num">${W.attention}</span>.</li>
-      <li><b>Độ lan rộng</b>, tối đa <span class="num">${W.breadth}</span> điểm: mỗi nơi đăng độc lập thêm vào sau nơi đầu tiên được <span class="num">${f1(W.breadth / (W.breadthFull - 1))}</span> điểm, đủ khi có <span class="num">${W.breadthFull}</span> nơi.</li>
-      <li><b>Độ mới</b>: toàn bộ điểm giảm một nửa sau mỗi <span class="num">${W.halfLifeH}</span> giờ tính từ lần đưa tin gần nhất; phần độ mới có tối đa <span class="num">${W.freshness}</span> điểm. Kho mã chỉ có ngày tạo, không phải ngày đưa tin, nên kho mã chưa có lý do nào khác thì không được điểm độ mới.</li>
-      <li><b>Nguồn gốc</b>: tin do chính phòng nghiên cứu công bố, hoặc bài báo gốc của nhóm nghiên cứu, được nhân <span class="num">${f1(W.firstHand)}</span>.</li>
-    </ul>
-    <p>Ngọn lửa trước tiêu đề đánh dấu tin đang nóng: điểm nóng từ <span class="num">${W.hotLabel}</span> trở lên. Dòng chữ nhỏ trên thẻ ghi nguồn gốc của tin, như một hãng tự công bố hay bài báo gốc. Chỉ tin mang dòng “Biên tập chọn” là do người chọn.</p>
-    <p>Trọng số hiện là phỏng đoán ban đầu, sẽ được chỉnh lại sau một tuần dữ liệu thật.</p>`;
 }
 
 /* ==========================================================================
@@ -1926,18 +1856,11 @@ function renderChunk(limit) {
 function updateMore() {
   const left = totalCards - shownCards;
   $('#feed-more').hidden = left <= 0;
-  $('#more-btn').textContent = `Xem thêm ${Math.min(PAGE_MORE, left)} tin`;
   $('#feed-end').hidden = left > 0 || !totalCards;
 }
 
-/* The end block speaks for what this view holds: the whole feed, or only the filtered stories. */
+/* The end block offers the next action for this view; it carries no counts (captain, 08/11). */
 function renderEnd() {
-  const n = listFor(filter).length;
-  const every = D.freshness && Number(D.freshness.expected_interval_seconds);
-  const cadence = Number.isFinite(every) && every > 0 ? ` Bản tin được làm mới khoảng ${Math.round(every / 60)} phút một lần.` : '';
-  $('#feed-end-stats').innerHTML = filter === 'all'
-    ? `Bạn đã xem hết <span class="num">${n}</span> tin trong ${winH} giờ qua, từ <span class="num">${srcCount}</span> nguồn.${cadence} Mỗi tin đều dẫn về bài gốc.`
-    : `Bạn đã xem hết <span class="num">${n}</span> tin trong nhóm ${esc(LABELS[filter])}.`;
   $('#mark-all-btn').textContent = filter === 'all' ? 'Đánh dấu đã xem hết' : 'Đánh dấu nhóm này đã xem';
 }
 
@@ -2021,19 +1944,14 @@ function focusStory(el) {
 /* ---------- head, filters, new items ---------- */
 let winH = 72, srcCount = 0;
 const LABELS = {};
-const DATE_VN = new Intl.DateTimeFormat('vi-VN', { day: 'numeric', month: 'numeric', year: 'numeric', timeZone: TZ });
-function updatedAt(iso) {
-  const d = new Date(iso);
-  return `${hhmm(d)} ngày ${DATE_VN.format(d)}`;
-}
 function renderSub() {
   const sub = $('#filter-context');
   sub.hidden = filter === 'all';
   if (sub.hidden) {
     sub.textContent = '';
   } else {
-    const s = secOf(filter), n = filter === 'saved' ? saved.length : listFor(filter).length;
-    sub.innerHTML = `${s ? 'Đang xem mục' : 'Đang lọc'}: ${esc(LABELS[filter] || '')} · <span class="num">${n}</span> ${filter === 'saved' ? 'mục' : 'tin'} <button class="text-btn" data-reset>${s ? 'Về dòng tin' : 'Bỏ lọc'}</button>`;
+    const s = secOf(filter);
+    sub.innerHTML = `${s ? 'Đang xem mục' : 'Đang lọc'}: ${esc(LABELS[filter] || '')} <button class="text-btn" data-reset>${s ? 'Về dòng tin' : 'Bỏ lọc'}</button>`;
   }
 }
 function renderChips() {
@@ -2043,22 +1961,15 @@ function renderChips() {
     const n = !D ? 0 : f === 'all' ? allStories.length : f === 'saved' ? saved.length : f === 'rankings' ? 0 : listFor(f).length;
     b.hidden = f !== 'all' && f !== 'rankings' && n === 0 && f !== filter;
     b.setAttribute('aria-pressed', String(f === filter));
-    const count = b.querySelector('.count');
-    if (count) { count.textContent = n ? String(n) : ''; count.setAttribute('aria-label', n ? `${n} tin` : ''); }
   });
   const container = $('#feed-filters');
   const active = container ? container.querySelector('.filter-chip[aria-pressed="true"]') : null;
   if (container && active) glideTab(container, active);
 }
-/* The line above the bento: which view this is, how many stories the window holds and when it was made. */
+/* The line above the bento names the view; it carries no story count or update time (captain, 08/11). */
 function renderFrontMeta() {
   const h = $('#front-h');
   if (h) h.textContent = filter === 'all' ? 'Trang nhất' : (LABELS[filter] || '');
-  const el = $('#front-fresh');
-  if (!el) return;
-  if (!D || filter === 'rankings') { el.textContent = ''; return; }
-  const gen = new Date(D.generated_at), today = dayKey(new Date()) === dayKey(gen);
-  el.innerHTML = `<span class="num">${allStories.length}</span> tin trong ${winH} giờ qua · cập nhật <time datetime="${esc(D.generated_at)}" title="${esc(exact(D.generated_at))}">${today ? 'hôm nay' : esc(DATE_VN.format(gen))} lúc ${esc(hhmm(gen))}</time>`;
 }
 /* Keep the Arena deep link when its tab is selected; news filters retain their existing URL behavior. */
 function setFilter(f, fromHash = false) {
@@ -2180,11 +2091,11 @@ function freshItem(st) {
     <span class="brief-h"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}${translationMark(t)}</span></a></li>`;
 }
 function freshInnerHTML() {
-  const { list, hours } = D && filter === 'all' ? newestStories() : { list: [], hours: 0 };
+  const { list } = D && filter === 'all' ? newestStories() : { list: [] };
   if (!list.length) return '';
   // Five rows sit beside two cards (mockup B); a batch the "N tin mới" pill pinned is shown whole.
   const shown = list.slice(0, Math.max(FRESH_TILE_ROWS, freshIds.filter(id => !read.has(id)).length));
-  return `<div class="tile-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2><span class="tile-note">giờ đăng, trong <span class="num">${hours}</span> giờ qua</span></div>
+  return `<div class="tile-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2></div>
     <ul class="briefs fresh-list" data-n="${shown.length}">${shown.map(freshItem).join('')}</ul>`;
 }
 function freshTileHTML() {
@@ -2307,53 +2218,12 @@ function applyPending() {
   setTimeout(() => { arrived = new Set(); }, 3000);
 }
 
-/* ---------- every source of the snapshot, the live layer, and how the page works ---------- */
-let liveState = null;
-function liveRows() {
-  if (!liveState) return '<li class="src-wait">Lớp trực tiếp đang đọc lần đầu</li>';
-  return [...liveState.values()].map(s => `<li><span class="dot ${s.ok === true ? 'ok' : s.ok === false ? 'warn' : ''}" aria-hidden="true"></span><a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.label)}</a>
-    <span class="src-n">${s.at ? `${s.ok ? `${s.matched} tin khớp · ` : ''}${hhmm(s.at)}` : 'đang đọc'}</span>${s.error ? `<span class="src-err">${esc(s.error)}. Đang giữ số trong bản tin.</span>` : ''}</li>`).join('');
-}
-function translationNote() {
-  const t = D.translation;
-  if (!t || typeof t !== 'object') return 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
-  const done = Number.isFinite(t.translated) && t.translated > 0;
-  const base = done ? 'Tiêu đề tiếng Việt là bản dịch máy bằng mô hình NLLB-200 (giấy phép CC-BY-NC 4.0, chỉ dùng phi thương mại), kèm nhãn “Translated”. Tiêu đề gốc hiện khi mở bài đọc.' : 'Tiêu đề giữ nguyên tiếng Anh như bài gốc.';
-  const left = Number.isFinite(t.pending) && t.pending > 0 ? ` Còn ${fmt(t.pending)} tiêu đề chưa dịch kịp, đang hiện bản gốc.` : '';
-  return `${base}${t.error_vi ? ` ${esc(t.error_vi)}` : left}`;
-}
-function footHTML() {
-  const r = D.ranking;
-  const rank = r ? `Xếp hạng nóng: ${esc(r.description || 'xếp theo số đo của từng nguồn')}, cửa sổ ${esc(r.window_hours)} giờ${r.description && r.calibration ? `, hiệu chỉnh: ${esc(r.calibration)}` : ''}. Đây là cách xếp theo số đo, không phải phán xét tầm quan trọng.` : 'Bản dữ liệu này không mô tả cách xếp hạng nóng.';
-  const scoring = ' Điểm đáng đọc được tính tự động từ 4 tín hiệu số đo (độ chú ý, độ lan rộng nhiều nguồn, độ mới và công bố gốc), không có điểm gõ tay.';
-  const views = D.views && Number.isFinite(D.views.total) ? ` Lượt xem trên Halcyon: <span class="num">${fmt(D.views.total)}</span>, đo lúc ${esc(exact(D.views.measured_at))}, không dùng cookie.` : '';
-  const local = storageOk ? 'Mốc đã xem, tin đã đọc, tin đã lưu và lựa chọn của bạn chỉ lưu trên máy này.'
-    : 'Trình duyệt đang chặn bộ nhớ cục bộ, nên mốc đã xem, tin đã lưu và lựa chọn của bạn chỉ giữ tới khi đóng trang.';
-  return `Dữ liệu tạo lúc ${esc(exact(D.generated_at))} giờ Việt Nam. ${rank}${scoring} ${translationNote()}${views} ${local}`;
-}
+/* ---------- the footer: one quiet way to the sources page, no counts or update times (captain, 08/11) ---------- */
 function renderSources() {
   const el = $('#src-update');
-  if (el) {
-    const totalSrc = asArray(D.sources).length || srcCount;
-    el.innerHTML = `Cập nhật lúc <time datetime="${esc(D.generated_at)}">${esc(updatedAt(D.generated_at))}</time> · <a class="src-link" href="https://radar-ai-vn.pages.dev/nguon.html"><span class="num">${totalSrc}</span> nguồn</a>`;
-  }
-  const noteEl = $('#src-note');
-  if (noteEl) {
-    const srcs = asArray(D.sources), bad = srcs.filter(s => !s.ok);
-    noteEl.innerHTML = `<span class="num">${srcs.length - bad.length}/${srcs.length}</span> nguồn chạy được lúc ${esc(hhmm(new Date(D.generated_at)))}. Mỗi nguồn kèm số tin lấy được.`;
-  }
-  const listEl = $('#src-list');
-  if (listEl) {
-    const srcs = asArray(D.sources);
-    listEl.innerHTML = [...srcs].sort((a, b) => a.ok - b.ok || (b.count || 0) - (a.count || 0)).map(s => `<li${s.ok ? '' : ' class="is-bad"'}>${avatar(faceOfSource({ source: s.id, lab: s.lab, publisher: s.publisher }, SRC), 'xs')}<a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.name || s.id)}</a>
-    <span class="src-n num">${s.ok ? `${s.count ?? 0} tin` : 'lỗi'}</span>${s.error ? `<span class="src-err">${esc(s.error_vi || 'Không đọc được nguồn này')}</span>` : ''}</li>`).join('');
-  }
-  const liveEl = $('#src-live');
-  if (liveEl) liveEl.innerHTML = liveRows();
-  const footEl = $('#src-foot');
-  if (footEl) footEl.innerHTML = footHTML();
-  const nguonEl = $('#nguon');
-  if (nguonEl) nguonEl.hidden = false;
+  if (!el) return;
+  el.dataset.generated = D.generated_at || '';
+  el.innerHTML = '<a class="src-link" href="https://radar-ai-vn.pages.dev/nguon.html">Nguồn tin</a>';
 }
 
 /* ---------- live counters (live.js, as on the bento home): the numbers on screen follow the sources ---------- */
@@ -2651,17 +2521,6 @@ function attachEvents() {
     if (filter === 'all') markSeen();
     else toast('Đã đánh dấu nhóm này đã xem');
   });
-  const howBtn = $('#how-btn');
-  if (howBtn) {
-    howBtn.addEventListener('click', () => {
-      const panel = $('#how-panel');
-      if (!panel) return;
-      const open = panel.hidden;
-      panel.hidden = !open;
-      howBtn.setAttribute('aria-expanded', String(open));
-      howBtn.textContent = open ? 'Ẩn cách chấm' : 'Cách chấm';
-    });
-  }
   $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
   window.addEventListener('resize', () => {
     positionNewItems();
@@ -2729,7 +2588,6 @@ function ingest(data) {
 }
 function renderAll() {
   renderChips();
-  renderHow();
   renderSortSwitch();
   renderFeed();
   renderSources();
@@ -2766,7 +2624,7 @@ async function startLiveLayer() {
       getStories: () => D.stories,
       priority: hnId => { const st = asArray(D.stories).find(s => (s.coverage || []).some(c => (c.discussion_url || '').endsWith('=' + hnId))); return st ? (st.hot_score || 0) : 0; },
       onUpdates: applyLive,
-      onStatus: st => { liveState = st; const el = $('#src-live'); if (el) el.innerHTML = liveRows(); },
+      onStatus: () => {},
     });
   } catch (e) { console.warn('live counters unavailable; the snapshot numbers stay', e); }
 }
@@ -2841,7 +2699,6 @@ async function init() {
     mergeFieldRepos();
     sortMode = store.get(K.sort, store.get(LEGACY.sort, 'worth')) === 'new' ? 'new' : 'worth';
     for (const [k, s] of Object.entries(SECTIONS)) LABELS['sec:' + k] = s.label;
-    $('#feed-empty p').textContent = `Trong ${winH} giờ qua chưa có tin thuộc nhóm này. Chọn nhóm khác hoặc xem tất cả.`;
     renderAll();
   } catch (err) {
     console.error('feed load failed', err);
@@ -2851,7 +2708,7 @@ async function init() {
     $('#feed-grid').innerHTML = '';
     const em = $('#feed-empty');
     em.querySelector('h2').textContent = 'Chưa nạp được dòng tin';
-    em.querySelector('p').textContent = 'Lỗi mạng hoặc dữ liệu không hợp lệ. Trang không thay bằng tin mẫu.';
+    em.querySelector('p').textContent = 'Bạn kiểm tra kết nối mạng rồi thử lại nhé.';
     const b = $('#reset-filter-btn');
     b.textContent = 'Tải lại';
     b.addEventListener('click', () => location.reload());

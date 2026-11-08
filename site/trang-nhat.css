@@ -56,8 +56,6 @@
 .newsbar .filter-chip[aria-pressed="true"] { --header-control-bg: var(--color-surface); color: var(--color-ink); font-weight: var(--weight-semibold); }
 .newsbar .has-pill .filter-chip[aria-pressed="true"] { --header-control-bg: transparent; }
 .newsbar .feed-filters .tab-pill { background: var(--color-surface); box-shadow: 0 0 0 1px var(--color-hair); }
-.filter-chip .count { font-size: var(--size-12); font-weight: var(--weight-medium); color: var(--color-ink-3); }
-.filter-chip .count:empty { display: none; }
 
 .icon-btn {
   display: inline-grid; place-items: center; width: var(--btn-h); height: var(--btn-h); flex: none; border-radius: var(--radius-full);
@@ -113,8 +111,7 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
 .feed-main.front { max-width: calc(var(--front-max) + 2 * var(--page-pad)); padding-inline: var(--page-pad); }
 .front-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) var(--space-16); margin: 0 0 var(--space-16); min-height: var(--btn-h); }
 .front-h { font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-ink-2); }
-.front-fresh { margin-inline-start: auto; font-size: var(--text-meta); color: var(--color-ink-3); }
-.front-meta .sort-switch { flex: none; }
+.front-meta .sort-switch { flex: none; margin-inline-start: auto; }
 
 /* ---------- bento ---------- */
 .bento { display: grid; grid-template-columns: repeat(var(--front-cols), minmax(0, 1fr)); gap: var(--bento-gap); grid-auto-flow: row; align-items: stretch; }
@@ -279,7 +276,6 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
 
   .front { padding-top: var(--space-16); }
   .front-h { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .front-fresh { margin-inline-start: 0; flex: 1; }
   .bento { grid-template-columns: minmax(0, 1fr); }
   .bento > *, .bento > .card-small, .bento .sk-card { grid-column: 1 / -1; }
   .bento .card-lead .card-title { font-size: var(--size-28); }
