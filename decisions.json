@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08T13:18:45.549367+00:00",
-  "input_generated_at": "2026-11-08T12:36:42Z",
+  "generated_at": "2026-11-08T15:29:18.312389+00:00",
+  "input_generated_at": "2026-11-08T13:37:29Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -39187,17 +39187,17 @@
       "use_original_title": true,
       "source_url": "https://www.wired.com/story/nyt-cooking-new-ai-powered-recipe-modifier-is-pretty-good/",
       "key_points": [
-        "The New York Times đang thử nghiệm AI sửa công thức cho người đăng ký trong bản thử nghiệm trên iOS. Tạp chí WIRED cho biết thông báo này vấp phải 172 bình luận phản đối dữ dội cùng nhiều lời đe dọa hủy đăng ký.",
-        "Bà Camilla Velasquez, tổng quản lý NYT Cooking, cho biết AI đưa ra gợi ý dựa vào công thức gốc, hướng dẫn thay thế nguyên liệu, bình luận người dùng và chuyên môn tòa soạn. Biên tập viên tham gia lập quy tắc ban đầu, đánh giá vận hành và mọi thay đổi đều hiển thị bằng màu cam đỏ.",
-        "Khi thử nghiệm thay đổi nguyên liệu trong công thức của Alison Roman, tác giả trên WIRED yêu cầu đổi thịt đùi có xương thành ức gà rút xương. Hệ thống tự giảm thời gian ninh và thêm bơ, nhưng tác giả ghi nhận công cụ chỉ dẫn đun thịt ức xé nhỏ thêm 30 phút làm giảm độ mọng nước.",
-        "Tác giả trên WIRED đánh giá tính năng là ví dụ hiếm hoi cải thiện sản phẩm bằng công nghệ, dù bản sửa đổi kèm lưu ý chưa được tác giả công thức gốc kiểm nghiệm hay chứng thực. Bà Velasquez cho biết người dùng có thể ẩn tính năng này, đồng thời The New York Times hiện chỉ thử nghiệm trên iOS."
+        "The New York Times bắt đầu thử nghiệm tính năng AI cho phép người đăng ký sửa đổi công thức nấu ăn trên iOS. Tạp chí WIRED cho biết thông báo ngày 23 tháng 10 nhận 172 bình luận gần như toàn bộ giận dữ trước khi bị đóng.",
+        "Về làn sóng phản đối, tác giả trên WIRED đoán người bình luận giận dữ vì lo mất kết nối giữa người với người. Bà Camilla Velasquez, tổng quản lý NYT Cooking, nêu rõ AI chỉ là trợ thủ và người dùng không nên trò chuyện với nó, dù một số người vẫn dùng chatbot để chỉnh tỷ lệ.",
+        "Khi thử nghiệm, tác giả trên WIRED đã yêu cầu AI đổi đùi gà thành ức gà trong công thức của Alison Roman. Ứng dụng tự giảm thời gian ninh và thêm bơ, nhưng tác giả nhận thấy thịt ức xé đun thêm 30 phút kém mọng nước rõ rệt so với đùi gà.",
+        "Tác giả trên WIRED đánh giá tính năng là ví dụ hiếm hoi cải thiện dần sản phẩm bằng công nghệ, dù công thức tạo ra kèm cảnh báo chưa được tác giả gốc chứng thực. Bà Velasquez cho biết người dùng sẽ có thể ẩn tính năng AI, và tờ báo hiện chỉ thử nghiệm giới hạn trên iOS."
       ],
       "same_event_coverage_ids": [
         "95b5958e6d9dcdf26263"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "NYT Cooking thử nghiệm AI sửa công thức trên iOS giữa làn sóng phản đối của độc giả",
+      "editorial_headline_vi": "NYT Cooking thử nghiệm AI sửa công thức trên iOS dù vấp phải nhiều bình luận giận dữ từ độc giả",
       "summary_sources": [
         {
           "id": "outlet",
@@ -39219,23 +39219,17 @@
           "notable": 9,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "172 bình luận phản đối dữ dội",
-            "explanation": "The source counts 172 comments in total and says they were almost exclusively angry; it does not say every one was a protest (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The Vietnamese makes the full count sound like a count of protesting comments.",
-            "fix": "Say there were 172 comments, almost all angry (outlet:p004)."
+            "question": "why",
+            "problem": "Readers do not learn the feature’s principal practical uses.",
+            "fix": "Add that it helps substitute ingredients or equipment and adapt recipes to dietary needs (outlet:p010, outlet:p016, outlet:p028)."
           },
           {
-            "question": "why",
-            "problem": "Readers do not get the source’s tentative explanation for the backlash.",
-            "fix": "If explaining the opposition, attribute to the writer the guess that commenters feared losing their connection with the Cooking team; present it as a guess (outlet:p030)."
+            "question": "notable",
+            "problem": "Readers do not learn how to check an AI-modified recipe against the original.",
+            "fix": "Mention that changes are visibly marked and users can switch between the modified and original versions (outlet:p010, outlet:p018)."
           }
         ],
         "writer_boats": [
@@ -39243,8 +39237,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "9c48422a5be39fcb1e5c3561127d168767ab9d28b398c15e13b44f995220e4e7",
-        "scored_at": "2026-11-08T13:18:45.504415+00:00"
+        "prose_sha256": "76476016e942ab004fd554bc297d91ecc136d6bde8f4f61e7bf7c93266f139ea",
+        "scored_at": "2026-11-08T15:29:18.307902+00:00"
       }
     },
     {
@@ -39283,17 +39277,17 @@
       "use_original_title": false,
       "source_url": "https://www.scmp.com/tech/big-tech/article/3373697/ai-will-soon-master-biology-unleashing-new-safety-risks-tencent-ai-chief-warns",
       "key_points": [
-        "Ông Vinces Yao Shunyu, nhà khoa học AI trưởng của Tencent Holdings, nhận định các mô hình AI sẽ sớm làm chủ sinh học và tạo ra rủi ro an toàn nghiêm trọng song hành cùng lợi ích.",
-        "Theo bài viết trên báo South China Morning Post, công nghệ AI tiên tiến đang mở rộng ứng dụng trong y học với tiềm năng thúc đẩy nhanh tiến độ tìm kiếm các loại thuốc điều trị mới.",
-        "Dù vậy, các chuyên gia cảnh báo nguy cơ kẻ xấu dùng AI tạo vũ khí sinh học hoặc khơi mào đại dịch, nhất là khi mô hình được phát hành dưới dạng phần mềm mở trọng số.",
-        "Tại hội thảo khoa học ở Hồng Kông, ông Yao cảnh báo năng lực sinh học của AI sẽ sớm đạt ngưỡng có thể gây hại thực tế tương tự năng lực tấn công mạng hiện nay."
+        "Ông Vinces Yao Shunyu, nhà khoa học AI trưởng của Tencent Holdings, nhận định các mô hình AI sẽ sớm làm chủ sinh học, đem lại cả lợi ích lẫn rủi ro an toàn nghiêm trọng.",
+        "Các hệ thống AI tiên tiến ngày càng được ứng dụng vào y học và sinh học, có thể đẩy nhanh việc tìm kiếm thuốc mới cùng các phương pháp điều trị khác.",
+        "Dù vậy, các chuyên gia cảnh báo nguy cơ kẻ xấu lợi dụng AI tạo vũ khí sinh học hoặc khơi mào đại dịch, nhất là khi mô hình mở trọng số.",
+        "Tại hội thảo khoa học do Viện Hàn lâm Khoa học Hồng Kông và Giải thưởng Khoa học Tương lai đồng tổ chức, ông Yao cảnh báo năng lực mạng và sắp tới là năng lực sinh học của AI sẽ đạt ngưỡng có thể gây hại thực tế."
       ],
       "same_event_coverage_ids": [
         "cdebd0a09d1f4c3e6aa6"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Chuyên gia AI của Tencent cảnh báo mô hình AI sắp làm chủ sinh học và tạo nguy cơ an toàn lớn",
+      "editorial_headline_vi": "Chuyên gia Tencent cảnh báo mô hình AI sắp làm chủ sinh học mang lại cả lợi ích lẫn rủi ro",
       "summary_sources": [
         {
           "id": "outlet",
@@ -39306,44 +39300,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 8,
-          "meaning": 6
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "tương tự năng lực tấn công mạng hiện nay",
-            "explanation": "Yao says cyber capabilities and, soon, biological capabilities will reach a threshold where harm is possible; he does not say cyber capabilities have already reached it (outlet:p012)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "ở Hồng Kông",
-            "explanation": "The source identifies a symposium co-hosted by the Hong Kong Academy of Sciences but does not state where the symposium took place (outlet:p012)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The comparison makes the cyber harm threshold sound like an established present fact.",
-            "fix": "Describe Yao’s warning as a future threshold for cyber capabilities and, soon, biological capabilities (outlet:p012)."
-          },
-          {
-            "question": "notable",
-            "problem": "The Vietnamese assigns the symposium a location the source does not give.",
-            "fix": "Identify it as a symposium co-hosted by the Hong Kong Academy of Sciences, without stating its location (outlet:p012)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "277323addb22d06139af706f3a5747ac30eeaed6ea56f00c6b4ccc155e3bdf8c",
-        "scored_at": "2026-11-08T13:14:29.761429+00:00"
+        "prose_sha256": "ef3cbb507e585799ca9771fefc25617da09c99cdcb5df4ff2fc745a84229927c",
+        "scored_at": "2026-11-08T15:24:55.927532+00:00"
       }
     },
     {
@@ -39466,6 +39438,109 @@
         "prose_sha256": "0dff7b09277976070378c91dca149c6a0595143bc63696bc4a058e4975a6f521",
         "scored_at": "2026-11-08T13:14:29.761493+00:00"
       }
+    },
+    {
+      "id": "92592795d1cfe8de0e5b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.com/RapidSailorFreeze/studsmith",
+      "key_points": [
+        "Theo trang dự án trên GitHub, Studsmith là ứng dụng Windows miễn phí hỗ trợ làm game Roblox nhanh hơn. Công cụ đóng vai trò tác nhân AI (phần mềm trí tuệ nhân tạo tự thực hiện tác vụ) cho Roblox Studio, tự viết mã Luau và cung cấp bản tải về Studsmith-win-x64.zip.",
+        "Vòng lặp chạy thử tự sửa lỗi sẽ vận hành trò chơi, đọc lỗi phát sinh và tự động khắc phục. Người dùng có thể xem trước khác biệt mã trước khi áp dụng và hoàn tác tác vụ bằng các điểm khôi phục.",
+        "Trang dự án khẳng định Studsmith là dự án độc lập, không liên kết hay nhận tài trợ từ Roblox Corporation. Phần mềm yêu cầu Windows 10 hoặc 11 64-bit và có thể hiện cảnh báo SmartScreen khi chưa có chữ ký số."
+      ],
+      "same_event_coverage_ids": [
+        "404e0db42db15f916ae2"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Studsmith là ứng dụng Windows miễn phí hỗ trợ lập trình và sửa lỗi trong Roblox Studio",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.com/RapidSailorFreeze/studsmith"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader misses the central workflow that explains how the app helps people build faster.",
+            "fix": "Say that users describe a feature in plain language and Studsmith produces a plan, Luau code, and game changes (outlet:p004, outlet:p009–p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4029f83745113dc60d6585b085fd5bfcd926179d67120b7d6c94bc624d6b1139",
+        "scored_at": "2026-11-08T15:17:30.405684+00:00"
+      }
+    },
+    {
+      "id": "b83b95f18bfa4adc6321",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-08/asia-markets-brace-for-more-ai-volatility-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "44363dae910da845c44f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "30f305e8ada3c28be117",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social chatter/forum post expressing a personal decision not to use LLMs without substantive reporting or an editorial news announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.polso.info/why-i-will-not-be-using-llms-coding",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7e0f73d436adcc2e1a92"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
