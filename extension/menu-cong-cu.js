@@ -103,8 +103,12 @@
     ['ban-tin.html', 'Bản tin', '<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4m8-4v4M4 10h16"/>'],
     // The search lives in the home's news bar (07/11); on the home itself the link only opens it.
     ['index.html#tim', 'Tìm tin', '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>'],
-    ['nguon.html', 'Nguồn', '<path d="M5 5h14v14H5zM8 9h8M8 13h8M8 17h5"/>']
+    // Owner, 09/11: every story names its source, so the dock drops "Nguồn" (the page stays, linked from the footer)
+    // and gives the place to the upcoming events, the home's "Sắp diễn ra" view.
+    ['index.html#sap-toi', 'Sự kiện', '<path d="M20 11V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5M8 3v4m8-4v4M4 10h16"/><circle cx="17" cy="17" r="4"/><path d="M17 15.5V17l1 1"/>']
   ];
+  const DEST = { 'index.html': 'feed', 'index.html#sap-toi': 'events' };
+  const eventsOpen = !story && current === 'index.html' && location.hash === '#sap-toi';
   const mobileNav = document.createElement('nav');
   mobileNav.className = 'mobile-nav';
   mobileNav.setAttribute('aria-label', 'Điều hướng chính');
@@ -113,7 +117,9 @@
     link.href = !story && current === 'index.html' && file.startsWith('index.html#') ? file.slice('index.html'.length) : file === 'index.html' ? '#top' : file.startsWith('index.html#') ? file.slice(10) : `https://radar-ai-vn.pages.dev/${file}`;
     link.className = 'mobile-nav-link';
     if (file === 'ban-tin.html') link.setAttribute('aria-label', 'Bản tin sáng');
-    if (file === current || (page === 'bento.html' && file === 'index.html')) link.setAttribute('aria-current', 'page');
+    if (DEST[file]) link.dataset.dest = DEST[file];   // the home's feed.js moves the mark between these two
+    const here = file === 'index.html#sap-toi' ? eventsOpen : file === current && !(file === 'index.html' && eventsOpen);
+    if (here || (page === 'bento.html' && file === 'index.html')) link.setAttribute('aria-current', 'page');
     link.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths}</svg><span>${label}</span>`;
     mobileNav.append(link);
   }

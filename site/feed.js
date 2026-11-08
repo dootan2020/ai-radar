@@ -965,6 +965,48 @@ function scrollShelf(btn) {
   ul.scrollBy({ left: Number(btn.dataset.shelf) * per * step, behavior: RM.matches ? 'auto' : 'smooth' });
 }
 
+/* ---------- the front page's next event, beside the calendar ----------
+   Owner, 09/11: "Đưa sự kiện sắp diễn ra lên phần đầu trang, đặt nó ở vị trí phù hợp." The calendar card says what day
+   it is; the cell to its left says what is coming: a stream that is on or about to start, then the nearest verified
+   event with its countdown, its calendar export and its source. Every event, and a past stream's replay, are in
+   "Sắp diễn ra" (#sap-toi), which the dock's "Sự kiện" opens. Nothing coming: no card, and a story takes the cell. */
+const upcomingEvents = () => asArray(D && D.events).filter(e => eventSpan(e).end > Date.now())
+  .sort((a, b) => eventSpan(a).start - eventSpan(b).start);
+const nextStream = () => { const v = asArray(D && D.live); return v.find(x => x.status === 'live') || v.find(x => x.status === 'upcoming') || null; };
+/* The dates as a calendar would print them: the days large, the month and year under them. */
+function evDateHTML(e) {
+  const p = s => /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || '');
+  const a = p(e.start_date), b = p(e.end_date) || a;
+  if (!a) return '';
+  const days = b[0] === a[0] ? `${+a[3]}` : b[2] === a[2] && b[1] === a[1] ? `${+a[3]}–${+b[3]}` : `${+a[3]}/${+a[2]}–${+b[3]}/${+b[2]}`;
+  const under = b[2] === a[2] && b[1] === a[1] ? `Tháng ${+a[2]} · ${a[1]}` : a[1] === b[1] ? a[1] : `${a[1]}–${b[1]}`;
+  return `<span class="ev-date" aria-hidden="true"><b class="num">${days}</b><span>${under}</span></span>`;
+}
+function renderNext() {
+  const it = nextStream(), events = upcomingEvents(), e = events[0];
+  if (!it && !e) return '';
+  const live = !!it && it.status === 'live';
+  const all = events.length > 1 ? '<a class="ev-all" href="#sap-toi">Xem tất cả</a>' : '';
+  const stream = it ? `<a class="ev-stream" href="${esc(safe(it.url))}" target="_blank" rel="noopener">
+      <span class="ev-stream-k${live ? ' is-live' : ''}">${live ? '<span class="cd-dot" aria-hidden="true"></span>Trực tiếp' : esc(scheduleText(it.time_text))}${live && it.channel ? ` · ${esc(it.channel)}` : ''}</span>
+      <span class="ev-stream-t"${langAttr(it.title)}>${esc(it.title)}</span></a>
+    ${!e && !live ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}` : '';
+  let event = '';
+  if (e) {
+    const st = asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
+    const range = eventRange(e.start_date, e.end_date), when = eventWhen(e);
+    const rest = when.startsWith(range) ? when.slice(range.length).replace(/^ · /, '') : when;
+    event = `<div class="ev-next${st ? ` ${statusClass(st)}` : ''}"${st ? ` data-sid="${esc(st.id)}"` : ''}>
+      <a class="ev-link" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>${evDateHTML(e)}<span class="sr">${esc(range)}: </span>
+        <span class="ev-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>${rest ? `<span class="ev-when">${esc(rest)}</span>` : ''}</a>
+      <div class="ev-foot">${countdownHTML(e)}${calButtons(eventCal(e), st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</div></div>`;
+  }
+  return `<section class="msn-card msn-ev" id="su-kien" aria-labelledby="ev-h">
+    <div class="ev-head"><h2 id="ev-h">${live ? 'Đang phát' : 'Sắp diễn ra'}</h2>${all}</div>${stream}${event}</section>`;
+}
+/* "Sắp diễn ra" with nothing coming and no story to show: one calm line where the list would be. */
+const eventsEmptyHTML = () => '<p class="msn-card ev-empty" role="status">Chưa có sự kiện nào sắp diễn ra.</p>';
+
 /* ---------- tile: hot, and why ---------- */
 function whyHTML(st) {
   const m = measureOf(st), n = nSrc(st), parts = [];
@@ -1598,8 +1640,9 @@ function buildAll() {
   const fresh = D ? newestStories().list.slice(0, FRESH_TILE_ROWS) : [];
   fresh.forEach(st => used.add(st.id));
   const river = sizeRiver(ordered(allStories.filter(st => !used.has(st.id))));
+  // The events are not a widget here: the next one sits beside the calendar (renderNext), the rest in "Sắp diễn ra".
   const widgets = [{ t: 'arena' }, fresh.length ? { t: 'fresh' } : null, HOT.length ? { t: 'hot' } : null,
-    liveAvailable() ? { t: 'live' } : null, { t: 'repos' }, getTrendingModels().length ? { t: 'models' } : null].filter(Boolean);
+    { t: 'repos' }, getTrendingModels().length ? { t: 'models' } : null].filter(Boolean);
   // The first widget after eight stories, then one every ten.
   const out = [];
   river.forEach((it, i) => { out.push(it); if ((i + 1) % 10 === 8 && widgets.length) out.push(widgets.shift()); });
@@ -1710,7 +1753,9 @@ function buildFiltered(f) {
     const river = s.order === 'date'
       ? list.slice().sort((a, b) => String((eventOf(a) || {}).start_date || a.published_at).localeCompare(String((eventOf(b) || {}).start_date || b.published_at)))
       : list.slice().sort(byNew);
-    return [...(s.sec === 'upcoming' ? [{ t: 'live', all: true }] : []), ...river.map(st => C(st))];
+    if (s.sec !== 'upcoming') return river.map(st => C(st));
+    const lead = liveAvailable() ? { t: 'live', all: true } : river.length ? null : { t: 'ev-empty' };
+    return [...(lead ? [lead] : []), ...river.map(st => C(st))];
   }
   const river = ordered(listFor(f)).map(st => C(st));
   return f === 'code' ? [{ t: 'repos-full' }, { t: 'models' }, ...river] : river;
@@ -1761,6 +1806,7 @@ function renderItem(it) {
   if (it.t === 'arena') return renderArenaTile();
   if (it.t === 'fresh') return freshTileHTML();
   if (it.t === 'saved-rest') return renderSavedRest();
+  if (it.t === 'ev-empty') return eventsEmptyHTML();
   return '';
 }
 
@@ -1871,7 +1917,7 @@ function renderFeed() {
   const empty = !html.trim();                      // tiles with no data render nothing, so judge by the output
   $('#feed-empty').hidden = !empty;
   grid.classList.toggle('is-front', front);
-  grid.innerHTML = (front ? leadHTML(PICKLIST) + FIXED_SLOTS + topListHTML(FRONT_TOP) : FIXED_SLOTS) + html;
+  grid.innerHTML = (front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : FIXED_SLOTS) + html;
   placeFixedCards(grid);
   renderSub();
   renderChips();
@@ -1950,6 +1996,14 @@ function renderChips() {
   const active = container ? container.querySelector('.filter-chip[aria-pressed="true"]') : null;
   if (container && active) glideTab(container, active);
   markTabOverflow(container);
+  syncDock();
+}
+/* The phone dock (menu-cong-cu.js) marks "Sự kiện" while "Sắp diễn ra" is open and "Dòng tin" the rest of the time. */
+function syncDock() {
+  const dest = filter === 'sec:sap-toi' ? 'events' : 'feed';
+  for (const a of $$('.mobile-nav-link[data-dest]')) {
+    if (a.dataset.dest === dest) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  }
 }
 /* The view's name, for screen readers only: the pressed tab shows it on screen. No update time and no date (captain,
    09/11: the calendar card already carries today's date). */

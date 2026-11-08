@@ -591,7 +591,8 @@ const eventDocument = {
 };
 const eventFeed = await renderer('feed.js', '\ninit();', `
 return {eventSpan, eventWhen, eventCal, calOf, countdownParts, countdownHTML, scheduleCountdown,
-  render(events, stories = []) { D = {events, stories, live:[]}; return renderLive(); }};`, {
+  render(events, stories = []) { D = {events, stories, live:[]}; return renderLive(); },
+  next(events, live = []) { D = {events, stories:[], live}; return renderNext(); }};`, {
   location:{search:''}, matchMedia:() => eventMotion, localStorage:{getItem:() => null},
   Date:EventClock, document:eventDocument,
   setTimeout:(fn, ms) => { const id = ++eventTimerId; eventTimers.set(id, {fn, ms}); return id; },
@@ -659,6 +660,22 @@ assert.ok(eventCards.includes('ctz=Asia%2FKolkata'));
 assert.ok(eventCards.includes('ctz=Australia%2FSydney'));
 eventFeed.render(curatedEvents, [{id:'event-story', title:bengaluru.title, url:bengaluru.url, coverage:[]}]);
 assert.deepEqual(eventFeed.calOf({title:bengaluru.title, url:bengaluru.url}), bengaluruCal);
+// The front page's card beside the calendar: the nearest event with its countdown, calendar export and source; the
+// rest behind "Xem tất cả" with no count; a live stream above it; nothing at all when nothing is coming.
+const nextCard = eventFeed.next(curatedEvents);
+assert.match(nextCard, /class="msn-card msn-ev"/);
+assert.ok(nextCard.includes(bengaluru.title) && !nextCard.includes(sydney.title), 'one event, the nearest');
+assert.match(nextCard, /class="event-left cd is-soon"/);
+assert.ok(nextCard.includes(`data-cal-ev="${bengaluru.id}"`) && nextCard.includes('ctz=Asia%2FKolkata'));
+assert.ok(nextCard.includes(`href="${bengaluru.url}"`));
+assert.match(nextCard, /<a class="ev-all" href="#sap-toi">Xem tất cả<\/a>/);
+assert.doesNotMatch(nextCard, /Xem cả|\d+ sự kiện/);
+assert.doesNotMatch(eventFeed.next([sydney]), /ev-all/);
+const liveNext = eventFeed.next([sydney], [{status:'live', title:'Live now', url:'https://www.youtube.com/watch?v=x', channel:'OpenAI'}]);
+assert.match(liveNext, /<h2 id="ev-h">Đang phát<\/h2>/);
+assert.ok(liveNext.indexOf('Live now') < liveNext.indexOf(sydney.title));
+assert.equal(eventFeed.next([], [{status:'ended', title:'Replay', url:'https://www.youtube.com/watch?v=y'}]), '', 'a replay is not upcoming');
+assert.equal(eventFeed.next([]), '');
 
 // Exercise the existing shared timer with a controlled scheduler, including the exact opening transition.
 const opening = eventFeed.eventSpan(bengaluru);

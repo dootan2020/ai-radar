@@ -47,7 +47,7 @@ class FeedHeaderLayoutTests(unittest.TestCase):
         self.assertIn('.mobile-nav-link[aria-current="page"]', css)
         self.assertIn("min-height:44px", css)
         self.assertIn(".sort-btn:not(.sort-btn-compact){display:none}", css)
-        for label in ("Dòng tin", "Bản tin", "Tìm tin", "Nguồn"):
+        for label in ("Dòng tin", "Bản tin", "Tìm tin", "Sự kiện"):
             self.assertIn(f"'{label}'", script)
         self.assertIn("mobileNav.setAttribute('aria-label', 'Điều hướng chính')", script)
         self.assertIn("link.setAttribute('aria-current', 'page')", script)

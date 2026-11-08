@@ -140,7 +140,7 @@ class TopZoneTests(unittest.TestCase):
         # weather in the first row and the calendar under it; first on a phone.
         for folder in (ROOT / "site", EXT):
             feed = (folder / "feed.js").read_text(encoding="utf-8")
-            self.assertIn("(front ? leadHTML(PICKLIST) + FIXED_SLOTS + topListHTML(FRONT_TOP) : FIXED_SLOTS) + html", feed)
+            self.assertIn("(front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : FIXED_SLOTS) + html", feed)
             self.assertNotIn("if (front) placeFixedCards", feed)
             self.assertEqual(feed.count("placeFixedCards("), 3)   # the definition, a redraw, a failed news load
             css = (folder / "trang-msn.css").read_text(encoding="utf-8")
@@ -151,6 +151,24 @@ class TopZoneTests(unittest.TestCase):
             # No width moves the pair back into the middle of a row.
             for old in ("grid-area: 1 / 3;", "grid-area: 1 / 4;", "grid-area: 2 / 3;"):
                 self.assertNotIn(old, css)
+
+    def test_next_event_sits_beside_the_calendar_once(self):
+        # Owner, 09/11: "Đưa sự kiện sắp diễn ra lên phần đầu trang, đặt nó ở vị trí phù hợp." The front page's next
+        # event takes the cell left of the calendar (second row on a desktop or tablet, beside it on a phone, where it
+        # follows the calendar in the grid's order) and is no longer a widget deep in the river; "Sắp diễn ra"
+        # (#sap-toi) still lists every event, from the first row, or says in one line that nothing is coming.
+        for folder in (ROOT / "site", EXT):
+            feed = (folder / "feed.js").read_text(encoding="utf-8")
+            widgets = feed[feed.index("const widgets = ["):feed.index("].filter(Boolean);", feed.index("const widgets = ["))]
+            self.assertNotIn("'live'", widgets)
+            self.assertIn("{ t: 'live', all: true }", feed)
+            self.assertIn("{ t: 'ev-empty' }", feed)
+            css = (folder / "trang-msn.css").read_text(encoding="utf-8")
+            for rule in (".msn-grid > .msn-ev { grid-area: 2 / -3; }", ".msn-grid > .msn-cal, .msn-grid > .msn-ev { grid-area: auto; }",
+                         ".msn-grid:not(.is-front) > .tile-live { grid-column: 1 / -2; grid-row: span 2; align-self: start; }"):
+                self.assertIn(rule, css)
+            self.assertLess(css.index(".msn-grid:not(.is-front) > .tile { grid-column: 1 / -1;"),
+                            css.index(".msn-grid:not(.is-front) > .tile-live { grid-column: 1 / -2;"))
 
     def test_nothing_inside_the_weather_card_draws_a_ring(self):
         # Captain, 08/11 19:50: "bên trong thẻ thời tiết không dùng bo viền". The weather section of the stylesheet

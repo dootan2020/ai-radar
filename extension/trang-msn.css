@@ -379,6 +379,59 @@
 .cal-canchi li { font-size: var(--text-micro); line-height: 1.35; color: var(--color-ink-2); }
 .cal-canchi b { display: block; font-size: var(--text-meta); font-weight: var(--weight-bold); color: var(--color-ink); }
 .msn-cal .cal-note { margin: var(--space-8) var(--space-16) 0; padding: 0; font-size: var(--text-micro); line-height: 1.35; font-weight: var(--weight-semibold); color: var(--color-ink-2); }
+/* ---------- the next event: the cell left of the calendar ----------
+   Owner, 09/11: "Đưa sự kiện sắp diễn ra lên phần đầu trang, đặt nó ở vị trí phù hợp." The calendar says what day it is;
+   the cell beside it says what is coming, at every width: left of the calendar in the second row on a desktop and a
+   tablet (on the first screen), beside it on a phone (before the first ordinary story). The days are printed large as
+   on the calendar page, in ink, so the calendar's coral band stays the one loud colour of the pair. */
+.msn-grid > .msn-ev { grid-area: 2 / -3; }
+.msn-ev { container-type: inline-size; display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-12) var(--space-16) var(--space-16); }
+.ev-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); }
+.ev-head h2 { display: flex; align-items: center; gap: var(--space-8); margin: 0; font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: -0.01em; color: var(--color-ink); white-space: nowrap; }
+.ev-head h2::before { content: ""; width: var(--space-8); height: var(--space-8); border-radius: var(--radius-full); background: var(--color-accent-fill); }
+.ev-all {
+  display: inline-flex; align-items: center; min-height: var(--btn-h); margin-block: calc(-1 * var(--space-12)); margin-right: calc(-1 * var(--space-8)); padding: 0 var(--space-8);
+  border-radius: var(--radius-8); font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-accent); white-space: nowrap;
+}
+.ev-next { flex: 1; display: flex; flex-direction: column; gap: var(--space-12); min-height: 0; }
+.ev-link { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; color: inherit; }
+.ev-date { display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-8); }
+.ev-date b { font-size: var(--num-md); line-height: 1; font-weight: var(--weight-bold); letter-spacing: -0.04em; color: var(--color-ink); }
+.ev-date span { font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-2); }
+.ev-name {
+  font-size: var(--text-title); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: -0.015em; color: var(--color-ink);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-wrap: pretty;
+}
+.ev-next.is-read .ev-name { color: var(--color-ink-2); }
+.ev-when { font-size: var(--text-meta); line-height: 1.4; color: var(--color-ink-3); }
+.ev-foot { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); margin-top: auto; }
+.msn-ev .event-left { font-size: var(--text-meta); }
+.msn-ev .calbtn-long { display: none; }
+.ev-stream { display: flex; flex-direction: column; gap: var(--space-4); min-height: var(--btn-h); padding: var(--space-8) var(--space-12); border-radius: var(--radius-8); background: var(--color-fill); color: inherit; transition: background-color var(--duration-150) ease; }
+.ev-stream-k { font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); color: var(--color-ink-2); }
+.ev-stream-k.is-live { color: var(--color-live); }
+.ev-stream-t { font-size: var(--text-meta); line-height: 1.35; font-weight: var(--weight-semibold); color: var(--color-ink); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+/* With a stream above it, the event keeps its days, name, countdown and calendar; its place and hour wait in its source,
+   so the cell keeps the calendar's height. */
+.msn-ev:has(.ev-stream) .ev-when { display: none; }
+.msn-ev:has(.ev-stream), .msn-ev:has(.ev-stream) .ev-next { gap: var(--space-8); }
+.msn-ev:has(.ev-stream) .ev-date { margin-bottom: 0; }
+.msn-ev:has(.ev-stream) .ev-date b { font-size: var(--text-feature); }
+.msn-ev :is(.ev-link, .ev-stream, .ev-all):focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); border-radius: var(--radius-8); }
+@media (hover: hover) and (pointer: fine) {
+  .ev-link:hover .ev-name { color: var(--color-link); }
+  .ev-stream:hover { background: var(--color-field-on); }
+  .ev-all:hover { background: var(--color-fill); }
+}
+@container (max-width: 14rem) {
+  .ev-next { gap: var(--space-8); }
+  .ev-date { margin-bottom: var(--space-4); }
+  .ev-name { font-size: var(--text-sub); }
+  .ev-date b { font-size: var(--text-feature); }
+  .msn-ev .calbtn-g .i { display: none; }
+}
+.msn-grid > .ev-empty { grid-column: 1 / -2; align-self: start; margin: 0; padding: var(--space-16) var(--space-4); background: none; box-shadow: none; font-size: var(--text-body); color: var(--color-ink-2); }
+
 /* ---------- the two cards on a narrow cell (five columns near 1100 px, three near 768 px) ---------- */
 @container (max-width: 14rem) {
   .wx-city { padding: 0 var(--space-6); font-size: var(--text-meta); }
@@ -401,6 +454,9 @@
 }
 .msn-grid.is-front > .tile { grid-column: span 2; grid-row: span 2; }
 .msn-grid:not(.is-front) > .tile { grid-column: 1 / -1; overflow: visible; }
+/* "Sắp diễn ra" (#sap-toi): the list, or its one empty line (.ev-empty), takes the columns left of the weather and the
+   calendar from the first row, so the view never opens on an empty band. */
+.msn-grid:not(.is-front) > .tile-live { grid-column: 1 / -2; grid-row: span 2; align-self: start; }
 .msn-grid > .tile .tile-title { font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: 0; color: var(--color-ink); }
 .msn-grid > .tile .tile-note { font-size: var(--text-micro); }
 
@@ -465,9 +521,9 @@
   .msn-top .news-search.open .ns-open { visibility: hidden; }
   .msn-top .ns-results { top: calc(100% + var(--space-4)); }
   /* The dock below carries "Bản tin" and "Tìm tin" (captain, 09/11: "có cái gì bỏ được nữa thì bỏ luôn"): the head
-     drops the morning edition, the search keeps its field (results show as the reader types, the keyboard has its own
-     search key), and the footer drops "Nguồn tin", which the dock also carries. */
-  .msn-head .ed-link, .msn-top .ns-go, .msn-panel .feed-footer .src-note { display: none; }
+     drops the morning edition and the search keeps its field (results show as the reader types, the keyboard has its
+     own search key). The footer keeps "Nguồn tin": the dock gave that place to the events (owner, 09/11). */
+  .msn-head .ed-link, .msn-top .ns-go { display: none; }
 }
 @media (max-width: 699px) {
   :root { --msn-gap: var(--space-8); --msn-cols: 2; }
@@ -485,7 +541,10 @@
   .msn-grid, .msn-grid.is-front, .msn-grid:has(> .msn-wx) { grid-template-rows: none; grid-auto-rows: auto; }
   /* On a phone the two cards come first in the grid's own order (after the lead on the front page). */
   .msn-grid > .msn-wx { grid-area: auto / 1 / auto / -1; }
-  .msn-grid > .msn-cal { grid-area: auto; }
+  .msn-grid > .msn-cal, .msn-grid > .msn-ev { grid-area: auto; }
+  .msn-ev { gap: var(--space-8); padding: var(--space-12); }
+  /* "Sắp diễn ra" opens on its list, above the weather and the calendar. */
+  .msn-grid:not(.is-front) > .tile-live, .msn-grid > .ev-empty { grid-column: 1 / -1; grid-row: auto; order: -1; }
   .nc { min-height: var(--msn-rowh-phone); }
   .nc-photo { height: var(--msn-photo-h-phone); }
   .nc-body { padding: var(--space-8) var(--space-8) var(--space-8); gap: var(--space-4); }
