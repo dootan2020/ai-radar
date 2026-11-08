@@ -1,7 +1,8 @@
 """The home page leads to the daily edition page in one tap, on a phone and on a desktop.
 
-The link is static HTML in the masthead (the top bar since the "Trang nhất" layout, 07/11), outside #nav (hidden under 1100px) and outside the five bottom tabs,
-so it needs no JavaScript, never shifts the layout, and is visible at every width.
+The link is static HTML in the panel head (the header row of Mẫu A, 08/11, beside the logo and the sections), outside
+#nav (hidden under 1100px) and outside the five bottom tabs, so it needs no JavaScript, never shifts the layout, and is
+visible at every width.
 """
 
 from html.parser import HTMLParser
@@ -15,7 +16,7 @@ VOID = {"meta", "link", "br", "img", "input", "hr"}
 
 
 class BarLinks(HTMLParser):
-    """Collects every <a> inside <header id="masthead">, with the ids of the elements that enclose it."""
+    """Collects every <a> inside <nav id="bar"> (the panel head), with the ids of the elements that enclose it."""
 
     def __init__(self):
         super().__init__()
@@ -27,7 +28,7 @@ class BarLinks(HTMLParser):
             return
         a = dict(attrs)
         self.stack.append((tag, a.get("id")))
-        if tag == "a" and ("header", "masthead") in self.stack:
+        if tag == "a" and ("nav", "bar") in self.stack:
             self.links.append({"attrs": a, "inside": [i for _, i in self.stack if i], "text": ""})
 
     def handle_startendtag(self, tag, attrs):
@@ -40,7 +41,7 @@ class BarLinks(HTMLParser):
                 break
 
     def handle_data(self, data):
-        if self.links and ("header", "masthead") in self.stack and any(t == "a" for t, _ in self.stack):
+        if self.links and ("nav", "bar") in self.stack and any(t == "a" for t, _ in self.stack):
             self.links[-1]["text"] += data
 
 

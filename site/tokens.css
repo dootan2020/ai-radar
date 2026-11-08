@@ -181,6 +181,72 @@
   --focus-offset: 3px;
   --bar-h: 64px;
   --sheet-w: min(520px, 100vw);
+
+  /* The MSN-style front page (Mẫu A, captain 08/11 18:23): one panel under the search, a bento of fixed rows where a
+     notable story takes 2x2 or 2x1 cells. Sizes are the mockup's (plans/reports/trang-msn/mau-a2-msn-sat.html). */
+  --msn-hair: 1px;                                   /* card and panel borders */
+  --msn-tight: 2px;                                  /* the tightest gap: tabs, a tile's inner inset */
+  --msn-gap: var(--space-12);
+  --msn-cols: 5;
+  --msn-row1: 384px;                                 /* the first row: lead, weather, calendar, "Chuyện lớn" */
+  --msn-rowh: 286px;                                 /* every other row */
+  --msn-photo-h: 148px;
+  --msn-card-r: var(--radius-12);
+  --msn-panel-r: 16px;
+  --msn-panel-pad: var(--space-12);
+  --msn-search-h: 52px;
+  --msn-search-max: 680px;
+  --msn-fav: 20px;                                   /* the source's mark beside its name */
+  --msn-fav-lg: 28px;
+  --msn-dot: 3px;
+  --msn-tab-line: 3px;                               /* the active section's underline */
+  --msn-lead-dot: 8px; --msn-lead-dot-on: 20px;
+  --msn-title: var(--text-sub);                      /* 15 px: a card's headline */
+  --msn-title-text: var(--text-title);               /* 18 px: a headline without a picture */
+  --msn-title-wide: var(--text-title);
+  --msn-title-big: 1.375rem;                         /* 22 px */
+  --msn-title-ink-big: 1.875rem;                     /* 30 px: a big card without a picture */
+  --msn-slide-title: 1.25rem;                        /* 20 px */
+  --msn-cal-day: 7rem;                               /* 112 px */
+  --msn-cal-animal: 64px;
+  --msn-wx-temp: 2.875rem;                           /* 46 px */
+  --msn-wx-icon: 46px; --msn-wx-icon-sm: 28px;
+  --msn-wx-menu-w: 210px;
+  --msn-blur: 14px;
+  --msn-shadow-panel: 0 12px 40px oklch(var(--shadow-tint) / 0.05);
+  --msn-shadow-search: 0 2px 12px oklch(var(--shadow-tint) / 0.04);
+  --msn-shadow-card: 0 8px 24px oklch(var(--shadow-tint) / 0.08);
+  --msn-ink-card: var(--brand-ink);                  /* a notable story without a picture, and the lead's frame */
+  --msn-on-ink: var(--brand-white);
+  --msn-on-ink-2: var(--gray-90);
+  --msn-slide-box: color-mix(in srgb, var(--brand-ink) 90%, transparent);
+  --msn-on-photo-btn: color-mix(in srgb, var(--brand-ink) 70%, transparent);
+  --msn-on-photo-btn-hover: color-mix(in srgb, var(--brand-ink) 90%, transparent);
+  --msn-on-photo-edge: color-mix(in srgb, var(--brand-white) 44%, transparent);
+  --msn-on-photo-dot: color-mix(in srgb, var(--brand-white) 55%, transparent);
+  /* The weather card: a sky photograph (anh/bau-troi.jpg), a flat ink veil, frosted tiles; white text 4.7:1 or more. */
+  --msn-wx-sky: #2B4C7A;                             /* shown until the photograph arrives */
+  --msn-wx-veil: color-mix(in srgb, var(--brand-ink) 16%, transparent);
+  --msn-wx-tile: color-mix(in srgb, var(--brand-ink) 16%, transparent);
+  --msn-wx-tile-on: color-mix(in srgb, var(--brand-white) 15%, transparent);
+  --msn-wx-edge: color-mix(in srgb, var(--brand-white) 18%, transparent);
+  --msn-wx-hover: color-mix(in srgb, var(--brand-white) 12%, transparent);
+  --msn-wx-pill: color-mix(in srgb, var(--brand-ink) 24%, transparent);
+  --msn-wx-pill-hover: color-mix(in srgb, var(--brand-ink) 40%, transparent);
+  --msn-wx-solid: color-mix(in srgb, var(--brand-ink) 65%, transparent);   /* reduced transparency */
+  --msn-wx-shadow: 0 1px 2px color-mix(in srgb, var(--brand-ink) 35%, transparent);
+  --msn-sun: #FDB022; --msn-cloud: var(--gray-96); --msn-cloud-2: var(--gray-80); --msn-rain: #84CAFF; --msn-moon: #FEF0C7;
+  --msn-page-pad: clamp(16px, 2.2vw, 40px);
+  --msn-top-pad: 20px;
+  --msn-brand-tile: 34px; --msn-brand-size: 1.375rem;
+  --msn-rowh-xl: 292px; --msn-photo-h-xl: 154px;   /* 1750 px and wider: seven columns */
+  --msn-rowh-phone: 240px; --msn-photo-h-phone: 112px;
+  --msn-lead-h-phone: 270px; --msn-big-h-phone: 380px; --msn-wide-h-phone: 220px; --msn-wx-h-phone: 372px;
+  --msn-cal-day-phone: 3.75rem; --msn-cal-animal-phone: 40px;
+  --msn-chip-img: 24px;
+  --msn-menu-top: 52px; --msn-menu-max-h: 290px;
+  --msn-spinner: 14px; --msn-spinner-w: 2px;
+  --msn-sk-line: 12px;
 }
 
 /* ---------- dark: same roles, new values. Surfaces lighten to rise; numbers stay the brightest thing. ---------- */

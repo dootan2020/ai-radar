@@ -34,15 +34,17 @@ for (const title_vi of [undefined, '', ' ', story.title]) {
 assert.equal(headlineShown({title:'Full', title_vi:'Dịch', headline:'Short'}), 'Dịch');
 assert.equal(headlineShown({title:'Full', headline:' '}), 'Full');
 
-let errorHandler;
+let errorHandler, loadHandler;
 class ImageElement {}
 const feed = await renderer('feed.js', '\ninit();', `
-return {titleOf, pickImage, renderCard, renderHot, watchPictures, mediaHTML, oneEvent,
-  picksFor(stories) {
+return {titleOf, pickImage, msnCard, leadHTML, topListHTML, renderHot, watchPictures, oneEvent,
+  frontFor(stories) {
     D = {stories, events:[], sources:[], generated_at:'2026-10-10T00:00:00Z'};
     GEN = Date.parse(D.generated_at); allStories = stories; STORY = STORY_ANY = new Map(stories.map(s => [s.id, s]));
-    PICKS.clear(); PICKED.clear(); WORTHS.clear(); filter = 'all';
-    return choosePicks().map(st => st.id);
+    PICKS.clear(); PICKED.clear(); WORTHS.clear(); bigSet = new Set(); filter = 'all';
+    for (const key of Object.keys(IMG)) delete IMG[key];
+    const {lead, top} = chooseFront();
+    return {lead:lead.map(st => st.id), top:top.map(st => st.id)};
   },
   configure(stories, images = {}) {
     D = {stories, events:[], sources:[], generated_at:'2026-10-10T00:00:00Z'};
@@ -52,7 +54,7 @@ return {titleOf, pickImage, renderCard, renderHot, watchPictures, mediaHTML, one
     Object.assign(IMG, images);
   }};`, {
   location:{search:''}, matchMedia:() => ({matches:true}), localStorage:{getItem:() => null},
-  document:{addEventListener:(type, fn) => { if (type === 'error') errorHandler = fn; }},
+  document:{addEventListener:(type, fn) => { if (type === 'error') errorHandler = fn; if (type === 'load') loadHandler = fn; }},
   HTMLImageElement:ImageElement,
 });
 feed.configure([story]);
@@ -64,7 +66,9 @@ for (const [kind, label] of [['research', 'Nghiên cứu'], ['product', 'Sản p
   const cover = feed.pickImage(item).cover;
   assert.equal(cover.word, label);
   assert.equal(cover.num, null, 'a category cover does not invent a measurement');
-  assert.ok(!feed.mediaHTML(feed.pickImage(item), 'std').includes('aws.amazon.com'));
+  // Mẫu A draws an unillustrated story as a text card: no stand-in picture block at all.
+  const card = feed.msnCard(item);
+  assert.ok(/class="[^"]*\bno-photo\b/.test(card) && !card.includes('class="cover') && !card.includes('<img'));
 }
 feed.configure([story]);
 assert.equal(feed.pickImage(story).cover.num, null, "another item's counter is not the card's measurement");
@@ -82,8 +86,9 @@ assert.equal(feed.pickImage(measured).cover.num, '10', 'real measured evidence k
     url:'https://outlet-a.example/lead/', discussion_url:'https://forum-c.example/item/1', metrics:{points:47}};
   const other = {...thread, id:'thread-2', url:'https://outlet-d.example/other', metrics:{points:61}};
   const base = {id:'cluster', title:'Lead article', url:lead.url, published_at:'2026-10-09T12:00:00Z', kind:'article', image_screened:true, source_count:2};
-  const numbers = item => [item.id, feed.pickImage(item).cover, ['std', 'lead', 'wide'].map(size => feed.renderCard(item, size)).join('')
-    + feed.renderCard(item, 'lead', {rank:1, why:true, h:'h3'}) + feed.renderHot([item])];
+  // Mẫu A cards carry no counter; the hot list's why line is where a measured number is printed.
+  const numbers = item => [item.id, feed.pickImage(item).cover, ['', 'big', 'wide'].map(size => feed.msnCard(item, size)).join('')
+    + feed.leadHTML([item]) + feed.topListHTML([item]) + feed.renderHot([item])];
   const borrowed = {...base, coverage:[lead, post]};
   const pipeBorrowed = {...base, id:'cluster-pipe', coverage:[lead, other],
     hot_signals:{measurement:{source:'forum-c', metric:'points', value:61}}};
@@ -100,14 +105,14 @@ assert.equal(feed.pickImage(measured).cover.num, '10', 'real measured evidence k
   feed.configure([ownThread]);
   assert.equal(feed.pickImage(ownThread).cover.num, '47', 'a forum thread about the same link (trailing slash aside) is shown');
   assert.match(feed.pickImage(ownThread).cover.word, / trên forum-c$/, 'the forum is named with its number');
-  assert.match(feed.renderCard(ownThread, 'std'), /data-live="thread-1\|points">47</);
+  assert.match(feed.renderHot([ownThread]), /data-live="thread-1\|points">47</);
   // The same forum with a thread on each link: the measurement taken from the other link's thread is not printed
   // under this card's thread id; this card shows its own thread's number.
   const twoThreads = {...base, id:'cluster-two', coverage:[lead, other, thread],
     hot_signals:{measurement:{source:'forum-c', metric:'points', value:61}}};
   feed.configure([twoThreads]);
   assert.equal(feed.pickImage(twoThreads).cover.num, '47');
-  assert.ok(!/>61</.test(feed.renderCard(twoThreads, 'std')), "the other thread's points are not shown");
+  assert.ok(!/>61</.test(feed.renderHot([twoThreads]) + feed.msnCard(twoThreads)), "the other thread's points are not shown");
   // When the headline comes from a coverage item, the card links there, and that item's own counter is the one shown.
   const fromPost = {...base, id:'cluster-post', title_vi:undefined, coverage:[lead, {...post, title_vi:'Bài đăng đã dịch'}]};
   feed.configure([fromPost]);
@@ -121,12 +126,12 @@ assert.equal(feed.titleOf({...story, title_vi:undefined, coverage:[]}).text, sto
 
 // Feed variants carry accessible attribution; complete originals belong to the reading view.
 const longOriginal = {...story, title:'A long original with evidence and context. '.repeat(30).trim()};
+// Mẫu A (08/11): the river card in its three sizes, the "Chuyện lớn" list, the hot list, and the carousel slide, which
+// only ever holds a story with a photograph.
 const feedVariants = item => [
-  ...['std', 'lead', 'wide'].map(size => feed.renderCard(item, size)),
-  feed.renderCard(item, 'std', {debate:true}),
-  feed.renderCard(item, 'lead', {rank:1, why:true, h:'h3'}),
-  // The second pick is a feature tile since the "Trang nhất" layout (07/11), no longer a ranked pick row.
-  feed.renderHot([item]), feed.renderCard(item, 'feature'),
+  ...['', 'big', 'wide'].map(size => feed.msnCard(item, size)),
+  feed.topListHTML([item]), feed.renderHot([item]),
+  ...(feed.pickImage(item).src ? [feed.leadHTML([item])] : []),
 ];
 // A verified editorial headline is shared with cards; summary body fields stay in reader views.
 const summaryOnly = {...story, key_points_prompt_version:'summary-vi-5-full',
@@ -146,8 +151,8 @@ for (const translated of [longOriginal, coverageTranslated]) {
     for (const html of feedVariants(item)) {
       assert.equal((html.match(/>Translated<\/span>/g) || []).length, 1);
       assert.match(html, /<span class="sr" lang="vi">Bản dịch máy\. <\/span>/);
-      // The attribution row of a bento tile is "t-meta" since the "Trang nhất" layout (07/11).
-      assert.match(html, /(?:class="src-row"|class="t-meta"|class="hot-why")[\s\S]*?class="mt"/);
+      // The mark sits under a card's headline ("nc-mt"), in a slide's source line, a list row's meta or the hot why line.
+      assert.match(html, /(?:class="nc-mt"|class="nc-meta"|class="top-meta"|class="hot-why")[\s\S]*?class="mt"/);
       assert.doesNotMatch(html, /card-orig|orig-text/);
       assert.ok(!html.includes(feed.titleOf(item).orig), 'feed does not print the original title');
       assert.ok(html.includes(feed.titleOf(item).text), 'translated headline remains present');
@@ -184,12 +189,14 @@ const candidates = [
   {images:{[`ai:${story.id}`]:{src:'https://rejected.example/old-ai.jpg'}}},
   {url:'https://publisher.example/no-image', coverage:[]},
 ];
-const cardRenders = item => ['lead', 'wide', 'std'].map(size => feed.renderCard(item, size));
-const rankedRenders = item => [feed.renderHot([item]), feed.renderCard(item, 'feature')];
-// Without an approved picture a bento tile is a text tile, not a stand-in block: a big monogram block read as a picture
-// that failed to load (coordinator review, 07/11, mockup B). The hot list's thumbnail keeps the factual mini cover.
+const cardRenders = item => ['big', 'wide', ''].map(size => feed.msnCard(item, size));
+const rankedRenders = item => [feed.renderHot([item]), feed.topListHTML([item])];
+// Without an approved picture a card is a text card, not a stand-in block: a big monogram block read as a picture
+// that failed to load (coordinator review, 07/11, mockup B; Mẫu A 08/11). The "Chuyện lớn" list never draws pictures;
+// the hot list's thumbnail keeps the factual mini cover.
 const factualAbsence = html => html.startsWith('<article')
-  ? /class="feed-card[^"]*\bis-text\b/.test(html) && !html.includes('class="cover') && !html.includes('class="media')
+  ? /class="[^"]*\bno-photo\b/.test(html) && !html.includes('class="cover') && !html.includes('class="media')
+  : html.includes('msn-toplist') ? !html.includes('class="cover') && !html.includes('class="media')
   : html.includes('class="cover');
 for (const candidate of candidates) {
   const item = {...story, ...candidate};
@@ -220,15 +227,18 @@ for (const image of [
   const item = {...story, image};
   feed.configure([item], {[story.url]:{src:'https://rejected.example/seed.jpg'}});
   assert.equal(feed.pickImage(item).src, image.src);
-  for (const html of [...cardRenders(item), ...rankedRenders(item)]) {
+  for (const html of [...cardRenders(item), feed.renderHot([item]), feed.leadHTML([item])]) {
     assert.ok(html.includes(`src="${image.src}"`));
     assert.ok(!html.includes('class="cover') && !html.includes('rejected.example'));
   }
-  const html = feed.renderCard(item, 'lead');
-  assert.ok(html.includes(`src="${image.src}"`));
-  assert.ok(html.includes('Translated') && !html.includes(story.title));
-  assert.ok(html.includes(story.headline_vi));
-  if (image.via === 'ai') assert.ok(html.includes('Ảnh minh hoạ do AI tạo'));
+  // News pictures are drawn whole on their blurred backdrop (captain, 07/11), in the carousel and on cards.
+  for (const html of [feed.leadHTML([item]), feed.msnCard(item, 'big')]) {
+    assert.ok(html.includes(`src="${image.src}"`));
+    assert.ok(html.includes('class="media-backdrop'), 'the picture sits on its backdrop');
+    assert.ok(html.includes('Translated') && !html.includes(story.title));
+    assert.ok(html.includes(story.headline_vi));
+    if (image.via === 'ai') assert.ok(html.includes('Ảnh minh hoạ do AI tạo'));
+  }
 }
 
 // Previously cached legacy imagery is discarded when a fresh snapshot is configured.
@@ -243,19 +253,33 @@ for (const image_screened of [true, false]) for (const via of ['og:image', 'ai']
   const photoStory = {...story, image_screened, image:{src:'https://approved.example/broken.jpg', via}};
   feed.configure([photoStory], {[story.url]:{src:'https://rejected.example/seed.jpg'}});
   assert.equal(feed.pickImage(photoStory).src, photoStory.image.src);
-  let removed = false, photoRemoved = false, textAdded = false;
-  // Bento tiles keep one body class (no photo-body since the "Trang nhất" layout, 07/11); the card drops has-img.
-  const body = {className:'card-body'};
-  const card = {dataset:{id:story.id}, classList:{contains:() => true, remove:() => { photoRemoved = true; }, add:cls => { textAdded = cls === 'is-text'; }}, querySelector:() => body};
-  const image = new ImageElement();
-  image.classList = {contains:cls => cls === 'media-img'};
-  image.closest = selector => selector === '.feed-card' ? card : null;
-  image.parentElement = {remove:() => { removed = true; }, innerHTML:'old image and badge'};
+  // A Mẫu A card (or carousel slide) whose picture fails drops its picture slot and becomes a text card.
+  const failCard = () => {
+    const state = {removed:false, photoRemoved:false, textAdded:false};
+    const card = {dataset:{id:story.id}, classList:{remove:cls => { state.photoRemoved = cls === 'has-photo'; }, add:cls => { state.textAdded = cls === 'no-photo'; }}};
+    const image = new ImageElement();
+    image.classList = {contains:cls => cls === 'media-img' || cls === 'nc-img'};
+    image.closest = selector => selector === '.nc, .slide' ? card : selector === '.nc-photo, .slide-media' ? {remove:() => { state.removed = true; }} : null;
+    return {state, card, image};
+  };
+  const {state, card, image} = failCard();
   errorHandler({target:image});
-  // The failed picture's block (image and AI badge) goes; the tile carries on as a text tile.
-  assert.ok(removed && photoRemoved && textAdded);
-  assert.equal(body.className, 'card-body');
+  // The failed picture's block (image, backdrop and AI badge) goes; the card carries on as a text card.
+  assert.ok(state.removed && state.photoRemoved && state.textAdded);
   assert.equal(card.dataset.via, 'cover');
+  // A picture too small to be one (a tracking pixel) is treated the same way once it loads.
+  feed.configure([photoStory]);
+  const pixel = failCard();
+  pixel.image.naturalWidth = 1;
+  loadHandler({target:pixel.image});
+  assert.ok(pixel.state.removed && pixel.state.textAdded);
+  assert.equal(feed.pickImage(photoStory).kind, 'cover');
+  const real = failCard();
+  real.image.naturalWidth = 640;
+  loadHandler({target:real.image});
+  assert.ok(!real.state.removed, 'a real picture stays');
+  feed.configure([photoStory], {[story.url]:{src:'https://rejected.example/seed.jpg'}});
+  errorHandler({target:image});
   assert.equal(feed.pickImage(photoStory).kind, 'cover', 'rerender must not resurrect a failed approved picture');
   for (const html of [...cardRenders(photoStory), ...rankedRenders(photoStory)]) {
     assert.ok(factualAbsence(html) && !html.includes(photoStory.image.src) && !html.includes('rejected.example'));
@@ -303,19 +327,26 @@ assert.equal(feed.oneEvent(ev('a', 'Alpha'), ev('b', 'Beta', [], {aliases:['a']}
 assert.equal(feed.oneEvent(ev('a', 'Alpha', [{url:'https://same.example/x'}]), ev('b', 'Beta', [{discussion_url:'https://same.example/x'}])), true, 'a shared address');
 assert.equal(feed.oneEvent(bbc, ev('diary', 'Anthropic reported diary entry to police, woman faces felony charge')), false,
   'two Anthropic police stories are not one event');
-// Inside "Nhiều nguồn cùng đưa" too: the higher-ranked story of an event stays, the next distinct one fills the place.
+// Inside the carousel and "Chuyện lớn" too: the higher-ranked story of an event stays, the next distinct one fills the place.
 const twoSrc = (id, url) => [{source:`${id}-a`, publisher:`${id}-a`, url, published_at:'2026-10-09T12:00:00Z'},
   {source:`${id}-b`, publisher:`${id}-b`, url:`https://b.example/${id}`, published_at:'2026-10-09T12:00:00Z'}];
-const ranked = (id, title, score, url = `https://a.example/${id}`) => ({id, title, url, kind:'article', published_at:'2026-10-09T12:00:00Z',
-  coverage:twoSrc(id, url), worth_score:score, worth_parts:{breadth:score}});
+const ranked = (id, title, score, url = `https://a.example/${id}`, extra = {}) => ({id, title, url, kind:'article', published_at:'2026-10-09T12:00:00Z',
+  coverage:twoSrc(id, url), hot_score:score, worth_score:score, worth_parts:{breadth:score}, ...extra});
 const fillers = ['Quantum chips ship', 'Robot taxis expand', 'Chip export rules', 'Open model release']
   .map((t, i) => ({id:`fill-${i}`, title:t, url:`https://f.example/${i}`, kind:'article', published_at:'2026-10-09T23:00:00Z', coverage:[]}));
-const blockIds = feed.picksFor([...fillers,
-  ranked('police-a', 'Anthropic AI model sent a false homicide tip to Philadelphia police', 50, 'https://shared.example/tip'),
-  ranked('police-b', 'Rogue AI agent tip to police', 40, 'https://shared.example/tip'),
-  ranked('evals', 'Anthropic cuts internal evaluations off the internet', 30),
-  ranked('chips', 'Nvidia ships a new data-centre chip', 20)]);
-assert.deepEqual(blockIds, ['police-a', 'evals', 'chips'], 'one story per event inside the block, backfilled in rank order');
+const eventStories = extra => [
+  ranked('police-a', 'Anthropic AI model sent a false homicide tip to Philadelphia police', 50, 'https://shared.example/tip', extra('police-a')),
+  ranked('police-b', 'Rogue AI agent tip to police', 40, 'https://shared.example/tip', extra('police-b')),
+  ranked('evals', 'Anthropic cuts internal evaluations off the internet', 30, undefined, extra('evals')),
+  ranked('chips', 'Nvidia ships a new data-centre chip', 20, undefined, extra('chips'))];
+const textFront = feed.frontFor([...fillers, ...eventStories(() => ({}))]);
+assert.deepEqual(textFront.lead, [], 'the carousel only holds stories with a photograph');
+assert.deepEqual(textFront.top.slice(0, 3), ['police-a', 'evals', 'chips'], 'one story per event in "Chuyện lớn", backfilled in rank order');
+assert.ok(!textFront.top.includes('police-b'));
+const photo = id => ({image_screened:true, image:{src:`https://approved.example/${id}.jpg`, via:'og:image', kind:'photo'}});
+const photoFront = feed.frontFor([...fillers, ...eventStories(photo)]);
+assert.deepEqual(photoFront.lead, ['police-a', 'evals', 'chips'], 'one story per event in the carousel');
+assert.ok(!photoFront.top.some(id => photoFront.lead.includes(id) || id === 'police-b'), '"Chuyện lớn" repeats no carousel story or event');
 console.log('PASS headline eligibility, coverage attribution, feed/ranked cards, image providers and errors, modal/page, edition and search renderers');
 
 // Execute the real notification state, navigation and poll against deterministic DOM/time/network boundaries.
@@ -428,13 +459,14 @@ configureNotice(1, 10); newFeed.renderNewItems();
 visibleStories = [card('item-0', 500)]; doc.activeElement = nodes.get('#fresh-go');
 newFeed.route();
 assert.equal(doc.activeElement, visibleStories[0], '#moi focuses the first new story');
-assert.equal(jumps.at(-1).top, 220);
+// Mẫu A's panel head is not sticky (08/11): the story lands 16 px under the top of the window (scrollY 100 + top 200 - 16).
+assert.equal(jumps.at(-1).top, 284);
 assert.equal(jumps.at(-1).behavior, 'auto', 'reduced motion is respected');
 assert.equal(nodes.get('#fresh').hidden, true);
 
 // With the home's "Vừa đăng" tile in place, the pill leads to it: the announced batch first, the heading focused, no
-// smooth scroll under reduced motion. Since the "Trang nhất" layout (07/11) the tile sits in the bento, so the jump
-// lands it under the news bar (scrollY 100 + top 500 - bar 64 - 16) instead of at the top of the page.
+// smooth scroll under reduced motion. The tile sits in the grid, and Mẫu A's panel head scrolls away (08/11), so the
+// jump lands it 16 px under the top of the window (scrollY 100 + top 500 - 16).
 const rowItems = [];
 nodes.set('#fresh-row', {hidden:true, contains:el => el === nodes.get('#fresh-row-h'), getBoundingClientRect:() => ({top:500}),
   get innerHTML() { return rowItems.at(-1) || ''; }, set innerHTML(v) { rowItems.push(v); }});
@@ -444,7 +476,7 @@ configureNotice(2, 10); newFeed.renderNewItems();
 visibleStories = [card('item-1', 500)]; doc.activeElement = nodes.get('#fresh-go');
 newFeed.route();
 assert.equal(doc.activeElement, nodes.get('#fresh-row-h'), '#moi focuses the "Vừa đăng" heading');
-assert.deepEqual(jumps.at(-1), {top:520, behavior:'auto'}, 'the tile lands under the bar; reduced motion jumps');
+assert.deepEqual(jumps.at(-1), {top:584, behavior:'auto'}, 'the tile lands at the top; reduced motion jumps');
 assert.equal(nodes.get('#fresh-row').hidden, false);
 const rowIds = [...rowItems.at(-1).matchAll(/<li[^>]*data-sid="([^"]+)"/g)].map(m => m[1]);
 assert.deepEqual(rowIds.slice(0, 2).sort(), ['item-0', 'item-1'], 'the announced stories lead the row');
@@ -508,9 +540,12 @@ for (const iso of [new Date().toISOString(), '2026-10-09T02:00:00Z']) {
 console.log('PASS new-story eligibility, expiry, focus, scroll, deep link, live polling, marks, filters and metadata');
 
 // Arena deep links and navigation work even when the news request has failed.
-for (const id of ['arena', 'feed-grid', 'feed-footer', 'sort-switch', 'picks', 'feed-empty', 'feed-more', 'feed-end']) {
+// Mẫu A (08/11): the grid loads more on scroll, so its loading and end line (#feed-status) replaces the old block and
+// "Xem thêm" controls.
+for (const id of ['arena', 'feed-grid', 'feed-footer', 'sort-switch', 'feed-empty']) {
   nodes.set('#' + id, {hidden:false});
 }
+nodes.set('#feed-status', {innerHTML:'<p class="feed-loading">Đang tải thêm tin</p>'});
 nodes.get('#top').removeAttribute = () => {};
 nodes.get('#top').getBoundingClientRect = () => ({top:0});
 let arenaShows = 0;
@@ -519,9 +554,10 @@ navLocation.hash = '#xep-hang';
 newFeed.route();
 assert.equal(arenaShows, 1);
 assert.equal(nodes.get('#arena').hidden, false);
-for (const id of ['feed-grid', 'feed-footer', 'sort-switch', 'picks', 'feed-empty', 'feed-more', 'feed-end', 'filter-context']) {
+for (const id of ['feed-grid', 'feed-footer', 'sort-switch', 'feed-empty', 'filter-context']) {
   assert.equal(nodes.get('#' + id).hidden, true, id);
 }
+assert.equal(nodes.get('#feed-status').innerHTML, '', 'the loading line goes with the grid');
 assert.equal(chips.find(b => b.dataset.filter === 'rankings').attributes['aria-pressed'], 'true');
 newFeed.setFilter('all');
 assert.equal(nodes.get('#arena').hidden, true);

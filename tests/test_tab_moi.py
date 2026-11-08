@@ -85,7 +85,8 @@ process.stdout.write(JSON.stringify({ first: CITIES[0], url: forecastURL(21.0285
         self.assertEqual(out["first"][0], "Hà Nội")  # the default city
         url = out["url"]
         self.assertTrue(url.startswith("https://api.open-meteo.com/v1/forecast?latitude=21.0285&longitude=105.8542"))
-        for part in ("current=", "hourly=", "daily=", "timezone=Asia%2FBangkok", "forecast_days=5"):
+        # Ten days: the card's daily columns come in two pages of five (Mẫu A, 08/11).
+        for part in ("current=", "hourly=", "daily=", "timezone=Asia%2FBangkok", "forecast_days=10"):
             self.assertIn(part, url)
         self.assertNotIn("apikey", url.lower())
         self.assertEqual(out["codes"], ["Trời quang", "Nhiều mây", "Mưa nhỏ", "Dông", "Không rõ"])
@@ -114,15 +115,22 @@ class TopZoneTests(unittest.TestCase):
         self.assertIn('class="svc" href="${url}" title="${name}" aria-label="${name}"', source)
         self.assertNotIn('svc-name', source)
 
-    def test_new_tab_loads_the_top_zone_only_on_the_extension(self):
+    def test_weather_and_calendar_are_front_page_cards_on_both(self):
+        # Mẫu A (captain, 08/11 18:23): the weather and the lunar calendar sit in the first row of the front page on the
+        # website and the new tab alike; feed.js builds them, the extension only adds its Google rows (vung-dau.js).
         html = (EXT / "newtab.html").read_text(encoding="utf-8")
         site = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
+        feed = (ROOT / "site" / "feed.js").read_text(encoding="utf-8")
         self.assertIn('src="vung-dau.js"', html)
-        self.assertIn('href="the-lich.css"', html)
-        # The weather lives on the calendar card (mockup H, 08/11), which the new tab's own module builds.
-        self.assertIn('id="weather"', (EXT / "the-lich.js").read_text(encoding="utf-8"))
-        self.assertIn("import { mountCalendarCard } from './the-lich.js';", (EXT / "vung-dau.js").read_text(encoding="utf-8"))
-        for part in ('vung-dau.js', 'the-lich', 'id="weather"', 'id="web-search"', 'id="services"'):
+        self.assertIn("import { createWeatherCard } from './thoi-tiet.js';", feed)
+        self.assertIn("import { createCalendarCard } from './the-lich.js';", feed)
+        self.assertIn("card.id = 'weather';", (ROOT / "site" / "thoi-tiet.js").read_text(encoding="utf-8"))
+        self.assertNotIn("the-lich", (EXT / "vung-dau.js").read_text(encoding="utf-8"))
+        for page in (html, site):
+            self.assertIn('href="trang-msn.css"', page)
+        # The site reads the forecast from the reader's browser: its policy allows that one host.
+        self.assertIn("https://api.open-meteo.com", site)
+        for part in ('vung-dau.js', 'id="web-search"', 'id="services"'):
             self.assertNotIn(part, site)
 
     def test_calendar_card_ships_its_pictures_and_fetches_nothing_new(self):
@@ -135,35 +143,33 @@ class TopZoneTests(unittest.TestCase):
         lunar = (EXT / "lich-am.js").read_text(encoding="utf-8")
         for name in names:
             self.assertIn(f"'{name}']", lunar)
-        source = (EXT / "the-lich.js").read_text(encoding="utf-8") + (EXT / "the-lich.css").read_text(encoding="utf-8")
+        source = (EXT / "the-lich.js").read_text(encoding="utf-8")
         self.assertIn("con-giap/${file}.svg", source)
         self.assertNotIn("http", source)        # no address of any host: the pictures are local, the weather is thoi-tiet.js
         self.assertNotIn("geolocation", source)
 
-    def test_new_tab_has_the_captains_three_rows_above_the_news(self):
-        # Captain, 07/11 18:03: row 1 the Google services with the 9 dots at the top right, row 2 the Google search with
-        # the day line under it, row 3 a compact Halcyon bar (small logo, the sections, the magnifier), then the news.
-        # 18:26, mockup D with three fixes: the wordmark alone (no "y" tile), a border and no shadow under the search,
-        # and a Google search.
+    def test_new_tab_has_the_google_rows_above_the_panel(self):
+        # Captain, 07/11 18:03 and 18:26 (mockup D): row 1 the Google services with the 9 dots at the top right, row 2
+        # the Google search with a border and no shadow. Mẫu A (08/11 18:23): those rows are MSN's search bar, and the
+        # panel under them carries the Coral Tile logo, the sections, the news search and the morning edition.
         html = (EXT / "newtab.html").read_text(encoding="utf-8")
         site = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
         head = html[html.index('id="masthead"'):html.index('</header>')]
         order = ['id="services"', 'class="tool-launcher"', 'id="web-search"']
         self.assertEqual([head.index(p) for p in order], sorted(head.index(p) for p in order))
-        # 08/11 (mockup H): the day line under the search is gone; its date, lunar date and weather are on the card.
-        for part in ('id="dateline"', 'id="day-date"', 'id="weather"'):
-            self.assertNotIn(part, html)
-        self.assertNotIn('class="brand-tag"', html)
+        self.assertNotIn('id="news-search"', head)
         bar = html[html.index('id="bar"'):html.index('</nav>', html.index('id="bar"'))]
-        for part in ('id="brand"', 'wordmark.svg', 'wordmark-dark.svg', 'id="feed-filters"', 'id="sort-switch"',
-                     'id="ns-open"', 'class="ed-link"', 'id="theme-btn"'):
+        for part in ('id="brand"', 'logo.svg', 'class="brand-name"', 'id="feed-filters"', 'id="ns-open"', 'class="ed-link"',
+                     'id="theme-btn"'):
             self.assertIn(part, bar)
-        self.assertNotIn('logo.svg"', bar.replace('wordmark', ''))  # no "y" tile beside the wordmark
         self.assertLess(bar.index('id="brand"'), bar.index('id="feed-filters"'))
-        self.assertLess(html.index('</nav>', html.index('id="bar"')), html.index('id="picks"'))
-        # The site home keeps its own masthead, tagline, sort line and no Google rows.
-        self.assertIn('class="brand-tag"', site)
-        self.assertIn('class="bar-tile"', site)
+        self.assertLess(html.index('</nav>', html.index('id="bar"')), html.index('id="feed-grid"'))
+        # The site home: the news search is its search bar, above the same panel head; no Google rows.
+        top = site[site.index('id="masthead"'):site.index('</header>')]
+        self.assertIn('id="news-search"', top)
+        site_bar = site[site.index('id="bar"'):site.index('</nav>', site.index('id="bar"'))]
+        for part in ('id="brand"', 'logo.svg', 'id="feed-filters"', 'class="ed-link"', 'id="theme-btn"'):
+            self.assertIn(part, site_bar)
         for part in ('id="dateline"', 'id="services"', 'Tìm trên Google'):
             self.assertNotIn(part, site)
         css = (EXT / "newtab.css").read_text(encoding="utf-8")

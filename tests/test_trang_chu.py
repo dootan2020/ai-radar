@@ -108,7 +108,7 @@ class RootPageHeadTests(unittest.TestCase):
         self.assertIn('<input id="ns-q" type="search"', self.html)
         self.assertNotIn('tra-cuu.html', self.html)
         # Daily edition link
-        self.assertRegex(self.html, r'<a\s+class="ed-link"\s+href="ban-tin\.html"\s+aria-label="Bản tin sáng"><svg')
+        self.assertRegex(self.html, r'<a\s+class="ed-link"\s+href="ban-tin\.html"\s+aria-label="Bản tin sáng"><span class="ed-label">')
         self.assertIn('<span class="ed-label">Bản tin sáng</span>', self.html)
         # Theme button
         self.assertIn('id="theme-btn"', self.html)
@@ -121,7 +121,7 @@ class RootPageHeadTests(unittest.TestCase):
         self.assertIn('data-sort="worth"', self.html)
         self.assertIn('data-sort="new"', self.html)
         # Sections
-        self.assertIn('id="picks"', self.html)
+        self.assertIn('id="feed-sentinel"', self.html)
         self.assertIn('id="feed-grid"', self.html)
         self.assertIn('id="src-update"', self.html)
         nguon_html = read(SITE / "nguon.html")
