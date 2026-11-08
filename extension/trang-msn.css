@@ -8,7 +8,8 @@
 /* ---------- the top row: the news search as the search bar, the Google apps at the right ---------- */
 .msn-top { padding: var(--msn-top-pad) var(--msn-page-pad) 0; background: transparent; }
 .msn-top-in {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, var(--msn-search-max)) minmax(0, 1fr); align-items: center;
+  /* The right column never gets narrower than the apps button, so the search and the button keep the gap between them. */
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, var(--msn-search-max)) minmax(var(--btn-h), 1fr); align-items: center;
   gap: var(--space-12); margin-bottom: var(--space-16);
 }
 .msn-top .news-search { grid-column: 2; width: 100%; position: relative; }
@@ -47,6 +48,11 @@
   -webkit-mask-image: none; mask-image: none;
 }
 .msn-head .sections .tab-pill { display: none; }
+/* When the sections scroll sideways, the edge that still hides sections fades out (feed.js sets data-more), so the
+   reader sees there is more to the right; a tab that is fully in view is never faded. */
+.msn-head .sections[data-more="end"] { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--space-48)), transparent); mask-image: linear-gradient(to right, #000 calc(100% - var(--space-48)), transparent); }
+.msn-head .sections[data-more="start"] { -webkit-mask-image: linear-gradient(to left, #000 calc(100% - var(--space-48)), transparent); mask-image: linear-gradient(to left, #000 calc(100% - var(--space-48)), transparent); }
+.msn-head .sections[data-more="both"] { -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--space-48), #000 calc(100% - var(--space-48)), transparent); mask-image: linear-gradient(to right, transparent, #000 var(--space-48), #000 calc(100% - var(--space-48)), transparent); }
 .msn-head .filter-chip {
   --header-control-bg: transparent; position: relative; height: var(--btn-h); padding: 0 var(--space-12); border-radius: var(--radius-8);
   font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2);
@@ -80,10 +86,14 @@
 .msn-head .news-search.open .ns-open { visibility: hidden; }
 
 /* ---------- the line above the grid ---------- */
-.front-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-8) var(--space-12); min-height: 0; margin: 0 var(--msn-tight) var(--space-12); }
-.msn-panel .front-h { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
-.front-h { font-size: var(--text-body); font-weight: var(--weight-bold); line-height: 1.4; letter-spacing: -0.02em; color: var(--color-ink); }
-.front-tools { display: flex; align-items: center; gap: var(--space-12); margin-inline-start: auto; }
+/* One line of one height on every section: the name, a section's way back beside it, then the time and the order. It
+   never wraps, so the grid under it (and the weather and calendar cards in it) stays put when the reader changes section. */
+.front-meta { display: flex; flex-wrap: nowrap; align-items: center; gap: var(--space-12); min-height: var(--btn-h); margin: 0 var(--msn-tight) var(--space-12); }
+.msn-panel .front-h { position: static; width: auto; height: auto; overflow: hidden; clip: auto; }
+.front-h { min-width: 0; font-size: var(--text-body); font-weight: var(--weight-bold); line-height: 1.4; letter-spacing: -0.02em; white-space: nowrap; text-overflow: ellipsis; color: var(--color-ink); }
+.front-meta .filter-context { order: 1; flex: none; margin: 0; }
+.front-meta .filter-context .text-btn { min-height: var(--btn-h); margin: 0; }
+.front-tools { order: 2; flex: none; display: flex; align-items: center; gap: var(--space-12); margin-inline-start: auto; }
 .front-updated { font-size: var(--text-micro); color: var(--color-ink-3); white-space: nowrap; }
 .front-meta .sort-switch { margin: 0; }
 
@@ -224,9 +234,24 @@
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 .msn-toplist .is-read .top-title { color: var(--color-ink-2); }
-.top-meta { display: block; margin-top: var(--msn-dot); font-size: var(--text-micro); color: var(--color-ink-3); }
+/* The source and the time share a line and the time never breaks; the "Translated" mark moves under them when the line
+   is full, and the source gives way (ellipsis) only when it and the time alone overflow. */
+.top-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--msn-tight) var(--space-4); min-width: 0; margin-top: var(--msn-dot); font-size: var(--text-micro); line-height: 1.35; white-space: nowrap; color: var(--color-ink-3); }
 .top-meta .st-mark:empty { display: none; }
-.top-meta .mt { margin-inline-start: var(--space-6); }
+.top-who { display: flex; gap: var(--space-4); min-width: 0; }
+.top-src { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.top-who > :not(.top-src), .top-meta > :not(.top-who) { flex: none; }
+.top-meta .mt { margin: 0; }
+/* From 1100px the list shares the first row's fixed height with the lead: a tighter rhythm keeps all four stories,
+   each with a two-line headline and a two-line source line, inside the card. */
+@media (max-width: 1099px) {
+  .top-who { flex-wrap: wrap; }   /* the card grows with its rows here, so a long source name keeps every letter */
+}
+@media (min-width: 1100px) {
+  .msn-toplist li { padding: var(--space-6) var(--space-4); }
+  .msn-toplist .top-title { line-height: 1.3; }
+  .top-meta { row-gap: 0; margin-top: 0; }
+}
 
 /* ---------- the weather: a sky photograph, a flat ink veil, frosted tiles; no ring inside (captain, 08/11 19:50) ---------- */
 .msn-wx {
@@ -445,10 +470,16 @@
   .newsbar.msn-head { gap: var(--space-4); margin-bottom: var(--space-6); }
   .msn-head .brand-tile { width: var(--space-32); height: var(--space-32); }
   .msn-head .brand-name { font-size: var(--text-tile); }
-  .msn-head .ed-link { padding: 0 var(--space-12); font-size: var(--text-meta); }
+  /* One coral fill per phone screen (brand: coral is the one loud colour, for the primary action): the search's button
+     keeps it; the morning edition, which the dock also carries, turns tonal. */
+  .msn-head .ed-link, .msn-head .ed-link:hover { --header-control-bg: var(--color-accent-wash); color: var(--color-ink); padding: 0 var(--space-12); font-size: var(--text-meta); }
+  .front-meta:has(.filter-context:not([hidden])) .front-updated { display: none; }
   .msn-head .filter-chip { padding: 0 var(--space-8); font-size: var(--text-meta); }
   .msn-head .filter-chip[aria-pressed="true"]::after { left: var(--space-8); right: var(--space-8); }
-  .front-meta { margin: var(--space-4) var(--msn-tight) var(--space-8); }
+  /* Too narrow for one line: the name takes its own line on every view, the way back, the time and the order the one
+     under it, so the line keeps one height whichever section is open. */
+  .front-meta { flex-wrap: wrap; row-gap: 0; margin: var(--space-4) var(--msn-tight) var(--space-8); }
+  .front-h { flex-basis: 100%; }
   .front-h { font-size: var(--text-sub); }
   .msn-grid, .msn-grid.is-front, .msn-grid:has(> .msn-wx) { grid-template-rows: none; grid-auto-rows: auto; }
   /* On a phone the two cards come first in the grid's own order (after the lead on the front page). */
@@ -457,14 +488,21 @@
   .nc { min-height: var(--msn-rowh-phone); }
   .nc-photo { height: var(--msn-photo-h-phone); }
   .nc-body { padding: var(--space-8) var(--space-8) var(--space-8); gap: var(--space-4); }
-  .nc-title { font-size: var(--text-meta); line-height: 1.38; -webkit-line-clamp: 4; }
+  /* Who said it matters more than when: on a half-width card the source keeps the whole first line and the time
+     takes the line under it. */
+  .nc:not(.nc-big):not(.nc-wide) .nc-meta { flex-wrap: wrap; row-gap: 0; }
+  .nc:not(.nc-big):not(.nc-wide) .nc-dot { display: none; }
+  .nc:not(.nc-big):not(.nc-wide) .nc-src { white-space: normal; overflow-wrap: anywhere; }
+  .nc:not(.nc-big):not(.nc-wide) .nc-meta time { flex-basis: 100%; font-weight: var(--weight-medium); }
+  .nc-title { font-size: var(--text-sub); line-height: 1.38; -webkit-line-clamp: 4; }
   .nc.no-photo .nc-body { padding: var(--space-12); gap: var(--space-8); }
   .nc.no-photo .nc-title { font-size: var(--text-sub); -webkit-line-clamp: 6; }
   .nc.no-photo:not(.nc-big):not(.nc-wide) .nc-sum { display: none; }
   .nc:not(.nc-big):not(.nc-wide) .nc-fav { display: none; }
   .msn-lead { grid-column: 1 / -1; height: var(--msn-lead-h-phone); }
   .slide-box { left: var(--space-8); right: var(--space-8); bottom: var(--space-8); padding: var(--space-8) var(--space-12) var(--space-12); }
-  .slide-title { font-size: var(--text-title); }
+  /* The lead's headline is the page's most important sentence: on a phone it is never cut. */
+  .slide-title { font-size: var(--text-title); display: block; -webkit-line-clamp: unset; overflow: visible; }
   .slide.no-photo .slide-title { font-size: var(--text-tile); }
   .msn-wx { grid-column: 1 / -1; min-height: var(--msn-wx-h-phone); padding: var(--space-8) var(--space-12); }
   .msn-toplist { grid-column: 1 / -1; }

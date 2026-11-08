@@ -123,9 +123,10 @@ export function createNewsSearch({ root, getStories = () => [], onOpenStory = ()
     root.classList.toggle('has-q', !!input.value);
     const m = rows ? matchRows(rows, q) : null;
     if (!m) { hide(); status.textContent = ''; return; }
-    let html = `<div class="ns-head"><span>${m.total ? `<b class="num">${m.total}</b> tin khớp “${esc(q)}”` : 'Không có tin khớp'}</span><span>trong <span class="num">${rows.length}</span> ${esc(scope)}</span></div>`;
+    // No story counts and no explanation text (captain, 08/11 08:31): the results are the answer, grouped by day.
+    let html = '';
     if (!m.total) {
-      html += `<p class="ns-empty">Không thấy tin nào có <b>“${esc(q)}”</b>. Thử một từ ngắn hơn, tên công ty hoặc tên mô hình.</p>`;
+      html += `<p class="ns-empty">Không có tin khớp <b>“${esc(q)}”</b></p>`;
     } else {
       const strong = m.strong.slice(0, MAX_SHOWN), weak = m.weak.slice(0, Math.max(0, MAX_SHOWN - strong.length));
       const days = new Map();
@@ -142,7 +143,7 @@ export function createNewsSearch({ root, getStories = () => [], onOpenStory = ()
     results.hidden = false;
     input.setAttribute('aria-expanded', 'true');
     activeIdx = -1;
-    status.textContent = m.total ? `${m.total} tin khớp` : 'Không có tin khớp';
+    status.textContent = m.total ? 'Có tin khớp' : 'Không có tin khớp';
   }
   async function update() {
     if (!rows) { await load(); }

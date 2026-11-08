@@ -378,6 +378,20 @@ dialog.story-dialog::backdrop {
   margin: 0;
 }
 
+/* A story page arrives as static HTML and story-page.js redraws it from the story's data, which has more blocks (the
+   picture, the coverage). With scripts on, the static copy stays invisible until that redraw, or for at most 1.5 s, so
+   the page draws once instead of jumping (layout shift 0.12 at 768px, measured 08/11). */
+@media (scripting: enabled) {
+  .story-page-container:not([data-ready]) > .story-article {
+    visibility: hidden;
+    animation: story-reveal 0s linear 1.5s forwards;
+  }
+}
+
+@keyframes story-reveal {
+  to { visibility: visible; }
+}
+
 /* Header & Publisher Info */
 .story-header {
   min-width: 0;
