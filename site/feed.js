@@ -28,7 +28,6 @@ import { createArenaView, loadArena, modelName, makerName, scoreText } from './a
 import { createNewsSearch } from './tim-tin.js';
 import { createWeatherCard } from './thoi-tiet.js';
 import { createCalendarCard } from './the-lich.js';
-import { todayVN } from './lich-am.js';
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/ (as on the
    bento home). The first request matches index.html's preload (same mode, no cache option), so it is reused. */
@@ -1932,15 +1931,12 @@ function focusStory(el) {
 let winH = 72, srcCount = 0;
 const LABELS = {};
 function renderSub() {
+  // A view with a tab (the sections, "Đã lưu") needs no line: its tab is pressed and "Trang nhất" is the way back. A
+  // section opened from a link (#sap-toi) has no tab, so it names itself and offers the way back.
   const sub = $('#filter-context');
-  sub.hidden = filter === 'all';
-  if (sub.hidden) {
-    sub.textContent = '';
-  } else {
-    const s = secOf(filter);
-    // The line's heading already names the view; the words before the button are for screen readers only.
-    sub.innerHTML = `<span class="sr">${s ? 'Đang xem mục' : 'Đang lọc'}: ${esc(LABELS[filter] || '')}. </span><button class="text-btn" data-reset>${s ? 'Về dòng tin' : 'Bỏ lọc'}</button>`;
-  }
+  const s = secOf(filter);
+  sub.hidden = !s;
+  sub.innerHTML = s ? `<span class="filter-name">${esc(s.label)}</span><button class="text-btn" data-reset>Về dòng tin</button>` : '';
 }
 function renderChips() {
   $$('.filter-chip').forEach(b => {
@@ -1955,15 +1951,11 @@ function renderChips() {
   if (container && active) glideTab(container, active);
   markTabOverflow(container);
 }
-/* The line above the grid names the view and says when the snapshot was made ("Cập nhật lúc 14:27"); it carries no
-   story count (captain, 08/11, Mẫu A). The panel head carries today's date on wide screens. */
+/* The view's name, for screen readers only: the pressed tab shows it on screen. No update time and no date (captain,
+   09/11: the calendar card already carries today's date). */
 function renderFrontMeta() {
   const h = $('#front-h');
   if (h) h.textContent = filter === 'all' ? 'Toàn cảnh AI hôm nay' : (LABELS[filter] || '');
-  const u = $('#front-updated');
-  if (u) u.textContent = D && D.generated_at ? `Cập nhật lúc ${hhmm(new Date(D.generated_at))}` : '';
-  const d = $('#date-chip');
-  if (d) { const t = todayVN(); d.textContent = `${t.weekday}, ${String(t.d).padStart(2, '0')}/${String(t.m).padStart(2, '0')}/${t.y}`; }
 }
 /* Keep the Arena deep link when its tab is selected; news filters retain their existing URL behavior. */
 function setFilter(f, fromHash = false) {
@@ -2371,7 +2363,7 @@ function onClick(e) {
   if (!t) return;
 
   // Modal interactions
-  if (t.closest('#story-modal-close, #story-footer-close-btn, .story-modal-close-btn, [data-modal-close]')) {
+  if (t.closest('#story-modal-close')) {
     e.preventDefault();
     closeStoryModal();
     return;
@@ -2394,12 +2386,6 @@ function onClick(e) {
         toast(u);
       }
     }
-    return;
-  }
-  if (t.closest('#story-footer-top-btn, [data-story-top]')) {
-    e.preventDefault();
-    const scroller = document.getElementById('story-dialog-scroller');
-    if (scroller) scroller.scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' });
     return;
   }
   if (t === document.getElementById('story-dialog')) {

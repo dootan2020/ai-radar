@@ -36,9 +36,14 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertIn(".seen-mark", self.css)
 
     def test_sort_and_metadata_locations(self):
-        # The sort switch sits on the line above the bento (07/11, "Trang nhất").
+        # The line above the grid is gone (captain, 09/11): the sort switch sits in the panel's head row, and the view's
+        # name is a heading for screen readers only, with no update time.
+        actions = self.html.split('<div class="head-actions">')[1].split('id="theme-btn"')[0]
+        self.assertIn('id="sort-switch"', actions)
         meta = self.html.split('<div class="front-meta">')[1].split('id="filter-context"')[0]
-        self.assertIn('id="sort-switch"', meta)
+        self.assertIn('<h2 class="sr" id="front-h">', meta)
+        self.assertNotIn('front-updated', self.html)
+        self.assertNotIn("Cập nhật lúc", self.js)
         mobile = self.css.split("@media (max-width: 767px)", 1)[1]
         self.assertNotIn("order: 6", mobile)
         self.assertIn('id="src-update"', self.html)

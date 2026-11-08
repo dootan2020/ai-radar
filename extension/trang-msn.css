@@ -66,7 +66,7 @@
   height: var(--msn-tab-line); border-radius: var(--msn-tab-line); background: var(--color-accent-fill);
 }
 .head-actions { display: flex; align-items: center; gap: var(--space-8); margin-left: auto; flex: none; }
-.date-chip { padding: 0 var(--space-4); font-size: var(--text-micro); font-weight: var(--weight-semibold); color: var(--color-ink-2); white-space: nowrap; }
+.head-actions .sort-switch { margin: 0; }
 .msn-head .ed-link, .end-actions .ed-link {
   --header-pill-inset: 0px; --header-control-bg: var(--color-accent-fill); gap: var(--space-6); min-height: var(--btn-h); padding: 0 var(--space-16);
   font-size: var(--text-small); font-weight: var(--weight-bold); transition: transform var(--duration-150) var(--ease-press);
@@ -85,17 +85,14 @@
 .msn-head .news-search.open .ns-clear { display: inline-grid; }
 .msn-head .news-search.open .ns-open { visibility: hidden; }
 
-/* ---------- the line above the grid ---------- */
-/* One line of one height on every section: the name, a section's way back beside it, then the time and the order. It
-   never wraps, so the grid under it (and the weather and calendar cards in it) stays put when the reader changes section. */
-.front-meta { display: flex; flex-wrap: nowrap; align-items: center; gap: var(--space-12); min-height: var(--btn-h); margin: 0 var(--msn-tight) var(--space-12); }
-.msn-panel .front-h { position: static; width: auto; height: auto; overflow: hidden; clip: auto; }
-.front-h { min-width: 0; font-size: var(--text-body); font-weight: var(--weight-bold); line-height: 1.4; letter-spacing: -0.02em; white-space: nowrap; text-overflow: ellipsis; color: var(--color-ink); }
-.front-meta .filter-context { order: 1; flex: none; margin: 0; }
+/* ---------- above the grid ---------- */
+/* Nothing on every tab and in either order, so the grid (and the weather and calendar cards in it) starts at one place.
+   Only a section without a tab of its own shows a line: its name and the way back. */
+.front-meta { margin: 0; min-height: 0; }
+.front-meta .filter-context { display: flex; align-items: center; gap: var(--space-12); min-height: var(--btn-h); margin: 0 var(--msn-tight) var(--space-8); }
+.front-meta .filter-context[hidden] { display: none; }
+.filter-context .filter-name { font-size: var(--text-body); font-weight: var(--weight-bold); color: var(--color-ink); }
 .front-meta .filter-context .text-btn { min-height: var(--btn-h); margin: 0; }
-.front-tools { order: 2; flex: none; display: flex; align-items: center; gap: var(--space-12); margin-inline-start: auto; }
-.front-updated { font-size: var(--text-micro); color: var(--color-ink-3); white-space: nowrap; }
-.front-meta .sort-switch { margin: 0; }
 
 /* ---------- the grid ---------- */
 .msn-grid {
@@ -437,13 +434,21 @@
   .msn-grid { --msn-row: var(--msn-rowh-xl); }
   .nc-photo { height: var(--msn-photo-h-xl); }
 }
-@media (max-width: 1450px) {
-  .date-chip { display: none; }
-}
 @media (min-width: 1100px) and (max-width: 1450px) {
   .newsbar.msn-head { gap: var(--space-8); }
   .msn-head .filter-chip { padding: 0 var(--space-8); }
   .msn-head .filter-chip[aria-pressed="true"]::after { left: var(--space-8); right: var(--space-8); }
+}
+/* The tabs fill this row, so the order is the one button that says the current order and switches it, as on a phone. */
+@media (min-width: 1280px) and (max-width: 1365px) {
+  .msn-head .sort-btn:not(.sort-btn-compact) { display: none; }
+  .msn-head .sort-btn-compact { display: inline-flex; padding-inline: var(--space-8); }
+  .msn-head .sort-switch .tab-pill { display: none; }
+}
+/* Narrower still, even that button would push the last tabs out of sight: the tabs take their own row, as under 1100px. */
+@media (min-width: 1100px) and (max-width: 1279px) {
+  .newsbar.msn-head { flex-wrap: wrap; }
+  .msn-head .sections { order: 3; flex: 1 1 100%; overflow-x: auto; }
 }
 @media (max-width: 1099px) {
   :root { --msn-cols: 3; }
@@ -459,6 +464,10 @@
   .msn-top .news-search.open .ns-field { position: static; inset: auto; }
   .msn-top .news-search.open .ns-open { visibility: hidden; }
   .msn-top .ns-results { top: calc(100% + var(--space-4)); }
+  /* The dock below carries "Bản tin" and "Tìm tin" (captain, 09/11: "có cái gì bỏ được nữa thì bỏ luôn"): the head
+     drops the morning edition, the search keeps its field (results show as the reader types, the keyboard has its own
+     search key), and the footer drops "Nguồn tin", which the dock also carries. */
+  .msn-head .ed-link, .msn-top .ns-go, .msn-panel .feed-footer .src-note { display: none; }
 }
 @media (max-width: 699px) {
   :root { --msn-gap: var(--space-8); --msn-cols: 2; }
@@ -470,17 +479,9 @@
   .newsbar.msn-head { gap: var(--space-4); margin-bottom: var(--space-6); }
   .msn-head .brand-tile { width: var(--space-32); height: var(--space-32); }
   .msn-head .brand-name { font-size: var(--text-tile); }
-  /* One coral fill per phone screen (brand: coral is the one loud colour, for the primary action): the search's button
-     keeps it; the morning edition, which the dock also carries, turns tonal. */
-  .msn-head .ed-link, .msn-head .ed-link:hover { --header-control-bg: var(--color-accent-wash); color: var(--color-ink); padding: 0 var(--space-12); font-size: var(--text-meta); }
-  .front-meta:has(.filter-context:not([hidden])) .front-updated { display: none; }
   .msn-head .filter-chip { padding: 0 var(--space-8); font-size: var(--text-meta); }
   .msn-head .filter-chip[aria-pressed="true"]::after { left: var(--space-8); right: var(--space-8); }
-  /* Too narrow for one line: the name takes its own line on every view, the way back, the time and the order the one
-     under it, so the line keeps one height whichever section is open. */
-  .front-meta { flex-wrap: wrap; row-gap: 0; margin: var(--space-4) var(--msn-tight) var(--space-8); }
-  .front-h { flex-basis: 100%; }
-  .front-h { font-size: var(--text-sub); }
+  .front-meta .filter-context { margin-top: var(--space-4); }
   .msn-grid, .msn-grid.is-front, .msn-grid:has(> .msn-wx) { grid-template-rows: none; grid-auto-rows: auto; }
   /* On a phone the two cards come first in the grid's own order (after the lead on the front page). */
   .msn-grid > .msn-wx { grid-area: auto / 1 / auto / -1; }

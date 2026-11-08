@@ -17,6 +17,8 @@ const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 
 function cardHTML(c) {
   const a = c.animals, sunday = c.wdi === 0 ? ' is-sunday' : '';
+  // On mùng 1 and rằm the note would only repeat the lunar date printed above it (captain, 09/11: "bỏ được thì bỏ").
+  const note = c.lunar.day === 1 || c.lunar.day === 15 ? '' : c.note;
   return `<h2 class="sr">Hôm nay ${c.weekday}, ${c.d} tháng ${c.m} năm ${c.y}; âm lịch ${c.lunarDay}, năm ${a.year.canchi}, năm con ${a.year.name}; ngày ${a.day.canchi} (con ${a.day.name}), tháng ${a.month.canchi} (con ${a.month.name}); tiết ${c.term}. ${c.note}</h2>
     <span class="cal-art" aria-hidden="true"></span>
     <p class="cal-band" aria-hidden="true"><span>Tháng ${c.m}</span><span class="num">${c.y}</span></p>
@@ -25,7 +27,7 @@ function cardHTML(c) {
       <p class="cal-lunar"><span class="cal-k">Âm lịch</span><b class="num">${two(c.lunar.day)}</b><span>${cap(lunarMonthName(c.lunar))}</span></p>
       <ul class="cal-canchi"><li>Ngày <b>${a.day.canchi}</b></li><li>Tháng <b>${a.month.canchi}</b></li><li>Năm <b>${a.year.canchi}</b></li><li>Tiết <b>${c.term}</b></li></ul>
     </div>
-    ${c.note ? `<p class="cal-note" aria-hidden="true">${c.note}</p>` : ''}`;
+    ${note ? `<p class="cal-note" aria-hidden="true">${note}</p>` : ''}`;
 }
 
 /* The card element, filled for today. */
