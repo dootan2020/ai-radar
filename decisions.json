@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08T07:25:33.803879+00:00",
-  "input_generated_at": "2026-11-08T05:51:43Z",
+  "generated_at": "2026-11-08T11:24:20.082374+00:00",
+  "input_generated_at": "2026-11-08T07:27:27Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -38903,17 +38903,17 @@
       "use_original_title": false,
       "source_url": "https://caleb.software/posts/claude-to-pi.html",
       "key_points": [
-        "Tác giả bài viết quyết định ngừng dùng Claude Code làm công cụ hỗ trợ lập trình (coding harness) chính để chuyển sang Pi. Tác giả đã gắn bó với Claude Code hơn một năm kể từ khi công cụ xuất hiện trên gói thuê bao Claude Pro.",
-        "Tác giả giải thích nguyên nhân là sự bất tiện khi phải sao chép hoặc liên kết giữa hai định dạng tệp CLAUDE.md và AGENTS.md. Bên cạnh đó, tác giả phản ánh Claude Code trong VSCode chỉ cho phép kết nối một phiên, khiến tab thứ hai không thể nhận thao tác chọn văn bản từ IDE.",
-        "Dẫn chứng cụ thể, hơn ba phần tư trong 244 bản phát hành của Claude Code năm nay đã thay đổi câu lệnh hệ thống (system prompt) hoặc mô tả công cụ. Theo tác giả, các thay đổi này có thể làm biến đổi đáng kể hiệu năng mô hình và gây xáo trộn thiết lập cá nhân.",
-        "Tác giả cho biết ông hài lòng với độ ổn định, tính tối giản và khả năng tùy biến của Pi, dù vài ngày đầu cần tinh chỉnh đôi chút. Tác giả cũng nhận định Claude Code thiếu tầm nhìn rõ ràng khi vội vã thêm tính năng mà không cân nhắc nguy cơ làm trải nghiệm người dùng tệ đi."
+        "Tác giả bài viết quyết định ngừng dùng Claude Code làm môi trường hỗ trợ lập trình (coding harness) chính để chuyển sang Pi. Lựa chọn này được đưa ra sau hơn một năm sử dụng công cụ kể từ khi có mặt trên gói thuê bao Claude Pro.",
+        "Tác giả bài viết nêu lý do từ bỏ là sự bất tiện khi phải sao chép hoặc liên kết giữa tệp CLAUDE.md và AGENTS.md. Ngoài ra, kết nối môi trường này vào IDE chỉ cho phép một phiên nhận vùng chọn văn bản, còn tiện ích giao diện dù mở được nhiều thẻ lại lỗi nửa số lệnh gạch chéo (slash command).",
+        "Dẫn chứng cụ thể, hơn ba phần tư trong 244 bản phát hành của Claude Code năm nay đã thay đổi câu lệnh hệ thống (system prompt) hoặc mô tả công cụ. Theo tác giả bài viết, các thay đổi này có thể biến đổi đáng kể hiệu năng mô hình và gây xáo trộn thiết lập cá nhân.",
+        "Tác giả bài viết nhận định Claude Code thiếu định hướng rõ ràng khi vội vã thêm tính năng mà không cân nhắc việc làm trải nghiệm người dùng tệ đi. Dù vài ngày đầu cần tinh chỉnh, tác giả vẫn hài lòng với Pi nhờ độ ổn định, tính tối giản và khả năng tùy biến cao."
       ],
       "same_event_coverage_ids": [
         "bfefdceb2b9f0a6d3978"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tác giả bài viết chuyển sang Pi làm công cụ lập trình chính thay cho Claude Code",
+      "editorial_headline_vi": "Tác giả bài viết rời Claude Code để chuyển sang Pi làm môi trường hỗ trợ lập trình chính",
       "summary_sources": [
         {
           "id": "outlet",
@@ -38926,39 +38926,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.6,
+        "value": 9.8,
         "answers": {
           "what": 10,
-          "why": 8,
+          "why": 9,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Claude Code trong VSCode chỉ cho phép kết nối một phiên",
-            "explanation": "The one-session limit applies to sessions connected to the IDE through the harness (outlet:p008–p009). The official Claude Code VSCode GUI extension supports multiple tabs with text selections loaded into each tab’s context (outlet:p010)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "ông",
-            "explanation": "The supplied source does not state the author’s gender (outlet:p003–p016)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "A reader may think every way of using Claude Code in VSCode has the one-session limit.",
-            "fix": "Specify that the limit concerns IDE-connected harness sessions, and note that the official GUI extension supports multiple tabs, though the author reports other problems with it (outlet:p008–p010)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "70a9fbc7bf5e0656fccc181acae794f40d1ae623882292f352e9e2a5bb37bfd3",
-        "scored_at": "2026-11-08T07:17:21.681614+00:00"
+        "prose_sha256": "1e923ad82b099166a11d7b47e34dfcde6d46ce2c38276704c825b28eaafce200",
+        "scored_at": "2026-11-08T11:24:20.079224+00:00"
       }
     },
     {
@@ -39062,6 +39045,126 @@
       ],
       "same_event_coverage_ids": [
         "e22015509ab3b0b6a0c2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "01a75565cd5c37eca519",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/moore-threads-aicube-aios-smart-home-control-local-ai-nas",
+      "key_points": [
+        "Moore Threads cập nhật thiết bị AICUBE với bản MTT AIOS 1.6.1 mở rộng vai trò Xiaomai AI Agent (phần mềm trí tuệ nhân tạo tự thực hiện tác vụ) chứ không phải phần cứng mới, theo Yesky và Sina Technology ngày 6 tháng 11. Ứng dụng điện thoại đi kèm hỗ trợ xem tệp từ xa, tải lên, tải xuống, sao lưu và đồng bộ ảnh với AICUBE theo các báo cáo.",
+        "Người dùng có thể ra lệnh giọng nói điều khiển phối hợp nhiều thiết bị như đèn, rèm cửa và điều hòa qua giao thức Matter cùng ZigBee theo Moore Threads. Trợ lý này có thể tìm ảnh Olares theo ngữ nghĩa và gửi vào hội thoại sau khi người dùng kết nối WeChat hoặc Feishu theo các báo cáo.",
+        "Tích hợp Olares cho phép truy cập bộ lưu trữ qua hội thoại, hỗ trợ tạo, sao chép, chuyển, xóa và truy xuất tệp cục bộ theo Pandaily. Pandaily lưu ý đây là kịch bản do công ty mô tả, còn các báo cáo không cung cấp danh sách tương thích đầy đủ hay chứng minh mọi thiết bị đều hoạt động không cần cài đặt thêm."
+      ],
+      "same_event_coverage_ids": [
+        "7931d9e1ecff48ff6a37"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Moore Threads cập nhật phần mềm MTT AIOS 1.6.1 cho AICUBE với điều khiển nhà thông minh và quản lý tệp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/moore-threads-aicube-aios-smart-home-control-local-ai-nas"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The final caveat follows the Olares file paragraph, so readers may attach “company-described scenarios” and the appliance compatibility limit to the file integration.",
+            "fix": "Place the caveat beside the smart-home examples and specify that it concerns appliance compatibility (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ce744eb162bdca8f07514db75c2faa70724dbfbe25b194ceb07ed13d8c3b81b1",
+        "scored_at": "2026-11-08T11:21:14.131414+00:00"
+      }
+    },
+    {
+      "id": "5276d3c3b5fd2c0d8050",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page without any documented release, announcement, or independent news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/PaxattechMega79503/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f884cc8593fa632ee66b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2a88644c438371155725",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page lacking a documented release, announcement, or independent news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/LumiVikinggard89137/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5b43d0938654a194afc9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b52dc3868a62ca4df752",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page without an announcement, documented software release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/tireddwarf99/ai_manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "43b6197a6bd7375d46f5"
       ],
       "split_coverage_ids": []
     }
