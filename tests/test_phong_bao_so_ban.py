@@ -7,7 +7,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from phong_bao.so_ban import collect, report, run
+from phong_bao.so_ban import _checker_label, collect, report, run
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "so-ban"
@@ -26,6 +26,12 @@ class DeskLedgerTests(unittest.TestCase):
             ("writer", "fail"): 2, ("chief", "publish"): 1, ("chief", "hold"): 3,
         })
         self.assertEqual(sum(problems.values()), 5)
+        checker = [row for row in ledger if row["type"] == "story" and row["desk"] == "checker"]
+        self.assertEqual(Counter(row["check_status"] for row in checker), {"not_checked": 4, "checked": 2})
+        old = [row for row in checker if row["cycle"] == "20261108T230008Z"]
+        self.assertEqual({row["skip_reason"] for row in old}, {"editor_hold", "paywall"})
+        self.assertTrue(all(row["reason"] == "checker_not_checked" and row["invalid_response"] is False
+                            for row in old))
 
     def test_cli_artifacts_are_deterministic_and_month_scoped(self):
         with TemporaryDirectory() as temporary:
@@ -37,9 +43,22 @@ class DeskLedgerTests(unittest.TestCase):
             self.assertIn("từ 2026-11-01T02:00:00+07:00", text)
             self.assertIn("có cycle: 3; đúng khung: 3", text)
             self.assertIn("Publish: 0/2", text)
+            self.assertIn("Chưa gửi kiểm: 2", text)
+            self.assertIn("lỗi kiểm chứng: 0", text)
             self.assertTrue((out / "so-ban-domains.csv").is_file())
             self.assertEqual(first, ((out / "so-ban.jsonl").read_bytes(), run(FIXTURE, out, month="2026-11").read_bytes()))
             self.assertEqual(len((out / "so-ban.jsonl").read_text(encoding="utf-8").splitlines()), 46)
+
+    def test_old_sent_cycle_reply_failures_keep_distinct_labels(self):
+        job = FIXTURE / "20261109T030010Z" / "job"
+        editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
+        reporter = json.loads((job / "reporter.json").read_text(encoding="utf-8"))
+        sid = "af3b84067d2d1e42cef4"
+        failed = {"id": sid, "reason": "checker_invalid", "invalid_response": True}
+        self.assertEqual(_checker_label(failed, editor[sid], reporter[sid], set(), {}),
+                         ("checker_failure", "no_reply"))
+        self.assertEqual(_checker_label(failed, editor[sid], reporter[sid], {sid}, {}),
+                         ("checker_failure", "invalid_reply"))
 
     def test_report_limits_domain_table_and_sums_remainder(self):
         start = datetime.fromisoformat("2026-11-01T02:00:00+07:00")

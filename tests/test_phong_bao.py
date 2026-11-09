@@ -698,6 +698,46 @@ class NewsroomTests(unittest.TestCase):
         self.assertEqual(len(usage), 2)
         self.assertTrue(all(row["invalid_response"] for row in checked.values()))
 
+    def test_checker_records_real_cycle_held_rows_as_not_checked(self):
+        job = Path(__file__).parent / "fixtures" / "so-ban" / "20261108T230008Z" / "job"
+        editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
+        reporter = json.loads((job / "reporter.json").read_text(encoding="utf-8"))
+        chief = {row["id"]: row for row in json.loads((job / "chief.json").read_text(encoding="utf-8"))}
+        for row in editor.values():
+            row.setdefault("claims", [])
+        for row in reporter.values():
+            row.setdefault("source_text", "")
+        stories = [{"id": sid, "title": "AI news", "url": chief[sid]["source_url"]} for sid in editor]
+        with patch("phong_bao.newsroom._agent_desk") as desk:
+            checked, _ = _checker(stories, {}, reporter, editor, self.tools, self.discovery, self.runner)
+        desk.assert_not_called()
+        self.assertEqual(checked["25fc96dab8ac2c343520"]["skip_reason"], "editor_hold")
+        self.assertEqual(checked["8a86cf9d70b8065c8241"]["skip_reason"], "paywall")
+        self.assertTrue(all(row["reason"] == "checker_not_checked" and not row["invalid_response"]
+                            and not row["verified"] for row in checked.values()))
+
+    def test_checker_distinguishes_missing_and_invalid_replies_for_sent_real_cycle_rows(self):
+        job = Path(__file__).parent / "fixtures" / "so-ban" / "20261109T030010Z" / "job"
+        editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
+        reporter = json.loads((job / "reporter.json").read_text(encoding="utf-8"))
+        for row in editor.values():
+            row.setdefault("claims", [])
+        for row in reporter.values():
+            row.setdefault("source_text", "")
+        stories = [{"id": sid, "title": "AI news"} for sid in editor]
+        valid_id, failed_id = list(editor)
+        valid = {"id": valid_id, "title_supported": True, "supported_claims": [], "boat": "codex"}
+        malformed = {"id": failed_id, "title_supported": "yes", "supported_claims": [], "boat": "codex"}
+        for failed_reply, expected in ((None, "checker_no_reply"), (malformed, "checker_invalid")):
+            with self.subTest(expected=expected), patch("phong_bao.newsroom._agent_desk") as desk:
+                desk.side_effect = [({valid_id: valid, **({failed_id: failed_reply} if failed_reply else {})}, []),
+                                    ({failed_id: failed_reply} if failed_reply else {}, [])]
+                checked, _ = _checker(stories, {}, reporter, editor, self.tools, self.discovery, self.runner)
+            self.assertEqual(checked[failed_id]["reason"], expected)
+            self.assertTrue(checked[failed_id]["invalid_response"])
+            self.assertFalse(checked[failed_id]["verified"])
+            self.assertEqual(checked[failed_id]["skip_reason"], None)
+
     def test_live_held_good_stories_publish_with_degradation_and_junk_stays_held(self):
         cases = fixture("live-held-cases.json")
         captured = []
