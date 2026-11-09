@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08T23:33:02.907321+00:00",
-  "input_generated_at": "2026-11-08T22:26:36Z",
+  "generated_at": "2026-11-09T04:59:57.918065+00:00",
+  "input_generated_at": "2026-11-09T02:10:51Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -39554,17 +39554,17 @@
       "use_original_title": false,
       "source_url": "https://www.thestateofai.com/news/goldman-sachs-claude-code-traders-bankers",
       "key_points": [
-        "Theo Bloomberg News, phần lớn nhà giao dịch và nhân viên ngân hàng tại Goldman Sachs không còn được dùng công cụ lập trình trí tuệ nhân tạo. Quy định nội bộ cập nhật tháng 10 giới hạn Claude Code và GitHub cho kỹ sư, dù nhóm chuyên viên chiến lược vẫn giữ quyền truy cập.",
-        "Bloomberg News cho biết quyết định hạn chế diễn ra sau đợt rà soát về năng suất và lo ngại rủi ro. Quy định theo vai trò này chỉ áp dụng với tác tử (công cụ tự viết và chạy mã) bên thứ ba, trong khi trợ lý nội bộ vẫn mở cho toàn ngân hàng.",
-        "Đáng chú ý, nhân viên ngân hàng của Goldman Sachs chuẩn bị chào bán cổ phiếu trong đợt IPO của Anthropic, dù phần lớn họ không còn được dùng tác tử của công ty này. Một nguồn tin nói với Bloomberg rằng một số nhà giao dịch thất vọng vì từng dùng công cụ để theo dõi dòng giao dịch và lập mô hình vị thế.",
-        "Trang State of AI nhận định Goldman Sachs đúng đắn khi hạn chế các công cụ này, nhưng sai lầm trong cách thức triển khai. Theo tác giả bài viết, việc thu hồi quyền truy cập qua bản hướng dẫn mà không nêu giải pháp thay thế khiến các nhà giao dịch tìm ra ứng dụng tốt cảm thấy chính họ là rủi ro."
+        "Theo Bloomberg News, phần lớn nhà giao dịch và nhân viên ngân hàng tại Goldman Sachs không còn được dùng công cụ lập trình AI. Quy định nội bộ cập nhật tháng 10 giới hạn Claude Code và GitHub cho kỹ sư, dù nhóm chuyên viên chiến lược vẫn có quyền truy cập.",
+        "Bloomberg News cho biết quyết định hạn chế diễn ra sau đợt rà soát về năng suất và các lo ngại rủi ro. Quy định theo vai trò này chỉ áp dụng với tác tử (công cụ tự viết và chạy mã) bên thứ ba, còn trợ lý nội bộ vẫn mở cho toàn ngân hàng.",
+        "Đáng chú ý, nhân viên ngân hàng Goldman Sachs chuẩn bị chào bán cổ phiếu IPO của Anthropic, dù phần lớn họ không còn được dùng tác tử của công ty này. Một người thạo tin nói với Bloomberg rằng một số nhà giao dịch thất vọng vì từng dùng công cụ để theo dõi dòng giao dịch và lập mô hình vị thế.",
+        "Trang State of AI nhận định Goldman Sachs đúng đắn khi hạn chế các công cụ này, nhưng sai lầm trong cách thức triển khai. Theo tác giả bài viết, việc thu hồi quyền truy cập qua bản hướng dẫn mà bài báo của Bloomberg không đề cập giải pháp thay thế khiến các nhà giao dịch tìm ra ứng dụng tốt cảm thấy chính họ là rủi ro."
       ],
       "same_event_coverage_ids": [
         "ecf64e88ad8ac4730a4e"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Goldman Sachs hạn chế công cụ lập trình AI đối với phần lớn nhà giao dịch và nhân viên ngân hàng",
+      "editorial_headline_vi": "Goldman Sachs hạn chế Claude Code và GitHub với phần lớn nhà giao dịch và nhân viên ngân hàng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -39577,34 +39577,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.5,
+        "value": 9.7,
         "answers": {
           "what": 10,
-          "why": 9,
-          "notable": 10,
-          "meaning": 8
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "không nêu giải pháp thay thế",
-            "explanation": "This attaches the absence of a replacement to the guidance. The source says only that no replacement was mentioned in Bloomberg's reporting; it does not establish what the guidance said (outlet:p026)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "Readers may believe Goldman issued guidance without a replacement plan.",
-            "fix": "Say that Bloomberg's reporting did not mention a replacement, which is the narrower claim in outlet:p026."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "aa35a6e27e07c51d19d6424d4a067f8c86ac1e4c40f4ade5b7e63e5b682bbb5e",
-        "scored_at": "2026-11-08T23:33:02.903796+00:00"
+        "prose_sha256": "214abab10273939c63329a7ea1a4783be69de8d169555ebe3d5827ccead46ff3",
+        "scored_at": "2026-11-09T04:59:57.903733+00:00"
       }
     },
     {
@@ -39977,6 +39965,281 @@
       "same_event_coverage_ids": [
         "5035ae14f2465d4845ce",
         "a3a4f42e434307e75d1b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "af3b84067d2d1e42cef4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/08/2026/anti-waymo-campaign-relied-on-op-eds-written-with-ai",
+      "key_points": [
+        "Dịch vụ phát hiện Pangram cho biết nhiều bài xã luận phản đối taxi tự hành Waymo dùng AI nhưng không dán nhãn công khai. Theo Semafor, loạt bài này nằm trong cuộc tranh chấp kéo dài nhiều tháng về việc liệu Waymo có thể vận hành thương mại trên đường phố ở một số thành phố lớn hay không.",
+        "Theo Semafor, các bài xã luận này lập luận rằng Waymo có thể làm mất việc làm, gây nguy hiểm cho hành khách, khiến chính quyền thiếu thông tin và cản trở xe cứu hỏa. Tác giả Ira Goldstein cho biết bản thảo đầu tiên bài viết của ông trên tờ New York Daily News do một công ty PR (quan hệ công chúng) chuẩn bị.",
+        "Theo Pangram, loạt bài của luật sư Amy Witherite trên tờ Dallas Morning News có tỷ lệ do AI viết lần lượt là 95% và 71%. Người phát ngôn của Witherite khẳng định các bài viết đều phản ánh đúng quan điểm của bà và đã được kiểm duyệt trước khi nộp.",
+        "Semafor nhận định việc để AI lan tràn dễ làm suy giảm chất lượng sản phẩm báo chí, trong khi độc giả trả phí cần góc nhìn được con người xác minh. Ngược lại, The Wall Street Journal từng tuyên bố chấp nhận bài viết do AI tạo ra từ nhân vật nổi bật mà không cần công khai nhãn, miễn là có giá trị thời sự và lập luận chặt chẽ."
+      ],
+      "same_event_coverage_ids": [
+        "1c64044f77f4923c6372"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhiều bài xã luận phản đối taxi tự hành Waymo bị phát hiện dùng AI soạn thảo nhưng không dán nhãn công khai",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/08/2026/anti-waymo-campaign-relied-on-op-eds-written-with-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese says paying readers need a human-verified perspective, where the source presents that as a possible source of value.",
+            "fix": "Preserve the conditional framing in outlet:p028."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "63d6b8cdeb3c8369499a03c489a41888025b8fbbb7ed12ec9905783cbb912a2d",
+        "scored_at": "2026-11-09T04:56:44.709171+00:00"
+      }
+    },
+    {
+      "id": "c8c47959c350bfb0630c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/china-mobile-cloud-zhipu-glm-moma-token-research-coding-partnership",
+      "key_points": [
+        "China Mobile Cloud và Zhipu đã ký thỏa thuận hợp tác về dịch vụ mô hình, sản phẩm lập trình AI và ứng dụng ngành vào ngày 6 tháng 11. Pandaily lưu ý đây là thông báo hợp tác ban đầu chứ chưa phải đợt ra mắt dịch vụ chung hoàn chỉnh hay công bố công cụ lập trình cụ thể.",
+        "Theo thông báo, hai bên dự kiến lập trung tâm chung với mục tiêu được nêu là nâng cao hiệu quả tạo token (đơn vị văn bản của mô hình ngôn ngữ). Kế hoạch kỹ thuật gồm điều chỉnh mô hình cho phần cứng nội địa, nhưng chưa công bố số liệu cải thiện hay tiến độ thực hiện.",
+        "Thỏa thuận dự kiến kết nối các mô hình GLM của Zhipu vào nền tảng MoMA của China Mobile Cloud. Hai đối tác xác định ưu tiên ứng dụng cho tài chính và chính phủ, song chưa công bố khách hàng triển khai thực tế.",
+        "Pandaily nhận định thỏa thuận hiện chỉ là kế hoạch phát triển chung chứ chưa phải một đột phá hiệu quả đã hoàn thành. Giá trị thực tế sẽ tùy thuộc vào các chi tiết chưa công bố, gồm phiên bản GLM được hỗ trợ, cách khách hàng tiếp cận và hiệu quả đo lường được."
+      ],
+      "same_event_coverage_ids": [
+        "78f0513ff5d986c28e95"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "China Mobile Cloud và Zhipu hợp tác AI nhưng chưa ra mắt dịch vụ chung hay công bố công cụ lập trình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/china-mobile-cloud-zhipu-glm-moma-token-research-coding-partnership"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "244a71416f3324e348e7dbf7bb1f6d0e8dcd7f9a697d95cdd30a48efdc9edf1b",
+        "scored_at": "2026-11-09T04:56:44.709226+00:00"
+      }
+    },
+    {
+      "id": "0dfae10aeb3e0e55c85b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on Taiwanese stock market moves and regulatory stabilization measures, referencing a global AI selloff only as incidental market backdrop.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-09/taiwan-stocks-gain-as-authorities-move-to-stem-market-rout",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4a3ea8a7001dcbc42a19"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ab73bd31781c15d4f58b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-09/trump-backs-nvidia-ceo-after-he-admits-affair-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8a20a9f0f9bd1feaffc9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dab987be36e106a40b42",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://matteoraso.github.io/im-not-convinced-the-ai-bubble-exists.html#im-not-convinced-the-ai-bubble-exists",
+      "key_points": [
+        "The author argues that online consensus assuming the AI industry is an overvalued bubble set to collapse is not well-founded.",
+        "AI companies have committed to spending at least $3 trillion and have already spent an estimated $1.9 trillion."
+      ],
+      "same_event_coverage_ids": [
+        "7ea30bdbc97922fcd4bb",
+        "ebd8f41563d250099f1b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f0be6325bfc4dec9fdd9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1029595/full-text-jensen-huang-affair-memo-nvidia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "67e46ebff6407f21fc10"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "59fcb7fba726a1adc785",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-08/rba-s-hunter-says-ai-boom-will-put-near-term-pressure-on-prices",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c15a5f106a10f4ed127e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ecaa80e2cfd42a971dd5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=zrlLUUdqDJI",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "30530c1bcec4fd3d0e51"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7e92962fcedee5b63d5e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://x.com/btibor91/status/2119426577398415784",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cb94d14acbbee8fdca93"
       ],
       "split_coverage_ids": []
     }
