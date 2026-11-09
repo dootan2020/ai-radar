@@ -25,6 +25,15 @@ def node(script, *paths):
 
 
 class ExtensionShellTests(unittest.TestCase):
+    def test_late_field_rankings_redraw_the_repository_list(self):
+        # The new tab loads the field rankings when idle, after the first paint. The repository list offers its work
+        # areas only once they arrived (owner, 09/11: no choice may lead to an empty list), so the list is redrawn then;
+        # the old redraw of the Arena view ran on a view that never reads them.
+        feed = (EXT / 'feed.js').read_text(encoding='utf-8')
+        late = feed[feed.index('FIELD_DATA = await loadFieldRankings();'):]
+        self.assertIn('mergeFieldRepos();\n      rerenderRepos();', late[:400])
+        self.assertNotIn("if (filter === 'rankings') renderFeed();", feed)
+
     def test_manifest_and_local_code(self):
         manifest = json.loads((EXT / 'manifest.json').read_text(encoding='utf-8'))
         self.assertEqual(manifest['manifest_version'], 3)

@@ -137,10 +137,11 @@ class TopZoneTests(unittest.TestCase):
         # Captain, 08/11 19:50: "cố định vị trí thẻ thời tiết và âm lịch". Every redraw of the grid (any section, sort,
         # new stories, even a failed news load) puts the two cards back, and the stylesheet pins their cells. Captain,
         # 09/11: "2 thẻ cùng 1 cột. Thời tiết ở trên, lịch ở dưới": the grid's last column at every column count, the
-        # weather in the first row and the calendar under it; first on a phone.
+        # weather in the first row and the calendar under it; first on a phone. Owner, 09/11 ("QA các thành phần giao
+        # diện có nên hiển thị ở đó hay không"): "Mã và mô hình" is about repositories and models, so it leaves them out.
         for folder in (ROOT / "site", EXT):
             feed = (folder / "feed.js").read_text(encoding="utf-8")
-            self.assertIn("(front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : FIXED_SLOTS) + chunk.html", feed)
+            self.assertIn("(front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : code ? '' : FIXED_SLOTS) + chunk.html", feed)
             self.assertNotIn("if (front) placeFixedCards", feed)
             self.assertEqual(feed.count("placeFixedCards("), 3)   # the definition, a redraw, a failed news load
             css = (folder / "trang-msn.css").read_text(encoding="utf-8")
