@@ -1,0 +1,155 @@
+{
+  "desks": {
+    "intake": {
+      "state": "done",
+      "completed_at": "2026-11-08T23:00:30.318097+00:00",
+      "seconds": 0.003,
+      "count": 7,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": []
+    },
+    "reporter": {
+      "state": "done",
+      "completed_at": "2026-11-08T23:05:30.489772+00:00",
+      "seconds": 300.171,
+      "count": 7,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": [
+        {
+          "provider": "agy",
+          "input_tokens": 4906,
+          "output_tokens": 44512,
+          "tokens_per_story": 8236.3,
+          "source": "cli",
+          "batch_size": 6
+        }
+      ]
+    },
+    "editor": {
+      "state": "done",
+      "completed_at": "2026-11-08T23:08:52.451969+00:00",
+      "seconds": 201.961,
+      "count": 7,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": [
+        {
+          "provider": "agy",
+          "input_tokens": 22069,
+          "output_tokens": 30667,
+          "tokens_per_story": 7533.7,
+          "source": "cli",
+          "batch_size": 7
+        }
+      ]
+    },
+    "checker": {
+      "state": "done",
+      "completed_at": "2026-11-08T23:09:13.900223+00:00",
+      "seconds": 21.447,
+      "count": 7,
+      "invalid_rows": 4,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": [
+        {
+          "provider": "codex",
+          "input_tokens": 35095,
+          "output_tokens": 994,
+          "tokens_per_story": 12029.7,
+          "source": "cli",
+          "batch_size": 3
+        }
+      ]
+    },
+    "writer": {
+      "state": "done",
+      "completed_at": "2026-11-08T23:25:24.872604+00:00",
+      "seconds": 970.971,
+      "count": 7,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": [
+        {
+          "provider": "agy",
+          "input_tokens": 23864,
+          "output_tokens": 40726,
+          "tokens_per_story": 21530.0,
+          "source": "cli",
+          "batch_size": 3
+        },
+        {
+          "desk": "rewrite-writer",
+          "provider": "agy",
+          "input_tokens": 57520,
+          "output_tokens": 68867,
+          "tokens_per_story": 63193.5,
+          "source": "cli",
+          "batch_size": 2
+        },
+        {
+          "desk": "scorer",
+          "provider": "codex",
+          "input_tokens": 37389,
+          "output_tokens": 2638,
+          "tokens_per_story": 13342.3,
+          "source": "cli",
+          "batch_size": 3
+        },
+        {
+          "desk": "review-writer",
+          "provider": "agy",
+          "input_tokens": 22581,
+          "output_tokens": 44148,
+          "tokens_per_story": 66729.0,
+          "source": "cli",
+          "batch_size": 1
+        },
+        {
+          "desk": "rescorer",
+          "provider": "codex",
+          "input_tokens": 35643,
+          "output_tokens": 1245,
+          "tokens_per_story": 36888.0,
+          "source": "cli",
+          "batch_size": 1
+        }
+      ],
+      "scoring": {
+        "passed": 3,
+        "failed": 0,
+        "unscored": 0,
+        "budget_exhausted": false,
+        "unscored_by_failure": []
+      }
+    },
+    "chief": {
+      "state": "done",
+      "completed_at": "2026-11-08T23:25:24.875935+00:00",
+      "seconds": 0.002,
+      "count": 7,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": []
+    }
+  }
+}

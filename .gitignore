@@ -1,4 +1,5 @@
 *.pyc
+phong-bao/so-ban/
 *.zip
 __pycache__/
 .venv/

@@ -1,0 +1,23 @@
+{
+  "30ae1f05c4e12778ef94": {
+    "id": "30ae1f05c4e12778ef94",
+    "verified": false,
+    "rejected_claims": [],
+    "reason": "no readable source to check",
+    "invalid_response": false,
+    "provider": null,
+    "boat": null
+  },
+  "8e25112a3bbfefef5aab": {
+    "id": "8e25112a3bbfefef5aab",
+    "verified": false,
+    "rejected_claims": [
+      "BlackRock’s Rick Rieder says the AI-driven debt boom is creating unusually attractive fixed-income opportunities.",
+      "Rieder considers those opportunities more appealing than long-dated US Treasuries."
+    ],
+    "reason": "no readable source to check",
+    "invalid_response": false,
+    "provider": null,
+    "boat": null
+  }
+}

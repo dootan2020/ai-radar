@@ -1,0 +1,20 @@
+{
+  "30ae1f05c4e12778ef94": {
+    "id": "30ae1f05c4e12778ef94",
+    "readable": false,
+    "selected_url": null,
+    "reason": "no readable same-event candidate",
+    "invalid_response": false,
+    "provider": null,
+    "boat": null
+  },
+  "8e25112a3bbfefef5aab": {
+    "id": "8e25112a3bbfefef5aab",
+    "readable": false,
+    "selected_url": null,
+    "reason": "no readable same-event candidate",
+    "invalid_response": false,
+    "provider": null,
+    "boat": null
+  }
+}

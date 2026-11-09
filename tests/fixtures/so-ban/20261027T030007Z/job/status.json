@@ -1,0 +1,86 @@
+{
+  "desks": {
+    "intake": {
+      "state": "done",
+      "completed_at": "2026-10-27T03:00:39.152900+00:00",
+      "count": 13,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": []
+    },
+    "reporter": {
+      "state": "done",
+      "completed_at": "2026-10-27T03:01:30.030129+00:00",
+      "count": 13,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": [
+        {
+          "provider": "codex",
+          "input_tokens": 35903,
+          "output_tokens": 439,
+          "tokens_per_story": 7268.4,
+          "source": "cli",
+          "batch_size": 5
+        }
+      ]
+    },
+    "editor": {
+      "state": "done",
+      "completed_at": "2026-10-27T03:02:21.760833+00:00",
+      "count": 13,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": [
+        {
+          "provider": "codex",
+          "input_tokens": 39589,
+          "output_tokens": 3840,
+          "tokens_per_story": 3340.7,
+          "source": "cli",
+          "batch_size": 13
+        }
+      ]
+    },
+    "checker": {
+      "state": "done",
+      "completed_at": "2026-10-27T03:10:02.348888+00:00",
+      "count": 13,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": [
+        {
+          "provider": "agy",
+          "input_tokens": 90597,
+          "output_tokens": 42819,
+          "tokens_per_story": 33354.0,
+          "source": "cli",
+          "batch_size": 4
+        }
+      ]
+    },
+    "chief": {
+      "state": "done",
+      "completed_at": "2026-10-27T03:10:02.356028+00:00",
+      "count": 13,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": []
+    }
+  }
+}

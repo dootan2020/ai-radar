@@ -1,0 +1,26 @@
+[
+  {
+    "id": "30ae1f05c4e12778ef94",
+    "decision": "hold",
+    "reason": "The interview centers on BNY’s growth and business strategy; monitoring AI spending is one part of that discussion.",
+    "importance_tier": "standard",
+    "tier_capped": true,
+    "degradation_reasons": [],
+    "source_url": "https://www.bloomberg.com/news/videos/2026-10-27/bny-cfo-on-ai-strategy-business-growth-video"
+  },
+  {
+    "id": "8e25112a3bbfefef5aab",
+    "decision": "publish",
+    "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+    "importance_tier": "standard",
+    "tier_capped": true,
+    "degradation_reasons": [
+      "no readable same-event source",
+      "checker rejected claims",
+      "original title not source-checked",
+      "too few verified claims for summary",
+      "analysis is standard tier"
+    ],
+    "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/blackrock-s-rieder-spent-all-weekend-doing-deals-in-ai-debt-rush"
+  }
+]

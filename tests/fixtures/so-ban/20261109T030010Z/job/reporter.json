@@ -1,0 +1,20 @@
+{
+  "af3b84067d2d1e42cef4": {
+    "id": "af3b84067d2d1e42cef4",
+    "readable": true,
+    "selected_url": "https://www.semafor.com/article/11/08/2026/anti-waymo-campaign-relied-on-op-eds-written-with-ai",
+    "reason": "The representative article is readable and directly covers the story about anti-Waymo campaigns using AI-written op-eds.",
+    "invalid_response": false,
+    "provider": "agy",
+    "boat": "agy"
+  },
+  "c8c47959c350bfb0630c": {
+    "id": "c8c47959c350bfb0630c",
+    "readable": true,
+    "selected_url": "https://pandaily.com/china-mobile-cloud-zhipu-glm-moma-token-research-coding-partnership",
+    "reason": "The representative article is readable and reports on the partnership agreement between China Mobile Cloud and Zhipu.",
+    "invalid_response": false,
+    "provider": "agy",
+    "boat": "agy"
+  }
+}

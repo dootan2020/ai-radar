@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-08T23:33:02.907321+00:00",
+  "input_generated_at": "2026-11-08T22:26:36Z",
+  "decisions": [
+    {
+      "id": "25fc96dab8ac2c343520",
+      "decision": "hold",
+      "round": "editor",
+      "reason": "Executive interview focused on Gree Electric Appliances, green cooling initiatives, overseas expansion, and general manufacturing automation, with AI mentioned only as a passing buzzword in the headline.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "degradation_reasons": [],
+      "source_url": "https://www.scmp.com/tech/article/3373325/how-dong-mingzhu-chinas-manufacturing-iron-lady-maintaining-her-cool-ai-era"
+    },
+    {
+      "id": "8a86cf9d70b8065c8241",
+      "decision": "hold",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "degradation_reasons": [],
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-08/read-the-memos-from-nvidia-s-board-and-ceo-jensen-huang"
+    }
+  ]
+}

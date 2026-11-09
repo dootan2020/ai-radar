@@ -1,0 +1,17 @@
+{
+  "started_at": "2026-11-08T23:00:08.378883+00:00",
+  "state": "decided",
+  "considered_count": 37,
+  "new_count": 7,
+  "decided_count": 7,
+  "total_decisions": 1482,
+  "writer_retry": {
+    "candidates": 1,
+    "sent": 1,
+    "budget_cut": 0,
+    "written": 1,
+    "score_candidates": 0,
+    "scored": 0,
+    "passed": 0
+  }
+}

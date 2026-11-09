@@ -1,0 +1,83 @@
+{
+  "desks": {
+    "intake": {
+      "state": "done",
+      "completed_at": "2026-11-09T03:00:33.014582+00:00",
+      "seconds": 0.003,
+      "count": 9,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": []
+    },
+    "reporter": {
+      "state": "done",
+      "completed_at": "2026-11-09T03:01:41.102116+00:00",
+      "seconds": 68.087,
+      "count": 9,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": [
+        {
+          "provider": "agy",
+          "input_tokens": 4537,
+          "output_tokens": 4772,
+          "tokens_per_story": 1551.5,
+          "source": "cli",
+          "batch_size": 6
+        }
+      ]
+    },
+    "editor": {
+      "state": "done",
+      "completed_at": "2026-11-09T03:04:48.300985+00:00",
+      "seconds": 187.198,
+      "count": 9,
+      "invalid_rows": 0,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": [
+        {
+          "provider": "agy",
+          "input_tokens": 5142,
+          "output_tokens": 26244,
+          "tokens_per_story": 3487.3,
+          "source": "cli",
+          "batch_size": 9
+        }
+      ]
+    },
+    "checker": {
+      "state": "done",
+      "completed_at": "2026-11-09T03:05:15.998548+00:00",
+      "seconds": 27.697,
+      "count": 9,
+      "invalid_rows": 4,
+      "splits": 0,
+      "budget_exhausted": false,
+      "model_failures": [],
+      "events": [],
+      "batches": [
+        {
+          "provider": "codex",
+          "input_tokens": 35590,
+          "output_tokens": 1525,
+          "tokens_per_story": 7423.0,
+          "source": "cli",
+          "batch_size": 5
+        }
+      ]
+    },
+    "writer": {
+      "state": "running",
+      "started_at": "2026-11-09T03:05:15.999339+00:00"
+    }
+  }
+}

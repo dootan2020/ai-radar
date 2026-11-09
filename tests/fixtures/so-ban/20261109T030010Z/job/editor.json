@@ -1,0 +1,18 @@
+{
+  "af3b84067d2d1e42cef4": {
+    "id": "af3b84067d2d1e42cef4",
+    "news": true,
+    "reason": "Semafor reports on findings by AI detection service Pangram revealing that an anti-Waymo public relations campaign placed local newspaper op-eds drafted with generative AI without disclosure.",
+    "invalid_response": false,
+    "provider": "agy",
+    "boat": "agy"
+  },
+  "c8c47959c350bfb0630c": {
+    "id": "c8c47959c350bfb0630c",
+    "news": true,
+    "reason": "China Mobile Cloud and Zhipu signed a cooperation agreement covering model integration, joint AI coding tools, and token efficiency research.",
+    "invalid_response": false,
+    "provider": "agy",
+    "boat": "agy"
+  }
+}
