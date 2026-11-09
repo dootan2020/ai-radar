@@ -10,6 +10,8 @@ import math
 import os
 from pathlib import Path
 
+from radar.clustering import canonical_url
+from radar.common import stable_id
 from radar.evidence_refs import strip_evidence_refs
 
 
@@ -155,16 +157,52 @@ def load_decisions(path=None, *, now=None):
         return None
 
 
+TIER_RANK = {"top": 0, "notable": 1, "standard": 2}
+
+
+def story_decisions(stories, decisions):
+    """The decision each story is shown with, by story ID: its own, else the decision of a story it absorbed.
+
+    A story's ID is derived from the smallest canonical URL among its coverage (radar.clustering.cluster_items), so
+    a cluster that gains an article, or folds in another story, can change ID and keep the old IDs as `aliases`.
+    The newsroom decided the old IDs. A story the newsroom decided under its own ID keeps exactly that decision,
+    held or not. Otherwise it takes a passed desk decision of one of its aliases: first the decision for its own
+    lead URL, then the strongest tier, then the smallest ID. A decision belongs to one story only: an alias whose
+    ID is another story's own ID, or that an earlier story already took, is not taken again.
+    """
+    rows = {row["id"]: row for row in decisions["decisions"]} if decisions is not None else {}
+    stories = [story for story in stories if isinstance(story, dict)]
+    owned = {story.get("id") for story in stories}
+    chosen, taken = {}, set()
+    for story in stories:
+        sid = story.get("id")
+        if sid in rows:
+            chosen[sid] = rows[sid]
+            continue
+        lead_url = canonical_url(story.get("url"))
+        lead = stable_id(lead_url) if lead_url else None
+        candidates = [alias for alias in story.get("aliases") or []
+                      if isinstance(alias, str) and alias in rows and alias not in owned and alias not in taken
+                      and desk_summary(rows[alias]) is not None]
+        if candidates:
+            alias = min(candidates, key=lambda alias: (alias != lead,
+                                                       TIER_RANK.get(rows[alias].get("importance_tier"), 3), alias))
+            chosen[sid] = rows[alias]
+            taken.add(alias)
+    return chosen
+
+
 def apply_decisions(payload, decisions):
     """Keep only stories whose desk prose passed the scoring desk, with that prose; optionally cap their tiers.
 
-    Fail closed: a held story, a story the newsroom has not decided, one without desk prose, one whose prose was
-    not scored, scored below SCORE_THRESHOLD or with a hard error, and every story when there are no decisions
-    (None) are all left out of the snapshot and of every section and projection built from it.
+    Fail closed: a held story, a story the newsroom has not decided (under its ID or an absorbed alias, see
+    story_decisions), one without desk prose, one whose prose was not scored, scored below SCORE_THRESHOLD or with
+    a hard error, and every story when there are no decisions (None) are all left out of the snapshot and of every
+    section and projection built from it.
     """
     cap_tiers = os.environ.get("RADAR_NEWSROOM_CAP_TIERS", "").strip().lower() in {"1", "true", "yes", "on"}
     result = deepcopy(payload)
-    reviewed = {row["id"]: row for row in decisions["decisions"]} if decisions is not None else {}
+    reviewed = story_decisions(result.get("stories", []), decisions)
     stories = []
     for story in result.get("stories", []):
         row = reviewed.get(story.get("id"))
