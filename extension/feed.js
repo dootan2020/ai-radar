@@ -1905,7 +1905,6 @@ function renderFeed() {
   const grid = $('#feed-grid');
   $('#arena').hidden = !rankings;
   grid.hidden = rankings;
-  $('#feed-footer').hidden = rankings;
   $('#sort-switch').hidden = rankings || !D;
   $('#feed-status').innerHTML = '';
   if (rankings) {
@@ -2267,12 +2266,11 @@ function applyPending() {
   setTimeout(() => { arrived = new Set(); }, 3000);
 }
 
-/* ---------- the footer: one quiet way to the sources page, no counts or update times (captain, 08/11) ---------- */
+/* ---------- no footer (captain, 09/11): the snapshot time stays on the grid as data for measurement scripts, never on screen ---------- */
 function renderSources() {
-  const el = $('#src-update');
+  const el = $('#feed-grid');
   if (!el) return;
   el.dataset.generated = D.generated_at || '';
-  el.innerHTML = '<a class="src-link" href="https://radar-ai-vn.pages.dev/nguon.html">Nguồn tin</a>';
 }
 
 /* ---------- live counters (live.js, as on the bento home): the numbers on screen follow the sources ---------- */
@@ -2510,7 +2508,6 @@ function onClick(e) {
   const moreBtn = t.closest('[data-repo-more]');
   if (moreBtn) { showMoreRepos(moreBtn); return; }
   if (t.closest('#fresh-go')) { goFirstNew(); return; }
-  if (t.closest('#keys-open')) { $('#keys').showModal(); return; }
   if (t.closest('#keys-x')) { $('#keys').close(); return; }
   if (t.closest('[data-reset]')) { setFilter('all'); return; }
   if (t.closest('#mark-all-btn')) {

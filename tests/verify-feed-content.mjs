@@ -368,7 +368,7 @@ const doc = {activeElement:null, hidden:false, documentElement:{style:{setProper
   querySelector:selector => nodes.get(selector),
   querySelectorAll:selector => selector === '.filter-chip' ? chips : selector.includes('[data-sid]') ? visibleStories : [],
 };
-for (const selector of ['#fresh', '#fresh-text', '#fresh-announcement', '#bar', '#top', '#filter-context', '#src-update', '#src-note', '#src-list', '#src-live', '#src-foot', '#nguon']) {
+for (const selector of ['#fresh', '#fresh-text', '#fresh-announcement', '#bar', '#top', '#filter-context', '#feed-grid', '#src-note', '#src-list', '#src-live', '#src-foot', '#nguon']) {
   nodes.set(selector, {hidden:true, textContent:'', innerHTML:'', style:{}, dataset:{}, offsetHeight:64,
     getBoundingClientRect:() => ({bottom:64}), contains:el => el === nodes.get('#fresh-go'),
     matches:() => false, focus() { doc.activeElement = this; }});
@@ -536,16 +536,15 @@ newFeed.filter('sec:sap-toi'); newFeed.renderSub();
 assert.doesNotMatch(nodes.get('#filter-context').innerHTML, /class="num"/, 'the filter line carries no count (captain, 08/11)');
 for (const iso of [new Date().toISOString(), '2026-10-09T02:00:00Z']) {
   newFeed.sourceTime(iso);
-  const html = nodes.get('#src-update').innerHTML;
-  assert.equal(html, '<a class="src-link" href="nguon.html">Nguồn tin</a>', 'the footer is one link, no update time or count');
-  assert.equal(nodes.get('#src-update').dataset.generated, iso, 'the snapshot time stays readable by measurement scripts');
+  assert.equal(nodes.get('#feed-grid').dataset.generated, iso, 'the snapshot time stays readable by measurement scripts');
+  assert.doesNotMatch(home, /<footer|src-link|keys-open/, 'the home has no footer, no sources link and no shortcuts button');
 }
 console.log('PASS new-story eligibility, expiry, focus, scroll, deep link, live polling, marks, filters and metadata');
 
 // Arena deep links and navigation work even when the news request has failed.
 // Mẫu A (08/11): the grid loads more on scroll, so its loading and end line (#feed-status) replaces the old block and
 // "Xem thêm" controls.
-for (const id of ['arena', 'feed-grid', 'feed-footer', 'sort-switch', 'feed-empty']) {
+for (const id of ['arena', 'feed-grid', 'sort-switch', 'feed-empty']) {
   nodes.set('#' + id, {hidden:false});
 }
 nodes.set('#feed-status', {innerHTML:'<p class="feed-loading">Đang tải thêm tin</p>'});
@@ -557,7 +556,7 @@ navLocation.hash = '#xep-hang';
 newFeed.route();
 assert.equal(arenaShows, 1);
 assert.equal(nodes.get('#arena').hidden, false);
-for (const id of ['feed-grid', 'feed-footer', 'sort-switch', 'feed-empty', 'filter-context']) {
+for (const id of ['feed-grid', 'sort-switch', 'feed-empty', 'filter-context']) {
   assert.equal(nodes.get('#' + id).hidden, true, id);
 }
 assert.equal(nodes.get('#feed-status').innerHTML, '', 'the loading line goes with the grid');

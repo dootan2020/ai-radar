@@ -123,7 +123,8 @@ class RootPageHeadTests(unittest.TestCase):
         # Sections
         self.assertIn('id="feed-sentinel"', self.html)
         self.assertIn('id="feed-grid"', self.html)
-        self.assertIn('id="src-update"', self.html)
+        self.assertNotIn('<footer', self.html)
+        self.assertNotIn('src-link', self.html)
         nguon_html = read(SITE / "nguon.html")
         self.assertIn('id="nguon"', nguon_html)
         # Shortcuts dialog
