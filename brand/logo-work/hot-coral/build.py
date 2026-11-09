@@ -23,6 +23,7 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent.parent
 LIME = ROOT / "brand" / "logo-work" / "lime-anchor"
+MARK = HERE / "mark-mo-boi-ca.svg"                    # the "Mỏ bói cá" mark, chosen 2026-11-09 ("Hướng A")
 SHIPPED = "coral-tile"                                # the captain's choice, 2026-11-06
 SHIPPED_KIT = ROOT / "brand" / "logo" / SHIPPED
 SCRATCH = ROOT / "plans" / "nhap" / "hot-coral"
@@ -84,6 +85,13 @@ def write(path, text):
     path.write_text(text, encoding="utf-8", newline="\n")
 
 
+def letters_only(svg):
+    """Drop the wordmark y's accent sliver (the last path): the wordmark is the letters in one colour.
+    The mark carries the bill; a second colour does not survive at header size."""
+    start = svg.rindex("<path ")
+    return svg[:start] + svg[svg.index("/>", start) + 2:]
+
+
 def build_svgs(key, t):
     """The treatment's vectors, in the Lime Anchor kit's file names."""
     P = PALETTE
@@ -91,14 +99,14 @@ def build_svgs(key, t):
     tile, bird, beak = P[t["tile"]], P[t["bird"]], P[t["beak"]]
     wl, bl = (P[c] for c in t["word_light"])
     wd, bd = (P[c] for c in t["word_dark"])
-    write(out / "icons" / "halcyon-icon-primary.svg", recolour(LIME / "icons/halcyon-icon-primary.svg", [tile, bird, beak]))
-    write(out / "favicons" / "favicon.svg", recolour(LIME / "favicons/favicon.svg", [tile, bird, beak]))
-    write(out / "logos" / "halcyon-primary.svg", recolour(LIME / "logos/halcyon-primary.svg", [wl, bl]))
-    write(out / "logos" / "halcyon-dark.svg", recolour(LIME / "logos/halcyon-dark.svg", [wd, bd]))
-    write(out / "logos" / "halcyon-on-surface.svg", recolour(LIME / "logos/halcyon-on-surface.svg", [P["surface"], wl, bl]))
-    write(out / "logos" / "halcyon-on-dark.svg", recolour(LIME / "logos/halcyon-on-ink.svg", [P["surface-dark"], wd, bd]))
-    write(out / "logos" / "halcyon-mono-ink.svg", recolour(LIME / "logos/halcyon-mono-ink.svg", [P["ink"]] * 2))
-    write(out / "logos" / "halcyon-mono-white.svg", recolour(LIME / "logos/halcyon-mono-white.svg", [P["white"]] * 2))
+    write(out / "icons" / "halcyon-icon-primary.svg", recolour(MARK, [tile, bird, beak]))
+    write(out / "favicons" / "favicon.svg", recolour(MARK, [tile, bird, beak]))
+    write(out / "logos" / "halcyon-primary.svg", letters_only(recolour(LIME / "logos/halcyon-primary.svg", [wl, bl])))
+    write(out / "logos" / "halcyon-dark.svg", letters_only(recolour(LIME / "logos/halcyon-dark.svg", [wd, bd])))
+    write(out / "logos" / "halcyon-on-surface.svg", letters_only(recolour(LIME / "logos/halcyon-on-surface.svg", [P["surface"], wl, bl])))
+    write(out / "logos" / "halcyon-on-dark.svg", letters_only(recolour(LIME / "logos/halcyon-on-ink.svg", [P["surface-dark"], wd, bd])))
+    write(out / "logos" / "halcyon-mono-ink.svg", letters_only(recolour(LIME / "logos/halcyon-mono-ink.svg", [P["ink"]] * 2)))
+    write(out / "logos" / "halcyon-mono-white.svg", letters_only(recolour(LIME / "logos/halcyon-mono-white.svg", [P["white"]] * 2)))
     return out
 
 
