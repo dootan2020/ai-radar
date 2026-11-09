@@ -37,6 +37,65 @@ def metadata_rejection(src, via=None):
     return None
 
 
+def classify_illustration_text(raw):
+    """Reject aligned lettering in an AI illustration, including muted lettering.
+
+    This is a conservative local contrast/layout check. It does not read words.
+    An image that cannot be inspected is withheld from publication.
+    """
+    if not raw or len(raw) > MAX_IMAGE_BYTES:
+        return decision(False, "empty-or-oversize-image")
+    try:
+        from PIL import Image, ImageFilter
+    except ImportError:
+        return decision(False, "decoder-unavailable")
+    try:
+        with Image.open(BytesIO(raw)) as source:
+            if source.width * source.height > MAX_IMAGE_PIXELS:
+                return decision(False, "pixel-safety-limit")
+            source.thumbnail((512, 512))
+            gray = source.convert("L")
+            width, height = gray.size
+            blurred = gray.filter(ImageFilter.GaussianBlur(5))
+            pixels, background = gray.tobytes(), blurred.tobytes()
+    except Exception:
+        return decision(False, "undecodable-image")
+
+    if min(width, height) < 64:
+        return decision(False, "tiny-dimensions")
+    # Local contrast detects pale ink on a pale ground without treating a
+    # gentle global gradient as a row of glyphs.
+    for polarity in (-1, 1):
+        points = {i for i, (value, base) in enumerate(zip(pixels, background))
+                  if polarity * (value - base) >= 6}
+        glyphs = []
+        while points:
+            start = points.pop()
+            pending = [start]
+            left = right = start % width
+            top = bottom = start // width
+            while pending:
+                current = pending.pop()
+                y, x = divmod(current, width)
+                left, right = min(left, x), max(right, x)
+                top, bottom = min(top, y), max(bottom, y)
+                for neighbor in (current - 1, current + 1, current - width, current + width):
+                    if neighbor in points and abs(neighbor % width - x) <= 1:
+                        points.remove(neighbor)
+                        pending.append(neighbor)
+            w, h = right - left + 1, bottom - top + 1
+            if 2 <= w <= 40 and 5 <= h <= 45 and .12 <= w / h <= 2.5:
+                glyphs.append((left, top, w, h))
+        for x, y, w, h in glyphs:
+            row = [g for g in glyphs if abs(g[1] - y) <= max(3, h * .2)
+                   and .65 <= g[3] / h <= 1.5]
+            varied_widths = max((g[2] for g in row), default=0) >= 1.5 * min((g[2] for g in row), default=1)
+            if (len(row) >= 6 and varied_widths
+                    and max(g[0] + g[2] for g in row) - min(g[0] for g in row) >= width * .22):
+                return decision(False, "aligned-illustration-lettering", glyphs=len(row))
+    return decision(True, "no-illustration-lettering-detected")
+
+
 def classify_pixels(raw):
     """Withhold clear graphic layouts; prefer retaining ambiguous photographs."""
     if not raw or len(raw) > MAX_IMAGE_BYTES:

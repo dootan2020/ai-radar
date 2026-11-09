@@ -18,9 +18,11 @@ import re
 import tempfile
 import time
 import contextlib
+import hashlib
 import io
 import unittest
 from unittest.mock import patch
+from PIL import Image, ImageDraw, ImageFont
 
 from radar.ai_images import (
     AIImageLedger,
@@ -46,22 +48,26 @@ from radar.ai_images import (
     generation_window_open,
     read_image_dimensions,
     reset_process_run_budget,
+    reviewed_drops,
 )
 from radar.images import resolve_images_for_stories, resolve_story_image, ImageCache
+from radar.image_quality import classify_illustration_text
 
 
-# Valid minimal 1024x1024 JPEG bytes for mock transport
-VALID_JPEG_BYTES = b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00\xff\xdb\x00C\x00\xff\xc0\x00\x0b\x08\x04\x00\x04\x00\x01\x01\x11\x00\xff\xc4\x00\x14\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xda\x00\x08\x01\x01\x00\x00?\x00\xbf\x00\xff\xd9"
+def image_bytes(size=(1024, 1024), fmt="JPEG", lettering=None, contrast=90):
+    image = Image.new("RGB", size, (235, 225, 205))
+    if lettering:
+        draw = ImageDraw.Draw(image)
+        font = ImageFont.load_default(size=38)
+        ink = (235 - contrast, 225 - contrast, 205 - contrast)
+        draw.text((80, 170), lettering, fill=ink, font=font)
+    output = io.BytesIO()
+    image.save(output, format=fmt)
+    return output.getvalue()
 
-# Valid minimal 1024x1024 PNG bytes for mock transport
-VALID_PNG_BYTES = (
-    b"\x89PNG\r\n\x1a\n"
-    b"\x00\x00\x00\rIHDR"
-    b"\x00\x00\x04\x00\x00\x00\x04\x00"
-    b"\x08\x02\x00\x00\x00"
-    b"\x00\x00\x00\x00"
-    b"\x00\x00\x00\x00IEND\xaeB`\x82"
-)
+
+VALID_JPEG_BYTES = image_bytes()
+VALID_PNG_BYTES = image_bytes(fmt="PNG")
 
 
 # A moment inside the daily generation window (02:00-02:59 UTC) for tests that exercise generation.
@@ -285,7 +291,7 @@ class AIImageDimensionsAndSchemaTests(InsideWindowTestCase):
             ledger_file = Path(tmpdir) / "ai-ledger.json"
 
             def mock_transport(url, headers, data):
-                b64 = base64.b64encode(jpeg_512).decode("ascii")
+                b64 = base64.b64encode(image_bytes((512, 512))).decode("ascii")
                 return 200, "application/json", json.dumps({"result": {"image": b64}}).encode("utf-8")
 
             outcome = {}
@@ -329,7 +335,7 @@ class AIImageDimensionsAndSchemaTests(InsideWindowTestCase):
             ledger_file = Path(tmpdir) / "ai-ledger.json"
 
             def mock_transport(url, headers, data):
-                return 200, "image/png", png_512
+                return 200, "image/png", image_bytes((512, 512), fmt="PNG")
 
             outcome = {}
             res = generate_ai_illustration(
@@ -370,7 +376,7 @@ class AIImageDimensionsAndSchemaTests(InsideWindowTestCase):
             ledger_file = Path(tmpdir) / "ai-ledger.json"
 
             def mock_transport(url, headers, data):
-                b64 = base64.b64encode(oversize_jpeg).decode("ascii")
+                b64 = base64.b64encode(image_bytes((1536, 1024))).decode("ascii")
                 return 200, "application/json", json.dumps({"result": {"image": b64}}).encode("utf-8")
 
             buf = io.StringIO()
@@ -568,6 +574,20 @@ class AIImageOncePerStoryTests(InsideWindowTestCase):
 
 
 class AIImagePromptRulesTests(unittest.TestCase):
+    def test_document_title_becomes_visual_topic(self):
+        prompt = build_ai_prompt("Nvidia board of directors statement on investigation", kind="event")
+        topic = prompt.split(" and collaborative innovation", 1)[0].lower()
+        for word in ("nvidia", "board of directors", "statement", "investigation"):
+            self.assertNotIn(word, topic)
+        self.assertIn("corporate governance network", topic)
+        self.assertIn("abstract information flow", topic)
+        self.assertIn("interconnected paths", topic)
+        for noun in ("memo", "letter", "report", "announcement", "document"):
+            with self.subTest(noun=noun):
+                topic = sanitize_topic_text(f"AI {noun} on neural systems").lower()
+                self.assertNotIn(noun, topic)
+                self.assertIn("abstract information flow", topic)
+
     def test_prompt_has_no_brand_or_person_terms(self):
         """Prompt filters out all brand names, product terms, and prominent person names."""
         test_titles = [
@@ -612,6 +632,126 @@ class AIImagePromptRulesTests(unittest.TestCase):
         self.assertNotIn("openai", topic.lower())
         self.assertNotIn("gpt", topic.lower())
         self.assertTrue(any(w in topic for w in ["voice", "latency", "benchmark"]))
+
+
+class AIImageLetteringTests(InsideWindowTestCase):
+    def test_muted_lettering_is_rejected_but_plain_illustration_passes(self):
+        self.assertTrue(classify_illustration_text(VALID_JPEG_BYTES)["keep"])
+        abstract = Image.new("RGB", (1024, 1024), (230, 225, 210))
+        drawing = ImageDraw.Draw(abstract)
+        drawing.ellipse((120, 110, 680, 690), fill=(95, 148, 173))
+        drawing.polygon([(300, 700), (650, 250), (900, 810)], fill=(175, 90, 115))
+        output = io.BytesIO()
+        abstract.save(output, format="JPEG")
+        self.assertTrue(classify_illustration_text(output.getvalue())["keep"])
+        nodes = Image.new("RGB", (1024, 1024), (230, 225, 210))
+        drawing = ImageDraw.Draw(nodes)
+        for x in range(80, 880, 100):
+            drawing.ellipse((x, 170, x + 25, 195), fill=(80, 140, 170))
+        output = io.BytesIO()
+        nodes.save(output, format="JPEG")
+        self.assertTrue(classify_illustration_text(output.getvalue())["keep"])
+        lettered = image_bytes(lettering="Staement from Board of Diirectors", contrast=20)
+        self.assertEqual(classify_illustration_text(lettered)["reason"],
+                         "aligned-illustration-lettering")
+
+    def test_fresh_lettering_is_not_written_and_a_later_run_regenerates(self):
+        story = {"id": "st-lettered", "title": "AI governance", "kind": "event"}
+        lettered = image_bytes(lettering="Staement from Board of Diirectors", contrast=20)
+        with tempfile.TemporaryDirectory() as tmpdir:
+            site_dir = Path(tmpdir) / "site"
+            dest = site_dir / "assets" / "ai" / "st-lettered.jpg"
+            ledger = AIImageLedger(ledger_path=Path(tmpdir) / "ledger.json")
+            first_run = RunBudget()
+            outcome = {}
+            result = generate_ai_illustration(
+                story, site_root=site_dir, ledger=ledger, run_budget=first_run,
+                transport=lambda *_args, **_kwargs: (200, "image/jpeg", lettered),
+                account_id="test-account", api_token="test-token", outcome=outcome,
+            )
+            self.assertIsNone(result)
+            self.assertEqual(outcome["error"], "aligned-illustration-lettering")
+            self.assertFalse(dest.exists())
+            # The rejected request still counts against the run, so a run cannot loop on it.
+            self.assertEqual(first_run.spent, compute_neuron_cost())
+            self.assertFalse(ledger.is_story_generated("st-lettered"))
+
+            outcome = {}
+            result = generate_ai_illustration(
+                story, site_root=site_dir, ledger=ledger, run_budget=RunBudget(),
+                transport=lambda *_args, **_kwargs: (200, "image/jpeg", VALID_JPEG_BYTES),
+                account_id="test-account", api_token="test-token", outcome=outcome,
+            )
+            self.assertEqual(result["src"], "assets/ai/st-lettered.jpg")
+            self.assertEqual(outcome["action"], "generated")
+            self.assertEqual(dest.read_bytes(), VALID_JPEG_BYTES)
+
+    def test_stored_unlisted_lettering_is_kept_untouched(self):
+        lettered = image_bytes(lettering="Staement from Board of Diirectors", contrast=20)
+        self.assertFalse(classify_illustration_text(lettered)["keep"])
+        with tempfile.TemporaryDirectory() as tmpdir:
+            site_dir = Path(tmpdir) / "site"
+            path = site_dir / "assets" / "ai" / "st-stored.jpg"
+            path.parent.mkdir(parents=True)
+            path.write_bytes(lettered)
+            cache = ImageCache(cache_path=Path(tmpdir) / "cache.json")
+            cache.set("ai:st-stored", {"src": "assets/ai/st-stored.jpg", "via": "ai", "kind": "photo"})
+            story = {"id": "st-stored", "title": "AI governance", "coverage": []}
+            image = resolve_story_image(story, cache=cache, site_root=site_dir, allow_network=False)
+            self.assertEqual(image["src"], "assets/ai/st-stored.jpg")
+
+            def no_call(*_args, **_kwargs):
+                raise AssertionError("a stored illustration must be reused without a request")
+
+            outcome = {}
+            result = generate_ai_illustration(
+                story, site_root=site_dir, ledger_path=Path(tmpdir) / "ledger.json",
+                transport=no_call, account_id="test-account", api_token="test-token",
+                outcome=outcome,
+            )
+            self.assertEqual(result["src"], "assets/ai/st-stored.jpg")
+            self.assertEqual(outcome["action"], "reused")
+            self.assertEqual(path.read_bytes(), lettered)
+
+    def test_listed_illustration_is_dropped_and_its_story_unblocked(self):
+        reviewed = image_bytes(lettering="Staement from Board of Diirectors", contrast=20)
+        drops = {"st-listed": hashlib.sha256(reviewed).hexdigest()}
+        with tempfile.TemporaryDirectory() as tmpdir, \
+                patch("radar.ai_images.reviewed_drops", return_value=drops):
+            site_dir = Path(tmpdir) / "site"
+            path = site_dir / "assets" / "ai" / "st-listed.jpg"
+            path.parent.mkdir(parents=True)
+            path.write_bytes(reviewed)
+            ledger = AIImageLedger(ledger_path=Path(tmpdir) / "ledger.json")
+            ledger.record_generation("st-listed", now=IN_WINDOW - timedelta(days=3))
+            cache = ImageCache(cache_path=Path(tmpdir) / "cache.json")
+            cache.set("ai:st-listed", {"src": "assets/ai/st-listed.jpg", "via": "ai", "kind": "photo"})
+            story = {"id": "st-listed", "title": "AI governance", "kind": "event", "coverage": []}
+
+            self.assertIsNone(resolve_story_image(story, cache=cache, site_root=site_dir,
+                                                  allow_network=False))
+            self.assertFalse(path.exists())
+
+            outcome = {}
+            result = generate_ai_illustration(
+                story, site_root=site_dir, ledger=ledger, run_budget=RunBudget(),
+                transport=lambda *_args, **_kwargs: (200, "image/jpeg", VALID_JPEG_BYTES),
+                account_id="test-account", api_token="test-token", outcome=outcome,
+            )
+            self.assertEqual(outcome["action"], "generated")
+            self.assertEqual(result["src"], "assets/ai/st-listed.jpg")
+            # The regenerated file differs from the reviewed one, so it stays published.
+            image = resolve_story_image(story, cache=cache, site_root=site_dir, allow_network=False)
+            self.assertEqual(image["src"], "assets/ai/st-listed.jpg")
+            self.assertEqual(path.read_bytes(), VALID_JPEG_BYTES)
+
+    def test_reviewed_drop_list_names_the_nvidia_illustration(self):
+        drops = reviewed_drops()
+        self.assertEqual(len(drops), 51)
+        self.assertIn("e68539633591cd5be6cb", drops)
+        for story_id, digest in drops.items():
+            self.assertRegex(story_id, r"^[0-9a-f]{20}$")
+            self.assertRegex(digest, r"^[0-9a-f]{64}$")
 
 
 class AIImagePageLabelTests(unittest.TestCase):
@@ -1338,4 +1478,3 @@ class AIImageProbeTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
