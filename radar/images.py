@@ -442,10 +442,21 @@ def _resolve_candidate_image(story, cache=None, timeout=5, transport=None, allow
     return None
 
 
-def assess_image(image, cache=None, timeout=5, transport=None, allow_network=True):
+def assess_image(image, cache=None, timeout=5, transport=None, allow_network=True, site_root=None):
     """Separate image availability from its suitability as a card's lead."""
     src, via = image.get("src", ""), image.get("via")
     if via == "ai" and re.fullmatch(r"assets/ai/[\w-]+\.jpg", src):
+        # A standalone metadata lookup may have no local site tree. The build
+        # supplies its site root so publication always inspects the real file.
+        if site_root is None:
+            return decision(True, "ai-reference-without-local-site")
+        # Stored illustrations are never judged by the lettering heuristic; only the
+        # exact files a human review listed are dropped.
+        from radar import ai_images
+        path = Path(site_root) / src
+        ai_images.drop_reviewed_illustration(Path(src).stem, path)
+        if not path.is_file():
+            return decision(False, "missing-ai-illustration")
         return decision(True, "existing-ai-illustration")
     if not is_safe_https_url(src):
         return decision(False, "unsafe-source-url")
@@ -472,13 +483,13 @@ def assess_image(image, cache=None, timeout=5, transport=None, allow_network=Tru
     return result
 
 
-def resolve_story_image(story, cache=None, timeout=5, transport=None, allow_network=True):
+def resolve_story_image(story, cache=None, timeout=5, transport=None, allow_network=True, site_root=None):
     """Only screened source pictures or existing AI illustrations may lead cards."""
     candidate = story.get("image") or _resolve_candidate_image(
         story, cache=cache, timeout=timeout, transport=transport, allow_network=allow_network)
     if candidate:
         quality = assess_image(candidate, cache=cache, timeout=timeout, transport=transport,
-                               allow_network=allow_network)
+                               allow_network=allow_network, site_root=site_root)
         if cache is not None and story.get("url") and candidate.get("via") != "ai":
             cache.set(story["url"], candidate)
         if quality["keep"]:
@@ -486,7 +497,7 @@ def resolve_story_image(story, cache=None, timeout=5, transport=None, allow_netw
     # A rejected source must not prevent reuse of a free, previously generated illustration.
     if cache is not None and story.get("id"):
         ai = cache.get(f"ai:{story['id']}")
-        if ai and assess_image(ai, allow_network=False)["keep"]:
+        if ai and assess_image(ai, allow_network=False, site_root=site_root)["keep"]:
             return dict(ai, kind="photo", verified=True)
     return None
 
@@ -495,6 +506,7 @@ def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_
                                max_workers=16, timeout=4, transport=None, deadline=None,
                                ai_transport=None, ledger_path=None, site_root=None, now=None):
     """Resolve and attach images to stories in place with bounded concurrency and time."""
+    site_root = Path(site_root) if site_root else Path(__file__).resolve().parent.parent / "site"
     # Finding 2: avoid loading/saving to repo cache during offline transport tests
     cache = ImageCache(cache_path=cache_path, seed_path=seed_path) if (transport is None or cache_path is not None) else None
 
@@ -510,7 +522,7 @@ def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_
         # screening deliberately leaves this story without an image.
         st["image_screened"] = True
         img = resolve_story_image(st, cache=cache, timeout=timeout, transport=transport,
-                                  allow_network=(transport is not None))
+                                  allow_network=(transport is not None), site_root=site_root)
         if img:
             st["image"] = img
         else:
@@ -535,7 +547,8 @@ def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_
                 except queue.Empty:
                     return
                 try:
-                    img = resolve_story_image(st, cache=cache, timeout=timeout, transport=None, allow_network=True)
+                    img = resolve_story_image(st, cache=cache, timeout=timeout, transport=None,
+                                              allow_network=True, site_root=site_root)
                 except Exception:
                     img = None
                 completed.put((st, img))

@@ -2,6 +2,7 @@
 
 import json
 import importlib.util
+from datetime import datetime, timezone
 from pathlib import Path
 import tempfile
 import time
@@ -268,10 +269,25 @@ class ImageCacheTests(unittest.TestCase):
                 "kind": "photo",
                 "verified": True
             })
-            img = resolve_story_image(story, cache=cache)
+            ai_dir = Path(tmpdir) / "site" / "assets" / "ai"
+            ai_dir.mkdir(parents=True)
+            (ai_dir / "st-cached-ai.jpg").write_bytes(PIXELS)
+            img = resolve_story_image(story, cache=cache, site_root=Path(tmpdir) / "site")
             self.assertIsNotNone(img)
             self.assertEqual(img["via"], "ai")
             self.assertEqual(img["src"], "assets/ai/st-cached-ai.jpg")
+
+    def test_missing_cached_ai_file_is_not_published(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            cache = ImageCache(cache_path=Path(tmpdir) / "cache.json")
+            cache.set("ai:st-missing", {"src": "assets/ai/st-missing.jpg", "via": "ai"})
+            story = {"id": "st-missing", "coverage": []}
+            resolve_images_for_stories(
+                [story], cache_path=Path(tmpdir) / "cache.json",
+                ledger_path=Path(tmpdir) / "ledger.json", site_root=Path(tmpdir) / "site",
+                transport=lambda _: b"", now=datetime(2026, 10, 10, 10, tzinfo=timezone.utc),
+            )
+            self.assertNotIn("image", story)
 
 
 if __name__ == "__main__":

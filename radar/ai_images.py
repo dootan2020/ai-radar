@@ -14,6 +14,8 @@ Strictly enforced boundaries:
 
 import base64
 from datetime import datetime, timezone
+import functools
+import hashlib
 import json
 import math
 import os
@@ -27,6 +29,7 @@ import urllib.error
 import urllib.request
 
 from radar.pipeline import write_atomic
+from radar.image_quality import classify_illustration_text
 
 MODEL_ID = "@cf/black-forest-labs/flux-1-schnell"
 DAILY_NEURON_BUDGET = 8000.0
@@ -185,6 +188,28 @@ def process_run_budget():
     return _PROCESS_RUN_BUDGET
 
 
+REVIEWED_DROPS_PATH = Path(__file__).resolve().parent.parent / "data" / "ai-image-drops.json"
+
+
+@functools.lru_cache(maxsize=None)
+def reviewed_drops(path=REVIEWED_DROPS_PATH):
+    """Story id -> sha256 of a stored illustration that visual review found lettered."""
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    return dict(data["illustrations"])
+
+
+def drop_reviewed_illustration(story_id, path):
+    """Delete the exact stored file visual review rejected; a regenerated file is kept."""
+    expected = reviewed_drops().get(story_id)
+    path = Path(path)
+    if not expected or not path.is_file():
+        return False
+    if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+        return False
+    path.unlink()
+    return True
+
+
 def reset_process_run_budget():
     """Start a fresh process-wide budget (tests only; production gets one per process)."""
     global _PROCESS_RUN_BUDGET
@@ -302,6 +327,18 @@ class AIImageLedger:
             day["stop_reason"] = "daily_budget_reached"
         self.save()
 
+    def release_story(self, story_id):
+        """Let a story whose illustration was dropped be generated again; spend is kept."""
+        released = False
+        for day in self.data.get("days", {}).values():
+            stories = day.get("generated_stories", [])
+            if story_id in stories:
+                stories.remove(story_id)
+                released = True
+        if released:
+            self.save()
+        return released
+
     def record_stop(self, reason="rate_limit_or_quota_exceeded", now=None):
         """Circuit breaker: stop generation for the rest of the UTC day (e.g. on 429)."""
         day = self.get_day(now)
@@ -330,6 +367,16 @@ def sanitize_topic_text(title):
     for brand in sorted(BRAND_TERMS, key=len, reverse=True):
         pattern = r"\b" + re.escape(brand) + r"\b"
         text = re.sub(pattern, "", text, flags=re.I)
+
+    # Document subjects are useful as visual ideas, but their literal names
+    # encourage the image model to paint a page with pseudo-lettering.
+    visual_topics = (
+        (r"\bboards? of directors\b", "corporate governance network"),
+        (r"\b(?:statements?|letters?|memos?|documents?|reports?|announcements?|press releases?)\b", "abstract information flow"),
+        (r"\b(?:investigations?|inquiries?|probes?)\b", "interconnected paths"),
+    )
+    for pattern, visual in visual_topics:
+        text = re.sub(pattern, visual, text, flags=re.I)
 
     # Strip common journalistic / news verbs and punctuation noise
     noise_patterns = [
@@ -562,7 +609,14 @@ def generate_ai_illustration(
 
     cost = compute_neuron_cost(width=width, height=height, steps=steps)
 
-    # Once per story: if file exists on disk, reuse immediately without calling API
+    # A stored file named by the human-reviewed drop list is removed, and the story
+    # may then be generated again within the normal window and budgets.
+    drop_reviewed_illustration(story_id, dest_path)
+    if not dest_path.is_file() and story_id in reviewed_drops():
+        ledger.release_story(story_id)
+
+    # Once per story: if file exists on disk, reuse immediately without calling API.
+    # Stored files are never judged by the lettering heuristic.
     if dest_path.is_file():
         if not ledger.is_story_generated(story_id):
             ledger.record_generation(story_id, cost=0.0, now=now)
@@ -711,6 +765,16 @@ def generate_ai_illustration(
     if not img_bytes or not img_bytes.startswith((b"\xff\xd8\xff", b"\x89PNG", b"RIFF")):
         if outcome is not None:
             outcome.update(action="failed", status=status, error="Invalid or missing image bytes in response", bytes_received=len(resp_bytes), cost=0.0)
+        return None
+
+    # Only a fresh image is screened for lettering. A rejection writes nothing and
+    # records no generation, so a later run in the window may try again; the run
+    # budget already reserved this request's cost, so one run cannot loop on it.
+    quality = classify_illustration_text(img_bytes)
+    if not quality["keep"]:
+        if outcome is not None:
+            outcome.update(action="failed", status=status, error=quality["reason"],
+                           bytes_received=len(img_bytes), cost=cost)
         return None
 
     # Read real pixel dimensions from returned image bytes (standard library only)
