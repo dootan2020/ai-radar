@@ -4,6 +4,7 @@ import concurrent.futures
 from datetime import datetime, timezone
 import json
 import os
+from pathlib import Path
 import re
 import time
 from urllib.parse import quote, unquote
@@ -992,34 +993,47 @@ def _enrich_hf_item(model_info, fetcher, now):
 
 
 WINDOW_NAMES = {"day": "theo ngày", "week": "theo tuần", "month": "theo tháng"}
-TRENDING_RETRY_SECONDS = 3
+TRENDING_RETRY_SECONDS = 1
+TRENDING_RETRY_BUDGET_SECONDS = 24
+TRENDING_MAX_AGE_DAYS = {"day": 3, "week": 10, "month": 40}
 
 
-def _trending_windows(daily, fetcher):
+def _fetch_trending_page(fetcher, url, window, retry_deadline):
+    error = None
+    for attempt in range(3):
+        text, err = _fetch_url_with_error(fetcher, url, source_id="github-trending")
+        if text:
+            try:
+                return github.parse_trending(str(text)), None
+            except ValueError:
+                error = "trang thịnh hành " + WINDOW_NAMES[window] + " không có thẻ kho mã nào đọc được"
+        else:
+            error = "chưa tải được trang thịnh hành " + WINDOW_NAMES[window] + (" (" + err + ")" if err and err.startswith("HTTP") else "")
+        if err == "no_fetcher":
+            break
+        delay = TRENDING_RETRY_SECONDS * (2 ** attempt)
+        if attempt == 2 or time.monotonic() + delay >= retry_deadline:
+            break
+        time.sleep(delay)
+    return [], error
+
+
+def _trending_windows(daily, fetcher, now):
     """Collect GitHub Trending's day, week and month pages. A window is measured only by its own page:
     a page that failed, or that printed another window's phrase, leaves that window unmeasured."""
     windows, status = {}, {}
+    retry_deadline = time.monotonic() + TRENDING_RETRY_BUDGET_SECONDS
     for window, url, _ in github.WINDOWS:
         rows, error = [], None
         if window == "day":
             rows = list(daily or [])
             if not rows:
-                error = "chưa lấy được trang thịnh hành theo ngày"
+                if fetcher is None:
+                    error = "chưa lấy được trang thịnh hành theo ngày"
+                else:
+                    rows, error = _fetch_trending_page(fetcher, url, window, retry_deadline)
         else:
-            # GitHub renders the week and month pages on demand and answers 504 while it does (measured
-            # 03/10 on the month page), so a failed read is retried twice before the window counts as unmeasured.
-            for attempt in range(3):
-                text, err = _fetch_url_with_error(fetcher, url, source_id="github-trending")
-                if text or err in (None, "no_fetcher") or attempt == 2:
-                    break
-                time.sleep(TRENDING_RETRY_SECONDS)
-            if text:
-                try:
-                    rows = github.parse_trending(str(text))
-                except ValueError:
-                    error = "trang thịnh hành " + WINDOW_NAMES[window] + " không có thẻ kho mã nào đọc được"
-            else:
-                error = "chưa tải được trang thịnh hành " + WINDOW_NAMES[window] + (" (" + err + ")" if err and err.startswith("HTTP") else "")
+            rows, error = _fetch_trending_page(fetcher, url, window, retry_deadline)
         measured = []
         for rank, row in enumerate(rows, 1):
             if not isinstance(row, dict) or not row.get("repo"):
@@ -1033,9 +1047,80 @@ def _trending_windows(daily, fetcher):
         if rows and not any(gain is not None for _, _, gain in measured):
             error = error or "trang thịnh hành " + WINDOW_NAMES[window] + " không ghi số sao tăng của khung này"
         windows[window] = measured
-        status[window] = {"measured": any(gain is not None for _, _, gain in measured),
-                          "count": sum(gain is not None for _, _, gain in measured), "error": error, "url": url}
+        is_measured = any(gain is not None for _, _, gain in measured)
+        status[window] = {"measured": is_measured,
+                          "count": sum(gain is not None for _, _, gain in measured), "error": error, "url": url,
+                          "fetched_at": iso_date(now) if is_measured else None}
     return windows, status
+
+
+def _previous_repo_snapshots():
+    paths = (os.environ.get("RADAR_PUBLISHED_SNAPSHOT", "data/published-snapshot.json"),
+             os.environ.get("RADAR_BASELINE", "data/measurement-baseline.json"),
+             os.environ.get("RADAR_OUTPUT", "site/data/radar.json"))
+    snapshots = []
+    for candidate in map(Path, paths):
+        try:
+            snapshot = json.loads(candidate.read_text(encoding="utf-8"))
+            if isinstance(snapshot.get("repos"), list) and isinstance(snapshot.get("repos_meta"), dict):
+                snapshots.append(snapshot)
+        except (OSError, ValueError, TypeError, AttributeError):
+            pass
+    return snapshots
+
+
+def _restore_trending_windows(results, status, rankings, now):
+    if all(entry["measured"] for entry in status.values()):
+        return
+    snapshots = _previous_repo_snapshots()
+    if not snapshots:
+        return
+    current_repos = {row["id"]: row for row in results}
+    for window, entry in status.items():
+        if entry["measured"]:
+            continue
+        fallback = None
+        for previous in snapshots:
+            old_meta = previous["repos_meta"]
+            old_windows = old_meta.get("windows") or {}
+            old_rankings = old_meta.get("rankings") or {}
+            old_trending = old_rankings.get("trending") or {}
+            old_usable = old_rankings.get("usable") or {}
+            old_repos = {row.get("id"): row for row in previous["repos"] if isinstance(row, dict)}
+            old_entry = old_windows.get(window) or {}
+            ids = old_trending.get(window) or []
+            if not old_entry.get("measured") or not isinstance(ids, list):
+                continue
+            fetched_at = old_entry.get("fetched_at") or previous.get("generated_at")
+            try:
+                fetched = datetime.fromisoformat(fetched_at.replace("Z", "+00:00"))
+                age = (now - fetched).total_seconds() if fetched.tzinfo else -1
+            except (AttributeError, TypeError, ValueError):
+                continue
+            if not 0 <= age <= TRENDING_MAX_AGE_DAYS[window] * 86400:
+                continue
+            kept = [id_ for id_ in ids if id_ in old_repos and
+                    isinstance((old_repos[id_].get("stars_gained") or {}).get(window), int)]
+            if kept:
+                fallback = (kept, old_repos, old_usable, fetched_at, age)
+                break
+        if fallback is None:
+            continue
+        kept, old_repos, old_usable, fetched_at, age = fallback
+        for id_ in kept:
+            old = old_repos[id_]
+            if id_ not in current_repos:
+                row = dict(old)
+                row["stars_gained"] = {key: None for key, _, _ in github.WINDOWS}
+                row["trending_rank"] = {key: None for key, _, _ in github.WINDOWS}
+                results.append(row)
+                current_repos[id_] = row
+            current_repos[id_]["stars_gained"][window] = old["stars_gained"][window]
+            current_repos[id_]["trending_rank"][window] = (old.get("trending_rank") or {}).get(window)
+        rankings["trending"][window] = kept
+        rankings["usable"][window] = [id_ for id_ in old_usable.get(window, []) if id_ in kept]
+        entry.update(measured=True, count=len(kept), fallback=True, fetched_at=fetched_at,
+                     age_seconds=int(age))
 
 
 def _merge_windows(windows):
@@ -1092,7 +1177,7 @@ def curate_repos(github_trending, hf_trending, fetcher=None, now=None, meta=None
     say they are about AI are left out and listed in `meta["excluded_non_ai"]`.
     """
     now = now or datetime.now(timezone.utc)
-    if not github_trending and not hf_trending:
+    if not github_trending and not hf_trending and fetcher is None:
         return []
 
     meta_dict = meta if isinstance(meta, dict) else {}
@@ -1102,7 +1187,7 @@ def curate_repos(github_trending, hf_trending, fetcher=None, now=None, meta=None
     meta_dict.setdefault("fallback_reasons", {})
     meta_dict.setdefault("excluded_non_ai", [])
 
-    windows, status = _trending_windows(github_trending, fetcher)
+    windows, status = _trending_windows(github_trending, fetcher, now)
     candidates = _merge_windows(windows)
     meta_dict["windows"] = status
 
@@ -1155,6 +1240,7 @@ def curate_repos(github_trending, hf_trending, fetcher=None, now=None, meta=None
 
     results.sort(key=sort_key)
     meta_dict["rankings"] = rank_repos(results)
+    _restore_trending_windows(results, status, meta_dict["rankings"], now)
     return results
 
 
