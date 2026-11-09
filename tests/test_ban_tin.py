@@ -128,8 +128,8 @@ out.shortDate = formatShortDateVi('2026-10-03');
 const singleStory = realEdition.stories[0];
 out.singleTileHtml = renderStoryTileHTML(singleStory, true);
 out.singleSummary = getStorySummary(singleStory);
-out.endSectionToday = renderEndSectionHTML(realEdition.date, true, realIndex.editions);
-out.endSectionEmpty = renderEndSectionHTML(realEdition.date, true, realIndex.editions, true);
+out.endSectionToday = renderEndSectionHTML(realEdition.date, true);
+out.endSectionEmpty = renderEndSectionHTML(realEdition.date, true, true);
 
 // Test multi-story edition with summary
 const multiEdition = JSON.parse(JSON.stringify(realEdition));
@@ -289,17 +289,13 @@ class BanTinRenderLogicTests(unittest.TestCase):
         # The end says so in its heading; no line explaining it (captain, 09/11).
         self.assertNotIn("Bạn đã xem trọn vẹn", end_html)
         self.assertIn("Về đầu trang", end_html)
-        # The days before: grouped by month, one same-size cell per day, the current day marked
-        self.assertIn('class="bt-archive-month"', end_html)
-        self.assertIn('class="bt-archive-grid"', end_html)
-        self.assertIn('href="?ngay=2026-10-03" aria-current="date"', end_html)
-        self.assertNotIn("bt-archive-btn", end_html)
+        # No calendar of the days before (captain, 09/11 13:16: scrolling the feed replaces picking a day); the
+        # previous/next buttons and ?ngay= still open an older edition.
+        self.assertNotIn("bt-archive", end_html)
+        self.assertNotIn("Các ngày trước", end_html)
 
-    def test_end_section_after_an_empty_day_holds_only_the_calendar(self):
-        empty_end = self.out["endSectionEmpty"]
-        self.assertNotIn("Hết bản tin", empty_end)
-        self.assertIn("Các ngày trước", empty_end)
-        self.assertIn("Về đầu trang", empty_end)
+    def test_end_section_after_an_empty_day_is_empty(self):
+        self.assertEqual(self.out["endSectionEmpty"], "")
 
     def test_adjacent_editions_navigation(self):
         # At latest edition: next is None, prev is yesterday
