@@ -48,14 +48,16 @@ console.log(JSON.stringify({{
         out = self.render()["fallback"]
         for surface in ("page", "modal"):
             document = out[surface]
-            self.assertIn(f'<h2 class="story-section-h2">{LABEL}</h2>', document)
-            # The heading names whose text it is; the line explaining it went (captain, 09/11).
+            self.assertIn(f'aria-label="{LABEL}"', document)
+            self.assertIn(f'<p class="story-points-disclosure">{LABEL}.', document)
             self.assertNotIn("Lời giới thiệu ngắn của", document)
             self.assertIn("Máy chủ AI 1.6L của Lenovo Kaitian", document)
             # The machine translation is named once, by the existing chip, never as "dịch máy" in visible text.
             self.assertIn('>Translated</span>', document)
             self.assertNotIn("Đoạn trích bài viết", document)
             self.assertNotIn("Phòng báo Halcyon tóm tắt", document)
+            self.assertLess(document.index('class="story-summary-text"'),
+                            document.index('<footer class="story-detail-footer">'))
         self.assertIn(f'<p class="bt-story-summary"><span class="src-desc">{LABEL}</span> Máy chủ AI', out["edition"])
 
     def test_desk_story_labels_the_source_description_but_not_its_summary(self):
@@ -63,7 +65,8 @@ console.log(JSON.stringify({{
         for surface in ("page", "modal"):
             document = out[surface]
             self.assertNotIn(LABEL, document)
-            self.assertIn("Phòng báo Halcyon tóm tắt từ Pandaily", document)
+            self.assertNotIn("Phòng báo Halcyon tóm tắt", document)
+            self.assertIn('class="story-summary-sources"', document)
             self.assertIn('class="story-bullet">Diễn biến chính.</li>', document)
         # Cards and the morning edition show the dek even for a desk story, so the label follows the text.
         self.assertIn(f'<p class="bt-story-summary"><span class="src-desc">{LABEL}</span> Máy chủ AI', out["edition"])

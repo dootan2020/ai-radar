@@ -40,7 +40,7 @@ console.log(JSON.stringify([
             self.assertNotIn('Ý chính:', document)
             self.assertIn('<strong>GPU</strong>', document)
             self.assertIn('href="https://official.example/report"', document)
-            self.assertIn("Tóm tắt bằng AI", document)
+            self.assertNotIn("Tóm tắt bằng AI", document)
             self.assertNotIn("Publisher excerpt.", document)
             self.assertIn('href="https://publisher.example/article"', document)
             self.assertIn("&lt;script&gt;bad()&lt;/script&gt;", document)
@@ -73,9 +73,40 @@ console.log(JSON.stringify([
         for document in (page, modal):
             self.assertIn('class="story-bullet">Diễn biến &lt;b&gt;chính&lt;/b&gt;.</li>', document)
             self.assertIn('class="story-bullet">Ý nghĩa của sự kiện.</li>', document)
-            self.assertIn("Phòng báo Halcyon tóm tắt từ The Verge", document)
+            self.assertNotIn("Phòng báo Halcyon tóm tắt", document)
+            self.assertIn('class="story-summary-sources"', document)
             self.assertNotIn("Tóm tắt bằng AI", document)
             self.assertNotIn('class="story-point-num"', document)
             self.assertIn("Tiêu đề phòng báo", document)
         self.assertNotIn("story-bullet", thin)
         self.assertIn("Publisher excerpt.", thin)
+
+    def test_picture_and_bullets_precede_every_source_line(self):
+        module = (ROOT / "site" / "story.js").as_uri()
+        program = f"""
+import {{ renderStoryHTML }} from {json.dumps(module)};
+const story = {{id: 'ordered', title: 'Original title', title_vi: 'Tiêu đề',
+  url: 'https://publisher.example/article', published_at: '2026-11-09T00:00:00Z',
+  image: {{src: 'https://publisher.example/picture.jpg', via: 'ai'}},
+  coverage: [{{publisher: 'Publisher', url: 'https://publisher.example/article'}},
+    {{publisher: 'Other', url: 'https://other.example/article'}}],
+  key_points_source: 'nguoi-viet', key_points_prompt_version: 'summary-vi-6-prose',
+  summary_sources: [{{name: 'Publisher', url: 'https://publisher.example/article', role: 'outlet'}}],
+  key_points: ['Một.', 'Hai.', 'Ba.']}};
+console.log(JSON.stringify([renderStoryHTML(story, new Map(), {{isPage: true}}),
+  renderStoryHTML(story, new Map(), {{isModal: true}})]));
+"""
+        result = subprocess.run(["node", "--input-type=module", "-e", program], cwd=ROOT,
+                                capture_output=True, text=True, encoding="utf-8", timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        for document in json.loads(result.stdout):
+            article = document[document.index('<article class="story-article"'):]
+            positions = [article.index(marker) for marker in (
+                '<h1 class="story-headline"', '<figure class="story-media"',
+                '<li class="story-bullet">Một.', '<footer class="story-detail-footer"',
+                'class="story-summary-sources"')]
+            self.assertEqual(positions, sorted(positions))
+            self.assertNotIn('story-kind-pill', article)
+            self.assertNotIn('story-summary-label', article)
+            self.assertIn('<details class="story-coverage-wrap">', article)
+            self.assertIn('Ảnh minh hoạ do AI tạo', article[positions[3]:])

@@ -226,44 +226,93 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
             f'<a href="{esc(source["url"])}" target="_blank" rel="noopener noreferrer">'
             f'{esc(source.get("name", "Nguồn"))}{" — nguồn gốc" if source.get("role") == "primary" else ""}</a>'
             for source in story["summary_sources"] if isinstance(source, dict) and _http_url(source.get("url")))
-        sources_html = f'<p class="story-summary-sources">Nguồn: {links}</p>'
+        sources_html = f'<p class="story-summary-sources"><span class="story-credit-label">Nguồn:</span> {links}</p>'
         if _is_desk_prose(story):
-            outlet = next((s.get("name") for s in story["summary_sources"]
-                           if isinstance(s, dict) and s.get("role") == "outlet" and s.get("name")), "")
-            label = f"Phòng báo Halcyon tóm tắt từ {esc(outlet)}" if outlet else "Phòng báo Halcyon tóm tắt từ bài gốc"
-            # One bullet per point under a visible "Tóm tắt" label, as the hydrated page draws it (site/story.js).
             bullets_html = "".join(f'<li class="story-bullet">{_summary_text(point)}</li>'
                                    for point in fields["key_points"])
             fallback_content = (
-                '<section class="story-keypoints-box story-prose-box" aria-labelledby="story-summary-label">'
-                '<div class="story-section-head">'
-                '<h2 class="story-summary-label" id="story-summary-label">Tóm tắt</h2>'
-                f'<p class="story-section-sub story-byline">{label}</p></div>'
-                f'<ul class="story-bullets">{bullets_html}</ul>{sources_html}')
+                '<section class="story-keypoints-box story-prose-box" aria-label="Tóm tắt bài viết">'
+                f'<ul class="story-bullets">{bullets_html}</ul>')
         else:
             fallback_content = (
                 '<section class="story-keypoints-box" aria-label="Tóm tắt bài viết">'
-                '<p class="story-section-sub">Tóm tắt bằng AI từ bài gốc</p>'
-                f'<ol class="story-points-list">{points_html}</ol>{sources_html}')
+                f'<ol class="story-points-list">{points_html}</ol>')
         fallback_content += '</section>'
     elif fields["source_summary"]:
-        # The publisher's own description stands in for a summary; say so, as the hydrated page does (site/story.js).
-        owner = esc(fields["publisher"]) if fields["publisher"] else "bài gốc"
         fallback_content = (
             f'<section class="story-summary-box story-source-desc" aria-label="{SOURCE_DESCRIPTION_LABEL}">'
-            f'<h2 class="story-section-h2">{SOURCE_DESCRIPTION_LABEL}</h2>'
-            f'<p class="story-section-sub">Lời giới thiệu ngắn của {owner}. Halcyon chưa tóm tắt tin này.</p>'
             f'<p class="story-summary-text">{esc(fields["source_summary"])}</p></section>')
     else:
         fallback_content = (
-            '<section class="story-summary-box" aria-label="Đoạn trích bài viết">'
-            '<h2 class="story-section-h2">Đoạn trích bài viết</h2>'
-            '<p class="story-summary-text">Chưa có đoạn trích cho bài viết này. Bạn có thể mở đọc toàn văn bài viết gốc bên dưới.</p></section>')
-    gateway_desc = (f'{SITE_NAME} tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.'
-                    if fields["key_points"] else
-                    'Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.')
-    publisher_html = f'<span class="story-pub-name">{esc(fields["publisher"])}</span>' if fields["publisher"] else ""
+            '<section class="story-summary-box story-empty-box" aria-label="Đoạn trích bài viết">'
+            '<p class="story-empty-text">Chưa có đoạn trích cho bài viết này. Bạn có thể mở đọc toàn văn bài viết gốc bên dưới.</p></section>')
+    image = story.get("image") if isinstance(story.get("image"), dict) else {}
+    image_src = _text(image.get("src"))
+    visible_image = _http_url(image_src) or re.fullmatch(r"assets/ai/[\w-]+\.jpg", image_src)
+    media_html = (f'<figure class="story-media"><div class="story-media-frame">'
+                  f'<img class="story-media-img" src="{esc(fields["image"])}" alt="{esc(fields["title"])}" loading="eager" decoding="async">'
+                  '</div></figure>') if visible_image else ""
+    has_original_title = bool(_text(story.get("title_vi")) and _text(story.get("title"))
+                              and story["title_vi"].strip() != story["title"].strip())
+    original_html = (f'<div class="story-orig-block"><p class="card-orig">'
+                     '<span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span>'
+                     '<span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span>'
+                     f'<span class="orig-text" lang="en">{esc(story["title"])}</span></p></div>') if has_original_title else ""
+    source_html = sources_html if fields["key_points"] else (
+        f'<p class="story-summary-sources"><span class="story-credit-label">Nguồn:</span> {esc(fields["publisher"])}</p>')
+    if not fields["key_points"] and fields["source_summary"]:
+        sum_en = trim_complete_sentences(_text(story.get("summary")))
+        sum_vi = trim_complete_sentences(_text(story.get("summary_vi")))
+        if sum_vi and sum_en and sum_vi != sum_en:
+            source_html += ('<p class="card-orig"><span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là đoạn trích gốc">Translated</span>'
+                            '<span class="sr" lang="vi">Bản dịch máy. Đoạn trích gốc: </span>'
+                            f'<span class="orig-text" lang="en">{esc(sum_en)}</span></p>')
+        source_html += f'<p class="story-points-disclosure">{SOURCE_DESCRIPTION_LABEL}. Đoạn trích do nhà xuất bản cung cấp. Bản quyền thuộc về nhà xuất bản.</p>'
+    coverage = story.get("coverage") if isinstance(story.get("coverage"), list) else []
+    coverage_links = [(item, _http_url(item.get("url"))) for item in coverage if isinstance(item, dict)]
+    coverage_links = [(item, url) for item, url in coverage_links if url and url != fields["original_url"]]
+    seen_publishers = set()
+    distinct_coverage = []
+    for item, url in coverage_links:
+        publisher_key = (_text(item.get("author_handle")) or _text(item.get("publisher"))
+                         or _text(item.get("source")) or url).lower()
+        if publisher_key not in seen_publishers:
+            seen_publishers.add(publisher_key)
+            distinct_coverage.append((item, url))
+    coverage_links = distinct_coverage
+    coverage_html = (f'<details class="story-coverage-wrap"><summary>{len(coverage_links)} nguồn khác cùng đưa tin</summary>'
+                     '<ul class="story-coverage-list">' + ''.join(
+                         f'<li><a class="story-cov-item" href="{esc(url)}" target="_blank" rel="noopener noreferrer">'
+                         f'{esc(_text(item.get("publisher")) or _text(item.get("source")) or urlsplit(url).hostname)}'
+                         f'</a></li>' for item, url in coverage_links) + '</ul></details>') if coverage_links else ""
+    image_credit = '<p class="story-image-credit">Ảnh minh hoạ do AI tạo</p>' if visible_image and image.get("via") == "ai" else ""
+    related = story.get("related_artifacts") if isinstance(story.get("related_artifacts"), list) else []
+    related_links = [(item, _http_url(item.get("url"))) for item in related if isinstance(item, dict)]
+    related_html = ('<section class="story-coverage-wrap" aria-label="Tài nguyên liên quan">'
+                    '<h2>Tài nguyên liên quan</h2><ul class="story-coverage-list">' + ''.join(
+                        f'<li><a href="{esc(url)}" target="_blank" rel="noopener noreferrer">'
+                        f'{esc(_text(item.get("title")))}</a></li>' for item, url in related_links if url
+                    ) + '</ul></section>') if any(url for _, url in related_links) else ""
+    published_at = _text(story.get("published_at"))
+    date_label = f'{published_at[8:10]}/{published_at[5:7]}/{published_at[:4]}' if re.match(r'\d{4}-\d{2}-\d{2}', published_at) else published_at
+    time_html = (f'<div class="story-meta-row"><div class="story-pub-info"><time datetime="{esc(published_at)}">'
+                 f'{esc(date_label)}</time></div></div>') if published_at else ""
+    title_length = len(fields["title"])
+    title_class = "story-headline is-post" if title_length > 180 else "story-headline is-long" if title_length > 100 else "story-headline"
+    article_html = (
+        f'<article class="story-article" data-id="{esc(story["id"])}" aria-labelledby="story-modal-title">'
+        '<header class="story-header">'
+        f'<h1 class="{title_class}" id="story-modal-title">{esc(fields["title"])}</h1>'
+        f'{time_html}</header>'
+        f'{media_html}<div class="story-body">{fallback_content}</div>'
+        '<footer class="story-detail-footer">'
+        f'<a class="story-origin-cta" href="{esc(fields["original_url"])}" target="_blank" rel="noopener noreferrer">Đọc bài gốc <span class="story-cta-arrow" aria-hidden="true">↗</span></a>'
+        f'{source_html}{coverage_html}{original_html}{image_credit}{related_html}</footer></article>')
     document = TEMPLATE_PATH.read_text(encoding="utf-8")
+    document, article_count = re.subn(r'<article class="story-article".*?</article>', lambda _: article_html,
+                                      document, count=1, flags=re.DOTALL)
+    if article_count != 1:
+        raise ValueError("Story page template has no article")
     values = {
         "{{TITLE}}": esc(fields["title"]), "{{DESCRIPTION}}": esc(fields["description"]),
         "{{CANONICAL}}": esc(fields["canonical"]),
@@ -273,10 +322,10 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
             f'<meta name="twitter:card" content="summary_large_image">\n'
             f'<meta name="twitter:image" content="{esc(fields["image"])}">'
             if fields["image"] else '<meta name="twitter:card" content="summary">'),
-        "{{STORY_ID}}": esc(story["id"]), "{{PUBLISHER}}": publisher_html,
+        "{{STORY_ID}}": esc(story["id"]), "{{PUBLISHER}}": "",
         "{{PUBLISHER_NAME}}": esc(fields["publisher"]),
         "{{ORIGINAL_TITLE}}": esc(fields["original_title"]), "{{ORIGINAL_URL}}": esc(fields["original_url"]),
-        "{{CONTENT}}": fallback_content, "{{GATEWAY_DESC}}": esc(gateway_desc),
+        "{{CONTENT}}": fallback_content, "{{GATEWAY_DESC}}": "",
         "{{STORY_DATA}}": encoded_story,
         "{{JSONLD}}": encoded_article, "{{CSP}}": esc(CONTENT_SECURITY_POLICY),
         "{{THEME_SCRIPT}}": THEME_SCRIPT,
