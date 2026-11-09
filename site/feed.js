@@ -1670,8 +1670,7 @@ function leadHTML(list) {
       <div class="slide-media media">${mediaHTML(img, i ? 'card' : 'lead')}</div>
       <div class="slide-box"><p class="nc-kicker">Tin nổi bật</p><h2 class="slide-title"${langAttr(t.text)}><a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>${metaHTML(st, true)}</div></article>`;
   }).join('');
-  const nav = n > 1 ? `<div class="lead-dots" role="group" aria-label="Chọn tin nổi bật">${list.map((st, i) => `<button type="button" data-slide="${i}" aria-label="Tin nổi bật ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>
-    <div class="lead-nav"><button type="button" data-slide-step="-1" aria-label="Tin nổi bật trước"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg></button><button type="button" data-slide-step="1" aria-label="Tin nổi bật tiếp"><svg class="i i-flip" aria-hidden="true"><use href="#i-arrow-left"/></svg></button></div>` : '';
+  const nav = n > 1 ? `<div class="lead-dots" role="group" aria-label="Chọn tin nổi bật">${list.map((st, i) => `<button type="button" data-slide="${i}" aria-label="Tin nổi bật ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>` : '';
   return `<section class="msn-card msn-lead" id="lead" aria-roledescription="carousel" aria-label="Tin nổi bật">${slides}${nav}</section>`;
 }
 function showSlide(lead, n) {
@@ -1681,6 +1680,19 @@ function showSlide(lead, n) {
   slides.forEach((el, i) => { el.classList.toggle('is-active', i === k); el.inert = i !== k; });
   lead.querySelectorAll('.lead-dots button').forEach((b, i) => b.setAttribute('aria-current', String(i === k)));
   lead.dataset.slide = String(k);
+}
+/* With no prev/next buttons, a horizontal swipe on the card moves one story (left = next); a vertical one still scrolls. */
+const SWIPE_MIN = 40;
+let swipe = null;
+function onLeadTouchStart(e) {
+  const lead = e.touches.length === 1 && e.target instanceof Element && e.target.closest('.msn-lead');
+  swipe = lead ? { lead, x: e.touches[0].clientX, y: e.touches[0].clientY } : null;
+}
+function onLeadTouchEnd(e) {
+  if (!swipe) return;
+  const { lead, x, y } = swipe; swipe = null;
+  const t = e.changedTouches[0], dx = t.clientX - x, dy = t.clientY - y;
+  if (Math.abs(dx) >= SWIPE_MIN && Math.abs(dx) > Math.abs(dy)) showSlide(lead, (+lead.dataset.slide || 0) + (dx < 0 ? 1 : -1));
 }
 function topListHTML(list) {
   if (!list.length) return '';
@@ -2373,6 +2385,14 @@ function onKey(e) {
   if (t && t.closest('input,textarea,select,[contenteditable="true"]')) return;
   if ($('#keys').open) return;
   const k = e.key;
+  const dots = t && t.closest('.lead-dots');
+  if (dots && (k === 'ArrowLeft' || k === 'ArrowRight')) {   // the lead's dots: arrows move the story and keep focus on its dot
+    e.preventDefault();
+    const lead = dots.closest('.msn-lead');
+    showSlide(lead, (+lead.dataset.slide || 0) + (k === 'ArrowRight' ? 1 : -1));
+    dots.querySelectorAll('button')[+lead.dataset.slide].focus();
+    return;
+  }
 
   if (currentModalStoryId) {
     if (k === 'Escape') {
@@ -2506,8 +2526,6 @@ function onClick(e) {
   if (t.closest('[data-to-top]')) { scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' }); $('#top').focus({ preventScroll: true }); return; }
   const dot = t.closest('.lead-dots button');
   if (dot) { showSlide(dot.closest('.msn-lead'), +dot.dataset.slide); return; }
-  const step = t.closest('[data-slide-step]');
-  if (step) { const lead = step.closest('.msn-lead'); showSlide(lead, (+lead.dataset.slide || 0) + +step.dataset.slideStep); return; }
   onOpenLink(e);
 }
 /* Opening a story by any link (left, middle or keyboard) marks it seen. */
@@ -2581,6 +2599,8 @@ function attachEvents() {
     initRepoPills();
   }, { passive: true });
   document.addEventListener('click', onClick);
+  document.addEventListener('touchstart', onLeadTouchStart, { passive: true });
+  document.addEventListener('touchend', onLeadTouchEnd, { passive: true });
   document.addEventListener('auxclick', e => { if (e.button === 1) onOpenLink(e); });
   document.addEventListener('keydown', onKey);
 

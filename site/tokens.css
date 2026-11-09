@@ -208,7 +208,7 @@
   --msn-fav-lg: 28px;
   --msn-dot: 3px;
   --msn-tab-line: 3px;                               /* the active section's underline */
-  --msn-lead-dot: 8px; --msn-lead-dot-on: 20px;
+  --msn-lead-dot: var(--space-6); --msn-lead-dot-on: var(--space-16);   /* the lead's dots: one small chip, dots close together */
   --msn-title: var(--text-sub);                      /* 15 px: a card's headline */
   --msn-title-text: var(--text-title);               /* 18 px: a headline without a picture */
   --msn-title-wide: var(--text-title);
@@ -225,13 +225,11 @@
   --msn-shadow-panel: 0 1px 3px oklch(var(--shadow-tint) / 0.05), 0 12px 40px oklch(var(--shadow-tint) / 0.07);
   --msn-shadow-rest: 0 1px 2px oklch(var(--shadow-tint) / 0.06), 0 3px 12px oklch(var(--shadow-tint) / 0.07);
   --msn-shadow-card: 0 2px 4px oklch(var(--shadow-tint) / 0.06), 0 10px 28px oklch(var(--shadow-tint) / 0.12);
-  --msn-dot-shadow: 0 1px 3px color-mix(in srgb, var(--brand-ink) 45%, transparent);   /* a carousel dot on a bright photo */
   --msn-ink-card: var(--brand-ink);                  /* a notable story without a picture, and the lead's frame */
   --msn-on-ink: var(--brand-white);
   --msn-on-ink-2: var(--gray-90);
   --msn-slide-box: color-mix(in srgb, var(--brand-ink) 90%, transparent);
-  --msn-on-photo-btn: color-mix(in srgb, var(--brand-ink) 70%, transparent);
-  --msn-on-photo-btn-hover: color-mix(in srgb, var(--brand-ink) 90%, transparent);
+  --msn-lead-dots-bg: color-mix(in srgb, var(--brand-ink) 70%, transparent);   /* the dots' chip: a 55% dot on it stays 3:1 on a white photo */
   --msn-on-photo-dot: color-mix(in srgb, var(--brand-white) 55%, transparent);
   /* The weather card: a sky photograph (anh/bau-troi.jpg), a flat ink veil, frosted tiles; white text 4.7:1 or more. */
   --msn-wx-sky: #2B4C7A;                             /* shown until the photograph arrives */
