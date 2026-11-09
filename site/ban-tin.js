@@ -222,50 +222,19 @@ export function renderErrorStateHTML() {
   `;
 }
 
-/* ---------- Lịch các ngày trước ----------
-   Thay hàng nút ngày dài, lệch tâm (anh Tuấn, 08/11: "Bộ lọc theo ngày đang lệch lạc, rất xấu"): mỗi tháng một nhóm,
-   mỗi ngày một ô cùng cỡ trong lưới căn trái (thứ viết tắt trên, số ngày dưới), như một tờ lịch. Ngày đang xem có
-   mặt lót của màu nhấn. */
-const WEEKDAY_SHORT = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
-export function renderArchiveHTML(editions = [], currentDate = null) {
-  const months = [];
-  for (const e of editions || []) {
-    const [y, m, d] = String(e?.date || '').split('-').map(Number);
-    if (!y || !m || !d) continue;
-    const key = `${y}-${m}`;
-    let group = months[months.length - 1];
-    if (!group || group.key !== key) months.push(group = { key, y, m, days: [] });
-    group.days.push({ date: e.date, d, wd: new Date(y, m - 1, d).getDay() });
-  }
-  if (!months.length) return '';
-  return `
-    <nav class="bt-archive" aria-labelledby="bt-archive-h">
-      <h3 class="bt-archive-heading" id="bt-archive-h">Các ngày trước</h3>
-      ${months.map(g => `
-        <section class="bt-archive-month" aria-label="Tháng ${g.m} năm ${g.y}">
-          <h4 class="bt-archive-month-h">Tháng ${g.m}<span class="bt-archive-year">${g.y}</span></h4>
-          <ol class="bt-archive-grid">
-            ${g.days.map(x => `<li><a class="bt-archive-day" href="?ngay=${esc(x.date)}"${x.date === currentDate ? ' aria-current="date"' : ''} aria-label="${esc(formatFullDateVi(x.date))}"><span class="bt-archive-wd">${WEEKDAY_SHORT[x.wd]}</span><span class="bt-archive-d num">${String(x.d).padStart(2, '0')}</span></a></li>`).join('')}
-          </ol>
-        </section>
-      `).join('')}
-    </nav>
-  `;
-}
-
-/* ---------- Sinh HTML Khối Kết Thúc ("Hết bản tin hôm nay") ---------- */
-export function renderEndSectionHTML(currentDate, isToday, availableEditions = [], empty = false) {
+/* ---------- Sinh HTML Khối Kết Thúc ("Hết bản tin hôm nay") ----------
+   Không còn lịch các ngày trước (anh Tuấn, 09/11 13:16: cuộn xuống dòng tin thay cho việc chọn ngày); nút ngày trước /
+   ngày sau ở đầu trang và địa chỉ ?ngay= vẫn mở được bản tin cũ. Một ngày trống không có gì để kết thúc. */
+export function renderEndSectionHTML(currentDate, isToday, empty = false) {
+  if (empty) return '';
   const titleText = isToday ? 'Hết bản tin hôm nay' : `Hết bản tin ngày ${formatShortDateVi(currentDate)}`;
 
   return `
-    <section class="bt-end-section${empty ? ' is-archive-only' : ''}" aria-label="${empty ? 'Các ngày trước' : 'Kết thúc bản tin'}">
-      ${empty ? '' : `
-        <div class="bt-end-check">
-          <svg class="i" aria-hidden="true"><use href="#i-check"/></svg>
-        </div>
-        <h2 class="bt-end-title">${esc(titleText)}</h2>
-      `}
-      ${renderArchiveHTML(availableEditions, currentDate)}
+    <section class="bt-end-section" aria-label="Kết thúc bản tin">
+      <div class="bt-end-check">
+        <svg class="i" aria-hidden="true"><use href="#i-check"/></svg>
+      </div>
+      <h2 class="bt-end-title">${esc(titleText)}</h2>
       <a class="bt-back-to-top" href="#top">
         <svg class="i" aria-hidden="true"><use href="#i-arrow-up"/></svg> Về đầu trang
       </a>
@@ -521,12 +490,7 @@ export class BanTinReader {
 
     // Render End of Edition
     if (this.endSectionEl) {
-      this.endSectionEl.innerHTML = renderEndSectionHTML(
-        edition.date,
-        isToday,
-        this.index?.editions || [],
-        this.state === 'empty'
-      );
+      this.endSectionEl.innerHTML = renderEndSectionHTML(edition.date, isToday, this.state === 'empty');
     }
 
     // Kích hoạt nạp avatar Hugging Face và bắt lỗi ảnh

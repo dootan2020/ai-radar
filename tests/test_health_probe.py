@@ -386,14 +386,6 @@ class HealthProbeTests(unittest.TestCase):
             checks = self.probe()
         self.assertTrue(any(not row["ok"] for row in checks.values()))
 
-    def test_bento_rollback_homepage_passes_probe(self):
-        self.homepage = (ROOT / "site/bento.html").read_bytes()
-        checks = self.probe()
-        self.assertTrue(all(row["ok"] for row in checks.values()), checks)
-        self.assertTrue(checks["homepage"]["ok"])
-        self.assertIn("asset:app.js", checks)
-        self.assertIn("asset:styles.css", checks)
-
 
 if __name__ == "__main__":
     unittest.main()

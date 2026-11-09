@@ -10,11 +10,11 @@
    worthOf), a block of 3 to 5 stories on top with a reason line in real numbers, a reason chip per card, a sort switch,
    and "Biên tập chọn" only from editor-picks.json.
 
-   Carried over from the bento home (now bento.html, rollback only), in the feed's own look: the edition and search
+   Carried over from the bento home (retired 09/11), in the feed's own look: the edition and search
    links (static, in index.html), the new / seen marks with the same storage keys, the "N tin mới" pill
    that goes to the first new story, saved stories, the repository lists,
    calendar export, live counters, every source's state, keyboard shortcuts, and every address the bento home answered
-   (#tin/<id>, and the section anchors the search page links to). */
+   (#tin/<id>, #sap-toi; the retired section anchors land on the home feed). */
 
 import { esc, fmt, avatar, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
 import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange } from './time-text.js';
@@ -1643,7 +1643,49 @@ function buildAll() {
   // The first widget after eight stories, then one every ten.
   const out = [];
   river.forEach((it, i) => { out.push(it); if ((i + 1) % 10 === 8 && widgets.length) out.push(widgets.shift()); });
-  return out.concat(widgets);
+  PLACED = new Set([...used, ...allStories.map(st => st.id)]);
+  return out.concat(widgets, olderItems());
+}
+
+/* ---------- older days (captain, 09/11 13:16: scrolling replaces the sections) ----------
+   When the ranked window runs out, the stream goes on into every other story the snapshot keeps, newest first, under a
+   quiet line naming the day (Vietnam's calendar). Each story once: PLACED holds what the ranked part already shows.
+   Each day has a grid of its own (placeChunk), so a story never slips above its day's line into a gap of the dense grid. */
+let PLACED = new Set();
+const WEEKDAY = new Intl.DateTimeFormat('vi-VN', { weekday: 'long', timeZone: TZ });
+const pubTime = st => ms(st.published_at) || rankTime(st);
+function dayLabel(key) {
+  const days = Math.round((new Date(dayKey(new Date())) - new Date(key)) / 864e5);
+  if (days <= 0) return 'Hôm nay';
+  if (days === 1) return 'Hôm qua';
+  const [, m, d] = key.split('-').map(Number);
+  const name = WEEKDAY.format(new Date(key + 'T12:00:00+07:00'));
+  return `${name.charAt(0).toUpperCase()}${name.slice(1)} ${d}/${m}`;
+}
+function olderItems() {
+  // Only from the complete snapshot, so the older days are built once, in one order (the window file may hold a few).
+  if (!complete) return [];
+  const rest = asArray(D && D.stories).filter(st => st && st.id && !PLACED.has(st.id)).sort((a, b) => pubTime(b) - pubTime(a));
+  const out = [];
+  let day = '';
+  for (const st of rest) {
+    PLACED.add(st.id);
+    const k = dayKey(new Date(pubTime(st)));
+    if (k !== day) { day = k; out.push({ t: 'day', key: k }); }
+    out.push({ ...C(st), older: true });
+  }
+  return out;
+}
+const dayLineHTML = key => `<h2 class="day-line" id="day-${esc(key)}"><time datetime="${esc(key)}">${esc(dayLabel(key))}</time></h2>`;
+/* The complete snapshot arrived under the same front page: its older days join the end of the stream. */
+function appendOlder() {
+  if (filter !== 'all' || !seq.length) return;
+  const more = olderItems();
+  if (!more.length) { updateMore(); return; }
+  seq.push(...more);
+  totalCards += more.filter(x => x.t === 'card').length;
+  updateMore();
+  requestAnimationFrame(() => { if (nearEnd()) loadMore(); });
 }
 
 /* ---------- the first row's cards ---------- */
@@ -1720,24 +1762,15 @@ function msnCard(st, size = '') {
 }
 
 const FILTERS = {
-  big: st => bigSet.has(st.id),
-  hot: st => st.hot_score > 0 && hotEligible(st),
-  product: st => st.kind === 'product',
-  research: st => st.kind === 'research' || st.kind === 'paper',
-  forum: st => st.kind === 'forum',
   code: st => st.kind === 'repository' || st.kind === 'model',
 };
-/* The bento home's chapters, as views of the same feed. Their lists come from the snapshot's sections (the pipeline's
-   choice), so they may reach outside the window, as the chapters did. Old search links point at these addresses. */
+/* "Sắp diễn ra", the one section left as a view of its own; its list comes from the snapshot's sections (the pipeline's
+   choice), so it may reach outside the window. The other chapters of the bento home, and the section tabs, went when
+   scrolling into older days replaced them (captain, 09/11 13:16): their old addresses land on the home feed. */
 const SECTIONS = {
-  'hom-nay': { sec: 'today', label: 'Hôm nay', order: 'new' },
-  model: { sec: 'models', label: 'Mô hình mới', order: 'new' },
-  paper: { sec: 'papers', label: 'Bài báo khoa học', order: 'new' },
-  nghe: { sec: 'listen', label: 'Nghe và xem', order: 'new' },
-  'chuyen-gia': { sec: 'voices', label: 'Tiếng nói chuyên gia', order: 'new' },
-  'cong-dong': { sec: 'community', label: 'Cộng đồng đang bàn', order: 'new' },
   'sap-toi': { sec: 'upcoming', label: 'Sắp diễn ra', order: 'date' },
 };
+const RETIRED_VIEWS = new Set(['hom-nay', 'model', 'paper', 'nghe', 'chuyen-gia', 'cong-dong', 'nong']);
 const secOf = f => f.startsWith('sec:') ? SECTIONS[f.slice(4)] : null;
 const savedStories = () => saved.slice().reverse().map(x => STORY_ANY.get(x.key)).filter(Boolean);
 function listFor(f) {
@@ -1819,21 +1852,41 @@ function renderItem(it) {
   return '';
 }
 
+/* The next stories: the ranked part goes into the grid itself; the older days into a block at its end, one section per
+   day (its line, then its own grid of cards). */
 function renderChunk(limit) {
   let html = '';
+  const days = [];
   while (pos < seq.length && shownCards < limit) {
     const it = seq[pos];
-    html += renderItem(it);
+    if (it.t === 'day' || it.older) days.push(it); else html += renderItem(it);
     if (it.t === 'card') shownCards++;
     pos++;
   }
-  return html;
+  return { html, days };
+}
+const lastDayGrid = grid => [...grid.querySelectorAll(':scope > .msn-days .msn-day-grid')].pop() || null;
+function placeChunk(grid, { html, days = [] }) {
+  if (html) grid.insertAdjacentHTML('beforeend', html);
+  if (!days.length) return;
+  let box = grid.querySelector(':scope > .msn-days');
+  if (!box) { grid.insertAdjacentHTML('beforeend', '<div class="msn-days"></div>'); box = grid.lastElementChild; }
+  let target = lastDayGrid(grid), cards = '';
+  const flush = () => { if (cards && target) target.insertAdjacentHTML('beforeend', cards); cards = ''; };
+  for (const it of days) {
+    if (it.t !== 'day') { cards += renderItem(it); continue; }
+    flush();
+    box.insertAdjacentHTML('beforeend', `<section class="msn-day" aria-labelledby="day-${esc(it.key)}">${dayLineHTML(it.key)}<div class="msn-day-grid"></div></section>`);
+    target = lastDayGrid(grid);
+  }
+  flush();
 }
 
 /* ---------- infinite scroll (Mẫu A: "cuộn để xuống dưới để tải tin") ----------
    A sentinel under the grid asks for the next batch 900 px before the reader reaches it. While a batch is built a row
-   of grey cards breathes in its place and "Đang tải thêm tin" is read out; at the end a closing card fills what the
-   last row left empty, with the next actions and no counts. */
+   of grey cards breathes in its place and "Đang tải thêm tin" is read out. The front page's ranked part runs into the
+   older days (olderItems); when nothing is left the stream just ends, with one quiet action under it (captain, 09/11:
+   no closing card). */
 let scrollWatch = null, loadingMore = false;
 const nearEnd = () => { const el = $('#feed-sentinel'); return !!el && el.getBoundingClientRect().top < innerHeight + 900; };
 const gridCols = grid => getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length || 1;
@@ -1841,9 +1894,11 @@ function setLoading(on) {
   const grid = $('#feed-grid');
   grid.querySelectorAll('.msn-sk').forEach(n => n.remove());
   $('#feed-status').innerHTML = on ? '<p class="loading-line"><span class="spinner" aria-hidden="true"></span>Đang tải thêm tin</p>' : '';
-  if (on) grid.insertAdjacentHTML('beforeend', Array.from({ length: gridCols(grid) }, () => '<div class="msn-card msn-sk" aria-hidden="true"></div>').join(''));
+  const host = lastDayGrid(grid) || grid;
+  if (on) host.insertAdjacentHTML('beforeend', Array.from({ length: gridCols(host) }, () => '<div class="msn-card msn-sk" aria-hidden="true"></div>').join(''));
 }
 function loadMore() {
+  if (filter === 'all' && pos >= seq.length && D && !complete) { waitOlder(); return; }
   if (loadingMore || pos >= seq.length || filter === 'rankings' || $('#feed-grid').hidden) return;
   loadingMore = true;
   setLoading(true);
@@ -1862,28 +1917,27 @@ function watchScroll() {
   scrollWatch = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) loadMore(); }, { rootMargin: '0px 0px 900px 0px' });
   scrollWatch.observe($('#feed-sentinel'));
 }
+/* The ranked part ran out before the complete snapshot (the older days) arrived: ask for it now, with the loading line.
+   Without it (offline, a failed request) the stream ends here; a later poll that brings it continues the stream. */
+let waitingOlder = false, olderUnavailable = false;
+function waitOlder() {
+  if (waitingOlder) return;
+  waitingOlder = true;
+  setLoading(true);
+  loadComplete().then(() => {
+    waitingOlder = false;
+    setLoading(false);
+    if (!complete) { olderUnavailable = true; updateMore(); }
+  });
+}
+/* Under the last story, once nothing more can come: the one quiet action, "Đánh dấu đã xem hết". */
 function updateMore() {
-  const grid = $('#feed-grid');
-  grid.querySelector('.end-card')?.remove();
-  if (pos < seq.length) { if (scrollWatch === true) more(false); return; }
-  if (!totalCards) return;
-  // The closing card spans the columns the last row left free (a row of its own when that is less than two, or on a phone).
-  const n = gridCols(grid), cards = [...grid.children].filter(c => c.getClientRects().length);
-  const last = cards[cards.length - 1];
-  let free = n;
-  if (last && n > 2) {
-    const g = grid.getBoundingClientRect(), col = (g.width + parseFloat(getComputedStyle(grid).columnGap || '0')) / n;
-    const top = last.getBoundingClientRect().top;
-    const used = cards.filter(c => { const r = c.getBoundingClientRect(); return Math.abs(r.top - top) < 2 || (r.top < top && r.bottom > top + 2); })
-      .reduce((sum, c) => sum + Math.round(c.getBoundingClientRect().width / col), 0);
-    free = n - used;
-  }
-  // One free column is too narrow for the actions: the card then takes a row of its own.
-  const span = n <= 2 || free < 2 ? '1 / -1' : `span ${free}`;
+  const end = $('#feed-end');
+  if (pos < seq.length) { end.hidden = true; if (scrollWatch === true) more(false); return; }
   const front = filter === 'all';
-  grid.insertAdjacentHTML('beforeend', `<section class="msn-card end-card" style="grid-column:${span}" aria-labelledby="end-h">
-    <h2 id="end-h">${front ? 'Bạn đã xem hết tin AI hôm nay' : 'Bạn đã xem hết tin trong mục này'}</h2>
-    <div class="end-actions"><a class="ed-link" href="${EDITION_URL}">Đọc Bản tin sáng</a><button class="ghost" type="button" id="mark-all-btn">${front ? 'Đánh dấu đã xem hết' : 'Đánh dấu nhóm này đã xem'}</button><button class="ghost" type="button" data-to-top>Lên đầu trang</button></div></section>`);
+  if (front && D && !complete && !olderUnavailable) { end.hidden = true; waitOlder(); return; }
+  end.hidden = !totalCards || filter === 'rankings';
+  $('#mark-all-btn').textContent = front ? 'Đánh dấu đã xem hết' : 'Đánh dấu nhóm này đã xem';
 }
 
 /* The weather and the calendar keep one place at the start of the grid on every section, sort and redraw (captain,
@@ -1921,11 +1975,12 @@ function renderFeed() {
   seq = front ? buildAll() : buildFiltered(filter);
   pos = 0; shownCards = 0;
   totalCards = seq.filter(x => x.t === 'card').length;
-  const html = renderChunk(PAGE_FIRST);
-  const empty = !html.trim();                      // tiles with no data render nothing, so judge by the output
+  const chunk = renderChunk(PAGE_FIRST);
+  const empty = !chunk.html.trim() && !chunk.days.length;   // tiles with no data render nothing, so judge by the output
   $('#feed-empty').hidden = !empty;
   grid.classList.toggle('is-front', front);
-  grid.innerHTML = (front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : FIXED_SLOTS) + html;
+  grid.innerHTML = (front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : FIXED_SLOTS) + chunk.html;
+  placeChunk(grid, { html: '', days: chunk.days });
   placeFixedCards(grid);
   renderSub();
   renderChips();
@@ -1946,8 +2001,7 @@ function renderFeed() {
 function more(focus = true) {
   const grid = $('#feed-grid');
   const before = grid.querySelectorAll('.nc').length;
-  grid.querySelector('.end-card')?.remove();
-  grid.insertAdjacentHTML('beforeend', renderChunk(shownCards + PAGE_MORE));
+  placeChunk(grid, renderChunk(shownCards + PAGE_MORE));
   initRepoPills(grid);
   hydrateHF(document);
   observeSkips();
@@ -2308,7 +2362,8 @@ function route() {
   const h = decodeURIComponent(location.hash.slice(1));
   if (!h || h === 'top') return;                 // the browser scrolls; a filter the reader chose stays
   if (h === 'moi') { goFirstNew(); return; }
-  if (h === 'nong') { setFilter('hot', true); return; }
+  // A retired section's old link (#hom-nay, #nong...) opens the home feed, which now scrolls on through those stories.
+  if (RETIRED_VIEWS.has(h)) { history.replaceState(history.state, '', location.pathname + location.search); if (filter !== 'all') setFilter('all'); return; }
   if (h === 'repo') { setFilter('code', true); return; }
   if (h === 'da-luu') { if (saved.length) setFilter('saved', true); return; }
   if (h === 'nguon') { location.replace('https://radar-ai-vn.pages.dev/nguon.html'); return; }
@@ -2512,12 +2567,12 @@ function onClick(e) {
   if (t.closest('[data-reset]')) { setFilter('all'); return; }
   if (t.closest('#mark-all-btn')) {
     if (!D) return;
-    listFor(filter).forEach(st => markRead(st.id));
+    // The front page shows every story of the snapshot (the ranked part, then the older days).
+    (filter === 'all' ? asArray(D.stories) : listFor(filter)).forEach(st => markRead(st.id));
     if (filter === 'all') markSeen();
     else toast('Đã đánh dấu nhóm này đã xem');
     return;
   }
-  if (t.closest('[data-to-top]')) { scrollTo({ top: 0, behavior: RM.matches ? 'auto' : 'smooth' }); $('#top').focus({ preventScroll: true }); return; }
   const dot = t.closest('.lead-dots button');
   if (dot) { showSlide(dot.closest('.msn-lead'), +dot.dataset.slide); return; }
   onOpenLink(e);
@@ -2716,7 +2771,7 @@ function adoptComplete(data) {
   complete = true;
   if (!same) renderAll();
   else if (filter !== 'all' && filter !== 'rankings') renderFeed();
-  else renderChips();
+  else { renderChips(); appendOlder(); }
 }
 /* Addresses that name a section, the saved list or a story outside the window wait for the complete snapshot. */
 function needsComplete(beforeData = false) {

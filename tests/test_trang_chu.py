@@ -38,8 +38,6 @@ class RootPageHeadTests(unittest.TestCase):
         cls.html = read(SITE / "index.html")
         cls.head = cls.html.split("</head>")[0]
         cls.csp = csp_directives(cls.html)
-        cls.bento_html = read(SITE / "bento.html")
-        cls.feed_redirect = read(SITE / "feed.html")
 
     def test_inline_script_is_allowed_by_its_hash(self):
         scripts = re.findall(r"<script>([\s\S]*?)</script>", self.html)
@@ -93,14 +91,16 @@ class RootPageHeadTests(unittest.TestCase):
         # Root page is indexed
         self.assertNotIn('<meta name="robots" content="noindex">', self.head)
 
-    def test_rollback_bento_is_not_indexed(self):
-        self.assertIn('<meta name="robots" content="noindex">', self.bento_html)
-        self.assertIn(f'<link rel="canonical" href="{SITE_URL}">', self.bento_html)
 
-    def test_feed_redirect_is_not_indexed(self):
-        self.assertIn('<meta name="robots" content="noindex">', self.feed_redirect)
-        self.assertIn('<meta http-equiv="refresh" content="0; url=./">', self.feed_redirect)
-        self.assertIn(f'<link rel="canonical" href="{SITE_URL}">', self.feed_redirect)
+    def test_retired_pages_land_on_the_home(self):
+        # Captain, 09/11 13:16: scrolling replaced the bento home and the feed prototype's address. Pages answers their
+        # old addresses with a redirect to the home; the search page's forwarder stays, as it carries ?q= into the search.
+        for page in ("bento.html", "feed.html", "app.js"):
+            self.assertFalse((SITE / page).exists(), page)
+        rules = [line.split() for line in read(SITE / "_redirects").splitlines() if line.strip() and not line.startswith("#")]
+        self.assertEqual(rules, [["/bento.html", "/", "301"], ["/bento", "/", "301"],
+                                 ["/feed.html", "/", "301"], ["/feed", "/", "301"]])
+        self.assertIn("location.replace('./' + (q ? '?q=' + encodeURIComponent(q) : '#tim'))", read(SITE / "tra-cuu.html"))
 
     def test_carried_features_in_root_html(self):
         # Search entry point: the news bar's inline search (captain, 07/11), no separate page

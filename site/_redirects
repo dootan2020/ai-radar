@@ -1,0 +1,7 @@
+# Cloudflare Pages: retired pages land on the home feed (captain, 09/11 13:16). The bento home (bento.html) and the feed
+# prototype's address (feed.html) were removed; tra-cuu.html stays as its own small forwarder because it carries ?q=
+# into the home's search.
+/bento.html  /  301
+/bento       /  301
+/feed.html   /  301
+/feed        /  301

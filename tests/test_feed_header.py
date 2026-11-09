@@ -64,7 +64,7 @@ class FeedHeaderLayoutTests(unittest.TestCase):
         css = (ROOT / "site" / "menu-cong-cu.css").read_text(encoding="utf-8")
         self.assertIn(".bar{\n  height:var(--bar-h);flex-wrap:nowrap", css)
         self.assertIn(".bt-bar{flex-wrap:nowrap", css)
-        for page in ("index.html", "nguon.html", "bento.html", "ban-tin.html", "tin/_sample/index.html"):
+        for page in ("index.html", "nguon.html", "ban-tin.html", "tin/_sample/index.html"):
             html = (ROOT / "site" / page).read_text(encoding="utf-8")
             with self.subTest(page=page):
                 self.assertIn('menu-cong-cu.css"', html)

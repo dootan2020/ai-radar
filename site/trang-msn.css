@@ -67,12 +67,12 @@
 }
 .head-actions { display: flex; align-items: center; gap: var(--space-8); margin-left: auto; flex: none; }
 .head-actions .sort-switch { margin: 0; }
-.msn-head .ed-link, .end-actions .ed-link {
+.msn-head .ed-link {
   --header-pill-inset: 0px; --header-control-bg: var(--color-accent-fill); gap: var(--space-6); min-height: var(--btn-h); padding: 0 var(--space-16);
   font-size: var(--text-small); font-weight: var(--weight-bold); transition: transform var(--duration-150) var(--ease-press);
 }
-.msn-head .ed-link:hover, .end-actions .ed-link:hover { --header-control-bg: var(--color-accent-fill-hover); }
-.msn-head .ed-link:active, .end-actions .ed-link:active { transform: scale(0.97); }
+.msn-head .ed-link:hover { --header-control-bg: var(--color-accent-fill-hover); }
+.msn-head .ed-link:active { transform: scale(0.97); }
 .msn-head .ed-link .i { width: var(--msn-fav); height: var(--msn-fav); }
 /* On the new tab the news search joins the head as a magnifier that opens a field (sync-site.py moves it). */
 .msn-head .news-search { position: relative; flex: none; width: auto; }
@@ -470,17 +470,24 @@
 .loading-line { display: flex; align-items: center; justify-content: center; gap: var(--space-8); min-height: var(--btn-h); margin-top: var(--space-8); font-size: var(--text-micro); color: var(--color-ink-3); }
 .spinner { width: var(--msn-spinner); height: var(--msn-spinner); border-radius: var(--radius-full); border: var(--msn-spinner-w) solid var(--color-hair); border-top-color: var(--color-ink-2); animation: msn-spin 700ms linear infinite; }
 @keyframes msn-spin { to { transform: rotate(360deg); } }
-.end-card { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: var(--space-12); padding: var(--space-24); background: var(--color-fill); box-shadow: none; }
-.end-card h2 { margin: 0; font-size: var(--text-title); letter-spacing: -0.02em; color: var(--color-ink); }
-.end-card p { margin: 0; max-width: 46ch; font-size: var(--text-meta); color: var(--color-ink-2); }
-.end-actions { display: flex; flex-wrap: wrap; gap: var(--space-8); }
-.ghost {
-  display: inline-flex; align-items: center; min-height: var(--btn-h); padding: 0 var(--space-16); border: 0;
-  border-radius: var(--radius-full); background: var(--color-surface); font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink);
-  transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+/* The older days at the end of the stream: one section per day, its line then its own grid of the same columns and rows,
+   filled in order (no dense packing), so a day's stories never rise above its line. The line is quiet: the day's name in
+   small muted type, no rule, no count. */
+.msn-days { grid-column: 1 / -1; display: flex; flex-direction: column; gap: var(--msn-gap); }
+.msn-day { display: flex; flex-direction: column; gap: var(--space-8); }
+.msn-day-grid {
+  display: grid; grid-template-columns: repeat(var(--msn-cols), minmax(0, 1fr));
+  grid-auto-rows: minmax(var(--msn-row), auto); gap: var(--msn-gap);
 }
-.ghost:hover { background: var(--color-field-on); }
-.ghost:active { transform: scale(0.97); }
+.day-line {
+  margin: var(--space-16) 0 0; padding: 0 var(--space-4);
+  font-size: var(--text-meta); font-weight: var(--weight-semibold); letter-spacing: 0; line-height: 1.4; color: var(--color-ink-2);
+}
+/* The stream's end: no card, one quiet action. */
+.feed-end { display: flex; justify-content: center; margin-top: var(--space-16); }
+.feed-end[hidden] { display: none; }
+.feed-end .text-btn { min-height: var(--btn-h); padding: 0 var(--space-16); font-size: var(--text-small); color: var(--color-ink-2); text-decoration: none; }
+.feed-end .text-btn:hover { color: var(--color-ink); text-decoration: underline; }
 .msn-panel .feed-empty { margin-top: var(--space-24); }
 .msn-grid .seg-b { min-height: var(--btn-h); }
 
@@ -589,7 +596,8 @@
   .msn-grid > .tile, .msn-grid.is-front > .tile { grid-column: 1 / -1; grid-row: auto; overflow: visible; }
   .msn-sk { min-height: var(--msn-rowh-phone); }
   #feed-skeleton .msn-lead { grid-column: 1 / -1; min-height: var(--msn-lead-h-phone); }
-  .end-card { padding: var(--space-16); }
+  .msn-day-grid { grid-auto-rows: auto; }
+  .day-line { margin-top: var(--space-8); }
 }
 @media (max-width: 370px) {
   :root { --msn-cols: 1; }

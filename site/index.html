@@ -29,7 +29,7 @@
 <link rel="canonical" href="https://radar-ai-vn.pages.dev/">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- The site root since 05/10: the feed, drawn since 07/11 as the "Trang nhất" front page (captain, 07/11: the new tab's
-     navbar and bento, without the extension's top zone). The bento home of 10/2026 stays at bento.html for rollback only.
+     navbar and bento, without the extension's top zone). The bento home of 10/2026 was retired on 09/11 (_redirects).
      Every story picture is published by the source itself or is a labelled AI illustration (pipeline: radar/images.py,
      radar/ai_images.py); one function in feed.js, pickImage(), decides every picture. The worth score's weights sit in one
      constant in feed.js (WORTH).
@@ -94,7 +94,7 @@
       <div class="ns-field" role="search">
         <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
         <label class="sr" for="ns-q">Tìm trong tin Halcyon</label>
-        <input id="ns-q" type="search" placeholder="Tìm trong tin AI hôm nay" autocomplete="off" spellcheck="false" enterkeyhint="search"
+        <input id="ns-q" type="search" placeholder="Tìm tin AI" autocomplete="off" spellcheck="false" enterkeyhint="search"
                role="combobox" aria-expanded="false" aria-controls="ns-results" aria-autocomplete="list" aria-keyshortcuts="/">
         <span class="kbd" aria-hidden="true">/</span>
         <button class="icon-btn ns-clear" id="ns-clear" type="button" aria-label="Xoá ô tìm tin">
@@ -122,11 +122,6 @@
     <a class="brand feed-brand" id="brand" href="#top" aria-label="Halcyon, về đầu trang"><img class="brand-tile" src="logo.svg" width="34" height="34" alt=""><span class="brand-name" aria-hidden="true">halcyon</span></a>
     <div class="feed-filters sections" id="feed-filters" role="group" aria-label="Lọc dòng tin">
       <button class="filter-chip" data-filter="all" aria-pressed="true"><span class="chip-label">Trang nhất</span></button>
-      <button class="filter-chip" data-filter="big" aria-pressed="false"><span class="chip-label">Chuyện lớn</span></button>
-      <button class="filter-chip" data-filter="hot" aria-pressed="false"><span class="chip-label">Đang nóng</span></button>
-      <button class="filter-chip" data-filter="product" aria-pressed="false"><span class="chip-label">Sản phẩm</span></button>
-      <button class="filter-chip" data-filter="research" aria-pressed="false"><span class="chip-label">Nghiên cứu</span></button>
-      <button class="filter-chip" data-filter="forum" aria-pressed="false"><span class="chip-label">Thảo luận</span></button>
       <button class="filter-chip" data-filter="code" aria-pressed="false"><span class="chip-label">Mã và mô hình</span></button>
       <button class="filter-chip" data-filter="rankings" aria-pressed="false"><span class="chip-label">Xếp hạng</span></button>
       <button class="filter-chip" data-filter="saved" aria-pressed="false" hidden><span class="chip-label">Đã lưu</span></button>
@@ -173,6 +168,8 @@
   <section class="msn-grid feed-grid" id="feed-grid" aria-label="Dòng tin"></section>
   <div class="feed-sentinel" id="feed-sentinel" aria-hidden="true"></div>
   <div class="feed-status" id="feed-status" aria-live="polite"></div>
+  <!-- The stream ends quietly (captain, 09/11): no closing card, only this action once nothing more can come. -->
+  <div class="feed-end" id="feed-end" hidden><button class="text-btn" type="button" id="mark-all-btn">Đánh dấu đã xem hết</button></div>
 
   <div class="feed-empty" id="feed-empty" hidden>
     <h2>Chưa có tin trong mục này</h2>

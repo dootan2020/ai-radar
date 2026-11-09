@@ -360,7 +360,7 @@ const chips = [...home.matchAll(/<button class="filter-chip" data-filter="([^"]+
       querySelector:selector => selector === '.chip-label' ? {textContent:label} : selector === '.count' ? count : null,
       attributes:{}, setAttribute(key, value) { this.attributes[key] = value; }};
   });
-assert.equal(chips.length, 9, 'every section chip is read from the home page');
+assert.equal(chips.length, 4, 'every section chip is read from the home page');
 let timerId = 0, announcements = 0, visibleStories = [], responseData;
 const navLocation = {pathname:'/index.html', search:'', hash:'#moi'};
 const replacedURLs = [];
@@ -520,7 +520,8 @@ assert.equal(nodes.get('#filter-context').hidden, true);
 for (const total of [0, 1, 88, 999]) {
   configureNotice(0, total);
   newFeed.renderChips();
-  assert.deepEqual(chips.map(b => b.innerHTML), ['Trang nhất', 'Chuyện lớn', 'Đang nóng', 'Sản phẩm', 'Nghiên cứu', 'Thảo luận', 'Mã và mô hình', 'Xếp hạng', 'Đã lưu']);
+  // The section tabs Chuyện lớn, Đang nóng, Sản phẩm, Nghiên cứu and Thảo luận went on 09/11: scrolling replaced them.
+assert.deepEqual(chips.map(b => b.innerHTML), ['Trang nhất', 'Mã và mô hình', 'Xếp hạng', 'Đã lưu']);
   assert.equal(chips[0].count.textContent, '', 'no chip shows a story count (captain, 08/11)');
   assert.equal(chips[0].hidden, false, 'all remains available even with no stories');
   assert.equal(chips.find(b => b.dataset.filter === 'saved').hidden, true, 'empty saved tab stays hidden');

@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
 import {loadSnapshot} from '../site/snapshot.js';
 
 const realSetTimeout = globalThis.setTimeout;
@@ -46,7 +45,7 @@ await check('hanging compact request aborts and falls back to full data', async 
 });
 
 for (const stage of ['request', 'body']) {
-  await check(`hanging ${stage} in both attempts reaches real error renderer`, async () => {
+  await check(`hanging ${stage} in both attempts ends in a Vietnamese timeout error`, async () => {
     const calls = [];
     globalThis.fetch = (url, options) => {
       calls.push({url, options});
@@ -58,24 +57,6 @@ for (const stage of ['request', 'body']) {
     assert.match(result.error.message, /quá lâu/);
     assert.deepEqual(calls.map(c => c.url), ['compact', 'full']);
     assert.ok(calls.every(c => c.options.signal.aborted));
-    const app = readFileSync(new URL('../site/app.js', import.meta.url), 'utf8');
-    const source = app.match(/^function showError\([^\n]*\)\{[\s\S]*?^\}/m)[0];
-    const classes = new Set(['is-loading']);
-    const attributes = new Set(['aria-busy']);
-    const board = {innerHTML: '', classList: {remove: c => classes.delete(c)}, removeAttribute: a => attributes.delete(a)};
-    let retry;
-    const $ = selector => selector === '#board' ? board : {addEventListener: (_, handler) => {retry = handler;}};
-    let reloads = 0;
-    const showError = new Function('$', 'avatar', 'esc', 'location', `${source}; return showError;`)($, () => '', String, {reload: () => reloads++});
-    // Use the production rejection callback as well as its renderer.
-    const callback = app.match(/\.catch\((err => showError\([^\n]+)\);/)[1];
-    const onError = new Function('showError', `return ${callback};`)(showError);
-    onError(result.error);
-    assert.equal(classes.has('is-loading'), false);
-    assert.equal(attributes.has('aria-busy'), false);
-    assert.match(board.innerHTML, /role="alert"/);
-    assert.match(board.innerHTML, /quá lâu/);
-    retry(); assert.equal(reloads, 1);
   });
 }
 

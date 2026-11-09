@@ -119,7 +119,7 @@
     if (file === 'ban-tin.html') link.setAttribute('aria-label', 'Bản tin sáng');
     if (DEST[file]) link.dataset.dest = DEST[file];   // the home's feed.js moves the mark between these two
     const here = file === 'index.html#sap-toi' ? eventsOpen : file === current && !(file === 'index.html' && eventsOpen);
-    if (here || (page === 'bento.html' && file === 'index.html')) link.setAttribute('aria-current', 'page');
+    if (here) link.setAttribute('aria-current', 'page');
     link.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths}</svg><span>${label}</span>`;
     mobileNav.append(link);
   }
