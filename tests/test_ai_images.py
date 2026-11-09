@@ -19,10 +19,16 @@ import tempfile
 import time
 import contextlib
 import hashlib
+import importlib.util
 import io
+import struct
 import unittest
 from unittest.mock import patch
-from PIL import Image, ImageDraw, ImageFont
+
+HAS_PILLOW = importlib.util.find_spec("PIL") is not None
+# Without Pillow every fresh illustration is withheld (it cannot be screened for
+# lettering), so tests that expect one to be published need Pillow too.
+NEEDS_PILLOW = "Pillow is required to screen a fresh illustration for lettering"
 
 from radar.ai_images import (
     AIImageLedger,
@@ -54,7 +60,24 @@ from radar.images import resolve_images_for_stories, resolve_story_image, ImageC
 from radar.image_quality import classify_illustration_text
 
 
+def header_only_bytes(size, fmt):
+    """A minimal JPEG/PNG whose header carries `size`; enough for dimension reads, not decoding."""
+    width, height = size
+    if fmt == "PNG":
+        return (b"\x89PNG\r\n\x1a\n" b"\x00\x00\x00\rIHDR" + struct.pack(">II", width, height)
+                + b"\x08\x02\x00\x00\x00" b"\x00\x00\x00\x00" b"\x00\x00\x00\x00IEND\xaeB`\x82")
+    return (b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00"
+            b"\xff\xdb\x00C\x00\xff\xc0\x00\x0b\x08" + struct.pack(">HH", height, width)
+            + b"\x01\x01\x11\x00\xff\xc4\x00\x14\x00\x01" + b"\x00" * 16
+            + b"\xff\xda\x00\x08\x01\x01\x00\x00?\x00\xbf\x00\xff\xd9")
+
+
 def image_bytes(size=(1024, 1024), fmt="JPEG", lettering=None, contrast=90):
+    if not HAS_PILLOW:
+        if lettering:
+            raise unittest.SkipTest(NEEDS_PILLOW)
+        return header_only_bytes(size, fmt)
+    from PIL import Image, ImageDraw, ImageFont
     image = Image.new("RGB", size, (235, 225, 205))
     if lettering:
         draw = ImageDraw.Draw(image)
@@ -234,6 +257,7 @@ class AIImageNeuronBudgetAndLedgerTests(InsideWindowTestCase):
 
 
 class AIImageDimensionsAndSchemaTests(InsideWindowTestCase):
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_request_body_has_no_width_or_height(self):
         """The REST API request body sends only prompt and steps; no width or height."""
         story = {"id": "st-schema-check", "title": "Advanced deep learning reasoning", "kind": "model"}
@@ -268,6 +292,7 @@ class AIImageDimensionsAndSchemaTests(InsideWindowTestCase):
             self.assertIn("steps", payload)
             self.assertEqual(payload["steps"], 4)
 
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_dimensions_read_from_jpeg(self):
         """Image dimensions are read from JPEG bytes and real cost is recorded in the ledger."""
         # Test direct dimensions extraction
@@ -312,6 +337,7 @@ class AIImageDimensionsAndSchemaTests(InsideWindowTestCase):
             ledger = AIImageLedger(ledger_path=ledger_file)
             self.assertAlmostEqual(ledger.get_day()["neurons_spent"], 43.20, places=2)
 
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_dimensions_read_from_png(self):
         """Image dimensions are read from PNG bytes and real cost is recorded in the ledger."""
         w, h = read_image_dimensions(VALID_PNG_BYTES)
@@ -354,6 +380,7 @@ class AIImageDimensionsAndSchemaTests(InsideWindowTestCase):
             ledger = AIImageLedger(ledger_path=ledger_file)
             self.assertAlmostEqual(ledger.get_day()["neurons_spent"], 43.20, places=2)
 
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_oversize_response_records_real_cost_and_stops_day(self):
         """A response larger than the assumed size records its real cost and stops the day."""
         # 1536 x 1024 JPEG: 3x2 tiles = 6 tiles; cost = 6 * 4.80 + 6 * 4 * 9.60 = 259.20 neurons
@@ -426,6 +453,7 @@ class AIImageNewestFirstTests(InsideWindowTestCase):
         self.assertGreater(story_recency_key(st_new), story_recency_key(st_mid))
         self.assertGreater(story_recency_key(st_mid), story_recency_key(st_old))
 
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_pipeline_serves_newest_stories_first(self):
         """When budget is constrained, newest stories are served first."""
         stories = [
@@ -518,6 +546,7 @@ class AIImageStopOn429Tests(InsideWindowTestCase):
 
 
 class AIImageOncePerStoryTests(InsideWindowTestCase):
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_once_per_story_caches_and_reuses_image(self):
         """Each story is generated at most once; subsequent runs reuse the disk file with zero calls."""
         story = {"id": "st-once-1", "title": "Quantum algorithms and error correction", "kind": "paper"}
@@ -635,7 +664,9 @@ class AIImagePromptRulesTests(unittest.TestCase):
 
 
 class AIImageLetteringTests(InsideWindowTestCase):
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_muted_lettering_is_rejected_but_plain_illustration_passes(self):
+        from PIL import Image, ImageDraw
         self.assertTrue(classify_illustration_text(VALID_JPEG_BYTES)["keep"])
         abstract = Image.new("RGB", (1024, 1024), (230, 225, 210))
         drawing = ImageDraw.Draw(abstract)
@@ -655,6 +686,7 @@ class AIImageLetteringTests(InsideWindowTestCase):
         self.assertEqual(classify_illustration_text(lettered)["reason"],
                          "aligned-illustration-lettering")
 
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_fresh_lettering_is_not_written_and_a_later_run_regenerates(self):
         story = {"id": "st-lettered", "title": "AI governance", "kind": "event"}
         lettered = image_bytes(lettering="Staement from Board of Diirectors", contrast=20)
@@ -686,6 +718,7 @@ class AIImageLetteringTests(InsideWindowTestCase):
             self.assertEqual(outcome["action"], "generated")
             self.assertEqual(dest.read_bytes(), VALID_JPEG_BYTES)
 
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_stored_unlisted_lettering_is_kept_untouched(self):
         lettered = image_bytes(lettering="Staement from Board of Diirectors", contrast=20)
         self.assertFalse(classify_illustration_text(lettered)["keep"])
@@ -713,6 +746,7 @@ class AIImageLetteringTests(InsideWindowTestCase):
             self.assertEqual(outcome["action"], "reused")
             self.assertEqual(path.read_bytes(), lettered)
 
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_listed_illustration_is_dropped_and_its_story_unblocked(self):
         reviewed = image_bytes(lettering="Staement from Board of Diirectors", contrast=20)
         drops = {"st-listed": hashlib.sha256(reviewed).hexdigest()}
@@ -779,6 +813,7 @@ class AIImagePageLabelTests(unittest.TestCase):
 
 
 class AIImagePipelineIntegrationTests(InsideWindowTestCase):
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_pipeline_illustrates_rejected_preview_card_and_missing_image(self):
         """Rejected repository previews enter the same budgeted fallback as missing images."""
         stories = [
@@ -1055,6 +1090,7 @@ class AIImageGenerationWindowTests(InsideWindowTestCase):
 
 
 class AIImagePerRunBudgetTests(InsideWindowTestCase):
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_per_run_spend_stops_at_the_per_run_budget_even_when_the_ledger_would_allow_more(self):
         cost = compute_neuron_cost()
         expected_images = int(PER_RUN_NEURON_BUDGET // cost)
@@ -1184,6 +1220,7 @@ class AIImageLostLedgerDailyBoundTests(InsideWindowTestCase):
 
 
 class AIImageSummaryLoggingTests(InsideWindowTestCase):
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_summary_line_for_success(self):
         """Build summary line reports window open, considered, generated count, reused, and skipped."""
         stories = [
@@ -1311,6 +1348,7 @@ class AIImageSummaryLoggingTests(InsideWindowTestCase):
 
 
 class AIImageProbeTests(unittest.TestCase):
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_probe_makes_one_request_and_no_more(self):
         """Probe makes exactly one request outside the window and prints status, bytes, cost."""
         calls = []
@@ -1347,6 +1385,7 @@ class AIImageProbeTests(unittest.TestCase):
             self.assertAlmostEqual(ledger.get_day(outside)["neurons_spent"], 172.80, places=2)
             self.assertEqual(ledger.get_day(outside)["count"], 1)
 
+    @unittest.skipUnless(HAS_PILLOW, NEEDS_PILLOW)
     def test_probe_prints_measured_dimensions_for_png(self):
         """Probe prints measured dimensions when response is PNG."""
         calls = []
