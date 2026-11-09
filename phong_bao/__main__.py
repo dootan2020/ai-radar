@@ -13,6 +13,7 @@ from .newsroom import (DEFAULT_CALL_TIMEOUT_SECONDS, DEFAULT_DESK_BUDGET_SECONDS
 from .registry import load_registry
 from .runner import CLIRunner, FixtureRunner
 from .cycle import cycle
+from .bu_cham import bu_cham
 from .so_ban import run as run_so_ban
 
 
@@ -48,9 +49,37 @@ def main(argv=None):
     cycle_parser = sub.add_parser("cycle")
     cycle_parser.add_argument("--snapshot-url")
     cycle_parser.add_argument("--since-hours", type=float, default=36)
+    backfill = sub.add_parser("bu-cham")
+    backfill.add_argument("--decisions", required=True)
+    backfill.add_argument("--cycles", required=True)
+    backfill.add_argument("--since")
+    backfill.add_argument("--modes", default="score,write")
+    backfill.add_argument("--limit", type=int)
+    backfill.add_argument("--run", action="store_true")
     scoring.add_argument("--decisions", required=True)
     scoring.add_argument("--labels", required=True)
     args = parser.parse_args(argv)
+    if args.command == "bu-cham":
+        modes = tuple(part.strip() for part in args.modes.split(","))
+        if not modes or len(set(modes)) != len(modes) or set(modes) - {"score", "write"}:
+            parser.error("--modes must be score,write or one of those modes")
+        try:
+            result = bu_cham(args.decisions, args.cycles, since=args.since, modes=modes,
+                             limit=args.limit, execute=args.run)
+        except ValueError as error:
+            parser.error(str(error))
+        print("Mode             Count")
+        for mode in ("score", "write"):
+            print(f"{mode:<16} {result['candidates'].get(mode, 0)}")
+        print(f"Selected         {result['selected']}")
+        print(f"Newest           {result['newest'] or '-'}")
+        print(f"Oldest           {result['oldest'] or '-'}")
+        print("Excluded")
+        for reason, count in result["excluded"].items():
+            print(f"  {reason:<30} {count}")
+        if args.run:
+            print(json.dumps(result["results"], ensure_ascii=False, indent=2))
+        return 0
     if args.command == "so-ban":
         print(run_so_ban(args.cycles, args.out, month=args.month, labels=args.labels))
         return 0
