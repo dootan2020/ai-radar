@@ -746,6 +746,8 @@ class WriterLengthTests(unittest.TestCase):
         self.assertEqual(rewrite_rows[0]["length"], {"least": 120, "aim": 190, "most": 260})
 
     def test_prompts_ask_for_specifics_in_plain_vietnamese_within_the_window(self):
+        self.assertIn("Lead with the most newsworthy specific fact supported by cited source paragraphs across the outlet and coverage", WRITER_PROMPT)
+        self.assertIn("omit an apology or other action unless cited evidence states it", WRITER_PROMPT)
         for phrase in ("length gives {least, aim, most}", "one or two short, complete sentences", "never invent a cause",
                        "who said what", "kiến trúc đàn"):
             self.assertIn(phrase, WRITER_PROMPT)

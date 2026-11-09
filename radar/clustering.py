@@ -385,6 +385,8 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
 
 CONTEXT_STOP = TOPIC_WORDS | ENTITY_WORDS | STOPWORDS | {"company", "firm", "startup", "new", "latest", "users", "available", "according", "says", "said"}
 RELEASE_CONTEXT = re.compile(r"\b(?:introduc\w*|launch\w*|releas\w*|unveil\w*|announc\w*|new (?:model|agent|feature)|latest model|research preview|available (?:through|by) waitlist)\b", re.I)
+ESPIONAGE_CONTEXT = re.compile(r"\b(?:spy|spies|spying|spied|espionage|foreign intelligence|intelligence agent)\b", re.I)
+EXECUTIVE_CONTEXT = re.compile(r"\b(?:CEO|chief executive(?: officer)?)\b", re.I)
 
 
 def _context_words(item):
@@ -418,6 +420,14 @@ def _same_event_from_context(left, right, shared_entities):
     shared_names = names(left) & names(right)
     if not (shared_entities or common & ENTITY_WORDS or shared_names):
         return False
+    # Outlets may frame the same reported incident as an investigation, an affair,
+    # or a spying attempt. Require the same named company, executive role and
+    # espionage context in both reports; a company name alone is insufficient.
+    left_text = str(left.get("title") or "") + " " + str(left.get("summary") or "")
+    right_text = str(right.get("title") or "") + " " + str(right.get("summary") or "")
+    if (common & ENTITY_WORDS and EXECUTIVE_CONTEXT.search(left_text) and EXECUTIVE_CONTEXT.search(right_text)
+            and ESPIONAGE_CONTEXT.search(left_text) and ESPIONAGE_CONTEXT.search(right_text)):
+        return True
     if {"funding"} <= common and any(word.startswith("amount-") for word in common):
         return True
     if {"offline", "training"} <= distinctive or {"password", "login"} <= distinctive:
@@ -461,6 +471,18 @@ def primary_section(items):
     return "today"
 
 
+def _distinct_observations(items):
+    """Use the fullest account of each URL for cross-URL comparisons."""
+    by_url = {}
+    for item in items:
+        url = item.get("canonical_url") or canonical_url(item.get("url")) or item.get("id")
+        detail = (item.get("group") != "forum",
+                  len(str(item.get("title") or "")) + len(str(item.get("summary") or "")))
+        if url not in by_url or detail > by_url[url][0]:
+            by_url[url] = (detail, item)
+    return [entry[1] for entry in by_url.values()]
+
+
 def cluster_items(items, now, threshold=0.75):
     """Deterministic complete-link grouping, including exact-URL buckets first."""
     named_entities = _cluster_entities(items)
@@ -477,7 +499,8 @@ def cluster_items(items, now, threshold=0.75):
     for canonical in sorted(buckets):
         bucket = list(buckets[canonical].values())
         for group in groups:
-            if all(_match(a, b, threshold, named_entities) for a in bucket for b in group):
+            if all(_match(a, b, threshold, named_entities)
+                   for a in _distinct_observations(bucket) for b in _distinct_observations(group)):
                 group.extend(bucket)
                 break
         else:
@@ -547,7 +570,8 @@ def merge_repeated_events(stories, threshold=0.75):
                 other = kept[position]
                 if other.get("kind") != "event" and all(
                         _match(a, b, threshold, named_entities)
-                        for a in story.get("coverage", []) for b in other.get("coverage", [])):
+                        for a in _distinct_observations(story.get("coverage", []))
+                        for b in _distinct_observations(other.get("coverage", []))):
                     target = position
                     break
         if target is None:
