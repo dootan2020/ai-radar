@@ -14,21 +14,16 @@
   gap: var(--space-12); margin-bottom: var(--space-16);
 }
 /* The dive ripple (owner, 09/11 19:38, "làm theo khuyến nghị của e"): the point where the kingfisher enters the water, a few
-   flat rings spreading from under the 9 dots. One packaged shape (nen-song.svg: filled bands, no gradient, no stroke), behind
-   the top row and under the panel, so it never meets text or the search. Static; coral at --msn-ripple-a. The dive point is
-   anchored to the middle of the 9 dots; on a phone a small quarter sits at the page corner, clear of the search. */
-.msn-top-in::before {
-  --ripple-ax: calc(var(--btn-h) / 2); --ripple-ay: calc(var(--msn-search-h) / 2);
-  content: ""; position: absolute; z-index: -1; pointer-events: none;
-  right: calc(var(--ripple-ax) - var(--msn-ripple-cx)); top: calc(var(--ripple-ay) - var(--msn-ripple-cy));
-  width: var(--msn-ripple-w); height: var(--msn-ripple-h);
-  background: url("nen-song.svg") no-repeat right top / 100% 100%; opacity: var(--msn-ripple-a);
-}
-@media (max-width: 767px) {
+   flat rings spreading. One packaged shape (nen-song.svg: filled bands, no gradient, no stroke), behind the top row and under the
+   panel, static, coral at --msn-ripple-a. The dive point sits in the empty page space left of the search, at the top-left; the
+   viewport crops the rings so they read as water, and none is centred on or around a control. Where the search starts at the
+   row's left edge there is no empty space, so the ripple is simply not drawn. */
+@media (min-width: 60rem) {
   .msn-top-in::before {
-    --ripple-ax: calc(-1 * var(--msn-page-pad)); --ripple-ay: calc(-1 * var(--msn-top-pad));
-    right: calc(var(--ripple-ax) - var(--msn-ripple-cx-phone)); top: calc(var(--ripple-ay) - var(--msn-ripple-cy-phone));
-    width: var(--msn-ripple-w-phone); height: var(--msn-ripple-h-phone);
+    content: ""; position: absolute; z-index: -1; pointer-events: none;
+    left: calc(var(--msn-ripple-x) - var(--msn-ripple-cx)); top: calc(-1 * var(--msn-top-pad));
+    width: var(--msn-ripple-w); height: var(--msn-ripple-h);
+    background: url("nen-song.svg") no-repeat left top / 100% 100%; opacity: var(--msn-ripple-a);
   }
 }
 .msn-top .news-search { grid-column: 2; width: 100%; position: relative; }

@@ -30,7 +30,20 @@ class PageBackground(unittest.TestCase):
         self.assertIn('fill="#F0446E"', svg)
         css = read(SITE / "trang-msn.css")
         self.assertIn('url("nen-song.svg")', css)
-        self.assertIn("z-index: -1", re.search(r"\.msn-top-in::before \{([^}]*)\}", css).group(1))
+        before = re.search(r"@media \(min-width: 60rem\) \{\s*\.msn-top-in::before \{([^}]*)\}", css)
+        self.assertIsNotNone(before, "the ripple is drawn only from 60rem, where the top-left is empty")
+        self.assertIn("z-index: -1", before.group(1))
+
+    def test_ripple_sits_in_empty_page_space_left_of_the_row(self):
+        tokens = read(SITE / "tokens.css")
+        dive_x = int(re.search(r"--msn-ripple-x: (-\d+)px", tokens).group(1))
+        self.assertLess(dive_x, 0)  # the dive point is left of the row's edge, so the viewport crops the rings
+        svg = read(SITE / "nen-song.svg")
+        radii = [int(r) for r in re.findall(r"a(\d+) \1 0 1 0 \d+ 0", svg)][::2]
+        self.assertLessEqual(len(radii), 7)  # a disc and three bands
+        cx = int(re.search(r"--msn-ripple-cx: (\d+)px", tokens).group(1))
+        self.assertLess(dive_x + max(radii), 40)  # rings stop well short of the search column (measured: it starts 59px in at 960)
+        self.assertEqual(cx, 80)
 
     def test_ripple_is_quieter_on_light_than_on_dark(self):
         tokens = read(SITE / "tokens.css")
