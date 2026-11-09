@@ -23,6 +23,7 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent.parent
 LIME = ROOT / "brand" / "logo-work" / "lime-anchor"
+BILL = "M 1041.4,100.3 L 1160,100.3 L 978,175 L 993.4,141.3 L 1009.9,118.8 L 1035.7,104.4 Z"          # wordmark y accent, in the 1510 x 417 wordmark space
 MARK = HERE / "mark-mo-boi-ca.svg"                    # the "Mỏ bói cá" mark, chosen 2026-11-09 ("Hướng A")
 SHIPPED = "coral-tile"                                # the captain's choice, 2026-11-06
 SHIPPED_KIT = ROOT / "brand" / "logo" / SHIPPED
@@ -80,6 +81,13 @@ def recolour(source, fills):
     return re.sub(r'fill="#[0-9A-Fa-f]{6}"', lambda m: f'fill="{next(it)}"', text)
 
 
+def bill(svg):
+    """Swap the wordmark y's thin accent sliver (the last path) for the Mỏ bói cá bill: a straight triangle
+    sitting on the right arm's cut and pointing forward. Same fill; the letters' paths are untouched."""
+    start = svg.rindex("<path ")
+    fill = re.search(r'fill="(#[0-9A-Fa-f]{6})"', svg[start:]).group(1)
+    return svg[:start] + f'<path fill="{fill}" d="{BILL}"/>' + svg[svg.index("/>", start) + 2:]
+
 def write(path, text):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8", newline="\n")
@@ -94,12 +102,12 @@ def build_svgs(key, t):
     wd, bd = (P[c] for c in t["word_dark"])
     write(out / "icons" / "halcyon-icon-primary.svg", recolour(MARK, [tile, bird, beak]))
     write(out / "favicons" / "favicon.svg", recolour(MARK, [tile, bird, beak]))
-    write(out / "logos" / "halcyon-primary.svg", recolour(LIME / "logos/halcyon-primary.svg", [wl, bl]))
-    write(out / "logos" / "halcyon-dark.svg", recolour(LIME / "logos/halcyon-dark.svg", [wd, bd]))
-    write(out / "logos" / "halcyon-on-surface.svg", recolour(LIME / "logos/halcyon-on-surface.svg", [P["surface"], wl, bl]))
-    write(out / "logos" / "halcyon-on-dark.svg", recolour(LIME / "logos/halcyon-on-ink.svg", [P["surface-dark"], wd, bd]))
-    write(out / "logos" / "halcyon-mono-ink.svg", recolour(LIME / "logos/halcyon-mono-ink.svg", [P["ink"]] * 2))
-    write(out / "logos" / "halcyon-mono-white.svg", recolour(LIME / "logos/halcyon-mono-white.svg", [P["white"]] * 2))
+    write(out / "logos" / "halcyon-primary.svg", bill(recolour(LIME / "logos/halcyon-primary.svg", [wl, bl])))
+    write(out / "logos" / "halcyon-dark.svg", bill(recolour(LIME / "logos/halcyon-dark.svg", [wd, bd])))
+    write(out / "logos" / "halcyon-on-surface.svg", bill(recolour(LIME / "logos/halcyon-on-surface.svg", [P["surface"], wl, bl])))
+    write(out / "logos" / "halcyon-on-dark.svg", bill(recolour(LIME / "logos/halcyon-on-ink.svg", [P["surface-dark"], wd, bd])))
+    write(out / "logos" / "halcyon-mono-ink.svg", bill(recolour(LIME / "logos/halcyon-mono-ink.svg", [P["ink"]] * 2)))
+    write(out / "logos" / "halcyon-mono-white.svg", bill(recolour(LIME / "logos/halcyon-mono-white.svg", [P["white"]] * 2)))
     return out
 
 
