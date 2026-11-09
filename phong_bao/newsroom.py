@@ -789,7 +789,7 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
 
     for boat, payload in payload_by_boat.items():
         retry_payload = [item for item in payload if invalid_reply(replies.get(item["id"]), boat)
-                         and not replies[item["id"]].get("model_failure")]
+                         and not (replies.get(item["id"]) or {}).get("model_failure")]
         if retry_payload:
             retry, retry_usage = _agent_desk("checker", retry_payload, CHECKER_PROMPT, "kiem-chung", tools,
                                              discovery, runner, boat_exclude={boat}, raw_dir=raw_dir,
@@ -805,23 +805,33 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
     for story in stories:
         row = replies.get(story["id"])
         editor_boat = editor[story["id"]]["boat"]
-        invalid = invalid_reply(row, editor_boat)
+        sent = editor[story["id"]]["news"] and reporter[story["id"]]["readable"]
+        invalid = sent and invalid_reply(row, editor_boat)
+        skip_reason = (None if sent else
+                       "editor_junk" if not editor[story["id"]]["news"] and editor[story["id"]].get("junk_kind") else
+                       "editor_hold" if not editor[story["id"]]["news"] else
+                       "paywall" if held_for_paywall(story.get("url"), reporter[story["id"]]["readable"],
+                                                       reporter[story["id"]].get("representative_status")) else
+                       "unreadable_source")
         evidence = reporter[story["id"]]["source_text"]
         claims = editor[story["id"]]["claims"]
         supported = row.get("supported_claims", []) if row and not invalid else []
         if not isinstance(supported, list):
             supported = []
         supported = [claim for claim in claims if claim in supported and not number_error(claim, evidence)] if evidence else []
-        title_supported = bool(row and row.get("title_supported", row.get("verified") is True) is True
+        title_supported = bool(row and not invalid and row.get("title_supported", row.get("verified") is True) is True
                                and not number_error(story["title"], evidence)) if evidence else False
-        verified = bool(row and title_supported and len(supported) == len(claims))
+        verified = bool(row and not invalid and title_supported and len(supported) == len(claims))
         reason = ("unsupported number or amount" if evidence and any(number_error(c, evidence) for c in [story["title"], *claims]) else
                   _reason(row.get("reason"), "checked") if row else "no readable source to check")
         out_row = {"id": story["id"], "verified": verified,
                            "title_supported": title_supported, "supported_claims": supported,
                            "rejected_claims": [claim for claim in claims if claim not in supported],
-                           "reason": "checker_model_failure" if row and row.get("model_failure") else
+                           "reason": "checker_not_checked" if not sent else
+                           "checker_model_failure" if row and row.get("model_failure") else
+                           "checker_no_reply" if row is None else
                            "checker_invalid" if invalid else reason, "invalid_response": invalid,
+                           "skip_reason": skip_reason,
                            "provider": row.get("provider") if row else None, "boat": row.get("boat") if row else None}
         validate_checker_output(out_row)
         output[story["id"]] = out_row

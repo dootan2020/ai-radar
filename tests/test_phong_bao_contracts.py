@@ -128,6 +128,10 @@ class DeskContractsTests(unittest.TestCase):
             "rejected_claims": [], "reason": "ok", "invalid_response": False, "provider": None, "boat": None,
         }
         self.assertTrue(validate_checker_output(valid))
+        self.assertTrue(validate_checker_output({**valid, "verified": False, "title_supported": False,
+                                                 "reason": "checker_not_checked", "skip_reason": "editor_junk"}))
+        self.assertFalse(validate_checker_output({**valid, "invalid_response": "false"}))
+        self.assertFalse(validate_checker_output({**valid, "skip_reason": "editor_junk"}))
         self.assertFalse(validate_checker_output({**valid, "verified": "true"}))
         self.assertFalse(validate_checker_output({k: v for k, v in valid.items() if k != "rejected_claims"}))
 

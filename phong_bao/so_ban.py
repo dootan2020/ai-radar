@@ -12,6 +12,7 @@ from zoneinfo import ZoneInfo
 
 from .evaluation import evaluate
 from .newsroom import DESKS
+from .paywall import HOLD_REASON as PAYWALL_HOLD_REASON
 
 STAMP = re.compile(r"^\d{8}T\d{6}Z$")
 LOCAL = ZoneInfo("Asia/Bangkok")
@@ -70,6 +71,22 @@ def _summary(counter, limit=None):
     return "; ".join(f"{key}: {value}" for key, value in items[:limit])
 
 
+def _checker_label(row, editor, reporter, raw_reply_ids, chief):
+    if not editor.get("news"):
+        return "not_checked", "editor_junk" if editor.get("junk_kind") else "editor_hold"
+    if not reporter.get("readable"):
+        return ("not_checked", "paywall" if reporter.get("representative_status") == "paywall"
+                or chief.get("reason") == PAYWALL_HOLD_REASON
+                else "unreadable_source")
+    if row.get("invalid_response"):
+        if row.get("reason") == "checker_model_failure":
+            return "checker_failure", "model_failure"
+        if row.get("reason") == "checker_no_reply" or row.get("id") not in raw_reply_ids:
+            return "checker_failure", "no_reply"
+        return "checker_failure", "invalid_reply"
+    return "checked", None
+
+
 def collect(cycles_dir):
     """Return all ledger rows and source problems without changing the cycle tree."""
     root = Path(cycles_dir)
@@ -107,10 +124,23 @@ def collect(cycles_dir):
             problems[f"{folder.name}/quyet-dinh.json: thiếu decisions"] += 1
         if state == "decided" and decisions is None:
             problems[f"{folder.name}/quyet-dinh.json: thiếu file của cycle đã quyết định"] += 1
+        desk_rows = {}
+        chief_data = _read(folder / "job" / "chief.json", problems,
+                           required=isinstance(desks.get("chief"), dict) and desks["chief"].get("state") == "done")
+        chief_rows = {row.get("id"): row for row in chief_data if isinstance(row, dict)} if isinstance(chief_data, list) else {}
+        raw_reply_ids = set()
+        for raw_path in sorted((folder / "job" / "raw").glob("checker-*.json")):
+            raw = _read(raw_path, problems, required=False)
+            if isinstance(raw, dict):
+                replies = raw.get("stories")
+                if isinstance(replies, list):
+                    raw_reply_ids.update(item.get("id") for item in replies if isinstance(item, dict))
         for desk in DESKS:
             meta = desks.get(desk)
             path = folder / "job" / f"{desk}.json"
-            data = _read(path, problems, required=isinstance(meta, dict) and meta.get("state") == "done")
+            data = (chief_data if desk == "chief" else
+                    _read(path, problems, required=isinstance(meta, dict) and meta.get("state") == "done"))
+            desk_rows[desk] = data if isinstance(data, dict) else {}
             if isinstance(meta, dict):
                 if meta.get("state") not in ("running", "done"):
                     problems[f"job/status.json/{desk}: state không nhận diện"] += 1
@@ -168,8 +198,23 @@ def collect(cycles_dir):
                          "importance_tier": row.get("importance_tier"),
                          "source_url": row.get("source_url") or row.get("selected_url"),
                          "title_vi": row.get("editorial_headline_vi"), "rewrite": row.get("rewrite")}
+                if desk == "checker":
+                    label, skip_reason = _checker_label(row, desk_rows["editor"].get(sid, {}),
+                                                        desk_rows["reporter"].get(sid, {}), raw_reply_ids,
+                                                        chief_rows.get(sid, {}))
+                    entry["check_status"] = label
+                    entry["skip_reason"] = skip_reason if label == "not_checked" else row.get("skip_reason")
+                    if label == "not_checked":
+                        entry["reason"] = "checker_not_checked"
+                        entry["invalid_response"] = False
                 ledger.append(entry)
                 cycle["stories"].append(entry)
+        checker_stories = [row for row in cycle["stories"] if row["desk"] == "checker"]
+        for entry in ledger:
+            if entry["type"] == "desk" and entry["cycle"] == folder.name and entry["desk"] == "checker":
+                entry["invalid_rows"] = sum(row["check_status"] == "checker_failure" for row in checker_stories)
+                entry["not_checked_rows"] = sum(row["check_status"] == "not_checked" for row in checker_stories)
+                break
         cycles.append(cycle)
     return ledger, cycles, problems
 
@@ -239,7 +284,8 @@ def report(month, cycles, problems, labels=None, decisions_path=None, now=None):
         metas = [c["desks"][desk] for c in selected if isinstance(c["desks"].get(desk), dict)]
         outcomes = Counter(s["verdict"] for s in stories if s["verdict"] is not None)
         reasons = Counter(str(s["reason"]) for s in stories if isinstance(s["reason"], str) and s["reason"])
-        invalid = sum(m["invalid_rows"] for m in metas if isinstance(m.get("invalid_rows"), int))
+        invalid = (sum(s["check_status"] == "checker_failure" for s in stories) if desk == "checker" else
+                   sum(m["invalid_rows"] for m in metas if isinstance(m.get("invalid_rows"), int)))
         failures = sum(len(m["model_failures"]) for m in metas if isinstance(m.get("model_failures"), list))
         exhausted = sum(m.get("budget_exhausted") is True for m in metas)
         tokens = defaultdict(lambda: [0, 0])
@@ -258,6 +304,9 @@ def report(month, cycles, problems, labels=None, decisions_path=None, now=None):
         lines += [f"## {desk}", "", f"Tin xử lý: {len(stories)}. Kết quả: {_summary(outcomes)}.",
                   f"5 lý do thường gặp: {_summary(reasons, 5)}.",
                   f"Hàng lỗi: {invalid}; lỗi model: {failures}; hết budget: {exhausted}."]
+        if desk == "checker":
+            skipped = Counter(s["skip_reason"] for s in stories if s["check_status"] == "not_checked")
+            lines.append(f"Chưa gửi kiểm: {sum(skipped.values())} ({_summary(skipped)}); lỗi kiểm chứng: {invalid}.")
         if tokens:
             for provider in sorted(tokens):
                 durations = seconds[provider]

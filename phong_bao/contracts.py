@@ -132,6 +132,7 @@ DESK_CONTRACTS = {
             "id", "verified", "title_supported", "supported_claims",
             "rejected_claims", "reason", "invalid_response", "provider", "boat",
         ],
+        "optional_output_fields": ["skip_reason"],
         "rejectable_reply_conditions": [
             "model_failure reported",
             "boat matches editor_boat (same-boat violation)",
@@ -381,6 +382,11 @@ def validate_checker_output(row: dict[str, Any]) -> bool:
     if any(k not in row for k in required):
         return False
     if type(row["verified"]) is not bool or type(row["title_supported"]) is not bool:
+        return False
+    if type(row["invalid_response"]) is not bool:
+        return False
+    if row.get("skip_reason") is not None and (not isinstance(row["skip_reason"], str)
+                                                or row["invalid_response"] or row["verified"]):
         return False
     return True
 
