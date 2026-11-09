@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-09T07:38:26.887852+00:00",
-  "input_generated_at": "2026-11-09T06:49:55Z",
+  "generated_at": "2026-11-09T11:38:43.888026+00:00",
+  "input_generated_at": "2026-11-09T10:55:56Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -40423,17 +40423,17 @@
       "use_original_title": false,
       "source_url": "https://blogs.nvidia.com/blog/korea-sovereign-ai-collaboration/",
       "key_points": [
-        "Nvidia cùng Bộ Khoa học và ICT (MSIT) Hàn Quốc mở rộng hợp tác phát triển hệ sinh thái AI có chủ quyền của quốc gia này.",
-        "Theo Nvidia, nội dung hợp tác bao gồm các chương trình đào tạo, chứng chỉ chuyên môn, cuộc thi lập trình và hội thảo kỹ thuật về sử dụng GPU.",
-        "Thông qua sáng kiến AI for All của Hàn Quốc, hãng bắt tay với ba liên minh và bốn đơn vị phát triển mô hình nền tảng, áp dụng phần mềm Nvidia Dynamo. Nvidia cũng công bố hợp tác riêng với SK Telecom và công ty khởi nghiệp Rebellions trên công nghệ NVLink Fusion dưới sự hỗ trợ từ bộ ngành sở tại.",
-        "Nvidia cho biết thỏa thuận này tạo cơ sở để các nhà sản xuất bộ xử lý NPU và XPU Hàn Quốc tìm hiểu khả năng tham gia mạng lưới NVLink Fusion. Hoạt động này đồng thời triển khai phần mềm Dynamo phục vụ bài toán tối ưu và mở rộng quy mô suy luận AI."
+        "Nvidia cùng Bộ Khoa học và ICT Hàn Quốc mở rộng hợp tác phát triển hệ sinh thái AI có chủ quyền. Thỏa thuận bao gồm bán dẫn AI, hạ tầng trung tâm dữ liệu, nhân tài, mô hình, tác tử và an ninh.",
+        "Theo Nvidia, nội dung hợp tác gồm các khóa đào tạo, cấp chứng chỉ, cuộc thi lập trình và hội thảo kỹ thuật về sử dụng GPU.",
+        "Thông qua sáng kiến AI for All, Nvidia cùng ba liên minh và bốn nhà xây dựng mô hình nền tảng hàng đầu Hàn Quốc dùng phần mềm Dynamo để tối ưu suy luận AI.",
+        "Theo Nvidia, hãng cùng SK Telecom và Rebellions, dưới sự hỗ trợ từ MSIT, thúc đẩy hạ tầng AI có chủ quyền cho các mô hình và khối lượng công việc Hàn Quốc bằng NVLink Fusion. Thỏa thuận cũng tạo cơ sở cho các công ty NPU và XPU Hàn Quốc tìm hiểu hệ sinh thái này."
       ],
       "same_event_coverage_ids": [
         "9dee0ff3e0d3070b4242"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia bắt tay Bộ Khoa học Hàn Quốc mở rộng hệ sinh thái AI có chủ quyền",
+      "editorial_headline_vi": "Nvidia hợp tác với Bộ Khoa học Hàn Quốc mở rộng hệ sinh thái AI có chủ quyền từ bán dẫn đến trung tâm dữ liệu",
       "summary_sources": [
         {
           "id": "outlet",
@@ -40446,49 +40446,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.2,
+        "value": 9.15,
         "answers": {
-          "what": 8,
-          "why": 9,
-          "notable": 8,
-          "meaning": 8
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "công ty khởi nghiệp Rebellions",
-            "explanation": "This story’s supplied source names Rebellions but does not identify it as a startup (outlet:p005)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Hoạt động này đồng thời triển khai phần mềm Dynamo",
-            "explanation": "The source assigns Dynamo to work with three consortia and four foundation model builders. It separately describes Korean NPU and XPU companies exploring NVLink Fusion participation (outlet:p003–p004)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The final paragraph merges the NVLink Fusion opportunity with the separate Dynamo work.",
-            "fix": "Keep Dynamo with the three consortia and four model builders, and describe NPU and XPU participation in NVLink Fusion separately (outlet:p003–p004)."
-          },
-          {
-            "question": "what",
-            "problem": "The reader misses part of the announced cooperation’s scope.",
-            "fix": "If space permits, mention that it extends to data center infrastructure, talent, agents, and security (outlet:p002)."
-          },
-          {
-            "question": "what",
-            "problem": "This source does not establish Rebellions’ startup status.",
-            "fix": "Identify it simply as Rebellions (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "305bd0fce16c433f68fda9883ec14de02dd5d5a2f03e50004aeb1edd6d344be2",
-        "scored_at": "2026-11-09T07:33:07.785911+00:00"
+        "prose_sha256": "07743d6c89e075fbd6fceb0cf1979b68d676e5af56b593155671299efc77f6aa",
+        "scored_at": "2026-11-09T11:38:43.884120+00:00"
       }
     },
     {
@@ -40605,10 +40578,10 @@
       "use_original_title": false,
       "source_url": "https://technode.com/2026/11/09/tsmc-reaffirms-logic-foundry-focus-after-report-on-3d-dram-plans/",
       "key_points": [
-        "TSMC khẳng định công ty vẫn tập trung vào mảng đúc chip logic (chip xử lý dữ liệu). Động thái này diễn ra sau khi The Information đưa tin hãng bắt đầu lên kế hoạch làm 3D DRAM.",
-        "The Information cho biết kế hoạch phát triển 3D DRAM bắt đầu theo yêu cầu từ Nvidia. Dù vậy, người phát ngôn của TSMC khẳng định với Tom’s Hardware rằng sứ mệnh của hãng vẫn là cung ứng công nghệ và năng lực sản xuất chip logic.",
-        "Báo cáo của The Information dẫn thông tin từ hai người nắm trực tiếp sự việc. Về kỹ thuật, công nghệ 3D DRAM xếp chồng các ô nhớ theo chiều dọc nhằm gia tăng mật độ.",
-        "TechNode đánh giá đây là một hướng tiếp cận mở rộng dung lượng bộ nhớ khi nhu cầu phần cứng trí tuệ nhân tạo (AI) gia tăng."
+        "TSMC khẳng định công ty vẫn tập trung vào mảng đúc chip logic (chip xử lý tính toán). Tuyên bố được đưa ra sau bài báo của The Information về kế hoạch làm bộ nhớ 3D DRAM.",
+        "The Information đưa tin TSMC bắt đầu lên kế hoạch làm 3D DRAM theo yêu cầu của Nvidia, dẫn lời hai nguồn tin nắm trực tiếp sự việc.",
+        "Người phát ngôn của TSMC khẳng định với Tom’s Hardware rằng sứ mệnh của hãng vẫn là cung ứng công nghệ và năng lực sản xuất chip logic.",
+        "Theo TechNode, công nghệ 3D DRAM xếp chồng các ô nhớ theo chiều dọc để gia tăng mật độ. Trang tin này nhận định đây là một hướng tiếp cận mở rộng dung lượng bộ nhớ khi nhu cầu phần cứng trí tuệ nhân tạo gia tăng."
       ],
       "same_event_coverage_ids": [
         "6121debf89aa00ca3d53"
@@ -40628,34 +40601,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.65,
+        "value": 10.0,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "kế hoạch phát triển 3D DRAM",
-            "explanation": "The Information reported that TSMC had begun drawing up plans to make 3D DRAM, not specifically to develop it (outlet:p002)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "One sentence makes the reported plan sound like technology development.",
-            "fix": "Say The Information reported plans to make 3D DRAM at Nvidia’s request (outlet:p002)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "fb122e6b1f144c7d1bbecc7815a756b958da3405cd7a3fa37043bc2f0b20d830",
-        "scored_at": "2026-11-09T07:38:26.856130+00:00"
+        "prose_sha256": "430d1c54138ad863289309415324bbd7e4740caef909c9d2c426abead5da6673",
+        "scored_at": "2026-11-09T11:33:53.205065+00:00"
       }
     },
     {
@@ -40835,17 +40796,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/08/2026/nvidias-45-trillion-test-of-founder-immunity",
       "key_points": [
-        "Hội đồng quản trị Nvidia thông báo mở cuộc điều tra độc lập nhưng vẫn tin tưởng Tổng giám đốc Jensen Huang sau khi ông thừa nhận ngoại tình. Trong thông cáo riêng, ông Huang khẳng định vẫn toàn tâm cống hiến cho công ty.",
-        "Theo Semafor, cuộc khủng hoảng của Nvidia nảy sinh sau các báo cáo về việc ông Huang bị nhắm mục tiêu trong bẫy tình của Trung Quốc. Semafor nhận định có rất ít tiền lệ trong lịch sử doanh nghiệp Mỹ cho sự việc này, khi hệ lụy an ninh quốc gia khiến hậu quả có thể lan rộng hơn các vụ ngoại tình khác.",
-        "Theo Semafor, dù gần 4% cổ phần mang lại cho ông Huang khối tài sản ròng 155 tỷ USD, ông không có cổ phiếu hai tầng lớp để bảo vệ vị trí nếu bị phế truất.",
-        "Semafor nhận định sai lầm phán đoán của ông Huang sẽ làm giảm sút niềm tin vào Nvidia đúng thời điểm thị trường thấy kỳ vọng tăng trưởng AI có giới hạn. Dù vậy, trang tin đánh giá khả năng ông bị phế truất hiện khó xảy ra vì công ty chưa có người kế nhiệm và mang ý nghĩa chiến lược với nước Mỹ."
+        "Hội đồng quản trị Nvidia thông báo mở cuộc điều tra độc lập nhưng vẫn tin tưởng Tổng giám đốc Jensen Huang. Trong thông cáo riêng thừa nhận không chung thủy với vợ, ông Huang khẳng định vẫn toàn tâm cống hiến cho công ty.",
+        "Theo các báo cáo, ông Huang bị nhắm mục tiêu trong một chiến dịch bẫy tình của Trung Quốc. Semafor nhận định khủng hoảng có thể lan rộng do tính chất an ninh quốc gia của cáo buộc, cùng vai trò trung tâm của ông Huang và vị thế cốt lõi của Nvidia trong hệ sinh thái AI.",
+        "Theo Semafor, ông Huang thiếu cổ phiếu hai tầng lớp để bảo vệ vị trí nếu hội đồng quản trị hoặc nhà đầu tư muốn bãi nhiệm ông. Dù vậy, gần 4% cổ phần tại Nvidia đã đem lại cho ông tài sản ròng 155 tỷ USD vào lúc đóng cửa phiên thứ Sáu.",
+        "Semafor cho rằng việc phế truất ông Huang hiện khó xảy ra do chưa có người kế nhiệm rõ ràng và Nvidia mang ý nghĩa chiến lược với Mỹ. Dù vậy, sai sót nghiêm trọng này sẽ làm xói mòn niềm tin vào công ty ngay khi niềm tin thị trường vào câu chuyện tăng trưởng AI đang bộc lộ giới hạn."
       ],
       "same_event_coverage_ids": [
         "ac2b5fca200abf05995b"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia điều tra độc lập khi CEO Jensen Huang thừa nhận ngoại tình sau các báo cáo về bẫy tình",
+      "editorial_headline_vi": "Nvidia điều tra độc lập sau báo cáo CEO Jensen Huang bị nhắm mục tiêu trong bẫy tình của Trung Quốc",
       "summary_sources": [
         {
           "id": "outlet",
@@ -40858,44 +40819,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.3,
+        "value": 9.2,
         "answers": {
           "what": 10,
-          "why": 6,
+          "why": 9,
           "notable": 8,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "công ty chưa có người kế nhiệm",
-            "explanation": "Semafor says there is no obvious successor waiting in the wings, not that the company has no successor at all (outlet:p012)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader gets only one of Semafor’s three stated reasons why the fallout could be unusually wide.",
-            "fix": "Add Huang’s central role in Nvidia’s growth and Nvidia’s pivotal place in AI alongside the alleged national-security implications (outlet:p001)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The Vietnamese turns an assessment that no successor is obvious into a categorical claim that none exists.",
-            "fix": "Say there is no obvious successor waiting in the wings (outlet:p012)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses a concrete conditional consequence for the company.",
-            "fix": "Mention that shareholder litigation or regulatory action could follow if Huang or the board withheld material information from investors (outlet:p010)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "655d5d5b3028ee8c0cba4785d8fc60c14614695ced287e0b641d1d1780668722",
-        "scored_at": "2026-11-09T07:38:26.856163+00:00"
+        "prose_sha256": "9c5e49dbbda27379ca75c184a95761beaac9b5baa3692c4fc212778b28317f9b",
+        "scored_at": "2026-11-09T11:38:43.884169+00:00"
       }
     },
     {
@@ -41157,6 +41096,628 @@
         "prose_sha256": "5f80e99df107705d7b8f420d64de25e70e8e0540d9833d831796cc3c04ba15dd",
         "scored_at": "2026-11-09T07:33:07.786111+00:00"
       }
+    },
+    {
+      "id": "966c2f4606645b675d35",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-09/alice-huang-suspected-china-spy-spent-years-in-nvidia-s-orbit",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2ff8201058a340aa5b70"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cbbeac4b01a0b10f825b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-09/nvidia-controversy-throws-high-profile-korea-event-into-disarray",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "119e61b0559d7561694f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "17238d35e9d285f49e74",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/09/2026/ai-safety-groups-outline-their-plans-for-a-new-washington",
+      "key_points": [
+        "Theo bản ghi nhớ gửi Semafor, các nhóm an toàn AI vạch kế hoạch chính trị mới sau kỳ bầu cử, theo tổ chức Public First Action và các siêu PAC (nhóm vận động chính trị) liên kết.",
+        "Public First nhận định cần chuẩn bị ứng phó chiến dịch vận động từ ngành công nghệ, khi sự sa sút của đối thủ Leading the Future chưa chấm dứt dự án chính trị của Big Tech.",
+        "Nhóm dự định dùng 30 triệu USD thúc đẩy luật AI và ủng hộ ứng viên năm 2027, đồng thời yêu cầu luật liên bang không phủ quyết quy định cấp bang.",
+        "Public First tuyên bố sẽ đưa AI thành vấn đề hàng đầu trong các cuộc bầu cử tới năm 2028, từ cuộc đua tổng thống đến các cơ quan lập pháp cấp bang."
+      ],
+      "same_event_coverage_ids": [
+        "7debfdfc0ff8482b23e2"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhóm an toàn AI có 30 triệu USD ngân sách để thúc đẩy luật và vận động bầu cử Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/09/2026/ai-safety-groups-outline-their-plans-for-a-new-washington"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.95,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 6,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "dùng 30 triệu USD thúc đẩy luật AI và ủng hộ ứng viên",
+            "explanation": "The source specifies the $30 million currently in the bank in connection with rebutting pro-AI messaging; it does not assign that amount to passing laws or supporting candidates (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers are given an unsupported use for the $30 million.",
+            "fix": "Connect the $30 million to rebutting pro-AI messaging, while listing legislation and candidate support as separate goals (outlet:p003)."
+          },
+          {
+            "question": "what",
+            "problem": "Readers miss Public First’s assessment of the midterms.",
+            "fix": "State that AI safety advocates counted the midterms as a major win (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f933ba3a0f8eb48d92d3fa37d767987cee68be33f34cbf8beff8bfac0ab6d799",
+        "scored_at": "2026-11-09T11:17:56.216364+00:00"
+      }
+    },
+    {
+      "id": "fac83f3da005bae75cae",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-09/citi-says-value-quality-could-outperform-ai-stocks-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "74300bd719a585534aff"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "13e58a95a90f634ca609",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/09/after-electrification-and-price-wars-seeway-ai-says-data-and-chips-may-define-the-next-decade-of-ev-competition/",
+      "key_points": [
+        "Tại hội nghị ở Thượng Hải, SEEWAY.AI thông báo bước chuyển chiến lược sang thị trường tác tử thông minh di động (hệ thống AI tự hành tác vụ), bên cạnh định hướng phát triển chip ô tô. Dòng chip hệ thống (SoC) thế hệ sáu của công ty con AutoChips đã được đưa vào hơn 100 mẫu xe xuất khẩu.",
+        "Patrick Cheng cho biết hơn một nửa dữ liệu xe thu thập có thể đang bị bỏ không hoặc chưa được tận dụng hết. Theo ông, việc thu thập lặp lại, thiếu quy hoạch cùng chi phí lưu trữ và xử lý cao đều ảnh hưởng đến hiệu quả khai thác.",
+        "SEEWAY.AI đã ra mắt giải pháp tích hợp lái và đỗ xe dưới 1.000 nhân dân tệ (150 USD) cho hệ thống hỗ trợ lái nâng cao (ADAS). Sản phẩm dùng chip Journey 6B của Horizon Robotics và đạt chỉ định thiết kế (design win) cho lũy kế 2,7 triệu đơn vị theo ông Cheng.",
+        "TechNode nhận định cạnh tranh ô tô thập kỷ tới có thể ít phụ thuộc vào công nghệ đơn lẻ mà dựa vào tích hợp dữ liệu, chip, phần mềm và AI. Với SEEWAY.AI, điểm then chốt là chuyển đổi chuyên môn công nghệ thành các giải pháp triển khai trên quy mô lớn."
+      ],
+      "same_event_coverage_ids": [
+        "29ba50e2b50e6c75dfe8"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "SEEWAY.AI ra mắt giải pháp lái và đỗ xe dưới 1.000 tệ, tiến vào mảng tác tử thông minh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/09/after-electrification-and-price-wars-seeway-ai-says-data-and-chips-may-define-the-next-decade-of-ev-competition/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.9,
+        "answers": {
+          "what": 9,
+          "why": 5,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers do not learn why SEEWAY.AI sees mobile intelligent agents as an extension of its business.",
+            "fix": "Explain that Cheng says its automotive experience in perception, data processing and mass production can support embodied AI (outlet:p026)."
+          },
+          {
+            "question": "notable",
+            "problem": "The low price lacks the functions that make the solution concrete.",
+            "fix": "Add that it supports Level 2 driver assistance and automated parking (outlet:p020)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7cff400788e644abfb2146daee445b227c161c579fced663c0c01b8351a91c68",
+        "scored_at": "2026-11-09T11:24:06.286113+00:00"
+      }
+    },
+    {
+      "id": "6f010896f5260be3ab49",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-09/softbank-s-mobile-arm-braces-for-possible-ai-correction-in-us",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "96f58effd0b5367b2fef"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3b0d1dcb5cae97f78d31",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Informal social forum discussion and commentary thread on Hacker News lacking independent journalistic reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50422628",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b6be51a269f1060d193b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "86c270bf47b54ff7a1ab",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blogs.nvidia.com/blog/korean-startup-investments-msit/",
+      "key_points": [
+        "Tại Diễn đàn Đối tác Khởi nghiệp AI MSIT-NVIDIA diễn ra ở COEX, NVIDIA công bố đầu tư vào Point2 và lên kế hoạch rót vốn thêm ba startup gồm Motif Technologies, RLWRLD cùng Upstage.",
+        "Point2 Technology là công ty kết nối AI (AI interconnect) phát triển các liên kết tần số vô tuyến truyền dữ liệu giữa chip và giá đỡ máy chủ thay cho cáp đồng hoặc kết nối quang truyền thống.",
+        "Trong số các đối tác, startup RLWRLD phát triển mô hình nền tảng giúp robot thực hiện những tác vụ khéo léo của năm ngón tay. Những tác vụ thực tế này gồm cắm chuẩn xác linh kiện, vặn đai ốc vào bu-lông và phân loại chi tiết từ băng chuyền.",
+        "NVIDIA nhận định các đối tác này bao phủ toàn bộ ngăn xếp công nghệ AI từ hạ tầng, mô hình đến ứng dụng robot. Kế hoạch đầu tư tiếp nối mạng lưới hợp tác của NVIDIA với hơn 1.000 thành viên chương trình NVIDIA Inception tại Hàn Quốc."
+      ],
+      "same_event_coverage_ids": [
+        "3389060bc03e52ba1844"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA đầu tư vào Point2 và lên kế hoạch rót vốn thêm ba startup AI tại diễn đàn COEX",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://blogs.nvidia.com/blog/korean-startup-investments-msit/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "phân loại chi tiết từ băng chuyền",
+            "explanation": "The source describes kitting parts from moving conveyors, meaning gathering parts into kits, rather than sorting them (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The robot example describes the wrong action.",
+            "fix": "Change sorting parts to gathering parts into kits from moving conveyors (outlet:p007)."
+          },
+          {
+            "question": "what",
+            "problem": "Readers miss that the forum was jointly hosted with a Korean government ministry.",
+            "fix": "Name Korea’s Ministry of Science and ICT alongside NVIDIA as the forum’s hosts (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1c1b1f5fce27bc6ae575ab8f6de284ded268130ee1c8943bdd93199193f14834",
+        "scored_at": "2026-11-09T11:24:06.286179+00:00"
+      }
+    },
+    {
+      "id": "ad34c832c41eff920a14",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/bug-activists-and-biker-gang-members-are-teaming-up-to-protest-data-centers/",
+      "key_points": [
+        "Jamie Robins thuộc tổ chức Buglife đã mang thư nêu chi tiết đơn kiến nghị gần 55.000 chữ ký đến cổng trụ sở Google ở London nhằm phản đối dự án trung tâm dữ liệu Thurrock. Theo WIRED, dự án này thuộc cuộc chạy đua hạ tầng nhằm đáp ứng nhu cầu tính toán cho trí tuệ nhân tạo.",
+        "Liên minh này phản đối do lo ngại dự án phá hủy môi trường sống của thực vật nguy cấp, ong nghệ hiếm và các loài không xương sống. Tổ chức Foxglove cũng cảnh báo mức phát thải tới 570.000 tấn khí mỗi năm, còn câu lạc bộ môtô muốn khôi phục đường đua cũ.",
+        "Chỉ duy nhất 1 trong 1.000 ý kiến công chúng gửi cơ quan quy hoạch ủng hộ Google, dù Hội đồng Thurrock lưu ý nhiều thư đến từ ngoài địa phương. Phía Google khẳng định sẽ di dời thực vật nguy cấp để tăng đa dạng sinh học và tài trợ năng lượng tái tạo nhằm bù trừ phát thải.",
+        "Tạp chí WIRED nhận định căng thẳng này phản ánh làn sóng phản kháng các trung tâm dữ liệu, trong khi Hội đồng Thurrock đầu năm tới mới phán quyết về đơn quy hoạch ban đầu. Dù cá nhân ông Rob Pownall, sáng lập Protect The Wild, thừa nhận phong trào hiện ít hy vọng, ông vẫn xem đây là nỗ lực làm suy chuyển dần dự án."
+      ],
+      "same_event_coverage_ids": [
+        "4e0a690a74758789205e"
+      ],
+      "split_coverage_ids": [
+        "898945216f8e4f8ca0f4"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Gần 55.000 người ký đơn phản đối dự án trung tâm dữ liệu cho AI của Google ở Thurrock",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/bug-activists-and-biker-gang-members-are-teaming-up-to-protest-data-centers/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2e0a0bbf5ba318b262fa238362fa47d570a21ebdab62a6f3689a28aa18149b1c",
+        "scored_at": "2026-11-09T11:24:06.286213+00:00"
+      }
+    },
+    {
+      "id": "36fca88880e047cff6c3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Verbatim republication of a weeks-old wire interview from October 23, 2026 with no updated reporting or timely news hook.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.enca.com/lifestyle/370-books-20-months-sa-author-defends-her-use-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "22d71761a80e063c4076"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9095c436bb4469f2d59a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373757/can-deepseek-challenge-openai-anthropic-ai-agents-harness-adoption-takes",
+      "key_points": [
+        "Công ty khởi nghiệp DeepSeek cho biết khung tác tử AI (hệ thống phần mềm tự hành) Harness đạt 1,54 triệu người dùng hoạt động hàng ngày chỉ sau chưa đầy ba tháng ra mắt.",
+        "Theo bài viết, Harness là hạ tầng phần mềm chuyển đổi mô hình ngôn ngữ lớn thành tác tử AI tự thực hiện tác vụ thay cho người dùng, chứ không đơn thuần phản hồi câu lệnh.",
+        "Tính đến ngày 4 tháng 11, người dùng qua giao diện lập trình chính thức tiêu thụ khoảng 92 nghìn tỷ token (đơn vị dữ liệu văn bản) mỗi ngày, tương đương 1,1 tỷ token mỗi giây.",
+        "SCMP nhận định kết quả này đánh dấu sự tăng trưởng nhanh trong cuộc cạnh tranh mới giữa các tập đoàn AI Trung Quốc và Mỹ."
+      ],
+      "same_event_coverage_ids": [
+        "2318a5c67f473ca4d7b2",
+        "8ccd2e2a3e5bcd824a39"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung tác tử AI Harness của DeepSeek đạt 1,54 triệu người dùng hàng ngày sau chưa đầy ba tháng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/big-tech/article/3373757/can-deepseek-challenge-openai-anthropic-ai-agents-harness-adoption-takes"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers miss the business implication stated in the source.",
+            "fix": "Add that DeepSeek is increasing efforts to monetise its foundation models as Harness gains traction (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "13aab2689b2756cf0125fda2b9efb76609d1f85a256720ebc4984bd3a5a44c2b",
+        "scored_at": "2026-11-09T11:17:56.216534+00:00"
+      }
+    },
+    {
+      "id": "74c3643ef07b3b2f9082",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General private equity semiconductor fund closing where AI adoption is only cited in passing as broad market backdrop.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-09/ardian-raises-1-billion-europe-semiconductor-fund-with-middle-east-backing",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "80b58eac4fec1c36869b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8b3e103bdadb15668c8e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://swiftrocks.com/being-a-meat-proxy-for-ai-should-be-grounds-for-getting-people-fired",
+      "key_points": [
+        "Theo tác giả Bruno Rocha, lập trình viên chuyển tiếp mù quáng kết quả từ AI cho người khác nên bị xử phạt và có thể bị sa thải trong trường hợp nghiêm trọng hơn. Tác giả nhấn mạnh điều này khác với quy trình dùng AI thông thường vốn luôn có con người định hướng và kiểm tra kết quả.",
+        "Tác giả cho biết hành vi chuyển tiếp này gây lãng phí thời gian và ép đồng nghiệp phải làm thay khi tự kiểm tra đầu ra từ tác tử AI (phần mềm AI tự hành). Hành vi này còn làm lãng phí nguồn lực công ty và gây hại cho sản phẩm trong khi người làm vẫn nhận lương.",
+        "Để minh chứng, tác giả dẫn chứng lần nhắn tin trực tiếp cho một người trên Slack và phát hiện đối phương chỉ sao chép câu hỏi vào AI rồi dán lại mà không khai báo.",
+        "Tác giả Bruno Rocha nhận định vấn nạn này đang ngày càng phổ biến và làm tổn hại ngành kỹ thuật phần mềm. Dù đồng nghiệp gợi ý dùng AI đáp trả, tác giả cho rằng cách này chỉ khiến mọi chuyện tồi tệ hơn và làm hỏng mã nguồn."
+      ],
+      "same_event_coverage_ids": [
+        "fe47a089b979a516177b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả Bruno Rocha: Lập trình viên phó mặc việc cho AI nên bị phạt và có thể bị sa thải nếu nghiêm trọng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://swiftrocks.com/being-a-meat-proxy-for-ai-should-be-grounds-for-getting-people-fired"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0a72b9f9f7d6009487dff77f34df2f5bf8babc2afe8ff6b74edc6234c1686bed",
+        "scored_at": "2026-11-09T11:24:06.286238+00:00"
+      }
+    },
+    {
+      "id": "7eb3dc46c9310cd1b3af",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/goke-gk6950-edge-ai-chip-embodied-robots-10-tops-vla",
+      "key_points": [
+        "Goke Microelectronics lên kế hoạch ra mắt dòng chip AI biên GK6950 cho robot vào năm tới. Kế hoạch do đại diện Ni Yayu công bố ngày 2 tháng 11 tại Chu Hải, dù chip chưa phát hành và chưa có thông tin về mẫu thử hay ngày ra mắt.",
+        "Điều này diễn ra trong bối cảnh ngân sách tính toán, bộ nhớ và năng lượng trên thiết bị rất eo hẹp.",
+        "Thiết kế của Goke dự kiến chạy mô hình ngôn ngữ với trọng số 4-bit, kích hoạt FP16 và bộ đệm INT8, kết hợp tái tạo không gian chuẩn FP16.",
+        "Chuyên trang pandaily nhận định sơ đồ độ chính xác và thuật toán SLAM chỉ là mục tiêu thiết kế cho đến khi phần cứng xuất xưởng. Mức tiêu thụ điện, tiến trình chip và hiệu năng trên bài kiểm chuẩn (bài kiểm tra hiệu năng chuẩn) đều chưa được công bố."
+      ],
+      "same_event_coverage_ids": [
+        "382aba32840d8b0f9f44"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Goke lên kế hoạch ra mắt dòng chip AI GK6950 đạt 10 TOPS cho robot hiện thân vào năm tới",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/goke-gk6950-edge-ai-chip-embodied-robots-10-tops-vla"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers do not learn the central workload the chip is designed to handle.",
+            "fix": "State that Goke intends to run an interactive large model and 3D spatial reconstruction simultaneously, using different precisions on the same NPU architecture (outlet:p003)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reference to SLAM gives readers no account of the planned algorithm.",
+            "fix": "Name GK-VGGT-SLAM and explain that it is intended to estimate pose and build a 3D map in real time from current and past video frames (outlet:p004)."
+          },
+          {
+            "question": "why",
+            "problem": "Tight device budgets alone do not explain the robot problem motivating the design.",
+            "fix": "Add that moving and manipulating robots need continuous pose, surroundings and target estimates, while spatial errors can undermine obstacle avoidance and manipulation (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5eb72642ec3cd8eee85c1e0cca89742f4a121186d275ed70edcd1f48e18a127f",
+        "scored_at": "2026-11-09T11:24:06.286258+00:00"
+      }
+    },
+    {
+      "id": "63840f00dedeb41ce033",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses broadly on emerging market equities and finding investment value outside the crowded trade; AI is only mentioned in passing as having driven market performance.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-09/the-emerging-markets-everyone-else-is-missing-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "820b81b89ea416f6b68a"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
