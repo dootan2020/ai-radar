@@ -259,5 +259,90 @@ class ScoringGateTests(unittest.TestCase):
         self.assertEqual(apply_decisions(once, decisions), once)
 
 
+# The 2026-11-09 Nvidia board / Jensen Huang event, with its real IDs. At 02:10Z it was story e685… (the NVIDIA
+# newsroom statement, then the smallest coverage URL) and the newsroom passed desk prose for it and for the two
+# stories it had absorbed. At 05:01Z a Hacker News item linking https://nvidianews.nvidia.com/news/a-message-to-our-company
+# joined the cluster; that URL sorts first, so the story became e020f… with e685… as an alias, and the site, which
+# looked decisions up by story ID only, dropped it.
+NVIDIA_STORY = "e020f35ba82bcce76a3e"
+NVIDIA_BOARD = "e68539633591cd5be6cb"       # NVIDIA newsroom statement, top
+NVIDIA_VERGE = "54c06e97d6e0a2b71c0f"       # The Verge, standard, tier capped
+NVIDIA_TECHCRUNCH = "3b069222ecbd3b59ba7f"  # TechCrunch, notable
+NVIDIA_ALIASES = ["28f71a6dea5ea175b9c7", NVIDIA_TECHCRUNCH, NVIDIA_VERGE, NVIDIA_BOARD, "f9d98c6ed1b45770980a"]
+BLOOMBERG_STATEMENTS = "8a86cf9d70b8065c8241"  # same event, a separate story the newsroom held
+
+
+def nvidia_payload():
+    payload = payload_with([NVIDIA_STORY, BLOOMBERG_STATEMENTS])
+    payload["stories"][0].update(url="https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors",
+                                 title="Statement From NVIDIA Board of Directors", aliases=list(NVIDIA_ALIASES),
+                                 importance_tier="top", importance_weight=90)
+    payload["stories"][1].update(url="https://www.bloomberg.com/news/articles/2026-11-08/read-the-statements",
+                                 aliases=["19af56563fcd9d85d737"])
+    return payload
+
+
+def nvidia_decisions():
+    return {"decisions": [
+        scored(desk_row(NVIDIA_VERGE)),
+        scored(desk_row(NVIDIA_TECHCRUNCH, importance_tier="notable")),
+        scored(desk_row(NVIDIA_BOARD, importance_tier="top")),
+        {**scored(desk_row(BLOOMBERG_STATEMENTS)), "decision": "hold"},
+    ]}
+
+
+class AbsorbedDecisionTests(unittest.TestCase):
+    def test_a_story_whose_id_changed_keeps_the_decision_of_the_story_it_absorbed(self):
+        decisions = nvidia_decisions()
+        with patch.dict("os.environ", {"RADAR_NEWSROOM_CAP_TIERS": "true"}):
+            result = apply_decisions(nvidia_payload(), decisions)
+        self.assertEqual([story["id"] for story in result["stories"]], [NVIDIA_STORY])
+        story = result["stories"][0]
+        board = decisions["decisions"][2]
+        # The decision for the story's own lead URL (the board statement) is taken first.
+        self.assertEqual(story["editorial_headline_vi"], board["editorial_headline_vi"])
+        self.assertEqual(story["key_points"], board["key_points"])
+        self.assertEqual((story["importance_tier"], story["importance_weight"]), ("top", 90))
+        self.assertEqual(result["sections"], {"today": [NVIDIA_STORY], "hot": [NVIDIA_STORY]})
+        self.assertEqual(apply_decisions(result, decisions), result)
+
+    def test_without_the_lead_decision_the_strongest_absorbed_tier_is_used(self):
+        decisions = {"decisions": [row for row in nvidia_decisions()["decisions"] if row["id"] != NVIDIA_BOARD]}
+        story = apply_decisions(nvidia_payload(), decisions)["stories"][0]
+        self.assertEqual(story["editorial_headline_vi"], f"Tiêu đề biên tập của tin {NVIDIA_TECHCRUNCH}")
+
+    def test_the_story_own_decision_wins_even_when_it_holds(self):
+        decisions = nvidia_decisions()
+        decisions["decisions"].append({**scored(desk_row(NVIDIA_STORY)), "decision": "hold"})
+        self.assertEqual(apply_decisions(nvidia_payload(), decisions)["stories"], [])
+
+    def test_a_decision_is_shown_once(self):
+        payload = nvidia_payload()
+        # A second card that also lists the board statement as an alias does not show its prose a second time.
+        payload["stories"].append({**deepcopy(payload["stories"][0]), "id": "0000000000000000aaaa",
+                                   "aliases": [NVIDIA_BOARD]})
+        # An alias that is another visible story's own ID stays with that story.
+        payload["stories"].append({**deepcopy(payload["stories"][0]), "id": NVIDIA_VERGE, "aliases": []})
+        shown = {story["id"]: story["editorial_headline_vi"]
+                 for story in apply_decisions(payload, nvidia_decisions())["stories"]}
+        self.assertEqual(shown, {NVIDIA_STORY: f"Tiêu đề biên tập của tin {NVIDIA_BOARD}",
+                                 NVIDIA_VERGE: f"Tiêu đề biên tập của tin {NVIDIA_VERGE}"})
+
+    def test_the_story_page_follows_the_absorbed_decision_and_the_old_id_redirects(self):
+        payload = nvidia_payload()
+        archived = {NVIDIA_STORY: payload["stories"][0],
+                    NVIDIA_BOARD: {**deepcopy(payload["stories"][0]), "id": NVIDIA_BOARD, "aliases": [],
+                                   "redirect_to": NVIDIA_STORY}}
+        with tempfile.TemporaryDirectory() as directory:
+            site = Path(directory) / "site"
+            story_pages.render_site(archived, site, decisions=nvidia_decisions())
+            kinds = story_page_kinds(site)
+            self.assertEqual(kinds[NVIDIA_STORY], "story")
+            self.assertNotIn(NVIDIA_BOARD, kinds)
+            self.assertIn(NVIDIA_STORY, kinds["redirects"])
+            page = (site / "tin" / NVIDIA_STORY / "index.html").read_text(encoding="utf-8")
+            self.assertIn(nvidia_decisions()["decisions"][2]["key_points"][0], page)
+
+
 if __name__ == "__main__":
     unittest.main()

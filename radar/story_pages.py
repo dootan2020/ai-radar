@@ -16,7 +16,8 @@ from radar.catalog import is_retired
 from radar.clustering import canonical_url
 from radar.common import stable_id
 from radar.items import publisher_identity
-from radar.newsroom_decisions import DESK_PROMPT_VERSIONS, DESK_SUMMARY_SOURCE, desk_summary, load_decisions
+from radar.newsroom_decisions import (DESK_PROMPT_VERSIONS, DESK_SUMMARY_SOURCE, desk_summary, load_decisions,
+                                      story_decisions)
 from radar.site_config import SITE_BASE_URL
 
 BASE_URL = SITE_BASE_URL
@@ -381,11 +382,13 @@ def gated_stories(stories, decisions):
     """The archived stories a reader may open, by ID: the same scoring gate as the site snapshot.
 
     A story page exists only for a decision whose desk prose the scoring desk passed
-    (radar.newsroom_decisions.desk_summary), and it shows exactly that prose, whatever text the archive kept. A
+    (radar.newsroom_decisions.desk_summary), and it shows exactly that prose, whatever text the archive kept. The
+    decision is the story's own or one of an absorbed alias, as on the site (radar.newsroom_decisions.story_decisions). A
     redirect stays only when its chain ends at such a page. No decisions (None) means no page at all. The archive
     itself is untouched: a story that passes later gets its page back.
     """
-    rows = {row["id"]: row for row in decisions["decisions"]} if decisions is not None else {}
+    live = {story_id: story for story_id, story in stories.items() if not story.get("redirect_to")}
+    rows = story_decisions([{**story, "id": story_id} for story_id, story in live.items()], decisions)
     shown = {}
     for story_id, story in stories.items():
         written = None if story.get("redirect_to") else desk_summary(rows.get(story_id))
