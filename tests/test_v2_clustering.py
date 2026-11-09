@@ -5,6 +5,8 @@ import unittest
 from pathlib import Path
 
 from radar.clustering import _repository_address, canonical_url, cluster_items, merge_repeated_events, titles_match
+from radar.summary_pipeline import collect_inputs
+from radar.summary_sources import fit_inputs
 if __package__:
     from .test_v2_support import NOW, coverage
 else:
@@ -39,6 +41,53 @@ class CanonicalUrlTests(unittest.TestCase):
 
 
 class ClusterTests(unittest.TestCase):
+    def test_nvidia_board_affair_and_spying_reports_form_one_checked_story(self):
+        # Captured 2026-11-09 radar cycle: six observations, including an HN link to the board URL.
+        rows = [
+            ("nvidia-newsroom", "nvidia", "lab", "Statement from NVIDIA Board of Directors",
+             "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors", "2026-11-08T20:00:00Z",
+             "The NVIDIA Board is initiating an independent investigation in light of recent reporting that founder and CEO Jensen Huang has been the target of a foreign intelligence effort."),
+            ("bloomberg-tech", "bloomberg", "press", "Nvidia Board to Probe Spying Case After CEO Jensen Huang Admits Infidelity",
+             "https://www.bloomberg.com/news/articles/2026-11-08/nvidia-board-to-probe-spying-case-after-ceo-jensen-huang-admits-infidelity", "2026-11-08T20:00:02Z",
+             "In a 257-word memo to employees, Nvidia Corp. Chief Executive Officer Jensen Huang left no doubt that the chip colossus was embroiled in a crisis like none before in its three-decade history."),
+            ("hn-front", "hacker-news", "forum", "Nvidia Board of Directors Is Investigating Jensen Huang",
+             "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors", "2026-11-08T20:26:43Z", ""),
+            ("verge-ai", "the-verge", "press", "Nvidia is investigating Jensen Huang’s relationship with a Chinese spy",
+             "https://www.theverge.com/ai-artificial-intelligence/1029562/nvidia-investigating-jensen-huang-relationship-chinese-spy", "2026-11-08T20:22:39Z",
+             "Nvidia has announced that it is opening an investigation into CEO Jensen Huang and his relationship with Megaspeed executive Alice Huang, who was reportedly recruited by China's Ministry of State Security to spy on the company."),
+            ("techcrunch-ai", "techcrunch", "press", "Megaspeed exec was recruited to spy on Nvidia CEO, according to US intelligence memo",
+             "https://techcrunch.com/2026/11/07/chinese-exec-was-recruited-to-spy-on-nvidia-ceo-according-to-us-intelligence-memo/", "2026-11-07T21:17:08Z",
+             "A memo circulated earlier this year reportedly claimed that China’s Ministry of State Security recruited a female technology executive to spy on Nvidia's CEO."),
+            ("semafor", "semafor", "press", "Nvidia CEO Jensen Huang admits to affair with suspected Chinese spy",
+             "https://www.semafor.com/article/11/08/2026/nvidia-ceo-jensen-huang-admits-to-affair-with-suspected-chinese-spy", "2026-11-08T21:03:56Z",
+             "The company said it initiated an independent investigation into the relationship."),
+        ]
+        items = [coverage(source, url, publisher=publisher, group=group, title=title,
+                          published_at=published, summary=summary)
+                 for source, publisher, group, title, url, published, summary in rows]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(len(stories[0]["coverage"]), 6)
+        self.assertEqual(stories[0]["source_count"], 6)
+        self.assertEqual(stories[0]["title"], "Statement from NVIDIA Board of Directors")
+        source = collect_inputs(stories[0], rows[0][6] * 4, [], {}, fetch_primary=False)
+        writer_input = fit_inputs(source, 12000)
+        self.assertIsNotNone(writer_input)
+        paragraphs = [p["text"] for record in writer_input["sources"] for p in record["paragraphs"]]
+        self.assertTrue(any("Jensen Huang Admits Infidelity" in p for p in paragraphs))
+        self.assertFalse(any("apolog" in p.casefold() for p in paragraphs))
+        fresh = cluster_items(items[:4], NOW)[0]
+        carried = cluster_items(items[4:], NOW)[0]
+        carried["carried"] = True
+        self.assertEqual(len(merge_repeated_events([fresh, carried])), 1)
+
+    def test_other_nvidia_ceo_news_does_not_join_spying_incident(self):
+        spying = coverage("press-a", "https://press.example/spy", publisher="press-a",
+                           title="Nvidia CEO Jensen Huang targeted by foreign intelligence effort")
+        unrelated = coverage("press-b", "https://press.example/chips", publisher="press-b",
+                             title="Nvidia CEO announces new AI chips")
+        self.assertEqual(len(cluster_items([spying, unrelated], NOW)), 2)
+
     def test_cross_platform_person_sources_count_once(self):
         for sources, expected in (
             (["simon-willison", "bluesky-simonwillison", "x-simonw"], 1),

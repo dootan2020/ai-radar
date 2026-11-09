@@ -604,9 +604,11 @@ def collect_inputs(story, article_text, links, robots_cache, *, fetch_primary=Tr
         if not target or target in seen or not text or text in article_text:
             continue
         seen.add(target)
+        title = str(coverage.get("title") or "").strip()
         sources.append(source_record(f"coverage{sum(s['role'] == 'coverage' for s in sources) + 1}",
-                                     "coverage", target, str(coverage.get("title") or ""),
-                                     str(coverage.get("publisher") or ""), text, excerpt=True))
+                                     "coverage", target, title,
+                                     str(coverage.get("publisher") or ""),
+                                     title + "\n" + text if title else text, excerpt=True))
         if sum(s["role"] == "coverage" for s in sources) == 2:
             break
     return {"id": str(story.get("id") or ""), "sources": sources, "missing_primary": missing_primary,
