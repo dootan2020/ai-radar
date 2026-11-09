@@ -8,12 +8,14 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 from tests.site_gate import close_gate as tearDownModule, open_gate as setUpModule  # noqa: F401
 
 from radar.story_pages import (
     BASE_URL, CONTENT_SECURITY_POLICY, REF, SITE_NAME, persist, prepare,
     render_site, render_story_page,
 )
+from radar import story_pages
 
 
 class PageParser(HTMLParser):
@@ -331,6 +333,25 @@ class StoryPageHistoryTests(unittest.TestCase):
     def write_snapshot(self, path, stories):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps({"stories": stories}, ensure_ascii=False), encoding="utf-8")
+
+    def test_prepare_adds_gated_history_to_deployed_search_index(self):
+        from tests.test_newsroom_decisions import desk_row, scored
+
+        decisions = {"decisions": [scored(desk_row("old")), scored(desk_row("current"))]}
+        first_input = self.root / "first-site/data/radar.json"
+        self.write_snapshot(first_input, [story("old", published_at="2026-10-01T12:00:00Z")])
+        with patch.object(story_pages, "load_decisions", return_value=decisions):
+            prepare(str(self.remote), first_input, self.root / "first-site", self.root / "first-candidate")
+        self.assertTrue(persist(str(self.remote), self.root / "first-candidate"))
+
+        second_input = self.root / "second-site/data/radar.json"
+        self.write_snapshot(second_input, [story("current", published_at="2026-11-09T12:00:00Z")])
+        with patch.object(story_pages, "load_decisions", return_value=decisions):
+            prepare(str(self.remote), second_input, self.root / "second-site", self.root / "second-candidate")
+        index = json.loads((second_input.parent / "radar-search.json").read_text(encoding="utf-8"))
+        self.assertEqual([row["id"] for row in index["stories"]], ["current", "old"])
+        self.assertEqual(index["story_count"], 2)
+        self.assertTrue((self.root / "second-site/tin/old/index.html").is_file())
 
     def test_history_survives_snapshot_expiry_and_stale_candidates_cannot_overwrite(self):
         input_one = self.root / "first.json"

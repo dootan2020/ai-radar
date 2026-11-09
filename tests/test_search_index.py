@@ -30,6 +30,7 @@ if str(TESTS_DIR) not in sys.path:
 import build
 from radar import search_index, site_payload
 from radar.headlines import annotate_headlines
+from radar.newsroom_decisions import desk_summary
 from test_publication import snapshot
 
 FIXTURES = TESTS_DIR / "fixtures"
@@ -88,6 +89,39 @@ def sample_vietnamese_stories():
 
 
 class SearchIndexTests(unittest.TestCase):
+    def test_archived_search_indexes_publish_decisions_without_aliases_or_duplicates(self):
+        from tests.test_newsroom_decisions import desk_row, reader_fixture, scored
+
+        current = {**reader_fixture()["stories"][0], "id": "current",
+                   "published_at": "2026-11-09T12:00:00Z"}
+        old = {**deepcopy(current), "id": "old", "published_at": "2026-10-01T12:00:00Z",
+               "title": "Older archived story", "url": "https://example.org/old"}
+        invalid_prose = {**deepcopy(old), "id": "invalid-prose", "published_at": "2026-10-02T12:00:00Z"}
+        held = {**deepcopy(old), "id": "held"}
+        undecided = {**deepcopy(old), "id": "undecided"}
+        absorbed = {**deepcopy(old), "id": "absorbed", "aliases": ["former-id"],
+                    "published_at": "2026-09-30T12:00:00Z"}
+        alias = {"id": "alias", "redirect_to": "old"}
+        invalid_prose_decision = scored(desk_row("invalid-prose", key_points=["Một đoạn duy nhất."]))
+        self.assertIsNone(desk_summary(invalid_prose_decision))
+        decisions = {"decisions": [scored(desk_row("current")), scored(desk_row("old")),
+                                  invalid_prose_decision, scored(desk_row("held", decision="hold")),
+                                  scored(desk_row("former-id"))]}
+        index = search_index.search_payload(
+            {"stories": [current], "generated_at": "2026-11-09T12:00:00Z"},
+            {story["id"]: story for story in (current, old, invalid_prose, held, undecided,
+                                              absorbed, alias)}, decisions)
+
+        self.assertEqual([row["id"] for row in index["stories"]],
+                         ["current", "invalid-prose", "old", "absorbed"])
+        self.assertEqual(index["story_count"], 4)
+        self.assertEqual(index["stories"][1], search_index.search_story_row(invalid_prose))
+        self.assertNotIn("editorial_headline_vi", index["stories"][1])
+        self.assertEqual(index["stories"][2], search_index.search_story_row(
+            {**old, **desk_summary(decisions["decisions"][1])}))
+        self.assertEqual(index["stories"][3], search_index.search_story_row(
+            {**absorbed, **desk_summary(decisions["decisions"][4])}))
+
     def test_headlines_preserve_full_title_search_and_input(self):
         story = sample_vietnamese_stories()[0]
         story["title"] += ": " + "Detailed research findings " * 8 + "unique appendix"
