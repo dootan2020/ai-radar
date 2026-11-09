@@ -46,7 +46,8 @@ class NewItemsNoticeTests(unittest.TestCase):
         self.assertNotIn("Cập nhật lúc", self.js)
         mobile = self.css.split("@media (max-width: 767px)", 1)[1]
         self.assertNotIn("order: 6", mobile)
-        self.assertIn('id="src-update"', self.html)
+        self.assertNotIn('<footer', self.html)
+        self.assertNotIn('id="keys-open"', self.html)
         nguon_html = (SITE / "nguon.html").read_text(encoding="utf-8")
         self.assertIn('id="src-update"', nguon_html)
         self.assertIn('id="nguon"', nguon_html)

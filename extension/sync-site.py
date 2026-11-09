@@ -156,7 +156,6 @@ def adapt_feed(feed):
                         'const targetUrl = `#tin/${encodeURIComponent(id)}`;')
     feed = replace_once(feed, "const u = location.origin + (location.pathname.replace(/\\/tin\\/[^/]+\\/?$/, '/') || '/') + 'tin/' + encodeURIComponent(currentModalStoryId) + '/';",
                         f"const u = '{LIVE}tin/' + encodeURIComponent(currentModalStoryId) + '/';")
-    feed = replace_once(feed, 'href="nguon.html"', f'href="{LIVE}nguon.html"')
     feed = replace_once(feed, "const EDITION_URL = 'ban-tin.html';", f"const EDITION_URL = '{LIVE}ban-tin.html';")
     feed = replace_once(feed, "location.replace('nguon.html')", f"location.replace('{LIVE}nguon.html')")
     feed = replace_once(feed, "fetchJSON(PICKS_URL, { cache: 'no-cache' })",

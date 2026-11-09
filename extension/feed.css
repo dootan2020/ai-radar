@@ -719,16 +719,6 @@ ul, ol { padding: 0; list-style: none; }
 .feed-end h2 { font-size: var(--text-feature); letter-spacing: var(--tracking-display); }
 .feed-end p { color: var(--color-ink-2); max-width: 60ch; }
 .end-actions { display: flex; flex-wrap: wrap; gap: var(--space-12); justify-content: center; margin-top: var(--space-12); }
-.feed-footer {
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
-  gap: var(--space-12); margin-top: var(--space-48); padding: var(--space-16) 0;
-  border-top: 1px solid var(--color-hair); font-size: var(--text-small); color: var(--color-ink-2);
-}
-.feed-footer .src-note { margin: 0; }
-.feed-footer a.src-link {
-  color: var(--color-ink); text-decoration: underline; text-underline-offset: 3px; font-weight: var(--weight-medium);
-}
-.feed-footer a.src-link:hover { color: var(--color-accent); }
 
 
 /* ---------- skeleton: flat blocks ---------- */

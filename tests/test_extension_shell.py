@@ -83,8 +83,8 @@ class ExtensionShellTests(unittest.TestCase):
         self.assertNotIn('the-lich.css', html)
         self.assertIn(f'href="{LIVE}ban-tin.html"', html)
         self.assertNotIn('tra-cuu', html)
-        for link in ('tin/', 'nguon.html'):
-            self.assertIn(f'href="{LIVE}{link}', feed)
+        self.assertIn(f'href="{LIVE}tin/', feed)
+        self.assertNotIn('href="nguon.html"', feed)
         self.assertIn(f"const storyHref = st => `{LIVE}tin/", feed)
         self.assertIn(f"const EDITION_URL = '{LIVE}ban-tin.html';", feed)
         self.assertIn("if (newsSearch) newsSearch.open();", feed)
@@ -325,7 +325,7 @@ process.stdout.write(JSON.stringify(created));
                         '<div class="news-search" id="news-search">', '<div class="head-actions">'):
             with self.subTest(missing=missing), self.assertRaises(ValueError):
                 sync.adapt_html(html.replace(missing, 'changed', 1))
-        for missing in ('href="tin/', 'href="nguon.html"', "location.replace('nguon.html')", 'const storyHref = st => `tin/',
+        for missing in ('href="tin/', "location.replace('nguon.html')", 'const storyHref = st => `tin/',
                         "const EDITION_URL = 'ban-tin.html';",
                         "import { createNewsSearch } from './tim-tin.js';"):
             with self.subTest(missing=missing), self.assertRaises(ValueError):

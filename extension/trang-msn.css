@@ -481,9 +481,7 @@
 }
 .ghost:hover { background: var(--color-field-on); }
 .ghost:active { transform: scale(0.97); }
-.msn-panel .feed-footer { margin-top: var(--space-24); }
 .msn-panel .feed-empty { margin-top: var(--space-24); }
-.msn-panel .src-link { display: inline-flex; align-items: center; min-height: var(--btn-h); }
 .msn-grid .seg-b { min-height: var(--btn-h); }
 
 /* ---------- widths ---------- */

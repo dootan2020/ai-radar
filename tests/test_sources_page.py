@@ -33,12 +33,12 @@ class SourcesPageTestCase(unittest.TestCase):
                         "Điểm đáng đọc", "Dữ liệu tạo lúc", "Lượt xem"):
             self.assertNotIn(removed, self.nguon_js)
 
-    def test_home_footer_links_the_sources_without_a_count(self):
+    def test_home_has_no_footer_and_keeps_the_snapshot_time_off_screen(self):
         self.assertIn("function renderSources()", self.feed_js)
         part = self.feed_js.split("function renderSources()")[1].split("function ")[0]
-        self.assertIn('href="nguon.html"', part)
-        self.assertNotIn("asArray(D.sources).length", part)
-        self.assertNotIn("Cập nhật lúc", part)
+        self.assertNotIn('nguon.html', part)
+        self.assertNotIn('innerHTML', part)
+        self.assertIn('dataset.generated', part)
 
     def test_css_rows_are_touch_targets(self):
         match = re.search(r"\.src-list li\s*\{([^}]+)\}", self.feed_css)
