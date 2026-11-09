@@ -1,5 +1,5 @@
 /* The new tab's top zone above the Halcyon panel (captain, 07/11 18:03; mockup D chosen 18:26; Mẫu A 08/11 18:23):
-   1. the Google services, with every Google app behind the 9 dots at the top right;
+   1. the 9 dots at the top right, with every Google app behind them;
    2. the Google search ("Tìm trên Google", a filled field with no border and no shadow), which plays the part of MSN's
       search bar above the panel.
    The panel below is the website home's (trang-msn.css): the logo, the sections, the news search, the morning edition,
@@ -13,39 +13,19 @@
   :root { --nav-h: calc(var(--btn-h) + var(--space-8)); --field-h: calc(var(--btn-h) + var(--space-4)); }
 }
 
-/* ---------- 1. Google row: one quiet cluster of icons with the 9 dots, at the top right ---------- */
-/* Round 5 (captain, 07/11 22:41: "thu gọn mấy cái truy cập nhanh đi, a thấy giao diện nó rối"): the seven labelled chips
-   on the left read as a second menu bar with its own alignment. Now the shortcuts are icons only at every width (named
-   by aria-label and title), 20 px glyphs in 44 px targets with nothing drawn at rest, grouped with the 9 dots at the
-   top right, so the top left is empty and the search is read first. The row is the 44 px targets plus a small top
-   inset; the search row follows without its own margin. Hover draws a tinted disc inset inside the target (smaller
-   than the target, so it never touches the search field below it at 1440). */
-.top { background: var(--color-canvas); padding-bottom: var(--space-12); }
-.g-row { display: flex; align-items: center; justify-content: flex-end; gap: 0; min-height: var(--btn-h); padding-top: var(--space-6); }
-.services { display: flex; align-items: center; gap: 0; margin: 0; padding: 0; list-style: none; }
-.svc, .g-row .tool-launcher-button {
-  position: relative; isolation: isolate; display: grid; place-items: center; width: var(--btn-h); height: var(--btn-h);
-  border-radius: var(--radius-full); color: var(--color-ink-2); background: transparent;
-  transition: transform var(--duration-150) var(--ease-press);
+/* ---------- 1. Top row: the Google search with the 9 dots, on the website's own grid ---------- */
+/* Owner, 09/11 17:24 ("độ rộng nội dung vượt quá nút 9 dấu chấm"; "có nên hiển thị truy cập nhanh các dịch vụ google bên cạnh 9 dấu chấm
+   không?"): the seven shortcut icons are gone (the 9 dots open the same services), and the search and the 9 dots sit in the
+   website's .msn-top-in grid (trang-msn.css), so the row and the panel below it share the same left and right edges at every
+   width. The search column keeps the width it had (--top-max); the 9 dots sit at the row's right end, over the panel's. */
+@media (min-width: 768px) {
+  .msn-top-in { grid-template-columns: minmax(0, 1fr) minmax(0, var(--top-max)) minmax(var(--btn-h), 1fr); }
 }
-.svc::before, .g-row .tool-launcher-button::before {
-  content: ""; position: absolute; z-index: -1; inset: var(--space-4); border-radius: var(--radius-full);
-  background: transparent; transition: background-color var(--duration-150) ease;
+.msn-top .web-search { grid-column: 2; width: 100%; }
+@media (max-width: 767px) {
+  .msn-top .web-search { grid-column: 1; }
 }
-.g-row .tool-launcher-button:hover, .g-row .tool-launcher-button[aria-expanded="true"] { background: transparent; }
-@media (hover: hover) and (pointer: fine) {
-  .svc:hover::before, .g-row .tool-launcher-button:hover::before { background: var(--color-fill); }
-  .g-row .tool-launcher-button:hover { color: var(--color-ink); }
-}
-.g-row .tool-launcher-button[aria-expanded="true"]::before { background: var(--color-fill); }
-.svc:active, .g-row .tool-launcher-button:active { transform: scale(0.96); }
-.svc-icon { display: grid; place-items: center; width: 20px; height: 20px; flex: none; }
-.svc-icon img { width: 20px; height: 20px; }
-.svc-letter { display: grid; place-items: center; width: 20px; height: 20px; border-radius: var(--radius-8); background: var(--color-fill); font-size: var(--size-12); font-weight: var(--weight-bold); color: var(--color-ink-2); }
-.g-row .tool-launcher { margin-inline-start: 0; }
-
 /* ---------- 2. Search row: the Google search ---------- */
-.hero { max-width: calc(var(--top-max) + 2 * var(--page-pad)); margin: 0 auto; }
 .web-search { margin: 0; }
 /* Fix 2 (18:26, "dưới thanh tìm kiếm có đổ bóng, khiến cho giao diện có vết cắt"): no shadow, at rest and in focus. No border
    either (captain, 08/11 21:08: "Có viền màu bao quanh ... thanh tìm kiếm ... Loại bỏ nó"): the field reads by its fill,
@@ -70,18 +50,13 @@
 .go-btn .i { stroke-width: 2.25; }
 
 /* the panel starts close under the search */
-.top + .msn-panel, .msn-panel { margin-top: var(--space-4); }
+.msn-panel { margin-top: var(--space-4); }
 
 /* ---------- widths ---------- */
 @media (max-width: 767px) {
   .web-field { padding-inline-start: var(--space-16); }
 }
-/* Seven icons and the 9 dots need 352 px; below 384 px (343 px of room at 375) the last shortcut, Gemini, leaves the
-   row: it stays one tap away in the 9-dot panel, and the row stays one aligned cluster with no scrolling or fade. */
-@media (max-width: 383px) {
-  .services li:nth-child(n+7) { display: none; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .web-field, .go-btn, .svc, .svc::before, .g-row .tool-launcher-button, .g-row .tool-launcher-button::before { transition: none; }
-  .go-btn:active, .svc:active, .g-row .tool-launcher-button:active { transform: none; }
+  .web-field, .go-btn { transition: none; }
+  .go-btn:active { transform: none; }
 }

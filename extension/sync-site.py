@@ -63,9 +63,9 @@ def adapt_html(html):
     html = replace_pattern_once(html, r'<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>\n', '')
     html = replace_once(html, '<script type="module" src="feed.js"></script>',
                         '<script type="module" src="feed.js"></script>\n<script type="module" src="newtab.js"></script>\n'
-                        '<script type="module" src="vung-dau.js"></script>\n<link rel="stylesheet" href="newtab.css">')
+                        '<link rel="stylesheet" href="newtab.css">')
     # The new tab's rows above the panel (captain, 07/11 18:03, mockup D chosen 18:26; Mẫu A 08/11 18:23): the Google
-    # services with the 9 dots, then the Google search, in place of the site's top row. The site's news search moves
+    # search with the 9 dots, in place of the site's top row. The site's news search moves
     # into the panel head beside the morning edition; the brand and the edition point at the live site.
     top = re.search(r'<!-- The top row \(Mẫu A.*?</header>\n', html, re.S)
     if not top:
@@ -83,16 +83,13 @@ def adapt_html(html):
 
 
 # The extension's own top rows (captain, 07/11 18:03 and 18:26): they replace the site's top row (adapt_html);
-# vung-dau.js and newtab.js fill and drive them.
-TOP_ZONE = '''<!-- Rows 1 and 2 (mockup D; row 1 compacted 07/11 22:41): the Google shortcuts as one cluster of icons with every Google
-     app behind the 9 dots, at the top right, then the Google search, MSN's search bar above the Halcyon panel (Mẫu A,
-     08/11). The weather and the calendar are cards in the panel's first row (thoi-tiet.js, the-lich.js). -->
-<header class="masthead top" id="masthead">
-  <div class="wrap g-row">
-    <ul class="services" id="services" aria-label="Dịch vụ Google"></ul>
-    <div class="tool-launcher"></div>
-  </div>
-  <div class="wrap hero" id="top-zone">
+# newtab.js drives the search.
+TOP_ZONE = '''<!-- The top row (owner, 09/11): the Google search with the 9 dots at its right, on the website's own top-row grid
+     (.msn-top-in), so the row and the panel below it share their left and right edges. The seven Google shortcut icons
+     are gone: the 9 dots open the same services. The weather and the calendar are cards in the panel's first row
+     (thoi-tiet.js, the-lich.js). -->
+<header class="masthead msn-top" id="masthead">
+  <div class="msn-top-in">
     <form id="web-search" class="web-search" role="search" aria-label="Tìm trên Google" action="https://www.google.com/search">
       <label class="web-field">
         <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
@@ -101,9 +98,9 @@ TOP_ZONE = '''<!-- Rows 1 and 2 (mockup D; row 1 compacted 07/11 22:41): the Goo
         <button class="go-btn" type="submit" aria-label="Tìm trên Google"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       </label>
     </form>
+    <div class="masthead-actions"><div class="tool-launcher"></div></div>
   </div>
 </header>
-
 '''
 
 

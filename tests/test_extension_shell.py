@@ -87,7 +87,7 @@ class ExtensionShellTests(unittest.TestCase):
         self.assertLess(html.index('id="masthead"'), html.index('id="web-search"'))
         self.assertLess(html.index('id="web-search"'), html.index('id="bar"'))
         self.assertLess(html.index('id="web-search"'), html.index('id="feed-grid"'))
-        for part in ('id="services"', 'src="vung-dau.js"', 'href="trang-msn.css"', 'id="news-search"'):
+        for part in ('href="trang-msn.css"', 'id="news-search"'):
             self.assertIn(part, html)
         self.assertNotIn('the-lich.css', html)
         self.assertIn(f'href="{LIVE}ban-tin.html"', html)

@@ -106,31 +106,45 @@ class TopZoneTests(unittest.TestCase):
         self.assertEqual(manifest.get("host_permissions", []), ["https://radar-ai-vn.pages.dev/*"])
         self.assertNotIn("optional_permissions", manifest)
 
-    def test_services_name_each_google_service(self):
-        source = (EXT / "vung-dau.js").read_text(encoding="utf-8")
-        for name in ("Gmail", "YouTube", "Drive", "Maps", "Lịch", "Dịch", "Gemini"):
-            self.assertIn(f"['{name}', 'https://", source)
-        # Row 1 is icons only at every width (captain, 07/11 22:41): no visible label; the name is read from
-        # aria-label and shown as the title tooltip.
-        self.assertIn('class="svc" href="${url}" title="${name}" aria-label="${name}"', source)
-        self.assertNotIn('svc-name', source)
+    def test_google_shortcut_icons_are_gone_and_the_nine_dots_remain(self):
+        # Owner, 09/11 17:24 ("có nên hiển thị truy cập nhanh các dịch vụ google bên cạnh 9 dấu chấm không?"): the seven
+        # shortcut icons are removed; the 9 dots open the same services.
+        html = (EXT / "newtab.html").read_text(encoding="utf-8")
+        self.assertFalse((EXT / "vung-dau.js").exists())
+        for part in ('id="services"', 'class="svc"', 'vung-dau.js', 'g-row'):
+            self.assertNotIn(part, html)
+        self.assertEqual(html.count('class="tool-launcher"'), 1)
+        css = (EXT / "newtab.css").read_text(encoding="utf-8")
+        for part in ('.svc', '.services', '.g-row'):
+            self.assertNotIn(part, css)
+
+    def test_top_row_and_panel_share_their_edges(self):
+        # Owner, 09/11 17:24 ("độ rộng nội dung vượt quá nút 9 dấu chấm"): the search and the 9 dots sit in the website's
+        # own .msn-top-in grid, which draws its edges from the same --msn-page-pad as the panel's margin.
+        html = (EXT / "newtab.html").read_text(encoding="utf-8")
+        head = html[html.index('id="masthead"'):html.index('</header>')]
+        self.assertIn('class="masthead msn-top"', html)
+        self.assertIn('class="msn-top-in"', head)
+        self.assertLess(head.index('id="web-search"'), head.index('class="tool-launcher"'))
+        self.assertNotIn('class="wrap', head)
+        css = (EXT / "newtab.css").read_text(encoding="utf-8")
+        self.assertNotIn('page-pad', css)
 
     def test_weather_and_calendar_are_front_page_cards_on_both(self):
         # Mẫu A (captain, 08/11 18:23): the weather and the lunar calendar sit in the first row of the front page on the
-        # website and the new tab alike; feed.js builds them, the extension only adds its Google rows (vung-dau.js).
+        # website and the new tab alike; feed.js builds them, the extension only adds its Google search row.
         html = (EXT / "newtab.html").read_text(encoding="utf-8")
         site = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
         feed = (ROOT / "site" / "feed.js").read_text(encoding="utf-8")
-        self.assertIn('src="vung-dau.js"', html)
         self.assertIn("import { createWeatherCard } from './thoi-tiet.js';", feed)
         self.assertIn("import { createCalendarCard } from './the-lich.js';", feed)
         self.assertIn("card.id = 'weather';", (ROOT / "site" / "thoi-tiet.js").read_text(encoding="utf-8"))
-        self.assertNotIn("the-lich", (EXT / "vung-dau.js").read_text(encoding="utf-8"))
+        self.assertNotIn("the-lich", (EXT / "newtab.js").read_text(encoding="utf-8"))
         for page in (html, site):
             self.assertIn('href="trang-msn.css"', page)
         # The site reads the forecast from the reader's browser: its policy allows that one host.
         self.assertIn("https://api.open-meteo.com", site)
-        for part in ('vung-dau.js', 'id="web-search"', 'id="services"'):
+        for part in ('id="web-search"', 'id="services"'):
             self.assertNotIn(part, site)
 
     def test_weather_and_calendar_keep_one_place_on_every_section(self):
@@ -203,7 +217,7 @@ class TopZoneTests(unittest.TestCase):
         html = (EXT / "newtab.html").read_text(encoding="utf-8")
         site = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
         head = html[html.index('id="masthead"'):html.index('</header>')]
-        order = ['id="services"', 'class="tool-launcher"', 'id="web-search"']
+        order = ['id="web-search"', 'class="tool-launcher"']
         self.assertEqual([head.index(p) for p in order], sorted(head.index(p) for p in order))
         self.assertNotIn('id="news-search"', head)
         bar = html[html.index('id="bar"'):html.index('</nav>', html.index('id="bar"'))]
@@ -228,8 +242,7 @@ class TopZoneTests(unittest.TestCase):
         self.assertIn('border: 0', field.split('}')[0])
         self.assertIn('.web-field:hover, .web-field:focus-within { background: var(--color-field-on); box-shadow: none; }', field)
         self.assertNotIn('outline', field)
-        source = (EXT / "vung-dau.js").read_text(encoding="utf-8")
-        self.assertNotIn('day-date', source)
+        self.assertNotIn('day-date', (EXT / "newtab.js").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

@@ -60,11 +60,7 @@ class GoogleAppsLauncherTests(unittest.TestCase):
             with self.subTest(logo=svg):
                 self.assertTrue((logos / f"{svg}.svg").read_text(encoding="utf-8").startswith('<svg xmlns="http://www.w3.org/2000/svg" viewBox='))
         self.assertIn("CC0", (logos / "LICENSE.txt").read_text(encoding="utf-8"))
-        services = (ROOT / "extension" / "vung-dau.js").read_text(encoding="utf-8")
-        self.assertNotIn("s2/favicons", services)
-        for svg in ("youtube", "maps", "gemini"):
-            self.assertIn(f"'google-apps/{svg}.svg'", services)
-        self.assertIn("translate_96dp.png", services)
+
 
     def test_phone_navigation_is_a_floating_dock(self):
         # Captain, 08/11: "Menu ở chuyển thành appdock nổi như các dock hiện đại". The dock clears the screen edges and
