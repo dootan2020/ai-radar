@@ -24,7 +24,7 @@ Mục tiêu: Bạn đọc có thêm cách nhận bản tin và video; thuyền t
 
 - [ ] Bạn đọc xem video tóm tắt trên YouTube Shorts hoặc TikTok từ kịch bản đã kiểm duyệt — chưa có đường render và đăng video từ `video-script.json`
 - [ ] Bạn đọc nhận tin qua Telegram và feed RSS đầu ra — chưa có bot Telegram và feed RSS riêng cho tin đã lọc
-- [ ] Bạn đọc tra cứu được tin cũ ngoài cửa sổ lưu giữ hiện tại — trang tra cứu dùng `data/radar-search.json` (`site/tra-cuu.js:133`), chỉ lập chỉ mục các câu chuyện còn được lưu (`radar/search_index.py:111`, `radar/retention.py:9`); chưa có kho tìm kiếm đầy đủ cho tin cũ hơn
+- [x] Bạn đọc tra cứu được tin cũ ngoài cửa sổ lưu giữ hiện tại — tìm kiếm bao phủ mọi câu chuyện mà bàn chấm điểm đã duyệt đăng từ 2026-10-25 (`radar/search_index.py`, `radar/story_pages.py`).
 
 ## v2 — Doanh thu từ tài trợ và affiliate
 Mục tiêu: Thuyền trưởng thử tài trợ và affiliate khi có số liệu người đọc đủ để định giá và kiểm tra hiệu quả.

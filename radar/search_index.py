@@ -1,9 +1,10 @@
-"""Search index companion projection for 7-day story search on mobile devices."""
+"""Search index companion projection for retained and archived stories."""
 
 from pathlib import Path
 import re
 import unicodedata
 
+from radar.newsroom_decisions import desk_summary, story_decisions
 from radar.story_pages import _has_editorial_summary
 
 SEARCH_STORY_FIELDS = (
@@ -118,10 +119,24 @@ def search_story_row(story):
     return row
 
 
-def search_payload(payload):
-    """Project full or page payload into lean search index covering all retained stories."""
+def search_payload(payload, archived_stories=None, decisions=None):
+    """Index retained stories and archived stories the scoring desk marked publish."""
     stories = payload.get("stories", []) if isinstance(payload, dict) else []
     indexed_stories = [search_story_row(s) for s in stories if isinstance(s, dict)]
+    if archived_stories is not None:
+        seen = {row["id"] for row in indexed_stories}
+        live = {story_id: story for story_id, story in archived_stories.items()
+                if not story.get("redirect_to")}
+        reviewed = story_decisions([{**story, "id": story_id} for story_id, story in live.items()], decisions)
+        for story_id, story in live.items():
+            if story_id in seen:
+                continue
+            decision = reviewed.get(story_id)
+            if decision is None or decision.get("decision") != "publish":
+                continue
+            indexed_stories.append(search_story_row({**story, **(desk_summary(decision) or {})}))
+            seen.add(story_id)
+        indexed_stories.sort(key=lambda row: row["published_at"], reverse=True)
 
     raw_sources = payload.get("sources", []) if isinstance(payload, dict) else []
     sources = [
