@@ -214,7 +214,7 @@ def _stored_prose(row, folder, sid, tools):
 
 
 def writer_retries(old, stories, cycles_dir, now, *, current=None, limit=WRITER_RETRY_LIMIT, tools=None,
-                   rescore_limit=RESCORE_LIMIT):
+                   rescore_limit=RESCORE_LIMIT, since=None, reasons=None, retry_unwritten=False):
     """Published stories inside the writer window that are not yet shown and may be now, newest first.
 
     Each candidate has a mode. "write": a checked story ("claims" summary) whose writer step failed. "rewrite": desk
@@ -223,9 +223,9 @@ def writer_retries(old, stories, cycles_dir, now, *, current=None, limit=WRITER_
     candidates carry the intake, reporter and editor rows their own cycle stored, so the writer runs as it did there.
     """
     hours = writer_window_hours()
-    if hours <= 0:
+    if hours <= 0 and since is None:
         return []
-    since = now - timedelta(hours=hours)
+    since = since or now - timedelta(hours=hours)
     rows_by_id = {row["id"]: row for row in old if row.get("decision") == "publish"
                   and (row.get("summary") == "claims"
                        or row.get("summary") == "written" and not score_passed(row))}
@@ -261,22 +261,32 @@ def writer_retries(old, stories, cycles_dir, now, *, current=None, limit=WRITER_
         story = by_id.get(sid)
         published = instant(story.get("published_at")) if story else None
         if not published or published < since:
+            if reasons is not None:
+                reasons[sid] = "outside stored cycles"
             continue
         if row["summary"] == "written" and not _failed_verdict(row):
             if sid in prose and score_attempts[sid] < SCORE_ATTEMPTS:
                 boats, sources = prose[sid]
                 scores.append({"id": sid, "mode": "score", "published": published, "writer_boats": sorted(boats),
                                "packet": scorer_packet(sid, sources, row["editorial_headline_vi"], row["key_points"])})
+            elif reasons is not None:
+                reasons[sid] = "score attempts used" if score_attempts[sid] >= SCORE_ATTEMPTS else "no stored writer row or source paragraphs"
             continue
         path = origin.get(sid)
         if path is None or attempts[sid] >= WRITER_RETRY_ATTEMPTS:
+            if reasons is not None:
+                reasons[sid] = "write attempts used" if attempts[sid] >= WRITER_RETRY_ATTEMPTS else "no stored writer row"
             continue
-        if row["summary"] == "claims" and not failed.get(sid):
+        if row["summary"] == "claims" and not (failed.get(sid) or retry_unwritten):
+            if reasons is not None:
+                reasons[sid] = "writer did not fail"
             continue
         if path not in desks:
             desks[path] = {desk: _json_file(path / "job" / f"{desk}.json") for desk in ("intake", "reporter", "editor")}
         rows = {desk: value.get(sid) if isinstance(value, dict) else None for desk, value in desks[path].items()}
         if any(not isinstance(value, dict) for value in rows.values()):
+            if reasons is not None:
+                reasons[sid] = "no stored desk rows"
             continue
         candidate = {"id": sid, "mode": "write", "story": story, "cycle": path.name, "published": published, **rows}
         if row["summary"] == "written":
