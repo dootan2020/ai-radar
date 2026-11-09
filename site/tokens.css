@@ -245,9 +245,7 @@
   --msn-page-pad: clamp(16px, 2.2vw, 40px);
   --msn-top-pad: 20px;
   --msn-panel-max: 1680px;                          /* the panel's outer width stops here and is centred; the top row shares its edges */
-  --msn-ripple-w: 200px; --msn-ripple-h: 150px;       /* the dive ripple's box (nen-song.svg); its dive point sits --msn-ripple-cx from the box's left and --msn-ripple-cy from its top */
-  --msn-ripple-cx: 80px; --msn-ripple-cy: 44px;
-  --msn-ripple-x: -80px;                               /* the dive point, left of the top row's left edge: in empty page space, the viewport crops the rings */
+  --msn-ripple-w: 200px; --msn-ripple-h: 80px;         /* the water ripple's box (nen-song.svg), at the page's top-left corner: three flat elliptical bands, 3:1, left half cropped by the viewport */
   --msn-ripple-a: 0.1;                                 /* coral on the light surface, quiet */
   --msn-brand-tile: 34px; --msn-brand-size: 1.375rem;
   --msn-rowh-xl: 292px; --msn-photo-h-xl: 154px;   /* 1750 px and wider: seven columns */

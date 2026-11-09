@@ -26,24 +26,29 @@ class PageBackground(unittest.TestCase):
     def test_ripple_is_one_small_flat_shape(self):
         svg = (SITE / "nen-song.svg").read_text(encoding="utf-8")
         self.assertLess(len(svg.encode("utf-8")), 1024)
-        self.assertNotRegex(svg, r"(?i)gradient|stroke|<image|<script|data:")
+        self.assertNotRegex(svg, r"(?i)gradient|stroke|<image|<script|data:|<circle")
         self.assertIn('fill="#F0446E"', svg)
         css = read(SITE / "trang-msn.css")
         self.assertIn('url("nen-song.svg")', css)
-        before = re.search(r"@media \(min-width: 60rem\) \{\s*\.msn-top-in::before \{([^}]*)\}", css)
-        self.assertIsNotNone(before, "the ripple is drawn only from 60rem, where the top-left is empty")
+        before = re.search(r"@media \(min-width: 75rem\) \{\s*\.msn-top::before \{([^}]*)\}", css)
+        self.assertIsNotNone(before, "the ripple is drawn only from 75rem, where the top-left is empty")
         self.assertIn("z-index: -1", before.group(1))
+        self.assertEqual(len(re.findall(r"::before", css.split(".msn-top .news-search")[0])), 1)  # no phone variant: dropped, not shrunk
 
-    def test_ripple_sits_in_empty_page_space_left_of_the_row(self):
-        tokens = read(SITE / "tokens.css")
-        dive_x = int(re.search(r"--msn-ripple-x: (-\d+)px", tokens).group(1))
-        self.assertLess(dive_x, 0)  # the dive point is left of the row's edge, so the viewport crops the rings
+    def test_ripple_is_flat_water_ellipses_in_the_corner(self):
         svg = read(SITE / "nen-song.svg")
-        radii = [int(r) for r in re.findall(r"a(\d+) \1 0 1 0 \d+ 0", svg)][::2]
-        self.assertLessEqual(len(radii), 7)  # a disc and three bands
-        cx = int(re.search(r"--msn-ripple-cx: (\d+)px", tokens).group(1))
-        self.assertLess(dive_x + max(radii), 40)  # rings stop well short of the search column (measured: it starts 59px in at 960)
-        self.assertEqual(cx, 80)
+        arcs = [(int(rx), float(ry)) for rx, ry in re.findall(r"a(\d+) ([\d.]+) 0 1 0 \d+ 0", svg)]
+        self.assertEqual(len(arcs), 6)  # three bands, an outer and an inner edge each: no centre disc
+        for rx, ry in arcs:
+            self.assertAlmostEqual(rx / ry, 3, delta=0.05)  # flattened 3:1, like ripples seen at an angle
+        view = [int(v) for v in re.search(r'viewBox="0 0 (\d+) (\d+)"', svg).groups()]
+        cx = re.search(r"M(\d+) 40a", svg)
+        self.assertIsNotNone(cx)
+        centre = int(cx.group(1)) + arcs[0][0]
+        self.assertLessEqual(max(a[0] for a in arcs) + centre, 180)  # stays clear of the search column (it starts 200px in at 1200)
+        self.assertLessEqual(40 + max(a[1] for a in arcs), view[1])
+        tokens = read(SITE / "tokens.css")
+        self.assertIn("--msn-ripple-w: 200px; --msn-ripple-h: 80px;", tokens)
 
     def test_ripple_is_quieter_on_light_than_on_dark(self):
         tokens = read(SITE / "tokens.css")
