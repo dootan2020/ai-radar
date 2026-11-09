@@ -145,6 +145,16 @@ assert.ok(arenaCSS.includes('.arena-dot'));
 assert.ok(arenaCSS.includes('.arena-legend-strip'));
 assert.ok(!arenaCSS.includes('grid-template-columns: repeat(10'));
 assert.ok(!arenaCSS.includes('--arena-maker-color'));
+// The front page's leaders tile (trang-nhat.css) and this table share the class .arena-row in one page. On 07/11 an
+// unscoped `.arena-row { display: grid }` for the tile turned every table row into a three-column grid: the CI marks
+// fell onto the model names and the score went to a second line (owner, 09/11). Every tile rule stays inside its list.
+const frontCSS = await readFile(new URL('../site/trang-nhat.css', import.meta.url), 'utf8');
+const rowSelectors = [...frontCSS.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{/g)]
+  .flatMap(m => m[1].split(',')).map(s => s.trim()).filter(s => /\.arena-row\b/.test(s));
+assert.ok(rowSelectors.length >= 3);
+for (const selector of rowSelectors) assert.ok(selector.startsWith('.arena-list > .arena-row'), `unscoped: ${selector}`);
+// The axis header spans exactly the plot cells, so a tick sits over its bar.
+assert.ok(arenaCSS.includes('.arena-table thead th.arena-th-plot { padding-inline: var(--space-24); }'));
 const tokensCSS = await readFile(new URL('../site/tokens.css', import.meta.url), 'utf8');
 assert.ok(!tokensCSS.includes('--color-maker-google'));
 let click, focused = false, calls = 0;
