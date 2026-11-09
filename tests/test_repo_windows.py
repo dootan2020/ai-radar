@@ -10,7 +10,7 @@ from urllib.error import HTTPError
 
 from unittest import mock
 
-from radar import curation, github
+from radar import curation, github, pipeline, youtube
 from radar.common import vi_error
 from radar.curation import CATEGORY_TERMS, classify_category, curate_repos, is_ai_repo, rank_repos
 
@@ -55,6 +55,63 @@ def fetcher_for(pages):
 
 
 class TrendingPageTests(unittest.TestCase):
+    def test_curation_fetches_week_and_month_after_collection_deadline(self):
+        calls = []
+        pages = {github.WINDOWS[0][1]: DAY, github.WINDOWS[1][1]: WEEK,
+                 github.WINDOWS[2][1]: MONTH}
+
+        def fetch(url, source_id=None):
+            calls.append(url)
+            return pages.get(url)
+
+        with tempfile.TemporaryDirectory() as directory:
+            events = Path(directory) / "events.json"
+            events.write_bytes(b"[]")
+            with mock.patch.object(pipeline, "_jobs", return_value=[(github.SOURCE, "github", github.parse_trending)]), \
+                 mock.patch.object(youtube, "collect", return_value=([], [])):
+                result = pipeline.build_v2(fetch=fetch, now=NOW, timeout=1e-9,
+                                           events_path=events, resolve_images=False)
+
+        self.assertEqual(next(row for row in result["sources"] if row["id"] == github.SOURCE["id"])["error"],
+                         "Build deadline exceeded")
+        self.assertIn(github.WINDOWS[1][1], calls)
+        self.assertIn(github.WINDOWS[2][1], calls)
+        self.assertNotIn(github.WINDOWS[0][1], calls)
+        self.assertEqual(calls.count(github.WINDOWS[1][1]), 1)
+        self.assertEqual(calls.count(github.WINDOWS[2][1]), 1)
+        self.assertTrue(result["repos_meta"]["windows"]["week"]["measured"])
+        self.assertTrue(result["repos_meta"]["windows"]["month"]["measured"])
+
+    def test_deadline_skips_retry_and_daily_refetch_on_failed_pages(self):
+        calls = []
+
+        def fetch(url, source_id=None):
+            calls.append(url)
+            raise HTTPError(url, 504, "Gateway Timeout", {}, None)
+
+        meta = {}
+        with mock.patch.object(curation.time, "sleep") as sleep, \
+             mock.patch.object(curation, "_previous_repo_snapshots", return_value=[]):
+            curate_repos([], [], fetcher=fetch, now=NOW, meta=meta,
+                         collection_finished_on_time=False)
+        self.assertEqual(calls, [github.WINDOWS[1][1], github.WINDOWS[2][1]])
+        sleep.assert_not_called()
+        self.assertFalse(meta["windows"]["day"]["measured"])
+        self.assertFalse(meta["windows"]["week"]["measured"])
+        self.assertFalse(meta["windows"]["month"]["measured"])
+
+    def test_disabled_github_source_does_not_fetch_trending_pages(self):
+        source = dict(github.SOURCE, disabled=True, disabled_reason="Unavailable")
+        with tempfile.TemporaryDirectory() as directory:
+            events = Path(directory) / "events.json"
+            events.write_bytes(b"[]")
+            with mock.patch.object(pipeline, "_jobs", return_value=[(source, "github", github.parse_trending)]), \
+                 mock.patch.object(youtube, "collect", return_value=([], [])):
+                result = pipeline.build_v2(fetch=lambda url, **kwargs: self.fail("Unexpected request: " + url),
+                                           now=NOW, events_path=events, resolve_images=False)
+        self.assertTrue(next(row for row in result["sources"] if row["id"] == source["id"])["disabled"])
+        self.assertEqual(result["repos"], [])
+
     def test_transient_504_recovers_daily_and_weekly_pages(self):
         calls = []
         pages = fetcher_for({github.WINDOWS[0][1]: RECORDED_DAY, github.WINDOWS[1][1]: WEEK,

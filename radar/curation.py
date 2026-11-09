@@ -998,9 +998,11 @@ TRENDING_RETRY_BUDGET_SECONDS = 24
 TRENDING_MAX_AGE_DAYS = {"day": 3, "week": 10, "month": 40}
 
 
-def _fetch_trending_page(fetcher, url, window, retry_deadline):
+def _fetch_trending_page(fetcher, url, window, retry_deadline, allow_retry):
     error = None
-    for attempt in range(3):
+    for attempt in range(3 if allow_retry else 1):
+        if allow_retry and time.monotonic() >= retry_deadline:
+            break
         text, err = _fetch_url_with_error(fetcher, url, source_id="github-trending")
         if text:
             try:
@@ -1009,7 +1011,9 @@ def _fetch_trending_page(fetcher, url, window, retry_deadline):
                 error = "trang thịnh hành " + WINDOW_NAMES[window] + " không có thẻ kho mã nào đọc được"
         else:
             error = "chưa tải được trang thịnh hành " + WINDOW_NAMES[window] + (" (" + err + ")" if err and err.startswith("HTTP") else "")
-        if err == "no_fetcher":
+        if err in (None, "no_fetcher"):
+            break
+        if not allow_retry:
             break
         delay = TRENDING_RETRY_SECONDS * (2 ** attempt)
         if attempt == 2 or time.monotonic() + delay >= retry_deadline:
@@ -1018,22 +1022,26 @@ def _fetch_trending_page(fetcher, url, window, retry_deadline):
     return [], error
 
 
-def _trending_windows(daily, fetcher, now):
+def _trending_windows(daily, fetcher, now, collection_finished_on_time=True):
     """Collect GitHub Trending's day, week and month pages. A window is measured only by its own page:
     a page that failed, or that printed another window's phrase, leaves that window unmeasured."""
     windows, status = {}, {}
     retry_deadline = time.monotonic() + TRENDING_RETRY_BUDGET_SECONDS
+    if fetcher is not None and getattr(fetcher, "deadline", None) is not None:
+        retry_deadline = min(retry_deadline, fetcher.deadline)
     for window, url, _ in github.WINDOWS:
         rows, error = [], None
         if window == "day":
             rows = list(daily or [])
-            if not rows:
+            if not rows and collection_finished_on_time:
                 if fetcher is None:
                     error = "chưa lấy được trang thịnh hành theo ngày"
                 else:
-                    rows, error = _fetch_trending_page(fetcher, url, window, retry_deadline)
+                    rows, error = _fetch_trending_page(fetcher, url, window, retry_deadline, True)
+            elif not rows:
+                error = "chưa lấy được trang thịnh hành theo ngày"
         else:
-            rows, error = _fetch_trending_page(fetcher, url, window, retry_deadline)
+            rows, error = _fetch_trending_page(fetcher, url, window, retry_deadline, collection_finished_on_time)
         measured = []
         for rank, row in enumerate(rows, 1):
             if not isinstance(row, dict) or not row.get("repo"):
@@ -1170,7 +1178,8 @@ def rank_repos(repos):
     }
 
 
-def curate_repos(github_trending, hf_trending, fetcher=None, now=None, meta=None):
+def curate_repos(github_trending, hf_trending, fetcher=None, now=None, meta=None, github_enabled=True,
+                 collection_finished_on_time=True):
     """Enrich, score, categorize and rank trending GitHub repositories and Hugging Face models.
 
     `github_trending` is the day page; the week and month pages are fetched here. Repositories that do not
@@ -1187,7 +1196,8 @@ def curate_repos(github_trending, hf_trending, fetcher=None, now=None, meta=None
     meta_dict.setdefault("fallback_reasons", {})
     meta_dict.setdefault("excluded_non_ai", [])
 
-    windows, status = _trending_windows(github_trending, fetcher, now)
+    windows, status = _trending_windows(github_trending if github_enabled else [],
+                                        fetcher if github_enabled else None, now, collection_finished_on_time)
     candidates = _merge_windows(windows)
     meta_dict["windows"] = status
 
@@ -1240,7 +1250,8 @@ def curate_repos(github_trending, hf_trending, fetcher=None, now=None, meta=None
 
     results.sort(key=sort_key)
     meta_dict["rankings"] = rank_repos(results)
-    _restore_trending_windows(results, status, meta_dict["rankings"], now)
+    if github_enabled:
+        _restore_trending_windows(results, status, meta_dict["rankings"], now)
     return results
 
 

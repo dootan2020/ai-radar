@@ -87,7 +87,7 @@ def sections(stories, now):
 
 
 def finish(payload, coverage, events, now, previous, published=None, fetcher=None, image_transport=None,
-           resolve_images=None, ai_transport=None):
+           resolve_images=None, ai_transport=None, github_enabled=True, collection_finished_on_time=True):
     from radar.clustering import cluster_items
     from radar.curation import curate_repos
     from radar.ranking import rank_stories
@@ -148,14 +148,16 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
             or not 0 < (now - baseline).total_seconds() <= 48 * 3600):
         baseline = None
     repos_meta = {}
-    curation_fetcher = fetcher
-    if fetcher is not None and hasattr(fetcher, "transport"):
-        import time
-        from radar.transport import Fetcher
-        curation_fetcher = Fetcher(time.monotonic() + 60, transport=fetcher.transport)
+    import time
+    from radar.transport import Fetcher
+
     repos = curate_repos(payload.get("trending", {}).get("github", []),
                          payload.get("trending", {}).get("huggingface", []),
-                         fetcher=curation_fetcher, now=now, meta=repos_meta)
+                         fetcher=Fetcher(time.monotonic() + 60, transport=fetcher.transport,
+                                         timeout=10 if collection_finished_on_time else 0.1)
+                         if fetcher is not None and hasattr(fetcher, "transport") else fetcher,
+                         now=now, meta=repos_meta, github_enabled=github_enabled,
+                         collection_finished_on_time=collection_finished_on_time)
     payload.update(schema_version=2, stories=stories, sections=sections(stories, now), events=events,
                    repos=repos, repos_meta=repos_meta,
                    ranking=dict(method="engagement-velocity-breadth-percentile-freshness-v2", window_hours=72,
