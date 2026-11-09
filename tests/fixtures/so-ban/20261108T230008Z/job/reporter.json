@@ -1,0 +1,20 @@
+{
+  "25fc96dab8ac2c343520": {
+    "id": "25fc96dab8ac2c343520",
+    "readable": true,
+    "selected_url": "https://www.scmp.com/tech/article/3373325/how-dong-mingzhu-chinas-manufacturing-iron-lady-maintaining-her-cool-ai-era",
+    "reason": "The representative article is readable and directly reports on the story's event regarding the interview with Gree chairwoman Dong Mingzhu on manufacturing and green energy in the AI era.",
+    "invalid_response": false,
+    "provider": "agy",
+    "boat": "agy"
+  },
+  "8a86cf9d70b8065c8241": {
+    "id": "8a86cf9d70b8065c8241",
+    "readable": false,
+    "selected_url": null,
+    "reason": "The representative article is unreadable due to HTTP 403, and neither candidate reports on the exact same event of publishing the full statements/memos from both Nvidia's Board and CEO Jensen Huang.",
+    "invalid_response": false,
+    "provider": "agy",
+    "boat": "agy"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "30ae1f05c4e12778ef94": {
+    "id": "30ae1f05c4e12778ef94",
+    "news": false,
+    "reason": "The interview centers on BNY’s growth and business strategy; monitoring AI spending is one part of that discussion.",
+    "invalid_response": false,
+    "provider": "codex",
+    "boat": "codex"
+  },
+  "8e25112a3bbfefef5aab": {
+    "id": "8e25112a3bbfefef5aab",
+    "news": true,
+    "reason": "The reported assessment focuses on investment opportunities in the AI debt market.",
+    "invalid_response": false,
+    "provider": "codex",
+    "boat": "codex"
+  }
+}

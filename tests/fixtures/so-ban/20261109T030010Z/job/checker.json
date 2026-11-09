@@ -1,0 +1,22 @@
+{
+  "af3b84067d2d1e42cef4": {
+    "id": "af3b84067d2d1e42cef4",
+    "verified": false,
+    "rejected_claims": [
+      "Former New York Black Car Fund head Ira Goldstein confirmed a PR firm drafted an anti-Waymo op-ed placed under his name in the New York Daily News."
+    ],
+    "reason": "Các đoạn dẫn chứng xác nhận chiến dịch đăng op-ed chống Waymo và kết quả phát hiện nội dung có nhiều đóng góp từ AI. Chúng không xác nhận bài đăng dưới tên Ira Goldstein là một trong những bài do công ty PR soạn.",
+    "invalid_response": false,
+    "provider": "codex",
+    "boat": "codex"
+  },
+  "c8c47959c350bfb0630c": {
+    "id": "c8c47959c350bfb0630c",
+    "verified": true,
+    "rejected_claims": [],
+    "reason": "Cả ba claim đều phù hợp với nội dung thỏa thuận và kế hoạch được nêu trong các đoạn dẫn chứng.",
+    "invalid_response": false,
+    "provider": "codex",
+    "boat": "codex"
+  }
+}

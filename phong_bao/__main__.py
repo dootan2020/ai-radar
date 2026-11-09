@@ -13,6 +13,7 @@ from .newsroom import (DEFAULT_CALL_TIMEOUT_SECONDS, DEFAULT_DESK_BUDGET_SECONDS
 from .registry import load_registry
 from .runner import CLIRunner, FixtureRunner
 from .cycle import cycle
+from .so_ban import run as run_so_ban
 
 
 def _json(path):
@@ -39,12 +40,20 @@ def main(argv=None):
     newsroom.add_argument("--runner-fixture")
     newsroom.add_argument("--articles-fixture")
     scoring = sub.add_parser("evaluate")
+    ledger = sub.add_parser("so-ban")
+    ledger.add_argument("--cycles", required=True)
+    ledger.add_argument("--out", required=True)
+    ledger.add_argument("--month")
+    ledger.add_argument("--labels")
     cycle_parser = sub.add_parser("cycle")
     cycle_parser.add_argument("--snapshot-url")
     cycle_parser.add_argument("--since-hours", type=float, default=36)
     scoring.add_argument("--decisions", required=True)
     scoring.add_argument("--labels", required=True)
     args = parser.parse_args(argv)
+    if args.command == "so-ban":
+        print(run_so_ban(args.cycles, args.out, month=args.month, labels=args.labels))
+        return 0
     if args.command == "cycle":
         options = {"since_hours": args.since_hours}
         if args.snapshot_url:

@@ -1,0 +1,18 @@
+{
+  "25fc96dab8ac2c343520": {
+    "id": "25fc96dab8ac2c343520",
+    "news": false,
+    "reason": "Executive interview focused on Gree Electric Appliances, green cooling initiatives, overseas expansion, and general manufacturing automation, with AI mentioned only as a passing buzzword in the headline.",
+    "invalid_response": false,
+    "provider": "agy",
+    "boat": "agy"
+  },
+  "8a86cf9d70b8065c8241": {
+    "id": "8a86cf9d70b8065c8241",
+    "news": true,
+    "reason": "Nvidia's board of directors initiated an independent investigation into CEO Jensen Huang regarding potential targeting by a foreign intelligence agency.",
+    "invalid_response": false,
+    "provider": "agy",
+    "boat": "agy"
+  }
+}

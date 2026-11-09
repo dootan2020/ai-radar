@@ -1,0 +1,20 @@
+{
+  "25fc96dab8ac2c343520": {
+    "id": "25fc96dab8ac2c343520",
+    "verified": false,
+    "rejected_claims": [],
+    "reason": "checker_invalid",
+    "invalid_response": true,
+    "provider": null,
+    "boat": null
+  },
+  "8a86cf9d70b8065c8241": {
+    "id": "8a86cf9d70b8065c8241",
+    "verified": false,
+    "rejected_claims": [],
+    "reason": "checker_invalid",
+    "invalid_response": true,
+    "provider": null,
+    "boat": null
+  }
+}
