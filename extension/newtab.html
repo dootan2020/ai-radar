@@ -38,7 +38,6 @@
 <link rel="stylesheet" href="trang-msn.css">
 <script type="module" src="feed.js"></script>
 <script type="module" src="newtab.js"></script>
-<script type="module" src="vung-dau.js"></script>
 <link rel="stylesheet" href="newtab.css">
 <link rel="modulepreload" href="faces.js">
 <link rel="modulepreload" href="time-text.js">
@@ -69,15 +68,12 @@
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
 </svg>
 
-<!-- Rows 1 and 2 (mockup D; row 1 compacted 07/11 22:41): the Google shortcuts as one cluster of icons with every Google
-     app behind the 9 dots, at the top right, then the Google search, MSN's search bar above the Halcyon panel (Mẫu A,
-     08/11). The weather and the calendar are cards in the panel's first row (thoi-tiet.js, the-lich.js). -->
-<header class="masthead top" id="masthead">
-  <div class="wrap g-row">
-    <ul class="services" id="services" aria-label="Dịch vụ Google"></ul>
-    <div class="tool-launcher"></div>
-  </div>
-  <div class="wrap hero" id="top-zone">
+<!-- The top row (owner, 09/11): the Google search with the 9 dots at its right, on the website's own top-row grid
+     (.msn-top-in), so the row and the panel below it share their left and right edges. The seven Google shortcut icons
+     are gone: the 9 dots open the same services. The weather and the calendar are cards in the panel's first row
+     (thoi-tiet.js, the-lich.js). -->
+<header class="masthead msn-top" id="masthead">
+  <div class="msn-top-in">
     <form id="web-search" class="web-search" role="search" aria-label="Tìm trên Google" action="https://www.google.com/search">
       <label class="web-field">
         <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
@@ -86,9 +82,9 @@
         <button class="go-btn" type="submit" aria-label="Tìm trên Google"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       </label>
     </form>
+    <div class="masthead-actions"><div class="tool-launcher"></div></div>
   </div>
 </header>
-
 <p class="sr" id="ns-status" role="status" aria-live="polite"></p>
 
 <!-- One transient notice for meaningful new stories; the live region never contains a focusable control. -->
