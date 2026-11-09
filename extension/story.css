@@ -147,7 +147,7 @@ dialog.story-dialog::backdrop {
   display: inline-flex;
   align-items: center;
   gap: var(--space-8);
-  min-height: 40px;
+  min-height: 44px;
   min-width: 44px;
   padding: 0 var(--space-16);
   border-radius: var(--radius-full);
@@ -210,10 +210,10 @@ dialog.story-dialog::backdrop {
 .doc-icon-btn {
   display: inline-grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  min-height: 40px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0;
   border-radius: var(--radius-full);
   border: 0;
@@ -274,9 +274,9 @@ dialog.story-dialog::backdrop {
     flex-shrink: 0;
   }
   #doc-back-btn.story-modal-close {
-    min-width: 40px;
-    width: 40px;
-    height: 40px;
+    min-width: 44px;
+    width: 44px;
+    height: 44px;
     padding: 0;
     justify-content: center;
     border-radius: var(--radius-full);
@@ -297,24 +297,24 @@ dialog.story-dialog::backdrop {
     order: 2;
     padding: 0 var(--space-12);
     font-size: var(--text-small);
-    min-height: 40px;
+    min-height: 44px;
   }
   .feed-bar:has(.doc-nav) .tc-link,
   .feed-bar-in:has(.doc-nav) .tc-link,
   .feed-bar-in:has(#doc-back-btn) .tc-link {
     order: 3;
-    min-height: 40px;
-    min-width: 40px;
-    width: 40px;
-    height: 40px;
+    min-height: 44px;
+    min-width: 44px;
+    width: 44px;
+    height: 44px;
     padding: 0;
   }
   .feed-bar:has(.doc-nav) .theme-btn,
   .feed-bar-in:has(.doc-nav) .theme-btn,
   .feed-bar-in:has(#doc-back-btn) .theme-btn {
     order: 4;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
 }
 
@@ -402,7 +402,7 @@ dialog.story-dialog::backdrop {
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-12);
-  margin-bottom: var(--space-16);
+  margin-top: var(--space-8);
 }
 
 .story-pub-info {
@@ -482,7 +482,7 @@ dialog.story-dialog::backdrop {
   color: var(--color-heading);
   text-wrap: balance;
   overflow-wrap: anywhere;
-  margin: 0 0 var(--space-12) 0;
+  margin: 0;
 }
 
 .story-page-container .story-headline {
@@ -765,9 +765,7 @@ dialog.story-dialog::backdrop {
 /* The publisher's own description, shown when Halcyon has no summary: a quoted note on an inset panel, set at body
    size and quieter ink, so it never reads as the desk's prose (which opens with the accent rule and a larger lead). */
 .story-source-desc {
-  padding: var(--space-16);
-  border-radius: var(--inner-radius);
-  background: var(--color-inset);
+  padding: 0;
 }
 
 .story-source-desc .story-section-head {
@@ -788,14 +786,12 @@ dialog.story-dialog::backdrop {
 .story-source-desc .story-summary-text {
   margin: 0;
   font-size: var(--text-body);
-  color: var(--color-ink-2);
+  color: var(--color-ink);
   max-width: 68ch;
 }
 
 .story-empty-box {
   padding: var(--space-24) 0;
-  border-top: 1px solid var(--color-hair);
-  border-bottom: 1px solid var(--color-hair);
 }
 
 .story-empty-text {
@@ -810,6 +806,86 @@ dialog.story-dialog::backdrop {
 
 .story-coverage-wrap {
   min-width: 0;
+}
+
+.story-detail-footer {
+  display: grid;
+  gap: var(--space-12);
+  color: var(--color-ink-2);
+}
+
+.story-detail-footer .story-summary-sources,
+.story-detail-footer .story-image-credit {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.story-detail-footer .story-summary-sources a {
+  display: inline-block;
+  min-height: 44px;
+  max-width: 100%;
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+.story-detail-footer .story-coverage-list > li > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.story-detail-footer .story-summary-sources a:focus-visible,
+.story-detail-footer .story-coverage-list > li > a:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.story-detail-footer .story-orig-block {
+  margin: 0;
+}
+
+.story-detail-footer .story-points-disclosure {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.story-detail-footer .story-coverage-list,
+.story-detail-footer .story-coverage-list > li {
+  border: 0;
+}
+
+.story-coverage-wrap > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  min-height: 44px;
+  color: var(--color-ink-2);
+  font-size: var(--text-small);
+  cursor: pointer;
+  list-style: none;
+}
+
+.story-coverage-wrap > summary::-webkit-details-marker {
+  display: none;
+}
+
+.story-coverage-wrap > summary::after {
+  content: "⌄";
+  font-size: var(--text-title);
+}
+
+.story-coverage-wrap[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.story-coverage-wrap > summary:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
 }
 
 .story-coverage-wrap .story-section-head {
@@ -1069,37 +1145,7 @@ dialog.story-dialog::backdrop {
   color: var(--color-ink-3);
 }
 
-/* Desk summary: a "Tóm tắt" label carries the accent rule, the byline sits under it, and each point is one bullet
-   with a small accent dot hung in the margin, so the text column stays flush with the headline. */
-.story-prose-box .story-section-head {
-  margin-bottom: var(--space-12);
-}
-
-.story-summary-label {
-  margin: 0;
-  font-size: var(--text-small);
-  font-weight: var(--weight-semibold);
-  line-height: var(--leading-snug);
-  color: var(--color-ink);
-}
-
-.story-summary-label::before {
-  content: "";
-  display: block;
-  width: var(--space-32);
-  height: 2px;
-  margin-bottom: var(--space-12);
-  background: var(--color-accent-fill);
-  border-radius: var(--radius-full);
-}
-
-.story-body .story-prose-box .story-byline {
-  margin-top: var(--space-4);
-}
-
-.story-body .story-prose-box .story-byline::before {
-  content: none;
-}
+/* Summary bullets begin directly under the picture. */
 
 .story-bullets {
   display: grid;

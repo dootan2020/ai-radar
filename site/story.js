@@ -1,13 +1,8 @@
-/* Halcyon · site/story.js
-   Shared render module for the story modal and static story page.
-   The story reads as one vertical column: publisher line, headline, link to the original,
-   image, text, other coverage, then the full-article gateway. Nothing sits beside anything else.
-   Adheres strictly to the Bento Keynote design language and 4pt token scale.
-*/
+/* Halcyon · site/story.js: shared modal and page renderer. */
 
-import { esc, fmt, avatar, faceOfStory, faceOfSource } from './faces.js';
+import { esc, fmt, avatar, faceOfSource } from './faces.js';
 import { ago } from './time-text.js';
-import { KIND, METRIC } from './words.js';
+import { METRIC } from './words.js';
 import { uniqCoverage } from './titles.js';
 import { headlineShown, hasEditorialSummary, isDeskProse, SOURCE_DESCRIPTION_LABEL } from './editorial-headline.js';
 export { hasEditorialSummary } from './editorial-headline.js';
@@ -179,34 +174,16 @@ export function sourceDisplayName(raw, story = {}, srcMap = new Map()) {
   return key.split(/[-_\s]+/).filter(Boolean).map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
 }
 
-export function renderEditorialSummaryHTML(story, publisherName = '', srcMap = new Map()) {
-  if (!hasEditorialSummary(story)) return renderFallbackBodyHTML(story, publisherName);
-  const shown = name => sourceDisplayName(name, story, srcMap);
-  const sources = story.summary_sources.filter(s => safe(s?.url) !== '#').map(s =>
-    `<a href="${esc(safe(s?.url))}" target="_blank" rel="noopener noreferrer">${esc(shown(s.name))}${s.role === 'primary' ? ' — nguồn gốc' : ''}</a>`).join(' · ');
-  const outletRaw = (story.summary_sources.find(s => s?.role === 'outlet' && s?.name) || {}).name;
-  const outlet = outletRaw ? shown(outletRaw) : publisherName;
-  return `
-    ${isDeskProse(story) ? renderDeskProseHTML(story.key_points, outlet) : renderKeyPointsHTML(story.key_points, publisherName)}
-    <div class="story-summary-attribution">
-      <p class="story-summary-sources"><span class="story-credit-label">Nguồn:</span> ${sources}</p>
-    </div>`;
+export function renderEditorialSummaryHTML(story) {
+  if (!hasEditorialSummary(story)) return renderFallbackBodyHTML(story);
+  return isDeskProse(story) ? renderDeskProseHTML(story.key_points) : renderKeyPointsHTML(story.key_points);
 }
 
-/* The newsroom writer desk's summary: one bullet per point under a "Tóm tắt" label, so the reader knows it is
-   Halcyon's summary and not the article, with who wrote it and from which source. Prose written as paragraphs
-   before the bullets is shown the same way, one bullet per paragraph. */
-export function renderDeskProseHTML(paragraphs, outletName = '') {
+/* Prose written as paragraphs is shown one bullet per paragraph. */
+export function renderDeskProseHTML(paragraphs) {
   if (!Array.isArray(paragraphs) || !paragraphs.length) return '';
-  const byline = outletName
-    ? `Phòng báo Halcyon tóm tắt từ ${esc(outletName)}`
-    : 'Phòng báo Halcyon tóm tắt từ bài gốc';
   return `
-    <section class="story-keypoints-box story-prose-box" aria-labelledby="story-summary-label">
-      <div class="story-section-head">
-        <h2 class="story-summary-label" id="story-summary-label">Tóm tắt</h2>
-        <p class="story-section-sub story-byline">${byline}</p>
-      </div>
+    <section class="story-keypoints-box story-prose-box" aria-label="Tóm tắt bài viết">
       <ul class="story-bullets">
         ${paragraphs.map(text => `<li class="story-bullet">${summaryText(text)}</li>`).join('')}
       </ul>
@@ -215,7 +192,7 @@ export function renderDeskProseHTML(paragraphs, outletName = '') {
 }
 
 /* Render Key Points block (Direction A) */
-export function renderKeyPointsHTML(keyPoints, publisherName = '') {
+export function renderKeyPointsHTML(keyPoints) {
   if (!Array.isArray(keyPoints) || !keyPoints.length) return '';
   const items = keyPoints.map((point, idx) => `
     <li class="story-point-item">
@@ -224,17 +201,8 @@ export function renderKeyPointsHTML(keyPoints, publisherName = '') {
     </li>
   `).join('');
 
-  const sub = publisherName
-    ? `Tóm tắt bằng AI từ ${esc(publisherName)}`
-    : 'Tóm tắt bằng AI từ bài gốc';
-
   return `
     <section class="story-keypoints-box" aria-label="Tóm tắt bài viết">
-      <div class="story-section-head">
-        <div>
-          <p class="story-section-sub story-byline">${sub}</p>
-        </div>
-      </div>
       <ol class="story-points-list">
         ${items}
       </ol>
@@ -288,11 +256,10 @@ export function trimCompleteSentences(text) {
 }
 
 /* Render Fallback Summary when key points are not available */
-export function renderFallbackBodyHTML(story, publisherName = '') {
+export function renderFallbackBodyHTML(story) {
   const sumVi = trimCompleteSentences(story.summary_vi || '');
   const sumEn = trimCompleteSentences(story.summary || '');
   const sumText = sumVi || sumEn;
-  const isTranslated = !!(sumVi && sumEn && sumVi !== sumEn);
 
   if (!sumText) {
     return `
@@ -302,33 +269,32 @@ export function renderFallbackBodyHTML(story, publisherName = '') {
     `;
   }
 
-  // The machine translation is named once, by the "Translated" chip on the original below; the heading says whose text
-  // it is, so no line explains it (captain, 09/11).
   return `
     <section class="story-summary-box story-source-desc" aria-label="${SOURCE_DESCRIPTION_LABEL}">
-      <div class="story-section-head">
-        <div>
-          <h2 class="story-section-h2">${SOURCE_DESCRIPTION_LABEL}</h2>
-        </div>
-      </div>
       <p class="story-summary-text">${esc(sumText)}</p>
-      ${isTranslated ? `
-        <div class="card-orig" style="margin-top:var(--space-12)">
-          <span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là đoạn trích gốc">Translated</span>
-          <span class="sr" lang="vi">Bản dịch máy. Đoạn trích gốc: </span>
-          <span class="orig-text" lang="en">${esc(sumEn)}</span>
-        </div>
-      ` : ''}
-      <p class="story-points-disclosure">Đoạn trích do nhà xuất bản cung cấp. Bản quyền thuộc về nhà xuất bản.</p>
     </section>
   `;
 }
 
+function renderSourceFooterHTML(story, name, srcMap) {
+  const editorial = hasEditorialSummary(story);
+  const sources = editorial
+    ? story.summary_sources.filter(s => safe(s?.url) !== '#').map(s =>
+      `<a href="${esc(safe(s.url))}" target="_blank" rel="noopener noreferrer">${esc(sourceDisplayName(s.name, story, srcMap))}${s.role === 'primary' ? ' — nguồn gốc' : ''}</a>`).join(' · ')
+    : esc(name);
+  const sumVi = trimCompleteSentences(story.summary_vi || '');
+  const sumEn = trimCompleteSentences(story.summary || '');
+  return `<p class="story-summary-sources"><span class="story-credit-label">Nguồn:</span> ${sources}</p>
+    ${!editorial && sumVi && sumEn && sumVi !== sumEn ? `<p class="card-orig"><span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là đoạn trích gốc">Translated</span><span class="sr" lang="vi">Bản dịch máy. Đoạn trích gốc: </span><span class="orig-text" lang="en">${esc(sumEn)}</span></p>` : ''}
+    ${!editorial && (sumVi || sumEn) ? `<p class="story-points-disclosure">${SOURCE_DESCRIPTION_LABEL}. Đoạn trích do nhà xuất bản cung cấp. Bản quyền thuộc về nhà xuất bản.</p>` : ''}`;
+}
+
 /* Render Coverage List */
-export function renderCoverageListHTML(coverage, srcMap = new Map()) {
-  const uniq = [...uniqCoverage((coverage || []).filter(c => !c.author_handle), s => (srcMap.get(s) || {}).name),
-    ...(coverage || []).filter(c => c.author_handle)];
-  if (!uniq || uniq.length <= 1) return '';
+export function renderCoverageListHTML(coverage, srcMap = new Map(), originalUrl = '') {
+  const others = (coverage || []).filter(c => c && c.url !== originalUrl);
+  const uniq = [...uniqCoverage(others.filter(c => !c.author_handle), s => (srcMap.get(s) || {}).name),
+    ...others.filter(c => c.author_handle)];
+  if (!uniq.length) return '';
 
   const rows = uniq.map(c => {
     const s = srcMap.get(c.source) || {};
@@ -358,15 +324,12 @@ export function renderCoverageListHTML(coverage, srcMap = new Map()) {
   }).join('');
 
   return `
-    <section class="story-coverage-wrap" aria-label="Các nguồn cùng đưa tin">
-      <div class="story-section-head">
-        <h2 class="story-section-h2">Các nguồn cùng đưa tin</h2>
-        <span class="story-coverage-count">${uniq.length} bài viết liên quan</span>
-      </div>
+    <details class="story-coverage-wrap">
+      <summary>${uniq.length} nguồn khác cùng đưa tin</summary>
       <ul class="story-coverage-list">
         ${rows}
       </ul>
-    </section>
+    </details>
   `;
 }
 
@@ -388,9 +351,6 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
   const titleVi = storyTitle(story);
   const headlineClass = headlineSizeClass(titleVi);
   const hasOrig = !!(story.title_vi && story.title && story.title_vi.trim() !== story.title.trim());
-  const face = faceOfStory(story, srcMap);
-  const kindText = KIND[story.kind] || 'Bài viết';
-  const hasKp = hasEditorialSummary(story);
   const isSaved = !!options.isSaved;
   const isModal = !!options.isModal;
   const origUrl = story.url || (story.coverage && story.coverage[0] && story.coverage[0].url) || '#';
@@ -403,10 +363,6 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
     mediaHTML = `
       <figure class="story-media">
         <div class="story-media-frame">${mediaBackdrop(imageSrc, { loading: 'eager', noReferrer: false })}<img class="story-media-img" src="${esc(imageSrc)}" alt="${esc(titleVi)}" loading="eager" decoding="async"></div>
-        <figcaption class="story-media-caption">
-          ${story.image.via === 'ai' ? '<span>Ảnh minh hoạ do AI tạo</span>' : ''}
-          <span class="story-pub-name"><span class="sr">Ảnh: </span>${esc(name)}</span>
-        </figcaption>
       </figure>
     `;
   }
@@ -416,14 +372,9 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
   return `
     <article class="story-article" data-id="${esc(story.id)}" aria-labelledby="story-modal-title">
       <header class="story-header">
+        <h1 class="${headlineClass}" id="story-modal-title">${esc(titleVi)}</h1>
         <div class="story-meta-row">
-          <div class="story-pub-info">
-            <span class="src-av" aria-hidden="true">${avatar(face, 'sm')}</span>
-            <span class="story-pub-name">${esc(name)}</span>
-            <span class="story-kind-pill">${esc(kindText)}</span>
-            <span class="story-pub-dot">·</span>
-            <time datetime="${esc(story.published_at || '')}">${story.published_at ? esc(ago(story.published_at)) : ''}</time>
-          </div>
+          <div class="story-pub-info"><time datetime="${esc(story.published_at || '')}">${story.published_at ? esc(ago(story.published_at)) : ''}</time></div>
           ${!isModal ? `
             <div class="story-header-actions">
               <button class="doc-icon-btn ${isSaved ? 'is-saved' : ''}" id="story-act-save" type="button" aria-label="${isSaved ? 'Bỏ lưu bài viết' : 'Lưu bài viết'}" title="${isSaved ? 'Bỏ lưu' : 'Lưu đọc sau (phím S)'}">
@@ -436,38 +387,25 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
           ` : ''}
         </div>
 
-        <h1 class="${headlineClass}" id="story-modal-title">${esc(titleVi)}</h1>
-
-        ${hasOrig ? `
-          <div class="story-orig-block">
-            <p class="card-orig">
-              <span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span>
-              <span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span>
-              <span class="orig-text" lang="en">${esc(story.title)}</span>
-            </p>
-          </div>
-        ` : ''}
-
-        <div class="story-header-cta">
-          <a class="story-origin-cta" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer" title="Đọc bài gốc tại ${esc(name)}">
-            <span class="story-cta-label">Đọc bài gốc tại ${esc(name)}</span>
-            <span class="story-cta-arrow" aria-hidden="true">↗</span>
-          </a>
-        </div>
       </header>
 
       ${mediaHTML}
 
       <div class="story-body">
-        ${renderEditorialSummaryHTML(story, name, srcMap)}
+        ${renderEditorialSummaryHTML(story)}
       </div>
 
-      ${renderCoverageListHTML(story.coverage, srcMap)}
-
-      ${(story.related_artifacts || []).length ? `<section class="story-coverage-wrap" aria-label="Tài nguyên liên quan">
-        <h2>Tài nguyên liên quan</h2><ul class="story-coverage-list">${story.related_artifacts.map(a =>
-          `<li><a href="${esc(safe(a.url))}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a></li>`).join('')}</ul>
-      </section>` : ''}
+      <footer class="story-detail-footer">
+        <a class="story-origin-cta" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer" title="Đọc bài gốc tại ${esc(name)}"><span class="story-cta-label">Đọc bài gốc</span><span class="story-cta-arrow" aria-hidden="true">↗</span></a>
+        ${renderSourceFooterHTML(story, name, srcMap)}
+        ${renderCoverageListHTML(story.coverage, srcMap, origUrl)}
+        ${hasOrig ? `<div class="story-orig-block"><p class="card-orig"><span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span><span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span><span class="orig-text" lang="en">${esc(story.title)}</span></p></div>` : ''}
+        ${mediaHTML && story.image?.via === 'ai' ? '<p class="story-image-credit">Ảnh minh hoạ do AI tạo</p>' : ''}
+        ${(story.related_artifacts || []).length ? `<section class="story-coverage-wrap" aria-label="Tài nguyên liên quan">
+          <h2>Tài nguyên liên quan</h2><ul class="story-coverage-list">${story.related_artifacts.map(a =>
+            `<li><a href="${esc(safe(a.url))}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a></li>`).join('')}</ul>
+        </section>` : ''}
+      </footer>
 
     </article>
   `;

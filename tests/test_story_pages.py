@@ -90,6 +90,24 @@ def story(story_id="story-1", **overrides):
 
 
 class StoryPageRenderingTests(unittest.TestCase):
+    def test_static_article_opens_with_headline_picture_and_summary_before_sources(self):
+        item = story(
+            key_points=["Một.", "Hai.", "Ba."], key_points_source="nguoi-viet",
+            key_points_prompt_version="summary-vi-6-prose",
+            summary_sources=[{"name": "Publisher", "role": "outlet", "url": "https://publisher.example/story"}],
+            coverage=[{"publisher": "Publisher", "url": "https://publisher.example/story?a=1&b=2"},
+                      {"publisher": "Other", "url": "https://other.example/story"}],
+        )
+        document = render_story_page(item)
+        article = document[document.index('<article class="story-article"'):document.index('</article>')]
+        positions = [article.index(marker) for marker in (
+            '<h1 class="story-headline"', '<figure class="story-media"',
+            '<li class="story-bullet">Một.', '<footer class="story-detail-footer"',
+            'class="story-summary-sources"')]
+        self.assertEqual(positions, sorted(positions))
+        self.assertIn('<summary>1 nguồn khác cùng đưa tin</summary>', article)
+        self.assertNotIn('story-kind-pill', article)
+
     def test_screened_story_uses_site_metadata_image_and_keeps_full_title(self):
         item = story(image_screened=True, image=None, headline="Short", headline_vi="Ngắn")
         document = render_story_page(item)
@@ -158,7 +176,7 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn('class="story-article"', document)
         self.assertIn('class="story-headline"', document)
         self.assertIn('class="story-summary-box story-source-desc"', document)
-        self.assertIn('class="story-origin-gateway"', document)
+        self.assertIn('class="story-detail-footer"', document)
         self.assertIn('class="skip" href="#story-root"', document)
         self.assertIn('id="i-arrow-left"', document)
         self.assertIn(malicious["summary_vi"], "".join(parser.main_text))
@@ -229,15 +247,19 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn(expected_vi, "".join(parser.main_text))
         self.assertNotIn("cũng là cơ sở cho nước", "".join(parser.main_text))
         self.assertNotIn("the basis for the water", "".join(parser.main_text))
+        self.assertLess(document.index('<figure class="story-media">'),
+                        document.index('class="story-summary-text"'))
+        self.assertLess(document.index('class="story-summary-text"'),
+                        document.index('<footer class="story-detail-footer">'))
 
         # Honest label: the publisher's description is named as such, NOT 'Tóm lược bài viết'
         self.assertIn('aria-label="Mô tả từ nguồn"', document)
-        self.assertIn('<h2 class="story-section-h2">Mô tả từ nguồn</h2>', document)
-        self.assertIn('Halcyon chưa tóm tắt tin này.', document)
+        self.assertIn('<p class="story-points-disclosure">Mô tả từ nguồn.', document)
+        self.assertNotIn('Halcyon chưa tóm tắt tin này.', document)
         self.assertNotIn('<h2 class="story-section-h2">Tóm lược bài viết</h2>', document)
 
-        # Gateway description for fallback does not claim AI summarization
-        self.assertIn('Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
+        # The original article remains reachable after the excerpt.
+        self.assertIn('>Đọc bài gốc <span', document)
         self.assertNotIn('Halcyon tóm tắt ý chính để bạn nắm nhanh sự kiện.', document)
 
     def test_story_without_source_description_never_labels_generated_text_as_publishers(self):
@@ -272,10 +294,9 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertNotIn('Đọc nhanh', document)
         self.assertNotIn('Đọc đầy đủ', document)
         self.assertNotIn('Ý chính:', document)
-        self.assertIn('<p class="story-section-sub">Tóm tắt bằng AI từ bài gốc</p>', document)
+        self.assertNotIn('Tóm tắt bằng AI từ bài gốc', document)
         self.assertNotIn('class="story-summary-text">Tóm tắt tiếng Việt.</p>', document)
-        # When key points exist, gateway description notes AI summarization
-        self.assertIn('Halcyon tóm tắt ý chính để bạn nắm nhanh sự kiện. Mở bài gốc để xem trọn vẹn chi tiết và dẫn chứng.', document)
+        self.assertIn('>Đọc bài gốc <span', document)
 
     def test_desk_prose_renders_as_paragraphs_with_newsroom_label(self):
         paragraphs = ["Đoạn một nêu diễn biến chính.", "Đoạn hai giải thích nguyên nhân.",
@@ -286,7 +307,8 @@ class StoryPageRenderingTests(unittest.TestCase):
         ))
         for paragraph in paragraphs:
             self.assertIn(f'<li class="story-bullet">{paragraph}</li>', document)
-        self.assertIn("Phòng báo Halcyon tóm tắt từ The Verge", document)
+        self.assertNotIn("Phòng báo Halcyon tóm tắt", document)
+        self.assertIn('class="story-summary-sources"', document)
         self.assertNotIn("Tóm tắt bằng AI", document)
         self.assertNotIn('class="story-point-num"', document)
         # The prose contract never applies to API points, nor to a desk row of the wrong length.
