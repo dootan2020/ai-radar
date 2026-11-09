@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-09T13:35:22.958321+00:00",
-  "input_generated_at": "2026-11-09T12:00:09Z",
+  "generated_at": "2026-11-09T15:44:46.027502+00:00",
+  "input_generated_at": "2026-11-09T13:51:18Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -41149,17 +41149,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/09/2026/ai-safety-groups-outline-their-plans-for-a-new-washington",
       "key_points": [
-        "Các nhóm an toàn trí tuệ nhân tạo (AI) xem cuộc bầu cử giữa kỳ là thắng lợi lớn, theo bản ghi nhớ từ tổ chức Public First Action gửi Semafor.",
-        "Public First nhận định phe an toàn cần chuẩn bị đối phó chiến dịch từ giới công nghệ, khi sự sa sút của siêu PAC (nhóm vận động chính trị) đối thủ Leading the Future chưa chấm dứt dự án chính trị của Big Tech.",
-        "Về mục tiêu năm 2027, nhóm dự định dùng 30 triệu USD trong ngân hàng để bác bỏ thông điệp ủng hộ AI. Họ cũng đặt mục tiêu ủng hộ ứng viên an toàn AI và thúc đẩy luật liên bang không phủ quyết quy định cấp bang.",
-        "Tổ chức này tuyên bố sẽ đưa an toàn AI thành vấn đề hàng đầu trong cuộc đua tổng thống và các cơ quan lập pháp cấp bang cho tới năm 2028."
+        "Tổ chức Public First Action liên kết với Anthropic phác thảo kế hoạch hành động mới sau bầu cử giữa kỳ, theo bản ghi nhớ chia sẻ với Semafor.",
+        "Public First giải thích nhóm phải chuẩn bị ứng phó chiến dịch đối lập từ giới công nghệ, vì sự sa sút của phe ủng hộ AI không đồng nghĩa các tập đoàn lớn từ bỏ dự án chính trị.",
+        "Nhóm đặt mục tiêu dùng 30 triệu USD hiện có để hỗ trợ ứng viên an toàn AI, phản bác thông điệp ủng hộ AI và thúc đẩy luật liên bang không thay thế luật cấp bang.",
+        "Public First cam kết đưa AI thành vấn đề hàng đầu trong mọi cuộc đua bầu cử Mỹ từ nay đến năm 2028, từ tổng thống, quốc hội tới cấp bang."
       ],
       "same_event_coverage_ids": [
         "7debfdfc0ff8482b23e2"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Sau thắng lợi bầu cử, nhóm an toàn AI dự định dùng 30 triệu USD để bác bỏ truyền thông ủng hộ AI",
+      "editorial_headline_vi": "Public First lên kế hoạch dùng 30 triệu USD để đưa AI thành trọng tâm các cuộc bầu cử Mỹ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -41172,25 +41172,40 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 7.55,
         "answers": {
-          "what": 9,
-          "why": 10,
+          "what": 7,
+          "why": 6,
           "notable": 9,
-          "meaning": 7
+          "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "đưa an toàn AI thành vấn đề hàng đầu",
-            "explanation": "The memo pledges to make AI a top-tier issue; it does not specifically say the issue will be AI safety (outlet:p003)."
+            "kind": "fact",
+            "summary_text": "sự sa sút của phe ủng hộ AI",
+            "explanation": "The source identifies the decline of Leading the Future, a pro-AI super PAC, rather than a decline of the pro-AI side as a whole (outlet:p002)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "mọi cuộc đua bầu cử Mỹ",
+            "explanation": "The pledge names the presidential race, every House and Senate race, and gubernatorial, attorney general, and state legislative races. It does not say every US election race (outlet:p003)."
           }
         ],
         "findings": [
           {
+            "question": "what",
+            "problem": "Readers miss that AI safety advocates count the midterms as a major win.",
+            "fix": "Add that assessment while attributing it to the advocates (outlet:p001)."
+          },
+          {
+            "question": "why",
+            "problem": "The decline is attributed to the pro-AI side generally.",
+            "fix": "Name Leading the Future as the group Public First says declined (outlet:p002)."
+          },
+          {
             "question": "meaning",
-            "problem": "The electoral pledge changes “AI” to “AI safety” and narrows the range of races.",
-            "fix": "Say the group wants AI to be a top-tier issue in the presidential race and every House, Senate, gubernatorial, attorney general and state legislative race through 2028 (outlet:p003)."
+            "problem": "The pledge is broadened to every US election race.",
+            "fix": "Limit it to the presidential, House, Senate, gubernatorial, attorney general, and state legislative races named in the memo (outlet:p003)."
           }
         ],
         "writer_boats": [
@@ -41198,8 +41213,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b5c49918e671f61b115c330275cb68bc332e3397e1197bad3bee221710bd2a90",
-        "scored_at": "2026-11-09T13:30:50.407623+00:00"
+        "prose_sha256": "7b6565ad9b2dc2370fe7594ae55308e907dc8f963e46fd305d22094c01318027",
+        "scored_at": "2026-11-09T15:44:46.013735+00:00"
       }
     },
     {
@@ -41342,17 +41357,17 @@
       "use_original_title": false,
       "source_url": "https://blogs.nvidia.com/blog/korean-startup-investments-msit/",
       "key_points": [
-        "NVIDIA công bố đầu tư vào Point2 và lên kế hoạch rót vốn thêm ba startup gồm Motif Technologies, RLWRLD cùng Upstage. Sự kiện diễn ra tại Diễn đàn Khởi nghiệp AI MSIT-NVIDIA ở COEX, nơi lãnh đạo NVIDIA gặp hơn 20 startup Hàn Quốc.",
-        "NVIDIA cho biết các khoản đầu tư này tiếp nối hợp tác với cộng đồng khởi nghiệp và đầu tư mạo hiểm Hàn Quốc. Chương trình NVIDIA Inception hiện có hơn 1.000 thành viên tại Hàn Quốc nhận hỗ trợ giá và kỹ thuật.",
-        "Tiêu biểu là Point2, công ty chế tạo kết nối tần số vô tuyến để truyền dữ liệu giữa chip và giá đỡ trong nhà máy AI. Giải pháp này thay thế cho cáp đồng và quang truyền thống khi mở rộng cụm AI.",
-        "NVIDIA nhận định các đối tác này đại diện cho toàn bộ ngăn xếp công nghệ AI, trải rộng từ hạ tầng, mô hình đến ứng dụng robot."
+        "NVIDIA công bố đầu tư vào startup Point2 của Hàn Quốc và dự kiến rót vốn vào Motif Technologies, Upstage cùng RLWRLD có trụ sở tại San Francisco, Seoul và Tokyo. Diễn đàn Đối tác Khởi nghiệp AI MSIT-NVIDIA tại COEX là nơi lãnh đạo công ty gặp hơn 20 startup Hàn Quốc.",
+        "NVIDIA cho biết các khoản đầu tư tiếp nối hợp tác với cộng đồng khởi nghiệp Hàn Quốc, gồm hơn 1.000 thành viên chương trình NVIDIA Inception.",
+        "Point2 cung cấp kết nối tần số vô tuyến giữa chip và giá đỡ trong các nhà máy AI, tạo giải pháp thay thế sáng tạo cho cáp đồng và cáp quang truyền thống.",
+        "NVIDIA đánh giá các đối tác đại diện cho toàn bộ ngăn xếp công nghệ AI (chuỗi lớp công nghệ hoàn chỉnh), từ hạ tầng, mô hình đến ứng dụng robot."
       ],
       "same_event_coverage_ids": [
         "3389060bc03e52ba1844"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "NVIDIA đầu tư vào Point2 và lên kế hoạch rót vốn thêm ba startup AI tại diễn đàn ở Hàn Quốc",
+      "editorial_headline_vi": "NVIDIA đầu tư vào startup Point2 và lên kế hoạch rót vốn cho Motif, RLWRLD cùng Upstage",
       "summary_sources": [
         {
           "id": "outlet",
@@ -41365,34 +41380,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 9.35,
         "answers": {
-          "what": 10,
+          "what": 9,
           "why": 10,
-          "notable": 8,
+          "notable": 9,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Giải pháp này thay thế cho cáp đồng và quang truyền thống",
-            "explanation": "The source calls Point2’s interconnects an alternative to conventional copper and optical solutions; it does not say they have replaced them (outlet:p005)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "Readers may believe Point2’s technology has already displaced conventional connections.",
-            "fix": "Say it offers an alternative to conventional copper and optical interconnects (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "964f98ca7291e6a6836f8fdfcbfc755294cc4074db5704d9320fbe68819d2112",
-        "scored_at": "2026-11-09T13:35:22.955110+00:00"
+        "prose_sha256": "1ce407dfb0ac6ba7d8edbf60c8bbb3fd6ae75e7457e4a2541b03e5f9ad6adad2",
+        "scored_at": "2026-11-09T15:44:46.013794+00:00"
       }
     },
     {
@@ -42038,6 +42041,376 @@
         "scorer_provider": "codex",
         "prose_sha256": "e5dd62882a55f05c5d751cd2e79287b7d2dc146ce8efc8ce4a66c67ba518617c",
         "scored_at": "2026-11-09T13:24:30.976168+00:00"
+      }
+    },
+    {
+      "id": "1497e51bc202d3d24e1b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/09/2026/the-unwinding-of-the-ai-trade-will-have-bigger-consequences-than-we-think",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3ff4d7bf736192830a08"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7fcbeed08e782216e967",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/09/2026/ai-chip-financing-hits-a-wall",
+      "key_points": [
+        "Theo chuyên trang Semafor, một số nhà đầu tư đang tìm cách bán tháo các danh mục nợ xây dựng trung tâm dữ liệu với mức chiết khấu sâu.",
+        "Theo một người nói với Semafor, các gói tài trợ bộ xử lý đồ họa (GPU - chip tính toán AI) chịu thiệt hại nặng nề do giới đầu tư lo ngại thời hạn khoản vay sẽ dài hơn vòng đời hữu ích của công nghệ.",
+        "Theo hãng tin Bloomberg, ngân hàng ING của Hà Lan đang muốn bán 500 triệu USD nợ trung tâm dữ liệu, gồm 25 triệu USD hỗ trợ dự án Stargate của OpenAI, SoftBank và Oracle.",
+        "Semafor đánh giá phép thử kế tiếp cho Phố Wall là liệu Goldman Sachs và Apollo có thể thuyết phục giới đầu tư tham gia thỏa thuận tài trợ chip 40 tỷ USD cho SpaceX hay không."
+      ],
+      "same_event_coverage_ids": [
+        "5ebdd0ee96df723bb5e5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "ING muốn bán 500 triệu USD nợ trung tâm dữ liệu giữa làn sóng tháo chạy khỏi tài trợ chip AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/09/2026/ai-chip-financing-hits-a-wall"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "làn sóng tháo chạy khỏi tài trợ chip AI",
+            "explanation": "The source describes some investors shopping loans at discounts and Ares declining GPU deals; it does not establish a market-wide flight from AI chip financing (outlet:p001, outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline makes the retreat sound broader than the source establishes.",
+            "fix": "Describe some investors seeking to sell data-center and GPU loans at steep discounts (outlet:p001)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses a concrete example of a major firm refusing GPU financing.",
+            "fix": "Add Ares's decision to pass and its CEO's stated difficulty assessing depreciation (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f3e24ed75f1d92c323c50a702cce3db93cceea2ea0575e6d60c0160f3aa5bf6a",
+        "scored_at": "2026-11-09T15:28:08.283605+00:00"
+      }
+    },
+    {
+      "id": "1041d0c56d06b40f4e82",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.technologyreview.com/2026/11/09/1147654/innovating-with-ai-in-the-special-chemicals-industry/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ac7cf9a8db054185c277"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "55d059b88c6c576a2f3d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/amazon/higher-order-pruning-experts",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6a3690b11bb340415533"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3ca79d5afdbea3240cbf",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/tech-war/article/3373820/nvidia-fallout-chipmaker-faces-extensive-risks-after-ceo-affair-analysts-and-lawyers-say",
+      "key_points": [
+        "Tập đoàn Nvidia đã mở cuộc điều tra đối với Giám đốc điều hành Jensen Huang sau khi ông thừa nhận có quan hệ ngoài hôn nhân.",
+        "Theo South China Morning Post, vị lãnh đạo 63 tuổi đã nói với nhân viên rằng ông không chung thủy với vợ và cam kết hợp tác toàn diện với cuộc điều tra.",
+        "Trong một bức thư, các chủ tịch thuộc đảng Cộng hòa của ba ủy ban Hạ viện Mỹ yêu cầu ông Huang dự buổi làm việc kín vào ngày 18 tháng 11 về các tương tác với nữ doanh nhân Trung Quốc Alice Huang. Động thái này diễn ra sau thông tin ông là mục tiêu của tình báo Trung Quốc, cáo buộc mà Bắc Kinh bác bỏ.",
+        "Theo các luật sư và chuyên gia phân tích, hệ lụy từ vụ việc đe dọa nhiệm kỳ ba thập kỷ của ông Huang cùng tương lai thương mại bán dẫn nhạy cảm của Nvidia với Trung Quốc."
+      ],
+      "same_event_coverage_ids": [
+        "7458c76805ace9864482"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chủ tịch ba ủy ban đảng Cộng hòa tại Hạ viện Mỹ yêu cầu CEO Nvidia dự buổi làm việc kín về tương tác với Alice Huang",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/tech-war/article/3373820/nvidia-fallout-chipmaker-faces-extensive-risks-after-ceo-affair-analysts-and-lawyers-say"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader gets a narrower picture of the risks identified by the source.",
+            "fix": "Add that lawyers and analysts also call US export controls and Nvidia’s autonomy into question (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bf7a41a5582f0f484ed93482f24d856f894d5dd40fbe94bcc40c3ef3a59dd973",
+        "scored_at": "2026-11-09T15:32:39.977828+00:00"
+      }
+    },
+    {
+      "id": "c9c16e2c4ea95e67bee5",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-09/google-escalates-nvidia-rivalry-with-new-versions-of-its-tpu-systems",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "03a4a6ea13dc5fa4311b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "176cc398524bc8df95af",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Corporate product announcement for Instagram Teen Account safety protections where AI age-estimation is merely incidental technology rather than the core news subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://about.fb.com/news/2026/11/expanding-teen-account-protections-to-teens-around-the-world/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "eb145ff03a92ffe6a1c3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b95928dc2417cce41ca4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal repository containing study notes and educational reference material on LLM inference rather than news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/samir-sarwar/samir-vllm",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "730969c5447fb5c8d605"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "06a85cbf81c2d4fbc0fb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://zenodo.org/records/23682548",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "62201a8d5ad11264f530",
+        "71fc8627910318e41e24"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "19af56563fcd9d85d737",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/article/3373724/nvidia-ceo-jensen-huang-admits-affair-board-orders-investigation",
+      "key_points": [
+        "Hội đồng quản trị tập đoàn Nvidia đã thông báo mở cuộc điều tra độc lập sau khi Giám đốc điều hành (CEO) Jensen Huang gửi thư thừa nhận việc không chung thủy với vợ.",
+        "Theo SCMP, cuộc điều tra xuất phát từ bức thư gửi nhân viên, trong đó ông Huang thừa nhận có quan hệ ngoài luồng và xin lỗi gia đình cùng đồng nghiệp.",
+        "Trong bức thư, ông Huang viết rằng hành động của bản thân đã làm tổn thương vợ con, khẳng định không có lời bào chữa nào và cảm thấy vô cùng xin lỗi.",
+        "Theo hãng tin Bloomberg, lời thừa nhận này mâu thuẫn với việc Nvidia hơn một năm qua luôn tìm cách giảm nhẹ mối liên hệ của ông Huang với công ty Megaspeed và bà Huang Le."
+      ],
+      "same_event_coverage_ids": [
+        "33323a391ab9377ec9f9",
+        "f3d876a73b916956a394",
+        "fd184cd4409f4a069a3b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bloomberg: CEO Nvidia thừa nhận ngoại tình mâu thuẫn với việc công ty từng giảm nhẹ quan hệ với Megaspeed",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/article/3373724/nvidia-ceo-jensen-huang-admits-affair-board-orders-investigation"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-09/nvidia-ceo-s-affair-admission-counters-past-statements-on-ties"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.15,
+        "answers": {
+          "what": 10,
+          "why": 3,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "cuộc điều tra xuất phát từ bức thư gửi nhân viên",
+            "explanation": "The source says the board announced an investigation as Huang disclosed the affair in a memo; it does not identify the memo itself as the cause of the investigation (outlet:p011–p012)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is told that the employee memo caused the investigation, a causal link the source does not state.",
+            "fix": "Say the board announced an independent investigation as Huang admitted the affair in a memo (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f17067c583609b40ae18d9a41abb76f317158bd0cf779b9e3de83bb21748ac10",
+        "scored_at": "2026-11-09T15:28:08.283705+00:00"
       }
     }
   ]
