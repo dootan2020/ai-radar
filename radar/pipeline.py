@@ -154,6 +154,7 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
             payload["sources"].append(source_result(source, error="Build deadline exceeded"))
     if "youtube" not in received:
         payload["sources"].extend(source_result(source, error="Build deadline exceeded") for source in youtube_sources)
+    collection_finished_on_time = len(received) == len(jobs) + 1 and time.monotonic() < deadline
 
     if v2:
         from radar import x_collector, x_paid_budget
@@ -226,9 +227,12 @@ def _build(fetch, now, timeout, v2=False, previous=None, events_path=None, publi
                 [], payload["sources"], now, error=f"{type(error).__name__}: {error}")
         if resolve_images is None:
             resolve_images = (fetch is None or image_transport is not None)
+        github_record = next((record for record in payload["sources"] if record["id"] == github.SOURCE["id"]), None)
         return assembly.finish(payload, coverage, curated, now, previous, published=published, fetcher=fetcher,
                                image_transport=image_transport, resolve_images=resolve_images,
-                               ai_transport=ai_transport)
+                               ai_transport=ai_transport,
+                               github_enabled=github_record is not None and not github_record.get("disabled", False),
+                               collection_finished_on_time=collection_finished_on_time)
     return payload
 
 

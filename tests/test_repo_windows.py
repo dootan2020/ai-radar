@@ -1,13 +1,16 @@
 """Trending windows (day, week, month), AI-only repositories, generic area rules and the page's orderings."""
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import json
 import re
+import tempfile
 import unittest
+from pathlib import Path
+from urllib.error import HTTPError
 
 from unittest import mock
 
-from radar import curation, github
+from radar import curation, github, pipeline, youtube
 from radar.common import vi_error
 from radar.curation import CATEGORY_TERMS, classify_category, curate_repos, is_ai_repo, rank_repos
 
@@ -34,6 +37,7 @@ WEEK = page(card("c/voice-ai", "Open-source text-to-speech with voice cloning", 
 MONTH = page(card("d/video-gen", "AI video generation from text prompts", 31000, "this month", forks=4000),
              card("c/voice-ai", "Open-source text-to-speech with voice cloning", 12000, "this month"),
              card("a/agent-day", "LLM agent toolkit", 5000, "this month"))
+RECORDED_DAY = (Path(__file__).parent / "fixtures/github.html").read_text(encoding="utf-8")
 
 
 def fetcher_for(pages):
@@ -51,6 +55,165 @@ def fetcher_for(pages):
 
 
 class TrendingPageTests(unittest.TestCase):
+    def test_curation_fetches_week_and_month_after_collection_deadline(self):
+        calls = []
+        pages = {github.WINDOWS[0][1]: DAY, github.WINDOWS[1][1]: WEEK,
+                 github.WINDOWS[2][1]: MONTH}
+
+        def fetch(url, source_id=None):
+            calls.append(url)
+            return pages.get(url)
+
+        with tempfile.TemporaryDirectory() as directory:
+            events = Path(directory) / "events.json"
+            events.write_bytes(b"[]")
+            with mock.patch.object(pipeline, "_jobs", return_value=[(github.SOURCE, "github", github.parse_trending)]), \
+                 mock.patch.object(youtube, "collect", return_value=([], [])):
+                result = pipeline.build_v2(fetch=fetch, now=NOW, timeout=1e-9,
+                                           events_path=events, resolve_images=False)
+
+        self.assertEqual(next(row for row in result["sources"] if row["id"] == github.SOURCE["id"])["error"],
+                         "Build deadline exceeded")
+        self.assertIn(github.WINDOWS[1][1], calls)
+        self.assertIn(github.WINDOWS[2][1], calls)
+        self.assertNotIn(github.WINDOWS[0][1], calls)
+        self.assertEqual(calls.count(github.WINDOWS[1][1]), 1)
+        self.assertEqual(calls.count(github.WINDOWS[2][1]), 1)
+        self.assertTrue(result["repos_meta"]["windows"]["week"]["measured"])
+        self.assertTrue(result["repos_meta"]["windows"]["month"]["measured"])
+
+    def test_deadline_skips_retry_and_daily_refetch_on_failed_pages(self):
+        calls = []
+
+        def fetch(url, source_id=None):
+            calls.append(url)
+            raise HTTPError(url, 504, "Gateway Timeout", {}, None)
+
+        meta = {}
+        with mock.patch.object(curation.time, "sleep") as sleep, \
+             mock.patch.object(curation, "_previous_repo_snapshots", return_value=[]):
+            curate_repos([], [], fetcher=fetch, now=NOW, meta=meta,
+                         collection_finished_on_time=False)
+        self.assertEqual(calls, [github.WINDOWS[1][1], github.WINDOWS[2][1]])
+        sleep.assert_not_called()
+        self.assertFalse(meta["windows"]["day"]["measured"])
+        self.assertFalse(meta["windows"]["week"]["measured"])
+        self.assertFalse(meta["windows"]["month"]["measured"])
+
+    def test_disabled_github_source_does_not_fetch_trending_pages(self):
+        source = dict(github.SOURCE, disabled=True, disabled_reason="Unavailable")
+        with tempfile.TemporaryDirectory() as directory:
+            events = Path(directory) / "events.json"
+            events.write_bytes(b"[]")
+            with mock.patch.object(pipeline, "_jobs", return_value=[(source, "github", github.parse_trending)]), \
+                 mock.patch.object(youtube, "collect", return_value=([], [])):
+                result = pipeline.build_v2(fetch=lambda url, **kwargs: self.fail("Unexpected request: " + url),
+                                           now=NOW, events_path=events, resolve_images=False)
+        self.assertTrue(next(row for row in result["sources"] if row["id"] == source["id"])["disabled"])
+        self.assertEqual(result["repos"], [])
+
+    def test_transient_504_recovers_daily_and_weekly_pages(self):
+        calls = []
+        pages = fetcher_for({github.WINDOWS[0][1]: RECORDED_DAY, github.WINDOWS[1][1]: WEEK,
+                             github.WINDOWS[2][1]: MONTH})
+
+        def fetch(url, source_id=None):
+            calls.append(url)
+            if url in (github.WINDOWS[0][1], github.WINDOWS[1][1]) and calls.count(url) == 1:
+                raise HTTPError(url, 504, "Gateway Timeout", {}, None)
+            return pages(url, source_id)
+
+        meta = {}
+        with mock.patch.object(curation.time, "sleep") as sleep:
+            repos = curate_repos([], [], fetcher=fetch, now=NOW, meta=meta)
+        self.assertEqual(calls.count(github.WINDOWS[0][1]), 2)
+        self.assertEqual(calls.count(github.WINDOWS[1][1]), 2)
+        self.assertEqual(sleep.call_count, 2)
+        self.assertTrue(meta["rankings"]["trending"]["day"])
+        self.assertTrue(meta["rankings"]["trending"]["week"])
+        self.assertEqual(meta["windows"]["day"]["fetched_at"], "2026-10-03T02:00:00Z")
+        self.assertTrue(any(row["id"] == "NVIDIA/OpenShell" for row in repos))
+
+    def _published_fixture(self, path, fetched_at):
+        meta = {}
+        repos = curate_repos(github.parse_trending(DAY), [],
+                             fetcher=fetcher_for({github.WINDOWS[1][1]: WEEK, github.WINDOWS[2][1]: MONTH}),
+                             now=fetched_at, meta=meta)
+        snapshot = {"generated_at": fetched_at.isoformat().replace("+00:00", "Z"),
+                    "repos": repos, "repos_meta": meta}
+        path.write_text(json.dumps(snapshot), encoding="utf-8", newline="\n")
+        return snapshot
+
+    def test_permanent_failure_uses_last_good_lists_and_original_age(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "published-snapshot.json"
+            prior = self._published_fixture(path, NOW - timedelta(days=1))
+            failure = HTTPError(github.WINDOWS[1][1], 504, "Gateway Timeout", {}, None)
+            fetch = fetcher_for({github.WINDOWS[0][1]: failure, github.WINDOWS[1][1]: failure,
+                                 github.WINDOWS[2][1]: MONTH})
+            meta = {}
+            with mock.patch.dict(curation.os.environ, {"RADAR_PUBLISHED_SNAPSHOT": str(path)}), \
+                 mock.patch.object(curation, "TRENDING_RETRY_SECONDS", 0):
+                repos = curate_repos([], [], fetcher=fetch, now=NOW, meta=meta)
+            for window in ("day", "week"):
+                self.assertEqual(meta["rankings"]["trending"][window],
+                                 prior["repos_meta"]["rankings"]["trending"][window])
+                self.assertEqual(meta["windows"][window]["fetched_at"], prior["generated_at"])
+                self.assertEqual(meta["windows"][window]["age_seconds"], 86400)
+                self.assertTrue(meta["windows"][window]["fallback"])
+            self.assertTrue(all(any(row["id"] == id_ for row in repos)
+                                for id_ in meta["rankings"]["trending"]["week"]))
+
+    def test_stale_daily_fallback_is_dropped(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "published-snapshot.json"
+            self._published_fixture(path, NOW - timedelta(days=4))
+            failure = HTTPError(github.WINDOWS[0][1], 504, "Gateway Timeout", {}, None)
+            fetch = fetcher_for({github.WINDOWS[0][1]: failure, github.WINDOWS[1][1]: WEEK,
+                                 github.WINDOWS[2][1]: MONTH})
+            meta = {}
+            with mock.patch.dict(curation.os.environ, {"RADAR_PUBLISHED_SNAPSHOT": str(path)}), \
+                 mock.patch.object(curation, "TRENDING_RETRY_SECONDS", 0):
+                curate_repos([], [], fetcher=fetch, now=NOW, meta=meta)
+            self.assertFalse(meta["windows"]["day"]["measured"])
+            self.assertEqual(meta["rankings"]["trending"]["day"], [])
+
+    def test_baseline_recovers_window_when_latest_publication_is_empty(self):
+        with tempfile.TemporaryDirectory() as directory:
+            baseline = Path(directory) / "measurement-baseline.json"
+            published = Path(directory) / "published-snapshot.json"
+            prior = self._published_fixture(baseline, NOW - timedelta(days=2))
+            empty = {"generated_at": (NOW - timedelta(hours=1)).isoformat().replace("+00:00", "Z"),
+                     "repos": [], "repos_meta": {"windows": {"week": {"measured": False}},
+                                                "rankings": {"trending": {"week": []}}}}
+            published.write_text(json.dumps(empty), encoding="utf-8", newline="\n")
+            failure = HTTPError(github.WINDOWS[1][1], 504, "Gateway Timeout", {}, None)
+            fetch = fetcher_for({github.WINDOWS[1][1]: failure, github.WINDOWS[2][1]: MONTH})
+            meta = {}
+            with mock.patch.dict(curation.os.environ, {"RADAR_PUBLISHED_SNAPSHOT": str(published),
+                                                       "RADAR_BASELINE": str(baseline)}), \
+                 mock.patch.object(curation, "TRENDING_RETRY_SECONDS", 0):
+                curate_repos(github.parse_trending(DAY), [], fetcher=fetch, now=NOW, meta=meta)
+            self.assertEqual(meta["rankings"]["trending"]["week"],
+                             prior["repos_meta"]["rankings"]["trending"]["week"])
+            self.assertEqual(meta["windows"]["week"]["fetched_at"], prior["generated_at"])
+
+    def test_weekly_fallback_expires_by_fetch_time_not_publication_time(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "published-snapshot.json"
+            prior = self._published_fixture(path, NOW - timedelta(days=11))
+            prior["generated_at"] = (NOW - timedelta(hours=1)).isoformat().replace("+00:00", "Z")
+            path.write_text(json.dumps(prior), encoding="utf-8", newline="\n")
+            failure = HTTPError(github.WINDOWS[1][1], 504, "Gateway Timeout", {}, None)
+            fetch = fetcher_for({github.WINDOWS[1][1]: failure, github.WINDOWS[2][1]: MONTH})
+            meta = {}
+            with mock.patch.dict(curation.os.environ, {"RADAR_PUBLISHED_SNAPSHOT": str(path)}), \
+                 mock.patch.object(curation, "TRENDING_RETRY_SECONDS", 0):
+                curate_repos(github.parse_trending(DAY), [], fetcher=fetch, now=NOW, meta=meta)
+            self.assertFalse(meta["windows"]["week"]["measured"])
+            self.assertEqual(meta["rankings"]["trending"]["week"], [])
+
+
     def test_parser_reads_each_windows_own_count_and_forks(self):
         rows = github.parse_trending(MONTH)
         self.assertEqual([r["repo"] for r in rows], ["d/video-gen", "c/voice-ai", "a/agent-day"])
