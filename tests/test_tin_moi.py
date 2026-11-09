@@ -32,7 +32,6 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
-APP = (SITE / "app.js").read_text(encoding="utf-8")
 CSS = (SITE / "styles.css").read_text(encoding="utf-8")
 
 
@@ -347,19 +346,6 @@ process.stdout.write(JSON.stringify(output));
         nav = self.results["navigation"]
         self.assertEqual(nav["findWhenLeadIsNew"], "st-lead-new")
         self.assertEqual(nav["findWhenLeadNotNew"], "st-hot-1")
-
-    def test_app_js_source_code_implements_coordinator_fixes(self):
-        # 1. commitLastSeen exists and hooks into lifecycle
-        self.assertIn("function commitLastSeen(", APP)
-        self.assertIn("commitLastSeen()", APP)
-        self.assertIn("visibilitychange", APP)
-        self.assertIn("pagehide", APP)
-        # 2. storyStatus ranks skipped before new
-        skipped_idx = APP.find("if (skipped.has(id)) return 'skipped';")
-        new_idx = APP.find("if (arrived.has(id) || (st && isNew(st))) return 'new';")
-        self.assertNotEqual(skipped_idx, -1)
-        self.assertNotEqual(new_idx, -1)
-        self.assertLess(skipped_idx, new_idx, "skipped priority must come before new in storyStatus")
 
 
 if __name__ == "__main__":

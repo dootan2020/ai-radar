@@ -7,7 +7,7 @@ The page must never turn a relative age or a timezone-free schedule into an exac
 - a malformed date never reaches the calendar file, and URL stays an unescaped URI (RFC 5545 3.3.13).
 
 The wording lives in site/time-text.js and site/calendar.js, pure ES modules that Node runs
-without a DOM. The last test checks that site/app.js really renders through those helpers.
+without a DOM.
 """
 
 from pathlib import Path
@@ -113,15 +113,6 @@ class StreamTimeWordingTests(unittest.TestCase):
         self.assertNotIn("T000000", ics)
         self.assertIn("SUMMARY:NeurIPS 2026\\, Sydney", ics)
         self.assertTrue(all(len(line.encode("utf-8")) <= 75 for line in ics.split("\r\n")))
-
-    def test_page_renders_through_these_helpers(self):
-        app = (SITE / "app.js").read_text(encoding="utf-8")
-        self.assertRegex(app, r"import \{ streamedAge, scheduleText[\w, ]*\} from './time-text\.js';")
-        self.assertIn("streamedAge(lastEnded.c.time_text)", app)
-        self.assertIn("scheduleText(v.time_text)", app)
-        # The page must not keep a private copy that could drift from the tested one.
-        self.assertNotIn("function streamedAge", app)
-        self.assertNotIn("function scheduleText", app)
 
 
 if __name__ == "__main__":

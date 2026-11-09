@@ -1,7 +1,6 @@
 """Offline checks for how the page shows machine-translated titles and the lead's source list.
 
-site/titles.js is a pure ES module, so Node runs it without a DOM. The wiring in site/app.js is
-checked by reading the source, as tests/test_bento_review_fixes.py does.
+site/titles.js is a pure ES module, so Node runs it without a DOM.
 """
 
 from pathlib import Path
@@ -63,7 +62,6 @@ class TranslationDisplayTests(unittest.TestCase):
         if result.returncode != 0:
             raise AssertionError(result.stdout + result.stderr)
         cls.out = json.loads(result.stdout)
-        cls.app = (SITE / "app.js").read_text(encoding="utf-8")
         cls.feed_js = (SITE / "feed.js").read_text(encoding="utf-8")
         cls.feed_css = (SITE / "feed.css").read_text(encoding="utf-8")
 
@@ -89,19 +87,6 @@ class TranslationDisplayTests(unittest.TestCase):
         self.assertEqual(self.out["noPublisher"], ["hn-ai"], "without a publisher, the source name decides")
         self.assertEqual(self.out["empty"], [])
 
-    def test_lead_and_sheet_use_the_deduplicated_list(self):
-        self.assertIn('aria-label="Các nguồn đưa chuyện này">${covOf(st).map(', self.app)
-        self.assertIn("const cov = [...covOf(st)].sort(", self.app)
-        self.assertNotIn("(st.coverage || []).map(c => `<li>", self.app)
-
-    def test_every_headline_slot_reads_the_translation(self):
-        self.assertIn("import { headlineShown } from './editorial-headline.js';", self.app)
-        # Rows, hot list, lead, videos, sheet and coverage links all go through tt(); none print the raw title.
-        self.assertGreaterEqual(self.app.count("${tt("), 10)
-        for raw in ("${esc(String(st.title))}</span>", "${esc(String(s.title))}</span>", "${esc(String(c.title))}</a>",
-                    "<h2>${esc(String(st.title))}</h2>", "<strong>${esc(String(L0.title))}</strong>"):
-            self.assertNotIn(raw, self.app)
-        self.assertIn("viShown(r.description, r.description_vi)", self.app)
 
     def test_headlines_and_screened_images_across_reader_surfaces(self):
         result = subprocess.run(["node", str(ROOT / "tests" / "verify-feed-content.mjs")],
@@ -112,9 +97,6 @@ class TranslationDisplayTests(unittest.TestCase):
         self.assertIn('.cov-btn .av-stack { gap: var(--space-4); }', self.feed_css)
         self.assertIn('.cov-btn .av-stack-item + .av-stack-item { margin-left: 0; }', self.feed_css)
 
-    def test_footer_names_the_model_and_its_licence(self):
-        self.assertIn("NLLB-200 (giấy phép CC-BY-NC 4.0", self.app)
-        self.assertIn("t.error_vi", self.app)
 
     def test_feed_machine_translation_chip_reads_translated(self):
         # Owner decision (03/10 17:49): chip reads "Translated", not "dịch máy",

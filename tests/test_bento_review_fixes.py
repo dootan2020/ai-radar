@@ -1,8 +1,7 @@
 """Offline checks for the Bento page behaviours an independent review questioned.
 
 Pure page modules (site/calendar.js, site/faces.js, site/time-text.js, site/snapshot.js) run under Node
-without a DOM. Behaviour that needs a rendered page (focus after S, lists kept open after a re-render) is
-measured by tests/measure_bento_render.mjs on a real Chrome; here only its wiring in site/app.js is checked.
+without a DOM. The bento page itself (site/app.js) was retired on 09/11; these modules still serve the home.
 """
 
 from pathlib import Path
@@ -113,7 +112,6 @@ class BentoReviewFixTests(unittest.TestCase):
         if result.returncode != 0:
             raise AssertionError(result.stdout + result.stderr)
         cls.out = json.loads(result.stdout)
-        cls.app = (SITE / "app.js").read_text(encoding="utf-8")
 
     # Calendar: an exact end before its start is refused (RFC 5545 3.8.2.2).
     def test_exact_end_before_start_is_refused(self):
@@ -137,9 +135,6 @@ class BentoReviewFixTests(unittest.TestCase):
             "Ngày đã xác minh 2026-09-30",
             "",
         ])
-        self.assertIn("verifiedNote(e.verified_at, e.source_url)", self.app)
-        self.assertNotIn("Ngày đã xác minh ${", self.app)
-        self.assertNotIn("Livestream của ${v.channel}`}", self.app)
 
     # Logos: a story's logo is its source's, unless the story IS a repository or model.
     def test_discussion_linking_a_repo_keeps_its_source_logo(self):
@@ -154,7 +149,6 @@ class BentoReviewFixTests(unittest.TestCase):
         f = self.out["faces"]
         self.assertEqual(f["channelNoLab"], {"kind": "mono", "id": "DP", "label": "Dwarkesh Patel"})
         self.assertEqual(f["channelWithLab"], {"kind": "gh", "id": "openai", "label": "OpenAI"})
-        self.assertIn("faceOfSource({source:'', name:v.channel, lab:v.lab}, SRC)", self.app)
 
     # Time wording.
     def test_ago_wording(self):
@@ -173,24 +167,11 @@ class BentoReviewFixTests(unittest.TestCase):
         self.assertEqual(self.out["daysLeft"], [
             'còn <span class="num">3</span> ngày', 'còn <span class="num">1</span> ngày', "hôm nay", "đang diễn ra", "",
         ])
-        self.assertIn("${daysLeftHTML(n)} · ", self.app)
-        self.assertNotIn('còn <span class="num">${n}</span> ngày', self.app)
 
-    def test_page_uses_the_tested_time_helpers(self):
-        self.assertIn("ago, daysLeftHTML } from './time-text.js';", self.app)
-        self.assertNotIn("function ago", self.app)
 
     # Snapshot contract: one check for the first load and for every poll.
     def test_snapshot_contract(self):
         self.assertEqual(self.out["snapshot"], [True, False, False, False, False, False, False, False])
-        self.assertEqual(self.app.count("isSnapshotV2(j)"), 2)
-        self.assertIn("if (!isSnapshotV2(j) || j.generated_at <= D.generated_at) return;", self.app)
-
-    # Wiring of the two rendered-page fixes (measured by tests/measure_bento_render.mjs).
-    def test_save_keeps_focus_and_open_lists(self):
-        self.assertRegex(self.app, r"function toggleSave\(key\)\{[\s\S]*?keepFocus\(\(\) => \{[\s\S]*?renderChapters\(\)[\s\S]*?renderBoard\(\);")
-        self.assertIn("expanded.has(owner)", self.app)
-        self.assertIn("if (owner) expanded.add(owner);", self.app)
 
 
 class BentoStaticTests(unittest.TestCase):
@@ -215,13 +196,6 @@ class BentoStaticTests(unittest.TestCase):
             self.assertRegex(tokens, rf"{re.escape(name)}:", name)
         # Light and dark both define the monogram tint, as every other themed value does.
         self.assertEqual(tokens.count("--av-mono-bg:"), 3)
-
-    def test_repo_names_break_only_after_the_slash(self):
-        # Chrome gives no break opportunity after "/", so overflow-wrap:anywhere alone split "impecca|ble";
-        # every place that prints owner/name must offer <wbr> right after the slash.
-        app = (SITE / "app.js").read_text(encoding="utf-8")
-        self.assertEqual(app.count('${esc(own)}/</span><wbr>'), 3)
-        self.assertIn("esc(r.full_name).replace('/', '/<wbr>')", app)
 
 
 if __name__ == "__main__":

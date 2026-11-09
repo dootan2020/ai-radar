@@ -9,14 +9,7 @@ import unittest
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent / "site"
-APP = (SITE / "app.js").read_text(encoding="utf-8")
 CSS = (SITE / "styles.css").read_text(encoding="utf-8")
-
-
-def function(name: str) -> str:
-    start = APP.index(f"function {name}(")
-    end = APP.index("\n}\n", start)
-    return APP[start:end]
 
 
 def rule(selector: str, text: str = CSS) -> str:
@@ -26,36 +19,7 @@ def rule(selector: str, text: str = CSS) -> str:
 
 
 class RepoControls(unittest.TestCase):
-    def test_list_is_one_segmented_group_and_window_is_a_second_group(self):
-        sel = function("repoSelectors")
-        self.assertEqual(sel.count('role="group"'), 2)
-        self.assertIn('class="seg"', sel)
-        self.assertIn('class="seg-b" data-repo-view=', sel)
-        self.assertIn('class="tab-t" data-repo-${x.kind}=', sel)
-        self.assertNotIn("chip", sel, "the list and window are no longer chip pills")
 
-    def test_every_choice_is_a_one_tap_button_with_its_state(self):
-        sel = function("repoSelectors")
-        self.assertNotIn("<select", sel, "no choice hides behind a menu")
-        self.assertEqual(sel.count("<button"), 2)
-        self.assertEqual(sel.count("aria-pressed="), 2)
-
-    def test_three_lists_and_their_windows_are_kept(self):
-        self.assertEqual(re.findall(r"\{id:'(\w+)', label:'([^']+)'", APP[APP.index("const REPO_VIEWS"):APP.index("const WINDOWS")]),
-                         [("trending", "Đang lên"), ("stars", "Nhiều sao"), ("usable", "Dùng ngay")])
-        self.assertIn("{id:'day', label:'Hôm nay'", APP)
-        self.assertIn("{id:'week', label:'Tuần này'", APP)
-        self.assertIn("{id:'month', label:'Tháng này'", APP)
-        self.assertIn("{id:'stars', label:'Theo sao'", APP)
-        self.assertIn("{id:'forks', label:'Theo phân nhánh'", APP)
-        self.assertIn("picks.slice(1, 4)", function("repoTile"), "one large and three small: four repositories")
-
-    def test_tile_is_titled_after_github_trending(self):
-        self.assertIn("tileHead('GitHub Trending<span class=\"sr\">, kho mã AI</span>', 'repo-h'", function("repoTile"))
-
-    def test_choices_go_through_one_setter(self):
-        self.assertIn("function setRepo(kind, value)", APP)
-        self.assertNotIn("data-repo-select", APP)
 
     def test_phones_keep_a_44px_touch_target(self):
         m = re.search(r"@media \(max-width: 767px\), \(pointer: coarse\)\{(.*?)\n  \}", CSS, re.S)
