@@ -8,9 +8,28 @@
 /* ---------- the top row: the news search as the search bar, the Google apps at the right ---------- */
 .msn-top { padding: var(--msn-top-pad) var(--msn-page-pad) 0; background: transparent; }
 .msn-top-in {
+  position: relative; max-width: var(--msn-panel-max); margin-inline: auto;
   /* The right column never gets narrower than the apps button, so the search and the button keep the gap between them. */
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, var(--msn-search-max)) minmax(var(--btn-h), 1fr); align-items: center;
   gap: var(--space-12); margin-bottom: var(--space-16);
+}
+/* The dive ripple (owner, 09/11 19:38, "làm theo khuyến nghị của e"): the point where the kingfisher enters the water, a few
+   flat rings spreading from under the 9 dots. One packaged shape (nen-song.svg: filled bands, no gradient, no stroke), behind
+   the top row and under the panel, so it never meets text or the search. Static; coral at --msn-ripple-a. The dive point is
+   anchored to the middle of the 9 dots; on a phone a small quarter sits at the page corner, clear of the search. */
+.msn-top-in::before {
+  --ripple-ax: calc(var(--btn-h) / 2); --ripple-ay: calc(var(--msn-search-h) / 2);
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  right: calc(var(--ripple-ax) - var(--msn-ripple-cx)); top: calc(var(--ripple-ay) - var(--msn-ripple-cy));
+  width: var(--msn-ripple-w); height: var(--msn-ripple-h);
+  background: url("nen-song.svg") no-repeat right top / 100% 100%; opacity: var(--msn-ripple-a);
+}
+@media (max-width: 767px) {
+  .msn-top-in::before {
+    --ripple-ax: calc(-1 * var(--msn-page-pad)); --ripple-ay: calc(-1 * var(--msn-top-pad));
+    right: calc(var(--ripple-ax) - var(--msn-ripple-cx-phone)); top: calc(var(--ripple-ay) - var(--msn-ripple-cy-phone));
+    width: var(--msn-ripple-w-phone); height: var(--msn-ripple-h-phone);
+  }
 }
 .msn-top .news-search { grid-column: 2; width: 100%; position: relative; }
 .msn-top .masthead-actions { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: var(--space-8); }
@@ -31,7 +50,9 @@
    panel parts from the page by its fill and its shadow, a card from the panel by its shadow (light) or its lighter fill
    (dark). The panel takes focus only from a script (a jump to the top), so it never shows a ring (feed.css). */
 .feed-main.front.msn-panel {
-  max-width: none; margin: 0 var(--msn-page-pad) var(--space-48); padding: var(--msn-panel-pad);
+  /* The outer width stops at --msn-panel-max and the panel is centred; the top row (.msn-top-in) stops at the same width. */
+  max-width: var(--msn-panel-max); margin: 0 max(var(--msn-page-pad), calc((100% - var(--msn-panel-max)) / 2)) var(--space-48);
+  padding: var(--msn-panel-pad);
   background: var(--color-panel); border: 0; border-radius: var(--msn-panel-r);
   box-shadow: var(--msn-shadow-panel);
 }
