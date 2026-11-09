@@ -61,9 +61,10 @@ class NewItemsNoticeTests(unittest.TestCase):
 
     def test_sections_name_their_view_without_counts(self):
         # Mockup B (captain, 07/11) named each section; on 08/11 the captain asked for clean filters with no story
-        # count ("Làm sạch bộ lọc, không hiển thị lượng tin"), and no line counting the window's stories.
+        # count ("Làm sạch bộ lọc, không hiển thị lượng tin"), and no line counting the window's stories. On 09/11 13:16
+        # scrolling into older days replaced the section tabs (Chuyện lớn, Đang nóng, Sản phẩm, Nghiên cứu, Thảo luận).
         labels = re.findall(r'<span class="chip-label">([^<]+)</span>', self.html)
-        self.assertEqual(labels, ["Trang nhất", "Chuyện lớn", "Đang nóng", "Sản phẩm", "Nghiên cứu", "Thảo luận", "Mã và mô hình", "Xếp hạng", "Đã lưu"])
+        self.assertEqual(labels, ["Trang nhất", "Mã và mô hình", "Xếp hạng", "Đã lưu"])
         self.assertNotIn('class="count', self.html)
         self.assertNotIn("querySelector('.count')", self.js)
         self.assertNotIn('<span class="count num">', self.js)

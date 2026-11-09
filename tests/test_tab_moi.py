@@ -140,7 +140,7 @@ class TopZoneTests(unittest.TestCase):
         # weather in the first row and the calendar under it; first on a phone.
         for folder in (ROOT / "site", EXT):
             feed = (folder / "feed.js").read_text(encoding="utf-8")
-            self.assertIn("(front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : FIXED_SLOTS) + html", feed)
+            self.assertIn("(front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : FIXED_SLOTS) + chunk.html", feed)
             self.assertNotIn("if (front) placeFixedCards", feed)
             self.assertEqual(feed.count("placeFixedCards("), 3)   # the definition, a redraw, a failed news load
             css = (folder / "trang-msn.css").read_text(encoding="utf-8")

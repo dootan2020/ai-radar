@@ -715,10 +715,6 @@ ul, ol { padding: 0; list-style: none; }
 .feed-empty h2 { font-size: var(--text-tile); }
 .feed-empty p { color: var(--color-ink-2); max-width: 46ch; }
 
-.feed-end { margin-top: var(--space-64); text-align: center; padding: var(--space-48) var(--space-24); display: flex; flex-direction: column; align-items: center; gap: var(--space-12); }
-.feed-end h2 { font-size: var(--text-feature); letter-spacing: var(--tracking-display); }
-.feed-end p { color: var(--color-ink-2); max-width: 60ch; }
-.end-actions { display: flex; flex-wrap: wrap; gap: var(--space-12); justify-content: center; margin-top: var(--space-12); }
 
 
 /* ---------- skeleton: flat blocks ---------- */
