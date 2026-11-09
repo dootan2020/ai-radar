@@ -263,13 +263,14 @@ def report(month, cycles, problems, labels=None, decisions_path=None, now=None):
         month_start = first.replace(day=1, hour=0)
         month_end = (month_start.replace(day=28) + timedelta(days=4)).replace(day=1)
         horizon = min(now or datetime.now(LOCAL), month_end) - timedelta(microseconds=1)
-        last = max((horizon.replace(hour=h, minute=0, second=0, microsecond=0)
-                    for h in SCHEDULE_LOCAL if horizon.replace(hour=h, minute=0, second=0, microsecond=0) <= horizon), default=first)
+        # Every scheduled slot of the month up to the horizon, across all days so far.
+        # Between midnight and the day's first slot the latest slot belongs to the previous day.
         expected = set()
-        cursor = first
-        while cursor <= last:
-            expected.add(cursor)
-            cursor += timedelta(hours=4)
+        day = month_start
+        while day <= horizon:
+            expected.update(slot for slot in (day.replace(hour=h) for h in SCHEDULE_LOCAL) if slot <= horizon)
+            day += timedelta(days=1)
+        last = max(expected, default=first)
         present = {c["start"].astimezone(LOCAL).replace(minute=0, second=0, microsecond=0) for c in selected}
         completed = sum(c["state"] in ("decided", "no_new_stories") for c in selected)
         interrupted = [c["id"] for c in selected if c["state"] == "running"]
@@ -372,7 +373,7 @@ def report(month, cycles, problems, labels=None, decisions_path=None, now=None):
     return "\n".join(lines) + "\n"
 
 
-def run(cycles_dir, out_dir, month=None, labels=None):
+def run(cycles_dir, out_dir, month=None, labels=None, now=None):
     ledger, cycles, problems = collect(cycles_dir)
     if month is None:
         if not cycles:
@@ -406,7 +407,7 @@ def run(cycles_dir, out_dir, month=None, labels=None):
                           if isinstance(row, dict) and isinstance(row.get("id"), str) and row["id"] in ids}
                 decisions_path.write_bytes(json.dumps({"decisions": list(latest.values())}, ensure_ascii=False).encode("utf-8"))
         path = output / f"bao-cao-{month}.md"
-        path.write_bytes(report(month, cycles, problems, labels, decisions_path).encode("utf-8"))
+        path.write_bytes(report(month, cycles, problems, labels, decisions_path, now).encode("utf-8"))
     finally:
         if decisions_path.exists():
             decisions_path.unlink()
