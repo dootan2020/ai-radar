@@ -1077,7 +1077,9 @@ function areaPool(areaId) {
   for (const fid of fieldIds) {
     const f = FIELD_MAP.get(fid);
     if (!f) continue;
-    const isRanked = f.status === 'ranked' && Array.isArray(f.ranked) && f.ranked.length > 0;
+    // The pipeline marks a field "ready", "partial" or "stale" (radar/field_rankings.py), never "ranked": the ranked rows
+    // themselves say whether the field was measured.
+    const isRanked = Array.isArray(f.ranked) && f.ranked.length > 0;
     const pool = isRanked ? f.ranked : asArray(f.tracking);
     if (isRanked) hasRanked = true;
     for (const r of pool) {
@@ -1167,9 +1169,26 @@ const winOf = id => WINDOWS.find(w => w.id === id);
 const totalOf = id => TOTALS.find(t => t.id === id);
 let REPO = new Map();         // repository id -> record (labelled GitHub repositories and Hugging Face models)
 function rankings() { const rk = D.repos_meta && D.repos_meta.rankings; return rk && rk.trending && rk.usable ? rk : null; }
-function rankedRepos() {
+const rankedList = (rk, view, second) => asArray(view === 'stars' ? rk[second] : (rk[view] || {})[second]).map(id => REPO.get(String(id))).filter(Boolean);
+/* Only the lists, windows and totals the pipeline measured are offered: GitHub's daily or weekly trending page can fail
+   (repos_meta.windows), and a selected default must never lead to an empty list. The reader's saved choice is kept in
+   storage and comes back once its list has data again; until then the first measured one shows. */
+function repoOptions() {
   const rk = rankings(); if (!rk) return null;
-  return asArray(repoView === 'stars' ? rk[repoTotal] : (rk[repoView] || {})[repoWindow]).map(id => REPO.get(String(id))).filter(Boolean);
+  const seconds = view => (view === 'stars' ? TOTALS : WINDOWS).filter(x => rankedList(rk, view, x.id).length);
+  return { rk, views: REPO_VIEWS.filter(v => seconds(v.id).length), seconds };
+}
+function settleRepoChoice() {
+  const o = repoOptions(); if (!o || !o.views.length) return o;
+  if (!o.views.some(v => v.id === repoView)) repoView = o.views[0].id;
+  const opts = o.seconds(repoView);
+  if (repoView === 'stars') { if (!opts.some(x => x.id === repoTotal)) repoTotal = opts[0].id; }
+  else if (!opts.some(x => x.id === repoWindow)) repoWindow = opts[0].id;
+  return o;
+}
+function rankedRepos() {
+  const o = settleRepoChoice(); if (!o) return null;
+  return rankedList(o.rk, repoView, repoView === 'stars' ? repoTotal : repoWindow);
 }
 
 function repoMeasure(r) {
@@ -1191,14 +1210,19 @@ function formatRepoName(fullName) {
 }
 function repoControls(full, inList) {
   const isArea = areas.size > 0 && FIELD_DATA && FIELD_MAP.size;
+  const o = settleRepoChoice();
+  const views = o ? o.views : REPO_VIEWS;
+  const seconds = o ? o.seconds(repoView) : repoView === 'stars' ? TOTALS : WINDOWS;
   const second = repoView === 'stars'
-    ? TOTALS.map(t => ({ kind: 'total', id: t.id, label: t.label, on: repoTotal === t.id }))
-    : WINDOWS.map(w => ({ kind: 'window', id: w.id, label: w.label, on: repoWindow === w.id }));
-  return `<div class="repo-ctl">
-    <div class="seg" role="group" aria-label="Chọn danh sách kho mã">${REPO_VIEWS.map(v => `<button class="seg-b" data-repo-view="${v.id}" aria-pressed="${String(repoView === v.id)}">${esc(v.label)}</button>`).join('')}</div>
-    ${isArea ? '' : `<div class="seg seg-quiet" role="group" aria-label="${repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian'}">${second.map(x => `<button class="seg-b" data-repo-${x.kind}="${x.id}" aria-pressed="${x.on}">${esc(x.label)}</button>`).join('')}</div>`}
-  </div>
-  <div class="area-chips" role="group" aria-label="Chọn mảng bạn quan tâm">${AREAS.map(a => `<button class="area-chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${esc(a.label)}</button>`).join('')}</div>
+    ? seconds.map(t => ({ kind: 'total', id: t.id, label: t.label, on: repoTotal === t.id }))
+    : seconds.map(w => ({ kind: 'window', id: w.id, label: w.label, on: repoWindow === w.id }));
+  // A switch with one position is not a choice: it is left out, and the measure under each card names its window.
+  const viewSeg = views.length > 1 ? `<div class="seg" role="group" aria-label="Chọn danh sách kho mã">${views.map(v => `<button class="seg-b" data-repo-view="${v.id}" aria-pressed="${String(repoView === v.id)}">${esc(v.label)}</button>`).join('')}</div>` : '';
+  const secondSeg = isArea || second.length < 2 ? '' : `<div class="seg seg-quiet" role="group" aria-label="${repoView === 'stars' ? 'Xếp theo tổng số sao hay lượt phân nhánh' : 'Chọn khung thời gian'}">${second.map(x => `<button class="seg-b" data-repo-${x.kind}="${x.id}" aria-pressed="${x.on}">${esc(x.label)}</button>`).join('')}</div>`;
+  // Work areas are offered only once the field rankings arrived, and only those with repositories in them.
+  const areaList = FIELD_DATA && FIELD_MAP.size ? AREAS.filter(a => areas.has(a.id) || areaPool(a.id).length) : [];
+  return `${viewSeg || secondSeg ? `<div class="repo-ctl">${viewSeg}${secondSeg}</div>` : ''}
+  ${areaList.length ? `<div class="area-chips" role="group" aria-label="Chọn mảng bạn quan tâm">${areaList.map(a => `<button class="area-chip" data-area="${a.id}" aria-pressed="${areas.has(a.id)}">${esc(a.label)}</button>`).join('')}</div>` : ''}
   ${isArea ? '<p class="tile-note repo-note"><button class="text-btn" data-area-clear>Hiện mọi mảng</button></p>' : ''}`;
 }
 function repoCard(r, measure) {
@@ -1799,8 +1823,10 @@ function buildFiltered(f) {
     const lead = liveAvailable() ? { t: 'live', all: true } : river.length ? null : { t: 'ev-empty' };
     return [...(lead ? [lead] : []), ...river.map(st => C(st))];
   }
-  const river = ordered(listFor(f)).map(st => C(st));
-  return f === 'code' ? [{ t: 'repos-full' }, { t: 'models' }, ...river] : river;
+  // "Mã và mô hình" is the two lists only: a news story about a repository is told on the home stream, and here it stood
+  // alone under the lists, one card in an otherwise empty row (owner, 09/11).
+  if (f === 'code') return [{ t: 'repos-full' }, { t: 'models' }];
+  return ordered(listFor(f)).map(st => C(st));
 }
 /* Saved items that left the snapshot (and saved repositories): the title and address kept at save time. */
 function renderSavedRest() {
@@ -1936,7 +1962,7 @@ function updateMore() {
   if (pos < seq.length) { end.hidden = true; if (scrollWatch === true) more(false); return; }
   const front = filter === 'all';
   if (front && D && !complete && !olderUnavailable) { end.hidden = true; waitOlder(); return; }
-  end.hidden = !totalCards || filter === 'rankings';
+  end.hidden = !totalCards || filter === 'rankings' || filter === 'code';
   $('#mark-all-btn').textContent = front ? 'Đánh dấu đã xem hết' : 'Đánh dấu nhóm này đã xem';
 }
 
@@ -1959,7 +1985,9 @@ function renderFeed() {
   const grid = $('#feed-grid');
   $('#arena').hidden = !rankings;
   grid.hidden = rankings;
-  $('#sort-switch').hidden = rankings || !D;
+  // "Mã và mô hình" is two lists with their own order controls, so the news order has nothing to sort there.
+  const code = filter === 'code';
+  $('#sort-switch').hidden = rankings || code || !D;
   $('#feed-status').innerHTML = '';
   if (rankings) {
     for (const id of ['feed-empty', 'filter-context']) $('#' + id).hidden = true;
@@ -1979,7 +2007,9 @@ function renderFeed() {
   const empty = !chunk.html.trim() && !chunk.days.length;   // tiles with no data render nothing, so judge by the output
   $('#feed-empty').hidden = !empty;
   grid.classList.toggle('is-front', front);
-  grid.innerHTML = (front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : FIXED_SLOTS) + chunk.html;
+  // The weather and the calendar are the home's furniture; a reader who opened "Mã và mô hình" came for repositories and
+  // models (owner, 09/11: "QA các thành phần giao diện có nên hiển thị ở đó hay không"), so that view leaves them out.
+  grid.innerHTML = (front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : code ? '' : FIXED_SLOTS) + chunk.html;
   placeChunk(grid, { html: '', days: chunk.days });
   placeFixedCards(grid);
   renderSub();
@@ -2051,7 +2081,8 @@ function renderChips() {
     const f = b.dataset.filter;
     LABELS[f] = LABELS[f] || (b.querySelector('.chip-label') || b).textContent.trim();
     const n = !D ? 0 : f === 'all' ? allStories.length : f === 'saved' ? saved.length : f === 'rankings' ? 0 : listFor(f).length;
-    b.hidden = f !== 'all' && f !== 'rankings' && n === 0 && f !== filter;
+    // "Mã và mô hình" and "Xếp hạng" show lists, not stories: their tabs never depend on a story count.
+    b.hidden = f !== 'all' && f !== 'rankings' && f !== 'code' && n === 0 && f !== filter;
     b.setAttribute('aria-pressed', String(f === filter));
   });
   const container = $('#feed-filters');
@@ -2843,7 +2874,7 @@ async function init() {
     if (FIELD_DATA && Array.isArray(FIELD_DATA.fields)) {
       FIELD_MAP = new Map(FIELD_DATA.fields.map(f => [f.id, f]));
       mergeFieldRepos();
-      if (filter === 'rankings') renderFeed();
+      rerenderRepos();
     }
   });
 }

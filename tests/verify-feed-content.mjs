@@ -37,7 +37,14 @@ assert.equal(headlineShown({title:'Full', headline:' '}), 'Full');
 let errorHandler, loadHandler;
 class ImageElement {}
 const feed = await renderer('feed.js', '\ninit();', `
-return {titleOf, pickImage, msnCard, leadHTML, topListHTML, renderHot, watchPictures, oneEvent,
+return {titleOf, pickImage, msnCard, leadHTML, topListHTML, renderHot, watchPictures, oneEvent, buildFiltered,
+  repoTile(data, field = null, choice = {}) {
+    D = data; REPO = new Map(data.repos.map(r => [String(r.id), r]));
+    FIELD_DATA = field; FIELD_MAP = new Map(field ? field.fields.map(f => [f.id, f]) : []);
+    areas.clear(); for (const a of choice.areas || []) areas.add(a);
+    repoView = choice.view || 'trending'; repoWindow = choice.window || 'day'; repoTotal = 'stars'; repoVisibleLimit = REPO_PAGE_DEFAULT;
+    return renderRepos(true);
+  },
   frontFor(stories) {
     D = {stories, events:[], sources:[], generated_at:'2026-10-10T00:00:00Z'};
     GEN = Date.parse(D.generated_at); allStories = stories; STORY = STORY_ANY = new Map(stories.map(s => [s.id, s]));
@@ -708,3 +715,41 @@ eventDocument.hidden = true;
 eventFeed.scheduleCountdown();
 assert.equal(eventTimers.size, 0);
 console.log('PASS event timezone boundaries, DST, partial exact times, cards, calendar exports and shared countdown timer');
+
+// "Mã và mô hình" (owner, 09/11: "vỡ giao diện, thiếu thông tin"). The snapshot of 09/11 had GitHub's monthly trending
+// list only: the daily page failed and the weekly one answered HTTP 504 (repos_meta.windows). The default "Đang lên ·
+// Hôm nay" then showed "Danh sách này chưa có kho mã nào." A selected default never leads to an empty list now, and a
+// switch with one measured position is left out.
+const ghRepo = (id, month) => ({id, full_name:id, url:`https://github.com/${id}`, description:'d', label:'dung-ngay', source:'github-trending',
+  stars:100, forks:5, stars_gained:{day:null, week:null, month}});
+const monthOnly = {stories:[], repos:[ghRepo('a/one', 900), ghRepo('b/two', 800)], repos_meta:{rankings:{
+  trending:{day:[], week:[], month:['a/one', 'b/two']}, usable:{day:[], week:[], month:['a/one']}, stars:['a/one', 'b/two'], forks:['b/two', 'a/one']}}};
+const monthTile = feed.repoTile(monthOnly);
+assert.doesNotMatch(monthTile, /chưa có kho mã nào/);
+assert.equal((monthTile.match(/class="repo-cell/g) || []).length, 2);
+assert.match(monthTile, /\+900<\/b> sao tháng này/);
+assert.doesNotMatch(monthTile, /data-repo-window=/, 'one measured window is not offered as a switch');
+assert.match(monthTile, /data-repo-view="trending" aria-pressed="true"/);
+assert.match(feed.repoTile(monthOnly, null, {view:'usable', window:'week'}), /data-repo-view="usable" aria-pressed="true"[\s\S]*\+900<\/b> sao tháng này/);
+// Two measured windows remain a choice, and an unmeasured one is not offered.
+const twoWindows = {...monthOnly, repos:[{...ghRepo('a/one', 900), stars_gained:{day:12, week:null, month:900}}, ghRepo('b/two', 800)],
+  repos_meta:{rankings:{...monthOnly.repos_meta.rankings, trending:{day:['a/one'], week:[], month:['a/one', 'b/two']}}}};
+const twoTile = feed.repoTile(twoWindows);
+assert.match(twoTile, /data-repo-window="day" aria-pressed="true"/);
+assert.match(twoTile, /data-repo-window="month"/);
+assert.doesNotMatch(twoTile, /data-repo-window="week"/);
+// Field rankings: the pipeline marks a field "ready" or "partial" (radar/field_rankings.py), never "ranked"; its ranked
+// rows still lead the area's list, by stars gained in seven days. Areas with no repository are not offered.
+const field = {fields:[{id:'coding', status:'ready', ranked:[{full_name:'c/slow', url:'https://github.com/c/slow', stars:5000, stars_net_7d:10},
+  {full_name:'c/fast', url:'https://github.com/c/fast', stars:50, stars_net_7d:400}], tracking:[]},
+  {id:'video', status:'partial', ranked:[{full_name:'v/one', url:'https://github.com/v/one', stars:9, stars_net_7d:3}], tracking:[]}]};
+const areaTile = feed.repoTile(monthOnly, field, {areas:['agent-code']});
+assert.ok(areaTile.indexOf('c/<wbr>fast') > 0 && areaTile.indexOf('c/<wbr>fast') < areaTile.indexOf('c/<wbr>slow'), 'ranked rows lead, fastest first');
+assert.match(areaTile, /\+400<\/b> sao trong 7 ngày/);
+assert.match(areaTile, /data-area="video"/);
+assert.doesNotMatch(areaTile, /data-area="translation"/);
+assert.doesNotMatch(feed.repoTile(monthOnly), /data-area=/, 'no area chips before the field rankings arrive');
+// The view is the two lists only: no news card stands alone under them.
+feed.configure([{...story, id:'repo-story', kind:'repository'}]);
+assert.deepEqual(feed.buildFiltered('code').map(x => x.t), ['repos-full', 'models']);
+console.log('PASS repository lists offer only measured windows, field rankings and the code view\'s two lists');

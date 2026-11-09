@@ -104,7 +104,7 @@ function tableHTML(rows, category) {
   const rangeSpan = ceiling - floor;
   const rangeText = `${floor} – ${ceiling}`;
 
-  return `<figure class="arena-card arena-chart" aria-labelledby="arena-title" aria-describedby="arena-comparison arena-note">
+  return `<figure class="arena-card arena-chart" aria-labelledby="arena-title" aria-describedby="arena-comparison">
     <div class="arena-legend-strip">
       <div class="arena-legend-items">
         <span class="arena-legend-item">
@@ -230,7 +230,8 @@ export function arenaHTML(data, category = 'overall') {
   const valid = Array.isArray(rows) && rows.length === 10 && rows.every(row =>
     row && typeof row.id === 'string' && typeof row.maker === 'string' && Number.isInteger(row.rank) && row.rank > 0 && Number.isFinite(row.score));
   const source = `<a href="${dataset}" target="_blank" rel="noopener">Arena / LMArena</a>`;
-  const intro = `<header class="arena-heading"><p class="arena-eyebrow">BẢNG XẾP HẠNG MÔ HÌNH</p><h2 id="arena-title">Ai đang dẫn đầu Arena?</h2><p>10 mô hình dẫn đầu theo bình chọn của người dùng Arena.</p></header>`;
+  // The pressed "Xếp hạng" tab names the view and the source line says whose votes these are: the heading is the question.
+  const intro = `<header class="arena-heading"><h2 id="arena-title">Ai đang dẫn đầu Arena?</h2></header>`;
   const attribution = `<p class="arena-credit">Nguồn: ${source} · <a href="${licence}" target="_blank" rel="noopener">CC BY 4.0</a>.<br>Halcyon lọc nhóm, trình bày tên mô hình, dịch nhãn và tính thay đổi hạng; giữ nguyên điểm và hạng từ nguồn.</p>`;
   if (!valid) return `${intro}<div class="arena-empty" role="status"><h3>Chưa tải được bảng xếp hạng</h3><p>Anh chị có thể tải lại hoặc xem dữ liệu tại ${source}.</p><button class="btn" type="button" data-arena-retry>Thử lại</button></div>${attribution}`;
   const tabs = Object.entries(ARENA_CATEGORIES).map(([id, label]) => `<button type="button" data-arena-category="${id}" aria-pressed="${id === category}">${label}</button>`).join('');
@@ -240,8 +241,7 @@ export function arenaHTML(data, category = 'overall') {
   return `${intro}<p class="arena-date">Theo Arena, công bố ngày <strong>${dateText(data.published_at)}</strong>.${status}${stale}</p>
     <div class="arena-switch" role="group" aria-label="Nhóm xếp hạng Arena">${tabs}</div>
     <p class="arena-comparison" id="arena-comparison">${comparison}</p>
-    ${tableHTML(rows, category)}
-    <p class="arena-note" id="arena-note">Điểm cao hơn thể hiện được ưa thích hơn trong các lượt so sánh của Arena. Chênh lệch nhỏ có thể nằm trong sai số; thứ hạng không khẳng định mô hình tốt hơn cho mọi tác vụ.</p>${attribution}`;
+    ${tableHTML(rows, category)}${attribution}`;
 }
 
 /* One request for the rankings, shared by the front page's tile and the "Xếp hạng" view; a failure is retried next

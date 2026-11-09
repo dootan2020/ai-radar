@@ -34,6 +34,9 @@
 .arena-th-rank { width: 48px; padding-left: var(--space-8); }
 .arena-th-model { width: 310px; min-width: 280px; }
 .arena-th-plot { padding: var(--space-12) var(--space-24); }
+/* The axis must span exactly the plot cells' width, or every tick sits off its bar: the header cell's side padding has to
+   match .arena-col-plot's (the generic header rule above would otherwise give it 16px). */
+@media (min-width: 1200px) { .arena-table thead th.arena-th-plot { padding-inline: var(--space-24); } }
 .arena-axis-header { display: flex; justify-content: space-between; align-items: baseline; font-size: var(--text-meta); color: var(--color-ink-3); font-weight: 500; margin-bottom: var(--space-6); }
 .arena-axis-ticks { position: relative; height: 16px; width: 100%; }
 .arena-axis-tick { position: absolute; transform: translateX(-50%); font-size: var(--text-micro); color: var(--color-ink-3); font-variant-numeric: tabular-nums; line-height: 1; }
@@ -152,28 +155,23 @@
   .arena-th-score, .arena-col-score { width: 68px; }
 }
 
-/* Mobile: card per model */
+/* Phone: one compact list in one card (owner, 09/11: the chart must read at 375 too). Each model takes two short lines
+   and its interval: rank, name and score; maker and the change; then the CI mark on the axis, whose scale is printed
+   once above the rows instead of under every model. */
 @media (max-width: 767px) {
   .arena { margin-top: var(--space-16); }
-  .arena-card { background: transparent; border: none; box-shadow: none; padding: 0; }
-  .arena-legend-strip { background: var(--color-surface); border: 0; box-shadow: var(--msn-shadow-rest); border-radius: var(--radius-12); padding: var(--space-16); margin-bottom: var(--space-12); flex-direction: column; align-items: flex-start; gap: var(--space-8); }
-  .arena-legend-items { flex-direction: column; align-items: flex-start; gap: var(--space-8); }
+  .arena-card { padding: var(--space-12) var(--space-16); border-radius: var(--msn-card-r); }
+  .arena-legend-strip { padding: var(--space-8) var(--space-12); margin-bottom: var(--space-8); flex-direction: column; align-items: flex-start; gap: var(--space-6); }
+  .arena-legend-items { flex-direction: column; align-items: flex-start; gap: var(--space-6); }
 
-  .arena-table, .arena-table tbody, .arena-table tr, .arena-table td, .arena-table th { display: block; }
-  .arena-table thead { display: none; }
+  .arena-table, .arena-table thead, .arena-table tbody, .arena-table tr, .arena-table td, .arena-table th { display: block; }
+  .arena-table thead th:not(.arena-th-plot) { display: none; }
+  .arena-table thead th.arena-th-plot { padding: var(--space-8) 0 var(--space-6); }
+  .arena-title-full { display: none; }
+  .arena-title-short { display: inline; }
 
-  .arena-table tbody tr.arena-row {
-    background: var(--color-surface);
-    border: 0;
-    box-shadow: var(--msn-shadow-rest);
-    border-radius: var(--radius-12);
-    padding: var(--space-16);
-    margin-bottom: var(--space-12);
-    box-sizing: border-box;
-  }
-  .arena-table tbody tr.arena-row.arena-leader {
-    background: var(--color-accent-wash);
-  }
+  .arena-table tbody tr.arena-row { padding: var(--space-12) 0; }
+  .arena-table tbody tr.arena-row.arena-leader { margin-inline: calc(-1 * var(--space-8)); padding-inline: var(--space-8); border-radius: var(--radius-8); }
 
   .arena-table td.arena-col-rank,
   .arena-table td.arena-col-score,
@@ -181,89 +179,20 @@
     display: none;
   }
 
-  .arena-col-model {
-    display: block;
-    width: auto;
-    min-width: 0;
-    padding: 0;
-    margin-bottom: var(--space-8);
-  }
-  .arena-model-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-8);
-  }
-  .arena-model-left {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-8);
-    min-width: 0;
-  }
-  .arena-rank-mobile {
-    font-size: var(--text-title);
-    font-weight: 700;
-    color: var(--color-ink-2);
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
-  }
-  .arena-leader .arena-rank-mobile {
-    color: var(--color-accent);
-  }
-  .arena-model-name {
-    font-size: var(--text-sub);
-    font-weight: 700;
-    color: var(--color-ink);
-    line-height: var(--leading-snug);
-    white-space: normal;
-  }
-  .arena-score-mobile {
-    font-size: var(--text-title);
-    font-weight: 700;
-    color: var(--color-ink);
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
-  }
+  .arena-col-model { width: auto; min-width: 0; padding: 0; }
+  .arena-model-header { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-8); }
+  .arena-model-left { display: flex; align-items: baseline; gap: var(--space-8); min-width: 0; }
+  .arena-rank-mobile { min-width: 2ch; font-size: var(--text-sub); font-weight: 700; color: var(--color-ink-2); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+  .arena-leader .arena-rank-mobile { color: var(--color-accent); }
+  .arena-model-name { font-size: var(--text-sub); font-weight: 700; color: var(--color-ink); line-height: var(--leading-snug); white-space: normal; }
+  .arena-score-mobile { font-size: var(--text-sub); font-weight: 700; color: var(--color-ink); font-variant-numeric: tabular-nums; flex-shrink: 0; }
 
-  .arena-model-meta {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-top: var(--space-4);
-    font-size: var(--text-small);
-  }
-  .arena-model-maker {
-    color: var(--color-ink-2);
-    margin-top: 0;
-  }
-  .arena-movement-mobile {
-    font-size: var(--text-meta);
-  }
+  .arena-model-meta { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-8); margin-top: 0; padding-left: calc(2ch + var(--space-8)); font-size: var(--text-small); }
+  .arena-model-maker { color: var(--color-ink-2); margin-top: 0; }
+  .arena-movement-mobile { font-size: var(--text-meta); white-space: nowrap; }
 
-  .arena-col-plot {
-    display: block;
-    padding: 0;
-    margin-top: var(--space-12);
-  }
-  .arena-plot-track {
-    height: 18px;
-    margin-bottom: var(--space-6);
-  }
-  .arena-gridlines {
-    top: 0;
-    bottom: 0;
-  }
-  .arena-mobile-ci {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-size: var(--text-micro);
-    color: var(--color-ink-3);
-    font-variant-numeric: tabular-nums;
-    margin-top: var(--space-4);
-  }
-  .arena-mobile-ci-center {
-    font-weight: 500;
-    text-align: center;
-  }
+  .arena-col-plot { padding: 0; margin-top: var(--space-8); }
+  .arena-plot-track { height: 14px; }
+  .arena-gridlines { top: -6px; bottom: -6px; }
+  .arena-mobile-ci { display: none; }
 }
