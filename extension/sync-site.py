@@ -190,7 +190,7 @@ def sync():
                  'faces.js', 'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js',
                  'calendar.js', 'worth-score.js', 'live.js', 'menu-cong-cu.css',
                  'feed-images.json', 'editor-picks.json',
-                 'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg', 'wordmark.svg', 'wordmark-dark.svg'):
+                 'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg', 'wordmark.svg', 'wordmark-dark.svg', 'nen-song.svg'):
         shutil.copyfile(SITE / name, EXT / name)
     shutil.copytree(SITE / 'fonts', EXT / 'fonts', dirs_exist_ok=True)
     shutil.copytree(SITE / 'google-apps', EXT / 'google-apps', dirs_exist_ok=True)
