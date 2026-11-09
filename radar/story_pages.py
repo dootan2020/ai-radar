@@ -611,7 +611,16 @@ def prepare(remote, input_path, site, candidate, base_url=BASE_URL):
         from radar.pipeline import write_atomic
         from radar.search_index import search_path, search_payload
 
-        write_atomic(search_payload(payload, stories, decisions), search_path(input_path), compact=True)
+        search_source = site / "data" / "radar.json"
+        if search_source.is_file():
+            retained_payload = json.loads(search_source.read_text(encoding="utf-8"))
+        elif Path(input_path).name == "radar-ui.json":
+            raise FileNotFoundError(search_source)
+        else:
+            retained_payload = payload
+        if not isinstance(retained_payload, dict) or not isinstance(retained_payload.get("stories"), list):
+            raise ValueError("Search snapshot has no stories list")
+        write_atomic(search_payload(retained_payload, stories, decisions), search_path(search_source), compact=True)
     return {"count": count, "elapsed_seconds": time.perf_counter() - started,
             "base_commit": base}
 

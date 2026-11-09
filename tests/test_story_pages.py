@@ -344,13 +344,19 @@ class StoryPageHistoryTests(unittest.TestCase):
             prepare(str(self.remote), first_input, self.root / "first-site", self.root / "first-candidate")
         self.assertTrue(persist(str(self.remote), self.root / "first-candidate"))
 
-        second_input = self.root / "second-site/data/radar.json"
-        self.write_snapshot(second_input, [story("current", published_at="2026-11-09T12:00:00Z")])
+        second_input = self.root / "second-site/data/radar-ui.json"
+        self.write_snapshot(second_input, [story("current", title="UI projection",
+                                                 published_at="2026-11-09T12:00:00Z")])
+        self.write_snapshot(second_input.parent / "radar.json",
+                            [story("current", title="Retained snapshot",
+                                   published_at="2026-11-09T12:00:00Z")])
         with patch.object(story_pages, "load_decisions", return_value=decisions):
             prepare(str(self.remote), second_input, self.root / "second-site", self.root / "second-candidate")
         index = json.loads((second_input.parent / "radar-search.json").read_text(encoding="utf-8"))
         self.assertEqual([row["id"] for row in index["stories"]], ["current", "old"])
         self.assertEqual(index["story_count"], 2)
+        self.assertEqual(index["stories"][0]["title"], "Retained snapshot")
+        self.assertFalse((second_input.parent / "radar-ui-search.json").exists())
         self.assertTrue((self.root / "second-site/tin/old/index.html").is_file())
 
     def test_history_survives_snapshot_expiry_and_stale_candidates_cannot_overwrite(self):
