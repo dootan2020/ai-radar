@@ -5,6 +5,7 @@ import unittest
 from pathlib import Path
 
 from radar.clustering import _repository_address, canonical_url, cluster_items, merge_repeated_events, titles_match
+from radar.common import stable_id
 from radar.summary_pipeline import collect_inputs
 from radar.summary_sources import fit_inputs
 if __package__:
@@ -41,6 +42,35 @@ class CanonicalUrlTests(unittest.TestCase):
 
 
 class ClusterTests(unittest.TestCase):
+    def test_real_nvidia_memo_and_board_probe_form_one_story(self):
+        fixture = Path(__file__).parent / "fixtures" / "clustering" / "nvidia-affair-2026-11-09.json"
+        rows = json.loads(fixture.read_text(encoding="utf-8"))
+        items = [coverage(row["source"], row["url"], **{
+            key: value for key, value in row.items() if key not in {"source", "url"}
+        }) for row in rows]
+        stories = cluster_items(items, NOW)
+        self.assertEqual(len(stories), 1)
+        self.assertEqual(len(stories[0]["coverage"]), len(rows))
+        self.assertEqual(stories[0]["title"], "Statement From NVIDIA Board of Directors")
+        self.assertEqual(stories[0]["id"], stable_id(min(canonical_url(row["url"]) for row in rows)))
+
+        unrelated = coverage("press-launch", "https://press.example/nvidia-new-gpu",
+                             publisher="press-launch", title="Nvidia CEO Jensen Huang launches new AI GPU",
+                             published_at="2026-11-09T04:00:00Z")
+        separate = cluster_items(items + [unrelated], NOW)
+        self.assertEqual(len(separate), 2)
+        self.assertEqual(sorted(len(story["coverage"]) for story in separate), [1, len(rows)])
+
+        board_stories = cluster_items(items[2:], NOW)
+        memo_stories = cluster_items(items[:2], NOW)
+        self.assertEqual(len(board_stories), 1)
+        self.assertEqual(len(memo_stories), 1)
+        board, memo = board_stories[0], memo_stories[0]
+        memo["carried"] = True
+        merged = merge_repeated_events([board, memo])
+        self.assertEqual(len(merged), 1)
+        self.assertEqual(len(merged[0]["coverage"]), len(rows))
+
     def test_nvidia_board_affair_and_spying_reports_form_one_checked_story(self):
         # Captured 2026-11-09 radar cycle: six observations, including an HN link to the board URL.
         rows = [

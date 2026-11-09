@@ -327,9 +327,12 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
     if _repository_address(left) and _repository_address(right):
         return False
 
-    # Same publisher: beyond the standard threshold, only its own re-title of one report
+    # Same publisher: accept a re-title, or two reports with the same specific espionage incident.
     if _same_outlet(left, right, a_date, b_date):
-        return _same_outlet_retitle(a_stem, b_stem, shared, jaccard)
+        return (_same_outlet_retitle(a_stem, b_stem, shared, jaccard)
+                or (ESPIONAGE_CONTEXT.search(str(left.get("title") or "") + " " + str(left.get("summary") or ""))
+                    and ESPIONAGE_CONTEXT.search(str(right.get("title") or "") + " " + str(right.get("summary") or ""))
+                    and _same_event_from_context(left, right, set())))
 
     # Cross-publisher general matching rule from signals that exist for any story:
     shared_entities = {w for w in shared if _stem(w) in ENTITY_WORDS}
@@ -385,8 +388,10 @@ def titles_match(left, right, threshold=0.75, named_entities=None):
 
 CONTEXT_STOP = TOPIC_WORDS | ENTITY_WORDS | STOPWORDS | {"company", "firm", "startup", "new", "latest", "users", "available", "according", "says", "said"}
 RELEASE_CONTEXT = re.compile(r"\b(?:introduc\w*|launch\w*|releas\w*|unveil\w*|announc\w*|new (?:model|agent|feature)|latest model|research preview|available (?:through|by) waitlist)\b", re.I)
-ESPIONAGE_CONTEXT = re.compile(r"\b(?:spy|spies|spying|spied|espionage|foreign intelligence|intelligence agent)\b", re.I)
+ESPIONAGE_CONTEXT = re.compile(r"\b(?:spy|spies|spying|spied|espionage|foreign intelligence|intelligence agent|agent of the Chinese government)\b", re.I)
 EXECUTIVE_CONTEXT = re.compile(r"\b(?:CEO|chief executive(?: officer)?)\b", re.I)
+AFFAIR_CONTEXT = re.compile(r"\b(?:affair|infidelity)\b", re.I)
+MEMO_CONTEXT = re.compile(r"\b(?:memo|letter)\b", re.I)
 
 
 def _context_words(item):
@@ -427,6 +432,11 @@ def _same_event_from_context(left, right, shared_entities):
     right_text = str(right.get("title") or "") + " " + str(right.get("summary") or "")
     if (common & ENTITY_WORDS and EXECUTIVE_CONTEXT.search(left_text) and EXECUTIVE_CONTEXT.search(right_text)
             and ESPIONAGE_CONTEXT.search(left_text) and ESPIONAGE_CONTEXT.search(right_text)):
+        return True
+    if (common & ENTITY_WORDS and shared_names
+            and EXECUTIVE_CONTEXT.search(left_text) and EXECUTIVE_CONTEXT.search(right_text)
+            and AFFAIR_CONTEXT.search(left_text) and AFFAIR_CONTEXT.search(right_text)
+            and MEMO_CONTEXT.search(left_text) and MEMO_CONTEXT.search(right_text)):
         return True
     if {"funding"} <= common and any(word.startswith("amount-") for word in common):
         return True
