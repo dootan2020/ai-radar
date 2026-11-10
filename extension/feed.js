@@ -67,6 +67,25 @@ const nf1 = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 1 });
 const EXACT = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'full', timeStyle: 'short', timeZone: TZ });
 const ms = iso => new Date(iso).getTime() || 0;
 const CSSq = s => (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace(/["\\]/g, '\\$&');
+/* Styles the first screen does not draw, asked for by init() rather than in index.html's head so they never hold the
+   first paint (Lighthouse, 11/11): the rankings view and the story and player dialogs. The rankings view waits for its
+   own (arenaStyles), so an address that opens it (#xep-hang) never shows it unstyled. */
+const LATE_STYLES = ['arena.css', 'story.css'];
+let arenaStyles = null;       // while arena.css is on its way: the promise of its arrival
+function loadLateStyles() {
+  for (const href of LATE_STYLES) {
+    let link = document.querySelector(`link[rel="stylesheet"][href="${href}"]`);
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'stylesheet'; link.href = href;
+      document.head.append(link);
+    }
+    if (href === 'arena.css' && !link.sheet) {
+      arenaStyles = new Promise(done => { link.addEventListener('load', done, { once: true }); link.addEventListener('error', done, { once: true }); })
+        .then(() => { arenaStyles = null; });
+    }
+  }
+}
 const RM = matchMedia('(prefers-reduced-motion: reduce)');
 if (!RM.matches) {
   document.documentElement.classList.add('js-motion');
@@ -2397,12 +2416,27 @@ function placeFixedCards(grid) {
   grid.querySelector('[data-slot="cal"]')?.replaceWith(calendarCard);
 }
 
+/* The build draws the lead's picture into the loading placeholder (radar/front_lead.py), so a phone fetches it with the
+   page instead of after the modules and the snapshot. When the carousel's first story is that story, its picture moves
+   into the drawn slide: the same element, already decoded, so it is neither fetched nor painted twice. A picture that
+   failed (or is a tracking pixel, see watchPictures) is left behind, and the drawn slide asks for its own. */
+function adoptEarlyLead(grid, early) {
+  const img = early && early.querySelector('img');
+  const story = early && early.closest('.slide');
+  if (!img || !story || !PICKLIST.length || PICKLIST[0].id !== story.dataset.id) return;
+  if (img.complete && img.naturalWidth < 40) return;
+  const slot = grid.querySelector('#lead .slide.is-active .slide-media');
+  if (slot) slot.replaceWith(early);
+}
+
 function renderFeed() {
   const skeleton = $('#feed-skeleton');
+  const early = skeleton && skeleton.querySelector('.msn-lead .slide-media');
   if (skeleton) skeleton.remove();
   const rankings = filter === 'rankings';
   const grid = $('#feed-grid');
-  $('#arena').hidden = !rankings;
+  $('#arena').hidden = !rankings || !!arenaStyles;
+  if (rankings && arenaStyles) arenaStyles.then(() => { if (filter === 'rankings') $('#arena').hidden = false; });
   grid.hidden = rankings;
   // "Mã và mô hình" is two lists with their own order controls, so the news order has nothing to sort there.
   const code = filter === 'code';
@@ -2425,6 +2459,7 @@ function renderFeed() {
     seq = []; pos = 0; shownCards = 0; totalCards = 0;
     FRONT = buildFront();
     grid.innerHTML = frontHTML();
+    adoptEarlyLead(grid, early);
     $('#feed-empty').hidden = true;
     renderNewsBands();
     watchBentoCols();
@@ -3344,6 +3379,7 @@ async function routeWhenReady() {
   route();
 }
 async function init() {
+  loadLateStyles();
   const th = store.get(K.theme, null);
   if (th) document.documentElement.setAttribute('data-theme', th);
   $('#theme-btn').setAttribute('aria-pressed', String(th ? th === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches));

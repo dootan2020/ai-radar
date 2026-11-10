@@ -59,6 +59,11 @@ def adapt_html(html):
     html = replace_pattern_once(html, r'<meta http-equiv="Content-Security-Policy"[^>]*>\n', '')
     html = replace_pattern_once(html, r"<script>var d = document\.documentElement\.dataset;.*?</script>\n", '<script src="theme.js"></script>\n')
     html = replace_pattern_once(html, r'\n<!-- The stream player \(trinh-phat\.js\).*?</dialog>\n', '', re.S)
+    # The new tab draws from its own saved snapshot, so it carries no lead a site build baked in (radar/front_lead.py):
+    # no picture preload, and the plain placeholder in the lead's place.
+    html = replace_pattern_once(html, r'<!-- lead picture: .*?<!-- /lead picture -->\n', '', re.S)
+    html = replace_pattern_once(html, r'  <!-- lead slide: .*?<!-- /lead slide -->\n',
+                                '  <div class="msn-card msn-sk msn-lead"></div>\n', re.S)
     html = replace_pattern_once(html, r'<!-- The snapshot is the page.s only content:.*?-->\n', '', re.S)
     html = replace_pattern_once(html, r'<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>\n', '')
     # The new tab reads the picture map from the live site first (adapt_feed), not from this file.

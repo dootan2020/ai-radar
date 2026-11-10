@@ -6,6 +6,7 @@ from pathlib import Path
 import json
 import re
 
+from radar.front_lead import reset_index_lead, update_index_lead
 from radar.pipeline import write_atomic
 from radar.search_index import search_payload, search_path
 from radar.headlines import annotate_headlines
@@ -305,7 +306,8 @@ def write_site_snapshot(payload, path):
         search_file.unlink(missing_ok=True)
         raise
     try:
-        write_atomic(window_payload(page), window_file, compact=True)
+        window = window_payload(page)
+        write_atomic(window, window_file, compact=True)
     except Exception:
         window_file.unlink(missing_ok=True)
         head_file.unlink(missing_ok=True)
@@ -325,7 +327,19 @@ def write_site_snapshot(payload, path):
     site_root = Path(path).resolve().parents[1] if Path(path).parent.name == "data" else Path(path).resolve().parent
     index_file = site_root / "index.html"
     if index_file.is_file():
-        update_index_thumbnail(index_file, first_screen_thumbnail(payload))
+        # The front page preloads one picture, the lead's: a stream thumbnail at the same priority competed with it on
+        # phones (11/11), so index.html drops that preload; bento.html keeps its own below.
+        update_index_thumbnail(index_file, None)
+        # The lead's picture, from the file the page loads first (feed.js loadFirst), so both pick the same story. A
+        # story the step cannot read never stops the publication: the page keeps its plain placeholder.
+        try:
+            update_index_lead(index_file, window)
+        except Exception as error:  # noqa: BLE001 - the snapshot is already written; the picture is an optimisation
+            print(f"Lead picture not written ({type(error).__name__}: {error}); index.html keeps the plain placeholder")
+            try:
+                reset_index_lead(index_file)
+            except Exception as reset_error:  # noqa: BLE001 - broken markers: leave the file as it is
+                print(f"Lead placeholder not restored ({type(reset_error).__name__}: {reset_error})")
     bento_file = site_root / "bento.html"
     if bento_file.is_file():
         update_index_thumbnail(bento_file, first_screen_thumbnail(payload))

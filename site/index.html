@@ -44,13 +44,15 @@
 <!-- Apply the reader's saved theme and "Tùy chỉnh" choices (thanh-tren.js) before first paint, so a dark-mode reader never
      sees a light flash and a chosen layout never jumps. -->
 <script>var d = document.documentElement.dataset; try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') d.theme = t; } catch (e) {} try { var c = JSON.parse(localStorage.getItem('halcyon:tuy-chinh')) || {}; if (c.layout === 'part' || c.layout === 'head') d.layout = c.layout; if (c.picture === false) d.nen = 'off'; if (c.weather === false) d.wx = 'off'; } catch (e) {}</script>
+<!-- lead picture: the build writes the lead's preconnect and image preload here (radar/front_lead.py) -->
+<!-- /lead picture -->
 <!-- The snapshot is the page's only content: fetch it while the HTML is still parsing, not after the module graph. The window
      file holds the stories the first screen can show (radar/site_payload.py); feed.js loads the complete one after it. -->
 <link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>
+<!-- Only what the first screen draws blocks it: arena.css (the rankings view) and story.css (the story and player
+     dialogs) are asked for by feed.js as it starts (LATE_STYLES), so they never hold the first paint. -->
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="feed.css">
-<link rel="stylesheet" href="arena.css">
-<link rel="stylesheet" href="story.css">
 <link rel="stylesheet" href="trang-nhat.css">
 <link rel="stylesheet" href="trang-msn.css">
 <script type="module" src="nen.js"></script>
@@ -179,7 +181,10 @@
   <!-- The loading placeholder has the first rows' shape and is removed when they arrive, so nothing that stays on the
        page is pushed down by the content arriving above it (layout shift). -->
   <div class="msn-grid is-front" id="feed-skeleton">
-    <div class="msn-card msn-sk msn-lead"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div>
+  <!-- lead slide: the build draws the lead's picture here (radar/front_lead.py); feed.js adopts it -->
+  <div class="msn-card msn-sk msn-lead"></div>
+  <!-- /lead slide -->
+    <div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div>
     <div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div>
     <p class="sr" role="status">Đang tải dòng tin…</p>
   </div>
