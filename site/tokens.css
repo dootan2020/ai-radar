@@ -66,6 +66,7 @@
   --size-12: 0.75rem; --size-13: 0.8125rem; --size-14: 0.875rem; --size-15: 0.9375rem; --size-16: 1rem; --size-18: 1.125rem;
   --size-21: 1.3125rem; --size-28: 1.75rem; --size-40: 2.5rem;
   --size-32: 2rem; --size-56: 3.5rem; --size-88: 5.5rem;
+  --size-76: 4.75rem; --size-112: 7rem;             /* the next-event card's countdown: beside other events, alone */
 
   --space-4: 4px; --space-6: 6px; --space-8: 8px; --space-12: 12px; --space-16: 16px; --space-24: 24px;
   --space-32: 32px; --space-48: 48px; --space-64: 64px; --space-96: 96px;
@@ -181,6 +182,8 @@
   --num-xl: clamp(var(--size-40), 1.4rem + 2.2vw, var(--size-88));
   --num-lg: var(--size-56);
   --num-md: var(--size-32);
+  --num-count: var(--size-112);                      /* "Sắp diễn ra": the days left, the card's one large thing */
+  --num-count-dense: var(--size-76);
   --av-xs: 20px; --av-sm: 28px; --av-md: 40px; --av-lg: 56px; --av-xl: 72px;
   --av-radius: 28%;                                  /* a squircle, like an app icon: logos read as objects */
   --av-text-xs: var(--size-12); --av-text-sm: var(--size-12); --av-text-md: 0.9rem; --av-text-lg: 1.15rem; --av-text-xl: 1.4rem;   /* monogram letters per avatar size: floor at 12px */

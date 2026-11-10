@@ -673,21 +673,36 @@ assert.ok(eventCards.includes('ctz=Asia%2FKolkata'));
 assert.ok(eventCards.includes('ctz=Australia%2FSydney'));
 eventFeed.render(curatedEvents, [{id:'event-story', title:bengaluru.title, url:bengaluru.url, coverage:[]}]);
 assert.deepEqual(eventFeed.calOf({title:bengaluru.title, url:bengaluru.url}), bengaluruCal);
-// The front page's card beside the calendar: the nearest event with its countdown, calendar export and source; the
-// next two as short schedule rows (captain, 10/11 19:3x); all of them behind "Xem tất cả" with no count; a live stream
-// above it; nothing at all when nothing is coming.
+// The front page's card beside the calendar, "Hai mươi lăm" (captain, 10/11 ~21:05): the nearest event's days left as
+// the card's large number, a day ruler, its caption, its calendar export and source; the next two as short schedule
+// rows; "Xem cả N" only when the card hides events; a live stream above it; nothing at all when nothing is coming.
 const nextCard = eventFeed.next(curatedEvents);
-assert.match(nextCard, /class="msn-card msn-ev"/);
+assert.equal(curatedEvents.length, 4, 'Bengaluru, NeurIPS Sydney and its two satellites');
+assert.match(nextCard, /class="msn-card msn-ev is-dense"/);
 const lead = nextCard.slice(0, nextCard.indexOf('<ol class="ev-more"'));
 assert.ok(lead.includes(bengaluru.title) && !lead.includes(sydney.title), 'the nearest event leads');
 const schedule = nextCard.slice(nextCard.indexOf('<ol class="ev-more"'));
 assert.ok(schedule.includes(sydney.title) && schedule.includes(`href="${sydney.url}"`), 'the next event is a schedule row');
-assert.match(nextCard, /class="event-left cd is-soon"/);
+assert.equal(schedule.split('class="ev-row list-row"').length - 1, 2, 'two schedule rows');
+assert.match(schedule, /data-cd-kind="row"><span class="sr">Còn 56 ngày 1 giờ<\/span><span class="cd-face num" aria-hidden="true">56 ngày<\/span>/);
+assert.match(lead, /class="ev-count cd is-soon" data-cd="\d+" data-cd-end="\d+" data-cd-kind="hero"><span class="sr">Còn 5 ngày 20 giờ<\/span>/);
+assert.ok(lead.includes('<b class="ev-n num">5</b><span class="ev-u">ngày<br>nữa</span>'), 'the days left are the number');
+// Five waiting ticks (the first is today) and one for the one-day event.
+assert.ok(lead.includes('<span class="ev-ticks"><i class="is-now"></i><i></i><i></i><i></i><i></i><i class="is-on"></i></span><span class="ev-legend"><span>Hôm nay</span><b>16.10</b></span>'));
+assert.ok(lead.includes('<span class="ev-meta">16 tháng 10 · Bengaluru, India</span><span class="ev-note">Khai mạc 15:30 giờ Việt Nam</span>'));
+assert.ok(lead.indexOf('ev-count') < lead.indexOf('ev-ruler') && lead.indexOf('ev-ruler') < lead.indexOf('ev-link') && lead.indexOf('ev-link') < lead.indexOf('class="calbtn"'));
 assert.ok(nextCard.includes(`data-cal-ev="${bengaluru.id}"`) && nextCard.includes('ctz=Asia%2FKolkata'));
+assert.ok(nextCard.includes('aria-label="Thêm vào Google Lịch"') && nextCard.includes('<span><span class="calbtn-add">Thêm vào </span>Google Lịch</span>'));
 assert.ok(nextCard.includes(`href="${bengaluru.url}"`));
-assert.match(nextCard, /<a class="ev-all" href="#sap-toi">Xem tất cả<\/a>/);
-assert.doesNotMatch(nextCard, /Xem cả|\d+ sự kiện/);
-assert.doesNotMatch(eventFeed.next([sydney]), /ev-all/);
+assert.match(nextCard, /<a class="ev-all" href="#sap-toi"><span>Xem cả <span class="num">4<\/span><span class="sr"> sự kiện<\/span><\/span><\/a>/);
+const threeCard = eventFeed.next(curatedEvents.slice(1));
+assert.doesNotMatch(threeCard, /ev-all/, 'three events all show: no link');
+assert.ok(threeCard.indexOf(sydney.title) < threeCard.indexOf('NeurIPS 2026 — Paris') && threeCard.indexOf('NeurIPS 2026 — Paris') < threeCard.indexOf('NeurIPS 2026 — Atlanta'));
+const oneCard = eventFeed.next([sydney]);
+assert.doesNotMatch(oneCard, /ev-all|is-dense|ev-more/);
+assert.ok(oneCard.includes('<span class="ev-note">Chưa rõ giờ khai mạc</span>'));
+assert.equal(oneCard.split('<i').length - 1, 9, 'Sydney from 10 October: 56 days and 7 more is over 60 ticks, so 8 weeks and 1');
+assert.ok(oneCard.includes('<span>Mỗi vạch 1 tuần</span><b>6–12.12</b>'));
 const liveNext = eventFeed.next([sydney], [{status:'live', title:'Live now', url:'https://www.youtube.com/watch?v=x', channel:'OpenAI'}]);
 assert.match(liveNext, /<h2 id="ev-h">Đang phát<\/h2>/);
 assert.ok(liveNext.indexOf('Live now') < liveNext.indexOf(sydney.title));

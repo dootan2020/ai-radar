@@ -1,8 +1,8 @@
 """The front page's surfaces and its events card (captain, 10/11 19:3x, approving the coordinator's proposal: "duyệt,
 gộp vào"). The panel is a light cool tint and the cards on it white (in dark, the panel one step darker than the cards);
 the card shadow is a shared token; "Đáng đọc nhất / Mới nhất" is the segmented control of "Giao diện" (a grey track,
-the chosen side a raised pill). "Sắp diễn ra" is a washed card read like a ticket, with the next events as a short
-schedule ("thẻ "sắp diễn ra" làm đang xấu, cho nền nhạt hay làm gì đó cho nó đẹp hơn").
+the chosen side a raised pill). "Sắp diễn ra" lists the next events as a short schedule ("thẻ "sắp diễn ra" làm đang
+xấu, cho nền nhạt hay làm gì đó cho nó đẹp hơn"); its wash went with the mockup the captain chose later that day.
 The rendered checks reuse tests/verify-top-search.mjs (website and extension, offline)."""
 import re
 import unittest
@@ -54,14 +54,15 @@ class Surfaces(unittest.TestCase):
 
 
 class EventsCard(unittest.TestCase):
-    def test_the_card_is_washed_and_lists_the_next_events(self):
+    def test_the_card_is_white_and_lists_the_next_events(self):
+        """The coral wash of 10/11 19:3x went when the captain chose the "Hai mươi lăm" mockup (~21:05): a white card
+        like its neighbours, the schedule at its foot (tests/test_the_su_kien.py has the card itself)."""
         for folder in FOLDERS:
             css, feed = read(folder / "trang-msn.css"), read(folder / "feed.js")
             card = css[css.index(".band .msn-ev {"):]
-            self.assertIn("background: linear-gradient(var(--color-accent-wash), var(--color-accent-wash)), var(--color-surface);", card[:card.index("}")])
-            self.assertIn(".band .ev-next { justify-content: flex-start; gap: var(--space-8); }", css)
-            self.assertIn(".band .ev-foot { margin-top: auto; }", css)
-            self.assertIn("${evMoreHTML(events.slice(1, 3))}", feed)
+            self.assertEqual(card[:card.index("}") + 1], ".band .msn-ev { padding: var(--space-12) var(--space-16) var(--space-16); }")
+            self.assertIn(".ev-more { display: flex; flex-direction: column; min-height: 0; margin: auto 0 calc(-1 * var(--space-8));", css)
+            self.assertIn("${evMoreHTML(rows)}", feed)
             more = feed[feed.index("function evMoreHTML(list) {"):]
             self.assertIn('<ol class="ev-more" aria-label="Tiếp theo">', more[:more.index("\n}\n")])
 

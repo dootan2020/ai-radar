@@ -17,7 +17,7 @@
    (#tin/<id>, #sap-toi; the retired section anchors land on the home feed). */
 
 import { esc, fmt, avatar, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
-import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange } from './time-text.js';
+import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange, eventShort, rulerPlan } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { shown, uniqCoverage } from './titles.js';
 import { headlineShown, hasEditorialSummary, sourceDescriptionMark } from './editorial-headline.js';
@@ -676,10 +676,13 @@ function calOf(st) {
 }
 const liveCal = v => v && v.status === 'upcoming' && v.start_at && v.time_precision !== 'relative'
   ? { uid: v.video_id, title: v.title, url: v.url, startAt: v.start_at, endAt: null, note: v.channel ? `Buổi phát trực tiếp của ${v.channel}` : '' } : null;
-function calButtons(cal, attr, label) {
+/* On the front page's event card (card = true) the Google button is the card's one filled action and names itself in
+   Vietnamese: "Google Lịch", with "Thêm vào" before it where the card is wide enough. */
+function calButtons(cal, attr, label, card = false) {
   if (!cal || !canCalendar(cal)) return '';
+  const google = card ? '<span><span class="calbtn-add">Thêm vào </span>Google Lịch</span>' : '<span>Google<span class="calbtn-long"> Calendar</span></span>';
   return `<span class="calbtn" role="group" aria-label="Thêm ${esc(label)} vào lịch">
-    <a class="calbtn-g" href="${esc(gcalURL(cal))}" target="_blank" rel="noopener" aria-label="Thêm vào Google Calendar">${icon('i-cal')}<span>Google<span class="calbtn-long"> Calendar</span></span></a>
+    <a class="calbtn-g" href="${esc(gcalURL(cal))}" target="_blank" rel="noopener" aria-label="Thêm vào Google ${card ? 'Lịch' : 'Calendar'}">${icon('i-cal')}${google}</a>
     <button class="calbtn-ics" ${attr} title="Tải tệp .ics cho Apple Calendar, Outlook">.ics</button></span>`;
 }
 function addToCalendar(ev) {
@@ -874,12 +877,21 @@ let cdTimer = 0;
 function tickCountdowns() {
   const now = Date.now(), seconds = !RM.matches;
   for (const el of document.querySelectorAll('.cd[data-cd]')) {
-    const p = countdownParts(Number(el.dataset.cd), Number(el.dataset.cdEnd), now);
+    const start = Number(el.dataset.cd), end = Number(el.dataset.cdEnd);
+    const p = countdownParts(start, end, now);
     if (!p) continue;
-    const face = countdownFace(p, seconds), sr = countdownSR(p);
+    // The front card's large number ("hero") and its schedule rows ("row") keep their own faces; the rest is the chip.
+    const kind = el.dataset.cdKind || '';
+    const plan = kind === 'hero' ? rulerPlan(start, end, now) : null;
+    const face = kind === 'hero' ? heroFace(p, plan) : kind === 'row' ? rowFace(p) : countdownFace(p, seconds), sr = countdownSR(p);
     if (el.lastElementChild.dataset.f !== face) { el.lastElementChild.innerHTML = face; el.lastElementChild.dataset.f = face; }
     if (el.firstElementChild.textContent !== sr) el.firstElementChild.textContent = sr;
-    el.className = `event-left cd is-${p.state}`;
+    el.className = `${kind === 'hero' ? 'ev-count' : kind === 'row' ? 'ev-row-d' : 'event-left'} cd is-${p.state}`;
+    const ruler = kind === 'hero' ? el.nextElementSibling : null;
+    if (ruler && ruler.matches('.ev-ruler')) {
+      const marks = rulerInner(plan, ruler.dataset.range, ruler.dataset.last);
+      if (ruler.dataset.f !== marks) { ruler.innerHTML = marks; ruler.dataset.f = marks; }
+    }
   }
 }
 function scheduleCountdown() {
@@ -1005,45 +1017,85 @@ function scrollShelf(btn) {
 const upcomingEvents = () => asArray(D && D.events).filter(e => eventSpan(e).end > Date.now())
   .sort((a, b) => eventSpan(a).start - eventSpan(b).start);
 const nextStream = () => { const v = asArray(D && D.live); return v.find(x => x.status === 'live') || v.find(x => x.status === 'upcoming') || null; };
-/* The dates as a calendar would print them: the days large, the month and year under them. */
-function evDateHTML(e) {
-  const p = s => /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || '');
-  const a = p(e.start_date), b = p(e.end_date) || a;
-  if (!a) return '';
-  const days = b[0] === a[0] ? `${+a[3]}` : b[2] === a[2] && b[1] === a[1] ? `${+a[3]}–${+b[3]}` : `${+a[3]}/${+a[2]}–${+b[3]}/${+b[2]}`;
-  const under = b[2] === a[2] && b[1] === a[1] ? `Tháng ${+a[2]} · ${a[1]}` : a[1] === b[1] ? a[1] : `${a[1]}–${b[1]}`;
-  return `<span class="ev-date" aria-hidden="true"><b class="num">${days}</b><span>${under}</span></span>`;
+/* The card's countdown, its one large thing: the whole days left ("25 ngày nữa"), the hours or the minutes on the
+   last day, the day it is on once it has started ("ngày 3 / 7"; "Hôm nay" for a one-day event). */
+function heroFace(p, plan) {
+  if (p.state === 'over') return '<b class="ev-n is-word">Đã kết thúc</b>';
+  if (p.state === 'on') {
+    return plan && plan.span > 1
+      ? `<span class="ev-u">ngày</span><b class="ev-n num">${plan.day}</b><span class="ev-u">/ ${plan.span}</span>`
+      : '<b class="ev-n is-word">Hôm nay</b>';
+  }
+  const [n, unit] = p.d ? [p.d, 'ngày'] : p.h ? [p.h, 'giờ'] : [p.m || '&lt;1', 'phút'];
+  return `<b class="ev-n num${p.d > 99 ? ' is-long' : ''}">${n}</b><span class="ev-u">${unit}<br>nữa</span>`;
 }
+/* A schedule row's wait, in one unit. */
+function rowFace(p) {
+  if (p.state === 'on') return '<span class="cd-dot" aria-hidden="true"></span>đang diễn ra';
+  if (p.state === 'over') return 'đã kết thúc';
+  return p.d ? `${p.d} ngày` : p.h ? `${p.h} giờ` : `${p.m || '&lt;1'} phút`;
+}
+/* The day ruler under the number (rulerPlan in time-text.js): today in ink, the days of waiting, the event's own days
+   in coral; under it what the ends are, and what a tick is worth when it is not a day. */
+function rulerInner(plan, range, last) {
+  if (!plan) return '';
+  const ticks = (cls, n) => `<i${cls ? ` class="${cls}"` : ''}></i>`.repeat(Math.max(0, n));
+  const on = plan.state === 'on';
+  const marks = on ? ticks('is-done', plan.done) + ticks('is-on', plan.event - plan.done)
+    : ticks('is-now', 1) + ticks('', plan.before - 1) + ticks('is-on', plan.event);
+  const scale = plan.unit === 7 ? 'Mỗi vạch 1 tuần' : plan.unit === 30 ? 'Mỗi vạch 1 tháng' : 'Hôm nay';
+  const left = on ? '<span class="ev-live"><span class="cd-dot"></span>Đang diễn ra</span>' : `<span>${scale}</span>`;
+  const right = on && plan.span > 1 ? `đến ${esc(last || '')}` : esc(range || '');
+  return `<span class="ev-ticks">${marks}</span><span class="ev-legend">${left}<b>${right}</b></span>`;
+}
+/* When it opens, as a reader in Vietnam needs it: the hour here, or that no hour is verified yet. */
+function eventOpens(e) {
+  if (e.time_precision !== 'exact' || !e.start_at) return 'Chưa rõ giờ khai mạc';
+  const start = new Date(e.start_at), vnDate = dayKey(start);
+  return `Khai mạc ${hhmm(start)}${vnDate !== e.start_date ? ` ngày ${eventRange(vnDate, vnDate)}` : ''}${(e.timezone ?? TZ) !== TZ ? ' giờ Việt Nam' : ''}`;
+}
+/* The card shows the next event and up to two more as schedule rows; a stream takes the rows' place. */
+const EV_ROWS = 2;
 function renderNext() {
   const it = nextStream(), events = upcomingEvents(), e = events[0];
   if (!it && !e) return '';
   const live = !!it && it.status === 'live';
-  const all = events.length > 1 ? '<a class="ev-all" href="#sap-toi">Xem tất cả</a>' : '';
+  const rows = it ? [] : events.slice(1, 1 + EV_ROWS);
+  const all = events.length > 1 + rows.length
+    ? `<a class="ev-all" href="#sap-toi"><span>Xem cả <span class="num">${events.length}</span><span class="sr"> sự kiện</span></span></a>` : '';
   const stream = it ? `<a class="ev-stream" href="${esc(safe(it.url))}" target="_blank" rel="noopener">
       <span class="ev-stream-k${live ? ' is-live' : ''}">${live ? '<span class="cd-dot" aria-hidden="true"></span>Trực tiếp' : esc(scheduleText(it.time_text))}${live && it.channel ? ` · ${esc(it.channel)}` : ''}</span>
       <span class="ev-stream-t"${langAttr(it.title)}>${esc(it.title)}</span></a>
-    ${!e && !live ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}` : '';
+    ${!e && !live ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title, true) : ''}` : '';
   let event = '';
   if (e) {
     const st = asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
-    const range = eventRange(e.start_date, e.end_date), when = eventWhen(e);
-    const rest = when.startsWith(range) ? when.slice(range.length).replace(/^ · /, '') : when;
+    const { start, end } = eventSpan(e), now = Date.now();
+    const p = countdownParts(start, end, now), plan = rulerPlan(start, end, now);
+    const range = eventShort(e.start_date, e.end_date), last = eventShort(e.end_date || e.start_date);
+    const meta = [eventRange(e.start_date, e.end_date), e.location].filter(Boolean).join(' · ');
+    const note = p && p.state === 'soon' ? eventOpens(e) : '';
+    const count = p ? `<p class="ev-count cd is-${p.state}" data-cd="${start}" data-cd-end="${end}" data-cd-kind="hero"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${heroFace(p, plan)}</span></p>
+      <div class="ev-ruler" aria-hidden="true" data-range="${esc(range)}" data-last="${esc(last)}">${rulerInner(plan, range, last)}</div>` : '';
     event = `<div class="ev-next${st ? ` ${statusClass(st)}` : ''}"${st ? ` data-sid="${esc(st.id)}"` : ''}>
-      <a class="ev-link list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>${evDateHTML(e)}<span class="sr">${esc(range)}: </span>
-        <span class="ev-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>${rest ? `<span class="ev-when">${esc(rest)}</span>` : ''}</a>
-      ${evMoreHTML(events.slice(1, 3))}
-      <div class="ev-foot">${countdownHTML(e)}${calButtons(eventCal(e), st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</div></div>`;
+      ${count}
+      <a class="ev-link list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>
+        <span class="ev-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span><span class="ev-meta">${esc(meta)}</span>${note ? `<span class="ev-note">${esc(note)}</span>` : ''}</a>
+      ${calButtons(eventCal(e), st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title, true)}
+      ${evMoreHTML(rows)}</div>`;
   }
-  return `<section class="msn-card msn-ev" id="su-kien" aria-labelledby="ev-h">
+  return `<section class="msn-card msn-ev${it || rows.length ? ' is-dense' : ''}" id="su-kien" aria-labelledby="ev-h">
     <div class="ev-head"><h2 id="ev-h">${live ? 'Đang phát' : 'Sắp diễn ra'}</h2>${all}</div>${stream}${event}</section>`;
 }
-/* The events after the next one, one short row each (its first day, its name), so a card with several events reads as
-   a schedule (captain, 10/11 19:3x: "thẻ "sắp diễn ra" làm đang xấu"). The front page shows at most two. */
+/* The events after the next one, one short row each (its name, its dates and city, its wait), so a card with several
+   events reads as a schedule (captain, 10/11 19:3x: "thẻ "sắp diễn ra" làm đang xấu"). The front page shows at most two. */
 function evMoreHTML(list) {
   if (!list.length) return '';
   return `<ol class="ev-more" aria-label="Tiếp theo">${list.map(e => {
-    const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(e.start_date || '');
-    return `<li><a class="ev-row list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener">${d ? `<span class="ev-row-d num">${+d[3]}/${+d[2]}</span>` : ''}<span class="ev-row-t"${langAttr(e.title)}>${esc(e.title)}</span></a></li>`;
+    const { start, end } = eventSpan(e), p = countdownParts(start, end, Date.now());
+    const meta = [eventRange(e.start_date, e.end_date).replace(/tháng/g, 'thg'), String(e.location || '').split(',')[0].trim()].filter(Boolean).join(' · ');
+    const left = p ? `<span class="ev-row-d cd is-${p.state}" data-cd="${start}" data-cd-end="${end}" data-cd-kind="row"><span class="sr">${countdownSR(p)}</span><span class="cd-face num" aria-hidden="true">${rowFace(p)}</span></span>` : '';
+    return `<li><a class="ev-row list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener"><span class="ev-row-text"><span class="ev-row-t"${langAttr(e.title)}>${esc(e.title)}</span><span class="ev-row-m">${esc(meta)}</span></span>${left}</a></li>`;
   }).join('')}</ol>`;
 }
 /* "Sắp diễn ra" with nothing coming and no story to show: one calm line where the list would be. */
