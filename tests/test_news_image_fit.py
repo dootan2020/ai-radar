@@ -143,7 +143,9 @@ class NewsPictureMarkupTests(unittest.TestCase):
         for path in (SITE / "feed.js", EXT / "feed.js"):
             source = path.read_text(encoding="utf-8")
             media = re.search(r"function mediaHTML\(img, size\) \{[\s\S]*?\n\}", source).group()
-            self.assertIn("return `<img class=\"media-img nc-img\" src=", media)
+            # One picture element; its address comes from srcsetAttrs (the publisher's own resizer, 11/11).
+            self.assertIn("return `<img class=\"media-img nc-img\" ${srcsetAttrs(", media)
+            self.assertEqual(media.count("<img "), 2, path)   # the drawn cover and the photograph, nothing behind them
             self.assertNotIn("mediaBackdrop", source, path)
             # The hot list is the feed's one thumbnail list since 07/11 ("Vừa đăng" shows clock and headline only).
             thumbs = [line for line in source.splitlines() if 'class="thumb' in line and "<img" in line]

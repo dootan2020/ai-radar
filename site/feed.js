@@ -1993,15 +1993,63 @@ const srcOf = st => { const t = titleOf(st), c = t.cov || covsOf(st)[0] || {}; r
    the story page's and the story modal's footer. */
 const metaHTML = st => { const s = srcOf(st); return `<p class="nc-meta">${markHTML(st)}<span class="nc-who"><span class="nc-fav" aria-hidden="true">${avatar(s.face, 'xs')}</span><span class="nc-src">${esc(s.name)}</span></span><span class="nc-when"><span class="nc-dot" aria-hidden="true"></span>${timeEl(st.published_at)}</span></p>`; };
 const aiBadgeHTML = img => img.via === 'ai' ? '<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>' : '';
+/* A publisher's picture at the width its slot needs, asked of the publisher's own image server (no copy, no proxy of
+   ours). The feeds link full-size originals: one Semafor lead was a 6000x4000 JPEG of 2.0 MB, which a 412 px phone
+   drew at 412 px wide (Lighthouse, 11/11). These servers resize on request, each checked live on 11/11: Sanity
+   (Semafor, Anthropic) and WordPress/Jetpack (`w`), Condé Nast (Wired, a path segment). Any other address keeps its
+   one file. */
+const RESIZERS = [
+  [u => u.hostname === 'img.semafor.com' || u.hostname === 'cdn.sanity.io' || (u.hostname === 'www-cdn.anthropic.com' && u.pathname.startsWith('/images/')),
+    (u, w) => { u.searchParams.set('w', w); return u; }],
+  [u => /^i[0-3]\.wp\.com$/.test(u.hostname) || u.pathname.includes('/wp-content/uploads/'),
+    (u, w) => { u.searchParams.set('w', w); return u; }],
+  [u => u.hostname === 'media.wired.com' && u.pathname.includes('/master/pass/'),
+    (u, w) => { u.pathname = u.pathname.replace('/master/pass/', `/master/w_${w},c_limit/`); return u; }],
+];
+function sizedSrc(src, w) {
+  let u;
+  try { u = new URL(src); } catch { return null; }
+  const r = RESIZERS.find(([match]) => match(u));
+  return r ? r[1](u, w).href : null;
+}
+const WIDTHS = { lead: [480, 828, 1280], card: [240, 640, 960] };
+/* The slot's width (trang-msn.css): on a phone the lead and a wide card run across the screen and a card's picture is
+   the 104 px thumbnail beside its headline (--bento-thumb-w); wider, the lead spans about half the panel and a card a
+   quarter of it. */
+const SIZES = { lead: '(max-width: 767px) 100vw, 50vw', wide: '(max-width: 767px) 100vw, 25vw', card: '(max-width: 767px) 104px, 25vw' };
+function srcsetAttrs(src, size, defer) {
+  const cands = WIDTHS[size === 'lead' ? 'lead' : 'card'].map(w => [sizedSrc(src, w), w]);
+  const a = defer ? 'data-' : '';
+  if (!cands[0][0]) return `${a}src="${esc(src)}"`;
+  return `${a}srcset="${esc(cands.map(([u, w]) => `${u} ${w}w`).join(', '))}" sizes="${SIZES[size] || SIZES.card}" ${a}src="${esc(cands[1][0])}"`;
+}
 /* A card's picture fills the slot Mẫu A gives it (captain, 10/11 19:3x: "phần hiển thị hình ảnh của thẻ phải dùng hết,
-   ảnh gốc có thể bị xén bị che anh không quan tâm"): cropped, never banded. */
+   ảnh gốc có thể bị xén bị che anh không quan tâm"): cropped, never banded.
+   size: 'lead' (the first slide: the page's largest picture, fetched first), 'slide' (slides 2 and on: no address
+   until the slide is about to show, wakeSlides), 'wide' or 'card' (lazy). */
 function mediaHTML(img, size) {
+  const defer = size === 'slide';
   const loading = size === 'lead' ? 'eager' : 'lazy';
   // A cover (drawn from the story's facts, radar/covers.py) keeps its text: fitCover picks the file and the fit for the
   // slot it lands in. The wide card's half is usually narrow, so it starts on the tall file.
-  if (img.kind === 'cover') return `<img class="media-img nc-img is-cover" src="${esc(size === 'wide' ? img.tall : img.src)}" data-wide="${esc(img.src)}" data-tall="${esc(img.tall || img.src)}" alt="" width="640" height="360" loading="${loading}" decoding="async">`;
-  const [w, h] = size === 'lead' ? [1280, 720] : [640, 360];
-  return `<img class="media-img nc-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadgeHTML(img)}`;
+  if (img.kind === 'cover') return `<img class="media-img nc-img is-cover" ${defer ? 'data-' : ''}src="${esc(size === 'wide' ? img.tall : img.src)}" data-wide="${esc(img.src)}" data-tall="${esc(img.tall || img.src)}" alt="" width="640" height="360" loading="${loading}" decoding="async">`;
+  const [w, h] = size === 'lead' || defer ? [1280, 720] : [640, 360];
+  return `<img class="media-img nc-img" ${srcsetAttrs(img.src, defer ? 'lead' : size, defer)} alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadgeHTML(img)}`;
+}
+/* Slides 2 and on carry their picture's address in data-src (and data-srcset) until a reader is about to see them:
+   the carousel stacks every slide in one place, so a lazy picture there counts as on screen and loads at once (11/11:
+   three of the four pictures fetched with the page were hidden slides). */
+function wakeSlides(slides) {
+  for (const slide of slides) for (const img of slide.querySelectorAll('img[data-src]')) {
+    if (img.dataset.srcset) { img.setAttribute('srcset', img.dataset.srcset); delete img.dataset.srcset; }
+    img.setAttribute('src', img.dataset.src);
+    delete img.dataset.src;
+  }
+}
+/* A pointer over the carousel, a touch on it or focus inside it: the reader may move on, so every slide's picture loads. */
+function onLeadIntent(e) {
+  const lead = e.target instanceof Element && e.target.closest('.msn-lead');
+  if (lead) wakeSlides(lead.querySelectorAll('.slide'));
 }
 function leadHTML(list) {
   if (!list.length) return '';
@@ -2009,7 +2057,7 @@ function leadHTML(list) {
   const slides = list.map((st, i) => {
     const img = pickImage(st), t = titleOf(st);
     return `<article class="slide${i ? '' : ' is-active'} ${statusClass(st)}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" aria-roledescription="slide" aria-label="${i + 1} trên ${n}"${i ? ' inert' : ''}>
-      <div class="slide-media media">${mediaHTML(img, i ? 'card' : 'lead')}</div>
+      <div class="slide-media media">${mediaHTML(img, i ? 'slide' : 'lead')}</div>
       <div class="slide-box"><p class="nc-kicker">Tin nổi bật</p><h2 class="slide-title"${langAttr(t.text)}><a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>${metaHTML(st)}</div></article>`;
   }).join('');
   const nav = n > 1 ? `<div class="lead-dots pager-dots" role="group" aria-label="Chọn tin nổi bật">${list.map((st, i) => `<button type="button" data-slide="${i}" aria-label="Tin nổi bật ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>` : '';
@@ -2019,6 +2067,7 @@ function showSlide(lead, n) {
   const slides = [...lead.querySelectorAll('.slide')];
   if (!slides.length) return;
   const k = (n + slides.length) % slides.length;
+  wakeSlides([slides[k], slides[(k + 1) % slides.length]]);   // the one shown and the next a reader would move to
   slides.forEach((el, i) => { el.classList.toggle('is-active', i === k); el.inert = i !== k; });
   lead.querySelectorAll('.lead-dots button').forEach((b, i) => b.setAttribute('aria-current', String(i === k)));
   lead.dataset.slide = String(k);
@@ -3105,6 +3154,7 @@ function attachEvents() {
   }, { passive: true });
   document.addEventListener('click', onClick);
   document.addEventListener('touchstart', onLeadTouchStart, { passive: true });
+for (const type of ['pointerover', 'focusin', 'touchstart']) document.addEventListener(type, onLeadIntent, { passive: true });
   document.addEventListener('touchend', onLeadTouchEnd, { passive: true });
   document.addEventListener('auxclick', e => { if (e.button === 1) onOpenLink(e); });
   document.addEventListener('keydown', onKey);
@@ -3293,7 +3343,17 @@ async function init() {
   }
   startLifecycle();
   startLiveLayer();
-  whenIdle().then(loadComplete);
+  whenReaderActs().then(loadComplete);
+}
+/* The complete snapshot (radar-ui.json, 180 KB) holds the stories past the first screen: it waits for the reader's first
+   scroll, touch, key or click instead of loading with the page (11/11: it was a sixth of a phone's first load). Every
+   view that needs it sooner still asks for it at once (needsComplete, the end of the window, the snapshot poll). */
+function whenReaderActs() {
+  return new Promise(resolve => {
+    const types = ['scroll', 'pointerdown', 'keydown', 'touchstart', 'focusin', 'wheel'];
+    const go = () => { types.forEach(t => removeEventListener(t, go, true)); whenIdle().then(resolve); };
+    types.forEach(t => addEventListener(t, go, { capture: true, passive: true }));
+  });
 }
 
 init();

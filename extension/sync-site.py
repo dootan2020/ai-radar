@@ -62,6 +62,9 @@ def adapt_html(html):
     html = replace_pattern_once(html, r'\n<!-- The stream player \(trinh-phat\.js\).*?</dialog>\n', '', re.S)
     html = replace_pattern_once(html, r'<!-- The snapshot is the page.s only content:.*?-->\n', '', re.S)
     html = replace_pattern_once(html, r'<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>\n', '')
+    # The new tab reads the picture map from the live site first (adapt_feed), not from this file.
+    html = replace_once(html, '<link rel="preload" href="feed-images.json" as="fetch" crossorigin>\n', '')
+    html = replace_once(html, '<link rel="modulepreload" href="trinh-phat.js">\n', '')   # the new tab has no stream player
     html = replace_once(html, '<script type="module" src="feed.js"></script>',
                         '<script type="module" src="feed.js"></script>\n<script type="module" src="newtab.js"></script>\n'
                         '<link rel="stylesheet" href="newtab.css">')
@@ -148,7 +151,8 @@ def adapt_feed(feed):
                         'if (j && j.schema_version === 2 && Array.isArray(j.stories)) return normalizeSnapshot(j);')
     feed = replace_once(feed, "const [, data, picks, fieldData] = await Promise.all([loadImages(), loadFirst(), loadPicks(), loadFieldRankings()]);",
                         'const [, data, picks] = await Promise.all([loadImages(), loadFirst(), loadPicks()]);\n    const fieldData = null;')
-    feed = replace_once(feed, '  whenIdle().then(loadComplete);',
+    # The new tab keeps loading the complete snapshot when idle: its first snapshot comes from storage, not the network.
+    feed = replace_once(feed, '  whenReaderActs().then(loadComplete);',
                         "  whenIdle().then(async () => {\n    if (!navigator.onLine) return;\n    await loadComplete();\n    FIELD_DATA = await loadFieldRankings();\n    if (FIELD_DATA && Array.isArray(FIELD_DATA.fields)) {\n      FIELD_MAP = new Map(FIELD_DATA.fields.map(f => [f.id, f]));\n      mergeFieldRepos();\n      rerenderRepos();\n    }\n  });")
     feed = replace_once(feed, '  if (complete || !D) return Promise.resolve();',
                         '  if (complete || !D || !navigator.onLine) return Promise.resolve();')
