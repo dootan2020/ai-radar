@@ -470,6 +470,15 @@
 }
 .fresh-list li[data-pinned]:not(.is-read) .new-mark { display: none; }
 .fresh-list li { border-radius: var(--radius-8); }
+/* Only whole rows (feed.js, fitFreshTile): rows outside the page are left out, and a page's first row drops the rule
+   it would draw against the row before it. A batch longer than the tile pages with "‹ 1/2 ›" in the head, the shelf's
+   own quiet buttons; it is for every pointer, not only a mouse. */
+.fresh-list > li[hidden] { display: none; }
+.fresh-list > li[hidden] + li .brief { border-top-color: transparent; }
+/* The buttons keep their 44px target but take no more height than the title, so the list starts where it did. */
+.tile-fresh .fresh-pager { gap: var(--space-4); margin-block: calc(-1 * var(--space-12)); }
+.fresh-pager[hidden] { display: none; }
+.fresh-page { min-width: 3ch; font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-ink-2); text-align: center; }
 .fresh-list li.is-flash { animation: fresh-flash var(--fresh-flash) var(--ease-flow) both; }
 @keyframes fresh-flash { from, 35% { background: var(--color-accent-wash-strong); } to { background: transparent; } }
 .msn-grid:not(.is-front) > .tile { grid-column: 1 / -1; overflow: visible; }

@@ -475,7 +475,9 @@ assert.equal(nodes.get('#fresh').hidden, true);
 // smooth scroll under reduced motion. The tile sits in the grid, and Mẫu A's panel head scrolls away (08/11), so the
 // jump lands it 16 px under the top of the window (scrollY 100 + top 500 - 16).
 const rowItems = [];
+// It holds no parsed list here, so fitting whole rows into it (fitFreshTile) finds nothing to measure.
 nodes.set('#fresh-row', {hidden:true, contains:el => el === nodes.get('#fresh-row-h'), getBoundingClientRect:() => ({top:500}),
+  querySelector:() => null,
   get innerHTML() { return rowItems.at(-1) || ''; }, set innerHTML(v) { rowItems.push(v); }});
 nodes.set('#fresh-row-h', {focus() { doc.activeElement = this; }});
 nodes.get('#top').querySelectorAll = () => [];
