@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace
 const nen = await import(pathToFileURL(path.join(root, 'site', 'nen.js')).href);
 
 function fakePage({ wide, lich, broken = [], kept = null, extension = false }) {
-  const log = { fetched: [], shown: [], cached: [] };
+  const log = { fetched: [], shown: [], cached: [], tried: [] };
   const listeners = [];
   const query = { matches: wide, addEventListener: (_, f) => listeners.push(f), removeEventListener: (_, f) => listeners.splice(listeners.indexOf(f), 1) };
   const box = {
@@ -23,7 +23,7 @@ function fakePage({ wide, lich, broken = [], kept = null, extension = false }) {
       let src = '';
       Object.defineProperty(img, 'src', {
         get: () => src,
-        set: v => { src = v; setTimeout(() => (broken.some(b => v.includes(b)) ? img.onerror() : img.onload())); },
+        set: v => { src = v; log.tried.push(v); setTimeout(() => (broken.some(b => v.includes(b)) ? img.onerror() : img.onload())); },
       });
       return img;
     },
@@ -36,17 +36,21 @@ function fakePage({ wide, lich, broken = [], kept = null, extension = false }) {
     fetch: async url => {
       log.fetched.push(url);
       if (lich === 'offline') throw new TypeError('Failed to fetch');
-      if (lich === 404) return { ok: false, status: 404 };
-      return { ok: true, json: async () => lich };
+      if (url.endsWith('lich.json')) return lich === 404 ? { ok: false, status: 404 } : { ok: true, json: async () => lich };
+      // A picture, which only the new tab fetches itself; a broken one answers 404.
+      if (broken.some(b => url.includes(b))) return { ok: false, status: 404 };
+      const res = { ok: true, status: 200, url, blob: async () => 'picture-of-' + url, clone: () => ({ ...res }) };
+      return res;
     },
     localStorage: { getItem: k => store.get(k) ?? null, setItem: (k, v) => store.set(k, v) },
     caches: { open: async () => ({
       match: async u => cache.get(u),
-      add: async u => { cache.set(u, { blob: async () => 'blob-of-' + u }); log.cached.push(u); },
+      add: async u => { log.fetched.push(u); cache.set(u, { blob: async () => 'blob-of-' + u }); log.cached.push(u); },
+      put: async (u, r) => { cache.set(u, { blob: async () => 'blob-of-' + r.url }); log.cached.push(u); },
       keys: async () => [...cache.keys()].map(url => ({ url })),
       delete: async r => cache.delete(r.url),
     }) },
-    URL: { createObjectURL: b => 'blob:' + b },
+    URL: { createObjectURL: b => 'blob:' + b, revokeObjectURL: () => {} },
   };
   const widen = () => { query.matches = true; [...listeners].forEach(f => f({ matches: true })); };
   return { win, doc, box, log, widen, store, extension };
@@ -75,6 +79,7 @@ const result = {
     none: nen.pickDay({ days: [{ date: '2026-11-12', file: '2026-11-12.webp' }] }, '2026-11-10'),
     malformed: nen.pickDay({ days: [{ date: '2026-11-10', file: '../x.webp' }, { date: '10/11/2026', file: '2026-11-10.webp' }, null] }, '2026-11-10'),
     empty: nen.pickDay(null, '2026-11-10'),
+    order: nen.pickDays(days, '2026-11-10').map(d => d.file),
   },
   wide: nen.WIDE,
 };
@@ -94,12 +99,17 @@ const result = {
   p.widen();
   result.phone.afterWiden = await pending;
 }
-// The website when the calendar is missing, or today's picture is broken: the packaged picture.
+// The website when the calendar is missing: the packaged picture. When today's picture is broken: the day before it in
+// the calendar, and the packaged picture only when that one is broken too (never a third day).
 {
   const p = fakePage({ wide: true, lich: 404 });
   result.siteNoLich = await nen.startNen({ ...p, extension: false, now: at('2026-11-10T03:00:00Z') });
   const q = fakePage({ wide: true, lich: days, broken: ['nen/2026-11-10.avif'] });
   result.siteBrokenPicture = await nen.startNen({ ...q, extension: false, now: at('2026-11-10T03:00:00Z') });
+  result.siteBrokenTried = q.log.tried;
+  const r = fakePage({ wide: true, lich: days, broken: ['nen/2026-11-10.avif', 'nen/2026-11-09.webp'] });
+  result.siteBothBroken = await nen.startNen({ ...r, extension: false, now: at('2026-11-10T03:00:00Z') });
+  result.siteBothBrokenTried = r.log.tried;
 }
 // The new tab: online it reads the live site and keeps the picture; offline it shows the kept one; with nothing kept,
 // the packaged one.
@@ -109,6 +119,11 @@ const result = {
   await new Promise(r => setTimeout(r, 20));
   result.extOnline.cached = p.log.cached;
   result.extOnline.remembered = p.store.get('air2:nen');
+  // One download: the calendar, then the picture once; the <img> shows that download from memory.
+  result.extOnline.fetched = p.log.fetched;
+  result.extOnline.img = p.log.tried;
+  const b = fakePage({ wide: true, lich: days, broken: ['nen/2026-11-10.avif'] });
+  result.extBrokenPicture = await nen.startNen({ ...b, extension: true, now: at('2026-11-10T03:00:00Z') });
   const kept = 'https://radar-ai-vn.pages.dev/nen/2026-11-09.webp';
   const q = fakePage({ wide: true, lich: 'offline', kept });
   result.extOffline = await nen.startNen({ ...q, extension: true, now: at('2026-11-10T03:00:00Z') });

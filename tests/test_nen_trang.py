@@ -1,9 +1,11 @@
 """The Halcyon page keeps real margins on wide screens; from 768 px the day's picture fills the first screen, as on
 Edge's new tab (owner, 10/11: "còn về ảnh nền thì em làm như edge"), and a phone keeps the plain page."""
+import functools
 import json
 import re
 import shutil
 import subprocess
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -19,6 +21,16 @@ def nen_section(css):
 
 def read(path):
     return path.read_text(encoding="utf-8")
+
+
+@functools.lru_cache(maxsize=1)
+def verify_nen():
+    """tests/verify-nen.mjs once per run: the day's picture with a fake page."""
+    run = subprocess.run(["node", "tests/verify-nen.mjs"], cwd=ROOT, capture_output=True, text=True,
+                         encoding="utf-8", timeout=60)
+    if run.returncode != 0:
+        raise AssertionError(run.stderr)
+    return json.loads(run.stdout.strip().splitlines()[-1])
 
 
 class PageBackground(unittest.TestCase):
@@ -93,30 +105,136 @@ class DayPicture(unittest.TestCase):
 
     @unittest.skipUnless(shutil.which("node"), "Node required for the day's picture tests")
     def test_the_day_is_picked_in_bangkok_and_falls_back_in_order(self):
-        run = subprocess.run(["node", "tests/verify-nen.mjs"], cwd=ROOT, capture_output=True, text=True,
-                             encoding="utf-8", timeout=60)
-        self.assertEqual(run.returncode, 0, run.stderr)
-        got = json.loads(run.stdout.strip().splitlines()[-1])
+        got = verify_nen()
         self.assertEqual(got["bangkok"], ["2026-11-10", "2026-11-09", "2027-01-01"])
         self.assertEqual(got["pick"], {"today": "2026-11-10.avif", "earlier": "2026-11-09.webp",
-                                       "none": None, "malformed": None, "empty": None})
+                                       "none": None, "malformed": None, "empty": None,
+                                       "order": ["2026-11-10.avif", "2026-11-09.webp", "2026-11-08.webp"]})
         self.assertEqual(got["site"], {"shown": "nen/2026-11-10.avif", "fetched": ["nen/lich.json"],
                                        "ready": True, "cached": []})
         self.assertEqual(got["siteNoLich"], "anh/nen-du-phong.webp")
-        self.assertEqual(got["siteBrokenPicture"], "anh/nen-du-phong.webp")
         today = LIVE + "nen/2026-11-10.avif"
-        self.assertEqual(got["extOnline"], {"shown": today, "cached": [today], "remembered": today})
+        self.assertEqual({k: got["extOnline"][k] for k in ("shown", "cached", "remembered")},
+                         {"shown": today, "cached": [today], "remembered": today})
         self.assertEqual(got["extOffline"], "blob:blob-of-" + LIVE + "nen/2026-11-09.webp")
         self.assertEqual(got["extNothingKept"], "anh/nen-du-phong.webp")
 
     @unittest.skipUnless(shutil.which("node"), "Node required for the day's picture tests")
+    def test_a_broken_picture_for_today_shows_the_day_before_it_first(self):
+        got = verify_nen()
+        self.assertEqual(got["siteBrokenPicture"], "nen/2026-11-09.webp")
+        self.assertEqual(got["siteBrokenTried"], ["nen/2026-11-10.avif", "nen/2026-11-09.webp"])
+        # The packaged picture only when the day before is broken too, and never a third day.
+        self.assertEqual(got["siteBothBroken"], "anh/nen-du-phong.webp")
+        self.assertEqual(got["siteBothBrokenTried"],
+                         ["nen/2026-11-10.avif", "nen/2026-11-09.webp", "anh/nen-du-phong.webp"])
+        self.assertEqual(got["extBrokenPicture"], LIVE + "nen/2026-11-09.webp")
+
+    @unittest.skipUnless(shutil.which("node"), "Node required for the day's picture tests")
+    def test_the_new_tab_downloads_the_picture_once(self):
+        ext = verify_nen()["extOnline"]
+        # The calendar, then the picture once; the <img> and the offline copy both reuse that one download.
+        self.assertEqual(ext["fetched"], [LIVE + "nen/lich.json", LIVE + "nen/2026-11-10.avif"])
+        self.assertEqual(ext["img"], ["blob:picture-of-" + LIVE + "nen/2026-11-10.avif"])
+        self.assertNotIn("cache.add(", read(SITE / "nen.js"))
+
+    @unittest.skipUnless(shutil.which("node"), "Node required for the day's picture tests")
     def test_a_phone_downloads_nothing_until_the_window_is_widened(self):
-        run = subprocess.run(["node", "tests/verify-nen.mjs"], cwd=ROOT, capture_output=True, text=True,
-                             encoding="utf-8", timeout=60)
-        self.assertEqual(run.returncode, 0, run.stderr)
-        phone = json.loads(run.stdout.strip().splitlines()[-1])["phone"]
+        phone = verify_nen()["phone"]
         self.assertEqual(phone, {"fetched": [], "shown": [], "query": "(min-width: 768px)",
                                  "afterWiden": "nen/2026-11-10.avif"})
+
+
+FRESH_HARNESS = r"""
+globalThis.window = globalThis;
+const getComputedStyle = () => ({ paddingBottom: '16px' });
+const HEAD = 56, PAD = 16;
+function tileOf({ heights, pinned, grow = false, clientH = 360 }) {
+  const visible = () => rows.filter(r => !r.hidden);
+  const rows = heights.map((h, i) => ({
+    h, hidden: false, pinned: i < pinned,
+    hasAttribute(a) { return a === 'data-pinned' && this.pinned; },
+    getBoundingClientRect() {
+      let top = HEAD;
+      for (const r of visible()) { if (r === this) break; top += r.h; }
+      return { top, bottom: top + this.h };
+    },
+  }));
+  const ul = { children: rows, getBoundingClientRect: () => ({ top: HEAD }) };
+  const btn = step => ({ dataset: { freshPage: String(step) }, attrs: {},
+    setAttribute(k, v) { this.attrs[k] = v; }, getAttribute(k) { return this.attrs[k] ?? null; } });
+  const prev = btn(-1), next = btn(1), count = { textContent: '' };
+  const pager = { hidden: true, querySelector: () => count, querySelectorAll: () => [prev, next] };
+  const tile = {
+    hidden: false, clientTop: 0,
+    get scrollHeight() { return HEAD + visible().reduce((s, r) => s + r.h, 0) + PAD; },
+    get clientHeight() { return grow ? this.scrollHeight : clientH; },
+    getBoundingClientRect: () => ({ top: 0 }),
+    querySelector: s => (s === '.fresh-list' ? ul : s === '.fresh-pager' ? pager : null),
+  };
+  return { tile, rows, pager, prev, next, count, room: clientH - PAD - HEAD - 1 };
+}
+let current = null;
+const $ = s => (s === '#fresh-row' ? current.tile : null);
+__FIT__
+function look(t) {
+  const shown = t.rows.map((r, i) => [r, i]).filter(([r]) => !r.hidden);
+  return { shown: shown.map(([, i]) => i), fits: shown.every(([r]) => r.getBoundingClientRect().bottom - HEAD <= t.room),
+    pager: !t.pager.hidden, count: t.count.textContent, next: t.next.getAttribute('aria-disabled') };
+}
+const out = {};
+// Six new rows, the first one three lines tall: two pages of whole rows, then the end.
+current = tileOf({ heights: [80, 66, 66, 66, 66, 66], pinned: 6 });
+fitFreshTile();
+out.six = [look(current)];
+pageFresh(current.next); out.six.push(look(current));
+pageFresh(current.next); out.six.push(look(current));
+pageFresh(current.prev); out.six.push(look(current));
+// Ordinary rows that do not fit are left out, with no pager.
+current = tileOf({ heights: [80, 80, 80, 80], pinned: 0 });
+fitFreshTile(); out.plain = look(current);
+// A batch that fits on the first page needs no pager either.
+current = tileOf({ heights: [80, 80, 80, 80], pinned: 3 });
+fitFreshTile(); out.fitsOnePage = look(current);
+// A tile that grows with its rows (phone, tablet) shows them all.
+current = tileOf({ heights: [80, 66, 66, 66, 66, 66], pinned: 6, grow: true });
+fitFreshTile(); out.grows = look(current);
+process.stdout.write(JSON.stringify(out));
+"""
+
+
+class FreshTilePaging(unittest.TestCase):
+    """More new stories than "Vừa đăng" can hold beside the lead: only whole rows, and every new row reachable."""
+
+    def test_the_tile_hides_rows_it_cannot_show_whole(self):
+        css = read(SITE / "trang-msn.css")
+        self.assertIn(".fresh-list > li[hidden] { display: none; }", css)
+        self.assertIn(".fresh-pager[hidden] { display: none; }", css)
+        feed = read(SITE / "feed.js")
+        self.assertIn("fitFreshTile();\n  scheduleCountdown();", feed)
+        self.assertIn("const fp = t.closest('[data-fresh-page]'); if (fp) { pageFresh(fp); return; }", feed)
+
+    @unittest.skipUnless(shutil.which("node"), "Node required for the paging test")
+    def test_a_long_batch_pages_through_whole_rows(self):
+        feed = read(SITE / "feed.js")
+        fit = feed[feed.index("let freshPage = 0;"):feed.index("function goFirstNew()")]
+        fit = fit[:fit.index("/* Redraw the tile in place")]
+        with tempfile.TemporaryDirectory() as tmp:
+            harness = Path(tmp) / "harness.mjs"
+            harness.write_text(FRESH_HARNESS.replace("__FIT__", fit), encoding="utf-8", newline="\n")
+            run = subprocess.run(["node", str(harness)], cwd=ROOT, capture_output=True, text=True,
+                                 encoding="utf-8", timeout=60)
+        self.assertEqual(run.returncode, 0, run.stderr)
+        got = json.loads(run.stdout)
+        six = got["six"]
+        self.assertEqual([p["shown"] for p in six], [[0, 1, 2, 3], [4, 5], [4, 5], [0, 1, 2, 3]])
+        self.assertTrue(all(p["fits"] and p["pager"] for p in six))
+        self.assertEqual([p["count"] for p in six], ["1/2", "2/2", "2/2", "1/2"])
+        self.assertEqual([p["next"] for p in six], ["false", "true", "true", "false"])
+        self.assertEqual(sorted({i for p in six for i in p["shown"]}), list(range(6)))
+        self.assertEqual((got["plain"]["shown"], got["plain"]["pager"], got["plain"]["fits"]), ([0, 1, 2], False, True))
+        self.assertEqual((got["fitsOnePage"]["shown"], got["fitsOnePage"]["pager"]), ([0, 1, 2], False))
+        self.assertEqual((got["grows"]["shown"], got["grows"]["pager"]), ([0, 1, 2, 3, 4, 5], False))
 
 
 if __name__ == "__main__":

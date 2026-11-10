@@ -2038,6 +2038,7 @@ function renderFeed() {
   renderFrontMeta();
   initRepoPills(grid);
   initShelves($('#top'));
+  fitFreshTile();
   scheduleCountdown();
   $('#top').removeAttribute('aria-busy');
   hydrateHF(document);
@@ -2253,8 +2254,64 @@ function freshInnerHTML() {
   if (!list.length) return '';
   // Four rows sit beside the lead; a batch the "N tin mới" pill pinned is shown whole.
   const shown = list.slice(0, Math.max(FRESH_TILE_ROWS, freshIds.filter(id => !read.has(id)).length));
-  return `<div class="tile-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2></div>
-    <ul class="briefs fresh-list" data-n="${shown.length}">${shown.map(freshItem).join('')}</ul>`;
+  return `<div class="tile-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2>
+    <span class="tile-tools fresh-pager" hidden>
+    <button type="button" class="shelf-btn" data-fresh-page="-1" aria-controls="fresh-list" aria-label="Tin mới trước">${chevron(false)}</button>
+    <span class="fresh-page num" aria-live="polite"></span>
+    <button type="button" class="shelf-btn" data-fresh-page="1" aria-controls="fresh-list" aria-label="Tin mới tiếp theo">${chevron(true)}</button></span></div>
+    <ul class="briefs fresh-list" id="fresh-list" data-n="${shown.length}">${shown.map(freshItem).join('')}</ul>`;
+}
+/* The tile beside the lead is one grid row tall from 1100 px, so it holds only the whole rows that fit there; a row is
+   never cut at its edge. A pinned batch longer than that is paged, as many whole rows a page as fit, with "‹ 1/2 ›" in
+   the tile's head; ordinary rows that do not fit are simply left out (each story keeps its own place below). Where the
+   tile grows with its rows (phone, tablet), every row shows and there is no pager. */
+let freshPage = 0;
+let freshRO = null;
+function fitFreshTile() {
+  const tile = $('#fresh-row'), ul = tile && tile.querySelector('.fresh-list'), pager = tile && tile.querySelector('.fresh-pager');
+  if (!ul || tile.hidden) return;
+  if (!freshRO && 'ResizeObserver' in window) {
+    let w = 0, h = 0;
+    freshRO = new ResizeObserver(([e]) => {
+      const { width, height } = e.contentRect;
+      if (Math.abs(width - w) > 0.5 || Math.abs(height - h) > 0.5) { w = width; h = height; fitFreshTile(); }
+    });
+  }
+  if (freshRO && tile._fitObserved !== true) { freshRO.disconnect(); freshRO.observe(tile); tile._fitObserved = true; }
+  const rows = [...ul.children];
+  const pinned = li => li.hasAttribute('data-pinned');
+  rows.forEach(li => { li.hidden = false; });
+  pager.hidden = true;
+  // A tile that grows with its rows never overflows; its size never depends on the pager, so this cannot loop.
+  if (tile.scrollHeight <= tile.clientHeight + 1) { freshPage = 0; return; }
+  pager.hidden = !rows.some(pinned);       // measured with the pager in the head, so a page never meets it later
+  const tr = tile.getBoundingClientRect(), ulTop = ul.getBoundingClientRect().top;
+  const room = tr.top + tile.clientTop + tile.clientHeight - parseFloat(getComputedStyle(tile).paddingBottom) - ulTop - 1;
+  const box = rows.map(li => { const r = li.getBoundingClientRect(); return [r.top - ulTop, r.bottom - ulTop]; });
+  const pages = [];
+  for (let i = 0; i < rows.length;) {
+    let j = i + 1;
+    while (j < rows.length && box[j][1] - box[i][0] <= room) j++;
+    pages.push([i, j]);
+    i = j;
+  }
+  // Only pages that hold new rows: the ordinary rows after a batch are not paged into.
+  const usable = pages.filter(([a, b]) => rows.slice(a, b).some(pinned));
+  const paged = usable.length > 1;
+  freshPage = paged ? Math.min(freshPage, usable.length - 1) : 0;
+  const [a, b] = paged ? usable[freshPage] : pages[0];
+  rows.forEach((li, i) => { li.hidden = i < a || i >= b; });
+  pager.hidden = !paged;
+  if (!paged) return;
+  pager.querySelector('.fresh-page').textContent = `${freshPage + 1}/${usable.length}`;
+  const [prev, next] = pager.querySelectorAll('.shelf-btn');
+  prev.setAttribute('aria-disabled', String(freshPage === 0));
+  next.setAttribute('aria-disabled', String(freshPage === usable.length - 1));
+}
+function pageFresh(btn) {
+  if (btn.getAttribute('aria-disabled') === 'true') return;
+  freshPage = Math.max(0, freshPage + Number(btn.dataset.freshPage));
+  fitFreshTile();
 }
 function freshTileHTML() {
   const inner = freshInnerHTML();
@@ -2267,6 +2324,7 @@ function renderFreshRow() {
   const inner = freshInnerHTML();
   box.innerHTML = inner;
   box.hidden = !inner;
+  fitFreshTile();
 }
 function goFirstNew() {
   if (!D) return;
@@ -2279,6 +2337,7 @@ function goFirstNew() {
   let heading = null;
   if (targets.size) {
     freshIds = [...targets];
+    freshPage = 0;
     renderFreshRow();
     // Every story once: when the river already shows a story the tile now pins, redraw so the river leaves it out.
     if ([...targets].some(id => $(`#feed-grid .nc[data-id="${CSSq(id)}"]`))) renderFeed();
@@ -2596,6 +2655,7 @@ function onClick(e) {
   }
   if (act && act.dataset.act === 'save') { toggleSave(act.dataset.id); return; }
   const cov = t.closest('.cov-btn'); if (cov) { toggleDetail(cov); return; }
+  const fp = t.closest('[data-fresh-page]'); if (fp) { pageFresh(fp); return; }
   const sb = t.closest('.shelf-btn'); if (sb) { scrollShelf(sb); return; }
   const cal = t.closest('[data-cal]'); if (cal) { e.preventDefault(); addToCalendar(calOf(STORY_ANY.get(cal.dataset.cal))); return; }
   const cl = t.closest('[data-cal-live]'); if (cl) { e.preventDefault(); addToCalendar(liveCal(asArray(D.live).find(v => v.video_id === cl.dataset.calLive))); return; }
