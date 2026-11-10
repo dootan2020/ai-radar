@@ -18,8 +18,11 @@ STYLESHEETS = [SITE / "feed.css", SITE / "story.css", EXT / "feed.css", EXT / "s
 
 # The only pictures allowed to be cropped. Avatars are faces, not news; the backdrop is a blurred copy whose crop
 # hides nothing because the whole picture sits on top of it; a stream's YouTube poster (4:3 hqdefault) carries its
-# 16:9 frame between black bars baked into the file, and cover at 16:9 trims exactly those bars.
-MAY_COVER = {".av-img", ".media-backdrop", ".tile-video img"}
+# 16:9 frame between black bars baked into the file, and cover at 16:9 trims exactly those bars. A drawn cover
+# (radar/covers.py, owner 2026-11-10 "Ok, dùng B, con số") is no news picture: its drawing sits in a safe area of a wider
+# or taller file, so cover at any slot trims only its plain surface.
+MAY_COVER = {".av-img", ".media-backdrop", ".tile-video img",
+             ".media-img.is-cover", ".thumb img.is-cover", ".story-media-img.is-cover"}
 NEWS_PICTURES = {".media-img", ".story-media-img", ".thumb img:not(.media-backdrop)", ".repo-img img", ".model-img img"}
 
 

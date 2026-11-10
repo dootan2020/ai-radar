@@ -485,7 +485,12 @@ def assess_image(image, cache=None, timeout=5, transport=None, allow_network=Tru
 
 def resolve_story_image(story, cache=None, timeout=5, transport=None, allow_network=True, site_root=None):
     """Only screened source pictures or existing AI illustrations may lead cards."""
-    candidate = story.get("image") or _resolve_candidate_image(
+    carried = story.get("image")
+    # A cover drawn in an earlier run is not a picture: the story looks again for a photo or an illustration, and
+    # radar.covers draws the cover again after the summary step if it still has none.
+    if isinstance(carried, dict) and carried.get("via") == "cover":
+        carried = None
+    candidate = carried or _resolve_candidate_image(
         story, cache=cache, timeout=timeout, transport=transport, allow_network=allow_network)
     if candidate:
         quality = assess_image(candidate, cache=cache, timeout=timeout, transport=transport,
@@ -529,7 +534,7 @@ def resolve_images_for_stories(stories, cache_path=None, seed_path=None, budget_
             # Carried images are subject to the same gate; stale images must not
             # bypass the AI/no-image fallback simply by already being attached.
             previous_image = st.pop("image", None)
-            if previous_image and cache is not None and st.get("url"):
+            if previous_image and previous_image.get("via") != "cover" and cache is not None and st.get("url"):
                 cache.set(st["url"], previous_image)
             unresolved_stories.append(st)
 

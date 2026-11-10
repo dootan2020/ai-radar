@@ -635,6 +635,9 @@ dialog.story-dialog::backdrop {
   object-fit: contain;
 }
 
+/* A cover drawn from the story's facts fills the frame; its drawing sits in a safe area, so only surface is cropped. */
+.story-media-img.is-cover { position: absolute; inset: 0; object-fit: cover; }
+
 /* The caption is a quiet line under the picture, not a bar attached to it. */
 .story-media-caption {
   display: flex;

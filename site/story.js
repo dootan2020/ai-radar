@@ -362,7 +362,9 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
       ? new URL(story.image.src, import.meta.url).href : story.image.src;
     mediaHTML = `
       <figure class="story-media">
-        <div class="story-media-frame">${mediaBackdrop(imageSrc, { loading: 'eager', noReferrer: false })}<img class="story-media-img" src="${esc(imageSrc)}" alt="${esc(titleVi)}" loading="eager" decoding="async"></div>
+        <div class="story-media-frame">${story.image.via === 'cover'
+          ? `<img class="story-media-img is-cover" src="${esc(imageSrc)}" alt="" loading="eager" decoding="async">`
+          : `${mediaBackdrop(imageSrc, { loading: 'eager', noReferrer: false })}<img class="story-media-img" src="${esc(imageSrc)}" alt="${esc(titleVi)}" loading="eager" decoding="async">`}</div>
       </figure>
     `;
   }
