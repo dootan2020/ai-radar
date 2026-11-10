@@ -64,6 +64,16 @@ const nf1 = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 1 });
 const EXACT = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'full', timeStyle: 'short', timeZone: TZ });
 const ms = iso => new Date(iso).getTime() || 0;
 const CSSq = s => (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace(/["\\]/g, '\\$&');
+/* Styles the first screen does not draw, asked for here rather than in index.html's head so they never hold the first
+   paint (Lighthouse, 11/11): the rankings view and the story and player dialogs. */
+const LATE_STYLES = ['arena.css', 'story.css'];
+for (const href of LATE_STYLES) {
+  if (!document.querySelector(`link[rel="stylesheet"][href="${href}"]`)) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet'; link.href = href;
+    document.head.append(link);
+  }
+}
 const RM = matchMedia('(prefers-reduced-motion: reduce)');
 if (!RM.matches) {
   document.documentElement.classList.add('js-motion');
@@ -2400,8 +2410,22 @@ function placeFixedCards(grid) {
   grid.querySelector('[data-slot="cal"]')?.replaceWith(calendarCard);
 }
 
+/* The build draws the lead's picture into the loading placeholder (radar/front_lead.py), so a phone fetches it with the
+   page instead of after the modules and the snapshot. When the carousel's first story is that story, its picture moves
+   into the drawn slide: the same element, already decoded, so it is neither fetched nor painted twice. A picture that
+   failed (or is a tracking pixel, see watchPictures) is left behind, and the drawn slide asks for its own. */
+function adoptEarlyLead(grid, early) {
+  const img = early && early.querySelector('img');
+  const story = early && early.closest('.slide');
+  if (!img || !story || !PICKLIST.length || PICKLIST[0].id !== story.dataset.id) return;
+  if (img.complete && img.naturalWidth < 40) return;
+  const slot = grid.querySelector('#lead .slide.is-active .slide-media');
+  if (slot) slot.replaceWith(early);
+}
+
 function renderFeed() {
   const skeleton = $('#feed-skeleton');
+  const early = skeleton && skeleton.querySelector('.msn-lead .slide-media');
   if (skeleton) skeleton.remove();
   const rankings = filter === 'rankings';
   const grid = $('#feed-grid');
@@ -2428,6 +2452,7 @@ function renderFeed() {
     seq = []; pos = 0; shownCards = 0; totalCards = 0;
     FRONT = buildFront();
     grid.innerHTML = frontHTML();
+    adoptEarlyLead(grid, early);
     $('#feed-empty').hidden = true;
     renderNewsBands();
     watchBentoCols();

@@ -31,10 +31,10 @@
 <!-- Apply the reader's saved theme and "Tùy chỉnh" choices (thanh-tren.js) before first paint, so a dark-mode reader never
      sees a light flash and a chosen layout never jumps. -->
 <script src="theme.js"></script>
+<!-- Only what the first screen draws blocks it: arena.css (the rankings view) and story.css (the story and player
+     dialogs) are asked for by feed.js as it starts (LATE_STYLES), so they never hold the first paint. -->
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="feed.css">
-<link rel="stylesheet" href="arena.css">
-<link rel="stylesheet" href="story.css">
 <link rel="stylesheet" href="trang-nhat.css">
 <link rel="stylesheet" href="trang-msn.css">
 <script type="module" src="nen.js"></script>
@@ -172,7 +172,8 @@
   <!-- The loading placeholder has the first rows' shape and is removed when they arrive, so nothing that stays on the
        page is pushed down by the content arriving above it (layout shift). -->
   <div class="msn-grid is-front" id="feed-skeleton">
-    <div class="msn-card msn-sk msn-lead"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div>
+  <div class="msn-card msn-sk msn-lead"></div>
+    <div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div>
     <div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div><div class="msn-card msn-sk"></div>
     <p class="sr" role="status">Đang tải dòng tin…</p>
   </div>

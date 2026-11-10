@@ -6,6 +6,7 @@ from pathlib import Path
 import json
 import re
 
+from radar.front_lead import update_index_lead
 from radar.pipeline import write_atomic
 from radar.search_index import search_payload, search_path
 from radar.headlines import annotate_headlines
@@ -305,7 +306,8 @@ def write_site_snapshot(payload, path):
         search_file.unlink(missing_ok=True)
         raise
     try:
-        write_atomic(window_payload(page), window_file, compact=True)
+        window = window_payload(page)
+        write_atomic(window, window_file, compact=True)
     except Exception:
         window_file.unlink(missing_ok=True)
         head_file.unlink(missing_ok=True)
@@ -326,6 +328,8 @@ def write_site_snapshot(payload, path):
     index_file = site_root / "index.html"
     if index_file.is_file():
         update_index_thumbnail(index_file, first_screen_thumbnail(payload))
+        # The lead's picture, from the file the page loads first (feed.js loadFirst), so both pick the same story.
+        update_index_lead(index_file, window)
     bento_file = site_root / "bento.html"
     if bento_file.is_file():
         update_index_thumbnail(bento_file, first_screen_thumbnail(payload))
