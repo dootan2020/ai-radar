@@ -48,6 +48,16 @@
 <link rel="modulepreload" href="titles.js">
 <link rel="modulepreload" href="calendar.js">
 <link rel="modulepreload" href="tim-tin.js">
+<!-- The modules feed.js imports two and three levels down, and the picture map its first draw waits for besides the
+     snapshot, asked for with the page, not one round trip after another (Lighthouse, 11/11: the lead's picture waited
+     on that chain). -->
+<link rel="modulepreload" href="story.js">
+<link rel="modulepreload" href="arena.js">
+<link rel="modulepreload" href="thoi-tiet.js">
+<link rel="modulepreload" href="the-lich.js">
+<link rel="modulepreload" href="lich-am.js">
+<link rel="modulepreload" href="editorial-headline.js">
+<link rel="modulepreload" href="worth-score.js">
  <link rel="stylesheet" href="menu-cong-cu.css">
  <script defer src="menu-cong-cu.js"></script>
 </head>

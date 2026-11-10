@@ -67,13 +67,12 @@ class BanTinHeadTests(unittest.TestCase):
         self.assertEqual(self.csp["form-action"], ["'none'"])
         self.assertTrue(re.search(r'<meta http-equiv="Content-Security-Policy" content="[^"]+;">', self.html))
 
-    def test_cloudflare_beacon_present(self):
+    def test_analytics_is_the_one_beacon_cloudflare_injects(self):
+        # One beacon per view (coordinator, 11/11): the one Cloudflare injects on hco.news, never a snippet of our own.
         scripts = re.findall(r"<script\b([^>]*)>([\s\S]*?)</script>", self.html)
-        beacons = [(attrs, body) for attrs, body in scripts if "cloudflareinsights.com" in attrs]
-        self.assertEqual(len(beacons), 1)
-        attrs, _ = beacons[0]
-        self.assertIn("type='module'", attrs)
-        self.assertIn("src='https://static.cloudflareinsights.com/beacon.min.js'", attrs)
+        self.assertEqual([a for a, _ in scripts if "cloudflareinsights.com" in a], [])
+        self.assertEqual([s for s in self.csp["script-src"] if "cloudflareinsights" in s],
+                         ["https://static.cloudflareinsights.com/beacon.min.js/"])
 
     def test_links_and_preloads_are_ordered_and_present(self):
         self.assertIn('<link rel="stylesheet" href="tokens.css">', self.head)

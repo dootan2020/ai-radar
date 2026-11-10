@@ -57,18 +57,20 @@ export function applySettings(root, settings, theme) {
   if (theme === 'light' || theme === 'dark') d.theme = theme; else if (theme === 'system') delete d.theme;
 }
 
-/* The day in Asia/Bangkok: ISO for <time>, and "Thứ Ba, 10/11/2026". */
+/* The day in Asia/Bangkok: ISO for <time>, and "Thứ Ba, 10/11/2026" with its parts. */
 export function today(now = new Date()) {
   const p = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short' })
     .formatToParts(now).reduce((all, x) => (all[x.type] = x.value, all), {});
   const wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday);
-  return { iso: `${p.year}-${p.month}-${p.day}`, text: `${WEEKDAY[wd]}, ${p.day}/${p.month}/${p.year}` };
+  return { iso: `${p.year}-${p.month}-${p.day}`, text: `${WEEKDAY[wd]}, ${p.day}/${p.month}/${p.year}`,
+    weekday: WEEKDAY[wd], dayMonth: `${p.day}/${p.month}`, year: p.year };
 }
 
 /* The cluster's markup: the weather (when the card has a reading) and the day. Text to read, nothing to press: the
-   weather card in the first row is where the forecast opens. */
+   weather card in the first row is where the forecast opens. The weekday and the year are their own spans, so a corner
+   too narrow for the whole line drops them (fitCluster) instead of running under the search. */
 export function clusterHTML(weather, day) {
-  const date = `<span class="top-date"><time datetime="${day.iso}">${esc(day.text)}</time></span>`;
+  const date = `<span class="top-date"><time datetime="${day.iso}"><span class="top-wd">${esc(day.weekday)}, </span>${esc(day.dayMonth)}<span class="top-yr">/${esc(day.year)}</span></time></span>`;
   if (!weather) return date;
   const t = `${weather.temp}°${weather.unit}`;
   return `<span class="top-wx" title="${esc(weather.label)}">`
@@ -90,6 +92,18 @@ const SHEET = `<div class="tc-top"><h2 id="tc-h">Tùy chỉnh</h2>
 
 const local = () => { try { return globalThis.localStorage; } catch { return null; } };
 
+/* The corner is the row's first column (trang-msn.css); the search owns the middle one. When the whole line is wider
+   than the corner (a 1280 px window, a long city name), drop the year, then the weekday, then the city, until it fits:
+   the corner is never clipped and never runs under the search. */
+export const FIT_STEPS = 3;
+export function fitCluster(el) {
+  if (!el) return 0;
+  let fit = 0;
+  el.dataset.fit = '0';
+  while (fit < FIT_STEPS && el.scrollWidth > el.clientWidth + 0.5) el.dataset.fit = String(++fit);
+  return fit;
+}
+
 export function startTopRow(doc = document) {
   const root = doc.documentElement;
   const storage = local();
@@ -98,8 +112,10 @@ export function startTopRow(doc = document) {
 
   const now = doc.getElementById('top-now');
   let weather = null, day = today();
-  const paintCluster = () => { if (now) now.innerHTML = clusterHTML(weather, day); };
+  const paintCluster = () => { if (now) { now.innerHTML = clusterHTML(weather, day); fitCluster(now); } };
   paintCluster();
+  if (now && typeof ResizeObserver === 'function') new ResizeObserver(() => fitCluster(now)).observe(now);
+  doc.fonts?.ready.then(() => fitCluster(now));   // the site font is wider than the fallback the first fit measured
   onWeather(w => { weather = w; paintCluster(); });
   // A new tab left open past midnight shows the new day.
   setInterval(() => { const d = today(); if (d.iso !== day.iso) { day = d; paintCluster(); } }, 60e3);

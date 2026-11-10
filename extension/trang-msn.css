@@ -17,9 +17,14 @@
 .msn-top .news-search, .msn-top .web-search { grid-column: 2; grid-row: 1; width: 100%; position: relative; }
 .msn-top .masthead-actions { grid-column: 3; grid-row: 1; justify-self: end; display: flex; align-items: center; gap: var(--space-8); }
 .top-now {
-  grid-column: 1; grid-row: 1; justify-self: start; min-width: 0; display: flex; align-items: center; gap: var(--space-16);
+  grid-column: 1; grid-row: 1; justify-self: stretch; min-width: 0; display: flex; align-items: center; gap: var(--space-16);
   color: var(--top-ink); text-shadow: var(--top-ink-shadow); font-size: var(--text-small); line-height: 1.25; white-space: nowrap;
 }
+/* The corner is as wide as its column; a line wider than that sheds the year, then the weekday, then the city
+   (thanh-tren.js fitCluster), so it never runs under the search. */
+.top-now:is([data-fit="1"], [data-fit="2"], [data-fit="3"]) .top-yr,
+.top-now:is([data-fit="2"], [data-fit="3"]) .top-wd,
+.top-now[data-fit="3"] .top-city { display: none; }
 .top-wx { display: inline-flex; align-items: center; gap: var(--space-6); font-weight: var(--weight-semibold); }
 .top-wx-ic { width: var(--top-wx-icon); height: var(--top-wx-icon); flex: none; }
 .top-temp { font-size: var(--text-sub); }
@@ -750,13 +755,9 @@
   .msn-head .filter-chip { padding: 0 var(--space-8); }
   .msn-head .filter-chip[aria-pressed="true"]::after { left: var(--space-8); right: var(--space-8); }
 }
-/* The tabs fill this row, so the order is the one button that says the current order and switches it, as on a phone. */
-@media (min-width: 1280px) and (max-width: 1365px) {
-  .msn-head .sort-btn:not(.sort-btn-compact) { display: none; }
-  .msn-head .sort-btn-compact { display: inline-flex; padding-inline: var(--space-8); }
-  .msn-head .sort-switch .tab-pill { display: none; }
-}
-/* Narrower still, even that button would push the last tabs out of sight: the tabs take their own row, as under 1100px. */
+/* From 1280 px the three tabs, both orders ("Đáng đọc nhất", "Mới nhất"), the theme and the morning edition share one
+   row with room to spare (measured on the site and the new tab, 1280 to 1440). Narrower, the tabs take their own row,
+   as under 1100px. */
 @media (min-width: 1100px) and (max-width: 1279px) {
   .newsbar.msn-head { flex-wrap: wrap; }
   .msn-head .sections { order: 3; flex: 1 1 100%; overflow-x: auto; }

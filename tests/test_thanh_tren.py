@@ -142,18 +142,19 @@ class WeatherCluster(unittest.TestCase):
         html = c["htmlC"]
         for part in ('<span class="top-city">Hà Nội</span>', '<use href="#wx-sym-rain"/>',
                      '<span class="top-temp num">20°C</span>', '<span class="sr">, mưa phùn</span>',
-                     '<time datetime="2026-11-10">Thứ Ba, 10/11/2026</time>'):
+                     '<time datetime="2026-11-10"><span class="top-wd">Thứ Ba, </span>10/11<span class="top-yr">/2026</span></time>'):
             self.assertIn(part, html)
         self.assertLess(html.index("top-city"), html.index("top-temp"))
         self.assertLess(html.index("top-temp"), html.index("top-date"))
         self.assertIn("67°F", c["htmlF"])
-        self.assertEqual(c["htmlNone"], '<span class="top-date"><time datetime="2026-11-10">Thứ Ba, 10/11/2026</time></span>')
+        # The weekday and the year are their own spans: a corner too narrow for the line drops them (fitCluster, 11/11).
+        self.assertEqual(c["htmlNone"], '<span class="top-date"><time datetime="2026-11-10"><span class="top-wd">Thứ Ba, </span>10/11<span class="top-yr">/2026</span></time></span>')
         self.assertIn("&lt;b&gt;x&lt;/b&gt;", c["escaped"])
 
     def test_the_day_is_the_bangkok_day(self):
         c = verify()["cluster"]
-        self.assertEqual(c["earlyUtc"], {"iso": "2026-11-10", "text": "Thứ Ba, 10/11/2026"})
-        self.assertEqual(c["lateUtc"], {"iso": "2026-11-11", "text": "Thứ Tư, 11/11/2026"})
+        self.assertEqual(c["earlyUtc"], {"iso": "2026-11-10", "text": "Thứ Ba, 10/11/2026", "weekday": "Thứ Ba", "dayMonth": "10/11", "year": "2026"})
+        self.assertEqual(c["lateUtc"], {"iso": "2026-11-11", "text": "Thứ Tư, 11/11/2026", "weekday": "Thứ Tư", "dayMonth": "11/11", "year": "2026"})
 
     def test_the_card_publishes_what_it_paints(self):
         wx = read(SITE / "thoi-tiet.js")
