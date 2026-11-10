@@ -39,7 +39,7 @@
      article, on any host. connect: the snapshot, the live counters (Hacker News via Algolia, Hugging Face), Hugging
      Face avatar lookups and the weather card's forecast (Open-Meteo, thoi-tiet.js). Cloudflare Web Analytics uses only its beacon script and reporting origin.
      tests/test_trang_chu.py checks this head. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-gZ0weLgz+AR2Z+KQYHToGSJYTSLF5rIQUYB9ETIVLQo=' https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; img-src 'self' https:; font-src 'self'; connect-src 'self' https://hn.algolia.com https://huggingface.co https://api.open-meteo.com https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-gZ0weLgz+AR2Z+KQYHToGSJYTSLF5rIQUYB9ETIVLQo=' https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; img-src 'self' https:; font-src 'self'; connect-src 'self' https://hn.algolia.com https://huggingface.co https://api.open-meteo.com https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src https://www.youtube-nocookie.com;">
 <!-- Apply the reader's saved theme and "Tùy chỉnh" choices (thanh-tren.js) before first paint, so a dark-mode reader never
      sees a light flash and a chosen layout never jumps. -->
 <script>var d = document.documentElement.dataset; try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') d.theme = t; } catch (e) {} try { var c = JSON.parse(localStorage.getItem('halcyon:tuy-chinh')) || {}; if (c.layout === 'part' || c.layout === 'head') d.layout = c.layout; if (c.picture === false) d.nen = 'off'; if (c.weather === false) d.wx = 'off'; } catch (e) {}</script>
@@ -224,6 +224,20 @@
       </div>
     </div>
     <div class="story-dialog-body" id="story-dialog-body"></div>
+  </div>
+</dialog>
+
+<!-- The stream player (trinh-phat.js): the story's modal frame, empty until a reader plays a stream. -->
+<dialog class="story-dialog player-dialog" id="player-dialog" aria-modal="true" aria-labelledby="player-title">
+  <div class="story-dialog-scroller player-panel">
+    <div class="story-dialog-bar player-bar">
+      <button class="story-modal-close" type="button" data-player-close aria-label="Đóng video (phím Esc)">
+        <svg class="i" aria-hidden="true"><use href="#i-close"/></svg>
+        <span class="story-close-label">Đóng</span>
+        <kbd class="story-close-kbd">Esc</kbd>
+      </button>
+    </div>
+    <div class="player-body" data-player-body></div>
   </div>
 </dialog>
 

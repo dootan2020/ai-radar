@@ -59,6 +59,7 @@ def adapt_html(html):
     html = replace_pattern_once(html, r'<meta http-equiv="Content-Security-Policy"[^>]*>\n', '')
     html = replace_pattern_once(html, r"<script>var d = document\.documentElement\.dataset;.*?</script>\n", '<script src="theme.js"></script>\n')
     html = replace_pattern_once(html, r'<!-- Cloudflare Web Analytics -->.*?<!-- End Cloudflare Web Analytics -->\n', '')
+    html = replace_pattern_once(html, r'\n<!-- The stream player \(trinh-phat\.js\).*?</dialog>\n', '', re.S)
     html = replace_pattern_once(html, r'<!-- The snapshot is the page.s only content:.*?-->\n', '', re.S)
     html = replace_pattern_once(html, r'<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>\n', '')
     html = replace_once(html, '<script type="module" src="feed.js"></script>',
@@ -160,6 +161,12 @@ def adapt_feed(feed):
     feed = replace_once(feed, "const u = location.origin + (location.pathname.replace(/\\/tin\\/[^/]+\\/?$/, '/') || '/') + 'tin/' + encodeURIComponent(currentModalStoryId) + '/';",
                         f"const u = '{LIVE}tin/' + encodeURIComponent(currentModalStoryId) + '/';")
     feed = replace_once(feed, "const EDITION_URL = 'ban-tin.html';", f"const EDITION_URL = '{LIVE}ban-tin.html';")
+    # Measured 10/11: YouTube answers the new tab's embed with "Video player configuration error" (no referrer from a
+    # chrome-extension:// page), so the new tab keeps its streams as links until the extension can send one, and
+    # carries no player: no trinh-phat.js, no player dialog, no YouTube embed host.
+    feed = replace_once(feed, 'const PLAYER_ON = true;', 'const PLAYER_ON = false;')
+    feed = replace_once(feed, "import { createPlayer, playable, watchURL } from './trinh-phat.js';",
+                        "const createPlayer = null, playable = () => false, watchURL = () => '#';  // no player in the new tab")
     feed = replace_once(feed, "location.replace('nguon.html')", f"location.replace('{LIVE}nguon.html')")
     feed = replace_once(feed, "fetchJSON(PICKS_URL, { cache: 'no-cache' })",
                         "fetchJSON(PICKS_URL, { cache: 'no-cache' }).catch(() => fetchJSON(PACKAGED_PICKS_URL))")
