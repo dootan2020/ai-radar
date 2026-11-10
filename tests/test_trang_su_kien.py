@@ -150,6 +150,30 @@ class StreamCountdown(unittest.TestCase):
             '<b class="ev-n num">3</b><span class="ev-u">ngày<br>nữa</span>',
         ])
 
+    def test_a_stream_days_away_counts_calendar_days_in_vietnam(self):
+        # Coordinator, 11/11: GitHub's stream on 14/11 at 03:00 (+07), seen on 11/11 at 03:15, read "2 ngày nữa" while
+        # its date line said 14 tháng 11. 2 days 23 hours 45 minutes remain; it is 3 calendar days away.
+        src = (SITE / "feed.js").read_text(encoding="utf-8")
+        a = src.index("function countdownParts(")
+        stream = src[a:src.index("/* One timer for every countdown", a)]
+        h = src.index("function heroFace(")
+        hero = src[h:src.index("\n}\n", h) + 2]
+        script = (f"import {{ dayKey }} from {json.dumps((SITE / 'time-text.js').as_uri())};\n{stream}\n{hero}\n"
+                  "const out = []; for (const [start, now] of JSON.parse(process.argv[1])) {"
+                  " const p = streamParts(Date.parse(start), Date.parse(now)); out.push([streamFace(p), streamSR(p)]); }"
+                  " process.stdout.write(JSON.stringify(out));")
+        cases = [["2026-11-14T03:00:00+07:00", "2026-11-11T03:15:00+07:00"],    # 2 d 23 h 45 min: 3 calendar days
+                 ["2026-11-14T03:00:00+07:00", "2026-11-12T23:30:00+07:00"],    # 27 h 30 min: 2 calendar days
+                 ["2026-11-12T03:00:00+07:00", "2026-11-11T23:00:00+07:00"]]    # 4 h, the next day: still hours
+        out = subprocess.run(["node", "--input-type=module", "-e", script, json.dumps(cases)], capture_output=True,
+                             text=True, encoding="utf-8", timeout=60)
+        self.assertEqual(out.returncode, 0, out.stderr)
+        self.assertEqual(json.loads(out.stdout), [
+            ['<b class="ev-n num">3</b><span class="ev-u">ngày<br>nữa</span>', "Còn 3 ngày"],
+            ['<b class="ev-n num">2</b><span class="ev-u">ngày<br>nữa</span>', "Còn 2 ngày"],
+            ['<b class="ev-n num">4</b><span class="ev-u">giờ<br>nữa</span>', "Còn 4 giờ"],
+        ])
+
     def test_events_keep_one_unit(self):
         self.assertEqual(self.faces([[{"d": 0, "h": 1, "m": 30}, False], [{"d": 24, "h": 18, "m": 0}, False]]), [
             '<b class="ev-n num">1</b><span class="ev-u">giờ<br>nữa</span>',

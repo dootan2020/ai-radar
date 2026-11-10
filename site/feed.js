@@ -863,9 +863,16 @@ function countdownWords(p, num = x => x) {
 const countdownSR = p => p.state === 'on' ? 'Đang diễn ra' : p.state === 'over' ? 'Đã kết thúc' : `Còn ${countdownWords(p)}`;
 /* A stream about to start ("Sắp phát"): once its scheduled time has passed and it is still not on air, it says
    exactly that ("due"); it never borrows the events' "on" face, which would claim it is live. */
-const streamParts = (start, now) => Number.isFinite(start) && now >= start ? { state: 'due' } : countdownParts(start, NaN, now);
-const streamSR = p => p.state === 'due' ? 'Đã tới giờ phát, chưa lên sóng' : countdownSR(p);
-const streamFace = p => p.state === 'due' ? '<b class="ev-n is-word">Sắp bắt đầu</b>' : heroFace(p, null, true);
+/* A day or more away, the days are calendar days in Vietnam (cal), as the card's own date line reads them: a stream
+   on 14/11 at 03:00 is "3 ngày nữa" on 11/11 at 03:15, although 2 days 23 hours remain. */
+function streamParts(start, now) {
+  if (Number.isFinite(start) && now >= start) return { state: 'due' };
+  const p = countdownParts(start, NaN, now);
+  if (p && p.d) p.cal = Math.round((Date.parse(dayKey(new Date(start))) - Date.parse(dayKey(new Date(now)))) / 864e5);
+  return p;
+}
+const streamSR = p => p.state === 'due' ? 'Đã tới giờ phát, chưa lên sóng' : p.cal ? `Còn ${p.cal} ngày` : countdownSR(p);
+const streamFace = p => p.state === 'due' ? '<b class="ev-n is-word">Sắp bắt đầu</b>' : heroFace(p.cal ? { ...p, d: p.cal } : p, null, true);
 /* One timer for every countdown on the page: each second (each minute when motion is reduced), only while the page
    is visible and a countdown is on it. */
 let cdTimer = 0;
