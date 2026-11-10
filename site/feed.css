@@ -498,7 +498,7 @@ ul, ol { padding: 0; list-style: none; }
 /* Hot: ranked rows, each with its picture */
 .hot-list { display: flex; flex-direction: column; gap: var(--space-16); counter-reset: hot; }
 .hot-row { display: grid; grid-template-columns: var(--thumb-hot) 28px 1fr; align-items: center; gap: var(--space-12); min-height: var(--thumb-hot); }
-.hot-row:hover .hot-title { color: var(--color-accent); }
+
 .thumb { position: relative; width: var(--thumb-hot); height: var(--thumb-hot); border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); }
 .thumb img:not(.media-backdrop) { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
 .thumb img.is-cover { position: absolute; inset: 0; object-fit: cover; }
@@ -521,7 +521,7 @@ ul, ol { padding: 0; list-style: none; }
 .repo-img { grid-row: 1 / span 3; align-self: start; aspect-ratio: 2 / 1; border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); position: relative; }
 /* GitHub's and Hugging Face's previews are drawn at exactly these ratios; contain keeps a preview of another size whole. */
 .repo-img img { width: 100%; height: 100%; object-fit: contain; }
-.repo:hover .repo-name { color: var(--color-accent); }
+
 .repo-name { font-size: var(--text-small); font-weight: var(--weight-bold); line-height: var(--leading-snug); overflow-wrap: break-word; word-break: normal; transition: color var(--motion-state) var(--ease-flow); }
 .repo-desc { font-size: var(--text-meta); color: var(--color-ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .repo-meta { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-4) var(--space-8); font-size: var(--text-meta); color: var(--color-ink-3); }
@@ -534,7 +534,7 @@ ul, ol { padding: 0; list-style: none; }
 /* Models: Hugging Face thumbnails, picture-led rows like the hot and repository tiles */
 .model-list { display: flex; flex-direction: column; gap: var(--space-16); }
 .model { display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: var(--space-12); row-gap: var(--space-4); align-items: start; }
-.model:hover .model-name { color: var(--color-accent); }
+
 .model-img { grid-row: 1 / span 2; aspect-ratio: 1200 / 648; border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); position: relative; }
 .model-img img { width: 100%; height: 100%; object-fit: contain; }
 .model-name { font-size: var(--text-small); font-weight: var(--weight-bold); overflow-wrap: break-word; word-break: normal; transition: color var(--motion-state) var(--ease-flow); }
@@ -774,7 +774,7 @@ ul, ol { padding: 0; list-style: none; }
 .fresh-head .tile-note { white-space: normal; }
 .tile-fresh .tile-tools { margin-block: calc(var(--space-8) * -1); }
 .fresh-item { display: grid; grid-template-columns: var(--thumb-hot) minmax(0, 1fr); align-items: center; gap: var(--space-12); min-height: var(--thumb-hot); min-width: 0; }
-.fresh-item:hover .hot-title { color: var(--color-accent); }
+
 .fresh-item > .thumb:empty { display: none; }
 .fresh-item:has(> .thumb:empty) { grid-template-columns: minmax(0, 1fr); }
 .fresh-body { min-width: 0; }

@@ -144,7 +144,7 @@
 .msn-grid:has(> .msn-wx) { grid-template-rows: var(--msn-row1); }
 .msn-grid > .msn-wx { grid-area: 1 / -2; }
 .msn-grid > .msn-cal { grid-area: 2 / -2; }
-.msn-card:has(.story-link:focus-visible), .msn-toplist li:has(.story-link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.msn-card:not(.msn-toplist):has(.story-link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 
 /* the story card */
 .nc { display: flex; flex-direction: column; transition: box-shadow var(--duration-250) ease, transform var(--duration-250) var(--ease-flow); }
@@ -255,7 +255,7 @@
   border-top: var(--msn-hair) solid var(--color-hair); border-radius: var(--radius-8); transition: background-color var(--duration-150) ease;
 }
 .msn-toplist li:first-child { border-top: 0; }
-@media (hover: hover) and (pointer: fine) { .msn-toplist li:hover { background: var(--color-fill); } }
+
 .msn-toplist li > b { min-width: var(--space-16); font-size: var(--text-tile); line-height: 1.1; font-weight: var(--weight-bold); color: var(--color-ink); }
 .top-text { display: flex; flex-direction: column; min-width: 0; }
 .msn-toplist .top-title {
@@ -450,7 +450,7 @@
 .msn-ev:has(.ev-stream) .ev-date b { font-size: var(--text-feature); }
 .msn-ev :is(.ev-link, .ev-stream, .ev-all):focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); border-radius: var(--radius-8); }
 @media (hover: hover) and (pointer: fine) {
-  .ev-link:hover .ev-name { color: var(--color-link); }
+
   .ev-stream:hover { background: var(--color-field-on); }
   .ev-all:hover { background: var(--color-fill); }
 }
@@ -510,8 +510,39 @@
 /* "Sắp diễn ra" (#sap-toi): the list, or its one empty line (.ev-empty), takes the columns left of the weather and the
    calendar from the first row, so the view never opens on an empty band. */
 .msn-grid:not(.is-front) > .tile-live { grid-column: 1 / -2; grid-row: span 2; align-self: start; }
-.msn-grid > .tile .tile-title { font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: 0; color: var(--color-ink); }
-.msn-grid > .tile .tile-note { font-size: var(--text-micro); }
+:is(.msn-grid, .band-grid) > .tile .tile-title { font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: 0; color: var(--color-ink); }
+:is(.msn-grid, .band-grid) > .tile .tile-note { font-size: var(--text-micro); }
+
+/* ---------- the models and code band (captain, 10/11 15:19: "gom các thành phần giống nhau vào 1 chỗ") ---------- */
+/* "Mô hình dẫn đầu", "Kho mã đáng lấy" and "Mô hình đáng thử" side by side across the grid, under one heading; each
+   tile keeps the height a 2x2 tile had and scrolls inside it, as before. Narrower, two then one per row. */
+.msn-grid > .tile-band { grid-column: 1 / -1; min-width: 0; }
+.band-title { display: flex; align-items: center; gap: var(--space-8); margin: var(--space-4) 0 var(--space-12) var(--space-4); font-size: var(--text-title); font-weight: var(--weight-bold); letter-spacing: -0.01em; color: var(--color-ink); }
+.band-title::before { content: ""; width: var(--space-8); height: var(--space-8); border-radius: var(--radius-full); background: var(--color-accent-fill); }
+.band-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--band-tile-min)), 1fr)); gap: var(--msn-gap);
+  grid-auto-rows: calc(var(--msn-row) * 2 + var(--msn-gap));
+}
+.band-grid > .tile {
+  grid-column: auto; grid-row: auto; min-width: 0; min-height: 0; gap: var(--space-12); padding: var(--space-16); overflow: auto; overscroll-behavior: contain;
+  background: var(--color-surface); border: 0; border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest);
+}
+
+/* ---------- one row of any list: Vừa đăng, Chuyện lớn, Đang nóng, the band's lists, Sắp diễn ra ---------- */
+/* One wash behind the whole row, the same for the pointer (only where there is one that hovers) and for the keyboard,
+   which adds the focus ring around the wash. Defined once here; feed.js gives every list row the class. */
+.list-row { position: relative; isolation: isolate; outline: none; }
+.list-row::before {
+  content: ""; position: absolute; z-index: -1; inset: calc(-1 * var(--row-wash-y)) calc(-1 * var(--row-wash-x));
+  border-radius: var(--radius-8); background: transparent; pointer-events: none;
+  transition: background-color var(--duration-150) ease;
+}
+@media (hover: hover) and (pointer: fine) { .list-row:hover::before { background: var(--row-wash); } }
+.list-row:focus-visible, .list-row:has(:focus-visible), .list-row :focus-visible { outline: none; }
+.list-row:focus-visible::before, .list-row:has(:focus-visible)::before { background: var(--row-wash); outline: var(--focus-ring); outline-offset: 0; }
+/* Rows that carry their own padding and dividers wash inside their box. */
+.msn-toplist li.list-row, .brief.list-row { --row-wash-x: 0px; --row-wash-y: 0px; }
+.arena-go.list-row { --row-wash-y: var(--space-4); }
 
 /* ---------- loading, more and the end ---------- */
 .msn-sk { background: var(--color-fill); box-shadow: none; animation: msn-breathe 1.2s ease-in-out infinite alternate; }
@@ -657,6 +688,8 @@
   .cal-lunar b { font-size: var(--msn-cal-moon-phone); }
   .msn-cal .cal-note { display: none; }
   .msn-grid > .tile, .msn-grid.is-front > .tile { grid-column: 1 / -1; grid-row: auto; overflow: visible; }
+  .band-grid { grid-auto-rows: auto; }
+  .band-grid > .tile { overflow: visible; }
   .msn-sk { min-height: var(--msn-rowh-phone); }
   #feed-skeleton .msn-lead { grid-column: 1 / -1; min-height: var(--msn-lead-h-phone); }
   .msn-day-grid { grid-auto-rows: auto; }

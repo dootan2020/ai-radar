@@ -204,10 +204,10 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
 .briefs { display: grid; margin: 0 calc(-1 * var(--space-8)); }
 .brief { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: var(--space-8); min-height: var(--btn-h); padding: var(--space-12) var(--space-8); border-radius: var(--radius-12); }
 .briefs li + li .brief { border-top: 1px solid var(--color-hair); border-radius: 0 0 var(--radius-12) var(--radius-12); }
-.brief:hover, .brief:focus-visible { background: var(--color-fill); outline-offset: -3px; }
+.brief:focus-visible { outline-offset: -3px; }
 .brief time { padding-top: 1px; font-size: var(--text-meta); color: var(--color-ink-3); }
 .brief-h { font-size: var(--text-sub); font-weight: var(--weight-medium); line-height: 1.4; color: var(--color-ink); }
-.brief:hover .brief-h { color: var(--color-link); }
+
 .brief .mt { margin-inline-start: var(--space-6); }
 .briefs .is-read .brief-h { color: var(--color-ink-2); }
 
@@ -215,7 +215,11 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
    class (arena.js), and an unscoped grid here turned each of them into a three-column grid. */
 .tile-arena { min-height: 420px; }
 .arena-list { display: grid; }
-.arena-list > .arena-row { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: var(--space-12); min-height: 52px; padding: var(--space-8) 0; }
+.arena-list > .arena-row { padding: var(--space-4) 0; }
+.arena-list > .arena-row > .arena-go {
+  display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: var(--space-12); width: 100%; min-height: var(--btn-h);
+  padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: start; cursor: pointer;
+}
 .arena-list > .arena-row + .arena-row { border-top: 1px solid var(--color-hair); }
 .arena-rank { font-size: var(--size-18); font-weight: var(--weight-bold); color: var(--color-ink-3); letter-spacing: -0.02em; }
 .arena-list > .arena-row:first-child .arena-rank { color: var(--color-ink); }

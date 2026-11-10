@@ -998,7 +998,7 @@ function renderNext() {
     const range = eventRange(e.start_date, e.end_date), when = eventWhen(e);
     const rest = when.startsWith(range) ? when.slice(range.length).replace(/^ · /, '') : when;
     event = `<div class="ev-next${st ? ` ${statusClass(st)}` : ''}"${st ? ` data-sid="${esc(st.id)}"` : ''}>
-      <a class="ev-link" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>${evDateHTML(e)}<span class="sr">${esc(range)}: </span>
+      <a class="ev-link list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>${evDateHTML(e)}<span class="sr">${esc(range)}: </span>
         <span class="ev-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>${rest ? `<span class="ev-when">${esc(rest)}</span>` : ''}</a>
       <div class="ev-foot">${countdownHTML(e)}${calButtons(eventCal(e), st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</div></div>`;
   }
@@ -1025,7 +1025,7 @@ function renderHot(list = HOT) {
       const img = pickImage(st), t = titleOf(st);
       // A drawn cover (radar/covers.py) fills the square from its tall file; it has no backdrop to sit on.
       const drawn = img.kind === 'cover' && img.src ? `<img class="is-cover" src="${esc(img.tall)}" alt="" width="144" height="144" loading="lazy" decoding="async">` : '';
-      return `<li><a class="hot-row ${statusClass(st)}" href="tin/${esc(st.id)}/" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
+      return `<li><a class="hot-row list-row ${statusClass(st)}" href="tin/${esc(st.id)}/" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
         <span class="thumb" data-id="${esc(st.id)}">${drawn || (img.src ? `${mediaBackdrop(img.src)}<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st))}</span>
         <span class="hot-rank num" aria-hidden="true">${i + 1}</span>
         <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span><span class="hot-why">${translationMark(t)}${whyHTML(st)}</span></span></a></li>`;
@@ -1234,7 +1234,7 @@ function repoControls(full, inList) {
 function repoCard(r, measure) {
   const desc = r.description_vi || r.description || '';
   const key = `repo:${r.id || r.repository_id || r.full_name}`, on = savedHas(key);
-  return `<div class="repo-cell${read.has(key) ? ' is-read' : ''}" data-sid="${esc(key)}"><a class="repo" href="${esc(safe(r.url))}" target="_blank" rel="noopener" data-read="${esc(key)}">
+  return `<div class="repo-cell${read.has(key) ? ' is-read' : ''}" data-sid="${esc(key)}"><a class="repo list-row" href="${esc(safe(r.url))}" target="_blank" rel="noopener" data-read="${esc(key)}">
       <span class="repo-img"><img src="${esc(ghPreview(r))}" alt="" width="1200" height="600" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
       <span class="repo-name" lang="en"><span class="st-mark">${read.has(key) ? MARK.seen : ''}</span>${formatRepoName(r.full_name)}</span>
       <span class="repo-desc"${langAttr(desc)}>${esc(desc)}</span>
@@ -1604,7 +1604,7 @@ function renderModels() {
     <p class="tile-note">thịnh hành trên Hugging Face</p>
     <div class="model-list">${models.map(r => {
       const likes = r.likes, dl = r.downloads;
-      return `<a class="model" href="${esc(safe(r.url))}" target="_blank" rel="noopener">
+      return `<a class="model list-row" href="${esc(safe(r.url))}" target="_blank" rel="noopener">
         <span class="model-img"><img src="${esc(hfPreview(r))}" alt="" width="1200" height="648" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
         <span class="model-name" lang="en">${formatRepoName(r.full_name)}</span>
         <span class="model-meta">${Number.isFinite(likes) ? `<span><b class="num">${fmt(likes)}</b> lượt thích</span>` : ''}${Number.isFinite(dl) ? `<span><b class="num">${fmt(dl)}</b> lượt tải</span>` : ''}</span>
@@ -1673,8 +1673,9 @@ function buildAll() {
   const river = sizeRiver(ordered(allStories.filter(st => !used.has(st.id))));
   // "Vừa đăng" is not a widget here: it sits beside the lead (renderFeed). The events are not one either: the next one
   // sits beside the calendar (renderNext), the rest in "Sắp diễn ra".
-  const widgets = [{ t: 'arena' }, HOT.length ? { t: 'hot' } : null,
-    { t: 'repos' }, getTrendingModels().length ? { t: 'models' } : null].filter(Boolean);
+  // The models and the code sit together in one band (captain, 10/11 15:19: "gom các thành phần giống nhau vào 1 chỗ"):
+  // the Arena leaders, the repositories and the models to try, after the hot list.
+  const widgets = [HOT.length ? { t: 'hot' } : null, { t: 'lab' }].filter(Boolean);
   // The weather, the calendar and the next event come after the first stories (owner, 10/11: on a phone the news comes
   // first); wider screens pin them to the grid's last column whatever their place here (trang-msn.css). The first widget
   // after eight stories, then one every ten.
@@ -1782,7 +1783,7 @@ function topListHTML(list) {
   if (!list.length) return '';
   return `<section class="msn-card msn-toplist" id="top-list" aria-labelledby="top-list-h"><h2 id="top-list-h">Chuyện lớn</h2><ol>${list.map((st, i) => {
     const t = titleOf(st), s = srcOf(st);
-    return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><b class="num" aria-hidden="true">${i + 1}</b><span class="top-text"><a class="story-link top-title" href="${storyHref(st)}" data-id="${esc(st.id)}"${langAttr(t.text)}>${esc(t.text)}</a><span class="top-meta">${markHTML(st)}<span class="top-who"><span class="top-src">${esc(s.name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}</span>${translationMark(t)}</span></span></li>`;
+    return `<li class="list-row ${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><b class="num" aria-hidden="true">${i + 1}</b><span class="top-text"><a class="story-link top-title" href="${storyHref(st)}" data-id="${esc(st.id)}"${langAttr(t.text)}>${esc(t.text)}</a><span class="top-meta">${markHTML(st)}<span class="top-who"><span class="top-src">${esc(s.name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}</span>${translationMark(t)}</span></span></li>`;
   }).join('')}</ol></section>`;
 }
 
@@ -1873,9 +1874,10 @@ function arenaTileBody(data) {
   const head = `<div class="tile-head"><h2 class="tile-title" id="arena-tile-h">Mô hình dẫn đầu</h2><span class="tile-note">LMArena${date ? ` · <span class="num">${+date[3]}/${+date[2]}</span>` : ''}</span></div>`;
   if (!rows.length) return `${head}<p class="tile-note arena-tile-empty" role="status">${data === false ? 'Chưa tải được bảng xếp hạng.' : 'Đang tải bảng xếp hạng…'}</p>
     <div class="tile-foot"><button class="text-btn" type="button" data-filter-go="rankings">Mở bảng xếp hạng</button></div>`;
-  return `${head}<ol class="arena-list">${rows.map(r => `<li class="arena-row"><span class="arena-rank num">${esc(r.rank)}</span>
+  // Each leader opens the full table, so its row answers the pointer like every other list's row.
+  return `${head}<ol class="arena-list">${rows.map(r => `<li class="arena-row"><button class="arena-go list-row" type="button" data-filter-go="rankings"><span class="arena-rank num">${esc(r.rank)}</span>
       <span class="arena-name"><b lang="en">${esc(modelName(r.id))}</b><span>${esc(makerName(r.maker))}${Number.isFinite(r.vote_count) ? ` · <span class="num">${fmt(r.vote_count)}</span> lượt bình chọn` : ''}</span></span>
-      <span class="arena-score num">${esc(scoreText(r.score))}${arenaChange(r)}</span></li>`).join('')}</ol>
+      <span class="arena-score num">${esc(scoreText(r.score))}${arenaChange(r)}</span></button></li>`).join('')}</ol>
     <div class="tile-foot"><span>Điểm theo bình chọn, bảng tổng</span><button class="text-btn" type="button" data-filter-go="rankings">Xem đủ 10 mô hình</button></div>`;
 }
 function renderArenaTile() {
@@ -1883,6 +1885,12 @@ function renderArenaTile() {
     const el = $('#arena-tile'); if (el) el.innerHTML = arenaTileBody(ARENA_DATA);
   });
   return `<section class="tile tile-arena" id="arena-tile" aria-labelledby="arena-tile-h">${arenaTileBody(ARENA_DATA)}</section>`;
+}
+
+/* The models and code band: the Arena leaders, "Kho mã đáng lấy" and "Mô hình đáng thử" side by side across the grid. */
+function renderLab() {
+  const tiles = renderArenaTile() + renderRepos() + (getTrendingModels().length ? renderModels() : '');
+  return `<section class="tile-band" id="lab" aria-labelledby="lab-h"><h2 class="band-title" id="lab-h">Mô hình và mã nguồn</h2><div class="band-grid">${tiles}</div></section>`;
 }
 
 function renderItem(it) {
@@ -1894,6 +1902,7 @@ function renderItem(it) {
   if (it.t === 'repos-full') return renderRepos(true);
   if (it.t === 'models') return renderModels();
   if (it.t === 'arena') return renderArenaTile();
+  if (it.t === 'lab') return renderLab();
   if (it.t === 'fresh') return freshTileHTML();
   if (it.t === 'saved-rest') return renderSavedRest();
   if (it.t === 'ev-empty') return eventsEmptyHTML();
@@ -2248,7 +2257,7 @@ function newestStories() {
 function freshItem(st) {
   const t = titleOf(st);
   const pinned = freshIds.includes(st.id) && !read.has(st.id);
-  return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"${pinned ? ' data-pinned' : ''}><a class="brief fresh-item" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-read="${esc(st.id)}">
+  return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"${pinned ? ' data-pinned' : ''}><a class="brief fresh-item list-row" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-read="${esc(st.id)}">
     <time class="num" datetime="${esc(st.published_at)}" title="${esc(exact(st.published_at))}">${esc(hhmm(new Date(st.published_at)))}</time>
     <span class="brief-h"${langAttr(t.text)}>${markHTML(st)}<span class="fresh-new" aria-hidden="true">Mới</span>${esc(t.text)}${translationMark(t)}</span></a></li>`;
 }

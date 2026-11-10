@@ -48,6 +48,12 @@ const server = http.createServer(async (req, res) => {
         res.writeHead(200, { 'content-type': 'image/webp' }); return res.end(packaged);
       }
     }
+    if (p === '/data/arena.json') {          // the leaders tile reads the live table, as the page itself does
+      try {
+        const live = await fetch(LIVE + 'data/arena.json', { signal: AbortSignal.timeout(10000) });
+        if (live.ok) { res.writeHead(200, { 'content-type': TYPES['.json'] }); return res.end(Buffer.from(await live.arrayBuffer())); }
+      } catch { /* fall through to the fixture */ }
+    }
     if (/^\/data\/[\w.-]+\.json$/.test(p)) { res.writeHead(200, { 'content-type': TYPES['.json'] }); return res.end(JSON.stringify(full)); }
     const file = path.join(root, 'site', p.endsWith('/') ? p + 'index.html' : p);
     if (!file.startsWith(path.join(root, 'site'))) throw new Error('outside');
@@ -219,6 +225,48 @@ try {
     }
     lichOverride = null;
     await scratch.browserContext().close();
+  }
+
+  // Part B (captain, 10/11 15:19): one hover for every list row; the models and code tiles in one band.
+  if (only.includes('band')) {
+    for (const [width, height] of [[1440, 900], [375, 812]]) {
+      const { page, ctx } = await open(width, height, 'light');
+      for (let i = 0; i < 12 && !(await page.$('#lab')); i++) { await page.evaluate(() => window.scrollBy(0, innerHeight)); await wait(500); }
+      const lab = await page.$('#lab');
+      if (!lab) { problems.push(`band-${width}: the band never rendered`); await ctx.close(); continue; }
+      await page.evaluate(() => document.querySelector('#lab').scrollIntoView({ block: 'start' }));
+      await wait(1200);
+      const m = await page.evaluate(() => {
+        const band = document.querySelector('#lab'), b = band.getBoundingClientRect();
+        const tiles = [...band.querySelectorAll('.band-grid > .tile')].map(t => t.querySelector('.tile-title')?.textContent.trim());
+        // Nothing else of the grid may sit inside the band's rows: the group reads as one block.
+        const intruders = [...document.querySelectorAll('#feed-grid > *')].filter(el => el !== band && (() => { const r = el.getBoundingClientRect(); return r.height && r.top < b.bottom - 1 && r.bottom > b.top + 1; })()).length;
+        const rows = [...document.querySelectorAll('.fresh-item, .msn-toplist li, .hot-row, .arena-go, .repo, .model, .ev-link')];
+        return { top: Math.round(b.top + scrollY), height: Math.round(b.height), tiles, intruders, rows: rows.length,
+          withClass: rows.filter(r => r.classList.contains('list-row')).length, overflow: document.documentElement.scrollWidth > innerWidth };
+      });
+      await lab.screenshot({ path: path.join(out, `nhom-mo-hinh-${width}.png`) });
+      summary.push({ name: `band-${width}`, ...m, tiles: m.tiles.join(' | ') });
+      if (m.tiles.length < 2) problems.push(`band-${width}: ${m.tiles.length} tile(s) in the band`);
+      if (m.intruders) problems.push(`band-${width}: ${m.intruders} other grid item(s) inside the band's rows`);
+      if (m.withClass !== m.rows) problems.push(`band-${width}: ${m.rows - m.withClass} list row(s) without the shared class`);
+      if (m.overflow) problems.push(`band-${width}: page scrolls sideways`);
+      if (width === 1440) {
+        // The same wash on two different lists: a repository row in the band and a "Vừa đăng" row at the top.
+        for (const [name, sel, scroll] of [['kho-ma', '#lab .repo', false], ['mo-hinh-dan-dau', '#lab .arena-go', false], ['vua-dang', '#fresh-row .fresh-item', true], ['chuyen-lon', '.msn-toplist li', false]]) {
+          if (scroll) { await page.evaluate(() => window.scrollTo(0, 0)); await wait(400); }
+          const row = await page.$(sel);
+          if (!row) { problems.push(`hover ${name}: no row`); continue; }
+          await row.hover(); await wait(300);
+          const wash = await page.evaluate(s => getComputedStyle(document.querySelector(s), '::before').backgroundColor, sel);
+          const tile = await page.evaluateHandle(s => document.querySelector(s).closest('.tile, .msn-card'), sel);
+          await tile.asElement().screenshot({ path: path.join(out, `hover-${name}-1440.png`) });
+          summary.push({ name: `hover-${name}`, wash });
+          if (/rgba\(0, 0, 0, 0\)|transparent/.test(wash)) problems.push(`hover ${name}: no wash`);
+        }
+      }
+      await ctx.close();
+    }
   }
 
   if (only.includes('ext')) {

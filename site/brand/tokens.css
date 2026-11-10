@@ -285,6 +285,13 @@
   --nen-pill-shadow: 0 1px 2px oklch(0.1 0.02 262 / 0.22), 0 8px 28px oklch(0.1 0.02 262 / 0.28);
   --nen-cover-from: var(--space-48);                 /* the page's surface closes over the picture as the panel rises */
   --nen-cover-to: 480px;
+  /* One row of any list (captain, 10/11 15:19: "yêu cầu tất cả kiểu hover của list nó phải giống nhau"): a wash behind
+     the whole row on hover and on keyboard focus, reaching this far past the row's own box. */
+  --row-wash: var(--color-fill);
+  --row-wash-x: var(--space-8);
+  --row-wash-y: var(--space-6);
+  /* The models and code band: its tiles keep the height a 2x2 tile had. */
+  --band-tile-min: 20rem;
   /* "Tùy chỉnh": the panel at the top right, out of the top row's own button. */
   --tc-w: 22rem;
   --tc-shadow: 0 2px 6px oklch(var(--shadow-tint) / 0.12), 0 18px 48px oklch(var(--shadow-tint) / 0.22);
