@@ -29,6 +29,7 @@ import { createNewsSearch } from './tim-tin.js';
 import { cachedSnapshot, normalizeSnapshot } from './snapshot.js';
 import { createWeatherCard } from './thoi-tiet.js';
 import { createCalendarCard } from './the-lich.js';
+const createPlayer = null, playable = () => false, watchURL = () => '#';  // no player in the new tab
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/ (as on the
    bento home). The first request matches index.html's preload (same mode, no cache option), so it is reused. */
@@ -907,6 +908,34 @@ function scheduleCountdown() {
 const HOME_EVENTS = 6;
 const SHELF_LABEL = 'Sự kiện sắp diễn ra, trượt ngang để xem thêm';
 const chevron = next => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${next ? 'M9 5l7 7-7 7' : 'M15 5l-7 7 7 7'}"/></svg>`;
+/* ---------- the stream player (trinh-phat.js) ----------
+   A stream with a YouTube id plays in Halcyon; its link still points at YouTube, so a new-tab click, a middle click or
+   a page without the player keeps today's behaviour. */
+const PHONE = matchMedia('(max-width: 767px)');
+// The new tab sets this false (extension/sync-site.py): YouTube refuses an embed whose page sends no referrer, and a
+// chrome-extension:// page sends none (the player shows "Video player configuration error"), so there a stream stays
+// a link to YouTube.
+const PLAYER_ON = false;
+let player = null;
+const playAttr = it => PLAYER_ON && playable(it) ? ` data-play="${esc(it.video_id)}" aria-haspopup="dialog"` : '';
+function playerHTML(it) {
+  const live = it.status === 'live';
+  const when = live ? '<span class="cd-dot" aria-hidden="true"></span>Trực tiếp'
+    : esc(it.status === 'upcoming' ? scheduleText(it.time_text) : streamedAge(it.time_text) || 'Đã phát');
+  return `<div class="player-frame" data-player-frame></div>
+    <div class="player-text">
+      <p class="player-k${live ? ' is-live' : ''}">${when}${it.channel ? ` · ${esc(it.channel)}` : ''}</p>
+      <h2 class="player-title" id="player-title"${langAttr(it.title)}>${esc(it.title || 'Video')}</h2>
+      <div class="player-acts">
+        <a class="player-yt" href="${esc(safe(it.url) === '#' ? watchURL(it) : safe(it.url))}" target="_blank" rel="noopener">${icon('i-out')}Mở trên YouTube</a>
+        ${it.status === 'upcoming' ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}
+      </div>
+    </div>`;
+}
+function playStream(id, from) {
+  const it = asArray(D && D.live).find(v => v.video_id === id);
+  return !!(it && player && player.open(it, playerHTML(it), from));
+}
 function renderLive(all = false) {
   const items = D.live || [];
   const it = items.find(x => x.status === 'live') || items.find(x => x.status === 'upcoming') || items[0];
@@ -928,15 +957,19 @@ function renderLive(all = false) {
         ? { head: 'Sắp phát', badge: scheduleText(it.time_text), action: `Đặt nhắc${where}`, live: false }
         : { head: 'Xem lại', badge: streamedAge(it.time_text) || 'Đã phát', action: `Xem lại${where}`, live: false };
     head = S.head;
-    const thumb = it.thumbnail || (it.video_id ? `https://i.ytimg.com/vi/${it.video_id}/hqdefault.jpg` : '');
-    video = `<div class="live-video"><a class="tile-video" href="${esc(safe(it.url))}" target="_blank" rel="noopener" aria-label="${esc(S.action)}: ${esc(it.title)}">
+    // A phone downloads no picture until the reader asks: there the frame is the play button, and YouTube's
+    // thumbnail is not requested.
+    const thumb = PHONE.matches ? '' : it.thumbnail || (it.video_id ? `https://i.ytimg.com/vi/${it.video_id}/hqdefault.jpg` : '');
+    const play = playAttr(it);
+    const label = play ? (it.status === 'upcoming' ? 'Mở phòng chờ' : S.live ? 'Xem trực tiếp' : 'Xem lại') : S.action;
+    video = `<div class="live-video"><a class="tile-video" href="${esc(safe(it.url))}" target="_blank" rel="noopener"${play} aria-label="${esc(label)}: ${esc(it.title)}">
       ${thumb ? `<img src="${esc(thumb)}" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : ''}
       <span class="video-badge${S.live ? ' is-live' : ''}">${esc(S.badge)}</span>
       <span class="video-play">${icon('i-play')}</span>
     </a>
     <div class="video-text"><p class="video-title"${langAttr(it.title)}>${esc(it.title)}</p>
     <p class="video-meta">${esc(it.channel || '')}${where}</p>
-    <a class="tile-action${S.live ? ' is-live' : ''}" href="${esc(safe(it.url))}" target="_blank" rel="noopener">${icon('i-play')}${esc(S.action)}</a>
+    <a class="tile-action${S.live ? ' is-live' : ''}" href="${esc(safe(it.url))}" target="_blank" rel="noopener"${it.status === 'upcoming' ? '' : play}>${icon('i-play')}${esc(play && it.status !== 'upcoming' ? label : S.action)}</a>
     ${it.status === 'upcoming' ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}</div></div>`;
   }
   const evStory = e => asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
@@ -1063,7 +1096,7 @@ function renderNext() {
   const rows = it ? [] : events.slice(1, 1 + EV_ROWS);
   const all = events.length > 1 + rows.length
     ? `<a class="ev-all" href="#sap-toi"><span>Xem cả <span class="num">${events.length}</span><span class="sr"> sự kiện</span></span></a>` : '';
-  const stream = it ? `<a class="ev-stream" href="${esc(safe(it.url))}" target="_blank" rel="noopener">
+  const stream = it ? `<a class="ev-stream" href="${esc(safe(it.url))}" target="_blank" rel="noopener"${playAttr(it)}>
       <span class="ev-stream-k${live ? ' is-live' : ''}">${live ? '<span class="cd-dot" aria-hidden="true"></span>Trực tiếp' : esc(scheduleText(it.time_text))}${live && it.channel ? ` · ${esc(it.channel)}` : ''}</span>
       <span class="ev-stream-t"${langAttr(it.title)}>${esc(it.title)}</span></a>
     ${!e && !live ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title, true) : ''}` : '';
@@ -2838,7 +2871,7 @@ function onKey(e) {
   if (e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
   const t = e.target instanceof Element ? e.target : null;
   if (t && t.closest('input,textarea,select,[contenteditable="true"]')) return;
-  if ($('#keys').open) return;
+  if ($('#keys').open || (player && player.isOpen())) return;
   const k = e.key;
   const dots = t && t.closest('.lead-dots');
   if (dots && (k === 'ArrowLeft' || k === 'ArrowRight')) {   // the lead's dots: arrows move the story and keep focus on its dot
@@ -2919,6 +2952,11 @@ function onClick(e) {
   }
   if (t === document.getElementById('story-dialog')) {
     closeStoryModal();
+    return;
+  }
+  const pl = t.closest('a[data-play]');
+  if (pl && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0 && playStream(pl.dataset.play, pl)) {
+    e.preventDefault();
     return;
   }
 
@@ -3068,6 +3106,8 @@ function attachEvents() {
   document.addEventListener('auxclick', e => { if (e.button === 1) onOpenLink(e); });
   document.addEventListener('keydown', onKey);
 
+  const playerDialog = document.getElementById('player-dialog');
+  if (playerDialog && PLAYER_ON) player = createPlayer(playerDialog);
   const storyDialog = document.getElementById('story-dialog');
   if (storyDialog) {
     storyDialog.addEventListener('cancel', e => {

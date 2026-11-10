@@ -1210,3 +1210,127 @@ dialog.story-dialog::backdrop {
   font-size: var(--text-small);
   font-weight: var(--weight-semibold);
 }
+
+/* ==========================================================================
+   STREAM PLAYER (trinh-phat.js): the story's frame, sized for a 16:9 video.
+   Light surface, no rule under the bar; the video sits in a dark well until YouTube paints it.
+   ========================================================================== */
+
+.player-dialog .player-bar {
+  border-bottom: 0;
+}
+
+.player-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: 0 var(--space-24) var(--space-24);
+}
+
+.player-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-12);
+  overflow: hidden;
+  background: var(--gray-13);
+}
+
+.player-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.player-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+.player-k {
+  font-size: var(--text-micro);
+  line-height: 1.3;
+  font-weight: var(--weight-bold);
+  color: var(--color-ink-2);
+}
+
+.player-k.is-live {
+  color: var(--color-live);
+}
+
+.player-title {
+  margin: 0;
+  font-size: var(--text-title);
+  line-height: var(--leading-snug);
+  font-weight: var(--weight-bold);
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+}
+
+.player-acts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8);
+  margin-top: var(--space-4);
+}
+
+.player-yt {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--btn-h);
+  padding: 0 var(--space-16);
+  border-radius: var(--radius-full);
+  background: var(--color-fill);
+  color: var(--color-ink);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  transition: background-color var(--duration-150) var(--ease-flow),
+              transform var(--duration-150) var(--ease-press);
+}
+
+.player-yt .i {
+  width: 16px;
+  height: 16px;
+}
+
+.player-yt:hover {
+  background: var(--color-field-on);
+}
+
+.player-yt:active {
+  transform: scale(0.97);
+}
+
+.player-yt:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+/* The frame grows with the window, and stays short enough that the video, its title and the YouTube link fit in it. */
+@media (min-width: 768px) {
+  .player-dialog .player-panel {
+    height: auto;
+    width: min(var(--player-max), calc(100vw - var(--space-48)), max(32rem, calc((90dvh - 15rem) * 16 / 9 + var(--space-48))));
+  }
+}
+
+/* A phone: the sheet is the whole screen, the video runs edge to edge under the bar. */
+@media (max-width: 767px) {
+  .player-body {
+    padding: 0 0 var(--space-24);
+  }
+
+  .player-frame {
+    border-radius: 0;
+  }
+
+  .player-text {
+    padding: 0 var(--space-16);
+  }
+}
