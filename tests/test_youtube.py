@@ -3,6 +3,7 @@
 from datetime import datetime, timedelta, timezone
 import json
 import os
+import re
 from pathlib import Path
 import unittest
 from unittest.mock import MagicMock, patch
@@ -269,6 +270,35 @@ class YouTubeCollectionTests(unittest.TestCase):
         self.assertEqual(len(called_urls), 8)
         self.assertTrue(all("/playlistItems?" in url or "/videos?" in url for url in called_urls))
 
+    def test_ended_stream_survives_many_newer_ordinary_uploads(self):
+        stream = json.loads(fixture_text("openai-videos.json"))["items"][2]
+        stream["liveStreamingDetails"]["actualStartTime"] = "2026-10-03T11:00:00Z"
+        stream["liveStreamingDetails"]["actualEndTime"] = "2026-10-03T12:00:00Z"
+        ordinary = json.loads(fixture_text("openai-videos.json"))["items"][0]
+        uploads = []
+        for index in range(7):
+            video = json.loads(json.dumps(ordinary))
+            video["id"] = f"ordinary{index:04d}"[-11:]
+            uploads.append(video)
+        uploads.append(stream)  # newest first, like an uploads playlist
+        by_id = {video["id"]: video for video in uploads}
+
+        def mock_fetch(url):
+            if "/playlistItems?" in url:
+                limit = int(re.search(r"maxResults=(\d+)", url).group(1))
+                return json.dumps({"items": [{"contentDetails": {"videoId": v["id"]}}
+                                             for v in uploads[:limit]]})
+            if "/videos?" in url:
+                ids = re.search(r"[?&]id=([^&]+)", url).group(1).split(",")
+                self.assertLessEqual(len(ids), 50)
+                return json.dumps({"items": [by_id[i] for i in ids]})
+            raise AssertionError("Unexpected YouTube endpoint: " + url)
+
+        with patch.dict("os.environ", {"YOUTUBE_API_KEY": "offline-test"}):
+            items, sources = youtube.collect(mock_fetch, NOW, channels=(OPENAI_CHANNEL,))
+
+        self.assertTrue(sources[0]["ok"])
+        self.assertEqual([item["video_id"] for item in items], [stream["id"]])
     def test_collect_with_mocked_fixtures(self):
         playlist_data = fixture_text("openai-playlistitems.json")
         videos_data = fixture_text("openai-videos.json")
