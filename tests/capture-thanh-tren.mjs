@@ -269,6 +269,39 @@ try {
     }
   }
 
+  // Part C (captain, 10/11 15:52): the lead's dots with no chip, on the worst bright and dark photos (pure white, pure
+  // black behind the active slide), plus the real lead photo; the arrow keys still move the story.
+  if (only.includes('lead')) {
+    for (const [width, height] of [[1440, 900], [375, 812]]) {
+      const { page, ctx } = await open(width, height, 'light');
+      const lead = await page.$('#lead');
+      for (const [name, fill] of [['that', null], ['sang', 'white'], ['toi', 'black']]) {
+        await page.evaluate(f => {
+          const media = document.querySelector('#lead .slide.is-active .slide-media');
+          media.style.background = f || '';
+          media.querySelectorAll('img').forEach(i => { i.style.opacity = f ? '0' : ''; });
+        }, fill);
+        await wait(200);
+        await lead.screenshot({ path: path.join(out, `lead-${name}-${width}.png`) });
+      }
+      const m = await page.evaluate(() => {
+        const dots = [...document.querySelectorAll('#lead .lead-dots button')];
+        return { slides: document.querySelectorAll('#lead .slide').length, dots: dots.length,
+          sizes: dots.map(d => { const r = d.getBoundingClientRect(); return `${Math.round(r.width)}x${Math.round(r.height)}`; }).join(' '),
+          chip: getComputedStyle(document.querySelector('#lead .lead-dots'), '::before').content };
+      });
+      await page.focus('#lead .lead-dots button');
+      await page.keyboard.press('ArrowRight'); await wait(500);
+      m.afterArrow = await page.evaluate(() => [...document.querySelectorAll('#lead .lead-dots button')].findIndex(b => b.getAttribute('aria-current') === 'true'));
+      summary.push({ name: `lead-${width}`, ...m });
+      if (m.dots !== m.slides) problems.push(`lead-${width}: ${m.dots} dots for ${m.slides} stories`);
+      if (m.chip !== 'none') problems.push(`lead-${width}: the dots still have a chip`);
+      if (m.afterArrow !== 1) problems.push(`lead-${width}: ArrowRight left the carousel on ${m.afterArrow}`);
+      if (m.sizes.split(' ').some(s => +s.split('x')[1] < 44)) problems.push(`lead-${width}: a dot under 44px tall (${m.sizes})`);
+      await ctx.close();
+    }
+  }
+
   if (only.includes('ext')) {
     const id = await browser.installExtension(path.join(root, 'extension'));
     const sw = await browser.waitForTarget(t => t.type() === 'service_worker' && t.url().startsWith(`chrome-extension://${id}/`), { timeout: 20000 });

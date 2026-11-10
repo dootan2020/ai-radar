@@ -227,17 +227,16 @@
 .slide.no-photo .slide-box { inset: 0; justify-content: flex-end; border-radius: 0; padding: var(--space-24) var(--space-24) var(--space-64); background: transparent; }
 .slide.no-photo .slide-title { font-size: var(--text-feature); -webkit-line-clamp: 4; }
 @media (hover: hover) and (pointer: fine) { .slide .story-link:hover { text-decoration: underline; text-underline-offset: 0.15em; } }
-/* The dots: one small chip on the photo, aligned with the headline box; each dot is a 44 px tall button. No prev/next
-   buttons (owner, 09/11): a swipe or the arrow keys on the dots move the story. */
+/* The dots, one per story in the carousel, straight on the photo with no chip behind them (captain, 10/11 15:52: "bỏ cái
+   nền của mấy dấu chấm ... chỉ để mấy dấu chấm"); each dot carries its own thin dark ring and shadow, so it reads on a
+   white photo and a dark one alike. Each dot is a 44 px tall button. No prev/next buttons (owner, 09/11): a swipe or
+   the arrow keys on the dots move the story. */
 .msn-lead { touch-action: pan-y; }
 .lead-dots { position: absolute; top: 0; left: var(--space-12); z-index: 3; display: flex; padding-inline: var(--space-6); }
-.lead-dots::before {
-  content: ""; position: absolute; inset: var(--space-12) 0; z-index: -1; border-radius: var(--radius-full);
-  background: var(--msn-lead-dots-bg); backdrop-filter: blur(var(--msn-blur)); -webkit-backdrop-filter: blur(var(--msn-blur));
-}
 .lead-dots button { height: var(--btn-h); padding-inline: var(--space-4); display: grid; place-items: center; }
 .lead-dots button::before {
   content: ""; width: var(--msn-lead-dot); height: var(--msn-lead-dot); border-radius: var(--radius-full); background: var(--msn-on-photo-dot);
+  box-shadow: var(--msn-lead-dot-shadow);
   transition: width var(--duration-250) var(--ease-flow), background-color var(--duration-250) ease;
 }
 .lead-dots button[aria-current="true"]::before { width: var(--msn-lead-dot-on); background: var(--msn-on-ink); }
@@ -820,5 +819,4 @@
 }
 @media (prefers-reduced-transparency: reduce) {
   .wx-days li, .wx-switch, .msn-wx .pill, .wx-detail { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--msn-wx-solid); }
-  .lead-dots::before { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--msn-slide-box); }
 }

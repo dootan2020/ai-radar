@@ -208,7 +208,7 @@
   --msn-fav-lg: 28px;
   --msn-dot: 3px;
   --msn-tab-line: 3px;                               /* the active section's underline */
-  --msn-lead-dot: var(--space-6); --msn-lead-dot-on: var(--space-16);   /* the lead's dots: one small chip, dots close together */
+  --msn-lead-dot: var(--space-8); --msn-lead-dot-on: var(--space-24);   /* the lead's dots, close together, straight on the photo */
   --msn-title: var(--text-sub);                      /* 15 px: a card's headline */
   --msn-title-text: var(--text-title);               /* 18 px: a headline without a picture */
   --msn-title-wide: var(--text-title);
@@ -229,8 +229,8 @@
   --msn-on-ink: var(--brand-white);
   --msn-on-ink-2: var(--gray-90);
   --msn-slide-box: color-mix(in srgb, var(--brand-ink) 90%, transparent);
-  --msn-lead-dots-bg: color-mix(in srgb, var(--brand-ink) 70%, transparent);   /* the dots' chip: a 55% dot on it stays 3:1 on a white photo */
-  --msn-on-photo-dot: color-mix(in srgb, var(--brand-white) 55%, transparent);
+  --msn-lead-dot-shadow: 0 0 0 1px color-mix(in srgb, var(--brand-ink) 45%, transparent), 0 1px 3px color-mix(in srgb, var(--brand-ink) 55%, transparent);   /* each dot's own edge, no chip: it reads on a white photo and a dark one */
+  --msn-on-photo-dot: color-mix(in srgb, var(--brand-white) 72%, transparent);
   /* The weather card: a sky photograph (anh/bau-troi.jpg), a flat ink veil, frosted tiles; white text 4.7:1 or more. */
   --msn-wx-sky: #2B4C7A;                             /* shown until the photograph arrives */
   --msn-wx-veil: color-mix(in srgb, var(--brand-ink) 16%, transparent);
