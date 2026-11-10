@@ -1,0 +1,365 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-10",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-08T23:00:00Z",
+  "cutoff_at": "2026-11-09T23:00:00Z",
+  "created_at": "2026-11-10T00:13:41Z",
+  "snapshot_generated_at": "2026-11-10T00:10:42Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-10T00:10:42Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "5892c0cb7396af2cb5cc",
+      "title": "Introducing Claude Fable 5.2 on AWS",
+      "title_vi": "Ra mắt Claude Fable 5.2 trên AWS",
+      "headline": "Introducing Claude Fable 5.2 on AWS",
+      "headline_vi": "Ra mắt Claude Fable 5.2 trên AWS",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-claude-fable-5-2-on-aws/",
+      "published_at": "2026-11-09T20:04:37Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Amazon đưa Claude Fable 5.2 và Mythos 5.2 lên nền tảng AWS khi Anthropic củng cố vị thế dẫn đầu AI",
+      "editorial_headline_verified": true,
+      "source_count": 4,
+      "coverage": [
+        {
+          "id": "053ec31d1a8c34edb981",
+          "title": "Introducing Claude Fable 5.2 on AWS",
+          "title_vi": "Ra mắt Claude Fable 5.2 trên AWS",
+          "headline": "Introducing Claude Fable 5.2 on AWS",
+          "headline_vi": "Ra mắt Claude Fable 5.2 trên AWS",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-claude-fable-5-2-on-aws/",
+          "published_at": "2026-11-09T20:04:37Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-10T00:10:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "b01f7ff1e47d0c76361c",
+          "title": "Anthropic Unveils New Fable, Mythos AI Models Ahead of IPO",
+          "title_vi": "Anthropic tiết lộ những mô hình AI huyền thoại mới trước IPO",
+          "headline": "Anthropic Unveils New Fable, Mythos AI Models Ahead of IPO",
+          "headline_vi": "Anthropic tiết lộ những mô hình AI huyền thoại mới trước IPO",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-09/anthropic-unveils-new-fable-mythos-ai-models-ahead-of-ipo",
+          "published_at": "2026-11-09T19:00:20Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-09T20:43:46Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "df8282d0b6796a4cadc2",
+          "title": "Anthropic releases new Mythos and Fable models amid RSI concerns",
+          "title_vi": "Anthropic phát hành các mô hình Mythos và Fable mới giữa các mối quan tâm của RSI",
+          "headline": "Anthropic releases new Mythos and Fable models amid RSI concerns",
+          "headline_vi": "Anthropic phát hành các mô hình Mythos và Fable mới giữa các mối quan tâm của RSI",
+          "url": "https://techcrunch.com/2026/11/09/anthropic-releases-new-mythos-and-fable-models-amid-rsi-concerns/",
+          "published_at": "2026-11-09T19:24:51Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-10T00:10:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "7fe0169327984cc528e9",
+          "title": "Anthropic launches new Claude Fable and Mythos 5.2 models",
+          "title_vi": "Anthropic ra mắt các mô hình Claude Fable và Mythos 5.2 mới",
+          "headline": "Anthropic launches new Claude Fable and Mythos 5.2 models",
+          "headline_vi": "Anthropic ra mắt các mô hình Claude Fable và Mythos 5.2 mới",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2",
+          "published_at": "2026-11-09T19:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-10T00:10:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "053ec31d1a8c34edb981"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "4 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "amazon",
+              "bloomberg",
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon",
+            "bloomberg",
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 2.9231,
+          "hot_score": 90.582,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "3ca79d5afdbea3240cbf",
+      "title": "Nvidia fallout: chipmaker faces extensive risks after CEO affair, analysts and lawyers say",
+      "title_vi": "Nvidia fallout: chipmaker phải đối mặt với rủi ro rộng lớn sau vụ CEO, các nhà phân tích và luật sư nói",
+      "headline": "Nvidia fallout: chipmaker faces extensive risks after CEO affair, analysts and lawyers say",
+      "headline_vi": "Nvidia fallout: chipmaker phải đối mặt với rủi ro rộng lớn sau vụ CEO, các nhà phân tích và luật sư nói",
+      "url": "https://www.scmp.com/tech/tech-war/article/3373820/nvidia-fallout-chipmaker-faces-extensive-risks-after-ceo-affair-analysts-and-lawyers-say",
+      "published_at": "2026-11-09T12:30:08Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Chủ tịch ba ủy ban đảng Cộng hòa tại Hạ viện Mỹ yêu cầu CEO Nvidia dự buổi làm việc kín về tương tác với Alice Huang",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "a374ba9331f170d84fb5",
+          "title": "Nvidia Probe Into CEO's Affair Raises Troubling Questions for AI",
+          "title_vi": "Nvidia Probe vào vấn đề của CEO làm tăng những câu hỏi đáng lo ngại cho AI",
+          "headline": "Nvidia Probe Into CEO's Affair Raises Troubling Questions for AI",
+          "headline_vi": "Nvidia Probe vào vấn đề của CEO làm tăng những câu hỏi đáng lo ngại cho AI",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-09/nvidia-probe-into-ceo-s-affair-adds-to-ai-trade-risks-video",
+          "published_at": "2026-11-09T16:39:42Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-09T18:47:32Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "7458c76805ace9864482",
+          "title": "Nvidia fallout: chipmaker faces extensive risks after CEO affair, analysts and lawyers say",
+          "title_vi": "Nvidia fallout: chipmaker phải đối mặt với rủi ro rộng lớn sau vụ CEO, các nhà phân tích và luật sư nói",
+          "headline": "Nvidia fallout: chipmaker faces extensive risks after CEO affair, analysts and lawyers say",
+          "headline_vi": "Nvidia fallout: chipmaker phải đối mặt với rủi ro rộng lớn sau vụ CEO, các nhà phân tích và luật sư nói",
+          "url": "https://www.scmp.com/tech/tech-war/article/3373820/nvidia-fallout-chipmaker-faces-extensive-risks-after-ceo-affair-analysts-and-lawyers-say",
+          "published_at": "2026-11-09T12:30:08Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-10T00:10:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "scmp"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "scmp"
+          ],
+          "age_hours_at_cutoff": 10.4978,
+          "hot_score": 51.876,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "ad34c832c41eff920a14",
+      "title": "Bikers and Bug-Lovers Join Forces to Fight a New Google Data Center",
+      "title_vi": "Những người đạp xe và những người yêu Bug kết hợp lực lượng để chống lại Trung tâm dữ liệu Google mới",
+      "headline": "Bikers and Bug-Lovers Join Forces to Fight a New Google Data Center",
+      "headline_vi": "Những người đạp xe và những người yêu Bug kết hợp lực lượng để chống lại Trung tâm dữ liệu Google mới",
+      "url": "https://www.wired.com/story/bug-activists-and-biker-gang-members-are-teaming-up-to-protest-data-centers/",
+      "published_at": "2026-11-09T08:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Gần 55.000 người ký đơn phản đối dự án trung tâm dữ liệu cho AI của Google ở Thurrock",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "4e0a690a74758789205e",
+          "title": "Bikers and Bug-Lovers Join Forces to Fight a New Google Data Center",
+          "title_vi": "Những người đạp xe và những người yêu Bug kết hợp lực lượng để chống lại Trung tâm dữ liệu Google mới",
+          "headline": "Bikers and Bug-Lovers Join Forces to Fight a New Google Data Center",
+          "headline_vi": "Những người đạp xe và những người yêu Bug kết hợp lực lượng để chống lại Trung tâm dữ liệu Google mới",
+          "url": "https://www.wired.com/story/bug-activists-and-biker-gang-members-are-teaming-up-to-protest-data-centers/",
+          "published_at": "2026-11-09T08:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "wired-ai",
+          "publisher": "wired",
+          "entity": "wired",
+          "group": "press",
+          "observed_at": "2026-11-10T00:10:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "wired"
+          ],
+          "age_hours_at_cutoff": 15.0,
+          "hot_score": 47.726,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "9095c436bb4469f2d59a",
+      "title": "Can DeepSeek challenge OpenAI, Anthropic in AI agents as Harness adoption takes off?",
+      "title_vi": "DeepSeek có thể thách thức OpenAI, Anthropic trong các agent AI khi việc chấp nhận Harness bắt đầu không?",
+      "headline": "Can DeepSeek challenge OpenAI, Anthropic in AI agents as Harness adoption takes off?",
+      "headline_vi": "DeepSeek có thể thách thức OpenAI, Anthropic trong các agent AI khi việc chấp nhận Harness bắt đầu không?",
+      "url": "https://www.scmp.com/tech/big-tech/article/3373757/can-deepseek-challenge-openai-anthropic-ai-agents-harness-adoption-takes",
+      "published_at": "2026-11-09T07:00:04Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Khung tác tử AI Harness của DeepSeek đạt 1,54 triệu người dùng hàng ngày sau chưa đầy ba tháng",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "2318a5c67f473ca4d7b2",
+          "title": "Can DeepSeek challenge OpenAI, Anthropic in AI agents as Harness adoption takes off?",
+          "title_vi": "DeepSeek có thể thách thức OpenAI, Anthropic trong các agent AI khi việc chấp nhận Harness bắt đầu không?",
+          "headline": "Can DeepSeek challenge OpenAI, Anthropic in AI agents as Harness adoption takes off?",
+          "headline_vi": "DeepSeek có thể thách thức OpenAI, Anthropic trong các agent AI khi việc chấp nhận Harness bắt đầu không?",
+          "url": "https://www.scmp.com/tech/big-tech/article/3373757/can-deepseek-challenge-openai-anthropic-ai-agents-harness-adoption-takes",
+          "published_at": "2026-11-09T07:00:04Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-10T00:10:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "scmp"
+          ],
+          "age_hours_at_cutoff": 15.9989,
+          "hot_score": 47.269,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "b09ddd384e886e5e7c7c",
+      "title": "Single-shot and agentic retrieval with Amazon Bedrock Managed Knowledge Base",
+      "title_vi": "Lấy lại một lần và bằng cách sử dụng Amazon Bedrock Managed Knowledge Base",
+      "headline": "Single-shot and agentic retrieval with Amazon Bedrock Managed Knowledge Base",
+      "headline_vi": "Lấy lại một lần và bằng cách sử dụng Amazon Bedrock Managed Knowledge Base",
+      "url": "https://aws.amazon.com/blogs/machine-learning/single-shot-and-agentic-retrieval-with-amazon-bedrock-managed-knowledge-base/",
+      "published_at": "2026-11-09T20:13:18Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Amazon Bedrock mở rộng tham số lặp từ 0 đến 5 giúp trợ lý AI tùy biến độ sâu truy xuất",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "57039a043eddd62c4ae5",
+          "title": "Single-shot and agentic retrieval with Amazon Bedrock Managed Knowledge Base",
+          "title_vi": "Lấy lại một lần và bằng cách sử dụng Amazon Bedrock Managed Knowledge Base",
+          "headline": "Single-shot and agentic retrieval with Amazon Bedrock Managed Knowledge Base",
+          "headline_vi": "Lấy lại một lần và bằng cách sử dụng Amazon Bedrock Managed Knowledge Base",
+          "url": "https://aws.amazon.com/blogs/machine-learning/single-shot-and-agentic-retrieval-with-amazon-bedrock-managed-knowledge-base/",
+          "published_at": "2026-11-09T20:13:18Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-10T00:10:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 2.7783,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 101,
+    "successful_remote_sources": 100,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
