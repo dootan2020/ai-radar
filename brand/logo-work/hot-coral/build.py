@@ -181,7 +181,7 @@ def toolbar(icon16, dark):
     return (f'<div style="display:flex;align-items:center;gap:14px;height:40px;padding:0 12px;background:{bar};'
             f'border-radius:8px;width:560px;box-sizing:border-box">'
             f'<div style="flex:1;height:28px;border-radius:14px;background:{box};color:{dot};font:13px system-ui;'
-            f'line-height:28px;padding-left:12px">radar-ai-vn.pages.dev</div>'
+            f'line-height:28px;padding-left:12px">hco.news</div>'
             f'<img src="{icon16.as_uri()}" width="16" height="16">'
             f'<span style="width:16px;height:16px;border-radius:3px;background:{dot};opacity:.55"></span>'
             f'<span style="width:16px;height:16px;border-radius:50%;background:{dot};opacity:.55"></span>'

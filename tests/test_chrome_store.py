@@ -13,7 +13,7 @@ EXT = ROOT / 'extension'
 STORE = EXT / 'store'
 SITE = ROOT / 'site'
 PLANS = ROOT / 'plans/reports'
-LIVE = 'https://radar-ai-vn.pages.dev/'
+LIVE = 'https://hco.news/'
 
 
 class ChromeStoreSubmissionTests(unittest.TestCase):
@@ -86,7 +86,8 @@ class ChromeStoreSubmissionTests(unittest.TestCase):
         self.assertIn('storage', html)
         self.assertIn('alarms', html)
         self.assertIn('search', html)
-        self.assertIn('https://radar-ai-vn.pages.dev/', html)
+        self.assertIn('https://hco.news/', html)
+        self.assertIn('https://radar-ai-vn.pages.dev/*', html)  # extension host permission stays on the data host
         # Must not contain stale host
         self.assertNotIn('ai-radar' + '.pages.dev', html)
 

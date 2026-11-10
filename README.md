@@ -62,7 +62,7 @@ Offline fixtures include captured live/upcoming/ended channel metadata and actua
 
 ## Website and automatic updates
 
-The published site is [Halcyon](https://radar-ai-vn.pages.dev/). The existing [Update AI Radar workflow](.github/workflows/update.yml) runs tests, builds fresh data, deploys `site/` through Cloudflare Pages, and refreshes GitHub Pages redirects for old links. It is scheduled at minutes 07 and 37 of every hour; GitHub may delay scheduled runs. A manual run is available in the repository's Actions tab.
+The published site is [Halcyon](https://hco.news/). The existing [Update AI Radar workflow](.github/workflows/update.yml) runs tests, builds fresh data, deploys `site/` through Cloudflare Pages, and refreshes GitHub Pages redirects for old links. It is scheduled at minutes 07 and 37 of every hour; GitHub may delay scheduled runs. A manual run is available in the repository's Actions tab.
 
 The separate [Offline CI workflow](.github/workflows/ci.yml) checks pushes and pull requests. Making its test job a required branch check needs repository settings; adding the workflow does not enable that protection automatically. See [operations and rollback](docs/operations.md), the [data contract](docs/data-pipeline-v2.md), and the [dated feed verification](docs/source-feed-check-2026-10-03.md).
 

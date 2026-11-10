@@ -19,7 +19,7 @@ Tài liệu hướng dẫn từng bước chi tiết dành cho Captain để đ�
    - **Screenshots (1280×800 px):** `brand/assets/store/new-tab-light.png` và `brand/assets/store/new-tab-dark.png` (Lucy chạy lệnh `node brand/store-shots.js` để chụp).
 4. **Trang Chính sách quyền riêng tư (Privacy Policy):**
    - Đã tạo tại `site/chinh-sach-rieng-tu.html` và deploy lên:
-   - URL: `https://radar-ai-vn.pages.dev/chinh-sach-rieng-tu.html`
+   - URL: `https://hco.news/chinh-sach-rieng-tu.html`
 
 ---
 
@@ -58,7 +58,7 @@ Chuyển tới thẻ **Store Listing**:
    - **Additional Category (Danh mục phụ nếu có):** `Productivity` (Năng suất)
 
 4. **Official URL (Trang web chính thức):**
-   - Nhập: `https://radar-ai-vn.pages.dev/`
+   - Nhập: `https://hco.news/`
 
 Nhấn **"Save draft"** (Lưu bản nháp).
 
@@ -114,7 +114,7 @@ Halcyon does not collect, upload, sell, or share personal data, browsing history
    - [x] **I certify that the item will not use or transfer user data to determine creditworthiness or for lending purposes.**
 
 5. **Privacy Policy (Đường dẫn chính sách riêng tư):**
-   - Nhập: `https://radar-ai-vn.pages.dev/chinh-sach-rieng-tu.html`
+   - Nhập: `https://hco.news/chinh-sach-rieng-tu.html`
 
 Nhấn **"Save draft"** (Lưu bản nháp).
 
