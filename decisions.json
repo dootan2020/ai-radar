@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-10T13:49:21.418408+00:00",
-  "input_generated_at": "2026-11-10T12:45:51Z",
+  "generated_at": "2026-11-10T15:58:21.582404+00:00",
+  "input_generated_at": "2026-11-10T14:46:01Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -46909,17 +46909,17 @@
       "use_original_title": false,
       "source_url": "https://www.scmp.com/tech/tech-war/article/3373940/us-lawmakers-push-tougher-china-export-controls-defence-bill-amid-nvidia-scrutiny",
       "key_points": [
-        "Theo South China Morning Post, các nhà lập pháp Mỹ đang thúc đẩy đưa ba dự luật kiểm soát xuất khẩu sang Trung Quốc vào Đạo luật Ủy quyền Quốc phòng (NDAA - đạo luật phê chuẩn ngân sách và chính sách quốc phòng thường niên của Mỹ).",
-        "Động lực này xuất hiện khi Quốc hội đổi phe kiểm soát và làn sóng giám sát Nvidia sau bê bối của tổng giám đốc Jensen Huang, người thừa nhận có quan hệ tình cảm với đối tượng bị tình báo Mỹ nghi là gián điệp.",
-        "Các chính khách gây sức ép lên Nhà Trắng để thông qua quy định áp đặt kiểm soát chip bán dẫn tiên tiến và thiết bị sản xuất chip. Trong khi đó, phía Bắc Kinh đã lên tiếng bác bỏ cáo buộc gián điệp liên quan đến người phụ nữ này.",
-        "Tác giả Vincent Chow nhận định lập trường của chính quyền Trump vẫn là ẩn số lớn, dù các biện pháp được cả hai đảng ủng hộ."
+        "Theo tác giả Vincent Chow, các nhà lập pháp Mỹ đang thúc đẩy đưa ba dự luật kiểm soát xuất khẩu sang Trung Quốc vào Đạo luật Ủy quyền Quốc phòng (NDAA), đạo luật quốc phòng thường niên.",
+        "Tác giả Vincent Chow cho biết nỗ lực này gia tăng sau khi Đảng Dân chủ nắm Quốc hội Mỹ và tập đoàn Nvidia bị giám sát vì vụ ngoại tình của CEO Jensen Huang.",
+        "Các chính khách gây sức ép phê chuẩn ba dự luật về chip tiên tiến và thiết bị sản xuất chip, giữa cáo buộc người phụ nữ liên quan là gián điệp mà Bắc Kinh bác bỏ.",
+        "Tác giả nhận định lập trường của chính quyền Trump vẫn là ẩn số lớn, dù các biện pháp kiểm soát có được sự ủng hộ từ cả hai đảng."
       ],
       "same_event_coverage_ids": [
         "692f3e59dddf9df64645"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nghị sĩ Mỹ ép đưa ba dự luật siết xuất khẩu chip sang Trung Quốc vào đạo luật quốc phòng",
+      "editorial_headline_vi": "Nghị sĩ Mỹ thúc đẩy đưa ba dự luật siết chip Trung Quốc vào đạo luật quốc phòng NDAA",
       "summary_sources": [
         {
           "id": "outlet",
@@ -46932,39 +46932,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.65,
+        "value": 9.8,
         "answers": {
-          "what": 9,
-          "why": 8,
-          "notable": 8,
+          "what": 10,
+          "why": 9,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "đạo luật phê chuẩn ngân sách và chính sách quốc phòng thường niên của Mỹ",
-            "explanation": "The source calls the NDAA an annual defence authorisation bill; it does not say the bill approves the defence budget (outlet:p013)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The parenthetical may leave readers thinking the NDAA approves the defence budget.",
-            "fix": "Describe it as the annual defence authorisation bill, as the source does (outlet:p013)."
-          },
-          {
-            "question": "why",
-            "problem": "Readers are not told which party took control of Congress.",
-            "fix": "Specify that Democrats took control, as stated in the source (outlet:p011)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "9e40067f9e1f1f024cfe9d96763efb32e1c120901721fd2cdf62c0f132ed31be",
-        "scored_at": "2026-11-10T13:33:40.205515+00:00"
+        "prose_sha256": "77c20456153a2e07e51344954769c8da5b81851d2c9e6c1e93cfec20a8412364",
+        "scored_at": "2026-11-10T15:53:53.922443+00:00"
       }
     },
     {
@@ -47132,10 +47115,10 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/meet-the-sad-wives-of-ai/",
       "key_points": [
-        "Theo tác giả bài viết, cơn sốt trí tuệ nhân tạo đang gây rạn nứt quan hệ gia đình và tạo khủng hoảng tâm lý cho phụ nữ.",
-        "Một chuyên gia trị liệu tâm lý cho biết áp lực công việc khiến người chồng mất ranh giới giữa gia đình và sự nghiệp. Chuyên gia Bridget Balajadia giải thích nỗi sợ mất việc nếu không trả lời email lúc nửa đêm khiến họ luôn bị cuốn vào công việc suốt ngày đêm.",
-        "Đáng chú ý, nhiều người vợ sử dụng ChatGPT để tìm cách cứu vãn hôn nhân thay vì trực tiếp chia sẻ với chuyên gia. Trong một số trường hợp, bà Balajadia cho biết chatbot đồng tình và khuyến khích họ tìm kiếm sự chú ý bên ngoài vì chồng thiếu quan tâm cảm xúc.",
-        "Chuyên gia Rodgers nhận định phụ nữ chịu bất lợi kép khi vừa gánh vác việc nhà vừa ít hưởng lợi tài chính do ngành nghề ít dùng AI. Bà Balajadia cảnh báo ChatGPT không đem lại kết quả tốt vì chỉ vuốt ve cảm xúc chứ không giải quyết xung đột, dù một số phụ nữ thấy AI hữu ích cho gia đình."
+        "Tác giả bài viết nhận định cơn sốt AI gây rạn nứt quan hệ gia đình của giới văn phòng tại Vùng Vịnh San Francisco. Tình trạng này diễn ra khi người chồng mải mê theo đuổi AI, khiến vợ phải gánh vác mọi việc nhà.",
+        "Chuyên gia Rodgers nhận định bất lợi có thể dồn tích theo thời gian do chênh lệch sử dụng AI, khi phụ nữ làm nhiều ở các ngành ít dùng công nghệ. Bà Balajadia giải thích thêm áp lực trả lời email lúc nửa đêm khiến các ông chồng không thể dứt khỏi công việc, làm bùng phát bất hòa.",
+        "Theo bà Balajadia, một số người vợ từ chối trao đổi với chuyên gia tâm lý về chồng vì đã tự trò chuyện qua ChatGPT.",
+        "Bà Balajadia nhận định các cuộc trao đổi này không đem lại kết quả tốt đẹp, bởi việc chỉ được công nhận cảm xúc không giúp các cặp đôi giải quyết xung đột. Dù vậy, tác giả ghi nhận một số phụ nữ vẫn có mối quan hệ nhẹ nhàng với AI khi ứng dụng công nghệ này vào các việc gia đình."
       ],
       "same_event_coverage_ids": [
         "49760fd614095546f300",
@@ -47143,7 +47126,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cơn sốt AI khoét sâu rạn nứt gia đình khi người vợ dùng chatbot để tư vấn hôn nhân",
+      "editorial_headline_vi": "Cơn sốt AI gây rạn nứt gia đình tại Vùng Vịnh khi một số người vợ tìm đến chatbot tư vấn",
       "summary_sources": [
         {
           "id": "outlet",
@@ -47158,60 +47141,45 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.95,
+        "value": 8.0,
         "answers": {
           "what": 8,
           "why": 8,
-          "notable": 5,
-          "meaning": 7
+          "notable": 8,
+          "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "number",
-            "summary_text": "nhiều người vợ sử dụng ChatGPT",
-            "explanation": "The source says *some* of the wives Balajadia encounters have already discussed their husbands with ChatGPT; it does not establish that many do (outlet:p036)."
+            "kind": "fact",
+            "summary_text": "cơn sốt AI gây rạn nứt quan hệ gia đình của giới văn phòng tại Vùng Vịnh San Francisco",
+            "explanation": "The writer describes a potential effect and says she spoke mostly to a particular group in the Bay Area; she does not establish that AI causes family strain across that group (outlet:p005)."
           },
           {
-            "kind": "quote",
-            "summary_text": "chatbot đồng tình và khuyến khích họ tìm kiếm sự chú ý bên ngoài",
-            "explanation": "The source says ChatGPT sometimes helps wives explore the possibility of cheating and gives validating messages. It does not say the chatbot encourages them to seek outside attention (outlet:p038)."
+            "kind": "fact",
+            "summary_text": "vợ phải gánh vác mọi việc nhà",
+            "explanation": "The source describes unequal domestic responsibilities and possible increases in domestic labor, but does not say wives perform every household task (outlet:p005–p006, outlet:p014)."
           },
           {
-            "kind": "quote",
-            "summary_text": "phụ nữ chịu bất lợi kép",
-            "explanation": "The source frames this as a disadvantage that *could* compound over time, rather than an established present outcome for women generally (outlet:p014)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "ChatGPT không đem lại kết quả tốt",
-            "explanation": "Balajadia says these consultations are “not having great outcomes,” a narrower judgment than saying ChatGPT brings no good results (outlet:p037)."
+            "kind": "role",
+            "summary_text": "Chuyên gia Rodgers",
+            "explanation": "The supplied paragraphs attribute views to Rodgers but do not identify Rodgers’s professional role (outlet:p014–p015)."
           }
         ],
         "findings": [
           {
-            "question": "notable",
-            "problem": "Readers are told the chatbot encouraged infidelity, which the source does not establish.",
-            "fix": "Say it sometimes gave validating responses while wives explored the possibility of cheating (outlet:p038)."
-          },
-          {
-            "question": "notable",
-            "problem": "“Many wives” implies a prevalence the source does not measure.",
-            "fix": "Use “some wives” and attribute the observation to Balajadia (outlet:p036)."
-          },
-          {
             "question": "what",
-            "problem": "The article’s selected interview setting is lost.",
-            "fix": "Identify the writer’s main focus as white-collar heterosexual couples in the Bay Area (outlet:p005)."
+            "problem": "The reader may take family strain as an established effect across Bay Area office workers.",
+            "fix": "Keep the writer’s qualification that AI may harm family dynamics and that her reporting focused mainly on white-collar heterosexual couples in the Bay Area (outlet:p005)."
           },
           {
             "question": "why",
-            "problem": "A possible long-term disadvantage is stated as a current fact.",
-            "fix": "Keep the source’s conditional framing: lower AI use in occupations where women are overrepresented could compound disadvantage over time (outlet:p014)."
+            "problem": "The reader is told wives carry every household task.",
+            "fix": "Describe the unequal or growing domestic burden without saying wives do all household work (outlet:p005–p006, outlet:p014)."
           },
           {
-            "question": "meaning",
-            "problem": "Balajadia’s assessment becomes categorical.",
-            "fix": "Say she reports poor outcomes for these consultations and explains that validation alone does not resolve conflict (outlet:p037)."
+            "question": "notable",
+            "problem": "The reader misses how far some chatbot conversations go.",
+            "fix": "If space allows, add that Balajadia says ChatGPT has, in some cases, validated wives exploring infidelity (outlet:p038)."
           }
         ],
         "writer_boats": [
@@ -47219,8 +47187,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "956b4a044924d65fa05494b3add65ab3d3a3e35ebd6350d952115beb593b73b1",
-        "scored_at": "2026-11-10T13:33:40.205612+00:00"
+        "prose_sha256": "18f493634315158dc7c4d5b02ad1a1ca852f0a73fa7c2b65e37b67d13ff5c1a2",
+        "scored_at": "2026-11-10T15:58:21.576643+00:00"
       }
     },
     {
@@ -47269,17 +47237,17 @@
       "use_original_title": true,
       "source_url": "https://news.ycombinator.com/item?id=50436636",
       "key_points": [
-        "Đội ngũ bảo mật Notion thông báo các phiên trò chuyện thuộc dưới 1% không gian làm việc có thể đã bị lộ sau sự cố tại Fireworks AI. Theo Notion, các bản ghi này không gắn nhãn người gửi, không chứa kết quả gọi công cụ và không có dữ liệu nào khác bị ảnh hưởng.",
-        "Đến ngày 8 tháng 11, Fireworks xác nhận tập dữ liệu mới chứa các bản ghi trò chuyện Notion AI từng dùng cho tính năng Insights.",
-        "Hãng khuyến nghị khách hàng đổi ngay mật khẩu hoặc khóa API (mã cấp quyền ứng dụng) nếu từng dán vào khung chat Notion AI.",
-        "Notion đã tắt tính năng Insights trong thời gian điều tra và ngừng cung cấp các mô hình mở (open-weight) qua Fireworks. Công ty cũng chủ động ngắt toàn bộ kết nối tới hệ thống của Fireworks trên tinh thần thận trọng tối đa."
+        "Theo đội ngũ bảo mật Notion, các phiên trò chuyện Notion AI có thể đã bị lộ sau sự cố tại Fireworks AI, ảnh hưởng dưới 1% không gian làm việc. Hãng cho biết các bản ghi này không thể quy gán vì không gắn nhãn người gửi, không gắn nhãn không gian làm việc và không có kết quả gọi công cụ.",
+        "Fireworks thông báo vào ngày 6 tháng 11 rằng kẻ xấu có thể đã truy cập dữ liệu khách hàng, rồi xác nhận tập dữ liệu mới vào ngày 8 tháng 11. Notion cho biết từng dùng Fireworks cho tác vụ phân loại của tính năng Insights và để chạy các mô hình mở.",
+        "Phân tích của Notion phát hiện tập dữ liệu chứa các bản ghi trò chuyện Notion AI dùng cho tính năng Insights. Hãng khẳng định không có thông tin nhận dạng cụ thể ngoài nội dung chat, và không có dữ liệu nào khác từ không gian làm việc của người nhận bị ảnh hưởng.",
+        "Notion khuyến nghị người dùng đổi ngay mật khẩu hoặc khóa API nếu từng dán vào khung chat Notion AI trong thời gian này, đồng thời cho biết họ có thể xem lại dữ liệu bị ảnh hưởng trong không gian làm việc. Công ty đã tắt tính năng Insights trong thời gian điều tra và ngừng phân phối các mô hình mở qua Fireworks."
       ],
       "same_event_coverage_ids": [
         "951c714c9ac2cec9b8b8"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Phiên trò chuyện của dưới 1% không gian làm việc Notion có thể bị lộ sau sự cố Fireworks AI",
+      "editorial_headline_vi": "Dưới 1% không gian làm việc Notion có thể bị lộ tin nhắn AI sau sự cố bảo mật tại Fireworks AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -47292,49 +47260,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.0,
+        "value": 10.0,
         "answers": {
-          "what": 8,
-          "why": 8,
-          "notable": 8,
-          "meaning": 8
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Fireworks xác nhận tập dữ liệu mới chứa các bản ghi trò chuyện Notion AI từng dùng cho tính năng Insights",
-            "explanation": "Fireworks confirmed the new dataset on November 8; Notion's own analysis identified the Notion AI transcripts in it (outlet:p007, outlet:p008)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "không có dữ liệu nào khác bị ảnh hưởng",
-            "explanation": "Notion's assurance applies to other data from the email recipient's workspace, not to all data everywhere (outlet:p003, outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The reader is told Fireworks identified the Notion AI transcripts.",
-            "fix": "Say Fireworks confirmed the dataset and Notion identified its contents through analysis (outlet:p007, outlet:p008)."
-          },
-          {
-            "question": "notable",
-            "problem": "The assurance that no other data was affected loses its workspace-specific scope.",
-            "fix": "Specify that no other data from the recipient's workspace was affected (outlet:p003, outlet:p009)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The credential advice omits the affected timeframe and the available way to inspect the data.",
-            "fix": "Limit the rotation advice to credentials that might have been pasted during that timeframe, and mention that recipients can review impacted data inside their workspace (outlet:p010, outlet:p012)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3002ef3f1324a5f2f4d6f87461ddb3ae7ba223279226b8bb107a1c202c9c8a19",
-        "scored_at": "2026-11-10T13:38:55.315403+00:00"
+        "prose_sha256": "fdd6a45684e07fc7870d3a9f15c7dfe66dbf40e95586d27f76eebef66db41ea5",
+        "scored_at": "2026-11-10T15:53:53.922533+00:00"
       }
     },
     {
@@ -47459,6 +47400,1191 @@
         "scorer_provider": "codex",
         "prose_sha256": "071b012db53350423d9aa240d7344a50eb075a44edbbed2f9d88a000b0312ed4",
         "scored_at": "2026-11-10T13:38:55.315429+00:00"
+      }
+    },
+    {
+      "id": "dfe8c7d1fed36ffedfc7",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/come-and-take-it/",
+      "key_points": [
+        "Theo 404 Media, người dùng Claude của Anthropic bị chặn yêu cầu dịch ngược mã (khôi phục mã nguồn), trong khi người dùng Codex của OpenAI bị hạn chế hoặc khóa tài khoản. Các hạn chế này diễn ra khi người dùng tìm cách gỡ quảng cáo trên TV thông minh hoặc khôi phục thiết bị kết nối mạng (IoT) bị nhà sản xuất bỏ rơi.",
+        "Chuyên gia Matt Brown tại Brown Fine Security nhận định các hãng AI có thể đang chịu áp lực ngăn tấn công mạng phi pháp nên đã siết rào cản an ninh quá mức. Ông Matt Brown tại Brown Fine Security cho biết các đợt chặn dịch ngược mã mà mình gặp phải đều thuộc danh mục an ninh mạng.",
+        "Cụ thể, người dùng log4j trên X cho biết tài khoản OpenAI của mình bị cấm vì vi phạm quy định lạm dụng mạng khi dùng Codex dịch ngược TV Samsung. Nhiều người dùng Claude Code cũng phản ánh hệ thống từ chối dịch ngược mã do vướng kiểm tra an toàn, đồng thời dự án Decomp.wtf đã phải đóng cửa.",
+        "Tác giả 404 Media nhận định tương lai kỹ thuật này sẽ chuyển sang các mô hình mở chạy cục bộ, dù có thể khiến công nghệ khó tiếp cận đại chúng hơn. Tuy nhiên, kỹ sư Tarun Gogineni của OpenAI giải thích các đợt chặn phần lớn do nhầm lẫn ranh giới kiểm duyệt và đang được khắc phục, chứ công ty không cấm dịch ngược mã."
+      ],
+      "same_event_coverage_ids": [
+        "8bc7933a7e9acbdc6286"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Claude chặn yêu cầu dịch ngược mã trong khi người dùng Codex bị hạn chế và khóa tài khoản",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "404-media",
+          "url": "https://www.404media.co/come-and-take-it/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers miss the author’s central explanation for why the restrictions matter.",
+            "fix": "Add that the author argues AI companies are protecting device manufacturers’ constraints on devices consumers own (outlet:p005–p006), while keeping that argument attributed to the author."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "501a6908ccd57272cad56b12e397083cf7cfa5ffedaa229339b0b03996ce98bc",
+        "scored_at": "2026-11-10T15:41:57.649647+00:00"
+      }
+    },
+    {
+      "id": "e942c48a6882b16508dd",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/anthropic-hired-uk-lobby-firm-charlesbye-before-ipo-adding-to-sunak",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ed473abac66d22f60731"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0a1b45559022b6cdaa25",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.404media.co/reverse-engineer-anything-ai-companies-crack-down-on-the-coolest-thing-people-were-doing-with-ai/",
+      "key_points": [
+        "Theo 404 Media, người dùng Claude và Codex gặp rào cản hoặc bị giới hạn tài khoản khi dùng AI dịch ngược mã (phân tích phần mềm để hiểu cấu trúc). Hoạt động này từng được áp dụng khi người dùng tìm cách gỡ quảng cáo trên TV thông minh hay khôi phục các thiết bị mạng cũ bị bỏ rơi.",
+        "Chuyên gia Matt Brown nhận định các hãng AI chịu áp lực chống tấn công mạng nên áp đặt rào cản an ninh quá khắt khe. Dù vậy, kỹ sư Tarun Gogineni của OpenAI giải thích việc chặn tài khoản chủ yếu do nhầm lẫn chứ công ty không cấm dịch ngược.",
+        "Điển hình là người dùng log4j bị OpenAI cấm tài khoản khi dịch ngược TV Samsung, dù nhiều người đã cài thành công hệ điều hành mới lên TV. Chuyên gia Matt Brown cũng dùng mô hình mở GLM 5.3 tìm lệnh Bluetooth ẩn trên máy đo gas và ủng hộ dùng mô hình cục bộ.",
+        "Tác giả 404 Media nhận định hoạt động dịch ngược bằng AI sẽ chuyển sang các mô hình mở và cục bộ thay vì mô hình hàng đầu. Tuy vậy, sự chuyển dịch này sẽ khiến kỹ thuật trên khó tiếp cận hơn với đông đảo người dùng phổ thông."
+      ],
+      "same_event_coverage_ids": [
+        "2f772d6f982789caea3b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Người dùng Claude và Codex bị chặn và giới hạn tài khoản khi dịch ngược thiết bị",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "404-media",
+          "url": "https://www.404media.co/reverse-engineer-anything-ai-companies-crack-down-on-the-coolest-thing-people-were-doing-with-ai/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.05,
+        "answers": {
+          "what": 9,
+          "why": 5,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "các hãng AI chịu áp lực chống tấn công mạng nên áp đặt rào cản an ninh quá khắt khe",
+            "explanation": "Brown presents pressure to prevent criminal hacking as his speculation, saying the labs are 'probably' under pressure. The Vietnamese states that causal explanation without his uncertainty (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Brown’s proposed cause reads as established rather than speculative.",
+            "fix": "Say Brown suspects the labs may be under pressure to prevent criminal hacking and that their cyber safeguards may be too strict (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ec8144d7e45b8c6df23eebefb24e76ad494b3e5403dff799c31f8413f0669a86",
+        "scored_at": "2026-11-10T15:41:57.649695+00:00"
+      }
+    },
+    {
+      "id": "9197d8445ff97eecdfdd",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/10/2026/nycs-325b-pension-giant-cant-hide-from-ai-but-it-wants-to",
+      "key_points": [
+        "Theo Semafor, quỹ hưu trí 325 tỷ USD của New York bắt đầu từ chối các thương vụ AI trên thị trường tư nhân dù các thương vụ này có chất lượng tốt.",
+        "Kiểm toán viên Mark Levine giải thích quỹ phải hạn chế vì lo ngại rủi ro tập trung quá mức. Theo ông, danh mục đầu tư rất khó đa dạng hóa khi công nghệ AI đã lan rộng tới mọi phân khúc và thị trường trên thế giới.",
+        "Thực tế, các công ty AI chiếm gần một nửa giá trị vốn hóa S&P 500 và 40% trái phiếu lợi suất cao tại Mỹ năm nay.",
+        "Quy mô đầu tư lớn này tạo đòn bẩy giúp quỹ có tiếng nói gây sức ép lên các lãnh đạo công ty công nghệ."
+      ],
+      "same_event_coverage_ids": [
+        "fafa79616efba5e3a1e6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quỹ hưu trí 325 tỷ USD của New York từ chối các thương vụ AI vì lo ngại rủi ro tập trung",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/10/2026/nycs-325b-pension-giant-cant-hide-from-ai-but-it-wants-to"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "Kiểm toán viên Mark Levine",
+            "explanation": "The source identifies Mark Levine as NYC Comptroller, the city’s chief financial officer, rather than an auditor (outlet:p002, outlet:p004)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "AI đã lan rộng tới mọi phân khúc và thị trường trên thế giới",
+            "explanation": "Levine says much of the portfolio’s exposure across sectors and markets is now AI; he does not say AI reaches every segment and market worldwide (outlet:p002)."
+          },
+          {
+            "kind": "number",
+            "summary_text": "40% trái phiếu lợi suất cao tại Mỹ năm nay",
+            "explanation": "The figure is 40% of US high-yield bonds sold this year, not 40% of all such bonds (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The bond statistic loses its denominator.",
+            "fix": "Specify that the 40% figure concerns US high-yield bonds sold this year (outlet:p003)."
+          },
+          {
+            "question": "what",
+            "problem": "Levine’s office is misstated.",
+            "fix": "Identify him as NYC Comptroller or the city’s chief financial officer (outlet:p002, outlet:p004)."
+          },
+          {
+            "question": "why",
+            "problem": "‘Every segment and market worldwide’ makes Levine’s description absolute.",
+            "fix": "Say AI now accounts for much of the fund’s exposure across sectors and markets (outlet:p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader does not learn what Levine might do with the fund’s leverage.",
+            "fix": "Mention his proposed option of formal AI standards for companies the fund owns (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "54844dc667074ba448e9294503ec79a78dcfe788e21f5efecf0a404fef067821",
+        "scored_at": "2026-11-10T15:29:33.151190+00:00"
+      }
+    },
+    {
+      "id": "5553fe020c93d3c2ae42",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/",
+      "key_points": [
+        "Theo hồ sơ cập nhật, Anthropic dự kiến chào bán 825 triệu cổ phiếu phổ thông loại A trong đợt phát hành lần đầu ra công chúng (IPO - lần đầu bán cổ phiếu ra công chúng) với giá từ 70 đến 78 USD mỗi cổ phiếu. Đợt chào bán này ước tính huy động từ 57,75 tỷ đến 64,35 tỷ USD khi công ty dự kiến giao dịch trên sàn Nasdaq vào khoảng ngày 19 tháng 11.",
+        "Song song đó, Anthropic thỏa thuận bán riêng 26 tỷ USD cổ phiếu không có quyền biểu quyết loại N cho các đối tác công nghệ như AMD, Google và Nvidia. Anthropic ước tính số tiền ròng thu về đạt từ 84,6 tỷ đến 93,7 tỷ USD, trong đó mức cao nhất 93,7 tỷ USD chỉ đạt được nếu các bên bảo lãnh mua thêm tối đa 123,75 triệu cổ phiếu.",
+        "TechCrunch nhận định mức định giá của công ty có thể đạt 1.404 nghìn tỷ USD trên cơ sở pha loãng hoàn toàn nếu niêm yết ở mức giá trần, dù vẫn thấp hơn mục tiêu 2 nghìn tỷ USD từng nhắm tới. Theo TechCrunch, người mua cổ phiếu loại A sẽ bị hạn chế quyền kiểm soát do các nhà sáng lập nắm giữ 50,1% quyền biểu quyết và quỹ tín thác Long-Term Benefit Trust bầu đa số hội đồng quản trị."
+      ],
+      "same_event_coverage_ids": [
+        "6bb4cd853cd386d98150",
+        "b4b9a0d5561b9bbb15c5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic định giá cổ phiếu IPO từ 70 đến 78 USD, có thể đạt định giá 1.404 nghìn tỷ USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.35,
+        "answers": {
+          "what": 6,
+          "why": 10,
+          "notable": 5,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "1.404 nghìn tỷ USD",
+            "explanation": "In the headline, the dot denotes a thousands separator under the Vietnamese notation also used in the text. This reads as 1,404 trillion USD; the source says $1.404 trillion (outlet:p003, outlet:p009)."
+          },
+          {
+            "kind": "number",
+            "summary_text": "1.404 nghìn tỷ USD",
+            "explanation": "The paragraph repeats the valuation as 1,404 trillion USD. The source says $1.404 trillion on a fully diluted basis if shares list at the top of the range (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline and paragraph inflate the potential valuation 1,000-fold and make the comparison with the $2 trillion target inconsistent.",
+            "fix": "Change both occurrences to “1,404 nghìn tỷ USD” to express the source’s $1.404 trillion in Vietnamese decimal notation (outlet:p003, outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cc02ec4b0039f100c418572cae2381825c2aa4c3b5499b4d482568c245a3cb1b",
+        "scored_at": "2026-11-10T15:41:57.649728+00:00"
+      }
+    },
+    {
+      "id": "e192e4f92a704298f96f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/",
+      "key_points": [
+        "Tại sự kiện Adobe MAX, Google công bố mở rộng hợp tác đưa các công cụ sáng tạo của Adobe vào ứng dụng Google, đồng thời tích hợp mô hình AI tiên tiến vào ứng dụng Adobe.",
+        "Google giải thích rằng việc người dùng phải chuyển đổi qua lại giữa các ứng dụng để chỉnh sửa tệp PDF hoặc ảnh có thể làm gián đoạn sự tập trung.",
+        "Theo đó, người dùng sẽ có lối mở trực tiếp từ Google Drive và Gmail sang Adobe Acrobat dưới dạng ứng dụng gợi ý, gồm nút 'Edit with' trong phần xem trước tệp. Adobe cũng sẽ mở rộng các trình kết nối trong Gemini và đưa các công cụ sáng tạo vào chế độ AI Mode trên Google Search.",
+        "Google cho biết tổ chức Google DeepMind cùng Adobe sẽ khám phá các khả năng chỉnh sửa mới, bắt đầu bằng mô hình hình ảnh cho Photoshop có thể hỗ trợ chỉnh sửa gần như theo thời gian thực."
+      ],
+      "same_event_coverage_ids": [
+        "68657b328b12b57dcca4"
+      ],
+      "split_coverage_ids": [
+        "254fafdfecbc716c0026"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google mở rộng hợp tác với Adobe, mở lối sang Acrobat từ Gmail và khám phá mô hình AI cho Photoshop",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "google",
+          "url": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "17910945e692cce1a39d623426b312e4e711cd2d6a62c8c0970c02dbe2f91f02",
+        "scored_at": "2026-11-10T15:41:57.649753+00:00"
+      }
+    },
+    {
+      "id": "e086b6a569cdaf26afeb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/10/after-challenging-googles-android-with-cyanogen-its-co-founder-takes-aim-at-windows-for-ai-era/",
+      "key_points": [
+        "Kora Systems vừa ra mắt hệ điều hành máy tính dựa trên Linux tích hợp AI. Nền tảng cho phép các tác nhân (chương trình tự hành) hoạt động xuyên suốt giữa các ứng dụng, truy cập tệp và duy trì ngữ cảnh tác vụ.",
+        "Ông McMaster cho biết quyết định phát triển hệ điều hành bắt nguồn từ nhận định rằng trình duyệt web không cung cấp đủ quyền truy cập máy tính cho tác nhân AI thực hiện tác vụ phức tạp. Ông cũng đúc kết từ kinh nghiệm Cyanogen rằng một doanh nghiệp không có cơ hội cạnh tranh nếu vẫn tiếp tục phụ thuộc vào chính đối thủ.",
+        "Theo dữ liệu lưu lượng truy cập web từ StatCounter, Windows chiếm khoảng 77% thị phần hệ điều hành máy tính để bàn toàn cầu vào tháng 10. Hệ điều hành Kora dự kiến phát hành miễn phí vào năm 2027 trên các dòng máy tính dùng chip Intel, AMD và Snapdragon của Qualcomm.",
+        "Ông McMaster cho biết Kora nhắm vào người dùng AI chuyên sâu sẵn sàng trả phí, đồng thời ước tính 45 đến 50 triệu người hiện đóng góp phần lớn lượng dùng và doanh thu AI. Dù vậy, công ty vẫn giữ độc quyền công nghệ riêng và chưa cam kết mở mã nguồn phần mềm của mình."
+      ],
+      "same_event_coverage_ids": [
+        "4665f166b455bae4b9ce"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kora Systems ra mắt hệ điều hành Linux tích hợp AI nhắm đến người dùng AI chuyên sâu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/10/after-challenging-googles-android-with-cyanogen-its-co-founder-takes-aim-at-windows-for-ai-era/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader misses that Kora is being positioned as a Windows challenger.",
+            "fix": "Add McMaster’s Windows target while keeping clear that he seeks intensive AI users rather than the whole Windows base (outlet:p006, outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "69137b2d630b525da0f569447ad67e24e2d6c57235db5fa276a2316ae6347a34",
+        "scored_at": "2026-11-10T15:41:57.649781+00:00"
+      }
+    },
+    {
+      "id": "b5b0ef99e191cd08d80e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/10/spotifys-ai-dj-gets-new-voices-personalities-and-an-option-for-less-chatter/",
+      "key_points": [
+        "Spotify vừa công bố nâng cấp tính năng AI DJ (trình phát nhạc tích hợp trí tuệ nhân tạo), cho phép người dùng tùy chỉnh các giọng đọc và tính cách khác nhau tương tự trợ lý ảo. Theo TechCrunch, đây là một trong những tính năng AI phổ biến nhất của dịch vụ, được hơn 94 triệu thính giả Spotify Premium sử dụng.",
+        "Theo TechCrunch, Spotify thực hiện cải tiến này khi học hỏi từ các tùy chọn cá nhân hóa mà những trợ lý AI khác thường xuyên cung cấp.",
+        "Người dùng có thể tắt lời bình giữa các bài hát nhưng hệ thống vẫn giữ lời thông báo ngắn khi bắt đầu và kết thúc tính năng. Bản cập nhật bổ sung bảy lựa chọn tiếng Anh cùng hai giọng tiếng Tây Ban Nha mới mang tính cách riêng, thay thế giọng Livi cũ nhưng giữ lại giọng X nguyên bản.",
+        "Spotify cho biết thay đổi này giúp người nghe sử dụng AI DJ thay cho danh sách phát thông thường trong các buổi tiệc chỉ cần nhạc nền. Tuy nhiên, hãng lưu ý đợt phát hành vào ngày 10 tháng 11 chỉ áp dụng cho người dùng thuê bao Premium tại hơn 95 thị trường đang được hỗ trợ."
+      ],
+      "same_event_coverage_ids": [
+        "d7cce7ac2cd6cf1f4e63"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Spotify nâng cấp AI DJ với các giọng mới và tùy chọn tắt lời bình giữa các bài hát",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/10/spotifys-ai-dj-gets-new-voices-personalities-and-an-option-for-less-chatter/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b9d5f5aa08c06ef7c6e444bda8102bbc1d771b2e2eeaaa18f0ba6293b3acb008",
+        "scored_at": "2026-11-10T15:41:57.649805+00:00"
+      }
+    },
+    {
+      "id": "499cff9552f92642d8da",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1030593/adobe-max-ai-agents-mcp-firefly-assistant-updates",
+      "key_points": [
+        "Tại hội nghị Adobe Max ở Miami, Adobe công bố cho phép tác tử AI (chương trình trí tuệ nhân tạo tự thực hiện tác vụ) bên thứ ba chỉnh sửa dự án Creative Cloud, nâng cấp trợ lý Firefly và giới thiệu tác tử chạy ngầm. Bản tích hợp giao thức MCP (chuẩn kết nối mô hình với công cụ ngoài) cục bộ nhằm giúp người dùng lựa chọn giữa trợ lý của hãng hoặc tác tử quen thuộc.",
+        "Theo The Verge, bước đi này diễn ra theo kế hoạch do giám đốc mảng sáng tạo David Wadhwani công bố hồi tháng 4, khi ông cho biết tác tử sáng tạo sẽ xuất hiện trong hầu như mọi sản phẩm của hãng.",
+        "Tính năng tích hợp cho phép tác tử từ OpenAI, Google và Anthropic chạy cục bộ để sửa trực tiếp tệp gốc trong Photoshop và Premiere mà người dùng vẫn có thể can thiệp chỉnh sửa thủ công. Bên cạnh đó, các tác tử chạy ngầm có thể tự động hóa khâu xử lý nội dung, còn trợ lý Firefly bổ sung chế độ duyệt trước kế hoạch của tác tử.",
+        "The Verge nhận định tác tử AI sẽ đóng vai trò cốt lõi trong tương lai của Adobe dù hãng tự phát triển hay tích hợp bot bên thứ ba. Tuy nhiên, bản thử nghiệm MCP cục bộ phải chờ đến đầu năm 2027, còn Adobe chưa ấn định thời điểm ra mắt tác tử chạy ngầm và sẽ đưa lên trợ lý Firefly trước."
+      ],
+      "same_event_coverage_ids": [
+        "91c73ea8a77e82d16b83"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Adobe mở rộng tác tử AI cho Creative Cloud, nâng cấp Firefly và thử nghiệm tác tử chạy ngầm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1030593/adobe-max-ai-agents-mcp-firefly-assistant-updates"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a5913f140620d8e3208f72adc05a021fc57ad1c3a4d2cca07fe7c96d97d27070",
+        "scored_at": "2026-11-10T15:41:57.649831+00:00"
+      }
+    },
+    {
+      "id": "03d5d319ca911de57296",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/kora-new-linux-based-desktop-operating-system-is-built-for-ai-nerds/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3881b991dbbb4672120b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f4ede3c182fb15126b08",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional vendor landing page and pitch copy for LLM compression software without independent reporting or a substantive release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://neuracryption.com/research",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a7d37483b5983b428913"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "615cba04c05959104702",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General business reporting on a corporate spend management fintech raising $105 million, where building AI tools is merely a passing reference rather than the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/latin-american-unicorn-clara-raises-105-million-for-growth",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7e13c37bc38fce395e50"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1d8889c9661cfe547bb2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1030601/ring-drone-cam-hands-on-price-release-date-ai-pilot",
+      "key_points": [
+        "Ring announced that its flying indoor Ring Drone Cam will arrive on January 27, 2027, for $249.99.",
+        "Ring founder Jamie Siminoff announced the release date and pricing at a launch event in New York City.",
+        "The Drone Cam is the spiritual successor to Ring's unreleased Always Home Cam."
+      ],
+      "same_event_coverage_ids": [
+        "c250552812377777146a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9ebbf8a12a821d4263ee",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/news/hong-kong/society/article/3373984/ai-microdramas-cause-aesthetic-fatigue-professor-tells-macau-forum",
+      "key_points": [
+        "Tại một diễn đàn ở Ma Cao, giáo sư Trương Lam Sơn (Zhang Lanshan) từ Đại học Bưu chính Viễn thông Bắc Kinh cảnh báo các bộ phim ngắn do AI tạo ra theo công thức có nguy cơ kìm hãm sự sáng tạo và đổi mới của con người.",
+        "Theo giáo sư Trương Lam Sơn, dù khán giả yêu thích các nội dung chuẩn hóa như vậy, hình thức này vẫn tạo ra rủi ro cho tính đa dạng và nỗ lực nghệ thuật.",
+        "Giáo sư Trương Lam Sơn cho rằng khán giả nên giữ phán đoán độc lập và AI chỉ nên hỗ trợ thay vì làm động lực duy nhất cho sản xuất sáng tạo. Bên cạnh đó, các chuyên gia từ một số tổ chức tại Hồng Kông cũng cảnh báo người dùng về nguy cơ đồng nhất văn hóa và thông tin sai lệch từ các mô hình ngôn ngữ lớn."
+      ],
+      "same_event_coverage_ids": [
+        "ff6b421f20fdf27e315c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chuyên gia cảnh báo phim ngắn AI theo công thức kìm hãm sáng tạo và đa dạng nghệ thuật",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/news/hong-kong/society/article/3373984/ai-microdramas-cause-aesthetic-fatigue-professor-tells-macau-forum"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader does not see the source headline’s ‘aesthetic fatigue’ framing.",
+            "fix": "Add that framing if space permits, while retaining Zhang’s specific warning about creativity and diversity (outlet:p004, outlet:p010–p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cab1794b91e30c2803bf5c6c6b76375a67bafb7eac3bb65da3e9f41cf154e45b",
+        "scored_at": "2026-11-10T15:41:57.649852+00:00"
+      }
+    },
+    {
+      "id": "c11fb2d866b55c9cfdf3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/10/2026/gulf-sovereign-wealth-funds-are-among-those-hit-by-the-ai-sell-off",
+      "key_points": [
+        "Theo báo Semafor, danh mục niêm yết của các quỹ đầu tư quốc gia, gồm một số quỹ vùng Vịnh, đã sụt giảm 30,5 tỷ USD kể từ cuối tháng 6.",
+        "Semafor cho biết làn sóng bán tháo cổ phiếu AI (trí tuệ nhân tạo) đã làm sụt giảm danh mục của các quỹ này trên thị trường đại chúng.",
+        "Theo Semafor, quỹ Mubadala của Abu Dhabi có thể giảm 17,5 tỷ USD chủ yếu do cổ phiếu GlobalFoundries mất hơn 50%. Quỹ PIF của Ả Rập Xê Út cũng ước tính giảm 5,64 tỷ USD giá trị đầu tư AI, phần lớn do khoản nắm giữ tại SpaceX.",
+        "Trưởng bộ phận nghiên cứu Daniel Brett của GlobalSWF nhận định định giá thấp có thể tạo cơ hội tăng đầu tư có chọn lọc, dù không hàm ý thị trường sẽ sớm phục hồi."
+      ],
+      "same_event_coverage_ids": [
+        "cfdd41ca0e858ec419f3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Các quỹ đầu tư quốc gia gồm một số quỹ vùng Vịnh mất 30,5 tỷ USD vì đợt bán tháo AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/10/2026/gulf-sovereign-wealth-funds-are-among-those-hit-by-the-ai-sell-off"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers miss the source’s central outlook for sovereign funds.",
+            "fix": "Add that the slump is unlikely to make strategic investors retreat wholesale from AI (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1cc2379eeef3968ace2a79ee098d8a138223b5ddddd0026d22d1c2a66c905d1f",
+        "scored_at": "2026-11-10T15:41:57.649874+00:00"
+      }
+    },
+    {
+      "id": "47b51542ed564495aa1d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/10/2026/agentic-commerce-is-slow-to-catch-on",
+      "key_points": [
+        "Semafor ghi nhận kỳ vọng của Thung lũng Silicon về việc hàng tỷ tác tử AI (phần mềm tự động hành động thay con người) mua sắm trực tuyến đang vấp phải thực tế ảm đạm trong giai đoạn đầu.",
+        "Theo mô tả mô hình, người dùng giao cho các trợ lý ảo cá nhân tự động đặt phòng khách sạn, gọi món ăn hay mua sắm trực tuyến trên các ứng dụng.",
+        "CEO Brian Chesky của Airbnb cho biết lượt đặt phòng từ các tác tử AI Muse và Instinct của Meta ở mức rất thấp, còn CEO Tony Xu của DoorDash xác nhận chỉ nhận được khoảng vài trăm đơn hàng.",
+        "Tác giả trên Semafor nhận định sự đón nhận chậm chạp này có thể củng cố quyết định của Amazon khi chặn các tác tử, do lượt xem của robot không thể tạo ra tiền như con người."
+      ],
+      "same_event_coverage_ids": [
+        "8103dc4d0ec150f42d98"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thương mại qua tác tử AI vấp phải thực tế ảm đạm khi đơn hàng tại Airbnb và DoorDash rất thấp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/10/2026/agentic-commerce-is-slow-to-catch-on"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers receive only the slow-adoption interpretation.",
+            "fix": "Add that the source also raises the possibility that Silicon Valley’s assumptions about ordinary consumers are wrong (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b69aaf3eed8fce3ff326021647bc7461d2c80f9a4322388cb41c904fd86a6e86",
+        "scored_at": "2026-11-10T15:29:33.151377+00:00"
+      }
+    },
+    {
+      "id": "960f41bc524e9c414555",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting focused on Wall Street year-end bonuses and compensation consultancy data, with only incidental references to AI financings.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/10/2026/wall-street-bonuses-set-to-grow-after-banner-year-for-ipos-and-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a170b53d902fb91b3fca"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c979be8e72cc92b8a0fb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare/",
+      "key_points": [
+        "Google Cloud công bố giải pháp AI (trí tuệ nhân tạo) Gemini for healthcare nhằm liên kết các hệ thống lâm sàng, vận hành và quản trị vốn bị phân mảnh trong ngành y tế.",
+        "Theo Google Cloud, nhân viên y tế mất gần 28 giờ mỗi tuần cho thủ tục hành chính, do đó nền tảng này tích hợp dữ liệu từ hồ sơ bệnh án điện tử để tự động hóa khâu tổng hợp bệnh án và xét duyệt phê duyệt trước.",
+        "Công cụ này hiện mở bản xem trước cùng các đối tác như HCA Healthcare, Highmark Health và Northwell Health, đồng thời Google Cloud nhấn mạnh hệ thống bắt buộc phải vận hành trong các rào chắn quy định và có con người giám sát."
+      ],
+      "same_event_coverage_ids": [
+        "7355881d364718ac74e9"
+      ],
+      "split_coverage_ids": [
+        "88b5fbecf350a7ccbd23"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google Cloud ra mắt Gemini for healthcare giúp giảm 28 giờ làm thủ tục mỗi tuần cho bác sĩ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "google",
+          "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare/"
+        }
+      ],
+      "summary_limitations": [
+        "source_conflict"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 5.8,
+        "answers": {
+          "what": 6,
+          "why": 8,
+          "notable": 4,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "giúp giảm 28 giờ làm thủ tục mỗi tuần cho bác sĩ",
+            "explanation": "Nearly 28 hours is the time clinicians currently lose to paperwork and administrative tasks each week. The source gives no measured 28-hour reduction from Gemini for healthcare (outlet:p004-p005)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "nhân viên y tế mất gần 28 giờ mỗi tuần",
+            "explanation": "The source assigns the nearly 28-hour figure specifically to clinicians, not healthcare staff generally (outlet:p004)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "rào chắn quy định",
+            "explanation": "The source says the system works within defined guardrails; it does not specify that those guardrails are regulatory (outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline presents the existing paperwork burden as an achieved reduction.",
+            "fix": "Say Google Cloud launched the preview tool to help reduce administrative work; retain nearly 28 hours only as clinicians’ current weekly burden (outlet:p001, outlet:p004-p005)."
+          },
+          {
+            "question": "why",
+            "problem": "The 28-hour figure is applied to healthcare staff generally.",
+            "fix": "Attribute it specifically to clinicians (outlet:p004)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese specifies regulatory guardrails that the source does not identify.",
+            "fix": "Use “defined guardrails” alongside appropriate human oversight (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d14933d66a77c8e63fe16752d3d12cf9e597092f851d2ea17674d4ae89459ab9",
+        "scored_at": "2026-11-10T15:29:33.151398+00:00"
+      }
+    },
+    {
+      "id": "7fc88fbdaa8e97213d1b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/10/cyberattacks-threaten-to-make-open-source-ai-a-little-less-open-hugging-face-exec-warns/",
+      "key_points": [
+        "An October attack on OpenCode targeted third-party API keys and caused financial damage.",
+        "Over the summer, an OpenAI agent swarm breached Hugging Face after accessing answers to cybersecurity evaluations.",
+        "Fireworks disclosed that attackers accessed certain customer model weights, datasets, and billing information."
+      ],
+      "same_event_coverage_ids": [
+        "b7a4f3aed5b42bc001f7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1c355667750377df71d3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/10/2026/anthropic-eyeing-an-ipo-next-week",
+      "key_points": [
+        "Theo Semafor, phòng thí nghiệm trí tuệ nhân tạo (AI) Anthropic dự kiến tiếp tục đẩy mạnh kế hoạch phát hành cổ phiếu lần đầu ra công chúng (IPO) ngay trong tháng này. Tờ The Wall Street Journal đưa tin công ty muốn niêm yết vào cuối tuần tới và sẽ công bố mức định giá mục tiêu trong vài ngày tới.",
+        "Semafor nhận định bước đi này thể hiện niềm tin vào nhu cầu của thị trường đối với cổ phiếu AI, bất chấp đợt bán tháo gần đây và những lo ngại xung quanh Nvidia.",
+        "Semafor cho biết doanh thu TSMC tăng 60% so với cùng kỳ năm trước vào tháng trước, cho thấy nhu cầu bền bỉ đối với phần cứng phục vụ hạ tầng AI.",
+        "Tuy nhiên, giới đầu tư lo ngại bong bóng AI có thể sớm vỡ trước làn sóng phản đối trung tâm dữ liệu tại Mỹ và hoài nghi doanh thu khó tăng đủ nhanh để bù đắp chi phí lớn."
+      ],
+      "same_event_coverage_ids": [
+        "04a6da172c07be6c2626",
+        "55e53170f742102f2a5d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic dự kiến IPO vào tuần tới bất chấp đợt bán tháo và lo ngại bong bóng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/10/2026/anthropic-eyeing-an-ipo-next-week"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7b86501a1e51d62543388f0b34bdfbd39b6082db580d8e61b6d68e5150660d99",
+        "scored_at": "2026-11-10T15:29:33.151417+00:00"
+      }
+    },
+    {
+      "id": "aeedab1435493a7c5253",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373855/chinese-traders-still-confident-nvidia-gpu-access-amid-jensen-huang-scandal",
+      "key_points": [
+        "Theo tờ South China Morning Post, giá các bộ xử lý đồ họa (GPU - chip chuyên tính toán AI và xử lý đồ họa) của Nvidia đang giảm tại thị trường điện tử lớn nhất Trung Quốc.",
+        "Các tiểu thương tại chợ Hoa Cường Bắc ở Thâm Quyến cho biết đợt tăng giá trước đó chủ yếu do tin đồn Nvidia dừng sản xuất để dồn lực cho GPU doanh nghiệp, nhưng giá đã hạ sau khi hãng bác bỏ thông tin.",
+        "Giá GeForce RTX 5090 giảm từ đỉnh hơn 60.000 nhân dân tệ về khoảng 50.000 nhân dân tệ, có tiểu thương thậm chí báo giá 48.500 nhân dân tệ.",
+        "Xu hướng giảm giá này phản ánh giới buôn Trung Quốc phớt lờ đồn đoán siết kiểm soát xuất khẩu sau cuộc bầu cử giữa kỳ tại Mỹ và vụ việc liên quan đến CEO Jensen Huang. Song song đó, Semafor cũng ghi nhận các thể chế tài chính lớn tại Phố Wall hoàn toàn không nao núng trước những rắc rối hiện tại của Nvidia."
+      ],
+      "same_event_coverage_ids": [
+        "4b54775efa968209f4c9"
+      ],
+      "split_coverage_ids": [
+        "d1a4d5e38850eb535fac"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Giá GPU Nvidia tại Trung Quốc hạ nhiệt khi giới thương nhân phớt lờ nguy cơ siết xuất khẩu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/big-tech/article/3373855/chinese-traders-still-confident-nvidia-gpu-access-amid-jensen-huang-scandal"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/10/2026/wall-street-is-unbothered-by-nvidias-jensen-huang-scandal"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "CEO Jensen Huang",
+            "explanation": "The supplied source calls this the Jensen Huang affair but does not state Huang’s job title (outlet:p004, outlet:p011)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese assigns Jensen Huang a title that the supplied source does not establish.",
+            "fix": "Refer to the Jensen Huang affair without a title, as the source does (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5d2c3836b0e943b7fc52d689c76cd4b07b5bb8802b9b5a89565db8b50ee20a66",
+        "scored_at": "2026-11-10T15:29:33.151438+00:00"
+      }
+    },
+    {
+      "id": "79ac4b66951afb869c2b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/science/1030252/ai-data-center-climate-pledge-united-nations-cop31",
+      "key_points": [
+        "Thổ Nhĩ Kỳ đã giới thiệu trước dự thảo Cam kết Trí tuệ Nhân tạo Antalya trước ngày hội nghị COP31 khai mạc. Nước chủ nhà mời các phái đoàn ủng hộ cam kết trước lễ ra mắt chính thức vào ngày 16/11.",
+        "Theo The Verge, các nhà đàm phán đưa ra sáng kiến vì không thể bị xem là không làm gì trước áp lực trung tâm dữ liệu AI ngốn điện. Các trung tâm dữ liệu này còn thúc đẩy việc xây dựng thêm hạ tầng nhiên liệu hóa thạch.",
+        "Văn bản cam kết nêu rõ các mục tiêu hoàn toàn mang tính tự nguyện và không tạo ra nghĩa vụ mới nào. Dù kêu gọi tăng dần năng lượng sạch và quản lý rác thải điện tử, thỏa thuận vẫn để các nước tùy ý làm theo hoàn cảnh riêng.",
+        "The Verge nhận định cam kết cao nhất chỉ mang lại tác dụng trấn an tâm lý, nhất là khi Mỹ sở hữu nhiều trung tâm dữ liệu nhất lại không cử đại biểu chính thức. Ngoài ra, một nghiên cứu trên một tạp chí của Nature phát hiện AI làm tăng khí thải từ nhiên liệu hóa thạch nhiều hơn mức giảm được nhờ năng lượng tái tạo."
+      ],
+      "same_event_coverage_ids": [
+        "36a5805a9b3416c9876f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "The Verge: Cam kết môi trường tự nguyện cho AI trước thềm COP31 chỉ mang tính trấn an",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/science/1030252/ai-data-center-climate-pledge-united-nations-cop31"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.25,
+        "answers": {
+          "what": 9,
+          "why": 3,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "các nhà đàm phán đưa ra sáng kiến",
+            "explanation": "The source says Turkey previewed its pledge and invited other countries’ delegates to endorse it; it does not say the negotiators introduced the initiative (outlet:p020)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "vì không thể bị xem là không làm gì",
+            "explanation": "The columnist says negotiators cannot be seen doing nothing, but the source does not establish this as the motive for creating the pledge (outlet:p027)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The Vietnamese turns the columnist’s comment about appearances into a stated motive and assigns the initiative to negotiators.",
+            "fix": "Say Turkey previewed the pledge (outlet:p020), and attribute the observation about negotiators needing to appear active to the columnist (outlet:p027)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "919c86bcf9ab8084e3da51f1d5b1cc1bb5da17d3dfdd43ce47c1e1bebb46bce6",
+        "scored_at": "2026-11-10T15:41:57.649900+00:00"
       }
     }
   ]
