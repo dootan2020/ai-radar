@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-09T19:44:54.632321+00:00",
-  "input_generated_at": "2026-11-09T18:47:32Z",
+  "generated_at": "2026-11-10T00:04:48.892382+00:00",
+  "input_generated_at": "2026-11-09T20:43:46Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -42593,17 +42593,17 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/ai-artificial-intelligence/1029990/jensen-huang-the-spy-who-loved-me",
       "key_points": [
-        "The Verge đưa tin Nvidia mở cuộc điều tra CEO Jensen Huang sau khi ông thừa nhận không chung thủy trong thư gửi nhân viên.",
-        "Theo The Verge, Megaspeed có liên hệ với quân đội Trung Quốc và dùng chip bị cấm nhập khẩu vào nước này để bán năng lực tính toán. Tác giả Elizabeth Lopatto lo ngại với 60 cấp dưới trực tiếp, Jensen Huang có thể đã cung cấp thông tin theo yêu cầu hoặc để máy tính bị thâm nhập.",
-        "Đáng chú ý, Megaspeed đã mua 4,8 tỷ USD chip Nvidia từ thời điểm Alice Huang xuất hiện cùng Jensen Huang ở quán bar Đài Bắc năm 2024. Dù vậy, người phát ngôn John Rizzo của Nvidia nói với The New York Times rằng công ty không tiết lộ thông tin mật và cuộc gặp không có gì bất thường.",
-        "Tác giả Elizabeth Lopatto nhận định nếu Nvidia gặp rắc rối đặc biệt nghiêm trọng, các dịch vụ đám mây mới ít nhất cũng có thể chịu tổn hại. Tính đến thời điểm bài viết, The Verge cho biết Jensen Huang chưa có kế hoạch từ chức giám đốc điều hành."
+        "The Verge đưa tin Nvidia mở cuộc điều tra đối với Jensen Huang, người đồng thời là cổ đông cá nhân lớn nhất của công ty. Động thái diễn ra sau khi vị CEO gửi thư cho nhân viên thừa nhận bản thân từng không chung thủy.",
+        "Tác giả Elizabeth Lopatto cho biết Alice Huang bị cáo buộc được Bộ An ninh Quốc gia Trung Quốc tuyển dụng làm mỹ nhân kế, dù phía Trung Quốc phủ nhận điều này. Alice Huang là lãnh đạo tại Megaspeed, công ty có liên hệ với quân đội Trung Quốc và đã mua 4,8 tỷ USD chip Nvidia bị cấm nhập khẩu vào nước này.",
+        "Theo tác giả Elizabeth Lopatto, Jensen Huang có vị thế để lấy thông tin nếu được yêu cầu hoặc để ngỏ máy tính công ty cho sự thâm nhập. Tuy nhiên, người phát ngôn John Rizzo của Nvidia nói với The New York Times rằng công ty không tiết lộ thông tin mật và cuộc gặp không có gì bất thường.",
+        "Tác giả bài viết nhận định các dịch vụ đám mây mới có thể chịu tổn hại nếu Nvidia gặp rắc rối lớn, do hãng này giữ vai trò trung tâm tài trợ họ. Dù vậy, The Verge cho biết tính đến thời điểm bài viết, Jensen Huang chưa có kế hoạch từ chức giám đốc điều hành."
       ],
       "same_event_coverage_ids": [
         "a83b7145002c37f3a11e"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia điều tra CEO Jensen Huang sau nghi vấn quan hệ với nhân sự đối tác mua 4,8 tỷ USD chip",
+      "editorial_headline_vi": "Nvidia điều tra CEO Jensen Huang sau cáo buộc gián điệp liên quan đối tác Megaspeed mua 4,8 tỷ USD chip",
       "summary_sources": [
         {
           "id": "outlet",
@@ -42618,35 +42618,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.1,
+        "value": 8.3,
         "answers": {
           "what": 8,
-          "why": 5,
-          "notable": 7,
-          "meaning": 8
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "có thể đã cung cấp thông tin theo yêu cầu hoặc để máy tính bị thâm nhập",
-            "explanation": "The author speculates that Jensen Huang was in a position to obtain information Alice might have requested, or could have left company laptops available for infiltration. The source does not report that he disclosed information or that computers were infiltrated (outlet:p026)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader misses the allegation driving the article’s national security concern.",
-            "fix": "State that Alice Huang was alleged to have been recruited by China’s Ministry of State Security, and that China denied the allegation (outlet:p017)."
+            "question": "what",
+            "problem": "The reader is not told how Alice Huang’s alleged recruitment relates to Jensen Huang.",
+            "fix": "State that she was photographed with Jensen in 2024 and that the source reports their relationship as part of the allegation, while preserving its uncertainty (outlet:p020, outlet:p023)."
           },
           {
             "question": "notable",
-            "problem": "The Vietnamese turns hypothetical access and exposure into possible past disclosure or intrusion.",
-            "fix": "Keep the author’s distinction: Jensen Huang could have accessed requested information or left company laptops exposed; neither event is reported as having occurred (outlet:p026)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The potential harm to neoclouds lacks its explanation.",
-            "fix": "Add that the author sees Nvidia as central to financing these AI companies, which is why serious trouble at Nvidia could affect them (outlet:p031–p033)."
+            "problem": "The summary loses the arrangement that makes Megaspeed’s chip purchases significant.",
+            "fix": "Explain that Megaspeed builds data centers in Southeast Asia to sell compute to Alibaba using chips barred from import into China (outlet:p022)."
           }
         ],
         "writer_boats": [
@@ -42654,8 +42643,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "688b81332427dff9cd21e395aa0782393986d4a5c581c2a354a20b8d9239cb7e",
-        "scored_at": "2026-11-09T19:39:37.397600+00:00"
+        "prose_sha256": "8106f60ac7ca250198b5c4b6da7dbe0e3c80ba8c8a87c53522910c8854dc23a9",
+        "scored_at": "2026-11-10T00:01:21.327881+00:00"
       }
     },
     {
@@ -42735,17 +42724,17 @@
       "use_original_title": false,
       "source_url": "https://www.technologyreview.com/2026/11/09/1148182/nancy-pelosis-replacement-is-ready-to-regulate-ai/",
       "key_points": [
-        "Scott Wiener vừa đắc cử vào Quốc hội Mỹ đại diện San Francisco và có thể đóng vai trò then chốt trong chính sách AI liên bang. Trước đó, ông từng soạn dự luật SB 1047 và bảo trợ dự luật SB 53 tại California để kiểm soát rủi ro công nghệ.",
-        "Ông nhấn mạnh cần làm chậm lại do AI phát triển quá nhanh và nhân loại có thể vô thức bước vào thảm họa.",
-        "Chiến dịch tranh cử vào Quốc hội của Wiener đã nhận hơn 3 triệu USD từ Public First Action, tổ chức nhận tài trợ lớn từ Anthropic. Bác bỏ chỉ trích thân thiết công nghệ, ông thúc giục Quốc hội áp dụng cơ chế ngắt khẩn cấp và kiểm toán phòng thí nghiệm AI.",
-        "Wiener cho biết ông chỉ lạc quan thận trọng về khả năng Quốc hội kiểm soát AI do thành tích quản lý công nghệ còn yếu kém. Kế hoạch này còn gặp rào cản từ Tổng thống Donald Trump, người từng gọi các mối lo ngại về rủi ro thảm họa AI là trò lừa bịp."
+        "Theo MIT Technology Review, Thượng nghị sĩ Scott Wiener vừa đắc cử Quốc hội Mỹ đại diện San Francisco và có thể đóng vai trò then chốt trong việc định hình chính sách AI liên bang.",
+        "Wiener vốn tập trung vào rủi ro AI và dẫn báo cáo của METR làm bằng chứng cho thấy thời gian siết quản lý đang cạn dần. Báo cáo này được diễn giải là bằng chứng Anthropic đạt khả năng tự cải thiện đệ quy (recursive self-improvement: AI tự đóng góp vào tiến bộ của nó), điều ông cảnh báo có thể gây mất kiểm soát.",
+        "Tại California, ông từng soạn dự luật SB 1047 bị Thống đốc Newsom phủ quyết và bảo trợ dự luật SB 53 được ban hành, cả hai đều truyền cảm hứng cho liên bang. Lên Quốc hội, Wiener ủng hộ lập cơ quan quản lý liên bang do Hạ nghị sĩ Ro Khanna đề xuất, đồng thời thúc đẩy cơ chế ngắt khẩn cấp và bảo vệ người tố giác.",
+        "Wiener thừa nhận chỉ lạc quan thận trọng trước thành tích giám sát công nghệ yếu kém của Quốc hội, đồng thời lo ngại Tổng thống Donald Trump từng coi rủi ro thảm họa AI là trò lừa bịp. Dù vậy, ông nhận định tính khó đoán của ông Trump vẫn đem lại hy vọng mong manh rằng chính quyền sẽ hành động trước khi thảm họa xảy ra."
       ],
       "same_event_coverage_ids": [
         "7aa26de1a4e7b3d8c918"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Scott Wiener đắc cử Quốc hội Mỹ, chuẩn bị thúc đẩy luật quản lý AI trước lo ngại mất kiểm soát",
+      "editorial_headline_vi": "Scott Wiener đắc cử Quốc hội Mỹ, sẵn sàng thúc đẩy siết quản lý AI sau các dự luật tại California",
       "summary_sources": [
         {
           "id": "outlet",
@@ -42758,19 +42747,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.45,
+        "value": 8.7,
         "answers": {
-          "what": 10,
-          "why": 6,
-          "notable": 8,
-          "meaning": 9
+          "what": 8,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
         },
-        "hard_errors": [],
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "Thượng nghị sĩ Scott Wiener",
+            "explanation": "Wiener was a California state senator, not a US senator (outlet:p002)."
+          }
+        ],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader gets a general warning about fast AI progress but misses the specific concern that prompted the interview discussion.",
-            "fix": "Mention the METR report and say it was widely interpreted as evidence of recursive self-improvement, while preserving that qualification (outlet:p003–p005)."
+            "question": "what",
+            "problem": "The title can lead a reader to think Wiener was a US senator.",
+            "fix": "Identify him as a California state senator (outlet:p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The summary omits his opposition to broad federal preemption of state AI laws.",
+            "fix": "Add that he wants states to retain the ability to act on AI regulation (outlet:p011)."
           }
         ],
         "writer_boats": [
@@ -42778,8 +42778,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "346992ccb600d3a54731009bbb3ee3f66ad834fcd9f70f7538a0bd9a67420999",
-        "scored_at": "2026-11-09T19:39:37.397625+00:00"
+        "prose_sha256": "4d54b79bf2ab50ccf9db977c09fa80286cb0d971a36430fd7aea7ccc19b5bfd2",
+        "scored_at": "2026-11-10T00:04:48.887004+00:00"
       }
     },
     {
@@ -43052,17 +43052,17 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/tech/1029773/disney-adobe-generative-ai-partnership",
       "key_points": [
-        "Tập đoàn Walt Disney bắt tay với Adobe phát triển các mô hình AI tạo sinh (trí tuệ nhân tạo tạo nội dung mới) độc quyền hỗ trợ sản xuất. Thỏa thuận nhiều năm này giúp Disney tiếp cận sớm công nghệ từ Adobe cho các công viên, du thuyền và kênh ESPN.",
-        "Theo Adobe, sự hợp tác nhằm đẩy nhanh công việc và tạo ra sản phẩm an toàn thương mại từ các mô hình tùy chỉnh. Hệ thống được huấn luyện trên tri thức độc thù của Disney gồm phong cách hình ảnh, môi trường và đặc điểm nhân vật.",
-        "Adobe sẽ hỗ trợ mở rộng quy trình sáng tạo nội bộ tại Walt Disney Studios và định hình nội dung trên kênh ESPN. Trước đó, bộ phận Imagineering của Disney cũng dùng nền tảng Firefly của Adobe để phát triển công viên giải trí.",
-        "Đợt cắt giảm này được dự kiến là đợt sa thải thứ tư của hãng trong năm 2026."
+        "Tập đoàn Walt Disney hợp tác nhiều năm cùng Adobe phát triển các mô hình AI tạo sinh (trí tuệ nhân tạo tạo nội dung mới) độc quyền. Thỏa thuận này giúp Disney tiếp cận sớm công nghệ mới cho các công viên giải trí, du thuyền và kênh ESPN.",
+        "Theo thông cáo của Adobe, mối hợp tác nhằm đẩy nhanh tiến độ làm việc và tạo ra sản phẩm an toàn thương mại từ dữ liệu nhân vật cùng môi trường độc quyền của Disney.",
+        "Bộ phận Imagineering của Disney hiện đã dùng nền tảng Firefly, và hai bên sẽ tìm hiểu cách ứng dụng AI để định hình nội dung kênh ESPN cũng như mở rộng quy trình tại Walt Disney Studios.",
+        "Theo Bloomberg đưa tin, Disney đang chuẩn bị sa thải hàng nghìn nhân sự và hướng tới mức tiết kiệm 20% chi phí hàng năm, trong đợt cắt giảm dự kiến là lần thứ tư vào năm 2026."
       ],
       "same_event_coverage_ids": [
         "248b85851544f7db10cd"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Disney hợp tác Adobe phát triển mô hình AI tạo sinh độc quyền cho quy trình sản xuất",
+      "editorial_headline_vi": "Disney bắt tay Adobe phát triển AI tạo sinh độc quyền giữa kế hoạch cắt giảm hàng nghìn nhân sự",
       "summary_sources": [
         {
           "id": "outlet",
@@ -43075,30 +43075,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.05,
+        "value": 9.3,
         "answers": {
-          "what": 10,
+          "what": 9,
           "why": 9,
-          "notable": 9,
-          "meaning": 7
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "Adobe sẽ hỗ trợ mở rộng quy trình sáng tạo nội bộ tại Walt Disney Studios và định hình nội dung trên kênh ESPN",
-            "explanation": "Adobe will help expand internal creative workflows, but the companies will identify how AI can be used to shape ESPN content. The source does not say Adobe will directly shape that content (outlet:p018)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The reader may think Adobe’s role in shaping ESPN content is already settled.",
-            "fix": "Say Adobe will explore how AI could shape ESPN content (outlet:p018)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The final sentence refers to “this round of cuts” without introducing any layoff plans.",
-            "fix": "If retaining it, first attribute Bloomberg’s report that Disney was preparing to lay off thousands of staff and targeting 20 percent annual cost savings (outlet:p019)."
+            "question": "what",
+            "problem": "The reader misses a defining condition of the announced models.",
+            "fix": "Describe them as artist-led models tailored to Disney properties (outlet:p016–p017)."
           }
         ],
         "writer_boats": [
@@ -43106,8 +43095,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "2dddbe8d85f6e3029df36709f74d17eea104952d81f4108c139232616f720570",
-        "scored_at": "2026-11-09T19:39:37.397653+00:00"
+        "prose_sha256": "dbe929583c29b2454677773f0eef06f4b939933540bc3fbde35a6677f5265590",
+        "scored_at": "2026-11-10T00:01:21.327956+00:00"
       }
     },
     {
@@ -43477,6 +43466,1148 @@
         "95d232b366e25e294e4a"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "4d9c78e540a5d3d4936b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Product landing page and feature promotional copy for an AI assistant application without independent reporting or a substantive release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/liujiaqi2024/Free-ClaudeOpus-5.5",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6f7d43b54c1eb146f952"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b09ddd384e886e5e7c7c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/single-shot-and-agentic-retrieval-with-amazon-bedrock-managed-knowledge-base/",
+      "key_points": [
+        "Amazon mở rộng dải giá trị từ 0 đến 5 cho tham số số lượt lặp trên dịch vụ Bedrock Managed Knowledge Base, cho phép kết hợp tìm kiếm một lần, truy xuất tự quản (mô hình AI tự chia nhỏ câu hỏi và tìm kiếm lặp) cùng chế độ chỉ lấy dữ liệu trong cùng một giao diện.",
+        "Theo hãng, các ứng dụng cần giải pháp điều chỉnh nỗ lực tìm kiếm tương ứng với từng câu hỏi mà không phải tự xây dựng các hệ thống tách biệt cho những tác vụ đơn giản và phức tạp.",
+        "Ứng dụng có thể thiết lập mức lặp từ 1 đến 4 tùy theo độ phức tạp của câu hỏi, ví dụ đặt mức lặp bằng 1 kèm tạo phản hồi để truy xuất tài liệu mở tài khoản mà không cần viết lại truy vấn hay lập kế hoạch. Với tác vụ so sánh giữa các tài liệu chính sách, ứng dụng có thể đặt mức lặp bằng 4 cho phép tối đa ba vòng lập kế hoạch trong ví dụ ngân hàng giả định chứ không mô tả việc triển khai thực tế.",
+        "Amazon nhấn mạnh việc lựa chọn chế độ hoàn toàn do logic của ứng dụng quyết định chứ tham số này không tự động định tuyến."
+      ],
+      "same_event_coverage_ids": [
+        "57039a043eddd62c4ae5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon Bedrock mở rộng tham số lặp từ 0 đến 5 giúp trợ lý AI tùy biến độ sâu truy xuất",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/single-shot-and-agentic-retrieval-with-amazon-bedrock-managed-knowledge-base/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers do not learn the distinct use of value 0.",
+            "fix": "Explain that maxAgentIteration=0, with generation disabled, returns passages without a language-model call (outlet:p065, outlet:p069)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss how Amazon recommends choosing an iteration limit.",
+            "fix": "Add that developers should test representative questions for supported answers, latency, and cost, then use the lowest limit that meets each workflow’s needs (outlet:p070–p071)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "400292b610109eacc93fdb251893c3063202581359780481717d9b504da62a67",
+        "scored_at": "2026-11-09T23:42:45.418401+00:00"
+      }
+    },
+    {
+      "id": "e7b41c563c8e101b7fe3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/09/jensen-huang-pulls-out-of-elevenlabs-summit-amid-nvidia-controversy/",
+      "key_points": [
+        "Nvidia CEO Jensen Huang pulled out of the ElevenLabs Summit in New York and other speaking engagements including the Anthropic CEO Forum.",
+        "The withdrawals follow Huang admitting to an extramarital affair and Nvidia launching an investigation into his relationship with a suspected Chinese spy.",
+        "Huang apologized to his family and company colleagues in an internal memo.",
+        "Nvidia is an investor in ElevenLabs."
+      ],
+      "same_event_coverage_ids": [
+        "72d3116ffceb46fd0d58"
+      ],
+      "split_coverage_ids": [
+        "119e61b0559d7561694f"
+      ]
+    },
+    {
+      "id": "fbdf36c6d0b0b031c7bc",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare model benchmark scorecard on Artificial Analysis without an accompanying news announcement or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://artificialanalysis.ai/models/claude-fable-5-2",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8e27819091679ecf1794"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5892c0cb7396af2cb5cc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/introducing-claude-fable-5-2-on-aws/",
+      "key_points": [
+        "Amazon thông báo Claude Fable 5.2 và Mythos 5.2 đã khả dụng trên Amazon Bedrock và Claude Platform trên AWS. Fable 5.2 phục vụ công việc kỹ thuật tổng quát, còn Mythos 5.2 chỉ mở qua chương trình xác minh của Anthropic trong an ninh mạng và khoa học sự sống.",
+        "Theo Bloomberg, Anthropic ra mắt các mô hình mới nhằm củng cố vị thế dẫn đầu phát triển trí tuệ nhân tạo trước đợt chào sàn Phố Wall. The Verge cho biết công ty khẳng định hai mô hình này có cải tiến về lập trình, suy luận và thị giác.",
+        "Amazon cho biết khách hàng đủ điều kiện có thể dùng Fable 5.2 không lưu giữ dữ liệu đến ngày 30 tháng 6 năm 2027. Cơ chế Enterprise Frontier Safeguards đã khả dụng, nhưng phiên bản lưu trữ bằng khóa do khách hàng tự kiểm soát vẫn chưa ra mắt.",
+        "Theo mặc định, việc sử dụng Fable 5.2 yêu cầu lưu giữ dữ liệu tối đa 30 ngày và có người duyệt an toàn theo quy định Covered Model của Anthropic. Tại Amazon Bedrock, nhân sự của Amazon sẽ trực tiếp thực hiện việc duyệt an toàn này trong ranh giới AWS."
+      ],
+      "same_event_coverage_ids": [
+        "053ec31d1a8c34edb981",
+        "7fe0169327984cc528e9",
+        "b01f7ff1e47d0c76361c",
+        "df8282d0b6796a4cadc2"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon đưa Claude Fable 5.2 và Mythos 5.2 lên nền tảng AWS khi Anthropic củng cố vị thế dẫn đầu AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-claude-fable-5-2-on-aws/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1030005/anthropic-claude-fable-mythos-5-2"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-09/anthropic-unveils-new-fable-mythos-ai-models-ahead-of-ipo"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5c6ddbc094ef8d6f3ffe45535ac1a0943226d177d189fb0276a689d0fb4ba1b1",
+        "scored_at": "2026-11-09T23:54:53.025856+00:00"
+      }
+    },
+    {
+      "id": "1cff1239c8922e0328f0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/nvidia-nemotron-3-5-super-vl-is-now-available-in-amazon-sagemaker-jumpstart/",
+      "key_points": [
+        "Amazon thông báo mô hình NVIDIA Nemotron 3.5 Super VL đã có mặt trên SageMaker JumpStart, triển khai qua SageMaker Studio hoặc Python SDK. Mô hình thị giác - ngôn ngữ này nhận đầu vào gồm hình ảnh, video cùng văn bản và hỗ trợ ngữ cảnh 1 triệu token.",
+        "Nền tảng JumpStart cung cấp biến thể NVFP4 được lượng tử hóa để tối ưu hóa suy luận, bên cạnh bản trọng số tham chiếu đầy đủ BF16.",
+        "Mô hình sở hữu 120 tỷ tham số với 12 tỷ tham số kích hoạt mỗi token, kết hợp khung ngôn ngữ lai và bộ mã hóa thị giác C-RADIO. Trong thử nghiệm của Amazon, bản BF16 trên máy chủ ml.p5en.48xlarge đạt 140,85 token xuất mỗi giây, còn bản NVFP4 chạy trên phiên bản G7 với kích thước GPU nhỏ hơn.",
+        "Amazon nêu rõ các phép đo suy luận này không thể so sánh biệt lập định dạng số BF16 và NVFP4 do hai biến thể chạy trên các hệ thống GPU khác nhau. Dù tích hợp đầu dự đoán đa token MTP, cấu hình phục vụ của JumpStart không kích hoạt tính năng giải mã suy đoán (kỹ thuật hỗ trợ tăng tốc xuất văn bản)."
+      ],
+      "same_event_coverage_ids": [
+        "04c36a3be29191de9560"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon đưa mô hình Nemotron 3.5 Super VL lên SageMaker với hai biến thể NVFP4 và BF16",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/nvidia-nemotron-3-5-super-vl-is-now-available-in-amazon-sagemaker-jumpstart/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers learn that NVFP4 optimizes inference but miss the model’s intended applications.",
+            "fix": "Add the source’s examples: document intelligence, GUI understanding for computer-use agents, video question answering, and multimodal agents (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "488ae2d182b0aeff50a965c46a76c16edc94007b0f5bceaf448ae92446e31473",
+        "scored_at": "2026-11-09T23:54:53.025908+00:00"
+      }
+    },
+    {
+      "id": "3e9756d338109651052f",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-09/marvell-lumentum-deal-odds-near-coin-flip-as-ai-trade-shudders",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "06b66c6e035daf835192"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d58117e7c87d847078bb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bloomberg ETF IQ segment discussing broad tech ETF performance with only incidental, passing mention of AI names.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-09/-fluid-story-with-ai-tech-names-cinthia-murphy-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "13259fe1721aced5d7ba"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0cdd057b459d4c2b5e1c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.technologyreview.com/2026/11/09/1148194/the-backlash-about-data-centers-might-really-just-be-about-electricity/",
+      "key_points": [
+        "Tác giả bài viết trên MIT Technology Review nhận định làn sóng phản đối trung tâm dữ liệu bắt nguồn từ điện năng hơn là cuộc chiến văn hóa mà giới công nghệ lớn thừa nhận. Tại hạt Loudoun thuộc Virginia, một cơ sở trung bình có công suất 54 megawatt, vượt mức tiêu thụ điện của Sân bay Quốc tế Denver.",
+        "Theo tác giả, chính hậu quả từ việc rút quá nhiều điện từ lưới điện đã định hình sự phản kháng của người dân. Nhà hoạt động Elena Schlossberg tại bang Virginia cũng khẳng định mâu thuẫn này thực chất luôn xoay quanh nguồn điện thay vì các vấn đề văn hóa.",
+        "Các cuộc biểu tình đã dẫn tới quy định mới buộc trung tâm dữ liệu tại Virginia phải tự trả toàn bộ chi phí xây đường dây truyền tải mới thay vì phân bổ cho người dân. Ở nông thôn thiếu lưới điện, doanh nghiệp phải tự mang nguồn phát, như việc Anthropic được đưa tin chi 3,4 tỷ USD mua tuabin khí đốt.",
+        "Tác giả bài viết dự báo nếu phải tự phát điện tại chỗ, các trung tâm dữ liệu sẽ chuyển đến nơi ít người có khả năng kháng cự nhất. Tác giả cảnh báo tuabin khí và máy phát diesel tự phát vẫn gây ô nhiễm không khí và tất yếu ảnh hưởng đến cộng đồng xung quanh."
+      ],
+      "same_event_coverage_ids": [
+        "609380b7a63d863798c7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Làn sóng phản đối trung tâm dữ liệu AI tại Mỹ thực chất bắt nguồn từ áp lực tiêu thụ điện",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "mit-tech-review",
+          "url": "https://www.technologyreview.com/2026/11/09/1148194/the-backlash-about-data-centers-might-really-just-be-about-electricity/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 8,
+          "why": 6,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "thực chất bắt nguồn từ áp lực tiêu thụ điện",
+            "explanation": "The writer argues that the backlash is more about electricity than Big Tech admits, while expressly saying electricity is not its sole cause (outlet:p005, outlet:p018)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Anthropic được đưa tin chi 3,4 tỷ USD mua tuabin khí đốt",
+            "explanation": "The source says Anthropic reportedly agreed to pay $3.4 billion for gas turbines; it does not say the money had already been spent (outlet:p012)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The headline makes electricity the definitive cause, although the source identifies other reasons for opposition.",
+            "fix": "Say the writer considers electricity a larger factor than Big Tech admits, while acknowledging the other factors listed in the source (outlet:p005, outlet:p018)."
+          },
+          {
+            "question": "notable",
+            "problem": "The wording makes Anthropic’s reported turbine purchase sound completed.",
+            "fix": "Say Anthropic reportedly agreed to pay $3.4 billion for gas turbines (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "96fefb255debf9ab2925c6102d8c83703651493dec837e47c35866b6f1192c3b",
+        "scored_at": "2026-11-09T23:54:53.025945+00:00"
+      }
+    },
+    {
+      "id": "5ef93d9981a0db1c3c84",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1030084/apple-intelligence-usage-packs-ai-features-creator-studio-logic-pro",
+      "key_points": [
+        "The Verge đưa tin Apple vừa cập nhật Logic Pro với tùy chọn mua thêm lượt dùng Apple Intelligence có giá một lần 49,99 USD.",
+        "Theo bài viết, tính năng AI bị giới hạn do dựa vào mô hình đám mây của OpenAI hoặc Google Gemini. Apple cho biết hạn mức còn phụ thuộc vào độ phức tạp của cuộc hội thoại.",
+        "Logic Pro là ứng dụng đầu tiên áp dụng mức phí này, trang bị trợ lý AI giúp tạo bài hát và xử lý dự án. Người dùng có thể mua gói trong phần hiển thị mức sử dụng ở menu chính.",
+        "The Verge cho biết tùy chọn này dự kiến sẽ mở rộng sang nhiều ứng dụng khác của Apple trong tháng này. Dù vậy, gói bổ sung không hỗ trợ chia sẻ gia đình và sẽ hết hạn sau 12 tháng."
+      ],
+      "same_event_coverage_ids": [
+        "6aeb838252e7a352afe1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Apple thu phí một lần 49,99 USD mở rộng lượt dùng Apple Intelligence trên Logic Pro",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1030084/apple-intelligence-usage-packs-ai-features-creator-studio-logic-pro"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "03af8fe02c9b29a875dcc0d54404f35d2ba378da5edcd87877dca3f66144beb4",
+        "scored_at": "2026-11-09T23:42:45.418539+00:00"
+      }
+    },
+    {
+      "id": "2379109f43cc3c2befa8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Developer how-to guide and tutorial demonstrating how to build a gravity-compensation loop using NVIDIA Holoscan 5.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/make-a-robot-arm-feel-weightless-with-nvidia-holoscan-5/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ef7a37afe0bb6a23f333"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a5a8b63aa261f43b9a75",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "AWS blog post outlining a seven-layer reference architecture and design guidance for enterprise agents, functioning as a technical tutorial rather than news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/pluggable-agentic-ai-framework-a-seven-layer-composable-enterprise-agentic-ai-reference-architecture-on-amazon-bedrock-agentcore/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7c500c81ce2a2995139f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "caa9073cefb43725f1a5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/chatgpt-enterprise-aws-marketplace",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7e4651ec47c1e8f9105e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7d1e00daeb767a073fac",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor blog post detailing how customer CrossnoKaye deployed Amazon Bedrock AgentCore for industrial automation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-crossnokaye-grounds-physical-ai-with-amazon-bedrock-agentcore/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "410d529c86ff84ed9c78"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "76a095023b105d839ff0",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-09/menlo-agents-now-drive-80-of-enterprise-ai-usage-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0c3e6c85411e7b91ca46"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fd2de8e19aa7540e6cd1",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-09/nvidia-investor-governance-now-part-of-the-valuation-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a8f91f2d5fb3a2c6757e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f1fbd4b19d50f2bcf5b6",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-09/nominal-bets-on-ai-for-aerospace-and-defense-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "26ade7216ecd1fbf8ba5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "12c83389e580dec71d30",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.eetimes.com/deepx-tapes-out-second-gen-chip-projects-6-7x-performance-gain-with-lpddr5x-pim/",
+      "key_points": [
+        "Theo EE Times, công ty DeepX của Hàn Quốc vừa hoàn tất thiết kế vi mạch DX-M2 và đang phát triển tích hợp bộ nhớ LPDDR5x-PIM của Samsung. Vi mạch này được thiết kế để chạy các mô hình AI tới 100 tỷ tham số trên robot và drone ở mức công suất dưới 5 W.",
+        "Giám đốc điều hành Lokwon Kim cho biết mức công suất 5 W cho phép đưa AI lên thiết bị chạy pin như drone. Theo EE Times, vi mạch này nhằm đưa AI cục bộ vào thiết bị có giới hạn khắt khe về năng lượng và nhiệt lượng.",
+        "Theo mô phỏng của DeepX, việc chuyển tác vụ sang bộ nhớ LPDDR5x-PIM giúp tăng tốc độ xử lý 6,7 lần trên mô hình Llama3.1-8B so với khi chỉ chạy riêng DX-M2. Băng thông bộ nhớ của chip tăng gấp ba lần lên 150 GB/s, đồng thời DeepX cho biết NPU đạt 80 TOPS trên tiến trình 2 nanômét.",
+        "Theo ông Kim, việc đưa mô hình tới 100 tỷ tham số lên thiết bị có thể giảm hơn 80% lưu lượng tới trung tâm dữ liệu AI. Tuy nhiên, hiệu năng mô phỏng tăng 6,7 lần đòi hỏi điện năng tiêu thụ gấp 2,7 lần, và trình biên dịch vẫn chưa hoàn thiện cho phần cứng thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "c6eb3c082c76a21c3cb2"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepX hoàn tất thiết kế chip DX-M2 dưới 5 W, mô phỏng tăng tốc 6,7 lần với bộ nhớ PIM",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.eetimes.com/deepx-tapes-out-second-gen-chip-projects-6-7x-performance-gain-with-lpddr5x-pim/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.95,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "“Processing speed” is broader than the simulation’s measured output-token rate.",
+            "fix": "Specify that offloading GEMV operations is projected to increase tokens per second by 6.7 times for Llama3.1-8B versus DX-M2 alone (outlet:p029)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9b60c05059af5e8418fe98f53fb82d10b618ec5c9ce5789c43edf06b71fac756",
+        "scored_at": "2026-11-09T23:54:53.025971+00:00"
+      }
+    },
+    {
+      "id": "1f9b665cab8a4bd76d76",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.tomshardware.com/peripherals/wearable-tech/wearable-sleep-trackers-are-using-your-brainwaves-to-train-ai-models-without-explicit-user-consent-tens-of-millions-of-hours-of-eeg-data-harvested",
+      "key_points": [
+        "Theo điều tra của Science, nhiều công ty thiết bị đeo ban đầu không nêu rõ trong chính sách bảo mật việc dùng dữ liệu sóng não để huấn luyện mô hình AI. Các đơn vị này đã tích lũy hàng chục triệu giờ ghi điện não đồ (EEG, đo hoạt động điện não) từ người dùng thiết bị.",
+        "Theo Tom's Hardware, hệ thống tiếp nhận các bản ghi hoạt động điện trong não bộ thay cho khối lượng văn bản lớn. Mô hình học các mẫu hình lặp lại, có khả năng thích ứng nhận diện các trạng thái não hoặc hỗ trợ nghiên cứu.",
+        "Hãng Interaxon đã dùng 50.000 giờ ghi điện não huấn luyện AI và khẳng định đã gỡ thông tin định danh cá nhân trước khi xử lý. Doanh nghiệp này cùng Emotiv chỉ cập nhật chính sách sau khi Science chất vấn, trong đó Emotiv yêu cầu người dùng đồng ý tham gia mới sử dụng dữ liệu.",
+        "Theo Science, hơn hai phần ba số công ty được khảo sát cho phép chuyển giao dữ liệu cấp doanh nghiệp mà không cần người dùng đồng ý. Tom's Hardware lưu ý các kết quả nghiên cứu không đồng nghĩa thiết bị tiêu dùng có thể đọc suy nghĩ, do chỉ có một đến sáu điện cực so với 19 đến 25 điện cực ở thiết bị y tế."
+      ],
+      "same_event_coverage_ids": [
+        "643f1ef9cce6d425236a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhiều công ty thiết bị theo dõi giấc ngủ từng không nêu rõ việc dùng sóng não để luyện AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.tomshardware.com/peripherals/wearable-tech/wearable-sleep-trackers-are-using-your-brainwaves-to-train-ai-models-without-explicit-user-consent-tens-of-millions-of-hours-of-eeg-data-harvested"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fb2d69fa7f2a0724bd21d5aeb8ff259c5bf1851dbd1483f0b6cd013ee7443909",
+        "scored_at": "2026-11-09T23:54:53.025996+00:00"
+      }
+    },
+    {
+      "id": "a847d1340755ee53c98d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/thisisme6598/gemini_files/",
+      "key_points": [
+        "Theo tác giả trên GitHub, Google đã hủy cam kết năm 2023 và xác nhận nội dung từ Drive cùng email liên kết có thể chuyển vào quy trình người đánh giá. Google khuyến cáo người dùng không kết nối ứng dụng nếu chứa thông tin bảo mật không muốn người đánh giá nhìn thấy.",
+        "Theo tác giả, trên bản Gemini tiêu dùng đã bật ứng dụng liên kết, việc nạp ngữ cảnh diễn ra theo xác suất mà không cần gắn thẻ @Drive hay @Gmail. Quá trình này gồm cả trường hợp mô hình không kích hoạt tra cứu và không lấy dữ liệu cá nhân nào.",
+        "Thử nghiệm với email cước mạng cho thấy Gemini có thể tóm tắt chung hoặc trích xuất nguyên văn dữ liệu cá nhân. Tác giả ghi nhận mô hình có lúc nêu hóa đơn 122 USD ngày 4 tháng 9, nhưng có lần sao chép toàn bộ tên, số tài khoản hoặc trích xuất cả bức thư.",
+        "Theo tác giả bài viết, bộ lọc tự động và NER (nhận diện thực thể có tên) của Google không thể xóa sạch định danh như số tài khoản hay ngày giao dịch. Cam kết cô lập ban đầu đã bị dỡ bỏ, và các phiên trò chuyện chứa nội dung được nạp có thể chịu sự xem xét từ các nhà thầu đánh giá là con người."
+      ],
+      "same_event_coverage_ids": [
+        "768be34b0c6b05373852"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google xác nhận dữ liệu Drive và email liên kết trên Gemini có thể qua tay người đánh giá",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/thisisme6598/gemini_files/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "trên GitHub",
+            "explanation": "The supplied source does not identify GitHub as where the author published the account (outlet:p001–p022)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The Vietnamese assigns the account to GitHub, a platform the supplied source does not identify.",
+            "fix": "Attribute the claims simply to the author or the supplied account (outlet:p001–p022)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4a1f1a60486060f21af3b68b50440ee4eb540b278b239ebb86e841ea4d66b597",
+        "scored_at": "2026-11-09T23:54:53.026020+00:00"
+      }
+    },
+    {
+      "id": "eee402332b6dfec31663",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN repository pitch presenting tool demos and promotional text without independent reporting or a substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Dodaios/ste80-humanizer",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cef0dc0f9f90f223f7c8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c1b3a32ffab2200b4b7d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/us-news/2026/nov/09/parents-teachers-google-search-schools-ai",
+      "key_points": [
+        "Theo báo The Guardian, Google thông báo các trường học chọn chặn công cụ trí tuệ nhân tạo (AI) có thể mất quyền truy cập Google Search. Chính sách này đi kèm loạt công cụ AI mới dành cho lớp học do công ty vừa công bố.",
+        "Theo Google, nhà trường được quyền kiểm soát việc học sinh dùng AI, nhưng nếu chặn công cụ AI thì sẽ mất quyền dùng Search. Hãng cũng cung cấp các tùy chọn cho giáo viên và ban giám hiệu giới hạn việc sử dụng.",
+        "Đại diện Google cho biết quyền truy cập các sản phẩm AI và Search bị tắt hoàn toàn đối với tài khoản học sinh K-12 cho đến khi quản trị viên trường bật. Trước động thái này, một phụ huynh tại Virginia gọi đó là hành vi tống tiền, còn giáo viên tại Texas cho rằng cần dạy học sinh dùng AI đúng cách thay cho cấm đoán.",
+        "Báo The Guardian cũng ghi nhận lo ngại AI làm suy giảm tư duy phản biện, dù có ý kiến tại California xem đây là dịp giúp học sinh học cách chất vấn thông tin từ AI."
+      ],
+      "same_event_coverage_ids": [
+        "7318af47174fe2fb56a2"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google bị chỉ trích khi dọa cắt quyền truy cập Search nếu trường học chặn các công cụ AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.theguardian.com/us-news/2026/nov/09/parents-teachers-google-search-schools-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3fba39ea2a446629f708d3900dc64b8b30b7873d21f65fb46514f4a364dd05d0",
+        "scored_at": "2026-11-09T23:54:53.026041+00:00"
+      }
+    },
+    {
+      "id": "13d2f8cecf7d2536162b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://nvidianews.nvidia.com/news/a-message-to-our-company",
+      "key_points": [
+        "Hội đồng quản trị Nvidia đã mở cuộc điều tra độc lập sau khi Tổng giám đốc điều hành Jensen Huang thừa nhận ngoại tình. Nvidia là công ty giá trị thứ hai thế giới tại trung tâm ngành trí tuệ nhân tạo (AI).",
+        "Theo ông Huang, cuộc điều tra độc lập này được khởi động trước các lo ngại về an ninh quốc gia do truyền thông nêu ra.",
+        "Vào ngày 8 tháng 11, ông Huang gửi thông điệp thừa nhận không chung thủy và xin lỗi gia đình, đồng nghiệp cùng các cổ đông.",
+        "Theo Bloomberg, Nvidia đang đối mặt khủng hoảng chưa từng có trong lịch sử ba thập kỷ. Ông Huang tuyên bố ủng hộ và cam kết hợp tác toàn diện với cuộc điều tra."
+      ],
+      "same_event_coverage_ids": [
+        "a374ba9331f170d84fb5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hội đồng quản trị Nvidia mở cuộc điều tra độc lập sau khi CEO thừa nhận ngoại tình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidianews.nvidia.com",
+          "url": "https://nvidianews.nvidia.com/news/a-message-to-our-company"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-09/nvidia-probe-into-ceo-s-affair-adds-to-ai-trade-risks-video"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "mở cuộc điều tra độc lập sau khi CEO thừa nhận ngoại tình",
+            "explanation": "Huang says the board has initiated an investigation concerning reported national-security issues, but the supplied text does not say when it began relative to his admission (outlet:p006; coverage1:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline and opening sentence assert an unestablished sequence between the admission and the investigation.",
+            "fix": "Report the two developments without saying the investigation began afterward; identify the reported national-security concerns as its subject (outlet:p006; coverage1:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6ab8e34fd7cd0143610b559c21c171cce5b2281f23557d2b27817d9deded5715",
+        "scored_at": "2026-11-09T23:42:45.418652+00:00"
+      }
+    },
+    {
+      "id": "8513117dbee8a11e3e4f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Broad market overview focusing on oil prices and macroeconomic relief with only an incidental passing reference to Nvidia.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-09/s-p-500-futures-rise-as-oil-falls-nvidia-sinks-on-huang-affair",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0c3015d2908e871f0496"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2e34e84f0999c607fcd0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional vendor case study illustrating how Kuken Industries uses the OpenAI API to search historical engineering drawings.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/kuken",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "88e4f485ec4ef6c355e2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a989f1582084d0cf153c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "253a5814b57dbfb21d35",
+        "94aeb05dd73eb2bdebcd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0c77ff5e2b269a81b0d4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/research/claude-electronics-design",
+      "key_points": [
+        "Anthropic hợp tác với Diode Computers thử nghiệm Claude Fable 5.2 thiết kế ba thiết bị điện tử gồm thiết bị đàm thoại rảnh tay tích hợp micro và loa, trạm trợ lý giọng nói và thú ảo cầm tay. Mô hình vận dụng lập luận hình học trong bố trí bảng mạch, dựng hình trên phần mềm CAD (thiết kế hỗ trợ bằng máy tính) và hướng dẫn kỹ sư chế tạo nguyên mẫu hoạt động mà không cần sửa mạch.",
+        "Theo Anthropic, mô hình tạo bố cục thực tế bằng cách ưu tiên đi dây các kết nối truyền tín hiệu tốc độ cao hoặc dòng điện lớn. Claude cũng tự chạy kiểm tra DFM (đối chiếu thiết kế với giới hạn sản xuất của nhà máy) và phân loại kết quả thành lỗi cần xử lý hoặc cảnh báo có thể bỏ qua.",
+        "Nguyên mẫu thiết bị đàm thoại rảnh tay vẫn hoạt động sau nhiều tuần sử dụng khi được Diode lắp ráp bảng mạch và nạp firmware (phần mềm điều khiển thiết bị) theo thiết kế của Claude. Ở trạm trợ lý giọng nói, Claude chọn vỏ hình nêm, rút ngắn cổng micro từ 25 mm xuống khoảng 10 mm và nâng tần số cộng hưởng từ 3,4 kHz lên khoảng 8,9 kHz.",
+        "Anthropic cho biết hiện chưa rõ độ bền khi dùng lâu hay khả năng đạt chứng nhận thương mại của thiết bị, khi chúng mới chỉ là những nguyên mẫu ban đầu."
+      ],
+      "same_event_coverage_ids": [
+        "9b86a2d32358c6b4ea8a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic thử nghiệm Claude Fable 5.2 thiết kế ba nguyên mẫu điện tử hoạt động không cần sửa mạch",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://www.anthropic.com/research/claude-electronics-design"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.6,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader misses why this test marks progress over Anthropic’s earlier experiments.",
+            "fix": "Add that earlier models struggled to lay out circuit boards, while Fable 5.2 handled the geometric placement and routing more effectively (outlet:p002, outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f7a805e71c297cd07531bb3f3fc6cdd2bd9a1da9b9941ce7e08026f860524c97",
+        "scored_at": "2026-11-09T23:54:53.026063+00:00"
+      }
+    },
+    {
+      "id": "ad4d9bf888fcb213c6b3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.com/sshah03/recalc",
+      "key_points": [
+        "Dự án mã nguồn mở recalc của sshah03 biến mỗi ô bảng tính thành cửa sổ dòng lệnh chạy tác nhân AI (chương trình tự động thực hiện tác vụ) như Claude Code hay Codex. Người dùng có thể theo dõi tác nhân điền kế hoạch và kết quả vào từng ô trên lưới dữ liệu chung.",
+        "Theo tác giả sshah03, công cụ ra đời nhằm tái định hình bảng tính cho thời đại AI thay vì để mô hình điều khiển Excel hay Google Sheets. Các tác nhân Claude Code hoặc Codex tương tác với bảng tính qua máy chủ MCP (giao thức bối cảnh mô hình).",
+        "Ở ví dụ rà soát 12 hợp đồng công khai qua sáu câu hỏi, tác nhân điền 72 câu trả lời kèm trích dẫn đoạn văn từ tài liệu gốc. Khi phát hiện câu trả lời sai nguồn, người dùng có thể gắn cờ để công cụ tự chạy lại và sửa theo ghi chú.",
+        "Tác giả cho biết bảng tính lưu cục bộ không qua máy chủ, nhưng tác nhân vẫn gửi dữ liệu về nhà cung cấp và phần mềm tự kiểm tra cập nhật mỗi ngày. Ngoài ra, recalc mới ở bản thử nghiệm sớm (early beta) nên còn lỗi và không phải hộp cát (sandbox) bảo vệ quyền lệnh."
+      ],
+      "same_event_coverage_ids": [
+        "56deaf942d5ab468d8ae"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phần mềm recalc biến mỗi ô bảng tính thành dòng lệnh chạy tác nhân AI ở bản thử nghiệm sớm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/sshah03/recalc"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "công cụ tự chạy lại",
+            "explanation": "The demonstration says the answer was fixed by rerunning it with a note, not that flagging it triggers an automatic rerun (outlet:p020). Agent cells run only when the user says so (outlet:p055)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "tác nhân vẫn gửi dữ liệu về nhà cung cấp",
+            "explanation": "This reads as applying to all agents. Connected agents send data to their own providers, but the source also says users can run agents on a local model for private documents (outlet:p014)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader may expect flagging a wrong answer to rerun it automatically.",
+            "fix": "Say the demonstrated answer was flagged and fixed by rerunning it with a note; agent cells require the user to run them (outlet:p020, outlet:p055)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader may think sending document data to a provider is unavoidable.",
+            "fix": "Add that users can run agents on a local model for private documents (outlet:p014)."
+          },
+          {
+            "question": "notable",
+            "problem": "“câu trả lời sai nguồn” could suggest the citation itself was wrong.",
+            "fix": "Clarify that a wrong answer was caught by checking its own cited source (outlet:p020)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "43076bf43127f4e69be161e0f6982b4e91ba396cc6336aee303786ba13f958ac",
+        "scored_at": "2026-11-09T23:54:53.026085+00:00"
+      }
     }
   ]
 }
