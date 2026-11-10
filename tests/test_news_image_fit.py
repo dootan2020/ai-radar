@@ -1,8 +1,12 @@
-"""News pictures are drawn whole on every surface: the story page and modal, feed cards, thumbnails, the extension.
+"""A card's picture fills its frame; the story page and modal draw the whole picture.
 
-Charts, benchmark tables and screenshots carry a story's fact at their edges; the captain found one cut in half on
-2026-11-07 ("ảnh ... bị cắt mất ảnh ... không bị cắt thông tin"). The CSS checks are wiring checks, not browser
-geometry proof; the before/after captures in the pull request are the geometry proof.
+On 2026-11-07 the captain asked for pictures never to be cut ("không bị cắt thông tin"), and every frame drew the
+whole picture on a blurred copy of itself. On 2026-11-10 (19:3x) he reversed that for cards: "ảnh của các thẻ nó phải
+fit với khung không để khoảng trống trắng hoặc đen ... ảnh gốc có thể bị xén bị che anh không quan tâm". Card
+pictures (the carousel, story cards, thumbnails, repository and model previews) now fill their frame, cropped; the
+story page and modal, which are not cards, keep the whole picture. A drawn cover is never cropped: feed.js shows the
+whole file on its own flat surface colour. The CSS checks are wiring checks; tests/capture-be-mat.mjs measures the
+rendered page.
 """
 import json
 from pathlib import Path
@@ -16,14 +20,11 @@ SITE = ROOT / "site"
 EXT = ROOT / "extension"
 STYLESHEETS = [SITE / "feed.css", SITE / "story.css", EXT / "feed.css", EXT / "story.css"]
 
-# The only pictures allowed to be cropped. Avatars are faces, not news; the backdrop is a blurred copy whose crop
-# hides nothing because the whole picture sits on top of it; a stream's YouTube poster (4:3 hqdefault) carries its
-# 16:9 frame between black bars baked into the file, and cover at 16:9 trims exactly those bars. A drawn cover
-# (radar/covers.py, owner 2026-11-10 "Ok, dùng B, con số") is no news picture: its drawing sits in a safe area of a wider
-# or taller file, so cover at any slot trims only its plain surface.
-MAY_COVER = {".av-img", ".media-backdrop", ".tile-video img",
-             ".media-img.is-cover", ".thumb img.is-cover", ".story-media-img.is-cover"}
-NEWS_PICTURES = {".media-img", ".story-media-img", ".thumb img:not(.media-backdrop)", ".repo-img img", ".model-img img"}
+# Card pictures: they fill their frame. The story page's picture is no card: it is drawn whole.
+CARD_PICTURES = {".media-img", ".thumb img:not(.media-backdrop)", ".repo-img img", ".model-img img"}
+STORY_PICTURES = {".story-media-img"}
+# The one contain left in the card sheets: a drawn cover shown whole on its own surface colour (feed.js fitCover).
+COVER_WHOLE = {".media-img.is-cover.is-whole", ".thumb img.is-cover.is-whole"}
 
 
 def rules(css):
@@ -44,24 +45,40 @@ def rules(css):
 
 
 class NewsPictureCssTests(unittest.TestCase):
-    def test_only_non_news_pictures_are_cropped(self):
-        for sheet in STYLESHEETS:
-            for selectors, declarations in rules(sheet.read_text(encoding="utf-8")):
-                if declarations.get("object-fit") == "cover":
-                    with self.subTest(sheet=sheet.relative_to(ROOT).as_posix(), selectors=selectors):
-                        self.assertLessEqual(set(selectors), MAY_COVER)
+    def test_no_card_picture_is_banded(self):
+        # In the card sheets the only contain is a drawn cover shown whole on its own colour.
+        for folder in (SITE, EXT):
+            for name in ("feed.css", "trang-msn.css"):
+                for selectors, declarations in rules((folder / name).read_text(encoding="utf-8")):
+                    if declarations.get("object-fit") == "contain":
+                        with self.subTest(sheet=f"{folder.name}/{name}", selectors=selectors):
+                            self.assertLessEqual(set(selectors), COVER_WHOLE)
 
-    def test_every_news_picture_is_drawn_whole(self):
-        for sheet in (SITE / "feed.css", SITE / "story.css"):
-            for selectors, declarations in rules(sheet.read_text(encoding="utf-8")):
-                for selector in set(selectors) & NEWS_PICTURES:
-                    if "object-fit" in declarations:
-                        with self.subTest(sheet=sheet.name, selector=selector):
-                            self.assertEqual(declarations["object-fit"], "contain")
-        seen = {s for sheet in (SITE / "feed.css", SITE / "story.css")
-                for selectors, d in rules(sheet.read_text(encoding="utf-8")) if d.get("object-fit") == "contain"
-                for s in selectors}
-        self.assertLessEqual(NEWS_PICTURES, seen)
+    def test_every_card_picture_fills_its_frame(self):
+        fits = {}
+        for selectors, declarations in rules((SITE / "feed.css").read_text(encoding="utf-8")):
+            for selector in set(selectors) & CARD_PICTURES:
+                if "object-fit" in declarations:
+                    fits[selector] = declarations["object-fit"]
+        self.assertEqual(fits, {s: "cover" for s in CARD_PICTURES})
+        msn = {s: d["object-fit"] for selectors, d in rules((SITE / "trang-msn.css").read_text(encoding="utf-8"))
+               for s in selectors if s == ".nc-img" and "object-fit" in d}
+        self.assertEqual(msn, {".nc-img": "cover"})
+        # The story page is no card: its picture is still drawn whole.
+        story = {s: d["object-fit"] for selectors, d in rules((SITE / "story.css").read_text(encoding="utf-8"))
+                 for s in selectors if s in STORY_PICTURES and "object-fit" in d}
+        self.assertEqual(story, {".story-media-img": "contain"})
+
+    def test_a_drawn_cover_is_shown_whole_on_its_own_colour(self):
+        css = (SITE / "feed.css").read_text(encoding="utf-8")
+        self.assertIn(".media-img.is-cover.is-whole { object-fit: contain; }", css)
+        self.assertIn(".media:has(> .is-cover.is-whole) { background: var(--cover-edge, var(--color-fill)); }", css)
+        feed = (SITE / "feed.js").read_text(encoding="utf-8")
+        fit = re.search(r"function fitCover\(img\) \{[\s\S]*?\n\}", feed).group()
+        self.assertIn("g.getImageData(0, 0, 1, 1)", fit)
+        self.assertIn("slot.style.setProperty('--cover-edge'", fit)
+        self.assertIn("img.classList.add('is-whole');", fit)
+        self.assertIn("if (t instanceof HTMLImageElement && t.classList.contains('is-cover')) fitCover(t);", feed)
 
     def test_frames_reserve_their_place_before_the_picture_arrives(self):
         found = {}
@@ -122,18 +139,15 @@ class NewsPictureCssTests(unittest.TestCase):
 
 
 class NewsPictureMarkupTests(unittest.TestCase):
-    def test_feed_pictures_sit_on_their_backdrop(self):
+    def test_card_pictures_have_no_blurred_copy_behind_them(self):
         for path in (SITE / "feed.js", EXT / "feed.js"):
             source = path.read_text(encoding="utf-8")
             media = re.search(r"function mediaHTML\(img, size\) \{[\s\S]*?\n\}", source).group()
-            # Mẫu A (08/11) adds its own class beside media-img; the picture still follows its backdrop.
-            self.assertIn("${mediaBackdrop(img.src, { loading })}<img class=\"media-img", media)
+            self.assertIn("return `<img class=\"media-img nc-img\" src=", media)
+            self.assertNotIn("mediaBackdrop", source, path)
             # The hot list is the feed's one thumbnail list since 07/11 ("Vừa đăng" shows clock and headline only).
             thumbs = [line for line in source.splitlines() if 'class="thumb' in line and "<img" in line]
             self.assertEqual(len(thumbs), 1, path)
-            for line in thumbs:
-                with self.subTest(path=path.relative_to(ROOT).as_posix(), line=line.strip()[:60]):
-                    self.assertIn("${mediaBackdrop(img.src)}<img", line)
 
     @unittest.skipUnless(shutil.which("node"), "Node required to render the story view")
     def test_story_view_frames_the_whole_picture(self):

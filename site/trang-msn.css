@@ -60,7 +60,7 @@
   /* The outer width stops at --msn-panel-max and the panel is centred; the top row (.msn-top-in) stops at the same width. */
   max-width: var(--msn-panel-max); margin: 0 max(var(--msn-page-pad), calc((100% - var(--msn-panel-max)) / 2)) var(--space-48);
   padding: var(--msn-panel-pad);
-  background: var(--color-panel); border: 0; border-radius: var(--msn-panel-r);
+  background: var(--color-panel-front); border: 0; border-radius: var(--msn-panel-r);
   box-shadow: var(--msn-shadow-panel);
 }
 .newsbar.msn-head {
@@ -87,7 +87,7 @@
   transition: background-color var(--duration-150) ease, color var(--duration-150) ease;
 }
 .msn-head .filter-chip::before { border-radius: var(--radius-8); inset: 0; }
-.msn-head .filter-chip:hover:not([aria-pressed="true"]) { --header-control-bg: var(--color-fill); color: var(--color-ink); }
+.msn-head .filter-chip:hover:not([aria-pressed="true"]) { --header-control-bg: var(--color-surface); color: var(--color-ink); }   /* a white wash on the tinted panel */
 .msn-head .filter-chip[aria-pressed="true"] { --header-control-bg: transparent; color: var(--color-ink); }
 .msn-head .filter-chip[aria-pressed="true"]::after {
   content: ""; position: absolute; left: var(--space-12); right: var(--space-12); bottom: var(--space-4);
@@ -95,6 +95,15 @@
 }
 .head-actions { display: flex; align-items: center; gap: var(--space-8); margin-left: auto; flex: none; }
 .head-actions .sort-switch { margin: 0; }
+/* "Đáng đọc nhất / Mới nhất": the segmented control of "Giao diện" in Tùy chỉnh (below, .tc-seg shares its track and
+   its chosen side), so the chosen order shows as a raised pill on a grey track (captain, 10/11 19:3x). The header row's
+   pill inset is not defined here, so the old track (.sort-switch::before) never drew. */
+.msn-head .sort-switch { --tab-pill-inset: 0px; --header-pill-inset: 0px; gap: var(--msn-tight); }
+.msn-head .sort-switch::before { display: none; }
+.msn-head .sort-btn { padding: 0 var(--space-12); border-radius: var(--seg-thumb-r); }
+.msn-head .sort-btn::before { border-radius: var(--seg-thumb-r); }
+.msn-head .sort-btn[aria-pressed="true"] { --header-control-bg: var(--color-seg-thumb); }
+.msn-head .has-pill .sort-btn[aria-pressed="true"] { --header-control-bg: transparent; }
 .msn-head .ed-link {
   --header-pill-inset: 0px; --header-control-bg: var(--color-accent-fill); gap: var(--space-6); min-height: var(--btn-h); padding: 0 var(--space-16);
   font-size: var(--text-small); font-weight: var(--weight-bold); transition: transform var(--duration-150) var(--ease-press);
@@ -156,7 +165,7 @@
 .nc:active { transform: scale(0.985); }
 .nc-photo { position: relative; height: var(--msn-photo-h); flex: none; overflow: hidden; background: var(--color-fill); }
 .msn-card .media { aspect-ratio: auto; }
-.nc-img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform var(--motion-count) var(--ease-flow); }
+.nc-img { width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-focus); display: block; transition: transform var(--motion-count) var(--ease-flow); }
 /* min-width: 0 lets the body shrink beside a wide card's picture: the meta line's no-wrap parts would otherwise push
    the body past the card's edge (measured 2026-11-10: 412 px of text in a 343 px card at 375 px, 326/288 at 320 px). */
 .nc-body { display: flex; flex-direction: column; gap: var(--space-6); min-width: 0; min-height: 0; flex: 1; padding: var(--space-8) var(--space-12) var(--space-12); }
@@ -593,12 +602,28 @@
 .band-focus .nc-wide .nc-title { font-size: var(--msn-title-big); line-height: 1.3; letter-spacing: -0.02em; -webkit-line-clamp: 6; }
 .band-focus .nc-wide .nc-sum { -webkit-line-clamp: 4; }
 
-/* The next event: its days, name and place, then its countdown and calendar, laid through the card's height rather
-   than leaving one gap between the name and the countdown (captain, 10/11). */
-.band .msn-ev { padding: var(--space-12) var(--space-16) var(--space-16); }
-.band .ev-next { justify-content: space-evenly; gap: var(--space-12); }
-.band .ev-foot { margin-top: 0; }
-.band .ev-date b { font-size: var(--text-feature); }
+/* "Sắp diễn ra" (captain, 10/11 19:3x: "thẻ "sắp diễn ra" làm đang xấu, cho nền nhạt hay làm gì đó cho nó đẹp hơn"):
+   a coral-washed card read like a ticket. At its top the dates, set large like the calendar's day beside it, the name
+   and the place; under them the next events as a short schedule; at its foot the countdown, a white chip, and the
+   calendar buttons. One event or several, the parts keep their places and only the schedule comes and goes. */
+.band .msn-ev {
+  padding: var(--space-12) var(--space-16) var(--space-16);
+  background: linear-gradient(var(--color-accent-wash), var(--color-accent-wash)), var(--color-surface);
+}
+.band .ev-next { justify-content: flex-start; gap: var(--space-8); }
+.band .ev-date { margin-bottom: 0; }
+.band .ev-date b { font-size: var(--num-md); }
+.band .ev-foot { margin-top: auto; }
+.band .msn-ev .event-left {
+  display: inline-flex; align-items: center; min-height: var(--space-32); padding: 0 var(--space-12); border-radius: var(--radius-full);
+  background: var(--color-surface); color: var(--color-ink); font-weight: var(--weight-semibold);
+}
+.ev-more { display: flex; flex-direction: column; min-height: 0; margin: var(--space-4) 0 0; padding: 0; list-style: none; }
+.ev-more li { border-top: var(--msn-hair) solid var(--color-hair); }
+.ev-row { display: flex; align-items: center; gap: var(--space-12); min-height: var(--btn-h); padding: 0 var(--space-4); color: inherit; }
+.ev-row-d { flex: none; min-width: var(--space-32); font-size: var(--text-meta); font-weight: var(--weight-bold); color: var(--color-accent); }
+.ev-row-t { min-width: 0; font-size: var(--text-meta); font-weight: var(--weight-semibold); line-height: 1.35; color: var(--color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.msn-ev .ev-row:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); border-radius: var(--radius-8); }
 
 /* "Mô hình và mã nguồn": the tiles side by side, as many columns as tiles, one height. */
 .band-lab .band-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); grid-auto-rows: var(--band-h-lab); }
@@ -967,9 +992,15 @@
 .tc-switch:checked { background: var(--color-accent-fill); }
 .tc-switch:checked::before { transform: translateX(calc(var(--tc-switch-w) - var(--tc-switch-h))); }
 .tc-switch:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
-.tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-fill); }
-.tc-seg label { display: grid; place-items: center; min-height: var(--btn-h); border-radius: calc(var(--radius-8) - var(--msn-tight)); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2); cursor: pointer; transition: background-color var(--duration-150) ease, color var(--duration-150) ease; }
-.tc-seg label:has(input:checked) { background: var(--color-panel); color: var(--color-ink); font-weight: var(--weight-bold); box-shadow: var(--msn-shadow-rest); }
+/* The segmented control, one look wherever a choice of a few sides is shown: "Giao diện" here, the order in the
+   panel's header row (.msn-head .sort-switch). A grey track; the chosen side a raised pill. */
+.tc-seg, .msn-head .sort-switch { padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }
+.tc-seg label:has(input:checked), .msn-head .sort-switch .tab-pill, .msn-head .sort-btn-compact::before {
+  background: var(--color-seg-thumb); box-shadow: var(--msn-shadow-rest); border-radius: var(--seg-thumb-r);
+}
+.tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); }
+.tc-seg label { display: grid; place-items: center; min-height: var(--btn-h); border-radius: var(--seg-thumb-r); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2); cursor: pointer; transition: background-color var(--duration-150) ease, color var(--duration-150) ease; }
+.tc-seg label:has(input:checked) { color: var(--color-ink); font-weight: var(--weight-bold); }
 /* A phone draws no picture, so the layout and the picture switch have nothing to change there. */
 @media (max-width: 767px) {
   .tc-wide { display: none; }

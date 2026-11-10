@@ -242,10 +242,10 @@ for (const image of [
     assert.ok(html.includes(`src="${image.src}"`));
     assert.ok(!html.includes('class="cover') && !html.includes('rejected.example'));
   }
-  // News pictures are drawn whole on their blurred backdrop (captain, 07/11), in the carousel and on cards.
+  // A card's picture fills its frame with no blurred copy behind it (captain, 10/11 19:3x), in the carousel and on cards.
   for (const html of [feed.leadHTML([item]), feed.msnCard(item, 'big')]) {
     assert.ok(html.includes(`src="${image.src}"`));
-    assert.ok(html.includes('class="media-backdrop'), 'the picture sits on its backdrop');
+    assert.ok(!html.includes('media-backdrop'), 'no blurred copy behind a card picture');
     assert.ok(!html.includes('Translated') && !html.includes(story.title));   // no label on the front page (10/11)
     assert.ok(html.includes(story.headline_vi));
     if (image.via === 'ai') assert.ok(html.includes('Ảnh minh hoạ do AI tạo'));
@@ -674,10 +674,14 @@ assert.ok(eventCards.includes('ctz=Australia%2FSydney'));
 eventFeed.render(curatedEvents, [{id:'event-story', title:bengaluru.title, url:bengaluru.url, coverage:[]}]);
 assert.deepEqual(eventFeed.calOf({title:bengaluru.title, url:bengaluru.url}), bengaluruCal);
 // The front page's card beside the calendar: the nearest event with its countdown, calendar export and source; the
-// rest behind "Xem tất cả" with no count; a live stream above it; nothing at all when nothing is coming.
+// next two as short schedule rows (captain, 10/11 19:3x); all of them behind "Xem tất cả" with no count; a live stream
+// above it; nothing at all when nothing is coming.
 const nextCard = eventFeed.next(curatedEvents);
 assert.match(nextCard, /class="msn-card msn-ev"/);
-assert.ok(nextCard.includes(bengaluru.title) && !nextCard.includes(sydney.title), 'one event, the nearest');
+const lead = nextCard.slice(0, nextCard.indexOf('<ol class="ev-more"'));
+assert.ok(lead.includes(bengaluru.title) && !lead.includes(sydney.title), 'the nearest event leads');
+const schedule = nextCard.slice(nextCard.indexOf('<ol class="ev-more"'));
+assert.ok(schedule.includes(sydney.title) && schedule.includes(`href="${sydney.url}"`), 'the next event is a schedule row');
 assert.match(nextCard, /class="event-left cd is-soon"/);
 assert.ok(nextCard.includes(`data-cal-ev="${bengaluru.id}"`) && nextCard.includes('ctz=Asia%2FKolkata'));
 assert.ok(nextCard.includes(`href="${bengaluru.url}"`));

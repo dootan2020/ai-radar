@@ -3,7 +3,8 @@
 // same fixture). The forecast is a made-up Open-Meteo answer, so the weather card draws its two page dots.
 // For each page, layout and window (1440x900, 1920x1080): the search pill's vertical middle against the halfway point
 // between the window's top edge and the panel's, the corners' tops, sideways scroll. On the website at 1440: each row of
-// dots, its dots' drawn style and the gaps between them. Prints one JSON line; tests/test_tim_kiem_giua.py checks it.
+// dots, its dots' drawn style and the gaps between them. On every page the panel's and a card's fills and the order
+// control's track and chosen side. Prints one JSON line; tests/test_tim_kiem_giua.py and test_be_mat.py check it.
 // Usage: node tests/verify-top-search.mjs [--out <dir>]   (--out also saves screenshots; nothing under site/ is written)
 import fs from 'node:fs/promises';
 import http from 'node:http';
@@ -63,7 +64,15 @@ const MEASURE = () => {
   const pill = [...document.querySelectorAll('.msn-top :is(.ns-field, .web-field)')].find(e => r(e).height > 0);
   const s = r(pill), panel = r(document.querySelector('#top'));
   const corners = ['#top-now', '#tc-open', '.tool-launcher-button'].map(q => r(document.querySelector(q))).filter(b => b && b.height > 0);
-  return { layout: document.documentElement.dataset.layout || 'full', scrollY: scrollY,
+  // The panel and a card (their fills), the order control's track and its chosen side.
+  const bg = el => el ? getComputedStyle(el).backgroundColor : null;
+  const sw = document.querySelector('.msn-head .sort-switch'), thumb = sw && sw.querySelector('.tab-pill');
+  const pb = thumb && thumb.getBoundingClientRect();
+  const surfaces = { panel: bg(document.querySelector('#top')), card: bg(document.querySelector('#top-list')),
+    track: bg(sw), pill: thumb ? { bg: bg(thumb), opacity: getComputedStyle(thumb).opacity, shadow: getComputedStyle(thumb).boxShadow,
+      w: Math.round(pb.width), h: Math.round(pb.height) } : null,
+    pressed: sw ? sw.querySelector('.sort-btn[aria-pressed="true"]:not(.sort-btn-compact)')?.getBoundingClientRect().width : null };
+  return { layout: document.documentElement.dataset.layout || 'full', scrollY: scrollY, surfaces,
     searchTop: s.top, searchH: s.height, searchMid: s.top + s.height / 2, panelTop: panel.top, half: panel.top / 2,
     off: s.top + s.height / 2 - panel.top / 2, cornerTops: corners.map(b => Math.round(b.top)),
     cornerMids: corners.map(b => b.top + b.height / 2), sideways: document.scrollingElement.scrollWidth > innerWidth };

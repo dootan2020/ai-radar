@@ -23,7 +23,7 @@ import { shown, uniqCoverage } from './titles.js';
 import { headlineShown, hasEditorialSummary, sourceDescriptionMark } from './editorial-headline.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote, dateStart, nextDay } from './calendar.js';
 import { WORTH, fallbackWorth, hotEligible } from './worth-score.js';
-import { renderStoryHTML, mediaBackdrop } from './story.js';
+import { renderStoryHTML } from './story.js';
 import { createArenaView, loadArena, modelName, makerName, scoreText } from './arena.js';
 import { createNewsSearch } from './tim-tin.js';
 import { cachedSnapshot, normalizeSnapshot } from './snapshot.js';
@@ -189,19 +189,53 @@ function markImgLoaded(img) {
   }
 }
 
+/* A drawn cover is never cropped, so none of its text is cut (captain, 10/11 19:3x, the image fill: our own covers
+   keep "Jensen Huang", "NVIDIA Newsroom", "1 triệu token" whole). Its surface is one flat colour that runs to every
+   edge of the file (covers/templates), so the whole file is shown and the rest of the slot is painted that colour, read
+   from the file's corner pixel: the drawing fills the slot without a visible band. The slot picks the nearer of the
+   cover's two files (wide 2.10:1, tall 1:1) so the drawing stays as large as it can. Until the colour is read, or if it
+   cannot be, the file fills the slot cropped from its centre, where the template keeps the drawing. */
+function fitCover(img) {
+  const slot = img.parentElement;
+  if (!slot || !img.naturalWidth) return;
+  const ratio = slot.clientWidth / Math.max(1, slot.clientHeight);
+  const want = img.dataset[ratio >= 1.3 ? 'wide' : 'tall'];   // past 1.3 the wide file's drawing is the larger one
+  if (want && img.getAttribute('src') !== want) { img.setAttribute('src', want); return; }   // fitted again on load
+  if (!slot.style.getPropertyValue('--cover-edge')) {
+    try {
+      const c = document.createElement('canvas'); c.width = c.height = 1;
+      const g = c.getContext('2d');
+      g.drawImage(img, 0, 0, 1, 1, 0, 0, 1, 1);
+      const [r, gr, b] = g.getImageData(0, 0, 1, 1).data;
+      slot.style.setProperty('--cover-edge', `rgb(${r} ${gr} ${b})`);
+    } catch { return; }
+  }
+  img.classList.add('is-whole');
+}
+let coverRefit = 0;
+function watchCoverFit() {
+  addEventListener('resize', () => {
+    clearTimeout(coverRefit);
+    coverRefit = setTimeout(() => document.querySelectorAll('img.is-cover').forEach(img => { if (img.complete) fitCover(img); }), 150);
+  });
+}
+
 function watchImageLoad() {
   document.addEventListener('load', e => {
     const t = e.target;
     if (t instanceof HTMLImageElement && (t.classList.contains('media-img') || t.closest('.thumb, .tile-video, .repo-img, .model-img'))) {
       markImgLoaded(t);
     }
+    if (t instanceof HTMLImageElement && t.classList.contains('is-cover')) fitCover(t);
   }, true);
+  watchCoverFit();
 }
 
 function hydrateLoadedImages(root = document) {
   root.querySelectorAll('.media-img, .thumb img, .tile-video img, .repo-img img, .model-img img').forEach(img => {
     if (img.complete && img.naturalWidth > 0) {
       markImgLoaded(img);
+      if (img.classList.contains('is-cover')) fitCover(img);
     }
   });
 }
@@ -997,10 +1031,20 @@ function renderNext() {
     event = `<div class="ev-next${st ? ` ${statusClass(st)}` : ''}"${st ? ` data-sid="${esc(st.id)}"` : ''}>
       <a class="ev-link list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>${evDateHTML(e)}<span class="sr">${esc(range)}: </span>
         <span class="ev-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>${rest ? `<span class="ev-when">${esc(rest)}</span>` : ''}</a>
+      ${evMoreHTML(events.slice(1, 3))}
       <div class="ev-foot">${countdownHTML(e)}${calButtons(eventCal(e), st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</div></div>`;
   }
   return `<section class="msn-card msn-ev" id="su-kien" aria-labelledby="ev-h">
     <div class="ev-head"><h2 id="ev-h">${live ? 'Đang phát' : 'Sắp diễn ra'}</h2>${all}</div>${stream}${event}</section>`;
+}
+/* The events after the next one, one short row each (its first day, its name), so a card with several events reads as
+   a schedule (captain, 10/11 19:3x: "thẻ "sắp diễn ra" làm đang xấu"). The front page shows at most two. */
+function evMoreHTML(list) {
+  if (!list.length) return '';
+  return `<ol class="ev-more" aria-label="Tiếp theo">${list.map(e => {
+    const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(e.start_date || '');
+    return `<li><a class="ev-row list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener">${d ? `<span class="ev-row-d num">${+d[3]}/${+d[2]}</span>` : ''}<span class="ev-row-t"${langAttr(e.title)}>${esc(e.title)}</span></a></li>`;
+  }).join('')}</ol>`;
 }
 /* "Sắp diễn ra" with nothing coming and no story to show: one calm line where the list would be. */
 const eventsEmptyHTML = () => '<p class="msn-card ev-empty" role="status">Chưa có sự kiện nào sắp diễn ra.</p>';
@@ -1023,7 +1067,7 @@ function renderHot(list = HOT) {
       // A drawn cover (radar/covers.py) fills the square from its tall file; it has no backdrop to sit on.
       const drawn = img.kind === 'cover' && img.src ? `<img class="is-cover" src="${esc(img.tall)}" alt="" width="144" height="144" loading="lazy" decoding="async">` : '';
       return `<li><a class="hot-row list-row ${statusClass(st)}" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
-        <span class="thumb" data-id="${esc(st.id)}">${drawn || (img.src ? `${mediaBackdrop(img.src)}<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st))}</span>
+        <span class="thumb" data-id="${esc(st.id)}">${drawn || (img.src ? `<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st))}</span>
         <span class="hot-rank num" aria-hidden="true">${i + 1}</span>
         <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span><span class="hot-why">${translationMark(t)}${whyHTML(st)}</span></span></a></li>`;
     }).join('')}</ol></section>`;
@@ -1860,15 +1904,15 @@ const srcOf = st => { const t = titleOf(st), c = t.cov || covsOf(st)[0] || {}; r
    the story page's and the story modal's footer. */
 const metaHTML = st => { const s = srcOf(st); return `<p class="nc-meta">${markHTML(st)}<span class="nc-who"><span class="nc-fav" aria-hidden="true">${avatar(s.face, 'xs')}</span><span class="nc-src">${esc(s.name)}</span></span><span class="nc-when"><span class="nc-dot" aria-hidden="true"></span>${timeEl(st.published_at)}</span></p>`; };
 const aiBadgeHTML = img => img.via === 'ai' ? '<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>' : '';
-/* A news picture is drawn whole on a blurred copy of itself (captain, 07/11: "không bị cắt thông tin"), inside the slot
-   Mẫu A gives it, so a chart or a screenshot keeps its edges. */
+/* A card's picture fills the slot Mẫu A gives it (captain, 10/11 19:3x: "phần hiển thị hình ảnh của thẻ phải dùng hết,
+   ảnh gốc có thể bị xén bị che anh không quan tâm"): cropped, never banded. */
 function mediaHTML(img, size) {
   const loading = size === 'lead' ? 'eager' : 'lazy';
-  // A cover (drawn from the story's facts, radar/covers.py) fills its slot: the drawing sits in a safe area of a wider
-  // or taller file, so cropping only trims plain surface. The wide card's half is narrow, so it takes the tall file.
-  if (img.kind === 'cover') return `<img class="media-img nc-img is-cover" src="${esc(size === 'wide' ? img.tall : img.src)}" alt="" width="640" height="360" loading="${loading}" decoding="async">`;
+  // A cover (drawn from the story's facts, radar/covers.py) keeps its text: fitCover picks the file and the fit for the
+  // slot it lands in. The wide card's half is usually narrow, so it starts on the tall file.
+  if (img.kind === 'cover') return `<img class="media-img nc-img is-cover" src="${esc(size === 'wide' ? img.tall : img.src)}" data-wide="${esc(img.src)}" data-tall="${esc(img.tall || img.src)}" alt="" width="640" height="360" loading="${loading}" decoding="async">`;
   const [w, h] = size === 'lead' ? [1280, 720] : [640, 360];
-  return `${mediaBackdrop(img.src, { loading })}<img class="media-img nc-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadgeHTML(img)}`;
+  return `<img class="media-img nc-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadgeHTML(img)}`;
 }
 function leadHTML(list) {
   if (!list.length) return '';
