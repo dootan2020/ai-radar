@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-10T07:48:47.567103+00:00",
-  "input_generated_at": "2026-11-10T06:48:52Z",
+  "generated_at": "2026-11-10T11:43:27.604323+00:00",
+  "input_generated_at": "2026-11-10T10:45:48Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -45601,17 +45601,17 @@
       "use_original_title": false,
       "source_url": "https://simonwillison.net/2026/Nov/9/llm-anthropic/",
       "key_points": [
-        "Tác giả Simon Willison đã phát hành gói phần mềm llm-anthropic 0.31 vào ngày 9 tháng 11 năm 2026 sau khi Anthropic ra mắt hai mô hình mới là Fable 5.2 và Mythos 5.2. Công cụ này cho phép người dùng chạy câu lệnh trực tiếp qua mô hình Fable 5.2 trên giao diện dòng lệnh.",
-        "Bản cập nhật được cung cấp nhằm hỗ trợ lập trình viên kiểm thử Fable 5.2, mô hình được Anthropic tuyên bố đã giải quyết hai vấn đề vật lý lỗ đen.",
-        "Khi thử nghiệm tạo hình ảnh, cấp độ suy luận max bị lỗi cạn token và không trả về ảnh sau 128.000 token suy nghĩ, lặp lại lỗi từng gặp trên Opus 5.5.",
-        "Theo Simon Willison, mô hình này giảm 20% chi phí so với phiên bản Fable 5.1 trước đó, với giá 8 USD mỗi triệu token đầu vào và 40 USD mỗi triệu token đầu ra."
+        "Simon Willison đã phát hành bản cập nhật llm-anthropic 0.31 vào ngày 9 tháng 11 năm 2026 sau khi Anthropic ra mắt hai mô hình Fable 5.2 và Mythos 5.2.",
+        "Để người dùng có thể chạy câu lệnh qua Fable 5.2, Simon Willison đã bổ sung các mô hình vừa ra mắt vào gói phần mềm llm-anthropic.",
+        "Mức suy luận tối đa không trả về kết quả do cạn token sau 128.000 token suy nghĩ khi tác giả thử nghiệm tạo hình bồ nông ở năm cấp độ. Theo Simon Willison, đây là lỗi từng xuất hiện trên Opus 5.5 nhưng lần đầu tiên xảy ra với dòng mô hình Fable.",
+        "Theo Simon Willison, Fable 5.2 có giá 8 USD cho mỗi triệu token đầu vào và 40 USD cho mỗi triệu token đầu ra, thấp hơn 20% so với Fable 5.1."
       ],
       "same_event_coverage_ids": [
         "e6545dbc913e168a24e6"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Simon Willison phát hành llm-anthropic 0.31 hỗ trợ mô hình Claude Fable 5.2",
+      "editorial_headline_vi": "Simon Willison ra mắt llm-anthropic 0.31 cho phép chạy câu lệnh trên mô hình Fable 5.2",
       "summary_sources": [
         {
           "id": "outlet",
@@ -45622,37 +45622,7 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 8.15,
-        "answers": {
-          "what": 10,
-          "why": 3,
-          "notable": 9,
-          "meaning": 9
-        },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "Bản cập nhật được cung cấp nhằm hỗ trợ lập trình viên kiểm thử Fable 5.2",
-            "explanation": "Willison says he added the new models so users can run prompts through them. He does not state a purpose of helping developers test Fable 5.2 (outlet:p004–p005)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader is given an unsupported developer-testing purpose.",
-            "fix": "Say that Willison added the newly released models so users can run prompts through them (outlet:p003–p005)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "3e716621160c6882fcff1b9b83ad161f6d58ec6558cd8a636b061558243f2c10",
-        "scored_at": "2026-11-10T07:29:44.584824+00:00"
-      }
+      "score": null
     },
     {
       "id": "44bb6093a440b817c078",
@@ -45967,6 +45937,912 @@
         "8ce406aa7564bb534fad"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "d2b3733a185eb6baf8e6",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-10/anthropic-filing-misstep-adds-drama-ahead-of-ipo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "04a6da172c07be6c2626"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c9e42ed88f5a4441baf1",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/coreweave-has-a-sentiment-problem-even-strong-earnings-can-t-fix",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0f1d94028e4cbee81e5c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "69d4d9d74efa01629a6c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor-published corporate post showcasing lessons and outcomes from OpenAI's EMEA education partnerships, operating as a partner case study rather than independent news or analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/closing-ai-guidance-gap-education",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d00ab831c5fada3e5125"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b2b7c9da30cb03d59a7b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/10/adaspace-satellite-ai-computing-hong-kong-ipo/",
+      "key_points": [
+        "Jiazhihuihang đã chạy mô hình phân tích giao thông trên một vệ tinh Adaspace để xử lý hình ảnh trước khi truyền về Trái Đất.",
+        "Theo TechNode, việc xử lý trên quỹ đạo giúp giảm nhu cầu truyền từng điểm ảnh về Trái Đất khi trích xuất dữ liệu đường bộ. Dù vậy, phần mềm phức tạp đòi hỏi nhiều điện năng hơn và sinh thêm nhiệt buộc tàu vũ trụ phải tự tản nhiệt.",
+        "Adaspace cho biết đã triển khai mô hình Qwen3 của Alibaba lên vệ tinh đang hoạt động giữa đợt phóng 12 vệ tinh năm 2025 và 8 vệ tinh tháng 10 năm 2026. Đến ngày 20 tháng 10 năm 2026, công ty ghi nhận 114 vệ tinh trí tuệ nhân tạo (AI) chờ bàn giao trị giá 3,48 tỷ nhân dân tệ.",
+        "Theo TechNode, để thương mại hóa, Adaspace cần xử lý các tác vụ tiếp theo theo lịch trình khách hàng có thể chủ động lập kế hoạch. Bước tiếp theo của công ty là tạo thuận lợi để khách hàng tiếp tục quay lại giao thêm nhiệm vụ mới."
+      ],
+      "same_event_coverage_ids": [
+        "cfd2e0a6cff03eef0e55"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Adaspace thử nghiệm chạy mô hình AI trên vệ tinh và dự kiến lên sàn Hồng Kông ngày 13/11",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/10/adaspace-satellite-ai-computing-hong-kong-ipo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader does not learn why the Hong Kong IPO matters to the proposed service.",
+            "fix": "Add that the IPO is expected to fund engineering needed to move beyond individual demonstrations (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4d3d63564187cbd40d1fe88ae0458cf2d8518d512e05f7bac4898074a2f4c979",
+        "scored_at": "2026-11-10T11:38:36.926619+00:00"
+      }
+    },
+    {
+      "id": "4606535afc5fbdb086eb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on general Thai municipal environmental regulations governing data center noise, heat, and water; artificial intelligence is mentioned only in passing as industry background.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/thailand-sets-70-decibel-noise-heat-limits-for-data-centers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b3757ebf0e452ba14892"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f93f0f99292b90bd77fe",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/10/former-toutiao-ceo-chen-lin-confirms-ai-education-venture/",
+      "key_points": [
+        "Former Toutiao CEO and ByteDance Dali Education leader Chen Lin confirmed his move into AI education in an essay reported Tuesday.",
+        "Chen's company, established in late 2024, operates Xiaolu Aixue, an AI platform offering interactive lessons and student progress tracking for schools."
+      ],
+      "same_event_coverage_ids": [
+        "40e606340008fdac5e11"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "60ba9f11fd54b77b6bc3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/10/ant-groups-robbyant-open-sources-tactile-ai-model-for-robot-hands/",
+      "key_points": [
+        "Robbyant, đơn vị robot thuộc Ant Group, đã phát hành trọng số mô hình và mã suy luận cho LingBot-Touch. Mô hình được thiết kế để hỗ trợ bàn tay robot sử dụng xúc giác khi thao tác với đồ vật.",
+        "Mô hình được phát triển nhằm mục tiêu có thể hoạt động tương thích trên nhiều phần cứng khác nhau. Để đạt điều đó, hệ thống được huấn luyện trên gần 5.000 giờ dữ liệu từ ba loại cảm biến xúc giác.",
+        "Robbyant cho biết đã đánh giá mô hình trên 26 nhiệm vụ thực tế bằng cách sử dụng hai bàn tay robot.",
+        "Theo Robbyant, các bài thử nghiệm này bao gồm việc xử lý đồ vật dễ vỡ và phối hợp cử động giữa cả hai tay."
+      ],
+      "same_event_coverage_ids": [
+        "db68daa6bb772659390c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Robbyant phát hành trọng số và mã suy luận cho mô hình AI xúc giác LingBot-Touch",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/10/ant-groups-robbyant-open-sources-tactile-ai-model-for-robot-hands/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cc87915cf49bc418887cf40c5601da53d8e57ba0d6c44a8cd581ca36ca387bc7",
+        "scored_at": "2026-11-10T11:38:36.926668+00:00"
+      }
+    },
+    {
+      "id": "283c5d72ccfb13b7ec6e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/10/chinese-gpu-maker-denglin-technology-raises-hk1-41-billion-in-hong-kong-ipo/",
+      "key_points": [
+        "Suzhou Denglin Technology đã bắt đầu giao dịch tại Hồng Kông vào thứ Ba sau khi huy động 1,41 tỷ HKD trong đợt phát hành cổ phiếu lần đầu ra công chúng (IPO).",
+        "Doanh nghiệp này phát triển các bộ xử lý đồ họa đa năng (GPU, chip xử lý tác vụ tính toán và đồ họa) cho các khối lượng công việc trí tuệ nhân tạo.",
+        "Trong đợt chào bán, công ty đã bán 6,125 triệu cổ phiếu ở mức giá 231 HKD mỗi cổ phiếu. Mức giá bán này nằm ở mức đáy trong biên độ chào bán của doanh nghiệp.",
+        "Theo hồ sơ nộp lên sàn HKEX của Denglin Technology, công ty dự kiến nhận về 1,31 tỷ HKD tiền thu ròng sau khi trừ các chi phí niêm yết."
+      ],
+      "same_event_coverage_ids": [
+        "11dc92ec6bc899e67858"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Denglin Technology lên sàn Hồng Kông, huy động 1,41 tỷ HKD ở mức đáy biên độ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/10/chinese-gpu-maker-denglin-technology-raises-hk1-41-billion-in-hong-kong-ipo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "04250b1f8acaa2f7cb49c4d880af3e280994cfbebde663affa671072884f8166",
+        "scored_at": "2026-11-10T11:38:36.926689+00:00"
+      }
+    },
+    {
+      "id": "913e64c0f435deb087b4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/noitom-robotics-hiphi-hand-dataset-hugging-face-nvidia-egohand",
+      "key_points": [
+        "Noitom Robotics phát hành bộ dữ liệu bắt chuyển động bàn tay HiPHI-Hand trên nền tảng Hugging Face vào ngày 9 tháng 11. Theo Noitom, dữ liệu này từng dùng huấn luyện EgoHand, mô hình NVIDIA tái tạo tư thế và hình dạng bàn tay 3D từ một camera.",
+        "Các điểm đánh dấu trên ngón tay nhằm cung cấp độ chuẩn xác dưới một milimét ngay cả khi bàn tay bị che khuất.",
+        "Các đoạn video đi kèm chú thích 21 khớp MediaPipe và 25 khớp Vicon cho mỗi bàn tay.",
+        "HiPHI-Hand chỉ miễn phí cho nghiên cứu phi thương mại, yêu cầu người dùng xin quyền truy cập và mua giấy phép thương mại riêng. Pandaily lưu ý dữ liệu này không phải toàn bộ tập huấn luyện của EgoHand và chưa có bài kiểm chuẩn độc lập nào đánh giá đóng góp riêng của nó."
+      ],
+      "same_event_coverage_ids": [
+        "541b08b72fa6fcacb30d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Noitom mở bộ dữ liệu HiPHI-Hand dùng huấn luyện mô hình tái tạo tay 3D EgoHand của NVIDIA",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/noitom-robotics-hiphi-hand-dataset-hugging-face-nvidia-egohand"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chỉ miễn phí cho nghiên cứu phi thương mại",
+            "explanation": "The source also says HiPHI-Hand is free for noncommercial education and evaluation (outlet:p004)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "mua giấy phép thương mại riêng",
+            "explanation": "The source says commercial use is licensed separately by Noitom; it does not state that users must purchase that license (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The licensing sentence excludes permitted free uses and asserts a purchase requirement the source does not state.",
+            "fix": "Say the license permits free noncommercial research, education, and evaluation, while commercial use requires separate licensing from Noitom (outlet:p004)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses the dataset's scale.",
+            "fix": "Add that it contains 11 hours of synchronized video across 794 clips (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "db3f6f9e287269fcbe641a0761649828836a44a8bb2aa36d1cbfd2b5de7d838b",
+        "scored_at": "2026-11-10T11:38:36.926716+00:00"
+      }
+    },
+    {
+      "id": "c7d3010a8bcc401c0c2a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier; event or original publication is older than seven days",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier",
+        "event or original publication is older than seven days"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.notion.com/help/security-incident-involving-a-third-party-ai-vendor",
+      "key_points": [
+        "Notion đã ngắt kết nối hệ thống khỏi Fireworks AI, xóa toàn bộ dữ liệu và dừng mọi lượt huấn luyện từ ngày 3 tháng 11.",
+        "Theo điều tra của đội ngũ an ninh Notion, dưới 1% số không gian làm việc (workspace) có thể đã chịu ảnh hưởng từ sự cố an ninh của Fireworks.",
+        "Notion cho biết một số phiên trò chuyện không thể gán danh tính với Notion AI có thể đã bị lộ. Các bản ghi này không gắn với người dùng hay workspace cụ thể, và không chứa kết quả gọi công cụ hay nội dung trang.",
+        "Doanh nghiệp khẳng định không có dữ liệu nào khác trong workspace bị ảnh hưởng. Để phòng ngừa, Notion khuyến nghị đổi ngay mật khẩu hoặc khóa API nếu từng dán vào Notion AI trong khung thời gian này."
+      ],
+      "same_event_coverage_ids": [
+        "b68ae4b3b761b11871c7",
+        "c68a5d8005421464b39a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Sự cố Fireworks AI: Dưới 1% workspace tại Notion và một số phiên trò chuyện có thể bị lộ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.notion.com/help/security-incident-involving-a-third-party-ai-vendor"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Dưới 1% workspace tại Notion và một số phiên trò chuyện có thể bị lộ",
+            "explanation": "Notion says fewer than 1% of workspaces may have been affected; it identifies some unattributable chat sessions as the data that may have been exposed (outlet:p004–p005)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "không chứa kết quả gọi công cụ hay nội dung trang",
+            "explanation": "The source excludes tool-call results, including page content retrieved through tool calls. It does not exclude page content that someone may have pasted into the chat transcript (outlet:p005–p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline makes possible workspace impact sound like exposure of the workspaces themselves.",
+            "fix": "Say fewer than 1% of workspaces may have been affected and some unattributable chats may have been exposed (outlet:p004)."
+          },
+          {
+            "question": "notable",
+            "problem": "The text rules out page content without limiting that claim to tool-call results.",
+            "fix": "Specify that transcripts contained no tool-call results, such as retrieved Notion page content; the transcript itself could contain information a user pasted (outlet:p005–p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a3684cbc818fe5a2b56a05dfbd7f35c9cbb3e66a1c3a5547317af9d4e37831ce",
+        "scored_at": "2026-11-10T11:38:36.926742+00:00"
+      }
+    },
+    {
+      "id": "efef5f7c1a0d9db15d57",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-10/former-fed-s-evans-ai-boom-adds-to-inflation-risks-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ac1f6c788829f3d1e70d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0f192bba36f64bb6ee3d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/09/otter-ai-can-now-follow-conversations-across-30-languages/",
+      "key_points": [
+        "Otter.ai vừa công bố mở rộng năng lực đa ngôn ngữ với tính năng ghi chép lời thoại mới theo dõi người nói đổi thứ tiếng trong cùng cuộc họp. Trong đợt mở rộng lớn nhất từ trước đến nay, công ty bổ sung 27 ngôn ngữ để đạt tổng cộng 31 thứ tiếng khi hoàn tất triển khai.",
+        "Theo TechCrunch, đợt cập nhật này nhằm giải quyết thách thức chung khi khác biệt ngôn ngữ gây khó khăn cho việc họp hành và cộng tác toàn cầu.",
+        "Tính năng tự động nhận diện ngôn ngữ sắp ra mắt sẽ tiếp tục ghi chép mà không cần chỉnh cài đặt, như khi chuyển từ tiếng Anh sang tiếng Hàn rồi tiếng Bồ Đào Nha. Trong khi đó, 13 thứ tiếng mới đã dùng được ngay gồm có tiếng Việt, tiếng Hàn, tiếng Bồ Đào Nha cùng mười ngôn ngữ khác.",
+        "Người phát ngôn của Otter chia sẻ với TechCrunch rằng bước đi này giúp doanh nghiệp xây dựng hệ thống lưu trữ quyết định từ giao tiếp bằng AI giọng nói. Các ngôn ngữ mới chạy trên mô hình giọng nói riêng của Otter, được huấn luyện từ dữ liệu công khai và nhờ tình nguyện viên bản xứ kiểm tra độ chính xác bản ghi."
+      ],
+      "same_event_coverage_ids": [
+        "81bb2c121f2a5f879583"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Otter.ai công bố tính năng ghi chép lời thoại đa ngôn ngữ tự theo dõi khi đổi thứ tiếng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/09/otter-ai-can-now-follow-conversations-across-30-languages/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "926e6ade4e8f5a6668d11653614767c7630586940a54ee23e9e7f46730462c0c",
+        "scored_at": "2026-11-10T11:38:36.926763+00:00"
+      }
+    },
+    {
+      "id": "453db0b368c3fd357fcf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/09/2026/nvidia-ceo-is-in-congress-sights-after-spy-scandal",
+      "key_points": [
+        "Các nghị sĩ Mỹ thuộc cả hai đảng đang thúc đẩy điều tra Jensen Huang và thắt chặt kiểm soát xuất khẩu chip của Nvidia. Theo trang Semafor, sức ép điều tra nhắm vào người đứng đầu Nvidia gia tăng rõ rệt sau thắng lợi của đảng Dân chủ trong cuộc bầu cử quốc hội giữa nhiệm kỳ.",
+        "Động thái này diễn ra sau khi ông Jensen Huang thừa nhận quan hệ tình cảm với người bị tình báo Mỹ cáo buộc làm gián điệp cho chính phủ Trung Quốc. Ngoài ra, các nhà lập pháp còn phẫn nộ trước những báo cáo cho rằng Nvidia có thể đã thúc đẩy quyền tiếp cận chip cho các công ty Trung Quốc đáng ngờ.",
+        "Hạ nghị sĩ Hakeem Jeffries cho biết hôm thứ Hai rằng ông ủng hộ mạnh mẽ các quy định kiểm soát xuất khẩu chip chặt chẽ hơn mà Thượng viện đã thúc đẩy trong dự luật chính sách quốc phòng hàng năm.",
+        "Trang Semafor nhận định tương lai của ông Huang do hội đồng quản trị quyết định nhưng các nhà lập pháp có thể hạn chế bán chip sang Bắc Kinh thông qua các biện pháp kiểm soát xuất khẩu nghiêm ngặt hơn."
+      ],
+      "same_event_coverage_ids": [
+        "723f52184e274770fec7",
+        "a2d49fe8b1ad6a7454ee",
+        "a7ecd967da3f838ac027",
+        "b3f48e069847b39c5f0f",
+        "cd41c11ade22b71a3287"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quốc hội Mỹ thúc đẩy điều tra CEO Nvidia và siết kiểm soát xuất khẩu chip sang Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/09/2026/nvidia-ceo-is-in-congress-sights-after-spy-scandal"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b2cc6e327ae07487c27d814fa65e2a494865aa5d7ee169abbfc6e322e41e2ffb",
+        "scored_at": "2026-11-10T11:31:52.827511+00:00"
+      }
+    },
+    {
+      "id": "cba41f0395d50b9e1105",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/",
+      "key_points": [
+        "Theo TechCrunch, Meta vừa phát hành mô hình AI nhẹ và tiết kiệm chi phí nhất mang tên Muse Ember. Meta nhấn mạnh chi phí trên mỗi tác vụ và dẫn điểm chuẩn tổng hợp (bài đánh giá hiệu năng) của Artificial Analysis để cho thấy Ember rẻ hơn đối thủ như Haiku hay Luna.",
+        "Theo thông báo từ Meta, Ember được thiết kế để thực thi suy luận phức tạp và công việc lặp lại thường nhật của tác tử (chương trình AI tự hành) như gọi công cụ, phân nhánh hay trích xuất.",
+        "Với giá 10 cent một triệu token đầu vào, Ember rẻ hơn đáng kể so với Haiku hay Luna và cạnh tranh với DeepSeek V4.1 Flash. Meta cũng huấn luyện Ember xử lý đa dạng dữ liệu để tác tử có thể đọc ảnh chụp màn hình, biểu đồ hay bản ghi âm mà không cần mô hình riêng biệt.",
+        "Ember được thiết kế phối hợp với mô hình lớn như Muse Wonder, theo nguyên tắc Wonder lập kế hoạch còn Ember đảm nhiệm khối lượng xử lý. Ví dụ ở tác tử hỗ trợ khách hàng, mô hình nặng thiết lập quy tắc xử lý và mô hình nhẹ áp dụng quy tắc đó trên hàng chục nghìn trường hợp."
+      ],
+      "same_event_coverage_ids": [
+        "66e79b54720586689782",
+        "9ad6321e418341706c85"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta ra mắt mô hình Muse Ember giá 10 cent mỗi triệu token tối ưu cho tác tử xử lý khối lượng lớn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "phân nhánh",
+            "explanation": "Meta lists routing among Ember’s tasks, which means directing work to a route or destination, not branching (outlet:p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "A named agent task is translated as branching.",
+            "fix": "Translate “routing” as “định tuyến” and retain Meta’s task list accurately (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c5db9e75761e31108cada512552cdd589c83ff3409a958781b8bc186fa421d55",
+        "scored_at": "2026-11-10T11:38:36.926786+00:00"
+      }
+    },
+    {
+      "id": "ab11201184ff1d2fb3a5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373825/nvidia-faces-defining-test-jensen-huang-probe-adds-chip-stock-turbulence",
+      "key_points": [
+        "Nvidia faces a board inquiry into CEO Jensen Huang, exposing the chipmaker to rare key-person risk.",
+        "Jensen Huang confirmed over the weekend that he had been unfaithful to his wife and stated he would cooperate with an investigation into his conduct.",
+        "The inquiry adds to stock volatility amid broader investor concerns over midterm elections' potential impact on Washington's chip controls and AI regulation."
+      ],
+      "same_event_coverage_ids": [
+        "95a082f6d1bf81365692"
+      ],
+      "split_coverage_ids": [
+        "0e599255a0577353c1c6",
+        "432d8d0d968f3fbcbae5",
+        "974ce2f323087c7d740c"
+      ]
+    },
+    {
+      "id": "e9506a45e50e21f1537d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [
+        "too few verified claims for summary"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.12762",
+      "key_points": [
+        "Nhóm nghiên cứu của Weida Wang giới thiệu kiến trúc Sage-Taiyi lấy cảm hứng từ siêu nhận thức (tự theo dõi và điều chỉnh tư duy) cho khám phá khoa học. Mô hình vận dụng tri thức tích lũy xác định nội dung và phương thức nghiên cứu tiếp theo.",
+        "Hệ thống vận hành qua cơ chế giám sát và kiểm soát, liên tục cập nhật hiểu biết về bằng chứng, giả định cùng các câu hỏi chưa giải quyết. Từ các đánh giá này, hệ thống điều chỉnh hướng nghiên cứu và lựa chọn phương pháp suy luận có thể tái sử dụng.",
+        "Hệ thống dẫn đầu trên chuẩn đối sánh Taiyi-Bench (bộ bài kiểm tra tiêu chuẩn đánh giá AI) ở tám thước đo về tái phát hiện lịch sử và đề xuất ý tưởng mở. Ở điểm tổng thể (Overall score) qua 265 nhiệm vụ từ 50 bài báo, Sage-Taiyi đạt 54,0 điểm so với 47,9 điểm của mô hình cơ sở AI Scientist-v2.",
+        "Các tác giả nhận định kết quả thử nghiệm ủng hộ cơ chế điều hòa siêu nhận thức cho việc hình thành ý tưởng khoa học. Năm hợp tác có chuyên gia hướng dẫn cũng bước đầu kết nối các đề xuất của hệ thống với kiểm chứng thực nghiệm trong hóa học, vật liệu và kỹ thuật."
+      ],
+      "same_event_coverage_ids": [
+        "2ab36e6f56389537f09f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình Sage-Taiyi đạt 54,0 điểm trên Taiyi-Bench, vượt AI Scientist-v2 về đề xuất ý tưởng khoa học",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.12762"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers miss the clearest practical results.",
+            "fix": "Add the reported chemistry yields: trace amounts to 84% for cobalt-catalyzed carbonylation and 13% to 69% for photocatalytic allylic amination (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "95eef96e67683fd08dbd22dd85f93216abac229c8758723c9d05b75b42073b41",
+        "scored_at": "2026-11-10T11:31:52.828072+00:00"
+      }
+    },
+    {
+      "id": "b02948a8bf78b79ef116",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.12324",
+      "key_points": [
+        "Mô hình thế giới WARC (hệ thống AI mô phỏng môi trường) học được cách dự đoán bốn phần năm cơ chế với độ chính xác từ 80% trở lên trên các trò chơi tách biệt của bộ kiểm tra ARC-AGI-3, theo nhóm tác giả nghiên cứu. Hệ thống thị giác 35 triệu tham số này duy trì mức độ chính xác đó trên các ô bị biến đổi cho đến hết lượt ghi nhận.",
+        "Tác nhân (chương trình tự hành) cần mô hình thế giới để lập kế hoạch từ trải nghiệm tưởng tượng, nhưng phải tự học các quy tắc từ tương tác hạn chế trong môi trường lạ, theo các tác giả. Nhóm nghiên cứu đánh giá 69 cơ chế lặp lại qua 20 trò chơi và cho WARC cập nhật tham số sau mỗi bước chuyển đổi.",
+        "Một nửa trong số các cơ chế học được này đạt độ chính xác từ 80% chỉ trong khoảng 80 lần tiếp xúc ở một lượt chơi đơn lẻ, theo bài báo. Nếu không cập nhật tham số, các tác giả nhận thấy chỉ một phần bảy số cơ chế đạt được mức độ chính xác đó.",
+        "Tác nhân WARC-Agent nâng điểm hiệu quả của bộ khám phá đồ thị cố định từ 0,15 lên gấp ba thành 0,46 ở các trò chơi công khai, chủ yếu nhờ huấn luyện lúc kiểm tra. Dù vậy, bài nộp của nhóm tác giả chỉ đạt 0,20 điểm trên các trò chơi ẩn ở bảng xếp hạng Kaggle."
+      ],
+      "same_event_coverage_ids": [
+        "158c299fd8a3df3aa694"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình WARC dự đoán 4/5 cơ chế trò chơi mới với độ chính xác từ 80% trên chuẩn ARC-AGI-3",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.12324"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "59784fc734c338b475a3b51b8af9d24663890c382713c9f933f8fab8e09cb863",
+        "scored_at": "2026-11-10T11:38:36.926809+00:00"
+      }
+    },
+    {
+      "id": "50421e977a7c9a487d79",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.12806",
+      "key_points": [
+        "LingBot-Touch tạo biểu diễn xúc giác hợp nhất cho nhiều cảm biến gồm áp trở, từ tính và thị giác xúc giác, theo nhóm tác giả Bing Han. Mô hình nền tảng này dễ mở rộng sang cảm biến mới nhằm hỗ trợ robot thao tác khéo léo (khả năng tay máy xử lý vật thể tinh vi).",
+        "Cảm biến xúc giác thương mại còn sơ khai với ưu nhược điểm riêng, đặt ra yêu cầu phải giải phóng cách hiểu xúc giác khỏi đặc tính vật lý từng thiết bị. Nhóm nghiên cứu giải quyết thách thức này nhằm giúp mô hình tận dụng hiệu quả dữ liệu xúc giác không đồng nhất.",
+        "Mã xúc giác cắm và chạy tích hợp vào mô hình chính sách liền mạch trên nhiều phương pháp học máy. Nhóm nghiên cứu chỉ ra các mã này tăng cường độ khéo léo trên cả mô hình khuếch tán lẫn mô hình thị giác ngôn ngữ hành động như $\\pi_{0.5}$ và LingBot-VLA.",
+        "Biểu diễn xúc giác nâng cao hiệu quả thao tác phức tạp trên robot thực và mô phỏng, đồng thời duy trì hiệu suất tính toán cao. Dù vậy, các tác giả nhận định phát hiện này chủ yếu mở ra tiềm năng mở rộng dữ liệu và gợi mở thiết kế phần cứng tương lai."
+      ],
+      "same_event_coverage_ids": [
+        "fa46b92dd34bb3fe15ec"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "LingBot-Touch thống nhất biểu diễn đa cảm biến giúp tăng độ khéo léo khi thao tác cho robot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.12806"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8fcbc8f5ca515ce417ac8b5971ea95483d90eea779dc292d7c7dfebbb47668ff",
+        "scored_at": "2026-11-10T11:31:52.828127+00:00"
+      }
+    },
+    {
+      "id": "1acd1760542c8774cbca",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.12886",
+      "key_points": [
+        "Nhóm tác giả Haozhi Yuan giới thiệu khung hậu huấn luyện Reframe, coi trạng thái quan sát là đối tượng căn chỉnh cho tác tử thị giác (hệ thống AI tự hành). Phương pháp mới này không đòi hỏi bước khởi động SFT (tinh chỉnh có giám sát) riêng cho từng tác vụ.",
+        "Theo nhóm tác giả, nghiên cứu khắc phục hai thách thức khi tác tử dùng công cụ, do mô hình có thể bỏ qua quan sát hữu ích và hành động kém căn cứ có thể giới hạn bằng chứng chưng cất.",
+        "Thực nghiệm chứng minh Reframe vượt trội cả Mix-RL lẫn vanilla MOPD trên 14 bài kiểm chuẩn (bài kiểm tra chuẩn) về hình ảnh và video. Theo phân tích thành phần, GD-GRPO làm tăng độ phụ thuộc quan sát cùng hiệu quả công cụ so với phương pháp GRPO dựa trên kết quả đầu ra.",
+        "Nhóm tác giả nhận định hai giai đoạn bổ trợ lẫn nhau, khi việc học dựa vào quan sát có thể giúp chính sách mô hình hưởng lợi từ việc sửa chữa quan sát. Kết luận này được ghi nhận trong phạm vi 14 bài kiểm chuẩn thử nghiệm mà không đòi hỏi khởi động SFT riêng cho từng tác vụ."
+      ],
+      "same_event_coverage_ids": [
+        "794b58466b58b5698909"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung AI Reframe vượt trội Mix-RL và MOPD trên 14 bài kiểm chuẩn hình ảnh và video",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.12886"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers cannot tell what Reframe’s two stages actually do.",
+            "fix": "Explain that GD-GRPO trains specialists to acquire and use evidence, while OG-MOPD replaces deficient tool actions mid-rollout and resumes distillation from the repaired observation (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2125876f6357cfea139d2595f032316ea866208359c73a6590cbc8a0a7c5cc2c",
+        "scored_at": "2026-11-10T11:31:52.828150+00:00"
+      }
     }
   ]
 }
