@@ -188,7 +188,7 @@ def sync():
     for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'trang-nhat.css', 'trang-msn.css',
                  'thoi-tiet.js', 'the-lich.js', 'lich-am.js',
                  'faces.js', 'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js',
-                 'calendar.js', 'worth-score.js', 'live.js', 'menu-cong-cu.css',
+                 'calendar.js', 'worth-score.js', 'live.js', 'menu-cong-cu.css', 'nen.js',
                  'feed-images.json', 'editor-picks.json',
                  'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg', 'wordmark.svg', 'wordmark-dark.svg'):
         shutil.copyfile(SITE / name, EXT / name)

@@ -459,6 +459,19 @@
   background: var(--color-surface); border: 0; border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest);
 }
 .msn-grid.is-front > .tile { grid-column: span 2; grid-row: span 2; }
+/* "Vừa đăng" sits beside the lead in the first row (owner, 10/11: "mục 'Vừa đăng' nằm ở mãi dưới"; his rule of 10/10:
+   "người dùng vào đọc tin thì luôn muốn xem tin mới trước chứ"), one row tall; "Chuyện lớn" opens the second row. */
+.msn-grid.is-front > .tile-fresh { grid-row: span 1; }
+.fresh-list .fresh-new { display: none; }
+.fresh-list li[data-pinned]:not(.is-read) .fresh-new {
+  display: inline-block; margin-right: var(--space-6); padding: 0 var(--space-6); border-radius: var(--radius-full);
+  background: var(--color-accent-fill); color: var(--color-on-accent);
+  font-size: var(--text-micro); font-weight: var(--weight-bold); line-height: 1.6; vertical-align: 0.08em;
+}
+.fresh-list li[data-pinned]:not(.is-read) .new-mark { display: none; }
+.fresh-list li { border-radius: var(--radius-8); }
+.fresh-list li.is-flash { animation: fresh-flash var(--fresh-flash) var(--ease-flow) both; }
+@keyframes fresh-flash { from, 35% { background: var(--color-accent-wash-strong); } to { background: transparent; } }
 .msn-grid:not(.is-front) > .tile { grid-column: 1 / -1; overflow: visible; }
 /* "Sắp diễn ra" (#sap-toi): the list, or its one empty line (.ev-empty), takes the columns left of the weather and the
    calendar from the first row, so the view never opens on an empty band. */
@@ -501,6 +514,13 @@
   :root { --msn-cols: 7; }
   .msn-grid { --msn-row: var(--msn-rowh-xl); }
   .nc-photo { height: var(--msn-photo-h-xl); }
+  /* Seven columns: the lead and "Vừa đăng" take three each, so the first row stays lead, "Vừa đăng", weather. */
+  .msn-grid.is-front > .msn-lead, .msn-grid.is-front > .tile-fresh, #feed-skeleton .msn-lead { grid-column: span 3; }
+}
+/* Three columns: the lead and the weather fill the first row, "Vừa đăng" and the calendar the second; the next event
+   follows the stories in the page's order. */
+@media (min-width: 700px) and (max-width: 1099px) {
+  .msn-grid > .msn-ev { grid-area: auto; }
 }
 @media (min-width: 1100px) and (max-width: 1450px) {
   .newsbar.msn-head { gap: var(--space-8); }
@@ -608,7 +628,46 @@
   :root { --msn-cols: 1; }
   .msn-lead, .msn-wx, .msn-toplist, .nc-big, .nc-wide { grid-column: 1; }
 }
+/* ---------- the day's picture behind the first screen (owner, 10/11: "còn về ảnh nền thì em làm như edge") ---------- */
+/* From 768 px the first screen is the day's 3D render, full bleed, as on Edge's new tab: the search floats on it, the
+   panel starts a little under the middle with its first cards over the picture's lower half, and the picture stays put
+   while the panel scrolls over it; the page's own surface closes in around the panel as it rises, so below the first
+   screen the reading is what it was. nen.js picks the picture; under 768 px the layer is never drawn and nothing is
+   downloaded. The controls on the picture carry their own frosted surface, so they read on any render, light or dark. */
+.nen { display: none; }
+@media (min-width: 768px) {
+  .nen { display: block; position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--nen-mat); }
+  .nen-img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--nen-focus);
+    opacity: 0; transition: opacity var(--motion-state) var(--ease-flow);
+  }
+  .nen.is-ready .nen-img { opacity: 1; }
+  .nen.is-instant .nen-img { transition: none; }
+  .nen::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--nen-scrim); }
+  .nen::after { content: ""; position: absolute; inset: 0; z-index: 2; background: var(--color-canvas); opacity: 0; }
+  @supports (animation-timeline: scroll()) {
+    .nen::after { animation: nen-cover linear both; animation-timeline: scroll(root block); animation-range: var(--nen-cover-from) var(--nen-cover-to); }
+  }
+  .msn-top { display: flex; flex-direction: column; min-height: var(--nen-fold); }
+  .msn-top-in { flex: 1; width: 100%; grid-template-rows: auto minmax(0, 1fr); margin-bottom: var(--space-24); }
+  .msn-top .masthead-actions { grid-row: 1; align-self: start; }
+  .msn-top .news-search, .msn-top .web-search { grid-row: 2; align-self: center; margin-bottom: var(--nen-lift); }
+  .msn-top .ns-field, .msn-top .tool-launcher-button {
+    background: var(--nen-pill); box-shadow: var(--nen-pill-shadow);
+    -webkit-backdrop-filter: blur(var(--msn-blur)) saturate(1.4); backdrop-filter: blur(var(--msn-blur)) saturate(1.4);
+  }
+  .msn-top .ns-field:hover, .msn-top .ns-field:focus-within,
+  .msn-top .tool-launcher-button:hover, .msn-top .tool-launcher-button[aria-expanded="true"] { background: var(--nen-pill-on); }
+  .msn-top .tool-launcher-button { color: var(--color-ink); }
+}
+@keyframes nen-cover { to { opacity: 1; } }
+@media (min-width: 768px) and (prefers-reduced-transparency: reduce) {
+  .msn-top .ns-field, .msn-top .tool-launcher-button { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--nen-pill-on); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .nen-img { transition: none; }
+  .fresh-list li.is-flash { animation: none; background: var(--color-accent-wash-strong); }
   .nc, .nc-img, .slide, .lead-dots button::before, .wx-days li, .wx-menu, .wx-dots button::before { transition-duration: 1ms !important; }
   .nc:hover, .nc:active { transform: none; }
   .nc:hover .nc-img { transform: none; }

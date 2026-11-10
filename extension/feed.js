@@ -1625,7 +1625,8 @@ const TIER = { top: 3, notable: 2 };
 const frontScore = st => (TIER[st.importance_tier] || 0) + (st.hot_score || 0) / 20 + Math.min(worthOf(st).score, 8) / 4;
 const isBig = st => hasPhoto(st) && (st.importance_tier === 'top' || st.importance_tier === 'notable' || (st.hot_score || 0) >= 15 || worthOf(st).score >= 3);
 const isWide = st => st.importance_tier === 'notable' || (st.hot_score || 0) >= 8 || worthOf(st).score >= 1;
-let FRONT_TOP = [];           // "Chuyện lớn" in the first row
+let FRONT_TOP = [];           // "Chuyện lớn", the second row since 10/11
+const FURNITURE_AFTER = 6;    // stories before the weather, the calendar and the next event in the page's order
 let FRONT_IDS = new Set();    // stories the front page already shows above the river (carousel, list, tiles)
 let weatherCard = null, calendarCard = null;   // built once; the same elements return to the grid on every redraw
 
@@ -1640,15 +1641,18 @@ function chooseFront() {
   for (const st of [...big, ...ranked]) { if (top.length >= 4) break; if (!top.includes(st) && distinct([...lead, ...top], st)) top.push(st); }
   return { lead, top };
 }
-/* Spread the notable cards: a big or wide card needs four ordinary cards since the last one. */
+/* Spread the notable cards: a big or wide card needs four ordinary cards since the last one. Only the first of them, the
+   most notable story after the lead, says "Đáng chú ý" (owner, 10/11: the label on five cards meant nothing). */
 function sizeRiver(list) {
-  let since = 4;
+  let since = 4, labelled = false;
   return list.map(st => {
     let size = '';
     if (since >= 4 && isBig(st)) size = 'big';
     else if (since >= 4 && isWide(st)) size = 'wide';
     since = size ? 0 : since + 1;
-    return C(st, size);
+    const kicker = !!size && !labelled;
+    if (kicker) labelled = true;
+    return C(st, size, { kicker });
   });
 }
 const liveAvailable = () => !!(D && ((D.live || []).length || (D.events || []).some(e => eventSpan(e).end > Date.now())));
@@ -1664,12 +1668,20 @@ function buildAll() {
   const fresh = D ? newestStories().list.slice(0, FRESH_TILE_ROWS) : [];
   fresh.forEach(st => used.add(st.id));
   const river = sizeRiver(ordered(allStories.filter(st => !used.has(st.id))));
-  // The events are not a widget here: the next one sits beside the calendar (renderNext), the rest in "Sắp diễn ra".
-  const widgets = [{ t: 'arena' }, fresh.length ? { t: 'fresh' } : null, HOT.length ? { t: 'hot' } : null,
+  // "Vừa đăng" is not a widget here: it sits beside the lead (renderFeed). The events are not one either: the next one
+  // sits beside the calendar (renderNext), the rest in "Sắp diễn ra".
+  const widgets = [{ t: 'arena' }, HOT.length ? { t: 'hot' } : null,
     { t: 'repos' }, getTrendingModels().length ? { t: 'models' } : null].filter(Boolean);
-  // The first widget after eight stories, then one every ten.
+  // The weather, the calendar and the next event come after the first stories (owner, 10/11: on a phone the news comes
+  // first); wider screens pin them to the grid's last column whatever their place here (trang-msn.css). The first widget
+  // after eight stories, then one every ten.
   const out = [];
-  river.forEach((it, i) => { out.push(it); if ((i + 1) % 10 === 8 && widgets.length) out.push(widgets.shift()); });
+  river.forEach((it, i) => {
+    out.push(it);
+    if (i + 1 === FURNITURE_AFTER) out.push({ t: 'furniture' });
+    if ((i + 1) % 10 === 8 && widgets.length) out.push(widgets.shift());
+  });
+  if (river.length < FURNITURE_AFTER) out.push({ t: 'furniture' });
   PLACED = new Set([...used, ...allStories.map(st => st.id)]);
   return out.concat(widgets, olderItems());
 }
@@ -1772,7 +1784,7 @@ function topListHTML(list) {
 }
 
 /* ---------- the story card: a picture over the source line and the headline; notable ones carry their dek ---------- */
-function msnCard(st, size = '') {
+function msnCard(st, size = '', kicker = false) {
   const img = pickImage(st), t = titleOf(st);
   const pic = !!img.src;
   const tid = `t-${esc(st.id)}`;
@@ -1782,7 +1794,7 @@ function msnCard(st, size = '') {
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}">
   ${pic ? `<div class="nc-photo media">${mediaHTML(img, size === 'wide' ? 'wide' : 'card')}</div>` : ''}
   <div class="nc-body">
-    ${size ? '<p class="nc-kicker">Đáng chú ý</p>' : ''}
+    ${kicker ? '<p class="nc-kicker">Đáng chú ý</p>' : ''}
     ${metaHTML(st)}
     <h3 class="nc-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>
     ${t.orig ? `<p class="nc-mt">${translationMark(t)}</p>` : ''}
@@ -1871,7 +1883,8 @@ function renderArenaTile() {
 }
 
 function renderItem(it) {
-  if (it.t === 'card') return msnCard(it.st, it.size);
+  if (it.t === 'card') return msnCard(it.st, it.size, !!(it.opts && it.opts.kicker));
+  if (it.t === 'furniture') return FIXED_SLOTS + renderNext();
   if (it.t === 'live') return renderLive(!!it.all);
   if (it.t === 'hot') return renderHot();
   if (it.t === 'repos') return renderRepos();
@@ -2015,7 +2028,9 @@ function renderFeed() {
   grid.classList.toggle('is-front', front);
   // The weather and the calendar are the home's furniture; a reader who opened "Mã và mô hình" came for repositories and
   // models (owner, 09/11: "QA các thành phần giao diện có nên hiển thị ở đó hay không"), so that view leaves them out.
-  grid.innerHTML = (front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : code ? '' : FIXED_SLOTS) + chunk.html;
+  // The front page in its reading order (owner, 10/11): the lead, "Vừa đăng" beside it, "Chuyện lớn", then the stories,
+  // with the weather, the calendar and the next event after the first few (buildAll).
+  grid.innerHTML = (front ? leadHTML(PICKLIST) + freshTileHTML() + topListHTML(FRONT_TOP) : code ? '' : FIXED_SLOTS) + chunk.html;
   placeChunk(grid, { html: '', days: chunk.days });
   placeFixedCards(grid);
   renderSub();
@@ -2213,7 +2228,8 @@ function renderNewItems() {
    own place in the blocks below and in "Dòng tin", whose order is untouched. */
 const NEWEST = { hours: 6, min: 4, maxHours: 24, cap: 8 };
 let freshIds = [];            // the batch the reader asked to see with the pill, pinned first while unread
-const FRESH_TILE_ROWS = 5;
+const FRESH_TILE_ROWS = 4;    // whole rows in the first row's height beside the lead (10/11); a pinned batch shows whole
+const FRESH_FLASH_MS = 2000;  // the announced rows' highlight after the pill (trang-msn.css, fresh-flash)
 function newestStories() {
   const young = h => allStories.filter(st => GEN - ms(st.published_at) <= h * 36e5 && !FRONT_IDS.has(st.id));
   let pool = young(NEWEST.hours), hours = NEWEST.hours;
@@ -2223,16 +2239,19 @@ function newestStories() {
   return { list: [...pinned, ...rest].slice(0, Math.max(NEWEST.cap, pinned.length)), hours };
 }
 /* "Vừa đăng" is a front-page tile (mockup B's "Tin nhanh"): the clock time each story was published, then its headline. */
+/* A story the "N tin mới" pill announced keeps a "Mới" chip in Hot Coral until it is opened (owner, 10/11: "cực kỳ khó
+   nhận ra đó là thẻ tin mới"); the row's headline is the headline alone, with no flame or reason before it. */
 function freshItem(st) {
   const t = titleOf(st);
-  return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><a class="brief fresh-item" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-read="${esc(st.id)}">
+  const pinned = freshIds.includes(st.id) && !read.has(st.id);
+  return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"${pinned ? ' data-pinned' : ''}><a class="brief fresh-item" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-read="${esc(st.id)}">
     <time class="num" datetime="${esc(st.published_at)}" title="${esc(exact(st.published_at))}">${esc(hhmm(new Date(st.published_at)))}</time>
-    <span class="brief-h"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}${translationMark(t)}</span></a></li>`;
+    <span class="brief-h"${langAttr(t.text)}>${markHTML(st)}<span class="fresh-new" aria-hidden="true">Mới</span>${esc(t.text)}${translationMark(t)}</span></a></li>`;
 }
 function freshInnerHTML() {
   const { list } = D && filter === 'all' ? newestStories() : { list: [] };
   if (!list.length) return '';
-  // Five rows sit beside two cards (mockup B); a batch the "N tin mới" pill pinned is shown whole.
+  // Four rows sit beside the lead; a batch the "N tin mới" pill pinned is shown whole.
   const shown = list.slice(0, Math.max(FRESH_TILE_ROWS, freshIds.filter(id => !read.has(id)).length));
   return `<div class="tile-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2></div>
     <ul class="briefs fresh-list" data-n="${shown.length}">${shown.map(freshItem).join('')}</ul>`;
@@ -2272,6 +2291,10 @@ function goFirstNew() {
     const tile = $('#fresh-row');
     window.scrollTo({ top: Math.max(0, scrollY + tile.getBoundingClientRect().top - 16), behavior: RM.matches ? 'auto' : 'smooth' });
     heading.focus({ preventScroll: true });
+    // The announced rows light up briefly, so the eye lands on them; their "Mới" chip stays until each is opened.
+    const rows = $$('#fresh-row li[data-pinned]');
+    rows.forEach(li => li.classList.add('is-flash'));
+    setTimeout(() => rows.forEach(li => li.classList.remove('is-flash')), FRESH_FLASH_MS);
     dismissNewItems();
     return;
   }

@@ -52,6 +52,19 @@
 /* the panel starts close under the search */
 .msn-panel { margin-top: var(--space-4); }
 
+/* From 768 px the search floats on the day's picture (trang-msn.css, owner 10/11: "làm như edge"): the field takes the
+   same frosted pill as the site's search, so it reads on any render. */
+@media (min-width: 768px) {
+  .msn-top .web-field {
+    background: var(--nen-pill); box-shadow: var(--nen-pill-shadow);
+    -webkit-backdrop-filter: blur(var(--msn-blur)) saturate(1.4); backdrop-filter: blur(var(--msn-blur)) saturate(1.4);
+  }
+  .msn-top .web-field:hover, .msn-top .web-field:focus-within { background: var(--nen-pill-on); box-shadow: var(--nen-pill-shadow); }
+}
+@media (min-width: 768px) and (prefers-reduced-transparency: reduce) {
+  .msn-top .web-field { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--nen-pill-on); }
+}
+
 /* ---------- widths ---------- */
 @media (max-width: 767px) {
   .web-field { padding-inline-start: var(--space-16); }
