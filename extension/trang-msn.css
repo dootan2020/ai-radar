@@ -160,13 +160,22 @@
 /* min-width: 0 lets the body shrink beside a wide card's picture: the meta line's no-wrap parts would otherwise push
    the body past the card's edge (measured 2026-11-10: 412 px of text in a 343 px card at 375 px, 326/288 at 320 px). */
 .nc-body { display: flex; flex-direction: column; gap: var(--space-6); min-width: 0; min-height: 0; flex: 1; padding: var(--space-8) var(--space-12) var(--space-12); }
-.nc-meta { display: flex; align-items: center; gap: var(--space-6); min-width: 0; font-size: var(--text-micro); line-height: 1.3; color: var(--color-ink-3); }
+/* The source keeps every letter (captain, 10/11: "Anthropi…", "NVIDIA N…"): when the line is full the time wraps under
+   it, and a name wider than the card wraps rather than being cut. */
+.nc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--msn-tight) var(--space-6); min-width: 0; font-size: var(--text-micro); line-height: 1.3; color: var(--color-ink-3); }
 .nc-meta .st-mark:empty { display: none; }
+.nc-who, .nc-when { display: inline-flex; align-items: center; gap: var(--space-6); min-width: 0; }
+.nc-when { flex: none; white-space: nowrap; }
 .nc-fav { flex: none; display: inline-grid; }
 .nc-fav .av { width: var(--msn-fav); height: var(--msn-fav); }
-.nc-src { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: var(--weight-semibold); color: var(--color-ink-2); }
+.nc-src { min-width: 0; overflow-wrap: anywhere; font-weight: var(--weight-semibold); color: var(--color-ink-2); }
 .nc-dot { flex: none; width: var(--msn-dot); height: var(--msn-dot); border-radius: var(--radius-full); background: var(--color-ink-3); }
 .nc-meta time { flex: none; white-space: nowrap; }
+/* On a story card the source has the first line to itself and the time sits under it, every card alike, so no line
+   ever starts with a stray dot and no name is cut. The lead's slide keeps them on one line. */
+.nc .nc-when { flex-basis: 100%; }
+.nc .nc-dot { display: none; }
+.nc .nc-meta .st-mark:not(:empty) + .nc-who { flex: 1 1 0; }
 .nc-title {
   margin: 0; font-size: var(--msn-title); line-height: 1.4; font-weight: var(--weight-bold); letter-spacing: -0.015em; color: var(--color-ink);
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-wrap: pretty;
@@ -251,7 +260,7 @@
 .msn-toplist ol { display: flex; flex-direction: column; flex: 1; margin: 0; padding: 0; list-style: none; }
 .msn-toplist li {
   position: relative; flex: 1; display: flex; gap: var(--space-12); min-height: var(--btn-h); padding: var(--space-8) var(--space-4);
-  border-top: var(--msn-hair) solid var(--color-hair); border-radius: var(--radius-8); transition: background-color var(--duration-150) ease;
+  border-top: var(--msn-hair) solid var(--color-hair); border-radius: 0; transition: background-color var(--duration-150) ease;
 }
 .msn-toplist li:first-child { border-top: 0; }
 
@@ -266,8 +275,9 @@
    is full, and the source gives way (ellipsis) only when it and the time alone overflow. */
 .top-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--msn-tight) var(--space-4); min-width: 0; margin-top: var(--msn-dot); font-size: var(--text-micro); line-height: 1.35; white-space: nowrap; color: var(--color-ink-3); }
 .top-meta .st-mark:empty { display: none; }
-.top-who { display: flex; gap: var(--space-4); min-width: 0; }
-.top-src { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.top-who { display: flex; flex-wrap: wrap; flex: 1 1 0; gap: 0 var(--space-4); min-width: 0; }
+.top-meta { flex-wrap: nowrap; }
+.top-src { min-width: 0; overflow-wrap: anywhere; white-space: normal; }
 .top-who > :not(.top-src), .top-meta > :not(.top-who) { flex: none; }
 .top-meta .mt { margin: 0; }
 /* From 1100px the list shares the first row's fixed height with the lead: a tighter rhythm keeps all four stories,
@@ -493,7 +503,7 @@
   font-size: var(--text-micro); font-weight: var(--weight-bold); line-height: 1.6; vertical-align: 0.08em;
 }
 .fresh-list li[data-pinned]:not(.is-read) .new-mark { display: none; }
-.fresh-list li { border-radius: var(--radius-8); }
+.fresh-list li, .fresh-list .brief, .briefs li + li .brief { border-radius: 0; }
 /* Only whole rows (feed.js, fitFreshTile): rows outside the page are left out, and a page's first row drops the rule
    it would draw against the row before it. A batch longer than the tile pages with "‹ 1/2 ›" in the head, the shelf's
    own quiet buttons; it is for every pointer, not only a mouse. */
@@ -527,13 +537,111 @@
   background: var(--color-surface); border: 0; border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest);
 }
 
+/* ---------- the front page's five bands (captain, 10/11 17:51: "Duyệt, giao sửa") ----------
+   Hôm nay · Điểm nhấn · Tin mới · Mô hình và mã nguồn · Tin khác, top to bottom, each under the same heading. Inside a
+   band every card in a row has the band's height (grid-auto-rows) and its content fits that height: lists show whole
+   rows (feed.js, fitBandLists, fitFreshTile), headlines are clamped by line. The spans below keep every row full at
+   five, four and three columns; feed.js builds "Tin mới" and "Tin khác" from the same column count. A phone is one
+   column. */
+.msn-grid.is-front { display: flex; flex-direction: column; gap: var(--band-gap); }
+.band { display: flex; flex-direction: column; min-width: 0; }
+.band[hidden] { display: none; }
+.band > .band-title { margin: 0 0 var(--space-12) var(--space-4); }
+.band-cells {
+  --band-row: var(--band-h-news);
+  display: grid; grid-template-columns: repeat(var(--bento-cols), minmax(0, 1fr)); grid-auto-rows: var(--band-row);
+  grid-auto-flow: row; gap: var(--msn-gap);
+}
+.band-today .band-cells, .band-focus .band-cells { --band-row: var(--band-h-top); }
+.band-cells > * { min-width: 0; min-height: 0; }
+.band-cells > .msn-lead, .band-cells > .nc-wide, .band-cells > .tile-fresh { grid-column: span 2; }
+.band-cells > .tile {
+  gap: var(--space-12); padding: var(--space-12) var(--space-16) var(--space-16); overflow: hidden;
+  background: var(--color-surface); border: 0; border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest);
+}
+
+/* Labels and headlines (captain, 10/11: the card names read like the headlines). A card's name is a small label; a
+   band's heading is the one larger heading; a story's headline is never set like either. */
+.band :is(.tile .tile-title, .msn-toplist h2, .ev-head h2) {
+  margin: 0; font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--color-ink-2);
+}
+.band :is(.msn-toplist h2, .ev-head h2)::before { display: none; }
+.band .tile .tile-head { align-items: center; min-height: var(--space-24); }
+.band .tile .tile-note { font-size: var(--text-micro); }
+
+/* "Vừa đăng" fills its cell: whole rows (fitFreshTile), sharing the height the tile has, headlines up to three lines. */
+.band #fresh-row { margin: 0; }
+.band .tile-fresh .fresh-list { flex: 1; min-height: 0; grid-auto-rows: auto; align-content: stretch; }
+.band .tile-fresh .fresh-list > li { display: flex; min-height: 0; }
+.band .tile-fresh .brief { flex: 1; align-items: center; padding-block: var(--space-8); }
+.band .tile-fresh .brief time { padding-top: 0; }
+.band .tile-fresh .brief-h { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* "Chuyện lớn": the four stories share the card's height; a row that cannot fit whole is left out (fitBandLists). */
+.band .msn-toplist { padding: var(--space-12) var(--space-12) var(--space-8); }
+.band .msn-toplist h2 { margin: 0 0 var(--space-6) var(--space-4); }
+.band .msn-toplist ol { min-height: 0; overflow: hidden; }
+.band .msn-toplist li { min-height: 0; padding: var(--space-6) var(--space-4); }
+.band :is(.arena-list, .repo-row, .model-list, .msn-toplist ol) > [hidden] { display: none !important; }
+
+/* "Đáng chú ý": the double story card of the second band. */
+.band-focus .nc-wide .nc-title { font-size: var(--msn-title-big); line-height: 1.3; letter-spacing: -0.02em; -webkit-line-clamp: 6; }
+.band-focus .nc-wide .nc-sum { -webkit-line-clamp: 4; }
+
+/* The next event: its days, name and place, then its countdown and calendar, laid through the card's height rather
+   than leaving one gap between the name and the countdown (captain, 10/11). */
+.band .msn-ev { padding: var(--space-12) var(--space-16) var(--space-16); }
+.band .ev-next { justify-content: space-evenly; gap: var(--space-12); }
+.band .ev-foot { margin-top: 0; }
+.band .ev-date b { font-size: var(--text-feature); }
+
+/* "Mô hình và mã nguồn": the tiles side by side, as many columns as tiles, one height. */
+.band-lab .band-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); grid-auto-rows: var(--band-h-lab); }
+.band-lab .band-grid > .tile { container-type: inline-size; overflow: hidden; padding: var(--space-12) var(--space-16) var(--space-12); }
+.band-lab :is(.arena-list, .repo-row, .model-list) { flex: 1 1 0; min-height: 0; overflow: hidden; }
+.band-lab .tile-foot { margin-top: 0; }
+.band-lab .tile-arena { min-height: 0; }
+.band-lab .tile-models { align-self: stretch; }
+.band-lab .tile-repos.has-area { grid-column: auto; }
+/* One filter row in the tile (captain, 10/11: "Kho mã có 3 hàng bộ lọc"); the window, the totals and the work areas
+   appear with the whole list when the reader opens it ("Mở rộng"). */
+.band-lab:not(.is-open) .tile-repos :is(.seg-quiet, .area-chips, .repo-note, .repo-more) { display: none; }
+.band-lab .repo-ctl { flex-wrap: nowrap; overflow: hidden; }
+.band-lab.is-open .band-grid { grid-auto-rows: auto; }
+.band-lab.is-open .repo-ctl { flex-wrap: wrap; }
+.band-lab.is-open :is(.arena-list, .repo-row, .model-list) { flex: none; overflow: visible; }
+.lab-open { margin-left: auto; }
+/* A narrow tile (four or three columns) keeps the names and numbers and leaves out the preview pictures. */
+@container (max-width: 24rem) {
+  .band-lab .repo { grid-template-columns: minmax(0, 1fr); }
+  .band-lab .repo-img { display: none; }
+  .band-lab .model { grid-template-columns: minmax(0, 1fr); }
+  .band-lab .model-img { display: none; }
+}
+
+/* "Tin khác": whole rows, then "Xem thêm tin". */
+.band-foot { display: flex; justify-content: center; margin-top: var(--space-16); }
+.band-foot:empty { display: none; }
+.more-btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: var(--btn-h); padding: 0 var(--space-24);
+  border-radius: var(--radius-full); background: var(--color-fill); color: var(--color-ink);
+  font-size: var(--text-small); font-weight: var(--weight-semibold);
+  transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+}
+.more-btn:hover { background: var(--color-field-on); }
+.more-btn:active { transform: scale(0.97); }
+.more-btn:disabled { color: var(--color-ink-3); cursor: progress; }
+.more-btn:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+
 /* ---------- one row of any list: Vừa đăng, Chuyện lớn, Đang nóng, the band's lists, Sắp diễn ra ---------- */
 /* One wash behind the whole row, the same for the pointer (only where there is one that hovers) and for the keyboard,
-   which adds the focus ring around the wash. Defined once here; feed.js gives every list row the class. */
-.list-row { position: relative; isolation: isolate; outline: none; }
+   which adds the focus ring around the wash. Defined once here; feed.js gives every list row the class. The wash is
+   square, so it reads as one with the straight rules between the rows (captain, 10/11: "hover bo góc, đường kẻ thẳng"). */
+.list-row { position: relative; isolation: isolate; outline: none; border-radius: 0; }
 .list-row::before {
   content: ""; position: absolute; z-index: -1; inset: calc(-1 * var(--row-wash-y)) calc(-1 * var(--row-wash-x));
-  border-radius: var(--radius-8); background: transparent; pointer-events: none;
+  border-radius: 0; background: transparent; pointer-events: none;
   transition: background-color var(--duration-150) ease;
 }
 @media (hover: hover) and (pointer: fine) { .list-row:hover::before { background: var(--row-wash); } }
@@ -574,13 +682,8 @@
 .msn-grid .seg-b { min-height: var(--btn-h); }
 
 /* ---------- widths ---------- */
-@media (min-width: 1750px) {
-  :root { --msn-cols: 7; }
-  .msn-grid { --msn-row: var(--msn-rowh-xl); }
-  .nc-photo { height: var(--msn-photo-h-xl); }
-  /* Seven columns: the lead and "Vừa đăng" take three each, so the first row stays lead, "Vừa đăng", weather. */
-  .msn-grid.is-front > .msn-lead, .msn-grid.is-front > .tile-fresh, #feed-skeleton .msn-lead { grid-column: span 3; }
-}
+/* At most five columns at any width (captain, 10/11 17:51: seven columns were too dense); the panel stops at
+   --msn-panel-max and the day's picture shows beside it. */
 /* Three columns: the lead and the weather fill the first row, "Vừa đăng" and the calendar the second; the next event
    follows the stories in the page's order. */
 @media (min-width: 700px) and (max-width: 1099px) {
@@ -698,9 +801,70 @@
   :root { --msn-cols: 1; }
   .msn-lead, .msn-wx, .msn-toplist, .nc-big, .nc-wide { grid-column: 1; }
 }
-/* ---------- the day's picture behind the first screen (owner, 10/11: "còn về ảnh nền thì em làm như edge") ---------- */
+
+/* ---------- the front page's bands at each width (five, four, three columns; one on a phone) ---------- */
+@media (min-width: 768px) {
+  /* No "Vừa đăng" (nothing young enough): the lead takes its columns. No event coming: "Đáng chú ý" takes its column. */
+  .band-today .band-cells:not(:has(> .tile-fresh)) > .msn-lead { grid-column: span calc(var(--bento-cols) - 1); }
+  .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide { grid-column: span 3; }
+}
+/* Four columns: Hôm nay = lead 2 · Vừa đăng 1 · weather 1; Điểm nhấn = four single cells, "Đáng chú ý" a tall card. */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :root { --bento-cols: 4; }
+  .band-today .band-cells > .tile-fresh { grid-column: span 1; }
+  .band-focus .band-cells > .nc-wide { grid-column: span 1; flex-direction: column; }
+  .band-focus .band-cells > .nc-wide .nc-photo { width: auto; height: var(--msn-photo-h); }
+  .band-focus .band-cells > .nc-wide .nc-title { font-size: var(--msn-title-text); -webkit-line-clamp: 4; }
+  .band-focus .band-cells > .nc-wide .nc-sum { -webkit-line-clamp: 3; }
+  .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide { grid-column: span 2; flex-direction: row; }
+  .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide .nc-photo { width: 50%; height: auto; }
+}
+/* Three columns: the lead alone on the first row, then Vừa đăng 2 · weather 1; Chuyện lớn · event · calendar, then
+   "Đáng chú ý" across the row. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root { --bento-cols: 3; }
+  .band-today .band-cells > .msn-lead { grid-column: 1 / -1; }
+  .band-focus .band-cells > .nc-wide { grid-column: 1 / -1; order: 1; }
+  .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide { grid-column: span 1; order: 0; flex-direction: column; }
+  .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide .nc-photo { width: auto; height: var(--msn-photo-h); }
+}
+/* A phone: one column, news first and the widgets after it in each band. A story is a compact row (its picture beside
+   the headline); a double story and "Đáng chú ý" are full-width picture cards. */
+@media (max-width: 767px) {
+  :root { --bento-cols: 1; --band-gap: var(--space-16); }
+  .band-cells { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; gap: var(--space-8); }
+  .band-cells > *, .band-cells > .msn-lead, .band-cells > .nc-wide, .band-cells > .tile-fresh { grid-column: 1 / -1; }
+  .band > .band-title { margin: 0 0 var(--space-8) var(--space-4); font-size: var(--text-body); }
+  .band .msn-lead { height: var(--msn-lead-h-phone); }
+  .band .msn-wx { min-height: var(--msn-wx-h-phone); }
+  .band .msn-cal { min-height: var(--msn-rowh-phone); }
+  .band .tile-fresh .fresh-list { grid-auto-rows: auto; }
+  .band .msn-toplist ol { overflow: visible; }
+  .band .msn-toplist li { flex: none; }
+  .band .nc { min-height: 0; height: auto; }
+  .band .nc:not(.nc-wide) { flex-direction: row; align-items: flex-start; }
+  .band .nc:not(.nc-wide) .nc-photo {
+    width: var(--bento-thumb-w); height: var(--bento-thumb-h); margin: var(--space-12) 0 var(--space-12) var(--space-12);
+    border-radius: var(--radius-8);
+  }
+  .band .nc:not(.nc-wide) .nc-body { padding: var(--space-12); gap: var(--space-4); }
+  .band .nc:not(.nc-wide) .nc-title { font-size: var(--text-sub); -webkit-line-clamp: 3; }
+  .band .nc.no-photo:not(.nc-wide) .nc-sum { display: none; }
+  .band .nc-wide { flex-direction: column; height: auto; min-height: 0; }
+  .band .nc-wide .nc-photo { width: auto; height: auto; aspect-ratio: 16 / 9; }
+  .band .nc-wide .nc-body { padding: var(--space-12); gap: var(--space-6); }
+  .band .nc-wide .nc-title { font-size: var(--text-title); -webkit-line-clamp: 4; }
+  .band .nc-wide .nc-sum { display: -webkit-box; -webkit-line-clamp: 2; }
+  .band .nc-wide.no-photo .nc-body { padding: var(--space-16); }
+  .band-lab .band-grid { grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
+  .band-lab .band-grid > .tile { overflow: visible; }
+  .band-lab :is(.arena-list, .repo-row, .model-list) { flex: none; overflow: visible; }
+  /* A phone's tiles grow with their rows, so a closed band keeps them short: three repositories, four models. */
+  .band-lab:not(.is-open) .repo-row > :nth-child(n+4), .band-lab:not(.is-open) .model-list > :nth-child(n+5) { display: none; }
+}
+/* ---------- the day's picture behind the page (owner, 10/11: "còn về ảnh nền thì em làm như edge") ---------- */
 /* From 768 px the day's 3D render fills the window behind the page, as on Edge's new tab, and stays put while the panel
-   scrolls over it; the page's own surface closes in around the panel as it rises. Captain, 10/11 14:48: the search and
+   scrolls over it. Captain, 10/11 14:48: the search and
    the panel sit high (Edge: search near the top, panel right under it), and a veil lies between the picture and the
    content so the corners and the panel stand out; the corners' ink turns white on it. "Tùy chỉnh" (thanh-tren.js) can
    start the panel lower (data-layout part / head) or turn the picture off (data-nen="off": nothing is downloaded).
@@ -715,15 +879,12 @@
   .nen.is-ready .nen-img { opacity: 1; }
   .nen.is-instant .nen-img { transition: none; }
   .nen::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--nen-scrim); }
-  .nen::after { content: ""; position: absolute; inset: 0; z-index: 2; background: var(--color-canvas); opacity: 0; }
-  @supports (animation-timeline: scroll()) {
-    .nen::after { animation: nen-cover linear both; animation-timeline: scroll(root block); animation-range: var(--nen-cover-from) var(--nen-cover-to); }
-  }
+  /* No surface closes over the picture as the page scrolls (captain, 10/11 17:51): the picture stays in sight in the
+     gutters beside the panel all the way down; only the scrim above keeps the top row readable. */
   .msn-top { display: flex; flex-direction: column; }
   .msn-top-in { width: 100%; }
   [data-layout="part"] .msn-top { min-height: var(--nen-fold); }
   [data-layout="head"] .msn-top { min-height: calc(100svh - var(--nen-peek)); }
-  [data-layout="part"], [data-layout="head"] { --nen-cover-from: calc(var(--nen-fold) * 0.25); --nen-cover-to: var(--nen-fold); }
   :root:not([data-nen="off"]) {
     --top-ink: var(--top-on-nen-ink); --top-ink-shadow: var(--top-on-nen-shadow);
     --top-tile: var(--top-on-nen-tile); --top-tile-on: var(--top-on-nen-tile-on);
@@ -737,7 +898,6 @@
   }
   .msn-top .ns-field:hover, .msn-top .ns-field:focus-within { background: var(--nen-pill-on); }
 }
-@keyframes nen-cover { to { opacity: 1; } }
 @media (min-width: 768px) and (prefers-reduced-transparency: reduce) {
   .msn-top .ns-field { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--nen-pill-on); }
   :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button {

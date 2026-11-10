@@ -156,10 +156,14 @@ for (const translated of [longOriginal, coverageTranslated]) {
     const item = {...translated, image};
     feed.configure([item]);
     for (const html of feedVariants(item)) {
-      assert.equal((html.match(/>Translated<\/span>/g) || []).length, 1);
-      assert.match(html, /<span class="sr" lang="vi">Bản dịch máy\. <\/span>/);
-      // The mark sits under a card's headline ("nc-mt"), in a slide's source line, a list row's meta or the hot why line.
-      assert.match(html, /(?:class="nc-mt"|class="nc-meta"|class="top-meta"|class="hot-why")[\s\S]*?class="mt"/);
+      // The front page's cards, "Chuyện lớn" and the carousel carry no "Translated" label (captain, 10/11 17:51): it
+      // stays in the story page's and modal's footer (below). The hot list, a view of its own, keeps its mark.
+      const hot = html.includes('class="hot-why"');
+      assert.equal((html.match(/>Translated<\/span>/g) || []).length, hot ? 1 : 0);
+      if (hot) {
+        assert.match(html, /<span class="sr" lang="vi">Bản dịch máy\. <\/span>/);
+        assert.match(html, /class="hot-why"[\s\S]*?class="mt"/);
+      } else assert.doesNotMatch(html, /class="mt"|Bản dịch máy/);
       assert.doesNotMatch(html, /card-orig|orig-text/);
       assert.ok(!html.includes(feed.titleOf(item).orig), 'feed does not print the original title');
       assert.ok(html.includes(feed.titleOf(item).text), 'translated headline remains present');
@@ -242,7 +246,7 @@ for (const image of [
   for (const html of [feed.leadHTML([item]), feed.msnCard(item, 'big')]) {
     assert.ok(html.includes(`src="${image.src}"`));
     assert.ok(html.includes('class="media-backdrop'), 'the picture sits on its backdrop');
-    assert.ok(html.includes('Translated') && !html.includes(story.title));
+    assert.ok(!html.includes('Translated') && !html.includes(story.title));   // no label on the front page (10/11)
     assert.ok(html.includes(story.headline_vi));
     if (image.via === 'ai') assert.ok(html.includes('Ảnh minh hoạ do AI tạo'));
   }

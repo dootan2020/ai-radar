@@ -59,19 +59,19 @@ class ModelsAndCodeBand(unittest.TestCase):
         lab = function(feed, "renderLab")
         self.assertLess(lab.index("renderArenaTile()"), lab.index("renderRepos()"))
         self.assertLess(lab.index("renderRepos()"), lab.index("renderModels()"))
-        self.assertIn('<section class="tile-band" id="lab" aria-labelledby="lab-h">', lab)
+        self.assertIn('<section class="band band-lab tile-band${labOpen ? \' is-open\' : \'\'}" id="lab" aria-labelledby="lab-h">', lab)
         self.assertIn('<div class="band-grid">${tiles}</div>', lab)
         self.assertIn("if (it.t === 'lab') return renderLab();", feed)
 
     def test_the_front_page_places_the_band_once_and_no_tile_of_it_alone(self):
+        # Captain, 10/11 17:51: the fourth of the front page's five bands, after "Tin mới" and before "Tin khác".
         feed = read(SITE / "feed.js")
-        widgets = feed[feed.index("const widgets = ["):feed.index("].filter(Boolean);", feed.index("const widgets = ["))]
-        self.assertIn("{ t: 'lab' }", widgets)
-        for alone in ("'arena'", "'repos'", "'models'"):
-            self.assertNotIn(alone, widgets)
-        # News first: the hot list, then the band, both after the first stories of the river.
-        self.assertLess(widgets.index("'hot'"), widgets.index("'lab'"))
-        self.assertIn("if ((i + 1) % 10 === 8 && widgets.length) out.push(widgets.shift());", feed)
+        front = function(feed, "frontHTML")
+        self.assertEqual(front.count("renderLab()"), 1)
+        self.assertLess(front.index("bandHTML('news'"), front.index("renderLab()"))
+        self.assertLess(front.index("renderLab()"), front.index("bandHTML('more'"))
+        for alone in ("renderArenaTile()", "renderRepos()", "renderModels()"):
+            self.assertNotIn(alone, front)
 
     def test_the_band_spans_the_grid_and_keeps_its_tiles_side_by_side(self):
         css = read(SITE / "trang-msn.css")

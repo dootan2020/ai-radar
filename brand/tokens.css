@@ -244,7 +244,15 @@
   --msn-sun: #FDB022; --msn-cloud: var(--gray-96); --msn-cloud-2: var(--gray-80); --msn-rain: #84CAFF; --msn-moon: #FEF0C7;
   --msn-page-pad: clamp(16px, 2.2vw, 40px);
   --msn-top-pad: 20px;
-  --msn-panel-max: 1680px;                          /* the panel's outer width stops here and is centred; the top row shares its edges */
+  --msn-panel-max: 1624px;                          /* the panel's outer width stops here and is centred (content 1600 px, captain 10/11 17:51); the top row shares its edges */
+  /* The front page's bands (captain, 10/11 17:51: "Duyệt, giao sửa"): at most five columns, every card in a row the
+     band's height. --bento-cols is set per width in trang-msn.css (5, 4, 3, and 1 on a phone); feed.js reads it. */
+  --bento-cols: 5;
+  --band-gap: var(--space-24);                       /* between two bands */
+  --band-h-top: 384px;                               /* "Hôm nay" and "Điểm nhấn": the lead, the lists, the weather, the calendar */
+  --band-h-news: 286px;                              /* a row of story cards: "Tin mới", "Tin khác" */
+  --band-h-lab: 432px;                               /* "Mô hình và mã nguồn": three equal tiles */
+  --bento-thumb-w: 104px; --bento-thumb-h: 78px;     /* a phone's compact story card: the picture beside the headline */
   --msn-brand-tile: 34px; --msn-brand-size: 1.375rem;
   --msn-rowh-xl: 292px; --msn-photo-h-xl: 154px;   /* 1750 px and wider: seven columns */
   --msn-rowh-phone: 240px; --msn-photo-h-phone: 112px;
@@ -283,14 +291,12 @@
   --nen-pill: color-mix(in srgb, var(--color-float) 94%, transparent);
   --nen-pill-on: var(--color-float);
   --nen-pill-shadow: 0 1px 2px oklch(0.1 0.02 262 / 0.22), 0 8px 28px oklch(0.1 0.02 262 / 0.28);
-  --nen-cover-from: var(--space-48);                 /* the page's surface closes over the picture as the panel rises */
-  --nen-cover-to: 480px;
   /* One row of any list (captain, 10/11 15:19: "yêu cầu tất cả kiểu hover của list nó phải giống nhau"): a wash behind
      the whole row on hover and on keyboard focus, reaching this far past the row's own box. */
   --row-wash: var(--color-fill);
   --row-wash-x: var(--space-8);
   --row-wash-y: var(--space-6);
-  /* The models and code band: its tiles keep the height a 2x2 tile had. */
+  /* The models and code band on the "Mã và mô hình" view: tiles at least this wide. */
   --band-tile-min: 20rem;
   /* "Tùy chỉnh": the panel at the top right, out of the top row's own button. */
   --tc-w: 22rem;
