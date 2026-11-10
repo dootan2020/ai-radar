@@ -245,8 +245,6 @@
   --msn-page-pad: clamp(16px, 2.2vw, 40px);
   --msn-top-pad: 20px;
   --msn-panel-max: 1680px;                          /* the panel's outer width stops here and is centred; the top row shares its edges */
-  --msn-ripple-w: 200px; --msn-ripple-h: 80px;         /* the water ripple's box (nen-song.svg), at the page's top-left corner: three flat elliptical bands, 3:1, left half cropped by the viewport */
-  --msn-ripple-a: 0.1;                                 /* coral on the light surface, quiet */
   --msn-brand-tile: 34px; --msn-brand-size: 1.375rem;
   --msn-rowh-xl: 292px; --msn-photo-h-xl: 154px;   /* 1750 px and wider: seven columns */
   --msn-rowh-phone: 240px; --msn-photo-h-phone: 112px;
@@ -265,7 +263,6 @@
 /* ---------- dark: same roles, new values. Surfaces lighten to rise; numbers stay the brightest thing. ---------- */
 [data-theme="dark"]{
   --color-canvas: var(--brand-surface-dark);
-  --msn-ripple-a: 0.13;                                /* coral on the navy surface, a little stronger */
   --color-bar: var(--brand-surface-dark);
   --color-surface: var(--brand-card-dark);
   --color-inset: var(--brand-surface-dark);
@@ -316,7 +313,6 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --color-canvas: var(--brand-surface-dark);
-    --msn-ripple-a: 0.13;                                /* coral on the navy surface, a little stronger */
     --color-bar: var(--brand-surface-dark);
     --color-surface: var(--brand-card-dark);
     --color-inset: var(--brand-surface-dark);

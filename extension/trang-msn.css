@@ -13,18 +13,6 @@
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, var(--msn-search-max)) minmax(var(--btn-h), 1fr); align-items: center;
   gap: var(--space-12); margin-bottom: var(--space-16);
 }
-/* The dive ripple (owner, 09/11 19:38, "làm theo khuyến nghị của e"): where the kingfisher entered the water, a few flat ripples
-   seen at an angle: three elliptical bands about 3:1 wide to tall, no centre mark. One packaged shape (nen-song.svg: filled bands,
-   no gradient, no stroke), behind the top row, static, coral at --msn-ripple-a. It sits in the page's top-left corner, in empty
-   space; the viewport crops the outer band. It is drawn from 75rem, where the search starts at least 200px from the page edge;
-   below that the ripple would meet the search, so it is not drawn. */
-@media (min-width: 75rem) {
-  .msn-top::before {
-    content: ""; position: absolute; z-index: -1; pointer-events: none; top: 0; left: 0;
-    width: var(--msn-ripple-w); height: var(--msn-ripple-h);
-    background: url("nen-song.svg") no-repeat left top / 100% 100%; opacity: var(--msn-ripple-a);
-  }
-}
 .msn-top .news-search { grid-column: 2; width: 100%; position: relative; }
 .msn-top .masthead-actions { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: var(--space-8); }
 .msn-top .ns-open { display: none; }
