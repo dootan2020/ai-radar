@@ -258,6 +258,23 @@
   --msn-menu-top: 52px; --msn-menu-max-h: 290px;
   --msn-spinner: 14px; --msn-spinner-w: 2px;
   --msn-sk-line: 12px;
+  /* The day's picture behind the first screen, from 768 px (owner, 10/11: "còn về ảnh nền thì em làm như edge"; nen.js).
+     The panel starts a little under the middle; the search floats on the picture in a frosted pill; a faint scrim sits
+     only along the top edge and around the search, never over the whole picture. */
+  --nen-fold: clamp(320px, 45vh, 640px);             /* where the panel starts */
+  --nen-lift: var(--space-32);                       /* the search sits a little above its band's centre */
+  --nen-mat: #0B101C;                                /* the renders' night: shown until the day's picture arrives */
+  --nen-focus: 50% 32%;                              /* the renders keep their detail in the upper thirds */
+  --nen-scrim: radial-gradient(56% 34% at 50% 26%, oklch(0.1 0.02 262 / 0.32), transparent 72%),
+               linear-gradient(to bottom, oklch(0.1 0.02 262 / 0.38), transparent var(--space-96));
+  --nen-pill: color-mix(in srgb, var(--color-float) 94%, transparent);
+  --nen-pill-on: var(--color-float);
+  --nen-pill-shadow: 0 1px 2px oklch(0.1 0.02 262 / 0.22), 0 8px 28px oklch(0.1 0.02 262 / 0.28);
+  --nen-cover-from: calc(var(--nen-fold) * 0.25);    /* the page's surface closes over the picture as the panel rises */
+  --nen-cover-to: var(--nen-fold);
+  /* "Vừa đăng" after the "N tin mới" pill (owner, 10/11): the announced rows glow coral, then settle. */
+  --fresh-flash: 2000ms;
+  --color-accent-wash-strong: color-mix(in srgb, var(--brand-signature) 22%, transparent);
 }
 
 /* ---------- dark: same roles, new values. Surfaces lighten to rise; numbers stay the brightest thing. ---------- */

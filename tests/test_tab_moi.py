@@ -153,9 +153,12 @@ class TopZoneTests(unittest.TestCase):
         # 09/11: "2 thẻ cùng 1 cột. Thời tiết ở trên, lịch ở dưới": the grid's last column at every column count, the
         # weather in the first row and the calendar under it; first on a phone. Owner, 09/11 ("QA các thành phần giao
         # diện có nên hiển thị ở đó hay không"): "Mã và mô hình" is about repositories and models, so it leaves them out.
+        # Owner, 10/11: on the front page they follow the first six stories in the page's order (a phone reads the news
+        # first); wider screens still pin them to the last column.
         for folder in (ROOT / "site", EXT):
             feed = (folder / "feed.js").read_text(encoding="utf-8")
-            self.assertIn("(front ? leadHTML(PICKLIST) + FIXED_SLOTS + renderNext() + topListHTML(FRONT_TOP) : code ? '' : FIXED_SLOTS) + chunk.html", feed)
+            self.assertIn("(front ? leadHTML(PICKLIST) + freshTileHTML() + topListHTML(FRONT_TOP) : code ? '' : FIXED_SLOTS) + chunk.html", feed)
+            self.assertIn("if (it.t === 'furniture') return FIXED_SLOTS + renderNext();", feed)
             self.assertNotIn("if (front) placeFixedCards", feed)
             self.assertEqual(feed.count("placeFixedCards("), 3)   # the definition, a redraw, a failed news load
             css = (folder / "trang-msn.css").read_text(encoding="utf-8")
