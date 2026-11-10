@@ -236,22 +236,28 @@
 .slide.no-photo .slide-box { inset: 0; justify-content: flex-end; border-radius: 0; padding: var(--space-24) var(--space-24) var(--space-64); background: transparent; }
 .slide.no-photo .slide-title { font-size: var(--text-feature); -webkit-line-clamp: 4; }
 @media (hover: hover) and (pointer: fine) { .slide .story-link:hover { text-decoration: underline; text-underline-offset: 0.15em; } }
-/* The dots, one per story in the carousel, straight on the photo with no chip behind them (captain, 10/11 15:52: "bỏ cái
-   nền của mấy dấu chấm ... chỉ để mấy dấu chấm"); each dot carries its own thin dark ring and shadow, so it reads on a
-   white photo and a dark one alike. Each dot is a 44 px tall button. No prev/next buttons (owner, 09/11): a swipe or
-   the arrow keys on the dots move the story. */
-.msn-lead { touch-action: pan-y; }
-.lead-dots { position: absolute; top: 0; left: var(--space-12); z-index: 3; display: flex; padding-inline: var(--space-6); }
-.lead-dots button { height: var(--btn-h); padding-inline: var(--space-4); display: grid; place-items: center; }
-.lead-dots button::before {
-  content: ""; width: var(--msn-lead-dot); height: var(--msn-lead-dot); border-radius: var(--radius-full); background: var(--msn-on-photo-dot);
-  box-shadow: var(--msn-lead-dot-shadow);
+/* The pager dots, one style for every row of them: the lead carousel's (one per story) and the weather card's (one per
+   page). Straight on the picture with no chip behind them (captain, 10/11 15:52: "bỏ cái nền của mấy dấu chấm ... chỉ để
+   mấy dấu chấm") and no ring around them (10/11 18:54: "các dấu chấm trên carousel thì có viền, bỏ viền đi. bảo đảm các
+   dấu chấm trên carousel phải đồng bộ với nhau"): a soft shadow alone keeps them legible on a white photo and a dark one.
+   Each dot is a 44 px tall button; the active one is a longer bar. */
+.pager-dots { display: flex; }
+.pager-dots button {
+  height: var(--btn-h); padding: 0 var(--pager-dot-pad); border: 0; background: none; display: grid; place-items: center;
+}
+.pager-dots button::before {
+  content: ""; width: var(--pager-dot); height: var(--pager-dot); border-radius: var(--radius-full); background: var(--pager-dot-fill);
+  box-shadow: var(--pager-dot-shadow);
   transition: width var(--duration-250) var(--ease-flow), background-color var(--duration-250) ease;
 }
-.lead-dots button[aria-current="true"]::before { width: var(--msn-lead-dot-on); background: var(--msn-on-ink); }
-.lead-dots button:focus-visible { outline: none; }
-.lead-dots button:focus-visible::before { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
-@media (hover: hover) and (pointer: fine) { .lead-dots button[aria-current="false"]:hover::before { background: var(--msn-on-ink-2); } }
+.pager-dots button[aria-current="true"]::before { width: var(--pager-dot-on); background: var(--pager-dot-fill-on); }
+.pager-dots button:focus-visible { outline: none; }
+.pager-dots button:focus-visible::before { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+@media (hover: hover) and (pointer: fine) { .pager-dots button[aria-current="false"]:hover::before { background: var(--msn-on-ink-2); } }
+/* The carousel's dots at the photo's top left. No prev/next buttons (owner, 09/11): a swipe or the arrow keys on the
+   dots move the story. */
+.msn-lead { touch-action: pan-y; }
+.lead-dots { position: absolute; top: 0; left: var(--space-12); z-index: 3; padding-inline: var(--space-6); }
 
 /* ---------- "Chuyện lớn": a numbered list ---------- */
 .msn-toplist { display: flex; flex-direction: column; padding: var(--space-12) var(--space-12) var(--space-8); }
@@ -337,10 +343,8 @@
 .wx-lo { font-size: var(--text-micro); font-weight: var(--weight-medium); }
 .wx-days.is-swapping li { opacity: 0; }
 .wx-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
-.wx-dots { display: flex; margin-left: calc(-1 * var(--space-12)); }
-.wx-dots button { width: var(--btn-h); height: var(--btn-h); display: grid; place-items: center; }
-.wx-dots button::before { content: ""; width: var(--space-6); height: var(--space-6); border-radius: var(--radius-full); background: var(--msn-on-photo-dot); transition: width var(--duration-250) var(--ease-flow), background-color var(--duration-250) ease; }
-.wx-dots button[aria-current="true"]::before { width: var(--space-16); background: var(--msn-on-ink); }
+/* The weather card's two page dots: the pager dots above, their first dot on the card's content edge. */
+.wx-dots { margin-left: calc(-1 * var(--pager-dot-pad)); }
 .msn-wx .pill {
   display: inline-flex; align-items: center; min-height: var(--btn-h); padding: 0 var(--space-16); border-radius: var(--radius-full);
   background: var(--msn-wx-pill); color: inherit;
@@ -886,6 +890,12 @@
   .msn-top-in { width: 100%; }
   [data-layout="part"] .msn-top { min-height: var(--nen-fold); }
   [data-layout="head"] .msn-top { min-height: calc(100svh - var(--nen-peek)); }
+  /* "Một phần" and "Đầu đề" (captain, 10/11 18:54: "nút tìm kiếm nó phải luôn nằm ở giữa mép trên và mép nội dung"): the
+     top row fills the space above the panel, the corners stay where "Toàn trang" has them (centred on a search-high
+     band at its top), and the search sits in its vertical middle, halfway between the window's top edge and the panel's
+     (the row's top padding equals its bottom margin). */
+  :is([data-layout="part"], [data-layout="head"]) .msn-top-in { flex: 1; grid-template-rows: var(--msn-search-h) 1fr; }
+  :is([data-layout="part"], [data-layout="head"]) .msn-top :is(.news-search, .web-search) { grid-row: 1 / -1; align-self: center; }
   :root:not([data-nen="off"]) {
     --top-ink: var(--top-on-nen-ink); --top-ink-shadow: var(--top-on-nen-shadow);
     --top-tile: var(--top-on-nen-tile); --top-tile-on: var(--top-on-nen-tile-on);
@@ -973,7 +983,7 @@
 @media (prefers-reduced-motion: reduce) {
   .nen-img { transition: none; }
   .fresh-list li.is-flash { animation: none; background: var(--color-accent-wash-strong); }
-  .nc, .nc-img, .slide, .lead-dots button::before, .wx-days li, .wx-menu, .wx-dots button::before { transition-duration: 1ms !important; }
+  .nc, .nc-img, .slide, .pager-dots button::before, .wx-days li, .wx-menu { transition-duration: 1ms !important; }
   .nc:hover, .nc:active { transform: none; }
   .nc:hover .nc-img { transform: none; }
   .msn-sk, .wx-skel i, .spinner { animation: none; }

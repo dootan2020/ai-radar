@@ -1882,7 +1882,7 @@ function leadHTML(list) {
       <div class="slide-media media">${mediaHTML(img, i ? 'card' : 'lead')}</div>
       <div class="slide-box"><p class="nc-kicker">Tin nổi bật</p><h2 class="slide-title"${langAttr(t.text)}><a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>${metaHTML(st)}</div></article>`;
   }).join('');
-  const nav = n > 1 ? `<div class="lead-dots" role="group" aria-label="Chọn tin nổi bật">${list.map((st, i) => `<button type="button" data-slide="${i}" aria-label="Tin nổi bật ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>` : '';
+  const nav = n > 1 ? `<div class="lead-dots pager-dots" role="group" aria-label="Chọn tin nổi bật">${list.map((st, i) => `<button type="button" data-slide="${i}" aria-label="Tin nổi bật ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>` : '';
   return `<section class="msn-card msn-lead" id="lead" aria-roledescription="carousel" aria-label="Tin nổi bật">${slides}${nav}</section>`;
 }
 function showSlide(lead, n) {
