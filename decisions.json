@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-10T03:42:17.861391+00:00",
-  "input_generated_at": "2026-11-10T00:10:42Z",
+  "generated_at": "2026-11-10T07:48:47.567103+00:00",
+  "input_generated_at": "2026-11-10T06:48:52Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -43787,17 +43787,17 @@
       "use_original_title": false,
       "source_url": "https://www.technologyreview.com/2026/11/09/1148194/the-backlash-about-data-centers-might-really-just-be-about-electricity/",
       "key_points": [
-        "Tác giả bài viết trên MIT Technology Review nhận định làn sóng phản đối trung tâm dữ liệu liên quan đến điện năng nhiều hơn giới công nghệ thừa nhận. Tại bang Virginia, cơ sở trung bình có công suất 54 megawatt, vượt mức tiêu thụ điện của Sân bay Quốc tế Denver.",
-        "Tác giả giải thích hậu quả từ việc rút quá nhiều điện từ lưới đã định hình sự phản kháng, dù điện không phải nguyên nhân duy nhất khi nỗi sợ mất việc làm cũng thúc đẩy làn sóng này. Nhà hoạt động Elena Schlossberg tại bang Virginia cũng khẳng định mâu thuẫn này thực chất luôn xoay quanh nguồn điện.",
-        "Anthropic được đưa tin đồng ý chi 3,4 tỷ USD mua tuabin khí đốt trong thương vụ mua nguồn phát điện lớn nhất của một công ty AI. Phần lớn trung tâm dữ liệu AI khác đang được xây dựng ở các vùng nông thôn gần như không có hạ tầng lưới điện kết nối và buộc phải tự cấp điện.",
-        "Tác giả bài viết nhận định việc tự phát điện quy mô lớn tất yếu ảnh hưởng đến cộng đồng xung quanh và các tuabin khí vẫn xả chất gây ô nhiễm không khí. Theo tác giả, nếu phải tự phát điện tại chỗ, các trung tâm dữ liệu sẽ chuyển đến nơi có ít người đủ khả năng kháng cự nhất."
+        "Tác giả bài viết trên MIT Technology Review nhận định làn sóng phản đối trung tâm dữ liệu liên quan đến điện năng nhiều hơn Big Tech thừa nhận. Tác giả ghi nhận cụm Data Center Alley ở bang Virginia là nơi làn sóng phản đối bắt đầu hình thành.",
+        "Tác giả giải thích ngành công nghệ không thể tránh khỏi các hệ quả vật lý từ nhu cầu điện năng khổng lồ, dù nỗi sợ mất việc làm cũng thúc đẩy phản đối. Tại bang Virginia, các cuộc phản đối dẫn đến quy định buộc trung tâm dữ liệu phải trả toàn bộ chi phí đường dây mới nối vào lưới điện.",
+        "Theo tác giả, tại hạt Loudoun thuộc bang Virginia, hầu hết trung tâm dữ liệu kết nối vào lưới điện hiện có, với công suất trung bình ở khu vực này là 54 megawatt. Ở nông thôn thiếu lưới điện, các cơ sở AI phải tự cấp nguồn, như Anthropic được đưa tin đã đồng ý trả 3,4 tỷ USD cho tuabin khí.",
+        "Theo tác giả, các trung tâm dữ liệu mới sẽ chuyển đến nơi có ít người phản kháng nhất nếu phải tự phát điện tại chỗ. Tác giả nhận định việc tự phát điện quy mô lớn tất yếu ảnh hưởng đến cộng đồng xung quanh, nơi người dân vốn quen có tiếng nói về hạ tầng."
       ],
       "same_event_coverage_ids": [
         "609380b7a63d863798c7"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hậu quả từ việc rút điện lưới định hình làn sóng phản đối trung tâm dữ liệu AI khắp nước Mỹ",
+      "editorial_headline_vi": "Tác giả MIT Technology Review: Làn sóng phản đối trung tâm dữ liệu AI bắt nguồn từ nhu cầu điện khổng lồ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -43812,30 +43812,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.35,
+        "value": 8.5,
         "answers": {
-          "what": 8,
-          "why": 9,
+          "what": 9,
+          "why": 8,
           "notable": 8,
           "meaning": 9
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "Hậu quả từ việc rút điện lưới định hình làn sóng phản đối trung tâm dữ liệu AI khắp nước Mỹ",
-            "explanation": "The source says grid-power consequences particularly shaped the backlash in Virginia (outlet:p006, outlet:p010–p011). It distinguishes many AI data centers being built elsewhere, which plan to generate power onsite rather than draw it from an existing grid (outlet:p012)."
+            "summary_text": "là nơi làn sóng phản đối bắt đầu hình thành",
+            "explanation": "The source says Data Center Alley is where the backlash *arguably* first began taking shape; it does not establish that origin as certain (outlet:p002)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "The headline extends the Virginia finding about grid-power consequences to opposition across the US.",
-            "fix": "Limit that grid-specific claim to Virginia, while describing the broader conclusion as opposition tied to data centers’ enormous electricity needs (outlet:p005–p006, outlet:p010–p012)."
+            "question": "notable",
+            "problem": "The reader misses the scale that underpins the writer’s concern about onsite power.",
+            "fix": "Add that the writer puts ideal facilities at about 6,000 megawatts, comparable to Chicago’s estimated draw (outlet:p014)."
           },
           {
-            "question": "notable",
-            "problem": "The 54-megawatt Virginia average does not show the scale of the much larger facilities discussed later.",
-            "fix": "If space permits, add that the writer describes ideal facilities of about 6,000 megawatts, comparable to Chicago’s estimated power draw (outlet:p014)."
+            "question": "why",
+            "problem": "The account of effects on nearby communities is vague.",
+            "fix": "Specify the source’s concern that gas turbines emit air pollutants and diesel generators are worse when used (outlet:p015–p016)."
+          },
+          {
+            "question": "what",
+            "problem": "The Vietnamese states Data Center Alley’s role in the backlash as certain.",
+            "fix": "Restore the writer’s qualification that the backlash *arguably* first began taking shape there (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -43843,8 +43848,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "35fb7d3a37a964e0ffbee4cd204c1b062d7023a67d47022cd12c9b3cd79eaa2b",
-        "scored_at": "2026-11-10T03:42:17.855555+00:00"
+        "prose_sha256": "960380dc1a2ea1e90e9ad12fca9793d6a9ecad593733d3ea5c15ae87a0c22907",
+        "scored_at": "2026-11-10T07:48:47.564377+00:00"
       }
     },
     {
@@ -44770,10 +44775,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/09/2026/with-a-weak-board-and-no-successor-nvidia-confronts-a-governance-crisis",
       "key_points": [
-        "Giám đốc điều hành (CEO) Jensen Huang của Nvidia đã thừa nhận quan hệ ngoài luồng với một phụ nữ bị nghi làm gián điệp cho cơ quan tình báo Trung Quốc. Theo chuyên trang Semafor, tương lai lãnh đạo của ông hiện phụ thuộc vào một hội đồng quản trị thiếu kinh nghiệm và vị thế so với quy mô của tập đoàn.",
-        "Hội đồng quản trị Nvidia nhiều năm qua đã cho phép ông Huang điều hành mà không có người kế nhiệm rõ ràng cùng cơ cấu hơn 50 cấp dưới trực tiếp báo cáo.",
-        "Nvidia không có người thay thế nội bộ rõ ràng cho ông Huang dù mô hình quản lý hơn 50 cấp dưới báo cáo nhằm giúp công ty vận hành ở tốc độ tối đa. Tập đoàn cũng chưa từng công khai kế hoạch kế nhiệm, thiếu vị trí lãnh đạo số hai và không hề nhắc đến từ kế nhiệm trong báo cáo thường niên gần nhất.",
-        "Cuộc điều tra của công ty sẽ xác định liệu ông Huang có làm tổn hại bí mật kinh doanh hay an ninh quốc gia Mỹ trong mối quan hệ này hay không. Giáo sư John C. Coffee Jr nhận định ông Huang có thể nhiều nhất chỉ bất cẩn và sơ suất không bắt buộc phải sa thải vị CEO danh tiếng, trong khi hội đồng quản trị tuyên bố chưa có lý do tin rằng bí mật hay an ninh bị xâm phạm."
+        "CEO Jensen Huang của Nvidia đã thừa nhận quan hệ ngoài luồng với một phụ nữ bị nghi làm gián điệp cho tình báo Trung Quốc. Theo Semafor, tương lai của ông hiện phụ thuộc vào hội đồng quản trị thiếu kinh nghiệm và vị thế so với quy mô tập đoàn.",
+        "Hội đồng quản trị Nvidia nhiều năm qua cho phép ông Huang điều hành không có người kế nhiệm rõ ràng cùng hơn 50 cấp dưới báo cáo trực tiếp.",
+        "Nvidia không có người thay thế nội bộ rõ ràng cho ông Huang dù cơ cấu hơn 50 cấp dưới báo cáo nhằm giúp công ty vận hành ở tốc độ tối đa. Doanh nghiệp chưa từng công khai kế hoạch kế nhiệm, thiếu nhân sự số hai và không nhắc từ kế nhiệm trong báo cáo thường niên gửi cổ đông.",
+        "Cuộc điều tra của công ty và các phiên điều trần quốc hội có thể diễn ra sẽ giúp xác định liệu ông Huang có làm tổn hại bí mật công ty hay an ninh quốc gia Mỹ hay không, dù hội đồng quản trị tuyên bố chưa có lý do tin rằng bí mật hay an ninh bị xâm hại."
       ],
       "same_event_coverage_ids": [
         "79f833c93749fd75d9bd"
@@ -44793,39 +44798,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.7,
+        "value": 9.65,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 9,
-          "meaning": 6
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Cuộc điều tra của công ty sẽ xác định liệu ông Huang có làm tổn hại bí mật kinh doanh hay an ninh quốc gia Mỹ",
-            "explanation": "The source says the company’s investigation, together with likely congressional hearings, will help determine whether secrets or national security were compromised; it does not say the company’s investigation alone will settle the question (outlet:p022)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader is told that the company’s investigation will settle whether harm occurred.",
-            "fix": "Say the investigation and likely congressional hearings will help determine whether company secrets or US national security were compromised (outlet:p022)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses the possible investor consequences of the earlier denials.",
-            "fix": "Add that misleading the board or knowingly misleading investors on a material issue could bring further shareholder litigation (outlet:p023)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "c7768ef6c3199dfbe54cd95894c1e4df4194ece8f139611f93221a40c59b1130",
-        "scored_at": "2026-11-10T03:26:18.652810+00:00"
+        "prose_sha256": "5ae2078dafb8ef9701d0aa0d42896f9aebcb85cbbe27f8da00310033e19d5148",
+        "scored_at": "2026-11-10T07:43:29.838781+00:00"
       }
     },
     {
@@ -44905,10 +44893,10 @@
       "use_original_title": false,
       "source_url": "https://github.blog/changelog/2026-11-09-claude-fable-5-2-in-github-copilot",
       "key_points": [
-        "Theo thông báo từ GitHub, Claude Fable 5.2 chính thức khả dụng trên GitHub Copilot dành cho người dùng các gói Pro+, Max, Business và Enterprise. Quá trình triển khai diễn ra dần dần và các quản trị viên doanh nghiệp phải chủ động bật cài đặt do mô hình bị tắt theo mặc định.",
-        "Mô hình hỗ trợ giải quyết các tác vụ lập trình đa bước trên các kho mã lớn, tính cước theo mức sử dụng với giá niêm yết của nhà cung cấp. Người dùng có thể lựa chọn mô hình trong danh sách bộ chọn của Visual Studio Code hay công cụ dòng lệnh Copilot CLI.",
-        "Trong các thử nghiệm ban đầu của GitHub, Fable 5.2 xử lý nhiều tác vụ hơn với ít bước hơn cùng số lượng lệnh gọi công cụ giảm so với Claude Fable 5.1. Mô hình này cũng hoàn thành những tác vụ lập trình khó mà các thế hệ trước từng bỏ sót.",
-        "Mô hình yêu cầu lưu giữ dữ liệu theo mặc định gồm câu lệnh và kết quả để Anthropic kiểm tra an toàn phát hiện hành vi độc hại, nhưng dữ liệu này không dùng huấn luyện mô hình. Các doanh nghiệp đủ điều kiện chỉ có thể tạm thời áp dụng cơ chế không lưu dữ liệu (zero data retention) đến hết năm dương lịch trước khi hệ thống bảo vệ an toàn EFS được triển khai."
+        "Theo GitHub, Claude Fable 5.2 chính thức khả dụng trên Copilot cho người dùng các gói Pro+, Max, Business và Enterprise. Đợt triển khai diễn ra dần dần và quản trị viên doanh nghiệp phải tự bật cài đặt vốn tắt theo mặc định.",
+        "Mô hình hỗ trợ giải quyết tác vụ lập trình đa bước trên kho mã lớn, tính cước theo mức sử dụng với giá niêm yết của nhà cung cấp. Người dùng có thể chọn mô hình trong Visual Studio Code hay Copilot CLI.",
+        "Trong thử nghiệm ban đầu của GitHub, Fable 5.2 hoàn thành nhiều tác vụ hơn với ít bước và lượt gọi công cụ hơn Claude Fable 5.1. Mô hình này cũng xử lý được những tác vụ khó mà các thế hệ trước từng bỏ sót.",
+        "Theo GitHub, mô hình yêu cầu lưu giữ dữ liệu theo mặc định gồm câu lệnh và kết quả để Anthropic chạy bộ phân loại an toàn phát hiện hành vi độc hại, không dùng để huấn luyện. Doanh nghiệp đủ điều kiện được tạm miễn lưu dữ liệu đến hết năm trong khi Anthropic triển khai Enterprise Frontier Safeguards (EFS), sau đó việc dùng tiếp bắt buộc phải có EFS."
       ],
       "same_event_coverage_ids": [
         "65b5e8b74e73a31703d5"
@@ -44928,34 +44916,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.7,
+        "value": 9.85,
         "answers": {
           "what": 10,
           "why": 10,
           "notable": 10,
-          "meaning": 8
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "trước khi hệ thống bảo vệ an toàn EFS được triển khai",
-            "explanation": "The source says Anthropic is rolling out EFS during the exemption period; after that period, continued use requires EFS. It does not place the start of EFS deployment after year-end (outlet:p023)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "Readers could understand EFS as starting only after the zero-retention exemption ends.",
-            "fix": "Say Anthropic is rolling out EFS during the exemption, and continued use afterward requires EFS (outlet:p023)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "db243f4aa85150046bf9870a543bcc51d85db6e03ea7cdf158d48b0c371a2e6c",
-        "scored_at": "2026-11-10T03:21:56.752614+00:00"
+        "prose_sha256": "d401954b02dc31e58a8299c773a351e4ef61185c70e9ab18c47f5f9fd62586e2",
+        "scored_at": "2026-11-10T07:43:29.838859+00:00"
       }
     },
     {
@@ -45108,6 +45084,889 @@
         "prose_sha256": "7c0ce97e0f5726afc60b81a1c916db0e2f08a75723869b4802ac1574c8f62241",
         "scored_at": "2026-11-10T03:26:18.652851+00:00"
       }
+    },
+    {
+      "id": "e7cdd540ce4011c9252e",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-10/anthropic-to-formally-market-ipo-after-filing-misstep-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0b545e7901beb6bca4e6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6d5bf45fcee1389b1680",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Corporate financial reporting on SoftBank Group's quarterly net loss, where AI spending worries are referenced only as a passing market sentiment factor.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/softbank-group-earnings-loss-after-ai-worries-hit-tech-stocks-masayoshi-son",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "290442d112bff80966c4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "19c160f4485a55c0c305",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Quotation from Anthropic documentation providing instructions and prompting advice on how to instruct Claude Fable 5.2 to refactor code.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f24f7d73b67ff00149b2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b61ba34289d3e8db137d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/a-new-ai-tool-from-google-deepmind-formally-verified-the-signal-protocol/",
+      "key_points": [
+        "Các nhà nghiên cứu DeepMind dùng AI tác tử (hệ thống AI tự chủ) kiểm chứng toán học một số bảo đảm mật mã của giao thức Signal trong dự án bốn tuần. Theo tạp chí WIRED, nghiên cứu này xác thực độc lập cho cơ chế mật mã bảo vệ liên lạc trên Signal, Google Messages và WhatsApp.",
+        "Khung AlphaProof Code dùng toán học kiểm tra phần mềm hoạt động đúng thiết kế, kết hợp quy trình cho phép AI tác tử tự sửa lỗi. Đánh giá này có phạm vi giới hạn khi không kiểm chứng toàn bộ ứng dụng Signal trên điện thoại di động.",
+        "AlphaProof Code đã nhận diện chính xác lỗ hổng trên phiên bản Signal cũ từng chứa lỗi đã sửa, chỉ ra giao thức khi đó không thể kiểm chứng. DeepMind không phát hiện lỗ hổng mới nào trong phần giao thức được xét, và nhóm đang phát hành chứng minh toán học này.",
+        "Theo tạp chí WIRED, khả năng mở rộng quy mô cùng chi phí hợp lý của kiểm chứng tự động bằng AI vẫn là câu hỏi mở trên toàn ngành công nghệ. Nhà nghiên cứu Swarat Chaudhuri tại DeepMind nhận định vẫn còn khoảng cách xa trước khi có thể mở rộng phương pháp này tới mọi phần mềm trên thế giới."
+      ],
+      "same_event_coverage_ids": [
+        "3b4e4ca5037be3953e50"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepMind dùng AI AlphaProof Code kiểm chứng toán học các bảo đảm mật mã của giao thức Signal",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/a-new-ai-tool-from-google-deepmind-formally-verified-the-signal-protocol/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The description of agents correcting their own work leaves out the human input and review that the researchers call a crucial part of the process.",
+            "fix": "Add that agents contribute and self-correct while people provide input and review at key points (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "42ce7796c2df39923438279ac649ec2e5d686ca82dc25fb48a959f415dcb4668",
+        "scored_at": "2026-11-10T07:38:01.089716+00:00"
+      }
+    },
+    {
+      "id": "c868a2193704ff47c61b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/moonshot-rents-nvidia-s-top-ai-chips-in-china-documents-show",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ac89abca43cb688cb408"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7a8b85431c54289a512e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal demo showcase of a Three.js 3D animation project without independent journalistic reporting or a substantive software release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/10/yonkers-rises/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cd84e7c45f4ab3111059"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bdc960b58f7cfb8bb78d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional landing page for a Nairobi conference on financial inclusion and mobile money in Africa, with only an incidental passing reference to AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/06/2026/beyond-access-the-future-of-financial-inclusion",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "66ab69242c7655269a9e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e7d9d1552b0e69602474",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.cnbc.com/2026/11/06/coreweave-bond-yield-tops-16percent-as-ai-credit-stress-rises.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "36876d8b2194cba398ec",
+        "59ecc54acebec03cfc15"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ef1bea14c49e9ad5b032",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://x.com/ArtificialAnlys/status/2119990200700940745",
+      "key_points": [
+        "Claude Fable 5.2 leads the scientific visual reasoning benchmark VIALS-AA.",
+        "Claude Fable 5.2 makes more tool calls than any other Anthropic model on the VIALS-AA benchmark.",
+        "VIALS-AA is Artificial Analysis's implementation of Handshake AI's VIALS benchmark for visual reasoning."
+      ],
+      "same_event_coverage_ids": [
+        "48d0a031c40bd7da8f7c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7258842c338d7f41cf43",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/australia-to-create-ai-safety-regulator-mandatory-safety-rules",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a00d4354f229c0f94dc2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0752bb4d228082506c60",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/alibaba-qianwen-office-2-team-agent-collaboration-automatic-tasks",
+      "key_points": [
+        "Nền tảng DingTalk của Alibaba đã ra mắt Qianwen Office 2.0 vào ngày 9 tháng 11 dưới dạng tác tử làm việc nhóm (Team Agent, trợ lý AI hỗ trợ nhiều người cùng lúc).",
+        "Không gian cộng tác mới cho phép nhóm chỉ định một nhân viên kỹ thuật số kết nối tài liệu và các đoạn chat, nhưng thành viên thông thường cần quản trị viên duyệt trước khi liên kết nhóm chat. Tính năng tác vụ tự động kích hoạt xử lý khi có tin nhắn từ người chỉ định hoặc tin nhắn nhắc tên.",
+        "Tại chuỗi cửa hàng Intime Department Store, năm nhân viên từng thu thập dữ liệu từ hơn 60 nhóm chat chuyển sang dùng tác tử tổng hợp thông tin vào bảng tính AI. Pandaily lưu ý trường hợp này do chính DingTalk cung cấp và không có số đo cụ thể về thời gian tiết kiệm.",
+        "Theo Pandaily, mức giá, lượng người dùng và kết quả kiểm thử độc lập về độ chính xác của tác tử đều chưa được công bố. Tài liệu phát hành cho biết quản trị viên doanh nghiệp có thể tắt tính năng điều khiển máy tính từ xa."
+      ],
+      "same_event_coverage_ids": [
+        "37b2cfb69f8c15ee0d7e"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Alibaba ra mắt Qianwen Office 2.0 bổ sung tác tử AI làm việc nhóm trên DingTalk",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/alibaba-qianwen-office-2-team-agent-collaboration-automatic-tasks"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d186e2ed7b70cd673e1e4acef7547f547224cbc0812f34da2f9eb7838c843089",
+        "scored_at": "2026-11-10T07:29:44.584769+00:00"
+      }
+    },
+    {
+      "id": "b1314fd3ec86485330cd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General venture capital reporting on Altimeter Capital targeting over $3 billion for private market funds, with OpenAI and Anthropic cited solely as portfolio credentials.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/openai-backer-altimeter-targets-more-than-3-billion-for-private-markets-funds",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "789b93451c938dec9f25"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1fb352571790ce10e98e",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/anthropic-seeks-to-raise-69-3-billion-via-its-ipo-reuters-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fd85fc76138caedc1f02"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4f4fd1b1da1f00aa7f03",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/09/anthropic-reportedly-plans-to-move-forward-with-ipo-plans/",
+      "key_points": [
+        "Anthropic is proceeding with its IPO listing plans despite broader tech stock volatility, according to The Wall Street Journal.",
+        "Anthropic plans to set its valuation range this week and begin trading on Thursday or Friday of next week.",
+        "Some institutional investors are pushing for an Anthropic valuation below the $1.5 trillion target discussed recently, down from an earlier $2 trillion figure.",
+        "Rival AI firm OpenAI was recently valued at $1.25 trillion following an $11 billion funding round."
+      ],
+      "same_event_coverage_ids": [
+        "c0978657eedc656e254e"
+      ],
+      "split_coverage_ids": [
+        "09f087b64207b94928f4"
+      ]
+    },
+    {
+      "id": "b48327c975b39bc82494",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://x.com/ArtificialAnlys/status/2119953570430881946",
+      "key_points": [
+        "Mô hình Claude Fable 5.2 đã vươn lên vị trí dẫn đầu trên bảng kiểm chuẩn AA-3D. Đây là bảng xếp hạng chuyên đo lường mức độ hiệu quả của các mô hình trí tuệ nhân tạo khi xây dựng những trải nghiệm không gian ba chiều (3D) có tính tương tác.",
+        "Phiên bản Claude Fable 5.2 Max đạt 1271 Elo và dẫn trước 67 điểm so với Claude Sonnet 5.5 đạt 1204 điểm cùng Claude Opus 5.5 đạt 1202 điểm. Kết quả ghi nhận khoảng tin cậy 95% của mô hình dao động từ 1246 đến 1297.",
+        "Khoảng giá trị thống kê này hoàn toàn không bị chồng lấn với các mô hình xếp sau trong bảng kiểm chuẩn."
+      ],
+      "same_event_coverage_ids": [
+        "920b4fa7d549940a34bd"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Claude Fable 5.2 dẫn đầu bảng kiểm chuẩn AA-3D về xây dựng trải nghiệm 3D tương tác",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "x:@ArtificialAnlys",
+          "url": "https://x.com/ArtificialAnlys/status/2119953570430881946"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Khoảng giá trị thống kê này hoàn toàn không bị chồng lấn với các mô hình xếp sau trong bảng kiểm chuẩn.",
+            "explanation": "The supplied source states that Fable's interval 'does not overlap' but does not identify the comparison interval or provide intervals for the models below it (outlet:p001)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told that Fable's interval is separate from every lower-ranked model's interval.",
+            "fix": "Give Fable's 1246–1297 interval without naming an unsupported comparison; the supplied sentence stops before identifying one (outlet:p001)."
+          },
+          {
+            "question": "notable",
+            "problem": "The 67-point lead can read as applying to both Sonnet and Opus, although the listed scores put Opus 69 points below Fable.",
+            "fix": "Attach the 67-point lead specifically to Sonnet and list Opus's 1202 Elo separately (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c533e667dc8265843d990862856442df2d94990f240e7d2afbd5d4db861e3354",
+        "scored_at": "2026-11-10T07:29:44.584801+00:00"
+      }
+    },
+    {
+      "id": "1f6599aa25f546989f88",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Retail reporting on consumer shopping trends and discounts during China's Singles' Day festival, where AI is mentioned only as a passing headline hook.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3373780/less-coupon-math-more-ai-whats-new-chinas-18th-singles-day",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e3faeee9a7f938fe0ed6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "05e31abb81030e94daf9",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General business reporting on an entertainment company's quarterly earnings call where the CEO made only a passing reference to AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/entertainment/1030510/paramount-skydance-david-ellison-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cb5db6fcb5ccd88d77ab"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a22fd9bbbe2056925d25",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "An instructional vendor guide and tutorial explaining how to configure, build, and share skills and agents in AWS Quick.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-skills-and-agents-work-in-aws-quick/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7d299a5a1bd72da9ce2a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9a8fde6cfa9ab68cee22",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/9/llm-anthropic/",
+      "key_points": [
+        "Tác giả Simon Willison đã phát hành gói phần mềm llm-anthropic 0.31 vào ngày 9 tháng 11 năm 2026 sau khi Anthropic ra mắt hai mô hình mới là Fable 5.2 và Mythos 5.2. Công cụ này cho phép người dùng chạy câu lệnh trực tiếp qua mô hình Fable 5.2 trên giao diện dòng lệnh.",
+        "Bản cập nhật được cung cấp nhằm hỗ trợ lập trình viên kiểm thử Fable 5.2, mô hình được Anthropic tuyên bố đã giải quyết hai vấn đề vật lý lỗ đen.",
+        "Khi thử nghiệm tạo hình ảnh, cấp độ suy luận max bị lỗi cạn token và không trả về ảnh sau 128.000 token suy nghĩ, lặp lại lỗi từng gặp trên Opus 5.5.",
+        "Theo Simon Willison, mô hình này giảm 20% chi phí so với phiên bản Fable 5.1 trước đó, với giá 8 USD mỗi triệu token đầu vào và 40 USD mỗi triệu token đầu ra."
+      ],
+      "same_event_coverage_ids": [
+        "e6545dbc913e168a24e6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Simon Willison phát hành llm-anthropic 0.31 hỗ trợ mô hình Claude Fable 5.2",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "simon-willison",
+          "url": "https://simonwillison.net/2026/Nov/9/llm-anthropic/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.15,
+        "answers": {
+          "what": 10,
+          "why": 3,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "Bản cập nhật được cung cấp nhằm hỗ trợ lập trình viên kiểm thử Fable 5.2",
+            "explanation": "Willison says he added the new models so users can run prompts through them. He does not state a purpose of helping developers test Fable 5.2 (outlet:p004–p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is given an unsupported developer-testing purpose.",
+            "fix": "Say that Willison added the newly released models so users can run prompts through them (outlet:p003–p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3e716621160c6882fcff1b9b83ad161f6d58ec6558cd8a636b061558243f2c10",
+        "scored_at": "2026-11-10T07:29:44.584824+00:00"
+      }
+    },
+    {
+      "id": "44bb6093a440b817c078",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1030328/what-could-china-get-from-jensen-huang",
+      "key_points": [
+        "Nvidia mở cuộc điều tra độc lập về các cáo buộc an ninh sau khi CEO Jensen Huang thừa nhận quan hệ với một nữ giám đốc Megaspeed bị nghi là gián điệp. Theo The New York Times, giới chức Mỹ nhận định Megaspeed liên quan đến mạng lưới gom chip và có thể tuồn bất hợp pháp vào Trung Quốc.",
+        "The Verge nhận định Jensen Huang là mục tiêu tình báo giá trị nhắm vào ngành AI Mỹ do vị thế của Nvidia và quan hệ gần gũi với Tổng thống Trump. Chuyên gia Hanna Dohmen thuộc CSET cho rằng gián điệp có khả năng quan tâm đến trao đổi với chính quyền Trump, nỗ lực tác động chính sách và bí mật chip.",
+        "Chính quyền Mỹ đã cho phép bán chip H20 sang Trung Quốc sau khi Huang gặp ông Trump vào tháng 7 năm 2025 để vận động nới lỏng hạn chế.",
+        "Chuyên gia Brian Colello của Morningstar nhận định không loại trừ khả năng cuộc điều tra sẽ chìm dần và Nvidia trở lại bình thường vì Huang là CEO duy nhất của hãng. Dù vậy, Nvidia khẳng định chưa có căn cứ cho thấy an ninh quốc gia hay bí mật công ty bị xâm phạm."
+      ],
+      "same_event_coverage_ids": [
+        "2d29c01be30da478f45e"
+      ],
+      "split_coverage_ids": [
+        "4503aa997fbe78ea1d07"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia điều tra an ninh sau bê bối tình ái của CEO Jensen Huang với người bị nghi là gián điệp Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1030328/what-could-china-get-from-jensen-huang"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers may miss that the alleged relationship’s influence on lobbying or government decisions is an open question.",
+            "fix": "State explicitly that the article raises this question without establishing such influence (outlet:p029)."
+          },
+          {
+            "question": "notable",
+            "problem": "The H20 approval alone can leave readers without the distinction between that decision and a later proposal for more advanced chips.",
+            "fix": "Add that Trump ultimately declined Huang’s later proposal to allow more advanced chip sales to China (outlet:p039)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e03a19395037b98724d796f8beb13dfa762901c31d82f50548900412f7e61405",
+        "scored_at": "2026-11-10T07:38:01.089757+00:00"
+      }
+    },
+    {
+      "id": "55d17f4cb9f1c4dc47a7",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://zonderlabs.com/slop",
+      "key_points": [
+        "Language models struggle with writing quality because language lags behind capabilities like coding that have clearer reward optimization.",
+        "Workplace AI slop, such as in Slack messages or pull request descriptions, creates cognitive friction that colleagues cannot easily ignore."
+      ],
+      "same_event_coverage_ids": [
+        "04523b22c36529cba609"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8603f64da3214cd5a15b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.sandromaglione.com/articles/indie-game-development-with-ai",
+      "key_points": [
+        "Theo tác giả bài viết, người này đã hoàn thành hai tựa game bằng AI (trí tuệ nhân tạo) mà không tự viết hay đọc một dòng mã nào. Toàn bộ quy trình diễn ra qua khung trò chuyện với agent (phần mềm AI tự vận hành), gửi ảnh chụp màn hình và thử nghiệm game qua web trong nhiều tuần.",
+        "Tác giả muốn kiểm chứng khả năng tạo game hoàn chỉnh của AI thay vì các bản mô phỏng sơ sài sau nhiều tháng thực hiện. Hệ thống dựa trên kiến trúc ECS (hệ thống thực thể - thành phần) cùng các bài kiểm tra tự động chạy sau mỗi câu lệnh để AI tự sửa mã.",
+        "Mô hình nhân vật anime chi tiết đều thất bại sau hai ngày thử nghiệm dù tác giả đã dùng nhiều phương án dựng hình. Khi chuyển sang mười mẫu linh hồn cách điệu đơn giản, agent hoàn thành mỗi mẫu chỉ trong 20 phút thay vì mất ước tính một tháng làm thủ công.",
+        "Tác giả nhận định phần việc khó không biến mất mà chuyển từ lập trình sang khâu lựa chọn phong cách và lối chơi. Theo tác giả, AI không tạo ra trò chơi hay hơn mà chỉ giải phóng thời gian để con người tập trung chơi thử và tìm lỗi."
+      ],
+      "same_event_coverage_ids": [
+        "1c96ba0aaa8e4ca1b10e"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhà phát triển hoàn thành hai tựa game bằng AI mà không tự viết hay đọc một dòng mã nào",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.sandromaglione.com/articles/indie-game-development-with-ai"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.05,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 6,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "sau nhiều tháng thực hiện",
+            "explanation": "The author says these games took weeks; the reference to months concerns how long a project used to take, not the duration of this experiment (outlet:p024, outlet:p030, outlet:p054)."
+          },
+          {
+            "kind": "number",
+            "summary_text": "mỗi mẫu chỉ trong 20 phút thay vì mất ước tính một tháng làm thủ công",
+            "explanation": "About 20 minutes applies to each AI-made spirit, while about one month is the author’s estimate for making all ten by hand (outlet:p053–p054)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The manual production estimate is assigned to each spirit instead of the set of ten.",
+            "fix": "Say AI took about 20 minutes per spirit, versus an estimated month to make all ten manually (outlet:p053–p054)."
+          },
+          {
+            "question": "why",
+            "problem": "The Vietnamese wrongly suggests the experiment followed months of work.",
+            "fix": "Describe the author’s test of whether rapid AI prototyping could extend to a complete game; the two games took weeks (outlet:p024, outlet:p030–p032)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ed88afdf06b08aabc3a70bec4e6e7ce60a0e748953b6c92617fb7fc728fa7b21",
+        "scored_at": "2026-11-10T07:29:44.584870+00:00"
+      }
+    },
+    {
+      "id": "a19e99409e984b4eebdd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373825/nvidia-faces-defining-test-jensen-huang-probe-adds-chip-stock-turbulence",
+      "key_points": [
+        "Jensen Huang confirmed over the weekend that he had been unfaithful to his wife and stated he would cooperate with an investigation into his conduct.",
+        "The board inquiry introduces key-person risk for Nvidia alongside investor concerns regarding US chip export controls and AI regulation."
+      ],
+      "same_event_coverage_ids": [
+        "95a082f6d1bf81365692"
+      ],
+      "split_coverage_ids": [
+        "0e599255a0577353c1c6",
+        "432d8d0d968f3fbcbae5"
+      ]
+    },
+    {
+      "id": "a7583252cfddd5401449",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://spectrum.ieee.org/find-my-ai-chip",
+      "key_points": [
+        "Theo tác giả bài viết trên IEEE Spectrum, Ủy ban Đối ngoại Hạ viện Mỹ đã thông qua dự luật yêu cầu xác minh vị trí đối với các dòng chip AI tiên tiến. Quy định này được thúc đẩy sau vụ bắt giữ một đối tượng bị cáo buộc chuyển lậu hơn 300 triệu USD máy chủ gắn bộ xử lý đồ họa (GPU) sang Trung Quốc.",
+        "Tác giả bài viết trên IEEE Spectrum cho biết biện pháp xác minh vị trí được đưa ra nhằm kiềm chế tình trạng buôn lậu và chuyển hướng chip sang Trung Quốc. Thực tế cho thấy càng siết chặt kiểm soát thì việc định vị chính xác đường đi của các chip AI này lại càng khó khăn.",
+        "Các tác giả báo cáo thuộc Trung tâm An ninh và Công nghệ Mới nổi (CSET) đề xuất phương án khả thi là định vị bằng tín hiệu ping (tín hiệu kiểm tra kết nối mạng) kết hợp kiểm tra thực tế. Cơ chế này đo thời gian truyền tín hiệu giữa chip và các máy chủ mốc, với ưu tiên áp dụng cho dòng GPU máy chủ cao cấp nhất.",
+        "Nhà phân tích Jacob Feldgoise thuộc CSET nhận định các yêu cầu thẩm định sẽ gia tăng vì năng lực tính toán là tài nguyên chiến lược."
+      ],
+      "same_event_coverage_ids": [
+        "63090ebceeabec95b240",
+        "fbb50388c514e5b4311b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hạ viện Mỹ thúc đẩy dự luật xác minh vị trí chip AI nhằm ngăn chặn tuồn lậu sang Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://spectrum.ieee.org/find-my-ai-chip"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.6,
+        "answers": {
+          "what": 9,
+          "why": 5,
+          "notable": 9,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "Quy định này được thúc đẩy sau vụ bắt giữ một đối tượng",
+            "explanation": "The committee passed the bill in March, before the October 2026 arrest. The source presents the arrest as an example of continuing diversion, not as the cause of that earlier action (outlet:p009–p010)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "các yêu cầu thẩm định sẽ gia tăng",
+            "explanation": "Feldgoise says he would be unsurprised if due diligence requirements increase; he does not state that they definitely will (outlet:p028)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The summary gives the arrest a causal role that conflicts with the dates.",
+            "fix": "Present the October arrest as an example of diversion and the March committee vote as an earlier response to the broader problem (outlet:p008–p010)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers may think ping checks can continuously locate chips.",
+            "fix": "State that they detect diversion only after activation, cannot track offline chips, and need physical follow-up (outlet:p018–p020)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The forecast for tighter due diligence is stronger than the speaker’s wording.",
+            "fix": "Keep Feldgoise’s conditional view that an increase would not surprise him (outlet:p028)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4abafce91cb2ed8f7f5b705ff1aa8ee563d5f3f3dc2a3f9d413fde27133d0a42",
+        "scored_at": "2026-11-10T07:29:44.584892+00:00"
+      }
+    },
+    {
+      "id": "8c23f1fb8f0b0d2e2959",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A bare GitHub repository overview page without an independent news report or dated release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/bookleme/bookleme",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ce406aa7564bb534fad"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
