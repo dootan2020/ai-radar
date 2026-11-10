@@ -30,8 +30,12 @@ class ExtensionShellTests(unittest.TestCase):
         # areas only once they arrived (owner, 09/11: no choice may lead to an empty list), so the list is redrawn then;
         # the old redraw of the Arena view ran on a view that never reads them.
         feed = (EXT / 'feed.js').read_text(encoding='utf-8')
-        late = feed[feed.index('FIELD_DATA = await loadFieldRankings();'):]
-        self.assertIn('mergeFieldRepos();\n      rerenderRepos();', late[:400])
+        late = feed[feed.index('whenIdle().then(async () => {'):]
+        self.assertIn('await loadComplete();\n    applyFieldRankings(await loadFieldRankings());', late[:400])
+        apply = feed[feed.index('function applyFieldRankings(fieldData) {'):]
+        self.assertIn('mergeFieldRepos();\n  rerenderRepos();', apply[:400])
+        # The site's own idle load of the same file is not carried into the new tab (it loads it once, online only).
+        self.assertNotIn('.then(loadFieldRankings).then(applyFieldRankings)', feed)
         self.assertNotIn("if (filter === 'rankings') renderFeed();", feed)
 
     def test_manifest_and_local_code(self):

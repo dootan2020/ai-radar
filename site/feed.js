@@ -29,6 +29,7 @@ import { createNewsSearch } from './tim-tin.js';
 import { createWeatherCard } from './thoi-tiet.js';
 import { createCalendarCard } from './the-lich.js';
 import { createPlayer, playable, watchURL } from './trinh-phat.js';
+import { stylesReady } from './nap-kieu.js';
 
 /* Same-origin JSON only; ?data=data/<file>.json lets a maintainer load another snapshot from site/data/ (as on the
    bento home). The first request matches index.html's preload (same mode, no cache option), so it is reused. */
@@ -321,9 +322,13 @@ async function loadPicks() {
     return Array.isArray(j && j.picks) ? j.picks : [];
   } catch (e) { console.warn('editor-picks.json unavailable; no editor picks', e); return []; }
 }
+/* The field rankings only feed the work-area chips and pools of the repositories tile ("Mã và mô hình"); the trending
+   lists the first screen draws come from the snapshot itself. So the file never holds the first paint: it is asked for
+   at low priority once the page has settled (sooner when the address opens that section), and the tile is drawn
+   again when it arrives (applyFieldRankings). */
 async function loadFieldRankings() {
   try {
-    const j = await fetchJSON(FIELD_RANKINGS_URL);
+    const j = await fetchJSON(FIELD_RANKINGS_URL, { priority: 'low' });
     if (j && Array.isArray(j.fields)) return j;
   } catch (e) {
     console.warn('field-rankings.json unavailable; area browsing falls back to snapshot repos', e);
@@ -2096,13 +2101,41 @@ function srcsetAttrs(src, size, defer) {
    size: 'lead' (the first slide: the page's largest picture, fetched first), 'slide' (slides 2 and on: no address
    until the slide is about to show, wakeSlides), 'wide' or 'card' (lazy). */
 function mediaHTML(img, size) {
-  const defer = size === 'slide';
+  // Every picture but the lead's waits in data-src: slides for the carousel (wakeSlides), cards until they come near
+  // the screen (watchCardPictures). A browser's own loading="lazy" fetches anything within 1250 px of a phone's screen,
+  // so a 412 px phone fetched the pictures of the cards two and three screens down with the page (11/11: a 470 KB PNG).
+  const defer = size !== 'lead';
   const loading = size === 'lead' ? 'eager' : 'lazy';
   // A cover (drawn from the story's facts, radar/covers.py) keeps its text: fitCover picks the file and the fit for the
   // slot it lands in. The wide card's half is usually narrow, so it starts on the tall file.
   if (img.kind === 'cover') return `<img class="media-img nc-img is-cover" ${defer ? 'data-' : ''}src="${esc(size === 'wide' ? img.tall : img.src)}" data-wide="${esc(img.src)}" data-tall="${esc(img.tall || img.src)}" alt="" width="640" height="360" loading="${loading}" decoding="async">`;
-  const [w, h] = size === 'lead' || defer ? [1280, 720] : [640, 360];
-  return `<img class="media-img nc-img" ${srcsetAttrs(img.src, defer ? 'lead' : size, defer)} alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadgeHTML(img)}`;
+  const big = size === 'lead' || size === 'slide';
+  const [w, h] = big ? [1280, 720] : [640, 360];
+  return `<img class="media-img nc-img" ${srcsetAttrs(img.src, big ? 'lead' : size, defer)} alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadgeHTML(img)}`;
+}
+/* A card's picture gets its address once the card is within about one screen of view. One observer for the page;
+   cards drawn later (more stories, a redrawn tile) are found as they are added. Slides stay with wakeSlides. */
+const CARD_PICTURE_MARGIN = '600px 0px';
+function wakePicture(img) {
+  if (img.dataset.srcset) { img.setAttribute('srcset', img.dataset.srcset); delete img.dataset.srcset; }
+  if (img.dataset.src) { img.setAttribute('src', img.dataset.src); delete img.dataset.src; }
+}
+function watchCardPictures() {
+  const seen = new WeakSet();
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    for (const e of entries) if (e.isIntersecting) { io.unobserve(e.target); wakePicture(e.target); }
+  }, { rootMargin: CARD_PICTURE_MARGIN }) : null;
+  const take = root => {
+    const list = root.matches && root.matches('img[data-src]') ? [root] : root.querySelectorAll ? root.querySelectorAll('img[data-src]') : [];
+    for (const img of list) {
+      if (seen.has(img) || img.closest('.slide')) continue;
+      seen.add(img);
+      if (io) io.observe(img); else wakePicture(img);
+    }
+  };
+  new MutationObserver(records => { for (const r of records) for (const n of r.addedNodes) if (n.nodeType === 1) take(n); })
+    .observe(document.body, { childList: true, subtree: true });
+  take(document.body);
 }
 /* Slides 2 and on carry their picture's address in data-src (and data-srcset) until a reader is about to see them:
    the carousel stacks every slide in one place, so a lazy picture there counts as on screen and loads at once (11/11:
@@ -3331,6 +3364,9 @@ async function startLiveLayer() {
       priority: hnId => { const st = asArray(D.stories).find(s => (s.coverage || []).some(c => (c.discussion_url || '').endsWith('=' + hnId))); return st ? (st.hot_score || 0) : 0; },
       onUpdates: applyLive,
       onStatus: () => {},
+      // The Hugging Face papers list is 175 KB for a few upvote counters on cards below the first screen: it waits for
+      // the reader's first scroll, touch, key or click (whenReaderActs), then for the page to be idle.
+      later: { 'hf-papers': whenReaderActs() },
     });
   } catch (e) { console.warn('live counters unavailable; the snapshot numbers stay', e); }
 }
@@ -3389,20 +3425,16 @@ async function init() {
   watchImageErrors();
   watchPictures();
   watchImageLoad();
+  watchCardPictures();
   attachEvents();
   openSearchFromAddress();
   arenaView = createArenaView($('#arena'));
   addEventListener('hashchange', routeWhenReady);
   route();
   try {
-    const [, data, picks, fieldData] = await Promise.all([loadImages(), loadFirst(), loadPicks(), loadFieldRankings()]);
+    const [, data, picks] = await Promise.all([loadImages(), loadFirst(), loadPicks(), stylesReady]);
     RAW_PICKS = picks;
-    FIELD_DATA = fieldData;
-    if (FIELD_DATA && Array.isArray(FIELD_DATA.fields)) {
-      FIELD_MAP = new Map(FIELD_DATA.fields.map(f => [f.id, f]));
-    }
     ingest(data);
-    mergeFieldRepos();
     sortMode = store.get(K.sort, store.get(LEGACY.sort, 'worth')) === 'new' ? 'new' : 'worth';
     for (const [k, s] of Object.entries(SECTIONS)) LABELS['sec:' + k] = s.label;
     renderAll();
@@ -3433,6 +3465,14 @@ async function init() {
   startLifecycle();
   startLiveLayer();
   whenReaderActs().then(loadComplete);
+  (filter === 'code' ? Promise.resolve() : whenIdle()).then(loadFieldRankings).then(applyFieldRankings);
+}
+function applyFieldRankings(fieldData) {
+  if (!fieldData || !Array.isArray(fieldData.fields)) return;
+  FIELD_DATA = fieldData;
+  FIELD_MAP = new Map(FIELD_DATA.fields.map(f => [f.id, f]));
+  mergeFieldRepos();
+  rerenderRepos();
 }
 /* The complete snapshot (radar-ui.json, 180 KB) holds the stories past the first screen: it waits for the reader's first
    scroll, touch, key or click instead of loading with the page (11/11: it was a sixth of a phone's first load). Every

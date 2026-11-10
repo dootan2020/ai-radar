@@ -20,7 +20,8 @@ async function getJSON(url) {
   const ctl = new AbortController();
   const t = setTimeout(() => ctl.abort(), TIMEOUT_MS);
   try {
-    const r = await fetch(url, { signal: ctl.signal, cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' });
+    // Low priority: a counter refresh never competes with the page's own pictures and files.
+    const r = await fetch(url, { signal: ctl.signal, cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer', priority: 'low' });
     if (!r.ok) throw Object.assign(new Error(`máy chủ trả mã HTTP ${r.status}`), { vi: true });
     return await r.json();
   } catch (e) {
@@ -84,28 +85,42 @@ const READERS = {
   },
 };
 
-/* getStories(): current snapshot stories. onUpdates(list): apply changed counters. onStatus(map): render states. */
-export function startLive({ getStories, priority = () => 0, onUpdates, onStatus }) {
+/* getStories(): current snapshot stories. onUpdates(list): apply changed counters. onStatus(map): render states.
+   later: {sourceId: promise}: a source is not read until its promise settles (feed.js holds the Hugging Face papers
+   list, 175 KB, until the reader acts on the page), then it is read at once and with every tick after. */
+export function startLive({ getStories, priority = () => 0, onUpdates, onStatus, later = {} }) {
   const state = new Map(LIVE_SOURCES.map(s => [s.id, { ...s, ok: null, at: null, error: null, matched: 0 }]));
+  const open = new Set(LIVE_SOURCES.map(s => s.id).filter(id => !later[id]));
   let last = 0, running = false, timer = null;
 
+  async function read(s, ix) {
+    const st = state.get(s.id);
+    try {
+      const ups = await READERS[s.id](ix, priority);
+      const changed = ups.filter(u => !u.cov.metrics || u.cov.metrics[u.metric] !== u.value);
+      Object.assign(st, { ok: true, at: new Date(), error: null, matched: new Set(ups.map(u => u.cov.id)).size });
+      if (changed.length) onUpdates(changed);
+    } catch (e) {
+      Object.assign(st, { ok: false, at: new Date(), error: e.message });
+    }
+  }
   async function tick() {
     if (running || document.hidden) return;
     running = true; last = Date.now();
     const ix = indexCoverage(getStories());
-    await Promise.all(LIVE_SOURCES.map(async s => {
-      const st = state.get(s.id);
-      try {
-        const ups = await READERS[s.id](ix, priority);
-        const changed = ups.filter(u => !u.cov.metrics || u.cov.metrics[u.metric] !== u.value);
-        Object.assign(st, { ok: true, at: new Date(), error: null, matched: new Set(ups.map(u => u.cov.id)).size });
-        if (changed.length) onUpdates(changed);
-      } catch (e) {
-        Object.assign(st, { ok: false, at: new Date(), error: e.message });
-      }
-    }));
+    await Promise.all(LIVE_SOURCES.filter(s => open.has(s.id)).map(s => read(s, ix)));
     running = false;
     onStatus(state);
+  }
+  for (const [id, gate] of Object.entries(later)) {
+    const s = LIVE_SOURCES.find(x => x.id === id);
+    if (!s) continue;
+    Promise.resolve(gate).then(async () => {
+      open.add(id);
+      if (document.hidden) return;   // the next tick or the reader's return reads it
+      await read(s, indexCoverage(getStories()));
+      onStatus(state);
+    });
   }
   const schedule = () => { clearInterval(timer); timer = setInterval(tick, EVERY_MS); };
   document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - last > EVERY_MS) tick(); });
