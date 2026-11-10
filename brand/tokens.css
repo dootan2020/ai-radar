@@ -170,6 +170,7 @@
 /* ---------- 3. component ---------- */
 :root{
   --page-max: 1480px;
+  --player-max: 1040px;   /* the stream player's frame: a 16:9 video at 960 wide, with the frame's gutters */
   --page-pad: var(--space-32);
   --grid-gap: var(--space-24);
   --tile-bg: var(--color-surface);
