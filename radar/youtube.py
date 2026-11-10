@@ -16,6 +16,15 @@ CHANNELS = (
     ("anthropic-youtube", "anthropic", "Anthropic", "anthropic-ai", "UCrDwWp7EBBv4NwvScIpBDOA"),
     ("google-youtube", "google", "Google", "Google", "UCK8sQmJBp8GCxrOtXWBpyEA"),
     ("deepmind-youtube", "google", "Google DeepMind", "GoogleDeepMind", "UCP7jMXSY2xbc3KCAE0MHQ-A"),
+    ("microsoft-developer-youtube", "microsoft", "Microsoft Developer", "MicrosoftDeveloper", "UCsMica-v34Irf9KVTh6xx-g"),
+    ("hugging-face-youtube", "huggingface", "Hugging Face", "HuggingFace", "UCHlNU7kIZhRgSbhHvFoy72w"),
+    ("google-cloud-tech-youtube", "google", "Google Cloud Tech", "googlecloudtech", "UCJS9pqu9BzkAMNTmzNMNhvg"),
+    ("github-youtube", "github", "GitHub", "GitHub", "UC7c3Kb6jYCRj4JOHHZTxKsQ"),
+)
+AI_FILTERED_CHANNELS = {"google-cloud-tech-youtube", "github-youtube"}
+AI_STREAM_TERMS = re.compile(
+    r"\b(?:AI|LLM|agent|agentic|Gemini|Copilot|Vertex|model|ML|machine learning|GenAI|MCP|RAG|inference)\b",
+    re.IGNORECASE,
 )
 SOURCES = [{"id": channel[0], "name": channel[2] + " YouTube", "lab": channel[1], "kind": "youtube",
             "url": f"https://www.youtube.com/@{channel[3]}"}
@@ -90,6 +99,11 @@ def parse_video_item(item, channel, now):
     # Ordinary uploaded videos return None.
     if live_details is None and broadcast_content not in ("live", "upcoming"):
         return None
+
+    if channel[0] in AI_FILTERED_CHANNELS:
+        description_start = html.unescape(snippet.get("description", "")[:500])
+        if not AI_STREAM_TERMS.search(title) and not AI_STREAM_TERMS.search(description_start):
+            return None
 
     actual_start_raw = live_details.get("actualStartTime") if live_details else None
     actual_end_raw = live_details.get("actualEndTime") if live_details else None

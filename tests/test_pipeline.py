@@ -73,7 +73,9 @@ class PipelineTests(unittest.TestCase):
             result = pipeline.build(fetch=self.fetch, now=NOW)
         sources = [source for source in result["sources"] if source["kind"] == "youtube"]
         self.assertEqual({source["id"] for source in sources},
-                         {"openai-youtube", "anthropic-youtube", "google-youtube", "deepmind-youtube"})
+                         {"openai-youtube", "anthropic-youtube", "google-youtube", "deepmind-youtube",
+                          "microsoft-developer-youtube", "hugging-face-youtube",
+                          "google-cloud-tech-youtube", "github-youtube"})
         self.assertTrue(all(not source["ok"] and "collector unavailable" in source["error"]
                             for source in sources))
 
