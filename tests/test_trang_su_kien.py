@@ -122,7 +122,7 @@ class BaThi(unittest.TestCase):
 
 
 HARNESS = """
-const src = require('fs').readFileSync(process.argv[1], 'utf8');
+const src = require('fs').readFileSync(process.argv[1], 'utf8').replace(/\\r\\n/g, '\\n');   // a CRLF checkout too
 const start = src.indexOf('function heroFace(');
 const heroFace = new Function(`return (${src.slice(start, src.indexOf('\\n}\\n', start) + 2)})`)();
 const cases = JSON.parse(process.argv[2]);
@@ -153,7 +153,7 @@ class StreamCountdown(unittest.TestCase):
     def test_a_stream_days_away_counts_calendar_days_in_vietnam(self):
         # Coordinator, 11/11: GitHub's stream on 14/11 at 03:00 (+07), seen on 11/11 at 03:15, read "2 ngày nữa" while
         # its date line said 14 tháng 11. 2 days 23 hours 45 minutes remain; it is 3 calendar days away.
-        src = (SITE / "feed.js").read_text(encoding="utf-8")
+        src = (SITE / "feed.js").read_text(encoding="utf-8").replace("\r\n", "\n")   # a CRLF checkout cuts the same
         a = src.index("function countdownParts(")
         stream = src[a:src.index("/* One timer for every countdown", a)]
         h = src.index("function heroFace(")

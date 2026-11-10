@@ -64,14 +64,23 @@ const nf1 = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 1 });
 const EXACT = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'full', timeStyle: 'short', timeZone: TZ });
 const ms = iso => new Date(iso).getTime() || 0;
 const CSSq = s => (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace(/["\\]/g, '\\$&');
-/* Styles the first screen does not draw, asked for here rather than in index.html's head so they never hold the first
-   paint (Lighthouse, 11/11): the rankings view and the story and player dialogs. */
+/* Styles the first screen does not draw, asked for by init() rather than in index.html's head so they never hold the
+   first paint (Lighthouse, 11/11): the rankings view and the story and player dialogs. The rankings view waits for its
+   own (arenaStyles), so an address that opens it (#xep-hang) never shows it unstyled. */
 const LATE_STYLES = ['arena.css', 'story.css'];
-for (const href of LATE_STYLES) {
-  if (!document.querySelector(`link[rel="stylesheet"][href="${href}"]`)) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet'; link.href = href;
-    document.head.append(link);
+let arenaStyles = null;       // while arena.css is on its way: the promise of its arrival
+function loadLateStyles() {
+  for (const href of LATE_STYLES) {
+    let link = document.querySelector(`link[rel="stylesheet"][href="${href}"]`);
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'stylesheet'; link.href = href;
+      document.head.append(link);
+    }
+    if (href === 'arena.css' && !link.sheet) {
+      arenaStyles = new Promise(done => { link.addEventListener('load', done, { once: true }); link.addEventListener('error', done, { once: true }); })
+        .then(() => { arenaStyles = null; });
+    }
   }
 }
 const RM = matchMedia('(prefers-reduced-motion: reduce)');
@@ -2429,7 +2438,8 @@ function renderFeed() {
   if (skeleton) skeleton.remove();
   const rankings = filter === 'rankings';
   const grid = $('#feed-grid');
-  $('#arena').hidden = !rankings;
+  $('#arena').hidden = !rankings || !!arenaStyles;
+  if (rankings && arenaStyles) arenaStyles.then(() => { if (filter === 'rankings') $('#arena').hidden = false; });
   grid.hidden = rankings;
   // "Mã và mô hình" is two lists with their own order controls, so the news order has nothing to sort there.
   const code = filter === 'code';
@@ -3372,6 +3382,7 @@ async function routeWhenReady() {
   route();
 }
 async function init() {
+  loadLateStyles();
   const th = store.get(K.theme, null);
   if (th) document.documentElement.setAttribute('data-theme', th);
   $('#theme-btn').setAttribute('aria-pressed', String(th ? th === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches));

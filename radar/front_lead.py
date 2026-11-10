@@ -21,6 +21,8 @@ import json
 import re
 import time
 
+from radar.site_config import SITE_URL
+
 TIER = {"top": 3, "notable": 2}                      # feed.js TIER
 PICKS_MAX = 5                                         # worth-score.js WORTH.picksMax
 KIND_OF_VIA = {"feed-media": "photo", "og:image": "photo", "linked-article": "photo", "youtube": "photo",
@@ -33,6 +35,7 @@ HEAD_CLOSE = "<!-- /lead picture -->\n"
 BODY_OPEN = "  <!-- lead slide: the build draws the lead's picture here (radar/front_lead.py); feed.js adopts it -->\n"
 BODY_CLOSE = "  <!-- /lead slide -->\n"
 EPOCH = datetime(1970, 1, 1, tzinfo=timezone.utc)
+SITE_HOSTS = {urlsplit(SITE_URL).hostname, "radar-ai-vn.pages.dev"}   # the site's own hosts: no preconnect
 SKELETON_LEAD = '  <div class="msn-card msn-sk msn-lead"></div>\n'
 
 
@@ -223,12 +226,20 @@ def media_html(image):
             + (AI_BADGE if image.get("via") == "ai" else ""))
 
 
+def preconnect_origin(src):
+    """The picture's host when it is another site's (a relative or same-site picture needs no new connection)."""
+    parts = urlsplit(src)
+    if parts.scheme not in ("http", "https") or not parts.hostname or parts.hostname in SITE_HOSTS:
+        return None
+    return f"{parts.scheme}://{parts.netloc}"
+
+
 def head_html(image):
     srcset, sizes, src = lead_srcset(image["src"])
-    origin = "{0.scheme}://{0.netloc}".format(urlsplit(src))
+    origin = preconnect_origin(src)
     preload = (f'<link rel="preload" as="image" href="{esc(src)}" imagesrcset="{esc(srcset)}" imagesizes="{sizes}" '
                if srcset else f'<link rel="preload" as="image" href="{esc(src)}" ')
-    return (f'<link rel="preconnect" href="{esc(origin)}">\n'
+    return ((f'<link rel="preconnect" href="{esc(origin)}">\n' if origin else '')
             + preload + 'fetchpriority="high" referrerpolicy="no-referrer">\n')
 
 
@@ -278,3 +289,12 @@ def update_index_lead(index_path, page, picks_path=None, now_ms=None):
     if new_text != text:
         index_path.write_text(new_text, encoding="utf-8", newline="\n")
     return lead[0]["id"] if lead else None
+
+
+def reset_index_lead(index_path):
+    """index.html with the plain placeholder and no lead preload (the build's fallback when writing the lead failed)."""
+    index_path = Path(index_path)
+    text = index_path.read_text(encoding="utf-8")
+    new_text = render_index(text, None)
+    if new_text != text:
+        index_path.write_text(new_text, encoding="utf-8", newline="\n")

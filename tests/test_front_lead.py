@@ -77,16 +77,49 @@ class LeadChoice(unittest.TestCase):
 
 
 class BuiltPage(unittest.TestCase):
-    def build(self, page):
-        tmp = Path(tempfile.mkdtemp())
-        (tmp / "data").mkdir()
-        (tmp / "index.html").write_text((SITE / "index.html").read_text(encoding="utf-8"), encoding="utf-8")
-        (tmp / "editor-picks.json").write_text('{"picks": []}', encoding="utf-8")
+    def build(self, page, index=None, tmp=None):
+        if tmp is None:
+            tmp = Path(tempfile.mkdtemp())
+            (tmp / "data").mkdir()
+            (tmp / "editor-picks.json").write_text('{"picks": []}', encoding="utf-8")
+        if index is not None or not (tmp / "index.html").exists():
+            (tmp / "index.html").write_text(index or (SITE / "index.html").read_text(encoding="utf-8"), encoding="utf-8")
         payload = dict(page, sources=[], sections={}, events=[], live=[], repos=[])
         # The newsroom's gate (apply_decisions) is tested on its own; here every story passes it.
         with mock.patch.object(site_payload, "apply_decisions", lambda p, d: p):
             site_payload.write_site_snapshot(payload, tmp / "data" / "radar.json")
+        self.tmp = tmp
         return (tmp / "index.html").read_text(encoding="utf-8")
+
+    def test_a_story_the_step_cannot_read_never_stops_the_publication(self):
+        plain = front_lead.BODY_OPEN + front_lead.SKELETON_LEAD + front_lead.BODY_CLOSE
+        self.assertIn('data-id="lead1"', self.build(window(story("lead1", SEMAFOR))))
+        broken = story("bad", None)
+        broken["image"] = {"src": 123, "via": "feed-media", "kind": "photo"}    # not an address: urlsplit fails
+        html = self.build(window(broken), tmp=self.tmp)                          # the stale lead is replaced
+        self.assertIn(plain, html)
+        self.assertNotIn('rel="preload" as="image"', html)
+        self.assertTrue((self.tmp / "data" / "radar-window.json").exists())
+        self.assertIn('data-id="lead1"', self.build(window(story("lead1", SEMAFOR)), tmp=self.tmp))
+        with mock.patch.object(front_lead, "lead_story", side_effect=KeyError("id")):        # any other failure too
+            self.assertIn(plain, self.build(window(story("lead2", SEMAFOR)), tmp=self.tmp))
+        half = (SITE / "index.html").read_text(encoding="utf-8").replace(front_lead.BODY_CLOSE, "")
+        self.assertEqual(self.build(window(story("lead1", SEMAFOR)), index=half), half)   # broken markers: untouched
+
+    def test_the_front_page_preloads_no_stream_thumbnail(self):
+        thumb = '<link rel="preload" as="image" href="https://i.ytimg.com/vi/abcdefghijk/hqdefault.jpg" fetchpriority="high">\n'
+        index = (SITE / "index.html").read_text(encoding="utf-8").replace('<link rel="stylesheet" href="tokens.css">', thumb + '<link rel="stylesheet" href="tokens.css">')
+        html = self.build(window(story("lead1", SEMAFOR)), index=index)
+        self.assertNotIn("i.ytimg.com", html)
+        self.assertEqual(len(re.findall(r'<link rel="preload" as="image"', html)), 1)
+
+    def test_a_relative_or_same_site_picture_gets_no_preconnect(self):
+        for src in ("assets/ai/lead1.webp", "https://hco.news/assets/ai/lead1.webp"):
+            with self.subTest(src=src):
+                html = self.build(window(story("lead1", src, via="ai")))
+                self.assertIn(f'<link rel="preload" as="image" href="{src}" fetchpriority="high"', html)
+                self.assertNotIn('rel="preconnect"', html)
+                self.assertNotIn('href="://"', html)
 
     def test_the_built_page_carries_the_lead_slide_and_a_matching_preload(self):
         html = self.build(window(story("lead1", SEMAFOR, worth=5), story("other", "https://x.test/o.jpg")))
