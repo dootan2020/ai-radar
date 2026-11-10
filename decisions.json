@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-10T00:04:48.892382+00:00",
-  "input_generated_at": "2026-11-09T20:43:46Z",
+  "generated_at": "2026-11-10T03:42:17.861391+00:00",
+  "input_generated_at": "2026-11-10T00:10:42Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -43688,10 +43688,10 @@
       "use_original_title": false,
       "source_url": "https://aws.amazon.com/blogs/machine-learning/nvidia-nemotron-3-5-super-vl-is-now-available-in-amazon-sagemaker-jumpstart/",
       "key_points": [
-        "Amazon thông báo mô hình NVIDIA Nemotron 3.5 Super VL đã có mặt trên SageMaker JumpStart, triển khai qua SageMaker Studio hoặc Python SDK. Mô hình thị giác - ngôn ngữ này nhận đầu vào gồm hình ảnh, video cùng văn bản và hỗ trợ ngữ cảnh 1 triệu token.",
-        "Nền tảng JumpStart cung cấp biến thể NVFP4 được lượng tử hóa để tối ưu hóa suy luận, bên cạnh bản trọng số tham chiếu đầy đủ BF16.",
-        "Mô hình sở hữu 120 tỷ tham số với 12 tỷ tham số kích hoạt mỗi token, kết hợp khung ngôn ngữ lai và bộ mã hóa thị giác C-RADIO. Trong thử nghiệm của Amazon, bản BF16 trên máy chủ ml.p5en.48xlarge đạt 140,85 token xuất mỗi giây, còn bản NVFP4 chạy trên phiên bản G7 với kích thước GPU nhỏ hơn.",
-        "Amazon nêu rõ các phép đo suy luận này không thể so sánh biệt lập định dạng số BF16 và NVFP4 do hai biến thể chạy trên các hệ thống GPU khác nhau. Dù tích hợp đầu dự đoán đa token MTP, cấu hình phục vụ của JumpStart không kích hoạt tính năng giải mã suy đoán (kỹ thuật hỗ trợ tăng tốc xuất văn bản)."
+        "Amazon thông báo mô hình NVIDIA Nemotron 3.5 Super VL đã có mặt trên SageMaker JumpStart, triển khai qua SageMaker Studio hoặc Python SDK. Mô hình nhận đầu vào gồm hình ảnh, video cùng văn bản và hỗ trợ ngữ cảnh 1 triệu token.",
+        "Theo Amazon, NVIDIA xây dựng Super VL cho xử lý tài liệu thông minh, hiểu giao diện cho tác tử máy tính (phần mềm tự thao tác máy tính), hỏi đáp video và tác tử đa phương thức.",
+        "Trong thử nghiệm của Amazon, bản BF16 trên máy chủ ml.p5en.48xlarge đạt 140,85 token xuất mỗi giây, còn bản NVFP4 chạy trên phiên bản G7 với GPU nhỏ hơn. Mô hình sở hữu 120 tỷ tham số với 12 tỷ tham số kích hoạt mỗi token, kết hợp khung ngôn ngữ lai và bộ mã hóa C-RADIO.",
+        "Amazon nêu rõ các phép đo này không thể so sánh biệt lập BF16 và NVFP4 do hai biến thể chạy trên các hệ thống GPU khác nhau. Dù tích hợp đầu MTP, cấu hình phục vụ của JumpStart không kích hoạt tính năng giải mã suy đoán (kỹ thuật tăng tốc xuất văn bản)."
       ],
       "same_event_coverage_ids": [
         "04c36a3be29191de9560"
@@ -43713,28 +43713,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 7,
-          "notable": 9,
+          "why": 10,
+          "notable": 10,
           "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "Readers learn that NVFP4 optimizes inference but miss the model’s intended applications.",
-            "fix": "Add the source’s examples: document intelligence, GUI understanding for computer-use agents, video question answering, and multimodal agents (outlet:p004)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "488ae2d182b0aeff50a965c46a76c16edc94007b0f5bceaf448ae92446e31473",
-        "scored_at": "2026-11-09T23:54:53.025908+00:00"
+        "prose_sha256": "387755ce2097b1970d8dbe59dd9dd5be798a198875608294c9a232be6504f87a",
+        "scored_at": "2026-11-10T03:38:45.903431+00:00"
       }
     },
     {
@@ -43793,17 +43787,17 @@
       "use_original_title": false,
       "source_url": "https://www.technologyreview.com/2026/11/09/1148194/the-backlash-about-data-centers-might-really-just-be-about-electricity/",
       "key_points": [
-        "Tác giả bài viết trên MIT Technology Review nhận định làn sóng phản đối trung tâm dữ liệu bắt nguồn từ điện năng hơn là cuộc chiến văn hóa mà giới công nghệ lớn thừa nhận. Tại hạt Loudoun thuộc Virginia, một cơ sở trung bình có công suất 54 megawatt, vượt mức tiêu thụ điện của Sân bay Quốc tế Denver.",
-        "Theo tác giả, chính hậu quả từ việc rút quá nhiều điện từ lưới điện đã định hình sự phản kháng của người dân. Nhà hoạt động Elena Schlossberg tại bang Virginia cũng khẳng định mâu thuẫn này thực chất luôn xoay quanh nguồn điện thay vì các vấn đề văn hóa.",
-        "Các cuộc biểu tình đã dẫn tới quy định mới buộc trung tâm dữ liệu tại Virginia phải tự trả toàn bộ chi phí xây đường dây truyền tải mới thay vì phân bổ cho người dân. Ở nông thôn thiếu lưới điện, doanh nghiệp phải tự mang nguồn phát, như việc Anthropic được đưa tin chi 3,4 tỷ USD mua tuabin khí đốt.",
-        "Tác giả bài viết dự báo nếu phải tự phát điện tại chỗ, các trung tâm dữ liệu sẽ chuyển đến nơi ít người có khả năng kháng cự nhất. Tác giả cảnh báo tuabin khí và máy phát diesel tự phát vẫn gây ô nhiễm không khí và tất yếu ảnh hưởng đến cộng đồng xung quanh."
+        "Tác giả bài viết trên MIT Technology Review nhận định làn sóng phản đối trung tâm dữ liệu liên quan đến điện năng nhiều hơn giới công nghệ thừa nhận. Tại bang Virginia, cơ sở trung bình có công suất 54 megawatt, vượt mức tiêu thụ điện của Sân bay Quốc tế Denver.",
+        "Tác giả giải thích hậu quả từ việc rút quá nhiều điện từ lưới đã định hình sự phản kháng, dù điện không phải nguyên nhân duy nhất khi nỗi sợ mất việc làm cũng thúc đẩy làn sóng này. Nhà hoạt động Elena Schlossberg tại bang Virginia cũng khẳng định mâu thuẫn này thực chất luôn xoay quanh nguồn điện.",
+        "Anthropic được đưa tin đồng ý chi 3,4 tỷ USD mua tuabin khí đốt trong thương vụ mua nguồn phát điện lớn nhất của một công ty AI. Phần lớn trung tâm dữ liệu AI khác đang được xây dựng ở các vùng nông thôn gần như không có hạ tầng lưới điện kết nối và buộc phải tự cấp điện.",
+        "Tác giả bài viết nhận định việc tự phát điện quy mô lớn tất yếu ảnh hưởng đến cộng đồng xung quanh và các tuabin khí vẫn xả chất gây ô nhiễm không khí. Theo tác giả, nếu phải tự phát điện tại chỗ, các trung tâm dữ liệu sẽ chuyển đến nơi có ít người đủ khả năng kháng cự nhất."
       ],
       "same_event_coverage_ids": [
         "609380b7a63d863798c7"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Làn sóng phản đối trung tâm dữ liệu AI tại Mỹ thực chất bắt nguồn từ áp lực tiêu thụ điện",
+      "editorial_headline_vi": "Hậu quả từ việc rút điện lưới định hình làn sóng phản đối trung tâm dữ liệu AI khắp nước Mỹ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -43818,35 +43812,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.2,
+        "value": 8.35,
         "answers": {
           "what": 8,
-          "why": 6,
-          "notable": 10,
-          "meaning": 8
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "cause",
-            "summary_text": "thực chất bắt nguồn từ áp lực tiêu thụ điện",
-            "explanation": "The writer argues that the backlash is more about electricity than Big Tech admits, while expressly saying electricity is not its sole cause (outlet:p005, outlet:p018)."
-          },
-          {
             "kind": "fact",
-            "summary_text": "Anthropic được đưa tin chi 3,4 tỷ USD mua tuabin khí đốt",
-            "explanation": "The source says Anthropic reportedly agreed to pay $3.4 billion for gas turbines; it does not say the money had already been spent (outlet:p012)."
+            "summary_text": "Hậu quả từ việc rút điện lưới định hình làn sóng phản đối trung tâm dữ liệu AI khắp nước Mỹ",
+            "explanation": "The source says grid-power consequences particularly shaped the backlash in Virginia (outlet:p006, outlet:p010–p011). It distinguishes many AI data centers being built elsewhere, which plan to generate power onsite rather than draw it from an existing grid (outlet:p012)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "The headline makes electricity the definitive cause, although the source identifies other reasons for opposition.",
-            "fix": "Say the writer considers electricity a larger factor than Big Tech admits, while acknowledging the other factors listed in the source (outlet:p005, outlet:p018)."
+            "question": "what",
+            "problem": "The headline extends the Virginia finding about grid-power consequences to opposition across the US.",
+            "fix": "Limit that grid-specific claim to Virginia, while describing the broader conclusion as opposition tied to data centers’ enormous electricity needs (outlet:p005–p006, outlet:p010–p012)."
           },
           {
             "question": "notable",
-            "problem": "The wording makes Anthropic’s reported turbine purchase sound completed.",
-            "fix": "Say Anthropic reportedly agreed to pay $3.4 billion for gas turbines (outlet:p012)."
+            "problem": "The 54-megawatt Virginia average does not show the scale of the much larger facilities discussed later.",
+            "fix": "If space permits, add that the writer describes ideal facilities of about 6,000 megawatts, comparable to Chicago’s estimated power draw (outlet:p014)."
           }
         ],
         "writer_boats": [
@@ -43854,8 +43843,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "96fefb255debf9ab2925c6102d8c83703651493dec837e47c35866b6f1192c3b",
-        "scored_at": "2026-11-09T23:54:53.025945+00:00"
+        "prose_sha256": "35fb7d3a37a964e0ffbee4cd204c1b062d7023a67d47022cd12c9b3cd79eaa2b",
+        "scored_at": "2026-11-10T03:42:17.855555+00:00"
       }
     },
     {
@@ -44189,17 +44178,17 @@
       "use_original_title": false,
       "source_url": "https://github.com/thisisme6598/gemini_files/",
       "key_points": [
-        "Theo tác giả trên GitHub, Google đã hủy cam kết năm 2023 và xác nhận nội dung từ Drive cùng email liên kết có thể chuyển vào quy trình người đánh giá. Google khuyến cáo người dùng không kết nối ứng dụng nếu chứa thông tin bảo mật không muốn người đánh giá nhìn thấy.",
-        "Theo tác giả, trên bản Gemini tiêu dùng đã bật ứng dụng liên kết, việc nạp ngữ cảnh diễn ra theo xác suất mà không cần gắn thẻ @Drive hay @Gmail. Quá trình này gồm cả trường hợp mô hình không kích hoạt tra cứu và không lấy dữ liệu cá nhân nào.",
-        "Thử nghiệm với email cước mạng cho thấy Gemini có thể tóm tắt chung hoặc trích xuất nguyên văn dữ liệu cá nhân. Tác giả ghi nhận mô hình có lúc nêu hóa đơn 122 USD ngày 4 tháng 9, nhưng có lần sao chép toàn bộ tên, số tài khoản hoặc trích xuất cả bức thư.",
-        "Theo tác giả bài viết, bộ lọc tự động và NER (nhận diện thực thể có tên) của Google không thể xóa sạch định danh như số tài khoản hay ngày giao dịch. Cam kết cô lập ban đầu đã bị dỡ bỏ, và các phiên trò chuyện chứa nội dung được nạp có thể chịu sự xem xét từ các nhà thầu đánh giá là con người."
+        "Theo tác giả bài viết, Google đã đảo ngược cam kết năm 2023 và xác nhận nội dung từ Drive cùng email liên kết được chuyển vào quy trình người đánh giá. Google đưa ra cảnh báo không kết nối ứng dụng nếu chứa thông tin bảo mật không muốn người đánh giá nhìn thấy.",
+        "Theo tác giả, trên phiên bản Gemini tiêu dùng đã bật ứng dụng liên kết, việc nạp ngữ cảnh diễn ra tự động theo xác suất mà không cần gắn thẻ @Drive hay @Gmail. Quá trình này bao gồm cả trường hợp mô hình không kích hoạt công cụ tra cứu và không lấy dữ liệu cá nhân nào.",
+        "Thử nghiệm với một email cước Internet cho thấy mô hình đưa ra phản hồi từ tóm tắt chung đến trích xuất dữ liệu cá nhân. Tác giả ghi nhận Gemini có lần chỉ nêu hóa đơn 122 USD vào ngày 4 tháng 9, nhưng có lần sao chép tên, số tài khoản hoặc trích xuất toàn bộ bức thư.",
+        "Theo tác giả bài viết, bộ lọc tự động và NER (công nghệ nhận diện thực thể có tên) của Google không thể xóa sạch định danh như số tài khoản hay ngày giao dịch. Cam kết cô lập ban đầu đã bị dỡ bỏ, và các phiên trò chuyện chứa nội dung được nạp phải chịu sự xem xét từ các nhà thầu đánh giá là con người."
       ],
       "same_event_coverage_ids": [
         "768be34b0c6b05373852"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Google xác nhận dữ liệu Drive và email liên kết trên Gemini có thể qua tay người đánh giá",
+      "editorial_headline_vi": "Google xác nhận dữ liệu Drive và email liên kết trên Gemini có thể chuyển tới người đánh giá",
       "summary_sources": [
         {
           "id": "outlet",
@@ -44219,27 +44208,15 @@
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "trên GitHub",
-            "explanation": "The supplied source does not identify GitHub as where the author published the account (outlet:p001–p022)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The Vietnamese assigns the account to GitHub, a platform the supplied source does not identify.",
-            "fix": "Attribute the claims simply to the author or the supplied account (outlet:p001–p022)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4a1f1a60486060f21af3b68b50440ee4eb540b278b239ebb86e841ea4d66b597",
-        "scored_at": "2026-11-09T23:54:53.026020+00:00"
+        "prose_sha256": "94c5fc7febb43274545a58461fd933b7cc960ee92f3ed67d4c9075754339b5f0",
+        "scored_at": "2026-11-10T03:38:45.903530+00:00"
       }
     },
     {
@@ -44539,17 +44516,17 @@
       "use_original_title": true,
       "source_url": "https://github.com/sshah03/recalc",
       "key_points": [
-        "Dự án mã nguồn mở recalc của sshah03 biến mỗi ô bảng tính thành cửa sổ dòng lệnh chạy tác nhân AI (chương trình tự động thực hiện tác vụ) như Claude Code hay Codex. Người dùng có thể theo dõi tác nhân điền kế hoạch và kết quả vào từng ô trên lưới dữ liệu chung.",
-        "Theo tác giả sshah03, công cụ ra đời nhằm tái định hình bảng tính cho thời đại AI thay vì để mô hình điều khiển Excel hay Google Sheets. Các tác nhân Claude Code hoặc Codex tương tác với bảng tính qua máy chủ MCP (giao thức bối cảnh mô hình).",
-        "Ở ví dụ rà soát 12 hợp đồng công khai qua sáu câu hỏi, tác nhân điền 72 câu trả lời kèm trích dẫn đoạn văn từ tài liệu gốc. Khi phát hiện câu trả lời sai nguồn, người dùng có thể gắn cờ để công cụ tự chạy lại và sửa theo ghi chú.",
-        "Tác giả cho biết bảng tính lưu cục bộ không qua máy chủ, nhưng tác nhân vẫn gửi dữ liệu về nhà cung cấp và phần mềm tự kiểm tra cập nhật mỗi ngày. Ngoài ra, recalc mới ở bản thử nghiệm sớm (early beta) nên còn lỗi và không phải hộp cát (sandbox) bảo vệ quyền lệnh."
+        "Dự án recalc biến ô bảng tính thành thiết bị đầu cuối (terminal) để người dùng điều khiển các tác nhân AI (chương trình tự hành) điền dữ liệu. Phần mềm mã nguồn mở chạy trên macOS và thử nghiệm trên Linux, nhưng tác giả lưu ý ứng dụng đang ở bản beta rất sớm.",
+        "Tác giả sshah03 cho biết dự án nhằm tái định hình bảng tính cho kỷ nguyên tác nhân AI thay vì để mô hình điều khiển Excel hay Google Sheets. Trong bảng tính, người dùng sửa ô thay vì ngắt cuộc trò chuyện và các tác nhân hiểu hệ thống qua máy chủ MCP (giao thức bối cảnh mô hình).",
+        "Ở bản minh họa rà soát 12 hợp đồng với sáu câu hỏi cho 72 câu trả lời trích dẫn, tác nhân gắn kết quả với từng đoạn trích tài liệu nguồn. Người dùng có thể phát hiện câu trả lời sai để chạy lại kèm ghi chú, đồng thời đánh dấu ô đã duyệt để ngăn tác nhân ghi đè.",
+        "Công cụ giữ dữ liệu cục bộ nhưng không phải hộp cát an toàn (môi trường cô lập), do các lệnh chạy bằng quyền hạn người dùng. Hệ thống không dùng máy chủ theo dõi, song các tác nhân liên kết vẫn gửi dữ liệu về nhà cung cấp trừ khi chạy mô hình nội bộ."
       ],
       "same_event_coverage_ids": [
         "56deaf942d5ab468d8ae"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Phần mềm recalc biến mỗi ô bảng tính thành dòng lệnh chạy tác nhân AI ở bản thử nghiệm sớm",
+      "editorial_headline_vi": "Dự án mã nguồn mở recalc biến ô bảng tính thành thiết bị đầu cuối chạy tác nhân AI ở bản beta",
       "summary_sources": [
         {
           "id": "outlet",
@@ -44564,40 +44541,282 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 7,
-          "meaning": 8
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ba728f19b6f285177c5d0fae4ee40e27ecfeccbe0a170ea8472558423cd493b3",
+        "scored_at": "2026-11-10T03:42:17.855598+00:00"
+      }
+    },
+    {
+      "id": "1cd01b15863e291ad4ce",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal project tutorial demonstrating how to build a household beep-locating tool using Claude Code.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/9/mysterious-beeps/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6c57435e025c0b229308"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7036317f6c8e9a6ae532",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/09/2026/nvidia-spying-scandal-emboldens-washingtons-china-hawks",
+      "key_points": [
+        "Giám đốc điều hành Jensen Huang của Nvidia đã thừa nhận có quan hệ với một người bị nghi là gián điệp Trung Quốc. Theo Semafor, diễn biến này tiếp thêm sức mạnh cho phe cứng rắn tại Washington sau thời gian bị Nhà Trắng gạt ra ngoài lề.",
+        "Tổng thống Donald Trump từng bảo vệ ông Huang, người từng vận động dỡ bỏ một số kiểm soát xuất khẩu chip và từng tháp tùng ông đến Bắc Kinh.",
+        "Theo Politico, quan hệ giữa ông Huang và một lãnh đạo Megaspeed đang thúc đẩy các nghị sĩ Mỹ siết chặt xuất khẩu chip sang Trung Quốc.",
+        "The New York Times đưa tin diện giám sát có thể mở rộng sang chính quyền Trump, sau khi Nvidia can thiệp làm dừng cuộc điều tra của Bộ Thương mại nhắm vào Megaspeed."
+      ],
+      "same_event_coverage_ids": [
+        "7f212a921c3375040061"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Nvidia thừa nhận quan hệ với nghi can gián điệp, tiếp sức cho phe cứng rắn tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/09/2026/nvidia-spying-scandal-emboldens-washingtons-china-hawks"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "875bf143794d9c3c9cad6d4b6dbdcecf7c727f54e317a3fff7693e64fede29d5",
+        "scored_at": "2026-11-10T03:21:56.752273+00:00"
+      }
+    },
+    {
+      "id": "bda3011897fcd94668c2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/09/the-race-is-on-to-sue-nvidia/",
+      "key_points": [
+        "Nvidia's stock fell over 4% on Monday after its board opened an investigation into CEO Jensen Huang's ties to an alleged Chinese spy.",
+        "At least four securities law firms, including Schall, Brown & Schwartz and Levi & Korsinsky, announced investigations Monday into whether Nvidia misled investors.",
+        "Stanford Law professor Robert Bartlett predicted that shareholder lawsuits against Nvidia would be filed quickly.",
+        "Under federal securities law, the initial complaint triggers a 60-day window for investors to apply to serve as lead plaintiff."
+      ],
+      "same_event_coverage_ids": [
+        "43f31132bc369b2b4070"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0e7f57beb742eb68e99e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social chatter and discussion thread on Reddit r/ClaudeCode without substantive reporting or news announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.reddit.com/r/ClaudeCode/comments/1xq2n3t/a_year_after_the_100_ai_mandate_nobody/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "491fbf1d2d4972c8977d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0fa632a93aee92dd0473",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3373746/chinas-tech-funding-divide-faces-test-fears-ai-bubble-rattle-markets",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2fb2d557ec90d1023646"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e105484703996e34195d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/09/2026/nvidia-ceo-is-in-congress-sights-after-spy-scandal",
+      "key_points": [
+        "Bipartisan lawmakers in Congress are demanding investigations into Nvidia CEO Jensen Huang and pushing for stricter export controls on AI chips.",
+        "Sen. Richard Blumenthal announced plans to pursue a Senate investigation into Nvidia's dealings with China."
+      ],
+      "same_event_coverage_ids": [
+        "3e8f466fcee545dcd8cb",
+        "a2d49fe8b1ad6a7454ee"
+      ],
+      "split_coverage_ids": [
+        "240517ddf4f7dfd5e34d",
+        "723f52184e274770fec7",
+        "748d0e1aaacfbfbb21ca",
+        "a842c62a72c8042a541b",
+        "b46db3434c9cf4b20294",
+        "f5eb23e3c33ffb6305ab"
+      ]
+    },
+    {
+      "id": "3ce3cc4ad300d537d80d",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-09/amd-surges-as-ai-chip-trade-returns-closing-bell-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1faa3ec140e8d2be3258"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0f10061bc33c1322aa4f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/09/2026/with-a-weak-board-and-no-successor-nvidia-confronts-a-governance-crisis",
+      "key_points": [
+        "Giám đốc điều hành (CEO) Jensen Huang của Nvidia đã thừa nhận quan hệ ngoài luồng với một phụ nữ bị nghi làm gián điệp cho cơ quan tình báo Trung Quốc. Theo chuyên trang Semafor, tương lai lãnh đạo của ông hiện phụ thuộc vào một hội đồng quản trị thiếu kinh nghiệm và vị thế so với quy mô của tập đoàn.",
+        "Hội đồng quản trị Nvidia nhiều năm qua đã cho phép ông Huang điều hành mà không có người kế nhiệm rõ ràng cùng cơ cấu hơn 50 cấp dưới trực tiếp báo cáo.",
+        "Nvidia không có người thay thế nội bộ rõ ràng cho ông Huang dù mô hình quản lý hơn 50 cấp dưới báo cáo nhằm giúp công ty vận hành ở tốc độ tối đa. Tập đoàn cũng chưa từng công khai kế hoạch kế nhiệm, thiếu vị trí lãnh đạo số hai và không hề nhắc đến từ kế nhiệm trong báo cáo thường niên gần nhất.",
+        "Cuộc điều tra của công ty sẽ xác định liệu ông Huang có làm tổn hại bí mật kinh doanh hay an ninh quốc gia Mỹ trong mối quan hệ này hay không. Giáo sư John C. Coffee Jr nhận định ông Huang có thể nhiều nhất chỉ bất cẩn và sơ suất không bắt buộc phải sa thải vị CEO danh tiếng, trong khi hội đồng quản trị tuyên bố chưa có lý do tin rằng bí mật hay an ninh bị xâm phạm."
+      ],
+      "same_event_coverage_ids": [
+        "79f833c93749fd75d9bd"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Nvidia thừa nhận quan hệ với người bị nghi làm gián điệp, làm lộ khủng hoảng kế nhiệm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/09/2026/with-a-weak-board-and-no-successor-nvidia-confronts-a-governance-crisis"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 6
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "công cụ tự chạy lại",
-            "explanation": "The demonstration says the answer was fixed by rerunning it with a note, not that flagging it triggers an automatic rerun (outlet:p020). Agent cells run only when the user says so (outlet:p055)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "tác nhân vẫn gửi dữ liệu về nhà cung cấp",
-            "explanation": "This reads as applying to all agents. Connected agents send data to their own providers, but the source also says users can run agents on a local model for private documents (outlet:p014)."
+            "summary_text": "Cuộc điều tra của công ty sẽ xác định liệu ông Huang có làm tổn hại bí mật kinh doanh hay an ninh quốc gia Mỹ",
+            "explanation": "The source says the company’s investigation, together with likely congressional hearings, will help determine whether secrets or national security were compromised; it does not say the company’s investigation alone will settle the question (outlet:p022)."
           }
         ],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The reader may expect flagging a wrong answer to rerun it automatically.",
-            "fix": "Say the demonstrated answer was flagged and fixed by rerunning it with a note; agent cells require the user to run them (outlet:p020, outlet:p055)."
+            "question": "meaning",
+            "problem": "The reader is told that the company’s investigation will settle whether harm occurred.",
+            "fix": "Say the investigation and likely congressional hearings will help determine whether company secrets or US national security were compromised (outlet:p022)."
           },
           {
             "question": "meaning",
-            "problem": "The reader may think sending document data to a provider is unavoidable.",
-            "fix": "Add that users can run agents on a local model for private documents (outlet:p014)."
-          },
-          {
-            "question": "notable",
-            "problem": "“câu trả lời sai nguồn” could suggest the citation itself was wrong.",
-            "fix": "Clarify that a wrong answer was caught by checking its own cited source (outlet:p020)."
+            "problem": "The reader misses the possible investor consequences of the earlier denials.",
+            "fix": "Add that misleading the board or knowingly misleading investors on a material issue could bring further shareholder litigation (outlet:p023)."
           }
         ],
         "writer_boats": [
@@ -44605,8 +44824,289 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "43076bf43127f4e69be161e0f6982b4e91ba396cc6336aee303786ba13f958ac",
-        "scored_at": "2026-11-09T23:54:53.026085+00:00"
+        "prose_sha256": "c7768ef6c3199dfbe54cd95894c1e4df4194ece8f139611f93221a40c59b1130",
+        "scored_at": "2026-11-10T03:26:18.652810+00:00"
+      }
+    },
+    {
+      "id": "78a43a8ee814fec40bc4",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-09/google-rolls-out-new-ai-chips-to-challenge-nvidia-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "520c26e18966f07f7bf3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fa7a1a7979bcdba69a5c",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-09/nvidia-backed-fireworks-ai-notifies-customers-of-its-second-hack-in-weeks",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3f28a6ffad17e56bb00d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "06d7ec559572afec68d3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://x.com/ArtificialAnlys/status/2119878995386982508",
+      "key_points": [
+        "Anthropic has released Claude Fable 5.2, capturing the #1 position on the Artificial Analysis Intelligence Index v5 with a score of 65.",
+        "Claude Fable 5.2's ranking was propelled by performance gains across science, knowledge, and coding benchmarks.",
+        "At maximum effort, Claude Fable 5.2 scored 65, leading Gemini 4 Carbon by 5 points and Claude Opus 5.5 by 6 points."
+      ],
+      "same_event_coverage_ids": [
+        "11e7aa25de650140fe92"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a3eb4dc7ae89c15a4a4c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-09-claude-fable-5-2-in-github-copilot",
+      "key_points": [
+        "Theo thông báo từ GitHub, Claude Fable 5.2 chính thức khả dụng trên GitHub Copilot dành cho người dùng các gói Pro+, Max, Business và Enterprise. Quá trình triển khai diễn ra dần dần và các quản trị viên doanh nghiệp phải chủ động bật cài đặt do mô hình bị tắt theo mặc định.",
+        "Mô hình hỗ trợ giải quyết các tác vụ lập trình đa bước trên các kho mã lớn, tính cước theo mức sử dụng với giá niêm yết của nhà cung cấp. Người dùng có thể lựa chọn mô hình trong danh sách bộ chọn của Visual Studio Code hay công cụ dòng lệnh Copilot CLI.",
+        "Trong các thử nghiệm ban đầu của GitHub, Fable 5.2 xử lý nhiều tác vụ hơn với ít bước hơn cùng số lượng lệnh gọi công cụ giảm so với Claude Fable 5.1. Mô hình này cũng hoàn thành những tác vụ lập trình khó mà các thế hệ trước từng bỏ sót.",
+        "Mô hình yêu cầu lưu giữ dữ liệu theo mặc định gồm câu lệnh và kết quả để Anthropic kiểm tra an toàn phát hiện hành vi độc hại, nhưng dữ liệu này không dùng huấn luyện mô hình. Các doanh nghiệp đủ điều kiện chỉ có thể tạm thời áp dụng cơ chế không lưu dữ liệu (zero data retention) đến hết năm dương lịch trước khi hệ thống bảo vệ an toàn EFS được triển khai."
+      ],
+      "same_event_coverage_ids": [
+        "65b5e8b74e73a31703d5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub Copilot đưa Claude Fable 5.2 vào sử dụng kèm điều kiện lưu giữ dữ liệu mặc định",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-09-claude-fable-5-2-in-github-copilot"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "trước khi hệ thống bảo vệ an toàn EFS được triển khai",
+            "explanation": "The source says Anthropic is rolling out EFS during the exemption period; after that period, continued use requires EFS. It does not place the start of EFS deployment after year-end (outlet:p023)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers could understand EFS as starting only after the zero-retention exemption ends.",
+            "fix": "Say Anthropic is rolling out EFS during the exemption, and continued use afterward requires EFS (outlet:p023)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "db243f4aa85150046bf9870a543bcc51d85db6e03ea7cdf158d48b0c371a2e6c",
+        "scored_at": "2026-11-10T03:21:56.752614+00:00"
+      }
+    },
+    {
+      "id": "f4624ff3586a14628cae",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373825/nvidia-faces-defining-test-jensen-huang-probe-adds-chip-stock-turbulence",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "95a082f6d1bf81365692"
+      ],
+      "split_coverage_ids": [
+        "0e599255a0577353c1c6",
+        "432d8d0d968f3fbcbae5"
+      ]
+    },
+    {
+      "id": "952d2516af2e905436ad",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/control-room",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8fb6d30f2830ded505da"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "02e9abf47eaf3fa01f98",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a vendor customer case study detailing how CodeRabbit uses OpenAI models and Codex to scale software development, rather than independent reporting or a substantive launch.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/coderabbit-codex-daybreak",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f8a3c24278f293178dfa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "efcd29611b5022c67331",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a vendor-published customer case study on claude.com describing how JPMorganChase utilizes Claude Code across internal departments, rather than independent journalism or a product release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://claude.com/resources/articles/jpmorganchase-expands-claude-code",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "efeb9de4248b123fff07"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "33a0483307191e736514",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/08/2026/nvidia-ceo-jensen-huang-admits-to-affair-with-suspected-chinese-spy",
+      "key_points": [
+        "Theo Semafor, Nvidia cho biết đã mở cuộc điều tra độc lập về CEO Jensen Huang sau khi ông thừa nhận có quan hệ ngoài luồng với một nhà điều hành người Trung Quốc bị nghi làm gián điệp cho Bắc Kinh. Trong thư gửi nhân viên, ông Huang xin lỗi sâu sắc tới gia đình cùng đồng nghiệp và thừa nhận bản thân không có lời bào chữa nào cho hành vi của mình.",
+        "Ông Huang cho biết hội đồng quản trị Nvidia mở cuộc điều tra độc lập do các mối lo ngại về an ninh quốc gia nêu trong báo chí. Ông khẳng định ủng hộ, sẽ hợp tác đầy đủ với cuộc điều tra và cam kết bảo vệ an ninh quốc gia của Mỹ.",
+        "The New York Times đưa tin giới chức Mỹ lo ngại công ty Megaspeed có thể đóng vai trò cửa sau để tuồn các chip Nvidia bị kiểm soát xuất khẩu cho Bắc Kinh. Tờ báo này cho biết Ngoại trưởng Marco Rubio từng soạn bản ghi nhớ cảnh báo quan hệ thân cận giữa ông Huang và bà Alice Huang, một nhà điều hành tại Megaspeed.",
+        "Semafor nhận định vụ việc xuất hiện khi Quốc hội mới có thể thúc đẩy việc siết chặt kiểm soát xuất khẩu đối với các chip tiên tiến của Nvidia. Dù vậy, ông Huang vẫn tiếp tục tại vị trong lúc chờ kết quả điều tra và người phát ngôn Nvidia khẳng định tin tức này không làm chậm bước tiến của công ty."
+      ],
+      "same_event_coverage_ids": [
+        "149562db55e012c01e39",
+        "33323a391ab9377ec9f9",
+        "85c5944e3a70a1264f8e",
+        "b4251207fc427be383e6",
+        "cd41c11ade22b71a3287",
+        "f3d876a73b916956a394"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia điều tra CEO Jensen Huang sau khi thừa nhận quan hệ với nhà điều hành bị nghi làm gián điệp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/08/2026/nvidia-ceo-jensen-huang-admits-to-affair-with-suspected-chinese-spy"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7c0ce97e0f5726afc60b81a1c916db0e2f08a75723869b4802ac1574c8f62241",
+        "scored_at": "2026-11-10T03:26:18.652851+00:00"
       }
     }
   ]
