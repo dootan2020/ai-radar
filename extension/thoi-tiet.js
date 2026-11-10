@@ -65,7 +65,7 @@ function ensureSymbols() {
   document.body.prepend(box.firstElementChild);
 }
 /* A kind from describe() and whether it is day -> one of the symbols above. */
-const symbolOf = (kind, day = true) => kind === 'clear' ? (day ? 'sun' : 'moon') : kind === 'partly' && !day ? 'night' : kind;
+export const symbolOf = (kind, day = true) => kind === 'clear' ? (day ? 'sun' : 'moon') : kind === 'partly' && !day ? 'night' : kind;
 const sym = (kind, day, cls = 'wx-ic') => `<svg class="${cls}" aria-hidden="true"><use href="#wx-sym-${symbolOf(kind, day)}"/></svg>`;
 const ICON = {
   home: '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20h-5.5v-5.5h-5V20H4z"/></svg>',
@@ -98,6 +98,27 @@ export function outlookText(daily) {
     return { text: `${name} ${what}`, day: i };
   }
   return { text: `${describe(daily.weather_code[0])[0]}, mấy ngày tới ít thay đổi`, day: 0 };
+}
+
+/* What the card shows now, for the top row's cluster (thanh-tren.js): the same numbers, never a second request. */
+export function weatherNow(data, city, unit = 'C') {
+  const cur = data?.current;
+  if (!cur || !Number.isFinite(Number(cur.temperature_2m))) return null;
+  const [label, kind] = describe(cur.weather_code);
+  const c = Number(cur.temperature_2m);
+  return { city, unit, temp: unit === 'F' ? r0(c * 9 / 5 + 32) : r0(c), label, symbol: symbolOf(kind, cur.is_day !== 0) };
+}
+const listeners = new Set();
+let latest;
+/* fn(now) on every paint of the card, at once with the last one if the card painted already; null when it has nothing. */
+export function onWeather(fn) {
+  listeners.add(fn);
+  if (latest !== undefined) fn(latest);
+  return () => listeners.delete(fn);
+}
+function publish(now) {
+  latest = now;
+  for (const fn of listeners) { try { fn(now); } catch (e) { console.warn('weather listener failed', e); } }
 }
 
 export function createWeatherCard() {
@@ -170,8 +191,10 @@ export function createWeatherCard() {
     }
     if (state === 'error') {
       body.innerHTML = '<div class="wx-error"><p>Chưa lấy được thời tiết.</p><button class="pill" type="button" data-wx-retry>Thử lại</button></div>';
+      publish(null);
       return;
     }
+    publish(weatherNow(data, city, unit));
     const cur = data.current, [label, kind] = describe(cur.weather_code), day = cur.is_day === 1;
     const out = outlookText(data.daily);
     body.innerHTML = `<div class="wx-now">${sym(kind, day)}

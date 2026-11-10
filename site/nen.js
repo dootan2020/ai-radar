@@ -123,6 +123,19 @@ async function paint({ win, doc, box, extension, now }) {
   return show(doc, box, PACKAGED, now).catch(() => null);
 }
 
+/* The reader turned the picture off in "Tùy chỉnh" (thanh-tren.js sets data-nen="off" before first paint): nothing is
+   downloaded until it is turned back on, which thanh-tren.js announces with the event NEN_ON. */
+export const NEN_ON = 'halcyon:nen-on';
+const pictureOn = doc => doc?.documentElement?.dataset?.nen !== 'off';
+function whenOn(doc) {
+  if (pictureOn(doc)) return Promise.resolve();
+  return new Promise(resolve => doc.addEventListener(NEN_ON, function on() {
+    if (!pictureOn(doc)) return;
+    doc.removeEventListener(NEN_ON, on);
+    resolve();
+  }));
+}
+
 /* Draw the picture once the window is at least 768 px wide: at once, or the first time a narrow window is widened. */
 export function startNen({
   win = globalThis,
@@ -132,6 +145,7 @@ export function startNen({
 } = {}) {
   const box = doc?.getElementById?.('nen');
   if (!box || typeof win.matchMedia !== 'function') return Promise.resolve(null);
+  if (!pictureOn(doc)) return whenOn(doc).then(() => startNen({ win, doc, extension, now }));
   const wide = win.matchMedia(WIDE);
   if (wide.matches) return paint({ win, doc, box, extension, now });
   return new Promise(resolve => {

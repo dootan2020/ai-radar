@@ -57,7 +57,7 @@ def write(path, value):
 def adapt_html(html):
     html = replace_pattern_once(html, r'<!-- The site root since 05/10:.*?-->\n', '', re.S)
     html = replace_pattern_once(html, r'<meta http-equiv="Content-Security-Policy"[^>]*>\n', '')
-    html = replace_pattern_once(html, r'<script>try \{ var t = .*?</script>\n', '<script src="theme.js"></script>\n')
+    html = replace_pattern_once(html, r"<script>var d = document\.documentElement\.dataset;.*?</script>\n", '<script src="theme.js"></script>\n')
     html = replace_pattern_once(html, r'<!-- Cloudflare Web Analytics -->.*?<!-- End Cloudflare Web Analytics -->\n', '')
     html = replace_pattern_once(html, r'<!-- The snapshot is the page.s only content:.*?-->\n', '', re.S)
     html = replace_pattern_once(html, r'<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>\n', '')
@@ -71,7 +71,8 @@ def adapt_html(html):
     if not top:
         raise ValueError('Expected the site top row')
     search = re.search(r'\n    <div class="news-search" id="news-search">.*?<div class="ns-results" id="ns-results" hidden></div>\n    </div>', top.group(0), re.S)
-    if not (search and top.group(0).count('<div class="tool-launcher"></div>') == 1):
+    if not (search and top.group(0).count('<div class="tool-launcher"></div>') == 1
+            and top.group(0).count('<div class="top-now" id="top-now"></div>') == 1 and 'id="tc-open"' in top.group(0)):
         raise ValueError('Unexpected top row source')
     html = html.replace(top.group(0), TOP_ZONE, 1)
     html = replace_once(html, '<a class="brand feed-brand" id="brand" href="#top" aria-label="Halcyon, về đầu trang">',
@@ -87,9 +88,11 @@ def adapt_html(html):
 TOP_ZONE = '''<!-- The top row (owner, 09/11): the Google search with the 9 dots at its right, on the website's own top-row grid
      (.msn-top-in), so the row and the panel below it share their left and right edges. The seven Google shortcut icons
      are gone: the 9 dots open the same services. The weather and the calendar are cards in the panel's first row
-     (thoi-tiet.js, the-lich.js). -->
+     (thoi-tiet.js, the-lich.js); the weather and the day also sit at the top left and "Tùy chỉnh" beside the 9 dots,
+     as on the website (captain, 10/11; thanh-tren.js). -->
 <header class="masthead msn-top" id="masthead">
   <div class="msn-top-in">
+    <div class="top-now" id="top-now"></div>
     <form id="web-search" class="web-search" role="search" aria-label="Tìm trên Google" action="https://www.google.com/search">
       <label class="web-field">
         <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
@@ -98,7 +101,10 @@ TOP_ZONE = '''<!-- The top row (owner, 09/11): the Google search with the 9 dots
         <button class="go-btn" type="submit" aria-label="Tìm trên Google"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       </label>
     </form>
-    <div class="masthead-actions"><div class="tool-launcher"></div></div>
+    <div class="masthead-actions">
+      <button class="top-tile" id="tc-open" type="button" aria-label="Tùy chỉnh" title="Tùy chỉnh" aria-expanded="false" aria-controls="tuy-chinh"><svg class="i" aria-hidden="true"><use href="#i-tune"/></svg></button>
+      <div class="tool-launcher"></div>
+    </div>
   </div>
 </header>
 '''
@@ -188,7 +194,7 @@ def sync():
     for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'trang-nhat.css', 'trang-msn.css',
                  'thoi-tiet.js', 'the-lich.js', 'lich-am.js',
                  'faces.js', 'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js',
-                 'calendar.js', 'worth-score.js', 'live.js', 'menu-cong-cu.css', 'nen.js',
+                 'calendar.js', 'worth-score.js', 'live.js', 'menu-cong-cu.css', 'nen.js', 'thanh-tren.js',
                  'feed-images.json', 'editor-picks.json',
                  'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg', 'wordmark.svg', 'wordmark-dark.svg'):
         shutil.copyfile(SITE / name, EXT / name)

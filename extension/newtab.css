@@ -18,13 +18,10 @@
    không?"): the seven shortcut icons are gone (the 9 dots open the same services), and the search and the 9 dots sit in the
    website's .msn-top-in grid (trang-msn.css), so the row and the panel below it share the same left and right edges at every
    width. The search column keeps the width it had (--top-max); the 9 dots sit at the row's right end, over the panel's. */
-@media (min-width: 768px) {
-  .msn-top-in { grid-template-columns: minmax(0, 1fr) minmax(0, var(--top-max)) minmax(var(--btn-h), 1fr); }
+@media (min-width: 1100px) {
+  .msn-top-in { grid-template-columns: minmax(var(--top-side), 1fr) minmax(0, var(--top-max)) minmax(var(--top-side), 1fr); }
 }
-.msn-top .web-search { grid-column: 2; width: 100%; }
-@media (max-width: 767px) {
-  .msn-top .web-search { grid-column: 1; }
-}
+/* The weather and the day sit at the top left and "Tùy chỉnh" beside the 9 dots, on the website's grid (trang-msn.css). */
 /* ---------- 2. Search row: the Google search ---------- */
 .web-search { margin: 0; }
 /* Fix 2 (18:26, "dưới thanh tìm kiếm có đổ bóng, khiến cho giao diện có vết cắt"): no shadow, at rest and in focus. No border

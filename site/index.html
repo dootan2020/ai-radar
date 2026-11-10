@@ -39,9 +39,10 @@
      article, on any host. connect: the snapshot, the live counters (Hacker News via Algolia, Hugging Face), Hugging
      Face avatar lookups and the weather card's forecast (Open-Meteo, thoi-tiet.js). Cloudflare Web Analytics uses only its beacon script and reporting origin.
      tests/test_trang_chu.py checks this head. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c=' https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; img-src 'self' https:; font-src 'self'; connect-src 'self' https://hn.algolia.com https://huggingface.co https://api.open-meteo.com https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';">
-<!-- Apply the reader's saved theme before first paint, so a dark-mode reader never sees a light flash. -->
-<script>try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-gZ0weLgz+AR2Z+KQYHToGSJYTSLF5rIQUYB9ETIVLQo=' https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; img-src 'self' https:; font-src 'self'; connect-src 'self' https://hn.algolia.com https://huggingface.co https://api.open-meteo.com https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';">
+<!-- Apply the reader's saved theme and "Tùy chỉnh" choices (thanh-tren.js) before first paint, so a dark-mode reader never
+     sees a light flash and a chosen layout never jumps. -->
+<script>var d = document.documentElement.dataset; try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') d.theme = t; } catch (e) {} try { var c = JSON.parse(localStorage.getItem('halcyon:tuy-chinh')) || {}; if (c.layout === 'part' || c.layout === 'head') d.layout = c.layout; if (c.picture === false) d.nen = 'off'; if (c.weather === false) d.wx = 'off'; } catch (e) {}</script>
 <!-- The snapshot is the page's only content: fetch it while the HTML is still parsing, not after the module graph. The window
      file holds the stories the first screen can show (radar/site_payload.py); feed.js loads the complete one after it. -->
 <link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>
@@ -53,6 +54,7 @@
 <link rel="stylesheet" href="trang-msn.css">
 <script type="module" src="nen.js"></script>
 <script type="module" src="feed.js"></script>
+<script type="module" src="thanh-tren.js"></script>
 <link rel="modulepreload" href="faces.js">
 <link rel="modulepreload" href="time-text.js">
 <link rel="modulepreload" href="words.js">
@@ -83,13 +85,16 @@
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.5"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  <symbol id="i-tune" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
 </svg>
 
-<!-- The top row (Mẫu A, captain 08/11 18:23): the news search as MSN's search bar, the Google apps at the right. The
-     panel below it carries the logo, the sections and the morning edition in its header row. On the new tab the
-     extension's own top zone (Google search and apps) takes this row's place and the news search joins the panel head. -->
+<!-- The top row (Mẫu A, captain 08/11 18:23; corners after Edge, captain 10/11 14:48 and 14:55): the weather and the day
+     at the top left, the news search in the middle, "Tùy chỉnh" and the Google apps at the top right (thanh-tren.js,
+     menu-cong-cu.js). The panel below it carries the logo, the sections and the morning edition in its header row. On the
+     new tab the extension's own top zone (Google search) takes the search's place and the news search joins the panel head. -->
 <header class="masthead msn-top" id="masthead">
   <div class="msn-top-in">
+    <div class="top-now" id="top-now"></div>
     <div class="news-search" id="news-search">
       <button class="icon-btn ns-open" id="ns-open" type="button" aria-label="Tìm trong tin Halcyon" aria-expanded="false" aria-controls="ns-q">
         <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
@@ -107,7 +112,10 @@
       </div>
       <div class="ns-results" id="ns-results" hidden></div>
     </div>
-    <div class="masthead-actions"><div class="tool-launcher"></div></div>
+    <div class="masthead-actions">
+      <button class="top-tile" id="tc-open" type="button" aria-label="Tùy chỉnh" title="Tùy chỉnh" aria-expanded="false" aria-controls="tuy-chinh"><svg class="i" aria-hidden="true"><use href="#i-tune"/></svg></button>
+      <div class="tool-launcher"></div>
+    </div>
   </div>
 </header>
 <p class="sr" id="ns-status" role="status" aria-live="polite"></p>

@@ -1,6 +1,6 @@
 .tool-launcher{position:relative;z-index:60;flex:none;display:inline-flex;align-items:center;min-width:44px;min-height:44px;margin-inline-start:auto}
 .feed-bar-in>.tool-launcher{order:5}
-.tool-launcher-button{display:grid;place-items:center;flex:none;width:44px;height:44px;min-width:44px;padding:0;border:0;border-radius:var(--radius-full);background:transparent;color:var(--color-ink-2);cursor:pointer;transition:background-color var(--motion-state) var(--ease-flow),color var(--motion-state) var(--ease-flow)}
+.tool-launcher-button{display:grid;place-items:center;flex:none;width:44px;height:44px;min-width:44px;padding:0;border:0;border-radius:var(--radius-8);background:transparent;color:var(--color-ink-2);cursor:pointer;transition:background-color var(--motion-state) var(--ease-flow),color var(--motion-state) var(--ease-flow)}
 .tool-launcher-button:hover,.tool-launcher-button[aria-expanded="true"]{background:var(--color-fill);color:var(--color-ink)}
 .tool-launcher-button:active{transform:scale(.96)}
 .tool-launcher-button:focus-visible,.tool-launcher-tile:focus-visible,.tool-launcher-more:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}

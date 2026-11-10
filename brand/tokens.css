@@ -208,7 +208,7 @@
   --msn-fav-lg: 28px;
   --msn-dot: 3px;
   --msn-tab-line: 3px;                               /* the active section's underline */
-  --msn-lead-dot: var(--space-6); --msn-lead-dot-on: var(--space-16);   /* the lead's dots: one small chip, dots close together */
+  --msn-lead-dot: var(--space-8); --msn-lead-dot-on: var(--space-24);   /* the lead's dots, close together, straight on the photo */
   --msn-title: var(--text-sub);                      /* 15 px: a card's headline */
   --msn-title-text: var(--text-title);               /* 18 px: a headline without a picture */
   --msn-title-wide: var(--text-title);
@@ -229,8 +229,8 @@
   --msn-on-ink: var(--brand-white);
   --msn-on-ink-2: var(--gray-90);
   --msn-slide-box: color-mix(in srgb, var(--brand-ink) 90%, transparent);
-  --msn-lead-dots-bg: color-mix(in srgb, var(--brand-ink) 70%, transparent);   /* the dots' chip: a 55% dot on it stays 3:1 on a white photo */
-  --msn-on-photo-dot: color-mix(in srgb, var(--brand-white) 55%, transparent);
+  --msn-lead-dot-shadow: 0 0 0 1px color-mix(in srgb, var(--brand-ink) 45%, transparent), 0 1px 3px color-mix(in srgb, var(--brand-ink) 55%, transparent);   /* each dot's own edge, no chip: it reads on a white photo and a dark one */
+  --msn-on-photo-dot: color-mix(in srgb, var(--brand-white) 72%, transparent);
   /* The weather card: a sky photograph (anh/bau-troi.jpg), a flat ink veil, frosted tiles; white text 4.7:1 or more. */
   --msn-wx-sky: #2B4C7A;                             /* shown until the photograph arrives */
   --msn-wx-veil: color-mix(in srgb, var(--brand-ink) 16%, transparent);
@@ -259,19 +259,44 @@
   --msn-spinner: 14px; --msn-spinner-w: 2px;
   --msn-sk-line: 12px;
   /* The day's picture behind the first screen, from 768 px (owner, 10/11: "còn về ảnh nền thì em làm như edge"; nen.js).
-     The panel starts a little under the middle; the search floats on the picture in a frosted pill; a faint scrim sits
-     only along the top edge and around the search, never over the whole picture. */
-  --nen-fold: clamp(320px, 45vh, 640px);             /* where the panel starts */
-  --nen-lift: var(--space-32);                       /* the search sits a little above its band's centre */
+     Captain, 10/11 14:48 ("đưa nút tìm kiếm và nội dung cao lên trên"; "giữa nền và nội dung để 1 lớp phủ"): the search
+     sits at the top and the panel right under it, as on Edge; a veil covers the whole picture and darkens along the top
+     edge, where the corners' white ink sits. "Tùy chỉnh" (thanh-tren.js) can start the panel lower: part or head. */
+  --top-pad: var(--space-16);                        /* the top row's distance from the window's top edge */
+  --top-side: 15rem;                                 /* each corner's column at 1100 px and wider; the search takes the rest */
+  --top-side-narrow: 8.5rem;                         /* 768 to 1099 px: the corner's two short lines */
+  --top-ink: var(--color-ink);                       /* the corners on the page's own surface... */
+  --top-ink-shadow: none;
+  --top-tile: transparent;
+  --top-tile-on: var(--color-fill);
+  --top-on-nen-ink: var(--brand-white);              /* ...and on the picture, under the veil */
+  --top-on-nen-shadow: 0 1px 2px oklch(0.1 0.02 262 / 0.55);
+  --top-on-nen-tile: color-mix(in srgb, var(--nen-mat) 52%, transparent);
+  --top-on-nen-tile-on: color-mix(in srgb, var(--nen-mat) 72%, transparent);
+  --top-wx-icon: 24px;
+  --top-icon: 22px;                                  /* the tune mark in the Tùy chỉnh tile */
+  --nen-fold: clamp(320px, 52vh, 640px);             /* "Một phần": the panel starts a little under the middle */
+  --nen-peek: 88px;                                  /* "Đầu đề": only the panel's head row shows above the fold */
   --nen-mat: #0B101C;                                /* the renders' night: shown until the day's picture arrives */
   --nen-focus: 50% 32%;                              /* the renders keep their detail in the upper thirds */
-  --nen-scrim: radial-gradient(56% 34% at 50% 26%, oklch(0.1 0.02 262 / 0.32), transparent 72%),
-               linear-gradient(to bottom, oklch(0.1 0.02 262 / 0.38), transparent var(--space-96));
+  --nen-scrim: linear-gradient(to bottom, oklch(0.12 0.02 262 / 0.72), oklch(0.12 0.02 262 / 0.62) 72px, oklch(0.12 0.02 262 / 0.32) 148px, oklch(0.12 0.02 262 / 0.3));
   --nen-pill: color-mix(in srgb, var(--color-float) 94%, transparent);
   --nen-pill-on: var(--color-float);
   --nen-pill-shadow: 0 1px 2px oklch(0.1 0.02 262 / 0.22), 0 8px 28px oklch(0.1 0.02 262 / 0.28);
-  --nen-cover-from: calc(var(--nen-fold) * 0.25);    /* the page's surface closes over the picture as the panel rises */
-  --nen-cover-to: var(--nen-fold);
+  --nen-cover-from: var(--space-48);                 /* the page's surface closes over the picture as the panel rises */
+  --nen-cover-to: 480px;
+  /* One row of any list (captain, 10/11 15:19: "yêu cầu tất cả kiểu hover của list nó phải giống nhau"): a wash behind
+     the whole row on hover and on keyboard focus, reaching this far past the row's own box. */
+  --row-wash: var(--color-fill);
+  --row-wash-x: var(--space-8);
+  --row-wash-y: var(--space-6);
+  /* The models and code band: its tiles keep the height a 2x2 tile had. */
+  --band-tile-min: 20rem;
+  /* "Tùy chỉnh": the panel at the top right, out of the top row's own button. */
+  --tc-w: 22rem;
+  --tc-shadow: 0 2px 6px oklch(var(--shadow-tint) / 0.12), 0 18px 48px oklch(var(--shadow-tint) / 0.22);
+  --tc-switch-w: 44px; --tc-switch-h: 26px; --tc-knob: 20px;
+  --tc-switch-off: color-mix(in srgb, var(--color-ink) 45%, transparent);
   /* "Vừa đăng" after the "N tin mới" pill (owner, 10/11): the announced rows glow coral, then settle. */
   --fresh-flash: 2000ms;
   --color-accent-wash-strong: color-mix(in srgb, var(--brand-signature) 22%, transparent);

@@ -329,8 +329,9 @@ process.stdout.write(JSON.stringify(created));
         spec.loader.exec_module(sync)
         html = (SITE / 'index.html').read_text(encoding='utf-8')
         feed = (SITE / 'feed.js').read_text(encoding='utf-8')
-        for missing in ('<script>try { var t = ', '<!-- Cloudflare Web Analytics -->',
+        for missing in ('<script>var d = document.documentElement.dataset;', '<!-- Cloudflare Web Analytics -->',
                         'href="ban-tin.html"', '<!-- The top row (Mẫu A', '<div class="tool-launcher"></div>',
+                        '<div class="top-now" id="top-now"></div>', 'id="tc-open"',
                         '<div class="news-search" id="news-search">', '<div class="head-actions">'):
             with self.subTest(missing=missing), self.assertRaises(ValueError):
                 sync.adapt_html(html.replace(missing, 'changed', 1))
