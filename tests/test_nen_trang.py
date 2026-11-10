@@ -83,15 +83,17 @@ class DayPicture(unittest.TestCase):
         self.assertNotIn("url(", section)
         self.assertIn("export const WIDE = '(min-width: 768px)';", read(SITE / "nen.js"))
 
-    def test_the_first_screen_is_the_picture_and_the_panel_starts_under_the_middle(self):
+    def test_the_picture_fills_the_window_and_the_panel_sits_high_by_default(self):
+        # Captain, 10/11 14:48: the search and the panel high, as on Edge (tests/test_thanh_tren.py); "Một phần" keeps
+        # the fold a little under the middle.
         tokens = read(SITE / "tokens.css")
-        self.assertIn("--nen-fold: clamp(320px, 45vh, 640px);", tokens)
+        self.assertIn("--nen-fold: clamp(320px, 52vh, 640px);", tokens)
         self.assertRegex(tokens, r"--nen-mat: #[0-9A-F]{6};")
         wide = nen_section(read(SITE / "trang-msn.css"))
-        self.assertIn(".msn-top { display: flex; flex-direction: column; min-height: var(--nen-fold); }", wide)
-        # The controls on the picture carry their own surface instead of a scrim over the whole picture.
+        self.assertIn(".msn-top { display: flex; flex-direction: column; }", wide)
+        self.assertIn('[data-layout="part"] .msn-top { min-height: var(--nen-fold); }', wide)
+        # The search keeps its frosted pill on the picture; the corners' tiles take the veil's white ink.
         self.assertIn("background: var(--nen-pill); box-shadow: var(--nen-pill-shadow);", wide)
-        self.assertIn(".msn-top .ns-field, .msn-top .tool-launcher-button {", wide)
         self.assertIn(".msn-top .web-field {", read(EXT / "newtab.css"))
         self.assertIn("animation-timeline: scroll(root block)", wide)
 

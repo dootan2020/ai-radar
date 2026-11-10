@@ -5,16 +5,41 @@
    the extension's new tab (copied by extension/sync-site.py); the new tab keeps its own Google row above the panel.
    Every value comes from tokens.css (the --msn-* component tokens); the showcase is design/tokens.html. */
 
-/* ---------- the top row: the news search as the search bar, the Google apps at the right ---------- */
-.msn-top { position: relative; padding: var(--msn-top-pad) var(--msn-page-pad) 0; background: transparent; }
+/* ---------- the top row: the weather and the day, the news search, "Tùy chỉnh" and the Google apps ---------- */
+/* Captain, 10/11 14:48 and 14:55: the search at the top as on Edge, the weather and the day at the top left, the square
+   9 dots at the top right (thanh-tren.js, menu-cong-cu.js). The corners keep equal columns, so the search stays centred. */
+.msn-top { position: relative; padding: var(--top-pad) var(--msn-page-pad) 0; background: transparent; }
 .msn-top-in {
   max-width: var(--msn-panel-max); margin-inline: auto;
-  /* The right column never gets narrower than the apps button, so the search and the button keep the gap between them. */
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, var(--msn-search-max)) minmax(var(--btn-h), 1fr); align-items: center;
+  display: grid; grid-template-columns: minmax(var(--top-side), 1fr) minmax(0, var(--msn-search-max)) minmax(var(--top-side), 1fr); align-items: center;
   gap: var(--space-12); margin-bottom: var(--space-16);
 }
-.msn-top .news-search { grid-column: 2; width: 100%; position: relative; }
-.msn-top .masthead-actions { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: var(--space-8); }
+.msn-top .news-search, .msn-top .web-search { grid-column: 2; grid-row: 1; width: 100%; position: relative; }
+.msn-top .masthead-actions { grid-column: 3; grid-row: 1; justify-self: end; display: flex; align-items: center; gap: var(--space-8); }
+.top-now {
+  grid-column: 1; grid-row: 1; justify-self: start; min-width: 0; display: flex; align-items: center; gap: var(--space-16);
+  color: var(--top-ink); text-shadow: var(--top-ink-shadow); font-size: var(--text-small); line-height: 1.25; white-space: nowrap;
+}
+.top-wx { display: inline-flex; align-items: center; gap: var(--space-6); font-weight: var(--weight-semibold); }
+.top-wx-ic { width: var(--top-wx-icon); height: var(--top-wx-icon); flex: none; }
+.top-temp { font-size: var(--text-sub); }
+.top-date { font-weight: var(--weight-medium); }
+[data-wx="off"] .top-wx { display: none; }
+/* "Tùy chỉnh" and the 9 dots: square tiles with a small radius, never circles (captain, 10/11: "không nên bo tròn"). */
+.msn-top .top-tile, .msn-top .tool-launcher-button {
+  display: grid; place-items: center; width: var(--btn-h); height: var(--btn-h); padding: 0; border: 0; border-radius: var(--radius-8);
+  background: var(--top-tile); color: var(--top-ink); cursor: pointer;
+  transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+}
+.msn-top .top-tile .i { width: var(--top-icon); height: var(--top-icon); stroke-width: 2; }
+.msn-top .top-tile:hover, .msn-top .top-tile[aria-expanded="true"],
+.msn-top .tool-launcher-button:hover, .msn-top .tool-launcher-button[aria-expanded="true"] { background: var(--top-tile-on); color: var(--top-ink); }
+.msn-top .top-tile:active, .msn-top .tool-launcher-button:active { transform: scale(0.96); }
+.msn-top .top-tile:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+@media (min-width: 768px) and (max-width: 1099px) {
+  .msn-top-in { grid-template-columns: minmax(var(--top-side-narrow), 1fr) minmax(0, var(--msn-search-max)) minmax(var(--top-side-narrow), 1fr); }
+  .top-now { flex-direction: column; align-items: flex-start; gap: 0; }
+}
 .msn-top .ns-open { display: none; }
 .msn-top .ns-field { display: flex; height: var(--msn-search-h); padding: 0 var(--space-4) 0 var(--space-16); }
 .msn-top .ns-field input { height: 100%; font-size: var(--text-small); }
@@ -553,9 +578,13 @@
   .msn-head .sections { order: 3; flex: 1 1 100%; overflow-x: auto; }
 }
 @media (max-width: 767px) {
-  .msn-top-in { grid-template-columns: minmax(0, 1fr) auto; }
-  .msn-top .news-search { grid-column: 1; }
-  .msn-top .masthead-actions { grid-column: 2; }
+  /* A phone: the weather and the day beside "Tùy chỉnh" and the 9 dots, the search on its own row under them. */
+  .msn-top-in { grid-template-columns: minmax(0, 1fr) auto; row-gap: var(--space-8); }
+  .top-now { grid-column: 1; grid-row: 1; flex-direction: column; align-items: flex-start; gap: 0; font-size: var(--text-meta); }
+  .top-temp { font-size: var(--text-small); }
+  .top-wx-ic { width: var(--space-16); height: var(--space-16); }
+  .msn-top .masthead-actions { grid-column: 2; grid-row: 1; gap: var(--space-4); }
+  .msn-top .news-search, .msn-top .web-search { grid-column: 1 / -1; grid-row: 2; }
   .msn-top .ns-field { display: flex; position: static; }
   .msn-top .news-search.open .ns-field { position: static; inset: auto; }
   .msn-top .news-search.open .ns-open { visibility: hidden; }
@@ -638,14 +667,15 @@
   .msn-lead, .msn-wx, .msn-toplist, .nc-big, .nc-wide { grid-column: 1; }
 }
 /* ---------- the day's picture behind the first screen (owner, 10/11: "còn về ảnh nền thì em làm như edge") ---------- */
-/* From 768 px the first screen is the day's 3D render, full bleed, as on Edge's new tab: the search floats on it, the
-   panel starts a little under the middle with its first cards over the picture's lower half, and the picture stays put
-   while the panel scrolls over it; the page's own surface closes in around the panel as it rises, so below the first
-   screen the reading is what it was. nen.js picks the picture; under 768 px the layer is never drawn and nothing is
-   downloaded. The controls on the picture carry their own frosted surface, so they read on any render, light or dark. */
+/* From 768 px the day's 3D render fills the window behind the page, as on Edge's new tab, and stays put while the panel
+   scrolls over it; the page's own surface closes in around the panel as it rises. Captain, 10/11 14:48: the search and
+   the panel sit high (Edge: search near the top, panel right under it), and a veil lies between the picture and the
+   content so the corners and the panel stand out; the corners' ink turns white on it. "Tùy chỉnh" (thanh-tren.js) can
+   start the panel lower (data-layout part / head) or turn the picture off (data-nen="off": nothing is downloaded).
+   nen.js picks the picture; under 768 px the layer is never drawn and nothing is downloaded. */
 .nen { display: none; }
 @media (min-width: 768px) {
-  .nen { display: block; position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--nen-mat); }
+  :root:not([data-nen="off"]) .nen { display: block; position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--nen-mat); }
   .nen-img {
     position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--nen-focus);
     opacity: 0; transition: opacity var(--motion-state) var(--ease-flow);
@@ -657,21 +687,94 @@
   @supports (animation-timeline: scroll()) {
     .nen::after { animation: nen-cover linear both; animation-timeline: scroll(root block); animation-range: var(--nen-cover-from) var(--nen-cover-to); }
   }
-  .msn-top { display: flex; flex-direction: column; min-height: var(--nen-fold); }
-  .msn-top-in { flex: 1; width: 100%; grid-template-rows: auto minmax(0, 1fr); margin-bottom: var(--space-24); }
-  .msn-top .masthead-actions { grid-row: 1; align-self: start; }
-  .msn-top .news-search, .msn-top .web-search { grid-row: 2; align-self: center; margin-bottom: var(--nen-lift); }
-  .msn-top .ns-field, .msn-top .tool-launcher-button {
+  .msn-top { display: flex; flex-direction: column; }
+  .msn-top-in { width: 100%; }
+  [data-layout="part"] .msn-top { min-height: var(--nen-fold); }
+  [data-layout="head"] .msn-top { min-height: calc(100svh - var(--nen-peek)); }
+  [data-layout="part"], [data-layout="head"] { --nen-cover-from: calc(var(--nen-fold) * 0.25); --nen-cover-to: var(--nen-fold); }
+  :root:not([data-nen="off"]) {
+    --top-ink: var(--top-on-nen-ink); --top-ink-shadow: var(--top-on-nen-shadow);
+    --top-tile: var(--top-on-nen-tile); --top-tile-on: var(--top-on-nen-tile-on);
+  }
+  :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button {
+    -webkit-backdrop-filter: blur(var(--msn-blur)) saturate(1.4); backdrop-filter: blur(var(--msn-blur)) saturate(1.4);
+  }
+  .msn-top .ns-field {
     background: var(--nen-pill); box-shadow: var(--nen-pill-shadow);
     -webkit-backdrop-filter: blur(var(--msn-blur)) saturate(1.4); backdrop-filter: blur(var(--msn-blur)) saturate(1.4);
   }
-  .msn-top .ns-field:hover, .msn-top .ns-field:focus-within,
-  .msn-top .tool-launcher-button:hover, .msn-top .tool-launcher-button[aria-expanded="true"] { background: var(--nen-pill-on); }
-  .msn-top .tool-launcher-button { color: var(--color-ink); }
+  .msn-top .ns-field:hover, .msn-top .ns-field:focus-within { background: var(--nen-pill-on); }
 }
 @keyframes nen-cover { to { opacity: 1; } }
 @media (min-width: 768px) and (prefers-reduced-transparency: reduce) {
-  .msn-top .ns-field, .msn-top .tool-launcher-button { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--nen-pill-on); }
+  .msn-top .ns-field { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--nen-pill-on); }
+  :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button {
+    -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--top-on-nen-tile-on);
+  }
+}
+
+/* ---------- "Tùy chỉnh": a panel at the top right, grown out of its button (thanh-tren.js) ---------- */
+/* Non-blocking, as on Edge: the page stays usable behind it; a pick applies at once. Groups part by their fill, never
+   by a line; the chosen layout and theme take the coral wash. */
+.tc-sheet {
+  /* Under the top row, so its own button stays in sight and closes it again. */
+  --tc-top: calc(var(--top-pad) + var(--btn-h) + var(--space-8));
+  position: fixed; z-index: 80; top: var(--tc-top); right: var(--space-8);
+  width: min(var(--tc-w), calc(100vw - 2 * var(--space-8))); max-height: calc(100dvh - var(--tc-top) - var(--space-8));
+  overflow-y: auto; overscroll-behavior: contain; padding: var(--space-4) var(--space-12) var(--space-12);
+  background: var(--color-panel); color: var(--color-ink); border-radius: var(--msn-panel-r); box-shadow: var(--tc-shadow);
+  transform-origin: top right; opacity: 0; transform: translateY(calc(-1 * var(--space-4))) scale(0.98);
+  transition: opacity var(--duration-150) ease, transform var(--duration-150) var(--ease-exit);
+}
+.tc-sheet.is-open { opacity: 1; transform: none; transition: opacity var(--motion-state) var(--ease-flow), transform var(--motion-state) var(--ease-flow); }
+.tc-sheet[hidden] { display: none; }
+.tc-sheet:focus { outline: none; }
+.tc-top { display: flex; align-items: center; justify-content: space-between; min-height: var(--btn-h); margin-bottom: var(--space-4); }
+.tc-top h2 { margin: 0; padding-left: var(--space-4); font-size: var(--text-title); font-weight: var(--weight-bold); letter-spacing: -0.01em; }
+.tc-close { display: grid; place-items: center; width: var(--btn-h); height: var(--btn-h); border-radius: var(--radius-8); color: var(--color-ink-2); }
+.tc-close:hover { background: var(--color-fill); color: var(--color-ink); }
+.tc-close .i { width: var(--msn-fav); height: var(--msn-fav); }
+.tc-group { margin: 0 0 var(--space-8); padding: var(--space-12); border: 0; border-radius: var(--radius-12); background: var(--color-canvas); min-width: 0; }
+.tc-group legend { float: left; width: 100%; margin: 0 0 var(--space-8); padding: 0; font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-ink-2); }
+.tc-group legend + * { clear: both; }
+.tc-layouts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8); }
+.tc-layout {
+  display: grid; gap: var(--space-6); padding: var(--space-6) var(--space-6) var(--space-8); border-radius: var(--radius-12);
+  background: var(--color-panel); text-align: center; cursor: pointer; font-size: var(--text-meta); font-weight: var(--weight-medium);
+  transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+}
+.tc-layout:active { transform: scale(0.97); }
+.tc-layout:has(input:checked) { background: var(--color-accent-wash-strong); font-weight: var(--weight-bold); }
+.tc-layout:has(input:focus-visible), .tc-seg label:has(input:focus-visible) { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
+.tc-mini { position: relative; display: block; aspect-ratio: 16 / 10; border-radius: var(--radius-8); overflow: hidden; background: linear-gradient(160deg, var(--msn-wx-sky), var(--nen-mat)); }
+.tc-mini b { position: absolute; top: 9%; left: 30%; right: 30%; height: 10%; border-radius: var(--radius-full); background: var(--brand-white); }
+.tc-mini i { position: absolute; left: 9%; right: 9%; bottom: 0; top: 30%; border-radius: var(--msn-dot) var(--msn-dot) 0 0; background: var(--color-panel); }
+.tc-mini-part i { top: 56%; }
+.tc-mini-head i { top: 84%; }
+.tc-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); min-height: var(--btn-h); font-size: var(--text-small); font-weight: var(--weight-medium); cursor: pointer; }
+.tc-switch {
+  -webkit-appearance: none; appearance: none; position: relative; flex: none; width: var(--tc-switch-w); height: var(--tc-switch-h); margin: 0;
+  border-radius: var(--radius-full); background: var(--tc-switch-off); cursor: pointer; transition: background-color var(--duration-150) ease;
+}
+.tc-switch::before {
+  content: ""; position: absolute; top: calc((var(--tc-switch-h) - var(--tc-knob)) / 2); left: calc((var(--tc-switch-h) - var(--tc-knob)) / 2);
+  width: var(--tc-knob); height: var(--tc-knob); border-radius: var(--radius-full); background: var(--brand-white); box-shadow: var(--msn-shadow-rest);
+  transition: transform var(--duration-150) var(--ease-press);
+}
+.tc-switch:checked { background: var(--color-accent-fill); }
+.tc-switch:checked::before { transform: translateX(calc(var(--tc-switch-w) - var(--tc-switch-h))); }
+.tc-switch:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
+.tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-fill); }
+.tc-seg label { display: grid; place-items: center; min-height: var(--btn-h); border-radius: calc(var(--radius-8) - var(--msn-tight)); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2); cursor: pointer; transition: background-color var(--duration-150) ease, color var(--duration-150) ease; }
+.tc-seg label:has(input:checked) { background: var(--color-panel); color: var(--color-ink); font-weight: var(--weight-bold); box-shadow: var(--msn-shadow-rest); }
+/* A phone draws no picture, so the layout and the picture switch have nothing to change there. */
+@media (max-width: 767px) {
+  .tc-wide { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tc-sheet, .tc-sheet.is-open { transform: none; transition: opacity var(--duration-150) ease; }
+  .tc-switch::before, .tc-layout { transition: none; }
+  .tc-layout:active, .msn-top .top-tile:active, .msn-top .tool-launcher-button:active { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

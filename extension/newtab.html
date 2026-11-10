@@ -28,7 +28,8 @@
 <meta name="twitter:image" content="https://radar-ai-vn.pages.dev/og-image.png">
 <link rel="canonical" href="https://radar-ai-vn.pages.dev/">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<!-- Apply the reader's saved theme before first paint, so a dark-mode reader never sees a light flash. -->
+<!-- Apply the reader's saved theme and "Tùy chỉnh" choices (thanh-tren.js) before first paint, so a dark-mode reader never
+     sees a light flash and a chosen layout never jumps. -->
 <script src="theme.js"></script>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="feed.css">
@@ -40,6 +41,7 @@
 <script type="module" src="feed.js"></script>
 <script type="module" src="newtab.js"></script>
 <link rel="stylesheet" href="newtab.css">
+<script type="module" src="thanh-tren.js"></script>
 <link rel="modulepreload" href="faces.js">
 <link rel="modulepreload" href="time-text.js">
 <link rel="modulepreload" href="words.js">
@@ -69,14 +71,17 @@
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.5"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  <symbol id="i-tune" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
 </svg>
 
 <!-- The top row (owner, 09/11): the Google search with the 9 dots at its right, on the website's own top-row grid
      (.msn-top-in), so the row and the panel below it share their left and right edges. The seven Google shortcut icons
      are gone: the 9 dots open the same services. The weather and the calendar are cards in the panel's first row
-     (thoi-tiet.js, the-lich.js). -->
+     (thoi-tiet.js, the-lich.js); the weather and the day also sit at the top left and "Tùy chỉnh" beside the 9 dots,
+     as on the website (captain, 10/11; thanh-tren.js). -->
 <header class="masthead msn-top" id="masthead">
   <div class="msn-top-in">
+    <div class="top-now" id="top-now"></div>
     <form id="web-search" class="web-search" role="search" aria-label="Tìm trên Google" action="https://www.google.com/search">
       <label class="web-field">
         <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
@@ -85,7 +90,10 @@
         <button class="go-btn" type="submit" aria-label="Tìm trên Google"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       </label>
     </form>
-    <div class="masthead-actions"><div class="tool-launcher"></div></div>
+    <div class="masthead-actions">
+      <button class="top-tile" id="tc-open" type="button" aria-label="Tùy chỉnh" title="Tùy chỉnh" aria-expanded="false" aria-controls="tuy-chinh"><svg class="i" aria-hidden="true"><use href="#i-tune"/></svg></button>
+      <div class="tool-launcher"></div>
+    </div>
   </div>
 </header>
 <p class="sr" id="ns-status" role="status" aria-live="polite"></p>
