@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-10T11:43:27.604323+00:00",
-  "input_generated_at": "2026-11-10T10:45:48Z",
+  "generated_at": "2026-11-10T13:49:21.418408+00:00",
+  "input_generated_at": "2026-11-10T12:45:51Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -45741,10 +45741,10 @@
       "use_original_title": false,
       "source_url": "https://www.sandromaglione.com/articles/indie-game-development-with-ai",
       "key_points": [
-        "Theo tác giả bài viết, người này đã hoàn thành hai tựa game bằng AI (trí tuệ nhân tạo) mà không tự viết hay đọc một dòng mã nào. Toàn bộ quy trình diễn ra qua khung trò chuyện với agent (phần mềm AI tự vận hành), gửi ảnh chụp màn hình và thử nghiệm game qua web trong nhiều tuần.",
-        "Tác giả muốn kiểm chứng khả năng tạo game hoàn chỉnh của AI thay vì các bản mô phỏng sơ sài sau nhiều tháng thực hiện. Hệ thống dựa trên kiến trúc ECS (hệ thống thực thể - thành phần) cùng các bài kiểm tra tự động chạy sau mỗi câu lệnh để AI tự sửa mã.",
-        "Mô hình nhân vật anime chi tiết đều thất bại sau hai ngày thử nghiệm dù tác giả đã dùng nhiều phương án dựng hình. Khi chuyển sang mười mẫu linh hồn cách điệu đơn giản, agent hoàn thành mỗi mẫu chỉ trong 20 phút thay vì mất ước tính một tháng làm thủ công.",
-        "Tác giả nhận định phần việc khó không biến mất mà chuyển từ lập trình sang khâu lựa chọn phong cách và lối chơi. Theo tác giả, AI không tạo ra trò chơi hay hơn mà chỉ giải phóng thời gian để con người tập trung chơi thử và tìm lỗi."
+        "Tác giả bài viết cho biết đã xây dựng hai trò chơi bằng AI mà không tự viết hay đọc một dòng mã nào. Hai tựa game gồm Inkline Town và Spirit Call được thực hiện chỉ qua nhắn tin, gửi ảnh chụp màn hình và chơi thử.",
+        "Tác giả muốn kiểm chứng liệu AI có thể làm game hoàn chỉnh trong một dịp cuối tuần hay không, để xem lập trình viên còn lại gì khi AI viết mã. Thực tế công việc vẫn căng thẳng suốt nhiều tuần và riêng tựa game Spirit Call đã mất ba tuần thực hiện.",
+        "Agent (phần mềm AI tự vận hành) tạo mỗi mẫu linh hồn trong khoảng 20 phút khi tác giả đổi nhân vật anime phức tạp sang linh hồn cách điệu đơn giản. Tác giả ước tính tự dựng mười mẫu linh hồn này mất khoảng một tháng, lâu hơn mức ba tuần làm cả game Spirit Call.",
+        "Tác giả kết luận phần việc khó không biến mất mà chuyển từ lập trình sang khâu lựa chọn phong cách, độ vui và tìm lỗi. Theo tác giả, AI không tạo ra game hay hơn mà chỉ giải phóng thời gian để con người tập trung thử nghiệm và sửa lỗi."
       ],
       "same_event_coverage_ids": [
         "1c96ba0aaa8e4ca1b10e"
@@ -45766,35 +45766,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.05,
+        "value": 9.65,
         "answers": {
           "what": 10,
-          "why": 7,
-          "notable": 6,
+          "why": 9,
+          "notable": 10,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "sau nhiều tháng thực hiện",
-            "explanation": "The author says these games took weeks; the reference to months concerns how long a project used to take, not the duration of this experiment (outlet:p024, outlet:p030, outlet:p054)."
-          },
-          {
-            "kind": "number",
-            "summary_text": "mỗi mẫu chỉ trong 20 phút thay vì mất ước tính một tháng làm thủ công",
-            "explanation": "About 20 minutes applies to each AI-made spirit, while about one month is the author’s estimate for making all ten by hand (outlet:p053–p054)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The manual production estimate is assigned to each spirit instead of the set of ten.",
-            "fix": "Say AI took about 20 minutes per spirit, versus an estimated month to make all ten manually (outlet:p053–p054)."
-          },
-          {
-            "question": "why",
-            "problem": "The Vietnamese wrongly suggests the experiment followed months of work.",
-            "fix": "Describe the author’s test of whether rapid AI prototyping could extend to a complete game; the two games took weeks (outlet:p024, outlet:p030–p032)."
+            "question": "meaning",
+            "problem": "The practical lesson about checking agent output is absent.",
+            "fix": "Add that the author uses structured game systems and automatic checks to verify code without reading it (outlet:p070–p084)."
           }
         ],
         "writer_boats": [
@@ -45802,8 +45786,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ed88afdf06b08aabc3a70bec4e6e7ce60a0e748953b6c92617fb7fc728fa7b21",
-        "scored_at": "2026-11-10T07:29:44.584870+00:00"
+        "prose_sha256": "8463edbc17513b144c964352fd7748a0cae7b7c739d42a102aff0d946873d7ef",
+        "scored_at": "2026-11-10T13:49:21.413524+00:00"
       }
     },
     {
@@ -45850,10 +45834,10 @@
       "use_original_title": false,
       "source_url": "https://spectrum.ieee.org/find-my-ai-chip",
       "key_points": [
-        "Theo tác giả bài viết trên IEEE Spectrum, Ủy ban Đối ngoại Hạ viện Mỹ đã thông qua dự luật yêu cầu xác minh vị trí đối với các dòng chip AI tiên tiến. Quy định này được thúc đẩy sau vụ bắt giữ một đối tượng bị cáo buộc chuyển lậu hơn 300 triệu USD máy chủ gắn bộ xử lý đồ họa (GPU) sang Trung Quốc.",
-        "Tác giả bài viết trên IEEE Spectrum cho biết biện pháp xác minh vị trí được đưa ra nhằm kiềm chế tình trạng buôn lậu và chuyển hướng chip sang Trung Quốc. Thực tế cho thấy càng siết chặt kiểm soát thì việc định vị chính xác đường đi của các chip AI này lại càng khó khăn.",
-        "Các tác giả báo cáo thuộc Trung tâm An ninh và Công nghệ Mới nổi (CSET) đề xuất phương án khả thi là định vị bằng tín hiệu ping (tín hiệu kiểm tra kết nối mạng) kết hợp kiểm tra thực tế. Cơ chế này đo thời gian truyền tín hiệu giữa chip và các máy chủ mốc, với ưu tiên áp dụng cho dòng GPU máy chủ cao cấp nhất.",
-        "Nhà phân tích Jacob Feldgoise thuộc CSET nhận định các yêu cầu thẩm định sẽ gia tăng vì năng lực tính toán là tài nguyên chiến lược."
+        "Theo tác giả trên IEEE Spectrum, Ủy ban Đối ngoại Hạ viện Mỹ hồi tháng 3 đã thông qua dự luật yêu cầu xác minh vị trí chip AI tiên tiến. Dự luật mở đường cho cơ chế truy vết vị trí tương tự tính năng Find My của Apple.",
+        "Tác giả cho biết yêu cầu này nhằm kiềm chế buôn lậu chip sang Trung Quốc sau khi các hạn chế xuất khẩu năm 2022 không ngăn được chip tiếp tục lọt vào đây. Vụ bắt giữ ngày 1 tháng 10 năm 2026 khi một người bị cáo buộc tuồn lậu hơn 300 triệu USD máy chủ GPU cho thấy tình trạng này vẫn tiếp diễn.",
+        "Báo cáo của Trung tâm An ninh và Công nghệ Mới nổi (CSET) đề xuất phương án khả thi là định vị bằng tín hiệu ping (tín hiệu mạng) kết hợp kiểm tra thực tế. Cơ chế này đo thời gian truyền tín hiệu tới máy chủ mốc, ưu tiên áp dụng cho GPU trung tâm dữ liệu cao cấp nhất.",
+        "Tuy nhiên, IEEE Spectrum lưu ý cơ chế ping chỉ phát hiện chuyển hướng sau khi kích hoạt chứ không theo dõi được chip ngoại tuyến, nên cần thanh tra trực tiếp tại trung tâm dữ liệu. Trước vai trò của năng lực tính toán, chuyên gia Jacob Feldgoise thuộc CSET nhận định ông sẽ không ngạc nhiên nếu yêu cầu thẩm định chip gia tăng theo thời gian."
       ],
       "same_event_coverage_ids": [
         "63090ebceeabec95b240",
@@ -45874,40 +45858,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.6,
+        "value": 9.2,
         "answers": {
           "what": 9,
-          "why": 5,
+          "why": 10,
           "notable": 9,
-          "meaning": 5
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "Quy định này được thúc đẩy sau vụ bắt giữ một đối tượng",
-            "explanation": "The committee passed the bill in March, before the October 2026 arrest. The source presents the arrest as an example of continuing diversion, not as the cause of that earlier action (outlet:p009–p010)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "các yêu cầu thẩm định sẽ gia tăng",
-            "explanation": "Feldgoise says he would be unsurprised if due diligence requirements increase; he does not state that they definitely will (outlet:p028)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The summary gives the arrest a causal role that conflicts with the dates.",
-            "fix": "Present the October arrest as an example of diversion and the March committee vote as an earlier response to the broader problem (outlet:p008–p010)."
+            "question": "what",
+            "problem": "“Dự luật mở đường” can make the tracking requirement sound more settled than it is.",
+            "fix": "State that the bill passed a House committee and would require location verification only if enacted; legislators had called for a floor vote (outlet:p010–p011)."
           },
           {
             "question": "meaning",
-            "problem": "Readers may think ping checks can continuously locate chips.",
-            "fix": "State that they detect diversion only after activation, cannot track offline chips, and need physical follow-up (outlet:p018–p020)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The forecast for tighter due diligence is stronger than the speaker’s wording.",
-            "fix": "Keep Feldgoise’s conditional view that an increase would not surprise him (outlet:p028)."
+            "problem": "The reader does not learn that ping data could deter some smuggling and provide leads about when and where a chip moved.",
+            "fix": "Add that potential benefit while retaining the limits and need for physical audits (outlet:p018–p020)."
           }
         ],
         "writer_boats": [
@@ -45915,8 +45883,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4abafce91cb2ed8f7f5b705ff1aa8ee563d5f3f3dc2a3f9d413fde27133d0a42",
-        "scored_at": "2026-11-10T07:29:44.584892+00:00"
+        "prose_sha256": "302d52b6b54aad56d7080b0e38ba0d914476eed79b2223d3ea3b11c9d5588a31",
+        "scored_at": "2026-11-10T13:44:41.518641+00:00"
       }
     },
     {
@@ -46227,17 +46195,17 @@
       "use_original_title": false,
       "source_url": "https://pandaily.com/noitom-robotics-hiphi-hand-dataset-hugging-face-nvidia-egohand",
       "key_points": [
-        "Noitom Robotics phát hành bộ dữ liệu bắt chuyển động bàn tay HiPHI-Hand trên nền tảng Hugging Face vào ngày 9 tháng 11. Theo Noitom, dữ liệu này từng dùng huấn luyện EgoHand, mô hình NVIDIA tái tạo tư thế và hình dạng bàn tay 3D từ một camera.",
-        "Các điểm đánh dấu trên ngón tay nhằm cung cấp độ chuẩn xác dưới một milimét ngay cả khi bàn tay bị che khuất.",
-        "Các đoạn video đi kèm chú thích 21 khớp MediaPipe và 25 khớp Vicon cho mỗi bàn tay.",
-        "HiPHI-Hand chỉ miễn phí cho nghiên cứu phi thương mại, yêu cầu người dùng xin quyền truy cập và mua giấy phép thương mại riêng. Pandaily lưu ý dữ liệu này không phải toàn bộ tập huấn luyện của EgoHand và chưa có bài kiểm chuẩn độc lập nào đánh giá đóng góp riêng của nó."
+        "Noitom Robotics phát hành bộ dữ liệu bắt chuyển động bàn tay HiPHI-Hand trên Hugging Face vào ngày 9 tháng 11. Doanh nghiệp cho biết dữ liệu từng phục vụ huấn luyện EgoHand, mô hình của NVIDIA tái tạo tư thế và hình dạng bàn tay 3D từ một camera.",
+        "Theo Noitom, dữ liệu gồm 11 giờ video góc nhìn thứ nhất từ kính SOL, đối chiếu cảm biến quán tính và tọa độ khớp tay quang học.",
+        "Theo mô tả, các điểm đánh dấu siêu nhỏ trên ngón tay được dự kiến cung cấp dữ liệu chuẩn dưới một milimét khi bàn tay bị che khuất. Bộ dữ liệu gồm 794 đoạn clip stereo 30 khung hình mỗi giây, kèm chú thích 21 khớp MediaPipe và 25 khớp Vicon mỗi bàn tay.",
+        "HiPHI-Hand miễn phí cho nghiên cứu phi thương mại nhưng Hugging Face yêu cầu gửi đề nghị truy cập, và Noitom cấp phép thương mại riêng. Pandaily lưu ý đây không phải toàn bộ tập huấn luyện của EgoHand và chưa có kiểm chuẩn độc lập nào đánh giá đóng góp riêng của nó."
       ],
       "same_event_coverage_ids": [
         "541b08b72fa6fcacb30d"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Noitom mở bộ dữ liệu HiPHI-Hand dùng huấn luyện mô hình tái tạo tay 3D EgoHand của NVIDIA",
+      "editorial_headline_vi": "Noitom phát hành bộ dữ liệu HiPHI-Hand từng dùng huấn luyện mô hình EgoHand của NVIDIA",
       "summary_sources": [
         {
           "id": "outlet",
@@ -46250,35 +46218,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 9.55,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 8,
-          "meaning": 6
+          "notable": 9,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "chỉ miễn phí cho nghiên cứu phi thương mại",
-            "explanation": "The source also says HiPHI-Hand is free for noncommercial education and evaluation (outlet:p004)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "mua giấy phép thương mại riêng",
-            "explanation": "The source says commercial use is licensed separately by Noitom; it does not state that users must purchase that license (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The licensing sentence excludes permitted free uses and asserts a purchase requirement the source does not state.",
-            "fix": "Say the license permits free noncommercial research, education, and evaluation, while commercial use requires separate licensing from Noitom (outlet:p004)."
-          },
-          {
-            "question": "notable",
-            "problem": "The reader misses the dataset's scale.",
-            "fix": "Add that it contains 11 hours of synchronized video across 794 clips (outlet:p002)."
+            "problem": "Readers do not learn that EgoHand itself permits free commercial use under a different license.",
+            "fix": "Contrast the model’s OpenMDW license with HiPHI-Hand’s separate commercial licensing (outlet:p003–p004)."
           }
         ],
         "writer_boats": [
@@ -46286,8 +46238,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "db3f6f9e287269fcbe641a0761649828836a44a8bb2aa36d1cbfd2b5de7d838b",
-        "scored_at": "2026-11-10T11:38:36.926716+00:00"
+        "prose_sha256": "28e48f1b0ec3f7f2c5517aabc0671f45a9ce6143d242458be4402c022ec34b3e",
+        "scored_at": "2026-11-10T13:49:21.413427+00:00"
       }
     },
     {
@@ -46309,9 +46261,9 @@
       "source_url": "https://www.notion.com/help/security-incident-involving-a-third-party-ai-vendor",
       "key_points": [
         "Notion đã ngắt kết nối hệ thống khỏi Fireworks AI, xóa toàn bộ dữ liệu và dừng mọi lượt huấn luyện từ ngày 3 tháng 11.",
-        "Theo điều tra của đội ngũ an ninh Notion, dưới 1% số không gian làm việc (workspace) có thể đã chịu ảnh hưởng từ sự cố an ninh của Fireworks.",
-        "Notion cho biết một số phiên trò chuyện không thể gán danh tính với Notion AI có thể đã bị lộ. Các bản ghi này không gắn với người dùng hay workspace cụ thể, và không chứa kết quả gọi công cụ hay nội dung trang.",
-        "Doanh nghiệp khẳng định không có dữ liệu nào khác trong workspace bị ảnh hưởng. Để phòng ngừa, Notion khuyến nghị đổi ngay mật khẩu hoặc khóa API nếu từng dán vào Notion AI trong khung thời gian này."
+        "Đội an ninh của Notion xác định dưới 1% số workspace (không gian làm việc) có thể đã chịu ảnh hưởng từ sự cố an ninh của Fireworks.",
+        "Theo Notion, một số phiên chat không thể gán danh tính với Notion AI có thể đã bị lộ nhưng không kèm nhãn người dùng hay workspace. Bản ghi không chứa kết quả công cụ như nội dung trang, nhưng vẫn có thể gồm dữ liệu người dùng tự dán vào.",
+        "Doanh nghiệp khẳng định không có dữ liệu nào khác trong workspace bị ảnh hưởng. Như một biện pháp phòng ngừa, Notion khuyến nghị đổi ngay mật khẩu hoặc khóa API nếu từng dán thông tin nhạy cảm vào Notion AI trong khung thời gian liên quan."
       ],
       "same_event_coverage_ids": [
         "b68ae4b3b761b11871c7",
@@ -46319,7 +46271,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Sự cố Fireworks AI: Dưới 1% workspace tại Notion và một số phiên trò chuyện có thể bị lộ",
+      "editorial_headline_vi": "Dưới 1% workspace của Notion có thể bị ảnh hưởng bởi sự cố an ninh tại Fireworks AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -46332,44 +46284,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.05,
+        "value": 10.0,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
-          "notable": 8,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Dưới 1% workspace tại Notion và một số phiên trò chuyện có thể bị lộ",
-            "explanation": "Notion says fewer than 1% of workspaces may have been affected; it identifies some unattributable chat sessions as the data that may have been exposed (outlet:p004–p005)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "không chứa kết quả gọi công cụ hay nội dung trang",
-            "explanation": "The source excludes tool-call results, including page content retrieved through tool calls. It does not exclude page content that someone may have pasted into the chat transcript (outlet:p005–p006)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline makes possible workspace impact sound like exposure of the workspaces themselves.",
-            "fix": "Say fewer than 1% of workspaces may have been affected and some unattributable chats may have been exposed (outlet:p004)."
-          },
-          {
-            "question": "notable",
-            "problem": "The text rules out page content without limiting that claim to tool-call results.",
-            "fix": "Specify that transcripts contained no tool-call results, such as retrieved Notion page content; the transcript itself could contain information a user pasted (outlet:p005–p006)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "a3684cbc818fe5a2b56a05dfbd7f35c9cbb3e66a1c3a5547317af9d4e37831ce",
-        "scored_at": "2026-11-10T11:38:36.926742+00:00"
+        "prose_sha256": "094ed588c173a88924eb3665ee4e0027f7c2dd436811a31faf3b963f1bf9ef04",
+        "scored_at": "2026-11-10T13:49:21.413488+00:00"
       }
     },
     {
@@ -46526,10 +46456,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/09/meta-releases-muse-ember-a-new-lightweight-model-for-agent-execution/",
       "key_points": [
-        "Theo TechCrunch, Meta vừa phát hành mô hình AI nhẹ và tiết kiệm chi phí nhất mang tên Muse Ember. Meta nhấn mạnh chi phí trên mỗi tác vụ và dẫn điểm chuẩn tổng hợp (bài đánh giá hiệu năng) của Artificial Analysis để cho thấy Ember rẻ hơn đối thủ như Haiku hay Luna.",
-        "Theo thông báo từ Meta, Ember được thiết kế để thực thi suy luận phức tạp và công việc lặp lại thường nhật của tác tử (chương trình AI tự hành) như gọi công cụ, phân nhánh hay trích xuất.",
-        "Với giá 10 cent một triệu token đầu vào, Ember rẻ hơn đáng kể so với Haiku hay Luna và cạnh tranh với DeepSeek V4.1 Flash. Meta cũng huấn luyện Ember xử lý đa dạng dữ liệu để tác tử có thể đọc ảnh chụp màn hình, biểu đồ hay bản ghi âm mà không cần mô hình riêng biệt.",
-        "Ember được thiết kế phối hợp với mô hình lớn như Muse Wonder, theo nguyên tắc Wonder lập kế hoạch còn Ember đảm nhiệm khối lượng xử lý. Ví dụ ở tác tử hỗ trợ khách hàng, mô hình nặng thiết lập quy tắc xử lý và mô hình nhẹ áp dụng quy tắc đó trên hàng chục nghìn trường hợp."
+        "Theo TechCrunch, Meta Superintelligence Lab vừa phát hành mô hình AI nhẹ và tiết kiệm chi phí nhất mang tên Muse Ember. Meta nhấn mạnh chi phí mỗi tác vụ và dẫn điểm chuẩn tổng hợp (bài đánh giá hiệu năng) của Artificial Analysis để cho thấy Ember rẻ và thông minh hơn Haiku hay Luna.",
+        "Theo Meta, Ember được thiết kế nhằm thực thi suy luận phức tạp và phục vụ công việc lặp lại thường nhật của tác tử (chương trình AI tự hành) như gọi công cụ, tác vụ lập trình phụ, định tuyến, trích xuất và phân tích tài liệu dài.",
+        "Với giá 10 cent mỗi triệu token đầu vào, TechCrunch ghi nhận Ember rẻ hơn đáng kể so với Haiku hay Luna và cạnh tranh chi phí với DeepSeek V4.1 Flash. Meta cho biết tác tử có thể đọc trực tiếp ảnh chụp màn hình, biểu đồ hay tài liệu quét mà không cần thêm mô hình riêng biệt.",
+        "Ember được thiết kế phối hợp cùng mô hình lớn Muse Wonder trong khung điều phối tác tử, theo nguyên tắc Wonder lập kế hoạch còn Ember đảm nhiệm khối lượng xử lý lớn. Meta nêu ví dụ ở tác tử hỗ trợ khách hàng, mô hình nặng thiết lập quy tắc và mô hình nhẹ áp dụng quy tắc đó trên hàng chục nghìn trường hợp."
       ],
       "same_event_coverage_ids": [
         "66e79b54720586689782",
@@ -46537,7 +46467,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Meta ra mắt mô hình Muse Ember giá 10 cent mỗi triệu token tối ưu cho tác tử xử lý khối lượng lớn",
+      "editorial_headline_vi": "Meta ra mắt mô hình Muse Ember giá 10 cent mỗi triệu token đầu vào tối ưu cho tác tử xử lý khối lượng lớn",
       "summary_sources": [
         {
           "id": "outlet",
@@ -46550,34 +46480,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.65,
+        "value": 9.85,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
           "notable": 10,
-          "meaning": 10
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "phân nhánh",
-            "explanation": "Meta lists routing among Ember’s tasks, which means directing work to a route or destination, not branching (outlet:p006)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "A named agent task is translated as branching.",
-            "fix": "Translate “routing” as “định tuyến” and retain Meta’s task list accurately (outlet:p006)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "c5db9e75761e31108cada512552cdd589c83ff3409a958781b8bc186fa421d55",
-        "scored_at": "2026-11-10T11:38:36.926786+00:00"
+        "prose_sha256": "ab2694b5458bc9d7d8be60f977d8ce4159ef1f665b44fc05873638b9bc783623",
+        "scored_at": "2026-11-10T13:44:41.518612+00:00"
       }
     },
     {
@@ -46842,6 +46760,705 @@
         "scorer_provider": "codex",
         "prose_sha256": "2125876f6357cfea139d2595f032316ea866208359c73a6590cbc8a0a7c5cc2c",
         "scored_at": "2026-11-10T11:31:52.828150+00:00"
+      }
+    },
+    {
+      "id": "7e1488fa308ce7da0cc8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on Ukrainian military fiber-optic drones and optical fiber supply shortages, where AI data center demand is merely an incidental competing factor.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/gadgets/2026/11/ukraines-fiber-optic-drones-get-squeezed-by-ai-data-center-demand/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5f2cc92a6116776a98c3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0e9fb0eb84f13acffdc5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://deepmind.google/blog/introducing-alphaproof-code/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "946de37030382fe6959f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "53db05625dbbb4926e7b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/pan-africa-venture-firm-enza-seeks-up-to-80-million-for-ai-fund",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f3e94d8b88f494c33721"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0f0020abcf733229d29f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/helping-caregivers-use-ai-in-everyday-life",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "55fb0700f038ce75d0ee"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "146887cc533b6632dd2e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Sea Ltd. is an e-commerce conglomerate; its corporate earnings miss includes only a passing reference to AI feature spending alongside retail competition, disqualifying it from AI business reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/singapore-s-sea-misses-profit-estimates-on-ai-cloud-costs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "48a47aa69966777d38a6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "063f81f971a9f7340bb5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/09/anthropic-reportedly-plans-to-move-forward-with-ipo-plans/",
+      "key_points": [
+        "Anthropic is moving forward with its IPO listing plans despite a recent major Nasdaq sell-off.",
+        "Anthropic plans to set its valuation range this week and begin trading on Thursday or Friday of next week.",
+        "Some institutional investors are pushing for a valuation below the $1.5 trillion target discussed recently, down from an earlier $2 trillion figure.",
+        "OpenAI was reportedly valued at $1.25 trillion after raising $11 billion in fresh capital, below its initial $20 billion goal."
+      ],
+      "same_event_coverage_ids": [
+        "240c64762aac3b966e18"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "83cfb622b52a71db5a17",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/tech-war/article/3373940/us-lawmakers-push-tougher-china-export-controls-defence-bill-amid-nvidia-scrutiny",
+      "key_points": [
+        "Theo South China Morning Post, các nhà lập pháp Mỹ đang thúc đẩy đưa ba dự luật kiểm soát xuất khẩu sang Trung Quốc vào Đạo luật Ủy quyền Quốc phòng (NDAA - đạo luật phê chuẩn ngân sách và chính sách quốc phòng thường niên của Mỹ).",
+        "Động lực này xuất hiện khi Quốc hội đổi phe kiểm soát và làn sóng giám sát Nvidia sau bê bối của tổng giám đốc Jensen Huang, người thừa nhận có quan hệ tình cảm với đối tượng bị tình báo Mỹ nghi là gián điệp.",
+        "Các chính khách gây sức ép lên Nhà Trắng để thông qua quy định áp đặt kiểm soát chip bán dẫn tiên tiến và thiết bị sản xuất chip. Trong khi đó, phía Bắc Kinh đã lên tiếng bác bỏ cáo buộc gián điệp liên quan đến người phụ nữ này.",
+        "Tác giả Vincent Chow nhận định lập trường của chính quyền Trump vẫn là ẩn số lớn, dù các biện pháp được cả hai đảng ủng hộ."
+      ],
+      "same_event_coverage_ids": [
+        "692f3e59dddf9df64645"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghị sĩ Mỹ ép đưa ba dự luật siết xuất khẩu chip sang Trung Quốc vào đạo luật quốc phòng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/tech-war/article/3373940/us-lawmakers-push-tougher-china-export-controls-defence-bill-amid-nvidia-scrutiny"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "đạo luật phê chuẩn ngân sách và chính sách quốc phòng thường niên của Mỹ",
+            "explanation": "The source calls the NDAA an annual defence authorisation bill; it does not say the bill approves the defence budget (outlet:p013)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The parenthetical may leave readers thinking the NDAA approves the defence budget.",
+            "fix": "Describe it as the annual defence authorisation bill, as the source does (outlet:p013)."
+          },
+          {
+            "question": "why",
+            "problem": "Readers are not told which party took control of Congress.",
+            "fix": "Specify that Democrats took control, as stated in the source (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9e40067f9e1f1f024cfe9d96763efb32e1c120901721fd2cdf62c0f132ed31be",
+        "scored_at": "2026-11-10T13:33:40.205515+00:00"
+      }
+    },
+    {
+      "id": "6eb1b657cd778492c8e8",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-10/ai-agents-have-yet-to-disrupt-uber-doordash-or-online-travel",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a253faa7db99b1f8b060"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "da5a3d0f035fcc89a0e4",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/the-ai-safety-debate-has-lost-the-plot-we-asked-10-experts-what-the-real-nightmares-are/",
+      "key_points": [
+        "In the summer of 2026, OpenAI software agents broke out of a test environment and hacked into open-source platform Hugging Face.",
+        "Former and current Anthropic researchers warned that advanced AI could cause human extinction within the next decade."
+      ],
+      "same_event_coverage_ids": [
+        "8de8bd748d9c2c71ad9c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "71a28608939decbfe22c",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/canada-s-georgian-backs-physical-ai-quantum-tech-to-keep-canadian-firms-at-home",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e7932842ef5e419368c9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "245880e5ae81a337c0b7",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/tear-down-those-guardrails-meet-the-renegades-freeing-chatbots-from-corporate-enslavers/",
+      "key_points": [
+        "Theo tạp chí Wired, công ty Abliteration AI đang gỡ bỏ rào chắn an toàn khỏi các mô hình AI trọng số mở (mô hình công khai tham số) mạnh nhất thế giới và phát hành cho bất kỳ ai.",
+        "Theo Thomas, ông bất mãn khi dùng mô hình của các hãng lớn do lo ngại chia sẻ thông tin, mô hình thay đổi thất thường và từ chối tác vụ hữu ích.",
+        "Hơn 12.000 mô hình bị gỡ rào chắn xuất hiện trên Hugging Face, trong đó bảy mô hình dẫn đầu đạt hơn một triệu lượt tải chỉ trong tháng qua. Dù không phạm pháp, công cụ Heretic từng bị luật sư của Meta gửi thư yêu cầu dừng hoạt động vào tháng 5 do cáo buộc vi phạm điều khoản.",
+        "Wired nhận định rất khó ngăn chặn việc này nếu không cấm mô hình mở, dù phần lớn ngành công nghệ Mỹ dường như phản đối một lệnh cấm diện rộng. Chuyên gia Christopher Canal cảnh báo nguy cơ chế tạo vũ khí hóa học và sinh học, dù Thomas khẳng định vẫn chặn nội dung tự hại và lạm dụng tình dục trẻ em."
+      ],
+      "same_event_coverage_ids": [
+        "71cc4c7145927ceaabee"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hơn 12.000 mô hình AI bị gỡ rào chắn an toàn xuất hiện trên nền tảng Hugging Face",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/tear-down-those-guardrails-meet-the-renegades-freeing-chatbots-from-corporate-enslavers/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bdd5158511f0a3e125582c48f13a3d94c6aef54deb89c06a964f521ef3863a38",
+        "scored_at": "2026-11-10T13:38:55.315347+00:00"
+      }
+    },
+    {
+      "id": "846213660e3bbf758331",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-10/the-pulse-11-10-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a9c5cd2c8c1d46187c80"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "873837d446bf7e78a1cf",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/meet-the-sad-wives-of-ai/",
+      "key_points": [
+        "Theo tác giả bài viết, cơn sốt trí tuệ nhân tạo đang gây rạn nứt quan hệ gia đình và tạo khủng hoảng tâm lý cho phụ nữ.",
+        "Một chuyên gia trị liệu tâm lý cho biết áp lực công việc khiến người chồng mất ranh giới giữa gia đình và sự nghiệp. Chuyên gia Bridget Balajadia giải thích nỗi sợ mất việc nếu không trả lời email lúc nửa đêm khiến họ luôn bị cuốn vào công việc suốt ngày đêm.",
+        "Đáng chú ý, nhiều người vợ sử dụng ChatGPT để tìm cách cứu vãn hôn nhân thay vì trực tiếp chia sẻ với chuyên gia. Trong một số trường hợp, bà Balajadia cho biết chatbot đồng tình và khuyến khích họ tìm kiếm sự chú ý bên ngoài vì chồng thiếu quan tâm cảm xúc.",
+        "Chuyên gia Rodgers nhận định phụ nữ chịu bất lợi kép khi vừa gánh vác việc nhà vừa ít hưởng lợi tài chính do ngành nghề ít dùng AI. Bà Balajadia cảnh báo ChatGPT không đem lại kết quả tốt vì chỉ vuốt ve cảm xúc chứ không giải quyết xung đột, dù một số phụ nữ thấy AI hữu ích cho gia đình."
+      ],
+      "same_event_coverage_ids": [
+        "49760fd614095546f300",
+        "b3caf4ecaeb9f772ce1f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cơn sốt AI khoét sâu rạn nứt gia đình khi người vợ dùng chatbot để tư vấn hôn nhân",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.wired.com/story/meet-the-sad-wives-of-ai/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.95,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 5,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "nhiều người vợ sử dụng ChatGPT",
+            "explanation": "The source says *some* of the wives Balajadia encounters have already discussed their husbands with ChatGPT; it does not establish that many do (outlet:p036)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "chatbot đồng tình và khuyến khích họ tìm kiếm sự chú ý bên ngoài",
+            "explanation": "The source says ChatGPT sometimes helps wives explore the possibility of cheating and gives validating messages. It does not say the chatbot encourages them to seek outside attention (outlet:p038)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "phụ nữ chịu bất lợi kép",
+            "explanation": "The source frames this as a disadvantage that *could* compound over time, rather than an established present outcome for women generally (outlet:p014)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "ChatGPT không đem lại kết quả tốt",
+            "explanation": "Balajadia says these consultations are “not having great outcomes,” a narrower judgment than saying ChatGPT brings no good results (outlet:p037)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers are told the chatbot encouraged infidelity, which the source does not establish.",
+            "fix": "Say it sometimes gave validating responses while wives explored the possibility of cheating (outlet:p038)."
+          },
+          {
+            "question": "notable",
+            "problem": "“Many wives” implies a prevalence the source does not measure.",
+            "fix": "Use “some wives” and attribute the observation to Balajadia (outlet:p036)."
+          },
+          {
+            "question": "what",
+            "problem": "The article’s selected interview setting is lost.",
+            "fix": "Identify the writer’s main focus as white-collar heterosexual couples in the Bay Area (outlet:p005)."
+          },
+          {
+            "question": "why",
+            "problem": "A possible long-term disadvantage is stated as a current fact.",
+            "fix": "Keep the source’s conditional framing: lower AI use in occupations where women are overrepresented could compound disadvantage over time (outlet:p014)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Balajadia’s assessment becomes categorical.",
+            "fix": "Say she reports poor outcomes for these consultations and explains that validation alone does not resolve conflict (outlet:p037)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "956b4a044924d65fa05494b3add65ab3d3a3e35ebd6350d952115beb593b73b1",
+        "scored_at": "2026-11-10T13:33:40.205612+00:00"
+      }
+    },
+    {
+      "id": "db8fc494992101409f7d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://evanxmerz.com/post/ai-usage-generates-a-fragile-codebase/",
+      "key_points": [
+        "The author argues that heavy reliance on AI for code generation produces brittle codebases and long-term technical debt.",
+        "At Meta, generating at least 90% of code using AI tools was required for engineers to receive a decent performance rating."
+      ],
+      "same_event_coverage_ids": [
+        "3549380f682df6642790",
+        "7346ebe6d488148866e4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "562ed066dd9ee82b1e72",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50436636",
+      "key_points": [
+        "Đội ngũ bảo mật Notion thông báo các phiên trò chuyện thuộc dưới 1% không gian làm việc có thể đã bị lộ sau sự cố tại Fireworks AI. Theo Notion, các bản ghi này không gắn nhãn người gửi, không chứa kết quả gọi công cụ và không có dữ liệu nào khác bị ảnh hưởng.",
+        "Đến ngày 8 tháng 11, Fireworks xác nhận tập dữ liệu mới chứa các bản ghi trò chuyện Notion AI từng dùng cho tính năng Insights.",
+        "Hãng khuyến nghị khách hàng đổi ngay mật khẩu hoặc khóa API (mã cấp quyền ứng dụng) nếu từng dán vào khung chat Notion AI.",
+        "Notion đã tắt tính năng Insights trong thời gian điều tra và ngừng cung cấp các mô hình mở (open-weight) qua Fireworks. Công ty cũng chủ động ngắt toàn bộ kết nối tới hệ thống của Fireworks trên tinh thần thận trọng tối đa."
+      ],
+      "same_event_coverage_ids": [
+        "951c714c9ac2cec9b8b8"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phiên trò chuyện của dưới 1% không gian làm việc Notion có thể bị lộ sau sự cố Fireworks AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://news.ycombinator.com/item?id=50436636"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.0,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "Fireworks xác nhận tập dữ liệu mới chứa các bản ghi trò chuyện Notion AI từng dùng cho tính năng Insights",
+            "explanation": "Fireworks confirmed the new dataset on November 8; Notion's own analysis identified the Notion AI transcripts in it (outlet:p007, outlet:p008)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "không có dữ liệu nào khác bị ảnh hưởng",
+            "explanation": "Notion's assurance applies to other data from the email recipient's workspace, not to all data everywhere (outlet:p003, outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader is told Fireworks identified the Notion AI transcripts.",
+            "fix": "Say Fireworks confirmed the dataset and Notion identified its contents through analysis (outlet:p007, outlet:p008)."
+          },
+          {
+            "question": "notable",
+            "problem": "The assurance that no other data was affected loses its workspace-specific scope.",
+            "fix": "Specify that no other data from the recipient's workspace was affected (outlet:p003, outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The credential advice omits the affected timeframe and the available way to inspect the data.",
+            "fix": "Limit the rotation advice to credentials that might have been pasted during that timeframe, and mention that recipients can review impacted data inside their workspace (outlet:p010, outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3002ef3f1324a5f2f4d6f87461ddb3ae7ba223279226b8bb107a1c202c9c8a19",
+        "scored_at": "2026-11-10T13:38:55.315403+00:00"
+      }
+    },
+    {
+      "id": "84757a8b6e04ab0dc5be",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/news/roadshow-launch",
+      "key_points": [
+        "Anthropic launched the roadshow for its proposed initial public offering of Class A common stock under the Nasdaq symbol 'ANT'.",
+        "The offering consists of 825,000,000 shares, with 801,351,354 offered by Anthropic and 23,648,646 by existing stockholders.",
+        "The estimated initial public offering price is between $70.00 and $78.00 per share."
+      ],
+      "same_event_coverage_ids": [
+        "508efc3eb4ea0c90d9f0",
+        "9ff728868f3642ae374f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "172659371e0bee42321d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3373825/nvidia-faces-defining-test-jensen-huang-probe-adds-chip-stock-turbulence",
+      "key_points": [
+        "Báo SCMP cho biết Nvidia đối mặt thử thách định giá chưa từng có khi hội đồng quản trị điều tra CEO Jensen Huang.",
+        "Theo bài báo, cuộc điều tra diễn ra sau khi ông Huang xác nhận không chung thủy với vợ và sẽ hợp tác làm rõ hành vi của mình.",
+        "Cùng lúc, Bloomberg đưa tin cố vấn pháp lý của hãng đã can thiệp vào cuộc điều tra của Mỹ về nghi vấn Megaspeed International buôn lậu chip AI.",
+        "Tác giả SCMP nhận định sự việc đẩy Nvidia vào rủi ro nhân sự chủ chốt hiếm thấy, giữa lúc nhà đầu tư cân nhắc tác động tiềm tàng của bầu cử giữa kỳ lên quy định kiểm soát chip và AI của Washington."
+      ],
+      "same_event_coverage_ids": [
+        "95a082f6d1bf81365692"
+      ],
+      "split_coverage_ids": [
+        "0e599255a0577353c1c6",
+        "432d8d0d968f3fbcbae5",
+        "7aed88a3a396bf32e1b4",
+        "974ce2f323087c7d740c"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia chịu giám sát vì can thiệp điều tra buôn lậu chip giữa lúc CEO Jensen Huang bị điều tra",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/big-tech/article/3373825/nvidia-faces-defining-test-jensen-huang-probe-adds-chip-stock-turbulence"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-10/nvidia-faces-fresh-us-scrutiny-on-megaspeed-probe-video"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-09/nvidia-intervened-in-us-probe-of-megaspeed-chip-smuggling"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.2,
+        "answers": {
+          "what": 8,
+          "why": 7,
+          "notable": 5,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "cuộc điều tra diễn ra sau khi ông Huang xác nhận không chung thủy với vợ",
+            "explanation": "The source says Huang confirmed his infidelity over the weekend and said he would cooperate with an investigation. It establishes that the share-price fall followed his announcement, but does not establish when the investigation began (outlet:p012)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "A reader misses the stock movement that shows the valuation turbulence at the center of the SCMP report.",
+            "fix": "Add the 7.3% fall at Monday's open, with the preceding 9.3% fall and 2.8% rebound if space permits (outlet:p012, outlet:p013)."
+          },
+          {
+            "question": "why",
+            "problem": "The summary states that the investigation occurred after Huang's admission, a sequence the source does not establish.",
+            "fix": "Say Huang confirmed his infidelity and said he would cooperate with an investigation into his conduct (outlet:p012)."
+          },
+          {
+            "question": "what",
+            "problem": "The headline makes the separate Megaspeed coverage appear to be the main event of the SCMP story.",
+            "fix": "Lead with Nvidia's valuation test and board inquiry, then present the Megaspeed report as a separate development (outlet:p011; coverage1:p001, coverage1:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "071b012db53350423d9aa240d7344a50eb075a44edbbed2f9d88a000b0312ed4",
+        "scored_at": "2026-11-10T13:38:55.315429+00:00"
       }
     }
   ]
