@@ -3,6 +3,7 @@
 // same fixture). The weather is a made-up Open-Meteo answer, so the corner carries its city and temperature too.
 // For each page and width: the corner's drawn right edge against the search's left edge, the corner's overflow, the
 // search's centre against the window's, the order buttons shown and whether any is cut, the head row's overflow.
+// On the website at 1280 also: whether the complete snapshot was asked for before and after the first scroll.
 // Prints one JSON line; tests/test_hieu_nang.py checks it.
 // Usage: node tests/verify-top-row-fit.mjs [--out <dir>]   (--out also saves a screenshot per page and width)
 import fs from 'node:fs/promises';
@@ -97,8 +98,10 @@ try {
       await page.setViewport({ width: w, height: 800, deviceScaleFactor: 1 });
       await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }, { name: 'prefers-color-scheme', value: 'light' }]);
       await page.setRequestInterception(true);
+      const requests = [];
       page.on('request', req => {
         const u = req.url();
+        requests.push(u);
         if (u.startsWith('https://api.open-meteo.com/')) return req.respond({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: FORECAST });
         if (u.startsWith(site) || u.startsWith('chrome-extension://') || u.startsWith('data:')) return req.continue();
         return req.abort();
@@ -110,6 +113,17 @@ try {
       await wait(900);
       result.pages[`${target}-${w}`] = await page.evaluate(MEASURE);
       if (out) await page.screenshot({ path: path.join(out, `hang-tren-${target}-${w}.png`) });
+      if (target === 'site' && w === 1280) {
+        // The complete snapshot waits for the reader (feed.js whenReaderActs): none asked for while the page sits
+        // untouched, asked for after the first scroll. The fixture server answers radar-ui.json with 404, so the
+        // feed falls back to data/radar.json; either address counts.
+        const asked = () => requests.filter(u => /\/data\/radar(-ui)?\.json$/.test(u)).length;
+        await wait(2500);
+        result.complete = { untouched: asked() };
+        await page.evaluate(() => window.scrollBy(0, 400));
+        for (let i = 0; i < 20 && !asked(); i++) await wait(250);
+        result.complete.afterScroll = asked();
+      }
       await page.close();
     }
   }

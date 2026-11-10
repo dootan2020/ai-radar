@@ -2013,10 +2013,12 @@ function sizedSrc(src, w) {
   return r ? r[1](u, w).href : null;
 }
 const WIDTHS = { lead: [480, 828, 1280], card: [240, 640, 960] };
-/* The slot's width (trang-msn.css): on a phone the lead and a wide card run across the screen and a card's picture is
-   the 104 px thumbnail beside its headline (--bento-thumb-w); wider, the lead spans about half the panel and a card a
-   quarter of it. */
-const SIZES = { lead: '(max-width: 767px) 100vw, 50vw', wide: '(max-width: 767px) 100vw, 25vw', card: '(max-width: 767px) 104px, 25vw' };
+/* The slot's width (trang-msn.css, --bento-cols): on a phone the lead and a wide card run across the screen and a card's
+   picture is the 104 px thumbnail beside its headline (--bento-thumb-w); from 768 to 1023 px (three columns) the lead
+   has the first row to itself, a card a third of it and a wide card's picture half of it; from 1024 px (four or five
+   columns) the lead spans two columns, at most half the panel, and a card's picture a column. */
+const SIZES = { lead: '(max-width: 1023px) 100vw, 50vw', wide: '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 25vw',
+  card: '(max-width: 767px) 104px, (max-width: 1023px) 34vw, 25vw' };
 function srcsetAttrs(src, size, defer) {
   const cands = WIDTHS[size === 'lead' ? 'lead' : 'card'].map(w => [sizedSrc(src, w), w]);
   const a = defer ? 'data-' : '';
@@ -2502,7 +2504,12 @@ function setFilter(f, fromHash = false) {
   if (!D && f !== 'rankings' && f !== 'all') return;
   filter = f;
   if (!fromHash) history.replaceState(null, '', location.pathname + location.search + (f === 'rankings' ? '#xep-hang' : ''));
-  renderFeed();
+  // The saved list and a section reach past the window file: draw them from the complete snapshot, never from the
+  // window first (the first screen no longer loads it on its own, whenReaderActs).
+  if (!complete && (f === 'saved' || f.startsWith('sec:'))) {
+    setLoading(true);
+    loadComplete().then(() => { setLoading(false); if (filter === f) renderFeed(); });
+  } else renderFeed();
   const top = $('#top').getBoundingClientRect().top;
   if (top < 0) window.scrollTo({ top: window.scrollY + top - 8 });
   const container = $('#feed-filters');
@@ -3154,7 +3161,8 @@ function attachEvents() {
   }, { passive: true });
   document.addEventListener('click', onClick);
   document.addEventListener('touchstart', onLeadTouchStart, { passive: true });
-for (const type of ['pointerover', 'focusin', 'touchstart']) document.addEventListener(type, onLeadIntent, { passive: true });
+  // Kept for the page's life: every new snapshot redraws the carousel with its later slides unaddressed again.
+  for (const type of ['pointerover', 'focusin', 'touchstart']) document.addEventListener(type, onLeadIntent, { passive: true });
   document.addEventListener('touchend', onLeadTouchEnd, { passive: true });
   document.addEventListener('auxclick', e => { if (e.button === 1) onOpenLink(e); });
   document.addEventListener('keydown', onKey);
@@ -3350,7 +3358,7 @@ async function init() {
    view that needs it sooner still asks for it at once (needsComplete, the end of the window, the snapshot poll). */
 function whenReaderActs() {
   return new Promise(resolve => {
-    const types = ['scroll', 'pointerdown', 'keydown', 'touchstart', 'focusin', 'wheel'];
+    const types = ['scroll', 'pointerdown', 'click', 'keydown', 'touchstart', 'focusin', 'wheel'];
     const go = () => { types.forEach(t => removeEventListener(t, go, true)); whenIdle().then(resolve); };
     types.forEach(t => addEventListener(t, go, { capture: true, passive: true }));
   });

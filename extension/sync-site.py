@@ -58,7 +58,6 @@ def adapt_html(html):
     html = replace_pattern_once(html, r'<!-- The site root since 05/10:.*?-->\n', '', re.S)
     html = replace_pattern_once(html, r'<meta http-equiv="Content-Security-Policy"[^>]*>\n', '')
     html = replace_pattern_once(html, r"<script>var d = document\.documentElement\.dataset;.*?</script>\n", '<script src="theme.js"></script>\n')
-    html = replace_pattern_once(html, r'<!-- Cloudflare Web Analytics -->.*?<!-- End Cloudflare Web Analytics -->\n', '')
     html = replace_pattern_once(html, r'\n<!-- The stream player \(trinh-phat\.js\).*?</dialog>\n', '', re.S)
     html = replace_pattern_once(html, r'<!-- The snapshot is the page.s only content:.*?-->\n', '', re.S)
     html = replace_pattern_once(html, r'<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>\n', '')

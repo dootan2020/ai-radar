@@ -57,6 +57,15 @@ class PageHeadTests(unittest.TestCase):
             self.assertNotIn("cloudflareinsights.com", read(path), path)
             self.assertNotIn("data-cf-beacon", read(path), path)
 
+    def test_no_page_places_a_beacon_of_its_own(self):
+        # The beacon Cloudflare injects on hco.news is the only one (coordinator, 11/11: two ran and every view was
+        # counted twice). No page or new tab carries a snippet; the reader pages' policies admit only the injected path.
+        for path in [*SITE.glob("*.html"), *(ROOT / "extension").glob("*.html")]:
+            html = read(path)
+            self.assertNotIn("data-cf-beacon", html, path)
+            self.assertNotIn("src='https://static.cloudflareinsights.com", html, path)
+            self.assertNotIn('src="https://static.cloudflareinsights.com', html, path)
+
     def test_fonts_are_served_from_the_site(self):
         for path in (SITE / "index.html", SITE / "styles.css", ROOT / "design" / "tokens.html"):
             self.assertNotIn("fonts.googleapis.com", read(path), path)

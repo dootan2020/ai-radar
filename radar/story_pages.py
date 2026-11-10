@@ -30,7 +30,7 @@ STORY_FILE = re.compile(r"[a-z0-9][a-z0-9_-]*\.json\Z")
 COVER_SRC = re.compile(r"assets/cover/[\w-]+-[0-9a-f]{10}\.png")   # radar/covers.py: a cover's wide file
 CONTENT_SECURITY_POLICY = (
     "default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c=' "
-    "https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; "
+    "https://static.cloudflareinsights.com/beacon.min.js/; style-src 'self' 'unsafe-inline'; "
     "img-src 'self' https:; font-src 'self'; connect-src 'self' https://hn.algolia.com "
     "https://huggingface.co https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';"
 )

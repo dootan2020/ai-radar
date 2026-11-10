@@ -344,7 +344,10 @@ process.stdout.write(JSON.stringify(created));
         spec.loader.exec_module(sync)
         html = (SITE / 'index.html').read_text(encoding='utf-8')
         feed = (SITE / 'feed.js').read_text(encoding='utf-8')
-        for missing in ('<script>var d = document.documentElement.dataset;', '<!-- Cloudflare Web Analytics -->',
+        # The site carries no analytics snippet since 11/11 (one beacon, injected by Cloudflare on hco.news); the
+        # picture map's preload and the player's modulepreload are what the new tab strips instead.
+        for missing in ('<script>var d = document.documentElement.dataset;', '<link rel="preload" href="feed-images.json"',
+                        '<link rel="modulepreload" href="trinh-phat.js">',
                         'href="ban-tin.html"', '<!-- The top row (Mẫu A', '<div class="tool-launcher"></div>',
                         '<div class="top-now" id="top-now"></div>', 'id="tc-open"',
                         '<div class="news-search" id="news-search">', '<div class="head-actions">'):

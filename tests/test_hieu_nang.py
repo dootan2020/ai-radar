@@ -68,12 +68,17 @@ class RobotsTxt(unittest.TestCase):
 
 class BeaconPolicy(unittest.TestCase):
     def test_every_reader_page_admits_the_injected_beacon_and_nothing_wider(self):
-        for name in READER_PAGES:
-            sources = script_sources(read(SITE / name))
-            self.assertTrue(allows(sources, "https://static.cloudflareinsights.com/beacon.min.js"), name)
+        from radar.story_pages import CONTENT_SECURITY_POLICY
+        policies = {name: read(SITE / name) for name in READER_PAGES}
+        policies["story pages"] = f'<meta http-equiv="Content-Security-Policy" content="{CONTENT_SECURITY_POLICY}">'
+        for name, html in policies.items():
+            sources = script_sources(html)
             self.assertTrue(allows(sources, INJECTED_BEACON), name)
-            # Only the beacon's own path: another script on that host stays blocked.
+            # One beacon (coordinator, 11/11): the bare file, a snippet's address, is no longer admitted; nor is any
+            # other script on that host.
+            self.assertFalse(allows(sources, "https://static.cloudflareinsights.com/beacon.min.js"), name)
             self.assertFalse(allows(sources, "https://static.cloudflareinsights.com/other.js"), name)
+            self.assertNotIn("data-cf-beacon", html, name)
 
     def test_the_matcher_follows_the_csp_path_rule(self):
         self.assertFalse(allows(["https://static.cloudflareinsights.com/beacon.min.js"], INJECTED_BEACON))
@@ -142,7 +147,7 @@ class LeadPictures(unittest.TestCase):
         # At the width its slot needs, from the publisher's own resizer: never the 6000x4000 original.
         self.assertIn(' src="https://img.semafor.com/a62d-6000x4000.jpg?w=828"', lead)
         self.assertIn("?w=480 480w", lead)
-        self.assertIn('sizes="(max-width: 767px) 100vw, 50vw"', lead)
+        self.assertIn('sizes="(max-width: 1023px) 100vw, 50vw"', lead)
 
     def test_hidden_slides_carry_no_address_until_they_are_about_to_show(self):
         for tag in self.got["slides"][1:]:
@@ -166,8 +171,8 @@ class LeadPictures(unittest.TestCase):
         self.assertEqual(s["wired"], "https://media.wired.com/photos/abc/master/w_640,c_limit/x.jpg")
         self.assertIsNone(s["other"])
         self.assertIsNone(s["relative"])
-        # A phone's card picture is the 104 px thumbnail beside the headline.
-        self.assertIn('sizes="(max-width: 767px) 104px, 25vw"', self.got["card"])
+        # A phone's card picture is the 104 px thumbnail beside the headline; three columns (768-1023) give a card a third.
+        self.assertIn('sizes="(max-width: 767px) 104px, (max-width: 1023px) 34vw, 25vw"', self.got["card"])
         self.assertIn('loading="lazy"', self.got["card"])
 
 
@@ -176,6 +181,20 @@ class FirstLoadBudget(unittest.TestCase):
         feed = read(SITE / "feed.js")
         self.assertIn("  whenReaderActs().then(loadComplete);\n}", feed.replace("\r\n", "\n"))
         self.assertNotIn("whenIdle().then(loadComplete)", feed)
+        acts = feed[feed.index("function whenReaderActs() {"):]
+        types = re.search(r"const types = \[([^\]]*)\]", acts).group(1)
+        for t in ("scroll", "pointerdown", "click", "keydown", "touchstart", "focusin", "wheel"):
+            self.assertIn(f"'{t}'", types)
+
+    def test_the_saved_list_and_a_section_wait_for_the_complete_snapshot(self):
+        # Not driven in a browser: any click that opens a chip is also the reader's first interaction, which loads the
+        # complete snapshot anyway, so a rendered check could not tell the two paths apart.
+        feed = read(SITE / "feed.js").replace("\r\n", "\n")
+        body = feed[feed.index("function setFilter(f, fromHash = false) {"):]
+        body = body[:body.index("\n}\n")]
+        self.assertIn("if (!complete && (f === 'saved' || f.startsWith('sec:'))) {", body)
+        self.assertIn("loadComplete().then(() => { setLoading(false); if (filter === f) renderFeed(); });", body)
+        self.assertIn("} else renderFeed();", body)
 
     def test_the_first_draw_s_files_are_asked_for_with_the_page(self):
         html = read(SITE / "index.html")
@@ -219,6 +238,10 @@ class RenderedTopRowFit(unittest.TestCase):
         for target in ("site", "ext"):
             m = self.out["pages"][f"{target}-1280"]
             self.assertRegex(m["date"], r"\d{2}/\d{2}", target)
+
+    def test_the_complete_snapshot_waits_for_the_first_scroll(self):
+        self.assertEqual(self.out["complete"]["untouched"], 0)
+        self.assertGreaterEqual(self.out["complete"]["afterScroll"], 1)
 
     def test_no_errors(self):
         self.assertEqual(self.out["errors"], [])

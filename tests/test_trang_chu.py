@@ -2,7 +2,6 @@
 
 import base64
 import hashlib
-import json
 from pathlib import Path
 from radar.site_config import SITE_URL
 import re
@@ -57,23 +56,15 @@ class RootPageHeadTests(unittest.TestCase):
         self.assertIn("https:", self.csp["img-src"])
         self.assertTrue(re.search(r'<meta http-equiv="Content-Security-Policy" content="[^"]+;">', self.html))
 
-    def test_reader_has_one_cloudflare_module_after_the_policy(self):
+    def test_analytics_is_the_one_beacon_cloudflare_injects(self):
+        # Coordinator, 11/11: hco.news ran two beacons (this page's snippet and the one Cloudflare injects), so every view
+        # was counted on two analytics sites. Only the injected one stays: no snippet here, its path in the policy.
         scripts = re.findall(r"<script\b([^>]*)>([\s\S]*?)</script>", self.html)
-        beacons = [(attrs, body) for attrs, body in scripts if "cloudflareinsights.com" in attrs]
-        self.assertEqual(len(beacons), 1)
-        attrs, body = beacons[0]
-        self.assertIn("type='module'", attrs)
-        self.assertIn("src='https://static.cloudflareinsights.com/beacon.min.js'", attrs)
-        config = json.loads(re.search(r"data-cf-beacon='([^']+)'", attrs).group(1))
-        self.assertEqual(set(config), {"token"})
-        self.assertRegex(config["token"], r"^[a-f0-9]{32}$")
-        self.assertEqual(hashlib.sha256(config["token"].encode()).hexdigest(),
-                         "ac50ff27adef59eaf1754c2f483debe1e7045b503e0486ea84015ad83590749f")
-        self.assertEqual(body, "")
-        self.assertIn(attrs, self.head)
-        self.assertLess(self.head.index('http-equiv="Content-Security-Policy"'), self.head.index(attrs))
-        self.assertLess(self.head.index('src="feed.js"'), self.head.index(attrs))
-        self.assertLess(self.head.rindex('rel="modulepreload"'), self.head.index(attrs))
+        self.assertEqual([a for a, _ in scripts if "cloudflareinsights.com" in a], [])
+        self.assertNotIn("data-cf-beacon", self.html)
+        self.assertEqual([s for s in self.csp["script-src"] if "cloudflareinsights" in s],
+                         ["https://static.cloudflareinsights.com/beacon.min.js/"])
+        self.assertIn("https://cloudflareinsights.com", self.csp["connect-src"])
 
     def test_snapshot_preload_is_the_window_file(self):
         # The first screen draws from the window file; feed.js loads radar-ui.json after it (tests/test_feed_first_load.py).
