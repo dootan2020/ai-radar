@@ -69,6 +69,17 @@ class Wiring(unittest.TestCase):
         self.assertEqual(policy["default-src"], ["'self'"])
         self.assertNotIn("youtube", " ".join(policy["script-src"]))
 
+    def test_the_privacy_page_names_the_players_hosts_in_both_languages(self):
+        # Captain, 10/11 22:5x: "Duyệt".
+        page = read(SITE / "chinh-sach-rieng-tu.html")
+        vi = page[page.index('id="tieng-viet"'):page.index('id="english"')]
+        en = page[page.index('id="english"'):]
+        for section, words in ((vi, "Trang không gửi yêu cầu nào tới các máy chủ này trước khi bạn bấm phát."),
+                               (en, "The page sends no request to these servers before you press play.")):
+            self.assertIn("<code>www.youtube-nocookie.com</code>", section)
+            self.assertIn("<code>*.googlevideo.com</code>", section)
+            self.assertIn(words, section)
+
     def test_the_card_and_the_view_play_but_keep_their_youtube_link(self):
         feed = read(SITE / "feed.js")
         self.assertIn('<a class="ev-stream" href="${esc(safe(it.url))}" target="_blank" rel="noopener"${playAttr(it)}>', feed)
