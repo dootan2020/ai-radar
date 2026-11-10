@@ -101,7 +101,9 @@ class Homepage(HTMLParser):
             self.markers.add(attrs["id"])
         reference = attrs.get("src") if tag == "script" else None
         relations = (attrs.get("rel") or "").split()
-        if tag == "link" and {"stylesheet", "modulepreload"}.intersection(relations):
+        # The front page asks for its stylesheets as style preloads (site/nap-kieu.js applies them): a stylesheet still.
+        is_style_preload = "preload" in relations and attrs.get("as") == "style"
+        if tag == "link" and ({"stylesheet", "modulepreload"}.intersection(relations) or is_style_preload):
             reference = attrs.get("href")
         if not reference:
             return
