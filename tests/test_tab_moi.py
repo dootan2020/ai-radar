@@ -153,12 +153,14 @@ class TopZoneTests(unittest.TestCase):
         # 09/11: "2 thẻ cùng 1 cột. Thời tiết ở trên, lịch ở dưới": the grid's last column at every column count, the
         # weather in the first row and the calendar under it; first on a phone. Owner, 09/11 ("QA các thành phần giao
         # diện có nên hiển thị ở đó hay không"): "Mã và mô hình" is about repositories and models, so it leaves them out.
-        # Owner, 10/11: on the front page they follow the first six stories in the page's order (a phone reads the news
-        # first); wider screens still pin them to the last column.
+        # Captain, 10/11 17:51 (the bento bands): on the front page the weather ends "Hôm nay" and the calendar ends
+        # "Điểm nhấn", each after its band's news (tests/test_bento_trang_nhat.py); the other views keep the pinned cells.
         for folder in (ROOT / "site", EXT):
             feed = (folder / "feed.js").read_text(encoding="utf-8")
-            self.assertIn("(front ? leadHTML(PICKLIST) + freshTileHTML() + topListHTML(FRONT_TOP) : code ? '' : FIXED_SLOTS) + chunk.html", feed)
-            self.assertIn("if (it.t === 'furniture') return FIXED_SLOTS + renderNext();", feed)
+            self.assertIn("grid.innerHTML = (code ? '' : FIXED_SLOTS) + chunk.html;", feed)
+            self.assertIn('${freshTileHTML()}<i data-slot="wx"></i></div>', feed)
+            self.assertIn('${renderNext()}<i data-slot="cal"></i></div>', feed)
+            self.assertNotIn("'furniture'", feed)
             self.assertNotIn("if (front) placeFixedCards", feed)
             self.assertEqual(feed.count("placeFixedCards("), 3)   # the definition, a redraw, a failed news load
             css = (folder / "trang-msn.css").read_text(encoding="utf-8")
@@ -177,8 +179,9 @@ class TopZoneTests(unittest.TestCase):
         # (#sap-toi) still lists every event, from the first row, or says in one line that nothing is coming.
         for folder in (ROOT / "site", EXT):
             feed = (folder / "feed.js").read_text(encoding="utf-8")
-            widgets = feed[feed.index("const widgets = ["):feed.index("].filter(Boolean);", feed.index("const widgets = ["))]
-            self.assertNotIn("'live'", widgets)
+            # The front page's "Điểm nhấn" band: the next event right before the calendar, once (captain, 10/11 17:51).
+            self.assertEqual(feed.count("${renderNext()}"), 1)
+            self.assertNotIn("const widgets = [", feed)
             self.assertIn("{ t: 'live', all: true }", feed)
             self.assertIn("{ t: 'ev-empty' }", feed)
             css = (folder / "trang-msn.css").read_text(encoding="utf-8")

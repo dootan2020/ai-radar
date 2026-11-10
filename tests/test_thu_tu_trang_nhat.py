@@ -15,42 +15,47 @@ def read(path):
 
 
 class FrontOrder(unittest.TestCase):
+    """Since the bento bands (captain, 10/11 17:51): "Hôm nay" holds the lead, "Vừa đăng" and the weather; "Điểm nhấn"
+    holds "Chuyện lớn", "Đáng chú ý", the next event and the calendar. In each band the news comes before the widgets,
+    so a phone (one column, the page's order) reads the news first."""
+
     def test_lead_then_fresh_then_top_list_then_the_stories(self):
         for folder in FOLDERS:
             feed = read(folder / "feed.js")
-            self.assertIn("grid.innerHTML = (front ? leadHTML(PICKLIST) + freshTileHTML() + topListHTML(FRONT_TOP) : code ? '' : FIXED_SLOTS) + chunk.html;", feed)
-            widgets = feed[feed.index("const widgets = ["):feed.index("].filter(Boolean);", feed.index("const widgets = ["))]
-            self.assertNotIn("'fresh'", widgets, "Vừa đăng is no longer a widget deep in the stream")
+            front = feed[feed.index("function frontHTML() {"):]
+            front = front[:front.index("\n}\n")]
+            order = ["leadHTML(PICKLIST)", "freshTileHTML()", "topListHTML(FRONT_TOP)", "bandHTML('news'", "renderLab()", "bandHTML('more'"]
+            self.assertEqual([front.index(x) for x in order], sorted(front.index(x) for x in order))
+            self.assertNotIn("const widgets = [", feed, "Vừa đăng and the tiles are no longer widgets deep in the stream")
 
-    def test_weather_calendar_and_event_follow_the_first_six_stories(self):
+    def test_each_band_puts_its_news_before_its_widgets(self):
         for folder in FOLDERS:
             feed = read(folder / "feed.js")
-            self.assertIn("const FURNITURE_AFTER = 6;", feed)
-            self.assertIn("if (i + 1 === FURNITURE_AFTER) out.push({ t: 'furniture' });", feed)
-            self.assertIn("if (river.length < FURNITURE_AFTER) out.push({ t: 'furniture' });", feed)
-            # Inside the first batch, so the two cards always reach the grid on the first draw.
-            first = int(re.search(r"const PAGE_FIRST = (\d+)", feed).group(1))
-            self.assertGreater(first, 6)
+            self.assertIn('${leadHTML(PICKLIST)}${freshTileHTML()}<i data-slot="wx"></i>', feed)
+            self.assertIn("${topListHTML(FRONT_TOP)}${notable ? msnCard(notable, 'wide', true) : ''}${renderNext()}<i data-slot=\"cal\"></i>", feed)
+            self.assertNotIn("FURNITURE_AFTER", feed)
 
     def test_fresh_holds_the_first_row_beside_the_lead_at_every_desktop_width(self):
         for folder in FOLDERS:
             css = read(folder / "trang-msn.css")
-            self.assertIn(".msn-grid.is-front > .tile-fresh { grid-row: span 1; }", css)
+            self.assertIn(".band-cells > .msn-lead, .band-cells > .nc-wide, .band-cells > .tile-fresh { grid-column: span 2; }", css)
+            four = css[css.index("@media (min-width: 1024px) and (max-width: 1439px)"):]
+            self.assertIn(".band-today .band-cells > .tile-fresh { grid-column: span 1; }", four[:four.index("\n}\n")])
+            three = css[css.index("@media (min-width: 768px) and (max-width: 1023px)"):]
+            self.assertIn(".band-today .band-cells > .msn-lead { grid-column: 1 / -1; }", three[:three.index("\n}\n")])
+            self.assertNotIn("@media (min-width: 1750px)", css)
+            # The other views keep the weather and the calendar pinned to the grid's last column.
             self.assertIn(".msn-grid > .msn-wx { grid-area: 1 / -2; }", css)
             self.assertIn(".msn-grid > .msn-ev { grid-area: 2 / -3; }", css)
-            xl = css[css.index("@media (min-width: 1750px)"):]
-            xl = xl[:xl.index("\n}\n")]
-            self.assertIn(".msn-grid.is-front > .msn-lead, .msn-grid.is-front > .tile-fresh, #feed-skeleton .msn-lead { grid-column: span 3; }", xl)
-            tablet = css[css.index("@media (min-width: 700px) and (max-width: 1099px)"):]
-            self.assertIn(".msn-grid > .msn-ev { grid-area: auto; }", tablet[:tablet.index("\n}\n")])
 
     def test_one_card_says_dang_chu_y(self):
         for folder in FOLDERS:
             feed = read(folder / "feed.js")
             self.assertIn("${kicker ? '<p class=\"nc-kicker\">Đáng chú ý</p>' : ''}", feed)
             self.assertNotIn("${size ? '<p class=\"nc-kicker\">Đáng chú ý</p>' : ''}", feed)
-            self.assertIn("const kicker = !!size && !labelled;", feed)
             self.assertEqual(feed.count("Đáng chú ý</p>"), 1)
+            # Only the second band's notable story is drawn with the label.
+            self.assertEqual(len(re.findall(r"msnCard\([^)]*, true\)", feed)), 1)
 
 
 class FreshPill(unittest.TestCase):

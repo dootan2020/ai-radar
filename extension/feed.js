@@ -1269,6 +1269,7 @@ function renderRepos(full = false) {
     }).join('')}</div>`
       : `<p class="tile-note repo-empty">${esc(why)}${areas.size ? ' <button class="text-btn" data-area-clear>Hiện mọi mảng</button>' : ''}</p>`}
     ${remaining > 0 ? `<div class="repo-more"><button class="repo-more-btn" data-repo-more="true" aria-controls="repos-list">Xem thêm kho mã</button></div>` : ''}
+    ${full ? '' : `<div class="tile-foot"><button class="text-btn lab-open" type="button" data-lab-open aria-expanded="${labOpen}" aria-controls="lab">${labOpen ? 'Thu gọn' : 'Mở rộng'}</button></div>`}
     <div class="sr" role="status" aria-live="polite" id="repo-status"></div>
   </section>`;
 }
@@ -1562,6 +1563,7 @@ function rerenderRepos() {
     const el = next.querySelector(`[${name}="${CSSq(value)}"]`);
     if (el) el.focus({ preventScroll: true });
   }
+  fitBandLists();
 }
 const MODEL_LIMIT = 8;
 function getTrendingModels() {
@@ -1606,17 +1608,20 @@ function renderModels() {
         <span class="model-name" lang="en">${formatRepoName(r.full_name)}</span>
         <span class="model-meta">${Number.isFinite(likes) ? `<span><b class="num">${fmt(likes)}</b> lượt thích</span>` : ''}${Number.isFinite(dl) ? `<span><b class="num">${fmt(dl)}</b> lượt tải</span>` : ''}</span>
       </a>`;
-    }).join('')}</div></section>`;
+    }).join('')}</div>${filter === 'all' ? '<div class="tile-foot"><button class="text-btn" type="button" data-filter-go="code">Xem tất cả</button></div>' : ''}</section>`;
 }
 
 /* ==========================================================================
-   THE FRONT PAGE (Mẫu A, captain 08/11 18:23: "nói chung là em làm giống msn cho anh nhưng là nội dung về AI của
-   halcyon"). One grid. Its first row: the lead carousel (the four strongest stories with a photograph), the weather,
-   the calendar and "Chuyện lớn" (the next four). Then the stories in the reader's order, where a notable one takes a
-   2x2 cell (a photograph and the editorial tier, or hot, or worth) or a 2x1 cell, at least four ordinary cards apart so
-   they spread through the page ("phải có những thẻ tin tức đáng chú ý có kích thước lớn hơn"). The front page's own
-   tiles (the Arena leaders, "Vừa đăng", "Đang nóng", live and upcoming, repositories, models) sit in the grid as 2x2
-   widgets, the way MSN's sport and market cards do. Every story appears once on the page.
+   THE FRONT PAGE: five bands (captain, 10/11 17:51: "Duyệt, giao sửa", approving the coordinator's bento audit). Top
+   to bottom, each under one heading style:
+     1. Hôm nay: the lead carousel, "Vừa đăng" and the weather;
+     2. Điểm nhấn: "Chuyện lớn", the most notable story ("Đáng chú ý"), the next event and the calendar;
+     3. Tin mới: two rows, each one double card and singles, or singles only;
+     4. Mô hình và mã nguồn: the Arena leaders, "Kho mã đáng lấy" and "Mô hình đáng thử";
+     5. Tin khác: whole rows of single cards, then "Xem thêm tin".
+   At most five columns (trang-msn.css, --bento-cols). Cards in a row are the same height and every row is full: the
+   spans per column count are in the CSS, the two story bands are built here from the live column count, and stories
+   that cannot fill a row wait behind "Xem thêm tin". Every story appears once on the page.
    ========================================================================== */
 const C = (st, size = '', opts = {}) => ({ t: 'card', st, size, opts });
 const storyHref = st => `https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/`;
@@ -1625,8 +1630,7 @@ const TIER = { top: 3, notable: 2 };
 const frontScore = st => (TIER[st.importance_tier] || 0) + (st.hot_score || 0) / 20 + Math.min(worthOf(st).score, 8) / 4;
 const isBig = st => hasPhoto(st) && (st.importance_tier === 'top' || st.importance_tier === 'notable' || (st.hot_score || 0) >= 15 || worthOf(st).score >= 3);
 const isWide = st => st.importance_tier === 'notable' || (st.hot_score || 0) >= 8 || worthOf(st).score >= 1;
-let FRONT_TOP = [];           // "Chuyện lớn", the second row since 10/11
-const FURNITURE_AFTER = 6;    // stories before the weather, the calendar and the next event in the page's order
+let FRONT_TOP = [];           // "Chuyện lớn", the second band since 10/11
 let FRONT_IDS = new Set();    // stories the front page already shows above the river (carousel, list, tiles)
 let weatherCard = null, calendarCard = null;   // built once; the same elements return to the grid on every redraw
 
@@ -1641,50 +1645,115 @@ function chooseFront() {
   for (const st of [...big, ...ranked]) { if (top.length >= 4) break; if (!top.includes(st) && distinct([...lead, ...top], st)) top.push(st); }
   return { lead, top };
 }
-/* Spread the notable cards: a big or wide card needs four ordinary cards since the last one. Only the first of them, the
-   most notable story after the lead, says "Đáng chú ý" (owner, 10/11: the label on five cards meant nothing). */
-function sizeRiver(list) {
-  let since = 4, labelled = false;
-  return list.map(st => {
-    let size = '';
-    if (since >= 4 && isBig(st)) size = 'big';
-    else if (since >= 4 && isWide(st)) size = 'wide';
-    since = size ? 0 : since + 1;
-    const kicker = !!size && !labelled;
-    if (kicker) labelled = true;
-    return C(st, size, { kicker });
-  });
-}
 const liveAvailable = () => !!(D && ((D.live || []).length || (D.events || []).some(e => eventSpan(e).end > Date.now())));
 
-function buildAll() {
+/* The columns the front page's bands have now (trang-msn.css sets --bento-cols per width: 5, 4, 3, or 1 on a phone). */
+const bentoCols = () => Math.max(1, parseInt(getComputedStyle(document.documentElement).getPropertyValue('--bento-cols'), 10) || 1);
+const NEWS_ROWS = 2;          // "Tin mới": two rows
+const OTHER_ROWS = 3;         // "Tin khác": whole rows shown at first, and added by each "Xem thêm tin"
+const OTHER_PHONE = 8;        // on a phone (one column): cards shown at first, and added by each "Xem thêm tin"
+let FRONT = null;             // { notable, river, older, other, shown }
+
+/* Who goes where. "Đáng chú ý" is the most notable story after the carousel, "Chuyện lớn" and "Vừa đăng"; the rest
+   is the river, in the reader's order, that "Tin mới" and "Tin khác" share (frontNews). */
+function buildFront() {
   const used = new Set([...PICKLIST, ...FRONT_TOP].map(st => st.id));
-  const shownAbove = [...PICKLIST, ...FRONT_TOP];
-  // The hot list: the stories people are discussing most, measured, one event told once.
-  HOT = allStories.filter(st => !used.has(st.id) && (st.hot_score || 0) > 0 && hotEligible(st) && !shownAbove.some(p => sameEvent(p, st)))
-    .sort(byWorth).slice(0, 5);
-  HOT.forEach(st => used.add(st.id));
   FRONT_IDS = new Set(used);
   const fresh = D ? newestStories().list.slice(0, FRESH_TILE_ROWS) : [];
   fresh.forEach(st => used.add(st.id));
-  const river = sizeRiver(ordered(allStories.filter(st => !used.has(st.id))));
-  // "Vừa đăng" is not a widget here: it sits beside the lead (renderFeed). The events are not one either: the next one
-  // sits beside the calendar (renderNext), the rest in "Sắp diễn ra".
-  // The models and the code sit together in one band (captain, 10/11 15:19: "gom các thành phần giống nhau vào 1 chỗ"):
-  // the Arena leaders, the repositories and the models to try, after the hot list.
-  const widgets = [HOT.length ? { t: 'hot' } : null, { t: 'lab' }].filter(Boolean);
-  // The weather, the calendar and the next event come after the first stories (owner, 10/11: on a phone the news comes
-  // first); wider screens pin them to the grid's last column whatever their place here (trang-msn.css). The first widget
-  // after eight stories, then one every ten.
-  const out = [];
-  river.forEach((it, i) => {
-    out.push(it);
-    if (i + 1 === FURNITURE_AFTER) out.push({ t: 'furniture' });
-    if ((i + 1) % 10 === 8 && widgets.length) out.push(widgets.shift());
-  });
-  if (river.length < FURNITURE_AFTER) out.push({ t: 'furniture' });
+  const river = ordered(allStories.filter(st => !used.has(st.id)));
+  const ni = river.findIndex(st => isBig(st)), wi = ni >= 0 ? ni : river.findIndex(st => isWide(st));
+  const notable = river.length ? river.splice(Math.max(wi, 0), 1)[0] : null;
   PLACED = new Set([...used, ...allStories.map(st => st.id)]);
-  return out.concat(widgets, olderItems());
+  const older = olderItems().filter(x => x.t === 'card').map(x => x.st);
+  return { notable, river, older, other: [], shown: 0 };
+}
+/* "Tin mới": each row is one double card and singles, or singles only, so every row is full at every column count; the
+   double alternates sides. A phone takes the four-column pattern (a double is a full-width picture card there). */
+function frontNews(river, cols) {
+  const c = cols < 3 ? 4 : cols, pool = river.slice(), items = [];
+  for (let r = 0; r < NEWS_ROWS; r++) {
+    // A double from the next few stories: a notable one with a photograph first, then any notable one.
+    const look = pool.slice(0, c + 2), bi = look.findIndex(st => isBig(st) || (isWide(st) && hasPhoto(st)));
+    const di = bi >= 0 ? bi : look.findIndex(st => isWide(st));
+    if (di >= 0 && pool.length >= c - 1) {
+      const dbl = C(pool.splice(di, 1)[0], 'wide');
+      const row = pool.splice(0, c - 2).map(st => C(st));
+      if (r % 2) row.push(dbl); else row.unshift(dbl);
+      items.push(...row);
+    } else if (pool.length >= c) items.push(...pool.splice(0, c).map(st => C(st)));
+  }
+  return { items, rest: pool };
+}
+/* "Tin khác": only whole rows; what cannot fill a row waits behind "Xem thêm tin". */
+function otherCount(cols) {
+  const all = FRONT.other.length;
+  if (cols < 3) return Math.min(FRONT.shown || OTHER_PHONE, all);
+  const want = (FRONT.shown ? Math.ceil(FRONT.shown / cols) : OTHER_ROWS) * cols;
+  return Math.min(want, Math.floor(all / cols) * cols);
+}
+function renderOtherBand(focusFrom = -1) {
+  const box = $('#more-grid'), foot = $('#more-foot');
+  if (!box || !FRONT) return;
+  const cols = bentoCols(), n = otherCount(cols);
+  FRONT.shown = n;
+  const have = box.children.length;
+  if (have > n) [...box.children].slice(n).forEach(el => el.remove());
+  else if (have < n) box.insertAdjacentHTML('beforeend', FRONT.other.slice(have, n).map(st => msnCard(st)).join(''));
+  const whole = cols < 3 ? FRONT.other.length : Math.floor(FRONT.other.length / cols) * cols;
+  const more = n < whole || (!complete && !olderUnavailable);
+  foot.innerHTML = more ? '<button class="more-btn" type="button" id="more-btn" aria-controls="more-grid">Xem thêm tin</button>' : '';
+  $('#band-more').hidden = !n && !more;
+  if (focusFrom >= 0) box.children[focusFrom]?.querySelector('.story-link')?.focus({ preventScroll: true });
+  hydrateHF(box); observeSkips(); observeCardMotion(box); hydrateLoadedImages(box);
+  updateMore();
+}
+/* "Xem thêm tin": the next rows; when the window's stories run out, the complete snapshot's older days follow. */
+function showMoreOther() {
+  if (!FRONT) return;
+  const cols = bentoCols(), before = FRONT.shown;
+  const step = cols < 3 ? OTHER_PHONE : OTHER_ROWS * cols;
+  const enough = FRONT.other.length - before >= (cols < 3 ? 1 : cols);
+  FRONT.shown = before + step;
+  if (!enough && !complete) {
+    const btn = $('#more-btn'); if (btn) { btn.disabled = true; btn.textContent = 'Đang tải thêm tin'; }
+    loadComplete().then(() => { if (!complete) olderUnavailable = true; renderOtherBand(before); });
+    return;
+  }
+  renderOtherBand(before);
+}
+/* The band layout depends on the column count: a breakpoint change rebuilds "Tin mới" and "Tin khác" only. */
+let frontColsSeen = 0;
+function watchBentoCols() {
+  if (watchBentoCols.on) return;
+  watchBentoCols.on = true;
+  const check = () => { if (filter === 'all' && FRONT && bentoCols() !== frontColsSeen) renderNewsBands(); };
+  for (const q of ['(min-width: 768px)', '(min-width: 1024px)', '(min-width: 1440px)']) {
+    const m = matchMedia(q); if (m.addEventListener) m.addEventListener('change', check);
+  }
+}
+function renderNewsBands() {
+  const box = $('#news-grid'); if (!box || !FRONT) return;
+  const cols = bentoCols();
+  frontColsSeen = cols;
+  const news = frontNews(FRONT.river, cols);
+  box.innerHTML = news.items.map(renderItem).join('');
+  $('#band-news').hidden = !news.items.length;
+  const shown = FRONT.shown;
+  FRONT.other = news.rest.concat(FRONT.older);
+  $('#more-grid').innerHTML = '';
+  FRONT.shown = shown;
+  renderOtherBand();
+  hydrateHF(box); observeSkips(); observeCardMotion(box); hydrateLoadedImages(box);
+}
+const bandHTML = (id, title, body) => `<section class="band band-${id}" id="band-${id}" aria-labelledby="band-${id}-h"><h2 class="band-title" id="band-${id}-h">${title}</h2>${body}</section>`;
+function frontHTML() {
+  const { notable } = FRONT;
+  return bandHTML('today', 'Hôm nay', `<div class="band-cells">${leadHTML(PICKLIST)}${freshTileHTML()}<i data-slot="wx"></i></div>`)
+    + bandHTML('focus', 'Điểm nhấn', `<div class="band-cells">${topListHTML(FRONT_TOP)}${notable ? msnCard(notable, 'wide', true) : ''}${renderNext()}<i data-slot="cal"></i></div>`)
+    + bandHTML('news', 'Tin mới', '<div class="band-cells" id="news-grid"></div>')
+    + renderLab()
+    + bandHTML('more', 'Tin khác', '<div class="band-cells" id="more-grid"></div><div class="band-foot" id="more-foot"></div>');
 }
 
 /* ---------- older days (captain, 09/11 13:16: scrolling replaces the sections) ----------
@@ -1719,6 +1788,13 @@ function olderItems() {
 const dayLineHTML = key => `<h2 class="day-line" id="day-${esc(key)}"><time datetime="${esc(key)}">${esc(dayLabel(key))}</time></h2>`;
 /* The complete snapshot arrived under the same front page: its older days join the end of the stream. */
 function appendOlder() {
+  if (filter === 'all' && FRONT) {
+    // The front page: the older days join "Tin khác", behind its "Xem thêm tin".
+    const add = olderItems().filter(x => x.t === 'card').map(x => x.st);
+    FRONT.older.push(...add); FRONT.other.push(...add);
+    renderOtherBand();
+    return;
+  }
   if (filter !== 'all' || !seq.length) return;
   const more = olderItems();
   if (!more.length) { updateMore(); return; }
@@ -1730,8 +1806,10 @@ function appendOlder() {
 
 /* ---------- the first row's cards ---------- */
 const srcOf = st => { const t = titleOf(st), c = t.cov || covsOf(st)[0] || {}; return { name: covName(c) || hostOf(st.url), face: faceOfSource(c, SRC) }; };
-/* Who and when; a machine-translated headline says so ("Translated") here on a slide, under the headline on a card. */
-const metaHTML = (st, mark = false) => { const s = srcOf(st); return `<p class="nc-meta">${markHTML(st)}<span class="nc-fav" aria-hidden="true">${avatar(s.face, 'xs')}</span><span class="nc-src">${esc(s.name)}</span><span class="nc-dot" aria-hidden="true"></span>${timeEl(st.published_at)}${mark ? translationMark(titleOf(st)) : ''}</p>`; };
+/* Who and when. The source name is never cut (captain, 10/11: "Anthropi…"): when the line is full the time wraps
+   under it. A machine-translated headline is not labelled on the front page (captain, 10/11 17:51): the label lives in
+   the story page's and the story modal's footer. */
+const metaHTML = st => { const s = srcOf(st); return `<p class="nc-meta">${markHTML(st)}<span class="nc-who"><span class="nc-fav" aria-hidden="true">${avatar(s.face, 'xs')}</span><span class="nc-src">${esc(s.name)}</span></span><span class="nc-when"><span class="nc-dot" aria-hidden="true"></span>${timeEl(st.published_at)}</span></p>`; };
 const aiBadgeHTML = img => img.via === 'ai' ? '<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>' : '';
 /* A news picture is drawn whole on a blurred copy of itself (captain, 07/11: "không bị cắt thông tin"), inside the slot
    Mẫu A gives it, so a chart or a screenshot keeps its edges. */
@@ -1750,7 +1828,7 @@ function leadHTML(list) {
     const img = pickImage(st), t = titleOf(st);
     return `<article class="slide${i ? '' : ' is-active'} ${statusClass(st)}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" aria-roledescription="slide" aria-label="${i + 1} trên ${n}"${i ? ' inert' : ''}>
       <div class="slide-media media">${mediaHTML(img, i ? 'card' : 'lead')}</div>
-      <div class="slide-box"><p class="nc-kicker">Tin nổi bật</p><h2 class="slide-title"${langAttr(t.text)}><a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>${metaHTML(st, true)}</div></article>`;
+      <div class="slide-box"><p class="nc-kicker">Tin nổi bật</p><h2 class="slide-title"${langAttr(t.text)}><a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>${metaHTML(st)}</div></article>`;
   }).join('');
   const nav = n > 1 ? `<div class="lead-dots" role="group" aria-label="Chọn tin nổi bật">${list.map((st, i) => `<button type="button" data-slide="${i}" aria-label="Tin nổi bật ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>` : '';
   return `<section class="msn-card msn-lead" id="lead" aria-roledescription="carousel" aria-label="Tin nổi bật">${slides}${nav}</section>`;
@@ -1780,7 +1858,7 @@ function topListHTML(list) {
   if (!list.length) return '';
   return `<section class="msn-card msn-toplist" id="top-list" aria-labelledby="top-list-h"><h2 id="top-list-h">Chuyện lớn</h2><ol>${list.map((st, i) => {
     const t = titleOf(st), s = srcOf(st);
-    return `<li class="list-row ${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><b class="num" aria-hidden="true">${i + 1}</b><span class="top-text"><a class="story-link top-title" href="${storyHref(st)}" data-id="${esc(st.id)}"${langAttr(t.text)}>${esc(t.text)}</a><span class="top-meta">${markHTML(st)}<span class="top-who"><span class="top-src">${esc(s.name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}</span>${translationMark(t)}</span></span></li>`;
+    return `<li class="list-row ${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><b class="num" aria-hidden="true">${i + 1}</b><span class="top-text"><a class="story-link top-title" href="${storyHref(st)}" data-id="${esc(st.id)}"${langAttr(t.text)}>${esc(t.text)}</a><span class="top-meta">${markHTML(st)}<span class="top-who"><span class="top-src">${esc(s.name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}</span></span></span></li>`;
   }).join('')}</ol></section>`;
 }
 
@@ -1798,7 +1876,6 @@ function msnCard(st, size = '', kicker = false) {
     ${kicker ? '<p class="nc-kicker">Đáng chú ý</p>' : ''}
     ${metaHTML(st)}
     <h3 class="nc-title" id="${tid}"${langAttr(t.text)}><a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a></h3>
-    ${t.orig ? `<p class="nc-mt">${translationMark(t)}</p>` : ''}
     ${sum ? `<p class="nc-sum">${sourceDescriptionMark()}${esc(sum)}</p>` : ''}
   </div>
 </article>`;
@@ -1879,20 +1956,52 @@ function arenaTileBody(data) {
 }
 function renderArenaTile() {
   if (!ARENA_DATA) loadArena().then(d => { ARENA_DATA = d; }, () => { ARENA_DATA = false; }).then(() => {
-    const el = $('#arena-tile'); if (el) el.innerHTML = arenaTileBody(ARENA_DATA);
+    const el = $('#arena-tile'); if (el) { el.innerHTML = arenaTileBody(ARENA_DATA); fitBandLists(); }
   });
   return `<section class="tile tile-arena" id="arena-tile" aria-labelledby="arena-tile-h">${arenaTileBody(ARENA_DATA)}</section>`;
 }
 
-/* The models and code band: the Arena leaders, "Kho mã đáng lấy" and "Mô hình đáng thử" side by side across the grid. */
+/* The models and code band: the Arena leaders, "Kho mã đáng lấy" and "Mô hình đáng thử", equal tiles side by side. */
+let labOpen = false;          // "Kho mã đáng lấy" opened: every filter and the whole list (captain, 10/11: one filter row)
 function renderLab() {
   const tiles = renderArenaTile() + renderRepos() + (getTrendingModels().length ? renderModels() : '');
-  return `<section class="tile-band" id="lab" aria-labelledby="lab-h"><h2 class="band-title" id="lab-h">Mô hình và mã nguồn</h2><div class="band-grid">${tiles}</div></section>`;
+  return `<section class="band band-lab tile-band${labOpen ? ' is-open' : ''}" id="lab" aria-labelledby="lab-h"><h2 class="band-title" id="lab-h">Mô hình và mã nguồn</h2><div class="band-grid">${tiles}</div></section>`;
+}
+function toggleLab(btn) {
+  labOpen = !labOpen;
+  const band = $('#lab'); if (!band) return;
+  band.classList.toggle('is-open', labOpen);
+  band.querySelectorAll('[data-lab-open]').forEach(b => { b.setAttribute('aria-expanded', String(labOpen)); b.textContent = labOpen ? 'Thu gọn' : 'Mở rộng'; });
+  fitBandLists();
+  if (!labOpen) band.scrollIntoView({ block: 'nearest', behavior: RM.matches ? 'auto' : 'smooth' });
+  btn.focus({ preventScroll: true });
+}
+/* A list in a tile of fixed height shows only the rows that fit whole (captain, 10/11: nothing cut mid-line); the
+   rest are a click away ("Xem tất cả", "Mở rộng"). Where the tile grows with its rows (a phone, an opened band),
+   every row shows. */
+const FIT_LISTS = '.band-lab .arena-list, .band-lab .repo-row, .band-lab .model-list, .band-focus .msn-toplist ol';
+let fitRO = null;
+function fitBandLists() {
+  const lists = $$(FIT_LISTS);
+  if (!fitRO && 'ResizeObserver' in window) {
+    const seen = new WeakMap();
+    fitRO = new ResizeObserver(es => {
+      if (es.some(e => { const h = Math.round(e.contentRect.height), w = Math.round(e.contentRect.width), k = seen.get(e.target); seen.set(e.target, `${w}x${h}`); return k !== `${w}x${h}`; })) requestAnimationFrame(fitBandLists);
+    });
+  }
+  for (const list of lists) {
+    if (fitRO && !list._fitObserved) { fitRO.observe(list); list._fitObserved = true; }
+    const rows = [...list.children];
+    rows.forEach(r => { r.hidden = false; });
+    if (getComputedStyle(list).overflow !== 'hidden') continue;   // the list grows with its rows here
+    const bottom = list.getBoundingClientRect().bottom + 0.5;
+    let cut = false;
+    rows.forEach((r, i) => { if (cut || (i > 0 && r.getBoundingClientRect().bottom > bottom)) { cut = true; r.hidden = true; } });
+  }
 }
 
 function renderItem(it) {
   if (it.t === 'card') return msnCard(it.st, it.size, !!(it.opts && it.opts.kicker));
-  if (it.t === 'furniture') return FIXED_SLOTS + renderNext();
   if (it.t === 'live') return renderLive(!!it.all);
   if (it.t === 'hot') return renderHot();
   if (it.t === 'repos') return renderRepos();
@@ -1952,6 +2061,7 @@ function setLoading(on) {
   if (on) host.insertAdjacentHTML('beforeend', Array.from({ length: gridCols(host) }, () => '<div class="msn-card msn-sk" aria-hidden="true"></div>').join(''));
 }
 function loadMore() {
+  if (filter === 'all') return;   // the front page grows by "Xem thêm tin" (renderOtherBand), whole rows at a time
   if (filter === 'all' && pos >= seq.length && D && !complete) { waitOlder(); return; }
   if (loadingMore || pos >= seq.length || filter === 'rankings' || $('#feed-grid').hidden) return;
   loadingMore = true;
@@ -1987,8 +2097,14 @@ function waitOlder() {
 /* Under the last story, once nothing more can come: the one quiet action, "Đánh dấu đã xem hết". */
 function updateMore() {
   const end = $('#feed-end');
-  if (pos < seq.length) { end.hidden = true; if (scrollWatch === true) more(false); return; }
   const front = filter === 'all';
+  if (front) {
+    // The front page ends once "Tin khác" has nothing more to show.
+    end.hidden = !FRONT || !FRONT.shown || !!$('#more-btn');
+    $('#mark-all-btn').textContent = 'Đánh dấu đã xem hết';
+    return;
+  }
+  if (pos < seq.length) { end.hidden = true; if (scrollWatch === true) more(false); return; }
   if (front && D && !complete && !olderUnavailable) { end.hidden = true; waitOlder(); return; }
   end.hidden = !totalCards || filter === 'rankings' || filter === 'code';
   $('#mark-all-btn').textContent = front ? 'Đánh dấu đã xem hết' : 'Đánh dấu nhóm này đã xem';
@@ -2028,19 +2144,28 @@ function renderFeed() {
   if (!D) { $('#feed-empty').hidden = false; renderChips(); return; }
   const front = filter === 'all';
   ({ lead: PICKLIST, top: FRONT_TOP } = front ? chooseFront() : { lead: [], top: [] });
-  seq = front ? buildAll() : buildFiltered(filter);
-  pos = 0; shownCards = 0;
-  totalCards = seq.filter(x => x.t === 'card').length;
-  const chunk = renderChunk(PAGE_FIRST);
-  const empty = !chunk.html.trim() && !chunk.days.length;   // tiles with no data render nothing, so judge by the output
-  $('#feed-empty').hidden = !empty;
   grid.classList.toggle('is-front', front);
-  // The weather and the calendar are the home's furniture; a reader who opened "Mã và mô hình" came for repositories and
-  // models (owner, 09/11: "QA các thành phần giao diện có nên hiển thị ở đó hay không"), so that view leaves them out.
-  // The front page in its reading order (owner, 10/11): the lead, "Vừa đăng" beside it, "Chuyện lớn", then the stories,
-  // with the weather, the calendar and the next event after the first few (buildAll).
-  grid.innerHTML = (front ? leadHTML(PICKLIST) + freshTileHTML() + topListHTML(FRONT_TOP) : code ? '' : FIXED_SLOTS) + chunk.html;
-  placeChunk(grid, { html: '', days: chunk.days });
+  if (front) {
+    // The front page's five bands (buildFront, frontHTML); its two story bands follow the column count.
+    seq = []; pos = 0; shownCards = 0; totalCards = 0;
+    FRONT = buildFront();
+    grid.innerHTML = frontHTML();
+    $('#feed-empty').hidden = true;
+    renderNewsBands();
+    watchBentoCols();
+  } else {
+    FRONT = null;
+    seq = buildFiltered(filter);
+    pos = 0; shownCards = 0;
+    totalCards = seq.filter(x => x.t === 'card').length;
+    const chunk = renderChunk(PAGE_FIRST);
+    const empty = !chunk.html.trim() && !chunk.days.length;   // tiles with no data render nothing, so judge by the output
+    $('#feed-empty').hidden = !empty;
+    // The weather and the calendar are the home's furniture; a reader who opened "Mã và mô hình" came for repositories
+    // and models (owner, 09/11: "QA các thành phần giao diện có nên hiển thị ở đó hay không"), so that view leaves them out.
+    grid.innerHTML = (code ? '' : FIXED_SLOTS) + chunk.html;
+    placeChunk(grid, { html: '', days: chunk.days });
+  }
   placeFixedCards(grid);
   renderSub();
   renderChips();
@@ -2048,6 +2173,7 @@ function renderFeed() {
   initRepoPills(grid);
   initShelves($('#top'));
   fitFreshTile();
+  fitBandLists();
   scheduleCountdown();
   $('#top').removeAttribute('aria-busy');
   hydrateHF(document);
@@ -2079,6 +2205,14 @@ function revealStory(pred, cardsOnly = false) {
   const find = () => $$(sel).find(el => !el.closest('[hidden]') && pred(el.dataset.sid));
   let el = find();
   while (!el && pos < seq.length) { more(false); el = find(); }
+  // The front page: open "Tin khác" row by row until the story is there.
+  while (!el && FRONT && filter === 'all' && FRONT.shown < FRONT.other.length) {
+    const before = FRONT.shown;
+    FRONT.shown += bentoCols() < 3 ? OTHER_PHONE : OTHER_ROWS * bentoCols();
+    renderOtherBand();
+    if (FRONT.shown <= before) break;
+    el = find();
+  }
   const lead = el && el.matches('.slide') && el.closest('.msn-lead');   // a carousel story: bring its slide forward
   if (lead) showSlide(lead, [...lead.querySelectorAll('.slide')].indexOf(el));
   return el || null;
@@ -2256,7 +2390,7 @@ function freshItem(st) {
   const pinned = freshIds.includes(st.id) && !read.has(st.id);
   return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"${pinned ? ' data-pinned' : ''}><a class="brief fresh-item list-row" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-read="${esc(st.id)}">
     <time class="num" datetime="${esc(st.published_at)}" title="${esc(exact(st.published_at))}">${esc(hhmm(new Date(st.published_at)))}</time>
-    <span class="brief-h"${langAttr(t.text)}>${markHTML(st)}<span class="fresh-new" aria-hidden="true">Mới</span>${esc(t.text)}${translationMark(t)}</span></a></li>`;
+    <span class="brief-h"${langAttr(t.text)}>${markHTML(st)}<span class="fresh-new" aria-hidden="true">Mới</span>${esc(t.text)}</span></a></li>`;
 }
 function freshInnerHTML() {
   const { list } = D && filter === 'all' ? newestStories() : { list: [] };
@@ -2665,6 +2799,8 @@ function onClick(e) {
   if (act && act.dataset.act === 'save') { toggleSave(act.dataset.id); return; }
   const cov = t.closest('.cov-btn'); if (cov) { toggleDetail(cov); return; }
   const fp = t.closest('[data-fresh-page]'); if (fp) { pageFresh(fp); return; }
+  if (t.closest('#more-btn')) { showMoreOther(); return; }
+  const lx = t.closest('[data-lab-open]'); if (lx) { toggleLab(lx); return; }
   const sb = t.closest('.shelf-btn'); if (sb) { scrollShelf(sb); return; }
   const cal = t.closest('[data-cal]'); if (cal) { e.preventDefault(); addToCalendar(calOf(STORY_ANY.get(cal.dataset.cal))); return; }
   const cl = t.closest('[data-cal-live]'); if (cl) { e.preventDefault(); addToCalendar(liveCal(asArray(D.live).find(v => v.video_id === cl.dataset.calLive))); return; }

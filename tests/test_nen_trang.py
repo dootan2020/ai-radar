@@ -16,7 +16,8 @@ LIVE = "https://radar-ai-vn.pages.dev/"
 
 
 def nen_section(css):
-    return css[css.index("/* ---------- the day's picture behind the first screen"):css.index("@keyframes nen-cover")]
+    start = css.index("/* ---------- the day's picture behind the page")
+    return css[start:css.index("/* ---------- \"Tùy chỉnh\"", start)]
 
 
 def read(path):
@@ -36,7 +37,9 @@ def verify_nen():
 class PageBackground(unittest.TestCase):
     def test_panel_and_top_row_stop_at_the_same_width(self):
         tokens, css = read(SITE / "tokens.css"), read(SITE / "trang-msn.css")
-        self.assertIn("--msn-panel-max: 1680px;", tokens)
+        # Content at most 1600 px (captain, 10/11 17:51): the panel's 1624 px less its two 12 px paddings.
+        self.assertIn("--msn-panel-max: 1624px;", tokens)
+        self.assertIn("--msn-panel-pad: var(--space-12);", tokens)
         panel = re.search(r"\.feed-main\.front\.msn-panel \{([^}]*)\}", css).group(1)
         self.assertIn("max-width: var(--msn-panel-max)", panel)
         self.assertIn("calc((100% - var(--msn-panel-max)) / 2)", panel)
@@ -95,7 +98,8 @@ class DayPicture(unittest.TestCase):
         # The search keeps its frosted pill on the picture; the corners' tiles take the veil's white ink.
         self.assertIn("background: var(--nen-pill); box-shadow: var(--nen-pill-shadow);", wide)
         self.assertIn(".msn-top .web-field {", read(EXT / "newtab.css"))
-        self.assertIn("animation-timeline: scroll(root block)", wide)
+        # No surface closes over the picture on scroll (captain, 10/11 17:51; tests/test_bento_trang_nhat.py).
+        self.assertNotIn("animation-timeline", wide)
 
     def test_one_packaged_picture_ships_for_the_offline_and_missing_days(self):
         for folder in (SITE, EXT):
@@ -213,7 +217,7 @@ class FreshTilePaging(unittest.TestCase):
         self.assertIn(".fresh-list > li[hidden] { display: none; }", css)
         self.assertIn(".fresh-pager[hidden] { display: none; }", css)
         feed = read(SITE / "feed.js")
-        self.assertIn("fitFreshTile();\n  scheduleCountdown();", feed)
+        self.assertIn("fitFreshTile();\n  fitBandLists();\n  scheduleCountdown();", feed)
         self.assertIn("const fp = t.closest('[data-fresh-page]'); if (fp) { pageFresh(fp); return; }", feed)
 
     @unittest.skipUnless(shutil.which("node"), "Node required for the paging test")
