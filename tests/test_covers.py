@@ -3,6 +3,7 @@
 from contextlib import redirect_stdout
 from io import StringIO
 import json
+import os
 from pathlib import Path
 import shutil
 import struct
@@ -248,6 +249,25 @@ class RendererFailureTest(unittest.TestCase):
         self.assertEqual(len(calls), 2)
         self.assertEqual(pauses, [covers.START_PAUSES[0]])
         self.assertEqual(result["covers"], {})
+
+
+@unittest.skipUnless(NODE, "Node required to start the cover browser")
+class BrowserStartTest(unittest.TestCase):
+    def test_a_browser_that_exits_fails_at_once_with_its_exit_code_and_stderr(self):
+        # Node stands in for a Chrome that dies on start-up: it rejects Chrome's flags on stderr and exits 9. The
+        # launch used to wait the whole start-up timeout and say only "no DevToolsActivePort".
+        script = (f"import {{ launch }} from {json.dumps((ROOT / 'covers' / 'lib' / 'cdp.mjs').as_uri())};"
+                  "const t0 = Date.now();"
+                  "try { await (await launch()).close(); console.log('started'); }"
+                  "catch (e) { console.log(JSON.stringify({ ms: Date.now() - t0, message: e.message })); }")
+        proc = subprocess.run([NODE, "--no-warnings", "--input-type=module", "-e", script], cwd=ROOT,
+                              env={**os.environ, "CHROME": NODE}, capture_output=True, text=True,
+                              encoding="utf-8", timeout=60)
+        outcome = json.loads(proc.stdout)
+        self.assertTrue(outcome["message"].startswith(covers.START_FAILURE), outcome["message"])
+        self.assertIn("exited with code 9", outcome["message"])
+        self.assertIn("bad option: --headless=new", outcome["message"])
+        self.assertLess(outcome["ms"], 5000)
 
 
 def chrome_available():
