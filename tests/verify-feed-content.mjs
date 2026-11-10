@@ -527,7 +527,7 @@ assert.equal(nodes.get('#filter-context').hidden, true, 'a tabbed view shows no 
 // A section opened from a link has no tab: it names itself and offers the way back.
 newFeed.filter('sec:sap-toi'); newFeed.renderSub();
 assert.equal(nodes.get('#filter-context').hidden, false);
-assert.match(nodes.get('#filter-context').innerHTML, /Sắp diễn ra.*data-reset>Về dòng tin/);
+assert.match(nodes.get('#filter-context').innerHTML, /Sự kiện.*data-reset>Về dòng tin/);   // the dock's name for the view
 newFeed.filter('all'); newFeed.renderSub();
 assert.equal(nodes.get('#filter-context').hidden, true);
 for (const total of [0, 1, 88, 999]) {
@@ -603,8 +603,8 @@ const eventDocument = {
   querySelectorAll:() => [eventNode],
 };
 const eventFeed = await renderer('feed.js', '\ninit();', `
-return {eventSpan, eventWhen, eventCal, calOf, countdownParts, countdownHTML, scheduleCountdown,
-  render(events, stories = []) { D = {events, stories, live:[]}; return renderLive(); },
+return {eventSpan, eventWhen, eventCal, calOf, countdownParts, scheduleCountdown,
+  render(events, stories = []) { D = {events, stories, live:[]}; return renderBaThi(); },
   next(events, live = []) { D = {events, stories:[], live}; return renderNext(); }};`, {
   location:{search:''}, matchMedia:() => eventMotion, localStorage:{getItem:() => null},
   Date:EventClock, document:eventDocument,
@@ -621,7 +621,6 @@ for (const [row, start, end] of [
   for (const [now, state] of [[span.start - 1, 'soon'], [span.start, 'on'], [span.end - 1, 'on'], [span.end, 'over']]) {
     assert.equal(eventFeed.countdownParts(span.start, span.end, now).state, state);
     eventNow = now;
-    assert.match(eventFeed.countdownHTML(row), new RegExp(`is-${state}`));
     assert.equal(eventFeed.render([row]).includes(row.title), state !== 'over');
   }
 }
@@ -667,8 +666,9 @@ assert.equal(canCalendar({...bengaluruCal, startAt:'2026-10-16T14:00:00'}), fals
 assert.equal(canCalendar({...bengaluruCal, timezone:'Not/A_Zone'}), false);
 eventNow = Date.parse('2026-10-10T12:00:00Z');
 const eventCards = eventFeed.render(curatedEvents);
-assert.match(eventCards, /class="events shelf"/);
-assert.ok(eventCards.includes('14:00 giờ Bengaluru (15:30 giờ Việt Nam)'));
+// "Sự kiện" (#sap-toi), "Ba thì": the nearest event leads with its opening hour here, every event is a lane.
+assert.equal(eventCards.split('class="bt-lane"').length - 1, curatedEvents.length);
+assert.ok(eventCards.includes('<span class="ev-note">Khai mạc 15:30 giờ Việt Nam</span>'));
 assert.ok(eventCards.includes('ctz=Asia%2FKolkata'));
 assert.ok(eventCards.includes('ctz=Australia%2FSydney'));
 eventFeed.render(curatedEvents, [{id:'event-story', title:bengaluru.title, url:bengaluru.url, coverage:[]}]);
@@ -711,14 +711,15 @@ assert.equal(eventFeed.next([]), '');
 
 // Exercise the existing shared timer with a controlled scheduler, including the exact opening transition.
 const opening = eventFeed.eventSpan(bengaluru);
-eventNode.dataset = {cd:String(opening.start), cdEnd:String(opening.end)};
+// A schedule row (the front card's and the "Sự kiện" page's): the wait in one unit, the screen reader to the minute.
+eventNode.dataset = {cd:String(opening.start), cdEnd:String(opening.end), cdKind:'row'};
 eventNow = opening.start - 2000;
 eventFeed.scheduleCountdown();
 eventFeed.scheduleCountdown();
 assert.equal(eventTimers.size, 1);
-assert.match(eventNode.lastElementChild.innerHTML, /00:00:02/);
+assert.equal(eventNode.lastElementChild.innerHTML, '&lt;1 phút');
 assert.equal(eventNode.firstElementChild.textContent, 'Còn dưới 1 phút');
-assert.match(eventFeed.countdownHTML(bengaluru), /class="sr".*class="cd-face" aria-hidden="true"/);
+assert.equal(eventNode.className, 'ev-row-d cd is-soon');
 eventDocument.hidden = true;
 eventFeed.scheduleCountdown();
 assert.equal(eventTimers.size, 0);
@@ -731,8 +732,7 @@ eventNow = opening.start - 5 * 6e4;
 eventFeed.scheduleCountdown();
 assert.equal(eventTimers.size, 1);
 assert.equal([...eventTimers.values()][0].ms, 60015);
-assert.match(eventNode.lastElementChild.innerHTML, /5<\/b> phút/);
-assert.doesNotMatch(eventNode.lastElementChild.innerHTML, /cd-clock/);
+assert.equal(eventNode.lastElementChild.innerHTML, '5 phút');
 eventNow = opening.end;
 eventFeed.scheduleCountdown();
 assert.equal(eventNode.firstElementChild.textContent, 'Đã kết thúc');

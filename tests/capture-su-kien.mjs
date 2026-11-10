@@ -126,8 +126,8 @@ const MEASURE = () => {
       targets: [...card.querySelectorAll('a, button')].filter(shown).map(el => ({ cls: String(el.className).split(' ')[0], w: Math.round(r(el).width), h: Math.round(r(el).height) })),
     };
   }
-  const tile = document.querySelector('#feed-grid .tile-live');
-  if (tile && shown(tile)) res.list = { box: box(tile), head: tile.querySelector('.tile-title')?.textContent, events: tile.querySelectorAll('.events > li').length,
+  const tile = document.querySelector('#feed-grid .bt');
+  if (tile && shown(tile)) res.list = { box: box(tile), head: tile.querySelector('.band-title')?.textContent, events: tile.querySelectorAll('.bt-lane').length,
     google: tile.querySelectorAll('.calbtn-g').length, ics: tile.querySelectorAll('.calbtn-ics').length, countdowns: [...tile.querySelectorAll('.cd .sr')].map(s => s.textContent) };
   return res;
 };
@@ -153,7 +153,7 @@ async function open(page, url, width, theme) {
   });
   page.on('pageerror', e => result.errors.push(`${url} ${width}: ${e.message}`));
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
-  await page.waitForFunction(() => document.querySelector('#top')?.getAttribute('aria-busy') !== 'true' && (document.querySelector('#band-more') || document.querySelector('#feed-grid .tile-live')), { timeout: 30000 });
+  await page.waitForFunction(() => document.querySelector('#top')?.getAttribute('aria-busy') !== 'true' && (document.querySelector('#band-more') || document.querySelector('#feed-grid .bt')), { timeout: 30000 });
   await page.evaluate(() => document.fonts.ready);
   await wait(1000);
 }

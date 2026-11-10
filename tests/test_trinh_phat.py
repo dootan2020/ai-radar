@@ -83,10 +83,8 @@ class Wiring(unittest.TestCase):
     def test_the_card_and_the_view_play_but_keep_their_youtube_link(self):
         feed = read(SITE / "feed.js")
         self.assertIn('<a class="ev-stream" href="${esc(safe(it.url))}" target="_blank" rel="noopener"${playAttr(it)}>', feed)
-        self.assertIn('<a class="tile-video" href="${esc(safe(it.url))}" target="_blank" rel="noopener"${play}', feed)
+        self.assertIn('<a class="bt-live-go" href="${esc(safe(v.url))}" target="_blank" rel="noopener"${playAttr(v)}>', feed)
         self.assertIn("Mở trên YouTube", feed)
-        # A phone requests no thumbnail.
-        self.assertIn("const thumb = PHONE.matches ? '' :", feed)
 
     def test_the_new_tab_keeps_streams_as_links_and_carries_no_player(self):
         feed, html = read(EXT / "feed.js"), read(EXT / "newtab.html")
@@ -134,11 +132,13 @@ class RenderedPlayer(unittest.TestCase):
     def test_the_first_render_has_no_youtube_frame_and_asks_youtube_nothing(self):
         for name, run in self.runs.items():
             self.assertEqual((run["before"]["iframes"], run["before"]["open"]), (0, False), name)
-            # The desktop view shows YouTube's poster; the card and a phone ask YouTube for nothing at all.
-            if name != "sap-toi-1440":
+            # "Sự kiện" shows YouTube's poster at every width, as the approved "Ba thì" mockup draws it (11/11); the
+            # front card asks YouTube for nothing at all.
+            if not name.startswith("sap-toi"):
                 self.assertEqual(run["beforeRequests"], [], name)
             self.assertEqual(run["before"]["thumbs"], 0, name)
-        self.assertEqual(self.runs["sap-toi-1440"]["beforeRequests"], [f"https://i.ytimg.com/vi/{VIDEO}/hqdefault.jpg"])
+        for name in ("sap-toi-1440", "sap-toi-375"):
+            self.assertEqual(self.runs[name]["beforeRequests"], [f"https://i.ytimg.com/vi/{VIDEO}/hqdefault.jpg"], name)
 
     def test_a_tap_inserts_the_nocookie_embed_for_the_right_video(self):
         for name, run in self.runs.items():
@@ -205,7 +205,7 @@ class HistoryAndFocus(unittest.TestCase):
 
     def test_focus_finds_the_redrawn_control_or_the_page(self):
         for width in (1440, 375):
-            for name, cls in (("the", "ev-stream"), ("sap-toi", "tile-video")):
+            for name, cls in (("the", "ev-stream"), ("sap-toi", "bt-live-go")):
                 case = self.focus[f"{name}-{width}"]
                 with self.subTest(case=f"{name}-{width}"):
                     self.assertTrue(case["replaced"])

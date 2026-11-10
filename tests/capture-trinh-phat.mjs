@@ -89,7 +89,7 @@ async function open(page, url, width, theme, log) {
   page.on('pageerror', e => result.errors.push(`${url} ${width}: ${e.message}`));
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
   await page.waitForFunction(() => document.querySelector('#top')?.getAttribute('aria-busy') !== 'true'
-    && (document.querySelector('#su-kien') || document.querySelector('#feed-grid .tile-live')), { timeout: 30000 });
+    && (document.querySelector('#su-kien') || document.querySelector('#feed-grid .bt')), { timeout: 30000 });
   await page.evaluate(() => document.fonts.ready);
   await wait(800);
 }
@@ -234,7 +234,7 @@ try {
         result.history[`${how}-${width}`] = await historyCase(page, '#su-kien .ev-stream', how);
         await ctx.close();
       }
-      for (const [name, sel, gone] of [['the', '#su-kien .ev-stream', false], ['sap-toi', '#feed-grid .tile-live .tile-video', false], ['mat-luong', '#su-kien .ev-stream', true]]) {
+      for (const [name, sel, gone] of [['the', '#su-kien .ev-stream', false], ['sap-toi', '#feed-grid .bt-live .bt-live-go', false], ['mat-luong', '#su-kien .ev-stream', true]]) {
         const ctx = await browser.createBrowserContext(), page = await ctx.newPage(), log = Object.assign([], { phase: 'before' });
         await open(page, site + (name === 'sap-toi' ? '#sap-toi' : ''), width, 'light', log);
         result.focus[`${name}-${width}`] = await focusCase(page, sel, gone);
@@ -252,7 +252,7 @@ try {
       // The "Sắp diễn ra" view's picture, closed with the close button.
       ctx = await browser.createBrowserContext(); page = await ctx.newPage(); log = Object.assign([], { phase: 'before' });
       await open(page, site + '#sap-toi', width, theme, log);
-      result.runs[`sap-toi-${tag}`] = await play(page, `sap-toi-${tag}`, '#feed-grid .tile-live .tile-video', 'button', log);
+      result.runs[`sap-toi-${tag}`] = await play(page, `sap-toi-${tag}`, '#feed-grid .bt-live .bt-live-go', 'button', log);
       await ctx.close();
     }
     if (refused) {

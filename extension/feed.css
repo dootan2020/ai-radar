@@ -201,7 +201,6 @@ ul, ol { padding: 0; list-style: none; }
 }
 .card-std { grid-column: span 3; }
 .card-lead { grid-column: span 6; grid-row: span 2; }
-.tile-live { grid-column: span 3; grid-row: span 2; align-self: start; }
 .card-wide, .tile-hot, .tile-repos, .tile-models { grid-column: span 6; }
 
 /* ---------- the card: a surface, a picture, words, and a hairline edge on light. ---------- */
@@ -371,28 +370,6 @@ ul, ol { padding: 0; list-style: none; }
 .tile-title { font-size: var(--text-tile); font-weight: var(--weight-bold); letter-spacing: var(--tracking-display); line-height: var(--leading-tight); color: var(--color-heading); }
 .tile-note { font-size: var(--text-meta); color: var(--color-ink-3); white-space: nowrap; }
 
-/* Live and upcoming */
-.tile-video { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); margin: 0 calc(var(--space-24) * -1); border-radius: 0; }
-/* The one cropped picture, on purpose: a stream's YouTube poster (hqdefault, 4:3) carries the 16:9 frame between
-   black bars baked into the file, and cover at 16:9 trims exactly those bars. */
-.tile-video img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-hover) var(--ease-flow); }
-.tile-video:hover img { transform: scale(1.025); }
-.video-badge {
-  position: absolute; left: var(--space-12); bottom: var(--space-12);
-  padding: var(--space-4) var(--space-8); border-radius: var(--radius-8);
-  background: oklch(0.13 0.006 var(--hue) / 0.82); color: var(--color-on-media);
-  font-size: var(--text-micro); font-weight: var(--weight-semibold);
-}
-.video-badge.is-live { background: var(--color-live-fill); }
-.video-play {
-  position: absolute; inset: 0; margin: auto; width: 56px; height: 56px; border-radius: 50%;
-  display: grid; place-items: center; background: oklch(0.13 0.006 var(--hue) / 0.62); color: var(--color-on-media);
-  transition: transform var(--motion-state) var(--ease-flow);
-}
-.video-play .i { fill: currentColor; stroke: none; width: 24px; height: 24px; }
-.tile-video:hover .video-play { transform: scale(1.06); }
-.video-title { font-size: var(--text-body); font-weight: var(--weight-bold); line-height: var(--leading-snug); }
-.video-meta { font-size: var(--text-meta); color: var(--color-ink-3); margin-top: calc(var(--space-12) * -1); }
 .tile-action {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8);
   min-height: var(--btn-h); padding: 0 var(--space-16); border-radius: var(--radius-full);
@@ -403,62 +380,16 @@ ul, ol { padding: 0; list-style: none; }
 .tile-action:hover { background: var(--color-hair); }
 .tile-action:active { transform: scale(0.98); }
 .tile-action.is-live { background: var(--color-live-fill); color: var(--color-on-media); }
-.live-body { display: flex; flex-direction: column; gap: var(--space-16); }
-.live-video { display: flex; flex-direction: column; gap: var(--space-12); min-width: 0; }
-.video-text { display: contents; }   /* a box of its own only where the picture sits beside the text */
-.live-events { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
-.tile-subhead { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); margin-top: var(--space-8); }
-.tile-sub { font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2); }
-/* "Xem cả N sự kiện": a quiet link with a full-height hit area that does not push the heading apart. */
-.tile-more {
-  display: inline-flex; align-items: center; min-height: 44px; margin-block: calc(var(--space-12) * -1);
-  font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-accent); white-space: nowrap;
-}
-.tile-more:hover { text-decoration: underline; text-underline-offset: 3px; }
-
-/* Events: one row each, divided by a hairline. A row is a container: wide enough, its calendar control sits at
-   the right end; narrower, the control drops under the text and lines up with it. */
-.events { --datebadge-w: 52px; display: grid; grid-template-columns: minmax(0, 1fr); }
-.events > li { container: ev / inline-size; padding-block: var(--space-12); border-top: 1px solid var(--color-hair); min-width: 0; }
-.events > li:first-child { border-top: 0; padding-top: var(--space-4); }
-.events > li:last-child { padding-bottom: 0; }
-.ev { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-4) var(--space-16); }
-@container ev (max-width: 479px) {
-  .ev { grid-template-columns: minmax(0, 1fr); }
-  .ev > .calbtn { justify-self: start; margin-inline-start: calc(var(--datebadge-w) + var(--space-12)); }
-}
-.event { display: flex; align-items: center; gap: var(--space-12); min-height: 44px; min-width: 0; }
-.event:hover .event-name { color: var(--color-accent); }
-/* The date as a calendar leaf: the month in red over the day, the way a calendar icon reads. */
-.date-badge {
-  flex: none; width: var(--datebadge-w); height: 56px; border-radius: var(--radius-12); background: var(--color-fill);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; line-height: 1;
-}
-.date-m { font-size: var(--datebadge-text); font-weight: var(--weight-semibold); color: var(--color-live); text-transform: uppercase; letter-spacing: 0.04em; }
-.date-badge b { font-size: var(--size-21); font-weight: var(--weight-bold); letter-spacing: var(--tracking-number); color: var(--color-ink); }
-.event-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.event-left { font-size: var(--text-micro); font-weight: var(--weight-semibold); color: var(--color-ink-2); }
 /* The countdown: one line that never wraps; its figures are tabular, so a ticking second never moves a neighbour. */
 .cd { position: relative; white-space: nowrap; }
 .cd b { font-weight: var(--weight-bold); letter-spacing: var(--tracking-number); }
 .cd.is-on { color: var(--color-live); }
 .cd.is-over { color: var(--color-ink-3); font-weight: var(--weight-medium); }
 .cd-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; margin-inline-end: var(--space-4); vertical-align: 0.1em; }
-.event-name {
-  font-size: var(--text-small); font-weight: var(--weight-semibold); line-height: var(--leading-snug); overflow-wrap: anywhere;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-  transition: color var(--motion-state) var(--ease-flow);
-}
-.event-when { font-size: var(--text-meta); color: var(--color-ink-3); }
-
-/* The home's events as a shelf: cards side by side in a row that scrolls sideways and snaps to a card, the next one
-   peeking at the edge so the row reads as "there is more". The row runs to the tile's edges and its first card lines
-   up with the tile's text. One event is a single card across the tile, not a lonely shelf. */
-.events.shelf, .fresh-list.shelf {
+/* "Vừa đăng" pages as a shelf: cards side by side in a row that scrolls sideways and snaps to a card. */
+.fresh-list.shelf {
   --shelf-bleed: var(--space-24);
   --shelf-card: 280px;
-  /* A card is 280px (85% of a phone's row, so the next one still peeks); cards that all fit share the row instead
-     of leaving a gap or scrolling by a few pixels. */
   grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(min(var(--shelf-card), 85%), 1fr);
   gap: var(--space-12);
   overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
@@ -466,21 +397,14 @@ ul, ol { padding: 0; list-style: none; }
   scroll-padding-inline: var(--shelf-bleed);
   scrollbar-width: none;
 }
-.events.shelf::-webkit-scrollbar, .fresh-list.shelf::-webkit-scrollbar { display: none; }
-.events.shelf[data-n="1"] { grid-auto-columns: 100%; overflow-x: visible; }
-.events.shelf > li, .fresh-list.shelf > li {
+.fresh-list.shelf::-webkit-scrollbar { display: none; }
+.fresh-list.shelf > li {
   scroll-snap-align: start; display: flex; flex-direction: column;
   border: 1px solid var(--color-hair); border-radius: var(--radius-12); padding: var(--space-12);
 }
 /* The row's end is a resting place too, so the last card never settles half out of view. */
-.events.shelf > li:last-child, .fresh-list.shelf > li:last-child { scroll-snap-align: end; }
-.events.shelf .ev { flex: 1; align-content: space-between; }
-/* Beside a stream the row has no tile edge of its own to run to. */
-.tile-live.has-video .events.shelf { --shelf-bleed: 0px; }
-/* Previous / next: quiet round buttons, only for a mouse, only when the row overflows (set from feed.js). */
+.fresh-list.shelf > li:last-child { scroll-snap-align: end; }
 .tile-tools { display: inline-flex; align-items: center; gap: var(--space-8); }
-.shelf-nav { display: inline-flex; gap: var(--space-4); }
-.shelf-nav[hidden] { display: none; }
 .shelf-btn {
   display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: var(--radius-full);
   color: var(--color-ink-2); background: none; position: relative; isolation: isolate;
@@ -496,9 +420,6 @@ ul, ol { padding: 0; list-style: none; }
 .shelf-btn[aria-disabled="true"] { color: var(--color-ink-3); cursor: default; }
 .shelf-btn[aria-disabled="true"]::before { background: var(--color-fill); }
 .shelf-btn:focus-visible { border-radius: var(--radius-full); outline-offset: -2px; }
-@media (max-width: 767px), (hover: none), (pointer: coarse) {
-  .shelf-nav { display: none !important; }
-}
 
 /* Hot: ranked rows, each with its picture */
 .hot-list { display: flex; flex-direction: column; gap: var(--space-16); counter-reset: hot; }
@@ -850,7 +771,6 @@ ul, ol { padding: 0; list-style: none; }
 .card-photo .calbtn-ics { background: oklch(0.99 0 0 / 0.10); }
 .card-photo .calbtn-g:hover, .card-photo .calbtn-ics:hover,
 .card-photo .calbtn-g:active, .card-photo .calbtn-ics:active { background: var(--color-surface); color: var(--color-ink); }
-.tile-live .calbtn { align-self: flex-start; }
 /* In an event row the control is secondary: a slim pill drawn inside a 44px hit area, "Google" without "Calendar"
    (the link's accessible name keeps the full words). */
 .events .calbtn { background: none; overflow: visible; border-radius: 0; }
@@ -1030,7 +950,6 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .card-std, .sk-card { grid-column: span 2; }
   .card-debate { grid-column: span 3; align-self: stretch; height: 100%; }
   .card-lead, .sk-lead { grid-column: span 4; }
-  .tile-live { grid-column: span 2; grid-row: span 3; }   /* beside six cards, two per row */
   .card-wide { grid-column: span 4; }
   .tile-hot, .tile-repos, .tile-models { grid-column: span 6; }
 
@@ -1039,7 +958,6 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .card-std, .sk-card { grid-column: span 3; }
   .card-lead, .sk-lead { grid-column: 1 / -1; }
   .card-wide { grid-column: 1 / -1; }
-  .tile-live { grid-column: span 3; }
 }
 
 /* ==========================================================================
@@ -1072,7 +990,6 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .feed-main { padding-top: var(--space-8); }
 
   .feed-grid { display: flex; flex-direction: column; }
-  .feed-grid > .tile-live { align-self: stretch; }   /* its event rows are size containers and give it no width of their own */
   .card-debate { align-self: stretch; width: 100%; max-width: 100%; height: auto; }
   .card-lead { min-height: clamp(480px, 25vw + 380px, 560px); aspect-ratio: auto; }
   .card-lead .photo-body { padding: var(--space-16); gap: var(--space-8); }
@@ -1096,9 +1013,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   .sk-card, .sk-lead { min-height: 280px; }
 
   .tile { padding: var(--space-16); }
-  .events.shelf, .fresh-list.shelf { --shelf-bleed: var(--space-16); }
-  .tile-live.has-video .events.shelf { --shelf-bleed: var(--space-16); }   /* stacked under the stream, it has the tile's edges again */
-  .tile-video { margin: 0 calc(var(--space-16) * -1); }
+  .fresh-list.shelf { --shelf-bleed: var(--space-16); }
   .repo { grid-template-columns: 128px minmax(0, 1fr); }
   .model { display: grid; grid-template-columns: 128px 1fr; column-gap: var(--space-12); align-items: center; }
   .model-img { grid-row: 1 / span 2; }
@@ -1108,14 +1023,6 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   :root { --picks-gap: var(--space-32); }
   .briefing-head { margin-top: var(--space-32); margin-bottom: var(--space-8); }
   .how-panel { padding: var(--space-16); }
-}
-
-@media (min-width: 600px) and (max-width: 767px){
-  .tile-video {
-    max-width: 480px;
-    margin: 0 auto;
-    border-radius: var(--radius-8);
-  }
 }
 
 @media (pointer: coarse){
@@ -1156,7 +1063,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   /* Blur-up: picture appears soft first and sharpens when loaded, no box jump */
   .js-motion .media-img:not(.is-loaded),
   .js-motion .thumb img:not(.media-backdrop, .is-loaded),
-  .js-motion .tile-video img:not(.is-loaded),
+  .js-motion .bt-frame img:not(.is-loaded),
   .js-motion .repo-img img:not(.is-loaded),
   .js-motion .model-img img:not(.is-loaded) {
     opacity: 0.6;
@@ -1165,7 +1072,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 
   .js-motion .media-img,
   .js-motion .thumb img:not(.media-backdrop),
-  .js-motion .tile-video img,
+  .js-motion .bt-frame img,
   .js-motion .repo-img img,
   .js-motion .model-img img {
     transition: opacity var(--motion-blur, 300ms) var(--ease-flow),
@@ -1175,7 +1082,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
 
   .js-motion .media-img.is-loaded,
   .js-motion .thumb img.is-loaded:not(.media-backdrop),
-  .js-motion .tile-video img.is-loaded,
+  .js-motion .bt-frame img.is-loaded,
   .js-motion .repo-img img.is-loaded,
   .js-motion .model-img img.is-loaded {
     opacity: 1;
@@ -1199,10 +1106,7 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
     transform: none !important;
     box-shadow: none !important;
   }
-  .tile-video:hover img {
-    transform: none !important;
-  }
-  .media-img, .thumb img:not(.media-backdrop), .tile-video img, .repo-img img, .model-img img {
+  .media-img, .thumb img:not(.media-backdrop), .bt-frame img, .repo-img img, .model-img img {
     opacity: 1 !important;
     filter: none !important;
     transition: none !important;
