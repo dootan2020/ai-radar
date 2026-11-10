@@ -184,10 +184,13 @@ class Extension(unittest.TestCase):
 
 
 class LateStyles(unittest.TestCase):
-    def test_only_first_screen_styles_block_the_first_paint(self):
+    def test_no_stylesheet_blocks_the_first_paint(self):
+        # 11/11 round 3: the first screen's rules are inline (radar/critical_css.py, tests/test_lcp_css.py) and the
+        # complete files are preloaded, then applied by nap-kieu.js.
         head = (SITE / "index.html").read_text(encoding="utf-8").split("</head>")[0]
-        blocking = re.findall(r'<link rel="stylesheet" href="([^"]+)"', head)
-        self.assertEqual(blocking, ["tokens.css", "feed.css", "trang-nhat.css", "trang-msn.css", "menu-cong-cu.css"])
+        self.assertEqual(re.findall(r'<link rel="stylesheet" href="([^"]+)"', head), [])
+        preloaded = re.findall(r'<link rel="preload" href="([^"]+)" as="style">', head)
+        self.assertEqual(preloaded, ["tokens.css", "feed.css", "trang-nhat.css", "trang-msn.css", "menu-cong-cu.css"])
         feed = (SITE / "feed.js").read_text(encoding="utf-8")
         self.assertIn("const LATE_STYLES = ['arena.css', 'story.css'];", feed)
 

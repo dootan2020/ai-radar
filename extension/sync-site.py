@@ -64,6 +64,12 @@ def adapt_html(html):
     html = replace_pattern_once(html, r'<!-- lead picture: .*?<!-- /lead picture -->\n', '', re.S)
     html = replace_pattern_once(html, r'  <!-- lead slide: .*?<!-- /lead slide -->\n',
                                 '  <div class="msn-card msn-sk msn-lead"></div>\n', re.S)
+    # The new tab reads its files from the disk and draws its own top row, so it keeps the stylesheets as plain blocking
+    # links: no inline first-screen block (radar/critical_css.py) and no preloads for nap-kieu.js to apply.
+    html = replace_pattern_once(html, r'<!-- No stylesheet holds the first paint .*?-->\n', '', re.S)
+    html = replace_pattern_once(html, r'<!-- critical css: .*?<!-- /critical css -->\n', '', re.S)
+    for sheet in ('tokens.css', 'feed.css', 'trang-nhat.css', 'trang-msn.css', 'menu-cong-cu.css'):
+        html = replace_once(html, f'<link rel="preload" href="{sheet}" as="style">', f'<link rel="stylesheet" href="{sheet}">')
     html = replace_pattern_once(html, r'<!-- The snapshot is the page.s only content:.*?-->\n', '', re.S)
     html = replace_pattern_once(html, r'<link rel="preload" href="data/radar-window.json" as="fetch" crossorigin>\n', '')
     # The new tab reads the picture map from the live site first (adapt_feed), not from this file.
@@ -153,11 +159,13 @@ def adapt_feed(feed):
     feed = feed[:start] + "async function loadFirst() {\n  const snapshot = await cachedSnapshot();\n  if (!snapshot) throw new Error('No saved radar window yet');\n  return snapshot;\n}\n" + feed[end:]
     feed = replace_once(feed, 'if (j && j.schema_version === 2 && Array.isArray(j.stories)) return j;',
                         'if (j && j.schema_version === 2 && Array.isArray(j.stories)) return normalizeSnapshot(j);')
-    feed = replace_once(feed, "const [, data, picks, fieldData] = await Promise.all([loadImages(), loadFirst(), loadPicks(), loadFieldRankings()]);",
-                        'const [, data, picks] = await Promise.all([loadImages(), loadFirst(), loadPicks()]);\n    const fieldData = null;')
-    # The new tab keeps loading the complete snapshot when idle: its first snapshot comes from storage, not the network.
-    feed = replace_once(feed, '  whenReaderActs().then(loadComplete);',
-                        "  whenIdle().then(async () => {\n    if (!navigator.onLine) return;\n    await loadComplete();\n    FIELD_DATA = await loadFieldRankings();\n    if (FIELD_DATA && Array.isArray(FIELD_DATA.fields)) {\n      FIELD_MAP = new Map(FIELD_DATA.fields.map(f => [f.id, f]));\n      mergeFieldRepos();\n      rerenderRepos();\n    }\n  });")
+    # The new tab keeps loading the complete snapshot when idle, then the field rankings, and only when online: its
+    # first snapshot comes from storage, not the network.
+    # Its first draw never waits on the network either (the site waits for the field rankings when areas are saved).
+    feed = replace_once(feed, "const needsFieldsFirst = () => filter === 'code' || areas.size > 0;",
+                        "const needsFieldsFirst = () => false;   // the new tab draws from storage first")
+    feed = replace_once(feed, "  whenReaderActs().then(loadComplete);\n  if (!FIELD_DATA) whenIdle().then(() => loadFieldRankings()).then(applyFieldRankings);",
+                        "  whenIdle().then(async () => {\n    if (!navigator.onLine) return;\n    await loadComplete();\n    applyFieldRankings(await loadFieldRankings());\n  });")
     feed = replace_once(feed, '  if (complete || !D) return Promise.resolve();',
                         '  if (complete || !D || !navigator.onLine) return Promise.resolve();')
     feed = replace_once(feed, '  if (document.hidden || !D) return;',
@@ -209,7 +217,7 @@ def sync():
     for name in ('tokens.css', 'feed.css', 'arena.css', 'story.css', 'trang-nhat.css', 'trang-msn.css',
                  'thoi-tiet.js', 'the-lich.js', 'lich-am.js',
                  'faces.js', 'time-text.js', 'words.js', 'titles.js', 'editorial-headline.js',
-                 'calendar.js', 'worth-score.js', 'live.js', 'menu-cong-cu.css', 'nen.js', 'thanh-tren.js',
+                 'calendar.js', 'worth-score.js', 'live.js', 'menu-cong-cu.css', 'nen.js', 'thanh-tren.js', 'nap-kieu.js',
                  'feed-images.json', 'editor-picks.json',
                  'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'logo.svg', 'wordmark.svg', 'wordmark-dark.svg'):
         shutil.copyfile(SITE / name, EXT / name)

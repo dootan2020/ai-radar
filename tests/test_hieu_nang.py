@@ -119,6 +119,10 @@ process.stdout.write(JSON.stringify({
     wired: sizedSrc('https://media.wired.com/photos/abc/master/pass/x.jpg', 640), other: sizedSrc('https://example.org/full.jpg', 640),
     relative: sizedSrc('assets/ai/x.webp', 640) },
   card: mediaHTML(PICS.s0, 'card'),
+  wide: mediaHTML(PICS.s1, 'wide'),
+  cover: mediaHTML(PICS.s3, 'card'),
+  margin: CARD_PICTURE_MARGIN,
+  wokenCard: (() => { const c = fake(mediaHTML(PICS.s1, 'wide').match(/<img [^>]*>/)[0]); wakePicture(c); return c.attrs; })(),
 }));
 """
 
@@ -175,11 +179,36 @@ class LeadPictures(unittest.TestCase):
         self.assertIn('sizes="(max-width: 767px) 104px, (max-width: 1023px) 34vw, 25vw"', self.got["card"])
         self.assertIn('loading="lazy"', self.got["card"])
 
+    def test_card_pictures_wait_until_the_card_nears_the_screen(self):
+        # 11/11, live: a phone fetched the pictures of cards two and three screens down with the page (a 470 KB
+        # TechCrunch PNG at w=960), because a browser's own loading="lazy" reaches 1250 px past the screen. A card's
+        # picture now has no address until watchCardPictures sees it within about one screen.
+        for key in ("card", "wide", "cover"):
+            tag = self.got[key]
+            self.assertIsNone(re.search(r' (src|srcset)="', tag), tag)
+            self.assertIn(' data-src="', tag)
+            self.assertNotIn('fetchpriority="high"', tag)
+        self.assertIn('data-srcset="', self.got["wide"])
+        self.assertIn('width="640" height="360"', self.got["wide"])   # a card keeps its card widths, not the lead's
+        self.assertNotIn(" 1280w", self.got["wide"])
+        self.assertEqual(self.got["margin"], "600px 0px")
+        woken = self.got["wokenCard"]
+        self.assertIn("&w=640", woken["src"])
+        self.assertIn(" 960w", woken["srcset"])
+        feed = read(SITE / "feed.js").replace("\r\n", "\n")
+        init = feed[feed.index("async function init() {"):]
+        self.assertIn("  watchCardPictures();\n", init[:init.index("\n}\n")])
+        watch = feed[feed.index("function watchCardPictures() {"):]
+        watch = watch[:watch.index("\n}\n")]
+        self.assertIn("new IntersectionObserver(", watch)
+        self.assertIn("img.closest('.slide')", watch)   # slides stay with wakeSlides
+        self.assertIn(".observe(document.body, { childList: true, subtree: true })", watch)
+
 
 class FirstLoadBudget(unittest.TestCase):
     def test_the_complete_snapshot_waits_for_the_reader_on_the_site(self):
         feed = read(SITE / "feed.js")
-        self.assertIn("  whenReaderActs().then(loadComplete);\n}", feed.replace("\r\n", "\n"))
+        self.assertIn("  whenReaderActs().then(loadComplete);\n  if (!FIELD_DATA) whenIdle()", feed.replace("\r\n", "\n"))
         self.assertNotIn("whenIdle().then(loadComplete)", feed)
         acts = feed[feed.index("function whenReaderActs() {"):]
         types = re.search(r"const types = \[([^\]]*)\]", acts).group(1)

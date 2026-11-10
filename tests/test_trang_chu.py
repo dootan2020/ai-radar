@@ -45,7 +45,9 @@ class RootPageHeadTests(unittest.TestCase):
         digest = base64.b64encode(hashlib.sha256(scripts[0].encode("utf-8")).digest()).decode()
         self.assertIn(f"'sha256-{digest}'", self.csp["script-src"])
         self.assertNotIn("'unsafe-inline'", self.csp["script-src"])
-        self.assertLess(self.html.find("localStorage.getItem('air2:theme')"), self.html.find('<link rel="stylesheet"'))
+        # Before the first styles apply: the inline first-screen block (radar/critical_css.py).
+        self.assertLess(self.html.find("localStorage.getItem('air2:theme')"), self.html.find('<style>'))
+        self.assertGreater(self.html.find('<style>'), 0)
 
     def test_policy_is_closed_by_default(self):
         self.assertEqual(self.csp["default-src"], ["'self'"])

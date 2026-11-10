@@ -31,12 +31,11 @@
 <!-- Apply the reader's saved theme and "Tùy chỉnh" choices (thanh-tren.js) before first paint, so a dark-mode reader never
      sees a light flash and a chosen layout never jumps. -->
 <script src="theme.js"></script>
-<!-- Only what the first screen draws blocks it: arena.css (the rankings view) and story.css (the story and player
-     dialogs) are asked for by feed.js as it starts (LATE_STYLES), so they never hold the first paint. -->
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="feed.css">
 <link rel="stylesheet" href="trang-nhat.css">
 <link rel="stylesheet" href="trang-msn.css">
+<link rel="stylesheet" href="menu-cong-cu.css">
 <script type="module" src="nen.js"></script>
 <script type="module" src="feed.js"></script>
 <script type="module" src="newtab.js"></script>
@@ -58,7 +57,6 @@
 <link rel="modulepreload" href="lich-am.js">
 <link rel="modulepreload" href="editorial-headline.js">
 <link rel="modulepreload" href="worth-score.js">
- <link rel="stylesheet" href="menu-cong-cu.css">
  <script defer src="menu-cong-cu.js"></script>
 </head>
 <body>

@@ -7,6 +7,7 @@
    The cluster reads what the weather card painted (thoi-tiet.js onWeather): no request of its own. */
 import { onWeather } from './thoi-tiet.js';
 import { NEN_ON } from './nen.js';
+import { stylesReady } from './nap-kieu.js';
 
 export const KEY = 'halcyon:tuy-chinh';
 export const THEME_KEY = 'air2:theme';
@@ -183,4 +184,6 @@ export function startTopRow(doc = document) {
   doc.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) { e.preventDefault(); close(true); } });
 }
 
-if (typeof document !== 'undefined') startTopRow();
+// The top row is drawn once the page's complete stylesheets apply (nap-kieu.js): the first screen's inline rules cover
+// only what the HTML itself holds.
+if (typeof document !== 'undefined') stylesReady.then(startTopRow);
