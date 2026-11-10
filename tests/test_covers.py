@@ -1,5 +1,7 @@
 """Covers for stories without a picture: what they show, and that they only ever fill a gap."""
 
+from contextlib import redirect_stdout
+from io import StringIO
 import json
 from pathlib import Path
 import shutil
@@ -8,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -160,6 +163,46 @@ class PermanentPagesTest(unittest.TestCase):
         self.assertNotIn("assets/cover/", pruned)
         self.assertNotIn("story-media", pruned)
         self.assertIn("og-image.png", pruned)
+
+
+class RendererFailureTest(unittest.TestCase):
+    def test_retries_a_failed_drawing_once(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            calls = []
+
+            def fake_run(args, **kwargs):
+                calls.append(args)
+                result_path = Path(args[-1])
+                result_path.write_text(json.dumps({
+                    "covers": {} if len(calls) == 1 else {"r1": {"src": "assets/cover/r1.png"}},
+                    "failed": {"r1": "page never reported ready"} if len(calls) == 1 else {},
+                }), encoding="utf-8")
+                return subprocess.CompletedProcess(args, 0, "covers: done", "")
+
+            with mock.patch.object(covers.subprocess, "run", side_effect=fake_run):
+                result = covers.render([story("r1")], SOURCES, Path(tmp), node="node")
+
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(result["failed"], {})
+        self.assertIn("r1", result["covers"])
+
+    def test_reports_a_persistent_drawing_failure(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            calls = []
+
+            def fake_run(args, **kwargs):
+                calls.append(args)
+                Path(args[-1]).write_text(json.dumps({"covers": {}, "failed": {"r1": "page never reported ready"}}),
+                                          encoding="utf-8")
+                return subprocess.CompletedProcess(args, 0, "covers: 0 rendered, 1 failed", "")
+
+            output = StringIO()
+            with mock.patch.object(covers.subprocess, "run", side_effect=fake_run), redirect_stdout(output):
+                result = covers.render([story("r1")], SOURCES, Path(tmp), node="node")
+
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(result["failed"], {"r1": "page never reported ready"})
+        self.assertIn("Covers: r1 failed (attempt 2): page never reported ready", output.getvalue())
 
 
 def chrome_available():

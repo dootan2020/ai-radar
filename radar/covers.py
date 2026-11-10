@@ -23,6 +23,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 
 from radar.pipeline import write_atomic
 from radar.site_payload import complete_published_snapshot, write_site_snapshot
@@ -88,17 +89,38 @@ def render(stories, sources, cover_dir, node=None, timeout=RENDER_TIMEOUT):
         request, result = Path(tmp) / "request.json", Path(tmp) / "result.json"
         request.write_text(json.dumps({"stories": stories, "sources": sources, "out_dir": str(cover_dir)},
                                       ensure_ascii=False), encoding="utf-8")
-        try:
-            proc = subprocess.run([node, str(RENDERER), str(request), str(result)], cwd=ROOT, timeout=timeout,
-                                  capture_output=True, text=True, encoding="utf-8", errors="replace")
-        except (OSError, subprocess.TimeoutExpired) as error:
-            print(f"Covers: renderer did not finish ({error.__class__.__name__})")
-            return None
-        if proc.returncode != 0 or not result.is_file():
-            print(f"Covers: renderer failed (exit {proc.returncode}): {proc.stderr.strip()[-400:]}")
-            return None
-        print(proc.stdout.strip())
-        return json.loads(result.read_text(encoding="utf-8"))
+        deadline = time.monotonic() + timeout
+        last_result = None
+        for attempt in range(2):
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                break
+            result.unlink(missing_ok=True)
+            try:
+                proc = subprocess.run([node, str(RENDERER), str(request), str(result)], cwd=ROOT, timeout=remaining,
+                                      capture_output=True, text=True, encoding="utf-8", errors="replace")
+            except subprocess.TimeoutExpired:
+                print(f"Covers: renderer timed out after {timeout:g}s total (attempt {attempt + 1})")
+                break
+            except OSError as error:
+                print(f"Covers: renderer could not start ({error.__class__.__name__}, attempt {attempt + 1})")
+                continue
+            if proc.returncode != 0 or not result.is_file():
+                reason = re.sub(r"\s+", " ", re.sub(r"https?://\S+", "[url]", proc.stderr.strip()))[-400:]
+                print(f"Covers: renderer failed (exit {proc.returncode}, attempt {attempt + 1}): {reason or 'no result file'}")
+                continue
+            print(proc.stdout.strip())
+            try:
+                last_result = json.loads(result.read_text(encoding="utf-8"))
+            except (OSError, ValueError) as error:
+                print(f"Covers: renderer result unreadable ({error.__class__.__name__}, attempt {attempt + 1})")
+                continue
+            for sid, reason in last_result.get("failed", {}).items():
+                safe_reason = re.sub(r"\s+", " ", re.sub(r"https?://\S+", "[url]", str(reason)))[:400]
+                print(f"Covers: {sid} failed (attempt {attempt + 1}): {safe_reason}")
+            if not last_result.get("failed"):
+                break
+        return last_result
 
 
 def apply_covers(payload, site_root, node=None, history=()) -> dict:
