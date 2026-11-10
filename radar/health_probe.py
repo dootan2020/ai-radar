@@ -50,9 +50,38 @@ def local_asset(reference, parent):
 JS_TOKEN = re.compile(r'''//[^\n]*|/\*[\s\S]*?\*/|"(?:\\[\s\S]|[^"\\])*"|'(?:\\[\s\S]|[^'\\])*'|`(?:\\[\s\S]|[^`\\])*`|[\w$]+|[^\s]''')
 
 
+# A regular expression literal: a quote inside one (feed.js: /["\\]/g) must not open a string for the scanner, or every
+# later string and import is read out of phase (11/11: the dynamic import('./live.js') went unseen).
+JS_REGEX = re.compile(r"/(?:\\.|\[(?:\\.|[^\]\\\n])*\]|[^/\\\n\[])+/[a-z]*")
+# After these tokens a "/" starts a regular expression; after a name, a number or a closing bracket it divides.
+REGEX_AFTER = set("(,=:[!&|?{};+-*%<>~^") | {"return", "typeof", "case", "do", "else", "in", "of", "new", "delete",
+                                              "void", "throw", "yield", "await", "=>"}
+
+
+def js_tokens(source):
+    """Code tokens of a script (comments dropped), with regular expression literals read whole."""
+    pos, previous, n = 0, None, len(source)
+    while pos < n:
+        while pos < n and source[pos].isspace():
+            pos += 1
+        if pos >= n:
+            return
+        match = None
+        if source[pos] == "/" and not source.startswith(("//", "/*"), pos) and (previous is None or previous in REGEX_AFTER):
+            match = JS_REGEX.match(source, pos)
+        match = match or JS_TOKEN.match(source, pos)
+        token = match[0]
+        pos = match.end()
+        if match.re is JS_TOKEN and token.startswith(("//", "/*")):
+            continue
+        if token == "=" and source.startswith(">", pos):
+            token, pos = "=>", pos + 1
+        previous = token
+        yield token
+
+
 def module_references(source):
-    tokens = (match[0] for match in JS_TOKEN.finditer(source)
-              if not match[0].startswith(("//", "/*")))
+    tokens = js_tokens(source)
     previous, pending = None, None
     while True:
         token, pending = pending or next(tokens, ""), None

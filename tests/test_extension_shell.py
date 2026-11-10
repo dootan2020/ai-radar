@@ -33,9 +33,11 @@ class ExtensionShellTests(unittest.TestCase):
         late = feed[feed.index('whenIdle().then(async () => {'):]
         self.assertIn('await loadComplete();\n    applyFieldRankings(await loadFieldRankings());', late[:400])
         apply = feed[feed.index('function applyFieldRankings(fieldData) {'):]
-        self.assertIn('mergeFieldRepos();\n  rerenderRepos();', apply[:400])
+        self.assertIn('if (setFieldRankings(fieldData)) rerenderRepos();', apply[:400])
+        merge = feed[feed.index('function setFieldRankings(fieldData) {'):]
+        self.assertIn('mergeFieldRepos();', merge[:400])
         # The site's own idle load of the same file is not carried into the new tab (it loads it once, online only).
-        self.assertNotIn('.then(loadFieldRankings).then(applyFieldRankings)', feed)
+        self.assertNotIn('.then(applyFieldRankings)', feed)
         self.assertNotIn("if (filter === 'rankings') renderFeed();", feed)
 
     def test_manifest_and_local_code(self):
@@ -297,7 +299,7 @@ process.stdout.write(JSON.stringify(reloads));
         script = r'''
 import {readFileSync} from 'node:fs';
 const source = readFileSync(process.argv[1], 'utf8');
-const picksCode = source.split('async function loadPicks() {')[1].split('async function loadFieldRankings()')[0];
+const picksCode = source.split('async function loadPicks() {')[1].split('async function loadFieldRankings(')[0];
 const imagesCode = source.split('async function loadImages() {')[1].split('async function loadData(')[0];
 const urls = [...source.matchAll(/const (?:IMAGES_URL|PICKS_URL|PACKAGED_IMAGES_URL|PACKAGED_PICKS_URL) = '([^']+)'/g)].map(m => m[1]);
 let calls = [], offline = false;

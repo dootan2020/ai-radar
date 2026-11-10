@@ -329,9 +329,9 @@ async function loadPicks() {
    lists the first screen draws come from the snapshot itself. So the file never holds the first paint: it is asked for
    at low priority once the page has settled (sooner when the address opens that section), and the tile is drawn
    again when it arrives (applyFieldRankings). */
-async function loadFieldRankings() {
+async function loadFieldRankings(priority = 'low') {
   try {
-    const j = await fetchJSON(FIELD_RANKINGS_URL, { priority: 'low' });
+    const j = await fetchJSON(FIELD_RANKINGS_URL, { priority });
     if (j && Array.isArray(j.fields)) return j;
   } catch (e) {
     console.warn('field-rankings.json unavailable; area browsing falls back to snapshot repos', e);
@@ -2133,6 +2133,8 @@ function watchCardPictures() {
   new MutationObserver(records => { for (const r of records) for (const n of r.addedNodes) if (n.nodeType === 1) take(n); })
     .observe(document.body, { childList: true, subtree: true });
   take(document.body);
+  // A printed page shows every picture, also those of cards and slides the reader never came near.
+  addEventListener('beforeprint', () => document.querySelectorAll('img[data-src]').forEach(wakePicture));
 }
 /* Slides 2 and on carry their picture's address in data-src (and data-srcset) until a reader is about to see them:
    the carousel stacks every slide in one place, so a lazy picture there counts as on screen and loads at once (11/11:
@@ -3429,9 +3431,14 @@ async function init() {
   addEventListener('hashchange', routeWhenReady);
   route();
   try {
-    const [, data, picks] = await Promise.all([loadImages(), loadFirst(), loadPicks(), stylesReady]);
+    // A reader who saved work areas sees the repositories tile drawn from them (renderRepos), and the "Mã và mô hình"
+    // view offers them: for those two the field rankings are part of the first draw, so the tile never swaps lists.
+    const fieldsFirst = needsFieldsFirst();
+    const [, data, picks, , fieldData] = await Promise.all([loadImages(), loadFirst(), loadPicks(), stylesReady,
+      fieldsFirst ? loadFieldRankings('auto') : null]);
     RAW_PICKS = picks;
     ingest(data);
+    if (fieldData) setFieldRankings(fieldData);
     sortMode = store.get(K.sort, store.get(LEGACY.sort, 'worth')) === 'new' ? 'new' : 'worth';
     for (const [k, s] of Object.entries(SECTIONS)) LABELS['sec:' + k] = s.label;
     renderAll();
@@ -3467,12 +3474,16 @@ async function init() {
     applyFieldRankings(await loadFieldRankings());
   });
 }
-function applyFieldRankings(fieldData) {
-  if (!fieldData || !Array.isArray(fieldData.fields)) return;
+const needsFieldsFirst = () => false;   // the new tab draws from storage first
+function setFieldRankings(fieldData) {
+  if (!fieldData || !Array.isArray(fieldData.fields)) return false;
   FIELD_DATA = fieldData;
   FIELD_MAP = new Map(FIELD_DATA.fields.map(f => [f.id, f]));
   mergeFieldRepos();
-  rerenderRepos();
+  return true;
+}
+function applyFieldRankings(fieldData) {
+  if (setFieldRankings(fieldData)) rerenderRepos();
 }
 /* The complete snapshot (radar-ui.json, 180 KB) holds the stories past the first screen: it waits for the reader's first
    scroll, touch, key or click instead of loading with the page (11/11: it was a sixth of a phone's first load). Every

@@ -52,6 +52,10 @@ class InlineCriticalCss(unittest.TestCase):
             self.assertNotIn(later, style)
         # A dark-mode reader gets the dark tokens before any file arrives.
         self.assertIn('[data-theme="dark"]', style)
+        # A desktop reader on "Một phần" or "Đầu đề" keeps the search in place on a cold load: the rule names
+        # .web-search (the new tab's) beside .news-search (the site's), and one of them is enough.
+        self.assertIn(':is([data-layout="part"], [data-layout="head"]) .msn-top :is(.news-search, .web-search)'
+                      "{grid-row: 1 / -1; align-self: center;}", style)
 
     def test_selector_filter(self):
         names = {".a", ".b", "#x"}
@@ -61,6 +65,11 @@ class InlineCriticalCss(unittest.TestCase):
         self.assertTrue(critical_css.selector_matches("body", names))
         self.assertFalse(critical_css.selector_matches(".a .zzz", names))
         self.assertFalse(critical_css.selector_matches("#y", names))
+        # :is() and :where(): one alternative in the markup is enough; every alternative missing drops the rule.
+        self.assertTrue(critical_css.selector_matches(":is(.a, .zzz) .b", names))
+        self.assertTrue(critical_css.selector_matches(":where(.zzz, #x)", names))
+        self.assertFalse(critical_css.selector_matches(":is(.yyy, .zzz) .b", names))
+        self.assertFalse(critical_css.selector_matches(":is(.a, .b) .zzz", names))
         css = "@media (min-width: 768px){.a{color:red}.zzz{color:blue}}.zzz,.b{margin:0}@keyframes k{from{opacity:0}}"
         self.assertEqual(critical_css.filter_css(css, names),
                          "@media (min-width: 768px){.a{color:red}}.b{margin:0}@keyframes k{from{opacity:0}}")
@@ -78,13 +87,43 @@ class NoRenderBlockingStylesheet(unittest.TestCase):
         self.assertIn("style-src 'self' 'unsafe-inline';", csp)
         self.assertNotIn("nonce-", csp)
 
+    def test_style_loader_applies_loaded_failed_and_hung_sheets(self):
+        harness = r"""
+const { applyLateSheets, STYLES_WAIT_MS, stylesReady } = await import(process.argv[2]);
+await stylesReady;   // no document under node: settled at once
+const link = outcome => { const l = { outcome, listeners: {}, rel: 'preload',
+  addEventListener(t, f) { this.listeners[t] = f; } };
+  return new Proxy(l, { set(o, k, v) { o[k] = v; if (k === 'rel' && v === 'stylesheet' && o.outcome !== 'hang')
+    setTimeout(() => o.listeners[o.outcome === 'ok' ? 'load' : 'error'](), 5); return true; } }); };
+const doc = links => ({ querySelectorAll: () => links });
+const time = async (links, wait) => { const t = Date.now(); await applyLateSheets(doc(links), wait); return Date.now() - t; };
+const sheets = [link('ok'), link('error')];
+const okError = await time(sheets, 2000);
+const hung = await time([link('ok'), link('hang')], 150);
+const none = await time([], 2000);
+process.stdout.write(JSON.stringify({ wait: STYLES_WAIT_MS, okError, hung, none, rels: sheets.map(l => l.rel) }));
+"""
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "nap.mjs"
+            path.write_text(harness, encoding="utf-8", newline="\n")
+            run = subprocess.run(["node", str(path), (SITE / "nap-kieu.js").resolve().as_uri()], capture_output=True,
+                                 text=True, encoding="utf-8", timeout=60)
+        self.assertEqual(run.returncode, 0, run.stderr)
+        got = json.loads(run.stdout)
+        self.assertEqual(got["wait"], 4000)
+        self.assertEqual(got["rels"], ["stylesheet", "stylesheet"])
+        self.assertLess(got["okError"], 1000)        # a failed file does not hold the page
+        self.assertGreaterEqual(got["hung"], 140)    # a hung file holds it only until the wait runs out
+        self.assertLess(got["hung"], 1000)
+        self.assertLess(got["none"], 1000)           # the new tab, with no preloads, draws at once
+
     def test_drawing_waits_for_the_complete_files(self):
         nap = read(SITE / "nap-kieu.js")
         self.assertIn("link[rel=\"preload\"][as=\"style\"]", nap)
         self.assertIn("link.rel = 'stylesheet';", nap)
         feed = read(SITE / "feed.js")
         self.assertIn("import { stylesReady } from './nap-kieu.js';", feed)
-        self.assertIn("await Promise.all([loadImages(), loadFirst(), loadPicks(), stylesReady]);", feed)
+        self.assertIn("await Promise.all([loadImages(), loadFirst(), loadPicks(), stylesReady,", feed)
         top = read(SITE / "thanh-tren.js")
         self.assertIn("stylesReady.then(startTopRow);", top)
 
@@ -105,11 +144,22 @@ class RankingsNeverGateTheFirstPaint(unittest.TestCase):
         init = feed[feed.index("async function init() {"):]
         init = init[:init.index("\n}\n")]
         first = init[:init.index("renderAll();")]
-        self.assertNotIn("loadFieldRankings", first)
-        self.assertIn("(filter === 'code' ? Promise.resolve() : whenIdle()).then(loadFieldRankings).then(applyFieldRankings);", init)
-        self.assertIn("fetchJSON(FIELD_RANKINGS_URL, { priority: 'low' })", feed)
+        # Only the readers whose first screen draws from the field rankings wait for them: saved work areas (the
+        # repositories tile lists their pools) or the "Mã và mô hình" view. Everyone else gets them when idle.
+        self.assertIn("fieldsFirst ? loadFieldRankings('auto') : null]);", first)
+        self.assertIn("if (fieldData) setFieldRankings(fieldData);", first)
+        self.assertIn("const needsFieldsFirst = () => filter === 'code' || areas.size > 0;", feed)
+        self.assertIn("  if (!FIELD_DATA) whenIdle().then(() => loadFieldRankings()).then(applyFieldRankings);", init)
+        self.assertIn("async function loadFieldRankings(priority = 'low') {", feed)
+        self.assertIn("fetchJSON(FIELD_RANKINGS_URL, { priority })", feed)
         apply = feed[feed.index("function applyFieldRankings(fieldData) {"):]
-        self.assertIn("rerenderRepos();", apply[:apply.index("\n}\n")])
+        self.assertIn("if (setFieldRankings(fieldData)) rerenderRepos();", apply[:apply.index("\n}\n")])
+        tab = read(EXT / "feed.js")
+        self.assertIn("const needsFieldsFirst = () => false;", tab)
+
+    def test_a_printed_page_wakes_every_waiting_picture(self):
+        feed = read(SITE / "feed.js")
+        self.assertIn("addEventListener('beforeprint', () => document.querySelectorAll('img[data-src]').forEach(wakePicture));", feed)
 
     def test_the_first_screen_s_lists_do_not_come_from_the_field_rankings(self):
         # The trending lists the repositories tile draws are ids in the snapshot's own repos_meta.rankings, looked up in

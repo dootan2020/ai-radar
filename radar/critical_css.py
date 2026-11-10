@@ -84,8 +84,22 @@ def _strip_not(selector: str) -> str:
     return "".join(out)
 
 
+_ANY_OF = re.compile(r":(?:is|where)\(")
+
+
 def selector_matches(selector: str, names: set[str]) -> bool:
+    """True when the selector can match the markup: every class and id it names is there, except inside :not(), and
+    inside :is()/:where() one alternative is enough (an alternative may name a class only the new tab has)."""
     sel = re.sub(r"\[[^\]]*\]", "", _strip_not(selector))   # attribute values may hold dots
+    while (m := _ANY_OF.search(sel)):
+        depth, j = 1, m.end()
+        while j < len(sel) and depth:
+            depth += sel[j] == "("
+            depth -= sel[j] == ")"
+            j += 1
+        if not any(selector_matches(alt.strip(), names) for alt in _split_top(sel[m.end():j - 1], ",")):
+            return False
+        sel = sel[:m.start()] + sel[j:]
     return all(("." if m.group(0)[0] == "." else "#") + m.group(1) in names for m in _NAME_TOKEN.finditer(sel))
 
 

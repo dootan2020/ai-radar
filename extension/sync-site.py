@@ -161,7 +161,10 @@ def adapt_feed(feed):
                         'if (j && j.schema_version === 2 && Array.isArray(j.stories)) return normalizeSnapshot(j);')
     # The new tab keeps loading the complete snapshot when idle, then the field rankings, and only when online: its
     # first snapshot comes from storage, not the network.
-    feed = replace_once(feed, "  whenReaderActs().then(loadComplete);\n  (filter === 'code' ? Promise.resolve() : whenIdle()).then(loadFieldRankings).then(applyFieldRankings);",
+    # Its first draw never waits on the network either (the site waits for the field rankings when areas are saved).
+    feed = replace_once(feed, "const needsFieldsFirst = () => filter === 'code' || areas.size > 0;",
+                        "const needsFieldsFirst = () => false;   // the new tab draws from storage first")
+    feed = replace_once(feed, "  whenReaderActs().then(loadComplete);\n  if (!FIELD_DATA) whenIdle().then(() => loadFieldRankings()).then(applyFieldRankings);",
                         "  whenIdle().then(async () => {\n    if (!navigator.onLine) return;\n    await loadComplete();\n    applyFieldRankings(await loadFieldRankings());\n  });")
     feed = replace_once(feed, '  if (complete || !D) return Promise.resolve();',
                         '  if (complete || !D || !navigator.onLine) return Promise.resolve();')

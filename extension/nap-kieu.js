@@ -6,13 +6,20 @@
    drawn with only part of its rules. A page without such preloads (the extension's new tab, the other pages) gets a
    promise that is already settled. */
 
-function applyLateSheets(doc) {
+/* A file that never answers must not keep the page in its skeleton: after STYLES_WAIT_MS the page draws with what has
+   arrived (the inline first-screen rules at least) and the late file still applies when it comes. */
+export const STYLES_WAIT_MS = 4000;
+
+export function applyLateSheets(doc, waitMs = STYLES_WAIT_MS) {
   const links = [...doc.querySelectorAll('link[rel="preload"][as="style"]')];
-  return Promise.all(links.map(link => new Promise(done => {
+  const all = Promise.all(links.map(link => new Promise(done => {
     link.addEventListener('load', done, { once: true });
     link.addEventListener('error', done, { once: true });   // a missing file must not keep the page from drawing
     link.rel = 'stylesheet';
-  }))).then(() => undefined);
+  })));
+  let timer;
+  const late = new Promise(done => { timer = setTimeout(done, waitMs); });
+  return Promise.race([all, late]).then(() => { clearTimeout(timer); });
 }
 
 export const stylesReady = typeof document === 'undefined' ? Promise.resolve() : applyLateSheets(document);

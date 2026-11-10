@@ -208,7 +208,7 @@ class LeadPictures(unittest.TestCase):
 class FirstLoadBudget(unittest.TestCase):
     def test_the_complete_snapshot_waits_for_the_reader_on_the_site(self):
         feed = read(SITE / "feed.js")
-        self.assertIn("  whenReaderActs().then(loadComplete);\n  (filter === 'code'", feed.replace("\r\n", "\n"))
+        self.assertIn("  whenReaderActs().then(loadComplete);\n  if (!FIELD_DATA) whenIdle()", feed.replace("\r\n", "\n"))
         self.assertNotIn("whenIdle().then(loadComplete)", feed)
         acts = feed[feed.index("function whenReaderActs() {"):]
         types = re.search(r"const types = \[([^\]]*)\]", acts).group(1)

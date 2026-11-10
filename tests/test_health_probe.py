@@ -212,6 +212,33 @@ class HealthProbeTests(unittest.TestCase):
         checks = self.probe()
         self.assertFalse(checks["asset:missing.js"]["ok"])
 
+    def test_a_quote_inside_a_regular_expression_does_not_hide_later_imports(self):
+        source = ("const CSSq = s => String(s).replace(/[\"\\\\]/g, '\\\\$&');\n"
+                  "const half = a / 2, ratio = b / c; // a comment's 'quote\n"
+                  "const ok = /^https?:\\/\\//i.test(u) ? 'x' : \"y\";\n"
+                  "async function later() { await import('./live.js'); }\n")
+        self.assertEqual(list(health_probe.module_references(source)), ["./live.js"])
+        # The real feed: its dynamic import of the live counters is found.
+        feed = (ROOT / "site/feed.js").read_text(encoding="utf-8")
+        self.assertIn("./live.js", list(health_probe.module_references(feed)))
+
+    def test_style_preloads_are_the_homepage_s_stylesheets(self):
+        # The front page asks for its stylesheets as <link rel="preload" as="style"> (site/nap-kieu.js applies them).
+        self.assertNotIn(b'rel="stylesheet"', self.homepage.split(b"</head>")[0])
+        self.assertIn(b'<link rel="preload" href="feed.css" as="style">', self.homepage)
+        checks = self.probe()
+        self.assertTrue(checks["homepage"]["ok"], checks["homepage"])
+        for sheet in ("tokens.css", "feed.css", "trang-nhat.css", "trang-msn.css", "menu-cong-cu.css"):
+            self.assertTrue(checks[f"asset:{sheet}"]["ok"], sheet)
+        # A preload of another kind (a picture, a data file) is not counted as a stylesheet.
+        self.homepage = (b'<html><head><meta property="og:site_name" content="Halcyon">'
+                         b'<link rel="preload" href="lead.jpg" as="image"><script type="module" src="feed.js"></script>'
+                         b'</head><body><main id="top"><section id="feed-grid"></section></main></body></html>')
+        self.assertNotIn("asset:lead.jpg", self.probe())
+        failed = self.probe()["homepage"]
+        self.assertFalse(failed["ok"])
+        self.assertIn("primary stylesheet", failed["detail"])
+
     def test_modulepreload_discovers_dependencies_without_filename_extension(self):
         self.homepage += b'<link rel="modulepreload" href="parts/preloaded">'
         self.overrides.update({"parts/preloaded": b"import './child.mjs';",
