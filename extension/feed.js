@@ -2951,6 +2951,14 @@ function attachEvents() {
   $('#feed-filters').addEventListener('click', e => { const b = e.target.closest('.filter-chip'); if (b) setFilter(b.dataset.filter); });
   $('#feed-filters').addEventListener('scroll', e => markTabOverflow(e.currentTarget), { passive: true });
   if (document.fonts) document.fonts.ready.then(() => markTabOverflow($('#feed-filters')));
+  // The order control's pill takes its width from the chosen button, which grows when the site font arrives: follow
+  // the control's size, or the raised side stays narrower than its label (measured 9.6 px on a loaded machine).
+  if ('ResizeObserver' in window && $('#sort-switch')) {
+    new ResizeObserver(() => {
+      const sort = $('#sort-switch'), on = sort.querySelector('.sort-btn[aria-pressed="true"]:not(.sort-btn-compact)');
+      if (on && matchMedia('(min-width: 768px)').matches) glideTab(sort, on, { immediate: true });
+    }).observe($('#sort-switch'));
+  }
   // Tiles that lead to a view of their own ("Xem đủ 10 mô hình" opens "Xếp hạng").
   document.addEventListener('click', e => {
     const go = e.target instanceof Element && e.target.closest('[data-filter-go]');
