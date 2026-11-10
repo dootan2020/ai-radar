@@ -343,13 +343,39 @@ def neural_constellation(p, rng):
 
     # Synapses: each node links to its nearest neighbours; long jumps are dropped.
     from bpy_extras.object_utils import world_to_camera_view
+    scene = bpy.context.scene
+
+    def crosses_calm(a, b):
+        for t in (.1, .3, .5, .7, .9):
+            s = world_to_camera_view(scene, camera, a.lerp(b, t))
+            if interest(s.x, s.y, 0.0) < .14:
+                return True
+        return False
+
     edges = set()
     for i, (a, _) in enumerate(nodes):
         near = sorted(((a - b).length, j) for j, (b, _) in enumerate(nodes) if j != i)
         for distance, j in near[:rng.choice((2, 3, 3, 4))]:
-            middle = world_to_camera_view(bpy.context.scene, camera, (a + nodes[j][0]) / 2)
-            if distance < p['reach'] and interest(middle.x, middle.y, 0.0) > .12:  # keep links out of calm zones
+            if distance < p['reach'] and not crosses_calm(a, nodes[j][0]):
                 edges.add((min(i, j), max(i, j)))
+    # Drop orphan fragments: linked groups too small to read as part of a network.
+    parent = list(range(len(nodes)))
+
+    def root(k):
+        while parent[k] != k:
+            parent[k] = parent[parent[k]]
+            k = parent[k]
+        return k
+
+    for i, j in edges:
+        parent[root(i)] = root(j)
+    sizes = {}
+    for k in range(len(nodes)):
+        sizes[root(k)] = sizes.get(root(k), 0) + 1
+    keep = [k for k in range(len(nodes)) if sizes[root(k)] >= 8]
+    remap = {old: new for new, old in enumerate(keep)}
+    nodes = [nodes[k] for k in keep]
+    edges = {(remap[i], remap[j]) for i, j in edges if i in remap and j in remap}
 
     curve = bpy.data.curves.new('synapses', 'CURVE')
     curve.dimensions = '3D'
@@ -445,6 +471,9 @@ def silicon_die(p, rng):
     cell = .25
     nx, ny = int(2 * x_max / cell), int((y_max - y_min) / cell)
     taken = np.zeros((nx, ny), dtype=bool)
+    if p['cross']:  # a second routing channel crossing the die, far enough to sit in the upper part
+        j0, j1 = int((p['cross'] - channel * .7 - y_min) / cell), int((p['cross'] + channel * .7 - y_min) / cell)
+        taken[:, j0:j1 + 1] = True
 
     def index(x, y):
         return int((x + x_max) / cell), int((y - y_min) / cell)
@@ -467,7 +496,7 @@ def silicon_die(p, rng):
     for _ in range(4000):
         if placed >= p['macros']:
             break
-        w, d = rng.uniform(1.6, 4.8), rng.uniform(1.8, 6.5)
+        w, d = rng.uniform(1.6, 4.8) * p['macro_scale'], rng.uniform(1.8, 6.5) * p['macro_scale']
         sgn = rng.choice((-1, 1)) if rng.random() > .25 else side
         x0 = sgn * rng.uniform(channel + .5, 16.0)
         x0, x1 = (x0, x0 + sgn * w) if sgn > 0 else (x0 - w, x0)
@@ -560,12 +589,22 @@ def silicon_die(p, rng):
     graph.link(bsdf.outputs[0], output.inputs['Surface'])
     data_material = emission_material('data', pal['data'], pal['data_strength'])
 
-    cells.build('standard cells', cell_material, bevel=.006)
-    macros.build('memory macros', macro_material, bevel=.02)
-    traces.build('metal routing', metal_material, bevel=.004)
-    rails.build('power rails', metal_material, bevel=.01)
-    vias.build('vias', via_material, bevel=.003)
-    data_traces.build('signal lines', data_material)
+    die = [plane, cells.build('standard cells', cell_material, bevel=.006),
+           macros.build('memory macros', macro_material, bevel=.02),
+           traces.build('metal routing', metal_material, bevel=.004),
+           rails.build('power rails', metal_material, bevel=.01),
+           vias.build('vias', via_material, bevel=.003),
+           data_traces.build('signal lines', data_material)]
+    # Layout variation: the whole die turns about a point ahead of the camera,
+    # so the channel can run straight or diagonally across the frame.
+    pivot = bpy.data.objects.new('die pivot', None)
+    bpy.context.scene.collection.objects.link(pivot)
+    pivot.location = (0, 9.0, 0)
+    for obj in die:
+        if obj:
+            obj.parent = pivot
+            obj.location = obj.location - Vector((0, 9.0, 0))
+    pivot.rotation_euler = (0, 0, math.radians(p['layout_angle']))
 
     # Raking light from the side catches block edges without mirroring into flat tops.
     area_light('raking key', (side * 22.0, 14.0, 1.6), (0.0, 12.0, 0.0), p['key_energy'], 6.0, pal['key'])
@@ -618,7 +657,7 @@ def orbital_horizon(p, rng):
     land = graph.math('SUBTRACT', graph.math('MULTIPLY', land_noise.outputs['Fac'], 9.0), 4.5, clamp=True)
     cluster_noise = graph.new('ShaderNodeTexNoise', Scale=.22, Detail=4.0, Roughness=.5)
     graph.link(obj_coords, cluster_noise.inputs['Vector'])
-    cluster = graph.math('SUBTRACT', graph.math('MULTIPLY', cluster_noise.outputs['Fac'], 6.0), 3.1, clamp=True)
+    cluster = graph.math('SUBTRACT', graph.math('MULTIPLY', cluster_noise.outputs['Fac'], 6.0), 2.75, clamp=True)
     populated = graph.math('MULTIPLY', land, graph.math('POWER', cluster, 2.0))
     sunlit = facing_sun(graph)
     night = graph.math('SUBTRACT', 1.0, graph.math('MULTIPLY', graph.math('ADD', sunlit, .06), 9.0, clamp=True),
@@ -633,7 +672,7 @@ def orbital_horizon(p, rng):
     city = graph.math('MULTIPLY', city, graph.math('POWER', city_size.outputs['Red'], 2.0))
     network = graph.new('ShaderNodeTexVoronoi', feature='DISTANCE_TO_EDGE', Scale=.9, Randomness=.85)
     graph.link(obj_coords, network.inputs['Vector'])
-    wires = graph.math('SUBTRACT', 1.0, graph.math('MULTIPLY', network.outputs['Distance'], 110.0), clamp=True)
+    wires = graph.math('SUBTRACT', 1.0, graph.math('MULTIPLY', network.outputs['Distance'], 55.0), clamp=True)
     city_light = graph.scale(lin(pal['city'])[:3], graph.math('MULTIPLY', city, pal['city_strength']))
     wire_light = graph.scale(lin(pal['wire'])[:3], graph.math('MULTIPLY', wires, pal['wire_strength']))
     # Lights fade toward the camera so the lower half (under the news cards) stays quiet.
@@ -689,6 +728,37 @@ def orbital_horizon(p, rng):
     sun_obj = link_object('sun', sun_data)
     sun_obj.rotation_euler = (-sun).to_track_quat('-Z', 'Y').to_euler()
 
+    # Data links: thin arcs of light hopping between city clusters near the horizon.
+    arcs = bpy.data.curves.new('data links', 'CURVE')
+    arcs.dimensions = '3D'
+    arcs.bevel_depth = .012
+    arcs.bevel_resolution = 1
+    forward = Vector((0, math.cos(pitch), 0)).normalized()
+    hubs = []
+    for _ in range(p['links'] * 2):
+        distance = rng.uniform(15.0, 28.0)
+        azimuth = rng.uniform(-.75, .75)
+        direction = Vector((math.sin(azimuth), math.cos(azimuth), 0))
+        ground = Vector((direction.x * distance, direction.y * distance, 0))
+        hubs.append((ground + Vector((0, 0, radius + altitude))).normalized() * (radius + .02))
+    for k in range(p['links']):
+        a = hubs[k]
+        b = min((h for h in hubs if h is not a), key=lambda h: (h - a).length)
+        if not 2.0 < (a - b).length < 9.0:
+            continue
+        spline = arcs.splines.new('POLY')
+        steps = 40
+        spline.points.add(steps)
+        peak = (a - b).length * rng.uniform(.025, .045)
+        for i in range(steps + 1):
+            t = i / steps
+            point = a.lerp(b, t)
+            point = point.normalized() * (radius + .02 + peak * 4 * t * (1 - t))
+            spline.points[i].co = (point.x, point.y, point.z, 1)
+    arcs.materials.append(emission_material('data link', pal['wire'], pal['link_strength']))
+    link_object('data links', arcs)
+    del forward
+
     # A satellite train crossing the upper side third: a short, straight line of lights.
     train_material = emission_material('satellites', '#F2F6FF', 9.0)
     dot = sphere_mesh('satellite', 10, 5)
@@ -701,13 +771,454 @@ def orbital_horizon(p, rng):
         obj.location = screen_to_world(camera, u0 + du * k, v0 + dv * k + .0004 * k * k * .1, 60.0)
         obj.scale = (.032 * (1 - k / (p['satellites'] * 1.6)),) * 3
     glow(threshold=.85, size=8, mix=-.5)
-    return dict(dip_degrees=round(math.degrees(dip), 2), pitch_degrees=round(math.degrees(pitch), 2))
+    return dict(dip_degrees=round(math.degrees(dip), 2), pitch_degrees=round(math.degrees(pitch), 2),
+                links=len(arcs.splines))
+
+
+def plain_world(colour, strength=1.0):
+    world = bpy.data.worlds.new('plain')
+    world.use_nodes = True
+    world.node_tree.nodes['Background'].inputs['Color'].default_value = lin(colour)
+    world.node_tree.nodes['Background'].inputs['Strength'].default_value = strength
+    bpy.context.scene.world = world
+    return world
+
+
+def principled_material(name, colour, metallic=0.0, roughness=.4, **extra):
+    material, graph, output = new_material(name)
+    values = {'Base Color': lin(colour), 'Metallic': metallic, 'Roughness': roughness}
+    values.update(extra)
+    bsdf = principled(graph, **values)
+    graph.link(bsdf.outputs[0], output.inputs['Surface'])
+    return material
+
+
+def random_emission_material(name, colour_a, colour_b, low, high):
+    """Emission whose colour and strength vary per object (Object Info Random)."""
+    material, graph, output = new_material(name)
+    info = graph.new('ShaderNodeObjectInfo')
+    colour = graph.ramp(info.outputs['Random'], [(0.0, lin(colour_a)), (1.0, lin(colour_b))])
+    emission = graph.new('ShaderNodeEmission')
+    graph.link(colour, emission.inputs['Color'])
+    graph.link(graph.math('ADD', graph.math('MULTIPLY', info.outputs['Random'], high - low), low),
+               emission.inputs['Strength'])
+    graph.link(emission.outputs[0], output.inputs['Surface'])
+    return material
+
+
+def data_centre(p, rng):
+    """An aisle between server racks in a dark hall: rows of status LEDs on the
+    side thirds, light shafts in thin haze, a quiet ceiling over the aisle."""
+    pal = p['palette']
+    side = p['side']
+    aisle = p['aisle']
+    eye_z = p['eye_z']
+    camera = make_camera((side * p['eye_x'], -1.5, eye_z), (side * p['look_x'], 30.0, eye_z + p['tilt']),
+                         lens=p['lens'], roll=p['roll'])
+    plain_world(pal['space'])
+    length, rack_w, rack_h, depth = 44.0, .6, 2.25, 1.1
+    bodies, panels, vents, leds_a, leds_b, strips, trays = (Boxes() for _ in range(7))
+    for sgn in (-1, 1):
+        y = -2.0 + rng.uniform(0, .3)
+        while y < length:
+            if rng.random() < p['gap_chance']:  # a cross aisle
+                y += rng.uniform(1.6, 2.4)
+                continue
+            front, back = sgn * aisle, sgn * (aisle + depth)
+            x0, x1 = min(front, back), max(front, back)
+            bodies.add(x0, x1, y, y + rack_w - .015, 0, rack_h)
+            z = .12
+            while z < rack_h - .12:
+                unit = rng.choice((1, 1, 1, 2, 2, 4)) * .0445
+                if rng.random() < p['fill']:
+                    proud = sgn * (aisle - .012), sgn * aisle
+                    target = vents if unit > .09 else panels
+                    target.add(min(proud), max(proud), y + .025, y + rack_w - .04, z + .003, z + unit - .003)
+                    lx = sgn * (aisle - .016), sgn * (aisle - .011)
+                    for _ in range(rng.randint(1, 4)):
+                        ly = y + .05 + rng.random() * (rack_w - .14)
+                        bank = leds_a if rng.random() < p['led_mix'] else leds_b
+                        bank.add(min(lx), max(lx), ly, ly + .011, z + unit * .45, z + unit * .45 + .007)
+                    if rng.random() < .06:
+                        strips.add(min(lx), max(lx), y + .05, y + rack_w - .1, z + unit * .3, z + unit * .3 + .004)
+                z += unit
+            y += rack_w
+        trays.add(sgn * (aisle + .25) - .2, sgn * (aisle + .25) + .2, -2, length, 2.62, 2.7)
+        trays.add(sgn * (aisle + .75) - .12, sgn * (aisle + .75) + .12, -2, length, 2.85, 2.9)
+
+    bodies.build('racks', principled_material('rack', pal['rack'], .55, .38), bevel=.006)
+    panels.build('server faces', principled_material('server', pal['panel'], .4, .3), bevel=.002)
+    vent_material, graph, output = new_material('vent')
+    geometry = graph.new('ShaderNodeNewGeometry')
+    holes = graph.new('ShaderNodeTexBrick', Scale=60.0, offset=.5, **{'Mortar Size': .35, 'Brick Width': .5,
+                      'Row Height': .25})
+    graph.link(geometry.outputs['Position'], holes.inputs['Vector'])
+    colour = graph.ramp(holes.outputs['Fac'], [(0.0, lin(pal['panel'])), (1.0, lin('#020203'))])
+    bsdf = principled(graph, Metallic=.5, Roughness=.35)
+    graph.link(colour, bsdf.inputs['Base Color'])
+    graph.link(bsdf.outputs[0], output.inputs['Surface'])
+    vents.build('vented units', vent_material, bevel=.002)
+    leds_a.build('leds a', emission_material('led a', pal['led_a'], pal['led_strength']))
+    leds_b.build('leds b', emission_material('led b', pal['led_b'], pal['led_strength'] * .8))
+    strips.build('status strips', emission_material('strip', pal['led_a'], pal['led_strength'] * .5))
+    trays.build('cable trays', principled_material('tray', '#2A2E35', .8, .45), bevel=.01)
+
+    floor_material, graph, output = new_material('floor')
+    geometry = graph.new('ShaderNodeNewGeometry')
+    tiles = graph.new('ShaderNodeTexBrick', Scale=1.66, offset=0.0, **{'Mortar Size': .01, 'Brick Width': 1.0,
+                      'Row Height': .5, 'Color1': lin(pal['floor']), 'Color2': lin(pal['floor']),
+                      'Mortar': lin('#050506')})
+    graph.link(geometry.outputs['Position'], tiles.inputs['Vector'])
+    bsdf = principled(graph, Metallic=.0, Roughness=p['floor_roughness'])
+    graph.link(tiles.outputs['Color'], bsdf.inputs['Base Color'])
+    graph.link(bsdf.outputs[0], output.inputs['Surface'])
+    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, length / 2, 0))
+    floor = bpy.context.object
+    floor.scale = (30, length + 8, 1)
+    floor.data.materials.append(floor_material)
+    ceiling = Boxes()
+    ceiling.add(-15, 15, -4, length + 2, 3.2, 3.25)
+    ceiling.add(-15, 15, length + 1.5, length + 2, 0, 3.2)  # end wall
+    ceiling.build('ceiling', principled_material('ceiling', '#08090B', 0, .8))
+
+    haze, graph, output = new_material('haze')
+    volume = graph.new('ShaderNodeVolumePrincipled', Density=p['haze'], Anisotropy=.55)
+    volume.inputs['Color'].default_value = lin(pal['haze'])
+    graph.link(volume.outputs[0], output.inputs['Volume'])
+    room = Boxes()
+    room.add(-aisle - .02, aisle + .02, -3, length + 1, .01, 3.15)
+    room.build('haze', haze)
+
+    for k, y in enumerate(p['shafts']):
+        data = bpy.data.lights.new(f'shaft {k}', 'SPOT')
+        data.energy = p['shaft_energy']
+        data.spot_size = math.radians(28)
+        data.spot_blend = .6
+        data.shadow_soft_size = .05
+        data.color = lin(pal['shaft'])[:3]
+        light = link_object(f'shaft {k}', data)
+        light.location = (side * rng.uniform(-.3, .3), y, 3.1)
+        light.rotation_euler = (0, 0, 0)
+    area_light('far glow', (0, length + .5, 1.4), (0, 0, 1.2), p['shaft_energy'] * .25, 2.0, pal['shaft'])
+    area_light('aisle fill', (0, -1.0, 2.9), (0, 8.0, 1.2), p['shaft_energy'] * .5, 2.5, pal['shaft'])
+
+    camera.data.dof.use_dof = True
+    camera.data.dof.focus_distance = p['focus']
+    camera.data.dof.aperture_fstop = 1.0
+    glow(threshold=1.0, size=7, mix=-.55)
+    return dict(racks=len(bodies.verts) // 8, leds=(len(leds_a.verts) + len(leds_b.verts)) // 8)
+
+
+def fibre_optics(p, rng):
+    """Bundles of optical fibre sweeping up from out of frame and fanning out,
+    each strand ending in a point of light, against a deep-space backdrop."""
+    pal = p['palette']
+    side = p['side']
+    camera = make_camera((0, 0, 0), (0, 10, 0), lens=50, roll=p['roll'])
+    space_world(p, star_amount=.35, nebula_amount=.6)
+    curve = bpy.data.curves.new('fibres', 'CURVE')
+    curve.dimensions = '3D'
+    curve.bevel_depth = .0016
+    curve.bevel_resolution = 1
+    tips = []
+    for b, (sgn, share) in enumerate(((side, 1.0), (-side, p['second_share']))):
+        if share <= 0:
+            continue
+        base = screen_to_world(camera, .5 + sgn * p['base_u'], -.25, 7.0)
+        centre_u, centre_v = .5 + sgn * p['fan_u'], p['fan_v']
+        count = int(p['fibres'] * share)
+        made = 0
+        tries = 0
+        while made < count and tries < count * 30:
+            tries += 1
+            u = centre_u + rng.gauss(0, p['spread'] * .9)
+            v = centre_v + rng.gauss(0, p['spread'] * .7)
+            if float(interest(u, v, 0.0)) < .2 or not (0 <= u <= 1 and v <= 1.04):
+                continue
+            depth = rng.uniform(5.0, 9.0)
+            tip = screen_to_world(camera, u, v, depth)
+            start = base + Vector((rng.gauss(0, .05), rng.gauss(0, .05), rng.gauss(0, .05)))
+            c1 = start + Vector((0, 0, 1.0)) * (tip - start).length * .45 + Vector((0, rng.gauss(0, .1), 0))
+            c2 = tip - (tip - start).normalized() * .6 + Vector((0, 0, -.8))
+            spline = curve.splines.new('POLY')
+            steps = 28
+            spline.points.add(steps)
+            for i in range(steps + 1):
+                t = i / steps
+                q = (1 - t) ** 3 * start + 3 * (1 - t) ** 2 * t * c1 + 3 * (1 - t) * t ** 2 * c2 + t ** 3 * tip
+                spline.points[i].co = (q.x, q.y, q.z, 1)
+            tips.append((tip, (tip - c2).normalized()))
+            made += 1
+    material, graph, output = new_material('fibre')
+    geometry = graph.new('ShaderNodeNewGeometry')
+    height = graph.new('ShaderNodeSeparateXYZ')
+    graph.link(geometry.outputs['Position'], height.inputs[0])
+    top = max(t.z for t, _ in tips) if tips else 1.0
+    bottom = min(t.z for t, _ in tips) - 4.0 if tips else -3.0
+    rise = graph.new('ShaderNodeMapRange', **{'From Min': bottom, 'From Max': top, 'To Min': 0.0, 'To Max': 1.0})
+    graph.link(height.outputs['Z'], rise.inputs['Value'])
+    colour = graph.ramp(rise.outputs[0], [(0.0, lin(pal['fibre_low'])), (1.0, lin(pal['fibre_high']))])
+    emission = graph.new('ShaderNodeEmission')
+    graph.link(colour, emission.inputs['Color'])
+    graph.link(graph.math('MULTIPLY', graph.math('POWER', rise.outputs[0], 3.0), pal['fibre_strength']),
+               emission.inputs['Strength'])
+    glass = principled(graph, **{'Base Color': lin('#0A0C12'), 'Roughness': .2, 'Metallic': .3})
+    mix = graph.new('ShaderNodeAddShader')
+    graph.link(emission.outputs[0], mix.inputs[0])
+    graph.link(glass.outputs[0], mix.inputs[1])
+    graph.link(mix.outputs[0], output.inputs['Surface'])
+    curve.materials.append(material)
+    link_object('fibres', curve)
+    tip_mesh = sphere_mesh('tip', 12, 6)
+    tip_mesh.materials.append(random_emission_material('tip', pal['tip_a'], pal['tip_b'], 6.0, 22.0))
+    for k, (tip, _) in enumerate(tips):
+        obj = link_object(f'tip {k}', tip_mesh)
+        obj.location = tip
+        obj.scale = (rng.uniform(.006, .011),) * 3
+    area_light('rim', (side * 3, 12, 4), (0, 6, 0), 300, 4, pal['fibre_high'])
+    camera.data.dof.use_dof = True
+    camera.data.dof.focus_distance = p['focus']
+    camera.data.dof.aperture_fstop = .55
+    glow(threshold=.9, size=8, mix=-.4)
+    return dict(fibres=len(tips))
+
+
+def polytope_geometry(kind):
+    """Vertices, edges and 2-faces of a regular 4D polytope."""
+    import itertools
+    phi = (1 + 5 ** .5) / 2
+    if kind == '8-cell':
+        verts = [Vector(v) for v in itertools.product((-1, 1), repeat=4)]
+        faces = []
+        for i, j in itertools.combinations(range(4), 2):
+            others = [k for k in range(4) if k not in (i, j)]
+            for fixed in itertools.product((-1, 1), repeat=2):
+                corners = []
+                for a, b in ((-1, -1), (1, -1), (1, 1), (-1, 1)):
+                    v = [0] * 4
+                    v[i], v[j], v[others[0]], v[others[1]] = a, b, fixed[0], fixed[1]
+                    corners.append(verts.index(Vector(v)))
+                faces.append(corners)
+    else:
+        points = set()
+        if kind == '24-cell':
+            for i, j in itertools.combinations(range(4), 2):
+                for a, b in itertools.product((-1, 1), repeat=2):
+                    v = [0.0] * 4
+                    v[i], v[j] = a, b
+                    points.add(tuple(v))
+        elif kind == '600-cell':
+            for i in range(4):
+                for a in (-2.0, 2.0):
+                    v = [0.0] * 4
+                    v[i] = a
+                    points.add(tuple(v))
+            points.update(itertools.product((-1.0, 1.0), repeat=4))
+            even = [q for q in itertools.permutations(range(4))
+                    if sum(1 for x in range(4) for y in range(x + 1, 4) if q[x] > q[y]) % 2 == 0]
+            for signs in itertools.product((-1, 1), repeat=3):
+                base = (signs[0] * phi, signs[1] * 1.0, signs[2] / phi, 0.0)
+                for q in even:
+                    points.add(tuple(round(base[q[k]], 9) for k in range(4)))
+        verts = [Vector(v) for v in sorted(points)]
+        faces = None
+    distances = sorted({round((a - b).length, 6) for a, b in itertools.combinations(verts, 2)})
+    edge = distances[0]
+    edges = [(i, j) for i, j in itertools.combinations(range(len(verts)), 2)
+             if abs((verts[i] - verts[j]).length - edge) < 1e-4]
+    if faces is None:
+        adjacent = {i: set() for i in range(len(verts))}
+        for i, j in edges:
+            adjacent[i].add(j)
+            adjacent[j].add(i)
+        faces = [[i, j, k] for i, j in edges for k in adjacent[i] & adjacent[j] if k > j]
+    radius = max(v.length for v in verts)
+    return [v / radius for v in verts], edges, faces
+
+
+def projected_polytope(p, rng):
+    """A regular 4D polytope, turned in four dimensions and projected into 3D:
+    chrome edges and thin iridescent panels, studio-lit against deep space."""
+    pal = p['palette']
+    side = p['side']
+    camera = make_camera((0, 0, 0), (0, 10, 0), lens=40, roll=p['roll'])
+    space_world(p, star_amount=.7, nebula_amount=.7)
+    chrome = principled_material('chrome', pal['metal'], 1.0, .14)
+    panel, graph, output = new_material('panel')
+    film = principled(graph, **{'Base Color': lin(pal['panel']), 'Metallic': .0, 'Roughness': .08,
+                                'Thin Film Thickness': pal['film'], 'Thin Film IOR': 1.33})
+    clear = graph.new('ShaderNodeBsdfTransparent')
+    mix = graph.new('ShaderNodeMixShader')
+    mix.inputs['Fac'].default_value = p['panel_opacity']
+    graph.link(clear.outputs[0], mix.inputs[1])
+    graph.link(film.outputs[0], mix.inputs[2])
+    graph.link(mix.outputs[0], output.inputs['Surface'])
+    joint = sphere_mesh('joint', 16, 8)
+    joint.materials.append(chrome)
+    shapes = [(p['polytope'], .5 + side * p['place_u'], p['place_v'], p['size'], p['angles'])]
+    if p['echo']:
+        shapes.append((p['echo'], .5 - side * .36, .82, p['size'] * .42, p['echo_angles']))
+    stats = {}
+    for n, (kind, u, v, size, angles) in enumerate(shapes):
+        verts, edges, faces = polytope_geometry(kind)
+        planes = ((0, 3), (1, 3), (2, 3), (0, 1), (1, 2))
+        turned = []
+        for vert in verts:
+            q = list(vert)
+            for (a, b), angle in zip(planes, angles):
+                c, s = math.cos(angle), math.sin(angle)
+                q[a], q[b] = c * q[a] - s * q[b], s * q[a] + c * q[b]
+            w_scale = 2.6 / (2.6 - q[3])
+            turned.append(Vector((q[0], q[1], q[2])) * w_scale)
+        reach = max(t.length for t in turned)
+        centre = screen_to_world(camera, u, v, 12.0)
+        points = [centre + t * (size / reach) for t in turned]
+        tube = size * (.012 if kind == '600-cell' else .02)
+        curve = bpy.data.curves.new(f'edges {n}', 'CURVE')
+        curve.dimensions = '3D'
+        curve.bevel_depth = tube
+        curve.bevel_resolution = 3
+        for i, j in edges:
+            spline = curve.splines.new('POLY')
+            spline.points.add(1)
+            spline.points[0].co = tuple(points[i]) + (1,)
+            spline.points[1].co = tuple(points[j]) + (1,)
+        curve.materials.append(chrome)
+        link_object(f'edges {n}', curve)
+        mesh_object(f'panels {n}', [tuple(x) for x in points], faces, panel)
+        for k, point in enumerate(points):
+            obj = link_object(f'joint {n}.{k}', joint)
+            obj.location = point
+            obj.scale = (tube * 1.9,) * 3
+        stats[kind] = dict(vertices=len(verts), edges=len(edges), faces=len(faces))
+    target = screen_to_world(camera, .5 + side * p['place_u'], p['place_v'], 12.0)
+    area_light('key', target + Vector((side * 6, -6, 6)), target, p['key_energy'], 5, pal['key'])
+    area_light('rim', target + Vector((-side * 5, 8, 3)), target, p['key_energy'] * 1.4, 4, pal['rim'])
+    area_light('under', target + Vector((0, -3, -7)), target, p['key_energy'] * .25, 6, pal['rim'])
+    camera.data.dof.use_dof = True
+    camera.data.dof.focus_distance = 12.0
+    camera.data.dof.aperture_fstop = 1.4
+    glow(threshold=1.1, size=7, mix=-.6)
+    return stats
+
+
+def value_noise(rng, shape, cells):
+    """Smooth random field on a grid (bicubic-free: smoothstep-blended lattice)."""
+    ny, nx = shape
+    lattice = np.array([[rng.random() for _ in range(cells + 2)] for _ in range(cells + 2)])
+    y = np.linspace(0, cells, ny)
+    x = np.linspace(0, cells, nx)
+    yy, xx = np.meshgrid(y, x, indexing='ij')
+    y0, x0 = np.floor(yy).astype(int), np.floor(xx).astype(int)
+    ty, tx = yy - y0, xx - x0
+    ty, tx = ty * ty * (3 - 2 * ty), tx * tx * (3 - 2 * tx)
+    a = lattice[y0, x0] * (1 - tx) + lattice[y0, x0 + 1] * tx
+    b = lattice[y0 + 1, x0] * (1 - tx) + lattice[y0 + 1, x0 + 1] * tx
+    return a * (1 - ty) + b * ty
+
+
+def voxel_terrain(p, rng):
+    """A landscape built from voxels: ridges of stacked cubes rise on the side
+    thirds, a quiet valley runs to the horizon, data beacons glow on the peaks."""
+    pal = p['palette']
+    side = p['side']
+    vox = .5
+    nx, ny = 150, 130
+    x_min, y_min = -nx * vox / 2, -4.0
+    field = (value_noise(rng, (ny, nx), 6) * .6 + value_noise(rng, (ny, nx), 14) * .3
+             + value_noise(rng, (ny, nx), 30) * .1)
+    xs = x_min + (np.arange(nx) + .5) * vox
+    ys = y_min + (np.arange(ny) + .5) * vox
+    yy, xx = np.meshgrid(ys, xs, indexing='ij')
+    lean = 1 + side * p['lean'] * np.tanh(xx / 12)
+    valley = smoothstep(p['valley'], p['valley'] + 9, np.abs(xx - side * 1.5))
+    near = smoothstep(-2, 16, yy)
+    heights = (.4 + field ** 1.6 * p['relief'] * (.08 + .92 * valley) * lean * (.2 + .8 * near))
+    levels = np.maximum(1, np.round(heights / vox)).astype(int)
+    columns, beacons = Boxes(), Boxes()
+    for j in range(ny):
+        for i in range(nx):
+            x0, y0 = x_min + i * vox, y_min + j * vox
+            top = levels[j, i] * vox
+            columns.add(x0, x0 + vox, y0, y0 + vox, 0, top)
+            if levels[j, i] >= p['beacon_level'] and rng.random() < p['beacons']:
+                beacons.add(x0 + .06, x0 + vox - .06, y0 + .06, y0 + vox - .06, top, top + vox * .9)
+    eye = Vector((side * p['eye_x'], -6.0, p['eye_z']))
+    camera = make_camera(eye, (side * p['look_x'], 36.0, p['look_z']), lens=30, roll=p['roll'])
+
+    terrain, graph, output = new_material('voxels')
+    geometry = graph.new('ShaderNodeNewGeometry')
+    xyz = graph.new('ShaderNodeSeparateXYZ')
+    graph.link(geometry.outputs['Position'], xyz.inputs[0])
+    normal = graph.new('ShaderNodeSeparateXYZ')
+    graph.link(geometry.outputs['Normal'], normal.inputs[0])
+    seam = graph.math('LESS_THAN', graph.math('FRACT', graph.math('DIVIDE', xyz.outputs['Z'], vox)), .05)
+    up = graph.math('GREATER_THAN', normal.outputs['Z'], .5)
+    altitude = graph.new('ShaderNodeMapRange', **{'From Min': 0.0, 'From Max': p['relief'] + .5,
+                                                  'To Min': 0.0, 'To Max': 1.0})
+    graph.link(xyz.outputs['Z'], altitude.inputs['Value'])
+    side_colour = graph.ramp(altitude.outputs[0], [(0.0, lin(pal['low'])), (1.0, lin(pal['high']))])
+    top_colour = graph.ramp(altitude.outputs[0], [(0.0, lin(pal['top_low'])), (1.0, lin(pal['top_high']))])
+    face = graph.new('ShaderNodeMix', data_type='RGBA')
+    graph.link(up, face.inputs[0])
+    graph.link(side_colour, face.inputs[6])
+    graph.link(top_colour, face.inputs[7])
+    seamed = graph.new('ShaderNodeMix', data_type='RGBA')
+    graph.link(graph.math('MULTIPLY', seam, graph.math('SUBTRACT', 1.0, up)), seamed.inputs[0])
+    graph.link(face.outputs[2], seamed.inputs[6])
+    seamed.inputs[7].default_value = lin('#020203')
+    bsdf = principled(graph, Roughness=.55, Metallic=.1)
+    graph.link(seamed.outputs[2], bsdf.inputs['Base Color'])
+    # Aerial perspective: surfaces fade into the haze colour with distance.
+    distance = graph.new('ShaderNodeVectorMath', operation='DISTANCE')
+    graph.link(geometry.outputs['Position'], distance.inputs[0])
+    distance.inputs[1].default_value = eye
+    fog = graph.math('SUBTRACT', 1.0, graph.math('EXPONENT', graph.math('MULTIPLY', distance.outputs['Value'],
+                                                                        -1.0 / p['fog'])))
+    haze = graph.new('ShaderNodeEmission', Color=lin(pal['fog']), Strength=pal['fog_strength'])
+    mixed = graph.new('ShaderNodeMixShader')
+    graph.link(fog, mixed.inputs['Fac'])
+    graph.link(bsdf.outputs[0], mixed.inputs[1])
+    graph.link(haze.outputs[0], mixed.inputs[2])
+    graph.link(mixed.outputs[0], output.inputs['Surface'])
+    columns.build('voxel columns', terrain, bevel=.025)
+    beacons.build('beacons', emission_material('beacon', pal['beacon'], pal['beacon_strength']))
+
+    world = bpy.data.worlds.new('dusk')
+    world.use_nodes = True
+    world.node_tree.nodes.clear()
+    sky = Nodes(world.node_tree)
+    out = sky.new('ShaderNodeOutputWorld')
+    background = sky.new('ShaderNodeBackground', Strength=1.0)
+    coords = sky.new('ShaderNodeTexCoord')
+    window = sky.new('ShaderNodeSeparateXYZ')
+    sky.link(coords.outputs['Window'], window.inputs[0])
+    gradient = sky.ramp(window.outputs['Y'], [(p['horizon'] - .08, lin(pal['fog'])), (p['horizon'] + .12,
+                        lin(pal['sky_mid'])), (1.0, lin(pal['space']))])
+    sky.link(gradient, background.inputs['Color'])
+    sky.link(background.outputs[0], out.inputs['Surface'])
+    bpy.context.scene.world = world
+    sun_data = bpy.data.lights.new('low sun', 'SUN')
+    sun_data.energy = p['sun_energy']
+    sun_data.angle = math.radians(2)
+    sun_data.color = lin(pal['sun'])[:3]
+    sun = link_object('low sun', sun_data)
+    sun.rotation_euler = (-Vector((-side * .8, 1.0, .25))).to_track_quat('-Z', 'Y').to_euler()
+    camera.data.dof.use_dof = True
+    camera.data.dof.focus_distance = p['focus']
+    camera.data.dof.aperture_fstop = .9
+    glow(threshold=1.0, size=7, mix=-.6)
+    return dict(columns=nx * ny, beacons=len(beacons.verts) // 8)
 
 
 FAMILIES = {
     'neural-constellation': neural_constellation,
     'silicon-die': silicon_die,
     'orbital-horizon': orbital_horizon,
+    'data-centre': data_centre,
+    'fibre-optics': fibre_optics,
+    'projected-polytope': projected_polytope,
+    'voxel-terrain': voxel_terrain,
 }
 
 
