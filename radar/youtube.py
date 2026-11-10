@@ -181,7 +181,7 @@ def collect_channel(fetch, channel, now):
     diagnostics = []
     channel_id = channel[4]
     playlist_id = uploads_playlist_id(channel_id)
-    playlist_url = f"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId={playlist_id}&maxResults=5"
+    playlist_url = f"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId={playlist_id}&maxResults=50"
     try:
         playlist_text = fetch(playlist_url)
         video_ids = parse_playlist_items(playlist_text)
