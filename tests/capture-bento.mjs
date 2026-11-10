@@ -17,6 +17,7 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace
 const arg = (name, fallback) => { const i = process.argv.indexOf(name); return i < 0 ? fallback : process.argv[i + 1]; };
 const out = path.resolve(root, arg('--out', 'bento-anh'));
 const only = arg('--only', 'site,ext').split(',');
+const loads = Number(arg('--loads', 0));      // --loads 2: scroll to the end of "Tin khác" twice, then measure (--runs)
 const LIVE = 'https://radar-ai-vn.pages.dev/';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 await fs.mkdir(out, { recursive: true });
@@ -89,7 +90,9 @@ const MEASURE = () => {
   const shown = el => { const b = r(el); return b.height > 0 && b.width > 0 && getComputedStyle(el).visibility !== 'hidden'; };
   const name = el => (el.querySelector('h2,h3')?.textContent || el.className).trim().replace(/\s+/g, ' ').slice(0, 24);
   const bands = [...document.querySelectorAll('#feed-grid .band')].filter(shown).map(band => {
-    const grid = band.querySelector(':scope > .band-cells, :scope > .band-grid');
+    // Every grid of the band: one, or in "Tin khác" one per group (the window's rest, then each older day).
+    const grids = [...band.querySelectorAll('.band-cells, .band-grid')].filter(g => !g.parentElement.closest('.band-cells, .band-grid'));
+    const one = grid => {
     const g = r(grid), cs = getComputedStyle(grid), gap = parseFloat(cs.columnGap) || 0;
     const kids = [...grid.children].filter(shown);
     const rows = new Map();
@@ -128,8 +131,14 @@ const MEASURE = () => {
         if (b.bottom > kb.bottom + 1 || b.top < kb.top - 1) cut.push(`${name(k)}: ${String(row.className).split(' ')[0] || row.tagName} ${Math.round(b.bottom - kb.bottom)}`);
       }
     }
-    return { band: band.querySelector('.band-title')?.textContent.trim(), rows: rows.size, items: kids.length,
-      heights: [...rows.values()].map(ks => Math.round(r(ks[0]).height)).join('/'), unequal, ragged, overflow, cut };
+    return { rows: rows.size, items: kids.length, heights: [...rows.values()].map(ks => Math.round(r(ks[0]).height)), unequal, ragged, overflow, cut };
+    };
+    const parts = grids.filter(shown).map(one);
+    const sum = key => parts.flatMap(p => p[key]);
+    return { band: band.querySelector('.band-title')?.textContent.trim(), rows: parts.reduce((a, p) => a + p.rows, 0),
+      items: parts.reduce((a, p) => a + p.items, 0), heights: sum('heights').join('/'),
+      unequal: sum('unequal'), ragged: sum('ragged'), overflow: sum('overflow'), cut: sum('cut'),
+      days: [...band.querySelectorAll('.day-line')].map(h => h.textContent.trim()) };
   });
   const srcCut = [...document.querySelectorAll('#feed-grid .nc-src, #feed-grid .top-src')].filter(e => shown(e) && e.scrollWidth > e.clientWidth + 1).map(e => e.textContent);
   const translated = [...document.querySelectorAll('#feed-grid .mt')].filter(shown).length;
@@ -159,8 +168,45 @@ const BACKGROUND = () => {
 
 const shotEl = async (page, sel, file) => { const el = await page.$(sel); if (!el) { problems.push(`no ${sel} for ${file}`); return; } await el.screenshot({ path: path.join(out, file) }); };
 
+// Scroll to the end of "Tin khác" `n` times; each time wait until new cards arrive (the sentinel loads whole rows).
+async function scrollLoads(page, n) {
+  const steps = [];
+  for (let i = 0; i < n; i++) {
+    const before = await page.$$eval('#more-box .nc', e => e.length);
+    await page.evaluate(() => document.querySelector('#feed-sentinel').scrollIntoView({ block: 'end' }));
+    await page.waitForFunction(b => document.querySelectorAll('#more-box .nc').length > b, { timeout: 20000 }, before).catch(() => {});
+    await wait(1500);
+    steps.push(`${before}->${await page.$$eval('#more-box .nc', e => e.length)}`);
+  }
+  return steps;
+}
+
 try {
-  if (only.includes('site')) {
+  if (loads) {
+    // After `loads` scrolls to the end: every row of every band level and full, the day headings, no sideways scroll.
+    for (const run of arg('--runs', '1440-light,1024-light,375-light').split(',')) {
+      const [w, theme] = run.split('-'), width = Number(w);
+      const height = width < 768 ? 812 : width >= 1440 ? 900 : 768;
+      const { page, ctx } = await open(width, theme, height);
+      const steps = await scrollLoads(page, loads);
+      const m = await page.evaluate(MEASURE);
+      const more = m.bands.find(b => b.band === 'Tin khác');
+      const status = await page.$eval('#more-status', e => e.textContent);
+      const buttons = await page.$$eval('#band-more button, #more-btn', e => e.length);
+      details[run] = { steps, status, buttons, more, bands: m.bands };
+      await page.screenshot({ path: path.join(out, `${run}-cuoi.png`) });
+      const day = await page.$('#more-box .day-line');
+      if (day) { await page.evaluate(el => el.scrollIntoView({ block: 'start' }), day); await wait(500); await page.screenshot({ path: path.join(out, `${run}-ngay.png`) }); }
+      m.bands.flatMap(b => [...b.unequal, ...b.ragged, ...b.overflow, ...b.cut].map(x => `${b.band} ${x}`)).forEach(x => problems.push(`${run}: ${x}`));
+      if (m.sideways) problems.push(`${run}: page scrolls sideways`);
+      if (buttons) problems.push(`${run}: a button is left in "Tin khác"`);
+      summary.push({ name: run, loads: steps.join(' '), cols: m.cols, moreRows: more?.rows, moreCards: more?.items, days: more?.days.join(' / '),
+        unequal: m.bands.reduce((a, b) => a + b.unequal.length, 0), ragged: m.bands.reduce((a, b) => a + b.ragged.length, 0),
+        overflow: m.bands.reduce((a, b) => a + b.overflow.length, 0), cut: m.bands.reduce((a, b) => a + b.cut.length, 0), sideways: m.sideways, status });
+      await ctx.close();
+    }
+  }
+  if (!loads && only.includes('site')) {
     const runs = [[375, 'light'], [768, 'light'], [1024, 'light'], [1440, 'light'], [1920, 'light'], [2560, 'light'], [1440, 'dark'], [375, 'dark']];
     for (const [width, theme] of runs) {
       const height = width < 768 ? 812 : width >= 1920 ? 1080 : width >= 1440 ? 900 : 768;
@@ -217,20 +263,12 @@ try {
         await shotEl(page, '#top-list', 'hover-chuyen-lon-1440.png');
         const fr = await page.$('#fresh-row li:nth-child(2) .brief');
         if (fr) { const b2 = await fr.boundingBox(); await page.mouse.move(b2.x + b2.width / 2, b2.y + b2.height / 2); await wait(400); await shotEl(page, '#fresh-row', 'hover-vua-dang-1440.png'); }
-        // "Xem thêm tin": one more set of whole rows.
-        const before = await page.$$eval('#more-grid > *', els => els.length);
-        const btn = await page.$('#more-btn');
-        if (btn) { await btn.click(); await wait(2500); }
-        const after = await page.evaluate(MEASURE);
-        const more = after.bands.find(b => b.band === 'Tin khác');
-        details['more-after-click-1440'] = { before, after: await page.$$eval('#more-grid > *', els => els.length), more };
-        if (more && (more.unequal.length || more.ragged.length)) problems.push(`Tin khác after "Xem thêm tin": ${JSON.stringify(more)}`);
       }
       await ctx.close();
     }
   }
 
-  if (only.includes('ext')) {
+  if (!loads && only.includes('ext')) {
     const id = await browser.installExtension(path.join(root, 'extension'));
     const sw = await browser.waitForTarget(t => t.type() === 'service_worker' && t.url().startsWith(`chrome-extension://${id}/`), { timeout: 20000 });
     const worker = await sw.worker();

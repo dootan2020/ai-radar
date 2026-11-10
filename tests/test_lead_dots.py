@@ -22,7 +22,7 @@ const out = {};
 for (const n of [1, 2, 4, 6]) {
   const html = leadHTML(Array.from({ length: n }, (_, i) => ({ id: 's' + i, title: 'Tin ' + i })));
   out[n] = { slides: (html.match(/<article class="slide/g) || []).length, dots: (html.match(/data-slide="/g) || []).length,
-    current: (html.match(/aria-current="true"/g) || []).length, group: html.includes('class="lead-dots"') };
+    current: (html.match(/aria-current="true"/g) || []).length, group: html.includes('class="lead-dots pager-dots"') };
 }
 process.stdout.write(JSON.stringify(out));
 """
@@ -48,10 +48,41 @@ class LeadDots(unittest.TestCase):
         css = (SITE / "trang-msn.css").read_text(encoding="utf-8")
         self.assertNotIn(".lead-dots::before", css)
         self.assertNotIn("--msn-lead-dots-bg", (SITE / "tokens.css").read_text(encoding="utf-8"))
-        dot = re.search(r"\.lead-dots button::before \{([^}]*)\}", css).group(1)
-        self.assertIn("box-shadow: var(--msn-lead-dot-shadow);", dot)
+        dot = re.search(r"\.pager-dots button::before \{([^}]*)\}", css).group(1)
+        self.assertIn("box-shadow: var(--pager-dot-shadow);", dot)
         # Each dot stays a 44 px tall button: the group keeps its touch target without the chip.
-        self.assertIn(".lead-dots button { height: var(--btn-h);", css)
+        self.assertIn("height: var(--btn-h);", re.search(r"\.pager-dots button \{([^}]*)\}", css).group(1))
+
+
+class PagerDots(unittest.TestCase):
+    """Captain, 10/11 18:54: "2 dấu chấm của thẻ thời tiết nó nằm xa nhau quá / các dấu chấm trên carousel thì có viền, bỏ
+    viền đi. bảo đảm các dấu chấm trên carousel phải đồng bộ với nhau". One dot style for every row of dots, no ring."""
+
+    def test_one_shared_dot_style_with_no_ring(self):
+        for folder in (SITE, ROOT / "extension"):
+            css = (folder / "trang-msn.css").read_text(encoding="utf-8")
+            tokens = (folder / "tokens.css").read_text(encoding="utf-8")
+            # The look is defined once: only .pager-dots draws a dot; the rows place their group and nothing else.
+            self.assertEqual(len(re.findall(r"button::before \{", css[css.index(".pager-dots {"):css.index(".msn-lead { touch-action")])), 1)
+            for row in ("lead-dots", "wx-dots"):
+                for rule in re.findall(rf"\.{row}[^{{,]*\{{([^}}]*)\}}", css):
+                    for prop in ("width:", "height:", "background", "box-shadow", "border"):
+                        self.assertNotIn(prop, rule.replace("padding-inline", ""), f"{folder.name} .{row}: {rule}")
+            # No ring: neither a zero-blur spread in the shadow nor a border or outline on a dot at rest.
+            shadow = re.search(r"--pager-dot-shadow: ([^;]+);", tokens).group(1)
+            for layer in shadow.split("), "):
+                self.assertNotRegex(layer.strip(), r"^0 0 0 ", f"{folder.name}: a ring in {shadow}")
+            button = re.search(r"\.pager-dots button \{([^}]*)\}", css).group(1)
+            self.assertIn("border: 0;", button)
+            self.assertIn("background: none;", button)
+            self.assertNotRegex(re.search(r"\.pager-dots button::before \{([^}]*)\}", css).group(1), r"(?<![\w-])(border|outline)(-\w+)?(?<!-radius):")
+            for gone in ("--msn-lead-dot", "--msn-on-photo-dot"):
+                self.assertNotIn(gone, tokens + css, folder.name)
+
+    def test_both_rows_of_dots_use_the_shared_style(self):
+        for folder in (SITE, ROOT / "extension"):
+            self.assertIn('<div class="lead-dots pager-dots" role="group"', (folder / "feed.js").read_text(encoding="utf-8"))
+            self.assertIn('<div class="wx-dots pager-dots" role="group"', (folder / "thoi-tiet.js").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

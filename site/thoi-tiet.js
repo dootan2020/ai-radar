@@ -203,7 +203,7 @@ export function createWeatherCard() {
       <div class="wx-switch" role="group" aria-label="Kiểu dự báo"><button type="button" data-mode="hourly" aria-pressed="false">Hàng giờ</button><button type="button" data-mode="daily" aria-pressed="true">Hàng ngày</button></div>
       <ul class="wx-days num" id="wx-days" aria-live="polite"></ul>
       <div class="wx-foot">
-        <div class="wx-dots" role="group" aria-label="Trang dự báo"><button type="button" data-page="0" aria-label="Trang 1" aria-current="true"></button><button type="button" data-page="1" aria-label="Trang 2" aria-current="false"></button></div>
+        <div class="wx-dots pager-dots" role="group" aria-label="Trang dự báo"><button type="button" data-page="0" aria-label="Trang 1" aria-current="true"></button><button type="button" data-page="1" aria-label="Trang 2" aria-current="false"></button></div>
         <button class="pill" id="wx-full" type="button" aria-expanded="false" aria-controls="wx-detail"><span class="wx-full-long">Xem dự báo đầy đủ</span><span class="wx-full-short">Chi tiết</span></button>
       </div>
       <div class="wx-detail" id="wx-detail" role="dialog" aria-label="Dự báo ${esc(city)} hôm nay" hidden>

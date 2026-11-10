@@ -75,9 +75,26 @@ class Bands(unittest.TestCase):
         self.assertIn("const dbl = C(pool.splice(di, 1)[0], 'wide');", news)
         self.assertIn("const row = pool.splice(0, c - 2).map(st => C(st));", news)
         self.assertIn("else if (pool.length >= c) items.push(...pool.splice(0, c).map(st => C(st)));", news)
-        count = function(feed, "otherCount")
-        self.assertIn("return Math.min(want, Math.floor(all / cols) * cols);", count)
+        # "Tin khác" grows by whole rows of the live column count; a group's last short row is shared by wider cards.
+        plan = function(feed, "otherPlan")
+        self.assertIn("g.list.slice(i, i + cols).forEach(st => out.push({ st, span: 1 })); i += cols; continue;", plan)
+        self.assertIn("const base = Math.floor(cols / left), extra = cols % left;", plan)
         self.assertIn("for (const q of ['(min-width: 768px)', '(min-width: 1024px)', '(min-width: 1440px)'])", function(feed, "watchBentoCols"))
+
+
+class ScrollLoading(unittest.TestCase):
+    """Captain, 10/11: "bỏ cái nút "Xem thêm tin" thay bằng cuộn để tải tin"."""
+
+    def test_no_more_button_and_the_sentinel_loads_the_next_rows(self):
+        for folder in FOLDERS:
+            feed, css = read(folder / "feed.js"), read(folder / "trang-msn.css")
+            for gone in ('id="more-btn"', "#more-btn", ">Xem thêm tin<", "showMoreOther", "otherCount", "more-foot"):
+                self.assertNotIn(gone, feed, f"{folder.name}: {gone}")
+                self.assertNotIn(gone, css, f"{folder.name}: {gone}")
+            self.assertIn("if (filter === 'all') { if (!$('#feed-grid').hidden) loadMoreFront(); return; }", feed)
+            self.assertIn('<p class="sr" id="more-status" role="status" aria-live="polite"></p>', feed)
+            self.assertIn('<h3 class="band-title day-line" id="day-', function(feed, "renderOtherBand"))
+            self.assertIn(".more-box > .day-line.band-title {", css)
 
 
 @unittest.skipUnless(browser_ready(), "Node, Chrome and puppeteer are needed for the rendered rows")
@@ -102,6 +119,22 @@ class RenderedRows(unittest.TestCase):
     def test_no_translated_label_on_the_rendered_front_page(self):
         for width, page in rendered().items():
             self.assertEqual(page["translated"], 0, width)
+
+    def test_scrolling_to_the_sentinel_appends_whole_rows_and_an_older_day_heading(self):
+        for width, page in rendered().items():
+            cols = int(page["cols"])
+            self.assertGreaterEqual(len(page["scrolls"]), 1, width)
+            for before, after in page["scrolls"]:
+                self.assertGreater(after, before, f"{width}: a scroll loaded nothing")
+            more = page["afterScroll"]
+            self.assertGreaterEqual(more["days"], 1, f"{width}: no older day heading")
+            for key in ("unequal", "ragged", "overflow", "cut"):
+                self.assertEqual(more[key], [], f"{width} {key}")
+            self.assertGreaterEqual(more["rows"] * cols, more["cards"], width)
+            self.assertFalse(page["afterSideways"], width)
+            self.assertRegex(page["status"], r"^Đã tải thêm \d+ tin\.$", width)
+            self.assertEqual(page["buttons"], 0, width)
+            self.assertFalse(page["moreText"], width)
 
 
 class KhoMaFilters(unittest.TestCase):

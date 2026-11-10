@@ -26,5 +26,33 @@
     "location": "Sydney, Australia",
     "verified_at": "2026-10-10",
     "source_url": "https://nips.cc/Conferences/2026/Dates"
+  },
+  {
+    "id": "neurips-atlanta-2026",
+    "title": "NeurIPS 2026 — Atlanta",
+    "url": "https://neurips.cc/Conferences/2026",
+    "start_date": "2026-12-09",
+    "end_date": "2026-12-13",
+    "start_at": null,
+    "end_at": null,
+    "time_precision": "date",
+    "timezone": "America/New_York",
+    "location": "Atlanta, United States",
+    "verified_at": "2026-11-10",
+    "source_url": "https://neurips.cc/Conferences/2026"
+  },
+  {
+    "id": "neurips-paris-2026",
+    "title": "NeurIPS 2026 — Paris",
+    "url": "https://neurips.cc/Conferences/2026",
+    "start_date": "2026-12-09",
+    "end_date": "2026-12-13",
+    "start_at": null,
+    "end_at": null,
+    "time_precision": "date",
+    "timezone": "Europe/Paris",
+    "location": "Paris, France",
+    "verified_at": "2026-11-10",
+    "source_url": "https://neurips.cc/Conferences/2026"
   }
 ]

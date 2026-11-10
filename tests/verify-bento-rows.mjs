@@ -1,7 +1,9 @@
 // The front page's bento bands, rendered in headless Chrome from tests/fixtures/radar-window-sample.json (offline: every
 // other data file answers 404), at 1440, 1024 and 768 px with reduced motion. Prints one JSON line per width: each band's
 // rows with unequal card heights, rows that are not full, cards whose content runs past their edge, list rows or filters
-// cut by their card, the "Translated" labels on the page, and the Kho mã tile's visible filter rows closed and opened.
+// cut by their card, the "Translated" labels on the page, the Kho mã tile's visible filter rows closed and opened, and,
+// on a short window (/cuon/), what scrolling to the sentinel appends: card counts per load, "Tin khác" measured after
+// it (rows, older day headings) and the live announcement.
 // Run by tests/test_bento_trang_nhat.py; nothing under site/ is written.
 import fs from 'node:fs/promises';
 import http from 'node:http';
@@ -14,12 +16,24 @@ const CHROME = ['C:/Program Files/Google/Chrome/Application/chrome.exe', '/usr/b
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'];
 const executablePath = (await Promise.all(CHROME.map(p => fs.access(p).then(() => p, () => null)))).find(Boolean);
 const fixture = await fs.readFile(path.join(root, 'tests/fixtures/radar-window-sample.json'));
+// Under /cuon/ the page reads a short window (the fixture's first 90 stories) and a complete snapshot that adds twelve
+// older stories (copies moved six and seven days back), so a few scrolls reach the older days and their headings.
+const win = JSON.parse(fixture.toString('utf8')), gen = Date.parse(win.generated_at);
+const shortWin = { ...win, stories: win.stories.slice(0, 90) };
+const older = win.stories.slice(0, 12).map((st, i) => ({ ...st, id: `${st.id}-cu-${i}`, url: `${st.url}#cu-${i}`,
+  published_at: new Date(gen - (i < 7 ? 6 : 7) * 864e5 - i * 36e5).toISOString() }));
+const shortData = Buffer.from(JSON.stringify(shortWin));
+const fullData = Buffer.from(JSON.stringify({ ...shortWin, stories: [...shortWin.stories, ...older] }));
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json',
   '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.woff2': 'font/woff2' };
 const server = http.createServer(async (req, res) => {
-  const p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+  let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+  const scroll = p.startsWith('/cuon/');
+  if (scroll) p = p.slice('/cuon'.length);
   try {
-    if (/^\/data\/radar(-window)?\.json$/.test(p)) { res.writeHead(200, { 'content-type': TYPES['.json'] }); return res.end(fixture); }
+    const json = body => { res.writeHead(200, { 'content-type': TYPES['.json'] }); return res.end(body); };
+    if (p === '/data/radar-window.json') return json(scroll ? shortData : fixture);
+    if (p === '/data/radar.json') return json(scroll ? fullData : fixture);
     if (p.startsWith('/data/') || p.startsWith('/nen/')) { res.writeHead(404); return res.end(); }
     const file = path.join(root, 'site', p.endsWith('/') ? p + 'index.html' : p);
     if (!file.startsWith(path.join(root, 'site'))) throw new Error('outside');
@@ -51,7 +65,9 @@ const MEASURE = () => {
     return worst;
   };
   const bands = [...document.querySelectorAll('#feed-grid .band')].filter(shown).map(band => {
-    const grid = band.querySelector(':scope > .band-cells, :scope > .band-grid');
+    // Every grid of the band: one, or in "Tin khác" one per group (the window's rest, then each older day).
+    const grids = [...band.querySelectorAll('.band-cells, .band-grid')].filter(g => !g.parentElement.closest('.band-cells, .band-grid'));
+    const one = grid => {
     const g = r(grid), gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
     const kids = [...grid.children].filter(shown);
     const rows = new Map();
@@ -72,7 +88,13 @@ const MEASURE = () => {
         if (b.bottom > kb.bottom + 1 || b.top < kb.top - 1) cut.push(`${name(k)}: ${String(row.className).split(' ')[0] || row.tagName}`);
       }
     }
-    return { band: band.querySelector('.band-title')?.textContent.trim(), rows: rows.size, unequal, ragged, overflow, cut };
+    return { rows: rows.size, unequal, ragged, overflow, cut };
+    };
+    const parts = grids.filter(shown).map(one);
+    const sum = key => parts.flatMap(p => p[key]);
+    return { band: band.querySelector('.band-title')?.textContent.trim(), rows: parts.reduce((a, p) => a + p.rows, 0),
+      unequal: sum('unequal'), ragged: sum('ragged'), overflow: sum('overflow'), cut: sum('cut'),
+      days: band.querySelectorAll('.day-line').length, cards: band.querySelectorAll('.nc').length };
   });
   // The Kho mã tile's filter rows: the distinct tops of its visible controls.
   const repoFilterRows = () => {
@@ -103,7 +125,25 @@ try {
     const opener = await page.$('[data-lab-open]');
     let opened = null;
     if (opener) { await opener.click(); await wait(400); opened = (await page.evaluate(MEASURE)).repoFilterRows; }
-    out[width] = { ...m, repoFilterRowsOpen: opened, errors };
+    // The short window: scroll to the end of "Tin khác" until an older day's heading has arrived (at most ten loads).
+    // Whole rows arrive by themselves, then the older days under a heading.
+    await page.goto(`${url}cuon/`, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await page.waitForFunction(() => document.querySelector('#band-more') && document.querySelector('#top')?.getAttribute('aria-busy') !== 'true', { timeout: 30000 });
+    await wait(800);
+    const scrolls = [];
+    for (let i = 0; i < 10 && !(await page.$('#more-box .day-line')); i++) {
+      const before = await page.$$eval('#more-box .nc', e => e.length);
+      await page.evaluate(() => document.querySelector('#feed-sentinel').scrollIntoView({ block: 'end' }));
+      await page.waitForFunction(b => document.querySelectorAll('#more-box .nc').length > b, { timeout: 20000 }, before).catch(() => {});
+      await wait(800);
+      scrolls.push([before, await page.$$eval('#more-box .nc', e => e.length)]);
+    }
+    const after = await page.evaluate(MEASURE);
+    const extra = await page.evaluate(() => ({ status: document.querySelector('#more-status')?.textContent || '',
+      buttons: document.querySelectorAll('#band-more button, #more-btn').length,
+      moreText: [...document.querySelectorAll('#top button, #top a')].some(b => /Xem thêm tin/.test(b.textContent)) }));
+    out[width] = { ...m, repoFilterRowsOpen: opened, errors, scrolls, afterScroll: after.bands.find(b => b.band === 'Tin khác'),
+      afterSideways: after.sideways, ...extra };
     await page.close();
   }
 } finally {

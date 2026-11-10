@@ -85,18 +85,27 @@ class EventTests(unittest.TestCase):
                 self.load([row | changes])
 
     def test_curated_rows_match_verified_opening_facts(self):
-        rows = load_events(Path(__file__).resolve().parents[1] / "data/events.json",
-                           datetime.fromisoformat("2026-10-10T12:00:00+00:00"))
-        bengaluru, sydney = rows
+        path = Path(__file__).resolve().parents[1] / "data/events.json"
+        bengaluru = next(row for row in json.loads(path.read_text(encoding="utf-8"))
+                         if row["id"] == "openai-devday-exchange-bengaluru-2026")
         self.assertEqual(bengaluru["start_at"], "2026-10-16T14:00:00+05:30")
         self.assertIsNone(bengaluru["end_at"])
         self.assertEqual(bengaluru["timezone"], "Asia/Kolkata")
+        self.assertEqual(bengaluru["verified_at"], "2026-10-10")
+        # The day the satellites were verified: Bengaluru is over, NeurIPS is its main edition and two satellites.
+        rows = load_events(path, datetime.fromisoformat("2026-11-10T14:00:00+00:00"))
+        sydney, atlanta, paris = rows
         self.assertEqual(sydney["timezone"], "Australia/Sydney")
         self.assertEqual((sydney["start_date"], sydney["end_date"]), ("2026-12-06", "2026-12-12"))
-        self.assertEqual(sydney["time_precision"], "date")
-        self.assertIsNone(sydney["start_at"])
-        self.assertIsNone(sydney["end_at"])
-        self.assertTrue(all(row["verified_at"] == "2026-10-10" for row in rows))
+        self.assertEqual(sydney["verified_at"], "2026-10-10")
+        for row, zone, place in [(atlanta, "America/New_York", "Atlanta, United States"), (paris, "Europe/Paris", "Paris, France")]:
+            self.assertEqual((row["start_date"], row["end_date"]), ("2026-12-09", "2026-12-13"))
+            self.assertEqual((row["timezone"], row["location"], row["verified_at"]), (zone, place, "2026-11-10"))
+            self.assertEqual(row["source_url"], "https://neurips.cc/Conferences/2026")
+        for row in rows:
+            self.assertEqual(row["time_precision"], "date")
+            self.assertIsNone(row["start_at"])
+            self.assertIsNone(row["end_at"])
 
     def test_exact_times_preserve_real_offset_instant_and_calendar_dates(self):
         row = self.load([event(time_precision="exact", start_at="2026-10-10T14:00:00+07:00",

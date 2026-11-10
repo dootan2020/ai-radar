@@ -33,3 +33,10 @@ chrome.runtime.onStartup.addListener(() => {
 chrome.alarms.onAlarm.addListener(alarm => {
   if (alarm.name === ALARM) void refresh();
 });
+
+// The toolbar button. Chrome draws an extension without an action of its own in grey (captain, 10/11 18:54: "nút
+// extension ở góc phải trên chrome có màu nền xám"); with one, it shows the Coral Tile in colour. A click opens a new tab,
+// which is Halcyon.
+chrome.action.onClicked.addListener(() => {
+  void chrome.tabs.create({});
+});

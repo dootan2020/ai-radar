@@ -50,7 +50,8 @@
   --motion-stagger-cap: 240ms;              /* cap so long lists never delay readers */
   --motion-hover: 250ms;                    /* calm desktop hover lift */
   --motion-blur: 300ms;                     /* soft image blur-up settle */
-  --media-backdrop-blur: var(--space-24);   /* the blurred copy behind a news picture: colour only, no detail */
+  --media-backdrop-blur: var(--space-24);   /* the blurred copy behind the story page's picture: colour only, no detail */
+  --photo-focus: 50% 40%;                   /* a card's picture is cropped around a point a little above its centre, where faces and products sit */
   --motion-tab-glide: 280ms;                /* Apple-like tab indicator glide */
 }
 
@@ -218,14 +219,18 @@ ul, ol { padding: 0; list-style: none; }
     box-shadow: var(--shadow-lift);
   }
 }
-/* A news picture is never cropped (captain, 2026-11-07: "không bị cắt thông tin"). Charts, benchmark tables and
-   screenshots carry the story's fact at their edges, so every frame draws the whole picture (contain) and fills what
-   its shape leaves empty with a blurred copy of the same picture. Frames keep their fixed ratio, so nothing moves
-   when the picture arrives, and any shape (wide, square, tall) reads as finished. */
+/* A card's picture fills its frame (captain, 10/11 19:3x: "ảnh của các thẻ nó phải fit với khung không để khoảng trống
+   trắng hoặc đen ... ảnh gốc có thể bị xén bị che anh không quan tâm"): no band above, below or beside it, no blurred
+   copy behind it. This replaces the 07/11 rule for cards; the story page and modal still draw the whole picture
+   (story.css). Frames keep their fixed ratio, so nothing moves when the picture arrives. */
 .media { position: relative; aspect-ratio: 16 / 9; background: var(--color-fill); overflow: hidden; flex: none; }
-.media-img { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
-/* A cover (radar/covers.py) is drawn in a safe area of a wider or taller file: it fills every slot, cropping only surface. */
-.media-img.is-cover { position: absolute; inset: 0; object-fit: cover; }   /* the slot, not the file, sets the size */
+.media-img { position: relative; display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-focus); }
+/* A drawn cover (radar/covers.py) is never cropped: feed.js (fitCover) shows the whole file and paints the rest of the
+   frame the cover's own flat surface colour, so its text is never cut and no band shows. Until then it fills the frame
+   from its centre. */
+.media-img.is-cover { position: absolute; inset: 0; object-fit: cover; object-position: 50% 50%; }   /* the slot, not the file, sets the size */
+.media-img.is-cover.is-whole { object-fit: contain; }
+.media:has(> .is-cover.is-whole) { background: var(--cover-edge, var(--color-fill)); }
 .media-backdrop {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; transform: scale(1.15);
@@ -500,8 +505,10 @@ ul, ol { padding: 0; list-style: none; }
 .hot-row { display: grid; grid-template-columns: var(--thumb-hot) 28px 1fr; align-items: center; gap: var(--space-12); min-height: var(--thumb-hot); }
 
 .thumb { position: relative; width: var(--thumb-hot); height: var(--thumb-hot); border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); }
-.thumb img:not(.media-backdrop) { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
-.thumb img.is-cover { position: absolute; inset: 0; object-fit: cover; }
+.thumb img:not(.media-backdrop) { position: relative; display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-focus); }
+.thumb img.is-cover { position: absolute; inset: 0; object-fit: cover; object-position: 50% 50%; }
+.thumb img.is-cover.is-whole { object-fit: contain; }
+.thumb:has(> .is-cover.is-whole) { background: var(--cover-edge, var(--color-fill)); }
 .hot-row > .thumb:empty { display: none; }
 .hot-row:has(> .thumb:empty) { grid-template-columns: 28px minmax(0, 1fr); }
 .hot-rank { font-size: var(--size-21); font-weight: var(--weight-bold); color: var(--color-ink-3); text-align: center; letter-spacing: var(--tracking-number); }
@@ -519,8 +526,9 @@ ul, ol { padding: 0; list-style: none; }
 .repo-row { display: flex; flex-direction: column; gap: var(--space-16); }
 .repo { display: grid; grid-template-columns: calc(var(--thumb-hot) * 2) minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: var(--space-12); row-gap: var(--space-4); min-width: 0; min-height: var(--thumb-hot); }
 .repo-img { grid-row: 1 / span 3; align-self: start; aspect-ratio: 2 / 1; border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); position: relative; }
-/* GitHub's and Hugging Face's previews are drawn at exactly these ratios; contain keeps a preview of another size whole. */
-.repo-img img { width: 100%; height: 100%; object-fit: contain; }
+/* GitHub's and Hugging Face's previews are drawn at exactly these ratios, so filling the frame crops nothing of theirs;
+   a preview of another size is cropped from its centre rather than banded (captain, 10/11 19:3x). */
+.repo-img img { width: 100%; height: 100%; object-fit: cover; }
 
 .repo-name { font-size: var(--text-small); font-weight: var(--weight-bold); line-height: var(--leading-snug); overflow-wrap: break-word; word-break: normal; transition: color var(--motion-state) var(--ease-flow); }
 .repo-desc { font-size: var(--text-meta); color: var(--color-ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -536,7 +544,7 @@ ul, ol { padding: 0; list-style: none; }
 .model { display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: var(--space-12); row-gap: var(--space-4); align-items: start; }
 
 .model-img { grid-row: 1 / span 2; aspect-ratio: 1200 / 648; border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); position: relative; }
-.model-img img { width: 100%; height: 100%; object-fit: contain; }
+.model-img img { width: 100%; height: 100%; object-fit: cover; }
 .model-name { font-size: var(--text-small); font-weight: var(--weight-bold); overflow-wrap: break-word; word-break: normal; transition: color var(--motion-state) var(--ease-flow); }
 .model-meta { font-size: var(--text-meta); color: var(--color-ink-3); display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-8); align-items: center; }
 .model-meta b { color: var(--color-ink-2); font-weight: var(--weight-semibold); }

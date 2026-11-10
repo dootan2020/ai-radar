@@ -66,6 +66,7 @@
   --size-12: 0.75rem; --size-13: 0.8125rem; --size-14: 0.875rem; --size-15: 0.9375rem; --size-16: 1rem; --size-18: 1.125rem;
   --size-21: 1.3125rem; --size-28: 1.75rem; --size-40: 2.5rem;
   --size-32: 2rem; --size-56: 3.5rem; --size-88: 5.5rem;
+  --size-76: 4.75rem; --size-112: 7rem;             /* the next-event card's countdown: beside other events, alone */
 
   --space-4: 4px; --space-6: 6px; --space-8: 8px; --space-12: 12px; --space-16: 16px; --space-24: 24px;
   --space-32: 32px; --space-48: 48px; --space-64: 64px; --space-96: 96px;
@@ -120,6 +121,11 @@
   /* No outlines (captain, 08/11 21:08: "Có viền màu bao quanh nút bấm, thanh tìm kiếm, card ... Loại bỏ nó"): surfaces
      part by fill and elevation. The front page's panel, a floating bar (the phone dock), a filled field and its focus. */
   --color-panel: var(--brand-white);
+  /* The front page's panel, a light cool tint, so the white cards on it part by their fill as well as their shadow;
+     a segmented control's track and its chosen side (captain, 10/11 19:3x: "duyệt, gộp vào"). */
+  --color-panel-front: var(--gray-95);
+  --color-seg-track: var(--gray-90);
+  --color-seg-thumb: var(--brand-white);
   --color-float: var(--brand-white);
   --color-field: var(--gray-95);
   --color-field-on: var(--gray-93);                  /* a field in focus, a filled button on hover */
@@ -176,6 +182,8 @@
   --num-xl: clamp(var(--size-40), 1.4rem + 2.2vw, var(--size-88));
   --num-lg: var(--size-56);
   --num-md: var(--size-32);
+  --num-count: var(--size-112);                      /* "Sắp diễn ra": the days left, the card's one large thing */
+  --num-count-dense: var(--size-76);
   --av-xs: 20px; --av-sm: 28px; --av-md: 40px; --av-lg: 56px; --av-xl: 72px;
   --av-radius: 28%;                                  /* a squircle, like an app icon: logos read as objects */
   --av-text-xs: var(--size-12); --av-text-sm: var(--size-12); --av-text-md: 0.9rem; --av-text-lg: 1.15rem; --av-text-xl: 1.4rem;   /* monogram letters per avatar size: floor at 12px */
@@ -208,7 +216,11 @@
   --msn-fav-lg: 28px;
   --msn-dot: 3px;
   --msn-tab-line: 3px;                               /* the active section's underline */
-  --msn-lead-dot: var(--space-8); --msn-lead-dot-on: var(--space-24);   /* the lead's dots, close together, straight on the photo */
+  /* The pager dots: one look for every row of dots (the lead carousel's, the weather card's), close together, straight
+     on the picture (captain, 10/11 18:54: "bỏ viền đi ... các dấu chấm ... phải đồng bộ với nhau"). */
+  --pager-dot: var(--space-8); --pager-dot-on: var(--space-24);
+  --pager-dot-pad: var(--space-4);                   /* half the space between two dots, inside each dot's button */
+  --seg-thumb-r: calc(var(--radius-8) - var(--msn-tight));   /* a segmented control's chosen side, inside its track */
   --msn-title: var(--text-sub);                      /* 15 px: a card's headline */
   --msn-title-text: var(--text-title);               /* 18 px: a headline without a picture */
   --msn-title-wide: var(--text-title);
@@ -223,14 +235,15 @@
   --msn-blur: 14px;
   /* Elevation instead of a border (captain, 08/11 21:08): the panel floats on the page, a card rests on the panel. */
   --msn-shadow-panel: 0 1px 3px oklch(var(--shadow-tint) / 0.05), 0 12px 40px oklch(var(--shadow-tint) / 0.07);
-  --msn-shadow-rest: 0 1px 2px oklch(var(--shadow-tint) / 0.06), 0 3px 12px oklch(var(--shadow-tint) / 0.07);
+  --msn-shadow-rest: 0 1px 2px oklch(var(--shadow-tint) / 0.08), 0 4px 16px oklch(var(--shadow-tint) / 0.10);   /* a card at rest: soft depth on the tinted panel */
   --msn-shadow-card: 0 2px 4px oklch(var(--shadow-tint) / 0.06), 0 10px 28px oklch(var(--shadow-tint) / 0.12);
   --msn-ink-card: var(--brand-ink);                  /* a notable story without a picture, and the lead's frame */
   --msn-on-ink: var(--brand-white);
   --msn-on-ink-2: var(--gray-90);
   --msn-slide-box: color-mix(in srgb, var(--brand-ink) 90%, transparent);
-  --msn-lead-dot-shadow: 0 0 0 1px color-mix(in srgb, var(--brand-ink) 45%, transparent), 0 1px 3px color-mix(in srgb, var(--brand-ink) 55%, transparent);   /* each dot's own edge, no chip: it reads on a white photo and a dark one */
-  --msn-on-photo-dot: color-mix(in srgb, var(--brand-white) 72%, transparent);
+  --pager-dot-fill: color-mix(in srgb, var(--brand-white) 72%, transparent);
+  --pager-dot-fill-on: var(--brand-white);
+  --pager-dot-shadow: 0 1px 2px color-mix(in srgb, var(--brand-ink) 40%, transparent), 0 0 6px color-mix(in srgb, var(--brand-ink) 35%, transparent);   /* a soft shadow, no ring and no chip: it reads on a white photo and a dark one */
   /* The weather card: a sky photograph (anh/bau-troi.jpg), a flat ink veil, frosted tiles; white text 4.7:1 or more. */
   --msn-wx-sky: #2B4C7A;                             /* shown until the photograph arrives */
   --msn-wx-veil: color-mix(in srgb, var(--brand-ink) 16%, transparent);
@@ -342,6 +355,9 @@
   --color-mt-ink: var(--color-ink-2);
   --color-mt-bg: var(--color-fill);
   --color-panel: var(--deep-24);
+  --color-panel-front: var(--deep-24);               /* one step darker than a card */
+  --color-seg-track: var(--deep-33);
+  --color-seg-thumb: var(--deep-38);
   --color-float: var(--deep-33);
   --color-field: var(--deep-33);
   --color-field-on: var(--deep-38);
@@ -392,6 +408,9 @@
     --color-mt-ink: var(--color-ink-2);
     --color-mt-bg: var(--color-fill);
     --color-panel: var(--deep-24);
+    --color-panel-front: var(--deep-24);
+    --color-seg-track: var(--deep-33);
+    --color-seg-thumb: var(--deep-38);
     --color-float: var(--deep-33);
     --color-field: var(--deep-33);
     --color-field-on: var(--deep-38);

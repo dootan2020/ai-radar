@@ -50,6 +50,19 @@ class ExtensionShellTests(unittest.TestCase):
         for size in (16, 32, 48, 128):
             kit = (ROOT / f'brand/logo/coral-tile/icons/halcyon-icon-primary-{size}.png').read_bytes()
             self.assertEqual((EXT / f'icons/{size}.png').read_bytes(), kit, size)
+        # The toolbar button (captain, 10/11 18:54: "nút extension ở góc phải trên chrome có màu nền xám, chỉnh cho nó
+        # đồng bộ với logo, favicon"): an action of its own, so Chrome draws the Coral Tile in colour, not in grey.
+        action = manifest['action']
+        self.assertEqual(action['default_icon'], manifest['icons'])
+        self.assertEqual(action['default_title'], 'Halcyon')
+        self.assertIn('chrome.action.onClicked.addListener(', (EXT / 'background.js').read_text(encoding='utf-8'))
+        # Every declared icon is a PNG of the size it is declared at.
+        for declared in (manifest['icons'], action['default_icon']):
+            for size, icon in declared.items():
+                head = (EXT / icon).read_bytes()[:24]
+                self.assertEqual(head[:8], b'\x89PNG\r\n\x1a\n', icon)
+                self.assertEqual((int.from_bytes(head[16:20], 'big'), int.from_bytes(head[20:24], 'big')),
+                                 (int(size), int(size)), icon)
         for path in EXT.rglob('*.html'):
             html = path.read_text(encoding='utf-8')
             self.assertNotRegex(html, r'<script\b(?![^>]*\bsrc="(?:\./)?[\w./-]+\.js")[^>]*>', path.name)
@@ -186,6 +199,7 @@ globalThis.chrome = {
   alarms:{get:async () => cache.alarm ? {name:cache.alarm[0]} : null,
     create:(name,options) => cache.alarm=[name,options.periodInMinutes],onAlarm:{addListener:fn => listeners.alarm=fn}},
   storage:{local:{set:async value => Object.assign(cache,value)}},
+  action:{onClicked:{addListener:fn => listeners.click=fn}}, tabs:{create:async () => {}},
 };
 globalThis.fetch = async (url, init) => {
   calls.push(url);
@@ -316,7 +330,8 @@ const source = readFileSync(process.argv[1], 'utf8');
 let created = 0;
 globalThis.chrome = {alarms:{get:async () => ({name:'refresh-radar-window'}),
   create:() => created++,onAlarm:{addListener:() => {}}},
-  runtime:{onInstalled:{addListener:() => {}},onStartup:{addListener:() => {}}}};
+  runtime:{onInstalled:{addListener:() => {}},onStartup:{addListener:() => {}}},
+  action:{onClicked:{addListener:() => {}}}, tabs:{create:async () => {}}};
 await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
 await new Promise(resolve => setTimeout(resolve,0));
 process.stdout.write(JSON.stringify(created));

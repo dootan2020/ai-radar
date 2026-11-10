@@ -17,13 +17,13 @@
    (#tin/<id>, #sap-toi; the retired section anchors land on the home feed). */
 
 import { esc, fmt, avatar, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
-import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange } from './time-text.js';
+import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange, eventShort, rulerPlan } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { shown, uniqCoverage } from './titles.js';
 import { headlineShown, hasEditorialSummary, sourceDescriptionMark } from './editorial-headline.js';
 import { canCalendar, downloadIcs, gcalURL, verifiedNote, dateStart, nextDay } from './calendar.js';
 import { WORTH, fallbackWorth, hotEligible } from './worth-score.js';
-import { renderStoryHTML, mediaBackdrop } from './story.js';
+import { renderStoryHTML } from './story.js';
 import { createArenaView, loadArena, modelName, makerName, scoreText } from './arena.js';
 import { createNewsSearch } from './tim-tin.js';
 import { cachedSnapshot, normalizeSnapshot } from './snapshot.js';
@@ -189,19 +189,53 @@ function markImgLoaded(img) {
   }
 }
 
+/* A drawn cover is never cropped, so none of its text is cut (captain, 10/11 19:3x, the image fill: our own covers
+   keep "Jensen Huang", "NVIDIA Newsroom", "1 triệu token" whole). Its surface is one flat colour that runs to every
+   edge of the file (covers/templates), so the whole file is shown and the rest of the slot is painted that colour, read
+   from the file's corner pixel: the drawing fills the slot without a visible band. The slot picks the nearer of the
+   cover's two files (wide 2.10:1, tall 1:1) so the drawing stays as large as it can. Until the colour is read, or if it
+   cannot be, the file fills the slot cropped from its centre, where the template keeps the drawing. */
+function fitCover(img) {
+  const slot = img.parentElement;
+  if (!slot || !img.naturalWidth) return;
+  const ratio = slot.clientWidth / Math.max(1, slot.clientHeight);
+  const want = img.dataset[ratio >= 1.3 ? 'wide' : 'tall'];   // past 1.3 the wide file's drawing is the larger one
+  if (want && img.getAttribute('src') !== want) { img.setAttribute('src', want); return; }   // fitted again on load
+  if (!slot.style.getPropertyValue('--cover-edge')) {
+    try {
+      const c = document.createElement('canvas'); c.width = c.height = 1;
+      const g = c.getContext('2d');
+      g.drawImage(img, 0, 0, 1, 1, 0, 0, 1, 1);
+      const [r, gr, b] = g.getImageData(0, 0, 1, 1).data;
+      slot.style.setProperty('--cover-edge', `rgb(${r} ${gr} ${b})`);
+    } catch { return; }
+  }
+  img.classList.add('is-whole');
+}
+let coverRefit = 0;
+function watchCoverFit() {
+  addEventListener('resize', () => {
+    clearTimeout(coverRefit);
+    coverRefit = setTimeout(() => document.querySelectorAll('img.is-cover').forEach(img => { if (img.complete) fitCover(img); }), 150);
+  });
+}
+
 function watchImageLoad() {
   document.addEventListener('load', e => {
     const t = e.target;
     if (t instanceof HTMLImageElement && (t.classList.contains('media-img') || t.closest('.thumb, .tile-video, .repo-img, .model-img'))) {
       markImgLoaded(t);
     }
+    if (t instanceof HTMLImageElement && t.classList.contains('is-cover')) fitCover(t);
   }, true);
+  watchCoverFit();
 }
 
 function hydrateLoadedImages(root = document) {
   root.querySelectorAll('.media-img, .thumb img, .tile-video img, .repo-img img, .model-img img').forEach(img => {
     if (img.complete && img.naturalWidth > 0) {
       markImgLoaded(img);
+      if (img.classList.contains('is-cover')) fitCover(img);
     }
   });
 }
@@ -642,10 +676,13 @@ function calOf(st) {
 }
 const liveCal = v => v && v.status === 'upcoming' && v.start_at && v.time_precision !== 'relative'
   ? { uid: v.video_id, title: v.title, url: v.url, startAt: v.start_at, endAt: null, note: v.channel ? `Buổi phát trực tiếp của ${v.channel}` : '' } : null;
-function calButtons(cal, attr, label) {
+/* On the front page's event card (card = true) the Google button is the card's one filled action and names itself in
+   Vietnamese: "Google Lịch", with "Thêm vào" before it where the card is wide enough. */
+function calButtons(cal, attr, label, card = false) {
   if (!cal || !canCalendar(cal)) return '';
+  const google = card ? '<span><span class="calbtn-add">Thêm vào </span>Google Lịch</span>' : '<span>Google<span class="calbtn-long"> Calendar</span></span>';
   return `<span class="calbtn" role="group" aria-label="Thêm ${esc(label)} vào lịch">
-    <a class="calbtn-g" href="${esc(gcalURL(cal))}" target="_blank" rel="noopener" aria-label="Thêm vào Google Calendar">${icon('i-cal')}<span>Google<span class="calbtn-long"> Calendar</span></span></a>
+    <a class="calbtn-g" href="${esc(gcalURL(cal))}" target="_blank" rel="noopener" aria-label="Thêm vào Google ${card ? 'Lịch' : 'Calendar'}">${icon('i-cal')}${google}</a>
     <button class="calbtn-ics" ${attr} title="Tải tệp .ics cho Apple Calendar, Outlook">.ics</button></span>`;
 }
 function addToCalendar(ev) {
@@ -840,12 +877,21 @@ let cdTimer = 0;
 function tickCountdowns() {
   const now = Date.now(), seconds = !RM.matches;
   for (const el of document.querySelectorAll('.cd[data-cd]')) {
-    const p = countdownParts(Number(el.dataset.cd), Number(el.dataset.cdEnd), now);
+    const start = Number(el.dataset.cd), end = Number(el.dataset.cdEnd);
+    const p = countdownParts(start, end, now);
     if (!p) continue;
-    const face = countdownFace(p, seconds), sr = countdownSR(p);
+    // The front card's large number ("hero") and its schedule rows ("row") keep their own faces; the rest is the chip.
+    const kind = el.dataset.cdKind || '';
+    const plan = kind === 'hero' ? rulerPlan(start, end, now, el.dataset.cdTz || TZ) : null;
+    const face = kind === 'hero' ? heroFace(p, plan) : kind === 'row' ? rowFace(p) : countdownFace(p, seconds), sr = countdownSR(p);
     if (el.lastElementChild.dataset.f !== face) { el.lastElementChild.innerHTML = face; el.lastElementChild.dataset.f = face; }
     if (el.firstElementChild.textContent !== sr) el.firstElementChild.textContent = sr;
-    el.className = `event-left cd is-${p.state}`;
+    el.className = `${kind === 'hero' ? 'ev-count' : kind === 'row' ? 'ev-row-d' : 'event-left'} cd is-${p.state}`;
+    const ruler = kind === 'hero' ? el.nextElementSibling : null;
+    if (ruler && ruler.matches('.ev-ruler')) {
+      const marks = rulerInner(plan, ruler.dataset.range, ruler.dataset.last);
+      if (ruler.dataset.f !== marks) { ruler.innerHTML = marks; ruler.dataset.f = marks; }
+    }
   }
 }
 function scheduleCountdown() {
@@ -971,36 +1017,87 @@ function scrollShelf(btn) {
 const upcomingEvents = () => asArray(D && D.events).filter(e => eventSpan(e).end > Date.now())
   .sort((a, b) => eventSpan(a).start - eventSpan(b).start);
 const nextStream = () => { const v = asArray(D && D.live); return v.find(x => x.status === 'live') || v.find(x => x.status === 'upcoming') || null; };
-/* The dates as a calendar would print them: the days large, the month and year under them. */
-function evDateHTML(e) {
-  const p = s => /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || '');
-  const a = p(e.start_date), b = p(e.end_date) || a;
-  if (!a) return '';
-  const days = b[0] === a[0] ? `${+a[3]}` : b[2] === a[2] && b[1] === a[1] ? `${+a[3]}–${+b[3]}` : `${+a[3]}/${+a[2]}–${+b[3]}/${+b[2]}`;
-  const under = b[2] === a[2] && b[1] === a[1] ? `Tháng ${+a[2]} · ${a[1]}` : a[1] === b[1] ? a[1] : `${a[1]}–${b[1]}`;
-  return `<span class="ev-date" aria-hidden="true"><b class="num">${days}</b><span>${under}</span></span>`;
+/* The card's countdown, its one large thing: the whole days left ("25 ngày nữa"), the hours or the minutes on the
+   last day, the day it is on once it has started ("ngày 3 / 7"; "Hôm nay" for a one-day event). */
+function heroFace(p, plan) {
+  if (p.state === 'over') return '<b class="ev-n is-word">Đã kết thúc</b>';
+  if (p.state === 'on') {
+    return plan && plan.span > 1
+      ? `<span class="ev-u">ngày</span><b class="ev-n num">${plan.day}</b><span class="ev-u">/ ${plan.span}</span>`
+      : '<b class="ev-n is-word">Hôm nay</b>';
+  }
+  const [n, unit] = p.d ? [p.d, 'ngày'] : p.h ? [p.h, 'giờ'] : [p.m || '&lt;1', 'phút'];
+  return `<b class="ev-n num${p.d > 99 ? ' is-long' : ''}">${n}</b><span class="ev-u">${unit}<br>nữa</span>`;
 }
+/* A schedule row's wait, in one unit. */
+function rowFace(p) {
+  if (p.state === 'on') return '<span class="cd-dot" aria-hidden="true"></span>đang diễn ra';
+  if (p.state === 'over') return 'đã kết thúc';
+  return p.d ? `${p.d} ngày` : p.h ? `${p.h} giờ` : `${p.m || '&lt;1'} phút`;
+}
+/* The day ruler under the number (rulerPlan in time-text.js): today in ink, the days of waiting, the event's own days
+   in coral; under it what the ends are, and what a tick is worth when it is not a day. */
+function rulerInner(plan, range, last) {
+  if (!plan) return '';
+  const ticks = (cls, n) => `<i${cls ? ` class="${cls}"` : ''}></i>`.repeat(Math.max(0, n));
+  const on = plan.state === 'on';
+  const marks = on ? ticks('is-done', plan.done) + ticks('is-on', plan.event - plan.done)
+    : ticks('is-now', 1) + ticks('', plan.before - 1) + ticks('is-on', plan.event);
+  const scale = plan.unit === 7 ? 'Mỗi vạch 1 tuần' : plan.unit === 30 ? 'Mỗi vạch 1 tháng' : 'Hôm nay';
+  const left = on ? '<span class="ev-live"><span class="cd-dot"></span>Đang diễn ra</span>' : `<span>${scale}</span>`;
+  const right = on && plan.span > 1 ? `đến ${esc(last || '')}` : esc(range || '');
+  return `<span class="ev-ticks">${marks}</span><span class="ev-legend">${left}<b>${right}</b></span>`;
+}
+/* When it opens, as a reader in Vietnam needs it: the hour here, or that no hour is verified yet. */
+function eventOpens(e) {
+  if (e.time_precision !== 'exact' || !e.start_at) return 'Chưa rõ giờ khai mạc';
+  const start = new Date(e.start_at), vnDate = dayKey(start);
+  return `Khai mạc ${hhmm(start)}${vnDate !== e.start_date ? ` ngày ${eventRange(vnDate, vnDate)}` : ''}${(e.timezone ?? TZ) !== TZ ? ' giờ Việt Nam' : ''}`;
+}
+/* The card shows the next event and up to two more as schedule rows; a stream takes the rows' place. */
+const EV_ROWS = 2;
 function renderNext() {
   const it = nextStream(), events = upcomingEvents(), e = events[0];
   if (!it && !e) return '';
   const live = !!it && it.status === 'live';
-  const all = events.length > 1 ? '<a class="ev-all" href="#sap-toi">Xem tất cả</a>' : '';
+  const rows = it ? [] : events.slice(1, 1 + EV_ROWS);
+  const all = events.length > 1 + rows.length
+    ? `<a class="ev-all" href="#sap-toi"><span>Xem cả <span class="num">${events.length}</span><span class="sr"> sự kiện</span></span></a>` : '';
   const stream = it ? `<a class="ev-stream" href="${esc(safe(it.url))}" target="_blank" rel="noopener">
       <span class="ev-stream-k${live ? ' is-live' : ''}">${live ? '<span class="cd-dot" aria-hidden="true"></span>Trực tiếp' : esc(scheduleText(it.time_text))}${live && it.channel ? ` · ${esc(it.channel)}` : ''}</span>
       <span class="ev-stream-t"${langAttr(it.title)}>${esc(it.title)}</span></a>
-    ${!e && !live ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}` : '';
+    ${!e && !live ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title, true) : ''}` : '';
   let event = '';
   if (e) {
     const st = asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
-    const range = eventRange(e.start_date, e.end_date), when = eventWhen(e);
-    const rest = when.startsWith(range) ? when.slice(range.length).replace(/^ · /, '') : when;
+    const { start, end } = eventSpan(e), now = Date.now();
+    const zone = e.timezone ?? TZ;
+    const p = countdownParts(start, end, now), plan = rulerPlan(start, end, now, zone);
+    const range = eventShort(e.start_date, e.end_date), last = eventShort(e.end_date || e.start_date);
+    const meta = [eventRange(e.start_date, e.end_date), e.location].filter(Boolean).join(' · ');
+    const note = p && p.state === 'soon' ? eventOpens(e) : '';
+    const count = p ? `<p class="ev-count cd is-${p.state}" data-cd="${start}" data-cd-end="${end}" data-cd-kind="hero" data-cd-tz="${esc(zone)}"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${heroFace(p, plan)}</span></p>
+      <div class="ev-ruler" aria-hidden="true" data-range="${esc(range)}" data-last="${esc(last)}">${rulerInner(plan, range, last)}</div>` : '';
     event = `<div class="ev-next${st ? ` ${statusClass(st)}` : ''}"${st ? ` data-sid="${esc(st.id)}"` : ''}>
-      <a class="ev-link list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>${evDateHTML(e)}<span class="sr">${esc(range)}: </span>
-        <span class="ev-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>${rest ? `<span class="ev-when">${esc(rest)}</span>` : ''}</a>
-      <div class="ev-foot">${countdownHTML(e)}${calButtons(eventCal(e), st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</div></div>`;
+      ${count}
+      <a class="ev-link list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>
+        <span class="ev-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span><span class="ev-meta">${esc(meta)}</span>${note ? `<span class="ev-note">${esc(note)}</span>` : ''}</a>
+      ${calButtons(eventCal(e), st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title, true)}
+      ${evMoreHTML(rows)}</div>`;
   }
-  return `<section class="msn-card msn-ev" id="su-kien" aria-labelledby="ev-h">
+  return `<section class="msn-card msn-ev${it || rows.length ? ' is-dense' : ''}" id="su-kien" aria-labelledby="ev-h">
     <div class="ev-head"><h2 id="ev-h">${live ? 'Đang phát' : 'Sắp diễn ra'}</h2>${all}</div>${stream}${event}</section>`;
+}
+/* The events after the next one, one short row each (its name, its dates and city, its wait), so a card with several
+   events reads as a schedule (captain, 10/11 19:3x: "thẻ "sắp diễn ra" làm đang xấu"). The front page shows at most two. */
+function evMoreHTML(list) {
+  if (!list.length) return '';
+  return `<ol class="ev-more" aria-label="Tiếp theo">${list.map(e => {
+    const { start, end } = eventSpan(e), p = countdownParts(start, end, Date.now());
+    const meta = [eventRange(e.start_date, e.end_date).replace(/tháng/g, 'thg'), String(e.location || '').split(',')[0].trim()].filter(Boolean).join(' · ');
+    const left = p ? `<span class="ev-row-d cd is-${p.state}" data-cd="${start}" data-cd-end="${end}" data-cd-kind="row"><span class="sr">${countdownSR(p)}</span><span class="cd-face num" aria-hidden="true">${rowFace(p)}</span></span>` : '';
+    return `<li><a class="ev-row list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener"><span class="ev-row-text"><span class="ev-row-t"${langAttr(e.title)}>${esc(e.title)}</span><span class="ev-row-m">${esc(meta)}</span></span>${left}</a></li>`;
+  }).join('')}</ol>`;
 }
 /* "Sắp diễn ra" with nothing coming and no story to show: one calm line where the list would be. */
 const eventsEmptyHTML = () => '<p class="msn-card ev-empty" role="status">Chưa có sự kiện nào sắp diễn ra.</p>';
@@ -1023,7 +1120,7 @@ function renderHot(list = HOT) {
       // A drawn cover (radar/covers.py) fills the square from its tall file; it has no backdrop to sit on.
       const drawn = img.kind === 'cover' && img.src ? `<img class="is-cover" src="${esc(img.tall)}" alt="" width="144" height="144" loading="lazy" decoding="async">` : '';
       return `<li><a class="hot-row list-row ${statusClass(st)}" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
-        <span class="thumb" data-id="${esc(st.id)}">${drawn || (img.src ? `${mediaBackdrop(img.src)}<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st))}</span>
+        <span class="thumb" data-id="${esc(st.id)}">${drawn || (img.src ? `<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st))}</span>
         <span class="hot-rank num" aria-hidden="true">${i + 1}</span>
         <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span><span class="hot-why">${translationMark(t)}${whyHTML(st)}</span></span></a></li>`;
     }).join('')}</ol></section>`;
@@ -1618,10 +1715,10 @@ function renderModels() {
      2. Điểm nhấn: "Chuyện lớn", the most notable story ("Đáng chú ý"), the next event and the calendar;
      3. Tin mới: two rows, each one double card and singles, or singles only;
      4. Mô hình và mã nguồn: the Arena leaders, "Kho mã đáng lấy" and "Mô hình đáng thử";
-     5. Tin khác: whole rows of single cards, then "Xem thêm tin".
+     5. Tin khác: whole rows of cards that grow by scrolling, then the older days under their headings.
    At most five columns (trang-msn.css, --bento-cols). Cards in a row are the same height and every row is full: the
-   spans per column count are in the CSS, the two story bands are built here from the live column count, and stories
-   that cannot fill a row wait behind "Xem thêm tin". Every story appears once on the page.
+   spans per column count are in the CSS, the two story bands are built here from the live column count, and a day's
+   last short row is shared by wider cards. Every story appears once on the page.
    ========================================================================== */
 const C = (st, size = '', opts = {}) => ({ t: 'card', st, size, opts });
 const storyHref = st => `https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/`;
@@ -1650,9 +1747,9 @@ const liveAvailable = () => !!(D && ((D.live || []).length || (D.events || []).s
 /* The columns the front page's bands have now (trang-msn.css sets --bento-cols per width: 5, 4, 3, or 1 on a phone). */
 const bentoCols = () => Math.max(1, parseInt(getComputedStyle(document.documentElement).getPropertyValue('--bento-cols'), 10) || 1);
 const NEWS_ROWS = 2;          // "Tin mới": two rows
-const OTHER_ROWS = 3;         // "Tin khác": whole rows shown at first, and added by each "Xem thêm tin"
-const OTHER_PHONE = 8;        // on a phone (one column): cards shown at first, and added by each "Xem thêm tin"
-let FRONT = null;             // { notable, river, older, other, shown }
+const OTHER_ROWS = 3;         // "Tin khác": rows shown at first, and added by each load as the reader nears its end
+const OTHER_PHONE = 8;        // on a phone (one column): rows shown at first, and added by each load
+let FRONT = null;             // { notable, river, older: [{ key, list }], groups, rows, drawn }
 
 /* Who goes where. "Đáng chú ý" is the most notable story after the carousel, "Chuyện lớn" and "Vừa đăng"; the rest
    is the river, in the reader's order, that "Tin mới" and "Tin khác" share (frontNews). */
@@ -1665,8 +1762,16 @@ function buildFront() {
   const ni = river.findIndex(st => isBig(st)), wi = ni >= 0 ? ni : river.findIndex(st => isWide(st));
   const notable = river.length ? river.splice(Math.max(wi, 0), 1)[0] : null;
   PLACED = new Set([...used, ...allStories.map(st => st.id)]);
-  const older = olderItems().filter(x => x.t === 'card').map(x => x.st);
-  return { notable, river, older, other: [], shown: 0 };
+  return { notable, river, older: olderGroups(olderItems()), groups: [], rows: 0, drawn: 0 };
+}
+/* The older days, one group per day (newest first), each under its day's heading in "Tin khác". */
+function olderGroups(items) {
+  const groups = [];
+  for (const it of items) {
+    if (it.t === 'day') groups.push({ key: it.key, list: [] });
+    else if (it.t === 'card' && groups.length) groups[groups.length - 1].list.push(it.st);
+  }
+  return groups.filter(g => g.list.length);
 }
 /* "Tin mới": each row is one double card and singles, or singles only, so every row is full at every column count; the
    double alternates sides. A phone takes the four-column pattern (a double is a full-width picture card there). */
@@ -1685,42 +1790,81 @@ function frontNews(river, cols) {
   }
   return { items, rest: pool };
 }
-/* "Tin khác": only whole rows; what cannot fill a row waits behind "Xem thêm tin". */
-function otherCount(cols) {
-  const all = FRONT.other.length;
-  if (cols < 3) return Math.min(FRONT.shown || OTHER_PHONE, all);
-  const want = (FRONT.shown ? Math.ceil(FRONT.shown / cols) : OTHER_ROWS) * cols;
-  return Math.min(want, Math.floor(all / cols) * cols);
+/* "Tin khác" grows by itself as the reader nears its end (captain, 10/11 ~18:5x: "bỏ cái nút 'Xem thêm tin' thay bằng
+   cuộn để tải tin"): each load adds whole rows of the current column count. The stories come in groups: the rest of the
+   window's river first, then each older day under its heading (a full-width heading in the bands' style, so it never
+   breaks a row). A group's last stories, too few for a row of single cards, share that row between them (wider cards),
+   so every row stays full and no story is left out. */
+const otherRowsStep = cols => (cols < 3 ? OTHER_PHONE : OTHER_ROWS);
+/* The layout of the first `rows` rows: headings and cards, each card with the columns it takes. A layout for more rows
+   always begins with the layout for fewer, so a load only appends. */
+function otherPlan(cols, rows) {
+  const out = [];
+  let used = 0;
+  for (const g of FRONT.groups) {
+    if (used >= rows) break;
+    if (g.key) out.push({ day: g.key });
+    for (let i = 0; i < g.list.length && used < rows; used++) {
+      const left = g.list.length - i;
+      if (left >= cols) { g.list.slice(i, i + cols).forEach(st => out.push({ st, span: 1 })); i += cols; continue; }
+      const base = Math.floor(cols / left), extra = cols % left;
+      g.list.slice(i).forEach((st, k) => out.push({ st, span: base + (k < extra ? 1 : 0) }));
+      i = g.list.length;
+    }
+  }
+  return { items: out, rows: used };
 }
-function renderOtherBand(focusFrom = -1) {
-  const box = $('#more-grid'), foot = $('#more-foot');
+const otherRowsTotal = cols => FRONT.groups.reduce((n, g) => n + Math.ceil(g.list.length / cols), 0);
+const otherCardHTML = it => msnCard(it.st, it.span > 1 ? 'wide' : '', false, it.span > 2 ? `span-${it.span}` : '');
+function renderOtherBand() {
+  const box = $('#more-box');
   if (!box || !FRONT) return;
-  const cols = bentoCols(), n = otherCount(cols);
-  FRONT.shown = n;
-  const have = box.children.length;
-  if (have > n) [...box.children].slice(n).forEach(el => el.remove());
-  else if (have < n) box.insertAdjacentHTML('beforeend', FRONT.other.slice(have, n).map(st => msnCard(st)).join(''));
-  const whole = cols < 3 ? FRONT.other.length : Math.floor(FRONT.other.length / cols) * cols;
-  const more = n < whole || (!complete && !olderUnavailable);
-  foot.innerHTML = more ? '<button class="more-btn" type="button" id="more-btn" aria-controls="more-grid">Xem thêm tin</button>' : '';
-  $('#band-more').hidden = !n && !more;
-  if (focusFrom >= 0) box.children[focusFrom]?.querySelector('.story-link')?.focus({ preventScroll: true });
+  const cols = bentoCols();
+  if (!FRONT.rows) FRONT.rows = otherRowsStep(cols);
+  const plan = otherPlan(cols, FRONT.rows);
+  // Draw only what is new; the layout before it is unchanged.
+  let grid = [...box.querySelectorAll(':scope > .band-cells')].pop();
+  let html = '', added = 0;
+  const flush = () => { if (html && grid) grid.insertAdjacentHTML('beforeend', html); html = ''; };
+  for (const it of plan.items.slice(FRONT.drawn)) {
+    if (it.day) {
+      flush();
+      box.insertAdjacentHTML('beforeend', `<h3 class="band-title day-line" id="day-${esc(it.day)}"><time datetime="${esc(it.day)}">${esc(dayLabel(it.day))}</time></h3><div class="band-cells" aria-labelledby="day-${esc(it.day)}"></div>`);
+      grid = box.lastElementChild;
+    } else { html += otherCardHTML(it); added++; }
+  }
+  flush();
+  FRONT.drawn = plan.items.length;
+  const ended = plan.rows >= otherRowsTotal(cols) && (complete || olderUnavailable);
+  $('#band-more').hidden = !plan.items.length;
+  if (added && FRONT.announce) $('#more-status').textContent = `Đã tải thêm ${added} tin.`;
+  FRONT.announce = true;
   hydrateHF(box); observeSkips(); observeCardMotion(box); hydrateLoadedImages(box);
+  FRONT.ended = ended;
   updateMore();
 }
-/* "Xem thêm tin": the next rows; when the window's stories run out, the complete snapshot's older days follow. */
-function showMoreOther() {
-  if (!FRONT) return;
-  const cols = bentoCols(), before = FRONT.shown;
-  const step = cols < 3 ? OTHER_PHONE : OTHER_ROWS * cols;
-  const enough = FRONT.other.length - before >= (cols < 3 ? 1 : cols);
-  FRONT.shown = before + step;
-  if (!enough && !complete) {
-    const btn = $('#more-btn'); if (btn) { btn.disabled = true; btn.textContent = 'Đang tải thêm tin'; }
-    loadComplete().then(() => { if (!complete) olderUnavailable = true; renderOtherBand(before); });
+/* The next rows, when the reader nears the end of "Tin khác" (the sentinel under it, watchScroll). When the window's
+   stories run out, the complete snapshot's older days follow, under their headings. */
+let frontLoading = false;
+function loadMoreFront() {
+  if (!FRONT || frontLoading || FRONT.ended) return;
+  const cols = bentoCols();
+  if (FRONT.rows >= otherRowsTotal(cols)) {
+    if (complete || olderUnavailable) { FRONT.ended = true; updateMore(); return; }
+    frontLoading = true;
+    $('#feed-status').innerHTML = '<p class="loading-line"><span class="spinner" aria-hidden="true"></span>Đang tải thêm tin</p>';
+    loadComplete().then(() => {
+      frontLoading = false;
+      $('#feed-status').innerHTML = '';
+      if (!complete) olderUnavailable = true;
+      if (FRONT) { FRONT.rows += otherRowsStep(bentoCols()); renderOtherBand(); }
+      requestAnimationFrame(() => { if (nearEnd()) loadMore(); });
+    });
     return;
   }
-  renderOtherBand(before);
+  FRONT.rows += otherRowsStep(cols);
+  renderOtherBand();
+  requestAnimationFrame(() => { if (nearEnd()) loadMore(); });
 }
 /* The band layout depends on the column count: a breakpoint change rebuilds "Tin mới" and "Tin khác" only. */
 let frontColsSeen = 0;
@@ -1739,10 +1883,10 @@ function renderNewsBands() {
   const news = frontNews(FRONT.river, cols);
   box.innerHTML = news.items.map(renderItem).join('');
   $('#band-news').hidden = !news.items.length;
-  const shown = FRONT.shown;
-  FRONT.other = news.rest.concat(FRONT.older);
-  $('#more-grid').innerHTML = '';
-  FRONT.shown = shown;
+  // "Tin khác" is drawn again from its first row at the new column count, as many rows as were loaded.
+  FRONT.groups = [{ key: '', list: news.rest }, ...FRONT.older];
+  $('#more-box').innerHTML = '<div class="band-cells" id="more-grid"></div>';
+  FRONT.drawn = 0; FRONT.ended = false; FRONT.announce = false;
   renderOtherBand();
   hydrateHF(box); observeSkips(); observeCardMotion(box); hydrateLoadedImages(box);
 }
@@ -1753,7 +1897,7 @@ function frontHTML() {
     + bandHTML('focus', 'Điểm nhấn', `<div class="band-cells">${topListHTML(FRONT_TOP)}${notable ? msnCard(notable, 'wide', true) : ''}${renderNext()}<i data-slot="cal"></i></div>`)
     + bandHTML('news', 'Tin mới', '<div class="band-cells" id="news-grid"></div>')
     + renderLab()
-    + bandHTML('more', 'Tin khác', '<div class="band-cells" id="more-grid"></div><div class="band-foot" id="more-foot"></div>');
+    + bandHTML('more', 'Tin khác', '<div class="more-box" id="more-box"><div class="band-cells" id="more-grid"></div></div><p class="sr" id="more-status" role="status" aria-live="polite"></p>');
 }
 
 /* ---------- older days (captain, 09/11 13:16: scrolling replaces the sections) ----------
@@ -1789,10 +1933,12 @@ const dayLineHTML = key => `<h2 class="day-line" id="day-${esc(key)}"><time date
 /* The complete snapshot arrived under the same front page: its older days join the end of the stream. */
 function appendOlder() {
   if (filter === 'all' && FRONT) {
-    // The front page: the older days join "Tin khác", behind its "Xem thêm tin".
-    const add = olderItems().filter(x => x.t === 'card').map(x => x.st);
-    FRONT.older.push(...add); FRONT.other.push(...add);
+    // The front page: the older days join "Tin khác", each under its heading, as the reader scrolls on.
+    const add = olderGroups(olderItems());
+    FRONT.older.push(...add); FRONT.groups.push(...add);
+    FRONT.ended = false;
     renderOtherBand();
+    requestAnimationFrame(() => { if (nearEnd()) loadMore(); });
     return;
   }
   if (filter !== 'all' || !seq.length) return;
@@ -1811,15 +1957,15 @@ const srcOf = st => { const t = titleOf(st), c = t.cov || covsOf(st)[0] || {}; r
    the story page's and the story modal's footer. */
 const metaHTML = st => { const s = srcOf(st); return `<p class="nc-meta">${markHTML(st)}<span class="nc-who"><span class="nc-fav" aria-hidden="true">${avatar(s.face, 'xs')}</span><span class="nc-src">${esc(s.name)}</span></span><span class="nc-when"><span class="nc-dot" aria-hidden="true"></span>${timeEl(st.published_at)}</span></p>`; };
 const aiBadgeHTML = img => img.via === 'ai' ? '<span class="ai-badge" title="Ảnh minh hoạ do AI tạo"><span class="sr">Loại ảnh: </span>Ảnh minh hoạ do AI tạo</span>' : '';
-/* A news picture is drawn whole on a blurred copy of itself (captain, 07/11: "không bị cắt thông tin"), inside the slot
-   Mẫu A gives it, so a chart or a screenshot keeps its edges. */
+/* A card's picture fills the slot Mẫu A gives it (captain, 10/11 19:3x: "phần hiển thị hình ảnh của thẻ phải dùng hết,
+   ảnh gốc có thể bị xén bị che anh không quan tâm"): cropped, never banded. */
 function mediaHTML(img, size) {
   const loading = size === 'lead' ? 'eager' : 'lazy';
-  // A cover (drawn from the story's facts, radar/covers.py) fills its slot: the drawing sits in a safe area of a wider
-  // or taller file, so cropping only trims plain surface. The wide card's half is narrow, so it takes the tall file.
-  if (img.kind === 'cover') return `<img class="media-img nc-img is-cover" src="${esc(size === 'wide' ? img.tall : img.src)}" alt="" width="640" height="360" loading="${loading}" decoding="async">`;
+  // A cover (drawn from the story's facts, radar/covers.py) keeps its text: fitCover picks the file and the fit for the
+  // slot it lands in. The wide card's half is usually narrow, so it starts on the tall file.
+  if (img.kind === 'cover') return `<img class="media-img nc-img is-cover" src="${esc(size === 'wide' ? img.tall : img.src)}" data-wide="${esc(img.src)}" data-tall="${esc(img.tall || img.src)}" alt="" width="640" height="360" loading="${loading}" decoding="async">`;
   const [w, h] = size === 'lead' ? [1280, 720] : [640, 360];
-  return `${mediaBackdrop(img.src, { loading })}<img class="media-img nc-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadgeHTML(img)}`;
+  return `<img class="media-img nc-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadgeHTML(img)}`;
 }
 function leadHTML(list) {
   if (!list.length) return '';
@@ -1830,7 +1976,7 @@ function leadHTML(list) {
       <div class="slide-media media">${mediaHTML(img, i ? 'card' : 'lead')}</div>
       <div class="slide-box"><p class="nc-kicker">Tin nổi bật</p><h2 class="slide-title"${langAttr(t.text)}><a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a></h2>${metaHTML(st)}</div></article>`;
   }).join('');
-  const nav = n > 1 ? `<div class="lead-dots" role="group" aria-label="Chọn tin nổi bật">${list.map((st, i) => `<button type="button" data-slide="${i}" aria-label="Tin nổi bật ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>` : '';
+  const nav = n > 1 ? `<div class="lead-dots pager-dots" role="group" aria-label="Chọn tin nổi bật">${list.map((st, i) => `<button type="button" data-slide="${i}" aria-label="Tin nổi bật ${i + 1}" aria-current="${i === 0}"></button>`).join('')}</div>` : '';
   return `<section class="msn-card msn-lead" id="lead" aria-roledescription="carousel" aria-label="Tin nổi bật">${slides}${nav}</section>`;
 }
 function showSlide(lead, n) {
@@ -1863,13 +2009,13 @@ function topListHTML(list) {
 }
 
 /* ---------- the story card: a picture over the source line and the headline; notable ones carry their dek ---------- */
-function msnCard(st, size = '', kicker = false) {
+function msnCard(st, size = '', kicker = false, extra = '') {
   const img = pickImage(st), t = titleOf(st);
   const pic = !!img.src;
   const tid = `t-${esc(st.id)}`;
   const sumRaw = shown(st.summary, st.summary_vi);
   const sum = sumRaw && VI_RE.test(sumRaw) && sumRaw.trim() !== t.text.trim() ? sumRaw : '';
-  const cls = ['msn-card', 'nc', size ? `nc-${size}` : '', pic ? 'has-photo' : 'no-photo', statusClass(st)].filter(Boolean).join(' ');
+  const cls = ['msn-card', 'nc', size ? `nc-${size}` : '', extra, pic ? 'has-photo' : 'no-photo', statusClass(st)].filter(Boolean).join(' ');
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}">
   ${pic ? `<div class="nc-photo media">${mediaHTML(img, size === 'wide' ? 'wide' : 'card')}</div>` : ''}
   <div class="nc-body">
@@ -2061,8 +2207,7 @@ function setLoading(on) {
   if (on) host.insertAdjacentHTML('beforeend', Array.from({ length: gridCols(host) }, () => '<div class="msn-card msn-sk" aria-hidden="true"></div>').join(''));
 }
 function loadMore() {
-  if (filter === 'all') return;   // the front page grows by "Xem thêm tin" (renderOtherBand), whole rows at a time
-  if (filter === 'all' && pos >= seq.length && D && !complete) { waitOlder(); return; }
+  if (filter === 'all') { if (!$('#feed-grid').hidden) loadMoreFront(); return; }   // whole rows of "Tin khác"
   if (loadingMore || pos >= seq.length || filter === 'rankings' || $('#feed-grid').hidden) return;
   loadingMore = true;
   setLoading(true);
@@ -2100,7 +2245,7 @@ function updateMore() {
   const front = filter === 'all';
   if (front) {
     // The front page ends once "Tin khác" has nothing more to show.
-    end.hidden = !FRONT || !FRONT.shown || !!$('#more-btn');
+    end.hidden = !FRONT || !FRONT.ended;
     $('#mark-all-btn').textContent = 'Đánh dấu đã xem hết';
     return;
   }
@@ -2206,11 +2351,9 @@ function revealStory(pred, cardsOnly = false) {
   let el = find();
   while (!el && pos < seq.length) { more(false); el = find(); }
   // The front page: open "Tin khác" row by row until the story is there.
-  while (!el && FRONT && filter === 'all' && FRONT.shown < FRONT.other.length) {
-    const before = FRONT.shown;
-    FRONT.shown += bentoCols() < 3 ? OTHER_PHONE : OTHER_ROWS * bentoCols();
+  while (!el && FRONT && filter === 'all' && FRONT.rows < otherRowsTotal(bentoCols())) {
+    FRONT.rows += otherRowsStep(bentoCols());
     renderOtherBand();
-    if (FRONT.shown <= before) break;
     el = find();
   }
   const lead = el && el.matches('.slide') && el.closest('.msn-lead');   // a carousel story: bring its slide forward
@@ -2799,7 +2942,6 @@ function onClick(e) {
   if (act && act.dataset.act === 'save') { toggleSave(act.dataset.id); return; }
   const cov = t.closest('.cov-btn'); if (cov) { toggleDetail(cov); return; }
   const fp = t.closest('[data-fresh-page]'); if (fp) { pageFresh(fp); return; }
-  if (t.closest('#more-btn')) { showMoreOther(); return; }
   const lx = t.closest('[data-lab-open]'); if (lx) { toggleLab(lx); return; }
   const sb = t.closest('.shelf-btn'); if (sb) { scrollShelf(sb); return; }
   const cal = t.closest('[data-cal]'); if (cal) { e.preventDefault(); addToCalendar(calOf(STORY_ANY.get(cal.dataset.cal))); return; }
@@ -2862,6 +3004,14 @@ function attachEvents() {
   $('#feed-filters').addEventListener('click', e => { const b = e.target.closest('.filter-chip'); if (b) setFilter(b.dataset.filter); });
   $('#feed-filters').addEventListener('scroll', e => markTabOverflow(e.currentTarget), { passive: true });
   if (document.fonts) document.fonts.ready.then(() => markTabOverflow($('#feed-filters')));
+  // The order control's pill takes its width from the chosen button, which grows when the site font arrives: follow
+  // the control's size, or the raised side stays narrower than its label (measured 9.6 px on a loaded machine).
+  if ('ResizeObserver' in window && $('#sort-switch')) {
+    new ResizeObserver(() => {
+      const sort = $('#sort-switch'), on = sort.querySelector('.sort-btn[aria-pressed="true"]:not(.sort-btn-compact)');
+      if (on && matchMedia('(min-width: 768px)').matches) glideTab(sort, on, { immediate: true });
+    }).observe($('#sort-switch'));
+  }
   // Tiles that lead to a view of their own ("Xem đủ 10 mô hình" opens "Xếp hạng").
   document.addEventListener('click', e => {
     const go = e.target instanceof Element && e.target.closest('[data-filter-go]');

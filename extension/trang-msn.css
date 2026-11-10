@@ -60,7 +60,7 @@
   /* The outer width stops at --msn-panel-max and the panel is centred; the top row (.msn-top-in) stops at the same width. */
   max-width: var(--msn-panel-max); margin: 0 max(var(--msn-page-pad), calc((100% - var(--msn-panel-max)) / 2)) var(--space-48);
   padding: var(--msn-panel-pad);
-  background: var(--color-panel); border: 0; border-radius: var(--msn-panel-r);
+  background: var(--color-panel-front); border: 0; border-radius: var(--msn-panel-r);
   box-shadow: var(--msn-shadow-panel);
 }
 .newsbar.msn-head {
@@ -87,7 +87,7 @@
   transition: background-color var(--duration-150) ease, color var(--duration-150) ease;
 }
 .msn-head .filter-chip::before { border-radius: var(--radius-8); inset: 0; }
-.msn-head .filter-chip:hover:not([aria-pressed="true"]) { --header-control-bg: var(--color-fill); color: var(--color-ink); }
+.msn-head .filter-chip:hover:not([aria-pressed="true"]) { --header-control-bg: var(--color-surface); color: var(--color-ink); }   /* a white wash on the tinted panel */
 .msn-head .filter-chip[aria-pressed="true"] { --header-control-bg: transparent; color: var(--color-ink); }
 .msn-head .filter-chip[aria-pressed="true"]::after {
   content: ""; position: absolute; left: var(--space-12); right: var(--space-12); bottom: var(--space-4);
@@ -95,6 +95,15 @@
 }
 .head-actions { display: flex; align-items: center; gap: var(--space-8); margin-left: auto; flex: none; }
 .head-actions .sort-switch { margin: 0; }
+/* "Đáng đọc nhất / Mới nhất": the segmented control of "Giao diện" in Tùy chỉnh (below, .tc-seg shares its track and
+   its chosen side), so the chosen order shows as a raised pill on a grey track (captain, 10/11 19:3x). The header row's
+   pill inset is not defined here, so the old track (.sort-switch::before) never drew. */
+.msn-head .sort-switch { --tab-pill-inset: 0px; --header-pill-inset: 0px; gap: var(--msn-tight); }
+.msn-head .sort-switch::before { display: none; }
+.msn-head .sort-btn { padding: 0 var(--space-12); border-radius: var(--seg-thumb-r); }
+.msn-head .sort-btn::before { border-radius: var(--seg-thumb-r); }
+.msn-head .sort-btn[aria-pressed="true"] { --header-control-bg: var(--color-seg-thumb); }
+.msn-head .has-pill .sort-btn[aria-pressed="true"] { --header-control-bg: transparent; }
 .msn-head .ed-link {
   --header-pill-inset: 0px; --header-control-bg: var(--color-accent-fill); gap: var(--space-6); min-height: var(--btn-h); padding: 0 var(--space-16);
   font-size: var(--text-small); font-weight: var(--weight-bold); transition: transform var(--duration-150) var(--ease-press);
@@ -156,7 +165,7 @@
 .nc:active { transform: scale(0.985); }
 .nc-photo { position: relative; height: var(--msn-photo-h); flex: none; overflow: hidden; background: var(--color-fill); }
 .msn-card .media { aspect-ratio: auto; }
-.nc-img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform var(--motion-count) var(--ease-flow); }
+.nc-img { width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-focus); display: block; transition: transform var(--motion-count) var(--ease-flow); }
 /* min-width: 0 lets the body shrink beside a wide card's picture: the meta line's no-wrap parts would otherwise push
    the body past the card's edge (measured 2026-11-10: 412 px of text in a 343 px card at 375 px, 326/288 at 320 px). */
 .nc-body { display: flex; flex-direction: column; gap: var(--space-6); min-width: 0; min-height: 0; flex: 1; padding: var(--space-8) var(--space-12) var(--space-12); }
@@ -236,22 +245,28 @@
 .slide.no-photo .slide-box { inset: 0; justify-content: flex-end; border-radius: 0; padding: var(--space-24) var(--space-24) var(--space-64); background: transparent; }
 .slide.no-photo .slide-title { font-size: var(--text-feature); -webkit-line-clamp: 4; }
 @media (hover: hover) and (pointer: fine) { .slide .story-link:hover { text-decoration: underline; text-underline-offset: 0.15em; } }
-/* The dots, one per story in the carousel, straight on the photo with no chip behind them (captain, 10/11 15:52: "bỏ cái
-   nền của mấy dấu chấm ... chỉ để mấy dấu chấm"); each dot carries its own thin dark ring and shadow, so it reads on a
-   white photo and a dark one alike. Each dot is a 44 px tall button. No prev/next buttons (owner, 09/11): a swipe or
-   the arrow keys on the dots move the story. */
-.msn-lead { touch-action: pan-y; }
-.lead-dots { position: absolute; top: 0; left: var(--space-12); z-index: 3; display: flex; padding-inline: var(--space-6); }
-.lead-dots button { height: var(--btn-h); padding-inline: var(--space-4); display: grid; place-items: center; }
-.lead-dots button::before {
-  content: ""; width: var(--msn-lead-dot); height: var(--msn-lead-dot); border-radius: var(--radius-full); background: var(--msn-on-photo-dot);
-  box-shadow: var(--msn-lead-dot-shadow);
+/* The pager dots, one style for every row of them: the lead carousel's (one per story) and the weather card's (one per
+   page). Straight on the picture with no chip behind them (captain, 10/11 15:52: "bỏ cái nền của mấy dấu chấm ... chỉ để
+   mấy dấu chấm") and no ring around them (10/11 18:54: "các dấu chấm trên carousel thì có viền, bỏ viền đi. bảo đảm các
+   dấu chấm trên carousel phải đồng bộ với nhau"): a soft shadow alone keeps them legible on a white photo and a dark one.
+   Each dot is a 44 px tall button; the active one is a longer bar. */
+.pager-dots { display: flex; }
+.pager-dots button {
+  height: var(--btn-h); padding: 0 var(--pager-dot-pad); border: 0; background: none; display: grid; place-items: center;
+}
+.pager-dots button::before {
+  content: ""; width: var(--pager-dot); height: var(--pager-dot); border-radius: var(--radius-full); background: var(--pager-dot-fill);
+  box-shadow: var(--pager-dot-shadow);
   transition: width var(--duration-250) var(--ease-flow), background-color var(--duration-250) ease;
 }
-.lead-dots button[aria-current="true"]::before { width: var(--msn-lead-dot-on); background: var(--msn-on-ink); }
-.lead-dots button:focus-visible { outline: none; }
-.lead-dots button:focus-visible::before { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
-@media (hover: hover) and (pointer: fine) { .lead-dots button[aria-current="false"]:hover::before { background: var(--msn-on-ink-2); } }
+.pager-dots button[aria-current="true"]::before { width: var(--pager-dot-on); background: var(--pager-dot-fill-on); }
+.pager-dots button:focus-visible { outline: none; }
+.pager-dots button:focus-visible::before { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+@media (hover: hover) and (pointer: fine) { .pager-dots button[aria-current="false"]:hover::before { background: var(--msn-on-ink-2); } }
+/* The carousel's dots at the photo's top left. No prev/next buttons (owner, 09/11): a swipe or the arrow keys on the
+   dots move the story. */
+.msn-lead { touch-action: pan-y; }
+.lead-dots { position: absolute; top: 0; left: var(--space-12); z-index: 3; padding-inline: var(--space-6); }
 
 /* ---------- "Chuyện lớn": a numbered list ---------- */
 .msn-toplist { display: flex; flex-direction: column; padding: var(--space-12) var(--space-12) var(--space-8); }
@@ -337,10 +352,8 @@
 .wx-lo { font-size: var(--text-micro); font-weight: var(--weight-medium); }
 .wx-days.is-swapping li { opacity: 0; }
 .wx-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
-.wx-dots { display: flex; margin-left: calc(-1 * var(--space-12)); }
-.wx-dots button { width: var(--btn-h); height: var(--btn-h); display: grid; place-items: center; }
-.wx-dots button::before { content: ""; width: var(--space-6); height: var(--space-6); border-radius: var(--radius-full); background: var(--msn-on-photo-dot); transition: width var(--duration-250) var(--ease-flow), background-color var(--duration-250) ease; }
-.wx-dots button[aria-current="true"]::before { width: var(--space-16); background: var(--msn-on-ink); }
+/* The weather card's two page dots: the pager dots above, their first dot on the card's content edge. */
+.wx-dots { margin-left: calc(-1 * var(--pager-dot-pad)); }
 .msn-wx .pill {
   display: inline-flex; align-items: center; min-height: var(--btn-h); padding: 0 var(--space-16); border-radius: var(--radius-full);
   background: var(--msn-wx-pill); color: inherit;
@@ -433,41 +446,65 @@
   display: inline-flex; align-items: center; min-height: var(--btn-h); margin-block: calc(-1 * var(--space-12)); margin-right: calc(-1 * var(--space-8)); padding: 0 var(--space-8);
   border-radius: var(--radius-8); font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-accent); white-space: nowrap;
 }
-.ev-next { flex: 1; display: flex; flex-direction: column; gap: var(--space-12); min-height: 0; }
-.ev-link { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; color: inherit; }
-.ev-date { display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-8); }
-.ev-date b { font-size: var(--num-md); line-height: 1; font-weight: var(--weight-bold); letter-spacing: -0.04em; color: var(--color-ink); }
-.ev-date span { font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-2); }
+/* "Hai mươi lăm" (captain, 10/11 ~21:05, choosing the mockup): the number is the card. The days left are its one large
+   thing; under them a day ruler (today in ink, the wait, the event's own days in coral); then the name, the dates and
+   place and the opening hour as one quiet caption; then the calendar buttons, the only other coral. The parts stack
+   the same way at every width. */
+.msn-ev { --ev-tick: color-mix(in srgb, var(--color-ink-3) 32%, transparent); --ev-tick-gap: calc(var(--space-6) / 2); --ev-tick-r: calc(var(--space-4) / 2); }
+.ev-next { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.ev-count { display: flex; margin: 0; min-width: 0; }
+.ev-count.cd, .ev-count.cd.is-on, .ev-count.cd.is-over { color: var(--color-ink); font-weight: var(--weight-bold); }
+.ev-count .cd-face { display: flex; align-items: flex-end; gap: var(--space-8); min-width: 0; }
+.ev-n { font-size: min(var(--num-count), 50cqi); line-height: 0.82; font-weight: var(--weight-bold); letter-spacing: -0.055em; margin-inline-start: -0.045em; }
+.ev-n.is-long { font-size: min(var(--size-88), 38cqi); }
+.ev-n.is-word { font-size: var(--num-md); line-height: 1.15; letter-spacing: -0.03em; margin-inline-start: 0; }
+.ev-u { padding-bottom: 0.1em; font-size: var(--text-sub); line-height: 1.2; font-weight: var(--weight-semibold); color: var(--color-ink-2); white-space: nowrap; }
+.ev-ruler { display: flex; flex-direction: column; gap: var(--space-6); margin-top: var(--space-16); }
+.ev-ruler:empty { display: none; }
+.ev-ticks { display: flex; gap: var(--ev-tick-gap); height: var(--space-12); }
+.ev-ticks i { flex: 1; min-width: 0; border-radius: var(--ev-tick-r); background: var(--ev-tick); }
+.ev-ticks .is-now { background: var(--color-ink); }
+.ev-ticks .is-on { background: var(--color-accent-fill); }
+.ev-ticks .is-done { background: var(--color-accent-wash-strong); }
+.ev-legend { display: flex; justify-content: space-between; gap: var(--space-8); font-size: var(--text-micro); line-height: 1.35; font-weight: var(--weight-medium); color: var(--color-ink-3); white-space: nowrap; }
+.ev-legend > :first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.ev-legend b { flex: none; font-weight: var(--weight-semibold); color: var(--color-accent); }
+.ev-live { color: var(--color-live); font-weight: var(--weight-semibold); }
+.ev-link { display: flex; flex-direction: column; min-width: 0; margin-top: auto; padding-top: var(--space-12); color: inherit; }
 .ev-name {
-  font-size: var(--text-title); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: -0.015em; color: var(--color-ink);
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-wrap: pretty;
+  font-size: var(--text-title); line-height: 1.3; font-weight: var(--weight-semibold); letter-spacing: -0.015em; color: var(--color-ink);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-wrap: pretty;
 }
 .ev-next.is-read .ev-name { color: var(--color-ink-2); }
-.ev-when { font-size: var(--text-meta); line-height: 1.4; color: var(--color-ink-3); }
-.ev-foot { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); margin-top: auto; }
-.msn-ev .event-left { font-size: var(--text-meta); }
-.msn-ev .calbtn-long { display: none; }
+.ev-meta { font-size: var(--text-meta); line-height: 1.5; color: var(--color-ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ev-note { font-size: var(--text-micro); line-height: 1.35; color: var(--color-ink-3); }
+/* The calendar pair: Google is the card's one filled button, .ics a tonal one beside it. */
+.msn-ev .calbtn { display: flex; gap: var(--space-8); margin-top: var(--space-12); border-radius: 0; background: none; overflow: visible; }
+.msn-ev :is(.calbtn-g, .calbtn-ics) { min-height: var(--btn-h); border-radius: var(--radius-12); transition: transform var(--duration-150) ease-out, background-color var(--duration-150) ease; }
+.msn-ev .calbtn-g { flex: 1; min-width: 0; background: var(--color-accent-fill); color: var(--color-on-accent); }
+.msn-ev .calbtn-ics { min-width: calc(var(--btn-h) + var(--space-16)); background: var(--color-fill); color: var(--color-ink); box-shadow: none; }
+.msn-ev .calbtn-g:active, .msn-ev .calbtn-ics:active { transform: scale(0.97); }
+.msn-ev .calbtn-g:active { background: var(--color-accent-fill-hover); color: var(--color-on-accent); }
+.msn-ev .calbtn-ics:active { background: var(--color-field-on); color: var(--color-ink); }
+.msn-ev .calbtn :focus-visible { outline-offset: var(--focus-offset); border-radius: var(--radius-12); }
+.msn-ev .calbtn-add { display: none; }
+@container (min-width: 17rem) { .msn-ev .calbtn-add { display: inline; } }
 .ev-stream { display: flex; flex-direction: column; gap: var(--space-4); min-height: var(--btn-h); padding: var(--space-8) var(--space-12); border-radius: var(--radius-8); background: var(--color-fill); color: inherit; transition: background-color var(--duration-150) ease; }
 .ev-stream-k { font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); color: var(--color-ink-2); }
 .ev-stream-k.is-live { color: var(--color-live); }
 .ev-stream-t { font-size: var(--text-meta); line-height: 1.35; font-weight: var(--weight-semibold); color: var(--color-ink); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-/* With a stream above it, the event keeps its days, name, countdown and calendar; its place and hour wait in its source,
-   so the cell keeps the calendar's height. */
-.msn-ev:has(.ev-stream) .ev-when { display: none; }
-.msn-ev:has(.ev-stream), .msn-ev:has(.ev-stream) .ev-next { gap: var(--space-8); }
-.msn-ev:has(.ev-stream) .ev-date { margin-bottom: 0; }
-.msn-ev:has(.ev-stream) .ev-date b { font-size: var(--text-feature); }
 .msn-ev :is(.ev-link, .ev-stream, .ev-all):focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); border-radius: var(--radius-8); }
 @media (hover: hover) and (pointer: fine) {
-
   .ev-stream:hover { background: var(--color-field-on); }
   .ev-all:hover { background: var(--color-fill); }
+  .msn-ev .calbtn-g:hover { background: var(--color-accent-fill-hover); color: var(--color-on-accent); }
+  .msn-ev .calbtn-ics:hover { background: var(--color-field-on); color: var(--color-ink); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .msn-ev .calbtn-g:active, .msn-ev .calbtn-ics:active { transform: none; }
 }
 @container (max-width: 14rem) {
-  .ev-next { gap: var(--space-8); }
-  .ev-date { margin-bottom: var(--space-4); }
   .ev-name { font-size: var(--text-sub); }
-  .ev-date b { font-size: var(--text-feature); }
   .msn-ev .calbtn-g .i { display: none; }
 }
 .msn-grid > .ev-empty { grid-column: 1 / -2; align-self: start; margin: 0; padding: var(--space-16) var(--space-4); background: none; box-shadow: none; font-size: var(--text-body); color: var(--color-ink-2); }
@@ -589,12 +626,32 @@
 .band-focus .nc-wide .nc-title { font-size: var(--msn-title-big); line-height: 1.3; letter-spacing: -0.02em; -webkit-line-clamp: 6; }
 .band-focus .nc-wide .nc-sum { -webkit-line-clamp: 4; }
 
-/* The next event: its days, name and place, then its countdown and calendar, laid through the card's height rather
-   than leaving one gap between the name and the countdown (captain, 10/11). */
+/* "Sắp diễn ra" in its band: a white card like its neighbours (the mockup the captain chose on 10/11 ~21:05 replaced
+   the coral-washed ticket of 19:3x). With more events, or a stream, the card is dense: a smaller number, the ruler
+   without its legend, no opening-hour line, and the next events as a short schedule at its foot. On a phone the card
+   is as tall as it needs, so nothing is left out there. */
 .band .msn-ev { padding: var(--space-12) var(--space-16) var(--space-16); }
-.band .ev-next { justify-content: space-evenly; gap: var(--space-12); }
-.band .ev-foot { margin-top: 0; }
-.band .ev-date b { font-size: var(--text-feature); }
+.ev-more { display: flex; flex-direction: column; min-height: 0; margin: auto 0 calc(-1 * var(--space-8)); padding: var(--space-8) 0 0; list-style: none; }
+.ev-more li { border-top: var(--msn-hair) solid var(--color-hair); }
+.ev-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-height: var(--btn-h); padding-block: var(--space-6); color: inherit; }
+.ev-row-text { display: flex; flex-direction: column; min-width: 0; }
+.ev-row-t { font-size: var(--text-meta); font-weight: var(--weight-semibold); line-height: 1.35; color: var(--color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ev-row-m { font-size: var(--text-micro); line-height: 1.35; color: var(--color-ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ev-row-d { flex: none; font-size: var(--text-micro); line-height: 1.35; white-space: nowrap; }
+.ev-row-d.cd, .ev-row-d.cd.is-over { font-weight: var(--weight-semibold); color: var(--color-ink-2); }
+.ev-row-d.cd.is-on { color: var(--color-live); }
+.msn-ev .ev-row { --row-wash-x: 0px; --row-wash-y: 0px; }
+.msn-ev .ev-row:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); border-radius: var(--radius-8); }
+@media (min-width: 768px) {
+  .msn-ev.is-dense .ev-n:not(.is-word) { font-size: min(var(--num-count-dense), 36cqi); }
+  .msn-ev.is-dense .ev-n.is-long { font-size: min(var(--size-56), 28cqi); }
+  .msn-ev.is-dense .ev-u { font-size: var(--text-small); }
+  .msn-ev.is-dense .ev-ruler { margin-top: var(--space-12); }
+  .msn-ev.is-dense .ev-ticks { height: var(--space-8); }
+  .msn-ev.is-dense :is(.ev-legend, .ev-note) { display: none; }
+  .msn-ev.is-dense .ev-link { margin-top: 0; }
+  .msn-ev.is-dense .ev-name { -webkit-line-clamp: 1; }
+}
 
 /* "Mô hình và mã nguồn": the tiles side by side, as many columns as tiles, one height. */
 .band-lab .band-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); grid-auto-rows: var(--band-h-lab); }
@@ -620,19 +677,18 @@
   .band-lab .model-img { display: none; }
 }
 
-/* "Tin khác": whole rows, then "Xem thêm tin". */
-.band-foot { display: flex; justify-content: center; margin-top: var(--space-16); }
-.band-foot:empty { display: none; }
-.more-btn {
-  display: inline-flex; align-items: center; justify-content: center; min-height: var(--btn-h); padding: 0 var(--space-24);
-  border-radius: var(--radius-full); background: var(--color-fill); color: var(--color-ink);
-  font-size: var(--text-small); font-weight: var(--weight-semibold);
-  transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+/* "Tin khác": whole rows that load as the reader scrolls (feed.js, loadMoreFront), the older days under full-width
+   headings set like the bands' own, so a heading never breaks a row. A group's last stories share their row as wider
+   cards (span-3 and up; span 2 is the double card's own). */
+.more-box { display: flex; flex-direction: column; gap: var(--msn-gap); min-width: 0; }
+.more-box > .band-cells:empty { display: none; }
+.more-box > .day-line.band-title {
+  margin: calc(var(--band-gap) - var(--msn-gap)) 0 0 var(--space-4); padding: 0; line-height: 1.3;
+  font-size: var(--text-title); font-weight: var(--weight-bold); letter-spacing: -0.01em; color: var(--color-ink);
 }
-.more-btn:hover { background: var(--color-field-on); }
-.more-btn:active { transform: scale(0.97); }
-.more-btn:disabled { color: var(--color-ink-3); cursor: progress; }
-.more-btn:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.band-cells > .span-3 { grid-column: span 3; }
+.band-cells > .span-4 { grid-column: span 4; }
+.band-cells > .span-5 { grid-column: span 5; }
 
 /* ---------- one row of any list: Vừa đăng, Chuyện lớn, Đang nóng, the band's lists, Sắp diễn ra ---------- */
 /* One wash behind the whole row, the same for the pointer (only where there is one that hovers) and for the keyboard,
@@ -835,6 +891,8 @@
   .band-cells { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; gap: var(--space-8); }
   .band-cells > *, .band-cells > .msn-lead, .band-cells > .nc-wide, .band-cells > .tile-fresh { grid-column: 1 / -1; }
   .band > .band-title { margin: 0 0 var(--space-8) var(--space-4); font-size: var(--text-body); }
+  .more-box { gap: var(--space-8); }
+  .more-box > .day-line.band-title { margin-top: calc(var(--band-gap) - var(--space-8)); font-size: var(--text-body); }
   .band .msn-lead { height: var(--msn-lead-h-phone); }
   .band .msn-wx { min-height: var(--msn-wx-h-phone); }
   .band .msn-cal { min-height: var(--msn-rowh-phone); }
@@ -885,6 +943,12 @@
   .msn-top-in { width: 100%; }
   [data-layout="part"] .msn-top { min-height: var(--nen-fold); }
   [data-layout="head"] .msn-top { min-height: calc(100svh - var(--nen-peek)); }
+  /* "Một phần" and "Đầu đề" (captain, 10/11 18:54: "nút tìm kiếm nó phải luôn nằm ở giữa mép trên và mép nội dung"): the
+     top row fills the space above the panel, the corners stay where "Toàn trang" has them (centred on a search-high
+     band at its top), and the search sits in its vertical middle, halfway between the window's top edge and the panel's
+     (the row's top padding equals its bottom margin). */
+  :is([data-layout="part"], [data-layout="head"]) .msn-top-in { flex: 1; grid-template-rows: var(--msn-search-h) 1fr; }
+  :is([data-layout="part"], [data-layout="head"]) .msn-top :is(.news-search, .web-search) { grid-row: 1 / -1; align-self: center; }
   :root:not([data-nen="off"]) {
     --top-ink: var(--top-on-nen-ink); --top-ink-shadow: var(--top-on-nen-shadow);
     --top-tile: var(--top-on-nen-tile); --top-tile-on: var(--top-on-nen-tile-on);
@@ -956,9 +1020,15 @@
 .tc-switch:checked { background: var(--color-accent-fill); }
 .tc-switch:checked::before { transform: translateX(calc(var(--tc-switch-w) - var(--tc-switch-h))); }
 .tc-switch:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
-.tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-fill); }
-.tc-seg label { display: grid; place-items: center; min-height: var(--btn-h); border-radius: calc(var(--radius-8) - var(--msn-tight)); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2); cursor: pointer; transition: background-color var(--duration-150) ease, color var(--duration-150) ease; }
-.tc-seg label:has(input:checked) { background: var(--color-panel); color: var(--color-ink); font-weight: var(--weight-bold); box-shadow: var(--msn-shadow-rest); }
+/* The segmented control, one look wherever a choice of a few sides is shown: "Giao diện" here, the order in the
+   panel's header row (.msn-head .sort-switch). A grey track; the chosen side a raised pill. */
+.tc-seg, .msn-head .sort-switch { padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }
+.tc-seg label:has(input:checked), .msn-head .sort-switch .tab-pill, .msn-head .sort-btn-compact::before {
+  background: var(--color-seg-thumb); box-shadow: var(--msn-shadow-rest); border-radius: var(--seg-thumb-r);
+}
+.tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); }
+.tc-seg label { display: grid; place-items: center; min-height: var(--btn-h); border-radius: var(--seg-thumb-r); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2); cursor: pointer; transition: background-color var(--duration-150) ease, color var(--duration-150) ease; }
+.tc-seg label:has(input:checked) { color: var(--color-ink); font-weight: var(--weight-bold); }
 /* A phone draws no picture, so the layout and the picture switch have nothing to change there. */
 @media (max-width: 767px) {
   .tc-wide { display: none; }
@@ -972,7 +1042,7 @@
 @media (prefers-reduced-motion: reduce) {
   .nen-img { transition: none; }
   .fresh-list li.is-flash { animation: none; background: var(--color-accent-wash-strong); }
-  .nc, .nc-img, .slide, .lead-dots button::before, .wx-days li, .wx-menu, .wx-dots button::before { transition-duration: 1ms !important; }
+  .nc, .nc-img, .slide, .pager-dots button::before, .wx-days li, .wx-menu { transition-duration: 1ms !important; }
   .nc:hover, .nc:active { transform: none; }
   .nc:hover .nc-img { transform: none; }
   .msn-sk, .wx-skel i, .spinner { animation: none; }
