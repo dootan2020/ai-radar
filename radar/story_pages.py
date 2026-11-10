@@ -458,6 +458,19 @@ def gated_stories(stories, decisions):
     return shown
 
 
+def with_kept_cover(story, site):
+    """The story as its permanent page may show it: a drawn cover only while its file is in the site being deployed.
+
+    Pages are drawn again from the archive on every run, while radar/covers.py prunes covers of stories that left the
+    snapshots; a page whose cover is gone shows no picture (and the site's default og:image), never a missing file.
+    """
+    image = story.get("image")
+    if (isinstance(image, dict) and image.get("via") == "cover"
+            and not (COVER_SRC.fullmatch(_text(image.get("src"))) and (Path(site) / image["src"]).is_file())):
+        story = {key: value for key, value in story.items() if key != "image"}
+    return story
+
+
 def render_site(stories, site, base_url=BASE_URL, sources=None, decisions=None):
     """Write exactly the archived story pages that passed the scoring gate, and the matching sitemap."""
     stories = gated_stories(stories, decisions)
@@ -482,7 +495,7 @@ def render_site(stories, site, base_url=BASE_URL, sources=None, decisions=None):
         if story.get("redirect_to"):
             continue
         path = tin / story_id / "index.html"
-        _write_bytes(path, render_story_page(story, base_url, sources).encode("utf-8"))
+        _write_bytes(path, render_story_page(with_kept_cover(story, site), base_url, sources).encode("utf-8"))
         urls.append(f"{base_url.rstrip('/')}/tin/{story_id}/")
 
     alias_targets = {}

@@ -136,6 +136,32 @@ class FillOnlyTheGapTest(unittest.TestCase):
         self.assertIsNone(cache.get(st["url"]))
 
 
+class PermanentPagesTest(unittest.TestCase):
+    def test_a_page_never_links_a_pruned_cover(self):
+        # Permanent pages are drawn again from the archive on every run; a cover pruned since is simply not shown.
+        from unittest import mock
+        from radar import story_pages
+        cover = lambda sid: {"src": f"assets/cover/{sid}-0123456789.png", "tall": f"assets/cover/{sid}-0123456789-t.png",
+                             "via": "cover", "kind": "cover"}
+        archive = {sid: {"id": sid, "title": f"Story {sid}", "title_vi": f"Tin {sid}", "url": f"https://example.com/{sid}",
+                         "published_at": "2026-11-10T00:00:00Z", "kind": "product", "image": cover(sid),
+                         "coverage": [{"source": "verge-ai", "url": f"https://example.com/{sid}"}]}
+                   for sid in ("kept", "pruned")}
+        with tempfile.TemporaryDirectory() as tmp:
+            site = Path(tmp)
+            (site / "assets" / "cover").mkdir(parents=True)
+            (site / archive["kept"]["image"]["src"]).write_bytes(b"png")
+            with mock.patch.object(story_pages, "gated_stories", lambda stories, decisions: stories):
+                self.assertEqual(story_pages.render_site(archive, site), 2)
+            kept = (site / "tin" / "kept" / "index.html").read_text(encoding="utf-8")
+            pruned = (site / "tin" / "pruned" / "index.html").read_text(encoding="utf-8")
+        self.assertIn('class="story-media-img is-cover"', kept)
+        self.assertIn("assets/cover/kept-0123456789.png", kept)
+        self.assertNotIn("assets/cover/", pruned)
+        self.assertNotIn("story-media", pruned)
+        self.assertIn("og-image.png", pruned)
+
+
 def chrome_available():
     if not NODE:
         return False
