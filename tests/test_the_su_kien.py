@@ -155,9 +155,8 @@ class Card(unittest.TestCase):
     def test_one_timer_drives_the_number_the_rows_and_the_ruler(self):
         for folder in FOLDERS:
             tick = function(read(folder / "feed.js"), "tickCountdowns")
-            # A stream ("Sự kiện", "Sắp phát") shares the face and keeps its minutes; the events keep theirs.
-            self.assertIn("kind === 'hero' ? heroFace(p, plan) : kind === 'stream' ? heroFace(p, null, true)\n"
-                          "      : kind === 'row' ? rowFace(p) : countdownFace(p, seconds)", tick)
+            # A stream ("Sự kiện", "Sắp phát") has its own face and state past its hour; the events keep theirs.
+            self.assertIn("const face = kind === 'hero' ? heroFace(p, plan) : kind === 'stream' ? streamFace(p) : rowFace(p);", tick)
             self.assertIn("rulerInner(plan, ruler.dataset.range, ruler.dataset.last)", tick)
             # The ruler counts days in the event's own timezone, at the first draw and on every tick.
             self.assertIn("rulerPlan(start, end, now, el.dataset.cdTz || TZ)", tick)

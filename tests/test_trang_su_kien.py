@@ -1,7 +1,7 @@
 """The "Sự kiện" view (#sap-toi), "Ba thì" (captain, 11/11 ~01:50: "A duyệt 3 thì"): live now, coming next, missed this
 week. Drawn offline by tests/capture-ba-thi.mjs from the window fixture, the real NeurIPS rows (data/events.json) and
-four streams shaped like the collector's (radar/youtube.py): one on air, one in 90 minutes, one ended two days ago, one
-ended eight days ago."""
+five streams shaped like the collector's (radar/youtube.py): one on air, one in 90 minutes, one five hours long that
+ended an hour ago, one that started 7.5 days ago and ended 6.5 days ago, one that ended eight days ago."""
 import json
 import re
 import shutil
@@ -34,7 +34,8 @@ class BaThi(unittest.TestCase):
     def test_no_script_error(self):
         errors = [e for e in self.result["errors"] if "Failed to load resource" not in e]
         self.assertEqual(errors, [])
-        self.assertEqual(sorted(self.runs), ["song-1440", "song-1440-toi", "song-2000", "song-375", "trong-1440", "trong-375"])
+        self.assertEqual(sorted(self.runs), ["hai-live-1440", "hai-live-375", "mot-ban-1440", "song-1440", "song-1440-toi",
+                                             "song-2000", "song-375", "trong-1440", "trong-375"])
 
     def test_the_three_tenses_render_from_the_snapshot(self):
         for key in ("song-1440", "song-1440-toi", "song-2000", "song-375"):
@@ -53,8 +54,24 @@ class BaThi(unittest.TestCase):
             self.assertAlmostEqual(page["screens"][0]["w"] / page["screens"][0]["h"], 16 / 9, delta=0.02)
 
     def test_ended_streams_older_than_seven_days_are_left_out(self):
+        # The week runs from a stream's end: one that started 7.5 days ago but ended 6.5 days ago stays.
         for key in ("song-1440", "song-375"):
-            self.assertEqual(self.runs[key]["page"]["recent"], ["Tương lai cơ sở hạ tầng AI"], key)
+            self.assertEqual(self.runs[key]["page"]["recent"], ["Tương lai cơ sở hạ tầng AI", "Stream cap-week"], key)
+
+    def test_a_replay_is_aged_from_its_end(self):
+        # Five hours long, ended an hour ago: "1 giờ trước", not the six hours since it started.
+        self.assertEqual(self.runs["song-1440"]["page"]["recentMeta"][0], "Kênh thử · 1 giờ trước")
+
+    def test_every_live_stream_reads_as_live(self):
+        for key in ("hai-live-1440", "hai-live-375"):
+            page = self.runs[key]["page"]
+            self.assertEqual(page["live"], ["AI cục bộ 301: Quantization"], key)
+            # The second one is a row of the coral tile with the live mark, and "Sắp phát" keeps the stream to come.
+            self.assertEqual(page["liveRows"], ["Đang phát: A second stream on air"], key)
+            self.assertEqual(page["next"], ["Stream cap-soon"], key)
+            self.assertEqual(page["coralSurfaces"], ["bt-live"], key)
+            self.assertEqual(page["smallTargets"], [], key)
+            self.assertFalse(self.runs[key]["sideways"], key)
 
     def test_the_events_share_one_day_axis(self):
         page = self.runs["song-1440"]["page"]
@@ -78,7 +95,8 @@ class BaThi(unittest.TestCase):
         self.assertTrue(all(c["w"] == cards["bt-live"]["w"] for c in cards.values()))
 
     def test_a_lone_replay_leaves_no_half_card_empty(self):
-        recent = self.runs["song-1440"]["page"]["cards"]["bt-recent"]
+        self.assertEqual(self.runs["mot-ban-1440"]["page"]["recent"], ["Tương lai cơ sở hạ tầng AI"])
+        recent = self.runs["mot-ban-1440"]["page"]["cards"]["bt-recent"]
         self.assertLess(recent["emptiest"], recent["h"] / 8)
 
     def test_no_stream_is_one_calm_line(self):
@@ -137,6 +155,17 @@ class StreamCountdown(unittest.TestCase):
             '<b class="ev-n num">1</b><span class="ev-u">giờ<br>nữa</span>',
             '<b class="ev-n num">24</b><span class="ev-u">ngày<br>nữa</span>',
         ])
+
+
+@unittest.skipUnless(browser_ready(), "Node, puppeteer and Chrome required")
+class Ticking(unittest.TestCase):
+    def test_the_countdowns_tick_in_the_browser(self):
+        # tests/verify-event-times-browser.mjs: a stream ticked across its start reads "Sắp bắt đầu", never live; the
+        # events' faces and the layout hold still while the clock moves.
+        out = subprocess.run(["node", "tests/verify-event-times-browser.mjs"], cwd=ROOT, capture_output=True, text=True,
+                             encoding="utf-8", timeout=180)
+        self.assertEqual(out.returncode, 0, out.stderr[-2000:] + out.stdout[-2000:])
+        self.assertEqual(out.stdout.count("PASS"), 3, out.stdout)
 
 
 class Source(unittest.TestCase):

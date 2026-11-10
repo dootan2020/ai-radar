@@ -118,11 +118,11 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
 .bento { display: grid; grid-template-columns: repeat(var(--front-cols), minmax(0, 1fr)); gap: var(--bento-gap); grid-auto-flow: row; align-items: stretch; }
 .picks { margin-bottom: var(--bento-gap); }
 .bento > * { grid-column: span 4; min-width: 0; }
-.bento > .card-lead, .bento > .card-wide, .bento > .tile-live { grid-column: span 8; }
+.bento > .card-lead, .bento > .card-wide { grid-column: span 8; }
 .bento > .card-small { grid-column: span 3; }
 .bento > .tile-repos, .bento > .tile-models { grid-column: span 6; }
 .bento > .tile-repos:not(:has(+ .tile-models)), .bento > .tile-repos.is-full, .bento > .tile-models:not(.tile-repos + .tile-models),
-.bento > .is-full, .bento > .tile-saved, .bento > .tile-live:only-child { grid-column: 1 / -1; }
+.bento > .is-full, .bento > .tile-saved { grid-column: 1 / -1; }
 @media (min-width: 1600px) {
   .bento { grid-auto-flow: row dense; }
   .bento > .card-small { grid-column: span 4; }
@@ -198,7 +198,6 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
 /* information tiles in the bento */
 .bento > .tile .tile-title { font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: 0; color: var(--color-ink); }
 .bento > .tile .tile-note { font-size: var(--size-12); }
-.bento > .tile-live { grid-row: auto; align-self: stretch; }
 
 /* "Vừa đăng": the clock and the headline */
 .briefs { display: grid; margin: 0 calc(-1 * var(--space-8)); }
@@ -246,7 +245,7 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
   :root { --front-cols: 6; --ns-w: 280px; }
   .bento { grid-auto-flow: row dense; }
   .bento > * { grid-column: span 3; }
-  .bento > .card-lead, .bento > .card-wide, .bento > .tile-live, .bento > .tile-repos, .bento > .tile-models, .bento .sk-lead { grid-column: 1 / -1; }
+  .bento > .card-lead, .bento > .card-wide, .bento > .tile-repos, .bento > .tile-models, .bento .sk-lead { grid-column: 1 / -1; }
   .bento > .card-small { grid-column: span 3; }
   /* Under the full-width lead, the feature takes the whole row with its picture beside the text (a half row
      would leave the other half empty). */

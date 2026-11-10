@@ -603,7 +603,7 @@ const eventDocument = {
   querySelectorAll:() => [eventNode],
 };
 const eventFeed = await renderer('feed.js', '\ninit();', `
-return {eventSpan, eventWhen, eventCal, calOf, countdownParts, countdownHTML, scheduleCountdown,
+return {eventSpan, eventWhen, eventCal, calOf, countdownParts, scheduleCountdown,
   render(events, stories = []) { D = {events, stories, live:[]}; return renderBaThi(); },
   next(events, live = []) { D = {events, stories:[], live}; return renderNext(); }};`, {
   location:{search:''}, matchMedia:() => eventMotion, localStorage:{getItem:() => null},
@@ -621,7 +621,6 @@ for (const [row, start, end] of [
   for (const [now, state] of [[span.start - 1, 'soon'], [span.start, 'on'], [span.end - 1, 'on'], [span.end, 'over']]) {
     assert.equal(eventFeed.countdownParts(span.start, span.end, now).state, state);
     eventNow = now;
-    assert.match(eventFeed.countdownHTML(row), new RegExp(`is-${state}`));
     assert.equal(eventFeed.render([row]).includes(row.title), state !== 'over');
   }
 }
@@ -712,14 +711,15 @@ assert.equal(eventFeed.next([]), '');
 
 // Exercise the existing shared timer with a controlled scheduler, including the exact opening transition.
 const opening = eventFeed.eventSpan(bengaluru);
-eventNode.dataset = {cd:String(opening.start), cdEnd:String(opening.end)};
+// A schedule row (the front card's and the "Sự kiện" page's): the wait in one unit, the screen reader to the minute.
+eventNode.dataset = {cd:String(opening.start), cdEnd:String(opening.end), cdKind:'row'};
 eventNow = opening.start - 2000;
 eventFeed.scheduleCountdown();
 eventFeed.scheduleCountdown();
 assert.equal(eventTimers.size, 1);
-assert.match(eventNode.lastElementChild.innerHTML, /00:00:02/);
+assert.equal(eventNode.lastElementChild.innerHTML, '&lt;1 phút');
 assert.equal(eventNode.firstElementChild.textContent, 'Còn dưới 1 phút');
-assert.match(eventFeed.countdownHTML(bengaluru), /class="sr".*class="cd-face" aria-hidden="true"/);
+assert.equal(eventNode.className, 'ev-row-d cd is-soon');
 eventDocument.hidden = true;
 eventFeed.scheduleCountdown();
 assert.equal(eventTimers.size, 0);
@@ -732,8 +732,7 @@ eventNow = opening.start - 5 * 6e4;
 eventFeed.scheduleCountdown();
 assert.equal(eventTimers.size, 1);
 assert.equal([...eventTimers.values()][0].ms, 60015);
-assert.match(eventNode.lastElementChild.innerHTML, /5<\/b> phút/);
-assert.doesNotMatch(eventNode.lastElementChild.innerHTML, /cd-clock/);
+assert.equal(eventNode.lastElementChild.innerHTML, '5 phút');
 eventNow = opening.end;
 eventFeed.scheduleCountdown();
 assert.equal(eventNode.firstElementChild.textContent, 'Đã kết thúc');

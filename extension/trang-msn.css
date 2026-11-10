@@ -601,6 +601,14 @@
 .bt-dot { width: var(--space-8); height: var(--space-8); border-radius: var(--radius-full); background: currentColor; }
 .bt-live-t { margin: var(--space-16) 0 0; font-size: var(--text-feature); line-height: 1.2; font-weight: var(--weight-bold); letter-spacing: -0.02em; text-wrap: balance; overflow-wrap: anywhere; }
 .bt-live-m { margin: var(--space-8) 0 0; font-size: var(--text-small); line-height: 1.45; font-weight: var(--weight-medium); }
+/* Another stream on air at once: a row in the coral tile, with the same live mark, never a "Sắp phát" countdown. */
+.bt-live-more { margin: var(--space-12) 0 var(--space-16); padding: 0; list-style: none; }
+.bt-live-more li { border-top: var(--msn-hair) solid color-mix(in srgb, var(--color-on-accent) 24%, transparent); }
+.bt-live-row { display: flex; flex-direction: column; justify-content: center; min-height: var(--btn-h); padding-block: var(--space-6); color: inherit; }
+.bt-live-row-t { display: flex; align-items: center; gap: var(--space-8); font-size: var(--text-small); line-height: 1.35; font-weight: var(--weight-semibold); overflow-wrap: anywhere; }
+.bt-live-row-t .bt-dot { flex: none; }
+.bt-live-row-m { padding-inline-start: var(--space-16); font-size: var(--text-micro); line-height: 1.35; font-weight: var(--weight-medium); }
+.bt-live-row:focus-visible { outline: var(--msn-tight) solid var(--color-on-accent); outline-offset: var(--msn-tight); }
 .bt-live-go {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8); align-self: flex-start; min-height: var(--btn-h);
   margin-top: auto; padding: 0 calc(var(--space-16) + var(--space-4)); border-radius: var(--radius-12);
@@ -927,7 +935,6 @@
   .msn-grid > .msn-cal, .msn-grid > .msn-ev { grid-area: auto; }
   .msn-ev { gap: var(--space-8); padding: var(--space-12); }
   /* "Sắp diễn ra" opens on its list, above the weather and the calendar. */
-  .msn-grid:not(.is-front) > .tile-live, .msn-grid > .ev-empty { grid-column: 1 / -1; grid-row: auto; order: -1; }
   .nc { min-height: var(--msn-rowh-phone); }
   .nc-photo { height: var(--msn-photo-h-phone); }
   .nc-body { padding: var(--space-8) var(--space-8) var(--space-8); gap: var(--space-4); }

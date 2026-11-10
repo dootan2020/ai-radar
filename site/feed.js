@@ -854,45 +854,36 @@ function countdownParts(start, end, now) {
   const t = Math.floor((start - now) / 1000);
   return { state: 'soon', d: Math.floor(t / 86400), h: Math.floor(t % 86400 / 3600), m: Math.floor(t % 3600 / 60), s: t % 60 };
 }
-const pad2 = n => String(n).padStart(2, '0');
-// Words, to the minute: what a screen reader hears, and what the line shows when motion is reduced.
+// Words, to the minute: what a screen reader hears.
 function countdownWords(p, num = x => x) {
   if (p.d) return `${num(p.d)} ngày${p.h ? ` ${num(p.h)} giờ` : ''}`;
   if (p.h) return `${num(p.h)} giờ${p.m ? ` ${num(p.m)} phút` : ''}`;
   return p.m ? `${num(p.m)} phút` : 'dưới 1 phút';
 }
 const countdownSR = p => p.state === 'on' ? 'Đang diễn ra' : p.state === 'over' ? 'Đã kết thúc' : `Còn ${countdownWords(p)}`;
-// The face: days in words, then a clock of hours, minutes and seconds in tabular figures, so nothing jitters.
-function countdownFace(p, seconds) {
-  if (p.state === 'on') return '<span class="cd-dot" aria-hidden="true"></span>Đang diễn ra';
-  if (p.state === 'over') return 'Đã kết thúc';
-  if (!seconds) return `còn ${countdownWords(p, x => `<b class="num">${x}</b>`)}`;
-  return `còn ${p.d ? `<b class="num">${p.d}</b> ngày ` : ''}<b class="num cd-clock">${pad2(p.h)}:${pad2(p.m)}:${pad2(p.s)}</b>`;
-}
-function countdownHTML(e) {
-  const { start, end } = eventSpan(e);
-  const p = countdownParts(start, end, Date.now());
-  if (!p) return '';
-  return `<span class="event-left cd is-${p.state}" data-cd="${start}" data-cd-end="${end}"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${countdownFace(p, !RM.matches)}</span></span>`;
-}
+/* A stream about to start ("Sắp phát"): once its scheduled time has passed and it is still not on air, it says
+   exactly that ("due"); it never borrows the events' "on" face, which would claim it is live. */
+const streamParts = (start, now) => Number.isFinite(start) && now >= start ? { state: 'due' } : countdownParts(start, NaN, now);
+const streamSR = p => p.state === 'due' ? 'Đã tới giờ phát, chưa lên sóng' : countdownSR(p);
+const streamFace = p => p.state === 'due' ? '<b class="ev-n is-word">Sắp bắt đầu</b>' : heroFace(p, null, true);
 /* One timer for every countdown on the page: each second (each minute when motion is reduced), only while the page
    is visible and a countdown is on it. */
 let cdTimer = 0;
 function tickCountdowns() {
-  const now = Date.now(), seconds = !RM.matches;
+  const now = Date.now();
   for (const el of document.querySelectorAll('.cd[data-cd]')) {
     const start = Number(el.dataset.cd), end = Number(el.dataset.cdEnd);
-    const p = countdownParts(start, end, now);
-    if (!p) continue;
-    // The front card's large number ("hero"), a stream's ("stream": the same face with its minutes) and the schedule
-    // rows ("row") keep their own faces; the rest is the chip.
+    // The front card's large number ("hero"), a stream's ("stream": the same face with its minutes, and its own
+    // state past the hour) and the schedule rows ("row") each keep their face.
     const kind = el.dataset.cdKind || '';
+    const p = kind === 'stream' ? streamParts(start, now) : countdownParts(start, end, now);
+    if (!p) continue;
     const plan = kind === 'hero' ? rulerPlan(start, end, now, el.dataset.cdTz || TZ) : null;
-    const face = kind === 'hero' ? heroFace(p, plan) : kind === 'stream' ? heroFace(p, null, true)
-      : kind === 'row' ? rowFace(p) : countdownFace(p, seconds), sr = countdownSR(p);
+    const face = kind === 'hero' ? heroFace(p, plan) : kind === 'stream' ? streamFace(p) : rowFace(p);
+    const sr = kind === 'stream' ? streamSR(p) : countdownSR(p);
     if (el.lastElementChild.dataset.f !== face) { el.lastElementChild.innerHTML = face; el.lastElementChild.dataset.f = face; }
     if (el.firstElementChild.textContent !== sr) el.firstElementChild.textContent = sr;
-    el.className = `${kind === 'hero' || kind === 'stream' ? 'ev-count' : kind === 'row' ? 'ev-row-d' : 'event-left'} cd is-${p.state}`;
+    el.className = `${kind === 'row' ? 'ev-row-d' : 'ev-count'} cd is-${p.state}`;
     const ruler = kind === 'hero' ? el.nextElementSibling : null;
     if (ruler && ruler.matches('.ev-ruler')) {
       const marks = rulerInner(plan, ruler.dataset.range, ruler.dataset.last);
@@ -979,15 +970,19 @@ const screenHTML = v => {
 const rowsHTML = (label, rows) => rows.length ? `<ol class="ev-more" aria-label="${esc(label)}">${rows.map(r =>
   `<li><a class="ev-row list-row" href="${esc(safe(r.url))}" target="_blank" rel="noopener"${r.attr || ''}><span class="ev-row-text"><span class="ev-row-t"${langAttr(r.t)}>${esc(r.t)}</span><span class="ev-row-m">${esc(r.m)}</span></span>${r.d || ''}</a></li>`).join('')}</ol>` : '';
 
-function baLiveHTML(v, now) {
-  const t = streamTitle(v), start = Date.parse(v.start_at || '');
-  const since = Number.isFinite(start) ? `từ ${hhmm(new Date(start))}${dayWord(start, now) === 'hôm nay' ? '' : ` ${dayWord(start, now)}`}` : '';
-  const meta = [v.channel, since].filter(Boolean).join(' · ');
+function baLiveHTML(list, now) {
+  const [v, ...also] = list;
+  const since = x => { const s = Date.parse(x.start_at || ''); return Number.isFinite(s) ? `từ ${hhmm(new Date(s))}${dayWord(s, now) === 'hôm nay' ? '' : ` ${dayWord(s, now)}`}` : ''; };
+  const t = streamTitle(v), meta = [v.channel, since(v)].filter(Boolean).join(' · ');
+  const more = also.length ? `<ul class="bt-live-more" aria-label="Cũng đang phát">${also.map(x => `<li><a class="bt-live-row" href="${esc(safe(x.url))}" target="_blank" rel="noopener"${playAttr(x)}>
+      <span class="bt-live-row-t"${langAttr(streamTitle(x))}><span class="bt-dot" aria-hidden="true"></span><span class="sr">Đang phát: </span>${esc(streamTitle(x))}</span>
+      <span class="bt-live-row-m">${esc([x.channel, since(x)].filter(Boolean).join(' · '))}</span></a></li>`).join('')}</ul>` : '';
   return `<article class="bt-live" aria-labelledby="bt-live-h">
     <div class="bt-live-text">
       <p class="bt-eyebrow"><span class="bt-dot" aria-hidden="true"></span>Đang phát</p>
       <h3 class="bt-live-t" id="bt-live-h"${langAttr(t)}>${esc(t)}</h3>
       ${meta ? `<p class="bt-live-m">${esc(meta)}</p>` : ''}
+      ${more}
       <a class="bt-live-go" href="${esc(safe(v.url))}" target="_blank" rel="noopener"${playAttr(v)}>${icon('i-play')}Xem ngay</a>
     </div>
     <a class="bt-live-shot" href="${esc(safe(v.url))}" target="_blank" rel="noopener"${playAttr(v)} tabindex="-1" aria-hidden="true">${screenHTML(v)}</a>
@@ -996,8 +991,8 @@ function baLiveHTML(v, now) {
 function baNextHTML(list, now) {
   const [v, ...rest] = list;
   const t = streamTitle(v), start = Date.parse(v.start_at || '');
-  const p = countdownParts(start, NaN, now);
-  const count = p ? `<p class="ev-count cd is-${p.state}" data-cd="${start}" data-cd-end="NaN" data-cd-kind="stream"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${heroFace(p, null, true)}</span></p>` : '';
+  const p = streamParts(start, now);
+  const count = p ? `<p class="ev-count cd is-${p.state}" data-cd="${start}" data-cd-end="NaN" data-cd-kind="stream"><span class="sr">${streamSR(p)}</span><span class="cd-face" aria-hidden="true">${streamFace(p)}</span></p>` : '';
   const when = s => Number.isFinite(s) ? `${hhmm(new Date(s))} ${dayWord(s, now)}` : null;
   const meta = [v.channel, when(start) || scheduleText(v.time_text)].filter(Boolean).join(' · ');
   const rows = rest.slice(0, 2).map(x => ({ url: x.url, t: streamTitle(x), attr: playAttr(x),
@@ -1014,7 +1009,7 @@ function baNextHTML(list, now) {
 function baRecentHTML(list, now) {
   const [v, ...rest] = list;
   const t = streamTitle(v);
-  const aired = x => { const s = x.start_at || x.end_at; return s ? ago(s, now) : streamedAge(x.time_text) || 'Đã phát'; };
+  const aired = x => { const s = x.end_at || x.start_at; return s ? ago(s, now) : streamedAge(x.time_text) || 'Đã phát'; };
   const rows = rest.slice(0, 3).map(x => ({ url: x.url, t: streamTitle(x), attr: playAttr(x), m: [x.channel, aired(x)].filter(Boolean).join(' · ') }));
   return `<h2 class="band-title bt-h-recent">Phát gần đây</h2>
     <article class="msn-card bt-recent${rest.length ? ' has-more' : ''}" aria-labelledby="bt-recent-h">
@@ -1077,10 +1072,9 @@ function renderBaThi() {
   if (!D) return '';
   const now = Date.now(), s = streamsNow(now);
   const any = s.live.length || s.soon.length || s.past.length;
-  // A second stream on air is a row of the "Sắp phát" card, marked live; the coral tile is the first one only.
-  const soon = [...s.live.slice(1), ...s.soon];
+  const soon = s.soon;
   const streams = any
-    ? `${s.live.length ? baLiveHTML(s.live[0], now) : ''}${soon.length ? baNextHTML(soon, now) : ''}${s.past.length ? baRecentHTML(s.past, now) : ''}`
+    ? `${s.live.length ? baLiveHTML(s.live, now) : ''}${soon.length ? baNextHTML(soon, now) : ''}${s.past.length ? baRecentHTML(s.past, now) : ''}`
     : '<p class="bt-calm" role="status">Tuần này chưa có buổi phát nào.</p>';
   const cards = [s.live.length, soon.length, s.past.length].filter(Boolean).length;
   return `<section class="bt bt-n${cards}${s.live.length ? ' has-live' : ''}" id="su-kien-trang" aria-labelledby="bt-h1">
@@ -1089,49 +1083,6 @@ function renderBaThi() {
     <h2 class="band-title bt-h-events">Sắp diễn ra</h2>
     ${baEventsHTML(now)}
   </section>`;
-}
-/* The shelf's arrows exist only when there is something to scroll to; at either end that arrow reads as unavailable
-   (aria-disabled, so a focused button keeps its focus). */
-let shelfRO = null;
-function shelfState(ul) {
-  const nav = ul && ul.closest('.tile') && ul.closest('.tile').querySelector('.shelf-nav');
-  if (!nav) return;
-  const max = ul.scrollWidth - ul.clientWidth, x = Math.abs(ul.scrollLeft);
-  nav.hidden = max <= 1;
-  const [prev, next] = nav.querySelectorAll('.shelf-btn');
-  prev.setAttribute('aria-disabled', String(x <= 1));
-  next.setAttribute('aria-disabled', String(x >= max - 1));
-}
-function initShelves(root) {
-  if (shelfRO) shelfRO.disconnect();
-  shelfRO = null;
-  const shelves = [...root.querySelectorAll('.shelf[id]')];
-  if (!shelves.length) return;
-  if ('ResizeObserver' in window) shelfRO = new ResizeObserver(es => es.forEach(en => shelfState(en.target.closest('.events'))));
-  for (const ul of shelves) {
-    if (!ul._shelf) {             // the home's two shelves are set up together, so a redraw of one meets the other again
-      ul._shelf = true;
-      ul.addEventListener('scroll', () => shelfState(ul), { passive: true });
-      // Tab onto a card that only peeks: bring the whole card in (the snap would otherwise hold the row where it was).
-      ul.addEventListener('focusin', e => {
-        const li = e.target.closest('.shelf > li');
-        if (li) li.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: RM.matches ? 'auto' : 'smooth' });
-      });
-    }
-    if (shelfRO) { shelfRO.observe(ul); if (ul.firstElementChild) shelfRO.observe(ul.firstElementChild); }
-    shelfState(ul);
-  }
-}
-/* One press moves by as many whole cards as fit, so the card that was peeking lands at the start. */
-function scrollShelf(btn) {
-  if (btn.getAttribute('aria-disabled') === 'true') return;
-  const ul = document.getElementById(btn.getAttribute('aria-controls'));
-  const card = ul && ul.firstElementChild;
-  if (!card) return;
-  const gap = parseFloat(getComputedStyle(ul).columnGap) || 0;
-  const step = card.getBoundingClientRect().width + gap;
-  const per = Math.max(1, Math.floor((ul.clientWidth + gap) / step));
-  ul.scrollBy({ left: Number(btn.dataset.shelf) * per * step, behavior: RM.matches ? 'auto' : 'smooth' });
 }
 
 /* ---------- the front page's next event, beside the calendar ----------
@@ -2492,7 +2443,6 @@ function renderFeed() {
   renderChips();
   renderFrontMeta();
   initRepoPills(grid);
-  initShelves($('#top'));
   fitFreshTile();
   fitBandLists();
   scheduleCountdown();
@@ -3129,7 +3079,6 @@ function onClick(e) {
   const cov = t.closest('.cov-btn'); if (cov) { toggleDetail(cov); return; }
   const fp = t.closest('[data-fresh-page]'); if (fp) { pageFresh(fp); return; }
   const lx = t.closest('[data-lab-open]'); if (lx) { toggleLab(lx); return; }
-  const sb = t.closest('.shelf-btn'); if (sb) { scrollShelf(sb); return; }
   const cal = t.closest('[data-cal]'); if (cal) { e.preventDefault(); addToCalendar(calOf(STORY_ANY.get(cal.dataset.cal))); return; }
   const cl = t.closest('[data-cal-live]'); if (cl) { e.preventDefault(); addToCalendar(liveCal(asArray(D.live).find(v => v.video_id === cl.dataset.calLive))); return; }
   const ce = t.closest('[data-cal-ev]');

@@ -46,16 +46,26 @@ if (dataDir) {
   windowFile.live = [
     s('cap-live', 'live', NOW - HOUR, null, { channel: 'Hugging Face', title: 'Local AI 301: Quantization', title_vi: 'AI cục bộ 301: Quantization' }),
     s('cap-soon', 'upcoming', NOW + 90 * 6e4 + 30e3, null, { channel: 'Google Cloud Tech' }),
-    s('cap-ended', 'ended', NOW - 2 * DAY - 2 * HOUR, NOW - 2 * DAY, { title_vi: 'Tương lai cơ sở hạ tầng AI' }),
+    // Five hours long, ended an hour ago: its age runs from its end.
+    s('cap-ended', 'ended', NOW - 6 * HOUR, NOW - HOUR, { title_vi: 'Tương lai cơ sở hạ tầng AI' }),
+    // Started more than 7 days ago, ended 6.5 days ago: still inside the week, by its end.
+    s('cap-week', 'ended', NOW - 7.5 * DAY, NOW - 6.5 * DAY),
     s('cap-old', 'ended', NOW - 8 * DAY - HOUR, NOW - 8 * DAY, { title: 'An ended stream eight days old' }),
   ];
   full = { ...windowFile };
 }
 const live = full.live || [];
+const pick = (...ids) => live.filter(v => ids.includes(v.video_id));
 const SCENARIOS = {
   song: { live, widths: [[1440, 'light'], [1440, 'dark'], [375, 'light'], [2000, 'light']] },
   trong: { live: [], widths: [[1440, 'light'], [375, 'light']] },
 };
+if (!dataDir) {
+  SCENARIOS['mot-ban'] = { live: pick('cap-live', 'cap-soon', 'cap-ended'), widths: [[1440, 'light']] };
+  const second = { ...live[0], video_id: 'cap-live-2', title: 'A second stream on air', title_vi: undefined, channel: 'OpenAI',
+    url: 'https://www.youtube.com/watch?v=cap-live-2', start_at: iso(NOW - 20 * 6e4) };
+  SCENARIOS['hai-live'] = { live: [live[0], second, ...pick('cap-soon', 'cap-ended')], widths: [[1440, 'light'], [375, 'light']] };
+}
 if (dataDir) {
   // The approved mockup's moment (11/11 01:30, the mockup's notes): the same snapshot, with the stream that was then on
   // air as the collector recorded it at the time (live, no end yet). Pictures only: the real file of now decides the rest.
@@ -123,6 +133,7 @@ const MEASURE = () => {
     headings: text('.band-title'), cards,
     coralSurfaces: [...page.querySelectorAll('*')].filter(el => shown(el) && getComputedStyle(el).backgroundColor === coralRgb && r(el).width * r(el).height > 20000 && r(el).height > 100).map(el => el.className),
     live: text('.bt-live-t'), next: text('.bt-next .bt-name'), recent: text('.bt-recent .bt-name, .bt-recent .ev-row-t'),
+    recentMeta: text('.bt-recent .bt-meta, .bt-recent .ev-row-m'), liveRows: text('.bt-live-row-t'),
     nextCount: text('.bt-next .ev-count .sr'), nextFace: [...page.querySelectorAll('.bt-next .ev-count .cd-face')].map(el => el.innerHTML), lanes: text('.bt-lane-t'), laneWaits: text('.bt-lane-d'), rows: text('.bt-lead .ev-row-t'),
     leadName: text('.bt-lead .ev-name'), legend: text('.bt-legend'), calm, screens,
     ticks: [...page.querySelectorAll('.bt-lane')].filter(shown).map(l => { const t = [...l.querySelectorAll('.bt-ticks i')]; return { all: t.length, on: t.filter(i => i.classList.contains('is-on')).length, first: t.findIndex(i => i.classList.contains('is-on')) }; }),
