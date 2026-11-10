@@ -9,3 +9,5 @@ shadow-summary.md
 /site/tin/*/
 !/site/tin/_sample/
 !/site/tin/_sample/**
+# Covers drawn by radar/covers.py in the workflow; kept in the Actions cache, never committed
+/site/assets/cover/

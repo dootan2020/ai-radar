@@ -27,6 +27,7 @@ BRANCH = "radar-story-pages"
 REF = f"refs/heads/{BRANCH}"
 STORY_ID = re.compile(r"[a-z0-9][a-z0-9_-]*\Z")
 STORY_FILE = re.compile(r"[a-z0-9][a-z0-9_-]*\.json\Z")
+COVER_SRC = re.compile(r"assets/cover/[\w-]+-[0-9a-f]{10}\.png")   # radar/covers.py: a cover's wide file
 CONTENT_SECURITY_POLICY = (
     "default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c=' "
     "https://static.cloudflareinsights.com/beacon.min.js; style-src 'self' 'unsafe-inline'; "
@@ -152,7 +153,7 @@ def _page_fields(story, base_url):
     image = story.get("image")
     image_src = _text(image.get("src")) if isinstance(image, dict) else ""
     image_url = _http_url(image_src)
-    if re.fullmatch(r"assets/ai/[\w-]+\.jpg", image_src):
+    if re.fullmatch(r"assets/ai/[\w-]+\.jpg", image_src) or COVER_SRC.fullmatch(image_src):
         image_url = f"{base_url}/{image_src}"
     if not image_url:
         image_url = f"{base_url}/og-image.png"
@@ -248,9 +249,13 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
             '<p class="story-empty-text">Chưa có đoạn trích cho bài viết này. Bạn có thể mở đọc toàn văn bài viết gốc bên dưới.</p></section>')
     image = story.get("image") if isinstance(story.get("image"), dict) else {}
     image_src = _text(image.get("src"))
-    visible_image = _http_url(image_src) or re.fullmatch(r"assets/ai/[\w-]+\.jpg", image_src)
-    media_html = (f'<figure class="story-media"><div class="story-media-frame">'
-                  f'<img class="story-media-img" src="{esc(fields["image"])}" alt="{esc(fields["title"])}" loading="eager" decoding="async">'
+    cover = image.get("via") == "cover" and COVER_SRC.fullmatch(image_src)
+    visible_image = _http_url(image_src) or re.fullmatch(r"assets/ai/[\w-]+\.jpg", image_src) or cover
+    # A cover drawn from the story's facts fills the frame and needs no caption or alternative text of its own.
+    image_tag = (f'<img class="story-media-img is-cover" src="{esc(fields["image"])}" alt="" loading="eager" decoding="async">'
+                 if cover else
+                 f'<img class="story-media-img" src="{esc(fields["image"])}" alt="{esc(fields["title"])}" loading="eager" decoding="async">')
+    media_html = (f'<figure class="story-media"><div class="story-media-frame">{image_tag}'
                   '</div></figure>') if visible_image else ""
     has_original_title = bool(_text(story.get("title_vi")) and _text(story.get("title"))
                               and story["title_vi"].strip() != story["title"].strip())

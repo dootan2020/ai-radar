@@ -1,24 +1,16 @@
-// Shared by every cover template: read the story's facts from the address, build the logo, fit type, report ready.
-// The facts come from lib/facts.mjs; a template only arranges them.
+// Helpers for the cover template: read the story's facts from the address, build the logo, fit type, report ready.
+// The facts come from lib/facts.mjs; the template only arranges them.
 export const facts = JSON.parse(decodeURIComponent(location.hash.slice(1) || '%7B%7D'));
 
 // A name never breaks before its number or version ("Claude Fable 5.2"): that space becomes a no-break space.
-export const glue = s => String(s ?? '').replace(/ (?=[\d.,]+(?:\s|$))/g, '\u00a0');
+export const glue = s => String(s ?? '').replace(/ (?=[\d.,]+(?:\s|$))/g, ' ');
 export const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 // The source's logo as the site shows it: its GitHub avatar, or its monogram when it has none (or the avatar fails).
 export function logo(f = facts, cls = 'logo') {
   const mono = `<span class="${cls} is-mono" aria-hidden="true"><b>${esc(f.face.mono)}</b></span>`;
   if (f.face.kind !== 'gh') return mono;
-  return `<span class="${cls} is-img" data-mono="${esc(f.face.mono)}"><img src="${esc(f.face.src)}" alt="" onerror="this.parentNode.outerHTML=${esc(JSON.stringify(mono))}"></span>`;
-}
-
-// The figure for a hero slot: the key point's own number, else a measured count the snapshot carries.
-export function hero(f = facts) {
-  if (f.figure) return { value: f.figure.value, unit: f.figure.unit, measured: false };
-  if (f.points) return { value: String(f.points), unit: 'điểm Hacker News', measured: true };
-  if (f.sourceCount > 1) return { value: String(f.sourceCount), unit: 'nguồn đưa tin', measured: true };
-  return null;
+  return `<span class="${cls} is-img"><img src="${esc(f.face.src)}" alt="" onerror="this.parentNode.outerHTML=${esc(JSON.stringify(mono))}"></span>`;
 }
 
 // Shrink an element's font until its lines fit its box, between max and min px. The element holds one block child
@@ -35,9 +27,6 @@ export function fit(el, max, min = 8) {
   while (size > min && !fits()) { size -= 0.5; el.style.fontSize = `${size}px`; }
   if (!fits()) el.style.overflowWrap = 'anywhere';
 }
-
-// One design pixel: the template is drawn on a 261 x 148 card (the 1440 px feed) and scales to any frame.
-export const unit = () => Math.min(innerWidth / 261, innerHeight / 148);
 
 export async function ready() {
   await document.fonts.ready;

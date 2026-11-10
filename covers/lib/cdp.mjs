@@ -4,14 +4,24 @@ import { mkdtempSync, readFileSync, existsSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-export const CHROME = process.env.CHROME || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+// Chrome as installed on this machine or on the GitHub runner (ubuntu-26.04 ships Google Chrome); CHROME overrides.
+const CANDIDATES = {
+  win32: ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'],
+  linux: ['/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser'],
+  darwin: ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'],
+};
+export const CHROME = process.env.CHROME || (CANDIDATES[process.platform] || []).find(p => existsSync(p)) || null;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 export async function launch() {
+  if (!CHROME) throw new Error('Chrome not found (set CHROME to its path)');
   const profile = mkdtempSync(join(tmpdir(), 'covers-chrome-'));
   const proc = spawn(CHROME, ['--headless=new', '--remote-debugging-port=0', `--user-data-dir=${profile}`,
     '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--force-color-profile=srgb',
-    '--font-render-hinting=none', 'about:blank'], { stdio: 'ignore' });
+    '--font-render-hinting=none',
+    // A CI runner's Chrome may have no usable sandbox (unprivileged user namespaces); it only opens the repository's
+    // own template and the source avatars the site already shows.
+    ...(process.env.CI ? ['--no-sandbox'] : []), 'about:blank'], { stdio: 'ignore' });
   const portFile = join(profile, 'DevToolsActivePort');
   for (let i = 0; i < 100 && !existsSync(portFile); i++) await sleep(100);
   if (!existsSync(portFile)) { proc.kill(); throw new Error('Chrome did not start: no DevToolsActivePort'); }

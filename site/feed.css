@@ -224,6 +224,8 @@ ul, ol { padding: 0; list-style: none; }
    when the picture arrives, and any shape (wide, square, tall) reads as finished. */
 .media { position: relative; aspect-ratio: 16 / 9; background: var(--color-fill); overflow: hidden; flex: none; }
 .media-img { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
+/* A cover (radar/covers.py) is drawn in a safe area of a wider or taller file: it fills every slot, cropping only surface. */
+.media-img.is-cover { position: absolute; inset: 0; object-fit: cover; }   /* the slot, not the file, sets the size */
 .media-backdrop {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; transform: scale(1.15);
@@ -499,6 +501,7 @@ ul, ol { padding: 0; list-style: none; }
 .hot-row:hover .hot-title { color: var(--color-accent); }
 .thumb { position: relative; width: var(--thumb-hot); height: var(--thumb-hot); border-radius: var(--radius-8); overflow: hidden; background: var(--color-fill); }
 .thumb img:not(.media-backdrop) { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
+.thumb img.is-cover { position: absolute; inset: 0; object-fit: cover; }
 .hot-row > .thumb:empty { display: none; }
 .hot-row:has(> .thumb:empty) { grid-template-columns: 28px minmax(0, 1fr); }
 .hot-rank { font-size: var(--size-21); font-weight: var(--weight-bold); color: var(--color-ink-3); text-align: center; letter-spacing: var(--tracking-number); }

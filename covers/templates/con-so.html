@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Cover · Con số</title>
+<link rel="stylesheet" href="../../site/fonts.css">
+<style>
+  /* "Con số" (owner, 2026-11-10: "Ok, dùng B, con số"): the one figure the story turns on, set as large as the frame
+     allows, on a brand surface chosen by the kind of story; with no figure, the story's subject; with no confident
+     subject, its outlet with the logo larger. No counts, ever.
+     The whole drawing sits in a centred safe area, and the surface runs to every edge of the file, so the site can
+     crop the file with object-fit: cover to any frame between the safe area and the file:
+       ?frame=wide  file 2.10:1, safe area 1.47:1   (feed cards 1.47 to 2.10, the story page's 16:9)
+       ?frame=tall  file 1:1,    safe area 0.55:1   (the wide card's half, measured 0.60 to 0.65:1; square thumbnails) */
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  body { position: relative; background: var(--bg); color: var(--ink);
+    font-family: "Be Vietnam Pro", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  /* Surfaces from the Hot Coral palette (site/tokens.css): plum, navy, coral, and the dark card. */
+  body.k-product  { --bg: #5B1738; --ink: #FFFFFF; --ink-2: rgb(255 255 255 / 0.74); --hero: #F4698A; }
+  body.k-research { --bg: #111827; --ink: #FFFFFF; --ink-2: rgb(255 255 255 / 0.70); --hero: #F0446E; }
+  body.k-forum    { --bg: #F0446E; --ink: #101828; --ink-2: rgb(16 24 40 / 0.72); --hero: #5B1738; }
+  body.k-other    { --bg: #1D2939; --ink: #FFFFFF; --ink-2: rgb(255 255 255 / 0.70); --hero: #20C7D9; }
+  .safe { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); box-sizing: border-box;
+    display: flex; flex-direction: column; gap: 8rem; padding: 13rem 14rem; }
+  .top { display: flex; align-items: center; gap: 6rem; min-width: 0; font-size: max(10.5rem, 8px); font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+  .chip { width: 20rem; height: 20rem; border-radius: 999px; overflow: hidden; flex: none; display: grid; place-items: center; background: #FFFFFF; }
+  .chip img { width: 100%; height: 100%; object-fit: cover; }
+  .chip.is-mono b { font-size: 8.5rem; font-weight: 700; letter-spacing: -0.02em; color: #101828; }
+  .hero { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-end; }
+  .value { margin: 0; color: var(--hero); font-weight: 700; line-height: 0.92; letter-spacing: -0.045em; white-space: nowrap;
+    font-variant-numeric: lining-nums; overflow: hidden; }
+  .value span { display: block; }
+  .value.is-name { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-end;
+    white-space: normal; line-height: 1.02; letter-spacing: -0.035em;
+    overflow: visible; }   /* the fit keeps the lines inside; a descender ("g") may reach into the padding */
+  .row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2rem 10rem; margin-top: 6rem; min-width: 0; }
+  .unit { font-size: max(15rem, 9px); font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+  .names { min-width: 0; margin-left: auto; font-size: max(11rem, 8px); font-weight: 600; color: var(--ink-2); text-align: right;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* The outlet as the hero: its logo grown to a tile beside its name. */
+  .outlet { flex: 1; min-height: 0; display: flex; align-items: flex-end; gap: 12rem; }
+  .outlet .tile { width: 52rem; height: 52rem; border-radius: 14rem; overflow: hidden; flex: none; display: grid; place-items: center; background: #FFFFFF; }
+  .outlet .tile img { width: 100%; height: 100%; object-fit: cover; }
+  .outlet .tile.is-mono b { font-size: 21rem; font-weight: 700; letter-spacing: -0.03em; color: #101828; }
+  .outlet .value { flex: 1; align-self: stretch; }
+</style>
+</head>
+<body>
+<div class="safe" id="safe"><div class="top" id="top"></div><div class="hero" id="hero"></div></div>
+<script type="module">
+  import { facts as f, esc, glue, logo, fit, ready } from './cover.js';
+  // The safe area: 1.47:1 in a wide file, a 0.55:1 column in a tall one. One design pixel (1rem) is a pixel of the
+  // 1440 px feed card's safe area, 218 x 148.
+  const tall = new URLSearchParams(location.search).get('frame') === 'tall';
+  const A = tall ? 0.55 : 1.47;
+  const W = Math.min(innerWidth, innerHeight * A), H = W / A;
+  const unit = Math.min(W / 218, H / 148);
+  document.documentElement.style.fontSize = `${unit}px`;
+  Object.assign(document.getElementById('safe').style, { width: `${W}px`, height: `${H}px` });
+
+  const k = { product: 'product', model: 'product', release: 'product', repository: 'product',
+    research: 'research', paper: 'research', forum: 'forum' }[f.kind] || 'other';
+  document.body.className = `k-${k}`;
+  const h = f.hero, box = document.getElementById('hero');
+  const names = (f.names || []).map(glue);
+  // The outlet hero carries the logo itself, so the top line keeps only the kind of story.
+  document.getElementById('top').innerHTML = `${h.type === 'outlet' ? '' : logo(f, 'chip')}<span>${esc(f.kindLabel)}</span>`;
+  if (h.type === 'figure') {
+    box.innerHTML = `<p class="value" id="v"><span>${esc(h.value)}</span></p>
+      <div class="row"><span class="unit">${esc(h.unit)}</span><span class="names">${esc(names.slice(0, 2).join(' · '))}</span></div>`;
+    await document.fonts.ready;
+    const v = document.getElementById('v');
+    v.style.height = `${v.parentElement.clientHeight - v.nextElementSibling.offsetHeight - 6 * unit}px`;
+    fit(v, 96 * unit, 24 * unit);
+    v.style.height = '';
+  } else if (h.type === 'name') {
+    const rest = names.slice(0, 2).join(' · ');
+    box.innerHTML = `<p class="value is-name" id="v"><span>${esc(glue(h.text))}</span></p>
+      ${rest ? `<div class="row"><span class="unit">${esc(rest)}</span></div>` : ''}`;
+    await document.fonts.ready;
+    fit(document.getElementById('v'), 52 * unit, 14 * unit);
+  } else {
+    box.innerHTML = `<div class="outlet">${logo(f, 'tile')}<p class="value is-name" id="v"><span>${esc(h.text)}</span></p></div>`;
+    await document.fonts.ready;
+    fit(document.getElementById('v'), 34 * unit, 12 * unit);
+  }
+  await ready();
+</script>
+</body>
+</html>

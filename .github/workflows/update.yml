@@ -327,6 +327,34 @@ jobs:
           RADAR_GEMINI_PAID_LEDGER: data/gemini-paid-ledger.json
           RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
         run: python -m radar.summarize --input site/data/radar.json --cache data/summaries-gemini-vi.json
+      # Covers for stories without a picture are drawn from each story's facts after the summary step, by the
+      # runner's own Google Chrome (no service, no model). Drawn covers are kept between runs and reused while a
+      # story's facts are unchanged.
+      - name: Restore story covers
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: site/assets/cover
+          key: radar-covers-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            radar-covers-v1-${{ github.ref_name }}-
+            radar-covers-v1-main-
+      - name: Draw covers for stories without a picture
+        id: covers
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 8
+        env:
+          RADAR_PUBLISHED_SNAPSHOT: data/published-snapshot.json
+        run: python -m radar.covers --input site/data/radar.json
+      - name: Save story covers
+        if: steps.covers.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: site/assets/cover
+          key: radar-covers-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Generate daily video script
         id: video-script
         if: steps.collect.outcome == 'success'

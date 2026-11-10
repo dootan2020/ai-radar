@@ -592,6 +592,7 @@ function pickImage(st) {
   let r = null;
   if (st.image && st.image.src) {
     r = { src: st.image.src, via: st.image.via, kind: st.image.kind || KIND_OF_VIA[st.image.via] || 'photo' };
+    if (r.via === 'cover') { r.kind = 'cover'; r.tall = st.image.tall || st.image.src; }
   } else if (!st.image_screened) {
     for (const p of IMAGE_PROVIDERS) { r = p(st); if (r) break; }
   }
@@ -1019,8 +1020,10 @@ function renderHot(list = HOT) {
     <div class="tile-head"><h2 class="tile-title" id="hot-h">Đang nóng</h2></div>
     <ol class="hot-list">${list.map((st, i) => {
       const img = pickImage(st), t = titleOf(st);
+      // A drawn cover (radar/covers.py) fills the square from its tall file; it has no backdrop to sit on.
+      const drawn = img.kind === 'cover' && img.src ? `<img class="is-cover" src="${esc(img.tall)}" alt="" width="144" height="144" loading="lazy" decoding="async">` : '';
       return `<li><a class="hot-row ${statusClass(st)}" href="https://radar-ai-vn.pages.dev/tin/${esc(st.id)}/" data-sid="${esc(st.id)}" data-read="${esc(st.id)}" data-status="${storyStatus(st.id, st)}">
-        <span class="thumb" data-id="${esc(st.id)}">${img.src ? `${mediaBackdrop(img.src)}<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st)}</span>
+        <span class="thumb" data-id="${esc(st.id)}">${drawn || (img.src ? `${mediaBackdrop(img.src)}<img src="${esc(img.src)}" alt="" width="144" height="144" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : miniCover(st))}</span>
         <span class="hot-rank num" aria-hidden="true">${i + 1}</span>
         <span class="hot-text"><span class="hot-title"${langAttr(t.text)}>${markHTML(st)}${titleHTML(st, t.text)}</span><span class="hot-why">${translationMark(t)}${whyHTML(st)}</span></span></a></li>`;
     }).join('')}</ol></section>`;
@@ -1721,6 +1724,9 @@ const aiBadgeHTML = img => img.via === 'ai' ? '<span class="ai-badge" title="Ả
    Mẫu A gives it, so a chart or a screenshot keeps its edges. */
 function mediaHTML(img, size) {
   const loading = size === 'lead' ? 'eager' : 'lazy';
+  // A cover (drawn from the story's facts, radar/covers.py) fills its slot: the drawing sits in a safe area of a wider
+  // or taller file, so cropping only trims plain surface. The wide card's half is narrow, so it takes the tall file.
+  if (img.kind === 'cover') return `<img class="media-img nc-img is-cover" src="${esc(size === 'wide' ? img.tall : img.src)}" alt="" width="640" height="360" loading="${loading}" decoding="async">`;
   const [w, h] = size === 'lead' ? [1280, 720] : [640, 360];
   return `${mediaBackdrop(img.src, { loading })}<img class="media-img nc-img" src="${esc(img.src)}" alt="" width="${w}" height="${h}" loading="${loading}" decoding="async" referrerpolicy="no-referrer"${size === 'lead' ? ' fetchpriority="high"' : ''}>${aiBadgeHTML(img)}`;
 }
@@ -1774,7 +1780,7 @@ function msnCard(st, size = '') {
   const sum = sumRaw && VI_RE.test(sumRaw) && sumRaw.trim() !== t.text.trim() ? sumRaw : '';
   const cls = ['msn-card', 'nc', size ? `nc-${size}` : '', pic ? 'has-photo' : 'no-photo', statusClass(st)].filter(Boolean).join(' ');
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}">
-  ${pic ? `<div class="nc-photo media">${mediaHTML(img, 'card')}</div>` : ''}
+  ${pic ? `<div class="nc-photo media">${mediaHTML(img, size === 'wide' ? 'wide' : 'card')}</div>` : ''}
   <div class="nc-body">
     ${size ? '<p class="nc-kicker">Đáng chú ý</p>' : ''}
     ${metaHTML(st)}
