@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Cover A · Áp phích nguồn</title>
+<link rel="stylesheet" href="../../site/fonts.css">
+<style>
+  /* Direction A, "Áp phích nguồn": the source's own colour, its logo grown into the picture, the story's names on top.
+     1rem is one pixel of the 261 x 148 card at 1440 px, so the drawing scales to any frame. */
+  html { font-size: min(calc(100vw / 261), calc(100vh / 148)); }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  body {
+    --bg: oklch(var(--l) var(--c) var(--h));
+    position: relative; background: var(--bg); color: #FFFFFF;
+    font-family: "Be Vietnam Pro", system-ui, sans-serif; -webkit-font-smoothing: antialiased;
+  }
+  /* The logo as the picture: tone on tone, cropped by the right edge. */
+  .art { position: absolute; right: -30rem; top: 50%; width: 168rem; height: 168rem; transform: translateY(-50%);
+    border-radius: 44rem; overflow: hidden; display: grid; place-items: center; }
+  .art.is-img { background: oklch(calc(var(--l) + 0.06) var(--c) var(--h)); }
+  .art.is-img img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: luminosity; opacity: 0.42; filter: contrast(1.15); }
+  .art.is-mono { background: oklch(calc(var(--l) + 0.05) var(--c) var(--h)); }
+  .art.is-mono b { font-size: 104rem; font-weight: 700; letter-spacing: -0.06em; line-height: 1;
+    color: oklch(calc(var(--l) + 0.14) var(--c) var(--h)); transform: translateX(-8rem); }
+  .fg { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 13rem 14rem 14rem; gap: 6rem; }
+  .top { display: flex; align-items: center; gap: 6rem; font-size: max(10.5rem, 8px); font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; color: rgb(255 255 255 / 0.82); }
+  .chip { width: 20rem; height: 20rem; border-radius: 6rem; overflow: hidden; flex: none; display: grid; place-items: center;
+    background: #FFFFFF; }
+  .chip img { width: 100%; height: 100%; object-fit: cover; }
+  .chip.is-mono b { font-size: 9rem; font-weight: 700; letter-spacing: -0.02em; color: oklch(0.32 var(--c) var(--h)); }
+  .names { flex: 1; min-height: 0; width: 66%; display: flex; flex-direction: column; justify-content: flex-end;
+    margin: 0; font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; overflow: hidden; }
+  .names span { display: block; }
+  .names span + span { color: rgb(255 255 255 / 0.72); }
+  .fact { align-self: flex-start; max-width: 70%; display: inline-flex; align-items: baseline; gap: 4rem; padding: 4rem 8rem;
+    border-radius: 999px; background: #FFFFFF; color: #101828; font-size: max(11rem, 8px); font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fact[hidden] { display: none; }
+  .fact .u { font-weight: 500; }
+  .fact.is-host { background: rgb(255 255 255 / 0.16); color: #FFFFFF; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="art" id="art"></div>
+<div class="fg">
+  <div class="top" id="top"></div>
+  <p class="names" id="names"></p>
+  <span class="fact" id="fact" hidden></span>
+</div>
+<script type="module">
+  import { facts as f, esc, glue, logo, hero, fit, unit, ready } from './cover.js';
+  // The source colour, deep enough for white type, with enough chroma to read as a colour, not a grey.
+  document.body.style.cssText = `--h:${f.hue};--c:${Math.min(0.15, Math.max(0.07, f.chroma * 1.15)).toFixed(3)};--l:${Math.min(0.44, Math.max(0.34, f.light)).toFixed(3)}`;
+  const art = document.getElementById('art');
+  art.outerHTML = logo(f, 'art');
+  document.getElementById('top').innerHTML = `${logo(f, 'chip')}<span>${esc(f.kindLabel)}</span>`;
+  const names = f.names.length ? f.names.slice(0, 2) : [f.outlet || f.source];
+  document.getElementById('names').innerHTML = names.map(n => `<span>${esc(glue(n))}</span>`).join('');
+  const h = hero(f), fact = document.getElementById('fact');
+  if (h) { fact.innerHTML = `<b>${esc(h.value)}</b><span class="u">${esc(h.unit)}</span>`; fact.hidden = false; }
+  else if (f.outlet) { fact.textContent = f.outlet; fact.classList.add('is-host'); fact.hidden = false; }
+  await document.fonts.ready;
+  fit(document.getElementById('names'), 30 * unit(), 10 * unit());
+  await ready();
+</script>
+</body>
+</html>

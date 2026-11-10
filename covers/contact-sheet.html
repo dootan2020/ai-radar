@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Covers · contact sheet</title>
+<!-- The site's own stylesheets, so the cards below are laid out exactly as the feed lays them out. -->
+<link rel="stylesheet" href="../site/tokens.css">
+<link rel="stylesheet" href="../site/feed.css">
+<link rel="stylesheet" href="../site/trang-msn.css">
+<style>
+  body { margin: 0; padding-top: 16px; background: var(--color-canvas); }
+  .nc-photo picture { display: contents; }
+</style>
+</head>
+<body>
+<main class="feed-main front msn-panel"><div class="msn-grid" id="grid"></div></main>
+<script type="module">
+  // ?dir=<direction folder in out/>: the 8 covers, then the 2 newest photo cards of the same snapshot for comparison.
+  // Card markup follows msnCard() in site/feed.js (a card with a picture: photo, meta, headline, "Translated" mark).
+  const dir = new URLSearchParams(location.search).get('dir');
+  const data = await (await fetch('out/sheet-data.json', { cache: 'no-store' })).json();
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fav = c => c.faceSrc
+    ? `<span class="av av-xs" data-mono="${esc(c.mono)}"><img class="av-img" src="${esc(c.faceSrc)}" alt="" width="20" height="20"></span>`
+    : `<span class="av av-xs is-fallback" data-mono="${esc(c.mono)}" style="--mono-h:${c.monoHue}"></span>`;
+  const card = (c, pic) => `<article class="msn-card nc has-photo">
+    <div class="nc-photo media">${pic}</div>
+    <div class="nc-body">
+      <p class="nc-meta"><span class="st-mark"></span><span class="nc-fav" aria-hidden="true">${fav(c)}</span><span class="nc-src">${esc(c.source)}</span><span class="nc-dot" aria-hidden="true"></span><time>${esc(c.ago)}</time></p>
+      <h3 class="nc-title"><a class="story-link" href="#">${esc(c.title)}</a></h3>
+      ${c.translated ? '<p class="nc-mt"><span class="mt" aria-hidden="true" title="Bản dịch máy">Translated</span></p>' : ''}
+    </div></article>`;
+  const covers = data.covers.map(c => card(c, `<picture><source media="(max-width: 699px)" srcset="out/${dir}/${c.id}-phone.png"><img class="media-img nc-img" src="out/${dir}/${c.id}.png" alt=""></picture>`));
+  const photos = data.photos.map(c => card(c, `<img class="media-img nc-img" src="${esc(c.image)}" alt="" referrerpolicy="no-referrer">`));
+  document.getElementById('grid').innerHTML = [...covers, ...photos].join('');
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(i => i.complete ? null : new Promise(r => {
+    i.addEventListener('load', r, { once: true }); i.addEventListener('error', r, { once: true });
+  })));
+  document.documentElement.dataset.ready = '1';
+</script>
+</body>
+</html>

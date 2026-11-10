@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Cover C · Bento</title>
+<link rel="stylesheet" href="../../site/fonts.css">
+<style>
+  /* Direction C, "Bento": the site's own tile language in miniature. Three flat tiles, one fact each: who (the logo),
+     what (the story's names), how much (its figure, or what kind of story it is). 1rem = one card pixel at 1440. */
+  html { font-size: min(calc(100vw / 261), calc(100vh / 148)); }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  body { display: grid; box-sizing: border-box; padding: 6rem; gap: 6rem;
+    grid-template-columns: 88rem 1fr; grid-template-rows: 1fr auto; grid-template-areas: "who what" "who much";
+    background: oklch(0.93 0.03 var(--h)); font-family: "Be Vietnam Pro", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body.flip { grid-template-columns: 1fr 88rem; grid-template-areas: "what who" "much who"; }
+  .t { border-radius: 10rem; min-width: 0; min-height: 0; overflow: hidden; box-sizing: border-box; }
+  .who { grid-area: who; display: grid; place-items: center; background: oklch(var(--l) var(--c) var(--h)); }
+  .who .logo { width: 64rem; height: 64rem; border-radius: 16rem; overflow: hidden; display: grid; place-items: center; background: #FFFFFF; }
+  .who .logo img { width: 100%; height: 100%; object-fit: cover; }
+  .who .logo.is-mono { background: transparent; width: auto; height: auto; }
+  .who .logo.is-mono b { font-size: 40rem; font-weight: 700; letter-spacing: -0.05em; color: #FFFFFF; line-height: 1; }
+  .what { grid-area: what; display: flex; flex-direction: column; gap: 4rem; padding: 10rem 12rem 11rem; background: #101828; color: #FFFFFF; }
+  .kind { font-size: max(10rem, 8px); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #F4698A; }
+  .names { flex: 1; min-height: 0; margin: 0; display: flex; flex-direction: column; justify-content: flex-end;
+    font-weight: 700; line-height: 1.06; letter-spacing: -0.03em; overflow: hidden; }
+  .names span { display: block; }
+  .names span + span { color: rgb(255 255 255 / 0.66); }
+  .much { grid-area: much; display: flex; align-items: baseline; gap: 6rem; padding: 7rem 12rem 8rem; min-width: 0;
+    background: #F0446E; color: #101828; white-space: nowrap; }
+  .much b { font-size: 22rem; font-weight: 700; letter-spacing: -0.035em; line-height: 1; }
+  .much span { font-size: max(11rem, 8px); font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
+  .much.is-plain { background: #5B1738; color: #FFFFFF; }
+  .much.is-plain span { font-size: max(12rem, 8px); }
+  .kind[hidden] { display: none; }
+</style>
+</head>
+<body>
+<div class="t who" id="who"></div>
+<div class="t what"><span class="kind" id="kind"></span><p class="names" id="names"></p></div>
+<div class="t much" id="much"></div>
+<script type="module">
+  import { facts as f, esc, glue, logo, hero, fit, unit, ready } from './cover.js';
+  // The logo tile mirrors on alternate stories (by id), so a row of covers does not repeat one silhouette.
+  const odd = [...f.id].reduce((a, c) => a + c.charCodeAt(0), 0) % 2 === 1;
+  document.body.classList.toggle('flip', odd);
+  document.body.style.cssText = `--h:${f.hue};--c:${Math.min(0.15, Math.max(0.07, f.chroma * 1.15)).toFixed(3)};--l:${Math.min(0.46, Math.max(0.36, f.light)).toFixed(3)}`;
+  document.getElementById('who').innerHTML = logo(f, 'logo');
+  document.getElementById('kind').textContent = f.kindLabel;
+  const names = f.names.length ? f.names.slice(0, 2) : [f.outlet || f.source];
+  document.getElementById('names').innerHTML = names.map(n => `<span>${esc(glue(n))}</span>`).join('');
+  const h = hero(f), much = document.getElementById('much');
+  if (h) much.innerHTML = `<b>${esc(h.value)}</b><span>${esc(h.unit)}</span>`;
+  // No figure: the kind of story takes the third tile (and leaves the names tile), so no tile repeats the card's source line.
+  else { much.classList.add('is-plain'); much.innerHTML = `<span>${esc(f.outlet || f.kindLabel)}</span>`; if (!f.outlet) document.getElementById('kind').hidden = true; }
+  await document.fonts.ready;
+  fit(document.getElementById('names'), 28 * unit(), 10 * unit());
+  await ready();
+</script>
+</body>
+</html>
