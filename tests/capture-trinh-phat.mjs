@@ -6,6 +6,8 @@
 //                                                       recorded; one JSON line of measurements (tests/test_trinh_phat.py)
 //   node tests/capture-trinh-phat.mjs --walk --out DIR  online: YouTube's hosts answer, so the embed really plays;
 //                                                       pictures at 375 and 1440, light and dark, and the extension
+//   node tests/capture-trinh-phat.mjs --cases          offline: history against the dialog in every order, and where
+//                                                       focus lands when the grid is redrawn under the player
 //   --id VIDEO_ID (the stream's id)   --refused VIDEO_ID (also open one whose embed is refused)   --widths 1440,375
 // Nothing under site/ or data/ is written.
 import fs from 'node:fs/promises';
@@ -166,43 +168,117 @@ async function play(page, key, selector, closeWith, log) {
   return run;
 }
 
+// History and the dialog agree in every order: open, close (Escape, the button, the backdrop or Back), Forward (the
+// player comes back on its own entry), Back, open again, Back. window.__page marks the document: a Back that left
+// the page would lose it.
+const SNAP = () => {
+  const d = document.getElementById('player-dialog');
+  return { open: !!(d && d.open), iframes: document.querySelectorAll('iframe').length,
+    src: (d && d.querySelector('iframe')?.src) || null, player: !!(history.state && history.state.player),
+    len: history.length, same: window.__page === 1, url: location.href };
+};
+async function historyCase(page, selector, how) {
+  const steps = [];
+  const step = async name => { await wait(450); steps.push({ step: name, ...(await page.evaluate(SNAP)) }); };
+  const tap = async () => {
+    const el = await page.waitForSelector(selector, { timeout: 15000 });
+    await el.evaluate(x => x.scrollIntoView({ block: 'center' }));
+    await el.click();
+  };
+  await page.evaluate(() => { window.__page = 1; });
+  await step('start');
+  await tap(); await step('open');
+  if (how === 'escape') await page.keyboard.press('Escape');
+  else if (how === 'button') await page.click('#player-dialog [data-player-close]');
+  else if (how === 'backdrop') await page.mouse.click(8, 8);
+  else await page.evaluate(() => history.back());
+  await step('close');
+  await page.evaluate(() => history.forward()); await step('forward');
+  if (walk) { await wait(4000); steps[steps.length - 1].embed = await embedState(page); }   // online: Forward really plays
+  await page.evaluate(() => history.back()); await step('back');
+  await tap(); await step('open-again');
+  await page.evaluate(() => history.back()); await step('back-again');
+  return steps;
+}
+// The control that opened the player is replaced while it plays (renderFeed sets the grid's innerHTML): closing puts
+// focus on the same stream's new control, or on the page's main landmark when the stream is gone.
+async function focusCase(page, selector, gone) {
+  const el = await page.waitForSelector(selector, { timeout: 15000 });
+  await el.evaluate(x => { x.__orig = true; x.scrollIntoView({ block: 'center' }); });
+  await el.click();
+  await wait(300);
+  const swapped = await page.evaluate((sel, gone) => {
+    const old = document.querySelector(sel), grid = document.getElementById('feed-grid');
+    grid.innerHTML = grid.innerHTML;
+    if (gone) document.querySelectorAll('[data-play]').forEach(x => x.remove());
+    return { replaced: !!old && !old.isConnected };
+  }, selector, gone);
+  await page.keyboard.press('Escape');
+  await wait(400);
+  const focus = await page.evaluate(() => {
+    const a = document.activeElement;
+    return a ? { orig: !!a.__orig, play: a.dataset.play || null, cls: String(a.className).split(' ')[0], id: a.id || null,
+      tag: a.tagName.toLowerCase(), connected: a.isConnected } : null;
+  });
+  return { ...swapped, focus, open: await page.evaluate(() => document.getElementById('player-dialog').open) };
+}
+
 try {
-  for (const width of widths) for (const theme of themes) {
-    const tag = `${width}${theme === 'dark' ? '-toi' : ''}`;
-    // The front page's card, closed with Escape.
-    let ctx = await browser.createBrowserContext(), page = await ctx.newPage(), log = Object.assign([], { phase: 'before' });
-    await open(page, site, width, theme, log);
-    result.runs[`the-${tag}`] = await play(page, `the-${tag}`, '#su-kien .ev-stream', 'escape', log);
-    await ctx.close();
-    // The "Sắp diễn ra" view's picture, closed with the close button.
-    ctx = await browser.createBrowserContext(); page = await ctx.newPage(); log = Object.assign([], { phase: 'before' });
-    await open(page, site + '#sap-toi', width, theme, log);
-    result.runs[`sap-toi-${tag}`] = await play(page, `sap-toi-${tag}`, '#feed-grid .tile-live .tile-video', 'button', log);
-    await ctx.close();
-  }
-  if (refused) {
-    current = { ...base, events: three, live: [{ ...streamOf(refused), title: 'Một mã video không tồn tại' }] };
-    const ctx = await browser.createBrowserContext(), page = await ctx.newPage(), log = Object.assign([], { phase: 'before' });
-    await open(page, site, 1440, 'light', log);
-    result.runs['tu-choi-1440'] = await play(page, 'tu-choi-1440', '#su-kien .ev-stream', 'escape', log);
-    await ctx.close();
-    current = { ...base, events: three, live: [streamOf(VIDEO)] };
-  }
-  if (walk) {
-    const id = await browser.installExtension(path.join(root, 'extension'));
-    const sw = await browser.waitForTarget(t => t.type() === 'service_worker' && t.url().startsWith(`chrome-extension://${id}/`), { timeout: 20000 });
-    const worker = await sw.worker();
-    await worker.evaluate(data => chrome.storage.local.set({ radarWindow: data, radarFetchedAt: new Date().toISOString() }), current);
-    const page = await browser.newPage(), log = Object.assign([], { phase: 'before' });
-    await open(page, `chrome-extension://${id}/newtab.html`, 1440, 'light', log);
-    // The new tab keeps the stream as a link to YouTube (extension/sync-site.py turns the player off there).
-    const a = await page.waitForSelector('#su-kien .ev-stream', { timeout: 15000 });
-    await a.evaluate(el => el.scrollIntoView({ block: 'center' }));
-    result.runs['tien-ich-1440'] = { has: await a.evaluate(el => ({ play: el.dataset.play || null, href: el.href, target: el.target,
-      text: el.textContent.replace(/\s+/g, ' ').trim().slice(0, 80) })), before: await page.evaluate(STATE),
-      beforeRequests: log.filter(x => ytHost(x.url)).map(x => x.url) };
-    await snap(page, 'tien-ich-1440-1-truoc');
-    await page.close();
+  if (process.argv.includes('--cases')) {
+    result.history = {}; result.focus = {};
+    for (const width of widths) {
+      const hows = width >= 768 ? ['escape', 'button', 'backdrop', 'back'] : ['escape', 'button', 'back'];
+      for (const how of hows) {
+        const ctx = await browser.createBrowserContext(), page = await ctx.newPage(), log = Object.assign([], { phase: 'before' });
+        await open(page, site, width, 'light', log);
+        result.history[`${how}-${width}`] = await historyCase(page, '#su-kien .ev-stream', how);
+        await ctx.close();
+      }
+      for (const [name, sel, gone] of [['the', '#su-kien .ev-stream', false], ['sap-toi', '#feed-grid .tile-live .tile-video', false], ['mat-luong', '#su-kien .ev-stream', true]]) {
+        const ctx = await browser.createBrowserContext(), page = await ctx.newPage(), log = Object.assign([], { phase: 'before' });
+        await open(page, site + (name === 'sap-toi' ? '#sap-toi' : ''), width, 'light', log);
+        result.focus[`${name}-${width}`] = await focusCase(page, sel, gone);
+        await ctx.close();
+      }
+    }
+  } else {
+    for (const width of widths) for (const theme of themes) {
+      const tag = `${width}${theme === 'dark' ? '-toi' : ''}`;
+      // The front page's card, closed with Escape.
+      let ctx = await browser.createBrowserContext(), page = await ctx.newPage(), log = Object.assign([], { phase: 'before' });
+      await open(page, site, width, theme, log);
+      result.runs[`the-${tag}`] = await play(page, `the-${tag}`, '#su-kien .ev-stream', 'escape', log);
+      await ctx.close();
+      // The "Sắp diễn ra" view's picture, closed with the close button.
+      ctx = await browser.createBrowserContext(); page = await ctx.newPage(); log = Object.assign([], { phase: 'before' });
+      await open(page, site + '#sap-toi', width, theme, log);
+      result.runs[`sap-toi-${tag}`] = await play(page, `sap-toi-${tag}`, '#feed-grid .tile-live .tile-video', 'button', log);
+      await ctx.close();
+    }
+    if (refused) {
+      current = { ...base, events: three, live: [{ ...streamOf(refused), title: 'Một mã video không tồn tại' }] };
+      const ctx = await browser.createBrowserContext(), page = await ctx.newPage(), log = Object.assign([], { phase: 'before' });
+      await open(page, site, 1440, 'light', log);
+      result.runs['tu-choi-1440'] = await play(page, 'tu-choi-1440', '#su-kien .ev-stream', 'escape', log);
+      await ctx.close();
+      current = { ...base, events: three, live: [streamOf(VIDEO)] };
+    }
+    if (walk) {
+      const id = await browser.installExtension(path.join(root, 'extension'));
+      const sw = await browser.waitForTarget(t => t.type() === 'service_worker' && t.url().startsWith(`chrome-extension://${id}/`), { timeout: 20000 });
+      const worker = await sw.worker();
+      await worker.evaluate(data => chrome.storage.local.set({ radarWindow: data, radarFetchedAt: new Date().toISOString() }), current);
+      const page = await browser.newPage(), log = Object.assign([], { phase: 'before' });
+      await open(page, `chrome-extension://${id}/newtab.html`, 1440, 'light', log);
+      // The new tab keeps the stream as a link to YouTube (extension/sync-site.py turns the player off there).
+      const a = await page.waitForSelector('#su-kien .ev-stream', { timeout: 15000 });
+      await a.evaluate(el => el.scrollIntoView({ block: 'center' }));
+      result.runs['tien-ich-1440'] = { has: await a.evaluate(el => ({ play: el.dataset.play || null, href: el.href, target: el.target,
+        text: el.textContent.replace(/\s+/g, ' ').trim().slice(0, 80) })), before: await page.evaluate(STATE),
+        beforeRequests: log.filter(x => ytHost(x.url)).map(x => x.url) };
+      await snap(page, 'tien-ich-1440-1-truoc');
+      await page.close();
+    }
   }
 } catch (e) {
   result.errors.push(String(e && e.stack || e));

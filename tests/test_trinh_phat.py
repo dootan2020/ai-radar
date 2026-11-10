@@ -129,7 +129,7 @@ class RenderedPlayer(unittest.TestCase):
             self.assertEqual(run["before"]["thumbs"], 0, name)
         self.assertEqual(self.runs["sap-toi-1440"]["beforeRequests"], [f"https://i.ytimg.com/vi/{VIDEO}/hqdefault.jpg"])
 
-    def test_a_tap_plays_the_right_video_from_nocookie(self):
+    def test_a_tap_inserts_the_nocookie_embed_for_the_right_video(self):
         for name, run in self.runs.items():
             opened = run["opened"]
             self.assertEqual(run["has"]["play"], VIDEO, name)
@@ -161,6 +161,48 @@ class RenderedPlayer(unittest.TestCase):
             frame = opened["frame"]
             self.assertAlmostEqual(frame["w"] / frame["h"], 16 / 9, delta=0.02, msg=name)
         self.assertEqual(self.runs["the-375"]["opened"]["frame"]["w"], 375)
+
+
+@unittest.skipUnless(browser_ready(), "Node, Chrome and puppeteer are needed for the rendered player")
+class HistoryAndFocus(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        run = subprocess.run(["node", "tests/capture-trinh-phat.mjs", "--cases", "--id", VIDEO, "--widths", "1440,375"],
+                             cwd=ROOT, capture_output=True, text=True, encoding="utf-8", timeout=300)
+        if run.returncode != 0:
+            raise AssertionError(run.stderr[-2000:])
+        out = json.loads(run.stdout.strip().splitlines()[-1])
+        if out["errors"]:
+            raise AssertionError(out["errors"])
+        cls.history, cls.focus = out["history"], out["focus"]
+
+    def test_every_way_of_closing_was_walked(self):
+        self.assertEqual(sorted(self.history), ["back-1440", "back-375", "backdrop-1440", "button-1440", "button-375",
+                                                "escape-1440", "escape-375"])
+
+    def test_history_and_the_dialog_agree_in_every_order(self):
+        # open, close, Forward (the player is back on its own entry), Back, open again, Back: never off the page.
+        expected = [("start", False, 0, False), ("open", True, 1, True), ("close", False, 0, False),
+                    ("forward", True, 1, True), ("back", False, 0, False), ("open-again", True, 1, True),
+                    ("back-again", False, 0, False)]
+        for name, steps in self.history.items():
+            with self.subTest(case=name):
+                self.assertEqual([(s["step"], s["open"], s["iframes"], s["player"]) for s in steps], expected)
+                self.assertTrue(all(s["same"] for s in steps), "a Back left the page")
+                self.assertEqual({s["src"] for s in steps if s["open"]}, {EMBED})
+                self.assertEqual(steps[-1]["len"], steps[-2]["len"])
+
+    def test_focus_finds_the_redrawn_control_or_the_page(self):
+        for width in (1440, 375):
+            for name, cls in (("the", "ev-stream"), ("sap-toi", "tile-video")):
+                case = self.focus[f"{name}-{width}"]
+                with self.subTest(case=f"{name}-{width}"):
+                    self.assertTrue(case["replaced"])
+                    self.assertFalse(case["open"])
+                    self.assertEqual((case["focus"]["orig"], case["focus"]["play"], case["focus"]["cls"], case["focus"]["connected"]),
+                                     (False, VIDEO, cls, True))
+            gone = self.focus[f"mat-luong-{width}"]
+            self.assertEqual((gone["focus"]["id"], gone["focus"]["tag"]), ("top", "main"), width)
 
 
 if __name__ == "__main__":
