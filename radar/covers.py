@@ -32,6 +32,19 @@ ROOT = Path(__file__).resolve().parent.parent
 RENDERER = ROOT / "covers" / "render-site.mjs"
 COVER_SRC = re.compile(r"assets/cover/([\w-]+)-[0-9a-f]{10}(?:-t)?\.png")
 RENDER_TIMEOUT = 600
+# A drawing that fails is tried once more; a headless Chrome that did not start (covers/lib/cdp.mjs gives it 10 s to
+# write DevToolsActivePort) drew nothing, so the renderer is run again a few times, with growing pauses, inside the
+# same deadline. A slow or failed browser start-up on a CI runner is not a drawing regression.
+DRAW_ATTEMPTS = 2
+START_ATTEMPTS = 4
+START_PAUSES = (5, 15, 30)
+START_FAILURE = "Chrome did not start"
+
+
+def _browser_did_not_start(result) -> bool:
+    failed = (result or {}).get("failed") or {}
+    return bool(failed) and not (result or {}).get("rendered") and all(
+        str(reason).startswith(START_FAILURE) for reason in failed.values())
 
 
 def is_cover(image) -> bool:
@@ -91,7 +104,15 @@ def render(stories, sources, cover_dir, node=None, timeout=RENDER_TIMEOUT):
                                       ensure_ascii=False), encoding="utf-8")
         deadline = time.monotonic() + timeout
         last_result = None
-        for attempt in range(2):
+        for attempt in range(START_ATTEMPTS):
+            if _browser_did_not_start(last_result):
+                pause = START_PAUSES[min(attempt, len(START_PAUSES)) - 1]
+                if deadline - time.monotonic() <= pause:
+                    break
+                print(f"Covers: Chrome did not start; trying again in {pause:g}s")
+                time.sleep(pause)
+            elif attempt >= DRAW_ATTEMPTS:
+                break
             remaining = deadline - time.monotonic()
             if remaining <= 0:
                 break
@@ -116,7 +137,7 @@ def render(stories, sources, cover_dir, node=None, timeout=RENDER_TIMEOUT):
                 print(f"Covers: renderer result unreadable ({error.__class__.__name__}, attempt {attempt + 1})")
                 continue
             for sid, reason in last_result.get("failed", {}).items():
-                safe_reason = re.sub(r"\s+", " ", re.sub(r"https?://\S+", "[url]", str(reason)))[:400]
+                safe_reason = re.sub(r"\s+", " ", re.sub(r"https?://\S+", "[url]", str(reason)))[:2000]   # room for Chrome's stderr
                 print(f"Covers: {sid} failed (attempt {attempt + 1}): {safe_reason}")
             if not last_result.get("failed"):
                 break

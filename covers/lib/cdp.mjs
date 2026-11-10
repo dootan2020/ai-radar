@@ -13,6 +13,11 @@ const CANDIDATES = {
 export const CHROME = process.env.CHROME || (CANDIDATES[process.platform] || []).find(p => existsSync(p)) || null;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+// How long a starting Chrome may take to write DevToolsActivePort (puppeteer's default launch timeout); a cold runner
+// disk can need more than the 10 s this used to be. A Chrome that exits sooner is reported at once.
+const START_TIMEOUT = 30000;
+const STDERR_KEEP = 16384;   // characters of Chrome's stderr kept for the error; the pipe is drained for its whole life
+
 export async function launch() {
   if (!CHROME) throw new Error('Chrome not found (set CHROME to its path)');
   const profile = mkdtempSync(join(tmpdir(), 'covers-chrome-'));
@@ -21,10 +26,27 @@ export async function launch() {
     '--font-render-hinting=none',
     // A CI runner's Chrome may have no usable sandbox (unprivileged user namespaces); it only opens the repository's
     // own template and the source avatars the site already shows.
-    ...(process.env.CI ? ['--no-sandbox'] : []), 'about:blank'], { stdio: 'ignore' });
+    ...(process.env.CI ? ['--no-sandbox'] : []),
+    // A container's /dev/shm can be too small for Chrome's shared memory; /tmp is used instead.
+    ...(process.platform === 'linux' ? ['--disable-dev-shm-usage'] : []), 'about:blank'],
+    { stdio: ['ignore', 'ignore', 'pipe'] });
+  let stderr = '', exited = null;
+  proc.stderr.setEncoding('utf8');
+  proc.stderr.on('data', d => { stderr = (stderr + d).slice(-STDERR_KEEP); });
+  proc.on('exit', (code, signal) => { exited = signal ? `signal ${signal}` : `code ${code}`; });
+  proc.on('error', e => { exited = `error ${e.code || e.message}`; });
   const portFile = join(profile, 'DevToolsActivePort');
-  for (let i = 0; i < 100 && !existsSync(portFile); i++) await sleep(100);
-  if (!existsSync(portFile)) { proc.kill(); throw new Error('Chrome did not start: no DevToolsActivePort'); }
+  const t0 = Date.now();
+  while (!existsSync(portFile) && !exited && Date.now() - t0 < START_TIMEOUT) await sleep(100);
+  if (!existsSync(portFile)) {
+    // 'exit' can arrive before the last stderr chunk: let the pipe end, briefly.
+    if (exited && !proc.stderr.readableEnded) await Promise.race([new Promise(r => proc.stderr.once('end', r)), sleep(200)]);
+    if (!exited) proc.kill();
+    else try { rmSync(profile, { recursive: true, force: true }); } catch { /* best effort */ }
+    const tail = stderr.split(/\r?\n/).filter(l => l.trim()).slice(-20).join('\n');
+    throw new Error(`Chrome did not start: ${exited ? `exited with ${exited}` : `no DevToolsActivePort after ${START_TIMEOUT / 1000} s`}`
+      + ` after ${Date.now() - t0} ms${tail ? `; stderr:\n${tail}` : ''}`);
+  }
   const [port, path] = readFileSync(portFile, 'utf8').split('\n');
   const ws = new WebSocket(`ws://127.0.0.1:${port}${path.trim()}`);
   await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });

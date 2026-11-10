@@ -3,6 +3,7 @@
 from contextlib import redirect_stdout
 from io import StringIO
 import json
+import os
 from pathlib import Path
 import shutil
 import struct
@@ -204,6 +205,70 @@ class RendererFailureTest(unittest.TestCase):
         self.assertEqual(result["failed"], {"r1": "page never reported ready"})
         self.assertIn("Covers: r1 failed (attempt 2): page never reported ready", output.getvalue())
 
+    # What render-site.mjs reports when covers/lib/cdp.mjs gives up waiting for Chrome's DevToolsActivePort file:
+    # every story fails with the launch error and nothing is drawn. Seen on CI twice in a row in one run (2026-11-10).
+    NO_START = {"covers": {}, "rendered": 0, "reused": 0,
+                "failed": {"r1": "Chrome did not start: no DevToolsActivePort"}}
+
+    def run_renderer(self, outcomes, timeout=covers.RENDER_TIMEOUT):
+        """Run render() against a renderer that returns each outcome in turn; returns (result, calls, log, pauses)."""
+        calls, pauses, output = [], [], StringIO()
+
+        def fake_run(args, **kwargs):
+            calls.append(args)
+            Path(args[-1]).write_text(json.dumps(outcomes[min(len(calls), len(outcomes)) - 1]), encoding="utf-8")
+            return subprocess.CompletedProcess(args, 0, "covers: done", "")
+
+        with tempfile.TemporaryDirectory() as tmp, redirect_stdout(output), \
+                mock.patch.object(covers.subprocess, "run", side_effect=fake_run), \
+                mock.patch.object(covers.time, "sleep", side_effect=pauses.append):
+            result = covers.render([story("r1")], SOURCES, Path(tmp), node="node", timeout=timeout)
+        return result, calls, output.getvalue(), pauses
+
+    def test_a_browser_that_did_not_start_twice_is_started_again(self):
+        drawn = {"covers": {"r1": {"src": "assets/cover/r1.png", "tall": "assets/cover/r1-t.png"}},
+                 "rendered": 1, "reused": 0, "failed": {}}
+        result, calls, log, pauses = self.run_renderer([self.NO_START, self.NO_START, drawn])
+        self.assertEqual(len(calls), 3)
+        self.assertEqual(result["failed"], {})
+        self.assertIn("r1", result["covers"])
+        self.assertEqual(len(pauses), 2)
+        self.assertTrue(all(p > 0 for p in pauses))
+        self.assertIn("Covers: r1 failed (attempt 2): Chrome did not start: no DevToolsActivePort", log)
+
+    def test_a_browser_that_never_starts_is_reported_not_raised(self):
+        result, calls, log, pauses = self.run_renderer([self.NO_START])
+        self.assertEqual(len(calls), covers.START_ATTEMPTS)
+        self.assertEqual(result["failed"], self.NO_START["failed"])
+        self.assertEqual(result["covers"], {})
+        self.assertIn(f"Covers: r1 failed (attempt {covers.START_ATTEMPTS}): Chrome did not start", log)
+
+    def test_start_up_pauses_stay_inside_the_deadline(self):
+        # 12 s of budget cannot hold the first 5 s pause plus a second 15 s one: the renderer runs twice, not four times.
+        result, calls, _, pauses = self.run_renderer([self.NO_START], timeout=12)
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(pauses, [covers.START_PAUSES[0]])
+        self.assertEqual(result["covers"], {})
+
+
+@unittest.skipUnless(NODE, "Node required to start the cover browser")
+class BrowserStartTest(unittest.TestCase):
+    def test_a_browser_that_exits_fails_at_once_with_its_exit_code_and_stderr(self):
+        # Node stands in for a Chrome that dies on start-up: it rejects Chrome's flags on stderr and exits 9. The
+        # launch used to wait the whole start-up timeout and say only "no DevToolsActivePort".
+        script = (f"import {{ launch }} from {json.dumps((ROOT / 'covers' / 'lib' / 'cdp.mjs').as_uri())};"
+                  "const t0 = Date.now();"
+                  "try { await (await launch()).close(); console.log('started'); }"
+                  "catch (e) { console.log(JSON.stringify({ ms: Date.now() - t0, message: e.message })); }")
+        proc = subprocess.run([NODE, "--no-warnings", "--input-type=module", "-e", script], cwd=ROOT,
+                              env={**os.environ, "CHROME": NODE}, capture_output=True, text=True,
+                              encoding="utf-8", timeout=60)
+        outcome = json.loads(proc.stdout)
+        self.assertTrue(outcome["message"].startswith(covers.START_FAILURE), outcome["message"])
+        self.assertIn("exited with code 9", outcome["message"])
+        self.assertIn("bad option: --headless=new", outcome["message"])
+        self.assertLess(outcome["ms"], 5000)
+
 
 def chrome_available():
     if not NODE:
@@ -229,9 +294,12 @@ class RenderTest(unittest.TestCase):
                 story("r1", title="DeepX chip", editorial_headline_vi="DeepX ra chip mới",
                       key_points=["Băng thông tăng lên 150 GB/s."]),
                 story("r2", image={"src": "https://example.com/p.jpg", "via": "og:image", "kind": "photo"})]}
-            first = covers.apply_covers(payload, site)
+            log = StringIO()
+            with redirect_stdout(log):
+                first = covers.apply_covers(payload, site)
+            # A cover that was not drawn fails here with the renderer's own reasons, not with a KeyError further down.
+            self.assertEqual((first["attached"], first["failed"]), (1, 0), f"r1 was not drawn:\n{log.getvalue()}")
             image = payload["stories"][0]["image"]
-            self.assertEqual(first["attached"], 1)
             self.assertEqual(png_size(site / image["src"]), (622, 296))
             self.assertEqual(png_size(site / image["tall"]), (616, 616))
             self.assertEqual(payload["stories"][1]["image"]["via"], "og:image")
