@@ -189,9 +189,85 @@ class YouTubeParsingTests(unittest.TestCase):
         self.assertIsNotNone(item)
         self.assertEqual(item["status"], "ended")
 
+    def test_new_channels_keep_live_ai_streams_and_drop_ordinary_uploads(self):
+        for channel in youtube.CHANNELS[4:]:
+            with self.subTest(channel=channel[0]):
+                raw_video = json.loads(fixture_text("openai-videos.json"))["items"][2]
+                raw_video["snippet"]["title"] = "AI developer livestream"
+                raw_video["snippet"]["description"] = ""
+                raw_video["snippet"]["liveBroadcastContent"] = "live"
+                raw_video["liveStreamingDetails"] = {"actualStartTime": "2026-10-05T11:00:00Z"}
+                stream = youtube.parse_video_item(raw_video, channel, NOW)
+                self.assertEqual(stream["status"], "live")
+                self.assertEqual(stream["channel"], channel[2])
+
+                ordinary = json.loads(fixture_text("openai-videos.json"))["items"][0]
+                ordinary["snippet"]["title"] = "AI developer update"
+                self.assertIsNone(youtube.parse_video_item(ordinary, channel, NOW))
+
+    def test_filtered_channels_require_ai_in_title_or_description_start(self):
+        for channel in youtube.CHANNELS[6:]:
+            with self.subTest(channel=channel[0]):
+                raw_video = json.loads(fixture_text("openai-videos.json"))["items"][2]
+                raw_video["snippet"]["title"] = "Open Source Friday: Rust tooling"
+                raw_video["snippet"]["description"] = "We maintain Rust tooling"
+                self.assertIsNone(youtube.parse_video_item(raw_video, channel, NOW))
+
+                raw_video["snippet"]["title"] = "Copilot agent mode live"
+                self.assertIsNotNone(youtube.parse_video_item(raw_video, channel, NOW))
+
+                raw_video["snippet"]["title"] = "Open Source Friday: Rust tooling"
+                raw_video["snippet"]["description"] = "Today: machine learning workflows"
+                self.assertIsNotNone(youtube.parse_video_item(raw_video, channel, NOW))
+
+                raw_video["snippet"]["description"] = "x" * 500 + " AI discussion"
+                self.assertIsNone(youtube.parse_video_item(raw_video, channel, NOW))
+
+    def test_vertex_streams_pass_ai_filter(self):
+        raw_video = json.loads(fixture_text("openai-videos.json"))["items"][2]
+        raw_video["snippet"]["title"] = "Vertex workshop livestream"
+        raw_video["snippet"]["description"] = ""
+        for channel in youtube.CHANNELS[6:]:
+            with self.subTest(channel=channel[0]):
+                self.assertIsNotNone(youtube.parse_video_item(raw_video, channel, NOW))
+
+    def test_existing_channels_keep_their_broadcast_policy(self):
+        videos = fixture_text("openai-videos.json")
+        for channel in youtube.CHANNELS[:4] + (catalog.NVIDIA_CHANNEL,):
+            with self.subTest(channel=channel[0]):
+                items = youtube.parse_videos_response(videos, channel, NOW)
+                self.assertEqual([item["video_id"] for item in items], ["Fls_onRviPM"])
+
 
 class YouTubeCollectionTests(unittest.TestCase):
     """Test collect() execution with mocked Data API responses."""
+
+    def test_new_channels_collect_live_streams_with_existing_api_calls(self):
+        stream = json.loads(fixture_text("openai-videos.json"))["items"][2]
+        stream["snippet"]["title"] = "Copilot agent mode live"
+        stream["snippet"]["liveBroadcastContent"] = "live"
+        stream["liveStreamingDetails"] = {"actualStartTime": "2026-10-05T11:00:00Z"}
+        playlist = json.dumps({"items": [{"contentDetails": {"videoId": stream["id"]}}]})
+        videos = json.dumps({"items": [stream]})
+        called_urls = []
+
+        def mock_fetch(url):
+            called_urls.append(url)
+            if "/playlistItems?" in url:
+                return playlist
+            if "/videos?" in url:
+                return videos
+            raise AssertionError("Unexpected YouTube endpoint: " + url)
+
+        with patch.dict("os.environ", {"YOUTUBE_API_KEY": "offline-test"}):
+            items, sources = youtube.collect(mock_fetch, NOW, channels=youtube.CHANNELS[4:])
+
+        self.assertEqual({item["channel"] for item in items},
+                         {channel[2] for channel in youtube.CHANNELS[4:]})
+        self.assertEqual(len(sources), 4)
+        self.assertTrue(all(source["ok"] and source["count"] == 1 for source in sources))
+        self.assertEqual(len(called_urls), 8)
+        self.assertTrue(all("/playlistItems?" in url or "/videos?" in url for url in called_urls))
 
     def test_collect_with_mocked_fixtures(self):
         playlist_data = fixture_text("openai-playlistitems.json")
@@ -389,16 +465,41 @@ class YouTubeCatalogContinuityTests(unittest.TestCase):
     """Test Boundary 4: Source IDs, publishers, and groups stay continuous."""
 
     def test_configured_channel_ids_and_publishers(self):
-        expected_ids = {"openai-youtube", "anthropic-youtube", "google-youtube", "deepmind-youtube"}
+        expected_ids = {"openai-youtube", "anthropic-youtube", "google-youtube", "deepmind-youtube",
+                        "microsoft-developer-youtube", "hugging-face-youtube",
+                        "google-cloud-tech-youtube", "github-youtube"}
         actual_ids = {c[0] for c in youtube.CHANNELS}
         self.assertEqual(actual_ids, expected_ids)
 
-        expected_sources = {"openai-youtube", "anthropic-youtube", "google-youtube", "deepmind-youtube"}
+        expected_sources = expected_ids
         actual_sources = {s["id"] for s in youtube.SOURCES}
         self.assertEqual(actual_sources, expected_sources)
 
         for channel in youtube.CHANNELS:
-            self.assertIn(channel[1], {"openai", "anthropic", "google"})
+            self.assertIn(channel[1], {"openai", "anthropic", "google", "microsoft", "huggingface", "github"})
+
+        self.assertEqual({channel[0]: channel[4] for channel in youtube.CHANNELS[4:]}, {
+            "microsoft-developer-youtube": "UCsMica-v34Irf9KVTh6xx-g",
+            "hugging-face-youtube": "UCHlNU7kIZhRgSbhHvFoy72w",
+            "google-cloud-tech-youtube": "UCJS9pqu9BzkAMNTmzNMNhvg",
+            "github-youtube": "UC7c3Kb6jYCRj4JOHHZTxKsQ",
+        })
+
+    def test_new_lab_ids_survive_legacy_assembly_and_publisher_resolution(self):
+        from radar.assembly import legacy_items
+        from radar.items import publisher_identity
+
+        for channel in (youtube.CHANNELS[4], youtube.CHANNELS[5], youtube.CHANNELS[7]):
+            with self.subTest(channel=channel[0]):
+                live = {"channel": channel[2], "lab": channel[1], "title": "AI livestream",
+                        "url": "https://www.youtube.com/watch?v=Fls_onRviPM", "status": "live",
+                        "start_at": "2026-10-05T11:00:00Z"}
+                item, = legacy_items({"live": [live]}, NOW)
+                self.assertEqual((item["source"], item["entity"], item["lab"]),
+                                 (channel[0], channel[1], channel[1]))
+                self.assertEqual(publisher_identity(item), channel[1])
+                self.assertEqual(publisher_identity({"source": channel[0], "publisher": "youtube:" + channel[2]}),
+                                 channel[1])
 
     def test_nvidia_channel_continuity(self):
         self.assertEqual(catalog.NVIDIA_CHANNEL[0], "nvidia-youtube")

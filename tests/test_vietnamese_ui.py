@@ -62,6 +62,10 @@ EXCEPTIONS = {
     **dict.fromkeys(["halcyon"], "tên trang"),
 }
 
+# These words occur in official channel names only, so generic UI text still gets checked.
+CHANNEL_BRAND_WORDS = {"Microsoft Developer YouTube": {"Developer"},
+                       "Google Cloud Tech YouTube": {"Cloud"}}
+
 # Unaccented Vietnamese syllable: initial consonant, vowel nucleus, final. English words that happen to fit
 # the shape (the, hot, top) are listed in FALSE_FRIENDS so they are still caught.
 SYLLABLE = re.compile(r"^(?:ngh|ng|nh|ch|gh|gi|kh|ph|qu|th|tr|[bcdđghklmnprstvx])?"
@@ -277,6 +281,8 @@ def report(texts):
     leftovers = {}
     for where, text in texts:
         words = foreign_words(text)
+        if where == "source name":
+            words = [word for word in words if word not in CHANNEL_BRAND_WORDS.get(text, set())]
         if words:
             leftovers.setdefault(where, []).append((text.strip()[:120], words))
     return leftovers
@@ -290,6 +296,9 @@ class VietnameseInterfaceTests(unittest.TestCase):
         self.assertEqual(foreign_words("Kho mã AI đang lên trên GitHub, xem tin trong ngày"), [])
         self.assertEqual(foreign_words("Halcyon · Tin AI hôm nay"), [])
         self.assertEqual(foreign_words("Hãy bật JavaScript trong trình duyệt rồi tải lại trang"), [])
+        self.assertEqual(report([("page text", "Developer Cloud"), ("source name", "Developer Cloud")]),
+                         {"page text": [("Developer Cloud", ["Developer", "Cloud"])],
+                          "source name": [("Developer Cloud", ["Developer", "Cloud"])]})
 
     def test_extractor_reads_html_fragments_ui_keys_and_skips_code(self):
         sample = ("const A = {label:'Upvote', id:'video'}; el.querySelector('.repo-hero'); /* 'comment words' */\n"
