@@ -4,6 +4,7 @@ four streams shaped like the collector's (radar/youtube.py): one on air, one in 
 ended eight days ago."""
 import json
 import re
+import shutil
 import subprocess
 import unittest
 from pathlib import Path
@@ -42,6 +43,8 @@ class BaThi(unittest.TestCase):
             self.assertEqual(page["live"], ["AI cục bộ 301: Quantization"], key)
             self.assertEqual(page["next"], ["Stream cap-soon"], key)
             self.assertEqual(page["nextCount"], ["Còn 1 giờ 30 phút"], key)
+            # The approved mockup's face: "1 / giờ 30 phút nữa".
+            self.assertEqual(page["nextFace"], ['<b class="ev-n num">1</b><span class="ev-u">giờ 30<br>phút nữa</span>'], key)
             self.assertEqual(page["leadName"], ["NeurIPS 2026 — Sydney"], key)
             # The live tile is the page's one coral surface.
             self.assertEqual(page["coralSurfaces"], ["bt-live"], key)
@@ -98,6 +101,42 @@ class BaThi(unittest.TestCase):
             # The page lives in the site's shell; the home's weather and calendar cards stay on the home.
             self.assertFalse(page["weather"], key)
             self.assertEqual(page["view"], "Sự kiện", key)
+
+
+HARNESS = """
+const src = require('fs').readFileSync(process.argv[1], 'utf8');
+const start = src.indexOf('function heroFace(');
+const heroFace = new Function(`return (${src.slice(start, src.indexOf('\\n}\\n', start) + 2)})`)();
+const cases = JSON.parse(process.argv[2]);
+process.stdout.write(JSON.stringify(cases.map(([p, minutes]) => heroFace({ state: 'soon', s: 0, ...p }, null, minutes))));
+"""
+
+
+@unittest.skipUnless(shutil.which("node"), "Node required")
+class StreamCountdown(unittest.TestCase):
+    """A stream under a day away keeps its minutes (coordinator, 11/11: the card read "1 / giờ nữa" at 1 h 30); the
+    front card's events keep their one unit, the same function without the minutes."""
+
+    def faces(self, cases):
+        out = subprocess.run(["node", "-e", HARNESS, str(SITE / "feed.js"), json.dumps(cases)], capture_output=True,
+                             text=True, encoding="utf-8", timeout=60)
+        self.assertEqual(out.returncode, 0, out.stderr)
+        return json.loads(out.stdout)
+
+    def test_hours_and_minutes(self):
+        one_half, two, three_quarters = {"d": 0, "h": 1, "m": 30}, {"d": 0, "h": 2, "m": 0}, {"d": 0, "h": 0, "m": 45}
+        self.assertEqual(self.faces([[one_half, True], [two, True], [three_quarters, True], [{"d": 3, "h": 5, "m": 10}, True]]), [
+            '<b class="ev-n num">1</b><span class="ev-u">giờ 30<br>phút nữa</span>',
+            '<b class="ev-n num">2</b><span class="ev-u">giờ<br>nữa</span>',
+            '<b class="ev-n num">45</b><span class="ev-u">phút<br>nữa</span>',
+            '<b class="ev-n num">3</b><span class="ev-u">ngày<br>nữa</span>',
+        ])
+
+    def test_events_keep_one_unit(self):
+        self.assertEqual(self.faces([[{"d": 0, "h": 1, "m": 30}, False], [{"d": 24, "h": 18, "m": 0}, False]]), [
+            '<b class="ev-n num">1</b><span class="ev-u">giờ<br>nữa</span>',
+            '<b class="ev-n num">24</b><span class="ev-u">ngày<br>nữa</span>',
+        ])
 
 
 class Source(unittest.TestCase):

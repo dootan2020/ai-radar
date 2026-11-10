@@ -61,7 +61,7 @@ if (dataDir) {
   // air as the collector recorded it at the time (live, no end yet). Pictures only: the real file of now decides the rest.
   const was = live.find(v => v.video_id === 'il0dgxjpoC0');
   if (was) SCENARIOS['luc-duyet'] = { live: live.map(v => v === was ? { ...v, status: 'live', end_at: null } : v),
-    now: Date.parse('2026-11-10T18:30:00Z'), widths: [[1440, 'light'], [375, 'light']] };
+    now: Date.parse('2026-11-10T18:29:30Z'), widths: [[1440, 'light'], [375, 'light']] };   // 01:30 less the page's load
 }
 
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json',
@@ -123,7 +123,7 @@ const MEASURE = () => {
     headings: text('.band-title'), cards,
     coralSurfaces: [...page.querySelectorAll('*')].filter(el => shown(el) && getComputedStyle(el).backgroundColor === coralRgb && r(el).width * r(el).height > 20000 && r(el).height > 100).map(el => el.className),
     live: text('.bt-live-t'), next: text('.bt-next .bt-name'), recent: text('.bt-recent .bt-name, .bt-recent .ev-row-t'),
-    nextCount: text('.bt-next .ev-count .sr'), lanes: text('.bt-lane-t'), laneWaits: text('.bt-lane-d'), rows: text('.bt-lead .ev-row-t'),
+    nextCount: text('.bt-next .ev-count .sr'), nextFace: [...page.querySelectorAll('.bt-next .ev-count .cd-face')].map(el => el.innerHTML), lanes: text('.bt-lane-t'), laneWaits: text('.bt-lane-d'), rows: text('.bt-lead .ev-row-t'),
     leadName: text('.bt-lead .ev-name'), legend: text('.bt-legend'), calm, screens,
     ticks: [...page.querySelectorAll('.bt-lane')].filter(shown).map(l => { const t = [...l.querySelectorAll('.bt-ticks i')]; return { all: t.length, on: t.filter(i => i.classList.contains('is-on')).length, first: t.findIndex(i => i.classList.contains('is-on')) }; }),
     rowLinkColors: [...page.querySelectorAll('.ev-row-t, .bt-lane-t')].filter(shown).map(el => getComputedStyle(el).color),

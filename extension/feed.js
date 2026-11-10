@@ -881,13 +881,15 @@ function tickCountdowns() {
     const start = Number(el.dataset.cd), end = Number(el.dataset.cdEnd);
     const p = countdownParts(start, end, now);
     if (!p) continue;
-    // The front card's large number ("hero") and its schedule rows ("row") keep their own faces; the rest is the chip.
+    // The front card's large number ("hero"), a stream's ("stream": the same face with its minutes) and the schedule
+    // rows ("row") keep their own faces; the rest is the chip.
     const kind = el.dataset.cdKind || '';
     const plan = kind === 'hero' ? rulerPlan(start, end, now, el.dataset.cdTz || TZ) : null;
-    const face = kind === 'hero' ? heroFace(p, plan) : kind === 'row' ? rowFace(p) : countdownFace(p, seconds), sr = countdownSR(p);
+    const face = kind === 'hero' ? heroFace(p, plan) : kind === 'stream' ? heroFace(p, null, true)
+      : kind === 'row' ? rowFace(p) : countdownFace(p, seconds), sr = countdownSR(p);
     if (el.lastElementChild.dataset.f !== face) { el.lastElementChild.innerHTML = face; el.lastElementChild.dataset.f = face; }
     if (el.firstElementChild.textContent !== sr) el.firstElementChild.textContent = sr;
-    el.className = `${kind === 'hero' ? 'ev-count' : kind === 'row' ? 'ev-row-d' : 'event-left'} cd is-${p.state}`;
+    el.className = `${kind === 'hero' || kind === 'stream' ? 'ev-count' : kind === 'row' ? 'ev-row-d' : 'event-left'} cd is-${p.state}`;
     const ruler = kind === 'hero' ? el.nextElementSibling : null;
     if (ruler && ruler.matches('.ev-ruler')) {
       const marks = rulerInner(plan, ruler.dataset.range, ruler.dataset.last);
@@ -992,7 +994,7 @@ function baNextHTML(list, now) {
   const [v, ...rest] = list;
   const t = streamTitle(v), start = Date.parse(v.start_at || '');
   const p = countdownParts(start, NaN, now);
-  const count = p ? `<p class="ev-count cd is-${p.state}" data-cd="${start}" data-cd-end="NaN" data-cd-kind="hero" data-cd-tz="${TZ}"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${heroFace(p, null)}</span></p>` : '';
+  const count = p ? `<p class="ev-count cd is-${p.state}" data-cd="${start}" data-cd-end="NaN" data-cd-kind="stream"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${heroFace(p, null, true)}</span></p>` : '';
   const when = s => Number.isFinite(s) ? `${hhmm(new Date(s))} ${dayWord(s, now)}` : null;
   const meta = [v.channel, when(start) || scheduleText(v.time_text)].filter(Boolean).join(' · ');
   const rows = rest.slice(0, 2).map(x => ({ url: x.url, t: streamTitle(x), attr: playAttr(x),
@@ -1138,14 +1140,17 @@ const upcomingEvents = () => asArray(D && D.events).filter(e => eventSpan(e).end
   .sort((a, b) => eventSpan(a).start - eventSpan(b).start);
 const nextStream = () => { const v = asArray(D && D.live); return v.find(x => x.status === 'live') || v.find(x => x.status === 'upcoming') || null; };
 /* The card's countdown, its one large thing: the whole days left ("25 ngày nữa"), the hours or the minutes on the
-   last day, the day it is on once it has started ("ngày 3 / 7"; "Hôm nay" for a one-day event). */
-function heroFace(p, plan) {
+   last day, the day it is on once it has started ("ngày 3 / 7"; "Hôm nay" for a one-day event). A stream (minutes)
+   less than a day away keeps its minutes in the caption, as the approved "Ba thì" mockup reads ("1 / giờ 30 phút nữa");
+   an event keeps its one unit. */
+function heroFace(p, plan, minutes = false) {
   if (p.state === 'over') return '<b class="ev-n is-word">Đã kết thúc</b>';
   if (p.state === 'on') {
     return plan && plan.span > 1
       ? `<span class="ev-u">ngày</span><b class="ev-n num">${plan.day}</b><span class="ev-u">/ ${plan.span}</span>`
       : '<b class="ev-n is-word">Hôm nay</b>';
   }
+  if (minutes && !p.d && p.h && p.m) return `<b class="ev-n num">${p.h}</b><span class="ev-u">giờ ${p.m}<br>phút nữa</span>`;
   const [n, unit] = p.d ? [p.d, 'ngày'] : p.h ? [p.h, 'giờ'] : [p.m || '&lt;1', 'phút'];
   return `<b class="ev-n num${p.d > 99 ? ' is-long' : ''}">${n}</b><span class="ev-u">${unit}<br>nữa</span>`;
 }
