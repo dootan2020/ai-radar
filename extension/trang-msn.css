@@ -512,7 +512,6 @@
   .ev-name { font-size: var(--text-sub); }
   .msn-ev .calbtn-g .i { display: none; }
 }
-.msn-grid > .ev-empty { grid-column: 1 / -2; align-self: start; margin: 0; padding: var(--space-16) var(--space-4); background: none; box-shadow: none; font-size: var(--text-body); color: var(--color-ink-2); }
 
 /* ---------- the two cards on a narrow cell (five columns near 1100 px, three near 768 px) ---------- */
 @container (max-width: 14rem) {
@@ -558,11 +557,136 @@
 .fresh-list li.is-flash { animation: fresh-flash var(--fresh-flash) var(--ease-flow) both; }
 @keyframes fresh-flash { from, 35% { background: var(--color-accent-wash-strong); } to { background: transparent; } }
 .msn-grid:not(.is-front) > .tile { grid-column: 1 / -1; overflow: visible; }
-/* "Sắp diễn ra" (#sap-toi): the list, or its one empty line (.ev-empty), takes the columns left of the weather and the
-   calendar from the first row, so the view never opens on an empty band. */
-.msn-grid:not(.is-front) > .tile-live { grid-column: 1 / -2; grid-row: span 2; align-self: start; }
 :is(.msn-grid, .band-grid) > .tile .tile-title { font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: 0; color: var(--color-ink); }
 :is(.msn-grid, .band-grid) > .tile .tile-note { font-size: var(--text-micro); }
+
+/* ---------- "Sự kiện" (#sap-toi): "Ba thì" (captain, 11/11 ~01:50: "A duyệt 3 thì") ----------
+   One page in three tenses inside the site's shell: "Phát sóng" (a stream on air, the page's one coral surface; the
+   next stream, counted down; the replays of the last 7 days), then "Sắp diễn ra" (the next event, counted down, and
+   every event on one day axis). Twelve columns from 1100 px, the live tile a full row on a tablet, one column on a
+   phone, where the replays move under the events. */
+.msn-grid > .bt { grid-column: 1 / -1; }
+.bt { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--msn-gap); min-width: 0; }
+.bt > * { grid-column: 1 / -1; min-width: 0; }
+.bt > .band-title { margin: 0 0 0 var(--space-4); }
+.bt > .bt-h-events { margin-top: var(--space-12); }
+.bt > .bt-h-recent { display: none; }
+.bt > .bt-live { grid-column: span 6; }
+.bt > :is(.bt-next, .bt-recent) { grid-column: span 3; }
+/* Fewer than three stream cards share the row in halves; a live tile alone takes it all. */
+.bt.bt-n2 > :is(.bt-live, .bt-next, .bt-recent), .bt.bt-n1 > :is(.bt-next, .bt-recent) { grid-column: span 6; }
+.bt.bt-n1 > .bt-live { grid-column: 1 / -1; }
+.bt > :is(.bt-live, .bt-next, .bt-recent) { min-height: var(--band-h-top); }
+.bt-calm { margin: 0; padding: var(--space-8) var(--space-4) var(--space-4); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-ink-2); }
+.bt-eyebrow { margin: 0; font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-ink-2); }
+.bt-name { font-size: var(--text-sub); line-height: 1.35; font-weight: var(--weight-semibold); letter-spacing: -0.015em; color: var(--color-ink); overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.bt-meta { font-size: var(--text-meta); line-height: 1.5; color: var(--color-ink-2); }
+
+/* A stream's picture (.bt-screen): the whole 16:9 frame, YouTube's black bars cropped, on a dark screen. Where the
+   screen is given more height than 16:9 (the live tile, a lone replay) the frame is centred in it, never cut. */
+.bt-screen { position: relative; display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 9; min-height: 0; overflow: hidden; border-radius: var(--radius-8); background: var(--brand-ink); }
+.bt-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; }
+.bt-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bt-play { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: grid; place-items: center; width: var(--btn-h); height: var(--btn-h); border-radius: var(--radius-full); background: var(--color-media-scrim); color: var(--color-on-media); }
+.bt-play .i { fill: currentColor; stroke: none; }
+
+/* đang: the one coral surface */
+.bt-live {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: calc(var(--space-16) + var(--space-4));
+  padding: calc(var(--space-16) + var(--space-4)); border-radius: var(--msn-card-r);
+  background: var(--color-accent-fill); color: var(--color-on-accent);
+}
+.bt-live-text { display: flex; flex-direction: column; min-width: 0; }
+.bt-live .bt-eyebrow { display: flex; align-items: center; gap: var(--space-8); color: var(--color-on-accent); }
+.bt-dot { width: var(--space-8); height: var(--space-8); border-radius: var(--radius-full); background: currentColor; }
+.bt-live-t { margin: var(--space-16) 0 0; font-size: var(--text-feature); line-height: 1.2; font-weight: var(--weight-bold); letter-spacing: -0.02em; text-wrap: balance; overflow-wrap: anywhere; }
+.bt-live-m { margin: var(--space-8) 0 0; font-size: var(--text-small); line-height: 1.45; font-weight: var(--weight-medium); }
+.bt-live-go {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8); align-self: flex-start; min-height: var(--btn-h);
+  margin-top: auto; padding: 0 calc(var(--space-16) + var(--space-4)); border-radius: var(--radius-12);
+  background: var(--brand-ink); color: var(--brand-white); font-size: var(--text-small); font-weight: var(--weight-semibold);
+  transition: transform var(--duration-150) ease-out, background-color var(--duration-150) ease;
+}
+.bt-live-go .i { fill: currentColor; stroke: none; }
+.bt-live-shot { display: flex; min-width: 0; min-height: 0; border-radius: var(--radius-8); }
+.bt-live-shot > .bt-screen { flex: 1 1 auto; }
+.bt-live :is(.bt-live-go, .bt-live-shot):focus-visible { outline: var(--msn-tight) solid var(--color-on-accent); outline-offset: var(--msn-tight); }
+.bt-live .bt-play { width: calc(var(--btn-h) + var(--space-16)); height: calc(var(--btn-h) + var(--space-16)); }
+
+/* sắp: the next stream, in the event card's grammar (.msn-ev: the large number, the caption, the calendar pair) */
+.bt .bt-next { padding: var(--space-16) calc(var(--space-16) + var(--space-4)) calc(var(--space-16) + var(--space-4)); }
+.bt-what { display: flex; flex-direction: column; gap: var(--space-4); margin-top: auto; min-width: 0; color: inherit; }
+.bt-thumb { width: 7.5rem; margin-bottom: var(--space-4); }
+.bt-thumb .bt-play { display: none; }
+
+/* đã: the replays still worth catching. A lone replay's screen takes the card's free height, so nothing is left empty. */
+.bt-recent { display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-16) calc(var(--space-16) + var(--space-4)) calc(var(--space-16) + var(--space-4)); }
+.bt-first { display: flex; flex-direction: column; gap: var(--space-4); flex: 1; min-height: 0; color: inherit; }
+.bt-first .bt-screen { margin-bottom: var(--space-4); }
+.bt-recent .ev-more { margin: 0 0 calc(-1 * var(--space-8)); padding: 0; }
+:is(.bt-what, .bt-first):focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); border-radius: var(--radius-8); }
+@media (min-width: 768px) {
+  .bt-live .bt-screen, .bt-recent:not(.has-more) .bt-first .bt-screen { flex: 1 1 0; min-height: 7.5rem; aspect-ratio: auto; container-type: size; }
+  .bt-live .bt-screen .bt-frame, .bt-recent:not(.has-more) .bt-first .bt-frame { width: min(100cqw, 100cqh * 16 / 9); }
+}
+
+/* sắp: the events. The next one leads in the front card's grammar; beside it every event is a lane on one day axis. */
+.bt .bt-events { padding: var(--space-16) calc(var(--space-16) + var(--space-4)) calc(var(--space-16) + var(--space-4)); }
+.bt-ev-in { display: flex; flex-direction: column; }
+.bt-lead .ev-more { margin-top: var(--space-12); }
+.bt-axis { display: none; }
+.bt-lanes { margin: 0; padding: 0; list-style: none; }
+.bt-lane {
+  display: grid; grid-template-columns: 12.5rem minmax(0, 1fr) 4.75rem var(--btn-h); align-items: center; gap: var(--space-16);
+  min-height: calc(var(--btn-h) + var(--space-24)); border-top: var(--msn-hair) solid var(--color-hair);
+}
+.bt-lane:first-child { border-top: 0; }
+.bt-lane-n { display: flex; flex-direction: column; justify-content: center; min-width: 0; min-height: var(--btn-h); color: inherit; --row-wash-x: var(--space-4); --row-wash-y: 0px; }
+.bt-lane-t { font-size: var(--text-small); line-height: 1.35; font-weight: var(--weight-semibold); color: var(--color-ink); overflow-wrap: anywhere; }
+.bt-lane-m { font-size: var(--text-micro); line-height: 1.35; color: var(--color-ink-3); }
+.bt-ticks .is-gap { background: none; }
+.bt-lane-d { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.3; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.bt-lane-d b { font-size: var(--text-micro); font-weight: var(--weight-semibold); color: var(--color-accent); }
+.bt-lane-d .ev-row-d { font-size: var(--text-meta); }
+.bt-lane-cal {
+  display: grid; place-items: center; width: var(--btn-h); height: var(--btn-h); border-radius: var(--radius-12);
+  background: var(--color-fill); color: var(--color-ink); transition: transform var(--duration-150) ease-out, background-color var(--duration-150) ease;
+}
+.bt-lane-cal:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.bt-legend { margin: var(--space-6) calc(4.75rem + var(--btn-h) + 2 * var(--space-16)) 0 calc(12.5rem + var(--space-16)); }
+.bt-legend > span:last-child { flex: none; }
+@container (min-width: 56rem) {
+  .bt-ev-in { display: grid; grid-template-columns: 20rem minmax(0, 1fr); gap: var(--space-32); }
+  .bt-axis { display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; }
+  .bt-lead :is(.ev-ruler, .ev-more) { display: none; }
+  .bt-lead .ev-link { margin-top: 0; padding-top: calc(var(--space-16) + var(--space-4)); }
+}
+
+:is(.bt-live-go, .bt-lane-cal):active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .bt-live-go:hover { background: var(--brand-secondary); }
+  :is(.bt-what, .bt-first):hover .bt-name { color: var(--color-accent); }
+  .bt-lane-cal:hover { background: var(--color-field-on); }
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.bt-live-go, .bt-lane-cal):active { transform: none; }
+}
+@media (min-width: 768px) and (max-width: 1099px) {
+  .bt[class] > .bt-live, .bt.bt-n2.has-live > :is(.bt-next, .bt-recent) { grid-column: 1 / -1; }
+  .bt.bt-n3 > :is(.bt-next, .bt-recent) { grid-column: span 6; }
+}
+@media (max-width: 767px) {
+  .bt > :is(.bt-live, .bt-next, .bt-recent), .bt[class] > :is(.bt-live, .bt-next, .bt-recent) { grid-column: 1 / -1; min-height: 0; }
+  .bt-live { grid-template-columns: minmax(0, 1fr); gap: var(--space-16); padding: var(--space-16); }
+  .bt-live-shot { order: -1; }
+  .bt-live-t { margin-top: var(--space-8); font-size: var(--msn-title-big); }
+  .bt-live-go { align-self: stretch; margin-top: var(--space-16); }
+  .bt .bt-next, .bt .bt-recent, .bt .bt-events { padding: var(--space-12) var(--space-16) var(--space-16); }
+  .bt-next .bt-what { margin-top: var(--space-8); }
+  .bt > .bt-h-recent { display: flex; order: 1; margin-top: var(--space-12); }
+  .bt > .bt-recent { order: 1; }
+  .bt-recent > .bt-eyebrow { display: none; }
+}
 
 /* ---------- the models and code band (captain, 10/11 15:19: "gom các thành phần giống nhau vào 1 chỗ") ---------- */
 /* "Mô hình dẫn đầu", "Kho mã đáng lấy" and "Mô hình đáng thử" side by side across the grid, under one heading; each

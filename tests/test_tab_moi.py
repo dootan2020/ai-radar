@@ -157,7 +157,8 @@ class TopZoneTests(unittest.TestCase):
         # "Điểm nhấn", each after its band's news (tests/test_bento_trang_nhat.py); the other views keep the pinned cells.
         for folder in (ROOT / "site", EXT):
             feed = (folder / "feed.js").read_text(encoding="utf-8")
-            self.assertIn("grid.innerHTML = (code ? '' : FIXED_SLOTS) + chunk.html;", feed)
+            # "Sự kiện" is the approved "Ba thì" page alone (11/11), so it leaves them out too.
+            self.assertIn("grid.innerHTML = (code || filter === 'sec:sap-toi' ? '' : FIXED_SLOTS) + chunk.html;", feed)
             self.assertIn('${freshTileHTML()}<i data-slot="wx"></i></div>', feed)
             self.assertIn('${renderNext()}<i data-slot="cal"></i></div>', feed)
             self.assertNotIn("'furniture'", feed)
@@ -175,21 +176,18 @@ class TopZoneTests(unittest.TestCase):
     def test_next_event_sits_beside_the_calendar_once(self):
         # Owner, 09/11: "Đưa sự kiện sắp diễn ra lên phần đầu trang, đặt nó ở vị trí phù hợp." The front page's next
         # event takes the cell left of the calendar (second row on a desktop or tablet, beside it on a phone, where it
-        # follows the calendar in the grid's order) and is no longer a widget deep in the river; "Sắp diễn ra"
-        # (#sap-toi) still lists every event, from the first row, or says in one line that nothing is coming.
+        # follows the calendar in the grid's order) and is no longer a widget deep in the river; "Sự kiện"
+        # (#sap-toi) is the "Ba thì" page across the grid (tests/test_trang_su_kien.py).
         for folder in (ROOT / "site", EXT):
             feed = (folder / "feed.js").read_text(encoding="utf-8")
             # The front page's "Điểm nhấn" band: the next event right before the calendar, once (captain, 10/11 17:51).
             self.assertEqual(feed.count("${renderNext()}"), 1)
             self.assertNotIn("const widgets = [", feed)
-            self.assertIn("{ t: 'live', all: true }", feed)
-            self.assertIn("{ t: 'ev-empty' }", feed)
+            self.assertIn("{ t: 'ba-thi' }", feed)
             css = (folder / "trang-msn.css").read_text(encoding="utf-8")
             for rule in (".msn-grid > .msn-ev { grid-area: 2 / -3; }", ".msn-grid > .msn-cal, .msn-grid > .msn-ev { grid-area: auto; }",
-                         ".msn-grid:not(.is-front) > .tile-live { grid-column: 1 / -2; grid-row: span 2; align-self: start; }"):
+                         ".msn-grid > .bt { grid-column: 1 / -1; }"):
                 self.assertIn(rule, css)
-            self.assertLess(css.index(".msn-grid:not(.is-front) > .tile { grid-column: 1 / -1;"),
-                            css.index(".msn-grid:not(.is-front) > .tile-live { grid-column: 1 / -2;"))
 
     def test_nothing_inside_the_weather_card_draws_a_ring(self):
         # Captain, 08/11 19:50: "bên trong thẻ thời tiết không dùng bo viền". The weather section of the stylesheet

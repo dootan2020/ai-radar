@@ -40,7 +40,7 @@ try {
             window.eventTimeTest = {
               render(events) {
                 D = {events, live:[], stories:[]};
-                document.querySelector('#picks-grid').innerHTML = renderLive();
+                document.querySelector('#picks-grid').innerHTML = renderBaThi();
               },
               tick() { testNow += 1000; tickCountdowns(); }
             };`;

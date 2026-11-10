@@ -17,7 +17,7 @@
    (#tin/<id>, #sap-toi; the retired section anchors land on the home feed). */
 
 import { esc, fmt, avatar, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
-import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange, eventShort, rulerPlan } from './time-text.js';
+import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange, eventShort, rulerPlan, RULER_MAX } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { shown, uniqCoverage } from './titles.js';
 import { headlineShown, hasEditorialSummary, sourceDescriptionMark } from './editorial-headline.js';
@@ -224,7 +224,7 @@ function watchCoverFit() {
 function watchImageLoad() {
   document.addEventListener('load', e => {
     const t = e.target;
-    if (t instanceof HTMLImageElement && (t.classList.contains('media-img') || t.closest('.thumb, .tile-video, .repo-img, .model-img'))) {
+    if (t instanceof HTMLImageElement && (t.classList.contains('media-img') || t.closest('.thumb, .bt-frame, .repo-img, .model-img'))) {
       markImgLoaded(t);
     }
     if (t instanceof HTMLImageElement && t.classList.contains('is-cover')) fitCover(t);
@@ -233,7 +233,7 @@ function watchImageLoad() {
 }
 
 function hydrateLoadedImages(root = document) {
-  root.querySelectorAll('.media-img, .thumb img, .tile-video img, .repo-img img, .model-img img').forEach(img => {
+  root.querySelectorAll('.media-img, .thumb img, .bt-frame img, .repo-img img, .model-img img').forEach(img => {
     if (img.complete && img.naturalWidth > 0) {
       markImgLoaded(img);
       if (img.classList.contains('is-cover')) fitCover(img);
@@ -903,15 +903,10 @@ function scheduleCountdown() {
   const step = RM.matches ? 60000 : 1000;
   cdTimer = setTimeout(scheduleCountdown, step - (Date.now() % step) + 15);
 }
-/* The home shows the nearest events on a shelf, a row that scrolls sideways, so a few more cost no height; past
-   six it links to the "Sắp diễn ra" view, which lists them all as rows. */
-const HOME_EVENTS = 6;
-const SHELF_LABEL = 'Sự kiện sắp diễn ra, trượt ngang để xem thêm';
 const chevron = next => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${next ? 'M9 5l7 7-7 7' : 'M15 5l-7 7 7 7'}"/></svg>`;
 /* ---------- the stream player (trinh-phat.js) ----------
    A stream with a YouTube id plays in Halcyon; its link still points at YouTube, so a new-tab click, a middle click or
    a page without the player keeps today's behaviour. */
-const PHONE = matchMedia('(max-width: 767px)');
 // The new tab sets this false (extension/sync-site.py): YouTube refuses an embed whose page sends no referrer, and a
 // chrome-extension:// page sends none (the player shows "Video player configuration error"), so there a stream stays
 // a link to YouTube.
@@ -936,67 +931,159 @@ function playStream(id, from) {
   const it = asArray(D && D.live).find(v => v.video_id === id);
   return !!(it && player && player.open(it, playerHTML(it), from));
 }
-function renderLive(all = false) {
-  const items = D.live || [];
-  const it = items.find(x => x.status === 'live') || items.find(x => x.status === 'upcoming') || items[0];
-  const now = Date.now();
-  const upcoming = (D.events || []).filter(e => eventSpan(e).end > now)
-    .sort((a, b) => eventSpan(a).start - eventSpan(b).start);
-  const events = all ? upcoming : upcoming.slice(0, HOME_EVENTS);
-  const shelf = !all && events.length > 1;
-  if (!it && !events.length) return '';
+/* ---------- "Sự kiện" (#sap-toi): "Ba thì", live now, coming next, missed this week ----------
+   Captain, 11/11 ~01:50: "A duyệt 3 thì" (design/su-kien/trang-su-kien.html). Every item leads with its time. A stream
+   on air is the page's one coral surface; a stream about to start and every event speak the "Hai mươi lăm" card's grammar
+   (heroFace, rulerInner): a large number of time left, a quiet caption, the calendar pair; the events share one day
+   axis, so the editions of one conference read against each other without a word; the replays of the last 7 days close
+   it. A phone stacks the same parts: đang, sắp, the events, đã. No stream at all is one calm line. */
+const STREAM_KEEP_MS = 7 * 864e5;            // the collector keeps an ended stream for 7 days (radar/youtube.py)
+const streamTitle = v => String(v.title_vi || v.title || 'Buổi phát');
+const streamThumb = v => v.thumbnail || (v.video_id ? `https://i.ytimg.com/vi/${v.video_id}/hqdefault.jpg` : '');
+/* An ended stream stays while it ended within the last 7 days: by its end, its start, or YouTube's "Streamed 3d ago". */
+function streamFresh(v, now) {
+  const t = Date.parse(v.end_at || v.start_at || '');
+  if (Number.isFinite(t)) return t <= now && now - t <= STREAM_KEEP_MS;
+  const m = /^Streamed (\d+)\s*(second|minute|hour|day|s|m|h|d)s? ago$/i.exec(v.time_text || '');
+  if (!m) return false;
+  const unit = { s: 1e3, m: 6e4, h: 36e5, d: 864e5 }[m[2][0].toLowerCase()];
+  return Number(m[1]) * unit <= STREAM_KEEP_MS;
+}
+function streamsNow(now = Date.now()) {
+  const all = asArray(D && D.live).filter(v => v && (v.title || v.title_vi));
+  const at = v => Date.parse(v.start_at || '') || Infinity;
+  const ended = v => Date.parse(v.end_at || v.start_at || '') || 0;
+  return {
+    live: all.filter(v => v.status === 'live'),
+    soon: all.filter(v => v.status === 'upcoming').sort((a, b) => at(a) - at(b)),
+    past: all.filter(v => v.status === 'ended' && streamFresh(v, now)).sort((a, b) => ended(b) - ended(a)),
+  };
+}
+/* "hôm nay", "ngày mai", "hôm qua", else the date: a stream's day as read in Vietnam. */
+function dayWord(t, now) {
+  const d = dayKey(new Date(t)), diff = Math.round((Date.parse(d) - Date.parse(dayKey(new Date(now)))) / 864e5);
+  return diff === 0 ? 'hôm nay' : diff === 1 ? 'ngày mai' : diff === -1 ? 'hôm qua' : eventRange(d, d);
+}
+/* A stream's picture: the 16:9 frame whole (YouTube's 4:3 file carries black bars above and below, which the frame
+   crops), centred on a dark screen as tall as the space it is given. The one reusable piece this page adds. */
+const screenHTML = v => {
+  const src = streamThumb(v);
+  return `<span class="bt-screen"><span class="bt-frame">${src ? `<img src="${esc(src)}" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : ''}</span><span class="bt-play" aria-hidden="true">${icon('i-play')}</span></span>`;
+};
+/* Short rows under a card: the front card's schedule rows (.ev-more), plain text with the wait or the age at the right. */
+const rowsHTML = (label, rows) => rows.length ? `<ol class="ev-more" aria-label="${esc(label)}">${rows.map(r =>
+  `<li><a class="ev-row list-row" href="${esc(safe(r.url))}" target="_blank" rel="noopener"${r.attr || ''}><span class="ev-row-text"><span class="ev-row-t"${langAttr(r.t)}>${esc(r.t)}</span><span class="ev-row-m">${esc(r.m)}</span></span>${r.d || ''}</a></li>`).join('')}</ol>` : '';
 
-  let head = 'Sắp diễn ra', video = '';
-  if (it) {
-    // Three honest states. The old tile called an ended stream "Sắp phát sóng" and offered a reminder.
-    const onYT = /(^|\.)(youtube\.com|youtu\.be)$/.test(hostOf(it.url));
-    const where = onYT ? ' trên YouTube' : '';
-    const S = it.status === 'live'
-      ? { head: 'Đang phát', badge: 'Trực tiếp', action: 'Xem trực tiếp', live: true }
-      : it.status === 'upcoming'
-        ? { head: 'Sắp phát', badge: scheduleText(it.time_text), action: `Đặt nhắc${where}`, live: false }
-        : { head: 'Xem lại', badge: streamedAge(it.time_text) || 'Đã phát', action: `Xem lại${where}`, live: false };
-    head = S.head;
-    // A phone downloads no picture until the reader asks: there the frame is the play button, and YouTube's
-    // thumbnail is not requested.
-    const thumb = PHONE.matches ? '' : it.thumbnail || (it.video_id ? `https://i.ytimg.com/vi/${it.video_id}/hqdefault.jpg` : '');
-    const play = playAttr(it);
-    const label = play ? (it.status === 'upcoming' ? 'Mở phòng chờ' : S.live ? 'Xem trực tiếp' : 'Xem lại') : S.action;
-    video = `<div class="live-video"><a class="tile-video" href="${esc(safe(it.url))}" target="_blank" rel="noopener"${play} aria-label="${esc(label)}: ${esc(it.title)}">
-      ${thumb ? `<img src="${esc(thumb)}" alt="" width="480" height="360" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : ''}
-      <span class="video-badge${S.live ? ' is-live' : ''}">${esc(S.badge)}</span>
-      <span class="video-play">${icon('i-play')}</span>
-    </a>
-    <div class="video-text"><p class="video-title"${langAttr(it.title)}>${esc(it.title)}</p>
-    <p class="video-meta">${esc(it.channel || '')}${where}</p>
-    <a class="tile-action${S.live ? ' is-live' : ''}" href="${esc(safe(it.url))}" target="_blank" rel="noopener"${it.status === 'upcoming' ? '' : play}>${icon('i-play')}${esc(play && it.status !== 'upcoming' ? label : S.action)}</a>
-    ${it.status === 'upcoming' ? calButtons(liveCal(it), `data-cal-live="${esc(it.video_id || '')}"`, it.title) : ''}</div></div>`;
-  }
-  const evStory = e => asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
-  const more = upcoming.length - events.length;
-  const moreHTML = more > 0 ? `<a class="tile-more" href="#sap-toi"><span>Xem cả <span class="num">${upcoming.length}</span> sự kiện</span></a>` : '';
-  // Previous/next, shown by initShelves only when the shelf is wider than its box and the pointer is a mouse.
-  const navHTML = shelf ? `<span class="shelf-nav" hidden>
-    <button type="button" class="shelf-btn" data-shelf="-1" aria-controls="live-shelf" aria-label="Sự kiện trước">${chevron(false)}</button>
-    <button type="button" class="shelf-btn" data-shelf="1" aria-controls="live-shelf" aria-label="Sự kiện tiếp theo">${chevron(true)}</button></span>` : '';
-  const tools = moreHTML || navHTML ? `<span class="tile-tools">${moreHTML}${navHTML}</span>` : '';
-  const evHTML = events.length ? `<div class="live-events"${shelf ? ` role="region" aria-label="${SHELF_LABEL}"` : ''}>${it ? `<div class="tile-subhead"><h3 class="tile-sub">Sắp diễn ra</h3>${tools}</div>` : ''}
-    <ul class="events${!all ? ' shelf' : ''}"${shelf ? ' id="live-shelf"' : ''} data-n="${events.length}">${events.map(e => {
-      const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(e.start_date || '');
-      const st = evStory(e);
-      const cal = eventCal(e);
-      const left = countdownHTML(e);
-      // Only the parts that exist, so a missing place never leaves a stray "·".
-      const when = esc(eventWhen(e));
-      return `<li${st ? ` data-sid="${esc(st.id)}" class="${statusClass(st)}"` : ''}><div class="ev"><a class="event" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>
-        <span class="date-badge" aria-hidden="true">${d ? `<span class="date-m">thg ${+d[2]}</span><b class="num">${+d[3]}</b>` : ''}</span>
-        <span class="event-text">${left}<span class="event-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span>
-        <span class="event-when">${when}</span></span></a>
-        ${calButtons(cal, st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title)}</div></li>`;
-    }).join('')}</ul></div>` : '';
-  return `<section class="tile tile-live${it ? ' has-video' : ''}" aria-labelledby="live-h">
-    <div class="tile-head"><h2 class="tile-title" id="live-h">${esc(head)}</h2>${it ? '<span class="tile-note">phát sóng</span>' : tools}</div>
-    <div class="live-body">${video}${evHTML}</div></section>`;
+function baLiveHTML(v, now) {
+  const t = streamTitle(v), start = Date.parse(v.start_at || '');
+  const since = Number.isFinite(start) ? `từ ${hhmm(new Date(start))}${dayWord(start, now) === 'hôm nay' ? '' : ` ${dayWord(start, now)}`}` : '';
+  const meta = [v.channel, since].filter(Boolean).join(' · ');
+  return `<article class="bt-live" aria-labelledby="bt-live-h">
+    <div class="bt-live-text">
+      <p class="bt-eyebrow"><span class="bt-dot" aria-hidden="true"></span>Đang phát</p>
+      <h3 class="bt-live-t" id="bt-live-h"${langAttr(t)}>${esc(t)}</h3>
+      ${meta ? `<p class="bt-live-m">${esc(meta)}</p>` : ''}
+      <a class="bt-live-go" href="${esc(safe(v.url))}" target="_blank" rel="noopener"${playAttr(v)}>${icon('i-play')}Xem ngay</a>
+    </div>
+    <a class="bt-live-shot" href="${esc(safe(v.url))}" target="_blank" rel="noopener"${playAttr(v)} tabindex="-1" aria-hidden="true">${screenHTML(v)}</a>
+  </article>`;
+}
+function baNextHTML(list, now) {
+  const [v, ...rest] = list;
+  const t = streamTitle(v), start = Date.parse(v.start_at || '');
+  const p = countdownParts(start, NaN, now);
+  const count = p ? `<p class="ev-count cd is-${p.state}" data-cd="${start}" data-cd-end="NaN" data-cd-kind="hero" data-cd-tz="${TZ}"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${heroFace(p, null)}</span></p>` : '';
+  const when = s => Number.isFinite(s) ? `${hhmm(new Date(s))} ${dayWord(s, now)}` : null;
+  const meta = [v.channel, when(start) || scheduleText(v.time_text)].filter(Boolean).join(' · ');
+  const rows = rest.slice(0, 2).map(x => ({ url: x.url, t: streamTitle(x), attr: playAttr(x),
+    m: [x.channel, when(Date.parse(x.start_at || '')) || scheduleText(x.time_text)].filter(Boolean).join(' · ') }));
+  return `<article class="msn-card msn-ev bt-next" aria-labelledby="bt-next-h">
+    <h3 class="bt-eyebrow">Sắp phát</h3>${count}
+    <a class="bt-what" href="${esc(safe(v.url))}" target="_blank" rel="noopener"${playAttr(v)}>
+      <span class="bt-thumb">${screenHTML(v)}</span>
+      <span class="bt-name" id="bt-next-h"${langAttr(t)}>${esc(t)}</span><span class="bt-meta">${esc(meta)}</span></a>
+    ${calButtons(liveCal(v), `data-cal-live="${esc(v.video_id || '')}"`, t, true)}
+    ${rowsHTML('Buổi phát tiếp theo', rows)}
+  </article>`;
+}
+function baRecentHTML(list, now) {
+  const [v, ...rest] = list;
+  const t = streamTitle(v);
+  const aired = x => { const s = x.start_at || x.end_at; return s ? ago(s, now) : streamedAge(x.time_text) || 'Đã phát'; };
+  const rows = rest.slice(0, 3).map(x => ({ url: x.url, t: streamTitle(x), attr: playAttr(x), m: [x.channel, aired(x)].filter(Boolean).join(' · ') }));
+  return `<h2 class="band-title bt-h-recent">Phát gần đây</h2>
+    <article class="msn-card bt-recent${rest.length ? ' has-more' : ''}" aria-labelledby="bt-recent-h">
+    <h3 class="bt-eyebrow" id="bt-recent-h">Phát gần đây</h3>
+    <a class="bt-first" href="${esc(safe(v.url))}" target="_blank" rel="noopener"${playAttr(v)}>${screenHTML(v)}
+      <span class="bt-name"${langAttr(t)}>${esc(t)}</span><span class="bt-meta">${esc([v.channel, aired(v)].filter(Boolean).join(' · '))}</span></a>
+    ${rowsHTML('Phát trước đó', rows)}
+  </article>`;
+}
+/* The events on one day axis: today is the first tick, every event's own days are coral at their distance from it, and
+   one scale holds them all (a day per tick, or a week, or a month past RULER_MAX ticks, as on the front card). */
+function baAxisHTML(items) {
+  const spans = items.map(x => {
+    const on = x.plan.state === 'on';
+    return { ...x, from: on ? 0 : x.plan.days, len: on ? x.plan.span - x.plan.day + 1 : x.plan.span, on };
+  });
+  const days = Math.max(...spans.map(s => s.from + s.len));
+  const unit = days <= RULER_MAX ? 1 : Math.ceil(days / 7) <= RULER_MAX ? 7 : 30;
+  const at = s => ({ f: s.on ? 0 : Math.max(1, Math.ceil(s.from / unit)), l: Math.max(1, Math.round(s.len / unit)) });
+  const total = Math.max(...spans.map(s => { const a = at(s); return a.f + a.l; }));
+  const last = items.reduce((m, x) => (x.e.end_date || x.e.start_date) > m ? (x.e.end_date || x.e.start_date) : m, '');
+  const scale = unit === 7 ? 'Mỗi vạch 1 tuần' : unit === 30 ? 'Mỗi vạch 1 tháng' : 'Hôm nay';
+  return `<ol class="bt-lanes">${spans.map(s => {
+    const { f, l } = at(s), e = s.e;
+    const ticks = Array.from({ length: total }, (_, i) => i >= f && i < f + l ? '<i class="is-on"></i>' : i === 0 ? '<i class="is-now"></i>' : i >= f + l ? '<i class="is-gap"></i>' : '<i></i>').join('');
+    const p = countdownParts(s.start, s.end, Date.now());
+    const cal = eventCal(e);
+    return `<li class="bt-lane"><a class="bt-lane-n list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener"><span class="bt-lane-t"${langAttr(e.title)}>${esc(e.title)}</span><span class="bt-lane-m">${esc(e.location || '')}</span></a>
+      <span class="ev-ticks bt-ticks" aria-hidden="true">${ticks}</span>
+      <span class="bt-lane-d"><b>${esc(eventShort(e.start_date, e.end_date))}</b>${p ? `<span class="ev-row-d cd is-${p.state}" data-cd="${s.start}" data-cd-end="${s.end}" data-cd-kind="row"><span class="sr">${countdownSR(p)}</span><span class="cd-face num" aria-hidden="true">${rowFace(p)}</span></span>` : ''}</span>
+      ${canCalendar(cal) ? `<a class="bt-lane-cal" href="${esc(gcalURL(cal))}" target="_blank" rel="noopener" aria-label="Thêm ${esc(e.title)} vào Google Lịch">${icon('i-cal')}</a>` : '<span></span>'}</li>`;
+  }).join('')}</ol>
+    <div class="ev-legend bt-legend" aria-hidden="true"><span>${scale}</span><span>${esc(eventShort(last))}</span></div>`;
+}
+function baEventsHTML(now) {
+  const items = upcomingEvents().map(e => {
+    const { start, end } = eventSpan(e);
+    return { e, start, end, plan: rulerPlan(start, end, now, e.timezone ?? TZ) };
+  }).filter(x => x.plan);
+  if (!items.length) return '<p class="bt-calm" role="status">Chưa có sự kiện nào sắp diễn ra.</p>';
+  const { e, start, end, plan } = items[0];
+  const st = asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
+  const p = countdownParts(start, end, now), zone = e.timezone ?? TZ;
+  const range = eventShort(e.start_date, e.end_date), last = eventShort(e.end_date || e.start_date);
+  const meta = [eventRange(e.start_date, e.end_date), e.location].filter(Boolean).join(' · ');
+  const note = p && p.state === 'soon' ? eventOpens(e) : '';
+  return `<article class="msn-card msn-ev bt-events" aria-label="Các sự kiện sắp diễn ra"><div class="bt-ev-in">
+    <div class="ev-next bt-lead${st ? ` ${statusClass(st)}` : ''}"${st ? ` data-sid="${esc(st.id)}"` : ''}>
+      <p class="ev-count cd is-${p.state}" data-cd="${start}" data-cd-end="${end}" data-cd-kind="hero" data-cd-tz="${esc(zone)}"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${heroFace(p, plan)}</span></p>
+      <div class="ev-ruler" aria-hidden="true" data-range="${esc(range)}" data-last="${esc(last)}">${rulerInner(plan, range, last)}</div>
+      <a class="ev-link" href="${esc(safe(e.url))}" target="_blank" rel="noopener"${st ? ` data-read="${esc(st.id)}"` : ''}>
+        <span class="ev-name"${langAttr(e.title)}>${st ? markHTML(st) : ''}${esc(e.title)}</span><span class="ev-meta">${esc(meta)}</span>${note ? `<span class="ev-note">${esc(note)}</span>` : ''}</a>
+      ${calButtons(eventCal(e), st ? `data-cal="${esc(st.id)}"` : `data-cal-ev="${esc(e.id)}"`, e.title, true)}
+      ${evMoreHTML(items.slice(1).map(x => x.e))}
+    </div>
+    <div class="bt-axis">${baAxisHTML(items)}</div>
+  </div></article>`;
+}
+function renderBaThi() {
+  if (!D) return '';
+  const now = Date.now(), s = streamsNow(now);
+  const any = s.live.length || s.soon.length || s.past.length;
+  // A second stream on air is a row of the "Sắp phát" card, marked live; the coral tile is the first one only.
+  const soon = [...s.live.slice(1), ...s.soon];
+  const streams = any
+    ? `${s.live.length ? baLiveHTML(s.live[0], now) : ''}${soon.length ? baNextHTML(soon, now) : ''}${s.past.length ? baRecentHTML(s.past, now) : ''}`
+    : '<p class="bt-calm" role="status">Tuần này chưa có buổi phát nào.</p>';
+  const cards = [s.live.length, soon.length, s.past.length].filter(Boolean).length;
+  return `<section class="bt bt-n${cards}${s.live.length ? ' has-live' : ''}" id="su-kien-trang" aria-labelledby="bt-h1">
+    <h2 class="band-title" id="bt-h1">Phát sóng</h2>
+    ${streams}
+    <h2 class="band-title bt-h-events">Sắp diễn ra</h2>
+    ${baEventsHTML(now)}
+  </section>`;
 }
 /* The shelf's arrows exist only when there is something to scroll to; at either end that arrow reads as unavailable
    (aria-disabled, so a focused button keeps its focus). */
@@ -1132,8 +1219,6 @@ function evMoreHTML(list) {
     return `<li><a class="ev-row list-row" href="${esc(safe(e.url))}" target="_blank" rel="noopener"><span class="ev-row-text"><span class="ev-row-t"${langAttr(e.title)}>${esc(e.title)}</span><span class="ev-row-m">${esc(meta)}</span></span>${left}</a></li>`;
   }).join('')}</ol>`;
 }
-/* "Sắp diễn ra" with nothing coming and no story to show: one calm line where the list would be. */
-const eventsEmptyHTML = () => '<p class="msn-card ev-empty" role="status">Chưa có sự kiện nào sắp diễn ra.</p>';
 
 /* ---------- tile: hot, and why ---------- */
 function whyHTML(st) {
@@ -1775,7 +1860,6 @@ function chooseFront() {
   for (const st of [...big, ...ranked]) { if (top.length >= 4) break; if (!top.includes(st) && distinct([...lead, ...top], st)) top.push(st); }
   return { lead, top };
 }
-const liveAvailable = () => !!(D && ((D.live || []).length || (D.events || []).some(e => eventSpan(e).end > Date.now())));
 
 /* The columns the front page's bands have now (trang-msn.css sets --bento-cols per width: 5, 4, 3, or 1 on a phone). */
 const bentoCols = () => Math.max(1, parseInt(getComputedStyle(document.documentElement).getPropertyValue('--bento-cols'), 10) || 1);
@@ -2118,7 +2202,7 @@ const FILTERS = {
    choice), so it may reach outside the window. The other chapters of the bento home, and the section tabs, went when
    scrolling into older days replaced them (captain, 09/11 13:16): their old addresses land on the home feed. */
 const SECTIONS = {
-  'sap-toi': { sec: 'upcoming', label: 'Sắp diễn ra', order: 'date' },
+  'sap-toi': { sec: 'upcoming', label: 'Sự kiện', order: 'date' },
 };
 const RETIRED_VIEWS = new Set(['hom-nay', 'model', 'paper', 'nghe', 'chuyen-gia', 'cong-dong', 'nong']);
 const secOf = f => f.startsWith('sec:') ? SECTIONS[f.slice(4)] : null;
@@ -2146,8 +2230,8 @@ function buildFiltered(f) {
       ? list.slice().sort((a, b) => String((eventOf(a) || {}).start_date || a.published_at).localeCompare(String((eventOf(b) || {}).start_date || b.published_at)))
       : list.slice().sort(byNew);
     if (s.sec !== 'upcoming') return river.map(st => C(st));
-    const lead = liveAvailable() ? { t: 'live', all: true } : river.length ? null : { t: 'ev-empty' };
-    return [...(lead ? [lead] : []), ...river.map(st => C(st))];
+    // "Sự kiện": the "Ba thì" page first, then the stories the pipeline filed under upcoming events.
+    return [{ t: 'ba-thi' }, ...river.map(st => C(st))];
   }
   // "Mã và mô hình" is the two lists only: a news story about a repository is told on the home stream, and here it stood
   // alone under the lists, one card in an otherwise empty row (owner, 09/11).
@@ -2232,7 +2316,7 @@ function fitBandLists() {
 
 function renderItem(it) {
   if (it.t === 'card') return msnCard(it.st, it.size, !!(it.opts && it.opts.kicker));
-  if (it.t === 'live') return renderLive(!!it.all);
+  if (it.t === 'ba-thi') return renderBaThi();
   if (it.t === 'hot') return renderHot();
   if (it.t === 'repos') return renderRepos();
   if (it.t === 'repos-full') return renderRepos(true);
@@ -2241,7 +2325,6 @@ function renderItem(it) {
   if (it.t === 'lab') return renderLab();
   if (it.t === 'fresh') return freshTileHTML();
   if (it.t === 'saved-rest') return renderSavedRest();
-  if (it.t === 'ev-empty') return eventsEmptyHTML();
   return '';
 }
 
@@ -2391,8 +2474,9 @@ function renderFeed() {
     const empty = !chunk.html.trim() && !chunk.days.length;   // tiles with no data render nothing, so judge by the output
     $('#feed-empty').hidden = !empty;
     // The weather and the calendar are the home's furniture; a reader who opened "Mã và mô hình" came for repositories
-    // and models (owner, 09/11: "QA các thành phần giao diện có nên hiển thị ở đó hay không"), so that view leaves them out.
-    grid.innerHTML = (code ? '' : FIXED_SLOTS) + chunk.html;
+    // and models (owner, 09/11: "QA các thành phần giao diện có nên hiển thị ở đó hay không"), so that view leaves them
+    // out, and so does "Sự kiện", whose page is the approved "Ba thì" alone (11/11).
+    grid.innerHTML = (code || filter === 'sec:sap-toi' ? '' : FIXED_SLOTS) + chunk.html;
     placeChunk(grid, { html: '', days: chunk.days });
   }
   placeFixedCards(grid);
@@ -2895,7 +2979,7 @@ function watchPictures() {
       thumb.innerHTML = st ? miniCover(st) : '';
       return;
     }
-    if (img.closest('.tile-video, .repo-img, .model-img')) img.remove();
+    if (img.closest('.bt-frame, .repo-img, .model-img')) img.remove();   // a stream keeps its dark screen
   }, true);
 }
 

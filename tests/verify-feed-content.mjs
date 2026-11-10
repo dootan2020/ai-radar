@@ -527,7 +527,7 @@ assert.equal(nodes.get('#filter-context').hidden, true, 'a tabbed view shows no 
 // A section opened from a link has no tab: it names itself and offers the way back.
 newFeed.filter('sec:sap-toi'); newFeed.renderSub();
 assert.equal(nodes.get('#filter-context').hidden, false);
-assert.match(nodes.get('#filter-context').innerHTML, /Sắp diễn ra.*data-reset>Về dòng tin/);
+assert.match(nodes.get('#filter-context').innerHTML, /Sự kiện.*data-reset>Về dòng tin/);   // the dock's name for the view
 newFeed.filter('all'); newFeed.renderSub();
 assert.equal(nodes.get('#filter-context').hidden, true);
 for (const total of [0, 1, 88, 999]) {
@@ -604,7 +604,7 @@ const eventDocument = {
 };
 const eventFeed = await renderer('feed.js', '\ninit();', `
 return {eventSpan, eventWhen, eventCal, calOf, countdownParts, countdownHTML, scheduleCountdown,
-  render(events, stories = []) { D = {events, stories, live:[]}; return renderLive(); },
+  render(events, stories = []) { D = {events, stories, live:[]}; return renderBaThi(); },
   next(events, live = []) { D = {events, stories:[], live}; return renderNext(); }};`, {
   location:{search:''}, matchMedia:() => eventMotion, localStorage:{getItem:() => null},
   Date:EventClock, document:eventDocument,
@@ -667,8 +667,9 @@ assert.equal(canCalendar({...bengaluruCal, startAt:'2026-10-16T14:00:00'}), fals
 assert.equal(canCalendar({...bengaluruCal, timezone:'Not/A_Zone'}), false);
 eventNow = Date.parse('2026-10-10T12:00:00Z');
 const eventCards = eventFeed.render(curatedEvents);
-assert.match(eventCards, /class="events shelf"/);
-assert.ok(eventCards.includes('14:00 giờ Bengaluru (15:30 giờ Việt Nam)'));
+// "Sự kiện" (#sap-toi), "Ba thì": the nearest event leads with its opening hour here, every event is a lane.
+assert.equal(eventCards.split('class="bt-lane"').length - 1, curatedEvents.length);
+assert.ok(eventCards.includes('<span class="ev-note">Khai mạc 15:30 giờ Việt Nam</span>'));
 assert.ok(eventCards.includes('ctz=Asia%2FKolkata'));
 assert.ok(eventCards.includes('ctz=Australia%2FSydney'));
 eventFeed.render(curatedEvents, [{id:'event-story', title:bengaluru.title, url:bengaluru.url, coverage:[]}]);
