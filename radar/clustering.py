@@ -392,6 +392,9 @@ ESPIONAGE_CONTEXT = re.compile(r"\b(?:spy|spies|spying|spied|espionage|foreign i
 EXECUTIVE_CONTEXT = re.compile(r"\b(?:CEO|chief executive(?: officer)?)\b", re.I)
 AFFAIR_CONTEXT = re.compile(r"\b(?:affair|infidelity)\b", re.I)
 MEMO_CONTEXT = re.compile(r"\b(?:memo|letter)\b", re.I)
+SHARE_DROP_CONTEXT = re.compile(
+    r"\b(?:shares?|stocks?)\b.*\b(?:fall\w*|drop\w*|dip\w*|declin\w*|slid\w*)\b"
+    r"|\b(?:fall\w*|drop\w*|dip\w*|declin\w*|slid\w*)\b.*\b(?:shares?|stocks?)\b", re.I)
 
 
 def _context_words(item):
@@ -541,6 +544,28 @@ def _story_words(story):
             for token in _expand_tokens(item.get("title", ""))}
 
 
+def _same_share_drop_incident(left, right):
+    """A market-reaction headline can be another account of an existing incident."""
+    def evidence(story):
+        coverage = [item for item in story.get("coverage", []) if isinstance(item, dict)]
+        text = " ".join(str(item.get("title") or "") + " " + str(item.get("summary") or "")
+                        for item in coverage)
+        entities = {_stem(word) for word in _expand_tokens(text)} & ENTITY_WORDS
+        market_items = [item for item in coverage
+                        if SHARE_DROP_CONTEXT.search(str(item.get("title") or ""))
+                        and (ESPIONAGE_CONTEXT.search(str(item.get("title") or "") + " " + str(item.get("url") or ""))
+                             or AFFAIR_CONTEXT.search(str(item.get("title") or "") + " " + str(item.get("url") or "")))]
+        return coverage, entities, bool(ESPIONAGE_CONTEXT.search(text)), market_items
+
+    _, left_entities, left_spy, left_market = evidence(left)
+    _, right_entities, right_spy, right_market = evidence(right)
+    if not (left_entities & right_entities and left_spy and right_spy and left_market and right_market):
+        return False
+    return any(a_date and b_date and abs((a_date - b_date).total_seconds()) <= 48 * 3600
+               for item_a in left_market for item_b in right_market
+               for a_date, b_date in [(instant(item_a.get("published_at")), instant(item_b.get("published_at")))])
+
+
 def merge_repeated_events(stories, threshold=0.75):
     """Fold a carried story into the story that tells the same event.
 
@@ -548,9 +573,10 @@ def merge_repeated_events(stories, threshold=0.75):
     re-titling an article under a new URL, or two stories split by an earlier
     build, would stay two cards. A carried story joins another when that story
     already lists it as an alias, or when every pair of their observations passes
-    the same complete-link test that builds fresh clusters. Fresh stories are not
-    compared with each other: `cluster_items` already decided those. The story
-    kept is fresh before carried, then the one with more coverage; it keeps its
+    the same complete-link test that builds fresh clusters. Fresh stories also
+    join when several aliases and a matching observation prove shared history,
+    or when coverage reports the same spying-related share drop. The story kept
+    is fresh before carried, then the one with more coverage; it keeps its
     headline, translation and summary and gains the other's coverage and id.
     """
     stories = [story for story in stories if isinstance(story, dict)]
@@ -571,6 +597,23 @@ def merge_repeated_events(stories, threshold=0.75):
             target = None
         else:
             target = alias_owner.get(story.get("id"))
+        if target is None and story.get("kind") != "event":
+            shared_aliases = defaultdict(int)
+            for alias in set(story.get("aliases") or []):
+                if alias in alias_owner:
+                    shared_aliases[alias_owner[alias]] += 1
+            for position, count in sorted(shared_aliases.items()):
+                if (count >= 2 and kept[position].get("kind") != "event"
+                        and any(_match(a, b, threshold, named_entities)
+                                for a in _distinct_observations(story.get("coverage", []))
+                                for b in _distinct_observations(kept[position].get("coverage", [])))):
+                    target = position
+                    break
+        if target is None and story.get("kind") != "event" and any(
+                SHARE_DROP_CONTEXT.search(str(item.get("title") or ""))
+                for item in story.get("coverage", []) if isinstance(item, dict)):
+            target = next((position for position, other in enumerate(kept)
+                           if other.get("kind") != "event" and _same_share_drop_incident(story, other)), None)
         if target is None and story.get("carried") and story.get("kind") != "event":
             shared = defaultdict(int)
             for word in _story_words(story):
