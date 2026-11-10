@@ -261,7 +261,7 @@ export const OutroScene = ({
             fontFamily: TOKENS.fonts.main,
           }}
         >
-          radar-ai-vn.pages.dev
+          hco.news
         </span>
       </div>
     </div>

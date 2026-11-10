@@ -52,5 +52,5 @@ Halcyon does not collect, remotely store, sell, or share personal data. The exte
 
 ## 3. Đường Dẫn Chính Sách Quyền Riêng Tư (Privacy Policy URL)
 ```
-https://radar-ai-vn.pages.dev/chinh-sach-rieng-tu.html
+https://hco.news/chinh-sach-rieng-tu.html
 ```

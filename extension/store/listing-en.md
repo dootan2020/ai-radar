@@ -27,8 +27,8 @@ PRIVACY & SECURITY GUARANTEES:
 • No ads: Completely clean and distraction-free experience.
 • Direct attribution: Every news item links directly back to the original publisher or author.
 
-Official Website: https://radar-ai-vn.pages.dev/
-Privacy Policy: https://radar-ai-vn.pages.dev/chinh-sach-rieng-tu.html
+Official Website: https://hco.news/
+Privacy Policy: https://hco.news/chinh-sach-rieng-tu.html
 ```
 
 ## Category

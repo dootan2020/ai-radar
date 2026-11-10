@@ -245,7 +245,7 @@ export async function main() {
     '',
     script.cta,
     '',
-    'https://radar-ai-vn.pages.dev',
+    'https://hco.news',
     '',
     '#airadar #ai #tintucai #congnghe #tech #shorts #reels #tiktok',
   ];

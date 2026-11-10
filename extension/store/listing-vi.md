@@ -27,8 +27,8 @@ CAM KẾT VỀ QUYỀN RIÊNG TƯ VÀ BẢO MẬT:
 • Không chèn quảng cáo hay mã theo dõi bên thứ ba.
 • Mọi nội dung tin tức đều dẫn trực tiếp về bài viết gốc của tác giả và nhà xuất bản.
 
-Trang web chính thức: https://radar-ai-vn.pages.dev/
-Chính sách quyền riêng tư: https://radar-ai-vn.pages.dev/chinh-sach-rieng-tu.html
+Trang web chính thức: https://hco.news/
+Chính sách quyền riêng tư: https://hco.news/chinh-sach-rieng-tu.html
 ```
 
 ## Danh mục (Category)

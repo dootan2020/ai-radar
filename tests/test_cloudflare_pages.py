@@ -19,14 +19,15 @@ class CloudflarePagesTests(unittest.TestCase):
         from radar.seo import SITE_URL as seo_url
         from radar.story_pages import BASE_URL
 
-        self.assertEqual(SITE_URL, "https://radar-ai-vn.pages.dev/")
+        self.assertEqual(SITE_URL, "https://hco.news/")
         self.assertEqual(health_url, seo_url)
         self.assertEqual(BASE_URL, SITE_BASE_URL)
-        host = SITE_URL.removeprefix("https://").split(".", 1)[0]
+        host = "radar-ai-vn"  # Pages project name; the data host stays <project>.pages.dev
         workflow = (ROOT / ".github" / "workflows" / "update.yml").read_text(encoding="utf-8")
         self.assertIn(f"--project-name {host} ", workflow)
-        for path in ("video/render.js", "video/src/daily-audio.js", "video/src/components/OutroScene.jsx"):
-            self.assertIn(host + ".pages.dev", (ROOT / path).read_text(encoding="utf-8"))
+        self.assertIn(host + ".pages.dev", (ROOT / "video/src/daily-audio.js").read_text(encoding="utf-8"))
+        for path in ("video/render.js", "video/src/components/OutroScene.jsx"):
+            self.assertIn("hco.news", (ROOT / path).read_text(encoding="utf-8"))
         stale_host = "ai-radar" + ".pages.dev"
         for page in (ROOT / "site").rglob("*.html"):
             self.assertNotIn(stale_host, page.read_text(encoding="utf-8"), page)
