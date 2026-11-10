@@ -1,0 +1,400 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-11",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-09T23:00:00Z",
+  "cutoff_at": "2026-11-10T23:00:00Z",
+  "created_at": "2026-11-10T23:08:10Z",
+  "snapshot_generated_at": "2026-11-10T23:06:07Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-10T23:06:07Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "001cd33c965241bc7333",
+      "title": "Introducing Claude Whiteboards, Claude Sheets, and Claude Data",
+      "title_vi": "Ra mắt Claude Whiteboards, Claude Sheets và Claude Data",
+      "headline": "Introducing Claude Whiteboards, Claude Sheets, and Claude Data",
+      "headline_vi": "Ra mắt Claude Whiteboards, Claude Sheets và Claude Data",
+      "url": "https://claude.com/resources/articles/sheets-whiteboards-data",
+      "published_at": "2026-11-10T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Anthropic ra mắt Whiteboards, Sheets thử nghiệm và phát hành rộng rãi Claude Data",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "f16be971ce92c2d19416",
+          "title": "Introducing Claude Whiteboards, Claude Sheets, and Claude Data",
+          "title_vi": "Ra mắt Claude Whiteboards, Claude Sheets và Claude Data",
+          "headline": "Introducing Claude Whiteboards, Claude Sheets, and Claude Data",
+          "headline_vi": "Ra mắt Claude Whiteboards, Claude Sheets và Claude Data",
+          "url": "https://claude.com/resources/articles/sheets-whiteboards-data",
+          "published_at": "2026-11-10T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "anthropic-claude",
+          "publisher": "anthropic",
+          "entity": "anthropic",
+          "group": "lab",
+          "observed_at": "2026-11-10T23:06:07Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "1105d03be49dbcbb0d3c",
+          "title": "Google’s Gemini Targets Health Care’s Data Problem",
+          "title_vi": "Google's Gemini nhắm vào vấn đề dữ liệu của chăm sóc sức khỏe",
+          "headline": "Google’s Gemini Targets Health Care’s Data Problem",
+          "headline_vi": "Google's Gemini nhắm vào vấn đề dữ liệu của chăm sóc sức khỏe",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-10/google-s-gemini-targets-health-care-s-data-problem-video",
+          "published_at": "2026-11-10T19:13:18Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-10T22:46:15Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "6dad8461097656bb9955",
+          "title": "Claude Whiteboards, Claude Sheets, and Claude Data",
+          "headline": "Claude Whiteboards, Claude Sheets, and Claude Data",
+          "url": "https://claude.com/resources/articles/sheets-whiteboards-data",
+          "published_at": "2026-11-10T17:55:07Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-10T23:06:07Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50443716",
+          "metrics": {
+            "points": 135,
+            "comments": 106
+          }
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "f16be971ce92c2d19416"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "anthropic",
+              "bloomberg"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "anthropic",
+            "bloomberg"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": 67.007,
+          "engagement_percentile": 0.608433734939759
+        }
+      }
+    },
+    {
+      "id": "5cd7ff8934485154fbfc",
+      "title": "Introducing Businesses in ChatGPT",
+      "headline": "Introducing Businesses in ChatGPT",
+      "url": "https://openai.com/index/introducing-businesses-chatgpt",
+      "published_at": "2026-11-10T10:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "OpenAI thử nghiệm Business Agents cho phép người dùng trò chuyện với tác tử doanh nghiệp",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "f7108ac5306329991f25",
+          "title": "Manage Kubernetes Clusters for GPU Infrastructure with NVIDIA Kubernetes Engine",
+          "title_vi": "Quản lý các cụm Kubernetes cho cơ sở hạ tầng GPU với NVIDIA Kubernetes Engine",
+          "headline": "Manage Kubernetes Clusters for GPU Infrastructure with NVIDIA Kubernetes Engine",
+          "headline_vi": "Quản lý các cụm Kubernetes cho cơ sở hạ tầng GPU với NVIDIA Kubernetes Engine",
+          "url": "https://developer.nvidia.com/blog/manage-kubernetes-clusters-for-gpu-infrastructure-with-nvidia-kubernetes-engine/",
+          "published_at": "2026-11-10T15:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "nvidia-blog",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-11-10T23:06:07Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "488c567661037822ad91",
+          "title": "Introducing Businesses in ChatGPT",
+          "headline": "Introducing Businesses in ChatGPT",
+          "url": "https://openai.com/index/introducing-businesses-chatgpt",
+          "published_at": "2026-11-10T10:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "openai-news",
+          "publisher": "openai",
+          "entity": "openai",
+          "group": "lab",
+          "observed_at": "2026-11-10T23:06:07Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "488c567661037822ad91"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "nvidia",
+              "openai"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "nvidia",
+            "openai"
+          ],
+          "age_hours_at_cutoff": 13.0,
+          "hot_score": 50.584,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "1c355667750377df71d3",
+      "title": "Anthropic pushes ahead with IPO despite AI selloff",
+      "title_vi": "Anthropic thúc đẩy IPO mặc dù bán AI",
+      "headline": "Anthropic pushes ahead with IPO despite AI selloff",
+      "headline_vi": "Anthropic thúc đẩy IPO mặc dù bán AI",
+      "url": "https://www.semafor.com/article/11/10/2026/anthropic-eyeing-an-ipo-next-week",
+      "published_at": "2026-11-10T12:23:31Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Anthropic dự kiến IPO vào tuần tới bất chấp đợt bán tháo và lo ngại bong bóng AI",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "aa8fa2cca96a5773d72a",
+          "title": "Anthropic Unveils Office Tools Ahead of IPO, Taking on Microsoft",
+          "title_vi": "Anthropic tiết lộ công cụ văn phòng trước khi IPO, tiếp quản Microsoft",
+          "headline": "Anthropic Unveils Office Tools Ahead of IPO, Taking on Microsoft",
+          "headline_vi": "Anthropic tiết lộ công cụ văn phòng trước khi IPO, tiếp quản Microsoft",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-10/anthropic-unveils-office-tools-ahead-of-ipo-taking-on-microsoft",
+          "published_at": "2026-11-10T17:21:08Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-10T20:55:56Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "55e53170f742102f2a5d",
+          "title": "Anthropic pushes ahead with IPO despite AI selloff",
+          "title_vi": "Anthropic thúc đẩy IPO mặc dù bán AI",
+          "headline": "Anthropic pushes ahead with IPO despite AI selloff",
+          "headline_vi": "Anthropic thúc đẩy IPO mặc dù bán AI",
+          "url": "https://www.semafor.com/article/11/10/2026/anthropic-eyeing-an-ipo-next-week",
+          "published_at": "2026-11-10T12:23:31Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-10T23:06:07Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "semafor"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 10.6081,
+          "hot_score": 51.743,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "e192e4f92a704298f96f",
+      "title": "We’re bringing Adobe’s creative and productivity tools closer to your everyday Google apps.",
+      "title_vi": "Chúng tôi đang đưa các công cụ sáng tạo và năng suất của Adobe gần hơn với các ứng dụng Google hàng ngày của bạn.",
+      "headline": "We’re bringing Adobe’s creative and productivity tools closer to your everyday Google apps.",
+      "headline_vi": "Chúng tôi đang đưa các công cụ sáng tạo và năng suất của Adobe gần hơn với các ứng dụng Google hàng ngày của bạn.",
+      "url": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/",
+      "published_at": "2026-11-10T14:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Google mở rộng hợp tác với Adobe, mở lối sang Acrobat từ Gmail và khám phá mô hình AI cho Photoshop",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "68657b328b12b57dcca4",
+          "title": "We’re bringing Adobe’s creative and productivity tools closer to your everyday Google apps.",
+          "title_vi": "Chúng tôi đang đưa các công cụ sáng tạo và năng suất của Adobe gần hơn với các ứng dụng Google hàng ngày của bạn.",
+          "headline": "We’re bringing Adobe’s creative and productivity tools closer to your everyday Google apps.",
+          "headline_vi": "Chúng tôi đang đưa các công cụ sáng tạo và năng suất của Adobe gần hơn với các ứng dụng Google hàng ngày của bạn.",
+          "url": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/",
+          "published_at": "2026-11-10T14:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "google-ai",
+          "publisher": "google",
+          "entity": "google",
+          "group": "lab",
+          "observed_at": "2026-11-10T23:06:07Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "254fafdfecbc716c0026",
+          "title": "Adobe brings AI agents and new creative tools to Photoshop, Premiere, and Firefly",
+          "title_vi": "Adobe mang đến các agent AI và các công cụ sáng tạo mới cho Photoshop, Premiere và Firefly",
+          "headline": "Adobe brings AI agents and new creative tools to Photoshop, Premiere, and Firefly",
+          "headline_vi": "Adobe mang đến các agent AI và các công cụ sáng tạo mới cho Photoshop, Premiere và Firefly",
+          "url": "https://techcrunch.com/2026/11/10/adobe-adds-more-ai-to-its-products-and-launches-an-mcp/",
+          "published_at": "2026-11-10T14:05:10Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-10T23:06:07Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "google",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "google",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 9.0,
+          "hot_score": 50.141,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "cba41f0395d50b9e1105",
+      "title": "Introducing Our Smallest, Most Efficient Model: Muse Ember",
+      "headline": "Introducing Our Smallest, Most Efficient Model: Muse Ember",
+      "url": "https://simonwillison.net/2026/Nov/10/muse-ember/",
+      "published_at": "2026-11-10T07:28:21Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Meta ra mắt mô hình Muse Ember giá 10 cent mỗi triệu token đầu vào tối ưu cho tác tử xử lý khối lượng lớn",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "66e79b54720586689782",
+          "title": "Introducing Our Smallest, Most Efficient Model: Muse Ember",
+          "headline": "Introducing Our Smallest, Most Efficient Model: Muse Ember",
+          "url": "https://simonwillison.net/2026/Nov/10/muse-ember/",
+          "published_at": "2026-11-10T07:28:21Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "simon-willison",
+          "publisher": "simon-willison",
+          "entity": "simon-willison",
+          "group": "research",
+          "observed_at": "2026-11-10T23:06:07Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "simon-willison"
+          ],
+          "age_hours_at_cutoff": 15.5275,
+          "hot_score": 47.048,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 75,
+    "successful_remote_sources": 73,
+    "failed_remote_sources": [
+      "microsoft-research",
+      "restofworld"
+    ]
+  }
+}
