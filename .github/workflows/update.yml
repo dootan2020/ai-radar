@@ -524,6 +524,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           STORY_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
         run: python -m radar.story_pages prepare --remote "$STORY_REMOTE"
+      - name: Restore daily background images
+        if: github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WALLPAPER_REMOTE: ${{ github.server_url }}/${{ github.repository }}.git
+        run: python wallpaper/site_restore.py --remote "$WALLPAPER_REMOTE" --site site/nen
       - name: Upload Cloudflare Pages site artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

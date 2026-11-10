@@ -8,7 +8,7 @@
 The date picks a scene family and its parameters deterministically. Families
 rotate in shuffled cycles, so none repeats inside its window, and each return
 flips the composition side and changes palette. Output lands in wallpaper/out/
-(git-ignored): halcyon-<date>.png (original), halcyon-<date>.webp (web) and
+(git-ignored): halcyon-<date>.png (original), halcyon-<date>.avif (web) and
 manifest.json. A render whose signature and checksum still match is reused.
 Needs Blender 4.3 (BLENDER env var, PATH, or the default install) and Pillow.
 """
@@ -33,7 +33,9 @@ SCENES = ROOT / 'scenes.py'
 BANGKOK = dt.timezone(dt.timedelta(hours=7))  # no daylight saving
 EPOCH = dt.date(2026, 11, 9)
 WIDTH, HEIGHT = 2560, 1440
-WEBP_QUALITY = 82
+RENDER_SCHEMA = 1
+WEB = dict(format='AVIF', ext='avif', quality=55, subsampling='4:4:4', speed=6,
+           advanced={'denoise-noise-level': '8'})
 RENDER_TIMEOUT = 900
 
 PALETTES = {
@@ -215,9 +217,38 @@ def sha256(path):
 
 
 def signature_for(p, blender_version):
-    payload = json.dumps(dict(parameters=p, scenes=sha256(SCENES), driver=sha256(__file__), blender=blender_version,
-                              webp_quality=WEBP_QUALITY), sort_keys=True)
+    """Identity of a render: everything that reaches Blender. Web encoding is not
+    part of it, so changing the web format re-encodes without re-rendering."""
+    payload = json.dumps(dict(parameters=p, scenes=sha256(SCENES), blender=blender_version,
+                              render_schema=RENDER_SCHEMA), sort_keys=True)
     return hashlib.sha256(payload.encode()).hexdigest()
+
+
+def encode_web(png, day):
+    """Write the web copy next to the PNG and return its manifest fields.
+
+    AVIF with AV1 film-grain synthesis: the encoder removes the render's grain,
+    which leaves 8-bit steps in dark gradients, and the decoder adds matched
+    grain back, which dithers them. Measured 2026-11-10 in Chromium: grain 0.77
+    and flat-neighbour share 0.43 on a dark sky (PNG 0.45 / 0.61, WebP q82
+    0.10 / 0.99), at about half the WebP size."""
+    web = png.with_name(f'halcyon-{day}.{WEB["ext"]}')
+    pending = web.with_name(web.stem + '.pending.' + WEB['ext'])
+    with Image.open(png) as image:
+        options = {k: v for k, v in WEB.items() if k not in ('format', 'ext')}
+        image.convert('RGB').save(pending, WEB['format'], **options)
+        size = image.size
+    with Image.open(pending) as check:
+        if check.size != size:
+            raise SystemExit(f'Web copy of {day} decodes at {check.size}')
+    os.replace(pending, web)
+    return dict(web=web.name, web_bytes=web.stat().st_size, web_sha256=sha256(web), web_settings=WEB)
+
+
+def web_is_current(record, out):
+    web = out / record.get('web', '')
+    return (record.get('web_settings') == WEB and record.get('web') and web.is_file()
+            and sha256(web) == record.get('web_sha256'))
 
 
 def blender_version(blender):
@@ -257,10 +288,13 @@ def render_day(day, args, blender, version, manifest, entries):
         p['samples'] = max(32, p['samples'] // 3)
     signature = signature_for(p, version)
     png = args.out / f'halcyon-{day.isoformat()}.png'
-    webp = png.with_suffix('.webp')
     prior = entries.get(day.isoformat())
-    if (not args.force and prior and prior.get('signature') == signature and png.exists() and webp.exists()
+    if (not args.force and prior and prior.get('signature') == signature and png.exists()
             and sha256(png) == prior.get('sha256')):
+        if not web_is_current(prior, args.out):
+            prior.update(encode_web(png, day.isoformat()))
+            save_manifest(args.out, manifest, entries)
+            print(f'RE-ENCODED {prior["web"]} from the verified PNG', flush=True)
         print(f'REUSED {png.name} ({p["family"]}); signature and checksum match', flush=True)
         return prior
     tmp = ROOT / 'tmp'
@@ -285,25 +319,27 @@ def render_day(day, args, blender, version, manifest, entries):
         if image.size != (p['width'], p['height']):
             raise SystemExit(f'Unexpected size {image.size} for {day}')
         report = luminance_report(image)
-        pending_webp = webp.with_name(webp.stem + '.pending.webp')
-        image.convert('RGB').save(pending_webp, 'WEBP', quality=WEBP_QUALITY, method=6)
     os.replace(pending, png)
-    os.replace(pending_webp, webp)
     record = dict(date=day.isoformat(), family=p['family'], palette=p['palette']['name'], side=p['side'],
                   cycle=p['cycle'], seed=str(p['seed']), version=VERSION, signature=signature,
-                  png=png.name, webp=webp.name, width=p['width'], height=p['height'],
-                  png_bytes=png.stat().st_size, webp_bytes=webp.stat().st_size, sha256=sha256(png),
-                  webp_sha256=sha256(webp), device=result['device'], render_seconds=result['render_seconds'],
+                  png=png.name, width=p['width'], height=p['height'],
+                  png_bytes=png.stat().st_size, sha256=sha256(png),
+                  device=result['device'], render_seconds=result['render_seconds'],
                   total_seconds=round(time.perf_counter() - started, 2), samples=p['samples'],
                   blender=result['blender'], luminance=report, scene_stats=result['scene_stats'],
                   rendered_at=dt.datetime.now(BANGKOK).isoformat(timespec='seconds'))
+    record.update(encode_web(png, day.isoformat()))
     entries[record['date']] = record
+    save_manifest(args.out, manifest, entries)
+    print('RENDERED ' + json.dumps({k: record[k] for k in ('date', 'family', 'palette', 'render_seconds',
+                                                          'web_bytes', 'device', 'luminance')}), flush=True)
+    return record
+
+
+def save_manifest(out, manifest, entries):
     manifest['wallpapers'] = sorted(entries.values(), key=lambda item: item['date'])
     manifest['latest'] = max(entries)
-    atomic_json(args.out / 'manifest.json', manifest)
-    print('RENDERED ' + json.dumps({k: record[k] for k in ('date', 'family', 'palette', 'render_seconds',
-                                                          'webp_bytes', 'device', 'luminance')}), flush=True)
-    return record
+    atomic_json(out / 'manifest.json', manifest)
 
 
 def main():
