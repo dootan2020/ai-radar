@@ -685,7 +685,7 @@ const schedule = nextCard.slice(nextCard.indexOf('<ol class="ev-more"'));
 assert.ok(schedule.includes(sydney.title) && schedule.includes(`href="${sydney.url}"`), 'the next event is a schedule row');
 assert.equal(schedule.split('class="ev-row list-row"').length - 1, 2, 'two schedule rows');
 assert.match(schedule, /data-cd-kind="row"><span class="sr">Còn 56 ngày 1 giờ<\/span><span class="cd-face num" aria-hidden="true">56 ngày<\/span>/);
-assert.match(lead, /class="ev-count cd is-soon" data-cd="\d+" data-cd-end="\d+" data-cd-kind="hero"><span class="sr">Còn 5 ngày 20 giờ<\/span>/);
+assert.match(lead, /class="ev-count cd is-soon" data-cd="\d+" data-cd-end="\d+" data-cd-kind="hero" data-cd-tz="Asia\/Kolkata"><span class="sr">Còn 5 ngày 20 giờ<\/span>/);
 assert.ok(lead.includes('<b class="ev-n num">5</b><span class="ev-u">ngày<br>nữa</span>'), 'the days left are the number');
 // Five waiting ticks (the first is today) and one for the one-day event.
 assert.ok(lead.includes('<span class="ev-ticks"><i class="is-now"></i><i></i><i></i><i></i><i></i><i class="is-on"></i></span><span class="ev-legend"><span>Hôm nay</span><b>16.10</b></span>'));

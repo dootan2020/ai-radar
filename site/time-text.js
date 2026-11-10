@@ -64,19 +64,37 @@ export function eventShort(start, end){
    is the whole days left, the number the card prints) and `event` ticks for the event's own days. A tick is one day
    while the ruler holds at most RULER_MAX ticks; a longer wait is drawn in weeks, then in months (`unit` = 1, 7 or 30
    days). Once it has started: `event` ticks, `done` of them already past, and `day`, the day it is on.
-   start, end and now are instants in ms; no ruler without a start, or once the event is over. */
+   start, end and now are instants in ms; no ruler without a start, or once the event is over.
+   The event's own days (`span`, `day`) are calendar dates in the event's timezone, never 24-hour blocks: a day is 23
+   or 25 hours long where the clocks change, and an event from 14:00 on the 10th to 17:00 on the 12th has three days.
+   The wait (`days`) is the countdown's own figure, whole 24-hour days of time left, so the ruler and the number the
+   card prints cannot disagree. */
 export const RULER_MAX = 60;
-export function rulerPlan(start, end, now){
-  const DAY = 864e5;
+const ZONE_DAY = new Map();
+/* The calendar date of an instant in a timezone, as a day number (days since 1970-01-01 of that date). */
+function dayNumber(ms, timezone){
+  let f = ZONE_DAY.get(timezone);
+  if (!f) {
+    try { f = new Intl.DateTimeFormat('en-CA', {timeZone: timezone}); }
+    catch { f = new Intl.DateTimeFormat('en-CA', {timeZone: TZ}); }
+    ZONE_DAY.set(timezone, f);
+  }
+  const [y, m, d] = f.format(new Date(ms)).split('-').map(Number);
+  return Date.UTC(y, m - 1, d) / 864e5;
+}
+export function rulerPlan(start, end, now, timezone = TZ){
   if (!Number.isFinite(start) || !Number.isFinite(now) || (Number.isFinite(end) && now >= end)) return null;
-  const span = Number.isFinite(end) && end > start ? Math.max(1, Math.round((end - start) / DAY)) : 1;
+  const first = dayNumber(start, timezone);
+  // The end is the instant it stops, so its last day is the date one moment before.
+  const last = Number.isFinite(end) && end > start ? dayNumber(end - 1, timezone) : first;
+  const span = Math.max(1, last - first + 1);
   const on = now >= start;
-  const days = on ? 0 : Math.max(1, Math.floor((start - now) / DAY));
+  const days = on ? 0 : Math.max(1, Math.floor((start - now) / 864e5));
   const total = days + span;
   const unit = total <= RULER_MAX ? 1 : Math.ceil(total / 7) <= RULER_MAX ? 7 : 30;
   const event = Math.max(1, Math.round(span / unit));
   if (!on) return { state: 'soon', unit, days, span, before: Math.max(1, Math.ceil(days / unit)), event };
-  const day = Math.min(span, Math.floor((now - start) / DAY) + 1);
+  const day = Math.min(span, Math.max(1, dayNumber(now, timezone) - first + 1));
   return { state: 'on', unit, day, span, before: 0, event, done: Math.min(event - 1, Math.floor((day - 1) / unit)) };
 }
 

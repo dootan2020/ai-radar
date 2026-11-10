@@ -885,7 +885,7 @@ function tickCountdowns() {
     if (!p) continue;
     // The front card's large number ("hero") and its schedule rows ("row") keep their own faces; the rest is the chip.
     const kind = el.dataset.cdKind || '';
-    const plan = kind === 'hero' ? rulerPlan(start, end, now) : null;
+    const plan = kind === 'hero' ? rulerPlan(start, end, now, el.dataset.cdTz || TZ) : null;
     const face = kind === 'hero' ? heroFace(p, plan) : kind === 'row' ? rowFace(p) : countdownFace(p, seconds), sr = countdownSR(p);
     if (el.lastElementChild.dataset.f !== face) { el.lastElementChild.innerHTML = face; el.lastElementChild.dataset.f = face; }
     if (el.firstElementChild.textContent !== sr) el.firstElementChild.textContent = sr;
@@ -1074,11 +1074,12 @@ function renderNext() {
   if (e) {
     const st = asArray(D.stories).find(s => s.url === e.url || s.title === e.title);
     const { start, end } = eventSpan(e), now = Date.now();
-    const p = countdownParts(start, end, now), plan = rulerPlan(start, end, now);
+    const zone = e.timezone ?? TZ;
+    const p = countdownParts(start, end, now), plan = rulerPlan(start, end, now, zone);
     const range = eventShort(e.start_date, e.end_date), last = eventShort(e.end_date || e.start_date);
     const meta = [eventRange(e.start_date, e.end_date), e.location].filter(Boolean).join(' · ');
     const note = p && p.state === 'soon' ? eventOpens(e) : '';
-    const count = p ? `<p class="ev-count cd is-${p.state}" data-cd="${start}" data-cd-end="${end}" data-cd-kind="hero"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${heroFace(p, plan)}</span></p>
+    const count = p ? `<p class="ev-count cd is-${p.state}" data-cd="${start}" data-cd-end="${end}" data-cd-kind="hero" data-cd-tz="${esc(zone)}"><span class="sr">${countdownSR(p)}</span><span class="cd-face" aria-hidden="true">${heroFace(p, plan)}</span></p>
       <div class="ev-ruler" aria-hidden="true" data-range="${esc(range)}" data-last="${esc(last)}">${rulerInner(plan, range, last)}</div>` : '';
     event = `<div class="ev-next${st ? ` ${statusClass(st)}` : ''}"${st ? ` data-sid="${esc(st.id)}"` : ''}>
       ${count}

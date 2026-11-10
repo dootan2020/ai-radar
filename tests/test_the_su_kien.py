@@ -26,7 +26,8 @@ import {{ rulerPlan, eventShort, RULER_MAX }} from {time_text};
 const cases = JSON.parse(process.argv[2]);
 process.stdout.write(JSON.stringify({{
   max: RULER_MAX,
-  plans: cases.plans.map(([start, end, now]) => rulerPlan(start, end, now)),
+  plans: cases.plans.map(([start, end, now]) => rulerPlan(start, end, now, 'Australia/Sydney')),
+  zoned: cases.zoned.map(([start, end, now, zone]) => rulerPlan(Date.parse(start), Date.parse(end), Date.parse(now), zone)),
   short: cases.short.map(([a, b]) => eventShort(a, b)),
 }}));
 """
@@ -58,6 +59,19 @@ class Ruler(unittest.TestCase):
                 [None, week, START],                             # 7: no start
                 [START, week, START - 53 * DAY],                 # 8: 53 + 7 = 60 ticks: still days
                 [START, week, START - 54 * DAY],                 # 9: 61: weeks
+            ],
+            # Calendar days are counted in the event's own timezone, never as 24-hour blocks.
+            "zoned": [
+                # 0: New York springs forward on 8 March: its first day is 23 hours long; the next local midnight is day 2
+                ["2026-03-08T05:00:00Z", "2026-03-11T04:00:00Z", "2026-03-09T04:00:00Z", "America/New_York"],
+                # 1: New York falls back on 1 November: 24.5 hours in, it is still the first day (23:30 local)
+                ["2026-11-01T04:00:00Z", "2026-11-04T05:00:00Z", "2026-11-02T04:30:00Z", "America/New_York"],
+                # 2: exact hours, 14:00 on the 10th to 17:00 on the 12th: three calendar days, not 2.1 rounded to two
+                ["2026-10-10T07:00:00Z", "2026-10-12T10:00:00Z", "2026-10-01T00:00:00Z", "Asia/Ho_Chi_Minh"],
+                # 3: the same event at 09:00 on the 11th: its second day, though under 24 hours have passed
+                ["2026-10-10T07:00:00Z", "2026-10-12T10:00:00Z", "2026-10-11T02:00:00Z", "Asia/Ho_Chi_Minh"],
+                # 4: the week the clocks change is still seven days
+                ["2026-03-06T05:00:00Z", "2026-03-13T04:00:00Z", "2026-03-01T05:00:00Z", "America/New_York"],
             ],
             "short": [["2026-12-06", "2026-12-12"], ["2026-11-30", "2026-12-02"], ["2026-10-16", "2026-10-16"],
                       ["2026-10-16", None], ["", None]],
@@ -92,6 +106,14 @@ class Ruler(unittest.TestCase):
         on, today = self.out["plans"][4], self.out["plans"][5]
         self.assertEqual((on["state"], on["day"], on["span"], on["done"], on["event"], on["before"]), ("on", 3, 7, 2, 7, 0))
         self.assertEqual((today["state"], today["day"], today["span"], today["done"], today["event"]), ("on", 1, 1, 0, 1))
+
+    def test_days_are_calendar_dates_in_the_events_timezone(self):
+        spring, autumn, exact, exact_on, week = self.out["zoned"]
+        self.assertEqual((spring["state"], spring["day"], spring["span"], spring["done"]), ("on", 2, 3, 1))
+        self.assertEqual((autumn["state"], autumn["day"], autumn["span"], autumn["done"]), ("on", 1, 3, 0))
+        self.assertEqual((exact["state"], exact["span"], exact["event"]), ("soon", 3, 3))
+        self.assertEqual((exact_on["state"], exact_on["day"], exact_on["span"]), ("on", 2, 3))
+        self.assertEqual((week["span"], week["event"], week["days"]), (7, 7, 5))
 
     def test_no_ruler_without_a_start_or_after_the_end(self):
         self.assertEqual(self.out["plans"][6:8], [None, None])
@@ -135,6 +157,11 @@ class Card(unittest.TestCase):
             tick = function(read(folder / "feed.js"), "tickCountdowns")
             self.assertIn("kind === 'hero' ? heroFace(p, plan) : kind === 'row' ? rowFace(p) : countdownFace(p, seconds)", tick)
             self.assertIn("rulerInner(plan, ruler.dataset.range, ruler.dataset.last)", tick)
+            # The ruler counts days in the event's own timezone, at the first draw and on every tick.
+            self.assertIn("rulerPlan(start, end, now, el.dataset.cdTz || TZ)", tick)
+            nxt = function(read(folder / "feed.js"), "renderNext")
+            self.assertIn("rulerPlan(start, end, now, zone)", nxt)
+            self.assertIn('data-cd-tz="${esc(zone)}"', nxt)
 
 
 @unittest.skipUnless(browser_ready(), "Node, Chrome and puppeteer are needed for the rendered card")
