@@ -3352,7 +3352,19 @@ function onOpenLink(e) {
   markRead(a.dataset.read || a.dataset.id);
 }
 function attachEvents() {
-  $('.feed-brand').addEventListener('click', () => { if (filter !== 'all') setFilter('all'); });
+  // The logo is the way back to the very top of the front page (captain, 11/11 14:50: it used to jump to #top, which
+  // scrolled the panel to the window's edge and left the search bar touching it, and the address became /#top). The
+  // tab, the scroll and the address are set here, with no page load; without script the link is a plain "/". An
+  // extension's logo points at the live site and is left to the browser, as is a click with a modifier key.
+  $('.feed-brand').addEventListener('click', e => {
+    if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if ($('.feed-brand').getAttribute('href') !== '/') return;
+    e.preventDefault();
+    const moved = filter !== 'all';
+    if (moved) setFilter('all');
+    else if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+    window.scrollTo({ top: 0, behavior: moved || RM.matches ? 'instant' : 'smooth' });
+  });
   $('#feed-filters').addEventListener('click', e => { const b = e.target.closest('.filter-chip'); if (b) setFilter(b.dataset.filter); });
   $('#feed-filters').addEventListener('scroll', e => markTabOverflow(e.currentTarget), { passive: true });
   if (document.fonts) document.fonts.ready.then(() => markTabOverflow($('#feed-filters')));
