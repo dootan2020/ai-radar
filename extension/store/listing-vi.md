@@ -15,11 +15,11 @@ Halcyon biến tab mới trên trình duyệt của bạn thành một bảng ti
 
 TẠI SAO BẠN NÊN DÙNG HALCYON?
 • Cập nhật tin AI chọn lọc mỗi ngày: Tổng hợp các sự kiện công nghệ và mô hình AI nóng nhất trong 72 giờ qua được kiểm chứng độc lập bởi nhiều nguồn tin uy tín.
-• Ô "Tìm trên Google" ngay trên tab mới: gõ từ khóa là mở thẳng trang kết quả của Google, không qua máy chủ trung gian và không can thiệp kết quả tìm kiếm.
+• Ô "Tìm trên web" ngay trên tab mới: gõ từ khóa là tìm bằng công cụ tìm kiếm mặc định bạn đã chọn trong trình duyệt, không qua máy chủ trung gian và không can thiệp kết quả tìm kiếm.
 • Thời tiết, lịch âm và các dịch vụ Google quen dùng: xem nhanh dự báo của thành phố bạn chọn, ngày âm lịch và mở Gmail, Drive, Lịch chỉ với một cú bấm.
 • Đọc tin ngoại tuyến (Offline Ready): Tự động lưu trữ bản tin gần nhất vào bộ nhớ máy, giúp bạn có thể mở tab mới và theo dõi tin tức ngay cả khi mất kết nối mạng.
 • Bảng xếp hạng mô hình & kho mã AI: Theo dõi các bảng xếp hạng mô hình AI hàng đầu (Arena) và các repo GitHub AI đang nổi bật.
-• Giao diện tối giản, hỗ trợ Dark Mode: Thiết kế chuẩn mực, nhẹ nhàng, hỗ trợ chuyển đổi giao diện sáng/tối tự động hoặc thủ công.
+• Giao diện tối giản, hỗ trợ Dark Mode: Thiết kế chuẩn mực, nhẹ nhàng, giao diện sáng/tối theo hệ thống hoặc tự chọn trong menu Tùy chỉnh.
 • Hỗ trợ phím tắt: Duyệt tin tức nhanh chóng bằng bàn phím (J/K để chuyển tin, O để mở bài gốc, S để lưu tin, / để tìm trong tin Halcyon, ? để xem toàn bộ phím tắt).
 
 CAM KẾT VỀ QUYỀN RIÊNG TƯ VÀ BẢO MẬT:

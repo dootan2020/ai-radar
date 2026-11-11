@@ -104,18 +104,31 @@ class ChromeStoreSubmissionTests(unittest.TestCase):
             with self.subTest(host=host):
                 self.assertIn(host, html, f'Privacy policy does not disclose extension host: {host}')
 
-    def test_store_texts_claim_no_permission_the_manifest_lacks(self):
-        # The search box opens www.google.com/search and the manifest asks for no "search" permission, so no store
-        # text may justify chrome.search or promise the user's default search engine.
+    def test_store_texts_match_the_search_permission(self):
+        # The search box searches with the reader's default engine through chrome.search.query (the Store's rule for
+        # new tab pages with a search), so the manifest asks for "search", permissions.md justifies it, every text
+        # that describes the box says "default search engine", and no store text still promises Google's results.
         manifest = json.loads((EXT / 'manifest.json').read_text(encoding='utf-8'))
-        self.assertNotIn('search', manifest['permissions'])
+        self.assertEqual(manifest['permissions'], ['storage', 'alarms', 'search'])
+        permissions = (STORE / 'permissions.md').read_text(encoding='utf-8')
+        self.assertIn('### 3. `search`', permissions)
+        self.assertIn('chrome.search.query', permissions)
+        submit = (STORE / 'SUBMIT.md').read_text(encoding='utf-8')
+        self.assertIn('`permissions: ["storage", "alarms", "search"]`', submit)
+        for name in ('single-purpose.txt', 'data-disclosure.md', 'listing-en.md'):
+            with self.subTest(name=name):
+                self.assertIn('default search engine', (STORE / name).read_text(encoding='utf-8'))
+        self.assertIn('công cụ tìm kiếm mặc định', (STORE / 'listing-vi.md').read_text(encoding='utf-8'))
         for name in ('SUBMIT.md', 'permissions.md', 'data-disclosure.md', 'single-purpose.txt',
                      'listing-vi.md', 'listing-en.md'):
             with self.subTest(name=name):
                 text = (STORE / name).read_text(encoding='utf-8')
-                self.assertNotIn('chrome.search', text)
-                self.assertNotIn('`search`:', text)
-                self.assertNotRegex(text.lower(), r'default search (engine|provider)|công cụ tìm kiếm mặc định')
+                self.assertNotIn('Search Google', text)
+                self.assertNotIn('Tìm trên Google', text)
+                self.assertNotIn('google.com/search', text)
+        policy = (SITE / 'chinh-sach-rieng-tu.html').read_text(encoding='utf-8')
+        self.assertNotIn('Tìm trên Google', policy)
+        self.assertNotIn('www.google.com/search', policy)
 
     def test_privacy_policy_discloses_analytics_and_publisher_pictures(self):
         # hco.news carries the beacon Cloudflare injects, and story pictures come straight from publishers' servers,

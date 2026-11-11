@@ -1,10 +1,11 @@
-/* "Tìm trên Google" (captain, 07/11 18:26: "không đặt tìm kiếm web mà là tìm kiếm google luôn"): the query opens
-   Google's results in this tab, whatever the reader's default engine is. A plain link needs no permission. */
-export const googleSearchURL = query => `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+/* "Tìm trên web": the query goes to the reader's own default search engine through the Chrome Search API, in this
+   tab. The Chrome Web Store rejects a new tab whose search ignores the user's search settings (Quality Guidelines,
+   checked 11/11), so the box no longer opens Google directly as it did from 07/11. Outside an extension page there is
+   no chrome.search and the box does nothing: any fallback would have to name an engine the reader never chose. */
 document.querySelector('#web-search').addEventListener('submit', event => {
   event.preventDefault();
-  const query = document.querySelector('#web-query').value.trim();
-  if (query) location.assign(googleSearchURL(query));
+  const text = document.querySelector('#web-query').value.trim();
+  if (text && globalThis.chrome?.search?.query) chrome.search.query({text, disposition: 'CURRENT_TAB'});
 });
 
 let initialSnapshotKnown = false;

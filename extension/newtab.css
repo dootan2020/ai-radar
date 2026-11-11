@@ -1,6 +1,6 @@
 /* The new tab's top zone above the Halcyon panel (captain, 07/11 18:03; mockup D chosen 18:26; Mẫu A 08/11 18:23):
    1. the 9 dots at the top right, with every Google app behind them;
-   2. the Google search ("Tìm trên Google", a filled field with no border and no shadow), which plays the part of MSN's
+   2. the web search ("Tìm trên web", the reader's default engine; a filled field with no border and no shadow), which plays the part of MSN's
       search bar above the panel.
    The panel below is the website home's (trang-msn.css): the logo, the sections, the news search, the morning edition,
    then the grid with the weather and the calendar. This file is extension-only. Values come from tokens.css. */

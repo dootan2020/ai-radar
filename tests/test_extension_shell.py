@@ -44,7 +44,7 @@ class ExtensionShellTests(unittest.TestCase):
         manifest = json.loads((EXT / 'manifest.json').read_text(encoding='utf-8'))
         self.assertEqual(manifest['manifest_version'], 3)
         self.assertEqual(manifest['chrome_url_overrides'], {'newtab': 'newtab.html'})
-        self.assertEqual(set(manifest['permissions']), {'storage', 'alarms'})
+        self.assertEqual(set(manifest['permissions']), {'storage', 'alarms', 'search'})
         self.assertEqual(manifest['host_permissions'], [LIVE + '*'])
         self.assertEqual(manifest['background']['service_worker'], 'background.js')
         self.assertIn('tìm kiếm', manifest['description'].lower())
@@ -234,28 +234,55 @@ process.stdout.write(JSON.stringify({saved,afterOffline,afterTimeout:cache.radar
         })
 
     @unittest.skipUnless(shutil.which('node'), 'Node required for JavaScript behavior tests')
-    def test_search_goes_to_google(self):
-        # Captain, 07/11 18:26: "tìm kiếm google luôn": the query opens Google's results in this tab, whatever the
-        # reader's default engine is; an empty field does nothing.
+    def test_search_uses_the_readers_default_engine(self):
+        # The Chrome Web Store rejects a new tab whose search ignores the user's search settings, so the query goes
+        # through chrome.search.query in this tab; an empty field does nothing and the page never opens a URL itself.
         script = r'''
 import {readFileSync} from 'node:fs';
 const source = readFileSync(process.argv[1], 'utf8');
 const handlers = {}, opened = [], field = {value:'  mô hình AI & GPU  '};
+let prevented = 0;
 globalThis.document = {querySelector: selector => selector === '#web-search' ?
   {addEventListener:(_,fn) => handlers.submit=fn} : selector === '#web-query' ? field : null};
-globalThis.location = {assign:url => opened.push(url)};
-globalThis.chrome = {search:{query:() => opened.push('chrome.search')},storage:{local:{get:async () => ({radarWindow:{}})},onChanged:{addListener:fn => handlers.changed=fn}}};
+globalThis.location = {assign:url => opened.push(['location', url])};
+globalThis.chrome = {search:{query:options => opened.push(['chrome.search', options])},storage:{local:{get:async () => ({radarWindow:{}})},onChanged:{addListener:fn => handlers.changed=fn}}};
 await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
-handlers.submit({preventDefault(){}});
+handlers.submit({preventDefault(){ prevented++; }});
 field.value = '   ';
+handlers.submit({preventDefault(){ prevented++; }});
+process.stdout.write(JSON.stringify({opened, prevented}));
+'''
+        self.assertEqual(node(script, EXT / 'newtab.js'), {
+            'opened': [['chrome.search', {'text': 'mô hình AI & GPU', 'disposition': 'CURRENT_TAB'}]],
+            'prevented': 2,
+        })
+        html = (EXT / 'newtab.html').read_text(encoding='utf-8')
+        form = html[html.index('<form id="web-search"'):html.index('</form>', html.index('<form id="web-search"'))]
+        self.assertIn('placeholder="Tìm trên web"', form)
+        self.assertIn('aria-label="Tìm trên web"', form)
+        self.assertNotIn('action=', form)
+        self.assertNotIn('Google', form)
+        for name in ('newtab.html', 'newtab.js'):
+            self.assertNotIn('google.com/search', (EXT / name).read_text(encoding='utf-8'), name)
+        manifest = json.loads((EXT / 'manifest.json').read_text(encoding='utf-8'))
+        self.assertIn('search', manifest['permissions'])
+
+    @unittest.skipUnless(shutil.which('node'), 'Node required for JavaScript behavior tests')
+    def test_search_outside_an_extension_page_does_nothing(self):
+        # A test page has no chrome.search: the box must not fall back to an engine the reader never chose.
+        script = r'''
+import {readFileSync} from 'node:fs';
+const source = readFileSync(process.argv[1], 'utf8');
+const handlers = {}, opened = [];
+globalThis.document = {querySelector: selector => selector === '#web-search' ?
+  {addEventListener:(_,fn) => handlers.submit=fn} : selector === '#web-query' ? {value:'GPU'} : null};
+globalThis.location = {assign:url => opened.push(url)};
+globalThis.chrome = {storage:{local:{get:async () => ({radarWindow:{}})},onChanged:{addListener:() => {}}}};
+await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
 handlers.submit({preventDefault(){}});
 process.stdout.write(JSON.stringify(opened));
 '''
-        self.assertEqual(node(script, EXT / 'newtab.js'),
-                         ['https://www.google.com/search?q=m%C3%B4%20h%C3%ACnh%20AI%20%26%20GPU'])
-        html = (EXT / 'newtab.html').read_text(encoding='utf-8')
-        self.assertIn('placeholder="Tìm trên Google"', html)
-        self.assertIn('action="https://www.google.com/search"', html)
+        self.assertEqual(node(script, EXT / 'newtab.js'), [])
 
     @unittest.skipUnless(shutil.which('node'), 'Node required for JavaScript behavior tests')
     def test_first_cache_arrival_reloads_only_an_empty_tab(self):

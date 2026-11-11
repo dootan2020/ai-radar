@@ -11,7 +11,7 @@ Hướng dẫn từng bước để anh Tuấn nộp tiện ích **Halcyon** tr�
 | Category | `News & Weather` | mục 2, bước 2 |
 | Language | `Vietnamese` | `listing-vi.md` |
 | Single purpose | đoạn tiếng Anh trong `single-purpose.txt` | mục 2, bước 3 |
-| Permission justification: `storage`, `alarms`, host `https://radar-ai-vn.pages.dev/*` | ba đoạn trong `permissions.md` | mục 2, bước 3 |
+| Permission justification: `storage`, `alarms`, `search`, host `https://radar-ai-vn.pages.dev/*` | bốn đoạn trong `permissions.md` | mục 2, bước 3 |
 | Remote code | **No, I am not using remote code** | mục 2, bước 3 |
 | Data usage: các ô loại dữ liệu | **không tích ô nào** (anh quyết, xem lý do trong `data-disclosure.md` mục 1) | mục 2, bước 3 |
 | Ba cam kết (không bán, không dùng ngoài mục đích, không dùng cho tín dụng) | **tích cả ba** | mục 2, bước 3 |
@@ -24,7 +24,7 @@ Hướng dẫn từng bước để anh Tuấn nộp tiện ích **Halcyon** tr�
 
 1. **Trang chính sách riêng tư phải là bản mới trên mạng.** Mở `https://hco.news/chinh-sach-rieng-tu.html` và xác nhận dòng "Cập nhật lần cuối: 11 tháng 11, 2026" cùng mục 6 (Cloudflare Web Analytics, ảnh từ nhà xuất bản). Bản cũ ngày 10/11 còn hứa "không theo dõi" mà chưa nêu hai điều này; đừng nộp khi URL còn trả bản cũ. Trang lên mạng khi nhánh có thay đổi được merge vào `main` và lượt **Update AI Radar** kế tiếp deploy xong.
 2. **Gói zip:** từ thư mục gốc repo chạy `python extension/sync-site.py` (tab mới khớp trang chủ trên `main`), rồi `python extension/store/build-zip.py`. Tệp tải lên: `extension/store/extension-halcyon-0.1.0.zip` (bản sao ở thư mục gốc). Gói có `manifest.json` ở gốc, 83 tệp, không có `README.md`, `sync-site.py`, thư mục `store/` hay tệp `.py`.
-3. **Manifest trong gói:** Manifest V3, tên `Halcyon`, phiên bản `0.1.0`, `permissions: ["storage", "alarms"]`, `host_permissions: ["https://radar-ai-vn.pages.dev/*"]`, ghi đè trang tab mới bằng `newtab.html`. Không xin `search`, `tabs` hay quyền đọc trang web. Mọi script nằm trong gói (không có remote code).
+3. **Manifest trong gói:** Manifest V3, tên `Halcyon`, phiên bản `0.1.0`, `permissions: ["storage", "alarms", "search"]`, `host_permissions: ["https://radar-ai-vn.pages.dev/*"]`, ghi đè trang tab mới bằng `newtab.html`. Quyền `search` để ô "Tìm trên web" tìm bằng công cụ tìm kiếm mặc định của người đọc qua `chrome.search.query` (Chrome Web Store yêu cầu tab mới có ô tìm kiếm phải tôn trọng lựa chọn này). Không xin `tabs` hay quyền đọc trang web. Mọi script nằm trong gói (không có remote code).
 4. **Ảnh cho trang Store:**
    - Store icon 128×128: `brand/assets/store/extension-icon-128.png`
    - Small promo tile 440×280: `brand/assets/store/promo-small.png`
@@ -39,7 +39,7 @@ Hướng dẫn từng bước để anh Tuấn nộp tiện ích **Halcyon** tr�
 ### Bước 1: Tải gói lên (Upload Package)
 1. Nhấn **"New Item"**.
 2. Chọn `extension/store/extension-halcyon-0.1.0.zip`.
-3. Console đọc manifest: Manifest V3, quyền `storage`, `alarms`, host `https://radar-ai-vn.pages.dev/*`.
+3. Console đọc manifest: Manifest V3, quyền `storage`, `alarms`, `search`, host `https://radar-ai-vn.pages.dev/*`.
 
 ### Bước 2: Store Listing
 1. **Product details:**
@@ -59,9 +59,9 @@ Nhấn **"Save draft"**.
 ### Bước 3: Privacy
 1. **Single purpose description:** dán nguyên văn `single-purpose.txt`:
    ```text
-   Halcyon replaces the browser's new tab page with a Vietnamese-language AI news reader: curated AI stories with links to their original publishers, a "Search Google" box that opens Google's own results page, and the latest edition saved on the device so stories stay readable offline.
+   Halcyon replaces the browser's new tab page with a Vietnamese-language AI news reader: curated AI stories with links to their original publishers, a web search box that searches with the browser's default search engine, and the latest edition saved on the device so stories stay readable offline.
    ```
-2. **Permission justifications:** dán từng đoạn trong khối code của `permissions.md` vào ô `storage`, `alarms` và ô host permission.
+2. **Permission justifications:** dán từng đoạn trong khối code của `permissions.md` vào ô `storage`, `alarms`, `search` và ô host permission.
 3. **Remote code:** chọn "No, I am not using remote code". Mọi tệp JS nằm trong gói; trang tab mới chỉ tải dữ liệu JSON và ảnh.
 4. **Data usage:** không tích loại dữ liệu nào (đề xuất; anh quyết). Nếu console có ô giải trình, dán khối code trong `data-disclosure.md` mục 1. Tích cả ba cam kết.
 5. **Privacy policy:** `https://hco.news/chinh-sach-rieng-tu.html` (đã kiểm ở mục 1.1).
