@@ -176,7 +176,7 @@ class LeadPictures(unittest.TestCase):
         self.assertIsNone(s["other"])
         self.assertIsNone(s["relative"])
         # A phone's card picture is the 104 px thumbnail beside the headline; three columns (768-1023) give a card a third.
-        self.assertIn('sizes="(max-width: 767px) 104px, (max-width: 1023px) 34vw, 25vw"', self.got["card"])
+        self.assertIn('sizes="(max-width: 767px) 112px, (max-width: 1023px) 34vw, 25vw"', self.got["card"])
         self.assertIn('loading="lazy"', self.got["card"])
 
     def test_card_pictures_wait_until_the_card_nears_the_screen(self):
