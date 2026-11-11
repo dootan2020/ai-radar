@@ -3349,14 +3349,6 @@ function onOpenLink(e) {
   markRead(a.dataset.read || a.dataset.id);
 }
 function attachEvents() {
-  $('#theme-btn').addEventListener('click', () => {
-    const root = document.documentElement;
-    const dark = root.getAttribute('data-theme') === 'dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
-    const next = dark ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    $('#theme-btn').setAttribute('aria-pressed', String(next === 'dark'));
-    store.set(K.theme, next);
-  });
   $('.feed-brand').addEventListener('click', () => { if (filter !== 'all') setFilter('all'); });
   $('#feed-filters').addEventListener('click', e => { const b = e.target.closest('.filter-chip'); if (b) setFilter(b.dataset.filter); });
   $('#feed-filters').addEventListener('scroll', e => markTabOverflow(e.currentTarget), { passive: true });
@@ -3579,7 +3571,6 @@ async function init() {
   loadLateStyles();
   const th = store.get(K.theme, null);
   if (th) document.documentElement.setAttribute('data-theme', th);
-  $('#theme-btn').setAttribute('aria-pressed', String(th ? th === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches));
   watchImageErrors();
   watchPictures();
   watchImageLoad();

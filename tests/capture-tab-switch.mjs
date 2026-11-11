@@ -58,7 +58,7 @@ const EARLY = () => {
 const KEEP = () => {
   const q = s => document.querySelector(s);
   window.__shell = { panel: q('#top'), bar: q('#bar'), brand: q('#brand'), tabs: q('#feed-filters'),
-    chips: [...document.querySelectorAll('#feed-filters .filter-chip')], theme: q('#theme-btn'), edition: q('.ed-link'),
+    chips: [...document.querySelectorAll('#feed-filters .filter-chip')], edition: q('.ed-link'),
     sort: q('#sort-switch'), sortBtns: [...document.querySelectorAll('#sort-switch .sort-btn')], dock: q('.mobile-nav'),
     line: q('#feed-filters > .tab-pill'), cards: [...document.querySelectorAll('#feed-grid .nc')] };
   window.__added = []; window.__removed = [];
@@ -99,7 +99,7 @@ const STATE = () => {
     line: lineBox ? { x: lineBox.x, w: lineBox.w, transform: getComputedStyle(line).transform, width: line.style.width } : null,
     after, activeBox: box(active),
     kept: shell.panel ? { panel: same('panel', '#top'), bar: same('bar', '#bar'), brand: same('brand', '#brand'),
-      tabs: same('tabs', '#feed-filters'), theme: same('theme', '#theme-btn'), edition: same('edition', '.ed-link'),
+      tabs: same('tabs', '#feed-filters'), edition: same('edition', '.ed-link'),
       sort: same('sort', '#sort-switch'), dock: shell.dock ? same('dock', '.mobile-nav') : null,
       chips: shell.chips.every((c, i) => c === document.querySelectorAll('#feed-filters .filter-chip')[i] && c.isConnected),
       sortBtns: shell.sortBtns.every(b => b.isConnected && b.parentElement === q('#sort-switch')),

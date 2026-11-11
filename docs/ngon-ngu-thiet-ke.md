@@ -33,7 +33,7 @@ Captain, 11/11 10:50, with two Samsung News screens: *"Trên Mobile làm sạch 
 
 ## Band heading with a control
 
-A band's heading row may carry the one control that acts on that band's own list, and only that list (`.band-head`: the title on the left, the control on the right). The order "Đáng đọc nhất / Mới nhất" lives on "Tin mới" (captain, 11/11 12:3x: *"dời đi"*): it reorders "Tin mới" and "Tin khác" and never the first screen, so it no longer sits in the header beside the tabs. It keeps the segmented control's look (`.tc-seg`: `color-seg-track`, a raised `color-seg-thumb` side, `seg-thumb-r`), 44 px sides, and the reader's choice (`air2:sort`). The header row is the logo, the tabs, the theme and "Bản tin sáng".
+A band's heading row may carry the one control that acts on that band's own list, and only that list (`.band-head`: the title on the left, the control on the right). The order "Đáng đọc nhất / Mới nhất" lives on "Tin mới" (captain, 11/11 12:3x: *"dời đi"*): it reorders "Tin mới" and "Tin khác" and never the first screen, so it no longer sits in the header beside the tabs. It keeps the segmented control's look (`.tc-seg`: `color-seg-track`, a raised `color-seg-thumb` side, `seg-thumb-r`), 44 px sides, and the reader's choice (`air2:sort`). The header row is the logo, the tabs and "Bản tin sáng" (a phone: the logo and the tabs). Light, dark and "Theo máy" are chosen only in "Tùy chỉnh" (the top row's sliders button), as the segmented control "Giao diện" (captain, 11/11 13:54: *"nút chỉnh sáng/tối phải đặt ở trong menu tùy chỉnh, không đặt ở ngoài"*).
 
 ## Switching tabs
 

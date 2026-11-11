@@ -65,6 +65,23 @@ class FeedHeaderLayoutTests(unittest.TestCase):
         self.assertNotIn(".msn-head .theme-btn", phone)
         self.assertIn(".band-head .sort-switch { display: grid; grid-template-columns: 1fr 1fr; width: 12em;", phone)
 
+    def test_light_and_dark_live_in_the_settings_menu_not_the_header(self):
+        # Captain, 11/11 13:54: "nút chỉnh sáng/tối phải đặt ở trong menu tùy chỉnh, không đặt ở ngoài".
+        for page in (ROOT / "site" / "index.html", ROOT / "extension" / "newtab.html"):
+            html = page.read_text(encoding="utf-8")
+            with self.subTest(page=page.name):
+                bar = html[html.index('id="bar"'):html.index("</nav>", html.index('id="bar"'))]
+                self.assertNotIn("theme-btn", bar)
+                self.assertNotIn('id="theme-btn"', html)
+                self.assertIn('id="tc-open"', html)                    # the "Tùy chỉnh" button of the top row
+                self.assertIn("localStorage.getItem('air2:theme')", html.replace('"air2:theme"', "'air2:theme'")
+                              + (ROOT / "extension" / "theme.js").read_text(encoding="utf-8"))
+        menu = (ROOT / "site" / "thanh-tren.js").read_text(encoding="utf-8")
+        self.assertIn("export const THEMES = [['light', 'Sáng'], ['dark', 'Tối'], ['system', 'Theo máy']];", menu)
+        self.assertIn('<fieldset class="tc-group"><legend>Giao diện</legend><div class="tc-seg">', menu)
+        self.assertIn('<input class="sr" type="radio" name="tc-theme" value="${v}">', menu)
+        self.assertNotIn("$('#theme-btn')", (ROOT / "site" / "feed.js").read_text(encoding="utf-8"))
+
     def test_phone_has_labeled_primary_destinations_and_current_page(self):
         css = (ROOT / "site" / "menu-cong-cu.css").read_text(encoding="utf-8")
         script = (ROOT / "site" / "menu-cong-cu.js").read_text(encoding="utf-8")
