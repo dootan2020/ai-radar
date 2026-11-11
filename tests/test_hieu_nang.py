@@ -258,7 +258,7 @@ class RenderedTopRowFit(unittest.TestCase):
             self.assertLessEqual(m["cornerOverflow"], 0, f"{name}: the corner is cut {m}")
             self.assertLessEqual(abs(m["searchCentre"]), 1, f"{name}: the search left the middle {m}")
             self.assertTrue(m["date"], name)
-            self.assertEqual(m["orders"], ["Đáng đọc nhất", "Mới nhất"], name)
+            self.assertEqual(m["orders"], [], f"{name}: the order lives on Tin mới now (captain, 11/11 12:3x)")
             self.assertEqual(m["ordersCut"], [], name)
             self.assertLessEqual(m["headOverflow"], 0, name)
             self.assertFalse(m["sideways"], name)

@@ -47,10 +47,10 @@ class Surfaces(unittest.TestCase):
     def test_the_order_control_is_the_giao_dien_segmented_control(self):
         for folder in FOLDERS:
             css = read(folder / "trang-msn.css")
-            self.assertIn(".tc-seg, .msn-head .sort-switch { padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }", css)
-            self.assertIn(".tc-seg label:has(input:checked), .msn-head .sort-switch .tab-pill {", css)
+            self.assertIn(".tc-seg, .band-head .sort-switch { padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }", css)
+            self.assertIn(".tc-seg label:has(input:checked), .band-head .sort-switch .tab-pill {", css)
             self.assertIn("background: var(--color-seg-thumb); box-shadow: var(--msn-shadow-rest); border-radius: var(--seg-thumb-r);", css)
-            self.assertIn(".msn-head .sort-switch::before { display: none; }", css)
+            self.assertIn(".band-head .sort-switch::before { display: none; }", css)
 
 
 class EventsCard(unittest.TestCase):

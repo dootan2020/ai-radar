@@ -141,12 +141,6 @@
         </div>
         <div class="ns-results" id="ns-results" hidden></div>
       </div>
-      <!-- The order of the stories sits in the head row (captain, 09/11: the line above the grid is gone). Both sides show
-           at every width (captain, 11/11: "Trên Mobile chưa có nút mới nhất"); a phone drops " nhất" from the first. -->
-      <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin">
-        <button class="sort-btn" data-sort="worth" aria-label="Đáng đọc nhất" aria-pressed="true"><span>Đáng đọc</span><span class="sort-label-tail">&nbsp;nhất</span></button>
-        <button class="sort-btn" data-sort="new" aria-label="Mới nhất" aria-pressed="false">Mới nhất</button>
-      </div>
       <button class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Chuyển chế độ sáng hoặc tối">
         <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
         <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
@@ -154,6 +148,15 @@
       <a class="ed-link" href="https://radar-ai-vn.pages.dev/ban-tin.html" aria-label="Bản tin sáng"><span class="ed-label">Bản tin sáng</span><svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>
     </div>
   </nav>
+  <!-- The order of the stories sits on the heading of the list it orders, "Tin mới" (captain, 11/11 12:3x: "dời đi";
+       it reorders "Tin mới" and "Tin khác", never the first screen). feed.js moves it there when the front page is
+       drawn and parks it here, hidden, for every other view. A phone drops " nhất" from the first side. -->
+  <div class="sort-home" id="sort-home" hidden>
+    <div class="sort-switch" id="sort-switch" role="group" aria-label="Thứ tự dòng tin">
+      <button class="sort-btn" data-sort="worth" aria-label="Đáng đọc nhất" aria-pressed="true"><span>Đáng đọc</span><span class="sort-label-tail">&nbsp;nhất</span></button>
+      <button class="sort-btn" data-sort="new" aria-label="Mới nhất" aria-pressed="false">Mới nhất</button>
+    </div>
+  </div>
   <!-- No visible line above the grid (captain, 09/11: "Bỏ luôn cả thông báo thời điểm cập nhật"): the section tabs say
        where the reader is, so the view's name is a heading for screen readers only. A view that has no tab of its own
        (a section opened from a link, #sap-toi) names itself here, with its way back. -->

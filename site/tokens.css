@@ -267,15 +267,20 @@
   --band-h-news: 286px;                              /* a row of story cards: "Tin mới", "Tin khác" */
   --band-h-lab: 432px;                               /* "Mô hình và mã nguồn": three equal tiles */
   /* A phone's story card (captain, 11/11 10:50, two Samsung News screens as the reference: "Trên Mobile làm sạch sẽ kiểu
-     như vậy. Nhớ tuân thủ design system"): one white card per story with the bento tile's corner, the source over a
-     headline of up to four lines, a square picture to its right and the time under both. A notable story keeps a
-     full-width picture above its headline (area is hierarchy), and a top story leads with its rank in the number scale. */
-  --story-card-r: var(--tile-radius);                /* 24 px */
-  --story-card-pad: var(--space-16);
-  --story-card-gap: var(--space-12);                 /* between two cards */
+     như vậy. Nhớ tuân thủ design system"): one white card per story, the source over a headline of up to four lines, a
+     square picture to its right and the time under both. A notable story keeps a full-width picture above its headline
+     (area is hierarchy), and a top story leads with its rank in the number scale. It is the desktop story card in a
+     phone's layout (captain, 11/11 12:4x: "giao diện mobile và desktop nó không đồng bộ, rõ nhất là bo góc của thẻ
+     tin"): corner, shadow, surface, source line, time and gap are the desktop card's own tokens; only the layout is the
+     phone's. A full-width card takes the desktop wide card's padding and headline size. */
+  --story-card-r: var(--msn-card-r);                 /* 12 px, the desktop card's corner */
+  --story-card-pad: var(--space-16);                 /* the desktop wide card's body padding */
+  --story-card-gap: var(--space-12);                 /* the desktop grid's --msn-gap (12 px); a phone's --msn-gap narrows to 8 for its two-column views */
   --story-card-pic: clamp(80px, 31cqi, 112px);       /* the square picture, from the card's text width: 82 px at 320, 99 at 375, 111 at 414 */
-  --story-card-pic-r: var(--radius-12);
-  --story-card-rank: var(--num-md);                  /* a top story's rank, 32 px */
+  --story-card-pic-r: var(--radius-8);               /* an inset frame inside a desktop card (the lead's slide box) */
+  --story-card-title: var(--msn-title-wide);         /* 18 px, the desktop wide card's headline */
+  --story-card-title-big: var(--msn-title-big);      /* 22 px, the desktop notable card's headline */
+  --story-card-rank: var(--num-md);                  /* a top story's rank, 32 px: the phone's ranked layout */
   --msn-brand-tile: 34px; --msn-brand-size: 1.375rem;
   --msn-rowh-xl: 292px; --msn-photo-h-xl: 154px;   /* 1750 px and wider: seven columns */
   --msn-rowh-phone: 240px; --msn-photo-h-phone: 112px;

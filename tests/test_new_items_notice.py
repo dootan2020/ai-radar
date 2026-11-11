@@ -38,8 +38,12 @@ class NewItemsNoticeTests(unittest.TestCase):
     def test_sort_and_metadata_locations(self):
         # The line above the grid is gone (captain, 09/11): the sort switch sits in the panel's head row, and the view's
         # name is a heading for screen readers only, with no update time.
-        actions = self.html.split('<div class="head-actions">')[1].split('id="theme-btn"')[0]
-        self.assertIn('id="sort-switch"', actions)
+        # The order sits on the heading of the list it orders, "Tin mới" (captain, 11/11 12:3x: "dời đi"): parked in
+        # #sort-home and moved into the band's slot when the front page is drawn.
+        actions = self.html.split('<div class="head-actions">')[1].split('</nav>')[0]
+        self.assertNotIn('id="sort-switch"', actions)
+        self.assertIn('id="sort-switch"', self.html.split('id="sort-home"', 1)[1])
+        self.assertIn("""bandHTML('news', 'Tin mới', '<div class="band-cells" id="news-grid"></div>', '<i data-slot="sort"></i>')""", self.js)
         meta = self.html.split('<div class="front-meta">')[1].split('id="filter-context"')[0]
         self.assertIn('<h2 class="sr" id="front-h">', meta)
         self.assertNotIn('front-updated', self.html)

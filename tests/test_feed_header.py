@@ -57,11 +57,13 @@ class FeedHeaderLayoutTests(unittest.TestCase):
                 self.assertNotIn("sort-btn-compact", css)
                 self.assertIsNone(re.search(r"\.sort-btn[^{}]*\{[^}]*display:\s*none", css))
                 self.assertIsNone(re.search(r"\.sort-switch \.tab-pill\s*\{[^}]*display:\s*none", css))
-        # The phone keeps the wide row's segmented look, shortens the first label and gives the theme to "Tùy chỉnh".
+        # The order sits on "Tin mới"'s heading (captain, 11/11 12:3x: "dời đi"); a phone keeps the segmented look and
+        # shortens the first label, and the header row keeps the theme button again.
         msn = (ROOT / "site" / "trang-msn.css").read_text(encoding="utf-8")
         phone = msn.split("@media (max-width: 767px) {\n  /* A phone: the weather", 1)[1].split("\n}\n", 1)[0]
-        self.assertIn(".msn-head .theme-btn, .msn-head .sort-label-tail { display: none; }", phone)
-        self.assertIn(".msn-head .sort-switch { display: grid; grid-template-columns: 1fr 1fr; width: 12em;", phone)
+        self.assertIn(".band-head .sort-label-tail { display: none; }", phone)
+        self.assertNotIn(".msn-head .theme-btn", phone)
+        self.assertIn(".band-head .sort-switch { display: grid; grid-template-columns: 1fr 1fr; width: 12em;", phone)
 
     def test_phone_has_labeled_primary_destinations_and_current_page(self):
         css = (ROOT / "site" / "menu-cong-cu.css").read_text(encoding="utf-8")

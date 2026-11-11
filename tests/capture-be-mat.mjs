@@ -65,7 +65,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 
 const MEASURE = () => {
   const bg = el => el ? getComputedStyle(el).backgroundColor : null;
-  const sw = document.querySelector('.msn-head .sort-switch');
+  const sw = document.querySelector('#band-news .band-head .sort-switch');
   const pill = sw && sw.querySelector('.tab-pill');
   const pics = [...document.querySelectorAll('#feed-grid :is(.nc-photo, .slide-media, .thumb, .repo-img, .model-img) img')]
     .filter(i => !i.classList.contains('av-img') && i.getBoundingClientRect().width > 0);
@@ -80,7 +80,7 @@ const MEASURE = () => {
     cardShadow: getComputedStyle(document.querySelector('#feed-grid .msn-card.nc')).boxShadow,
     track: bg(sw), pill: pill ? { bg: bg(pill), shadow: getComputedStyle(pill).boxShadow, w: pill.getBoundingClientRect().width,
       opacity: getComputedStyle(pill).opacity } : null,
-    pressed: [...document.querySelectorAll('.msn-head .sort-btn[aria-pressed="true"]')].map(b => b.dataset.sort),
+    pressed: [...document.querySelectorAll('#sort-switch .sort-btn[aria-pressed="true"]')].map(b => b.dataset.sort),
     pictures: pics.length, contain: pics.filter(i => getComputedStyle(i).objectFit === 'contain' && !i.classList.contains('is-whole')).length,
     backdrops: document.querySelectorAll('#feed-grid .media-backdrop').length, covers,
     events: { rows: document.querySelectorAll('#su-kien .ev-more li').length, fill: getComputedStyle(document.querySelector('#su-kien') || document.body).backgroundImage.slice(0, 60) },
@@ -118,13 +118,13 @@ try {
     report[`1440-${theme}`] = await page.evaluate(MEASURE);
     await page.screenshot({ path: path.join(out, `be-mat-1440-${theme}.png`), clip: await clipOf(page, ['.msn-head', '#band-today', '#band-focus']), captureBeyondViewport: true });
     if (theme === 'light') {
-      const head = await page.$('.msn-head .head-actions');
+      const head = await page.$('#band-news .band-head');
       await head.screenshot({ path: path.join(out, 'sap-xep-dang-doc.png') });
-      await page.click('.msn-head .sort-btn[data-sort="new"]');
+      await page.click('#sort-switch .sort-btn[data-sort="new"]');
       await wait(900);
       report['1440-light-moi-nhat'] = await page.evaluate(MEASURE);
       await head.screenshot({ path: path.join(out, 'sap-xep-moi-nhat.png') });
-      await page.click('.msn-head .sort-btn[data-sort="worth"]');
+      await page.click('#sort-switch .sort-btn[data-sort="worth"]');
       await wait(900);
       const ev = await page.$('#su-kien');
       if (ev) await ev.screenshot({ path: path.join(out, 'su-kien-1.png') });

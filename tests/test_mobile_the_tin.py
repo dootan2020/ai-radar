@@ -45,8 +45,9 @@ class Tokens(unittest.TestCase):
     def test_the_card_is_built_from_named_tokens_in_both_copies(self):
         for folder in FOLDERS:
             tokens, css = read(folder / "tokens.css"), read(folder / "trang-msn.css")
-            for name, value in (("--story-card-r", "var(--tile-radius)"), ("--story-card-pad", "var(--space-16)"),
-                                ("--story-card-gap", "var(--space-12)"), ("--story-card-pic-r", "var(--radius-12)"),
+            for name, value in (("--story-card-r", "var(--msn-card-r)"), ("--story-card-pad", "var(--space-16)"),
+                                ("--story-card-gap", "var(--space-12)"), ("--story-card-pic-r", "var(--radius-8)"),
+                                ("--story-card-title", "var(--msn-title-wide)"), ("--story-card-title-big", "var(--msn-title-big)"),
                                 ("--story-card-rank", "var(--num-md)")):
                 self.assertIn(f"{name}: {value};", tokens, f"{folder.name}: {name}")
             self.assertIn("--story-card-pic: clamp(80px, 31cqi, 112px);", tokens)
@@ -117,7 +118,7 @@ class RenderedCards(unittest.TestCase):
             self.assertGreater(len(page["cards"]), 5, key)
             for c in page["cards"]:
                 where = f"{key} {c['title']}"
-                self.assertEqual((c["display"], c["radius"], c["border"], c["pad"]), ("grid", "24px", "0px none", "16px"), where)
+                self.assertEqual((c["display"], c["radius"], c["border"], c["pad"]), ("grid", "12px", "0px none", "16px"), where)
                 self.assertIsNone(c["sum"], f"{where}: no dek on a phone card")
                 title, who, when = c["titleBox"], c["who"], c["when"]
                 self.assertLess(who["y"], title["y"], where)
@@ -133,7 +134,7 @@ class RenderedCards(unittest.TestCase):
                     self.assertEqual(pic["w"], pic["h"], f"{where}: square picture")
                     self.assertTrue(80 <= pic["w"] <= 112, f"{where}: {pic['w']}")
                     self.assertGreaterEqual(pic["x"], title["x"] + title["w"], f"{where}: the picture is right of the headline")
-                    self.assertEqual(pic["radius"], "12px", where)
+                    self.assertEqual(pic["radius"], "8px", where)
 
     def test_cards_below_the_first_screen_wait_for_their_pictures(self):
         for key in PHONES:
@@ -150,7 +151,7 @@ class RenderedCards(unittest.TestCase):
             self.assertEqual(len(top), 4, key)
             for li in top:
                 rank = "28px" if key == "320" else "32px"   # a narrow phone steps the rank down to text-feature
-                self.assertEqual((li["display"], li["radius"], li["num"]["font"]), ("grid", "24px", rank), key)
+                self.assertEqual((li["display"], li["radius"], li["num"]["font"]), ("grid", "12px", rank), key)
                 self.assertGreaterEqual(li["titleBox"]["w"], 120, f"{key}: room for the ranked headline")
                 self.assertGreaterEqual(li["h"], 44, key)   # the headline's link covers the whole card
                 self.assertLess(li["num"]["x"] + li["num"]["w"], li["titleBox"]["x"], key)
@@ -171,9 +172,34 @@ class RenderedCards(unittest.TestCase):
         for key in PHONES:
             panel = runs[key]["panel"]
             self.assertEqual((panel["x"], panel["w"]), (0, runs[key]["width"]), key)
-            self.assertEqual(panel["radius"], "24px 24px 0px 0px", key)
+            self.assertEqual(panel["radius"], "16px 16px 0px 0px", key)
         for key in ("1440", "2000"):
             self.assertEqual(runs[key]["panel"]["radius"], "16px", key)
+
+    def test_a_phone_card_wears_the_desktop_card_s_tokens(self):
+        # Captain, 11/11 12:4x: "giao diện mobile và desktop nó không đồng bộ, rõ nhất là bo góc của thẻ tin".
+        runs = rendered()["runs"]
+        wide, phone = runs["1440"]["look"], runs["375"]["look"]
+        for part, props in (("card", ("borderRadius", "boxShadow", "backgroundColor")),
+                            ("src", ("fontSize", "fontWeight", "color")), ("time", ("fontSize", "fontWeight", "color")),
+                            ("title", ("fontWeight", "color")), ("gap", ("rowGap",))):
+            for prop in props:
+                self.assertEqual(phone[part][prop], wide[part][prop], f"{part}.{prop}")
+        self.assertEqual(phone["fav"], wide["fav"])
+
+    def test_the_order_sits_on_tin_moi_and_reorders_only_that_list(self):
+        for key in ("375", "1440"):
+            proof = rendered()["runs"][key]["sortProof"]
+            before, after = proof["before"], proof["after"]
+            self.assertEqual(before["place"], "band-head", key)
+            self.assertEqual((before["pressed"], after["pressed"]), ("worth", "new"), key)
+            self.assertEqual(after["stored"], '"new"', key)
+            self.assertEqual((before["lead"], before["top"]), (after["lead"], after["top"]), f"{key}: the first screen stays")
+            for b in before["buttons"]:
+                self.assertGreaterEqual(b["h"], 44, key)
+            self.assertLessEqual(proof["shiftAfterTap"], 0.1, key)
+            self.assertEqual(len(after["news"]), len(before["news"]), key)
+        self.assertIsNone(rendered()["runs"]["1440"]["top"][0]["pic"])
 
     def test_tablet_and_desktop_keep_their_bento_cards(self):
         for key in ("1440", "2000"):

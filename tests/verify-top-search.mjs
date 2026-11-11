@@ -66,7 +66,7 @@ const MEASURE = () => {
   const corners = ['#top-now', '#tc-open', '.tool-launcher-button'].map(q => r(document.querySelector(q))).filter(b => b && b.height > 0);
   // The panel and a card (their fills), the order control's track and its chosen side.
   const bg = el => el ? getComputedStyle(el).backgroundColor : null;
-  const sw = document.querySelector('.msn-head .sort-switch'), thumb = sw && sw.querySelector('.tab-pill');
+  const sw = document.querySelector('#sort-switch'), thumb = sw && sw.querySelector('.tab-pill');
   const pb = thumb && thumb.getBoundingClientRect();
   const surfaces = { panel: bg(document.querySelector('#top')), card: bg(document.querySelector('#top-list')),
     track: bg(sw), pill: thumb ? { bg: bg(thumb), opacity: getComputedStyle(thumb).opacity, shadow: getComputedStyle(thumb).boxShadow,

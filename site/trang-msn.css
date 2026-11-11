@@ -99,16 +99,18 @@
   height: var(--msn-tab-line); border-radius: var(--msn-tab-line); background: var(--color-accent-fill);
 }
 .head-actions { display: flex; align-items: center; gap: var(--space-8); margin-left: auto; flex: none; }
-.head-actions .sort-switch { margin: 0; }
 /* "Đáng đọc nhất / Mới nhất": the segmented control of "Giao diện" in Tùy chỉnh (below, .tc-seg shares its track and
-   its chosen side), so the chosen order shows as a raised pill on a grey track (captain, 10/11 19:3x). The header row's
-   pill inset is not defined here, so the old track (.sort-switch::before) never drew. */
-.msn-head .sort-switch { --tab-pill-inset: 0px; --header-pill-inset: 0px; gap: var(--msn-tight); }
-.msn-head .sort-switch::before { display: none; }
-.msn-head .sort-btn { padding: 0 var(--space-12); border-radius: var(--seg-thumb-r); }
-.msn-head .sort-btn::before { border-radius: var(--seg-thumb-r); }
-.msn-head .sort-btn[aria-pressed="true"] { --header-control-bg: var(--color-seg-thumb); }
-.msn-head .has-pill .sort-btn[aria-pressed="true"] { --header-control-bg: transparent; }
+   its chosen side), so the chosen order shows as a raised pill on a grey track (captain, 10/11 19:3x). It sits on the
+   heading of the list it orders, "Tin mới" (captain, 11/11 12:3x: "dời đi"): the band heading's row (.band-head) holds
+   the title on the left and the control on the right. Its pill inset is not defined here, so the old track never drew. */
+.band-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); margin: var(--space-4) 0 var(--space-12) var(--space-4); }
+.band-head > .band-title { margin: 0; min-width: 0; }
+.band-head .sort-switch { --tab-pill-inset: 0px; --header-pill-inset: 0px; gap: var(--msn-tight); }
+.band-head .sort-switch::before { display: none; }
+.band-head .sort-btn { padding: 0 var(--space-12); border-radius: var(--seg-thumb-r); }
+.band-head .sort-btn::before { border-radius: var(--seg-thumb-r); }
+.band-head .sort-btn[aria-pressed="true"] { --header-control-bg: var(--color-seg-thumb); }
+.band-head .has-pill .sort-btn[aria-pressed="true"] { --header-control-bg: transparent; }
 .msn-head .ed-link {
   --header-pill-inset: 0px; --header-control-bg: var(--color-accent-fill); gap: var(--space-6); min-height: var(--btn-h); padding: 0 var(--space-16);
   font-size: var(--text-small); font-weight: var(--weight-bold); transition: transform var(--duration-150) var(--ease-press);
@@ -919,14 +921,13 @@
      drops the morning edition and the search keeps its field (results show as the reader types, the keyboard has its
      own search key). The footer keeps "Nguồn tin": the dock gave that place to the events (owner, 09/11). */
   .msn-head .ed-link, .msn-top .ns-go { display: none; }
-  /* Both orders stay in sight beside the logo (captain, 11/11: "Trên Mobile chưa có nút mới nhất ... làm gọn gàng"):
-     the same grey track and raised side as the wide head row, "Đáng đọc" without " nhất" so the pair fits a 320 px
-     screen. The theme gives up its place here: "Tùy chỉnh" in the row above carries it (Sáng / Tối / Theo máy).
-     Two equal sides in a track of a set width (in em, so it grows with the reader's text size): the site font arriving
-     after the first paint changes no edge, so nothing in the row moves (tests/verify-front-lead.mjs counts shifts). */
-  .msn-head .theme-btn, .msn-head .sort-label-tail { display: none; }
-  .msn-head .sort-switch { display: grid; grid-template-columns: 1fr 1fr; width: 12em; font-size: var(--text-meta); }
-  .msn-head .sort-btn { min-width: 0; padding: 0 var(--space-4); font-size: inherit; }
+  /* The order on "Tin mới"'s heading: both sides in sight (captain, 11/11: "Trên Mobile chưa có nút mới nhất"), "Đáng
+     đọc" without " nhất" so the heading and the pair fit a 320 px screen. Two equal sides in a track of a set width (in
+     em, so it grows with the reader's text size): the site font arriving changes no edge. The header row is the logo,
+     the theme and the tabs again. */
+  .band-head .sort-label-tail { display: none; }
+  .band-head .sort-switch { display: grid; grid-template-columns: 1fr 1fr; width: 12em; font-size: var(--text-meta); }
+  .band-head .sort-btn { min-width: 0; padding: 0 var(--space-4); font-size: inherit; }
 }
 @media (max-width: 699px) {
   :root { --msn-gap: var(--space-8); --msn-cols: 2; }
@@ -1033,9 +1034,9 @@
    right, the time under both; no dek, no border, no counter. A double story and "Đáng chú ý" keep a full-width picture
    above the headline, and "Chuyện lớn" becomes four cards led by their rank. Tokens: --story-card-* in tokens.css. */
 @media (max-width: 767px) {
-  :root { --bento-cols: 1; --band-gap: var(--space-32); --msn-card-r: var(--story-card-r); }
+  :root { --bento-cols: 1; --band-gap: var(--space-32); }
   /* The panel becomes the page under the search: full width, rounded only where it rises, so the cards own the edges. */
-  .feed-main.front.msn-panel { margin: 0 0 var(--space-32); padding: var(--space-12); border-radius: var(--story-card-r) var(--story-card-r) 0 0; }
+  .feed-main.front.msn-panel { margin: 0 0 var(--space-32); padding: var(--space-12); border-radius: var(--msn-panel-r) var(--msn-panel-r) 0 0; }
   .band-cells { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; gap: var(--story-card-gap); }
   .band-cells > *, .band-cells > .msn-lead, .band-cells > .nc-wide, .band-cells > .tile-fresh { grid-column: 1 / -1; }
   .band > .band-title { margin: 0 0 var(--space-12) var(--space-4); font-size: var(--text-tile); letter-spacing: -0.02em; }
@@ -1055,13 +1056,12 @@
   }
   .band .nc :is(.nc-body, .nc-meta) { display: contents; }
   .band .nc .st-mark { grid-area: mark; align-self: center; }
-  .band .nc .nc-who { grid-area: who; align-self: center; gap: var(--space-8); font-size: var(--text-meta); }
+  .band .nc .nc-who { grid-area: who; align-self: center; }
   .band .nc .nc-who .nc-fav { display: inline-grid; }
   .band .nc .nc-who .nc-fav .av { width: var(--msn-fav); height: var(--msn-fav); }
-  .band .nc .nc-src { font-weight: var(--weight-medium); color: var(--color-ink-3); }
-  .band .nc .nc-title { grid-area: title; align-self: start; font-size: var(--text-title); line-height: 1.32; letter-spacing: -0.02em; -webkit-line-clamp: 4; }
-  .band .nc .nc-when { grid-area: when; margin-top: var(--space-8); font-size: var(--text-meta); font-weight: var(--weight-regular); }
-  .band .nc .nc-meta time { flex-basis: auto; font-weight: inherit; }
+  .band .nc .nc-title { grid-area: title; align-self: start; font-size: var(--story-card-title); line-height: 1.35; -webkit-line-clamp: 4; }
+  .band .nc .nc-when { grid-area: when; margin-top: var(--space-8); }
+  .band .nc.nc .nc-meta time { flex-basis: auto; font-weight: inherit; }   /* the desktop card's time: no phone-only weight */
   .band .nc .nc-sum { display: none; }
   .band .nc .nc-photo {
     grid-area: pic; align-self: start; width: var(--story-card-pic); height: var(--story-card-pic);
@@ -1074,7 +1074,7 @@
   }
   .band .nc:is(.nc-wide, .nc-big) .nc-photo { width: auto; height: auto; aspect-ratio: 16 / 9; margin: 0 0 var(--space-4); }
   .band .nc:is(.nc-wide, .nc-big) .nc-kicker { grid-area: kick; }
-  .band .nc:is(.nc-wide, .nc-big) .nc-title { font-size: var(--text-tile); line-height: 1.28; }
+  .band .nc:is(.nc-wide, .nc-big) .nc-title { font-size: var(--story-card-title-big); line-height: 1.3; }
   .band .nc-photo .ai-badge { right: var(--space-4); bottom: var(--space-4); max-width: calc(100% - var(--space-8)); }
   /* "Chuyện lớn": the list's frame goes, each story becomes a card led by its rank in the number scale. */
   .band .msn-toplist { padding: 0; overflow: visible; background: none; box-shadow: none; border-radius: 0; }
@@ -1098,10 +1098,10 @@
     font-size: var(--story-card-rank); line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums;
   }
   .band .msn-toplist .st-mark { grid-area: mark; align-self: center; }
-  .band .msn-toplist .top-src { grid-area: who; align-self: center; font-size: var(--text-meta); font-weight: var(--weight-medium); color: var(--color-ink-3); }
+  .band .msn-toplist .top-src { grid-area: who; align-self: center; font-size: var(--text-micro); font-weight: var(--weight-semibold); color: var(--color-ink-2); }
   .band .msn-toplist .top-who > span[aria-hidden] { display: none; }
-  .band .msn-toplist .top-title { grid-area: title; font-size: var(--text-title); line-height: 1.32; font-weight: var(--weight-bold); letter-spacing: -0.02em; -webkit-line-clamp: 4; }
-  .band .msn-toplist time { grid-area: when; margin-top: var(--space-8); font-size: var(--text-meta); color: var(--color-ink-3); }
+  .band .msn-toplist .top-title { grid-area: title; font-size: var(--story-card-title); line-height: 1.35; font-weight: var(--weight-bold); letter-spacing: -0.015em; -webkit-line-clamp: 4; }
+  .band .msn-toplist time { grid-area: when; margin-top: var(--space-8); font-size: var(--text-micro); color: var(--color-ink-3); }
   .band .msn-toplist li:has(.story-link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
   .band-lab .band-grid { grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
   .band-lab .band-grid > .tile { overflow: visible; }
@@ -1216,9 +1216,9 @@
 .tc-switch:checked::before { transform: translateX(calc(var(--tc-switch-w) - var(--tc-switch-h))); }
 .tc-switch:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
 /* The segmented control, one look wherever a choice of a few sides is shown: "Giao diện" here, the order in the
-   panel's header row (.msn-head .sort-switch). A grey track; the chosen side a raised pill. */
-.tc-seg, .msn-head .sort-switch { padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }
-.tc-seg label:has(input:checked), .msn-head .sort-switch .tab-pill {
+   heading of "Tin mới" (.band-head .sort-switch). A grey track; the chosen side a raised pill. */
+.tc-seg, .band-head .sort-switch { padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }
+.tc-seg label:has(input:checked), .band-head .sort-switch .tab-pill {
   background: var(--color-seg-thumb); box-shadow: var(--msn-shadow-rest); border-radius: var(--seg-thumb-r);
 }
 .tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); }

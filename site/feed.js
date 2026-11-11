@@ -2003,12 +2003,20 @@ function renderNewsBands() {
   renderOtherBand();
   hydrateHF(box); observeSkips(); observeCardMotion(box); hydrateLoadedImages(box);
 }
-const bandHTML = (id, title, body) => `<section class="band band-${id}" id="band-${id}" aria-labelledby="band-${id}-h"><h2 class="band-title" id="band-${id}-h">${title}</h2>${body}</section>`;
+/* aside: a control that belongs to the band's own list, drawn on the heading's row ("Tin mới" carries the order). */
+const bandHTML = (id, title, body, aside = '') => {
+  const h = `<h2 class="band-title" id="band-${id}-h">${title}</h2>`;
+  return `<section class="band band-${id}" id="band-${id}" aria-labelledby="band-${id}-h">${aside ? `<div class="band-head">${h}${aside}</div>` : h}${body}</section>`;
+};
+/* The order control lives on "Tin mới", the list it orders, while the front page is drawn, and waits hidden in
+   #sort-home otherwise; parking it before every redraw keeps the one element (and its listeners) alive. */
+const parkSortSwitch = () => { const s = $('#sort-switch'), home = $('#sort-home'); if (s && home && s.parentElement !== home) home.append(s); };
+const placeSortSwitch = grid => { const slot = grid.querySelector('[data-slot="sort"]'), s = $('#sort-switch'); if (slot && s) slot.replaceWith(s); };
 function frontHTML() {
   const { notable } = FRONT;
   return bandHTML('today', 'Hôm nay', `<div class="band-cells">${leadHTML(PICKLIST)}${freshTileHTML()}<i data-slot="wx"></i></div>`)
     + bandHTML('focus', 'Điểm nhấn', `<div class="band-cells">${topListHTML(FRONT_TOP)}${notable ? msnCard(notable, 'wide', true) : ''}${renderNext()}<i data-slot="cal"></i></div>`)
-    + bandHTML('news', 'Tin mới', '<div class="band-cells" id="news-grid"></div>')
+    + bandHTML('news', 'Tin mới', '<div class="band-cells" id="news-grid"></div>', '<i data-slot="sort"></i>')
     + renderLab()
     + bandHTML('more', 'Tin khác', '<div class="more-box" id="more-box"><div class="band-cells" id="more-grid"></div></div><p class="sr" id="more-status" role="status" aria-live="polite"></p>');
 }
@@ -2504,7 +2512,9 @@ function renderFeed() {
     // The front page's five bands (buildFront, frontHTML); its two story bands follow the column count.
     seq = []; pos = 0; shownCards = 0; totalCards = 0;
     FRONT = buildFront();
+    parkSortSwitch();
     grid.innerHTML = frontHTML();
+    placeSortSwitch(grid);
     adoptEarlyLead(grid, early);
     $('#feed-empty').hidden = true;
     renderNewsBands();
@@ -2520,6 +2530,7 @@ function renderFeed() {
     // The weather and the calendar are the home's furniture; a reader who opened "Mã và mô hình" came for repositories
     // and models (owner, 09/11: "QA các thành phần giao diện có nên hiển thị ở đó hay không"), so that view leaves them
     // out, and so does "Sự kiện", whose page is the approved "Ba thì" alone (11/11).
+    parkSortSwitch();
     grid.innerHTML = (code || filter === 'sec:sap-toi' ? '' : FIXED_SLOTS) + chunk.html;
     placeChunk(grid, { html: '', days: chunk.days });
   }

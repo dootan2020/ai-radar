@@ -85,12 +85,26 @@ const MEASURE = () => {
       titleBox: part(li, '.top-title'), src: part(li, '.top-src'), time: part(li, 'time'), pic: part(li, '.top-pic'), hasPhoto: !!li.querySelector('.top-pic') };
   });
   const panel = document.querySelector('.feed-main.front.msn-panel');
+  // One ordinary story card's computed look, to compare a phone's card with the desktop's.
+  const one = [...document.querySelectorAll('#band-news .nc.has-photo:not(.nc-wide):not(.nc-big)')].find(shown);
+  const cs = (el, ...props) => el ? Object.fromEntries(props.map(p => [p, getComputedStyle(el)[p]])) : null;
+  const look = one && {
+    card: cs(one, 'borderRadius', 'boxShadow', 'backgroundColor', 'paddingTop', 'paddingLeft'),
+    body: cs(one.querySelector('.nc-body'), 'display', 'paddingTop', 'paddingLeft'),
+    photo: cs(one.querySelector('.nc-photo'), 'borderRadius'),
+    title: cs(one.querySelector('.nc-title'), 'fontSize', 'fontWeight', 'lineHeight', 'letterSpacing', 'color'),
+    src: cs(one.querySelector('.nc-src'), 'fontSize', 'fontWeight', 'color'),
+    fav: (el => el && Math.round(el.getBoundingClientRect().width))(one.querySelector('.nc-fav .av')),
+    time: cs(one.querySelector('.nc-meta time'), 'fontSize', 'fontWeight', 'color'),
+    gap: cs(one.parentElement, 'rowGap', 'columnGap'),
+  };
+  const sortBox = (el => el && shown(el) ? { ...box(el), parent: el.parentElement.className, band: el.closest('.band')?.id || null } : null)(document.querySelector('#sort-switch'));
   const sections = grid ? [...grid.children].filter(shown).map(el => ({ tag: el.tagName.toLowerCase(), cls: String(el.className).slice(0, 60), id: el.id || null, ...box(el) })) : [];
   return {
     width: innerWidth, sideways: document.scrollingElement.scrollWidth > innerWidth, scrollWidth: document.scrollingElement.scrollWidth,
     height: document.scrollingElement.scrollHeight, canvas: getComputedStyle(document.body).backgroundColor,
     small: small.slice(0, 20), smallCount: small.length, targets: targets.slice(0, 20), targetCount: targets.length,
-    sections: sections.slice(0, 30), cards, top, screen: innerHeight,
+    sections: sections.slice(0, 30), cards, top, screen: innerHeight, look, sortBox,
     panel: panel && { ...box(panel), radius: getComputedStyle(panel).borderRadius, pad: getComputedStyle(panel).paddingLeft },
     countdown: (el => el && { text: el.textContent.trim(), ...box(el), font: getComputedStyle(el).fontSize, color: getComputedStyle(el).color, opacity: getComputedStyle(el).opacity })(document.querySelector('#feed-grid .ev-n')),
     shift: Math.round((window.__shift || 0) * 1000) / 1000,
@@ -149,6 +163,43 @@ try {
     const page = await open(ctx, width, theme, kind === 'two' ? 2 : 1);
     const key = `${width}${theme === 'dark' ? '-toi' : ''}`;
     result.runs[key] = await page.evaluate(MEASURE);
+    if (key === '375' || key === '1440') {
+      // The order control on "Tin mới": what the list and the first screen hold before and after "Mới nhất".
+      const LIST = () => ({
+        news: [...document.querySelectorAll('#news-grid .nc')].slice(0, 6).map(el => ({ t: el.querySelector('.nc-title')?.textContent.trim().slice(0, 50), at: el.querySelector('time')?.getAttribute('datetime') })),
+        lead: document.querySelector('.slide.is-active .slide-title')?.textContent.trim().slice(0, 50) || null,
+        top: [...document.querySelectorAll('#top-list .top-title')].map(a => a.textContent.trim().slice(0, 30)),
+        pressed: document.querySelector('#sort-switch .sort-btn[aria-pressed="true"]')?.dataset.sort,
+        stored: (() => { try { return localStorage.getItem('air2:sort'); } catch { return null; } })(),
+        place: document.querySelector('#sort-switch')?.parentElement?.className || null,
+        buttons: [...document.querySelectorAll('#sort-switch .sort-btn')].map(b => { const r = b.getBoundingClientRect(); return { w: Math.round(r.width), h: Math.round(r.height) }; }),
+      });
+      const before = await page.evaluate(LIST);
+      await page.evaluate(() => document.querySelector('#band-news').scrollIntoView());
+      const btn = await page.$('#sort-switch .sort-btn[data-sort="new"]');
+      if (width < 768) await btn.tap(); else await btn.click();
+      await wait(900);
+      const after = await page.evaluate(LIST);
+      await page.evaluate(() => document.querySelector('#band-news').scrollIntoView());
+      const shift = await page.evaluate(() => Math.round((window.__shift || 0) * 1000) / 1000);
+      result.runs[key].sortProof = { before, after, shiftAfterTap: shift };
+      if (out && width < 768) await page.screenshot({ path: path.join(out, `${tag}${key}-tin-moi-moi-nhat.png`) });
+      await page.evaluate(() => { localStorage.removeItem('air2:sort'); });
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      await page.waitForFunction(() => document.querySelector('#top')?.getAttribute('aria-busy') !== 'true' && document.querySelector('#feed-grid > *'), { timeout: 30000 });
+      await wait(1200);
+      if (out) {
+        // One ordinary story card, for a side-by-side of the desktop and phone card.
+        const card = await page.$('#band-news .nc.has-photo:not(.nc-wide):not(.nc-big)');
+        if (card) { await card.scrollIntoView(); await wait(600); await card.screenshot({ path: path.join(out, `${tag}the-${key}.png`) }); await page.evaluate(() => scrollTo(0, 0)); await wait(600); }
+      }
+      if (out && width < 768) {
+        await page.evaluate(() => document.querySelector('#band-news').scrollIntoView());
+        await wait(600);
+        await page.screenshot({ path: path.join(out, `${tag}${key}-tin-moi.png`) });
+        await page.evaluate(() => scrollTo(0, 0));
+      }
+    }
     if (out) {
       const file = path.join(out, `${tag}${key}.png`);
       if (kind === 'full') {
