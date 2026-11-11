@@ -59,6 +59,10 @@ def adapt_html(html):
     html = replace_pattern_once(html, r'<meta http-equiv="Content-Security-Policy"[^>]*>\n', '')
     html = replace_pattern_once(html, r"<script>var d = document\.documentElement\.dataset;.*?</script>\n", '<script src="theme.js"></script>\n')
     html = replace_pattern_once(html, r'\n<!-- The stream player \(trinh-phat\.js\).*?</dialog>\n', '', re.S)
+    # The extension ships its files together, so it carries no asset versions (radar/front_lead.py stamp_assets): no
+    # import map (an inline script, which MV3 forbids) and plain file names, even when a local build stamped the page.
+    html = replace_pattern_once(html, r'<!-- Every script and stylesheet below is named with \?v=.*?<!-- /asset versions -->\n', '', re.S)
+    html = re.sub(r'((?:src|href)="[\w.-]+\.(?:js|css))\?v=[0-9a-f]*"', r'\1"', html)
     # The new tab draws from its own saved snapshot, so it carries no lead a site build baked in (radar/front_lead.py):
     # no picture preload, and the plain placeholder in the lead's place.
     html = replace_pattern_once(html, r'<!-- lead picture: .*?<!-- /lead picture -->\n', '', re.S)

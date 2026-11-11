@@ -17,6 +17,8 @@ snapshot and checks both pick the same story.
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import unquote_to_bytes, urlsplit
+import base64
+import hashlib
 import json
 import re
 import time
@@ -267,6 +269,64 @@ def render_index(text, lead):
     return _between(_between(text, HEAD_OPEN, HEAD_CLOSE, head_html(image)), BODY_OPEN, BODY_CLOSE, body_html(story, image))
 
 
+# Asset versions. The host lets a browser keep /feed.js and the stylesheets for hours (cache-control max-age=14400)
+# while it asks for / every time, so after a deploy a phone could run the new page with the old scripts (captain,
+# 11/11: the "Sự kiện" page did not show on his phone the morning after it shipped). Every script and stylesheet the
+# page names carries ?v=<a hash of the file>, and an import map gives the modules those scripts import, and the
+# stylesheets feed.js asks for (import.meta.resolve), the same versions: a changed file has a new address, an unchanged
+# one keeps its cache. The import map is an inline script, so the page's policy allows it by its own hash.
+ASSETS_OPEN = "<!-- asset versions: the build writes the import map that versions every module here (radar/front_lead.py) -->\n"
+ASSETS_CLOSE = "<!-- /asset versions -->\n"
+VERSION_LEN = 12
+_ASSET_REF = re.compile(r'(<(?:script|link)\b[^>]*?\b(?:src|href)=")([A-Za-z0-9_-][A-Za-z0-9_.-]*\.(?:js|css))(?:\?v=[0-9a-f]*)?(")')
+_SCRIPT_SRC = re.compile(r"(script-src 'self')((?: 'sha256-[A-Za-z0-9+/=]+')*)")
+
+
+def asset_version(path):
+    """The first hex digits of the file's SHA-256: the version its address carries."""
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()[:VERSION_LEN]
+
+
+def csp_hash(text):
+    return "'sha256-" + base64.b64encode(hashlib.sha256(text.encode("utf-8")).digest()).decode("ascii") + "'"
+
+
+def import_map(site):
+    """The import map for the site's top-level scripts and stylesheets: ./name -> ./name?v=<version>."""
+    files = sorted(p for p in Path(site).iterdir() if p.is_file() and p.suffix in (".js", ".css"))
+    return json.dumps({"imports": {f"./{p.name}": f"./{p.name}?v={asset_version(p)}" for p in files}},
+                      separators=(",", ":"), ensure_ascii=False)
+
+
+def stamp_assets(text, site):
+    """index.html with every local script and stylesheet reference versioned by its file's content, and, between the
+    asset markers, the import map that versions what those modules import, allowed by its hash in the page's policy.
+    Running it again on its own output changes nothing; a file that is not there keeps its plain address."""
+    site = Path(site)
+
+    def versioned(m):
+        path = site / m.group(2)
+        if not path.is_file():
+            return m.group(1) + m.group(2) + m.group(3)
+        return f"{m.group(1)}{m.group(2)}?v={asset_version(path)}{m.group(3)}"
+
+    start, end = text.find(ASSETS_OPEN), text.find(ASSETS_CLOSE)
+    if start < 0 or end < start:
+        return _ASSET_REF.sub(versioned, text)
+    old = re.search(r'<script type="importmap">(.*?)</script>', text[start:end], re.S)
+    mapping = import_map(site)
+    block = f'<script type="importmap">{mapping}</script>\n'
+    text = text[:start + len(ASSETS_OPEN)] + block + text[end:]
+    stale = csp_hash(old.group(1)) if old else None
+
+    def policy(m):
+        hashes = [h for h in m.group(2).split() if h and h != stale]
+        return m.group(1) + "".join(" " + h for h in hashes + [csp_hash(mapping)] if h)
+
+    text = _SCRIPT_SRC.sub(policy, text, count=1)
+    return _ASSET_REF.sub(versioned, text)
+
+
 def load_picks(path):
     try:
         picks = json.loads(Path(path).read_text(encoding="utf-8")).get("picks")
@@ -285,7 +345,7 @@ def update_index_lead(index_path, page, picks_path=None, now_ms=None):
         return None
     picks = load_picks(picks_path or index_path.parent / "editor-picks.json")
     lead = lead_story(page, picks, now_ms)
-    new_text = render_index(text, lead)
+    new_text = stamp_assets(render_index(text, lead), index_path.parent)
     if new_text != text:
         index_path.write_text(new_text, encoding="utf-8", newline="\n")
     return lead[0]["id"] if lead else None
@@ -295,6 +355,6 @@ def reset_index_lead(index_path):
     """index.html with the plain placeholder and no lead preload (the build's fallback when writing the lead failed)."""
     index_path = Path(index_path)
     text = index_path.read_text(encoding="utf-8")
-    new_text = render_index(text, None)
+    new_text = stamp_assets(render_index(text, None), index_path.parent)
     if new_text != text:
         index_path.write_text(new_text, encoding="utf-8", newline="\n")

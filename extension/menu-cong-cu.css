@@ -49,8 +49,6 @@
 .feed-bar.is-stacked .feed-filters{flex-wrap:nowrap;overflow-x:auto}
 .filter-chip,.sort-btn,.ed-link,.tc-link{flex:none;min-height:44px}
 .sort-switch{flex:none;margin:0;gap:0;padding:0}
-.sort-label-short{display:none}
-.sort-btn-compact{display:none}
 .ed-link{gap:var(--space-4)}
 .ed-link .i{width:16px;height:16px;flex:none}
 .theme-btn{flex:none}
@@ -105,9 +103,6 @@
   .feed-bar-in .doc-spacer{display:none}
   .feed-bar-in .feed-filters{min-width:0;padding:var(--space-4) var(--space-24) var(--space-4) 0;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 20px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 20px),transparent)}
   .feed-bar-in .sort-switch{flex:none}
-  .sort-btn:not(.sort-btn-compact){display:none}
-  .sort-btn-compact{display:inline-flex;min-width:90px;padding-inline:var(--space-8);font-size:var(--text-small)}
-  .sort-switch .tab-pill{display:none}
   .feed-bar-in>.ed-link,.feed-bar-in>.tc-link,.bar>.ed-link,.bar>.tc-link{display:none}
   .feed-bar-in>.theme-btn{grid-column:2;grid-row:1;display:grid;min-width:44px;min-height:44px}
   .feed-bar-in>.tool-launcher{grid-column:3;grid-row:1;margin:0}

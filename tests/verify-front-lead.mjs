@@ -98,7 +98,9 @@ try {
         top: img ? Math.round(img.getBoundingClientRect().top) : null, left: img ? Math.round(img.getBoundingClientRect().left) : null,
         width: img ? Math.round(img.getBoundingClientRect().width) : null,
         skeleton: !!document.getElementById('feed-skeleton'), shift: Math.round(window.__shift * 1000) / 1000,
-        lateStyles: ['arena.css', 'story.css'].map(h => !!document.querySelector(`link[rel="stylesheet"][href="${h}"]`)) };
+        // feed.js names them by the import map's address (index.html built with asset versions), or the plain file.
+        lateStyles: ['arena.css', 'story.css'].map(h => [...document.querySelectorAll('link[rel="stylesheet"]')]
+          .some(l => new URL(l.href).pathname === `/${h}`)) };
     });
     if (out) await page.screenshot({ path: path.join(out, `drawn-${w}.png`) });
     const leadUrl = await page.evaluate(() => { const i = document.querySelector('#lead .slide.is-active img'); return i ? i.currentSrc : null; });
