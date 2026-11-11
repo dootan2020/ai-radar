@@ -92,7 +92,7 @@ class BuiltPage(unittest.TestCase):
         first_module = min(self.html.index('type="module"'), self.html.index('rel="modulepreload"'))
         self.assertLess(block.start(), first_module)
         feed = (SITE / "feed.js").read_text(encoding="utf-8")
-        self.assertIn("import.meta.resolve(`./${name}`)", feed)
+        self.assertIn("""document.querySelector('script[type="importmap"]').textContent).imports[`./${name}`]""", feed)
         self.assertIn("link.href = versioned(href);", feed)
 
     def test_the_policy_allows_each_inline_script_by_hash_and_nothing_more(self):

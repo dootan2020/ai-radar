@@ -273,7 +273,7 @@ def render_index(text, lead):
 # while it asks for / every time, so after a deploy a phone could run the new page with the old scripts (captain,
 # 11/11: the "Sự kiện" page did not show on his phone the morning after it shipped). Every script and stylesheet the
 # page names carries ?v=<a hash of the file>, and an import map gives the modules those scripts import, and the
-# stylesheets feed.js asks for (import.meta.resolve), the same versions: a changed file has a new address, an unchanged
+# stylesheets feed.js asks for (it reads the map), the same versions: a changed file has a new address, an unchanged
 # one keeps its cache. The import map is an inline script, so the page's policy allows it by its own hash.
 ASSETS_OPEN = "<!-- asset versions: the build writes the import map that versions every module here (radar/front_lead.py) -->\n"
 ASSETS_CLOSE = "<!-- /asset versions -->\n"

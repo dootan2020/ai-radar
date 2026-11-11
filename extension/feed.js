@@ -74,8 +74,11 @@ const CSSq = s => (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace
 const LATE_STYLES = ['arena.css', 'story.css'];
 let arenaStyles = null;       // while arena.css is on its way: the promise of its arrival
 /* The address the page's import map gives a file (index.html carries one per deploy, radar/front_lead.py), so a phone
-   never keeps last deploy's stylesheet; without a map (the new tab) it is the plain file beside this module. */
-const versioned = name => { try { return import.meta.resolve(`./${name}`); } catch { return name; } };
+   never keeps last deploy's stylesheet; without a map (the new tab) it is the plain file. */
+const versioned = name => {
+  try { return JSON.parse(document.querySelector('script[type="importmap"]').textContent).imports[`./${name}`] || name; }
+  catch { return name; }
+};
 function loadLateStyles() {
   for (const href of LATE_STYLES) {
     let link = document.querySelector(`link[rel="stylesheet"][href="${href}"]`);

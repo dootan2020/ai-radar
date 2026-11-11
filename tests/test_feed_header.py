@@ -45,7 +45,7 @@ class FeedHeaderLayoutTests(unittest.TestCase):
             with self.subTest(page=page.name):
                 switch = html.split('id="sort-switch"', 1)[1].split("</div>", 1)[0]
                 self.assertEqual(re.findall(r'data-sort="(\w+)"', switch), ["worth", "new"])
-                self.assertIn('Đáng đọc<span class="sort-label-tail">&nbsp;nhất</span></button>', switch)
+                self.assertIn('<span>Đáng đọc</span><span class="sort-label-tail">&nbsp;nhất</span></button>', switch)
                 self.assertIn('>Mới nhất</button>', switch)
                 self.assertNotIn("toggle", switch)
         feed = (ROOT / "site" / "feed.js").read_text(encoding="utf-8")
