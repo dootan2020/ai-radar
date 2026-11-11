@@ -55,7 +55,7 @@ class Tokens(unittest.TestCase):
             phone = css[css.index("@media (max-width: 767px) {\n  :root { --bento-cols: 1;"):]
             phone = phone[:phone.index("\n}\n")]
             for rule in ('grid-template-areas: "mark who pic" "title title pic" "when when when";',
-                         'grid-template-areas: "num mark who" "num title title" "num when when";'):
+                         'grid-template-areas: "num mark who pic" "num title title pic" "num when when when";'):
                 self.assertIn(rule, phone)
                 self.assertEqual(css.count(rule), 1, rule)
             self.assertEqual(len(re.findall(r"var\(--story-card-", css)), len(re.findall(r"var\(--story-card-", phone)))
@@ -63,6 +63,42 @@ class Tokens(unittest.TestCase):
     def test_a_phone_card_picture_is_asked_for_at_its_size(self):
         for folder in FOLDERS:
             self.assertIn("card: '(max-width: 767px) 112px, (max-width: 1023px) 34vw, 25vw' };", read(folder / "feed.js"))
+
+
+class SourceLogos(unittest.TestCase):
+    """avatars.githubusercontent.com/<login> answers an organisation with GitHub's grey placeholder (11/11: NVIDIA,
+    openai, google, anthropics showed the octocat on every card); github.com/<login>.png follows to the real picture."""
+
+    @unittest.skipUnless(shutil.which("node"), "node is needed to run faces.js")
+    def test_every_github_face_asks_for_the_account_picture(self):
+        for folder in FOLDERS:
+            script = ("const f = await import(process.argv[1]);"
+                      "const out = Object.values(f.GH_IDENT).concat(['mattpocock'])"
+                      ".map(id => /src=\"([^\"]+)\"/.exec(f.avatar({kind: 'gh', id, label: id}, 'xs'))[1]);"
+                      "console.log(JSON.stringify(out));")
+            run = subprocess.run(["node", "--input-type=module", "-e", script, (folder / "faces.js").as_uri()],
+                                 capture_output=True, text=True, timeout=60)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            urls = json.loads(run.stdout)
+            self.assertTrue(urls)
+            for url in urls:
+                self.assertRegex(url, r"^https://github\.com/[\w.%-]+\.png\?size=40$", folder.name)
+
+    def test_no_script_builds_the_placeholder_address(self):
+        for folder in FOLDERS:
+            for js in folder.glob("*.js"):
+                self.assertNotRegex(read(js), r"avatars\.githubusercontent\.com/\$\{", js.name)
+
+    def test_meta_is_the_meta_organisation(self):
+        for folder in FOLDERS:
+            self.assertIn("'meta':'meta'", read(folder / "faces.js"))
+            self.assertNotIn("'facebook'", read(folder / "faces.js"))
+
+    def test_the_morning_edition_admits_the_github_redirect(self):
+        html = read(ROOT / "site" / "ban-tin.html")
+        img = re.search(r"img-src ([^;]+);", html).group(1).split()
+        self.assertIn("https://github.com", img)
+        self.assertIn("https://avatars.githubusercontent.com", img)
 
 
 @unittest.skipUnless(browser_ready(), "Node, Chrome and puppeteer are needed for the rendered cards")
@@ -113,11 +149,22 @@ class RenderedCards(unittest.TestCase):
             top = rendered()["runs"][key]["top"]
             self.assertEqual(len(top), 4, key)
             for li in top:
-                self.assertEqual((li["display"], li["radius"], li["num"]["font"]), ("grid", "24px", "32px"), key)
+                rank = "28px" if key == "320" else "32px"   # a narrow phone steps the rank down to text-feature
+                self.assertEqual((li["display"], li["radius"], li["num"]["font"]), ("grid", "24px", rank), key)
+                self.assertGreaterEqual(li["titleBox"]["w"], 120, f"{key}: room for the ranked headline")
                 self.assertGreaterEqual(li["h"], 44, key)   # the headline's link covers the whole card
                 self.assertLess(li["num"]["x"] + li["num"]["w"], li["titleBox"]["x"], key)
                 self.assertLess(li["src"]["y"], li["titleBox"]["y"], key)
                 self.assertGreaterEqual(li["time"]["y"], li["titleBox"]["y"] + li["titleBox"]["h"], key)
+                if li["hasPhoto"]:
+                    pic = li["pic"]
+                    self.assertEqual(pic["w"], pic["h"], f"{key}: square picture")
+                    self.assertTrue(80 <= pic["w"] <= 112, f"{key}: {pic['w']}")
+                    self.assertGreaterEqual(pic["x"], li["titleBox"]["x"] + li["titleBox"]["w"], key)
+                    self.assertGreaterEqual(li["time"]["y"], pic["y"] + pic["h"], key)
+                else:
+                    self.assertIsNone(li["pic"], key)
+            self.assertTrue(any(li["hasPhoto"] for li in top), f"{key}: the fixture's top stories carry pictures")
 
     def test_the_panel_runs_edge_to_edge_on_a_phone_only(self):
         runs = rendered()["runs"]
@@ -136,6 +183,7 @@ class RenderedCards(unittest.TestCase):
                 self.assertEqual((c["display"], c["radius"]), ("flex", "12px"), f"{key} {c['title']}")
             for li in page["top"]:
                 self.assertEqual((li["display"], li["radius"]), ("flex", "0px"), key)
+                self.assertIsNone(li["pic"], f"{key}: the ranked list keeps its text-only rows")
 
 
 if __name__ == "__main__":

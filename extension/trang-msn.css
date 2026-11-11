@@ -291,6 +291,7 @@
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 .msn-toplist .is-read .top-title { color: var(--color-ink-2); }
+.msn-toplist .top-pic { display: none; }   /* a phone's ranked card shows it (the phone block below) */
 /* The source and the time share a line and the time never breaks; the "Translated" mark moves under them when the line
    is full, and the source gives way (ellipsis) only when it and the time alone overflow. */
 .top-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--msn-tight) var(--space-4); min-width: 0; margin-top: var(--msn-dot); font-size: var(--text-micro); line-height: 1.35; white-space: nowrap; color: var(--color-ink-3); }
@@ -1080,14 +1081,20 @@
   .band .msn-toplist h2 { margin: 0 0 var(--space-12) var(--space-4); font-size: var(--text-body); }
   .band .msn-toplist ol { gap: var(--story-card-gap); overflow: visible; }
   .band .msn-toplist li {
-    flex: none; display: grid; grid-template-columns: auto auto minmax(0, 1fr); grid-template-rows: auto 1fr auto;
-    grid-template-areas: "num mark who" "num title title" "num when when";
+    flex: none; display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; grid-template-rows: auto 1fr auto;
+    grid-template-areas: "num mark who pic" "num title title pic" "num when when when";
     gap: var(--space-8) 0; padding: var(--story-card-pad); border: 0; border-radius: var(--story-card-r);
-    background: var(--color-surface); box-shadow: var(--msn-shadow-rest);
+    background: var(--color-surface); box-shadow: var(--msn-shadow-rest); container-type: inline-size;
   }
+  .band .msn-toplist .top-pic {
+    display: block; position: relative; grid-area: pic; align-self: start; overflow: hidden;
+    width: var(--story-card-pic); height: var(--story-card-pic); margin-inline-start: var(--space-16);
+    border-radius: var(--story-card-pic-r); background: var(--color-fill);
+  }
+  .band .msn-toplist .top-pic .ai-badge { right: var(--space-4); bottom: var(--space-4); max-width: calc(100% - var(--space-8)); }
   .band .msn-toplist :is(.top-text, .top-meta, .top-who) { display: contents; }
   .band .msn-toplist li > b {
-    grid-area: num; align-self: center; min-width: 1.1em; margin-inline-end: var(--space-16);
+    grid-area: num; align-self: center; margin-inline-end: var(--space-12);
     font-size: var(--story-card-rank); line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums;
   }
   .band .msn-toplist .st-mark { grid-area: mark; align-self: center; }
@@ -1101,6 +1108,12 @@
   .band-lab :is(.arena-list, .repo-row, .model-list) { flex: none; overflow: visible; }
   /* A phone's tiles grow with their rows, so a closed band keeps them short: three repositories, four models. */
   .band-lab:not(.is-open) .repo-row > :nth-child(n+4), .band-lab:not(.is-open) .model-list > :nth-child(n+5) { display: none; }
+}
+/* A narrow phone: the rank and a picture leave a ranked headline about 115 px, so the rank steps down the scale and the
+   headline to body size. */
+@media (max-width: 370px) {
+  .band .msn-toplist li > b { font-size: var(--text-feature); }
+  .band .msn-toplist li.has-photo .top-title { font-size: var(--text-body); }
 }
 /* ---------- the day's picture behind the page (owner, 10/11: "còn về ảnh nền thì em làm như edge") ---------- */
 /* From 768 px the day's 3D render fills the window behind the page, as on Edge's new tab, and stays put while the panel

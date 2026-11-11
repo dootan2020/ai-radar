@@ -82,7 +82,7 @@ const MEASURE = () => {
   const top = [...document.querySelectorAll('#feed-grid .band .msn-toplist li')].filter(shown).map(li => {
     const s = getComputedStyle(li), num = li.querySelector(':scope > b');
     return { ...box(li), display: s.display, radius: s.borderRadius, bg: s.backgroundColor, num: num ? { ...box(num), font: getComputedStyle(num).fontSize } : null,
-      titleBox: part(li, '.top-title'), src: part(li, '.top-src'), time: part(li, 'time') };
+      titleBox: part(li, '.top-title'), src: part(li, '.top-src'), time: part(li, 'time'), pic: part(li, '.top-pic'), hasPhoto: li.classList.contains('has-photo') };
   });
   const panel = document.querySelector('.feed-main.front.msn-panel');
   const sections = grid ? [...grid.children].filter(shown).map(el => ({ tag: el.tagName.toLowerCase(), cls: String(el.className).slice(0, 60), id: el.id || null, ...box(el) })) : [];
@@ -110,8 +110,13 @@ async function open(ctx, width, theme, dpr) {
   await page.evaluateOnNewDocument(t => { try { localStorage.setItem('air2:theme', JSON.stringify(t)); } catch {} }, theme);
   await page.evaluateOnNewDocument(EARLY);
   await page.setRequestInterception(true);
-  page.on('request', req => {
+  page.on('request', async req => {
     const u = req.url();
+    // With a live snapshot, the factual covers it names (assets/cover/, built on the server) come from hco.news.
+    if (dataDir && u.startsWith(site + 'assets/cover/')) {
+      try { const r = await fetch('https://hco.news/' + u.slice(site.length)); return req.respond({ status: r.status, contentType: r.headers.get('content-type') || 'image/png', body: Buffer.from(await r.arrayBuffer()) }); }
+      catch { return req.abort(); }
+    }
     const picture = req.resourceType() === 'image' && u.startsWith('https://');
     // Offline (the fixture), every publisher picture is answered with site/og-image.png, so cards keep their pictures.
     if (picture && !dataDir) return req.respond({ status: 200, contentType: 'image/png', body: stand });
