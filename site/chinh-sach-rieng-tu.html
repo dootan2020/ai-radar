@@ -183,7 +183,7 @@
       <ul>
         <li><strong>Thông tin nhận dạng cá nhân (PII):</strong> Không yêu cầu tên, địa chỉ email, số điện thoại hay tài khoản cá nhân.</li>
         <li><strong>Lịch sử duyệt web (Browsing History):</strong> Tiện ích không đọc hoặc theo dõi các tab bạn mở hay trang web bạn ghé thăm.</li>
-        <li><strong>Truy vấn tìm kiếm:</strong> Ô "Tìm trên Google" trên tab mới mở trang kết quả của Google (<code>www.google.com/search</code>) ngay trong tab đó, với từ khóa bạn gõ. Từ khóa đi thẳng từ trình duyệt của bạn tới Google; Halcyon không ghi lại, không lưu và không chuyển tiếp từ khóa tìm kiếm.</li>
+        <li><strong>Truy vấn tìm kiếm:</strong> Ô "Tìm trên web" trên tab mới chuyển từ khóa bạn gõ cho Chrome qua Chrome Search API (<code>chrome.search.query</code>, quyền <code>search</code>), và Chrome tìm bằng công cụ tìm kiếm mặc định bạn đã chọn, ngay trong tab đó. Halcyon không xem, không ghi lại, không lưu và không chuyển tiếp từ khóa tìm kiếm.</li>
         <li><strong>Vị trí địa lý &amp; Thiết bị:</strong> Không thu thập tọa độ GPS hay thông tin nhận dạng phần cứng.</li>
         <li><strong>Dữ liệu tài chính, y tế hoặc giao dịch:</strong> Hoàn toàn không liên quan và không thu thập.</li>
       </ul>
@@ -203,6 +203,7 @@
       <ul>
         <li><strong><code>storage</code>:</strong> Dùng để lưu trữ bộ nhớ đệm tin tức AI và tùy chọn giao diện cục bộ trên máy bạn.</li>
         <li><strong><code>alarms</code>:</strong> Dùng để đặt lịch ngầm mỗi 30 phút đánh thức tiến trình nền làm mới bản tin tin tức, tránh chạy nền liên tục ngốn pin và RAM.</li>
+        <li><strong><code>search</code>:</strong> Chỉ dùng cho ô "Tìm trên web" trên tab mới: khi bạn gửi từ khóa, tiện ích gọi <code>chrome.search.query</code> để Chrome tìm bằng công cụ tìm kiếm mặc định của bạn, ngay trong tab đó. Halcyon không chọn, không đổi và không chuyển hướng nhà cung cấp tìm kiếm.</li>
         <li><strong>Quyền máy chủ (<code>https://radar-ai-vn.pages.dev/*</code>):</strong> Chỉ dùng để tải về dữ liệu tin tức công khai dạng JSON và hình ảnh minh họa bài viết từ máy chủ tĩnh chính thức của Halcyon.</li>
       </ul>
 
@@ -222,7 +223,7 @@
         <li><strong><code>creativecommons.org</code>:</strong> liên kết giấy phép ghi công dữ liệu Arena.</li>
         <li><strong>Máy chủ ảnh của nhà xuất bản:</strong> nhiều ảnh minh họa tin được tải thẳng từ máy chủ của nguồn tin gốc (xem mục 6).</li>
       </ul>
-      <p>Halcyon không đính kèm thông tin cá nhân hoặc lịch sử duyệt web vào các yêu cầu này. Tiện ích không thu thập, tải lên, bán hoặc chia sẻ dữ liệu cá nhân. Từ khóa tìm kiếm được gửi trực tiếp từ trình duyệt của bạn tới Google.</p>
+      <p>Halcyon không đính kèm thông tin cá nhân hoặc lịch sử duyệt web vào các yêu cầu này. Tiện ích không thu thập, tải lên, bán hoặc chia sẻ dữ liệu cá nhân. Từ khóa tìm kiếm do Chrome gửi tới công cụ tìm kiếm mặc định của bạn, không qua Halcyon.</p>
 
       <h2>6. Website hco.news: Máy Chủ, Thống Kê Truy Cập Và Ảnh Minh Họa</h2>
       <ul>
@@ -270,7 +271,7 @@
       <ul>
         <li><strong>Personally Identifiable Information (PII):</strong> No names, email addresses, phone numbers, or account registrations required.</li>
         <li><strong>Browsing History:</strong> The extension does not inspect, read, or log the websites you visit or the tabs you open.</li>
-        <li><strong>Search Queries:</strong> The "Tìm trên Google" (Search Google) field on the new tab page opens Google's results page (<code>www.google.com/search</code>) in that tab with the words you typed. The query goes straight from your browser to Google; we do not inspect, log, store, or forward your queries.</li>
+        <li><strong>Search Queries:</strong> The "Tìm trên web" (Search the web) field on the new tab page hands the words you typed to Chrome through the Chrome Search API (<code>chrome.search.query</code>, the <code>search</code> permission), and Chrome searches with your own default search engine in that tab. We do not see, log, store, or forward your queries.</li>
         <li><strong>Location &amp; Device Data:</strong> No geolocation tracking, no biometric data, and no unique hardware fingerprinting.</li>
         <li><strong>Financial or Health Data:</strong> None collected.</li>
       </ul>
@@ -290,6 +291,7 @@
       <ul>
         <li><strong><code>storage</code>:</strong> Stores the cached news snapshot and theme preferences locally in <code>chrome.storage.local</code>.</li>
         <li><strong><code>alarms</code>:</strong> Schedules a 30-minute background alarm to refresh the news feed without running a persistent background process, conserving memory and battery.</li>
+        <li><strong><code>search</code>:</strong> Used only by the new tab's "Tìm trên web" field: when you submit a query, the extension calls <code>chrome.search.query</code> so Chrome searches with your own default search engine in that tab. Halcyon does not choose, change, or redirect the search provider.</li>
         <li><strong>Host Permission (<code>https://radar-ai-vn.pages.dev/*</code>):</strong> Exclusively fetches static JSON news feeds and story illustration images from Halcyon's official Cloudflare Pages hosting.</li>
       </ul>
 
@@ -309,7 +311,7 @@
         <li><strong><code>creativecommons.org</code>:</strong> attribution license link for Arena data.</li>
         <li><strong>Publishers' image servers:</strong> many story pictures load directly from the original publisher's servers (see section 6).</li>
       </ul>
-      <p>Halcyon does not attach personal information or browsing history to these requests. The extension does not collect, upload, sell, or share personal data. Search terms are sent directly from your browser to Google.</p>
+      <p>Halcyon does not attach personal information or browsing history to these requests. The extension does not collect, upload, sell, or share personal data. Search terms are sent by Chrome to your default search engine, not through Halcyon.</p>
 
       <h2>6. The hco.news Website: Hosting, Visit Statistics, and Pictures</h2>
       <ul>

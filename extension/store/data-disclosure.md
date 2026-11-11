@@ -17,17 +17,18 @@ Halcyon does not collect, upload, sell, or share personal data, browsing history
 
 1. No personal information: the extension does not collect names, email addresses, location, device identifiers, credentials, or browsing history.
 2. Local storage only: the latest news snapshot and its refresh timestamp are kept in chrome.storage.local; theme, reading and saved-story state, cached Hugging Face avatar URLs, and the chosen weather city with a 30-minute forecast are kept in localStorage; the day's background picture is kept in Cache Storage. None of it is uploaded, and it is removed when the extension is uninstalled.
-3. Search: the "Search Google" box opens Google's results page (www.google.com/search) in the same tab with the words typed. The query goes straight from the browser to Google; Halcyon does not log, store, or forward it.
+3. Search: the web search box hands the typed words to Chrome through the Chrome Search API (chrome.search.query), and Chrome sends them to the user's own default search engine in the same tab. Halcyon does not see, log, store, or forward the query.
 4. External services and purpose:
    - radar-ai-vn.pages.dev (Halcyon's Cloudflare Pages site): public news data and pictures.
    - Publishers' image servers (for example platform.theverge.com, techcrunch.com, img.semafor.com): story pictures load directly from the original source.
    - hn.algolia.com (Algolia Hacker News API): live Hacker News stories.
    - huggingface.co, cdn-thumbnails.huggingface.co: daily papers, trending models, avatars, and thumbnails.
-   - avatars.githubusercontent.com, opengraph.githubassets.com: GitHub avatars and article preview images.
+   - github.com, avatars.githubusercontent.com, opengraph.githubassets.com: GitHub avatars and repository owner logos (github.com/<login>.png), and article preview images.
    - i.ytimg.com: video thumbnails.
    - api.open-meteo.com: the weather forecast for the city the reader picks from a fixed list (only that city's coordinates are sent).
    - ssl.gstatic.com: icons on the Google service buttons and in the Google apps menu.
-   - www.google.com, calendar.google.com, other Google apps, creativecommons.org: opened only when the reader clicks them.
+   - The user's default search engine: receives a query only when the user submits the web search box, sent by Chrome, not by Halcyon.
+   - calendar.google.com, other Google apps, creativecommons.org: opened only when the reader clicks them.
 ```
 *(Tiếng Việt: Halcyon không thu thập, tải lên, bán hay chia sẻ dữ liệu cá nhân, lịch sử duyệt web hay dữ liệu đo lường, và tab mới không tải công cụ thống kê nào. Trình duyệt kết nối thẳng tới các dịch vụ trên; mỗi dịch vụ nhận dữ liệu yêu cầu thông thường như địa chỉ IP. Dữ liệu bộ nhớ đệm và tùy chọn nằm trên máy người dùng.)*
 

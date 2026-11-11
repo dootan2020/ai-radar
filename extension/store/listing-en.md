@@ -15,7 +15,7 @@ Halcyon transforms your new tab page into a clean, curated stream of artificial 
 
 KEY FEATURES:
 • Curated AI News Daily: Discover breaking AI stories, breakthroughs, and discussions verified by independent tech sources and research labs over the past 72 hours.
-• Search Google from the new tab: the "Tìm trên Google" box opens Google's own results page directly. Halcyon never intercepts, logs, or modifies your queries.
+• Web search from the new tab: the "Tìm trên web" box searches with your browser's default search engine. Halcyon never intercepts, logs, or modifies your queries.
 • Weather, lunar calendar and Google shortcuts: a forecast for the city you choose, today's lunar date, and one-click links to Gmail, Drive and Calendar.
 • Offline Reading Support: Automatically caches the latest daily news snapshot to local storage so you can read updates even when offline.
 • Model Arena & AI Repositories: Keep track of trending open-source AI repositories and model arena leaderboards.
