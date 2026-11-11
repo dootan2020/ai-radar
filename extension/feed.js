@@ -1582,6 +1582,12 @@ function glideTab(container, activeBtn, { immediate = false } = {}) {
   const x = activeBtn.offsetLeft, y = activeBtn.offsetTop + inset;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  if (container.classList.contains('sections')) {
+    const pad = parseFloat(getComputedStyle(activeBtn).paddingLeft) || 0;
+    glideLine(pill, x + pad, Math.max(0, w - 2 * pad), immediate || reduced);
+    return;
+  }
+
   if (immediate || reduced || !pill.classList.contains('is-active')) {
     pill.style.transition = 'none';
     pill.style.transform = `translate3d(${x}px, ${y}px, 0)`;
@@ -1599,6 +1605,32 @@ function glideTab(container, activeBtn, { immediate = false } = {}) {
   pill.style.transform = `translate3d(${x}px, ${y}px, 0)`;
   pill.style.width = `${w}px`;
   pill.style.height = `${h}px`;
+}
+/* The section tabs' underline glides from the old tab to the new one and takes the new label's width (captain, 11/11
+   12:4x: "cái gạch màu dưới mỗi tab đó di chuyển mượt mà từ tab này sang tab kia"). Only its transform moves, so the
+   glide runs on the compositor even while the new view is being drawn: in flight it is the old line stretched by
+   scaleX, and when it lands it takes its own width at scale 1, so its round ends are never stretched at rest. */
+function glideLine(line, x, w, still) {
+  const from = parseFloat(line.style.width) || 0;
+  line.dataset.to = `${x} ${w}`;
+  if (still || !from || !line.classList.contains('is-active')) {
+    landLine(line);
+    return;
+  }
+  if (!line.dataset.lands) {
+    line.dataset.lands = '1';
+    line.addEventListener('transitionend', e => { if (e.propertyName === 'transform') landLine(line); });
+  }
+  line.style.transform = `translate3d(${x}px, 0, 0) scaleX(${w / from})`;
+}
+function landLine(line) {
+  const [x, w] = (line.dataset.to || '0 0').split(' ').map(Number);
+  line.style.transition = 'none';
+  line.style.width = `${w}px`;
+  line.style.transform = `translate3d(${x}px, 0, 0) scaleX(1)`;
+  line.classList.add('is-active');
+  line.getBoundingClientRect();
+  line.style.transition = '';
 }
 
 /* Which edge of the sideways-scrolling section tabs still hides tabs: trang-msn.css fades that edge. */
@@ -2635,18 +2667,59 @@ function renderFrontMeta() {
 function setFilter(f, fromHash = false) {
   if (!D && f !== 'rankings' && f !== 'all') return;
   filter = f;
-  if (!fromHash) history.replaceState(null, '', location.pathname + location.search + (f === 'rankings' ? '#xep-hang' : ''));
+  // Each view has its own address, and choosing one adds a history entry: Back and Forward walk the tabs the reader
+  // opened and a reload stays on the tab (route() reads it back).
+  if (!fromHash) {
+    const url = location.pathname + location.search + viewHash(f);
+    if (url !== location.pathname + location.search + location.hash) history.pushState(null, '', url);
+  }
   // The saved list and a section reach past the window file: draw them from the complete snapshot, never from the
   // window first (the first screen no longer loads it on its own, whenReaderActs).
   if (!complete && (f === 'saved' || f.startsWith('sec:'))) {
     setLoading(true);
-    loadComplete().then(() => { setLoading(false); if (filter === f) renderFeed(); });
-  } else renderFeed();
+    loadComplete().then(() => { setLoading(false); if (filter === f) { renderFeed(); settleView(); } });
+  } else { renderFeed(); settleView(); }
+  // A reader deep in one view starts the next at the panel's top, at once: a smooth scroll across a view that has just
+  // been replaced would sweep through content that is no longer there.
   const top = $('#top').getBoundingClientRect().top;
-  if (top < 0) window.scrollTo({ top: window.scrollY + top - 8 });
+  if (top < 0) window.scrollTo({ top: window.scrollY + top - 8, behavior: 'instant' });
   const container = $('#feed-filters');
   const active = container ? container.querySelector(`.filter-chip[data-filter="${CSSq(f)}"]`) : null;
   if (container && active) scrollChipIntoView(container, active);
+}
+/* The address of a view; route() reads each one back. The front page has none. */
+function viewHash(f) {
+  if (f === 'rankings') return '#xep-hang';
+  if (f === 'code') return '#repo';
+  if (f === 'saved') return '#da-luu';
+  if (f.startsWith('sec:')) return '#' + f.slice(4);
+  return '';
+}
+/* The new view arrives with a short fade (opacity only, so nothing moves and nothing shifts); the panel, the header,
+   the tabs and the dock stay as they are (captain, 11/11 12:4x: "cố định những thành phần giống nhau ở mỗi tab, chỉ
+   tải lại nội dung"). Under reduced motion trang-msn.css draws no fade. */
+function settleView() {
+  const view = filter === 'rankings' ? $('#arena') : $('#feed-grid');
+  if (!view || RM.matches) return;
+  view.classList.remove('is-arriving');
+  void view.offsetWidth;
+  view.classList.add('is-arriving');
+  const done = e => {
+    if (e.target !== view) return;
+    view.classList.remove('is-arriving');
+    view.removeEventListener('animationend', done);
+  };
+  view.addEventListener('animationend', done);
+}
+/* The window's height that is not panel: the panel's top in the page, its bottom margin and the page's bottom padding.
+   trang-msn.css floors the panel at the window's height less this, so a short view fills the window as a long one
+   does. It changes only when the window or the top row does. */
+function floorPanel() {
+  const panel = $('#top');
+  if (!panel) return;
+  const end = parseFloat(getComputedStyle(panel).marginBottom) || 0, pad = parseFloat(getComputedStyle(document.body).paddingBottom) || 0;
+  const value = `${Math.round(panel.getBoundingClientRect().top + scrollY + end + pad)}px`;
+  if (panel.style.getPropertyValue('--panel-outside') !== value) panel.style.setProperty('--panel-outside', value);
 }
 function renderSortSwitch() {
   $$('.sort-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === sortMode)));
@@ -2978,18 +3051,22 @@ function openSearchFromAddress() {
   return true;
 }
 function route() {
-  if (location.hash === '#xep-hang') { setFilter('rankings', true); return; }
+  // The view already open is left alone: closing a story's window returns to the view's address, and redrawing the
+  // view there would lose the reader's place.
+  if (location.hash === '#xep-hang') { if (filter !== 'rankings') setFilter('rankings', true); return; }
   if (location.hash === '#tim') { openSearchFromAddress(); return; }
   if (!D) return;
   const h = decodeURIComponent(location.hash.slice(1));
-  if (!h || h === 'top') return;                 // the browser scrolls; a filter the reader chose stays
+  if (h === 'top') return;                       // the browser scrolls; a filter the reader chose stays
+  // No address is the front page (Back from a tab returns to it); a story's own address (tin/...) is not a view.
+  if (!h) { if (filter !== 'all' && !/\/tin\/[^/]+\/?$/.test(location.pathname)) setFilter('all', true); return; }
   if (h === 'moi') { goFirstNew(); return; }
   // A retired section's old link (#hom-nay, #nong...) opens the home feed, which now scrolls on through those stories.
   if (RETIRED_VIEWS.has(h)) { history.replaceState(history.state, '', location.pathname + location.search); if (filter !== 'all') setFilter('all'); return; }
-  if (h === 'repo') { setFilter('code', true); return; }
-  if (h === 'da-luu') { if (saved.length) setFilter('saved', true); return; }
+  if (h === 'repo') { if (filter !== 'code') setFilter('code', true); return; }
+  if (h === 'da-luu') { if (saved.length && filter !== 'saved') setFilter('saved', true); return; }
   if (h === 'nguon') { location.replace('https://radar-ai-vn.pages.dev/nguon.html'); return; }
-  if (SECTIONS[h]) { setFilter('sec:' + h, true); return; }
+  if (SECTIONS[h]) { if (filter !== 'sec:' + h) setFilter('sec:' + h, true); return; }
   const m = /^tin\/(.+)$/.exec(h);
   if (m) openStory(m[1]);
 }
@@ -3234,6 +3311,18 @@ function attachEvents() {
       const sort = $('#sort-switch'), on = sort.querySelector('.sort-btn[aria-pressed="true"]');
       if (on) glideTab(sort, on, { immediate: true });
     }).observe($('#sort-switch'));
+  }
+  floorPanel();
+  addEventListener('resize', floorPanel);
+  if ('ResizeObserver' in window && $('#masthead')) new ResizeObserver(floorPanel).observe($('#masthead'));
+  // The same for the section tabs' underline: a tab's label grows when the site font arrives.
+  if ('ResizeObserver' in window && $('#feed-filters')) {
+    const tabs = $('#feed-filters');
+    const ro = new ResizeObserver(() => {
+      const on = tabs.querySelector('.filter-chip[aria-pressed="true"]');
+      if (on) glideTab(tabs, on, { immediate: true });
+    });
+    tabs.querySelectorAll('.filter-chip').forEach(c => ro.observe(c));
   }
   // Tiles that lead to a view of their own ("Xem đủ 10 mô hình" opens "Xếp hạng").
   document.addEventListener('click', e => {

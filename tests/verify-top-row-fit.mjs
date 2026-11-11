@@ -71,7 +71,9 @@ const MEASURE = () => {
   return {
     cornerRight: Math.round(cornerRight), searchLeft: Math.round(search.left),
     cornerOverflow: corner.scrollWidth - corner.clientWidth,
-    searchCentre: Math.round((search.left + search.right) / 2 - innerWidth / 2),
+    // Against the page's own width: the page keeps its scrollbar's gutter (feed.css), so its middle is the window's
+    // less the gutter, as on any page long enough to scroll.
+    searchCentre: Math.round((search.left + search.right) / 2 - document.body.clientWidth / 2),
     date: corner.querySelector('time')?.innerText || '',
     city: !!corner.querySelector('.top-city'),
     fit: corner.dataset.fit,

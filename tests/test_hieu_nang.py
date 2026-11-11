@@ -222,8 +222,8 @@ class FirstLoadBudget(unittest.TestCase):
         body = feed[feed.index("function setFilter(f, fromHash = false) {"):]
         body = body[:body.index("\n}\n")]
         self.assertIn("if (!complete && (f === 'saved' || f.startsWith('sec:'))) {", body)
-        self.assertIn("loadComplete().then(() => { setLoading(false); if (filter === f) renderFeed(); });", body)
-        self.assertIn("} else renderFeed();", body)
+        self.assertIn("loadComplete().then(() => { setLoading(false); if (filter === f) { renderFeed(); settleView(); } });", body)
+        self.assertIn("} else { renderFeed(); settleView(); }", body)
 
     def test_the_first_draw_s_files_are_asked_for_with_the_page(self):
         html = read(SITE / "index.html")

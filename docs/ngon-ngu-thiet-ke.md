@@ -34,6 +34,11 @@ Captain, 11/11 10:50, with two Samsung News screens: *"Trên Mobile làm sạch 
 ## Band heading with a control
 
 A band's heading row may carry the one control that acts on that band's own list, and only that list (`.band-head`: the title on the left, the control on the right). The order "Đáng đọc nhất / Mới nhất" lives on "Tin mới" (captain, 11/11 12:3x: *"dời đi"*): it reorders "Tin mới" and "Tin khác" and never the first screen, so it no longer sits in the header beside the tabs. It keeps the segmented control's look (`.tc-seg`: `color-seg-track`, a raised `color-seg-thumb` side, `seg-thumb-r`), 44 px sides, and the reader's choice (`air2:sort`). The header row is the logo, the tabs, the theme and "Bản tin sáng".
+
+## Switching tabs
+
+Captain, 11/11 12:4x: *"a cũng muốn làm cái gạch màu dưới mỗi tab đó di chuyển mượt mà từ tab này sang tab kia. đồng thời cố định những thành phần giống nhau ở mỗi tab, chỉ tải lại nội dung"*. The panel, its header row, the tabs and the phone dock are one shell that never redraws; a tab replaces only the view inside the panel. The active tab's underline (`--msn-tab-line`, `color-accent-fill`) is a single line that glides to the new tab and takes its label's width, by transform alone, in `--motion-state` with `--ease-flow`; under reduced motion it jumps. The new view fades in over the same duration, opacity only. Nothing in the shell moves: the page keeps its scrollbar's gutter (`scrollbar-gutter: stable`) and the panel reaches the window's foot however short the view. Each tab has its own address (none, `#repo`, `#xep-hang`), so Back, Forward and reload return to it. Rules: `site/trang-msn.css`, `glideLine` and `setFilter` in `site/feed.js`; tests: `tests/test_tab_switch.py`.
+
 ## Phone lead story
 
 At widths up to 767px, the lead keeps its full headline, source/kind/time, selection evidence, measured number, and translation attribution visible. One inline disclosure reveals the original title, full summary, sources, score, actions, and related stories together. Its state survives redraws for the same lead and resets when the lead changes. Tablet and desktop retain the complete layout. Phones render all board tiles together so the next tile does not wait for a separate paint after the compact lead.

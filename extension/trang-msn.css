@@ -67,6 +67,14 @@
   padding: var(--msn-panel-pad);
   background: var(--color-panel-front); border: 0; border-radius: var(--msn-panel-r);
   box-shadow: var(--msn-shadow-panel);
+  /* A short view ("Mã và mô hình") still fills the window down to the panel's bottom margin, so switching tabs never
+     shrinks the panel (captain, 11/11 12:4x); feed.js measures --panel-outside, the window's height that is not panel. */
+  min-height: calc(100svh - var(--panel-outside, 0px));
+}
+/* A new view arrives with a short fade, opacity only (feed.js settleView); the panel and its header stay. */
+@keyframes view-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  .msn-panel .is-arriving { animation: view-in var(--motion-state) var(--ease-flow); }
 }
 .newsbar.msn-head {
   position: relative; top: auto; z-index: 5; display: flex; align-items: center; gap: var(--space-16);
@@ -80,7 +88,13 @@
   --header-pill-inset: 0px; flex: 0 1 auto; gap: var(--msn-tight); padding: 0;
   -webkit-mask-image: none; mask-image: none;
 }
-.msn-head .sections .tab-pill { display: none; }
+/* The active section's underline: one line that glides from tab to tab under the label (feed.js glideLine moves it by
+   transform alone, then lands it at its own width), never a mark that blinks out under one tab and in under the next. */
+.msn-head .sections .tab-pill {
+  top: auto; bottom: var(--space-4); height: var(--msn-tab-line); border-radius: var(--msn-tab-line);
+  background: var(--color-accent-fill); transform-origin: 0 50%; will-change: transform;
+}
+.msn-head .sections .tab-pill.is-active { transition: transform var(--motion-state) var(--ease-flow); }
 /* When the sections scroll sideways, the edge that still hides sections fades out (feed.js sets data-more), so the
    reader sees there is more to the right; a tab that is fully in view is never faded. */
 .msn-head .sections[data-more="end"] { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--space-48)), transparent); mask-image: linear-gradient(to right, #000 calc(100% - var(--space-48)), transparent); }
@@ -94,10 +108,6 @@
 .msn-head .filter-chip::before { border-radius: var(--radius-8); inset: 0; }
 .msn-head .filter-chip:hover:not([aria-pressed="true"]) { --header-control-bg: var(--color-surface); color: var(--color-ink); }   /* a white wash on the tinted panel */
 .msn-head .filter-chip[aria-pressed="true"] { --header-control-bg: transparent; color: var(--color-ink); }
-.msn-head .filter-chip[aria-pressed="true"]::after {
-  content: ""; position: absolute; left: var(--space-12); right: var(--space-12); bottom: var(--space-4);
-  height: var(--msn-tab-line); border-radius: var(--msn-tab-line); background: var(--color-accent-fill);
-}
 .head-actions { display: flex; align-items: center; gap: var(--space-8); margin-left: auto; flex: none; }
 /* "Đáng đọc nhất / Mới nhất": the segmented control of "Giao diện" in Tùy chỉnh (below, .tc-seg shares its track and
    its chosen side), so the chosen order shows as a raised pill on a grey track (captain, 10/11 19:3x). It sits on the
@@ -891,7 +901,6 @@
 @media (min-width: 1100px) and (max-width: 1450px) {
   .newsbar.msn-head { gap: var(--space-8); }
   .msn-head .filter-chip { padding: 0 var(--space-8); }
-  .msn-head .filter-chip[aria-pressed="true"]::after { left: var(--space-8); right: var(--space-8); }
 }
 /* From 1280 px the three tabs, both orders ("Đáng đọc nhất", "Mới nhất"), the theme and the morning edition share one
    row with room to spare (measured on the site and the new tab, 1280 to 1440). Narrower, the tabs take their own row,
@@ -940,7 +949,6 @@
   .msn-head .brand-tile { width: var(--space-32); height: var(--space-32); }
   .msn-head .brand-name { font-size: var(--text-tile); }
   .msn-head .filter-chip { padding: 0 var(--space-8); font-size: var(--text-meta); }
-  .msn-head .filter-chip[aria-pressed="true"]::after { left: var(--space-8); right: var(--space-8); }
   .front-meta .filter-context { margin-top: var(--space-4); }
   .msn-grid, .msn-grid.is-front, .msn-grid:has(> .msn-wx) { grid-template-rows: none; grid-auto-rows: auto; }
   /* On a phone the two cards come first in the grid's own order (after the lead on the front page). */
