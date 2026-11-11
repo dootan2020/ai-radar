@@ -82,7 +82,7 @@ const MEASURE = () => {
   const top = [...document.querySelectorAll('#feed-grid .band .msn-toplist li')].filter(shown).map(li => {
     const s = getComputedStyle(li), num = li.querySelector(':scope > b');
     return { ...box(li), display: s.display, radius: s.borderRadius, bg: s.backgroundColor, num: num ? { ...box(num), font: getComputedStyle(num).fontSize } : null,
-      titleBox: part(li, '.top-title'), src: part(li, '.top-src'), time: part(li, 'time'), pic: part(li, '.top-pic'), hasPhoto: li.classList.contains('has-photo') };
+      titleBox: part(li, '.top-title'), src: part(li, '.top-src'), time: part(li, 'time'), pic: part(li, '.top-pic'), hasPhoto: !!li.querySelector('.top-pic') };
   });
   const panel = document.querySelector('.feed-main.front.msn-panel');
   const sections = grid ? [...grid.children].filter(shown).map(el => ({ tag: el.tagName.toLowerCase(), cls: String(el.className).slice(0, 60), id: el.id || null, ...box(el) })) : [];
