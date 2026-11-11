@@ -104,6 +104,19 @@ class ChromeStoreSubmissionTests(unittest.TestCase):
             with self.subTest(host=host):
                 self.assertIn(host, html, f'Privacy policy does not disclose extension host: {host}')
 
+    def test_store_texts_claim_no_permission_the_manifest_lacks(self):
+        # The search box opens www.google.com/search and the manifest asks for no "search" permission, so no store
+        # text may justify chrome.search or promise the user's default search engine.
+        manifest = json.loads((EXT / 'manifest.json').read_text(encoding='utf-8'))
+        self.assertNotIn('search', manifest['permissions'])
+        for name in ('SUBMIT.md', 'permissions.md', 'data-disclosure.md', 'single-purpose.txt',
+                     'listing-vi.md', 'listing-en.md'):
+            with self.subTest(name=name):
+                text = (STORE / name).read_text(encoding='utf-8')
+                self.assertNotIn('chrome.search', text)
+                self.assertNotIn('`search`:', text)
+                self.assertNotRegex(text.lower(), r'default search (engine|provider)|công cụ tìm kiếm mặc định')
+
     def test_privacy_policy_discloses_analytics_and_publisher_pictures(self):
         # hco.news carries the beacon Cloudflare injects, and story pictures come straight from publishers' servers,
         # so the policy may not promise "no tracking" without naming both (legal check before the store, 11/11).

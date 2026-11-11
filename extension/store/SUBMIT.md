@@ -1,143 +1,84 @@
 # Hướng Dẫn Nộp Extension Halcyon Lên Chrome Web Store
 
-Tài liệu hướng dẫn từng bước chi tiết dành cho Captain để đăng ký, cấu hình và nộp tiện ích **Halcyon** lên Chrome Web Store Developer Console để được duyệt ngay trong lần gửi đầu tiên.
+Hướng dẫn từng bước để anh Tuấn nộp tiện ích **Halcyon** trên Chrome Web Store Developer Console của chính anh. Đăng nhập, phí đăng ký, tải gói lên và bấm nộp là việc của anh; Lucy cùng anh điền form.
+
+---
+
+## 0. Việc anh tự nhập hoặc tự tích (bản tóm tắt)
+
+| Ô trên Developer Console | Giá trị đề xuất | Lấy từ |
+| --- | --- | --- |
+| Category | `News & Weather` | mục 2, bước 2 |
+| Language | `Vietnamese` | `listing-vi.md` |
+| Single purpose | đoạn tiếng Anh trong `single-purpose.txt` | mục 2, bước 3 |
+| Permission justification: `storage`, `alarms`, host `https://radar-ai-vn.pages.dev/*` | ba đoạn trong `permissions.md` | mục 2, bước 3 |
+| Remote code | **No, I am not using remote code** | mục 2, bước 3 |
+| Data usage: các ô loại dữ liệu | **không tích ô nào** (anh quyết, xem lý do trong `data-disclosure.md` mục 1) | mục 2, bước 3 |
+| Ba cam kết (không bán, không dùng ngoài mục đích, không dùng cho tín dụng) | **tích cả ba** | mục 2, bước 3 |
+| Privacy policy URL | `https://hco.news/chinh-sach-rieng-tu.html` | mục 2, bước 3 |
+| Visibility / Regions / Pricing | Public / All regions / Free | mục 2, bước 4 |
 
 ---
 
 ## 1. Chuẩn Bị Trước Khi Nộp
 
-1. **Tệp gói nén extension:**
-   - Chạy lệnh: `python extension/store/build-zip.py`
-   - Tệp tạo ra: `extension-halcyon-0.1.0.zip` (nằm ở thư mục gốc và trong `extension/store/`).
-2. **Tài khoản Google Chrome Web Store Developer:**
-   - Truy cập: [Chrome Web Store Developer Console](https://chrome.google.com/webstore/devconsole)
-   - Đăng nhập tài khoản Google của bạn.
-   - Thanh toán phí đăng ký nhà phát triển 5 USD (thanh toán một lần duy nhất qua thẻ Visa/Mastercard).
-3. **Bộ ảnh Store Assets (trong thư mục `brand/assets/store/`):**
-   - **Store Icon (128×128 px):** `brand/assets/store/extension-icon-128.png`
-   - **Small Promo Tile (440×280 px):** `brand/assets/store/promo-small.png`
-   - **Screenshots (1280×800 px):** `brand/assets/store/new-tab-light.png` và `brand/assets/store/new-tab-dark.png` (Lucy chạy lệnh `node brand/store-shots.js` để chụp).
-4. **Trang Chính sách quyền riêng tư (Privacy Policy):**
-   - Đã tạo tại `site/chinh-sach-rieng-tu.html` và deploy lên:
-   - URL: `https://hco.news/chinh-sach-rieng-tu.html`
+1. **Trang chính sách riêng tư phải là bản mới trên mạng.** Mở `https://hco.news/chinh-sach-rieng-tu.html` và xác nhận dòng "Cập nhật lần cuối: 11 tháng 11, 2026" cùng mục 6 (Cloudflare Web Analytics, ảnh từ nhà xuất bản). Bản cũ ngày 10/11 còn hứa "không theo dõi" mà chưa nêu hai điều này; đừng nộp khi URL còn trả bản cũ. Trang lên mạng khi nhánh có thay đổi được merge vào `main` và lượt **Update AI Radar** kế tiếp deploy xong.
+2. **Gói zip:** từ thư mục gốc repo chạy `python extension/sync-site.py` (tab mới khớp trang chủ trên `main`), rồi `python extension/store/build-zip.py`. Tệp tải lên: `extension/store/extension-halcyon-0.1.0.zip` (bản sao ở thư mục gốc). Gói có `manifest.json` ở gốc, 83 tệp, không có `README.md`, `sync-site.py`, thư mục `store/` hay tệp `.py`.
+3. **Manifest trong gói:** Manifest V3, tên `Halcyon`, phiên bản `0.1.0`, `permissions: ["storage", "alarms"]`, `host_permissions: ["https://radar-ai-vn.pages.dev/*"]`, ghi đè trang tab mới bằng `newtab.html`. Không xin `search`, `tabs` hay quyền đọc trang web. Mọi script nằm trong gói (không có remote code).
+4. **Ảnh cho trang Store:**
+   - Store icon 128×128: `brand/assets/store/extension-icon-128.png`
+   - Small promo tile 440×280: `brand/assets/store/promo-small.png`
+   - Screenshots 1280×800: `extension/store/anh/screenshot-1-sang-1280x800.png` (sáng) và `extension/store/anh/screenshot-2-toi-1280x800.png` (tối).
+   - Chụp lại ảnh khi giao diện đổi: `node brand/store-shots.js`. Lệnh cài chính thư mục `extension/` vào Chrome headless, chờ service worker của tiện ích lưu `radar-window.json` đang chạy trên mạng, báo lỗi nếu dữ liệu cũ hơn 3 giờ hoặc tab mới không có thẻ tin, rồi chụp tab mới của tiện ích ở hai giao diện.
+5. **Tài khoản nhà phát triển:** [Chrome Web Store Developer Console](https://chrome.google.com/webstore/devconsole), tài khoản Google của anh. Phí đăng ký một lần 5 USD là quyết định chi tiền của anh.
 
 ---
 
-## 2. Các Bước Thực Hiện Trên Chrome Web Store Developer Console
+## 2. Các Bước Trên Developer Console
 
-### Bước 1: Tải tệp zip lên (Upload Package)
-1. Trong Developer Console, nhấn nút **"New Item"** (Mục mới).
-2. Kéo thả hoặc chọn tệp `extension-halcyon-0.1.0.zip`.
-3. Chờ bảng điều khiển phân tích manifest (sẽ nhận diện Manifest V3, permissions: `storage`, `alarms`, `search`, host: `https://radar-ai-vn.pages.dev/*`).
+### Bước 1: Tải gói lên (Upload Package)
+1. Nhấn **"New Item"**.
+2. Chọn `extension/store/extension-halcyon-0.1.0.zip`.
+3. Console đọc manifest: Manifest V3, quyền `storage`, `alarms`, host `https://radar-ai-vn.pages.dev/*`.
 
----
-
-### Bước 2: Điền thông tin Store Listing (Trang thông tin trên Cửa hàng)
-Chuyển tới thẻ **Store Listing**:
-
-1. **Product details (Chi tiết sản phẩm):**
-   - **Language:** Chọn `Vietnamese` (Tiếng Việt) hoặc `English`.
+### Bước 2: Store Listing
+1. **Product details:**
+   - **Language:** `Vietnamese`.
    - **Name:** `Halcyon`
-   - **Summary (Mô tả ngắn - tối đa 132 ký tự):**
-     *Mở tệp `extension/store/listing-vi.md` và sao chép dòng sau:*
+   - **Summary (tối đa 132 ký tự):** dòng trong `listing-vi.md`:
      ```text
      Những mẩu tin AI ngắn gọn trên tab mới, kèm tìm kiếm web và bản tin lưu đọc ngoại tuyến.
      ```
-   - **Description (Mô tả chi tiết):**
-     *Sao chép toàn bộ phần Mô tả chi tiết trong tệp `extension/store/listing-vi.md`.*
+   - **Description:** toàn bộ khối "Mô tả chi tiết" trong `listing-vi.md` (bản tiếng Anh trong `listing-en.md` nếu anh thêm ngôn ngữ thứ hai).
+2. **Graphic assets:** icon, hai screenshots và promo tile ở mục 1.4.
+3. **Category:** `News & Weather`.
+4. **Official URL / Homepage:** `https://hco.news/`
 
-2. **Graphic assets (Hình ảnh đại diện):**
-   - **Store Icon (128x128):** Tải lên tệp `brand/assets/store/extension-icon-128.png`.
-   - **Screenshots (1280x800):** Tải lên 2 ảnh chụp màn hình:
-     + `brand/assets/store/new-tab-light.png` (Giao diện sáng)
-     + `brand/assets/store/new-tab-dark.png` (Giao diện tối)
-   - **Small promo tile (440x280):** Tải lên tệp `brand/assets/store/promo-small.png`.
+Nhấn **"Save draft"**.
 
-3. **Categorization (Phân loại):**
-   - **Category (Danh mục chính):** `News & Weather` (Tin tức & Thời tiết)
-   - **Additional Category (Danh mục phụ nếu có):** `Productivity` (Năng suất)
-
-4. **Official URL (Trang web chính thức):**
-   - Nhập: `https://hco.news/`
-
-Nhấn **"Save draft"** (Lưu bản nháp).
-
----
-
-### Bước 3: Điền thẻ Privacy (Quyền riêng tư & Giải trình kỹ thuật)
-*Đây là bước quan trọng nhất quyết định việc duyệt ngay lần đầu.*
-
-Chuyển tới thẻ **Privacy**:
-
-1. **Single Purpose Description (Mô tả mục đích duy nhất):**
-   *Sao chép nguyên văn từ tệp `extension/store/single-purpose.txt`:*
+### Bước 3: Privacy
+1. **Single purpose description:** dán nguyên văn `single-purpose.txt`:
    ```text
-   Halcyon provides a curated Vietnamese-language AI news feed on the browser's new tab page, offers convenient web search using the user's default search engine without hijacking or redirects, and stores the latest edition locally so stories remain readable offline.
+   Halcyon replaces the browser's new tab page with a Vietnamese-language AI news reader: curated AI stories with links to their original publishers, a "Search Google" box that opens Google's own results page, and the latest edition saved on the device so stories stay readable offline.
    ```
+2. **Permission justifications:** dán từng đoạn trong khối code của `permissions.md` vào ô `storage`, `alarms` và ô host permission.
+3. **Remote code:** chọn "No, I am not using remote code". Mọi tệp JS nằm trong gói; trang tab mới chỉ tải dữ liệu JSON và ảnh.
+4. **Data usage:** không tích loại dữ liệu nào (đề xuất; anh quyết). Nếu console có ô giải trình, dán khối code trong `data-disclosure.md` mục 1. Tích cả ba cam kết.
+5. **Privacy policy:** `https://hco.news/chinh-sach-rieng-tu.html` (đã kiểm ở mục 1.1).
 
-2. **Permission Justifications (Giải trình từng quyền yêu cầu):**
-   *Sao chép các đoạn tương ứng trong tệp `extension/store/permissions.md`:*
-   - Ô **`storage`**:
-     ```text
-     The "storage" permission is required to store the curated AI news snapshot (radarWindow), fetch timestamps, and reader theme preferences locally in chrome.storage.local. This ensures instant page rendering on every new tab and enables offline reading of the latest cached stories without network connectivity.
-     ```
-   - Ô **`alarms`**:
-     ```text
-     The "alarms" permission is required to schedule a periodic background task every 30 minutes via chrome.alarms. This refreshes the local news cache with new editorial stories in the background without keeping the service worker running continuously, conserving battery and memory.
-     ```
-   - Ô **`search`**:
-     ```text
-     The "search" permission is required to execute user-initiated web searches from the new tab search form using the Chrome Search API (chrome.search.query). This guarantees searches strictly utilize the user's configured default search engine in Chrome, without hijacking, modifying, or redirecting queries.
-     ```
-   - Ô **Host permission `https://radar-ai-vn.pages.dev/*`**:
-     ```text
-     This host permission is required to fetch static JSON data feeds (radar-window.json, radar-ui.json, arena.json, editor-picks.json) and load news illustration images from the official Halcyon static site hosted on Cloudflare Pages. No user data or browsing telemetry is transmitted to this origin.
-     ```
+Nhấn **"Save draft"**.
 
-3. **Data Usage (Khai báo thu thập dữ liệu):**
-   - Tại danh sách các loại dữ liệu người dùng: **KHÔNG TÍCH CHỌN BẤT KỲ Ô NÀO** (vì tiện ích không thu thập dữ liệu cá nhân hay lịch sử duyệt web).
-   - Ô giải trình **Data usage explanation**:
-     *Sao chép từ tệp `extension/store/data-disclosure.md`:*
-     ```text
-Halcyon does not collect, upload, sell, or share personal data, browsing history, or telemetry. To provide news data and article thumbnails, the extension contacts https://radar-ai-vn.pages.dev/, https://hn.algolia.com/, https://huggingface.co/, https://avatars.githubusercontent.com/, https://opengraph.githubassets.com/, https://cdn-thumbnails.huggingface.co/, and https://i.ytimg.com/. When you choose to add an event to your calendar, it opens https://calendar.google.com/. Those services receive ordinary browser request data such as your IP address. The extension keeps its news snapshot and refresh timestamp in chrome.storage.local and its theme, reading state, and cached Hugging Face avatar URLs in localStorage on your device. Search queries go directly through Chrome to your default search provider.
+### Bước 4: Distribution
+- **Visibility:** Public. **Regions:** All regions. **Pricing:** Free.
 
-1. No Personal Information: The extension does not collect names, email addresses, location, device identifiers, credentials, or browsing history. Network providers may receive ordinary request data, including IP address, when the browser connects to them.
-2. Local Storage Only: News snapshot and refresh timestamp are kept in chrome.storage.local. Theme preference, reading state, and cached Hugging Face avatar URLs are kept in localStorage on the device; this data is not uploaded.
-     3. No Search Tracking: Web searches initiated from the new tab page are executed directly through the browser's default search engine via chrome.search.query, without interception, logging, or redirection.
-4. External Services: Halcyon's site provides news data; Algolia provides Hacker News stories; Hugging Face provides papers, trending models, and avatars; GitHub avatar and Open Graph hosts, Hugging Face thumbnails, and YouTube provide article images; Google Calendar opens only when selected by the user. Ordinary browser request data such as IP address is sent to the contacted provider. No Halcyon account, browsing-history, or local reader data is attached. See the Privacy Policy for the complete host list and purposes.
-     ```
-
-4. **Certifications (3 cam kết bắt buộc):**
-   *Tích chọn (Check) vào cả 3 ô vuông:*
-   - [x] **I certify that the item will not sell user data to third parties, outside of the approved use cases.**
-   - [x] **I certify that the item will not use or transfer user data for purposes that are unrelated to the item's core functionality.**
-   - [x] **I certify that the item will not use or transfer user data to determine creditworthiness or for lending purposes.**
-
-5. **Privacy Policy (Đường dẫn chính sách riêng tư):**
-   - Nhập: `https://hco.news/chinh-sach-rieng-tu.html`
-
-Nhấn **"Save draft"** (Lưu bản nháp).
+### Bước 5: Nộp duyệt
+1. Kiểm tra không còn lỗi đỏ ở góc phải.
+2. Nhấn **"Submit for review"**, rồi **"Submit"** trong hộp xác nhận.
 
 ---
 
-### Bước 4: Phân phối (Distribution)
-Chuyển tới thẻ **Distribution**:
-1. **Visibility:** Chọn **Public** (Công khai).
-2. **Regions:** Chọn **All regions** (Tất cả quốc gia/vùng lãnh thổ).
-3. **Pricing:** Chọn **Free** (Miễn phí).
+## 3. Sau Khi Nộp
 
----
-
-### Bước 5: Nộp Duyệt (Submit for Review)
-1. Kiểm tra lại góc trên bên phải màn hình: Đảm bảo không còn thông báo lỗi màu đỏ nào.
-2. Nhấn nút **"Submit for review"** màu xanh.
-3. Một hộp thoại xác nhận hiện ra, nhấn **"Submit"**.
-
----
-
-## 3. Thời Gian Duyệt & Lưu Ý
-- Thời gian Google duyệt tiện ích mới thông thường: từ **24 đến 72 giờ** (1 - 3 ngày làm việc).
-- Vì toàn bộ mã nguồn tuân thủ nghiêm ngặt Manifest V3, không dùng remote code, không inline script, quyền hạn tối thiểu và giải trình trung thực, tỷ lệ được duyệt ngay lần đầu là rất cao.
-- Khi có thông báo từ Google gửi về email quản trị viên:
-  - Nếu duyệt thành công: Extension sẽ tự động xuất hiện trên Chrome Web Store trong vòng vài giờ.
-  - Nếu có bất kỳ câu hỏi phản hồi nào từ đội ngũ Google: Báo lại cho team kỹ thuật để hỗ trợ ngay lập tức.
+- Google duyệt tiện ích mới thường mất vài ngày; thư báo gửi về email của tài khoản nhà phát triển.
+- Nếu Google hỏi lại hoặc từ chối: chuyển nguyên văn thư cho Lucy, không sửa gói trực tiếp trên console.
+- Lần cập nhật sau: tăng `version` trong `extension/manifest.json`, chạy lại mục 1.2 và 1.4, tải gói mới lên cùng mục.
