@@ -33,6 +33,14 @@ def reply(sid=SID, scores=(9, 9, 9, 8), hard_errors=(), findings=()):
             "hard_errors": list(hard_errors), "findings": list(findings)}
 
 
+def third_boat():
+    """A batch-CLI lane on a boat that is neither agy nor codex, to exercise the three-boat scoring rules."""
+    return {"id": "third-lane", "capabilities": ["bien-tap", "kiem-chung"], "kind": "subscription-boat",
+            "cost_class": "subscription", "priority": 40, "monthly_cap_usd": 0, "boat": "third",
+            "runner": "batch-cli", "argv": ["third", "{prompt}"], "prompt_transport": "argument",
+            "detect": {"command": "third"}, "file": "third-lane.toml"}
+
+
 class Recording(FixtureRunner):
     def __init__(self, replies, fail=None):
         super().__init__(replies)
@@ -191,12 +199,19 @@ class ScoringDeskTests(unittest.TestCase):
         self.assertEqual(runner.desks(), [("writer", "codex")])
         self.assertEqual(row["score_state"], "unscored")
         self.assertEqual(self.shown(decision), [])
-        # Measured claude fuel gives the codex draft a scorer on a third boat.
+        # Claude is not a newsroom lane, even with measured fuel: the codex draft stays unscored.
         claude = {**dry_agy, "commands": [*DISCOVERY["commands"], "claude"],
                   "fuel": "gemini: CẠN\nclaude: CÒN 40%"}
         row, decision, runner, _ = self.write({"writer": {SID: deepcopy(PROSE)}, "scorer": {SID: reply()}},
                                               discovery=claude)
-        self.assertEqual(runner.desks(), [("writer", "codex"), ("scorer", "claude")])
+        self.assertEqual(runner.desks(), [("writer", "codex")])
+        self.assertEqual(self.shown(decision), [])
+        # A third fueled boat gives the codex draft a scorer on that boat.
+        self.tools = [*self.tools, third_boat()]
+        third = {**dry_agy, "commands": [*DISCOVERY["commands"], "third"]}
+        row, decision, runner, _ = self.write({"writer": {SID: deepcopy(PROSE)}, "scorer": {SID: reply()}},
+                                              discovery=third)
+        self.assertEqual(runner.desks(), [("writer", "codex"), ("scorer", "third")])
         self.assertEqual(self.shown(decision), [SID])
         # A reply claiming to come from a writing boat is refused even if a lane were misconfigured.
         packet = scorer_packet(SID, [], "Tiêu đề", ["Một.", "Hai.", "Ba."])
@@ -215,10 +230,16 @@ class ScoringDeskTests(unittest.TestCase):
         # No boat outside agy and codex has fuel here, so no second reading happens and the story stays hidden.
         self.assertEqual((row["score_state"], row["writer_boats"]), ("unscored", ["agy", "codex"]))
         self.assertEqual(self.shown(decision), [])
-        # With measured claude fuel, the second reading goes to claude, never to agy or codex.
+        # Measured claude fuel changes nothing: claude is not a newsroom lane.
         claude = {**DISCOVERY, "commands": [*DISCOVERY["commands"], "claude"], "fuel": "claude: CÒN 40%"}
         row, decision, runner, _ = self.write(replies, fail=fail, discovery=claude)
-        self.assertEqual(runner.desks()[-1], ("rescorer", "claude"))
+        self.assertNotIn("claude", {boat for _, boat in runner.desks()})
+        self.assertEqual(self.shown(decision), [])
+        # With a third fueled boat, the second reading goes to it, never to agy or codex.
+        self.tools = [*self.tools, third_boat()]
+        third = {**DISCOVERY, "commands": [*DISCOVERY["commands"], "third"]}
+        row, decision, runner, _ = self.write(replies, fail=fail, discovery=third)
+        self.assertEqual(runner.desks()[-1], ("rescorer", "third"))
         self.assertEqual(decision["score"]["writer_boats"], ["agy", "codex"])
         self.assertEqual(self.shown(decision), [SID])
         # A verdict from agy on that text never passes on the site, whatever it says.
