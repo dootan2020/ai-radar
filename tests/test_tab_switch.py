@@ -97,6 +97,15 @@ class Rendered(unittest.TestCase):
                 # "Xếp hạng" asks for it on each visit and gets a 404; with the live files it is fetched once.)
                 self.assertFalse([u for u in sw["requests"] if u.startswith("/data/radar")], f"{width} {sw['to']}: data fetched again")
 
+    def test_returning_to_the_front_page_brings_back_the_same_cards(self):
+        # A drawn view is kept, not drawn again (captain, 11/11 12:4x: "chỉ tải lại nội dung, không tải lại toàn bộ"):
+        # after "Mã và mô hình" and "Xếp hạng", every story card of "Trang nhất" is the node drawn at load.
+        for width in ("2000", "375"):
+            fronts = [s for s in switched()[width]["states"] if s["tab"] == "all"]
+            self.assertEqual(len(fronts), 3, width)
+            for s in fronts:
+                self.assertIs(s["cardsKept"], True, f"{width}: the front page's cards were drawn again")
+
     def test_the_underline_glides_and_lands_under_the_new_tab(self):
         for width in ("2000", "375"):
             page = switched()[width]

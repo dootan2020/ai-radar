@@ -60,7 +60,7 @@ const KEEP = () => {
   window.__shell = { panel: q('#top'), bar: q('#bar'), brand: q('#brand'), tabs: q('#feed-filters'),
     chips: [...document.querySelectorAll('#feed-filters .filter-chip')], theme: q('#theme-btn'), edition: q('.ed-link'),
     sort: q('#sort-switch'), sortBtns: [...document.querySelectorAll('#sort-switch .sort-btn')], dock: q('.mobile-nav'),
-    line: q('#feed-filters > .tab-pill') };
+    line: q('#feed-filters > .tab-pill'), cards: [...document.querySelectorAll('#feed-grid .nc')] };
   window.__added = []; window.__removed = [];
   const name = n => n.nodeType === 1 ? (n.id ? '#' + n.id : n.className ? '.' + String(n.className).split(' ')[0] : n.tagName) : '#text';
   const watch = new MutationObserver(list => {
@@ -104,6 +104,9 @@ const STATE = () => {
       chips: shell.chips.every((c, i) => c === document.querySelectorAll('#feed-filters .filter-chip')[i] && c.isConnected),
       sortBtns: shell.sortBtns.every(b => b.isConnected && b.parentElement === q('#sort-switch')),
       line: shell.line ? shell.line === line && line.isConnected : null } : null,
+    // On the front page: are its story cards the very nodes drawn at load (kept, not drawn again)?
+    cardsKept: shell.cards && active && active.dataset.filter === 'all' ? shell.cards.length > 0 && shell.cards.every(c => c.isConnected)
+      && document.querySelectorAll('#feed-grid .nc').length >= shell.cards.length : null,
     added: window.__added ? [...window.__added] : null, removed: window.__removed ? [...window.__removed] : null,
   };
 };

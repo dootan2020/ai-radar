@@ -2515,7 +2515,32 @@ function adoptEarlyLead(grid, early) {
   if (slot) slot.replaceWith(early);
 }
 
-function renderFeed() {
+/* Views already drawn stay drawn (captain, 11/11 12:4x: "chỉ tải lại nội dung, không tải lại toàn bộ"): "Trang nhất"
+   and "Mã và mô hình" keep their nodes and their scroll state when the reader opens another tab, and a tab switch puts
+   them back as they were. A view is drawn again only when what it shows changed: a new snapshot, another order, or any
+   redraw not caused by a tab switch (a save, a mark), which drops every kept view. "Xếp hạng" keeps its own nodes in
+   #arena (arena.js). */
+const KEPT_VIEWS = new Set(['all', 'code']);
+const keptViews = new Map();    // filter -> { nodes, state, data, sort, empty }
+let gridView = null;            // { filter, data, sort, empty } of the nodes in #feed-grid
+const viewState = () => ({ PICKLIST, FRONT_TOP, FRONT_IDS, FRONT, seq, pos, shownCards, totalCards, frontColsSeen });
+/* Take the drawn view out of the grid, whole. The weather, the calendar and the order control are single nodes that
+   other views borrow: each leaves a slot behind and goes home, and comes back to its slot when the view returns. */
+function keepGridView(grid) {
+  if (!gridView || !KEPT_VIEWS.has(gridView.filter)) return;
+  const sort = $('#sort-switch');
+  for (const [el, slot] of [[weatherCard, 'wx'], [calendarCard, 'cal'], [sort, 'sort']]) {
+    if (!el || !grid.contains(el)) continue;
+    const i = document.createElement('i');
+    i.dataset.slot = slot;
+    el.replaceWith(i);
+  }
+  if (sort && !sort.isConnected) $('#sort-home').append(sort);
+  keptViews.set(gridView.filter, { ...gridView, nodes: [...grid.childNodes], state: viewState() });
+  gridView = null;
+}
+function renderFeed({ reuse = false, keepOthers = false } = {}) {
+  if (!reuse && !keepOthers) keptViews.clear();
   const skeleton = $('#feed-skeleton');
   const early = skeleton && skeleton.querySelector('.msn-lead .slide-media');
   if (skeleton) skeleton.remove();
@@ -2538,8 +2563,36 @@ function renderFeed() {
   }
   if (!D) { $('#feed-empty').hidden = false; renderChips(); return; }
   const front = filter === 'all';
+  // A kept view is current while the snapshot and the order are the ones it was drawn from. The complete snapshot of the
+  // same edition only adds older days: the front page takes them as it does when they arrive (appendOlder), any other
+  // view is drawn again.
+  const current = view => view && view.filter === filter && view.data === D.generated_at && view.sort === sortMode
+    && (front || view.complete === complete);
+  const kept = reuse && keptViews.get(filter);
+  if (reuse && current(gridView)) {
+    $('#feed-empty').hidden = !gridView.empty;           // the grid still holds this view (Xếp hạng only hid it)
+    if (front && !gridView.complete && complete) { gridView.complete = true; appendOlder(); }
+  } else if (current(kept)) {
+    keepGridView(grid);
+    keptViews.delete(filter);
+    grid.replaceChildren(...kept.nodes);
+    ({ PICKLIST, FRONT_TOP, FRONT_IDS, FRONT, seq, pos, shownCards, totalCards, frontColsSeen } = kept.state);
+    gridView = { filter, data: D.generated_at, sort: sortMode, empty: kept.empty, complete };
+    grid.classList.toggle('is-front', front);
+    $('#feed-empty').hidden = !kept.empty;
+    placeSortSwitch(grid);
+    if (front && bentoCols() !== frontColsSeen) renderNewsBands();   // the window changed width meanwhile
+    if (front && !kept.complete && complete) appendOlder();
+  } else drawView(grid, front, early);
+  finishView(grid);
+}
+/* Draw the open view into the grid from the snapshot. */
+function drawView(grid, front, early) {
+  const code = filter === 'code';
+  if (gridView && gridView.filter !== filter) keepGridView(grid);
   ({ lead: PICKLIST, top: FRONT_TOP } = front ? chooseFront() : { lead: [], top: [] });
   grid.classList.toggle('is-front', front);
+  let empty = false;
   if (front) {
     // The front page's five bands (buildFront, frontHTML); its two story bands follow the column count.
     seq = []; pos = 0; shownCards = 0; totalCards = 0;
@@ -2557,7 +2610,7 @@ function renderFeed() {
     pos = 0; shownCards = 0;
     totalCards = seq.filter(x => x.t === 'card').length;
     const chunk = renderChunk(PAGE_FIRST);
-    const empty = !chunk.html.trim() && !chunk.days.length;   // tiles with no data render nothing, so judge by the output
+    empty = !chunk.html.trim() && !chunk.days.length;   // tiles with no data render nothing, so judge by the output
     $('#feed-empty').hidden = !empty;
     // The weather and the calendar are the home's furniture; a reader who opened "Mã và mô hình" came for repositories
     // and models (owner, 09/11: "QA các thành phần giao diện có nên hiển thị ở đó hay không"), so that view leaves them
@@ -2566,6 +2619,10 @@ function renderFeed() {
     grid.innerHTML = (code || filter === 'sec:sap-toi' ? '' : FIXED_SLOTS) + chunk.html;
     placeChunk(grid, { html: '', days: chunk.days });
   }
+  gridView = { filter, data: D.generated_at, sort: sortMode, empty, complete };
+}
+/* What every view needs once its nodes are in the grid, drawn now or kept from before. */
+function finishView(grid) {
   placeFixedCards(grid);
   renderSub();
   renderChips();
@@ -2680,8 +2737,8 @@ function setFilter(f, fromHash = false) {
   // window first (the first screen no longer loads it on its own, whenReaderActs).
   if (!complete && (f === 'saved' || f.startsWith('sec:'))) {
     setLoading(true);
-    loadComplete().then(() => { setLoading(false); if (filter === f) { renderFeed(); settleView(); } });
-  } else { renderFeed(); settleView(); }
+    loadComplete().then(() => { setLoading(false); if (filter === f) { renderFeed({ reuse: true }); settleView(); } });
+  } else { renderFeed({ reuse: true }); settleView(); }
   // A reader deep in one view starts the next at the panel's top, at once: a smooth scroll across a view that has just
   // been replaced would sweep through content that is no longer there.
   const top = $('#top').getBoundingClientRect().top;
@@ -3506,7 +3563,7 @@ function adoptComplete(data) {
   ({ lastSeen, firstVisit } = keep);
   complete = true;
   if (!same) renderAll();
-  else if (filter !== 'all' && filter !== 'rankings') renderFeed();
+  else if (filter !== 'all' && filter !== 'rankings') renderFeed({ keepOthers: true });
   else { renderChips(); appendOlder(); }
 }
 /* Addresses that name a section, the saved list or a story outside the window wait for the complete snapshot. */
