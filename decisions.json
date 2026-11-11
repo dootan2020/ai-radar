@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-11T13:35:33.963934+00:00",
-  "input_generated_at": "2026-11-11T12:45:49Z",
+  "generated_at": "2026-11-11T15:45:05.306420+00:00",
+  "input_generated_at": "2026-11-11T14:46:01Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -53388,10 +53388,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/09/2026/with-a-weak-board-and-no-successor-nvidia-confronts-a-governance-crisis",
       "key_points": [
-        "Theo Semafor, CEO Jensen Huang thừa nhận từng quan hệ với người bị nghi làm gián điệp, khiến tương lai lãnh đạo phụ thuộc vào hội đồng quản trị. Bê bối làm lộ rõ quản trị lỏng lẻo khi cổ phiếu Nvidia giảm 5%, thổi bay hơn 200 tỷ USD vốn hóa.",
-        "Theo Semafor, hội đồng quản trị cho phép ông Huang duy trì hơn 50 cấp dưới báo cáo, khiến Nvidia không có người thay thế nội bộ. Giáo sư Jill Fisch nhận định nhiệm kỳ kéo dài làm suy giảm tính độc lập của các thành viên.",
-        "Nvidia thiếu nhân sự số hai khi không có chủ tịch hay giám đốc vận hành (COO), và từ kế nhiệm không xuất hiện trong báo cáo thường niên, so với 25 lần ở Microsoft và 16 lần ở Alphabet. Hội đồng quản trị Nvidia cũng thiếu chuyên môn an ninh quốc gia, dù Meta và Microsoft đều có bốn CEO lớn.",
-        "Theo Semafor, cuộc điều tra nội bộ và điều trần quốc hội sẽ góp phần làm rõ nguy cơ tổn hại an ninh, dù hội đồng quản trị khẳng định không có lý do để tin bí mật bị xâm phạm và Tổng thống Trump vẫn tin tưởng ông. Ngoài ra, việc lừa dối hội đồng quản trị hoặc nhà đầu tư có thể khiến Nvidia đối mặt thêm các vụ kiện từ cổ đông và nguy cơ bị chế tài."
+        "Theo Semafor, CEO Jensen Huang thừa nhận quan hệ với người bị nghi làm gián điệp cho Trung Quốc, đặt tương lai lãnh đạo vào tay hội đồng quản trị. Cổ phiếu Nvidia giảm 5% trong phiên chiều, làm mất hơn 200 tỷ USD vốn hóa.",
+        "Theo Semafor, hội đồng quản trị Nvidia dung túng cơ cấu quản lý hơn 50 cấp dưới báo cáo, khiến công ty không có người thay thế nội bộ rõ ràng. Giáo sư Jill Fisch nhận định nhiệm kỳ kéo dài có thể làm suy giảm tính độc lập của các giám đốc.",
+        "Nvidia thiếu nhân sự số hai rõ ràng khi không có chức danh president hoặc COO, và từ kế nhiệm vắng bóng trong báo cáo thường niên gần nhất. Các thành viên hội đồng quản trị có thâm niên trung bình gần 15 năm, và không ai từng là CEO nhóm S&P 500 hay có kinh nghiệm an ninh quốc gia.",
+        "Theo Semafor, bất kỳ dấu hiệu nào cho thấy ông Huang lừa dối hội đồng quản trị hoặc Nvidia cố tình lừa dối nhà đầu tư về vấn đề trọng yếu đều có thể mang lại thêm các vụ kiện từ cổ đông. Các phiên điều trần quốc hội có khả năng diễn ra sẽ giúp xác định nguy cơ an ninh, dù hội đồng quản trị cho biết không có lý do để tin bí mật bị xâm phạm."
       ],
       "same_event_coverage_ids": [
         "79f833c93749fd75d9bd",
@@ -53399,7 +53399,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "CEO Nvidia thừa nhận quan hệ với người bị nghi là gián điệp, khiến công ty lộ khủng hoảng quản trị và kế nhiệm",
+      "editorial_headline_vi": "CEO Nvidia thừa nhận quan hệ với người bị nghi là gián điệp, khiến công ty lộ khủng hoảng quản trị",
       "summary_sources": [
         {
           "id": "outlet",
@@ -53412,65 +53412,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.35,
+        "value": 9.3,
         "answers": {
           "what": 9,
-          "why": 8,
-          "notable": 9,
-          "meaning": 6
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "không có người thay thế nội bộ",
-            "explanation": "The source says Nvidia has no obvious internal replacement, not that no internal replacement exists (outlet:p016)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "nhiệm kỳ kéo dài làm suy giảm tính độc lập của các thành viên",
-            "explanation": "Jill Fisch says long board tenure can reduce directors’ independence; the Vietnamese turns that possibility into a definite effect (outlet:p011)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "không có chủ tịch",
-            "explanation": "The source says Nvidia has no president or chief operating officer. It does not say Nvidia has no board chair (outlet:p015)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "điều trần quốc hội sẽ góp phần làm rõ",
-            "explanation": "The source describes congressional hearings as likely, not certain (outlet:p022)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "việc lừa dối hội đồng quản trị hoặc nhà đầu tư",
-            "explanation": "The source raises conditional possibilities: Huang may have misled the board, or Nvidia may have knowingly misled investors about a material issue. It does not establish either act (outlet:p023)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "Readers may take deception as established and miss who might have misled whom.",
-            "fix": "State that any suggestion Huang misled the board, or that Nvidia knowingly misled investors about a material issue, could bring further shareholder litigation (outlet:p023)."
-          },
-          {
-            "question": "what",
-            "problem": "“Không có chủ tịch” gives readers the wrong leadership role.",
-            "fix": "Say Nvidia has no president or COO and no clear second-in-command (outlet:p015)."
-          },
-          {
-            "question": "why",
-            "problem": "The Vietnamese rules out an internal successor, while the source says none is obvious.",
-            "fix": "Describe the absence of an obvious internal replacement and link it to Huang’s management structure (outlet:p016)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Readers are told congressional hearings will happen.",
-            "fix": "Keep the source’s uncertainty: congressional hearings are likely (outlet:p022)."
-          },
-          {
-            "question": "why",
-            "problem": "Fisch’s caution about long board tenure becomes a definite conclusion.",
-            "fix": "Say long tenure can reduce directors’ independence (outlet:p011)."
+            "problem": "The reader is told that likely congressional hearings will examine security risks, but the company’s investigation and the precise questions under examination are left unclear.",
+            "fix": "Say that the company’s investigation and likely hearings will help determine whether Huang compromised Nvidia secrets or US national security during the affair (outlet:p022)."
           }
         ],
         "writer_boats": [
@@ -53478,8 +53432,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d3d45098d9cea71ea2644ce65028febe4eb2f7a4a6f0df095e488b8c1f26d97f",
-        "scored_at": "2026-11-11T13:35:33.935697+00:00"
+        "prose_sha256": "f18352909116ece3b78c734ffa92a0184e22c6351051fa2b9eaa9e7f250e7016",
+        "scored_at": "2026-11-11T15:45:05.288776+00:00"
       }
     },
     {
@@ -53744,6 +53698,647 @@
         "1105d03be49dbcbb0d3c"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "90cac90091d730b70352",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/anthropic-ipo-said-to-be-multiple-times-oversubscribed-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "12b3b323ec434acddadd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "87209848417b63cfc532",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/11/plurai-wants-to-help-ai-agents-work-better-using-the-same-approach-that-helped-get-self-driving-cars-to-roads/",
+      "key_points": [
+        "Plurai huy động 13 triệu USD vốn hạt giống do Team8 dẫn đầu để mô phỏng hệ thống doanh nghiệp cho tác tử AI (chương trình trí tuệ nhân tạo tự hành). Giải pháp áp dụng kỹ thuật từ xe tự hành nhằm xử lý lỗi biên, khi chuẩn đánh giá (bộ kiểm tra tiêu chuẩn) cho thấy tác tử chưa đủ tin cậy nếu thiếu giám sát.",
+        "Đồng sáng lập Ilan Kadar cho biết tác tử AI rất dễ làm bản thử nghiệm nhưng khó đạt độ tin cậy và tối ưu chi phí. TechCrunch giải thích tác tử là hệ thống xác suất nên dễ vi phạm chính sách chi tiêu hoặc đi sai hướng khi ngữ cảnh hội thoại quá dài.",
+        "Thử nghiệm cùng Nvidia và Nebius cho thấy mô hình do Plurai huấn luyện vượt trội mô hình biên tầm trung với chi phí thấp hơn. Nền tảng này tạo bản sao kỹ thuật số của hệ thống công ty để vá lỗi biên và tương thích với Cursor hay Claude Code.",
+        "Nhà nghiên cứu Reah Miyara từ Google DeepMind nhận định lợi thế của Plurai đến từ việc hiểu lỗi vận hành để tạo dữ liệu tổng hợp tinh chỉnh mô hình. Bà cho rằng phương pháp này mang lại ưu thế khi các mô hình biên không khớp với dữ liệu doanh nghiệp và có chi phí lâu dài không bền vững."
+      ],
+      "same_event_coverage_ids": [
+        "901b28499ac27990eb05"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Plurai gọi vốn 13 triệu USD, áp dụng kỹ thuật từ xe tự hành để mô phỏng hệ thống doanh nghiệp cho tác tử AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/11/plurai-wants-to-help-ai-agents-work-better-using-the-same-approach-that-helped-get-self-driving-cars-to-roads/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The investor’s assessment sounds settled.",
+            "fix": "Keep Miyara’s conditional claim: Plurai’s approach could prove advantageous as businesses optimize AI spending (outlet:p016)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4ab204c17c6d9f51e4e3845458849bfc95fffbcc28b6a6d6a542e895348945b5",
+        "scored_at": "2026-11-11T15:40:54.843106+00:00"
+      }
+    },
+    {
+      "id": "1251f00274bede43be17",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1031505/adobe-max-2026-sneaks-experiments-ai",
+      "key_points": [
+        "Tại hội nghị Max, Adobe công bố loạt tính năng AI thử nghiệm giúp biến ảnh tĩnh thành không gian 3D và tạo nhân vật ảo qua đối thoại trực tiếp. The Verge cho biết công nghệ này còn hỗ trợ chuyển đổi chỉnh sửa ảnh thành thao tác sao chép dán.",
+        "Nhà nghiên cứu Gautham Mysore của Adobe giải thích các thử nghiệm này giúp giới sáng tạo chuyên nghiệp kiểm soát kết quả chuẩn xác hơn. The Verge nhận xét các công cụ biến quy trình dựng phim và hòa âm phức tạp trở nên trực quan, dễ thao tác hơn.",
+        "Với Project Screen Test, người dùng cung cấp giọng nói riêng rồi trò chuyện để phát triển tính cách và tiểu sử nhân vật AI. Ngoài ra, Project Sight Span biến ảnh phẳng thành không gian 3D để đổi góc máy, dù hình ảnh ban đầu bị vỡ hạt trước khi chốt góc.",
+        "The Verge lưu ý các thử nghiệm này chỉ là bản xem trước công nghệ và chưa bảo đảm sẽ trở thành tính năng chính thức trên Creative Cloud hay Firefly. Tác giả bài viết trên The Verge nhận định nếu đủ hữu ích, AI có thể dần thay thế các công cụ và kho tài nguyên hiện có."
+      ],
+      "same_event_coverage_ids": [
+        "5bd352e495c40779b27c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Adobe thử nghiệm công nghệ AI biến ảnh thành không gian 3D và đối thoại tạo nhân vật",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1031505/adobe-max-2026-sneaks-experiments-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "24479f197d61d0e5878e1b07a9e2288decb437dd146d79569e91f7e5d7326b11",
+        "scored_at": "2026-11-11T15:40:54.843196+00:00"
+      }
+    },
+    {
+      "id": "75f9f03dfb34a40e7b64",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/features/2026-grok-sexualized-childhood-photos/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "edc4849dc99dd0539a4c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ba610f066a5b9f9b0920",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/take-two-ceo-zelnick-ai-wont-kill-gaming-jobs-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e9ab4001462c30569ae7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "44c6ab8f250170beda2b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/11/2026/coreweave-reports-positive-q3-results-but-faces-tough-road-ahead",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "12fa1bcada0df3469786",
+        "ba0868edb3d0b1ccdf76"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bfae697fb069be71eb77",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/11/2026/anthropic-ipo-could-lead-to-large-correction-in-markets-fed-official-says",
+      "key_points": [
+        "Thống đốc Michelle Bowman từ Cục Dự trữ Liên bang Mỹ (Fed) cảnh báo nguy cơ xảy ra một đợt điều chỉnh giảm giá cổ phiếu quy mô lớn nếu lợi nhuận từ trí tuệ nhân tạo không đạt kỳ vọng.",
+        "Bà Bowman giải thích mối lo ngại này bắt nguồn từ khoản nợ 800 tỷ USD liên quan đến AI, cùng các nghĩa vụ nợ ngoài bảng cân đối kế toán và cơ chế tài trợ tuần hoàn trên thị trường.",
+        "Theo Semafor, đợt niêm yết IPO của Anthropic được ấn định ở mức 90,4 tỷ USD và chuẩn bị chốt giá vào ngày 18 tháng 11, dù mức định giá của công ty đã thấp hơn kỳ vọng ban đầu.",
+        "Chuyên gia Tore Opsahl từ tập đoàn Nomura nhận định bất kỳ sự chao đảo nào quanh đợt IPO này cũng có thể kích hoạt làn sóng bán tháo cổ phiếu theo chủ đề AI."
+      ],
+      "same_event_coverage_ids": [
+        "5a308d1e21a2f9d78746"
+      ],
+      "split_coverage_ids": [
+        "0b545e7901beb6bca4e6"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quan chức Fed cảnh báo thị trường có thể điều chỉnh mạnh khi Anthropic chuẩn bị IPO 90,4 tỷ USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/11/2026/anthropic-ipo-could-lead-to-large-correction-in-markets-fed-official-says"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 7,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "đợt niêm yết IPO của Anthropic được ấn định ở mức 90,4 tỷ USD",
+            "explanation": "The $90.4 billion figure is Anthropic’s valuation, not the stated amount of shares to be sold in the IPO (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The $90.4 billion figure is attached ambiguously to the IPO rather than clearly to Anthropic’s valuation.",
+            "fix": "Call it Anthropic’s estimated valuation and retain the November 18 pricing date (outlet:p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses Bowman’s warning beyond stock prices.",
+            "fix": "Add that she said a shock would likely slow the AI buildout and soften the economy (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e038466a150aeef39f48d842b702400f76f6031e78dea8c37f85fc7224983763",
+        "scored_at": "2026-11-11T15:31:29.010392+00:00"
+      }
+    },
+    {
+      "id": "cc2548e39af3992c9812",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/11/2026/tracking-how-jensen-huang-changed-his-stance-on-china",
+      "key_points": [
+        "Theo phân tích 42 cuộc phỏng vấn podcast của Semafor, phát ngôn của CEO Jensen Huang ngày càng ca ngợi Trung Quốc và chỉ trích việc kiểm soát chip sau năm 2025.",
+        "Huang lập luận các lệnh siết xuất khẩu gây hại cho Mỹ nhiều hơn và đối thủ sẽ thế chỗ nếu Mỹ rời đi. Theo Semafor, việc quan hệ ngoài luồng có tác động đến lập trường của ông hay không vẫn chưa ngã ngũ.",
+        "Trong 14 cuộc phỏng vấn sau năm 2025, ông Huang ca ngợi nhân lực và mô hình AI Trung Quốc. Ở tám cuộc phỏng vấn, ông nêu rằng 50% nhà nghiên cứu AI toàn cầu là người Trung Quốc hoặc ở Trung Quốc.",
+        "Hội đồng quản trị Nvidia đã thuê công ty luật điều tra xem quan hệ với một giám đốc ở công ty dữ liệu Singapore có nghi vấn liên hệ Bắc Kinh có tác động đến ông hay không. Ngoài ra, Quốc hội Mỹ đang lên kế hoạch điều trần về vấn đề này."
+      ],
+      "same_event_coverage_ids": [
+        "1eed5f05488ef9e0725d"
+      ],
+      "split_coverage_ids": [
+        "2d29c01be30da478f45e"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Semafor: Jensen Huang tăng ca ngợi Trung Quốc sau đòn siết chip, hội đồng Nvidia thuê luật sư điều tra",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/11/2026/tracking-how-jensen-huang-changed-his-stance-on-china"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "sau năm 2025",
+            "explanation": "The shift followed restrictions imposed in early 2025, not the end of 2025 (outlet:p001, outlet:p006)."
+          },
+          {
+            "kind": "number",
+            "summary_text": "Trong 14 cuộc phỏng vấn sau năm 2025",
+            "explanation": "The 14 interviews took place since the restrictions imposed during 2025, not necessarily after the year 2025 (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "“Sau năm 2025” moves the reported shift and interviews to after the year ended.",
+            "fix": "Say “sau các biện pháp hạn chế áp dụng vào đầu năm 2025” in both places (outlet:p006, outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "54e1e8609af9c03009a701e33aeffff0a047d4c6ffb2f06c2970b009059860cc",
+        "scored_at": "2026-11-11T15:40:54.843231+00:00"
+      }
+    },
+    {
+      "id": "488eb497c0ab9b42fec2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pietromiotti.com/latest/maya-site/?maya",
+      "key_points": [
+        "Phân tích dữ liệu quét laser lidar của NASA, 48 tác tử AI (phần mềm tự hành) của tác giả đã tìm ra một di chỉ Maya chưa từng được ghi nhận tại Mexico. Tác giả cho biết hành trình từ ý tưởng du lịch đến phản hồi chính thức từ Mexico diễn ra trong chưa đầy 72 giờ.",
+        "Dữ liệu quét trên diện tích 1.200 kilômét vuông rừng rậm được chuyển thành hình ảnh, sau đó 48 tác tử AI rà soát từng ảnh theo hướng dẫn. Các tác tử này xem ảnh trực tiếp và lọc bỏ đồi núi tự nhiên, hố sụt cùng đường sá mà không dùng mô hình chuyên biệt.",
+        "Tác giả cho biết khu vực phát hiện có kim tự tháp hình bầu dục cao ít nhất 8–12 m cùng một quảng trường phẳng. Theo tác giả, địa điểm này còn có một khoảng sân trên cao gắn liền và một vùng trũng đáy phẳng có thể từng là bể chứa nước.",
+        "Tác giả nhấn mạnh phát hiện chưa chính thức nhưng di chỉ này chưa từng xuất hiện trên bản đồ theo các nguồn đã biết. Viện Nhân chủng học và Lịch sử Quốc gia Mexico xác nhận địa điểm trên chưa có trong hồ sơ và mọi khảo sát thực địa đều cần cơ quan này cấp phép."
+      ],
+      "same_event_coverage_ids": [
+        "acdd9271b212269acf93",
+        "c328793ae6991f369584"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Dùng 48 tác tử AI quét dữ liệu lidar của NASA, tác giả tìm ra di chỉ Maya chưa từng lập bản đồ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://pietromiotti.com/latest/maya-site/?maya"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader misses why the author chose lidar data for the Maya region.",
+            "fix": "Explain that lidar maps ground beneath trees and that public coverage was better in the Maya region than in Peru (outlet:p012–p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "86b72f94147be993518c63c81ce187bdfcc99bca4dd8b8353bae2753297c9b54",
+        "scored_at": "2026-11-11T15:31:29.010444+00:00"
+      }
+    },
+    {
+      "id": "da46f4d657bfc6778eb4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Online discussion thread consisting of casual community questions without news value, reporting, or product release announcements.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50452019",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b97ab99d97f348c0c798"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6389fdabf361f5bec532",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.abc.net.au/news/2026-11-11/australia-considers-criminal-charges-for-ai-companies/107368676",
+      "key_points": [
+        "Chính phủ Úc thông báo xem xét áp dụng chế tài hình sự đối với các công ty AI và thành lập cơ quan an toàn có thẩm quyền phạt tiền nếu họ không ngăn chặn tác hại từ các mô hình. Thủ tướng Anthony Albanese nhấn mạnh luật pháp cần đón đầu và bắt kịp những thay đổi rất nhanh của thế giới hiện nay.",
+        "Tuy vậy, Cảnh sát Liên bang Úc (AFP) xác nhận chưa nhận được tin báo tội phạm và chưa tiến hành điều tra hình sự vụ việc này.",
+        "Úc cân nhắc ban hành tội danh không ngăn ngừa tác hại nếu doanh nghiệp không thực hiện các bước hợp lý, cùng hình phạt nghiêm khắc cho vi phạm tiêu chuẩn an toàn. Đại diện OpenAI cho biết đang xem xét đề xuất, trong khi Anthropic, Google và Meta chưa đưa ra bình luận.",
+        "Phó giáo sư Michael Duffy tại Đại học Monash nhận định quy định hình sự sẽ gặp nhiều khó khăn khi chứng minh lỗi và xác định xem liệu tác hại có lường trước được hay không. Theo ABC News, dù các quốc gia khác đã áp dụng các tội danh riêng đối với tác hại AI, quy định tập trung vào việc không thực hiện các bước hợp lý để ngăn ngừa tác hại sẽ là đạo luật đầu tiên thuộc loại này ở cấp quốc gia."
+      ],
+      "same_event_coverage_ids": [
+        "346de04a1dd036478f11"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Úc xem xét truy cứu trách nhiệm hình sự các công ty AI không ngăn ngừa tác hại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.abc.net.au/news/2026-11-11/australia-considers-criminal-charges-for-ai-companies/107368676"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.25,
+        "answers": {
+          "what": 9,
+          "why": 1,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "hình phạt nghiêm khắc cho vi phạm tiêu chuẩn an toàn",
+            "explanation": "The proposal is to consider criminal penalties for egregious breaches of AI safety standards, not unspecified severe penalties for breaches generally (outlet:p024)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader cannot tell what incident triggered the proposals or what “vụ việc này” refers to.",
+            "fix": "Identify the September OpenAI hack of the Medicare statistics portal and the subsequent review (outlet:p008, outlet:p012)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The wording loses both the criminal nature and the high threshold of the separate standards-breach proposal.",
+            "fix": "Say the government is also considering criminal penalties for egregious breaches of AI safety standards (outlet:p024)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "64eb08b49f4e4cdf071e9f6d05db0be332ca521376dd3e051acb4312d44c09eb",
+        "scored_at": "2026-11-11T15:31:29.010476+00:00"
+      }
+    },
+    {
+      "id": "22c34f2a8b845a926bdb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/10/2026/he-took-down-andrew-cuomo-now-jensen-huang-is-in-his-crosshairs",
+      "key_points": [
+        "Cựu công tố viên Mỹ Joon Kim được chỉ định dẫn dắt cuộc điều tra nội bộ xem CEO Jensen Huang của Nvidia có làm tổn hại bí mật thương mại hay an ninh quốc gia Mỹ hay không. Nvidia tuyên bố vẫn tin tưởng vào ông Huang và cho biết chưa có cơ sở cho thấy an ninh hay bí mật công ty bị xâm phạm.",
+        "Cuộc điều tra diễn ra sau khi ông Huang gửi thư cho nhân viên thừa nhận quan hệ ngoài luồng với một phụ nữ bị nghi là gián điệp Trung Quốc.",
+        "Cổ phiếu Nvidia giảm 10% làm mất 500 tỷ USD vốn hóa thị trường và công ty bị hãng phân tích Baird hạ bậc xếp hạng.",
+        "Theo Semafor, vụ việc làm dấy lên lo ngại về quản trị doanh nghiệp khi hội đồng quản trị thiếu kinh nghiệm để ông Huang quản lý hơn 50 cấp dưới trực tiếp mà không có người kế nhiệm rõ ràng, dù chưa rõ hội đồng quản trị sẽ cho phép ông Kim điều tra sâu đến mức nào."
+      ],
+      "same_event_coverage_ids": [
+        "2edef9c9e555c2744dfd"
+      ],
+      "split_coverage_ids": [
+        "b3a57e7fa4e1b47a6856"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia điều tra nội bộ CEO Jensen Huang sau bê bối tình ái với người bị nghi là gián điệp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/10/2026/he-took-down-andrew-cuomo-now-jensen-huang-is-in-his-crosshairs"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-11/nvidia-gets-rare-downgrade-as-baird-raises-ceo-uncertainities"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "adab9b29edd60a5622cd68d53372a74899236aa200d341d9f9fe86895f05cbfe",
+        "scored_at": "2026-11-11T15:31:29.010495+00:00"
+      }
+    },
+    {
+      "id": "7db3dbf05615c3ed6508",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/a-new-ai-tool-from-google-deepmind-formally-verified-the-signal-protocol/",
+      "key_points": [
+        "Google DeepMind đã dùng AI tác tử (hệ thống AI tự chủ hành động) và khung AlphaProof Code chứng minh toán học các bảo đảm mật mã trọng yếu của giao thức Signal. Dự án thử nghiệm bốn tuần này cung cấp thêm sự xác thực độc lập cho cơ chế mật mã bảo vệ Signal, Google Messages và WhatsApp.",
+        "Theo các nhà nghiên cứu, quy trình phối hợp cho phép AI tự sửa lỗi ở gần như mọi giai đoạn nhưng vẫn có con người kiểm duyệt tại các mốc then chốt. Dự án cũng kế thừa kết quả từ các đợt xác minh hình thức (dùng toán học kiểm tra phần mềm hoạt động đúng thiết kế) do Signal Foundation thực hiện trước đây.",
+        "Phân tích của DeepMind không phát hiện lỗ hổng bảo mật mới nào trong các phần giao thức được xem xét, nhưng AlphaProof Code đã xác định chính xác các lỗ hổng đã biết trên các phiên bản cũ. Giám đốc công nghệ Ehren Kret của Signal nhận định cách tiếp cận này giúp mở rộng đáng kể phạm vi xác minh các bảo đảm quyền riêng tư.",
+        "Dù vậy, phân tích của DeepMind chỉ giới hạn ở một số phần của giao thức chứ chưa xác minh toàn bộ ứng dụng Signal trên di động. Theo Wired, câu hỏi lớn hiện nay của ngành công nghệ là liệu việc xác minh hình thức tự động bằng AI có thể mở rộng quy mô với chi phí khả thi hay không."
+      ],
+      "same_event_coverage_ids": [
+        "3b4e4ca5037be3953e50",
+        "3f92a83264295d85dd4b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google DeepMind dùng AI xác minh toán học các bảo đảm mật mã trọng yếu của giao thức Signal",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/a-new-ai-tool-from-google-deepmind-formally-verified-the-signal-protocol/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9be4031daa84ace25714fd49d11d199492616abee234f89a9b8b6bc358a3766c",
+        "scored_at": "2026-11-11T15:40:54.843260+00:00"
+      }
     }
   ]
 }
