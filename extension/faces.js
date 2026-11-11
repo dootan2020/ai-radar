@@ -11,9 +11,11 @@ export const fmt = v => nf.format(Math.round(v));
 
 /* Publisher or lab id (sources[] in data/radar.json) -> its GitHub organisation. Carried over from the
    v2-ui-claude branch, where each login was checked on 02/10/2026 to resolve and to belong to that publisher.
+   Rechecked in Chrome on 11/11/2026: every login's picture is the publisher's own mark; Meta's organisation is now
+   "meta" (the old "facebook" login answers an unrelated generated pattern).
    Publishers without a verified GitHub identity (press, some podcasts) get a monogram, never a guessed logo. */
 export const GH_IDENT = {
-  'anthropic':'anthropics', 'openai':'openai', 'google':'google', 'nvidia':'NVIDIA', 'meta':'facebook',
+  'anthropic':'anthropics', 'openai':'openai', 'google':'google', 'nvidia':'NVIDIA', 'meta':'meta',
   'mistral':'mistralai', 'microsoft':'microsoft', 'huggingface':'huggingface', 'xai':'xai-org',
   'deepseek':'deepseek-ai', 'qwen':'QwenLM', 'hacker-news':'HackerNews', 'lobsters':'lobsters',
   'simon-willison':'simonw', 'interconnects':'natolambert', 'smol-ai':'smol-ai', 'github':'github',
@@ -75,6 +77,11 @@ export function loadDeferredImages(root = document){
   root.querySelectorAll('img[data-src]').forEach(img => { img.src = img.dataset.src; img.removeAttribute('data-src'); });
 }
 
+/* A GitHub login's avatar. github.com/<login>.png redirects to the account's own picture (avatars.githubusercontent.com
+   /u/<id>); the shorter avatars.githubusercontent.com/<login> answers an organisation with GitHub's grey placeholder
+   (measured 11/11: NVIDIA, openai and google all came back as the octocat). */
+export const ghAvatar = (login, px) => `https://github.com/${esc(encodeURIComponent(login))}.png?size=${px}`;
+
 /* size: xs | sm | md | lg | xl. Every face carries its monogram, so a broken image falls back without a reflow. */
 const PX = {xs:20, sm:28, md:40, lg:56, xl:72};
 export function avatar(face, size = 'md'){
@@ -83,7 +90,7 @@ export function avatar(face, size = 'md'){
   const mono = esc(face.kind === 'mono' ? face.id : monogram(face.label || face.id));
   const style = ` style="--mono-h:${monoHue(face.label || face.id)}"`;
   if (face.kind === 'mono') return `<span class="av av-${size} is-fallback" data-mono="${mono}"${style} role="img" aria-label="${esc(face.label || '')}"></span>`;
-  if (face.kind === 'gh') return `<span class="av av-${size}" data-mono="${mono}"${style}><img class="av-img" ${imgSrc(`https://avatars.githubusercontent.com/${esc(face.id)}?s=${px * 2}`)} alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="${px}" height="${px}"></span>`;
+  if (face.kind === 'gh') return `<span class="av av-${size}" data-mono="${mono}"${style}><img class="av-img" ${imgSrc(ghAvatar(face.id, px * 2))} alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="${px}" height="${px}"></span>`;
   const cached = hfCache.get(face.id);
   return `<span class="av av-${size}${cached === null ? ' is-fallback' : ''}" data-mono="${mono}" data-hf="${esc(face.id)}"${style}>${cached ? `<img class="av-img" ${imgSrc(esc(cached))} alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="${px}" height="${px}">` : ''}</span>`;
 }

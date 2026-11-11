@@ -233,7 +233,7 @@ class BanTinRenderLogicTests(unittest.TestCase):
         self.assertIn("Hugging Face Blog", tile)
         self.assertNotIn('<span class="bt-source-name">huggingface-blog</span>', tile)
         # Verified logo present
-        self.assertIn("avatars.githubusercontent.com/huggingface", tile)
+        self.assertIn("https://github.com/huggingface.png?size=", tile)
         # The reader sees the story, not how it was chosen (captain, 08/11): no reasons box, no measured numbers
         self.assertNotIn("Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm", tile)
         self.assertNotIn("Lý do chọn", tile)
