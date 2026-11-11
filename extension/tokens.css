@@ -266,7 +266,16 @@
   --band-h-top: 384px;                               /* "Hôm nay" and "Điểm nhấn": the lead, the lists, the weather, the calendar */
   --band-h-news: 286px;                              /* a row of story cards: "Tin mới", "Tin khác" */
   --band-h-lab: 432px;                               /* "Mô hình và mã nguồn": three equal tiles */
-  --bento-thumb-w: 104px; --bento-thumb-h: 78px;     /* a phone's compact story card: the picture beside the headline */
+  /* A phone's story card (captain, 11/11 10:50, two Samsung News screens as the reference: "Trên Mobile làm sạch sẽ kiểu
+     như vậy. Nhớ tuân thủ design system"): one white card per story with the bento tile's corner, the source over a
+     headline of up to four lines, a square picture to its right and the time under both. A notable story keeps a
+     full-width picture above its headline (area is hierarchy), and a top story leads with its rank in the number scale. */
+  --story-card-r: var(--tile-radius);                /* 24 px */
+  --story-card-pad: var(--space-16);
+  --story-card-gap: var(--space-12);                 /* between two cards */
+  --story-card-pic: clamp(80px, 31cqi, 112px);       /* the square picture, from the card's text width: 82 px at 320, 99 at 375, 111 at 414 */
+  --story-card-pic-r: var(--radius-12);
+  --story-card-rank: var(--num-md);                  /* a top story's rank, 32 px */
   --msn-brand-tile: 34px; --msn-brand-size: 1.375rem;
   --msn-rowh-xl: 292px; --msn-photo-h-xl: 154px;   /* 1750 px and wider: seven columns */
   --msn-rowh-phone: 240px; --msn-photo-h-phone: 112px;

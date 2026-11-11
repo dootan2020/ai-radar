@@ -27,6 +27,10 @@ Giống một slide keynote của Apple. Mỗi sáng, người đọc mở trang
 
 **Dark mode** chỉ thay tầng ngữ nghĩa. Mặt ô sáng dần lên để nổi, số luôn là thứ sáng nhất. Trang theo cài đặt của hệ thống cho tới khi người đọc tự chọn. Lựa chọn đó chỉ lưu trên máy của họ.
 
+## Phone story card
+
+Captain, 11/11 10:50, with two Samsung News screens: *"Trên Mobile làm sạch sẽ kiểu như vậy. Nhớ tuân thủ design system"*. Below 768 px every story on the front page is its own white card on the grey page: the bento tile's 24 px corner (`--story-card-r`), 16 px inside (`--story-card-pad`), 12 px between cards (`--story-card-gap`), no border and no dek. The source's mark and name sit on the first line in `color-ink-3`, the headline follows in `text-title` bold for up to four lines, a square picture (`--story-card-pic`, 31% of the card's text width, 80–112 px; corner `--story-card-pic-r`) stands to the right, and the time closes the card under both. A notable story ("Đáng chú ý", a double story) keeps the same lines under a full-width 16:9 picture: area is hierarchy. "Chuyện lớn" becomes four cards led by their rank in the number scale (`--story-card-rank`, 32 px). The panel runs edge to edge under the search with only its top corners rounded, and band titles grow to `text-tile`. No "⋮" menu: a card has no actions besides opening the story. Tablet and desktop keep the bento cards. Rules: the phone block of `site/trang-msn.css`; tests: `tests/test_mobile_the_tin.py`.
+
 ## Phone lead story
 
 At widths up to 767px, the lead keeps its full headline, source/kind/time, selection evidence, measured number, and translation attribution visible. One inline disclosure reveals the original title, full summary, sources, score, actions, and related stories together. Its state survives redraws for the same lead and resets when the lead changes. Tablet and desktop retain the complete layout. Phones render all board tiles together so the next tile does not wait for a separate paint after the compact lead.

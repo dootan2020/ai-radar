@@ -2091,11 +2091,11 @@ function sizedSrc(src, w) {
 }
 const WIDTHS = { lead: [480, 828, 1280], card: [240, 640, 960] };
 /* The slot's width (trang-msn.css, --bento-cols): on a phone the lead and a wide card run across the screen and a card's
-   picture is the 104 px thumbnail beside its headline (--bento-thumb-w); from 768 to 1023 px (three columns) the lead
+   picture is the square beside its headline, at most 112 px (--story-card-pic); from 768 to 1023 px (three columns) the lead
    has the first row to itself, a card a third of it and a wide card's picture half of it; from 1024 px (four or five
    columns) the lead spans two columns, at most half the panel, and a card's picture a column. */
 const SIZES = { lead: '(max-width: 1023px) 100vw, 50vw', wide: '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 25vw',
-  card: '(max-width: 767px) 104px, (max-width: 1023px) 34vw, 25vw' };
+  card: '(max-width: 767px) 112px, (max-width: 1023px) 34vw, 25vw' };
 function srcsetAttrs(src, size, defer) {
   const cands = WIDTHS[size === 'lead' ? 'lead' : 'card'].map(w => [sizedSrc(src, w), w]);
   const a = defer ? 'data-' : '';
