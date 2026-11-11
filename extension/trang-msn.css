@@ -67,6 +67,14 @@
   padding: var(--msn-panel-pad);
   background: var(--color-panel-front); border: 0; border-radius: var(--msn-panel-r);
   box-shadow: var(--msn-shadow-panel);
+  /* A short view ("Mã và mô hình") still fills the window down to the panel's bottom margin, so switching tabs never
+     shrinks the panel (captain, 11/11 12:4x); feed.js measures --panel-outside, the window's height that is not panel. */
+  min-height: calc(100svh - var(--panel-outside, 0px));
+}
+/* A new view arrives with a short fade, opacity only (feed.js settleView); the panel and its header stay. */
+@keyframes view-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  .msn-panel .is-arriving { animation: view-in var(--motion-state) var(--ease-flow); }
 }
 .newsbar.msn-head {
   position: relative; top: auto; z-index: 5; display: flex; align-items: center; gap: var(--space-16);
@@ -80,7 +88,13 @@
   --header-pill-inset: 0px; flex: 0 1 auto; gap: var(--msn-tight); padding: 0;
   -webkit-mask-image: none; mask-image: none;
 }
-.msn-head .sections .tab-pill { display: none; }
+/* The active section's underline: one line that glides from tab to tab under the label (feed.js glideLine moves it by
+   transform alone, then lands it at its own width), never a mark that blinks out under one tab and in under the next. */
+.msn-head .sections .tab-pill {
+  top: auto; bottom: var(--space-4); height: var(--msn-tab-line); border-radius: var(--msn-tab-line);
+  background: var(--color-accent-fill); transform-origin: 0 50%; will-change: transform;
+}
+.msn-head .sections .tab-pill.is-active { transition: transform var(--motion-state) var(--ease-flow); }
 /* When the sections scroll sideways, the edge that still hides sections fades out (feed.js sets data-more), so the
    reader sees there is more to the right; a tab that is fully in view is never faded. */
 .msn-head .sections[data-more="end"] { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--space-48)), transparent); mask-image: linear-gradient(to right, #000 calc(100% - var(--space-48)), transparent); }
@@ -94,21 +108,19 @@
 .msn-head .filter-chip::before { border-radius: var(--radius-8); inset: 0; }
 .msn-head .filter-chip:hover:not([aria-pressed="true"]) { --header-control-bg: var(--color-surface); color: var(--color-ink); }   /* a white wash on the tinted panel */
 .msn-head .filter-chip[aria-pressed="true"] { --header-control-bg: transparent; color: var(--color-ink); }
-.msn-head .filter-chip[aria-pressed="true"]::after {
-  content: ""; position: absolute; left: var(--space-12); right: var(--space-12); bottom: var(--space-4);
-  height: var(--msn-tab-line); border-radius: var(--msn-tab-line); background: var(--color-accent-fill);
-}
 .head-actions { display: flex; align-items: center; gap: var(--space-8); margin-left: auto; flex: none; }
-.head-actions .sort-switch { margin: 0; }
 /* "Đáng đọc nhất / Mới nhất": the segmented control of "Giao diện" in Tùy chỉnh (below, .tc-seg shares its track and
-   its chosen side), so the chosen order shows as a raised pill on a grey track (captain, 10/11 19:3x). The header row's
-   pill inset is not defined here, so the old track (.sort-switch::before) never drew. */
-.msn-head .sort-switch { --tab-pill-inset: 0px; --header-pill-inset: 0px; gap: var(--msn-tight); }
-.msn-head .sort-switch::before { display: none; }
-.msn-head .sort-btn { padding: 0 var(--space-12); border-radius: var(--seg-thumb-r); }
-.msn-head .sort-btn::before { border-radius: var(--seg-thumb-r); }
-.msn-head .sort-btn[aria-pressed="true"] { --header-control-bg: var(--color-seg-thumb); }
-.msn-head .has-pill .sort-btn[aria-pressed="true"] { --header-control-bg: transparent; }
+   its chosen side), so the chosen order shows as a raised pill on a grey track (captain, 10/11 19:3x). It sits on the
+   heading of the list it orders, "Tin mới" (captain, 11/11 12:3x: "dời đi"): the band heading's row (.band-head) holds
+   the title on the left and the control on the right. Its pill inset is not defined here, so the old track never drew. */
+.band-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); margin: var(--space-4) 0 var(--space-12) var(--space-4); }
+.band-head > .band-title { margin: 0; min-width: 0; }
+.band-head .sort-switch { --tab-pill-inset: 0px; --header-pill-inset: 0px; gap: var(--msn-tight); }
+.band-head .sort-switch::before { display: none; }
+.band-head .sort-btn { padding: 0 var(--space-12); border-radius: var(--seg-thumb-r); }
+.band-head .sort-btn::before { border-radius: var(--seg-thumb-r); }
+.band-head .sort-btn[aria-pressed="true"] { --header-control-bg: var(--color-seg-thumb); }
+.band-head .has-pill .sort-btn[aria-pressed="true"] { --header-control-bg: transparent; }
 .msn-head .ed-link {
   --header-pill-inset: 0px; --header-control-bg: var(--color-accent-fill); gap: var(--space-6); min-height: var(--btn-h); padding: 0 var(--space-16);
   font-size: var(--text-small); font-weight: var(--weight-bold); transition: transform var(--duration-150) var(--ease-press);
@@ -291,6 +303,7 @@
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 .msn-toplist .is-read .top-title { color: var(--color-ink-2); }
+.msn-toplist .top-pic { display: none; }   /* a phone's ranked card shows it (the phone block below) */
 /* The source and the time share a line and the time never breaks; the "Translated" mark moves under them when the line
    is full, and the source gives way (ellipsis) only when it and the time alone overflow. */
 .top-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--msn-tight) var(--space-4); min-width: 0; margin-top: var(--msn-dot); font-size: var(--text-micro); line-height: 1.35; white-space: nowrap; color: var(--color-ink-3); }
@@ -888,7 +901,6 @@
 @media (min-width: 1100px) and (max-width: 1450px) {
   .newsbar.msn-head { gap: var(--space-8); }
   .msn-head .filter-chip { padding: 0 var(--space-8); }
-  .msn-head .filter-chip[aria-pressed="true"]::after { left: var(--space-8); right: var(--space-8); }
 }
 /* From 1280 px the three tabs, both orders ("Đáng đọc nhất", "Mới nhất"), the theme and the morning edition share one
    row with room to spare (measured on the site and the new tab, 1280 to 1440). Narrower, the tabs take their own row,
@@ -918,14 +930,13 @@
      drops the morning edition and the search keeps its field (results show as the reader types, the keyboard has its
      own search key). The footer keeps "Nguồn tin": the dock gave that place to the events (owner, 09/11). */
   .msn-head .ed-link, .msn-top .ns-go { display: none; }
-  /* Both orders stay in sight beside the logo (captain, 11/11: "Trên Mobile chưa có nút mới nhất ... làm gọn gàng"):
-     the same grey track and raised side as the wide head row, "Đáng đọc" without " nhất" so the pair fits a 320 px
-     screen. The theme gives up its place here: "Tùy chỉnh" in the row above carries it (Sáng / Tối / Theo máy).
-     Two equal sides in a track of a set width (in em, so it grows with the reader's text size): the site font arriving
-     after the first paint changes no edge, so nothing in the row moves (tests/verify-front-lead.mjs counts shifts). */
-  .msn-head .theme-btn, .msn-head .sort-label-tail { display: none; }
-  .msn-head .sort-switch { display: grid; grid-template-columns: 1fr 1fr; width: 12em; font-size: var(--text-meta); }
-  .msn-head .sort-btn { min-width: 0; padding: 0 var(--space-4); font-size: inherit; }
+  /* The order on "Tin mới"'s heading: both sides in sight (captain, 11/11: "Trên Mobile chưa có nút mới nhất"), "Đáng
+     đọc" without " nhất" so the heading and the pair fit a 320 px screen. Two equal sides in a track of a set width (in
+     em, so it grows with the reader's text size): the site font arriving changes no edge. The header row is the logo,
+     the theme and the tabs again. */
+  .band-head .sort-label-tail { display: none; }
+  .band-head .sort-switch { display: grid; grid-template-columns: 1fr 1fr; width: 12em; font-size: var(--text-meta); }
+  .band-head .sort-btn { min-width: 0; padding: 0 var(--space-4); font-size: inherit; }
 }
 @media (max-width: 699px) {
   :root { --msn-gap: var(--space-8); --msn-cols: 2; }
@@ -938,7 +949,6 @@
   .msn-head .brand-tile { width: var(--space-32); height: var(--space-32); }
   .msn-head .brand-name { font-size: var(--text-tile); }
   .msn-head .filter-chip { padding: 0 var(--space-8); font-size: var(--text-meta); }
-  .msn-head .filter-chip[aria-pressed="true"]::after { left: var(--space-8); right: var(--space-8); }
   .front-meta .filter-context { margin-top: var(--space-4); }
   .msn-grid, .msn-grid.is-front, .msn-grid:has(> .msn-wx) { grid-template-rows: none; grid-auto-rows: auto; }
   /* On a phone the two cards come first in the grid's own order (after the lead on the front page). */
@@ -1027,41 +1037,91 @@
   .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide { grid-column: span 1; order: 0; flex-direction: column; }
   .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide .nc-photo { width: auto; height: var(--msn-photo-h); }
 }
-/* A phone: one column, news first and the widgets after it in each band. A story is a compact row (its picture beside
-   the headline); a double story and "Đáng chú ý" are full-width picture cards. */
+/* A phone: one column, news first and the widgets after it in each band. Every story is its own calm card on the grey
+   page (captain, 11/11 10:50, Samsung News as the reference): the source, a large headline, a square picture to its
+   right, the time under both; no dek, no border, no counter. A double story and "Đáng chú ý" keep a full-width picture
+   above the headline, and "Chuyện lớn" becomes four cards led by their rank. Tokens: --story-card-* in tokens.css. */
 @media (max-width: 767px) {
-  :root { --bento-cols: 1; --band-gap: var(--space-16); }
-  .band-cells { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; gap: var(--space-8); }
+  :root { --bento-cols: 1; --band-gap: var(--space-32); }
+  /* The panel becomes the page under the search: full width, rounded only where it rises, so the cards own the edges. */
+  .feed-main.front.msn-panel { margin: 0 0 var(--space-32); padding: var(--space-12); border-radius: var(--msn-panel-r) var(--msn-panel-r) 0 0; }
+  .band-cells { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; gap: var(--story-card-gap); }
   .band-cells > *, .band-cells > .msn-lead, .band-cells > .nc-wide, .band-cells > .tile-fresh { grid-column: 1 / -1; }
-  .band > .band-title { margin: 0 0 var(--space-8) var(--space-4); font-size: var(--text-body); }
-  .more-box { gap: var(--space-8); }
-  .more-box > .day-line.band-title { margin-top: calc(var(--band-gap) - var(--space-8)); font-size: var(--text-body); }
+  .band > .band-title { margin: 0 0 var(--space-12) var(--space-4); font-size: var(--text-tile); letter-spacing: -0.02em; }
+  .more-box { gap: var(--story-card-gap); }
+  .more-box > .day-line.band-title { margin-top: calc(var(--band-gap) - var(--story-card-gap)); font-size: var(--text-tile); letter-spacing: -0.02em; }
   .band .msn-lead { height: var(--msn-lead-h-phone); }
   .band .msn-wx { min-height: var(--msn-wx-h-phone); }
   .band .msn-cal { min-height: var(--msn-rowh-phone); }
   .band .tile-fresh .fresh-list { grid-auto-rows: auto; }
-  .band .msn-toplist ol { overflow: visible; }
-  .band .msn-toplist li { flex: none; }
-  .band .nc { min-height: 0; height: auto; }
-  .band .nc:not(.nc-wide) { flex-direction: row; align-items: flex-start; }
-  .band .nc:not(.nc-wide) .nc-photo {
-    width: var(--bento-thumb-w); height: var(--bento-thumb-h); margin: var(--space-12) 0 var(--space-12) var(--space-12);
-    border-radius: var(--radius-8);
+  /* The story card. Its body and meta line dissolve into one grid, so the time can leave the source's line for the
+     card's foot without new markup (desktop keeps the markup's own order). Columns: the new/seen mark, the text, the
+     picture; with no picture the last column is empty and the headline takes the width. */
+  .band .nc {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto 1fr auto;
+    grid-template-areas: "mark who pic" "title title pic" "when when when";
+    gap: var(--space-8) 0; min-height: 0; height: auto; padding: var(--story-card-pad); container-type: inline-size;
   }
-  .band .nc:not(.nc-wide) .nc-body { padding: var(--space-12); gap: var(--space-4); }
-  .band .nc:not(.nc-wide) .nc-title { font-size: var(--text-sub); -webkit-line-clamp: 3; }
-  .band .nc.no-photo:not(.nc-wide) .nc-sum { display: none; }
-  .band .nc-wide { flex-direction: column; height: auto; min-height: 0; }
-  .band .nc-wide .nc-photo { width: auto; height: auto; aspect-ratio: 16 / 9; }
-  .band .nc-wide .nc-body { padding: var(--space-12); gap: var(--space-6); }
-  .band .nc-wide .nc-title { font-size: var(--text-title); -webkit-line-clamp: 4; }
-  .band .nc-wide .nc-sum { display: -webkit-box; -webkit-line-clamp: 2; }
-  .band .nc-wide.no-photo .nc-body { padding: var(--space-16); }
+  .band .nc :is(.nc-body, .nc-meta) { display: contents; }
+  .band .nc .st-mark { grid-area: mark; align-self: center; }
+  .band .nc .nc-who { grid-area: who; align-self: center; }
+  .band .nc .nc-who .nc-fav { display: inline-grid; }
+  .band .nc .nc-who .nc-fav .av { width: var(--msn-fav); height: var(--msn-fav); }
+  .band .nc .nc-title { grid-area: title; align-self: start; font-size: var(--story-card-title); line-height: 1.35; -webkit-line-clamp: 4; }
+  .band .nc .nc-when { grid-area: when; margin-top: var(--space-8); }
+  .band .nc.nc .nc-meta time { flex-basis: auto; font-weight: inherit; }   /* the desktop card's time: no phone-only weight */
+  .band .nc .nc-sum { display: none; }
+  .band .nc .nc-photo {
+    grid-area: pic; align-self: start; width: var(--story-card-pic); height: var(--story-card-pic);
+    margin-inline-start: var(--space-16); border-radius: var(--story-card-pic-r);
+  }
+  /* A notable story: the picture across the card's top, inset like the rest, then the same lines under it. */
+  .band .nc:is(.nc-wide, .nc-big) {
+    grid-template-columns: auto minmax(0, 1fr); grid-template-rows: none;
+    grid-template-areas: "pic pic" "kick kick" "mark who" "title title" "when when";
+  }
+  .band .nc:is(.nc-wide, .nc-big) .nc-photo { width: auto; height: auto; aspect-ratio: 16 / 9; margin: 0 0 var(--space-4); }
+  .band .nc:is(.nc-wide, .nc-big) .nc-kicker { grid-area: kick; }
+  .band .nc:is(.nc-wide, .nc-big) .nc-title { font-size: var(--story-card-title-big); line-height: 1.3; }
+  .band .nc-photo .ai-badge { right: var(--space-4); bottom: var(--space-4); max-width: calc(100% - var(--space-8)); }
+  /* "Chuyện lớn": the list's frame goes, each story becomes a card led by its rank in the number scale. */
+  .band .msn-toplist { padding: 0; overflow: visible; background: none; box-shadow: none; border-radius: 0; }
+  .band .msn-toplist h2 { margin: 0 0 var(--space-12) var(--space-4); font-size: var(--text-body); }
+  .band .msn-toplist ol { gap: var(--story-card-gap); overflow: visible; }
+  .band .msn-toplist li {
+    flex: none; display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; grid-template-rows: auto 1fr auto;
+    grid-template-areas: "num mark who pic" "num title title pic" "num when when when";
+    gap: var(--space-8) 0; padding: var(--story-card-pad); border: 0; border-radius: var(--story-card-r);
+    background: var(--color-surface); box-shadow: var(--msn-shadow-rest); container-type: inline-size;
+  }
+  .band .msn-toplist .top-pic {
+    display: block; position: relative; grid-area: pic; align-self: start; overflow: hidden;
+    width: var(--story-card-pic); height: var(--story-card-pic); margin-inline-start: var(--space-16);
+    border-radius: var(--story-card-pic-r); background: var(--color-fill);
+  }
+  .band .msn-toplist .top-pic .ai-badge { right: var(--space-4); bottom: var(--space-4); max-width: calc(100% - var(--space-8)); }
+  .band .msn-toplist :is(.top-text, .top-meta, .top-who) { display: contents; }
+  .band .msn-toplist li > b {
+    grid-area: num; align-self: center; margin-inline-end: var(--space-12);
+    font-size: var(--story-card-rank); line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums;
+  }
+  .band .msn-toplist .st-mark { grid-area: mark; align-self: center; }
+  .band .msn-toplist .top-src { grid-area: who; align-self: center; font-size: var(--text-micro); font-weight: var(--weight-semibold); color: var(--color-ink-2); }
+  .band .msn-toplist .top-who > span[aria-hidden] { display: none; }
+  .band .msn-toplist .top-title { grid-area: title; font-size: var(--story-card-title); line-height: 1.35; font-weight: var(--weight-bold); letter-spacing: -0.015em; -webkit-line-clamp: 4; }
+  .band .msn-toplist time { grid-area: when; margin-top: var(--space-8); font-size: var(--text-micro); color: var(--color-ink-3); }
+  .band .msn-toplist li:has(.story-link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
   .band-lab .band-grid { grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
   .band-lab .band-grid > .tile { overflow: visible; }
   .band-lab :is(.arena-list, .repo-row, .model-list) { flex: none; overflow: visible; }
   /* A phone's tiles grow with their rows, so a closed band keeps them short: three repositories, four models. */
   .band-lab:not(.is-open) .repo-row > :nth-child(n+4), .band-lab:not(.is-open) .model-list > :nth-child(n+5) { display: none; }
+}
+/* A narrow phone: the rank and a picture leave a ranked headline about 115 px, so the rank steps down the scale and the
+   headline to body size. */
+@media (max-width: 370px) {
+  .band .msn-toplist li > b { font-size: var(--text-feature); }
+  .band .msn-toplist li:has(> .top-pic) .top-title { font-size: var(--text-body); }
 }
 /* ---------- the day's picture behind the page (owner, 10/11: "còn về ảnh nền thì em làm như edge") ---------- */
 /* From 768 px the day's 3D render fills the window behind the page, as on Edge's new tab, and stays put while the panel
@@ -1164,9 +1224,9 @@
 .tc-switch:checked::before { transform: translateX(calc(var(--tc-switch-w) - var(--tc-switch-h))); }
 .tc-switch:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
 /* The segmented control, one look wherever a choice of a few sides is shown: "Giao diện" here, the order in the
-   panel's header row (.msn-head .sort-switch). A grey track; the chosen side a raised pill. */
-.tc-seg, .msn-head .sort-switch { padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }
-.tc-seg label:has(input:checked), .msn-head .sort-switch .tab-pill {
+   heading of "Tin mới" (.band-head .sort-switch). A grey track; the chosen side a raised pill. */
+.tc-seg, .band-head .sort-switch { padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }
+.tc-seg label:has(input:checked), .band-head .sort-switch .tab-pill {
   background: var(--color-seg-thumb); box-shadow: var(--msn-shadow-rest); border-radius: var(--seg-thumb-r);
 }
 .tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); }

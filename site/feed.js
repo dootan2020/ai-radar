@@ -1585,6 +1585,12 @@ function glideTab(container, activeBtn, { immediate = false } = {}) {
   const x = activeBtn.offsetLeft, y = activeBtn.offsetTop + inset;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  if (container.classList.contains('sections')) {
+    const pad = parseFloat(getComputedStyle(activeBtn).paddingLeft) || 0;
+    glideLine(pill, x + pad, Math.max(0, w - 2 * pad), immediate || reduced);
+    return;
+  }
+
   if (immediate || reduced || !pill.classList.contains('is-active')) {
     pill.style.transition = 'none';
     pill.style.transform = `translate3d(${x}px, ${y}px, 0)`;
@@ -1602,6 +1608,32 @@ function glideTab(container, activeBtn, { immediate = false } = {}) {
   pill.style.transform = `translate3d(${x}px, ${y}px, 0)`;
   pill.style.width = `${w}px`;
   pill.style.height = `${h}px`;
+}
+/* The section tabs' underline glides from the old tab to the new one and takes the new label's width (captain, 11/11
+   12:4x: "cái gạch màu dưới mỗi tab đó di chuyển mượt mà từ tab này sang tab kia"). Only its transform moves, so the
+   glide runs on the compositor even while the new view is being drawn: in flight it is the old line stretched by
+   scaleX, and when it lands it takes its own width at scale 1, so its round ends are never stretched at rest. */
+function glideLine(line, x, w, still) {
+  const from = parseFloat(line.style.width) || 0;
+  line.dataset.to = `${x} ${w}`;
+  if (still || !from || !line.classList.contains('is-active')) {
+    landLine(line);
+    return;
+  }
+  if (!line.dataset.lands) {
+    line.dataset.lands = '1';
+    line.addEventListener('transitionend', e => { if (e.propertyName === 'transform') landLine(line); });
+  }
+  line.style.transform = `translate3d(${x}px, 0, 0) scaleX(${w / from})`;
+}
+function landLine(line) {
+  const [x, w] = (line.dataset.to || '0 0').split(' ').map(Number);
+  line.style.transition = 'none';
+  line.style.width = `${w}px`;
+  line.style.transform = `translate3d(${x}px, 0, 0) scaleX(1)`;
+  line.classList.add('is-active');
+  line.getBoundingClientRect();
+  line.style.transition = '';
 }
 
 /* Which edge of the sideways-scrolling section tabs still hides tabs: trang-msn.css fades that edge. */
@@ -2003,12 +2035,20 @@ function renderNewsBands() {
   renderOtherBand();
   hydrateHF(box); observeSkips(); observeCardMotion(box); hydrateLoadedImages(box);
 }
-const bandHTML = (id, title, body) => `<section class="band band-${id}" id="band-${id}" aria-labelledby="band-${id}-h"><h2 class="band-title" id="band-${id}-h">${title}</h2>${body}</section>`;
+/* aside: a control that belongs to the band's own list, drawn on the heading's row ("Tin mới" carries the order). */
+const bandHTML = (id, title, body, aside = '') => {
+  const h = `<h2 class="band-title" id="band-${id}-h">${title}</h2>`;
+  return `<section class="band band-${id}" id="band-${id}" aria-labelledby="band-${id}-h">${aside ? `<div class="band-head">${h}${aside}</div>` : h}${body}</section>`;
+};
+/* The order control lives on "Tin mới", the list it orders, while the front page is drawn, and waits hidden in
+   #sort-home otherwise; parking it before every redraw keeps the one element (and its listeners) alive. */
+const parkSortSwitch = () => { const s = $('#sort-switch'), home = $('#sort-home'); if (s && home && s.parentElement !== home) home.append(s); };
+const placeSortSwitch = grid => { const slot = grid.querySelector('[data-slot="sort"]'), s = $('#sort-switch'); if (slot && s) slot.replaceWith(s); };
 function frontHTML() {
   const { notable } = FRONT;
   return bandHTML('today', 'Hôm nay', `<div class="band-cells">${leadHTML(PICKLIST)}${freshTileHTML()}<i data-slot="wx"></i></div>`)
     + bandHTML('focus', 'Điểm nhấn', `<div class="band-cells">${topListHTML(FRONT_TOP)}${notable ? msnCard(notable, 'wide', true) : ''}${renderNext()}<i data-slot="cal"></i></div>`)
-    + bandHTML('news', 'Tin mới', '<div class="band-cells" id="news-grid"></div>')
+    + bandHTML('news', 'Tin mới', '<div class="band-cells" id="news-grid"></div>', '<i data-slot="sort"></i>')
     + renderLab()
     + bandHTML('more', 'Tin khác', '<div class="more-box" id="more-box"><div class="band-cells" id="more-grid"></div></div><p class="sr" id="more-status" role="status" aria-live="polite"></p>');
 }
@@ -2091,11 +2131,11 @@ function sizedSrc(src, w) {
 }
 const WIDTHS = { lead: [480, 828, 1280], card: [240, 640, 960] };
 /* The slot's width (trang-msn.css, --bento-cols): on a phone the lead and a wide card run across the screen and a card's
-   picture is the 104 px thumbnail beside its headline (--bento-thumb-w); from 768 to 1023 px (three columns) the lead
+   picture is the square beside its headline, at most 112 px (--story-card-pic); from 768 to 1023 px (three columns) the lead
    has the first row to itself, a card a third of it and a wide card's picture half of it; from 1024 px (four or five
    columns) the lead spans two columns, at most half the panel, and a card's picture a column. */
 const SIZES = { lead: '(max-width: 1023px) 100vw, 50vw', wide: '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 25vw',
-  card: '(max-width: 767px) 104px, (max-width: 1023px) 34vw, 25vw' };
+  card: '(max-width: 767px) 112px, (max-width: 1023px) 34vw, 25vw' };
 function srcsetAttrs(src, size, defer) {
   const cands = WIDTHS[size === 'lead' ? 'lead' : 'card'].map(w => [sizedSrc(src, w), w]);
   const a = defer ? 'data-' : '';
@@ -2197,8 +2237,10 @@ function onLeadTouchEnd(e) {
 function topListHTML(list) {
   if (!list.length) return '';
   return `<section class="msn-card msn-toplist" id="top-list" aria-labelledby="top-list-h"><h2 id="top-list-h">Chuyện lớn</h2><ol>${list.map((st, i) => {
-    const t = titleOf(st), s = srcOf(st);
-    return `<li class="list-row ${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><b class="num" aria-hidden="true">${i + 1}</b><span class="top-text"><a class="story-link top-title" href="${storyHref(st)}" data-id="${esc(st.id)}"${langAttr(t.text)}>${esc(t.text)}</a><span class="top-meta">${markHTML(st)}<span class="top-who"><span class="top-src">${esc(s.name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}</span></span></span></li>`;
+    const t = titleOf(st), s = srcOf(st), img = pickImage(st);
+    // The story's picture, shown only on a phone's ranked card (trang-msn.css); hidden elsewhere, so it never loads there.
+    const pic = img.src ? `<span class="top-pic">${mediaHTML(img, 'card')}</span>` : '';
+    return `<li class="list-row ${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"><b class="num" aria-hidden="true">${i + 1}</b><span class="top-text"><a class="story-link top-title" href="${storyHref(st)}" data-id="${esc(st.id)}"${langAttr(t.text)}>${esc(t.text)}</a><span class="top-meta">${markHTML(st)}<span class="top-who"><span class="top-src">${esc(s.name)}</span><span aria-hidden="true">·</span>${timeEl(st.published_at)}</span></span></span>${pic}</li>`;
   }).join('')}</ol></section>`;
 }
 
@@ -2473,7 +2515,32 @@ function adoptEarlyLead(grid, early) {
   if (slot) slot.replaceWith(early);
 }
 
-function renderFeed() {
+/* Views already drawn stay drawn (captain, 11/11 12:4x: "chỉ tải lại nội dung, không tải lại toàn bộ"): "Trang nhất"
+   and "Mã và mô hình" keep their nodes and their scroll state when the reader opens another tab, and a tab switch puts
+   them back as they were. A view is drawn again only when what it shows changed: a new snapshot, another order, or any
+   redraw not caused by a tab switch (a save, a mark), which drops every kept view. "Xếp hạng" keeps its own nodes in
+   #arena (arena.js). */
+const KEPT_VIEWS = new Set(['all', 'code']);
+const keptViews = new Map();    // filter -> { nodes, state, data, sort, empty }
+let gridView = null;            // { filter, data, sort, empty } of the nodes in #feed-grid
+const viewState = () => ({ PICKLIST, FRONT_TOP, FRONT_IDS, FRONT, seq, pos, shownCards, totalCards, frontColsSeen });
+/* Take the drawn view out of the grid, whole. The weather, the calendar and the order control are single nodes that
+   other views borrow: each leaves a slot behind and goes home, and comes back to its slot when the view returns. */
+function keepGridView(grid) {
+  if (!gridView || !KEPT_VIEWS.has(gridView.filter)) return;
+  const sort = $('#sort-switch');
+  for (const [el, slot] of [[weatherCard, 'wx'], [calendarCard, 'cal'], [sort, 'sort']]) {
+    if (!el || !grid.contains(el)) continue;
+    const i = document.createElement('i');
+    i.dataset.slot = slot;
+    el.replaceWith(i);
+  }
+  if (sort && !sort.isConnected) $('#sort-home').append(sort);
+  keptViews.set(gridView.filter, { ...gridView, nodes: [...grid.childNodes], state: viewState() });
+  gridView = null;
+}
+function renderFeed({ reuse = false, keepOthers = false } = {}) {
+  if (!reuse && !keepOthers) keptViews.clear();
   const skeleton = $('#feed-skeleton');
   const early = skeleton && skeleton.querySelector('.msn-lead .slide-media');
   if (skeleton) skeleton.remove();
@@ -2496,13 +2563,43 @@ function renderFeed() {
   }
   if (!D) { $('#feed-empty').hidden = false; renderChips(); return; }
   const front = filter === 'all';
+  // A kept view is current while the snapshot and the order are the ones it was drawn from. The complete snapshot of the
+  // same edition only adds older days: the front page takes them as it does when they arrive (appendOlder), any other
+  // view is drawn again.
+  const current = view => view && view.filter === filter && view.data === D.generated_at && view.sort === sortMode
+    && (front || view.complete === complete);
+  const kept = reuse && keptViews.get(filter);
+  if (reuse && current(gridView)) {
+    $('#feed-empty').hidden = !gridView.empty;           // the grid still holds this view (Xếp hạng only hid it)
+    if (front && !gridView.complete && complete) { gridView.complete = true; appendOlder(); }
+  } else if (current(kept)) {
+    keepGridView(grid);
+    keptViews.delete(filter);
+    grid.replaceChildren(...kept.nodes);
+    ({ PICKLIST, FRONT_TOP, FRONT_IDS, FRONT, seq, pos, shownCards, totalCards, frontColsSeen } = kept.state);
+    gridView = { filter, data: D.generated_at, sort: sortMode, empty: kept.empty, complete };
+    grid.classList.toggle('is-front', front);
+    $('#feed-empty').hidden = !kept.empty;
+    placeSortSwitch(grid);
+    if (front && bentoCols() !== frontColsSeen) renderNewsBands();   // the window changed width meanwhile
+    if (front && !kept.complete && complete) appendOlder();
+  } else drawView(grid, front, early);
+  finishView(grid);
+}
+/* Draw the open view into the grid from the snapshot. */
+function drawView(grid, front, early) {
+  const code = filter === 'code';
+  if (gridView && gridView.filter !== filter) keepGridView(grid);
   ({ lead: PICKLIST, top: FRONT_TOP } = front ? chooseFront() : { lead: [], top: [] });
   grid.classList.toggle('is-front', front);
+  let empty = false;
   if (front) {
     // The front page's five bands (buildFront, frontHTML); its two story bands follow the column count.
     seq = []; pos = 0; shownCards = 0; totalCards = 0;
     FRONT = buildFront();
+    parkSortSwitch();
     grid.innerHTML = frontHTML();
+    placeSortSwitch(grid);
     adoptEarlyLead(grid, early);
     $('#feed-empty').hidden = true;
     renderNewsBands();
@@ -2513,14 +2610,19 @@ function renderFeed() {
     pos = 0; shownCards = 0;
     totalCards = seq.filter(x => x.t === 'card').length;
     const chunk = renderChunk(PAGE_FIRST);
-    const empty = !chunk.html.trim() && !chunk.days.length;   // tiles with no data render nothing, so judge by the output
+    empty = !chunk.html.trim() && !chunk.days.length;   // tiles with no data render nothing, so judge by the output
     $('#feed-empty').hidden = !empty;
     // The weather and the calendar are the home's furniture; a reader who opened "Mã và mô hình" came for repositories
     // and models (owner, 09/11: "QA các thành phần giao diện có nên hiển thị ở đó hay không"), so that view leaves them
     // out, and so does "Sự kiện", whose page is the approved "Ba thì" alone (11/11).
+    parkSortSwitch();
     grid.innerHTML = (code || filter === 'sec:sap-toi' ? '' : FIXED_SLOTS) + chunk.html;
     placeChunk(grid, { html: '', days: chunk.days });
   }
+  gridView = { filter, data: D.generated_at, sort: sortMode, empty, complete };
+}
+/* What every view needs once its nodes are in the grid, drawn now or kept from before. */
+function finishView(grid) {
   placeFixedCards(grid);
   renderSub();
   renderChips();
@@ -2625,18 +2727,59 @@ function renderFrontMeta() {
 function setFilter(f, fromHash = false) {
   if (!D && f !== 'rankings' && f !== 'all') return;
   filter = f;
-  if (!fromHash) history.replaceState(null, '', location.pathname + location.search + (f === 'rankings' ? '#xep-hang' : ''));
+  // Each view has its own address, and choosing one adds a history entry: Back and Forward walk the tabs the reader
+  // opened and a reload stays on the tab (route() reads it back).
+  if (!fromHash) {
+    const url = location.pathname + location.search + viewHash(f);
+    if (url !== location.pathname + location.search + location.hash) history.pushState(null, '', url);
+  }
   // The saved list and a section reach past the window file: draw them from the complete snapshot, never from the
   // window first (the first screen no longer loads it on its own, whenReaderActs).
   if (!complete && (f === 'saved' || f.startsWith('sec:'))) {
     setLoading(true);
-    loadComplete().then(() => { setLoading(false); if (filter === f) renderFeed(); });
-  } else renderFeed();
+    loadComplete().then(() => { setLoading(false); if (filter === f) { renderFeed({ reuse: true }); settleView(); } });
+  } else { renderFeed({ reuse: true }); settleView(); }
+  // A reader deep in one view starts the next at the panel's top, at once: a smooth scroll across a view that has just
+  // been replaced would sweep through content that is no longer there.
   const top = $('#top').getBoundingClientRect().top;
-  if (top < 0) window.scrollTo({ top: window.scrollY + top - 8 });
+  if (top < 0) window.scrollTo({ top: window.scrollY + top - 8, behavior: 'instant' });
   const container = $('#feed-filters');
   const active = container ? container.querySelector(`.filter-chip[data-filter="${CSSq(f)}"]`) : null;
   if (container && active) scrollChipIntoView(container, active);
+}
+/* The address of a view; route() reads each one back. The front page has none. */
+function viewHash(f) {
+  if (f === 'rankings') return '#xep-hang';
+  if (f === 'code') return '#repo';
+  if (f === 'saved') return '#da-luu';
+  if (f.startsWith('sec:')) return '#' + f.slice(4);
+  return '';
+}
+/* The new view arrives with a short fade (opacity only, so nothing moves and nothing shifts); the panel, the header,
+   the tabs and the dock stay as they are (captain, 11/11 12:4x: "cố định những thành phần giống nhau ở mỗi tab, chỉ
+   tải lại nội dung"). Under reduced motion trang-msn.css draws no fade. */
+function settleView() {
+  const view = filter === 'rankings' ? $('#arena') : $('#feed-grid');
+  if (!view || RM.matches) return;
+  view.classList.remove('is-arriving');
+  void view.offsetWidth;
+  view.classList.add('is-arriving');
+  const done = e => {
+    if (e.target !== view) return;
+    view.classList.remove('is-arriving');
+    view.removeEventListener('animationend', done);
+  };
+  view.addEventListener('animationend', done);
+}
+/* The window's height that is not panel: the panel's top in the page, its bottom margin and the page's bottom padding.
+   trang-msn.css floors the panel at the window's height less this, so a short view fills the window as a long one
+   does. It changes only when the window or the top row does. */
+function floorPanel() {
+  const panel = $('#top');
+  if (!panel) return;
+  const end = parseFloat(getComputedStyle(panel).marginBottom) || 0, pad = parseFloat(getComputedStyle(document.body).paddingBottom) || 0;
+  const value = `${Math.round(panel.getBoundingClientRect().top + scrollY + end + pad)}px`;
+  if (panel.style.getPropertyValue('--panel-outside') !== value) panel.style.setProperty('--panel-outside', value);
 }
 function renderSortSwitch() {
   $$('.sort-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === sortMode)));
@@ -2968,18 +3111,22 @@ function openSearchFromAddress() {
   return true;
 }
 function route() {
-  if (location.hash === '#xep-hang') { setFilter('rankings', true); return; }
+  // The view already open is left alone: closing a story's window returns to the view's address, and redrawing the
+  // view there would lose the reader's place.
+  if (location.hash === '#xep-hang') { if (filter !== 'rankings') setFilter('rankings', true); return; }
   if (location.hash === '#tim') { openSearchFromAddress(); return; }
   if (!D) return;
   const h = decodeURIComponent(location.hash.slice(1));
-  if (!h || h === 'top') return;                 // the browser scrolls; a filter the reader chose stays
+  if (h === 'top') return;                       // the browser scrolls; a filter the reader chose stays
+  // No address is the front page (Back from a tab returns to it); a story's own address (tin/...) is not a view.
+  if (!h) { if (filter !== 'all' && !/\/tin\/[^/]+\/?$/.test(location.pathname)) setFilter('all', true); return; }
   if (h === 'moi') { goFirstNew(); return; }
   // A retired section's old link (#hom-nay, #nong...) opens the home feed, which now scrolls on through those stories.
   if (RETIRED_VIEWS.has(h)) { history.replaceState(history.state, '', location.pathname + location.search); if (filter !== 'all') setFilter('all'); return; }
-  if (h === 'repo') { setFilter('code', true); return; }
-  if (h === 'da-luu') { if (saved.length) setFilter('saved', true); return; }
+  if (h === 'repo') { if (filter !== 'code') setFilter('code', true); return; }
+  if (h === 'da-luu') { if (saved.length && filter !== 'saved') setFilter('saved', true); return; }
   if (h === 'nguon') { location.replace('nguon.html'); return; }
-  if (SECTIONS[h]) { setFilter('sec:' + h, true); return; }
+  if (SECTIONS[h]) { if (filter !== 'sec:' + h) setFilter('sec:' + h, true); return; }
   const m = /^tin\/(.+)$/.exec(h);
   if (m) openStory(m[1]);
 }
@@ -2988,6 +3135,8 @@ function route() {
    never shows as a broken image: the card drops its picture slot and becomes a text card (Mẫu A); a carousel slide
    keeps its dark frame and shows its headline large. */
 function dropPhoto(img) {
+  const top = img.closest('.top-pic');   // a ranked card ("Chuyện lớn") keeps its text and loses the picture
+  if (top) { top.remove(); return; }
   const card = img.closest('.nc, .slide');
   if (!card) return;
   const st = STORY_ANY.get(card.dataset.id);
@@ -3203,14 +3352,6 @@ function onOpenLink(e) {
   markRead(a.dataset.read || a.dataset.id);
 }
 function attachEvents() {
-  $('#theme-btn').addEventListener('click', () => {
-    const root = document.documentElement;
-    const dark = root.getAttribute('data-theme') === 'dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
-    const next = dark ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    $('#theme-btn').setAttribute('aria-pressed', String(next === 'dark'));
-    store.set(K.theme, next);
-  });
   $('.feed-brand').addEventListener('click', () => { if (filter !== 'all') setFilter('all'); });
   $('#feed-filters').addEventListener('click', e => { const b = e.target.closest('.filter-chip'); if (b) setFilter(b.dataset.filter); });
   $('#feed-filters').addEventListener('scroll', e => markTabOverflow(e.currentTarget), { passive: true });
@@ -3222,6 +3363,18 @@ function attachEvents() {
       const sort = $('#sort-switch'), on = sort.querySelector('.sort-btn[aria-pressed="true"]');
       if (on) glideTab(sort, on, { immediate: true });
     }).observe($('#sort-switch'));
+  }
+  floorPanel();
+  addEventListener('resize', floorPanel);
+  if ('ResizeObserver' in window && $('#masthead')) new ResizeObserver(floorPanel).observe($('#masthead'));
+  // The same for the section tabs' underline: a tab's label grows when the site font arrives.
+  if ('ResizeObserver' in window && $('#feed-filters')) {
+    const tabs = $('#feed-filters');
+    const ro = new ResizeObserver(() => {
+      const on = tabs.querySelector('.filter-chip[aria-pressed="true"]');
+      if (on) glideTab(tabs, on, { immediate: true });
+    });
+    tabs.querySelectorAll('.filter-chip').forEach(c => ro.observe(c));
   }
   // Tiles that lead to a view of their own ("Xem đủ 10 mô hình" opens "Xếp hạng").
   document.addEventListener('click', e => {
@@ -3402,7 +3555,7 @@ function adoptComplete(data) {
   ({ lastSeen, firstVisit } = keep);
   complete = true;
   if (!same) renderAll();
-  else if (filter !== 'all' && filter !== 'rankings') renderFeed();
+  else if (filter !== 'all' && filter !== 'rankings') renderFeed({ keepOthers: true });
   else { renderChips(); appendOlder(); }
 }
 /* Addresses that name a section, the saved list or a story outside the window wait for the complete snapshot. */
@@ -3421,7 +3574,6 @@ async function init() {
   loadLateStyles();
   const th = store.get(K.theme, null);
   if (th) document.documentElement.setAttribute('data-theme', th);
-  $('#theme-btn').setAttribute('aria-pressed', String(th ? th === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches));
   watchImageErrors();
   watchPictures();
   watchImageLoad();

@@ -225,17 +225,19 @@ class TopZoneTests(unittest.TestCase):
         self.assertEqual([head.index(p) for p in order], sorted(head.index(p) for p in order))
         self.assertNotIn('id="news-search"', head)
         bar = html[html.index('id="bar"'):html.index('</nav>', html.index('id="bar"'))]
-        for part in ('id="brand"', 'logo.svg', 'class="brand-name"', 'id="feed-filters"', 'id="ns-open"', 'class="ed-link"',
-                     'id="theme-btn"'):
+        for part in ('id="brand"', 'logo.svg', 'class="brand-name"', 'id="feed-filters"', 'id="ns-open"', 'class="ed-link"'):
             self.assertIn(part, bar)
+        # Light and dark live in "Tùy chỉnh", never in the header (captain, 11/11 13:54).
+        self.assertNotIn('theme-btn', bar)
         self.assertLess(bar.index('id="brand"'), bar.index('id="feed-filters"'))
         self.assertLess(html.index('</nav>', html.index('id="bar"')), html.index('id="feed-grid"'))
         # The site home: the news search is its search bar, above the same panel head; no Google rows.
         top = site[site.index('id="masthead"'):site.index('</header>')]
         self.assertIn('id="news-search"', top)
         site_bar = site[site.index('id="bar"'):site.index('</nav>', site.index('id="bar"'))]
-        for part in ('id="brand"', 'logo.svg', 'id="feed-filters"', 'class="ed-link"', 'id="theme-btn"'):
+        for part in ('id="brand"', 'logo.svg', 'id="feed-filters"', 'class="ed-link"'):
             self.assertIn(part, site_bar)
+        self.assertNotIn('theme-btn', site_bar)
         for part in ('id="dateline"', 'id="services"', 'Tìm trên Google'):
             self.assertNotIn(part, site)
         # The Google search: no shadow at rest or in focus (07/11 18:26), and no border or ring either (captain, 08/11

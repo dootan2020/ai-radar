@@ -74,7 +74,9 @@
 
 /* ---------- base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--feed-bar-height, var(--bar-h)) + var(--space-16)); overflow-x: clip; }
+/* The scrollbar's gutter is always kept, so a view short enough to need no scrollbar ("Mã và mô hình" on a tall window)
+   does not widen the page by the scrollbar's 15 px and shift every centred box sideways (measured 7.5 px at 2000 px). */
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--feed-bar-height, var(--bar-h)) + var(--space-16)); overflow-x: clip; scrollbar-gutter: stable; }
 body {
   margin: 0; background: var(--color-canvas); color: var(--color-ink);
   font-family: var(--family); font-size: var(--text-body); line-height: var(--leading-body);

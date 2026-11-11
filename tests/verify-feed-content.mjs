@@ -409,7 +409,9 @@ return {renderNewItems, offerNewItems, dismissNewItems, scheduleNewItemsDismissa
   renderNavigation() { renderAll = () => {}; },
   noNewsArena(show) { D = null; arenaView = {show}; },
 };`, {
-  location:navLocation, history:{replaceState:(_state, _title, url) => replacedURLs.push(url)}, document:doc, matchMedia:() => ({matches:true}),
+  // Choosing a tab adds a history entry (pushState) and so moves the address, as a browser does.
+  location:navLocation, history:{replaceState:(_state, _title, url) => replacedURLs.push(url),
+    pushState:(_state, _title, url) => { replacedURLs.push(url); const i = url.indexOf('#'); navLocation.hash = i < 0 ? '' : url.slice(i); }}, document:doc, matchMedia:() => ({matches:true}),
   localStorage:{getItem:() => null, setItem:() => {}},
   window:{scrollTo:options => jumps.push(options)}, scrollY:100,
   setTimeout:(fn, ms) => { const id = ++timerId; timers.set(id, {fn, ms}); return id; },

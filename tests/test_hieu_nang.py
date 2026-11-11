@@ -176,7 +176,7 @@ class LeadPictures(unittest.TestCase):
         self.assertIsNone(s["other"])
         self.assertIsNone(s["relative"])
         # A phone's card picture is the 104 px thumbnail beside the headline; three columns (768-1023) give a card a third.
-        self.assertIn('sizes="(max-width: 767px) 104px, (max-width: 1023px) 34vw, 25vw"', self.got["card"])
+        self.assertIn('sizes="(max-width: 767px) 112px, (max-width: 1023px) 34vw, 25vw"', self.got["card"])
         self.assertIn('loading="lazy"', self.got["card"])
 
     def test_card_pictures_wait_until_the_card_nears_the_screen(self):
@@ -222,8 +222,8 @@ class FirstLoadBudget(unittest.TestCase):
         body = feed[feed.index("function setFilter(f, fromHash = false) {"):]
         body = body[:body.index("\n}\n")]
         self.assertIn("if (!complete && (f === 'saved' || f.startsWith('sec:'))) {", body)
-        self.assertIn("loadComplete().then(() => { setLoading(false); if (filter === f) renderFeed(); });", body)
-        self.assertIn("} else renderFeed();", body)
+        self.assertIn("loadComplete().then(() => { setLoading(false); if (filter === f) { renderFeed({ reuse: true }); settleView(); } });", body)
+        self.assertIn("} else { renderFeed({ reuse: true }); settleView(); }", body)
 
     def test_the_first_draw_s_files_are_asked_for_with_the_page(self):
         html = read(SITE / "index.html")
@@ -258,7 +258,7 @@ class RenderedTopRowFit(unittest.TestCase):
             self.assertLessEqual(m["cornerOverflow"], 0, f"{name}: the corner is cut {m}")
             self.assertLessEqual(abs(m["searchCentre"]), 1, f"{name}: the search left the middle {m}")
             self.assertTrue(m["date"], name)
-            self.assertEqual(m["orders"], ["Đáng đọc nhất", "Mới nhất"], name)
+            self.assertEqual(m["orders"], [], f"{name}: the order lives on Tin mới now (captain, 11/11 12:3x)")
             self.assertEqual(m["ordersCut"], [], name)
             self.assertLessEqual(m["headOverflow"], 0, name)
             self.assertFalse(m["sideways"], name)
