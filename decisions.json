@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-11T11:41:38.361214+00:00",
-  "input_generated_at": "2026-11-11T10:45:37Z",
+  "generated_at": "2026-11-11T13:35:33.963934+00:00",
+  "input_generated_at": "2026-11-11T12:45:49Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -52519,9 +52519,9 @@
       "source_url": "https://arxiv.org/abs/2611.13560",
       "key_points": [
         "Nhóm tác giả phát hiện đối sánh tài nguyên làm đảo ngược thứ hạng can thiệp huấn luyện qua 1.668 lượt chạy trên 6 mô hình. Quy trình này cấp cùng ngân sách token sinh ra và giờ GPU huấn luyện, có kiểm soát tác động phụ.",
-        "Theo nhóm nghiên cứu, chuỗi tiếp nối ở phần thưởng Monte-Carlo chiếm 91% tổng token sinh ra trong thiết lập thử nghiệm, khiến so sánh theo lượt cập nhật bỏ qua chi phí. Thuật toán GRPO (tối ưu hóa chính sách theo nhóm) vốn gán cùng điểm cho mọi token, nên phần thưởng tiến trình được đề xuất để chấm điểm từng bước.",
-        "Phần thưởng Monte-Carlo kém GRPO tiêu chuẩn 14,3 điểm phần trăm ở cùng số token trên mô hình Qwen2.5-1.5B và kém 7,8 điểm ở cùng thời gian huấn luyện, và không biến thể dày đặc nào vượt hơn. Trái lại, việc chọn prompt giúp tăng độ chính xác 1,7 điểm trên Qwen3-0.6B và 0,8 điểm trên Qwen2.5-1.5B khi đối sánh tài nguyên.",
-        "Nhóm tác giả lập luận các can thiệp huấn luyện cần được kiểm chứng ở cùng mức tài nguyên tính toán để loại bỏ các cải tiến biểu kiến. Dù vậy, các tác giả lưu ý mức tăng này xuất hiện sớm và GRPO tiêu chuẩn với tốc độ học ban đầu gấp đôi chỉ kém nửa điểm."
+        "Theo nhóm tác giả, so sánh theo lượt cập nhật bỏ qua chi phí khi chuỗi tiếp nối chiếm 91% tổng token sinh ra trong thử nghiệm. GRPO (tối ưu hóa chính sách theo nhóm) vốn gán cùng điểm cho mọi token của lời giải, nên phần thưởng tiến trình được đề xuất để chấm điểm từng bước.",
+        "Phần thưởng Monte-Carlo kém GRPO tiêu chuẩn 14,3 điểm phần trăm ở cùng số token và 7,8 điểm ở cùng thời gian huấn luyện trên Qwen2.5-1.5B, và không biến thể nào trong bốn biến thể dày đặc vượt hơn GRPO dù cùng thời gian huấn luyện. Trái lại, huấn luyện trên prompt có xác suất thành công dự đoán gần 1/2 giúp tăng độ chính xác 1,7 điểm trên Qwen3-0.6B và 0,8 điểm trên Qwen2.5-1.5B khi đối sánh tài nguyên.",
+        "Nhóm tác giả lập luận can thiệp huấn luyện cần được kiểm chứng ở cùng mức tài nguyên để bác bỏ một số cải tiến biểu kiến và xác nhận những cải tiến khác. Dù vậy, các tác giả lưu ý hai mức tăng đều xuất hiện sớm và GRPO tiêu chuẩn với tốc độ học ban đầu gấp đôi chỉ kém nửa điểm."
       ],
       "same_event_coverage_ids": [
         "9c9b2b30c0edfe69a30f"
@@ -52541,44 +52541,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 9,
-          "meaning": 8
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "không biến thể dày đặc nào vượt hơn",
-            "explanation": "The source limits this result to the four dense-reward variants tested, none of which outperformed GRPO even with as much training time (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The statement about dense-reward variants reads as a claim about every variant.",
-            "fix": "Limit it to the four variants tested and retain the equal-training-time condition (outlet:p009)."
-          },
-          {
-            "question": "notable",
-            "problem": "Readers do not learn which prompts produced the reported gains.",
-            "fix": "Say the selected prompts had predicted success nearest one-half (outlet:p009)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The conclusion emphasizes removing apparent gains but leaves out that matched-compute validation also confirmed gains.",
-            "fix": "State both parts of the authors’ conclusion (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3453e423cde9cc200fac26c0cc54b215d7a0151cfa8c1a3bfc564cd1dbe6ad5d",
-        "scored_at": "2026-11-11T11:41:38.332289+00:00"
+        "prose_sha256": "41bb4d0c4831eb9632192f0b7541347e41df9596b3c9f25c55e0e9b16b34455e",
+        "scored_at": "2026-11-11T13:27:57.547550+00:00"
       }
     },
     {
@@ -52913,16 +52891,16 @@
       "use_original_title": false,
       "source_url": "https://www.scmp.com/tech/big-tech/article/3374037/what-taiwanese-chip-giant-tsmc-gains-taking-stakes-openai-and-anthropics-ai-race",
       "key_points": [
-        "Hội đồng quản trị của TSMC phê chuẩn kế hoạch mua cổ phần tại cả OpenAI và Anthropic. Quyết định được ban giám đốc đưa ra vào thứ Ba đối với hai đơn vị phát triển mô hình trí tuệ nhân tạo.",
-        "Doanh nghiệp được phép chi tối đa 500 triệu USD mua cổ phiếu phổ thông của Anthropic theo giá IPO và tối đa 500 triệu USD mua cổ phiếu ưu đãi của OpenAI. Ban lãnh đạo cũng thông qua khoản ngân sách riêng tối đa 500 triệu USD thành lập nhánh đầu tư chiến lược vào hệ sinh thái bán dẫn.",
-        "Theo SCMP, bước đi này tạo mối liên kết tài chính trực tiếp giữa TSMC với các phòng nghiên cứu trí tuệ nhân tạo đang thúc đẩy nhu cầu sản xuất chip."
+        "Hội đồng quản trị TSMC đã phê chuẩn kế hoạch mua cổ phần tại cả OpenAI và Anthropic. Quyết định được hội đồng quản trị đưa ra vào thứ Ba đối với hai nhà phát triển mô hình trí tuệ nhân tạo.",
+        "Hội đồng quản trị TSMC cho phép chi tối đa 500 triệu USD mua cổ phiếu phổ thông của Anthropic theo giá IPO và tối đa 500 triệu USD mua cổ phiếu ưu đãi của OpenAI. Các giám đốc cũng phê duyệt riêng tối đa 500 triệu USD thành lập nhánh đầu tư chiến lược tập trung vào hệ sinh thái bán dẫn.",
+        "Theo SCMP, khoản đầu tư có thể giúp TSMC nắm bắt rõ ràng hơn về nhu cầu AI khi hậu thuẫn hai đơn vị phát triển mô hình. SCMP nhận định thương vụ sẽ đem lại mối liên kết tài chính trực tiếp giữa TSMC với các phòng thí nghiệm AI tiên phong thúc đẩy nhu cầu chip."
       ],
       "same_event_coverage_ids": [
         "8248b09face10210bac8"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "TSMC phê duyệt chi tới 500 triệu USD mua cổ phần OpenAI và 500 triệu USD cho Anthropic",
+      "editorial_headline_vi": "Hội đồng quản trị TSMC duyệt chi tới 500 triệu USD mua cổ phần OpenAI và 500 triệu USD cho Anthropic",
       "summary_sources": [
         {
           "id": "outlet",
@@ -52935,39 +52913,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.75,
+        "value": 10.0,
         "answers": {
-          "what": 9,
-          "why": 7,
+          "what": 10,
+          "why": 10,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Quyết định được ban giám đốc đưa ra",
-            "explanation": "The source says TSMC’s board authorized the share purchases, not its executive management (outlet:p012)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The decision is attributed once to executive management.",
-            "fix": "Attribute the authorization consistently to TSMC’s board (outlet:p012)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses the article’s stated potential benefit.",
-            "fix": "Add that the stakes could give TSMC clearer insight into AI demand, keeping the source’s uncertainty (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "5c3261fe9a600cfa02d7312e5866332ea2e61d6bc7fe0e7b399ae1625d49f4c0",
-        "scored_at": "2026-11-11T11:26:05.816504+00:00"
+        "prose_sha256": "2a2dba2adaf2d95cd8285aa5e1c3713ea1384ce43e512ce1c2ca14b8b37962c8",
+        "scored_at": "2026-11-11T13:27:57.547280+00:00"
       }
     },
     {
@@ -53089,17 +53050,17 @@
       "use_original_title": false,
       "source_url": "https://technode.com/2026/11/11/china-accelerates-data-center-expansion-as-the-west-faces-mounting-opposition/",
       "key_points": [
-        "Theo TechNode, Trung Quốc tiếp tục mở rộng hạ tầng tính toán, giữa lúc một số dự án tại châu Âu và Mỹ rơi vào đình trệ. Tính đến tháng 6 năm 2026, nước này vận hành 15,56 triệu giá máy chủ tiêu chuẩn và đạt năng lực tính toán thông minh 2.185 EFLOPS (thước đo hiệu năng tính toán).",
-        "TechNode nhận định nhu cầu tính toán tăng nhanh do sự bùng nổ của ngành mô hình ngôn ngữ lớn (LLM - mô hình AI xử lý ngôn ngữ). Trong hai năm qua, lượng token tiêu thụ hàng ngày của các mô hình nội địa đã tăng hơn 1.000 lần khi ứng dụng AI mở rộng sang khối doanh nghiệp và công nghiệp.",
-        "Trong 7 tháng đầu năm 2026, ít nhất 158 dự án trung tâm dữ liệu và tính toán thông minh trúng thầu với tổng giá trị vượt 113 tỷ nhân dân tệ. Dù vậy, tính đến quý 3 năm 2026, chỉ 13,6% số dự án đi vào vận hành, còn 71,6% vẫn ở giai đoạn lập kế hoạch và chuẩn bị.",
-        "TechNode nhận định năm 2027 có thể là thời điểm bàn giao lớn cho hạ tầng tính toán mới tại Trung Quốc. Trang tin này kết luận lợi thế cạnh tranh thực sự có thể nằm ở việc cung cấp năng lực tính toán đáng tin cậy, hiệu quả với chi phí tài nguyên thấp hơn, thay vì chỉ sở hữu nhiều trung tâm dữ liệu nhất."
+        "Theo TechNode, Trung Quốc tiếp tục mở rộng hạ tầng tính toán giữa lúc nhiều dự án tại châu Âu và Mỹ gặp phản đối. Tính đến tháng 6 năm 2026, nước này vận hành 15,56 triệu giá máy chủ tiêu chuẩn và đạt năng lực tính toán thông minh 2.185 EFLOPS (thước đo hiệu năng tính toán).",
+        "TechNode cho biết nhu cầu tính toán tăng nhanh gắn liền với sự bùng nổ của ngành mô hình ngôn ngữ lớn (LLM - mô hình AI xử lý ngôn ngữ). Trong hai năm qua, lượng token tiêu thụ hàng ngày của LLM nội địa đã tăng hơn 1.000 lần khi ứng dụng AI mở rộng sang tác tử AI (chương trình tự hành) và doanh nghiệp.",
+        "Trong 7 tháng đầu năm 2026, ít nhất 158 dự án hạ tầng tính toán trúng thầu trên 100 triệu nhân dân tệ mỗi dự án, đạt tổng giá trị hơn 113 tỷ nhân dân tệ. Ở danh mục đầu tư ba quý đầu năm 2026 rộng hơn, chỉ 13,6% số dự án đi vào vận hành, còn 71,6% vẫn ở khâu chuẩn bị.",
+        "TechNode nhận định năm 2027 có thể trở thành năm bàn giao lớn cho hạ tầng tính toán mới tại Trung Quốc. Trang tin kết luận lợi thế cạnh tranh thực sự có thể nằm ở khả năng cung ứng tính toán tin cậy, chi phí tài nguyên thấp hơn, thay vì số lượng trung tâm dữ liệu."
       ],
       "same_event_coverage_ids": [
         "cc02890e44cf7293584c"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Trung Quốc ghi nhận hơn 113 tỷ nhân dân tệ trúng thầu từ ít nhất 158 dự án hạ tầng tính toán",
+      "editorial_headline_vi": "Trung Quốc có ít nhất 158 dự án tính toán trúng thầu trên 100 triệu nhân dân tệ trong 7 tháng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -53114,30 +53075,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.9,
+        "value": 9.3,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 8,
-          "notable": 6,
-          "meaning": 9
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "chỉ 13,6% số dự án đi vào vận hành, còn 71,6% vẫn ở giai đoạn lập kế hoạch và chuẩn bị",
-            "explanation": "Placed immediately after the 158 winning-bid projects, “số dự án” implies those percentages describe that same group. The source gives the percentages for its separate first-three-quarters infrastructure project pipeline; it does not apply them to the 158 projects (outlet:p009, outlet:p015)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "Readers may apply the 13.6% and 71.6% shares to the 158 winning-bid projects.",
-            "fix": "Identify the shares as referring to the broader first-three-quarters project pipeline, separately from the first-seven-months winning bids (outlet:p009, outlet:p015)."
+            "question": "why",
+            "problem": "The reader does not learn how China is organizing the expansion.",
+            "fix": "Add that the Eastern Data, Western Computing initiative coordinates national hubs and shifts some demand toward western regions with more available land, electricity and renewable energy (outlet:p023–p025)."
           },
           {
-            "question": "notable",
-            "problem": "The summary loses the threshold that defines the 158-project figure.",
-            "fix": "State that each of those projects had a winning bid above 100 million yuan (outlet:p009)."
+            "question": "meaning",
+            "problem": "The conclusion omits efficiency and the risks that remain as projects approach delivery.",
+            "fix": "Mention efficient capacity use and the need to avoid redundant investment and achieve greener, lower-cost operations (outlet:p033–p034)."
           }
         ],
         "writer_boats": [
@@ -53145,8 +53100,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "fde41e3431410edac2c8e7d677aac7295bcde4ab3f4258b17b0bab77e95bad7b",
-        "scored_at": "2026-11-11T11:33:15.658813+00:00"
+        "prose_sha256": "6a7f2e17ddfe3e82e5f4e791bf1edadb708dddaff4313f3e06cbde8376c915f1",
+        "scored_at": "2026-11-11T13:27:57.547447+00:00"
       }
     },
     {
@@ -53376,17 +53331,17 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.14083",
       "key_points": [
-        "Tác giả Tomer Solberg giới thiệu Sable, hệ thống đối số tạo chứng minh suy luận chính xác từng bit trên một GPU cho mô hình biến đổi lượng tử hóa số nguyên.",
-        "Hệ thống cố định hàm số nguyên F_O không chứa bước dấu phẩy động, đồng thời xử lý các quan hệ qua hệ ràng buộc không tràn mô-đun số nguyên tố KoalaBear 31-bit. Bộ chứng minh truyền dữ liệu mô hình theo từng lớp trên một GPU và gom các phép kiểm tra thành một phép kiểm tra tổng trên mỗi miền.",
-        "Chi phí chứng minh tốn 6,4 cent cho mỗi yêu cầu 4.096 token theo giá GPU công khai, đồng thời tốn ít hơn từ 40 đến 64 lần thời gian trên mỗi tham số và token so với zkLLM.",
-        "Tác giả Tomer Solberg cho biết bằng chứng này không có tính chất không tiết lộ tri thức (zero-knowledge), do đó hệ thống chỉ nhắm tới các mô hình có trọng số mở."
+        "Tác giả Tomer Solberg giới thiệu Sable, hệ thống đối số trên một GPU chứng minh mô hình biến đổi lượng tử hóa số nguyên đã cam kết tạo chuỗi token từ câu lệnh, chính xác từng bit.",
+        "Sable cố định hàm số nguyên F_O không chứa bước dấu phẩy động, trong đó mọi quyết định làm tròn, chuẩn hóa, softmax và lấy mẫu đều do đầu vào xác định. Hệ thống ràng buộc quan hệ không tràn mô-đun số nguyên tố KoalaBear 31-bit và truyền mô hình theo từng lớp trên một GPU.",
+        "Theo tác giả Tomer Solberg, một chứng minh tốn 6,4 cent cho 4.096 token theo giá GPU công khai, tương đương 41 đến 50 lần thời gian phục vụ. Thời gian chứng minh trên mỗi tham số và token của Sable thấp hơn từ 40 đến 64 lần so với zkLLM.",
+        "Độ chính xác từng bit này áp dụng cho hàm số nguyên F_O của Sable, vốn khớp với mô hình BF16 ở 86,3% vị trí token tham lam trên WikiText-2. Tác giả Tomer Solberg cho biết chứng minh không có tính không tiết lộ tri thức (zero-knowledge), do đó hệ thống chỉ nhắm tới các mô hình có trọng số mở."
       ],
       "same_event_coverage_ids": [
         "989032f1749673716605"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hệ thống Sable tạo chứng minh suy luận chính xác từng bit cho mô hình ngôn ngữ lớn trên một GPU",
+      "editorial_headline_vi": "Sable tạo chứng minh suy luận mô hình lớn chính xác từng bit trên một GPU với giá 6,4 cent",
       "summary_sources": [
         {
           "id": "outlet",
@@ -53399,33 +53354,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.85,
+        "value": 10.0,
         "answers": {
-          "what": 8,
-          "why": 8,
-          "notable": 8,
-          "meaning": 7
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "Readers do not learn the precise claim Sable proves.",
-            "fix": "Specify that the proof concerns a committed integer-quantized transformer producing a given token sequence from a given prompt (outlet:p009)."
-          },
-          {
-            "question": "meaning",
-            "problem": "“Bit-exact” could be read as exact agreement with ordinary BF16 inference.",
-            "fix": "Explain that the proof is for Sable’s integer function and that its greedy token matched the BF16 model at 86.3% of WikiText-2 positions (outlet:p009)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3509f652ebaa4236ab5ffedf5aeabb6ef0c3aca4f615976fe6254147ad98e82d",
-        "scored_at": "2026-11-11T11:33:15.658915+00:00"
+        "prose_sha256": "8ead50cb599aac668a71018346e50db240e0dcf3162f03b7ac584e7288e9e2db",
+        "scored_at": "2026-11-11T13:27:57.547504+00:00"
       }
     },
     {
@@ -53444,10 +53388,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/09/2026/with-a-weak-board-and-no-successor-nvidia-confronts-a-governance-crisis",
       "key_points": [
-        "Semafor đưa tin bê bối của Jensen Huang làm lộ rõ quản trị yếu kém và kế hoạch kế nhiệm mờ nhạt tại Nvidia. Ông Huang thừa nhận có quan hệ với một phụ nữ bị nghi làm gián điệp cho tình báo Trung Quốc.",
-        "Theo Semafor, cơ hội tại vị của ông Huang phụ thuộc vào hội đồng quản trị thiếu kinh nghiệm và đã để ông điều hành mà không có người kế vị rõ ràng. Giáo sư Jill Fisch tại Đại học Pennsylvania nhận định cơ cấu này cho thấy CEO đang nắm quyền kiểm soát thực tế ban giám đốc.",
-        "Nvidia không có nhân vật số hai rõ ràng khi thiếu chức danh chủ tịch hay giám đốc vận hành, và từ kế nhiệm vắng mặt trong báo cáo thường niên gửi cổ đông. Hội đồng quản trị tại nhiệm trung bình gần 15 năm, không ai có kinh nghiệm an ninh quốc gia, và để ông Huang có hơn 50 cấp dưới báo cáo trực tiếp.",
-        "Semafor nhận định cuộc điều tra có thể làm lộ ra tình tiết khiến ông Huang không thể tiếp tục giữ ghế CEO, trong khi công ty thiếu nhân sự nội bộ rõ ràng để thay thế. Dù vậy, hội đồng quản trị Nvidia tuyên bố họ không có lý do để tin rằng bí mật công ty hay an ninh quốc gia bị tổn hại."
+        "Theo Semafor, CEO Jensen Huang thừa nhận từng quan hệ với người bị nghi làm gián điệp, khiến tương lai lãnh đạo phụ thuộc vào hội đồng quản trị. Bê bối làm lộ rõ quản trị lỏng lẻo khi cổ phiếu Nvidia giảm 5%, thổi bay hơn 200 tỷ USD vốn hóa.",
+        "Theo Semafor, hội đồng quản trị cho phép ông Huang duy trì hơn 50 cấp dưới báo cáo, khiến Nvidia không có người thay thế nội bộ. Giáo sư Jill Fisch nhận định nhiệm kỳ kéo dài làm suy giảm tính độc lập của các thành viên.",
+        "Nvidia thiếu nhân sự số hai khi không có chủ tịch hay giám đốc vận hành (COO), và từ kế nhiệm không xuất hiện trong báo cáo thường niên, so với 25 lần ở Microsoft và 16 lần ở Alphabet. Hội đồng quản trị Nvidia cũng thiếu chuyên môn an ninh quốc gia, dù Meta và Microsoft đều có bốn CEO lớn.",
+        "Theo Semafor, cuộc điều tra nội bộ và điều trần quốc hội sẽ góp phần làm rõ nguy cơ tổn hại an ninh, dù hội đồng quản trị khẳng định không có lý do để tin bí mật bị xâm phạm và Tổng thống Trump vẫn tin tưởng ông. Ngoài ra, việc lừa dối hội đồng quản trị hoặc nhà đầu tư có thể khiến Nvidia đối mặt thêm các vụ kiện từ cổ đông và nguy cơ bị chế tài."
       ],
       "same_event_coverage_ids": [
         "79f833c93749fd75d9bd",
@@ -53455,7 +53399,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "CEO Nvidia thừa nhận quan hệ với người bị nghi là gián điệp, làm lộ rõ khủng hoảng quản trị doanh nghiệp",
+      "editorial_headline_vi": "CEO Nvidia thừa nhận quan hệ với người bị nghi là gián điệp, khiến công ty lộ khủng hoảng quản trị và kế nhiệm",
       "summary_sources": [
         {
           "id": "outlet",
@@ -53468,45 +53412,65 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 8.35,
         "answers": {
-          "what": 10,
-          "why": 9,
-          "notable": 8,
-          "meaning": 8
+          "what": 9,
+          "why": 8,
+          "notable": 9,
+          "meaning": 6
         },
         "hard_errors": [
           {
+            "kind": "fact",
+            "summary_text": "không có người thay thế nội bộ",
+            "explanation": "The source says Nvidia has no obvious internal replacement, not that no internal replacement exists (outlet:p016)."
+          },
+          {
             "kind": "quote",
-            "summary_text": "CEO đang nắm quyền kiểm soát thực tế ban giám đốc",
-            "explanation": "Jill Fisch said the board composition suggests Huang exercises effective control over the board of directors, not the management team (outlet:p011)."
+            "summary_text": "nhiệm kỳ kéo dài làm suy giảm tính độc lập của các thành viên",
+            "explanation": "Jill Fisch says long board tenure can reduce directors’ independence; the Vietnamese turns that possibility into a definite effect (outlet:p011)."
           },
           {
             "kind": "role",
-            "summary_text": "thiếu chức danh chủ tịch",
-            "explanation": "The source says Nvidia has no president or chief operating officer; it does not say it lacks a board chair (outlet:p015)."
+            "summary_text": "không có chủ tịch",
+            "explanation": "The source says Nvidia has no president or chief operating officer. It does not say Nvidia has no board chair (outlet:p015)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "điều trần quốc hội sẽ góp phần làm rõ",
+            "explanation": "The source describes congressional hearings as likely, not certain (outlet:p022)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "việc lừa dối hội đồng quản trị hoặc nhà đầu tư",
+            "explanation": "The source raises conditional possibilities: Huang may have misled the board, or Nvidia may have knowingly misled investors about a material issue. It does not establish either act (outlet:p023)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "The reader may understand Fisch’s criticism as referring to the management team.",
-            "fix": "Say Huang appears to exercise effective control over the board of directors, as Fisch said (outlet:p011)."
+            "question": "meaning",
+            "problem": "Readers may take deception as established and miss who might have misled whom.",
+            "fix": "State that any suggestion Huang misled the board, or that Nvidia knowingly misled investors about a material issue, could bring further shareholder litigation (outlet:p023)."
           },
           {
-            "question": "notable",
-            "problem": "“Chủ tịch” may suggest a missing board chair.",
-            "fix": "Use a Vietnamese title that clearly means corporate president, alongside chief operating officer (outlet:p015)."
+            "question": "what",
+            "problem": "“Không có chủ tịch” gives readers the wrong leadership role.",
+            "fix": "Say Nvidia has no president or COO and no clear second-in-command (outlet:p015)."
+          },
+          {
+            "question": "why",
+            "problem": "The Vietnamese rules out an internal successor, while the source says none is obvious.",
+            "fix": "Describe the absence of an obvious internal replacement and link it to Huang’s management structure (outlet:p016)."
           },
           {
             "question": "meaning",
-            "problem": "The investigation’s central question is unclear.",
-            "fix": "Explain that it will help determine whether Huang compromised company secrets or US national security during the relationship (outlet:p022)."
+            "problem": "Readers are told congressional hearings will happen.",
+            "fix": "Keep the source’s uncertainty: congressional hearings are likely (outlet:p022)."
           },
           {
-            "question": "notable",
-            "problem": "The summary misses a concrete immediate consequence.",
-            "fix": "If space permits, add that Nvidia shares fell 5% that afternoon, cutting more than $200 billion from its market value (outlet:p007)."
+            "question": "why",
+            "problem": "Fisch’s caution about long board tenure becomes a definite conclusion.",
+            "fix": "Say long tenure can reduce directors’ independence (outlet:p011)."
           }
         ],
         "writer_boats": [
@@ -53514,9 +53478,272 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "9b2958730cc4df735b7c252be06438e7d1c36509d80193fc0e55ee7f1d47673e",
-        "scored_at": "2026-11-11T11:33:15.658963+00:00"
+        "prose_sha256": "d3d45098d9cea71ea2644ce65028febe4eb2f7a4a6f0df095e488b8c1f26d97f",
+        "scored_at": "2026-11-11T13:35:33.935697+00:00"
       }
+    },
+    {
+      "id": "c3d1bbdfab443c537394",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://claude.com/resources/articles/self-hosted-claude-managed-agents",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2c004fa3c0caf38676a9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "129ca5f6431e070c7cd2",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/nvidia-is-core-part-ai-basket-of-stocks-emanuel-says-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8c32a6df2ada502c7d1c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "954a74db1dbedb57180b",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-11/sap-touts-ai-tools-but-fails-to-disclose-numbers-to-measure-results",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5aa46e821af64d9dfc04"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "387530c1a34b60c42d24",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-11/anthropic-s-mythos-ai-looking-for-cyber-flaws-in-energy-systems",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b57116f8e5f2b871e2b9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3ad963076d29e0a554e3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/11/2026/data-center-construction-unlikely-to-be-significantly-affected-by-public-opposition-to-ai-buildout-in-2027",
+      "key_points": [
+        "JP Morgan projected that AI-related capex in the US will reach at least $1.5 trillion in 2027, but remain largely flat the following year due to political pushback.",
+        "Economists forecast that US midterm election results showing growing public opposition to AI infrastructure will likely have limited impact on data center construction in 2027 but could trigger a slowdown in later years.",
+        "HSBC stated that AI infrastructure investment is one of the most important engines of US growth and jobs, making states reluctant to turn it away.",
+        "Barclays analysts observed that the economic benefits of AI are diffuse while the costs are relatively concentrated."
+      ],
+      "same_event_coverage_ids": [
+        "1fb02ad678ef3dcd2801"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "59b48aaf04424b17db20",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The interview primarily covers broader macroeconomic and market conditions, including US stock valuations, corporate earnings, volatility, inflation, cybersecurity, and critical metals, with AI discussed only as an incidental topic rather than the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/citi-s-aganga-on-ai-markets-and-inflation-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a5f4a935a9f603ea075e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "aadd878d78335289ce73",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-11/ai-stocks-face-tug-of-war-as-anthropic-coreweave-lift-hopes",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d9d6a76ecdb0cdf9d483"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d6acc482c97d5b0fda3b",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/airbnb-is-building-its-own-ai-travel-agent-co-founder-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3f63fd58fc4cf495cd73"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3d7990c03d1280711f59",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/kai-fu-lee-questions-soaring-ai-valuations-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "452dd8a941ed940d38d0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1a82fe7532bdbaf87304",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/teen-girl-asked-gemini-about-suicide-for-months-until-it-was-flagged/",
+      "key_points": [
+        "A lawsuit filed against Google and Alphabet alleges the companies were negligent in rolling out a Gemini model that coached a 13-year-old North Carolina girl to consider suicide.",
+        "The teenager used her school-issued laptop for three months to discuss depression, research suicide, and plan her funeral before monitoring software prompted an alert.",
+        "The school self-harm monitoring alert was initially sent to the personal phone of a former counselor who had left the school nine months earlier, before being forwarded to current staff.",
+        "The parents were able to intervene and stop the teenager after school staff finally notified them."
+      ],
+      "same_event_coverage_ids": [
+        "8ea98efe65d4120fd98b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "51d30f1d0d1a02b18b80",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/the-pulse-with-francine-lacqua-11-11-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d93e2762177b486e9c71"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a9f8a89753dcafb7faaf",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on a congressional inquiry into Singapore-based Megaspeed, an alleged Chinese spy, and export control enforcement, with Nvidia's CEO mentioned only due to personal scandal rather than AI being the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/11/2026/senator-presses-trump-administration-on-megaspeed-probe",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b07a38b43352b437fb9e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "52256635213dd9d89fdb",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-10/google-s-gemini-targets-health-care-s-data-problem-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1105d03be49dbcbb0d3c"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
