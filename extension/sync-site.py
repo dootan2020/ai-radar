@@ -93,7 +93,7 @@ def adapt_html(html):
             and top.group(0).count('<div class="top-now" id="top-now"></div>') == 1 and 'id="tc-open"' in top.group(0)):
         raise ValueError('Unexpected top row source')
     html = html.replace(top.group(0), TOP_ZONE, 1)
-    html = replace_once(html, '<a class="brand feed-brand" id="brand" href="#top" aria-label="Halcyon, về đầu trang">',
+    html = replace_once(html, '<a class="brand feed-brand" id="brand" href="/" aria-label="Halcyon, về đầu trang">',
                         f'<a class="brand feed-brand" id="brand" href="{LIVE}" aria-label="Halcyon, mở trang web">')
     html = replace_once(html, '\n    <div class="head-actions">', '\n    <div class="head-actions">' + search.group(0).replace('\n    ', '\n      '))
     html = replace_once(html, '<a class="ed-link" href="ban-tin.html"', f'<a class="ed-link" href="{LIVE}ban-tin.html"')
