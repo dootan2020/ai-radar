@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-12",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-10T23:00:00Z",
+  "cutoff_at": "2026-11-11T23:00:00Z",
+  "created_at": "2026-11-11T23:07:54Z",
+  "snapshot_generated_at": "2026-11-11T23:05:56Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-11T23:05:56Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "df1cb1cc87995a8e14c0",
+      "title": "Introducing usage-based pricing for Amazon SageMaker AI bidirectional streaming",
+      "title_vi": "Ra mắt giá trị dựa trên sử dụng cho Amazon SageMaker AI trực tuyến hai chiều",
+      "headline": "Introducing usage-based pricing for Amazon SageMaker AI bidirectional streaming",
+      "headline_vi": "Ra mắt giá trị dựa trên sử dụng cho Amazon SageMaker AI trực tuyến hai chiều",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-usage-based-pricing-for-amazon-sagemaker-ai-bidirectional-streaming/",
+      "published_at": "2026-11-11T15:10:23Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Amazon tính phí luồng hai chiều trên SageMaker AI theo lượng dùng thực tế, vẫn áp dụng phí hạ tầng",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "86ea0ab1ad42728306c5",
+          "title": "Introducing usage-based pricing for Amazon SageMaker AI bidirectional streaming",
+          "title_vi": "Ra mắt giá trị dựa trên sử dụng cho Amazon SageMaker AI trực tuyến hai chiều",
+          "headline": "Introducing usage-based pricing for Amazon SageMaker AI bidirectional streaming",
+          "headline_vi": "Ra mắt giá trị dựa trên sử dụng cho Amazon SageMaker AI trực tuyến hai chiều",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-usage-based-pricing-for-amazon-sagemaker-ai-bidirectional-streaming/",
+          "published_at": "2026-11-11T15:10:23Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-11T23:05:56Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "86ea0ab1ad42728306c5"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 7.8269,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "70a4e650e182855f3e0e",
+      "title": "Introducing Kimi K3.1 Pro on Amazon Bedrock",
+      "title_vi": "Ra mắt Kimi K3.1 Pro trên Amazon Bedrock",
+      "headline": "Introducing Kimi K3.1 Pro on Amazon Bedrock",
+      "headline_vi": "Ra mắt Kimi K3.1 Pro trên Amazon Bedrock",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-kimi-k3-1-pro-on-amazon-bedrock/",
+      "published_at": "2026-11-11T01:07:19Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Mô hình Kimi K3.1 Pro Highspeed có mặt trên Amazon Bedrock, Moonshot AI báo cáo tốc độ nhanh gấp 2–3 lần",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "7ec57658815a06761e3b",
+          "title": "Introducing Kimi K3.1 Pro on Amazon Bedrock",
+          "title_vi": "Ra mắt Kimi K3.1 Pro trên Amazon Bedrock",
+          "headline": "Introducing Kimi K3.1 Pro on Amazon Bedrock",
+          "headline_vi": "Ra mắt Kimi K3.1 Pro trên Amazon Bedrock",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-kimi-k3-1-pro-on-amazon-bedrock/",
+          "published_at": "2026-11-11T01:07:19Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-11T23:05:56Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "7ec57658815a06761e3b"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 21.8781,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "bb27561db5d10d500025",
+      "title": "What Taiwanese chip giant TSMC gains from taking stakes in OpenAI and Anthropic’s AI race",
+      "title_vi": "Những gì khổng lồ chip Đài Loan TSMC đạt được từ việc tham gia cuộc đua AI của OpenAI và Anthropic",
+      "headline": "What Taiwanese chip giant TSMC gains from taking stakes in OpenAI and Anthropic’s AI race",
+      "headline_vi": "Những gì khổng lồ chip Đài Loan TSMC đạt được từ việc tham gia cuộc đua AI của OpenAI và Anthropic",
+      "url": "https://www.scmp.com/tech/big-tech/article/3374037/what-taiwanese-chip-giant-tsmc-gains-taking-stakes-openai-and-anthropics-ai-race",
+      "published_at": "2026-11-11T07:30:21Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "TSMC duyệt tối đa một tỷ USD mua cổ phần OpenAI và Anthropic, theo Ars Technica là tài trợ vòng quanh",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "9634c73346e7997c87bd",
+          "title": "Taiwan’s chipmaking giant TSMC to invest $1B in Anthropic, OpenAI",
+          "title_vi": "Công ty sản xuất chip khổng lồ của Đài Loan TSMC sẽ đầu tư 1 tỷ USD vào Anthropic, OpenAI",
+          "headline": "Taiwan’s chipmaking giant TSMC to invest $1B in Anthropic, OpenAI",
+          "headline_vi": "Công ty sản xuất chip khổng lồ của Đài Loan TSMC sẽ đầu tư 1 tỷ USD vào Anthropic, OpenAI",
+          "url": "https://arstechnica.com/ai/2026/11/taiwans-chipmaking-giant-tsmc-to-invest-1b-in-anthropic-openai/",
+          "published_at": "2026-11-11T18:16:40Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "ars-ai",
+          "publisher": "ars-technica",
+          "entity": "ars-technica",
+          "group": "press",
+          "observed_at": "2026-11-11T23:05:56Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "8248b09face10210bac8",
+          "title": "What Taiwanese chip giant TSMC gains from taking stakes in OpenAI and Anthropic’s AI race",
+          "title_vi": "Những gì khổng lồ chip Đài Loan TSMC đạt được từ việc tham gia cuộc đua AI của OpenAI và Anthropic",
+          "headline": "What Taiwanese chip giant TSMC gains from taking stakes in OpenAI and Anthropic’s AI race",
+          "headline_vi": "Những gì khổng lồ chip Đài Loan TSMC đạt được từ việc tham gia cuộc đua AI của OpenAI và Anthropic",
+          "url": "https://www.scmp.com/tech/big-tech/article/3374037/what-taiwanese-chip-giant-tsmc-gains-taking-stakes-openai-and-anthropics-ai-race",
+          "published_at": "2026-11-11T07:30:21Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-11T23:05:56Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "ars-technica",
+              "scmp"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "ars-technica",
+            "scmp"
+          ],
+          "age_hours_at_cutoff": 15.4942,
+          "hot_score": 52.971,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "c0b3ea3e4aaa6b32e7ac",
+      "title": "Anthropic’s bankers mull raising IPO valuation to $1.5T",
+      "title_vi": "Các ngân hàng của Anthropic đang cân nhắc nâng giá trị IPO lên 1,5 nghìn đô la.",
+      "headline": "Anthropic’s bankers mull raising IPO valuation to $1.5T",
+      "headline_vi": "Các ngân hàng của Anthropic đang cân nhắc nâng giá trị IPO lên 1,5 nghìn đô la.",
+      "url": "https://www.semafor.com/article/11/11/2026/anthropics-bankers-mull-raising-ipo-valuation-to-15t",
+      "published_at": "2026-11-11T11:55:22Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Anthropic có thể đạt định giá 1,404 nghìn tỷ USD nếu cổ phiếu chào bán IPO ở mức đỉnh 78 USD",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "966fee064389ca26994a",
+          "title": "Anthropic’s bankers mull raising IPO valuation to $1.5T",
+          "title_vi": "Các ngân hàng của Anthropic đang cân nhắc nâng giá trị IPO lên 1,5 nghìn đô la.",
+          "headline": "Anthropic’s bankers mull raising IPO valuation to $1.5T",
+          "headline_vi": "Các ngân hàng của Anthropic đang cân nhắc nâng giá trị IPO lên 1,5 nghìn đô la.",
+          "url": "https://www.semafor.com/article/11/11/2026/anthropics-bankers-mull-raising-ipo-valuation-to-15t",
+          "published_at": "2026-11-11T11:55:22Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-11T23:05:56Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 11.0772,
+          "hot_score": 36.333,
+          "engagement_percentile": 0.10714285714285714
+        }
+      }
+    },
+    {
+      "id": "5484b6cb12467dc9877b",
+      "title": "A Startup Wants to Fight AI Bioweapons With AI",
+      "title_vi": "Một công ty khởi nghiệp muốn chống lại AI vũ khí sinh học với AI",
+      "headline": "A Startup Wants to Fight AI Bioweapons With AI",
+      "headline_vi": "Một công ty khởi nghiệp muốn chống lại AI vũ khí sinh học với AI",
+      "url": "https://www.wired.com/story/startup-fights-ai-bioweapons-with-ai/",
+      "published_at": "2026-11-11T17:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Mô hình Omnii Defense được thiết kế để nhận diện mầm bệnh trực tiếp trên máy tính xách tay",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "b01ba8438cefa486f139",
+          "title": "A Startup Wants to Fight AI Bioweapons With AI",
+          "title_vi": "Một công ty khởi nghiệp muốn chống lại AI vũ khí sinh học với AI",
+          "headline": "A Startup Wants to Fight AI Bioweapons With AI",
+          "headline_vi": "Một công ty khởi nghiệp muốn chống lại AI vũ khí sinh học với AI",
+          "url": "https://www.wired.com/story/startup-fights-ai-bioweapons-with-ai/",
+          "published_at": "2026-11-11T17:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "wired-ai",
+          "publisher": "wired",
+          "entity": "wired",
+          "group": "press",
+          "observed_at": "2026-11-11T23:05:56Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "wired"
+          ],
+          "age_hours_at_cutoff": 6.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 75,
+    "successful_remote_sources": 74,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
