@@ -1,31 +1,31 @@
 # Giải Trình Quyền Của Extension (Permissions Justification)
 
-*Sao chép từng đoạn tương ứng để dán vào các ô giải trình quyền trên Chrome Web Store Developer Dashboard (mục Privacy -> Permission justifications).*
+*Sao chép từng đoạn tương ứng để dán vào các ô giải trình quyền trên Chrome Web Store Developer Dashboard (mục Privacy -> Permission justifications). Manifest chỉ xin `storage`, `alarms` và một host permission; ô tìm kiếm mở thẳng trang kết quả của Google nên không cần quyền `search`.*
 
 ---
 
 ### 1. `storage`
 ```
-The "storage" permission is required to store the curated AI news snapshot (radarWindow), fetch timestamps, and reader theme preferences locally in chrome.storage.local. This ensures instant page rendering on every new tab and enables offline reading of the latest cached stories without network connectivity.
+The "storage" permission is used to keep the latest curated AI news snapshot (radarWindow) and its refresh timestamp in chrome.storage.local. The new tab draws this saved edition immediately, without waiting for the network, and the stories stay readable offline. Nothing in this storage is uploaded.
 ```
-*(Tiếng Việt: Quyền "storage" dùng để lưu bản chụp tin tức AI (radarWindow), mốc thời gian cập nhật và tùy chọn giao diện sáng/tối cục bộ trong chrome.storage.local. Điều này giúp tab mới mở tức thì không bị giật và cho phép đọc ngoại tuyến khi không có mạng).*
+*(Tiếng Việt: Quyền "storage" dùng để lưu bản tin AI gần nhất (radarWindow) và mốc thời gian cập nhật trong chrome.storage.local, để tab mới hiện ngay và vẫn đọc được khi mất mạng. Không dữ liệu nào trong bộ nhớ này được tải lên.)*
 
 ---
 
 ### 2. `alarms`
 ```
-The "alarms" permission is required to schedule a periodic background task every 30 minutes via chrome.alarms. This refreshes the local news cache with new editorial stories in the background without keeping the service worker running continuously, conserving battery and memory.
+The "alarms" permission schedules one chrome.alarms task every 30 minutes that wakes the service worker to refresh the saved news snapshot, so the worker does not have to keep running in the background.
 ```
-*(Tiếng Việt: Quyền "alarms" dùng để định kỳ đánh thức service worker mỗi 30 phút để tải bản tin AI mới nhất vào bộ nhớ đệm, tránh việc tiến trình nền phải chạy liên tục gây tốn RAM và pin của máy).*
+*(Tiếng Việt: Quyền "alarms" đặt một lịch mỗi 30 phút đánh thức service worker để làm mới bản tin đã lưu, nên tiến trình nền không phải chạy liên tục.)*
 
 ---
 
 ### 3. Host Permission: `https://radar-ai-vn.pages.dev/*`
 ```
-This host permission is required to fetch static JSON data feeds (radar-window.json, radar-ui.json, arena.json, editor-picks.json) and load news illustration images from the official Halcyon static site hosted on Cloudflare Pages. As with any web request, the service receives ordinary browser request data such as the IP address. Halcyon does not attach personal data or browsing telemetry.
+This is Halcyon's own static site on Cloudflare Pages. The service worker fetches the public news snapshot data/radar-window.json from it, and the new tab loads Halcyon's other public JSON files (radar-ui.json, arena.json, field-rankings.json, radar-search.json, feed-images.json, editor-picks.json) and its pictures. Like any web request, the server receives ordinary request data such as the IP address; Halcyon attaches no personal data or browsing history.
 ```
-*(Tiếng Việt: Quyền truy cập máy chủ này cần thiết để tải các tệp dữ liệu JSON tĩnh và hình ảnh minh họa bài viết từ máy chủ tĩnh chính thức của Halcyon trên Cloudflare Pages. Máy chủ nhận dữ liệu yêu cầu thông thường của trình duyệt như địa chỉ IP; Halcyon không đính kèm dữ liệu cá nhân hay lịch sử duyệt web).* 
+*(Tiếng Việt: Đây là site tĩnh của chính Halcyon trên Cloudflare Pages. Service worker tải bản tin công khai `data/radar-window.json`, tab mới tải các tệp JSON công khai khác và ảnh của Halcyon. Máy chủ nhận dữ liệu yêu cầu thông thường như địa chỉ IP; Halcyon không đính kèm dữ liệu cá nhân hay lịch sử duyệt web.)*
 
-### Các dịch vụ ngoài khác được tiện ích liên hệ
+### Các dịch vụ ngoài khác được tiện ích liên hệ (không cần quyền)
 
-Ngoài host permission của Halcyon, tab mới tải dữ liệu Hacker News từ `hn.algolia.com`; dữ liệu bài báo, mô hình và avatar từ `huggingface.co`; ảnh avatar GitHub từ `avatars.githubusercontent.com`; ảnh xem trước GitHub từ `opengraph.githubassets.com`; ảnh thu nhỏ Hugging Face từ `cdn-thumbnails.huggingface.co`; ảnh video từ `i.ytimg.com`; và mở `calendar.google.com` khi người dùng chọn thêm sự kiện vào lịch. `creativecommons.org` được dùng làm liên kết giấy phép ghi công. Các dịch vụ nhận dữ liệu yêu cầu thông thường của trình duyệt, chẳng hạn địa chỉ IP. Mục đích và khai báo đầy đủ nằm trong `data-disclosure.md` và trang chính sách riêng tư.
+Tab mới còn gửi yêu cầu tới: `hn.algolia.com` (tin Hacker News), `huggingface.co` (bài báo, mô hình, avatar), `avatars.githubusercontent.com` và `opengraph.githubassets.com` (ảnh GitHub), `cdn-thumbnails.huggingface.co` (ảnh Hugging Face), `i.ytimg.com` (ảnh video), `api.open-meteo.com` (thời tiết của thành phố người đọc chọn), `ssl.gstatic.com` (biểu tượng dịch vụ Google), và máy chủ ảnh của các nhà xuất bản (ảnh minh họa tin tải thẳng từ nguồn gốc). Các liên kết `www.google.com/search`, `calendar.google.com`, các ứng dụng Google và `creativecommons.org` chỉ mở khi người đọc bấm. Mỗi dịch vụ nhận dữ liệu yêu cầu thông thường như địa chỉ IP. Khai báo đầy đủ nằm trong `data-disclosure.md` và trang chính sách riêng tư.

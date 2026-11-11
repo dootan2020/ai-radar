@@ -5,7 +5,11 @@ cost_class = "subscription"
 priority = 30
 monthly_cap_usd = 0
 boat = "claude"
-runner = "batch-cli"
+# Disabled 2026-11-11: Anthropic's Claude Code legal-and-compliance page says developers building a product or
+# service should use API key authentication, not Free/Pro/Max plan credentials, so the scheduled newsroom must not
+# run `claude -p` on the owner's subscription. providers() skips this runner and CLIRunner.run refuses it. Re-enabling
+# means a metered API-key adapter with a spending cap, which is the owner's decision.
+runner = "disabled-until-budget-adapter"
 argv = ["claude", "-p", "{prompt}"]
 prompt_transport = "argument"
 [detect]

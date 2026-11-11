@@ -15,17 +15,18 @@ Halcyon transforms your new tab page into a clean, curated stream of artificial 
 
 KEY FEATURES:
 • Curated AI News Daily: Discover breaking AI stories, breakthroughs, and discussions verified by independent tech sources and research labs over the past 72 hours.
-• Fast Web Search: Search the web directly from your new tab using your preferred default search engine in Chrome. Halcyon never intercepts or modifies your search queries or provider.
+• Search Google from the new tab: the "Tìm trên Google" box opens Google's own results page directly. Halcyon never intercepts, logs, or modifies your queries.
+• Weather, lunar calendar and Google shortcuts: a forecast for the city you choose, today's lunar date, and one-click links to Gmail, Drive and Calendar.
 • Offline Reading Support: Automatically caches the latest daily news snapshot to local storage so you can read updates even when offline.
 • Model Arena & AI Repositories: Keep track of trending open-source AI repositories and model arena leaderboards.
 • Minimalist Design with Dark Mode: Beautiful, lightweight interface that respects your system theme preferences.
-• Keyboard Navigation: Browse stories efficiently using familiar shortcuts (J/K to navigate, Enter/O to open original source, S to bookmark, / to search).
+• Keyboard Navigation: Browse stories efficiently using familiar shortcuts (J/K to navigate, O to open the original source, S to save, / to search Halcyon's stories, ? for every shortcut).
 
 PRIVACY & SECURITY GUARANTEES:
-• Zero tracking: We do not track your browsing history or queries.
-• Zero personal data collection: No account required, no cookies, no third-party analytics.
+• No tracking: We do not track your browsing history or queries.
+• No personal data collection: No account required, no cookies, and the new tab loads no analytics script.
 • No ads: Completely clean and distraction-free experience.
-• Direct attribution: Every news item links directly back to the original publisher or author.
+• Direct attribution: Every news item links directly back to the original publisher or author; story pictures load straight from the publisher's servers.
 
 Official Website: https://hco.news/
 Privacy Policy: https://hco.news/chinh-sach-rieng-tu.html

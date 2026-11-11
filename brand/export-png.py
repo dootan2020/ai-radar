@@ -42,7 +42,8 @@ JOBS = [
     ("store-promo-small.svg", "store/promo-small.png", 440, 280, 1, False),
 ]
 EXTENSION_ICONS = (16, 32, 48, 128)
-STORE_SHOTS = ("new-tab-light.png", "new-tab-dark.png")
+# Written by store-shots.js next to the other Web Store texts.
+STORE_SHOTS = ROOT / "extension" / "store" / "anh", ("screenshot-1-sang-1280x800.png", "screenshot-2-toi-1280x800.png")
 # (kit file, brand/assets file, pixel size or None for the ICO)
 KIT_COPIES = [(f"icons/halcyon-icon-primary-{n}.png", f"store/extension-icon-{n}.png", (n, n)) for n in EXTENSION_ICONS] + [
     ("favicons/apple-touch-icon.png", "apple-touch-icon.png", (180, 180)),
@@ -127,11 +128,12 @@ def main():
         print(f"site/{dst} <- brand/assets/{src}")
     copy_extension_icons()
     subprocess.run(["node", str(ROOT / "brand" / "store-shots.js")], cwd=ROOT, check=True)
-    for name in STORE_SHOTS:
-        got = png_size(ASSETS / "store" / name)
+    shots, names = STORE_SHOTS
+    for name in names:
+        got = png_size(shots / name)
         if got != (1280, 800):
             raise RuntimeError(f"{name}: {got[0]}x{got[1]}, expected 1280x800")
-        print(f"store/{name}: {got[0]}x{got[1]}")
+        print(f"extension/store/anh/{name}: {got[0]}x{got[1]}")
     publish_kit.publish()
 
 

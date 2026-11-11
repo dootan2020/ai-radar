@@ -136,6 +136,22 @@ class NewsroomTests(unittest.TestCase):
         self.assertIn("codex", report_data["selected"]["bien-tap"])
         self.assertIn("agy", report_data["selected"]["bien-tap"])
 
+    def test_no_enabled_newsroom_tool_runs_on_the_claude_subscription(self):
+        # Anthropic's Claude Code docs ask products to use API keys, not plan credentials, so the scheduled
+        # newsroom never calls `claude -p`, however much Claude fuel is measured.
+        enabled = [tool for tool in self.tools if tool.get("runner") != "disabled-until-budget-adapter"]
+        self.assertTrue(enabled)
+        self.assertEqual([tool["id"] for tool in enabled if tool.get("boat") == "claude"], [])
+        fueled = {**self.discovery, "commands": [*self.discovery.get("commands", []), "codex", "agy", "claude"],
+                  "fuel": "codex: CÒN 50%\ngemini: CÒN 50%\nclaude: CÒN 90%"}
+        for capability in sorted({cap for tool in self.tools for cap in tool["capabilities"]}):
+            with self.subTest(capability):
+                chosen = providers(capability, self.tools, fueled)
+                self.assertNotIn("claude", {tool.get("boat") for tool in chosen})
+        claude = next(tool for tool in self.tools if tool.get("boat") == "claude")
+        with self.assertRaises(RunnerError):
+            CLIRunner().run("editor", [], claude, "")
+
     def test_fuel_discovery_stops_on_account_or_payment_prompt(self):
         echoed_prompt = type("Completed", (), {"returncode": 1,
                                                  "stdout": "Gemini fuel output includes: please sign in or log in",

@@ -1,34 +1,35 @@
 # Khai Báo Dữ Liệu & Cam Kết Quyền Riêng Tư (Data Usage Disclosure & Certifications)
 
-*Dùng để điền và tích chọn trong mục **Privacy** -> **Data usage** trên Chrome Web Store Developer Dashboard.*
+*Dùng để điền và tích chọn trong mục **Privacy** -> **Data usage** trên Chrome Web Store Developer Dashboard. Nội dung khớp trang https://hco.news/chinh-sach-rieng-tu.html (cập nhật 11/11/2026).*
 
 ---
 
 ## 1. Khai Báo Dữ Liệu Thu Thập (Data Collection)
 
 ### Câu hỏi: Extension có thu thập dữ liệu người dùng không?
-- **Lựa chọn:** **KHÔNG thu thập bất kỳ loại dữ liệu nào (No data collected).**
-- Trong danh sách các loại dữ liệu (Personally identifiable information, Health, Financial, Authentication, Personal communications, Location, Web history, User activity, Website content): **KHÔNG tích chọn bất kỳ mục nào.**
+- **Đề xuất:** không tích loại dữ liệu nào. Tiện ích không gửi dữ liệu của người đọc về Halcyon hay cho bên nào; mọi thứ nó lưu nằm trên máy.
+- Danh sách loại dữ liệu (Personally identifiable information, Health, Financial, Authentication, Personal communications, Location, Web history, User activity, Website content): **không tích ô nào.**
+- Điểm anh cần biết khi quyết: trình duyệt tự kết nối tới các dịch vụ ở mục 4 dưới đây (kể cả máy chủ ảnh của nhà xuất bản), nên các dịch vụ đó nhận địa chỉ IP như mọi lượt tải trang. Halcyon không nhận, không lưu và không gửi tiếp dữ liệu đó. Ô thời tiết chỉ gửi toạ độ cố định của thành phố người đọc chọn trong danh sách, không phải vị trí của họ.
 
 ### Văn bản giải trình dữ liệu (Data usage justification / explanation):
 ```
-Halcyon does not collect, remotely store, sell, or share personal data. The extension makes requests to the services below to load its news data and article thumbnails. Those services receive the browser's ordinary request data, such as your IP address. Halcyon does not use these requests for tracking or telemetry.
+Halcyon does not collect, upload, sell, or share personal data, browsing history, or telemetry, and the new tab loads no analytics script. To show its news, the new tab's browser requests go directly to the services below; each receives the browser's ordinary request data, such as the IP address. Halcyon attaches no personal data to these requests and receives none of it.
 
-1. No Personal Information: The extension does not collect names, email addresses, location, device identifiers, credentials, or browsing history. Network providers may receive ordinary request data, including IP address, when the browser connects to them.
-2. Local Storage Only: The latest news snapshot and refresh timestamp are kept in chrome.storage.local. Theme preference, reading state, and cached Hugging Face avatar URLs are kept in localStorage on the device. The extension does not upload this local data.
-3. No Search Tracking: Web searches initiated from the new tab page are executed directly through the browser's default search engine via chrome.search.query, without interception, logging, or redirection.
+1. No personal information: the extension does not collect names, email addresses, location, device identifiers, credentials, or browsing history.
+2. Local storage only: the latest news snapshot and its refresh timestamp are kept in chrome.storage.local; theme, reading and saved-story state, cached Hugging Face avatar URLs, and the chosen weather city with a 30-minute forecast are kept in localStorage; the day's background picture is kept in Cache Storage. None of it is uploaded, and it is removed when the extension is uninstalled.
+3. Search: the "Search Google" box opens Google's results page (www.google.com/search) in the same tab with the words typed. The query goes straight from the browser to Google; Halcyon does not log, store, or forward it.
 4. External services and purpose:
-   - radar-ai-vn.pages.dev (Halcyon's Cloudflare Pages site): public news feeds and article data.
+   - radar-ai-vn.pages.dev (Halcyon's Cloudflare Pages site): public news data and pictures.
+   - Publishers' image servers (for example platform.theverge.com, techcrunch.com, img.semafor.com): story pictures load directly from the original source.
    - hn.algolia.com (Algolia Hacker News API): live Hacker News stories.
-   - huggingface.co (Hugging Face API): trending models, daily papers, and avatar images.
-   - avatars.githubusercontent.com (GitHub avatars), opengraph.githubassets.com (GitHub article preview images), and cdn-thumbnails.huggingface.co (Hugging Face article thumbnails): article/source imagery.
-   - i.ytimg.com (YouTube thumbnails): video article thumbnails.
-   - calendar.google.com (Google Calendar): opened when you choose to add an event to your calendar.
-   - www.google.com (Google favicon service): Google app icons, loaded only when you open the Google apps menu; the Google app you pick (for example mail.google.com, about.google) opens in a new tab.
-   - creativecommons.org: the attribution license link for Arena data.
-   These requests carry normal browser request data, such as IP address, to the named provider. Requests do not include Halcyon account or browsing-history data. Search queries go directly through Chrome's default search provider using chrome.search.query.
+   - huggingface.co, cdn-thumbnails.huggingface.co: daily papers, trending models, avatars, and thumbnails.
+   - avatars.githubusercontent.com, opengraph.githubassets.com: GitHub avatars and article preview images.
+   - i.ytimg.com: video thumbnails.
+   - api.open-meteo.com: the weather forecast for the city the reader picks from a fixed list (only that city's coordinates are sent).
+   - ssl.gstatic.com: icons on the Google service buttons and in the Google apps menu.
+   - www.google.com, calendar.google.com, other Google apps, creativecommons.org: opened only when the reader clicks them.
 ```
-*(Tiếng Việt: Halcyon không thu thập, truyền tải, bán hoặc lưu trữ bất kỳ dữ liệu cá nhân, lịch sử duyệt web hay dữ liệu đo kiểm nào. Mọi dữ liệu bộ nhớ đệm và tùy chọn giao diện đều lưu trữ cục bộ trên máy người dùng).*
+*(Tiếng Việt: Halcyon không thu thập, tải lên, bán hay chia sẻ dữ liệu cá nhân, lịch sử duyệt web hay dữ liệu đo lường, và tab mới không tải công cụ thống kê nào. Trình duyệt kết nối thẳng tới các dịch vụ trên; mỗi dịch vụ nhận dữ liệu yêu cầu thông thường như địa chỉ IP. Dữ liệu bộ nhớ đệm và tùy chọn nằm trên máy người dùng.)*
 
 ---
 
@@ -38,11 +39,11 @@ Halcyon does not collect, remotely store, sell, or share personal data. The exte
 
 ### Cam kết 1: Không bán dữ liệu cho bên thứ ba (Not selling user data)
 - **Tiêu chuẩn CWS:** "I certify that the item will not sell user data to third parties, outside of the approved use cases."
-- **Thực tế Halcyon:** **ĐỒNG Ý (Tích chọn Yes).** Halcyon không thu thập và không bao giờ bán dữ liệu người dùng cho bất kỳ bên thứ ba hay nhà môi giới dữ liệu nào.
+- **Thực tế Halcyon:** **ĐỒNG Ý (Tích chọn Yes).** Halcyon không thu thập và không bán dữ liệu người dùng cho bất kỳ bên thứ ba hay nhà môi giới dữ liệu nào.
 
 ### Cam kết 2: Không sử dụng dữ liệu ngoài mục đích cốt lõi (Not using data for unrelated purposes)
 - **Tiêu chuẩn CWS:** "I certify that the item will not use or transfer user data for purposes that are unrelated to the item's core functionality."
-- **Thực tế Halcyon:** **ĐỒNG Ý (Tích chọn Yes).** Mọi quyền và tài nguyên chỉ phục vụ duy nhất mục đích hiển thị tin tức AI và tìm kiếm web trên tab mới.
+- **Thực tế Halcyon:** **ĐỒNG Ý (Tích chọn Yes).** Mọi quyền và tài nguyên chỉ phục vụ việc hiển thị tin tức AI trên tab mới.
 
 ### Cam kết 3: Không dùng dữ liệu để chấm điểm tín dụng hoặc cho vay (Not using data for creditworthiness or lending)
 - **Tiêu chuẩn CWS:** "I certify that the item will not use or transfer user data to determine creditworthiness or for lending purposes."

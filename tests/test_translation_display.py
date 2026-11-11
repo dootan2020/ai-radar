@@ -129,7 +129,11 @@ class TranslationDisplayTests(unittest.TestCase):
         # The machine-translation credit moved from the home's footer to the sources page (captain, 08/11: the home
         # carries no notes on how the site works).
         nguon_js = (ROOT / "site" / "nguon.js").read_text(encoding="utf-8")
-        self.assertIn('NLLB-200 (giấy phép CC-BY-NC 4.0', nguon_js)
+        # CC-BY-NC 4.0 asks shared, modified output to credit the author and link the licence (NOTICE has the rest).
+        self.assertIn('NLLB-200 của Meta', nguon_js)
+        self.assertIn('đã được Halcyon chỉnh sửa', nguon_js)
+        self.assertIn("'https://creativecommons.org/licenses/by-nc/4.0/'", nguon_js)
+        self.assertIn("'https://huggingface.co/facebook/nllb-200-distilled-600M'", nguon_js)
         self.assertIn('kèm nhãn “Translated”.', nguon_js)
         self.assertNotIn('kèm nhãn “dịch máy”.', nguon_js)
         self.assertNotIn('Tiêu đề tiếng Việt là bản dịch máy', self.feed_js)
