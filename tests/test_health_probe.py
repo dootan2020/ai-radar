@@ -239,6 +239,19 @@ class HealthProbeTests(unittest.TestCase):
         self.assertFalse(failed["ok"])
         self.assertIn("primary stylesheet", failed["detail"])
 
+    def test_the_built_page_s_versioned_asset_names_are_the_same_checks(self):
+        # The deployed page names each script and stylesheet with ?v=<content hash> (radar/front_lead.py stamp_assets).
+        from radar.front_lead import stamp_assets
+        self.homepage = stamp_assets(self.homepage.decode("utf-8"), ROOT / "site").encode("utf-8")
+        self.assertIn(b'src="feed.js?v=', self.homepage)
+        checks = self.probe()
+        self.assertTrue(all(row["ok"] for row in checks.values()), checks)
+        for name in ("feed.js", "feed.css", "tokens.css", "faces.js"):
+            self.assertTrue(checks[f"asset:{name}"]["ok"], name)
+        # Any other query is still refused.
+        self.homepage = self.homepage.replace(b'src="feed.js?v=', b'src="feed.js?x=', 1)
+        self.assertFalse(self.probe()["homepage"]["ok"])
+
     def test_modulepreload_discovers_dependencies_without_filename_extension(self):
         self.homepage += b'<link rel="modulepreload" href="parts/preloaded">'
         self.overrides.update({"parts/preloaded": b"import './child.mjs';",

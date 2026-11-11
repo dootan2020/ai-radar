@@ -136,6 +136,9 @@ class Homepage(HTMLParser):
             reference = attrs.get("href")
         if not reference:
             return
+        # The build names each script and stylesheet with ?v=<its content hash> (radar/front_lead.py stamp_assets): the
+        # same file as the plain name, so the probe checks the plain one and keeps refusing every other query.
+        reference = re.sub(r"\?v=[0-9a-f]{1,64}$", "", reference)
         url = local_asset(reference.removeprefix("./"), SITE_URL)
         if url:
             self.assets.add(url)

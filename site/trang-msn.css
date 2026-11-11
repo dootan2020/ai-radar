@@ -918,6 +918,14 @@
      drops the morning edition and the search keeps its field (results show as the reader types, the keyboard has its
      own search key). The footer keeps "Nguồn tin": the dock gave that place to the events (owner, 09/11). */
   .msn-head .ed-link, .msn-top .ns-go { display: none; }
+  /* Both orders stay in sight beside the logo (captain, 11/11: "Trên Mobile chưa có nút mới nhất ... làm gọn gàng"):
+     the same grey track and raised side as the wide head row, "Đáng đọc" without " nhất" so the pair fits a 320 px
+     screen. The theme gives up its place here: "Tùy chỉnh" in the row above carries it (Sáng / Tối / Theo máy).
+     Two equal sides in a track of a set width (in em, so it grows with the reader's text size): the site font arriving
+     after the first paint changes no edge, so nothing in the row moves (tests/verify-front-lead.mjs counts shifts). */
+  .msn-head .theme-btn, .msn-head .sort-label-tail { display: none; }
+  .msn-head .sort-switch { display: grid; grid-template-columns: 1fr 1fr; width: 12em; font-size: var(--text-meta); }
+  .msn-head .sort-btn { min-width: 0; padding: 0 var(--space-4); font-size: inherit; }
 }
 @media (max-width: 699px) {
   :root { --msn-gap: var(--space-8); --msn-cols: 2; }
@@ -1158,7 +1166,7 @@
 /* The segmented control, one look wherever a choice of a few sides is shown: "Giao diện" here, the order in the
    panel's header row (.msn-head .sort-switch). A grey track; the chosen side a raised pill. */
 .tc-seg, .msn-head .sort-switch { padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }
-.tc-seg label:has(input:checked), .msn-head .sort-switch .tab-pill, .msn-head .sort-btn-compact::before {
+.tc-seg label:has(input:checked), .msn-head .sort-switch .tab-pill {
   background: var(--color-seg-thumb); box-shadow: var(--msn-shadow-rest); border-radius: var(--seg-thumb-r);
 }
 .tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); }

@@ -33,11 +33,35 @@ class FeedHeaderLayoutTests(unittest.TestCase):
         self.assertIn('aria-label="Bản tin sáng"', html)
         self.assertIn('aria-label="Đáng đọc nhất"', html)
         self.assertIn('aria-label="Mới nhất"', html)
-        self.assertIn('data-sort="toggle"', html)
-        self.assertIn('class="sort-current">Đáng đọc</span>', html)
-        self.assertIn("b.dataset.sort === 'toggle'", (ROOT / "site" / "feed.js").read_text(encoding="utf-8"))
-        self.assertIn("sortMode === 'worth' ? 'Đáng đọc' : 'Mới nhất'", (ROOT / "site" / "feed.js").read_text(encoding="utf-8"))
         self.assertIn("button.className = 'tool-launcher-button'", (ROOT / "site" / "menu-cong-cu.js").read_text(encoding="utf-8"))
+
+    def test_phone_head_shows_both_orders(self):
+        # Captain, 11/11: "Trên Mobile chưa có nút mới nhất, nó ẩn sau nút đáng đọc." Both sides of the order are real
+        # buttons at every width; no one-button toggle hides the other side (tests/capture-mobile-sap-xep.mjs measures
+        # them at 320, 375 and 414 px on a touch phone).
+        import re
+        for page in (ROOT / "site" / "index.html", ROOT / "extension" / "newtab.html"):
+            html = page.read_text(encoding="utf-8")
+            with self.subTest(page=page.name):
+                switch = html.split('id="sort-switch"', 1)[1].split("</div>", 1)[0]
+                self.assertEqual(re.findall(r'data-sort="(\w+)"', switch), ["worth", "new"])
+                self.assertIn('<span>Đáng đọc</span><span class="sort-label-tail">&nbsp;nhất</span></button>', switch)
+                self.assertIn('>Mới nhất</button>', switch)
+                self.assertNotIn("toggle", switch)
+        feed = (ROOT / "site" / "feed.js").read_text(encoding="utf-8")
+        self.assertNotIn("sort-btn-compact", feed)
+        self.assertNotIn("'toggle'", feed)
+        for name in ("menu-cong-cu.css", "trang-msn.css", "feed.css", "trang-nhat.css"):
+            css = (ROOT / "site" / name).read_text(encoding="utf-8")
+            with self.subTest(css=name):
+                self.assertNotIn("sort-btn-compact", css)
+                self.assertIsNone(re.search(r"\.sort-btn[^{}]*\{[^}]*display:\s*none", css))
+                self.assertIsNone(re.search(r"\.sort-switch \.tab-pill\s*\{[^}]*display:\s*none", css))
+        # The phone keeps the wide row's segmented look, shortens the first label and gives the theme to "Tùy chỉnh".
+        msn = (ROOT / "site" / "trang-msn.css").read_text(encoding="utf-8")
+        phone = msn.split("@media (max-width: 767px) {\n  /* A phone: the weather", 1)[1].split("\n}\n", 1)[0]
+        self.assertIn(".msn-head .theme-btn, .msn-head .sort-label-tail { display: none; }", phone)
+        self.assertIn(".msn-head .sort-switch { display: grid; grid-template-columns: 1fr 1fr; width: 12em;", phone)
 
     def test_phone_has_labeled_primary_destinations_and_current_page(self):
         css = (ROOT / "site" / "menu-cong-cu.css").read_text(encoding="utf-8")
@@ -46,7 +70,6 @@ class FeedHeaderLayoutTests(unittest.TestCase):
         self.assertIn("env(safe-area-inset-bottom)", css)
         self.assertIn('.mobile-nav-link[aria-current="page"]', css)
         self.assertIn("min-height:44px", css)
-        self.assertIn(".sort-btn:not(.sort-btn-compact){display:none}", css)
         for label in ("Dòng tin", "Bản tin", "Tìm tin", "Sự kiện"):
             self.assertIn(f"'{label}'", script)
         self.assertIn("mobileNav.setAttribute('aria-label', 'Điều hướng chính')", script)

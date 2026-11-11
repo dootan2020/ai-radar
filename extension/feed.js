@@ -73,12 +73,18 @@ const CSSq = s => (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace
    own (arenaStyles), so an address that opens it (#xep-hang) never shows it unstyled. */
 const LATE_STYLES = ['arena.css', 'story.css'];
 let arenaStyles = null;       // while arena.css is on its way: the promise of its arrival
+/* The address the page's import map gives a file (index.html carries one per deploy, radar/front_lead.py), so a phone
+   never keeps last deploy's stylesheet; without a map (the new tab) it is the plain file. */
+const versioned = name => {
+  try { return JSON.parse(document.querySelector('script[type="importmap"]').textContent).imports[`./${name}`] || name; }
+  catch { return name; }
+};
 function loadLateStyles() {
   for (const href of LATE_STYLES) {
     let link = document.querySelector(`link[rel="stylesheet"][href="${href}"]`);
     if (!link) {
       link = document.createElement('link');
-      link.rel = 'stylesheet'; link.href = href;
+      link.rel = 'stylesheet'; link.href = versioned(href);
       document.head.append(link);
     }
     if (href === 'arena.css' && !link.sheet) {
@@ -2630,18 +2636,11 @@ function setFilter(f, fromHash = false) {
   if (container && active) scrollChipIntoView(container, active);
 }
 function renderSortSwitch() {
-  $$('.sort-btn:not(.sort-btn-compact)').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === sortMode)));
-  const compact = $('.sort-btn-compact');
-  if (compact) {
-    const next = sortMode === 'worth' ? 'Mới nhất' : 'Đáng đọc nhất';
-    compact.setAttribute('aria-label', `Đang sắp xếp: ${sortMode === 'worth' ? 'Đáng đọc nhất' : 'Mới nhất'}. Chuyển sang ${next}`);
-    compact.setAttribute('aria-pressed', String(sortMode === 'new'));
-    compact.querySelector('.sort-current').textContent = sortMode === 'worth' ? 'Đáng đọc' : 'Mới nhất';
-  }
+  $$('.sort-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === sortMode)));
   $('#sort-switch').hidden = false;
   const container = $('#sort-switch');
-  const active = container ? container.querySelector('.sort-btn[aria-pressed="true"]:not(.sort-btn-compact)') : null;
-  if (container && active && matchMedia('(min-width: 768px)').matches) glideTab(container, active);
+  const active = container ? container.querySelector('.sort-btn[aria-pressed="true"]') : null;
+  if (container && active) glideTab(container, active);
 }
 function setSort(m) {
   sortMode = m === 'new' ? 'new' : 'worth';
@@ -3217,8 +3216,8 @@ function attachEvents() {
   // the control's size, or the raised side stays narrower than its label (measured 9.6 px on a loaded machine).
   if ('ResizeObserver' in window && $('#sort-switch')) {
     new ResizeObserver(() => {
-      const sort = $('#sort-switch'), on = sort.querySelector('.sort-btn[aria-pressed="true"]:not(.sort-btn-compact)');
-      if (on && matchMedia('(min-width: 768px)').matches) glideTab(sort, on, { immediate: true });
+      const sort = $('#sort-switch'), on = sort.querySelector('.sort-btn[aria-pressed="true"]');
+      if (on) glideTab(sort, on, { immediate: true });
     }).observe($('#sort-switch'));
   }
   // Tiles that lead to a view of their own ("Xem đủ 10 mô hình" opens "Xếp hạng").
@@ -3241,8 +3240,7 @@ function attachEvents() {
   $('#sort-switch').addEventListener('click', e => {
     const b = e.target.closest('.sort-btn');
     if (!b) return;
-    if (b.dataset.sort === 'toggle') setSort(sortMode === 'worth' ? 'new' : 'worth');
-    else if (b.dataset.sort) setSort(b.dataset.sort);
+    if (b.dataset.sort) setSort(b.dataset.sort);
   });
   $('#reset-filter-btn').addEventListener('click', () => setFilter('all'));
   const notice = $('#fresh');
@@ -3266,8 +3264,8 @@ function attachEvents() {
     }
     const sort = $('#sort-switch');
     if (sort) {
-      const activeSort = sort.querySelector('.sort-btn[aria-pressed="true"]:not(.sort-btn-compact)');
-      if (activeSort && matchMedia('(min-width: 768px)').matches) glideTab(sort, activeSort, { immediate: true });
+      const activeSort = sort.querySelector('.sort-btn[aria-pressed="true"]');
+      if (activeSort) glideTab(sort, activeSort, { immediate: true });
     }
     initRepoPills();
   }, { passive: true });
