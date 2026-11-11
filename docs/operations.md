@@ -170,15 +170,21 @@ background polls keep the last displayed snapshot and retry on the next poll.
 
 ## Reader traffic and performance
 
-The [reader head](../site/index.html) embeds the owner's official Cloudflare Web
-Analytics module once. Its CSP permits only the exact beacon script URL and
-`https://cloudflareinsights.com` reporting origin in addition to existing sources.
-The brand and design showcases are excluded. Cloudflare documents that usage
-metrics do not use cookies or localStorage and do not collect personal data:
-[privacy](https://developers.cloudflare.com/web-analytics/about/) and
+Cloudflare Web Analytics runs on `hco.news` through Cloudflare's automatic setup:
+Cloudflare injects the beacon into the served pages, and no page carries a snippet
+of its own (two beacons once counted every view twice). The reader pages' CSP
+admits only the injected beacon path under `https://static.cloudflareinsights.com/beacon.min.js/`
+and the `https://cloudflareinsights.com` reporting origin; the page-head tests
+([test_page_head.py](../tests/test_page_head.py), [test_hieu_nang.py](../tests/test_hieu_nang.py))
+hold both rules. The extension's new tab never loads the beacon: its pages are
+packaged files served from the extension origin, and
+[sync-site.py](../extension/sync-site.py) refuses any remote script. Cloudflare
+documents that usage metrics do not use cookies or localStorage and do not collect
+personal data: [privacy](https://developers.cloudflare.com/web-analytics/about/) and
 [Core Web Vitals](https://developers.cloudflare.com/web-analytics/data-metrics/core-web-vitals/).
+The [privacy page](../site/chinh-sach-rieng-tu.html) discloses it; change both together.
 
-In Cloudflare, open **Web Analytics** for `radar-ai-vn.pages.dev` and inspect traffic,
+In Cloudflare, open **Web Analytics** for `hco.news` and inspect traffic,
 **Page load time**, and **Core Web Vitals**. Traffic measures visits/page views;
 performance metrics describe observed browser loads, not the collection schedule.
 See [dashboard setup](https://developers.cloudflare.com/web-analytics/get-started/).
@@ -186,7 +192,7 @@ See [dashboard setup](https://developers.cloudflare.com/web-analytics/get-starte
 ## Cloudflare Pages migration
 
 The update workflow deploys the complete `site/` snapshot to the Cloudflare Pages
-project `ai-radar`, then deploys a small compatibility artifact to GitHub Pages.
+project `radar-ai-vn`, then deploys a small compatibility artifact to GitHub Pages.
 That artifact redirects `/` and every generated `/tin/<slug>/` route to the
 matching canonical URL on Cloudflare. A failed Cloudflare deployment prevents
 the GitHub Pages redirect deployment, so the existing GitHub Pages site remains
@@ -195,17 +201,17 @@ available while the new host is repaired.
 Create a GitHub Actions secret named `CLOUDFLARE_PAGES_API_TOKEN` for the first
 Cloudflare deployment. Scope the Cloudflare token to **Account > Cloudflare
 Pages Edit permission at account scope for this account only; the workflow also uses the existing
-`CLOUDFLARE_ACCOUNT_ID` secret. The Pages project `ai-radar` must exist before
+`CLOUDFLARE_ACCOUNT_ID` secret. The Pages project `radar-ai-vn` must exist before
 the first deployment. The workflow fails at the Cloudflare deploy step when the
 API token is missing.
 
 For the first release, create the Pages project, save the API token as the
 repository secret, merge the migration, and run **Update AI Radar** on `main`.
 Watch the Cloudflare deploy job and then the GitHub Pages redirect deploy job.
-Open `https://radar-ai-vn.pages.dev/` and an existing `/tin/<slug>/` page at mobile
+Open `https://hco.news/` and an existing `/tin/<slug>/` page at mobile
 and desktop widths; open the corresponding legacy URLs and verify they redirect.
 Confirm the health monitor stays green for 24 hours. Configure Cloudflare Web
-Analytics for `radar-ai-vn.pages.dev` and verify visits appear there.
+Analytics for `hco.news` and verify visits appear there.
 
 After an approved deployment, open the reader with browser Network and Console
 panels. Confirm the beacon script loads without a CSP error and a report reaches
@@ -217,62 +223,63 @@ monitor ignores external assets and cannot verify analytics. Provider details:
 [CSP](https://developers.cloudflare.com/web-analytics/faq/#what-do-i-need-to-add-to-my-content-security-policy-csp)
 and [collection timing](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/).
 
-To remove analytics, remove the snippet and its two CSP allowances together,
-update the head tests, run offline CI, and obtain approval before publishing.
+To remove analytics, turn off the automatic setup for `hco.news` in Cloudflare,
+then remove the two CSP allowances, update the head tests and the privacy page,
+run offline CI, and obtain approval before publishing.
 
-## Restore a previously deployed artifact
+## Roll back a bad deployment
 
-This is a production action: obtain owner approval for the target run and the
-temporary interruption of automatic updates before executing it.
+Production is the Cloudflare Pages project `radar-ai-vn` (public address
+`https://hco.news/`), deployed by the `deploy` job of
+[update.yml](../.github/workflows/update.yml) with
+`wrangler pages deploy ... --project-name radar-ai-vn --branch main`. Cloudflare
+keeps earlier deployments, so a rollback re-points production at one of them
+without rebuilding. This is a production action: obtain owner approval for the
+target deployment first.
 
-1. Disable the update workflow's schedule and settle or cancel in-progress and
-   queued deployments. Confirm no newer run can overwrite the restored site.
-   Disabling future scheduling alone does not stop a run already in progress.
-2. Select a previously successful **main-branch** update run and record its
-   commit, run ID, deployment URL, and snapshot timestamp. Confirm that run's
-   `github-pages` artifact still exists and is downloadable. The upload action's
-   default retention is one day; use the actual `retention-days` setting in that
-   run's workflow and its artifact expiry, not the age of the Git commit.
-3. Re-run only that run's `deploy` job, so it consumes the retained artifact.
-   Do not re-run `update` or the whole workflow: collection would fetch today's
-   data and replace the artifact rather than restore the historical snapshot.
-   A rerun uses the original run's SHA/ref, so the selected run must satisfy the
-   main-branch deployment guard. If GitHub requires the workflow to be enabled
-   to rerun the job, keep scheduling suspended and settle other runs first.
-
-   For an authorized operator using GitHub CLI, replace `RUN_ID` with that
-   successful run's ID and `JOB_ID` with its `deploy` job's database ID from
-   the first command. These are examples; they were not executed here:
+1. Stop the next update from overwriting the rollback. Disable the **Update AI
+   Radar** schedule (it runs at minutes 7 and 37) and cancel or settle any
+   in-progress run; disabling the schedule alone does not stop a run already
+   in progress.
+2. List deployments and pick the last good production one. Record its ID, commit
+   and age:
 
    ```sh
-   gh run view RUN_ID --json jobs
-   gh run rerun RUN_ID --job JOB_ID
-   gh run watch RUN_ID
+   npx wrangler pages deployment list --project-name radar-ai-vn
    ```
 
-4. Wait for the deployment to finish, open the served page and JSON, and compare
-   the visible content and snapshot timestamp against the selected artifact.
-   A rollback intentionally restores older data; do not change its timestamp.
-5. Correct or revert the offending `main` change with owner approval before
-   resuming automatic updates. Re-enabling the workflow while bad code remains
-   on `main` can immediately replace the rollback at its next run. Verify the
-   first successful deployment after normal scheduling resumes.
+3. Roll back, by either route:
+   - Dashboard: **Workers & Pages → radar-ai-vn → Deployments → ⋯ → Rollback**
+     on the chosen production deployment.
+   - API, with a token that has Pages edit permission (`ACCOUNT_ID` and
+     `DEPLOYMENT_ID` are placeholders):
 
-GitHub's [rerun documentation](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs)
-describes job reruns and original SHA/ref behavior; the
-[Pages artifact action](https://github.com/actions/upload-pages-artifact/blob/main/action.yml)
-owns retention defaults. Artifact availability is a prerequisite, not a promise.
-This procedure has been checked against workflow structure and provider docs;
-no production rollback or deployment was executed during this change.
+     ```sh
+     curl -X POST -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+       "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/radar-ai-vn/deployments/$DEPLOYMENT_ID/rollback"
+     ```
 
-## When the historical artifact has expired
+4. Verify with the health probe, then by eye:
 
-Create a branch that reverts the offending change, run the normal offline CI,
-review the diff, and obtain owner approval before pushing the correction to
-`main`. With the corrected code present, enable/manual-run the update workflow
-on `main` and inspect its deployment to completion. This rebuilds fresh source
-data using the corrected code; it does not recover the exact historical snapshot.
-Keep the schedule suspended while resolving a reproducible publication failure.
+   ```sh
+   python -m radar.health_monitor
+   ```
+
+   A rollback restores an older snapshot on purpose, so its `generated_at` ages.
+   If it passes the three-hour freshness limit, the probe fails stale although
+   the rollback worked; judge that result against the age of the target.
+   Then open `https://hco.news/` and one `/tin/<slug>/` page.
+5. Roll forward. Revert or fix the offending change on a branch, run the offline
+   CI, merge it with owner approval, then re-enable the schedule and run **Update
+   AI Radar** on `main`. Its `deploy` job publishes a new deployment that
+   supersedes the rollback. Do not re-enable the schedule while the bad code
+   remains on `main`, because the next run would replace the rollback with it.
+   Confirm the first successful run's deployment is the one now live.
+
+The deployment commands are checked against the workflow and the Cloudflare Pages
+documentation; no production rollback was executed while writing this section.
+The legacy GitHub Pages redirect site is a separate deployment
+(`deploy-legacy-redirects`) and needs no rollback: it only redirects to Cloudflare.
 
 ## Verification limits for the reported long gap
 

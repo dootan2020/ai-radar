@@ -1,0 +1,53 @@
+Halcyon (https://hco.news/)
+
+This file credits third-party material that Halcyon uses or shows, and states
+how Halcyon treats the publishers it links to.
+
+
+Machine translation: NLLB-200
+-----------------------------
+
+Some Vietnamese titles and summaries on Halcyon are machine-translated. Strings
+whose translation provider is recorded as "nllb" were produced with NLLB-200
+distilled 600M (facebook/nllb-200-distilled-600M), (c) Meta Platforms, Inc. and
+affiliates, licensed under Creative Commons Attribution-NonCommercial 4.0
+International:
+
+  Licence:    https://creativecommons.org/licenses/by-nc/4.0/
+  Model card: https://huggingface.co/facebook/nllb-200-distilled-600M
+  Reference:  NLLB Team et al., "No Language Left Behind: Scaling
+              Human-Centered Machine Translation", arXiv:2207.04672, 2022.
+
+The output shown on Halcyon is machine-translated, modified output: Halcyon
+translates the source text, then applies its own terminology and name
+corrections and rejects translations that change names or numbers. This credit
+does not imply endorsement by Meta. NLLB-200 is provided "as is" and "as
+available", without representations or warranties of any kind. Meta's model
+card describes NLLB-200 as a research model.
+
+Because the licence is non-commercial, NLLB translations are used only while
+Halcyon earns no revenue. Before any advertising, paid access or sponsorship,
+the NLLB fallback must be removed and its stored translations replaced (see
+README.md, "Optional translation and attribution").
+
+
+Sources and attribution
+-----------------------
+
+Every story on Halcyon links to its original publisher or author. Headlines,
+excerpts and pictures belong to their publishers and are shown only to point
+readers to the source; pictures load directly from the publishers' own servers.
+Halcyon's own story summaries are written in Vietnamese and do not replace the
+original article. The list of sources Halcyon reads is at
+https://hco.news/nguon.html. To ask for a correction or for material to be
+removed, use the contact route given on https://hco.news/chinh-sach-rieng-tu.html.
+
+
+Other bundled material
+----------------------
+
+Licences for files shipped with the browser extension sit next to them:
+extension/fonts/OFL.txt (Be Vietnam Pro, SIL Open Font License 1.1),
+extension/con-giap/LICENSE.txt (Microsoft Fluent Emoji zodiac animals) and
+extension/google-apps/LICENSE.txt (Google product logos from the CC0 "SVG Logos"
+set; the logos are trademarks of Google LLC).

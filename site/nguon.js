@@ -42,11 +42,16 @@ function sourceItemHTML(s) {
   return `<li>${avatar(faceOfSource({ source: s.id, lab: s.lab, publisher: s.publisher }, SRC), 'xs')}<a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(name)}</a></li>`;
 }
 
-/* Two quiet lines a reader may want: the machine-translation credit and where their marks are kept. */
+/* Two quiet lines a reader may want: the machine-translation credit and where their marks are kept.
+   The credit names Meta and links the licence and model card, as CC-BY-NC 4.0 asks of shared, modified output. */
+const NLLB_LICENSE = 'https://creativecommons.org/licenses/by-nc/4.0/';
+const NLLB_CARD = 'https://huggingface.co/facebook/nllb-200-distilled-600M';
 function footHTML() {
   const t = D.translation;
   const translated = t && typeof t === 'object' && Number.isFinite(t.translated) && t.translated > 0;
-  const mt = translated ? 'Tiêu đề tiếng Việt là bản dịch máy bằng mô hình NLLB-200 (giấy phép CC-BY-NC 4.0, chỉ dùng phi thương mại), kèm nhãn “Translated”. ' : '';
+  const mt = translated ? 'Tiêu đề tiếng Việt là bản dịch máy, đã được Halcyon chỉnh sửa, bằng mô hình '
+    + `<a href="${NLLB_CARD}" target="_blank" rel="noopener">NLLB-200 của Meta</a> (giấy phép `
+    + `<a href="${NLLB_LICENSE}" target="_blank" rel="noopener">CC-BY-NC 4.0</a>, chỉ dùng phi thương mại), kèm nhãn “Translated”. ` : '';
   const local = storageOk ? 'Tin đã đọc, tin đã lưu và lựa chọn của bạn chỉ lưu trên máy này.'
     : 'Trình duyệt đang chặn bộ nhớ cục bộ, nên tin đã lưu và lựa chọn của bạn chỉ giữ tới khi đóng trang.';
   return mt + local;
@@ -60,7 +65,7 @@ function renderSources() {
   const listEl = $('#src-list');
   listEl.innerHTML = srcs.map(sourceItemHTML).join('');
   listEl.removeAttribute('aria-busy');
-  $('#src-foot').textContent = footHTML();
+  $('#src-foot').innerHTML = footHTML();
 }
 
 function initTheme() {

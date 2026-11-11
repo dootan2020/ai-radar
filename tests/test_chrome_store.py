@@ -104,6 +104,18 @@ class ChromeStoreSubmissionTests(unittest.TestCase):
             with self.subTest(host=host):
                 self.assertIn(host, html, f'Privacy policy does not disclose extension host: {host}')
 
+    def test_privacy_policy_discloses_analytics_and_publisher_pictures(self):
+        # hco.news carries the beacon Cloudflare injects, and story pictures come straight from publishers' servers,
+        # so the policy may not promise "no tracking" without naming both (legal check before the store, 11/11).
+        html = (SITE / 'chinh-sach-rieng-tu.html').read_text(encoding='utf-8')
+        for section in re.findall(r'<section class="policy-body"[^>]*>(.*?)</section>', html, re.S):
+            with self.subTest(section=section[:40]):
+                self.assertIn('static.cloudflareinsights.com', section)
+                self.assertIn('cloudflareinsights.com</code>', section)
+                self.assertIn('platform.theverge.com', section)
+                self.assertNotRegex(section, r'(?i)thu thập, lưu trữ, theo dõi|collect, store, track')
+        self.assertIn('Cập nhật lần cuối: 11 tháng 11, 2026', html)
+
     def test_build_zip_execution_and_contents(self):
         result = subprocess.run(
             [sys.executable, str(STORE / 'build-zip.py')],
