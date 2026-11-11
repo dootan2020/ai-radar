@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-11T07:50:04.477194+00:00",
-  "input_generated_at": "2026-11-11T06:45:47Z",
+  "generated_at": "2026-11-11T11:41:38.361214+00:00",
+  "input_generated_at": "2026-11-11T10:45:37Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -52518,17 +52518,17 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.13560",
       "key_points": [
-        "Nhóm tác giả phát hiện việc đối sánh tài nguyên tính toán làm đảo ngược thứ hạng hiệu quả của các can thiệp huấn luyện qua 1.668 lượt thử trên 6 mô hình. Quy trình này phân bổ cùng ngân sách token sinh ra và giờ GPU huấn luyện, có kiểm soát tác động phụ.",
-        "Theo nhóm nghiên cứu, việc so sánh phần thưởng theo lượt cập nhật bỏ qua chi phí khi chuỗi tiếp nối chiếm tới 91% tổng số token sinh ra. Dù thuật toán GRPO gán cùng điểm cho mọi token lời giải, các phần thưởng tiến trình chấm điểm từng bước lại làm tiêu tốn lượng token rất lớn.",
-        "Trên mô hình Qwen2.5-1.5B, phần thưởng Monte-Carlo kém GRPO tiêu chuẩn 14,3 điểm phần trăm ở cùng số token và kém 7,8 điểm ở cùng thời gian huấn luyện, dù dẫn trước theo lượt cập nhật. Các tác giả cho biết không có biến thể nào trong 4 phần thưởng dày đặc vượt trội hơn GRPO khi có cùng thời gian huấn luyện.",
-        "Ngược lại, đối sánh tài nguyên xác nhận việc chọn prompt có tỷ lệ dự đoán thành công gần 1/2 giúp tăng độ chính xác 1,7 điểm trên Qwen3-0.6B và 0,8 điểm trên Qwen2.5-1.5B. Dù vậy, các tác giả lưu ý mức tăng này chỉ đến sớm trong huấn luyện và GRPO với tốc độ học gấp đôi chỉ kém nửa điểm, chứng minh đối sánh tài nguyên giúp loại bỏ các cải tiến biểu kiến."
+        "Nhóm tác giả phát hiện đối sánh tài nguyên làm đảo ngược thứ hạng can thiệp huấn luyện qua 1.668 lượt chạy trên 6 mô hình. Quy trình này cấp cùng ngân sách token sinh ra và giờ GPU huấn luyện, có kiểm soát tác động phụ.",
+        "Theo nhóm nghiên cứu, chuỗi tiếp nối ở phần thưởng Monte-Carlo chiếm 91% tổng token sinh ra trong thiết lập thử nghiệm, khiến so sánh theo lượt cập nhật bỏ qua chi phí. Thuật toán GRPO (tối ưu hóa chính sách theo nhóm) vốn gán cùng điểm cho mọi token, nên phần thưởng tiến trình được đề xuất để chấm điểm từng bước.",
+        "Phần thưởng Monte-Carlo kém GRPO tiêu chuẩn 14,3 điểm phần trăm ở cùng số token trên mô hình Qwen2.5-1.5B và kém 7,8 điểm ở cùng thời gian huấn luyện, và không biến thể dày đặc nào vượt hơn. Trái lại, việc chọn prompt giúp tăng độ chính xác 1,7 điểm trên Qwen3-0.6B và 0,8 điểm trên Qwen2.5-1.5B khi đối sánh tài nguyên.",
+        "Nhóm tác giả lập luận các can thiệp huấn luyện cần được kiểm chứng ở cùng mức tài nguyên tính toán để loại bỏ các cải tiến biểu kiến. Dù vậy, các tác giả lưu ý mức tăng này xuất hiện sớm và GRPO tiêu chuẩn với tốc độ học ban đầu gấp đôi chỉ kém nửa điểm."
       ],
       "same_event_coverage_ids": [
         "9c9b2b30c0edfe69a30f"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Đối sánh cùng tài nguyên cho thấy phần thưởng Monte-Carlo kém GRPO tiêu chuẩn tới 14,3 điểm phần trăm",
+      "editorial_headline_vi": "Đối sánh cùng tài nguyên, phần thưởng Monte-Carlo kém GRPO tiêu chuẩn 14,3 điểm phần trăm trên Qwen2.5-1.5B",
       "summary_sources": [
         {
           "id": "outlet",
@@ -52541,25 +52541,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.7,
+        "value": 9.4,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 10,
+          "notable": 9,
           "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "mức tăng này chỉ đến sớm trong huấn luyện",
-            "explanation": "The source says both gains come early in training; it does not say they occur only early or cease later (outlet:p009)."
+            "kind": "fact",
+            "summary_text": "không biến thể dày đặc nào vượt hơn",
+            "explanation": "The source limits this result to the four dense-reward variants tested, none of which outperformed GRPO even with as much training time (outlet:p009)."
           }
         ],
         "findings": [
           {
+            "question": "notable",
+            "problem": "The statement about dense-reward variants reads as a claim about every variant.",
+            "fix": "Limit it to the four variants tested and retain the equal-training-time condition (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers do not learn which prompts produced the reported gains.",
+            "fix": "Say the selected prompts had predicted success nearest one-half (outlet:p009)."
+          },
+          {
             "question": "meaning",
-            "problem": "“Only early” makes the duration of the prompt-selection gains sound more limited than the source establishes.",
-            "fix": "Say the gains appear early in training, without implying they disappear later (outlet:p009)."
+            "problem": "The conclusion emphasizes removing apparent gains but leaves out that matched-compute validation also confirmed gains.",
+            "fix": "State both parts of the authors’ conclusion (outlet:p009)."
           }
         ],
         "writer_boats": [
@@ -52567,8 +52577,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "466b68fd9863454c17b2ee7365a0f191c20cc80722e37d183a6c6d56865be57f",
-        "scored_at": "2026-11-11T07:42:26.045471+00:00"
+        "prose_sha256": "3453e423cde9cc200fac26c0cc54b215d7a0151cfa8c1a3bfc564cd1dbe6ad5d",
+        "scored_at": "2026-11-11T11:41:38.332289+00:00"
       }
     },
     {
@@ -52604,17 +52614,17 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.14033",
       "key_points": [
-        "Nhóm tác giả mở rộng APEX sang tạo video luồng trực tuyến (phương thức sinh video liên tục theo thời gian thực) bằng kỹ thuật chuyển dịch điều kiện. Mô hình được thử nghiệm trên video 180 giây, gồm khảo sát 70 trường hợp ở người và so sánh 320 trường hợp trên bộ chuẩn (tập dữ liệu đánh giá tiêu chuẩn) StreamAV-Bench.",
-        "Theo nhóm nghiên cứu, điều kiện văn bản gốc kích hoạt quá trình tạo video, còn điều kiện chuyển dịch thực hiện ước lượng mẫu giả trên cùng tham số. Thiết kế này loại bỏ mạng ước lượng giả riêng, đồng thời giữ lại bộ tham chiếu đóng băng và kỹ thuật ép tự phát lại từ mô hình đối chứng S2-Avatar.",
-        "Theo nhóm tác giả, APEX đạt mức đáp ứng chỉ dẫn và thẩm mỹ thị giác cao hơn S2-Avatar, với điểm đáp ứng chỉ dẫn đạt 3,856 so với 3,831 trên thang Progressive track và điểm thẩm mỹ đạt 0,641898 so với 0,632606.",
-        "Phương pháp giúp giảm 4,4% bộ nhớ GPU đỉnh và 9,2% thời gian lặp so với DMD trong các phép đo riêng ở cùng điều kiện huấn luyện. Dù vậy, chất lượng chuyển động vẫn nghiêng về S2-Avatar, độ đồng bộ âm thanh - hình ảnh phần lớn hòa và khả năng sử dụng không đổi."
+        "Nhóm tác giả mở rộng mô hình APEX sang tạo video luồng (phương thức sinh video liên tục) bằng kỹ thuật chuyển dịch điều kiện. Mô hình được đánh giá trên các video dài 180 giây cùng bộ tinh chỉnh không gian một bước.",
+        "Theo nhóm tác giả, kỹ thuật DMD phải giám sát bộ tạo ít bước bằng một mạng ước lượng giả riêng biệt, gây tốn bộ nhớ và chi phí tính toán. Kỹ thuật chuyển dịch điều kiện ước lượng mẫu giả trên cùng tham số, qua đó loại bỏ mạng riêng này và giữ lại bộ tham chiếu từ S2-Avatar.",
+        "Theo nhóm tác giả, trong khảo sát 70 trường hợp, người đánh giá chuộng APEX nhất ở khả năng làm theo chỉ dẫn với mức ưu tiên ròng cộng 30,0% so với S2-Avatar. Trên bộ chuẩn (tập dữ liệu đánh giá tiêu chuẩn) StreamAV-Bench với 320 trường hợp, mô hình đạt điểm đáp ứng chỉ dẫn 3,856 so với 3,831 của S2-Avatar ở nhánh Progressive track.",
+        "Trong các phép đo riêng ở cùng điều kiện huấn luyện, phương pháp giúp giảm 4,4% bộ nhớ GPU đỉnh và rút ngắn 9,2% thời gian lặp so với DMD. Dù vậy, nhóm tác giả lưu ý chất lượng chuyển động vẫn nghiêng về S2-Avatar, độ đồng bộ âm thanh - hình ảnh phần lớn hòa và khả năng sử dụng không đổi."
       ],
       "same_event_coverage_ids": [
         "a56918e7e7fdcd1ae366"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "APEX tạo video luồng giảm 4,4% bộ nhớ GPU và vượt S2-Avatar về độ bám sát chỉ dẫn",
+      "editorial_headline_vi": "APEX tạo video luồng giảm 4,4% bộ nhớ GPU so với DMD và vượt S2-Avatar về bám sát chỉ dẫn",
       "summary_sources": [
         {
           "id": "outlet",
@@ -52627,39 +52637,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.15,
+        "value": 9.85,
         "answers": {
-          "what": 8,
-          "why": 8,
-          "notable": 8,
+          "what": 10,
+          "why": 10,
+          "notable": 10,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "phương thức sinh video liên tục theo thời gian thực",
-            "explanation": "The source describes streaming video generation but does not say it operates in real time (outlet:p005, outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The parenthetical tells readers the method generates video in real time, which the source does not establish.",
-            "fix": "Remove “theo thời gian thực” and describe it as streaming video generation (outlet:p005, outlet:p009)."
-          },
-          {
-            "question": "notable",
-            "problem": "The account omits the strongest reported human preference result.",
-            "fix": "Add the +30.0% net preference for APEX on instruction following in the 70-case human study (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "2cd28ba5f458b5dd46af2a21171bda225fc465068b8fed5036b77ac209ad7557",
-        "scored_at": "2026-11-11T07:34:38.520844+00:00"
+        "prose_sha256": "a7d0a1d049a153d01ce521b77f8b456be60ea04a4c62f36626a2b284827b680b",
+        "scored_at": "2026-11-11T11:37:49.424495+00:00"
       }
     },
     {
@@ -52676,17 +52669,17 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.14210",
       "key_points": [
-        "Tree-Ising coi việc sửa mô hình là bài toán tối ưu rời rạc thưa trên trọng số BF16, theo nhóm tác giả. Phương pháp sửa vòng lặp suy luận bằng phép lật dấu và dịch số mũ mà không cần đạo hàm.",
-        "Thống kê lan truyền xuôi xác định tiêu chí làm suy yếu hướng lặp, củng cố hướng kết luận và giữ nguyên đầu ra ở token (đơn vị từ ngữ) hữu ích. Nhóm tác giả phân rã tiêu chí thành các bài toán Ising độc lập từng hàng đầu ra, giải trên GPU bằng mô phỏng luyện kim hoặc phân nhánh mô phỏng.",
-        "Tree-Ising đạt 54,6% trên bộ chuẩn (tập đánh giá tiêu chuẩn) MATH-500 khi đánh giá trên hai tầng mô hình của tác tử (chương trình tự hành), vượt mức 51,7% của tác tử theo cùng quy trình đánh giá, so với 7,9% của mô hình gốc. Cả hai bộ giải đều vượt tác tử trên cả 5 bộ chuẩn toán, cải thiện có ý nghĩa thống kê trên MATH-500 và GSM8K sau hiệu chỉnh so sánh bội.",
-        "Công thức này nâng độ chính xác greedy (chọn tham lam) trên GSM8K của Qwen3.5-2B từ 21,6% lên 69,4%, với các tầng và liều lượng chọn chỉ bằng mô hình gốc. Quy trình chỉ cần 4 yêu cầu lan truyền xuôi, 0 token LLM và tốn khoảng 0,90 USD GPU, dù thử nghiệm trên chip IBM Heron mới dừng ở mức chứng minh khái niệm cho bài toán 8 biến."
+        "Phương pháp Tree-Ising sửa mô hình bằng tối ưu hóa rời rạc thưa trên trọng số BF16, theo hai tác giả Hadi Salloum và Ammar Ali. Quy trình phân rã tiêu chí sửa đổi thành các bài toán Ising độc lập từng hàng để giải trên GPU bằng mô phỏng luyện kim hoặc phân nhánh mô phỏng.",
+        "Tác tử tiền nhiệm tiêu tốn nhiều tài nguyên khi cần 158 lượt tương tác, 89,7 triệu token (đơn vị từ ngữ) và 50 yêu cầu lan truyền xuôi khi sửa vòng lặp suy luận của mô hình Qwen3.5-0.8B. Ngược lại, Tree-Ising chỉ cần bốn yêu cầu lan truyền xuôi và không dùng token LLM nào, với công thức mô phỏng luyện kim tốn khoảng 0,90 USD GPU.",
+        "Tree-Ising đạt 54,6% trên bộ chuẩn (bài kiểm tra đánh giá) MATH-500 ở hai tầng mô hình do tác tử trước đó chỉnh sửa, vượt mức 51,7% của tác tử và 7,9% của mô hình gốc. Cả hai bộ giải đều vượt tác tử trên cả năm bộ chuẩn toán, nhưng chỉ cải thiện có ý nghĩa thống kê trên MATH-500 và GSM8K sau khi hiệu chỉnh so sánh bội.",
+        "Công thức này nâng độ chính xác greedy (chọn tham lam) trên GSM8K của Qwen3.5-2B từ 21,6% lên 69,4%, với các tầng và liều lượng chọn chỉ dựa vào mô hình gốc. Dù vậy, thử nghiệm bằng thuật toán QAOA trên bộ xử lý IBM Heron mới dừng ở mức chứng minh khái niệm cho bài toán con tám biến."
       ],
       "same_event_coverage_ids": [
         "9daf18dfe387d66abf12"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tree-Ising sửa trọng số mô hình đạt 54,6% điểm MATH-500 mà không cần dùng token LLM",
+      "editorial_headline_vi": "Tree-Ising đạt 54,6% trên MATH-500 khi sửa mô hình Qwen3.5-0.8B mà không tốn token LLM",
       "summary_sources": [
         {
           "id": "outlet",
@@ -52699,30 +52692,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.5,
+        "value": 9.6,
         "answers": {
-          "what": 8,
-          "why": 9,
-          "notable": 8,
+          "what": 10,
+          "why": 8,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "trên hai tầng mô hình của tác tử",
-            "explanation": "The source says Tree-Ising was evaluated on the agent’s two edited layers of the model, not on layers of a model belonging to the agent (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The wording makes the two evaluated layers sound like parts of the agent’s own model.",
-            "fix": "Say they were the two layers edited by the earlier agent, and identify the model as Qwen3.5-0.8B (outlet:p009)."
-          },
-          {
-            "question": "notable",
-            "problem": "The $0.90 figure reads as the cost of the method generally.",
-            "fix": "Attribute the approximate $0.90 in GPU time specifically to the annealing recipe (outlet:p009)."
+            "question": "why",
+            "problem": "The account does not explain what the optimized edits are designed to change in the model’s behavior.",
+            "fix": "Add that the objective weakens a loop direction, strengthens a concluding direction, and preserves output on productive tokens (outlet:p009)."
           }
         ],
         "writer_boats": [
@@ -52730,8 +52712,810 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ffead25ec21be9be45956024f6cf1d90c95de602899f11f15990990c03cac559",
-        "scored_at": "2026-11-11T07:42:26.045507+00:00"
+        "prose_sha256": "862b7ac3a4d8401919197645dfa3ea0b930bd75100adc232f3361af2d8a60da8",
+        "scored_at": "2026-11-11T11:41:38.332332+00:00"
+      }
+    },
+    {
+      "id": "becb15d95e064cb0a9ea",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3374090/amid-nvidia-saga-t-head-ipo-crucial-test-alibaba-and-chinas-ai-ambitions",
+      "key_points": [
+        "Alibaba Group Holding is planning a Hong Kong listing of its semiconductor design arm, T-Head.",
+        "Analysts at Chinese financial data provider Wind stated that T-Head was previously hidden within Alibaba Cloud and difficult to price independently.",
+        "Wind analysts stated that once listed separately, T-Head will become a new yardstick for assessing whether Alibaba is undervalued."
+      ],
+      "same_event_coverage_ids": [
+        "575c1aa7415817e3f865"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "58cd867d83684f9f67d7",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-11/ai-has-driven-a-quarter-of-uk-growth-this-year-analysis-shows",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6abddc1643a77a4d5208"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ffb25783035cceb4a021",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/ubs-laud-sees-underpriced-risk-in-ai-s-web-of-debt-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "54000c9022d4a82568f6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e09fad6dcc25f1ba697c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article is about an online art retrospective celebrating Dr. Esther Mahlangu's 91st birthday; AI is only mentioned in passing as a tool used to recreate early memories.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blog.google/company-news/outreach-and-initiatives/arts-culture/esther-mahlangu/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cb54e6a589b95eaabbd7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e492ab3c4686a3cf18f0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A directory tracking open-source repository contribution policies rather than an independently reported news article or analytical publication.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://osssaysno.com",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4437cc404f01c3273d2b",
+        "fb62590876a928d3156d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3ccd5600d7065b2a0875",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-11/anthropic-aims-for-3-billion-to-3-5-billion-in-japan-offering",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "47882a48a3bbd4082c10"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "459b3f99646901e1bee1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/alibaba-qwen-code-1-0-preview-qoder-harness-open-source-agent-core",
+      "key_points": [
+        "Alibaba công bố Qwen Code 1.0 vào ngày 11 tháng 11, đưa bộ khung kết nối tác tử (agent harness - lớp liên kết mô hình với công cụ và tiến trình) từ Qoder vào dự án nguồn mở. Doanh nghiệp cho biết các lập trình viên hiện có thể tích hợp trực tiếp bộ khung này vào sản phẩm riêng.",
+        "Theo Alibaba, kiến trúc này nhằm chuyển từ một tiến trình sang nhiều nút phân tán mà vẫn giữ nguyên cổng giao tiếp. Cơ chế tách rời giúp điều phối suy luận và thực thi công cụ được quản lý hoàn toàn độc lập.",
+        "Bản xem trước v1.0.0-preview đã được đưa lên GitHub vào ngày 11 tháng 11 theo giấy phép mã nguồn mở Apache-2.0. Công cụ này chạy trên dòng lệnh và hỗ trợ tích hợp với VS Code, Zed cùng JetBrains.",
+        "Theo Pandaily, hiệu quả vận hành và tiết kiệm chi phí chỉ là khẳng định từ Alibaba chứ chưa có thử nghiệm độc lập. Hãng cũng chưa công bố điểm đo hiệu năng hay ngày phát hành bản chính thức, đồng thời giao diện vẫn có thể thay đổi."
+      ],
+      "same_event_coverage_ids": [
+        "1cddb4bc9595f847c41d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Alibaba phát hành bản xem trước Qwen Code 1.0 và mở mã nguồn bộ khung tác tử từ Qoder",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/alibaba-qwen-code-1-0-preview-qoder-harness-open-source-agent-core"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "70dca3ea4e5fb81cb57cbcd149e546c02c60386d01f11b36138d5eab1cf3b7de",
+        "scored_at": "2026-11-11T11:26:05.815966+00:00"
+      }
+    },
+    {
+      "id": "62e89b922b9f80a5546b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3374037/what-taiwanese-chip-giant-tsmc-gains-taking-stakes-openai-and-anthropics-ai-race",
+      "key_points": [
+        "Hội đồng quản trị của TSMC phê chuẩn kế hoạch mua cổ phần tại cả OpenAI và Anthropic. Quyết định được ban giám đốc đưa ra vào thứ Ba đối với hai đơn vị phát triển mô hình trí tuệ nhân tạo.",
+        "Doanh nghiệp được phép chi tối đa 500 triệu USD mua cổ phiếu phổ thông của Anthropic theo giá IPO và tối đa 500 triệu USD mua cổ phiếu ưu đãi của OpenAI. Ban lãnh đạo cũng thông qua khoản ngân sách riêng tối đa 500 triệu USD thành lập nhánh đầu tư chiến lược vào hệ sinh thái bán dẫn.",
+        "Theo SCMP, bước đi này tạo mối liên kết tài chính trực tiếp giữa TSMC với các phòng nghiên cứu trí tuệ nhân tạo đang thúc đẩy nhu cầu sản xuất chip."
+      ],
+      "same_event_coverage_ids": [
+        "8248b09face10210bac8"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "TSMC phê duyệt chi tới 500 triệu USD mua cổ phần OpenAI và 500 triệu USD cho Anthropic",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/big-tech/article/3374037/what-taiwanese-chip-giant-tsmc-gains-taking-stakes-openai-and-anthropics-ai-race"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.75,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "Quyết định được ban giám đốc đưa ra",
+            "explanation": "The source says TSMC’s board authorized the share purchases, not its executive management (outlet:p012)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The decision is attributed once to executive management.",
+            "fix": "Attribute the authorization consistently to TSMC’s board (outlet:p012)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses the article’s stated potential benefit.",
+            "fix": "Add that the stakes could give TSMC clearer insight into AI demand, keeping the source’s uncertainty (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5c3261fe9a600cfa02d7312e5866332ea2e61d6bc7fe0e7b399ae1625d49f4c0",
+        "scored_at": "2026-11-11T11:26:05.816504+00:00"
+      }
+    },
+    {
+      "id": "bcbbab1457eea027ca20",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting focused on ByteDance's short drama app Hongguo and its competition with Douyin; references to AI short dramas and Doubao are passing and incidental.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://technode.com/2026/11/11/hongguo-is-booming-what-does-that-mean-for-douyin/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6dd54a7bd2251efa85ca"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "98bb6ab370426af936ab",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/11/huawei-details-how-kirin-9050-runs-a-30-billion-parameter-model-on-device/",
+      "key_points": [
+        "Huawei detailed on Wednesday how its Kirin 9050 series chip runs a 30-billion-parameter AI model locally on a phone without an internet connection.",
+        "The Kirin 9050 uses a new Da Vinci neural processing unit with low-bit quantization, coordinating memory and compute to execute on-device inference.",
+        "The on-device model employs a mixture-of-experts architecture that activates approximately 2 billion parameters at a time.",
+        "Huawei described how the Kirin 9050 processor supports on-device features including AI screen reading and eye-tracked page turning."
+      ],
+      "same_event_coverage_ids": [
+        "b977dc8e9bb4ea1d05a3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b6d1f176d40331876ba7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/11/alibaba-opens-qwen4-max-preview-with-a-million-token-context-window/",
+      "key_points": [
+        "Vào thứ Tư, Alibaba đã chính thức ra mắt phiên bản xem trước của Qwen4-Max, mô hình giữ vị trí đầu bảng trong gia đình mô hình Qwen thế hệ mới của tập đoàn công nghệ này.",
+        "Mô hình hỗ trợ đồng thời dữ liệu đầu vào dạng hình ảnh và video với khả năng mở rộng cửa sổ ngữ cảnh lên đến một triệu token (đơn vị đo lường độ dài văn bản mà mô hình tiếp nhận). Lập trình viên có thể truy cập bản xem trước thông qua gói thuê bao dịch vụ Token Plan do Alibaba phát hành.",
+        "Theo TechNode, mô hình này hiện cũng đã được mở quyền sử dụng sớm cho người dùng trên các công cụ chuyên biệt gồm ứng dụng Qwen, Qoder, QwenWork và QwenStudio."
+      ],
+      "same_event_coverage_ids": [
+        "a4e1d78dcb7f58a6ff6e"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Alibaba mở bản xem trước Qwen4-Max hỗ trợ video và cửa sổ ngữ cảnh một triệu token",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/11/alibaba-opens-qwen4-max-preview-with-a-million-token-context-window/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3bbc1b86f70939f8e2c3f90a3a29c2fe949da1fcda1d54847ff426f1b56bd8b1",
+        "scored_at": "2026-11-11T11:26:05.816538+00:00"
+      }
+    },
+    {
+      "id": "b9d900fa8e54618858e1",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/11/china-accelerates-data-center-expansion-as-the-west-faces-mounting-opposition/",
+      "key_points": [
+        "Theo TechNode, Trung Quốc tiếp tục mở rộng hạ tầng tính toán, giữa lúc một số dự án tại châu Âu và Mỹ rơi vào đình trệ. Tính đến tháng 6 năm 2026, nước này vận hành 15,56 triệu giá máy chủ tiêu chuẩn và đạt năng lực tính toán thông minh 2.185 EFLOPS (thước đo hiệu năng tính toán).",
+        "TechNode nhận định nhu cầu tính toán tăng nhanh do sự bùng nổ của ngành mô hình ngôn ngữ lớn (LLM - mô hình AI xử lý ngôn ngữ). Trong hai năm qua, lượng token tiêu thụ hàng ngày của các mô hình nội địa đã tăng hơn 1.000 lần khi ứng dụng AI mở rộng sang khối doanh nghiệp và công nghiệp.",
+        "Trong 7 tháng đầu năm 2026, ít nhất 158 dự án trung tâm dữ liệu và tính toán thông minh trúng thầu với tổng giá trị vượt 113 tỷ nhân dân tệ. Dù vậy, tính đến quý 3 năm 2026, chỉ 13,6% số dự án đi vào vận hành, còn 71,6% vẫn ở giai đoạn lập kế hoạch và chuẩn bị.",
+        "TechNode nhận định năm 2027 có thể là thời điểm bàn giao lớn cho hạ tầng tính toán mới tại Trung Quốc. Trang tin này kết luận lợi thế cạnh tranh thực sự có thể nằm ở việc cung cấp năng lực tính toán đáng tin cậy, hiệu quả với chi phí tài nguyên thấp hơn, thay vì chỉ sở hữu nhiều trung tâm dữ liệu nhất."
+      ],
+      "same_event_coverage_ids": [
+        "cc02890e44cf7293584c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Trung Quốc ghi nhận hơn 113 tỷ nhân dân tệ trúng thầu từ ít nhất 158 dự án hạ tầng tính toán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/11/china-accelerates-data-center-expansion-as-the-west-faces-mounting-opposition/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.9,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 6,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chỉ 13,6% số dự án đi vào vận hành, còn 71,6% vẫn ở giai đoạn lập kế hoạch và chuẩn bị",
+            "explanation": "Placed immediately after the 158 winning-bid projects, “số dự án” implies those percentages describe that same group. The source gives the percentages for its separate first-three-quarters infrastructure project pipeline; it does not apply them to the 158 projects (outlet:p009, outlet:p015)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may apply the 13.6% and 71.6% shares to the 158 winning-bid projects.",
+            "fix": "Identify the shares as referring to the broader first-three-quarters project pipeline, separately from the first-seven-months winning bids (outlet:p009, outlet:p015)."
+          },
+          {
+            "question": "notable",
+            "problem": "The summary loses the threshold that defines the 158-project figure.",
+            "fix": "State that each of those projects had a winning bid above 100 million yuan (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fde41e3431410edac2c8e7d677aac7295bcde4ab3f4258b17b0bab77e95bad7b",
+        "scored_at": "2026-11-11T11:33:15.658813+00:00"
+      }
+    },
+    {
+      "id": "d7608f1b23b7d6033d95",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The project is a video game recompilation/port to macOS where AI (Claude Opus 5.5) is only mentioned in passing as a coding tool rather than being the subject of the news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/adrbn/bo2-mac",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cf4ecb20833521a95b4c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c368e6fcb0a3a81b1c39",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://sakana.ai/michael-tom/",
+      "key_points": [
+        "Sakana AI thông báo bổ nhiệm cựu Giám đốc Cơ quan An ninh Quốc gia Mỹ (NSA) Michael Rogers và cựu quan chức Cơ quan Tình báo Trung ương Mỹ (CIA) Tom Moran làm cố vấn cấp cao. Họ là hai nhân sự quốc tế tiếp theo gia nhập công ty tại Tokyo sau tiến sĩ Jürgen Schmidhuber vào tháng 9.",
+        "Sakana AI cho biết hai chuyên gia sẽ tư vấn cho công ty về tăng cường năng lực quốc phòng và an ninh mạng. Động thái này nhằm hỗ trợ Nhật Bản đối mặt với các thay đổi khi AI trở thành công nghệ định hình tương lai an ninh quốc gia.",
+        "Michael Rogers có 37 năm phục vụ trong Hải quân Mỹ và từng kiêm nhiệm Giám đốc NSA lẫn Tư lệnh Không gian mạng Mỹ. Trong khi đó, Tom Moran có gần 30 năm tại CIA và từng 6 lần giữ chức Trưởng phân cục tại nhiều khu vực trên thế giới.",
+        "Sakana AI khẳng định đang mở rộng đội ngũ tuyến đầu hỗ trợ quốc phòng và tình báo Nhật Bản bằng công nghệ theo chính sách của mình."
+      ],
+      "same_event_coverage_ids": [
+        "6ffeaf98bf1f1916525b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Sakana AI bổ nhiệm cựu Giám đốc NSA và cựu quan chức CIA làm cố vấn cấp cao",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "sakana",
+          "url": "https://sakana.ai/michael-tom/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ba59659b63f7dcf843d9f255ac9d377aa9fd79503fa2d2cda625ff73231e576e",
+        "scored_at": "2026-11-11T11:26:05.816603+00:00"
+      }
+    },
+    {
+      "id": "d23e0b91ec8bbca1adcf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.13995",
+      "key_points": [
+        "Các nhà nghiên cứu giới thiệu phương pháp LipsFlower nhằm giảm sự khuếch đại nhiễu loạn trong mô hình khớp dòng (mô hình tạo sinh qua trường vận tốc). Hệ thống dùng kiến trúc trường vectơ LipHDiT kết hợp chuẩn hóa phổ xấp xỉ ổn định, điều chế bị chặn và trộn phần dư lồi.",
+        "Theo nhóm tác giả, động lực học học được của mô hình khớp dòng có thể khuếch đại nhiễu loạn nhỏ ở đầu vào và làm quá trình tái tạo bị mất ổn định. Họ thiết lập giới hạn ổn định lý thuyết cho phương pháp khởi tạo từ quan sát nhiễu lẫn phương pháp lấy mẫu hậu nghiệm có điều kiện quan sát trong suốt quá trình tích phân.",
+        "LipsFlower làm giảm sự khuếch đại nhiễu loạn trong khi vẫn duy trì chất lượng phục hồi cạnh tranh so với các mô hình cơ sở được đánh giá. Kết quả này được ghi nhận khi thử nghiệm phục hồi khuôn mặt mù (blind face restoration), qua đo lường độ bền vững đối kháng và chất lượng cảm nhận.",
+        "Nhóm tác giả nhận định kết quả chỉ gợi ý rằng kỹ thuật khớp dòng nhận biết Lipschitz có thể cải thiện độ ổn định của phục hồi hình ảnh tạo sinh."
+      ],
+      "same_event_coverage_ids": [
+        "4260a6b9efe036d3da8a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "LipsFlower giúp giảm khuếch đại nhiễu loạn khi phục hồi khuôn mặt mù nhưng vẫn giữ chất lượng cạnh tranh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.13995"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bde6df55853e7a070be65f8dc44d212b9108e795951d389eecb14e70a599721e",
+        "scored_at": "2026-11-11T11:33:15.658860+00:00"
+      }
+    },
+    {
+      "id": "c2240fbb96ae244adadc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.14320",
+      "key_points": [
+        "External memory can lead to memory-induced degradation where an LLM agent fails on tasks it would otherwise solve without memory.",
+        "Degradation occurs because lessons distilled from past tasks are often provided without original trajectories, preventing agents from verifying them.",
+        "The authors introduced WikiTrace, an evidence-linked memory system that allows agents to check each lesson against its original execution trajectory."
+      ],
+      "same_event_coverage_ids": [
+        "c35fec03a103bc18000b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "93bb9779c09d4e3cc9a4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.13885",
+      "key_points": [
+        "Tác giả Ömer Tekin Yavuz phát hiện toàn bộ nhóm nơ-ron hiếm khi là cần thiết để thay đổi kết quả mô hình, khi chỉ vài nơ-ron thường đã đủ. Trong phân tích thăm dò, các tập hợp con rời nhau có thể tự đảo ngược câu trả lời, thường gặp nhất khi mô hình kém tự tin.",
+        "Tác giả chỉ ra các minh họa can thiệp trước đây chưa làm rõ mức độ cần thiết của nhóm nơ-ron hay khả năng chuyển giao sang đầu vào khác. Nghiên cứu đã đo lường toàn bộ 4.096 tập hợp con từ mỗi nhóm 12 nơ-ron perceptron đa tầng (MLP) được chọn.",
+        "Trên chuỗi quan hệ hai bước, việc cấy ghép 12 nơ-ron bằng giá trị kích hoạt từ câu hỏi bước đầu làm dịch chuyển câu trả lời sang thực thể cầu nối. Câu trả lời tham lam (chọn từ có xác suất cao nhất) bắt đầu bằng thực thể này ở 9/11 chuỗi với Qwen3-1.7B, 9/11 với Llama-3.2-1B và 8/10 với Gemma-3-1B, còn nơ-ron ngẫu nhiên không bao giờ làm được.",
+        "Tác giả kết luận hiệu ứng nhóm chuyển giao sang các cách diễn đạt lại cùng chuỗi, nhưng yếu hơn nhiều trên những chuỗi khác. Nghiên cứu cũng xác nhận giới hạn là không khôi phục toàn bộ tính kết nối của các mạch nơ-ron."
+      ],
+      "same_event_coverage_ids": [
+        "bd38e0291e9cc1fca1ac"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu: Chỉ vài nơ-ron thường đã đủ để đảo ngược câu trả lời của mô hình ngôn ngữ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.13885"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "37d9fc888ed2be79960ae8d2bce65993607d8e23b56ca801e6674e5ea268bb87",
+        "scored_at": "2026-11-11T11:33:15.658891+00:00"
+      }
+    },
+    {
+      "id": "52f83b1a07a69ba71e6f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.14083",
+      "key_points": [
+        "Tác giả Tomer Solberg giới thiệu Sable, hệ thống đối số tạo chứng minh suy luận chính xác từng bit trên một GPU cho mô hình biến đổi lượng tử hóa số nguyên.",
+        "Hệ thống cố định hàm số nguyên F_O không chứa bước dấu phẩy động, đồng thời xử lý các quan hệ qua hệ ràng buộc không tràn mô-đun số nguyên tố KoalaBear 31-bit. Bộ chứng minh truyền dữ liệu mô hình theo từng lớp trên một GPU và gom các phép kiểm tra thành một phép kiểm tra tổng trên mỗi miền.",
+        "Chi phí chứng minh tốn 6,4 cent cho mỗi yêu cầu 4.096 token theo giá GPU công khai, đồng thời tốn ít hơn từ 40 đến 64 lần thời gian trên mỗi tham số và token so với zkLLM.",
+        "Tác giả Tomer Solberg cho biết bằng chứng này không có tính chất không tiết lộ tri thức (zero-knowledge), do đó hệ thống chỉ nhắm tới các mô hình có trọng số mở."
+      ],
+      "same_event_coverage_ids": [
+        "989032f1749673716605"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hệ thống Sable tạo chứng minh suy luận chính xác từng bit cho mô hình ngôn ngữ lớn trên một GPU",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.14083"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.85,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers do not learn the precise claim Sable proves.",
+            "fix": "Specify that the proof concerns a committed integer-quantized transformer producing a given token sequence from a given prompt (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "“Bit-exact” could be read as exact agreement with ordinary BF16 inference.",
+            "fix": "Explain that the proof is for Sable’s integer function and that its greedy token matched the BF16 model at 86.3% of WikiText-2 positions (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3509f652ebaa4236ab5ffedf5aeabb6ef0c3aca4f615976fe6254147ad98e82d",
+        "scored_at": "2026-11-11T11:33:15.658915+00:00"
+      }
+    },
+    {
+      "id": "f4e4ebe108d8e8cbed59",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/09/2026/with-a-weak-board-and-no-successor-nvidia-confronts-a-governance-crisis",
+      "key_points": [
+        "Semafor đưa tin bê bối của Jensen Huang làm lộ rõ quản trị yếu kém và kế hoạch kế nhiệm mờ nhạt tại Nvidia. Ông Huang thừa nhận có quan hệ với một phụ nữ bị nghi làm gián điệp cho tình báo Trung Quốc.",
+        "Theo Semafor, cơ hội tại vị của ông Huang phụ thuộc vào hội đồng quản trị thiếu kinh nghiệm và đã để ông điều hành mà không có người kế vị rõ ràng. Giáo sư Jill Fisch tại Đại học Pennsylvania nhận định cơ cấu này cho thấy CEO đang nắm quyền kiểm soát thực tế ban giám đốc.",
+        "Nvidia không có nhân vật số hai rõ ràng khi thiếu chức danh chủ tịch hay giám đốc vận hành, và từ kế nhiệm vắng mặt trong báo cáo thường niên gửi cổ đông. Hội đồng quản trị tại nhiệm trung bình gần 15 năm, không ai có kinh nghiệm an ninh quốc gia, và để ông Huang có hơn 50 cấp dưới báo cáo trực tiếp.",
+        "Semafor nhận định cuộc điều tra có thể làm lộ ra tình tiết khiến ông Huang không thể tiếp tục giữ ghế CEO, trong khi công ty thiếu nhân sự nội bộ rõ ràng để thay thế. Dù vậy, hội đồng quản trị Nvidia tuyên bố họ không có lý do để tin rằng bí mật công ty hay an ninh quốc gia bị tổn hại."
+      ],
+      "same_event_coverage_ids": [
+        "79f833c93749fd75d9bd",
+        "c5446b9f97dd5aedecd7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Nvidia thừa nhận quan hệ với người bị nghi là gián điệp, làm lộ rõ khủng hoảng quản trị doanh nghiệp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/09/2026/with-a-weak-board-and-no-successor-nvidia-confronts-a-governance-crisis"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "CEO đang nắm quyền kiểm soát thực tế ban giám đốc",
+            "explanation": "Jill Fisch said the board composition suggests Huang exercises effective control over the board of directors, not the management team (outlet:p011)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "thiếu chức danh chủ tịch",
+            "explanation": "The source says Nvidia has no president or chief operating officer; it does not say it lacks a board chair (outlet:p015)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader may understand Fisch’s criticism as referring to the management team.",
+            "fix": "Say Huang appears to exercise effective control over the board of directors, as Fisch said (outlet:p011)."
+          },
+          {
+            "question": "notable",
+            "problem": "“Chủ tịch” may suggest a missing board chair.",
+            "fix": "Use a Vietnamese title that clearly means corporate president, alongside chief operating officer (outlet:p015)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The investigation’s central question is unclear.",
+            "fix": "Explain that it will help determine whether Huang compromised company secrets or US national security during the relationship (outlet:p022)."
+          },
+          {
+            "question": "notable",
+            "problem": "The summary misses a concrete immediate consequence.",
+            "fix": "If space permits, add that Nvidia shares fell 5% that afternoon, cutting more than $200 billion from its market value (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9b2958730cc4df735b7c252be06438e7d1c36509d80193fc0e55ee7f1d47673e",
+        "scored_at": "2026-11-11T11:33:15.658963+00:00"
       }
     }
   ]
