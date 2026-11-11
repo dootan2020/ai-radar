@@ -41,6 +41,38 @@
 .msn-top .tool-launcher-button:hover, .msn-top .tool-launcher-button[aria-expanded="true"] { background: var(--top-tile-on); color: var(--top-ink); }
 .msn-top .top-tile:active, .msn-top .tool-launcher-button:active { transform: scale(0.96); }
 .msn-top .top-tile:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+/* "Đặt làm thẻ mới": the extension's invitation, just before "Tùy chỉnh" (thanh-tren.js startOffer), only on a desktop
+   Chromium browser. The same material as the two tiles beside it, words instead of a mark, and × to put it away for good.
+   It needs a corner wide enough for its words beside the two tiles (1366 px, the common laptop: measured, it ends 13 px
+   from the search, the row's own gap); a narrower window keeps only the line in "Tùy chỉnh". A mouse only (pointer: fine), so × may be narrower than
+   the 44 px a finger needs. */
+.msn-top .cai-offer { display: none; }
+@media (min-width: 1366px) and (pointer: fine) {
+  /* Out of the flow, at the tiles' left: the tile arrives after the first paint, and growing the tiles' box would count
+     as a layout shift (measured 0.0014 at 1440 with the tile in the flow). */
+  .msn-top .masthead-actions { position: relative; }
+  .msn-top .cai-offer {
+    position: absolute; top: 0; right: calc(100% + var(--space-8));
+    display: flex; align-items: stretch; height: var(--btn-h); border-radius: var(--radius-8);
+    background: var(--top-tile); color: var(--top-ink); transition: opacity var(--motion-state) var(--ease-flow);
+  }
+  @starting-style { .msn-top .cai-offer { opacity: 0; } }
+}
+.msn-top .cai-offer.is-gone { opacity: 0; pointer-events: none; transition: opacity var(--duration-150) var(--ease-exit); }
+.cai-go, .cai-x {
+  display: flex; align-items: center; color: inherit; cursor: pointer;
+  transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+}
+.cai-go {
+  gap: var(--space-6); padding: 0 var(--space-4) 0 var(--space-12); border-radius: var(--radius-8) 0 0 var(--radius-8);
+  font-size: var(--text-small); font-weight: var(--weight-semibold); white-space: nowrap; text-decoration: none; text-shadow: var(--top-ink-shadow);
+}
+.cai-x { justify-content: center; width: calc(var(--btn-h) - var(--space-8)); padding: 0; border: 0; border-radius: 0 var(--radius-8) var(--radius-8) 0; background: none; opacity: 0.72; }
+.cai-go .i, .cai-x .i { width: var(--msn-fav); height: var(--msn-fav); flex: none; }
+.cai-go:hover, .cai-x:hover { background: var(--top-tile-on); }
+.cai-x:hover { opacity: 1; }
+.cai-go:active, .cai-x:active { transform: scale(0.97); }
+.cai-go:focus-visible, .cai-x:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 @media (min-width: 768px) and (max-width: 1099px) {
   .msn-top-in { grid-template-columns: minmax(var(--top-side-narrow), 1fr) minmax(0, var(--msn-search-max)) minmax(var(--top-side-narrow), 1fr); }
   .top-now { flex-direction: column; align-items: flex-start; gap: 0; }
@@ -1156,7 +1188,8 @@
     --top-ink: var(--top-on-nen-ink); --top-ink-shadow: var(--top-on-nen-shadow);
     --top-tile: var(--top-on-nen-tile); --top-tile-on: var(--top-on-nen-tile-on);
   }
-  :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button {
+  :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button,
+  :root:not([data-nen="off"]) .msn-top .cai-offer {
     -webkit-backdrop-filter: blur(var(--msn-blur)) saturate(1.4); backdrop-filter: blur(var(--msn-blur)) saturate(1.4);
   }
   .msn-top .ns-field {
@@ -1167,7 +1200,8 @@
 }
 @media (min-width: 768px) and (prefers-reduced-transparency: reduce) {
   .msn-top .ns-field { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--nen-pill-on); }
-  :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button {
+  :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button,
+  :root:not([data-nen="off"]) .msn-top .cai-offer {
     -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--top-on-nen-tile-on);
   }
 }
@@ -1232,6 +1266,13 @@
 .tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); }
 .tc-seg label { display: grid; place-items: center; min-height: var(--btn-h); border-radius: var(--seg-thumb-r); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2); cursor: pointer; transition: background-color var(--duration-150) ease, color var(--duration-150) ease; }
 .tc-seg label:has(input:checked) { color: var(--color-ink); font-weight: var(--weight-bold); }
+/* The extension's permanent line (thanh-tren.js OFFER_ROW): a row like the switches above it, the mark that leaves the
+   site where the switch would be. */
+.tc-ext { padding-block: var(--space-4); }
+.tc-ext-go { padding-inline: var(--space-4); margin-inline: calc(-1 * var(--space-4)); border-radius: var(--radius-8); color: inherit; text-decoration: none; transition: background-color var(--duration-150) ease; }
+.tc-ext-go:hover { background: var(--color-fill); }
+.tc-ext-go:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
+.tc-ext-go .i { width: var(--msn-fav); height: var(--msn-fav); flex: none; color: var(--color-ink-2); }
 /* A phone draws no picture, so the layout and the picture switch have nothing to change there. */
 @media (max-width: 767px) {
   .tc-wide { display: none; }
@@ -1239,7 +1280,7 @@
 @media (prefers-reduced-motion: reduce) {
   .tc-sheet, .tc-sheet.is-open { transform: none; transition: opacity var(--duration-150) ease; }
   .tc-switch::before, .tc-layout { transition: none; }
-  .tc-layout:active, .msn-top .top-tile:active, .msn-top .tool-launcher-button:active { transform: none; }
+  .tc-layout:active, .msn-top .top-tile:active, .msn-top .tool-launcher-button:active, .cai-go:active, .cai-x:active { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

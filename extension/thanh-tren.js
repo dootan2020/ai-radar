@@ -91,7 +91,46 @@ const SHEET = `<div class="tc-top"><h2 id="tc-h">Tùy chỉnh</h2>
   <fieldset class="tc-group"><legend>Giao diện</legend><div class="tc-seg">${THEMES.map(([v, name]) =>
     `<label><input class="sr" type="radio" name="tc-theme" value="${v}"><span>${name}</span></label>`).join('')}</div></fieldset>`;
 
+/* The extension (approved on the Chrome Web Store 11/11; captain 23:55: "đưa nó lên web cho mọi người có thể tải về",
+   "làm gọn gàng, tinh tế cho anh"). Only the Store installs it (Chrome 71 removed inline install), and only a desktop
+   Chromium browser can (Chrome, Edge, Cốc Cốc); a phone, Firefox, Safari and the extension's own new tab never see it.
+   The link goes through /cai-dat/, a page that forwards to the Store, so the site's page counts show the clicks.
+   A quiet tile beside "Tùy chỉnh" invites once; × or a click on it hides it for good in this browser, and the line in
+   "Tùy chỉnh" stays as its permanent home. */
+export const OFFER_KEY = 'halcyon:cai-tien-ich';
+export const OFFER_HREF = '/cai-dat/';
+export function canInstall(nav = globalThis.navigator, loc = globalThis.location, media = globalThis.matchMedia) {
+  if (!loc || loc.protocol === 'chrome-extension:') return false;
+  const ua = nav?.userAgentData;
+  if (!ua || ua.mobile !== false || !ua.brands?.some(b => b.brand === 'Chromium')) return false;
+  return typeof media !== 'function' || media('(pointer: fine)').matches;   // a Chromium tablet reports mobile: false
+}
+export function offerHidden(storage) {
+  try { return storage?.getItem(OFFER_KEY) === 'an'; } catch { return false; }
+}
+export function hideOffer(storage) {
+  try { storage.setItem(OFFER_KEY, 'an'); return true; } catch { return false; }
+}
+const offerLink = (cls, words) => `<a class="${cls}" href="${OFFER_HREF}" target="_blank" rel="noopener" title="Cài tiện ích Halcyon">`
+  + `<span>${words}</span><svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>`;
+const OFFER_ROW = `<div class="tc-group tc-ext">${offerLink('tc-row tc-ext-go', 'Đặt Halcyon làm thẻ mới')}</div>`;
+const OFFER_TILE = offerLink('cai-go', 'Đặt làm thẻ mới')
+  + '<button class="cai-x" type="button" aria-label="Ẩn gợi ý cài tiện ích" title="Ẩn"><svg class="i" aria-hidden="true"><use href="#i-close"/></svg></button>';
+
 const local = () => { try { return globalThis.localStorage; } catch { return null; } };
+
+/* The invitation beside "Tùy chỉnh"; the line in the sheet is drawn with the sheet (startTopRow). */
+export function startOffer(doc, storage, btn) {
+  if (offerHidden(storage)) return null;
+  const tile = doc.createElement('div');
+  tile.className = 'cai-offer';
+  tile.innerHTML = OFFER_TILE;
+  btn.before(tile);
+  const remove = () => { hideOffer(storage); tile.classList.add('is-gone'); setTimeout(() => tile.remove(), 160); };
+  tile.querySelector('.cai-go').addEventListener('click', remove);
+  tile.querySelector('.cai-x').addEventListener('click', () => { remove(); btn.focus({ preventScroll: true }); });
+  return tile;
+}
 
 /* The corner is the row's first column (trang-msn.css); the search owns the middle one. When the whole line is wider
    than the corner (a 1280 px window, a long city name), drop the year, then the weekday, then the city, until it fits:
@@ -129,8 +168,13 @@ export function startTopRow(doc = document) {
   sheet.setAttribute('role', 'dialog');
   sheet.setAttribute('aria-labelledby', 'tc-h');
   sheet.hidden = true;
-  sheet.innerHTML = SHEET;
+  const install = canInstall();
+  sheet.innerHTML = SHEET + (install ? OFFER_ROW : '');
   doc.body.append(sheet);
+  if (install) {
+    startOffer(doc, storage, btn);
+    sheet.querySelector('.tc-ext-go').addEventListener('click', () => { hideOffer(storage); doc.querySelector('.cai-offer')?.remove(); });
+  }
   const field = name => sheet.querySelectorAll(`[name="${name}"]`);
 
   function sync() {
