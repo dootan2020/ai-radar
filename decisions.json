@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-11T00:02:47.437438+00:00",
-  "input_generated_at": "2026-11-10T22:46:15Z",
+  "generated_at": "2026-11-11T03:45:00.911332+00:00",
+  "input_generated_at": "2026-11-11T02:46:01Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -48374,10 +48374,10 @@
       "use_original_title": false,
       "source_url": "https://www.scmp.com/tech/big-tech/article/3373855/chinese-traders-still-confident-nvidia-gpu-access-amid-jensen-huang-scandal",
       "key_points": [
-        "Theo báo South China Morning Post, giá các bộ xử lý đồ họa (GPU - chip chuyên xử lý đồ họa và tính toán) của Nvidia đang giảm tại thị trường điện tử lớn nhất Trung Quốc.",
-        "Các tiểu thương tại chợ Hoa Cường Bắc ở Thâm Quyến cho biết đợt sốt giá trước đó chủ yếu do tin đồn Nvidia ngừng sản xuất card đồ họa phổ thông để tập trung cho GPU doanh nghiệp, nhưng giá đã hạ sau khi hãng bác bỏ thông tin này.",
-        "Giá GeForce RTX 5090 giảm từ hơn 60.000 nhân dân tệ về khoảng 50.000 nhân dân tệ, thậm chí một tiểu thương tại chợ còn báo giá 48.500 nhân dân tệ.",
-        "Giới thương nhân phớt lờ đồn đoán siết xuất khẩu sau vụ việc Jensen Huang và cuộc bầu cử giữa kỳ tại Mỹ."
+        "Theo South China Morning Post, giá GPU Nvidia đang giảm tại thị trường điện tử lớn nhất Trung Quốc, bất chấp những đồn đoán về việc Mỹ siết kiểm soát xuất khẩu.",
+        "Theo South China Morning Post, Nvidia bác bỏ tin đồn ngừng sản xuất RTX 5090, điều mà các tiểu thương cho biết là nguyên nhân chủ yếu khiến giá tăng vọt trước đó.",
+        "Cụ thể, giá GeForce RTX 5090 giảm từ đỉnh hơn 60.000 nhân dân tệ (8.990 USD) về khoảng 50.000 nhân dân tệ, thậm chí một tiểu thương tại chợ chào giá 48.500 nhân dân tệ.",
+        "Theo South China Morning Post, diễn biến này phản ánh việc giới thương nhân phớt lờ đồn đoán siết kiểm soát xuất khẩu sau cuộc bầu cử giữa kỳ tại Mỹ và vụ bê bối của Jensen Huang."
       ],
       "same_event_coverage_ids": [
         "4b54775efa968209f4c9"
@@ -48386,7 +48386,7 @@
         "d1a4d5e38850eb535fac"
       ],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Giá GPU Nvidia tại Trung Quốc hạ nhiệt khi giới thương nhân phớt lờ nguy cơ siết xuất khẩu",
+      "editorial_headline_vi": "Giá GPU Nvidia tại Trung Quốc hạ nhiệt khi tiểu thương phớt lờ đồn đoán siết xuất khẩu",
       "summary_sources": [
         {
           "id": "outlet",
@@ -48399,34 +48399,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.6,
+        "value": 9.65,
         "answers": {
           "what": 10,
-          "why": 8,
+          "why": 9,
           "notable": 10,
-          "meaning": 10
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "card đồ họa phổ thông",
-            "explanation": "The source discusses a rumored production halt in the context of the GeForce RTX 5090, which it calls top-of-the-range; it does not describe a halt to mainstream graphics cards (outlet:p012)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The description of the rumored production halt gives readers the wrong impression about the affected product.",
-            "fix": "Refer to the RTX 5090 or to the rumored production halt without calling the card mainstream (outlet:p012)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "406383f46fa7219cc7abfd9c7946d3bb63c90a2b1e6ff2a4c84fa326783b0d66",
-        "scored_at": "2026-11-10T23:56:34.495967+00:00"
+        "prose_sha256": "bbabeec219d5322385ed59aed14eb59e0af92421a52a3a96a456ead45e11a0a6",
+        "scored_at": "2026-11-11T03:40:40.112454+00:00"
       }
     },
     {
@@ -49060,17 +49048,17 @@
       "use_original_title": false,
       "source_url": "https://blogs.nvidia.com/blog/open-source-openshell-infrastructure/",
       "key_points": [
-        "NVIDIA đóng góp OpenShell cho CNCF và công bố các công cụ hạ tầng AI mới tại hội nghị KubeCon để quản lý tác nhân AI (phần mềm tự hành). Các công cụ mới thuộc nền tảng DSX AI Factory bao gồm giải pháp Snapshot cùng bộ công cụ quản trị cụm máy chủ đang ở bản xem trước công khai.",
-        "Theo NVIDIA, động thái này nhằm đáp ứng nhu cầu ngày càng tăng đối với Kubernetes khi hệ thống trở thành nền tảng vận hành tại các nhà máy AI. Dự án Agent Substrate mà hãng tham gia cùng Google giúp duy trì môi trường tác nhân giữa các phiên làm việc và giải phóng năng lực tính toán khi nhàn rỗi.",
-        "Crusoe thử nghiệm Snapshot trên đám mây với mô hình GLM-5.3 đã giảm thời gian sẵn sàng từ khoảng tám phút xuống 31 giây trên hệ thống HGX B300. Tương tự, Saturn Cloud đo lường Snapshot và ghi nhận thời gian khởi động công cụ vLLM giảm từ mức hai đến 8,5 phút xuống còn sáu đến 34 giây.",
-        "Ông Zemlin nhận định cộng đồng đám mây đang đứng trước thách thức hạ tầng mới là phải tạo ra môi trường vận hành an toàn cho các tác nhân tự hành."
+        "Tại hội nghị KubeCon, NVIDIA đóng góp OpenShell, môi trường mở giúp bảo mật và quản trị tác nhân AI (phần mềm tự hành), cho quỹ CNCF.",
+        "Theo NVIDIA, OpenShell giúp kiểm soát tác nhân và thực thi chính sách, trong khi các công cụ DSX mở rộng hạ tầng GPU cho các nhà máy AI. Hãng đồng thời tham gia dự án Agent Substrate cùng Google để duy trì môi trường tác nhân và giải phóng năng lực tính toán khi nhàn rỗi.",
+        "Trên hệ thống HGX B300, đối tác Crusoe đo lường công cụ Snapshot với mô hình GLM-5.3 trên đám mây đã giảm thời gian sẵn sàng tải từ khoảng tám phút xuống 31 giây. Saturn Cloud cũng thử nghiệm Snapshot và giảm thời gian khởi động vLLM từ 2 đến 8,5 phút xuống còn 6 đến 34 giây.",
+        "Ông Jim Zemlin, Giám đốc điều hành Linux Foundation, nhận định cộng đồng đám mây đứng trước thách thức mới là tạo môi trường vận hành an toàn cho các tác nhân. Theo ông Zemlin, việc đưa OpenShell vào CNCF mang lại nền tảng chung để các nhà phát triển định hình sự phát triển của an ninh tác nhân."
       ],
       "same_event_coverage_ids": [
         "80c7eb98d5e51cbcb2ca"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "NVIDIA đóng góp OpenShell cho CNCF, thử nghiệm Crusoe với GLM-5.3 sẵn sàng sau 31 giây",
+      "editorial_headline_vi": "NVIDIA đóng góp OpenShell cho CNCF, thử nghiệm rút ngắn thời gian sẵn sàng AI còn 31 giây",
       "summary_sources": [
         {
           "id": "outlet",
@@ -49083,25 +49071,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.25,
+        "value": 9.0,
         "answers": {
-          "what": 7,
-          "why": 3,
-          "notable": 10,
-          "meaning": 8
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "công bố các công cụ hạ tầng AI mới tại hội nghị KubeCon để quản lý tác nhân AI",
-            "explanation": "The newly announced DSX tools help teams deploy, manage and scale GPU infrastructure on Kubernetes; OpenShell is the component described as governing what agents can do (outlet:p006, outlet:p011)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The opening sentence assigns agent management to the newly announced infrastructure tools.",
-            "fix": "State that OpenShell secures and governs agents, while the new DSX components help deploy, manage and scale GPU infrastructure for AI factories (outlet:p006, outlet:p011)."
+            "question": "notable",
+            "problem": "The headline’s 31-second figure does not identify the component or test behind it.",
+            "fix": "Name NVIDIA Snapshot and attribute the GLM-5.3 workload result to Crusoe’s test (outlet:p022–p023)."
           }
         ],
         "writer_boats": [
@@ -49109,8 +49091,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "158f24b5df774cd8bc30018805e9cbd2bf7889f9b81c1cd57ddece5e37a101bd",
-        "scored_at": "2026-11-11T00:02:47.434465+00:00"
+        "prose_sha256": "c16b234c98eeac1135ef9df83c6937733a711296ad1b6353bfdf92d8ef3e9946",
+        "scored_at": "2026-11-11T03:40:40.112392+00:00"
       }
     },
     {
@@ -49171,17 +49153,17 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/10/google-broadens-its-ai-hardware-portfolio-with-two-new-specialized-chips/",
       "key_points": [
-        "Google công bố hai biến thể bộ xử lý tensor (TPU - chip chuyên dụng cho tác vụ AI) mới gồm TPU 8tx và TPU 8i Max. Các chip này thuộc thế hệ thứ tám, mở rộng danh mục sang mảng suy luận bảo mật và xử lý khối lượng công việc lớn.",
-        "Theo TechCrunch, Google đẩy mạnh việc tự sản xuất chip vì muốn giảm bớt sự phụ thuộc vào các công ty bán dẫn khác trong mảng điện toán đám mây.",
-        "Mẫu TPU 8tx do Google hợp tác với AMD tích hợp bảo mật ở lớp phần cứng, giúp chạy mô hình an toàn mà không cần chuyển dữ liệu giữa các thiết bị. Còn TPU 8i Max kết hợp hai chip TPU 8i trên một đế, nhân đôi dung lượng bộ nhớ, năng lực xử lý và băng thông khi truy vấn.",
-        "TechCrunch nhận định đợt ra mắt diễn ra khi các hãng công nghệ lớn đều phát triển bán dẫn riêng để giảm lệ thuộc vào thế thống trị của Nvidia. Tin tức này xuất hiện vào thời điểm Nvidia chịu tổn thương khi Tổng giám đốc Jensen Huang vướng bê bối quan hệ với người bị nghi là gián điệp."
+        "Google ra mắt hai biến thể chip AI mới là TPU 8tx và TPU 8i Max thuộc thế hệ bộ xử lý tensor thứ tám. Theo TechCrunch, đợt ra mắt này mở rộng danh mục phần cứng sang suy luận bảo mật và xử lý khối lượng công việc lớn.",
+        "Theo TechCrunch, Google đẩy mạnh việc tự sản xuất chip nhằm giảm phụ thuộc vào sản phẩm của các công ty khác cho mảng điện toán đám mây.",
+        "Google cho biết chip TPU 8tx tích hợp bảo mật vào tầng phần cứng để bảo vệ dữ liệu nhạy cảm và trọng số mô hình khi đang sử dụng, hỗ trợ doanh nghiệp huấn luyện bằng dữ liệu độc quyền mà không cần di chuyển dữ liệu giữa các thiết bị. Trong khi đó, TPU 8i Max kết hợp hai chip TPU 8i trong một khối duy nhất để nhân đôi dung lượng bộ nhớ, năng lực xử lý và băng thông.",
+        "TechCrunch nhận định TPU 8i Max giúp mô hình AI xử lý phạm vi thông tin rộng hơn khi truy vấn. Động thái diễn ra khi các hãng đám mây lớn như Microsoft, Amazon, OpenAI và Anthropic đều phát triển bán dẫn riêng để giảm bớt sự lệ thuộc vào Nvidia."
       ],
       "same_event_coverage_ids": [
         "1746092d01da08f5f74b"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Google ra mắt hai chip AI chuyên dụng TPU 8tx và TPU 8i Max để giảm phụ thuộc đối tác ngoài",
+      "editorial_headline_vi": "Google ra mắt chip TPU 8tx và TPU 8i Max nhằm giảm phụ thuộc vào nguồn bán dẫn ngoài",
       "summary_sources": [
         {
           "id": "outlet",
@@ -49194,30 +49176,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 9.1,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 7,
+          "notable": 8,
           "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "giúp chạy mô hình an toàn mà không cần chuyển dữ liệu giữa các thiết bị",
-            "explanation": "The source says the chip protects data and model weights during training and use. Google says avoiding data movement could be useful specifically when training a model on proprietary data; it does not state this as an unconditional property of running models (outlet:p008–p009)."
+            "kind": "quote",
+            "summary_text": "hỗ trợ doanh nghiệp huấn luyện bằng dữ liệu độc quyền mà không cần di chuyển dữ liệu giữa các thiết bị",
+            "explanation": "Google says this capability could prove useful for such a use case; the source does not present it as assured (outlet:p009)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "các hãng đám mây lớn như Microsoft, Amazon, OpenAI và Anthropic",
+            "explanation": "The source distinguishes cloud companies such as Microsoft and Amazon from AI labs such as OpenAI and Anthropic (outlet:p011)."
           }
         ],
         "findings": [
           {
             "question": "notable",
-            "problem": "A possible training use case becomes a definite claim about running models.",
-            "fix": "Say Google believes 8tx could help companies train on proprietary data without moving it between devices (outlet:p009)."
+            "problem": "The proprietary-data use case sounds certain.",
+            "fix": "Attribute it to Google and retain its conditional wording: the chip could prove useful for that use case (outlet:p009)."
           },
           {
             "question": "meaning",
-            "problem": "The practical result of 8i Max’s doubled resources is missing.",
-            "fix": "Add that it lets models handle a larger range of information during queries (outlet:p010)."
+            "problem": "OpenAI and Anthropic are presented as large cloud companies.",
+            "fix": "Identify Microsoft and Amazon as cloud companies, and OpenAI and Anthropic as AI labs (outlet:p011)."
           }
         ],
         "writer_boats": [
@@ -49225,8 +49212,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "92acb2931f302b5f59eddfeab061de7cb24e4b6f4de520909c2fa67c84fa176c",
-        "scored_at": "2026-11-10T19:42:26.033818+00:00"
+        "prose_sha256": "4047070fc44904d1ccdbbc51ec9fe14cd9e4cefbf04895f33dc24f19ef12ff30",
+        "scored_at": "2026-11-11T03:45:00.907474+00:00"
       }
     },
     {
@@ -49479,17 +49466,17 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/tech/1030653/adobe-max-2026-photoshop-premiere-removal-updates",
       "key_points": [
-        "Tại sự kiện Adobe Max, Adobe công bố mở rộng các ứng dụng Creative Cloud và nền tảng Firefly với loạt tính năng chỉnh sửa mới. Bản cập nhật này giới thiệu công cụ Generative Remove bản beta trên Premiere, cải tiến Remove Tool trên Photoshop cùng các tính năng chỉnh sửa ảnh cho Lightroom.",
-        "Theo The Verge, Adobe bổ sung loạt tính năng nhằm giúp các dự án thiết kế và chỉnh sửa diễn ra nhanh hơn và bớt phức tạp. Trên Premiere, Generative Remove cho phép theo dõi và xóa vật thể trên dòng thời gian video, rồi dùng AI bù đắp chi tiết thực tế theo công bố từ Adobe.",
-        "Lightroom thử nghiệm tính năng sửa chớp mắt bằng ảnh tham chiếu qua công cụ Open Eyes bản public beta, thay thế mắt nhắm bằng mắt mở tự nhiên. Photoshop cũng cập nhật Remove Tool để nhận diện tốt hơn bóng đổ và hình phản chiếu xung quanh vật thể bị xóa, trong khi Lightroom có thêm tính năng xóa khuyết điểm da.",
-        "The Verge nhận xét các công bố trên chỉ là một phần nhỏ trong toàn bộ cập nhật tại sự kiện Adobe Max. Tạp chí này cũng lưu ý công cụ Generative Remove của Premiere hiện mới ở giai đoạn thử nghiệm beta và phụ thuộc vào cam kết của Adobe khi bù đắp chi tiết."
+        "Tại sự kiện Adobe Max, Adobe công bố mở rộng các ứng dụng Creative Cloud và nền tảng Firefly với loạt công cụ xóa vật thể và tính năng AI tạo sinh mới. Các nâng cấp này tập trung vào tính năng tự động xóa vật thể gây xao nhãng trên Premiere, Photoshop và Lightroom.",
+        "Theo The Verge, Adobe bổ sung loạt tính năng nhằm giúp các dự án thiết kế và chỉnh sửa diễn ra nhanh hơn và bớt phức tạp. Hãng đồng thời mở rộng công cụ AI tạo sinh và trải nghiệm cộng tác trên toàn bộ bộ ứng dụng.",
+        "Trên Premiere, công cụ Generative Remove bản beta cho phép khoanh vùng và xóa vật thể gây xao nhãng ngay trên dòng thời gian video. Photoshop cũng cải tiến Remove Tool để nhận diện tốt hơn bóng đổ và hình phản chiếu, trong khi Lightroom thử nghiệm tính năng sửa chớp mắt Open Eyes.",
+        "Adobe cho biết công cụ Generative Remove bản beta sẽ dùng AI bù đắp chi tiết thực tế vào vùng xóa mà không làm ảnh hưởng phần video xung quanh. The Verge nhận xét các công bố này mới chỉ là một phần nhỏ trong toàn bộ cập nhật được giới thiệu tại sự kiện."
       ],
       "same_event_coverage_ids": [
         "88b5fbecf350a7ccbd23"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Adobe thử nghiệm Generative Remove cho Premiere cùng các cập nhật chỉnh sửa trên Photoshop và Lightroom",
+      "editorial_headline_vi": "Adobe đưa tính năng Generative Remove lên Premiere và cải tiến công cụ xóa trên Photoshop",
       "summary_sources": [
         {
           "id": "outlet",
@@ -49502,34 +49489,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.75,
+        "value": 9.35,
         "answers": {
           "what": 9,
           "why": 10,
           "notable": 9,
-          "meaning": 6
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "phụ thuộc vào cam kết của Adobe khi bù đắp chi tiết",
-            "explanation": "The source attributes the claim that Premiere fills the removed area with realistic detail to Adobe. It does not say the tool depends on an Adobe commitment (outlet:p017)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader is told that the result depends on an Adobe commitment, which the source does not claim.",
-            "fix": "Say that Generative Remove is in beta and that Adobe says it fills the removed area with realistic detail while leaving surrounding footage untouched (outlet:p017)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b1e017b1e486f63bf05db980898554dd81e67ed1ace553f0574ffb56321bfcdb",
-        "scored_at": "2026-11-11T00:02:47.434527+00:00"
+        "prose_sha256": "ff7eef3c1c7fe4de1a8a84ebb1ac25d1eb3b93496e25f5b9acbbc5a4433943bd",
+        "scored_at": "2026-11-11T03:40:40.112436+00:00"
       }
     },
     {
@@ -50515,10 +50490,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/10/openai-acquires-odessia-travel-startup-created-by-sonder-founder/",
       "key_points": [
-        "Theo nhà sáng lập Francis Davidson, OpenAI đã mua lại Odessia, startup phát triển tác nhân AI (phần mềm tự động hóa tác vụ) hỗ trợ lập kế hoạch du lịch. Người phát ngôn của OpenAI xác nhận việc chiêu mộ ông Davidson, dù điều khoản không được tiết lộ và TechCrunch nhận định đây là thương vụ thâu tóm nhân tài.",
-        "Đại diện OpenAI ca ngợi ông là nhà sáng lập dày dạn kinh nghiệm trong lĩnh vực du lịch và bày tỏ sự hào hứng khi ông chọn đồng hành cùng công ty.",
-        "Startup một năm tuổi Odessia từng gọi 6 triệu USD ở vòng tiền hạt giống (vốn ban đầu) do Sequoia dẫn đầu và ra mắt sản phẩm 5 tháng trước. Dù ông Davidson tuyên bố công cụ đã hỗ trợ lập kế hoạch cho các chuyến đi trị giá hàng triệu USD, dịch vụ này hiện đã bị đóng cửa hoàn toàn.",
-        "Ký giả Julie Bort ghi nhận OpenAI hiện vẫn chưa công bố kế hoạch hay sản phẩm chuyên biệt nào dành riêng cho mảng du lịch. Dù vậy, người phát ngôn của hãng cho biết có 1,2 tỷ người dùng ChatGPT mỗi tuần cho các nhu cầu hàng ngày, trong đó lên kế hoạch chuyến đi là một ví dụ."
+        "Theo nhà sáng lập Francis Davidson, OpenAI đã mua lại Odessia, startup phát triển tác nhân AI (phần mềm tự động hóa tác vụ) hỗ trợ du lịch. Người phát ngôn của OpenAI xác nhận việc tuyển dụng ông Davidson, dù điều khoản không được tiết lộ và TechCrunch nhận định đây dường như là thương vụ thâu tóm nhân tài.",
+        "Người phát ngôn của OpenAI ca ngợi ông Davidson là nhà sáng lập dày dạn kinh nghiệm từng xây dựng nhiều doanh nghiệp du lịch và bày tỏ sự hào hứng khi ông chọn đồng hành cùng công ty.",
+        "Odessia tròn một năm tuổi từng gọi 6 triệu USD ở vòng pre-seed do Sequoia dẫn đầu và ra mắt tác nhân AI cách đây 5 tháng, nhưng công cụ này hiện đã bị đóng cửa. Trước đó, ông Davidson từng sáng lập startup kỳ lân Sonder đạt doanh thu 143 triệu USD trước khi doanh nghiệp này rơi vào phá sản.",
+        "TechCrunch ghi nhận OpenAI hiện vẫn chưa công bố các sản phẩm hay kế hoạch chuyên biệt nào cho mảng du lịch. Người phát ngôn của hãng không chia sẻ thêm về kế hoạch sản phẩm, nhưng cho biết có 1,2 tỷ người dùng ChatGPT mỗi tuần, trong đó lên kế hoạch chuyến đi là nội dung thường được hỏi."
       ],
       "same_event_coverage_ids": [
         "84c9cef6a6a7d096206e"
@@ -50538,39 +50513,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.25,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 8,
-          "meaning": 9
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "vòng tiền hạt giống",
-            "explanation": "The source specifies a pre-seed round, rather than a seed round (outlet:p007)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The funding stage is misstated.",
-            "fix": "Call the $6 million financing a pre-seed round (outlet:p007)."
-          },
-          {
-            "question": "notable",
-            "problem": "Readers miss why Davidson’s background is distinctive.",
-            "fix": "Mention that he founded Sonder, which later went bankrupt (outlet:p011–p012)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "e93e13df510b10c37387116b5c0e377509de20356852afd9be953e44173cb78d",
-        "scored_at": "2026-11-10T23:42:21.931045+00:00"
+        "prose_sha256": "1ae9edbf01b72d9828a4296bfb23f52ded2d28f0d1749bcfd23917290c7a6d80",
+        "scored_at": "2026-11-11T03:40:40.112289+00:00"
       }
     },
     {
@@ -50611,10 +50569,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/10/all-7-anthropic-founders-will-each-cash-out-about-250m-in-ipo/",
       "key_points": [
-        "Theo hồ sơ S-1 vừa công bố, bảy nhà đồng sáng lập Anthropic dự kiến bán cổ phiếu khi doanh nghiệp này tiến tới đợt IPO có thể được định giá 1,4 nghìn tỷ USD. Nhóm sáng lập này bao gồm Giám đốc điều hành Dario Amodei, Chủ tịch hội đồng quản trị Daniela Amodei cùng năm cựu đồng nghiệp từng công tác tại OpenAI.",
-        "Theo tài liệu đăng ký, mỗi sáng lập viên sẽ bán ra 3.378.378 cổ phần trong khoảng giá dự kiến ban đầu từ 70 đến 78 USD. TechCrunch nhận định các đợt phát hành được kỳ vọng cao thường có thể chốt giá cổ phiếu vượt khỏi biên độ dự kiến ban đầu này.",
-        "Mỗi người thu về khoảng 236 đến 264 triệu USD tiền mặt tại hai đầu khung giá, hoặc nhận xấp xỉ 250 triệu USD ở mức trung vị 74 USD. Hồ sơ S-1 cũng ghi nhận nhu cầu lớn khi thành viên hội đồng quản trị Reed Hastings cho biết muốn mua 300 triệu USD cổ phiếu và Christopher Liddell muốn mua 3 triệu USD.",
-        "Sau đợt chào bán, nhóm sáng lập vẫn duy trì 51,1% tổng số quyền biểu quyết thông qua số cổ phiếu Nhóm F mang quyền siêu biểu quyết. TechCrunch lưu ý tỷ lệ sở hữu thực tế của nhóm đối với tổng vốn công ty sẽ nhỏ hơn nhiều do Amazon và Google nắm giữ cổ phần Nhóm N không có quyền biểu quyết."
+        "Theo hồ sơ S-1, bảy nhà đồng sáng lập Anthropic dự kiến bán cổ phiếu khi công ty tiến tới đợt IPO có thể được định giá 1,4 nghìn tỷ USD. Nhóm sáng lập này gồm Giám đốc điều hành Dario Amodei, Chủ tịch Daniela Amodei cùng năm cựu đồng nghiệp tại OpenAI.",
+        "Theo tài liệu đăng ký, mỗi sáng lập viên sẽ bán 3.378.378 cổ phần trong khung giá ban đầu từ 70 đến 78 USD. TechCrunch nhận định các đợt IPO được kỳ vọng lớn thường có thể định giá cổ phiếu vượt khung ban đầu này.",
+        "Mỗi người dự kiến thu về gần 250 triệu USD ở mức giá trung vị 74 USD, hoặc từ hơn 236 triệu đến dưới 264 triệu USD tiền mặt. Hồ sơ S-1 cũng hé lộ nhu cầu có thể ở mức cao khi thành viên hội đồng quản trị Reed Hastings muốn mua 300 triệu USD cổ phiếu và Christopher Liddell muốn mua 3 triệu USD.",
+        "Sau đợt bán, nhóm sáng lập vẫn duy trì quyền kiểm soát công ty với 51,1% quyền biểu quyết thông qua cổ phiếu Nhóm F mang quyền siêu biểu quyết. Dù vậy, TechCrunch lưu ý tỷ lệ sở hữu thực tế của nhóm trên tổng vốn công ty sẽ nhỏ hơn nhiều do Amazon và Google nắm giữ cổ phần Nhóm N không có quyền biểu quyết."
       ],
       "same_event_coverage_ids": [
         "d1e35844936b0e818ce3"
@@ -50634,34 +50592,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.55,
+        "value": 9.85,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 9,
+          "notable": 10,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Hồ sơ S-1 cũng ghi nhận nhu cầu lớn",
-            "explanation": "The article says the S-1 hints at high demand based on board members’ stated intentions to buy; it does not report established demand (outlet:p010)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The Vietnamese turns an indication of demand into an established finding.",
-            "fix": "Say the S-1 suggests demand may be high, citing the two board members’ intended purchases (outlet:p010)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "a1663073f40ebd1f0d4cde22de7dab4db46e21c736c2d1cabc0088e0ef35076e",
-        "scored_at": "2026-11-10T23:42:21.931078+00:00"
+        "prose_sha256": "534083d482853e9484f7497e8ce2a44df64bb863311bc7dc35316b1aa6bd5844",
+        "scored_at": "2026-11-11T03:40:40.112335+00:00"
       }
     },
     {
@@ -50856,17 +50802,17 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/10/psi-is-trying-to-make-a-business-out-of-ai-driven-scientific-discovery/",
       "key_points": [
-        "David Turturean tại phòng thí nghiệm PSI đã dùng mô hình Fable 5.2 của Anthropic giải bài toán điện toán lượng tử tồn tại 18 năm.",
-        "Theo TechCrunch, PSI giải quyết các bài toán khoa học bằng khung giàn (harnesses) và cấu trúc hỗ trợ (scaffolding) chuyên biệt. Giám đốc Matt Pines cho biết hệ thống nghiên cứu kết hợp công cụ, bộ nhớ và hạ tầng mô phỏng để tiếp cận vấn đề theo cả chiều rộng lẫn chiều sâu.",
-        "Lời giải đã chứng minh phỏng đoán Aaronson-Ambainis, dường như khép lại một hướng giúp máy tính lượng tử xử lý bài toán khó ở tốc độ cao.",
-        "TechCrunch nhận định việc ứng dụng AI vào vật lý hay khoa học sự sống vẫn khó khăn hơn so với toán học và khoa học máy tính. Giám đốc Matt Pines nhấn mạnh vật lý khác toán học vì thuộc thế giới thực, do đó PSI tập trung đối chiếu kết quả tính toán bằng thực nghiệm hiệu quả."
+        "David Turturean tại phòng thí nghiệm PSI đã dùng mô hình Fable 5.2 của Anthropic để giải một bài toán điện toán lượng tử tồn tại 18 năm. Theo TechCrunch, đây là phỏng đoán Aaronson-Ambainis liên quan đến khả năng máy tính lượng tử giải quyết bài toán nhanh hơn máy tính cổ điển.",
+        "Theo TechCrunch, mô hình của PSI là giải quyết bài toán khoa học bằng hệ thống khung đỡ và giàn giáo chuyên biệt. Doanh thu hiện tại của PSI đến từ việc tối ưu trung tâm dữ liệu, còn kế hoạch dài hạn là biến đột phá vật lý lý thuyết thành công nghệ thực tế.",
+        "Scott Aaronson nhận định lời giải này thuộc một trong những bài toán mở còn lại về độ phức tạp truy vấn lượng tử được đồng thuận là quan trọng then chốt. Theo Turturean và TechCrunch, kết quả phủ định này dường như khép lại một hướng giúp máy tính lượng tử giải bài toán khó ở tốc độ cao, nhưng không áp dụng cho tất cả.",
+        "TechCrunch nhận định ứng dụng AI vào vật lý hay khoa học sự sống khó khăn hơn so với toán học và khoa học máy tính. Giám đốc Pines nhấn mạnh vật lý thuộc thế giới thực, nên PSI tập trung dùng kết quả tính toán để xác thực bằng thực nghiệm hiệu quả nhất."
       ],
       "same_event_coverage_ids": [
         "e16daae7f20bf4e6befb"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Phòng thí nghiệm PSI dùng AI Fable 5.2 giải bài toán lượng tử 18 năm và tìm cách thương mại hóa",
+      "editorial_headline_vi": "PSI dùng mô hình Fable 5.2 giải phỏng đoán Aaronson-Ambainis 18 năm về điện toán lượng tử",
       "summary_sources": [
         {
           "id": "outlet",
@@ -50879,24 +50825,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 9.25,
         "answers": {
-          "what": 9,
-          "why": 7,
-          "notable": 9,
+          "what": 10,
+          "why": 10,
+          "notable": 8,
           "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The headline raises commercialization, but readers do not learn what currently earns PSI revenue or what it hopes to commercialize later.",
-            "fix": "State that PSI currently earns revenue optimizing data centers and aims eventually to turn theoretical physics breakthroughs into technologies (outlet:p014)."
-          },
-          {
             "question": "notable",
-            "problem": "Readers do not get the full limit of the quantum computing result.",
-            "fix": "Clarify that it appears to close one route for certain difficult problems, while other routes remain (outlet:p009)."
+            "problem": "Readers do not learn why Aaronson considers the proof credible despite not fully understanding it.",
+            "fix": "Add his qualified assessment and the Lean formalization and researcher review described in outlet:p008."
           }
         ],
         "writer_boats": [
@@ -50904,8 +50845,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8d607dd017a77ec5124650518671777f3825ff7c654dd0b45a3b4fe3d295d21d",
-        "scored_at": "2026-11-10T23:42:21.931146+00:00"
+        "prose_sha256": "f22d9421317b951bc8bfcd794ed735cb7515961872587702551b2b62083795fc",
+        "scored_at": "2026-11-11T03:45:00.907382+00:00"
       }
     },
     {
@@ -51307,6 +51248,604 @@
         "prose_sha256": "2af26e81ffa775fe2d8268a7f1b960f3e587dfddbaf90b55f544231c3417207f",
         "scored_at": "2026-11-10T23:36:00.830122+00:00"
       }
+    },
+    {
+      "id": "65b96c238445cdedc96b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Customer case study published by OpenAI highlighting Gilbert + Tobin's internal adoption of AI tools.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/gilbert-tobin-sam-nickless",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "61fecf1b6d1fc7139c7f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7466c8ec217bc08cb1cb",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/cohere-s-gomez-on-25b-valuation-growth-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "27508fa9e436953a2a66"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "66746baabd4e5f616f7c",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/otter-ai-ceo-on-growth-strategy-multi-language-push-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d4b363ccb501a12a7e3d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "356e9453493d6898ba9d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-11/nvidia-backed-cohere-in-a-fight-to-secure-ai-computing-power",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "429512121b9b6c7e2e76"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "70a4e650e182855f3e0e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/introducing-kimi-k3-1-pro-on-amazon-bedrock/",
+      "key_points": [
+        "Amazon thông báo mô hình Kimi K3.1 Pro Highspeed của Moonshot AI hiện khả dụng trên nền tảng Amazon Bedrock.",
+        "Mô hình luôn thực hiện suy luận trước khi trả lời và người dùng có thể điều chỉnh mức suy luận ở các nấc thấp, cao hoặc tối đa. Hệ thống dùng chung điểm cuối dịch vụ cùng các giao diện lập trình như Kimi K3 qua thao tác đổi mã định danh mô hình.",
+        "Moonshot AI báo cáo Kimi K3.1 Pro Highspeed tạo token đầu ra nhanh gấp 2 đến 3 lần so với Kimi K3.1 Pro. Bên cạnh đó, bậc dịch vụ Flex cung cấp mô hình với mức giá bằng một nửa mức Standard, đổi lại thời gian phản hồi có thể lâu hơn.",
+        "Về bảo mật, Amazon khẳng định các nhân viên vận hành AWS không thể xem câu lệnh và kết quả phản hồi trong quá trình suy luận. Dữ liệu được xử lý trong ranh giới AWS, không chia sẻ với Moonshot AI, không dùng vào việc huấn luyện và luôn bật tính năng không lưu trữ dữ liệu suy luận."
+      ],
+      "same_event_coverage_ids": [
+        "7ec57658815a06761e3b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Moonshot AI đưa Kimi K3.1 Pro Highspeed lên Amazon Bedrock, báo cáo tốc độ nhanh gấp 2–3 lần",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-kimi-k3-1-pro-on-amazon-bedrock/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Moonshot AI đưa Kimi K3.1 Pro Highspeed lên Amazon Bedrock",
+            "explanation": "The source says the Moonshot AI model is now available on Amazon Bedrock; it does not say Moonshot AI performed the launch (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline assigns the Bedrock launch to Moonshot AI.",
+            "fix": "Say the Moonshot AI model is now available on Amazon Bedrock, as the source does (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1e79c3dcf14440dd905473c69d4639f482ac3a0ddccb72b490a7a744def19299",
+        "scored_at": "2026-11-11T03:30:39.601305+00:00"
+      }
+    },
+    {
+      "id": "8ae6332afeb075df5b4d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-11/coreweave-sees-no-reason-that-nvidia-partnership-will-change",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2632d1a7ca1e16739d0f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "efd172eb5caf5a689bca",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://tis-100.wincon.dev/",
+      "key_points": [
+        "Theo Wincon Research, 16 mô hình AI tham gia thử nghiệm TIS-100 đã lập 133 điểm biên mới trên 18 câu đố và xác lập 3 kỷ lục chu kỳ. Opus 5.5 và GPT-6 Astra cùng dẫn đầu khi giải trọn vẹn 55 câu đố và lập điểm biên mới ở 11 câu đố trong một lượt thử duy nhất (pass@1).",
+        "Nhóm nghiên cứu chọn trò chơi lập trình làm chuẩn đánh giá (benchmark) vì kết quả là chương trình có thể chạy và kiểm thử trực tiếp trên đầu vào mới.",
+        "Tuy nhiên, tốc độ kỷ lục này phải đánh đổi khi tiêu tốn thêm một nút vi xử lý và 28 dòng lệnh so với kỷ lục cũ.",
+        "Wincon Research nhấn mạnh việc vượt qua kiểm thử chỉ là bằng chứng mạnh về tính đúng đắn chứ không phải chứng minh tuyệt đối. Đồng thời, người chơi con người đã nhanh chóng tiếp nhận và tối ưu vượt trội hơn hầu hết các chương trình của mô hình chỉ sau vài ngày."
+      ],
+      "same_event_coverage_ids": [
+        "55fcd4f839d41e890daa"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "16 mô hình AI lập 133 điểm biên mới và 3 kỷ lục chu kỳ trong thử nghiệm lập trình TIS-100",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://tis-100.wincon.dev/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 7,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The sentence about an extra node and 28 instructions has no named example, so readers may apply the trade-off to all three cycle records.",
+            "fix": "Tie it to Opus 5.5’s Undecimal Twin Rounder program and state its 1,918 cycles against the previous 2,694-cycle record (outlet:p082)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3480e20590451b3f21feba6fd6d2e1a2646920160ce01a99e291719eb69d7721",
+        "scored_at": "2026-11-11T03:30:39.601340+00:00"
+      }
+    },
+    {
+      "id": "effd35df3f27c46c497c",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-11/coreweave-boosts-forecast-easing-slowdown-concerns-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dc79828a4786f8cb04d7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b87487ef036547770a9e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.niemanlab.org/2026/11/ai-is-becoming-an-information-gateway-audiences-still-dont-want-it-making-their-news/",
+      "key_points": [
+        "Báo cáo trên Nieman Lab cho thấy AI tạo sinh đang trở thành trung gian thông tin ngày càng quan trọng. Khảo sát ghi nhận 51% người được hỏi tại sáu quốc gia cho biết họ sử dụng AI đàm thoại hàng tuần.",
+        "Nhóm nghiên cứu nhận thấy người dùng xem AI đàm thoại là công cụ giảm trở ngại để lấy thông tin nhanh hơn, thay vì xuất phát từ mức độ tin cậy.",
+        "Tính trung bình tại chín quốc gia, chỉ 12% người được khảo sát thoải mái với tin tức do AI sản xuất hoàn toàn, và con số này đạt 19% nếu có con người giám sát. Ngoài ra, chỉ 9% người được hỏi tại sáu quốc gia nòng cốt cho biết họ sử dụng trực tiếp AI cho tin tức.",
+        "Theo nhóm tác giả, việc tìm kiếm nội dung và tạo doanh thu của các nhà xuất bản ngày càng khó khăn khi công chúng bỏ qua báo chí truyền thống. Đồng tác giả Rasmus Kleis Nielsen nhận định sự tăng trưởng của AI không chỉ đe dọa các trang tin tức mà còn lấn át cả các công cụ tìm kiếm."
+      ],
+      "same_event_coverage_ids": [
+        "61ee7ed8d1e6e7b4bff6",
+        "7f71c289c17afd8b70ef"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khảo sát tại 9 quốc gia: Chỉ 12% người được hỏi thoải mái với tin tức do AI sản xuất hoàn toàn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.niemanlab.org/2026/11/ai-is-becoming-an-information-gateway-audiences-still-dont-want-it-making-their-news/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "lấn át cả các công cụ tìm kiếm",
+            "explanation": "The attributed observation is that people using AI for information say they use search engines less. The source does not establish that AI has overwhelmed search engines (outlet:p018)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The claim about search engines is stronger than the reported change in use.",
+            "fix": "Say that people using AI for information report using search engines less, as Rasmus Kleis Nielsen observed (outlet:p018)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "01cb83e90c5cb16591638beb84d9b9ca2366d149d11441704592abd9ed20dd75",
+        "scored_at": "2026-11-11T03:30:39.601371+00:00"
+      }
+    },
+    {
+      "id": "b5d37a4739ec4800cfc0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-10-github-app-support-for-enterprise-copilot-seat-management",
+      "key_points": [
+        "Enterprise GitHub Apps can now call enterprise-level Copilot seat management APIs to control user and team Copilot seat assignments.",
+        "The Copilot seat management APIs require a new fine-grained permission for Apps: Enterprise Copilot license management."
+      ],
+      "same_event_coverage_ids": [
+        "f40df300cf823cab3b55"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "11c05f14c301b5111036",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://x.com/ArtificialAnlys/status/2120306695654322532",
+      "key_points": [
+        "ACE Music v1 from ACE Studio debuted at #1 on the AA-Music-Vocal v1.1 benchmark, outperforming Suno v6.",
+        "ACE Music v1 was developed by ACE Studio, an AI singing voice synthesis developer founded in 2018."
+      ],
+      "same_event_coverage_ids": [
+        "108891d9ee1c78741aca"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "82be3972cee0a1dbca0d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Step-by-step developer tutorial demonstrating how to build a dependency watcher with LangGraph and Amazon Bedrock AgentCore.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/build-a-daily-dependency-watcher-with-langgraph-and-amazon-bedrock-agentcore-web-search/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f30cadc5aa406d3d1c8c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8cd200921064de407517",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Corporate revenue and product pipeline announcement for an audio hardware manufacturer containing only incidental references to AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-10/sonos-plans-many-new-products-next-year-to-capitalize-on-ai-era",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3e0de0740e2b33c81e7f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d48977b6fbc84b1e2e7e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "88cbe122dd85c1825181"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3759e83791b522339677",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/",
+      "key_points": [
+        "Anthropic thông báo trong hồ sơ cập nhật sẽ chào bán 825 triệu cổ phiếu loại A với khoảng giá dự kiến từ 70 đến 78 USD mỗi cổ phiếu, dự kiến thu về từ 57,75 tỷ đến 64,35 tỷ USD.",
+        "Anthropic cho biết đã đạt thỏa thuận bán riêng 26 tỷ USD cổ phiếu loại N không có quyền biểu quyết theo giá IPO cho AMD, Broadcom, Google, Micron, Microsoft, Nvidia và TSMC. Trong đó, Google và Nvidia cam kết đầu tư 10 tỷ USD mỗi bên, giữa bối cảnh Anthropic ghi nhận doanh thu chín tháng đạt 33,2 tỷ USD, lỗ ròng 104 tỷ USD và có cam kết điện toán cùng hạ tầng 900,9 tỷ USD.",
+        "Theo TechCrunch nhận xét, người mua cổ phiếu loại A sẽ chịu ảnh hưởng hạn chế do các nhà sáng lập nắm giữ 50,1% quyền biểu quyết qua cổ phiếu loại F. Ngoài ra, tổ chức tín thác Long-Term Benefit Trust cũng sẽ bầu đa số thành viên trong hội đồng quản trị của công ty."
+      ],
+      "same_event_coverage_ids": [
+        "6bb4cd853cd386d98150",
+        "d552159b681b9b0eb8d3"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic có thể đạt định giá 1,404 nghìn tỷ USD nếu cổ phiếu chào bán IPO ở mức đỉnh 78 USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch.com",
+          "url": "https://techcrunch.com/2026/11/10/anthropic-sets-ipo-price-range-of-70-to-78-per-share-to-reach-an-implied-valuation-of-1-404-trillion/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers do not learn the basis of the headline valuation.",
+            "fix": "Specify that $1.404 trillion is a fully diluted valuation if shares list at the top of the range (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The valuation has no comparison to show its scale relative to Anthropic’s earlier figures.",
+            "fix": "Add that it would exceed the $965 billion May valuation but remain below the reported $2 trillion target (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c727a09b5ce8e2a663e134b23201d2136bdd9494f90253bf98cf0cd9a69cb9d3",
+        "scored_at": "2026-11-11T03:30:39.601396+00:00"
+      }
+    },
+    {
+      "id": "90dadd1c67ce5d3082fa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://x.com/demishassabis/status/2120210297948696997",
+      "key_points": [
+        "Tác giả tài khoản x:@demishassabis thông báo mô hình biên giới (tức mô hình trí tuệ nhân tạo tiên tiến) mới nhất mang tên Gemini 4 Carbon chính thức bắt đầu được triển khai vào hôm nay.",
+        "Hệ thống này bổ sung một hạng mục giải trí mang chủ đề DeepMind vào Theme Park và chuyển trò chơi lên nền tảng web chỉ trong một lần xử lý.",
+        "Tác giả tài khoản x:@demishassabis nhận định bước tiến từ Gemini 3 lên Gemini 4 trong thời gian chưa đầy một năm là sự tiến bộ đáng kinh ngạc và mang lại trải nghiệm thực sự ấn tượng."
+      ],
+      "same_event_coverage_ids": [
+        "911c5a7f07ac8a954c3c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình Gemini 4 Carbon ra mắt, dịch ngược mã Theme Park và đưa lên web trong một lần",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "x:@demishassabis",
+          "url": "https://x.com/demishassabis/status/2120210297948696997"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.25,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "mang lại trải nghiệm thực sự ấn tượng",
+            "explanation": "The source describes the author's reaction to the one-shot demonstration as “kind of mindblowing”; it does not claim that the model delivers an impressive experience (outlet:p001)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "“Mã Theme Park” leaves readers without the specific object of the reverse engineering.",
+            "fix": "Say the model reverse engineered the author's original Theme Park binaries (outlet:p001)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The closing sentence presents an impressive experience as an outcome.",
+            "fix": "Attribute the impression to the author's reaction to the demonstration, retaining the tentative force of “kind of mindblowing” (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f64bac642b0e10605802f3c5141d3684f4c01d1d3ae7a48e3f9e854d0031edd1",
+        "scored_at": "2026-11-11T03:30:39.601416+00:00"
+      }
+    },
+    {
+      "id": "893277f83528c29be2ef",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A Show HN self-promotional pitch and marketing landing page with calls to sign up ('Start for Free') and sales copy, lacking independent reporting or a substantive news announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aircad.com",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "416b2dc8b261e2ea0135",
+        "af36790b2510abe3bd61"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
