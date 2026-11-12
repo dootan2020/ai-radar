@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-12T09:53:55.729008+00:00",
-  "input_generated_at": "2026-11-12T08:46:08Z",
+  "generated_at": "2026-11-12T11:29:51.030986+00:00",
+  "input_generated_at": "2026-11-12T10:46:05Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -58603,17 +58603,17 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-features/succession-scrutiny-and-the-future-of-nvidia",
       "key_points": [
-        "Tạp chí Analytics India Magazine cho biết FBI và Quốc hội Mỹ đang điều tra Nvidia do các lo ngại về an ninh quốc gia. Động thái này xuất hiện sau khi Tổng giám đốc điều hành Jensen Huang gửi thư xin lỗi và thừa nhận không chung thủy với gia đình.",
-        "Cuộc điều tra của The New York Times cho biết mối quan hệ giữa CEO Jensen Huang và cựu lãnh đạo của Megaspeed là bà Alice Huang đang bị điều tra. Các cơ quan tình báo Mỹ tin rằng bà Alice Huang đã thu thập thông tin cho Bắc Kinh.",
-        "Tâm điểm đáng chú ý là Megaspeed đã nhập khẩu hàng tỷ USD thiết bị Nvidia vào Malaysia để phát triển trung tâm dữ liệu cho khách hàng Trung Quốc như Alibaba. Dù vậy, phía Nvidia khẳng định họ không có cơ sở để tin rằng bí mật thương mại hay an ninh quốc gia Mỹ đã bị xâm phạm.",
-        "Chuyên gia tư vấn Patrick Moorhead nhận định các nhà đầu tư tổ chức đang phải định giá rủi ro nhân sự chủ chốt cho đến khi ban quản trị kết thúc xem xét. Tác giả bài viết cho rằng sự bất định này có thể kéo dài nếu cuộc điều tra xác định các thông tin nhạy cảm đã bị chuyển giao ra bên ngoài."
+        "Analytics India Magazine cho biết FBI và Quốc hội Mỹ đang điều tra Nvidia về các lo ngại an ninh quốc gia; hội đồng quản trị công ty cũng đã mở cuộc điều tra độc lập. Theo bài báo, CEO Jensen Huang đã gửi thư xin lỗi, thừa nhận việc không chung thủy với vợ và gia đình.",
+        "The New York Times tiết lộ ông Huang có mối quan hệ thân thiết với bà Alice Huang, cựu lãnh đạo Megaspeed bị tình báo Mỹ nghi thu thập tin tức cho Bắc Kinh. Tờ Financial Times sau đó dẫn nguồn tin tình báo mật của Mỹ cho biết đây là mối quan hệ tình cảm.",
+        "Megaspeed đã nhập thiết bị Nvidia trị giá hàng tỷ USD vào Malaysia để phát triển trung tâm dữ liệu cho các khách hàng Trung Quốc gồm Alibaba. Dù vậy, phía Nvidia khẳng định họ không có cơ sở để tin rằng bí mật thương mại hay an ninh quốc gia Mỹ bị xâm phạm.",
+        "Các nhà đầu tư tổ chức đang phải định giá rủi ro nhân sự chủ chốt cho đến khi ban quản trị kết thúc xem xét, theo chuyên gia Patrick Moorhead. Tác giả bài viết trên Analytics India Magazine chỉ ra sự bất định có thể kéo dài nếu cuộc điều tra phát hiện thông tin nhạy cảm đã bị chuyển giao."
       ],
       "same_event_coverage_ids": [
         "a744722c7c7c3d6a8fe6"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia bị điều tra an ninh quốc gia sau khi CEO thừa nhận quan hệ với cựu lãnh đạo Megaspeed",
+      "editorial_headline_vi": "Nvidia bị FBI và Quốc hội Mỹ điều tra an ninh quốc gia sau các thông tin về mối quan hệ của CEO",
       "summary_sources": [
         {
           "id": "outlet",
@@ -58626,47 +58626,7 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 7.65,
-        "answers": {
-          "what": 7,
-          "why": 8,
-          "notable": 8,
-          "meaning": 8
-        },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "CEO thừa nhận quan hệ với cựu lãnh đạo Megaspeed",
-            "explanation": "Jensen Huang admitted being unfaithful to his wife and family, but the source does not say he admitted that the relationship was with Alice Huang. The New York Times reported a close relationship, and the Financial Times reported that it was romantic (outlet:p006-p007)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Cuộc điều tra của The New York Times cho biết mối quan hệ giữa CEO Jensen Huang và cựu lãnh đạo của Megaspeed là bà Alice Huang đang bị điều tra",
-            "explanation": "The source credits The New York Times with revealing a close relationship. It separately describes official probes and says the relationship may be probed; it does not attribute that current investigative status to the New York Times report (outlet:p006, outlet:p008-p009, outlet:p033)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline turns an admission of infidelity into an admission of a relationship with Alice Huang.",
-            "fix": "Separate Huang's apology from the reported relationship: he admitted infidelity, while the New York Times reported a close relationship and the Financial Times reported it was romantic (outlet:p006-p007)."
-          },
-          {
-            "question": "what",
-            "problem": "The Vietnamese credits the New York Times with reporting that the relationship is under investigation.",
-            "fix": "Credit the New York Times with revealing the close relationship, then describe the FBI, congressional, and board probes separately (outlet:p006, outlet:p008-p009)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "61e85698c55f41d951f58e9ab8fa61b2adc390423b34ef654193c153c425c8d9",
-        "scored_at": "2026-11-12T09:40:01.896048+00:00"
-      }
+      "score": null
     },
     {
       "id": "63c34b13e9683528aaa4",
@@ -58748,17 +58708,17 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-news/nha-selects-ekacare-for-ai-voice-scribe-in-public-health-facilities",
       "key_points": [
-        "Cơ quan Quản lý Y tế Quốc gia Ấn Độ (NHA) chọn công ty EkaCare làm đối tác công nghệ phát triển giải pháp ghi âm bệnh án Voice Scribe cho các cơ sở y tế công. EkaCare được lựa chọn thông qua quy trình mời quan tâm của NHA sau buổi trình diễn trước hội đồng thẩm định.",
-        "Theo tạp chí Analytics India Magazine, giải pháp hướng tới giảm tải việc ghi chép giấy tờ cho bác sĩ tại các cơ sở y tế công lập. Hệ thống chuyển đổi trực tiếp hội thoại khám bệnh thành hồ sơ lâm sàng có cấu trúc bao gồm triệu chứng, chẩn đoán và phác đồ điều trị.",
-        "EkaCare cho biết trong thử nghiệm tiêu chuẩn (benchmark) gồm 6.550 ca khám, mô hình Parrotlet-A 2.5 Pro đạt tỷ lệ lỗi thấp nhất trong số các mô hình được thử nghiệm trên cả 5 ngôn ngữ. Công ty cũng cho biết giải pháp Voice Scribe hỗ trợ hơn 15 ngôn ngữ Ấn Độ, kể cả khi người nói chuyển đổi ngôn ngữ qua lại.",
-        "Theo EkaCare, bác sĩ vẫn chịu trách nhiệm phê duyệt và mỗi bệnh án đều phải được bác sĩ xác minh kiểm tra kỹ lưỡng trước khi lưu trữ. Hệ thống được thiết kế vận hành hoàn toàn trong môi trường mạng cách ly (air-gapped) an toàn để các cơ sở y tế giữ quyền kiểm soát dữ liệu."
+        "NHA chọn EkaCare làm đối tác giải pháp Voice Scribe cho các cơ sở y tế công lập tại Ấn Độ. EkaCare được lựa chọn thông qua quy trình mời quan tâm của NHA sau buổi trình diễn trước hội đồng đánh giá.",
+        "Giải pháp hướng tới giảm tải tài liệu cho bác sĩ tại các cơ sở y tế công lập, theo Analytics India Magazine. Hệ thống sẽ lắng nghe hội thoại khám bệnh và chuyển đổi thành ghi chú lâm sàng có cấu trúc gồm bệnh sử, chẩn đoán và phác đồ điều trị.",
+        "Mô hình Parrotlet-A 2.5 Pro đạt tỷ lệ lỗi thấp nhất trong thử nghiệm chuẩn hóa (benchmark) gồm 6.550 ca khám thực tế tại Ấn Độ trên cả 5 ngôn ngữ, theo EkaCare. Công ty cho biết giải pháp hỗ trợ hơn 15 ngôn ngữ Ấn Độ, kể cả khi người nói chuyển đổi qua lại giữa các ngôn ngữ.",
+        "Bác sĩ vẫn chịu trách nhiệm phê duyệt hồ sơ lâm sàng trước khi lưu trữ, theo thông báo từ EkaCare. Doanh nghiệp này cho biết hệ thống được thiết kế để vận hành hoàn toàn trong môi trường mạng cách ly (air-gapped) an toàn giúp các cơ sở y tế giữ quyền kiểm soát dữ liệu."
       ],
       "same_event_coverage_ids": [
         "fc8f88f28c50673fbdb8"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "NHA chọn EkaCare làm đối tác công nghệ cho giải pháp ghi chép bệnh án bằng AI",
+      "editorial_headline_vi": "NHA chọn EkaCare triển khai giải pháp AI chuyển đổi hội thoại khám bệnh thành ghi chú lâm sàng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -58771,25 +58731,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.15,
+        "value": 9.1,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
-          "notable": 10,
-          "meaning": 9
+          "notable": 8,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "giải pháp ghi âm bệnh án Voice Scribe",
-            "explanation": "The source describes Voice Scribe as listening to consultations and generating structured clinical notes. It does not say it audio-records medical records (outlet:p001, outlet:p003)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "“Ghi âm bệnh án” suggests that the product makes audio recordings of medical records.",
-            "fix": "Describe Voice Scribe as converting doctor-patient conversations into structured clinical notes (outlet:p003–p004)."
+            "question": "notable",
+            "problem": "The benchmark claim lacks its comparison group.",
+            "fix": "Say the model had the lowest error rate among the models tested across the five benchmarked languages (outlet:p006)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The approval safeguard is thinner than the source describes.",
+            "fix": "Specify that a verified doctor reviews, edits if needed, and approves each note before it is saved and linked to the patient's Ayushman Bharat Health Account (outlet:p010)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The account of the secure environment does not identify its operator.",
+            "fix": "Identify it as NHA's air-gapped secure environment (outlet:p012)."
           }
         ],
         "writer_boats": [
@@ -58797,8 +58761,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "655249b98cbb5588e97fcf0204c57caa4cf4fe77590a246aa69532dc7bb45172",
-        "scored_at": "2026-11-12T09:51:57.572087+00:00"
+        "prose_sha256": "18c7ce7cd80a146cfaf286ec9f7b423abff97bcfd06ba96984d3d0c82002abd1",
+        "scored_at": "2026-11-12T11:29:50.981828+00:00"
       }
     },
     {
@@ -58932,17 +58896,17 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-news/softbank-takes-7-billion-hit-on-us-ai-data-centre-investments",
       "key_points": [
-        "SoftBank ghi nhận các khoản thiệt hại hàng tỷ USD sau khi điều chỉnh kế hoạch thiết bị nguồn điện cho trung tâm dữ liệu AI tại Mỹ.",
-        "Theo Analytics India Magazine, khi kế hoạch phát triển trung tâm dữ liệu thay đổi, SoftBank đã đổi yêu cầu thiết bị và không còn cần số thiết bị đã trả tiền trước.",
-        "Doanh nghiệp đã xóa sổ 3,7 tỷ USD tổn thất do thiết bị không sử dụng, đồng thời báo cáo lỗ riêng 1,3 tỷ USD từ chứng quyền cấp cho OpenAI.",
-        "Theo Analytics India Magazine, thách thức hiện nay của SoftBank là phải bảo đảm các khoản đầu tư hạ tầng nguồn điện mang lại lợi nhuận kinh doanh. Khoản tổn thất này cũng được công ty khẳng định là không ảnh hưởng tới dự án phát điện PORTS-Pike của hãng."
+        "SoftBank xóa sổ khoản lỗ 3,7 tỷ USD liên quan đến thiết bị không dùng và thay đổi thỏa thuận mua sắm cho kế hoạch trung tâm dữ liệu AI tại Mỹ. Công ty còn báo lỗ riêng 203,8 tỷ yen, khoảng 1,3 tỷ USD, gắn với chứng quyền cấp cho OpenAI qua Energy Global.",
+        "Analytics India Magazine cho biết SoftBank đã trả trước để giữ thiết bị phát điện, rồi đổi yêu cầu thiết bị khi kế hoạch trung tâm dữ liệu thay đổi. Theo bài viết, định giá mảng trung tâm dữ liệu tăng làm cổ phần Energy Global mà OpenAI có quyền mua tăng giá trị tiềm năng, kéo chi phí của SoftBank tăng.",
+        "Từ năm 2025 đến quý II/2026, các khoản trả trước của SoftBank đạt 9,5 tỷ USD; công ty khẳng định các khoản lỗ không ảnh hưởng dự án phát điện PORTS-Pike.",
+        "Analytics India Magazine nhận định hạ tầng AI còn đòi hỏi nguồn điện ổn định, và thách thức của SoftBank là biến đầu tư vào phát điện cùng trung tâm dữ liệu thành lợi nhuận kinh doanh."
       ],
       "same_event_coverage_ids": [
         "949c346b206732447b78"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "SoftBank chịu lỗ 3,7 tỷ USD thiết bị điện và 1,3 tỷ USD vì quyền chọn cổ phiếu OpenAI",
+      "editorial_headline_vi": "SoftBank lỗ 3,7 tỷ USD vì thiết bị và thỏa thuận mua sắm, thêm 1,3 tỷ USD từ chứng quyền cho OpenAI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -58953,42 +58917,7 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 7.25,
-        "answers": {
-          "what": 7,
-          "why": 6,
-          "notable": 8,
-          "meaning": 8
-        },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "quyền chọn cổ phiếu OpenAI",
-            "explanation": "The warrants gave OpenAI the right to buy shares in Energy Global, not options on OpenAI shares (outlet:p006–p007)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline makes readers think the warrants concern OpenAI stock.",
-            "fix": "Say the warrants were granted to OpenAI to buy Energy Global shares (outlet:p006–p007)."
-          },
-          {
-            "question": "why",
-            "problem": "Readers do not learn why the warrant-related loss increased.",
-            "fix": "Explain that Energy Global's rising valuation increased the potential value of the shares OpenAI could buy (outlet:p007–p008)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "b46b1d8ae95787d80804d84aa19647ad6938cde1706f2183aeb93eb3ce2d645c",
-        "scored_at": "2026-11-12T09:40:01.897707+00:00"
-      }
+      "score": null
     },
     {
       "id": "009c3032d07053ce0847",
@@ -59080,17 +59009,17 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-news/puppygraph-raises-10-mn-to-help-ai-agents-query-enterprise-tables",
       "key_points": [
-        "PuppyGraph, công cụ truy vấn đồ thị cho AI doanh nghiệp, vừa huy động 10 triệu USD trong vòng Series A do Particle Future dẫn đầu cùng defy.vc. Phiên bản PuppyGraph 1.0 mới ra mắt cho phép tác tử AI (chương trình tự động thực hiện tác vụ) truy vấn tới 3.000 bảng dữ liệu dưới dạng đồ thị hợp nhất.",
-        "Theo công ty, các dự án tác tử thường khó mở rộng khi cần liên kết hàng nghìn bảng qua nhiều hệ thống.",
-        "Trong bài kiểm chuẩn (thử nghiệm đánh giá hiệu năng tiêu chuẩn) riêng biệt trên cụm bốn máy, công cụ hoàn thành truy vấn 10 bước qua hàng tỷ liên kết trong 2,26 giây. Nền tảng hỗ trợ các nguồn dữ liệu như Databricks, Snowflake và PostgreSQL mà không cần chuyển dữ liệu sang cơ sở dữ liệu đồ thị riêng.",
-        "Theo Analytics India Magazine, doanh thu định kỳ hàng năm của PuppyGraph tăng gấp bảy lần, dù doanh nghiệp không công bố con số cụ thể. Giám đốc kỹ thuật Ran Xia từ Palo Alto Networks nhận xét công nghệ này cho phép duyệt đồ thị trực tiếp trên dữ liệu sẵn có mà không cần sao chép."
+        "PuppyGraph huy động 10 triệu USD ở vòng Series A do Particle Future dẫn đầu, với defy.vc tham gia, nâng tổng vốn đã gọi lên 15 triệu USD. Theo công ty, PuppyGraph 1.0 cho phép tác tử AI (chương trình tự thực hiện tác vụ) truy vấn tối đa 3.000 bảng doanh nghiệp theo mối liên hệ giữa dữ liệu mà không chuyển dữ liệu sang kho đồ thị riêng.",
+        "PuppyGraph nói các dự án tác tử AI ban đầu dùng 30–50 bảng có thể khó mở rộng khi công việc thực tế đòi hỏi kết nối hàng nghìn bảng qua nhiều hệ thống. PuppyGraph 1.0 tạo sơ đồ quan hệ từ bảng dữ liệu sẵn có để nhóm dữ liệu xem xét và phê duyệt trước khi tác tử truy vấn bằng ngôn ngữ tự nhiên.",
+        "Theo PuppyGraph, trong một bài kiểm chuẩn riêng (thử nghiệm đo hiệu năng), cụm bốn máy hoàn tất truy vấn 10 chặng qua hàng tỷ liên kết trong 2,26 giây. Ran Xia, Giám đốc kỹ thuật Palo Alto Networks, cho biết họ có thể truy vấn qua nhiều chặng trực tiếp trên nền tảng dữ liệu sẵn có mà không sao chép dữ liệu.",
+        "PuppyGraph cho biết vốn mới sẽ hỗ trợ mở rộng kỹ thuật và hoạt động đưa sản phẩm tới khách hàng doanh nghiệp, trong bối cảnh công ty nói việc kết nối hàng nghìn bảng qua nhiều hệ thống có thể gây khó khăn cho dự án tác tử AI."
       ],
       "same_event_coverage_ids": [
         "6ee594b1fdc3c21a90a9"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "PuppyGraph gọi vốn 10 triệu USD giúp tác tử AI truy vấn tới 3.000 bảng dữ liệu doanh nghiệp",
+      "editorial_headline_vi": "PuppyGraph gọi vốn 10 triệu USD, công bố công cụ cho tác tử AI truy vấn tối đa 3.000 bảng dữ liệu doanh nghiệp",
       "summary_sources": [
         {
           "id": "outlet",
@@ -59101,31 +59030,7 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 9.35,
-        "answers": {
-          "what": 10,
-          "why": 9,
-          "notable": 10,
-          "meaning": 7
-        },
-        "hard_errors": [],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "Readers do not learn how PuppyGraph plans to use the new funding.",
-            "fix": "Add that the $10 million will support engineering and enterprise go-to-market expansion (outlet:p003)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "20b99c425d2b5b88ff7440ec15d5a7b58e6ce84892e80af3b81d60f709312e75",
-        "scored_at": "2026-11-12T09:51:57.572215+00:00"
-      }
+      "score": null
     },
     {
       "id": "b1c7f94ba9c406f4a8c7",
@@ -59212,6 +59117,404 @@
         "9ad6321e418341706c85",
         "ffa05bd5426ca585752a"
       ]
+    },
+    {
+      "id": "a2944dec9c0cac7bd1a1",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-startups/meet-netweb-the-only-indian-company-building-nvidia-certified-gpu-servers",
+      "key_points": [
+        "Theo Phó chủ tịch công nghệ Swastik Chakrabarti, Netweb là đại diện duy nhất tại Ấn Độ chế tạo máy chủ GPU (bộ xử lý đồ họa chuyên dụng) đạt chứng nhận của NVIDIA. Doanh nghiệp này đã tham gia triển khai siêu máy tính AIRAWAT và ký hợp tác sản xuất máy chủ với NVIDIA từ năm 2023.",
+        "Hãng tự phát triển các thiết kế máy chủ riêng rồi gửi chứng nhận, với kết quả trên bộ đo chuẩn hóa MLPerf (hệ thống kiểm chuẩn AI) được xếp ngang hàng Dell và HP.",
+        "Netweb đã thiết kế hệ thống chuyển đổi dòng điện xoay chiều sang một chiều ngay trong máy chủ cho kiến trúc NVL72 và được NVIDIA chấp thuận. Bên cạnh NVIDIA, công ty cũng phối hợp cùng AMD trên dòng chip tăng tốc MI350 và Qualcomm ở bộ xử lý thần kinh NPU (vi xử lý chuyên dụng cho AI).",
+        "Dù hướng đến mục tiêu tự chủ máy chủ, Netweb hiện vẫn phải nhập khẩu phần lớn linh kiện từ bên ngoài Ấn Độ. Ông Chakrabarti nhấn mạnh triển vọng dùng linh kiện nội địa phụ thuộc vào việc các đối tác trong nước đáp ứng tiêu chuẩn chất lượng, nguồn cung và công suất giao hàng lớn."
+      ],
+      "same_event_coverage_ids": [
+        "826235219b08bf0067d4"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Netweb trở thành đại diện duy nhất tại Ấn Độ sản xuất máy chủ GPU đạt chứng nhận của NVIDIA",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-startups/meet-netweb-the-only-indian-company-building-nvidia-certified-gpu-servers"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.3,
+        "answers": {
+          "what": 7,
+          "why": 10,
+          "notable": 6,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "máy chủ GPU đạt chứng nhận của NVIDIA",
+            "explanation": "The source says Netweb's custom server designs undergo NVIDIA certification; it does not establish that the GPU servers have achieved certification (outlet:p007)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "kết quả trên bộ đo chuẩn hóa MLPerf (hệ thống kiểm chuẩn AI) được xếp ngang hàng Dell và HP",
+            "explanation": "The source says Chakrabarti reported that Netweb's servers were listed alongside Dell and HP systems in MLPerf results. It does not say their results or performance were equal (outlet:p009-outlet:p010)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Netweb hiện vẫn phải nhập khẩu phần lớn linh kiện từ bên ngoài Ấn Độ",
+            "explanation": "The source says Netweb sources many components from other companies and countries. It does not say a majority are imported or that Netweb must import them (outlet:p033)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader may take the MLPerf mention as evidence of equal performance.",
+            "fix": "Say Netweb's servers were listed alongside those of Dell and HP, as Chakrabarti reported; the source gives no equal-performance finding (outlet:p009-outlet:p010)."
+          },
+          {
+            "question": "what",
+            "problem": "The reader is told NVIDIA certification has been achieved.",
+            "fix": "Say Netweb develops custom designs that undergo NVIDIA certification, and distinguish that from Chakrabarti's account of NVIDIA approving the NVL72 power design (outlet:p007-outlet:p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader may believe most components must be imported.",
+            "fix": "Say Netweb sources many components from other companies and countries, and that local sourcing depends on quality, availability and capacity (outlet:p033-outlet:p037)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1837b21ae55c151c56f22b129adbd92e1b65243a9420fc94cf0eec33a46c05a3",
+        "scored_at": "2026-11-12T11:19:41.108959+00:00"
+      }
+    },
+    {
+      "id": "4e8f977a8ff57e34179f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1031652/jensen-huang-rumor",
+      "key_points": [
+        "Nvidia's board is preparing to dismiss CEO Jensen Huang following reports of a second alleged extramarital affair.",
+        "The second alleged affair was with Kimberly Powell, Nvidia's vice president of health care who reports to Huang.",
+        "Huang previously admitted to an affair with a woman alleged to be a Chinese spy."
+      ],
+      "same_event_coverage_ids": [
+        "d346e4782268ec8c43b6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5b3b1ed306d71e152558",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/norwest-s-new-4-billion-fund-will-avoid-shiny-objects",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "575fc4c4d937735c22ac"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ab2ea839fc7c4f4bc4f3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/business/companies/article/3374201/former-bytedance-ai-scientist-touts-drug-discovery-model-tops-world-leaders",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e4ed530a6452f5efe1a5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "22c8f3f15c162d1c00f8",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/12/2026/nvidia-fallout-could-hamper-us-china-trade-talks",
+      "key_points": [
+        "Theo Semafor, bê bối của Tổng giám đốc Jensen Huang của Nvidia có thể làm phức tạp đàm phán thương mại Mỹ - Trung tại hội nghị APEC tuần tới, nơi Tổng thống Donald Trump dự kiến gặp nhà lãnh đạo Trung Quốc Tập Cận Bình.",
+        "Vụ việc thúc đẩy lưỡng đảng siết chặt giám sát việc kiểm soát xuất khẩu chip AI của Nhà Trắng, ngay trước thời điểm phe Dân chủ nắm quyền kiểm soát Quốc hội.",
+        "Chuyên gia Michael Deng cho rằng Bắc Kinh sẽ nhận thấy ông Trump khó giữ các cam kết, khi giới lập pháp đang tranh luận đưa kiểm soát chip vào luật quốc phòng.",
+        "Chuyên gia Michael Deng nhận định vòng đàm phán khó đạt kết quả do phía Mỹ hiện không thể cam kết giữ nguyên hiện trạng."
+      ],
+      "same_event_coverage_ids": [
+        "5babe35f23df85721b0a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bê bối tại Nvidia có thể cản trở đàm phán thương mại Mỹ - Trung trước thềm hội nghị APEC",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/12/2026/nvidia-fallout-could-hamper-us-china-trade-talks"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.05,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Calling the affair only a scandal leaves out the specific event behind the story.",
+            "fix": "Identify it as Huang's affair with a suspected Chinese spy, retaining the word “suspected” (outlet:p001)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader hears only Deng's forecast about the political effect.",
+            "fix": "Add that others considered it too early to tell whether Democrats would use their new power to focus on US–China trade (outlet:p009-outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "783dd407d13e966b87040e5a964014f5ee6b40e5539b040f57d2edf611baf767",
+        "scored_at": "2026-11-12T11:19:41.110351+00:00"
+      }
+    },
+    {
+      "id": "aeff984cb1228d720bce",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/chariot-launches-multilingual-tts-model-with-support-for-11-indian-languages",
+      "key_points": [
+        "Phòng nghiên cứu Chariot của Ấn Độ ra mắt mô hình Chariot-1-TTS-Multilingual chuyển văn bản thành giọng nói cho 11 ngôn ngữ Ấn Độ cùng tiếng Anh. Mô hình hỗ trợ hơn 50 giọng, sao chép giọng từ vài giây âm thanh mẫu và tạo giọng nói từ tối đa 1.000 ký tự văn bản mỗi yêu cầu.",
+        "Khác các hệ thống phụ thuộc quy tắc chuẩn hóa văn bản, mô hình của Chariot dùng suy luận ngữ cảnh khi quyết định cách phát âm. Hệ thống phân biệt ký hiệu \"B+\" là nhóm máu hay điểm số, đồng thời xử lý theo ngữ cảnh số tiền, ngày tháng và từ viết tắt.",
+        "Chariot tuyên bố mô hình dẫn đầu ở nhiều thước đo khi so sánh với các mô hình chọn lọc từ ElevenLabs, Microsoft và OpenAI. Doanh nghiệp báo cáo tỷ lệ lỗi ký tự 7,60% với tiếng Hindi, 6,47% trên chín ngôn ngữ Ấn Độ khác và đạt độ chính xác 93,78% ở bài kiểm chuẩn (phép thử tiêu chuẩn) phát âm tiếng Anh.",
+        "Mô hình được triển khai cho các ứng dụng gồm tác tử giọng nói (phần mềm AI tương tác bằng giọng nói), dịch vụ khách hàng, giáo dục và đường dây trợ giúp công cộng đa ngôn ngữ. Dù vậy, ấn phẩm Analytics India Magazine lưu ý đây là kết quả do công ty tự báo cáo, với phạm vi đối chuẩn khác biệt giữa các mô hình cạnh tranh."
+      ],
+      "same_event_coverage_ids": [
+        "f478f5f9e37042970670"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chariot ra mắt mô hình giọng nói Chariot-1-TTS-Multilingual hỗ trợ 11 ngôn ngữ Ấn Độ và tiếng Anh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/chariot-launches-multilingual-tts-model-with-support-for-11-indian-languages"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Mô hình được triển khai",
+            "explanation": "The source says the model will be deployed for these applications, not that deployment has already occurred (outlet:p010)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "đạt độ chính xác 93,78% ở bài kiểm chuẩn (phép thử tiêu chuẩn) phát âm tiếng Anh",
+            "explanation": "The source reports 93.78% accuracy on an English verbalisation benchmark covering more than 1,000 sentences across 40 categories; it does not describe this as a general English pronunciation benchmark (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers may believe the listed deployments have already happened.",
+            "fix": "Say the model will be deployed for those applications (outlet:p010)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers miss the ability to mix any two supported languages within one sentence.",
+            "fix": "Add the code-mixing capability (outlet:p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers may mistake the 93.78% result for a general pronunciation score.",
+            "fix": "Identify it as accuracy on an English verbalisation benchmark, with its stated coverage (outlet:p007)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss how developers can use the model’s voices.",
+            "fix": "Mention access to the voice catalogue and custom voices made from reference recordings (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ca03c0d22730c7c74fc096b84b41e375978d6b2f9f637cd3b49df2b44e3df07e",
+        "scored_at": "2026-11-12T11:24:22.472006+00:00"
+      }
+    },
+    {
+      "id": "4922ca6fb0dd92994c34",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A promotional customer case study published on OpenAI's website highlighting Holiday Extras' application of Codex.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/customer-stories/holidays-extras-codex",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "396dd77c09658bbf65f7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0f0bcc6249e1d0399e40",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Poste Italiane's €600 million co-investment fund targets general digital infrastructure and data center projects following its Telecom Italia takeover; the headline's reference to the AI data center boom is purely incidental.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/italy-s-poste-targets-600-million-fund-amid-ai-data-center-boom",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c2810131de9a56217705"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "416924454c532eef402d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/dubai-tycoon-expects-billions-from-anthropic-ai-investments",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "87de6f20ad308d2f70c0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d7c1da8cb7dc41da688b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/children-first-declaration",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2ea58ffa9e390589f246"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
