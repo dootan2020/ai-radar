@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-13",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-11T23:00:00Z",
+  "cutoff_at": "2026-11-12T23:00:00Z",
+  "created_at": "2026-11-12T23:07:54Z",
+  "snapshot_generated_at": "2026-11-12T23:05:59Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-12T23:05:59Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "37a8e4c6f059815446f8",
+      "title": "Introducing the Web Search API on Amazon Bedrock AgentCore",
+      "title_vi": "Ra mắt API tìm kiếm web trên Amazon Bedrock AgentCore",
+      "headline": "Introducing the Web Search API on Amazon Bedrock AgentCore",
+      "headline_vi": "Ra mắt API tìm kiếm web trên Amazon Bedrock AgentCore",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-the-web-search-api-on-amazon-bedrock-agentcore/",
+      "published_at": "2026-11-11T23:13:16Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Amazon ra mắt Web Search API trên Bedrock AgentCore, hỗ trợ tìm kiếm web trực tiếp không cần gateway",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "ae2543fa1d6770fe784b",
+          "title": "Introducing the Web Search API on Amazon Bedrock AgentCore",
+          "title_vi": "Ra mắt API tìm kiếm web trên Amazon Bedrock AgentCore",
+          "headline": "Introducing the Web Search API on Amazon Bedrock AgentCore",
+          "headline_vi": "Ra mắt API tìm kiếm web trên Amazon Bedrock AgentCore",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-the-web-search-api-on-amazon-bedrock-agentcore/",
+          "published_at": "2026-11-11T23:13:16Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-12T23:05:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "3591024d748bcffd4a3c",
+          "title": "Tencent Launches Yuanbao Search, a Standalone AI Search Product at so.qq.com",
+          "title_vi": "Tencent ra mắt Yuanbao Search, một sản phẩm tìm kiếm AI độc lập tại so.qq.com",
+          "headline": "Tencent Launches Yuanbao Search, a Standalone AI Search Product at so.qq.com",
+          "headline_vi": "Tencent ra mắt Yuanbao Search, một sản phẩm tìm kiếm AI độc lập tại so.qq.com",
+          "url": "https://pandaily.com/tencent-yuanbao-search-standalone-ai-search-so-qq-com",
+          "published_at": "2026-11-12T02:19:02Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-11-12T23:05:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "ae2543fa1d6770fe784b"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "amazon",
+              "pandaily"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon",
+            "pandaily"
+          ],
+          "age_hours_at_cutoff": 23.7789,
+          "hot_score": 38.468,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "779abe288b1c01daf6b7",
+      "title": "Introducing Claude Meetings",
+      "headline": "Introducing Claude Meetings",
+      "url": "https://claude.com/resources/articles/claude-meetings",
+      "published_at": "2026-11-12T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Anthropic ra mắt thử nghiệm Claude Meetings đưa AI vào cuộc gọi video để xử lý công việc",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "92659b4843185b1c8266",
+          "title": "Introducing Claude Meetings",
+          "headline": "Introducing Claude Meetings",
+          "url": "https://claude.com/resources/articles/claude-meetings",
+          "published_at": "2026-11-12T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "anthropic-claude",
+          "publisher": "anthropic",
+          "entity": "anthropic",
+          "group": "lab",
+          "observed_at": "2026-11-12T23:05:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "92659b4843185b1c8266"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "anthropic"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": 37.619,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "e40196e460dd8cd89743",
+      "title": "Siemens Wants to Continue NVIDIA Partnership Even If Jensen Huang is Ousted",
+      "title_vi": "Siemens muốn tiếp tục hợp tác với NVIDIA ngay cả khi Jensen Huang bị sa thải",
+      "headline": "Siemens Wants to Continue NVIDIA Partnership Even If Jensen Huang is Ousted",
+      "headline_vi": "Siemens muốn tiếp tục hợp tác với NVIDIA ngay cả khi Jensen Huang bị sa thải",
+      "url": "https://analyticsindiamag.com/ai-news/siemens-wants-to-continue-nvidia-partnership-even-if-jensen-huang-is-ousted",
+      "published_at": "2026-11-12T12:20:56Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Siemens nói vẫn hợp tác với NVIDIA dù hội đồng quản trị cân nhắc phế truất Jensen Huang",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "66ebd589fd4867c492ee",
+          "title": "Siemens Wants to Continue NVIDIA Partnership Even If Jensen Huang is Ousted",
+          "title_vi": "Siemens muốn tiếp tục hợp tác với NVIDIA ngay cả khi Jensen Huang bị sa thải",
+          "headline": "Siemens Wants to Continue NVIDIA Partnership Even If Jensen Huang is Ousted",
+          "headline_vi": "Siemens muốn tiếp tục hợp tác với NVIDIA ngay cả khi Jensen Huang bị sa thải",
+          "url": "https://analyticsindiamag.com/ai-news/siemens-wants-to-continue-nvidia-partnership-even-if-jensen-huang-is-ousted",
+          "published_at": "2026-11-12T12:20:56Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "analytics-india-mag",
+          "publisher": "analytics-india-magazine",
+          "entity": "analytics-india-magazine",
+          "group": "press",
+          "observed_at": "2026-11-12T23:05:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "85f0ae8678d91e29cf0c",
+          "title": "Jensen Huang is out. What did China want from him?",
+          "title_vi": "Jensen Huang đã ra ngoài. Trung Quốc muốn gì từ ông ta?",
+          "headline": "Jensen Huang is out. What did China want from him?",
+          "headline_vi": "Jensen Huang đã ra ngoài. Trung Quốc muốn gì từ ông ta?",
+          "url": "https://www.theverge.com/podcast/1031260/nvidia-jensen-huang-resign-china-spy-scandal-ai-chips-trump",
+          "published_at": "2026-11-12T16:30:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-12T23:05:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "analytics-india-magazine",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "analytics-india-magazine",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 10.6511,
+          "hot_score": 78.015,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "d0923a9bc12806766f81",
+      "title": "Who could replace Jensen Huang? A highly unscientific list of possible successors",
+      "title_vi": "Ai có thể thay thế Jensen Huang? Một danh sách không khoa học cao về những người kế vị có thể",
+      "headline": "Who could replace Jensen Huang? A highly unscientific list of possible successors",
+      "headline_vi": "Ai có thể thay thế Jensen Huang? Một danh sách không khoa học cao về những người kế vị có thể",
+      "url": "https://techcrunch.com/2026/11/11/who-could-replace-jensen-huang-a-highly-unscientific-list-of-possible-successors/",
+      "published_at": "2026-11-12T03:13:10Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "TechCrunch đưa danh sách phỏng đoán các ứng viên có thể thay thế Jensen Huang tại Nvidia",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "426bc80924a53e90df5d",
+          "title": "If Jensen Huang exits Nvidia, who could take the US$4 trillion chipmaker’s reins?",
+          "title_vi": "Nếu Jensen Huang rời Nvidia, ai có thể nắm quyền của nhà sản xuất chip trị giá 4 nghìn tỷ đô la?",
+          "headline": "If Jensen Huang exits Nvidia, who could take the US$4 trillion chipmaker’s reins?",
+          "headline_vi": "Nếu Jensen Huang rời Nvidia, ai có thể nắm quyền của nhà sản xuất chip trị giá 4 nghìn tỷ đô la?",
+          "url": "https://www.scmp.com/tech/article/3374235/if-jensen-huang-exits-nvidia-who-could-take-us4tr-chipmakers-reins",
+          "published_at": "2026-11-12T12:30:07Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-12T23:05:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "dc8d5afd3fb417406965",
+          "title": "Who could replace Jensen Huang? A highly unscientific list of possible successors",
+          "title_vi": "Ai có thể thay thế Jensen Huang? Một danh sách không khoa học cao về những người kế vị có thể",
+          "headline": "Who could replace Jensen Huang? A highly unscientific list of possible successors",
+          "headline_vi": "Ai có thể thay thế Jensen Huang? Một danh sách không khoa học cao về những người kế vị có thể",
+          "url": "https://techcrunch.com/2026/11/11/who-could-replace-jensen-huang-a-highly-unscientific-list-of-possible-successors/",
+          "published_at": "2026-11-12T03:13:10Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-12T23:05:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "scmp",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "scmp",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 19.7806,
+          "hot_score": 42.43,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "3ec63777efacfc60bda3",
+      "title": "Nvidia scandal hits tech stocks",
+      "title_vi": "Vụ bê bối Nvidia tấn công cổ phiếu công nghệ",
+      "headline": "Nvidia scandal hits tech stocks",
+      "headline_vi": "Vụ bê bối Nvidia tấn công cổ phiếu công nghệ",
+      "url": "https://www.semafor.com/article/11/12/2026/nvidia-scandal-hits-tech-stocks-in-south-korea-and-taiwan",
+      "published_at": "2026-11-12T11:55:56Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Khủng hoảng Nvidia đảo chiều đợt tăng ngắn của cổ phiếu AI; mã hãng giảm 6% trước giờ mở cửa",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "206c9d01fbe8c8479269",
+          "title": "Nvidia scandal hits tech stocks",
+          "title_vi": "Vụ bê bối Nvidia tấn công cổ phiếu công nghệ",
+          "headline": "Nvidia scandal hits tech stocks",
+          "headline_vi": "Vụ bê bối Nvidia tấn công cổ phiếu công nghệ",
+          "url": "https://www.semafor.com/article/11/12/2026/nvidia-scandal-hits-tech-stocks-in-south-korea-and-taiwan",
+          "published_at": "2026-11-12T11:55:56Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-12T23:05:59Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 11.0678,
+          "hot_score": 42.198,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 76,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
