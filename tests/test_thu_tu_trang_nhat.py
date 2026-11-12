@@ -71,16 +71,23 @@ class FreshPill(unittest.TestCase):
         for folder in FOLDERS:
             feed = read(folder / "feed.js")
             go = feed[feed.index("function goFirstNew() {"):feed.index("function markSeen()")]
-            self.assertIn("const rows = $$('#fresh-row li[data-pinned]');", go)
+            # Only the batch's rows the tile shows light up.
+            self.assertIn("const rows = $$('#fresh-row li[data-pinned]:not([hidden])');", go)
             self.assertIn("rows.forEach(li => li.classList.add('is-flash'));", go)
             self.assertIn("setTimeout(() => rows.forEach(li => li.classList.remove('is-flash')), FRESH_FLASH_MS);", go)
             self.assertIn("const FRESH_FLASH_MS = 2000;", feed)
             css = read(folder / "trang-msn.css")
-            # The chip: Hot Coral fill with ink text (no small coral text on light), until the story is opened.
-            self.assertIn(".fresh-list li[data-pinned]:not(.is-read) .fresh-new {", css)
-            chip = css[css.index(".fresh-list li[data-pinned]:not(.is-read) .fresh-new {"):]
+            # The chip: Hot Coral fill with ink text (no small coral text on light), on a row new to this reader
+            # (published since the last look, or pinned by the pill) and not yet opened, and only while the tile
+            # also shows a row that is not new (captain, 12/11 09:23: seven rows all "Mới" marked nothing).
+            rule = ('.fresh-list:has(> li:not([hidden]):is(.is-read, :not([data-status="new"]):not([data-pinned])))\n'
+                    '  > li:is([data-status="new"], [data-pinned]):not(.is-read) .fresh-new {')
+            self.assertIn(rule, css)
+            chip = css[css.index(rule) + len(rule):]
             chip = chip[:chip.index("}")]
             self.assertIn("background: var(--color-accent-fill); color: var(--color-on-accent);", chip)
+            self.assertIn(".fresh-list .fresh-new, .fresh-list .new-mark { display: none; }", css)
+            self.assertNotIn(".fresh-list li[data-pinned]:not(.is-read) .fresh-new", css)
             self.assertIn(".fresh-list li.is-flash { animation: fresh-flash var(--fresh-flash) var(--ease-flow) both; }", css)
             reduced = css[css.index("@media (prefers-reduced-motion: reduce)"):]
             self.assertIn(".fresh-list li.is-flash { animation: none; background: var(--color-accent-wash-strong); }", reduced)

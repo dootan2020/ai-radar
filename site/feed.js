@@ -936,7 +936,6 @@ function scheduleCountdown() {
   const step = RM.matches ? 60000 : 1000;
   cdTimer = setTimeout(scheduleCountdown, step - (Date.now() % step) + 15);
 }
-const chevron = next => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${next ? 'M9 5l7 7-7 7' : 'M15 5l-7 7 7 7'}"/></svg>`;
 /* ---------- the stream player (trinh-phat.js) ----------
    A stream with a YouTube id plays in Halcyon; its link still points at YouTube, so a new-tab click, a middle click or
    a page without the player keeps today's behaviour. */
@@ -2861,11 +2860,13 @@ function renderNewItems() {
    page wants the newest first (owner, 10/10 19:50: "người dùng vào đọc tin thì luôn muốn xem tin mới trước chứ"), so
    this row holds the stories published in the last NEWEST.hours, newest first; when fewer than NEWEST.min stories are
    that young it reaches back up to NEWEST.maxHours. The "N tin mới" pill brings the reader here: the batch it announced
-   leads the row (newest first) with the usual new dot until each is opened. The row is a view; every story keeps its
+   leads the row (newest first), as many as the tile holds; the rest keep their place below. The row is a view; every story keeps its
    own place in the blocks below and in "Dòng tin", whose order is untouched. */
 const NEWEST = { hours: 6, min: 4, maxHours: 24, cap: 8 };
 let freshIds = [];            // the batch the reader asked to see with the pill, pinned first while unread
-const FRESH_TILE_ROWS = 4;    // whole rows in the first row's height beside the lead (10/11); a pinned batch shows whole
+// Rows in the tile, never more (captain, 12/11 09:23: "danh sách tin vừa đăng nó dài quá"): a pinned batch leads them,
+// and what does not fit stays in its own place below, so a burst of fifty arrivals leaves the tile as calm as one.
+const FRESH_TILE_ROWS = 4;
 const FRESH_FLASH_MS = 2000;  // the announced rows' highlight after the pill (trang-msn.css, fresh-flash)
 // Each row prints published_at, so the row is ordered by it; later coverage (rankTime) must not lift an older story.
 const byPub = (a, b) => pubTime(b) - pubTime(a);
@@ -2878,8 +2879,10 @@ function newestStories() {
   return { list: [...pinned, ...rest].slice(0, Math.max(NEWEST.cap, pinned.length)), hours };
 }
 /* "Vừa đăng" is a front-page tile (mockup B's "Tin nhanh"): the clock time each story was published, then its headline. */
-/* A story the "N tin mới" pill announced keeps a "Mới" chip in Hot Coral until it is opened (owner, 10/11: "cực kỳ khó
-   nhận ra đó là thẻ tin mới"); the row's headline is the headline alone, with no flame or reason before it. */
+/* "Mới" means new to this reader: published since their last look, or announced by the "N tin mới" pill and not yet
+   opened. Its Hot Coral chip (owner, 10/11: "cực kỳ khó nhận ra đó là thẻ tin mới") only shows beside a row that is not
+   new (trang-msn.css): when every row in the tile is new, a chip on each marks nothing (captain, 12/11 09:23, seven
+   rows all "Mới"). The row's headline is the headline alone, with no flame or reason before it. */
 function freshItem(st) {
   const t = titleOf(st);
   const pinned = freshIds.includes(st.id) && !read.has(st.id);
@@ -2890,23 +2893,17 @@ function freshItem(st) {
 function freshInnerHTML() {
   const { list } = D && filter === 'all' ? newestStories() : { list: [] };
   if (!list.length) return '';
-  // Four rows sit beside the lead; a batch the "N tin mới" pill pinned is shown whole.
-  const shown = list.slice(0, Math.max(FRESH_TILE_ROWS, freshIds.filter(id => !read.has(id)).length));
-  return `<div class="tile-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2>
-    <span class="tile-tools fresh-pager" hidden>
-    <button type="button" class="shelf-btn" data-fresh-page="-1" aria-controls="fresh-list" aria-label="Tin mới trước">${chevron(false)}</button>
-    <span class="fresh-page num" aria-live="polite"></span>
-    <button type="button" class="shelf-btn" data-fresh-page="1" aria-controls="fresh-list" aria-label="Tin mới tiếp theo">${chevron(true)}</button></span></div>
+  // The same rows buildFront takes out of the river, so every story is on the page once.
+  const shown = list.slice(0, FRESH_TILE_ROWS);
+  return `<div class="tile-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2></div>
     <ul class="briefs fresh-list" id="fresh-list" data-n="${shown.length}">${shown.map(freshItem).join('')}</ul>`;
 }
 /* The tile beside the lead is one grid row tall from 1100 px, so it holds only the whole rows that fit there; a row is
-   never cut at its edge. A pinned batch longer than that is paged, as many whole rows a page as fit, with "‹ 1/2 ›" in
-   the tile's head; ordinary rows that do not fit are simply left out (each story keeps its own place below). Where the
-   tile grows with its rows (phone, tablet), every row shows and there is no pager. */
-let freshPage = 0;
+   never cut at its edge, and a row that does not fit is left out, with no pager and no count. Where the tile grows
+   with its rows (phone, tablet), every row shows. */
 let freshRO = null;
 function fitFreshTile() {
-  const tile = $('#fresh-row'), ul = tile && tile.querySelector('.fresh-list'), pager = tile && tile.querySelector('.fresh-pager');
+  const tile = $('#fresh-row'), ul = tile && tile.querySelector('.fresh-list');
   if (!ul || tile.hidden) return;
   if (!freshRO && 'ResizeObserver' in window) {
     let w = 0, h = 0;
@@ -2917,39 +2914,14 @@ function fitFreshTile() {
   }
   if (freshRO && tile._fitObserved !== true) { freshRO.disconnect(); freshRO.observe(tile); tile._fitObserved = true; }
   const rows = [...ul.children];
-  const pinned = li => li.hasAttribute('data-pinned');
   rows.forEach(li => { li.hidden = false; });
-  pager.hidden = true;
-  // A tile that grows with its rows never overflows; its size never depends on the pager, so this cannot loop.
-  if (tile.scrollHeight <= tile.clientHeight + 1) { freshPage = 0; return; }
-  pager.hidden = !rows.some(pinned);       // measured with the pager in the head, so a page never meets it later
+  // A tile that grows with its rows never overflows.
+  if (tile.scrollHeight <= tile.clientHeight + 1) return;
   const tr = tile.getBoundingClientRect(), ulTop = ul.getBoundingClientRect().top;
   const room = tr.top + tile.clientTop + tile.clientHeight - parseFloat(getComputedStyle(tile).paddingBottom) - ulTop - 1;
-  const box = rows.map(li => { const r = li.getBoundingClientRect(); return [r.top - ulTop, r.bottom - ulTop]; });
-  const pages = [];
-  for (let i = 0; i < rows.length;) {
-    let j = i + 1;
-    while (j < rows.length && box[j][1] - box[i][0] <= room) j++;
-    pages.push([i, j]);
-    i = j;
-  }
-  // Only pages that hold new rows: the ordinary rows after a batch are not paged into.
-  const usable = pages.filter(([a, b]) => rows.slice(a, b).some(pinned));
-  const paged = usable.length > 1;
-  freshPage = paged ? Math.min(freshPage, usable.length - 1) : 0;
-  const [a, b] = paged ? usable[freshPage] : pages[0];
-  rows.forEach((li, i) => { li.hidden = i < a || i >= b; });
-  pager.hidden = !paged;
-  if (!paged) return;
-  pager.querySelector('.fresh-page').textContent = `${freshPage + 1}/${usable.length}`;
-  const [prev, next] = pager.querySelectorAll('.shelf-btn');
-  prev.setAttribute('aria-disabled', String(freshPage === 0));
-  next.setAttribute('aria-disabled', String(freshPage === usable.length - 1));
-}
-function pageFresh(btn) {
-  if (btn.getAttribute('aria-disabled') === 'true') return;
-  freshPage = Math.max(0, freshPage + Number(btn.dataset.freshPage));
-  fitFreshTile();
+  // Rows stack, so the first row past the room ends the tile; the newest stay.
+  const end = rows.findIndex(li => li.getBoundingClientRect().bottom - ulTop > room);
+  rows.forEach((li, i) => { li.hidden = end >= 0 && i >= Math.max(end, 1); });
 }
 function freshTileHTML() {
   const inner = freshInnerHTML();
@@ -2975,10 +2947,11 @@ function goFirstNew() {
   let heading = null;
   if (targets.size) {
     freshIds = [...targets];
-    freshPage = 0;
     renderFreshRow();
-    // Every story once: when the river already shows a story the tile now pins, redraw so the river leaves it out.
-    if ([...targets].some(id => $(`#feed-grid .nc[data-id="${CSSq(id)}"]`))) renderFeed();
+    // Every story once: when the river already shows a story the tile now holds, redraw so the river leaves it out.
+    // The rest of a batch longer than the tile stays in the river, with its new dot.
+    if ($$('#fresh-row li[data-sid]').some(li => $(`#feed-grid .nc[data-id="${CSSq(li.dataset.sid)}"]`))) renderFeed();
+    // The batch leads the tile and its first row always shows, so the tile holds some of it whenever it is drawn.
     const box = $('#fresh-row');
     if (box && !box.hidden) heading = $('#fresh-row-h');
   }
@@ -2988,8 +2961,8 @@ function goFirstNew() {
     const tile = $('#fresh-row');
     window.scrollTo({ top: Math.max(0, scrollY + tile.getBoundingClientRect().top - 16), behavior: RM.matches ? 'auto' : 'smooth' });
     heading.focus({ preventScroll: true });
-    // The announced rows light up briefly, so the eye lands on them; their "Mới" chip stays until each is opened.
-    const rows = $$('#fresh-row li[data-pinned]');
+    // The announced rows light up briefly, so the eye lands on them.
+    const rows = $$('#fresh-row li[data-pinned]:not([hidden])');
     rows.forEach(li => li.classList.add('is-flash'));
     setTimeout(() => rows.forEach(li => li.classList.remove('is-flash')), FRESH_FLASH_MS);
     dismissNewItems();
@@ -3304,7 +3277,6 @@ function onClick(e) {
   }
   if (act && act.dataset.act === 'save') { toggleSave(act.dataset.id); return; }
   const cov = t.closest('.cov-btn'); if (cov) { toggleDetail(cov); return; }
-  const fp = t.closest('[data-fresh-page]'); if (fp) { pageFresh(fp); return; }
   const lx = t.closest('[data-lab-open]'); if (lx) { toggleLab(lx); return; }
   const cal = t.closest('[data-cal]'); if (cal) { e.preventDefault(); addToCalendar(calOf(STORY_ANY.get(cal.dataset.cal))); return; }
   const cl = t.closest('[data-cal-live]'); if (cl) { e.preventDefault(); addToCalendar(liveCal(asArray(D.live).find(v => v.video_id === cl.dataset.calLive))); return; }
