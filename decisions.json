@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-12T06:03:11.420441+00:00",
-  "input_generated_at": "2026-11-12T05:25:36Z",
+  "generated_at": "2026-11-12T07:11:51.595687+00:00",
+  "input_generated_at": "2026-11-12T06:45:46Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -57655,10 +57655,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/11/2026/nvidia-ceo-scandal-exposes-gaps-in-us-controls",
       "key_points": [
-        "Theo Reuters, một trường đại học Trung Quốc có liên hệ quân đội đã thu được các chip mạnh nhất của Nvidia vào tháng trước dù nằm trong danh sách đen của Mỹ.",
-        "Semafor cho biết sự việc làm bộc lộ những lỗ hổng trong khuôn khổ quản lý của Washington đối với nhà sản xuất chip này.",
-        "Các nghị sĩ Mỹ đang thúc ép điều tra Megaspeed, công ty Singapore trong bê bối gián điệp của CEO Jensen Huang, giữa các báo cáo rằng Bộ Thương mại Mỹ đã trì hoãn nỗ lực đưa doanh nghiệp bị nghi buôn lậu chip này vào danh sách đen.",
-        "Biên tập viên công nghệ của Semafor nhận định sự độc lập bán dẫn sẽ cho phép Bắc Kinh mở rộng quy mô nhanh hơn Mỹ, và Nvidia sẽ suy yếu căn bản nếu thiếu ông Huang. Trong khi đó, ông David Rubenstein từ Carlyle Group cho rằng ông Huang vẫn sẽ tiếp tục lãnh đạo Nvidia."
+        "Theo Reuters, một đại học Trung Quốc liên hệ quân đội đã thu được các chip mạnh nhất của Nvidia vào tháng trước dù nằm trong danh sách đen của Mỹ.",
+        "Semafor cho biết sự việc làm lộ những lỗ hổng trong khuôn khổ quản lý của Washington đối với hãng sản xuất chip Nvidia.",
+        "Hiện các nghị sĩ Mỹ đang thúc ép chính quyền Trump về cuộc điều tra đối với Megaspeed, công ty Singapore bị nghi buôn lậu chip Nvidia sang Trung Quốc.",
+        "Biên tập viên công nghệ của Semafor nhận định các biện pháp hạn chế của Mỹ đã thúc đẩy nỗ lực tự chủ bán dẫn của Bắc Kinh, và Nvidia sẽ suy yếu căn bản nếu thiếu ông Huang. Ở chiều ngược lại, ông David Rubenstein từ Carlyle Group cho rằng ông Huang vẫn sẽ tiếp tục lãnh đạo Nvidia."
       ],
       "same_event_coverage_ids": [
         "0d714009d92d1db43bba"
@@ -57667,7 +57667,7 @@
         "96402a40d806b4f9b590"
       ],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Đại học liên hệ quân đội Trung Quốc thu được chip Nvidia, làm lộ lỗ hổng kiểm soát của Mỹ",
+      "editorial_headline_vi": "Theo Reuters, đại học Trung Quốc liên hệ quân đội thu được chip Nvidia dù bị Mỹ đưa vào danh sách đen",
       "summary_sources": [
         {
           "id": "outlet",
@@ -57686,35 +57686,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 9.1,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 9,
+          "notable": 8,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Các nghị sĩ Mỹ đang thúc ép điều tra Megaspeed",
-            "explanation": "The lawmakers are pressing the Trump administration about its investigation into Megaspeed. The source does not say they are urging that an investigation be launched (outlet:p002)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "Readers may think lawmakers are calling for an investigation to begin.",
-            "fix": "Say they are pressing the Trump administration about its investigation into Megaspeed (outlet:p002)."
+            "question": "notable",
+            "problem": "The reader misses the reported delay in efforts to blacklist Megaspeed, a specific point in the lawmakers' scrutiny.",
+            "fix": "Add that the Commerce Department reportedly delayed efforts to blacklist Megaspeed (outlet:p002)."
           },
           {
             "question": "meaning",
-            "problem": "Readers miss what the source says accelerated Beijing’s domestic semiconductor efforts.",
-            "fix": "Add that US restrictions accelerated those efforts (outlet:p003)."
-          },
-          {
-            "question": "notable",
-            "problem": "The suspected destination of the smuggled chips is missing.",
-            "fix": "Specify that Megaspeed is suspected of smuggling Nvidia chips to China (outlet:p002)."
+            "problem": "The reader misses the tech editor's stated consequence of Chinese semiconductor independence.",
+            "fix": "Attribute the prediction that independence could let China scale faster than the US to Semafor's tech editor (outlet:p003)."
           }
         ],
         "writer_boats": [
@@ -57722,8 +57711,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b2aed6b15c9319a9aa0a93e2f1308ba0c4da5b25f5bce9511f5ef768618718d9",
-        "scored_at": "2026-11-12T05:57:23.190381+00:00"
+        "prose_sha256": "491d3156cd90a0a4621cedaa316969be33670aecea9c2fbb0db59bf567a18bff",
+        "scored_at": "2026-11-12T07:11:51.586612+00:00"
       }
     },
     {
@@ -57839,17 +57828,17 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/11/who-could-replace-jensen-huang-a-highly-unscientific-list-of-possible-successors/",
       "key_points": [
-        "Giám đốc điều hành Jensen Huang của Nvidia đứng trước nguy cơ bị sa thải theo nhận định của tác giả Connie Loizos trên TechCrunch, khi tỷ lệ ông trụ lại qua tuần trên Kalshi (thị trường giao dịch dự đoán) chỉ còn 30%.",
-        "Jensen Huang thừa nhận có quan hệ ngoài hôn nhân theo phản ánh của TechCrunch, tạo nên làn sóng bất lợi dù chưa rõ đối tượng là nữ giám đốc bị nghi làm gián điệp hay cấp dưới của ông.",
-        "Phó chủ tịch Ian Buck được các nhà phân tích và cựu nhân viên đề xuất làm người kế nhiệm nhờ phát triển CUDA (phần mềm chip then chốt cho trí tuệ nhân tạo), dù ông không phải cái tên quen thuộc với công chúng.",
-        "Nvidia chưa có kế hoạch kế nhiệm rõ ràng theo TechCrunch, khiến việc tìm lãnh đạo mới vẫn chỉ là phỏng đoán trong khi hội đồng quản trị khó lòng loại bỏ hoàn toàn Huang mà có thể giữ ông làm chủ tịch."
+        "TechCrunch đưa ra danh sách phỏng đoán về các ứng viên có thể thay thế Giám đốc điều hành Jensen Huang của Nvidia, trong bối cảnh vị trí của ông đối mặt nhiều nguy cơ. Tác giả Connie Loizos của TechCrunch cho biết trên Kalshi (nền tảng giao dịch dự đoán), tỷ lệ ông Huang trụ lại qua tuần chỉ ở mức 30% sau khi ông thú nhận có quan hệ tình cảm ngoài hôn nhân.",
+        "Theo TechCrunch, việc suy đoán này diễn ra vì Nvidia chưa có kế hoạch kế nhiệm rõ ràng trong khi một nhân sự mới vẫn phải tiếp quản công ty nếu ông Huang bị sa thải.",
+        "Danh sách của TechCrunch nêu tên các nhân vật nội bộ lẫn đối thủ bên ngoài như Tổng giám đốc Lisa Su của AMD, Eric Schmidt và Giám đốc tài chính Colette Kress của Nvidia.",
+        "TechCrunch nhận định hội đồng quản trị Nvidia nhiều khả năng sẽ không loại bỏ hoàn toàn ông Huang mà có thể giữ ông lại làm chủ tịch, chức danh công ty hiện chưa có."
       ],
       "same_event_coverage_ids": [
         "dc8d5afd3fb417406965"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "CEO Jensen Huang của Nvidia đối mặt nguy cơ bị sa thải sau khi thừa nhận quan hệ ngoài hôn nhân",
+      "editorial_headline_vi": "TechCrunch đưa danh sách phỏng đoán các ứng viên có thể thay thế Jensen Huang tại Nvidia",
       "summary_sources": [
         {
           "id": "outlet",
@@ -57862,34 +57851,61 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.8,
+        "value": 9.55,
         "answers": {
-          "what": 6,
-          "why": 9,
-          "notable": 8,
-          "meaning": 10
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline and opening make Huang's possible dismissal the main story, so readers may miss that the article's main content is a speculative successor list.",
-            "fix": "Frame the piece as TechCrunch's unscientific list of possible successors, with Huang's uncertain position as its context (outlet:p003, outlet:p006–p007)."
-          },
-          {
-            "question": "notable",
-            "problem": "Naming only Ian Buck makes the range of candidates invisible.",
-            "fix": "Include a few contrasting names from the list, such as Lisa Su, Eric Schmidt and Nvidia insider Colette Kress (outlet:p008–p014)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b30572a7098271f2dd7e50a0048e4f6e8b55fd65a2c9c2ffe57b2f942d88cde2",
-        "scored_at": "2026-11-12T05:50:29.861571+00:00"
+        "prose_sha256": "d85d1fd02dd05951f975d97656214cc06ba38f11cca7156783bab7328ce0b072",
+        "scored_at": "2026-11-12T07:11:51.586484+00:00"
       }
+    },
+    {
+      "id": "902f3ea3cd9b96e1e974",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/nvidia-partner-hon-hai-beats-profit-estimates-on-ai-iphone-duo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ad32709c36a30e5b0923"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "39ee9b8647c9e7f1b3a5",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/softbank-backs-agile-robots-in-500-million-humanoid-push",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6a40b5e8ebdc890a5152"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
