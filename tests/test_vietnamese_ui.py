@@ -41,6 +41,8 @@ EXCEPTIONS = {
                     "tên riêng: thương hiệu, sản phẩm, ấn phẩm, tổ chức trên Hugging Face hoặc nguồn mới"),
     **dict.fromkeys(["the"], "tên riêng: ấn phẩm The Verge; đánh đổi có chủ đích: chữ the đứng riêng sẽ không bị bắt"),
     **dict.fromkeys(["of"], "tên riêng: ấn phẩm Rest of World; chữ of trong tên ấn phẩm"),
+    **dict.fromkeys(["yonhap", "medianama"], "tên riêng: nguồn tin châu Á Yonhap và MediaNama"),
+    **dict.fromkeys(["aim"], "tên riêng: tạp chí AIM (Analytics India Magazine); đánh đổi có chủ đích: chữ aim đứng riêng sẽ không bị bắt"),
     **dict.fromkeys(["translated"], "nhãn bản dịch máy viết tiếng Anh theo yêu cầu của anh Tuấn 03/10 17:49 (“dịch máy” thành “Translated”, màu như Google Dịch); trình đọc màn hình vẫn nghe câu tiếng Việt"),
     **dict.fromkeys(["trending"],"tên riêng: trang GitHub Trending, nguồn của ô kho mã (anh Tuấn 03/10 cho dùng như tên thương hiệu)"),
     **dict.fromkeys(["esc", "enter"], "tên phím trên bàn phím"),

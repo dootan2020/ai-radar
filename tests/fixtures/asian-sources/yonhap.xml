@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">
+	<channel>
+		<title>Yonhap News Agency</title>
+		<link>https://en.yna.co.kr</link>
+		<item>
+			<title><![CDATA[Samsung, SK hynix monitor Nvidia leadership uncertainty: officials]]></title>
+			<link>https://en.yna.co.kr/view/AEN20261112005800320</link>
+			<guid isPermaLink="true">https://en.yna.co.kr/view/AEN20261112005800320</guid>
+			<pubDate>Thu, 12 Nov 2026 10:21:00 +0900</pubDate>
+			<dc:creator>Kim Han-joo</dc:creator>
+			<description><![CDATA[SEOUL, Nov. 12 (Yonhap) -- South Korean chipmakers Samsung Electronics Co. and SK hynix Inc. are closely monitoring the leadership uncertainty at Nvidia, their biggest AI chip customer...]]></description>
+			<media:content url="https://img.yna.co.kr/photo/yna/YH/2026/11/12/PYH2026111200000000_P2.jpg" type="image/jpeg"/>
+		</item>
+		<item>
+			<title><![CDATA[Gov't approves Jin Air's merger with Air Seoul, Air Busan]]></title>
+			<link>https://en.yna.co.kr/view/AEN20261112004400320</link>
+			<guid isPermaLink="true">https://en.yna.co.kr/view/AEN20261112004400320</guid>
+			<pubDate>Thu, 12 Nov 2026 09:40:12 +0900</pubDate>
+			<dc:creator>Kim Boram</dc:creator>
+			<description><![CDATA[SEOUL, Nov. 12 (Yonhap) -- The government on Thursday approved the merger of low-cost carrier Jin Air with Air Seoul and Air Busan...]]></description>
+		</item>
+	</channel>
+</rss>

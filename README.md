@@ -26,7 +26,7 @@ Optional **Node.js 18+** runs the UI behavior tests through Python test discover
 | Đang nổi | GitHub Trending hôm nay và Hugging Face Trending. GitHub là xu hướng chung, không chỉ AI. [GitHub](radar/github.py) · [Hugging Face](radar/huggingface.py). |
 | Tin cộng đồng và creator | Bluesky đọc bài AI từ Simon Willison và Ethan Mollick. |
 | Tín hiệu từ X | Bài đăng công khai từ danh sách tài khoản AI đã chọn; các tài khoản X cùng được tính là một nhóm nguồn, không xác nhận độc lập. Bài trả lời bị loại khỏi truy vấn. Mỗi bài được giữ tối đa 24 giờ từ lúc đăng, hoặc từ lúc quan sát nếu thiếu thời điểm đăng. |
-| Tin AI châu Á | Pandaily, SCMP Tech và TechNode RSS, lọc theo nội dung AI. |
+| Tin AI châu Á | Pandaily, SCMP Tech, TechNode, Yonhap và MediaNama RSS, lọc theo nội dung AI; AIM (Analytics India Magazine) là tạp chí chuyên AI nên không qua bộ lọc từ khoá. |
 | Mô hình mở mới trên Hugging Face | Repository model mới từ các tổ chức OpenAI, Google, DeepSeek, Meta, Mistral, Qwen và xAI. [Danh mục tổ chức](radar/huggingface.py). |
 | Nguồn của bản tin này | Thời điểm build, số mục đọc được và nguồn gặp lỗi; nguồn lỗi không làm mất dữ liệu từ nguồn thành công. |
 
