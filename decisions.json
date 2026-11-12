@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-12T13:27:15.883786+00:00",
-  "input_generated_at": "2026-11-12T12:45:52Z",
+  "generated_at": "2026-11-12T15:24:58.347393+00:00",
+  "input_generated_at": "2026-11-12T14:45:48Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -59919,6 +59919,572 @@
         "115be9e451a93e1b36ed"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "c35954d518732d03db92",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cuộc phỏng vấn chủ yếu nói về GTA VI và Take-Two; AI chỉ xuất hiện trong tiêu đề.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/strauss-zelnick-on-gta-vi-take-two-s-turnaround-and-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "09df70b3fcdc309c6c25"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c1e117fcf33f912b2615",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/who-is-colette-kress-the-woman-who-could-succeed-jensen-huang/",
+      "key_points": [
+        "Nvidia appointed longtime CFO Colette Kress as interim CEO following Jensen Huang’s resignation.",
+        "Kress joined Nvidia in 2013.",
+        "Harvey Jones was appointed chair of Nvidia’s board."
+      ],
+      "same_event_coverage_ids": [
+        "977801125a3e485bf5b6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8cf07b6adf3f6b2e8238",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/12/2026/the-end-of-the-nvidia-put-that-powers-the-ai-ecosystem",
+      "key_points": [
+        "Theo góc nhìn của tác giả Liz trên Semafor, việc Jensen Huang rời Nvidia đã chấm dứt cam kết bảo trợ ngầm nâng đỡ toàn bộ hệ sinh thái trí tuệ nhân tạo. Tác giả ví ông Huang như chủ tịch ngân hàng trung ương luôn sẵn sàng bảo trợ các mảng khó tiếp cận vốn nhất của ngành công nghệ này.",
+        "Nvidia bảo lãnh hơn 100 tỷ USD hợp đồng thuê trung tâm dữ liệu, sở hữu 51 tỷ USD cổ phần công ty tư nhân và 63 tỷ USD tại công ty niêm yết. Cơ chế mua bảo đảm này hấp thụ nỗi sợ của thị trường và duy trì thanh khoản, dù từng chịu chỉ trích về tính xoay vòng.",
+        "Tác giả Liz nhận định việc thiếu vắng bên mua khổng lồ này sẽ đẩy giá nợ cùng vốn cổ phần lên cao, làm chi phí phát triển trí tuệ nhân tạo trở nên tốn kém hơn."
+      ],
+      "same_event_coverage_ids": [
+        "0a58c4fd0c0dfe536613"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Semafor: Jensen Huang rời Nvidia đe dọa chuỗi bảo trợ tài chính của hệ sinh thái AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/12/2026/the-end-of-the-nvidia-put-that-powers-the-ai-ecosystem"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "828b9021f570a14183de14578968c494fbfd0ec820b85a689878ccc8db00a15c",
+        "scored_at": "2026-11-12T15:22:27.438074+00:00"
+      }
+    },
+    {
+      "id": "bb315cafa402d8202158",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Tin chủ yếu thông báo trò chơi được đưa lên GeForce NOW; công nghệ DLSS chỉ là một phần phụ.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/geforce-now-thursday-warhammer-dawn-of-war-iv-coming/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d2da79fb6666ee7f6531"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "01835354a2dcf959bf7b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/11/2026/new-ai-model-from-startup-millionways-wants-to-read-between-the-lines",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fdb2eb746c93ee218b25"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a20d9bbe9707ff6fa681",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài ý kiến tập trung vào gian lận danh tính và hệ thống xác minh của chính phủ; AI không phải chủ đề chính.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://fedscoop.com/government-identity-fraud-digital-ghosts/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "65c39b8a14fdb9f896bb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "75fc88ac047912f1bb09",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+      "key_points": [
+        "Theo WIRED, Jensen Huang từ chức CEO Nvidia sau khi hãng mở cuộc điều tra về quan hệ tình cảm của ông với một người bị nghi liên quan tình báo Trung Quốc. Nvidia xác nhận ông cũng rời chức President và ghế hội đồng quản trị, có hiệu lực ngay lập tức.",
+        "Colette Kress nhận vị trí CEO tạm quyền, đồng thời tiếp tục giữ chức Phó chủ tịch điều hành và Giám đốc tài chính cho tới khi Nvidia chọn người kế nhiệm chính thức. Hội đồng quản trị đang tìm CEO lâu dài trong số ứng viên nội bộ và bên ngoài.",
+        "WIRED cho biết cuộc điều tra được mở trước khi Huang từ chức; thông tin được cung cấp không nêu kết luận điều tra. Nvidia cũng bổ nhiệm Harvey C. Jones làm chủ tịch hội đồng quản trị đầu tiên của hãng.",
+        "Chủ tịch hội đồng quản trị Harvey Jones nói hội đồng tin tưởng Kress và ban lãnh đạo, đồng thời kỳ vọng hoạt động, cam kết với khách hàng và lộ trình sản phẩm tiếp tục không gián đoạn. Theo Nvidia, hãng vẫn dự kiến công bố kết quả kinh doanh quý III năm tài chính 2027 vào ngày 17/11 như lịch đã định."
+      ],
+      "same_event_coverage_ids": [
+        "21ddad5c9c8d238bf1c7",
+        "27faeaff27d6ad11f5b9",
+        "33fbe8447cb101e4d2b7",
+        "384d85260cdae9c174d0",
+        "475325cf36739f1f235c",
+        "56b579b5505f995ea7f7",
+        "71d1eb3f88e1b4647049",
+        "b906caa5d7dd85eac1cd",
+        "e0bfd29c5c6b6001eb4a",
+        "f994d58760958f2dbba1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "WIRED: CEO Nvidia từ chức sau khi hãng mở điều tra về quan hệ với người bị nghi liên quan tình báo Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "wired",
+          "url": "https://www.wired.com/story/nvidia-ceo-jensen-huang-steps-down/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "1ecaad42931500107129",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/huang-agentic-ai-systems-need-monitoring-containment-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "437eef7ab0d967acb03e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4261acbb0b1faedd9462",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/nebius-shares-drop-on-neocloud-s-disappointing-revenue-outlook",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ab978b547f22649e695a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8922d709796f6fffd979",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài viết nói về cuộc thi startup thuộc nhiều lĩnh vực; AI chỉ là một trong các lĩnh vực được nhắc đến.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/12/nine-korean-startups-vie-for-a-spot-in-disrupt-2027s-startup-battlefield-200-competition/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "27e121327254eba9cf3c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ba8163ee479fa868fabf",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/12/2026/fallout-from-nvidia-ceos-likely-ouster-could-slow-gulf-ai-buildout",
+      "key_points": [
+        "Theo tác giả Kelsey Warner trên Semafor, nguy cơ Tổng giám đốc Jensen Huang bị phế truất sẽ lan tới Vùng Vịnh, nơi các kế hoạch trí tuệ nhân tạo phụ thuộc lớn vào chip tân tiến của Mỹ.",
+        "Theo tác giả, bê bối gián điệp gia tăng giám sát nguy cơ tuồn chip sang Trung Quốc khi giới chức tình báo Mỹ cáo buộc người phụ nữ có quan hệ với Huang là gián điệp.",
+        "Nỗi lo rò rỉ công nghệ qua trung gian đã buộc các tập đoàn như HUMAIN của Saudi Arabia và G42 của Abu Dhabi phải chật vật tiếp cận nguồn cung chip.",
+        "Tác giả nhận định sự ra đi của lãnh đạo Nvidia không làm suy giảm năng lực sản xuất bán dẫn, mà thách thức cốt lõi với Vùng Vịnh vẫn luôn là quyền tiếp cận nguồn cung."
+      ],
+      "same_event_coverage_ids": [
+        "18a2d93c9305442eff57"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nguy cơ CEO Nvidia bị phế truất đe dọa làm chậm kế hoạch phát triển AI tại Vùng Vịnh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/12/2026/fallout-from-nvidia-ceos-likely-ouster-could-slow-gulf-ai-buildout"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.85,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 8,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "bê bối gián điệp gia tăng giám sát",
+            "explanation": "The source predicts the affair will sharpen scrutiny; it does not report that the additional scrutiny has already occurred (outlet:p001)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "sự ra đi của lãnh đạo Nvidia không làm suy giảm năng lực sản xuất bán dẫn",
+            "explanation": "The source says losing the leader “shouldn’t” undermine Nvidia’s ability to produce silicon. The Vietnamese removes that qualification (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader may think scrutiny has already increased and misses the proposed chip restrictions.",
+            "fix": "Present increased scrutiny as Semafor’s expectation and add that lawmakers are pushing restrictions that could slow development (outlet:p001)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader receives certainty about Nvidia’s production capacity where the source expresses an expectation.",
+            "fix": "Keep the qualification that Huang’s departure should not undermine chip production (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b9fb7cbd3ae2da5dcee2078dd22bd6a68ccde4c97f9b33eb9576f364c6a27d82",
+        "scored_at": "2026-11-12T15:22:27.438820+00:00"
+      }
+    },
+    {
+      "id": "bb8bc38366a910a33768",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Thông tin hiện có nói về việc HubSpot thay CEO và CFO; AI chỉ được nhắc như bối cảnh.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/hubspot-replaces-ceo-and-cfo-in-refounding-of-software-company",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aee2af81953856906363"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c838d8f1961c62a03b4a",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/ai-transformation-bigger-than-any-company-blackrock-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ccde64c816cdd5c8881d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "de39c5946a7a9f562120",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://claude.com/resources/articles/j-crew-style-advisor-with-claude",
+      "key_points": [
+        "J.Crew ra mắt Style Advisor trên JCrew.com, dùng trí tuệ nhân tạo gợi ý cả bộ trang phục; theo Anthropic, công cụ hiện dành cho thời trang nữ và nam tại Mỹ. Theo Anthropic, đội J.Crew xây công cụ bằng Claude Code, một công cụ lập trình, và nhiều mẫu Claude.",
+        "Anthropic giải thích rằng khách mua sắm trực tuyến thường tìm từng món: thấy áo len rồi vẫn phải tự tìm quần và giày đi kèm. Theo Anthropic, Style Advisor đưa cách phối đồ của đội tạo mẫu J.Crew lên trang web và cho khách tiếp tục chỉnh gợi ý qua hình ảnh.",
+        "Khách có thể nêu nhu cầu mặc đồ đi đám cưới trên bãi biển hoặc buổi phỏng vấn đầu tiên, rồi xem những bộ đồ lấy từ ảnh chụp của J.Crew. Người đã chọn một món cũng có thể yêu cầu gợi ý các món còn thiếu để hoàn thiện bộ đồ.",
+        "Anthropic cho biết công cụ lúc ra mắt giúp khách tìm ý tưởng trang phục; gợi ý dựa trên sở thích, lịch sử mua hàng và mở sang thị trường khác vẫn là kế hoạch của J.Crew."
+      ],
+      "same_event_coverage_ids": [
+        "b2f792ebfaf02dea8adc"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "J.Crew ra mắt Style Advisor dùng Claude, gợi ý cả bộ trang phục nữ và nam tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://claude.com/resources/articles/j-crew-style-advisor-with-claude"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "cbda9238a3684b28e47a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài viết hướng dẫn fine-tune mô hình 3D và cung cấp script, không đưa tin về một sự kiện.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/3d-lora-finetuning",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "443cc89610924cdbc3c8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "66db822cb5e5ebbb17dd",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/plus/business/banking-finance/article/3374068/alibaba-readies-t-head-chip-ipo-hong-kong-frenzy-cools",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0f448d48ee5298c29129"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "236a162b1f51bc0641f0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Trọng tâm bài viết là cuộc điều tra liên quan đến cá nhân CEO Nvidia, không phải hoạt động hay công nghệ AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/10/2026/he-took-down-andrew-cuomo-now-jensen-huang-is-in-his-crosshairs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2edef9c9e555c2744dfd"
+      ],
+      "split_coverage_ids": [
+        "05a797b3556f509ed034",
+        "1496c770b19cccbc0e72",
+        "1bb7f041837b525b8bd2",
+        "26948e0a0d4e193da0d4",
+        "2f3c07298540dfb75685",
+        "3952f590218440d68886",
+        "40a8111384481d7e73d3",
+        "56a3bb8be1a6d25b68f0",
+        "5913a5069fccca91694c",
+        "6d7cbaadabaa983f5e51",
+        "8ddb438903c200450d11",
+        "908c4fcbda278cce8fbd",
+        "92c3fbab0c7d0208518a",
+        "941fcc9578abee09589c",
+        "af77dac751ce05bf99ed",
+        "b3a57e7fa4e1b47a6856",
+        "c219935e3a6500dda7c7",
+        "c503cdf152a8cb7b9afb",
+        "c62713426679ea42d8a0",
+        "dd8dd4133a4f9cd2987a",
+        "e46a9111793ae949e150",
+        "f43efb5964a4dc8599f1"
+      ]
+    },
+    {
+      "id": "104f40efd6071a516b0a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/10/2026/huang-scandal-puts-nvidia-chip-loopholes-in-focus",
+      "key_points": [
+        "Theo một trích đoạn bài TechCrunch, Jensen Huang đã từ chức Nvidia sau một mối quan hệ tình cảm. Semafor cho biết diễn biến quanh Nvidia làm tăng sự chú ý đến những đường hợp pháp để các công ty lớn của Trung Quốc tiếp cận năng lực tính toán tiên tiến của Mỹ.",
+        "Theo Semafor, kiểm soát xuất khẩu của Washington tạo cơ hội cho các nhà vận hành đám mây châu Á có chip Nvidia tiên tiến, qua đó mở một lối tiếp cận hợp pháp cho các tập đoàn công nghệ Trung Quốc.",
+        "Theo Semafor, DayOne có ByteDance là khách hàng lớn nhất, còn Moonshot tìm cách tiếp cận chip Nvidia đặt ở châu Âu.",
+        "Một chuyên gia Carnegie Endowment được Semafor dẫn lời cho rằng những trường hợp này cho thấy sự vô lý trong chế độ kiểm soát xuất khẩu của Mỹ. Semafor phân biệt lối tiếp cận hợp pháp đó với Megaspeed, công ty tại Singapore đang bị nghi đưa lậu chip Nvidia sang Trung Quốc."
+      ],
+      "same_event_coverage_ids": [
+        "7a29caa24afd71fe0655"
+      ],
+      "split_coverage_ids": [
+        "129d9de6da4eb0016393",
+        "3240ccc710b1b3dba9e7"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "TechCrunch đưa tin Jensen Huang từ chức; Semafor nêu lỗ hổng tiếp cận chip Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/10/2026/huang-scandal-puts-nvidia-chip-loopholes-in-focus"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/12/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
     }
   ]
 }
