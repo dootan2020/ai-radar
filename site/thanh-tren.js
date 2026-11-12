@@ -95,8 +95,10 @@ const SHEET = `<div class="tc-top"><h2 id="tc-h">Tùy chỉnh</h2>
    "làm gọn gàng, tinh tế cho anh"). Only the Store installs it (Chrome 71 removed inline install), and only a desktop
    Chromium browser can (Chrome, Edge, Cốc Cốc); a phone, Firefox, Safari and the extension's own new tab never see it.
    The link goes through /cai-dat/, a page that forwards to the Store, so the site's page counts show the clicks.
-   A quiet tile beside "Tùy chỉnh" invites once; × or a click on it hides it for good in this browser, and the line in
-   "Tùy chỉnh" stays as its permanent home. */
+   A small card in the bottom-right corner invites (captain, 12/11 09:20: "mọi người chẳng ai biết đặt làm thẻ mới thế nào
+   đâu. mọi người hay quen là tab, extension, có thể đặt widget ở góc dưới phải, có nút ẩn widget đi"). It waits until the
+   reader scrolls or has stayed a few seconds; "Ẩn", or a click on the Store button, hides it for good in this browser,
+   and the line in "Tùy chỉnh" stays as its permanent home. */
 export const OFFER_KEY = 'halcyon:cai-tien-ich';
 export const OFFER_HREF = '/cai-dat/';
 export function canInstall(nav = globalThis.navigator, loc = globalThis.location, media = globalThis.matchMedia) {
@@ -111,25 +113,63 @@ export function offerHidden(storage) {
 export function hideOffer(storage) {
   try { storage.setItem(OFFER_KEY, 'an'); return true; } catch { return false; }
 }
-const offerLink = (cls, words) => `<a class="${cls}" href="${OFFER_HREF}" target="_blank" rel="noopener" title="Cài tiện ích Halcyon">`
-  + `<span>${words}</span><svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a>`;
-const OFFER_ROW = `<div class="tc-group tc-ext">${offerLink('tc-row tc-ext-go', 'Đặt Halcyon làm thẻ mới')}</div>`;
-const OFFER_TILE = offerLink('cai-go', 'Đặt làm thẻ mới')
-  + '<button class="cai-x" type="button" aria-label="Ẩn gợi ý cài tiện ích" title="Ẩn"><svg class="i" aria-hidden="true"><use href="#i-close"/></svg></button>';
+/* The browser's own name, as the Store's button says it ("Thêm vào Chrome"); null for one it does not name. */
+export function browserName(nav = globalThis.navigator) {
+  const brands = (nav?.userAgentData?.brands ?? []).map(b => b.brand);
+  if (brands.includes('Microsoft Edge')) return 'Edge';
+  if (brands.some(b => /c[oố]c\s*c[oố]c/i.test(b))) return 'Cốc Cốc';
+  if (brands.includes('Google Chrome')) return 'Chrome';
+  return null;
+}
+/* The card's words: what it gives (AI news on every new tab), what it is (a free extension), one button to install. */
+export function offerWords(name) {
+  return { title: 'Tin AI trên mỗi tab mới', line: `Extension miễn phí cho ${name ?? 'trình duyệt'}`,
+    go: name ? `Thêm vào ${name}` : 'Cài extension' };
+}
+export const OFFER_DELAY = 4000;   // ms on the page before the card comes, unless the reader scrolls first
+const OFFER_ROW = `<div class="tc-group tc-ext"><a class="tc-row tc-ext-go" href="${OFFER_HREF}" target="_blank" rel="noopener">`
+  + '<span>Extension Halcyon cho tab mới</span><svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a></div>';
+const offerCard = w => `<img class="cai-logo" src="logo.svg" width="40" height="40" alt="">`
+  + `<div class="cai-text"><p class="cai-title">${w.title}</p><p class="cai-line">${w.line}</p></div>`
+  + `<div class="cai-acts"><a class="cai-go" href="${OFFER_HREF}" target="_blank" rel="noopener">${w.go}</a>`
+  + '<button class="cai-x" type="button" aria-label="Ẩn gợi ý cài extension">Ẩn</button></div>';
 
 const local = () => { try { return globalThis.localStorage; } catch { return null; } };
 
-/* The invitation beside "Tùy chỉnh"; the line in the sheet is drawn with the sheet (startTopRow). */
-export function startOffer(doc, storage, btn) {
+/* The card in the bottom-right corner; the line in the sheet is drawn with the sheet (startTopRow). While the card
+   shows, the page's toasts (feed.css .toast-container, the same corner) sit above it (--cai-h, trang-msn.css). */
+export function startOffer(doc, storage, back) {
   if (offerHidden(storage)) return null;
-  const tile = doc.createElement('div');
-  tile.className = 'cai-offer';
-  tile.innerHTML = OFFER_TILE;
-  btn.before(tile);
-  const remove = () => { hideOffer(storage); tile.classList.add('is-gone'); setTimeout(() => tile.remove(), 160); };
-  tile.querySelector('.cai-go').addEventListener('click', remove);
-  tile.querySelector('.cai-x').addEventListener('click', () => { remove(); btn.focus({ preventScroll: true }); });
-  return tile;
+  const root = doc.documentElement;
+  const card = doc.createElement('aside');
+  card.className = 'cai-widget';
+  card.setAttribute('aria-label', 'Extension Halcyon');
+  card.hidden = true;
+  card.innerHTML = offerCard(offerWords(browserName()));
+  doc.body.append(card);
+  let timer = 0;
+  const show = () => {
+    clearTimeout(timer);
+    removeEventListener('scroll', show);
+    if (!card.isConnected || !card.hidden) return;
+    card.hidden = false;
+    root.dataset.cai = '';
+    root.style.setProperty('--cai-h', `${card.offsetHeight}px`);
+    requestAnimationFrame(() => requestAnimationFrame(() => card.classList.add('is-in')));
+  };
+  const hide = () => {
+    hideOffer(storage);
+    clearTimeout(timer);
+    removeEventListener('scroll', show);
+    card.classList.remove('is-in');
+    delete root.dataset.cai;
+    setTimeout(() => card.remove(), 160);
+  };
+  timer = setTimeout(show, OFFER_DELAY);
+  addEventListener('scroll', show, { passive: true, once: true });
+  card.querySelector('.cai-go').addEventListener('click', hide);
+  card.querySelector('.cai-x').addEventListener('click', () => { hide(); back?.focus({ preventScroll: true }); });
+  return { card, show, hide };
 }
 
 /* The corner is the row's first column (trang-msn.css); the search owns the middle one. When the whole line is wider
@@ -172,8 +212,8 @@ export function startTopRow(doc = document) {
   sheet.innerHTML = SHEET + (install ? OFFER_ROW : '');
   doc.body.append(sheet);
   if (install) {
-    startOffer(doc, storage, btn);
-    sheet.querySelector('.tc-ext-go').addEventListener('click', () => { hideOffer(storage); doc.querySelector('.cai-offer')?.remove(); });
+    const offer = startOffer(doc, storage, btn);
+    sheet.querySelector('.tc-ext-go').addEventListener('click', () => (offer ? offer.hide() : hideOffer(storage)));
   }
   const field = name => sheet.querySelectorAll(`[name="${name}"]`);
 

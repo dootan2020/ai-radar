@@ -1,6 +1,6 @@
-// The extension's invitation (thanh-tren.js startOffer), in Chrome against this worktree: the home at 1440x900 and
-// 2000x1100 in light and dark with the tile beside "Tùy chỉnh", "Tùy chỉnh" open with its permanent line, 1280 (the line
-// only), 375 on a phone (nothing), a browser without Chromium's userAgentData (nothing), and × hiding the tile for good.
+// The extension's invitation (thanh-tren.js startOffer), in Chrome against this worktree: the home at 1366x768, 1440x900 and 2000x1100 in light and dark with the card in the bottom-right corner (and a close-up of it),
+// "Tùy chỉnh" open with its permanent line, 375 on a phone (nothing), a browser without Chromium's userAgentData
+// (nothing), "Ẩn" hiding the card for good, and a scroll bringing it before its delay.
 // node tests/capture-nut-cai.mjs --out nut-cai-anh [--port 8794]
 // Same server as tests/capture-thanh-tren.mjs: site/ from disk, every data/*.json is tests/fixtures/radar-window-sample.json,
 // nen/* from the live site (else the packaged picture). Nothing under site/ is written. Prints one JSON line last.
@@ -65,7 +65,7 @@ const meta = mobile => ({ brands: [{ brand: 'Chromium', version: '142' }, { bran
 async function open(width, height, theme, kind = 'chromium', hidden = false, settings = null) {
   const ctx = await browser.createBrowserContext();
   const page = await ctx.newPage();
-  await page.bringToFront();   // a background tab holds its transitions, and the tile fades in
+  await page.bringToFront();   // a background tab holds its transitions, and the card rises in
   const touch = kind === 'phone';
   await page.setViewport({ width, height, deviceScaleFactor: 1, hasTouch: touch, isMobile: touch });
   if (kind === 'other') await page.evaluateOnNewDocument(() => Object.defineProperty(Navigator.prototype, 'userAgentData', { get: () => undefined }));
@@ -89,54 +89,72 @@ async function open(width, height, theme, kind = 'chromium', hidden = false, set
 
 const measure = page => page.evaluate(() => {
   const r = s => { const e = document.querySelector(s); if (!e || !e.getClientRects().length) return null; const b = e.getBoundingClientRect(); return { l: Math.round(b.left), t: Math.round(b.top), r: Math.round(b.right), b: Math.round(b.bottom), w: Math.round(b.width), h: Math.round(b.height) }; };
-  const tile = r('.cai-offer'), search = r('.msn-top .ns-field'), tune = r('#tc-open');
-  const go = document.querySelector('.cai-go');
-  return { tile, search, tune, x: r('.cai-x'), row: !!document.querySelector('.tc-ext-go'),
-    href: go?.getAttribute('href') ?? null, target: go?.getAttribute('target') ?? null,
-    gapToSearch: tile && search ? tile.l - search.r : null, sameTop: tile && tune ? tile.t === tune.t && tile.h === tune.h : null,
-    text: go ? getComputedStyle(go).fontSize : null, visible: document.visibilityState,
-    opacity: document.querySelector('.cai-offer') ? getComputedStyle(document.querySelector('.cai-offer')).opacity : null, overflow: document.documentElement.scrollWidth > innerWidth };
+  const card = document.querySelector('.cai-widget');
+  const go = card?.querySelector('.cai-go');
+  const toasts = document.getElementById('toast-container');
+  const small = card ? [...card.querySelectorAll('*')].filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()) && parseFloat(getComputedStyle(e).fontSize) < 12).length : null;
+  return { card: r('.cai-widget'), go: r('.cai-go'), hide: r('.cai-x'), words: card && !card.hidden ? card.innerText.replace(/\s+/g, ' ').trim() : null,
+    opacity: card ? getComputedStyle(card).opacity : null, row: document.querySelector('.tc-ext-go')?.textContent.trim() ?? null,
+    href: go?.getAttribute('href') ?? null, target: go?.getAttribute('target') ?? null, small,
+    toastBottom: toasts ? getComputedStyle(toasts).bottom : null, overflow: document.documentElement.scrollWidth > innerWidth };
 });
+
+// The card waits OFFER_DELAY (thanh-tren.js) unless the reader scrolls; a shot waits for it to settle.
+const settle = page => page.waitForFunction(() => document.querySelector('.cai-widget.is-in'), { timeout: 9000 }).then(() => wait(400), () => {});
 
 async function shot(name, width, height, theme, kind, opts = {}) {
   const { page, ctx } = await open(width, height, theme, kind, opts.hidden, opts.settings);
+  const early = await page.evaluate(() => { const c = document.querySelector('.cai-widget'); return c ? !c.hidden : null; });
+  if (opts.offer !== false) await settle(page);
   if (opts.sheet) { await page.click('#tc-open'); await wait(400); }
-  const m = await measure(page);
+  const m = { early, ...(await measure(page)) };
   results[name] = m;
-  // captureBeyondViewport would resize the page for the shot, re-matching the tile's media query and catching its fade-in
-  await page.screenshot({ path: path.join(out, `${name}.png`), captureBeyondViewport: false,
-    clip: opts.clip ? { x: 0, y: 0, width, height: opts.clip } : undefined });
+  // captureBeyondViewport would resize the page for the shot, re-matching media queries mid-transition
+  await page.screenshot({ path: path.join(out, `${name}.png`), captureBeyondViewport: false });
+  if (opts.close && m.card) {
+    const pad = 32;
+    await page.screenshot({ path: path.join(out, `${name}-can-canh.png`), captureBeyondViewport: false,
+      clip: { x: m.card.l - pad, y: m.card.t - pad, width: m.card.w + 2 * pad, height: m.card.h + 2 * pad } });
+  }
   await ctx.close();
   return m;
 }
 
-await shot('1440-light', 1440, 900, 'light');
-await shot('1440-dark', 1440, 900, 'dark');
-await shot('2000-light', 2000, 1100, 'light');
-await shot('2000-dark', 2000, 1100, 'dark');
-await shot('1440-light-top', 1440, 900, 'light', 'chromium', { clip: 140 });
+for (const theme of ['light', 'dark']) {
+  await shot(`1366-${theme}`, 1366, 768, theme, 'chromium', { close: true });
+  await shot(`1440-${theme}`, 1440, 900, theme, 'chromium', { close: true });
+  await shot(`2000-${theme}`, 2000, 1100, theme, 'chromium', { close: true });
+}
 await shot('1440-dark-tuy-chinh', 1440, 900, 'dark', 'chromium', { sheet: true });
-await shot('1366-light-top', 1366, 768, 'light', 'chromium', { clip: 140 });
-await shot('1440-light-no-picture', 1440, 900, 'light', 'chromium', { settings: { layout: 'full', picture: false, weather: true }, clip: 140 });
-await shot('1280-light-tuy-chinh', 1280, 800, 'light', 'chromium', { sheet: true });
-await shot('375-light', 375, 812, 'light', 'phone');
-await shot('1440-other-browser', 1440, 900, 'light', 'other', { sheet: true });
+await shot('1280-light-no-picture', 1280, 800, 'light', 'chromium', { settings: { layout: 'full', picture: false, weather: true } });
+await shot('375-light', 375, 812, 'light', 'phone', { offer: false });
+await shot('1440-other-browser', 1440, 900, 'light', 'other', { offer: false, sheet: true });
 
-// × puts the tile away, and a reload keeps it away; the line in "Tùy chỉnh" stays.
+// "Ẩn" puts the card away, and a reload keeps it away; the line in "Tùy chỉnh" stays.
 {
   const { page, ctx } = await open(1440, 900, 'light');
+  await settle(page);
   await page.click('.cai-x');
   await wait(300);
-  const afterClick = await page.evaluate(() => ({ tile: !!document.querySelector('.cai-offer'), saved: localStorage.getItem('halcyon:cai-tien-ich'),
-    focus: document.activeElement?.id ?? null }));
+  const afterClick = await page.evaluate(() => ({ card: !!document.querySelector('.cai-widget'), saved: localStorage.getItem('halcyon:cai-tien-ich'),
+    focus: document.activeElement?.id ?? null, flag: 'cai' in document.documentElement.dataset }));
   await page.reload({ waitUntil: 'domcontentloaded' });
   await page.waitForSelector('#tuy-chinh', { timeout: 10000 });
-  await wait(500);
-  const afterReload = await page.evaluate(() => ({ tile: !!document.querySelector('.cai-offer'), row: !!document.querySelector('.tc-ext-go') }));
+  await wait(5000);
+  const afterReload = await page.evaluate(() => ({ card: !!document.querySelector('.cai-widget'), row: !!document.querySelector('.tc-ext-go') }));
   results.dismiss = { afterClick, afterReload };
   await ctx.close();
 }
 
+// A scroll brings the card before the delay is up.
+{
+  const { page, ctx } = await open(1440, 900, 'light');
+  await page.mouse.wheel({ deltaY: 400 });
+  const t0 = Date.now();
+  await page.waitForFunction(() => document.querySelector('.cai-widget.is-in'), { timeout: 9000 }).catch(() => {});
+  results.scroll = { msAfterScroll: Date.now() - t0 };
+  await ctx.close();
+}
 // /cai-dat/ forwards to the Store after its load event (the request is stopped there, nothing leaves for Google).
 {
   const ctx = await browser.createBrowserContext();

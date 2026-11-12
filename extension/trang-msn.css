@@ -41,38 +41,6 @@
 .msn-top .tool-launcher-button:hover, .msn-top .tool-launcher-button[aria-expanded="true"] { background: var(--top-tile-on); color: var(--top-ink); }
 .msn-top .top-tile:active, .msn-top .tool-launcher-button:active { transform: scale(0.96); }
 .msn-top .top-tile:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
-/* "Đặt làm thẻ mới": the extension's invitation, just before "Tùy chỉnh" (thanh-tren.js startOffer), only on a desktop
-   Chromium browser. The same material as the two tiles beside it, words instead of a mark, and × to put it away for good.
-   It needs a corner wide enough for its words beside the two tiles (1366 px, the common laptop: measured, it ends 13 px
-   from the search, the row's own gap); a narrower window keeps only the line in "Tùy chỉnh". A mouse only (pointer: fine), so × may be narrower than
-   the 44 px a finger needs. */
-.msn-top .cai-offer { display: none; }
-@media (min-width: 1366px) and (pointer: fine) {
-  /* Out of the flow, at the tiles' left: the tile arrives after the first paint, and growing the tiles' box would count
-     as a layout shift (measured 0.0014 at 1440 with the tile in the flow). */
-  .msn-top .masthead-actions { position: relative; }
-  .msn-top .cai-offer {
-    position: absolute; top: 0; right: calc(100% + var(--space-8));
-    display: flex; align-items: stretch; height: var(--btn-h); border-radius: var(--radius-8);
-    background: var(--top-tile); color: var(--top-ink); transition: opacity var(--motion-state) var(--ease-flow);
-  }
-  @starting-style { .msn-top .cai-offer { opacity: 0; } }
-}
-.msn-top .cai-offer.is-gone { opacity: 0; pointer-events: none; transition: opacity var(--duration-150) var(--ease-exit); }
-.cai-go, .cai-x {
-  display: flex; align-items: center; color: inherit; cursor: pointer;
-  transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
-}
-.cai-go {
-  gap: var(--space-6); padding: 0 var(--space-4) 0 var(--space-12); border-radius: var(--radius-8) 0 0 var(--radius-8);
-  font-size: var(--text-small); font-weight: var(--weight-semibold); white-space: nowrap; text-decoration: none; text-shadow: var(--top-ink-shadow);
-}
-.cai-x { justify-content: center; width: calc(var(--btn-h) - var(--space-8)); padding: 0; border: 0; border-radius: 0 var(--radius-8) var(--radius-8) 0; background: none; opacity: 0.72; }
-.cai-go .i, .cai-x .i { width: var(--msn-fav); height: var(--msn-fav); flex: none; }
-.cai-go:hover, .cai-x:hover { background: var(--top-tile-on); }
-.cai-x:hover { opacity: 1; }
-.cai-go:active, .cai-x:active { transform: scale(0.97); }
-.cai-go:focus-visible, .cai-x:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 @media (min-width: 768px) and (max-width: 1099px) {
   .msn-top-in { grid-template-columns: minmax(var(--top-side-narrow), 1fr) minmax(0, var(--msn-search-max)) minmax(var(--top-side-narrow), 1fr); }
   .top-now { flex-direction: column; align-items: flex-start; gap: 0; }
@@ -1188,8 +1156,7 @@
     --top-ink: var(--top-on-nen-ink); --top-ink-shadow: var(--top-on-nen-shadow);
     --top-tile: var(--top-on-nen-tile); --top-tile-on: var(--top-on-nen-tile-on);
   }
-  :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button,
-  :root:not([data-nen="off"]) .msn-top .cai-offer {
+  :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button {
     -webkit-backdrop-filter: blur(var(--msn-blur)) saturate(1.4); backdrop-filter: blur(var(--msn-blur)) saturate(1.4);
   }
   .msn-top .ns-field {
@@ -1200,8 +1167,7 @@
 }
 @media (min-width: 768px) and (prefers-reduced-transparency: reduce) {
   .msn-top .ns-field { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--nen-pill-on); }
-  :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button,
-  :root:not([data-nen="off"]) .msn-top .cai-offer {
+  :root:not([data-nen="off"]) .msn-top .top-tile, :root:not([data-nen="off"]) .msn-top .tool-launcher-button {
     -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--top-on-nen-tile-on);
   }
 }
@@ -1273,6 +1239,43 @@
 .tc-ext-go:hover { background: var(--color-fill); }
 .tc-ext-go:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
 .tc-ext-go .i { width: var(--msn-fav); height: var(--msn-fav); flex: none; color: var(--color-ink-2); }
+
+/* ---------- the extension's card in the bottom-right corner (thanh-tren.js startOffer) ---------- */
+/* Captain, 12/11 09:20: a widget at the bottom right with a button that hides it. A small card in the panel's own material
+   (fill and shadow, no outline): the Coral Tile, what the extension gives, and two buttons, the Store's own "Thêm vào
+   Chrome" and "Ẩn". It rises from its corner after the reader scrolls or stays a moment, and leaves faster than it came.
+   Only a desktop Chromium browser with a mouse is offered it (thanh-tren.js canInstall); 1024 px and wider, so it never
+   sits over a narrow page's content. */
+.cai-widget { display: none; }
+@media (min-width: 1024px) and (pointer: fine) {
+  .cai-widget {
+    position: fixed; z-index: 70; right: var(--space-24); bottom: var(--space-24); width: min(var(--cai-w), calc(100vw - 2 * var(--space-24)));
+    display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--space-16) var(--space-12);
+    padding: var(--space-16); background: var(--color-panel); color: var(--color-ink); border-radius: var(--msn-panel-r); box-shadow: var(--tc-shadow);
+    transform-origin: bottom right; opacity: 0; transform: translateY(var(--space-8));
+    transition: opacity var(--duration-150) var(--ease-exit), transform var(--duration-150) var(--ease-exit);
+  }
+  .cai-widget.is-in { opacity: 1; transform: none; transition: opacity var(--motion-state) var(--ease-flow), transform var(--motion-state) var(--ease-flow); }
+  .cai-widget[hidden] { display: none; }
+  /* The page's toasts share the corner: while the card shows, they stand above it. */
+  :root[data-cai] .toast-container { bottom: calc(var(--space-24) + var(--cai-h) + var(--space-12)); }
+}
+.cai-logo { width: var(--cai-logo); height: var(--cai-logo); border-radius: var(--radius-8); }
+.cai-text { min-width: 0; }
+.cai-title { margin: 0; font-size: var(--text-body); font-weight: var(--weight-bold); line-height: 1.3; letter-spacing: -0.01em; }
+.cai-line { margin: var(--space-4) 0 0; font-size: var(--text-meta); color: var(--color-ink-2); }
+.cai-acts { grid-column: 1 / -1; display: flex; gap: var(--space-8); }
+.cai-go, .cai-x {
+  display: inline-flex; align-items: center; justify-content: center; min-height: var(--btn-h); padding: 0 var(--space-16);
+  border: 0; border-radius: var(--radius-full); font-size: var(--text-small); font-weight: var(--weight-bold); white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: background-color var(--duration-150) ease, color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+}
+.cai-go { flex: 1; background: var(--color-accent-fill); color: var(--color-on-accent); }
+.cai-go:hover { background: var(--color-accent-fill-hover); color: var(--color-on-accent-hover); }
+.cai-x { background: var(--color-fill); color: var(--color-ink-2); }
+.cai-x:hover { background: var(--color-seg-track); color: var(--color-ink); }
+.cai-go:active, .cai-x:active { transform: scale(0.97); }
+.cai-go:focus-visible, .cai-x:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 /* A phone draws no picture, so the layout and the picture switch have nothing to change there. */
 @media (max-width: 767px) {
   .tc-wide { display: none; }
@@ -1280,7 +1283,9 @@
 @media (prefers-reduced-motion: reduce) {
   .tc-sheet, .tc-sheet.is-open { transform: none; transition: opacity var(--duration-150) ease; }
   .tc-switch::before, .tc-layout { transition: none; }
-  .tc-layout:active, .msn-top .top-tile:active, .msn-top .tool-launcher-button:active, .cai-go:active, .cai-x:active { transform: none; }
+  .tc-layout:active, .msn-top .top-tile:active, .msn-top .tool-launcher-button:active { transform: none; }
+  .cai-widget, .cai-widget.is-in { transform: none; transition: opacity var(--duration-150) ease; }
+  .cai-go:active, .cai-x:active { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

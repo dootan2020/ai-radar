@@ -84,14 +84,64 @@ class InvitationRules(unittest.TestCase):
 
 
 class InvitationStyle(unittest.TestCase):
-    def test_the_tile_shows_only_on_a_wide_window_with_a_mouse(self):
+    def test_the_card_sits_in_the_bottom_right_corner_only_on_a_desktop_window_with_a_mouse(self):
         css = read(SITE / "trang-msn.css")
-        self.assertIn(".msn-top .cai-offer { display: none; }", css)
-        self.assertIn("@media (min-width: 1366px) and (pointer: fine) {", css)
-        self.assertIn(":root:not([data-nen=\"off\"]) .msn-top .cai-offer {", css)   # the tiles' material on the picture
-        rules = css[css.index(".msn-top .cai-offer { display: none; }"):css.index(".cai-go:focus-visible")]
-        rules = re.sub(r"@media[^{]*\{", "", rules)   # a breakpoint is not a design value
+        self.assertIn(".cai-widget { display: none; }", css)
+        block = css[css.index(".cai-widget { display: none; }"):css.index(".cai-go:focus-visible")]
+        self.assertIn("@media (min-width: 1024px) and (pointer: fine) {", block)
+        self.assertIn("position: fixed; z-index: 70; right: var(--space-24); bottom: var(--space-24);", block)
+        self.assertIn("transform-origin: bottom right;", block)
+        # The page's toasts use the same corner (feed.css): while the card shows they stand above it.
+        self.assertIn("bottom: var(--space-24); right: var(--space-24);", read(SITE / "feed.css"))
+        self.assertIn(":root[data-cai] .toast-container { bottom: calc(var(--space-24) + var(--cai-h) + var(--space-12)); }", block)
+        self.assertNotIn("border:", block.replace("border: 0;", ""))   # no outline (captain's standing taste)
+        rules = re.sub(r"@media[^{]*\{", "", block)   # a breakpoint is not a design value
         self.assertNotRegex(rules, r"(?<![\w-])\d+px")   # every value from tokens
+
+    def test_the_old_top_row_tile_is_gone(self):
+        for path in (SITE / "thanh-tren.js", SITE / "trang-msn.css"):
+            code = re.sub(r"/\*.*?\*/", "", read(path), flags=re.S)   # comments may quote the captain
+            self.assertNotIn("cai-offer", code, path.name)
+            self.assertNotIn("thẻ mới", code, path.name)   # captain 12/11: readers say "tab", never "thẻ mới"
+
+
+class InvitationWords(unittest.TestCase):
+    """Captain, 12/11 09:20: "mọi người hay quen là tab, extension"."""
+
+    @classmethod
+    def setUpClass(cls):
+        probe = r"""
+import { pathToFileURL } from 'node:url';
+import path from 'node:path';
+const tt = await import(pathToFileURL(path.resolve('site/thanh-tren.js')).href);
+const nav = (...brands) => ({ userAgentData: { mobile: false, brands: brands.map(brand => ({ brand, version: '142' })) } });
+console.log(JSON.stringify({
+  chrome: tt.offerWords(tt.browserName(nav('Chromium', 'Google Chrome', 'Not_A Brand'))),
+  edge: tt.offerWords(tt.browserName(nav('Chromium', 'Microsoft Edge'))),
+  coccoc: tt.offerWords(tt.browserName(nav('Chromium', 'CocCoc'))),
+  other: tt.offerWords(tt.browserName(nav('Chromium'))),
+  delay: tt.OFFER_DELAY,
+}));
+"""
+        run = subprocess.run(["node", "--input-type=module", "-e", probe], cwd=ROOT, capture_output=True, text=True,
+                             encoding="utf-8", timeout=60)
+        if run.returncode != 0:
+            raise AssertionError(run.stderr)
+        cls.w = json.loads(run.stdout.strip().splitlines()[-1])
+
+    def test_the_card_names_the_tab_and_the_extension_and_the_store_s_own_button(self):
+        self.assertEqual(self.w["chrome"], {"title": "Tin AI trên mỗi tab mới", "line": "Extension miễn phí cho Chrome",
+                                            "go": "Thêm vào Chrome"})
+        self.assertEqual(self.w["edge"]["go"], "Thêm vào Edge")
+        self.assertEqual(self.w["coccoc"]["go"], "Thêm vào Cốc Cốc")
+        self.assertEqual(self.w["other"], {"title": "Tin AI trên mỗi tab mới", "line": "Extension miễn phí cho trình duyệt",
+                                           "go": "Cài extension"})
+
+    def test_the_card_waits_a_moment_and_has_a_visible_hide_button(self):
+        self.assertGreaterEqual(self.w["delay"], 2000)
+        js = read(SITE / "thanh-tren.js")
+        self.assertIn('<button class="cai-x" type="button" aria-label="Ẩn gợi ý cài extension">Ẩn</button>', js)
+        self.assertIn("<span>Extension Halcyon cho tab mới</span>", js)   # the permanent line in "Tùy chỉnh"
 
 
 class ForwardingPage(unittest.TestCase):
