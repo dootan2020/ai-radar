@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-12T11:29:51.030986+00:00",
-  "input_generated_at": "2026-11-12T10:46:05Z",
+  "generated_at": "2026-11-12T13:27:15.883786+00:00",
+  "input_generated_at": "2026-11-12T12:45:52Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -59137,17 +59137,17 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-startups/meet-netweb-the-only-indian-company-building-nvidia-certified-gpu-servers",
       "key_points": [
-        "Theo Phó chủ tịch công nghệ Swastik Chakrabarti, Netweb là đại diện duy nhất tại Ấn Độ chế tạo máy chủ GPU (bộ xử lý đồ họa chuyên dụng) đạt chứng nhận của NVIDIA. Doanh nghiệp này đã tham gia triển khai siêu máy tính AIRAWAT và ký hợp tác sản xuất máy chủ với NVIDIA từ năm 2023.",
-        "Hãng tự phát triển các thiết kế máy chủ riêng rồi gửi chứng nhận, với kết quả trên bộ đo chuẩn hóa MLPerf (hệ thống kiểm chuẩn AI) được xếp ngang hàng Dell và HP.",
-        "Netweb đã thiết kế hệ thống chuyển đổi dòng điện xoay chiều sang một chiều ngay trong máy chủ cho kiến trúc NVL72 và được NVIDIA chấp thuận. Bên cạnh NVIDIA, công ty cũng phối hợp cùng AMD trên dòng chip tăng tốc MI350 và Qualcomm ở bộ xử lý thần kinh NPU (vi xử lý chuyên dụng cho AI).",
-        "Dù hướng đến mục tiêu tự chủ máy chủ, Netweb hiện vẫn phải nhập khẩu phần lớn linh kiện từ bên ngoài Ấn Độ. Ông Chakrabarti nhấn mạnh triển vọng dùng linh kiện nội địa phụ thuộc vào việc các đối tác trong nước đáp ứng tiêu chuẩn chất lượng, nguồn cung và công suất giao hàng lớn."
+        "Phó chủ tịch công nghệ Swastik Chakrabarti nói Netweb Technologies là hãng duy nhất ở Ấn Độ trong chín nhà sản xuất máy chủ GPU NVIDIA trên thế giới. Theo Analytics India Magazine, hãng tự phát triển thiết kế máy chủ và đưa các thiết kế này qua quy trình chứng nhận của NVIDIA.",
+        "Analytics India Magazine cho biết Netweb mở rộng mảng phần mềm để khách hàng triển khai hạ tầng AI theo nhu cầu kinh doanh, thay vì mua phần cứng khi chưa có trường hợp sử dụng rõ ràng.",
+        "Với kiến trúc NVL72, Netweb thiết kế cách đổi điện xoay chiều thành điện một chiều ngay trong máy chủ; ông Chakrabarti nói NVIDIA đã chấp thuận thiết kế này. Theo ông, tác vụ tóm tắt tài liệu được phép mất 30 phút có thể không cần GPU H200 hay B200 nếu mẫu A100 đời cũ đáp ứng hạn chót.",
+        "Theo Analytics India Magazine, Netweb đang phát triển hệ thống phân phối tác vụ giữa nhiều đời GPU để tận dụng thiết bị hiện có; cách này cho phép dành GPU mạnh cho việc cần phản hồi nhanh và chạy việc nhẹ hơn trên GPU cũ. Tạp chí cũng cho biết Netweb vẫn lấy nhiều linh kiện từ các công ty và quốc gia khác; ông Chakrabarti nói việc dùng linh kiện Ấn Độ còn phụ thuộc chất lượng, nguồn cung và năng lực giao hàng."
       ],
       "same_event_coverage_ids": [
         "826235219b08bf0067d4"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Netweb trở thành đại diện duy nhất tại Ấn Độ sản xuất máy chủ GPU đạt chứng nhận của NVIDIA",
+      "editorial_headline_vi": "Netweb nói là hãng Ấn Độ duy nhất trong chín nhà sản xuất máy chủ GPU NVIDIA trên thế giới",
       "summary_sources": [
         {
           "id": "outlet",
@@ -59158,57 +59158,7 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 7.3,
-        "answers": {
-          "what": 7,
-          "why": 10,
-          "notable": 6,
-          "meaning": 7
-        },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "máy chủ GPU đạt chứng nhận của NVIDIA",
-            "explanation": "The source says Netweb's custom server designs undergo NVIDIA certification; it does not establish that the GPU servers have achieved certification (outlet:p007)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "kết quả trên bộ đo chuẩn hóa MLPerf (hệ thống kiểm chuẩn AI) được xếp ngang hàng Dell và HP",
-            "explanation": "The source says Chakrabarti reported that Netweb's servers were listed alongside Dell and HP systems in MLPerf results. It does not say their results or performance were equal (outlet:p009-outlet:p010)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Netweb hiện vẫn phải nhập khẩu phần lớn linh kiện từ bên ngoài Ấn Độ",
-            "explanation": "The source says Netweb sources many components from other companies and countries. It does not say a majority are imported or that Netweb must import them (outlet:p033)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The reader may take the MLPerf mention as evidence of equal performance.",
-            "fix": "Say Netweb's servers were listed alongside those of Dell and HP, as Chakrabarti reported; the source gives no equal-performance finding (outlet:p009-outlet:p010)."
-          },
-          {
-            "question": "what",
-            "problem": "The reader is told NVIDIA certification has been achieved.",
-            "fix": "Say Netweb develops custom designs that undergo NVIDIA certification, and distinguish that from Chakrabarti's account of NVIDIA approving the NVL72 power design (outlet:p007-outlet:p008)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader may believe most components must be imported.",
-            "fix": "Say Netweb sources many components from other companies and countries, and that local sourcing depends on quality, availability and capacity (outlet:p033-outlet:p037)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "1837b21ae55c151c56f22b129adbd92e1b65243a9420fc94cf0eec33a46c05a3",
-        "scored_at": "2026-11-12T11:19:41.108959+00:00"
-      }
+      "score": null
     },
     {
       "id": "4e8f977a8ff57e34179f",
@@ -59294,17 +59244,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/12/2026/nvidia-fallout-could-hamper-us-china-trade-talks",
       "key_points": [
-        "Theo Semafor, bê bối của Tổng giám đốc Jensen Huang của Nvidia có thể làm phức tạp đàm phán thương mại Mỹ - Trung tại hội nghị APEC tuần tới, nơi Tổng thống Donald Trump dự kiến gặp nhà lãnh đạo Trung Quốc Tập Cận Bình.",
-        "Vụ việc thúc đẩy lưỡng đảng siết chặt giám sát việc kiểm soát xuất khẩu chip AI của Nhà Trắng, ngay trước thời điểm phe Dân chủ nắm quyền kiểm soát Quốc hội.",
-        "Chuyên gia Michael Deng cho rằng Bắc Kinh sẽ nhận thấy ông Trump khó giữ các cam kết, khi giới lập pháp đang tranh luận đưa kiểm soát chip vào luật quốc phòng.",
-        "Chuyên gia Michael Deng nhận định vòng đàm phán khó đạt kết quả do phía Mỹ hiện không thể cam kết giữ nguyên hiện trạng."
+        "Theo Semafor, quan hệ tình ái giữa CEO Jensen Huang của Nvidia với một nghi phạm gián điệp Trung Quốc có thể làm phức tạp đàm phán thương mại Mỹ - Trung tại hội nghị APEC tới.",
+        "Nguyên nhân là vụ việc thúc đẩy sự giám sát của lưỡng đảng đối với việc kiểm soát xuất khẩu chip AI, ngay trước khi đảng Dân chủ tiếp quản Quốc hội.",
+        "Chuyên gia Michael Deng nhận định phía Trung Quốc hiểu rằng Tổng thống Donald Trump có thể khó giữ các cam kết, khi giới lập pháp đang tranh luận đưa kiểm soát xuất khẩu vào luật quốc phòng.",
+        "Dù vậy, theo chuyên gia Caleb Max, còn quá sớm để biết liệu phe Dân chủ có ưu tiên vấn đề thương mại này so với các ưu tiên khác hay không."
       ],
       "same_event_coverage_ids": [
         "5babe35f23df85721b0a"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bê bối tại Nvidia có thể cản trở đàm phán thương mại Mỹ - Trung trước thềm hội nghị APEC",
+      "editorial_headline_vi": "Vụ việc giữa CEO Nvidia và nghi phạm gián điệp có thể làm phức tạp đàm phán thương mại tại APEC",
       "summary_sources": [
         {
           "id": "outlet",
@@ -59317,24 +59267,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.05,
+        "value": 8.75,
         "answers": {
-          "what": 8,
-          "why": 9,
+          "what": 9,
+          "why": 10,
           "notable": 8,
-          "meaning": 7
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "Calling the affair only a scandal leaves out the specific event behind the story.",
-            "fix": "Identify it as Huang's affair with a suspected Chinese spy, retaining the word “suspected” (outlet:p001)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader hears only Deng's forecast about the political effect.",
-            "fix": "Add that others considered it too early to tell whether Democrats would use their new power to focus on US–China trade (outlet:p009-outlet:p010)."
+            "question": "notable",
+            "problem": "Readers lack the immediate negotiating context.",
+            "fix": "Mention that China agreed to extend the current truce until January and that Deng expects subsequent extensions to be harder to negotiate (outlet:p004–p005)."
           }
         ],
         "writer_boats": [
@@ -59342,8 +59287,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "783dd407d13e966b87040e5a964014f5ee6b40e5539b040f57d2edf611baf767",
-        "scored_at": "2026-11-12T11:19:41.110351+00:00"
+        "prose_sha256": "d49b9455c1131813b99df2405ed29db2b06f550b55f984f95e34b3ab5819a7e7",
+        "scored_at": "2026-11-12T13:26:08.792879+00:00"
       }
     },
     {
@@ -59363,17 +59308,17 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-news/chariot-launches-multilingual-tts-model-with-support-for-11-indian-languages",
       "key_points": [
-        "Phòng nghiên cứu Chariot của Ấn Độ ra mắt mô hình Chariot-1-TTS-Multilingual chuyển văn bản thành giọng nói cho 11 ngôn ngữ Ấn Độ cùng tiếng Anh. Mô hình hỗ trợ hơn 50 giọng, sao chép giọng từ vài giây âm thanh mẫu và tạo giọng nói từ tối đa 1.000 ký tự văn bản mỗi yêu cầu.",
-        "Khác các hệ thống phụ thuộc quy tắc chuẩn hóa văn bản, mô hình của Chariot dùng suy luận ngữ cảnh khi quyết định cách phát âm. Hệ thống phân biệt ký hiệu \"B+\" là nhóm máu hay điểm số, đồng thời xử lý theo ngữ cảnh số tiền, ngày tháng và từ viết tắt.",
-        "Chariot tuyên bố mô hình dẫn đầu ở nhiều thước đo khi so sánh với các mô hình chọn lọc từ ElevenLabs, Microsoft và OpenAI. Doanh nghiệp báo cáo tỷ lệ lỗi ký tự 7,60% với tiếng Hindi, 6,47% trên chín ngôn ngữ Ấn Độ khác và đạt độ chính xác 93,78% ở bài kiểm chuẩn (phép thử tiêu chuẩn) phát âm tiếng Anh.",
-        "Mô hình được triển khai cho các ứng dụng gồm tác tử giọng nói (phần mềm AI tương tác bằng giọng nói), dịch vụ khách hàng, giáo dục và đường dây trợ giúp công cộng đa ngôn ngữ. Dù vậy, ấn phẩm Analytics India Magazine lưu ý đây là kết quả do công ty tự báo cáo, với phạm vi đối chuẩn khác biệt giữa các mô hình cạnh tranh."
+        "Chariot ra mắt mô hình Chariot-1-TTS-Multilingual chuyển văn bản thành giọng nói cho 11 ngôn ngữ Ấn Độ cùng tiếng Anh. Hệ thống hỗ trợ hơn 50 giọng, cho phép trộn mã (code-mixing) giữa hai ngôn ngữ trong một câu và tạo giọng từ tối đa 1.000 ký tự.",
+        "Khác các hệ thống phụ thuộc quy tắc chuẩn hóa văn bản, mô hình của Chariot dùng suy luận ngữ cảnh khi quyết định cách đọc. Hệ thống phân biệt ký hiệu \"B+\" là nhóm máu hay điểm số, đồng thời xử lý cách đọc số tiền, ngày tháng và từ viết tắt.",
+        "Chariot tuyên bố mô hình dẫn đầu nhiều thước đo khi so sánh với các lựa chọn từ ElevenLabs, Microsoft và OpenAI. Doanh nghiệp báo cáo tỷ lệ lỗi ký tự 7,60% ở tiếng Hindi, 6,47% trên chín ngôn ngữ Ấn Độ khác và đạt 93,78% độ chính xác ở bài kiểm chuẩn diễn đạt tiếng Anh gồm hơn 1.000 câu thuộc 40 danh mục.",
+        "Mô hình sẽ được triển khai cho tác tử giọng nói (AI đàm thoại), dịch vụ khách hàng, giáo dục và đường dây trợ giúp, đồng thời mở danh mục giọng cùng tính năng tạo giọng tùy chỉnh cho lập trình viên. Dù vậy, Analytics India Magazine lưu ý đây là kết quả do công ty tự báo cáo, với phạm vi kiểm chuẩn khác nhau giữa các mô hình đối thủ."
       ],
       "same_event_coverage_ids": [
         "f478f5f9e37042970670"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Chariot ra mắt mô hình giọng nói Chariot-1-TTS-Multilingual hỗ trợ 11 ngôn ngữ Ấn Độ và tiếng Anh",
+      "editorial_headline_vi": "Chariot ra mắt mô hình giọng nói hỗ trợ trộn mã cho 11 ngôn ngữ Ấn Độ cùng tiếng Anh",
       "summary_sources": [
         {
           "id": "outlet",
@@ -59386,45 +59331,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 9.2,
         "answers": {
           "what": 10,
           "why": 9,
           "notable": 8,
-          "meaning": 6
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Mô hình được triển khai",
-            "explanation": "The source says the model will be deployed for these applications, not that deployment has already occurred (outlet:p010)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "đạt độ chính xác 93,78% ở bài kiểm chuẩn (phép thử tiêu chuẩn) phát âm tiếng Anh",
-            "explanation": "The source reports 93.78% accuracy on an English verbalisation benchmark covering more than 1,000 sentences across 40 categories; it does not describe this as a general English pronunciation benchmark (outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "Readers may believe the listed deployments have already happened.",
-            "fix": "Say the model will be deployed for those applications (outlet:p010)."
+            "question": "notable",
+            "problem": "Readers miss a distinct capability: cloning a voice from a short recording.",
+            "fix": "State that the model can clone a voice using a few seconds of reference audio (outlet:p002)."
           },
           {
             "question": "notable",
-            "problem": "Readers miss the ability to mix any two supported languages within one sentence.",
-            "fix": "Add the code-mixing capability (outlet:p002)."
-          },
-          {
-            "question": "notable",
-            "problem": "Readers may mistake the 93.78% result for a general pronunciation score.",
-            "fix": "Identify it as accuracy on an English verbalisation benchmark, with its stated coverage (outlet:p007)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Readers miss how developers can use the model’s voices.",
-            "fix": "Mention access to the voice catalogue and custom voices made from reference recordings (outlet:p010)."
+            "problem": "The 1,000-character limit lacks its per-request condition.",
+            "fix": "Say the model can generate speech from up to 1,000 characters in a single request (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -59432,8 +59356,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ca03c0d22730c7c74fc096b84b41e375978d6b2f9f637cd3b49df2b44e3df07e",
-        "scored_at": "2026-11-12T11:24:22.472006+00:00"
+        "prose_sha256": "d58c7b5f575e3fae20dd338819783ed43712c3d722d352be518e4b8c2b721e4d",
+        "scored_at": "2026-11-12T13:26:08.792947+00:00"
       }
     },
     {
@@ -59513,6 +59437,486 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "2ea58ffa9e390589f246"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8dbddb5e344b50c5a0a5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/space-tech-startup-astrome-bags-64-cr-rdi-fund-for-ai-satellite-network",
+      "key_points": [
+        "Ban Phát triển Công nghệ Ấn Độ (TDB) ký thỏa thuận hỗ trợ Astrome Technologies ₹64.05 crore từ quỹ RDI để phát triển mạng vệ tinh tình báo điện tử dùng AI. Dự án ước tính tốn ₹128.11 crore; khoản hỗ trợ được cấu trúc dưới dạng nợ có thể chuyển đổi theo lựa chọn.",
+        "Thư ký TDB Rajesh Kumar Pathak nói quỹ RDI hỗ trợ doanh nghiệp Ấn Độ phát triển công nghệ có thể củng cố năng lực chiến lược của nước này.",
+        "Mạng lưới dự kiến kết hợp thiết bị thu và phân tích tín hiệu, phần mềm AI xử lý dữ liệu dưới mặt đất và đường truyền để các vệ tinh trao đổi thông tin. Astrome dự định chế tạo các vệ tinh nhỏ nặng khoảng 50 kg, hoạt động ở quỹ đạo Trái Đất thấp.",
+        "Theo bài viết, mạng lưới đặt mục tiêu mở rộng vùng phủ và quan sát các khu vực quan tâm thường xuyên hơn khi có thêm vệ tinh."
+      ],
+      "same_event_coverage_ids": [
+        "37ba4845d1981dce464a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ấn Độ ký thỏa thuận hỗ trợ Astrome ₹64.05 crore phát triển mạng vệ tinh tình báo điện tử dùng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/space-tech-startup-astrome-bags-64-cr-rdi-fund-for-ai-satellite-network"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "eb6500b2687db732cfb05f740d54e6ac6ada04bef1bc0d7505c3ef2ca5193f2e",
+        "scored_at": "2026-11-12T13:20:34.099657+00:00"
+      }
+    },
+    {
+      "id": "c368310cb517bbfd5f7f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report concerns Nvidia leadership succession; AI is not its main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/nvidia-considers-huang-s-future-after-affair-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5c3a40712e0e4a1bf5f8",
+        "aa742d5af3611381eef1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e40196e460dd8cd89743",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/siemens-wants-to-continue-nvidia-partnership-even-if-jensen-huang-is-ousted",
+      "key_points": [
+        "CEO Roland Busch nói Siemens sẽ tiếp tục hợp tác với NVIDIA bất kể hội đồng quản trị hãng chip quyết định ra sao về người sáng lập kiêm CEO Jensen Huang. Hội đồng quản trị NVIDIA đang cân nhắc việc phế truất ông Huang sau các bài báo về hai mối quan hệ ngoài hôn nhân.",
+        "Busch lập luận NVIDIA là công ty lớn với đội ngũ đông, nên nhiều dự án sẽ tiếp tục bất kể điều gì đang diễn ra tại hãng. Hai bên hợp tác từ năm 2022 trong việc tạo bản mô phỏng số của nhà máy và sản phẩm; NVIDIA cung cấp hạ tầng AI, mô hình và công cụ mô phỏng, còn Siemens đóng góp chuyên gia cùng phần cứng, phần mềm công nghiệp.",
+        "Siemens nói họ đã thử robot hình người tại Erlangen và dùng công nghệ chip NVIDIA để ghi nhận hàng chục nghìn tỷ chu kỳ kiểm chứng chip trong vài ngày.",
+        "Theo Busch, đây là quan hệ hợp tác giữa hai doanh nghiệp có các dự án chung, và ông chưa thấy cuộc khủng hoảng tại NVIDIA ảnh hưởng đến công việc của họ."
+      ],
+      "same_event_coverage_ids": [
+        "66ebd589fd4867c492ee"
+      ],
+      "split_coverage_ids": [
+        "2632d1a7ca1e16739d0f"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Siemens nói vẫn hợp tác với NVIDIA dù hội đồng quản trị cân nhắc phế truất Jensen Huang",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/siemens-wants-to-continue-nvidia-partnership-even-if-jensen-huang-is-ousted"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "9336781ca14fe820d74736af1a7c7af3406e62ece1320fa42cb00640d8525285",
+        "scored_at": "2026-11-12T13:20:34.100010+00:00"
+      }
+    },
+    {
+      "id": "c55fe16e95f41c8c7842",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/trump-asked-to-preserve-nvidia-documents-by-senators-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9e991ba13670456d3e77"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dcc6f48fd62a26004fef",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The workplace certification concerns data engineers; AI appears as background context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-highlights/latentview-analytics-certified-as-best-firm-for-data-engineers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "49cc9ccc1fad45817483"
+      ],
+      "split_coverage_ids": [
+        "6ceb459f0ca5669ea1ec"
+      ]
+    },
+    {
+      "id": "3ec63777efacfc60bda3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/12/2026/nvidia-scandal-hits-tech-stocks-in-south-korea-and-taiwan",
+      "key_points": [
+        "Theo Semafor, khủng hoảng tại Nvidia đã đảo chiều đợt tăng ngắn của cổ phiếu AI và làm dấy thêm lo ngại về nguy cơ bong bóng công nghệ vỡ.",
+        "Semafor cho biết mối lo về làn sóng đầu tư AI vốn đã tăng do doanh nghiệp công nghệ vay nợ nhiều hơn, dòng vốn xoay vòng trong ngành và câu hỏi liệu doanh thu có theo kịp kế hoạch chi tiêu lớn hay không.",
+        "Thị trường Hàn Quốc và Đài Loan, hai nơi cung ứng quan trọng cho ngành chip AI, cùng giảm; cổ phiếu Nvidia giảm 6% trong giao dịch trước giờ mở cửa.",
+        "Theo Semafor, khả năng CEO Nvidia bị phế truất có nguy cơ làm sâu thêm những lo ngại sẵn có về làn sóng đầu tư AI."
+      ],
+      "same_event_coverage_ids": [
+        "206c9d01fbe8c8479269"
+      ],
+      "split_coverage_ids": [
+        "59bb6338370ef8fe3290"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khủng hoảng Nvidia đảo chiều đợt tăng ngắn của cổ phiếu AI; mã hãng giảm 6% trước giờ mở cửa",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/12/2026/nvidia-scandal-hits-tech-stocks-in-south-korea-and-taiwan"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "7c73190ffed9ab80ff83b8fa49030bc981da3d1f308da937fd22281b58d55c4e",
+        "scored_at": "2026-11-12T13:20:34.100124+00:00"
+      }
+    },
+    {
+      "id": "446ce91adbdb6490e95c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The interview covers broad global risks, with AI only one topic.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/un-secretary-general-perfect-storm-of-global-risks-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f63aa3dfda5f11623c62"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "062f08284c31e40c7060",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/education/2026/nov/11/ai-close-to-impossible-assess-university-coursework-regulator",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d6760843108745e392eb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "74cfb8ca07c80e5cdd39",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/12/2026/the-us-is-set-to-further-curb-ai-tech-exports-to-china",
+      "key_points": [
+        "Theo Semafor, khả năng CEO Jensen Huang bị phế truất tại Nvidia có thể dẫn tới việc Mỹ siết kiểm soát bán công nghệ chip tiên tiến cho Trung Quốc.",
+        "Semafor nêu ông Huang là người vận động nổi bật nhất cho việc nới các hạn chế này, trong khi những người chỉ trích cho rằng quan điểm đó phục vụ lợi nhuận hơn là an ninh quốc gia.",
+        "The Information đưa tin Bộ Thương mại Mỹ sắp đóng lối mà các công ty Trung Quốc đã dùng để tiếp cận chip cao cấp của Mỹ qua trung tâm dữ liệu tại nước thứ ba.",
+        "Semafor cho biết sức ép siết hạn chế tại Washington đang tăng, cùng với giám sát của Quốc hội và lời kêu gọi sa thải bộ trưởng thương mại. Một quan chức Nhà Trắng nói với Semafor rằng tổng thống vẫn hoàn toàn tin tưởng vị bộ trưởng này."
+      ],
+      "same_event_coverage_ids": [
+        "0b4cb5ad1898b4ae3727"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Theo Semafor, khả năng Jensen Huang rời Nvidia có thể thúc đẩy Mỹ siết bán chip tiên tiến sang Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/12/2026/the-us-is-set-to-further-curb-ai-tech-exports-to-china"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "b8b771c820ac5cb6bd0541501a21c550fd8fd78cb442e2c0356c85dbb33b7789",
+        "scored_at": "2026-11-12T13:20:34.100183+00:00"
+      }
+    },
+    {
+      "id": "6f409348da4b8930a3c5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://ipo.anthropic.com/us/",
+      "key_points": [
+        "Anthropic chào bán cổ phiếu phổ thông loại A với mã ANT trên Nasdaq; hãng dự kiến cổ phiếu bắt đầu giao dịch ngày 19/11 (giờ EST), tùy phê duyệt của cơ quan quản lý.",
+        "Theo hướng dẫn của Anthropic, người quan tâm có thể đăng ký mua qua nền tảng môi giới tham gia đợt IPO nếu có tài khoản đang hoạt động và gửi thông báo bày tỏ quan tâm trên nền tảng đó. Tài khoản môi giới hoặc ứng dụng đầu tư sẽ xác nhận người đăng ký có đủ điều kiện khi họ gửi yêu cầu.",
+        "Trong mục số liệu tài chính quý III/2026, khoản lỗ ròng 23,3 tỷ USD gồm khoản chi phí phi tiền mặt 21,9 tỷ USD liên quan đến thay đổi giá trị hợp lý của các công cụ tài chính.",
+        "Anthropic cảnh báo người đăng ký không được bảo đảm nhận cổ phiếu nào, nhưng cần sẵn sàng mua toàn bộ số cổ phiếu được phân bổ nếu có."
+      ],
+      "same_event_coverage_ids": [
+        "092f3cc45276b8f6942b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic dự kiến giao dịch mã ANT từ 19/11, công bố lỗ ròng 23,3 tỷ USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://ipo.anthropic.com/us/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "76a297cf6d9b0a2f4e13",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The story's main subject is UK and German economic growth; AI is one contributing factor.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/12/2026/uk-and-germany-are-expected-to-beat-growth-forecasts-despite-headwinds",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8cbee6b933d05d9113de"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3b7db3a0dfa0a0de3f57",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/ltm-integrates-ai-tool-to-fix-quantum-computing-errors-on-ibm",
+      "key_points": [
+        "LTM added its AI-powered Quantum Error Mitigation capability to IBM's Quantum Functions Catalog.",
+        "LTM says the tool learns device-specific error patterns and estimates corrections through classical post-processing."
+      ],
+      "same_event_coverage_ids": [
+        "f965f30775a31ee8924c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b85e0c413515eb6380ca",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The interview primarily concerns corporate crisis management; AI is a secondary topic.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/mckinsey-s-sternfels-on-corporate-crisis-management-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "13f0357b8697483158cf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5ff75dec96f4a2fa2529",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-12/musk-phases-out-tesla-tsla-cybertruck-for-ai-cybercab-as-drivers-resist",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "838cf92f76ca87d3dced"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1c62ca4862e4c564fe63",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-12/barclays-lafargue-on-semiconductors-nvidia-risks-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "115be9e451a93e1b36ed"
       ],
       "split_coverage_ids": []
     }
