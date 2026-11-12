@@ -550,23 +550,19 @@
 /* "Vừa đăng" sits beside the lead in the first row (owner, 10/11: "mục 'Vừa đăng' nằm ở mãi dưới"; his rule of 10/10:
    "người dùng vào đọc tin thì luôn muốn xem tin mới trước chứ"), one row tall; "Chuyện lớn" opens the second row. */
 .msn-grid.is-front > .tile-fresh { grid-row: span 1; }
-.fresh-list .fresh-new { display: none; }
-.fresh-list li[data-pinned]:not(.is-read) .fresh-new {
+/* "Mới" (feed.js, freshItem): a row new to this reader carries the chip only while the tile also shows a row that is
+   not new, so the chip tells the two apart; when every row is new, none carries it, and the clock says the rest. The
+   chip is the tile's one mark of newness: the river's new dot stays out of it. */
+.fresh-list .fresh-new, .fresh-list .new-mark { display: none; }
+.fresh-list:has(> li:not([hidden]):is(.is-read, :not([data-status="new"]):not([data-pinned])))
+  > li:is([data-status="new"], [data-pinned]):not(.is-read) .fresh-new {
   display: inline-block; margin-right: var(--space-6); padding: 0 var(--space-6); border-radius: var(--radius-full);
   background: var(--color-accent-fill); color: var(--color-on-accent);
   font-size: var(--text-micro); font-weight: var(--weight-bold); line-height: 1.6; vertical-align: 0.08em;
 }
-.fresh-list li[data-pinned]:not(.is-read) .new-mark { display: none; }
 .fresh-list li, .fresh-list .brief, .briefs li + li .brief { border-radius: 0; }
-/* Only whole rows (feed.js, fitFreshTile): rows outside the page are left out, and a page's first row drops the rule
-   it would draw against the row before it. A batch longer than the tile pages with "‹ 1/2 ›" in the head, the shelf's
-   own quiet buttons; it is for every pointer, not only a mouse. */
+/* Only whole rows (feed.js, fitFreshTile): a row that does not fit is left out. */
 .fresh-list > li[hidden] { display: none; }
-.fresh-list > li[hidden] + li .brief { border-top-color: transparent; }
-/* The buttons keep their 44px target but take no more height than the title, so the list starts where it did. */
-.tile-fresh .fresh-pager { gap: var(--space-4); margin-block: calc(-1 * var(--space-12)); }
-.fresh-pager[hidden] { display: none; }
-.fresh-page { min-width: 3ch; font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-ink-2); text-align: center; }
 .fresh-list li.is-flash { animation: fresh-flash var(--fresh-flash) var(--ease-flow) both; }
 @keyframes fresh-flash { from, 35% { background: var(--color-accent-wash-strong); } to { background: transparent; } }
 .msn-grid:not(.is-front) > .tile { grid-column: 1 / -1; overflow: visible; }

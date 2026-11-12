@@ -167,63 +167,58 @@ function tileOf({ heights, pinned, grow = false, clientH = 360 }) {
     },
   }));
   const ul = { children: rows, getBoundingClientRect: () => ({ top: HEAD }) };
-  const btn = step => ({ dataset: { freshPage: String(step) }, attrs: {},
-    setAttribute(k, v) { this.attrs[k] = v; }, getAttribute(k) { return this.attrs[k] ?? null; } });
-  const prev = btn(-1), next = btn(1), count = { textContent: '' };
-  const pager = { hidden: true, querySelector: () => count, querySelectorAll: () => [prev, next] };
   const tile = {
     hidden: false, clientTop: 0,
     get scrollHeight() { return HEAD + visible().reduce((s, r) => s + r.h, 0) + PAD; },
     get clientHeight() { return grow ? this.scrollHeight : clientH; },
     getBoundingClientRect: () => ({ top: 0 }),
-    querySelector: s => (s === '.fresh-list' ? ul : s === '.fresh-pager' ? pager : null),
+    querySelector: s => (s === '.fresh-list' ? ul : null),
   };
-  return { tile, rows, pager, prev, next, count, room: clientH - PAD - HEAD - 1 };
+  return { tile, rows, room: clientH - PAD - HEAD - 1 };
 }
 let current = null;
 const $ = s => (s === '#fresh-row' ? current.tile : null);
 __FIT__
 function look(t) {
   const shown = t.rows.map((r, i) => [r, i]).filter(([r]) => !r.hidden);
-  return { shown: shown.map(([, i]) => i), fits: shown.every(([r]) => r.getBoundingClientRect().bottom - HEAD <= t.room),
-    pager: !t.pager.hidden, count: t.count.textContent, next: t.next.getAttribute('aria-disabled') };
+  return { shown: shown.map(([, i]) => i), fits: shown.every(([r]) => r.getBoundingClientRect().bottom - HEAD <= t.room) };
 }
 const out = {};
-// Six new rows, the first one three lines tall: two pages of whole rows, then the end.
-current = tileOf({ heights: [80, 66, 66, 66, 66, 66], pinned: 6 });
-fitFreshTile();
-out.six = [look(current)];
-pageFresh(current.next); out.six.push(look(current));
-pageFresh(current.next); out.six.push(look(current));
-pageFresh(current.prev); out.six.push(look(current));
-// Ordinary rows that do not fit are left out, with no pager.
+// Four new rows, the first one three lines tall: the newest whole rows stay, the last is left out.
+current = tileOf({ heights: [100, 66, 66, 66], pinned: 4 });
+fitFreshTile(); out.batch = look(current);
+// Ordinary rows that do not fit are left out the same way.
 current = tileOf({ heights: [80, 80, 80, 80], pinned: 0 });
 fitFreshTile(); out.plain = look(current);
-// A batch that fits on the first page needs no pager either.
-current = tileOf({ heights: [80, 80, 80, 80], pinned: 3 });
-fitFreshTile(); out.fitsOnePage = look(current);
+// Rows that all fit all show.
+current = tileOf({ heights: [60, 60, 60, 60], pinned: 0 });
+fitFreshTile(); out.roomy = look(current);
+// A first row taller than the whole tile still shows: the tile is never empty.
+current = tileOf({ heights: [400, 60], pinned: 0 });
+fitFreshTile(); out.tall = look(current);
 // A tile that grows with its rows (phone, tablet) shows them all.
-current = tileOf({ heights: [80, 66, 66, 66, 66, 66], pinned: 6, grow: true });
+current = tileOf({ heights: [80, 66, 66, 66], pinned: 4, grow: true });
 fitFreshTile(); out.grows = look(current);
 process.stdout.write(JSON.stringify(out));
 """
 
 
-class FreshTilePaging(unittest.TestCase):
-    """More new stories than "Vừa đăng" can hold beside the lead: only whole rows, and every new row reachable."""
+class FreshTileRows(unittest.TestCase):
+    """"Vừa đăng" beside the lead shows only whole rows, newest first, and never pages (captain, 12/11 09:23)."""
 
-    def test_the_tile_hides_rows_it_cannot_show_whole(self):
+    def test_the_tile_hides_rows_it_cannot_show_whole_and_has_no_pager(self):
         css = read(SITE / "trang-msn.css")
         self.assertIn(".fresh-list > li[hidden] { display: none; }", css)
-        self.assertIn(".fresh-pager[hidden] { display: none; }", css)
+        self.assertNotIn("fresh-pager", css)
         feed = read(SITE / "feed.js")
         self.assertIn("fitFreshTile();\n  fitBandLists();\n  scheduleCountdown();", feed)
-        self.assertIn("const fp = t.closest('[data-fresh-page]'); if (fp) { pageFresh(fp); return; }", feed)
+        for gone in ("fresh-pager", "pageFresh", "freshPage", "data-fresh-page"):
+            self.assertNotIn(gone, feed)
 
-    @unittest.skipUnless(shutil.which("node"), "Node required for the paging test")
-    def test_a_long_batch_pages_through_whole_rows(self):
+    @unittest.skipUnless(shutil.which("node"), "Node required for the fitting test")
+    def test_whole_rows_newest_first(self):
         feed = read(SITE / "feed.js")
-        fit = feed[feed.index("let freshPage = 0;"):feed.index("function goFirstNew()")]
+        fit = feed[feed.index("let freshRO = null;"):feed.index("function goFirstNew()")]
         fit = fit[:fit.index("/* Redraw the tile in place")]
         with tempfile.TemporaryDirectory() as tmp:
             harness = Path(tmp) / "harness.mjs"
@@ -232,15 +227,11 @@ class FreshTilePaging(unittest.TestCase):
                                  encoding="utf-8", timeout=60)
         self.assertEqual(run.returncode, 0, run.stderr)
         got = json.loads(run.stdout)
-        six = got["six"]
-        self.assertEqual([p["shown"] for p in six], [[0, 1, 2, 3], [4, 5], [4, 5], [0, 1, 2, 3]])
-        self.assertTrue(all(p["fits"] and p["pager"] for p in six))
-        self.assertEqual([p["count"] for p in six], ["1/2", "2/2", "2/2", "1/2"])
-        self.assertEqual([p["next"] for p in six], ["false", "true", "true", "false"])
-        self.assertEqual(sorted({i for p in six for i in p["shown"]}), list(range(6)))
-        self.assertEqual((got["plain"]["shown"], got["plain"]["pager"], got["plain"]["fits"]), ([0, 1, 2], False, True))
-        self.assertEqual((got["fitsOnePage"]["shown"], got["fitsOnePage"]["pager"]), ([0, 1, 2], False))
-        self.assertEqual((got["grows"]["shown"], got["grows"]["pager"]), ([0, 1, 2, 3, 4, 5], False))
+        self.assertEqual((got["batch"]["shown"], got["batch"]["fits"]), ([0, 1, 2], True))
+        self.assertEqual((got["plain"]["shown"], got["plain"]["fits"]), ([0, 1, 2], True))
+        self.assertEqual((got["roomy"]["shown"], got["roomy"]["fits"]), ([0, 1, 2, 3], True))
+        self.assertEqual(got["tall"]["shown"], [0])
+        self.assertEqual(got["grows"]["shown"], [0, 1, 2, 3])
 
 
 if __name__ == "__main__":
