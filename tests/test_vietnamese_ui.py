@@ -60,6 +60,8 @@ EXCEPTIONS = {
     **dict.fromkeys(["video", "podcast", "blog", "logo"], "từ mượn đã vào tiếng Việt"),
     # Brand mark
     **dict.fromkeys(["halcyon"], "tên trang"),
+    **dict.fromkeys(["tab", "extension"], "từ người đọc quen dùng cho trình duyệt (anh Tuấn 12/11 09:20: “mọi người hay quen là tab, extension”), ô mời cài extension"),
+    **dict.fromkeys(["chrome", "edge"], "tên riêng: trình duyệt Chrome và Edge, như nút “Thêm vào Chrome” của Chrome Web Store"),
 }
 
 # These words occur in official channel names only, so generic UI text still gets checked.

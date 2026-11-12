@@ -1228,6 +1228,50 @@
 .tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); }
 .tc-seg label { display: grid; place-items: center; min-height: var(--btn-h); border-radius: var(--seg-thumb-r); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--color-ink-2); cursor: pointer; transition: background-color var(--duration-150) ease, color var(--duration-150) ease; }
 .tc-seg label:has(input:checked) { color: var(--color-ink); font-weight: var(--weight-bold); }
+/* The extension's permanent line (thanh-tren.js OFFER_ROW): a row like the switches above it, the mark that leaves the
+   site where the switch would be. */
+.tc-ext { padding-block: var(--space-4); }
+.tc-ext-go { padding-inline: var(--space-4); margin-inline: calc(-1 * var(--space-4)); border-radius: var(--radius-8); color: inherit; text-decoration: none; transition: background-color var(--duration-150) ease; }
+.tc-ext-go:hover { background: var(--color-fill); }
+.tc-ext-go:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
+.tc-ext-go .i { width: var(--msn-fav); height: var(--msn-fav); flex: none; color: var(--color-ink-2); }
+
+/* ---------- the extension's card in the bottom-right corner (thanh-tren.js startOffer) ---------- */
+/* Captain, 12/11 09:20: a widget at the bottom right with a button that hides it. A small card in the panel's own material
+   (fill and shadow, no outline): the Coral Tile, what the extension gives, and two buttons, the Store's own "Thêm vào
+   Chrome" and "Ẩn". It rises from its corner after the reader scrolls or stays a moment, and leaves faster than it came.
+   Only a desktop Chromium browser with a mouse is offered it (thanh-tren.js canInstall); 1024 px and wider, so it never
+   sits over a narrow page's content. */
+.cai-widget { display: none; }
+@media (min-width: 1024px) and (pointer: fine) {
+  .cai-widget {
+    position: fixed; z-index: 70; right: var(--space-24); bottom: var(--space-24); width: min(var(--cai-w), calc(100vw - 2 * var(--space-24)));
+    display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--space-16) var(--space-12);
+    padding: var(--space-16); background: var(--color-panel); color: var(--color-ink); border-radius: var(--msn-panel-r); box-shadow: var(--tc-shadow);
+    transform-origin: bottom right; opacity: 0; transform: translateY(var(--space-8));
+    transition: opacity var(--duration-150) var(--ease-exit), transform var(--duration-150) var(--ease-exit);
+  }
+  .cai-widget.is-in { opacity: 1; transform: none; transition: opacity var(--motion-state) var(--ease-flow), transform var(--motion-state) var(--ease-flow); }
+  .cai-widget[hidden] { display: none; }
+  /* The page's toasts share the corner: while the card shows, they stand above it. */
+  :root[data-cai] .toast-container { bottom: calc(var(--space-24) + var(--cai-h) + var(--space-12)); }
+}
+.cai-logo { width: var(--cai-logo); height: var(--cai-logo); border-radius: var(--radius-8); }
+.cai-text { min-width: 0; }
+.cai-title { margin: 0; font-size: var(--text-body); font-weight: var(--weight-bold); line-height: 1.3; letter-spacing: -0.01em; }
+.cai-line { margin: var(--space-4) 0 0; font-size: var(--text-meta); color: var(--color-ink-2); }
+.cai-acts { grid-column: 1 / -1; display: flex; gap: var(--space-8); }
+.cai-go, .cai-x {
+  display: inline-flex; align-items: center; justify-content: center; min-height: var(--btn-h); padding: 0 var(--space-16);
+  border: 0; border-radius: var(--radius-full); font-size: var(--text-small); font-weight: var(--weight-bold); white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: background-color var(--duration-150) ease, color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+}
+.cai-go { flex: 1; background: var(--color-accent-fill); color: var(--color-on-accent); }
+.cai-go:hover { background: var(--color-accent-fill-hover); color: var(--color-on-accent-hover); }
+.cai-x { background: var(--color-fill); color: var(--color-ink-2); }
+.cai-x:hover { background: var(--color-seg-track); color: var(--color-ink); }
+.cai-go:active, .cai-x:active { transform: scale(0.97); }
+.cai-go:focus-visible, .cai-x:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 /* A phone draws no picture, so the layout and the picture switch have nothing to change there. */
 @media (max-width: 767px) {
   .tc-wide { display: none; }
@@ -1236,6 +1280,8 @@
   .tc-sheet, .tc-sheet.is-open { transform: none; transition: opacity var(--duration-150) ease; }
   .tc-switch::before, .tc-layout { transition: none; }
   .tc-layout:active, .msn-top .top-tile:active, .msn-top .tool-launcher-button:active { transform: none; }
+  .cai-widget, .cai-widget.is-in { transform: none; transition: opacity var(--duration-150) ease; }
+  .cai-go:active, .cai-x:active { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
