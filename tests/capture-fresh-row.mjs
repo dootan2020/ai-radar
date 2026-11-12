@@ -130,7 +130,8 @@ function check(name, m, held) {
   if (!m.rowShown) { problems.push(`${name}: no "Vừa đăng" row`); return; }
   if (!m.rowAbovePicks || !m.rowFirst) problems.push(`${name}: "Vừa đăng" is not the first thing under the header`);
   if (!held) return;
-  const want = full.stories.filter(s => held.includes(s.id)).sort((a, b) => Date.parse(b.published_at) - Date.parse(a.published_at)).map(s => s.id);
+  // The tile holds at most four rows (feed.js, FRESH_TILE_ROWS); a longer batch keeps the rest in the river.
+  const want = full.stories.filter(s => held.includes(s.id)).sort((a, b) => Date.parse(b.published_at) - Date.parse(a.published_at)).map(s => s.id).slice(0, 4);
   if (JSON.stringify(m.rowIds.slice(0, want.length)) !== JSON.stringify(want)) problems.push(`${name}: the ${want.length} arrivals do not lead the row newest first`);
   if (m.rowNew.slice(0, want.length).some(x => !x)) problems.push(`${name}: an arrival in the row has no new dot`);
 }

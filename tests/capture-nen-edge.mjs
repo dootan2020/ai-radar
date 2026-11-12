@@ -184,7 +184,8 @@ try {
       const cut = pages.flatMap(p => p.rows).filter(r => r.state === 'cut').length;
       summary.push({ name, pill, rows: m.rows.length, pinned: pinnedN, wholePinnedSeen: seen.size, cut, scrolls: m.scrolls,
         pages: pages.length, tileH: m.tileH, ctrls: JSON.stringify(m.ctrls), states: m.rows.map(r => r.state[0]).join('') });
-      if (pinnedN !== 6) problems.push(`${name}: ${pinnedN} pinned rows, expected 6 (pill "${pill}")`);
+      // The tile holds at most four rows (feed.js, FRESH_TILE_ROWS); the batch's other two stay in the river.
+      if (pinnedN !== 4) problems.push(`${name}: ${pinnedN} pinned rows, expected 4 (pill "${pill}")`);
       if (cut) problems.push(`${name}: ${cut} row(s) cut by the tile's edge`);
       if (seen.size < pinnedN) problems.push(`${name}: only ${seen.size} of ${pinnedN} new rows can be seen whole`);
       for (const [w, h, label] of m.ctrls) if (w < 44 || h < 44) problems.push(`${name}: control "${label}" ${w}x${h}`);
