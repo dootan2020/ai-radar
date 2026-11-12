@@ -166,6 +166,8 @@ class ForwardingPage(unittest.TestCase):
         csp = re.search(r'http-equiv="Content-Security-Policy" content="([^"]*)"', self.html).group(1)
         hosts = set(re.findall(r"https://[\w.-]+", csp))
         self.assertEqual(hosts, {"https://static.cloudflareinsights.com", "https://cloudflareinsights.com"})
+        connect = re.search(r"connect-src ([^;]*);", csp).group(1).split()
+        self.assertEqual(connect, ["'self'", "https://cloudflareinsights.com"])
         self.assertNotIn("<script src", self.html)
         self.assertNotIn("cookie", self.html.lower())
 
