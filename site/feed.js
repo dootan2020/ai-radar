@@ -2874,9 +2874,12 @@ function newestStories() {
   const young = h => allStories.filter(st => GEN - ms(st.published_at) <= h * 36e5 && !FRONT_IDS.has(st.id));
   let pool = young(NEWEST.hours), hours = NEWEST.hours;
   if (pool.length < NEWEST.min) { pool = young(NEWEST.maxHours); hours = NEWEST.maxHours; }
-  const pinned = freshIds.filter(id => !read.has(id)).map(id => STORY_ANY.get(id)).filter(Boolean).sort(byPub);
+  // The unread pill batch is guaranteed a place in the tile (its newest FRESH_TILE_ROWS), then the tile fills with the
+  // newest of the rest; the rows themselves read in published order, so a pinned older story never jumps above a newer one.
+  const pinned = freshIds.filter(id => !read.has(id)).map(id => STORY_ANY.get(id)).filter(Boolean).sort(byPub).slice(0, FRESH_TILE_ROWS);
   const rest = pool.slice().sort(byPub).filter(st => !pinned.includes(st));
-  return { list: [...pinned, ...rest].slice(0, Math.max(NEWEST.cap, pinned.length)), hours };
+  const tile = [...pinned, ...rest.slice(0, FRESH_TILE_ROWS - pinned.length)].sort(byPub);
+  return { list: [...tile, ...rest.slice(FRESH_TILE_ROWS - pinned.length)].slice(0, NEWEST.cap), hours };
 }
 /* "Vừa đăng" is a front-page tile (mockup B's "Tin nhanh"): the clock time each story was published, then its headline. */
 /* "Mới" means new to this reader: published since their last look, or announced by the "N tin mới" pill and not yet
