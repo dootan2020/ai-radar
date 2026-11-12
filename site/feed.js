@@ -2867,12 +2867,14 @@ const NEWEST = { hours: 6, min: 4, maxHours: 24, cap: 8 };
 let freshIds = [];            // the batch the reader asked to see with the pill, pinned first while unread
 const FRESH_TILE_ROWS = 4;    // whole rows in the first row's height beside the lead (10/11); a pinned batch shows whole
 const FRESH_FLASH_MS = 2000;  // the announced rows' highlight after the pill (trang-msn.css, fresh-flash)
+// Each row prints published_at, so the row is ordered by it; later coverage (rankTime) must not lift an older story.
+const byPub = (a, b) => pubTime(b) - pubTime(a);
 function newestStories() {
   const young = h => allStories.filter(st => GEN - ms(st.published_at) <= h * 36e5 && !FRONT_IDS.has(st.id));
   let pool = young(NEWEST.hours), hours = NEWEST.hours;
   if (pool.length < NEWEST.min) { pool = young(NEWEST.maxHours); hours = NEWEST.maxHours; }
-  const pinned = freshIds.filter(id => !read.has(id)).map(id => STORY_ANY.get(id)).filter(Boolean).sort(byNew);
-  const rest = pool.slice().sort(byNew).filter(st => !pinned.includes(st));
+  const pinned = freshIds.filter(id => !read.has(id)).map(id => STORY_ANY.get(id)).filter(Boolean).sort(byPub);
+  const rest = pool.slice().sort(byPub).filter(st => !pinned.includes(st));
   return { list: [...pinned, ...rest].slice(0, Math.max(NEWEST.cap, pinned.length)), hours };
 }
 /* "Vừa đăng" is a front-page tile (mockup B's "Tin nhanh"): the clock time each story was published, then its headline. */
