@@ -21,6 +21,7 @@ const code = [
   grab(/const byNew = [^\\n]*/),
   grab(/const pubTime = [^\\n]*/),
   grab(/const NEWEST = [^\\n]*/),
+  grab(/const FRESH_TILE_ROWS = [^\\n]*/),
   grab(/const byPub = [^\\n]*/),
   grab(/function newestStories\\(\\) \\{{[\\s\\S]*?\\r?\\n\\}}\\r?\\n/),
 ].join('\\n');
@@ -37,7 +38,18 @@ const stories = [
   mk('d', '2026-11-11T17:00:00Z', null),
   mk('e', '2026-11-11T12:00:00Z', null),
 ];
-process.stdout.write(JSON.stringify({{ plain: run(stories, []), pinned: run(stories, ['tsmc', 'b', 'd']) }}));
+// The captain's 12:23 phone: the 06:13 story came in a later batch (new source at 09:19) and was pinned by the pill.
+const lunch = [
+  mk('old0613', '2026-11-11T23:13:00Z', '2026-11-12T02:19:00Z'),
+  mk('n0918a', '2026-11-12T02:18:00Z', null),
+  mk('n0918b', '2026-11-12T02:18:30Z', null),
+  mk('n0526', '2026-11-11T22:26:00Z', null),
+  mk('n1000', '2026-11-12T03:00:00Z', null),
+];
+// Six announced stories: only the newest four stay in the tile, in published order.
+const six = [1, 2, 3, 4, 5, 6].map(i => mk('s' + i, '2026-11-11T1' + i + ':00:00Z', null));
+process.stdout.write(JSON.stringify({{ plain: run(stories, []), pinned: run(stories, ['tsmc', 'b', 'd']),
+  lunch: run(lunch, ['old0613']), six: run(six, ['s1', 's2', 's3', 's4', 's5', 's6']) }}));
 """
 
 
@@ -56,10 +68,20 @@ class VuaDangOrder(unittest.TestCase):
             out = self.run_harness(folder)
             self.assertEqual(out["plain"], ["d", "c", "b", "e", "tsmc"], folder.name)
 
+    def test_pinned_older_story_keeps_its_place_in_the_tile_but_not_above_newer_rows(self):
+        for folder in FOLDERS:
+            out = self.run_harness(folder)
+            self.assertEqual(out["lunch"][:4], ["n1000", "n0918b", "n0918a", "old0613"], folder.name)
+
+    def test_pinned_batch_over_four_shows_its_newest_four_by_publication(self):
+        for folder in FOLDERS:
+            out = self.run_harness(folder)
+            self.assertEqual(out["six"][:4], ["s6", "s5", "s4", "s3"], folder.name)
+
     def test_pinned_batch_is_also_ordered_by_publication(self):
         for folder in FOLDERS:
             out = self.run_harness(folder)
-            self.assertEqual(out["pinned"], ["d", "b", "tsmc", "c", "e"], folder.name)
+            self.assertEqual(out["pinned"], ["d", "c", "b", "tsmc", "e"], folder.name)
 
 
 if __name__ == "__main__":
