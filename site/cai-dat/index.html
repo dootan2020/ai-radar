@@ -10,7 +10,7 @@
      page, and a view is only counted once that beacon has loaded, so the page forwards after its load event rather than
      at once. One inline script, allowed by its hash; without scripts the refresh, or the link, opens the Store.
      tests/test_cai_dat.py checks this page. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-xOZ4liXy7QhBfKg1xqig/57M7fFWIQ2Og6BwisRD56A=' https://static.cloudflareinsights.com/beacon.min.js/; style-src 'unsafe-inline'; connect-src https://cloudflareinsights.com; base-uri 'none'; form-action 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-xOZ4liXy7QhBfKg1xqig/57M7fFWIQ2Og6BwisRD56A=' https://static.cloudflareinsights.com/beacon.min.js/; style-src 'unsafe-inline'; connect-src 'self' https://cloudflareinsights.com; base-uri 'none'; form-action 'none';">
 <script>addEventListener('load', function () { setTimeout(function () { location.replace('https://chromewebstore.google.com/detail/halcyon/bmjpihjkbkjjfhghelmgmnehnmfdhhad'); }, 150); });</script>
 <meta http-equiv="refresh" content="3; url=https://chromewebstore.google.com/detail/halcyon/bmjpihjkbkjjfhghelmgmnehnmfdhhad">
 <style>
