@@ -37,7 +37,6 @@ RSS = [
     # Asian newsrooms that publish while it is morning in Vietnam (23:00-06:00 UTC).
     ("yonhap", "Yonhap", "press", "yonhap", "https://en.yna.co.kr/RSS/news.xml", True),
     ("analytics-india-mag", "AIM", "press", "analytics-india-magazine", "https://analyticsindiamag.com/feed/", False),
-    ("medianama", "MediaNama", "press", "medianama", "https://www.medianama.com/feed/", True),
     ("meta-newsroom", "Meta Newsroom", "lab", "meta", "https://about.fb.com/news/feed/", True),
     ("microsoft-blog", "Official Microsoft Blog", "lab", "microsoft", "https://blogs.microsoft.com/feed/", True),
     ("aws-ml-blog", "AWS Machine Learning Blog", "lab", "amazon", "https://aws.amazon.com/blogs/machine-learning/feed/", False),

@@ -13,7 +13,6 @@ ASIAN_SOURCES = {
     # id: (url, publisher, filter_ai)
     "yonhap": ("https://en.yna.co.kr/RSS/news.xml", "yonhap", True),
     "analytics-india-mag": ("https://analyticsindiamag.com/feed/", "analytics-india-magazine", False),
-    "medianama": ("https://www.medianama.com/feed/", "medianama", True),
 }
 
 
@@ -56,13 +55,6 @@ class AsianSourceFeedTests(unittest.TestCase):
                          "2026-11-11T23:52:10Z")
         self.assertEqual(by_title["Virtusa CEO Admits Losing Money on AI, But is Betting the House on Chips"]["published_at"],
                          "2026-11-12T05:45:03Z")
-
-    def test_medianama_keeps_ai_policy_and_drops_other_regulation(self):
-        items = parse_fixture("medianama")
-        self.assertEqual([i["title"] for i in items],
-                         ["Australia plans mandatory safety rules, new regulator for frontier AI companies"])
-        self.assertEqual(items[0]["published_at"], "2026-11-12T02:10:44Z")
-        self.assertEqual(items[0]["publisher"], "medianama")
 
     def test_fixture_stories_fall_in_the_vietnamese_morning(self):
         # 23:00-06:00 UTC is 06:00-13:00 in Vietnam, when US newsrooms are quiet.
