@@ -67,18 +67,24 @@ class FreshPill(unittest.TestCase):
             self.assertIn('<span class="fresh-new" aria-hidden="true">Mới</span>${esc(t.text)}', item)
             self.assertIn("const pinned = freshIds.includes(st.id) && !read.has(st.id);", item)
 
-    def test_the_pill_lands_on_fresh_and_lights_its_batch_briefly(self):
+    def test_arrivals_lead_fresh_and_glow_briefly(self):
+        # The pill is gone (captain, 13/11 20:1x: new stories load by themselves, tests/test_tu_tai_tin.py): a snapshot
+        # taken in pins its arrivals in the tile, and the arrivals the tile shows glow for a moment.
         for folder in FOLDERS:
             feed = read(folder / "feed.js")
+            apply = feed[feed.index("function applyPending("):feed.index("function announce(")]
+            self.assertIn("if (batch.length) freshIds = batch;", apply)
+            arrive = feed[feed.index("function arrive("):feed.index("function tileAnchor(")]
+            self.assertIn("if (row && batch.has(el.dataset.sid)) {", arrive)
+            self.assertIn("el.classList.add('is-arriving');", arrive)
+            self.assertNotIn("is-flash", feed)
+            # U still lands on the tile and hands its heading the focus, with no flash (a keyboard action).
             go = feed[feed.index("function goFirstNew() {"):feed.index("function markSeen()")]
-            # Only the batch's rows the tile shows light up.
-            self.assertIn("const rows = $$('#fresh-row li[data-pinned]:not([hidden])');", go)
-            self.assertIn("rows.forEach(li => li.classList.add('is-flash'));", go)
-            self.assertIn("setTimeout(() => rows.forEach(li => li.classList.remove('is-flash')), FRESH_FLASH_MS);", go)
-            self.assertIn("const FRESH_FLASH_MS = 2000;", feed)
+            self.assertIn("heading.focus({ preventScroll: true });", go)
+            self.assertIn("applyPending({ motion: false })", go)
             css = read(folder / "trang-msn.css")
             # The chip: Hot Coral fill with ink text (no small coral text on light), on a row new to this reader
-            # (published since the last look, or pinned by the pill) and not yet opened, and only while the tile
+            # (published since the last look, or pinned as an arrival) and not yet opened, and only while the tile
             # also shows a row that is not new (captain, 12/11 09:23: seven rows all "Mới" marked nothing).
             rule = ('.fresh-list:has(> li:not([hidden]):is(.is-read, :not([data-status="new"]):not([data-pinned])))\n'
                     '  > li:is([data-status="new"], [data-pinned]):not(.is-read) .fresh-new {')
@@ -88,9 +94,11 @@ class FreshPill(unittest.TestCase):
             self.assertIn("background: var(--color-accent-fill); color: var(--color-on-accent);", chip)
             self.assertIn(".fresh-list .fresh-new, .fresh-list .new-mark { display: none; }", css)
             self.assertNotIn(".fresh-list li[data-pinned]:not(.is-read) .fresh-new", css)
-            self.assertIn(".fresh-list li.is-flash { animation: fresh-flash var(--fresh-flash) var(--ease-flow) both; }", css)
+            self.assertIn("background: var(--color-accent-wash-strong); animation: fresh-glow var(--fresh-flash) var(--ease-flow) both;", css)
+            self.assertIn("@keyframes fresh-glow { from { opacity: 0; } 15%, 80% { opacity: 1; } to { opacity: 0; } }", css)
+            self.assertNotIn("fresh-flash {", css)
             reduced = css[css.index("@media (prefers-reduced-motion: reduce)"):]
-            self.assertIn(".fresh-list li.is-flash { animation: none; background: var(--color-accent-wash-strong); }", reduced)
+            self.assertIn(".fresh-list > li.is-arriving::after { animation: none; opacity: 0; }", reduced)
             tokens = read(folder / "tokens.css")
             self.assertIn("--fresh-flash: 2000ms;", tokens)
 

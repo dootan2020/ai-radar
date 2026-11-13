@@ -360,8 +360,10 @@ assert.deepEqual(photoFront.lead, ['police-a', 'evals', 'chips'], 'one story per
 assert.ok(!photoFront.top.some(id => photoFront.lead.includes(id) || id === 'police-b'), '"Chuyện lớn" repeats no carousel story or event');
 console.log('PASS headline eligibility, coverage attribution, feed/ranked cards, image providers and errors, modal/page, edition and search renderers');
 
-// Execute the real notification state, navigation and poll against deterministic DOM/time/network boundaries.
-const nodes = new Map(), timers = new Map(), jumps = [];
+// Execute the real new-story state, navigation and poll against deterministic DOM/time/network boundaries. New stories
+// load by themselves (captain, 13/11 20:1x): a newer snapshot is taken in while the reader is at the top of the page
+// and not busy, and waits while they are further down (the rendered motion: tests/capture-tu-tai-tin.mjs).
+const nodes = new Map(), timers = new Map(), intervals = new Map(), jumps = [];
 const home = await readFile(new URL('../site/index.html', import.meta.url), 'utf8');
 // Each section chip names itself in .chip-label and may carry a .count (the "Trang nhất" layout, 07/11).
 const chips = [...home.matchAll(/<button class="filter-chip" data-filter="([^"]+)"[^>]*><span class="chip-label">([^<]+)<\/span>/g)]
@@ -372,156 +374,182 @@ const chips = [...home.matchAll(/<button class="filter-chip" data-filter="([^"]+
       attributes:{}, setAttribute(key, value) { this.attributes[key] = value; }};
   });
 assert.equal(chips.length, 4, 'every section chip is read from the home page');
-let timerId = 0, announcements = 0, visibleStories = [], responseData;
+let timerId = 0, visibleStories = [], responseData, drawn = 0;
+const announced = [];
 const navLocation = {pathname:'/index.html', search:'', hash:'#moi'};
 const replacedURLs = [];
+// Where things are on screen (px from the window's top, under a 64 px header): the reader at the top by default.
+const view = {grid:120, tileTop:300, tileBottom:700};
 const doc = {activeElement:null, hidden:false, documentElement:{style:{setProperty() {}}},
   querySelector:selector => nodes.get(selector),
   querySelectorAll:selector => selector === '.filter-chip' ? chips : selector.includes('[data-sid]') ? visibleStories : [],
 };
-for (const selector of ['#fresh', '#fresh-text', '#fresh-announcement', '#bar', '#top', '#filter-context', '#feed-grid', '#src-note', '#src-list', '#src-live', '#src-foot', '#nguon']) {
+for (const selector of ['#bar', '#top', '#filter-context', '#feed-grid', '#src-note', '#src-list', '#src-live', '#src-foot', '#nguon']) {
   nodes.set(selector, {hidden:true, textContent:'', innerHTML:'', style:{}, dataset:{}, offsetHeight:64,
-    getBoundingClientRect:() => ({bottom:64}), contains:el => el === nodes.get('#fresh-go'),
+    getBoundingClientRect:() => ({top:0, bottom:64}), contains:() => false, querySelectorAll:() => [],
     matches:() => false, focus() { doc.activeElement = this; }});
 }
-nodes.set('#fresh-go', {});
+nodes.get('#feed-grid').hidden = false;
+nodes.get('#feed-grid').getBoundingClientRect = () => ({top:view.grid, bottom:view.grid + 4000, height:4000});
+nodes.set('#fresh-announcement', {});
 Object.defineProperty(nodes.get('#fresh-announcement'), 'textContent', {
-  set(value) { if (value) announcements++; },
+  set(value) { if (value) announced.push(value); }, get() { return announced.at(-1) || ''; },
 });
 const newFeed = await renderer('feed.js', '\ninit();', `
-return {renderNewItems, offerNewItems, dismissNewItems, scheduleNewItemsDismissal, checkNewItemsScroll,
-  goFirstNew, route, setFilter, pollSnapshot, pendingNewIds, renderSub, renderChips, renderSources, markHTML, markRead,
+return {goFirstNew, route, setFilter, pollSnapshot, pendingNewIds, onPendingScroll, renderSub, renderChips, renderSources,
+  markHTML, markRead,
   configure(count, total, first = false) {
     D = {schema_version:2, generated_at:'2026-10-09T14:00:00Z', sources:[], stories:[]};
     allStories = Array.from({length:total}, (_, i) => ({id:'item-'+i,
       published_at:i < count ? '2026-10-09T13:00:00Z' : '2026-10-08T10:00:00Z'}));
     D.stories = allStories;
     STORY_ANY = new Map(allStories.map(st => [st.id, st]));
-    firstVisit = first; lastSeen = '2026-10-09T12:00:00Z'; returnNoticeChecked = false;
-    read.clear(); skipped.clear(); arrived.clear(); offeredNewIds.clear(); noticeIds.clear();
-    pending = null; filter = 'all'; noticeDeferred = false;
+    firstVisit = first; lastSeen = '2026-10-09T12:00:00Z';
+    read.clear(); skipped.clear(); arrived.clear();
+    pending = null; pendingIds = []; freshIds = []; filter = 'all'; FRONT = {rows:0, groups:[]};
+    currentModalStoryId = null; swipe = null; pointerDown = false; scrollMoving = 0; applyWatch = 0;
   },
+  state() { return {pending: !!pending, pendingIds, freshIds, generated: D && D.generated_at}; },
+  modal(id) { currentModalStoryId = id; },
   filter(value) { filter = value; },
   save(items) { saved = items; },
   sourceTime(iso) { D.generated_at = iso; renderSources(); },
   skip(id) { skipped.add(id); },
   seen(id) { read.add(id); },
-  renderNavigation() { renderAll = () => {}; },
+  renderNavigation(onDraw = () => {}) { renderAll = onDraw; },
   noNewsArena(show) { D = null; arenaView = {show}; },
 };`, {
   // Choosing a tab adds a history entry (pushState) and so moves the address, as a browser does.
   location:navLocation, history:{replaceState:(_state, _title, url) => replacedURLs.push(url),
     pushState:(_state, _title, url) => { replacedURLs.push(url); const i = url.indexOf('#'); navLocation.hash = i < 0 ? '' : url.slice(i); }}, document:doc, matchMedia:() => ({matches:true}),
   localStorage:{getItem:() => null, setItem:() => {}},
-  window:{scrollTo:options => jumps.push(options)}, scrollY:100,
+  window:{scrollTo:options => jumps.push(options)}, scrollY:100, innerHeight:800,
   setTimeout:(fn, ms) => { const id = ++timerId; timers.set(id, {fn, ms}); return id; },
   clearTimeout:id => timers.delete(id),
+  setInterval:(fn, ms) => { const id = ++timerId; intervals.set(id, {fn, ms}); return id; },
+  clearInterval:id => intervals.delete(id),
+  requestAnimationFrame:fn => fn(),
   fetch:async () => { if (responseData instanceof Error) throw responseData; return {ok:true, json:async () => responseData}; },
 });
 function configureNotice(count, total, first = false) {
   newFeed.configure(count, total, first);
   newFeed.renderChips();
-  nodes.get('#fresh').hidden = true;
-  doc.activeElement = null; visibleStories = []; timers.clear(); announcements = 0;
+  doc.activeElement = null; visibleStories = []; timers.clear(); intervals.clear(); announced.length = 0;
+  view.grid = 120; view.tileTop = 300; view.tileBottom = 700;
 }
-for (const [count, total, first] of [[0, 100, false], [3, 100, true], [21, 100, false], [3, 6, false], [95, 100, false]]) {
-  configureNotice(count, total, first); newFeed.renderNewItems();
-  assert.equal(nodes.get('#fresh').hidden, true, 'first visits, large counts and most-of-feed returns stay quiet');
-}
-configureNotice(20, 100); newFeed.renderNewItems();
-assert.equal(nodes.get('#fresh').hidden, false);
-assert.equal(nodes.get('#fresh-text').textContent, '20 tin mới');
-assert.equal(announcements, 1);
-newFeed.renderNewItems(); newFeed.offerNewItems(['item-0']);
-assert.equal(announcements, 1, 'redraw and identical candidates do not announce again');
-assert.deepEqual([...timers.values()].map(t => t.ms), [12000]);
-[...timers.values()][0].fn();
-assert.equal(nodes.get('#fresh').hidden, true);
-newFeed.offerNewItems(['item-0']);
-assert.equal(nodes.get('#fresh').hidden, true, 'expired candidates stay dismissed');
-newFeed.offerNewItems(['item-0', 'later-arrival']);
-assert.equal(nodes.get('#fresh-text').textContent, '1 tin mới', 'a later batch does not revive dismissed candidates');
-assert.equal(announcements, 2, 'a genuinely new appearance gets one announcement');
-
-configureNotice(1, 10); newFeed.renderNewItems();
-nodes.get('#fresh').matches = () => true; newFeed.scheduleNewItemsDismissal();
-assert.equal(timers.size, 0, 'hover pauses automatic expiry');
-nodes.get('#fresh').matches = () => false; newFeed.scheduleNewItemsDismissal();
-assert.equal(timers.size, 1, 'leaving the pill resumes expiry');
-newFeed.markRead('item-0');
-assert.equal(nodes.get('#fresh').hidden, true, 'opening the final new story retires the notice');
-assert.match(newFeed.markHTML({id:'item-0'}), /seen-mark/);
-
-configureNotice(2, 10); newFeed.renderNewItems();
-doc.activeElement = nodes.get('#fresh-go'); newFeed.dismissNewItems();
-assert.equal(nodes.get('#fresh').hidden, false, 'automatic dismissal preserves keyboard focus');
-doc.activeElement = null; newFeed.scheduleNewItemsDismissal();
-assert.equal(nodes.get('#fresh').hidden, true, 'deferred dismissal runs after focus leaves');
-
 const card = (id, bottom = 50) => ({dataset:{sid:id}, closest:() => null,
   getBoundingClientRect:() => ({top:200, bottom}), matches:() => true,
   focus() { doc.activeElement = this; }});
-configureNotice(2, 10); newFeed.renderNewItems();
-visibleStories = [card('item-0')]; newFeed.checkNewItemsScroll();
-assert.equal(nodes.get('#fresh-text').textContent, '1 tin mới');
-assert.equal(nodes.get('#fresh').hidden, false, 'an unrendered new story is not considered passed');
-visibleStories.push(card('item-1')); newFeed.checkNewItemsScroll();
-assert.equal(nodes.get('#fresh').hidden, true);
+// Every redraw of the page goes through renderAll; here it only counts, so a snapshot taken in is measurable.
+newFeed.renderNavigation(() => { drawn++; });
 
-configureNotice(1, 10); newFeed.renderNewItems();
-visibleStories = [card('item-0', 500)]; doc.activeElement = nodes.get('#fresh-go');
+// #moi (and U) without the tile: the first new story, 16 px under the top of the window (scrollY 100 + top 200 - 16).
+configureNotice(1, 10);
+visibleStories = [card('item-0', 500)];
 newFeed.route();
 assert.equal(doc.activeElement, visibleStories[0], '#moi focuses the first new story');
-// Mẫu A's panel head is not sticky (08/11): the story lands 16 px under the top of the window (scrollY 100 + top 200 - 16).
 assert.equal(jumps.at(-1).top, 284);
 assert.equal(jumps.at(-1).behavior, 'auto', 'reduced motion is respected');
-assert.equal(nodes.get('#fresh').hidden, true);
 
-// With the home's "Vừa đăng" tile in place, the pill leads to it: the announced batch first, the heading focused, no
-// smooth scroll under reduced motion. The tile sits in the grid, and Mẫu A's panel head scrolls away (08/11), so the
-// jump lands it 16 px under the top of the window (scrollY 100 + top 500 - 16).
-const rowItems = [];
-// It holds no parsed list here, so fitting whole rows into it (fitFreshTile) finds nothing to measure.
-nodes.set('#fresh-row', {hidden:true, contains:el => el === nodes.get('#fresh-row-h'), getBoundingClientRect:() => ({top:500}),
-  querySelector:() => null,
-  get innerHTML() { return rowItems.at(-1) || ''; }, set innerHTML(v) { rowItems.push(v); }});
+// With the home's "Vừa đăng" tile in place, #moi leads to it: the heading focused, no smooth scroll under reduced motion.
+// The tile sits in the grid, and Mẫu A's panel head scrolls away (08/11), so the jump lands it 16 px under the top of the
+// window (scrollY 100 + top 500 - 16).
+nodes.set('#fresh-row', {hidden:false, getBoundingClientRect:() => ({top:view.tileTop, bottom:view.tileBottom, height:view.tileBottom - view.tileTop})});
 nodes.set('#fresh-row-h', {focus() { doc.activeElement = this; }});
 nodes.get('#top').querySelectorAll = () => [];
-configureNotice(2, 10); newFeed.renderNewItems();
-visibleStories = [card('item-1', 500)]; doc.activeElement = nodes.get('#fresh-go');
+configureNotice(2, 10);
+view.tileTop = 500; view.tileBottom = 900;
 newFeed.route();
 assert.equal(doc.activeElement, nodes.get('#fresh-row-h'), '#moi focuses the "Vừa đăng" heading');
 assert.deepEqual(jumps.at(-1), {top:584, behavior:'auto'}, 'the tile lands at the top; reduced motion jumps');
-assert.equal(nodes.get('#fresh-row').hidden, false);
-const rowIds = [...rowItems.at(-1).matchAll(/<li[^>]*data-sid="([^"]+)"/g)].map(m => m[1]);
-assert.deepEqual(rowIds.slice(0, 2).sort(), ['item-0', 'item-1'], 'the announced stories lead the row');
-assert.match(rowItems.at(-1), /new-mark/, 'arrivals carry the new dot, not pill text');
-assert.equal(nodes.get('#fresh').hidden, true);
+assert.equal(drawn, 0, 'nothing waited, so nothing was redrawn');
 
-configureNotice(0, 10, true); newFeed.renderNavigation();
-responseData = {schema_version:2, generated_at:'2026-10-09T15:00:00Z', sources:[],
-  stories:[{id:'live-new', published_at:'2026-10-09T14:30:00Z', coverage:[]}]};
+// At the top: a poll that brings a new story is taken in at once, with one polite announcement and the arrival pinned
+// in "Vừa đăng". Live arrivals qualify on a first visit too.
+const liveSnapshot = (generated_at, stories) => ({schema_version:2, generated_at, sources:[], stories});
+configureNotice(0, 10, true);
+responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'live-new', published_at:'2026-10-09T14:30:00Z', coverage:[]}]);
 await newFeed.pollSnapshot();
-assert.equal(nodes.get('#fresh-text').textContent, '1 tin mới', 'live arrivals qualify on a first visit');
-assert.equal(announcements, 1);
-await newFeed.pollSnapshot(); assert.equal(announcements, 1, 'same snapshot is silent');
-responseData = {...responseData, generated_at:'2026-10-09T15:01:00Z'};
-await newFeed.pollSnapshot(); assert.equal(announcements, 1, 'a metrics-only update does not repeat the announcement');
-visibleStories = [card('live-new', 500)];
-newFeed.goFirstNew();
-assert.equal(doc.activeElement, nodes.get('#fresh-row-h'), 'pending snapshot is applied and its arrivals shown at the top');
-assert.match(rowItems.at(-1), /data-sid="live-new"/);
-assert.equal(nodes.get('#fresh').hidden, true);
+assert.equal(drawn, 1, 'taken in at the top without a click');
+assert.deepEqual(announced, ['Đã thêm 1 tin mới']);
+assert.deepEqual(newFeed.state(), {pending:false, pendingIds:[], freshIds:['live-new'], generated:'2026-10-09T15:00:00Z'});
 assert.match(newFeed.markHTML({id:'live-new'}), /new-mark/);
+await newFeed.pollSnapshot();
+assert.equal(drawn, 1, 'the same snapshot again changes nothing');
+assert.equal(announced.length, 1, 'and is not read out again');
 newFeed.skip('live-new'); assert.doesNotMatch(newFeed.markHTML({id:'live-new'}), /new-mark|skipped-mark/);
 newFeed.seen('live-new'); assert.match(newFeed.markHTML({id:'live-new'}), /seen-mark/);
 
+// Further down: the snapshot waits, through the page's one-second looks, and is taken in once the reader is back at
+// the top and the scroll has come to rest.
+configureNotice(0, 10, true);
+view.grid = -2400; view.tileTop = -2100; view.tileBottom = -1700;
+responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'live-down', published_at:'2026-10-09T14:40:00Z', coverage:[]}]);
+await newFeed.pollSnapshot();
+assert.equal(drawn, 1, 'nothing changes while the reader is down the page');
+assert.equal(newFeed.state().pending, true);
+assert.deepEqual([...intervals.values()].map(t => t.ms), [1000], 'one look every second while it waits');
+[...intervals.values()][0].fn();
+assert.equal(drawn, 1, 'still down the page: still waiting');
+view.grid = 120; view.tileTop = 300; view.tileBottom = 700;
+newFeed.onPendingScroll();
+assert.equal(drawn, 1, 'not while the scroll is still moving');
+const settle = [...timers.values()].find(t => t.ms === 200);
+assert.ok(settle, 'the scroll counts as over after 200 ms without a scroll event');
+settle.fn();
+assert.equal(drawn, 2, 'back at the top: taken in');
+assert.deepEqual(newFeed.state().freshIds, ['live-down']);
+assert.equal(announced.at(-1), 'Đã thêm 1 tin mới');
+[...intervals.values()][0].fn();
+assert.equal(intervals.size, 0, 'the looks stop once nothing waits');
+
+// A story open: the snapshot waits until it closes.
+configureNotice(0, 10, true);
+newFeed.modal('item-3');
+responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'live-modal', published_at:'2026-10-09T14:45:00Z', coverage:[]}]);
+await newFeed.pollSnapshot();
+[...intervals.values()][0].fn();
+assert.equal(newFeed.state().pending, true, 'a story open holds the snapshot');
+newFeed.modal(null);
+[...intervals.values()][0].fn();
+assert.equal(newFeed.state().pending, false, 'closed: taken in at the next look');
+assert.deepEqual(newFeed.state().freshIds, ['live-modal']);
+
+// New numbers but no new story: the page never reshuffles for nothing; the next snapshot with a story takes both in.
+configureNotice(0, 10, true);
+const before = drawn;
+responseData = liveSnapshot('2026-10-09T15:00:00Z', Array.from({length:10}, (_, i) => ({id:'item-' + i, published_at:'2026-10-08T10:00:00Z'})));
+await newFeed.pollSnapshot();
+assert.equal(drawn, before, 'a numbers-only snapshot waits');
+assert.equal(newFeed.state().pending, true);
+responseData = liveSnapshot('2026-10-09T15:05:00Z', [{id:'live-later', published_at:'2026-10-09T14:50:00Z', coverage:[]}]);
+await newFeed.pollSnapshot();
+assert.equal(drawn, before + 1, 'a snapshot with a story is taken in');
+assert.equal(newFeed.state().generated, '2026-10-09T15:05:00Z');
+
+// U down the page: the reader asked, so a waiting snapshot is taken in now and the tile comes to the top.
+configureNotice(0, 10, true);
+view.grid = -2400; view.tileTop = -2100; view.tileBottom = -1700;
+responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'live-u', published_at:'2026-10-09T14:55:00Z', coverage:[]}]);
+await newFeed.pollSnapshot();
+assert.equal(newFeed.state().pending, true);
+const drawnBeforeU = drawn;
+newFeed.goFirstNew();
+assert.equal(drawn, drawnBeforeU + 1, 'U takes the waiting snapshot in');
+assert.equal(doc.activeElement, nodes.get('#fresh-row-h'));
+assert.deepEqual(jumps.at(-1), {top:Math.max(0, 100 - 2100 - 16), behavior:'auto'});
+
 configureNotice(0, 10);
-responseData = {schema_version:2, generated_at:'2026-10-09T15:00:00Z', sources:[],
-  stories:[{id:'old-backfill', published_at:'2026-09-01T00:00:00Z'}]};
-await newFeed.pollSnapshot(); assert.equal(nodes.get('#fresh').hidden, true, 'old backfills do not claim new arrivals');
+const drawnBeforeOld = drawn;
+responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'old-backfill', published_at:'2026-09-01T00:00:00Z'}]);
+await newFeed.pollSnapshot();
+assert.equal(drawn, drawnBeforeOld, 'old backfills do not claim new arrivals');
+assert.deepEqual(newFeed.state().pendingIds, []);
+configureNotice(0, 10);
 responseData = new Error('offline');
-await newFeed.pollSnapshot(); assert.equal(nodes.get('#fresh').hidden, true, 'failed polls preserve the feed');
+await newFeed.pollSnapshot();
+assert.equal(newFeed.state().pending, false, 'failed polls preserve the feed');
+assert.equal(drawn, drawnBeforeOld);
 newFeed.renderSub(); assert.equal(nodes.get('#filter-context').hidden, true);
 // A view with its own tab needs no line above the grid (captain, 09/11): its tab is pressed, "Trang nhất" leads back.
 newFeed.filter('saved'); newFeed.renderSub();
@@ -555,7 +583,7 @@ for (const iso of [new Date().toISOString(), '2026-10-09T02:00:00Z']) {
   assert.equal(nodes.get('#feed-grid').dataset.generated, iso, 'the snapshot time stays readable by measurement scripts');
   assert.doesNotMatch(home, /<footer|src-link|keys-open/, 'the home has no footer, no sources link and no shortcuts button');
 }
-console.log('PASS new-story eligibility, expiry, focus, scroll, deep link, live polling, marks, filters and metadata');
+console.log('PASS live polling taken in at the top and held further down, deep link, focus, marks, filters and metadata');
 
 // Arena deep links and navigation work even when the news request has failed.
 // Mẫu A (08/11): the grid loads more on scroll, so its loading and end line (#feed-status) replaces the old block and

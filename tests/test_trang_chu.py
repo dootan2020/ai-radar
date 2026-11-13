@@ -105,9 +105,9 @@ class RootPageHeadTests(unittest.TestCase):
         self.assertIn('<span class="ed-label">Bản tin sáng</span>', self.html)
         # Light and dark are chosen in "Tùy chỉnh" (thanh-tren.js), not by a header button (captain, 11/11 13:54)
         self.assertNotIn('id="theme-btn"', self.html)
-        # New items marker
-        self.assertIn('id="fresh"', self.html)
-        self.assertIn('id="fresh-go"', self.html)
+        # New stories load by themselves (captain, 13/11): no "N tin mới" pill, one live region that reads each batch out
+        self.assertNotIn('id="fresh"', self.html)
+        self.assertNotIn('id="fresh-go"', self.html)
         self.assertIn('id="fresh-announcement"', self.html)
         # Sort switch
         self.assertIn('id="sort-switch"', self.html)
